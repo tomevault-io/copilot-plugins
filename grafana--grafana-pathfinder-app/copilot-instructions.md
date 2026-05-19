@@ -1,281 +1,81 @@
-## techcontext
+## testingstrategy
 
-> Describes technologies, frameworks, and other tools used in this repository.
+> details on how unit, smoke, integration tests work in this repo and considerations on when/how to write them.
 
-# Tech Context
+# Testing Strategy
 
-## Technologies Used
+## Overview
 
-- **Frontend**: React 18.3.1 + TypeScript 5.9.3 + Grafana Scenes 7.0.3
-- **Backend**: Go 1.23+ with grafana-plugin-sdk-go v0.290.0
-- **Styling**: Emotion CSS-in-JS with Grafana UI theming system
-- **State Management**: Grafana Scenes for complex scene-based state
-- **Bundling**: Webpack 5.102.1 with custom configuration
-- **Testing**: Jest 30.2.0 + React Testing Library + Playwright 1.56.1 for E2E, Go testing for backend
-- **Runtime**: Node.js 22+ with npm 11.6.2 package management
+This document outlines our testing strategy for the Grafana Interactive Leraning Plugin project, focusing on incrementally building test coverage while maintaining development velocity. Our strategy specifically accounts for code quality and potential refactoring needs, especially in our AI-assisted development environment.
 
-## Development Setup
+## Current Testing Infrastructure
 
-- **Build System**: Webpack with TypeScript, SWC compilation, and hot reloading (frontend); Mage for Go backend
-- **Dev Environment**: Docker Compose with Grafana OSS for local testing
-- **Scripts**: `npm run dev` (watch mode), `npm run build` (production), `npm run server` (Docker)
-- **Go Build**: `mage build:darwin` (macOS), `mage build:linux` (Linux), `npm run build:backend` (Linux via npm)
-- **Code Quality**: ESLint + Prettier with Grafana configs, TypeScript strict mode; `golangci-lint` for Go
-- **Testing**: `npm run test:ci` (Jest CI mode), `npm run test:go` (Go tests), `npm run e2e` (Playwright), `npm run typecheck`
+- **Framework**: Jest + React Testing Library (RTL)
+- **CI Integration**: Tests run via GitHub Actions using `npm run test:ci`
+- **Development Mode**: Watch mode available via `npm test`
+- **File Convention**: `.test.ts` or `.test.tsx` extensions
+- **Performance**: Uses SWC for faster compilation
 
-## Technical Constraints
+# E2E testing
 
-- **Grafana Version**: Requires Grafana >=12.3.0-0 for extension points compatibility
-- **Plugin Architecture**: Must use Grafana's app plugin structure with `plugin.json`
-- **Extension Points**: Limited to `grafana/extension-sidebar/v0-alpha` integration
-- **Browser Support**: Modern browsers only (ES2020+), no IE support
-- **Bundle Size**: Webpack optimization required for performance in Grafana context
+We will use Playwright tested against common versions of Grafana in the build chain.
 
-## Dependencies
+For full reference on the E2E guide test runner, see `docs/developer/E2E_TESTING.md`. For the `data-test-*` attribute contract, see `docs/developer/E2E_TESTING_CONTRACT.md`.
 
-**Frontend Runtime**:
-- `@grafana/data`, `@grafana/ui`, `@grafana/runtime`, `@grafana/scenes` (12.4.0 / 7.0.3)
-- `react` + `react-dom` (18.3.1), `react-router-dom` (6.28.0)
-- `@emotion/css` (11.13.5) for styling
-- `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` for drag-and-drop
+# Unit Testing
 
-**Backend Runtime** (Go):
-- `grafana-plugin-sdk-go` (v0.290.0) - Grafana plugin SDK
-- `gorilla/websocket` (v1.5.3) - WebSocket connections
-- `golang.org/x/crypto` - SSH/crypto utilities
+## Testing Priorities
 
-**Development**:
-- `typescript` (5.9.3), `webpack` (5.102.1) + loaders, `jest` (30.2.0) + testing utilities
-- `@grafana/eslint-config`, `@playwright/test` (1.56.1), `@swc/core` (1.15.1) for compilation
-- `sass` (1.94.0), `terser-webpack-plugin` (5.3.14) for asset processing
-- `mage` (v1.15.0) - Go build tool
+This is an aspirational list of what agents should recommend, when developing
+and testing code.
 
-## Project Version & Release Management
+### 1. Core Business Logic (High Priority)
+Priority is now determined by both criticality AND code quality:
 
-- **Current Version**: 1.1.71 (see package.json)
-- **License**: Apache-2.0
-- **Package Manager**: npm@11.6.2 with lockfile-based dependency management
-- **Release Strategy**: Semantic versioning with automated plugin signing
+a. **Well-Designed, Stable Code**
+- React hooks in `src/utils/*.hook.ts`
+- Service layer code
+- Full unit test coverage
+- Implementation-specific tests acceptable
 
-## Tool Usage Patterns
+b. **Code Needing Refactoring**
+- Focus on behavioral/integration tests
+- Test inputs/outputs, not implementation
+- Document known issues
+- Use AI to help maintain test/code alignment
 
-- **TypeScript**: Strict mode with comprehensive type definitions for all components
-- **Component Architecture**: Functional components with hooks, no class components
-- **Styling**: Emotion CSS-in-JS with `useStyles2` hook and Grafana theme integration
-- **Testing Strategy**: Unit tests with Jest, component tests with RTL, E2E with Playwright
-- **Code Organization**: Engine-based modules with clear separation of concerns (interactive-engine, context-engine, requirements-manager)
-- **Build Pipeline**: Development with watch mode, production with optimization and signing
-- **Drag-and-Drop**: @dnd-kit library for all sortable/draggable interactions (see `src/components/block-editor/dnd/`)
+### 2. Shared Components (Medium Priority)
+- Reusable UI components
+- Error boundaries and handlers
+- Configuration modules
+- Test at integration level if refactoring likely
 
-## Current Architecture & Data Flow Overviews
+### 3. UI Layer (Lower Priority)
+- One-off components
+- Layout components
+- Simple display elements
+- Defer testing if refactoring planned
 
-Architecture: Layered system with Context System → Documentation Rendering → 
-Interactive Guide System. For detailed architecture and data flows, see `docs/architecture.dot`.
-Do NOT read `architecture.dot` unless you're working on cross-component changes or need to understand system-wide data flows.
+## Testing Guidelines
 
-## Key Architectural Patterns
+### Best Practices
+1. **Test Organization**
+   - Keep tests close to implementation
+   - Use descriptive test names
+   - Group related tests with `describe`
 
-### 1. Context Detection (Automatic & Continuous)
-- **EchoSrv Integration**: Listens to Grafana analytics events for datasource/viz selection
-- **Location Monitoring**: Tracks URL changes via LocationService and browser events
-- **Debounced Updates**: Centralized timeout manager prevents rapid-fire API calls
-- **Event Buffer**: Handles missed events when plugin is closed/reopened
+2. **Coverage Goals**
+   - Stable Core Logic: 80%+
+   - Refactoring-Needed Code: Focus on critical paths
+   - UI Components: 60-70%
+   - Overall: 70%+
 
-### 2. Documentation Processing (2-Phase Pipeline)
-- **Phase 1: Fetching** (content-fetcher.ts)
-  - Multi-strategy fetching with fallbacks
-  - Bundled content support
-  - Unstyled content handling for Grafana docs
-- **Phase 2: Parsing** (html-parser.ts → content-renderer.tsx)
-  - HTML → React component tree conversion
-  - Fail-fast error handling with detailed diagnostics
-  - Interactive element extraction and configuration
-
-### 3. Interactive Guide System (Layered Architecture)
-- **Component Layer**: React components (InteractiveSection, InteractiveStep, etc.)
-- **Hook Layer**: Business logic (interactive.hook, step-checker.hook)
-- **Handler Layer**: Action execution (FocusHandler, ButtonHandler, etc.)
-- **Manager Layer**: State coordination (InteractiveStateManager, SequentialRequirementsManager)
-- **Utility Layer**: DOM operations (navigation-manager, element-validator, enhanced-selector)
-
-### 4. Requirements & Objectives System
-
-**Step Checking Priority** (`step-checker.hook.ts`):
-
-1. **Check Objectives** (`data-objectives`)
-   - If met → Auto-complete (`completionReason: objectives`)
-   - If not → Continue to #2
-
-2. **Check Sequential Eligibility**
-   - If ineligible → Block (show sequential message)
-   - If eligible → Continue to #3
-
-3. **Check Requirements** (`data-requirements`)
-   - If met → Enable step
-   - If failed & fixable → Offer "Fix this" button
-   - If failed & skippable → Offer "Skip" button
-   - If failed → Show explanation (`data-hint`)
-
-**Requirements Checking** (`requirements-checker.utils.ts`):
-- Pure checks: `has-datasource`, `is-admin`, `has-permission`
-- DOM checks: `exists-reftarget`, `navmenu-open`
-- Retry logic: 3 attempts with 200ms delay
-- Fail-open: Unknown requirements pass with warning
-
-### 5. Auto-Detection System (Opt-in Feature)
-
-**ActionMonitor** (Singleton):
-- Registers global DOM listeners (click, input, hover)
-- Filters non-interactive elements (`action-detector`)
-- Emits `user-action-detected` events
-
-**Interactive Components Subscribe**:
-- Only when: enabled, eligible, not completed
-- Match action via `action-matcher.ts`:
-  1. Try coordinate-based matching (with 16px padding)
-  2. Fallback to selector-based matching
-- On match: Auto-complete step + track analytics
-
-**Disabled During Section Execution**:
-- Prevents conflicts with automated sequences
-- Re-enabled when section completes
-
-### 6. Global Interaction Blocking (Section Execution Safety)
-
-**`global-interaction-blocker.ts`** (Singleton)
-
-**Three Overlays**:
-
-1. **Main Content Overlay**
-   - Covers `#pageContent` area
-   - Status indicator with cancel button
-   - Resize/scroll tracking
-
-2. **Header Overlay**
-   - Covers top navigation bar
-   - Spans full viewport width
-   - Prevents navigation during execution
-
-3. **Fullscreen Modal Overlay** (Dynamic)
-   - Activated when modal detected
-   - MutationObserver monitors DOM for modals
-   - Polling fallback (500ms) for edge cases
-
-**Cancellation**:
-- Click cancel button
-- Keyboard: Ctrl+C (global handler)
-- Callback to section → cleanup & restore state
-
-## Component Relationships
-
-### Navigation & Visibility Stack
-
-1. **InteractiveStep/Section** → calls action handlers
-2. **action-handlers/*** → delegates to navigation utilities
-3. **navigation-manager.ts**
-   - `ensureNavigationOpen()` - Open/dock nav menu if needed
-   - `ensureElementVisible()` - Scroll into view (custom containers)
-   - `highlightWithComment()` - Visual feedback with tooltip
-   - `expandParentNavigationSection()` - Expand collapsed nav sections
-4. **element-validator.ts**
-   - `isElementVisible()` - Check CSS display/visibility/opacity
-   - `isInViewport()` - Check position in viewport
-   - `hasFixedPosition()` - Detect fixed/sticky positioning
-   - `getScrollParent()` - Find custom scroll containers
-5. **enhanced-selector.ts**
-   - `querySelectorAllEnhanced()` - Complex selector support
-   - `:has()` fallback - Parent-child relationships
-   - `:contains()` - Text content matching
-   - `:nth-match()` - Custom global nth matching
-
-### State Management Flow
-
-1. **InteractiveStep/Section** (React components)
-2. **step-checker.hook.ts** (Requirements/Objectives)
-3. **SequentialRequirementsManager** (Global state coordination)
-   - `registerStep()` - Track step in global registry
-   - `updateStep()` - Update step state
-   - `startDOMMonitoring()` - Watch for DOM/URL changes
-   - `triggerReactiveCheck()` - Selective step rechecking
-   - `triggerStepEligibilityCheck()` - Unlock next step
-4. **interactive-state-manager.ts**
-   - `setState()` - Track execution state
-   - `startSectionBlocking()` - Delegate to global blocker
-   - Event: `interactive-action-completed`
-5. **global-interaction-blocker.ts** (Singleton)
-   - Create overlays (main, header, fullscreen)
-   - Block user interactions
-   - Handle cancellation (Ctrl+C)
-   - Modal detection & dynamic overlay switching
-
-### Link Handling Flow
-
-1. **User clicks link in content**
-2. **link-handler.hook.ts** (`useLinkClickHandler`)
-   - Journey start buttons → `loadTabContent()`
-   - Grafana docs links → `openDocsPage()` / `openLearningJourney()`
-   - Side/related journeys → Open in new tab
-   - External links → `window.open()`
-   - GitHub allowed URLs → Try unstyled.html version
-   - Images → Create lightbox modal
-3. **global-link-interceptor.hook.ts** (if enabled in config)
-   - Listens globally (capture phase)
-   - Filters: Grafana docs/guides/learning-journeys
-   - Respects modifiers (Ctrl/Cmd+Click → new tab)
-   - Excludes: Already inside `[data-pathfinder-content]`
-   - Opens in Pathfinder instead of browser
-
-## Performance Optimizations
-
-1. **Debouncing & Timeout Management**
-   - Centralized `TimeoutManager` singleton
-   - Context refresh: 500ms debounce
-   - UI updates: 50ms debounce
-   - Prevents competing timeout mechanisms
-
-2. **Selective Reactive Checking**
-   - Only rechecks eligible (non-completed) steps
-   - Watches specific DOM attributes (aria-expanded, data-testid, etc.)
-   - Debounced DOM observer (800ms)
-   - Lightweight click listener for nav toggles
-
-3. **Memoization & Caching**
-   - Plugin config memoized with useMemo
-   - Action handlers created once with useMemo
-   - Journey completion stored in localStorage
-   - Content parsed once per load
-
-4. **Smart Event Buffering**
-   - EchoSrv events buffered (max 10 events, 5 min TTL)
-   - Handles plugin close/reopen gracefully
-   - Initializes from recent events on startup
-
-## Error Handling Strategy
-
-1. **Fail-Fast Content Parsing**
-   - HTML parsing errors collected with context
-   - Shows detailed error UI (ContentParsingError)
-   - Preserves original HTML for debugging
-   - No silent failures
-
-2. **Graceful Degradation**
-   - External recommender unavailable → Static recommendations
-   - Content fetch failure → Error message with retry
-   - Requirements timeout → Retry with exponential backoff
-   - Unknown requirements → Pass with warning (fail-open)
-
-3. **User-Friendly Messages**
-   - Error type categorization (network, not-found, timeout, etc.)
-   - Requirement explanations (data-hint > mapped messages)
-   - Fix suggestions when available
-   - Context-aware guidance
-
-## Extension Points
-
-1. **New Action Types**: Add handler in `action-handlers/` + update `interactive.hook.ts`
-2. **New Requirements**: Add check function in `requirements-checker.utils.ts`
-3. **New Auto-Detection**: Extend `action-detector.ts` detection logic
-4. **New Content Sources**: Add strategy in `content-fetcher.ts`
+3. **Testing Approach**
+   - Test behavior, not implementation
+   - Consider code quality in test design
+   - Use behavioral tests for unstable code
+   - Leverage AI for test maintenance
+   - Document assumptions and constraints
 
 ---
 > Source: [grafana/grafana-pathfinder-app](https://github.com/grafana/grafana-pathfinder-app) — distributed by [TomeVault](https://tomevault.io).
