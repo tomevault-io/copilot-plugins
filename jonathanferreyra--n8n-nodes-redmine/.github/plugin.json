@@ -1,0 +1,9 @@
+{
+  "name": "jonathanferreyra--n8n-nodes-redmine",
+  "displayName": "n8n-nodes-redmine",
+  "description": "N8N community node that integrates with Redmine",
+  "version": "1.0.0",
+  "author": "jonathanferreyra",
+  "homepage": "https://github.com/jonathanferreyra/n8n-nodes-redmine",
+  "skills": []
+}
