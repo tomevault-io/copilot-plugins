@@ -1,0 +1,9 @@
+{
+  "name": "tats-u--markdown-cjk-friendly",
+  "displayName": "markdown-cjk-friendly",
+  "description": "Make CommonMark more friendly for Japanese/Chinese/Korean (CommonMark next specification draft)\u2014plugins & patched packages",
+  "version": "1.0.0",
+  "author": "tats-u",
+  "homepage": "https://github.com/tats-u/markdown-cjk-friendly",
+  "skills": []
+}
