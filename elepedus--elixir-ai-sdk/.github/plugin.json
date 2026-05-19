@@ -1,0 +1,9 @@
+{
+  "name": "elepedus--elixir-ai-sdk",
+  "displayName": "elixir-ai-sdk",
+  "description": "Port of Vercel AI SDK to Elixir",
+  "version": "1.0.0",
+  "author": "elepedus",
+  "homepage": "https://github.com/elepedus/elixir-ai-sdk",
+  "skills": []
+}
