@@ -1,0 +1,9 @@
+{
+  "name": "tencent--ai-infra-guard",
+  "displayName": "AI-Infra-Guard",
+  "description": "A full-stack AI Red Teaming platform securing AI ecosystems via OpenClaw Security Scan, Agent Scan, Skills Scan, MCP scan, AI Infra scan and LLM jailbreak evaluation.",
+  "version": "1.0.0",
+  "author": "Tencent",
+  "homepage": "https://github.com/Tencent/AI-Infra-Guard",
+  "skills": []
+}
