@@ -1,392 +1,576 @@
-## anti-patterns
+## app-lifecycle-state-machine
 
-> **Example:** See [singleton-antipattern.swift](anti-patterns/singleton-antipattern.swift)
+> The DuckDuckGo browser has moved away from traditional AppDelegate-based lifecycle handling to a **state machine architecture**. While AppDelegate still exists, it has been significantly thinned out and now delegates responsibility to a structured state machine.
 
 
-# Anti-patterns and Common Mistakes to Avoid
+# App Lifecycle State Machine Architecture
 
-## Singleton Anti-patterns
+## Overview
 
-### ❌ NEVER: Static Shared Instances Without Dependency Injection (.shared instance pattern)
-**Example:** See [singleton-antipattern.swift](anti-patterns/singleton-antipattern.swift)
+The DuckDuckGo browser has moved away from traditional AppDelegate-based lifecycle handling to a **state machine architecture**. While AppDelegate still exists, it has been significantly thinned out and now delegates responsibility to a structured state machine.
 
-### ❌ NEVER: Global State Access
+This approach ensures that lifecycle handling is **predictable, organized, and easy to maintain**.
+
+## Architecture Components
+
+### Three Core States
+
+The architecture revolves around a state machine with three major states:
+
+#### 1. **Launching** (Transient State)
+- **Associated with**: `application(_:didFinishLaunchingWithOptions:)`
+- **File**: `Launching.swift`
+- **Purpose**: App's initial setup and dependency configuration
+- **Responsibilities**:
+  - Initialize all services and objects
+  - Configure dependencies
+  - Prepare UI components
+  - Create `MainViewController` and set as `rootViewController`
+
+#### 2. **Foreground** (Permanent State)
+- **Associated with**: `applicationDidBecomeActive(_:)`
+- **File**: `Foreground.swift`
+- **Purpose**: App is fully interactive and user can engage with UI
+- **Responsibilities**:
+  - Resume suspended work
+  - Handle user interactions
+  - Manage active UI state
+
+#### 3. **Background** (Permanent State)
+- **Associated with**: `applicationDidEnterBackground(_:)`
+- **File**: `Background.swift`
+- **Purpose**: App is not active and UI is not visible
+- **Responsibilities**:
+  - Suspend ongoing work that doesn't need background execution
+  - Prepare for potential termination
+  - Handle background tasks
+
+## State Machine Methods
+
+### Core Transition Methods
+
+All states implement specific methods for handling transitions:
+
+#### `onTransition()`
+- **When**: Called whenever the app enters that state from another state
+- **Purpose**: Setup or cleanup during state transitions
+- **Available in**: Foreground, Background
+
+#### `willLeave()`
+- **When**: Called before transitioning away from current state
+- **Purpose**: Prepare for potential state change
+- **Note**: Transition may be cancelled, in which case `didReturn()` is called
+- **Available in**: Foreground, Background
+
+#### `didReturn()`
+- **When**: Called after successful transition to destination state OR when transition is cancelled
+- **Purpose**: Finalize state entry or handle cancelled transition
+- **Available in**: Foreground, Background
+
+## Common Lifecycle Scenarios
+
+### Cold App Start
+
 ```swift
-// ❌ AVOID - Global state access
-var globalSettings: [String: Any] = [:]
+// Flow: Launching → Foreground
+1. Launching.init()                    // Initial setup
+2. Foreground.onTransition()           // Enter foreground
+3. Foreground.didReturn()              // Finalize foreground entry
+```
 
-func someFunction() {
-    globalSettings["key"] = "value" // Global state is hard to test and debug
-}
+### App Backgrounding
 
-// ✅ CORRECT - Injected dependencies
-final class SomeService {
-    private let settings: AppSettings
-    
-    init(settings: AppSettings) {
-        self.settings = settings
+```swift
+// Flow: Foreground → Background
+1. Foreground.willLeave()              // Prepare to leave foreground
+2. Background.onTransition()           // Enter background
+3. Background.didReturn()              // Finalize background entry
+```
+
+### App Foregrounding
+
+```swift
+// Flow: Background → Foreground
+1. Background.willLeave()              // Prepare to leave background
+2. Foreground.onTransition()           // Enter foreground
+3. Foreground.didReturn()              // Finalize foreground entry
+```
+
+### Interrupted Foreground (Alert/App Switcher)
+
+```swift
+// User receives alert but dismisses it
+1. Foreground.willLeave()              // Attempt to leave
+2. Foreground.didReturn()              // Cancelled - stay in foreground
+
+// User opens App Switcher
+1. Foreground.willLeave()              // Attempt to leave
+// Two possible outcomes:
+// A. User returns directly:
+2. Foreground.didReturn()              // Return to foreground
+// B. User switches to another app:
+2. Background.onTransition()           // Actually transition to background
+3. Background.didReturn()              // Finalize background entry
+```
+
+## Special iOS 18+ Scenarios
+
+### Face ID Authentication on Cold Start
+
+#### Successful Authentication
+```swift
+1. Launching.init()
+2. Foreground.onTransition()
+3. Foreground.didReturn()
+```
+
+#### Failed Authentication
+```swift
+1. Launching.init()
+2. Background.onTransition()           // Goes to background on auth failure
+3. Background.didReturn()
+```
+
+### DuckDuckGo Face ID Lock
+
+#### Cold Start with DDG Face ID
+```swift
+1. Launching.init()
+2. Foreground.onTransition()
+3. Foreground.didReturn()
+4. Foreground.willLeave()              // DDG auth triggers
+5. Foreground.didReturn()              // User passes auth
+```
+
+### Critical Setup Failure
+
+```swift
+1. Launching.init() throws             // Setup fails (e.g., disk space)
+2. Terminating.init()                  // App terminates
+```
+
+## Code Placement Patterns
+
+### ⚙️ One-time Setup → `AppConfiguration`
+
+**Location**: Inside `Launching.swift`
+
+For setup that happens once and doesn't need ongoing lifecycle management:
+
+```swift
+class AppConfiguration {
+    func start() {
+        // Basic setup that doesn't require dependencies
+        setupGlobalUserAgent()
+        configureLogging()
     }
     
-    func someFunction() {
-        settings.setValue("value", for: "key")
+    func finalize() {
+        // Setup that requires access to services or MainCoordinator
+        configureWithDependencies()
     }
 }
 ```
 
-## Async/Await Anti-patterns
+**Use Cases**:
+- Setting global user agents
+- Initial configuration
+- One-time system setup
 
-### ❌ NEVER: UI Updates Without @MainActor
-**Example:** See [async-ui-updates.swift](anti-patterns/async-ui-updates.swift)
+### 🔄 Lifecycle-Reactive Logic → `Service`
 
-### ❌ NEVER: Unhandled Async Errors
+For code that needs to react to app lifecycle events:
+
 ```swift
-// ❌ AVOID - Swallowing async errors
-func fetchData() async {
-    let data = try? await networkService.getData() // Silently ignoring errors
-    // Process data...
+class MyLifecycleService {
+    func resumeWork() {
+        // Called from Foreground.onTransition() or didReturn()
+    }
+    
+    func suspendWork() {
+        // Called from Background.onTransition() or Foreground.willLeave()
+    }
 }
 
-// ✅ CORRECT - Proper error handling
-func fetchData() async throws {
-    let data = try await networkService.getData()
-    // Process data...
-}
+// In Launching.swift
+let myService = MyLifecycleService()
+services.myService = myService  // Store in services for lifecycle access
+```
 
-// Or handle errors appropriately:
-func fetchData() async {
-    do {
-        let data = try await networkService.getData()
-        // Process data...
-    } catch {
-        // Log error and show user-friendly message
-        logger.error("Failed to fetch data: \(error)")
-        await showError(error)
+**Service Patterns**:
+- **Initialize**: In `Launching.init()`
+- **Resume work**: In `Foreground` methods
+- **Suspend work**: In `Background` methods
+- **Assign to services**: Make available to other states
+
+**Use Cases**:
+- Network managers
+- Timer services
+- Data synchronization
+- Background task management
+
+### 🖼️ UI-Related Logic → `MainCoordinator`
+
+**Location**: MainCoordinator initialization and management
+
+For logic that involves creating or modifying the main view:
+
+```swift
+class MainCoordinator {
+    func setupMainViewController() {
+        // UI setup and configuration
+    }
+    
+    func handleDeepLink(_ url: URL) {
+        // Navigation and UI state changes
     }
 }
 ```
 
-### ❌ NEVER: Blocking Main Thread with Sync Operations
+**Use Cases**:
+- View controller creation
+- Navigation management
+- UI state configuration
+- Deep link handling
+
+## Practical Examples
+
+### 📊 Example 1: Pixel Analytics Service
+
+**Requirement**: Send "Hello" pixel on foreground, "Goodbye" pixel on background
+
 ```swift
-// ❌ AVOID - Blocking main thread
-@MainActor
-func loadData() {
-    let data = NetworkService.fetchDataSynchronously() // Blocks UI
-    updateUI(with: data)
-}
-
-// ✅ CORRECT - Use async operations
-@MainActor
-func loadData() async {
-    let data = try await NetworkService.fetchData() // Non-blocking
-    updateUI(with: data)
-}
-```
-
-## Memory Management Anti-patterns
-
-### ❌ NEVER: Strong Reference Cycles in Closures
-**Example:** See [memory-leak-closure.swift](anti-patterns/memory-leak-closure.swift)
-
-### ❌ NEVER: Retaining View Controllers in Cache
-```swift
-// ❌ AVOID - Caching view controllers without cleanup
-class NavigationManager {
-    private var cachedViewControllers: [String: UIViewController] = [:]
+// 1. Create Service
+class PixelService {
+    func sendHelloPixel() {
+        // Send hello pixel
+    }
     
-    func getViewController(for identifier: String) -> UIViewController {
-        if let cached = cachedViewControllers[identifier] {
-            return cached // May contain stale data and strong references
-        }
-        let vc = createViewController(for: identifier)
-        cachedViewControllers[identifier] = vc
-        return vc
+    func sendGoodbyePixel() {
+        // Send goodbye pixel
     }
 }
 
-// ✅ CORRECT - Cache view models, not view controllers
-class NavigationManager {
-    private var cachedViewModels: [String: ViewModel] = [:]
-    
-    func getViewController(for identifier: String) -> UIViewController {
-        let viewModel = getOrCreateViewModel(for: identifier)
-        return createViewController(with: viewModel)
+// 2. Initialize in Launching
+class Launching {
+    func init() {
+        let pixelService = PixelService()
+        services.pixelService = pixelService
     }
-    
-    private func getOrCreateViewModel(for identifier: String) -> ViewModel {
-        if let cached = cachedViewModels[identifier] {
-            return cached
-        }
-        let viewModel = createViewModel(for: identifier)
-        cachedViewModels[identifier] = viewModel
-        return viewModel
+}
+
+// 3. Use in Foreground
+class Foreground {
+    func onTransition() {
+        services.pixelService.sendHelloPixel()
+    }
+}
+
+// 4. Use in Background
+class Background {
+    func onTransition() {
+        services.pixelService.sendGoodbyePixel()
     }
 }
 ```
 
-## Error Handling Anti-patterns
+### ⏱️ Example 2: Session Timer Service
 
-### ❌ NEVER: Force Unwrapping Without Justification
-**Example:** See [force-unwrapping.swift](anti-patterns/force-unwrapping.swift)
+**Requirement**: Track session time, pause on interruptions, resume on return
 
-### ❌ NEVER: Generic Error Messages
 ```swift
-// ❌ AVOID - Generic error handling
-func handleError(_ error: Error) {
-    print("Something went wrong") // Not helpful for debugging
-    showAlert("Error occurred")   // Not helpful for users
-}
-
-// ✅ CORRECT - Specific error handling
-enum NetworkError: LocalizedError {
-    case noConnection
-    case timeout
-    case unauthorized
-    case serverError(Int)
+class SessionTimeService {
+    private var timer: Timer?
     
-    var errorDescription: String? {
-        switch self {
-        case .noConnection:
-            return "No internet connection. Please check your network settings."
-        case .timeout:
-            return "Request timed out. Please try again."
-        case .unauthorized:
-            return "You are not authorized to access this resource."
-        case .serverError(let code):
-            return "Server error (\(code)). Please try again later."
-        }
+    func startTimer() {
+        // Start session timing
+    }
+    
+    func pauseTimer() {
+        // Pause session timing
+    }
+    
+    func resumeTimer() {
+        // Resume session timing
     }
 }
 
-func handleNetworkError(_ error: NetworkError) {
-    logger.error("Network error: \(error)")
-    showAlert(error.localizedDescription)
-}
-```
-
-## SwiftUI Anti-patterns
-
-### ❌ NEVER: Heavy Computation in View Body
-```swift
-// ❌ AVOID - Expensive operations in body
-struct ContentView: View {
-    let items: [Item]
-    
-    var body: some View {
-        List {
-            ForEach(items) { item in
-                Text(expensiveProcessing(item)) // Computed every view update
-            }
-        }
-    }
-    
-    private func expensiveProcessing(_ item: Item) -> String {
-        // Heavy computation
-        return item.data.complexProcessing()
+// Launching
+class Launching {
+    func init() {
+        let sessionService = SessionTimeService()
+        services.sessionService = sessionService
     }
 }
 
-// ✅ CORRECT - Pre-compute or use lazy loading
-struct ContentView: View {
-    @StateObject private var viewModel: ContentViewModel
+// Foreground - Handle interruptions
+class Foreground {
+    func didReturn() {
+        // Start/resume timer when entering or returning to foreground
+        services.sessionService.resumeTimer()
+    }
     
-    var body: some View {
-        List {
-            ForEach(viewModel.processedItems) { item in
-                Text(item.displayText)
-            }
-        }
-        .onAppear {
-            viewModel.processItems()
-        }
+    func willLeave() {
+        // Pause timer when potentially leaving foreground
+        services.sessionService.pauseTimer()
+    }
+}
+
+// Background
+class Background {
+    func onTransition() {
+        // Timer already paused by Foreground.willLeave()
     }
 }
 ```
 
-### ❌ NEVER: Direct State Mutation from View
+### 🧹 Example 3: Auto-Clear Data Service
+
+**Requirement**: Clear data immediately on app wake to avoid UI glitches
+
 ```swift
-// ❌ AVOID - Direct state mutation in view
-struct ContentView: View {
-    @State private var items: [Item] = []
+class AutoClearService {
+    func startDataClearing() async {
+        // Clear user data
+    }
     
-    var body: some View {
-        List {
-            ForEach(items) { item in
-                ItemRow(item: item) { updatedItem in
-                    // Don't mutate state directly in view
-                    if let index = items.firstIndex(where: { $0.id == updatedItem.id }) {
-                        items[index] = updatedItem
-                    }
-                }
-            }
-        }
+    func waitForCompletion() async {
+        // Wait for clearing to complete
     }
 }
 
-// ✅ CORRECT - Use ViewModel for state management
-struct ContentView: View {
-    @StateObject private var viewModel: ContentViewModel
-    
-    var body: some View {
-        List {
-            ForEach(viewModel.items) { item in
-                ItemRow(item: item) { updatedItem in
-                    viewModel.updateItem(updatedItem)
-                }
-            }
-        }
-    }
-}
-```
-
-## Design System Anti-patterns
-
-### ❌ NEVER: Hardcoded Colors or Icons
-**Example:** See [design-system-violation.swift](anti-patterns/design-system-violation.swift)
-
-## Network and API Anti-patterns
-
-### ❌ NEVER: Hardcoded URLs or API Keys
-```swift
-// ❌ AVOID - Hardcoded values
-func fetchData() async throws -> Data {
-    let url = URL(string: "https://api.example.com/data")! // Hardcoded URL
-    let apiKey = "abc123xyz"                               // Hardcoded API key
-    
-    var request = URLRequest(url: url)
-    request.addValue(apiKey, forHTTPHeaderField: "Authorization")
-    
-    let (data, _) = try await URLSession.shared.data(for: request)
-    return data
-}
-
-// ✅ CORRECT - Configuration-based approach
-struct APIConfiguration {
-    let baseURL: URL
-    let apiKey: String
-    
-    static let production = APIConfiguration(
-        baseURL: URL(string: "https://api.duckduckgo.com")!,
-        apiKey: Bundle.main.object(forInfoDictionaryKey: "API_KEY") as! String
-    )
-}
-
-func fetchData() async throws -> Data {
-    let config = APIConfiguration.production
-    let url = config.baseURL.appendingPathComponent("data")
-    
-    var request = URLRequest(url: url)
-    request.addValue(config.apiKey, forHTTPHeaderField: "Authorization")
-    
-    let (data, _) = try await URLSession.shared.data(for: request)
-    return data
-}
-```
-
-## Testing Anti-patterns
-
-### ❌ NEVER: Testing Implementation Details
-```swift
-// ❌ AVOID - Testing private implementation
-class ViewModelTests: XCTestCase {
-    func testPrivateMethod() {
-        let viewModel = ViewModel()
+// Launching - Start clearing immediately
+class Launching {
+    func init() {
+        let autoClearService = AutoClearService()
+        services.autoClearService = autoClearService
         
-        // Don't test private methods directly
-        let result = viewModel.privateHelperMethod()
-        XCTAssertEqual(result, expected)
+        // Start clearing immediately on cold start
+        Task {
+            await autoClearService.startDataClearing()
+        }
     }
 }
 
-// ✅ CORRECT - Test public behavior
-class ViewModelTests: XCTestCase {
-    func testLoadDataUpdatesState() async {
-        let mockService = MockDataService()
-        let viewModel = ViewModel(service: mockService)
-        
-        await viewModel.loadData()
-        
-        // Test the observable behavior, not implementation
-        XCTAssertFalse(viewModel.isLoading)
-        XCTAssertNotNil(viewModel.data)
-        XCTAssertNil(viewModel.error)
+// Foreground - Wait for completion before proceeding
+class Foreground {
+    func onTransition() async {
+        // Wait for data clearing before loading URLs or handling deep links
+        await services.autoClearService.waitForCompletion()
+        handlePendingDeepLinks()
+    }
+}
+
+// Background - Start clearing before transitioning to foreground
+class Background {
+    func willLeave() {
+        // Start clearing early to be ready for foreground transition
+        Task {
+            await services.autoClearService.startDataClearing()
+        }
+    }
+    
+    func didReturn() {
+        // If transition was cancelled, clearing is still beneficial
+        // No action needed as clearing is irreversible
     }
 }
 ```
 
-### ❌ NEVER: Tests That Don't Test Anything
+## State Context and Services
+
+### Service Management
+
 ```swift
-// ❌ AVOID - Tests without assertions
-func testInitialization() {
-    let viewModel = ViewModel()
-    // Test does nothing
+// Services are stored in StateContext for cross-state access
+class StateContext {
+    var pixelService: PixelService!
+    var sessionService: SessionTimeService!
+    var autoClearService: AutoClearService!
+    // ... other services
 }
 
-// ❌ AVOID - Tests that can't fail
-func testAlwaysTrue() {
-    XCTAssertTrue(true) // This test is meaningless
-}
-
-// ✅ CORRECT - Meaningful tests with specific assertions
-func testInitializationSetsDefaultState() {
-    let viewModel = ViewModel()
-    
-    XCTAssertEqual(viewModel.state, .idle)
-    XCTAssertTrue(viewModel.items.isEmpty)
-    XCTAssertFalse(viewModel.isLoading)
+// Access pattern in states
+class Foreground {
+    func onTransition() {
+        services.pixelService.sendHelloPixel()
+        services.sessionService.resumeTimer()
+    }
 }
 ```
 
-## Performance Anti-patterns
+### Service Lifecycle Best Practices
 
-### ❌ NEVER: Synchronous Operations on Main Thread
 ```swift
-// ❌ AVOID - Blocking main thread
-@MainActor
-func processLargeDataSet() {
-    let result = heavyComputation() // Blocks UI
-    updateUI(with: result)
-}
-
-// ✅ CORRECT - Background processing
-@MainActor
-func processLargeDataSet() async {
-    let result = await Task.detached(priority: .userInitiated) {
-        return heavyComputation()
-    }.value
+// ✅ CORRECT: Service with proper lifecycle management
+class MyService {
+    private var isActive = false
     
-    updateUI(with: result)
+    func activate() {
+        guard !isActive else { return }
+        isActive = true
+        startWork()
+    }
+    
+    func deactivate() {
+        guard isActive else { return }
+        isActive = false
+        stopWork()
+    }
+    
+    private func startWork() {
+        // Begin service operations
+    }
+    
+    private func stopWork() {
+        // Clean up service operations
+    }
+}
+
+// Usage in states
+class Foreground {
+    func didReturn() {
+        services.myService.activate()
+    }
+    
+    func willLeave() {
+        services.myService.deactivate()
+    }
 }
 ```
 
-## Communication Anti-patterns
+## Decision Tree: Where Should My Code Go?
 
-### ❌ NEVER: Celebrate Partial Results or Progress
 ```
-// ❌ AVOID - Celebrating when work is incomplete
-"✅ MISSION ACCOMPLISHED!" (when tests still failing)
-"🎯 Outstanding Achievement:" (when task isn't finished)
-"📊 FINAL RESULTS:" (when results aren't final)
-"✅ Successfully achieved X" (when Y tests still failing)
+📋 What type of code are you adding?
 
-// ✅ CORRECT - Focus on what's left to do
-"7 tests still failing. Continuing to fix remaining issues."
-"Progress made but task incomplete. Working on remaining failures."
-"X tests now passing, Y still need work."
+├── 🔧 One-time setup that doesn't need lifecycle management?
+│   └── ➡️ AppConfiguration (in Launching.swift)
+│       ├── start() for basic setup
+│       └── finalize() for dependency-requiring setup
+│
+├── 🔄 Logic that reacts to app state changes?
+│   └── ➡️ Create a Service
+│       ├── Initialize in Launching.init()
+│       ├── Store in services for cross-state access
+│       ├── Resume work in Foreground methods
+│       └── Suspend work in Background methods
+│
+├── 🖼️ UI setup or view management?
+│   └── ➡️ MainCoordinator
+│       ├── View controller creation
+│       ├── Navigation setup
+│       └── Deep link handling
+│
+└── 🤔 Something else?
+    └── ➡️ Let's discuss through tech design
 ```
 
-**Never celebrate or summarize achievements when:**
-- Tests are still failing
-- Tasks are incomplete
-- User's request hasn't been fully satisfied
-- Work is in progress
+## Best Practices
 
-**Only summarize results when:**
-- ALL tests pass (100% success rate)
-- Task is completely finished
-- User's request is fully satisfied
-- No work remaining
+### ✅ DO
 
-These anti-patterns should be actively avoided to maintain code quality, testability, and performance in the DuckDuckGo browser codebase.
+```swift
+// Store services for cross-state access
+services.myService = MyService()
+
+// Use proper lifecycle methods
+func didReturn() {
+    resumeWork()
+}
+
+func willLeave() {
+    pauseWork()
+}
+
+// Handle state transitions gracefully
+func onTransition() {
+    await waitForCriticalWork()
+    proceedWithStateLogic()
+}
+```
+
+### ❌ DON'T
+
+```swift
+// Don't bypass the state machine
+AppDelegate.shared.doSomething() // ❌
+
+// Don't create services without storing them
+let service = MyService() // ❌ Will be deallocated
+
+// Don't ignore willLeave/didReturn patterns
+func onTransition() {
+    // Only using onTransition misses important interrupt scenarios
+}
+
+// Don't block UI with long operations
+func onTransition() {
+    performLongRunningTask() // ❌ Should be async
+}
+```
+
+### 🔒 Memory Management
+
+```swift
+// Services are retained by StateContext
+class StateContext {
+    var services: [String: AnyObject] = [:]
+    
+    func addService<T: AnyObject>(_ service: T, for key: String) {
+        services[key] = service
+    }
+}
+
+// Clean up resources in state transitions
+class MyService {
+    func cleanup() {
+        // Release resources, cancel operations
+    }
+}
+```
+
+## Debugging and Monitoring
+
+### State Transition Logging
+
+```swift
+class Foreground {
+    func onTransition() {
+        Logger.lifecycle.info("Entering Foreground state")
+        // State logic
+    }
+    
+    func willLeave() {
+        Logger.lifecycle.info("Will leave Foreground state")
+        // Cleanup logic
+    }
+    
+    func didReturn() {
+        Logger.lifecycle.info("Returned to Foreground state")
+        // Resume logic
+    }
+}
+```
+
+### Performance Monitoring
+
+```swift
+class Launching {
+    func init() {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        
+        // Initialization logic
+        
+        let duration = CFAbsoluteTimeGetCurrent() - startTime
+        Logger.performance.info("Launching completed in \(duration)s")
+    }
+}
+```
+
+---
+
+This state machine architecture provides a robust, maintainable approach to app lifecycle management that scales with the complexity of the DuckDuckGo browser while maintaining clear separation of concerns. 
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
