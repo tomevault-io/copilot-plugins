@@ -1,35 +1,33 @@
-## shared-module
+## swiftui-accessibility
 
-> KMP shared module constraints — no platform imports in domain/, expect/actual conventions, pure Kotlin business logic
+> SwiftUI accessibility rules for VoiceOver — labels, hints, traits, values, and attribute preservation
 
 
-# Shared Module Rules (KMP)
+# SwiftUI Accessibility Rules
 
-## No platform imports in domain/
+A core user base relies on VoiceOver. **Every UI change must preserve and improve accessibility.** Breaking accessibility is treated as seriously as breaking functionality.
 
-Code in `shared/src/commonMain/.../domain/` is pure Kotlin business logic. It MUST NOT import platform-specific classes (`java.*`, `android.*`, `Foundation`, `UIKit`, etc.).
+## Required modifiers
 
-If platform functionality is needed, use `expect/actual` declarations in the `platform/` package.
+- Use `.accessibilityLabel()` on interactive elements and images
+- Use `.accessibilityHint()` for non-obvious interactions
+- Mark section titles with `.accessibilityAddTraits(.isHeader)`
+- Use `.accessibilityValue()` for dynamic state (sliders, pickers)
+- Custom drawn views need `.accessibilityRepresentation` or `.accessibilityElement(children:)`
 
-## expect/actual conventions
+## Never remove existing accessibility modifiers
 
-- `expect` declarations live in `shared/src/commonMain/.../platform/PlatformUtils.kt`
-- `actual` implementations: `shared/src/androidMain/` (java.util), `shared/src/iosMain/` (Foundation)
-- Current expect/actual functions: `generateUuid`, `currentTimeMillis`, `currentYear`, `currentDayOfYear`
+Do not remove `.accessibilityLabel()`, `.accessibilityHint()`, `.accessibilityAddTraits()`, or `.accessibilityValue()` during refactoring. If restructuring a view, preserve all accessibility modifiers in the new structure.
 
-## New business logic goes here
+## Label style
 
-When adding new business logic (chord detection, transposition, music theory, pitch detection, scales), implement it in the shared module so both Android and iOS benefit.
+- Sentence case: `"Play all inversions"`, not `"Play All Inversions"`
+- Action-oriented: `"Open settings"`, `"Delete note"`
+- Conditional for toggles: `isPlaying ? "Stop" : "Play"`
 
-## Package structure
+## Helper utilities
 
-| Package | Contents |
-|---------|----------|
-| `domain/` | Pure Kotlin business logic — chord detection, transposition, pitch detection, scales, music theory, tuner note mapping |
-| `data/` | Data models, enums (`UkuleleTuning`, `Notes`), configuration types |
-| `platform/` | `expect/actual` declarations for platform-specific functions |
-
-Do not create new packages without discussion. Maintain the existing structure.
+`AccessibilityHelper` in `iosApp/UkuleleCompanion/Helpers/` provides VoiceOver announcement support. Use it for dynamic announcements that cannot be expressed with static modifiers.
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
