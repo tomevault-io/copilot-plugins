@@ -1,90 +1,69 @@
-## compose-accessibility
+## compose-coroutines
 
-> Compose accessibility rules for TalkBack — icons, headings, Canvas, live regions, focus, modals, and attribute preservation
+> Compose scroll/coroutine patterns — prevent programmatic scroll from being mistaken for user scroll, cancellation-safe flag resets
 
 
-# Compose Accessibility Rules
+- **Guard programmatic scroll from state observers**
 
-A core user base relies on TalkBack. **Every UI change must preserve and improve accessibility.** Breaking accessibility is treated as seriously as breaking functionality.
+  `scrollState.isScrollInProgress` cannot distinguish between a user finger drag and a programmatic `animateScrollTo` call. If you observe `isScrollInProgress` to detect manual scrolling, always gate it with a flag:
 
-## Rule 1: Icons need contentDescription
+  ```kotlin
+  val programmaticScroll = remember { mutableStateOf(false) }
 
-Interactive/informative icons MUST have a descriptive `contentDescription`. Decorative-only icons (inside a labeled button where text suffices) may use `null`. Use conditional descriptions for toggle states.
+  // Auto-scroll loop
+  LaunchedEffect(autoScrolling) {
+      if (autoScrolling) {
+          while (autoScrolling) {
+              programmaticScroll.value = true
+              try {
+                  scrollState.animateScrollTo(/* ... */)
+              } finally {
+                  programmaticScroll.value = false
+              }
+              delay(16L)
+          }
+      }
+  }
 
-```kotlin
-Icon(
-    imageVector = if (isPlaying) Icons.Filled.Stop else Icons.Filled.PlayArrow,
-    contentDescription = if (isPlaying) "Stop" else "Play"
-)
-```
+  // Manual-scroll detector — skip when programmatic
+  LaunchedEffect(scrollState.isScrollInProgress) {
+      if (scrollState.isScrollInProgress && autoScrolling && !programmaticScroll.value) {
+          autoScrolling = false
+      }
+  }
+  ```
 
-## Rule 2: Headings and navigation semantics
+- **Always wrap cancellable suspend calls in try/finally**
 
-Screen titles and section headers MUST have `Modifier.semantics { heading() }`. Navigation containers should use `Modifier.semantics { role = Role.Navigation }`.
+  `animateScrollTo`, `animateTo`, and similar Compose suspend functions are cancellable. If you set a flag before calling them, reset it in a `finally` block so the flag is cleared even if the coroutine is cancelled (e.g., by user touch or `LaunchedEffect` recomposition):
 
-```kotlin
-Text("Tuner", style = MaterialTheme.typography.titleLarge,
-    modifier = Modifier.semantics { heading() })
-```
+  ```kotlin
+  // ✅ DO
+  flag.value = true
+  try {
+      scrollState.animateScrollTo(target)
+  } finally {
+      flag.value = false
+  }
 
-## Rule 3: Canvas needs text alternatives
+  // ❌ DON'T — flag stays true if animateScrollTo is cancelled
+  flag.value = true
+  scrollState.animateScrollTo(target)
+  flag.value = false
+  ```
 
-Any `Canvas` conveying information MUST use `clearAndSetSemantics` with a data-driven description.
+- **Prefer snapshotFlow over LaunchedEffect(stateValue) for contextual reactions**
 
-```kotlin
-Canvas(modifier = Modifier.fillMaxWidth().height(200.dp)
-    .clearAndSetSemantics { contentDescription = "Tuning meter, 5 cents sharp" }
-) { /* drawing */ }
-```
+  `LaunchedEffect(stateValue)` restarts whenever `stateValue` changes, but you lose the previous value. When you need to compare old vs. new, or combine the state change with other conditions, use `snapshotFlow`:
 
-## Rule 4: Dynamic content needs live regions
-
-Use `LiveRegionMode.Polite` for frequent updates (pitch, cents). Use `LiveRegionMode.Assertive` for important state changes (in tune, correct answer, error).
-
-```kotlin
-Text(detectedNote, modifier = Modifier.semantics {
-    liveRegion = LiveRegionMode.Polite
-})
-```
-
-## Rule 5: Interactive elements must be focusable and described
-
-Clickable composables need a content description or visible label. Custom interactive components must include `role = Role.Button`. Reflect state changes in `stateDescription`.
-
-```kotlin
-Box(modifier = Modifier.clickable { onFretTap(string, fret) }.semantics {
-    contentDescription = "$stringName string, fret $fretNumber, $noteName"
-    role = Role.Button
-    if (isSelected) stateDescription = "selected"
-})
-```
-
-## Rule 6: Modals must manage focus
-
-Modal titles must have heading semantics. Focus moves to modal content on open and returns to the trigger on dismiss.
-
-## Rule 7: Never remove existing accessibility attributes
-
-Do not remove `contentDescription`, `Modifier.semantics {}` blocks, or `liveRegion` annotations during refactoring. If restructuring a composable, preserve all accessibility attributes in the new structure.
-
-## contentDescription style
-
-- Sentence case: `"Play all inversions"`, not `"Play All Inversions"`
-- Action-oriented: `"Open navigation menu"`, `"Delete note"`
-- Conditional for toggles: `if (isPlaying) "Stop" else "Play"`
-
-## Key files with accessibility patterns
-
-| File | Notes |
-|------|-------|
-| `ui/FretboardScreen.kt` | Heading semantics, drawer structure |
-| `ui/TunerTab.kt` | Live regions, canvas alternative |
-| `ui/VerticalChordDiagram.kt` | `clearAndSetSemantics` on Canvas |
-| `ui/FretboardView.kt` | Cell semantics, selection announcements |
-| `ui/PitchMonitorTab.kt` | Live regions, canvas alternative |
-| `ui/CircleOfFifthsView.kt` | Canvas alternative, key selection |
-| `ui/SettingsSheet.kt` | Section heading semantics |
-| `ui/theme/Theme.kt` | High contrast theme support |
+  ```kotlin
+  // ✅ Richer context — can debounce, filter, combine
+  LaunchedEffect(Unit) {
+      snapshotFlow { scrollState.isScrollInProgress }
+          .filter { it && !programmaticScroll.value }
+          .collect { autoScrolling = false }
+  }
+  ```
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
