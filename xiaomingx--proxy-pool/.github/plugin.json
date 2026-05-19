@@ -1,0 +1,9 @@
+{
+  "name": "xiaomingx--proxy-pool",
+  "displayName": "proxy-pool",
+  "description": "Python ProxyPool for web spider.ProxyPool \u662f\u4e00\u4e2a\u7528\u4e8e\u91c7\u96c6\u3001\u9a8c\u8bc1\u548c\u7ba1\u7406\u4ee3\u7406IP\u7684\u8f7b\u91cf\u7ea7\u5de5\u5177\uff0c\u65e8\u5728\u5e2e\u52a9\u7528\u6237\u81ea\u52a8\u7ef4\u62a4\u9ad8\u8d28\u91cf\u7684\u4ee3\u7406\u6c60\uff0c\u65b9\u4fbf\u5728\u722c\u866b\u3001\u7f51\u7edc\u8bf7\u6c42\u4e2d\u7075\u6d3b\u4f7f\u7528\u533f\u540d\u4ee3\u7406\u3002",
+  "version": "1.0.0",
+  "author": "XiaomingX",
+  "homepage": "https://github.com/XiaomingX/proxy-pool",
+  "skills": []
+}
