@@ -1,36 +1,38 @@
-## metasync
+## error-handling
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This project follows specific error handling patterns to maintain clean code and predictable error flows.
 
-# CLAUDE.md
+# Error Handling
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This project follows specific error handling patterns to maintain clean code and predictable error flows.
 
-## Commands
-- **Run tool**: `node run.js [options]`
-- **Install dependencies**: `npm install`
-- **Start application**: `npm start`
+## Core Principles
 
-## Code Style
-- **Naming**: camelCase for variables/functions, PascalCase for classes
-- **Classes**: Use ES6 class syntax with static methods where appropriate
- - **Error Handling**: Use try/catch blocks with the project logger for logging errors
-- **Formatting**: 2-space indentation, semi-colons required
-- **GraphQL**: Use #graphql comment tag for template literals
-- **Asynchronous**: Use async/await pattern with proper error handling
-- **Validation**: Validate inputs early with descriptive error messages
- - **Logging**: Use the Logger utility for consistent logging
-- **Strategy Pattern**: Implement new resource types using Strategy pattern
+- **Don't add try/catch blocks** unless specifically requested
+- Let errors bubble up to be handled by higher-level error handlers
+- The main error handling occurs in the CLI entry point [cli.js](mdc:cli.js)
+- Use the centralized logger for error reporting [utils/Logger.js](mdc:utils/Logger.js)
 
-## Project Structure
-- `run.js`: Main entry point for CLI tool
-- `strategies/`: Contains sync strategy implementations
-- `shopifyClientWrapper.js`: Wrapper for Shopify API client
+## Error Flow
 
-## Development
-- All GraphQL queries should follow existing patterns
-- Update README.md when adding/changing functionality
-- Ensure backward compatibility with existing command options
+1. Low-level utility functions should throw errors rather than catching them
+2. Strategy classes should only catch errors they can specifically handle
+3. The main CLI entry point has try/catch blocks that:
+   - Log the error using the logger
+   - Close log files properly
+   - Exit with appropriate error codes
+
+## Logging Errors
+
+When reporting errors, use the logger's error function:
+
+```javascript
+logger.error(`Error message: ${error.message}`);
+```
+
+## API Error Handling
+
+When dealing with Shopify API errors, use the existing utilities in ShopifyClient to handle and log them appropriately. Let API errors bubble up unless there's a specific recovery action.
 
 ---
 > Source: [kalenjordan/metasync](https://github.com/kalenjordan/metasync) — distributed by [TomeVault](https://tomevault.io).
