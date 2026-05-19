@@ -1,166 +1,96 @@
-## deepseek-r1-v3-tutorial
+## ktransformers-amx
 
-> KTransformers支持在有限资源（24GB VRAM的桌面设备）上运行GPT-4/o1级别的本地VSCode Copilot。本指南详细介绍如何运行强大的DeepSeek-R1和V3模型。
+> 本规则详细介绍KTransformers 0.3版本中的高级矩阵扩展(AMX)优化功能。AMX是Intel为x86架构引入的专门指令扩展，从Sapphire Rapids(第四代至强可扩展处理器)开始支持，可显著加速大规模矩阵计算，尤其适合深度学习推理与机器学习工作负载。
 
-# DeepSeek-R1和V3模型运行指南
+# KTransformers AMX 优化
 
 ## 概述
 
-KTransformers支持在有限资源（24GB VRAM的桌面设备）上运行GPT-4/o1级别的本地VSCode Copilot。本指南详细介绍如何运行强大的DeepSeek-R1和V3模型。
+本规则详细介绍KTransformers 0.3版本中的高级矩阵扩展(AMX)优化功能。AMX是Intel为x86架构引入的专门指令扩展，从Sapphire Rapids(第四代至强可扩展处理器)开始支持，可显著加速大规模矩阵计算，尤其适合深度学习推理与机器学习工作负载。
 
-## 特点与优势
+## AMX指令集基础
 
-- **本地671B DeepSeek-Coder-V3/R1**：使用Q4_K_M版本，仅需14GB VRAM和382GB DRAM
-- **高效性能**：
-  - 预填充速度：最高可达286.55 tokens/s（比llama.cpp快27.79倍）
-  - 解码速度：最高可达13.69 tokens/s（比llama.cpp快3.03倍）
-- **多版本选择**：
-  - **V0.2**: 当前主分支
-  - **V0.2.1**: 更长上下文和更快速度
-  - **V0.2.2 & V0.2.3**: 支持更长上下文和FP8内核
-  - **V0.2.4**: 支持多并发
-  - **V0.3**: 预览版，包含Intel AMX优化和选择性专家激活
+AMX引入了Tile寄存器的概念，每个CPU核心包含8个专用寄存器(tmm0-tmm7)，每个寄存器最多可存储16行×64字节的数据。主要指令包括：
 
-## 版本性能对比
+- **配置指令**：LDTILECFG, STTILECFG, TILERELEASE, TILEZERO
+- **加载/存储指令**：TILELOADD, TILELOADDT1, TILESTORED
+- **INT8计算指令**：TDPBSSD, TDPBUSD, TDPBUUD, TDPBSUD
+- **BF16计算指令**：TDPBF16PS
 
-### V0.2.1性能
+相比传统指令集，AMX可以在16个CPU周期内执行32,768个乘/加操作，使每个核心每周期完成2048个乘/加操作，是AVX-512的8倍性能。
 
-- **内存消耗**：
-  - 单插槽：382G DRAM，至少14GB VRAM
-  - 双插槽：1T DRAM，至少14GB VRAM
+## KTransformers中的AMX优化技术
 
-- **更新亮点**：
-  - 更长上下文（从4K到8K）
-  - 速度提升约15%
+### 1. AMX Tiling感知内存布局
 
-- **基准测试**：
+为充分发挥AMX性能，KTransformers实现了专为AMX优化的内存布局：
+- 专家权重矩阵被预先重新排列为与AMX Tile寄存器尺寸匹配的子矩阵
+- 子矩阵起始地址对齐到64字节，避免缓存行分裂
+- 根据计算访问模式顺序排列子矩阵，最大化L1/L2缓存命中率
 
-| 提示长度 | 解码速度(V0.2.0) | 解码速度(V0.2.1) | 速度提升 |
-|---------|-----------------|-----------------|---------|
-| 4K      | 13.0 tokens/s   | 14.9 tokens/s   | 1.15x   |
+### 2. 缓存友好的AMX内核
 
-### V0.2性能
+优化设计围绕CPU的多级缓存层次结构进行：
+- 专家权重矩阵按列划分为多个任务，动态调度到各线程
+- 在每个任务内，专家权重按行划分为适合L2缓存的块
+- 计算过程中，数据在Tile寄存器或L1缓存中累积，避免额外的内存访问
 
-- **内存消耗**：
-  - 单插槽：382G DRAM，至少14GB VRAM
-  - 双插槽：1T DRAM，至少14GB VRAM
+### 3. 低算术强度场景的AVX-512内核适配
 
-- **基准测试**（与llama.cpp对比）：
+根据计算场景智能切换AMX和AVX-512内核：
+- 长提示预填充阶段自动选择AMX内核(每个专家平均处理超过4个token)
+- 短提示预填充和解码阶段动态切换到AVX-512内核
+- 确保在不同算术强度条件下都能发挥最佳效率
 
-| 配置                     | 预填充速度  | 解码速度   |
-|-------------------------|------------|-----------|
-| 双插槽KTrans (6专家)      | 97.32 t/s  | 13.69 t/s |
-| 单插槽KTrans (8专家)      | 54.21 t/s  | 8.73 t/s  |
-| llama.cpp (8专家)        | 10.31 t/s  | 4.51 t/s  |
+### 4. MoE算子融合和动态调度
 
-### V0.3预览版性能
+为减少调度开销和负载不平衡问题：
+- 将同层中所有专家的同类型矩阵计算融合为统一任务
+- 融合没有数据依赖的Gate和Up投影计算
+- 实现动态任务调度策略，细粒度子任务分布与"任务窃取"机制相结合
 
-- **内存消耗**：644GB DRAM，至少14GB VRAM
+## 性能提升
 
-- **预填充速度**：
+得益于这些优化，KTransformers的AMX内核在Xeon4 CPU上能够实现：
+- 21 TFLOPS的BF16吞吐量
+- 35 TOPS的INT8吞吐量
+- 约为PyTorch通用AMX内核的4倍性能
 
-| 提示长度 | KTrans (6专家) | KTrans (8专家) |
-|---------|---------------|---------------|
-| 2K      | 286.55 t/s    | 255.26 t/s    |
+在Qwen3MoE模型上，工作站场景(Xeon 4 + RTX 4090)下实现了高达347 tokens/s的预填充性能。
 
-## 运行指南
+## 使用方法
 
-### v0.2.4（多并发版本）
+### 检查AMX支持
 
+使用以下命令确认CPU支持AMX：
 ```bash
-python ktransformers/server/main.py --model_path /mnt/data/models/DeepSeek-V3 --gguf_path /mnt/data/models/DeepSeek-V3-GGUF/DeepSeek-V3-Q4_K_M/ --cpu_infer 62 --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-serve.yaml --port 10002 --chunk_size 256 --max_new_tokens 1024 --max_batch_size 4 --port 10002 --cache_lens 32768 --backend_type balance_serve
+lscpu | grep -i amx
 ```
 
-参数说明：
-- `--chunk_size`：单次处理的最大标记数
-- `--cache_lens`：KV缓存总长度
-- `--backend_type`：`balance_serve`为多并发后端
-- `--max_batch_size`：单次处理的最大请求数
+如果支持，输出应包含`amx-bf16 amx-int8 amx-tile`标志。
 
-### v0.2.2和v0.2.3（更长上下文和FP8内核）
+### 在KTransformers中启用AMX
 
-#### 更长上下文设置
-
-1. 安装flashinfer：`pip install git+https://github.com/flashinfer-ai/flashinfer.git`
-
-2. 修改YAML配置文件：
+通过YAML配置修改启用AMX：
 ```yaml
 - match:
-    name: "^model\\.layers\\..*\\.self_attn$"
+    name: "^model\\.layers\\..*\\.mlp\\.experts$"
   replace:
-    class: ktransformers.operators.attention.KDeepseekV2Attention
+    class: ktransformers.operators.experts.KTransformersExperts
     kwargs:
-      generate_device: "cuda"
-      prefill_device: "cuda"
-      absorb_for_prefill: True  # 启用长上下文
+      # ...其他参数...
+      backend: "AMXInt8"  # 或 "AMXBF16" 或 "llamafile"(默认)
 ```
 
-#### FP8内核支持
+### 启动Qwen3MoE模型
 
-DeepSeek-AI团队为DeepSeek-R1/V3提供了FP8 safetensors。KTransformers集成了FP8线性层加速内核，采用混合量化架构：
-- 注意力和共享专家模块使用FP8精度
-- 专家模块保留GGML量化（GGUF格式）
-
-### V0.2和V0.2.1运行示例
-
-#### 单插槽版本（32核）
-
+使用以下命令运行Qwen3MoE模型：
 ```bash
-numactl -N 1 -m 1 python ./ktransformers/local_chat.py --model_path <模型路径> --gguf_path <gguf路径> --prompt_file <提示文件> --cpu_infer 33 --max_new_tokens 1000
+# AMX后端
+python ktransformers/server/main.py --architectures Qwen3MoeForCausalLM --model_path <model_dir> --gguf_path <gguf_dir> --optimize_config_path ktransformers/optimize/optimize_rules/Qwen3Moe-serve-amx.yaml --backend_type balance_serve
 ```
 
-#### 双插槽版本（64核）
-
-确保安装前设置`export USE_NUMA=1`
-
-```bash
-python ./ktransformers/local_chat.py --model_path <模型路径> --gguf_path <gguf路径> --prompt_file <提示文件> --cpu_infer 65 --max_new_tokens 1000
-```
-
-### V0.3预览版（双插槽，64核）
-
-```bash
-wget https://github.com/kvcache-ai/ktransformers/releases/download/v0.1.4/ktransformers-0.3.0rc0+cu126torch26fancy-cp311-cp311-linux_x86_64.whl
-pip install ./ktransformers-0.3.0rc0+cu126torch26fancy-cp311-cp311-linux_x86_64.whl
-python -m ktransformers.local_chat --model_path <模型路径> --gguf_path <gguf路径> --prompt_file <提示文件> --cpu_infer 65 --max_new_tokens 1000
-```
-
-## 工作原理说明
-
-1. **NUMA架构优化**：在两个节点上"复制"关键矩阵，避免节点间数据传输成本
-
-2. **CPU/GPU混合推理**：将DeepSeek的MLA操作卸载到GPU，其他计算在CPU上进行
-
-3. **加速来源**：
-   - 专家卸载：将专家计算卸载到CPU，将MLA/KVCache卸载到GPU
-   - Intel AMX优化：AMX加速内核比现有实现快数倍
-
-4. **为何选择Intel CPU**：Intel CPU是唯一支持类似AMX指令的CPU，提供显著更好的性能
-
-## 常见问题
-
-### R1没有思考
-
-如果测试R1时发现它跳过思考过程，可以添加参数：`--force_think true`
-
-### 更多常见问题
-
-参见[FAQ文档](mdc:ktransformers/doc/en/FAQ.md)
-
-## 后续计划
-
-### 未来性能提升
-
-- 集成FlashInfer项目更高效的融合MLA算子
-- 支持多令牌预测
-- 增强AMX内核和为Xeon6/MRDIMM优化
-
-### 用户体验改进
-
-- 提供官方Docker镜像简化安装
-- 修复服务器集成以实现Web API访问
-- 修复本地聊天只接受单行提示的问题
-- 支持更多量化类型，包括来自unsloth的动态量化
+**注意**：当前AMX支持仅支持从BF16 GGUF文件读取权重。
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
