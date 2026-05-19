@@ -1,1127 +1,374 @@
-## monke-testing-guide
+## monke
 
-> Generates realistic test content using LLM.
+> **End-to-end testing framework for Airweave connectors using real external APIs**
 
-# Building Monke Tests for Source Connectors
+# Monke - Airweave Connector Testing Framework
+
+**End-to-end testing framework for Airweave connectors using real external APIs**
 
 ## Overview
 
-**Monke** is Airweave's end-to-end testing framework for source connectors. It creates real test data in external systems, triggers syncs, and verifies data appears correctly in the search index.
-
-This guide shows you how to build comprehensive tests that verify **every entity type** your connector supports.
+Monke validates Airweave's data synchronization pipeline by creating real test data in external systems, triggering sync jobs, verifying data in the vector database, and testing update/deletion scenarios. The framework separates configuration from runtime state, uses pluggable authentication, and supports parallel execution.
 
 ---
 
-## Why Test Every Entity Type?
+## Core Architecture
 
-**Important: Your Monke tests should create and verify all entity types defined in your source connector.**
+**Test Runner** (`runner.py`) - Entry point that orchestrates parallel test execution across connectors
 
-Many connector tests only verify top-level entities (e.g., tasks) but ignore nested entities (e.g., comments, files).
+**Test Flow** (`core/flow.py`) - Executes complete lifecycle for a connector: setup → test steps → cleanup
 
-**Impact:**
-- Comments might not sync properly → Silent failures in production
-- File attachments might not be indexed → Missing searchable content
-- Entity relationships might be broken → Poor search results
-- Users can't search the full breadth of data they expect
+**Test Steps** (`core/steps.py`) - Individual operations (create, sync, verify, update, delete) with retry logic
 
-**Solution:** Create test entities for every entity type your connector syncs, and verify each one appears in Qdrant.
+**Configuration** (`core/config.py`) - YAML-based config with classes: `TestConfig`, `ConnectorConfig`, `TestFlowConfig`, `DeletionConfig`
 
-**Before Writing Monke Tests:**
-1. Open your source file: `backend/airweave/platform/sources/{short_name}.py`
-2. List all entity types yielded in `generate_entities()`:
-   - Example: WorkspaceEntity, ProjectEntity, TaskEntity, CommentEntity, FileEntity
-3. Your Monke tests should create at least one instance of each type
-4. Verify each instance appears in Qdrant after sync
+**Test Context** (`core/context.py`) - Runtime state separate from config: tracks entities, infrastructure IDs, metrics
 
-**Validation:**
-- Count entity classes in `entities/{short_name}.py`
-- Count entity types created in `bongos/{short_name}.py::create_entities()`
-- These counts should match (excluding parent/workspace entities that don't get stored)
+**Infrastructure** (`core/infrastructure.py`) - Creates/tears down test collections and source connections
+
+**Authentication** (`auth/`) - Pluggable auth brokers (`BaseAuthBroker`, `ComposioBroker`) for credential resolution
 
 ---
 
-## Core Components
+## Test Flow
 
-Every Monke test requires four components:
-
-1. **Bongo implementation** (`monke/bongos/{short_name}.py`)
-2. **Generation schemas** (`monke/generation/schemas/{short_name}.py`)
-3. **Generation adapter** (`monke/generation/{short_name}.py`)
-4. **Test configuration** (`monke/configs/{short_name}.yaml`)
-
----
-
-## Part 1: Bongo Implementation
-
-The **Bongo** is a class that creates, updates, and deletes test data via the external API.
-
-### File Location
+Default test steps execute in sequence:
 ```
-monke/bongos/{short_name}.py
+1. collection_cleanup       # Clean leftover test collections
+2. cleanup                  # Clean entities in external system
+3. create                   # Create test entities
+4. sync                     # Trigger Airweave sync
+5. verify                   # Verify entities in vector DB
+6. update                   # Update entities
+7. sync → verify            # Verify updates
+8. partial_delete           # Delete subset of entities
+9. sync → verify_partial_deletion
+10. verify_remaining_entities
+11. complete_delete         # Delete all entities
+12. sync → verify_complete_deletion
+13. cleanup                 # Final cleanup
+14. collection_cleanup      # Delete test collection
 ```
 
-### Basic Structure
+Steps are customizable per connector via YAML config.
 
+---
+
+## Bongos
+
+**Bongos** create, update, and delete real test data in external systems.
+
+### Structure
+Each bongo inherits from `BaseBongo` and implements:
+- `create_entities()` - Create test data
+- `update_entities()` - Modify test data
+- `delete_entities()` - Remove all test data
+- `delete_specific_entities(entities)` - Remove specific entities
+- `cleanup()` - Force cleanup remaining artifacts
+
+Bongos are auto-discovered by `BongoRegistry` via the `connector_type` class attribute.
+
+### Example
 ```python
-"""{Connector Name} bongo implementation.
-
-Creates, updates, and deletes test entities via the real {Connector Name} API.
-"""
-
-import asyncio
-import time
-import uuid
-from typing import Any, Dict, List, Optional
-
-import httpx
-from monke.bongos.base_bongo import BaseBongo
-from monke.utils.logging import get_logger
-
-
-class MyConnectorBongo(BaseBongo):
-    """Bongo for {Connector Name} that creates test entities for E2E testing.
-
-    Key responsibilities:
-    - Create test entities (including nested types like comments/files)
-    - Embed verification tokens in content
-    - Update entities to test incremental sync
-    - Delete entities to test deletion detection
-    - Clean up all test data
-    """
-
-    connector_type = "{short_name}"  # Must match source short_name
-
-    API_BASE = "https://api.example.com/v1"
-
-    def __init__(self, credentials: Dict[str, Any], **kwargs):
-        """Initialize the bongo.
-
-        Args:
-            credentials: Dict with "access_token" or other auth
-            **kwargs: Configuration from test config file
-        """
+class GitHubBongo(BaseBongo):
+    def __init__(self, credentials: Dict[str, Any], config: Dict[str, Any]):
         super().__init__(credentials)
-        self.access_token: str = credentials["access_token"]
-
-        # Test configuration
-        self.entity_count: int = int(kwargs.get("entity_count", 3))
-        self.openai_model: str = kwargs.get("openai_model", "gpt-4.1-mini")
-        self.max_concurrency: int = int(kwargs.get("max_concurrency", 3))
-
-        # Simple rate limiting (optional, add if needed)
-        self.last_request_time = 0.0
-        self.min_delay = 0.2  # 200ms between requests
-
-        # Runtime state - track ALL created entities
-        self._workspace_id: Optional[str] = None
-        self._project_id: Optional[str] = None
-        self._tasks: List[Dict[str, Any]] = []
-        self._comments: List[Dict[str, Any]] = []
-        self._files: List[Dict[str, Any]] = []
-
-        self.logger = get_logger(f"{self.connector_type}_bongo")
+        self.repo_name = config["repo_name"]  # Now from config_fields
+        self.token = credentials["personal_access_token"]
 
     async def create_entities(self) -> List[Dict[str, Any]]:
-        """Create ALL types of test entities.
-
-        This is critical: You must create instances of EVERY entity type
-        that your source connector syncs.
-
-        Returns:
-            List of entity descriptors with verification tokens
-        """
-        raise NotImplementedError("Implement in subclass")
+        # Create files in GitHub, return metadata
 
     async def update_entities(self) -> List[Dict[str, Any]]:
-        """Update a subset of entities to test incremental sync.
-
-        Returns:
-            List of updated entity descriptors
-        """
-        raise NotImplementedError("Implement in subclass")
+        # Update files
 
     async def delete_entities(self) -> List[str]:
-        """Delete all created test entities.
-
-        Returns:
-            List of deleted entity IDs
-        """
-        raise NotImplementedError("Implement in subclass")
-
-    async def delete_specific_entities(self, entities: List[Dict[str, Any]]) -> List[str]:
-        """Delete specific entities by ID.
-
-        Args:
-            entities: List of entity descriptors to delete
-
-        Returns:
-            List of successfully deleted entity IDs
-        """
-        raise NotImplementedError("Implement in subclass")
-
-    async def cleanup(self):
-        """Comprehensive cleanup of ALL test data.
-
-        This should:
-        1. Delete current session entities
-        2. Find orphaned test entities from failed runs
-        3. Delete test projects/workspaces
-        """
-        raise NotImplementedError("Implement in subclass")
-
-    def _headers(self) -> Dict[str, str]:
-        """Return auth headers for API requests."""
-        return {
-            "Authorization": f"Bearer {self.access_token}",
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        }
-
-    async def _rate_limit(self):
-        """Simple rate limiting (use if API requires it)."""
-        now = time.time()
-        elapsed = now - self.last_request_time
-        if elapsed < self.min_delay:
-            await asyncio.sleep(self.min_delay - elapsed)
-        self.last_request_time = time.time()
-```
-
-### Implementing `create_entities()` - The Critical Method
-
-**⚠️ CRITICAL: This method MUST create at least one instance of EVERY entity type your source connector yields.**
-
-**Key principle:** Create at least one instance of **every entity type** your connector syncs.
-
-**Before implementing, check your source connector:**
-```bash
-# Open your source file and list ALL entities yielded
-grep "yield.*Entity" backend/airweave/platform/sources/{short_name}.py
-
-# Example output for Asana:
-# yield workspace  # WorkspaceEntity
-# yield project    # ProjectEntity
-# yield task       # TaskEntity
-# yield comment    # CommentEntity
-# yield file       # FileEntity
-
-# Your create_entities() MUST create: tasks, comments, AND files
-```
-
-```python
-async def create_entities(self) -> List[Dict[str, Any]]:
-    """Create comprehensive test entities.
-
-    ⚠️ CRITICAL: This method MUST create instances of ALL entity types:
-    - Check your source's generate_entities() method
-    - List every entity type it yields
-    - Create at least one of EACH type here
-    - Return descriptors for ALL types for verification
-
-    Strategy:
-    1. Create parent entities (projects, tasks, etc.)
-    2. For EACH parent, create child entities (comments, files)
-    3. Track all created entities with verification tokens
-    4. Return entity descriptors for verification
-    """
-    self.logger.info(f"🥁 Creating {self.entity_count} comprehensive test entities")
-
-    # Ensure prerequisites (workspace, project, etc.)
-    await self._ensure_workspace()
-    await self._ensure_project()
-
-    from monke.generation.my_connector import (
-        generate_task,
-        generate_comment,
-        generate_file_attachment,
-    )
-
-    all_entities: List[Dict[str, Any]] = []
-    semaphore = asyncio.Semaphore(self.max_concurrency)
-
-    async with httpx.AsyncClient() as client:
-
-        # Create parent entities (tasks)
-        for i in range(self.entity_count):
-            async with semaphore:
-                # Generate unique token for this task
-                task_token = str(uuid.uuid4())[:8]
-
-                self.logger.info(f"Creating task {i+1}/{self.entity_count} with token {task_token}")
-
-                # Generate content
-                task_data = await generate_task(self.openai_model, task_token)
-
-                # Create via API
-                await self._rate_limit()
-                resp = await client.post(
-                    f"{self.API_BASE}/tasks",
-                    headers=self._headers(),
-                    json={
-                        "title": task_data["title"],
-                        "description": task_data["description"],
-                        "project_id": self._project_id,
-                    },
-                )
-                resp.raise_for_status()
-                task = resp.json()
-
-                # Track the task
-                task_descriptor = {
-                    "type": "task",
-                    "id": task["id"],
-                    "name": task["title"],
-                    "token": task_token,
-                    "expected_content": task_token,
-                    "path": f"my_connector/task/{task['id']}",
-                }
-                self._tasks.append(task_descriptor)
-                all_entities.append(task_descriptor)
-
-                # ========================================
-                # CRITICAL: Create child entities
-                # ========================================
-
-                # 1. Create comments for this task
-                for comment_idx in range(2):  # 2 comments per task
-                    comment_token = str(uuid.uuid4())[:8]
-
-                    self.logger.info(
-                        f"  Creating comment {comment_idx+1}/2 for task {task['id']} "
-                        f"with token {comment_token}"
-                    )
-
-                    comment_data = await generate_comment(self.openai_model, comment_token)
-
-                    await self._rate_limit()
-                    resp = await client.post(
-                        f"{self.API_BASE}/tasks/{task['id']}/comments",
-                        headers=self._headers(),
-                        json={"text": comment_data["text"]},
-                    )
-                    resp.raise_for_status()
-                    comment = resp.json()
-
-                    # Track the comment
-                    comment_descriptor = {
-                        "type": "comment",
-                        "id": comment["id"],
-                        "parent_id": task["id"],
-                        "token": comment_token,
-                        "expected_content": comment_token,
-                        "path": f"my_connector/comment/{comment['id']}",
-                    }
-                    self._comments.append(comment_descriptor)
-                    all_entities.append(comment_descriptor)
-
-                # 2. Create file attachment for this task
-                file_token = str(uuid.uuid4())[:8]
-
-                self.logger.info(
-                    f"  Creating file attachment for task {task['id']} "
-                    f"with token {file_token}"
-                )
-
-                # Generate a test file
-                file_content, file_name = await generate_file_attachment(
-                    self.openai_model,
-                    file_token
-                )
-
-                await self._rate_limit()
-
-                # Upload the file
-                files = {"file": (file_name, file_content, "text/plain")}
-                resp = await client.post(
-                    f"{self.API_BASE}/tasks/{task['id']}/attachments",
-                    headers={"Authorization": f"Bearer {self.access_token}"},
-                    files=files,
-                )
-                resp.raise_for_status()
-                attachment = resp.json()
-
-                # Track the file
-                file_descriptor = {
-                    "type": "file",
-                    "id": attachment["id"],
-                    "parent_id": task["id"],
-                    "name": file_name,
-                    "token": file_token,
-                    "expected_content": file_token,
-                    "path": f"my_connector/file/{attachment['id']}",
-                }
-                self._files.append(file_descriptor)
-                all_entities.append(file_descriptor)
-
-        self.logger.info(
-            f"✅ Created {len(self._tasks)} tasks, "
-            f"{len(self._comments)} comments, "
-            f"{len(self._files)} files"
-        )
-
-    self.created_entities = all_entities
-    return all_entities
-```
-
-### Key Principles for `create_entities()`
-
-1. **Create all entity types from source** - Before coding, list every entity type your source's `generate_entities()` yields. Your tests should create at least one of each type.
-
-2. **Create nested entities** - Don't just create tasks; create comments on those tasks, files attached to those tasks
-
-3. **Unique tokens per entity** - Each comment, file, task gets its own verification token
-
-4. **Track everything** - Store descriptors for all created entities and return them all
-
-5. **Parallel creation** - Use `asyncio.Semaphore` for efficient bulk creation
-
-6. **Error handling** - Log failures but continue creating other entities
-
-**Validation Pattern:**
-```python
-# At the end of create_entities(), log what you created:
-self.logger.info(
-    f"Created {len(self._tasks)} tasks, "
-    f"{len(self._comments)} comments, "
-    f"{len(self._files)} files"
-)
-
-# Verify counts match what your source yields
-```
-
-### Implementing `update_entities()`
-
-```python
-async def update_entities(self) -> List[Dict[str, Any]]:
-    """Update entities to test incremental sync.
-
-    Strategy:
-    - Update a subset of tasks (to test modified_at tracking)
-    - Update some comments
-    - Optionally add new comments to existing tasks
-    """
-    self.logger.info("🥁 Updating test entities for incremental sync")
-
-    if not self._tasks:
-        return []
-
-    from monke.generation.my_connector import generate_task, generate_comment
-
-    updated_entities: List[Dict[str, Any]] = []
-    count = min(2, len(self._tasks))  # Update first 2 tasks
-
-    async with httpx.AsyncClient() as client:
-        # Update tasks
-        for i in range(count):
-            task = self._tasks[i]
-
-            # Generate new content with SAME token
-            task_data = await generate_task(self.openai_model, task["token"])
-
-            await self._rate_limit()
-            resp = await client.put(
-                f"{self.API_BASE}/tasks/{task['id']}",
-                headers=self._headers(),
-                json={
-                    "title": task_data["title"],
-                    "description": task_data["description"],
-                },
-            )
-            resp.raise_for_status()
-
-            updated_entities.append({
-                **task,
-                "name": task_data["title"],
-            })
-
-        # Add new comments to updated tasks
-        for i in range(count):
-            task = self._tasks[i]
-            comment_token = str(uuid.uuid4())[:8]
-
-            comment_data = await generate_comment(self.openai_model, comment_token)
-
-            await self._rate_limit()
-            resp = await client.post(
-                f"{self.API_BASE}/tasks/{task['id']}/comments",
-                headers=self._headers(),
-                json={"text": comment_data["text"]},
-            )
-            resp.raise_for_status()
-            comment = resp.json()
-
-            comment_descriptor = {
-                "type": "comment",
-                "id": comment["id"],
-                "parent_id": task["id"],
-                "token": comment_token,
-                "expected_content": comment_token,
-                "path": f"my_connector/comment/{comment['id']}",
-            }
-            self._comments.append(comment_descriptor)
-            updated_entities.append(comment_descriptor)
-
-    return updated_entities
-```
-
-### Implementing `cleanup()`
-
-**Critical:** Clean up ALL test data, including orphaned entities from failed test runs.
-
-```python
-async def cleanup(self):
-    """Comprehensive cleanup of all test data."""
-    self.logger.info("🧹 Starting comprehensive workspace cleanup")
-
-    await self._ensure_workspace()
-
-    cleanup_stats = {
-        "tasks_deleted": 0,
-        "comments_deleted": 0,
-        "files_deleted": 0,
-        "projects_deleted": 0,
-        "errors": 0,
-    }
-
-    try:
-        # 1. Clean up current session
-        if self._files:
-            for file in self._files:
-                try:
-                    await self._delete_file(file["id"])
-                    cleanup_stats["files_deleted"] += 1
-                except Exception as e:
-                    self.logger.warning(f"Failed to delete file {file['id']}: {e}")
-                    cleanup_stats["errors"] += 1
-
-        if self._comments:
-            for comment in self._comments:
-                try:
-                    await self._delete_comment(comment["id"])
-                    cleanup_stats["comments_deleted"] += 1
-                except Exception as e:
-                    self.logger.warning(f"Failed to delete comment {comment['id']}: {e}")
-                    cleanup_stats["errors"] += 1
-
-        if self._tasks:
-            for task in self._tasks:
-                try:
-                    await self._delete_task(task["id"])
-                    cleanup_stats["tasks_deleted"] += 1
-                except Exception as e:
-                    self.logger.warning(f"Failed to delete task {task['id']}: {e}")
-                    cleanup_stats["errors"] += 1
-
-        if self._project_id:
-            await self._delete_project(self._project_id)
-            cleanup_stats["projects_deleted"] += 1
-
-        # 2. Find and clean up orphaned test data
-        orphaned_projects = await self._find_test_projects()
-        for project in orphaned_projects:
-            try:
-                await self._delete_project(project["id"])
-                cleanup_stats["projects_deleted"] += 1
-            except Exception as e:
-                cleanup_stats["errors"] += 1
-
-        self.logger.info(
-            f"🧹 Cleanup completed: {cleanup_stats['tasks_deleted']} tasks, "
-            f"{cleanup_stats['comments_deleted']} comments, "
-            f"{cleanup_stats['files_deleted']} files, "
-            f"{cleanup_stats['projects_deleted']} projects deleted, "
-            f"{cleanup_stats['errors']} errors"
-        )
-
-    except Exception as e:
-        self.logger.error(f"❌ Error during cleanup: {e}")
-        # Don't re-raise - cleanup is best-effort
+        # Delete all tracked entities
 ```
 
 ---
 
-## Part 2: Generation Schemas
+## Configuration
 
-Define Pydantic schemas for structured content generation.
-
-### File Location
-```
-monke/generation/schemas/{short_name}.py
-```
-
-### Structure
-
-```python
-"""Pydantic schemas for {Connector Name} test content generation."""
-
-from typing import List
-from pydantic import BaseModel, Field
-
-
-class TaskContent(BaseModel):
-    """Content structure for a generated task."""
-
-    description: str = Field(
-        ...,
-        description="Detailed task description with verification token embedded"
-    )
-
-    objectives: List[str] = Field(
-        ...,
-        description="List of objectives for this task"
-    )
-
-    technical_details: str = Field(
-        ...,
-        description="Technical implementation details"
-    )
-
-    acceptance_criteria: List[str] = Field(
-        ...,
-        description="Checklist of acceptance criteria"
-    )
-
-    comments: List[str] = Field(
-        default_factory=list,
-        description="Suggested comments/discussions"
-    )
-
-
-class TaskSpec(BaseModel):
-    """Metadata for task generation."""
-
-    title: str = Field(..., description="Task title")
-    token: str = Field(..., description="Verification token to embed")
-    priority: str = Field(default="medium", description="Priority level")
-    tags: List[str] = Field(default_factory=list, description="Tags to apply")
-
-
-class MyConnectorTask(BaseModel):
-    """Complete task structure for generation."""
-
-    spec: TaskSpec
-    content: TaskContent
-
-
-class CommentContent(BaseModel):
-    """Content structure for a comment."""
-
-    text: str = Field(
-        ...,
-        description="Comment text with verification token embedded"
-    )
-
-    author_name: str = Field(
-        default="Test User",
-        description="Name of comment author"
-    )
-
-
-class FileContent(BaseModel):
-    """Content structure for a file attachment."""
-
-    content: str = Field(
-        ...,
-        description="File content with verification token embedded"
-    )
-
-    filename: str = Field(
-        ...,
-        description="Name of the file"
-    )
-```
-
----
-
-## Part 3: Generation Adapter
-
-Implement the LLM-powered content generation.
-
-### File Location
-```
-monke/generation/{short_name}.py
-```
-
-### Structure
-
-```python
-"""{Connector Name} content generation adapter.
-
-Generates realistic test content using LLM.
-"""
-
-from typing import List, Tuple
-
-from monke.generation.schemas.my_connector import (
-    MyConnectorTask,
-    CommentContent,
-    FileContent,
-)
-from monke.client.llm import LLMClient
-
-
-async def generate_task(model: str, token: str) -> dict:
-    """Generate task content with embedded verification token.
-
-    Args:
-        model: LLM model to use
-        token: Unique token to embed in content
-
-    Returns:
-        Dict with title and description
-    """
-    llm = LLMClient(model_override=model)
-
-    instruction = (
-        f"Generate a realistic task for a software development project. "
-        f"You MUST include the literal token '{token}' in the description. "
-        f"The task should be technical but believable. "
-        f"Create meaningful objectives and acceptance criteria."
-    )
-
-    task = await llm.generate_structured(MyConnectorTask, instruction)
-    task.spec.token = token
-
-    # Ensure token appears in description
-    if token not in task.content.description:
-        task.content.description += f"\n\n**Verification Token**: {token}"
-
-    return {
-        "title": task.spec.title,
-        "description": task.content.description,
-        "objectives": task.content.objectives,
-        "acceptance_criteria": task.content.acceptance_criteria,
-    }
-
-
-async def generate_comment(model: str, token: str) -> dict:
-    """Generate comment content with embedded verification token.
-
-    Args:
-        model: LLM model to use
-        token: Unique token to embed in content
-
-    Returns:
-        Dict with comment text
-    """
-    llm = LLMClient(model_override=model)
-
-    instruction = (
-        f"Generate a helpful comment on a software development task. "
-        f"You MUST include the literal token '{token}' in the comment text. "
-        f"The comment should add value, like a question, suggestion, or update."
-    )
-
-    comment = await llm.generate_structured(CommentContent, instruction)
-
-    # Ensure token is present
-    if token not in comment.text:
-        comment.text += f"\n\nToken: {token}"
-
-    return {"text": comment.text}
-
-
-async def generate_file_attachment(model: str, token: str) -> Tuple[bytes, str]:
-    """Generate file attachment content with embedded verification token.
-
-    Args:
-        model: LLM model to use
-        token: Unique token to embed in content
-
-    Returns:
-        Tuple of (file_bytes, filename)
-    """
-    llm = LLMClient(model_override=model)
-
-    instruction = (
-        f"Generate content for a technical document or specification. "
-        f"You MUST include the literal token '{token}' in the content. "
-        f"Make it look like a real technical document."
-    )
-
-    file_data = await llm.generate_structured(FileContent, instruction)
-
-    # Ensure token is present
-    if token not in file_data.content:
-        file_data.content += f"\n\nVerification Token: {token}"
-
-    # Convert to bytes
-    content_bytes = file_data.content.encode("utf-8")
-
-    return content_bytes, file_data.filename
-```
-
----
-
-## Part 4: Test Configuration
-
-Define the test flow and parameters.
-
-### File Location
-```
-monke/configs/{short_name}.yaml
-```
-
-### Complete Structure
-
-**Note:** The human must set up the authentication section first. The AI agent implements the rest.
+Configs live in `configs/{connector_type}.yaml`:
 
 ```yaml
-name: my_connector_test
-description: End-to-end test for {Connector Name} source
+name: "GitHub Connector Test"
+description: "End-to-end test of GitHub connector"
 
 connector:
-  name: {Connector Display Name}
-  type: {short_name}
-
-  # ===== HUMAN SETS THIS UP =====
-  auth_mode: composio  # or direct
-  composio_config:  # If using Composio
-    account_id: ca_xxxxx  # Human obtains from Composio
-    auth_config_id: ac_xxxxx  # Human obtains from Composio
-  # If using direct auth, human adds token to monke/.env
-  # ==============================
-
+  name: "github_test"
+  type: "github"
+  auth_mode: direct  # or "provider"
+  auth_fields:
+    personal_access_token: MONKE_GITHUB_PERSONAL_ACCESS_TOKEN
   config_fields:
-    openai_model: "gpt-4.1-mini"
-    max_concurrency: 3
+    repo_name: MONKE_GITHUB_REPO_NAME  # Moved from auth_fields
+    branch: "main"
+    post_create_sleep_seconds: 15
 
 test_flow:
-  steps:
-    - cleanup              # Clean up any leftover test data
-    - create               # Create all entity types
-    - sync                 # Trigger Airweave sync
-    - verify               # Verify ALL entities appear in Qdrant
-    - update               # Update some entities
-    - sync                 # Sync again
-    - verify               # Verify updates appear
-    - partial_delete       # Delete subset of entities
-    - sync                 # Sync again
-    - verify_partial_deletion  # Verify deletions (if supported)
-    - verify_remaining_entities  # Verify non-deleted entities still exist
-    - complete_delete      # Delete all remaining entities
-    - sync                 # Final sync
-    - verify_complete_deletion  # Verify all gone
-    - cleanup              # Final cleanup
-    - collection_cleanup   # Delete test collection
+  steps: [cleanup, create, sync, verify, update, sync, verify, complete_delete, sync, verify_complete_deletion, cleanup]
+
+entity_count: 3
 
 deletion:
-  partial_delete_count: 2  # Number of entities to delete in partial_delete step
-  verify_partial_deletion: true  # Set false if API doesn't support deletion detection
-  verify_remaining_entities: true
-  verify_complete_deletion: true
-
-entity_count: 5  # Number of parent entities to create (each gets children)
-
-collection:
-  name: {Connector Name} Test Collection
+  partial_delete_count: 1
+  verify_partial_deletion: true
 
 verification:
-  retry_attempts: 5  # Retry verification this many times
-  retry_delay_seconds: 10  # Wait between retries
-  score_threshold: 0.0  # Minimum similarity score for verification
-  expected_fields:  # Fields that should exist on indexed entities
-    - name
-    - content
-    - entity_id
-    - created_at
+  score_threshold: 0.1
+  max_retries: 3
+  retry_delay_seconds: 5
 ```
 
-### Test Flow Steps Explained
-
-1. **`cleanup`** - Remove any leftover test data from failed runs
-2. **`create`** - Calls `bongo.create_entities()` to create ALL entity types
-3. **`sync`** - Triggers Airweave sync job via API
-4. **`verify`** - Searches Qdrant for each created entity using its token
-5. **`update`** - Calls `bongo.update_entities()` to modify some entities
-6. **`verify_partial_deletion`** - Verifies deleted entities are gone from Qdrant
-7. **`verify_remaining_entities`** - Verifies non-deleted entities still exist
-8. **`verify_complete_deletion`** - Verifies all entities are gone
+Environment variables are substituted using `${VAR_NAME}` syntax.
 
 ---
 
-## Part 5: Verification Deep Dive
+## Authentication
 
-### How Verification Works
-
-After sync, Monke searches Qdrant for each entity using its embedded token:
-
-```python
-# In monke/core/steps.py
-
-async def verify_entity(entity: Dict[str, Any], collection_id: str):
-    """Search Qdrant for an entity by its verification token."""
-
-    search_results = await qdrant_client.search(
-        collection_id=collection_id,
-        query_text=entity["expected_content"],  # The token
-        limit=5
-    )
-
-    # Check if any result matches
-    for result in search_results:
-        if entity["token"] in result["content"]:
-            return True  # Found it!
-
-    return False  # Not found
+### Direct Mode
+Credentials specified via `auth_fields` with env var names:
+```yaml
+auth_mode: direct
+auth_fields:
+  personal_access_token: MONKE_GITHUB_PERSONAL_ACCESS_TOKEN
 ```
 
-### Verifying ALL Entity Types
-
-The key is to return entity descriptors for EVERY created entity:
-
-```python
-# In your bongo's create_entities()
-
-all_entities = []
-
-# Create tasks
-for task in tasks:
-    all_entities.append({
-        "type": "task",
-        "id": task["id"],
-        "token": task_token,
-        "expected_content": task_token,
-    })
-
-    # Create comments FOR THIS TASK
-    for comment in comments:
-        all_entities.append({
-            "type": "comment",
-            "id": comment["id"],
-            "parent_id": task["id"],
-            "token": comment_token,
-            "expected_content": comment_token,
-        })
-
-    # Create file FOR THIS TASK
-    all_entities.append({
-        "type": "file",
-        "id": file["id"],
-        "parent_id": task["id"],
-        "token": file_token,
-        "expected_content": file_token,
-    })
-
-return all_entities  # Monke will verify EACH of these
+### Provider Mode
+External auth providers (e.g., Composio) fetch credentials:
+```bash
+DM_AUTH_PROVIDER=composio
+DM_AUTH_PROVIDER_ID=provider_id
+DM_AUTH_PROVIDER_API_KEY=api_key
+GITHUB_AUTH_PROVIDER_AUTH_CONFIG_ID=ac_xxx
+GITHUB_AUTH_PROVIDER_ACCOUNT_ID=ca_xxx
 ```
 
-### Custom Verification (Advanced)
-
-If you need custom verification logic:
-
-```python
-# In monke/core/steps.py - extend the verification step
-
-async def verify_my_connector_entities(entities, collection_id):
-    """Custom verification for MyConnector entities."""
-
-    verified = []
-    failed = []
-
-    for entity in entities:
-        if entity["type"] == "task":
-            # Standard token search
-            found = await verify_entity(entity, collection_id)
-
-        elif entity["type"] == "comment":
-            # Custom: Verify comment is linked to parent task
-            found = await verify_comment_with_parent(entity, collection_id)
-
-        elif entity["type"] == "file":
-            # Custom: Verify file content was extracted
-            found = await verify_file_content(entity, collection_id)
-
-        if found:
-            verified.append(entity)
-        else:
-            failed.append(entity)
-
-    return verified, failed
-```
+Auth resolution:
+1. `credentials_resolver` determines mode
+2. Direct: resolves env vars from `auth_fields`
+3. Provider: uses `ComposioBroker` to fetch credentials
+4. Credentials passed to bongo and Airweave source connection
 
 ---
 
-## Part 6: Best Practices
+## Content Generation
 
-### 1. Test Entity Relationships
-
-Verify that breadcrumbs are preserved:
+Generators in `generation/{connector}.py` create realistic test data with embedded tracking tokens:
 
 ```python
-# After sync, search for task and check its breadcrumbs
-result = await search_qdrant(task_token)
+from monke.client.llm import LLMClient
 
-assert "workspace" in result["breadcrumbs"]
-assert "project" in result["breadcrumbs"]
+async def generate_github_content(token: str) -> str:
+    llm = LLMClient()
+    prompt = f"Generate Python code. Include '{token}' in a comment."
+    return await llm.generate(prompt)
 ```
 
-### 2. Test File Content Extraction
-
-For file entities, verify the TEXT was extracted:
-
-```python
-# Search for token that was in the file content
-result = await search_qdrant(file_token)
-
-# Should find it in the extracted text chunks
-assert result["entity_type"] == "file"
-assert file_token in result["content"]
-```
-
-### 3. Test Incremental Sync
-
-```python
-# 1. Create entities with token "abc123"
-await bongo.create_entities()
-await sync()
-await verify()  # Should find "abc123"
-
-# 2. Update entities with NEW content but SAME token
-await bongo.update_entities()
-await sync()
-await verify()  # Should still find "abc123" but with updated content
-```
-
-### 4. Test Deletion Detection (if supported)
-
-```python
-# 1. Create and sync entities
-entities = await bongo.create_entities()
-await sync()
-await verify()  # All found
-
-# 2. Delete some entities
-deleted = await bongo.delete_specific_entities(entities[:2])
-await sync()
-
-# 3. Verify deleted entities are gone
-for entity_id in deleted:
-    result = await search_qdrant(entity_id)
-    assert result is None  # Should not be found
-
-# 4. Verify remaining entities still exist
-for entity in entities[2:]:
-    result = await search_qdrant(entity["token"])
-    assert result is not None  # Should still be found
-```
-
-### 5. Handle Rate Limits (If Needed)
-
-Most APIs don't need rate limiting in tests. Add only if you encounter 429 errors:
-
-```python
-async def _rate_limit(self):
-    """Simple rate limiting."""
-    now = time.time()
-    elapsed = now - self.last_request_time
-    if elapsed < self.min_delay:
-        await asyncio.sleep(self.min_delay - elapsed)
-    self.last_request_time = time.time()
-
-# Use before API calls if needed
-await self._rate_limit()
-response = await client.post(...)
-```
+Pydantic schemas in `generation/schemas/{connector}.py` define entity structures.
 
 ---
 
-## Part 7: Running Tests
+## Verification
 
-### Running Tests (Human Task)
+After each sync, verification steps:
+1. Search Qdrant vector DB for tracking tokens
+2. Check relevance scores meet threshold (default: 0.1)
+3. Verify expected result count
+4. Retry with exponential backoff on failures
 
-**The human runs these commands, not the AI agent:**
+Types:
+- **Standard**: All entities exist with good scores
+- **Partial Deletion**: Specific entities are gone
+- **Remaining Entities**: Non-deleted entities still exist
+- **Complete Deletion**: Zero results for all tokens
+
+---
+
+Each has: bongo implementation, config file, content generator, schema definitions.
+
+---
+
+## Usage
 
 ```bash
-# Run single connector test
-cd airweave
-./monke.sh my_connector
+# Test changed connectors (auto-detect from git diff)
+./monke.sh
 
-# Run with verbose logging (for debugging)
-MONKE_VERBOSE=1 ./monke.sh my_connector
+# Test specific connector
+./monke.sh github
+
+# Test multiple in parallel
+./monke.sh github asana notion
+
+# Test all connectors
+./monke.sh --all
+
+# Python runner directly
+python monke/runner.py github --max-concurrency 5
 ```
 
-### Debugging Failed Tests (Human Task)
-
-**The human debugs test failures:**
-
+### Environment Setup
 ```bash
-# Enable detailed logging
-MONKE_VERBOSE=1 ./monke.sh my_connector
+AIRWEAVE_API_URL=http://localhost:8001
+AIRWEAVE_API_KEY=optional_api_key
+OPENAI_API_KEY=sk-...
 
-# Check logs for:
-# - Entity creation failures
-# - Sync errors
-# - Verification mismatches
+# Direct auth mode
+MONKE_GITHUB_PERSONAL_ACCESS_TOKEN=ghp_...
+MONKE_GITHUB_REPO_NAME=owner/repo
 ```
 
-**Then ask the AI agent to fix code issues found.**
+---
 
-### Common Failure Modes
+## Adding a New Connector
 
-1. **Entity not found in Qdrant**
-   - Token might not be embedded in content
-   - Entity might not have synced (check source logs)
-   - Search might be timing out (increase retry attempts)
+### 1. Create Bongo (`bongos/myapp.py`)
+```python
+from monke.bongos.base_bongo import BaseBongo
 
-2. **Comments not found**
-   - Comments might not be generated in bongo
-   - Source might not be yielding comment entities
-   - Comment entity schema might be wrong
+class MyAppBongo(BaseBongo):
+    connector_type = "myapp"
 
-3. **Files not found**
-   - File download might be failing
-   - Text extraction might be failing
-   - File entity might not have `download_url` set
+    async def create_entities(self): pass
+    async def update_entities(self): pass
+    async def delete_entities(self): pass
+    async def delete_specific_entities(self, entities): pass
+    async def cleanup(self): pass
+```
+
+### 2. Create Generator (`generation/myapp.py`)
+```python
+async def generate_myapp_content(token: str):
+    llm = LLMClient()
+    return await llm.generate(f"Generate content with token: {token}")
+```
+
+### 3. Create Schema (`generation/schemas/myapp.py`)
+```python
+from pydantic import BaseModel
+
+class MyAppEntity(BaseModel):
+    id: str
+    content: str
+    token: str
+```
+
+### 4. Create or Update Config (`configs/myapp.yaml`)
+```yaml
+name: "MyApp Test"
+connector:
+  type: "myapp"
+  auth_mode: direct
+  auth_fields:
+    api_key: MONKE_MYAPP_API_KEY
+  config_fields: {}
+entity_count: 5
+test_flow:
+  steps: [cleanup, create, sync, verify, update, sync, verify, complete_delete, sync, verify_complete_deletion, cleanup]
+verification:
+  score_threshold: 0.1
+```
+
+### 5. Test
+```bash
+./monke.sh myapp
+```
 
 ---
 
-## Complete Example
+## Key Design Principles
 
-See the Asana tests for a complete example:
-- Bongo: `monke/bongos/asana.py`
-- Schemas: `monke/generation/schemas/asana.py`
-- Generation: `monke/generation/asana.py`
-- Config: `monke/configs/asana.yaml`
-
-**Note:** The Asana example creates comments but does NOT verify them. This is a bug that should be fixed. Your implementation should verify ALL entity types.
-
----
-
-## Checklist
-
-**Entity Coverage:**
-- [ ] Bongo creates all entity types from source connector
-  - [ ] Listed all entity types from `generate_entities()` in source file
-  - [ ] Confirmed `create_entities()` creates at least one of each type
-  - [ ] Confirmed entity count matches between source and tests
-- [ ] All created entity types are returned in `create_entities()` for verification
-  - [ ] Tasks ✓
-  - [ ] Comments ✓ (if source yields them)
-  - [ ] Files ✓ (if source yields them)
-  - [ ] Any other entity types ✓
-
-**Implementation Requirements:**
-- [ ] Each entity gets a unique verification token
-- [ ] Tokens are embedded in searchable content
-- [ ] Entity descriptors include type, id, token, parent_id (if nested)
-- [ ] Generation schemas defined for all entity types (not just tasks)
-- [ ] Generation adapters use LLMClient
-- [ ] Test config includes comprehensive test_flow
-- [ ] Verification settings are appropriate (retries, delays)
-- [ ] cleanup() removes ALL test data
-- [ ] Rate limiting added (only if API requires it)
-- [ ] Update flow tests incremental sync
-- [ ] Deletion flow tests deletion detection (if supported)
+1. **Separation**: Configuration vs runtime state (TestConfig vs TestContext)
+2. **Pluggable Auth**: Multiple credential sources via auth brokers
+3. **Atomic Steps**: Independent, retryable test steps
+4. **Auto Cleanup**: Cleanup runs even on failure
+5. **Real APIs**: Tests use real external services
+6. **Parallel**: Multiple connectors tested simultaneously
+7. **Event-Driven**: Real-time progress via event bus
+8. **Configurable**: Test flows customizable per connector
 
 ---
 
-## Next Steps
+## Common Pitfalls & Troubleshooting
 
-1. Implement the bongo, schemas, generation, and config
-2. Run the test locally: `./monke.sh {short_name}`
-3. Debug any failures by checking logs
-4. Verify ALL entity types appear in Qdrant after sync
-5. If any entity type is missing, check your source connector's `generate_entities()` method
+### Entity ID Collisions Across Types
+
+**Problem**: When a source has multiple entity types (e.g., Pipedrive has persons, deals, notes), different types can share the same numeric ID from the external API (e.g., `deal/75` and `note/75` both exist).
+
+**Symptoms**:
+- `verify_partial_deletion` fails because wrong entities are matched
+- Entities "found" in Qdrant that should be deleted
+- UUID collisions in vector storage
+
+**Solution**: Use **type-prefixed IDs** for internal tracking:
+```python
+ent = {
+    "type": "deal",
+    "id": f"deal_{pipedrive_id}",      # Unique internal ID: "deal_75"
+    "pipedrive_id": pipedrive_id,       # Raw API ID: 75
+    "token": token,
+    # ...
+}
+```
+- Use `id` for Monke tracking, comparison, and Qdrant paths
+- Use `pipedrive_id` (or equivalent) for actual API calls
+
+### Deletion Order for Linked Entities
+
+**Problem**: APIs often prevent deleting parent entities while children reference them.
+
+**Solution**: Delete in dependency order (children first):
+```python
+# Notes → Activities → Leads → Deals → Persons → Organizations → Products
+all_entities = (
+    self._notes           # Depend on persons/deals
+    + self._activities    # Depend on persons/deals/orgs
+    + self._leads         # Depend on persons/orgs
+    + self._deals         # Depend on persons/orgs
+    + self._persons       # Depend on orgs
+    + self._organizations # Independent
+    + self._products      # Independent
+)
+```
+
+### Token Embedding in Searchable Fields
+
+**Problem**: Qdrant verification searches for tokens. If the token isn't in an embeddable field, verification fails.
+
+**Solution**:
+1. Schema: Mark searchable fields with `embeddable=True` in Pydantic schemas
+2. Generator: Embed token in the searchable field (e.g., `title`, `name`, `content`)
+3. Bongo: Explicitly ensure token presence when creating:
+```python
+# Ensure token is in searchable field even if generator omits it
+title_with_token = f"{deal.title} [{token}]"
+payload = {"title": title_with_token, ...}
+```
+
+### Debugging Entity Verification
+
+Add diagnostic logging to trace what's being created vs what's searched:
+```python
+self.logger.info(f"📝 DIAGNOSTIC: Creating deal with title='{title_with_token}'")
+# After API response
+actual_title = deal_data.get("title", "")
+if token not in actual_title:
+    self.logger.warning(f"⚠️ Token {token} not in returned title: {actual_title}")
+```
+
+### Syntax Errors After Editing Bongos
+
+**Problem**: Indentation errors after multi-line edits to Python files.
+
+**Solution**: Always verify syntax after editing:
+```bash
+python3 -m py_compile monke/bongos/{connector}.py && echo "Syntax OK"
+```
+
+---
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
