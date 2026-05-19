@@ -1,75 +1,87 @@
-## nx-rules
+## react-general-guidelines
 
-> Guidelines and best practices for working with Nx in the Twenty workspace, including workspace architecture understanding, configuration management, and generator usage.
+> React general guidelines for Twenty CRM
 
+# React Guidelines
 
-# Nx Guidelines
+## Core Rules
+- **Functional components only** (no classes)
+- **Named exports only** (no default exports)
+- **Event handlers over useEffect** for state updates
 
-## Core Commands
-```bash
-# Run target for specific project
-npx nx run twenty-front:build
-npx nx run twenty-server:test
-
-# Run target for all projects
-npx nx run-many --target=build --all
-npx nx run-many --target=test --projects=twenty-front,twenty-server
-
-# Generate/modify projects
-npx nx g @nx/react:app my-app
-npx nx g @nx/react:component my-component
+## Component Structure
+```typescript
+// ✅ Correct
+export const UserProfile = ({ user, onEdit }: UserProfileProps) => {
+  const handleEdit = () => onEdit(user.id);
+  
+  return (
+    <StyledContainer>
+      <h1>{user.name}</h1>
+      <Button onClick={handleEdit}>Edit</Button>
+    </StyledContainer>
+  );
+};
 ```
 
-## Project Structure
-- Each package has a `project.json` with targets
-- Dependencies managed through `tsconfig.json` path mappings
-- Shared libraries in `packages/` directory
+## Props & Event Handlers
+```typescript
+// ✅ Correct - Destructure props
+const Button = ({ onClick, isDisabled, children }: ButtonProps) => (
+  <button onClick={onClick} disabled={isDisabled}>
+    {children}
+  </button>
+);
 
-## Build Targets
-```json
-// project.json
-{
-  "targets": {
-    "build": {
-      "executor": "@nx/vite:build",
-      "options": { "outputPath": "dist/packages/twenty-front" }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "options": { "jestConfig": "packages/twenty-front/jest.config.mjs" }
-    }
-  }
-}
+// ✅ Correct - Event handlers over useEffect
+const UserForm = ({ onSubmit }: UserFormProps) => {
+  const handleSubmit = async (data: FormData) => {
+    await onSubmit(data);
+    // Direct event handling, not useEffect
+  };
+
+  return <Form onSubmit={handleSubmit} />;
+};
 ```
 
-## Dependency Graph
-```bash
-# View project dependencies
-npx nx graph
+## Component Design
+- **Small, focused components** - Single responsibility
+- **Composition over inheritance** - Combine simple components
+- **Extract complex logic** into custom hooks
 
-# Check what's affected by changes
-npx nx affected --target=test
-npx nx affected --target=build --base=main
+```typescript
+// ✅ Good - Composed from smaller components
+const UserCard = ({ user }: UserCardProps) => (
+  <StyledCard>
+    <UserAvatar user={user} />
+    <UserInfo user={user} />
+    <UserActions user={user} />
+  </StyledCard>
+);
 ```
 
-## Library Management
-- Use `npx nx g @nx/workspace:library` generator for shared libs
-- Internal imports use `@/` path mapping
-- Libraries must export through index.ts barrel files
+## Performance
+```typescript
+// ✅ Use memo for expensive components only
+const ExpensiveChart = memo(({ data }: ChartProps) => {
+  // Complex rendering logic
+  return <ComplexChart data={data} />;
+});
 
-## Cache Configuration
-- Nx caches build outputs and test results
-- Configure `outputs` in project.json targets
-- Use `inputs` to define what invalidates cache
+// ✅ Memoize callbacks when needed
+const UserList = ({ users, onUserSelect }: UserListProps) => {
+  const handleUserSelect = useCallback((user: User) => {
+    onUserSelect(user);
+  }, [onUserSelect]);
 
-```json
-{
-  "build": {
-    "outputs": ["dist/packages/my-app"],
-    "inputs": ["source", "^source"],
-    "cache": true
-  }
-}
+  return (
+    <div>
+      {users.map(user => (
+        <UserItem key={user.id} user={user} onSelect={handleUserSelect} />
+      ))}
+    </div>
+  );
+};
 ```
 
 ---
