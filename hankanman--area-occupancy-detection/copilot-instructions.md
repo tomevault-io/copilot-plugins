@@ -1,265 +1,130 @@
 ## area-occupancy-detection
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This is a Home Assistant custom component that provides intelligent area occupancy detection using Bayesian probability algorithms. The component analyzes multiple sensor inputs (motion, media devices, lights, doors, etc.) to determine the probability that an area is occupied.
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Area Occupancy Detection - Codebase Navigation Guide
 
 ## Project Overview
 
-Area Occupancy Detection is a Home Assistant custom integration that uses Bayesian probability to intelligently detect room occupancy. It combines multiple sensor inputs (motion, media devices, appliances, environmental sensors) with learned historical patterns to provide probabilistic occupancy detection.
+This is a Home Assistant custom component that provides intelligent area occupancy detection using Bayesian probability algorithms. The component analyzes multiple sensor inputs (motion, media devices, lights, doors, etc.) to determine the probability that an area is occupied.
 
-The integration learns from your patterns over time, uses decay functions to handle stationary occupancy, and provides both binary occupancy status and probability sensors that automations can use.
+## Key Architecture Components
 
-## Development Commands
+### Entry Points
 
-### Environment Setup
+- **Main Component Entry**: [custom_components/area_occupancy/**init**.py](mdc:custom_components/area_occupancy/__init__.py) - Component setup, migration, and lifecycle management
+- **Component Manifest**: [custom_components/area_occupancy/manifest.json](mdc:custom_components/area_occupancy/manifest.json) - Component metadata and dependencies
+- **Configuration Constants**: [custom_components/area_occupancy/const.py](mdc:custom_components/area_occupancy/const.py) - All constants, defaults, and configuration keys
 
-```bash
-# Bootstrap environment (installs uv, creates venv, installs dependencies, sets up pre-commit)
-scripts/bootstrap
+### Core Logic
 
-# Manual setup if not using devcontainer
-# 1. Install uv: curl -LsSf https://astral.sh/uv/install.sh | sh
-# 2. Run: scripts/bootstrap
-# 3. Activate: source .venv/bin/activate
-```
+- **Coordinator**: [custom_components/area_occupancy/coordinator.py](mdc:custom_components/area_occupancy/coordinator.py) - Central orchestrator managing all component state and calculations
+- **Config Flow**: [custom_components/area_occupancy/config_flow.py](mdc:custom_components/area_occupancy/config_flow.py) - User interface for component setup and configuration
+- **Storage Manager**: [custom_components/area_occupancy/storage.py](mdc:custom_components/area_occupancy/storage.py) - Persistent data storage and migration handling
 
-### Code Quality
+### Data Models (data/ directory)
 
-```bash
-# Lint and format code (runs ruff format and ruff check --fix)
-scripts/lint
+- **Configuration**: [custom_components/area_occupancy/data/config.py](mdc:custom_components/area_occupancy/data/config.py) - Manages component configuration and validation
+- **Entity Management**: [custom_components/area_occupancy/data/entity.py](mdc:custom_components/area_occupancy/data/entity.py) - Core entity logic and state tracking
+- **Entity Types**: [custom_components/area_occupancy/data/entity_type.py](mdc:custom_components/area_occupancy/data/entity_type.py) - Defines sensor types and their probability characteristics
+- **Prior Learning**: [custom_components/area_occupancy/data/prior.py](mdc:custom_components/area_occupancy/data/prior.py) - Historical probability learning from Home Assistant history
+- **Decay Logic**: [custom_components/area_occupancy/data/decay.py](mdc:custom_components/area_occupancy/data/decay.py) - Time-based probability decay calculations
 
-# Manual linting
-uv run ruff format .
-uv run ruff check . --fix
-```
+### Platform Implementations
 
-### Testing
+- **Binary Sensors**: [custom_components/area_occupancy/binary_sensor.py](mdc:custom_components/area_occupancy/binary_sensor.py) - Occupancy and "Wasp in Box" detection sensors
+- **Sensors**: [custom_components/area_occupancy/sensor.py](mdc:custom_components/area_occupancy/sensor.py) - Probability percentage and diagnostic sensors
+- **Number Entities**: [custom_components/area_occupancy/number.py](mdc:custom_components/area_occupancy/number.py) - Configurable threshold and weight controls
 
-```bash
-# Run all tests with coverage report
-scripts/test
+### Services and Utilities
 
-# Run specific test file
-uv run pytest tests/test_area_area.py
+- **Services**: [custom_components/area_occupancy/service.py](mdc:custom_components/area_occupancy/service.py) - Custom services for debugging and manual control
+- **Utilities**: [custom_components/area_occupancy/utils.py](mdc:custom_components/area_occupancy/utils.py) - Helper functions and Bayesian probability calculations
+- **Migrations**: [custom_components/area_occupancy/migrations.py](mdc:custom_components/area_occupancy/migrations.py) - Configuration version migration logic
 
-# Run with verbose output
-uv run pytest -v
+## Key Concepts
 
-# Run specific test within a file
-uv run pytest tests/test_area_area.py::test_area_initialization -v
-```
+### Bayesian Probability System
 
-### Development Environment
+The component uses Bayesian inference to combine multiple sensor inputs:
 
-This project uses a **devcontainer** that provides a standalone Home Assistant instance. When opening in VS Code, accept the devcontainer prompt to get:
-- Pre-configured development environment
-- Home Assistant running with `config/configuration.yaml`
-- All dependencies installed
-- Pre-commit hooks configured
+- **Prior Probability**: Base likelihood an area is occupied (learned from history)
+- **Likelihood**: How likely each sensor state is given occupancy status
+- **Posterior**: Final calculated probability combining all evidence
 
-## Architecture
+### Entity Types and Weights
 
-### High-Level Structure
+Different sensor types have different reliability and are weighted accordingly:
 
-The integration uses a **single-instance coordinator architecture** that manages multiple areas:
+- **Motion Sensors**: High weight (0.85) for detecting presence
+- **Media Devices**: Medium-high weight (0.7) for entertainment areas
+- **Appliances**: Medium weight (0.4) for activity indicators
+- **Doors/Windows**: Lower weight (0.2-0.3) for access patterns
+- **Environmental**: Low weight (0.1) for ambient changes
 
-```
-AreaOccupancyCoordinator (global singleton)
-├── AreaOccupancyDB (SQLite database with SQLAlchemy)
-├── IntegrationConfig (global settings)
-└── areas: dict[str, Area]
-    └── Area (per-room instance)
-        ├── AreaConfig (sensors, weights, thresholds)
-        ├── EntityManager (tracks sensor states and evidence)
-        ├── Prior (learned probabilities)
-        └── Purpose (room type and decay settings)
-```
+### "Wasp in Box" Algorithm
 
-### Key Concepts
+A virtual sensor that detects rapid door opening/closing patterns followed by no motion, indicating someone briefly entered and left the area.
 
-**Multi-Area Management**: A single coordinator manages all configured areas. Each area has its own device in Home Assistant with associated entities (sensors, binary sensors, numbers).
+## Testing Structure
 
-**Entity Types**: Sensors are classified by `InputType` (MOTION, MEDIA, APPLIANCE, DOOR, WINDOW, ENVIRONMENTAL, POWER, WASP). Each type has different probability contributions and weights.
+### Test Organization
 
-**Bayesian Calculation**: The core algorithm combines:
-- **Prior probabilities**: Learned from historical patterns (time-of-day, day-of-week)
-- **Sensor evidence**: Current state of all sensors with type-specific weights
-- **Decay**: Gradual probability reduction when no new evidence arrives
-- Result: A probability (1-99%) that updates continuously
+- **Centralized Mocks**: [tests/conftest.py](mdc:tests/conftest.py) - Comprehensive fixtures for consistent testing
+- **Test Documentation**: [tests/README_CENTRALIZED_MOCKS.md](mdc:tests/README_CENTRALIZED_MOCKS.md) - Explains centralized mock strategy
+- **Component Tests**: [tests/test\_\*.py](mdc:tests) - Individual component test files
 
-**Database Architecture**: SQLite with SQLAlchemy ORM, organized in modules:
-- `db/core.py`: Database initialization and session management
-- `db/schema.py`: SQLAlchemy table definitions (Areas, Entities, Intervals, Aggregates, etc.)
-- `db/operations.py`: CRUD operations for entities and intervals
-- `db/aggregation.py`: Time-series aggregation (hourly, daily, weekly, monthly)
-- `db/correlation.py`: Statistical correlation analysis between sensors and occupancy
-- `db/queries.py`: Complex queries for occupied intervals and cache management
-- `db/sync.py`: Import entity states from Home Assistant recorder
-- `db/maintenance.py`: Health checks, pruning, backups
+### Key Test Categories
 
-**Analysis Pipeline**: Every hour (configurable), the coordinator runs:
-1. Sync states from recorder → import recent entity state changes
-2. Health check and pruning → validate database integrity, remove old data
-3. Populate occupied intervals cache → identify when areas were occupied
-4. Run aggregations → hourly/daily/weekly/monthly summaries
-5. Recalculate priors → update learned probabilities from historical data
-6. Correlation analysis → identify sensor relationships with occupancy
-7. Save and refresh → persist changes, update entities
+- **Integration Tests**: [tests/test_init.py](mdc:tests/test_init.py) - Component lifecycle and setup
+- **Coordinator Tests**: [tests/test_coordinator.py](mdc:tests/test_coordinator.py) - Core logic and probability calculations
+- **Data Model Tests**: [tests/test*data*\*.py](mdc:tests) - Individual data model validation
+- **Platform Tests**: [tests/test_binary_sensor.py](mdc:tests/test_binary_sensor.py), [tests/test_sensor.py](mdc:tests/test_sensor.py), [tests/test_number.py](mdc:tests/test_number.py)
+- **Storage Tests**: [tests/test_storage.py](mdc:tests/test_storage.py) - Data persistence and migration
+- **Service Tests**: [tests/test_service.py](mdc:tests/test_service.py) - Custom service functionality
 
-### Critical Files
+## Development Patterns
 
-- `coordinator.py`: Main coordinator managing lifecycle, timers, and multi-area orchestration
-- `area/area.py`: Per-area logic, encapsulates configuration, entities, priors, and calculations
-- `data/entity.py`: Entity tracking, state management, evidence detection (380+ lines)
-- `data/analysis.py`: Orchestrates the full analysis pipeline
-- `data/prior.py`: Prior probability calculations from historical patterns
-- `data/config.py`: Configuration management for both integration-level and area-level settings
-- `data/decay.py`: Time-based probability decay implementation
-- `data/purpose.py`: Room purpose definitions (social, work, sleep, etc.) with default decay settings
-- `db/core.py`: Database initialization, connection management
-- `db/correlation.py`: Statistical analysis of sensor-occupancy relationships (660+ lines)
-- `utils.py`: Bayesian probability calculations, state mapping utilities
+### Memory Management Notes
+
+Based on previous development, be aware of these key patterns:
+
+- **Storage Format**: Home Assistant Store class expects `{version, key, data: {our_data}}` format
+- **Circular Imports**: Use TYPE_CHECKING blocks for type annotations to avoid circular dependencies
+- **Prior Updates**: Probability module handles all probability updates; Prior module only stores/provides learned data
+- **Testing Strategy**: Use centralized mocks from conftest.py rather than local fixtures
 
 ### Configuration Flow
 
-The integration uses Home Assistant's config flow with a **list-based multi-area architecture**:
-- Configuration stored in `config_entry.data[CONF_AREAS]` as a list of area configurations
-- Each area config contains: `area_id`, sensor lists, weights, thresholds, decay settings
-- Options flow allows adding/editing/removing areas
-- Changes trigger `async_update_options()` which handles area lifecycle (create/update/delete)
+1. User configures through [config_flow.py](mdc:custom_components/area_occupancy/config_flow.py)
+2. Component initializes in [**init**.py](mdc:custom_components/area_occupancy/__init__.py)
+3. Coordinator manages all state in [coordinator.py](mdc:custom_components/area_occupancy/coordinator.py)
+4. Data models handle specific logic in [data/](mdc:custom_components/area_occupancy/data) directory
+5. Platform entities expose sensors/controls to Home Assistant
 
-### State Management
+### Data Flow
 
-**Entity State Tracking**:
-- Single state listener for all entities across all areas (`_area_state_listeners`)
-- On state change, finds affected areas and checks if entity has new evidence
-- Triggers coordinator refresh only if setup is complete and evidence detected
+1. **Entity Manager** tracks sensor states and changes
+2. **Entity Types** define probability characteristics for each sensor type
+3. **Prior Manager** learns from historical data patterns
+4. **Decay Manager** handles time-based probability reduction
+5. **Coordinator** combines all data using Bayesian inference
+6. **Storage Manager** persists learned data and configuration
 
-**Timers**:
-- **Decay timer**: Every 10 seconds, refreshes if any area has decay enabled
-- **Analysis timer**: Every hour, runs full analysis pipeline (sync, aggregate, correlate, learn)
-- **Save timer**: Every 10 minutes, persists data to database
+## Common Navigation Patterns
 
-### Testing Architecture
+- **Finding Constants**: Check [const.py](mdc:custom_components/area_occupancy/const.py) for all configuration keys and defaults
+- **Understanding Calculations**: See [utils.py](mdc:custom_components/area_occupancy/utils.py) for Bayesian probability functions
+- **Debugging Issues**: Use services in [service.py](mdc:custom_components/area_occupancy/service.py) for manual testing
+- **Adding Features**: Follow the data model pattern in [data/](mdc:custom_components/area_occupancy/data) directory
+- **Testing Changes**: Use centralized fixtures from [conftest.py](mdc:tests/conftest.py)
 
-Tests use `pytest-homeassistant-custom-component` with extensive mocking:
-- `tests/conftest.py`: Shared fixtures for Home Assistant, coordinator, database
-- 85%+ coverage requirement (90% for core calculations)
-- Tests organized by component: area, coordinator, db, entities, config flow, etc.
-- Mock Home Assistant services, entity states, recorder data
-- Use `pytest-cov` for coverage reporting
+## Quality Tools
 
-## Important Development Notes
-
-### Database Operations
-
-All database operations must be run in executor to avoid blocking the event loop:
-```python
-await self.hass.async_add_executor_job(self.db.save_data)
-```
-
-Database sessions are managed with context managers. Never hold sessions across async boundaries.
-
-### Configuration Migrations
-
-When updating `CONF_VERSION`, implement migration in `migrations.py`. Migrations must:
-- Handle both data and options dicts
-- Preserve all user settings
-- Log migration steps
-- Be idempotent (safe to run multiple times)
-
-### Entity Evidence
-
-Entity evidence is detected by comparing current state to previous state and checking against active states:
-```python
-entity.has_new_evidence()  # Returns True if entity state changed and is now "active"
-```
-
-This prevents unnecessary coordinator refreshes and ensures decay works correctly.
-
-### Time Handling
-
-The integration uses timezone-aware datetimes throughout:
-- Store UTC in database: `to_utc(dt)` from `time_utils.py`
-- Convert to local for bucketing/display: `to_local(dt, timezone)`
-- Time priors are bucketed by local time (day-of-week, hour) for accurate pattern learning
-
-### Virtual Sensors
-
-"Wasp in Box" is a virtual sensor for bathrooms: when someone enters (door closes) with no motion, it maintains high occupancy probability. Useful for rooms where motion sensors can't see the entire space.
-
-### Performance Considerations
-
-- Occupied intervals cache is validated before queries (hourly refresh)
-- Aggregations only process new data since last run
-- Database retention policies automatically prune old data
-- Correlation analysis requires minimum 50 samples for reliability
-
-### Branch and Release Strategy
-
-- Development happens on `dev` branch
-- PR from `dev` to `preview` for prereleases
-- PR from `preview` to `main` for full releases
-- Use semantic versioning (MAJOR.MINOR.PATCH)
-- Version stored in `pyproject.toml`, `const.py`, and `manifest.json`
-
-### Pre-commit Hooks
-
-Pre-commit runs ruff formatting and linting automatically. If it fails:
-1. Review the changes it made
-2. Stage the changes: `git add -u`
-3. Commit again
-
-### Code Style
-
-- Use ruff for formatting and linting (matches Home Assistant core standards)
-- Full type annotations required (Python 3.13+)
-- Google-style docstrings for public APIs
-- Log at appropriate levels: debug for internals, info for user-visible events, warning/error for issues
-- Use `_LOGGER` from module-level `logging.getLogger(__name__)`
-
-## Common Workflows
-
-### Adding a New Sensor Type
-
-1. Add `InputType` enum value to `data/entity_type.py`
-2. Add default probabilities to `const.py`
-3. Update `EntityFactory` in `data/entity.py` to handle new type
-4. Add configuration keys to `const.py` (e.g., `CONF_NEW_TYPE_SENSORS`)
-5. Update config flow in `config_flow.py` to allow sensor selection
-6. Add weight configuration (e.g., `CONF_WEIGHT_NEW_TYPE`)
-7. Update database schema if needed (add correlation tracking)
-8. Write tests
-
-### Modifying Bayesian Calculation
-
-1. Core calculation is in `utils.py::bayesian_probability()`
-2. Prior calculation in `data/prior.py`
-3. Decay implementation in `data/decay.py`
-4. Evidence detection in `data/entity.py::Entity.has_new_evidence()`
-5. Update tests in `tests/test_calculate_prob.py` or similar
-6. Ensure 100% coverage for calculation changes
-
-### Debugging Database Issues
-
-Enable debug logging in Home Assistant's `configuration.yaml`:
-```yaml
-logger:
-  default: info
-  logs:
-    custom_components.area_occupancy: debug
-    custom_components.area_occupancy.db: debug
-```
-
-Check for:
-- Failed integrity checks (indicates schema issues)
-- Long-running queries (check indexes)
-- Pruning failures (retention policy issues)
-- Correlation analysis errors (insufficient data)
+- **Linting**: Run `scripts/lint` for pylint and ruff checks
+- **Testing**: Run pytest with fixtures from [conftest.py](mdc:tests/conftest.py)
+- **Configuration**: [pyproject.toml](mdc:pyproject.toml) contains all tool configurations
 
 ---
 > Source: [Hankanman/Area-Occupancy-Detection](https://github.com/Hankanman/Area-Occupancy-Detection) — distributed by [TomeVault](https://tomevault.io).
