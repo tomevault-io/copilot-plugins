@@ -295,5 +295,5 @@ Use Chrome i18n placeholder format with proper definitions:
    `packages/tailwind-config` tokens instead of re-implementing
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nanobrowser) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [nanobrowser/nanobrowser](https://github.com/nanobrowser/nanobrowser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
