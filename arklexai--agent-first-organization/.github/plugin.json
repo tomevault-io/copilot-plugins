@@ -1,0 +1,9 @@
+{
+  "name": "arklexai--agent-first-organization",
+  "displayName": "Agent-First-Organization",
+  "description": "The official Python library for Arklex framework",
+  "version": "1.0.0",
+  "author": "arklexai",
+  "homepage": "https://github.com/arklexai/Agent-First-Organization",
+  "skills": []
+}
