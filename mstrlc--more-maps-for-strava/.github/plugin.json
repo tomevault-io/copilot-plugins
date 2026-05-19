@@ -1,0 +1,9 @@
+{
+  "name": "mstrlc--more-maps-for-strava",
+  "displayName": "more-maps-for-strava",
+  "description": "More Maps for Strava is a browser extension that adds more map layers and street view funcionality to Strava Route Planner and Heatmaps.",
+  "version": "1.0.0",
+  "author": "mstrlc",
+  "homepage": "https://github.com/mstrlc/more-maps-for-strava",
+  "skills": []
+}
