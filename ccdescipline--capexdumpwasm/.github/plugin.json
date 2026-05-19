@@ -1,0 +1,9 @@
+{
+  "name": "ccdescipline--capexdumpwasm",
+  "displayName": "CApexDumpWasm",
+  "description": "Apex offset dump by wasm",
+  "version": "1.0.0",
+  "author": "ccdescipline",
+  "homepage": "https://github.com/ccdescipline/CApexDumpWasm",
+  "skills": []
+}
