@@ -1,25 +1,15 @@
-## commit-changelog-version
+## docker-compose-haproxy
 
-> On "commit", review changelog/README/docs and bump version when changelog has substantial changes
+> Use the correct compose file pair for dev vs prod; HAProxy is the browser entrypoint in Docker
 
 
-# Commit: Changelog, Docs, and Version Bump
+# Docker Compose & HAProxy
 
-When the user says **"commit"** (or asks to commit changes):
-
-1. **Review and update** before committing:
-   - **CHANGELOG.md** — Ensure `[Unreleased]` reflects the current changes; move items to a new version section if cutting a release.
-   - **README.md** — Update if the change affects setup, usage, or documented behavior.
-   - **docs/** — Scan relevant `.md` files (e.g. feature docs, deployment, troubleshooting) and update any that are affected by the change.
-
-2. **Version bump** when the changelog has **substantial or important changes**:
-   - "Reasonable size" = multiple items under Unreleased, or user-visible fixes/features.
-   - Bump in `front/package.json` and `front/package-lock.json` (this repo’s source of version).
-   - Add a new `## [X.Y.Z] - YYYY-MM-DD` section in CHANGELOG.md with the entries being released; clear or reduce `[Unreleased]` accordingly.
-
-3. **If in doubt** whether to bump: prefer bumping when there are user-facing fixes or features; skip for trivial or internal-only tweaks unless the user asks for a release.
-
-4. **Branching:** Changelog commits belong on **`development`** by default. Promoting those commits to **`master`** follows **`.cursor/rules/git-development-branch-workflow.mdc`** (not every “commit” implies an immediate **`master`** push).
+- **Local dev** commands (`up`, `ps`, `logs`, `exec`, `restart`) should use **both** base + dev overlay:  
+  `docker compose -f docker-compose.yml -f docker-compose.dev.yml …`
+- **Production / amvara9** uses **`docker-compose.prod.yml`** instead of **`docker-compose.dev.yml`** (same base file). Do not mix overlays.
+- **Browser / smoke tests:** Traffic goes through **HAProxy**; use the **published host port** from `docker compose ps` (dev default **4202** unless overridden). **`BASE_URL`** for Puppeteer is typically `http://127.0.0.1:4202`.
+- After compose or proxy changes, check **haproxy**, **front**, and **back** logs and run a minimal smoke (**`docs/testing.md`**, **`AGENTS.md`**).
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
