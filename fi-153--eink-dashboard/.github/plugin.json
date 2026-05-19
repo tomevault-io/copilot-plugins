@@ -1,0 +1,9 @@
+{
+  "name": "fi-153--eink-dashboard",
+  "displayName": "eInk_dashboard",
+  "description": "Python-based server to display an Home Assistant dashboard on low end and obsolete hardware. It works best on eInk displays.",
+  "version": "1.0.0",
+  "author": "FI-153",
+  "homepage": "https://github.com/FI-153/eInk_dashboard",
+  "skills": []
+}
