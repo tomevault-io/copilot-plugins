@@ -1,0 +1,9 @@
+{
+  "name": "caullenomdahl--tailwind-svelte-assistant",
+  "displayName": "Tailwind-Svelte-Assistant",
+  "description": "MCP server providing SvelteKit + Tailwind CSS documentation, Catalyst UI kit, security hardening, and caching for AI assistants",
+  "version": "1.0.0",
+  "author": "CaullenOmdahl",
+  "homepage": "https://github.com/CaullenOmdahl/Tailwind-Svelte-Assistant",
+  "skills": []
+}
