@@ -1,0 +1,9 @@
+{
+  "name": "shopify--ucp-cli",
+  "displayName": "ucp-cli",
+  "description": "A shopping skill for AI agents, powered by the Universal Commerce Protocol.",
+  "version": "1.0.0",
+  "author": "Shopify",
+  "homepage": "https://github.com/Shopify/ucp-cli",
+  "skills": []
+}
