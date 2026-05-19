@@ -1,32 +1,38 @@
-## 05-types-package
+## 06-workspace-structure
 
-> - [src/index.ts](mdc:packages/types/src/index.ts) - 类型定义入口文件
+> 本项目使用pnpm workspace + Turborepo进行工程化管理，具有以下特点：
 
-# Types包
+# 工作区结构
 
-## 目录结构
+本项目使用pnpm workspace + Turborepo进行工程化管理，具有以下特点：
 
-- [src/index.ts](mdc:packages/types/src/index.ts) - 类型定义入口文件
+## 工作区配置
 
-## 配置文件
+- [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) - 定义工作区包含的目录
+- [turbo.json](mdc:turbo.json) - Turborepo任务配置
 
-- [package.json](mdc:packages/types/package.json) - 包配置和依赖
-- [tsconfig.json](mdc:packages/types/tsconfig.json) - TypeScript配置
+## 包依赖关系
 
-## 开发命令
+- `@ig-live/types` - 被electron和renderer包引用
+- `@ig-live/electron` - 依赖types包，负责加载renderer构建产物
+- `@ig-live/renderer` - 依赖types包，提供UI界面
 
-- `pnpm dev` - 启动TypeScript监视模式
-- `pnpm build` - 构建类型定义
-- `pnpm clean` - 清理构建产物
+## 开发流程
 
-## 主要类型
+在根目录运行命令将影响所有包：
 
-- `IpcApi` - 定义主进程和渲染进程之间的IPC通信接口
-- `ElectronApi` - 定义在渲染进程中可用的Electron API
+- `pnpm dev` - 并行启动所有包的开发环境
+- `pnpm build` - 按依赖顺序构建所有包
+- `pnpm package` - 打包应用为可分发格式
+- `pnpm clean` - 清理所有包的构建产物
 
-## 使用方式
+## 新增包
 
-此包被其他包作为依赖引入，提供共享的类型定义，确保主进程和渲染进程之间类型安全的通信。
+如需添加新包：
+
+1. 在packages目录下创建新目录
+2. 确保package.json中有正确的名称和依赖
+3. 在pnpm-workspace.yaml中确认包含路径配置正确
 
 ---
 > Source: [Cookieboty/ai-live2d-client](https://github.com/Cookieboty/ai-live2d-client) — distributed by [TomeVault](https://tomevault.io).
