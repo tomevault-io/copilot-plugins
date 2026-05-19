@@ -1,141 +1,205 @@
-## ktransformers-injection-tutorial
+## ktransformers-installation
 
-> KTransformers是一个灵活的Python框架，用于通过高级内核优化和放置/并行策略增强Transformers的性能。其核心功能之一是算子注入系统，允许用户将原始PyTorch模块替换为优化的变体。本规则详细介绍这一机制。
+> 目前KTransformers有两个主要版本：
 
-# KTransformers 算子注入教程
+# KTransformers 安装和运行指南
 
-## 概述
+## 版本信息
 
-KTransformers是一个灵活的Python框架，用于通过高级内核优化和放置/并行策略增强Transformers的性能。其核心功能之一是算子注入系统，允许用户将原始PyTorch模块替换为优化的变体。本规则详细介绍这一机制。
+目前KTransformers有两个主要版本：
+- **V0.2** - 当前主分支
+- **V0.3** - 预览版本，目前仅提供二进制分发
 
-## 注入规则基本结构
+## 环境准备
 
-注入规则使用YAML格式定义，基本结构如下：
+在安装KTransformers前，需要满足以下条件：
 
-```yaml
-- match:
-    name: "^model\\.layers\\..*\\.*$"  # 目标模块名称(正则表达式)
-    class: torch.nn.Linear  # 目标模块类型
-  replace:
-    class: "default" # 替换的算子类名(default表示不替换类，仅更改参数)
-    kwargs:
-      generate_device: "cuda:0" # 指定运行设备
-      # 其他自定义参数
-  recursive: True # 是否递归注入子模块
+1. **CUDA要求**：CUDA 12.1及以上版本
+   ```sh
+   # 将CUDA添加到PATH
+   if [ -d "/usr/local/cuda/bin" ]; then
+       export PATH=$PATH:/usr/local/cuda/bin
+   fi
+   
+   if [ -d "/usr/local/cuda/lib64" ]; then
+       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
+   fi
+   
+   if [ -d "/usr/local/cuda" ]; then
+       export CUDA_PATH=$CUDA_PATH:/usr/local/cuda
+   fi
+   ```
+
+2. **系统要求**：Linux-x86_64环境，gcc/g++ >= 11，cmake >= 3.25
+   ```sh
+   sudo apt-get update 
+   sudo apt-get install build-essential cmake ninja-build patchelf
+   ```
+
+3. **Python环境**：推荐使用Miniconda3或Anaconda3创建Python=3.11的虚拟环境
+   ```sh
+   conda create --name ktransformers python=3.11
+   conda activate ktransformers
+   conda install -c conda-forge libstdcxx-ng
+   ```
+
+4. **Python依赖**：PyTorch、packaging和ninja
+   ```sh
+   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+   pip3 install packaging ninja cpufeature numpy
+   ```
+
+5. **Flash-Attention**：从GitHub下载适当版本
+   ```sh
+   # 从 https://github.com/Dao-AILab/flash-attention/releases 下载
+   ```
+
+## 多并发支持
+
+如果需要启用多并发支持，需要安装以下额外依赖：
+```sh
+sudo apt install libtbb-dev libssl-dev libcurl4-openssl-dev libaio1 libaio-dev libgflags-dev zlib1g-dev libfmt-dev
 ```
 
-**关键字段说明**：
-- `match`: 定义匹配条件，支持名称(正则表达式)和类型两种匹配方式
-- `replace`: 指定替换的模块类和初始化参数
-- `recursive`: 控制是否递归地应用到子模块
+## 安装方法
 
-## 理解模型结构
+### 源码编译安装
 
-为了正确编写注入规则，需要了解模型的结构。以DeepSeek-V2为例：
+1. **初始化源代码**
+   ```sh
+   git clone https://github.com/kvcache-ai/ktransformers.git
+   cd ktransformers
+   git submodule update --init --recursive
+   ```
 
-1. 从模型的`.safetensors`文件可获取权重名称(对应`match.name`)
-2. 从`modeling_deepseek.py`可了解模块的类实现(对应`match.class`)
+2. **基本安装（Linux）**
+   ```sh
+   bash install.sh
+   ```
 
-DeepSeek-V2模型的整体结构包括：
-- 输入嵌入层
-- 多层Transformer块
-  - MLA注意力机制
-  - MoE(Mixture of Experts)前馈网络
-- 输出层
+3. **双CPU和1T RAM系统安装**
+   ```sh
+   apt install libnuma-dev
+   export USE_NUMA=1
+   bash install.sh  # 或 make dev_install
+   ```
 
-## 支持的算子类型
+4. **多并发系统安装**
+   ```sh
+   USE_BALANCE_SERVE=1 bash ./install.sh
+   ```
 
-KTransformers支持多种优化算子替换：
+5. **双CPU和1T RAM的多并发系统**
+   ```sh
+   USE_BALANCE_SERVE=1 USE_NUMA=1 bash ./install.sh
+   ```
 
-| 原始模块类型 | 替换算子               | 后端选项                | 说明                   |
-|------------|----------------------|------------------------|------------------------|
-| Linear     | KTransformersLinear  | KLinearMarlin          | 使用Marlin作为后端      |
-|            |                      | KLinearTorch           | 使用PyTorch作为后端     |
-|            |                      | KLinearCPUInfer        | 使用Llamafile作为后端   |
-|            |                      | KLinearFP8             | Triton fp8_gemm内核    |
-| Experts    | KTransformersExperts | KExpertsTorch          | 使用PyTorch作为后端     |
-|            |                      | KExpertsMarlin         | 使用Marlin作为后端      |
-|            |                      | KExpertsCPU            | 使用Llamafile作为后端   |
-| Attention  | KDeepseekV2Attention | -                      | 优化的MLA实现           |
-| MoE        | KMistralSparseMoEBlock | -                    | Qwen2的MoE实现         |
-|            | KDeepseekV2MoE       | -                      | DeepseekV2的MoE实现    |
-| RoPE       | RotaryEmbedding      | -                      | 位置编码实现            |
-|            | YarnRotaryEmbedding  | -                      | 增强的位置编码实现       |
+6. **Windows安装**（目前推荐使用WSL）
+   ```sh
+   install.bat
+   ```
 
-## 注入示例
+## 本地聊天测试
 
-### 注入MLA注意力机制
+提供了简单的命令行本地聊天Python脚本用于测试。这是一个简单的测试工具，仅支持单轮聊天。
 
-```yaml
-- match:
-    name: "^model\\.layers\\..*\\.self_attn$"
-  replace:
-    class: ktransformers.operators.attention.KDeepseekV2Attention
-    kwargs:
-      generate_device: "cuda"
-      prefill_device: "cuda"
+### 运行示例
+
+```sh
+# 从克隆的仓库根目录开始
+mkdir DeepSeek-V2-Lite-Chat-GGUF
+cd DeepSeek-V2-Lite-Chat-GGUF
+
+wget https://huggingface.co/mradermacher/DeepSeek-V2-Lite-GGUF/resolve/main/DeepSeek-V2-Lite.Q4_K_M.gguf -O DeepSeek-V2-Lite-Chat.Q4_K_M.gguf
+
+cd ..
+
+# 启动本地聊天
+python -m ktransformers.local_chat --model_path deepseek-ai/DeepSeek-V2-Lite-Chat --gguf_path ./DeepSeek-V2-Lite-Chat-GGUF
 ```
 
-### 注入专家模块(MoE)
+### 命令参数
 
-```yaml
-- match:
-    name: "^model\\.layers\\..*\\.mlp\\.experts$"
-  replace:
-    class: ktransformers.operators.experts.KTransformersExperts
-    kwargs:
-      generate_device: "cpu"
-      generate_op: "MLPCPUExperts"
-      out_device: "cuda"
-  recursive: False
+- `--model_path`（必需）：模型名称或本地路径
+- `--gguf_path`（必需）：包含GGUF文件的目录路径
+- `--optimize_config_path`：包含优化规则的YAML文件路径
+- `--max_new_tokens`：生成的最大新标记数（默认=1000）
+- `--cpu_infer`：用于推理的CPU数量（默认=10）
+
+## 服务器启动
+
+在v0.2.4版本中支持多并发功能。
+
+```sh
+python ktransformers/server/main.py --model_path /mnt/data/models/DeepSeek-V3 --gguf_path /mnt/data/models/DeepSeek-V3-GGUF/DeepSeek-V3-Q4_K_M/ --cpu_infer 62 --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-serve.yaml --port 10002 --chunk_size 256 --max_new_tokens 1024 --max_batch_size 4 --port 10002 --cache_lens 32768 --backend_type balance_serve
 ```
 
-### 注入线性层
+### 服务器参数
 
-```yaml
-- match:
-    name: "^model\\.layers\\.(?!.*self_attn).*$"
-    class: torch.nn.Linear
-  replace:
-    class: ktransformers.operators.linear.KTransformersLinear
-    kwargs:
-      generate_device: "cuda"
-      generate_op: "QuantizedLinearMarlin"
+- `--chunk_size`：引擎在单次运行中处理的最大标记数
+- `--cache_lens`：调度器分配的kvcache的总长度
+- `--backend_type`：`balance_serve`是多并发后端引擎，`ktransformers`是原始单并发引擎
+- `--max_batch_size`：引擎在单次运行中处理的最大请求数（仅由`balance_serve`支持）
+
+## Web UI启动
+
+### 不带网站启动
+
+```sh
+ktransformers --model_path deepseek-ai/DeepSeek-V2-Lite-Chat --gguf_path /path/to/DeepSeek-V2-Lite-Chat-GGUF --port 10002
 ```
 
-## 自定义算子开发
+### 带网站启动
 
-开发自定义算子需要继承`BaseInjectedModule`类，基本结构如下：
-
-```python
-class CustomLinearInject(BaseInjectedModule):
-    def __init__(
-        self,
-        key: str,
-        gguf_loader: GGUFLoader,
-        config: PretrainedConfig,
-        orig_module: nn.Module = None,
-        generate_device: str = "cuda",
-        my_param: bool = True,  # 自定义参数
-        **kwargs,
-    ):
-        super().__init__(key, gguf_loader, config, orig_module, generate_device, **kwargs)
-        self.my_param = my_param
-        
-    # 实现必要的方法(load, unload, forward)
+```sh
+ktransformers --model_path deepseek-ai/DeepSeek-V2-Lite-Chat --gguf_path /path/to/DeepSeek-V2-Lite-Chat-GGUF --port 10002 --web True
 ```
 
-对于线性层，可继承`KLinearBase`获取额外辅助功能。
+### 使用transformers启动
 
-## 注入过程
+```sh
+ktransformers --type transformers --model_path /mnt/data/model/Qwen2-0.5B-Instruct --port 10002 --web True
+```
 
-注入过程的基本流程是：
-1. 使用meta设备初始化原始模型(避免内存占用)
-2. 调用`optimize_and_load_gguf`加载权重并注入算子
-3. 使用模型的标准接口进行推理
+访问网站：http://localhost:10002/web/index.html#/chat
 
+## 支持的模型和量化格式
 
-完整的注入配置文件示例可在 [DeepSeek-V2-Chat.yaml](mdc:ktransformers/ktransformers/optimize/optimize_rules/DeepSeek-V2-Chat.yaml) 中找到。
+### 支持的模型列表
+
+- DeepSeek-R1
+- DeepSeek-V3
+- DeepSeek-V2
+- DeepSeek-V2.5
+- Qwen2-57B
+- DeepSeek-V2-Lite
+- Mixtral-8x7B
+- Mixtral-8x22B
+
+### 支持的量化格式
+
+- IQ1_S
+- IQ2_XXS
+- Q2_K_L
+- Q2_K_XS
+- Q3_K_M
+- Q4_K_M
+- Q5_K_M
+- Q6_K
+- Q8_0
+
+### 推荐的模型和资源需求
+
+| 模型名称                      | 模型大小 | VRAM  | 最小DRAM      | 推荐DRAM   |
+|------------------------------|--------|-------|--------------|--------------|
+| DeepSeek-R1-q4_k_m           | 377G   | 14G   | 382G         | 512G         |
+| DeepSeek-V3-q4_k_m           | 377G   | 14G   | 382G         | 512G         |
+| DeepSeek-V2-q4_k_m           | 133G   | 11G   | 136G         | 192G         |
+| DeepSeek-V2.5-q4_k_m         | 133G   | 11G   | 136G         | 192G         |
+| Qwen2-57B-A14B-Instruct-q4_k_m | 33G  | 8G    | 34G          | 64G          |
+| DeepSeek-V2-Lite-q4_k_m      | 9.7G   | 3G    | 13G          | 16G          |
+| Mixtral-8x7B-q4_k_m          | 25G    | 1.6G  | 51G          | 64G          |
+| Mixtral-8x22B-q4_k_m         | 80G    | 4G    | 86.1G        | 96G          |
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
