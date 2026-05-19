@@ -1,0 +1,9 @@
+{
+  "name": "entropyvortex--meta-llm-charter",
+  "displayName": "meta-llm-charter",
+  "description": "Compact operational charter that turns LLM coding agents into disciplined principal engineers. Eleven rules + one meta-rule.",
+  "version": "1.0.0",
+  "author": "entropyvortex",
+  "homepage": "https://github.com/entropyvortex/meta-llm-charter",
+  "skills": []
+}
