@@ -1,0 +1,9 @@
+{
+  "name": "femtomc--genjax",
+  "displayName": "genjax",
+  "description": "Probabilistic programming with vectorized programmable inference",
+  "version": "1.0.0",
+  "author": "femtomc",
+  "homepage": "https://github.com/femtomc/genjax",
+  "skills": []
+}
