@@ -7,13 +7,13 @@ Tide is a simple robotics framework made for building mobile robots.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NorthCarolinaRivalRobotics/tide](https://github.com/NorthCarolinaRivalRobotics/tide).
+Original source: `.cursor/rules/*.mdc` in [NorthCarolinaRivalRobotics/tide](https://github.com/NorthCarolinaRivalRobotics/tide).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
