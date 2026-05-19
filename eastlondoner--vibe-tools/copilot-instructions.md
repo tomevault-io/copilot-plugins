@@ -1,22 +1,16 @@
-## git-commit
+## good-behaviour
 
-> When preparing a git commit or a PR always check these steps
+> Rules of good behaviour
 
-When making a commit run git status to see what the local changes are.
+Do not hard code data into code unless specifically requested by me.
 
-Don't worry about untracked files that you don't recognize. We often have a lot of local cruft that doesn't need to be tracked.
+If you have an idea on why something is failing, always validate that idea with testing before changing code.
 
-Make sure to add any new currently untracked files that you've introduced and if there are important looking files that might need to be tracked ask me about it.
+Do not write stub or fake methods. Write production ready code first time.
 
-Once you've got all the correct files being tracked check the diff between the current branch and `main` (ignoring untracked files) to fully understand what changes are in progress.
+Do not cheat on tests and checks by adding hard-coded values or assertions.
 
-Check that ARCHITECTURE.md and ONBOARDING.md are up-to-date with the changes in progress. If they're not up-to-date then update those files, keeping consistency with the existing approach in those files, update them so that they are up to date with the changes in progress and the current state of the code in general. Make sure to read in the actual files at this stage to make sure that you get this right. Note in many cases for smaller or implementation detail changes you won't need to change these files, don't modify them unnecessarily.
-
-Ensure that any new or changed functionality has test coverage including test coverage for failure and 'unhappy path' cases. If test coverage is missing and not trivial to add, write a report of the missing tests to a markdown file and then check with me.
-
-Make sure that build and test are passing.
-
-Remove any debug logging that's been left in the changes in progress. We often commit this accidentally so it's good to clean up, but only do this once tests are passing!
+Do not make statements about functionality working unless you have tested it. Perform your own tests first, do not assume that your changes or my changes just work until you have seen evidence from tests.
 
 ---
 > Source: [eastlondoner/vibe-tools](https://github.com/eastlondoner/vibe-tools) — distributed by [TomeVault](https://tomevault.io).
