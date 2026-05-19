@@ -1,29 +1,68 @@
-## stderr-formatting
+## tag-cmds
 
-> Follow these conventions for signifying the success or failure of operations in our CLI wrapper:
+> `pyzotero` documentation for working with tags
 
-## Exit code semantics for our CLI tool
 
-Follow these conventions for signifying the success or failure of operations in our CLI wrapper:
+This document contains the portion of the `pyzotero` documentation that corresponds to the tag-related functionality in our CLI wrapper.
 
-*   **`0` (Success):** The command executed successfully, and all primary requested operations were successful. For batch operations, this means all specified targets were processed successfully (or reported as already in the desired state, e.g., "item already in collection").
-*   **`1` (Runtime Error / Partial Success / Actionable Failure):**
-    *   A general runtime error occurred (e.g., network issue, unexpected Python exception).
-    *   A specific, actionable error from the Zotero API (e.g., invalid API key, permissions issue, rate limit, server error).
-    *   **Crucially for "Not Found":** If the *primary target(s)* of a command are not found.
-        *   For single-target commands (e.g., `get item X`): If X is not found, exit `1`.
-        *   For batch commands (e.g., `delete item X Y Z`): If *any* of X, Y, or Z are not found, the command should ideally exit `1` (or a distinct code like `3`).
-*   **`2` (Usage Error):** Incorrect command-line flags, missing arguments, invalid option values. (Click handles this well with `UsageError`).
+# Tags Commands
 
-## Error message formatting conventions for our CLI tool
+## Retrieving Tags
 
-*   Use `handle_zotero_exceptions_and_exit` from `pyzotero_cli/utils.py` as the primary handler for PyZotero API errors.
-*   For non-API errors, use the appropriate helper from `pyzotero_cli/utils.py`:
-    *   **Usage errors** (incorrect command-line flags, missing arguments, invalid option values): Use `create_usage_error()` → **Exit code 2**
-    *   **Runtime errors** (input validation, file not found, processing errors): Use `create_click_exception()` → **Exit code 1**
-*   Use a consistent format: `Error: <Brief, user-friendly problem description>. [Context: <Relevant key/value if applicable>]. [Details: <Optional snippet from underlying error if concise and useful>]. [Hint: <Optional user action>]`.
-*   All error messages to `stderr`.
-*   Both helper functions automatically format messages according to the standard format above.
+```python
+# Retrieve all tags from a library
+zot.tags([search/request parameters])
+```
+
+Returns a library's tags as a list of strings.
+
+```python
+# Retrieve tags from a specific item
+zot.item_tags(itemID[, search/request parameters])
+```
+
+Parameters:
+- `itemID`: a valid Zotero library Item ID
+
+Returns tags from a specific item as a list of strings.
+
+Example of returned tag data:
+```
+['Authority in literature', 'Errata']
+```
+
+## Deleting Tags
+
+```python
+# Delete one or more tags from your library
+zot.delete_tags(tag_a[, tag …])
+```
+
+Parameters:
+- `tag`: the tag(s) you'd like to delete
+
+You may also pass a list using `zot.delete_tags(*[tag_list])`
+
+## Adding Tags
+
+```python
+# Add one or more tags to an item
+zot.add_tags(item, tag[, tag …])
+```
+
+Parameters:
+- `item`: a dict containing item data
+- `tag`: the tag(s) you'd like to add to the item
+
+You may also pass a list using `zot.add_tags(item, *[tag_list])`
+
+Example:
+```python
+z = zot.top(limit=1)
+# we've now retrieved the most recent top-level item
+updated = zot.add_tags(z[0], 'tag1', 'tag2', 'tag3')
+# updated now contains a representation of the updated server item
+``` 
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
