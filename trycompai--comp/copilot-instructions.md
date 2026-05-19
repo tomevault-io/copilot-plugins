@@ -1,180 +1,135 @@
-## forms
+## infra
 
-> Use when building forms - covers React Hook Form, Zod validation, and form patterns
+> Use when working with packages, dependencies, monorepo structure, or build configuration
 
 
-# Forms: React Hook Form + Zod
+# Infrastructure
 
-**All forms MUST use React Hook Form with Zod validation.**
+## Package Manager
 
-## Basic Pattern
+**Use `bun`, never npm/yarn/pnpm.**
+
+```bash
+bun install              # Install deps
+bun add <pkg>            # Add package
+bun add -D <pkg>         # Add dev dependency
+bun run <script>         # Run script
+bunx <cmd>               # Execute binary
+```
+
+## Monorepo Structure
+
+```
+comp/
+├── apps/
+│   ├── api/             # NestJS backend
+│   ├── app/             # Next.js main app
+│   └── portal/          # Next.js portal
+├── packages/
+│   ├── db/              # Prisma (@trycompai/db)
+│   ├── ui/              # Legacy UI (@trycompai/ui); prefer @trycompai/design-system
+│   └── ...
+├── turbo.json
+└── package.json
+```
+
+## Running Commands
+
+```bash
+# Multi-package (via turbo)
+bun run build            # Build all
+bun run lint             # Lint all
+bun run typecheck        # Type check all
+bun run dev              # Dev all
+
+# Single package
+bun run -F apps/app dev
+bun run -F @trycompai/db prisma:generate
+turbo build --filter=@trycompai/ui
+```
+
+## Importing Between Packages
 
 ```tsx
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Button, Input } from '@trycompai/design-system';
+// ✅ Import from package name
+import { Button } from '@trycompai/design-system';
+import { prisma } from '@trycompai/db';
 
-// 1. Define schema
-const formSchema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Min 8 characters'),
-});
+// ❌ Never relative paths across packages
+import { Button } from '../../../packages/ui/src/button';
+```
 
-// 2. Infer type
-type FormData = z.infer<typeof formSchema>;
+## Adding Dependencies
 
-// 3. Use in component
-function MyForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-  });
+```bash
+# To specific package
+bun add axios -F apps/app
+bun add -D vitest -F @trycompai/ui
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Input {...register('email')} />
-      {errors.email && <p>{errors.email.message}</p>}
-      
-      <Button type="submit" loading={isSubmitting}>
-        Submit
-      </Button>
-    </form>
-  );
+# To root (dev tools only)
+bun add -D -w prettier typescript
+```
+
+## After Code Changes
+
+**Always run checks:**
+
+```bash
+bun run typecheck
+bun run lint
+```
+
+Fix all errors before committing.
+
+## Common TypeScript Fixes
+
+- **Property does not exist**: Check interface definitions
+- **Type mismatch**: Verify expected vs actual type
+- **Empty interface extends**: Use `type X = SomeType` instead
+
+## Common ESLint Fixes
+
+- **Unused variables**: Remove or prefix with `_`
+- **Any type**: Add proper typing
+- **Empty object type**: Use `type` instead of `interface`
+
+## Creating a New Package
+
+```bash
+mkdir packages/my-package
+```
+
+```json
+// packages/my-package/package.json
+{
+  "name": "@trycompai/my-package",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "typecheck": "tsc --noEmit"
+  }
 }
 ```
 
-## Zod Schema Patterns
-
-```tsx
-const profileSchema = z.object({
-  // Strings
-  name: z.string().min(1, 'Required'),
-  email: z.string().email(),
-  website: z.string().url().optional(),
-  
-  // Numbers (coerce for inputs)
-  age: z.coerce.number().int().min(0),
-  price: z.coerce.number().positive(),
-  
-  // Arrays
-  tags: z.array(z.string()).min(1),
-  
-  // Enums
-  status: z.enum(['active', 'inactive']),
-});
-
-// Cross-field validation
-const passwordSchema = z.object({
-  password: z.string().min(8),
-  confirmPassword: z.string(),
-}).refine(d => d.password === d.confirmPassword, {
-  message: "Passwords don't match",
-  path: ['confirmPassword'],
-});
+```json
+// packages/my-package/tsconfig.json
+{
+  "extends": "@trycompai/tsconfig/base.json",
+  "include": ["src"]
+}
 ```
 
-## Controller for Complex Components
+## Package Boundaries
 
-```tsx
-import { Controller } from 'react-hook-form';
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@trycompai/design-system';
+**✅ Create packages for:**
+- Code used by 2+ apps
+- Self-contained, focused functionality
 
-<Controller
-  name="status"
-  control={control}
-  render={({ field }) => (
-    <Select onValueChange={field.onChange} value={field.value}>
-      <SelectTrigger>{field.value || 'Select...'}</SelectTrigger>
-      <SelectContent>
-        <SelectItem value="active">Active</SelectItem>
-        <SelectItem value="inactive">Inactive</SelectItem>
-      </SelectContent>
-    </Select>
-  )}
-/>
-```
-
-## Form State
-
-```tsx
-const {
-  register,
-  handleSubmit,
-  control,
-  watch,           // Watch field values
-  setValue,        // Set field programmatically
-  reset,           // Reset form
-  setError,        // Set error manually
-  formState: {
-    errors,        // Field errors
-    isSubmitting,  // Submitting
-    isValid,       // All valid
-    isDirty,       // Modified
-  },
-} = useForm<FormData>({
-  resolver: zodResolver(schema),
-  mode: 'onChange', // Validate on change
-});
-```
-
-## Error Handling
-
-```tsx
-const onSubmit = async (data: FormData) => {
-  try {
-    await submitToApi(data);
-  } catch (error) {
-    // Field-specific error
-    setError('email', { message: 'Email taken' });
-    // Or root error
-    setError('root', { message: 'Something went wrong' });
-  }
-};
-
-// Display root error
-{errors.root && <p>{errors.root.message}</p>}
-```
-
-## Dynamic Fields
-
-```tsx
-import { useFieldArray } from 'react-hook-form';
-
-const { fields, append, remove } = useFieldArray({
-  control,
-  name: 'items',
-});
-
-{fields.map((field, index) => (
-  <div key={field.id}>
-    <Input {...register(`items.${index}.name`)} />
-    <Button type="button" onClick={() => remove(index)}>Remove</Button>
-  </div>
-))}
-<Button type="button" onClick={() => append({ name: '' })}>Add</Button>
-```
-
-## Anti-Patterns
-
-```tsx
-// ❌ useState for form fields
-const [email, setEmail] = useState('');
-
-// ❌ Manual validation
-if (email.length < 5) setError('Too short');
-
-// ❌ Missing button type (defaults to submit)
-<Button onClick={handleCancel}>Cancel</Button>
-
-// ✅ Correct
-const { register } = useForm();
-const schema = z.object({ email: z.string().min(5) });
-<Button type="button" onClick={handleCancel}>Cancel</Button>
-```
+**❌ Don't create packages for:**
+- Code only used in one app (colocate instead)
+- App-specific business logic
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
