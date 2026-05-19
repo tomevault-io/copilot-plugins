@@ -1,0 +1,9 @@
+{
+  "name": "baryhuang--mcp-hubspot",
+  "displayName": "mcp-hubspot",
+  "description": "A Model Context Protocol (MCP) server that enables AI assistants to interact with HubSpot CRM data, providing built-in vector storage and caching mechanisms help overcome HubSpot API limitations while",
+  "version": "1.0.0",
+  "author": "baryhuang",
+  "homepage": "https://github.com/baryhuang/mcp-hubspot",
+  "skills": []
+}
