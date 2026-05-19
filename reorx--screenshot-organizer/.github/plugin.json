@@ -1,0 +1,9 @@
+{
+  "name": "reorx--screenshot-organizer",
+  "displayName": "screenshot-organizer",
+  "description": "A macOS menubar app that automatically organizes screenshot files into year/month folders.",
+  "version": "1.0.0",
+  "author": "reorx",
+  "homepage": "https://github.com/reorx/screenshot-organizer",
+  "skills": []
+}
