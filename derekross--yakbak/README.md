@@ -2,16 +2,18 @@
 
 > Source: [derekross/yakbak](https://github.com/derekross/yakbak) — distributed by [TomeVault](https://tomevault.io)
 
+YakBak is a modern social platform built on the Nostr protocol that allows users to share and interact with voice messages.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [derekross/yakbak](https://github.com/derekross/yakbak).
+Original source: `CLAUDE.md` in [derekross/yakbak](https://github.com/derekross/yakbak).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
