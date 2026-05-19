@@ -1,0 +1,9 @@
+{
+  "name": "neurekasoftware--warrden",
+  "displayName": "wArrden",
+  "description": "[Mirror] wArrden makes it easy to maintain your Radarr and Sonarr libraries by finding missing or upgradeable content, as well as detecting and clearing stuck imports from the queue.",
+  "version": "1.0.0",
+  "author": "NeurekaSoftware",
+  "homepage": "https://github.com/NeurekaSoftware/wArrden",
+  "skills": []
+}
