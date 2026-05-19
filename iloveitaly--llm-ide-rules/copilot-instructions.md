@@ -1,57 +1,125 @@
-## pytest-tests
+## python-app
 
-> Pytest Tests
+> Python App
 
-## Pytest Tests
+## Python App
 
 
-- Look first to `app.factories.*` instead of `app.models.*` to generate any required database state
-  - For example, to create and persist a `Distribution` record `DistributionFactory.save()`
-  - If a factory doesn't exist for the model you are working with, create one.
-  - You can customize one or more params in a factory using `DistributionFactory.save(host="custom_host.com)`
-- Use `faker` factory to generate emails, etc.
-- Do not mock or patch unless I instruct you to. Test as much of the application stack as possible in each test.
-- If you get lazy attribute errors, or need a database session to share across logic, use the `db_session` fixture to fix the issue.
-  - Note that when writing route tests a `db_session` is not needed for the logic inside of the route.
-- When testing Stripe, use the sandbox API. Never mock out Stripe interactions unless explicitly told to.
-- Omit obvious docstrs and comments. Add comments for non-obvious but easy-to-miss lines that are key to what the test is checking.
-- If a docstring needs formatting, use markdown. Use Google Style.
+- `app/lib/` is for code that is not specified to this application and with some effort could extracted into a external package.
+- `app/helpers` is for larger reusable modules that if they weren't specific to this application, could be extracted into their own package.
+- `app/utils` are small helper functions that are specific to a particular page or area of the application.
+- `app/__init__.py` is the entrypoint for the application which is run when _anything_ is executed (fastapi, celery, etc).
+  - It primarily runs `configure_*` commands for any `app.configuration.*` modules. These modules primary setup API clients, database connections, python language configuration, etc.
+  - Also makes sure anything that mutates global state loads early.
+- FastAPI server and routes are specified in `app/routes/`
+- SQLModels are specified in `app/models/`
+- Files within `app/commands/` should have:
+  - Are not designed for CLI execution, but instead are interactor-style internal commands.
+  - Should not be used on the queuing system
+  - A `perform` function that is the main entry point for the command.
+  - Look at existing commands for examples of how to structure the command.
+  - Use `TypeID` for any parameters that are IDs of models.
+- Files within `app/jobs/` should have:
+  - Are designed for use on the queuing system.
+  - A `perform` function that is the main entry point for the job.
+  - Look at existing jobs for examples of how to structure the job.
+  - Use `TypeID | str` for any parameters that are IDs of models.
+- When referencing a command, use the full-qualified name, e.g. `app.commands.transcript_deletion.perform`.
+- When queuing a job or `perform`ing it in a test, use the full-qualified name, e.g. `app.jobs.transcript_deletion.perform`.
+- `app/cli/` is for scripts or CLI tools that are specific to the application.
 
-### Example Test
+### Factories
 
-Below is an example test, you'll notice the following:
+globs: app/factories/**/.py
 
-- Docstr is omitted since the purpose of the test is obvious
-- Comment about the `county` is added since it's the main point of the test
-- Newline between test setup, functionality under test, and assertions against result
-- `api_app_url_path_for` helper is used instead of hardcoded routes
+* Each model should get it's own file under app/factories/model_name.py
+* `ActiveModelFactory` (which is a polyfactory subclass) should be used.
+* Use `BaseFactory.__faker__` to generate more specific fake data for important fields (used in routes, etc)
+* Prefer `slug = BaseFactory.__faker__.unique.slug` to `slug = Use(lambda: BaseFactory.__faker__.unique.slug())`
+
+#### Factory Example
 
 ```python
-from app.generated.fastapi_typed_routes import api_app_url_path_for
-import json
-
-def test_calculate_quote_unknown_county(client):
-    payload = {
-        "subscriber": {"age": 35, "gender": "M"},
-        # fake county to ensure error is thrown
-        "county": "NotACounty",
-    }
-
-    response = client.post(
-        api_app_url_path_for("composite_quote"),
-        json=payload,
+class ScreeningFactory(ActiveModelFactory[Screening]):
+    funding_goal = lambda: BaseFactory.__faker__.random_int(
+        min=0, max=2000_00
     )
 
-    assert_status(response, status.HTTP_422_UNPROCESSABLE_CONTENT)
+    ticket_price = DEFAULT_TICKET_PRICE
+    status = ScreeningStatus.active
+
+    # always None
+    funding_ending_at = None
+
+    # pick entry from a fixed list
+    zip_code = lambda: BaseFactory.__faker__.random_element(elements=REAL_ZIP_CODES)
+
+    host_name = BaseFactory.__faker__.name
+    host_description = lambda: BaseFactory.__faker__.paragraph(nb_sentences=2)
+
+    # this method runs before the model is persisted to the database
+    @classmethod
+    def post_build(cls, model):
+      # if the user does not pass in a important relationship during creation, you can generate a factory fallback
+        if not model.distribution_id:
+            model.distribution_id = DistributionFactory.save().id
+
+        return model.save()
+
+    # runs after the model is persisted to the database
+    @classmethod
+    def post_save(cls, model):
+        return model.save()
 ```
 
-### File Structure
+### Database & ORM
 
-* If there's more than a handful of tests in a folder, you should probably create subfolders.
-* File name should be related to the file or primary class / functionality the test is covering. Do not add a component to the test name that exists in the test file path.
-  * Example: `app/routes/unauthenticated/quote.py` should be `tests/routes/unauthenticated/quote_test.py`
-* `tests/routes/{unauthenticated,authenticated}` and a handful of top-level test files for fastapi API route testing.
-* `tests/integration/` for browser tests
+When accessing database records:
+
+* SQLModel (wrapping SQLAlchemy) is used
+* `Model.one(primary_key)` or `Model.get(primary_key)` should be used to retrieve a single record
+* Do not manage database sessions, these are managed by a custom tool
+  * Use `TheModel(...).save()` to persist a record
+  * Use `TheModel.where(...).order_by(...)` to query records. `.where()` returns a SQLAlchemy select object that you can further customize the query.
+  * To iterate over the records, you'll need to end your query chain with `.all()` which returns an interator: `TheModel.where(...)...all()`
+* Instead of repulling a record `order = HostScreeningOrder.one(order.id)` refresh it using `order.refresh()`
+
+When writing database models:
+
+* Don't use `Field(...)` unless required (i.e. when specifying a JSON type for a `dict` or pydantic model using `Field(sa_type=JSONB)`). For instance, use `= None` instead of `= Field(default=None)`.
+* Add enum classes close to where they are used, unless they are used across multiple classes (then put them at the top of the file)
+* Use `ModelName.foreign_key()` when generating a foreign key field
+* Store currency as an integer, e.g. $1 = 100.
+* `before_save`, `after_save(self):`, `after_updated(self):` are lifecycle methods (modelled after ActiveRecord) you can use.
+
+Example:
+
+```python
+class Distribution(
+    BaseModel, TimestampsMixin, SoftDeletionMixin, table=True
+):
+    """Triple-quoted strings for multi-line class docstring"""
+
+    id: TypeID[Literal["dst"]] = TypeIDPrimaryKey("dst")
+
+    date_field_with_comment: datetime | None = None
+    "use a string under the field to add a comment about the field"
+
+    # no need to add a comment about an obvious field; no need for line breaks if there are no field-level docstrings
+    title: str = Field(unique=True)
+    state: str
+
+    optional_field: str | None = None
+
+    # here's how relationships are constructed
+    doctor_id: TypeID = Doctor.foreign_key()
+    doctor: Doctor = Relationship()
+
+    @computed_field
+    @property
+    def order_count(self) -> int:
+        return self.where(Order.distribution_id == self.id).count()
+```
 
 ---
 > Source: [iloveitaly/llm-ide-rules](https://github.com/iloveitaly/llm-ide-rules) — distributed by [TomeVault](https://tomevault.io).
