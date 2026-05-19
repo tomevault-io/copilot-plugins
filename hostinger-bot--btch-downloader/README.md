@@ -7,11 +7,11 @@ A lightweight TypeScript/JavaScript library for downloading videos, images, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hostinger-bot/btch-downloader](https://github.com/hostinger-bot/btch-downloader).
+Original source: `CLAUDE.md` in [hostinger-bot/btch-downloader](https://github.com/hostinger-bot/btch-downloader).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
