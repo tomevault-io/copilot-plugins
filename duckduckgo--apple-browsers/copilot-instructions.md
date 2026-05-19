@@ -1,975 +1,359 @@
-## code-style
+## design-system-designresourceskit
 
-> *This style guide is based on the [official iOS style guide](iOS/styleguide/STYLEGUIDE.md) and incorporates DuckDuckGo-specific patterns and requirements.*
+> The DuckDuckGo iOS design system is implemented through **DesignResourcesKit (DRK)**, a shared Swift package that contains our design tokens, type styles, colors, and design system elements.
 
 
-# Swift Code Style Guide
+# DuckDuckGo iOS Design System & DesignResourcesKit (DRK)
 
-*This style guide is based on the [official iOS style guide](iOS/styleguide/STYLEGUIDE.md) and incorporates DuckDuckGo-specific patterns and requirements.*
+## Overview
 
-## Correctness
+The DuckDuckGo iOS design system is implemented through **DesignResourcesKit (DRK)**, a shared Swift package that contains our design tokens, type styles, colors, and design system elements.
 
-**Strive to make your code compile without warnings.** This rule informs many style decisions such as using `#selector` types instead of string literals.
+**Repository**: [https://github.com/duckduckgo/DesignResourcesKit](https://github.com/duckduckgo/DesignResourcesKit)
 
-## SwiftLint
+**Figma Designs**: [🖱️ iOS & iPadOS Components](https://www.figma.com/file/GzGKD6gR24AHoUqVykX1ah/%F0%9F%93%B1-iOS-%26-iPadOS-Components?type=design&node-id=3938%3A23329&mode=design&t=0fuiNF84nnV5zExC-1)
 
-We use [SwiftLint](https://github.com/realm/SwiftLint) for enforcing Swift style and conventions. See the [SwiftLint configuration](.swiftlint.yml) for specific rules.
+### What DRK Contains
 
-**Key SwiftLint settings**:
-- Line length: 150 characters (not the default 100)
-- Force cast/try: warnings (not errors for pragmatic development)
-- Identifier naming: flexible for single-letter variables in closures
+✅ **Currently Included**:
+- **Type styles and typography** (based on system styles)
+- **Semantic color system** (with light/dark mode support)
+- **Design tokens and foundations**
 
-## Naming Conventions
+🔄 **Future Expansion**:
+- **Reusable components** (when patterns emerge)
+- **Advanced interaction patterns**
 
-Follow the [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/) with these key principles:
+❌ **Not Included**:
+- **Icons** (remain in iOS app directly for now)
 
-### Core Principles
-- **Clarity at the call site** over brevity
-- **Use camelCase** (not snake_case)
-- **UpperCamelCase** for types and protocols
-- **lowerCamelCase** for everything else
-- **Include all needed words** while omitting needless words
-- **Use names based on roles**, not types
+## ⚠️ Critical Rule: Don't Break the Design System
 
-### Type Names
+> **If you take only one thing away from this documentation**: 
+> **Don't add new colors or type styles outside of the design system without reading the guidelines below.**
+
+Breaking the design system:
+- **Undermines consistency** across the app
+- **Creates maintenance debt** with scattered styles
+- **Breaks accessibility** features like dynamic type
+- **Fragments the user experience**
+
+## Typography System
+
+### Philosophy
+
+Our typography system is **based on system styles** rather than hardcoded sizes. This ensures:
+- **Automatic dynamic type support** for accessibility
+- **Consistent scaling** across different user preferences
+- **Platform-appropriate styling** that feels native
+
+### UIKit Usage
+
+DRK defines **static functions on UIFont** for all typography.
+
+**Example:** See [uikit-typography-usage.swift](design-system-designresourceskit/uikit-typography-usage.swift)
+
+#### Available Typography Styles
+
+**Example:** See [uikit-typography-styles.swift](design-system-designresourceskit/uikit-typography-styles.swift)
+
+#### Best Practices for UIKit
+
+**Example:** See [uikit-typography-best-practices.swift](design-system-designresourceskit/uikit-typography-best-practices.swift)
+
+### SwiftUI Usage
+
+DRK provides **view modifiers and extensions** for SwiftUI that should be used instead of direct font access.
+
+**Example:** See [swiftui-typography-usage.swift](design-system-designresourceskit/swiftui-typography-usage.swift)
+
+#### Available SwiftUI Typography Modifiers
+
+**Example:** See [swiftui-typography-modifiers.swift](design-system-designresourceskit/swiftui-typography-modifiers.swift)
+
+#### SwiftUI Code Review Guidelines
+
+**When reviewing PRs**: Look for `.font()` usage as a red flag.
+
+**Example:** See [swiftui-code-review-red-flags.swift](design-system-designresourceskit/swiftui-code-review-red-flags.swift)
+
+### Emergency Escape Hatch (Avoid!)
+
+**For legacy layout fixes only**: If you absolutely must disable dynamic type, there's a deliberately obtusely named function:
+
 ```swift
-// ✅ CORRECT: Descriptive, UpperCamelCase
-class UserAuthenticationManager { }
-struct BookmarkItem { }
-enum NavigationState { }
-protocol DataSourceProtocol { }
-
-// ❌ INCORRECT: Too generic
-class Manager { }
-struct Data { }
+// ❌ LAST RESORT: Only for fixing legacy layouts
+let fixedFont = UIFont.daxFontOutsideOfTheDesignSystemToFixLegacyLayoutBreakage()
 ```
 
-### Variable and Function Names
+**Important Notes**:
+- This function **may not exist** in current DRK versions
+- If you need it, you must **revert the commit** that removed it: [Commit 971979d](https://github.com/duckduckgo/DesignResourcesKit/pull/1/commits/971979d3dcd95567b9812b800eb22ab1611ce3a5)
+- This is **deliberately annoying** to discourage usage
+- **Always prefer** fixing the layout to support dynamic type instead
+
+## Color System
+
+### Semantic Color Approach
+
+Our color system uses **semantic naming** rather than literal colors (e.g., "primary text" instead of "black"). This enables:
+- **Automatic dark mode support**
+- **Future theme flexibility**
+- **Accessibility compliance**
+- **Consistent visual hierarchy**
+
+### Color Categories
+
+#### Text Colors
+**UIKit Example:** See [colors-text-uikit.swift](design-system-designresourceskit/colors-text-uikit.swift)
+
+**SwiftUI Example:** See [colors-text-swiftui.swift](design-system-designresourceskit/colors-text-swiftui.swift)
+
+#### Background Colors
+**Example:** See [colors-background.swift](design-system-designresourceskit/colors-background.swift)
+
+#### Control Colors
 ```swift
-// ✅ CORRECT: Descriptive lowerCamelCase
-let maximumRetryCount = 3
-var isLoading = false
-func fetchUserData() { }
+// UIKit
+button.backgroundColor = UIColor(designSystemColor: .controlsFillPrimary)
+button.backgroundColor = UIColor(designSystemColor: .controlsFillSecondary)
 
-// Boolean properties should read like assertions
-var isEnabled: Bool
-var hasCompleted: Bool
-var canDelete: Bool
-
-// ❌ INCORRECT: Abbreviations and unclear names
-let usrMgr = UserManager()
-func calcTotal() { }
+// SwiftUI
+Button("Action") { }
+    .foregroundColor(Color(designSystemColor: .controlsFillPrimary))
+    .background(Color(designSystemColor: .controlsFillSecondary))
 ```
 
-### Protocol Naming
+#### Button-Specific Colors
 ```swift
-// ✅ CORRECT: Capability protocols end in -able, -ible, -ing
-protocol Loadable { }
-protocol Refreshable { }
-protocol UserAuthenticating { }
+// UIKit
+primaryButton.backgroundColor = UIColor(designSystemColor: .buttonPrimaryBackground)
+primaryButton.setTitleColor(UIColor(designSystemColor: .buttonPrimaryText), for: .normal)
 
-// ✅ CORRECT: Type protocols are nouns
-protocol DataSource { }
-protocol Delegate { }
+secondaryButton.backgroundColor = UIColor(designSystemColor: .buttonSecondaryBackground)
+secondaryButton.setTitleColor(UIColor(designSystemColor: .buttonSecondaryText), for: .normal)
+
+// SwiftUI
+Button("Primary Action") { }
+    .foregroundColor(Color(designSystemColor: .buttonPrimaryText))
+    .background(Color(designSystemColor: .buttonPrimaryBackground))
+
+Button("Secondary Action") { }
+    .foregroundColor(Color(designSystemColor: .buttonSecondaryText))
+    .background(Color(designSystemColor: .buttonSecondaryBackground))
 ```
 
-### Method Naming Patterns
+#### Accent Colors
 ```swift
-// ✅ CORRECT: Method naming patterns
-// Factory methods begin with "make"
-func makeLocationManager() -> CLLocationManager
+// UIKit
+view.tintColor = UIColor(designSystemColor: .accent)
 
-// Verb methods follow -ed, -ing rule for non-mutating
-func sorted() -> [Element]  // non-mutating
-func sort()                 // mutating
-
-// Boolean methods read like assertions
-func canDelete() -> Bool
-func hasCompleted() -> Bool
+// SwiftUI
+Image(systemName: "heart.fill")
+    .foregroundColor(Color(designSystemColor: .accent))
 ```
 
-### Delegate Methods
-When creating custom delegate methods, the **unnamed first parameter should be the delegate source**:
+### Anti-patterns: What NOT to Do
+
+**Example:** See [colors-anti-patterns.swift](design-system-designresourceskit/colors-anti-patterns.swift)
+
+## Enforcement and Code Review
+
+### Automated Enforcement
+
+#### Danger Integration
+**Asset catalog enforcement**: We use [Danger](https://danger.systems/) to prevent new colors being added directly to iOS app asset catalogs.
+
+**Example:** See [danger-integration.rb](design-system-designresourceskit/danger-integration.rb)
+
+### Manual Code Review Checklist
+
+#### ✅ Look for in PRs:
+- **DRK typography usage**: `UIFont.daxTitle1()`, `.daxBody()` modifiers
+- **DRK color usage**: `UIColor(designSystemColor: .textPrimary)`
+- **No hardcoded colors**: No hex values, RGB tuples, or named colors
+- **No `.font()` modifiers** in SwiftUI (red flag for design system violations)
+- **Semantic naming**: Colors described by purpose, not appearance
+
+#### Code Review Examples
+
+**Example:** See [code-review-checklist.swift](design-system-designresourceskit/code-review-checklist.swift)
+
+### Opportunistic Improvements
+
+**Most of the iOS app currently does not use the design system**, so you're encouraged to:
+
+1. **Opportunistically refactor** old code to use DRK when you encounter it
+2. **Update hardcoded colors** to semantic colors when working in an area
+3. **Replace system fonts** with DRK typography when touching text styling
+4. **File follow-up tickets** for systematic cleanup when you notice patterns
+
+#### Example: Opportunistic Refactoring
+
+**Example:** See [opportunistic-refactoring.swift](design-system-designresourceskit/opportunistic-refactoring.swift)
+
+## Components
+
+### Current State: Minimal Component Library
+
+We primarily use **system components** rather than custom ones, following iOS design guidelines. This is different from our Android app which has more custom components.
+
+**Philosophy**: 
+- **System components first** - leverages platform conventions
+- **Custom components only when needed** - avoid overengineering
+- **Reusable when patterns emerge** - extract when used in multiple places
+
+### Existing Custom Components
+
+#### Blue Button (Reusable)
+Our primary custom component used across multiple screens.
+
+**Example:** See [blue-button-component.swift](design-system-designresourceskit/blue-button-component.swift)
+
+**Candidate for DRK**: This button is used in multiple places and should be extracted into DesignResourcesKit as a reusable component.
+
+### Future Component Strategy
+
+#### When to Create Components
+
+**✅ Create a component when**:
+- Pattern is used in **3+ different contexts**
+- Styling is **complex or specialized**
+- Behavior needs to be **consistent across usage**
+- Component **encapsulates design system tokens**
+
+**❌ Don't create a component when**:
+- Used in only **one place** (keep it local)
+- **System component exists** that meets needs
+- Component would be **overly generic** or complex
+
+#### Emerging Patterns to Watch
+
+Look for these patterns that might become components:
 
 ```swift
-// ✅ CORRECT: Delegate pattern
-func namePickerView(_ namePickerView: NamePickerView, didSelectName name: String)
-func namePickerViewShouldReload(_ namePickerView: NamePickerView) -> Bool
-
-// ❌ INCORRECT: Missing source parameter
-func didSelectName(namePicker: NamePickerViewController, name: String)
-func namePickerShouldReload() -> Bool
-```
-
-### Use Type Inferred Context
-Use compiler inferred context to write shorter, clear code:
-
-```swift
-// ✅ CORRECT: Type inferred context
-let selector = #selector(viewDidLoad)
-view.backgroundColor = .red
-let toView = context.view(forKey: .to)
-let view = UIView(frame: .zero)
-
-// ❌ INCORRECT: Redundant type information
-let selector = #selector(ViewController.viewDidLoad)
-view.backgroundColor = UIColor.red
-let toView = context.view(forKey: UITransitionContextViewKey.to)
-let view = UIView(frame: CGRect.zero)
-```
-
-### Generics
-Generic type parameters should be **descriptive, UpperCamelCase names**:
-
-```swift
-// ✅ CORRECT: Descriptive generic names
-struct Stack<Element> { ... }
-func write<Target: OutputStream>(to target: inout Target)
-func swap<T>(_ a: inout T, _ b: inout T)  // T is acceptable when no meaningful relationship
-
-// ❌ INCORRECT: Non-descriptive or wrong case
-struct Stack<T> { ... }
-func write<target: OutputStream>(to target: inout target)
-```
-
-### Language
-Use **US English spelling** to match Apple's API:
-
-```swift
-// ✅ CORRECT: US English
-let color = "red"
-
-// ❌ INCORRECT: British English
-let colour = "red"
-```
-
-## Code Organization
-
-### File Structure
-```swift
-// 1. Import statements (minimal - only what's needed)
-import UIKit
-import Combine
-
-// 2. Protocol definitions
-protocol FeatureDelegate: AnyObject {
-    func featureDidUpdate()
+// Bottom sheets - if format becomes consistent
+struct BottomSheetView: View {
+    // Consistent styling, behavior, animation
+    // Could become reusable component
 }
 
-// 3. Main type declaration
-class FeatureViewController: UIViewController {
-    // Properties first
-    private let viewModel: FeatureViewModel
-    
-    // Lifecycle methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-    }
-    
-    // Private methods
-    private func setupUI() { }
+// Info cards/panels - if layout patterns emerge  
+struct InfoCardView: View {
+    // Standard card styling with DRK colors
+    // Could be extracted if reused
 }
 
-// 4. Extensions for protocol conformance
-// MARK: - UITableViewDataSource
-extension FeatureViewController: UITableViewDataSource {
-    // Protocol methods
-}
-```
-
-### Protocol Conformance
-**Prefer separate extensions** for protocol conformance to keep related methods grouped:
-
-```swift
-// ✅ CORRECT: Separate extensions
-class MyViewController: UIViewController {
-    // class implementation
-}
-
-// MARK: - UITableViewDataSource
-extension MyViewController: UITableViewDataSource {
-    // table view data source methods
-}
-
-// MARK: - UIScrollViewDelegate
-extension MyViewController: UIScrollViewDelegate {
-    // scroll view delegate methods
-}
-
-// ❌ INCORRECT: All in main class declaration
-class MyViewController: UIViewController, UITableViewDataSource, UIScrollViewDelegate {
-    // all methods mixed together
-}
-```
-
-### Minimal Imports
-**Import only the modules a source file requires**:
-
-```swift
-// ✅ CORRECT: Minimal imports
-import UIKit
-var view: UIView
-var deviceModels: [String]
-
-// ✅ CORRECT: Foundation when UIKit not needed
-import Foundation
-var deviceModels: [String]
-
-// ❌ INCORRECT: Unnecessary imports
-import UIKit
-import Foundation  // UIKit already includes Foundation
-var view: UIView
-var deviceModels: [String]
-```
-
-### Remove Unused Code
-**Remove unused (dead) code**, including Xcode template code:
-
-```swift
-// ✅ CORRECT: Keep only implemented methods
-override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return Database.contacts.count
-}
-
-// ❌ INCORRECT: Template code and unused methods
-override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-}
-
-override func numberOfSections(in tableView: UITableView) -> Int {
-    // #warning Incomplete implementation, return the number of sections
-    return 1
-}
-```
-
-## Formatting and Style
-
-### Line Breaks and Length
-- **Line margin: 150 characters** (not the default 100)
-- **Long lines should be wrapped** at around 150 characters
-- **Avoid trailing whitespace** at ends of lines
-- **Add single newline** at end of each file
-
-### Spacing
-- **Indent using 4 spaces** rather than tabs
-- **Method braces open on same line**, close on new line
-- **One blank line between methods**
-- **No blank lines after opening brace or before closing brace**
-
-```swift
-// ✅ CORRECT: Spacing and braces
-if user.isHappy {
-    // Do something
-} else {
-    // Do something else
-}
-
-// ❌ INCORRECT: Wrong brace placement
-if user.isHappy
-{
-    // Do something
-}
-else {
-    // Do something else
+// Form elements - if custom styling is needed
+struct FormFieldView: View {
+    // Consistent form field styling
+    // Could become component library
 }
 ```
 
-### Colons
-**Colons have no space on left, one space on right**. Exceptions: ternary operator `? :`, empty dictionary `[:]`, `#selector` syntax:
+#### Component Creation Process
 
-```swift
-// ✅ CORRECT: Colon spacing
-class TestDatabase: Database {
-    var data: [String: CGFloat] = ["A": 1.2, "B": 3.2]
-}
+1. **Identify the pattern** in your current work
+2. **Check if existing implementations** could be generalized
+3. **Design the API** to be flexible but opinionated
+4. **Implement using DRK tokens** for colors, typography, spacing
+5. **Add to DesignResourcesKit** package
+6. **Update existing usages** to use the new component
+7. **Document the component** with usage examples
 
-// ❌ INCORRECT: Wrong colon spacing
-class TestDatabase : Database {
-    var data :[String:CGFloat] = ["A" : 1.2, "B":3.2]
-}
-```
+**Example:** See [component-creation-example.swift](design-system-designresourceskit/component-creation-example.swift)
 
-### Function Parameters
-**Closing parentheses should not appear on line by themselves**:
+## Modularization Strategy
 
-```swift
-// ✅ CORRECT: Closing parenthesis placement
-let user = try await getUser(
-    for: userID,
-    on: connection)
+### Why DRK is a Separate Package
 
-// ❌ INCORRECT: Closing parenthesis on own line
-let user = try await getUser(
-    for: userID,
-    on: connection
-)
-```
+**High friction is a feature**: Making DRK a separate module provides beneficial constraints:
 
-## Function Declarations
+1. **Immutability encouragement**: Changes require more thought and process
+2. **API stability**: Forces consideration of breaking changes
+3. **Reusability**: Can be shared across iOS/macOS if needed
+4. **Clear boundaries**: Separates design tokens from app logic
+5. **Version control**: Can be tagged and versioned independently
 
-### Short Functions
-**Keep short function declarations on one line**:
+### Design System Evolution
 
-```swift
-// ✅ CORRECT: Short function on one line
-func reticulateSplines(spline: [Double]) -> Bool {
-    // implementation
-}
-```
+**Original Discussion**: [Tech Design: How to modularise iOS/macOS design system elements](✓ Tech Design: How to modularise iOS/macOS design system elements)
 
-### Long Function Signatures
-**For functions with long signatures, put each parameter on new line**:
+**Guiding Principles**:
+- **Start minimal**: Don't over-engineer early
+- **Evolve based on usage**: Add components when patterns emerge
+- **Maintain consistency**: All additions should follow established patterns
+- **Document decisions**: Keep rationale for future developers
 
-```swift
-// ✅ CORRECT: Long signature formatting
-func reticulateSplines(spline: [Double],
-                      adjustmentFactor: Double,
-                      translateConstant: Int,
-                      comment: String) -> Bool {
-    // implementation
-}
-```
+## Working with DesignResourcesKit
 
-### Return Types
-**Use `Void` for closure/function outputs, `()` for inputs**:
+### Adding New Design Tokens
 
-```swift
-// ✅ CORRECT: Return type formatting
-func updateConstraints() -> Void {
-    // implementation
-}
+**Process for adding colors/typography**:
 
-typealias CompletionHandler = (result) -> Void
+1. **Design system first**: Ensure token is defined in Figma
+2. **Semantic naming**: Use purpose-based names (`textPrimary` not `black`)
+3. **Light/dark variants**: Define both light and dark mode values
+4. **PR to DRK**: Add to DesignResourcesKit repository
+5. **Update app**: Use new tokens in consuming apps
+6. **Documentation**: Update usage examples and guidelines
 
-// ❌ INCORRECT: Wrong return type syntax
-func updateConstraints() -> () {
-    // implementation
-}
+### Updating DRK Version
 
-typealias CompletionHandler = (result) -> ()
-```
+**In consuming app (iOS/macOS):**
 
-## Function Calls
+**Example:** See [updating-drk-version.swift](design-system-designresourceskit/updating-drk-version.swift)
 
-**Mirror function declaration style at call sites**:
+**Testing DRK changes**:
+- Test in both **light and dark modes**
+- Verify **dynamic type scaling** works correctly  
+- Check **accessibility** with larger text sizes
+- Test on **different device sizes**
 
-```swift
-// ✅ CORRECT: Single line when it fits
-let success = reticulateSplines(splines)
+### Local Development
 
-// ✅ CORRECT: Multi-line when wrapped
-let success = reticulateSplines(
-    spline: splines,
-    adjustmentFactor: 1.3,
-    translateConstant: 2,
-    comment: "normalize the display")
-```
+**For iterating on DRK:**
 
-## Closure Expressions
+**Example:** See [local-development.sh](design-system-designresourceskit/local-development.sh)
 
-### Trailing Closure Syntax
-**Use trailing closure syntax only for single closure at end**:
+## Resources and References
 
-```swift
-// ✅ CORRECT: Trailing closure usage
-UIView.animate(withDuration: 1.0) {
-    self.myView.alpha = 0
-}
+### Official Resources
 
-UIView.animate(withDuration: 1.0, animations: {
-    self.myView.alpha = 0
-}, completion: { finished in
-    self.myView.removeFromSuperview()
-})
+- **GitHub Repository**: [duckduckgo/DesignResourcesKit](https://github.com/duckduckgo/DesignResourcesKit)
+- **Figma Designs**: [iOS & iPadOS Components](https://www.figma.com/file/GzGKD6gR24AHoUqVykX1ah/%F0%9F%93%B1-iOS-%26-iPadOS-Components?type=design&node-id=3938%3A23329&mode=design&t=0fuiNF84nnV5zExC-1)
 
-// ❌ INCORRECT: Trailing closure with multiple closures
-UIView.animate(withDuration: 1.0, animations: {
-    self.myView.alpha = 0
-}) { f in
-    self.myView.removeFromSuperview()
-}
-```
+### Related Documentation
 
-### Single-Expression Closures
-**Use implicit returns for single-expression closures**:
+- **Colors**: [Tech Design: How to organise colors and icons in iOS and macOS wrt the design system](✓ Tech Design: How to organise colors and icons in iOS and macOS wrt the design system)
+- **Colors Update**: [Tech Design: Redefine design system colors in DesignResourcesKit](✓ Tech Design: Redefine design system colors in DesignResourcesKit)
+- **Typography**: [Tech Design: How to organise typography/label styles in iOS and macOS wrt the design system](✓ Tech Design: How to organise typography/label styles in iOS and macOS wrt the design system)
+- **Enforcement**: [Use danger to stop new colors being added to the iOS app](✓ Use danger to stop new colors being added to the iOS app)
 
-```swift
-// ✅ CORRECT: Implicit return
-attendeeList.sort { a, b in
-    a > b
-}
-```
+### Quick Reference
 
-### Chained Methods
-**Format chained methods for clarity**:
+#### UIKit Checklist
+- [ ] Use `UIFont.daxTitle1()`, `UIFont.daxBody()`, etc.
+- [ ] Use `UIColor(designSystemColor: .textPrimary)` etc.
+- [ ] No hardcoded colors or fonts
+- [ ] No system colors for app content
 
-```swift
-// ✅ CORRECT: Chained methods - compact when clear
-let value = numbers.map { $0 * 2 }.filter { $0 % 3 == 0 }.index(of: 90)
+#### SwiftUI Checklist  
+- [ ] Use `.daxTitle1()`, `.daxBody()` modifiers
+- [ ] Use `Color(designSystemColor: .textPrimary)` etc.
+- [ ] Avoid `.font()` modifier (red flag in reviews)
+- [ ] No hardcoded colors
 
-// ✅ CORRECT: Chained methods - multi-line when complex
-let value = numbers
-    .map { $0 * 2 }
-    .filter { $0 > 50 }
-    .map { $0 + 10 }
-```
-
-## Types and Constants
-
-### Native Types
-**Always use Swift's native types** when available:
-
-```swift
-// ✅ CORRECT: Native Swift types
-let width = 120.0                    // Double
-let widthString = "\(width)"         // String
-
-// ❌ INCORRECT: Objective-C types
-let width: NSNumber = 120.0          // NSNumber
-let widthString: NSString = width.stringValue  // NSString
-```
-
-### Constants vs Variables
-**Use `let` by default, change to `var` only when compiler complains**:
-
-```swift
-// ✅ CORRECT: Type properties for constants
-enum Math {
-    static let e = 2.718281828459045235360287
-    static let root2 = 1.41421356237309504880168872
-}
-
-let hypotenuse = side * Math.root2
-
-// ❌ INCORRECT: Global constants
-let e = 2.718281828459045235360287  // pollutes global namespace
-let root2 = 1.41421356237309504880168872
-```
-
-### Type Inference
-**Prefer compact code and let compiler infer types**:
-
-```swift
-// ✅ CORRECT: Type inference
-let message = "Click the button"
-let currentBounds = computeViewBounds()
-var names = ["Mic", "Sam", "Christine"]
-let maximumWidth: CGFloat = 106.5  // Specify when needed
-
-// ❌ INCORRECT: Unnecessary type annotations
-let message: String = "Click the button"
-let currentBounds: CGRect = computeViewBounds()
-```
-
-### Empty Collections
-**Use type annotation for empty arrays and dictionaries**:
-
-```swift
-// ✅ CORRECT: Type annotation for empty collections
-var names: [String] = []
-var lookup: [String: Int] = [:]
-
-// ❌ INCORRECT: Constructor syntax
-var names = [String]()
-var lookup = [String: Int]()
-```
-
-### Syntactic Sugar
-**Prefer shortcut type declarations**:
-
-```swift
-// ✅ CORRECT: Syntactic sugar
-var deviceModels: [String]
-var employees: [Int: String]
-var faxNumber: Int?
-
-// ❌ INCORRECT: Full generics syntax
-var deviceModels: Array<String>
-var employees: Dictionary<Int, String>
-var faxNumber: Optional<Int>
-```
-
-## Optionals
-
-### Optional Declarations
-**Use `?` for optional types, `!` only when you know initialization timing**:
-
-```swift
-// ✅ CORRECT: Optional usage
-var subview: UIView?
-var volume: Double?
-
-// Use ! only for outlets that initialize in viewDidLoad
-@IBOutlet weak var tableView: UITableView!
-```
-
-### Optional Binding
-**Shadow original names in optional binding**:
-
-```swift
-// ✅ CORRECT: Shadow original name
-if let subview = subview, let volume = volume {
-    // do something with unwrapped subview and volume
-}
-
-// ❌ INCORRECT: Different names for unwrapped values
-if let unwrappedSubview = optionalSubview {
-    if let realVolume = volume {
-        // do something with unwrappedSubview and realVolume
-    }
-}
-```
-
-### Optional Chaining vs Binding
-**Use optional chaining for single access, binding for multiple operations**:
-
-```swift
-// ✅ CORRECT: Optional chaining for single access
-textContainer?.textLabel?.setNeedsDisplay()
-
-// ✅ CORRECT: Optional binding for multiple operations
-if let textContainer = textContainer {
-    // do many things with textContainer
-}
-```
-
-## Memory Management
-
-### Reference Cycles
-**Prevent reference cycles with `weak` and `unowned` references.**
-
-**Example:** See [memory-management.swift](code-style/memory-management.swift)
-
-### Lazy Initialization
-**Use lazy initialization for fine-grained control**:
-
-```swift
-// ✅ CORRECT: Lazy initialization
-lazy var locationManager = makeLocationManager()
-
-private func makeLocationManager() -> CLLocationManager {
-    let manager = CLLocationManager()
-    manager.desiredAccuracy = kCLLocationAccuracyBest
-    manager.delegate = self
-    manager.requestAlwaysAuthorization()
-    return manager
-}
-```
-
-## Access Control
-
-### Access Control Order
-**Access control comes first, except for `static` and attributes**:
-
-```swift
-// ✅ CORRECT: Access control ordering
-private let message = "Great Scott!"
-
-class TimeMachine {
-    private dynamic lazy var fluxCapacitor = FluxCapacitor()
-    @IBAction private func activate() { }
-    static private let timeConstant = 88.0
-}
-
-// ❌ INCORRECT: Wrong ordering
-fileprivate let message = "Great Scott!"
-
-class TimeMachine {
-    lazy dynamic private var fluxCapacitor = FluxCapacitor()
-}
-```
-
-### Private vs Fileprivate
-**Prefer `private` to `fileprivate`**; use `fileprivate` only when compiler requires it.
-
-## Control Flow
-
-### Loop Style
-**Prefer `for-in` style over `while-condition-increment`**:
-
-```swift
-// ✅ CORRECT: for-in style
-for _ in 0..<3 {
-    print("Hello three times")
-}
-
-for (index, person) in attendeeList.enumerated() {
-    print("\(person) is at position #\(index)")
-}
-
-// ❌ INCORRECT: while style
-var i = 0
-while i < 3 {
-    print("Hello three times")
-    i += 1
-}
-```
-
-### Ternary Operator
-**Use ternary operator only when it increases clarity**:
-
-```swift
-// ✅ CORRECT: Simple ternary usage
-let value = 5
-result = value != 0 ? x : y
-
-let isHorizontal = true
-result = isHorizontal ? x : y
-
-// ❌ INCORRECT: Complex nested ternary
-result = a > b ? x = c > d ? c : d : y
-```
-
-### Golden Path
-**Use the "golden path" pattern - don't nest `if` statements**:
-
-```swift
-// ✅ CORRECT: Golden path with guard
-func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies {
-    guard let context = context else {
-        throw FFTError.noContext
-    }
-    guard let inputData = inputData else {
-        throw FFTError.noInputData
-    }
-    
-    // use context and input to compute the frequencies
-    return frequencies
-}
-
-// ❌ INCORRECT: Nested if statements
-func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies {
-    if let context = context {
-        if let inputData = inputData {
-            // use context and input to compute the frequencies
-            return frequencies
-        } else {
-            throw FFTError.noInputData
-        }
-    } else {
-        throw FFTError.noContext
-    }
-}
-```
-
-### Compound Guard Statements
-**Use compound guard for multiple optionals**:
-
-```swift
-// ✅ CORRECT: Compound guard
-guard 
-    let number1 = number1,
-    let number2 = number2,
-    let number3 = number3 
-else {
-    fatalError("impossible")
-}
-
-// ❌ INCORRECT: Nested optional binding
-if let number1 = number1 {
-    if let number2 = number2 {
-        if let number3 = number3 {
-            // do something with numbers
-        }
-    }
-}
-```
-
-## Class and Struct Definitions
-
-### Example Well-Styled Class
-```swift
-final class Circle: Shape {
-    var x: Int, y: Int
-    var radius: Double
-    var diameter: Double {
-        get {
-            radius * 2
-        }
-        set {
-            radius = newValue / 2
-        }
-    }
-    
-    init(x: Int, y: Int, radius: Double) {
-        self.x = x
-        self.y = y
-        self.radius = radius
-    }
-    
-    convenience init(x: Int, y: Int, diameter: Double) {
-        self.init(x: x, y: y, radius: diameter / 2)
-    }
-    
-    override func area() -> Double {
-        Double.pi * radius * radius
-    }
-}
-
-extension Circle: CustomStringConvertible {
-    var description: String {
-        "center = \(centerString) area = \(area())"
-    }
-    
-    private var centerString: String {
-        "(\(x),\(y))"
-    }
-}
-```
-
-### Use of Self
-**Avoid using `self` unless required by compiler**:
-
-```swift
-// ✅ CORRECT: Self only when required
-class PhotoViewController: UIViewController {
-    var image: UIImage
-    
-    init(image: UIImage) {
-        self.image = image  // Required to disambiguate
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    func setupImageView() {
-        imageView.image = image  // self not needed
-    }
-}
-```
-
-### Computed Properties
-**Omit get clause for read-only computed properties**:
-
-```swift
-// ✅ CORRECT: Implicit get for read-only
-var diameter: Double {
-    radius * 2
-}
-
-// ❌ INCORRECT: Unnecessary get clause
-var diameter: Double {
-    get {
-        return radius * 2
-    }
-}
-```
-
-### Final
-**Use `final` when inheritance is not intended**:
-
-```swift
-// ✅ CORRECT: Final for utility classes
-final class Box<T> {
-    let value: T
-    init(_ value: T) {
-        self.value = value
-    }
-}
-```
-
-## DuckDuckGo-Specific Patterns
-
-### Design System Integration (MANDATORY)
-
-**ALWAYS use DesignResourcesKit** for colors, typography, and icons.
-
-**Example:** See [design-system-integration.swift](code-style/design-system-integration.swift)
-
-### Dependency Injection Pattern
-**Use AppDependencyProvider for dependency injection.**
-
-**Example:** See [dependency-injection.swift](code-style/dependency-injection.swift)
-
-### Async/Await Patterns
-**Example:** See [async-await-pattern.swift](code-style/async-await-pattern.swift)
-
-### Property Wrappers
-**Example:** See [property-wrappers.swift](code-style/property-wrappers.swift)
-
-## Comments and Documentation
-
-### When to Comment
-**Use comments to explain WHY, not WHAT**:
-
-```swift
-// ✅ CORRECT: Explains why
-// We delay the animation to avoid conflicting with the previous transition
-DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-    self.animateTransition()
-}
-
-// ❌ INCORRECT: Explains what (obvious from code)
-// Set the background color to red
-view.backgroundColor = .red
-```
-
-### Comment Style
-**Prefer double/triple-slash over C-style comments**:
-
-```swift
-// ✅ CORRECT: Swift-style comments
-// This is a comment
-/// This is a documentation comment
-
-// ❌ INCORRECT: C-style comments
-/* This is a comment */
-```
-
-## String Literals
-
-### Multi-line Strings
-**Use multi-line string syntax for long strings**:
-
-```swift
-// ✅ CORRECT: Multi-line string formatting
-let message = """
-    You cannot charge the flux \
-    capacitor with a 9V battery.
-    You must use a super-charger \
-    which costs 10 credits. You currently \
-    have \(credits) credits available.
-    """
-
-// ❌ INCORRECT: Concatenation or inline text
-let message = """You cannot charge the flux \
-    capacitor with a 9V battery.
-    You must use a super-charger \
-    which costs 10 credits. You currently \
-    have \(credits) credits available.
-    """
-```
-
-## Prohibited Patterns
-
-### No Emoji
-**Do not use emoji in code** - it creates unnecessary friction:
-
-```swift
-// ❌ FORBIDDEN: Emoji in code
-let isHappy = true 😀
-func celebrate() 🎉 { }
-
-// ✅ CORRECT: Clear, text-based names
-let isHappy = true
-func celebrate() { }
-```
-
-### No Color/Image Literals
-**Do not use `#colorLiteral` or `#imageLiteral`** - they're hard to read and maintain:
-
-```swift
-// ❌ FORBIDDEN: Literals
-let color = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
-let image = #imageLiteral(resourceName: "icon")
-
-// ✅ CORRECT: Explicit constructors (but prefer DesignResourcesKit)
-let color = UIColor(red: 1, green: 0, blue: 0, alpha: 1)
-let image = UIImage(named: "icon")
-
-// ✅ BEST: DesignResourcesKit
-let color = UIColor(designSystemColor: .accent)
-let image = DesignSystemImages.Color.Size24.bookmark
-```
-
-### No Parentheses Around Conditionals
-**Don't use unnecessary parentheses**:
-
-```swift
-// ✅ CORRECT: No parentheses needed
-if name == "Hello" {
-    print("World")
-}
-
-// ❌ INCORRECT: Unnecessary parentheses
-if (name == "Hello") {
-    print("World")
-}
-```
-
-### No Semicolons
-**Swift doesn't require semicolons** - don't use them:
-
-```swift
-// ✅ CORRECT: No semicolons
-let swift = "not a scripting language"
-
-// ❌ INCORRECT: Unnecessary semicolons
-let swift = "not a scripting language";
-```
-
-## Error Handling and Assertions
-
-### Fatal Errors
-**Use `fatalError()` when app reaches unrecoverable state**:
-
-```swift
-// ✅ CORRECT: Fatal error for impossible states
-guard let viewController = storyboard.instantiateViewController(withIdentifier: "Main") as? MainViewController else {
-    fatalError("Failed to instantiate MainViewController from storyboard")
-}
-```
-
-### Assertions
-**Use `assert()` and `assertionFailure()` for recoverable but unexpected states**:
-
-```swift
-// ✅ CORRECT: Assert for development debugging
-func processItems(_ items: [Item]) {
-    assert(!items.isEmpty, "Items array should not be empty")
-    
-    // Handle empty array gracefully in release builds
-    guard !items.isEmpty else { return }
-    
-    // Process items...
-}
-```
-
-## Logging
-
-**Use unified logging system** for all logging.
-
-**Example:** See [logging-pattern.swift](code-style/logging-pattern.swift)
-
-**See [Logging Guidelines](logging-guidelines.md) for comprehensive logging patterns.**
-
-## Unit Test Naming
-
-**Use "when/then" convention for test names**:
-
-```swift
-// ✅ CORRECT: When/then test naming
-func testWhenUrlIsNotATrackerThenMatchesIsFalse() { }
-func testWhenUserTapsBookmarkButtonThenBookmarkIsAdded() { }
-func testWhenNetworkFailsThenErrorIsDisplayed() { }
-
-// ❌ INCORRECT: Unclear test names
-func testBookmarks() { }
-func testNetworking() { }
-```
-
-## Functions vs Methods
-
-**Prefer methods over free functions** for discoverability:
-
-```swift
-// ✅ CORRECT: Methods are easily discoverable
-let sorted = items.mergeSorted()
-rocket.launch()
-
-// ❌ INCORRECT: Free functions are hard to discover
-let sorted = mergeSort(items)
-launch(&rocket)
-
-// ✅ ACCEPTABLE: Free functions that feel natural
-let tuples = zip(a, b)
-let value = max(x, y, z)
-```
+#### Code Review Checklist
+- [ ] No new colors in asset catalogs
+- [ ] DRK typography used consistently
+- [ ] Semantic color naming
+- [ ] No hardcoded styling
+- [ ] Opportunistic improvements to legacy code
 
 ---
 
-**Remember**: This style guide ensures consistency across the DuckDuckGo browser codebase. When in doubt, prioritize clarity and follow the patterns established in existing code.
+**Remember**: The design system is only as strong as our commitment to using it. Every PR is an opportunity to improve consistency and user experience.
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
