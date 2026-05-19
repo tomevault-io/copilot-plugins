@@ -1,0 +1,9 @@
+{
+  "name": "kaakati--rails-enterprise-dev",
+  "displayName": "rails-enterprise-dev",
+  "description": "Enterprise-grade Rails development workflow with multi-agent orchestration, beads task tracking, and quality gates. Generic and portable across any Rails project.",
+  "version": "1.0.0",
+  "author": "Kaakati",
+  "homepage": "https://github.com/Kaakati/rails-enterprise-dev",
+  "skills": []
+}
