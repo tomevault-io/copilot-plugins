@@ -1,0 +1,9 @@
+{
+  "name": "meathill--muicv",
+  "displayName": "muicv",
+  "description": "Smart AI agent for building CV and finding jobs",
+  "version": "1.0.0",
+  "author": "meathill",
+  "homepage": "https://github.com/meathill/muicv",
+  "skills": []
+}
