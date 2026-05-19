@@ -1,761 +1,177 @@
-## feature-flags-addition
+## general
+
+> This is the DuckDuckGo browser for iOS and macOS, built with privacy-first principles, modern Swift patterns, and cross-platform architecture.
+
+
+# DuckDuckGo Browser Development Rules Overview
+
+## Project Context
+This is the DuckDuckGo browser for iOS and macOS, built with privacy-first principles, modern Swift patterns, and cross-platform architecture.
+
+**Key Directories:**
+- `iOS/` - iOS browser app (UIKit + SwiftUI hybrid)
+- `macOS/` - macOS browser app (AppKit + SwiftUI hybrid) 
+- `SharedPackages/` - Cross-platform Swift packages
+
+## Architecture Summary
+- **Pattern**: MVVM + Coordinators + Dependency Injection
+- **UI**: SwiftUI preferred, UIKit/AppKit for legacy
+- **Storage**: Core Data + GRDB + Keychain for sensitive data
+- **Design**: DesignResourcesKit for colors/icons (MANDATORY)
+- **Testing**: >80% coverage required
+
+## Available Rules (`.cursor/rules/`)
+
+Development rules are stored in `.cursor/rules/`.
+You MUST list all the available rules and you MUST consult the appropriate rule file before starting any work!
+
+### Core (Always Apply)
+- `anti-patterns.mdc` - What NOT to do; use with ViewModels, testing, WebView work
+- `code-style.mdc` - Swift style guide
+- `privacy-security.mdc` - Privacy requirements; use with network calls, analytics, credentials
+- `import-hygiene.mdc` - Import management and SwiftUI preview scoping
+- `logging-guidelines.mdc` - Logger usage (never print())
+
+### Architecture & Patterns
+- `architecture.mdc` - MVVM, DI patterns; use for new ViewModels
+- `project-structure.mdc` - Directory layout
+- `browserserviceskit-integration.mdc` - BSK integration; use for cross-platform code
+- `shared-packages.mdc` - Cross-platform packages; use for cross-platform code
+- `subscription-architecture.mdc` - Privacy Pro subscription
+
+### Feature Development
+- `feature-flags.mdc` + `feature-flags-addition.mdc` - Feature flags
+- `abn-experiment-framework.mdc` - A/B testing
+- `user-defaults-storage.mdc` - UserDefaults, @UserDefaultsWrapper; use for settings/preferences
+
+### UI Development
+- `swiftui-style.mdc` - SwiftUI + DesignResourcesKit; use for new ViewModels, UI work
+- `swiftui-advanced.mdc` - Advanced SwiftUI patterns
+- `design-system-designresourceskit.mdc` - Colors, typography, icons (MANDATORY)
+- `webkit-browser.mdc` - WebView patterns
+
+### Platform-Specific
+- `ios-architecture.mdc` - iOS AppDependencyProvider, MainCoordinator, UIKit
+- `ios-tracker-blocking-implementation.mdc` - iOS content blocking
+- `macos-window-management.mdc` - macOS windows
+- `macos-system-integration.mdc` - macOS system services
+- `macos-singletons-removal.mdc` - Removing singletons from macOS
+
+### Feature-Specific
+- `duckplayer.mdc` + `duckplayer-userscript-integration.mdc` - DuckPlayer
+- `securevault-guidelines.mdc` - Credentials/vault storage
+- `app-lifecycle-state-machine.mdc` - App state management
+- `network-quality-*.mdc` (4 files) - Network quality assessment
+
+### Testing & Quality
+- `testing.mdc` - Testing patterns, xcodebuild commands
+- `ui-testing.mdc` - UI testing for macOS browser
+- `maestro-device-selection.mdc` - Maestro test device config
+- `performance-optimization.mdc` - Performance; use with network calls
+
+### Workflow & Process
+- `development-commands.mdc` - Build commands
+- `pull-request.mdc` + `branch-naming-conventions.mdc` - PRs and git workflow
+- `analytics-patterns.mdc` - Pixel analytics
+
+## Quick Start Checklist
+
+### Before Writing Any Code:
+1. ✅ Read `privacy-security.mdc` - Privacy is non-negotiable
+2. ✅ Check platform rules (`ios-architecture.mdc` or `macos-system-integration.mdc`)
+3. ✅ Review `anti-patterns.mdc` - Avoid common mistakes
+4. ✅ REMEMBER: NEVER commit, push, or run tests without explicit user permission or unless explicitly asked to
+
+### For UI Development:
+1. ✅ Use `swiftui-style.mdc` for SwiftUI components
+2. ✅ MUST use DesignResourcesKit colors: `Color(designSystemColor: .textPrimary)`
+3. ✅ MUST use DesignResourcesKit icons: `DesignSystemImages.Glyphs.Size16.add`
+
+### For New Features:
+1. ✅ Follow `architecture.mdc` for MVVM + DI patterns
+2. ✅ Use AppDependencyProvider (iOS) or equivalent (macOS)
+3. ✅ Write tests per `testing.mdc` requirements
+
+## Critical Don'ts (from anti-patterns.mdc)
+- ❌ NEVER commit, push changes, create or delete branches on git or trigger github actions without EXPLICIT user permission
+- ❌ NEVER run tests without EXPLICIT user permission or if user explicitly asked to in their prompt
+- ❌ NEVER use `.shared` singletons - use dependency injection instead
+- ❌ NEVER hardcode colors/icons (use DesignResourcesKit)
+- ❌ NEVER update UI without @MainActor
+- ❌ NEVER ignore privacy implications
+- ❌ NEVER force unwrap without justification
+- ❌ NEVER use `print()` statements - use appropriate Logger extensions instead
 
-> Interactive pattern for adding feature flags to iOS and/or macOS with proper configuration
+## Logging Guidelines
 
+**NEVER use `print()` in production code. ALWAYS use appropriate Logger extensions:**
 
-# Feature Flag Addition Pattern
+**Example:** See [logging-guidelines.swift](general/logging-guidelines.swift)
 
-## When This Pattern Applies
+**Available Logger categories:**
+- `Logger.general` - General app functionality
+- `Logger.network` - Network requests and responses  
+- `Logger.ui` - UI updates and user interactions
+- `Logger.tests` - Test-specific logging (import `os.log` in tests)
 
-This pattern is activated when the user explicitly requests to add a feature flag, such as:
-- "Add a feature flag for [feature name]"
-- "Create a feature flag for [feature name] on [platform]"
-- "I need a feature flag to control [feature name]"
+**Benefits of Logger extensions:**
+- Structured logging with categories and levels
+- Better performance than print() statements
+- Automatic log collection and filtering
+- Integration with system logging infrastructure
 
-## Overview
+## Dependency Injection Pattern (iOS)
+**Example:** See [dependency-injection-pattern.swift](general/dependency-injection-pattern.swift)
 
-Adding a feature flag requires careful consideration of several factors:
-1. **Platform** (iOS, macOS, or both)
-2. **Source type** (how the flag is controlled)
-3. **Default value** (fallback behavior)
-4. **Local overriding** (debug menu access)
-5. **Remote configuration** (if applicable)
+## Design System Usage (MANDATORY)
+**Example:** See [design-system-usage.swift](general/design-system-usage.swift)
 
-## Step 1: Validate and Check for Duplicates
+## Code Review Checklist
+1. Privacy implications assessed (`privacy-security.mdc`)
+2. Design system properly used (`design-system-designresourceskit.mdc`)
+3. Architecture patterns followed (platform-specific rules)
+4. Anti-patterns avoided (`anti-patterns.mdc`)
+5. Tests written and passing (`testing.mdc`)
+6. Performance considered (`performance-optimization.mdc`)
+7. PR template followed (`pull-request.mdc`)
 
-Before adding a new feature flag, check if a similar flag already exists:
+## Git & Testing Workflow Rules
 
-```bash
-# Search for similar flags
-grep -i "case.*[searchTerm]" iOS/Core/FeatureFlag.swift
-grep -i "case.*[searchTerm]" macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift
-```
+### 🚨 MANDATORY: Never Auto-Execute Commands
+**NEVER commit, push, or run tests without EXPLICIT user permission.**
 
-## Step 1.5: Create Asana Task (REQUIRED)
+#### Git Workflow:
+1. Make file changes as requested
+2. **STOP** before any `git add`, `git commit`, or `git push` commands  
+3. **ASK** the user: "Should I commit/push these changes?"
+4. **WAIT** for explicit permission (e.g., "yes", "commit it", "push it", "go ahead")
+5. Only then execute git commands
 
-**STOP:** Before proceeding with implementation, the user must create an Asana task.
+#### Testing Workflow:
+1. Write or modify code as requested
+2. **STOP** before running any tests (`swift test`, `npm test`, `xcodebuild test`, etc.)
+3. **ASK** the user: "Should I run the tests?"
+4. **WAIT** for explicit permission (e.g., "yes", "run tests", "test it")
+5. Only then execute test commands
 
-Instruct the user:
-```
-Please create an Asana task in the Apple Feature Flags Registry:
+#### What NOT to Do:
+**Example:** See [git-workflow-wrong.sh](general/git-workflow-wrong.sh)
 
-1. Open Asana
-2. Navigate to the "Apple Feature Flags Registry" project
-3. Create a new task default feature flag task
-4. Copy the task URL
-
-Paste the Asana task URL when ready to continue.
-```
-
-**This is mandatory** - all feature flags must be tracked in the Apple Feature Flags Registry.
-
-## Step 2: Ask Clarifying Questions
-
-### Question 1: Platform Selection
-
-**Ask the user:**
-```
-Which platform(s) should this feature flag target?
-  a) iOS only
-  b) macOS only
-  c) Both iOS and macOS
-```
-
-**Default:** Infer from user's request. If ambiguous, ask.
-
-### Question 2: Feature Flag Source Type
-
-**Ask the user:**
-```
-What source type should this feature flag use?
-
-  a) .remoteReleasable - Can be controlled remotely in production (RECOMMENDED for most features)
-     • Allows gradual rollout
-     • Can be toggled without app updates
-     • Requires Privacy Config setup
-     
-  b) .remoteDevelopment - Remote control in development environments only
-     • For testing remote config before production
-     • Not visible in production builds
-     
-  c) .internalOnly() - Only enabled for internal users
-     • Always on for internal users
-     • Always off for external users
-     • No remote control
-     
-  d) .disabled - Always off for everyone
-     • Placeholder for future features
-     • Code is present but inactive
-
-Which option? (a is recommended for new features)
-```
-
-**Important:** If user selects `a` or `b`, proceed to Question 2b.
-
-### Question 2b: Parent Feature Selection (for remote flags)
+#### What TO Do:
+**Example:** See [git-workflow-correct.sh](general/git-workflow-correct.sh)
 
-**Ask the user:**
-```
-For remote feature flags, we need to add a subfeature to PrivacyFeature.swift.
+**These rules have NO exceptions. Always ask before executing git or test commands.**
 
-Which parent feature should this belong to?
-
-Platform-specific generic:
-  a) macOSBrowserConfig - Generic macOS browser features
-  b) iOSBrowserConfig - Generic iOS browser features
-
-Domain-specific (if applicable):
-  c) aiChat - AI Chat related features
-  d) sync - Sync related features
-  e) privacyPro - Privacy Pro subscription features
-  f) autofill - Autofill related features
-  g) networkProtection - VPN related features
-  h) duckPlayer - Duck Player features
-  i) dbp - Data Broker Protection features
-  j) htmlNewTabPage - New Tab Page features
-  k) maliciousSiteProtection - Malicious site protection
-  l) Other existing parent feature (specify name)
-  m) Create NEW parent feature (requires additional setup)
-
-Which option?
-```
-
-**Guidance for selection:**
-- Use platform-specific generic (a/b) when feature doesn't fit existing domains
-- Use domain-specific when feature clearly belongs to an existing area
-- Creating a new parent feature (m) requires:
-  1. Adding case to `PrivacyFeature` enum
-  2. Creating new `[FeatureName]Subfeature` enum
-  3. Coordinating with backend team for remote config
-
-### Question 3: Default Value
-
-**Ask the user:**
-```
-What should the default value be?
-
-  a) false - Feature OFF when remote config unavailable (RECOMMENDED)
-     • Safer option
-     • Opt-in behavior
-     • Better for new/experimental features
-     
-  b) true - Feature ON when remote config unavailable
-     • Used when feature should be on by default
-     • Useful for rollback safety (can disable remotely)
-     • Better for stable features being gradually enabled
-
-Which option? (a is recommended for new features)
-```
-
-**Explanation:** The default value is used when:
-- Remote config is unavailable
-- Flag source is local-only (`.internalOnly`, `.disabled`)
-- Network is down or config fetch fails
-
-### Question 4: Local Overriding
-
-**Ask the user:**
-```
-Should this feature flag support local overriding?
-
-  a) true - Allow internal users to toggle in debug menu (RECOMMENDED)
-     • Enables testing both states
-     • Useful during development
-     • No effect on external users
-     
-  b) false - No local override available
-     • Use for production pixels/metrics
-     • Use for security-critical flags
-     • Use when override would break functionality
-
-Which option? (a is recommended unless there's a specific reason)
-```
-
-### Question 5: Asana Task Link
-
-**REQUIRED:** Before proceeding, the user must create an Asana task.
-
-**Instruct the user:**
-```
-Please create an Asana task for this feature flag:
-
-1. Go to Asana
-2. Navigate to: Apple Feature Flags Registry
-3. Create a new task with:
-   - Title: [Feature name] feature flag
-   - Add any relevant context or description in the task
-4. Copy the task URL
-
-Once created, paste the Asana task URL here:
-```
-
-**Note:** All feature flags MUST have an associated Asana task in the Apple Feature Flags Registry for tracking and documentation purposes.
-
-## Step 3: Implementation
-
-### File Locations
-
-- **iOS:** `iOS/Core/FeatureFlag.swift`
-- **macOS:** `macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift`
-- **Shared (remote flags):** `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/PrivacyConfig/Features/PrivacyFeature.swift`
-
-### 3.1: Add Feature Flag Enum Case
-
-#### For iOS (`iOS/Core/FeatureFlag.swift`)
-
-```swift
-public enum FeatureFlag: String {
-    // ... existing cases ...
-    
-    /// https://app.asana.com/[task-url]
-    case yourFeatureName
-```
-
-#### For macOS (`macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift`)
-
-```swift
-public enum FeatureFlag: String, CaseIterable {
-    // ... existing cases ...
-    
-    /// https://app.asana.com/[task-url]
-    case yourFeatureName
-```
-
-**Naming conventions:**
-- Use camelCase
-- Be descriptive but concise
-- Follow existing patterns in the file
-
-### 3.2: Add to `defaultValue` Switch
-
-Find the `defaultValue` computed property and add your case:
-
-```swift
-public var defaultValue: Bool {
-    switch self {
-    // If default is TRUE, add to this group:
-    case .existingTrueCase1,
-         .existingTrueCase2,
-         .yourFeatureName:  // Add here if default is true
-        true
-    default:
-        false  // All other cases default to false
-    }
-}
-```
-
-**OR** if default is false, no change needed (handled by `default` case).
-
-### 3.3: Add to `source` Switch
-
-```swift
-public var source: FeatureFlagSource {
-    switch self {
-    // ... other cases ...
-    
-    case .yourFeatureName:
-        return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.yourFeatureName))
-        // OR
-        return .internalOnly()
-        // OR
-        return .disabled
-    }
-}
-```
-
-**Examples by source type:**
-
-```swift
-// Remote releasable with macOS-specific subfeature
-case .macOSFeature:
-    return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.macOSFeature))
-
-// Remote releasable with iOS-specific subfeature
-case .iOSFeature:
-    return .remoteReleasable(.subfeature(iOSBrowserConfigSubfeature.iOSFeature))
-
-// Remote releasable with domain-specific subfeature
-case .aiFeature:
-    return .remoteReleasable(.subfeature(AIChatSubfeature.aiFeature))
-
-// Remote releasable with parent feature (no subfeature)
-case .newParentFeature:
-    return .remoteReleasable(.feature(.newParentFeature))
-
-// Remote development (testing)
-case .experimentalFeature:
-    return .remoteDevelopment(.subfeature(MacOSBrowserConfigSubfeature.experimentalFeature))
-
-// Internal only
-case .debugFeature:
-    return .internalOnly()
-
-// Always disabled (placeholder)
-case .futureFeature:
-    return .disabled
-```
-
-### 3.4: Add to `supportsLocalOverriding` Switch
-
-```swift
-public var supportsLocalOverriding: Bool {
-    switch self {
-    case .existingOverridableFlag1,
-         .existingOverridableFlag2,
-         .yourFeatureName:  // Add here if supports local override
-        return true
-    case .existingNonOverridableFlag1,
-         .existingNonOverridableFlag2:
-        return false
-    }
-}
-```
-
-**Note:** Most flags should support local overriding for testing purposes.
-
-### 3.5: Add Subfeature to PrivacyFeature.swift (Remote Flags Only)
-
-**File:** `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/PrivacyConfig/Features/PrivacyFeature.swift`
-
-**Important Documentation Note:**
-- **MacOSBrowserConfigSubfeature** and **iOSBrowserConfigSubfeature**: Include documentation comments with Asana task URLs
-- **All other domain-specific subfeatures** (PrivacyPro, AIChat, Sync, DBP, etc.): NO documentation comments - just the case name
-
-#### For macOS-specific features:
-
-```swift
-public enum MacOSBrowserConfigSubfeature: String, PrivacySubfeature {
-    public var parent: PrivacyFeature {
-        .macOSBrowserConfig
-    }
-    
-    // ... existing cases ...
-    
-    /// https://app.asana.com/[task-url]
-    case yourFeatureName
-}
-```
-
-#### For iOS-specific features:
-
-```swift
-public enum iOSBrowserConfigSubfeature: String, PrivacySubfeature {
-    public var parent: PrivacyFeature {
-        .iOSBrowserConfig
-    }
-    
-    // ... existing cases ...
-    
-    /// https://app.asana.com/[task-url]
-    case yourFeatureName
-}
-```
-
-#### For domain-specific features (e.g., PrivacyPro, AIChat, Sync, etc.):
-
-**Important:** Domain-specific subfeatures should NOT include documentation comments in PrivacyFeature.swift. Keep them clean and simple with just the case name.
-
-```swift
-public enum [DomainName]Subfeature: String, PrivacySubfeature {
-    public var parent: PrivacyFeature { .[domainName] }
-    
-    // ... existing cases ...
-    
-    case yourFeatureName
-}
-```
-
-**Example for PrivacyPro features:**
-```swift
-public enum PrivacyProSubfeature: String, Equatable, PrivacySubfeature {
-    public var parent: PrivacyFeature { .privacyPro }
-    
-    // ... existing cases ...
-    
-    case yourNewFeature
-}
-```
-
-### 3.6: Creating a New Parent Feature (Advanced)
-
-If you need to create a NEW parent feature:
-
-**Step 1:** Add to `PrivacyFeature` enum:
-
-```swift
-public enum PrivacyFeature: String {
-    // ... existing cases ...
-    case yourNewFeature
-}
-```
-
-**Step 2:** Create subfeature enum:
-
-```swift
-public enum YourNewFeatureSubfeature: String, PrivacySubfeature {
-    public var parent: PrivacyFeature {
-        .yourNewFeature
-    }
-    
-    case firstSubfeature
-    case secondSubfeature
-}
-```
-
-**Step 3:** Coordinate with backend team to add feature to remote Privacy Config.
-
-### 3.7: Add Feature Flag Category (macOS Only)
-
-**File:** `macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlagCategory.swift`
-
-On macOS, feature flags can be organized into categories for better organization in the debug menu. Consider if your feature flag should be categorized.
-
-**Available Categories:**
-- `duckAI` - Duck.ai related features
-- `dbp` - Personal Information Removal
-- `subscription` - Subscription/Privacy Pro features
-- `sync` - Sync related features
-- `updates` - Update related features
-- `vpn` - VPN related features
-- `osSupportWarnings` - OS Support Warnings
-- `other` - Default for uncategorized flags
-
-**When to categorize:**
-- If the feature belongs to a clear domain (Subscription, VPN, Sync, Duck.ai, etc.), add it to the appropriate category
-- If unsure or the feature is general browser functionality, it can remain in `.other` (default)
-
-**How to categorize:**
-
-**Step 1:** If needed, add a new category to the enum:
-
-```swift
-public enum FeatureFlagCategory: String, CaseIterable, Comparable {
-    case duckAI = "Duck.ai"
-    // ... existing cases ...
-    case yourNewCategory = "Your Category Name"
-    // ... other cases ...
-}
-```
-
-**Step 2:** Add your feature flag to the appropriate category in the `category` computed property:
-
-```swift
-extension FeatureFlag: FeatureFlagCategorization {
-    public var category: FeatureFlagCategory {
-        switch self {
-        // ... existing cases ...
-        
-        case .yourFeatureFlag1,
-             .yourFeatureFlag2:
-            return .yourCategory
-            
-        default:
-            return .other
-        }
-    }
-}
-```
-
-**Example for Subscription features:**
-
-```swift
-case .privacyProAuthV2,
-     .privacyProFreeTrial,
-     .paidAIChat,
-     .tierMessagingEnabled,
-     .allowProTierPurchase:
-    return .subscription
-```
-
-**Note:** iOS does not have feature flag categories - this is macOS-specific functionality.
-
-## Step 4: Usage in Code
-
-### Basic Usage
-
-```swift
-// Check if feature is enabled
-if featureFlagger.isFeatureOn(.yourFeatureName) {
-    // Feature-specific code
-}
-```
-
-### With Dependency Injection
-
-```swift
-final class MyViewController {
-    private let featureFlagger: FeatureFlagger
-    
-    init(featureFlagger: FeatureFlagger) {
-        self.featureFlagger = featureFlagger
-    }
-    
-    func setupUI() {
-        if featureFlagger.isFeatureOn(.yourFeatureName) {
-            setupNewUI()
-        } else {
-            setupLegacyUI()
-        }
-    }
-}
-```
-
-### iOS-specific (via AppDependencies)
-
-```swift
-if AppDependencies.shared.featureFlagger.isFeatureOn(.yourFeatureName) {
-    // iOS-specific feature code
-}
-```
-
-### macOS-specific (via Application)
-
-```swift
-if Application.appDelegate.featureFlagger.isFeatureOn(.yourFeatureName) {
-    // macOS-specific feature code
-}
-```
-
-## Complete Example
-
-### Example: Add "Enhanced Bookmarks UI" feature flag for macOS
-
-**Step 1: User Request**
-```
-User: "Add a feature flag for enhanced bookmarks UI on macOS"
-```
-
-**Step 2: Questions**
-```
-1. Platform: macOS ✓
-2. Source: a) .remoteReleasable
-3. Parent: a) macOSBrowserConfig
-4. Default: a) false
-5. Local override: a) true
-6. Asana: https://app.asana.com/0/123456789/987654321
-```
-
-**Step 3: Implementation**
-
-**File 1:** `macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift`
-
-```swift
-public enum FeatureFlag: String, CaseIterable {
-    // ... existing cases ...
-    
-    /// https://app.asana.com/0/123456789/987654321
-    case enhancedBookmarksUI
-}
-
-extension FeatureFlag: FeatureFlagDescribing {
-    public var defaultValue: Bool {
-        switch self {
-        // ... existing true cases ...
-        default:
-            false  // enhancedBookmarksUI uses default false
-        }
-    }
-    
-    public var supportsLocalOverriding: Bool {
-        switch self {
-        case .existingFlag1,
-             .existingFlag2,
-             .enhancedBookmarksUI:  // ← Added here
-            return true
-        // ... rest of cases
-        }
-    }
-    
-    public var source: FeatureFlagSource {
-        switch self {
-        // ... other cases ...
-        case .enhancedBookmarksUI:
-            return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.enhancedBookmarksUI))
-        }
-    }
-}
-```
-
-**File 2:** `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/PrivacyConfig/Features/PrivacyFeature.swift`
-
-```swift
-public enum MacOSBrowserConfigSubfeature: String, PrivacySubfeature {
-    public var parent: PrivacyFeature {
-        .macOSBrowserConfig
-    }
-    
-    // ... existing cases ...
-    
-    /// https://app.asana.com/0/123456789/987654321
-    case enhancedBookmarksUI
-}
-```
-
-## Anti-Patterns to Avoid
-
-### ❌ DON'T: Add feature flag without Asana task
-
-```swift
-// ❌ BAD: No tracking or documentation
-case mysteriousFeature
-```
-
-```swift
-// ✅ GOOD: Clear documentation with Asana task from Apple Feature Flags Registry
-/// https://app.asana.com/0/123456789/987654321
-case tabGrouping
-```
-
-**CRITICAL:** Every feature flag MUST have an Asana task in the Apple Feature Flags Registry. This is not optional.
-
-### ❌ DON'T: Use generic names
-
-```swift
-// ❌ BAD: Too vague
-case newFeature
-case experiment1
-case testFlag
-```
-
-```swift
-// ✅ GOOD: Descriptive names
-case improvedTabSwitcher
-case aiChatSidebar
-case passwordAutofillV2
-```
-
-### ❌ DON'T: Forget to add to all required switches
-
-```swift
-// ❌ BAD: Missing from supportsLocalOverriding
-case newFeature  // Added to enum
-// source: return .remoteReleasable(...)
-// defaultValue: false (via default)
-// supportsLocalOverriding: ❌ MISSING!
-```
-
-### ❌ DON'T: Use wrong parent for domain-specific features
-
-```swift
-// ❌ BAD: AI feature in generic config
-case aiNewFeature:
-    return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.aiNewFeature))
-
-// ✅ GOOD: AI feature in AI domain
-case aiNewFeature:
-    return .remoteReleasable(.subfeature(AIChatSubfeature.aiNewFeature))
-```
-
-### ❌ DON'T: Add to iOS when feature is macOS-only (or vice versa)
-
-```swift
-// ❌ BAD: Adding macOS-specific flag to iOS
-// In iOS/Core/FeatureFlag.swift:
-case macOSOnlyFeature  // This doesn't make sense!
-```
-
-### ❌ DON'T: Add documentation comments to domain-specific subfeatures in PrivacyFeature.swift
-
-```swift
-// ❌ BAD: Adding comments to domain-specific subfeatures (e.g., PrivacyPro, AIChat, Sync)
-public enum PrivacyProSubfeature: String, Equatable, PrivacySubfeature {
-    public var parent: PrivacyFeature { .privacyPro }
-    
-    /// https://app.asana.com/...
-    case tierMessagingEnabled  // ❌ Don't add ANY comments here!
-}
-```
-
-```swift
-// ✅ GOOD: Domain-specific subfeatures without comments
-public enum PrivacyProSubfeature: String, Equatable, PrivacySubfeature {
-    public var parent: PrivacyFeature { .privacyPro }
-    
-    case tierMessagingEnabled  // ✅ Clean and simple
-    case allowProTierPurchase
-}
-```
-
-**Note:** Only `MacOSBrowserConfigSubfeature` and `iOSBrowserConfigSubfeature` should have documentation comments. All other domain-specific subfeatures (PrivacyPro, AIChat, Sync, DBP, etc.) should be kept clean without comments.
-
-## Testing Your Feature Flag
-
-### Manual Testing
-
-1. **Internal user testing:**
-   - Enable internal user mode
-   - Access debug menu to toggle flag
-   - Test both on/off states
-
-2. **Production simulation:**
-   - Disable internal user mode
-   - Verify default value behavior
-   - Test without remote config
-
-### Debug Menu Access
-
-**macOS:**
-- Develop menu → Feature Flags
-- Toggle individual flags
-- Changes persist across sessions
-
-**iOS:**
-- Settings → Debug → Feature Flags
-- Toggle individual flags
-- Changes persist across sessions
-
-## Remote Configuration (Next Steps)
-
-After adding the feature flag code, coordinate with backend team to:
-
-1. Add feature to Privacy Configuration JSON
-2. Set initial state (enabled/disabled/internal)
-3. Configure rollout percentage (if gradual rollout)
-4. Set up A/B test cohorts (if applicable)
-
-Example Privacy Config structure:
-
-```json
-{
-  "macOSBrowserConfig": {
-    "state": "enabled",
-    "features": {
-      "enhancedBookmarksUI": {
-        "state": "internal",
-        "rollout": {
-          "steps": [
-            { "percent": 10 }
-          ]
-        }
-      }
-    }
-  }
-}
-```
-
-## Summary Checklist
-
-When adding a feature flag, ensure you:
-
-- [ ] Checked for existing similar flags
-- [ ] **Created Asana task in Apple Feature Flags Registry (REQUIRED)**
-- [ ] Asked all required questions
-- [ ] Added enum case with Asana task link
-- [ ] Updated `defaultValue` switch (if non-default)
-- [ ] Updated `source` switch
-- [ ] Updated `supportsLocalOverriding` switch
-- [ ] Added subfeature to PrivacyFeature.swift (if remote)
-- [ ] Added to appropriate category in FeatureFlagCategory.swift (macOS only, if applicable)
-- [ ] Used descriptive naming
-- [ ] Tested in debug menu
-- [ ] Coordinated with backend (if remote)
-
-## Reference Documentation
-
-For more information, see:
-- `feature-flags.md` - Type-safe feature flag patterns
-- `abn-experiment-framework.md` - A/B testing with feature flags
-- `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/FeatureFlagger/FeatureFlagger.swift` - Core implementation
+## Communication Style
+
+- Keep responses concise and focused on the task
+- Avoid enthusiastic language like "Perfect!", "You are absolutely right!", "Excellent!"
+- Keep work summaries brief - focus on what was changed, not how great it is
+- Let the code quality speak for itself rather than using excessive praise
+
+---
+
+This overview ensures you understand the project context and know which specific rules to consult for your development task.
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
