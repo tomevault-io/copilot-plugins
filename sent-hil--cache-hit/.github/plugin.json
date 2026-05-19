@@ -1,0 +1,9 @@
+{
+  "name": "sent-hil--cache-hit",
+  "displayName": "cache-hit",
+  "description": "A spaced repetition application for reviewing coding problems with FSRS.",
+  "version": "1.0.0",
+  "author": "sent-hil",
+  "homepage": "https://github.com/sent-hil/cache-hit",
+  "skills": []
+}
