@@ -1,795 +1,1229 @@
-## search-module
+## source-connector-implementation
 
-> > **WARNING — PARTIALLY OUTDATED (March 2026)**
+> A **source connector** in Airweave is a Python module that extracts data from an external service and transforms it into searchable entities. This guide covers everything you need to build a production-ready connector.
 
-# Airweave Search Rules
+# Building a Source Connector in Airweave
 
-> **WARNING — PARTIALLY OUTDATED (March 2026)**
->
-> This file documents the **legacy V1 search module** (`airweave/search/`), which
-> uses an operation-based pipeline with Qdrant, Cerebras/OpenAI/Groq providers,
-> and structured-output LLM calls.
->
-> The **new V2 search** lives in `airweave/domains/search/` and implements a
-> three-tier architecture:
->
-> - **Instant** — direct vector search, no LLM
-> - **Classic** — vector search + reranking + answer generation (replaces V1)
-> - **Agentic** — multi-turn tool-calling agent loop with search/count/navigate/read/collect/finish tools
->
-> Key differences from V1:
-> - **Vector DB**: Vespa (not Qdrant)
-> - **LLM adapters**: `airweave/adapters/llm/` with Together AI + Anthropic fallback (not Cerebras/Groq)
-> - **Reranker**: `airweave/adapters/reranker/` with Cohere
-> - **Filters**: `domains/search/types/filters.py` — FilterableField/FilterOperator/FilterGroup (not Qdrant native filters)
-> - **Streaming**: SSE events defined in `domains/search/agentic/events.py` (tool_call, thinking, search_results, etc.)
-> - **API**: `POST /collections/{id}/search/{tier}` where tier is `instant`, `classic`, or `agentic`
-> - **Config**: `domains/search/config.py` — model specs, token budgets, tier defaults
->
-> **When working on `domains/search/`**, prefer reading the actual code over this
-> file. The sections below remain accurate for the legacy `airweave/search/` module only.
+## Overview
 
-## Overview (Legacy V1)
+A **source connector** in Airweave is a Python module that extracts data from an external service and transforms it into searchable entities. This guide covers everything you need to build a production-ready connector.
 
-The search module (`@search/`) implements a **modular, pipeline-based architecture** with composable operations.  It aims to maintain search quality and flexibility.
+There are two types of source connectors:
 
-## Core Architecture
+1. **Standard (Sync-Based)**: Extracts and syncs all data from the source to Airweave's vector database
+2. **Federated Search**: Searches the source's API at query time without syncing data
 
-### Operation-Based Pipeline
+## Core Components
 
-```python
-SearchRequest → SearchFactory → SearchContext → SearchOrchestrator → SearchResponse
-                                    ↓
-                            [Operations Pipeline]
+Every source connector requires three main components:
+
+1. **Source implementation** (`backend/airweave/platform/sources/{short_name}.py`)
+2. **Entity schemas** (`backend/airweave/platform/entities/{short_name}.py`)
+3. **OAuth configuration** (`backend/airweave/platform/auth/yaml/dev.integrations.yaml`)
+
+---
+
+## Part 1: Entity Schemas
+
+Start with entities because they define your data model.
+
+### File Location
+```
+backend/airweave/platform/entities/{short_name}.py
 ```
 
-Each operation:
-- Implements `SearchOperation` abstract base class
-- Declares dependencies explicitly
-- Reads/writes to shared state dictionary
-- Can be optional (graceful failure)
-- Executes asynchronously
+### Entity Types
 
-### Request Flow
-1. **Endpoint** (`api/v1/endpoints/search.py`) → Creates/receives `SearchRequest`
-2. **SearchService.search()** → Main entry point
-3. **SearchFactory.build()** → Creates `SearchContext` with enabled operations
-4. **SearchOrchestrator.run()** → Executes operations in dependency order
-5. **Operations** → Execute in topologically sorted order
-6. **Qdrant destination** → Vector search execution
-7. **Data Persistence** → Save search query to `search_queries` table via `CRUDSearchQuery`
+There are two base entity types:
 
-### API Endpoints
+1. **ChunkEntity** - Text-based entities (tasks, messages, documents, etc.)
+2. **FileEntity** - File attachments (PDFs, images, etc.)
 
-Search endpoints are defined in `api/v1/endpoints/search.py` and mounted under `/collections` prefix in `api/v1/api.py`:
+### Basic Structure
 
 ```python
-# In api/v1/api.py
-from airweave.api.v1.endpoints import search
-api_router.include_router(search.router, prefix="/collections", tags=["collections"])
+"""Entity schemas for {Connector Name}."""
+
+from datetime import datetime
+from typing import Any, Dict, List, Optional
+
+from pydantic import Field
+
+from airweave.platform.entities._airweave_field import AirweaveField
+from airweave.platform.entities._base import ChunkEntity, FileEntity
+
+
+class MyConnectorEntity(ChunkEntity):
+    """Schema for primary entity type."""
+
+    # Required fields
+    name: str = AirweaveField(
+        ...,
+        description="Display name of the entity",
+        embeddable=True  # This field will be embedded for search
+    )
+
+    # Timestamps (critical for incremental sync)
+    created_at: Optional[datetime] = AirweaveField(
+        None,
+        description="When this entity was created",
+        embeddable=True,
+        is_created_at=True  # Marks this as the creation timestamp
+    )
+
+    modified_at: Optional[datetime] = AirweaveField(
+        None,
+        description="When this entity was last modified",
+        embeddable=True,
+        is_updated_at=True  # Marks this as the update timestamp
+    )
+
+    # Content fields
+    content: Optional[str] = AirweaveField(
+        None,
+        description="The main text content",
+        embeddable=True  # Make searchable
+    )
+
+    # Metadata fields (not embeddable)
+    external_id: str = Field(
+        ...,
+        description="Unique ID from the external system"
+    )
+
+    permalink_url: Optional[str] = Field(
+        None,
+        description="Direct link to view in external system"
+    )
 ```
 
-**Available Endpoints:**
+### Key Principles
 
-1. **GET `/collections/{readable_id}/search`** - Legacy endpoint (DEPRECATED)
-   - Maintained for backwards compatibility
-   - Query parameters: `query`, `response_type`, `limit`, `offset`, `recency_bias`
-   - Returns `LegacySearchResponse` with `status` field
-   - Automatically converts to new format internally
-   - Adds deprecation headers
+#### 1. Use AirweaveField for Searchable Content
 
-2. **POST `/collections/{readable_id}/search`** - Main search endpoint (RECOMMENDED)
-   - Accepts both `SearchRequest` (new) and `LegacySearchRequest` (old) schemas
-   - Supports Qdrant native filters via `filter` field
-   - Full control over all search features
-   - Returns `SearchResponse` (new) or `LegacySearchResponse` (legacy) based on input schema
-   - Adds deprecation headers for legacy requests
+**Important: The `embeddable=True` flag is what makes your entities semantically searchable.**
 
-3. **POST `/collections/{readable_id}/search/stream`** - Streaming search with SSE
-   - Accepts both `SearchRequest` and `LegacySearchRequest`
-   - Returns Server-Sent Events (SSE) stream
-   - Real-time progress updates via Redis pubsub
-   - Automatically converts legacy requests
+Without `embeddable=True`, fields are only keyword-searchable, not semantically searchable. This limits the user's ability to find relevant entities.
 
-4. **GET `/collections/internal/filter-schema`** - Filter schema endpoint
-   - Returns Qdrant Filter JSON schema for frontend validation
-   - Public endpoint for building UI filter builders
+**Best Practice: Mark most user-visible, content-rich fields as `embeddable=True`**
 
-All endpoints use the same underlying `SearchService.search()`, ensuring consistent behavior and quality.
+This includes:
+- **Text content**: descriptions, notes, comments, body text
+- **Names and titles**: entity names, display names, titles
+- **People**: assignees, authors, owners, members (as dicts with name/email)
+- **Status and metadata**: status fields, tags, labels, priorities
+- **Structured data**: any dict/list that contains searchable information
+- **Timestamps**: created_at, modified_at, due_dates (helps with recency)
+- **URLs**: permalink_url, web_links (helps users find original content)
 
-### Input/Output Schemas
+**Only exclude from embeddable:**
+- Internal IDs (entity_id, external_id, database IDs)
+- Binary/technical metadata (sizes, checksums, mime_types)
+- System-only fields not relevant to user searches
 
-**SearchRequest** (new schema - `schemas/search.py`):
+**Example - Information-Rich Entity:**
+
 ```python
-query: str                                   # Search text (required)
-retrieval_strategy: Optional[RetrievalStrategy]  # "hybrid", "neural", or "keyword"
-filter: Optional[QdrantFilter]               # Qdrant native filter object
-offset: Optional[int]                        # Pagination offset
-limit: Optional[int]                         # Results per page
-temporal_relevance: Optional[float]          # Recency weight (0-1, default: 0.3)
-expand_query: Optional[bool]                 # Generate query variations
-interpret_filters: Optional[bool]            # Extract filters from natural language
-rerank: Optional[bool]                       # LLM-based reranking
-generate_answer: Optional[bool]              # AI-generated completion
+class MyConnectorTaskEntity(ChunkEntity):
+    """Task entity - NOTE: Most fields are embeddable for rich search."""
+
+    # Core content - ALWAYS embeddable
+    name: str = AirweaveField(..., description="Task name", embeddable=True)
+    description: Optional[str] = AirweaveField(
+        None,
+        description="Task description",
+        embeddable=True  # ✅ Critical for semantic search
+    )
+    notes: Optional[str] = AirweaveField(
+        None,
+        description="Additional notes",
+        embeddable=True  # ✅ Searchable content
+    )
+
+    # People - embeddable for "find tasks assigned to John" queries
+    assignee: Optional[Dict] = AirweaveField(
+        None,
+        description="User assigned to this task",
+        embeddable=True  # ✅ Enables "who" searches
+    )
+
+    owner: Optional[Dict] = AirweaveField(
+        None,
+        description="Task owner",
+        embeddable=True  # ✅ Enables owner searches
+    )
+
+    # Status and metadata - embeddable for filtering/search
+    status: Optional[str] = AirweaveField(
+        None,
+        description="Task status (open, in_progress, done)",
+        embeddable=True  # ✅ Enables status-based search
+    )
+
+    priority: Optional[str] = AirweaveField(
+        None,
+        description="Priority level",
+        embeddable=True  # ✅ Find high-priority tasks
+    )
+
+    tags: List[str] = AirweaveField(
+        default_factory=list,
+        description="Task tags",
+        embeddable=True  # ✅ Find by tag
+    )
+
+    # Timestamps - embeddable for recency boosting
+    created_at: Optional[datetime] = AirweaveField(
+        None,
+        description="Creation time",
+        embeddable=True,  # ✅ For recency
+        is_created_at=True
+    )
+
+    due_date: Optional[str] = AirweaveField(
+        None,
+        description="Due date",
+        embeddable=True  # ✅ Find overdue tasks
+    )
+
+    # URLs - embeddable so users can find links
+    permalink_url: Optional[str] = Field(
+        None,
+        description="Link to task in external system"
+        # Note: Use Field() not AirweaveField() for URLs if you don't want them embedded
+        # But consider making them embeddable for "find tasks linking to X"
+    )
+
+    # IDs - NOT embeddable (internal use only)
+    external_id: str = Field(..., description="ID in external system")
+    project_id: str = Field(..., description="Parent project ID")
 ```
 
-**SearchResponse** (new schema - `schemas/search.py`):
-```python
-results: List[Dict]                          # Search results
-completion: Optional[str]                    # AI-generated answer (if generate_answer=True)
-```
-
-**LegacySearchRequest** (old schema - `schemas/search_legacy.py`):
-```python
-query: str
-response_type: ResponseType                  # "raw" or "completion"
-search_method: Optional[str]                 # "hybrid", "neural", "keyword"
-expansion_strategy: Optional[QueryExpansionStrategy]  # "auto", "llm", "no_expansion"
-recency_bias: Optional[float]                # Recency weight (0-1)
-enable_reranking: Optional[bool]             # LLM reranking
-enable_query_interpretation: Optional[bool]  # Filter extraction
-# ... other legacy fields
-```
-
-**LegacySearchResponse** (old schema):
-```python
-results: List[Dict]
-response_type: ResponseType
-completion: Optional[str]
-status: SearchStatus                         # "success", "no_results", etc.
-```
-
-Result payload includes: `entity_id`, `source_name`, `md_content`, `metadata`, `score`, `breadcrumbs`, `url`
-
-## Key Components
-
-### Search Operations (`search/operations/`)
-
-1. **QueryExpansion** (`query_expansion.py`): Generates query variants using LLM
-2. **QueryInterpretation** (`query_interpretation.py`): LLM-based filter extraction from natural language
-3. **EmbedQuery** (`embed_query.py`): Generates dense (neural) and sparse (BM25) embeddings (optional for federated-only collections)
-4. **UserFilter** (`user_filter.py`): Applies and merges user-provided Qdrant filters
-5. **TemporalRelevance** (`temporal_relevance.py`): Dynamic time-based decay configuration
-6. **Retrieval** (`retrieval.py`): Executes vector search in Qdrant (hybrid/neural/keyword) (optional for federated-only collections)
-7. **FederatedSearch** (`federated_search.py`): Searches federated sources (e.g., Slack) at query time and merges with vector results using RRF
-8. **Reranking** (`reranking.py`): Post-retrieval reranking using LLM providers
-9. **GenerateAnswer** (`generate_answer.py`): AI-generated completions from search results
-
-### Hybrid Search
-
-True hybrid search combining:
-- **Neural embeddings**: Semantic similarity
-- **BM25 sparse embeddings**: Keyword matching
-- **Fusion**: Reciprocal Rank Fusion (RRF)
-- Default: `"hybrid"` for optimal quality
-
-### Federated Search
-
-For sources with strict rate limits or massive data volumes (e.g., Slack), **federated search** queries the source's API at search time instead of syncing all data:
-
-**How It Works:**
-1. Collection contains both vector-synced sources and federated sources
-2. User submits search query
-3. LLM extracts exactly 5 keywords from query and expansions
-4. Federated sources are searched in parallel with vector database
-5. Each federated source searches with all keywords concurrently
-6. Results are deduplicated by entity_id across keywords
-7. Federated and vector results are merged using Reciprocal Rank Fusion (RRF)
-8. Final merged results returned to user
-
-**Key Features:**
-- Parallel execution across all federated sources
-- Concurrent keyword searches per source
-- Automatic deduplication (1.5x padding for ~33% duplication rate)
-- RRF scoring for fair ranking across source types
-- Graceful degradation (continues if one source fails)
-- Real-time progress events via SSE
-
-**Configuration:**
-- Factory automatically detects federated sources in collection
-- Conditionally omits EmbedQuery/Retrieval for federated-only collections
-- Adds FederatedSearch operation when federated sources present
-
-### Dynamic Temporal Relevance
+**Common Mistake - Sparse Entity:**
 
 ```python
-final_score = similarity × (1 - weight + weight × decay)
-```
-- Computes decay dynamically from actual collection time range
-- Respects filters when determining time ranges
-- Linear decay with configurable weight (default: 0.3)
-- Applied at Qdrant level for efficiency via `DecayConfig`
-
-### Configuration Defaults
-
-Defaults are defined in `search/defaults.yml` and loaded via `SearchFactory`:
-- `retrieval_strategy: hybrid` - Combines neural + keyword search
-- `temporal_relevance: 0.3` - Moderate recency weighting
-- `expand_query: true` - Generate query variations
-- `interpret_filters: false` - Manual filter control by default
-- `rerank: true` - LLM-based reranking enabled
-- `generate_answer: true` - AI completion generation enabled
-- `offset: 0`, `limit: 1000` - Pagination defaults
-
-Provider and model configurations are also in `defaults.yml`:
-- `provider_models`: Model specs per provider (Cerebras, OpenAI, Groq, Cohere)
-- `operation_preferences`: Provider selection order for each operation with fallback support
-
-**Provider Capabilities:**
-- **Cerebras**: LLM only (llm: gpt-oss-120b, 131K context window)
-- **OpenAI**: Full stack (LLM: gpt-5/gpt-5-nano, embeddings: text-embedding-3-small, rerank: gpt-5-nano)
-- **Groq**: LLM and rerank (llm: openai/gpt-oss-120b/20b, rerank: openai/gpt-oss-120b)
-- **Cohere**: Rerank only (rerank: rerank-v3.5)
-
-**Default Provider Preferences** (from `defaults.yml`):
-- Query expansion: Cerebras → Groq → OpenAI
-- Query interpretation: Cerebras → Groq → OpenAI
-- Embeddings: OpenAI only (no fallback - embeddings must be consistent)
-- Reranking: Cohere → Groq → OpenAI
-- Answer generation: Cerebras → Groq → OpenAI
-- Federated search: Cerebras → Groq → OpenAI
-
-## Entity Architecture
-
-### AirweaveField System
-
-Field annotation system extending Pydantic fields:
-
-```python
-class MyEntity(ChunkEntity):
+# Avoid: Only name is embeddable, rest is not searchable
+class SparseTaskEntity(ChunkEntity):
     name: str = AirweaveField(..., embeddable=True)
-    created_at: datetime = AirweaveField(..., is_created_at=True)
-    content: str = AirweaveField(..., embeddable=True)
+    description: Optional[str] = Field(None)  # Should be embeddable
+    assignee: Optional[Dict] = Field(None)     # Should be embeddable
+    status: Optional[str] = Field(None)        # Should be embeddable
+    # Result: Users can only search by task name, nothing else
 ```
 
-- **Type-safe metadata** alongside field definitions
-- **Embeddable marking** for search embeddings
-- **Timestamp harmonization** for recency handling
+#### 2. Always Include Timestamps
 
-### Entity Hierarchy
-
-```
-BaseEntity
-├── ChunkEntity (searchable, embeddable)
-│   ├── Domain entities (Jira, Linear, Notion, etc.)
-│   └── Generated chunks from FileEntity
-├── FileEntity (file-based content)
-└── CodeFileEntity (specialized for code)
-```
-
-### Embeddable Text Generation
-
-ChunkEntity builds structured markdown representation:
-- Includes source, type, breadcrumbs, content
-- Respects `embeddable=True` markers
-- Caps at 12,000 characters
-
-## Advanced Features
-
-### Query Expansion
-- Boolean control: `expand_query: true/false`
-- When enabled, generates up to 4 query variations using LLM
-- Provides diverse paraphrases to improve recall
-- Includes keyword-forward and normalized variants
-- Expands abbreviations and synonyms
-
-### Provider System (`search/providers/`)
-- **Cerebras** (`cerebras.py`): Ultra-fast LLM inference for structured output and text generation (no embeddings or reranking)
-- **OpenAI** (`openai.py`): Complete provider - LLM, embeddings, reranking
-- **Groq** (`groq.py`): Fast LLM inference and reranking (no embeddings)
-- **Cohere** (`cohere.py`): Specialized reranking API
-- Automatic provider selection based on available API keys
-- Provider fallback on rate limits (429) and server errors (5xx)
-- Each operation tries providers in preference order from `defaults.yml`
-- Graceful degradation: if first provider fails with retryable error, automatically falls back to next provider
-
-### Hybrid Search Prefetch
-- Large prefetch limits for broad candidate sets
-- Ensures both neural and BM25 contribute meaningfully
-- Enables effective temporal relevance across full collection
-- Rerank multiplier (2x) fetches extra candidates for better reranking
-
-## System Metadata
-
-### AirweaveSystemMetadata
-
-Centralized tracking:
-- **Vectors**: Dense and sparse embeddings
-- **Timestamps**: Harmonized `airweave_created_at/updated_at`
-- **Sync tracking**: `sync_id`, `sync_job_id`
-- **Content hash**: Change detection
-- **Skip flag**: Processing control
-
-### Vector Storage
+Every entity should have `created_at` and/or `modified_at` with proper flags:
 
 ```python
-vectors: Optional[List[List[float] | SparseEmbedding | None]]
-# Index 0: Dense neural embedding
-# Index 1: Sparse BM25 embedding
-```
+created_at: Optional[datetime] = AirweaveField(
+    None,
+    description="Creation time",
+    embeddable=True,
+    is_created_at=True  # System uses this for incremental sync
+)
 
-## Performance & Quality
-
-### Optimizations
-- Async-first design throughout
-- Parallel operation execution via orchestrator
-- Provider-based architecture for flexibility
-- Bulk search APIs for multiple queries
-- Smart prefetching for reranking
-- Token budget management for LLM operations
-
-### Intelligent Defaults (from `defaults.yml`)
-- Query expansion: `true` (enabled)
-- LLM reranking: `true` (enabled)
-- Retrieval strategy: `hybrid` (neural + keyword)
-- Temporal relevance: `0.3` (moderate recency)
-- Generate answer: `true` (AI completion)
-- Interpret filters: `false` (manual control)
-
-### Provider Fallback System
-
-**Automatic Failover**: Operations automatically try providers in preference order when encountering retryable errors.
-
-**Retryable Errors** (trigger fallback):
-- Rate limits (HTTP 429)
-- Server errors (HTTP 500, 502, 503, 504)
-- Queue exceeded errors
-- Too many requests errors
-
-**Non-Retryable Errors** (fail immediately):
-- Authentication errors (HTTP 401, 403)
-- Validation errors (HTTP 400, 422)
-- Not found errors (HTTP 404)
-
-**Fallback Behavior**:
-1. Operation tries first provider in preference list
-2. If retryable error occurs, logs warning and tries next provider
-3. If non-retryable error occurs, fails immediately
-4. If all providers fail with retryable errors, fails entire search
-5. Successful provider logged at INFO level for observability
-
-**Example Flow**:
-```
-[QueryExpansion] Attempting with provider CerebrasProvider (1/3)
-[QueryExpansion] Provider CerebrasProvider failed with retryable error: 429. Trying next provider...
-[QueryExpansion] Attempting with provider GroqProvider (2/3)
-[QueryExpansion] ✓ Succeeded with fallback provider GroqProvider
-```
-
-**Implementation**: `SearchOperation._execute_with_provider_fallback()` in `operations/_base.py`
-
-### Graceful Degradation
-- Provider fallback: Automatically tries alternative providers on rate limits/errors
-- Query interpretation failure → continues without extracted filters
-- Reranking failure → returns unranked results
-- Query expansion failure → uses original query only
-
-## Implementation Details
-
-### Filter Conversion
-Qdrant requires dict format, not Filter objects:
-```python
-# Convert Filter to dict before passing to Qdrant
-filter_dict = filter.model_dump(exclude_none=True) if filter else None
-await destination.search(filter=filter_dict)
-```
-
-### Result Cleaning
-Automatically removes sensitive/internal fields:
-- `id`, `vector` from payload
-- `download_url`, `local_path`, `file_uuid`, `checksum`
-- Parses JSON strings in `metadata`, `sync_metadata`
-
-### Error Handling
-HTTP status mapping in endpoints:
-- Connection errors → 503 (service unavailable)
-- Not found → 404
-- Invalid filter → 422 (unprocessable entity)
-- Others → 500
-
-### Critical Gotchas
-1. **Filter format**: Must convert to dict for Qdrant (done automatically in operations)
-2. **Offset with expansion**: Pagination applied after deduplication in bulk search
-3. **Provider dependencies**: Requires at least OpenAI API key for embeddings; other providers optional but recommended for fallback
-4. **Source names**: Case-sensitive in filters (e.g., "GitHub" not "github")
-5. **Embedding model**: Auto-selected from provider_models configuration; no fallback (must be consistent)
-6. **Legacy compatibility**: Both old and new schemas supported via `legacy_adapter.py`
-7. **Operation dependencies**: Orchestrator resolves execution order via topological sort
-8. **Provider validation**: Token budgeting and validation use the **actual provider** being called, not `providers[0]`
-9. **Federated keywords**: Exactly 5 keywords extracted (fixed-size tuple for Cerebras compatibility)
-10. **Provider fallback**: Operations automatically try providers in order; log which provider succeeded at INFO level
-
-## Search Persistence & Analytics
-
-### Data Persistence
-
-Every search operation is automatically persisted to the `search_queries` table for:
-- **Audit trails** and compliance
-- **Performance analytics** and optimization
-- **User behavior analysis** and insights
-- **Search evolution tracking** over time
-
-**SearchQuery Model** (`airweave.models.search_query`):
-```python
-class SearchQuery(OrganizationBase, UserMixin):
-    # Core search data
-    query_text: str                    # Full search query
-    query_length: int                  # Character count
-    is_streaming: bool                 # Whether this was a streaming search
-    retrieval_strategy: str            # "hybrid", "neural", or "keyword"
-
-    # Search parameters
-    limit: int                         # Results limit
-    offset: int                        # Pagination offset
-    temporal_relevance: float          # Recency weight (0-1)
-    filter: Optional[Dict]             # Applied Qdrant filter
-
-    # Performance metrics
-    duration_ms: int                   # Execution time
-    results_count: int                 # Results returned
-
-    # Feature usage tracking
-    expand_query: bool                 # Query expansion enabled
-    interpret_filters: bool            # Query interpretation enabled
-    rerank: bool                       # LLM reranking enabled
-    generate_answer: bool              # AI completion enabled
-
-    # Relationships
-    collection_id: UUID                # Collection searched
-    user_id: Optional[UUID]            # User who searched (null for API)
-    api_key_id: Optional[UUID]         # API key used (null for users)
-```
-
-**CRUDSearchQuery** (`airweave.crud.crud_search_query`):
-- Inherits from `CRUDBaseOrganization` for organization scoping
-- Provides `get_user_search_history()` for user experience features
-- Supports analytics queries for collection performance
-
-### Analytics Integration
-
-**Database-First Analytics**: All search data is persisted to the `search_queries` table, providing a comprehensive analytics foundation:
-
-- **Search performance metrics** (duration, results count)
-- **Feature adoption tracking** (expansion, reranking, interpretation)
-- **User behavior analysis** (query patterns, search evolution)
-- **Collection analytics** (usage patterns, performance trends)
-
-**PostHog Integration**: For real-time dashboards, search data can be exported from the database to PostHog via batch jobs or streaming pipelines.
-
-### Error Handling
-
-Search persistence is **non-blocking**:
-- If persistence fails → Search continues, error logged
-- Core search functionality is never compromised
-
-## Best Practices
-
-### When Working with Search
-
-1. **Always use the new schemas** (`SearchRequest`/`SearchResponse`) for new code
-2. **Let defaults do the work** - Most parameters are optional; factory applies intelligent defaults
-3. **Use the service singleton** - Import from `airweave.search.service import service`
-4. **Handle both schemas in endpoints** - Accept `Union[SearchRequest, LegacySearchRequest]` for compatibility
-5. **Log with context** - Operations receive `ctx: ApiContext` with pre-configured logger
-6. **Emit events for streaming** - Use `EventEmitter` for progress updates
-7. **Validate providers early** - Factory raises clear errors for missing API keys
-
-### Adding New Operations
-
-To add a new search operation:
-
-1. **Create operation class** in `search/operations/your_operation.py`:
-   ```python
-   from ._base import SearchOperation
-
-   class YourOperation(SearchOperation):
-       def depends_on(self) -> List[str]:
-           return ["EmbedQuery"]  # Declare dependencies
-
-       async def execute(self, context, state, ctx, emitter):
-           # Read from state
-           embeddings = state.get("dense_embeddings")
-
-           # Do work
-           result = await self._process(embeddings)
-
-           # Write to state
-           state["your_result"] = result
-
-           # Emit events
-           await emitter.emit("your_event", {"data": result}, op_name=self.__class__.__name__)
-   ```
-
-2. **Add to SearchContext** in `search/context.py`:
-   ```python
-   your_operation: Optional[YourOperation] = Field(default=None)
-   ```
-
-3. **Add to factory** in `search/factory.py`:
-   ```python
-   search_context = SearchContext(
-       # ... existing fields
-       your_operation=YourOperation() if some_condition else None,
-   )
-   ```
-
-4. **Update orchestrator** - No changes needed! It automatically discovers operations from context
-
-### Modifying Prompts
-
-System prompts are in `search/prompts/`:
-- Each prompt is a module constant (e.g., `QUERY_EXPANSION_SYSTEM_PROMPT`)
-- Use `.format()` for dynamic values (e.g., available fields)
-- Test with different LLM providers (prompt quality varies)
-- Keep prompts focused and concise for better results
-
-### Working with Providers
-
-Providers implement capabilities (LLM, embeddings, reranking):
-- **BaseProvider** defines the interface with `is_retryable_error()` static method for error classification
-- Each provider declares its supported capabilities via `ProviderModelSpec`
-- Factory initializes **all available providers** for each operation in preference order
-- Operations receive provider lists and automatically fall back on errors
-- Providers handle tokenization, budgeting, and API calls
-- Token validation and budgeting happen **per-provider** (not using first provider)
-- Add new providers by implementing `BaseProvider` and adding to `defaults.yml`
-
-**Provider Fallback Pattern**:
-```python
-# Operations use _execute_with_provider_fallback from base class
-async def call_provider(provider: BaseProvider) -> ResultType:
-    # Validate for THIS specific provider
-    self._validate_for_provider(input, provider, ctx)
-    # Call provider method
-    return await provider.method(args)
-
-result = await self._execute_with_provider_fallback(
-    providers=self.providers,
-    operation_call=call_provider,
-    operation_name="OperationName",
-    ctx=ctx,
+modified_at: Optional[datetime] = AirweaveField(
+    None,
+    description="Last modification time",
+    embeddable=True,
+    is_updated_at=True  # System uses this for incremental sync
 )
 ```
 
-**Exception**: `EmbedQuery` uses a single provider (no fallback) because embedding models must remain consistent within a collection for vector similarity to work.
+#### 3. Model Entity Hierarchies
 
-## Legacy Adapter & Migration
-
-### Legacy Support (`search/legacy_adapter.py`)
-
-The system maintains backwards compatibility with the old search API:
-
-**Converting Legacy Requests:**
-- `response_type` → `generate_answer` (enum to boolean)
-- `search_method` → `retrieval_strategy` (renamed)
-- `expansion_strategy` → `expand_query` (enum to boolean)
-- `recency_bias` → `temporal_relevance` (renamed)
-- `enable_reranking` → `rerank` (renamed)
-- `enable_query_interpretation` → `interpret_filters` (renamed)
-- `score_threshold` → Removed (no longer supported)
-
-**Converting Legacy Responses:**
-- New `SearchResponse` → `LegacySearchResponse` with `status` and `response_type` fields
-- Status inferred from result count and quality
-- Response type preserved from request
-
-**Deprecation Headers:**
-When using legacy schemas, endpoints add HTTP headers:
-- `X-API-Deprecation: true`
-- `X-API-Deprecation-Message: <migration guidance>`
-
-### Migration Path
-
-**For API consumers:**
-1. Update request schema to use new field names
-2. Update response handling (remove status checks)
-3. Test with new schema before removing old code
-4. Monitor deprecation headers
-
-**For internal code:**
-- Always use new `SearchRequest` and `SearchResponse` schemas
-- Legacy adapter handles conversion automatically
-- Service layer only processes new schemas
-
-## Design Principles
-
-1. **Modularity**: Self-contained operations in `search/operations/`
-2. **Configurability**: Centralized via `SearchContext` and `defaults.yml`
-3. **Extensibility**: Plug-in new operations via `SearchOperation` interface
-4. **Performance**: Async-first, provider-based architecture
-5. **Quality-first**: Optimized defaults with provider fallback chains
-6. **Observability**: Comprehensive logging and streaming events via `EventEmitter`
-7. **Database-first analytics**: Every search persisted via `SearchHelpers.persist_search_data()`
-8. **Backwards compatibility**: Legacy adapter maintains API compatibility seamlessly
-
-### SearchContext (`search/context.py`)
-
-The `SearchContext` is the execution plan for a search request:
+If your connector has parent-child relationships, create separate entity classes:
 
 ```python
-class SearchContext(BaseModel):
-    # Metadata
-    request_id: str
-    collection_id: UUID
-    readable_collection_id: str
-    stream: bool
-    vector_size: int
+class WorkspaceEntity(ChunkEntity):
+    """Top-level container."""
+    name: str = AirweaveField(..., embeddable=True)
+    # ...
 
-    # Input query
-    query: str
+class ProjectEntity(ChunkEntity):
+    """Belongs to workspace."""
+    name: str = AirweaveField(..., embeddable=True)
+    workspace_id: str = Field(...)
+    workspace_name: str = AirweaveField(..., embeddable=True)
+    # ...
 
-    # Operation instances (None if disabled)
-    query_expansion: Optional[QueryExpansion]
-    query_interpretation: Optional[QueryInterpretation]
-    embed_query: EmbedQuery  # Always required
-    user_filter: Optional[UserFilter]
-    temporal_relevance: Optional[TemporalRelevance]
-    retrieval: Retrieval  # Always required
-    reranking: Optional[Reranking]
-    generate_answer: Optional[GenerateAnswer]
+class TaskEntity(ChunkEntity):
+    """Belongs to project."""
+    name: str = AirweaveField(..., embeddable=True)
+    project_id: str = Field(...)
+    section_id: Optional[str] = Field(None)
+    # ...
 ```
 
-The factory builds this context by:
-1. Applying defaults from `defaults.yml`
-2. Validating API keys for required providers
-3. Creating provider instances for each enabled operation
-4. Building operation instances with proper providers
-5. Returning complete execution plan
+#### 4. CRITICAL: Always Include Breadcrumbs
 
-## Module Structure
+**⚠️ IMPORTANT: Breadcrumbs are frequently forgotten but essential for entity relationships and search context.**
 
-```
-search/
-├── service.py              # Main SearchService entry point
-├── factory.py              # SearchFactory - builds SearchContext
-├── orchestrator.py         # SearchOrchestrator - executes operations
-├── context.py              # SearchContext - holds operation instances
-├── emitter.py              # EventEmitter - streaming event publishing
-├── helpers.py              # SearchHelpers - persistence and utilities
-├── defaults.yml            # Configuration defaults and provider specs
-├── legacy_adapter.py       # Converts between old and new schemas
-├── utils.py                # Utility functions for filter handling
-├── operations/             # Individual search operations
-│   ├── _base.py            # SearchOperation abstract base
-│   ├── query_expansion.py
-│   ├── query_interpretation.py
-│   ├── embed_query.py
-│   ├── user_filter.py
-│   ├── temporal_relevance.py
-│   ├── retrieval.py
-│   ├── reranking.py
-│   └── generate_answer.py
-├── providers/              # LLM provider implementations
-│   ├── _base.py            # BaseProvider abstract class
-│   ├── schemas.py          # Provider model specifications
-│   ├── openai.py           # OpenAI provider
-│   ├── groq.py             # Groq provider
-│   └── cohere.py           # Cohere provider
-└── prompts/                # System prompts for LLM operations
-    ├── __init__.py
-    ├── query_expansion.py
-    ├── query_interpretation.py
-    ├── reranking.py
-    └── generate_answer.py
-```
+Every entity MUST have breadcrumbs set when yielded. Breadcrumbs track the entity's location in the hierarchy (e.g., "Organization → Person → Deal").
 
-## Quick Reference
-
-### Basic Search (New Schema)
 ```python
-from airweave.schemas.search import SearchRequest
-from airweave.search.service import service
+from airweave.platform.entities._base import Breadcrumb
 
-# Minimal request - uses all defaults from defaults.yml
-request = SearchRequest(query="find customer issues")
+# When generating entities, ALWAYS set breadcrumbs based on relationships:
 
-response = await service.search(
-    request_id=ctx.request_id,
-    readable_collection_id="my-collection",
-    search_request=request,
-    stream=False,
-    db=db,
-    ctx=ctx,
+# Top-level entities (organizations, workspaces) - empty breadcrumbs
+yield OrganizationEntity(
+    entity_id=org_id,
+    breadcrumbs=[],  # Top-level, no parent
+    name=name,
+    # ...
 )
 
-# Access results
-results = response.results
-completion = response.completion  # AI answer if generate_answer=True
+# Child entities - include parent breadcrumbs
+breadcrumbs = []
+if parent_org_id and parent_org_name:
+    breadcrumbs.append(
+        Breadcrumb(
+            entity_id=str(parent_org_id),
+            name=parent_org_name,
+            entity_type="OrganizationEntity",
+        )
+    )
+
+yield PersonEntity(
+    entity_id=person_id,
+    breadcrumbs=breadcrumbs,  # Links to parent organization
+    name=name,
+    # ...
+)
+
+# Deeply nested entities - include full hierarchy
+deal_breadcrumbs = []
+if org_id and org_name:
+    deal_breadcrumbs.append(Breadcrumb(entity_id=str(org_id), name=org_name, entity_type="OrganizationEntity"))
+if person_id and person_name:
+    deal_breadcrumbs.append(Breadcrumb(entity_id=str(person_id), name=person_name, entity_type="PersonEntity"))
+
+yield DealEntity(
+    entity_id=deal_id,
+    breadcrumbs=deal_breadcrumbs,  # Shows: Organization → Person → Deal
+    # ...
+)
 ```
 
-### Advanced Search with Options
+**Common Mistake:**
 ```python
-request = SearchRequest(
-    query="deployment failures last week",
-    retrieval_strategy=RetrievalStrategy.HYBRID,
-    temporal_relevance=0.7,  # Strong recency bias
-    expand_query=True,
-    interpret_filters=True,  # Extract "last week" as date filter
-    rerank=True,
-    generate_answer=False,  # Just return results
-    limit=50,
-    offset=0,
-    filter={  # Manual Qdrant filter
-        "must": [
-            {"key": "source_name", "match": {"value": "github"}}
-        ]
+# ❌ WRONG - Empty breadcrumbs when entity has parent relationships
+yield PersonEntity(
+    entity_id=person_id,
+    breadcrumbs=[],  # Lost relationship to organization!
+    organization_id=org_id,
+    organization_name=org_name,
+    # ...
+)
+```
+
+**Rule:** If an entity has a parent reference (org_id, project_id, etc.), it should have a corresponding breadcrumb.
+
+#### 5. Web URLs - User-Facing Links
+
+**⚠️ IMPORTANT: Web URLs must be correct user-facing links that agents can share with users.**
+
+Every entity should have a `web_url` field that links to the record in the source system's UI. These are URLs that:
+- Users can click to view the record in the source application
+- Agents can provide to users when referencing entities
+- Should open directly to the specific record, not a list view
+
+```python
+# In your entity schema
+class MyEntity(ChunkEntity):
+    web_url_value: Optional[str] = AirweaveField(
+        None,
+        description="URL to view this record in the source system.",
+        embeddable=False,
+        unhashable=True,  # URLs change and shouldn't affect content hash
+    )
+
+    @computed_field(return_type=str)
+    def web_url(self) -> str:
+        """User-facing link to the record."""
+        return self.web_url_value or ""
+
+# In your source - build proper URLs for each record type
+def _build_record_url(self, record_type: str, record_id: str) -> Optional[str]:
+    """Build a user-facing URL for the record."""
+    # Different record types often have different URL patterns!
+    # Verify the actual URL structure in the source system's UI
+    url_patterns = {
+        "task": f"https://app.example.com/tasks/{record_id}",
+        "project": f"https://app.example.com/projects/{record_id}",
+        "comment": f"https://app.example.com/tasks/{parent_id}#comment-{record_id}",
     }
-)
-
-response = await service.search(...)
+    return url_patterns.get(record_type)
 ```
 
-### Streaming Search
+**Common Mistakes:**
+- Using API URLs instead of UI URLs
+- Using incorrect URL patterns (verify in the actual app!)
+- Forgetting that some record types may not have direct URLs (e.g., settings pages)
+- Not handling cases where the URL requires additional context (parent IDs, etc.)
+
+#### 4. File Entities
+
+For attachments, inherit from `FileEntity`:
+
 ```python
-# In endpoint - same SearchRequest, set stream=True
-response = await service.search(
-    request_id=ctx.request_id,
-    readable_collection_id="my-collection",
-    search_request=request,
-    stream=True,  # Enables event emission
-    db=db,
-    ctx=ctx,
-)
+class MyConnectorFileEntity(FileEntity):
+    """Schema for file attachments."""
 
-# Events are automatically emitted to Redis channel: search:{request_id}
-# Frontend subscribes via POST /collections/{id}/search/stream
+    # FileEntity provides: file_id, name, mime_type, size, download_url
+    # Add connector-specific fields:
+
+    parent_task_id: str = Field(
+        ...,
+        description="ID of the task this file is attached to"
+    )
+
+    created_at: Optional[datetime] = AirweaveField(
+        None,
+        description="Upload time",
+        embeddable=True,
+        is_created_at=True
+    )
 ```
 
-### Legacy Request Conversion
+---
+
+## Part 2: Source Implementation
+
+### File Location
+```
+backend/airweave/platform/sources/{short_name}.py
+```
+
+### Basic Structure
+
 ```python
-from airweave.schemas.search_legacy import LegacySearchRequest
-from airweave.search.legacy_adapter import convert_legacy_request_to_new
+"""{Connector Name} source implementation."""
 
-# Old schema
-legacy = LegacySearchRequest(
-    query="test",
-    response_type=ResponseType.COMPLETION,
-    expansion_strategy=QueryExpansionStrategy.AUTO,
-    enable_reranking=True,
+from typing import Any, AsyncGenerator, Dict, List, Optional
+
+import httpx
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+from airweave.domains.sources.exceptions import SourceAuthError, SourceRateLimitError, SourceServerError
+from airweave.platform.decorators import source
+from airweave.platform.entities._base import Breadcrumb, ChunkEntity
+from airweave.platform.entities.{short_name} import (
+    MyConnectorEntity,
+    MyConnectorFileEntity,
 )
+from airweave.platform.sources._base import BaseSource
+from airweave.schemas.source_connection import AuthenticationMethod, OAuthType
 
-# Convert to new schema
-new_request = convert_legacy_request_to_new(legacy)
-# Result: SearchRequest(query="test", generate_answer=True, expand_query=True, rerank=True)
+
+@source(
+    name="{Connector Display Name}",
+    short_name="{short_name}",
+    auth_methods=[
+        AuthenticationMethod.OAUTH_BROWSER,
+        AuthenticationMethod.OAUTH_TOKEN,
+        AuthenticationMethod.AUTH_PROVIDER,
+    ],
+    oauth_type=OAuthType.WITH_REFRESH,  # or WITH_ROTATING_REFRESH, ACCESS_ONLY
+    auth_config_class=None,
+    config_class="{ConnectorName}Config",  # Must match schema name
+    labels=["Category"],  # e.g., "Project Management", "CRM", "Storage"
+    supports_continuous=False,  # Set to True if you support webhook-based sync
+)
+class MyConnectorSource(BaseSource):
+    """{Connector Name} source connector.
+
+    Syncs {list of entity types} from {Connector Name}.
+    """
+
+    @classmethod
+    async def create(
+        cls,
+        *,
+        auth: "SourceAuthProvider",
+        logger: "ContextualLogger",
+        http_client: "AirweaveHttpClient",
+        config: "BaseModel",
+    ) -> "MyConnectorSource":
+        """Create and configure the source.
+
+        Args:
+            auth: Auth provider — call ``await auth.get_token()`` for a bearer token.
+            logger: Contextual logger with sync/search metadata.
+            http_client: Pre-built AirweaveHttpClient with rate limiting.
+            config: Typed config instance (the source's config_class).
+
+        Returns:
+            Configured source instance
+        """
+        instance = cls(auth=auth, logger=logger, http_client=http_client)
+        instance.workspace_id = getattr(config, "workspace_id", None)
+        instance.exclude_pattern = getattr(config, "exclude_pattern", "")
+        return instance
+
+    async def generate_entities(
+        self,
+        *,
+        cursor=None,
+        files=None,
+        node_selections=None,
+    ) -> AsyncGenerator[ChunkEntity, None]:
+        """Generate all entities from the source.
+
+        Args:
+            cursor: SyncCursor for incremental sync tracking.
+            files: FileService for downloading file attachments.
+            node_selections: Node selections for targeted sync.
+        """
+        client = self.http_client
+        async for top_level in self._generate_top_level(client):
+            yield top_level
+
+            async for child in self._generate_children(client, top_level):
+                yield child
+
+    async def validate(self) -> None:
+        """Verify credentials by pinging the API."""
+        token = await self.get_access_token()
+        response = await self.http_client.get(
+            "https://api.example.com/v1/me",
+            headers={"Authorization": f"Bearer {token}", "Accept": "application/json"},
+        )
+        response.raise_for_status()
 ```
 
-### Common Patterns
+### Critical Methods
 
-**Simple search with defaults:**
+#### 1. The `create()` Classmethod
+
+Called once when a sync starts. `SourceLifecycleService` passes `auth`, `logger`, `http_client`, and `config` as keyword arguments:
+
 ```python
-# Relies on defaults.yml configuration
-request = SearchRequest(query="customer feedback")
-response = await service.search(ctx.request_id, "collection-id", request, False, db, ctx)
+@classmethod
+async def create(
+    cls,
+    *,
+    auth: "SourceAuthProvider",
+    logger: "ContextualLogger",
+    http_client: "AirweaveHttpClient",
+    config: "BaseModel",
+) -> "MyConnectorSource":
+    """Create and configure the source."""
+    instance = cls(auth=auth, logger=logger, http_client=http_client)
+    instance.workspace_filter = getattr(config, "workspace_filter", "")
+    instance.include_archived = getattr(config, "include_archived", False)
+    return instance
 ```
 
-**Search with custom temporal weighting:**
+**Note:** Never store `access_token` as an instance attribute. Call `await self.get_access_token()` at request time — it delegates to the injected auth provider which handles refresh automatically.
+
+#### 2. The `generate_entities()` Method
+
+This is an async generator that yields entities. Operation-time deps (`cursor`, `files`, `node_selections`) are passed as keyword params:
+
 ```python
-# Prioritize recent documents strongly
-request = SearchRequest(
-    query="recent updates",
-    temporal_relevance=0.9,  # Very strong recency bias
+async def generate_entities(
+    self,
+    *,
+    cursor=None,
+    files=None,
+    node_selections=None,
+) -> AsyncGenerator[ChunkEntity, None]:
+    """Generate all entities from the source.
+
+    Key principles:
+    - Generate hierarchically (parents before children)
+    - Track breadcrumbs for relationships
+    - Handle pagination
+    """
+    client = self.http_client
+    # Top-level entities
+    async for workspace in self._generate_workspaces(client):
+        yield workspace
+
+        workspace_breadcrumb = Breadcrumb(
+            entity_id=workspace.entity_id,
+            name=workspace.name,
+            entity_type="WorkspaceEntity",
+        )
+
+        # Child entities
+        async for project in self._generate_projects(client, workspace):
+            yield project
+
+            project_breadcrumb = Breadcrumb(
+                entity_id=project.entity_id,
+                name=project.name,
+                entity_type="ProjectEntity",
+            )
+            breadcrumbs = [workspace_breadcrumb, project_breadcrumb]
+
+            # Grandchild entities
+            async for task in self._generate_tasks(client, project, breadcrumbs):
+                yield task
+```
+
+#### 3. Making API Requests
+
+Use `self.http_client` (a property returning the pre-built `AirweaveHttpClient`) and `self.get_access_token()` for bearer tokens. For 401 recovery, call `await self.auth.force_refresh()` (check `self.auth.supports_refresh` first):
+
+```python
+async def _get_with_auth(
+    self,
+    url: str,
+    params: Optional[Dict[str, Any]] = None,
+) -> Dict:
+    """Make authenticated GET request with automatic token refresh."""
+    access_token = await self.get_access_token()
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = await self.http_client.get(url, headers=headers, params=params)
+
+    if response.status_code == 401 and self.auth.supports_refresh:
+        self.logger.warning(f"Received 401 for {url}, forcing token refresh...")
+        new_token = await self.auth.force_refresh()
+        headers = {"Authorization": f"Bearer {new_token}"}
+        response = await self.http_client.get(url, headers=headers, params=params)
+
+    if response.status_code == 429:
+        retry_after = response.headers.get("Retry-After")
+        raise SourceRateLimitError(
+            source=self.short_name,
+            retry_after=int(retry_after) if retry_after else None,
+        )
+
+    response.raise_for_status()
+    return response.json()
+```
+
+**Note:** `self.http_client` is a property (not a callable). Do not do `self.http_client()` — that will raise `TypeError`.
+
+### Handling Hierarchical Data
+
+Use breadcrumbs to track entity relationships:
+
+```python
+async def _generate_projects(
+    self,
+    client: httpx.AsyncClient,
+    workspace: WorkspaceEntity,
+    workspace_breadcrumb: Breadcrumb
+) -> AsyncGenerator[ChunkEntity, None]:
+    """Generate projects within a workspace."""
+
+    data = await self._get_with_auth(
+        client,
+        f"https://api.example.com/workspaces/{workspace.entity_id}/projects"
+    )
+
+    for project_data in data.get("projects", []):
+        yield ProjectEntity(
+            entity_id=project_data["id"],
+            breadcrumbs=[workspace_breadcrumb],  # Parent relationship
+            name=project_data["name"],
+            workspace_id=workspace.entity_id,
+            workspace_name=workspace.name,
+            # ... other fields
+        )
+```
+
+### Handling File Entities
+
+Use the `process_file_entity()` helper:
+
+```python
+async def _generate_file_entities(
+    self,
+    client: httpx.AsyncClient,
+    task: TaskEntity,
+    task_breadcrumbs: List[Breadcrumb]
+) -> AsyncGenerator[ChunkEntity, None]:
+    """Generate file attachments for a task."""
+
+    data = await self._get_with_auth(
+        client,
+        f"https://api.example.com/tasks/{task.entity_id}/attachments"
+    )
+
+    for attachment in data.get("attachments", []):
+        # Create the file entity
+        file_entity = MyConnectorFileEntity(
+            entity_id=attachment["id"],
+            breadcrumbs=task_breadcrumbs,
+            file_id=attachment["id"],
+            name=attachment["name"],
+            mime_type=attachment.get("mime_type"),
+            size=attachment.get("size"),
+            total_size=attachment.get("size"),
+            download_url=attachment["download_url"],
+            created_at=attachment.get("created_at"),
+            parent_task_id=task.entity_id,
+        )
+
+        # Prepare auth headers if needed
+        headers = None
+        if file_entity.download_url.startswith("https://api.example.com/"):
+            token = await self.get_access_token()
+            headers = {"Authorization": f"Bearer {token}"}
+
+        # Process the file (downloads, extracts text, chunks)
+        processed_entity = await self.process_file_entity(
+            file_entity=file_entity,
+            headers=headers,
+        )
+
+        yield processed_entity
+```
+
+### Pagination
+
+Handle paginated APIs properly:
+
+```python
+async def _get_all_pages(
+    self,
+    client: httpx.AsyncClient,
+    url: str,
+    params: Optional[Dict[str, Any]] = None
+) -> List[Dict]:
+    """Fetch all pages of a paginated endpoint."""
+    all_items = []
+    next_page_token = None
+
+    while True:
+        request_params = {**(params or {})}
+        if next_page_token:
+            request_params["page_token"] = next_page_token
+
+        response = await self._get_with_auth(client, url, request_params)
+
+        all_items.extend(response.get("items", []))
+
+        # Check for next page
+        next_page_token = response.get("next_page_token")
+        if not next_page_token:
+            break
+
+    return all_items
+```
+
+### Rate Limiting (Optional)
+
+If the API has strict rate limits, add simple rate limiting:
+
+```python
+import time
+import asyncio
+
+class MyConnectorSource(BaseSource):
+    def __init__(self):
+        super().__init__()
+        self.last_request_time = 0.0
+        self.min_request_interval = 0.2  # 200ms between requests
+
+    async def _rate_limit(self):
+        """Simple rate limiting."""
+        now = time.time()
+        elapsed = now - self.last_request_time
+        if elapsed < self.min_request_interval:
+            await asyncio.sleep(self.min_request_interval - elapsed)
+        self.last_request_time = time.time()
+
+    async def _get_with_auth(self, client, url, params=None):
+        await self._rate_limit()
+        # ... rest of request logic
+```
+
+Most APIs don't need this initially. Add it if you encounter 429 errors.
+
+---
+
+## Part 3: OAuth Configuration
+
+### File Location
+```
+backend/airweave/platform/auth/yaml/dev.integrations.yaml
+```
+
+**Note:** The human has already set up OAuth credentials here. This configuration exists and contains the client_id, client_secret, and scopes for your connector.
+
+### OAuth Types (For Reference)
+
+The existing configuration will have one of these `oauth_type` values:
+
+1. **`with_refresh`** - Standard OAuth2 with non-rotating refresh tokens (Gmail, Asana, Dropbox)
+2. **`with_rotating_refresh`** - OAuth2 with rotating refresh tokens (Outlook, Jira, Confluence)
+3. **`access_only`** - OAuth2 without refresh tokens (Notion, Linear, Slack)
+
+---
+
+## Part 3.5: Auth Configuration Class
+
+### File Location
+```
+backend/airweave/platform/configs/auth.py
+```
+
+**Add your connector's auth configuration class** to match the OAuth type from the YAML:
+
+### For OAuth2 with Refresh Tokens
+
+```python
+class MyConnectorAuthConfig(OAuth2WithRefreshAuthConfig):
+    """MyConnector authentication credentials schema."""
+
+    # Inherits refresh_token and access_token from OAuth2WithRefreshAuthConfig
+```
+
+### For OAuth2 without Refresh (Access Only)
+
+```python
+class MyConnectorAuthConfig(OAuth2AuthConfig):
+    """MyConnector authentication credentials schema."""
+
+    # Inherits access_token from OAuth2AuthConfig
+```
+
+### For OAuth2 with BYOC (Bring Your Own Credentials)
+
+If users need to provide their own client_id/client_secret:
+
+```python
+class MyConnectorAuthConfig(OAuth2BYOCAuthConfig):
+    """MyConnector authentication credentials schema."""
+
+    # Inherits client_id, client_secret, refresh_token, and access_token
+```
+
+### For API Key Authentication
+
+```python
+class MyConnectorAuthConfig(AuthConfig):
+    """MyConnector authentication credentials schema."""
+
+    api_key: str = Field(
+        title="API Key",
+        description="The API key for MyConnector"
+    )
+```
+
+### Add to Source Decorator
+
+Reference the auth config in your source decorator:
+
+```python
+@source(
+    name="MyConnector",
+    short_name="my_connector",
+    auth_methods=[...],
+    oauth_type=OAuthType.WITH_REFRESH,
+    auth_config_class="MyConnectorAuthConfig",  # ← Add this
+    config_class="MyConnectorConfig",
+    labels=["Category"],
 )
 ```
 
-**Search with manual filtering only:**
+---
+
+## Part 3.75: Federated Search Sources
+
+Some source APIs have strict rate limits or massive data volumes that make full synchronization impractical. For these sources, use **federated search** to query the source's API at search time instead of syncing all data.
+
+### When to Use Federated Search
+
+Use federated search when:
+- The source has strict rate limits (e.g., Slack's search API)
+- The data volume is too large to sync efficiently
+- The source provides a search API that's fast enough for real-time queries
+- Data changes too frequently to keep synced
+
+### Implementing a Federated Search Source
+
+#### 1. Mark the Source as Federated
+
+Add `federated_search=True` to the `@source` decorator:
+
 ```python
-# Disable query interpretation, provide exact filter
-request = SearchRequest(
-    query="bugs",
-    interpret_filters=False,  # Don't auto-extract filters
-    filter={"must": [{"key": "status", "match": {"value": "open"}}]},
+@source(
+    name="Slack",
+    short_name="slack",
+    auth_methods=[...],
+    oauth_type=OAuthType.ACCESS_ONLY,
+    auth_config_class=None,
+    config_class="SlackConfig",
+    labels=["Communication", "Messaging"],
+    supports_continuous=False,
+    federated_search=True,  # This source uses federated search
+)
+class SlackSource(BaseSource):
+    """Slack source connector using federated search."""
+```
+
+#### 2. Implement the `search()` Method
+
+Federated sources must implement `search()` instead of `generate_entities()`:
+
+```python
+async def search(self, query: str, limit: int) -> AsyncGenerator[ChunkEntity, None]:
+    """Search the source at query time.
+
+    Args:
+        query: Search query from the user
+        limit: Maximum number of results to return
+
+    Yields:
+        ChunkEntity instances matching the query
+    """
+    # self.http_client is a property returning the pre-built AirweaveHttpClient
+    async for entity in self._search_messages(self.http_client, query, limit):
+        yield entity
+```
+
+#### 3. Implement `generate_entities()` as No-Op
+
+For federated sources, `generate_entities()` should raise an error:
+
+```python
+async def generate_entities(self, *, cursor=None, files=None, node_selections=None) -> AsyncGenerator[ChunkEntity, None]:
+    """Not used for federated search sources."""
+    self.logger.error("generate_entities() called on federated search source")
+    raise NotImplementedError(
+        "This source uses federated search. Use the search() method instead."
+    )
+```
+
+#### 4. Handle Pagination in `search()`
+
+Implement pagination to respect the limit:
+
+```python
+async def _search_messages(
+    self, client: httpx.AsyncClient, query: str, limit: int
+) -> AsyncGenerator[ChunkEntity, None]:
+    """Paginate through search results."""
+    results_fetched = 0
+    page = 1
+
+    while results_fetched < limit:
+        # Fetch page
+        response = await self._fetch_search_page(client, query, limit - results_fetched, page)
+
+        if not response or not response.get("matches"):
+            break
+
+        # Process results
+        for match in response["matches"]:
+            if results_fetched >= limit:
+                break
+
+            entity = await self._create_entity(match)
+            if entity:
+                yield entity
+                results_fetched += 1
+
+        # Check if more pages exist
+        if page >= response.get("pages", 1):
+            break
+
+        page += 1
+```
+
+### Federated Search Entities
+
+Entities for federated sources follow the same patterns as sync-based sources:
+- Use `AirweaveField(..., embeddable=True)` for searchable content
+- Include breadcrumbs for context
+- Add scores if the source API provides relevance scores
+
+```python
+class SlackMessageEntity(ChunkEntity):
+    """Message from Slack search."""
+
+    text: str = AirweaveField(..., embeddable=True)
+    channel_name: str = AirweaveField(..., embeddable=True)
+    user: Optional[str] = AirweaveField(None, embeddable=True)
+    score: Optional[float] = Field(None)  # From source API
+    permalink: Optional[str] = Field(None)
+    created_at: Optional[datetime] = AirweaveField(
+        None, embeddable=True, is_created_at=True
+    )
+```
+
+### Integration with Search Pipeline
+
+When a collection contains federated sources:
+1. User submits search query
+2. Search pipeline extracts keywords from query using LLM
+3. Federated sources are searched in parallel with vector database
+4. Results are merged using Reciprocal Rank Fusion (RRF)
+5. Final results are returned to user
+
+---
+
+## Part 4: Advanced Topics
+
+### Custom Configuration Schema
+
+If your connector needs user-provided config (workspace IDs, filters, etc.), create a config schema:
+
+```python
+# backend/airweave/schemas/source_configs/{short_name}.py
+
+from typing import Optional
+from pydantic import BaseModel, Field
+
+
+class MyConnectorConfig(BaseModel):
+    """Configuration for MyConnector source."""
+
+    workspace_id: Optional[str] = Field(
+        None,
+        description="Specific workspace to sync (leave empty for all)"
+    )
+
+    include_archived: bool = Field(
+        False,
+        description="Include archived items in sync"
+    )
+
+    exclude_pattern: Optional[str] = Field(
+        None,
+        description="Skip items whose name contains this text"
+    )
+```
+
+Then reference it in the `@source` decorator:
+
+```python
+@source(
+    name="MyConnector",
+    short_name="my_connector",
+    # ...
+    config_class="MyConnectorConfig",  # Must match the class name
 )
 ```
 
-**Fast search (skip expensive operations):**
+### Handling Comments and Discussions
+
+If your API has comments or discussions, create a separate entity:
+
 ```python
-# Disable reranking for speed
-request = SearchRequest(
-    query="quick lookup",
-    rerank=False,  # Skip ~10s reranking step
-    generate_answer=False,  # Skip completion generation
-)
+class MyConnectorCommentEntity(ChunkEntity):
+    """Comments/replies on tasks or documents."""
+
+    parent_id: str = Field(..., description="ID of parent task/document")
+    author: Dict = AirweaveField(..., embeddable=True)
+    text: str = AirweaveField(..., embeddable=True)
+    created_at: datetime = AirweaveField(..., embeddable=True, is_created_at=True)
 ```
+
+Then generate them as children:
+
+```python
+async for task in self._generate_tasks(client, project, breadcrumbs):
+    yield task
+
+    task_breadcrumb = Breadcrumb(
+        entity_id=task.entity_id,
+        name=task.name,
+        entity_type="TaskEntity",
+    )
+    task_breadcrumbs = [*breadcrumbs, task_breadcrumb]
+
+    # Generate comments for this task
+    async for comment in self._generate_comments(client, task, task_breadcrumbs):
+        yield comment
+```
+
+### Logging Best Practices
+
+Use appropriate log levels:
+
+```python
+async def generate_entities(self):
+    """Generate all entities from the source."""
+    # INFO: High-level operation milestones
+    self.logger.info(f"Starting sync for {self.connector_name}")
+
+    async with self.http_client() as client:
+        # INFO: Major steps
+        self.logger.info("Fetching workspaces...")
+        async for workspace in self._generate_workspaces(client):
+            # DEBUG: Detailed progress
+            self.logger.debug(f"Processing workspace: {workspace.entity_id}")
+            yield workspace
+
+            # INFO: Progress updates
+            self.logger.debug(f"Fetching projects for workspace {workspace.name}...")
+            async for project in self._generate_projects(client, workspace):
+                # DEBUG: Individual entity details
+                self.logger.debug(f"Generated project entity: {project.entity_id}")
+                yield project
+
+    # INFO: Completion summary
+    self.logger.info("Sync completed successfully")
+```
+
+**Log Level Guidelines:**
+- **INFO**: Sync start/end, major phase transitions, progress summaries
+- **DEBUG**: Individual entity processing, API calls, detailed progress
+- **WARNING**: Recoverable errors, skipped entities, permission issues
+- **ERROR**: Unrecoverable errors that stop the sync
+
+### Error Handling Best Practices
+
+```python
+async def _generate_projects(self, client, workspace):
+    """Generate projects with graceful error handling."""
+
+    try:
+        data = await self._get_with_auth(
+            client,
+            f"https://api.example.com/workspaces/{workspace.entity_id}/projects"
+        )
+    except httpx.HTTPStatusError as e:
+        if e.response.status_code == 404:
+            self.logger.warning(f"Workspace {workspace.entity_id} not found, skipping")
+            return
+        elif e.response.status_code == 403:
+            self.logger.warning(f"No access to workspace {workspace.entity_id}, skipping")
+            return
+        else:
+            # Re-raise other errors
+            self.logger.error(f"HTTP error {e.response.status_code} for workspace {workspace.entity_id}")
+            raise
+
+    for project_data in data.get("projects", []):
+        try:
+            yield ProjectEntity(
+                entity_id=project_data["id"],
+                # ...
+            )
+        except Exception as e:
+            self.logger.error(f"Failed to create project entity: {e}")
+            # Continue with other projects
+            continue
+```
+
+---
+
+## Part 5: Testing Your Connector
+
+### Local Development
+
+1. **Start the development environment:**
+   ```bash
+   cd docker
+   docker-compose -f docker-compose.dev.yml up -d
+   ```
+
+2. **Set up OAuth credentials:**
+   - Add your `client_id` and `client_secret` to `dev.integrations.yaml`
+
+3. **Create a test connection:**
+   - Use the frontend UI or API to create a source connection
+   - Complete the OAuth flow
+
+4. **Trigger a sync:**
+   - Monitor logs for entity generation
+   - Check Qdrant for indexed data
+
+### Validation Checklist
+
+- [ ] All entity types are defined in `entities/{short_name}.py`
+- [ ] Most user-visible fields use `AirweaveField(..., embeddable=True)` for semantic search
+  - [ ] Text content fields (descriptions, notes, comments, body)
+  - [ ] Name/title fields
+  - [ ] People fields (assignees, authors, owners, members)
+  - [ ] Status/metadata fields (status, priority, tags, labels)
+  - [ ] Timestamps (created_at, modified_at, due_dates)
+  - [ ] Verify: Only IDs and binary metadata use `Field()` without embeddable
+- [ ] All entities have `created_at` or `modified_at` timestamps with proper flags
+- [ ] **⚠️ BREADCRUMBS: All entities with parent relationships have breadcrumbs set**
+  - [ ] Import `Breadcrumb` from `airweave.platform.entities._base`
+  - [ ] Build breadcrumbs list based on parent entity references (org_id, project_id, etc.)
+  - [ ] Include `entity_id`, `name`, and `entity_type` for each breadcrumb
+  - [ ] Top-level entities can have empty breadcrumbs `[]`
+- [ ] Auth config class added to `platform/configs/auth.py`
+- [ ] Auth config referenced in source `@source` decorator
+- [ ] Source implements `create()`, `generate_entities()`, and `validate()`
+- [ ] Token refresh handled via `self.get_access_token()` + `self.refresh_on_unauthorized()` pattern
+- [ ] File entities use `process_file_entity()`
+- [ ] Logging uses proper levels (INFO for milestones, DEBUG for details)
+- [ ] OAuth config is in `dev.integrations.yaml` (human already set this up)
+- [ ] Pagination is handled properly
+- [ ] Rate limiting added if API requires it (most don't need it initially)
+- [ ] Error handling is graceful (don't fail entire sync on one error)
+
+### Common Pitfalls
+
+1. **Creating sparse entities without embeddable fields**
+   - Marking only `name` as embeddable while using `Field()` for descriptions, assignees, status, etc.
+   - Impact: Users can't semantically search your entities
+   - Fix: Mark most user-visible, content-rich fields as `embeddable=True`
+   - Rule of thumb: ~70% of entity fields should be embeddable
+
+2. **⚠️ Forgetting breadcrumbs (VERY COMMON)**
+   - Setting `breadcrumbs=[]` when the entity has parent references (org_id, project_id, etc.)
+   - Impact: Entity relationships are lost, search results lack context
+   - Fix: Build breadcrumbs list from parent entity info BEFORE yielding entity
+   - Rule: If entity has `parent_id` or `org_id` field with a value, it needs a breadcrumb
+
+3. **Forgetting timestamps** - Without `is_created_at` or `is_updated_at`, incremental sync won't work
+
+4. **Not handling token refresh** - Syncs will fail after tokens expire
+
+5. **Blocking the event loop** - Always use `async`/`await` for I/O
+
+6. **Not handling pagination** - You'll only get first page of results
+
+7. **Not respecting rate limits** - Your connector will get throttled or banned
+
+---
+
+## Complete Examples
+
+### Asana Connector (Hierarchical Data)
+See the Asana connector for a complete, production-ready example of hierarchical data:
+- Source: `backend/airweave/platform/sources/asana.py`
+- Entities: `backend/airweave/platform/entities/asana.py`
+- OAuth: `backend/airweave/platform/auth/yaml/dev.integrations.yaml` (asana section)
+
+The Asana connector demonstrates:
+- ✅ Hierarchical entity generation (workspaces → projects → sections → tasks)
+- ✅ Token refresh handling
+- ✅ File attachment processing
+- ✅ Comment entity generation
+- ✅ Proper timestamp handling
+- ✅ Breadcrumb tracking
+- ✅ Rate limiting
+- ✅ Error handling
+
+### Google Docs Connector (File-Based Data)
+See the Google Docs connector for a complete, production-ready example of file-based data:
+- Source: `backend/airweave/platform/sources/google_docs.py`
+- Entities: `backend/airweave/platform/entities/google_docs.py`
+- OAuth: `backend/airweave/platform/auth/yaml/dev.integrations.yaml` (google_docs section)
+
+The Google Docs connector demonstrates:
+- ✅ FileEntity-based entities for document processing
+- ✅ Google Drive API integration with proper scopes
+- ✅ DOCX export and file processing pipeline
+- ✅ Document metadata extraction (owners, permissions, timestamps)
+- ✅ Proper MIME type handling for file processing
+- ✅ Token refresh handling for Google APIs
+- ✅ Error handling for document access permissions
+
+---
+
+## Next Steps
+
+After implementing the source connector:
+1. Inform the human that the source code is ready for testing
+2. Proceed to implement Monke tests using `monke-testing-guide.mdc`
+3. Fix any issues the human reports from testing
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
