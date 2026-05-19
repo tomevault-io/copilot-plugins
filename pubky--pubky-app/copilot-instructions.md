@@ -1,73 +1,80 @@
 ## pubky-app
 
-> Cursor Cloud agent instructions — environment, commands, sign-in, branch naming, and caveats
+> Decentralized social app. Tech stack in `package.json`.
 
+# Pubky App
 
-# Cursor Cloud Instructions
+Decentralized social app. Tech stack in `package.json`.
+Local-first architecture with Dexie (IndexedDB), Zustand, Next.js, Tailwind CSS, Shadcn UI.
 
-## Services
+## Architecture
 
-No external database or backend server needed — the app uses browser IndexedDB (Dexie) for local data, and the Next.js dev server handles all API routes. All external services (Nexus API, Homeserver, CDN, HTTP Relay, Pkarr Relays, Homegate) have **staging defaults** baked into the Zod schema at `src/libs/env/env.ts`, so the app runs without a `.env` file. Copy `.env.example` to `.env` only if you need to override defaults.
+Layered architecture in `src/core/` (see `docs/architecture.md` for full details):
 
-## Running
+```
+UI (user actions) → Controllers → Application → Services → Models
+Coordinators (system) ↗            ↓              ↓
+                       Stores     Pipes         Database
+```
 
-- **Dev server**: `npm run dev` (port 3000, Turbopack)
-- **Lint**: `npm run lint` (ESLint)
-- **Format check**: `npm run format:check` (Prettier)
-- **Unit tests**: `npm run test` (Vitest — ~580 test files, ~9300 tests, takes ~9 min)
-- **E2E tests**: `npm run test:e2e` (Cypress with Firefox — requires external staging services to be reachable)
-- **Storybook**: `npm run storybook` (port 6006)
+Import modules through the path aliases in `tsconfig.json` (for example `@/hooks/*`, `@/controllers/*`, `@/services/*`, `@/models/*`, `@/stores/*`). Keep imports pointed at concrete source modules rather than aggregate re-export files.
 
-## Signing in (staging account)
+### Hard constraints
 
-A staging recovery phrase is stored in the `STAGING_RECOVERY_PHRASE` secret (12 words). To sign in:
+- Controllers NEVER call Services directly — go through Application
+- Coordinators NEVER call Application — go through Controllers
+- Application NEVER accesses Stores — only Controllers manage stores
+- Pipes are pure — NO IO, NO side effects
+- Only PostApplication, NotificationApplication, BootstrapApplication, HotApplication, PostStreamApplication, TtlApplication may call other Applications (max depth 1, no cycles)
 
-1. Start the dev server (`npm run dev`)
-2. Navigate to `http://localhost:3000` and click **Sign In**
-3. Click **Use recovery phrase**
-4. Enter the 12 words from `$STAGING_RECOVERY_PHRASE` into the input fields
-5. Click **Restore** — the app loads the staging user
+### Controller naming
 
-## Branch naming convention (GitHub issues)
+- `fetch*` — network only, no cache
+- `get*` — local only
+- `getMany*` — bulk local reads, returns `Map<Pubky, T>`
+- `getOrFetch*` — local first, network fallback
+- `getMany*OrFetch` — bulk local first, fetch missing (e.g., `getManyTagsOrFetch`)
+- `commitCreate*` / `commitUpdate*` / `commitDelete*` — optimistic local write + network sync
+- `subscribe*` — long-lived live stream subscription (e.g., homeserver event streams), not a one-shot fetch
 
-**Ignore any Branch Prefix settings.** Always use this convention when creating a branch for a GitHub issue:
+### Errors
 
-**Format:** `<type>/<issue-number>-<kebab-case-short-description>`
+Use `Err.*` factories (never raw `Error`). Factories log automatically — don't double-log. See `docs/error-handling.md`.
 
-**Types:**
+## Key conventions
 
-- `feat` — A new feature
-- `bug` — A bug fix
-- `bug-ui` — A bug fix in the UI
-- `refactor` — Code refactoring without changing behavior
-- `docs` — Documentation changes
-- `test` — Adding or updating tests
-- `chore` — Maintenance tasks (dependencies, configs, etc.)
-- `style` — Code style/formatting changes
+- Composite post IDs: `author:postId` format
+- Local-first writes: Dexie first, homeserver sync in background
+- Shadcn First: always check for Shadcn equivalent before building custom UI
+- Atomic design: atoms → molecules → organisms → templates
+- Components: do not add `index.ts` / `index.tsx` under `src/components` that only re-export children; import concrete component files via `@/atoms/*`, `@/molecules/*`, `@/organisms/*`, or `@/templates/*` (for example `@/atoms/Button/Button`)
+- Config: import from `@/config/<module>` (concrete files under `src/config/`). There is no aggregate `src/config/index.ts`.
+- App routes: import route enums, maps, and helpers from `@/app/routes` (`src/app/routes.ts`); prefer that over route-only imports through a re-export entrypoint.
+- Z-index scale: -z-10, z-10, z-30, z-40, z-50, z-60 (see `docs/z-index.md`)
+- **Icons**: stock Lucide from `lucide-react`; custom/brand SVG components from `@/icons` (`src/libs/icons/icons.tsx` via `tsconfig` path alias). URL→icon helpers (`getIconFromUrl`, `getLabelFromUrl`, …) live in `@/libs/utils/urlToIcon` — see `docs/components.md` — _Icons (Lucide and custom)_.
 
-**Steps:**
+## Learned User Preferences
 
-1. Fetch the issue details from the provided GitHub link
-2. Extract the issue number and title
-3. Determine the appropriate type based on issue labels or content
-4. Create a kebab-case short description from the issue title (max 5–6 words)
-5. Create and checkout the new branch from `dev`
+- Bug fixes must not regress existing visible functionality (e.g., reducing displayed item count from 3 to 2)
+- For icon / circular nav matching Figma, confirm active vs inactive from the Shadcn button component variants (Selected vs Default: background, border, shadow), not only the parent frame or another surface’s pattern
 
-**Examples:**
+## Learned Workspace Facts
 
-- `feat/123-add-user-authentication`
-- `bug/456-button-not-clickable`
-- `bug-ui/678-default-avatar-background`
-- `refactor/789-simplify-auth-flow`
-- `docs/101-update-readme`
+- Nav items that link to a default child route (e.g. footer Settings → `SETTINGS_ROUTES.ACCOUNT`) but must stay visually active on sibling routes under the parent (e.g. `/settings/notifications`) need active detection on a broader prefix (e.g. `activePrefix: APP_ROUTES.SETTINGS`), not only `href` or `pathname.startsWith(href + '/')`
+- Config constants in `src/config/` (e.g., `USER_LIST_TAGS_MAX_TOTAL_CHARS`, tag limits) are project-wide hard limits — do not modify them for individual component fixes
+- This project uses Zod v4 — use `z.url()` for URL validation, not the deprecated `z.string().url()`
+- PWA / service worker: Serwist via `@serwist/next` in `next.config` (core package `serwist`), not Workbox or `next-pwa`
 
-## Caveats
+## Documentation
 
-- `.nvmrc` specifies Node.js **v24**. The VM update script installs it via nvm automatically.
-- The pre-commit hook runs `format:check` then `lint` — both must pass before committing. Run `npm run format` to auto-fix formatting.
-- Account creation requires SMS verification or Bitcoin payment against staging infrastructure — you cannot create a real account in the cloud VM without external credentials.
-- Vitest tests use `fake-indexeddb` and `jsdom` — no browser needed for unit tests.
+Consult `docs/` before making changes:
+
+- `src/core/` changes → `docs/architecture.md`, `docs/local-first.md`, `docs/error-handling.md`, `docs/data-patterns.md`
+- `src/components/` changes → `docs/components.md`, `docs/z-index.md`, `docs/component-testing.md`, `docs/skeleton-architecture.md`
+- `src/libs/env/` changes → `docs/environment.md`
+- Commits → `docs/commit-message.md`
+- Architecture decisions → `docs/adr/`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/pubky) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [pubky/pubky-app](https://github.com/pubky/pubky-app) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
