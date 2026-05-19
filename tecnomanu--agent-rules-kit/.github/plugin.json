@@ -1,0 +1,9 @@
+{
+  "name": "tecnomanu--agent-rules-kit",
+  "displayName": "agent-rules-kit",
+  "description": "Bootstrap of Cursor rules (.mdc) and mirror documentation (.md) for AI agent-guided projects.",
+  "version": "1.0.0",
+  "author": "tecnomanu",
+  "homepage": "https://github.com/tecnomanu/agent-rules-kit",
+  "skills": []
+}
