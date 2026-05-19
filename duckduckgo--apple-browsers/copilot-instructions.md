@@ -1,108 +1,407 @@
-## network-quality-variance-scoring
+## performance-optimization
 
-> NetworkQualityMonitor displays variance in **milliseconds** (user-friendly) but scores using **Coefficient of Variation (CV)** internally. This provides fair comparison across different latency ranges.
+> // Use weak/unowned references appropriately
 
 
-# Network Quality Variance Scoring Using Coefficient of Variation
+# Performance Optimization Guidelines
 
-## Overview
+## Memory Management
 
-NetworkQualityMonitor displays variance in **milliseconds** (user-friendly) but scores using **Coefficient of Variation (CV)** internally. This provides fair comparison across different latency ranges.
-
-## Display vs Scoring
-
-- **UI Display**: Shows variance in milliseconds (e.g., "5.2 ms (10.4%)")
-- **Internal Scoring**: Uses CV = (stdDev/mean) × 100 for penalties
-- **Quality Labels**: Based on CV percentage thresholds
-
-## Why CV for Scoring?
-
-A 10ms variance means different things at different latencies:
-- 10ms variance on 50ms latency = 20% CV (moderate issue)
-- 10ms variance on 200ms latency = 5% CV (excellent consistency)
-
-Using CV ensures fair scoring regardless of base latency.
-
-## CV Thresholds and Test Iterations
-
-| CV Range | Quality | Penalty | Test Iterations | Testing Impact |
-|----------|---------|---------|-----------------|----------------|
-| <10% | Excellent | 0 pts | ~30 iterations | Quick reliable tests |
-| 10-20% | Good | -20 pts | ~100 iterations | Reasonable test time |
-| 20-40% | Fair | -40 pts | ~400 iterations | Lengthy test cycles |
-| >40% | Poor | -60 to -80 pts | 1000+ iterations | Practically unreliable |
-
-## Implementation
-
+### Avoid Retain Cycles
 ```swift
-// Display shows milliseconds
-value: String(format: "%.1f ms", responseVariance)
-
-// Quality label uses CV internally
-let cv = (variance / avgResponseTime) * 100
-if cv < 10 { return "Excellent" }
-else if cv < 20 { return "Good" }
-else if cv < 40 { return "Fair" }
-else { return "Poor" }
-
-// Scoring penalty based on CV
-switch coefficientOfVariation {
-case ..<10: penalty = 0
-case 10..<20: penalty = 20
-case 20..<40: penalty = 40
-case 40..<60: penalty = 60
-default: penalty = 80
+// Use weak/unowned references appropriately
+class ViewController: UIViewController {
+    private var timer: Timer?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Bad - Creates retain cycle
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            self.updateUI()
+        }
+        
+        // Good - Weak reference prevents retain cycle
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.updateUI()
+        }
+    }
+    
+    deinit {
+        timer?.invalidate()
+    }
 }
 ```
 
-## Statistical Analysis
+### Lazy Loading
+```swift
+class DataManager {
+    // Load expensive resources only when needed
+    private lazy var database: Database = {
+        return Database()
+    }()
+    
+    // Use computed properties for lightweight calculations
+    var itemCount: Int {
+        return items.count
+    }
+    
+    // Cache expensive computations
+    private var _processedData: [ProcessedItem]?
+    var processedData: [ProcessedItem] {
+        if let cached = _processedData {
+            return cached
+        }
+        let processed = items.map { ProcessedItem($0) }
+        _processedData = processed
+        return processed
+    }
+}
+```
 
-Smart Warm-up Phase:
-  - Initial "cold" request to each endpoint (DNS resolution, TLS handshake)
-  - These measurements are discarded to eliminate first-request bias
-  - Ensures subsequent measurements reflect warm connection performance
+### Memory-Efficient Collections
+```swift
+// Use appropriate collection types
+struct LargeDataSet {
+    // Bad - Loads all data into memory
+    var allItems: [Item] {
+        return database.fetchAll()
+    }
+    
+    // Good - Use lazy sequences
+    var items: LazySequence<[Item]> {
+        return database.fetchAll().lazy
+    }
+    
+    // Better - Use pagination
+    func items(page: Int, pageSize: Int = 50) -> [Item] {
+        return database.fetch(offset: page * pageSize, limit: pageSize)
+    }
+}
+```
 
-Interleaved Sampling:
-  - Endpoints tested in randomized rounds (not consecutively)
-  - Prevents TCP connection reuse artifacts
-  - 15 samples per endpoint with 50ms delays between measurements
-  - More representative of real browsing patterns
+## UI Performance
 
-Per-Site Calculations:
-  - Calculate median response time (robust to outliers)
-  - Calculate variance and standard deviation
-  - Track individual site consistency
+### Main Thread Protection
+```swift
+class ImageLoader {
+    func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        Task {
+            // Perform heavy work on background queue
+            let data = try? await URLSession.shared.data(from: url).0
+            let image = data.flatMap { UIImage(data: $0) }
+            
+            // Always update UI on main thread
+            await MainActor.run {
+                completion(image)
+            }
+        }
+    }
+}
+```
 
-Global Aggregation:
-  adjustedResponseTime = median(all_site_medians)
+### Efficient Table/Collection Views
+```swift
+class OptimizedTableViewController: UITableViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Register reusable cells
+        tableView.register(CustomCell.self, forCellReuseIdentifier: "Cell")
+        
+        // Set estimated heights for better scrolling
+        tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = UITableView.automaticDimension
+        
+        // Enable prefetching
+        tableView.prefetchDataSource = self
+    }
+    
+    // Reuse cells efficiently
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
+        
+        // Configure cell with minimal work
+        cell.configure(with: items[indexPath.row])
+        
+        // Cancel any ongoing async work
+        cell.prepareForReuse()
+        
+        return cell
+    }
+}
 
-Variance Scoring:
-  - Display: Standard deviation in milliseconds (user-friendly)
-  - Scoring: Coefficient of Variation (CV = stdDev/mean × 100)
-  - CV determines penalties based on relative variance
+extension OptimizedTableViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        // Preload data for upcoming cells
+        let urls = indexPaths.compactMap { items[$0.row].imageURL }
+        ImageCache.shared.preload(urls: urls)
+    }
+}
+```
 
-Dual Penalty System:
-  1. CV-based: Relative variance penalties (up to 80 points)
-  2. P95-P50 Spread: Percentage-based spike penalties (up to 40 points)
+### Image Optimization
+```swift
+extension UIImage {
+    // Resize images to appropriate size
+    func resized(to targetSize: CGSize) -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
+    
+    // Decode images on background queue
+    func decodedImage() -> UIImage? {
+        guard let cgImage = cgImage else { return nil }
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(
+            data: nil,
+            width: cgImage.width,
+            height: cgImage.height,
+            bitsPerComponent: 8,
+            bytesPerRow: cgImage.width * 4,
+            space: colorSpace,
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        )
+        
+        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
+        
+        guard let decodedImage = context?.makeImage() else { return nil }
+        return UIImage(cgImage: decodedImage)
+    }
+}
+```
 
-## Key Metrics
+## Network Performance
 
-- **averageResponseTime**: Median of all site medians (geographic reality)
-- **responseVariance**: Standard deviation in ms (consistency indicator)
-- **latencySpread**: P95-P50 difference (spike detection)
-- **p50/p95**: Percentiles for typical and worst-case assessment
+### Efficient API Calls
+```swift
+class APIClient {
+    private let session: URLSession
+    private let cache = URLCache(
+        memoryCapacity: 10 * 1024 * 1024,  // 10 MB
+        diskCapacity: 50 * 1024 * 1024,     // 50 MB
+        diskPath: nil
+    )
+    
+    init() {
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = cache
+        configuration.requestCachePolicy = .returnCacheDataElseLoad
+        configuration.timeoutIntervalForRequest = 30
+        configuration.httpMaximumConnectionsPerHost = 5
+        
+        self.session = URLSession(configuration: configuration)
+    }
+    
+    // Batch requests when possible
+    func fetchMultipleItems(ids: [String]) async throws -> [Item] {
+        // Bad - Multiple individual requests
+        // let items = try await ids.asyncMap { try await fetchItem(id: $0) }
+        
+        // Good - Single batch request
+        let request = BatchRequest(ids: ids)
+        return try await fetch(request)
+    }
+    
+    // Use compression
+    func createRequest(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.addValue("gzip, deflate", forHTTPHeaderField: "Accept-Encoding")
+        return request
+    }
+}
+```
 
-## Testing Impact
+### Download Optimization
+```swift
+class DownloadManager {
+    // Use background sessions for large downloads
+    private lazy var backgroundSession: URLSession = {
+        let configuration = URLSessionConfiguration.background(withIdentifier: "com.duckduckgo.downloads")
+        configuration.isDiscretionary = true
+        configuration.sessionSendsLaunchEvents = true
+        return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+    }()
+    
+    // Resume interrupted downloads
+    func resumeDownload(from resumeData: Data) {
+        let task = backgroundSession.downloadTask(withResumeData: resumeData)
+        task.resume()
+    }
+    
+    // Limit concurrent downloads
+    private let downloadQueue = OperationQueue()
+    
+    init() {
+        downloadQueue.maxConcurrentOperationCount = 3
+    }
+}
+```
 
-The CV directly determines test reliability:
-- **<10% CV**: Standard test suite (30-50 iterations)
-- **10-20% CV**: Increase to 100-150 iterations
-- **20-40% CV**: Need 400+ iterations for confidence
-- **>40% CV**: Results unreliable even with 1000+ iterations
+## Database Performance
 
-## Key Principle
+### Efficient Queries
+```swift
+import GRDB
 
-**Variance has HUGE impact on performance testing.** High CV connections can turn a 1-hour test into a 10-hour marathon with less reliable results than a 30-minute test on a stable connection.
+class DatabaseManager {
+    // Use indexes for frequently queried columns
+    func createIndexes(_ db: Database) throws {
+        try db.create(index: "idx_bookmarks_url", on: "bookmarks", columns: ["url"])
+        try db.create(index: "idx_history_date", on: "history", columns: ["visitDate"])
+    }
+    
+    // Batch operations
+    func insertMultipleItems(_ items: [Item]) throws {
+        try dbQueue.write { db in
+            // Use transactions for bulk operations
+            try items.forEach { item in
+                try item.insert(db)
+            }
+        }
+    }
+    
+    // Use appropriate fetch limits
+    func fetchRecentHistory(limit: Int = 100) throws -> [HistoryItem] {
+        try dbQueue.read { db in
+            try HistoryItem
+                .order(Column("visitDate").desc)
+                .limit(limit)
+                .fetchAll(db)
+        }
+    }
+    
+    // Optimize complex queries
+    func searchBookmarks(query: String) throws -> [Bookmark] {
+        try dbQueue.read { db in
+            // Use FTS (Full Text Search) for text searching
+            let pattern = "%\(query)%"
+            return try Bookmark
+                .filter(Column("title").like(pattern) || Column("url").like(pattern))
+                .limit(50)
+                .fetchAll(db)
+        }
+    }
+}
+```
+
+## Algorithm Optimization
+
+### Use Efficient Data Structures
+```swift
+// Choose appropriate data structures
+class URLMatcher {
+    // Bad - O(n) lookup
+    private var blockedURLs: [String] = []
+    
+    func isBlocked(_ url: String) -> Bool {
+        return blockedURLs.contains(url)
+    }
+    
+    // Good - O(1) lookup
+    private var blockedURLSet: Set<String> = []
+    
+    func isBlockedOptimized(_ url: String) -> Bool {
+        return blockedURLSet.contains(url)
+    }
+}
+```
+
+### Avoid Expensive Operations
+```swift
+extension Array {
+    // Bad - Creates multiple intermediate arrays
+    func processItems() -> [ProcessedItem] {
+        return self
+            .compactMap { $0 as? Item }
+            .filter { $0.isValid }
+            .map { ProcessedItem($0) }
+            .sorted { $0.priority > $1.priority }
+    }
+    
+    // Good - Use lazy evaluation
+    func processItemsOptimized() -> [ProcessedItem] {
+        return self.lazy
+            .compactMap { $0 as? Item }
+            .filter { $0.isValid }
+            .map { ProcessedItem($0) }
+            .sorted { $0.priority > $1.priority }
+    }
+}
+```
+
+## Monitoring and Profiling
+
+### Performance Metrics
+```swift
+class PerformanceMonitor {
+    static func measure<T>(
+        _ title: String,
+        operation: () throws -> T
+    ) rethrows -> T {
+        let startTime = CFAbsoluteTimeGetCurrent()
+        defer {
+            let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+            print("⏱ \(title): \(timeElapsed)s")
+            
+            // Log slow operations
+            if timeElapsed > 1.0 {
+                Pixel.fire(.performanceWarning(operation: title, duration: timeElapsed))
+            }
+        }
+        return try operation()
+    }
+}
+
+// Usage
+let results = PerformanceMonitor.measure("Database Query") {
+    try database.fetchAllBookmarks()
+}
+```
+
+### Memory Monitoring
+```swift
+class MemoryMonitor {
+    static var currentMemoryUsage: Double {
+        var info = mach_task_basic_info()
+        var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size) / 4
+        
+        let result = withUnsafeMutablePointer(to: &info) {
+            $0.withMemoryRebound(to: integer_t.self, capacity: 1) {
+                task_info(mach_task_self_,
+                         task_flavor_t(MACH_TASK_BASIC_INFO),
+                         $0,
+                         &count)
+            }
+        }
+        
+        return result == KERN_SUCCESS ? Double(info.resident_size) / 1024.0 / 1024.0 : 0
+    }
+    
+    static func logMemoryUsage(_ context: String) {
+        let usage = currentMemoryUsage
+        print("💾 Memory usage (\(context)): \(usage) MB")
+        
+        if usage > 200 { // 200 MB threshold
+            Pixel.fire(.highMemoryUsage(context: context, usage: usage))
+        }
+    }
+}
+```
+
+## Best Practices Summary
+
+1. **Profile First**: Use Instruments to identify actual bottlenecks
+2. **Measure Impact**: Quantify performance improvements
+3. **Cache Wisely**: Cache expensive computations but watch memory usage
+4. **Async Everything**: Keep UI responsive with background processing
+5. **Batch Operations**: Combine multiple operations when possible
+6. **Lazy Loading**: Load data only when needed
+7. **Resource Management**: Release resources promptly
+8. **Monitor Production**: Track performance metrics in production
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
