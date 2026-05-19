@@ -1,0 +1,9 @@
+{
+  "name": "marcura--fh-pydantic-form",
+  "displayName": "fh-pydantic-form",
+  "description": "Generate HTML forms from Pydantic models for your FastHTML application",
+  "version": "1.0.0",
+  "author": "Marcura",
+  "homepage": "https://github.com/Marcura/fh-pydantic-form",
+  "skills": []
+}
