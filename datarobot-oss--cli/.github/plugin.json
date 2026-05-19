@@ -1,0 +1,9 @@
+{
+  "name": "datarobot-oss--cli",
+  "displayName": "cli",
+  "description": "The DataRobot command line interface",
+  "version": "1.0.0",
+  "author": "datarobot-oss",
+  "homepage": "https://github.com/datarobot-oss/cli",
+  "skills": []
+}
