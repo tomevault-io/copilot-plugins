@@ -1,0 +1,9 @@
+{
+  "name": "seatgeek--mailroom",
+  "displayName": "mailroom",
+  "description": "Framework for creating, routing, and delivering user notifications based on events from external systems",
+  "version": "1.0.0",
+  "author": "seatgeek",
+  "homepage": "https://github.com/seatgeek/mailroom",
+  "skills": []
+}
