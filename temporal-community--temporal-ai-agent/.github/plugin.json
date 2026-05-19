@@ -1,0 +1,9 @@
+{
+  "name": "temporal-community--temporal-ai-agent",
+  "displayName": "temporal-ai-agent",
+  "description": "This demo shows a multi-turn conversation with an AI agent running inside a Temporal workflow.",
+  "version": "1.0.0",
+  "author": "temporal-community",
+  "homepage": "https://github.com/temporal-community/temporal-ai-agent",
+  "skills": []
+}
