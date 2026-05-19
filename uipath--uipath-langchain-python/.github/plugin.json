@@ -1,0 +1,9 @@
+{
+  "name": "uipath--uipath-langchain-python",
+  "displayName": "uipath-langchain-python",
+  "description": "Python SDK that enables developers to build and deploy LangGraph agents to the UiPath Cloud Platform",
+  "version": "1.0.0",
+  "author": "UiPath",
+  "homepage": "https://github.com/UiPath/uipath-langchain-python",
+  "skills": []
+}
