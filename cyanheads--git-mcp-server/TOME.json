@@ -4,7 +4,7 @@
   "repo": "git-mcp-server",
   "description": "An MCP (Model Context Protocol) server enabling LLMs and AI agents to interact with Git repositories. Provides tools for comprehensive Git operations including clone, commit, branch, diff, log, status, push, pull, merge, rebase, worktree, tag management, and more, via the MCP standard. STDIO & HTTP.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyanheads/git-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T04:04:11Z"
+  "distributed_at": "2026-05-19T07:17:54Z"
 }
