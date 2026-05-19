@@ -1,0 +1,9 @@
+{
+  "name": "tophc7--dot-nix",
+  "displayName": "dot.nix",
+  "description": "Nix config for Homelab and PCs",
+  "version": "1.0.0",
+  "author": "TophC7",
+  "homepage": "https://github.com/TophC7/dot.nix",
+  "skills": []
+}
