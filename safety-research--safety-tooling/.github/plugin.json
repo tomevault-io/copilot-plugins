@@ -1,0 +1,9 @@
+{
+  "name": "safety-research--safety-tooling",
+  "displayName": "safety-tooling",
+  "description": "Inference API for many LLMs and other useful tools for empirical research",
+  "version": "1.0.0",
+  "author": "safety-research",
+  "homepage": "https://github.com/safety-research/safety-tooling",
+  "skills": []
+}
