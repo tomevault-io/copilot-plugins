@@ -1,0 +1,9 @@
+{
+  "name": "aaronik--treewalker-nvim",
+  "displayName": "treewalker.nvim",
+  "description": "A neovim plugin for moving around your code in a syntax tree aware manner",
+  "version": "1.0.0",
+  "author": "aaronik",
+  "homepage": "https://github.com/aaronik/treewalker.nvim",
+  "skills": []
+}
