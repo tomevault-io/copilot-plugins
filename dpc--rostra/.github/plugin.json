@@ -1,0 +1,9 @@
+{
+  "name": "dpc--rostra",
+  "displayName": "rostra",
+  "description": "Rostra is a p2p (f2f) social network.",
+  "version": "1.0.0",
+  "author": "dpc",
+  "homepage": "https://github.com/dpc/rostra",
+  "skills": []
+}
