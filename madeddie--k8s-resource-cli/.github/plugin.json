@@ -1,0 +1,9 @@
+{
+  "name": "madeddie--k8s-resource-cli",
+  "displayName": "k8s-resource-cli",
+  "description": "A vibe-coded CLI tool to calculate k8s pod requests and usage",
+  "version": "1.0.0",
+  "author": "madeddie",
+  "homepage": "https://github.com/madeddie/k8s-resource-cli",
+  "skills": []
+}
