@@ -1,44 +1,66 @@
-## gen-ai-apps
+## hailo-global
 
-> You are working on a **Gen AI application** (VLM, LLM, Whisper, Voice, or Agent).
+> All skills, instructions, toolsets, knowledge bases, and memory live in `.hailo/`.
 
 
-# Gen AI Apps — Contextual Instructions
+# Hailo Apps — Global Rules
 
-You are working on a **Gen AI application** (VLM, LLM, Whisper, Voice, or Agent).
+All skills, instructions, toolsets, knowledge bases, and memory live in `.hailo/`.
+Read `.hailo/README.md` for the complete master index.
 
-## Required Context Files
+## Interactive Workflow (MUST FOLLOW)
 
-Read these files before making changes (paths relative to `.hailo/`):
+**Always walk through key decisions with the user before building.** Ask 2-3 targeted
+questions to confirm app type, features, and input source. This creates a collaborative
+workflow and catches misunderstandings early. Only skip questions if the user explicitly
+says "just build it" or "use defaults".
 
-- `instructions/gen-ai-development.md` — VLM/LLM/Whisper development patterns
-- `instructions/coding-standards.md` — Import rules, logging, HEF resolution
-- `toolsets/gen-ai-utilities.md` — LLM streaming, voice processing, agent tools API
-- `toolsets/hailort-api.md` — VDevice, VLM, LLM, Speech2Text API
-- `memory/gen_ai_patterns.md` — Architecture patterns, multiprocessing gotchas
-- `memory/common_pitfalls.md` — Known anti-patterns to avoid
+## Critical Conventions
 
-## Additional Context (load if relevant)
+1. **Imports are always absolute**: `from hailo_apps.python.core.common.xyz import ...`
+2. **HEF resolution**: Always use `resolve_hef_path(path, app_name, arch)`
+3. **Device sharing**: Always use `SHARED_VDEVICE_GROUP_ID` when creating VDevice
+4. **Logging**: Use `get_logger(__name__)`
+5. **CLI parsers**: Use `get_pipeline_parser()` or `get_standalone_parser()`
+6. **Architecture detection**: Use `detect_hailo_arch()` or `--arch` flag
+7. **USB camera**: Always `--input usb` for auto-detection. Never hardcode `/dev/video0`.
+8. **SKILL.md is sufficient**: Read SKILL.md + common_pitfalls.md only. Do NOT read source code.
+9. **Custom background**: Use `background.copy()` — never blend camera feed with background.
 
-- If VLM: `toolsets/vlm-backend-api.md`, `skills/hl-build-vlm-app/SKILL.md`
-- If Agent: `skills/hl-build-agent-app/SKILL.md`
-- If Voice/Whisper: `skills/hl-build-voice-app/SKILL.md`
-- If Camera: `memory/camera_and_display.md`, `skills/hl-camera.md`
 
-## Key Patterns for Gen AI
+### Context Routing Table
 
-- Use `get_standalone_parser()` for CLI arguments
-- Use `SHARED_VDEVICE_GROUP_ID` for VDevice creation
-- VLM/LLM use multiprocessing backends — check `gen_ai_patterns.md` for the worker process pattern
-- Always resolve HEF paths with `resolve_hef_path(path, app_name, arch)`
-- Register new apps in `hailo_apps/python/core/common/defines.py`
+Based on what the task involves, read **only** the matching rows:
 
-## Reference Implementations
+| If the task mentions... | Read these files |
+|---|---|
+| **VLM, vision, image understanding** | `.hailo/skills/hl-build-vlm-app.md`, `.hailo/toolsets/vlm-backend-api.md`, `.hailo/memory/gen_ai_patterns.md` |
+| **LLM, chat, text generation** | `.hailo/skills/hl-build-llm-app.md`, `.hailo/instructions/gen-ai-development.md`, `.hailo/toolsets/gen-ai-utilities.md`, `.hailo/memory/gen_ai_patterns.md` |
+| **Agent, tools, function calling** | `.hailo/skills/hl-build-agent-app.md`, `.hailo/toolsets/gen-ai-utilities.md`, `.hailo/memory/gen_ai_patterns.md` |
+| **Voice, STT, TTS, Whisper, speech** | `.hailo/skills/hl-build-voice-app.md`, `.hailo/toolsets/gen-ai-utilities.md` |
+| **Pipeline, GStreamer, video, stream** | `.hailo/skills/hl-build-pipeline-app.md`, `.hailo/instructions/gstreamer-pipelines.md`, `.hailo/toolsets/gstreamer-elements.md`, `.hailo/memory/pipeline_optimization.md` |
+| **Game, interactive, pose game** | `.hailo/skills/hl-build-pipeline-app.md`, `.hailo/toolsets/pose-keypoints.md`, `.hailo/toolsets/core-framework-api.md`, `.hailo/memory/common_pitfalls.md` |
+| **Standalone, OpenCV, HailoInfer** | `.hailo/skills/hl-build-standalone-app.md`, `.hailo/toolsets/core-framework-api.md` |
+| **Camera, USB, RPi, capture** | `.hailo/skills/hl-camera.md`, `.hailo/memory/camera_and_display.md` |
+| **HEF, model, download, config** | `.hailo/skills/hl-model-management.md`, `.hailo/toolsets/hailort-api.md`, `.hailo/memory/hailo_platform_api.md` |
+| **Monitoring, events, alerts** | `.hailo/skills/hl-monitoring.md`, `.hailo/skills/hl-event-detection.md` |
+| **Testing, validation, pytest** | `.hailo/skills/hl-validate.md`, `.hailo/instructions/testing-patterns.md` |
+| **ALWAYS read (every task)** | `.hailo/memory/common_pitfalls.md`, `.hailo/instructions/coding-standards.md` |
 
-- VLM app: `hailo_apps/python/gen_ai_apps/vlm_chat/`
-- Agent app: `hailo_apps/python/gen_ai_apps/agent_tools_example/`
-- Voice: `hailo_apps/python/gen_ai_apps/gen_ai_utils/voice_processing/`
-- LLM utils: `hailo_apps/python/gen_ai_apps/gen_ai_utils/llm_utils/`
+## Available Skills
+
+| Skill | Doc |
+|-------|-----|
+| Build VLM App | `.hailo/skills/hl-build-vlm-app.md` |
+| Build Pipeline App | `.hailo/skills/hl-build-pipeline-app.md` |
+| Build Standalone App | `.hailo/skills/hl-build-standalone-app.md` |
+| Build Agent App | `.hailo/skills/hl-build-agent-app.md` |
+| Build LLM App | `.hailo/skills/hl-build-llm-app.md` |
+| Build Voice App | `.hailo/skills/hl-build-voice-app.md` |
+
+## Memory
+
+Persistent knowledge in `.hailo/memory/`. Read at task start, update when learning.
 
 ---
 > Source: [hailo-ai/hailo-apps](https://github.com/hailo-ai/hailo-apps) — distributed by [TomeVault](https://tomevault.io).
