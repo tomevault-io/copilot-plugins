@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--azul",
+  "displayName": "azul",
+  "description": "Tiled transparency logs libraries and applications",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/azul",
+  "skills": []
+}
