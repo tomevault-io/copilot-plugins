@@ -1,0 +1,9 @@
+{
+  "name": "ilanbenb--wa-llm",
+  "displayName": "wa_llm",
+  "description": "A WhatsApp bot that can participate in group conversations, powered by AI. The bot monitors group messages and responds when mentioned.",
+  "version": "1.0.0",
+  "author": "ilanbenb",
+  "homepage": "https://github.com/ilanbenb/wa_llm",
+  "skills": []
+}
