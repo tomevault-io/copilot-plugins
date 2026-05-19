@@ -1,0 +1,9 @@
+{
+  "name": "verified-zkevm--arklib",
+  "displayName": "ArkLib",
+  "description": "Formally Verified Arguments of Knowledge in Lean",
+  "version": "1.0.0",
+  "author": "Verified-zkEVM",
+  "homepage": "https://github.com/Verified-zkEVM/ArkLib",
+  "skills": []
+}
