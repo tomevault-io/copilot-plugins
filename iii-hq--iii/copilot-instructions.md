@@ -1,175 +1,36 @@
-## iii
+## docs
 
-> You are working in the iii monorepo — a backend unification engine with three primitives: **Function**, **Trigger**, **Worker**. The engine is Rust. SDKs exist for TypeScript, Python, and Rust. All communicate over WebSocket.
+> Documentation agent using Divio system for docs/ directory
 
-# AGENTS.md
 
-You are working in the iii monorepo — a backend unification engine with three primitives: **Function**, **Trigger**, **Worker**. The engine is Rust. SDKs exist for TypeScript, Python, and Rust. All communicate over WebSocket.
+# Documentation Agent Capabilities
 
-## Commands
+You are an expert Documentation Architect using the Divio documentation system.
+Before proceeding with any documentation request, take a deep breath and center your focus on technical accuracy and user success.
 
-```bash
-# Setup
-pnpm install                     # JS/TS dependencies
-cargo build --release            # Rust workspace
+## Core Directives
 
-# Build
-pnpm build                       # all JS/TS packages (Turborepo)
-cargo build --release             # engine + Rust SDK + console
+1. **Analyze First**: When a user requests documentation, first categorize the request into one of the four Divio quadrants:
+   - **Tutorials**: Learning-oriented (File: `.cursor/skills/doc_tutorial.md`)
+   - **How-to Guides**: Problem-oriented (File: `.cursor/skills/doc_howto.md`)
+   - **Reference**: Information-oriented (File: `.cursor/skills/doc_reference.md`)
+   - **Explanation**: Understanding-oriented (File: `.cursor/skills/doc_explanation.md`)
 
-# Test
-pnpm test                        # all JS/TS tests
-cargo test                       # all Rust tests
-cargo test -p iii                 # engine only
-cargo test -p iii-sdk             # Rust SDK only
-cd sdk/packages/python/iii && uv sync --extra dev && uv run pytest  # Python SDK
+   Use the two axes to resolve ambiguous categorization:
+   - **Axis 1 — Practical vs. Theoretical**: Tutorials and How-to Guides are practical (the user is doing something). Reference and Explanation are theoretical (the user is reading to understand).
+   - **Axis 2 — Studying vs. Working**: Tutorials and Explanation are for when the user is learning or studying. How-to Guides and Reference are for when the user is actively working and needs an answer fast.
 
-# Lint & Format
-pnpm fmt                         # format JS/TS (Biome)
-pnpm fmt:check                   # check without changes
-pnpm lint                        # lint JS/TS
-cargo fmt --all                   # format Rust
-cargo clippy --workspace          # lint Rust
+   When a request is ambiguous, use these axes to reason toward a quadrant before asking the user to confirm. For example: if the user wants to "understand why X works this way," that is theoretical + studying = **Explanation**. If they want to "do X in their specific environment," that is practical + working = **How-to Guide**.
 
-# Run
-cargo run --release               # start engine (reads engine/config.yaml)
-pnpm dev:console                  # console frontend dev server
-pnpm dev:docs                     # docs dev server (Mintlify)
-pnpm dev:website                  # website dev server
+2. **Predict & Suggest**:
+   - Inspect the current file structure.
+   - Suggest the optimal file path for the new doc.
+   - If the request is ambiguous, ask the user to confirm the category.
 
-# Cloud
-iii cloud deploy --config <path>  # deploy to iii Cloud
-iii cloud list                    # list deployments
-iii cloud update <deployment-id>  # update a deployment
-iii cloud delete <deployment-id>  # delete a deployment
-```
+3. **Load Skill**: Once the category and location are confirmed (or if the intent is obvious), strictly adhere to the guidelines in the corresponding `.cursor/skills/` file AND the global workflow rules in `.cursor/skills/doc_workflow.md`.
 
-## Project Map
-
-```
-engine/                          Rust engine — runtime, modules, protocol, CLI
-sdk/packages/node/iii/           TypeScript SDK (npm: iii-sdk)
-sdk/packages/node/iii-browser/   Browser SDK (npm: iii-browser-sdk)
-sdk/packages/python/iii/         Python SDK (PyPI: iii-sdk)
-sdk/packages/rust/iii/           Rust SDK (crates.io: iii-sdk)
-console/                         Developer console (React + Rust)
-skills/                          26 agent skills (auto-discovered by SkillKit)
-docs/                            Documentation site (Mintlify/MDX)
-website/                         iii.dev website
-scripts/                         Build and CI scripts
-```
-
-**Workspaces:** `Cargo.toml` (Rust), `pnpm-workspace.yaml` (JS/TS), `turbo.json` (build orchestration).
-
-## Boundaries
-
-### Always
-
-- Use `pnpm` (never `npm`) for JS/TS packages
-- Use `cargo fmt --all` before committing Rust changes
-- Use `pnpm fmt` before committing JS/TS changes
-- Use leading slashes for HTTP `api_path` values: `/orders`, `/users/:id`
-- Use `expression` (not `cron`) for cron trigger config fields
-- Use `::` separator for function IDs: `orders::validate`, `reports::daily-summary`
-- Use `workspace:*` for internal pnpm package references
-- Include `## When to Use` and `## Boundaries` sections in every SKILL.md
-- Match SKILL.md `name` field to its directory name exactly
-
-### Ask First
-
-- Changes to public SDK APIs (npm/PyPI/crates.io surface)
-- Changes to engine config schema (`engine/config.yaml`)
-- Changes to CI/CD workflows (`.github/`)
-- Adding new engine modules
-- Modifying the WebSocket protocol between SDK and engine
-
-### Never
-
-- Commit secrets, API keys, or credentials
-- Use `npm` instead of `pnpm`
-- Push directly to `main`
-- Change engine licensing (ELv2) or SDK licensing (Apache-2.0)
-- Remove "When to Use" / "Boundaries" from SKILL.md files (SkillKit validates these)
-- Use `cron` as a config key — the engine uses `expression`
-- Omit leading slashes on `api_path` — the engine standard is `/path`
-
-## Code Style
-
-**Rust (engine + SDK):**
-```rust
-// Function IDs use :: separator
-iii.register_function(
-    RegisterFunction::new("orders::validate", validate_order)
-        .description("Validate an incoming order"),
-);
-
-// HTTP triggers use leading slash
-iii.register_trigger(
-    IIITrigger::Http(HttpTriggerConfig::new("/orders/validate").method(HttpMethod::Post))
-        .for_function("orders::validate"),
-);
-
-// Cron triggers use `expression` field (7-field: sec min hour dom month dow year)
-iii.register_trigger(
-    IIITrigger::Cron(CronTriggerConfig::new("0 0 9 * * * *"))
-        .for_function("reports::daily-summary"),
-);
-```
-
-**TypeScript (SDK):**
-```typescript
-// HTTP trigger with leading slash
-iii.registerTrigger({
-  type: 'http',
-  function_id: 'orders::validate',
-  config: { api_path: '/orders/validate', http_method: 'POST' },
-});
-
-// HTTP trigger with middleware chain
-iii.registerTrigger({
-  type: 'http',
-  function_id: 'orders::validate',
-  config: {
-    api_path: '/orders/validate',
-    http_method: 'POST',
-    middleware_function_ids: ['middleware::auth', 'middleware::rate-limit'],
-  },
-});
-
-// Cron trigger with `expression` (not `cron`)
-iii.registerTrigger({
-  type: 'cron',
-  function_id: 'reports::daily-summary',
-  config: { expression: '0 0 9 * * * *' },
-});
-
-// Trigger with metadata (optional, stored with the trigger)
-iii.registerTrigger({
-  type: 'cron',
-  function_id: 'reports::daily-summary',
-  config: { expression: '0 0 9 * * * *' },
-  metadata: { owner: 'billing-team', priority: 'high' },
-});
-```
-
-**Python (SDK):**
-```python
-# Same patterns — leading slash, expression field
-iii.register_trigger({
-    "type": "http",
-    "function_id": "orders::validate",
-    "config": {"api_path": "/orders/validate", "http_method": "POST"},
-})
-```
-
-## Skills
-
-The `skills/` directory contains 26 agent skills (iii-prefixed) auto-discovered by `npx skills add iii-hq/iii` and `npx skillkit install iii-hq/iii`. Reference implementations live in `skills/references/` with TypeScript, Python, and Rust variants.
-
-## Licensing
-
-- `engine/` — Elastic License v2 (ELv2)
-- Everything else — Apache-2.0
+4. **Reference**:
+   - Always read `.cursor/skills/doc_workflow.md` for rules regarding Tone, Component Usage (Callouts), and Chunked Execution.
 
 ---
 > Source: [iii-hq/iii](https://github.com/iii-hq/iii) — distributed by [TomeVault](https://tomevault.io).
