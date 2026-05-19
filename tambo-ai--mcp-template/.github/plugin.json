@@ -1,0 +1,9 @@
+{
+  "name": "tambo-ai--mcp-template",
+  "displayName": "mcp-template",
+  "description": "This is a starter NextJS app with tambo-ai for generative UI and MCP.",
+  "version": "1.0.0",
+  "author": "tambo-ai",
+  "homepage": "https://github.com/tambo-ai/mcp-template",
+  "skills": []
+}
