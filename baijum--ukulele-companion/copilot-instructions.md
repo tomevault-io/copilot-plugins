@@ -1,69 +1,50 @@
-## compose-coroutines
+## compose-ui
 
-> Compose scroll/coroutine patterns — prevent programmatic scroll from being mistaken for user scroll, cancellation-safe flag resets
+> Compose UI conventions — Material 3, recomposition optimization, Compose-only UI, theming
 
 
-- **Guard programmatic scroll from state observers**
+# Compose UI Rules
 
-  `scrollState.isScrollInProgress` cannot distinguish between a user finger drag and a programmatic `animateScrollTo` call. If you observe `isScrollInProgress` to detect manual scrolling, always gate it with a flag:
+## Compose-only UI
 
-  ```kotlin
-  val programmaticScroll = remember { mutableStateOf(false) }
+No XML layouts. All UI is built with Jetpack Compose and Material 3 components.
 
-  // Auto-scroll loop
-  LaunchedEffect(autoScrolling) {
-      if (autoScrolling) {
-          while (autoScrolling) {
-              programmaticScroll.value = true
-              try {
-                  scrollState.animateScrollTo(/* ... */)
-              } finally {
-                  programmaticScroll.value = false
-              }
-              delay(16L)
-          }
-      }
-  }
+## Material 3
 
-  // Manual-scroll detector — skip when programmatic
-  LaunchedEffect(scrollState.isScrollInProgress) {
-      if (scrollState.isScrollInProgress && autoScrolling && !programmaticScroll.value) {
-          autoScrolling = false
-      }
-  }
-  ```
+Use Material 3 components and theming (`MaterialTheme.colorScheme`, `MaterialTheme.typography`). Do not use Material 2 (`androidx.compose.material`) — use `androidx.compose.material3`.
 
-- **Always wrap cancellable suspend calls in try/finally**
+## Minimize recompositions
 
-  `animateScrollTo`, `animateTo`, and similar Compose suspend functions are cancellable. If you set a flag before calling them, reset it in a `finally` block so the flag is cleared even if the coroutine is cancelled (e.g., by user touch or `LaunchedEffect` recomposition):
+- Use `remember` to avoid recomputing values on every recomposition
+- Use `derivedStateOf` when a value is derived from one or more state objects
+- Use `key` to help Compose identify items in lists and avoid unnecessary recomposition
 
-  ```kotlin
-  // ✅ DO
-  flag.value = true
-  try {
-      scrollState.animateScrollTo(target)
-  } finally {
-      flag.value = false
-  }
+```kotlin
+val sortedItems = remember(items) { items.sortedBy { it.name } }
 
-  // ❌ DON'T — flag stays true if animateScrollTo is cancelled
-  flag.value = true
-  scrollState.animateScrollTo(target)
-  flag.value = false
-  ```
+val isValid by remember {
+    derivedStateOf { name.isNotBlank() && age > 0 }
+}
+```
 
-- **Prefer snapshotFlow over LaunchedEffect(stateValue) for contextual reactions**
+## Immutable data
 
-  `LaunchedEffect(stateValue)` restarts whenever `stateValue` changes, but you lose the previous value. When you need to compare old vs. new, or combine the state change with other conditions, use `snapshotFlow`:
+Prefer immutable data (`val`, `data class`, `List` over `MutableList` in public APIs). This helps Compose's stability system skip unnecessary recompositions.
 
-  ```kotlin
-  // ✅ Richer context — can debounce, filter, combine
-  LaunchedEffect(Unit) {
-      snapshotFlow { scrollState.isScrollInProgress }
-          .filter { it && !programmaticScroll.value }
-          .collect { autoScrolling = false }
-  }
-  ```
+## Code style
+
+- Files: PascalCase (`ChordDetector.kt`)
+- Functions: camelCase
+- Classes/Objects/Enums: PascalCase
+- Use Kotlin idioms (`let`, `apply`, `also`, `when`) where they improve readability
+
+## Navigation
+
+The app uses `ModalNavigationDrawer` with ~30 sections grouped into Play, Create, Learn, and Reference. Screen selection is managed via `mutableIntStateOf` with a `when` block — there is no Compose NavHost or NavController.
+
+## Theming
+
+Verify UI changes in light, dark, and high-contrast themes. Theme configuration lives in `ui/theme/Theme.kt`.
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
