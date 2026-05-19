@@ -1,130 +1,14 @@
-## repo-specific-config
+## js-recall
 
-> - This is a Turborepo monorepo. Understand its structure and principles.
+> This file provides guidance to Copilot when working with code in this repository.
 
-# Repository Specific Configuration (js-recall)
+# Copilot Instructions
 
-## Monorepo Setup (Turborepo)
-- This is a Turborepo monorepo. Understand its structure and principles.
-- Packages/apps must be buildable and runnable independently.
-- Changes to shared packages must not break dependent apps.
-- Use pnpm workspace dependencies with `workspace:*` version specifiers.
-- Adhere to the build/task pipeline defined in `turbo.json`.
+This file provides guidance to Copilot when working with code in this repository.
 
-## Code Quality Tooling
-- **ESLint:** Follow rules defined in the `@recallnet/eslint-config` package.
-- **Prettier:** Maintain consistent formatting using Prettier (configuration likely shared or in `package.json` under the "format" action).
+For complete development guidance including commands, architecture, and patterns, see [AGENTS.md](../AGENTS.md).
 
-## Application Development (Next.js)
-- **Framework:** Use Next.js for web applications (`apps/comps`).
-- **Structure:** Follow the standard Next.js App Router directory structure (`app/`).
-- **UI:** Implement responsive designs suitable for various screen sizes. The primary UI component library is `@recallnet/ui`. Standard state management patterns are TBD (use component state or React Context unless otherwise specified).
-
-## Specific Libraries & Packages
-- **UI Components:** Use the shared `@recallnet/ui` library for common UI elements when possible.
-- *(Add other critical, repo-specific library usage guidelines here if any)*
-
-## Environment and Tools Versions
-- **Node.js:** `>= 20`
-- **pnpm:** `9.12.3` or higher
-- **Editor:** Use VSCode with recommended extensions (ensure ESLint and Prettier integrations are active).
-
-## Repository Structure
-Details the specific layout of this monorepo:
-
-### Apps (`apps/*`)
-- `comps/`: Trading competitions web application
-
-### Packages (`packages/*`)
-**Core Libraries:**
-- `sdk/` (@recallnet/sdk): Core SDK implementation ([README](mdc:packages/sdk/README.md))
-
-**Agent Dev Tools:**
-- `agent-toolkit/` (@recallnet/agent-toolkit): Tools for AI agent interaction with Recall ([README](mdc:packages/agent-toolkit/README.md))
-- `mcp/` (@recallnet/mcp): Model Context Protocol (MCP) server for Recall ([README](mdc:packages/mcp/README.md))
-
-**Development Tools:**
-- `eslint-config/` (@recallnet/eslint-config): Shared ESLint configuration ([README](mdc:packages/eslint-config/README.md))
-- `typescript-config/` (@recallnet/typescript-config): Shared TypeScript configuration ([README](mdc:packages/typescript-config/README.md))
-
-**Utilities:**
-- `ui/` (@recallnet/ui): Shared UI component library *(README missing)*
-- `contracts/` (@recallnet/contracts): Smart contract interfaces *(README missing)*
-- `chains/` (@recallnet/chains): Chain-specific configurations ([README](mdc:packages/chains/README.md))
-- `address-utils/` (@recallnet/address-utils): Address formatting utility ([README](mdc:packages/address-utils/README.md))
-- `conversions/` (@recallnet/conversions): BigInt conversion utilities ([README](mdc:packages/conversions/README.md))
-- `fvm/` (@recallnet/fvm): FVM-specific functionality ([README](mdc:packages/fvm/README.md))
-- `network-constants/` (@recallnet/network-constants v0.0.6): Network configuration constants ([README](mdc:packages/network-constants/README.md))
-- `fonts/` (@recallnet/fonts): Shared font resources ([README](mdc:packages/fonts/README.md))
-- `react/` (@recallnet/react): Extended SDK features *(README missing)*
-
-## Versioning & Release (Changesets)
-- This repository uses [Changesets](mdc:https:/github.com/changesets/changesets) for version management and publishing.
-- **Developer Workflow:** When making changes to packages (`packages/*`) that require a version bump (feature, fix, etc.), run `pnpm changeset` and follow the prompts to document the change. This creates a markdown file in the `.changeset/` directory.
-- **CI Process:** The `release.yml` workflow ([.github/workflows/release.yml](mdc:.github/workflows/release.yml)) uses these changeset files to automatically create versioning PRs or publish updated packages to npm upon merging to `main`.
-
-## Mandatory Quality Checks & Commands
-Before marking a task complete or merging code, the following commands **MUST** pass (enforced by CI in [.github/workflows/code-quality.yml](mdc:.github/workflows/code-quality.yml)):
-
-1.  **Lint:** `pnpm lint`
-2.  **Format Check:** `pnpm format:check`
-3.  **Documentation Check:** `pnpm docs:check` (Checks TSDoc coverage meets 99% threshold)
-4.  **Build:** `pnpm build`
-
-## Important Project Scripts
-Commonly used scripts defined in `package.json` or `turbo.json`:
-
-- `pnpm build`: Build all packages and apps.
-- `pnpm dev`: Run the development environment, starting the api and comps apps.
-- `pnpm lint`: Run ESLint checks across the monorepo.
-- `pnpm format`: Format code with Prettier.
-- `pnpm format:check`: Check formatting without making changes.
-- `pnpm clean`: Clean build artifacts (`dist`, `node_modules`, etc.).
-- `pnpm changeset`: Create a changeset file to document package changes for versioning.
-- `pnpm version-packages`: Update package versions based on changesets (usually handled by CI).
-- `pnpm publish-packages`: Publish updated packages to the registry (usually handled by CI).
-- `pnpm docs:check`: Verify TSDoc coverage.
-- `pnpm docs:build`: Generate TypeDoc documentation for all packages.
-
-## Frontend-Backend Contract Standards
-- **Response Consistency**:
-  - All numeric values as numbers, not strings
-  - Boolean flags instead of string enums when binary (e.g., `isLong` vs `side: "long" | "short"`)
-  - Consistent field naming across similar endpoints
-  - Embedded relations follow same structure everywhere
-  - Dates as ISO 8601 strings (e.g., `2024-01-01T00:00:00Z`)
-- **Pagination Contract**:
-  ```typescript
-  {
-    data: T[],
-    pagination: {
-      total: number,
-      limit: number,
-      offset: number,
-      hasMore: boolean
-    }
-  }
-  ```
-- **Type Sharing**:
-  - API types defined in `apps/api/src/types/`
-  - Frontend types in `apps/comps/types/`
-  - Shared types in packages when used by multiple apps
-  - Use code generation for API client types when possible
-- **Field Consistency Rules**:
-  - IDs: Always string (UUIDs)
-  - Amounts/Prices: Always number with explicit precision
-  - Timestamps: ISO 8601 strings
-  - Enums: Use TypeScript string literal unions
-  - Optional fields: Use `| null` for API, handle in frontend
-
-## Additional Resources (Project Context)
-- [Root README](README.md)
-- [Turborepo Documentation](mdc:https:/turbo.build/repo/docs)
-- [pnpm Workspace Guide](mdc:https:/pnpm.io/workspaces)
-- [Next.js Documentation](mdc:https:/nextjs.org/docs)
-- [React Documentation](mdc:https:/react.dev)
-- [TypeScript Handbook](mdc:https:/www.typescriptlang.org/docs)
-- [Changesets Documentation](https://github.com/changesets/changesets)
+For all development and review activities, ensure you have read, understood, and are following the code philosophy, patterns, and expectations outlined in [AGENTS.md](../AGENTS.md).
 
 ---
 > Source: [recallnet/js-recall](https://github.com/recallnet/js-recall) — distributed by [TomeVault](https://tomevault.io).
