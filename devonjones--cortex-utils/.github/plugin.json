@@ -1,0 +1,9 @@
+{
+  "name": "devonjones--cortex-utils",
+  "displayName": "cortex-utils",
+  "description": "Operational tooling for Cortex: queue management, partitioning, dead letter handling",
+  "version": "1.0.0",
+  "author": "devonjones",
+  "homepage": "https://github.com/devonjones/cortex-utils",
+  "skills": []
+}
