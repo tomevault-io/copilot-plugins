@@ -4,7 +4,7 @@
   "repo": "firecrawl-ui",
   "description": "Firecrawl UI interact with the Firecrawl API. It allows you to scrape pages, launch crawls and extract structured data through a simple web interface.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/obeone/firecrawl-ui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T19:24:37Z"
+  "distributed_at": "2026-05-19T23:01:10Z"
 }
