@@ -7,11 +7,11 @@ A curated DSA practice repo solving problems in three tiers: brute-force, optimi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thezaidsheikh/dsa-practice](https://github.com/thezaidsheikh/dsa-practice).
+Original source: `CLAUDE.md` in [thezaidsheikh/dsa-practice](https://github.com/thezaidsheikh/dsa-practice).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
