@@ -4,7 +4,7 @@
   "repo": "llm-ide-rules",
   "description": "Centralized LLM prompt instructions for Copilot and Cursor, including scripts to convert and sync rules for Python, React, Shell, and TypeScript. Designed for rapid reuse and contribution across projects.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iloveitaly/llm-ide-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T06:00:21Z"
+  "distributed_at": "2026-05-19T11:20:49Z"
 }
