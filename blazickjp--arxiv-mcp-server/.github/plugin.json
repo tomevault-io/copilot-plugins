@@ -1,0 +1,9 @@
+{
+  "name": "blazickjp--arxiv-mcp-server",
+  "displayName": "arxiv-mcp-server",
+  "description": "A Model Context Protocol server for searching and analyzing arXiv papers",
+  "version": "1.0.0",
+  "author": "blazickjp",
+  "homepage": "https://github.com/blazickjp/arxiv-mcp-server",
+  "skills": []
+}
