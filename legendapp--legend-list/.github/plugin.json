@@ -1,0 +1,9 @@
+{
+  "name": "legendapp--legend-list",
+  "displayName": "legend-list",
+  "description": "A high-performance list component for React Native and React",
+  "version": "1.0.0",
+  "author": "LegendApp",
+  "homepage": "https://github.com/LegendApp/legend-list",
+  "skills": []
+}
