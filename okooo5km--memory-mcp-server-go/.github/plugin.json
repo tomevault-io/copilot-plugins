@@ -1,0 +1,9 @@
+{
+  "name": "okooo5km--memory-mcp-server-go",
+  "displayName": "memory-mcp-server-go",
+  "description": "A Model Context Protocol server that provides knowledge graph management capabilities.",
+  "version": "1.0.0",
+  "author": "okooo5km",
+  "homepage": "https://github.com/okooo5km/memory-mcp-server-go",
+  "skills": []
+}
