@@ -4,7 +4,7 @@
   "repo": "ktx",
   "description": "KTX is the context layer for analytics agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kaelio/ktx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T15:31:03Z"
+  "distributed_at": "2026-05-19T15:32:54Z"
 }
