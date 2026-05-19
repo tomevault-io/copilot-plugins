@@ -1,66 +1,153 @@
-## hailo-global
+## hl-build-llm-app
 
-> All skills, instructions, toolsets, knowledge bases, and memory live in `.hailo/`.
+> Build a complete LLM text generation app running on Hailo-10H.
 
 
-# Hailo Apps — Global Rules
+# Skill: Build LLM Chat Application
 
-All skills, instructions, toolsets, knowledge bases, and memory live in `.hailo/`.
-Read `.hailo/README.md` for the complete master index.
+Build a complete LLM text generation app running on Hailo-10H.
 
-## Interactive Workflow (MUST FOLLOW)
+## When This Skill Is Loaded
 
-**Always walk through key decisions with the user before building.** Ask 2-3 targeted
-questions to confirm app type, features, and input source. This creates a collaborative
-workflow and catches misunderstandings early. Only skip questions if the user explicitly
-says "just build it" or "use defaults".
+- User wants **text generation** or **chat** without vision
+- User mentions: LLM, chat, chatbot, text generation, Q&A
+- User needs on-device language model inference (NOT vision — that's VLM)
+
+## Reference Implementation
+
+Study `hailo_apps/python/gen_ai_apps/simple_llm_chat/simple_llm_chat.py` — the canonical LLM app.
+
+## Build Process
+
+### Step 1: Create App Directory
+
+Create the app directory:
+
+```
+hailo_apps/python/<type>/<app_name>/
+├── app.yaml              # App manifest (type: gen_ai)
+├── run.sh                # Launch wrapper
+├── __init__.py
+├── <app_name>.py         # Main app
+└── README.md             # Usage documentation (REQUIRED — never skip)
+```
+
+Create `app.yaml` with `type: gen_ai` and `run.sh` wrapper.
+Do NOT register in `defines.py` or `resources_config.yaml`.
+
+### Step 2: Build Main App
+
+```python
+import signal
+import sys
+
+from hailo_platform import VDevice
+from hailo_platform.genai import LLM
+
+from hailo_apps.python.core.common.hailo_logger import get_logger
+from hailo_apps.python.core.common.core import resolve_hef_path
+from hailo_apps.python.core.common.parser import get_standalone_parser
+from hailo_apps.python.core.common.defines import (
+    SHARED_VDEVICE_GROUP_ID,
+    HAILO10H_ARCH,
+)
+
+logger = get_logger(__name__)
+
+APP_NAME = "my_llm_app"
+
+SYSTEM_PROMPT = "You are a helpful assistant."
+
+
+def format_prompt(system_prompt, user_text):
+    return [
+        {"role": "system", "content": [{"type": "text", "text": system_prompt}]},
+        {"role": "user", "content": [{"type": "text", "text": user_text}]},
+    ]
+
+
+def main():
+    parser = get_standalone_parser()
+    parser.add_argument("--max-tokens", type=int, default=200, help="Max tokens to generate")
+    parser.add_argument("--temperature", type=float, default=0.1, help="Sampling temperature")
+    parser.add_argument("--system-prompt", type=str, default=SYSTEM_PROMPT, help="System prompt")
+    args = parser.parse_args()
+
+    # Signal handling
+    running = True
+    def signal_handler(sig, frame):
+        nonlocal running
+        running = False
+        print("\nShutting down...")
+    signal.signal(signal.SIGINT, signal_handler)
+
+    # Device and model
+    params = VDevice.create_params()
+    params.group_id = SHARED_VDEVICE_GROUP_ID
+    vdevice = VDevice(params)
+
+    hef_path = resolve_hef_path(args.hef_path, APP_NAME, arch=HAILO10H_ARCH)
+    llm = LLM(vdevice, str(hef_path))
+
+    logger.info("LLM loaded: %s", hef_path)
+    print(f"Chat started. Type 'quit' to exit.\n")
+
+    try:
+        while running:
+            try:
+                user_input = input("You: ").strip()
+            except EOFError:
+                break
+            if not user_input or user_input.lower() in ("quit", "exit", "q"):
+                break
+
+            prompt = format_prompt(args.system_prompt, user_input)
+            response = llm.generate_all(
+                prompt=prompt,
+                temperature=args.temperature,
+                seed=42,
+                max_generated_tokens=args.max_tokens,
+            )
+            print(f"Assistant: {response}\n")
+            llm.clear_context()
+    finally:
+        llm.release()
+        vdevice.release()
+        logger.info("Cleanup complete")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Step 4: Validate
+
+```bash
+python3 .hailo/scripts/validate_app.py hailo_apps/python/gen_ai_apps/my_llm_app --smoke-test
+```
 
 ## Critical Conventions
 
-1. **Imports are always absolute**: `from hailo_apps.python.core.common.xyz import ...`
-2. **HEF resolution**: Always use `resolve_hef_path(path, app_name, arch)`
-3. **Device sharing**: Always use `SHARED_VDEVICE_GROUP_ID` when creating VDevice
-4. **Logging**: Use `get_logger(__name__)`
-5. **CLI parsers**: Use `get_pipeline_parser()` or `get_standalone_parser()`
-6. **Architecture detection**: Use `detect_hailo_arch()` or `--arch` flag
-7. **USB camera**: Always `--input usb` for auto-detection. Never hardcode `/dev/video0`.
-8. **SKILL.md is sufficient**: Read SKILL.md + common_pitfalls.md only. Do NOT read source code.
-9. **Custom background**: Use `background.copy()` — never blend camera feed with background.
+1. **Hailo-10H only**: Use `HAILO10H_ARCH` — LLM is not available on Hailo-8/8L
+2. **VDevice sharing**: `params.group_id = SHARED_VDEVICE_GROUP_ID`
+3. **Prompt format**: `[{"role": "...", "content": [{"type": "text", "text": "..."}]}]`
+4. **Clear context**: Always `llm.clear_context()` after each generation
+5. **Cleanup order**: `llm.clear_context()` → `llm.release()` → `vdevice.release()` in `finally`
+6. **End token**: Filter `<|im_end|>` from streaming output
+7. **Token streaming**: `with llm.generate(...) as gen: for chunk in gen:` for real-time output
+8. **HEF resolution**: `resolve_hef_path(path, APP_NAME, arch=HAILO10H_ARCH)`
 
+## Streaming Pattern (Alternative)
 
-### Context Routing Table
-
-Based on what the task involves, read **only** the matching rows:
-
-| If the task mentions... | Read these files |
-|---|---|
-| **VLM, vision, image understanding** | `.hailo/skills/hl-build-vlm-app.md`, `.hailo/toolsets/vlm-backend-api.md`, `.hailo/memory/gen_ai_patterns.md` |
-| **LLM, chat, text generation** | `.hailo/skills/hl-build-llm-app.md`, `.hailo/instructions/gen-ai-development.md`, `.hailo/toolsets/gen-ai-utilities.md`, `.hailo/memory/gen_ai_patterns.md` |
-| **Agent, tools, function calling** | `.hailo/skills/hl-build-agent-app.md`, `.hailo/toolsets/gen-ai-utilities.md`, `.hailo/memory/gen_ai_patterns.md` |
-| **Voice, STT, TTS, Whisper, speech** | `.hailo/skills/hl-build-voice-app.md`, `.hailo/toolsets/gen-ai-utilities.md` |
-| **Pipeline, GStreamer, video, stream** | `.hailo/skills/hl-build-pipeline-app.md`, `.hailo/instructions/gstreamer-pipelines.md`, `.hailo/toolsets/gstreamer-elements.md`, `.hailo/memory/pipeline_optimization.md` |
-| **Game, interactive, pose game** | `.hailo/skills/hl-build-pipeline-app.md`, `.hailo/toolsets/pose-keypoints.md`, `.hailo/toolsets/core-framework-api.md`, `.hailo/memory/common_pitfalls.md` |
-| **Standalone, OpenCV, HailoInfer** | `.hailo/skills/hl-build-standalone-app.md`, `.hailo/toolsets/core-framework-api.md` |
-| **Camera, USB, RPi, capture** | `.hailo/skills/hl-camera.md`, `.hailo/memory/camera_and_display.md` |
-| **HEF, model, download, config** | `.hailo/skills/hl-model-management.md`, `.hailo/toolsets/hailort-api.md`, `.hailo/memory/hailo_platform_api.md` |
-| **Monitoring, events, alerts** | `.hailo/skills/hl-monitoring.md`, `.hailo/skills/hl-event-detection.md` |
-| **Testing, validation, pytest** | `.hailo/skills/hl-validate.md`, `.hailo/instructions/testing-patterns.md` |
-| **ALWAYS read (every task)** | `.hailo/memory/common_pitfalls.md`, `.hailo/instructions/coding-standards.md` |
-
-## Available Skills
-
-| Skill | Doc |
-|-------|-----|
-| Build VLM App | `.hailo/skills/hl-build-vlm-app.md` |
-| Build Pipeline App | `.hailo/skills/hl-build-pipeline-app.md` |
-| Build Standalone App | `.hailo/skills/hl-build-standalone-app.md` |
-| Build Agent App | `.hailo/skills/hl-build-agent-app.md` |
-| Build LLM App | `.hailo/skills/hl-build-llm-app.md` |
-| Build Voice App | `.hailo/skills/hl-build-voice-app.md` |
-
-## Memory
-
-Persistent knowledge in `.hailo/memory/`. Read at task start, update when learning.
+```python
+print("Assistant: ", end="", flush=True)
+with llm.generate(prompt=prompt, temperature=0.1, max_generated_tokens=200) as gen:
+    for chunk in gen:
+        if chunk != "<|im_end|>":
+            print(chunk, end="", flush=True)
+print()
+llm.clear_context()
+```
 
 ---
 > Source: [hailo-ai/hailo-apps](https://github.com/hailo-ai/hailo-apps) — distributed by [TomeVault](https://tomevault.io).
