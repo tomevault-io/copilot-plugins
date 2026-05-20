@@ -1,0 +1,9 @@
+{
+  "name": "googlicius--obsidian-steward",
+  "displayName": "obsidian-steward",
+  "description": "A vault-specific agent equipped with agentic capacity, fast search, flexible commands, vault management, and terminals to \"jump\" into other CLI agents, such as Claude, Gemini, etc.",
+  "version": "1.0.0",
+  "author": "googlicius",
+  "homepage": "https://github.com/googlicius/obsidian-steward",
+  "skills": []
+}
