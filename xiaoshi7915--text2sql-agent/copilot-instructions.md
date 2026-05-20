@@ -1,52 +1,41 @@
-## 03-frontend-structure
+## 04-development-standards
 
-> - `/frontend/src/main.js` - 应用入口点
+> - JavaScript/Vue代码遵循Airbnb风格指南
 
-# 前端架构指南
+# 开发规范指南
 
-## 技术栈
-- Vue.js 3
-- Vue Router
-- Pinia 状态管理
-- Axios HTTP客户端
-- Element Plus UI组件库
-- SCSS 样式预处理器
+## 代码风格
+- Python代码遵循PEP 8规范
+- JavaScript/Vue代码遵循Airbnb风格指南
+- 所有代码必须有中文注释，说明功能和逻辑
 
-## 目录结构
-- `/frontend/src/main.js` - 应用入口点
-- `/frontend/src/App.vue` - 根组件
-- `/frontend/src/router/` - 路由配置
-- `/frontend/src/store/` - 状态管理
-- `/frontend/src/api/` - API调用封装
-- `/frontend/src/components/` - 通用组件
-- `/frontend/src/views/` - 页面组件
-- `/frontend/src/assets/` - 静态资源
-- `/frontend/src/utils/` - 工具函数
+## 命名约定
+- 变量和函数使用小驼峰命名法 (camelCase)
+- 类名使用大驼峰命名法 (PascalCase)
+- 常量使用全大写下划线分隔 (UPPER_SNAKE_CASE)
+- 数据库表名和字段名使用下划线分隔 (snake_case)
 
-## 设计原则
-1. 组件化开发，提高复用性
-2. 统一的状态管理
-3. 响应式设计，适配多种屏幕尺寸
-4. 路由懒加载，优化加载性能
-5. 权限控制与身份验证
+## 文档规范
+- 每个模块、类和函数都应有文档注释
+- API文档使用Swagger/OpenAPI规范
+- 复杂算法和业务逻辑需要单独的说明文档
 
-## 页面规划
-系统包含以下主要页面:
-- 登录与注册
-- 文书管理主页
-- 文书详情页
-- 文书上传页
-- 文书搜索结果页
-- 用户管理页
-- 系统设置页
+## 版本控制
+- 使用Git进行版本控制
+- 遵循Git Flow工作流
+- 提交信息格式: `[类型]: 简短描述`，类型包括feat、fix、docs、style、refactor等
 
-## 组件设计
-按照功能划分组件类型:
-- 布局组件: 页面布局框架
-- 表单组件: 数据录入组件
-- 数据展示组件: 表格、列表等
-- 功能组件: 上传、搜索等
-- 通用组件: 按钮、卡片等
+## 测试规范
+- 所有核心功能必须有单元测试
+- 后端API需要集成测试
+- 前端组件需要UI测试
+- 测试覆盖率要求不低于80%
+
+## 安全规范
+- 所有用户输入必须进行验证和清洗
+- 敏感数据必须加密存储
+- API访问需要权限控制
+- 定期进行安全审查和更新
 
 ---
 > Source: [xiaoshi7915/Text2Sql_Agent](https://github.com/xiaoshi7915/Text2Sql_Agent) — distributed by [TomeVault](https://tomevault.io).
