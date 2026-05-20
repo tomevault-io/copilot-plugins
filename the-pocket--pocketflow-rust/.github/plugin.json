@@ -1,0 +1,9 @@
+{
+  "name": "the-pocket--pocketflow-rust",
+  "displayName": "PocketFlow-Rust",
+  "description": "Pocket Flow: A minimalist LLM framework. Let Agents build Agents!",
+  "version": "1.0.0",
+  "author": "The-Pocket",
+  "homepage": "https://github.com/The-Pocket/PocketFlow-Rust",
+  "skills": []
+}
