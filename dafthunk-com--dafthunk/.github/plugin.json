@@ -1,0 +1,22 @@
+{
+  "name": "dafthunk-com--dafthunk",
+  "displayName": "dafthunk",
+  "description": "A workflow execution platform built on top of the fantastic Cloudflare infrastructure.",
+  "version": "1.0.0",
+  "author": "dafthunk-com",
+  "homepage": "https://github.com/dafthunk-com/dafthunk",
+  "skills": [
+    {
+      "name": "integration-generator",
+      "description": ""
+    },
+    {
+      "name": "node-generator",
+      "description": ""
+    },
+    {
+      "name": "template-generator",
+      "description": ""
+    }
+  ]
+}
