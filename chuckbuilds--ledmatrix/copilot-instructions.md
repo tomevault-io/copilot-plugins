@@ -1,42 +1,46 @@
-## coding-standards
+## configuration-management
 
-> - **Simplicity First**: Prefer clear, readable code over clever optimizations
+> - **Main config**: [config/config.json](mdc:config/config.json) - Primary configuration
 
 
-# Python Coding Standards
+# Configuration Management
 
-## Code Quality Principles
-- **Simplicity First**: Prefer clear, readable code over clever optimizations
-- **Explicit over Implicit**: Make intentions clear through naming and structure
-- **Fail Fast**: Validate inputs and handle errors early
-- **Documentation**: Use docstrings for classes and complex functions
+## Configuration Structure
+- **Main config**: [config/config.json](mdc:config/config.json) - Primary configuration
+- **Secrets**: [config/config_secrets.json](mdc:config/config_secrets.json) - API keys and sensitive data
+- **Templates**: [config/config.template.json](mdc:config/config.template.json) - Default values
 
-## Naming Conventions
-- **Classes**: PascalCase (e.g., `NHLRecentManager`)
-- **Functions/Variables**: snake_case (e.g., `fetch_game_data`)
-- **Constants**: UPPER_SNAKE_CASE (e.g., `ESPN_NHL_SCOREBOARD_URL`)
-- **Private methods**: Leading underscore (e.g., `_fetch_data`)
+## Configuration Principles
+- **Validation**: Check required fields and data types on startup
+- **Defaults**: Provide sensible defaults in code, not just config
+- **Environment awareness**: Handle development vs production differences
+- **Security**: Never commit secrets to version control
 
-## Error Handling
-- **Logging**: Use structured logging with context (e.g., `[NHL Recent]`)
-- **Exceptions**: Catch specific exceptions, not bare `except:`
-- **User-friendly messages**: Explain what went wrong and potential solutions
-- **Graceful degradation**: Continue operation when non-critical features fail
-
-## Manager Pattern
-All sports managers should follow this structure:
+## Manager Configuration Pattern
 ```python
-class BaseManager:
-    def __init__(self, config, display_manager, cache_manager)
-    def update(self)  # Fetch and process data
-    def display(self, force_clear=False)  # Render to display
+def __init__(self, config, display_manager, cache_manager):
+    self.mode_config = config.get("sport_scoreboard", {})
+    self.favorite_teams = self.mode_config.get("favorite_teams", [])
+    self.show_favorite_only = self.mode_config.get("show_favorite_teams_only", False)
 ```
 
-## Configuration Management
-- **Type hints**: Use for function parameters and return values
-- **Configuration validation**: Check required fields on initialization
-- **Default values**: Provide sensible defaults in code, not config
-- **Environment awareness**: Handle different deployment contexts
+## Required Configuration Sections
+- **Display settings**: Update intervals, display durations
+- **API settings**: Timeouts, retry logic, rate limiting
+- **Background service**: Threading, caching, priority settings
+- **Team preferences**: Favorite teams, filtering options
+
+## Configuration Validation
+- **Type checking**: Ensure numeric values are numbers, lists are lists
+- **Range validation**: Check that intervals are reasonable
+- **Dependency checking**: Verify required services are available
+- **Fallback values**: Provide defaults when config is missing or invalid
+
+## Best Practices
+- **Documentation**: Comment complex configuration options
+- **Examples**: Provide working examples in templates
+- **Migration**: Handle configuration changes between versions
+- **Testing**: Validate configuration in test environments
 
 ---
 > Source: [ChuckBuilds/LEDMatrix](https://github.com/ChuckBuilds/LEDMatrix) — distributed by [TomeVault](https://tomevault.io).
