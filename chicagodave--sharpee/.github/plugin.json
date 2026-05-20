@@ -1,0 +1,9 @@
+{
+  "name": "chicagodave--sharpee",
+  "displayName": "sharpee",
+  "description": "Parser-Based Interactive Fiction Platform developed in Typescript",
+  "version": "1.0.0",
+  "author": "ChicagoDave",
+  "homepage": "https://github.com/ChicagoDave/sharpee",
+  "skills": []
+}
