@@ -4,7 +4,7 @@
   "repo": "trusted-server",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IABTechLab/trusted-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T03:00:51Z"
+  "distributed_at": "2026-05-20T12:41:33Z"
 }
