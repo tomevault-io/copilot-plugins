@@ -7,11 +7,11 @@ AI-Ready React Template: A feature-based React architecture optimized for AI-ass
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kston83/react-ai-template](https://github.com/kston83/react-ai-template).
+Original source: `CLAUDE.md` in [kston83/react-ai-template](https://github.com/kston83/react-ai-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
