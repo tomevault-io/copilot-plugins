@@ -1,0 +1,44 @@
+{
+  "name": "langbot-plugin-sdk",
+  "owner": "langbot-app",
+  "repo": "langbot-plugin-sdk",
+  "description": "LangBot Extension Infra including plugin runtime, SDK, sandbox and CLI tools.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/langbot-app/langbot-plugin-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T04:45:42Z"
+}
