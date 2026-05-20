@@ -1,0 +1,44 @@
+{
+  "name": "unsplash-smart-mcp-server",
+  "owner": "drumnation",
+  "repo": "unsplash-smart-mcp-server",
+  "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/drumnation/unsplash-smart-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T09:04:31Z"
+}
