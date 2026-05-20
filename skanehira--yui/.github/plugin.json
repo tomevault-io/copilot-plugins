@@ -1,0 +1,9 @@
+{
+  "name": "skanehira--yui",
+  "displayName": "yui",
+  "description": "A toy linker written in Rust",
+  "version": "1.0.0",
+  "author": "skanehira",
+  "homepage": "https://github.com/skanehira/yui",
+  "skills": []
+}
