@@ -1,0 +1,14 @@
+{
+  "name": "jlevy--flowmark",
+  "displayName": "flowmark",
+  "description": "Modern Markdown formatter with smart typography, line wrapping, and tag support (Python reference implementation)",
+  "version": "1.0.0",
+  "author": "jlevy",
+  "homepage": "https://github.com/jlevy/flowmark",
+  "skills": [
+    {
+      "name": "tbd",
+      "description": ""
+    }
+  ]
+}
