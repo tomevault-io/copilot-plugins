@@ -1,0 +1,9 @@
+{
+  "name": "lambdaclass--spawned",
+  "displayName": "spawned",
+  "description": "A Rust library for decoupling concurrency from application logic, following the model used by Erlang and the BEAM VM",
+  "version": "1.0.0",
+  "author": "lambdaclass",
+  "homepage": "https://github.com/lambdaclass/spawned",
+  "skills": []
+}
