@@ -1,0 +1,9 @@
+{
+  "name": "mrashrhodes--suno-playlist-downloader-web",
+  "displayName": "suno-playlist-downloader-web",
+  "description": "Web version of the Suno Playlist Downloader - download songs and playlists from Suno music platform",
+  "version": "1.0.0",
+  "author": "MrAshRhodes",
+  "homepage": "https://github.com/MrAshRhodes/suno-playlist-downloader-web",
+  "skills": []
+}
