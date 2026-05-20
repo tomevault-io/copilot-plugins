@@ -1,0 +1,9 @@
+{
+  "name": "slawekkolodziej--storybook-astro",
+  "displayName": "storybook-astro",
+  "description": "Experimental support for Astro components in Storybook",
+  "version": "1.0.0",
+  "author": "slawekkolodziej",
+  "homepage": "https://github.com/slawekkolodziej/storybook-astro",
+  "skills": []
+}
