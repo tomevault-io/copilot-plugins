@@ -1,0 +1,9 @@
+{
+  "name": "mitch292--reject-cookies",
+  "displayName": "reject-cookies",
+  "description": "A chrome extension that with auto - reject cookie banners and pop ups",
+  "version": "1.0.0",
+  "author": "mitch292",
+  "homepage": "https://github.com/mitch292/reject-cookies",
+  "skills": []
+}
