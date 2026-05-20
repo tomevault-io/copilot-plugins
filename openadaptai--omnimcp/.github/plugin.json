@@ -1,0 +1,9 @@
+{
+  "name": "openadaptai--omnimcp",
+  "displayName": "OmniMCP",
+  "description": "OmniMCP uses Microsoft OmniParser and Model Context Protocol (MCP) to provide AI models with rich UI context and powerful interaction capabilities.",
+  "version": "1.0.0",
+  "author": "OpenAdaptAI",
+  "homepage": "https://github.com/OpenAdaptAI/OmniMCP",
+  "skills": []
+}
