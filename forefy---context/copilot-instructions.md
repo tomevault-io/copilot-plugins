@@ -1,0 +1,15 @@
+## context
+
+> This repo contains instruction files for using and conducting security reviews, do not confuse this `CLAUDE.md` from other copilot-instructions files existing in this workspace.
+
+This repo contains instruction files for using and conducting security reviews, do not confuse this `CLAUDE.md` from other copilot-instructions files existing in this workspace.
+
+For every change in a copilot-instruction or security-review file, look if there are other instructions files of the same format/target llm, and ensure they are updated accordingly to match in style and high level principles.
+
+After every change, if the target file has a Table of Content, make sure it is updated and reflects the changes made in the document.
+
+Do not use emojis in content you generate, ever, and do not add comments.
+
+---
+> Source: [forefy/.context](https://github.com/forefy/.context) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
