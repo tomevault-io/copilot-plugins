@@ -1,115 +1,121 @@
-## react-query
+## styling
 
-> The following contains rules about using React Query in. Each rule is followed by a small example showing good and bad practices.
+> The following contains rules about styling components in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-The following contains rules about using React Query in. Each rule is followed by a small example showing good and bad practices.
+The following contains rules about styling components in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-- Always reuse the queryOptions function instead of defining queries inline.
+- It's okay to put inline style in the "style" props of a component. Only extract styles when it's starting to get chaotic.
 
 ```typescript
-// ❌options inline
-function UserProfile() {
-  const { dqueryKey: ["user", id],
-    queryFn: ()   })
+// ✅ Good for simple styling n style={{ marginBottom: 8 }}>Simple element</Text>
 
-  return <View>{data && <Texew>
+// ✅ Consider extracting when styles get complex
+<VStack
+  style={{
+    padding: theme.spacing.md,
+    margin:,
+    borderRadius: 8,
+    backgroundColor: theme.colors.card,
+    // And many more style properties...
+  }}
+>
+  <Text>Content</Text>
+</VStack>
+```
+
+- Use the dollar sign ($) prefix for style objects defined outside of components.
+
+```typescript
+// ❌ Bad
+const containerStyle = {
+  padding: 16,
+  margin: 8,
 }
 
-// ✅ Good: Using shared queryOts
-export const getUserQueryOptions = (args: { id: string }) => {
-  const { id } = args
-  const enabled = Boolean(id)
-
-  return queryOptions({
-    queryKey: ["user", id],
-    queryFn: enabled ? () => fetchUser({ id }) : skipToken,
-    enabled,
-  })
+// ✅ Good
+const $container = {
+  padding: 16,
+  margin: 8,
 }
+```
+
+- Use ThemedStyle<ViewStyle> for theme-dependent styles that need access to theme variables.
+
+```typescript
+// ❌ Bad
+const $container = {
+  backgroundColor: "#ffffff",
+  padding: 16,
+}
+
+// ✅ Good
+const $container: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
+  backgroundColor: colors.background,
+  padding: spacing.md,
+})
 
 // In component
-function UserProfile(props: { id: string }) {
-  const { id } = props
-  const { data } = useQuery(getUserQueryOptions({ id }))
+<VStack style={themed($container)} />
+```
 
-  return <View>{data && <Text>{data.name}</Text>}</View>
+- Always use our theme from use-app-theme.ts
+
+```typescript
+// ❌ Bad: Using hardcoded values
+<Text style={{ color: "#FF0000", fontSize: 16 }}>Error</Text>
+
+// ✅ Good: Using theme values
+function Component() {
+  const { theme } = useAppTheme()
+
+  return (
+    <Text style={{ color: theme.colors.error, fontSize: theme.typography.md }}>
+      Error
+    </Text>
+  )
 }
 ```
 
-- Use the utility function to generate consistent query keys.
+- Use styles.ts for common styling patterns that are reused across components.
 
 ```typescript
-// ❌ Bad: Manually creating query keys
-const queryKey = ["messages", conversationId, "unread"]
+// ❌ Bad: Repeating common styles
+<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+  <Content />
+</View>
 
-// ✅ Good: Using the getReactQueryKey utility
-import { getReactQueryKey } from "@/utils/react-query/react-query.utils"
+// ✅ Good: Using global styles from styles.ts
+import { $globalStyles } from "@/theme/styles"
 
-const queryKey = getReactQueryKey({
-  baseStr: "messages",
-  conversationId,
-  type: "unread",
+<View style={[$globalStyles.flex1, $globalStyles.center]}>
+  <Content />
+</View>
+```
+
+- Append "Override" to style props that override default component styles.
+
+```typescript
+// In custom component
+type IButtonProps = {
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+}
+
+// Usage with clear naming conventions
+<CustomButton
+  style={$buttonOverride}
+  textStyle={$textOverride}
+/>
+
+// Another example with themed styles
+const $cardOverride: ThemedStyle<ViewStyle> = ({ colors }) => ({
+  backgroundColor: colors.primaryBackground,
+  borderWidth: 0,
 })
-```
 
-- Use the helper functions for custom query patterns.
-
-```typescript
-// ✅ Good: Using helper functions
-import {
-  fetchOnlyIfMissingQuery,
-  fetchOnlyIfStaleQuery,
-} from "@/utils/react-query/react-query.helpers"
-
-// ❌ Bad: Custom fetch logic
-const fetchData = async () => {
-  const cachedData = reactQueryClient.getQueryData(queryKey)
-  if (cachedData && !isStale) {
-    return cachedData
-  }
-  return reactQueryClient.fetchQuery(queryOptions)
-}
-
-// Only fetch if data is stale
-const data = await fetchOnlyIfStaleQuery(queryOptions)
-
-// Only fetch if data doesn't exist in cache
-const cachedData = await fetchOnlyIfMissingQuery(queryOptions)
-
-// Fetch without duplicating in-flight requests
-const nonDuplicatedData = await fetchWithoutDuplicatesQuery(queryOptions)
-```
-
-- Always use the reactQueryClient from react-query.client.ts for all direct client operations.
-
-```typescript
-// ✅ Good: Using the shared reactQueryClient
-import { reactQueryClient } from "@/utils/react-query/react-query.client"
-
-// ❌ Bad: Creating a new QueryClient instance
-const queryClient = new QueryClient()
-queryClient.invalidateQueries(queryKey)
-
-// ✅ Good: Using the shared reactQueryClient
-reactQueryClient.invalidateQueries(queryKey)
-reactQueryClient.setQueryData(queryKey, newData)
-reactQueryClient.ensureQueryData(queryOptions)
-```
-
-- Our app persists all queries by default using our persister implementation.
-
-```typescript
-// All queries are persisted by default
-// To opt out of persistence for specific queries:
-export const getEphemeralDataQueryOptions = (args: { id: string }) => {
-  return queryOptions({
-    queryKey: ["ephemeral", args.id],
-    queryFn: () => fetchEphemeralData(args),
-    meta: {
-      persist: false, // This will prevent this query from being persisted
-    },
-  })
-}
+<Card style={themed($cardOverride)}>
+  <CardContent />
+</Card>
 ```
 
 ---
