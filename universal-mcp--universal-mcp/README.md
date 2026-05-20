@@ -7,11 +7,11 @@ Universal MCP acts as a middle ware for your API applications. It can store your
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [universal-mcp/universal-mcp](https://github.com/universal-mcp/universal-mcp).
+Original source: `CLAUDE.md` in [universal-mcp/universal-mcp](https://github.com/universal-mcp/universal-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
