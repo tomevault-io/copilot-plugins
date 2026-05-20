@@ -1,0 +1,9 @@
+{
+  "name": "yibie--copy-as-org-mode-chrome",
+  "displayName": "Copy-as-org-mode-chrome",
+  "description": "This WebExtension is a Chrome version of Copy as Org-Mode.",
+  "version": "1.0.0",
+  "author": "yibie",
+  "homepage": "https://github.com/yibie/Copy-as-org-mode-chrome",
+  "skills": []
+}
