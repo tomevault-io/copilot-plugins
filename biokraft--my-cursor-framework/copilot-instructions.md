@@ -1,177 +1,555 @@
-## 01-mdc-guidelines
+## makefile-best-practices
 
-> Use when user asks to create or update *.mdc files
+> Makefile best practices for developer workflows: Apply when working with Makefiles or build automation
 
+# Makefile Best Practices for Developer Workflows
 
-# Cursor MDC File Definitive Guide
+## Overview
 
-MDC (Markdown Configuration) files are Cursor rules that instruct AI assistants on context-specific behaviors. This guide explains how to create, format, and place MDC files correctly.
+When working with Makefiles, follow these best practices to create maintainable, reliable, and developer-friendly build automation. Makefiles should be structured for clarity, correctness, and ease of use.
 
-## MDC File Structure
+## Core Principles
 
-Every MDC file must have two clear sections:
+1. **Embrace the Filesystem**: `make` is fundamentally a tool for building files. Rules should correspond to actual files on the filesystem to leverage dependency tracking.
+2. **Be Explicit and Predictable**: Configure Makefiles to have consistent behavior and avoid built-in rules that can cause surprises.
+3. **Prioritize Clarity**: Use namespacing, includes, and self-documenting targets.
+4. **Write Small, Focused Recipes**: Delegate complex logic to external scripts.
+5. **Ensure Compatibility**: Write Makefiles that work across different Make versions and platforms.
+6. **Test Thoroughly**: Always test your Makefile targets on the actual target platforms.
 
-1. **Frontmatter**: Configuration metadata enclosed by triple-dash (`---`) lines at the file's top.
-2. **Markdown Content**: Detailed instructions in Markdown format following the frontmatter.
+## Compatibility Considerations
 
-### Frontmatter Guidelines
+### Make Version Compatibility
 
-The frontmatter must be the first thing in the file and must be enclosed between triple-dash lines (`---`). Configuration should be based on the intended behavior:
+**CRITICAL**: Always ensure your Makefile works with commonly available Make versions:
 
+- **macOS**: Ships with GNU Make 3.81 (from 2006) by default
+- **Linux**: Usually has GNU Make 4.0+ 
+- **Windows**: Varies widely depending on installation
+
+### Checking Make Version
+
+Before using advanced features, check the Make version:
+
+```bash
+make --version
 ```
----
-# Configure your rule based on desired behavior:
 
-description: Brief description of what the rule does
-globs: **/*.py, **/*.txt  # Optional: Comma-separated list, not an array
-alwaysApply: false       # Set to true for global rules
----
+For GNU Make 4.0+ features, consider providing fallbacks or clear error messages.
+
+### Common Compatibility Issues
+
+1. **`.RECIPEPREFIX` Support**: Only available in GNU Make 4.0+
+2. **Some built-in functions**: Newer versions have more features
+3. **Shell behavior**: Different platforms may have different default shells
+
+## Required Preamble
+
+Every Makefile MUST start with this compatibility-focused preamble:
+
+```makefile
+# Use bash as the shell with strict mode
+SHELL := bash
+.SHELLFLAGS := -eu -o pipefail -c
+
+# Run all recipe lines in a single shell instance
+.ONESHELL:
+
+# If a rule fails, delete its target file
+.DELETE_ON_ERROR:
+
+# Disable make's built-in rules and suffix rules
+MAKEFLAGS += --no-builtin-rules
+.SUFFIXES:
 ```
 
-> **Important**: Despite the appearance, the frontmatter is not strictly YAML formatted. The `globs` field is a comma-separated list and should NOT include brackets `[]` or quotes `"`.
+### Advanced Features (Optional)
 
-#### Valid Frontmatter Properties
+For teams using modern Make versions, you can optionally add:
 
-Cursor MDC files only support these three specific properties:
-
-- **description**: Required field for describing the rule's purpose and relevance
-- **globs**: Optional patterns for automatic attachment to matching files
-- **alwaysApply**: Optional boolean to make a rule globally applied
-
-No other properties (such as `agentAttached`) are valid or supported in the frontmatter.
-
-#### Frontmatter Guidelines for Setting Fields
-
-- **description**: Should be agent-friendly and clearly describe when the rule is relevant. Format as `<topic>: <details>` for best results.
-  - For rules that should be automatically attached by the agent for specific topics, include clear trigger keywords in the description (e.g., "Python dependency management with UV: Attaches when dealing with Python dependencies or package management")
-- **globs**:
-  - Format must be a simple comma-separated list without brackets or quotes
-  - If a rule is only relevant in very specific situations, leave globs empty so it's loaded only when applicable to the user request.
-  - If both globs are empty and alwaysApply is set to false, the rule will be attached by the agent only when it determines the rule is relevant to the user's query.
-  - If the only glob would match all files (like `**/*`), leave it empty and set `alwaysApply: true` instead.
-  - Otherwise, be as specific as possible with glob patterns to ensure rules are only applied with relevant files.
-- **alwaysApply**: Use sparingly for truly global guidelines.
-
-#### Examples of Valid Frontmatter
-
+```makefile
+# Optional: Set custom recipe prefix (requires GNU Make 4.0+)
+# Only use if your team standardizes on modern Make versions
+ifeq ($(shell make --version 2>/dev/null | head -1 | cut -d' ' -f3 | cut -d'.' -f1),4)
+  .RECIPEPREFIX = >
+endif
 ```
----
-description: Python style guidelines: Apply when working with Python code
-globs: **/*.py
+
+**Recommendation**: Use traditional tabs for maximum compatibility unless you have specific requirements for alternative prefixes.
+
+## Recipe Formatting Guidelines
+
+### Use Traditional Tabs (Recommended)
+
+For maximum compatibility, use traditional tab characters for recipe indentation:
+
+```makefile
+clean:
+	@echo "🧹 Cleaning up..."
+	rm -rf build/ tmp/
+.PHONY: clean
+
+test:
+	@echo "🧪 Running tests..."
+	pytest
+.PHONY: test
+```
+
+### Alternative: Custom Recipe Prefix (Advanced)
+
+Only use custom recipe prefixes if you're certain all team members use GNU Make 4.0+:
+
+```makefile
+# Only if you've verified Make 4.0+ usage across your team
+.RECIPEPREFIX = >
+
+clean:
+> @echo "🧹 Cleaning up..."
+> rm -rf build/ tmp/
+.PHONY: clean
+```
+
+## Structure and Organization
+
+### Target Namespacing
+
+- Use `/` as namespace delimiter for clarity
+- Organize related targets under common namespaces
+
+```makefile
+# Good: Namespaced structure
+lint/python:
+	@echo "Linting Python code..."
+	ruff check .
+
+format/python:
+	@echo "Formatting Python code..."
+	ruff format .
+
+docker/build:
+	docker build -t myapp .
+
+docker/run:
+	docker run -p 8080:8080 myapp
+
+test/unit:
+	pytest tests/unit/
+
+test/integration:
+	pytest tests/integration/
+```
+
+### File Organization
+
+For larger projects, split Makefiles using includes:
+
+```makefile
+# In root Makefile
+-include make/*.mk
+```
+
+Create separate files like:
+- `make/lint.mk` - Linting and formatting targets
+- `make/docker.mk` - Container-related targets
+- `make/test.mk` - Testing targets
+
+### Standard Target Names
+
+Always provide these conventional targets:
+- `all`: Default target that builds main artifacts
+- `install`: Install the application
+- `test`: Run all tests
+- `clean`: Remove build artifacts and temporary files
+- `help`: Display available targets and descriptions
+
+## Rule Writing Guidelines
+
+### Use .PHONY Correctly
+
+- Mark targets as `.PHONY` if they don't create a file with the target name
+- Place `.PHONY` declarations immediately after the target definition
+
+```makefile
+clean:
+	rm -rf build/ tmp/
+.PHONY: clean
+
+test:
+	pytest
+.PHONY: test
+```
+
+### File Targets Must Create Exact Files
+
+When a rule creates a file, the target name must be the exact file path:
+
+```makefile
+build/app: main.c utils.c
+	mkdir -p $(@D)
+	gcc -o $@ $^
+```
+
+### Use Sentinel Files for Abstract Outputs
+
+For tasks that don't produce a single obvious file, use sentinel files:
+
+```makefile
+# Track when tests last passed
+SRC_FILES := $(shell find src -type f -name "*.py")
+
+tmp/.tests-passed: $(SRC_FILES)
+	mkdir -p $(@D)
+	pytest
+	touch $@
+
+test: tmp/.tests-passed
+.PHONY: test
+```
+
+### Delegate Complex Logic to Scripts
+
+Keep Makefile recipes simple. Move complex logic to external scripts:
+
+```makefile
+# Bad: Complex inline script
+deploy/staging:
+	echo "Starting deployment..."
+	for server in $$(cat .staging_servers); do \
+	  scp -r ./app $$server:/opt/app; \
+	  ssh $$server "sudo systemctl restart my-app"; \
+	done
+
+# Good: Delegate to script
+deploy/staging:
+	./scripts/deploy.sh staging
+.PHONY: deploy/staging
+```
+
+## Required Self-Documenting Help Target
+
+Every Makefile MUST include this help target as the default. **CRITICAL**: Test this target to ensure it properly displays all your documented targets.
+
+```makefile
+.DEFAULT_GOAL := help
+
+## help: Show this help message.
+help:
+	@awk '/^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } /^## / { desc = substr($$0, 4); getline; if (match($$0, /^[a-zA-Z0-9_\/\-]+:/)) { target = substr($$0, 1, RLENGTH-1); printf "  \033[36m%-20s\033[0m %s\n", target, desc } } BEGIN { printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n" }' $(MAKEFILE_LIST)
+.PHONY: help
+```
+
+### Document Targets with Comments
+
+Use `##` comments to document targets. **Important**: Place the comment on the line immediately before the target:
+
+```makefile
+##@ Development
+
+## run: Run the application locally.
+run:
+	echo "Running application..."
+
+##@ Quality & Testing
+
+## lint: Run all linters and formatters.
+lint:
+	echo "Running linters..."
+
+.PHONY: run lint
+```
+
+## Variable Best Practices
+
+### Set Sensible Defaults
+
+Use `?=` for variables that can be overridden:
+
+```makefile
+PREFIX ?= /usr/local
+DESTDIR ?= 
+BUILD_DIR ?= build
+```
+
+### Make Variables Configurable
+
+Allow command-line overrides:
+
+```bash
+make docker/build DOCKER_TAG=dev
+make install PREFIX=/opt/myapp DESTDIR=/tmp/package
+```
+
+### Use Automatic Variables
+
+Leverage automatic variables for maintainable rules:
+- `$@`: The target name
+- `$<`: The first prerequisite
+- `$^`: All prerequisites
+- `$(@D)`: Directory part of the target
+
+```makefile
+$(BUILD_DIR)/%.o: src/%.c
+	mkdir -p $(@D)
+	gcc -o $@ -c $<
+```
+
+## Directory and File Management
+
+### Create Directories as Needed
+
+Always ensure output directories exist:
+
+```makefile
+build/app: main.c
+	mkdir -p $(@D)
+	gcc -o $@ $<
+```
+
+### Clean Up Properly
+
+The `clean` target should remove all generated files:
+
+```makefile
+clean:
+	rm -rf $(BUILD_DIR)/
+	rm -rf tmp/
+	find . -name "*.pyc" -delete
+.PHONY: clean
+```
+
+## Performance Considerations
+
+### Avoid Unnecessary Work
+
+- Use file dependencies correctly so make only rebuilds what's needed
+- Use sentinel files for tasks that don't produce obvious output files
+- Consider using `$(shell find ...)` for dynamic file lists
+
+### Enable Parallel Execution
+
+Structure targets to allow parallel execution with `make -j`:
+
+```makefile
+# These can run in parallel
+test: test/unit test/integration
+.PHONY: test
+
+test/unit: tmp/.unit-tests-passed
+test/integration: tmp/.integration-tests-passed
+.PHONY: test/unit test/integration
+```
+
+## Cross-Platform Considerations
+
+### Shell Commands
+
+- Use POSIX-compliant commands when possible
+- Test on target platforms (macOS, Linux, Windows with WSL)
+- Provide platform-specific alternatives when needed:
+
+```makefile
+# Cross-platform file removal
+ifeq ($(OS),Windows_NT)
+    RM = del /Q
+    RMDIR = rmdir /S /Q
+else
+    RM = rm -f
+    RMDIR = rm -rf
+endif
+
+clean:
+	$(RMDIR) build/
+.PHONY: clean
+```
+
+### Path Handling
+
+Use Make's built-in functions for path manipulation:
+
+```makefile
+# Good: Use Make functions
+OUTPUT_DIR := $(dir $(TARGET))
+BASENAME := $(notdir $(TARGET))
+
+# Avoid: Shell-specific path operations
+```
+
+## Error Handling Best Practices
+
+### Handle Missing Dependencies Gracefully
+
+For optional tools or when no tests exist, handle errors appropriately:
+
+```makefile
+## test: Run all tests.
+test:
+	@echo "🧪 Running tests..."
+	# Exit code 5 from pytest means "no tests collected" - treat as success
+	cd example-app && (uv run pytest -q --disable-warnings --tb=short --no-cov --junitxml=report.xml || [ $$? -eq 5 ])
+	@echo "✅ Tests complete!"
+.PHONY: test
+```
+
+### Verify Tool Availability
+
+Check for required tools before using them:
+
+```makefile
+## lint: Run linting on the code.
+lint:
+	@command -v ruff >/dev/null 2>&1 || { echo >&2 "ruff not found. Run 'make dev/setup' first."; exit 1; }
+	@echo "🔍 Running linting..."
+	ruff check .
+.PHONY: lint
+```
+
+### Dependencies and Environment Setup
+
+For package managers like uv, ensure dev dependencies are properly synchronized:
+
+```makefile
+## dev/setup: Set up local development environment.
+dev/setup:
+	@echo "🛠️  Setting up development environment..."
+	uv sync --dev --all-extras
+	@echo "✅ Development environment ready!"
+.PHONY: dev/setup
+```
+
+## Common Patterns
+
+### Python Projects
+
+```makefile
+## install: Install dependencies.
+install: requirements.txt
+	pip install -r requirements.txt
+
+## test: Run all tests.
+test: tmp/.tests-passed
+tmp/.tests-passed: $(shell find src tests -name "*.py")
+	mkdir -p $(@D)
+	pytest
+	touch $@
+
+.PHONY: install test
+```
+
+### Docker Projects
+
+```makefile
+## docker/build: Build Docker image.
+docker/build: build/.docker-image
+build/.docker-image: Dockerfile $(shell find src -type f)
+	mkdir -p $(@D)
+	docker build -t $(IMAGE_NAME) .
+	touch $@
+
+.PHONY: docker/build
+```
+
+### Multi-language Projects
+
+```makefile
+## build: Build all components.
+build: build/frontend build/backend
+.PHONY: build
+
+build/frontend: $(shell find frontend/src -type f)
+	mkdir -p $(@D)
+	cd frontend && npm run build
+	touch $@
+
+build/backend: $(shell find backend/src -name "*.go")
+	mkdir -p $(@D)
+	cd backend && go build -o ../build/backend
+```
+
+## Testing Your Makefile
+
+### Essential Tests to Perform
+
+1. **Compatibility Test**: Run `make --version` and test on the actual target Make version
+2. **Help Display Test**: Run `make help` and verify all targets are properly documented
+3. **Dependency Test**: Run each target on a fresh environment to ensure dependencies are handled
+4. **Error Handling Test**: Test failure scenarios (missing files, no tests, etc.)
+5. **Clean Test**: Verify `make clean` removes all generated files
+6. **Parallel Test**: Test with `make -j4` to ensure targets can run in parallel when appropriate
+
+### Testing Checklist
+
+```bash
+# Basic functionality
+make help                    # Should show all documented targets
+make clean                   # Should clean up without errors
+make all                     # Should complete full build
+
+# Error scenarios
+make test                    # Should handle "no tests" gracefully
+make lint                    # Should provide clear error if tools missing
+
+# Platform testing
+make --version               # Verify Make version compatibility
+```
+
+## Troubleshooting Common Issues
+
+### Make Version Problems
+
+If you encounter "This Make does not support .RECIPEPREFIX" errors:
+
+1. Check Make version: `make --version`
+2. Remove `.RECIPEPREFIX` configuration
+3. Convert recipes to use traditional tabs
+4. Consider installing GNU Make 4.0+ if needed
+
+### Tab vs Space Issues
+
+- **Always use tabs for recipe indentation** (traditional approach)
+- Configure your editor to show whitespace characters
+- Use `.editorconfig` to enforce tab usage in Makefiles:
+
+```ini
+[Makefile]
+indent_style = tab
+indent_size = 4
+```
+
+### Help Target Not Showing Targets
+
+If `make help` doesn't show your targets:
+
+1. Verify comment format: `## target: Description` on line before target
+2. Check regex pattern handles your target naming convention
+3. Test with: `awk 'regex_pattern' Makefile` to debug
+
+### Tool Availability Issues
+
+If commands like `ruff`, `pytest`, etc. are not found:
+
+1. Verify tools are in your dependency management file
+2. Ensure development environment is set up: `make dev/setup`
+3. Add tool availability checks to targets
+4. Provide clear error messages pointing to setup instructions
+
+### Platform-Specific Commands
+
+Test your Makefile on all target platforms. Common issues:
+- Different `find` command syntax
+- Path separator differences (`/` vs `\`)
+- Available shell commands
+
+For detailed background and rationale, see: [Makefile Research](mdc:docs/research/makefiles.md)
+
+description:
+globs:
 alwaysApply: false
 ---
-```
 
-```
----
-description: Project-wide documentation standards: Always apply these guidelines
-globs:
-alwaysApply: true
----
-```
-
-```
----
-description: Dependency management with UV: Attaches when dealing with dependencies
+description:
 globs:
 alwaysApply: false
 ---
-```
-
-#### Glob Pattern Examples
-
-- `**/*.py` - All Python files
-- `src/**/*.py` - All Python files within `src`
-- `**/tests/**/*.py` - All Python test files in any tests directory
-
-### Markdown Content Formatting
-
-After frontmatter, the body should use clear Markdown:
-
-````markdown
-# Rule Title
-
-## Introduction
-Brief overview of rule purpose.
-
-## Guidelines
-- Clearly formatted actionable steps
-- Logical structure
-
-## Examples
-```python
-# Good example
-def my_function():
-    pass
-```
-
-## Special Features
-
-### File References
-
-Reference other MDC files using markdown links:
-
-```markdown
-[related-rule.mdc](mdc:.cursor/rules/related-rule.mdc)
-```
-
-This includes the referenced rule in context when activated.
-
-### Code Blocks
-
-Always use fenced code blocks with language identifiers:
-
-````markdown
-```python
-# Example Python code
-def greet(name):
-    return f"Hello, {name}!"
-```
-````
-
-## Rule File Placement
-
-### Location
-
-All MDC files MUST be located in the dedicated rules directory:
-
-```
-PROJECT_ROOT/
-├── .cursor/
-│   └── rules/
-│       ├── your-rule-name.mdc
-│       ├── another-rule.mdc
-│       └── tasks/
-│           └── specific-task-rule.mdc
-└── ...
-```
-
-### Naming Convention
-
-- Use **kebab-case** for filenames
-- Always end filenames with `.mdc`
-- Clearly indicate rule purpose in filename
-
-### Logical Organization
-
-- Prefix filenames with numbers for sorting if logical order is beneficial (e.g., `01-setup.mdc`).
-- Place task-specific rules in subdirectories (`tasks/`).
-
-## Best Practices for MDC Management
-
-- Regularly review rules for accuracy and relevance
-- Keep each MDC file focused on a single or closely related topics
-- Aim for concise, easily understandable content (ideally < 300 lines per file)
-- Link related rules clearly
-
-## Updating Rules
-
-When modifying MDC files:
-
-- Preserve frontmatter format consistency
-- Only change globs intentionally to adjust the scope
-- Update descriptions to reflect changed purposes
-- Consider updates to related rules to maintain consistency
 
 ---
 > Source: [biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework) — distributed by [TomeVault](https://tomevault.io).
