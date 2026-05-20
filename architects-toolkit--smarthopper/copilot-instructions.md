@@ -1,43 +1,45 @@
-## general-guidelines
+## grasshopper-undo
 
-> 1. Follow established best practices (SOLID, clear naming, error handling, tests, and security) unless the user explicitly asks otherwise.
+> Registering undo events so that the user can later ctrl+z an action. Check this rule when writing code that makes changes to the canvas (adding, moving, changing, or deleting components or connections)
 
 
-# General guidelines
+# Grasshopper Undo Rule
 
-1. Follow established best practices (SOLID, clear naming, error handling, tests, and security) unless the user explicitly asks otherwise.
-2. Use this decision priority:
-   1. Meet the user requirements.
-   2. Follow the documented SmartHopper architecture.
-   3. Fix root causes instead of patching symptoms.
-   4. Protect security and privacy, especially external inputs and secrets.
-   5. Preserve performance and responsiveness in Rhino/Grasshopper.
-   6. Keep future maintenance simple.
-3. If implementation options become ambiguous or contradictory, stop, summarize the concrete evidence, and ask the user to choose a direction.
-4. Conduct a brief threat review for changes that touch external inputs, provider calls, secrets, file/network access, or AI tool execution.
-5. In post-edit summaries, include alternatives considered, why the chosen approach fits, best practices applied, and follow-up improvement suggestions when useful.
+## Purpose
+Ensure that any code which mutates Grasshopper canvas objects (moving, adding, deleting, wiring, etc.) records an undo event so users can undo with Ctrl+Z.
 
-## Project-specific guidelines
+## Rule
+- **Before** mutating any `IGH_DocumentObject` (e.g. setting `Attributes.Pivot`, adding/removing objects, changing wires), insert:
+  ```csharp
+  obj.RecordUndoEvent("[SH] <Action Description>");
+  ```
+- For batch or multi-step operations, create and commit a `GH_UndoRecord`:
+  ```csharp
+  using Grasshopper.Kernel.Undo;
 
-- Use English only in code, documentation, rules, and user-facing text.
-- Prefer native Grasshopper/Rhino types and APIs when working with canvas, data-tree, or geometry logic.
-- Use https://developer.rhino3d.com/ as the official Rhino/Grasshopper API reference.
-- Check `/docs` before changing existing architecture; those docs are the local source of truth for module responsibilities and data flows.
-- Use commands appropriate to the current execution environment. Windows-only build/signing flows require Developer PowerShell for Visual Studio; do not assume every assistant or CI runner is on Windows.
-- Never add unit tests that require Rhino/Grasshopper references. For tests that require Rhino/Grasshopper references, create a testing component in the `SmartHopper.Components.Test` project.
-- Do not commit secrets, signing keys, local provider API keys, or generated private credentials.
+  var record = new GH_UndoRecord("[SH] Batch Action");
+  // for each object change:
+  obj.RecordUndoEvent(record);
+  // after all changes:
+  doc.UndoUtil.RecordEvent(record);
+  ```
 
-## Context persistence
+## Examples
+- MoveInstance
+  ```diff
+  - var current = obj.Attributes.Pivot;
+  + obj.RecordUndoEvent("[SH] Move Instance");
+  + var current = obj.Attributes.Pivot;
+  ```
+- AddObjectToCanvas
+  ```diff
+  - doc.AddObject(obj, false);
+  + obj.RecordUndoEvent("[SH] Add Object");
+  + doc.AddObject(obj, false);
+  ```
 
-Persist durable project knowledge when it is general enough to help future work:
-
-1. High-level architecture and module responsibilities.
-2. Stable public APIs, extension points, and contracts.
-3. Project conventions, naming, workflows, and configuration rules.
-4. Design decisions with rationale and alternatives.
-5. Third-party dependencies and integration patterns.
-
-Dedupe or refresh stale knowledge instead of creating conflicting entries.
+## Enforcement
+Code reviews or static analysis should flag any GH canvas mutations missing a preceding RecordUndoEvent or undo-util usage.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
