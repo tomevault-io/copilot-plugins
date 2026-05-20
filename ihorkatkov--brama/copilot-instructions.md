@@ -1,178 +1,177 @@
-## elixir-code-structure
+## elixir-complete-implementation
 
-> name: elixir_code_structure
-
-# Elixir Code Structure and Style
+> Handles user management operations with complete validation and error handling.
 
 <rule>
-name: elixir_code_structure
-description: Best practices for structuring and formatting Elixir code
+name: elixir_complete_implementation
+description: Standards for ensuring complete implementation of code and tests
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
+  - type: directory
+    exclude_patterns:
+      - "^\\.git"
+      - "^_build"
+      - "^deps"
 
 actions:
   - type: suggest
     message: |
-      # Elixir Code Structure and Style Best Practices
+      # Code Completeness Standards
 
-      ## Code Organization
-      - Avoid deeply nested code (max 2-3 levels of indentation)
-      - Limit module size (aim for <400 lines per module)
-      - Keep functions short (15-20 lines maximum)
-      - Maintain reasonable line length (80-100 characters)
-      - Prefer function composition over deep nesting
+      ## Core Requirements
+      - Never leave incomplete or partially implemented code
+      - Never commit code without corresponding tests
+      - All implementation paths must be handled
+      - All edge cases must be covered in tests
+
+      ## Implementation Process
+      1. Before starting implementation:
+         - Fully understand the requirements
+         - Plan all edge cases
+         - Design test scenarios
       
-      ## Imports and Aliases
-      - Avoid using `import`, prefer explicit module references
-      - When imports are necessary, limit to specific functions with the `only` option
-      - Group related imports/aliases together
-      - Always use aliases over imports when possible
+      2. During implementation:
+         - Complete one functional unit at a time
+         - Write tests alongside the implementation
+         - If stuck, immediately seek user guidance
+         - Do not proceed with partial solutions
       
-      ## Function Organization
-      - Group related functions together
-      - Order functions in logical top-down flow
-      - Place helper functions near the functions that use them
-      - Clearly separate exported (public) from private functions
-      
-      ## Export Conventions
-      - Group exports by their purpose with comments:
-        - User interface functions
-        - Inter-module exports
-        - Callback implementations (e.g., for behaviours)
-      - Be explicit about which functions are part of your public API
-      
-      ## Whitespace and Formatting
-      - Use consistent spacing and indentation
-      - Place one blank line between function definitions
-      - Place two blank lines between logical sections of code
-      - Format code consistently throughout the project (use formatter)
-      
-      ## Do and Don't
-      - Do operations that must be paired (open/close) in the same function
-      - Don't leave commented-out code - remove it (rely on version control)
-      - Don't repeat code - abstract common patterns into functions
-      - Always write deterministic code when possible
+      3. Before considering implementation complete:
+         - All planned test cases are implemented
+         - All functions have documentation
+         - All edge cases are handled
+         - All compiler warnings are addressed
+
+      ## When Stuck
+      1. Stop implementation immediately
+      2. Document current progress
+      3. List specific challenges or unknowns
+      4. Ask user for guidance with:
+         - Current implementation state
+         - Specific questions about unclear parts
+         - Proposed approaches to consider
+
+      ## Exceptions
+      - None. All code must be complete with tests
 
 examples:
   - input: |
-      defmodule DeepNesting do
-        def process_data(data) do
-          case validate_input(data) do
-            {:ok, valid_data} ->
-              case fetch_related_data(valid_data) do
-                {:ok, related_data} ->
-                  case transform_data(valid_data, related_data) do
-                    {:ok, transformed} ->
-                      case save_result(transformed) do
-                        {:ok, result} -> {:ok, result}
-                        {:error, save_error} -> {:error, save_error}
-                      end
-                    {:error, transform_error} -> {:error, transform_error}
-                  end
-                {:error, fetch_error} -> {:error, fetch_error}
-              end
-            {:error, validation_error} -> {:error, validation_error}
-          end
+      # Bad: Incomplete implementation
+      defmodule UserManager do
+        def create_user(params) do
+          # TODO: Add validation
+          # TODO: Handle errors
+          User.changeset(params)
+          |> Repo.insert()
         end
         
-        # Other functions...
-      end
-    output: |
-      defmodule FlattenedStructure do
-        def process_data(data) do
-          with {:ok, valid_data} <- validate_input(data),
-               {:ok, related_data} <- fetch_related_data(valid_data),
-               {:ok, transformed} <- transform_data(valid_data, related_data),
-               {:ok, result} <- save_result(transformed) do
-            {:ok, result}
-          end
-        end
+        # TODO: Implement update_user
         
-        # Other functions...
-      end
-  
-  - input: |
-      defmodule MixedImports do
-        import List
-        import String
-        import Enum
-        
-        def process_names(names) do
-          filtered = filter(names, &valid_name?/1)
-          capitalized = map(filtered, &capitalize/1)
-          first(capitalized)
-        end
-        
-        defp valid_name?(name) do
-          # Validation logic
+        def delete_user(id) do
+          # Need to handle cascading deletes
+          Repo.get(User, id)
+          |> Repo.delete()
         end
       end
     output: |
-      defmodule OrganizedImports do
-        # Only import what's needed
-        import Enum, only: [filter: 2, map: 2]
-        import List, only: [first: 1]
-        import String, only: [capitalize: 1]
+      """
+      I need guidance before proceeding with the implementation:
+
+      1. Current status:
+         - Basic create_user structure is in place
+         - delete_user needs cascade handling
+         - update_user is not implemented
+
+      2. Specific questions:
+         - What validation rules should be applied?
+         - How should we handle cascading deletes?
+         - What fields should be updatable?
+
+      3. Proposed approach:
+         - Add validation using Ecto.Changeset
+         - Implement soft deletes
+         - Add update with permitted fields
+
+      How would you like me to proceed with the implementation?
+      """
+
+      # Good: Complete implementation after guidance
+      defmodule UserManager do
+        @moduledoc """
+        Handles user management operations with complete validation and error handling.
+        """
+
+        @doc """
+        Creates a new user with validation and error handling.
         
-        # Alternative using aliases
-        alias Enum
-        alias List
-        alias String
-        
-        def process_names(names) do
-          filtered = Enum.filter(names, &valid_name?/1)
-          capitalized = Enum.map(filtered, &String.capitalize/1)
-          List.first(capitalized)
+        ## Examples
+            
+            iex> create_user(%{email: "user@example.com", name: "John"})
+            {:ok, %User{}}
+            
+            iex> create_user(%{email: "invalid"})
+            {:error, %Ecto.Changeset{}}
+        """
+        def create_user(params) do
+          %User{}
+          |> User.changeset(params)
+          |> validate_unique_email()
+          |> Repo.insert()
+          |> broadcast_user_created()
         end
-        
-        defp valid_name?(name) do
-          # Validation logic
+
+        @doc """
+        Updates a user with validation and error handling.
+        """
+        def update_user(user, params) do
+          user
+          |> User.changeset(params)
+          |> validate_unique_email()
+          |> Repo.update()
+          |> broadcast_user_updated()
         end
-      end
-      
-  - input: |
-      defmodule FileProcessor do
-        def process_file(path) do
-          file = File.open!(path, [:read])
-          process_content(file)
-          # File.close not called here
-        end
-        
-        def process_content(file) do
-          content = IO.read(file, :all)
-          # Process content
-          content
-        end
-        
-        def close_file(file) do
-          File.close(file)
-        end
-      end
-    output: |
-      defmodule FileProcessor do
-        def process_file(path) do
-          case File.open(path, [:read]) do
-            {:ok, file} ->
-              result = process_content(file)
-              File.close(file)  # Open and close in the same function
-              {:ok, result}
-            {:error, reason} ->
-              {:error, reason}
+
+        @doc """
+        Soft deletes a user and handles all cascading operations.
+        """
+        def delete_user(id) do
+          with {:ok, user} <- get_user(id),
+               :ok <- validate_deletable(user),
+               {:ok, _} <- handle_cascade_deletes(user),
+               {:ok, deleted} <- do_soft_delete(user) do
+            broadcast_user_deleted(deleted)
           end
         end
+
+        # Private functions with complete implementation...
+      end
+
+      # Complete test module
+      defmodule UserManagerTest do
+        use ExUnit.Case
         
-        def process_content(file) do
-          content = IO.read(file, :all)
-          # Process content
-          content
+        describe "create_user/1" do
+          test "creates user with valid params" do
+            # Complete test implementation
+          end
+
+          test "handles invalid params" do
+            # Complete test implementation
+          end
+
+          test "validates unique email" do
+            # Complete test implementation
+          end
         end
+
+        # Complete test cases for all functions...
       end
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [ihorkatkov/brama](https://github.com/ihorkatkov/brama) — distributed by [TomeVault](https://tomevault.io).
