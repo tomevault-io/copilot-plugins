@@ -1,51 +1,68 @@
-## readme-rules
+## tdd-tom-testing-rules
 
-> The root `README.md` serves as the primary introduction and quick-start guide for the project. It is crucial that it accurately reflects the project's current state, core features, structure, and how to install, run, build, and test it. This rule ensures the README is considered for updates after significant changes.
+> Use this rule whenever you are starting development on any new feature to ensure it is implemented with a test-first approach using Test-Driven Development and the Test Object Model.
 
-# Root README Maintenance Rules
-# Last Updated: 2025-04-01 06:22:55 PM EDT
+## New Feature TDD Rule
 
-## Purpose
-The root `README.md` serves as the primary introduction and quick-start guide for the project. It is crucial that it accurately reflects the project's current state, core features, structure, and how to install, run, build, and test it. This rule ensures the README is considered for updates after significant changes.
+**Description:**
 
-## Trigger for README Update ("Major Changes")
-A review and potential update of the root `README.md` MUST be considered by the agent after successfully completing tasks that involve any of the following **major changes**:
+**Mandatory Rule: All new features MUST be implemented using Test-Driven Development (TDD) principles.**  Prioritize tests before code, ensuring comprehensive coverage and a robust design. Tests should be focused and efficient, employing either unit or integration tests as appropriate. All tests MUST adhere to the **Test Object Model** for improved maintainability and reusability where it makes sense.
 
-1.  **New Package/App:** Adding a new workspace package under `apps/` or `packages/`.
-2.  **Major Feature Implementation:** Completing a significant, user-facing feature or core functionality update.
-3.  **Build/Run/Test Command Changes:** Modifying fundamental scripts in root or workspace `package.json` files, `turbo.json`, or core config files (`vite.config.ts`, `vitest.workspace.ts`) that alter how developers interact with the project.
-4.  **Installation/Setup Changes:** Adding new required dependencies, environment variables, or setup steps.
-5.  **Core Architectural Shifts:** Significant refactoring that changes the project structure or how key modules interact (which might necessitate updating structure diagrams or descriptions).
-6.  **Deprecation/Removal:** Removing a package or significant feature.
+**Instructions:**
 
-*Minor changes* (e.g., internal refactors, simple bug fixes, dependency bumps unless they change usage) generally do not require a root README update, although related package-level READMEs might.
+1.  **Choose the Right Testing Strategy:**
+    *   **BEFORE writing any tests, deeply consider whether a UNIT test or an INTEGRATION test is most effective for the feature or component being developed.**
+    *   **UNIT Tests:** Focus on individual modules or functions in isolation, mocking dependencies. Ideal for testing complex logic within a single unit.
+        *   **Consider using unit tests when:**
+            *   The logic within a single function or class is complex and needs thorough testing.
+            *   Dependencies can be easily and realistically mocked.
+            *   You need to isolate a specific unit to verify its behavior in detail.
+        *   **For guidance on writing unit tests, refer to the Unit Test Writing Guide:** READ `@.brain/knowledge/testing/vitest/vitest-unit-testing.rules.ts`
+    *   **INTEGRATION Tests:** Test the interaction between multiple modules or systems. They verify that different parts of the application work together correctly.
+        *   **Consider using integration tests when:**
+            *   The functionality depends on the interaction between multiple components, services, or external systems (e.g., databases, APIs, CLIs).
+            *   Mocking is difficult, unrealistic, or overly complex.
+            *   You need to ensure that different parts of the system work together correctly in a realistic environment.
+        *   **For guidance on writing integration tests, refer to the Integration Test Writing Guide:** READ `@.brain/knowledge/testing/vitest/vitest-integration-testing.rules.ts`
+    *   **Document the reasoning behind your choice of unit or integration testing in the code or test file.**
 
-## README Update Workflow (Agent Action)
+2.  **Start with tests:** Before writing any implementation code, create a failing test case that defines the desired behavior of the new feature, based on the chosen testing strategy.
 
-When you determine that a completed task qualifies as a **major change**:
+3.  **Follow the Red-Green-Refactor cycle:**
+    *   **Red:** Write a failing test (unit or integration).
+    *   **Green:** Write the minimal code to make the test pass.
+    *   **Refactor:** Improve code structure while keeping the test green. Be cautious about over-abstracting or introducing unnecessary complexity during refactoring. If tests get more complicated because of the refactoring, it is a code smell.
+    *   **Repeat:** Move to the next part of the feature
 
-1.  **Flag Need:** Acknowledge internally or log that the `README.md` should be reviewed for potential updates.
-2.  **Read Current README:** Load the full content of the root `README.md` file.
-3.  **Analyze Impact & Identify Sections:** Based on the nature of the major change, determine which sections of the README are likely affected. Common sections include:
-    * Project Overview / Introduction
-    * Features List
-    * Repository Structure / Architecture Overview
-    * Prerequisites / Installation
-    * Getting Started / Usage / Development Workflow
-    * Available Scripts / Commands (Build, Test, Lint, etc.)
-    * Configuration
-    * Deployment (if applicable)
-4.  **Generate Necessary Updates:** Draft clear, concise, and accurate updates for only the affected sections. Ensure commands, file paths, and descriptions are correct.
-5.  **Apply Updates:** Modify the `README.md` file content with the generated updates. If unsure about the impact or wording, you may optionally present the proposed changes to the user before applying.
-6.  **Log & Commit:** Report that the `README.md` has been updated. Ensure the updated `README.md` is included in the same commit or PR as the major change it documents.
+4.  **Employ the Test Object Model (When Appropriate):**
+    *   **If the Test Object Model is deemed beneficial for organization and reusability (e.g., in complex integration tests or UI tests),** create a `*.to.ts` file for each logical group of interactions or components being tested.
+    *   Encapsulate interaction logic within this test object.
+    *   Example:
 
-## README Content Quality Guidelines
+        ```typescript
+        // user-registration.to.ts
+        import { UserService } from './user-service';
 
-* **Accurate:** Instructions and descriptions must match the current state.
-* **Clear:** Use simple language; explain necessary jargon.
-* **Concise:** Provide essential information efficiently. Use lists, code blocks.
-* **Up-to-Date:** Regularly review after major changes.
-* **Comprehensive:** Cover key aspects needed for a developer to understand and use the project.
+        export class UserRegistrationTestObject {
+            private userService: UserService;
+
+            constructor() {
+                this.userService = new UserService();
+            }
+
+            async registerUser(userData: any) {
+                return await this.userService.register(userData);
+            }
+        }
+        ```
+    *  **Do not force the use of the Test Object Model if it adds unnecessary complexity or doesn't provide significant value in simpler scenarios.**
+
+5.  **Consult the detailed guidelines for comprehensive instructions:**
+    *   **TDD:** READ `@.brain/knowledge/testing/vitest/vitest-tdd.rules.ts`
+    *   **Test Object Model:** READ `@.brain/knowledge/testing/vitest/vitest-test-object-model.rules.ts`
+    *   **Unit vs. Integration Testing:** READ `@.brain/knowledge/testing/unit-vs-integration-testing.rules.ts`
+
+**Enforcement:** Strict (This rule must be followed without exception. The reasoning behind choosing a specific testing strategy should always be clearly documented.)
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
