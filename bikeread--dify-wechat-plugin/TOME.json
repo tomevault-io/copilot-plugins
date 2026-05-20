@@ -1,0 +1,44 @@
+{
+  "name": "dify_wechat_plugin",
+  "owner": "bikeread",
+  "repo": "dify_wechat_plugin",
+  "description": "Dify\u63d2\u4ef6\u5e02\u573a\u5e94\u7528\uff0c\u5f00\u7bb1\u5373\u7528\uff0c\u7528\u4e8e\u5feb\u901f\u5bf9\u63a5\u5fae\u4fe1\u516c\u4f17\u53f7",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bikeread/dify_wechat_plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T10:57:57Z"
+}
