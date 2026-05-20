@@ -1,0 +1,9 @@
+{
+  "name": "whenmoon-afk--claude-memory-mcp",
+  "displayName": "claude-memory-mcp",
+  "description": "Local Memory MCP Server",
+  "version": "1.0.0",
+  "author": "WhenMoon-afk",
+  "homepage": "https://github.com/WhenMoon-afk/claude-memory-mcp",
+  "skills": []
+}
