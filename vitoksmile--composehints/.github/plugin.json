@@ -1,0 +1,9 @@
+{
+  "name": "vitoksmile--composehints",
+  "displayName": "ComposeHints",
+  "description": "Show hints / tooltips, pointing to a particular UI element in Compose (Compose Multiplatform and Jetpack Compose)",
+  "version": "1.0.0",
+  "author": "vitoksmile",
+  "homepage": "https://github.com/vitoksmile/ComposeHints",
+  "skills": []
+}
