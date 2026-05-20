@@ -4,7 +4,7 @@
   "repo": "ToolRegistry",
   "description": "ToolRegistry: A Protocol-Agnostic Tool Management Library for Function-Calling LLMs (OpenAI, Anthropic, Gemini, LangChain, MCP)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Oaklight/ToolRegistry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T02:52:48Z"
+  "distributed_at": "2026-05-20T11:17:33Z"
 }
