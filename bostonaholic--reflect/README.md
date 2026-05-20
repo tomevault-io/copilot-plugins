@@ -7,11 +7,11 @@ An AI tool to generate your brag document
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bostonaholic/reflect](https://github.com/bostonaholic/reflect).
+Original source: `CLAUDE.md` in [bostonaholic/reflect](https://github.com/bostonaholic/reflect).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
