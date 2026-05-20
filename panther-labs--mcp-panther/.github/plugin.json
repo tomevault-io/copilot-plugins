@@ -1,0 +1,9 @@
+{
+  "name": "panther-labs--mcp-panther",
+  "displayName": "mcp-panther",
+  "description": "Write detections, investigate alerts, and query logs from your favorite AI agents",
+  "version": "1.0.0",
+  "author": "panther-labs",
+  "homepage": "https://github.com/panther-labs/mcp-panther",
+  "skills": []
+}
