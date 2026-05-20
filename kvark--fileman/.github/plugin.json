@@ -1,0 +1,9 @@
+{
+  "name": "kvark--fileman",
+  "displayName": "fileman",
+  "description": "Two-panel file manager on blade+egui",
+  "version": "1.0.0",
+  "author": "kvark",
+  "homepage": "https://github.com/kvark/fileman",
+  "skills": []
+}
