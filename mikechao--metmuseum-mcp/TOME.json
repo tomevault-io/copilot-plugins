@@ -4,7 +4,7 @@
   "repo": "metmuseum-mcp",
   "description": "Met Museum MCP integration to discover the art collection at The Metropolitan Museum of Art in New York",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikechao/metmuseum-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T22:41:00Z"
+  "distributed_at": "2026-05-20T02:59:20Z"
 }
