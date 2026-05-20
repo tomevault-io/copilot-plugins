@@ -1,0 +1,44 @@
+{
+  "name": "QemuMac",
+  "owner": "matthewdeaves",
+  "repo": "QemuMac",
+  "description": "Bash toolkit for classic Mac emulation via QEMU. Pre-configured VMs for Quadra 800 (68K) and PowerMac G4 (PPC) running Mac OS 7.5-9.2 and OS X Tiger/Leopard. Auto-downloads ROMs/installers, shared disk for file transfer, curated retro software catalog. Linux/macOS hosts.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/matthewdeaves/QemuMac",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T23:19:32Z"
+}
