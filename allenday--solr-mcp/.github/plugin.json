@@ -1,0 +1,9 @@
+{
+  "name": "allenday--solr-mcp",
+  "displayName": "solr-mcp",
+  "description": "A Python package for accessing Solr indexes via Claude Code",
+  "version": "1.0.0",
+  "author": "allenday",
+  "homepage": "https://github.com/allenday/solr-mcp",
+  "skills": []
+}
