@@ -4,7 +4,7 @@
   "repo": "augmented-awareness",
   "description": "Augmented Awareness is a set of tools for offline-first or local-first, quantified self projects. It currently supports keeping and analyzing the content of one's diary (markdown files) using LLMs.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/robertolupi/augmented-awareness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T06:33:06Z"
+  "distributed_at": "2026-05-20T07:12:49Z"
 }
