@@ -1,0 +1,9 @@
+{
+  "name": "aaronsb--think-strategies",
+  "displayName": "think-strategies",
+  "description": "An MCP server that provides structured thinking strategies for breaking down complex problems into manageable steps with support for revisions, branching, and multiple reasoning approaches",
+  "version": "1.0.0",
+  "author": "aaronsb",
+  "homepage": "https://github.com/aaronsb/think-strategies",
+  "skills": []
+}
