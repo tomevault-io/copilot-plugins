@@ -1,0 +1,44 @@
+{
+  "name": "TypeSwitch",
+  "owner": "ygsgdbd",
+  "repo": "TypeSwitch",
+  "description": "A macOS app that automatically switches input methods for different applications. \u81ea\u52a8\u5207\u6362\u4e0d\u540c\u5e94\u7528\u8f93\u5165\u6cd5\u7684 macOS \u5e94\u7528\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ygsgdbd/TypeSwitch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T22:34:53Z"
+}
