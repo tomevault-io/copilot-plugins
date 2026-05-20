@@ -1,0 +1,9 @@
+{
+  "name": "attach-dev--attach-gateway",
+  "displayName": "attach-gateway",
+  "description": "Drop-in OIDC & Google A2A auth + Weaviate memory for Ollama, vLLM and any local LLM server.",
+  "version": "1.0.0",
+  "author": "attach-dev",
+  "homepage": "https://github.com/attach-dev/attach-gateway",
+  "skills": []
+}
