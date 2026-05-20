@@ -1,0 +1,426 @@
+## pluggedin-app
+
+> 1. The app uses a Next.js App Router structure:
+
+# Plugged.in Project Intelligence Rules
+
+## Project Structure Patterns
+
+1. The app uses a Next.js App Router structure:
+   - `app/` - Main application folder
+   - `app/(sidebar-layout)/` - Routes with the sidebar layout
+   - `app/actions/` - Server actions for backend operations
+   - `app/api/` - API routes for external access
+   - `db/` - Database schema and utilities
+   - `types/` - TypeScript type definitions
+   - `components/` - Reusable UI components
+   - `hooks/` - Custom React hooks
+
+2. MCP server logic is organized as:
+   - `db/schema.ts` - Database schema definitions
+   - `app/actions/mcp-servers.ts` - Server actions for MCP servers
+   - `app/actions/custom-mcp-servers.ts` - Server actions for custom MCP servers
+   - `types/mcp-server.ts` - Type definitions for MCP servers
+   - `app/(sidebar-layout)/(container)/mcp-servers/` - UI for MCP server management
+
+3. MCP playground components:
+   - `app/actions/mcp-playground.ts` - Server actions for MCP playground
+   - `app/actions/playground-settings.ts` - Server actions for playground settings
+   - `app/(sidebar-layout)/(container)/mcp-playground/page.tsx` - UI implementation
+   - `app/(sidebar-layout)/(container)/mcp-playground/README.md` - Documentation
+
+## Code Patterns
+
+1. Server-side operations use Next.js server actions:
+   ```typescript
+   'use server';
+   
+   export async function serverAction(arg1, arg2) {
+     // Database operations or other server-side logic
+   }
+   ```
+
+2. Database operations use Drizzle ORM with PostgreSQL:
+   ```typescript
+   import { db } from '@/db';
+   import { someTable } from '@/db/schema';
+   
+   // Query example
+   const result = await db.query.someTable.findFirst({
+     where: eq(someTable.id, someId)
+   });
+   
+   // Insert example
+   await db.insert(someTable).values({
+     field1: value1,
+     field2: value2
+   });
+   ```
+
+3. Frontend data fetching uses SWR:
+   ```typescript
+   const { data, error, mutate } = useSWR(
+     key,
+     () => fetchFunction(args)
+   );
+   ```
+
+4. UI components follow a pattern using shadcn/ui components:
+   - Use of Radix UI primitives with Tailwind styling
+   - Card-based layouts for information display
+   - Form components for user input
+   - Dialog components for modal interactions
+
+5. Error handling pattern for server actions:
+   ```typescript
+   try {
+     // Operation logic
+     return { success: true, data };
+   } catch (error) {
+     console.error('Operation failed:', error);
+     return { 
+       success: false, 
+       error: error instanceof Error ? error.message : 'Unknown error' 
+     };
+   }
+   ```
+
+6. Settings management pattern:
+   ```typescript
+   // Define settings type
+   export type SomeSettings = {
+     option1: string;
+     option2: number;
+     option3: boolean;
+   };
+   
+   // Get settings with default fallback
+   export async function getSettings(profileUuid: string) {
+     try {
+       const settings = await db.query.settingsTable.findFirst({
+         where: eq(settingsTable.profile_uuid, profileUuid),
+       });
+       
+       if (!settings) {
+         // Return default settings
+         return {
+           success: true, 
+           settings: DEFAULT_SETTINGS
+         };
+       }
+       
+       return { success: true, settings: mapDbToSettings(settings) };
+     } catch (error) {
+       return {
+         success: false,
+         error: error instanceof Error ? error.message : 'Unknown error'
+       };
+     }
+   }
+   ```
+
+## MCP Implementation Patterns
+
+1. MCP Server Types:
+   - STDIO: Command-line based servers (command + args + env)
+   - SSE: HTTP-based servers (url)
+
+2. Server Configuration Schema:
+   ```typescript
+   {
+     name: string;
+     description?: string;
+     type: McpServerType; // STDIO or SSE
+     command?: string; // For STDIO servers
+     args?: string[]; // For STDIO servers
+     env?: { [key: string]: string }; // For STDIO servers
+     url?: string; // For SSE servers
+     status: McpServerStatus; // ACTIVE, INACTIVE, etc.
+   }
+   ```
+
+3. Custom MCP Server Pattern:
+   - Python code stored in the database (codes table)
+   - Additional args and env vars for execution
+   - Associated with a specific profile (workspace)
+
+4. MCP Playground Session Pattern:
+   ```typescript
+   // Session storage with interface
+   interface McpPlaygroundSession {
+     agent: ReturnType<typeof createReactAgent>;
+     cleanup: McpServerCleanupFn;
+     lastActive: Date;
+   }
+   
+   const activeSessions = new Map<string, McpPlaygroundSession>();
+   
+   // Automatic session cleanup
+   function cleanupInactiveSessions() {
+     const now = new Date();
+     for (const [profileUuid, session] of activeSessions.entries()) {
+       if (now.getTime() - session.lastActive.getTime() > SESSION_TIMEOUT) {
+         session.cleanup().catch(console.error);
+         activeSessions.delete(profileUuid);
+       }
+     }
+   }
+   
+   // Run cleanup at regular intervals
+   setInterval(cleanupInactiveSessions, CLEANUP_INTERVAL);
+   
+   // Session initialization
+   async function getOrCreatePlaygroundSession(profileUuid, serverUuids, llmConfig) {
+     // Check for existing session
+     const existingSession = activeSessions.get(profileUuid);
+     if (existingSession) {
+       // Update last active time
+       existingSession.lastActive = new Date();
+       return { success: true, isNew: false };
+     }
+     
+     // Create new session
+     const mcpServers = await getMcpServers(profileUuid, serverUuids);
+     const mcpServersConfig = formatServersForConversion(mcpServers);
+     const { tools, cleanup } = await convertMcpToLangchainTools(mcpServersConfig);
+     
+     // Initialize LLM based on config
+     const llm = initChatModel(llmConfig);
+     
+     // Create ReAct agent
+     const agent = createReactAgent({ llm, tools });
+     
+     // Store session
+     activeSessions.set(profileUuid, { 
+       agent, 
+       cleanup, 
+       lastActive: new Date() 
+     });
+     
+     return { success: true, isNew: true };
+   }
+   ```
+
+5. Complex Content Processing Pattern:
+   ```typescript
+   function safeProcessContent(content: any): string {
+     if (content === null || content === undefined) {
+       return 'No content';
+     }
+     
+     if (typeof content === 'string') {
+       return content;
+     }
+     
+     // Handle arrays
+     if (Array.isArray(content)) {
+       try {
+         return content.map(item => {
+           if (typeof item === 'object') {
+             return JSON.stringify(item);
+           }
+           return String(item);
+         }).join('\n');
+       } catch (_e) {
+         return `[Array content: ${content.length} items]`;
+       }
+     }
+     
+     // Handle objects
+     if (typeof content === 'object') {
+       try {
+         // Special handling for {type, text} objects (common in MCP tools)
+         if (content.type === 'text' && typeof content.text === 'string') {
+           return content.text;
+         }
+         
+         // If it has a custom toString method
+         if (content.toString && content.toString !== Object.prototype.toString) {
+           return content.toString();
+         }
+         
+         // Default to JSON stringify
+         return JSON.stringify(content, null, 2);
+       } catch (_e) {
+         return `[Complex object: ${Object.keys(content).join(', ')}]`;
+       }
+     }
+     
+     // Fallback for other types
+     return String(content);
+   }
+   ```
+
+6. LLM Model Management Pattern:
+   ```typescript
+   // Model cache
+   interface ModelCache {
+     models: Array<{id: string, name: string}>;
+     lastFetched: Date;
+   }
+
+   const modelCache: ModelCache = {
+     models: [],
+     lastFetched: new Date(0)
+   };
+
+   // LLM initialization
+   function initChatModel(config: {
+     provider: 'openai' | 'anthropic';
+     model: string;
+     temperature?: number;
+     maxTokens?: number;
+   }) {
+     const { provider, model, temperature = 0, maxTokens } = config;
+     
+     if (provider === 'openai') {
+       return new ChatOpenAI({
+         modelName: model,
+         temperature,
+         maxTokens,
+       });
+     } else if (provider === 'anthropic') {
+       return new ChatAnthropic({
+         modelName: model,
+         temperature,
+         maxTokens,
+       });
+     } else {
+       throw new Error(`Unsupported provider: ${provider}`);
+     }
+   }
+   ```
+
+## UI/UX Patterns
+
+1. Page Layout Pattern:
+   - Sidebar for navigation
+   - Container for main content
+   - Header with contextual actions
+   - Card-based UI for distinct sections
+
+2. Form Submission Pattern:
+   - Use React Hook Form for form state management
+   - Server action for form submission
+   - Optimistic UI updates with SWR mutate
+   - Toast notifications for action feedback
+
+3. Chat Interface Pattern:
+   ```tsx
+   <div className="flex flex-col space-y-4 p-4">
+     {messages.map((message, index) => (
+       <div 
+         key={index}
+         className={cn(
+           "flex",
+           message.role === 'human' ? 'justify-end' : 'justify-start'
+         )}
+       >
+         <div className={cn(
+           "max-w-[80%] rounded-lg p-3",
+           message.role === 'human' ? 'bg-primary text-primary-foreground' : 'bg-muted'
+         )}>
+           <div className="whitespace-pre-wrap">{message.content}</div>
+         </div>
+       </div>
+     ))}
+     
+     <div ref={messagesEndRef} />
+   </div>
+   
+   <div className="border-t p-4">
+     <form onSubmit={handleSubmit} className="flex gap-2">
+       <Input
+         value={input}
+         onChange={(e) => setInput(e.target.value)}
+         placeholder="Type your message..."
+         className="flex-1"
+       />
+       <Button type="submit" disabled={isLoading}>
+         {isLoading ? <Spinner className="h-4 w-4" /> : 'Send'}
+       </Button>
+     </form>
+   </div>
+   ```
+
+4. Settings UI Pattern:
+   ```tsx
+   <Form {...form}>
+     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+       <div className="grid gap-4 md:grid-cols-2">
+         <FormField
+           control={form.control}
+           name="provider"
+           render={({ field }) => (
+             <FormItem>
+               <FormLabel>Provider</FormLabel>
+               <Select 
+                 value={field.value} 
+                 onValueChange={field.onChange}
+               >
+                 <FormControl>
+                   <SelectTrigger>
+                     <SelectValue placeholder="Select provider" />
+                   </SelectTrigger>
+                 </FormControl>
+                 <SelectContent>
+                   <SelectItem value="anthropic">Anthropic</SelectItem>
+                   <SelectItem value="openai">OpenAI</SelectItem>
+                 </SelectContent>
+               </Select>
+               <FormMessage />
+             </FormItem>
+           )}
+         />
+         
+         <FormField
+           control={form.control}
+           name="model"
+           render={({ field }) => (
+             <FormItem>
+               <FormLabel>Model</FormLabel>
+               <Select 
+                 value={field.value} 
+                 onValueChange={field.onChange}
+               >
+                 <FormControl>
+                   <SelectTrigger>
+                     <SelectValue placeholder="Select model" />
+                   </SelectTrigger>
+                 </FormControl>
+                 <SelectContent>
+                   {modelOptions.map((model) => (
+                     <SelectItem key={model.id} value={model.id}>
+                       {model.name}
+                     </SelectItem>
+                   ))}
+                 </SelectContent>
+               </Select>
+               <FormMessage />
+             </FormItem>
+           )}
+         />
+       </div>
+       
+       <Button type="submit" disabled={isPending}>
+         {isPending ? "Saving..." : "Save Settings"}
+       </Button>
+     </form>
+   </Form>
+   ```
+
+## Implementation Guidance
+
+When implementing new features, follow these patterns:
+1. Add database schema updates first
+2. Implement server actions for backend operations
+3. Create or update API endpoints if needed for external access
+4. Develop UI components with appropriate data fetching
+5. Add comprehensive error handling and loading states 
+6. Use pnpm for package management
+7. Follow existing naming conventions for files and functions
+8. Maintain proper TypeScript types throughout the codebase
+
+---
+> Source: [VeriTeknik/pluggedin-app](https://github.com/VeriTeknik/pluggedin-app) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
