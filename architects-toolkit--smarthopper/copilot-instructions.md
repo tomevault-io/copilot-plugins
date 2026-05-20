@@ -1,23 +1,25 @@
-## ai-provider-conventions
+## ai-tool-conventions
 
-> - Check existing providers before adding or changing provider behavior.
+> - AI tools live in `src/SmartHopper.Core.Grasshopper/AITools/` and implement `IAIToolProvider`.
 
 
-# AI Provider conventions
+# AI Tool conventions
 
-- Check existing providers before adding or changing provider behavior.
-- A provider project should expose:
-  - `<Provider>Provider` deriving from `AIProvider<T>` or `AIProvider`.
-  - `<Provider>ProviderModels` deriving from `AIProviderModels`.
-  - `<Provider>ProviderFactory` implementing `IAIProviderFactory`.
-  - `<Provider>ProviderSettings` deriving from `AIProviderSettings`.
-- Keep provider-specific API differences inside the provider project: endpoint selection, payload encoding, response decoding, schema adaptation, streaming parsing, and provider-specific headers.
-- Use infrastructure contracts and models: `AIRequestCall`, `AIBody`, `AIReturn`, `AIToolCall`, `AIInteractionText`, `AIInteractionImage`, `AIInteractionToolCall`, `AIInteractionToolResult`, and `AIModelCapabilities`.
-- Do not bypass the provider pipeline. Prefer `PreCall()` for request setup, base `CallApi()` for HTTP execution, and `PostCall()`/`Decode()` for normalization.
-- Mark secret settings with `SettingDescriptor.IsSecret`; settings UI is generated from descriptors through `SettingsDialog`.
-- Do not place API keys or secret headers on `AIRequestCall.Headers`, `AIReturn`, logs, or source code. Set `AIRequestCall.Authentication` and let provider internals apply secrets just-in-time.
-- Register model capabilities in `AIProviderModels.RetrieveModels()` using concrete API-ready model names. Use `Verified`, `Deprecated`, `Rank`, aliases, streaming support, and capability flags to guide model selection.
-- Callers should select models through `provider.SelectModel(requiredCapability, requestedModel)` rather than directly calling `ModelManager.SelectBestModel`.
+- AI tools live in `src/SmartHopper.Core.Grasshopper/AITools/` and implement `IAIToolProvider`.
+- Check similar tools before adding or changing behavior.
+- Prefer established tool-family names, for example `gh_get.cs`, `text2json.cs`, `text2text.cs`, `text2textlist.cs`, `list_filter.cs`, or `script_review.cs`. Match existing names when renaming or extending tool families.
+- Each tool provider exposes tools through `GetTools()` with:
+  - Stable tool name.
+  - Clear description and category.
+  - JSON parameter schema.
+  - Required capabilities when model/provider support matters.
+  - Async execution delegate.
+- Tools are discovered by `AIToolManager`; do not hand-register duplicates.
+- Execute tools through `AIToolCall.Exec()` or `AIToolManager.ExecuteTool(...)`; do not call an `AITool.Execute` delegate directly from unrelated code.
+- Validate and sanitize tool arguments from `AIInteractionToolCall.Arguments` before side effects.
+- For JSON tool results, keep payloads at predictable keys (`result`, `list`, or documented domain-specific keys such as `json` or `description`) and attach `ToolResultEnvelope` metadata under `__envelope`.
+- For canvas mutations, follow the Grasshopper undo rule before changing objects, wires, positions, preview, locks, or parameters.
+- Keep long-running or UI-thread-sensitive work off background threads unless explicitly marshaled to the Rhino UI thread.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
