@@ -1,0 +1,44 @@
+{
+  "name": "flybondi.fail",
+  "owner": "catdevnull",
+  "repo": "flybondi.fail",
+  "description": "Estad\u00edsticas de demoras en vuelos de Flybondi. Scrapeo de Aerolineas Argentinas y Airfleets.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/catdevnull/flybondi.fail",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T22:56:10Z"
+}
