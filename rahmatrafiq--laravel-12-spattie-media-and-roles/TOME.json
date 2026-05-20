@@ -4,7 +4,7 @@
   "repo": "laravel-12-spattie-media-and-roles",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RahmatRafiq/laravel-12-spattie-media-and-roles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T00:35:49Z"
+  "distributed_at": "2026-05-20T00:50:39Z"
 }
