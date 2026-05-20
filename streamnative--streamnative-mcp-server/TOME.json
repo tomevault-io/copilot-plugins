@@ -4,7 +4,7 @@
   "repo": "streamnative-mcp-server",
   "description": "Developer-friendly MCP server bridging Kafka and Pulsar protocols\u2014built with \u2764\ufe0f by StreamNative for an agentic, streaming-first future.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/streamnative/streamnative-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T06:45:01Z"
+  "distributed_at": "2026-05-20T18:59:01Z"
 }
