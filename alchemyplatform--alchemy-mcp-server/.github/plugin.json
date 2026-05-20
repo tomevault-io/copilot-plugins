@@ -1,0 +1,9 @@
+{
+  "name": "alchemyplatform--alchemy-mcp-server",
+  "displayName": "alchemy-mcp-server",
+  "description": "Alchemy's official MCP Server. Allow AI agents to interact with Alchemy's blockchain APIs.",
+  "version": "1.0.0",
+  "author": "alchemyplatform",
+  "homepage": "https://github.com/alchemyplatform/alchemy-mcp-server",
+  "skills": []
+}
