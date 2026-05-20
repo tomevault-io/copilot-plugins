@@ -1,0 +1,9 @@
+{
+  "name": "carlosziegler--electron-tanstack",
+  "displayName": "electron-tanstack",
+  "description": "A electron app using Tanstack Router + Shadcn",
+  "version": "1.0.0",
+  "author": "CarlosZiegler",
+  "homepage": "https://github.com/CarlosZiegler/electron-tanstack",
+  "skills": []
+}
