@@ -1,0 +1,9 @@
+{
+  "name": "ferranbt--solstice",
+  "displayName": "solstice",
+  "description": "Solidity VSCode extension with integrated debugging and execution tracing for smart contract development",
+  "version": "1.0.0",
+  "author": "ferranbt",
+  "homepage": "https://github.com/ferranbt/solstice",
+  "skills": []
+}
