@@ -1,0 +1,44 @@
+{
+  "name": "ai-swiss-workflows",
+  "owner": "cbardyn",
+  "repo": "ai-swiss-workflows",
+  "description": "Create powerful AI workflows that actually work. No toy interfaces, no vendor lock-in.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cbardyn/ai-swiss-workflows",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T23:40:43Z"
+}
