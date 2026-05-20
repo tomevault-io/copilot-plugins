@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--memespy",
+  "displayName": "MemesPy",
+  "description": "\ud83c\udfad DSPy Meme Generator: AI-powered meme creation using DSPy and FastAPI. Generate hilarious, relevant memes with intelligent text and image generation. Ready for GPT-4o's upcoming image capabilities! \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/MemesPy",
+  "skills": []
+}
