@@ -1,0 +1,9 @@
+{
+  "name": "mxfactorial--geonum",
+  "displayName": "geonum",
+  "description": "geometric number library supporting unlimited dimensions with O(1) complexity",
+  "version": "1.0.0",
+  "author": "mxfactorial",
+  "homepage": "https://github.com/mxfactorial/geonum",
+  "skills": []
+}
