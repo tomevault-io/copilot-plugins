@@ -1,0 +1,29 @@
+## flowmark
+
+> Flowmark project rules
+
+
+## Testing Flowmark
+
+Most comprehensive testing is done via the test files in the tests/testdocs directory.
+
+The input is tests/testdocs/testdoc.orig.md.
+
+The expected output is in tests/testdocs/testdoc.expected.*.md.
+
+When you run `make test`, the actual output from the code is written to tests/testdocs/testdoc.actual.*.md.
+
+The test passes if the actual output matches the expected output.
+
+If they do NOT match, it is a bug and the test fails.
+After a failure, the testdoc.actual.*.md files are still updated and can be
+compared to the expected testdoc.expected.*.md files to understand what went wrong.
+
+DO NOT change the testdoc.expected.*.md files since they should be the expected output,
+unless the user confirms that the testdoc.expected.*.md files are incorrect.
+
+Change the code to fix bugs until the testdoc.actual.*.md files match the expected testdoc.expected.*.md files.
+
+---
+> Source: [jlevy/flowmark](https://github.com/jlevy/flowmark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
