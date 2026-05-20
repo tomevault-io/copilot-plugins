@@ -1,255 +1,414 @@
-## cursor-rules-creation
+## git-commits
 
-> Guidelines for creating, generating, and composing Cursor Project Rules to build a comprehensive rule library
+> Guidelines for automatically committing changes made by CursorAI using conventional commits format for Swift projects and all related assets
 
 
-# Cursor Rules Creation and Generation
+# Git Conventional Commits for Swift Projects
 
-This meta-rule provides guidelines for creating and automatically generating Cursor Project Rules. It extends the basic creation guidelines to support building a comprehensive "stdlib" of rules that can be composed together, with specific adaptations for Swift projects.
+This rule establishes a framework for automatically generating Git commits in the conventional commits format for Swift projects, including all configuration files and asset types.
 
-## Rule Auto-Generation Approach
+## Conventional Commits Format
 
-Cursor can be instructed to generate new rules based on observed patterns, successful implementations, or specific requirements. This approach enables rapidly building a rich library of rules for Swift development.
-
-### Key Principles
-
-* **Unix-Like Composition**: Design rules to be composable like Unix pipes, where the output of one rule can feed into another.
-* **Continuous Learning**: Automatically update rules with learnings from successful implementations.
-* **Templates Over Implementation**: Focus on creating rule templates that can be adapted rather than writing specific implementations.
-
-## Prompting Cursor to Generate Rules
-
-When asking Cursor to generate a new rule for Swift projects, use the following structure:
+All commits should follow the conventional commits format:
 
 ```
-Create a Cursor rule for [specific purpose] that:
-1. Defines [pattern/convention]
-2. Works with files matching [glob pattern for Swift files]
-3. Includes examples from [reference implementation]
-4. Can compose with [other rules]
+<type>(<scope>): <description>
 ```
 
-### Example Rule Generation Prompt
-
-```
-Create a Cursor rule for Swift protocol implementation that:
-1. Defines standards for creating and implementing protocols
-2. Works with files matching "Sources/**/*.swift"
-3. Includes examples from our networking module
-4. Can compose with our existing Swift naming conventions
-```
-
-## Building Your Rule Stdlib for Swift Projects
-
-The "stdlib" approach involves:
-
-1. **Core Infrastructure Rules**: Rules about where to place rules, how to name them, and how to compose them.
-2. **Language-Specific Rules**: Rules for Swift language features, patterns, and best practices.
-3. **Framework-Specific Rules**: Rules for UIKit, SwiftUI, Combine, etc.
-4. **Architecture Rules**: Rules for architecture patterns like VIPER, MVVM, etc.
-5. **Rule Composition Manifests**: Files that define how rules work together.
-
-### Rule Composition
-
-Rules can be composed by explicitly referencing other rules:
-
-```markdown
----
-title: Swift Network Layer Implementation
-description: Guidelines for implementing network requests using our standardized approach
-glob: "Sources/Networking/**/*.swift"
-composes: ["swift-naming.mdc", "error-handling.mdc", "async-await.mdc"] 
----
-
-# Swift Network Layer Implementation
-
-This rule composes several other rules to define our complete network implementation pattern.
-
-## Core Components
-
-1. Follow naming conventions in [Swift Naming Conventions](mdc:swift-naming.mdc)
-2. Implement error handling according to [Error Handling Standards](mdc:error-handling.mdc)
-3. Use async/await as described in [Async/Await Patterns](mdc:async-await.mdc)
-
-## Unique Aspects
-
-[Network-specific patterns that aren't covered by the composed rules...]
-```
-
-## Rule Learning Workflow
-
-After successfully implementing a requirement in Swift:
-
-1. **Document the Pattern**: Identify the pattern that enabled success.
-2. **Ask Cursor to Create/Update a Rule**:
-   ```
-   Based on our successful implementation of [feature], create a new rule (or update [existing-rule.mdc]) that captures:
-   1. The pattern of [describe pattern]
-   2. The key components: [list components]
-   3. The error handling approach we used
-   4. How we handled edge cases like [edge case]
-   ```
-3. **Link the Rule to Code Examples**: Always reference the actual implementation.
-4. **Add to Composition Manifests**: Update any rule composition files to include the new/updated rule.
-
-## Intervention and Improvement Cycle
-
-When the LLM doesn't follow a rule correctly:
-
-1. **Identify the Gap**: What aspect of the rule was misunderstood or ignored?
-2. **Refine the Rule**: Make the rule more explicit about that aspect.
-3. **Add Counterexamples**: Include examples of what not to do and why.
-4. **Test the Updated Rule**: Try the implementation again.
-
-This cycle creates increasingly accurate rules over time.
-
-## Example Swift-Specific Rule Template
-
-This template can be used by Cursor to generate rules for Swift projects:
-
-```markdown
----
-title: [Swift-Related Rule Name]
-description: Guidelines for [Swift-specific purpose]
-glob: "[pattern matching Swift files]"
-alwaysApply: false
----
-
-# [Rule Name]
-
-## Introduction / Problem
-
-[Why this rule exists and what problem it solves for Swift development.]
-
-## Pattern Description
-
-[Explain the Swift-specific pattern with code examples.]
-
-```swift
-// Example Swift code demonstrating the pattern
-struct UserProfile: Codable {
-    let id: UUID
-    let username: String
-    let email: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case username
-        case email
-    }
-}
-```
-
-## Implementation Steps
-
-1. [First step in implementing this pattern]
-2. [Second step]
-3. [Additional steps as needed]
-
-## Real-World Examples
-
-* [Link to Swift code in the project](mdc:../Sources/Path/To/Example.swift)
-
-## Common Pitfalls
-
-* [Common mistake 1 in Swift implementation]
-* [Common mistake 2]
-* [Other issues to watch for]
-```
-
-## Rule Generator Meta-Rule
-
-Here's a meta-rule template that can help Cursor generate rules for your Swift project:
-
-```markdown
----
-title: Swift Rule Generator
-description: Guidelines for generating new Cursor rules based on Swift code patterns
-glob: "**/*.mdc"
-alwaysApply: true
----
-
-# Swift Rule Generator
-
-This meta-rule provides templates for generating new rules based on observed patterns in Swift code.
-
-## Generate a New Swift Rule
-
-When you identify a pattern worth capturing in a rule, ask Cursor:
-
-```
-Generate a new Swift rule called [name] based on the pattern in [file path]. The rule should:
-1. Define the structure seen in [file path]
-2. Apply to files matching [glob]
-3. Include these key components: [list components]
-```
-
-## Swift Rule Template Structure
-
-Generated rules should follow this template structure:
-
-```markdown
----
-title: [Descriptive Title]
-description: Guidelines for [Swift-specific purpose]
-glob: "[file pattern matching Swift files]"
-alwaysApply: false
----
-
-# [Descriptive Title]
-
-## Introduction / Problem
-
-[Why this rule exists and what problem it solves for Swift development.]
-
-## Pattern Description
-
-[Explain the Swift pattern with code examples.]
-
-## Real-World Examples
-
-* [Link to Swift code](mdc:../path/to/example.swift)
-
-## Common Pitfalls
-
-* [Common Swift mistake 1]
-* [Common Swift mistake 2]
-```
-
-## Learning From Swift Implementation
-
-After implementing a feature using your rules, ask Cursor to analyze the implementation and update the rules:
-
-```
-Analyze our implementation of [Swift feature] and identify:
-1. Patterns we followed consistently
-2. Deviations from our rules that improved the code
-3. Challenges where our rules were insufficient
-4. New patterns that should be formalized
-
-Then, update our rule [rule-name.mdc] to incorporate these learnings.
-```
-
-This creates a continuous improvement cycle for your Swift rule library.
-```
-
-## Examples of Swift-Specific Rules You Might Create
-
-1. **Swift VIPER Architecture Rule**: Guidelines for implementing VIPER in Swift projects
-2. **SwiftUI Component Structure Rule**: Standards for structuring SwiftUI views and components
-3. **Swift Error Handling Rule**: Patterns for consistent error handling and propagation
-4. **Swift Concurrency Rule**: Guidelines for using async/await and Task APIs
-5. **Swift Navigation Pattern Rule**: Standards for implementing navigation in your app
-6. **Swift Testing Rule**: Guidelines for writing effective unit and UI tests
-
-## Getting Started with Swift Rule Creation
-
-1. Start with foundational rules that apply across your Swift project
-2. Create architecture-specific rules based on your project's needs (VIPER, MVVM, etc.)
-3. Ask Cursor to help you generate rules for complex patterns
-4. Continuously refine and update rules based on implementation feedback
-
-Remember, the goal is to build a "stdlib" of rules that can be composed together to guide Swift development throughout your project.
+Where:
+- **type**: Indicates the kind of change being made
+- **scope**: Optional field indicating the section of the codebase affected
+- **description**: Brief description of the change in imperative mood
+
+## Swift-Specific Types and Scopes
+
+### Commit Types
+
+- **feat**: A new feature or functionality
+- **fix**: A bug fix
+- **refactor**: Code change that neither fixes a bug nor adds a feature
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect code logic (whitespace, formatting, etc.)
+- **test**: Adding or correcting tests
+- **perf**: Performance improvements
+- **chore**: Changes to build process or auxiliary tools
+- **ui**: UI/UX improvements (specific to Swift UI components)
+- **config**: Changes to configuration files
+- **build**: Changes to Xcode build settings, project files, or build scripts
+- **i18n**: Internationalization and localization changes
+- **assets**: Adding or updating media and other resource files
+
+### Scope Conventions for Swift Projects
+
+- **app**: App-level changes (e.g., AppDelegate, SceneDelegate)
+- **view**: View layer changes (UIView, SwiftUI View components)
+- **controller**: View controller changes
+- **presenter**: Presenter layer (VIPER/MVP)
+- **interactor**: Interactor layer (VIPER)
+- **entity**: Model/entity changes
+- **router**: Navigation/routing logic
+- **networking**: API/networking code
+- **persistence**: CoreData or other persistence mechanisms
+- **utils**: Utility functions
+- **extensions**: Swift extensions
+- **config**: Configuration changes
+- **project**: Xcode project settings
+- **assets**: Images, colors, and other resources
+- **i18n**: Localization files
+- **deps**: Dependencies and packages
+- **media**: Audio, video, and other media files
+- **fonts**: Typography assets
+- **docs**: Documentation files
+
+## Automated Commit Rule
+
+<rule>
+name: swift_conventional_commits
+description: Automatically commit changes made by CursorAI using conventional commits format for Swift projects and all related assets
+filters:
+  - type: event
+    pattern: "build_success"
+  - type: file_change
+    pattern: "*"
+actions:
+  - type: execute
+    command: |
+      # Extract the change type and scope from the changes and description
+      CHANGE_TYPE=""
+      
+      # Determine type based on what was changed
+      case "$CHANGE_DESCRIPTION" in
+        *"add"*|*"create"*|*"implement"*|*"new feature"*)
+          CHANGE_TYPE="feat";;
+        *"fix"*|*"correct"*|*"resolve"*|*"bug"*)
+          CHANGE_TYPE="fix";;
+        *"refactor"*|*"restructure"*|*"reorganize"*)
+          CHANGE_TYPE="refactor";;
+        *"test"*|*"unit test"*|*"ui test"*)
+          CHANGE_TYPE="test";;
+        *"doc"*|*"comment"*|*"documentation"*|*"readme"*)
+          CHANGE_TYPE="docs";;
+        *"style"*|*"format"*|*"whitespace"*|*"indent"*)
+          CHANGE_TYPE="style";;
+        *"perf"*|*"optimize"*|*"performance"*)
+          CHANGE_TYPE="perf";;
+        *"ui"*|*"interface"*|*"visual"*)
+          CHANGE_TYPE="ui";;
+        *"localize"*|*"translate"*|*"i18n"*)
+          CHANGE_TYPE="i18n";;
+        *"image"*|*"icon"*|*"graphic"*|*"asset"*)
+          CHANGE_TYPE="assets";;
+        *"audio"*|*"sound"*|*"music"*|*"video"*)
+          CHANGE_TYPE="assets";;
+        *)
+          # Look at file extension to determine type for non-keyword cases
+          if [[ "$FILE" == *".xcodeproj"* || "$FILE" == *".pbxproj"* || "$FILE" == *".xcworkspace"* ]]; then
+            CHANGE_TYPE="build"
+          elif [[ "$FILE" == *".plist"* || "$FILE" == *".xcconfig"* || "$FILE" == *".yml"* || "$FILE" == *".yaml"* || "$FILE" == *".json"* ]]; then
+            CHANGE_TYPE="config"
+          elif [[ "$FILE" == *".strings"* || "$FILE" == *".stringsdict"* ]]; then
+            CHANGE_TYPE="i18n"
+          elif [[ "$FILE" == *".png"* || "$FILE" == *".jpg"* || "$FILE" == *".jpeg"* || "$FILE" == *".gif"* || "$FILE" == *".svg"* || "$FILE" == *".pdf"* ]]; then
+            CHANGE_TYPE="assets"
+          elif [[ "$FILE" == *".mp3"* || "$FILE" == *".mp4"* || "$FILE" == *".mov"* || "$FILE" == *".wav"* ]]; then
+            CHANGE_TYPE="assets"
+          elif [[ "$FILE" == *".otf"* || "$FILE" == *".ttf"* || "$FILE" == *".woff"* ]]; then
+            CHANGE_TYPE="assets"
+          elif [[ "$FILE" == *".md"* || "$FILE" == *".txt"* || "$FILE" == *"README"* || "$FILE" == *"LICENSE"* ]]; then
+            CHANGE_TYPE="docs"
+          else
+            CHANGE_TYPE="chore"
+          fi
+          ;;
+      esac
+      
+      # Extract scope based on file type and location
+      if [[ "$FILE" == *".swift" ]]; then
+        # Swift files follow the standard Swift scoping
+        if [[ "$FILE" == *"View.swift" || "$FILE" == *"/Views/"* || "$FILE" == *"/View/"* ]]; then
+          SCOPE="view"
+        elif [[ "$FILE" == *"ViewController.swift" || "$FILE" == *"/ViewControllers/"* ]]; then
+          SCOPE="controller"
+        elif [[ "$FILE" == *"Presenter.swift" || "$FILE" == *"/Presenters/"* ]]; then
+          SCOPE="presenter"
+        elif [[ "$FILE" == *"Interactor.swift" || "$FILE" == *"/Interactors/"* ]]; then
+          SCOPE="interactor"
+        elif [[ "$FILE" == *"Router.swift" || "$FILE" == *"/Routers/"* ]]; then
+          SCOPE="router"
+        elif [[ "$FILE" == *"Model.swift" || "$FILE" == *"Entity.swift" || "$FILE" == *"/Models/"* || "$FILE" == *"/Entities/"* ]]; then
+          SCOPE="entity"
+        elif [[ "$FILE" == *"Network"* || "$FILE" == *"API"* || "$FILE" == *"/Networking/"* ]]; then
+          SCOPE="networking"
+        elif [[ "$FILE" == *"CoreData"* || "$FILE" == *"Storage"* || "$FILE" == *"/Persistence/"* ]]; then
+          SCOPE="persistence"
+        elif [[ "$FILE" == *"Extension"* || "$FILE" == *"/Extensions/"* ]]; then
+          SCOPE="extensions"
+        elif [[ "$FILE" == *"Util"* || "$FILE" == *"Helper"* || "$FILE" == *"/Utils/"* || "$FILE" == *"/Helpers/"* ]]; then
+          SCOPE="utils"
+        elif [[ "$FILE" == *"AppDelegate.swift" || "$FILE" == *"SceneDelegate.swift" ]]; then
+          SCOPE="app"
+        else
+          # Default: use the directory name
+          SCOPE=$(dirname "$FILE" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]')
+        fi
+      elif [[ "$FILE" == *".plist" ]]; then
+        SCOPE="config"
+      elif [[ "$FILE" == *".xcodeproj"* || "$FILE" == *".pbxproj"* || "$FILE" == *".xcworkspace"* || "$FILE" == *".xcconfig"* ]]; then
+        SCOPE="project"
+      elif [[ "$FILE" == *".yml"* || "$FILE" == *".yaml"* || "$FILE" == *".json"* ]]; then
+        # For YAML/JSON files, try to determine their purpose
+        if [[ "$FILE" == *"fastlane"* || "$FILE" == *"ci"* || "$FILE" == *".github/"* ]]; then
+          SCOPE="ci"
+        elif [[ "$FILE" == *"pod"* || "$FILE" == *"package"* || "$FILE" == *"cartfile"* ]]; then
+          SCOPE="deps"
+        else
+          SCOPE="config"
+        fi
+      elif [[ "$FILE" == *".strings"* || "$FILE" == *".stringsdict"* ]]; then
+        SCOPE="i18n"
+      elif [[ "$FILE" == *".storyboard"* || "$FILE" == *".xib"* ]]; then
+        SCOPE="view"
+      elif [[ "$FILE" == *"/Assets.xcassets/"* || "$FILE" == *".imageset/"* || "$FILE" == *".colorset/"* ]]; then
+        SCOPE="assets"
+      elif [[ "$FILE" == *".png"* || "$FILE" == *".jpg"* || "$FILE" == *".jpeg"* || "$FILE" == *".gif"* || "$FILE" == *".svg"* || "$FILE" == *".pdf"* ]]; then
+        SCOPE="assets"
+      elif [[ "$FILE" == *".mp3"* || "$FILE" == *".wav"* ]]; then
+        SCOPE="media"
+      elif [[ "$FILE" == *".mp4"* || "$FILE" == *".mov"* ]]; then
+        SCOPE="media"
+      elif [[ "$FILE" == *".otf"* || "$FILE" == *".ttf"* || "$FILE" == *".woff"* ]]; then
+        SCOPE="fonts"
+      elif [[ "$FILE" == *".md"* || "$FILE" == *"README"* || "$FILE" == *"LICENSE"* ]]; then
+        SCOPE="docs"
+      else
+        # Fallback: derive scope from directory structure
+        if [[ "$FILE" == *"/Resources/"* || "$FILE" == *"/Assets/"* ]]; then
+          SCOPE="assets"
+        elif [[ "$FILE" == *"/Media/"* || "$FILE" == *"/Audio/"* || "$FILE" == *"/Video/"* ]]; then
+          SCOPE="media"
+        elif [[ "$FILE" == *"/Fonts/"* ]]; then
+          SCOPE="fonts"
+        elif [[ "$FILE" == *"/Configuration/"* || "$FILE" == *"/Config/"* ]]; then
+          SCOPE="config"
+        elif [[ "$FILE" == *"/Documentation/"* || "$FILE" == *"/Docs/"* ]]; then
+          SCOPE="docs"
+        else
+          # Use the parent directory name
+          SCOPE=$(dirname "$FILE" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]')
+        fi
+      fi
+      
+      # Format the commit message
+      COMMIT_MSG="$CHANGE_TYPE($SCOPE): $CHANGE_DESCRIPTION"
+      
+      # Determine which files to add based on the file type
+      if [[ "$FILE" == *".swift" && -n "$MODULE_NAME" ]]; then
+        # For Swift files in modules, try to group related module files
+        MODULE_NAME=$(basename "$FILE" | sed 's/[A-Z][a-z]*\.swift$//')
+        git add $(find . -name "$MODULE_NAME*.swift")
+      elif [[ "$FILE" == *".xcodeproj"* || "$FILE" == *".pbxproj"* ]]; then
+        # For Xcode project files, add the entire project
+        PROJECT_DIR=$(dirname "$FILE")
+        git add "$PROJECT_DIR"
+      elif [[ "$FILE" == *"/Assets.xcassets/"* ]]; then
+        # For asset changes, add the entire asset catalog
+        ASSET_CATALOG=$(echo "$FILE" | sed 's/\(.*\.xcassets\).*/\1/')
+        git add "$ASSET_CATALOG"
+      elif [[ "$FILE" == *".imageset/"* || "$FILE" == *".colorset/"* ]]; then
+        # Add the entire imageset/colorset directory
+        ASSET_SET=$(echo "$FILE" | sed 's/\(.*\.imageset\|.*\.colorset\).*/\1/')
+        git add "$ASSET_SET"
+      elif [[ "$FILE" == *"/Fonts/"* && ("$FILE" == *".otf"* || "$FILE" == *".ttf"* || "$FILE" == *".woff"*) ]]; then
+        # For font files, add all related files in the directory
+        FONT_NAME=$(basename "$FILE" | sed 's/\.[^.]*$//')
+        FONT_DIR=$(dirname "$FILE")
+        git add "$FONT_DIR/$FONT_NAME"*
+      elif [[ ("$FILE" == *".mp3"* || "$FILE" == *".wav"* || "$FILE" == *".mp4"* || "$FILE" == *".mov"*) ]]; then
+        # For media files, just add the specific file
+        git add "$FILE"
+      else
+        # Default: just add the specific file
+        git add "$FILE"
+      fi
+      
+      # Commit with the formatted message
+      git commit -m "$COMMIT_MSG"
+  
+  - type: suggest
+    message: |
+      All changes should be committed using conventional commits format with Swift and asset-specific scopes:
+      
+      Format: <type>(<scope>): <description>
+      
+      Types:
+      - feat: A new feature or functionality
+      - fix: A bug fix
+      - refactor: Code refactoring
+      - docs: Documentation updates
+      - style: Formatting changes
+      - test: Adding/fixing tests
+      - perf: Performance improvements
+      - ui: UI/UX improvements
+      - config: Configuration changes
+      - build: Xcode project/build changes
+      - i18n: Localization changes
+      - assets: Adding or updating assets
+      - chore: Other changes
+      
+      Common scopes:
+      - view: SwiftUI/UIKit views or storyboards
+      - controller/presenter/interactor/router: VIPER components
+      - entity: Model/entity changes
+      - networking: API/networking code
+      - persistence: Data storage
+      - utils/extensions: Utilities
+      - project: Xcode project settings
+      - config: Configuration files
+      - assets: Images and static resources
+      - media: Audio and video files
+      - fonts: Typography resources
+      - docs: Documentation files
+      - i18n: Localization files
+      - deps: Dependencies
+      
+      The description should be clear and concise in imperative mood.
+
+examples:
+  - input: |
+      # After adding image assets
+      CHANGE_DESCRIPTION="add app icon set"
+      FILE="Assets.xcassets/AppIcon.imageset/icon.png"
+    output: "assets(assets): add app icon set"
+  
+  - input: |
+      # After adding audio files
+      CHANGE_DESCRIPTION="add notification sound effects"
+      FILE="Resources/Sounds/notification.mp3"
+    output: "assets(media): add notification sound effects"
+  
+  - input: |
+      # After adding custom fonts
+      CHANGE_DESCRIPTION="integrate SF Mono font family"
+      FILE="Fonts/SFMono-Regular.otf"
+    output: "assets(fonts): integrate SF Mono font family"
+  
+  - input: |
+      # After adding video tutorial
+      CHANGE_DESCRIPTION="add onboarding tutorial video"
+      FILE="Resources/Videos/onboarding.mp4"
+    output: "assets(media): add onboarding tutorial video"
+  
+  - input: |
+      # After updating documentation
+      CHANGE_DESCRIPTION="update installation instructions"
+      FILE="README.md"
+    output: "docs(docs): update installation instructions"
+
+metadata:
+  priority: high
+  version: 1.0
+</rule>
+
+## File Type Handling
+
+This rule handles all file types commonly found in Swift/Xcode projects:
+
+### Code Files
+- **Swift (.swift)**: Primary source code files
+- **Objective-C (.m, .h)**: Legacy or bridging code
+
+### Configuration Files
+- **Property Lists (.plist)**: App configuration
+- **YAML (.yml, .yaml)**: Build configuration, CI/CD
+- **JSON (.json)**: Data configuration
+- **XCConfig (.xcconfig)**: Xcode build settings
+
+### Xcode Project Files
+- **Project Files (.xcodeproj, .pbxproj)**: Project structure
+- **Workspace Files (.xcworkspace)**: Multi-project workspaces
+
+### Interface Files
+- **Storyboards (.storyboard)**: Visual UI layouts
+- **XIB Files (.xib)**: Individual view controllers/views
+
+### Image Assets
+- **Asset Catalogs (.xcassets)**: Images, colors, etc.
+- **Bitmap Images (.png, .jpg, .jpeg)**: Raster graphics
+- **Vector Graphics (.svg, .pdf)**: Scalable graphics
+- **Animated Graphics (.gif)**: Animated images
+
+### Audio Assets
+- **Audio Files (.mp3, .wav)**: Sound effects, music
+- **Audio Configuration**: Audio session settings
+
+### Video Assets
+- **Video Files (.mp4, .mov)**: Video content
+- **Video Thumbnails**: Preview images
+
+### Typography Assets
+- **Font Files (.otf, .ttf, .woff)**: Custom typefaces
+
+### Documentation
+- **Markdown (.md)**: Documentation files
+- **Text (.txt)**: Plain text notes
+- **License Files**: Legal documentation
+
+### Localization
+- **Strings Files (.strings, .stringsdict)**: Translations
+
+## Asset Management Strategy
+
+Different types of assets require different handling strategies:
+
+### Image Assets
+- **Asset Catalogs**: When an asset in a catalog changes, the entire image/color set is added
+- **Individual Images**: When loose image files change, only that specific file is added
+- **App Icons**: Special handling for app icons, adding the entire icon set
+
+### Audio/Video Assets
+- Typically committed individually, as they can be large files
+- Consider using Git LFS for large media files
+- Group related sound effects or video clips when logical
+
+### Font Assets
+- When adding or changing a font, add all related font weights and styles together
+- Consider the licensing requirements of fonts when committing
+
+### Documentation Assets
+- Commit documentation with related code changes when possible
+- For standalone documentation updates, group related files
+
+## Commit Message Examples for Different Asset Types
+
+### Image Assets
+- `assets(assets): add user profile placeholder images`
+- `ui(assets): update tab bar icons with new design language`
+- `fix(assets): correct app icon transparency issue`
+
+### Audio/Video Assets
+- `assets(media): add tutorial voice-over narration`
+- `feat(media): implement custom sound effects for interactions`
+- `perf(media): optimize video assets for size reduction`
+
+### Typography Assets
+- `assets(fonts): integrate custom brand typeface`
+- `feat(fonts): add variable font support for dynamic sizing`
+- `fix(fonts): resolve font rendering issues on iOS 16`
+
+### Configuration Assets
+- `config(project): update build settings for TestFlight distribution`
+- `build(config): modify code signing settings for CI pipeline`
+- `feat(config): add new feature flags for A/B testing`
+
+## Best Practices for Asset Commits
+
+1. **Group Related Changes**: Commit related assets together (e.g., all button icons at once)
+2. **Clear Descriptions**: Describe what the assets are for, not just that you added them
+3. **Specify Platform/Device**: Note when assets are specific to certain devices (`assets(assets): add iPad-specific launch screens`)
+4. **Mention Optimization**: Note when assets have been optimized (`perf(assets): compress PNG images for faster loading`)
+5. **Include Source References**: Reference design tools or sources (`assets(assets): implement Figma-approved icon set`)
+
+<!-- Copyright (c) 2025 Daniel Raffel. All rights reserved. SPDX-License-Identifier: Proprietary -->
 
 ---
 > Source: [danielraffel/SwiftCatalyst](https://github.com/danielraffel/SwiftCatalyst) — distributed by [TomeVault](https://tomevault.io).
