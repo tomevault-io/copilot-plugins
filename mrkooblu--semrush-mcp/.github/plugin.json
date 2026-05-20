@@ -1,0 +1,9 @@
+{
+  "name": "mrkooblu--semrush-mcp",
+  "displayName": "semrush-mcp",
+  "description": "A Model Context Protocol (MCP) server implementation that provides tools for accessing Semrush API data.",
+  "version": "1.0.0",
+  "author": "mrkooblu",
+  "homepage": "https://github.com/mrkooblu/semrush-mcp",
+  "skills": []
+}
