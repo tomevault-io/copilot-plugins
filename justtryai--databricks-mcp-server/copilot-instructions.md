@@ -1,61 +1,53 @@
-## python-conventions
+## testing
 
-> Python Coding Conventions
+> Testing Guidelines
 
-# Python Coding Standards
+# Testing Standards
 
-## Style Guidelines
-- Line length: 100 characters maximum
-- Indentation: 4 spaces (no tabs)
-- Quotes: Double quotes by default, avoid escaping when possible
+## Framework and Requirements
+- Use pytest for all tests
+- Minimum code coverage: 80%
+- Excluded from coverage: scripts/*, examples/*
 
-## Naming Conventions
-- Variables: `snake_case`
-- Constants: `UPPER_SNAKE_CASE`
-- Classes: `PascalCase`
-- Functions/Methods: `snake_case`
-- Files: `snake_case.py`
+## Test Types
+- Unit tests: Test individual functions and classes in isolation
+- Integration tests: Test components working together
+- MCP protocol tests: Verify correct implementation of the MCP protocol
 
-## Import Organization
-- Order: standard library → third-party → first-party
-- Imports should be grouped and alphabetized
-- Example:
-  ```python
-  import json
-  import os
-  
-  import requests
-  
-  from src.core import utils
-  ```
+## File Organization
+- Test files should be named `test_*.py`
+- Each file in `src/` should have a corresponding test file in `tests/`
+- Structure tests to mirror the source directory structure
 
-## Documentation
-- Google-style docstrings required for:
-  - Classes
-  - Methods
-  - Functions
-- Example:
-  ```python
-  def function_name(param1: str, param2: int) -> bool:
-      """One-line summary of function purpose.
-      
-      More detailed description if needed.
-      
-      Args:
-          param1: Description of param1
-          param2: Description of param2
-          
-      Returns:
-          Description of return value
-          
-      Raises:
-          ExceptionType: When and why this exception is raised
-      """
-  ```
+## Best Practices
+- Use fixtures to set up test environments
+- Use parametrized tests for multiple test cases
+- Mock external dependencies (especially API calls)
+- Keep tests fast and independent of each other
 
-## Type Annotations
-- Type hints required for all code except tests
-- Follow PEP 484 guidelines
+## Example
+```python
+import pytest
+from unittest.mock import AsyncMock, patch
+
+from src.api.cluster import list_clusters
+
+@pytest.fixture
+def mock_client():
+    client = AsyncMock()
+    client.make_request.return_value = {"clusters": [{"cluster_id": "abc123"}]}
+    return client
+
+@pytest.mark.asyncio
+async def test_list_clusters(mock_client):
+    """Test that list_clusters returns expected format."""
+    result = await list_clusters(mock_client)
+    
+    assert isinstance(result, list)
+    assert len(result) == 1
+    assert result[0]["cluster_id"] == "abc123"
+    mock_client.make_request.assert_called_once()
+```
 
 ---
 > Source: [JustTryAI/databricks-mcp-server](https://github.com/JustTryAI/databricks-mcp-server) — distributed by [TomeVault](https://tomevault.io).
