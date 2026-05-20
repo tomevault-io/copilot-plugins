@@ -1,0 +1,44 @@
+{
+  "name": "concerns_on_rails",
+  "owner": "VSN2015",
+  "repo": "concerns_on_rails",
+  "description": "A collection of plug-and-play ActiveSupport concerns for Rails models and Rails controllers",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VSN2015/concerns_on_rails",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T17:28:51Z"
+}
