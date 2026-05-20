@@ -1,0 +1,9 @@
+{
+  "name": "null-shot--typescript-agent-toolkit",
+  "displayName": "typescript-agent-toolkit",
+  "description": "Null Shot's Typescript Vibework (Framework) for Serverless AI Agents",
+  "version": "1.0.0",
+  "author": "null-shot",
+  "homepage": "https://github.com/null-shot/typescript-agent-toolkit",
+  "skills": []
+}
