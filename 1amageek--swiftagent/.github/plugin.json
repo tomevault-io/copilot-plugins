@@ -1,0 +1,9 @@
+{
+  "name": "1amageek--swiftagent",
+  "displayName": "SwiftAgent",
+  "description": "  A type-safe, declarative AI agent framework for Swift. Build composable AI pipelines with Steps, Agents, structured           outputs, and tool integration. Features FIFO session management, MCP sup",
+  "version": "1.0.0",
+  "author": "1amageek",
+  "homepage": "https://github.com/1amageek/SwiftAgent",
+  "skills": []
+}
