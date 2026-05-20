@@ -1,61 +1,514 @@
-## locale-invariant-formatting
+## service-integration-patterns
 
-> CRITICAL - All number parsing/formatting must use CultureInfo.InvariantCulture to prevent locale bugs
+> Patterns for integrating external services (APIs, OCR, TTS)
 
 
-# Locale-Invariant Number Handling
+# Service Integration Patterns
 
-**CRITICAL**: This app MUST work correctly regardless of the user's Windows region/locale setting (e.g., German uses `,` as decimal separator instead of `.`). Locale-sensitive number formatting has caused serious bugs TWICE in this project. Always use InvariantCulture.
+## Translation Service Interface
 
-## Rules
-
-### Parsing numbers from strings (config, text boxes, files)
-
-```csharp
-// BAD - uses current locale, breaks under German/French/etc.
-double.TryParse(value, out double result)
-float.TryParse(value, out float result)
-
-// GOOD - always uses '.' as decimal separator
-double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double result)
-float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out float result)
-```
-
-### Formatting numbers to strings (config persistence, CSS/HTML generation)
+### ITranslationService Pattern
+All translation services implement a common interface:
 
 ```csharp
-// BAD - produces "1,50" under German locale
-value.ToString("F2")
-value.ToString()  // for doubles/floats being saved to config
-
-// GOOD
-value.ToString("F2", CultureInfo.InvariantCulture)
-value.ToString(CultureInfo.InvariantCulture)
+public interface ITranslationService
+{
+    Task<TranslationResult?> TranslateAsync(
+        string sourceText,
+        string targetLanguage,
+        string context);
+}
 ```
 
-### String interpolation with doubles into CSS/HTML
+### TranslationResult Structure
+```csharp
+public class TranslationResult
+{
+    public string TranslatedText { get; set; } = "";
+    public string SourceLanguage { get; set; } = "";
+    public double Confidence { get; set; } = 1.0;
+}
+```
+
+## HTTP Client Usage
+
+### Service HTTP Client Pattern
+Each service creates its own HttpClient:
 
 ```csharp
-// BAD - produces "font-size: 14,5px" or "rgba(0,0,0,0,700)" under German locale
-$"font-size: {fontSize}px"
-$"rgba({r},{g},{b},{alpha:F3})"
-
-// GOOD - FormattableString.Invariant forces '.' decimals
-FormattableString.Invariant($"font-size: {fontSize}px")
-FormattableString.Invariant($"rgba({r},{g},{b},{alpha:F3})")
+public class GeminiTranslationService : ITranslationService
+{
+    private static readonly HttpClient _httpClient = new HttpClient();
+    private readonly string _apiKey;
+    
+    public GeminiTranslationService()
+    {
+        _apiKey = ConfigManager.Instance.GetGeminiApiKey();
+    }
+    
+    public async Task<TranslationResult?> TranslateAsync(string text, string lang, string context)
+    {
+        // Implementation
+    }
+}
 ```
 
-## Required import
+### Request Building
+```csharp
+var requestBody = new
+{
+    contents = new[]
+    {
+        new
+        {
+            parts = new[]
+            {
+                new { text = prompt }
+            }
+        }
+    }
+};
+
+var json = JsonSerializer.Serialize(requestBody);
+var content = new StringContent(json, Encoding.UTF8, "application/json");
+var response = await _httpClient.PostAsync(url, content);
+```
+
+## Error Handling in Services
+
+### HTTP Error Handling Pattern
+```csharp
+if (response.IsSuccessStatusCode)
+{
+    var result = await response.Content.ReadAsStringAsync();
+    return ParseResult(result);
+}
+else
+{
+    string errorMessage = await response.Content.ReadAsStringAsync();
+    Console.WriteLine($"API error: {response.StatusCode}, {errorMessage}");
+    
+    // Try to parse JSON error
+    try
+    {
+        using JsonDocument errorDoc = JsonDocument.Parse(errorMessage);
+        if (errorDoc.RootElement.TryGetProperty("error", out JsonElement errorElement))
+        {
+            // Extract detailed error
+            return null;
+        }
+    }
+    catch (JsonException)
+    {
+        // Fallback to raw message
+    }
+    
+    // Show user-friendly error
+    ErrorPopupManager.ShowError("Translation Error", errorMessage);
+    
+    return null;
+}
+```
+
+### Exception Handling
+```csharp
+try
+{
+    var response = await _httpClient.PostAsync(url, content);
+    // Process response
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Service error: {ex.Message}");
+    LogManager.Instance.LogError("Translation failed", ex);
+    
+    ErrorPopupManager.ShowError("Translation Error", ex.Message);
+    
+    return null;
+}
+```
+
+## Service Factory Pattern
+
+### TranslationServiceFactory
+```csharp
+public static class TranslationServiceFactory
+{
+    public static ITranslationService CreateService(string serviceName)
+    {
+        return serviceName switch
+        {
+            "Gemini" => new GeminiTranslationService(),
+            "ChatGPT" => new ChatGptTranslationService(),
+            "Ollama" => new OllamaTranslationService(),
+            "Google Translate" => new GoogleTranslateService(),
+            "llama.cpp" => new LlamaCppTranslationService(),
+            _ => throw new ArgumentException($"Unknown service: {serviceName}")
+        };
+    }
+}
+```
+
+## OCR Service Integration
+
+### Windows OCR Pattern
+```csharp
+public class WindowsOCRManager
+{
+    public async Task<List<TextObject>> ProcessImageAsync(Bitmap bitmap)
+    {
+        return await Task.Run(() =>
+        {
+            // Convert bitmap to Windows bitmap
+            // Process with Windows OCR API
+            // Return TextObject list
+        });
+    }
+}
+```
+
+### Google Vision OCR Pattern
+```csharp
+public class GoogleVisionOCRService
+{
+    public async Task<List<TextObject>> ProcessImageAsync(Bitmap bitmap)
+    {
+        // Convert bitmap to base64
+        // Send to Google Vision API
+        // Parse response and return TextObject list
+    }
+}
+```
+
+### Python OCR Service Pattern (HTTP-based)
+```csharp
+// Services are managed via PythonServicesManager
+// Discover services on startup
+PythonServicesManager.Instance.DiscoverServices();
+
+// Get service by name
+var service = PythonServicesManager.Instance.GetServiceByName("EasyOCR");
+
+// Check if service is running
+if (!service.IsRunning)
+{
+    bool isRunning = await service.CheckIsRunningAsync();
+    if (!isRunning)
+    {
+        // Show error dialog or start service
+        await service.StartAsync(showWindow: false);
+    }
+}
+
+// Process image with HTTP service
+private async Task<string?> ProcessImageWithHttpServiceAsync(byte[] imageBytes, string serviceName, string language)
+{
+    var service = PythonServicesManager.Instance.GetServiceByName(serviceName);
+    if (service == null) return null;
+    
+    // Build URL with query parameters
+    string langParam = MapLanguageForService(language);
+    string url = $"{service.ServerUrl}:{service.Port}/process?lang={langParam}&char_level=true";
+    
+    // Add service-specific parameters (e.g., MangaOCR)
+    if (serviceName == "MangaOCR")
+    {
+        url += $"&min_region_width={minWidth}&min_region_height={minHeight}&overlap_allowed_percent={overlapPercent}";
+    }
+    
+    // Add PaddleOCR-specific parameters
+    if (serviceName == "PaddleOCR")
+    {
+        bool useAngleCls = ConfigManager.Instance.GetBoolValue(ConfigManager.PADDLE_OCR_USE_ANGLE_CLS, false);
+        url += $"&use_angle_cls={useAngleCls.ToString().ToLower()}";
+    }
+    
+    // Send binary image data
+    var content = new ByteArrayContent(imageBytes);
+    content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+    
+    using var request = new HttpRequestMessage(HttpMethod.Post, url);
+    request.Content = content;
+    request.Headers.ConnectionClose = false; // Enable HTTP keep-alive
+    var response = await _httpClient.SendAsync(request);
+    
+    if (!response.IsSuccessStatusCode)
+    {
+        service.MarkAsNotRunning();
+        return null;
+    }
+    
+    return await response.Content.ReadAsStringAsync();
+}
+```
+
+## Text-to-Speech Integration
+
+### TTS Service Pattern
+```csharp
+public interface ITTSService
+{
+    Task<byte[]?> SynthesizeAsync(string text, string language);
+}
+
+public class GoogleTTSService : ITTSService
+{
+    public async Task<byte[]?> SynthesizeAsync(string text, string language)
+    {
+        var url = $"https://texttospeech.googleapis.com/v1/text:synthesize";
+        // Build request and get audio bytes
+        return audioBytes;
+    }
+}
+```
+
+## Audio Processing
+
+### NAudio Integration
+```csharp
+using NAudio.Wave;
+
+public class AudioPlaybackManager
+{
+    private WaveOutEvent? _waveOut;
+    
+    public void PlayAudio(byte[] audioData)
+    {
+        _waveOut?.Stop();
+        _waveOut?.Dispose();
+        
+        using var ms = new MemoryStream(audioData);
+        using var reader = new Mp3FileReader(ms);
+        
+        _waveOut = new WaveOutEvent();
+        _waveOut.Init(reader);
+        _waveOut.Play();
+    }
+}
+```
+
+### Audio Preloading
+```csharp
+public class AudioPreloadService
+{
+    // Preload audio for source and target languages
+    public async Task PreloadAudioAsync(string text, string language, string service)
+    {
+        // Generate audio and cache it
+        // Used for faster playback later
+    }
+}
+```
+
+## Real-time Audio Streaming
+
+### WebSocket Pattern
+```csharp
+public class OpenAIRealtimeAudioService
+{
+    private ClientWebSocket? _webSocket;
+    
+    public async Task ConnectAsync()
+    {
+        _webSocket = new ClientWebSocket();
+        await _webSocket.ConnectAsync(new Uri("wss://api.openai.com/v1/realtime"), CancellationToken.None);
+        
+        // Start receiving loop
+        _ = Task.Run(ReceiveLoop);
+    }
+    
+    private async Task ReceiveLoop()
+    {
+        var buffer = new byte[4096];
+        while (_webSocket?.State == WebSocketState.Open)
+        {
+            var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            ProcessMessage(buffer, result.Count);
+        }
+    }
+}
+```
+
+## Service Configuration
+
+### Python OCR Service Configuration
+Python OCR services are configured via `service_config.txt` files in each service directory:
 
 ```csharp
-using System.Globalization;
+// Service discovery reads service_config.txt
+// Format: key|value|
+// Fields: service_name, venv_name, port, description, version, author, github_url, local_only, server_url
+
+// C# PythonService.ParseFromConfig() reads the config file
+var service = PythonService.ParseFromConfig(serviceDirectory);
+
+// Service properties available:
+// - service.ServiceName (from service_name)
+// - service.VenvName (from venv_name)
+// - service.Port (from port)
+// - service.Description, Version, Author, GithubUrl, etc.
 ```
 
-## Why this matters
+### Translation Service Configuration
+Translation services read their configuration from ConfigManager:
 
-- Config values saved with `,` under one locale fail to parse under another
-- CSS/HTML with `,` decimals produces invalid styles (browsers expect `.`)
-- Font sizes, opacity values, and positions all break silently
+```csharp
+public class GeminiTranslationService
+{
+    private readonly string _apiKey;
+    private readonly string _model;
+    private readonly string _prompt;
+    
+    public GeminiTranslationService()
+    {
+        _apiKey = ConfigManager.Instance.GetGeminiApiKey();
+        _model = ConfigManager.Instance.GetGeminiModel();
+        _prompt = ConfigManager.Instance.GetGeminiPrompt();
+    }
+}
+```
+
+## Retry Logic
+
+### Exponential Backoff Pattern
+```csharp
+public async Task<TranslationResult?> TranslateWithRetryAsync(string text, int maxRetries = 3)
+{
+    for (int attempt = 0; attempt < maxRetries; attempt++)
+    {
+        try
+        {
+            return await TranslateAsync(text);
+        }
+        catch (Exception ex)
+        {
+            if (attempt == maxRetries - 1)
+            {
+                throw;
+            }
+            
+            int delay = (int)Math.Pow(2, attempt) * 1000; // Exponential backoff
+            await Task.Delay(delay);
+        }
+    }
+    
+    return null;
+}
+```
+
+## Timeout Handling
+
+### Request Timeout
+```csharp
+private static readonly HttpClient _httpClient = new HttpClient
+{
+    Timeout = TimeSpan.FromSeconds(30)
+};
+```
+
+### Cancellation Token
+```csharp
+using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+var response = await _httpClient.PostAsync(url, content, cts.Token);
+```
+
+## JSON Serialization
+
+### System.Text.Json Pattern
+```csharp
+using System.Text.Json;
+
+var options = new JsonSerializerOptions
+{
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    WriteIndented = false
+};
+
+var json = JsonSerializer.Serialize(requestObject, options);
+var responseObject = JsonSerializer.Deserialize<ResponseType>(jsonString, options);
+```
+
+## Service Health Checks
+
+### Connection Testing
+```csharp
+public async Task<bool> TestConnectionAsync()
+{
+    try
+    {
+        var testRequest = new { text = "test" };
+        var result = await TranslateAsync("test", "en", "");
+        return result != null;
+    }
+    catch
+    {
+        return false;
+    }
+}
+```
+
+### Python Service Health Check
+```csharp
+public async Task<bool> CheckServiceHealthAsync(PythonService service)
+{
+    try
+    {
+        var url = $"{service.ServerUrl}:{service.Port}/health";
+        var response = await _httpClient.GetAsync(url);
+        return response.IsSuccessStatusCode;
+    }
+    catch
+    {
+        return false;
+    }
+}
+```
+
+## Service Discovery
+
+### Python Service Discovery
+```csharp
+// Automatically discovers services in app/services/
+PythonServicesManager.Instance.DiscoverServices();
+
+// Get all discovered services
+var services = PythonServicesManager.Instance.GetAllServices();
+
+// Get service by name
+var easyOCR = PythonServicesManager.Instance.GetServiceByName("EasyOCR");
+```
+
+## Service Lifecycle Management
+
+### Starting Services
+```csharp
+public async Task<bool> StartServiceAsync(PythonService service, bool showWindow = false)
+{
+    if (service.IsRunning)
+    {
+        return true;
+    }
+    
+    // Start Python server process
+    // Wait for health check
+    // Mark as running
+}
+```
+
+### Stopping Services
+```csharp
+public async Task StopServiceAsync(PythonService service)
+{
+    if (!service.IsRunning)
+    {
+        return;
+    }
+    
+    // Send shutdown request
+    // Wait for process to exit
+    // Mark as not running
+}
+```
 
 ---
 > Source: [SethRobinson/UGTLive](https://github.com/SethRobinson/UGTLive) — distributed by [TomeVault](https://tomevault.io).
