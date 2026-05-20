@@ -1,0 +1,48 @@
+## scarlet
+
+> This is the repository for the Scarlet project.
+
+This is the repository for the Scarlet project. 
+which implements a transparent ABI conversion layer for executing binaries across different operating systems and architectures.
+
+## Code Standards
+
+### Required Before Each Commit
+- Ensure all tests pass before committing changes.
+
+### Development Flow
+Use the docker container of ` scarlet-dev` for development to ensure a consistent environment.
+If the image is not available, you can build it using the provided Dockerfile in the repository.
+
+❗️ Before installing additional package such as cargo-make, qemu, etc., please **make sure** that the scarlet-dev image is available in your environment!
+If the image is available, use the following command
+- docker run -it --rm -v $(pwd):/workspaces/Scarlet scarlet-dev cargo make build-riscv64`.
+
+Executing commands in the Docker container at the root of the repository:
+- Build: `cargo make build-riscv64`
+
+#### Testing
+Use the root workspace tasks to run the full test suite:
+- `cargo make test-riscv64`
+- `cargo make test-aarch64`
+
+These tasks run the full kernel test suite for each architecture.
+Ensure all tests pass before committing changes to maintain code integrity.
+
+## Key guidelines
+- Use `cargo make` for all commands to ensure consistency.
+- Ensure all tests pass before committing changes.
+- Follow the existing code style and structure.
+- Use descriptive commit messages that explain the changes made.
+- Avoid making changes that break existing functionality without providing a clear migration path or explanation.
+- Document any new features or changes in the codebase in English. Refer to existing documentation for style and format.
+- Comment rust-doc style for public functions and modules to maintain clarity.
+- Write tests for new features or changes to ensure they work as expected. This project is `no_std`, so tests should be written in a way that does not rely on the standard library and their tests should be written as `#[test_case]` to ensure compatibility with `no_std`.
+- Commit changes frequently to avoid large, unwieldy commits.
+
+## Repository Info
+This repository is hosted at https://github.com/petitstrawberry/Scarlet. You can retrieve information (issues, etc.) remotely from the repository.
+
+---
+> Source: [petitstrawberry/Scarlet](https://github.com/petitstrawberry/Scarlet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
