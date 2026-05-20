@@ -1,177 +1,182 @@
-## elixir-complete-implementation
+## elixir-concurrency
 
-> Handles user management operations with complete validation and error handling.
+> name: elixir_concurrency
+
+# Elixir Concurrency Patterns
 
 <rule>
-name: elixir_complete_implementation
-description: Standards for ensuring complete implementation of code and tests
+name: elixir_concurrency
+description: Best practices for handling concurrency in Elixir using processes, OTP, and other patterns
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
-  - type: directory
-    exclude_patterns:
-      - "^\\.git"
-      - "^_build"
-      - "^deps"
 
 actions:
   - type: suggest
     message: |
-      # Code Completeness Standards
+      # Elixir Concurrency Best Practices
 
-      ## Core Requirements
-      - Never leave incomplete or partially implemented code
-      - Never commit code without corresponding tests
-      - All implementation paths must be handled
-      - All edge cases must be covered in tests
-
-      ## Implementation Process
-      1. Before starting implementation:
-         - Fully understand the requirements
-         - Plan all edge cases
-         - Design test scenarios
+      ## Process Design
+      - Keep processes focused on a single responsibility
+      - Use appropriate abstractions (GenServer, Task, Agent, Supervisor)
+      - Set timeouts for synchronous calls to prevent indefinite blocking
+      - Handle process termination and recovery gracefully
       
-      2. During implementation:
-         - Complete one functional unit at a time
-         - Write tests alongside the implementation
-         - If stuck, immediately seek user guidance
-         - Do not proceed with partial solutions
+      ## GenServer
+      - Use GenServer for stateful, long-running processes
+      - Keep GenServer callbacks small and focused
+      - Avoid blocking operations in `handle_call` callbacks
+      - Use `handle_continue` for post-initialization work
+      - Prefer `handle_cast` for fire-and-forget operations
       
-      3. Before considering implementation complete:
-         - All planned test cases are implemented
-         - All functions have documentation
-         - All edge cases are handled
-         - All compiler warnings are addressed
-
-      ## When Stuck
-      1. Stop implementation immediately
-      2. Document current progress
-      3. List specific challenges or unknowns
-      4. Ask user for guidance with:
-         - Current implementation state
-         - Specific questions about unclear parts
-         - Proposed approaches to consider
-
-      ## Exceptions
-      - None. All code must be complete with tests
+      ## Task
+      - Use Task for concurrent, short-lived operations
+      - Group related tasks with Task.Supervisor
+      - Use Task.async/await for parallelizing independent work
+      - Consider Task.yield_many for handling multiple tasks with timeouts
+      
+      ## Supervision
+      - Design supervision trees to reflect the dependency hierarchy
+      - Choose appropriate restart strategies
+      - Use DynamicSupervisor for dynamic child processes
+      - Keep supervisor modules simple; avoid business logic
+      
+      ## Message Passing
+      - Keep messages small and well-defined
+      - Document the message formats your processes handle
+      - Use pattern matching to handle different message types
+      - Avoid sharing mutable state between processes
+      
+      ## State Management
+      - Keep process state as simple as possible
+      - Document the structure of the state
+      - Consider using structs for complex state
+      - Properly initialize state to avoid nil errors
+      
+      ## Error Handling
+      - Use "let it crash" philosophy for unexpected errors
+      - Recover from expected errors within the process
+      - Add monitoring or linking where appropriate
+      - Log important errors before crashing
 
 examples:
   - input: |
-      # Bad: Incomplete implementation
       defmodule UserManager do
-        def create_user(params) do
-          # TODO: Add validation
-          # TODO: Handle errors
-          User.changeset(params)
-          |> Repo.insert()
+        def start do
+          spawn(fn -> loop(%{}) end)
         end
         
-        # TODO: Implement update_user
-        
-        def delete_user(id) do
-          # Need to handle cascading deletes
-          Repo.get(User, id)
-          |> Repo.delete()
+        def loop(state) do
+          receive do
+            {:add, name, pid} ->
+              loop(Map.put(state, name, pid))
+            {:lookup, name, caller} ->
+              send(caller, Map.get(state, name))
+              loop(state)
+          end
         end
       end
     output: |
-      """
-      I need guidance before proceeding with the implementation:
-
-      1. Current status:
-         - Basic create_user structure is in place
-         - delete_user needs cascade handling
-         - update_user is not implemented
-
-      2. Specific questions:
-         - What validation rules should be applied?
-         - How should we handle cascading deletes?
-         - What fields should be updatable?
-
-      3. Proposed approach:
-         - Add validation using Ecto.Changeset
-         - Implement soft deletes
-         - Add update with permitted fields
-
-      How would you like me to proceed with the implementation?
-      """
-
-      # Good: Complete implementation after guidance
       defmodule UserManager do
-        @moduledoc """
-        Handles user management operations with complete validation and error handling.
-        """
-
-        @doc """
-        Creates a new user with validation and error handling.
+        use GenServer
         
-        ## Examples
-            
-            iex> create_user(%{email: "user@example.com", name: "John"})
-            {:ok, %User{}}
-            
-            iex> create_user(%{email: "invalid"})
-            {:error, %Ecto.Changeset{}}
-        """
-        def create_user(params) do
-          %User{}
-          |> User.changeset(params)
-          |> validate_unique_email()
-          |> Repo.insert()
-          |> broadcast_user_created()
+        # Client API
+        
+        def start_link(opts \\ []) do
+          GenServer.start_link(__MODULE__, %{}, opts)
         end
-
-        @doc """
-        Updates a user with validation and error handling.
-        """
-        def update_user(user, params) do
-          user
-          |> User.changeset(params)
-          |> validate_unique_email()
-          |> Repo.update()
-          |> broadcast_user_updated()
+        
+        def add(server, name, pid) do
+          GenServer.cast(server, {:add, name, pid})
         end
-
-        @doc """
-        Soft deletes a user and handles all cascading operations.
-        """
-        def delete_user(id) do
-          with {:ok, user} <- get_user(id),
-               :ok <- validate_deletable(user),
-               {:ok, _} <- handle_cascade_deletes(user),
-               {:ok, deleted} <- do_soft_delete(user) do
-            broadcast_user_deleted(deleted)
-          end
+        
+        def lookup(server, name) do
+          GenServer.call(server, {:lookup, name})
         end
-
-        # Private functions with complete implementation...
+        
+        # Server Callbacks
+        
+        @impl true
+        def init(state) do
+          {:ok, state}
+        end
+        
+        @impl true
+        def handle_cast({:add, name, pid}, state) do
+          {:noreply, Map.put(state, name, pid)}
+        end
+        
+        @impl true
+        def handle_call({:lookup, name}, _from, state) do
+          {:reply, Map.get(state, name), state}
+        end
       end
-
-      # Complete test module
-      defmodule UserManagerTest do
-        use ExUnit.Case
+  
+  - input: |
+      defmodule DataProcessor do
+        def process_file(filename) do
+          data = File.read!(filename)
+          results = process_data(data)
+          write_results(results)
+        end
         
-        describe "create_user/1" do
-          test "creates user with valid params" do
-            # Complete test implementation
-          end
-
-          test "handles invalid params" do
-            # Complete test implementation
-          end
-
-          test "validates unique email" do
-            # Complete test implementation
+        defp process_data(data) do
+          # Long operation
+        end
+        
+        defp write_results(results) do
+          # Write to database
+        end
+      end
+    output: |
+      defmodule DataProcessor do
+        def process_file(filename) do
+          Task.async(fn ->
+            case File.read(filename) do
+              {:ok, data} -> process_data(data)
+              {:error, reason} -> {:error, reason}
+            end
+          end)
+          |> Task.await(30_000)
+          |> case do
+            {:error, reason} -> 
+              {:error, reason}
+            results -> 
+              Task.start(fn -> write_results(results) end)
+              {:ok, results}
           end
         end
-
-        # Complete test cases for all functions...
+        
+        defp process_data(data) do
+          # Break large data into chunks and process concurrently
+          data
+          |> chunk_data()
+          |> Enum.map(&Task.async(fn -> process_chunk(&1) end))
+          |> Task.await_many(20_000)
+          |> combine_results()
+        end
+        
+        defp process_chunk(chunk) do
+          # Process individual chunk
+        end
+        
+        defp chunk_data(data) do
+          # Split data into manageable chunks
+        end
+        
+        defp combine_results(results) do
+          # Combine chunk results
+        end
+        
+        defp write_results(results) do
+          # Write to database
+        end
       end
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [ihorkatkov/brama](https://github.com/ihorkatkov/brama) — distributed by [TomeVault](https://tomevault.io).
