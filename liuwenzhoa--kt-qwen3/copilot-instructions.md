@@ -1,99 +1,136 @@
-## ktransformers-readme-zh
+## ktransformers-rocm-support
 
-> KTransformers（发音为 Quick Transformers）旨在通过先进的内核优化和放置/并行策略来增强🤗 Transformers的体验。这是一个以Python为中心的灵活框架，核心是可扩展性。通过用一行代码实现并注入优化模块，用户可以获得以下功能：
+> KTransformers是一个优化大型语言模型推理性能的框架，除了支持NVIDIA GPU外，还提供对AMD GPU的支持。本规则详细介绍KTransformers通过ROCm实现的AMD GPU支持。
 
-# KTransformers 中文文档概览
+# KTransformers ROCm支持（AMD GPU）
 
-## 项目介绍
+## 概述
 
-KTransformers（发音为 Quick Transformers）旨在通过先进的内核优化和放置/并行策略来增强🤗 Transformers的体验。这是一个以Python为中心的灵活框架，核心是可扩展性。通过用一行代码实现并注入优化模块，用户可以获得以下功能：
+KTransformers是一个优化大型语言模型推理性能的框架，除了支持NVIDIA GPU外，还提供对AMD GPU的支持。本规则详细介绍KTransformers通过ROCm实现的AMD GPU支持。
 
-- 与Transformers兼容的接口
-- 符合OpenAI和Ollama的RESTful API
-- 简化的类似ChatGPT的Web界面
+## ROCm支持介绍
 
-KTransformers的愿景是成为一个用于实验创新LLM推理优化的灵活平台。
+KTransformers的ROCm支持（测试版）使项目能够在AMD Radeon GPU上运行，扩展了硬件兼容性：
 
-## 最新更新
+- 针对AMD GPU架构优化
+- 使用ROCm作为CUDA的替代品
+- 已在EPYC 9274F处理器和AMD Radeon 7900xtx GPU上进行测试和开发
 
-- **2025年4月9日**：实验性支持LLaMA 4模型
-- **2025年4月2日**：支持多并发
-- **2025年3月15日**：支持AMD GPU的ROCm
-- **2025年3月5日**：支持unsloth 1.58/2.51位权重和IQ1_S/FP8混合权重，支持更长上下文
-- **2025年2月25日**：支持DeepSeek-V3和R1的FP8 GPU内核和更长上下文
-- **2025年2月15日**：支持更长上下文和更快速度
-- **2025年2月10日**：支持Deepseek-R1和V3在有限资源上的运行
+## 安装步骤
 
-## 案例展示
+### 1. 安装ROCm驱动
 
-### 本地671B DeepSeek-Coder-V3/R1
+首先需要为AMD GPU安装正确的ROCm驱动：
 
-使用Q4_K_M版本，仅需14GB VRAM和382GB DRAM即可运行。性能指标：
-
-- **预填充速度**：
-  - KTransformers：54.21 tokens/s（32核）→ 74.362 tokens/s（双插槽，2×32核）→ 255.26 tokens/s（优化的AMX基MoE内核）→ 286.55 tokens/s（选择性使用6个专家）
-  - 与llama.cpp相比：最高达到27.79倍速度提升
-- **解码速度**：
-  - KTransformers：8.73 tokens/s（32核）→ 11.26 tokens/s（双插槽，2×32核）→ 13.69 tokens/s（选择性使用6个专家）
-  - 与llama.cpp相比：最高达到3.03倍速度提升
-
-### 本地236B DeepSeek-Coder-V2
-
-使用Q4_K_M版本，仅需21GB VRAM和136GB DRAM即可运行，性能超过GPT4-0613。
-
-### 速度优化
-
-- 通过MoE卸载和注入来自Llamafile和Marlin的高级内核
-- 实现2K提示预填充126 tokens/s和生成13.6 tokens/s的速度
-
-### VSCode集成
-
-封装成符合OpenAI和Ollama的API，可无缝集成到Tabby和其他前端。
-
-## 快速入门
-
-### 安装
-
-请遵循官方[安装指南][install.md](mdc:ktransformers/doc/zh/install.md)
-
-## 注入框架
-
-KTransformers的核心是一个用户友好的、基于模板的注入框架。这使得研究人员可以轻松地将原始torch模块替换为优化的变体，并简化多种优化的组合过程。
-
-### 示例用法
-
-```python
-with torch.device("meta"):
-    model = AutoModelForCausalLM.from_config(config, trust_remote_code=True)
-optimize_and_load_gguf(model, optimize_config_path, gguf_path, config)
-...
-generated = prefill_and_generate(model, tokenizer, input_tensor.cuda(), max_new_tokens=1000)
+```bash
+# 参考AMD官方文档安装ROCm驱动
+# https://rocm.docs.amd.com/projects/radeon/en/latest/docs/install/native_linux/install-radeon.html
 ```
 
-### 自定义模型
+### 2. 配置Conda环境
 
-可以通过YAML模板文件定义替换规则，例如：
+创建并配置Python环境：
 
-```yaml
-- match:
-    name: "^model\\.layers\\..*$"  # 正则表达式 
-    class: torch.nn.Linear  # 仅匹配同时符合名称和类的模块
-  replace:
-    class: ktransformers.operators.linear.KTransformerLinear  # 量化数据类型的优化内核
-    device: "cpu"   # 初始化时加载该模块的device
-    kwargs:
-      generate_device: "cuda"
-      generate_linear_type: "QuantizedLinearMarlin"
+```bash
+# 下载Miniconda
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+
+# 创建环境
+conda create --name ktransformers python=3.11
+conda activate ktransformers
+
+# 安装必要库
+conda install -c conda-forge libstdcxx-ng
+
+# 验证GLIBCXX版本（需包含3.4.32）
+strings ~/anaconda3/envs/ktransformers/lib/libstdc++.so.6 | grep GLIBCXX
 ```
 
-## 致谢和贡献者
+### 3. 安装ROCm版PyTorch
 
-KTransformers基于Transformers框架，并受益于GGUF/GGML、Llamafile、Marlin、sglang和flashinfer等高级内核。学MADSys小组和Approaching.AI的成员维护开发。
+安装支持ROCm的PyTorch版本：
 
-## 常见问题
+```bash
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm6.2.4
+pip3 install packaging ninja cpufeature numpy
+```
 
+对于其他ROCm版本，可参考[PyTorch以前的版本](https://pytorch.org/get-started/previous-versions/)。
 
-常见问题解答可在[FAQ文档][FAQ.md](mdc:ktransformers/doc/en/FAQ.md)中找到。
+### 4. 构建KTransformers
+
+克隆并构建KTransformers：
+
+```bash
+# 克隆仓库
+git clone https://github.com/kvcache-ai/ktransformers.git
+cd ktransformers
+git submodule update --init
+
+# 安装依赖
+bash install.sh
+```
+
+## 运行模型
+
+### 24GB VRAM GPU配置
+
+使用为有限VRAM优化的配置：
+
+```bash
+python ktransformers/local_chat.py \
+  --model_path deepseek-ai/DeepSeek-R1 \
+  --gguf_path <gguf文件路径> \
+  --optimize_config_path ktransformers/optimize/optimize_rules/rocm/DeepSeek-V3-Chat.yaml \
+  --cpu_infer <cpu核心数 + 1>
+```
+
+### 40GB+VRAM GPU配置
+
+对于高VRAM GPU，可获得更好性能：
+
+1. 修改优化配置文件：
+   ```yaml
+   # 在DeepSeek-V3-Chat.yaml中替换所有：
+   KLinearMarlin → KLinearTorch
+   ```
+
+2. 执行模型：
+   ```bash
+   python ktransformers/local_chat.py \
+     --model_path deepseek-ai/DeepSeek-R1 \
+     --gguf_path <gguf文件路径> \
+     --optimize_config_path <修改后的yaml路径> \
+     --cpu_infer <cpu核心数 + 1>
+   ```
+
+多GPU场景也可采用类似修改，使用`ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-multi-gpu.yaml`配置文件。
+
+## 技术限制
+
+ROCm支持目前有一些限制：
+
+1. **算子兼容性**：ROCm平台不支持Marlin操作
+2. **性能降级**：当前Q8线性实现在AMD GPU上性能较差（测试版限制）
+3. **优化级别**：与NVIDIA CUDA相比，部分优化策略在ROCm上尚未完全实现
+
+## 优化建议
+
+为获取ROCm平台上的最佳性能：
+
+1. **硬件选择**：使用较新的AMD GPU（如Radeon 7900系列）
+2. **内存配置**：对于大型模型，优先选择高VRAM（40GB+）的GPU
+3. **算子选择**：使用KLinearTorch替代KLinearMarlin
+4. **多GPU部署**：对于超大模型，考虑使用多GPU配置
+
+## 未来发展
+
+KTransformers团队计划在未来版本中改进ROCm支持：
+
+- 优化Q8线性算子的性能
+- 增加对更多AMD GPU型号的测试和支持
+- 实现ROCm特定的算子优化
+- 提供更全面的ROCm使用文档
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
