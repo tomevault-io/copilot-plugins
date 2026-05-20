@@ -1,0 +1,9 @@
+{
+  "name": "tamaro-skaljic--spacetimedsl",
+  "displayName": "SpacetimeDSL",
+  "description": "The SpacetimeDB Rust Server Module meta-framework",
+  "version": "1.0.0",
+  "author": "tamaro-skaljic",
+  "homepage": "https://github.com/tamaro-skaljic/SpacetimeDSL",
+  "skills": []
+}
