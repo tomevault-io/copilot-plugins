@@ -1,0 +1,9 @@
+{
+  "name": "xai-liacs--blade",
+  "displayName": "BLADE",
+  "description": "Benchmarking Llm Assisted Design & Evolution of algorithms",
+  "version": "1.0.0",
+  "author": "XAI-liacs",
+  "homepage": "https://github.com/XAI-liacs/BLADE",
+  "skills": []
+}
