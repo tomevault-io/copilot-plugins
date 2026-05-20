@@ -1,0 +1,9 @@
+{
+  "name": "catdevnull--flybondi-fail",
+  "displayName": "flybondi.fail",
+  "description": "Estad\u00edsticas de demoras en vuelos de Flybondi. Scrapeo de Aerolineas Argentinas y Airfleets.",
+  "version": "1.0.0",
+  "author": "catdevnull",
+  "homepage": "https://github.com/catdevnull/flybondi.fail",
+  "skills": []
+}
