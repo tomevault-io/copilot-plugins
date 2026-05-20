@@ -1,73 +1,56 @@
-## 05-deployment-and-configuration
+## 06-contribution-guidelines
 
-> Only three infrastructure-level settings are read from environment variables. Everything else is managed through the Admin Dashboard Web UI:
+> This project follows TypeScript best practices and uses TSLint for code style enforcement:
 
-# Deployment and Configuration
+# Contribution Guidelines
 
-## Environment Variables (Minimal)
+## Code Style and Standards
 
-Only three infrastructure-level settings are read from environment variables. Everything else is managed through the Admin Dashboard Web UI:
+This project follows TypeScript best practices and uses TSLint for code style enforcement:
 
-- `PORT`: Server port (default: `5174`)
-- `DATABASE_PATH`: SQLite database file path (optional, default: `./data/assistant.db`)
-- `MASTER_KEY_PATH`: Encryption master key file path (optional, default: `./data/master.key`)
+- Configuration: [tslint.json](mdc:tslint.json)
+- TypeScript settings: [tsconfig.json](mdc:tsconfig.json)
+- Editor config: [.editorconfig](mdc:.editorconfig)
 
-## First-Boot Seeding
-
-On first startup with an empty `system_settings` table, `configManager.seedDefaults()` automatically:
-- Generates `JWT_SECRET` and `WEBHOOK_SECRET` (64-char hex via `crypto.randomBytes(32)`)
-- Seeds all config fields with their default values
-- Sets `ADMIN_PASSWORD` to `password` (must be changed via Web UI)
-
-## Web UI Configuration
-
-All runtime settings are managed through the Admin Dashboard at `http://your-server:PORT`:
-- Gitea connection (API URL, access token, admin token)
-- Security settings (webhook secret, admin password, JWT secret)
-- Review engine settings (engine mode, parallelism, file limits, confidence)
-- Feishu integration (webhook URL and secret)
-- Memory/learning features (Qdrant URL, enable flags)
-## Deployment Options
-
-### Local Development
-
+Run the linter to check code style:
 ```bash
-# Development mode with hot reload
-bun run dev
-
-# Production mode
-bun run build
-bun run start
+bun run lint
 ```
 
-### Docker Deployment
+## Project Structure Conventions
 
-The [Dockerfile](mdc:Dockerfile) provides containerization support:
+When contributing to this project, adhere to these structural guidelines:
 
-```bash
-# Build the Docker image
-docker build -t gitea-assistant:latest .
+1. **Controller Layer**:
+   - Business logic should be delegated to services
+   - Controllers should focus on request handling and response formatting
+   - Keep route handlers in the [controllers/](mdc:src/controllers) directory
 
-# Run the container
-docker run -p 3000:3000 -v ./data:/app/data -e PORT=3000 gitea-assistant:latest
-```
+2. **Service Layer**:
+   - External API interactions belong in the [services/](mdc:src/services) directory
+   - Each service should have a clear, single responsibility
 
-### Kubernetes Deployment
+3. **LLM Layer**:
+   - LLM provider adapters in [llm/](mdc:src/llm)
+   - Database layer in [db/](mdc:src/db)
+   - Encryption utilities in [crypto/](mdc:src/crypto)
 
-The [kubernetes.yaml](mdc:k8s/gitea-assistant.yaml) file provides Kubernetes deployment configuration. Persistent storage is required for the `/app/data` directory.
+4. **Configuration**:
+   - Environment-based configurations go in [config/index.ts](mdc:src/config/index.ts)
+   - LLM provider settings are managed through Web UI + SQLite DB
 
-Deployment can be managed using:
-```bash
-# Apply configuration
-kubectl apply -k k8s/
-```
+5. **Utils**:
+   - Reusable utility functions belong in [utils/](mdc:src/utils)
+   - Logging should use the custom logger from [utils/logger.ts](mdc:src/utils/logger.ts)
 
-### Webhook Setup
+## Pull Request Guidelines
 
-Configure Gitea webhooks to point to the `/webhook/gitea` endpoint with:
-- Content type: application/json
-- Secret: matching the Webhook Secret configured in the Admin Dashboard
-- Events: Pull Request and Status events
+When submitting Pull Requests:
+
+1. Include a clear description of changes
+2. Ensure code passes linting checks
+3. Keep changes focused on a single concern
+4. Test your changes locally before submitting
 
 ---
 > Source: [jeffusion/gitea-ai-assistant](https://github.com/jeffusion/gitea-ai-assistant) — distributed by [TomeVault](https://tomevault.io).
