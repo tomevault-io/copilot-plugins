@@ -1,45 +1,46 @@
-## raspberry-pi-development
+## sports-managers
 
-> - **Pi-only execution**: Code must run on Raspberry Pi, not Windows development machine
+> All sports managers inherit from base classes and follow consistent patterns:
 
 
-# Raspberry Pi Development Guidelines
+# Sports Manager Development
 
-## Hardware Constraints
-- **Pi-only execution**: Code must run on Raspberry Pi, not Windows development machine
-- **LED matrix library**: Uses [rpi-rgb-led-matrix-master/](mdc:rpi-rgb-led-matrix-master/) for hardware control
-- **Memory limitations**: Optimize for Pi's limited RAM
-- **Performance**: Consider Pi's CPU capabilities in design
+## Manager Architecture
+All sports managers inherit from base classes and follow consistent patterns:
+- **Base classes**: [src/nhl_managers.py](mdc:src/nhl_managers.py), [src/nfl_managers.py](mdc:src/nfl_managers.py)
+- **Common functionality**: Data fetching, caching, display rendering
+- **Configuration-driven**: Behavior controlled via config sections
 
-## Development Workflow
-- **Local development**: Write and test code on Windows
-- **Pi deployment**: Deploy and test on actual Pi hardware
-- **SSH access**: Use SSH for Pi-based testing and debugging
-- **Service management**: Use systemd services for production deployment
+## Required Methods
+```python
+def __init__(self, config, display_manager, cache_manager)
+def update(self)  # Fetch fresh data
+def display(self, force_clear=False)  # Render current data
+```
 
-## Testing Strategy
-- **Unit tests**: Test logic without hardware dependencies
-- **Integration tests**: Test with mock display managers
-- **Hardware tests**: Validate on actual Pi with LED matrix
-- **Performance tests**: Monitor memory and CPU usage
+## Data Flow Pattern
+1. **Fetch**: Get data from API (with caching)
+2. **Process**: Extract relevant game information
+3. **Filter**: Apply favorite team preferences
+4. **Display**: Render to LED matrix
 
-## Deployment Considerations
-- **Service files**: [ledmatrix.service](mdc:ledmatrix.service), [ledmatrix-web.service](mdc:ledmatrix-web.service)
-- **Installation scripts**: [first_time_install.sh](mdc:first_time_install.sh), [install_service.sh](mdc:install_service.sh)
-- **Dependencies**: [requirements.txt](mdc:requirements.txt) for Pi environment
-- **Permissions**: Handle file permissions for Pi user
+## Logging Standards
+- **Structured prefixes**: `[NHL Recent]`, `[NFL Live]`, etc.
+- **Context information**: Include team names, game status, dates
+- **Debug levels**: Use appropriate log levels (info, debug, warning, error)
+- **User-friendly messages**: Explain what's happening and why
 
-## Performance Optimization
-- **Caching**: Use [src/cache_manager.py](mdc:src/cache_manager.py) for data persistence
-- **Background services**: Non-blocking data fetching
-- **Memory management**: Clean up resources regularly
-- **Display optimization**: Minimize unnecessary redraws
+## Error Handling
+- **API failures**: Log and continue with cached data if available
+- **No data scenarios**: Distinguish between API issues vs no games available
+- **Off-season awareness**: Provide helpful context during non-active periods
+- **Fallback behavior**: Show alternative content when preferred content unavailable
 
-## Debugging on Pi
-- **Logging**: Comprehensive logging for remote debugging
-- **Error reporting**: Clear error messages for troubleshooting
-- **Status monitoring**: Health checks and status reporting
-- **Remote access**: Web interface for configuration and monitoring
+## Configuration Integration
+- **Required settings**: Validate on initialization
+- **Optional settings**: Provide sensible defaults
+- **Background service**: Use for non-blocking data fetching
+- **Caching strategy**: Implement intelligent cache management
 
 ---
 > Source: [ChuckBuilds/LEDMatrix](https://github.com/ChuckBuilds/LEDMatrix) — distributed by [TomeVault](https://tomevault.io).
