@@ -1,64 +1,82 @@
-## modeling-qwen3-moe
+## qwen3moe-serve-guide
 
-> [modeling_qwen3_moe.py](mdc:ktransformers/ktransformers/models/modeling_qwen3_moe.py) 文件实现了Qwen3的MoE (Mixture of Experts)模型架构，是Qwen系列大模型的核心实现之一。
+> [Qwen3Moe-serve.yaml](mdc:ktransformers/ktransformers/optimize/optimize_rules/Qwen3Moe-serve.yaml)是KTransformers框架中用于优化Qwen3 MoE模型在服务场景下性能的配置文件。Qwen3是阿里云开源的大型混合专家模型(MoE)，该配置专为单GPU、大内存服务器环境设计（推荐至少24GB VRAM和128GB RAM）。
 
-# Qwen3Moe 模型架构
+# Qwen3Moe服务优化配置指南
 
-[modeling_qwen3_moe.py](mdc:ktransformers/ktransformers/models/modeling_qwen3_moe.py) 文件实现了Qwen3的MoE (Mixture of Experts)模型架构，是Qwen系列大模型的核心实现之一。
+## 概述
 
-## 主要组件
+[Qwen3Moe-serve.yaml](mdc:ktransformers/ktransformers/optimize/optimize_rules/Qwen3Moe-serve.yaml)是KTransformers框架中用于优化Qwen3 MoE模型在服务场景下性能的配置文件。Qwen3是阿里云开源的大型混合专家模型(MoE)，该配置专为单GPU、大内存服务器环境设计（推荐至少24GB VRAM和128GB RAM）。
 
-### 1. 核心模型类
-- `Qwen3MoePreTrainedModel`: 所有Qwen3Moe模型的基类
-- `Qwen3MoeModel`: 基础模型实现，没有特定的头部
-- `Qwen3MoeForCausalLM`: 用于因果语言模型的实现，添加了语言模型头部
+## 配置文件结构
 
-### 2. 关键模块
-- `Qwen3MoeAttention`: 注意力机制实现，支持旋转位置编码(RoPE)
-- `Qwen3MoeSparseMoeBlock`: 稀疏MoE块实现，专家混合模块
-- `Qwen3MoeRMSNorm`: RMS规范化层
-- `Qwen3MoeDecoderLayer`: 解码器层，包含自注意力和前馈网络
-- `Qwen3MoeRotaryEmbedding`: 旋转位置编码实现
+配置文件采用YAML格式，包含多个匹配-替换规则，每条规则由以下部分组成：
 
-### 3. 特点
-- 支持GQA (Grouped Query Attention) 和旋转位置编码
-- 使用稀疏专家路由机制，每个token选择top-k专家处理
-- 支持滑动窗口注意力机制，用于处理长序列输入
-- 兼容huggingface的transformers库API
+```yaml
+- match:           # 匹配条件，指定要替换的模块
+    name: "正则表达式"  # 模块名称匹配模式
+    class: 类名     # 模块类型匹配
+  replace:         # 替换配置
+    class: "替换类"  # 替换为的目标类
+    kwargs:        # 传递给替换类的参数
+      参数1: 值1
+      参数2: 值2
+  recursive: 布尔值  # 是否递归应用到子模块
+```
 
-## 技术细节
+## 主要优化策略
 
-1. **MoE实现**: 通过`Qwen3MoeSparseMoeBlock`实现专家混合。每个token通过门控函数选择top-k个专家进行处理，提高模型容量的同时保持计算效率。
+配置文件实现了以下关键优化策略：
 
-2. **注意力机制**: 使用GQA减少计算和内存开销，通过`num_key_value_heads`参数控制key-value头的数量。
+### 1. 计算设备分配
+- 将大部分计算放在GPU上加速处理
+- 将专家模块生成阶段放在CPU上执行，节省GPU内存
+- 将词嵌入层放在CPU上，因为它只在输入时使用一次
 
-3. **位置编码**: 使用旋转位置编码(RoPE)，支持多种扩展方式，如dynamic、linear、yarn等。
+### 2. 模块替换优化
+- 使用`RotaryEmbedding`替换原始`Qwen2MoeRotaryEmbedding`提高位置编码效率
+- 将线性层替换为优化的`KTransformersLinear`实现
+- 使用`KQwen3MoeSparseMoeBlockV2`替换原始MoE模块，提供更好的专家管理
+- 将注意力机制替换为专门针对Qwen3优化的`KQwen3MoeAttention`
 
-4. **训练技巧**: 
-   - 实现了负载均衡损失函数`load_balancing_loss_func`
-   - 支持梯度检查点，优化显存使用
+### 3. 后端选择策略
+- 生成阶段线性层使用`KLinearMarlin`后端以提高性能
+- 预填充阶段使用`KLinearTorch`后端以确保稳定性
+- 专家计算使用`KExpertsCPU`作为生成后端，`KExpertsTorch`作为预填充后端
 
-## 重要参数
+### 4. 内存优化
+- 设置`per_layer_prefill_intput_threshold: 0`关闭逐层预填充，降低内存波动
+- 使用门控负载均衡，避免专家计算负载不均
+- 将专家执行结果直接发送回GPU，减少不必要的数据传输
 
-- `num_experts`: 专家总数
-- `num_experts_per_tok`: 每个token选择的专家数
-- `decoder_sparse_step`: MoE层的频率
-- `mlp_only_layers`: 使用标准MLP而非MoE的层索引
+## 典型使用场景
+
+该配置文件主要用于以下场景：
+
+1. 单GPU服务器部署Qwen3 MoE模型提供推理服务
+2. 使用KTransformers的服务API构建兼容OpenAI的本地API
+3. 作为构建更多自定义Qwen3优化配置的基础和参考
 
 ## 使用示例
 
-```python
-from transformers import Qwen3MoeForCausalLM, AutoTokenizer
-
-model = Qwen3MoeForCausalLM.from_pretrained("Qwen/Qwen3-MoE-15B-A2B")
-tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen3-MoE-15B-A2B")
-
-prompt = "Hey, are you conscious? Can you talk to me?"
-inputs = tokenizer(prompt, return_tensors="pt")
-
-generate_ids = model.generate(inputs.input_ids, max_length=30)
-tokenizer.batch_decode(generate_ids, skip_special_tokens=True)[0]
+```bash
+python ktransformers/server/main.py \
+  --architectures Qwen3MoeForCausalLM \
+  --model_path <model_path> \
+  --gguf_path <gguf_path> \
+  --optimize_config_path ktransformers/optimize/optimize_rules/Qwen3Moe-serve.yaml \
+  --max_new_tokens 1024 \
+  --cache_lens 32768 \
+  --chunk_size 256 \
+  --max_batch_size 4 \
+  --port 10002 \
+  --backend_type balance_serve
 ```
+
+## 相关配置文件
+
+- [DeepSeek-V3-Chat-serve.yaml](mdc:ktransformers/ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-serve.yaml) - DeepSeek-V3服务优化配置
+- [DeepSeek-V3-Chat-multi-gpu-5.yaml](mdc:ktransformers/ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-multi-gpu-5.yaml) - DeepSeek-V3多GPU分布式配置
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
