@@ -1,12 +1,12 @@
-## elixir-module-structure
+## elixir-naming-conventions
 
-> name: elixir_module_structure
+> name: elixir_naming_conventions
 
-# Elixir Module Structure
+# Elixir Naming Conventions
 
 <rule>
-name: elixir_module_structure
-description: Best practices for structuring Elixir modules in a clean, maintainable way
+name: elixir_naming_conventions
+description: Guidelines for consistent and idiomatic Elixir naming
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
@@ -14,82 +14,48 @@ filters:
 actions:
   - type: suggest
     message: |
-      # Elixir Module Structure Best Practices
+      # Elixir Naming Conventions Best Practices
 
-      ## Module Organization
-      - Group related functions together
-      - Organize code in the following order:
-        1. Module attributes and constants
-        2. Public API functions
-        3. Private implementation functions
-        4. Callback implementations
-        5. Helper functions
+      ## Variable and Function Names
+      - Use snake_case for variables, function names, and module attributes: `user_count`, `calculate_total`
+      - Use descriptive names that convey purpose and avoid abbreviations: `calculate_total` instead of `calc_tot`
+      - Use single-letter variables only for very simple and short functions or comprehensions
       
-      ## Module Size
-      - Keep modules focused on a single responsibility
-      - Consider splitting large modules into smaller, more focused ones
-      - Use composition over inheritance to share functionality
+      ## Module Names
+      - Use PascalCase (UpperCamelCase) for module names: `UserAccount`, `PaymentProcessor`
+      - Namespace related modules with dot notation: `MyApp.User`, `MyApp.User.Account`
+      - Use plural forms for collections/modules that operate on multiple entities: `Users`, `Accounts`
       
-      ## Imports and Aliases
-      - Place all `import`, `alias`, and `require` statements at the top of the module
-      - Only import or alias what you need, avoid wildcard imports
-      - Group related imports/aliases together
-      - Prefer aliases over imports when possible
+      ## Constants and Module Attributes
+      - Use ALL_CAPS for configuration constants: `@MAX_CONNECTIONS`, `@DEFAULT_TIMEOUT`
+      - Use snake_case for regular module attributes: `@user_table`, `@compile_options`
       
-      ## Function Definitions
-      - Keep functions short and focused on a single task
-      - Avoid deeply nested functions
-      - Place related function clauses together
-      - Use function clauses and pattern matching instead of conditionals when possible
+      ## Boolean Functions
+      - Use `?` suffix for predicate functions returning boolean values: `admin?`, `valid?`
       
-      ## Documentation
-      - Document all public functions with `@doc` attributes
-      - Use `@moduledoc` to describe the module's purpose
-      - Add `@typedoc` for complex type specifications
+      ## Bang Functions
+      - Use `!` suffix for functions that raise exceptions on failure: `fetch!`, `update!`
+      - Always provide non-bang version returning {:ok, value} or {:error, reason}
       
-      ## Type Specifications
-      - Use `@type`, `@typep`, and `@spec` to document function interfaces
-      - Define complex types at the top of the module
-      - Use meaningful type names that describe the purpose
+      ## Test Functions
+      - Prefix test functions with "test_": `test_user_creation`, `test_admin_permissions`
+      
+      ## Protocols and Behaviours
+      - Use clear, descriptive names for protocol functions
+      - Use `-able` or `-er` suffixes where appropriate: `Enumerable`, `Comparable`
 
 examples:
   - input: |
-      defmodule MessyModule do
-        import List
-        import String
-        import Enum
-        
-        def func1(x), do: x + 1
-        
-        def func3(x), do: private_helper(x) * 2
-        
-        defp private_helper(x), do: x + 5
-        
-        def func2(x), do: x - 1
+      defmodule userManager do
+        def CreateUser(userName, pwd) do
+          # code 
+        end
       end
     output: |
-      defmodule OrganizedModule do
-        @moduledoc """
-        This module handles organized operations.
-        """
-        
-        import Enum, only: [map: 2]
-        import List, only: [first: 1, last: 1]
-        import String, only: [downcase: 1]
-        
-        @type input_value :: integer()
-        @type result :: integer()
-        
-        @spec func1(input_value()) :: result()
-        def func1(x), do: x + 1
-        
-        @spec func2(input_value()) :: result()
-        def func2(x), do: x - 1
-        
-        @spec func3(input_value()) :: result()
-        def func3(x), do: private_helper(x) * 2
-        
-        defp private_helper(x), do: x + 5
+      defmodule UserManager do
+        def create_user(user_name, password) do
+          # code
+        end
       end
 
 metadata:
