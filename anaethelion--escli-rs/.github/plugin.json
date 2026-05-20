@@ -1,0 +1,9 @@
+{
+  "name": "anaethelion--escli-rs",
+  "displayName": "escli-rs",
+  "description": "Proof of Concept Command line tool for Elasticsearch",
+  "version": "1.0.0",
+  "author": "Anaethelion",
+  "homepage": "https://github.com/Anaethelion/escli-rs",
+  "skills": []
+}
