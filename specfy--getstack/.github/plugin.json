@@ -1,0 +1,9 @@
+{
+  "name": "specfy--getstack",
+  "displayName": "getstack",
+  "description": "Explore the most popular technologies and repositories, refreshed every week. Powered by https://github.com/specfy/stack-analyser",
+  "version": "1.0.0",
+  "author": "specfy",
+  "homepage": "https://github.com/specfy/getstack",
+  "skills": []
+}
