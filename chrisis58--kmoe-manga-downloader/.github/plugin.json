@@ -1,0 +1,9 @@
+{
+  "name": "chrisis58--kmoe-manga-downloader",
+  "displayName": "kmoe-manga-downloader",
+  "description": "kmdr \u662f\u7528\u4e8e\u4ece @kmoe \u7ad9\u4e0b\u8f7d\u5185\u5bb9\u7684\u7ec8\u7aef\u5e94\u7528\u3002| kmdr (Kmoe Manga Downloader) is a CLI-downloader for site @kmoe.",
+  "version": "1.0.0",
+  "author": "chrisis58",
+  "homepage": "https://github.com/chrisis58/kmoe-manga-downloader",
+  "skills": []
+}
