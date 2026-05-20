@@ -1,0 +1,9 @@
+{
+  "name": "wolframresearch--agenttools",
+  "displayName": "AgentTools",
+  "description": "Implements a model context protocol server using Wolfram Language",
+  "version": "1.0.0",
+  "author": "WolframResearch",
+  "homepage": "https://github.com/WolframResearch/AgentTools",
+  "skills": []
+}
