@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--ember-ex-elixir",
+  "displayName": "ember_ex_elixir",
+  "description": "Elixir port of the Ember framework for building LLM applications",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/ember_ex_elixir",
+  "skills": []
+}
