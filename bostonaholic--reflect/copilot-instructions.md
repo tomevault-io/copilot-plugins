@@ -1,39 +1,60 @@
 ## reflect
 
-> - Always validate command line arguments before processing
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Command Line Interface Rules
+# CLAUDE.md
 
-## Input Validation
-- Always validate command line arguments before processing
-- Provide clear error messages for invalid inputs
-- Use appropriate argument types (string, number, boolean)
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## User Experience
-- Include helpful usage information with --help flag
-- Provide clear feedback for long-running operations
-- Use consistent formatting for output messages
+## What This Project Does
 
-## Error Handling
-- Handle all potential errors gracefully
-- Log errors with appropriate context
-- Provide meaningful exit codes
+Reflect is a CLI tool that fetches GitHub activity (merged PRs, closed issues, PR reviews) and uses LLM APIs to generate brag documents for performance reviews.
 
-## Security
-- Never log sensitive information
-- Validate file paths to prevent directory traversal
-- Sanitize user input before processing
+## Development Commands
 
-## Performance
-- Use streaming for large file operations
-- Implement progress indicators for long operations
-- Cache frequently accessed data when appropriate
+```bash
+dev up                   # First-time setup (installs node, npm deps, checks .env)
+dev test                 # Run all tests
+dev test watch           # Run tests in watch mode
+dev test coverage        # Run tests with coverage
+dev check typecheck      # TypeScript type checking
+dev console              # Interactive REPL
+./reflect --username <user> --lookback <months> --brag  # Run the tool
+```
+
+## Architecture
+
+**Entry flow:** `index.ts` → `lib/core/cli.ts` (Commander parsing) → `lib/core/reflect.ts` (orchestration)
+
+**Key modules:**
+- `lib/integrations/github/` - Octokit GraphQL client for fetching PRs, issues, reviews
+- `lib/integrations/llm/` - Provider abstraction (OpenAI, Anthropic) with `callLlm()` dispatcher
+- `lib/generators/` - Markdown document generators (contributions, summaries, brag docs)
+- `lib/prompts/` - LLM prompt templates stored as markdown files
+- `lib/utils/` - Date calculations, file I/O, debug logging
+
+**Data types:** `GitHubPr`, `GitHubIssue`, `GitHubReview` defined in `lib/core/types.ts`
 
 ## Testing
-- Write unit tests for complex function
-- Include integration tests for end-to-end flows
-- Test error cases and edge conditions
+
+Tests use Vitest with fast-check for property-based testing. Tests live in `__tests__/unit/` and follow the pattern `*.test.ts`.
+
+## Environment Variables
+
+Required: `GITHUB_TOKEN`
+For LLM features: `OPENAI_API_KEY` or `ANTHROPIC_API_KEY`
+Debug mode: `DEBUG=1`
+
+Env files use `@dotenvx/dotenvx` for optional encryption.
+If `.env` is encrypted, `.env.keys` must exist with
+`DOTENV_PRIVATE_KEY` for decryption.
+
+## TypeScript
+
+- ES modules with `.js` extension in imports (NodeNext resolution)
+- Strict mode enabled
+- Target ES2022
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/bostonaholic) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [bostonaholic/reflect](https://github.com/bostonaholic/reflect) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
