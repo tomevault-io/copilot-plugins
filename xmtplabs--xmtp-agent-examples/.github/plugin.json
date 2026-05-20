@@ -1,0 +1,9 @@
+{
+  "name": "xmtplabs--xmtp-agent-examples",
+  "displayName": "xmtp-agent-examples",
+  "description": "Examples for creating agents using xmtp",
+  "version": "1.0.0",
+  "author": "xmtplabs",
+  "homepage": "https://github.com/xmtplabs/xmtp-agent-examples",
+  "skills": []
+}
