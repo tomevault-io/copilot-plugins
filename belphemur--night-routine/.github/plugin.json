@@ -1,0 +1,9 @@
+{
+  "name": "belphemur--night-routine",
+  "displayName": "night-routine",
+  "description": "A Go application that manages night routine scheduling between two parents, with Google Calendar integration for automated event creation.",
+  "version": "1.0.0",
+  "author": "Belphemur",
+  "homepage": "https://github.com/Belphemur/night-routine",
+  "skills": []
+}
