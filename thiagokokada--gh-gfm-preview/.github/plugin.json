@@ -1,0 +1,9 @@
+{
+  "name": "thiagokokada--gh-gfm-preview",
+  "displayName": "gh-gfm-preview",
+  "description": "A standalone/GitHub CLI extension to preview GitHub Flavored Markdown, even offline.",
+  "version": "1.0.0",
+  "author": "thiagokokada",
+  "homepage": "https://github.com/thiagokokada/gh-gfm-preview",
+  "skills": []
+}
