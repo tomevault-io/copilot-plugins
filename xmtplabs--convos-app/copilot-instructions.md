@@ -1,121 +1,116 @@
-## styling
+## typescript
 
-> The following contains rules about styling components in our codebase. Each rule is followed by a small example showing good and bad practices.
+> The following contains rules about TypeScript usage in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-The following contains rules about styling components in our codebase. Each rule is followed by a small example showing good and bad practices.
+The following contains rules about TypeScript usage in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-- It's okay to put inline style in the "style" props of a component. Only extract styles when it's starting to get chaotic.
-
-```typescript
-// ✅ Good for simple styling n style={{ marginBottom: 8 }}>Simple element</Text>
-
-// ✅ Consider extracting when styles get complex
-<VStack
-  style={{
-    padding: theme.spacing.md,
-    margin:,
-    borderRadius: 8,
-    backgroundColor: theme.colors.card,
-    // And many more style properties...
-  }}
->
-  <Text>Content</Text>
-</VStack>
-```
-
-- Use the dollar sign ($) prefix for style objects defined outside of components.
+- Use types over interfaces, prefixed with 'I'.
 
 ```typescript
 // ❌ Bad
-const containerStyle = {
-  padding: 16,
-  margin: 8,
+interface User {
+  id: string
+  name: string
 }
 
 // ✅ Good
-const $container = {
-  padding: 16,
-  margin: 8,
+type IUser = {
+  id: string
+  name: string
 }
 ```
 
-- Use ThemedStyle<ViewStyle> for theme-dependent styles that need access to theme variables.
+- Never use 'any'.
 
 ```typescript
 // ❌ Bad
-const $container = {
-  backgroundColor: "#ffffff",
-  padding: 16,
+function processData(data: any) {
+  return data.items
 }
 
 // ✅ Good
-const $container: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
-  backgroundColor: colors.background,
-  padding: spacing.md,
-})
-
-// In component
-<VStack style={themed($container)} />
-```
-
-- Always use our theme from use-app-theme.ts
-
-```typescript
-// ❌ Bad: Using hardcoded values
-<Text style={{ color: "#FF0000", fontSize: 16 }}>Error</Text>
-
-// ✅ Good: Using theme values
-function Component() {
-  const { theme } = useAppTheme()
-
-  return (
-    <Text style={{ color: theme.colors.error, fontSize: theme.typography.md }}>
-      Error
-    </Text>
-  )
+function processData(args: { data: { items: unknownnst { data } = args
+  return data.items
 }
 ```
 
-- Use styles.ts for common styling patterns that are reused across components.
+- , use string literals instead.
 
 ```typescript
-// ❌ Bad: Repeating common styles
-<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-  <Content />
-</View>
-
-// ✅ Good: Using global styles from styles.ts
-import { $globalStyles } from "@/theme/styles"
-
-<View style={[$globalStyles.flex1, $globalStyles.center]}>
-  <Content />
-</View>
-```
-
-- Append "Override" to style props that override default component styles.
-
-```typescript
-// In custom component
-type IButtonProps = {
-  style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<TextStyle>;
+// ❌ Bad
+enum MessageStatus {
+  SENT = "sent",
+  DELIVERED = "delivered",
+  READ = "read",
 }
 
-// Usage with clear naming conventions
-<CustomButton
-  style={$buttonOverride}
-  textStyle={$textOverride}
-/>
+// ✅ Good
+type IMessageStatus = "sent" | "delivered" | "read"
+```
 
-// Another example with themed styles
-const $cardOverride: ThemedStyle<ViewStyle> = ({ colors }) => ({
-  backgroundColor: colors.primaryBackground,
-  borderWidth: 0,
-})
+- Prefer type inference when possible.
 
-<Card style={themed($cardOverride)}>
-  <CardContent />
-</Card>
+```typescript
+// ❌ Bad
+const items: string[] = ["apple", "banana"]
+const count: number = items.length
+
+// ✅ Good
+const items = ["apple", "banana"]
+const count = items.length
+```
+
+- Avoid explicit Promise return types - let TypeScript infer them.
+
+```typescript
+// ❌ Bad
+async function fetchUser(id: string): Promise<IUser> {
+  return api.getUser(id)
+}
+
+// ✅ Good
+async function fetchUser(args: { id: string }) {
+  const { id } = args
+  return api.getUser(id)
+}
+```
+
+- Prefer type assertions on return objects over function return type annotations.
+
+```typescript
+// ❌ Bad
+function createConfig(): IConfig {
+  return {
+    theme: "dark",
+    notifications: true,
+    timeout: 30,
+  }
+}
+
+// ✅ Good
+function createConfig() {
+  return {
+    theme: "dark",
+    notifications: true,
+    timeout: 30,
+  } satisfies IConfig
+}
+```
+
+- Avoid explicit return types on functions.
+
+```typescript
+// ❌ Bad
+function formatName(args: { first: string; last: string }): string {
+  const { first, last } = args
+  return `${first} ${last}`
+}
+
+// ✅ Good
+function formatName(args: { first: string; last: string }) {
+  const { first, last } = args
+  return `${first} ${last}`
+}
 ```
 
 ---
