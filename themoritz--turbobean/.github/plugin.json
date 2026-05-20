@@ -1,0 +1,9 @@
+{
+  "name": "themoritz--turbobean",
+  "displayName": "turbobean",
+  "description": "Beancount implementation with a focus on speed and ease of use",
+  "version": "1.0.0",
+  "author": "themoritz",
+  "homepage": "https://github.com/themoritz/turbobean",
+  "skills": []
+}
