@@ -1,0 +1,9 @@
+{
+  "name": "gornskew--lisply-mcp",
+  "displayName": "lisply-mcp",
+  "description": "Model Context Protocol (MCP) server to manage and talk to compliant \"Lisply\" lisp-speaking backend services",
+  "version": "1.0.0",
+  "author": "gornskew",
+  "homepage": "https://github.com/gornskew/lisply-mcp",
+  "skills": []
+}
