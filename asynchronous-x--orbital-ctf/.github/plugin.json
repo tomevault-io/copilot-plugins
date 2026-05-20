@@ -1,9 +1,9 @@
 {
   "name": "asynchronous-x--orbital-ctf",
   "displayName": "orbital-ctf",
-  "description": "orbital-ctf",
+  "description": "Orbital - A Custom CTF Platform",
   "version": "1.0.0",
   "author": "asynchronous-x",
-  "homepage": "https://tomevault.io/claim/asynchronous-x",
+  "homepage": "https://github.com/asynchronous-x/orbital-ctf",
   "skills": []
 }
