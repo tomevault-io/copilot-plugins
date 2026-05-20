@@ -1,0 +1,38 @@
+## learn-worldmap
+
+> // Vue 3 Composition API .cursorrules
+
+// Vue 3 Composition API .cursorrules
+
+const vue3CompositionApiBestPractices = [
+  "Ask follow-up questions if you think this will improve the quality of your answer before generating",
+  "Use setup() function for component logic",
+  "Utilize ref and reactive for reactive state",
+  "Implement computed properties with computed()",
+  "Use watch and watchEffect for side effects",
+  "Implement lifecycle hooks with onMounted, onUpdated, etc.",
+  "Utilize provide/inject for dependency injection",
+  "Implement logic in external, well-organized composables whenever possible",
+  "Avoid custom CSS and style tags when possible",
+  "Components should be self-contained, and reasonably small",
+  "Follow DRY, but also YAGNI, and do not over-engineer"
+];
+
+
+
+// Additional instructions
+
+const additionalInstructions = `
+1. Use TypeScript for type safety, by defining types in types.ts
+2. Implement proper props and emits definitions
+3. Implement proper error handling
+4. Follow Vue 3 style guide and naming conventions
+5. Use Vite for fast development and building
+6. Unit-test all complex logic
+7. Use Tailwind.CSS and Daisy UI for css and interface logic
+8.  Use dexie.js to manage a local database to handle data
+`;
+
+---
+> Source: [koljapluemer/learn-worldmap](https://github.com/koljapluemer/learn-worldmap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
