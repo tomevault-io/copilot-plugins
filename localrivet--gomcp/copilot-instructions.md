@@ -1,74 +1,57 @@
-## self-improve
+## stop-when-fixed
 
-> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+> - **Stop When Fixed: Know When to Step Back**
 
+- **Stop When Fixed: Know When to Step Back**
+  - Like a salesperson who stops talking once the sale is made, stop changing code once the issue is fixed
+  - Unnecessary "improvements" risk introducing new bugs and complications
+  - When tests pass and requirements are met, the task is complete
 
-- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
+- **Signs It's Time to Stop**
+  - ✅ The original issue is verifiably fixed
+  - ✅ Tests pass and the feature works as expected
+  - ✅ The code is reasonably clean and maintainable
+  - ✅ User/client has confirmed the solution works
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Look for references to external documentation
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage
-
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
-
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
-
-- **Example Pattern Recognition:**
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
+- **Resist the Urge to "Perfect" Working Code**
+  ```go
+  // ✅ DO: Stop when the problem is solved
+  func SaveUserPreference(userID string, preference string) error {
+    // Simple solution that works reliably
+    return db.SavePreference(userID, preference)
+  }
   
-  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
+  // ❌ DON'T: Keep "improving" after the fix
+  func SaveUserPreference(userID string, preference string) error {
+    // Unnecessary complexity added after the fix
+    metrics.TrackEvent("save_preference_attempt")
+    if cached, err := cache.GetPreference(userID); err == nil && cached == preference {
+      return nil // Unneeded optimization
+    }
+    err := db.SavePreference(userID, preference)
+    if err == nil {
+      cache.SetPreference(userID, preference) // Added caching that wasn't required
+      metrics.TrackEvent("save_preference_success")
+    }
+    return err
+  }
   ```
 
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
+- **Document What Works and Why**
+  - When a solution works, document it clearly
+  - Explain the approach that succeeded and any failed attempts
+  - This helps future developers understand why decisions were made
 
-- **Continuous Improvement:**
-  - Monitor code review comments
-  - Track common development questions
-  - Update rules after major refactors
-  - Add links to relevant documentation
-  - Cross-reference related rules
+- **When Refactoring is Appropriate**
+  - Only refactor working code as a separate, deliberate task
+  - Get the original fix approved and merged first
+  - Create a new task specifically for refactoring or improvements
+  - Ensure thorough testing of any refactoring changes
 
-- **Rule Deprecation:**
-  - Mark outdated patterns as deprecated
-  - Remove rules that no longer apply
-  - Update references to deprecated rules
-  - Document migration paths for old patterns
-
-- **Documentation Updates:**
-  - Keep examples synchronized with code
-  - Update references to external docs
-  - Maintain links between related rules
-  - Document breaking changes
-Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
+- **The Principle of Minimum Viable Fixes**
+  - The best fix is often the simplest one that reliably solves the problem
+  - Complex solutions create more potential points of failure
+  - Optimize for readability and maintainability, not cleverness
 
 ---
 > Source: [localrivet/gomcp](https://github.com/localrivet/gomcp) — distributed by [TomeVault](https://tomevault.io).
