@@ -1,0 +1,9 @@
+{
+  "name": "succinctlabs--network",
+  "displayName": "network",
+  "description": "This is the monorepo for the Succinct Prover Network, a protocol on Ethereum that coordinates a distributed network of provers to generate zero knowledge proofs for any piece of software.",
+  "version": "1.0.0",
+  "author": "succinctlabs",
+  "homepage": "https://github.com/succinctlabs/network",
+  "skills": []
+}
