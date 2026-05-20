@@ -2,9 +2,9 @@
   "name": "ArchiPy",
   "owner": "SyntaxArc",
   "repo": "ArchiPy",
-  "description": "",
+  "description": "Architecture + Python \u2013 perfect for structured design.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SyntaxArc/ArchiPy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T16:15:20Z"
+  "distributed_at": "2026-05-20T14:02:38Z"
 }
