@@ -1,0 +1,9 @@
+{
+  "name": "united-security-providers--coraza-envoy-go-filter",
+  "displayName": "coraza-envoy-go-filter",
+  "description": "Coraza WAF implementation as golang filter for Envoy proxy",
+  "version": "1.0.0",
+  "author": "united-security-providers",
+  "homepage": "https://github.com/united-security-providers/coraza-envoy-go-filter",
+  "skills": []
+}
