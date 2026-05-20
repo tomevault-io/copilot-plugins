@@ -1,0 +1,9 @@
+{
+  "name": "bikeread--dify-wechat-plugin",
+  "displayName": "dify_wechat_plugin",
+  "description": "Dify\u63d2\u4ef6\u5e02\u573a\u5e94\u7528\uff0c\u5f00\u7bb1\u5373\u7528\uff0c\u7528\u4e8e\u5feb\u901f\u5bf9\u63a5\u5fae\u4fe1\u516c\u4f17\u53f7",
+  "version": "1.0.0",
+  "author": "bikeread",
+  "homepage": "https://github.com/bikeread/dify_wechat_plugin",
+  "skills": []
+}
