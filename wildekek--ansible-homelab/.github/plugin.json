@@ -1,0 +1,9 @@
+{
+  "name": "wildekek--ansible-homelab",
+  "displayName": "ansible-homelab",
+  "description": "Ansible for managing my homelab",
+  "version": "1.0.0",
+  "author": "wildekek",
+  "homepage": "https://github.com/wildekek/ansible-homelab",
+  "skills": []
+}
