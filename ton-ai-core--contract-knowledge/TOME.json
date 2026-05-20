@@ -4,7 +4,7 @@
   "repo": "contract-knowledge",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ton-ai-core/contract-knowledge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T03:01:06Z"
+  "distributed_at": "2026-05-20T08:48:55Z"
 }
