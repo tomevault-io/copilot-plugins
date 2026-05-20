@@ -1,69 +1,415 @@
-## versioning-workflow
+## wpf-ui-patterns
 
-> Version update workflow - MUST follow when updating version numbers
+> WPF-specific UI patterns and best practices
 
 
-# Version Update Workflow
+# WPF UI Patterns
 
-**CRITICAL**: When the user asks to update/change/increment the version, you MUST update ALL THREE files listed below. Do not update just one file.
+## Window Lifecycle
 
-When updating the version number for UGTLive, you must update **three files**:
+### Window Creation Pattern
+Windows are typically created once and shown/hidden as needed:
 
-## 0. Write the Change Description FIRST
-
-Before updating any files, run `git log --oneline` to review all commits since the last release. Use the commit messages to write a brief, accurate change description. **Do NOT use placeholder text like "[Description of changes]"** — always write the real description based on the commit log.
-
-The description should:
-- Be brief (one line, matching the style of previous History entries in README.md)
-- Highlight the most notable new features, fixes, and improvements
-- Credit contributors/suggesters where commit messages mention them
-- Be used consistently across both the README history entry and the version checker JSON message
-
-## 1. Source Code Version
-**File:** `src/SplashManager.cs`
-
-Update the `CurrentVersion` constant:
 ```csharp
-public const double CurrentVersion = X.XX;
-```
+private ChatBoxWindow? _chatBoxWindow;
 
-## 2. README.md Updates
-**File:** `README.md`
-
-Update TWO locations:
-1. **Version badge** (near top of file):
-   ```markdown
-   [![Version](https://img.shields.io/badge/version-X.XX-blue.svg)](...
-   ```
-
-2. **History section** - Add a new entry at the TOP of the History section:
-   ```markdown
-   **VX.XX [Month] [Day], [Year]** - [Brief description of changes from commit log]
-   ```
-
-## 3. Version Checker JSON
-**File:** `media/latest_version_checker.json`
-
-Update:
-- `latest_version` field to the new version number
-- `message` field with the change description (derived from the same commit log summary)
-
-Example:
-```json
+public void ShowChatBox()
 {
-    "name":"Universal Game Translator Live",
-    "latest_version":X.XX,
-    "message":"Download V{VERSION_STRING} now from rtsoft.com?\n\nChanged: [Description from commit log]"
+    if (_chatBoxWindow == null)
+    {
+        _chatBoxWindow = new ChatBoxWindow();
+        _chatBoxWindow.Closed += (s, e) => { _chatBoxWindow = null; };
+    }
+    
+    _chatBoxWindow.Show();
+    _chatBoxWindow.Activate();
+}
+
+public void HideChatBox()
+{
+    _chatBoxWindow?.Hide();
 }
 ```
 
-## Checklist
-- [ ] Read `git log --oneline` since the last release to determine changes
-- [ ] Write the change description based on the commit log (no placeholders!)
-- [ ] `src/SplashManager.cs` - Update `CurrentVersion`
-- [ ] `README.md` - Update version badge
-- [ ] `README.md` - Add history entry with date and real description
-- [ ] `media/latest_version_checker.json` - Update version and message
+### Window Cleanup
+```csharp
+protected override void OnClosed(EventArgs e)
+{
+    // Save window position
+    ConfigManager.Instance.SetWindowPosition(
+        "ChatBox", Left, Top, Width, Height);
+    
+    // Cleanup resources
+    base.OnClosed(e);
+}
+```
+
+## XAML Structure
+
+### Standard Window Attributes
+```xml
+<Window x:Class="UGTLive.ChatBoxWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ChatBox"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="CanResize"
+        Topmost="{Binding IsAlwaysOnTop}"
+        ShowInTaskbar="False">
+</Window>
+```
+
+### Resource Dictionaries
+Define styles in ResourceDictionary:
+
+```xml
+<Window.Resources>
+    <Style x:Key="ModernButton" TargetType="Button">
+        <Setter Property="Background" Value="#FF2D2D30"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="10,5"/>
+    </Style>
+</Window.Resources>
+```
+
+## Data Binding
+
+### Two-Way Binding Pattern
+```xml
+<TextBox Text="{Binding ApiKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+<CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}"/>
+<ComboBox SelectedItem="{Binding SelectedModel, Mode=TwoWay}"/>
+```
+
+### Code-Behind Binding
+```csharp
+// Set DataContext
+this.DataContext = this;
+
+// Implement INotifyPropertyChanged
+public event PropertyChangedEventHandler? PropertyChanged;
+
+private string _apiKey = "";
+public string ApiKey
+{
+    get => _apiKey;
+    set
+    {
+        _apiKey = value;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ApiKey)));
+    }
+}
+```
+
+## Event Handlers
+
+### Standard Event Pattern
+```csharp
+private void Button_Click(object sender, RoutedEventArgs e)
+{
+    if (sender is Button button)
+    {
+        // Handle click
+    }
+}
+
+private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+{
+    if (sender is TextBox textBox)
+    {
+        // Handle text change
+    }
+}
+```
+
+## Window Positioning
+
+### Load Saved Position
+```csharp
+private void Window_Loaded(object sender, RoutedEventArgs e)
+{
+    var pos = ConfigManager.Instance.GetWindowPosition("ChatBox");
+    if (pos != null)
+    {
+        this.Left = pos.X;
+        this.Top = pos.Y;
+        this.Width = pos.Width;
+        this.Height = pos.Height;
+    }
+    else
+    {
+        // Center on screen
+        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+    }
+}
+```
+
+### Save Position on Move
+```csharp
+private void Window_LocationChanged(object sender, EventArgs e)
+{
+    ConfigManager.Instance.SetWindowPosition(
+        "ChatBox", Left, Top, Width, Height);
+}
+```
+
+## Custom Controls
+
+### Draggable Window
+```csharp
+private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+{
+    if (e.ChangedButton == MouseButton.Left)
+    {
+        this.DragMove();
+    }
+}
+```
+
+### Resizable Thumb
+```xml
+<Thumb DragDelta="Thumb_DragDelta"
+       Width="10" Height="10"
+       Cursor="SizeNWSE"
+       HorizontalAlignment="Right"
+       VerticalAlignment="Bottom"/>
+```
+
+```csharp
+private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
+{
+    this.Width = Math.Max(100, this.Width + e.HorizontalChange);
+    this.Height = Math.Max(100, this.Height + e.VerticalChange);
+}
+```
+
+## Transparent Windows
+
+### Transparency Setup
+```xml
+<Window WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+    <Border Background="{Binding BackgroundColor}"
+            Opacity="{Binding Opacity}"
+            CornerRadius="5">
+        <!-- Content -->
+    </Border>
+</Window>
+```
+
+### Opacity Binding
+```csharp
+public double Opacity
+{
+    get => _opacity;
+    set
+    {
+        _opacity = value;
+        this.Opacity = value / 100.0; // Convert 0-100 to 0-1
+    }
+}
+```
+
+## Always-On-Top
+
+### Topmost Property
+```xml
+<Window Topmost="{Binding IsAlwaysOnTop}"/>
+```
+
+```csharp
+public bool IsAlwaysOnTop
+{
+    get => this.Topmost;
+    set => this.Topmost = value;
+}
+```
+
+## Text Display
+
+### TextBlock with Formatting
+```xml
+<TextBlock TextWrapping="Wrap">
+    <Run Text="{Binding SourceText}" Foreground="Gray"/>
+    <LineBreak/>
+    <Run Text="{Binding TranslatedText}" Foreground="White" FontWeight="Bold"/>
+</TextBlock>
+```
+
+### ScrollViewer Pattern
+```xml
+<ScrollViewer VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Disabled">
+    <StackPanel Name="ContentPanel">
+        <!-- Dynamic content -->
+    </StackPanel>
+</ScrollViewer>
+```
+
+### Auto-Scroll to Bottom
+```csharp
+private void ScrollToBottom()
+{
+    Application.Current.Dispatcher.Invoke(() =>
+    {
+        if (ScrollViewer != null)
+        {
+            ScrollViewer.ScrollToEnd();
+        }
+    });
+}
+```
+
+## Color Pickers
+
+### Color Dialog Pattern
+```csharp
+using System.Windows.Forms;
+
+private void PickColorButton_Click(object sender, RoutedEventArgs e)
+{
+    using var colorDialog = new ColorDialog();
+    colorDialog.Color = System.Drawing.Color.FromArgb(
+        (int)((Color)BackgroundColor).A,
+        (int)((Color)BackgroundColor).R,
+        (int)((Color)BackgroundColor).G,
+        (int)((Color)BackgroundColor).B);
+    
+    if (colorDialog.ShowDialog() == DialogResult.OK)
+    {
+        var wpfColor = Color.FromArgb(
+            colorDialog.Color.A,
+            colorDialog.Color.R,
+            colorDialog.Color.G,
+            colorDialog.Color.B);
+        BackgroundColor = wpfColor;
+    }
+}
+```
+
+## Animations
+
+### Fade Animation
+```xml
+<Window.Resources>
+    <Storyboard x:Key="FadeIn">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                        From="0" To="1" Duration="0:0:0.3"/>
+    </Storyboard>
+</Window.Resources>
+```
+
+```csharp
+private void FadeIn()
+{
+    var storyboard = (Storyboard)FindResource("FadeIn");
+    storyboard?.Begin(this);
+}
+```
+
+## ComboBox Binding
+
+### ComboBox with Items
+```xml
+<ComboBox Name="ModelComboBox"
+          SelectedItem="{Binding SelectedModel, Mode=TwoWay}">
+    <ComboBoxItem Content="gemini-1.5-flash"/>
+    <ComboBoxItem Content="gemini-1.5-pro"/>
+    <ComboBoxItem Content="gemini-2.0-flash"/>
+</ComboBox>
+```
+
+```csharp
+private void LoadModels()
+{
+    ModelComboBox.Items.Clear();
+    var models = new[] { "gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash" };
+    foreach (var model in models)
+    {
+        ModelComboBox.Items.Add(model);
+    }
+    
+    // Set selected item
+    var savedModel = ConfigManager.Instance.GetGeminiModel();
+    ModelComboBox.SelectedItem = savedModel;
+}
+```
+
+## Tab Control Pattern
+
+### Settings Window Tabs
+```xml
+<TabControl>
+    <TabItem Header="General">
+        <!-- General settings -->
+    </TabItem>
+    <TabItem Header="OCR">
+        <!-- OCR settings -->
+    </TabItem>
+    <TabItem Header="Translation">
+        <!-- Translation settings -->
+    </TabItem>
+</TabControl>
+```
+
+## Status Bar Updates
+
+### Status Message Pattern
+```csharp
+public void UpdateStatus(string message, StatusType type = StatusType.Info)
+{
+    Application.Current.Dispatcher.Invoke(() =>
+    {
+        StatusText.Text = message;
+        StatusText.Foreground = type switch
+        {
+            StatusType.Error => Brushes.Red,
+            StatusType.Warning => Brushes.Orange,
+            _ => Brushes.White
+        };
+        
+        // Auto-fade after 3 seconds
+        _statusTimer?.Stop();
+        _statusTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(3)
+        };
+        _statusTimer.Tick += (s, e) =>
+        {
+            StatusText.Text = "";
+            _statusTimer.Stop();
+        };
+        _statusTimer.Start();
+    });
+}
+```
+
+## Dialog Windows
+
+### Modal Dialog Pattern
+```csharp
+var dialog = new SettingsWindow();
+dialog.Owner = this;
+dialog.ShowDialog(); // Blocks until closed
+```
+
+### Confirmation Dialog
+```csharp
+var result = MessageBox.Show(
+    "Are you sure you want to delete this?",
+    "Confirm",
+    MessageBoxButton.YesNo,
+    MessageBoxImage.Question);
+
+if (result == MessageBoxResult.Yes)
+{
+    // Perform action
+}
+```
 
 ---
 > Source: [SethRobinson/UGTLive](https://github.com/SethRobinson/UGTLive) — distributed by [TomeVault](https://tomevault.io).
