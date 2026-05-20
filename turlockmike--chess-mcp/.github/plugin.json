@@ -1,0 +1,9 @@
+{
+  "name": "turlockmike--chess-mcp",
+  "displayName": "chess-mcp",
+  "description": "A MCP Server with various chess functionality",
+  "version": "1.0.0",
+  "author": "turlockmike",
+  "homepage": "https://github.com/turlockmike/chess-mcp",
+  "skills": []
+}
