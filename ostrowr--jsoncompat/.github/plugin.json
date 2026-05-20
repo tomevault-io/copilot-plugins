@@ -1,0 +1,9 @@
+{
+  "name": "ostrowr--jsoncompat",
+  "displayName": "jsoncompat",
+  "description": "Escape version skew",
+  "version": "1.0.0",
+  "author": "ostrowr",
+  "homepage": "https://github.com/ostrowr/jsoncompat",
+  "skills": []
+}
