@@ -1,13 +1,12 @@
-## prisma
+## reuse
 
-> This project uses prisma and postgresql
+> Reuse composables, server utils, plugins, integrations, app/lib; prefer existing files
 
 
-# Prisma and PostgreSQL
+# Reuse
 
-- Database is PostgreSQL. Use Prisma Client for all DB access.
-- Schema lives in `prisma/schema.prisma`. Run migrations via `prisma migrate`.
-- Binary targets in schema include `linux-arm64-openssl-3.0.x` and `debian-openssl-3.0.x` for deployment; do not remove them.
+- Prefer reusing existing logic instead of duplicating. Before adding a new helper or composable, check: `app/composables/` (client composables e.g. useTodos, useCalendar, useSyncManager), `server/utils/` (rrule, sanitizeIntegration, icalUrl), `server/plugins/`, `server/integrations/` (google_calendar, iCal, tandoor, mealie), `app/lib/` (e.g. Prisma client).
+- Prefer modifying existing files over adding new ones when the change fits there.
 
 ---
 > Source: [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io).
