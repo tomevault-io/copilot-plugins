@@ -1,0 +1,18 @@
+{
+  "name": "jacwu--github-materials",
+  "displayName": "github-materials",
+  "description": "AI instruction skills by jacwu",
+  "version": "1.0.0",
+  "author": "jacwu",
+  "homepage": "https://github.com/jacwu/github-materials",
+  "skills": [
+    {
+      "name": "call_foundry_agent",
+      "description": ""
+    },
+    {
+      "name": "teams_notification",
+      "description": ""
+    }
+  ]
+}
