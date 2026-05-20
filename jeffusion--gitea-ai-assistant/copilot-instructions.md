@@ -1,82 +1,51 @@
-## 02-architecture-and-features
+## 03-tech-stack-and-dependencies
 
-> This application is a Gitea Assistant that provides AI-driven code review capabilities for Gitea repositories. Key features include:
+> - **Runtime**: Bun (JavaScript/TypeScript runtime)
 
-# Architecture and Features
+# Technology Stack and Dependencies
 
-## Core Features
+## Core Technologies
 
-This application is a Gitea Assistant that provides AI-driven code review capabilities for Gitea repositories. Key features include:
+- **Runtime**: Bun (JavaScript/TypeScript runtime)
+- **Language**: TypeScript
+- **Framework**: Hono (lightweight web framework)
+- **API Integration**: LLM Gateway (OpenAI Compatible, OpenAI Responses API, Anthropic, Google Gemini), Gitea API
+- **Containerization**: Docker, Kubernetes
 
-- AI code review for Pull Requests
-- AI code review for successful commit statuses
-- Integration with OpenAI API for code analysis
-- Both summary and line-level code comments
-- Secure webhook validation
-- PR notification system via Feishu
+## Key Dependencies
 
-## Architecture
+From [package.json](mdc:package.json):
 
-The application follows a clean, layered architecture:
+### Production Dependencies
 
-1. **Controller Layer** ([src/controllers/review.ts](mdc:src/controllers/review.ts))
-   - Handles webhook requests from Gitea
-   - Processes different event types (PR events, status events)
-   - Manages PR notification triggers
+- **hono**: Lightweight, ultrafast web framework
+- **@hono/zod-validator**: Schema validation for Hono
+- **zod**: TypeScript-first schema validation
+- **openai**: OpenAI API client (used for OpenAI Compatible and Responses providers)
+- **@anthropic-ai/sdk**: Anthropic Messages API client
+- **@google/genai**: Google Gemini API client
+- **axios**: HTTP client for API requests
+- **dotenv**: Environment variable management
+- **lodash-es**: Utility library
 
-2. **Service Layer**
-   - [src/services/gitea.ts](mdc:src/services/gitea.ts): Interacts with Gitea API
-   - [src/services/ai-review.ts](mdc:src/services/ai-review.ts): Manages AI code review logic
-   - [src/services/feishu.ts](mdc:src/services/feishu.ts): Handles Feishu notifications
-     - PR creation notifications
-     - Reviewer assignment notifications
-     - Error handling and retry mechanisms
+### Development Dependencies
 
-3. **Configuration Layer** ([src/config/index.ts](mdc:src/config/index.ts))
-   - Centralizes application configuration from environment variables
-   - Manages Feishu webhook configurations
+- **typescript**: TypeScript compiler and type definitions
+- **tslint**: Code linting
+- **@types/node**: Node.js type definitions
+- **@types/lodash-es**: Type definitions for lodash-es
 
-4. **LLM Gateway** ([src/llm/](mdc:src/llm))
-   - Multi-provider LLM abstraction layer
-   - Provider adapters for OpenAI Compatible, OpenAI Responses API, Anthropic, Google Gemini
-   - Role-based model routing (legacy, planner, specialist, judge, embedding)
+## Environment Configuration
 
-5. **Database Layer** ([src/db/](mdc:src/db))
-   - SQLite-based LLM provider and role configuration
-   - API key encryption with AES-256-GCM
+The application uses a **DB-first** configuration approach (Portainer model):
 
-4. **Utilities**
-   - [src/utils/logger.ts](mdc:src/utils/logger.ts): Custom logging utilities
-
-## Webhook Flow
-
-1. Gitea sends webhook events to `/webhook/gitea`
-2. Signature verification ensures request authenticity
-3. Events are processed based on their type:
-   - Pull Request events:
-     - Trigger code review on the PR
-     - Send notifications to reviewers (if applicable)
-   - Status events trigger code review on successful commits
-
-## Notification Flow
-
-1. **PR Creation Flow**
-   - PR webhook event received
-   - Event validated and processed
-   - If reviewers are assigned:
-     - Feishu notification prepared with PR details
-     - Notification sent to all assigned reviewers
-
-2. **Reviewer Assignment Flow**
-   - PR review_requested event received
-   - New reviewer information extracted
-   - Feishu notification sent to newly assigned reviewer
-   - Notification includes PR title and direct link
-
-3. **Error Handling**
-   - Failed notifications are logged but don't block the review process
-   - Automatic retry mechanism for failed notifications
-   - Errors are captured and logged for monitoring
+- **Environment variables** (minimal, infrastructure-level only):
+  - `PORT`: Server port
+  - `DATABASE_PATH`: SQLite file path (optional, default: `./data/assistant.db`)
+  - `MASTER_KEY_PATH`: Encryption key path (optional, default: `./data/master.key`)
+- **Web UI + SQLite DB** ([src/db/](mdc:src/db)): All runtime config — Gitea, Feishu, webhook secret, admin password, review engine, memory settings — managed via Admin Dashboard
+- **First-boot seed**: `configManager.seedDefaults()` auto-generates secrets and seeds defaults on first run
+- **bun:sqlite**: Embedded database for all configuration persistence (encrypted for sensitive values)
 
 ---
 > Source: [jeffusion/gitea-ai-assistant](https://github.com/jeffusion/gitea-ai-assistant) — distributed by [TomeVault](https://tomevault.io).
