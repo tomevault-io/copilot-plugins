@@ -1,14 +1,64 @@
-## synclanguage
+## theory-format
 
-> 同步中英文翻译
+> 理论内容标准格式
 
-执行 [check_updates.py](mdc:tools/check_updates.py) 检查需要更新的文件为[目标文件]
-先更新中英文件都存在但是英文版没有与中文版同步的[目标文件]
-如果[目标文件]版本小于 [formal_theory_cosmic_ontology.md](mdc:formal_theory/formal_theory_cosmic_ontology.md) 的[核心版本号], 则用[formal_theory_cosmic_ontology.md](mdc:formal_theory/formal_theory_cosmic_ontology.md) 中的理论更新中英两个文件,并更新中英文两个文件的版本号为[核心版本号]
-更新英文版时直接清空英文版原文然后把中文翻译过去
-不要尝试生成脚本,因为有可能还要更新文件内容.
+此规则定义形式化理论文件的标准结构和格式要求，确保所有理论文件保持一致的组织方式。
 
-优先更新根目录根formal_theory*.
+## 理论文件标准结构
+1. 标题（包含维度标注）
+2. 语言切换链接
+3. 目录/导航链接
+4. 版本号信息
+5. 理论概述/摘要
+6. 基本定义
+7. 公理系统
+8. 形式化操作
+9. 理论推导/证明
+10. 维度分析
+11. 理论应用（可选）
+12. 理论依赖关系
+13. 参考文献（可选）
+
+## 必备章节详细要求
+
+### 标题格式
+```
+# 理论名称 [维度：X]
+```
+
+### 语言切换链接
+```
+**[中文版] | [English Version](formal_theory_xxx_en.md)**
+或
+**[Chinese Version](formal_theory_xxx.md) | [English Version]**
+```
+
+### 版本号信息
+```
+> 本文档采用宇宙本论版本号：v37.0
+```
+
+### 基本定义
+必须包含该理论的核心定义，使用形式化数学语言表达
+
+### 公理系统
+列出该理论的公理系统，并说明与XOR/SHIFT等基本操作的关系
+
+### 形式化操作
+详细阐述该理论支持的操作，包括操作规则和限制条件
+
+### 维度分析
+解释该理论的维度来源和计算方式，以及与低维度理论的关系
+
+### 理论依赖关系
+明确列出该理论依赖的其他理论，并提供链接
+
+## 格式规范
+- 使用Markdown格式
+- 数学公式使用LaTeX格式（$`数学公式`$）
+- 章节标题使用适当的层级（#、##、###等）
+- 保持简洁清晰的结构
+- 中英文版本结构保持一致
 
 ---
 > Source: [loning/universe](https://github.com/loning/universe) — distributed by [TomeVault](https://tomevault.io).
