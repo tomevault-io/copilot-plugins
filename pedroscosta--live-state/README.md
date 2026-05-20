@@ -7,13 +7,13 @@ High-performance, real-time sync engine written in TypeScript
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [pedroscosta/live-state](https://github.com/pedroscosta/live-state).
+Original source: `.cursor/rules/*.mdc` in [pedroscosta/live-state](https://github.com/pedroscosta/live-state).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
