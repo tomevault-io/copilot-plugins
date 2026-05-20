@@ -1,0 +1,9 @@
+{
+  "name": "easycam--pysinfo",
+  "displayName": "Pysinfo",
+  "description": "A command line tool that displays information about the current system, including hardware and critical software.",
+  "version": "1.0.0",
+  "author": "EasyCam",
+  "homepage": "https://github.com/EasyCam/Pysinfo",
+  "skills": []
+}
