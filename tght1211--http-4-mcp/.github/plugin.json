@@ -1,0 +1,9 @@
+{
+  "name": "tght1211--http-4-mcp",
+  "displayName": "http-4-mcp",
+  "description": "HTTP-4-MCP configuration tool allows you to easily convert HTTP API to MCP tool without writing code. With simple interface operations, you can quickly configure an mcp-server.",
+  "version": "1.0.0",
+  "author": "Tght1211",
+  "homepage": "https://github.com/Tght1211/http-4-mcp",
+  "skills": []
+}
