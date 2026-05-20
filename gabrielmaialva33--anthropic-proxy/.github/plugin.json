@@ -1,0 +1,9 @@
+{
+  "name": "gabrielmaialva33--anthropic-proxy",
+  "displayName": "anthropic-proxy",
+  "description": "A proxy that lets you use Claude Code with any OpenAI-compatible model \u2014 GPT-4o, OpenRouter, DeepSeek, Ollama, and more.",
+  "version": "1.0.0",
+  "author": "gabrielmaialva33",
+  "homepage": "https://github.com/gabrielmaialva33/anthropic-proxy",
+  "skills": []
+}
