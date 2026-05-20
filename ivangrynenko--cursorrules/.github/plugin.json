@@ -1,7 +1,7 @@
 {
   "name": "ivangrynenko--cursorrules",
   "displayName": "cursorrules",
-  "description": "cursorrules",
+  "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules",
   "version": "1.0.0",
   "author": "ivangrynenko",
   "homepage": "https://github.com/ivangrynenko/cursorrules",
