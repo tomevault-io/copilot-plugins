@@ -1,0 +1,18 @@
+{
+  "name": "nuwa-protocol--nuwa",
+  "displayName": "nuwa",
+  "description": "The mono repo for all Nuwa AI protocols and products",
+  "version": "1.0.0",
+  "author": "nuwa-protocol",
+  "homepage": "https://github.com/nuwa-protocol/nuwa",
+  "skills": [
+    {
+      "name": "public",
+      "description": ""
+    },
+    {
+      "name": "did-auth-agent",
+      "description": ""
+    }
+  ]
+}
