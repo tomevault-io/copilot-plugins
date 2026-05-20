@@ -1,127 +1,174 @@
-## effect-best-practices
+## effect-service-test
 
-> description: Comprehensive patterns and best practices for Effect-based TypeScript applications
+> Guidelines for creating and testing effect-based services
 
----
-description: Comprehensive patterns and best practices for Effect-based TypeScript applications
-globs: **/*.ts
----
-# Effect Best Practices
 
-## Core Patterns
+# Effect Service Pattern for v3.16+
 
-### Service Architecture
-- Always use `Effect.Service` for defining and providing services
-- Define interfaces with readonly methods and Effect return types
-- Implement services as classes or factory functions using Effect.Service
-- Keep services focused on single responsibility
+## Service Interface Definition
+
+Define a clear interface for your service first:
+
 ```typescript
-// Interface definition
-export interface ILoggingService {
-    readonly getLogger: (name?: string) => Effect.Effect<Logger>
+// In types.ts
+export interface MyServiceInterface {
+  readonly operation1: (input: Input) => Effect.Effect<Output, MyError>;
+  readonly operation2: (id: string) => Effect.Effect<Option.Option<Entity>, MyError>;
 }
+```
 
-// Service class definition (Effect.Service pattern)
-export class LoggingService extends Effect.Service<ILoggingService>()("LoggingService", {
-    effect: Effect.gen(function* () {
-        // Implementation
-    })
+## Effect.Service Class Pattern (Canonical)
+
+**Always use the Effect.Service class pattern for service definitions and dependency injection. Do NOT use Context.Tag directly or via class-based tag pattern.**
+
+```typescript
+// In service.ts
+export class MyService extends Effect.Service<MyServiceInterface>()("MyService", {
+  effect: Effect.gen(function* () {
+    // Implementation
+  })
 })
 ```
 
-### Effect Generation & Composition
-- Use `Effect.gen` for complex operations
-- Chain operations using `pipe()`
-- Use `yield*` for dependency access
-- Compose effects using `flatMap` for sequential operations
+## Service Implementation
+
+Implement your service with `Effect.gen`:
+
 ```typescript
-return Effect.gen(function* () {
-    const service = yield* LoggingService
-    const config = yield* service.getConfig()
-    const result = yield* performOperation(config)
-    return result
-}).pipe(
-    Effect.mapError(e => new DomainError("Operation failed", { cause: e }))
-)
+// In live.ts
+export const make = Effect.gen(function* () {
+  // Access dependencies directly with yield*
+  const dependency = yield* DependencyService
+  
+  const operation1 = (input: Input): Effect.Effect<Output, MyError> => {
+    return dependency.someMethod(input).pipe(
+      Effect.mapError(err => new MyError({ cause: err }))
+    );
+  };
+  
+  const operation2 = (id: string): Effect.Effect<Option.Option<Entity>, MyError> => {
+    // Implementation
+  };
+  
+  return {
+    operation1,
+    operation2
+  };
+});
+
+// Create the layer
+export const MyServiceLiveLayer = Layer.effect(
+  MyService,
+  make
+);
 ```
 
-### Error Handling
-- Define domain-specific error hierarchies
-- Use `Effect.fail` instead of throwing errors
-- Handle all error cases explicitly
-- Preserve error context using cause
+## Consuming Services
 
-### Type Safety
-- Define explicit Effect return types
-- Use type parameters for generic operations
-- Create union types for error cases
-- Use branded types for type-safe identifiers
+Access services in Effect.gen functions:
 
-## Advanced Patterns
+```typescript
+const program = Effect.gen(function* () {
+  // Access service directly with yield*
+  const myService = yield* MyService;
+  
+  // Use the service
+  const result = yield* myService.operation1(input);
+  
+  return result;
+});
+```
 
-### Performance & Concurrency
-- Use `Effect.forEach` with concurrency control
-- Add timeouts to long-running operations
-- Track operation timing with performance metrics
+## Layer Composition
 
-### Resource Management
-- Use `Effect.acquireRelease` for cleanup
-- Ensure proper resource scoping
-- Handle cleanup in error cases
+Compose service layers properly:
 
-### Configuration & State
-- Use Effect for configuration loading
-- Validate configurations at load time
-- Provide type-safe access to values
+```typescript
+// Combine individual layers
+const AppLayer = Layer.mergeAll(
+  ServiceA.Live,
+  ServiceB.Live,
+  ServiceC.Live
+);
 
-### Logging & Monitoring
-- Use structured logging
-- Add context annotations
-- Track timing information
+// Use Layer.provide for sequential dependencies 
+const LayerWithDependency = Layer.provide(
+  DependencyLayer,
+  DependentServiceLayer
+);
+```
 
-## Testing Patterns
+## Testing Services Using the Test Harness
 
-### Test Structure
-- Group tests by feature/method
-- Use descriptive names
-- Follow Arrange-Act-Assert
+Use the standard test harness utility to avoid type inference issues:
 
-### Mock Services
-- Create interface-compliant mocks
-- Use Effect.succeed/fail for paths
-- Reset state between tests
+```typescript
+// Import the test harness utility
+import { createServiceTestHarness } from "@/services/core/test-utils/effect-test-harness.js";
 
-### Testing Effects
-- Test success and error paths
-- Verify error types and messages
-- Check state changes and interactions
+// Create test implementation
+const createTestImpl = () => {
+  return Effect.gen(function* () {
+    // Create any needed state
+    const store = yield* Ref.make(new Map());
+    
+    // Implement service methods
+    const operation1 = (input: Input): Effect.Effect<Output, MyError> => {
+      // Test implementation
+    };
+    
+    return {
+      operation1,
+      // Other methods
+    };
+  });
+};
 
-## Best Practices
-1. Always use `Effect.Service` for defining and providing services
-2. Keep services focused and interfaces small
-3. Use Effect for all async/fallible operations
-4. Handle all error cases explicitly
-5. Make error handling predictable and consistent
-6. Use proper dependency injection via Effect.Service class
-7. Keep effects pure and predictable
-8. Add timeouts to external operations
-9. Track performance metrics
-10. Test both success and error paths
-11. Document public interfaces and effects
+// Create the test harness for the service
+const serviceHarness = createServiceTestHarness(
+  MyService,  // Pass the service class
+  createTestImpl // Pass the implementation factory
+);
 
-## Anti-patterns to Avoid
-1. **Do not use `Context.Tag` directly or via class-based pattern.**
-   - Explicit Context.Tag usage is forbidden. Use the Effect.Service class pattern for all service definitions and dependency injection.
-2. Don't mix Effect with Promise-based code
-3. Don't throw errors in Effect chains
-4. Don't use type assertions unnecessarily
-5. Don't ignore error cases
-6. Don't skip resource cleanup
-7. Don't mix sync and async code without Effect
-8. Don't bypass the Effect type system
-9. Don't use global state
-10. Don't test implementation details
-11. Don't use real services in unit tests
+// In your tests
+it("should perform operation1 successfully", async () => {
+  const effect = Effect.gen(function* () {
+    const service = yield* MyService;
+    const result = yield* service.operation1(testInput);
+    expect(result).toEqual(expectedOutput);
+    return result;
+  });
+  
+  // Run the test with the harness
+  await serviceHarness.runTest(effect);
+});
+
+// Test error cases
+it("should fail with specific error", async () => {
+  const effect = Effect.gen(function* () {
+    const service = yield* MyService;
+    return yield* service.operation2("invalid-id");
+  });
+  
+  // Assert specific error
+  await serviceHarness.expectError(effect, "MySpecificErrorTag");
+});
+```
+
+The test harness provides these utilities:
+
+- `runTest`: Run effects expecting success
+- `runFailTest`: Run effects expecting failure, returns Exit state
+- `expectError`: Assert a specific error tag was thrown
+- `TestLayer`: Access the layer directly if needed
+
+## Common Mistakes to Avoid
+
+1. **DO NOT** use `Context.Tag` or any explicit tag property—use only the Effect.Service class pattern for all service definitions and dependency injection.
+2. **DO NOT** use `Context.GenericTag`.
+3. **DO NOT** use function parameter in `Effect.gen` like `function* (_)`—use direct yielding.
+4. **DO NOT** forget to handle errors explicitly in your service implementation.
+5. **DO NOT** mix different versions of the Effect pattern in the same codebase. 
 
 ---
 > Source: [PaulJPhilp/EffectiveAgent](https://github.com/PaulJPhilp/EffectiveAgent) — distributed by [TomeVault](https://tomevault.io).
