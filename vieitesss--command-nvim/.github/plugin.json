@@ -1,0 +1,9 @@
+{
+  "name": "vieitesss--command-nvim",
+  "displayName": "command.nvim",
+  "description": "Run commands in a builtin Neovim terminal, follow compilation errors and much more",
+  "version": "1.0.0",
+  "author": "vieitesss",
+  "homepage": "https://github.com/vieitesss/command.nvim",
+  "skills": []
+}
