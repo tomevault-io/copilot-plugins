@@ -1,0 +1,9 @@
+{
+  "name": "mokksy--ai-mocks",
+  "displayName": "ai-mocks",
+  "description": "\ud83e\udd16 AI-Mocks is a Kotlin-based toolkit for mocking and testing LLM APIs with real streaming and SSE support. Simulate OpenAI, Anthropic, Gemini, Ollama, and A2A services locally for reliable integration",
+  "version": "1.0.0",
+  "author": "mokksy",
+  "homepage": "https://github.com/mokksy/ai-mocks",
+  "skills": []
+}
