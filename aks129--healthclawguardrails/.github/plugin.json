@@ -1,0 +1,9 @@
+{
+  "name": "aks129--healthclawguardrails",
+  "displayName": "HealthClawGuardrails",
+  "description": "The security layer between AI agents and clinical data. A healthclaw.io open source project.",
+  "version": "1.0.0",
+  "author": "aks129",
+  "homepage": "https://github.com/aks129/HealthClawGuardrails",
+  "skills": []
+}
