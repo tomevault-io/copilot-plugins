@@ -1,0 +1,9 @@
+{
+  "name": "kain-90--rag-play",
+  "displayName": "RAG-Play",
+  "description": "An interactive visualization tool for understanding Retrieval-Augmented Generation (RAG) pipelines.",
+  "version": "1.0.0",
+  "author": "Kain-90",
+  "homepage": "https://github.com/Kain-90/RAG-Play",
+  "skills": []
+}
