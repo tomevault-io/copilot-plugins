@@ -1,52 +1,129 @@
-## git-commits
+## pyside
 
-> - Each commit must represent a single, complete, logical change
+> Helpful hints for for dealing with Qt and PySide code in nuke
 
-# Logical Git Check-ins Rule
+# General guidelines
 
-## Commit Structure and Atomicity
-- Each commit must represent a single, complete, logical change
-- Commits should be atomic: if reverted, they should cleanly undo one specific feature/fix/change
-- Large features should be broken down into multiple logical commits, each building incrementally
-- Avoid mixing unrelated changes (e.g., bug fixes with new features) in the same commit
+Keep it simple
 
-## Commit Message Standards
-- Use conventional commit format: `type(scope): description`
-- Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build
-- Keep the first line under 50 characters
-- Use imperative mood: "Add feature" not "Added feature" or "Adding feature"
-- Include detailed explanation in body for complex changes
-- Reference issue numbers when applicable: "Fixes #123" or "Relates to #456"
+Use as few lines as possible, but not at the sacrifice of readibility, safety and functionality.
 
-## Pre-commit Validation
-- Ensure code compiles/runs without errors
-- All tests should pass before committing
-- Remove debug code, console.log statements, temporary comments, and unused imports
-- Verify no sensitive information (API keys, passwords, personal data) is included
-- Check that formatting follows project style guidelines
-- Ensure no large binary files or build artifacts are accidentally committed
+When planning a complex code change, always start with a plan of action and then ask me for approval on that plan.
 
-## Code Quality Standards
-- Each commit should maintain or improve code quality
-- Include tests for new functionality when appropriate
-- Update documentation if the change affects user-facing behavior
-- Ensure backwards compatibility or clearly document breaking changes
-- Add meaningful comments for complex logic introduced in the commit
+For simple changes, just make the code change but always think carefully and step-by-step about the change itself.
 
-## Incremental Development
-- Make frequent, small commits rather than large, infrequent ones
-- Each commit should tell a story of the development process
-- Intermediate commits should leave the codebase in a working state
-- Use meaningful branch names that reflect the work being done
+When a function becomes too long, split it into smaller functions.
 
-## Review and Cleanup
-- Review your own changes before committing (git diff --staged)
-- Consider squashing fixup commits before pushing to main branches
-- Ensure commit history is clean and tells a coherent story
-- Remove or squash "work in progress" or "temporary" commits before merging
+When debugging a problem, make sure you have sufficient information to deeply understand the problem.
 
+More often than not, opt in to adding more logging and tracing to the code to help you understand the problem before making any changes. If you are provided logs that make the source of the problem obvious, then implement a solution. If you're still not 100% confident about the source of the problem, then reflect on 4-6 different possible sources of the problem, distill those down to 1-2 most likely sources, and then implement a solution for the most likely source - either adding more logging to validate your theory or implement the actual fix if you're extremely confident about the source of the problem.
 
-This rule ensures that every commit is meaningful, reviewable, and contributes to a clean project history that future developers (including yourself) will appreciate. 
+# Python code style is PEP8:
+https://peps.python.org/pep-0008/
+
+# Qt/PySide Development for Nuke
+
+## Testing Qt Applications in Nuke
+When creating or testing Qt/PySide applications that need to run in Nuke:
+
+### Use Nuke Terminal Mode Instead of Python
+Replace standard `python script.py` commands with Nuke's terminal GUI mode:
+```powershell
+& 'C:\Program Files\Nuke15.1v1\Nuke15.1.exe' --tg script.py
+```
+
+### When to Use Nuke Terminal Mode
+- Testing Qt widgets and panels that will be integrated into Nuke
+- Debugging PySide2/PySide6 compatibility issues
+- Testing inheritance systems that depend on Nuke's Qt environment
+- Validating UI behavior in Nuke's specific Qt context
+- Avoiding relative import issues when testing Nuke plugins
+
+### Nuke Qt Best Practices
+1. **PySide Version Detection**: Always detect Nuke version for correct PySide import:
+   ```python
+   import nuke
+   if nuke.NUKE_VERSION_MAJOR >= 16:
+       from PySide6 import QtWidgets, QtCore, QtGui
+   else:
+       from PySide2 import QtWidgets, QtCore, QtGui
+   ```
+
+2. **Keep Windows Responsive**: In Nuke terminal mode, process Qt events to maintain responsiveness:
+   ```python
+   while True:
+       QtWidgets.QApplication.processEvents()
+       time.sleep(0.1)
+       if not window.isVisible():
+           break
+   ```
+
+3. **Prevent Garbage Collection in tests**: Store global references to prevent Qt widgets from being destroyed:
+   ```python
+   globals()['_widget_reference'] = widget
+   ```
+
+4. **Path Resolution**: When testing from subdirectories, adjust import paths:
+   ```python
+   nk2dl_path = os.path.join(os.path.dirname(__file__), '..', '..', 'nk2dl')
+   #or be very direct:    nk2dl_path = "C:/Users/Daniel/Documents/repo/nk2dl/"
+   sys.path.insert(0, nk2dl_path)
+   ```
+
+### Nuke Command Line Options
+- `--tg`: Terminal GUI mode (keeps Qt event loop active)
+- `--nc`: No crash reporter
+- `--safe`: Safe mode (minimal plugins)
+
+### Example Test Structure
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""Qt test for Nuke environment."""
+
+import sys
+import os
+import time
+
+# Path setup for Nuke testing
+nk2dl_path = os.path.join(os.path.dirname(__file__), '..', '..', 'nk2dl')
+sys.path.insert(0, nk2dl_path)
+
+# Nuke-compatible PySide imports
+import nuke
+if nuke.NUKE_VERSION_MAJOR >= 16:
+    from PySide6 import QtWidgets, QtCore, QtGui
+else:
+    from PySide2 import QtWidgets, QtCore, QtGui
+
+def main():
+    widget = MyQtWidget()
+    widget.show()
+    
+    # Keep alive for Nuke terminal mode
+    globals()['_test_widget'] = widget
+    
+    try:
+        while True:
+            QtWidgets.QApplication.processEvents()
+            time.sleep(0.001)
+            if not widget.isVisible():
+                break
+    except KeyboardInterrupt:
+        pass
+    
+    return widget
+
+if __name__ == "__main__":
+    main()
+```
+
+### Testing Commands
+- **Nuke Qt Test**: `& 'C:\Program Files\Nuke15.1v1\Nuke15.1.exe' --tg tests/qt/test_file.py`
+
+If you need to run any logic tests that need yaml, you'll need to run the powershell environment  C:\Users\Daniel\Documents\repo\nk2dl\.venv\Scripts\Activate-nk2dl.ps1
+
+Nuke will taken a moment to launch, give it up to 180 seconds to launch.
 
 ---
 > Source: [artandmath/nk2dl](https://github.com/artandmath/nk2dl) — distributed by [TomeVault](https://tomevault.io).
