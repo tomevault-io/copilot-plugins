@@ -1,0 +1,9 @@
+{
+  "name": "convergence-ai--webgames",
+  "displayName": "webgames",
+  "description": "Challenges for general-purpose web-browsing AI agents",
+  "version": "1.0.0",
+  "author": "convergence-ai",
+  "homepage": "https://github.com/convergence-ai/webgames",
+  "skills": []
+}
