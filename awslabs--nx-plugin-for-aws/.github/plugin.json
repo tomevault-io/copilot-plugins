@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--nx-plugin-for-aws",
+  "displayName": "nx-plugin-for-aws",
+  "description": "The @aws/nx-plugin is a collection of code generators that automate the creation and configuration of cloud-native applications using AWS, TypeScript, Python and React within the Nx development ecosys",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/nx-plugin-for-aws",
+  "skills": []
+}
