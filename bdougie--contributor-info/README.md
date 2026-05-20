@@ -7,11 +7,11 @@ Dashboard for contributor info
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bdougie/contributor.info](https://github.com/bdougie/contributor.info).
+Original source: `CLAUDE.md` in [bdougie/contributor.info](https://github.com/bdougie/contributor.info).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
