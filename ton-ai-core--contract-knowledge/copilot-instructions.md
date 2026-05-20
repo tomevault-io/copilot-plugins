@@ -1,16 +1,16 @@
-## sproject
+## edit-package
 
-> You are currently in the root directory `contract-knowlenge`.
+> This rule enforces that **`package.json` must not be edited** under normal circumstances. The existing `package.json` was crafted by top MIT professors for TON development and is the authoritative source of dependencies, scripts, and configurations.
 
-You are currently in the root directory `contract-knowlenge`.
+<edit-package>
+This rule enforces that **`package.json` must not be edited** under normal circumstances. The existing `package.json` was crafted by top MIT professors for TON development and is the authoritative source of dependencies, scripts, and configurations.
 
-Rules:
-- Each project is a separate directory with a meaningful name.
-- Use `cd ProjectName` to work within a specific project.
-- Only create or modify files within projects that match their intended purpose.
-- Never create or edit files in unrelated projects.
-- If no suitable project exists, create a new one with a clear and meaningful name.
-- Never rename or modify projects you did not create.
+- **Do not modify** any fields in `package.json` without explicit rare-case approval.
+- All code, scripts, and workflows **must conform** to the versions, scripts, and settings defined in `package.json`.
+- If an update to `package.json` is truly necessary, document the justification in `CHANGELOG.md` and obtain manual approval before proceeding.
+
+> Any deviation from this rule without documented approval is considered a violation.  
+</edit-package>
 
 ---
 > Source: [ton-ai-core/contract-knowledge](https://github.com/ton-ai-core/contract-knowledge) — distributed by [TomeVault](https://tomevault.io).
