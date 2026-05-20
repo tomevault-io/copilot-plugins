@@ -4,7 +4,7 @@
   "repo": "yaicli",
   "description": "YAICLI: A powerful command-line AI assistant with 25+ LLM providers. Features chat, command execution, quick queries, function calling, MCP support, and persistent history. Seamlessly integrates into workflows with smart environment detection.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/belingud/yaicli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T08:52:41Z"
+  "distributed_at": "2026-05-20T22:50:23Z"
 }
