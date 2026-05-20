@@ -1,26 +1,51 @@
-## project-guidelines-rules
+## readme-rules
 
-> Document architectural decisions, naming conventions, and structure to keep the team aligned.
+> The root `README.md` serves as the primary introduction and quick-start guide for the project. It is crucial that it accurately reflects the project's current state, core features, structure, and how to install, run, build, and test it. This rule ensures the README is considered for updates after significant changes.
 
-# Rule: Auto-generate and maintain PROJECT_GUIDELINES.md
+# Root README Maintenance Rules
+# Last Updated: 2025-04-01 06:22:55 PM EDT
 
-Purpose:
-Document architectural decisions, naming conventions, and structure to keep the team aligned.
+## Purpose
+The root `README.md` serves as the primary introduction and quick-start guide for the project. It is crucial that it accurately reflects the project's current state, core features, structure, and how to install, run, build, and test it. This rule ensures the README is considered for updates after significant changes.
 
-When to run:
-- When new packages/apps are added to the monorepo
-- When naming, structure, or styling conventions change
-- When deployment or integration workflows are updated
+## Trigger for README Update ("Major Changes")
+A review and potential update of the root `README.md` MUST be considered by the agent after successfully completing tasks that involve any of the following **major changes**:
 
-Include:
-- Tech stack overview (frontend, backend, DB)
-- Folder structure and purpose (`apps/`, `packages/`)
-- Naming conventions for files, types, and functions
-- Component standards (hooks only, styled-components usage)
-- Deployment strategy (Vercel, AWS, preview vs prod)
+1.  **New Package/App:** Adding a new workspace package under `apps/` or `packages/`.
+2.  **Major Feature Implementation:** Completing a significant, user-facing feature or core functionality update.
+3.  **Build/Run/Test Command Changes:** Modifying fundamental scripts in root or workspace `package.json` files, `turbo.json`, or core config files (`vite.config.ts`, `vitest.workspace.ts`) that alter how developers interact with the project.
+4.  **Installation/Setup Changes:** Adding new required dependencies, environment variables, or setup steps.
+5.  **Core Architectural Shifts:** Significant refactoring that changes the project structure or how key modules interact (which might necessitate updating structure diagrams or descriptions).
+6.  **Deprecation/Removal:** Removing a package or significant feature.
 
-Format:
-Clean markdown with collapsible sections or bullet points for quick reference.
+*Minor changes* (e.g., internal refactors, simple bug fixes, dependency bumps unless they change usage) generally do not require a root README update, although related package-level READMEs might.
+
+## README Update Workflow (Agent Action)
+
+When you determine that a completed task qualifies as a **major change**:
+
+1.  **Flag Need:** Acknowledge internally or log that the `README.md` should be reviewed for potential updates.
+2.  **Read Current README:** Load the full content of the root `README.md` file.
+3.  **Analyze Impact & Identify Sections:** Based on the nature of the major change, determine which sections of the README are likely affected. Common sections include:
+    * Project Overview / Introduction
+    * Features List
+    * Repository Structure / Architecture Overview
+    * Prerequisites / Installation
+    * Getting Started / Usage / Development Workflow
+    * Available Scripts / Commands (Build, Test, Lint, etc.)
+    * Configuration
+    * Deployment (if applicable)
+4.  **Generate Necessary Updates:** Draft clear, concise, and accurate updates for only the affected sections. Ensure commands, file paths, and descriptions are correct.
+5.  **Apply Updates:** Modify the `README.md` file content with the generated updates. If unsure about the impact or wording, you may optionally present the proposed changes to the user before applying.
+6.  **Log & Commit:** Report that the `README.md` has been updated. Ensure the updated `README.md` is included in the same commit or PR as the major change it documents.
+
+## README Content Quality Guidelines
+
+* **Accurate:** Instructions and descriptions must match the current state.
+* **Clear:** Use simple language; explain necessary jargon.
+* **Concise:** Provide essential information efficiently. Use lists, code blocks.
+* **Up-to-Date:** Regularly review after major changes.
+* **Comprehensive:** Cover key aspects needed for a developer to understand and use the project.
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
