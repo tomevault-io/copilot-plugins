@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--clickstack-helm-charts",
+  "displayName": "ClickStack-helm-charts",
+  "description": "Helm Charts for ClickStack",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/ClickStack-helm-charts",
+  "skills": []
+}
