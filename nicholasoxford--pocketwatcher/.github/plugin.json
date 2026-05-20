@@ -1,0 +1,9 @@
+{
+  "name": "nicholasoxford--pocketwatcher",
+  "displayName": "pocketwatcher",
+  "description": "\ud83d\ude80 Production-ready Next.js template with PocketBase and shadcn/ui. Includes authentication, beautiful UI components, and one-command deployment. Deploy to Fly.io on one machine",
+  "version": "1.0.0",
+  "author": "nicholasoxford",
+  "homepage": "https://github.com/nicholasoxford/pocketwatcher",
+  "skills": []
+}
