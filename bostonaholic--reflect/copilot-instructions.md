@@ -1,50 +1,50 @@
-## testing
+## typescript
 
-> - Organize tests by feature/component
+> - Use explicit type annotations
 
-# Testing Rules
+# TypeScript Rules
 
-## Test Organization
-- Organize tests by feature/component
-- Use consistent test file naming
-- Implement proper test hierarchy
-- Use appropriate test categories
-- Maintain test directory structure
+## Type Definitions
+- Use explicit type annotations
+- Avoid using 'any' type
+- Use appropriate type guards
+- Implement proper interfaces
+- Use type aliases when appropriate
 
-## Test Quality
-- Write clear and descriptive test names
-- Follow AAA pattern (Arrange, Act, Assert)
-- Test one concept per test
-- Use appropriate assertions
-- Implement proper test isolation
+## Type Safety
+- Enable strict mode
+- Use proper type assertions
+- Implement proper error handling
+- Use discriminated unions
+- Implement proper type narrowing
 
-## Test Coverage
-- Maintain appropriate test coverage
-- Focus on critical paths
-- Test edge cases
-- Include error scenarios
-- Test integration points
+## Code Organization
+- Use proper module organization
+- Implement proper namespace usage
+- Use appropriate file extensions
+- Follow proper import/export patterns
+- Implement proper type declarations
 
-## Test Performance
-- Keep tests fast
-- Use appropriate test fixtures
-- Implement proper mocking
-- Use test databases
-- Implement parallel test execution
+## Best Practices
+- Use proper access modifiers
+- Implement proper inheritance
+- Use generics appropriately
+- Follow SOLID principles
+- Use proper decorators
 
-## Test Maintenance
-- Keep tests up to date
-- Remove obsolete tests
-- Refactor tests when needed
-- Document test requirements
-- Review test code quality
+## Performance
+- Use proper type inference
+- Implement proper type caching
+- Use appropriate type imports
+- Optimize type definitions
+- Use proper type exports
 
-## Test Tools
-- Use appropriate testing frameworks
-- Implement proper test runners
-- Use code coverage tools
-- Implement test reporting
-- Use test automation tools
+## Testing
+- Use proper type testing
+- Implement proper type assertions
+- Test type definitions
+- Use proper type guards
+- Implement proper type coverage
 
 ---
 > Source: [bostonaholic/reflect](https://github.com/bostonaholic/reflect) — distributed by [TomeVault](https://tomevault.io).
