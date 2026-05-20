@@ -1,0 +1,9 @@
+{
+  "name": "hyprstream--hyprstream",
+  "displayName": "hyprstream",
+  "description": "HyprStream: agentic infrastructure for continous online-learning applications",
+  "version": "1.0.0",
+  "author": "hyprstream",
+  "homepage": "https://github.com/hyprstream/hyprstream",
+  "skills": []
+}
