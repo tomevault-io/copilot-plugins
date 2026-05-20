@@ -1,0 +1,9 @@
+{
+  "name": "matthewdeaves--qemumac",
+  "displayName": "QemuMac",
+  "description": "Bash toolkit for classic Mac emulation via QEMU. Pre-configured VMs for Quadra 800 (68K) and PowerMac G4 (PPC) running Mac OS 7.5-9.2 and OS X Tiger/Leopard. Auto-downloads ROMs/installers, shared dis",
+  "version": "1.0.0",
+  "author": "matthewdeaves",
+  "homepage": "https://github.com/matthewdeaves/QemuMac",
+  "skills": []
+}
