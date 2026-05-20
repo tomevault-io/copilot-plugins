@@ -1,0 +1,9 @@
+{
+  "name": "agent-substrate--substrate",
+  "displayName": "substrate",
+  "description": "Agent Substrate: the core system",
+  "version": "1.0.0",
+  "author": "agent-substrate",
+  "homepage": "https://github.com/agent-substrate/substrate",
+  "skills": []
+}
