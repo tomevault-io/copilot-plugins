@@ -1,0 +1,9 @@
+{
+  "name": "nakaokarei--swift-mcp-gui",
+  "displayName": "swift-mcp-gui",
+  "description": "MCP server that can execute commands such as keyboard input and mouse movement on macOS",
+  "version": "1.0.0",
+  "author": "NakaokaRei",
+  "homepage": "https://github.com/NakaokaRei/swift-mcp-gui",
+  "skills": []
+}
