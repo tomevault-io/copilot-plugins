@@ -1,12 +1,12 @@
-## elixir-documentation
+## elixir-error-handling
 
-> Handles user-related operations including creation, updates, and queries.
+> name: elixir_error_handling
 
-# Elixir Documentation Practices
+# Elixir Error Handling
 
 <rule>
-name: elixir_documentation
-description: Best practices for writing effective documentation in Elixir code
+name: elixir_error_handling
+description: Best practices for handling errors and exceptions in Elixir
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
@@ -14,111 +14,97 @@ filters:
 actions:
   - type: suggest
     message: |
-      # Elixir Documentation Best Practices
+      # Elixir Error Handling Best Practices
 
-      ## Module Documentation
-      - Always include a `@moduledoc` attribute with clear description of the module's purpose
-      - Structure module docs with markdown headings for better readability
-      - Include examples of common usage patterns
-      - Document any behaviors the module implements
-      - For large modules, add a table of contents
+      ## Return Values vs Exceptions
+      - Use `{:ok, result}` and `{:error, reason}` tuples for expected error cases
+      - Use exceptions only for exceptional, unexpected situations
+      - Provide both bang (`!`) and non-bang versions of functions when appropriate
+      - Document error return values in function specifications
       
-      ## Function Documentation
-      - Document all public functions with `@doc` attributes
-      - Include information about:
-        - What the function does
-        - Parameter descriptions and expected types
-        - Return value description and type
-        - Possible errors or exceptions
-        - Usage examples
-      - Use backticks for code elements: `variable_name`, `function_name/arity`
+      ## Error Tuples
+      - Use standardized error tuples: `{:error, reason}` or `{:error, type, reason}`
+      - Make error reasons descriptive and actionable
+      - Consider including additional context in error tuples for complex operations
+      - Use atoms for error types to allow pattern matching
       
-      ## Type Documentation
-      - Use `@typedoc` to explain complex or non-obvious types
-      - Document all public type definitions
+      ## With Statement
+      - Use `with` for sequences of operations that can fail
+      - Handle errors explicitly in the `else` clause
+      - Avoid deeply nested `with` statements
+      - Return consistent error structures from `with` expressions
       
-      ## Code Examples
-      - Include practical examples in documentation
-      - Use doctests with `iex>` prompts to provide testable examples:
-        ```elixir
-        @doc """
-        Adds two numbers.
-        
-        ## Examples
-            
-            iex> Calculator.add(2, 3)
-            5
-        """
-        ```
+      ## Try/Rescue
+      - Use `try/rescue` sparingly, primarily when working with external code
+      - Rescue specific exceptions rather than catching all exceptions
+      - Re-raise exceptions with additional context when appropriate
+      - Clean up resources with `after` clause regardless of exceptions
       
-      ## Documentation Format
-      - Use markdown formatting for rich documentation
-      - Add headers, lists, and code blocks to structure information
-      - Use backticks for inline code and triple backticks for code blocks
-      - Keep line length at a reasonable width (recommended: 80-100 characters)
+      ## Custom Exceptions
+      - Define custom exceptions for application-specific error conditions
+      - Use `defexception` to create structured exception types
+      - Include helpful message and context in custom exceptions
+      - Implement `Exception` behavior for custom exception types
       
-      ## Specialized Documentation
-      - Add `@deprecated` tags with migration information for deprecated functions
-      - Include `@since` tags when version history is important
-      - Use `@see` references to link to related functions or modules
+      ## Process Failures
+      - Design processes to fail fast and restart cleanly
+      - Use supervision trees to handle process failures
+      - Consider using `handle_info/2` to catch specific exit signals
+      - Log errors appropriately before crashing
 
 examples:
   - input: |
-      defmodule MyApp.User do
-        def create(attrs) do
-          # Implementation
-        end
-        
-        def update(user, attrs) do
-          # Implementation
+      def fetch_user(id) do
+        case Repo.get(User, id) do
+          nil -> raise "User not found"
+          user -> user
         end
       end
     output: |
-      defmodule MyApp.User do
-        @moduledoc """
-        Handles user-related operations including creation, updates, and queries.
-        
-        This module provides a complete API for managing user accounts in the system.
-        """
-        
-        @doc """
-        Creates a new user with the given attributes.
-        
-        ## Parameters
-          - attrs: Map containing user attributes
-        
-        ## Returns
-          - `{:ok, user}` on success
-          - `{:error, changeset}` on validation failure
-        
-        ## Examples
-        
-            iex> MyApp.User.create(%{name: "John", email: "john@example.com"})
-            {:ok, %User{name: "John", email: "john@example.com"}}
-        """
-        def create(attrs) do
-          # Implementation
+      def fetch_user(id) do
+        case Repo.get(User, id) do
+          nil -> {:error, :not_found}
+          user -> {:ok, user}
         end
-        
-        @doc """
-        Updates an existing user with the provided attributes.
-        
-        ## Parameters
-          - user: The user struct to update
-          - attrs: Map containing updated user attributes
-        
-        ## Returns
-          - `{:ok, user}` on success
-          - `{:error, changeset}` on validation failure
-        
-        ## Examples
-        
-            iex> MyApp.User.update(user, %{name: "New Name"})
-            {:ok, %User{name: "New Name", email: "john@example.com"}}
-        """
-        def update(user, attrs) do
-          # Implementation
+      end
+      
+      def fetch_user!(id) do
+        case Repo.get(User, id) do
+          nil -> raise UserNotFoundError, "User with ID #{id} not found"
+          user -> user
         end
+      end
+      
+      defmodule UserNotFoundError do
+        defexception message: "User not found"
+      end
+  
+  - input: |
+      def process_file(path) do
+        data = File.read(path)
+        if elem(data, 0) == :ok do
+          process_data(elem(data, 1))
+        else
+          raise "Couldn't read file"
+        end
+      end
+    output: |
+      def process_file(path) do
+        with {:ok, data} <- File.read(path),
+             {:ok, result} <- process_data(data) do
+          {:ok, result}
+        else
+          {:error, :enoent} -> 
+            {:error, :file_not_found, "File does not exist at #{path}"}
+          {:error, reason} -> 
+            {:error, :file_error, reason}
+          {:error, :processing, reason} -> 
+            {:error, :processing_failed, reason}
+        end
+      end
+      
+      def process_data(data) do
+        # Process data and return {:ok, result} or {:error, :processing, reason}
       end
 
 metadata:
