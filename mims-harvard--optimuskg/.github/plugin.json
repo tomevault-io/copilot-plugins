@@ -1,0 +1,9 @@
+{
+  "name": "mims-harvard--optimuskg",
+  "displayName": "OptimusKG",
+  "description": "A modern multimodal knowledge graph with type-specific metadata across biomedical domains.",
+  "version": "1.0.0",
+  "author": "mims-harvard",
+  "homepage": "https://github.com/mims-harvard/OptimusKG",
+  "skills": []
+}
