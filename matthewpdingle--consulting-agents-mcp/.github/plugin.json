@@ -1,0 +1,9 @@
+{
+  "name": "matthewpdingle--consulting-agents-mcp",
+  "displayName": "consulting-agents-mcp",
+  "description": "An MCP server that interfaces with OpenAI, Google, and Anthropic's APIs to give Claude Code \"coworkers\" to help it on difficult problems.",
+  "version": "1.0.0",
+  "author": "MatthewPDingle",
+  "homepage": "https://github.com/MatthewPDingle/consulting-agents-mcp",
+  "skills": []
+}
