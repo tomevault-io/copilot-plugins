@@ -1,20 +1,71 @@
-## current-scope
+## priompt
 
-> ALWAYS REFER TO THIS FILE BEFORE ANY RESPONSE.
+> Working with Priompt
 
-ALWAYS, whenever asked to make a change, unless specifically requested not-to, you should create a well-named PRD file for the current scope within the `.cursor/scopes` folder.
+# Working With Priompt
 
-CRITICAL: DO NOT MAKE CHANGES UNTIL THE USER HAS CONFIRMED THE PLAN.
+## Always Define Priompt At The Top of the `.priompt.tsx` File
 
-CRITICAL: ALWAYS ASK THE USER ABOUT THE PLAN YOU HAVE GENERATED, AND OFFER FOLLOWUP QUESTIONS
+`import * as Priompt from '@anysphere/priompt';`
 
-For example: 
+> NOTE: If you do not do this in a `.priompt.tsx` file, you will have weird compiler errors.
 
-If the user asked you to make a widget, you might call the file `WidgetFeature.md`.
 
-Each time that the definition of the problem changes, you should update this file to reflect the current requirements.
+## Block Components Should be Used Liberally to denote different sections of the prompt
 
-If you don't have enough information to create a good version of this file, you should first ask the user information about how they want the feature to be structured.
+```tsx
+import {Block} from '@reasonote/lib-ai';
+
+<Block name="Wrapper" attributes={{id: 'MyId'}}>
+    <Block name="Inner">
+        <Block name="EvenMoreInner">
+        {`Hi`}
+        </Block>
+    </Block>
+</Block>
+```
+
+Will compile to:
+
+```tsx
+<Wrapper id="MyId">
+    <Inner>
+        <EvenMoreInner>
+            Hi
+        </EvenMoreInner>
+    </Inner>
+</Wrapper>
+```
+
+
+## Inline Strings
+- When putting strings in, indent them according to their placement in the code, and then use "trimlines" to remove starting whitespace, like:
+
+```tsx
+<Block name="Wrapper">
+    {trimLines(`
+        This is indented but will be trimmed
+    `)}
+</Block>
+```
+
+
+## Linebreaks
+
+Unless you use `<br/>` between XML sections, no linebreaks will be added.
+
+As such, you should prefer this:
+
+```tsx
+// GOOD
+<Component1/>
+<br/>
+<Component2/>
+
+// BAD
+<Component1/>
+<Component2/>
+```
 
 ---
 > Source: [Reasonote/reasonote](https://github.com/Reasonote/reasonote) — distributed by [TomeVault](https://tomevault.io).
