@@ -1,0 +1,9 @@
+{
+  "name": "homeassistant-extras--toolbar-status-chips",
+  "displayName": "toolbar-status-chips",
+  "description": "Adds status chips to the toolbar area in Home Assistant based on entity labels and url path",
+  "version": "1.0.0",
+  "author": "homeassistant-extras",
+  "homepage": "https://github.com/homeassistant-extras/toolbar-status-chips",
+  "skills": []
+}
