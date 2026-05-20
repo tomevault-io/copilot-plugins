@@ -4,7 +4,7 @@
   "repo": "swift-grok",
   "description": "unofficial grok api library",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/klu-ai/swift-grok",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T03:17:26Z"
+  "distributed_at": "2026-05-20T21:12:14Z"
 }
