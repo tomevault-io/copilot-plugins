@@ -1,0 +1,9 @@
+{
+  "name": "leanprover--human-eval-lean",
+  "displayName": "human-eval-lean",
+  "description": "Hand-written verified Lean solutions for the HumanEval benchmark",
+  "version": "1.0.0",
+  "author": "leanprover",
+  "homepage": "https://github.com/leanprover/human-eval-lean",
+  "skills": []
+}
