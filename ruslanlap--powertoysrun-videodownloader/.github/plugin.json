@@ -1,0 +1,9 @@
+{
+  "name": "ruslanlap--powertoysrun-videodownloader",
+  "displayName": "PowerToysRun-VideoDownloader",
+  "description": "PowerToysRun-VideoDownloader is a plugin for Microsoft PowerToys Run that allows you to quickly download videos from various platforms (primarily YouTube) directly from your PowerToys Run interface. S",
+  "version": "1.0.0",
+  "author": "ruslanlap",
+  "homepage": "https://github.com/ruslanlap/PowerToysRun-VideoDownloader",
+  "skills": []
+}
