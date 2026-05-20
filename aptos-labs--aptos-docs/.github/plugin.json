@@ -1,0 +1,9 @@
+{
+  "name": "aptos-labs--aptos-docs",
+  "displayName": "aptos-docs",
+  "description": "Documentation for the Aptos Blockchain",
+  "version": "1.0.0",
+  "author": "aptos-labs",
+  "homepage": "https://github.com/aptos-labs/aptos-docs",
+  "skills": []
+}
