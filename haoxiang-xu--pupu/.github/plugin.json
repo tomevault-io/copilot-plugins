@@ -1,0 +1,9 @@
+{
+  "name": "haoxiang-xu--pupu",
+  "displayName": "PuPu",
+  "description": "PuPu is a lightweight, cross-platform desktop AI client that works with both local and cloud-hosted models. Whether you prefer running models on your own machine or connecting to providers like OpenAI",
+  "version": "1.0.0",
+  "author": "haoxiang-xu",
+  "homepage": "https://github.com/haoxiang-xu/PuPu",
+  "skills": []
+}
