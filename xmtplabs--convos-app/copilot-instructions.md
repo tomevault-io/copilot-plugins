@@ -1,117 +1,82 @@
-## typescript
+## zustand-store
 
-> The following contains rules about TypeScript usage in our codebase. Each rule is followed by a small example showing good and bad practices.
+> The following contains rules about how we use Zustand in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-The following contains rules about TypeScript usage in our codebase. Each rule is followed by a small example showing good and bad practices.
+The following contains rules about how we use Zustand in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-- Use types over interfaces, prefixed with 'I'.
+- Use Zustand stores to centralize state, especially when we're starting to pass many props/arguments between components/functions/hooks/etc
+- Structure stores with a clear separation between state and actions.
+- Prefer using the store directly in components over prop drilling.
+- Prefer using the store directly in hooks over passing arguments.
+- Use selectors to minimize re-renders.
+
+## Store Structure
 
 ```typescript
-// ❌ Bad
-interface User {
-  id: string
-  name: string
+// ✅ Good: Clear separation of state and actions
+export const useCounterStore = create<ICounterStore>((set) => ({
+  // State
+  count: 0,
+  isLoading: false,
+
+  // Actions
+  actions: {
+    increment: () => set((state) => ({ count: state.count + 1 })),
+    decrement: () => set((state) => ({ count: state.count - 1 })),
+    reset: () => set({ count: 0 }),
+    fetchCount: async () => {
+      set({ isLoading: true })
+      try {
+        const count = await api.getCount()
+        set({ count, isLoading: false })
+      } catch (error) {
+        set({ isLoading: false })
+        throw new AppError({
+          error,
+          additionalMessage: "Failed to fetch count",
+        })
+      }
+    },
+  },
+}))
+```
+
+## Component Usage
+
+```typescript
+// ❌ Bad: Prop drilling
+function ParentComponent() {
+  const count = useCounterStore((state) => state.count);
+  const increment = useCounterStore((state) => state.actions.increment);
+
+  return <ChildComponent count={count} increment={increment} />;
 }
 
-// ✅ Good
-type IUser = {
-  id: string
-  name: string
+// ✅ Good: Direct store usage
+function ChildComponent() {
+  const count = useCounterStore((state) => state.count);
+  const { increment } = useCounterStore((state) => state.actions);
+
+  return (
+    <Button onPress={increment}>
+      Count: {count}
+    </Button>
+  );
 }
 ```
 
-- Never use 'any'.
+## Selector Usage
 
 ```typescript
-// ❌ Bad
-function processData(data: any) {
-  return data.items
-}
+// ❌ Bad: Getting the entire store
+const { count, actions } = useCounterStore()
 
-// ✅ Good
-function processData(args: { data: { items: unknownnst { data } = args
-  return data.items
-}
+// ✅ Good: Using selectors for specific values
+const count = useCounterStore((state) => state.count)
+const { increment } = useCounterStore((state) => state.actions)
 ```
 
-- , use string literals instead.
-
-```typescript
-// ❌ Bad
-enum MessageStatus {
-  SENT = "sent",
-  DELIVERED = "delivered",
-  READ = "read",
-}
-
-// ✅ Good
-type IMessageStatus = "sent" | "delivered" | "read"
-```
-
-- Prefer type inference when possible.
-
-```typescript
-// ❌ Bad
-const items: string[] = ["apple", "banana"]
-const count: number = items.length
-
-// ✅ Good
-const items = ["apple", "banana"]
-const count = items.length
-```
-
-- Avoid explicit Promise return types - let TypeScript infer them.
-
-```typescript
-// ❌ Bad
-async function fetchUser(id: string): Promise<IUser> {
-  return api.getUser(id)
-}
-
-// ✅ Good
-async function fetchUser(args: { id: string }) {
-  const { id } = args
-  return api.getUser(id)
-}
-```
-
-- Prefer type assertions on return objects over function return type annotations.
-
-```typescript
-// ❌ Bad
-function createConfig(): IConfig {
-  return {
-    theme: "dark",
-    notifications: true,
-    timeout: 30,
-  }
-}
-
-// ✅ Good
-function createConfig() {
-  return {
-    theme: "dark",
-    notifications: true,
-    timeout: 30,
-  } satisfies IConfig
-}
-```
-
-- Avoid explicit return types on functions.
-
-```typescript
-// ❌ Bad
-function formatName(args: { first: string; last: string }): string {
-  const { first, last } = args
-  return `${first} ${last}`
-}
-
-// ✅ Good
-function formatName(args: { first: string; last: string }) {
-  const { first, last } = args
-  return `${first} ${last}`
-}
-```
+@stores/index.ts
 
 ---
 > Source: [xmtplabs/convos-app](https://github.com/xmtplabs/convos-app) — distributed by [TomeVault](https://tomevault.io).
