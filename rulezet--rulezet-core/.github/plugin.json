@@ -1,0 +1,9 @@
+{
+  "name": "rulezet--rulezet-core",
+  "displayName": "rulezet-core",
+  "description": "Rulezet is an open-source web platform for sharing, evaluating, improving, and managing cybersecurity detection rules (YARA, Sigma, Suricata, etc). It aims to foster collaboration among professionals ",
+  "version": "1.0.0",
+  "author": "rulezet",
+  "homepage": "https://github.com/rulezet/rulezet-core",
+  "skills": []
+}
