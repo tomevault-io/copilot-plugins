@@ -1,0 +1,9 @@
+{
+  "name": "wpallstars--wp-plugin-starter-template-for-ai-coding",
+  "displayName": "wp-plugin-starter-template-for-ai-coding",
+  "description": "A WordPress plugin starter template for coding with AI IDEs, like; Augment Code, Cursor, Windsurf, Loveable, Bolt, Cline, Roo Code, etc",
+  "version": "1.0.0",
+  "author": "wpallstars",
+  "homepage": "https://github.com/wpallstars/wp-plugin-starter-template-for-ai-coding",
+  "skills": []
+}
