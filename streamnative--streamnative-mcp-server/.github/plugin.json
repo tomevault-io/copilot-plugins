@@ -1,0 +1,9 @@
+{
+  "name": "streamnative--streamnative-mcp-server",
+  "displayName": "streamnative-mcp-server",
+  "description": "Developer-friendly MCP server bridging Kafka and Pulsar protocols\u2014built with \u2764\ufe0f by StreamNative for an agentic, streaming-first future.",
+  "version": "1.0.0",
+  "author": "streamnative",
+  "homepage": "https://github.com/streamnative/streamnative-mcp-server",
+  "skills": []
+}
