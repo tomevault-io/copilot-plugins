@@ -1,0 +1,9 @@
+{
+  "name": "hoangsonww--estatewise-chapel-hill-chatbot",
+  "displayName": "EstateWise-Chapel-Hill-Chatbot",
+  "description": "\ud83c\udfe0 An AI real estate app featuring secure auth, conversation management, & personalized property recommendations. Powered by Agentic AI, RAG (w/ Pinecone), GraphRAG (w/ Neo4j), MCP, kNN, K\u2011Means Cluste",
+  "version": "1.0.0",
+  "author": "hoangsonww",
+  "homepage": "https://github.com/hoangsonww/EstateWise-Chapel-Hill-Chatbot",
+  "skills": []
+}
