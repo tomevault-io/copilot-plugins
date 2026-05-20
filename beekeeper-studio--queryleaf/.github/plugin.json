@@ -1,0 +1,9 @@
+{
+  "name": "beekeeper-studio--queryleaf",
+  "displayName": "queryleaf",
+  "description": "SQL for Mongo (in Node JS)",
+  "version": "1.0.0",
+  "author": "beekeeper-studio",
+  "homepage": "https://github.com/beekeeper-studio/queryleaf",
+  "skills": []
+}
