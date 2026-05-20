@@ -1,11 +1,11 @@
-## env-variables
+## error-handling
 
-> Environment variables configuration and validation rules
+> Error handling conventions using AppError across all layers
 
 
-# Environment Variable Rules
+# Error Handling Rules
 
-@docs/environment.md
+@docs/error-handling.md
 
 ---
 > Source: [pubky/pubky-app](https://github.com/pubky/pubky-app) — distributed by [TomeVault](https://tomevault.io).
