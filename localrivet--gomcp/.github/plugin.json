@@ -1,0 +1,9 @@
+{
+  "name": "localrivet--gomcp",
+  "displayName": "gomcp",
+  "description": "gomcp provides a Go implementation of the Model Context Protocol (MCP), enabling communication between language models/agents and external tools or resources via a standardized protocol.",
+  "version": "1.0.0",
+  "author": "localrivet",
+  "homepage": "https://github.com/localrivet/gomcp",
+  "skills": []
+}
