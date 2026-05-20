@@ -1,0 +1,9 @@
+{
+  "name": "vicanso--http-stat-rs",
+  "displayName": "http-stat-rs",
+  "description": "Pure rust version of http statistics, which refer to httpstat, and supports http1, http2 and http3.",
+  "version": "1.0.0",
+  "author": "vicanso",
+  "homepage": "https://github.com/vicanso/http-stat-rs",
+  "skills": []
+}
