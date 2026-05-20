@@ -1,0 +1,9 @@
+{
+  "name": "artandmath--nk2dl",
+  "displayName": "nk2dl",
+  "description": "nk2dl (aka Nuke to Deadline). A python module for submitting nukescripts to Thinkbox Deadline",
+  "version": "1.0.0",
+  "author": "artandmath",
+  "homepage": "https://github.com/artandmath/nk2dl",
+  "skills": []
+}
