@@ -1,0 +1,9 @@
+{
+  "name": "xibosignage--electron-player",
+  "displayName": "electron-player",
+  "description": "Player application for Linux and Windows",
+  "version": "1.0.0",
+  "author": "xibosignage",
+  "homepage": "https://github.com/xibosignage/electron-player",
+  "skills": []
+}
