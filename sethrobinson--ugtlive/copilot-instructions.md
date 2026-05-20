@@ -1,243 +1,326 @@
-## code-style-conventions
+## configuration-management
 
-> Code style and naming conventions for UGTLive
+> Configuration and settings management patterns
 
 
-# Code Style and Conventions
+# Configuration Management
 
-## Naming Conventions
+## ConfigManager Pattern
 
-### Classes and Methods
-- **Classes**: PascalCase (e.g., `ConfigManager`, `TranslationService`)
-- **Public Methods**: PascalCase (e.g., `GetValue()`, `TranslateAsync()`)
-- **Private Methods**: camelCase (e.g., `loadConfig()`, `processImage()`)
-- **Private Fields**: Underscore prefix + camelCase (e.g., `_instance`, `_configValues`)
-- **Constants**: UPPER_SNAKE_CASE (e.g., `GEMINI_API_KEY`, `TRANSLATION_SERVICE`)
-
-### Properties
-- Use PascalCase for public properties
-- Prefer explicit getters/setters over auto-properties when logic is needed
-- Pattern: `GetVariableName()` / `SetVariableName()` for ConfigManager
-- Direct property access for simple UI bindings
-
-## Code Layout
-
-### Indentation and Braces
-- **Indentation**: 4 spaces (no tabs)
-- **Braces**: Allman style (opening brace on new line)
-- **Line Length**: Prefer < 120 characters, wrap if needed
-
-### Using Statements
-- System namespaces first
-- Third-party namespaces second
-- Application namespaces last
-- Group related usings together
-
-### Example Structure
-```csharp
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
-using UGTLive;
-
-namespace UGTLive
-{
-    public class ExampleClass
-    {
-        private static ExampleClass? _instance;
-        private readonly Dictionary<string, string> _configValues;
-
-        public static ExampleClass Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new ExampleClass();
-                }
-                return _instance;
-            }
-        }
-
-        private ExampleClass()
-        {
-            _configValues = new Dictionary<string, string>();
-        }
-
-        public string GetValue(string key)
-        {
-            return _configValues.TryGetValue(key, out var value) ? value : "";
-        }
-    }
-}
-```
-
-## Singleton Pattern
-
-### Implementation
-- Use lazy initialization with null check
-- Private constructor
-- Static Instance property
-- Thread-safe initialization (simple null check is sufficient for this app)
+### Singleton Access
+Always access ConfigManager through the singleton instance:
 
 ```csharp
-private static ConfigManager? _instance;
-
-public static ConfigManager Instance
-{
-    get
-    {
-        if (_instance == null)
-        {
-            _instance = new ConfigManager();
-        }
-        return _instance;
-    }
-}
-
-private ConfigManager()
-{
-    // Initialization
-}
+var apiKey = ConfigManager.Instance.GetGeminiApiKey();
+ConfigManager.Instance.SetGeminiApiKey("new-key");
 ```
-
-## Error Handling
-
-### General Principles
-- **Avoid try/catch blocks** unless absolutely necessary
-- **Check for null** before using objects
-- **Log errors** using `LogManager.Instance.LogError()`
-- **Console.WriteLine** for debug output
-- **MessageBox.Show** for user-facing errors (on UI thread)
-
-### Error Handling Pattern
-```csharp
-// Prefer null checks over try/catch
-if (response == null)
-{
-    Console.WriteLine("Response is null");
-    return null;
-}
-
-// Log errors
-LogManager.Instance.LogError("Error description", exception);
-
-// User-facing errors on UI thread
-Application.Current.Dispatcher.Invoke(() =>
-{
-    MessageBox.Show($"Error: {message}", "Error Title", 
-        MessageBoxButton.OK, MessageBoxImage.Error);
-});
-```
-
-## Comments
-
-### When to Comment
-- Complex algorithms or business logic
-- Non-obvious code decisions
-- API integration details
-- TODO items for future improvements
-
-### Comment Style
-- Use `//` for single-line comments
-- Use `///` for XML documentation on public APIs
-- Keep comments concise and up-to-date
-
-## File Organization
-
-### File Structure
-1. Using statements
-2. Namespace declaration
-3. Class declaration
-4. Private fields
-5. Public properties
-6. Constructor
-7. Public methods
-8. Private methods
-
-### One Class Per File
-- Each class should be in its own file
-- File name matches class name
-- Exception: Small helper classes can be in same file
-
-## Nullable Reference Types
-
-### Null Handling
-- Use nullable reference types (`string?`, `object?`)
-- Check for null before dereferencing
-- Use null-coalescing operator (`??`) when appropriate
-- Use null-conditional operator (`?.`) for safe access
-
-```csharp
-private string? _optionalValue;
-
-public string GetValue()
-{
-    return _optionalValue ?? "default";
-}
-
-if (_optionalValue != null)
-{
-    // Use _optionalValue safely
-}
-```
-
-## Constants
 
 ### Configuration Keys
-- Define as `public const string` in ConfigManager
+- Define keys as `public const string` constants
 - Use descriptive UPPER_SNAKE_CASE names
-- Group related constants together
+- Group related keys together
 
 ```csharp
 public const string GEMINI_API_KEY = "gemini_api_key";
 public const string GEMINI_MODEL = "gemini_model";
+public const string TRANSLATION_SERVICE = "translation_service";
 ```
 
-## Async/Await Patterns
+## Getter/Setter Pattern
 
-### Method Naming
-- Async methods end with `Async` suffix
-- Return `Task` or `Task<T>`
-- Use `await` for async calls
+### Standard Pattern
+For each configuration value, provide Get/Set methods:
 
 ```csharp
-public async Task<string> TranslateAsync(string text)
+// Get method
+public string GetGeminiApiKey()
 {
-    var result = await httpClient.GetStringAsync(url);
-    return result;
+    return GetValue(GEMINI_API_KEY);
+}
+
+// Set method (auto-saves)
+public void SetGeminiApiKey(string apiKey)
+{
+    _configValues[GEMINI_API_KEY] = apiKey;
+    SaveConfig();
 }
 ```
 
-## LINQ Usage
-
-### When to Use LINQ
-- Prefer LINQ for collection operations
-- Use method syntax for complex queries
-- Keep queries readable
+### Typed Getters
+Provide typed getters for common types:
 
 ```csharp
-var filtered = items.Where(x => x.IsValid)
-                    .OrderBy(x => x.Name)
-                    .ToList();
-```
-
-## String Handling
-
-### String Operations
-- Use `string.IsNullOrWhiteSpace()` for null/empty checks
-- Prefer string interpolation (`$"text {variable}"`) over concatenation
-- Use `StringBuilder` for multiple concatenations
-
-```csharp
-if (string.IsNullOrWhiteSpace(value))
+// Boolean
+public bool GetBoolValue(string key, bool defaultValue = false)
 {
+    if (_configValues.TryGetValue(key, out var value))
+    {
+        return value.ToLower() == "true" || value == "1";
+    }
     return defaultValue;
 }
 
-var message = $"Processing {count} items";
+// Integer
+public int GetIntValue(string key, int defaultValue = 0)
+{
+    if (_configValues.TryGetValue(key, out var value))
+    {
+        if (int.TryParse(value, out int result))
+        {
+            return result;
+        }
+    }
+    return defaultValue;
+}
+
+// Double/Float
+public double GetDoubleValue(string key, double defaultValue = 0.0)
+{
+    if (_configValues.TryGetValue(key, out var value))
+    {
+        if (double.TryParse(value, out double result))
+        {
+            return result;
+        }
+    }
+    return defaultValue;
+}
+```
+
+## Configuration Files
+
+### File Structure
+- Main config: `config.txt` (in app directory)
+- Service-specific configs: `gemini_config.txt`, `ollama_config.txt`, etc.
+- Format: `key=value` pairs, one per line
+- Multiline values use tags: `<tag>content</tag>`
+
+### Loading Configuration
+```csharp
+private void LoadConfig()
+{
+    if (!File.Exists(_configFilePath))
+    {
+        CreateDefaultConfig();
+        return;
+    }
+    
+    string content = File.ReadAllText(_configFilePath);
+    ProcessMultilineValues(content);
+    ProcessSingleLineValues(content);
+}
+```
+
+### Saving Configuration
+```csharp
+public void SaveConfig()
+{
+    try
+    {
+        var lines = new List<string>();
+        foreach (var kvp in _configValues)
+        {
+            if (kvp.Value.Contains('\n'))
+            {
+                // Multiline value
+                lines.Add($"<{kvp.Key}>");
+                lines.Add(kvp.Value);
+                lines.Add($"</{kvp.Key}>");
+            }
+            else
+            {
+                lines.Add($"{kvp.Key}={kvp.Value}");
+            }
+        }
+        File.WriteAllLines(_configFilePath, lines);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error saving config: {ex.Message}");
+    }
+}
+```
+
+## Service-Specific Configuration
+
+### Separate Config Files
+Some services use separate config files for complex settings:
+
+- `gemini_config.txt` - Gemini prompt templates
+- `ollama_config.txt` - Ollama prompt templates
+- `chatgpt_config.txt` - ChatGPT prompt templates
+
+### Loading Service Configs
+```csharp
+public string GetGeminiPrompt()
+{
+    if (File.Exists(_geminiConfigFilePath))
+    {
+        return File.ReadAllText(_geminiConfigFilePath);
+    }
+    return GetDefaultGeminiPrompt();
+}
+```
+
+## Default Values
+
+### Providing Defaults
+Always provide sensible defaults:
+
+```csharp
+public string GetOllamaModel()
+{
+    return GetValue(OLLAMA_MODEL, "llama3"); // Default model
+}
+
+public int GetCaptureFPS()
+{
+    return GetIntValue(CAPTURE_FPS, 10); // Default 10 FPS
+}
+```
+
+## Settings Window Integration
+
+### Binding Pattern
+Settings window binds directly to ConfigManager:
+
+```csharp
+// In SettingsWindow.xaml.cs
+private void LoadSettings()
+{
+    ApiKeyTextBox.Text = ConfigManager.Instance.GetGeminiApiKey();
+    ModelComboBox.SelectedItem = ConfigManager.Instance.GetGeminiModel();
+}
+
+private void SaveSettings()
+{
+    ConfigManager.Instance.SetGeminiApiKey(ApiKeyTextBox.Text);
+    ConfigManager.Instance.SetGeminiModel(ModelComboBox.SelectedItem?.ToString() ?? "");
+}
+```
+
+### Two-Way Binding
+For real-time updates, use two-way binding:
+
+```xml
+<TextBox Text="{Binding ApiKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+```
+
+## Window Position Persistence
+
+### Saving Window State
+```csharp
+public void SetWindowPosition(string windowName, double left, double top, double width, double height)
+{
+    SetValue($"{windowName}_left", left.ToString());
+    SetValue($"{windowName}_top", top.ToString());
+    SetValue($"{windowName}_width", width.ToString());
+    SetValue($"{windowName}_height", height.ToString());
+    SaveConfig();
+}
+```
+
+### Loading Window State
+```csharp
+public WindowPosition? GetWindowPosition(string windowName)
+{
+    var left = GetDoubleValue($"{windowName}_left", -1);
+    var top = GetDoubleValue($"{windowName}_top", -1);
+    
+    if (left < 0 || top < 0)
+    {
+        return null; // No saved position
+    }
+    
+    return new WindowPosition
+    {
+        X = left,
+        Y = top,
+        Width = GetDoubleValue($"{windowName}_width", 800),
+        Height = GetDoubleValue($"{windowName}_height", 600)
+    };
+}
+```
+
+## API Key Security
+
+### Storage
+- API keys stored in plain text config files (local only)
+- Never log API keys (mask in console output)
+- Never commit API keys to version control
+
+### Masking in Logs
+```csharp
+Console.WriteLine($"API Key: {(key.Length > 0 ? "***" : "not set")}");
+```
+
+## Configuration Validation
+
+### Validation Pattern
+Validate settings before saving:
+
+```csharp
+public bool ValidateSettings()
+{
+    if (string.IsNullOrWhiteSpace(GetGeminiApiKey()))
+    {
+        MessageBox.Show("Gemini API key is required", "Validation Error");
+        return false;
+    }
+    
+    if (!IsValidModel(GetGeminiModel()))
+    {
+        MessageBox.Show("Invalid model selected", "Validation Error");
+        return false;
+    }
+    
+    return true;
+}
+```
+
+## Migration and Backwards Compatibility
+
+### Handling Config Changes
+When adding new settings, provide defaults:
+
+```csharp
+// New setting with default
+public string GetNewSetting()
+{
+    return GetValue(NEW_SETTING_KEY, "default-value");
+}
+```
+
+### Removing Old Settings
+Clean up deprecated settings:
+
+```csharp
+// Remove old key if it exists
+if (_configValues.ContainsKey("old_key"))
+{
+    _configValues.Remove("old_key");
+    SaveConfig();
+}
+```
+
+## Configuration Constants
+
+### Supported Values
+Define supported values as constants:
+
+```csharp
+public static readonly IReadOnlyList<string> SupportedOcrMethods = new List<string>
+{
+    "EasyOCR",
+    "Manga OCR",
+    "docTR",
+    "Windows OCR"
+};
+
+public static bool IsSupportedOcrMethod(string method)
+{
+    return SupportedOcrMethods.Contains(method, StringComparer.OrdinalIgnoreCase);
+}
 ```
 
 ---
