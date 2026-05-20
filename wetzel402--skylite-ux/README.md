@@ -1,6 +1,8 @@
 # Skylite-UX
 
-> Tome by [Wetzel402](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io/claim/Wetzel402)
+> Tome by [Wetzel402](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io)
+
+Life, Organized.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [Wetzel402/Skylite-UX](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Wetzel402)
+From [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — a repo with 95+ stars on GitHub.
 
 ---
 
