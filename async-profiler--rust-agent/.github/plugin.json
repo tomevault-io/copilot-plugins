@@ -1,0 +1,9 @@
+{
+  "name": "async-profiler--rust-agent",
+  "displayName": "rust-agent",
+  "description": "Rust agent for async-profiler",
+  "version": "1.0.0",
+  "author": "async-profiler",
+  "homepage": "https://github.com/async-profiler/rust-agent",
+  "skills": []
+}
