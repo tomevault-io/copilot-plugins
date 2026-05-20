@@ -1,0 +1,9 @@
+{
+  "name": "mkuthan--solis-cloud-control",
+  "displayName": "solis-cloud-control",
+  "description": "Home Assistant integration for Solis Cloud Control API",
+  "version": "1.0.0",
+  "author": "mkuthan",
+  "homepage": "https://github.com/mkuthan/solis-cloud-control",
+  "skills": []
+}
