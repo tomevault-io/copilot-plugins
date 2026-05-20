@@ -1,0 +1,9 @@
+{
+  "name": "openagentplatform--dive-mcp-host",
+  "displayName": "dive-mcp-host",
+  "description": "dive-mcp-host",
+  "version": "1.0.0",
+  "author": "OpenAgentPlatform",
+  "homepage": "https://github.com/OpenAgentPlatform/dive-mcp-host",
+  "skills": []
+}
