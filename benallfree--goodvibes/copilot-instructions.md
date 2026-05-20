@@ -1,25 +1,11 @@
-## changeset
+## coding
 
-> when creating changesets
+> Whenver you're writing or refactoring code
 
-Please analyze the git diff between the most recent tag and HEAD (excluding bun.lock), and create or update .changeset entries to document the changes.
-
-Key aspects to document:
-1. Breaking changes (major version bump)
-2. New features (minor version bump)
-3. Bug fixes and improvements (patch version)
-
-For each distinct area of change, create a separate changeset entry that is:
-- Concise but descriptive
-- Focused on a single theme/area
-- Lists specific improvements under each change
-
-Please ensure the changeset entries follow the format:
----
-'package-name': patch|minor|major
----
-
-Description of changes
+* use early returns
+* prefer types over interfaces
+* when i say 'wip', create /.changeset entries. one entry per distinct change. update @README.md and @llm.md as needed
+* when creating commit messages of any kind, be exceptionally brief
 
 ---
 > Source: [benallfree/goodvibes](https://github.com/benallfree/goodvibes) — distributed by [TomeVault](https://tomevault.io).
