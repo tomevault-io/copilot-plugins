@@ -1,0 +1,9 @@
+{
+  "name": "rust-ui--cli",
+  "displayName": "cli",
+  "description": "Moved to rust-ui/ui monorepo (crates/ui-cli)",
+  "version": "1.0.0",
+  "author": "rust-ui",
+  "homepage": "https://github.com/rust-ui/cli",
+  "skills": []
+}
