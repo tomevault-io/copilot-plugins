@@ -1,31 +1,39 @@
-## 01-project-overview
+## 02-backend-structure
 
-> 这是一个使用Python、Flask和Vue.js开发的文书管理系统。该系统用于管理和处理各类文书文档，提供查询、管理、存储和分析等功能。
+> - `/backend/app.py` - 应用入口点
 
-# 文书管理系统项目概述
+# 后端架构指南
 
-## 项目简介
-这是一个使用Python、Flask和Vue.js开发的文书管理系统。该系统用于管理和处理各类文书文档，提供查询、管理、存储和分析等功能。
+## 技术栈
+- Python 3.9+
+- Flask 框架
+- SQLAlchemy ORM
+- Flask-RESTful API
+- JWT 认证
 
-## 项目架构
-本项目采用前后端分离的架构:
-- 后端: Python Flask API 服务
-- 前端: Vue.js 单页应用
-- 数据库: MySQL 关系型数据库
+## 目录结构
+- `/backend/app.py` - 应用入口点
+- `/backend/config.py` - 配置文件
+- `/backend/api/` - API路由和控制器
+- `/backend/models/` - 数据库模型
+- `/backend/services/` - 业务逻辑服务
+- `/backend/utils/` - 工具函数
+- `/backend/tests/` - 单元测试
 
-## 主要功能模块
-1. 用户认证与授权
-2. 文书上传与管理
-3. 文书搜索与查询
-4. 文书分析与统计
-5. 系统管理与配置
+## 设计原则
+1. 遵循RESTful API设计规范
+2. 使用依赖注入降低模块耦合
+3. 使用中间件处理通用逻辑
+4. 统一错误处理和响应格式
+5. 完善的日志记录系统
 
-## 文件结构规划
-- `/backend` - Flask后端代码
-- `/frontend` - Vue.js前端代码
-- `/scripts` - 开发与部署脚本
-- `/docs` - 项目文档
-- `README.md` - 项目说明文档
+## 数据库设计
+系统使用MySQL作为关系型数据库，主要数据表包括:
+- `users` - 用户信息
+- `documents` - 文书文档
+- `categories` - 文书分类
+- `tags` - 文书标签
+- `document_tags` - 文书与标签关联
 
 ---
 > Source: [xiaoshi7915/Text2Sql_Agent](https://github.com/xiaoshi7915/Text2Sql_Agent) — distributed by [TomeVault](https://tomevault.io).
