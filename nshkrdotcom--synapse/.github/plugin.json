@@ -1,0 +1,9 @@
+{
+  "name": "nshkrdotcom--synapse",
+  "displayName": "synapse",
+  "description": "Headless, declarative multi-agent orchestration framework with a domain-agnostic signal bus, workflow engine with Postgres persistence, and configurable agent runtime (ships code review domain).",
+  "version": "1.0.0",
+  "author": "nshkrdotcom",
+  "homepage": "https://github.com/nshkrdotcom/synapse",
+  "skills": []
+}
