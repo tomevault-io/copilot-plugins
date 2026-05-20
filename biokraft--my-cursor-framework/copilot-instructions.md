@@ -1,555 +1,127 @@
-## makefile-best-practices
+## mermaid-best-practices
 
-> Makefile best practices for developer workflows: Apply when working with Makefiles or build automation
+> Mermaid.js Best Practices: Guidelines for creating robust, maintainable, and error-free Mermaid diagrams. Apply when working with `.mmd` files or creating Mermaid diagrams in Markdown.
 
-# Makefile Best Practices for Developer Workflows
 
-## Overview
+# Mermaid.js Best Practices
 
-When working with Makefiles, follow these best practices to create maintainable, reliable, and developer-friendly build automation. Makefiles should be structured for clarity, correctness, and ease of use.
+This guide provides best practices for creating clear, maintainable, and error-free diagrams using Mermaid.js. Following these guidelines will help prevent common parsing errors and ensure diagrams are accessible and easy to understand.
 
-## Core Principles
+## 1. Core Principles
 
-1. **Embrace the Filesystem**: `make` is fundamentally a tool for building files. Rules should correspond to actual files on the filesystem to leverage dependency tracking.
-2. **Be Explicit and Predictable**: Configure Makefiles to have consistent behavior and avoid built-in rules that can cause surprises.
-3. **Prioritize Clarity**: Use namespacing, includes, and self-documenting targets.
-4. **Write Small, Focused Recipes**: Delegate complex logic to external scripts.
-5. **Ensure Compatibility**: Write Makefiles that work across different Make versions and platforms.
-6. **Test Thoroughly**: Always test your Makefile targets on the actual target platforms.
+- **Clarity Over Complexity**: Prioritize conveying information clearly. Mermaid is for creating understandable diagrams, not for intricate graphic design.
+- **Use the Live Editor**: Always use the [Mermaid Live Editor](https://mermaid.live/) for creating, testing, and debugging diagrams. It provides real-time feedback and helps catch syntax errors instantly.
+- **Commit Text, Not Images**: The primary benefit of Mermaid is its text-based format. Always commit the `.mmd` or Markdown source file to version control, not the rendered images. Images should be generated from the source as part of a build or documentation process.
 
-## Compatibility Considerations
+## 2. Avoiding Common Parsing Errors
 
-### Make Version Compatibility
+Parsing errors, like the ones we encountered, are often caused by special characters in node text or edge labels.
 
-**CRITICAL**: Always ensure your Makefile works with commonly available Make versions:
+### Node and Edge Text
 
-- **macOS**: Ships with GNU Make 3.81 (from 2006) by default
-- **Linux**: Usually has GNU Make 4.0+ 
-- **Windows**: Varies widely depending on installation
+- **Avoid Special Characters in Text**: To prevent parsing issues, avoid using the following special characters in node descriptions or edge labels: `|`, `(`, `)`, `[`, `]`.
+  - **Good**: `NodeA --> |sends data to| NodeB`
+  - **Bad (risky)**: `NodeA --> |sends data (and other items)| NodeB`
+- **Use Alternatives**: If you need a separator, use a hyphen `-` or slash `/` instead of a pipe `|`.
+  - **Good**: `Replica: 1 (Team) / N (Prod)`
+  - **Bad**: `Replica: 1 (Team) | N (Prod)`
+- **Quoting Text**: If you must use special characters, try enclosing the text in quotes. This can sometimes help the parser correctly interpret the string.
+  - **Example**: `A["Node A with (special) characters"]`
 
-### Checking Make Version
+### Node IDs
 
-Before using advanced features, check the Make version:
+- **Use Simple Alphanumeric IDs**: Node IDs should be simple and contain no spaces or special characters.
+  - **Good**: `authService`, `databaseNode`, `userGateway`
+  - **Bad**: `auth-service`, `(database)`, `user gateway`
 
-```bash
-make --version
+## 3. Structure and Readability
+
+### Layout
+
+- **Choose the Right Direction**: Use `graph TD` (Top-Down) for hierarchical flows or `graph LR` (Left-to-Right) for process flows. `LR` is often more readable on wide screens.
+- **Use Subgraphs**: Group related nodes into subgraphs to create logical boundaries and improve clarity.
+
+```mermaid
+subgraph "Authentication Service"
+    authDB[(Database)]
+    authAPI[API]
+end
 ```
 
-For GNU Make 4.0+ features, consider providing fallbacks or clear error messages.
+### Node Shapes
 
-### Common Compatibility Issues
+- Use distinct node shapes to represent different types of entities. This adds an extra layer of visual information.
+  - `id[text]`: Rectangle
+  - `id(text)`: Rounded rectangle
+  - `id([text])`: Stadium-shaped
+  - `id{text}`: Diamond (for decisions)
+  - `id((text))`: Circle
+  - `id>text]`: Asymmetric (for flags or tags)
 
-1. **`.RECIPEPREFIX` Support**: Only available in GNU Make 4.0+
-2. **Some built-in functions**: Newer versions have more features
-3. **Shell behavior**: Different platforms may have different default shells
+### Line Breaks
 
-## Required Preamble
+- Use the `<br>` tag inside node text to create multi-line labels. This is essential for keeping nodes tidy and readable.
 
-Every Makefile MUST start with this compatibility-focused preamble:
-
-```makefile
-# Use bash as the shell with strict mode
-SHELL := bash
-.SHELLFLAGS := -eu -o pipefail -c
-
-# Run all recipe lines in a single shell instance
-.ONESHELL:
-
-# If a rule fails, delete its target file
-.DELETE_ON_ERROR:
-
-# Disable make's built-in rules and suffix rules
-MAKEFLAGS += --no-builtin-rules
-.SUFFIXES:
+```mermaid
+A[This is a long description<br>that has been broken<br>into multiple lines.]
 ```
 
-### Advanced Features (Optional)
+## 4. Icons and Visuals
 
-For teams using modern Make versions, you can optionally add:
+- **Use FontAwesome Icons**: Add visual cues to your diagrams using FontAwesome icons. This makes them more intuitive.
+- **Syntax**: Use the `fa:fa-icon-name` prefix for regular icons and `fab:fa-brand-name` for brand icons.
 
-```makefile
-# Optional: Set custom recipe prefix (requires GNU Make 4.0+)
-# Only use if your team standardizes on modern Make versions
-ifeq ($(shell make --version 2>/dev/null | head -1 | cut -d' ' -f3 | cut -d'.' -f1),4)
-  .RECIPEPREFIX = >
-endif
+```mermaid
+flowchart LR
+    user(fa:fa-user User) --> api(fa:fa-cogs API)
+    api --> db(fa:fa-database Database)
 ```
 
-**Recommendation**: Use traditional tabs for maximum compatibility unless you have specific requirements for alternative prefixes.
+- **Troubleshooting**: If an icon doesn't appear, check the [FontAwesome website](https://fontawesome.com/icons) for its official name or aliases.
 
-## Recipe Formatting Guidelines
+## 5. Accessibility
 
-### Use Traditional Tabs (Recommended)
+- **Problem**: Screen readers cannot easily interpret the visual relationships in a rendered SVG diagram.
+- **Solution**: Always include accessibility information.
 
-For maximum compatibility, use traditional tab characters for recipe indentation:
+### Title and Description
 
-```makefile
-clean:
-	@echo "🧹 Cleaning up..."
-	rm -rf build/ tmp/
-.PHONY: clean
+- **`title`**: Provide a descriptive title using frontmatter. This gives the diagram an accessible name.
+- **`accDescr`**: Provide a detailed text description of the diagram's structure and flow. This is crucial for screen reader users.
 
-test:
-	@echo "🧪 Running tests..."
-	pytest
-.PHONY: test
-```
-
-### Alternative: Custom Recipe Prefix (Advanced)
-
-Only use custom recipe prefixes if you're certain all team members use GNU Make 4.0+:
-
-```makefile
-# Only if you've verified Make 4.0+ usage across your team
-.RECIPEPREFIX = >
-
-clean:
-> @echo "🧹 Cleaning up..."
-> rm -rf build/ tmp/
-.PHONY: clean
-```
-
-## Structure and Organization
-
-### Target Namespacing
-
-- Use `/` as namespace delimiter for clarity
-- Organize related targets under common namespaces
-
-```makefile
-# Good: Namespaced structure
-lint/python:
-	@echo "Linting Python code..."
-	ruff check .
-
-format/python:
-	@echo "Formatting Python code..."
-	ruff format .
-
-docker/build:
-	docker build -t myapp .
-
-docker/run:
-	docker run -p 8080:8080 myapp
-
-test/unit:
-	pytest tests/unit/
-
-test/integration:
-	pytest tests/integration/
-```
-
-### File Organization
-
-For larger projects, split Makefiles using includes:
-
-```makefile
-# In root Makefile
--include make/*.mk
-```
-
-Create separate files like:
-- `make/lint.mk` - Linting and formatting targets
-- `make/docker.mk` - Container-related targets
-- `make/test.mk` - Testing targets
-
-### Standard Target Names
-
-Always provide these conventional targets:
-- `all`: Default target that builds main artifacts
-- `install`: Install the application
-- `test`: Run all tests
-- `clean`: Remove build artifacts and temporary files
-- `help`: Display available targets and descriptions
-
-## Rule Writing Guidelines
-
-### Use .PHONY Correctly
-
-- Mark targets as `.PHONY` if they don't create a file with the target name
-- Place `.PHONY` declarations immediately after the target definition
-
-```makefile
-clean:
-	rm -rf build/ tmp/
-.PHONY: clean
-
-test:
-	pytest
-.PHONY: test
-```
-
-### File Targets Must Create Exact Files
-
-When a rule creates a file, the target name must be the exact file path:
-
-```makefile
-build/app: main.c utils.c
-	mkdir -p $(@D)
-	gcc -o $@ $^
-```
-
-### Use Sentinel Files for Abstract Outputs
-
-For tasks that don't produce a single obvious file, use sentinel files:
-
-```makefile
-# Track when tests last passed
-SRC_FILES := $(shell find src -type f -name "*.py")
-
-tmp/.tests-passed: $(SRC_FILES)
-	mkdir -p $(@D)
-	pytest
-	touch $@
-
-test: tmp/.tests-passed
-.PHONY: test
-```
-
-### Delegate Complex Logic to Scripts
-
-Keep Makefile recipes simple. Move complex logic to external scripts:
-
-```makefile
-# Bad: Complex inline script
-deploy/staging:
-	echo "Starting deployment..."
-	for server in $$(cat .staging_servers); do \
-	  scp -r ./app $$server:/opt/app; \
-	  ssh $$server "sudo systemctl restart my-app"; \
-	done
-
-# Good: Delegate to script
-deploy/staging:
-	./scripts/deploy.sh staging
-.PHONY: deploy/staging
-```
-
-## Required Self-Documenting Help Target
-
-Every Makefile MUST include this help target as the default. **CRITICAL**: Test this target to ensure it properly displays all your documented targets.
-
-```makefile
-.DEFAULT_GOAL := help
-
-## help: Show this help message.
-help:
-	@awk '/^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } /^## / { desc = substr($$0, 4); getline; if (match($$0, /^[a-zA-Z0-9_\/\-]+:/)) { target = substr($$0, 1, RLENGTH-1); printf "  \033[36m%-20s\033[0m %s\n", target, desc } } BEGIN { printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n" }' $(MAKEFILE_LIST)
-.PHONY: help
-```
-
-### Document Targets with Comments
-
-Use `##` comments to document targets. **Important**: Place the comment on the line immediately before the target:
-
-```makefile
-##@ Development
-
-## run: Run the application locally.
-run:
-	echo "Running application..."
-
-##@ Quality & Testing
-
-## lint: Run all linters and formatters.
-lint:
-	echo "Running linters..."
-
-.PHONY: run lint
-```
-
-## Variable Best Practices
-
-### Set Sensible Defaults
-
-Use `?=` for variables that can be overridden:
-
-```makefile
-PREFIX ?= /usr/local
-DESTDIR ?= 
-BUILD_DIR ?= build
-```
-
-### Make Variables Configurable
-
-Allow command-line overrides:
-
-```bash
-make docker/build DOCKER_TAG=dev
-make install PREFIX=/opt/myapp DESTDIR=/tmp/package
-```
-
-### Use Automatic Variables
-
-Leverage automatic variables for maintainable rules:
-- `$@`: The target name
-- `$<`: The first prerequisite
-- `$^`: All prerequisites
-- `$(@D)`: Directory part of the target
-
-```makefile
-$(BUILD_DIR)/%.o: src/%.c
-	mkdir -p $(@D)
-	gcc -o $@ -c $<
-```
-
-## Directory and File Management
-
-### Create Directories as Needed
-
-Always ensure output directories exist:
-
-```makefile
-build/app: main.c
-	mkdir -p $(@D)
-	gcc -o $@ $<
-```
-
-### Clean Up Properly
-
-The `clean` target should remove all generated files:
-
-```makefile
-clean:
-	rm -rf $(BUILD_DIR)/
-	rm -rf tmp/
-	find . -name "*.pyc" -delete
-.PHONY: clean
-```
-
-## Performance Considerations
-
-### Avoid Unnecessary Work
-
-- Use file dependencies correctly so make only rebuilds what's needed
-- Use sentinel files for tasks that don't produce obvious output files
-- Consider using `$(shell find ...)` for dynamic file lists
-
-### Enable Parallel Execution
-
-Structure targets to allow parallel execution with `make -j`:
-
-```makefile
-# These can run in parallel
-test: test/unit test/integration
-.PHONY: test
-
-test/unit: tmp/.unit-tests-passed
-test/integration: tmp/.integration-tests-passed
-.PHONY: test/unit test/integration
-```
-
-## Cross-Platform Considerations
-
-### Shell Commands
-
-- Use POSIX-compliant commands when possible
-- Test on target platforms (macOS, Linux, Windows with WSL)
-- Provide platform-specific alternatives when needed:
-
-```makefile
-# Cross-platform file removal
-ifeq ($(OS),Windows_NT)
-    RM = del /Q
-    RMDIR = rmdir /S /Q
-else
-    RM = rm -f
-    RMDIR = rm -rf
-endif
-
-clean:
-	$(RMDIR) build/
-.PHONY: clean
-```
-
-### Path Handling
-
-Use Make's built-in functions for path manipulation:
-
-```makefile
-# Good: Use Make functions
-OUTPUT_DIR := $(dir $(TARGET))
-BASENAME := $(notdir $(TARGET))
-
-# Avoid: Shell-specific path operations
-```
-
-## Error Handling Best Practices
-
-### Handle Missing Dependencies Gracefully
-
-For optional tools or when no tests exist, handle errors appropriately:
-
-```makefile
-## test: Run all tests.
-test:
-	@echo "🧪 Running tests..."
-	# Exit code 5 from pytest means "no tests collected" - treat as success
-	cd example-app && (uv run pytest -q --disable-warnings --tb=short --no-cov --junitxml=report.xml || [ $$? -eq 5 ])
-	@echo "✅ Tests complete!"
-.PHONY: test
-```
-
-### Verify Tool Availability
-
-Check for required tools before using them:
-
-```makefile
-## lint: Run linting on the code.
-lint:
-	@command -v ruff >/dev/null 2>&1 || { echo >&2 "ruff not found. Run 'make dev/setup' first."; exit 1; }
-	@echo "🔍 Running linting..."
-	ruff check .
-.PHONY: lint
-```
-
-### Dependencies and Environment Setup
-
-For package managers like uv, ensure dev dependencies are properly synchronized:
-
-```makefile
-## dev/setup: Set up local development environment.
-dev/setup:
-	@echo "🛠️  Setting up development environment..."
-	uv sync --dev --all-extras
-	@echo "✅ Development environment ready!"
-.PHONY: dev/setup
-```
-
-## Common Patterns
-
-### Python Projects
-
-```makefile
-## install: Install dependencies.
-install: requirements.txt
-	pip install -r requirements.txt
-
-## test: Run all tests.
-test: tmp/.tests-passed
-tmp/.tests-passed: $(shell find src tests -name "*.py")
-	mkdir -p $(@D)
-	pytest
-	touch $@
-
-.PHONY: install test
-```
-
-### Docker Projects
-
-```makefile
-## docker/build: Build Docker image.
-docker/build: build/.docker-image
-build/.docker-image: Dockerfile $(shell find src -type f)
-	mkdir -p $(@D)
-	docker build -t $(IMAGE_NAME) .
-	touch $@
-
-.PHONY: docker/build
-```
-
-### Multi-language Projects
-
-```makefile
-## build: Build all components.
-build: build/frontend build/backend
-.PHONY: build
-
-build/frontend: $(shell find frontend/src -type f)
-	mkdir -p $(@D)
-	cd frontend && npm run build
-	touch $@
-
-build/backend: $(shell find backend/src -name "*.go")
-	mkdir -p $(@D)
-	cd backend && go build -o ../build/backend
-```
-
-## Testing Your Makefile
-
-### Essential Tests to Perform
-
-1. **Compatibility Test**: Run `make --version` and test on the actual target Make version
-2. **Help Display Test**: Run `make help` and verify all targets are properly documented
-3. **Dependency Test**: Run each target on a fresh environment to ensure dependencies are handled
-4. **Error Handling Test**: Test failure scenarios (missing files, no tests, etc.)
-5. **Clean Test**: Verify `make clean` removes all generated files
-6. **Parallel Test**: Test with `make -j4` to ensure targets can run in parallel when appropriate
-
-### Testing Checklist
-
-```bash
-# Basic functionality
-make help                    # Should show all documented targets
-make clean                   # Should clean up without errors
-make all                     # Should complete full build
-
-# Error scenarios
-make test                    # Should handle "no tests" gracefully
-make lint                    # Should provide clear error if tools missing
-
-# Platform testing
-make --version               # Verify Make version compatibility
-```
-
-## Troubleshooting Common Issues
-
-### Make Version Problems
-
-If you encounter "This Make does not support .RECIPEPREFIX" errors:
-
-1. Check Make version: `make --version`
-2. Remove `.RECIPEPREFIX` configuration
-3. Convert recipes to use traditional tabs
-4. Consider installing GNU Make 4.0+ if needed
-
-### Tab vs Space Issues
-
-- **Always use tabs for recipe indentation** (traditional approach)
-- Configure your editor to show whitespace characters
-- Use `.editorconfig` to enforce tab usage in Makefiles:
-
-```ini
-[Makefile]
-indent_style = tab
-indent_size = 4
-```
-
-### Help Target Not Showing Targets
-
-If `make help` doesn't show your targets:
-
-1. Verify comment format: `## target: Description` on line before target
-2. Check regex pattern handles your target naming convention
-3. Test with: `awk 'regex_pattern' Makefile` to debug
-
-### Tool Availability Issues
-
-If commands like `ruff`, `pytest`, etc. are not found:
-
-1. Verify tools are in your dependency management file
-2. Ensure development environment is set up: `make dev/setup`
-3. Add tool availability checks to targets
-4. Provide clear error messages pointing to setup instructions
-
-### Platform-Specific Commands
-
-Test your Makefile on all target platforms. Common issues:
-- Different `find` command syntax
-- Path separator differences (`/` vs `\`)
-- Available shell commands
-
-For detailed background and rationale, see: [Makefile Research](mdc:docs/research/makefiles.md)
-
-description:
-globs:
-alwaysApply: false
+```mermaid
 ---
-
-description:
-globs:
-alwaysApply: false
+title: User Authentication Flow
 ---
+graph TD
+    accTitle: User Authentication Flow
+    accDescr {
+        A user starts at the login page. They submit their credentials to the API, which validates them against the database.
+    }
+
+    A[Login Page] --> B{API Validation}
+    B --> C[(Database)]
+```
+
+### Themes and Colors
+
+- **Avoid Hardcoded Themes**: In environments like GitHub that support automatic light/dark mode, do not use the `%%{init}: {'theme': 'dark'}%%` directive. It will override the platform's theme switching and can make the diagram unreadable.
+- **High Contrast**: If using custom colors, ensure they have sufficient contrast in both light and dark modes.
+
+## 6. Makefile for Rendering (Example)
+
+For projects with multiple diagrams, use a `Makefile` to automate rendering.
+
+```makefile
+## charts/render: Render all Mermaid diagrams to PNG.
+charts/render:
+	@echo "🎨 Rendering architecture charts..."
+	mmdc -i docs/charts/architecture.mmd -o docs/charts/architecture.png
+	@echo "✅ Charts rendered!"
+.PHONY: charts/render
+```
+
+This ensures consistency and saves time. If rendering fails, it's a signal that a diagram has a syntax error that needs to be fixed.
 
 ---
 > Source: [biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework) — distributed by [TomeVault](https://tomevault.io).
