@@ -1,39 +1,52 @@
-## 02-backend-structure
+## 03-frontend-structure
 
-> - `/backend/app.py` - 应用入口点
+> - `/frontend/src/main.js` - 应用入口点
 
-# 后端架构指南
+# 前端架构指南
 
 ## 技术栈
-- Python 3.9+
-- Flask 框架
-- SQLAlchemy ORM
-- Flask-RESTful API
-- JWT 认证
+- Vue.js 3
+- Vue Router
+- Pinia 状态管理
+- Axios HTTP客户端
+- Element Plus UI组件库
+- SCSS 样式预处理器
 
 ## 目录结构
-- `/backend/app.py` - 应用入口点
-- `/backend/config.py` - 配置文件
-- `/backend/api/` - API路由和控制器
-- `/backend/models/` - 数据库模型
-- `/backend/services/` - 业务逻辑服务
-- `/backend/utils/` - 工具函数
-- `/backend/tests/` - 单元测试
+- `/frontend/src/main.js` - 应用入口点
+- `/frontend/src/App.vue` - 根组件
+- `/frontend/src/router/` - 路由配置
+- `/frontend/src/store/` - 状态管理
+- `/frontend/src/api/` - API调用封装
+- `/frontend/src/components/` - 通用组件
+- `/frontend/src/views/` - 页面组件
+- `/frontend/src/assets/` - 静态资源
+- `/frontend/src/utils/` - 工具函数
 
 ## 设计原则
-1. 遵循RESTful API设计规范
-2. 使用依赖注入降低模块耦合
-3. 使用中间件处理通用逻辑
-4. 统一错误处理和响应格式
-5. 完善的日志记录系统
+1. 组件化开发，提高复用性
+2. 统一的状态管理
+3. 响应式设计，适配多种屏幕尺寸
+4. 路由懒加载，优化加载性能
+5. 权限控制与身份验证
 
-## 数据库设计
-系统使用MySQL作为关系型数据库，主要数据表包括:
-- `users` - 用户信息
-- `documents` - 文书文档
-- `categories` - 文书分类
-- `tags` - 文书标签
-- `document_tags` - 文书与标签关联
+## 页面规划
+系统包含以下主要页面:
+- 登录与注册
+- 文书管理主页
+- 文书详情页
+- 文书上传页
+- 文书搜索结果页
+- 用户管理页
+- 系统设置页
+
+## 组件设计
+按照功能划分组件类型:
+- 布局组件: 页面布局框架
+- 表单组件: 数据录入组件
+- 数据展示组件: 表格、列表等
+- 功能组件: 上传、搜索等
+- 通用组件: 按钮、卡片等
 
 ---
 > Source: [xiaoshi7915/Text2Sql_Agent](https://github.com/xiaoshi7915/Text2Sql_Agent) — distributed by [TomeVault](https://tomevault.io).
