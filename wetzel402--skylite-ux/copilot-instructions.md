@@ -1,13 +1,12 @@
-## skylite-ux
+## consola
 
-> Server routes in server/api/; file-based naming; h3 event and typed responses
+> This project uses consola for logging with a globally configured log level.
 
 
-# Server API
+# Logging
 
-- Server routes live in `server/api/` with file-based naming. Use h3 event and typed responses.
-- Do not use `process.env` in server code; use Nuxt runtime config.
+- Use `consola` (from `consola`), not `console`. Log level is set from runtime config in `app/plugins/01.logging.ts`. In tests that touch code using consola, mock `consola` (see `test/nuxt/app/plugins/01.logging.test.ts`).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Wetzel402) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
