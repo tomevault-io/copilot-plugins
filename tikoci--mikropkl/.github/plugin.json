@@ -1,0 +1,9 @@
+{
+  "name": "tikoci--mikropkl",
+  "displayName": "mikropkl",
+  "description": "`pkl` packaged UTM virtual machines, including RouterOS CHR",
+  "version": "1.0.0",
+  "author": "tikoci",
+  "homepage": "https://github.com/tikoci/mikropkl",
+  "skills": []
+}
