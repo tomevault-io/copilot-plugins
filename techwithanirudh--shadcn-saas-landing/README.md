@@ -7,11 +7,11 @@ A SaaS Landing template built using Next.JS 15, shadcn/ui, and fumadocs.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [techwithanirudh/shadcn-saas-landing](https://github.com/techwithanirudh/shadcn-saas-landing).
+Original source: `CLAUDE.md` in [techwithanirudh/shadcn-saas-landing](https://github.com/techwithanirudh/shadcn-saas-landing).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
