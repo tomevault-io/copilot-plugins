@@ -1,0 +1,9 @@
+{
+  "name": "skryl--mlx-ruby",
+  "displayName": "mlx-ruby",
+  "description": "Ruby Bindings for the MLX Framework",
+  "version": "1.0.0",
+  "author": "skryl",
+  "homepage": "https://github.com/skryl/mlx-ruby",
+  "skills": []
+}
