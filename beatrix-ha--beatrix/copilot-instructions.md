@@ -1,17 +1,14 @@
-## beatrix
+## i-love-repeating-myself
 
-> - Run server: `bun run ./server/index.ts` or `bun dev`
+> - Run tests: `bun test` (all tests)
 
 # Home Assistant Agentic Automation
 
 ## Build & Test Commands
 
-- Run server: `bun run ./server/index.ts` or `bun dev`
-- Debug mode: `bun dev:debug`
 - Run tests: `bun test` (all tests)
 - Run single test: `bun test server/lib/file.test.ts`
-- Lint & typecheck: `bun lint` (eslint, tsc, prettier)
-- Fix linting: `bun f`
+- Lint & typecheck: `bun f` (eslint, tsc, prettier)
 
 ## Code Style Guidelines
 
@@ -24,7 +21,9 @@
 - Naming: camelCase for variables/functions, PascalCase for types/interfaces
 - Create reusable utility files for common functionality
 - Use environment variables for configuration (HA_BASE_URL, HA_TOKEN, etc.)
-- Add files to components/ui via the shadcn CLI tool
+- components/ui gets updated via the shadcn CLI tool
+- Don't use .then unless you have a good reason, use async/await
+- After every big change use `bun f`
 
 ---
 > Source: [beatrix-ha/beatrix](https://github.com/beatrix-ha/beatrix) — distributed by [TomeVault](https://tomevault.io).
