@@ -1,0 +1,9 @@
+{
+  "name": "2arons--llm-cli",
+  "displayName": "llm-cli",
+  "description": "Command-line interface for querying large language models",
+  "version": "1.0.0",
+  "author": "2aronS",
+  "homepage": "https://github.com/2aronS/llm-cli",
+  "skills": []
+}
