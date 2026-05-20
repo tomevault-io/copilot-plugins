@@ -1,0 +1,9 @@
+{
+  "name": "mario-so--ohlcv",
+  "displayName": "ohlcv",
+  "description": "OHLCV library in zig",
+  "version": "1.0.0",
+  "author": "Mario-SO",
+  "homepage": "https://github.com/Mario-SO/ohlcv",
+  "skills": []
+}
