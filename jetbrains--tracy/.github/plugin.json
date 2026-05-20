@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--tracy",
+  "displayName": "tracy",
+  "description": "Tracy: AI Tracing Library for Kotlin and Java",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/tracy",
+  "skills": []
+}
