@@ -1,0 +1,9 @@
+{
+  "name": "koaning--mopaint",
+  "displayName": "mopaint",
+  "description": "MSPaint for marimo and other Python notebooks",
+  "version": "1.0.0",
+  "author": "koaning",
+  "homepage": "https://github.com/koaning/mopaint",
+  "skills": []
+}
