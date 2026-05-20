@@ -1,28 +1,61 @@
-## project-structure
+## python-conventions
 
-> Project Structure
+> Python Coding Conventions
 
-# Databricks MCP Server Structure
+# Python Coding Standards
 
-## Source Code Organization
-- `src/server/` - MCP server implementation (files matching `*_mcp_server.py` and `*.py`)
-- `src/api/` - API client for Databricks services
-- `src/core/` - Core functionality and utilities
-- `src/cli/` - Command-line interface
+## Style Guidelines
+- Line length: 100 characters maximum
+- Indentation: 4 spaces (no tabs)
+- Quotes: Double quotes by default, avoid escaping when possible
 
-## Testing
-- `tests/` - Test files (matching `test_*.py`)
-- Each file in `src/` should have a corresponding test file in `tests/`
+## Naming Conventions
+- Variables: `snake_case`
+- Constants: `UPPER_SNAKE_CASE`
+- Classes: `PascalCase`
+- Functions/Methods: `snake_case`
+- Files: `snake_case.py`
 
-## Additional Directories
-- `examples/` - Example usage of the MCP server
-- `scripts/` - Helper scripts for running the server and tests (`.ps1`, `.sh` files)
+## Import Organization
+- Order: standard library → third-party → first-party
+- Imports should be grouped and alphabetized
+- Example:
+  ```python
+  import json
+  import os
+  
+  import requests
+  
+  from src.core import utils
+  ```
 
-## Required Files
-- README.md
-- pyproject.toml
-- .gitignore
-- src/server/databricks_mcp_server.py
+## Documentation
+- Google-style docstrings required for:
+  - Classes
+  - Methods
+  - Functions
+- Example:
+  ```python
+  def function_name(param1: str, param2: int) -> bool:
+      """One-line summary of function purpose.
+      
+      More detailed description if needed.
+      
+      Args:
+          param1: Description of param1
+          param2: Description of param2
+          
+      Returns:
+          Description of return value
+          
+      Raises:
+          ExceptionType: When and why this exception is raised
+      """
+  ```
+
+## Type Annotations
+- Type hints required for all code except tests
+- Follow PEP 484 guidelines
 
 ---
 > Source: [JustTryAI/databricks-mcp-server](https://github.com/JustTryAI/databricks-mcp-server) — distributed by [TomeVault](https://tomevault.io).
