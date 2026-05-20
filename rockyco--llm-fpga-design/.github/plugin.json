@@ -1,0 +1,9 @@
+{
+  "name": "rockyco--llm-fpga-design",
+  "displayName": "llm-fpga-design",
+  "description": "LLM-Aided FPGA Design and Debug Flow",
+  "version": "1.0.0",
+  "author": "rockyco",
+  "homepage": "https://github.com/rockyco/llm-fpga-design",
+  "skills": []
+}
