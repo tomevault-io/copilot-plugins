@@ -1,0 +1,9 @@
+{
+  "name": "ryanjarv--roles",
+  "displayName": "roles",
+  "description": "Unauthenticated enumeration of AWS IAM Roles.",
+  "version": "1.0.0",
+  "author": "RyanJarv",
+  "homepage": "https://github.com/RyanJarv/roles",
+  "skills": []
+}
