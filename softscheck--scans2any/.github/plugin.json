@@ -1,0 +1,9 @@
+{
+  "name": "softscheck--scans2any",
+  "displayName": "scans2any",
+  "description": "Convert infrastructure scans into various output formats such as Markdown tables, YAML, HTML, CSV, and more. Can also be used to generate launch scripts for various other scanners.",
+  "version": "1.0.0",
+  "author": "softScheck",
+  "homepage": "https://github.com/softScheck/scans2any",
+  "skills": []
+}
