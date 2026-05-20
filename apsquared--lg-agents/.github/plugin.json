@@ -1,0 +1,9 @@
+{
+  "name": "apsquared--lg-agents",
+  "displayName": "lg-agents",
+  "description": "LangGraph agent samples",
+  "version": "1.0.0",
+  "author": "apsquared",
+  "homepage": "https://github.com/apsquared/lg-agents",
+  "skills": []
+}
