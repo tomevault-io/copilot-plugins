@@ -1,0 +1,9 @@
+{
+  "name": "shensheibot--pdf2epub",
+  "displayName": "pdf2epub",
+  "description": "Convert pdf to epub using gemini-2.5-pro",
+  "version": "1.0.0",
+  "author": "ShenSheiBot",
+  "homepage": "https://github.com/ShenSheiBot/pdf2epub",
+  "skills": []
+}
