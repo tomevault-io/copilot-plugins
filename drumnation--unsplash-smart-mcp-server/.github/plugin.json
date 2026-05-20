@@ -1,0 +1,9 @@
+{
+  "name": "drumnation--unsplash-smart-mcp-server",
+  "displayName": "unsplash-smart-mcp-server",
+  "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash",
+  "version": "1.0.0",
+  "author": "drumnation",
+  "homepage": "https://github.com/drumnation/unsplash-smart-mcp-server",
+  "skills": []
+}
