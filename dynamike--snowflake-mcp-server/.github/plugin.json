@@ -1,0 +1,9 @@
+{
+  "name": "dynamike--snowflake-mcp-server",
+  "displayName": "snowflake-mcp-server",
+  "description": "MCP Server for connecting to Snowflake with read-only questions",
+  "version": "1.0.0",
+  "author": "dynamike",
+  "homepage": "https://github.com/dynamike/snowflake-mcp-server",
+  "skills": []
+}
