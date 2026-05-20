@@ -1,0 +1,9 @@
+{
+  "name": "thedigitalninja--mcp-fitbit",
+  "displayName": "mcp-fitbit",
+  "description": "Give your AI assistant access to your Fitbit data for personalized health insights, trend analysis, and automated tracking. Works with Claude Desktop and other MCP-compatible AI tools.",
+  "version": "1.0.0",
+  "author": "TheDigitalNinja",
+  "homepage": "https://github.com/TheDigitalNinja/mcp-fitbit",
+  "skills": []
+}
