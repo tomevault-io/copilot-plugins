@@ -1,0 +1,9 @@
+{
+  "name": "safety-research--open-source-alignment-faking",
+  "displayName": "open-source-alignment-faking",
+  "description": "Open Source Replication of Anthropic's Alignment Faking Paper",
+  "version": "1.0.0",
+  "author": "safety-research",
+  "homepage": "https://github.com/safety-research/open-source-alignment-faking",
+  "skills": []
+}
