@@ -1,82 +1,90 @@
-## dify-integration-rule
+## git-commit-rule
 
-> Dify API integration uses a 3-layer architecture:
+> Must read before making any git commits or writing commit messages
 
 
-# Dify API Integration Development Standards
+# Git Commit Standards
 
-## Core Principle: Separation of Concerns
+## Basic Format
 
-Dify API integration uses a 3-layer architecture:
+```
+<type>(<scope>): <subject>
 
-### 1. Proxy Layer (Backend Proxy)
-- **Location**: `app/api/dify/[appId]/[...slug]/route.ts`
-- **Responsibility**: Authentication, request forwarding, response proxying
-- **Principle**: MUST NOT handle business logic, only secure forwarding
+[body]
 
-### 2. Service Layer (Service Layer)
-- **Location**: `lib/services/dify/*.ts` (organized by functional domain)
-- **Responsibility**: Business logic, API calls, data processing
-- **Principle**: MUST NOT handle authentication details, only call proxy layer
-
-### 3. Type Layer (Type Definitions)
-- **Location**: `lib/services/dify/types.ts`
-- **Responsibility**: Unified definition of all TypeScript data structures
-- **Principle**: MUST serve as data contract for service layer
-
-## Development Flow for New Dify API
-
-### Step 1: Define Types
-Add request and response TypeScript interfaces in `types.ts`
-
-### Step 2: Choose/Create Service File
-Select appropriate service file based on functional domain, or create new service file
-
-### Step 3: Implement Service Function
-```typescript
-export async function newDifyFunction(
-  appId: string,
-  payload: RequestType
-): Promise<ResponseType> {
-  const slug = 'api/path';
-  const apiUrl = `/api/dify/${appId}/${slug}`;
-  
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: { 'Content-Type': 'application/json' }
-  });
-  
-  if (!response.ok) {
-    throw new Error(`API call failed: ${response.statusText}`);
-  }
-  
-  return response.json();
-}
+[footer]
 ```
 
-### Step 4: Frontend Usage
-```typescript
-import { newDifyFunction } from '@lib/services/dify/service-name';
+## Type (MANDATORY)
 
-// Use in component or Hook
-const result = await newDifyFunction(appId, params);
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation update
+- **style**: Code formatting (no functional impact)
+- **refactor**: Code refactoring
+- **perf**: Performance optimization
+- **test**: Test-related changes
+- **chore**: Build tools, dependencies, etc.
+
+## Scope (MANDATORY)
+
+- **api**: Backend API related
+- **ui**: Common UI components
+- **chat**: Chat functionality
+- **sidebar**: Sidebar
+- **auth**: Authentication/authorization
+- **admin**: Admin panel
+- **workflow**: Workflow
+- **mobile**: Mobile adaptation
+- **db**: Database related
+- **config**: Configuration files
+- **deps**: Dependency updates
+- **core**: Core functionality
+- **all**: Multiple modules
+
+## Subject (MANDATORY)
+
+- MUST use English description
+- MUST start with a verb
+- MUST NOT exceed 50 characters
+- MUST NOT end with a period
+- MUST use imperative mood (e.g., "add..." not "added...")
+
+## Examples
+
+### Simple Commits
+```bash
+git commit -m "feat(chat): add message streaming functionality"
+git commit -m "fix(ui): fix button style issue"
+git commit -m "docs: update API documentation"
 ```
 
-## Core Advantages
+### Complex Commits
+```bash
+git commit -m "feat(auth): refactor user authentication system" \
+           -m "" \
+           -m "Upgrade to new authentication architecture providing better security." \
+           -m "" \
+           -m "BREAKING CHANGE: Old authentication tokens will no longer be valid."
+```
 
-- **Clarity**: Responsibility separation, code easy to understand
-- **Modularity**: Organized by functional domain, building-block composition
-- **Low Coupling**: Independent layers, minimal impact from changes
-- **Easy Maintenance**: Accurate problem location, centralized configuration modification
-- **Scalability**: Standardized development process for new features
+### High-Risk Commits
+For core functionality changes that may need rollback, add risk markers:
+```bash
+git commit -m "fix(core): enhance state management - RISKY_REVERT_CANDIDATE"
+```
 
-## Development Requirements
+## Best Practices
 
-When developing Dify-related features, MUST strictly follow this standard. This ensures:
+1. **Clear Description**: MUST clearly explain what changed
+2. **Atomic Commits**: MUST contain only one logical change per commit
+3. **Timely Commits**: MUST commit after completing each feature, avoid bulk commits
+4. **English Description**: MUST use English for all commit messages
 
-- **Maintainability**: Easier to locate and fix issues, configuration changes (like API Key) only need modification in one place (proxy layer)
-- **Scalability**: Adding new features only requires creating new types and service functions according to the process, minimal impact on existing code
+
+
+- MUST focus on what changed and why
+- MUST use proper grammar and spelling
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
