@@ -1,0 +1,9 @@
+{
+  "name": "portaltechnologiesinc--portal-app",
+  "displayName": "portal-app",
+  "description": "Portal is your digital identity provider built on Nostr and Lightning",
+  "version": "1.0.0",
+  "author": "PortalTechnologiesInc",
+  "homepage": "https://github.com/PortalTechnologiesInc/portal-app",
+  "skills": []
+}
