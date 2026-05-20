@@ -1,0 +1,44 @@
+{
+  "name": "vision-simple",
+  "owner": "lona-cn",
+  "repo": "vision-simple",
+  "description": "a lightweight C++ cross-platform vision inference library,support  YOLOv10 YOLOv11 PaddleOCR EasyOCR ,using ONNXRuntime/TVM with multiple exectuion providers.QQ\u7fa4\uff1a364057904",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lona-cn/vision-simple",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T22:52:18Z"
+}
