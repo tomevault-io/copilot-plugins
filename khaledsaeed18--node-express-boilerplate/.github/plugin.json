@@ -1,0 +1,9 @@
+{
+  "name": "khaledsaeed18--node-express-boilerplate",
+  "displayName": "node-express-boilerplate",
+  "description": "Production-ready Express + TypeScript backend boilerplate with clean layered architecture, dependency injection, JWT + CSRF security, structured logging, automated CI/CD, Docker support, and built-in ",
+  "version": "1.0.0",
+  "author": "KhaledSaeed18",
+  "homepage": "https://github.com/KhaledSaeed18/node-express-boilerplate",
+  "skills": []
+}
