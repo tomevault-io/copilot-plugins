@@ -1,0 +1,9 @@
+{
+  "name": "whywhathow--jenv",
+  "displayName": "jenv",
+  "description": "Java Environment Mananger, build by Go.Currently work for windows, linux & macos.",
+  "version": "1.0.0",
+  "author": "WhyWhatHow",
+  "homepage": "https://github.com/WhyWhatHow/jenv",
+  "skills": []
+}
