@@ -1,0 +1,9 @@
+{
+  "name": "bwz96sco--or-llm-agent",
+  "displayName": "or_llm_agent",
+  "description": "OR-LLM-Agent: Automating Modeling and Solving of Operations Research Optimization Problems with Reasoning LLM",
+  "version": "1.0.0",
+  "author": "bwz96sco",
+  "homepage": "https://github.com/bwz96sco/or_llm_agent",
+  "skills": []
+}
