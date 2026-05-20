@@ -1,0 +1,9 @@
+{
+  "name": "gray0128--bob-plugin-mtranserver",
+  "displayName": "bob-plugin-MTranServer",
+  "description": "\u4e00\u4e2a\u57fa\u4e8eMTranServer \u7684 bob \u7ffb\u8bd1\u63d2\u4ef6\uff0c\u8ba9\u4f60\u544a\u522b\u7528\u91cf\u7126\u8651\u548c\u901f\u5ea6\u7126\u8651\u3002",
+  "version": "1.0.0",
+  "author": "gray0128",
+  "homepage": "https://github.com/gray0128/bob-plugin-MTranServer",
+  "skills": []
+}
