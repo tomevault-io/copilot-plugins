@@ -1,105 +1,113 @@
-## task-list
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> Guidelines for creating and managing task lists in markdown files to track project progress
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-Guidelines for creating and managing task lists in markdown files to track project progress
 
-## Task List Creation
+Default to using Bun instead of Node.js.
 
-1. Create task lists in a markdown file (in the project root):
-   - Use `TASKS.md` or a descriptive name relevant to the feature (e.g., `ASSISTANT_CHAT.md`)
-   - Include a clear title and description of the feature being implemented
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-2. Structure the file with these sections:
-   ```markdown
-   # Feature Name Implementation
-   
-   Brief description of the feature and its purpose.
-   
-   ## Completed Tasks
-   
-   - [x] Task 1 that has been completed
-   - [x] Task 2 that has been completed
-   
-   ## In Progress Tasks
-   
-   - [ ] Task 3 currently being worked on
-   - [ ] Task 4 to be completed soon
-   
-   ## Future Tasks
-   
-   - [ ] Task 5 planned for future implementation
-   - [ ] Task 6 planned for future implementation
-   
-   ## Implementation Plan
-   
-   Detailed description of how the feature will be implemented.
-   
-   ### Relevant Files
-   
-   - path/to/file1.ts - Description of purpose
-   - path/to/file2.ts - Description of purpose
-   ```
+## APIs
 
-## Task List Maintenance
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-1. Update the task list as you progress:
-   - Mark tasks as completed by changing `[ ]` to `[x]`
-   - Add new tasks as they are identified
-   - Move tasks between sections as appropriate
+## Testing
 
-2. Keep "Relevant Files" section updated with:
-   - File paths that have been created or modified
-   - Brief descriptions of each file's purpose
-   - Status indicators (e.g., ✅) for completed components
+Use `bun test` to run tests.
 
-3. Add implementation details:
-   - Architecture decisions
-   - Data flow descriptions
-   - Technical components needed
-   - Environment configuration
+```ts#index.test.ts
+import { test, expect } from "bun:test";
 
-## AI Instructions
-
-When working with task lists, the AI should:
-
-1. Regularly update the task list file after implementing significant components
-2. Mark completed tasks with [x] when finished
-3. Add new tasks discovered during implementation
-4. Maintain the "Relevant Files" section with accurate file paths and descriptions
-5. Document implementation details, especially for complex features
-6. When implementing tasks one by one, first check which task to implement next
-7. After implementing a task, update the file to reflect progress
-
-## Example Task Update
-
-When updating a task from "In Progress" to "Completed":
-
-```markdown
-## In Progress Tasks
-
-- [ ] Implement database schema
-- [ ] Create API endpoints for data access
-
-## Completed Tasks
-
-- [x] Set up project structure
-- [x] Configure environment variables
+test("hello world", () => {
+  expect(1).toBe(1);
+});
 ```
 
-Should become:
+## Frontend
 
-```markdown
-## In Progress Tasks
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-- [ ] Create API endpoints for data access
+Server:
 
-## Completed Tasks
+```ts#index.ts
+import index from "./index.html"
 
-- [x] Set up project structure
-- [x] Configure environment variables
-- [x] Implement database schema
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
 ```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [gabimoncha/cursor-rules-cli](https://github.com/gabimoncha/cursor-rules-cli) — distributed by [TomeVault](https://tomevault.io).
