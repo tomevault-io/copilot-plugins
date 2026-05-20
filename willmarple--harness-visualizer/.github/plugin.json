@@ -1,0 +1,9 @@
+{
+  "name": "willmarple--harness-visualizer",
+  "displayName": "harness-visualizer",
+  "description": "App to help visualize agent harness artifacts",
+  "version": "1.0.0",
+  "author": "willmarple",
+  "homepage": "https://github.com/willmarple/harness-visualizer",
+  "skills": []
+}
