@@ -1,16 +1,61 @@
-## agentifui
+## api-routes
 
-> 1. Put stage-specific, temporary, and migration-only scripts in `local_scripts/`.
+> ├── auth/               # Authentication related API
 
-# Agent Rules
 
-## Internal-Only Migration Scripts
+# API Routes Standards
 
-1. Put stage-specific, temporary, and migration-only scripts in `local_scripts/`.
-2. Do not expose `local_scripts/*` via public `package.json` commands.
-3. Do not reference `local_scripts/*` from public CI workflows under `.github/workflows/`.
-4. Do not document `local_scripts/*` in public docs under `docs/`; keep those notes in `local_docs/`.
-5. Keep `scripts/` for project runtime/deploy and public contributor workflows only.
+## Route Structure
+
+```
+app/api/
+├── auth/               # Authentication related API
+├── admin/              # Admin API
+└── dify/               # Dify API proxy
+    └── [appId]/[...slug]/
+```
+
+## Core Standards
+
+### 1. File Naming
+- MUST use `route.ts` as API handler file
+- MUST use `[param]` for dynamic routes, `[...slug]` for catch-all routes
+
+### 2. Handler Functions
+```typescript
+// Standard HTTP method exports
+export async function GET(request: Request) {}
+export async function POST(request: Request) {}
+```
+
+### 3. Response Format
+```typescript
+// Unified response structure
+type ApiResponse<T> = {
+  success: boolean;
+  data?: T;
+  error?: {
+    code: string;
+    message: string;
+  };
+};
+```
+
+### 4. Error Handling
+- MUST use standard HTTP status codes
+- MUST provide clear error messages
+- MUST implement unified error response format
+
+## Best Practices
+
+1. **Request Validation**: MUST strictly validate all inbound requests
+2. **Type Safety**: MUST use TypeScript for type checking
+3. **Error Handling**: MUST implement unified error handling mechanism
+4. **Middleware**: MUST configure route middleware in `middleware.ts`
+5. **Streaming**: MUST handle streaming responses when necessary
+6. **Timeout**: MUST implement appropriate error handling and timeout handling
+
+For reference, see `app/api/dify/[appId]/[...slug]/route.ts` for complete implementation.
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
