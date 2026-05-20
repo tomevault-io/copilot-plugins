@@ -1,0 +1,9 @@
+{
+  "name": "corpus-core--colibri-stateless",
+  "displayName": "colibri-stateless",
+  "description": "the c4 monorepo ",
+  "version": "1.0.0",
+  "author": "corpus-core",
+  "homepage": "https://github.com/corpus-core/colibri-stateless",
+  "skills": []
+}
