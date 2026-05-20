@@ -1,0 +1,9 @@
+{
+  "name": "mstykow--provenant",
+  "displayName": "provenant",
+  "description": "Rust-based ScanCode-compatible scanner for licenses, copyrights, package metadata, file metadata, and related provenance data.",
+  "version": "1.0.0",
+  "author": "mstykow",
+  "homepage": "https://github.com/mstykow/provenant",
+  "skills": []
+}
