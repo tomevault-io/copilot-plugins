@@ -1,0 +1,9 @@
+{
+  "name": "enpasos--jax2onnx",
+  "displayName": "jax2onnx",
+  "description": "export JAX to ONNX",
+  "version": "1.0.0",
+  "author": "enpasos",
+  "homepage": "https://github.com/enpasos/jax2onnx",
+  "skills": []
+}
