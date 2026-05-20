@@ -1,0 +1,9 @@
+{
+  "name": "flachesis--gemini-rust",
+  "displayName": "gemini-rust",
+  "description": "A comprehensive Rust client library for Google's Gemini.",
+  "version": "1.0.0",
+  "author": "flachesis",
+  "homepage": "https://github.com/flachesis/gemini-rust",
+  "skills": []
+}
