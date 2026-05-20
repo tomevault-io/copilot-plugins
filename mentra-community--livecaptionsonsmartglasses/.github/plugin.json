@@ -1,0 +1,9 @@
+{
+  "name": "mentra-community--livecaptionsonsmartglasses",
+  "displayName": "LiveCaptionsOnSmartGlasses",
+  "description": "Live captions app for smart glasses. Runs on MentraOS.",
+  "version": "1.0.0",
+  "author": "Mentra-Community",
+  "homepage": "https://github.com/Mentra-Community/LiveCaptionsOnSmartGlasses",
+  "skills": []
+}
