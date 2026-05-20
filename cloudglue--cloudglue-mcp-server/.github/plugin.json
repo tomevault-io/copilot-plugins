@@ -1,0 +1,9 @@
+{
+  "name": "cloudglue--cloudglue-mcp-server",
+  "displayName": "cloudglue-mcp-server",
+  "description": "Official MCP server for Cloudglue API",
+  "version": "1.0.0",
+  "author": "cloudglue",
+  "homepage": "https://github.com/cloudglue/cloudglue-mcp-server",
+  "skills": []
+}
