@@ -4,7 +4,7 @@
   "repo": "rust-srec",
   "description": "Automatic streaming record tool. Live stream and bullet comments recorder. \u591a\u5e73\u53f0\u76f4\u64ad\uff0c\u5f39\u5e55\u81ea\u52a8\u5f55\u5236",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hua0512/rust-srec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T02:36:48Z"
+  "distributed_at": "2026-05-20T10:52:26Z"
 }
