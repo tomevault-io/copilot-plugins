@@ -1,0 +1,9 @@
+{
+  "name": "ftes--phoenix-test-playwright",
+  "displayName": "phoenix_test_playwright",
+  "description": "Execute PhoenixTest cases in an actual browser via Playwright.",
+  "version": "1.0.0",
+  "author": "ftes",
+  "homepage": "https://github.com/ftes/phoenix_test_playwright",
+  "skills": []
+}
