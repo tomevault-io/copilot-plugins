@@ -1,204 +1,98 @@
-## database-development-rule
+## development-workflow-rule
 
-> Must read before making any database schema changes or migrations
+> Must read before starting any development task or code changes
 
-
-# Supabase Database Development Standards
+# Development Workflow Standards
 
 ## Core Principles
 
-1. **Security First**: MUST thoroughly evaluate and test all database operations
-2. **Type Synchronization**: MUST synchronize TypeScript type definitions with database changes
-3. **Documentation Sync**: MUST update related documentation with all changes
-4. **Atomic Commits**: MUST commit migration files, type definitions, and documentation together
+1. **Analyze Before Coding**: MUST understand the root problem before implementation
+2. **Risk Assessment**: MUST evaluate impact scope of changes
+3. **Minimal Changes**: MUST make minimal safe modifications
+4. **Comprehensive Validation**: MUST perform multi-dimensional verification
+5. **Standard Commits**: MUST follow git-commit-rule
 
-## 6-Phase Development Flow
+## Standard Workflow
 
-### Phase 1: Requirements Analysis & Impact Assessment
+### Phase 1: Problem Analysis
+- **Root Cause**: MUST understand the real problem, not just surface symptoms
+- **Impact Scope**: MUST identify affected modules and users
+- **Code Research**: MUST use codebase search tools to find relevant implementations
+- **Solution Design**: MUST compare 2-3 approaches and choose lowest risk option
 
-#### 1.1 Requirements Understanding
-- MUST clarify specific database change requirements and objectives
-- MUST analyze business context and technical necessity
-- MUST determine scope (table structure, indexes, constraints, functions)
+### Phase 2: Risk Assessment
+- **Direct Impact**: MUST identify directly affected files and functions
+- **Indirect Impact**: MUST identify dependent components and callers
+- **Breaking Changes**: MUST assess API/interface compatibility
+- **Performance Impact**: MUST evaluate loading time, memory, and responsiveness
+- **Security Risk**: MUST assess permissions, data security, XSS/CSRF implications
 
-#### 1.2 Impact Assessment
-**Database Level:**
-- Table structure changes impact on existing data
-- Foreign key constraints and cascade deletion impact
-- Index performance impact
-- RLS policy impact
+### Phase 3: Implementation
+- **Minimal Scope**: MUST make only necessary changes, avoid unrelated refactoring
+- **Interface Stability**: MUST maintain existing function signatures
+- **Type Safety**: MUST ensure TypeScript correctness
+- **Error Handling**: MUST implement comprehensive error management
 
-**Application Level:**
-- TypeScript type definition files requiring updates
-- Business logic code locations requiring modifications
-- API interface compatibility impact
-- Frontend component data structure dependencies
+### Phase 4: Validation
+- **Functional Testing**: MUST verify core functionality works as expected
+- **Regression Testing**: MUST ensure existing functionality remains intact
+- **Type Checking**: MUST run `pnpm run type-check`
+- **Build Testing**: MUST run `pnpm run build` (ask user first if unsure)
+- **Cross-browser**: MUST test on major browsers
 
-#### 1.3 Risk Assessment
-- **High Risk**: DROP TABLE, ALTER COLUMN type changes, constraint deletion
-- **Medium Risk**: ADD COLUMN, CREATE INDEX, RLS policy modifications
-- **Low Risk**: INSERT data, UPDATE configuration, CREATE FUNCTION
+### Phase 5: Documentation & Commit
+- **Update Documentation**: MUST update API, component, architecture docs when necessary
+- **Git Commit**: MUST strictly follow git-commit-rule
+- **Self Review**: MUST perform complete code review before commit
 
-### Phase 2: Create Migration Files
+## Special Scenarios
 
-#### 2.1 Get Standard Timestamp
+### Bug Fixes
+1. **Reproduction**: MUST ensure stable reproduction
+2. **Root Cause**: MUST perform deep analysis, avoid surface fixes
+3. **Minimal Fix**: MUST choose lowest risk solution
+4. **Regression Check**: MUST verify complete fix
+
+### Feature Development
+1. **Requirements Understanding**: MUST deeply understand user needs
+2. **Technical Design**: MUST consider scalability and maintainability
+3. **Phased Implementation**: MUST break down into verifiable stages
+4. **User Testing**: MUST gather real user feedback
+
+## Quality Checklist
+
+### Pre-Commit Validation
+- [ ] TypeScript type checking passes
+- [ ] Build succeeds
+- [ ] Core functionality testing complete
+- [ ] No regression issues
+- [ ] Code follows project standards
+- [ ] Commit message follows git-commit-rule
+
+## Critical Reminders
+
+### Development Server Usage
+**⚠️ MUST NOT run `pnpm run dev` unless explicitly needed**
+- Developer usually already has dev server running
+- Only run when explicitly requested or confirmed safe
+- MUST ask before starting development server
+- Use build/type-check commands for validation
+
+### Common Commands
 ```bash
-# Use date command to get standard format timestamp
-date +%Y%m%d%H%M%S
-```
-
-#### 2.2 Create Migration File
-Migration file naming format: `{timestamp}_{descriptive_name}.sql`
-
-**Example:**
-```
-supabase/migrations/20250621091656_add_user_preferences_table.sql
-```
-
-#### 2.3 Migration File Standards
-
-**File Header Comment:**
-```sql
--- Migration: 20250621091656_add_user_preferences_table.sql
--- Description: Add user preferences table for theme and language settings
--- Impact: New table, no existing data impact
--- Risk: Low risk
-```
-
-**MUST Include Checks:**
-```sql
--- Check if table exists
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM information_schema.tables 
-        WHERE table_schema = 'public' 
-        AND table_name = 'user_preferences'
-    ) THEN
-        -- Create table SQL
-        CREATE TABLE user_preferences (
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
-            theme TEXT DEFAULT 'system',
-            language TEXT DEFAULT 'zh-CN',
-            created_at TIMESTAMPTZ DEFAULT NOW(),
-            updated_at TIMESTAMPTZ DEFAULT NOW()
-        );
-    END IF;
-END $$;
-```
-
-### Phase 3: Type Definition Synchronization
-
-#### 3.1 Update Core Type Files
-
-**MUST update:**
-- `lib/types/database.ts` - Core database type definitions
-- `lib/supabase/types.ts` - Supabase auto-generated types
-
-#### 3.2 Type Definition Example
-
-```typescript
-// In lib/types/database.ts
-export interface UserPreference {
-  id: string;
-  user_id: string;
-  theme: string;
-  language: string;
-  created_at: string;
-  updated_at: string;
-}
-
-// Update Database namespace
-export namespace Database {
-  export interface Tables {
-    // ... existing tables
-    user_preferences: UserPreference;
-  }
-}
-```
-
-### Phase 4: Business Code Synchronization
-
-#### 4.1 Check Required Directories
-
-**MUST check:**
-- `lib/db/` - Database operation layer
-- `lib/hooks/` - React Hooks layer
-- `lib/services/` - Service layer
-
-#### 4.2 Code Update Example
-
-```typescript
-// lib/db/user-preferences.ts
-import { Database } from '@lib/types/database';
-
-type UserPreference = Database['Tables']['user_preferences'];
-
-export async function getUserPreferences(userId: string): Promise<UserPreference | null> {
-  // Implementation
-}
-```
-
-### Phase 5: Testing and Validation
-
-#### 5.1 Local Testing
-```bash
-# Push migration to local database
-supabase db push
-
-# Check migration status
-supabase db status
-```
-
-#### 5.2 Type Checking
-```bash
-# TypeScript type checking
+# Type checking (recommended for validation)
 pnpm run type-check
 
-# Build testing
+# Build testing (safe to run)
 pnpm run build
 ```
 
-### Phase 6: Deployment and Documentation
+## Continuous Improvement
 
-#### 6.1 Commit Changes
-MUST follow git-commit-rule.mdc format:
-```bash
-git commit -m "feat(db): add user preferences table" \
-           -m "" \
-           -m "Add user_preferences table for theme and language settings" \
-           -m "- Add migration file with proper checks" \
-           -m "- Update TypeScript type definitions" \
-           -m "- Add corresponding data access functions"
-```
-
-#### 6.2 Deploy to Production
-```bash
-# Deploy to Supabase cloud
-supabase db push --linked
-```
-
-## Emergency Rollback
-
-If migration causes issues:
-```bash
-# View migration history
-supabase migration list
-
-# Rollback to specific version
-supabase db reset --db-url [your-db-url]
-```
-
-## Best Practices
-
-1. **Incremental Changes**: Break large changes into multiple small migrations
-2. **Backup First**: Ensure data backup before important changes
-3. **Test Driven**: Test thoroughly in development environment first
-4. **Document Immediately**: Update documentation immediately after changes
-5. **Team Communication**: Communicate major changes with team in advance
-
-Following these standards ensures data safety, type consistency, and code synchronization.
+- Regularly review workflow processes
+- Collect team feedback
+- Optimize development processes
+- Upgrade development tools
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
