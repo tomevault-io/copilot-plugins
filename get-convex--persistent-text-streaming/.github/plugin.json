@@ -1,0 +1,9 @@
+{
+  "name": "get-convex--persistent-text-streaming",
+  "displayName": "persistent-text-streaming",
+  "description": "Stream text back to a client over HTTP while persisting it on the server for reloading/sharing",
+  "version": "1.0.0",
+  "author": "get-convex",
+  "homepage": "https://github.com/get-convex/persistent-text-streaming",
+  "skills": []
+}
