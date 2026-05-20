@@ -1,0 +1,9 @@
+{
+  "name": "mark3labs--phalcon-mcp",
+  "displayName": "phalcon-mcp",
+  "description": "MCP server that integrates with the BlockSec https://blocksec.com platform to provide blockchain transaction analysis.",
+  "version": "1.0.0",
+  "author": "mark3labs",
+  "homepage": "https://github.com/mark3labs/phalcon-mcp",
+  "skills": []
+}
