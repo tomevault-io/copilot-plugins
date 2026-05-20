@@ -1,0 +1,9 @@
+{
+  "name": "afumu--openteam",
+  "displayName": "openteam",
+  "description": "A Chrome extension for orchestrating local AI-agent team workflows across web AI services.",
+  "version": "1.0.0",
+  "author": "afumu",
+  "homepage": "https://github.com/afumu/openteam",
+  "skills": []
+}
