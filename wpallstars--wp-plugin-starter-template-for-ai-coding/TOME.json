@@ -1,0 +1,44 @@
+{
+  "name": "wp-plugin-starter-template-for-ai-coding",
+  "owner": "wpallstars",
+  "repo": "wp-plugin-starter-template-for-ai-coding",
+  "description": "A WordPress plugin starter template for coding with AI IDEs, like; Augment Code, Cursor, Windsurf, Loveable, Bolt, Cline, Roo Code, etc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wpallstars/wp-plugin-starter-template-for-ai-coding",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T05:23:04Z"
+}
