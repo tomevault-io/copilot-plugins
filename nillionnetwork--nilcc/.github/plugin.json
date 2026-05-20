@@ -1,0 +1,9 @@
+{
+  "name": "nillionnetwork--nilcc",
+  "displayName": "nilcc",
+  "description": "Bare metal TEE workload orchestration",
+  "version": "1.0.0",
+  "author": "NillionNetwork",
+  "homepage": "https://github.com/NillionNetwork/nilcc",
+  "skills": []
+}
