@@ -1,0 +1,9 @@
+{
+  "name": "tt-a1i--chat-edit",
+  "displayName": "chat_edit",
+  "description": "A dual-mode AI application combining chat and rich-text AI editing, powered by Vue 3.5 + TypeScript. Features streaming Markdown rendering, Mermaid diagrams, Quill 2.0 rich-text editor, Monaco diff vi",
+  "version": "1.0.0",
+  "author": "tt-a1i",
+  "homepage": "https://github.com/tt-a1i/chat_edit",
+  "skills": []
+}
