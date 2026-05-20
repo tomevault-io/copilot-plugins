@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--teams-py",
+  "displayName": "teams.py",
+  "description": "A suite of packages used to build on the Teams Platform.",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/teams.py",
+  "skills": []
+}
