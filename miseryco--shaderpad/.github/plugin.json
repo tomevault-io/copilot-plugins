@@ -1,0 +1,9 @@
+{
+  "name": "miseryco--shaderpad",
+  "displayName": "shaderpad",
+  "description": "A lightweight, dependency-free library to reduce boilerplate when writing fragment shaders.",
+  "version": "1.0.0",
+  "author": "miseryco",
+  "homepage": "https://github.com/miseryco/shaderpad",
+  "skills": []
+}
