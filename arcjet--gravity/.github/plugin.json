@@ -1,0 +1,9 @@
+{
+  "name": "arcjet--gravity",
+  "displayName": "gravity",
+  "description": "Gravity is a host generator for WebAssembly Components. It currently targets Wazero, a zero dependency WebAssembly runtime for Go.",
+  "version": "1.0.0",
+  "author": "arcjet",
+  "homepage": "https://github.com/arcjet/gravity",
+  "skills": []
+}
