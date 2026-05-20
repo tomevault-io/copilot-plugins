@@ -1,0 +1,44 @@
+{
+  "name": "PawHaven-FullStack-React-NodeJS",
+  "owner": "aoda-zhang",
+  "repo": "PawHaven-FullStack-React-NodeJS",
+  "description": "\ud83d\udc31 PawHaven \u2014 an open-source platform that helps volunteers, shelters, and adopters report, track, and share stray animal rescue cases (from first sighting to outcome).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aoda-zhang/PawHaven-FullStack-React-NodeJS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T23:14:31Z"
+}
