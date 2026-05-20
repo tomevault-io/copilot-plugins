@@ -1,0 +1,44 @@
+{
+  "name": "epay",
+  "owner": "lopinx",
+  "repo": "epay",
+  "description": "\u5f69\u8679\u6613\u652f\u4ed8\u7cfb\u7edf\uff0c\u4e13\u6ce8\u4e8e\u805a\u5408\u652f\u4ed8\u7f51\u7ad9\u89e3\u51b3\u65b9\u6848\u63d0\u4f9b,\u4ee5\u4fe1\u8a89\u6c42\u5e02\u573a\uff0c\u4ee5\u7a33\u5b9a\u6c42\u53d1\u5c55\uff0c\u884c\u4e1a\u5185\u6700\u5b89\u5168\uff0c\u7b80\u5355\u6613\u7528\uff0c\u4e13\u4e1a\u7684\u6280\u672f\u56e2\u961f\uff0c\u6700\u653e\u5fc3\u7684\u805a\u5408\u652f\u4ed8\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lopinx/epay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T21:23:48Z"
+}
