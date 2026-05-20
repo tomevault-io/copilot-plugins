@@ -1,0 +1,9 @@
+{
+  "name": "sitecore--content-sdk",
+  "displayName": "content-sdk",
+  "description": "The Content SDK to support building sites with XM Cloud",
+  "version": "1.0.0",
+  "author": "Sitecore",
+  "homepage": "https://github.com/Sitecore/content-sdk",
+  "skills": []
+}
