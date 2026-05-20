@@ -1,0 +1,9 @@
+{
+  "name": "tyrchen--codebank",
+  "displayName": "codebank",
+  "description": "A powerful code documentation generator that creates structured markdown documentation from your codebase. Supports multiple languages including Rust, Python, TypeScript, and C with intelligent parsin",
+  "version": "1.0.0",
+  "author": "tyrchen",
+  "homepage": "https://github.com/tyrchen/codebank",
+  "skills": []
+}
