@@ -4,7 +4,7 @@
   "repo": "universal-mcp",
   "description": "Universal MCP acts as a middle ware for your API applications. It can store your credentials, authorize, enable disable apps on the fly and much more.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/universal-mcp/universal-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T06:36:15Z"
+  "distributed_at": "2026-05-20T08:35:13Z"
 }
