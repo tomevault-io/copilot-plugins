@@ -1,0 +1,9 @@
+{
+  "name": "em-geeklab--llmone",
+  "displayName": "LLMOne",
+  "description": "Enterprise-grade LLM automated deployment tool that makes AI servers truly \"plug-and-play\".",
+  "version": "1.0.0",
+  "author": "EM-GeekLab",
+  "homepage": "https://github.com/EM-GeekLab/LLMOne",
+  "skills": []
+}
