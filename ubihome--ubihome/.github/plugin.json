@@ -1,0 +1,9 @@
+{
+  "name": "ubihome--ubihome",
+  "displayName": "UbiHome",
+  "description": "UbiHome is a ubiquitous system which allows you to integrate any device running an OS into your smart home (with esphome like YAML configuration).",
+  "version": "1.0.0",
+  "author": "UbiHome",
+  "homepage": "https://github.com/UbiHome/UbiHome",
+  "skills": []
+}
