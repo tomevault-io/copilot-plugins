@@ -1,0 +1,9 @@
+{
+  "name": "juliageo--conservativeregridding-jl",
+  "displayName": "ConservativeRegridding.jl",
+  "description": "Conservative interpolation between two grids in two dimensions",
+  "version": "1.0.0",
+  "author": "JuliaGeo",
+  "homepage": "https://github.com/JuliaGeo/ConservativeRegridding.jl",
+  "skills": []
+}
