@@ -1,0 +1,9 @@
+{
+  "name": "getstream--stream-feeds-swift",
+  "displayName": "stream-feeds-swift",
+  "description": "Official iOS SDK for Stream Feeds",
+  "version": "1.0.0",
+  "author": "GetStream",
+  "homepage": "https://github.com/GetStream/stream-feeds-swift",
+  "skills": []
+}
