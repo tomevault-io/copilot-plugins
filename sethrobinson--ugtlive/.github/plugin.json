@@ -1,0 +1,9 @@
+{
+  "name": "sethrobinson--ugtlive",
+  "displayName": "UGTLive",
+  "description": "Live AI-powered screen translation via LLMs & GPU OCR. 26 languages, manga support, PDF/CBZ conversion, audio reading, cloud or fully local operation. For gamers, manga readers, and language learners.",
+  "version": "1.0.0",
+  "author": "SethRobinson",
+  "homepage": "https://github.com/SethRobinson/UGTLive",
+  "skills": []
+}
