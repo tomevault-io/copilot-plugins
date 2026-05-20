@@ -4,7 +4,7 @@
   "repo": "mcp-panther",
   "description": "Write detections, investigate alerts, and query logs from your favorite AI agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/panther-labs/mcp-panther",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:00:39Z"
+  "distributed_at": "2026-05-20T11:18:12Z"
 }
