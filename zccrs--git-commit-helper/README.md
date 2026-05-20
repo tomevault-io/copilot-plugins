@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [zccrs/git-commit-helper](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [zccrs/git-commit-helper](https://github.com/zccrs/git-commit-helper) — a repo with 0+ stars on GitHub.
+From [zccrs/git-commit-helper](https://github.com/zccrs/git-commit-helper) — a repo with 23+ stars on GitHub.
 
 ---
 
