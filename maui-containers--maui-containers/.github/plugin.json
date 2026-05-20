@@ -1,0 +1,9 @@
+{
+  "name": "maui-containers--maui-containers",
+  "displayName": "maui-containers",
+  "description": "Docker + Tart images for MAUI dev/testing",
+  "version": "1.0.0",
+  "author": "maui-containers",
+  "homepage": "https://github.com/maui-containers/maui-containers",
+  "skills": []
+}
