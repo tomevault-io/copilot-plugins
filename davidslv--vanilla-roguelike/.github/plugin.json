@@ -1,0 +1,9 @@
+{
+  "name": "davidslv--vanilla-roguelike",
+  "displayName": "vanilla-roguelike",
+  "description": "A Roguelike Game written in vanilla Ruby",
+  "version": "1.0.0",
+  "author": "Davidslv",
+  "homepage": "https://github.com/Davidslv/vanilla-roguelike",
+  "skills": []
+}
