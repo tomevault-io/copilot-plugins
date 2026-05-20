@@ -1,0 +1,9 @@
+{
+  "name": "azure--containerization-assist",
+  "displayName": "containerization-assist",
+  "description": "containerization-assist",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/containerization-assist",
+  "skills": []
+}
