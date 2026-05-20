@@ -1,0 +1,9 @@
+{
+  "name": "cablehead--gpt2099-nu",
+  "displayName": "gpt2099.nu",
+  "description": "a Nushell cross.stream extension to interact with LLMs and MCP servers",
+  "version": "1.0.0",
+  "author": "cablehead",
+  "homepage": "https://github.com/cablehead/gpt2099.nu",
+  "skills": []
+}
