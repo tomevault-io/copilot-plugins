@@ -1,0 +1,44 @@
+{
+  "name": "awesome-cloudflare-applications",
+  "owner": "XiaomingX",
+  "repo": "awesome-cloudflare-applications",
+  "description": "\u26c5\ufe0f \u7cbe\u9009\u7684 Cloudflare \u5de5\u5177\u3001\u5f00\u6e90\u9879\u76ee\u3001\u6307\u5357\u3001\u535a\u5ba2\u548c\u5176\u4ed6\u8d44\u6e90\u5217\u8868\u3002/ \u26c5\ufe0f A curated list of Cloudflare tools, open source projects, guides, blogs and other resources.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/XiaomingX/awesome-cloudflare-applications",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T23:32:57Z"
+}
