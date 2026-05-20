@@ -4,7 +4,7 @@
   "repo": "EstateWise-Chapel-Hill-Chatbot",
   "description": "\ud83c\udfe0 An AI real estate app featuring secure auth, conversation management, & personalized property recommendations. Powered by Agentic AI, RAG (w/ Pinecone), GraphRAG (w/ Neo4j), MCP, kNN, K\u2011Means Clustering, CoT, LangGraph, and a Mixture\u2011of\u2011Experts ensemble to deliver accurate, effective, and scalable AI insights. Also features a VS Code extension!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/EstateWise-Chapel-Hill-Chatbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T05:19:58Z"
+  "distributed_at": "2026-05-20T17:23:38Z"
 }
