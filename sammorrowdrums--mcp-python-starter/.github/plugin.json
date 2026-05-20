@@ -1,0 +1,9 @@
+{
+  "name": "sammorrowdrums--mcp-python-starter",
+  "displayName": "mcp-python-starter",
+  "description": "A starter MCP server in Python.",
+  "version": "1.0.0",
+  "author": "SamMorrowDrums",
+  "homepage": "https://github.com/SamMorrowDrums/mcp-python-starter",
+  "skills": []
+}
