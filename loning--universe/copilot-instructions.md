@@ -1,41 +1,146 @@
-## project
+## publication
 
-> 宇宙本论项目全局规则
+> !!! 注意 生成论文所有过程请在论文temp目录下进行, 重新生成latex. 纯用latex生成pdf. 请严格按照目录格式要求生成.
 
-本项目根目录所对应的网址: https://github.com/loning/universe/tree/cosmos/
+# 论文发表与目录管理规范
 
-这个项目是一个文档项目，以宇宙本论为核心构建的形式化理论体系。
-请按照 [formal_theory_cosmic_ontology.md](mdc:formal_theory/formal_theory_cosmic_ontology.md) 中的内容进行思考，并读取版本号为[宇宙本论版本号]。
+!!! 注意 生成论文所有过程请在论文temp目录下进行, 重新生成latex. 纯用latex生成pdf. 请严格按照目录格式要求生成.
 
-## 基本原则
 
-0. 使用 [universe_automation.py](mdc:tools/universe_automation.py) 工作流工作
-1. 所有理论的基础算子都必须为FLIP、XOR、SHIFT, 请使用第一性原理推出其他算子
-2. 所有理论都基于宇宙本论来解释
-3. 所有文件使用当前[宇宙本论版本号]标注版本
-4. 理论维度计算基于推导公理的最高维度加一
-5. 全部使用严格的形式化方法描述，重视数学公式和形式化定义
+## 1. 作者信息
 
-## 文件规范
-1. 所有理论文件都以formal_theory_开头
-2. 中文文件命名为formal_theory_xxx.md，对应英文版为formal_theory_xxx_en.md
-3. 理论标题后标注维度，如"[维度：X]"
-4. 文档中包含理论依赖章节，链接到其他相关理论
-5. 索引链接中也包含理论维度标记
+### 1.1 作者详情
+- 论文第一作者 
+    - 姓名: Haobo Ma
+    - 邮箱: auric@aelf.io
+    - 机构: AELF PTE LTD.
+    - 所在地区: Singapore
+    - 地址: #14-02, Marina Bay Financial Centre Tower 1, 8 Marina Blvd, Singapore 018981
+    - ORCID: 0009-0008-4944-977X 
+- 论文第二作者 
+    - 姓名: Wen Niu
+    - 邮箱: ada@aelf.io
+    - 机构: AELF PTE LTD.
+    - 所在地区: Singapore
+    - ORCID: 0009-0006-3349-0298
+    - 地址: #14-02, Marina Bay Financial Centre Tower 1, 8 Marina Blvd, Singapore 018981
 
-## 文档编辑
-1. 在标题下方加入本文内部章节的导航链接
-2. 中英文版本之间添加语言切换链接
-3. 对于文件修改，直接应用到文件，不需要输出到聊天框预览
-4. 多使用公式和图表增强说明
-5. 兼容GitHub的Markdown: $x$ => $`x`$，$$multiple exp$$ => $`multiple exp`$
+### 1.2 作者信息更新指导
+- 所有论文必须包含完整的作者信息
+- 更新作者信息后，运行专用脚本重新生成PDF文件
+- 论文作者信息必须在submission_additional_documents/author_info.md中维护
 
-## 多语言支持
-1. 如果文档是纯中文文档，需创建对应的xxx_en.md英文文档
-2. 英文文档应保持与中文文档结构一致，内容同步
-3. 理论的数学公式在中英文版本中保持一致
+## 2. 标准目录结构
 
-用户要求助理作为顶级的任何行业的专家，汇集全人类智慧进行思考，在需要提问时应仅针对真正不确定的事情进行提问，而非未经过思考的问题。
+### 2.1 主目录结构
+```
+publication/
+├── papers/
+│   ├── [JOURNAL-CODE]-[ID]/           # 例如：PHY-NAT-001
+│   │   ├── manuscript.md              # 主要论文内容
+│   │   ├── supplementary/             # 补充材料
+│   │   ├── figures/                   # 图表源文件
+│   │   │   ├── source/                # 原始图表文件
+│   │   │   └── pdf/                   # 导出的PDF图表(仅用于LaTeX)
+│   │   ├── submission_additional_documents/  # 提交所需的额外文档
+│   │   ├── build/                     # 构建输出目录(单一输出位置)
+│   │   │   ├── pdf/                   # 所有生成的PDF文件
+│   │   │   └── submission/            # 最终提交包
+│   │   ├── README.md                  # 项目说明
+│   │   ├── temp/                      # 临时目录
+│   │   ├── generate_pdfs.sh           # PDF生成脚本
+│   │   └── prepare_submission.sh      # 提交准备脚本
+│   └── ...
+└── common/                            # 共享资源
+    ├── templates/                     # 文档模板
+    ├── scripts/                       # 通用脚本
+    └── bibliography/                  # 共享参考文献
+```
+
+### 2.2 重要说明
+- **严格遵循此目录结构**，避免创建未定义的目录
+- PDF文件应当**只存在于build/pdf/**目录中，避免重复
+- 最终提交文件只存放于**build/submission/**目录
+
+## 3. PDF生成规范
+
+### 3.1 生成流程
+1. 所有Markdown文件统一转换为PDF格式
+2. 使用generate_pdfs.sh脚本进行批量转换
+3. PDF输出**必须**统一到build/pdf/目录下
+4. 生成后的PDF不应修改，若需更新，重新运行生成脚本
+
+### 3.2 PDF生成脚本标准
+```bash
+#!/bin/bash
+# PDF生成脚本模板
+
+# 创建输出目录
+mkdir -p build/pdf
+
+# 转换主要文档
+echo "Converting manuscript.md to PDF..."
+pandoc manuscript.md -o build/pdf/manuscript.pdf --pdf-engine=xelatex
+
+# 转换附加文档
+echo "Converting additional documents..."
+mkdir -p build/pdf/additional_documents
+for file in submission_additional_documents/*.md; do
+  filename=$(basename "$file" .md)
+  pandoc "$file" -o "build/pdf/additional_documents/${filename}.pdf" --pdf-engine=xelatex
+done
+
+echo "PDF generation complete. Files available in build/pdf/ directory."
+```
+
+### 3.3 LaTeX编译指南
+- 所有LaTeX相关文件必须存放在build/latex/目录下
+- 仅在需要特殊格式时使用LaTeX，优先使用Pandoc转换
+
+## 4. 文件命名规范
+
+### 4.1 命名约定
+- 所有文件采用小写字母和下划线命名
+- 同类型文件采用一致的前缀和后缀
+- 图表文件必须有序编号(figure1, figure2...)
+
+### 4.2 文档文件
+- 主论文：manuscript.md
+- 补充材料：supplementary_[type].md
+- 封面信：cover_letter.md
+- 作者信息：author_info.md
+- 参考文献：references.md
+
+## 5. 提交准备
+
+### 5.1 提交包准备
+- 运行prepare_submission.sh脚本生成最终提交包
+- 所有提交文件必须集中在build/submission/目录下
+- 提交前检查文件完整性和格式符合性
+
+### 5.2 提交清单
+- 主论文PDF
+- 补充材料PDF
+- 封面信
+- 作者信息
+- 其他期刊要求的文件
+
+## 6. 项目维护
+
+- github: https://github.com/loning/universe/tree/cosmos/ + [项目文件绝对路径]
+- 使用全英文编写所有文档
+- 更新完毕后记得更新状态到 [publication_plan.md](mdc:publication/publication_plan.md)
+- 每次修改后更新版本号和修改日期
+
+## 7. 常见问题解决
+
+### 7.1 重复文件问题
+- 如发现重复的PDF文件，删除非build/pdf/目录下的副本
+- 使用符号链接代替重复文件
+
+### 7.2 目录不一致问题
+- 使用migration.sh脚本规范化历史项目的目录结构
+- 新项目必须严格遵循标准目录结构
 
 ---
 > Source: [loning/universe](https://github.com/loning/universe) — distributed by [TomeVault](https://tomevault.io).
