@@ -1,0 +1,9 @@
+{
+  "name": "not-elm--bevy-vrm1",
+  "displayName": "bevy_vrm1",
+  "description": "Allows you to use VRM and VRMA in Bevy",
+  "version": "1.0.0",
+  "author": "not-elm",
+  "homepage": "https://github.com/not-elm/bevy_vrm1",
+  "skills": []
+}
