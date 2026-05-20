@@ -1,0 +1,22 @@
+{
+  "name": "t-unit--tonik",
+  "displayName": "tonik",
+  "description": "Pure Dart OpenAPI 3.0/3.1 code generator. Creates type-safe API client packages for Dart and Flutter with sealed classes, pattern matching, and full encoding support.",
+  "version": "1.0.0",
+  "author": "t-unit",
+  "homepage": "https://github.com/t-unit/tonik",
+  "skills": [
+    {
+      "name": "code-builder",
+      "description": ""
+    },
+    {
+      "name": "integration-tests",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
