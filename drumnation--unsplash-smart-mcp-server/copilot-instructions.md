@@ -1,68 +1,43 @@
-## tdd-tom-testing-rules
+## typescript-standards-rules
 
-> Use this rule whenever you are starting development on any new feature to ensure it is implemented with a test-first approach using Test-Driven Development and the Test Object Model.
+> TypeScript formatting, linting rules, and best practices.
 
-## New Feature TDD Rule
+# TypeScript Standards
+# Last Updated: 2025-03-31 10:13:02 AM
 
-**Description:**
+## Formatting (Prettier)
+- maxLineLength: 100
+- indentSize: 2
+- indentStyle: space
+- formatter: prettier
 
-**Mandatory Rule: All new features MUST be implemented using Test-Driven Development (TDD) principles.**  Prioritize tests before code, ensuring comprehensive coverage and a robust design. Tests should be focused and efficient, employing either unit or integration tests as appropriate. All tests MUST adhere to the **Test Object Model** for improved maintainability and reusability where it makes sense.
+## Linting Rules
+- noUnusedVars: error
+- noUnescapedEntities: error
+- noExplicitAny: warn
+- noImgElement: warn
+- exhaustiveDeps: warn
 
-**Instructions:**
+## Best Practices
 
-1.  **Choose the Right Testing Strategy:**
-    *   **BEFORE writing any tests, deeply consider whether a UNIT test or an INTEGRATION test is most effective for the feature or component being developed.**
-    *   **UNIT Tests:** Focus on individual modules or functions in isolation, mocking dependencies. Ideal for testing complex logic within a single unit.
-        *   **Consider using unit tests when:**
-            *   The logic within a single function or class is complex and needs thorough testing.
-            *   Dependencies can be easily and realistically mocked.
-            *   You need to isolate a specific unit to verify its behavior in detail.
-        *   **For guidance on writing unit tests, refer to the Unit Test Writing Guide:** READ `@.brain/knowledge/testing/vitest/vitest-unit-testing.rules.ts`
-    *   **INTEGRATION Tests:** Test the interaction between multiple modules or systems. They verify that different parts of the application work together correctly.
-        *   **Consider using integration tests when:**
-            *   The functionality depends on the interaction between multiple components, services, or external systems (e.g., databases, APIs, CLIs).
-            *   Mocking is difficult, unrealistic, or overly complex.
-            *   You need to ensure that different parts of the system work together correctly in a realistic environment.
-        *   **For guidance on writing integration tests, refer to the Integration Test Writing Guide:** READ `@.brain/knowledge/testing/vitest/vitest-integration-testing.rules.ts`
-    *   **Document the reasoning behind your choice of unit or integration testing in the code or test file.**
+### HTML Entities
+- Use "&apos;" for apostrophes
+- Use "&quot;" for quotes
 
-2.  **Start with tests:** Before writing any implementation code, create a failing test case that defines the desired behavior of the new feature, based on the chosen testing strategy.
+### Imports
+- Prefer destructuring
+- Organize imports on save
+- Remove unused imports
 
-3.  **Follow the Red-Green-Refactor cycle:**
-    *   **Red:** Write a failing test (unit or integration).
-    *   **Green:** Write the minimal code to make the test pass.
-    *   **Refactor:** Improve code structure while keeping the test green. Be cautious about over-abstracting or introducing unnecessary complexity during refactoring. If tests get more complicated because of the refactoring, it is a code smell.
-    *   **Repeat:** Move to the next part of the feature
+### Types
+- Avoid using "any" types
+- Prefer explicit types
+- Use built-in utility types when possible
 
-4.  **Employ the Test Object Model (When Appropriate):**
-    *   **If the Test Object Model is deemed beneficial for organization and reusability (e.g., in complex integration tests or UI tests),** create a `*.to.ts` file for each logical group of interactions or components being tested.
-    *   Encapsulate interaction logic within this test object.
-    *   Example:
-
-        ```typescript
-        // user-registration.to.ts
-        import { UserService } from './user-service';
-
-        export class UserRegistrationTestObject {
-            private userService: UserService;
-
-            constructor() {
-                this.userService = new UserService();
-            }
-
-            async registerUser(userData: any) {
-                return await this.userService.register(userData);
-            }
-        }
-        ```
-    *  **Do not force the use of the Test Object Model if it adds unnecessary complexity or doesn't provide significant value in simpler scenarios.**
-
-5.  **Consult the detailed guidelines for comprehensive instructions:**
-    *   **TDD:** READ `@.brain/knowledge/testing/vitest/vitest-tdd.rules.ts`
-    *   **Test Object Model:** READ `@.brain/knowledge/testing/vitest/vitest-test-object-model.rules.ts`
-    *   **Unit vs. Integration Testing:** READ `@.brain/knowledge/testing/unit-vs-integration-testing.rules.ts`
-
-**Enforcement:** Strict (This rule must be followed without exception. The reasoning behind choosing a specific testing strategy should always be clearly documented.)
+### Hooks
+- Include all dependencies in dependency arrays
+- Use useCallback for event handlers
+- Use useMemo for expensive computations 
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
