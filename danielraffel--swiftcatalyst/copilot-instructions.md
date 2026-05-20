@@ -1,0 +1,256 @@
+## cursor-rules-creation
+
+> Guidelines for creating, generating, and composing Cursor Project Rules to build a comprehensive rule library
+
+
+# Cursor Rules Creation and Generation
+
+This meta-rule provides guidelines for creating and automatically generating Cursor Project Rules. It extends the basic creation guidelines to support building a comprehensive "stdlib" of rules that can be composed together, with specific adaptations for Swift projects.
+
+## Rule Auto-Generation Approach
+
+Cursor can be instructed to generate new rules based on observed patterns, successful implementations, or specific requirements. This approach enables rapidly building a rich library of rules for Swift development.
+
+### Key Principles
+
+* **Unix-Like Composition**: Design rules to be composable like Unix pipes, where the output of one rule can feed into another.
+* **Continuous Learning**: Automatically update rules with learnings from successful implementations.
+* **Templates Over Implementation**: Focus on creating rule templates that can be adapted rather than writing specific implementations.
+
+## Prompting Cursor to Generate Rules
+
+When asking Cursor to generate a new rule for Swift projects, use the following structure:
+
+```
+Create a Cursor rule for [specific purpose] that:
+1. Defines [pattern/convention]
+2. Works with files matching [glob pattern for Swift files]
+3. Includes examples from [reference implementation]
+4. Can compose with [other rules]
+```
+
+### Example Rule Generation Prompt
+
+```
+Create a Cursor rule for Swift protocol implementation that:
+1. Defines standards for creating and implementing protocols
+2. Works with files matching "Sources/**/*.swift"
+3. Includes examples from our networking module
+4. Can compose with our existing Swift naming conventions
+```
+
+## Building Your Rule Stdlib for Swift Projects
+
+The "stdlib" approach involves:
+
+1. **Core Infrastructure Rules**: Rules about where to place rules, how to name them, and how to compose them.
+2. **Language-Specific Rules**: Rules for Swift language features, patterns, and best practices.
+3. **Framework-Specific Rules**: Rules for UIKit, SwiftUI, Combine, etc.
+4. **Architecture Rules**: Rules for architecture patterns like VIPER, MVVM, etc.
+5. **Rule Composition Manifests**: Files that define how rules work together.
+
+### Rule Composition
+
+Rules can be composed by explicitly referencing other rules:
+
+```markdown
+---
+title: Swift Network Layer Implementation
+description: Guidelines for implementing network requests using our standardized approach
+glob: "Sources/Networking/**/*.swift"
+composes: ["swift-naming.mdc", "error-handling.mdc", "async-await.mdc"] 
+---
+
+# Swift Network Layer Implementation
+
+This rule composes several other rules to define our complete network implementation pattern.
+
+## Core Components
+
+1. Follow naming conventions in [Swift Naming Conventions](mdc:swift-naming.mdc)
+2. Implement error handling according to [Error Handling Standards](mdc:error-handling.mdc)
+3. Use async/await as described in [Async/Await Patterns](mdc:async-await.mdc)
+
+## Unique Aspects
+
+[Network-specific patterns that aren't covered by the composed rules...]
+```
+
+## Rule Learning Workflow
+
+After successfully implementing a requirement in Swift:
+
+1. **Document the Pattern**: Identify the pattern that enabled success.
+2. **Ask Cursor to Create/Update a Rule**:
+   ```
+   Based on our successful implementation of [feature], create a new rule (or update [existing-rule.mdc]) that captures:
+   1. The pattern of [describe pattern]
+   2. The key components: [list components]
+   3. The error handling approach we used
+   4. How we handled edge cases like [edge case]
+   ```
+3. **Link the Rule to Code Examples**: Always reference the actual implementation.
+4. **Add to Composition Manifests**: Update any rule composition files to include the new/updated rule.
+
+## Intervention and Improvement Cycle
+
+When the LLM doesn't follow a rule correctly:
+
+1. **Identify the Gap**: What aspect of the rule was misunderstood or ignored?
+2. **Refine the Rule**: Make the rule more explicit about that aspect.
+3. **Add Counterexamples**: Include examples of what not to do and why.
+4. **Test the Updated Rule**: Try the implementation again.
+
+This cycle creates increasingly accurate rules over time.
+
+## Example Swift-Specific Rule Template
+
+This template can be used by Cursor to generate rules for Swift projects:
+
+```markdown
+---
+title: [Swift-Related Rule Name]
+description: Guidelines for [Swift-specific purpose]
+glob: "[pattern matching Swift files]"
+alwaysApply: false
+---
+
+# [Rule Name]
+
+## Introduction / Problem
+
+[Why this rule exists and what problem it solves for Swift development.]
+
+## Pattern Description
+
+[Explain the Swift-specific pattern with code examples.]
+
+```swift
+// Example Swift code demonstrating the pattern
+struct UserProfile: Codable {
+    let id: UUID
+    let username: String
+    let email: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case username
+        case email
+    }
+}
+```
+
+## Implementation Steps
+
+1. [First step in implementing this pattern]
+2. [Second step]
+3. [Additional steps as needed]
+
+## Real-World Examples
+
+* [Link to Swift code in the project](mdc:../Sources/Path/To/Example.swift)
+
+## Common Pitfalls
+
+* [Common mistake 1 in Swift implementation]
+* [Common mistake 2]
+* [Other issues to watch for]
+```
+
+## Rule Generator Meta-Rule
+
+Here's a meta-rule template that can help Cursor generate rules for your Swift project:
+
+```markdown
+---
+title: Swift Rule Generator
+description: Guidelines for generating new Cursor rules based on Swift code patterns
+glob: "**/*.mdc"
+alwaysApply: true
+---
+
+# Swift Rule Generator
+
+This meta-rule provides templates for generating new rules based on observed patterns in Swift code.
+
+## Generate a New Swift Rule
+
+When you identify a pattern worth capturing in a rule, ask Cursor:
+
+```
+Generate a new Swift rule called [name] based on the pattern in [file path]. The rule should:
+1. Define the structure seen in [file path]
+2. Apply to files matching [glob]
+3. Include these key components: [list components]
+```
+
+## Swift Rule Template Structure
+
+Generated rules should follow this template structure:
+
+```markdown
+---
+title: [Descriptive Title]
+description: Guidelines for [Swift-specific purpose]
+glob: "[file pattern matching Swift files]"
+alwaysApply: false
+---
+
+# [Descriptive Title]
+
+## Introduction / Problem
+
+[Why this rule exists and what problem it solves for Swift development.]
+
+## Pattern Description
+
+[Explain the Swift pattern with code examples.]
+
+## Real-World Examples
+
+* [Link to Swift code](mdc:../path/to/example.swift)
+
+## Common Pitfalls
+
+* [Common Swift mistake 1]
+* [Common Swift mistake 2]
+```
+
+## Learning From Swift Implementation
+
+After implementing a feature using your rules, ask Cursor to analyze the implementation and update the rules:
+
+```
+Analyze our implementation of [Swift feature] and identify:
+1. Patterns we followed consistently
+2. Deviations from our rules that improved the code
+3. Challenges where our rules were insufficient
+4. New patterns that should be formalized
+
+Then, update our rule [rule-name.mdc] to incorporate these learnings.
+```
+
+This creates a continuous improvement cycle for your Swift rule library.
+```
+
+## Examples of Swift-Specific Rules You Might Create
+
+1. **Swift VIPER Architecture Rule**: Guidelines for implementing VIPER in Swift projects
+2. **SwiftUI Component Structure Rule**: Standards for structuring SwiftUI views and components
+3. **Swift Error Handling Rule**: Patterns for consistent error handling and propagation
+4. **Swift Concurrency Rule**: Guidelines for using async/await and Task APIs
+5. **Swift Navigation Pattern Rule**: Standards for implementing navigation in your app
+6. **Swift Testing Rule**: Guidelines for writing effective unit and UI tests
+
+## Getting Started with Swift Rule Creation
+
+1. Start with foundational rules that apply across your Swift project
+2. Create architecture-specific rules based on your project's needs (VIPER, MVVM, etc.)
+3. Ask Cursor to help you generate rules for complex patterns
+4. Continuously refine and update rules based on implementation feedback
+
+Remember, the goal is to build a "stdlib" of rules that can be composed together to guide Swift development throughout your project.
+
+---
+> Source: [danielraffel/SwiftCatalyst](https://github.com/danielraffel/SwiftCatalyst) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
