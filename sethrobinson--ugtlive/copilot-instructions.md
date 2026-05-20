@@ -1,172 +1,89 @@
-## async-threading-patterns
+## code-style-conventions
 
-> Async/await and threading patterns for WPF UI updates
+> Code style and naming conventions for UGTLive
 
 
-# Async/Await and Threading Patterns
+# Code Style and Conventions
 
-## UI Thread Updates
+## Naming Conventions
 
-### Dispatcher Pattern
-**CRITICAL**: All UI updates must happen on the UI thread. Use `Dispatcher.Invoke()` or `Dispatcher.InvokeAsync()` when updating UI from background threads.
+### Classes and Methods
+- **Classes**: PascalCase (e.g., `ConfigManager`, `TranslationService`)
+- **Public Methods**: PascalCase (e.g., `GetValue()`, `TranslateAsync()`)
+- **Private Methods**: camelCase (e.g., `loadConfig()`, `processImage()`)
+- **Private Fields**: Underscore prefix + camelCase (e.g., `_instance`, `_configValues`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `GEMINI_API_KEY`, `TRANSLATION_SERVICE`)
 
+### Properties
+- Use PascalCase for public properties
+- Prefer explicit getters/setters over auto-properties when logic is needed
+- Pattern: `GetVariableName()` / `SetVariableName()` for ConfigManager
+- Direct property access for simple UI bindings
+
+## Code Layout
+
+### Indentation and Braces
+- **Indentation**: 4 spaces (no tabs)
+- **Braces**: Allman style (opening brace on new line)
+- **Line Length**: Prefer < 120 characters, wrap if needed
+
+### Using Statements
+- System namespaces first
+- Third-party namespaces second
+- Application namespaces last
+- Group related usings together
+
+### Example Structure
 ```csharp
-// From background thread - update UI
-Application.Current.Dispatcher.Invoke(() =>
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
+using UGTLive;
+
+namespace UGTLive
 {
-    StatusText.Text = "Processing...";
-    StatusText.Foreground = Brushes.Blue;
-});
-
-// Async version (non-blocking)
-await Application.Current.Dispatcher.InvokeAsync(() =>
-{
-    StatusText.Text = "Complete";
-});
-```
-
-### Dispatcher Priority
-- Use `DispatcherPriority.Background` for non-urgent updates
-- Use `DispatcherPriority.Normal` (default) for standard updates
-- Use `DispatcherPriority.Send` only when absolutely necessary
-
-```csharp
-Dispatcher.Invoke(() =>
-{
-    // Update UI
-}, DispatcherPriority.Background);
-```
-
-## Async Service Methods
-
-### Translation Services
-All translation services implement async methods:
-
-```csharp
-public interface ITranslationService
-{
-    Task<TranslationResult?> TranslateAsync(
-        string sourceText,
-        string targetLanguage,
-        string context);
-}
-```
-
-### Implementation Pattern
-```csharp
-public async Task<TranslationResult?> TranslateAsync(string text, string lang, string context)
-{
-    try
+    public class ExampleClass
     {
-        using var httpClient = new HttpClient();
-        var response = await httpClient.PostAsync(url, content);
-        
-        if (response.IsSuccessStatusCode)
+        private static ExampleClass? _instance;
+        private readonly Dictionary<string, string> _configValues;
+
+        public static ExampleClass Instance
         {
-            var result = await response.Content.ReadAsStringAsync();
-            return ParseResult(result);
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new ExampleClass();
+                }
+                return _instance;
+            }
         }
-        
-        return null;
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Translation error: {ex.Message}");
-        return null;
-    }
-}
-```
 
-## Background Operations
-
-### Screen Capture
-Screen capture runs on background thread/timer:
-
-```csharp
-private void Timer_Tick(object sender, EventArgs e)
-{
-    // Capture runs on timer thread
-    var bitmap = CaptureScreen(x, y, width, height);
-    
-    // Process on background thread
-    Task.Run(async () =>
-    {
-        var result = await ProcessImageAsync(bitmap);
-        
-        // Update UI on UI thread
-        Application.Current.Dispatcher.Invoke(() =>
+        private ExampleClass()
         {
-            UpdateDisplay(result);
-        });
-    });
-}
-```
+            _configValues = new Dictionary<string, string>();
+        }
 
-### OCR Processing
-OCR operations should be async and non-blocking:
-
-```csharp
-private async Task<List<TextObject>> ProcessOCRAsync(Bitmap bitmap)
-{
-    // Run OCR on background thread
-    return await Task.Run(() =>
-    {
-        // OCR processing
-        return ocrService.Process(bitmap);
-    });
-}
-```
-
-## HttpClient Usage
-
-### Best Practices
-- **DO NOT** create new HttpClient instances for each request
-- Create HttpClient once and reuse (or use HttpClientFactory)
-- Dispose properly with `using` statement
-
-```csharp
-// Good: Reuse HttpClient
-private static readonly HttpClient _httpClient = new HttpClient();
-
-public async Task<string> GetDataAsync()
-{
-    var response = await _httpClient.GetAsync(url);
-    return await response.Content.ReadAsStringAsync();
-}
-
-// Or use using for one-off requests
-public async Task<string> GetDataAsync()
-{
-    using var client = new HttpClient();
-    var response = await client.GetAsync(url);
-    return await response.Content.ReadAsStringAsync();
-}
-```
-
-## Task Cancellation
-
-### Cancellation Tokens
-Use `CancellationToken` for long-running operations:
-
-```csharp
-public async Task ProcessAsync(CancellationToken cancellationToken)
-{
-    while (!cancellationToken.IsCancellationRequested)
-    {
-        await DoWorkAsync();
-        await Task.Delay(1000, cancellationToken);
+        public string GetValue(string key)
+        {
+            return _configValues.TryGetValue(key, out var value) ? value : "";
+        }
     }
 }
 ```
 
-## Thread Safety
+## Singleton Pattern
 
-### Singleton Thread Safety
-Simple null-check pattern is sufficient for this application:
+### Implementation
+- Use lazy initialization with null check
+- Private constructor
+- Static Instance property
+- Thread-safe initialization (simple null check is sufficient for this app)
 
 ```csharp
 private static ConfigManager? _instance;
-private static readonly object _lock = new object();
 
 public static ConfigManager Instance
 {
@@ -174,140 +91,153 @@ public static ConfigManager Instance
     {
         if (_instance == null)
         {
-            lock (_lock)
-            {
-                if (_instance == null)
-                {
-                    _instance = new ConfigManager();
-                }
-            }
+            _instance = new ConfigManager();
         }
         return _instance;
     }
 }
-```
 
-### Dictionary Access
-- Use `TryGetValue` for safe dictionary access
-- Check for null before using values
-
-```csharp
-if (_configValues.TryGetValue(key, out var value))
+private ConfigManager()
 {
-    return value;
-}
-return defaultValue;
-```
-
-## Blocking vs Non-Blocking
-
-### Avoid Blocking UI Thread
-- **NEVER** use `.Result` or `.Wait()` on async methods in UI code
-- Always use `await` for async operations
-- Use `Task.Run()` to move CPU-intensive work off UI thread
-
-```csharp
-// BAD: Blocks UI thread
-var result = httpClient.GetAsync(url).Result;
-
-// GOOD: Non-blocking
-var result = await httpClient.GetAsync(url);
-
-// GOOD: Move work off UI thread
-var result = await Task.Run(() => ExpensiveOperation());
-```
-
-## Exception Handling in Async
-
-### Async Exception Handling
-Exceptions in async methods should be caught and logged:
-
-```csharp
-public async Task<Result?> ProcessAsync()
-{
-    try
-    {
-        var result = await DoWorkAsync();
-        return result;
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-        LogManager.Instance.LogError("Process failed", ex);
-        return null;
-    }
+    // Initialization
 }
 ```
 
-## Timer Usage
+## Error Handling
 
-### WPF DispatcherTimer
-Use `DispatcherTimer` for UI-related timers:
+### General Principles
+- **Avoid try/catch blocks** unless absolutely necessary
+- **Check for null** before using objects
+- **Log errors** using `LogManager.Instance.LogError()`
+- **Console.WriteLine** for debug output
+- **MessageBox.Show** for user-facing errors (on UI thread)
 
+### Error Handling Pattern
 ```csharp
-private DispatcherTimer _timer;
-
-private void InitializeTimer()
+// Prefer null checks over try/catch
+if (response == null)
 {
-    _timer = new DispatcherTimer();
-    _timer.Interval = TimeSpan.FromMilliseconds(100);
-    _timer.Tick += Timer_Tick;
-    _timer.Start();
+    Console.WriteLine("Response is null");
+    return null;
 }
 
-private void Timer_Tick(object sender, EventArgs e)
+// Log errors
+LogManager.Instance.LogError("Error description", exception);
+
+// User-facing errors on UI thread
+Application.Current.Dispatcher.Invoke(() =>
 {
-    // Runs on UI thread
-    UpdateUI();
-}
-```
-
-### System.Timers.Timer
-Use `System.Timers.Timer` for background operations:
-
-```csharp
-private System.Timers.Timer _backgroundTimer;
-
-private void InitializeBackgroundTimer()
-{
-    _backgroundTimer = new System.Timers.Timer(1000);
-    _backgroundTimer.Elapsed += BackgroundTimer_Elapsed;
-    _backgroundTimer.AutoReset = true;
-    _backgroundTimer.Start();
-}
-
-private void BackgroundTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-{
-    // Runs on background thread - use Dispatcher for UI updates
-    Task.Run(async () => await ProcessBackgroundWorkAsync());
-}
-```
-
-## Progress Reporting
-
-### Progress Updates
-Report progress from background threads:
-
-```csharp
-private async Task ProcessWithProgressAsync(IProgress<int> progress)
-{
-    for (int i = 0; i < 100; i++)
-    {
-        await DoWorkAsync();
-        progress.Report(i);
-    }
-}
-
-// Usage
-var progress = new Progress<int>(percent =>
-{
-    Application.Current.Dispatcher.Invoke(() =>
-    {
-        ProgressBar.Value = percent;
-    });
+    MessageBox.Show($"Error: {message}", "Error Title", 
+        MessageBoxButton.OK, MessageBoxImage.Error);
 });
+```
 
-await ProcessWithProgressAsync(progress);
+## Comments
+
+### When to Comment
+- Complex algorithms or business logic
+- Non-obvious code decisions
+- API integration details
+- TODO items for future improvements
+
+### Comment Style
+- Use `//` for single-line comments
+- Use `///` for XML documentation on public APIs
+- Keep comments concise and up-to-date
+
+## File Organization
+
+### File Structure
+1. Using statements
+2. Namespace declaration
+3. Class declaration
+4. Private fields
+5. Public properties
+6. Constructor
+7. Public methods
+8. Private methods
+
+### One Class Per File
+- Each class should be in its own file
+- File name matches class name
+- Exception: Small helper classes can be in same file
+
+## Nullable Reference Types
+
+### Null Handling
+- Use nullable reference types (`string?`, `object?`)
+- Check for null before dereferencing
+- Use null-coalescing operator (`??`) when appropriate
+- Use null-conditional operator (`?.`) for safe access
+
+```csharp
+private string? _optionalValue;
+
+public string GetValue()
+{
+    return _optionalValue ?? "default";
+}
+
+if (_optionalValue != null)
+{
+    // Use _optionalValue safely
+}
+```
+
+## Constants
+
+### Configuration Keys
+- Define as `public const string` in ConfigManager
+- Use descriptive UPPER_SNAKE_CASE names
+- Group related constants together
+
+```csharp
+public const string GEMINI_API_KEY = "gemini_api_key";
+public const string GEMINI_MODEL = "gemini_model";
+```
+
+## Async/Await Patterns
+
+### Method Naming
+- Async methods end with `Async` suffix
+- Return `Task` or `Task<T>`
+- Use `await` for async calls
+
+```csharp
+public async Task<string> TranslateAsync(string text)
+{
+    var result = await httpClient.GetStringAsync(url);
+    return result;
+}
+```
+
+## LINQ Usage
+
+### When to Use LINQ
+- Prefer LINQ for collection operations
+- Use method syntax for complex queries
+- Keep queries readable
+
+```csharp
+var filtered = items.Where(x => x.IsValid)
+                    .OrderBy(x => x.Name)
+                    .ToList();
+```
+
+## String Handling
+
+### String Operations
+- Use `string.IsNullOrWhiteSpace()` for null/empty checks
+- Prefer string interpolation (`$"text {variable}"`) over concatenation
+- Use `StringBuilder` for multiple concatenations
+
+```csharp
+if (string.IsNullOrWhiteSpace(value))
+{
+    return defaultValue;
+}
+
+var message = $"Processing {count} items";
 ```
 
 ---
