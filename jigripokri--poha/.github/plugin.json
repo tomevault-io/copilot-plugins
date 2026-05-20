@@ -1,0 +1,9 @@
+{
+  "name": "jigripokri--poha",
+  "displayName": "POHA",
+  "description": "Personal Overnight Helper Agent. Runs while you sleep. Serves up a morning brief before your alarm.",
+  "version": "1.0.0",
+  "author": "jigripokri",
+  "homepage": "https://github.com/jigripokri/POHA",
+  "skills": []
+}
