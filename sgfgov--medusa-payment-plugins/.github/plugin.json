@@ -1,0 +1,9 @@
+{
+  "name": "sgfgov--medusa-payment-plugins",
+  "displayName": "medusa-payment-plugins",
+  "description": "Payment plugins for medusajs",
+  "version": "1.0.0",
+  "author": "SGFGOV",
+  "homepage": "https://github.com/SGFGOV/medusa-payment-plugins",
+  "skills": []
+}
