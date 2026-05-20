@@ -1,0 +1,9 @@
+{
+  "name": "pshevche--act-test-runner",
+  "displayName": "act-test-runner",
+  "description": "Convenient wrapper around https://github.com/nektos/act for implementing e2e tests for GitHub actions",
+  "version": "1.0.0",
+  "author": "pshevche",
+  "homepage": "https://github.com/pshevche/act-test-runner",
+  "skills": []
+}
