@@ -1,0 +1,9 @@
+{
+  "name": "namastexlabs--automagik-omni",
+  "displayName": "automagik-omni",
+  "description": "\ud83c\udf10 The omnipresent messaging hub for AI agents. Connect to WhatsApp, Discord, Slack, and more through one unified API. Multi-tenant, production-ready, MCP-native.",
+  "version": "1.0.0",
+  "author": "namastexlabs",
+  "homepage": "https://github.com/namastexlabs/automagik-omni",
+  "skills": []
+}
