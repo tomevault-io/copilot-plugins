@@ -1,0 +1,9 @@
+{
+  "name": "pedroscosta--live-state",
+  "displayName": "live-state",
+  "description": "High-performance, real-time sync engine written in TypeScript",
+  "version": "1.0.0",
+  "author": "pedroscosta",
+  "homepage": "https://github.com/pedroscosta/live-state",
+  "skills": []
+}
