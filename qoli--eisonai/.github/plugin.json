@@ -1,0 +1,9 @@
+{
+  "name": "qoli--eisonai",
+  "displayName": "eisonAI",
+  "description": "Local-first Safari Web Extension + native app for structure-first reading, with bundled WebLLM popup inference and token-aware long-document processing on Apple platforms.",
+  "version": "1.0.0",
+  "author": "qoli",
+  "homepage": "https://github.com/qoli/eisonAI",
+  "skills": []
+}
