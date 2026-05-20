@@ -1,0 +1,9 @@
+{
+  "name": "proj-airi--airi-android",
+  "displayName": "airi-android",
+  "description": "Allow LLM to use Android Device",
+  "version": "1.0.0",
+  "author": "proj-airi",
+  "homepage": "https://github.com/proj-airi/airi-android",
+  "skills": []
+}
