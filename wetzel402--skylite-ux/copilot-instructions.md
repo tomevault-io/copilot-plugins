@@ -1,11 +1,11 @@
-## env-secrets
+## lint
 
-> No process.env; use Nuxt runtimeConfig and nuxt.config / env vars
+> Lint rules are defined in eslint.config.mjs
 
 
-# Env and secrets
+# Lint
 
-- Do not use `process.env` in app or server code. Use Nuxt `runtimeConfig` and inject values via `nuxt.config` or env vars (aligns with `node/no-process-env`).
+- ESLint config: `eslint.config.mjs` (antfu + Nuxt). Key rules: use `type` not `interface` (`ts/consistent-type-definitions`); no `any` (`ts/no-explicit-any`); no `console`—use consola (`no-console`); no `process.env`—use runtime config (`node/no-process-env`); `perfectionist/sort-imports`; filenames in camelCase with listed exceptions (`unicorn/filename-case`).
 
 ---
 > Source: [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io).
