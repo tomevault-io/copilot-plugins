@@ -1,0 +1,9 @@
+{
+  "name": "algoflows--zig-s3",
+  "displayName": "zig-s3",
+  "description": "A simple and efficient Zig native S3 client library, supporting AWS S3 and S3-compatible services like MINIO.",
+  "version": "1.0.0",
+  "author": "algoflows",
+  "homepage": "https://github.com/algoflows/zig-s3",
+  "skills": []
+}
