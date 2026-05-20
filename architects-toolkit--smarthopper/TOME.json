@@ -2,7 +2,7 @@
   "name": "SmartHopper",
   "owner": "architects-toolkit",
   "repo": "SmartHopper",
-  "description": "",
+  "description": "SmartHopper is an open-source project that implements third-party AI APIs to provide advanced features for Grasshopper3D.",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/architects-toolkit",
+  "source_url": "https://github.com/architects-toolkit/SmartHopper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T11:13:33Z"
+  "distributed_at": "2026-05-20T18:34:38Z"
 }
