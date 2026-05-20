@@ -1,136 +1,204 @@
-## cursor-rules
+## database-development-rule
 
-> **SINGLE SOURCE OF TRUTH:** This document is the authoritative index of all development rules. AI agents MUST consult this file first to understand rule hierarchy and dependencies.
+> Must read before making any database schema changes or migrations
 
 
-# Cursor Rules Master Index
+# Supabase Database Development Standards
 
-**SINGLE SOURCE OF TRUTH:** This document is the authoritative index of all development rules. AI agents MUST consult this file first to understand rule hierarchy and dependencies.
+## Core Principles
 
-## 🎯 AI MODEL REQUIREMENTS
+1. **Security First**: MUST thoroughly evaluate and test all database operations
+2. **Type Synchronization**: MUST synchronize TypeScript type definitions with database changes
+3. **Documentation Sync**: MUST update related documentation with all changes
+4. **Atomic Commits**: MUST commit migration files, type definitions, and documentation together
 
-### MANDATORY CONSULTATION
-- AI agents MUST read this master index before any development task
-- AI agents MUST follow the specified rule dependencies
-- AI agents MUST NOT proceed with tasks without consulting relevant rules
+## 6-Phase Development Flow
 
-### ENFORCEMENT LEVELS
-- **CRITICAL**: Development-blocking rules that MUST be followed
-- **STANDARD**: Required rules with enforcement validation
-- **ADVISORY**: Best practices with recommended compliance
+### Phase 1: Requirements Analysis & Impact Assessment
 
-## 📋 Available Rules
+#### 1.1 Requirements Understanding
+- MUST clarify specific database change requirements and objectives
+- MUST analyze business context and technical necessity
+- MUST determine scope (table structure, indexes, constraints, functions)
 
-### Core Development Rules (CRITICAL)
+#### 1.2 Impact Assessment
+**Database Level:**
+- Table structure changes impact on existing data
+- Foreign key constraints and cascade deletion impact
+- Index performance impact
+- RLS policy impact
 
-- **development-workflow-rule**: MUST read before starting any development task or code changes
-  - *Dependencies*: comment-rule, git-commit-rule
-  - *Enforcement*: TypeScript check, build validation required
+**Application Level:**
+- TypeScript type definition files requiring updates
+- Business logic code locations requiring modifications
+- API interface compatibility impact
+- Frontend component data structure dependencies
 
-- **comment-rule**: MUST read when writing code comments or documenting functions
-  - *Dependencies*: None
-  - *Enforcement*: English-only, JSDoc format required
+#### 1.3 Risk Assessment
+- **High Risk**: DROP TABLE, ALTER COLUMN type changes, constraint deletion
+- **Medium Risk**: ADD COLUMN, CREATE INDEX, RLS policy modifications
+- **Low Risk**: INSERT data, UPDATE configuration, CREATE FUNCTION
 
-- **git-commit-rule**: MUST read before making any git commits or writing commit messages
-  - *Dependencies*: None
-  - *Enforcement*: Conventional commit format required
+### Phase 2: Create Migration Files
 
-### Specialized Domain Rules (STANDARD)
-
-- **database-development-rule**: MUST read before making any database schema changes or migrations
-  - *Dependencies*: development-workflow-rule, git-commit-rule
-  - *Enforcement*: Migration validation, type sync required
-
-- **i18n**: MUST read when adding translation keys or working with i18n
-  - *Dependencies*: development-workflow-rule
-  - *Enforcement*: Structure validation, key consistency required
-
-- **test**: MUST read when writing tests or working with testing framework
-  - *Dependencies*: development-workflow-rule
-  - *Enforcement*: Test coverage, mocking patterns required
-
-### Technical Integration Rules (STANDARD)
-
-- **dify-integration-rule**: MUST read when developing Dify API integrations
-  - *Dependencies*: api-routes, development-workflow-rule
-  - *Enforcement*: 3-layer architecture compliance required
-
-- **api-routes**: MUST read when creating or modifying API routes
-  - *Dependencies*: development-workflow-rule
-  - *Enforcement*: Route structure, error handling required
-
-- **dify-api-endpoints**: MUST read when working with specific Dify API endpoints
-  - *Dependencies*: dify-integration-rule
-  - *Enforcement*: Type safety, service pattern required
-
-## 🔄 Rule Dependencies
-
-```
-development-workflow-rule (ROOT)
-├── comment-rule
-├── git-commit-rule
-├── database-development-rule
-├── i18n
-├── test
-└── dify-integration-rule
-    ├── api-routes
-    └── dify-api-endpoints
-```
-
-## 🎯 Task-Based Rule Application
-
-### Before Starting Development (MANDATORY SEQUENCE)
-1. **development-workflow-rule** - Read this FIRST for any coding task
-2. **comment-rule** - When documenting code
-3. **git-commit-rule** - Before making commits
-
-### Domain-Specific Tasks (MANDATORY)
-- **Database changes** → **database-development-rule**
-- **Translation work** → **i18n**
-- **Testing work** → **test**
-- **Dify API work** → **dify-integration-rule** + **dify-api-endpoints**
-- **API route creation** → **api-routes**
-
-### Cross-Domain Tasks (MULTIPLE RULES)
-- **New feature development** → development-workflow-rule + comment-rule + git-commit-rule
-- **Database + API changes** → database-development-rule + api-routes + development-workflow-rule
-- **I18n + Frontend** → i18n + comment-rule + development-workflow-rule
-- **Testing + Feature** → test + development-workflow-rule + comment-rule
-
-## 🔧 AI Agent Usage Protocol
-
-### MANDATORY STEPS
-1. **Consult Master Index**: Always read cursor-rules.mdc first
-2. **Identify Dependencies**: Check rule dependency tree
-3. **Apply in Order**: Follow dependency hierarchy
-4. **Validate Compliance**: Ensure all requirements met
-
-### VALIDATION COMMANDS
+#### 2.1 Get Standard Timestamp
 ```bash
-# Required validation before commits
+# Use date command to get standard format timestamp
+date +%Y%m%d%H%M%S
+```
+
+#### 2.2 Create Migration File
+Migration file naming format: `{timestamp}_{descriptive_name}.sql`
+
+**Example:**
+```
+supabase/migrations/20250621091656_add_user_preferences_table.sql
+```
+
+#### 2.3 Migration File Standards
+
+**File Header Comment:**
+```sql
+-- Migration: 20250621091656_add_user_preferences_table.sql
+-- Description: Add user preferences table for theme and language settings
+-- Impact: New table, no existing data impact
+-- Risk: Low risk
+```
+
+**MUST Include Checks:**
+```sql
+-- Check if table exists
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.tables 
+        WHERE table_schema = 'public' 
+        AND table_name = 'user_preferences'
+    ) THEN
+        -- Create table SQL
+        CREATE TABLE user_preferences (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+            theme TEXT DEFAULT 'system',
+            language TEXT DEFAULT 'zh-CN',
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            updated_at TIMESTAMPTZ DEFAULT NOW()
+        );
+    END IF;
+END $$;
+```
+
+### Phase 3: Type Definition Synchronization
+
+#### 3.1 Update Core Type Files
+
+**MUST update:**
+- `lib/types/database.ts` - Core database type definitions
+- `lib/supabase/types.ts` - Supabase auto-generated types
+
+#### 3.2 Type Definition Example
+
+```typescript
+// In lib/types/database.ts
+export interface UserPreference {
+  id: string;
+  user_id: string;
+  theme: string;
+  language: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// Update Database namespace
+export namespace Database {
+  export interface Tables {
+    // ... existing tables
+    user_preferences: UserPreference;
+  }
+}
+```
+
+### Phase 4: Business Code Synchronization
+
+#### 4.1 Check Required Directories
+
+**MUST check:**
+- `lib/db/` - Database operation layer
+- `lib/hooks/` - React Hooks layer
+- `lib/services/` - Service layer
+
+#### 4.2 Code Update Example
+
+```typescript
+// lib/db/user-preferences.ts
+import { Database } from '@lib/types/database';
+
+type UserPreference = Database['Tables']['user_preferences'];
+
+export async function getUserPreferences(userId: string): Promise<UserPreference | null> {
+  // Implementation
+}
+```
+
+### Phase 5: Testing and Validation
+
+#### 5.1 Local Testing
+```bash
+# Push migration to local database
+supabase db push
+
+# Check migration status
+supabase db status
+```
+
+#### 5.2 Type Checking
+```bash
+# TypeScript type checking
 pnpm run type-check
-pnpm run i18n:check
+
+# Build testing
 pnpm run build
 ```
 
-## 📝 Enforcement Standards
+### Phase 6: Deployment and Documentation
 
-### MUST Requirements
-- All rules marked as CRITICAL or STANDARD MUST be followed
-- Dependencies MUST be resolved before proceeding
-- Validation commands MUST pass before commits
+#### 6.1 Commit Changes
+MUST follow git-commit-rule.mdc format:
+```bash
+git commit -m "feat(db): add user preferences table" \
+           -m "" \
+           -m "Add user_preferences table for theme and language settings" \
+           -m "- Add migration file with proper checks" \
+           -m "- Update TypeScript type definitions" \
+           -m "- Add corresponding data access functions"
+```
 
-### MUST NOT Violations
-- MUST NOT skip rule consultation
-- MUST NOT proceed without dependency resolution
-- MUST NOT commit without validation
+#### 6.2 Deploy to Production
+```bash
+# Deploy to Supabase cloud
+supabase db push --linked
+```
 
-### SHOULD Recommendations
-- SHOULD document any rule deviations with justification
-- SHOULD update rules when patterns evolve
-- SHOULD maintain rule clarity and actionability
+## Emergency Rollback
 
-*This master index ensures consistent, AI-compliant development practices across the AgentifUI project.*
+If migration causes issues:
+```bash
+# View migration history
+supabase migration list
+
+# Rollback to specific version
+supabase db reset --db-url [your-db-url]
+```
+
+## Best Practices
+
+1. **Incremental Changes**: Break large changes into multiple small migrations
+2. **Backup First**: Ensure data backup before important changes
+3. **Test Driven**: Test thoroughly in development environment first
+4. **Document Immediately**: Update documentation immediately after changes
+5. **Team Communication**: Communicate major changes with team in advance
+
+Following these standards ensures data safety, type consistency, and code synchronization.
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
