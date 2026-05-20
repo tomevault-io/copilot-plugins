@@ -7,13 +7,13 @@ ts-morphをつかったリファクタリング機能をMCPで提供する
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [SiroSuzume/mcp-ts-morph](https://github.com/SiroSuzume/mcp-ts-morph).
+Original source: `.cursor/rules/*.mdc` in [SiroSuzume/mcp-ts-morph](https://github.com/SiroSuzume/mcp-ts-morph).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
