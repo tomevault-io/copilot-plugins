@@ -1,69 +1,120 @@
-## automatic-git-commit-rules
+## changelog-rules
 
-> Automatically commit staged changes at logical points in development using conventional commits and metadata logging.
+> This file provides rules for managing changelog files within the project-brain-monorepo.
 
-# Rule: Automatic Git Commit Rules
+# Changelog Management Rules
 
-Purpose:
-Automatically commit staged changes at logical points in development using conventional commits and metadata logging.
+## Changelog Purpose & Standards
 
-Trigger Conditions:
-- A feature, function, test, or refactor is logically complete
-- Total changed lines exceed 300 (across all files)
-- More than 8 files are staged
-- A stable group of files is complete (e.g. component + styles + test)
-- A previously failing test now passes due to these changes
-- A `.rules`, `README.md`, or config file has been modified
+This file provides rules for managing changelog files within the project-brain-monorepo.
 
-Commit Message Structure:
-1. `commitSubject` (max 50 chars, required): One-line summary using Conventional Commit format (e.g., `feat: add login screen`)
-2. `commitBody` (optional): Wrap lines to ~72 chars, summarize key changes, bullet major additions if needed.
-3. `commitFooter` (optional): For breaking changes or issue refs (e.g., `BREAKING CHANGE:` or `Closes #123`)
+### Format Standards
+- All changelogs MUST follow [Keep a Changelog](mdc:https:/keepachangelog.com/en/1.0.0) format
+- Version numbers MUST adhere to [Semantic Versioning](mdc:https:/semver.org/spec/v2.0.0.html)
+- Each package MUST maintain its own CHANGELOG.md in its root directory
 
-Commit Process:
-1. Analyze `git diff` or fallback to `git status` + file list
-2. Generate structured commit message: `Subject`, `Body`, `Footer`
-3. Stage all changes explicitly: `git add -- ${changedFilesList.join(' ')}`
-4. Commit using:
-   ```bash
-   echo "${fullMessage}" | git commit -F -
-   ```
+## Required Structure
 
-Metadata Logging:
-- After successful commit, retrieve the hash:
-  ```bash
-  git rev-parse HEAD
-  ```
-- Create a metadata JSON file at `.brain/git/commits/[xx]/[hash].json` with:
-  ```json
-  {
-    "hash": "<commit hash>",
-    "messageSubject": "<subject>",
-    "messageBody": "<body>",
-    "messageFooter": "<footer>",
-    "files": [<file list>],
-    "timestamp": "<UTC timestamp>",
-    "branch": "<branch name>"
-  }
-  ```
-- Create parent directories with `mkdir -p` as needed.
+```markdown
+# Changelog
 
-Commit Policy Notes:
-- Skip automatic commit if:
-  - Files contain WIP, TODO, or FIXME comments
-  - Code is not in a logically complete state
-- Prefer small, atomic commits
-- Avoid committing unrelated changes together
+All notable changes to this project will be documented in this file.
 
-Final Output:
-- Return only:
-  ```json
-  {
-    "commitHash": "<commit hash>",
-    "metadataPath": "<path to metadata file>"
-  }
-  ```
+The format is based on [Keep a Changelog](mdc:https:/keepachangelog.com/en/1.0.0),
+and this project adheres to [Semantic Versioning](mdc:https:/semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- New features
+
+### Changed
+- Changes to existing functionality
+
+### Deprecated
+- Soon-to-be removed features
+
+### Removed
+- Removed features
+
+### Fixed
+- Bug fixes
+
+### Security
+- Vulnerability fixes
+
+## [x.y.z] - YYYY-MM-DD
 ```
+
+## Change Categories
+
+1. **Added** - New features
+2. **Changed** - Changes to existing functionality
+3. **Deprecated** - Soon-to-be removed features
+4. **Removed** - Removed features
+5. **Fixed** - Bug fixes
+6. **Security** - Vulnerability fixes
+
+## Workflow Rules
+
+### Adding New Changes
+1. ✅ ALWAYS add changes to the [Unreleased] section first
+2. ✅ ALWAYS include a concise description of the change
+3. ✅ ALWAYS categorize changes correctly
+4. ⛔ NEVER add the same change multiple times
+5. ✅ ALWAYS maintain chronological order within each category (newest at top)
+
+### Release Process
+1. ✅ ALWAYS get the current date using terminal command: `date +'%Y-%m-%d'`
+2. ✅ ALWAYS move [Unreleased] content to a new version section with the date
+3. ✅ ALWAYS create an empty [Unreleased] section after a release
+4. ✅ ALWAYS include links to compare versions (at bottom of file)
+5. ✅ ALWAYS update the version in package.json to match the new release version
+
+## Version Management
+
+### Package.json Synchronization
+1. ✅ ALWAYS update package.json version when creating a new release
+2. ✅ ALWAYS ensure package.json version and CHANGELOG.md version match exactly
+3. ⛔ NEVER have mismatched versions between package.json and CHANGELOG.md
+4. ✅ ALWAYS update both files in the same commit
+
+### Version Update Command
+```bash
+# Update version in package.json
+npm version [major|minor|patch] --no-git-tag-version
+```
+
+### Version Validation
+Before release, run the following command to verify consistency:
+```bash
+node -e "const pkg = require('./package.json'); const fs = require('fs'); const cl = fs.readFileSync('./CHANGELOG.md', 'utf8'); const match = cl.match(/## \[([\d\.]+)\]/); console.log(pkg.version === match[1] ? 'Versions match ✅' : 'Version mismatch! ❌');"
+```
+
+## Version Numbering
+
+1. **Major (x.0.0)** - Incompatible API changes
+2. **Minor (0.x.0)** - Backwards-compatible functionality additions
+3. **Patch (0.0.x)** - Backwards-compatible bug fixes
+
+## Pre-Commit Validation
+
+Before committing changelog changes:
+1. Verify sections are in the correct order
+2. Ensure all entries are properly categorized
+3. Check that version follows semantic versioning
+4. Verify date is dynamically generated using terminal
+5. Confirm all entries are clear and concise
+6. Verify package.json version matches CHANGELOG.md version
+
+## Release Checklist
+
+1. Move [Unreleased] items to new version section
+2. Add current date using `date +'%Y-%m-%d'` command
+3. Update package.json version to match new CHANGELOG.md version
+4. Create empty [Unreleased] section
+5. Update version comparison links at bottom of file
+6. Commit both CHANGELOG.md and package.json together
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
