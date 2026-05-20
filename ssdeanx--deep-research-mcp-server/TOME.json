@@ -4,7 +4,7 @@
   "repo": "deep-research-mcp-server",
   "description": "MCP Deep Research Server using Gemini creating a Research AI Agent",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ssdeanx/deep-research-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T12:37:09Z"
+  "distributed_at": "2026-05-20T12:39:56Z"
 }
