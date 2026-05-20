@@ -1,414 +1,225 @@
-## git-commits
+## swift-viper-architecture
 
-> Guidelines for automatically committing changes made by CursorAI using conventional commits format for Swift projects and all related assets
+> Guidelines for implementing the VIPER architecture pattern in SwiftUI applications with hot reloading support
 
 
-# Git Conventional Commits for Swift Projects
+@file ../Sources/Configuration/Configuration.swift
+@file ../Sources/Modules/Home/View/HomeView.swift
 
-This rule establishes a framework for automatically generating Git commits in the conventional commits format for Swift projects, including all configuration files and asset types.
+# Swift VIPER Architecture Guidelines
 
-## Conventional Commits Format
+## General Guidelines
+1. Use the latest SwiftUI APIs and features whenever possible.
+2. Implement `async/await` for asynchronous operations.
+3. Write clean, readable, and well-structured code.
+4. Follow the VIPER architecture to ensure modularity and scalability.
 
-All commits should follow the conventional commits format:
+## Project Structure
+All code should follow the established project structure:
+- Base directory: SwiftCatalyst
+- Main code in: Sources
+- VIPER modules in: Sources/Modules/[ModuleName]/[ComponentType]/[ModuleName][ComponentType].swift
 
+## File Naming Convention
+- Module components should be named with the pattern [ModuleName][ComponentType].swift
+- For example:
+  - HomeView.swift
+  - HomePresenter.swift
+  - HomeInteractor.swift
+  - HomeEntity.swift
+  - HomeRouter.swift
+
+## Project Configuration
+
+### Environment Variables
+To make the project more configurable, use a `.env` file for environment-specific settings.
+
+1. Create a `.env` file in the project root (add it to your `.gitignore`)
+2. Use the `.env.example` file as a template for required variables
+3. Run `./generate-project.sh` to create your project.yml from the template
+
+The Configuration.swift file provides centralized access to all environment variables:
+
+```swift
+// Example usage:
+let appName = Configuration.appName
+let bundleId = Configuration.bundleIdPrefix + "." + Configuration.appName
 ```
-<type>(<scope>): <description>
+
+This pattern allows for easy customization of:
+- App name and bundle identifiers
+- Team ID and app group ID
+- API endpoints
+- Feature flags
+- Other environment-specific configuration
+
+## VIPER Architecture Overview
+Each module in your SwiftUI app should follow the VIPER structure:
+
+### 1. **View**
+   - The SwiftUI `View` handles user interface (UI) rendering and user interactions.
+   - Import the `Inject` framework to enable hot reloading.
+   - Use `@ObserveInjection` to monitor changes for hot reloading.
+   - Use the `.enableInjection()` modifier in the view body.
+
+   ```swift
+   import SwiftUI
+   import Inject
+
+   struct YourViewName: View {
+       @ObserveInjection var inject
+       let presenter: YourPresenterProtocol
+
+       var body: some View {
+           VStack {
+               // UI elements here
+           }
+           .enableInjection()
+       }
+   }
+   ```
+
+### 2. **Interactor**
+   - The `Interactor` handles business logic and communicates with external data sources (e.g., APIs, databases).
+   - Use protocols to define the interaction between the `Presenter` and `Interactor`.
+
+   ```swift
+   protocol YourInteractorProtocol {
+       func fetchData() async throws -> [YourEntity]
+   }
+
+   final class YourInteractor: YourInteractorProtocol {
+       func fetchData() async throws -> [YourEntity] {
+           // Fetch or compute data
+       }
+   }
+   ```
+
+### 3. **Presenter**
+   - The `Presenter` prepares data for the `View` and handles communication between the `View` and `Interactor`.
+   - Use protocols to abstract the `Presenter` logic.
+
+   ```swift
+   protocol YourPresenterProtocol: ObservableObject {
+       var data: [YourEntity] { get }
+       func loadData() async
+   }
+
+   final class YourPresenter: YourPresenterProtocol {
+       @Published private(set) var data: [YourEntity] = []
+       private let interactor: YourInteractorProtocol
+
+       init(interactor: YourInteractorProtocol) {
+           self.interactor = interactor
+       }
+
+       func loadData() async {
+           do {
+               data = try await interactor.fetchData()
+           } catch {
+               // Handle error
+           }
+       }
+   }
+   ```
+
+### 4. **Entity**
+   - Define simple data models used by the `Interactor` and `Presenter`.
+
+   ```swift
+   struct YourEntity: Identifiable {
+       let id: UUID
+       let name: String
+   }
+   ```
+
+### 5. **Router**
+   - The `Router` handles navigation logic and module creation.
+
+   ```swift
+   protocol YourRouterProtocol {
+       func createModule() -> YourViewName
+   }
+
+   final class YourRouter: YourRouterProtocol {
+       func createModule() -> YourViewName {
+           let interactor = YourInteractor()
+           let presenter = YourPresenter(interactor: interactor)
+           return YourViewName(presenter: presenter)
+       }
+   }
+   ```
+
+## Hot Reloading Setup
+To enable hot reloading in all SwiftUI views:
+1. **Import the Inject framework** in the `View`.
+2. **Add the `@ObserveInjection` property wrapper**.
+3. **Use the `.enableInjection()` modifier** in the main body of the view.
+
+Example:
+```swift
+import SwiftUI
+import Inject
+
+struct ExampleView: View {
+    @ObserveInjection var inject
+    var body: some View {
+        Text("Hello, VIPER!")
+            .enableInjection()
+    }
+}
 ```
 
-Where:
-- **type**: Indicates the kind of change being made
-- **scope**: Optional field indicating the section of the codebase affected
-- **description**: Brief description of the change in imperative mood
+## State Management
+1. Use `@Published` properties in the `Presenter` to manage and update state.
+2. Avoid using `@State` or `@StateObject` directly in the `View`. Instead, rely on the `Presenter` for state.
+3. Pass dependencies via initializers to ensure clear and testable code.
 
-## Swift-Specific Types and Scopes
+## Performance Optimization
+1. Use `LazyVStack`, `LazyHStack`, or `LazyVGrid` for large lists or grids to improve performance.
+2. Optimize `ForEach` loops by providing stable and unique identifiers.
 
-### Commit Types
+## Reusable Components
+1. Implement custom view modifiers for shared styling and behavior.
+2. Use extensions to add reusable functionality to existing types.
 
-- **feat**: A new feature or functionality
-- **fix**: A bug fix
-- **refactor**: Code change that neither fixes a bug nor adds a feature
-- **docs**: Documentation only changes
-- **style**: Changes that do not affect code logic (whitespace, formatting, etc.)
-- **test**: Adding or correcting tests
-- **perf**: Performance improvements
-- **chore**: Changes to build process or auxiliary tools
-- **ui**: UI/UX improvements (specific to Swift UI components)
-- **config**: Changes to configuration files
-- **build**: Changes to Xcode build settings, project files, or build scripts
-- **i18n**: Internationalization and localization changes
-- **assets**: Adding or updating media and other resource files
+## Accessibility
+1. Add accessibility modifiers to all UI elements.
+2. Support Dynamic Type for text scaling.
+3. Provide clear accessibility labels and hints.
 
-### Scope Conventions for Swift Projects
+## SwiftUI Lifecycle
+1. Use the `App` protocol and `@main` for the app entry point.
+2. Implement `Scene` for managing app structure.
+3. Use appropriate lifecycle methods like `onAppear` and `onDisappear`.
 
-- **app**: App-level changes (e.g., AppDelegate, SceneDelegate)
-- **view**: View layer changes (UIView, SwiftUI View components)
-- **controller**: View controller changes
-- **presenter**: Presenter layer (VIPER/MVP)
-- **interactor**: Interactor layer (VIPER)
-- **entity**: Model/entity changes
-- **router**: Navigation/routing logic
-- **networking**: API/networking code
-- **persistence**: CoreData or other persistence mechanisms
-- **utils**: Utility functions
-- **extensions**: Swift extensions
-- **config**: Configuration changes
-- **project**: Xcode project settings
-- **assets**: Images, colors, and other resources
-- **i18n**: Localization files
-- **deps**: Dependencies and packages
-- **media**: Audio, video, and other media files
-- **fonts**: Typography assets
-- **docs**: Documentation files
+## Data Flow
+1. Use protocols to define communication between VIPER components.
+2. Implement proper error handling and data propagation in the `Interactor`.
 
-## Automated Commit Rule
+## Testing
+1. Write unit tests for `Interactor` and `Presenter` logic.
+2. Implement UI tests for critical user flows.
+3. Use `PreviewProvider` for rapid UI iteration and visual validation.
 
-<rule>
-name: swift_conventional_commits
-description: Automatically commit changes made by CursorAI using conventional commits format for Swift projects and all related assets
-filters:
-  - type: event
-    pattern: "build_success"
-  - type: file_change
-    pattern: "*"
-actions:
-  - type: execute
-    command: |
-      # Extract the change type and scope from the changes and description
-      CHANGE_TYPE=""
-      
-      # Determine type based on what was changed
-      case "$CHANGE_DESCRIPTION" in
-        *"add"*|*"create"*|*"implement"*|*"new feature"*)
-          CHANGE_TYPE="feat";;
-        *"fix"*|*"correct"*|*"resolve"*|*"bug"*)
-          CHANGE_TYPE="fix";;
-        *"refactor"*|*"restructure"*|*"reorganize"*)
-          CHANGE_TYPE="refactor";;
-        *"test"*|*"unit test"*|*"ui test"*)
-          CHANGE_TYPE="test";;
-        *"doc"*|*"comment"*|*"documentation"*|*"readme"*)
-          CHANGE_TYPE="docs";;
-        *"style"*|*"format"*|*"whitespace"*|*"indent"*)
-          CHANGE_TYPE="style";;
-        *"perf"*|*"optimize"*|*"performance"*)
-          CHANGE_TYPE="perf";;
-        *"ui"*|*"interface"*|*"visual"*)
-          CHANGE_TYPE="ui";;
-        *"localize"*|*"translate"*|*"i18n"*)
-          CHANGE_TYPE="i18n";;
-        *"image"*|*"icon"*|*"graphic"*|*"asset"*)
-          CHANGE_TYPE="assets";;
-        *"audio"*|*"sound"*|*"music"*|*"video"*)
-          CHANGE_TYPE="assets";;
-        *)
-          # Look at file extension to determine type for non-keyword cases
-          if [[ "$FILE" == *".xcodeproj"* || "$FILE" == *".pbxproj"* || "$FILE" == *".xcworkspace"* ]]; then
-            CHANGE_TYPE="build"
-          elif [[ "$FILE" == *".plist"* || "$FILE" == *".xcconfig"* || "$FILE" == *".yml"* || "$FILE" == *".yaml"* || "$FILE" == *".json"* ]]; then
-            CHANGE_TYPE="config"
-          elif [[ "$FILE" == *".strings"* || "$FILE" == *".stringsdict"* ]]; then
-            CHANGE_TYPE="i18n"
-          elif [[ "$FILE" == *".png"* || "$FILE" == *".jpg"* || "$FILE" == *".jpeg"* || "$FILE" == *".gif"* || "$FILE" == *".svg"* || "$FILE" == *".pdf"* ]]; then
-            CHANGE_TYPE="assets"
-          elif [[ "$FILE" == *".mp3"* || "$FILE" == *".mp4"* || "$FILE" == *".mov"* || "$FILE" == *".wav"* ]]; then
-            CHANGE_TYPE="assets"
-          elif [[ "$FILE" == *".otf"* || "$FILE" == *".ttf"* || "$FILE" == *".woff"* ]]; then
-            CHANGE_TYPE="assets"
-          elif [[ "$FILE" == *".md"* || "$FILE" == *".txt"* || "$FILE" == *"README"* || "$FILE" == *"LICENSE"* ]]; then
-            CHANGE_TYPE="docs"
-          else
-            CHANGE_TYPE="chore"
-          fi
-          ;;
-      esac
-      
-      # Extract scope based on file type and location
-      if [[ "$FILE" == *".swift" ]]; then
-        # Swift files follow the standard Swift scoping
-        if [[ "$FILE" == *"View.swift" || "$FILE" == *"/Views/"* || "$FILE" == *"/View/"* ]]; then
-          SCOPE="view"
-        elif [[ "$FILE" == *"ViewController.swift" || "$FILE" == *"/ViewControllers/"* ]]; then
-          SCOPE="controller"
-        elif [[ "$FILE" == *"Presenter.swift" || "$FILE" == *"/Presenters/"* ]]; then
-          SCOPE="presenter"
-        elif [[ "$FILE" == *"Interactor.swift" || "$FILE" == *"/Interactors/"* ]]; then
-          SCOPE="interactor"
-        elif [[ "$FILE" == *"Router.swift" || "$FILE" == *"/Routers/"* ]]; then
-          SCOPE="router"
-        elif [[ "$FILE" == *"Model.swift" || "$FILE" == *"Entity.swift" || "$FILE" == *"/Models/"* || "$FILE" == *"/Entities/"* ]]; then
-          SCOPE="entity"
-        elif [[ "$FILE" == *"Network"* || "$FILE" == *"API"* || "$FILE" == *"/Networking/"* ]]; then
-          SCOPE="networking"
-        elif [[ "$FILE" == *"CoreData"* || "$FILE" == *"Storage"* || "$FILE" == *"/Persistence/"* ]]; then
-          SCOPE="persistence"
-        elif [[ "$FILE" == *"Extension"* || "$FILE" == *"/Extensions/"* ]]; then
-          SCOPE="extensions"
-        elif [[ "$FILE" == *"Util"* || "$FILE" == *"Helper"* || "$FILE" == *"/Utils/"* || "$FILE" == *"/Helpers/"* ]]; then
-          SCOPE="utils"
-        elif [[ "$FILE" == *"AppDelegate.swift" || "$FILE" == *"SceneDelegate.swift" ]]; then
-          SCOPE="app"
-        else
-          # Default: use the directory name
-          SCOPE=$(dirname "$FILE" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]')
-        fi
-      elif [[ "$FILE" == *".plist" ]]; then
-        SCOPE="config"
-      elif [[ "$FILE" == *".xcodeproj"* || "$FILE" == *".pbxproj"* || "$FILE" == *".xcworkspace"* || "$FILE" == *".xcconfig"* ]]; then
-        SCOPE="project"
-      elif [[ "$FILE" == *".yml"* || "$FILE" == *".yaml"* || "$FILE" == *".json"* ]]; then
-        # For YAML/JSON files, try to determine their purpose
-        if [[ "$FILE" == *"fastlane"* || "$FILE" == *"ci"* || "$FILE" == *".github/"* ]]; then
-          SCOPE="ci"
-        elif [[ "$FILE" == *"pod"* || "$FILE" == *"package"* || "$FILE" == *"cartfile"* ]]; then
-          SCOPE="deps"
-        else
-          SCOPE="config"
-        fi
-      elif [[ "$FILE" == *".strings"* || "$FILE" == *".stringsdict"* ]]; then
-        SCOPE="i18n"
-      elif [[ "$FILE" == *".storyboard"* || "$FILE" == *".xib"* ]]; then
-        SCOPE="view"
-      elif [[ "$FILE" == *"/Assets.xcassets/"* || "$FILE" == *".imageset/"* || "$FILE" == *".colorset/"* ]]; then
-        SCOPE="assets"
-      elif [[ "$FILE" == *".png"* || "$FILE" == *".jpg"* || "$FILE" == *".jpeg"* || "$FILE" == *".gif"* || "$FILE" == *".svg"* || "$FILE" == *".pdf"* ]]; then
-        SCOPE="assets"
-      elif [[ "$FILE" == *".mp3"* || "$FILE" == *".wav"* ]]; then
-        SCOPE="media"
-      elif [[ "$FILE" == *".mp4"* || "$FILE" == *".mov"* ]]; then
-        SCOPE="media"
-      elif [[ "$FILE" == *".otf"* || "$FILE" == *".ttf"* || "$FILE" == *".woff"* ]]; then
-        SCOPE="fonts"
-      elif [[ "$FILE" == *".md"* || "$FILE" == *"README"* || "$FILE" == *"LICENSE"* ]]; then
-        SCOPE="docs"
-      else
-        # Fallback: derive scope from directory structure
-        if [[ "$FILE" == *"/Resources/"* || "$FILE" == *"/Assets/"* ]]; then
-          SCOPE="assets"
-        elif [[ "$FILE" == *"/Media/"* || "$FILE" == *"/Audio/"* || "$FILE" == *"/Video/"* ]]; then
-          SCOPE="media"
-        elif [[ "$FILE" == *"/Fonts/"* ]]; then
-          SCOPE="fonts"
-        elif [[ "$FILE" == *"/Configuration/"* || "$FILE" == *"/Config/"* ]]; then
-          SCOPE="config"
-        elif [[ "$FILE" == *"/Documentation/"* || "$FILE" == *"/Docs/"* ]]; then
-          SCOPE="docs"
-        else
-          # Use the parent directory name
-          SCOPE=$(dirname "$FILE" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]')
-        fi
-      fi
-      
-      # Format the commit message
-      COMMIT_MSG="$CHANGE_TYPE($SCOPE): $CHANGE_DESCRIPTION"
-      
-      # Determine which files to add based on the file type
-      if [[ "$FILE" == *".swift" && -n "$MODULE_NAME" ]]; then
-        # For Swift files in modules, try to group related module files
-        MODULE_NAME=$(basename "$FILE" | sed 's/[A-Z][a-z]*\.swift$//')
-        git add $(find . -name "$MODULE_NAME*.swift")
-      elif [[ "$FILE" == *".xcodeproj"* || "$FILE" == *".pbxproj"* ]]; then
-        # For Xcode project files, add the entire project
-        PROJECT_DIR=$(dirname "$FILE")
-        git add "$PROJECT_DIR"
-      elif [[ "$FILE" == *"/Assets.xcassets/"* ]]; then
-        # For asset changes, add the entire asset catalog
-        ASSET_CATALOG=$(echo "$FILE" | sed 's/\(.*\.xcassets\).*/\1/')
-        git add "$ASSET_CATALOG"
-      elif [[ "$FILE" == *".imageset/"* || "$FILE" == *".colorset/"* ]]; then
-        # Add the entire imageset/colorset directory
-        ASSET_SET=$(echo "$FILE" | sed 's/\(.*\.imageset\|.*\.colorset\).*/\1/')
-        git add "$ASSET_SET"
-      elif [[ "$FILE" == *"/Fonts/"* && ("$FILE" == *".otf"* || "$FILE" == *".ttf"* || "$FILE" == *".woff"*) ]]; then
-        # For font files, add all related files in the directory
-        FONT_NAME=$(basename "$FILE" | sed 's/\.[^.]*$//')
-        FONT_DIR=$(dirname "$FILE")
-        git add "$FONT_DIR/$FONT_NAME"*
-      elif [[ ("$FILE" == *".mp3"* || "$FILE" == *".wav"* || "$FILE" == *".mp4"* || "$FILE" == *".mov"*) ]]; then
-        # For media files, just add the specific file
-        git add "$FILE"
-      else
-        # Default: just add the specific file
-        git add "$FILE"
-      fi
-      
-      # Commit with the formatted message
-      git commit -m "$COMMIT_MSG"
-  
-  - type: suggest
-    message: |
-      All changes should be committed using conventional commits format with Swift and asset-specific scopes:
-      
-      Format: <type>(<scope>): <description>
-      
-      Types:
-      - feat: A new feature or functionality
-      - fix: A bug fix
-      - refactor: Code refactoring
-      - docs: Documentation updates
-      - style: Formatting changes
-      - test: Adding/fixing tests
-      - perf: Performance improvements
-      - ui: UI/UX improvements
-      - config: Configuration changes
-      - build: Xcode project/build changes
-      - i18n: Localization changes
-      - assets: Adding or updating assets
-      - chore: Other changes
-      
-      Common scopes:
-      - view: SwiftUI/UIKit views or storyboards
-      - controller/presenter/interactor/router: VIPER components
-      - entity: Model/entity changes
-      - networking: API/networking code
-      - persistence: Data storage
-      - utils/extensions: Utilities
-      - project: Xcode project settings
-      - config: Configuration files
-      - assets: Images and static resources
-      - media: Audio and video files
-      - fonts: Typography resources
-      - docs: Documentation files
-      - i18n: Localization files
-      - deps: Dependencies
-      
-      The description should be clear and concise in imperative mood.
+## SwiftUI-specific Patterns
+1. Use `@Binding` for two-way data flow when needed.
+2. Implement custom `PreferenceKey` for child-to-parent communication.
+3. Utilize `@Environment` for dependencies shared across multiple views.
 
-examples:
-  - input: |
-      # After adding image assets
-      CHANGE_DESCRIPTION="add app icon set"
-      FILE="Assets.xcassets/AppIcon.imageset/icon.png"
-    output: "assets(assets): add app icon set"
-  
-  - input: |
-      # After adding audio files
-      CHANGE_DESCRIPTION="add notification sound effects"
-      FILE="Resources/Sounds/notification.mp3"
-    output: "assets(media): add notification sound effects"
-  
-  - input: |
-      # After adding custom fonts
-      CHANGE_DESCRIPTION="integrate SF Mono font family"
-      FILE="Fonts/SFMono-Regular.otf"
-    output: "assets(fonts): integrate SF Mono font family"
-  
-  - input: |
-      # After adding video tutorial
-      CHANGE_DESCRIPTION="add onboarding tutorial video"
-      FILE="Resources/Videos/onboarding.mp4"
-    output: "assets(media): add onboarding tutorial video"
-  
-  - input: |
-      # After updating documentation
-      CHANGE_DESCRIPTION="update installation instructions"
-      FILE="README.md"
-    output: "docs(docs): update installation instructions"
+## Code Style and Formatting
+1. Follow Swift naming conventions and style guidelines.
+2. Use tools like SwiftLint to enforce consistent code style.
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+## XcodeGen Configuration
+1. Use XcodeGen for project generation to avoid merge conflicts.
+2. Include the Inject framework as a Swift Package dependency.
+3. Add the required linker flags (`-Xlinker -interposable`) for hot reloading.
 
-## File Type Handling
-
-This rule handles all file types commonly found in Swift/Xcode projects:
-
-### Code Files
-- **Swift (.swift)**: Primary source code files
-- **Objective-C (.m, .h)**: Legacy or bridging code
-
-### Configuration Files
-- **Property Lists (.plist)**: App configuration
-- **YAML (.yml, .yaml)**: Build configuration, CI/CD
-- **JSON (.json)**: Data configuration
-- **XCConfig (.xcconfig)**: Xcode build settings
-
-### Xcode Project Files
-- **Project Files (.xcodeproj, .pbxproj)**: Project structure
-- **Workspace Files (.xcworkspace)**: Multi-project workspaces
-
-### Interface Files
-- **Storyboards (.storyboard)**: Visual UI layouts
-- **XIB Files (.xib)**: Individual view controllers/views
-
-### Image Assets
-- **Asset Catalogs (.xcassets)**: Images, colors, etc.
-- **Bitmap Images (.png, .jpg, .jpeg)**: Raster graphics
-- **Vector Graphics (.svg, .pdf)**: Scalable graphics
-- **Animated Graphics (.gif)**: Animated images
-
-### Audio Assets
-- **Audio Files (.mp3, .wav)**: Sound effects, music
-- **Audio Configuration**: Audio session settings
-
-### Video Assets
-- **Video Files (.mp4, .mov)**: Video content
-- **Video Thumbnails**: Preview images
-
-### Typography Assets
-- **Font Files (.otf, .ttf, .woff)**: Custom typefaces
-
-### Documentation
-- **Markdown (.md)**: Documentation files
-- **Text (.txt)**: Plain text notes
-- **License Files**: Legal documentation
-
-### Localization
-- **Strings Files (.strings, .stringsdict)**: Translations
-
-## Asset Management Strategy
-
-Different types of assets require different handling strategies:
-
-### Image Assets
-- **Asset Catalogs**: When an asset in a catalog changes, the entire image/color set is added
-- **Individual Images**: When loose image files change, only that specific file is added
-- **App Icons**: Special handling for app icons, adding the entire icon set
-
-### Audio/Video Assets
-- Typically committed individually, as they can be large files
-- Consider using Git LFS for large media files
-- Group related sound effects or video clips when logical
-
-### Font Assets
-- When adding or changing a font, add all related font weights and styles together
-- Consider the licensing requirements of fonts when committing
-
-### Documentation Assets
-- Commit documentation with related code changes when possible
-- For standalone documentation updates, group related files
-
-## Commit Message Examples for Different Asset Types
-
-### Image Assets
-- `assets(assets): add user profile placeholder images`
-- `ui(assets): update tab bar icons with new design language`
-- `fix(assets): correct app icon transparency issue`
-
-### Audio/Video Assets
-- `assets(media): add tutorial voice-over narration`
-- `feat(media): implement custom sound effects for interactions`
-- `perf(media): optimize video assets for size reduction`
-
-### Typography Assets
-- `assets(fonts): integrate custom brand typeface`
-- `feat(fonts): add variable font support for dynamic sizing`
-- `fix(fonts): resolve font rendering issues on iOS 16`
-
-### Configuration Assets
-- `config(project): update build settings for TestFlight distribution`
-- `build(config): modify code signing settings for CI pipeline`
-- `feat(config): add new feature flags for A/B testing`
-
-## Best Practices for Asset Commits
-
-1. **Group Related Changes**: Commit related assets together (e.g., all button icons at once)
-2. **Clear Descriptions**: Describe what the assets are for, not just that you added them
-3. **Specify Platform/Device**: Note when assets are specific to certain devices (`assets(assets): add iPad-specific launch screens`)
-4. **Mention Optimization**: Note when assets have been optimized (`perf(assets): compress PNG images for faster loading`)
-5. **Include Source References**: Reference design tools or sources (`assets(assets): implement Figma-approved icon set`)
-
-<!-- Copyright (c) 2025 Daniel Raffel. All rights reserved. SPDX-License-Identifier: Proprietary -->
+## Cursor IDE Setup
+1. Generate Build Server Config using Sweetpad extension.
+2. Use Sweetpad for building and debugging.
+3. Ensure project.yml is properly configured for hot reloading.
 
 ---
 > Source: [danielraffel/SwiftCatalyst](https://github.com/danielraffel/SwiftCatalyst) — distributed by [TomeVault](https://tomevault.io).
