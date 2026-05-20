@@ -4,7 +4,7 @@
   "repo": "nitrolite",
   "description": "Nitrolite is a simplified version of Nitro that facilitates prototyping of state-channel applications",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/layer-3/nitrolite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T22:45:59Z"
+  "distributed_at": "2026-05-20T08:35:45Z"
 }
