@@ -1,0 +1,9 @@
+{
+  "name": "leonardovida--drizzle-duckdb",
+  "displayName": "drizzle-duckdb",
+  "description": "A drizzle ORM client for use with DuckDB. Based on drizzle's Postgres client.",
+  "version": "1.0.0",
+  "author": "leonardovida",
+  "homepage": "https://github.com/leonardovida/drizzle-duckdb",
+  "skills": []
+}
