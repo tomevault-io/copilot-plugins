@@ -1,0 +1,9 @@
+{
+  "name": "haru--redmine-ai-helper",
+  "displayName": "redmine_ai_helper",
+  "description": "Add AI Agent to Redmine",
+  "version": "1.0.0",
+  "author": "haru",
+  "homepage": "https://github.com/haru/redmine_ai_helper",
+  "skills": []
+}
