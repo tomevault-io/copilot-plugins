@@ -1,0 +1,9 @@
+{
+  "name": "the-llm-data-company--rubric",
+  "displayName": "rubric",
+  "description": "A Python library for LLM-based evaluation using weighted rubrics.",
+  "version": "1.0.0",
+  "author": "The-LLM-Data-Company",
+  "homepage": "https://github.com/The-LLM-Data-Company/rubric",
+  "skills": []
+}
