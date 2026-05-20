@@ -1,0 +1,9 @@
+{
+  "name": "appreply-co--mcp-appstore",
+  "displayName": "mcp-appstore",
+  "description": "This is an MCP server that provides tools to LLMs for searching and analyzing apps from both Google Play Store and Apple App Store \u2013 perfect for ASO.",
+  "version": "1.0.0",
+  "author": "appreply-co",
+  "homepage": "https://github.com/appreply-co/mcp-appstore",
+  "skills": []
+}
