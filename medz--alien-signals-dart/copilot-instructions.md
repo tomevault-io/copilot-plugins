@@ -1,0 +1,45 @@
+## alien-signals-dart
+
+> - `lib/` contains the public package entrypoints (`alien_signals.dart`, `preset.dart`, `system.dart`) and implementation in `lib/src/`.
+
+# Repository Guidelines
+
+## Project Structure & Module Organization
+- `lib/` contains the public package entrypoints (`alien_signals.dart`, `preset.dart`, `system.dart`) and implementation in `lib/src/`.
+- `test/` holds unit tests; files follow the `*_test.dart` naming pattern.
+- `example/` includes runnable demos (`main.dart`, `preset_playground.dart`) and a web demo in `example/web/`.
+- `assets/` stores package assets like logos used by the README and pubspec.
+- `bench/` contains benchmark harnesses (optional, not part of the library API).
+
+## Build, Test, and Development Commands
+- `dart pub get` — install dependencies.
+- `dart analyze` — run static analysis using `analysis_options.yaml` (lints recommended).
+- `dart test` — execute all unit tests in `test/`.
+- `dart format .` — format the codebase to Dart standards.
+- `dart run example/main.dart` — run the basic usage demo.
+- `dart run example/preset_playground.dart` — run the preset API playground.
+- `dart compile js example/web/main.dart -o example/web/main.js` — build the web demo; open `example/web/index.html`.
+- `dart run bench/propagate.dart` — run benchmarks (uses `benchmark_harness`).
+
+## Coding Style & Naming Conventions
+- Use Dart’s default formatting (`dart format`) and the `lints` package rules from `analysis_options.yaml`.
+- Prefer lowerCamelCase for identifiers and `*_test.dart` for test files.
+- Keep public API changes confined to `lib/` entrypoints and document them in `CHANGELOG.md` if relevant.
+
+## Testing Guidelines
+- Tests use the `test` package and should live under `test/`.
+- Name new tests after the feature they cover (e.g., `effect_cleanup_test.dart`).
+- Run `dart test` before submitting changes; add focused tests for bug fixes and API changes.
+
+## Commit & Pull Request Guidelines
+- Recent commit messages use short, imperative summaries (e.g., “Fix …”, “Add …”, “Release x.y.z”).
+- Keep commits scoped and readable; prefer one change per commit when possible.
+- Pull requests should include: a brief summary, tests run (or rationale if not run), and any relevant issue links.
+
+## Security & Configuration Tips
+- Avoid committing generated artifacts (for example, `example/web/main.js`).
+- When changing public APIs, update `README.md` or `MIGRATION.md` as needed.
+
+---
+> Source: [medz/alien-signals-dart](https://github.com/medz/alien-signals-dart) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
