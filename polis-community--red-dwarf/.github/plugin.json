@@ -1,0 +1,9 @@
+{
+  "name": "polis-community--red-dwarf",
+  "displayName": "red-dwarf",
+  "description": "A DIMensional REDuction library for reproducing and experimenting with Polis-like data pipelines.",
+  "version": "1.0.0",
+  "author": "polis-community",
+  "homepage": "https://github.com/polis-community/red-dwarf",
+  "skills": []
+}
