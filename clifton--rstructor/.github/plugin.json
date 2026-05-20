@@ -1,0 +1,9 @@
+{
+  "name": "clifton--rstructor",
+  "displayName": "rstructor",
+  "description": "Pydantic + Instructor for Rust",
+  "version": "1.0.0",
+  "author": "clifton",
+  "homepage": "https://github.com/clifton/rstructor",
+  "skills": []
+}
