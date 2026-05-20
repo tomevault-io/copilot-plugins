@@ -1,0 +1,83 @@
+## code-comments
+
+> The following contains rules about how to write comments in our codebase. Each rule is followed by a small example showing good and bad practices.
+
+The following contains rules about how to write comments in our codebase. Each rule is followed by a small example showing good and bad practices.
+
+- Add VERY minimal comments. Like almost 0 except if i tell you to do so.
+- Don't add comments for obvious code or document parameters and return types that are already clear from the function signature.
+
+```typescript
+// ❌ Bad
+/**
+ * Add two numbers
+ * @param a First number to add
+ * @param b Second number to add
+ * @returns The sum of a and b
+ */
+
+// ✅ Good
+function add(args: { a: number; b: number }) {
+  const { a, b } = args
+  return a + b
+}
+```
+
+- Use comments to explain "why" rather than "what" when the code itself clearly shows what it's doing.
+
+```typescript
+// ❌ Bad: Explains what (obvious from code)
+// Loop through the array and sum values
+for (const item of items) {
+  total += item.price
+}
+
+// ✅ Good: Explains why
+// Calculating total manually instead of using reduce() for performance with large arrays
+for (const item of items) {
+  total += item.price
+}
+```
+
+- Avoid verbose JSDoc-style documentation when TypeScript types already provide this information.
+
+```typescript
+// ❌ Bad
+/**
+ * @param {string} userId - The ID of the user
+ * @returns {Promise<User>} - The user object
+ */
+
+// ✅ Good
+async function getUser(args: { userId: string }) {
+  const { userId } = args
+  return api.getUser(userId)
+}
+```
+
+- If you add comments, place them directly above the specific line or block they explain.
+
+```typescript
+// ❌ Bad
+// These functions handle user authentication
+function login() {
+  /*...*/
+}
+function logout() {
+  /*...*/
+}
+
+// ✅ Good
+function login() {
+  /*...*/
+}
+
+// Logs out user and clears all session storage
+function logout() {
+  /*...*/
+}
+```
+
+---
+> Source: [xmtplabs/convos-app](https://github.com/xmtplabs/convos-app) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
