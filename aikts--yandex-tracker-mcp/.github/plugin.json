@@ -1,0 +1,9 @@
+{
+  "name": "aikts--yandex-tracker-mcp",
+  "displayName": "yandex-tracker-mcp",
+  "description": "Yandex Tracker MCP Server with OAuth2 support",
+  "version": "1.0.0",
+  "author": "aikts",
+  "homepage": "https://github.com/aikts/yandex-tracker-mcp",
+  "skills": []
+}
