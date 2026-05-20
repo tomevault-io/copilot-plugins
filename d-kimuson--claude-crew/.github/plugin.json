@@ -1,0 +1,9 @@
+{
+  "name": "d-kimuson--claude-crew",
+  "displayName": "claude-crew",
+  "description": "A CLI tool for enhancing Claude Desktop with additional capabilities and workflows",
+  "version": "1.0.0",
+  "author": "d-kimuson",
+  "homepage": "https://github.com/d-kimuson/claude-crew",
+  "skills": []
+}
