@@ -1,0 +1,44 @@
+{
+  "name": "oh-my-commit",
+  "owner": "oh-my-commit",
+  "repo": "oh-my-commit",
+  "description": "\ud83c\udfa8 Oh My Commit, Your Next-gen AI-powered Commit Solution.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oh-my-commit/oh-my-commit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T22:44:39Z"
+}
