@@ -1,0 +1,9 @@
+{
+  "name": "mzxrai--mcp-openai",
+  "displayName": "mcp-openai",
+  "description": "Chat with OpenAI models from Claude Desktop",
+  "version": "1.0.0",
+  "author": "mzxrai",
+  "homepage": "https://github.com/mzxrai/mcp-openai",
+  "skills": []
+}
