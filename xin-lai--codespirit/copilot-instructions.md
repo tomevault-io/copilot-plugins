@@ -1,260 +1,110 @@
 ## codespirit
 
-> description: CodeSpirit 包管理规范 - 集中式包管理、版本统一、冗余引用处理
+> This repository is set up to use Aspire. Aspire is an orchestrator for the entire application and will take care of configuring dependencies, building, and running the application. The resources that make up the application are defined in `apphost.cs` including application code and external dependencies.
 
-﻿---
-description: CodeSpirit 包管理规范 - 集中式包管理、版本统一、冗余引用处理
-globs: ["*.csproj", "Directory.Packages.props"]
-alwaysApply: false
----
+# Copilot instructions
 
-# CodeSpirit 包管理规范
+This repository is set up to use Aspire. Aspire is an orchestrator for the entire application and will take care of configuring dependencies, building, and running the application. The resources that make up the application are defined in `apphost.cs` including application code and external dependencies.
 
-## 集中式包管理（Central Package Management）
+## General recommendations for working with Aspire
+1. Before making any changes always run the apphost using `aspire run` and inspect the state of resources to make sure you are building from a known state.
+1. Changes to the _apphost.cs_ file will require a restart of the application to take effect.
+2. Make changes incrementally and run the aspire application using the `aspire run` command to validate changes.
+3. Use the Aspire MCP tools to check the status of resources and debug issues.
 
-项目已启用集中式包管理，所有包版本在 `Directory.Packages.props` 文件中统一管理。
+## Running the application
+To run the application run the following command:
 
-### 工作原理
-
-1. **版本定义**: 在 `Directory.Packages.props` 中使用 `<PackageVersion>` 定义所有包版本
-2. **项目引用**: 在项目文件中使用 `<PackageReference Include="PackageName" />`，**不指定 Version**
-3. **自动应用**: MSBuild 自动从 `Directory.Packages.props` 获取版本
-
-### 添加新包
-
-**步骤 1**: 在 `Directory.Packages.props` 中添加包版本
-
-```xml
-<ItemGroup>
-  <!-- 按功能分类添加 -->
-  <PackageVersion Include="NewPackage" Version="1.0.0" />
-</ItemGroup>
+```
+aspire run
 ```
 
-**步骤 2**: 在项目文件中添加包引用（不指定版本）
+If there is already an instance of the application running it will prompt to stop the existing instance. You only need to restart the application if code in `apphost.cs` is changed, but if you experience problems it can be useful to reset everything to the starting state.
 
-```xml
-<ItemGroup>
-  <PackageReference Include="NewPackage" />
-</ItemGroup>
+## Checking resources
+To check the status of resources defined in the app model use the _list resources_ tool. This will show you the current state of each resource and if there are any issues. If a resource is not running as expected you can use the _execute resource command_ tool to restart it or perform other actions.
+
+## Listing integrations
+IMPORTANT! When a user asks you to add a resource to the app model you should first use the _list integrations_ tool to get a list of the current versions of all the available integrations. You should try to use the version of the integration which aligns with the version of the Aspire.AppHost.Sdk. Some integration versions may have a preview suffix. Once you have identified the correct integration you should always use the _get integration docs_ tool to fetch the latest documentation for the integration and follow the links to get additional guidance.
+
+## Debugging issues
+IMPORTANT! Aspire is designed to capture rich logs and telemetry for all resources defined in the app model. Use the following diagnostic tools when debugging issues with the application before making changes to make sure you are focusing on the right things.
+
+1. _list structured logs_; use this tool to get details about structured logs.
+2. _list console logs_; use this tool to get details about console logs.
+3. _list traces_; use this tool to get details about traces.
+4. _list trace structured logs_; use this tool to get logs related to a trace
+
+## Other Aspire MCP tools
+
+1. _select apphost_; use this tool if working with multiple app hosts within a workspace.
+2. _list apphosts_; use this tool to get details about active app hosts.
+
+## Playwright MCP server
+
+The playwright MCP server has also been configured in this repository and you should use it to perform functional investigations of the resources defined in the app model as you work on the codebase. To get endpoints that can be used for navigation using the playwright MCP server use the list resources tool.
+
+## Updating the app host
+The user may request that you update the Aspire apphost. You can do this using the `aspire update` command. This will update the apphost to the latest version and some of the Aspire specific packages in referenced projects, however you may need to manually update other packages in the solution to ensure compatibility. You can consider using the `dotnet-outdated` with the users consent. To install the `dotnet-outdated` tool use the following command:
+
+```
+dotnet tool install --global dotnet-outdated-tool
 ```
 
-### 版本覆盖（特殊情况）
+## Persistent containers
+IMPORTANT! Consider avoiding persistent containers early during development to avoid creating state management issues when restarting the app.
 
-仅在必要时使用 `VersionOverride`，并添加注释说明原因：
+## Aspire workload
+IMPORTANT! The aspire workload is obsolete. You should never attempt to install or use the Aspire workload.
 
-```xml
-<!-- 注意：Aspire.Microsoft.EntityFrameworkCore.SqlServer 13.0.2 需要 EF Core 10.0.0 -->
-<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" VersionOverride="10.0.0" />
-```
+## Official documentation
+IMPORTANT! Always prefer official documentation when available. The following sites contain the official documentation for Aspire and related components
 
-**使用 VersionOverride 的场景**：
-- Aspire EF Core 集成包需要特定版本的 EF Core
-- 特定项目需要不同版本的包（应尽量避免）
+1. https://aspire.dev
+2. https://learn.microsoft.com/dotnet/aspire
+3. https://nuget.org (for specific integration package details)
 
-## 包版本策略
+## BMAD AI 工作流
 
-### 版本更新原则
+本项目已集成 BMAD (Breakthrough Method of Agile AI-Driven Development) 完整工作流，用于结构化的软件开发生命周期管理。
 
-1. **补丁版本更新**（推荐）
-   - 如：`9.0.9` → `9.0.10`
-   - 通常只包含 bug 修复，风险较低
+### 快速开始
 
-2. **小版本更新**（谨慎）
-   - 如：`9.0.x` → `9.1.x`
-   - 可能包含新功能和 API 变化，需要测试
+1. **小型任务/Bug 修复** (Quick Flow):
+   - `/quick-spec` - 创建技术规范
+   - `/quick-dev` - 实现变更
+   - `/code-review` - 代码审查
 
-3. **大版本更新**（充分测试）
-   - 如：`9.x` → `10.x`
-   - 通常包含破坏性更改，需要全面测试
+2. **完整功能开发** (Full Flow):
+   - `/product-brief` - 产品需求简报
+   - `/create-prd` - 创建 PRD
+   - `/create-architecture` - 架构设计
+   - `/create-epics-and-stories` - 拆分为 Epic 和 Story
+   - `/sprint-planning` - Sprint 规划
+   - `/dev-story` - 实现 Story
+   - `/code-review` - 代码审查
+   - `/retrospective` - 复盘
 
-### 当前统一版本
+### 与 CodeSpirit 规范集成
 
-主要包的统一版本（详见 `Directory.Packages.props`）：
+BMAD 工作流已配置为自动遵循 CodeSpirit 的所有开发规范（位于 `.cursor/rules/`）。在使用 BMAD 时：
 
-- **Aspire 包**: `13.0.2`（部分使用 `13.1.0`）
-- **Entity Framework Core**: `9.0.9`（使用 Aspire EF Core 集成的项目使用 `10.0.0`）
-- **Microsoft Extensions**: `10.0.0`
-- **OpenTelemetry**: `1.11.1`
-- **StackExchange.Redis**: `2.9.32`
-- **Newtonsoft.Json**: `13.0.3`
-- **AutoMapper**: `13.0.1`
-- **FluentValidation**: `11.11.0`
+- PRD 会自动考虑多租户、多数据库、AI 功能等项目特性
+- 架构设计会遵循依赖注入、缓存策略等规范
+- Story 实现会应用正确的命名约定、DTO 设计、控制器规范等
+- 代码审查会执行 CodeSpirit 特定的审查清单
 
-## 传递依赖处理
+### 获取帮助
 
-### 识别传递依赖
+任何时候，输入 `/bmad-help` 可获取上下文相关的指导。
 
-使用以下命令查看传递依赖：
-
-```bash
-dotnet list package --include-transitive
-```
-
-### 常见传递依赖
-
-以下包通过项目引用传递可用，通常不需要显式引用：
-
-#### 通过 `CodeSpirit.Shared` 传递
-
-- `Newtonsoft.Json`
-- `Microsoft.EntityFrameworkCore.SqlServer`
-- `Microsoft.EntityFrameworkCore`
-- `Pomelo.EntityFrameworkCore.MySql`
-- `LinqKit.Core`
-- `RabbitMQ.Client`
-- `Aspire.RabbitMQ.Client`
-- `StackExchange.Redis`
-- `ClosedXML`
-- `Polly`
-- `Scrutor`
-- `System.Linq.Dynamic.Core`
-
-#### 通过 `CodeSpirit.ServiceDefaults` 传递
-
-- `Aspire.Seq`
-- `Aspire.StackExchange.Redis.DistributedCaching`
-- `Microsoft.Extensions.Diagnostics.HealthChecks`
-- `Microsoft.Extensions.Http.Resilience`
-- `Microsoft.Extensions.ServiceDiscovery`
-- `OpenTelemetry.*` 相关包
-
-#### 通过 `FrameworkReference` 提供（.NET 10）
-
-- `Microsoft.AspNetCore.Http.Abstractions`
-- `Microsoft.AspNetCore.Mvc.Core`
-- 大部分 `Microsoft.AspNetCore.*` 包
-
-### 何时需要显式引用
-
-以下情况需要显式引用传递依赖：
-
-1. **需要特定版本**
-   - 使用 `VersionOverride` 覆盖传递的版本
-
-2. **需要特定 API**
-   - 如果项目直接使用包的公共 API，建议显式引用
-
-3. **避免版本冲突**
-   - 当传递依赖版本与项目需求不匹配时
-
-4. **工具包**
-   - 如 `Microsoft.EntityFrameworkCore.Design`、`Microsoft.EntityFrameworkCore.Tools`
-   - 这些包需要显式引用并设置 `PrivateAssets`
-
-## 包分类组织
-
-`Directory.Packages.props` 中的包按以下分类组织：
-
-1. **Aspire 包** - Aspire 框架相关
-2. **Entity Framework Core** - EF Core 相关
-3. **Microsoft Extensions** - Microsoft.Extensions.* 包
-4. **Microsoft ASP.NET Core** - Microsoft.AspNetCore.* 包
-5. **OpenTelemetry** - 监控和追踪
-6. **缓存和消息队列** - Redis、RabbitMQ
-7. **工具和库** - 第三方工具包
-8. **FluentValidation** - 验证框架
-9. **其他工具包** - 各种工具库
-10. **云服务 SDK** - 云服务集成
-11. **开发工具** - 开发时使用的工具
-12. **测试框架包** - 测试相关包
-
-## 最佳实践
-
-### 添加新包
-
-1. ✅ 先检查 `Directory.Packages.props` 是否已存在该包
-2. ✅ 如果存在，直接使用现有版本
-3. ✅ 如果不存在，添加到 `Directory.Packages.props` 的相应分类
-4. ✅ 在项目文件中只引用包名，不指定版本
-5. ✅ 添加注释说明包的用途（如需要）
-
-### 更新包版本
-
-1. ✅ 在 `Directory.Packages.props` 中更新版本
-2. ✅ 运行 `dotnet restore` 验证兼容性
-3. ✅ 运行 `dotnet build` 确保构建成功
-4. ✅ 运行 `aspire run` 验证运行时功能
-
-### 移除包引用
-
-1. ✅ 检查是否通过传递依赖可用
-2. ✅ 使用 `dotnet list package --include-transitive` 确认
-3. ✅ 移除后立即构建验证
-4. ✅ 如果编译失败，说明需要显式引用
-
-### 版本冲突处理
-
-1. ✅ 优先统一版本到最新补丁版本
-2. ✅ 必要时使用 `VersionOverride`（添加注释）
-3. ✅ 考虑升级相关包到兼容版本
-4. ✅ 记录版本冲突原因和解决方案
-
-## 工具和命令
-
-### 检查过时的包
-
-```bash
-dotnet list package --outdated
-```
-
-### 查看传递依赖
-
-```bash
-dotnet list package --include-transitive
-```
-
-### 查看特定项目的包
-
-```bash
-dotnet list package --project Src/ApiServices/CodeSpirit.ExamApi/CodeSpirit.ExamApi.csproj
-```
-
-### 还原包
-
-```bash
-dotnet restore
-```
-
-### 构建验证
-
-```bash
-dotnet build
-```
-
-## 常见问题
-
-### Q: 如何知道一个包是否通过传递依赖可用？
-
-A: 使用 `dotnet list package --include-transitive` 查看。如果包出现在传递依赖列表中，通常不需要显式引用。
-
-### Q: 为什么有些包显示"可能不需要"的警告？
-
-A: NuGet 的静态分析可能误判。如果项目确实使用了包的 API，应保留引用。建议通过代码搜索验证实际使用情况。
-
-### Q: 如何更新所有包到最新版本？
-
-A: 
-1. 使用 `dotnet outdated-tool` 分析
-2. 在 `Directory.Packages.props` 中逐个更新版本
-3. 每次更新后构建验证
-4. 优先更新补丁版本，谨慎更新小版本和大版本
-
-### Q: 版本冲突如何解决？
-
-A:
-1. 优先统一到最新补丁版本
-2. 必要时使用 `VersionOverride`（添加注释说明）
-3. 考虑升级相关包到兼容版本
-4. 记录冲突原因和解决方案
-
-## 参考文档
-
-- [NuGet Central Package Management](https://learn.microsoft.com/nuget/consume-packages/central-package-management)
-- [Directory.Packages.props 文件](../../Directory.Packages.props)
-- [包管理优化报告](../../Docs/PackageOptimizationReport.md)
+详细使用指南请参考：
+- **[BMAD 使用教程](Docs/bmad/bmad-tutorial.md)** - 完整的综合教程（推荐新手阅读）
+- [BMAD 工作流指南](Docs/bmad/bmad-workflow-guide.md) - 详细的工作流使用指南
+- [BMAD 团队培训指南](Docs/bmad/bmad-team-guide.md) - 团队培训材料
+- [BMAD 集成技能](.cursor/skills/bmad-integration/SKILL.md) - BMAD 与 CodeSpirit 集成
+- [项目上下文文档](project-context.md) - 项目上下文和规范引用
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/xin-lai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/xin-lai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [xin-lai/CodeSpirit](https://github.com/xin-lai/CodeSpirit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
