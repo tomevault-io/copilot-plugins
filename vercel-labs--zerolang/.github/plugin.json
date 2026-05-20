@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--zerolang",
+  "displayName": "zerolang",
+  "description": "The programming language for agents",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/zerolang",
+  "skills": []
+}
