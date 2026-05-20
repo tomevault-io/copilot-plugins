@@ -1,0 +1,9 @@
+{
+  "name": "ignitionai--ignition",
+  "displayName": "ignition",
+  "description": "Monorepo for the IgnitionAI Framework",
+  "version": "1.0.0",
+  "author": "IgnitionAI",
+  "homepage": "https://github.com/IgnitionAI/ignition",
+  "skills": []
+}
