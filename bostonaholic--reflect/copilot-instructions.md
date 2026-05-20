@@ -1,49 +1,50 @@
-## security
+## simplicity
 
-> - Implement proper authentication mechanisms
+> - Follow consistent file structure
 
-# Security Rules
+# Code Simplicity and Maintainability Rules
 
-## Authentication and Authorization
-- Implement proper authentication mechanisms
-- Implement proper token handling
+## Code Organization
+- Follow consistent file structure
+- Use meaningful file and directory names
+- Implement proper separation of concerns
+- Keep files focused and single-purpose
+- Use appropriate module boundaries
 
-## Data Security
-- Encrypt sensitive data at rest
-- Use HTTPS for all communications
-- Implement proper input validation
-- Sanitize user input
+## Code Style
+- Follow consistent naming conventions
+- Use clear and descriptive variable names
+- Keep functions small and focused
+- Use appropriate comments
+- Follow DRY (Don't Repeat Yourself) principle
 
-## API Security
-- Securely store and manage API credentials
-- Use environment variables or secure credential stores for API keys
-- Implement proper API request validation
-- Handle API rate limiting and errors gracefully
-- Use secure API endpoints (HTTPS)
-- Implement proper API response validation
-- Cache API responses appropriately
-- Monitor API usage and errors
-
-## Code Security
-- Keep dependencies updated
-- Scan for known vulnerabilities
+## Code Quality
+- Maintain consistent code formatting
+- Remove unused code
+- Handle edge cases
+- Use appropriate abstraction levels
 - Implement proper error handling
-- Use secure coding practices
-- Implement proper logging
 
-## Infrastructure Security
-- Use secure configuration management
-- Implement proper access controls
-- Use secure deployment practices
-- Implement proper monitoring
-- Use secure networking practices
+## Documentation
+- Write clear documentation
+- Keep documentation up to date
+- Include usage examples
+- Document complex algorithms
+- Maintain API documentation
 
 ## Testing
-- Include security testing
-- Implement penetration testing
-- Use security scanning tools
-- Test for common vulnerabilities
-- Implement proper security monitoring
+- Write maintainable tests
+- Use descriptive test names
+- Follow test organization best practices
+- Implement proper test coverage
+- Use appropriate testing patterns
+
+## Refactoring
+- Refactor when code smells are detected
+- Keep refactoring changes small
+- Maintain test coverage during refactoring
+- Document major refactoring changes
+- Review refactoring changes carefully
 
 ---
 > Source: [bostonaholic/reflect](https://github.com/bostonaholic/reflect) — distributed by [TomeVault](https://tomevault.io).
