@@ -1,56 +1,38 @@
-## vibestamps
+## project
 
-> - Simple Next.js 15 (App Router) + TypeScript project using Bun.
+> Project overview: Goals, tech stack (Next.js, shadcn/ui, Bun), design system details, and development guidelines
 
-# Vibestamps — AGENTS.md (Root)
+## Goal
 
-## Project Snapshot
-- Simple Next.js 15 (App Router) + TypeScript project using Bun.
-- Styling: Tailwind CSS v4; UI: shadcn/ui; State/UI utils in components/.
-- AI: Vercel AI SDK + @ai-sdk/gateway (Google Gemini 2.5 Pro).
-- Sub-folders have their own AGENTS.md for “nearest-wins” guidance.
+This project aims to create a web application that takes SubRip Text (`.srt`) files as input, processes them using the Google Gemini language model via the Vercel AI SDK, and generates meaningful timestamps or summaries based on the content.
 
-## Root Setup Commands
-- Install: `bun install`
-- Dev: `bun run dev` (http://localhost:3000)
-- Build: `bun run build`
-- Start (prod): `bun run start`
-- Lint: `bun run lint`
-- Typecheck: `bunx tsc -p tsconfig.json --noEmit`
-- Tests: not configured (none present)
+## Tech Stack
 
-## Universal Conventions
-- TypeScript: strict mode enabled; noEmit true.
-- ESLint: Next core-web-vitals + TypeScript (see eslint.config.mjs).
-- Imports: use absolute paths via `@/*` (see tsconfig paths).
-- Commits: Conventional Commits style recommended (e.g., chore:, feat:, fix:).
-- Branching/PR: feature branches from main; open PRs with passing build, lint, typecheck.
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **UI Components:** shadcn/ui
+- **AI Integration:** Vercel AI SDK
+- **LLM:** Google Gemini
+- **Package Manager:** Bun
 
-## Security & Secrets
-- Never commit API keys or `.env*` files (see .gitignore).
-- Local secrets in `.env.local` (e.g., `GOOGLE_API_KEY`, optionally `AI_GATEWAY_API_KEY` for local gateway use).
-- Client-visible envs must be prefixed with `NEXT_PUBLIC_` if needed client-side.
+## Design System
 
-## JIT Index (what to open, not what to paste)
+We are using **shadcn/ui** for our component library. Components are added individually as needed.
 
-### Directory Map
-- App (UI + routes): `app/` → see [app/AGENTS.md](app/AGENTS.md)
-- Components (UI + feature): `components/` → see [components/AGENTS.md](components/AGENTS.md)
-- Shared libs (schemas, parsers): `lib/` → see [lib/AGENTS.md](lib/AGENTS.md)
-- Public assets: `public/`
+- **Documentation:** [https://ui.shadcn.com/docs/components/](mdc:https:/ui.shadcn.com/docs/components)
+- **Adding Components:** Use the CLI with Bun:
+  ```bash
+  bunx --bun shadcn@latest add <component-name>
+  ```
 
-### Quick Find Commands
-- Search functions: `rg -n "export (async )?function|export const" app components lib`
-- Find client components: `rg -n '^"use client"' app components`
-- API route handlers: `rg -n "export async function (GET|POST)" app/api`
-- Zod schemas usage: `rg -n "srtContentSchema|generateApiRequestSchema|srtEntriesSchema" app lib`
-- SRT utilities: `rg -n "parseSrtContent|extractTextFromSrt|MAX_FILE_SIZE" lib components app`
+## Development Rules
 
-## Definition of Done
-- Build, lint, and typecheck succeed:
-  - `bunx tsc -p tsconfig.json --noEmit && bun run lint && bun run build`
-- Dev server renders main page and SRT upload works end-to-end.
-- No secrets or `.env` files committed; streaming API responds without errors.
+1.  **Package Management:** Always use `bun` for installing, removing, or managing dependencies (`bun add`, `bun install`, `bun remove`, etc.).
+2.  **UI Components:** Prefer components from `shadcn/ui` where possible. Install them using the command above.
+3.  **Environment Variables:** Store sensitive information like API keys in environment variables (`.env.local`) and do not commit them to version control.
+4.  **Code Style:** Follow standard TypeScript and React best practices. Ensure code is formatted (consider adding a formatter like Prettier later).
+5.  **Tailwind CSS v4:** Use Tailwind CSS v4 for styling. Refer to the [Tailwind CSS documentation](https://tailwindcss.com/docs) for more information.
 
 ---
 > Source: [RayFernando1337/vibestamps](https://github.com/RayFernando1337/vibestamps) — distributed by [TomeVault](https://tomevault.io).
