@@ -1,0 +1,9 @@
+{
+  "name": "codingworkflow--ai-code-fusion",
+  "displayName": "ai-code-fusion",
+  "description": "Desktop app to process repository content into one file",
+  "version": "1.0.0",
+  "author": "codingworkflow",
+  "homepage": "https://github.com/codingworkflow/ai-code-fusion",
+  "skills": []
+}
