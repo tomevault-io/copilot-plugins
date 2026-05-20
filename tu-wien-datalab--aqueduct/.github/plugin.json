@@ -1,0 +1,9 @@
+{
+  "name": "tu-wien-datalab--aqueduct",
+  "displayName": "aqueduct",
+  "description": "Aqueduct is a simple yet fully-featured AI gateway built on top of the LiteLLM Router SDK using Django.",
+  "version": "1.0.0",
+  "author": "TU-Wien-dataLAB",
+  "homepage": "https://github.com/TU-Wien-dataLAB/aqueduct",
+  "skills": []
+}
