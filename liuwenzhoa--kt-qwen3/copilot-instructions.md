@@ -1,79 +1,117 @@
-## ktransformers-long-context
+## ktransformers-makefile
 
-> KTransformers实现了可在有限资源下处理超长上下文序列的推理功能。通过利用注意力机制的稀疏性和异构CPU/GPU系统，在单个24GB GPU配合CPU/DRAM支持下，成功实现128K甚至1M token上下文的高效推理。
+> KTransformers项目使用Makefile简化开发流程，为开发者提供了一系列预定义的便捷命令。本规则详细介绍项目Makefile的主要目标及其用法，帮助开发者更高效地参与项目开发。
 
-# KTransformers长上下文支持
+# KTransformers Makefile使用指南
 
 ## 概述
 
-KTransformers实现了可在有限资源下处理超长上下文序列的推理功能。通过利用注意力机制的稀疏性和异构CPU/GPU系统，在单个24GB GPU配合CPU/DRAM支持下，成功实现128K甚至1M token上下文的高效推理。
+KTransformers项目使用Makefile简化开发流程，为开发者提供了一系列预定义的便捷命令。本规则详细介绍项目Makefile的主要目标及其用法，帮助开发者更高效地参与项目开发。
 
-## 关键特性
+## 主要目标
 
-- **128K上下文**：生成速度比llama.cpp快7.1倍
-- **1M上下文**：在24GB GPU上实现16 tokens/s的推理速度，比llama.cpp快近10倍
-- **保持精度**：在"针中寻草"等评估场景中保持或超越原始模型的准确率
-- **异构加速**：充分利用CPU/GPU混合架构实现性能最大化
+### flake_find - 代码风格检查
 
-## 技术原理
-
-### 长文本推理的挑战与解决方案
-
-长文本推理面临的主要挑战是KVCache占用的巨大内存。例如，InternLM2.5-7B-Chat-1M模型虽然权重仅需15.49GB GPU内存，但1M token的KVCache需要额外145.49GB内存，超出本地用户的硬件能力。
-
-KTransformers解决方案基于以下发现：
-1. **注意力分布的稀疏性**：在长文本中，不到5%的token具有较高的注意力分数
-2. **选择性计算**：只需扫描最相关的token子集即可获得与原始结果相近的输出
-
-### CPU稀疏注意力框架
-
-KTransformers实现了一个灵活的CPU稀疏注意力框架，主要特点：
-
-- **KVCache分区管理**：将输入提示分为Initial、Context和Local三部分
-- **块式组织**：以固定大小的块管理KVCache，提高选择和计算效率
-- **代表性token选择**：支持多种选择代表性token的方法（Max、Mean、Quest等）
-- **预选机制**：使用SnapKV方法预先选择相关块，减少推理过程中的计算开销
-
-## 框架架构
-
-![KTransformers_long_context_v2.png](mdc:ktransformers/doc/assets/KTransformers_long_context_v2.png)
-
-KTransformers长上下文框架提供丰富的配置选项：
-- `threads_num`：CPU线程数
-- `block_size`：KVCache块大小
-- `local_windows_len`：提示结束窗口大小
-- `preselect_block_count`：预选块数量
-- `second_block_count`：预选后选择的块数量
-- `representative_type`：选择代表性token的方法
-- `representative_num`：代表性token的数量
-- `layer_step`：KVCache的层选择间隔
-- `token_step`：KVCache的token选择间隔
-- 等更多参数
-
-## 使用方法
-
-目前，长上下文功能仅由`local_chat.py`接口支持，使用步骤：
-
-1. 从HuggingFace下载相关模型：https://huggingface.co/nilv234/internlm2_5_to_llama_1m/tree/main
-
-2. 启动命令：
 ```bash
-python local_chat.py --model_path="/path/to/repo" --gguf_path="/path/to/repo" --max_new_tokens=500 --cpu_infer=10 --use_cuda_graph=True --mode="long_context" --prompt_file="/path/to/file"
+make flake_find
 ```
 
-3. 首次运行后，`~/.ktransformers`目录下将自动创建config.yaml配置文件，可根据需要调整相关参数
+**功能说明**：
 
-不同上下文长度对应的DRAM需求：
+此命令会检查`./ktransformers`目录下所有Python文件，列出不符合PEP8标准的错误、警告和严重问题（及其相关代码）。
 
-| 上下文长度 | 4K  | 32K  | 64K  | 128K | 512K | 1M    |
-|---------|-----|------|------|------|------|-------|
-| DRAM (GB) | 0.5 | 4.29 | 8.58 | 17.1 | 68.7 | 145.49 |
+**实现原理**：
+
+- 使用flake8工具进行代码风格检查
+- 检查结果按严重程度分类显示
+- 当前已将这些问题列表添加到`.flake8`文件的`extend-ignore`部分，使flake8暂时忽略它们
+- 团队计划在未来迭代中逐步解决这些问题
+
+**适用场景**：
+
+- 提交代码前的自检
+- 代码审查阶段
+- 了解项目代码风格标准
+
+### format - 代码自动格式化
+
+```bash
+make format
+```
+
+**功能说明**：
+
+此命令使用black工具格式化`./ktransformers`目录下的所有Python文件，使代码符合项目的格式标准。
+
+**格式化规则**：
+
+- 遵循PEP8标准的基础上，项目在`pyproject.toml`文件中自定义了部分规则
+- 将行长度修改为120字符（默认为88字符）
+- 配置示例：
+  ```toml
+  [tool.black]
+  line-length = 120
+  preview = true
+  unstable = true
+  ```
+
+**适用场景**：
+
+- 写完代码后的格式整理
+- 批量修改后的代码一致性保障
+- 团队协作中统一代码风格
+
+### dev_install - 开发模式安装
+
+```bash
+make dev_install
+```
+
+**功能说明**：
+
+以开发模式安装KTransformers包，使包以可编辑模式安装到Python环境中。
+
+**主要优势**：
+
+- 代码修改后无需重新安装即可生效
+- 适合持续开发和调试过程
+- 方便开发者快速验证代码变更
+
+**建议用法**：
+
+强烈建议所有KTransformers项目开发者使用此方法安装包，以便随时测试代码修改。
+
+## 使用案例
+
+### 标准开发工作流
+
+```bash
+# 克隆仓库
+git clone https://github.com/kvcache-ai/ktransformers.git
+cd ktransformers
+
+# 开发模式安装
+make dev_install
+
+# 编辑代码
+# ... (修改代码)
+
+# 格式化代码
+make format
+
+# 检查代码风格
+make flake_find
+
+# 提交更改
+git add .
+git commit -m "Your commit message"
+```
 
 ## 注意事项
 
-- 硬件资源影响可用的最大上下文长度，请根据DRAM大小选择合适的`max_seq_len`
-- 首次运行时会有额外的编译和初始化时间
-- 在试验不同参数配置时，注意观察准确率与速度的平衡
+1. 执行`make dev_install`前确保已激活正确的Python环境
+2. 代码提交前建议先执行`make format`和`make flake_find`
+3. 如果需要自定义Makefile，请确保遵循项目的代码风格约定
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
