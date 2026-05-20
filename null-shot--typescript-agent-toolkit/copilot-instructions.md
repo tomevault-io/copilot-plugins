@@ -1,42 +1,20 @@
-## development-guide
+## example-crud-mcp
 
-> This project follows specific development practices for Cloudflare Workers and TypeScript.
+> The CRUD MCP example demonstrates how to build a Cloudflare Worker that implements the Model Context Protocol (MCP) for a simple CRUD application.
 
-# Development Guide
+# CRUD MCP Example
 
-This project follows specific development practices for Cloudflare Workers and TypeScript.
+The CRUD MCP example demonstrates how to build a Cloudflare Worker that implements the Model Context Protocol (MCP) for a simple CRUD application.
 
-## Package Management
+## Key Files
 
-- Use yarn for all package management operations
-- Follow the workspaces pattern with packages in `packages/{project}`
-- Example projects are in `examples/{project}`
-
-## Cloudflare Workers
-
-- All code should be compatible with Cloudflare Workers runtime
-- Follow best practices for Cloudflare Workers development:
-  - Minimize cold starts
-  - Use appropriate caching strategies
-  - Consider Workers limits and quotas
-
-## TypeScript Standards
-
-- Use TypeScript for all code
-- Ensure proper typing for all functions and variables
-- Follow ES modules format
-- Use `async`/`await` for asynchronous code
-
-## Testing
-
-- Write tests for all functionality
-- Run tests with `yarn test`
-- Use Vitest as the testing framework
-
-## Deployment
-
-- Use Wrangler for deployments to Cloudflare Workers
-- Configure appropriate bindings in wrangler.jsonc
+- **Entry Point**: [examples/crud-mcp/src/index.ts](mdc:examples/crud-mcp/src/index.ts) - Main entry point for the Worker
+- **Server**: [examples/crud-mcp/src/server.ts](mdc:examples/crud-mcp/src/server.ts) - Server implementation using the MCP package
+- **Tools**: [examples/crud-mcp/src/tools.ts](mdc:examples/crud-mcp/src/tools.ts) - Tool definitions for the MCP server
+- **Repository**: [examples/crud-mcp/src/repository.ts](mdc:examples/crud-mcp/src/repository.ts) - Data access layer for CRUD operations
+- **Resources**: [examples/crud-mcp/src/resources.ts](mdc:examples/crud-mcp/src/resources.ts) - Resource definitions
+- **Schema**: [examples/crud-mcp/src/schema.ts](mdc:examples/crud-mcp/src/schema.ts) - Schema definitions for data models
+- **Prompts**: [examples/crud-mcp/src/prompts.ts](mdc:examples/crud-mcp/src/prompts.ts) - Prompt templates for LLM interactions
 
 ---
 > Source: [null-shot/typescript-agent-toolkit](https://github.com/null-shot/typescript-agent-toolkit) — distributed by [TomeVault](https://tomevault.io).
