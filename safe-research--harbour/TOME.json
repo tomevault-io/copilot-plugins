@@ -4,7 +4,7 @@
   "repo": "harbour",
   "description": "Harbour is a safe decentralised place where Safe transactions wait before sailing onto the blockchain",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/safe-research/harbour",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T23:15:25Z"
+  "distributed_at": "2026-05-20T03:24:54Z"
 }
