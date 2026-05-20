@@ -1,0 +1,9 @@
+{
+  "name": "sendmebits--ghostmail-ios",
+  "displayName": "ghostmail-ios",
+  "description": "Ghost Mail iOS app to manage Cloudflare email aliases",
+  "version": "1.0.0",
+  "author": "sendmebits",
+  "homepage": "https://github.com/sendmebits/ghostmail-ios",
+  "skills": []
+}
