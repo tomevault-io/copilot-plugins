@@ -2,9 +2,9 @@
   "name": "reflect",
   "owner": "bostonaholic",
   "repo": "reflect",
-  "description": "",
+  "description": "An AI tool to generate your brag document",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bostonaholic/reflect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T23:48:20Z"
+  "distributed_at": "2026-05-20T00:46:10Z"
 }
