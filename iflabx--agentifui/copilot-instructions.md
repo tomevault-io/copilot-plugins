@@ -1,98 +1,72 @@
-## development-workflow-rule
+## dify-api-endpoints
 
-> Must read before starting any development task or code changes
+> 3-layer architecture handles Dify API integration:
 
-# Development Workflow Standards
 
-## Core Principles
+# Dify API Integration Standards
 
-1. **Analyze Before Coding**: MUST understand the root problem before implementation
-2. **Risk Assessment**: MUST evaluate impact scope of changes
-3. **Minimal Changes**: MUST make minimal safe modifications
-4. **Comprehensive Validation**: MUST perform multi-dimensional verification
-5. **Standard Commits**: MUST follow git-commit-rule
+## Core Architecture
 
-## Standard Workflow
+3-layer architecture handles Dify API integration:
 
-### Phase 1: Problem Analysis
-- **Root Cause**: MUST understand the real problem, not just surface symptoms
-- **Impact Scope**: MUST identify affected modules and users
-- **Code Research**: MUST use codebase search tools to find relevant implementations
-- **Solution Design**: MUST compare 2-3 approaches and choose lowest risk option
+1. **Proxy Layer**: `app/api/dify/[appId]/[...slug]/route.ts` - Authentication and request forwarding
+2. **Service Layer**: `lib/services/dify/` - Business logic and API calls
+3. **Type Layer**: `lib/services/dify/types.ts` - TypeScript type definitions
 
-### Phase 2: Risk Assessment
-- **Direct Impact**: MUST identify directly affected files and functions
-- **Indirect Impact**: MUST identify dependent components and callers
-- **Breaking Changes**: MUST assess API/interface compatibility
-- **Performance Impact**: MUST evaluate loading time, memory, and responsiveness
-- **Security Risk**: MUST assess permissions, data security, XSS/CSRF implications
+## Main Service Modules
 
-### Phase 3: Implementation
-- **Minimal Scope**: MUST make only necessary changes, avoid unrelated refactoring
-- **Interface Stability**: MUST maintain existing function signatures
-- **Type Safety**: MUST ensure TypeScript correctness
-- **Error Handling**: MUST implement comprehensive error management
+| Service | File | Function |
+|---------|------|----------|
+| Chat | `chat-service.ts` | Chat message streaming processing |
+| Workflow | `workflow-service.ts` | Workflow execution and management |
+| App | `app-service.ts` | Application parameters and info retrieval |
+| Message | `message-service.ts` | Message management and feedback |
+| Conversation | `conversation-service.ts` | Conversation list and management |
+| Completion | `completion-service.ts` | Text generation and streaming output |
 
-### Phase 4: Validation
-- **Functional Testing**: MUST verify core functionality works as expected
-- **Regression Testing**: MUST ensure existing functionality remains intact
-- **Type Checking**: MUST run `pnpm run type-check`
-- **Build Testing**: MUST run `pnpm run build` (ask user first if unsure)
-- **Cross-browser**: MUST test on major browsers
+## Usage Patterns
 
-### Phase 5: Documentation & Commit
-- **Update Documentation**: MUST update API, component, architecture docs when necessary
-- **Git Commit**: MUST strictly follow git-commit-rule
-- **Self Review**: MUST perform complete code review before commit
+### Import Services
+```typescript
+// Unified entry import
+import { streamDifyChat, getDifyAppParameters } from '@lib/services/dify';
 
-## Special Scenarios
-
-### Bug Fixes
-1. **Reproduction**: MUST ensure stable reproduction
-2. **Root Cause**: MUST perform deep analysis, avoid surface fixes
-3. **Minimal Fix**: MUST choose lowest risk solution
-4. **Regression Check**: MUST verify complete fix
-
-### Feature Development
-1. **Requirements Understanding**: MUST deeply understand user needs
-2. **Technical Design**: MUST consider scalability and maintainability
-3. **Phased Implementation**: MUST break down into verifiable stages
-4. **User Testing**: MUST gather real user feedback
-
-## Quality Checklist
-
-### Pre-Commit Validation
-- [ ] TypeScript type checking passes
-- [ ] Build succeeds
-- [ ] Core functionality testing complete
-- [ ] No regression issues
-- [ ] Code follows project standards
-- [ ] Commit message follows git-commit-rule
-
-## Critical Reminders
-
-### Development Server Usage
-**⚠️ MUST NOT run `pnpm run dev` unless explicitly needed**
-- Developer usually already has dev server running
-- Only run when explicitly requested or confirmed safe
-- MUST ask before starting development server
-- Use build/type-check commands for validation
-
-### Common Commands
-```bash
-# Type checking (recommended for validation)
-pnpm run type-check
-
-# Build testing (safe to run)
-pnpm run build
+// Or import from specific service file
+import { streamDifyChat } from '@lib/services/dify/chat-service';
 ```
 
-## Continuous Improvement
+### Error Handling
+```typescript
+try {
+  const result = await someService(appId, params);
+} catch (error) {
+  if (error.status === 401) {
+    // Handle authentication error
+  } else if (error.status === 429) {
+    // Handle rate limiting error
+  }
+}
+```
 
-- Regularly review workflow processes
-- Collect team feedback
-- Optimize development processes
-- Upgrade development tools
+### Type Safety
+All API-related types defined in `lib/services/dify/types.ts`:
+- Request types: `Dify*RequestPayload`
+- Response types: `Dify*Response`
+- SSE event types: `Dify*SseEvent`
+
+## Development Standards
+
+1. **New Endpoints**: MUST follow patterns of existing service files
+2. **Type Definitions**: MUST define all related types in types.ts
+3. **Error Handling**: MUST use unified error handling mechanism
+4. **Documentation**: MUST update JSDoc comments for related service functions
+
+## Coverage Statistics
+
+- **Total Endpoints**: 25
+- **Service Files**: 7
+- **Supported App Types**: 5 (chatbot, agent, chatflow, workflow, text-generation)
+- **Coverage**: 100% Dify API functionality
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
