@@ -1,0 +1,9 @@
+{
+  "name": "allenai--atlantes",
+  "displayName": "atlantes",
+  "description": "Efficient and low latency real-time global-scale GPS trajectory modeling",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/atlantes",
+  "skills": []
+}
