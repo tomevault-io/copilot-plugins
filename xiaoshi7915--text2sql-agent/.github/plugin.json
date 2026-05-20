@@ -1,0 +1,9 @@
+{
+  "name": "xiaoshi7915--text2sql-agent",
+  "displayName": "Text2Sql_Agent",
+  "description": "\u95ee\u6570\uff1a\u4e00\u4e2a\u57fa\u4e8e\u81ea\u7136\u8bed\u8a00\u7684\u667a\u80fd\u6570\u636e\u67e5\u8be2\u667a\u80fd\u4f53\uff0c\u5b9e\u73b0\u6570\u636e\u67e5\u8be2\u53ef\u89c6\u5316\u667a\u80fd\u5316",
+  "version": "1.0.0",
+  "author": "xiaoshi7915",
+  "homepage": "https://github.com/xiaoshi7915/Text2Sql_Agent",
+  "skills": []
+}
