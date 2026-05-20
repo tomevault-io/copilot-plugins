@@ -1,0 +1,9 @@
+{
+  "name": "certainlach--nixos-qubes",
+  "displayName": "nixos-qubes",
+  "description": "QubesOS packages and dom0 for NixOS",
+  "version": "1.0.0",
+  "author": "CertainLach",
+  "homepage": "https://github.com/CertainLach/nixos-qubes",
+  "skills": []
+}
