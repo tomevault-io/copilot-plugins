@@ -1,0 +1,9 @@
+{
+  "name": "kagtua--cleantabs",
+  "displayName": "CleanTabs",
+  "description": "A browser extension that auto discard (sleep) / close tabs based on rules.",
+  "version": "1.0.0",
+  "author": "kagtua",
+  "homepage": "https://github.com/kagtua/CleanTabs",
+  "skills": []
+}
