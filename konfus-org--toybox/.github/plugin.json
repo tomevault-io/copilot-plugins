@@ -1,0 +1,9 @@
+{
+  "name": "konfus-org--toybox",
+  "displayName": "Toybox",
+  "description": "A simple plugin driven game engine written in C++",
+  "version": "1.0.0",
+  "author": "Konfus-org",
+  "homepage": "https://github.com/Konfus-org/Toybox",
+  "skills": []
+}
