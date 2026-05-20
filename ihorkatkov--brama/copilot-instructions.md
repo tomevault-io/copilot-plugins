@@ -1,12 +1,12 @@
-## elixir-concurrency
+## elixir-documentation
 
-> name: elixir_concurrency
+> Handles user-related operations including creation, updates, and queries.
 
-# Elixir Concurrency Patterns
+# Elixir Documentation Practices
 
 <rule>
-name: elixir_concurrency
-description: Best practices for handling concurrency in Elixir using processes, OTP, and other patterns
+name: elixir_documentation
+description: Best practices for writing effective documentation in Elixir code
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
@@ -14,162 +14,110 @@ filters:
 actions:
   - type: suggest
     message: |
-      # Elixir Concurrency Best Practices
+      # Elixir Documentation Best Practices
 
-      ## Process Design
-      - Keep processes focused on a single responsibility
-      - Use appropriate abstractions (GenServer, Task, Agent, Supervisor)
-      - Set timeouts for synchronous calls to prevent indefinite blocking
-      - Handle process termination and recovery gracefully
+      ## Module Documentation
+      - Always include a `@moduledoc` attribute with clear description of the module's purpose
+      - Structure module docs with markdown headings for better readability
+      - Include examples of common usage patterns
+      - Document any behaviors the module implements
+      - For large modules, add a table of contents
       
-      ## GenServer
-      - Use GenServer for stateful, long-running processes
-      - Keep GenServer callbacks small and focused
-      - Avoid blocking operations in `handle_call` callbacks
-      - Use `handle_continue` for post-initialization work
-      - Prefer `handle_cast` for fire-and-forget operations
+      ## Function Documentation
+      - Document all public functions with `@doc` attributes
+      - Include information about:
+        - What the function does
+        - Parameter descriptions and expected types
+        - Return value description and type
+        - Possible errors or exceptions
+        - Usage examples
+      - Use backticks for code elements: `variable_name`, `function_name/arity`
       
-      ## Task
-      - Use Task for concurrent, short-lived operations
-      - Group related tasks with Task.Supervisor
-      - Use Task.async/await for parallelizing independent work
-      - Consider Task.yield_many for handling multiple tasks with timeouts
+      ## Type Documentation
+      - Use `@typedoc` to explain complex or non-obvious types
+      - Document all public type definitions
       
-      ## Supervision
-      - Design supervision trees to reflect the dependency hierarchy
-      - Choose appropriate restart strategies
-      - Use DynamicSupervisor for dynamic child processes
-      - Keep supervisor modules simple; avoid business logic
+      ## Code Examples
+      - Include practical examples in documentation
+      - Use doctests with `iex>` prompts to provide testable examples:
+        ```elixir
+        @doc """
+        Adds two numbers.
+        
+        ## Examples
+            
+            iex> Calculator.add(2, 3)
+            5
+        """
+        ```
       
-      ## Message Passing
-      - Keep messages small and well-defined
-      - Document the message formats your processes handle
-      - Use pattern matching to handle different message types
-      - Avoid sharing mutable state between processes
+      ## Documentation Format
+      - Use markdown formatting for rich documentation
+      - Add headers, lists, and code blocks to structure information
+      - Use backticks for inline code and triple backticks for code blocks
+      - Keep line length at a reasonable width (recommended: 80-100 characters)
       
-      ## State Management
-      - Keep process state as simple as possible
-      - Document the structure of the state
-      - Consider using structs for complex state
-      - Properly initialize state to avoid nil errors
-      
-      ## Error Handling
-      - Use "let it crash" philosophy for unexpected errors
-      - Recover from expected errors within the process
-      - Add monitoring or linking where appropriate
-      - Log important errors before crashing
+      ## Specialized Documentation
+      - Add `@deprecated` tags with migration information for deprecated functions
+      - Include `@since` tags when version history is important
+      - Use `@see` references to link to related functions or modules
 
 examples:
   - input: |
-      defmodule UserManager do
-        def start do
-          spawn(fn -> loop(%{}) end)
+      defmodule MyApp.User do
+        def create(attrs) do
+          # Implementation
         end
         
-        def loop(state) do
-          receive do
-            {:add, name, pid} ->
-              loop(Map.put(state, name, pid))
-            {:lookup, name, caller} ->
-              send(caller, Map.get(state, name))
-              loop(state)
-          end
+        def update(user, attrs) do
+          # Implementation
         end
       end
     output: |
-      defmodule UserManager do
-        use GenServer
+      defmodule MyApp.User do
+        @moduledoc """
+        Handles user-related operations including creation, updates, and queries.
         
-        # Client API
+        This module provides a complete API for managing user accounts in the system.
+        """
         
-        def start_link(opts \\ []) do
-          GenServer.start_link(__MODULE__, %{}, opts)
+        @doc """
+        Creates a new user with the given attributes.
+        
+        ## Parameters
+          - attrs: Map containing user attributes
+        
+        ## Returns
+          - `{:ok, user}` on success
+          - `{:error, changeset}` on validation failure
+        
+        ## Examples
+        
+            iex> MyApp.User.create(%{name: "John", email: "john@example.com"})
+            {:ok, %User{name: "John", email: "john@example.com"}}
+        """
+        def create(attrs) do
+          # Implementation
         end
         
-        def add(server, name, pid) do
-          GenServer.cast(server, {:add, name, pid})
-        end
+        @doc """
+        Updates an existing user with the provided attributes.
         
-        def lookup(server, name) do
-          GenServer.call(server, {:lookup, name})
-        end
+        ## Parameters
+          - user: The user struct to update
+          - attrs: Map containing updated user attributes
         
-        # Server Callbacks
+        ## Returns
+          - `{:ok, user}` on success
+          - `{:error, changeset}` on validation failure
         
-        @impl true
-        def init(state) do
-          {:ok, state}
-        end
+        ## Examples
         
-        @impl true
-        def handle_cast({:add, name, pid}, state) do
-          {:noreply, Map.put(state, name, pid)}
-        end
-        
-        @impl true
-        def handle_call({:lookup, name}, _from, state) do
-          {:reply, Map.get(state, name), state}
-        end
-      end
-  
-  - input: |
-      defmodule DataProcessor do
-        def process_file(filename) do
-          data = File.read!(filename)
-          results = process_data(data)
-          write_results(results)
-        end
-        
-        defp process_data(data) do
-          # Long operation
-        end
-        
-        defp write_results(results) do
-          # Write to database
-        end
-      end
-    output: |
-      defmodule DataProcessor do
-        def process_file(filename) do
-          Task.async(fn ->
-            case File.read(filename) do
-              {:ok, data} -> process_data(data)
-              {:error, reason} -> {:error, reason}
-            end
-          end)
-          |> Task.await(30_000)
-          |> case do
-            {:error, reason} -> 
-              {:error, reason}
-            results -> 
-              Task.start(fn -> write_results(results) end)
-              {:ok, results}
-          end
-        end
-        
-        defp process_data(data) do
-          # Break large data into chunks and process concurrently
-          data
-          |> chunk_data()
-          |> Enum.map(&Task.async(fn -> process_chunk(&1) end))
-          |> Task.await_many(20_000)
-          |> combine_results()
-        end
-        
-        defp process_chunk(chunk) do
-          # Process individual chunk
-        end
-        
-        defp chunk_data(data) do
-          # Split data into manageable chunks
-        end
-        
-        defp combine_results(results) do
-          # Combine chunk results
-        end
-        
-        defp write_results(results) do
-          # Write to database
+            iex> MyApp.User.update(user, %{name: "New Name"})
+            {:ok, %User{name: "New Name", email: "john@example.com"}}
+        """
+        def update(user, attrs) do
+          # Implementation
         end
       end
 
