@@ -1,0 +1,9 @@
+{
+  "name": "fumito-ito--agentsdk-swift",
+  "displayName": "AgentSDK-Swift",
+  "description": "A Swift implementation of the OpenAI Agents SDK",
+  "version": "1.0.0",
+  "author": "fumito-ito",
+  "homepage": "https://github.com/fumito-ito/AgentSDK-Swift",
+  "skills": []
+}
