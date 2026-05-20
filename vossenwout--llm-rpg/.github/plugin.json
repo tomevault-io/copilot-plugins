@@ -1,0 +1,9 @@
+{
+  "name": "vossenwout--llm-rpg",
+  "displayName": "llm-rpg",
+  "description": "Trying to create an rpg with llm being the game master.",
+  "version": "1.0.0",
+  "author": "vossenwout",
+  "homepage": "https://github.com/vossenwout/llm-rpg",
+  "skills": []
+}
