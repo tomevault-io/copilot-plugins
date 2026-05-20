@@ -1,0 +1,9 @@
+{
+  "name": "i-am-alice--custom-app-template",
+  "displayName": "custom-app-template",
+  "description": "Custom App template for heyalice.app",
+  "version": "1.0.0",
+  "author": "i-am-alice",
+  "homepage": "https://github.com/i-am-alice/custom-app-template",
+  "skills": []
+}
