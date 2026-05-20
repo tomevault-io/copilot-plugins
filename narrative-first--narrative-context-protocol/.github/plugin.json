@@ -1,0 +1,9 @@
+{
+  "name": "narrative-first--narrative-context-protocol",
+  "displayName": "narrative-context-protocol",
+  "description": "A standardized, application-agnostic narrative structure schema designed for reliably transporting authorial intent across multi-agentic narrative systems.",
+  "version": "1.0.0",
+  "author": "narrative-first",
+  "homepage": "https://github.com/narrative-first/narrative-context-protocol",
+  "skills": []
+}
