@@ -1,0 +1,30 @@
+{
+  "name": "nabondance--trailhead-banner",
+  "displayName": "trailhead-banner",
+  "description": "Trailhead Banner is a web application that allows users to generate LinkedIn banners using their Trailhead data.",
+  "version": "1.0.0",
+  "author": "nabondance",
+  "homepage": "https://github.com/nabondance/Trailhead-Banner",
+  "skills": [
+    {
+      "name": "dev-start",
+      "description": ""
+    },
+    {
+      "name": "dev-stop",
+      "description": ""
+    },
+    {
+      "name": "format",
+      "description": ""
+    },
+    {
+      "name": "format-fix",
+      "description": ""
+    },
+    {
+      "name": "img-test",
+      "description": ""
+    }
+  ]
+}
