@@ -1,128 +1,34 @@
-## llm
+## performance
 
-> [contributions-summary.md](mdc:lib/prompts/contributions-summary.md) [brag-document.md](mdc:lib/prompts/brag-document.md) [openai.ts](mdc:lib/openai.ts) [anthropic.ts](mdc:lib/anthropic.ts)
+> - Use appropriate data structures for the use case
 
-[contributions-summary.md](mdc:lib/prompts/contributions-summary.md) [brag-document.md](mdc:lib/prompts/brag-document.md) [openai.ts](mdc:lib/openai.ts) [anthropic.ts](mdc:lib/anthropic.ts)
+# Performance Optimization Rules
 
-# LLM Usage Rules
-
-## Prompt Engineering
-- Structure prompts with clear instructions and examples
-- Use system messages for role definition and constraints
-- Keep prompts focused and specific to the task
-- Use markdown formatting for better readability
-- Include clear output format requirements
-- Provide context and background when necessary
-- Use consistent terminology throughout prompts
-- Break complex tasks into smaller, focused prompts
-- Include error handling instructions
-- Specify response length requirements
-
-## Performance Optimization
-- Implement proper prompt caching for reusable content
-- Use appropriate temperature settings (0.7 for creative tasks, 0.2 for deterministic)
-- Set appropriate max_tokens based on expected response length
-- Batch similar requests when possible
-- Use streaming for long responses
-- Cache frequently used responses
-- Monitor token usage and costs
-- Use appropriate model sizes for the task
-
-## Cost Management
-- Monitor and log token usage
-- Set up usage alerts and limits
-- Use cheaper models when appropriate
-- Implement caching strategies
-- Optimize prompt length
-- Use appropriate max_tokens settings
-- Track and analyze cost patterns
-- Implement cost-effective fallbacks
-- Use token counting for large inputs
-- Consider cost vs. quality tradeoffs
-
-## Error Handling
+## Code Level Optimization
+- Use appropriate data structures for the use case
+- Implement caching strategies where beneficial
+- Minimize unnecessary object creation
+- Use async/await for I/O operations
 - Implement proper error boundaries
-- Handle API rate limits gracefully
-- Retry failed requests with backoff
-- Log errors with context
-- Provide user-friendly error messages
-- Handle partial responses
-- Implement timeout handling
-- Validate responses
-- Handle network issues
-- Implement fallback strategies
 
-## Security
-- Never expose API keys in logs
-- Use environment variables for secrets
-- Validate all inputs
-- Sanitize outputs
-- Implement proper access controls
-- Monitor for abuse
-- Use secure API endpoints
-- Implement proper authentication
-- Handle sensitive data appropriately
-- Follow security best practices
+## Memory Management
+- Implement proper garbage collection
+- Monitor memory leaks
+- Use appropriate buffer sizes
+- Implement proper cleanup in event listeners
 
-## Monitoring and Logging
-- Log token usage
-- Track response times
-- Monitor error rates
-- Log model performance
-- Track cache hit rates
-- Monitor cost patterns
-- Log user interactions
-- Track API limits
-- Monitor response quality
-- Implement proper analytics
+## Monitoring and Profiling
+- Implement performance monitoring
+- Use profiling tools
+- Set up performance budgets
+- Monitor key performance indicators
+- Implement proper logging
 
 ## Testing
-- Test with different model versions
-- Validate response formats
-- Test error handling
-- Test rate limiting
-- Test caching behavior
-- Test with various inputs
-- Test edge cases
-- Test performance
-- Test security measures
-- Test cost implications
-
-## Documentation
-- Document prompt templates
-- Document model choices
-- Document error handling
-- Document rate limits
-- Document caching strategies
-- Document cost implications
-- Document security measures
-- Document testing procedures
-- Document monitoring setup
-- Document deployment process
-
-## Integration
-- Use appropriate API clients
-- Implement proper authentication
-- Handle API versioning
-- Use appropriate SDKs
-- Implement proper error handling
-- Use appropriate middleware
-- Handle API changes
-- Implement proper logging
-- Use appropriate monitoring
-- Follow API best practices
-
-## User Experience
-- Provide clear feedback
-- Show progress indicators
-- Handle long-running operations
-- Provide helpful error messages
-- Implement proper formatting
-- Use appropriate language
-- Provide clear instructions
-- Handle user input properly
-- Implement proper validation
-- Follow UX best practices
+- Include performance tests
+- Set up performance benchmarks
+- Test under load
+- Monitor performance regressions
 
 ---
 > Source: [bostonaholic/reflect](https://github.com/bostonaholic/reflect) — distributed by [TomeVault](https://tomevault.io).
