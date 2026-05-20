@@ -1,35 +1,33 @@
-## slack-tools
+## 00-overview
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Overview of Slack Tools project guidelines and documentation
 
-# CLAUDE.md
+# Slack Tools Guidelines Overview
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Important Safety Rules
 
-## Build & Test Commands
+**NEVER** automatically commit or push changes with git unless explicit permission has been given by the user. Always wait for direct user confirmation before executing any git commands that would create commits or push code to repositories.
 
-- Check all: `npm run check` (runs lint, format check, typecheck, audit, tests, and build in parallel)
-- Build: `npm run build`
-- Lint: `npm run lint` (fix with `npm run lint:fix`)
-- Format: `npm run format` (check with `npm run format:check`)
-- Typecheck: `npm run typecheck`
-- Audit: `npm run audit` (security audit for production dependencies)
-- Test all: `npm run test`
-- Test coverage: `npm run test:coverage`
-- Start application: `npm run cli -- <command>`
+## General Development Principles
 
-## Code Style Guidelines
+- **Follow all guidelines:** Adhere to the specific rules outlined in the linked documents.
+- **Prioritize code quality:** Ensure all quality checks pass before completing tasks.
+- **Write clear, self-documenting code:** Minimize the need for comments by writing code that is easy to understand on its own. Avoid comments that merely restate the code's logic. Use comments only when explaining complex logic, non-obvious decisions, or external factors.
+- **Confirm critical actions:** Never automatically commit or push changes without explicit user confirmation.
 
-- TypeScript: Use strict typing, explicit return types, avoid `any`
-- Formatting: 2 spaces, single quotes, 100 char line limit, trailing commas
-- Naming: camelCase for variables/functions, PascalCase for classes/interfaces
-- Imports: Use ES modules, sort imports logically
-- Error handling: Always handle Promise rejections explicitly
-- Testing: Write unit tests for all functionality
-- Comments: Do not add comments to code unless absolutely necessary for clarity
-- Quality: All code must pass lint, format, and type checks before completion
+## Documentation Organization
 
-Always run quality checks (`npm run check`) before considering a task complete.
+This is a set of guidelines for working with the Slack Tools project. The guidelines are organized into several rule files:
+
+1. **Quality Assurance Requirements** - Guidelines for ensuring code quality before completion
+   - Located in `01-quality-assurance.mdc`
+   - Covers ESLint, Prettier, and TypeScript build processes
+
+2. **TypeScript Guidelines** - Standards for TypeScript code
+   - Located in `02-typescript-guidelines.mdc`
+   - Includes general guidelines, code style, and configuration
+
+For development, always ensure all quality checks pass before considering a task complete.
 
 ---
 > Source: [rygwdn/slack-tools](https://github.com/rygwdn/slack-tools) — distributed by [TomeVault](https://tomevault.io).
