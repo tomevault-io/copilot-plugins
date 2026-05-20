@@ -1,0 +1,9 @@
+{
+  "name": "fedify-dev--botkit",
+  "displayName": "botkit",
+  "description": "A framework for creating ActivityPub bots",
+  "version": "1.0.0",
+  "author": "fedify-dev",
+  "homepage": "https://github.com/fedify-dev/botkit",
+  "skills": []
+}
