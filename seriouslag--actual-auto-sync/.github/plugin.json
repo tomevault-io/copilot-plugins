@@ -1,0 +1,9 @@
+{
+  "name": "seriouslag--actual-auto-sync",
+  "displayName": "actual-auto-sync",
+  "description": "A background service that automatically runs the bank sync on a scheduled basis on Actual Budget.",
+  "version": "1.0.0",
+  "author": "seriouslag",
+  "homepage": "https://github.com/seriouslag/actual-auto-sync",
+  "skills": []
+}
