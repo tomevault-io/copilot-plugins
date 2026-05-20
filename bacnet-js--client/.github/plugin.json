@@ -1,0 +1,9 @@
+{
+  "name": "bacnet-js--client",
+  "displayName": "client",
+  "description": "A BACnet protocol stack written in pure TypeScript.",
+  "version": "1.0.0",
+  "author": "bacnet-js",
+  "homepage": "https://github.com/bacnet-js/client",
+  "skills": []
+}
