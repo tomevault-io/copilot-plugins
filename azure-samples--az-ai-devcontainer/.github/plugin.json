@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--az-ai-devcontainer",
+  "displayName": "az-ai-devcontainer",
+  "description": "AZ AI DevContainer: Prebuilt AI Developer DevContainer/Codespace Environment including Python, Jupyter, Infra as Code deployment, AI Foundry, Testing, Evaluation, etc.",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/az-ai-devcontainer",
+  "skills": []
+}
