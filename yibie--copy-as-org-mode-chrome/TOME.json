@@ -1,0 +1,44 @@
+{
+  "name": "Copy-as-org-mode-chrome",
+  "owner": "yibie",
+  "repo": "Copy-as-org-mode-chrome",
+  "description": "This WebExtension is a Chrome version of Copy as Org-Mode.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yibie/Copy-as-org-mode-chrome",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T14:37:32Z"
+}
