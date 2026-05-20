@@ -1,0 +1,9 @@
+{
+  "name": "becutandavid--firefly-receipt-scanner",
+  "displayName": "firefly-receipt-scanner",
+  "description": "A web application that allows you to scan receipts and automatically create transactions in Firefly III.",
+  "version": "1.0.0",
+  "author": "becutandavid",
+  "homepage": "https://github.com/becutandavid/firefly-receipt-scanner",
+  "skills": []
+}
