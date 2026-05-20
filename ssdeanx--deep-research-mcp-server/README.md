@@ -1,6 +1,8 @@
 # deep-research-mcp-server
 
-> Tome by [ssdeanx](https://github.com/ssdeanx/deep-research-mcp-server) — distributed by [TomeVault](https://tomevault.io/claim/ssdeanx)
+> Tome by [ssdeanx](https://github.com/ssdeanx/deep-research-mcp-server) — distributed by [TomeVault](https://tomevault.io)
+
+MCP Deep Research Server using Gemini creating a Research AI Agent
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.windsurf/rules/*.md` in [ssdeanx/deep-research-mcp-server](ht
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/ssdeanx#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ssdeanx/deep-research-mcp-server](https://github.com/ssdeanx/deep-research-mcp-server)
 
 ---
 
