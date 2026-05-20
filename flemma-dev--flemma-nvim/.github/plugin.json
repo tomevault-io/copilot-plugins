@@ -1,0 +1,9 @@
+{
+  "name": "flemma-dev--flemma-nvim",
+  "displayName": "flemma.nvim",
+  "description": "An AI workspace inside Neovim where every conversation is a document you own.",
+  "version": "1.0.0",
+  "author": "Flemma-Dev",
+  "homepage": "https://github.com/Flemma-Dev/flemma.nvim",
+  "skills": []
+}
