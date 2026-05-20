@@ -1,11 +1,12 @@
-## coding-style
+## firebase-rules
 
-> The pattern of the written code
+> Rules for implementing Firebase API
 
-- Focus on simplicity and readability, over being performant.
-- Prefer simplicity and duplication. Abstract into small functions on 3rd duplication but ask me first.
-- Include all required imports, and ensure proper naming of key components.
-- The imports should alphabetically order but React should come first.
+- Always refer to the official documentation when it's related to Firebase
+  - [Authentication](mdc:https:/firebase.google.com/docs/auth/web/start)
+  - [Firestore](mdc:https:/firebase.google.com/docs/firestore)
+  - [Real-time database](mdc:https:/firebase.google.com/docs/database)
+  - [Cloud function](mdc:https:/firebase.google.com/docs/functions)
 
 ---
 > Source: [siriwatknp/jun-mvp-starter](https://github.com/siriwatknp/jun-mvp-starter) — distributed by [TomeVault](https://tomevault.io).
