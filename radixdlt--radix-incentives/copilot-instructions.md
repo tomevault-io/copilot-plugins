@@ -1,0 +1,478 @@
+## radix-incentives
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Radix Incentives Project
+
+This is a Turborepo monorepo for the Radix Incentives Campaign - a blockchain incentive system designed to enhance significant and sustained on-chain economic activities on the Radix DLT network. The platform tracks user activities across DeFi protocols, calculates incentive points using time-weighted averages, and provides dashboards for both end users and administrators.
+
+## Architecture Overview
+
+### Applications
+- **`apps/admin`** - Next.js admin dashboard for managing seasons, weeks, activities, and viewing analytics
+- **`apps/incentives`** - Next.js user-facing dashboard where users connect wallets, view points, leaderboards, and activities  
+- **`apps/workers`** - Background job processors using Bull queues for calculating points, snapshots, and processing events
+- **`apps/streamer`** - Transaction stream processor that monitors Radix blockchain for relevant events
+
+### Packages
+- **`packages/api`** - Shared API layer containing business logic for all applications
+- **`packages/db`** - Drizzle ORM database schemas and migrations for both incentives and consultation systems
+- **`packages/data`** - Shared type definitions, constants, and validation schemas
+
+### Key Data Flow
+1. **Transaction Stream** → Events are captured from Radix blockchain via gateway API
+2. **Event Processing** → Background workers match and process events for specific DApps (Ociswap, DefiPlaza, CaviarNine, etc.)
+3. **Snapshot System** → Periodic account balance snapshots are taken for passive activities
+4. **Points Calculation** → Activity points are calculated based on time-weighted averages and user actions
+5. **Season Points** → Activity points are aggregated into season points with XRD/LSU holding multipliers
+
+## Development Commands
+
+### Environment Setup
+```bash
+# Install dependencies (use pnpm, not npm)
+pnpm install
+
+# Start database (requires Docker)
+pnpm db:start
+
+# Set required environment variables
+export DATABASE_URL="postgres://postgres:password@localhost:5432/radix-incentives"
+
+# Run database migrations
+pnpm db:migrate
+
+# Seed database with initial data
+cd packages/db && pnpm db:seed
+```
+
+### Development
+```bash
+# Run all apps in development
+pnpm dev
+
+# Run specific applications
+pnpm dev:admin      # Admin dashboard + db + workers
+pnpm dev:fe         # User incentives app + db  
+pnpm dev:workers    # Workers + db + streamer
+pnpm dev:streamer   # Streamer + db
+```
+
+### Database Operations
+```bash
+# Generate new migrations after schema changes
+pnpm db:generate
+
+# Apply migrations
+pnpm db:migrate
+
+# Launch Drizzle Studio
+pnpm db:studio
+
+# Reset database (drops all data)
+pnpm db:reset
+```
+
+### Code Quality
+```bash
+# Format code with Biome
+pnpm format
+
+# Lint and fix issues
+pnpm biome lint --write
+
+# Type check all packages
+pnpm check-types
+
+# Run tests (DATABASE_URL must be set)
+DATABASE_URL="postgresql://postgres:password@localhost:5432/radix-incentives" pnpm test
+```
+
+#### Lint & Build Process
+When fixing lint/build issues, follow this order:
+1. **Run lint**: `pnpm biome lint` - fix auto-fixable issues with `--write`
+2. **Manual fixes required**:
+   - Replace `forEach` with `for...of` loops for performance
+   - Add `type` to button elements: `<button type="button">`
+   - Use `import type` for React imports: `import type * as React from "react"`
+   - Add keyboard event handlers for click events (accessibility)
+
+3. **Run build**: `pnpm build` - clean with `pnpm clean` if workspace conflicts occur
+4. **Commit**: All changes including lint fixes, build fixes, and accessibility improvements
+
+**Biome Configuration**: 
+- Ignores `.next`, `**/output/**` directories to prevent linting build artifacts
+- Auto-fixes import types and other style issues with `--write` flag
+
+### Build & Deploy
+```bash
+# Build all applications
+pnpm build
+
+# Build with cleanup
+pnpm build:clean
+```
+
+### Troubleshooting
+```bash
+# Fix Turborepo workspace conflicts (e.g., "Failed to add workspace, it already exists")
+# This happens when Next.js standalone builds create duplicate package.json files
+pnpm clean
+```
+
+## Core Development Principles
+
+### Context and Rules
+- **Incremental Changes**: Make changes file by file to allow for review
+- **No Assumptions**: Do not invent changes, make assumptions, or speculate without evidence from the context
+
+### Technology Stack Specifics
+- **Frontend**: Next.js, ReactJS, TypeScript, TailwindCSS, Shadcn, Radix UI
+- **Backend**: Node.js, TypeScript, tRPC v11
+- **Database**: PostgreSQL with Drizzle ORM
+- **Caching**: Redis
+- **Job Processing**: Bull MQ
+- **Blockchain**: Radix Gateway SDK, Radix-dApp-toolkit
+
+### TypeScript Guidelines
+- Use `type` over `interface`
+- Use functions over classes
+- Use named exports over default exports
+- Use `const` arrow functions with types
+- Document all functions
+- Write Vitest unit tests covering all functions
+- Use the `Effect` library for functional composition (`pipe`)
+- Import types: `import type { FC } from "react"` not `import { type FC } from "react"`
+
+### Effect.Service Guidelines
+When creating services using the Effect library:
+- Use `Effect.Service<ServiceName>()` pattern instead of `Context.Tag` + `Layer.effect`
+- **NEVER remove dependencies from services** - if a service has dependencies listed, they must be kept even if they seem to cause type errors
+- Service class structure:
+  ```typescript
+  export class ServiceName extends Effect.Service<ServiceName>()(
+    "ServiceName",
+    {
+      effect: Effect.gen(function* () {
+        // Dependencies
+        const dependency = yield* DependencyService;
+        
+        return Effect.fn(function* (input: InputType) {
+          // Service implementation
+          return result;
+        });
+      }),
+    }
+  ) {}
+  ```
+- Export service live implementation: `export const ServiceNameLive = ServiceName.Default;`
+- Output type should reference the service: `Effect.Effect.Success<Awaited<ReturnType<(typeof ServiceName)["Service"]>>>`
+- Import only necessary Effect modules: `import { Config, Effect } from "effect"`
+- **Error Handling**: Tagged errors (errors created with `Data.TaggedError`) do not need to be wrapped with `Effect.fail` - yield them directly:
+  ```typescript
+  // Bad case
+  return yield* Effect.fail(
+    new InvalidAmountError({
+      message: `Claim amount is greater than the total claimable amount`,
+    }),
+  );
+
+  // Good case
+  return yield* new InvalidAmountError({
+    message: `Claim amount is greater than the total claimable amount`,
+  });
+  ```
+- **Declarative Code Style**: Use Effect's declarative APIs instead of imperative loops and nullish coalescing:
+  - Use `Option` instead of `??` for handling nullable values:
+    ```typescript
+    // Bad case
+    const value = row.totalPoints ?? '0';
+
+    // Good case
+    const value = pipe(
+      Option.fromNullable(row.totalPoints),
+      Option.map((v) => new BigNumber(v)),
+      Option.getOrElse(() => new BigNumber('0')),
+    );
+    ```
+  - Use `Effect.forEach` with `Array.chunksOf` instead of `for` loops for batch processing:
+    ```typescript
+    // Bad case
+    for (let i = 0; i < values.length; i += batchSize) {
+      const batch = values.slice(i, i + batchSize);
+      yield* processBatch(batch);
+    }
+
+    // Good case
+    const batches = pipe(values, A.chunksOf(batchSize));
+    yield* Effect.forEach(
+      batches,
+      (batch) => processBatch(batch),
+      { discard: true },
+    );
+    ```
+  - Use `A.head` with `Option.match` for getting single records from database queries:
+    ```typescript
+    // Bad case - using array destructuring
+    const [result] = yield* db.use((database) =>
+      database.select().from(table).where(eq(table.id, id)).limit(1)
+    ).pipe(Effect.orDie);
+
+    if (!result) {
+      return null;
+    }
+
+    // Good case - using A.head with Option.match
+    const result = yield* db
+      .use((database) =>
+        database.select().from(table).where(eq(table.id, id)).limit(1)
+      )
+      .pipe(
+        Effect.map(A.head),
+        Effect.flatMap(
+          Option.match({
+            onNone: () =>
+              Effect.fail(
+                new NotFoundError({
+                  message: `Record not found for id ${id}`,
+                }),
+              ),
+            onSome: Effect.succeed,
+          }),
+        ),
+        Effect.orDie,
+      );
+    ```
+
+### React/Next.js Guidelines
+- Use Tailwind classes for styling (no inline CSS or `<style>` tags)
+- Prefer `class:` over ternary operators in class attributes
+- Implement accessibility features (`tabindex`, `aria-label`, keyboard events)
+- Use early returns
+- Use `~/` root alias, not `@/`
+- **Use Effect's Option in React components**: Use `Option` with `pipe` for handling nullable values from hooks and props:
+  ```typescript
+  // Bad case
+  const seasonReward = seasonRewards?.find((r) => r.id === id);
+  const claims = allClaims?.filter((c) => c.seasonId === id) ?? [];
+  const seasonName = season?.name ?? 'Unknown';
+
+  // Good case
+  const seasonReward = pipe(
+    Option.fromNullable(seasonRewards),
+    Option.flatMap(A.findFirst((r) => r.id === id)),
+    Option.getOrUndefined,
+  );
+  const claims = pipe(
+    Option.fromNullable(allClaims),
+    Option.map(A.filter((c) => c.seasonId === id)),
+    Option.getOrElse(() => [] as NonNullable<typeof allClaims>),
+  );
+  const seasonName = pipe(
+    Option.fromNullable(season?.name),
+    Option.getOrElse(() => 'Unknown'),
+  );
+  ```
+
+### tRPC Guidelines
+- Use Zod for input validation
+- Organize routers by feature
+- Use middleware for common logic (auth)
+- Use `TRPCError` for error handling
+- Use SuperJSON transformer
+- Create proper context (`server/context.ts`)
+- Export only router types (`AppRouter`) to the client
+- Use distinct procedure types (public, protected, admin)
+- **Use `resolveEffect` pattern over dependency layer**: When adding new tRPC procedures that use Effect services, prefer the `resolveEffect` pattern directly in the router instead of adding methods to the dependency layer:
+  ```typescript
+  // Good case - use resolveEffect directly in router
+  getSeasonConfig: publicProcedure
+    .input(effectSchemaParser(Schema.Struct({ seasonId: SeasonId })))
+    .query(async ({ input }) =>
+      resolveEffect(
+        Effect.gen(function* () {
+          const seasonService = yield* SeasonService;
+          return yield* seasonService.getConfig(input.seasonId);
+        }),
+      ),
+    ),
+
+  // Bad case - avoid adding to dependency layer
+  // Don't add new methods to createDependencyLayer.ts
+  ```
+
+### Database Guidelines
+- All database changes occur in `./packages/db`
+- Use Drizzle ORM with PostgreSQL
+- Two main schemas: incentives and consultation
+- Follow the database structure outlined in `.cursor/rules/database.mdc`
+
+## Key Technical Concepts
+
+### Points Calculation System
+1. **Activity Points** - Calculated using time-weighted averages (TWA) of user balances/positions
+2. **Season Points** - Aggregated activity points with XRD/LSU holding multipliers using S-curve distribution
+3. **Multipliers** - Based on XRD/LSU holding amounts, capped at 3x for top 10% holders
+
+### Background Job System
+Uses Bull queues with Redis for:
+- `calculate-activity-points` - Calculate user activity points for specific weeks
+- `calculate-season-points` - Aggregate activity points into season points  
+- `calculate-season-points-multiplier` - Apply XRD holding multipliers
+- `snapshot` - Take account balance snapshots
+- `event` - Process blockchain events
+
+### Component Structure Guidelines
+When working with React components:
+- Break large components into smaller, focused components in dedicated directories
+- Use TypeScript types (not interfaces) for props and shared types
+- Place reusable components in `/components` with logical grouping
+- Create index files for clean exports
+- Follow the existing pattern of separating concerns (header, stats, controls, tables, etc.)
+
+### Campaign Structure
+- **Duration**: Each incentive season spans 12 weeks with weekly point calculations
+- **Budget**: 1 Billion XRD total across multiple seasons with decreasing allocations
+- **Eligibility**: Minimum $50 XRD holding requirement
+- **Anti-Farming**: Minimum holdings, transaction fees, diversified activity weighting, retrospective adjustments
+
+### Radix Integration
+- Uses `@radixdlt/babylon-gateway-api-sdk` for blockchain data
+- Integrates with multiple DeFi protocols (Ociswap, DefiPlaza, CaviarNine, Root Finance, Surge, Weft Finance)
+- Implements ROLA (Radix Off-Ledger Authentication) for wallet connections
+- Supports multi-account linking via RadixConnect
+
+### Environment Requirements
+- Node.js >= 20
+- PostgreSQL database 
+- Redis for queue management
+- Docker for local development
+- Access to Radix Gateway API (port-forward from production for local dev)
+
+## Testing
+- Backend API tests use Vitest with Effect framework
+- Database tests use Testcontainers for PostgreSQL
+- Individual test files are located next to source files with `.spec.ts` extension
+- All functions should be covered by unit tests
+- **Test Implementation Guideline**:
+  - Don't use mock implementations of the db in tests
+
+### Testing Effect Services with @effect/vitest
+
+Use the `layer` function from `@effect/vitest` to test Effect services:
+
+```typescript
+import { layer } from '@effect/vitest';
+import { Effect, Layer, Logger } from 'effect';
+import { expect } from 'vitest';
+import { MyService } from './myService';
+import { DependencyService } from './dependencyService';
+```
+
+#### Services with dependencies (using `DefaultWithoutDependencies`)
+
+When a service declares `dependencies` in its definition, use `DefaultWithoutDependencies` to substitute test implementations:
+
+```typescript
+// Service definition with dependencies
+export class MyService extends Effect.Service<MyService>()('MyService', {
+  dependencies: [DependencyService.Default],
+  effect: Effect.gen(function* () {
+    const dep = yield* DependencyService;
+    // ... service implementation
+  }),
+}) {}
+
+// Test file
+const TestLayer = MyService.DefaultWithoutDependencies.pipe(
+  Layer.provide(DependencyService.Test), // Provide test implementation
+  Layer.provide(Logger.pretty),
+);
+
+layer(TestLayer)('MyService', (it) => {
+  it.effect('should do something', () =>
+    Effect.gen(function* () {
+      const service = yield* MyService;
+      const result = yield* service.doSomething();
+      expect(result).toBe(expected);
+    }),
+  );
+});
+```
+
+#### Services without dependencies (using `Default`)
+
+When a service has no dependencies, use `Default` directly:
+
+```typescript
+// Service definition without dependencies
+export class SimpleService extends Effect.Service<SimpleService>()('SimpleService', {
+  effect: Effect.gen(function* () {
+    // ... service implementation (no dependencies)
+  }),
+}) {}
+
+// Test file
+const TestLayer = SimpleService.Default.pipe(
+  Layer.provide(Logger.pretty),
+);
+
+layer(TestLayer)('SimpleService', (it) => {
+  it.effect('should work', () =>
+    Effect.gen(function* () {
+      const service = yield* SimpleService;
+      // ... test assertions
+    }),
+  );
+});
+```
+
+#### Handling real-time delays in tests
+
+When tests use `Effect.sleep` or other time-based operations with real delays, wrap them with `DisableTestClock` to avoid test clock warnings:
+
+```typescript
+import { DisableTestClock } from '../../test-helpers/disableTestClock';
+
+it.effect('should handle timeouts', () =>
+  DisableTestClock(
+    Effect.gen(function* () {
+      const service = yield* MyService;
+      yield* Effect.sleep('100 millis');
+      // ... assertions
+    }),
+  ),
+);
+```
+
+
+
+## Package Management
+- Use `pnpm` only (not npm or yarn)
+- Install dependencies within specific packages, not at root level
+- Reference the catalog when adding dependencies
+- Use workspace protocol for internal package dependencies
+- **Always use pnpm or pnpm dlx**
+
+## Commit Message Format
+Follow Conventional Commits specification: https://www.conventionalcommits.org/en/v1.0.0/
+
+- Format: `<type>[optional scope]: <description>`
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+- Breaking changes: Add `!` after type/scope and/or `BREAKING CHANGE:` in footer
+- Examples:
+  - `feat: add user authentication`
+  - `fix(api): resolve database connection issue`
+  - `feat!: change API response format`
+  - `docs: update README with installation steps`
+
+## Linting 
+- Use pnpm biome lint to check for linting errors
+
+---
+> Source: [radixdlt/radix-incentives](https://github.com/radixdlt/radix-incentives) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
