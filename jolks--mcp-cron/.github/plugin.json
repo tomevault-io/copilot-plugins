@@ -1,0 +1,9 @@
+{
+  "name": "jolks--mcp-cron",
+  "displayName": "mcp-cron",
+  "description": "MCP server for scheduling and running shell commands and AI prompts",
+  "version": "1.0.0",
+  "author": "jolks",
+  "homepage": "https://github.com/jolks/mcp-cron",
+  "skills": []
+}
