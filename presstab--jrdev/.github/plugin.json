@@ -1,0 +1,9 @@
+{
+  "name": "presstab--jrdev",
+  "displayName": "jrdev",
+  "description": "JrDev is a free open-source AI developer assistant for the terminal. It provides CLI/TUI interfaces to interact with LLMs for code generation, project context management, and Git operations.",
+  "version": "1.0.0",
+  "author": "presstab",
+  "homepage": "https://github.com/presstab/jrdev",
+  "skills": []
+}
