@@ -1,0 +1,9 @@
+{
+  "name": "chabicht--code-intelligence",
+  "displayName": "code-intelligence",
+  "description": "Eclipse plugin that enhances the Java Development Tools (JDT) with AI powered productivity.",
+  "version": "1.0.0",
+  "author": "chabicht",
+  "homepage": "https://github.com/chabicht/code-intelligence",
+  "skills": []
+}
