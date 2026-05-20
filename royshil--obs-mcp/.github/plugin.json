@@ -1,0 +1,9 @@
+{
+  "name": "royshil--obs-mcp",
+  "displayName": "obs-mcp",
+  "description": "An MCP server for OBS",
+  "version": "1.0.0",
+  "author": "royshil",
+  "homepage": "https://github.com/royshil/obs-mcp",
+  "skills": []
+}
