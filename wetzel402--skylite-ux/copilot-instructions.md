@@ -1,11 +1,16 @@
-## consola
+## deployments
 
-> This project uses consola for logging with a globally configured log level.
+> Consider Docker, Proxmox, and HA when changing build/config/runtime
 
 
-# Logging
+# Deployments
 
-- Use `consola` (from `consola`), not `console`. Log level is set from runtime config in `app/plugins/01.logging.ts`. In tests that touch code using consola, mock `consola` (see `test/nuxt/app/plugins/01.logging.test.ts`).
+- We deploy via Docker, Proxmox, and Home Assistant (HA). When changing runtime behavior, build, or config, consider all three.
+- Docker: `ha-app/Dockerfile` (multi-stage, repo root as context); `docs/installation/docker.md` for compose/standalone.
+- Proxmox: See `docs/installation/proxmox.md`; env/options align with Docker.
+- HA: `ha-app/config.yaml` (options, schema, image), `ha-app/run.sh` (entrypoint, options from `/data/options.json`, Postgres, migrations), `repository.yaml`. See `docs/contributing/haos.md`.
+- Avoid breaking one deployment path when editing another (e.g. changing an env name only in one place).
+- Base path: `app.baseURL` (default `"/"`). Override at runtime with `NUXT_APP_BASE_URL` when serving under a subpath (see [Nuxt app config](https://nuxt.com/docs/4.x/api/nuxt-config#app)).
 
 ---
 > Source: [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io).
