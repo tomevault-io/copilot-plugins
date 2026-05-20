@@ -1,0 +1,9 @@
+{
+  "name": "pigna90--ai-mock-interviewer",
+  "displayName": "ai-mock-interviewer",
+  "description": "A smart mock interview assistant built with CrewAI, simulating realistic tech interviews with multi-agent conversations and feedback.",
+  "version": "1.0.0",
+  "author": "pigna90",
+  "homepage": "https://github.com/pigna90/ai-mock-interviewer",
+  "skills": []
+}
