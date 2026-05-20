@@ -1,33 +1,75 @@
-## 00-overview
+## 01-quality-assurance
 
-> Overview of Slack Tools project guidelines and documentation
+> Guidelines for quality assurance and code verification
 
-# Slack Tools Guidelines Overview
+# Quality Assurance Requirements
 
-## Important Safety Rules
+Before any task is considered complete, the following quality checks must be run:
 
-**NEVER** automatically commit or push changes with git unless explicit permission has been given by the user. Always wait for direct user confirmation before executing any git commands that would create commits or push code to repositories.
+## Run All Checks in Parallel
 
-## General Development Principles
+The easiest way to run all quality checks is using the check script:
+```bash
+npm run check
+```
 
-- **Follow all guidelines:** Adhere to the specific rules outlined in the linked documents.
-- **Prioritize code quality:** Ensure all quality checks pass before completing tasks.
-- **Write clear, self-documenting code:** Minimize the need for comments by writing code that is easy to understand on its own. Avoid comments that merely restate the code's logic. Use comments only when explaining complex logic, non-obvious decisions, or external factors.
-- **Confirm critical actions:** Never automatically commit or push changes without explicit user confirmation.
+This runs ESLint, Prettier checks, TypeScript type checking, security audit, and tests in parallel, then builds the project.
 
-## Documentation Organization
+## Individual Checks
 
-This is a set of guidelines for working with the Slack Tools project. The guidelines are organized into several rule files:
+You can also run individual checks:
 
-1. **Quality Assurance Requirements** - Guidelines for ensuring code quality before completion
-   - Located in `01-quality-assurance.mdc`
-   - Covers ESLint, Prettier, and TypeScript build processes
+1. **ESLint** - Check for code style and potential errors:
+   ```bash
+   npm run lint
+   ```
+   Fix any linting errors before submitting:
+   ```bash
+   npm run lint:fix
+   ```
 
-2. **TypeScript Guidelines** - Standards for TypeScript code
-   - Located in `02-typescript-guidelines.mdc`
-   - Includes general guidelines, code style, and configuration
+2. **Prettier** - Format all code consistently:
+   ```bash
+   npm run format
+   ```
+   Verify formatting is correct:
+   ```bash
+   npm run format:check
+   ```
 
-For development, always ensure all quality checks pass before considering a task complete.
+3. **TypeScript** - Ensure all type checks pass:
+   ```bash
+   npm run typecheck
+   ```
+
+4. **Security Audit** - Check for vulnerabilities in dependencies:
+   ```bash
+   npm run audit
+   ```
+
+5. **Build** - Compile the project:
+   ```bash
+   npm run build
+   ```
+
+**Note:** No task should be considered complete until all checks have passed without errors.
+
+## Development Workflow
+
+1. Make your code changes
+2. Update CHANGELOG.md with notable changes under [Unreleased] section
+3. Run all checks: `npm run check` (or individual checks as needed)
+4. Fix any issues found in the checks
+5. Commit your changes only after all checks pass
+
+## Changelog Management
+
+Always document notable changes in CHANGELOG.md:
+
+1. Add new entries under the [Unreleased] section as you work
+2. Focus on functional changes that affect users
+3. Categorize changes as Added, Changed, Fixed, or Removed
+4. During release, move [Unreleased] changes to the version section with date
 
 ---
 > Source: [rygwdn/slack-tools](https://github.com/rygwdn/slack-tools) — distributed by [TomeVault](https://tomevault.io).
