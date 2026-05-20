@@ -1,86 +1,132 @@
-## kiwoom-rest-api
+## api-development-patterns
 
-> - **Feat**: Implement new feature
+> All API methods in the Kiwoom REST API follow this consistent pattern:
 
---- gitcommit message rules start
-# gitcommit message rules
-- **Feat**: Implement new feature  
-- **Add**: Add asset files  
-- **Fix**: Fix bugs  
-- **Docs**: Add or update documentation  
-- **Style**: Styling work (no code logic changes)  
-- **Refactor**: Code refactoring (no functional changes)  
-- **Test**: Add or modify tests  
-- **Deploy**: Deployment-related changes  
-- **Conf**: Build or environment configuration  
-- **Chore**: Miscellaneous tasks  
+# API Development Patterns for Kiwoom REST API
 
+## Method Implementation Pattern
 
-> Write a Git commit message following this format:
->
-> * The first line must start with a tag (e.g., `[feat]`, `[fix]`, `[refactor]`, `[test]`, `[docs]`, `[style]`, `[chore]`) and a short description, **under 30 characters**.
-> * At the end of the first line, include the number of modified files and lines **based on the staged changes** in this format: `[file {number of staged files} - lines {number of staged lines}]`.
->
->   * Example:
->
->     * 1 staged file and 3 staged lines → `[file 1 - lines 3]`
->     * 1 staged file and 1 staged line → `[file 1 - lines 1]`
->     * 3 staged files and 10 staged lines → `[file 3 - lines 10]`
-> * From the second line, add detailed descriptions.
-> * Write up to **5 lines** of detailed descriptions, each starting with a hyphen `-`.
+### Standard Method Structure
+All API methods in the Kiwoom REST API follow this consistent pattern:
 
+```python
+def method_name_request_api_id(
+    self,
+    required_param1: str,
+    required_param2: str,
+    optional_param1: str = "",
+    optional_param2: str = "",
+    cont_yn: str = "N",
+    next_key: str = ""
+) -> dict:
+    """
+    Korean method description (API ID)
 
-### 수정된 예제
+    Args:
+        required_param1 (str): Parameter description with possible values
+        required_param2 (str): Parameter description with possible values
+        optional_param1 (str, optional): Optional parameter description. Defaults to "".
+        optional_param2 (str, optional): Optional parameter description. Defaults to "".
+        cont_yn (str, optional): 연속조회여부. Defaults to "N".
+        next_key (str, optional): 연속조회키. Defaults to "".
 
-```example1
-[Feat] new feature [file 1 - lines 3]
-- new feature description
-- new feature description
-- new feature description
+    Returns:
+        dict: Response data structure with detailed field descriptions
+            {
+                "field1": str,  # Korean field description
+                "field2": str,  # Korean field description
+                "array_field": [  # Array field description
+                    {
+                        "sub_field1": str,  # Sub-field description
+                        "sub_field2": str,  # Sub-field description
+                    },
+                    ...
+                ],
+                "return_code": int,  # 응답코드
+                "return_msg": str,  # 응답메시지
+            }
+
+    Example:
+        >>> from kiwoom_rest_api import KiwoomRestAPI
+        >>> api = KiwoomRestAPI()
+        >>> result = api.module.method_name_request_api_id(
+        ...     required_param1="value1",
+        ...     required_param2="value2"
+        ... )
+        >>> print(result)
+    """
+    headers = {
+        "cont-yn": cont_yn,
+        "next-key": next_key,
+        "api-id": "api_id",
+    }
+    data = {
+        "required_param1": required_param1,
+        "required_param2": required_param2,
+    }
+    
+    if optional_param1:
+        data["optional_param1"] = optional_param1
+    if optional_param2:
+        data["optional_param2"] = optional_param2
+        
+    return self._execute_request(
+        "POST",
+        json=data,
+        headers=headers,
+    )
 ```
 
-```example2
-[Fix] fix bug [file 1 - lines 3]
-- fix bug description
-- fix bug description
-- fix bug description
+### Key Patterns to Follow
+
+1. **Method Naming**: Use descriptive names ending with `_request_api_id`
+2. **Parameter Types**: All parameters should be typed as `str`
+3. **Optional Parameters**: Use empty string defaults for optional parameters
+4. **Pagination Support**: Always include `cont_yn` and `next_key` parameters
+5. **Comprehensive Documentation**: Include Korean descriptions for all fields
+6. **Example Usage**: Provide clear usage examples in docstrings
+7. **Conditional Data**: Only add optional fields to request data if they have values
+
+### Common Parameter Patterns
+
+#### Pagination Parameters
+- `cont_yn` (str): 연속조회여부, defaults to "N"
+- `next_key` (str): 연속조회키, defaults to ""
+
+#### Date Parameters
+- Use format "YYYYMMDD" for date parameters
+- Example: `start_date="20241128"`
+
+#### Code Parameters
+- Stock codes: 6-12 digit strings
+- Order numbers: 7-20 digit strings
+- Market codes: specific string values (KRX, NXT, etc.)
+
+### Response Structure
+All API responses include:
+- `return_code` (int): Response status code
+- `return_msg` (str): Response message
+- Data fields specific to each API
+
+### Error Handling
+- Use the base class `_execute_request` method for consistent error handling
+- Return raw API responses to allow caller to handle errors appropriately
+
+## Testing Pattern
+
+### Test Method Structure
+```python
+print_result("api_id_result", module.method_name_request_api_id(
+    required_param1="value1",
+    required_param2="value2"
+), print_result=False)
 ```
 
-```example3
-[Refactor] refactor code [file 1 - lines 3]
-- refactor code description
-- refactor code description
-- refactor code description
-```
-
-```example4
-[Test] add test [file 1 - lines 3]
-- add test description
-- add test description
-- add test description
-```
-
-```example5
-[Docs] add docs [file 1 - lines 3]
-- add docs description
-- add docs description
-- add docs description
-```
-
-```example6
-[Style] style code [file 1 - lines 3]
-- style code description
-- style code description
-- style code description
-```
-
-```example7
-[Chore] chore [file 1 - lines 3]
-- chore description
-- chore description
-- chore description
-```
---- gitcommit message rules end
+### Test File Organization
+- Test files should be in `tests/koreanstock/` directory
+- Use descriptive test names that match the API ID
+- Include both success and error case testing
+- Use `print_result=False` for clean test output
 
 ---
 > Source: [bamjun/kiwoom-rest-api](https://github.com/bamjun/kiwoom-rest-api) — distributed by [TomeVault](https://tomevault.io).
