@@ -4,7 +4,7 @@
   "repo": "sdk",
   "description": "End-to-end account abstraction and chain abstraction toolkit",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rhinestonewtf/sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T08:58:08Z"
+  "distributed_at": "2026-05-20T23:09:01Z"
 }
