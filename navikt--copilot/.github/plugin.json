@@ -1,0 +1,9 @@
+{
+  "name": "navikt--copilot",
+  "displayName": "copilot",
+  "description": "All things Copilot, Agents, MCPs, Skills, and coding related AI features for the Norwegian Government",
+  "version": "1.0.0",
+  "author": "navikt",
+  "homepage": "https://github.com/navikt/copilot",
+  "skills": []
+}
