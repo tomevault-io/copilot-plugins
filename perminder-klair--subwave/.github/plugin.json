@@ -1,0 +1,9 @@
+{
+  "name": "perminder-klair--subwave",
+  "displayName": "subwave",
+  "description": "Personal internet radio: Icecast + Liquidsoap + AI DJ",
+  "version": "1.0.0",
+  "author": "perminder-klair",
+  "homepage": "https://github.com/perminder-klair/subwave",
+  "skills": []
+}
