@@ -1,0 +1,9 @@
+{
+  "name": "steveydevey--kvm-mcp",
+  "displayName": "kvm-mcp",
+  "description": "An MCP server for KVM hypervisors",
+  "version": "1.0.0",
+  "author": "steveydevey",
+  "homepage": "https://github.com/steveydevey/kvm-mcp",
+  "skills": []
+}
