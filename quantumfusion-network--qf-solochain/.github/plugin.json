@@ -1,0 +1,9 @@
+{
+  "name": "quantumfusion-network--qf-solochain",
+  "displayName": "qf-solochain",
+  "description": "QF Network blockchain node",
+  "version": "1.0.0",
+  "author": "QuantumFusion-network",
+  "homepage": "https://github.com/QuantumFusion-network/qf-solochain",
+  "skills": []
+}
