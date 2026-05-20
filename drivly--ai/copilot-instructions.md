@@ -1,51 +1,41 @@
-## project-structure
+## sdk-implementation
 
-> This rule describes the project structure and organization of the AI Primitives platform.
+> This rule defines the implementation patterns for SDK packages in the AI Primitives platform.
 
-# Project Structure Convention
+# SDK Implementation Patterns
 
-This rule describes the project structure and organization of the AI Primitives platform.
+This rule defines the implementation patterns for SDK packages in the AI Primitives platform.
 
 ## Applies to
-**/*
+**/sdks/**/*.{ts,tsx,js,jsx}
 
 ## Rule
-The project is organized as a monorepo using pnpm workspaces with the following structure:
-
-```
-ai/
-├── api/                  # API implementations for various services
-├── app/                  # Application code
-│   ├── (apis)/           # API route handlers
-│   ├── (websites)/       # Website components
-│   └── (payload)/        # Payload CMS admin configurations
-├── collections/          # Collection definitions
-│   ├── ai/               # AI-related collections (Functions, Workflows, Agents)
-│   ├── data/             # Data model collections (Things, Nouns, Verbs)
-│   ├── events/           # Event-related collections (Triggers, Searches, Actions)
-│   └── observability/    # Monitoring collections (Generations)
-├── components/           # Reusable UI components
-├── content/              # Content files and assets (MDX files at /content/**/*.mdx)
-├── examples/             # Example implementations
-├── lib/                  # Library code and utilities
-├── pkgs/                 # Shared packages and libraries (can have dependencies)
-│   ├── ai-models/        # AI model abstractions and selection
-│   ├── deploy-worker/    # Cloudflare Workers deployment utilities
-│   └── clickable-links/  # API handler utilities
-├── sdks/                 # Software Development Kits (zero dependencies except apis.do)
-├── tasks/                # Task implementations with dependencies
-├── tests/                # Test suites
-├── websites/             # Website implementations
-├── workers/              # Cloudflare Workers implementations
-```
-
-### Implementation Guidelines
-- Respect the monorepo architecture using pnpm workspaces
-- Place new code in the appropriate directory based on its purpose
-- Follow the naming conventions outlined in CONTRIBUTING.md
+### SDK Implementation Requirements
 - SDK implementations in `/sdks/` must maintain zero dependencies (except apis.do) to be publishable on npm
-- Backend implementations of SDK features should be placed in the `/tasks/` folder with workspace-level dependencies
+- Backend implementations of SDK features should be placed in the `/tasks/` folder
+- When moving code from SDK to tasks, ensure all SDK files are completely reverted to maintain zero dependencies
+- Task implementations can use workspace-level dependencies (installed with -w flag)
 - Package entry points in package.json files should point to built files (e.g., dist/index.js) rather than source files
+- Use modern Node.js features (Node 20+ or 22+):
+  - Use built-in fetch instead of node-fetch or require('https')
+  - Avoid older Node.js built-in modules when modern alternatives exist
+
+### Versioning Strategy
+- Use semantic-release for version management across SDKs and packages
+- Packages in the `sdks` directory must maintain synchronized version numbers
+- Packages in the `pkgs` directory can be versioned independently
+- During API instability phase, restrict all automatic version increments to patch versions (0.0.x) only
+- All packages must be properly configured in pnpm-workspace.yaml
+- Package names must exactly match names in respective package.json files
+
+### Agents.do Implementation Style
+```typescript
+export const agentName = new Agent({
+  name: "agent-name",
+  instructions: "Brief, clear instructions about the agent's role and purpose",
+  model: openai("model-name"),
+})
+```
 
 ---
 > Source: [drivly/ai](https://github.com/drivly/ai) — distributed by [TomeVault](https://tomevault.io).
