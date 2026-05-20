@@ -1,20 +1,107 @@
-## example-crud-mcp
+## mcp-custom-routes
 
-> The CRUD MCP example demonstrates how to build a Cloudflare Worker that implements the Model Context Protocol (MCP) for a simple CRUD application.
+> setupRoutes method for custom HTTP endpoints in MCP servers
 
-# CRUD MCP Example
 
-The CRUD MCP example demonstrates how to build a Cloudflare Worker that implements the Model Context Protocol (MCP) for a simple CRUD application.
+# MCP Custom Routes with setupRoutes
 
-## Key Files
+## Override setupRoutes for Custom Endpoints
 
-- **Entry Point**: [examples/crud-mcp/src/index.ts](mdc:examples/crud-mcp/src/index.ts) - Main entry point for the Worker
-- **Server**: [examples/crud-mcp/src/server.ts](mdc:examples/crud-mcp/src/server.ts) - Server implementation using the MCP package
-- **Tools**: [examples/crud-mcp/src/tools.ts](mdc:examples/crud-mcp/src/tools.ts) - Tool definitions for the MCP server
-- **Repository**: [examples/crud-mcp/src/repository.ts](mdc:examples/crud-mcp/src/repository.ts) - Data access layer for CRUD operations
-- **Resources**: [examples/crud-mcp/src/resources.ts](mdc:examples/crud-mcp/src/resources.ts) - Resource definitions
-- **Schema**: [examples/crud-mcp/src/schema.ts](mdc:examples/crud-mcp/src/schema.ts) - Schema definitions for data models
-- **Prompts**: [examples/crud-mcp/src/prompts.ts](mdc:examples/crud-mcp/src/prompts.ts) - Prompt templates for LLM interactions
+When you need custom HTTP endpoints beyond MCP functionality, override the `setupRoutes` method:
+
+```typescript
+export class YourMcpServer extends McpHonoServerDO<Env> {
+  // ... other methods ...
+
+  protected setupRoutes(app: Hono<{ Bindings: Env }>): void {
+    // CRITICAL: Always call parent first to preserve MCP WebSocket/SSE endpoints
+    super.setupRoutes(app);
+    
+    // Now add your custom HTTP routes
+    app.get('/api/health', (c) => {
+      return c.json({ 
+        status: 'healthy', 
+        timestamp: new Date().toISOString(),
+        version: this.getImplementation().version
+      });
+    });
+    
+    app.post('/api/webhook', async (c) => {
+      try {
+        const payload = await c.req.json();
+        // Process webhook payload
+        await this.processWebhook(payload);
+        return c.json({ success: true });
+      } catch (error) {
+        return c.json({ error: error.message }, 400);
+      }
+    });
+    
+    // Access Cloudflare bindings via c.env
+    app.get('/api/data/:id', async (c) => {
+      const id = c.req.param('id');
+      try {
+        // Access D1, KV, R2, etc. via c.env
+        const result = await c.env.DATABASE?.prepare(
+          'SELECT * FROM items WHERE id = ?'
+        ).bind(id).first();
+        
+        return c.json(result || { error: 'Not found' });
+      } catch (error) {
+        return c.json({ error: error.message }, 500);
+      }
+    });
+    
+    // CORS handling for browser clients
+    app.options('*', (c) => {
+      return c.text('', 204, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      });
+    });
+  }
+  
+  private async processWebhook(payload: any) {
+    // Webhook processing logic
+  }
+}
+```
+
+## Common Route Patterns
+
+### Health Check Endpoint
+```typescript
+app.get('/api/health', (c) => {
+  return c.json({ 
+    status: 'ok', 
+    timestamp: Date.now(),
+    uptime: process.uptime?.() || 0
+  });
+});
+```
+
+## Key Rules
+
+1. **Always call `super.setupRoutes(app)` first** - This preserves MCP functionality
+2. **Use environment bindings via `c.env`** - Access D1, KV, R2, etc.
+3. **Handle errors gracefully** - Return appropriate HTTP status codes
+4. **Add CORS headers** if supporting browser clients
+5. **Use TypeScript types** for request/response bodies
+6. **Add authentication** for sensitive endpoints
+7. **Follow REST conventions** for API design
+
+## When to Use setupRoutes
+
+Use `setupRoutes` when you need:
+- REST API endpoints for web/mobile clients
+- Webhook receivers
+- File upload/download endpoints  
+- Health/status monitoring endpoints
+- Integration with external services
+- Custom authentication flows
+
+The MCP protocol handles AI client communication, while custom routes handle other HTTP clients.
 
 ---
 > Source: [null-shot/typescript-agent-toolkit](https://github.com/null-shot/typescript-agent-toolkit) — distributed by [TomeVault](https://tomevault.io).
