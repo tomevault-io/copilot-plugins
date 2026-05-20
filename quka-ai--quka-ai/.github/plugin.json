@@ -1,0 +1,9 @@
+{
+  "name": "quka-ai--quka-ai",
+  "displayName": "quka-ai",
+  "description": "Golang based RAG application. Use QukaAI, build your second brain.",
+  "version": "1.0.0",
+  "author": "quka-ai",
+  "homepage": "https://github.com/quka-ai/quka-ai",
+  "skills": []
+}
