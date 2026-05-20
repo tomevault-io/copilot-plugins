@@ -1,0 +1,9 @@
+{
+  "name": "ilearn-lab--acl25-adaretake",
+  "displayName": "ACL25-AdaReTaKe",
+  "description": "Official implementation of paper AdaReTaKe: Adaptive Redundancy Reduction to Perceive Longer for Video-language Understanding",
+  "version": "1.0.0",
+  "author": "iLearn-Lab",
+  "homepage": "https://github.com/iLearn-Lab/ACL25-AdaReTaKe",
+  "skills": []
+}
