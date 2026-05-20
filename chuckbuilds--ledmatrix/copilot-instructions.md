@@ -1,54 +1,55 @@
-## error-handling-logging
+## git-workflow
 
-> - **Structured prefixes**: Use consistent tags like `[NHL Recent]`, `[NFL Live]`
+> - **Features**: `feature/description-of-feature` (e.g., `feature/weather-forecast-improvements`)
 
 
-# Error Handling and Logging
+# Git Workflow and Branching
 
-## Logging Standards
-- **Structured prefixes**: Use consistent tags like `[NHL Recent]`, `[NFL Live]`
-- **Context information**: Include relevant details (team names, game status, dates)
-- **Appropriate levels**: 
-  - `info`: Normal operations and status updates
-  - `debug`: Detailed information for troubleshooting
-  - `warning`: Non-critical issues that should be noted
-  - `error`: Problems that need attention
+## Branch Naming Conventions
+- **Features**: `feature/description-of-feature` (e.g., `feature/weather-forecast-improvements`)
+- **Bug fixes**: `fix/description-of-bug` (e.g., `fix/nhl-manager-improvements`)
+- **Hotfixes**: `hotfix/critical-issue-description`
+- **Refactoring**: `refactor/description-of-refactor`
 
-## Error Handling Patterns
-```python
-try:
-    data = self._fetch_data()
-    if not data or 'events' not in data:
-        self.logger.warning("[Manager] No events found in API response")
-        return
-except requests.exceptions.RequestException as e:
-    self.logger.error(f"[Manager] API error: {e}")
-    return None
+## Commit Message Format
+```
+type(scope): description
+
+[optional body]
+
+[optional footer]
 ```
 
-## User-Friendly Messages
-- **Explain the situation**: "No games available during off-season"
-- **Provide context**: "NHL season typically runs October-June"
-- **Suggest solutions**: "Check back when season starts"
-- **Distinguish issues**: API problems vs no data vs filtering results
+**Types**: feat, fix, docs, style, refactor, test, chore
+**Examples**:
+- `feat(nhl): Add enhanced logging for data visibility`
+- `fix(display): Resolve rendering performance issue`
+- `docs(api): Update ESPN API integration guide`
 
-## Graceful Degradation
-- **Fallback content**: Show alternative games when favorites unavailable
-- **Cached data**: Use cached data when API fails
-- **Service continuity**: Continue operation when non-critical features fail
-- **Clear communication**: Explain what's happening to users
+## Pull Request Guidelines
+- **Self-review**: Review your own PR before requesting review
+- **Testing**: Test thoroughly on Raspberry Pi hardware
+- **Documentation**: Update relevant documentation if needed
+- **Clean history**: Squash commits if necessary for clean history
 
-## Debugging Support
-- **Comprehensive logging**: Log API responses, filtering results, display updates
-- **State tracking**: Log current state and transitions
-- **Performance monitoring**: Track timing and resource usage
-- **Error context**: Include stack traces for debugging
+## Code Review Checklist
+- **Code Quality**: Proper error handling, logging, type hints
+- **Architecture**: Follows project patterns, doesn't break existing functionality
+- **Performance**: No negative impact on display performance
+- **Testing**: Works on Raspberry Pi hardware
+- **Documentation**: Comments added for complex logic
 
-## Off-Season Awareness
-- **Seasonal messaging**: Different messages for different times of year
-- **Helpful context**: Explain why no games are available
-- **Future planning**: Mention when season starts
-- **Realistic expectations**: Set appropriate expectations during off-season
+## Merge Strategies
+- **Squash and Merge**: Preferred for feature branches and bug fixes
+- **Merge Commit**: For complex features with multiple logical commits
+- **Rebase and Merge**: For simple, single-commit changes
+
+## Best Practices
+- **Keep branches small and focused**
+- **Commit frequently with meaningful messages**
+- **Update branch regularly with main**
+- **Test changes incrementally**
+- **Delete feature branches after merge**
 
 ---
 > Source: [ChuckBuilds/LEDMatrix](https://github.com/ChuckBuilds/LEDMatrix) — distributed by [TomeVault](https://tomevault.io).
