@@ -2,7 +2,7 @@
   "name": "orbital-ctf",
   "owner": "asynchronous-x",
   "repo": "orbital-ctf",
-  "description": "",
+  "description": "Orbital - A Custom CTF Platform",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/asynchronous-x",
+  "source_url": "https://github.com/asynchronous-x/orbital-ctf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T08:34:30Z"
+  "distributed_at": "2026-05-20T05:11:32Z"
 }
