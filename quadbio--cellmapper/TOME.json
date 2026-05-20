@@ -4,7 +4,7 @@
   "repo": "cellmapper",
   "description": "k-NN-based mapping of cells across representations to transfer labels, embeddings, and expression values. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/quadbio/cellmapper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T04:55:46Z"
+  "distributed_at": "2026-05-20T15:22:42Z"
 }
