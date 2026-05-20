@@ -1,514 +1,866 @@
-## mcgravity
+## ratatui
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> > Target docs: **ratatui 0.30.0** (docs.rs “latest” at time of writing).
 
-# CLAUDE.md
+# Ratatui (Rust) — TUI “field guide” for building a full-featured CLI
+> Target docs: **ratatui 0.30.0** (docs.rs “latest” at time of writing).  
+> This file is meant to be a **practical, complete map** of Ratatui’s public surface area: *what exists, what it’s for, how it fits together, and where to read the authoritative docs / examples.*
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+---
 
-## Documentation
+## 0) What Ratatui is (and what it is not)
 
-- **[docs/architecture.md](docs/architecture.md)** - Complete system architecture, module structure, data flow, and design patterns.
-- **[docs/adding-executors.md](docs/adding-executors.md)** - Step-by-step guide for adding new AI CLI tool support.
+**Ratatui** is an *immediate-mode* terminal UI library: each frame, your app renders the entire UI into an off-screen **Buffer**, and Ratatui diff-renders only changes to the terminal via a **Backend**.
 
-## Extended Guidelines
+**Key implications of “immediate mode”:**
+- Your “UI tree” is not persisted by the framework.
+- **Your app owns the state** (selection index, scroll offset, input text, toggles).
+- Each `Terminal::draw` call must fully repaint the UI for the current state (even if nothing changed).
 
-For comprehensive best practices, reference these files in `.cursor/rules/`:
+---
 
-- **`ratatui.mdc`** - Complete Ratatui 0.30.0 field guide covering widgets, layouts, styling, testing, and immediate-mode architecture. Read this when working on UI components, layouts, or widget implementations.
+## 1) Crate architecture & “components” at a glance
 
-- **`rust.mdc`** - Comprehensive Rust 2024 edition best practices covering code organization, error handling, performance, security, and testing. Read this when making architectural decisions, handling errors, or optimizing code.
+Ratatui is modular (a workspace of crates) and the top-level `ratatui` crate re-exports what you usually need:
 
-## Project Overview
+### 1.1 Core building blocks
+- **Terminal + Frame** (render loop entry points)
+- **Backend** (how bytes reach a real terminal)
+- **Buffer + Cell** (the “canvas” widgets draw to)
+- **Layout** (splitting areas with constraints)
+- **Text** (`Span`, `Line`, `Text`)
+- **Style** (`Color`, `Style`, `Modifier`, `Stylize`)
+- **Widgets** (Block, Paragraph, Table, …)
+- **Symbols** (box drawing, markers, sets)
+- **Init utilities** (`run`, `init`, `restore`, viewports)
 
-**McGravity** is a TUI-based interface for orchestrating AI-assisted coding tools (Claude Code, OpenAI Codex CLI, Gemini CLI, etc.). It provides a unified workflow called "McGravity Flow" that helps software engineers:
+### 1.2 “Where things live” (major modules)
+- `ratatui::backend` — the `Backend` trait, backend implementations (Crossterm/Termion/Termwiz/TestBackend), and backend-related traits.
+- `ratatui::buffer` — `Buffer`, `Cell`.
+- `ratatui::layout` — `Rect`, `Layout`, `Constraint`, `Direction`, `Flex`, `Margin`, alignment types, etc.
+- `ratatui::style` — `Style`, `Color`, `Modifier`, and convenience styling (`Stylize`).
+- `ratatui::text` — `Span`, `Line`, `Text`, and helpers.
+- `ratatui::symbols` — line/box characters, border sets, markers.
+- `ratatui::widgets` — all built-in widgets, widget traits, widget states.
+- `ratatui::init` — documentation & helpers around init/restore and panic hooks (also see the root-level functions).
+- `ratatui::prelude` — a convenience glob-import set (still available, but not universally recommended).
 
-- Compose better-structured tasks for AI coding assistants
-- Execute tasks across multiple AI CLI tools with consistent patterns
-- Track completed tasks and provide context for planning next steps
-- Manage file system operations with proper sandboxing and approval flows
-- Review and approve AI-generated changes before application
+### 1.3 Feature flags (important!)
+Ratatui uses feature flags to control:
+- which backend(s) are included (e.g. `crossterm`, `termion`, `termwiz`)
+- whether “all widgets” are built (default is typically “all”)
+- macros, layout cache, underline color support, serde, palette integration, etc.
 
-The project is inspired by OpenAI's Codex CLI architecture, which uses a modular Rust workspace design with separated concerns for core logic, TUI presentation, and file system operations.
-
-## Build Commands
-
-```bash
-cargo build          # Build the project
-cargo run            # Run the application
-cargo test           # Run tests
-cargo test <name>    # Run a specific test
-cargo clippy         # Run linter
-cargo fmt            # Format code
+**Authoritative list (always check your exact version):**
+```text
+https://docs.rs/crate/ratatui/latest/features
 ```
 
-## Local Installation
+---
 
-To install mcgravity locally to `~/.cargo/bin/` (making it available system-wide):
+## 2) “Hello World” mental model: the rendering pipeline
 
-```bash
-cargo install --path . --force
-```
+### 2.1 The minimal moving parts
+1. **Backend** talks to the terminal emulator (stdout, raw mode, alternate screen, cursor).
+2. **Terminal<B>** owns:
+   - double buffers (previous + current)
+   - viewport configuration
+   - cursor state
+3. Each frame:
+   - `Terminal::draw(|f| { ... })`
+   - you use the `Frame` to render widgets into the current `Buffer`
+   - Ratatui diffs current vs previous buffer
+   - backend writes only changed cells
 
-- The `--force` (`-f`) flag ensures the binary is rebuilt and replaced even if already installed
-- After installation, run from anywhere with: `mcgravity`
-- To uninstall: `cargo uninstall mcgravity`
+### 2.2 Key types you’ll touch daily
+- `Terminal<B>`
+- `Frame`
+- `Rect`
+- `Buffer`
+- `Layout`, `Constraint`
+- `Style`, `Color`, `Modifier`
+- `Span`, `Line`, `Text`
+- widget types (`Block`, `Paragraph`, `Table`, …)
 
-**When the user asks to "install mcgravity locally" or "install this package", run:**
+### 2.3 Immediate-mode best practice (non-negotiable)
+**Always fully render the frame.**  
+Do not “skip” rendering unchanged areas. Diffing happens *after* your closure returns.
 
-```bash
-cargo install --path . --force
-```
+---
 
-## Mandatory Quality Checks
+## 3) Terminal initialization & teardown (the “right” way in 0.30)
 
-**IMPORTANT: After every code change, run the full validation pipeline:**
+Ratatui now provides convenience helpers so you don’t need boilerplate raw-mode / alternate-screen / panic hook setup in every project.
 
-```bash
-cargo fmt && cargo clippy && cargo build && cargo test
-```
-
-This ensures:
-
-1. **Formatting** (`cargo fmt`) - Consistent code style
-2. **Linting** (`cargo clippy`) - Catches common mistakes and enforces best practices
-3. **Build** (`cargo build`) - Verifies compilation succeeds
-4. **Tests** (`cargo test`) - Ensures no regressions
-
-### CI Pipeline Compliance
-
-**CRITICAL: All changes must pass the CI pipeline defined in [`.github/workflows/ci.yaml`](.github/workflows/ci.yaml).**
-
-Before considering any change complete, verify it will pass CI by running the exact checks from the workflow:
-
-```bash
-# Format check (must pass with no changes needed)
-cargo fmt --all -- --check
-
-# Clippy with strict warnings-as-errors
-cargo clippy --all-targets --all-features -- -D warnings
-
-# Build and test with all features and locked dependencies
-cargo build --locked --all-features
-cargo test --locked --all-features
-```
-
-The CI runs on every PR and push to main. A change is not complete until it passes all CI checks.
-
-### Clippy Guidelines
-
-Run clippy with strict settings for maximum code quality:
-
-```bash
-# Standard check
-cargo clippy
-
-# Strict mode - treat warnings as errors
-cargo clippy -- -D warnings
-
-# With additional lints for pedantic checks
-cargo clippy -- -W clippy::pedantic -W clippy::nursery
-```
-
-#### Clippy Best Practices
-
-- **Fix all warnings**: Never ignore clippy warnings; they often indicate real issues
-- **Use `#[allow(...)]` sparingly**: Only suppress warnings with a comment explaining why
-- **Common lints to watch for**:
-  - `clippy::unwrap_used` - Prefer `expect()` with context or proper error handling
-  - `clippy::clone_on_ref_ptr` - Avoid unnecessary clones
-  - `clippy::large_enum_variant` - Box large enum variants
-  - `clippy::needless_pass_by_value` - Use references when ownership isn't needed
-  - `clippy::missing_errors_doc` - Document error conditions in public APIs
-  - `clippy::missing_panics_doc` - Document panic conditions
-
-## Project Structure
-
-```
-mcgravity/
-├── CLAUDE.md                    # This file - AI assistant guidance
-├── Cargo.toml                   # Project manifest
-├── Cargo.lock                   # Dependency lock file
-│
-├── docs/                        # Project documentation
-│   ├── architecture.md          # System architecture and design patterns
-│   └── adding-executors.md      # Guide for adding new AI CLI tools
-│
-├── .cursor/rules/               # IDE-specific guidelines
-│   ├── ratatui.mdc              # Ratatui 0.30.0 best practices
-│   └── rust.mdc                 # Rust 2024 edition best practices
-│
-├── src/
-│   ├── main.rs                  # Entry point, terminal setup, event loop
-│   ├── lib.rs                   # Library exports for all modules
-│   ├── cli.rs                   # CLI argument parsing (clap)
-│   ├── file_search.rs           # Fuzzy file path search for @ mentions
-│   │
-│   ├── app/                     # Application state and UI logic
-│   │   ├── mod.rs               # App struct, state management, file search
-│   │   ├── events.rs            # Key event handling (Chat, Settings modes)
-│   │   ├── input.rs             # Text input handling (cursor, editing, @ token detection)
-│   │   ├── layout.rs            # Layout calculations (ChatLayout)
-│   │   ├── render.rs            # UI rendering (chat mode, settings overlay)
-│   │   ├── state.rs             # State structures (AppMode, FlowEvent, etc.)
-│   │   └── tests.rs             # Application tests
-│   │
-│   ├── core/                    # Business logic (model-agnostic)
-│   │   ├── mod.rs               # Model enum, public exports
-│   │   ├── executor.rs          # AiCliExecutor trait and implementations
-│   │   ├── flow.rs              # FlowPhase enum, FlowState struct
-│   │   ├── prompts.rs           # Planning/execution prompt templates
-│   │   ├── retry.rs             # RetryConfig for backoff logic
-│   │   └── runner.rs            # Flow orchestration, generic retry wrapper
-│   │
-│   ├── fs/                      # File system operations
-│   │   ├── mod.rs               # Module exports
-│   │   ├── settings.rs          # Settings persistence to .mcgravity/settings.json
-│   │   └── todo.rs              # Todo file scanning, reading, moving
-│   │
-│   └── tui/                     # TUI presentation layer
-│       ├── mod.rs               # Module exports
-│       ├── theme.rs             # Centralized color/style definitions
-│       └── widgets/             # Custom Ratatui widgets
-│           ├── mod.rs           # Widget exports
-│           ├── file_popup.rs    # File suggestion popup for @ mentions
-│           ├── output.rs        # CLI output viewer widget
-│           └── status_indicator.rs  # Compact status indicator (2-line)
-│
-└── .mcgravity/                  # Runtime: mcgravity configuration and state
-    ├── settings.json            # Persisted user settings
-    ├── task.md                  # Current task description
-    └── todo/                    # Task files created by planning phase
-        └── done/                # Completed tasks (auto-archived)
-```
-
-## Core Design Principles
-
-1. **Separation of Concerns**: Keep core business logic independent from TUI presentation. Core logic should be testable without terminal setup.
-
-2. **State-Render Split**: Following immediate-mode patterns, the App owns all state. Render functions read state without mutation.
-
-3. **Trait-Based Abstraction**: All AI CLIs implement `AiCliExecutor` trait for uniform execution. See [docs/adding-executors.md](docs/adding-executors.md).
-
-4. **Generic Flow Logic**: The flow runner is model-agnostic - it works with any `AiCliExecutor` implementation without modification.
-
-## Key Modules
-
-### `core/executor.rs` - CLI Executor Trait
+### 3.1 `run()` — simplest “just do the right thing”
+Use this for most CLIs:
 
 ```rust
-#[async_trait]
-pub trait AiCliExecutor: Send + Sync {
-    async fn execute(&self, input: &str, output_tx: Sender<CliOutput>,
-                     shutdown_rx: Receiver<bool>) -> Result<ExitStatus>;
-    fn name(&self) -> &'static str;
-    fn command(&self) -> &'static str;
-    async fn is_available(&self) -> bool;
+fn main() -> std::io::Result<()> {
+    ratatui::run(|terminal| {
+        loop {
+            terminal.draw(|f| f.render_widget("Hello", f.area()))?;
+            // read events, update state, maybe exit...
+        }
+    })
 }
 ```
 
-Implementations: `CodexExecutor`, `ClaudeExecutor`, `GeminiExecutor`
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/fn.run.html
+```
 
-### `core/flow.rs` - Flow State Machine
+### 3.2 `init()` / `restore()` — explicit control
+If you want the terminal value and to control shutdown:
+- `init()` initializes a default terminal (Crossterm-based).
+- `restore()` returns terminal settings to normal (disable raw mode, leave alt-screen).
 
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/fn.init.html
+https://docs.rs/ratatui/latest/ratatui/fn.restore.html
+```
+
+### 3.3 Viewports (`Viewport`) & `TerminalOptions`
+Ratatui supports different ways to “own” the terminal:
+- **Fullscreen**: typical TUI (entire screen)
+- **Inline(height)**: persistent TUI area while normal output scrolls above it (status panels, progress, logs)
+- **Fixed(Rect)**: render into a fixed region
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/enum.Viewport.html
+https://docs.rs/ratatui/latest/ratatui/struct.TerminalOptions.html
+https://docs.rs/ratatui/latest/ratatui/fn.init_with_options.html
+```
+
+Examples (inline viewport):
+```text
+https://ratatui.rs/examples/apps/inline/
+```
+
+### 3.4 Panic hooks (so you don’t “break” the user’s terminal)
+If you manually create a `Terminal` (instead of using `run`/`init`), you must ensure panics restore raw mode & screen state.
+
+Docs & recipes:
+```text
+https://ratatui.rs/recipes/apps/panic-hooks/
+https://ratatui.rs/examples/apps/panic/
+```
+
+---
+
+## 4) Terminal, Frame, and buffer lifecycle
+
+### 4.1 `Terminal<B>`: responsibilities and key methods
+`Terminal<B>` is the main entry point.
+- `Terminal::new(backend)` — create with default fullscreen viewport
+- `Terminal::with_options(backend, TerminalOptions)` — customize viewport etc.
+- `Terminal::draw(|frame| { ... }) -> CompletedFrame` — the canonical render call
+- `Terminal::try_draw(|frame| -> Result<(), E> { ... })` — render closure can `?`
+- `Terminal::clear()` — force full clear and redraw
+- `Terminal::flush()` — diff buffers and send updates
+- `Terminal::swap_buffers()` — swap current/previous buffers
+- `Terminal::autoresize()` / `Terminal::resize(area)` — keep buffers consistent with terminal size
+- Cursor helpers (`hide_cursor`, `show_cursor`, `set_cursor_position`, …)
+- Viewport helpers (e.g. `insert_before` for inline viewports)
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/struct.Terminal.html
+```
+
+### 4.2 `Frame`: per-draw “render context”
+`Frame` provides:
+- `frame.area()` — stable area for this frame (prefer over resize events)
+- `frame.render_widget(widget, area)`
+- `frame.render_stateful_widget(widget, area, state)`
+- `_ref` variants for widget references
+- cursor control for text input widgets
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/struct.Frame.html
+```
+
+### 4.3 `CompletedFrame`
+`Terminal::draw` returns a `CompletedFrame` (useful for debugging/testing).
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/struct.CompletedFrame.html
+```
+
+### 4.4 `Buffer` and `Cell`
+Widgets render into a `Buffer` made of `Cell`s:
+- `Cell` stores the “character” (grapheme) plus style.
+- `Buffer` maps 2D terminal coordinates → `Cell` array.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/buffer/struct.Buffer.html
+https://docs.rs/ratatui/latest/ratatui/buffer/struct.Cell.html
+```
+
+---
+
+## 5) Backends: how Ratatui talks to the terminal
+
+### 5.1 The `Backend` trait
+A backend must be able to:
+- draw changed cells
+- show/hide/move cursor
+- clear screen regions
+- report size, and support flushing
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/backend/trait.Backend.html
+https://docs.rs/ratatui/latest/ratatui/backend/index.html
+```
+
+### 5.2 Built-in backend implementations
+Ratatui supports:
+- **CrosstermBackend** (default feature)
+- **TermionBackend** (non-Windows)
+- **TermwizBackend**
+- **TestBackend** (for tests and in-memory buffer assertions)
+
+Backend concept guide:
+```text
+https://ratatui.rs/concepts/backends/
+```
+
+### 5.3 Crossterm version compatibility (real-world pitfall)
+If your dependency graph pulls in multiple incompatible Crossterm major versions, you may see “expected Event found Event” type errors, raw-mode issues, or missing methods.
+
+Reference:
+```text
+https://ratatui.rs/concepts/backends/   (see “Crossterm version compatibility”)
+https://ratatui.rs/faq/                (multiple Crossterm versions)
+```
+
+---
+
+## 6) Layout system (splitting the screen)
+
+### 6.1 Coordinate system
+- Origin is top-left: `(x=0, y=0)`
+- `Rect { x, y, width, height }` uses `u16` coordinates.
+
+Concept guide:
+```text
+https://ratatui.rs/concepts/layout/
+```
+
+### 6.2 `Rect`, `Size`, `Position`, `Margin`
+- `Rect` is the fundamental region used everywhere.
+- `Size` is a width/height pair.
+- `Position` is an x/y coordinate (used e.g. cursor position).
+- `Margin` is extra padding around a `Rect`.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/layout/struct.Rect.html
+https://docs.rs/ratatui/latest/ratatui/layout/struct.Size.html
+https://docs.rs/ratatui/latest/ratatui/layout/struct.Position.html
+https://docs.rs/ratatui/latest/ratatui/layout/struct.Margin.html
+```
+
+### 6.3 `Layout`: divide a parent area into child `Rect`s
+A `Layout` is a *solver-driven* system that splits an area using:
+- `Direction` (Horizontal / Vertical)
+- `Constraint`s (Length, Min, Max, Percentage, Ratio, Fill)
+- optional `Flex` behavior and spacing
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/layout/struct.Layout.html
+https://docs.rs/ratatui/latest/ratatui/layout/enum.Constraint.html
+https://docs.rs/ratatui/latest/ratatui/layout/enum.Direction.html
+https://docs.rs/ratatui/latest/ratatui/layout/enum.Flex.html
+```
+
+### 6.4 Constraints (the rules of splitting)
+- `Constraint::Length(n)` — fixed size
+- `Constraint::Min(n)` / `Max(n)` — bounds
+- `Constraint::Percentage(p)` — percentage of total
+- `Constraint::Ratio(a,b)` — rational portion
+- `Constraint::Fill(weight)` — proportional “remaining space”
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/layout/enum.Constraint.html
+```
+
+### 6.5 Layout caching (performance)
+`Layout::split(area)` results can be cached (default feature `layout-cache`). You can configure cache size with `Layout::init_cache()`.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/layout/struct.Layout.html
+https://docs.rs/crate/ratatui/latest/features
+```
+
+Examples:
+```text
+https://ratatui.rs/examples/layout/layout/
+https://ratatui.rs/examples/layout/flex/
+```
+
+---
+
+## 7) Styling: colors, modifiers, and the `Stylize` convenience API
+
+### 7.1 Core types
+- `Color` — ANSI + RGB + indexed color support
+- `Modifier` — bold/italic/underlined/reversed/etc flags
+- `Style` — foreground/background/underline color + modifiers
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/style/enum.Color.html
+https://docs.rs/ratatui/latest/ratatui/style/struct.Style.html
+https://docs.rs/ratatui/latest/ratatui/style/struct.Modifier.html
+```
+
+### 7.2 `Stylize` (fluent styling)
+Instead of always writing `Style::new().fg(Color::Red).add_modifier(...)`,
+you can use shorthands, e.g. `"hello".red().bold()`.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/style/trait.Stylize.html
+https://docs.rs/ratatui/latest/ratatui/style/index.html
+```
+
+### 7.3 Best practices for styling
+- Define a small theme struct (`struct Theme { ... }`) holding styles.
+- Keep high-contrast palettes; test in light & dark terminals.
+- Be mindful of terminals that don’t support underline color or truecolor.
+- Avoid encoding meaning purely by color; combine with text/symbols.
+
+---
+
+## 8) Text model: Span → Line → Text
+
+### 8.1 The hierarchy
+- **Span**: a styled substring (single style)
+- **Line**: a sequence of spans on one row
+- **Text**: multiple lines + global alignment/style
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/text/struct.Span.html
+https://docs.rs/ratatui/latest/ratatui/text/struct.Line.html
+https://docs.rs/ratatui/latest/ratatui/text/struct.Text.html
+https://docs.rs/ratatui/latest/ratatui/text/index.html
+```
+
+### 8.2 Recipes
+Text rendering walkthrough:
+```text
+https://ratatui.rs/recipes/render/display-text/
+```
+
+### 8.3 Best practices for text
+- Prefer `Line` when mixing styles in a single row.
+- Prefer `Text` for multi-line blocks and for alignment.
+- When in doubt, use `Paragraph` for display; it handles wrapping + blocks.
+
+---
+
+## 9) Symbols: borders, markers, and box drawing
+
+The `symbols` module provides pre-made characters and “sets” used by widgets:
+- border line characters (single/double/thick, rounded, etc)
+- list markers, scrollbar symbols, block elements, chart markers
+- special border sets like `border::EMPTY` for styling reserved border space
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/symbols/index.html
+https://ratatui.rs/highlights/v027/   (see `border::EMPTY`)
+```
+
+---
+
+## 10) Widgets: what exists, how to use them, and what state they require
+
+### 10.1 Widget traits (core concepts)
+#### `Widget`
+A `Widget` is something that can draw itself into a `Buffer` in a `Rect`.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/trait.Widget.html
+```
+
+#### `StatefulWidget`
+Some widgets need mutable state between frames (selection, scroll offset, …).
+Those implement `StatefulWidget` and are rendered with:
+- `frame.render_stateful_widget(widget, area, &mut state)`
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/trait.StatefulWidget.html
+```
+
+#### `WidgetRef` / `StatefulWidgetRef`
+Reference-based variants avoid moving/cloning large widgets; use:
+- `frame.render_widget_ref(&widget, area)`
+- `frame.render_stateful_widget_ref(&widget, area, &mut state)`
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/trait.WidgetRef.html
+https://docs.rs/ratatui/latest/ratatui/widgets/trait.StatefulWidgetRef.html
+```
+
+Widget concept guide:
+```text
+https://ratatui.rs/concepts/widgets/
+```
+
+---
+
+### 10.2 Built-in widgets (complete list in ratatui::widgets)
+
+> Ratatui’s widgets are designed to be **composable**. Many take a `Block` so you can add borders/titles/padding and then render the inner content.
+
+Authoritative “widgets module” page:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/index.html
+```
+
+Below is the *full built-in widget list* from Ratatui 0.30’s public module docs, plus the most important companion types each widget uses.
+
+---
+
+#### A) Structural / framing widgets
+
+##### 1) `Block`
+The universal “frame” widget: borders, titles, padding, border sets, styles.
+
+Common usage patterns:
+- wrap most widgets in a `Block::bordered().title("...")`
+- use padding/margins to keep content readable
+- use `border_set(...)` to change border glyphs
+- use `border_style(...)` and title style for theming
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Block.html
+```
+
+Related:
+- `Borders`, `BorderType`, border title positioning, etc.
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Borders.html
+https://docs.rs/ratatui/latest/ratatui/widgets/enum.BorderType.html
+```
+
+##### 2) `Clear`
+Clears a rectangular region so you can “overdraw” popups/modals.
+- Not for clearing on first render; use `Terminal::clear` for that.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Clear.html
+```
+
+Example:
+```text
+https://docs.rs/ratatui/latest/src/popup/popup.rs.html
+```
+
+---
+
+#### B) Text and content widgets
+
+##### 3) `Paragraph`
+Multiline text widget with wrapping, scrolling, alignment, and optional `Block`.
+
+Companions:
+- `Wrap` (line wrapping options)
+- scroll offset / alignment settings
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Paragraph.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Wrap.html
+```
+
+##### 4) `List`
+Displays a vertical list of items.
+- can be used stateless (just show items)
+- or stateful with `ListState` (selection, offset)
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.List.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.ListState.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.ListItem.html
+```
+
+##### 5) `Table`
+Displays rows and columns with optional header/footer.
+- stateful with `TableState` for selection + scrolling
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Table.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.TableState.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Row.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Cell.html
+```
+
+---
+
+#### C) Navigation and UI chrome
+
+##### 6) `Tabs`
+Tab bar widget (usually for switching screens).
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Tabs.html
+```
+
+##### 7) `Scrollbar`
+A scrollbar widget (often paired with `Paragraph`, `List`, `Table`, or custom scrollable regions).
+- uses `ScrollbarState`
+- configurable orientation & symbols
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Scrollbar.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.ScrollbarState.html
+https://docs.rs/ratatui/latest/ratatui/widgets/enum.ScrollbarOrientation.html
+```
+
+---
+
+#### D) Data visualization widgets
+
+##### 8) `Gauge`
+Progress bar / completion widget.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Gauge.html
+https://docs.rs/ratatui/latest/src/gauge/gauge.rs.html
+```
+
+##### 9) `LineGauge`
+A single-line gauge variant.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.LineGauge.html
+```
+
+##### 10) `Sparkline`
+Compact line chart (small trend plots).
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Sparkline.html
+```
+
+##### 11) `BarChart`
+Bar charts with groups/bars.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.BarChart.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Bar.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.BarGroup.html
+```
+
+##### 12) `Chart`
+Cartesian plot for one or more datasets.
+
+Companions:
+- `Dataset`
+- `GraphType`
+- axes configuration (`Axis`, `Bounds`, labels)
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Chart.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Dataset.html
+https://docs.rs/ratatui/latest/ratatui/widgets/enum.GraphType.html
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Axis.html
+```
+
+---
+
+#### E) Advanced / specialized widgets
+
+##### 13) `Canvas`
+A 2D drawing canvas: draw shapes/points/lines/maps in a coordinate system.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Canvas.html
+https://docs.rs/ratatui/latest/ratatui/widgets/canvas/index.html
+```
+
+##### 14) `Calendar`
+Month view calendar widget.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/struct.Calendar.html
+https://docs.rs/ratatui/latest/ratatui/widgets/calendar/index.html
+```
+
+---
+
+## 11) Custom widgets (how to build your own correctly)
+
+### 11.1 The minimal requirement
+To build a custom widget, implement `Widget`:
 ```rust
-pub enum FlowPhase {
-    Idle,
-    ReadingInput,
-    CheckingDoneFiles,                                           // Scan for completed tasks (context for planning)
-    RunningPlanning { model_name: Cow<'static, str>, attempt: u32 },
-    CheckingTodoFiles,
-    ProcessingTodos { current: usize, total: usize },
-    RunningExecution { model_name: Cow<'static, str>, file_index: usize, attempt: u32 },
-    CycleComplete { iteration: u32 },
-    MovingCompletedFiles,
-    Completed,
-    Failed { reason: String },
-    NoTodoFiles,
+use ratatui::{buffer::Buffer, layout::Rect, widgets::Widget};
+
+pub struct MyWidget;
+
+impl Widget for MyWidget {
+    fn render(self, area: Rect, buf: &mut Buffer) {
+        // write cells into buf within area
+    }
 }
 ```
 
-### `core/runner.rs` - Flow Orchestration
-
-- `run_flow()` - Main orchestration loop (async task)
-- `run_with_retry()` - Generic retry wrapper for any executor
-
-### `app/mod.rs` - Application State
-
-- `App` struct with UI state, event channels, shutdown signal
-- `FlowEvent` enum for async communication
-- Key event handling per mode (Chat, Settings)
-
-## Adding New AI CLI Tools
-
-To add support for a new AI CLI (e.g., Aider, Cursor):
-
-1. Create executor struct in `src/core/executor.rs`
-2. Implement `AiCliExecutor` trait
-3. Add to `Model` enum in `src/core/mod.rs`
-4. Add factory arm in `Model::executor()`
-
-**See [docs/adding-executors.md](docs/adding-executors.md) for the complete guide.**
-
-## Ratatui TUI Patterns
-
-This project follows immediate-mode TUI patterns where the app owns all state and fully repaints the UI each frame.
-
-### Key Patterns
-
-- Use `ratatui::init()` / `ratatui::restore()` for terminal initialization
-- Always use `frame.area()` for dimensions during render
-- Store UI state explicitly (selection indices, scroll offsets, input buffers)
-- Render the entire frame every draw call (diffing happens automatically)
-- Wrap widgets in `Block::bordered()` for consistent framing
-- Use `Clear` widget before rendering popups/modals
-
-### Layout
-
-- Use `Layout` with `Constraint`s (Length, Min, Max, Percentage, Ratio, Fill) to split areas
-- Coordinates are `u16`, origin at top-left
-
-### Styling
-
-- Define styles in `Theme` struct (`src/tui/theme.rs`)
-- Use the `Stylize` trait for fluent styling: `"text".red().bold()`
-
-## Key Bindings
-
-### Global
-
-- `Ctrl+S` - Open settings panel
-- `Ctrl+C` - Quit application
-- `Esc` - Quit application
-
-### Chat Mode (Unified Interface)
-
-**Text Input:**
-
-- `Enter` - Submit task OR insert newline (configurable in Settings)
-- `Shift+Enter` - Insert newline (standard behavior)
-- `Alt+Enter` - Insert newline (alternative for terminal compatibility)
-- `Ctrl+J` - Insert newline (universal - works on ALL terminals)
-- `\` + `Enter` - Insert newline (backslash-Enter escape sequence)
-- `Ctrl+Enter` - Submit task (always submits)
-- `Ctrl+D` - Submit task (alternative)
-
-**Navigation:**
-
-- Arrow keys - Navigate cursor in input
-- `Ctrl+Arrow` - Scroll output panel
-- `PageUp/PageDown` - Page scroll output
-- `@` - Trigger file path autocomplete
-- `/` - Trigger slash command autocomplete (at line start)
-
-**Enter Key Behavior:**
-
-McGravity supports two input styles (configurable in Settings via Ctrl+S):
-
-1. **Submit (Default)**: Enter submits, Shift+Enter inserts newline. Best for quick commands.
-2. **Newline (Editor)**: Enter inserts newline, Ctrl+Enter submits. Best for writing longer prompts.
-
-**Newline Input Methods:**
-
-McGravity supports multiple ways to insert newlines to ensure compatibility across all terminals:
-
-| Method          | How                               | Works On                               |
-| --------------- | --------------------------------- | -------------------------------------- |
-| **Ctrl+J**      | Press Ctrl+J                      | All terminals (recommended)            |
-| **Alt+Enter**   | Press Alt+Enter                   | Most terminals                         |
-| **Shift+Enter** | Press Shift+Enter                 | Terminals with modifier support        |
-| **\\+Enter**    | Type backslash, then Enter        | All terminals                          |
-| **Settings**    | Set "Enter Behavior" to "Newline" | All terminals (changes Enter behavior) |
-
-**Note**: iPad keyboards and some terminal emulators (macOS Terminal.app, older Linux terminals)
-don't report Shift+Enter correctly. Use `Ctrl+J` or the backslash method for guaranteed compatibility.
-
-**Paste Behavior:**
-
-Multi-line paste is handled correctly through bracketed paste mode. When supported by the
-terminal, pasted text is received as a single event with newlines inserted directly.
-
-When bracketed paste mode is NOT supported by the terminal:
-
-- Pasted text arrives as individual key events
-- Rapid input detection serves as a fallback (see Technical Notes below)
-- The app detects paste operations by timing: 3+ keys within 150ms triggers rapid mode
-
-### Settings Mode
-
-- `Up/Down` or `j/k` - Navigate settings
-- `Ctrl+P/Ctrl+N` - Navigate settings (Emacs-style)
-- `Enter` or `Space` - Cycle current setting value
-- `Esc` or `q` - Close settings (auto-saves)
-
-### Slash Commands
-
-Type `/` at the start of the input to see available commands:
-
-- `/exit` - Exit the application gracefully
-- `/settings` - Open the settings panel (equivalent to Ctrl+S)
-- `/clear` - Clear task text, output, and todo files (does not reset settings)
-
-When the command popup is visible:
-
-- `Up/Down` or `j/k` - Navigate suggestions
-- `Tab` - Insert selected command (allows adding arguments)
-- `Enter` - Insert and execute selected command
-- `Esc` - Dismiss popup without selecting
-
-## @ File Tagging in Text Input
-
-When entering task descriptions, you can reference files using `@` mentions:
-
-- Type `@` followed by part of a filename to search for files
-- Use **Up/Down** or **j/k** to navigate suggestions
-- Press **Tab** or **Enter** to insert the file path
-- Press **Esc** to dismiss without selecting
-
-Features:
-
-- Fuzzy matching powered by `nucleo-matcher`
-- Respects `.gitignore` (won't suggest ignored files)
-- Paths with spaces are automatically quoted
-- Email patterns like `user@domain.com` don't trigger suggestions
-
-## Error Handling
-
-- Use `anyhow` for application errors with context
-- Use `thiserror` for library-style error types
-- Propagate errors with `?` operator
-- Display user-friendly error messages in the TUI
-
-## Testing
-
-- Use `TestBackend::assert_buffer_lines()` with inline expected buffers for TUI regression tests
-- Render UI tests via `render_app_to_terminal` in `src/app/tests/helpers.rs`, then assert lines on the backend
-- This approach avoids committed snapshot files, keeps CI deterministic, and mirrors React/Jest-style expectations
-- Test core logic independently from TUI layer
-- Use integration tests for full workflow validation
-
-```bash
-cargo test                    # Run all tests
-cargo test test_name          # Run specific test
-cargo test -- --nocapture     # Show println! output
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/trait.Widget.html
 ```
 
-## Troubleshooting
+### 11.2 Stateful custom widgets
+If you need persistent state:
+- implement `StatefulWidget` with an associated `State` type
+- render via `Frame::render_stateful_widget`
 
-### Text Input Issues
-
-**Problem**: How do I submit my task?
-**Solution**: Press `Enter` to submit. This works like most chat applications.
-
-**Problem**: How do I create multi-line task descriptions?
-**Solution**: Multiple methods available for inserting newlines:
-
-- `Ctrl+J` - Works on ALL terminals (recommended)
-- `Shift+Enter` - Standard method (may not work on iPad or some terminals)
-- `Alt+Enter` - Alternative for terminals with Shift+Enter issues
-- Type `\` then `Enter` - Backslash escape sequence (works everywhere)
-  When done writing, press `Enter` to submit.
-
-**Problem**: Special keys aren't working as expected
-**Solution**: Some terminal emulators may not correctly report certain key combinations. Try:
-
-- `MCGRAVITY_DEBUG_KEYS=1 mcgravity` to see what keys your terminal reports
-- Use `j/k` as alternatives to Arrow keys for navigation
-
-**Problem**: Paste is causing unexpected behavior
-**Solution**: Verify bracketed paste mode is working:
-
-```bash
-MCGRAVITY_DEBUG_KEYS=1 mcgravity
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/widgets/trait.StatefulWidget.html
 ```
 
-Look for `[DEBUG PASTE]` events when pasting. If you see `[DEBUG KEY]` events instead,
-your terminal may not support bracketed paste. The app falls back to rapid input detection.
+### 11.3 Rendering helpers & patterns
+- Start by rendering a `Block` and use its `inner(area)` for content.
+- Respect `area` boundaries (never write outside).
+- Prefer using text primitives (`Span`, `Line`) when writing strings.
+- For popups, render `Clear` first, then your widget.
 
-### Slash Commands
-
-**Problem**: Slash commands don't work
-**Solution**: Ensure you type `/` at the very start of a line (not after other text).
-Commands are only recognized when they're the entire input.
-
-## Technical Notes
-
-### Key Binding Design
-
-McGravity supports configurable Enter key behavior to accommodate different workflows:
-
-- **Chat Style (Default)**: `Enter` = submit, `Shift+Enter` = newline
-- **Editor Style**: `Enter` = newline, `Ctrl+Enter` = submit
-
-### Universal Newline Methods
-
-Many terminals (macOS Terminal.app, iPad SSH clients, older Linux terminals) do NOT report
-the Shift modifier when `Shift+Enter` is pressed. This is a fundamental limitation of
-terminal emulators, documented in crossterm GitHub issues #861, #685, #460.
-
-To ensure newline insertion works everywhere, McGravity provides:
-
-1. **Ctrl+J** - ASCII 10 (LF). Works on ALL terminals because it's a control character,
-   not a modifier+key combination. This is the recommended method for maximum compatibility.
-
-2. **Backslash-Enter** - Type `\` followed by `Enter`. The backslash is removed and a
-   newline is inserted. Provides visual feedback and works on any terminal.
-
-3. **Alt+Enter** - Works on most terminals (more reliable than Shift+Enter).
-
-4. **Settings toggle** - Set "Enter Behavior" to "Newline" mode for document-style editing.
-
-**Note**: `Ctrl+J` may conflict with tmux default pane navigation (`Ctrl+B` then `j`).
-Users can use backslash-Enter instead or remap their tmux bindings.
-
-### Rapid Input Detection (Paste Fallback)
-
-When bracketed paste mode is not supported by the terminal, McGravity uses rapid input
-detection as a fallback to identify paste operations:
-
-- **Threshold**: 3 keys arriving within 150ms of each other
-- **Reset**: After 500ms without rapid keys
-- **Effect**: Tracked for potential future use cases
-
-This mechanism helps identify paste operations on terminals without bracketed paste support.
-Rapid input detection is currently tracked but not used for Enter key behavior - the paste
-handler bypasses key handling entirely by directly manipulating the text buffer.
-
-### Debug Mode
-
-Run with `MCGRAVITY_DEBUG_KEYS=1` to see detailed key event information:
-
-```bash
-MCGRAVITY_DEBUG_KEYS=1 mcgravity
+Example code:
+```text
+https://docs.rs/ratatui/latest/src/custom_widget/custom_widget.rs.html
 ```
 
-Debug output includes:
+---
 
-- `[DEBUG INIT]` - Startup information (bracketed paste mode status)
-- `[DEBUG KEY]` - Individual key events with timing
-- `[DEBUG ENTER]` - Enter key handling decisions
-- `[DEBUG PASTE]` - Bracketed paste events
-- `[DEBUG RAPID]` - Rapid input detection state changes
+## 12) Rendering “under the hood” (for performance + correctness)
 
-Example debug output:
+Ratatui concept guide explaining:
+- what immediate-mode means in practice
+- how widgets render into `Buffer`
+- how buffer diffing reduces terminal writes
+- where flicker comes from and how features like scrolling regions help
 
-```
-[DEBUG INIT] Bracketed paste mode ENABLED
-[DEBUG KEY] code=Enter modifiers=SHIFT kind=Press elapsed_ms=150
-[DEBUG ENTER] modifiers=SHIFT shift=true ctrl=false alt=false in_rapid=false input_len=10 input_not_empty=true action=newline (Shift+Enter or Alt+Enter)
-[DEBUG KEY] code=Enter modifiers=NONE kind=Press elapsed_ms=200
-[DEBUG ENTER] modifiers=NONE shift=false ctrl=false alt=false in_rapid=false input_len=12 input_not_empty=true action=submit (Enter)
-[DEBUG PASTE] len=20 lines=3 trailing_newline=false first_chars="Line 1\nLine 2\nLin"
+Docs:
+```text
+https://ratatui.rs/concepts/rendering/under-the-hood/
 ```
 
-For paste operations without bracketed paste support:
+Performance notes:
+- Avoid allocating new `Vec`s every frame for large tables; reuse where possible.
+- Prefer `WidgetRef` when widget construction is heavy.
+- Use layout cache (default) unless you have a strict reason not to.
 
+---
+
+## 13) Testing TUIs (unit tests + buffer assertions)
+
+### 13.1 `TestBackend`
+A backend that renders into memory and provides assertions / buffer inspection.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/backend/struct.TestBackend.html
 ```
-[DEBUG KEY] code=Char('a') modifiers=NONE kind=Press elapsed_ms=5
-[DEBUG RAPID] ACTIVATED: count 2 -> 3 (threshold=3)
-[DEBUG KEY] code=Enter modifiers=NONE kind=Press elapsed_ms=3
-[DEBUG ENTER] modifiers=NONE shift=false ctrl=false alt=false in_rapid=true input_len=15 input_not_empty=true action=newline (rapid input - paste detected)
+
+### 13.2 Buffer assertions (project approach)
+This project uses **inline expected buffers** with `TestBackend::assert_buffer_lines()` instead of committed snapshot files.
+
+Why:
+- CI-friendly (no golden files to manage or update)
+- React/Jest-like expectations (expected output lives next to the test)
+- Easier to review changes in code review
+
+Pattern:
+- render your widget/app into a known-size `TestBackend`
+- use the helper `render_app_to_terminal` to mirror the app render loop
+- assert the rendered buffer with inline expected lines
+
+Example:
+```rust
+let mut app = create_test_app_with_lines(&["hello"], 0, 5);
+let terminal = render_app_to_terminal(&mut app, 60, 20)?;
+
+terminal.backend().assert_buffer_lines(styled_lines_from_buffer(
+    &terminal,
+    &[
+        " McGravity [Codex/Codex]",
+        "┌Output (waiting for input)──────────────────────────────┐",
+        "│                                                        │",
+        "└────────────────────────────────────────────────────────┘",
+    ],
+));
 ```
+
+Notes:
+- Keep expected lines inline in the test for clarity.
+- Use `styled_lines_from_buffer` when you want to validate symbols/layout while
+  reusing actual buffer styles (avoids hardcoding colors).
+
+---
+
+## 14) Macros (ratatui::macros) — ergonomic builders
+
+Ratatui provides a “macros module” (feature `macros`, enabled by default) that helps you create:
+- spans, lines, text
+- layouts / constraints
+- other small builder conveniences
+
+Docs:
+```text
+https://docs.rs/ratatui-macros/
+https://docs.rs/crate/ratatui/latest/features
+```
+
+**Recommendation:** use macros for *readability* in UI code, but keep non-UI logic macro-free.
+
+---
+
+## 15) Practical application architecture (recommended pattern)
+
+A common, maintainable TUI structure:
+
+### 15.1 Split into three concerns
+1. **State** (`App`): pure data; no rendering.
+2. **Update**: event handling; modifies state.
+3. **View**: renders state → widgets.
+
+Example shape:
+```rust
+struct App { /* state */ }
+
+impl App {
+  fn update(&mut self, event: Event) { /* mutate state */ }
+  fn render(&self, f: &mut Frame) { /* read-only render */ }
+}
+```
+
+### 15.2 Drive it with an event loop
+- poll for input events (keyboard/mouse/resize)
+- apply updates
+- render at a controlled frame rate (avoid 100% CPU loops)
+- use a tick interval for animations, spinners, timeouts
+
+### 15.3 Resize handling best practice
+- ignore the raw resize event’s dimensions for *current frame* logic
+- always use `frame.area()` during the draw closure (stable for that frame)
+
+(See `Frame::area()` docs.)
+
+---
+
+## 16) Where to find authoritative examples (and keep them version-matched)
+
+### 16.1 docs.rs examples embedded as source
+Many examples are visible as `src/<example>/<example>.rs.html`:
+```text
+https://docs.rs/ratatui/latest/src/hello_world/hello_world.rs.html
+https://docs.rs/ratatui/latest/src/popup/popup.rs.html
+https://docs.rs/ratatui/latest/src/gauge/gauge.rs.html
+https://docs.rs/ratatui/latest/src/custom_widget/custom_widget.rs.html
+```
+
+### 16.2 Website examples gallery (with images)
+```text
+https://ratatui.rs/examples/
+```
+
+### 16.3 GitHub repo examples (be careful with “main” vs released version)
+```text
+https://github.com/ratatui/ratatui/tree/main/examples
+```
+
+**Tip:** The Ratatui examples site frequently notes that examples may track the repo’s `main` or `latest` branch; ensure your local crate version matches.
+
+---
+
+## 17) Reference index (start here when stuck)
+
+### 17.1 Top-level crate docs (overview + quickstart)
+```text
+https://docs.rs/ratatui/latest/ratatui/
+```
+
+### 17.2 Core API pages
+```text
+https://docs.rs/ratatui/latest/ratatui/struct.Terminal.html
+https://docs.rs/ratatui/latest/ratatui/struct.Frame.html
+https://docs.rs/ratatui/latest/ratatui/backend/index.html
+https://docs.rs/ratatui/latest/ratatui/buffer/index.html
+https://docs.rs/ratatui/latest/ratatui/layout/index.html
+https://docs.rs/ratatui/latest/ratatui/style/index.html
+https://docs.rs/ratatui/latest/ratatui/text/index.html
+https://docs.rs/ratatui/latest/ratatui/widgets/index.html
+https://docs.rs/ratatui/latest/ratatui/symbols/index.html
+```
+
+### 17.3 Concepts & recipes (high signal)
+```text
+https://ratatui.rs/concepts/
+https://ratatui.rs/recipes/
+```
+
+---
+
+## 18) “Checklist” for production-quality CLIs
+
+- [ ] Use `ratatui::run()` unless you have a strong reason not to.
+- [ ] Ensure terminal is restored on:
+  - normal exit
+  - errors bubbling to main
+  - panics (panic hook)
+- [ ] Keep a stable render loop (avoid busy-wait).
+- [ ] Store UI state explicitly (selection, scroll, input).
+- [ ] Render the *entire* frame every draw.
+- [ ] Use `TestBackend::assert_buffer_lines()` with inline expectations for regressions.
+- [ ] Keep styles centralized (theme struct).
+- [ ] Handle small terminal sizes gracefully (min sizes + fallbacks).
+- [ ] Be mindful of Crossterm major version conflicts if you use Crossterm.
+
+---
+
+## 19) Appendix: the “prelude” module (when to use it)
+
+`ratatui::prelude::*` re-exports common items and modules for convenience.  
+However, Ratatui’s own docs note that universal prelude usage can make it harder to distinguish library vs local types when reading source outside an IDE.
+
+Docs:
+```text
+https://docs.rs/ratatui/latest/ratatui/prelude/index.html
+```
+
+**Recommendation:**  
+- In examples/prototypes: prelude is fine.  
+- In larger codebases: explicit imports often improve readability and diff clarity.
 
 ---
 > Source: [tigranbs/mcgravity](https://github.com/tigranbs/mcgravity) — distributed by [TomeVault](https://tomevault.io).
