@@ -1,0 +1,9 @@
+{
+  "name": "manusa--podman-mcp-server",
+  "displayName": "podman-mcp-server",
+  "description": "Model Context Protocol (MCP) server for container runtimes (Podman and Docker)",
+  "version": "1.0.0",
+  "author": "manusa",
+  "homepage": "https://github.com/manusa/podman-mcp-server",
+  "skills": []
+}
