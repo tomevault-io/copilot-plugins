@@ -1,0 +1,9 @@
+{
+  "name": "lightspeed-core--lightspeed-stack",
+  "displayName": "lightspeed-stack",
+  "description": "LLM tooling stack",
+  "version": "1.0.0",
+  "author": "lightspeed-core",
+  "homepage": "https://github.com/lightspeed-core/lightspeed-stack",
+  "skills": []
+}
