@@ -1,0 +1,9 @@
+{
+  "name": "pydantic--logfire-js",
+  "displayName": "logfire-js",
+  "description": "JavaScript and TypeScript SDK for Logfire",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/logfire-js",
+  "skills": []
+}
