@@ -1,12 +1,12 @@
-## elixir-pattern-matching
+## elixir-performance
 
-> name: elixir_pattern_matching
+> name: elixir_performance
 
-# Elixir Pattern Matching
+ # Elixir Performance Optimization
 
 <rule>
-name: elixir_pattern_matching
-description: Effective use of pattern matching, one of Elixir's most powerful features
+name: elixir_performance
+description: Best practices for optimizing performance in Elixir applications
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
@@ -14,92 +14,198 @@ filters:
 actions:
   - type: suggest
     message: |
-      # Elixir Pattern Matching Best Practices
+      # Elixir Performance Optimization Best Practices
 
-      ## Function Clauses
-      - Use multiple function clauses instead of conditionals when possible
-      - Order pattern matches from specific to general
-      - Use guard clauses to further refine pattern matching
-      - Ensure all possible patterns are covered to avoid function clause errors
+      ## General Principles
+      - Focus on performance only after functionality is correct
+      - Profile first, optimize later - identify actual bottlenecks
+      - Measure before and after optimization to verify improvements
+      - Remember that premature optimization is the root of many problems
       
-      ## Variable Binding
-      - Use the pin operator `^` when you want to match against a variable's value
-      - Use underscore `_` for variables you don't need
-      - Use descriptive names for pattern variables that reflect their purpose
-      - Avoid deep nesting in pattern matches
+      ## Data Structure Selection
+      - Use the right data structure for the operation (Map vs List vs MapSet)
+      - For large lists with frequent lookups, use maps or ETS tables
+      - Use binaries efficiently with proper pattern matching
+      - Consider Stream for large collections when you don't need all results at once
       
-      ## Destructuring
-      - Use pattern matching to destructure complex data types (lists, maps, tuples)
-      - Destructure directly in function parameters when possible
-      - Use pattern matching in `with` statements for sequential operations
-      - Extract only the parts of the data structure you need
+      ## Computation Strategies
+      - Prefer pattern matching over conditionals when possible
+      - Use tail recursion for processing collections
+      - Consider using list comprehensions for building lists
+      - Use function capturing (`&`) for cleaner higher-order functions
       
-      ## Maps and Structs
-      - When matching on maps, only specify the keys you need
-      - Use pattern matching to validate the presence of required keys
-      - Pattern match on specific struct types to ensure correct data type
+      ## Process Management
+      - Use appropriate concurrency patterns for your workload
+      - Avoid process bottlenecks with proper workload distribution
+      - Consider process pools for limiting resource usage
+      - Use Tasks for parallelizing independent operations
       
-      ## Tuples and Lists
-      - Use pattern matching to extract elements from tuples by position
-      - Match on list heads and tails with `[head | tail]` syntax
-      - Consider pattern matching in list comprehensions and Enum operations
+      ## Memory Management
+      - Avoid unnecessary data copying between processes
+      - Be careful with large binaries and reference counting
+      - Use binary pattern matching efficiently 
+      - Consider binary construction with iodata for large string operations
       
-      ## Advanced Patterns
-      - Use pattern matching in `case` statements for cleaner conditional logic
-      - Combine pattern matching with guards for powerful filtering
-      - Consider pattern matching in `receive` blocks for process messages
-      - Use binary pattern matching for parsing binary data
-
+      ## Database and I/O Operations
+      - Optimize database queries and use proper indexing
+      - Batch database operations when possible
+      - Use Ecto's preloading effectively to avoid N+1 query problems
+      - Consider caching strategies for frequently accessed data
+      
 examples:
   - input: |
-      def process_data(data) do
-        if is_list(data) do
-          Enum.map(data, fn x -> x * 2 end)
-        else
-          if is_integer(data) do
-            data * 2
-          else
-            if is_binary(data) do
-              "Value: " <> data
-            else
-              {:error, "Unsupported data type"}
-            end
-          end
+      defmodule Inefficient do
+        def process_list(items) do
+          # Building a new list inefficiently
+          result = []
+          Enum.each(items, fn item ->
+            processed = transform(item)
+            result = result ++ [processed]  # Inefficient append
+          end)
+          result
+        end
+        
+        def lookup_value(list, key) do
+          # O(n) lookup in a list
+          Enum.find(list, fn {k, _v} -> k == key end)
+        end
+        
+        defp transform(item) do
+          # Some transformation
+          item * 2
         end
       end
     output: |
-      def process_data(data) when is_list(data) do
-        Enum.map(data, fn x -> x * 2 end)
-      end
-      
-      def process_data(data) when is_integer(data) do
-        data * 2
-      end
-      
-      def process_data(data) when is_binary(data) do
-        "Value: " <> data
-      end
-      
-      def process_data(_data) do
-        {:error, "Unsupported data type"}
+      defmodule Optimized do
+        def process_list(items) do
+          # Using map directly - more efficient and cleaner
+          Enum.map(items, &transform/1)
+          
+          # Alternative: if order matters and you're building in reverse
+          # items
+          # |> Enum.reduce([], fn item, acc ->
+          #   [transform(item) | acc]
+          # end)
+          # |> Enum.reverse()
+        end
+        
+        def lookup_value(items, key) do
+          # Convert list to map for repeated lookups
+          # O(1) lookup in a map
+          items_map = Map.new(items)
+          Map.get(items_map, key)
+          
+          # If this function is called repeatedly, even better:
+          # def lookup_value(items_map, key) when is_map(items_map) do
+          #   Map.get(items_map, key)
+          # end
+          # 
+          # def lookup_value(items, key) when is_list(items) do
+          #   items
+          #   |> Map.new()
+          #   |> Map.get(key)
+          # end
+        end
+        
+        defp transform(item) do
+          # Some transformation
+          item * 2
+        end
       end
   
   - input: |
-      def extract_user_data(user) do
-        name = user.name
-        email = user.email
-        age = user.age
-        {name, email, age}
+      defmodule SlowStringBuilder do
+        def build_report(data) do
+          # Inefficient string building
+          report = ""
+          
+          report = report <> "REPORT START\n"
+          report = report <> "Date: #{Date.utc_today()}\n"
+          
+          Enum.each(data, fn {key, value} ->
+            report = report <> "#{key}: #{value}\n"  # String concat in a loop
+          end)
+          
+          report = report <> "REPORT END\n"
+          report
+        end
       end
     output: |
-      def extract_user_data(%{name: name, email: email, age: age}) do
-        {name, email, age}
+      defmodule FastStringBuilder do
+        def build_report(data) do
+          # Using iodata for efficient string building
+          [
+            "REPORT START\n",
+            "Date: ", Date.utc_today() |> Date.to_string(), "\n",
+            Enum.map(data, fn {key, value} ->
+              [to_string(key), ": ", to_string(value), "\n"]
+            end),
+            "REPORT END\n"
+          ]
+          |> IO.iodata_to_binary()
+          
+          # Alternative with comprehension:
+          # report_parts = [
+          #   "REPORT START\n",
+          #   "Date: #{Date.utc_today()}\n",
+          #   for {key, value} <- data do
+          #     "#{key}: #{value}\n"
+          #   end,
+          #   "REPORT END\n"
+          # ]
+          # IO.iodata_to_binary(report_parts)
+        end
+      end
+      
+  - input: |
+      defmodule SequentialProcessor do
+        def process_files(files) do
+          Enum.map(files, fn file ->
+            {:ok, data} = File.read(file)
+            process_data(data)
+          end)
+        end
+        
+        defp process_data(data) do
+          # Some CPU-intensive operation
+          :timer.sleep(100)  # Simulating work
+          String.length(data)
+        end
+      end
+    output: |
+      defmodule ParallelProcessor do
+        def process_files(files) do
+          # Process files in parallel using Task
+          files
+          |> Task.async_stream(fn file ->
+            {:ok, data} = File.read(file)
+            process_data(data)
+          end, max_concurrency: 10)  # Limit concurrency to avoid overwhelming system
+          |> Enum.to_list()
+          |> Enum.map(fn {:ok, result} -> result end)
+          
+          # Alternatively for more control:
+          # tasks = Enum.map(files, fn file ->
+          #   Task.async(fn ->
+          #     {:ok, data} = File.read(file)
+          #     process_data(data)
+          #   end)
+          # end)
+          # 
+          # Task.await_many(tasks, 30_000)  # 30 second timeout
+        end
+        
+        defp process_data(data) do
+          # Some CPU-intensive operation
+          :timer.sleep(100)  # Simulating work
+          String.length(data)
+        end
       end
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [ihorkatkov/brama](https://github.com/ihorkatkov/brama) — distributed by [TomeVault](https://tomevault.io).
