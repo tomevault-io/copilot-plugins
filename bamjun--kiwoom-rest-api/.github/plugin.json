@@ -1,0 +1,9 @@
+{
+  "name": "bamjun--kiwoom-rest-api",
+  "displayName": "kiwoom-rest-api",
+  "description": "A Python client for Kiwoom REST API to access stock market data with ease.",
+  "version": "1.0.0",
+  "author": "bamjun",
+  "homepage": "https://github.com/bamjun/kiwoom-rest-api",
+  "skills": []
+}
