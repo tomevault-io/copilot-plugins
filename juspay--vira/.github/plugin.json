@@ -1,0 +1,9 @@
+{
+  "name": "juspay--vira",
+  "displayName": "vira",
+  "description": "No-frills CI for small teams using Nix",
+  "version": "1.0.0",
+  "author": "juspay",
+  "homepage": "https://github.com/juspay/vira",
+  "skills": []
+}
