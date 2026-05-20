@@ -1,265 +1,212 @@
-## translation-workflow
+## ugtlive-project-guide
 
-> Translation workflow and OCR processing pipeline
+> Universal Game Translator Live project overview and structure
 
 
-# Translation Workflow and API Integration Guide
+# Universal Game Translator Live - Project Guide
 
-## Translation Pipeline Overview
+## Overview
+Universal Game Translator Live (UGTLive) is a Windows WPF application that provides real-time screen translation using OCR and Large Language Models (LLMs). The application captures screen regions, performs OCR, and translates text using services like Gemini, ChatGPT, Ollama, Google Translate, or llama.cpp.
 
-The translation process in UGTLive follows this pipeline:
-1. **Screen Capture** → 2. **OCR Processing** → 3. **Block Detection** → 4. **Translation** → 5. **Display**
+## Project Structure
 
-## Screen Capture
+### Core Application Files
+- [src/App.xaml](mdc:src/App.xaml) - WPF application entry point
+- [src/MainWindow.xaml.cs](mdc:src/MainWindow.xaml.cs) - Main application window and control logic
+- [src/Logic.cs](mdc:src/Logic.cs) - Core translation and OCR processing logic
+- [src/ConfigManager.cs](mdc:src/ConfigManager.cs) - Settings and configuration management
 
-### Monitor Window ([src/MonitorWindow.xaml.cs](mdc:src/MonitorWindow.xaml.cs))
-- Captures screen region at configurable FPS
-- Uses `System.Drawing` for bitmap operations
-- Sends captured images to OCR services
-- Provides visual feedback of capture area
+### UI Components
+- [src/MonitorWindow.xaml.cs](mdc:src/MonitorWindow.xaml.cs) - Screen capture preview window
+- [src/ChatBoxWindow.xaml.cs](mdc:src/ChatBoxWindow.xaml.cs) - Translation overlay/chat display
+- [src/SettingsWindow.xaml.cs](mdc:src/SettingsWindow.xaml.cs) - Application settings interface
+- [src/ChatBoxOptionsWindow.xaml.cs](mdc:src/ChatBoxOptionsWindow.xaml.cs) - ChatBox customization options
+- [src/ChatBoxSelectorWindow.xaml.cs](mdc:src/ChatBoxSelectorWindow.xaml.cs) - ChatBox region selector
+- [src/LogWindow.xaml.cs](mdc:src/LogWindow.xaml.cs) - Log viewer window
 
-### Capture Methods
-```csharp
-// Main capture triggered by timer
-private void Timer_Tick(object sender, EventArgs e)
-// Captures bitmap from screen region
-private Bitmap CaptureScreen(int x, int y, int width, int height)
-```
+### Dialog Windows
+- [src/UpdateAvailableDialog.xaml.cs](mdc:src/UpdateAvailableDialog.xaml.cs) - Version update notification
+- [src/TtsVoiceSelectorDialog.xaml.cs](mdc:src/TtsVoiceSelectorDialog.xaml.cs) - TTS voice selection
+- [src/ServiceInstallDialog.xaml.cs](mdc:src/ServiceInstallDialog.xaml.cs) - Python service installation
+- [src/ServiceDiagnosticDialog.xaml.cs](mdc:src/ServiceDiagnosticDialog.xaml.cs) - Service diagnostics
+- [src/ServerSetupDialog.xaml.cs](mdc:src/ServerSetupDialog.xaml.cs) - Server setup wizard
+- [src/OllamaModelSelectorWindow.xaml.cs](mdc:src/OllamaModelSelectorWindow.xaml.cs) - Ollama model selection
+- [src/GoogleVisionSetupDialog.xaml.cs](mdc:src/GoogleVisionSetupDialog.xaml.cs) - Google Vision setup
+- [src/ShutdownDialog.xaml.cs](mdc:src/ShutdownDialog.xaml.cs) - Shutdown confirmation
+- [src/NoTextInfoDialog.xaml.cs](mdc:src/NoTextInfoDialog.xaml.cs) - No text detected notification
 
-## OCR Processing
+### OCR Services
+- [src/WindowsOCRManager.cs](mdc:src/WindowsOCRManager.cs) - Windows built-in OCR integration
+- [src/GoogleVisionOCRService.cs](mdc:src/GoogleVisionOCRService.cs) - Google Cloud Vision OCR
+- [src/UniversalBlockDetector.cs](mdc:src/UniversalBlockDetector.cs) - Advanced text block detection and grouping
+- [src/PythonServicesManager.cs](mdc:src/PythonServicesManager.cs) - Manages Python OCR services (EasyOCR, MangaOCR, PaddleOCR, DocTR)
+- [src/PythonService.cs](mdc:src/PythonService.cs) - Individual Python service wrapper
 
-### OCR Service Selection
-UGTLive supports six OCR backends configured in [src/ConfigManager.cs](mdc:src/ConfigManager.cs):
+### Translation Services
+- [src/ITranslationService.cs](mdc:src/ITranslationService.cs) - Translation service interface
+- [src/GeminiTranslationService.cs](mdc:src/GeminiTranslationService.cs) - Google Gemini API integration
+- [src/ChatGptTranslationService.cs](mdc:src/ChatGptTranslationService.cs) - OpenAI ChatGPT integration
+- [src/OllamaTranslationService.cs](mdc:src/OllamaTranslationService.cs) - Local Ollama LLM integration
+- [src/GoogleTranslateService.cs](mdc:src/GoogleTranslateService.cs) - Google Translate integration
+- [src/LlamaCppTranslationService.cs](mdc:src/LlamaCppTranslationService.cs) - llama.cpp local translation
+- [src/TranslationServiceFactory.cs](mdc:src/TranslationServiceFactory.cs) - Factory for creating translation services
 
-1. **Windows OCR** ([src/WindowsOCRManager.cs](mdc:src/WindowsOCRManager.cs))
-   - Uses Windows.Media.Ocr API
-   - Faster but less accurate for some languages
-   - No external dependencies
+### Audio Services
+- [src/GoogleTTSService.cs](mdc:src/GoogleTTSService.cs) - Google Text-to-Speech
+- [src/ElevenLabsService.cs](mdc:src/ElevenLabsService.cs) - ElevenLabs TTS integration
+- [src/OpenAIRealtimeAudioService.cs](mdc:src/OpenAIRealtimeAudioService.cs) - OpenAI real-time audio transcription
+- [src/AudioPlaybackManager.cs](mdc:src/AudioPlaybackManager.cs) - Audio playback management
+- [src/AudioPreloadService.cs](mdc:src/AudioPreloadService.cs) - TTS audio preloading
 
-2. **EasyOCR** (via PythonServicesManager)
-   - Python server running locally
-   - Better accuracy for Asian languages
-   - Requires conda environment setup
+### Utilities and Managers
+- [src/HotkeyManager.cs](mdc:src/HotkeyManager.cs) - Global keyboard shortcuts management
+- [src/MouseManager.cs](mdc:src/MouseManager.cs) - Mouse input handling
+- [src/LogManager.cs](mdc:src/LogManager.cs) - Application logging
+- [src/SplashManager.cs](mdc:src/SplashManager.cs) - Splash screen management
+- [src/TextObject.cs](mdc:src/TextObject.cs) - Text region data structure
+- [src/ErrorPopupManager.cs](mdc:src/ErrorPopupManager.cs) - Error popup management
+- [src/GamepadManager.cs](mdc:src/GamepadManager.cs) - Gamepad input management
+- [src/WebViewEnvironmentManager.cs](mdc:src/WebViewEnvironmentManager.cs) - WebView2 environment management
+- [src/WebViewPool.cs](mdc:src/WebViewPool.cs) - WebView2 instance pooling
+- [src/OverlayProfiler.cs](mdc:src/OverlayProfiler.cs) - Overlay performance profiling
+- [src/CondaHelper.cs](mdc:src/CondaHelper.cs) - Conda environment management
+- [src/ServiceConfigParser.cs](mdc:src/ServiceConfigParser.cs) - Python service config parsing
+- [src/ServiceItemViewModel.cs](mdc:src/ServiceItemViewModel.cs) - Service UI view model
+- [src/OllamaModelDownloader.cs](mdc:src/OllamaModelDownloader.cs) - Ollama model download management
+- [src/HotkeyEntry.cs](mdc:src/HotkeyEntry.cs) - Hotkey entry data structure
+- [src/TranslationEventArgs.cs](mdc:src/TranslationEventArgs.cs) - Translation event arguments
 
-3. **MangaOCR** (via PythonServicesManager)
-   - Specialized for vertical Japanese manga text
-   - YOLO-based text detection
-   - Configurable region size and overlap settings
+### Python Services
+- `app/services/EasyOCR/` - EasyOCR Python service
+- `app/services/MangaOCR/` - MangaOCR Python service
+- `app/services/PaddleOCR/` - PaddleOCR Python service
+- `app/services/DocTR/` - DocTR Python service
+- `app/services/shared/` - Shared Python utilities
+- `app/services/util/` - Python installation utilities
 
-4. **PaddleOCR** (via PythonServicesManager)
-   - Multi-language OCR with 100+ language support
-   - Optional angle classification for rotated text
-   - GPU acceleration support
+Each Python service directory contains:
+- `server.py` - FastAPI server implementation
+- `service_config.txt` - Service configuration
+- `Install.bat` - Installation script
+- `RunServer.bat` - Server launch script
+- `DiagnosticTest.bat` - Diagnostic test script
+- `Uninstall.bat` - Uninstallation script
 
-5. **docTR** (via PythonServicesManager)
-   - Great for non-Asian languages
-   - Document-oriented OCR
-   - High accuracy for printed text
+## Key Architectural Patterns
 
-6. **Google Vision** ([src/GoogleVisionOCRService.cs](mdc:src/GoogleVisionOCRService.cs))
-   - Cloud-based OCR service
-   - Requires API key and costs money
-   - High accuracy but not local
+### Singleton Pattern
+The application uses singleton pattern for core managers:
+- `Logic.Instance` - Main application logic
+- `ConfigManager.Instance` - Configuration management
+- `UniversalBlockDetector.Instance` - Text block detection (replaces BlockDetectionManager)
+- `LogManager.Instance` - Logging
+- `HotkeyManager.Instance` - Keyboard shortcuts (replaces KeyboardShortcuts)
+- `PythonServicesManager.Instance` - Python OCR service management
+- `AudioPlaybackManager.Instance` - Audio playback
+- `AudioPreloadService.Instance` - Audio preloading
+- `GamepadManager.Instance` - Gamepad input
 
-### OCR Data Flow
-```
-Bitmap → OCR Service → List<TextObject> → UniversalBlockDetector
-```
+### Window Management
+Each window inherits from WPF Window class and follows these patterns:
+- Windows are typically created once and shown/hidden as needed
+- Settings are persisted through ConfigManager
+- Windows communicate through events and direct method calls on Logic.Instance
 
-### Python OCR Services
-All Python OCR services are managed by `PythonServicesManager`:
-- Services discovered automatically on startup
-- Each service runs on its own port
-- Services can be installed/uninstalled via UI
-- Health checks and diagnostics available
+### Translation Flow
+1. Screen capture → OCR (Windows OCR, EasyOCR, MangaOCR, PaddleOCR, DocTR, or Google Vision) → Universal Block Detection → Translation Service → Display
+2. Text blocks are grouped by UniversalBlockDetector
+3. Translation includes context from previous translations
+4. Results are displayed in ChatBox or as overlay
 
-## Block Detection ([src/UniversalBlockDetector.cs](mdc:src/UniversalBlockDetector.cs))
+## Development Guidelines
 
-The UniversalBlockDetector groups individual characters/words/lines into meaningful text blocks:
+### Code Style
+- **Naming**: PascalCase for public members, camelCase for private, underscore prefix for fields
+- **Layout**: 4-space indentation, Allman braces, System namespaces first
+- **Properties**: Use GetVariableName/SetVariableName pattern in ConfigManager
+- **UI Properties**: Direct Get/Set to GUI elements when possible
+- **Error Handling**: Avoid try/catch blocks, check for null, log errors via LogManager
+
+### Project Configuration
+- **Framework**: .NET 8.0 Windows
+- **Output**: `app/` directory
+- **Assembly**: `ugtlive.exe` (or `ugtlive_debug.exe` in Debug)
+- **Dependencies**: NAudio, Microsoft.Windows.CsWinRT, WebView2
 
 ### Key Features
-- **Universal Detection**: Handles mixed input types (Words, Lines, Characters)
-- **Intelligent Grouping**: Groups based on proximity, alignment, and reading order
-- **Configurable Thresholds**: Per-OCR method settings for glue distances
-- **Height Similarity**: Prevents merging text with very different sizes
-- **Large Gap Detection**: Splits text at large horizontal gaps
+- Multiple OCR backends (Windows OCR, EasyOCR, MangaOCR, PaddleOCR, DocTR, Google Vision)
+- Multiple translation services (Gemini, ChatGPT, Ollama, Google Translate, llama.cpp)
+- Real-time screen capture and translation
+- Customizable overlay windows
+- Audio transcription and TTS
+- Context-aware translations
+- Global keyboard shortcuts (via HotkeyManager)
+- Gamepad support
+- Python service management UI
 
-### Key Parameters
-- **Block Detection Scale**: Controls grouping aggressiveness (0.0 - 1.0)
-- **Horizontal/Vertical Glue**: Per-OCR method glue distances
-- **Height Similarity Threshold**: Percentage for height matching
-- **Settle Time**: Time to wait before processing blocks
+## Common Development Tasks
 
-### Grouping Algorithm
-1. Sorts text objects by position
-2. Groups based on proximity and alignment
-3. Merges overlapping blocks
-4. Filters by minimum size
-5. Handles mixed input types intelligently
+### Adding a New Translation Service
+1. Create a new class implementing `ITranslationService`
+2. Add service configuration to `ConfigManager`
+3. Update `TranslationServiceFactory` to create instances
+4. Add UI controls in `SettingsWindow.xaml`
 
-## Translation Services
+### Adding New Settings
+1. Add property to `ConfigManager` with getter/setter
+2. Add UI controls to `SettingsWindow.xaml`
+3. Wire up events in `SettingsWindow.xaml.cs`
+4. Settings are automatically persisted
 
-### Service Interface ([src/ITranslationService.cs](mdc:src/ITranslationService.cs))
-```csharp
-public interface ITranslationService
-{
-    Task<TranslationResult?> TranslateAsync(
-        string sourceText, 
-        string targetLanguage, 
-        string context);
-}
-```
+### Adding a New Python OCR Service
+1. Create service directory in `app/services/` (e.g., `app/services/NewOCR/`)
+2. Create `service_config.txt` with required fields
+3. Create `server.py` implementing FastAPI endpoints
+4. Create batch scripts: `Install.bat`, `RunServer.bat`, `DiagnosticTest.bat`, `Uninstall.bat`
+5. Service will be automatically discovered by `PythonServicesManager`
 
-### Available Services
+### Debugging OCR Issues
+1. Check `LogManager` output for errors
+2. Use Monitor window to preview capture area
+3. Verify Python server is running (for Python OCR services)
+4. Check service diagnostics dialog
+5. Review UniversalBlockDetector settings
 
-#### Gemini ([src/GeminiTranslationService.cs](mdc:src/GeminiTranslationService.cs))
-- Endpoint: `https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent`
-- Models: gemini-1.5-flash, gemini-1.5-pro, gemini-2.0-flash
-- Supports custom prompts and context
+## Version Management
 
-#### ChatGPT ([src/ChatGptTranslationService.cs](mdc:src/ChatGptTranslationService.cs))
-- Endpoint: `https://api.openai.com/v1/chat/completions`
-- Models: gpt-4o, gpt-4o-mini, o1-preview, o1-mini
-- Supports streaming responses
-- Configurable max completion tokens
+When incrementing the version number, you must update it in **THREE places**:
 
-#### Ollama ([src/OllamaTranslationService.cs](mdc:src/OllamaTranslationService.cs))
-- Local endpoint: `http://localhost:11434/api/generate`
-- Models: Various local models (llama, gemma, etc.)
-- Privacy-focused, no cloud dependency
-- Configurable URL and port
+1. **[src/SplashManager.cs](mdc:src/SplashManager.cs)** - `CurrentVersion` constant
+   ```csharp
+   public const double CurrentVersion = 0.60;  // Update this value
+   ```
 
-#### Google Translate ([src/GoogleTranslateService.cs](mdc:src/GoogleTranslateService.cs))
-- Can use Cloud API or free web API
-- Auto language mapping support
-- Fast translation for simple use cases
+2. **[media/latest_version_checker.json](mdc:media/latest_version_checker.json)** - `latest_version` field
+   ```json
+   {
+       "name":"Universal Game Translator Live",
+       "latest_version":0.60,  // Update this value
+       "message":"Download V{VERSION_STRING} now from rtsoft.com?\n\nV0.60: "  // Update version in message
+   }
+   ```
 
-#### llama.cpp ([src/LlamaCppTranslationService.cs](mdc:src/LlamaCppTranslationService.cs))
-- Local llama.cpp server endpoint
-- Configurable URL and port
-- Privacy-focused local translation
+3. **[README.md](mdc:README.md)** - Version badge and history entry
+   - Update the version badge: `[![Version](https://img.shields.io/badge/version-0.60-blue.svg)]`
+   - Add a new history entry at the top: `**V0.60** - [description]`
 
-### Translation Request Format
-All services receive:
-- Source text with position data
-- Target language
-- Previous context (configurable length)
-- Game name for context
-- Custom prompt template
+### Version Increment Rules
+- Default increment: **0.01** (e.g., 0.25 → 0.26)
+- Major features: **0.10** (e.g., 0.25 → 0.35)
+- Complete rewrites: **1.00** (e.g., 0.99 → 1.00)
+- **ALWAYS update all three files** to keep them in sync
+- Version format is a double/float (e.g., 0.60, not "0.60")
 
-## Display Systems
-
-### ChatBox Window ([src/ChatBoxWindow.xaml.cs](mdc:src/ChatBoxWindow.xaml.cs))
-- Overlay window for displaying translations
-- Customizable appearance (color, transparency, font)
-- Auto-scroll and history management
-- Can be positioned anywhere on screen
-
-### Overlay System
-- Text overlays positioned at original text locations
-- Configurable clear delay
-- Passthrough mode for interaction
-- Multiple overlay modes
-
-### Text Rendering
-- Uses WPF TextBlock with formatting
-- Supports multiple fonts and sizes
-- Color-coded by translation service
-- Maintains translation history
-
-## API Key Management
-
-API keys are stored securely in [src/ConfigManager.cs](mdc:src/ConfigManager.cs):
-- Stored in plain text config files (local only)
-- Never logged (masked in console output)
-- Validated on settings save
-
-## Context Management
-
-### Previous Context System
-- Stores recent translations for context
-- Configurable maximum context length
-- Filters small UI elements (buttons, menus)
-- Improves translation accuracy
-
-### Context Flow
-```
-Previous Translations → Context Buffer → Translation Request → LLM
-```
-
-## Audio Features
-
-### Text-to-Speech Services
-- **Google TTS** ([src/GoogleTTSService.cs](mdc:src/GoogleTTSService.cs))
-- **ElevenLabs** ([src/ElevenLabsService.cs](mdc:src/ElevenLabsService.cs))
-- Voice selection dialogs
-- Audio preloading for source/target languages
-
-### Real-time Audio Transcription
-- Uses OpenAI Realtime API ([src/OpenAIRealtimeAudioService.cs](mdc:src/OpenAIRealtimeAudioService.cs))
-- WebSocket connection for streaming
-- Supports voice activity detection
-
-### Audio Playback
-- Managed by `AudioPlaybackManager`
-- Preloading via `AudioPreloadService`
-- Queue management and playback control
-
-## Error Handling
-
-### Common Error Points
-1. **OCR Failures**: Logged, skips frame
-2. **Translation API Errors**: Displays error in ChatBox or via ErrorPopupManager
-3. **Network Issues**: Retries with exponential backoff
-4. **Invalid API Keys**: Shows settings prompt
-
-### Logging
-All errors logged via [src/LogManager.cs](mdc:src/LogManager.cs):
-```csharp
-LogManager.Instance.LogError("Error description", exception);
-```
-
-### Error Popups
-User-friendly error messages via [src/ErrorPopupManager.cs](mdc:src/ErrorPopupManager.cs):
-```csharp
-ErrorPopupManager.ShowError("Title", "Message");
-```
-
-## Performance Considerations
-
-### OCR Optimization
-- Configurable capture FPS
-- Region-based capture (not full screen)
-- Caching of unchanged regions
-- Per-OCR method confidence thresholds
-
-### Translation Optimization
-- Batches small text blocks
-- Caches recent translations
-- Parallel processing where possible
-- Pause OCR while translating option
-
-### Memory Management
-- Disposes bitmaps after use
-- Limits translation history size
-- Clears old context periodically
-- Audio preloading with size limits
-
-## Testing Translation Services
-
-### Manual Testing
-1. Set API key in settings
-2. Select service and model
-3. Use Monitor window to capture text
-4. Check ChatBox for results
-5. Review logs for errors
-
-### Common Issues
-- **Empty translations**: Check OCR output
-- **Wrong language**: Verify language settings
-- **Slow performance**: Reduce capture area/FPS
-- **API errors**: Validate API key and quota
-- **Python service errors**: Check service diagnostics dialog
+## Important Notes
+- Application is Windows-only due to WPF and Windows OCR dependencies
+- Python OCR services run locally on configurable ports
+- First run downloads OCR language models
+- Settings stored in `app/` directory (config.txt, service configs)
+- All web calls are for version checking and API services only
 
 ---
 > Source: [SethRobinson/UGTLive](https://github.com/SethRobinson/UGTLive) — distributed by [TomeVault](https://tomevault.io).
