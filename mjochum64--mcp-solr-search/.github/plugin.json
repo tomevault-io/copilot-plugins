@@ -1,0 +1,9 @@
+{
+  "name": "mjochum64--mcp-solr-search",
+  "displayName": "mcp-solr-search",
+  "description": "MCP-Server for Apache Solr",
+  "version": "1.0.0",
+  "author": "mjochum64",
+  "homepage": "https://github.com/mjochum64/mcp-solr-search",
+  "skills": []
+}
