@@ -1,0 +1,417 @@
+## architecture-patterns
+
+> Architecture patterns and project structure guidelines
+
+
+# Architecture Patterns
+
+## Project Structure
+
+### Directory Organization
+```
+src/
+  - Core application files (App.xaml, Logic.cs, ConfigManager.cs)
+  - Window classes (MainWindow, MonitorWindow, ChatBoxWindow, SettingsWindow, etc.)
+  - Translation services (Gemini, ChatGPT, Ollama, GoogleTranslate, LlamaCpp)
+  - OCR services (WindowsOCRManager, GoogleVisionOCRService)
+  - Managers (UniversalBlockDetector, LogManager, HotkeyManager, PythonServicesManager, AudioPlaybackManager, etc.)
+  - Utilities (TextObject, TranslationEventArgs, etc.)
+app/
+  - Compiled binaries
+  - services/ (Python OCR services - EasyOCR, MangaOCR, PaddleOCR, DocTR)
+    - shared/ (Shared Python utilities)
+    - util/ (Python installation utilities)
+    - EasyOCR/, MangaOCR/, PaddleOCR/, DocTR/ (Individual service directories)
+  - media/ (Resources)
+```
+
+### File Naming
+- One class per file
+- File name matches class name
+- XAML files: `WindowName.xaml` and `WindowName.xaml.cs`
+
+## Design Patterns
+
+### Singleton Pattern
+Used for core managers:
+- `ConfigManager.Instance`
+- `Logic.Instance`
+- `UniversalBlockDetector.Instance` - Advanced text block detection (replaces BlockDetectionManager)
+- `LogManager.Instance`
+- `PythonServicesManager.Instance` - Manages Python OCR services
+- `HotkeyManager.Instance` - Manages global keyboard shortcuts (replaces KeyboardShortcuts)
+- `AudioPlaybackManager.Instance` - Manages audio playback
+- `AudioPreloadService.Instance` - Preloads TTS audio
+- `ErrorPopupManager` - Static class for error popups
+- `GamepadManager.Instance` - Manages gamepad input
+- `WebViewEnvironmentManager` - Static class for WebView2 environment
+
+**Implementation:**
+```csharp
+private static ConfigManager? _instance;
+
+public static ConfigManager Instance
+{
+    get
+    {
+        if (_instance == null)
+        {
+            _instance = new ConfigManager();
+        }
+        return _instance;
+    }
+}
+
+private ConfigManager() { }
+```
+
+### Factory Pattern
+Used for creating service instances:
+
+```csharp
+public static class TranslationServiceFactory
+{
+    public static ITranslationService CreateService(string serviceName)
+    {
+        return serviceName switch
+        {
+            "Gemini" => new GeminiTranslationService(),
+            "ChatGPT" => new ChatGptTranslationService(),
+            "Ollama" => new OllamaTranslationService(),
+            "Google Translate" => new GoogleTranslateService(),
+            "llama.cpp" => new LlamaCppTranslationService(),
+            _ => throw new ArgumentException(...)
+        };
+    }
+}
+```
+
+### Strategy Pattern
+Translation services implement common interface:
+
+```csharp
+public interface ITranslationService
+{
+    Task<TranslationResult?> TranslateAsync(
+        string sourceText,
+        string targetLanguage,
+        string context);
+}
+```
+
+## Separation of Concerns
+
+### UI Layer
+- XAML files define UI structure
+- Code-behind handles UI events
+- Minimal business logic in UI code
+
+### Business Logic Layer
+- `Logic.cs` - Core translation workflow
+- `UniversalBlockDetector.cs` - Advanced text block detection and grouping
+- Service classes - External API integration
+
+### Data Layer
+- `ConfigManager.cs` - Configuration persistence
+- File-based storage (config.txt, service-specific configs)
+
+## Dependency Management
+
+### Service Dependencies
+Services depend on ConfigManager, not each other:
+
+```csharp
+public class GeminiTranslationService
+{
+    private readonly string _apiKey;
+    
+    public GeminiTranslationService()
+    {
+        _apiKey = ConfigManager.Instance.GetGeminiApiKey();
+    }
+}
+```
+
+### Manager Dependencies
+Managers can depend on other managers:
+
+```csharp
+public class Logic
+{
+    private readonly ConfigManager _configManager;
+    private readonly UniversalBlockDetector _blockDetector;
+    
+    public Logic()
+    {
+        _configManager = ConfigManager.Instance;
+        _blockDetector = UniversalBlockDetector.Instance;
+    }
+}
+```
+
+## Communication Patterns
+
+### Window Communication
+Windows communicate through Logic.Instance:
+
+```csharp
+// In ChatBoxWindow
+Logic.Instance.OnTranslationReceived += HandleTranslation;
+
+// In Logic
+public event EventHandler<TranslationEventArgs>? OnTranslationReceived;
+```
+
+### Event-Driven Architecture
+Use events for loose coupling:
+
+```csharp
+public class TranslationEventArgs : EventArgs
+{
+    public string TranslatedText { get; set; } = "";
+    public string SourceText { get; set; } = "";
+}
+```
+
+### Hotkey System
+Hotkeys managed through HotkeyManager events:
+
+```csharp
+HotkeyManager.Instance.StartStopRequested += OnStartStopRequested;
+HotkeyManager.Instance.MonitorToggleRequested += OnMonitorToggleRequested;
+```
+
+## Resource Management
+
+### Disposable Resources
+Implement IDisposable for resources:
+
+```csharp
+public class ResourceManager : IDisposable
+{
+    private bool _disposed = false;
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                // Dispose managed resources
+            }
+            // Dispose unmanaged resources
+            _disposed = true;
+        }
+    }
+}
+```
+
+### Using Statements
+Always use `using` for disposable resources:
+
+```csharp
+using (var bitmap = new Bitmap(width, height))
+{
+    // Use bitmap
+} // Automatically disposed
+
+// Or with async
+using var httpClient = new HttpClient();
+var response = await httpClient.GetAsync(url);
+```
+
+## State Management
+
+### Application State
+State stored in ConfigManager:
+
+```csharp
+// Current translation service
+_currentTranslationService = ConfigManager.Instance.GetCurrentTranslationService();
+
+// Window positions
+var pos = ConfigManager.Instance.GetWindowPosition("ChatBox");
+```
+
+### Runtime State
+Runtime state in Logic or window classes:
+
+```csharp
+private bool _isProcessing = false;
+private List<TextObject> _currentTextBlocks = new();
+```
+
+## Error Propagation
+
+### Error Handling Strategy
+- Services return null on error
+- Log errors using LogManager
+- Show user-friendly messages via ErrorPopupManager
+- Don't crash the application
+
+```csharp
+public async Task<Result?> ProcessAsync()
+{
+    try
+    {
+        return await DoWorkAsync();
+    }
+    catch (Exception ex)
+    {
+        LogManager.Instance.LogError("Process failed", ex);
+        ErrorPopupManager.ShowError("Process failed", ex.Message);
+        return null; // Return null instead of throwing
+    }
+}
+```
+
+## Extension Points
+
+### Adding New Translation Service
+1. Implement `ITranslationService`
+2. Add config keys to ConfigManager
+3. Update TranslationServiceFactory
+4. Add UI in SettingsWindow
+
+### Adding New OCR Method
+1. Add method name to `SupportedOcrMethods` in ConfigManager
+2. Implement processing logic
+   - For Python services: Add service directory in `app/services/` with `service_config.txt` and `server.py`
+   - For built-in OCR: Implement in appropriate manager class (e.g., WindowsOCRManager, GoogleVisionOCRService)
+3. Update OCR selection UI
+4. Add configuration options
+
+### Adding New Python OCR Service
+1. Create service directory in `app/services/` (e.g., `app/services/NewOCR/`)
+2. Create `service_config.txt` with required fields:
+   - `service_name` (ASCII only, no spaces)
+   - `venv_name` (ASCII only, e.g., `ugt_newocr`)
+   - `port` (unique port number)
+   - `description`, `version`, `author`, `github_url`, etc.
+3. Create `server.py` implementing FastAPI endpoints:
+   - `/process` - Process images
+   - `/info` - Service information
+   - `/health` - Health check
+   - `/shutdown` - Graceful shutdown
+4. Create batch scripts: `Install.bat`, `RunServer.bat`, `DiagnosticTest.bat`, `Uninstall.bat`
+5. Service will be automatically discovered by `PythonServicesManager` on app startup
+
+## Performance Considerations
+
+### Lazy Initialization
+Initialize expensive resources on demand:
+
+```csharp
+private HttpClient? _httpClient;
+
+private HttpClient HttpClient
+{
+    get
+    {
+        if (_httpClient == null)
+        {
+            _httpClient = new HttpClient();
+        }
+        return _httpClient;
+    }
+}
+```
+
+### Caching
+Cache expensive operations:
+
+```csharp
+private Dictionary<string, TranslationResult> _translationCache = new();
+
+public TranslationResult? GetCachedTranslation(string text)
+{
+    if (_translationCache.TryGetValue(text, out var cached))
+    {
+        return cached;
+    }
+    return null;
+}
+```
+
+## Threading Model
+
+### UI Thread
+- All UI updates on UI thread
+- Use Dispatcher.Invoke for cross-thread updates
+- Long operations off UI thread
+
+### Background Threads
+- OCR processing on background thread
+- Network requests async/await
+- Screen capture on timer thread
+
+## Module Boundaries
+
+### Service Boundaries
+Services are independent modules:
+- Each service in own file
+- No direct dependencies between services
+- Communicate through interfaces
+
+### Manager Boundaries
+Managers provide cross-cutting concerns:
+- ConfigManager - Configuration
+- LogManager - Logging
+- UniversalBlockDetector - Text processing
+- HotkeyManager - Keyboard shortcuts
+- AudioPlaybackManager - Audio playback
+
+## Testing Architecture
+
+### Testable Components
+- Business logic separate from UI
+- Services implement interfaces
+- Static utility methods where possible
+
+### Mock-Friendly Design
+```csharp
+// Use interface for testability
+public interface ITranslationService
+{
+    Task<TranslationResult?> TranslateAsync(...);
+}
+
+// Can be mocked in tests
+var mockService = new Mock<ITranslationService>();
+```
+
+## Version Management
+
+### Version Updates
+Update version in three places:
+1. `SplashManager.cs` - `CurrentVersion` constant
+2. `media/latest_version_checker.json` - `latest_version` field
+3. `README.md` - Version badge and history entry
+
+### Version Format
+- Use double/float (e.g., 0.60)
+- Increment by 0.01 for minor updates
+- Increment by 0.10 for major features
+
+## Build Configuration
+
+### Output Structure
+- Debug: `ugtlive_debug.exe` in `app/`
+- Release: `ugtlive.exe` in `app/`
+- All dependencies in `app/` directory
+
+### Dependencies
+- .NET 8.0 Windows
+- WPF and Windows Forms
+- NAudio for audio
+- WebView2 for web content
+
+---
+> Source: [SethRobinson/UGTLive](https://github.com/SethRobinson/UGTLive) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
