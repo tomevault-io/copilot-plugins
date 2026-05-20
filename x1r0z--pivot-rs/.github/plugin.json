@@ -1,0 +1,9 @@
+{
+  "name": "x1r0z--pivot-rs",
+  "displayName": "pivot-rs",
+  "description": "A lightweight port-forwarding and socks proxy tool written in Rust \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "X1r0z",
+  "homepage": "https://github.com/X1r0z/pivot-rs",
+  "skills": []
+}
