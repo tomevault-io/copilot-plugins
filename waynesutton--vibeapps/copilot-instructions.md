@@ -1,555 +1,721 @@
-## clerk-auth-check
+## convex2
 
-> Ensures React components correctly handle auth state before calling admin-protected Convex queries with Clerk authentication.
+> description: Guidelines and best practices for building Convex projects, including database schema design, queries, mutations, and real-world examples
 
 
-# Clerk + Convex Authentication Pattern
+---
 
-This rule ensures React components using Convex queries with Clerk authentication correctly handle loading and authentication states before attempting to fetch data, especially for admin-protected queries.
+description: Guidelines and best practices for building Convex projects, including database schema design, queries, mutations, and real-world examples
+globs: **/\*.ts,**/_.tsx,\*\*/_.js,\*_/_.jsx
 
-## Current Implementation Pattern
+---
 
-### 1. Clerk JWT Claims Configuration
+# Convex guidelines
 
-**Important:** This project uses Clerk as the identity source with custom JWT claims forwarded to Convex.
+## Function guidelines
 
-Clerk JWT Template Configuration (in Clerk Dashboard):
+### New function syntax
 
-```json
+- always create type-safe code
+- ALWAYS use the new function syntax for Convex functions. For example:
+  `typescript
+    import { query } from "./_generated/server";
+    import { v } from "convex/values";
+    export const f = query({
+        args: {},
+        returns: v.null(),
+        handler: async (ctx, args) => {
+        // Function body
+        },
+    });
+    `
+
+### Http endpoint syntax
+
+- HTTP endpoints are defined in `convex/http.ts` and require an `httpAction` decorator. For example:
+  `typescript
+    import { httpRouter } from "convex/server";
+    import { httpAction } from "./_generated/server";
+    const http = httpRouter();
+    http.route({
+        path: "/echo",
+        method: "POST",
+        handler: httpAction(async (ctx, req) => {
+        const body = await req.bytes();
+        return new Response(body, { status: 200 });
+        }),
+    });
+    `
+- HTTP endpoints are always registered at the exact path you specify in the `path` field. For example, if you specify `/api/someRoute`, the endpoint will be registered at `/api/someRoute`.
+
+### Validators
+
+- Below is an example of an array validator:
+  ```typescript
+  import { mutation } from "./\_generated/server";
+  import { v } from "convex/values";
+
+                            export default mutation({
+                            args: {
+                                simpleArray: v.array(v.union(v.string(), v.number())),
+                            },
+                            handler: async (ctx, args) => {
+                                //...
+                            },
+                            });
+                            ```
+
+- Below is an example of a schema with validators that codify a discriminated union type:
+  ```typescript
+  import { defineSchema, defineTable } from "convex/server";
+  import { v } from "convex/values";
+
+                            export default defineSchema({
+                                results: defineTable(
+                                    v.union(
+                                        v.object({
+                                            kind: v.literal("error"),
+                                            errorMessage: v.string(),
+                                        }),
+                                        v.object({
+                                            kind: v.literal("success"),
+                                            value: v.number(),
+                                        }),
+                                    ),
+                                )
+                            });
+                            ```
+
+- Always use the `v.null()` validator when returning a null value. Below is an example query that returns a null value:
+  ```typescript
+  import { query } from "./\_generated/server";
+  import { v } from "convex/values";
+
+                                  export const exampleQuery = query({
+                                    args: {},
+                                    returns: v.null(),
+                                    handler: async (ctx, args) => {
+                                        console.log("This query returns a null value");
+                                        return null;
+                                    },
+                                  });
+                                  ```
+
+- Here are the valid Convex types along with their respective validators:
+  Convex Type | TS/JS type | Example Usage | Validator for argument validation and schemas | Notes |
+  | ----------- | ------------| -----------------------| -----------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | Id | string | `doc._id` | `v.id(tableName)` | |
+  | Null | null | `null` | `v.null()` | JavaScript's `undefined` is not a valid Convex value. Functions the return `undefined` or do not return will return `null` when called from a client. Use `null` instead. |
+  | Int64 | bigint | `3n` | `v.int64()` | Int64s only support BigInts between -2^63 and 2^63-1. Convex supports `bigint`s in most modern browsers. |
+  | Float64 | number | `3.1` | `v.number()` | Convex supports all IEEE-754 double-precision floating point numbers (such as NaNs). Inf and NaN are JSON serialized as strings. |
+  | Boolean | boolean | `true` | `v.boolean()` |
+  | String | string | `"abc"` | `v.string()` | Strings are stored as UTF-8 and must be valid Unicode sequences. Strings must be smaller than the 1MB total size limit when encoded as UTF-8. |
+  | Bytes | ArrayBuffer | `new ArrayBuffer(8)` | `v.bytes()` | Convex supports first class bytestrings, passed in as `ArrayBuffer`s. Bytestrings must be smaller than the 1MB total size limit for Convex types. |
+  | Array | Array] | `[1, 3.2, "abc"]` | `v.array(values)` | Arrays can have at most 8192 values. |
+  | Object | Object | `{a: "abc"}` | `v.object({property: value})` | Convex only supports "plain old JavaScript objects" (objects that do not have a custom prototype). Objects can have at most 1024 entries. Field names must be nonempty and not start with "$" or "_". |
+| Record      | Record      | `{"a": "1", "b": "2"}` | `v.record(keys, values)`                       | Records are objects at runtime, but can have dynamic keys. Keys must be only ASCII characters, nonempty, and not start with "$" or "\_". |
+
+### Function registration
+
+- Use `internalQuery`, `internalMutation`, and `internalAction` to register internal functions. These functions are private and aren't part of an app's API. They can only be called by other Convex functions. These functions are always imported from `./_generated/server`.
+- Use `query`, `mutation`, and `action` to register public functions. These functions are part of the public API and are exposed to the public Internet. Do NOT use `query`, `mutation`, or `action` to register sensitive internal functions that should be kept private.
+- You CANNOT register a function through the `api` or `internal` objects.
+- ALWAYS include argument and return validators for all Convex functions. This includes all of `query`, `internalQuery`, `mutation`, `internalMutation`, `action`, and `internalAction`. If a function doesn't return anything, include `returns: v.null()` as its output validator.
+- If the JavaScript implementation of a Convex function doesn't have a return value, it implicitly returns `null`.
+
+### Function calling
+
+- Use `ctx.runQuery` to call a query from a query, mutation, or action.
+- Use `ctx.runMutation` to call a mutation from a mutation or action.
+- Use `ctx.runAction` to call an action from an action.
+- ONLY call an action from another action if you need to cross runtimes (e.g. from V8 to Node). Otherwise, pull out the shared code into a helper async function and call that directly instead.
+- Try to use as few calls from actions to queries and mutations as possible. Queries and mutations are transactions, so splitting logic up into multiple calls introduces the risk of race conditions.
+- All of these calls take in a `FunctionReference`. Do NOT try to pass the callee function directly into one of these calls.
+- When using `ctx.runQuery`, `ctx.runMutation`, or `ctx.runAction` to call a function in the same file, specify a type annotation on the return value to work around TypeScript circularity limitations. For example,
+  ```
+  export const f = query({
+  args: { name: v.string() },
+  returns: v.string(),
+  handler: async (ctx, args) => {
+  return "Hello " + args.name;
+  },
+  });
+
+                            export const g = query({
+                              args: {},
+                              returns: v.null(),
+                              handler: async (ctx, args) => {
+                                const result: string = await ctx.runQuery(api.example.f, { name: "Bob" });
+                                return null;
+                              },
+                            });
+                            ```
+
+### Function references
+
+- Function references are pointers to registered Convex functions.
+- Use the `api` object defined by the framework in `convex/_generated/api.ts` to call public functions registered with `query`, `mutation`, or `action`.
+- Use the `internal` object defined by the framework in `convex/_generated/api.ts` to call internal (or private) functions registered with `internalQuery`, `internalMutation`, or `internalAction`.
+- Convex uses file-based routing, so a public function defined in `convex/example.ts` named `f` has a function reference of `api.example.f`.
+- A private function defined in `convex/example.ts` named `g` has a function reference of `internal.example.g`.
+- Functions can also registered within directories nested within the `convex/` folder. For example, a public function `h` defined in `convex/messages/access.ts` has a function reference of `api.messages.access.h`.
+
+### Api design
+
+- Convex uses file-based routing, so thoughtfully organize files with public query, mutation, or action functions within the `convex/` directory.
+- Use `query`, `mutation`, and `action` to define public functions.
+- Use `internalQuery`, `internalMutation`, and `internalAction` to define private, internal functions.
+
+### Pagination
+
+- Paginated queries are queries that return a list of results in incremental pages.
+- You can define pagination using the following syntax:
+
+                            ```ts
+                            import { v } from "convex/values";
+                            import { query, mutation } from "./_generated/server";
+                            import { paginationOptsValidator } from "convex/server";
+                            export const listWithExtraArg = query({
+                                args: { paginationOpts: paginationOptsValidator, author: v.string() },
+                                handler: async (ctx, args) => {
+                                    return await ctx.db
+                                    .query("messages")
+                                    .filter((q) => q.eq(q.field("author"), args.author))
+                                    .order("desc")
+                                    .paginate(args.paginationOpts);
+                                },
+                            });
+                            ```
+                            Note: `paginationOpts` is an object with the following properties:
+                            - `numItems`: the maximum number of documents to return (the validator is `v.number()`)
+                            - `cursor`: the cursor to use to fetch the next page of documents (the validator is `v.union(v.string(), v.null())`)
+
+- A query that ends in `.paginate()` returns an object that has the following properties: - page (contains an array of documents that you fetches) - isDone (a boolean that represents whether or not this is the last page of documents) - continueCursor (a string that represents the cursor to use to fetch the next page of documents)
+
+## Validator guidelines
+
+- `v.bigint()` is deprecated for representing signed 64-bit integers. Use `v.int64()` instead.
+- Use `v.record()` for defining a record type. `v.map()` and `v.set()` are not supported.
+
+## Schema guidelines
+
+- Always define your schema in `convex/schema.ts`.
+- Always import the schema definition functions from `convex/server`:
+- System fields are automatically added to all documents and are prefixed with an underscore. The two system fields that are automatically added to all documents are `_creationTime` which has the validator `v.number()` and `_id` which has the validator `v.id(tableName)`.
+- Always include all index fields in the index name. For example, if an index is defined as `["field1", "field2"]`, the index name should be "by_field1_and_field2".
+- Index fields must be queried in the same order they are defined. If you want to be able to query by "field1" then "field2" and by "field2" then "field1", you must create separate indexes.
+
+## Typescript guidelines
+
+- You can use the helper typescript type `Id` imported from './\_generated/dataModel' to get the type of the id for a given table. For example if there is a table called 'users' you can use `Id<'users'>` to get the type of the id for that table.
+- If you need to define a `Record` make sure that you correctly provide the type of the key and value in the type. For example a validator `v.record(v.id('users'), v.string())` would have the type `Record<Id<'users'>, string>`. Below is an example of using `Record` with an `Id` type in a query:
+  ```ts
+  import { query } from "./\_generated/server";
+  import { Doc, Id } from "./\_generated/dataModel";
+
+                    export const exampleQuery = query({
+                        args: { userIds: v.array(v.id("users")) },
+                        returns: v.record(v.id("users"), v.string()),
+                        handler: async (ctx, args) => {
+                            const idToUsername: Record<Id<"users">, string> = {};
+                            for (const userId of args.userIds) {
+                                const user = await ctx.db.get(userId);
+                                if (user) {
+                                    users[user._id] = user.username;
+                                }
+                            }
+
+                            return idToUsername;
+                        },
+                    });
+                    ```
+
+- Be strict with types, particularly around id's of documents. For example, if a function takes in an id for a document in the 'users' table, take in `Id<'users'>` rather than `string`.
+- Always use `as const` for string literals in discriminated union types.
+- When using the `Array` type, make sure to always define your arrays as `const array: Array<T> = [...];`
+- When using the `Record` type, make sure to always define your records as `const record: Record<KeyType, ValueType> = {...};`
+- Always add `@types/node` to your `package.json` when using any Node.js built-in modules.
+
+## Full text search guidelines
+
+- A query for "10 messages in channel '#general' that best match the query 'hello hi' in their body" would look like:
+
+const messages = await ctx.db
+.query("messages")
+.withSearchIndex("search_body", (q) =>
+q.search("body", "hello hi").eq("channel", "#general"),
+)
+.take(10);
+
+## Query guidelines
+
+- Do NOT use `filter` in queries. Instead, define an index in the schema and use `withIndex` instead.
+- Convex queries do NOT support `.delete()`. Instead, `.collect()` the results, iterate over them, and call `ctx.db.delete(row._id)` on each result.
+- Use `.unique()` to get a single document from a query. This method will throw an error if there are multiple documents that match the query.
+- When using async iteration, don't use `.collect()` or `.take(n)` on the result of a query. Instead, use the `for await (const row of query)` syntax.
+
+### Ordering
+
+- By default Convex always returns documents in ascending `_creationTime` order.
+- You can use `.order('asc')` or `.order('desc')` to pick whether a query is in ascending or descending order. If the order isn't specified, it defaults to ascending.
+- Document queries that use indexes will be ordered based on the columns in the index and can avoid slow table scans.
+
+## Mutation guidelines
+
+- Use `ctx.db.replace` to fully replace an existing document. This method will throw an error if the document does not exist.
+- Use `ctx.db.patch` to shallow merge updates into an existing document. This method will throw an error if the document does not exist.
+
+## Action guidelines
+
+- Always add `"use node";` to the top of files containing actions that use Node.js built-in modules.
+- Never use `ctx.db` inside of an action. Actions don't have access to the database.
+- Below is an example of the syntax for an action:
+  ```ts
+  import { action } from "./\_generated/server";
+
+                    export const exampleAction = action({
+                        args: {},
+                        returns: v.null(),
+                        handler: async (ctx, args) => {
+                            console.log("This action does not return anything");
+                            return null;
+                        },
+                    });
+                    ```
+
+## Scheduling guidelines
+
+### Cron guidelines
+
+- Only use the `crons.interval` or `crons.cron` methods to schedule cron jobs. Do NOT use the `crons.hourly`, `crons.daily`, or `crons.weekly` helpers.
+- Both cron methods take in a FunctionReference. Do NOT try to pass the function directly into one of these methods.
+- Define crons by declaring the top-level `crons` object, calling some methods on it, and then exporting it as default. For example,
+  ```ts
+  import { cronJobs } from "convex/server";
+  import { internal } from "./\_generated/api";
+  import { internalAction } from "./\_generated/server";
+
+                            const empty = internalAction({
+                              args: {},
+                              returns: v.null(),
+                              handler: async (ctx, args) => {
+                                console.log("empty");
+                              },
+                            });
+
+                            const crons = cronJobs();
+
+                            // Run `internal.crons.empty` every two hours.
+                            crons.interval("delete inactive users", { hours: 2 }, internal.crons.empty, {});
+
+                            export default crons;
+                            ```
+
+- You can register Convex functions within `crons.ts` just like any other file.
+- If a cron calls an internal function, always import the `internal` object from '\_generated/api`, even if the internal function is registered in the same file.
+
+## File storage guidelines
+
+- Convex includes file storage for large files like images, videos, and PDFs.
+- The `ctx.storage.getUrl()` method returns a signed URL for a given file. It returns `null` if the file doesn't exist.
+- Do NOT use the deprecated `ctx.storage.getMetadata` call for loading a file's metadata.
+
+                    Instead, query the `_storage` system table. For example, you can use `ctx.db.system.get` to get an `Id<"_storage">`.
+                    ```
+                    import { query } from "./_generated/server";
+                    import { Id } from "./_generated/dataModel";
+
+                    type FileMetadata = {
+                        _id: Id<"_storage">;
+                        _creationTime: number;
+                        contentType?: string;
+                        sha256: string;
+                        size: number;
+                    }
+
+                    export const exampleQuery = query({
+                        args: { fileId: v.id("_storage") },
+                        returns: v.null();
+                        handler: async (ctx, args) => {
+                            const metadata: FileMetadata | null = await ctx.db.system.get(args.fileId);
+                            console.log(metadata);
+                            return null;
+                        },
+                    });
+                    ```
+
+- Convex storage stores items as `Blob` objects. You must convert all items to/from a `Blob` when using Convex storage.
+
+# Examples:
+
+## Example: chat-app
+
+### Task
+
+```
+Create a real-time chat application backend with AI responses. The app should:
+- Allow creating users with names
+- Support multiple chat channels
+- Enable users to send messages to channels
+- Automatically generate AI responses to user messages
+- Show recent message history
+
+The backend should provide APIs for:
+1. User management (creation)
+2. Channel management (creation)
+3. Message operations (sending, listing)
+4. AI response generation using openai's GPT-4
+
+Messages should be stored with their channel, author, and content. The system should maintain message order
+and limit history display to the 10 most recent messages per channel.
+
+```
+
+### Analysis
+
+1. Task Requirements Summary:
+
+- Build a real-time chat backend with AI integration
+- Support user creation
+- Enable channel-based conversations
+- Store and retrieve messages with proper ordering
+- Generate AI responses automatically
+
+2. Main Components Needed:
+
+- Database tables: users, channels, messages
+- Public APIs for user/channel management
+- Message handling functions
+- Internal AI response generation system
+- Context loading for AI responses
+
+3. Public API and Internal Functions Design:
+   Public Mutations:
+
+- createUser:
+  - file path: convex/index.ts
+  - arguments: {name: v.string()}
+  - returns: v.object({userId: v.id("users")})
+  - purpose: Create a new user with a given name
+- createChannel:
+  - file path: convex/index.ts
+  - arguments: {name: v.string()}
+  - returns: v.object({channelId: v.id("channels")})
+  - purpose: Create a new channel with a given name
+- sendMessage:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels"), authorId: v.id("users"), content: v.string()}
+  - returns: v.null()
+  - purpose: Send a message to a channel and schedule a response from the AI
+
+Public Queries:
+
+- listMessages:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels")}
+  - returns: v.array(v.object({
+    \_id: v.id("messages"),
+    \_creationTime: v.number(),
+    channelId: v.id("channels"),
+    authorId: v.optional(v.id("users")),
+    content: v.string(),
+    }))
+  - purpose: List the 10 most recent messages from a channel in descending creation order
+
+Internal Functions:
+
+- generateResponse:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels")}
+  - returns: v.null()
+  - purpose: Generate a response from the AI for a given channel
+- loadContext:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels")}
+  - returns: v.array(v.object({
+    \_id: v.id("messages"),
+    \_creationTime: v.number(),
+    channelId: v.id("channels"),
+    authorId: v.optional(v.id("users")),
+    content: v.string(),
+    }))
+- writeAgentResponse:
+  - file path: convex/index.ts
+  - arguments: {channelId: v.id("channels"), content: v.string()}
+  - returns: v.null()
+  - purpose: Write an AI response to a given channel
+
+4. Schema Design:
+
+- users
+  - validator: { name: v.string() }
+  - indexes: <none>
+- channels
+  - validator: { name: v.string() }
+  - indexes: <none>
+- messages
+  - validator: { channelId: v.id("channels"), authorId: v.optional(v.id("users")), content: v.string() }
+  - indexes
+    - by_channel: ["channelId"]
+
+5. Background Processing:
+
+- AI response generation runs asynchronously after each user message
+- Uses openai's GPT-4 to generate contextual responses
+- Maintains conversation context using recent message history
+
+### Implementation
+
+#### package.json
+
+```typescript
 {
-  "role": "{{user.public_metadata.role}}",
-  "organizerGroupIds": "{{user.public_metadata.organizerGroupIds}}"
+  "name": "chat-app",
+  "description": "This example shows how to build a chat app without authentication.",
+  "version": "1.0.0",
+  "dependencies": {
+    "convex": "^1.17.4",
+    "openai": "^4.79.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
 }
 ```
 
-This forwards:
-
-- `public_metadata.role` as top-level `role` claim in JWT
-- `public_metadata.organizerGroupIds` as top-level `organizerGroupIds` claim in JWT
-
-### 2. Backend: Convex Authorization Helpers
-
-**Location:** `convex/users.ts`
-
-#### Type-Safe Identity Access
+#### tsconfig.json
 
 ```typescript
-// Define custom identity type for type safety
-type ClerkIdentity = {
-  subject: string;
-  email?: string;
-  emailVerified?: boolean;
-  username?: string;
-  role?: "admin" | "manager" | "organizer";
-  organizerGroupIds?: string[];
-  // ... other Clerk fields
-};
-
-// Helper to get typed identity
-async function getIdentityOrThrow(
-  ctx: QueryCtx | MutationCtx,
-): Promise<ClerkIdentity> {
-  const identity = await ctx.auth.getUserIdentity();
-  if (!identity) {
-    throw new Error("No identity found. User not authenticated.");
-  }
-  return identity as ClerkIdentity;
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "exclude": ["convex"],
+  "include": ["**/src/**/*.tsx", "**/src/**/*.ts", "vite.config.ts"]
 }
 ```
 
-#### Current Admin Check (Single Role)
+#### convex/index.ts
 
 ```typescript
-// Check if user is admin (boolean return)
-export async function isUserAdmin(
-  ctx: QueryCtx | MutationCtx,
-): Promise<boolean> {
-  try {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) return false;
+import {
+  query,
+  mutation,
+  internalQuery,
+  internalMutation,
+  internalAction,
+} from "./_generated/server";
+import { v } from "convex/values";
+import openai from "openai";
+import { internal } from "./_generated/api";
 
-    // Access role from top-level claim
-    const clerkTokenRole = (identity as any).role;
-    return clerkTokenRole === "admin";
-  } catch (error) {
-    return false;
-  }
-}
+/**
+ * Create a user with a given name.
+ */
+export const createUser = mutation({
+  args: {
+    name: v.string(),
+  },
+  returns: v.id("users"),
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("users", { name: args.name });
+  },
+});
 
-// Require admin role (throws if not admin)
-export async function requireAdminRole(
-  ctx: QueryCtx | MutationCtx,
-): Promise<void> {
-  const identity = await ctx.auth.getUserIdentity();
-  if (!identity) {
-    throw new Error("Authentication required for admin action.");
-  }
+/**
+ * Create a channel with a given name.
+ */
+export const createChannel = mutation({
+  args: {
+    name: v.string(),
+  },
+  returns: v.id("channels"),
+  handler: async (ctx, args) => {
+    return await ctx.db.insert("channels", { name: args.name });
+  },
+});
 
-  const clerkTokenRole = (identity as any).role;
-  if (clerkTokenRole !== "admin") {
-    throw new Error(
-      "Admin privileges required. Role 'admin' not found in Clerk token.",
-    );
-  }
-}
+/**
+ * List the 10 most recent messages from a channel in descending creation order.
+ */
+export const listMessages = query({
+  args: {
+    channelId: v.id("channels"),
+  },
+  returns: v.array(
+    v.object({
+      _id: v.id("messages"),
+      _creationTime: v.number(),
+      channelId: v.id("channels"),
+      authorId: v.optional(v.id("users")),
+      content: v.string(),
+    }),
+  ),
+  handler: async (ctx, args) => {
+    const messages = await ctx.db
+      .query("messages")
+      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
+      .order("desc")
+      .take(10);
+    return messages;
+  },
+});
 
-// Query for frontend to check admin status
-export const checkIsUserAdmin = query({
-  args: {},
-  returns: v.boolean(),
-  handler: async (ctx) => {
-    return await isUserAdmin(ctx);
+/**
+ * Send a message to a channel and schedule a response from the AI.
+ */
+export const sendMessage = mutation({
+  args: {
+    channelId: v.id("channels"),
+    authorId: v.id("users"),
+    content: v.string(),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const channel = await ctx.db.get(args.channelId);
+    if (!channel) {
+      throw new Error("Channel not found");
+    }
+    const user = await ctx.db.get(args.authorId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    await ctx.db.insert("messages", {
+      channelId: args.channelId,
+      authorId: args.authorId,
+      content: args.content,
+    });
+    await ctx.scheduler.runAfter(0, internal.index.generateResponse, {
+      channelId: args.channelId,
+    });
+    return null;
+  },
+});
+
+const openai = new openai();
+
+export const generateResponse = internalAction({
+  args: {
+    channelId: v.id("channels"),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    const context = await ctx.runQuery(internal.index.loadContext, {
+      channelId: args.channelId,
+    });
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: context,
+    });
+    const content = response.choices[0].message.content;
+    if (!content) {
+      throw new Error("No content in response");
+    }
+    await ctx.runMutation(internal.index.writeAgentResponse, {
+      channelId: args.channelId,
+      content,
+    });
+    return null;
+  },
+});
+
+export const loadContext = internalQuery({
+  args: {
+    channelId: v.id("channels"),
+  },
+  returns: v.array(
+    v.object({
+      role: v.union(v.literal("user"), v.literal("assistant")),
+      content: v.string(),
+    }),
+  ),
+  handler: async (ctx, args) => {
+    const channel = await ctx.db.get(args.channelId);
+    if (!channel) {
+      throw new Error("Channel not found");
+    }
+    const messages = await ctx.db
+      .query("messages")
+      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
+      .order("desc")
+      .take(10);
+
+    const result = [];
+    for (const message of messages) {
+      if (message.authorId) {
+        const user = await ctx.db.get(message.authorId);
+        if (!user) {
+          throw new Error("User not found");
+        }
+        result.push({
+          role: "user" as const,
+          content: `${user.name}: ${message.content}`,
+        });
+      } else {
+        result.push({ role: "assistant" as const, content: message.content });
+      }
+    }
+    return result;
+  },
+});
+
+export const writeAgentResponse = internalMutation({
+  args: {
+    channelId: v.id("channels"),
+    content: v.string(),
+  },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    await ctx.db.insert("messages", {
+      channelId: args.channelId,
+      content: args.content,
+    });
+    return null;
   },
 });
 ```
 
-#### Future Multi-Role Helpers (from adminroles.md)
+#### convex/schema.ts
 
 ```typescript
-// Admin or Manager access
-export async function requireAdminOrManager(
-  ctx: QueryCtx | MutationCtx,
-): Promise<void> {
-  const identity = await getIdentityOrThrow(ctx);
-  const role = identity.role;
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
 
-  if (role !== "admin" && role !== "manager") {
-    throw new Error("Admin or Manager privileges required.");
-  }
-}
+export default defineSchema({
+  channels: defineTable({
+    name: v.string(),
+  }),
 
-// Admin or Organizer for specific group
-export async function requireAdminOrOrganizerForGroup(
-  ctx: QueryCtx | MutationCtx,
-  groupId: Id<"judgingGroups">,
-): Promise<void> {
-  const identity = await getIdentityOrThrow(ctx);
-  const role = identity.role;
+  users: defineTable({
+    name: v.string(),
+  }),
 
-  if (role === "admin") return; // Admin has access to all groups
-
-  if (role === "organizer") {
-    const organizerGroupIds = identity.organizerGroupIds || [];
-    if (organizerGroupIds.includes(groupId)) return;
-  }
-
-  throw new Error(
-    "Access denied. You do not have permission for this judging group.",
-  );
-}
+  messages: defineTable({
+    channelId: v.id("channels"),
+    authorId: v.optional(v.id("users")),
+    content: v.string(),
+  }).index("by_channel", ["channelId"]),
+});
 ```
 
-### 3. Frontend: React Component Auth Pattern
-
-#### Required Pattern for Admin-Protected Components
+#### src/App.tsx
 
 ```typescript
-import { useConvexAuth, useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
-import { NotFoundPage } from "../pages/NotFoundPage";
-
-export function AdminComponent() {
-  // 1. Get Convex auth state
-  const { isLoading: authIsLoading, isAuthenticated } = useConvexAuth();
-
-  // 2. Check if user is admin (skip if not authenticated)
-  const isUserAdmin = useQuery(
-    api.users.checkIsUserAdmin,
-    isAuthenticated ? {} : "skip"
-  );
-
-  // 3. Conditionally skip admin queries
-  const adminData = useQuery(
-    api.adminQueries.getTotalSubmissions,
-    (authIsLoading || !isAuthenticated) ? "skip" : {}
-  );
-
-  // 4. Handle auth loading state FIRST
-  if (authIsLoading || (isAuthenticated && isUserAdmin === undefined)) {
-    return <div>Loading authentication...</div>;
-  }
-
-  // 5. Handle unauthorized access
-  if (!isAuthenticated || isUserAdmin === false) {
-    return <NotFoundPage />;
-  }
-
-  // 6. Render authorized content
-  return <div>Admin content: {adminData}</div>;
+export default function App() {
+  return <div>Hello World</div>;
 }
-```
-
-#### Loading State Priority Order
-
-```typescript
-// 1. Auth loading or admin check loading
-if (authIsLoading || (isAuthenticated && isUserAdmin === undefined)) {
-  return <div>Loading authentication...</div>;
-}
-
-// 2. Not authenticated or not admin
-if (!isAuthenticated || isUserAdmin === false) {
-  return <NotFoundPage />;
-}
-
-// 3. Data loading (only after auth is confirmed)
-if (isAuthenticated && adminData === undefined) {
-  return <div>Loading data...</div>;
-}
-
-// 4. Render content
-```
-
-### 4. Common Patterns by Component Type
-
-#### Admin Dashboard
-
-```typescript
-const { isLoading: authIsLoading, isAuthenticated } = useConvexAuth();
-const isUserAdmin = useQuery(
-  api.users.checkIsUserAdmin,
-  isAuthenticated ? {} : "skip"
-);
-
-if (authIsLoading || (isAuthenticated && isUserAdmin === undefined)) {
-  return <div className="max-w-6xl mx-auto px-4 py-8 text-center">
-    Loading authentication...
-  </div>;
-}
-
-if (!isAuthenticated || isUserAdmin === false) {
-  return <NotFoundPage />;
-}
-```
-
-#### Admin Data Views
-
-```typescript
-const skip = authIsLoading || !isAuthenticated;
-
-const totalSubmissions = useQuery(
-  api.adminQueries.getTotalSubmissions,
-  skip ? "skip" : {}
-);
-const totalUsers = useQuery(
-  api.adminQueries.getTotalUsers,
-  skip ? "skip" : {}
-);
-
-if (authIsLoading) {
-  return <div>Loading authentication...</div>;
-}
-```
-
-#### User-Specific Queries (Non-Admin)
-
-```typescript
-const convexUserDoc = useQuery(
-  api.users.getMyUserDocument,
-  isClerkLoaded && isSignedIn ? {} : "skip",
-);
-
-const hasUnreadAlerts = useQuery(
-  api.alerts.hasUnread,
-  isClerkLoaded && isSignedIn ? {} : "skip",
-);
-```
-
-## Known Issues to Fix
-
-### 1. Schema Inconsistency
-
-**File:** `convex/schema.ts` line 10
-
-**Issue:** Schema still defines `role: v.optional(v.string())` on users table, but role is no longer stored in Convex database.
-
-**Fix:** Either:
-
-- Remove the field if not needed
-- Add comment explaining it's legacy/unused
-- Repurpose for local role caching if needed
-
-```typescript
-// OPTION 1: Remove entirely
-users: defineTable({
-  name: v.string(),
-  clerkId: v.string(),
-  // role field removed - use Clerk JWT claims
-
-// OPTION 2: Add comment
-users: defineTable({
-  name: v.string(),
-  clerkId: v.string(),
-  role: v.optional(v.string()), // DEPRECATED: Role comes from Clerk JWT, not DB
-```
-
-### 2. Incorrect Admin Check in reports.ts
-
-**File:** `convex/reports.ts` line 26
-
-**Issue:** Still checks `user?.role === "admin"` from database, which won't work.
-
-**Current (Incorrect):**
-
-```typescript
-const userIsAdmin = user?.role === "admin";
-```
-
-**Fix:**
-
-```typescript
-import { isUserAdmin } from "./users";
-
-async function getAuthenticatedUserAndRole(ctx: QueryCtx | MutationCtx) {
-  const identity = await ctx.auth.getUserIdentity();
-  if (!identity) {
-    return { user: null, userIsAdmin: false };
-  }
-
-  const user = await ctx.db
-    .query("users")
-    .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
-    .unique();
-
-  // Get admin status from JWT claims, not DB
-  const userIsAdmin = await isUserAdmin(ctx);
-  return { user, userIsAdmin };
-}
-```
-
-### 3. Duplicate requireAuth Functions
-
-**Issue:** Both `convex/auth.ts` and `convex/utils.ts` have `requireAuth` functions with different implementations.
-
-**Fix:** Consolidate to one canonical implementation:
-
-```typescript
-// convex/utils.ts
-export async function requireAuth(ctx: QueryCtx | MutationCtx) {
-  const identity = await ctx.auth.getUserIdentity();
-  if (!identity) {
-    throw new Error("User must be authenticated.");
-  }
-
-  const user = await ctx.db
-    .query("users")
-    .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
-    .unique();
-
-  if (!user) {
-    throw new Error(
-      "User not found in database. Please ensure user is synced.",
-    );
-  }
-
-  return { user, identity: identity as ClerkIdentity };
-}
-```
-
-### 4. Type Safety for Custom Claims
-
-**Issue:** Accessing `(identity as any).role` is not type-safe.
-
-**Fix:** Create proper TypeScript types:
-
-```typescript
-// convex/types.ts (new file)
-export type ClerkRole = "admin" | "manager" | "organizer";
-
-export interface ClerkIdentity {
-  subject: string;
-  email?: string;
-  emailVerified?: boolean;
-  username?: string;
-  // Custom claims from JWT template
-  role?: ClerkRole;
-  organizerGroupIds?: string[];
-}
-
-// convex/users.ts
-import { ClerkIdentity } from "./types";
-
-export async function requireAdminRole(
-  ctx: QueryCtx | MutationCtx,
-): Promise<void> {
-  const identity = (await ctx.auth.getUserIdentity()) as ClerkIdentity | null;
-  if (!identity) {
-    throw new Error("Authentication required for admin action.");
-  }
-
-  if (identity.role !== "admin") {
-    throw new Error("Admin privileges required.");
-  }
-}
-```
-
-## Future Enhancements (from adminroles.md PRD)
-
-### Multi-Role System
-
-The system will support three roles:
-
-- **admin**: Full access to Admin Dashboard
-- **manager**: Access to Content Moderation, Tags, and User Moderation only
-- **organizer**: Access to assigned Judging Groups only
-
-### Required Convex Helpers
-
-```typescript
-// convex/utils.ts or convex/users.ts
-
-export async function getMyRole(
-  ctx: QueryCtx | MutationCtx,
-): Promise<ClerkRole | null> {
-  const identity = (await ctx.auth.getUserIdentity()) as ClerkIdentity | null;
-  return identity?.role || null;
-}
-
-export async function requireAdminOrManager(
-  ctx: QueryCtx | MutationCtx,
-): Promise<void> {
-  const identity = (await ctx.auth.getUserIdentity()) as ClerkIdentity | null;
-  if (!identity) {
-    throw new Error("Authentication required.");
-  }
-
-  if (identity.role !== "admin" && identity.role !== "manager") {
-    throw new Error("Admin or Manager privileges required.");
-  }
-}
-
-export async function requireAdminOrOrganizerForGroup(
-  ctx: QueryCtx | MutationCtx,
-  groupId: Id<"judgingGroups">,
-): Promise<void> {
-  const identity = (await ctx.auth.getUserIdentity()) as ClerkIdentity | null;
-  if (!identity) {
-    throw new Error("Authentication required.");
-  }
-
-  // Admins have access to everything
-  if (identity.role === "admin") return;
-
-  // Organizers only have access to their assigned groups
-  if (identity.role === "organizer") {
-    const organizerGroupIds = identity.organizerGroupIds || [];
-    if (organizerGroupIds.includes(groupId)) return;
-  }
-
-  throw new Error("You do not have permission to access this judging group.");
-}
-```
-
-### Frontend Role-Based Tab Visibility
-
-```typescript
-// Get current user's role from Clerk
-import { useUser } from "@clerk/clerk-react";
-
-export function AdminDashboard() {
-  const { user } = useUser();
-  const role = user?.publicMetadata?.role as ClerkRole | undefined;
-
-  // Show tabs based on role
-  const showContentTab = role === "admin" || role === "manager";
-  const showTagsTab = role === "admin" || role === "manager";
-  const showUsersTab = role === "admin" || role === "manager";
-  const showJudgingTab = role === "admin" || role === "organizer";
-  const showSettingsTab = role === "admin";
-
-  // Only show judging tab for organizers
-  if (role === "organizer") {
-    return <JudgingTab />;
-  }
-
-  return (
-    <Tabs>
-      {showContentTab && <Tab>Content</Tab>}
-      {showTagsTab && <Tab>Tags</Tab>}
-      {/* ... */}
-    </Tabs>
-  );
-}
-```
-
-## Best Practices Checklist
-
-✅ **Backend (Convex):**
-
-- [ ] Use Clerk JWT claims for role authorization, not Convex database
-- [ ] Create typed identity interfaces for custom claims
-- [ ] Implement role check helpers (`requireAdminRole`, etc.)
-- [ ] Apply authorization guards at the start of protected functions
-- [ ] Use `ctx.auth.getUserIdentity()` to access JWT claims
-- [ ] Never store sensitive role data in Convex DB that should come from Clerk
-
-✅ **Frontend (React):**
-
-- [ ] Use `useConvexAuth()` to get `authIsLoading` and `isAuthenticated`
-- [ ] Call `useQuery(api.users.checkIsUserAdmin, isAuthenticated ? {} : "skip")`
-- [ ] Skip admin queries with `(authIsLoading || !isAuthenticated) ? "skip" : {}`
-- [ ] Handle loading states in correct order (auth → authorization → data)
-- [ ] Show 404 or redirect for unauthorized access
-- [ ] Never assume auth is ready - always check loading states
-
-✅ **Clerk Configuration:**
-
-- [ ] Set up JWT template with custom claims (role, organizerGroupIds, etc.)
-- [ ] Store role in `public_metadata.role` (not `private_metadata`)
-- [ ] Configure webhook to sync user creation/updates
-- [ ] Set `applicationID: "convex"` in `auth.config.js`
-- [ ] Forward claims to Convex via JWT, not database sync
-
-✅ **Type Safety:**
-
-- [ ] Define ClerkIdentity interface with custom claims
-- [ ] Use type assertions: `identity as ClerkIdentity`
-- [ ] Define role as union type: `"admin" | "manager" | "organizer"`
-- [ ] Avoid `(identity as any).role` - use proper types
-
-## References
-
-- Clerk Docs: https://docs.clerk.com/
-- Clerk JWT Templates: https://clerk.com/docs/backend-requests/making/jwt-templates
-- Convex Auth with Clerk: https://docs.convex.dev/auth/clerk
-- Convex Best Practices: https://docs.convex.dev/understanding/best-practices/typescript
-- Project PRD: `prds/adminroles.md`
-- Project Docs: `README.md`
-
-## Quick Reference: Component Auth Pattern
-
-```typescript
-// 1. Import hooks
-import { useConvexAuth, useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
-
-// 2. Get auth state
-const { isLoading: authIsLoading, isAuthenticated } = useConvexAuth();
-
-// 3. Check admin (skip if not authenticated)
-const isUserAdmin = useQuery(
-  api.users.checkIsUserAdmin,
-  isAuthenticated ? {} : "skip"
-);
-
-// 4. Skip admin queries appropriately
-const adminData = useQuery(
-  api.adminQueries.someAdminQuery,
-  (authIsLoading || !isAuthenticated) ? "skip" : {}
-);
-
-// 5. Handle loading - check auth first, then admin status
-if (authIsLoading || (isAuthenticated && isUserAdmin === undefined)) {
-  return <div>Loading authentication...</div>;
-}
-
-// 6. Handle unauthorized
-if (!isAuthenticated || isUserAdmin === false) {
-  return <NotFoundPage />;
-}
-
-// 7. Render content
-return <div>{adminData}</div>;
 ```
 
 ---
