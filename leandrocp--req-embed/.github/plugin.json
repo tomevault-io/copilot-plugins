@@ -1,0 +1,9 @@
+{
+  "name": "leandrocp--req-embed",
+  "displayName": "req_embed",
+  "description": "Req plugin to fetch oEmbed resources and a Phoenix Component to embed rich content.",
+  "version": "1.0.0",
+  "author": "leandrocp",
+  "homepage": "https://github.com/leandrocp/req_embed",
+  "skills": []
+}
