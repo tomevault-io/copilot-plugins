@@ -1,0 +1,9 @@
+{
+  "name": "justtryai--databricks-mcp-server",
+  "displayName": "databricks-mcp-server",
+  "description": "A Model Completion Protocol (MCP) server for interacting with Databricks services",
+  "version": "1.0.0",
+  "author": "JustTryAI",
+  "homepage": "https://github.com/JustTryAI/databricks-mcp-server",
+  "skills": []
+}
