@@ -1,0 +1,9 @@
+{
+  "name": "rekmarks--bluesky-account-migrator",
+  "displayName": "bluesky-account-migrator",
+  "description": "A simple CLI for migrating Bluesky accounts from one PDS to another.",
+  "version": "1.0.0",
+  "author": "rekmarks",
+  "homepage": "https://github.com/rekmarks/bluesky-account-migrator",
+  "skills": []
+}
