@@ -1,0 +1,9 @@
+{
+  "name": "medz--alien-signals-dart",
+  "displayName": "alien-signals-dart",
+  "description": "\ud83d\udc7d A reactive system library that brings the power of signals to Dart and Flutter applications",
+  "version": "1.0.0",
+  "author": "medz",
+  "homepage": "https://github.com/medz/alien-signals-dart",
+  "skills": []
+}
