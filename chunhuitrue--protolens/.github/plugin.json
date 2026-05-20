@@ -1,0 +1,9 @@
+{
+  "name": "chunhuitrue--protolens",
+  "displayName": "protolens",
+  "description": "High-performance TCP reassembly and application layer protocol parsing.",
+  "version": "1.0.0",
+  "author": "chunhuitrue",
+  "homepage": "https://github.com/chunhuitrue/protolens",
+  "skills": []
+}
