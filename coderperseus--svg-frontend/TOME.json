@@ -1,0 +1,44 @@
+{
+  "name": "svg-frontend",
+  "owner": "coderPerseus",
+  "repo": "svg-frontend",
+  "description": "\u57fa\u4e8e\u5f53\u4e0b\u6700\u5f3a\u5927\u6a21\u578b\u7684\u5728\u7ebf SVG \u751f\u6210\u3001\u7f16\u8f91\u3001\u4e0b\u8f7d\u7ad9\u70b9",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/coderPerseus/svg-frontend",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T20:43:57Z"
+}
