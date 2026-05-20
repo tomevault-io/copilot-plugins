@@ -1,141 +1,80 @@
-## development-patterns
+## project-structure
 
-> - It is MANDATORY to use the official MCP SDK (@modelcontextprotocol/sdk)
+> This project follows a specific structure for implementing MCP (Model Context Protocol) servers.
 
-# MCP Development Patterns
+# MCP Project Structure
 
-## Critical Constraints
+This project follows a specific structure for implementing MCP (Model Context Protocol) servers.
 
-⚠️ IMPORTANT: 
+## Important Constraints
 
-1. Official SDK:
-   - It is MANDATORY to use the official MCP SDK (@modelcontextprotocol/sdk)
-   - It is PROHIBITED to implement your own version of the MCP protocol
-   - It is PROHIBITED to modify the official SDK
-   - Always use the latest stable version of the SDK
+1. SDK and Validation:
+   - ⚠️ It is MANDATORY to use the official MCP SDK (@modelcontextprotocol/sdk)
+   - ⚠️ It is MANDATORY to use Zod for parameter validation
+   - ⚠️ NEVER implement your own version of the MCP protocol
 
 2. Transport:
-   - The MCP server MUST use ONLY stdio transport
-   - It is PROHIBITED to implement:
-     - Server-Sent Events (SSE)
-     - WebSockets
-     - HTTP Long Polling
-     - Any other type of custom transport
+   - ⚠️ NEVER implement the MCP server using SSE (Server-Sent Events)
+   - ⚠️ The MCP server MUST use ONLY the standard stdio transport from the SDK
 
-## Tool Structure
+## Mandatory Dependencies
 
-MCP tools must follow the following pattern:
+```json
+{
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.9.0",
+    "zod": "^3.22.4"
+  }
+}
+```
 
-1. ALWAYS use Zod for parameter definition:
+## Main Files
+
+- [src/mcp.ts](mdc:src/mcp.ts) - MCP server implementation with stdio transport
+- [src/users_tool.ts](mdc:src/users_tool.ts) - Implementation of MCP tools
+
+## Configuration
+
+- [package.json](mdc:package.json) - Project configuration and dependencies
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
+
+## Directories
+
+- `src/` - TypeScript source code
+- `dist/` - Compiled JavaScript code
+- `.cursor/rules/` - Cursor rules for the project
+
+## Example of Correct Implementation
+
 ```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
+// Create server using official SDK
+const server = new McpServer({
+  name: "mcp-server",
+  version: "1.0.0"
+});
+
+// Register tool with Zod validation
 server.tool(
-  "toolName",
+  "example",
   {
-    // Input parameters using Zod
-    input: z.object({
-      field1: z.string(),
-      field2: z.number(),
-      field3: z.boolean().optional()
-    }),
-    // Output schema using Zod (optional but recommended)
-    output: z.object({
-      result: z.any()
+    // Always use Zod for validation
+    parameters: z.object({
+      field: z.string()
     })
   },
   async (params) => {
     // Implementation
   }
 );
-```
 
-2. Implement the `McpTool` interface:
-```typescript
-interface McpTool {
-    name: string;
-    description: string;
-    parameters: JSONSchema7; // Automatically converted from Zod schema
-    execute(params: any): Promise<any>;
-}
-```
-
-## Server Initialization
-
-The MCP server MUST be initialized using the official SDK:
-
-```typescript
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-
-const server = new McpServer({
-    name: "server-name",
-    version: "1.0.0"
-});
-
-// Register tools using Zod for validation
-server.tool(
-  "example",
-  {
-    parameter: z.string().describe("Parameter description")
-  },
-  async ({ parameter }) => {
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Result: ${parameter}`
-        }
-      ]
-    };
-  }
-);
-
+// Use ONLY stdio transport
 const transport = new StdioServerTransport();
 await server.connect(transport);
 ```
-
-## Code Conventions
-
-1. Use TypeScript for static typing
-2. Document all functions and classes with JSDoc
-3. Use async/await for asynchronous operations
-4. Implement proper error handling
-5. Use Zod for validation of all input/output data
-
-## Validation with Zod
-
-1. Always define clear and descriptive Zod schemas
-2. Use `.describe()` to document fields
-3. Define optional types explicitly with `.optional()`
-4. Implement custom validations when necessary
-5. Use Zod type refinement when you need complex validations
-
-Example of a complete Zod schema:
-```typescript
-const UserSchema = z.object({
-  id: z.string().uuid().describe("User's unique ID"),
-  name: z.string().min(2).max(100).describe("User's full name"),
-  email: z.string().email().describe("User's email"),
-  age: z.number().min(0).max(150).optional().describe("User's age"),
-  profile: z.enum(["admin", "user"]).describe("User's profile type")
-});
-```
-
-## Tests
-
-1. Write unit tests for each tool
-2. Use Jest as testing framework
-3. Maintain high code coverage
-4. Test Zod validations extensively
-
-## Best Practices
-
-1. Follow SOLID principles
-2. Keep the code modular and reusable
-3. Use dependency injection when appropriate
-4. Document significant changes
-5. Keep Zod schemas in separate files for reuse
 
 ---
 > Source: [wesleywillians/mcp-prompts-for-devs](https://github.com/wesleywillians/mcp-prompts-for-devs) — distributed by [TomeVault](https://tomevault.io).
