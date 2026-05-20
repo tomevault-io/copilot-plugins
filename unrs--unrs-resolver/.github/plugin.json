@@ -1,0 +1,9 @@
+{
+  "name": "unrs--unrs-resolver",
+  "displayName": "unrs-resolver",
+  "description": "Rust port of webpack/enhanced-resolve with PNP support",
+  "version": "1.0.0",
+  "author": "unrs",
+  "homepage": "https://github.com/unrs/unrs-resolver",
+  "skills": []
+}
