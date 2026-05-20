@@ -1,0 +1,41 @@
+## 01-project-structure
+
+> The application entry point is [src/index.ts](mdc:src/index.ts), which sets up the Hono web server and defines the main routes.
+
+# Project Structure
+
+## Main Entry Points
+
+The application entry point is [src/index.ts](mdc:src/index.ts), which sets up the Hono web server and defines the main routes.
+
+## Core Directories
+
+- **src/**: Contains all source code
+  - **controllers/**: Route handlers and business logic
+  - **services/**: Service layer for external API interactions
+  - **config/**: Configuration management
+  - **utils/**: Utility functions
+  - **llm/**: Multi-provider LLM gateway and provider adapters
+  - **db/**: SQLite database layer for LLM configuration
+  - **crypto/**: Encryption utilities for API key storage
+  - **agent/**: Multi-agent review engine (planner, specialists, judge)
+
+## Configuration Files
+
+- [package.json](mdc:package.json): Project dependencies and scripts
+- [tsconfig.json](mdc:tsconfig.json): TypeScript compiler configuration
+- [Dockerfile](mdc:Dockerfile): Container configuration
+- [kubernetes.yaml](mdc:k8s/gitea-assistant.yaml): Kubernetes deployment configuration
+
+## Build and Deployment
+
+The project uses Bun for development and production:
+- `bun run dev`: Development mode with watch
+- `bun run build`: Build production assets
+- `bun run start`: Run in production
+
+Docker and Kubernetes configurations are available for containerized deployment.
+
+---
+> Source: [jeffusion/gitea-ai-assistant](https://github.com/jeffusion/gitea-ai-assistant) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
