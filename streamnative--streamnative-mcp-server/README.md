@@ -7,11 +7,11 @@ Developer-friendly MCP server bridging Kafka and Pulsar protocols—built with �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [streamnative/streamnative-mcp-server](https://github.com/streamnative/streamnative-mcp-server).
+Original source: `CLAUDE.md` in [streamnative/streamnative-mcp-server](https://github.com/streamnative/streamnative-mcp-server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
