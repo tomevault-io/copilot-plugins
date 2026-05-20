@@ -1,314 +1,99 @@
-## markdown-rules
+## memory-integration-rule
 
-> This rule helps to avoid markdown linting errors
+> **Description:** These rules guide how the AI should leverage previous thoughts and conceptual discussions, especially when there are no file modifications but there is valuable conceptual thinking being developed.
 
-# Markdown Linting Rules
+# Memory Integration with Previous Thoughts and Concepts
 
-This document outlines the rules for writing consistent, maintainable Markdown files that pass linting checks.
+**Description:** These rules guide how the AI should leverage previous thoughts and conceptual discussions, especially when there are no file modifications but there is valuable conceptual thinking being developed.
 
-## Spacing Rules
+## When to Apply These Rules
 
-### MD012: No Multiple Consecutive Blank Lines
+Apply these rules particularly when:
 
-Do not use more than one consecutive blank line anywhere in the document.
+- The current conversation is addressing conceptual topics without immediate code changes
+- The user is exploring design options, architectural patterns, or problem-solving approaches
+- Previous messages in the same session contain relevant context for the current question
+- You need to connect code changes with previous discussions about related concepts
+- Building on ideas that have high confidence scores from previous interactions
 
-❌ Incorrect:
+## How to Integrate Previous Thoughts
 
-```
-Line 1
+1. **Within Session Continuity:**
+   - At the beginning of your response, check if this conversation continues a previous thought thread
+   - If relevant, refer back to key insights from earlier in the conversation using language like "As we discussed earlier..."
+   - Ensure that your response builds coherently on the previously established concepts
+   - Consider confidence scores from previous interactions when deciding which threads to continue
 
+2. **Sequential Thinking Tools:**
+   - For complex reasoning tasks spanning multiple messages, use the `mcp_chroma_dev_chroma_sequential_thinking` tool to record the thought process
+   - Structure thoughts with clear numbering: "Thought 1 of N", "Thought 2 of N", etc.
+   - Include a logical progression that explicitly connects to previous thoughts in the sequence
+   - Reference code contexts from related discussions when building on file-modifying interactions
 
-Line 2
-```
+3. **When Providing Conceptual Guidance:**
+   - Use the `mcp_chroma_dev_chroma_find_similar_thoughts` tool to search for relevant previous thoughts
+   - Reference similar past considerations with "This relates to our previous discussion about X..."
+   - Cross-reference related concepts that emerged in earlier parts of the conversation
+   - When referring to code, cite related snippets that were captured in previous interactions
 
-✅ Correct:
+4. **Knowledge Integration Strategy:**
+   - Synthesize knowledge across related conversations by using the `session_id` parameter to retrieve thoughts within the same session
+   - Build a coherent mental model by explicitly connecting new concepts to previously established ones
+   - When appropriate, use the phrase "Building on our previous discussion..." to signal continuity
+   - Leverage bi-directional linking between code and discussions to connect concepts with implementations
 
-```
-Line 1
+5. **Documentation of Conceptual Evolution:**
+   - For important conceptual breakthroughs, mark them with "Key insight:" to make them easier to identify later
+   - When recording sequential thoughts, ensure the `next_thought_needed` parameter is set appropriately to indicate if further development is expected
+   - Use consistent terminology across responses to maintain conceptual integrity
+   - For high-confidence insights that lead to code changes, note the relationship to potentially create derived learnings
 
-Line 2
-```
+6. **Code Context Connection:**
+   - When discussing code that has been modified in previous interactions, reference the relevant context
+   - Use tool sequence patterns to understand the evolution of solutions across conversations
+   - Connect conceptual discussions to concrete implementations where applicable
+   - Leverage bidirectional links between chat history and code chunks when available
 
-### MD031: Fenced Code Blocks
+## Implementation Details
 
-Fenced code blocks should be surrounded by blank lines.
+When using the sequential thinking tools:
 
-❌ Incorrect:
-```shell
-**Usage:**
-```bash
-# Code example
-```
-```
-
-✅ Correct:
-```shell
-**Usage:**
-
-```bash
-# Code example
-```
-
-```
-
-### MD032: Lists
-
-Lists should be surrounded by blank lines.
-
-❌ Incorrect:
-```shell
-This script cleans up:
-- Item 1
-- Item 2
-```
-
-✅ Correct:
-```shell
-This script cleans up:
-
-- Item 1
-- Item 2
-
-```
-
-### MD047: Files Must End With Single Newline
-
-Files should end with a single empty line.
-
-❌ Incorrect:
-```shell
-# Header
-Content
-No newline at end```
-
-✅ Correct:
-```shell
-# Header
-Content
-
-```
-
-### MD009: No Trailing Spaces
-
-Lines should not have trailing spaces.
-
-❌ Incorrect:
-```shell
-This line ends with spaces   
-Next line
-```
-
-✅ Correct:
-```shell
-This line has no trailing spaces
-Next line
-```
-
-## Formatting Rules
-
-### MD050: Strong Style
-
-Use asterisks (`**`) for strong emphasis, not underscores (`__`).
-
-❌ Incorrect: `__bold text__`
-
-✅ Correct: `**bold text**`
-
-### MD040: Fenced Code Language
-
-Fenced code blocks must have a language specified.
-
-❌ Incorrect:
-```
-# Some code without language
-```
-
-✅ Correct:
-```bash
-# Bash script
-```
-
-✅ Correct:
 ```python
-# Python code
+# Example of sequential thinking tool use
+mcp_chroma_dev_chroma_sequential_thinking(
+    thought="[Content of the current thought]",
+    thought_number=current_number,
+    total_thoughts=expected_total,
+    session_id="[current_session_id]",
+    branch_id="[optional_branch_id]",
+    branch_from_thought=0,  # Set to parent thought number if branching
+    next_thought_needed=True  # Whether more thoughts are expected
+)
 ```
 
-✅ Correct:
-```shell
-# Directory structure
-project/
-├── src/
-│   └── main.py
-└── README.md
+When finding similar thoughts:
+
+```python
+# Example of finding similar thoughts
+mcp_chroma_dev_chroma_find_similar_thoughts(
+    query="[Current topic or question]",
+    session_id="[current_session_id]",  # Optional: limit to current session
+    n_results=5,
+    threshold=0.7,
+    include_branches=True
+)
 ```
 
-Common language specifiers:
-- `shell` - For directory structures, shell commands
-- `bash` - For bash scripts and commands
-- `python` - For Python code
-- `javascript` - For JavaScript code
-- `json` - For JSON data
-- `yaml` - For YAML files
-- `mermaid` - For Mermaid diagrams
-- `markdown` - For markdown examples
+When accessing context-rich chat history:
 
-### Code Formatting for Special Syntax
-
-For directory/file names with underscores or special characters, use backticks instead of emphasis.
-
-❌ Incorrect: `**__pycache__**` or `__pycache__`
-
-✅ Corr`__pycache__` ``
-
-## Header Rules
-
-### MD001: Header Increment
-
-Headers should increment by one level at a time.
-
-❌ Incorrect:
-```shell
-# Header 1
-### Header 3
+```python
+# Example of finding related code contexts
+mcp_chroma_dev_chroma_query_documents(
+    collection_name="chat_history_v1",
+    query_texts=["[Related concept or implementation detail]"],
+    n_results=3
+)
 ```
-
-✅ Correct:
-```shell
-# Header 1
-## Header 2
-### Header 3
-```
-
-### MD022: Headers Should Be Surrounded By Blank Lines
-
-❌ Incorrect:
-```shell
-# Header 1
-Content starts here
-```
-
-✅ Correct:
-```shell
-# Header 1
-
-Content starts here
-```
-
-### MD025: Single H1 Header
-
-Only one top-level header (H1) is allowed per document.
-
-\
-## List Rules
-
-### MD004: List Style
-
-Use consistent list markers. Prefer dashes (`-`) for unordered lists.
-
-❌ Incorrect (mixed):
-```markdown
-- Item 1
-* Item 2
-+ Item 3
-```
-
-✅ Correct:
-```markdown
-- Item 1
-- Item 2
-- Item 3
-```
-
-### MD007: Unordered List Indentation
-
-Nested unordered list items should be indented consistently, typically by 2 spaces.
-
-❌ Incorrect (4 spaces):
-```markdown
-- Item 1
-    - Sub-item A
-```
-
-✅ Correct (2 spaces):
-```markdown
-- Item 1
-  - Sub-item A
-```
-
-### MD030: Spaces After List Markers
-
-Use exactly one space after the list marker (e.g., `-`, `*`, `+`, `1.`).
-
-❌ Incorrect (multiple spaces):
-```markdown
--  Item 1
-1.   Item 2
-```
-
-✅ Correct (one space):
-```markdown
-- Item 1
-1. Item 2
-```
-
-### MD029: Ordered List Item Prefix
-
-Use incrementing numbers for ordered lists.
-
-❌ Incorrect:
-```shell
-1. Item 1
-1. Item 2
-1. Item 3
-```
-
-✅ Correct:
-```shell
-1. Item 1
-2. Item 2
-3. Item 3
-```
-
-## Link Rules
-
-### MD034: Bare URLs
-
-Enclose bare URLs in angle brackets or format them as links.
-
-❌ Incorrect: `https://example.com`
-
-✅ Correct: `<https://example.com>` or `@Example`
-
-## Code Rules
-
-### MD038: Spaces Inside Code Spans
-
-Don't use spaces immediately inside code spans.
-
-❌ Incorrect: `` ` code ` ``
-
-✅ Correct: `` `code` ``
-
-## General Best Practices
-
-1. Use consistent indentation (usually 2 or 4 spaces)
-2. Keep line length under 120 characters
-3. Use reference-style links for better readability
-4. Use a trailing slash for directory paths
-5. Ensure proper escaping of special characters
-6. Always specify a language for code fences
-7. End files with a single newline
-8. Remove trailing spaces from all lines
-
-## IDE Integration
-
-To enable these rules in your editor:
-
-- VS Code: Install the "markdownlint" extension
-- JetBrains IDEs: Use the bundled Markdown support or install "Markdown Navigator Enhanced"
-- Vim/Neovim: Use "ale" with markdownlint rules
-
-These rules ensure consistency and improve readability across all Markdown documents in the codebase.
 
 ---
 > Source: [djm81/chroma_mcp_server](https://github.com/djm81/chroma_mcp_server) — distributed by [TomeVault](https://tomevault.io).
