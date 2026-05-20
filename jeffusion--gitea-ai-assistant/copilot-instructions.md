@@ -1,56 +1,73 @@
-## 04-ai-code-review
+## 05-deployment-and-configuration
 
-> The AI Code Review system is the core feature of this application. It automatically analyzes code changes in Pull Requests and commits, providing insightful feedback using pluggable LLM providers via the LLM Gateway.
+> Only three infrastructure-level settings are read from environment variables. Everything else is managed through the Admin Dashboard Web UI:
 
-# AI Code Review System
+# Deployment and Configuration
 
-## Overview
+## Environment Variables (Minimal)
 
-The AI Code Review system is the core feature of this application. It automatically analyzes code changes in Pull Requests and commits, providing insightful feedback using pluggable LLM providers via the LLM Gateway.
+Only three infrastructure-level settings are read from environment variables. Everything else is managed through the Admin Dashboard Web UI:
 
-## Key Components
+- `PORT`: Server port (default: `5174`)
+- `DATABASE_PATH`: SQLite database file path (optional, default: `./data/assistant.db`)
+- `MASTER_KEY_PATH`: Encryption master key file path (optional, default: `./data/master.key`)
 
-- **Review Controller**: [src/controllers/review.ts](mdc:src/controllers/review.ts)
-  - Handles webhook events from Gitea
-  - Routes events to appropriate handlers
+## First-Boot Seeding
 
-- **AI Review Service**: [src/services/ai-review.ts](mdc:src/services/ai-review.ts)
-  - Contains the core logic for AI-powered code review
-  - Generates both summary comments and line-level feedback
-  - Customizable prompts for different review contexts
+On first startup with an empty `system_settings` table, `configManager.seedDefaults()` automatically:
+- Generates `JWT_SECRET` and `WEBHOOK_SECRET` (64-char hex via `crypto.randomBytes(32)`)
+- Seeds all config fields with their default values
+- Sets `ADMIN_PASSWORD` to `password` (must be changed via Web UI)
 
-- **Gitea Service**: [src/services/gitea.ts](mdc:src/services/gitea.ts)
-  - Fetches code diffs and file contents from Gitea API
-  - Posts review comments back to Gitea
+## Web UI Configuration
 
-## Review Workflow
+All runtime settings are managed through the Admin Dashboard at `http://your-server:PORT`:
+- Gitea connection (API URL, access token, admin token)
+- Security settings (webhook secret, admin password, JWT secret)
+- Review engine settings (engine mode, parallelism, file limits, confidence)
+- Feishu integration (webhook URL and secret)
+- Memory/learning features (Qdrant URL, enable flags)
+## Deployment Options
 
-1. **Trigger**:
-   - Pull Request created/updated or
-   - Commit status changes to "success"
+### Local Development
 
-2. **Code Analysis**:
-   - Fetch diff content from Gitea
-   - Process and analyze changes
-   - Generate AI prompts with context
+```bash
+# Development mode with hot reload
+bun run dev
 
-3. **AI Review**:
-   - Route request through LLM Gateway to configured provider
-   - Generate summary feedback
-   - Generate line-level comments
+# Production mode
+bun run build
+bun run start
+```
 
-4. **Feedback Delivery**:
-   - Post summary comment to PR or commit
-   - Add line comments to specific code sections
-   - Apply formatting for better readability
+### Docker Deployment
 
-## Customization
+The [Dockerfile](mdc:Dockerfile) provides containerization support:
 
-The system supports customizable prompts through environment variables:
-- `CUSTOM_SUMMARY_PROMPT`: For overall review summaries
-- `CUSTOM_LINE_COMMENT_PROMPT`: For line-specific comments
+```bash
+# Build the Docker image
+docker build -t gitea-assistant:latest .
 
-Default prompts are designed to focus on bugs and serious issues rather than style or minor concerns.
+# Run the container
+docker run -p 3000:3000 -v ./data:/app/data -e PORT=3000 gitea-assistant:latest
+```
+
+### Kubernetes Deployment
+
+The [kubernetes.yaml](mdc:k8s/gitea-assistant.yaml) file provides Kubernetes deployment configuration. Persistent storage is required for the `/app/data` directory.
+
+Deployment can be managed using:
+```bash
+# Apply configuration
+kubectl apply -k k8s/
+```
+
+### Webhook Setup
+
+Configure Gitea webhooks to point to the `/webhook/gitea` endpoint with:
+- Content type: application/json
+- Secret: matching the Webhook Secret configured in the Admin Dashboard
+- Events: Pull Request and Status events
 
 ---
 > Source: [jeffusion/gitea-ai-assistant](https://github.com/jeffusion/gitea-ai-assistant) — distributed by [TomeVault](https://tomevault.io).
