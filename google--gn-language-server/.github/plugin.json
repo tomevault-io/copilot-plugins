@@ -1,0 +1,9 @@
+{
+  "name": "google--gn-language-server",
+  "displayName": "gn-language-server",
+  "description": "A language server for GN, and a tiny VSCode extension wrapping the server.",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/gn-language-server",
+  "skills": []
+}
