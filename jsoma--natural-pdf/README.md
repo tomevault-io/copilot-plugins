@@ -7,11 +7,11 @@ A friendly library for working with PDFs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jsoma/natural-pdf](https://github.com/jsoma/natural-pdf).
+Original source: `CLAUDE.md` in [jsoma/natural-pdf](https://github.com/jsoma/natural-pdf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
