@@ -1,212 +1,314 @@
-## ugtlive-project-guide
+## ui-ux-patterns
 
-> Universal Game Translator Live project overview and structure
+> UI/UX patterns and window management guide
 
 
-# Universal Game Translator Live - Project Guide
+# UI/UX Patterns and Window Management Guide
 
-## Overview
-Universal Game Translator Live (UGTLive) is a Windows WPF application that provides real-time screen translation using OCR and Large Language Models (LLMs). The application captures screen regions, performs OCR, and translates text using services like Gemini, ChatGPT, Ollama, Google Translate, or llama.cpp.
+## Window Architecture
 
-## Project Structure
+### Window Types
+UGTLive uses several specialized windows, each with specific responsibilities:
 
-### Core Application Files
-- [src/App.xaml](mdc:src/App.xaml) - WPF application entry point
-- [src/MainWindow.xaml.cs](mdc:src/MainWindow.xaml.cs) - Main application window and control logic
-- [src/Logic.cs](mdc:src/Logic.cs) - Core translation and OCR processing logic
-- [src/ConfigManager.cs](mdc:src/ConfigManager.cs) - Settings and configuration management
+1. **Main Window** ([src/MainWindow.xaml](mdc:src/MainWindow.xaml))
+   - Central control panel
+   - Start/Stop translation
+   - Access to all other windows
+   - System tray integration
 
-### UI Components
-- [src/MonitorWindow.xaml.cs](mdc:src/MonitorWindow.xaml.cs) - Screen capture preview window
-- [src/ChatBoxWindow.xaml.cs](mdc:src/ChatBoxWindow.xaml.cs) - Translation overlay/chat display
-- [src/SettingsWindow.xaml.cs](mdc:src/SettingsWindow.xaml.cs) - Application settings interface
-- [src/ChatBoxOptionsWindow.xaml.cs](mdc:src/ChatBoxOptionsWindow.xaml.cs) - ChatBox customization options
-- [src/ChatBoxSelectorWindow.xaml.cs](mdc:src/ChatBoxSelectorWindow.xaml.cs) - ChatBox region selector
-- [src/LogWindow.xaml.cs](mdc:src/LogWindow.xaml.cs) - Log viewer window
+2. **Monitor Window** ([src/MonitorWindow.xaml](mdc:src/MonitorWindow.xaml))
+   - Live preview of capture area
+   - Visual OCR feedback
+   - Resizable and movable
 
-### Dialog Windows
-- [src/UpdateAvailableDialog.xaml.cs](mdc:src/UpdateAvailableDialog.xaml.cs) - Version update notification
-- [src/TtsVoiceSelectorDialog.xaml.cs](mdc:src/TtsVoiceSelectorDialog.xaml.cs) - TTS voice selection
-- [src/ServiceInstallDialog.xaml.cs](mdc:src/ServiceInstallDialog.xaml.cs) - Python service installation
-- [src/ServiceDiagnosticDialog.xaml.cs](mdc:src/ServiceDiagnosticDialog.xaml.cs) - Service diagnostics
-- [src/ServerSetupDialog.xaml.cs](mdc:src/ServerSetupDialog.xaml.cs) - Server setup wizard
-- [src/OllamaModelSelectorWindow.xaml.cs](mdc:src/OllamaModelSelectorWindow.xaml.cs) - Ollama model selection
-- [src/GoogleVisionSetupDialog.xaml.cs](mdc:src/GoogleVisionSetupDialog.xaml.cs) - Google Vision setup
-- [src/ShutdownDialog.xaml.cs](mdc:src/ShutdownDialog.xaml.cs) - Shutdown confirmation
-- [src/NoTextInfoDialog.xaml.cs](mdc:src/NoTextInfoDialog.xaml.cs) - No text detected notification
+3. **ChatBox Window** ([src/ChatBoxWindow.xaml](mdc:src/ChatBoxWindow.xaml))
+   - Translation display overlay
+   - Always-on-top option
+   - Customizable appearance
 
-### OCR Services
-- [src/WindowsOCRManager.cs](mdc:src/WindowsOCRManager.cs) - Windows built-in OCR integration
-- [src/GoogleVisionOCRService.cs](mdc:src/GoogleVisionOCRService.cs) - Google Cloud Vision OCR
-- [src/UniversalBlockDetector.cs](mdc:src/UniversalBlockDetector.cs) - Advanced text block detection and grouping
-- [src/PythonServicesManager.cs](mdc:src/PythonServicesManager.cs) - Manages Python OCR services (EasyOCR, MangaOCR, PaddleOCR, DocTR)
-- [src/PythonService.cs](mdc:src/PythonService.cs) - Individual Python service wrapper
+4. **Settings Window** ([src/SettingsWindow.xaml](mdc:src/SettingsWindow.xaml))
+   - Tabbed interface for all settings
+   - API key management
+   - Service configuration
+   - OCR and translation settings
 
-### Translation Services
-- [src/ITranslationService.cs](mdc:src/ITranslationService.cs) - Translation service interface
-- [src/GeminiTranslationService.cs](mdc:src/GeminiTranslationService.cs) - Google Gemini API integration
-- [src/ChatGptTranslationService.cs](mdc:src/ChatGptTranslationService.cs) - OpenAI ChatGPT integration
-- [src/OllamaTranslationService.cs](mdc:src/OllamaTranslationService.cs) - Local Ollama LLM integration
-- [src/GoogleTranslateService.cs](mdc:src/GoogleTranslateService.cs) - Google Translate integration
-- [src/LlamaCppTranslationService.cs](mdc:src/LlamaCppTranslationService.cs) - llama.cpp local translation
-- [src/TranslationServiceFactory.cs](mdc:src/TranslationServiceFactory.cs) - Factory for creating translation services
+5. **Log Window** ([src/LogWindow.xaml](mdc:src/LogWindow.xaml))
+   - Application log viewer
+   - Real-time log updates
+   - Filtering and search
 
-### Audio Services
-- [src/GoogleTTSService.cs](mdc:src/GoogleTTSService.cs) - Google Text-to-Speech
-- [src/ElevenLabsService.cs](mdc:src/ElevenLabsService.cs) - ElevenLabs TTS integration
-- [src/OpenAIRealtimeAudioService.cs](mdc:src/OpenAIRealtimeAudioService.cs) - OpenAI real-time audio transcription
-- [src/AudioPlaybackManager.cs](mdc:src/AudioPlaybackManager.cs) - Audio playback management
-- [src/AudioPreloadService.cs](mdc:src/AudioPreloadService.cs) - TTS audio preloading
+## Keyboard Shortcuts ([src/HotkeyManager.cs](mdc:src/HotkeyManager.cs))
 
-### Utilities and Managers
-- [src/HotkeyManager.cs](mdc:src/HotkeyManager.cs) - Global keyboard shortcuts management
-- [src/MouseManager.cs](mdc:src/MouseManager.cs) - Mouse input handling
-- [src/LogManager.cs](mdc:src/LogManager.cs) - Application logging
-- [src/SplashManager.cs](mdc:src/SplashManager.cs) - Splash screen management
-- [src/TextObject.cs](mdc:src/TextObject.cs) - Text region data structure
-- [src/ErrorPopupManager.cs](mdc:src/ErrorPopupManager.cs) - Error popup management
-- [src/GamepadManager.cs](mdc:src/GamepadManager.cs) - Gamepad input management
-- [src/WebViewEnvironmentManager.cs](mdc:src/WebViewEnvironmentManager.cs) - WebView2 environment management
-- [src/WebViewPool.cs](mdc:src/WebViewPool.cs) - WebView2 instance pooling
-- [src/OverlayProfiler.cs](mdc:src/OverlayProfiler.cs) - Overlay performance profiling
-- [src/CondaHelper.cs](mdc:src/CondaHelper.cs) - Conda environment management
-- [src/ServiceConfigParser.cs](mdc:src/ServiceConfigParser.cs) - Python service config parsing
-- [src/ServiceItemViewModel.cs](mdc:src/ServiceItemViewModel.cs) - Service UI view model
-- [src/OllamaModelDownloader.cs](mdc:src/OllamaModelDownloader.cs) - Ollama model download management
-- [src/HotkeyEntry.cs](mdc:src/HotkeyEntry.cs) - Hotkey entry data structure
-- [src/TranslationEventArgs.cs](mdc:src/TranslationEventArgs.cs) - Translation event arguments
+### Global Shortcuts
+All shortcuts are managed through HotkeyManager and configurable via hotkeys.txt:
 
-### Python Services
-- `app/services/EasyOCR/` - EasyOCR Python service
-- `app/services/MangaOCR/` - MangaOCR Python service
-- `app/services/PaddleOCR/` - PaddleOCR Python service
-- `app/services/DocTR/` - DocTR Python service
-- `app/services/shared/` - Shared Python utilities
-- `app/services/util/` - Python installation utilities
+| Action | Default | Event |
+|--------|---------|-------|
+| Start/Stop OCR | Shift+S | `StartStopRequested` |
+| Show/Hide Monitor | Shift+M | `MonitorToggleRequested` |
+| Show/Hide ChatBox | Shift+C | `ChatBoxToggleRequested` |
+| Show/Hide Settings | Shift+P | `SettingsToggleRequested` |
+| Show/Hide Log | Shift+L | `LogToggleRequested` |
+| Show/Hide Main Window | Shift+H | `MainWindowVisibilityToggleRequested` |
+| Clear Overlays | Shift+X | `ClearOverlaysRequested` |
+| Passthrough Toggle | Shift+T | `PassthroughToggleRequested` |
+| Overlay Mode Toggle | Shift+O | `OverlayModeToggleRequested` |
+| Listen Toggle | Shift+A | `ListenToggleRequested` |
+| View in Browser | Shift+B | `ViewInBrowserRequested` |
+| Play All Audio | Shift+W | `PlayAllAudioRequested` |
 
-Each Python service directory contains:
-- `server.py` - FastAPI server implementation
-- `service_config.txt` - Service configuration
-- `Install.bat` - Installation script
-- `RunServer.bat` - Server launch script
-- `DiagnosticTest.bat` - Diagnostic test script
-- `Uninstall.bat` - Uninstallation script
+### Implementation Pattern
+```csharp
+// Register hotkey events
+HotkeyManager.Instance.StartStopRequested += OnStartStopRequested;
+HotkeyManager.Instance.MonitorToggleRequested += OnMonitorToggleRequested;
 
-## Key Architectural Patterns
+// Hotkeys are loaded from hotkeys.txt and can be customized
+```
 
-### Singleton Pattern
-The application uses singleton pattern for core managers:
-- `Logic.Instance` - Main application logic
-- `ConfigManager.Instance` - Configuration management
-- `UniversalBlockDetector.Instance` - Text block detection (replaces BlockDetectionManager)
-- `LogManager.Instance` - Logging
-- `HotkeyManager.Instance` - Keyboard shortcuts (replaces KeyboardShortcuts)
-- `PythonServicesManager.Instance` - Python OCR service management
-- `AudioPlaybackManager.Instance` - Audio playback
-- `AudioPreloadService.Instance` - Audio preloading
-- `GamepadManager.Instance` - Gamepad input
+### Hotkey Configuration
+Hotkeys are stored in `hotkeys.txt` with format:
+```
+action=key1+key2+key3
+```
 
-### Window Management
-Each window inherits from WPF Window class and follows these patterns:
-- Windows are typically created once and shown/hidden as needed
-- Settings are persisted through ConfigManager
-- Windows communicate through events and direct method calls on Logic.Instance
+## UI Design Patterns
 
-### Translation Flow
-1. Screen capture → OCR (Windows OCR, EasyOCR, MangaOCR, PaddleOCR, DocTR, or Google Vision) → Universal Block Detection → Translation Service → Display
-2. Text blocks are grouped by UniversalBlockDetector
-3. Translation includes context from previous translations
-4. Results are displayed in ChatBox or as overlay
+### Window Lifecycle
+1. **Creation**: Windows created once at startup
+2. **Visibility**: Show/Hide instead of Create/Destroy
+3. **State Persistence**: Position and size saved via ConfigManager
+4. **Cleanup**: Proper disposal on application exit
 
-## Development Guidelines
+### Common Window Properties
+```xml
+<!-- Standard window attributes -->
+WindowStyle="None"
+AllowsTransparency="True"
+ResizeMode="CanResize"
+Topmost="{Binding IsAlwaysOnTop}"
+```
 
-### Code Style
-- **Naming**: PascalCase for public members, camelCase for private, underscore prefix for fields
-- **Layout**: 4-space indentation, Allman braces, System namespaces first
-- **Properties**: Use GetVariableName/SetVariableName pattern in ConfigManager
-- **UI Properties**: Direct Get/Set to GUI elements when possible
-- **Error Handling**: Avoid try/catch blocks, check for null, log errors via LogManager
+### Styling Conventions
 
-### Project Configuration
-- **Framework**: .NET 8.0 Windows
-- **Output**: `app/` directory
-- **Assembly**: `ugtlive.exe` (or `ugtlive_debug.exe` in Debug)
-- **Dependencies**: NAudio, Microsoft.Windows.CsWinRT, WebView2
+#### Colors and Themes
+- Dark theme by default
+- Configurable accent colors
+- Semi-transparent backgrounds
+- High contrast text
 
-### Key Features
-- Multiple OCR backends (Windows OCR, EasyOCR, MangaOCR, PaddleOCR, DocTR, Google Vision)
-- Multiple translation services (Gemini, ChatGPT, Ollama, Google Translate, llama.cpp)
-- Real-time screen capture and translation
-- Customizable overlay windows
-- Audio transcription and TTS
-- Context-aware translations
-- Global keyboard shortcuts (via HotkeyManager)
-- Gamepad support
-- Python service management UI
+#### Standard Controls
+```xml
+<!-- Button Style -->
+<Button Style="{StaticResource ModernButton}"
+        Background="#FF2D2D30"
+        Foreground="White"
+        BorderThickness="0"/>
 
-## Common Development Tasks
+<!-- TextBox Style -->
+<TextBox Style="{StaticResource ModernTextBox}"
+         Background="#FF3F3F46"
+         Foreground="White"
+         BorderBrush="#FF007ACC"/>
+```
 
-### Adding a New Translation Service
-1. Create a new class implementing `ITranslationService`
-2. Add service configuration to `ConfigManager`
-3. Update `TranslationServiceFactory` to create instances
-4. Add UI controls in `SettingsWindow.xaml`
+## ChatBox Customization
 
-### Adding New Settings
-1. Add property to `ConfigManager` with getter/setter
-2. Add UI controls to `SettingsWindow.xaml`
-3. Wire up events in `SettingsWindow.xaml.cs`
-4. Settings are automatically persisted
+### Appearance Settings ([src/ChatBoxOptionsWindow.xaml](mdc:src/ChatBoxOptionsWindow.xaml))
+- Background color picker
+- Text color picker
+- Transparency slider (0-100%)
+- Font family and size
+- Border options
 
-### Adding a New Python OCR Service
-1. Create service directory in `app/services/` (e.g., `app/services/NewOCR/`)
-2. Create `service_config.txt` with required fields
-3. Create `server.py` implementing FastAPI endpoints
-4. Create batch scripts: `Install.bat`, `RunServer.bat`, `DiagnosticTest.bat`, `Uninstall.bat`
-5. Service will be automatically discovered by `PythonServicesManager`
+### Layout Options
+- Auto-size to content
+- Maximum width/height
+- Text alignment
+- Padding configuration
 
-### Debugging OCR Issues
-1. Check `LogManager` output for errors
-2. Use Monitor window to preview capture area
-3. Verify Python server is running (for Python OCR services)
-4. Check service diagnostics dialog
-5. Review UniversalBlockDetector settings
+## Settings Organization
 
-## Version Management
+### Tab Structure in Settings Window
+1. **General**: Basic app settings, hotkeys
+2. **OCR**: OCR service selection and config
+3. **Translation**: Service selection and API keys
+4. **ChatBox**: Display preferences
+5. **Audio**: TTS settings and voice selection
+6. **Advanced**: Debug and experimental features
 
-When incrementing the version number, you must update it in **THREE places**:
+### Settings Pattern
+```csharp
+// Property in ConfigManager
+public string GetSetting() => GetValue(SETTING_KEY, defaultValue);
+public void SetSetting(string value)
+{
+    SetValue(SETTING_KEY, value);
+    SaveConfig();
+}
 
-1. **[src/SplashManager.cs](mdc:src/SplashManager.cs)** - `CurrentVersion` constant
-   ```csharp
-   public const double CurrentVersion = 0.60;  // Update this value
-   ```
+// UI Binding in XAML
+<TextBox Text="{Binding SettingName, Mode=TwoWay}"/>
+```
 
-2. **[media/latest_version_checker.json](mdc:media/latest_version_checker.json)** - `latest_version` field
-   ```json
-   {
-       "name":"Universal Game Translator Live",
-       "latest_version":0.60,  // Update this value
-       "message":"Download V{VERSION_STRING} now from rtsoft.com?\n\nV0.60: "  // Update version in message
-   }
-   ```
+## Mouse Interaction ([src/MouseManager.cs](mdc:src/MouseManager.cs))
 
-3. **[README.md](mdc:README.md)** - Version badge and history entry
-   - Update the version badge: `[![Version](https://img.shields.io/badge/version-0.60-blue.svg)]`
-   - Add a new history entry at the top: `**V0.60** - [description]`
+### Region Selection
+- Click and drag to select area
+- Visual feedback during selection
+- Escape key to cancel
+- Double-click to confirm
 
-### Version Increment Rules
-- Default increment: **0.01** (e.g., 0.25 → 0.26)
-- Major features: **0.10** (e.g., 0.25 → 0.35)
-- Complete rewrites: **1.00** (e.g., 0.99 → 1.00)
-- **ALWAYS update all three files** to keep them in sync
-- Version format is a double/float (e.g., 0.60, not "0.60")
+### Window Dragging
+- Custom title bar implementation
+- Drag from any empty area
+- Snap to screen edges
 
-## Important Notes
-- Application is Windows-only due to WPF and Windows OCR dependencies
-- Python OCR services run locally on configurable ports
-- First run downloads OCR language models
-- Settings stored in `app/` directory (config.txt, service configs)
-- All web calls are for version checking and API services only
+## Notification Patterns
+
+### Status Messages
+- Displayed in main window status bar
+- Auto-fade after 3 seconds
+- Color-coded by type (info, warning, error)
+
+### Error Handling UI
+```csharp
+// Show error via ErrorPopupManager
+ErrorPopupManager.ShowError("Error Title", "Error message");
+
+// Or show in UI
+Application.Current.Dispatcher.Invoke(() =>
+{
+    StatusText.Text = $"Error: {message}";
+    StatusText.Foreground = Brushes.Red;
+});
+```
+
+## Accessibility Considerations
+
+### Keyboard Navigation
+- Tab order properly set
+- All functions keyboard accessible
+- Tooltips for all controls
+- Keyboard shortcuts documented
+
+### Visual Accessibility
+- High contrast mode support
+- Configurable font sizes
+- Color customization
+- Clear visual feedback
+
+## Performance UI Guidelines
+
+### Responsive Design
+- Async operations for long tasks
+- Progress indicators
+- Non-blocking UI updates
+- Smooth animations
+
+### Update Patterns
+```csharp
+// UI updates from background thread
+Application.Current.Dispatcher.Invoke(() =>
+{
+    // Update UI elements
+}, DispatcherPriority.Background);
+```
+
+## Window State Management
+
+### Saving Window State
+```csharp
+// On window closing
+ConfigManager.Instance.SetWindowPosition(
+    windowName, this.Left, this.Top, 
+    this.Width, this.Height);
+
+// On window loading
+var pos = ConfigManager.Instance.GetWindowPosition(windowName);
+if (pos != null)
+{
+    this.Left = pos.X;
+    this.Top = pos.Y;
+    this.Width = pos.Width;
+    this.Height = pos.Height;
+}
+```
+
+### Multi-Monitor Support
+- Remember which monitor
+- Handle monitor disconnection
+- Validate window positions
+- Prevent off-screen windows
+
+## Custom Controls
+
+### Draggable Thumb Control
+Used for resizing regions and windows:
+```xml
+<Thumb DragDelta="Thumb_DragDelta"
+       Width="10" Height="10"
+       Cursor="SizeNWSE"/>
+```
+
+### Color Picker Integration
+- Uses standard WPF color dialog
+- Preview of selected color
+- Saves recent colors
+- Hex value display
+
+## Animation Guidelines
+
+### Fade Animations
+```xml
+<Storyboard x:Key="FadeIn">
+    <DoubleAnimation 
+        Storyboard.TargetProperty="Opacity"
+        From="0" To="1" Duration="0:0:0.3"/>
+</Storyboard>
+```
+
+### Smooth Transitions
+- 300ms standard duration
+- Ease-in-out timing function
+- Avoid jarring movements
+- Respect reduced motion preference
+
+## Service Management UI
+
+### Service Installation Dialog
+- Shows available Python OCR services
+- Installation progress
+- Error handling and diagnostics
+
+### Service Diagnostics
+- Health check status
+- Port availability
+- Service logs
+- Test image processing
+
+## Dialog Patterns
+
+### Modal Dialogs
+```csharp
+var dialog = new SettingsWindow();
+dialog.Owner = this;
+dialog.ShowDialog(); // Blocks until closed
+```
+
+### Confirmation Dialogs
+```csharp
+var result = MessageBox.Show(
+    "Are you sure you want to delete this?",
+    "Confirm",
+    MessageBoxButton.YesNo,
+    MessageBoxImage.Question);
+
+if (result == MessageBoxResult.Yes)
+{
+    // Perform action
+}
+```
 
 ---
 > Source: [SethRobinson/UGTLive](https://github.com/SethRobinson/UGTLive) — distributed by [TomeVault](https://tomevault.io).
