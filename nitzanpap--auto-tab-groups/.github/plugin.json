@@ -1,0 +1,9 @@
+{
+  "name": "nitzanpap--auto-tab-groups",
+  "displayName": "auto-tab-groups",
+  "description": "A browser extension that automatically groups open tabs by sub/domain, and by rules",
+  "version": "1.0.0",
+  "author": "nitzanpap",
+  "homepage": "https://github.com/nitzanpap/auto-tab-groups",
+  "skills": []
+}
