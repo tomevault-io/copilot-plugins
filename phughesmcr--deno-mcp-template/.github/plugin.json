@@ -1,0 +1,9 @@
+{
+  "name": "phughesmcr--deno-mcp-template",
+  "displayName": "deno-mcp-template",
+  "description": "A template repo for writing and publishing local, remote, DXT, and binary MCP servers using Deno.",
+  "version": "1.0.0",
+  "author": "phughesmcr",
+  "homepage": "https://github.com/phughesmcr/deno-mcp-template",
+  "skills": []
+}
