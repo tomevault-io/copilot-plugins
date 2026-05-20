@@ -1,0 +1,9 @@
+{
+  "name": "deepworks-net--docker-claude-code",
+  "displayName": "docker.claude-code",
+  "description": "A Docker container setup that enables running Anthropic's Claude Code on Windows machines without WSL. This project provides scripts to automate container creation, allowing developers to use Claude C",
+  "version": "1.0.0",
+  "author": "deepworks-net",
+  "homepage": "https://github.com/deepworks-net/docker.claude-code",
+  "skills": []
+}
