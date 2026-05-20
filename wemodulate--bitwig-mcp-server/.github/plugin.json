@@ -1,0 +1,9 @@
+{
+  "name": "wemodulate--bitwig-mcp-server",
+  "displayName": "bitwig-mcp-server",
+  "description": "MCP Server for Bitwig Studio",
+  "version": "1.0.0",
+  "author": "WeModulate",
+  "homepage": "https://github.com/WeModulate/bitwig-mcp-server",
+  "skills": []
+}
