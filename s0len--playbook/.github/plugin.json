@@ -1,0 +1,9 @@
+{
+  "name": "s0len--playbook",
+  "displayName": "Playbook",
+  "description": "Playbook automates matching, renaming, and metadata so live sports land in Plex perfectly.",
+  "version": "1.0.0",
+  "author": "s0len",
+  "homepage": "https://github.com/s0len/Playbook",
+  "skills": []
+}
