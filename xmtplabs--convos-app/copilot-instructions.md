@@ -1,13 +1,150 @@
-## library-usage
+## react-components
 
-> The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
+> The following contains rules about React components in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
+The following contains rules about React components in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-- Never assume the existence of functions, components, or features in third-party libraries.
-- Always verify API usage in the official documentation for the major version being used in [package.json](mdc:package.json)
-- A good way to find fixes is to go into the issues of a library Github repo and find if other people had similar issues.
-- Check the [package.json](mdc:package.json) for the library version before implementing features.
+- Prefer early returns over ternaries.
+
+```typescript
+// ❌ Bad
+function Component() {
+  return (
+    <View>
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : isError ? (
+        <ErrorMessage />
+      ) : (
+        <Content />
+      )}
+    </View>
+  )
+}
+
+// ✅ Good
+function Component() {
+  if (isLoading) {
+    return <LoadingIndicator />
+  }
+
+  if (isError) {
+    return <ErrorMessage />
+  }
+
+  return <Content />
+}
+```
+
+- Minimize useEffect usage.
+
+```typescript
+// ❌ Bad: Unnecessary effect
+function Counter() {
+  const [count, setCount] = useState(0)
+  const [doubled, setDoubled] = useState(0)
+
+  useEffect(() => {
+    setDoubled(count * 2)
+  }, [count])
+
+  return <Text>{doubled}</Text>
+}
+
+// ✅ Good: Computed value
+function Counter() {
+  const [count, setCount] = useState(0)
+  const doubled = count * 2
+
+  return <Text>{doubled}</Text>
+}
+```
+
+- Wrap components in memo() for performance.
+
+```typescript
+// ❌ Bad
+export function ExpensiveComponent() {
+  // Implementation
+}
+
+// ✅ Good
+export const ExpensiveComponent = memo(function ExpensiveComponent() {
+  // Implementation
+})
+```
+
+- Avoid using render functions within components.
+
+```typescript
+// ❌ Bad
+function ProfileScreen() {
+  const renderHeader = () => (
+    <Header title="Profile" />
+  )
+
+  return (
+    <Screen>
+      {renderHeader()}
+      <Content />
+    </Screen>
+  )
+}
+
+// ✅ Good
+function ProfileScreen() {
+  return (
+    <Screen>
+      <ProfileHeader />
+      <Content />
+    </Screen>
+  )
+}
+
+const ProfileHeader = memo(function ProfileHeader() {
+  return <Header title="Profile" />
+})
+```
+
+- Use named exports.
+
+```typescript
+// ❌ Bad
+export default function Button() {
+  return <TouchableOpacity><Text>Click me</Text></TouchableOpacity>
+}
+
+// ✅ Good
+export const Button = memo(function Button() {
+  return <TouchableOpacity><Text>Click me</Text></TouchableOpacity>
+})
+```
+
+- Prefer derived state over redundant state.
+
+```typescript
+// ❌ Bad: Using separate state for derived value
+function MediaViewerPortal() {
+  const mediaParams = useStore((state) => state.mediaParams)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    setVisible(!!mediaParams)
+  }, [mediaParams])
+
+  if (!visible) return null
+  // ... rest of component using mediaParams
+}
+
+// ✅ Good: Calculating derived value directly
+function MediaViewerPortal() {
+  const mediaParams = useStore((state) => state.mediaParams)
+  const visible = !!mediaParams // Derived directly
+
+  if (!visible) return null
+  // ... rest of component using mediaParams
+}
+```
 
 ---
 > Source: [xmtplabs/convos-app](https://github.com/xmtplabs/convos-app) — distributed by [TomeVault](https://tomevault.io).
