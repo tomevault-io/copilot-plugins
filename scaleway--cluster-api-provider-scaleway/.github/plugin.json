@@ -1,0 +1,9 @@
+{
+  "name": "scaleway--cluster-api-provider-scaleway",
+  "displayName": "cluster-api-provider-scaleway",
+  "description": "Cluster API infrastructure provider for Scaleway",
+  "version": "1.0.0",
+  "author": "scaleway",
+  "homepage": "https://github.com/scaleway/cluster-api-provider-scaleway",
+  "skills": []
+}
