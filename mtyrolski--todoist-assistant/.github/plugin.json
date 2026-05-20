@@ -1,0 +1,9 @@
+{
+  "name": "mtyrolski--todoist-assistant",
+  "displayName": "todoist-assistant",
+  "description": "AI-powered, local-first Todoist analytics, automations, and dashboard with summaries and chat over cached activity.",
+  "version": "1.0.0",
+  "author": "mtyrolski",
+  "homepage": "https://github.com/mtyrolski/todoist-assistant",
+  "skills": []
+}
