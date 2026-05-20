@@ -1,0 +1,243 @@
+## code-optimization
+
+> Guidelines for optimizing duplicate and poorly structured code
+
+
+# Code Optimization Guidelines
+
+## 🎯 Core Principles
+
+### 1. DRY (Don't Repeat Yourself)
+- **Eliminate code duplication** across files and functions
+- **Extract shared logic** into reusable functions/classes
+- **Centralize constants** and configuration
+- **Use composition over duplication**
+
+### 2. Single Responsibility Principle
+- **One function = One purpose**
+- **Separate concerns** clearly (validation, processing, I/O)
+- **Avoid functions that do too much**
+- **Group related functionality** logically
+
+## 🔍 Identifying Problems
+
+### Red Flags to Watch For:
+- **Duplicate constants** across multiple files
+- **Similar function logic** in different modules
+- **Functions with multiple responsibilities**
+- **Artificial function boundaries** that don't add value
+- **Mixed abstraction levels** in the same function
+- **Redundant parameter processing**
+
+## 🛠️ Optimization Strategies
+
+### 1. Function Consolidation
+```python
+# ❌ BAD: Two functions doing similar things
+def invoke_mtproto_method(method, params, params_json=""):
+    # Does preprocessing + Telethon interaction
+    
+def invoke_mtproto_impl(method, params_json, allow_dangerous=False):
+    # Does preprocessing + calls invoke_mtproto_method
+
+# ✅ GOOD: Single function with clear purpose
+def invoke_mtproto_impl(method, params_json, allow_dangerous=False, resolve=True):
+    # Does everything in one logical flow
+```
+
+### 2. Constant Extraction
+```python
+# ❌ BAD: Duplicate constants across files
+# In file1.py
+DANGEROUS_METHODS = {"messages.DeleteMessages", ...}
+
+# In file2.py  
+DANGEROUS_METHODS = {"messages.DeleteMessages", ...}
+
+# ✅ GOOD: Centralized constants
+# In constants.py
+DANGEROUS_METHODS = {
+    "account.DeleteAccount",
+    "messages.DeleteHistory",
+    "messages.DeleteMessages",
+    # ...
+}
+```
+
+### 3. Helper Function Extraction
+```python
+# ❌ BAD: Logic scattered in main function
+def main_function():
+    # 50 lines of mixed logic
+    if "." not in method_name:
+        raise ValueError("Invalid format")
+    module_name, class_name = method_name.rsplit(".", 1)
+    # ... more mixed logic
+
+# ✅ GOOD: Clear separation with helpers
+def _resolve_method_class(method_name):
+    """Resolve method name to Telethon class"""
+    if "." not in method_name:
+        raise ValueError("Invalid format")
+    # ... focused logic
+
+def main_function():
+    method_cls = _resolve_method_class(method_name)
+    # ... clean main logic
+```
+
+## 📁 File Organization Patterns
+
+### 1. Logical Grouping
+```python
+# ✅ GOOD: Clear section headers and grouping
+# ============================================================================
+# CONSTANTS
+# ============================================================================
+DANGEROUS_METHODS = {...}
+
+# ============================================================================
+# UTILITY FUNCTIONS  
+# ============================================================================
+def _json_safe(value): ...
+
+# ============================================================================
+# CORE FUNCTIONS
+# ============================================================================
+def invoke_mtproto_impl(...): ...
+```
+
+### 2. Import Organization
+```python
+# ✅ GOOD: Logical import grouping
+import base64
+import json
+from importlib import import_module
+from typing import Any
+
+import logging
+logger = logging.getLogger(__name__)
+
+from src.client.connection import get_connected_client
+from src.utils.error_handling import log_and_build_error
+from src.utils.helpers import normalize_method_name
+```
+
+## 🚫 Anti-Patterns to Avoid
+
+### 1. Artificial Function Boundaries
+```python
+# ❌ BAD: Functions that just call other functions
+def function_a():
+    return function_b()
+
+def function_b():
+    return function_c()
+
+def function_c():
+    # actual work
+```
+
+### 2. Parameter Redundancy
+```python
+# ❌ BAD: Multiple ways to pass the same data
+def process_data(data, data_json="", data_dict=None):
+    if data_json:
+        data = json.loads(data_json)
+    elif data_dict:
+        data = data_dict
+    # ... process data
+```
+
+### 3. Mixed Responsibilities
+```python
+# ❌ BAD: Function doing too many things
+def handle_request(request):
+    # Validate input
+    # Parse parameters  
+    # Check permissions
+    # Process business logic
+    # Format response
+    # Log results
+```
+
+## ✅ Refactoring Checklist
+
+### Before Refactoring:
+- [ ] Identify duplicate code patterns
+- [ ] Map function responsibilities
+- [ ] Find shared constants/logic
+- [ ] Understand data flow
+
+### During Refactoring:
+- [ ] Extract shared functionality
+- [ ] Consolidate similar functions
+- [ ] Create clear function boundaries
+- [ ] Maintain backward compatibility
+- [ ] Update all references
+
+### After Refactoring:
+- [ ] Test all interfaces still work
+- [ ] Verify no functionality lost
+- [ ] Check for linting errors
+- [ ] Update documentation
+- [ ] Run comprehensive tests
+
+## 🎯 Success Metrics
+
+### Good Refactoring Results:
+- **Fewer total functions** (eliminate artificial boundaries)
+- **Clearer function purposes** (single responsibility)
+- **Reduced code duplication** (DRY principle)
+- **Better error handling** (consistent patterns)
+- **Improved maintainability** (easier to modify)
+- **Same functionality** (no breaking changes)
+
+### Example: Before vs After
+```python
+# BEFORE: 3 functions, mixed responsibilities
+def invoke_mtproto_method(method, params, params_json=""):
+    # Does everything
+    
+def invoke_mtproto_impl(method, params_json, allow_dangerous=False):
+    # Calls invoke_mtproto_method
+    
+def _sanitize_mtproto_params(params):
+    # Used by both above
+
+# AFTER: 1 main function + focused helpers
+def invoke_mtproto_impl(method, params_json, allow_dangerous=False, resolve=True):
+    # Single comprehensive function
+    
+def _resolve_method_class(method_name):
+    # Focused helper
+    
+def _sanitize_mtproto_params(params):
+    # Focused helper
+```
+
+## 🔧 Tools and Techniques
+
+### Code Analysis:
+- Use `grep` to find duplicate patterns
+- Look for similar function signatures
+- Identify repeated constants/strings
+- Map function call chains
+
+### Testing Strategy:
+- Test before and after refactoring
+- Verify all interfaces work
+- Check error handling paths
+- Validate parameter processing
+
+### Documentation:
+- Update docstrings for new functions
+- Document breaking changes
+- Explain new function purposes
+- Update API documentation
+
+Remember: **Good refactoring makes code simpler, not more complex.**
+
+---
+> Source: [leshchenko1979/fast-mcp-telegram](https://github.com/leshchenko1979/fast-mcp-telegram) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
