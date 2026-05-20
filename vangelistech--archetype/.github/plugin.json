@@ -1,0 +1,9 @@
+{
+  "name": "vangelistech--archetype",
+  "displayName": "archetype",
+  "description": "An AI-Native ECS Simulation Engine combining the composibility of Pydantic with the distributed processing power of Daft Dataframes and Multi-Modal Big Data storage with LanceDB",
+  "version": "1.0.0",
+  "author": "VangelisTech",
+  "homepage": "https://github.com/VangelisTech/archetype",
+  "skills": []
+}
