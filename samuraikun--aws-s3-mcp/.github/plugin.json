@@ -1,0 +1,9 @@
+{
+  "name": "samuraikun--aws-s3-mcp",
+  "displayName": "aws-s3-mcp",
+  "description": "MCP server to integrate AWS S3 and LLM",
+  "version": "1.0.0",
+  "author": "samuraikun",
+  "homepage": "https://github.com/samuraikun/aws-s3-mcp",
+  "skills": []
+}
