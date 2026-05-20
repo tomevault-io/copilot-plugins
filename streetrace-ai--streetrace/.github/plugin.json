@@ -1,0 +1,9 @@
+{
+  "name": "streetrace-ai--streetrace",
+  "displayName": "streetrace",
+  "description": "Open runtime + DSL for structured multi-agent systems.",
+  "version": "1.0.0",
+  "author": "streetrace-ai",
+  "homepage": "https://github.com/streetrace-ai/streetrace",
+  "skills": []
+}
