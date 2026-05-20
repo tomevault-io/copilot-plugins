@@ -1,0 +1,9 @@
+{
+  "name": "hoangduong92--ai-excel-translator",
+  "displayName": "ai-excel-translator",
+  "description": "AI-powered Excel translator that preserves original formatting while translating text in cells and shapes. Processes multiple files, supports various language pairs (default: Vietnamese-Japanese), and",
+  "version": "1.0.0",
+  "author": "hoangduong92",
+  "homepage": "https://github.com/hoangduong92/ai-excel-translator",
+  "skills": []
+}
