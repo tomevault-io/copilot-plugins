@@ -1,40 +1,82 @@
-## 01-project-structure
+## 02-architecture-and-features
 
-> The application entry point is [src/index.ts](mdc:src/index.ts), which sets up the Hono web server and defines the main routes.
+> This application is a Gitea Assistant that provides AI-driven code review capabilities for Gitea repositories. Key features include:
 
-# Project Structure
+# Architecture and Features
 
-## Main Entry Points
+## Core Features
 
-The application entry point is [src/index.ts](mdc:src/index.ts), which sets up the Hono web server and defines the main routes.
+This application is a Gitea Assistant that provides AI-driven code review capabilities for Gitea repositories. Key features include:
 
-## Core Directories
+- AI code review for Pull Requests
+- AI code review for successful commit statuses
+- Integration with OpenAI API for code analysis
+- Both summary and line-level code comments
+- Secure webhook validation
+- PR notification system via Feishu
 
-- **src/**: Contains all source code
-  - **controllers/**: Route handlers and business logic
-  - **services/**: Service layer for external API interactions
-  - **config/**: Configuration management
-  - **utils/**: Utility functions
-  - **llm/**: Multi-provider LLM gateway and provider adapters
-  - **db/**: SQLite database layer for LLM configuration
-  - **crypto/**: Encryption utilities for API key storage
-  - **agent/**: Multi-agent review engine (planner, specialists, judge)
+## Architecture
 
-## Configuration Files
+The application follows a clean, layered architecture:
 
-- [package.json](mdc:package.json): Project dependencies and scripts
-- [tsconfig.json](mdc:tsconfig.json): TypeScript compiler configuration
-- [Dockerfile](mdc:Dockerfile): Container configuration
-- [kubernetes.yaml](mdc:k8s/gitea-assistant.yaml): Kubernetes deployment configuration
+1. **Controller Layer** ([src/controllers/review.ts](mdc:src/controllers/review.ts))
+   - Handles webhook requests from Gitea
+   - Processes different event types (PR events, status events)
+   - Manages PR notification triggers
 
-## Build and Deployment
+2. **Service Layer**
+   - [src/services/gitea.ts](mdc:src/services/gitea.ts): Interacts with Gitea API
+   - [src/services/ai-review.ts](mdc:src/services/ai-review.ts): Manages AI code review logic
+   - [src/services/feishu.ts](mdc:src/services/feishu.ts): Handles Feishu notifications
+     - PR creation notifications
+     - Reviewer assignment notifications
+     - Error handling and retry mechanisms
 
-The project uses Bun for development and production:
-- `bun run dev`: Development mode with watch
-- `bun run build`: Build production assets
-- `bun run start`: Run in production
+3. **Configuration Layer** ([src/config/index.ts](mdc:src/config/index.ts))
+   - Centralizes application configuration from environment variables
+   - Manages Feishu webhook configurations
 
-Docker and Kubernetes configurations are available for containerized deployment.
+4. **LLM Gateway** ([src/llm/](mdc:src/llm))
+   - Multi-provider LLM abstraction layer
+   - Provider adapters for OpenAI Compatible, OpenAI Responses API, Anthropic, Google Gemini
+   - Role-based model routing (legacy, planner, specialist, judge, embedding)
+
+5. **Database Layer** ([src/db/](mdc:src/db))
+   - SQLite-based LLM provider and role configuration
+   - API key encryption with AES-256-GCM
+
+4. **Utilities**
+   - [src/utils/logger.ts](mdc:src/utils/logger.ts): Custom logging utilities
+
+## Webhook Flow
+
+1. Gitea sends webhook events to `/webhook/gitea`
+2. Signature verification ensures request authenticity
+3. Events are processed based on their type:
+   - Pull Request events:
+     - Trigger code review on the PR
+     - Send notifications to reviewers (if applicable)
+   - Status events trigger code review on successful commits
+
+## Notification Flow
+
+1. **PR Creation Flow**
+   - PR webhook event received
+   - Event validated and processed
+   - If reviewers are assigned:
+     - Feishu notification prepared with PR details
+     - Notification sent to all assigned reviewers
+
+2. **Reviewer Assignment Flow**
+   - PR review_requested event received
+   - New reviewer information extracted
+   - Feishu notification sent to newly assigned reviewer
+   - Notification includes PR title and direct link
+
+3. **Error Handling**
+   - Failed notifications are logged but don't block the review process
+   - Automatic retry mechanism for failed notifications
+   - Errors are captured and logged for monitoring
 
 ---
 > Source: [jeffusion/gitea-ai-assistant](https://github.com/jeffusion/gitea-ai-assistant) — distributed by [TomeVault](https://tomevault.io).
