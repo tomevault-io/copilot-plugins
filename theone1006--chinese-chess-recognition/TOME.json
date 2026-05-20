@@ -1,0 +1,44 @@
+{
+  "name": "chinese-chess-recognition",
+  "owner": "TheOne1006",
+  "repo": "chinese-chess-recognition",
+  "description": "\u4e2d\u56fd\u8c61\u68cb\u8bc6\u522b Chinese chess recognition, \u68cb\u8c31\u8bc6\u522b, \u5ba4\u5916\u73af\u5883, \u8c61\u68cb\u6e38\u620f",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TheOne1006/chinese-chess-recognition",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T22:51:55Z"
+}
