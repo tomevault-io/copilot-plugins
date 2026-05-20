@@ -1,0 +1,9 @@
+{
+  "name": "furyolo--creditcardcrack",
+  "displayName": "creditcardcrack",
+  "description": "A comprehensive toolkit for generating test credit card numbers with Luhn validation, geolocation services, and browser automation for payment system testing",
+  "version": "1.0.0",
+  "author": "furyolo",
+  "homepage": "https://github.com/furyolo/creditcardcrack",
+  "skills": []
+}
