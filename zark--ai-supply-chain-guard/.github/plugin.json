@@ -1,0 +1,9 @@
+{
+  "name": "zark--ai-supply-chain-guard",
+  "displayName": "ai-supply-chain-guard",
+  "description": "Tool-agnostic Agent Skill for dependency supply-chain defense",
+  "version": "1.0.0",
+  "author": "ZarK",
+  "homepage": "https://github.com/ZarK/ai-supply-chain-guard",
+  "skills": []
+}
