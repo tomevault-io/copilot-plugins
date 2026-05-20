@@ -1,0 +1,9 @@
+{
+  "name": "yl8976--email-to-rss",
+  "displayName": "Email-to-RSS",
+  "description": "A guide to host your own \"kill-the-newsletter.com\"-like email to RSS service using only free platforms (Cloudflare and ForwardEmail.net).",
+  "version": "1.0.0",
+  "author": "yl8976",
+  "homepage": "https://github.com/yl8976/Email-to-RSS",
+  "skills": []
+}
