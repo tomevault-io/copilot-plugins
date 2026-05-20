@@ -1,0 +1,9 @@
+{
+  "name": "langflow-ai--langflow-client-ts",
+  "displayName": "langflow-client-ts",
+  "description": "A TypeScript client for running flows via the Langflow API",
+  "version": "1.0.0",
+  "author": "langflow-ai",
+  "homepage": "https://github.com/langflow-ai/langflow-client-ts",
+  "skills": []
+}
