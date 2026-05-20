@@ -1,0 +1,9 @@
+{
+  "name": "gldc--mcp-postgres",
+  "displayName": "mcp-postgres",
+  "description": "mcp-postgres",
+  "version": "1.0.0",
+  "author": "gldc",
+  "homepage": "https://github.com/gldc/mcp-postgres",
+  "skills": []
+}
