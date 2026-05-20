@@ -1,0 +1,57 @@
+{
+  "name": "github-materials",
+  "owner": "jacwu",
+  "repo": "github-materials",
+  "description": "AI instruction skills by jacwu",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "call_foundry_agent",
+      "path": ".github/skills/call_foundry_agent",
+      "github_url": "https://github.com/jacwu/github-materials/tree/main/.github/skills/call_foundry_agent",
+      "description": ""
+    },
+    {
+      "name": "teams_notification",
+      "path": ".github/skills/teams_notification",
+      "github_url": "https://github.com/jacwu/github-materials/tree/main/.github/skills/teams_notification",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jacwu/github-materials",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T12:31:17Z"
+}
