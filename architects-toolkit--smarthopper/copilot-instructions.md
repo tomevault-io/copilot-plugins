@@ -1,25 +1,37 @@
-## component-conventions
+## data-tree-processing
 
-> - Production components live in `src/SmartHopper.Components/<Category>/`.
+> When adding or changing Grasshopper components, workers, data-tree handling, branch matching, grafting, flattening, broadcasting, or output paths
 
 
-# Component conventions
+# Data-tree processing
 
-- Production components live in `src/SmartHopper.Components/<Category>/`.
-- Test-only components live in `src/SmartHopper.Components.Test/` and must not be shipped in Release.
-- File names use `[Category][Action][Type]Component.cs` where practical, for example `AITextGenerateComponent.cs`.
-- Inherit from the narrowest existing base that fits:
-  - `ComponentBase` or `StatefulComponentBase` for non-AI component behavior.
-  - `AIProviderComponentBase` when provider/model selection is needed but no AI tool orchestration is required.
-  - `AIStatefulAsyncComponentBase` for long-running AI components.
-  - Selecting variants when the component manages Grasshopper canvas selections.
-- Keep components focused on UI contract, parameter registration, state, and worker creation. Put reusable logic in base classes, workers, tools, or services.
-- Do not manually reimplement async state, debouncing, persistent output storage, provider selection, model capability checks, metrics, or runtime-message plumbing if a base class already provides it.
-- Register inputs/outputs through the relevant base-class methods (`RegisterInputParams`, `RegisterOutputParams`, or `RegisterAdditional*Params`).
-- Provide stable `ComponentGuid`, `Icon`, `Exposure`, name, nickname, description, category, and subcategory. Never change a released component GUID.
-- When first scaffolding a new unreleased component, use the zeroed GUID placeholder (`00000000-0000-0000-0000-000000000000`) so the maintainer can assign the final stable GUID before release.
-- Choose `RunOnlyOnInputChanges` intentionally and document unusual run semantics in the component description.
-- Use `DataTreeProcessor`/processing topologies for data-tree mechanics instead of manual path fan-out in component code.
+Use `DataTreeProcessor` as the single source of truth for Grasshopper data-tree mechanics.
+
+## Responsibilities
+
+- Components define UI contracts, parameters, options, state, and processing intent.
+- Workers gather inputs, prepare semantic data, call runner APIs, report progress, and set persistent outputs.
+- `DataTreeProcessor` handles paths, branch matching, grouping, length normalization, grafting, flattening, and output path strategies.
+- Tool/model calls process one logical unit and should not know about `GH_Path` fan-out unless the tool's purpose is explicitly data-tree manipulation.
+
+## Processing topology
+
+Choose a `ProcessingTopology` instead of writing custom branch loops:
+
+- `ItemToItem`: each input item creates a corresponding output item at the same path/index.
+- `ItemGraft`: each item creates its own output branch.
+- `BranchToBranch`: each branch is one logical unit and keeps its path.
+- `BranchFlatten`: each branch is one logical unit and outputs to a flattened result.
+
+## Broadcasting expectations
+
+Flat `{0}` trees have special broadcasting behavior:
+
+- A single flat `{0}` tree does not broadcast to another single same-depth path such as `{1}`.
+- It broadcasts when the other input has multiple same-depth paths or deeper/mixed topology.
+- A direct `{0}` match with deeper `{0;...}` paths matches only `{0}` unless multiple top-level paths trigger broadcasting.
+
+See `docs/Components/ComponentBase/DataTreeProcessingSchema.md` and `docs/Components/ComponentBase/FlatTreeBroadcasting.md`.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
