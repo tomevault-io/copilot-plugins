@@ -4,7 +4,7 @@
   "repo": "QuantRL-Lab",
   "description": "Reinforcement Learning Testbed for Quantitative Trading",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whanyu1212/QuantRL-Lab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T21:04:55Z"
+  "distributed_at": "2026-05-20T00:55:51Z"
 }
