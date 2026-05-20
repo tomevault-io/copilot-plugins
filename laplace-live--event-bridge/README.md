@@ -7,13 +7,13 @@ A WebSocket bridge connecting LAPLACE Chat to clients
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [laplace-live/event-bridge](https://github.com/laplace-live/event-bridge).
+Original source: `.cursor/rules/*.mdc` in [laplace-live/event-bridge](https://github.com/laplace-live/event-bridge).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
