@@ -1,0 +1,9 @@
+{
+  "name": "peterfriese--conversationkit",
+  "displayName": "ConversationKit",
+  "description": "ConversationKit is a Swift package that provides an elegant and easy-to-use chat interface for iOS applications built with SwiftUI.",
+  "version": "1.0.0",
+  "author": "peterfriese",
+  "homepage": "https://github.com/peterfriese/ConversationKit",
+  "skills": []
+}
