@@ -1,7 +1,7 @@
 {
   "name": "kube-dc--kube-dc-public",
   "displayName": "kube-dc-public",
-  "description": "kube-dc-public",
+  "description": "Installers, Helm charts, Deployments and other resources",
   "version": "1.0.0",
   "author": "kube-dc",
   "homepage": "https://github.com/kube-dc/kube-dc-public",
