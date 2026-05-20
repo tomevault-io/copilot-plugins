@@ -1,0 +1,9 @@
+{
+  "name": "lommix--blitzdenk-prototype",
+  "displayName": "blitzdenk_prototype",
+  "description": "A powerful multi provider coding agent, built for the terminal in rust.",
+  "version": "1.0.0",
+  "author": "Lommix",
+  "homepage": "https://github.com/Lommix/blitzdenk_prototype",
+  "skills": []
+}
