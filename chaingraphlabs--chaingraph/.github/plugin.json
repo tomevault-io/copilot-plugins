@@ -1,0 +1,9 @@
+{
+  "name": "chaingraphlabs--chaingraph",
+  "displayName": "chaingraph",
+  "description": "ChainGraph is a source available, type-safe flow-based programming framework for building AI LLM agents with complex logic and dynamic computational graphs.",
+  "version": "1.0.0",
+  "author": "chaingraphlabs",
+  "homepage": "https://github.com/chaingraphlabs/chaingraph",
+  "skills": []
+}
