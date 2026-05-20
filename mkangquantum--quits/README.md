@@ -7,11 +7,11 @@ QUITS: A modular Qldpc code circUIT Simulator
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mkangquantum/quits](https://github.com/mkangquantum/quits).
+Original source: `CLAUDE.md` in [mkangquantum/quits](https://github.com/mkangquantum/quits).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
