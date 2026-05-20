@@ -1,0 +1,9 @@
+{
+  "name": "wiseman--osm-mcp",
+  "displayName": "osm-mcp",
+  "description": "Model Context Protocol server for OpenStreetMap data",
+  "version": "1.0.0",
+  "author": "wiseman",
+  "homepage": "https://github.com/wiseman/osm-mcp",
+  "skills": []
+}
