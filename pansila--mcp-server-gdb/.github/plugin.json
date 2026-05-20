@@ -1,0 +1,9 @@
+{
+  "name": "pansila--mcp-server-gdb",
+  "displayName": "mcp_server_gdb",
+  "description": "MCP Server to expose the GDB debugging capabilities",
+  "version": "1.0.0",
+  "author": "pansila",
+  "homepage": "https://github.com/pansila/mcp_server_gdb",
+  "skills": []
+}
