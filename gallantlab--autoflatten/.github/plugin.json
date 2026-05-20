@@ -1,0 +1,9 @@
+{
+  "name": "gallantlab--autoflatten",
+  "displayName": "autoflatten",
+  "description": "automatically create cortical flatmaps from FreeSurfer surfaces",
+  "version": "1.0.0",
+  "author": "gallantlab",
+  "homepage": "https://github.com/gallantlab/autoflatten",
+  "skills": []
+}
