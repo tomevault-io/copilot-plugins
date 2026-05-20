@@ -1,0 +1,14 @@
+{
+  "name": "tscircuit--tscircuit-autorouter",
+  "displayName": "tscircuit-autorouter",
+  "description": "A State of the Art MIT-licensed PCB Autorouter",
+  "version": "1.0.0",
+  "author": "tscircuit",
+  "homepage": "https://github.com/tscircuit/tscircuit-autorouter",
+  "skills": [
+    {
+      "name": "tscircuit",
+      "description": ""
+    }
+  ]
+}
