@@ -1,0 +1,9 @@
+{
+  "name": "loonghao--dcc-mcp-core",
+  "displayName": "dcc-mcp-core",
+  "description": "Core library for DCC Model Context Protocol (MCP) providing common utilities and base classes.",
+  "version": "1.0.0",
+  "author": "loonghao",
+  "homepage": "https://github.com/loonghao/dcc-mcp-core",
+  "skills": []
+}
