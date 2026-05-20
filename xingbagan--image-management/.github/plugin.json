@@ -1,0 +1,9 @@
+{
+  "name": "xingbagan--image-management",
+  "displayName": "image-management",
+  "description": "image management that have user friendly interaction and ai tag Using wd1.4 tagger.",
+  "version": "1.0.0",
+  "author": "xingBaGan",
+  "homepage": "https://github.com/xingBaGan/image-management",
+  "skills": []
+}
