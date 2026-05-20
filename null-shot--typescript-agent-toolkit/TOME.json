@@ -4,7 +4,7 @@
   "repo": "typescript-agent-toolkit",
   "description": "Null Shot's Typescript Vibework (Framework) for Serverless AI Agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/null-shot/typescript-agent-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T05:24:37Z"
+  "distributed_at": "2026-05-20T23:46:31Z"
 }
