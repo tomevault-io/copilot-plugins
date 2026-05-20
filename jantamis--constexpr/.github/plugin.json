@@ -1,0 +1,9 @@
+{
+  "name": "jantamis--constexpr",
+  "displayName": "ConstExpr",
+  "description": "ConstExpr is a powerful C# source generator that optimizes method calls at compile time, transforming runtime computations into compile-time constants for improved performance.",
+  "version": "1.0.0",
+  "author": "JanTamis",
+  "homepage": "https://github.com/JanTamis/ConstExpr",
+  "skills": []
+}
