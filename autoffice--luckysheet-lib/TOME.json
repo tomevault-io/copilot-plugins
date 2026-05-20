@@ -1,0 +1,44 @@
+{
+  "name": "luckysheet-lib",
+  "owner": "autoffice",
+  "repo": "luckysheet-lib",
+  "description": "Luckysheet\u7684Java\u5e93\uff0c\u5305\u62ecexcel\u5bfc\u5165\u548c\u5bfc\u51fa\u3002The Java library for Luckysheet, including Excel import and export.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/autoffice/luckysheet-lib",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T22:47:58Z"
+}
