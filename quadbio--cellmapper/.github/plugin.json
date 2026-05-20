@@ -1,0 +1,9 @@
+{
+  "name": "quadbio--cellmapper",
+  "displayName": "cellmapper",
+  "description": "k-NN-based mapping of cells across representations to transfer labels, embeddings, and expression values. ",
+  "version": "1.0.0",
+  "author": "quadbio",
+  "homepage": "https://github.com/quadbio/cellmapper",
+  "skills": []
+}
