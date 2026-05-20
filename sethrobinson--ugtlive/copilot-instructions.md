@@ -1,93 +1,46 @@
-## architecture-patterns
+## async-threading-patterns
 
-> Architecture patterns and project structure guidelines
+> Async/await and threading patterns for WPF UI updates
 
 
-# Architecture Patterns
+# Async/Await and Threading Patterns
 
-## Project Structure
+## UI Thread Updates
 
-### Directory Organization
-```
-src/
-  - Core application files (App.xaml, Logic.cs, ConfigManager.cs)
-  - Window classes (MainWindow, MonitorWindow, ChatBoxWindow, SettingsWindow, etc.)
-  - Translation services (Gemini, ChatGPT, Ollama, GoogleTranslate, LlamaCpp)
-  - OCR services (WindowsOCRManager, GoogleVisionOCRService)
-  - Managers (UniversalBlockDetector, LogManager, HotkeyManager, PythonServicesManager, AudioPlaybackManager, etc.)
-  - Utilities (TextObject, TranslationEventArgs, etc.)
-app/
-  - Compiled binaries
-  - services/ (Python OCR services - EasyOCR, MangaOCR, PaddleOCR, DocTR)
-    - shared/ (Shared Python utilities)
-    - util/ (Python installation utilities)
-    - EasyOCR/, MangaOCR/, PaddleOCR/, DocTR/ (Individual service directories)
-  - media/ (Resources)
-```
-
-### File Naming
-- One class per file
-- File name matches class name
-- XAML files: `WindowName.xaml` and `WindowName.xaml.cs`
-
-## Design Patterns
-
-### Singleton Pattern
-Used for core managers:
-- `ConfigManager.Instance`
-- `Logic.Instance`
-- `UniversalBlockDetector.Instance` - Advanced text block detection (replaces BlockDetectionManager)
-- `LogManager.Instance`
-- `PythonServicesManager.Instance` - Manages Python OCR services
-- `HotkeyManager.Instance` - Manages global keyboard shortcuts (replaces KeyboardShortcuts)
-- `AudioPlaybackManager.Instance` - Manages audio playback
-- `AudioPreloadService.Instance` - Preloads TTS audio
-- `ErrorPopupManager` - Static class for error popups
-- `GamepadManager.Instance` - Manages gamepad input
-- `WebViewEnvironmentManager` - Static class for WebView2 environment
-
-**Implementation:**
-```csharp
-private static ConfigManager? _instance;
-
-public static ConfigManager Instance
-{
-    get
-    {
-        if (_instance == null)
-        {
-            _instance = new ConfigManager();
-        }
-        return _instance;
-    }
-}
-
-private ConfigManager() { }
-```
-
-### Factory Pattern
-Used for creating service instances:
+### Dispatcher Pattern
+**CRITICAL**: All UI updates must happen on the UI thread. Use `Dispatcher.Invoke()` or `Dispatcher.InvokeAsync()` when updating UI from background threads.
 
 ```csharp
-public static class TranslationServiceFactory
+// From background thread - update UI
+Application.Current.Dispatcher.Invoke(() =>
 {
-    public static ITranslationService CreateService(string serviceName)
-    {
-        return serviceName switch
-        {
-            "Gemini" => new GeminiTranslationService(),
-            "ChatGPT" => new ChatGptTranslationService(),
-            "Ollama" => new OllamaTranslationService(),
-            "Google Translate" => new GoogleTranslateService(),
-            "llama.cpp" => new LlamaCppTranslationService(),
-            _ => throw new ArgumentException(...)
-        };
-    }
-}
+    StatusText.Text = "Processing...";
+    StatusText.Foreground = Brushes.Blue;
+});
+
+// Async version (non-blocking)
+await Application.Current.Dispatcher.InvokeAsync(() =>
+{
+    StatusText.Text = "Complete";
+});
 ```
 
-### Strategy Pattern
-Translation services implement common interface:
+### Dispatcher Priority
+- Use `DispatcherPriority.Background` for non-urgent updates
+- Use `DispatcherPriority.Normal` (default) for standard updates
+- Use `DispatcherPriority.Send` only when absolutely necessary
+
+```csharp
+Dispatcher.Invoke(() =>
+{
+    // Update UI
+}, DispatcherPriority.Background);
+```
+
+## Async Service Methods
+
+### Translation Services
+All translation services implement async methods:
 
 ```csharp
 public interface ITranslationService
@@ -99,318 +52,263 @@ public interface ITranslationService
 }
 ```
 
-## Separation of Concerns
-
-### UI Layer
-- XAML files define UI structure
-- Code-behind handles UI events
-- Minimal business logic in UI code
-
-### Business Logic Layer
-- `Logic.cs` - Core translation workflow
-- `UniversalBlockDetector.cs` - Advanced text block detection and grouping
-- Service classes - External API integration
-
-### Data Layer
-- `ConfigManager.cs` - Configuration persistence
-- File-based storage (config.txt, service-specific configs)
-
-## Dependency Management
-
-### Service Dependencies
-Services depend on ConfigManager, not each other:
-
+### Implementation Pattern
 ```csharp
-public class GeminiTranslationService
+public async Task<TranslationResult?> TranslateAsync(string text, string lang, string context)
 {
-    private readonly string _apiKey;
-    
-    public GeminiTranslationService()
+    try
     {
-        _apiKey = ConfigManager.Instance.GetGeminiApiKey();
-    }
-}
-```
-
-### Manager Dependencies
-Managers can depend on other managers:
-
-```csharp
-public class Logic
-{
-    private readonly ConfigManager _configManager;
-    private readonly UniversalBlockDetector _blockDetector;
-    
-    public Logic()
-    {
-        _configManager = ConfigManager.Instance;
-        _blockDetector = UniversalBlockDetector.Instance;
-    }
-}
-```
-
-## Communication Patterns
-
-### Window Communication
-Windows communicate through Logic.Instance:
-
-```csharp
-// In ChatBoxWindow
-Logic.Instance.OnTranslationReceived += HandleTranslation;
-
-// In Logic
-public event EventHandler<TranslationEventArgs>? OnTranslationReceived;
-```
-
-### Event-Driven Architecture
-Use events for loose coupling:
-
-```csharp
-public class TranslationEventArgs : EventArgs
-{
-    public string TranslatedText { get; set; } = "";
-    public string SourceText { get; set; } = "";
-}
-```
-
-### Hotkey System
-Hotkeys managed through HotkeyManager events:
-
-```csharp
-HotkeyManager.Instance.StartStopRequested += OnStartStopRequested;
-HotkeyManager.Instance.MonitorToggleRequested += OnMonitorToggleRequested;
-```
-
-## Resource Management
-
-### Disposable Resources
-Implement IDisposable for resources:
-
-```csharp
-public class ResourceManager : IDisposable
-{
-    private bool _disposed = false;
-    
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-    
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposed)
+        using var httpClient = new HttpClient();
+        var response = await httpClient.PostAsync(url, content);
+        
+        if (response.IsSuccessStatusCode)
         {
-            if (disposing)
-            {
-                // Dispose managed resources
-            }
-            // Dispose unmanaged resources
-            _disposed = true;
+            var result = await response.Content.ReadAsStringAsync();
+            return ParseResult(result);
         }
+        
+        return null;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Translation error: {ex.Message}");
+        return null;
     }
 }
 ```
 
-### Using Statements
-Always use `using` for disposable resources:
+## Background Operations
+
+### Screen Capture
+Screen capture runs on background thread/timer:
 
 ```csharp
-using (var bitmap = new Bitmap(width, height))
+private void Timer_Tick(object sender, EventArgs e)
 {
-    // Use bitmap
-} // Automatically disposed
-
-// Or with async
-using var httpClient = new HttpClient();
-var response = await httpClient.GetAsync(url);
+    // Capture runs on timer thread
+    var bitmap = CaptureScreen(x, y, width, height);
+    
+    // Process on background thread
+    Task.Run(async () =>
+    {
+        var result = await ProcessImageAsync(bitmap);
+        
+        // Update UI on UI thread
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            UpdateDisplay(result);
+        });
+    });
+}
 ```
 
-## State Management
-
-### Application State
-State stored in ConfigManager:
+### OCR Processing
+OCR operations should be async and non-blocking:
 
 ```csharp
-// Current translation service
-_currentTranslationService = ConfigManager.Instance.GetCurrentTranslationService();
-
-// Window positions
-var pos = ConfigManager.Instance.GetWindowPosition("ChatBox");
+private async Task<List<TextObject>> ProcessOCRAsync(Bitmap bitmap)
+{
+    // Run OCR on background thread
+    return await Task.Run(() =>
+    {
+        // OCR processing
+        return ocrService.Process(bitmap);
+    });
+}
 ```
 
-### Runtime State
-Runtime state in Logic or window classes:
+## HttpClient Usage
+
+### Best Practices
+- **DO NOT** create new HttpClient instances for each request
+- Create HttpClient once and reuse (or use HttpClientFactory)
+- Dispose properly with `using` statement
 
 ```csharp
-private bool _isProcessing = false;
-private List<TextObject> _currentTextBlocks = new();
+// Good: Reuse HttpClient
+private static readonly HttpClient _httpClient = new HttpClient();
+
+public async Task<string> GetDataAsync()
+{
+    var response = await _httpClient.GetAsync(url);
+    return await response.Content.ReadAsStringAsync();
+}
+
+// Or use using for one-off requests
+public async Task<string> GetDataAsync()
+{
+    using var client = new HttpClient();
+    var response = await client.GetAsync(url);
+    return await response.Content.ReadAsStringAsync();
+}
 ```
 
-## Error Propagation
+## Task Cancellation
 
-### Error Handling Strategy
-- Services return null on error
-- Log errors using LogManager
-- Show user-friendly messages via ErrorPopupManager
-- Don't crash the application
+### Cancellation Tokens
+Use `CancellationToken` for long-running operations:
+
+```csharp
+public async Task ProcessAsync(CancellationToken cancellationToken)
+{
+    while (!cancellationToken.IsCancellationRequested)
+    {
+        await DoWorkAsync();
+        await Task.Delay(1000, cancellationToken);
+    }
+}
+```
+
+## Thread Safety
+
+### Singleton Thread Safety
+Simple null-check pattern is sufficient for this application:
+
+```csharp
+private static ConfigManager? _instance;
+private static readonly object _lock = new object();
+
+public static ConfigManager Instance
+{
+    get
+    {
+        if (_instance == null)
+        {
+            lock (_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = new ConfigManager();
+                }
+            }
+        }
+        return _instance;
+    }
+}
+```
+
+### Dictionary Access
+- Use `TryGetValue` for safe dictionary access
+- Check for null before using values
+
+```csharp
+if (_configValues.TryGetValue(key, out var value))
+{
+    return value;
+}
+return defaultValue;
+```
+
+## Blocking vs Non-Blocking
+
+### Avoid Blocking UI Thread
+- **NEVER** use `.Result` or `.Wait()` on async methods in UI code
+- Always use `await` for async operations
+- Use `Task.Run()` to move CPU-intensive work off UI thread
+
+```csharp
+// BAD: Blocks UI thread
+var result = httpClient.GetAsync(url).Result;
+
+// GOOD: Non-blocking
+var result = await httpClient.GetAsync(url);
+
+// GOOD: Move work off UI thread
+var result = await Task.Run(() => ExpensiveOperation());
+```
+
+## Exception Handling in Async
+
+### Async Exception Handling
+Exceptions in async methods should be caught and logged:
 
 ```csharp
 public async Task<Result?> ProcessAsync()
 {
     try
     {
-        return await DoWorkAsync();
+        var result = await DoWorkAsync();
+        return result;
     }
     catch (Exception ex)
     {
+        Console.WriteLine($"Error: {ex.Message}");
         LogManager.Instance.LogError("Process failed", ex);
-        ErrorPopupManager.ShowError("Process failed", ex.Message);
-        return null; // Return null instead of throwing
+        return null;
     }
 }
 ```
 
-## Extension Points
+## Timer Usage
 
-### Adding New Translation Service
-1. Implement `ITranslationService`
-2. Add config keys to ConfigManager
-3. Update TranslationServiceFactory
-4. Add UI in SettingsWindow
-
-### Adding New OCR Method
-1. Add method name to `SupportedOcrMethods` in ConfigManager
-2. Implement processing logic
-   - For Python services: Add service directory in `app/services/` with `service_config.txt` and `server.py`
-   - For built-in OCR: Implement in appropriate manager class (e.g., WindowsOCRManager, GoogleVisionOCRService)
-3. Update OCR selection UI
-4. Add configuration options
-
-### Adding New Python OCR Service
-1. Create service directory in `app/services/` (e.g., `app/services/NewOCR/`)
-2. Create `service_config.txt` with required fields:
-   - `service_name` (ASCII only, no spaces)
-   - `venv_name` (ASCII only, e.g., `ugt_newocr`)
-   - `port` (unique port number)
-   - `description`, `version`, `author`, `github_url`, etc.
-3. Create `server.py` implementing FastAPI endpoints:
-   - `/process` - Process images
-   - `/info` - Service information
-   - `/health` - Health check
-   - `/shutdown` - Graceful shutdown
-4. Create batch scripts: `Install.bat`, `RunServer.bat`, `DiagnosticTest.bat`, `Uninstall.bat`
-5. Service will be automatically discovered by `PythonServicesManager` on app startup
-
-## Performance Considerations
-
-### Lazy Initialization
-Initialize expensive resources on demand:
+### WPF DispatcherTimer
+Use `DispatcherTimer` for UI-related timers:
 
 ```csharp
-private HttpClient? _httpClient;
+private DispatcherTimer _timer;
 
-private HttpClient HttpClient
+private void InitializeTimer()
 {
-    get
+    _timer = new DispatcherTimer();
+    _timer.Interval = TimeSpan.FromMilliseconds(100);
+    _timer.Tick += Timer_Tick;
+    _timer.Start();
+}
+
+private void Timer_Tick(object sender, EventArgs e)
+{
+    // Runs on UI thread
+    UpdateUI();
+}
+```
+
+### System.Timers.Timer
+Use `System.Timers.Timer` for background operations:
+
+```csharp
+private System.Timers.Timer _backgroundTimer;
+
+private void InitializeBackgroundTimer()
+{
+    _backgroundTimer = new System.Timers.Timer(1000);
+    _backgroundTimer.Elapsed += BackgroundTimer_Elapsed;
+    _backgroundTimer.AutoReset = true;
+    _backgroundTimer.Start();
+}
+
+private void BackgroundTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+{
+    // Runs on background thread - use Dispatcher for UI updates
+    Task.Run(async () => await ProcessBackgroundWorkAsync());
+}
+```
+
+## Progress Reporting
+
+### Progress Updates
+Report progress from background threads:
+
+```csharp
+private async Task ProcessWithProgressAsync(IProgress<int> progress)
+{
+    for (int i = 0; i < 100; i++)
     {
-        if (_httpClient == null)
-        {
-            _httpClient = new HttpClient();
-        }
-        return _httpClient;
+        await DoWorkAsync();
+        progress.Report(i);
     }
 }
-```
 
-### Caching
-Cache expensive operations:
-
-```csharp
-private Dictionary<string, TranslationResult> _translationCache = new();
-
-public TranslationResult? GetCachedTranslation(string text)
+// Usage
+var progress = new Progress<int>(percent =>
 {
-    if (_translationCache.TryGetValue(text, out var cached))
+    Application.Current.Dispatcher.Invoke(() =>
     {
-        return cached;
-    }
-    return null;
-}
+        ProgressBar.Value = percent;
+    });
+});
+
+await ProcessWithProgressAsync(progress);
 ```
-
-## Threading Model
-
-### UI Thread
-- All UI updates on UI thread
-- Use Dispatcher.Invoke for cross-thread updates
-- Long operations off UI thread
-
-### Background Threads
-- OCR processing on background thread
-- Network requests async/await
-- Screen capture on timer thread
-
-## Module Boundaries
-
-### Service Boundaries
-Services are independent modules:
-- Each service in own file
-- No direct dependencies between services
-- Communicate through interfaces
-
-### Manager Boundaries
-Managers provide cross-cutting concerns:
-- ConfigManager - Configuration
-- LogManager - Logging
-- UniversalBlockDetector - Text processing
-- HotkeyManager - Keyboard shortcuts
-- AudioPlaybackManager - Audio playback
-
-## Testing Architecture
-
-### Testable Components
-- Business logic separate from UI
-- Services implement interfaces
-- Static utility methods where possible
-
-### Mock-Friendly Design
-```csharp
-// Use interface for testability
-public interface ITranslationService
-{
-    Task<TranslationResult?> TranslateAsync(...);
-}
-
-// Can be mocked in tests
-var mockService = new Mock<ITranslationService>();
-```
-
-## Version Management
-
-### Version Updates
-Update version in three places:
-1. `SplashManager.cs` - `CurrentVersion` constant
-2. `media/latest_version_checker.json` - `latest_version` field
-3. `README.md` - Version badge and history entry
-
-### Version Format
-- Use double/float (e.g., 0.60)
-- Increment by 0.01 for minor updates
-- Increment by 0.10 for major features
-
-## Build Configuration
-
-### Output Structure
-- Debug: `ugtlive_debug.exe` in `app/`
-- Release: `ugtlive.exe` in `app/`
-- All dependencies in `app/` directory
-
-### Dependencies
-- .NET 8.0 Windows
-- WPF and Windows Forms
-- NAudio for audio
-- WebView2 for web content
 
 ---
 > Source: [SethRobinson/UGTLive](https://github.com/SethRobinson/UGTLive) — distributed by [TomeVault](https://tomevault.io).
