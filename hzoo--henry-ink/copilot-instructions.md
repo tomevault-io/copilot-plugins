@@ -1,63 +1,15 @@
-## bun-dev-server
+## imports
 
-> using bun as the dev server for both ui and server
+> importing files
 
-## bun server to handle both front end and back end
+use absolute imports (using "@/folder") over relative imports
 
-> this can replace vite for simple cases
-
-```ts
-import { sql, serve } from "bun";
-import dashboard from "./dashboard.html"; // import html as entrypoints
-import homepage from "./index.html";
-
-const server = serve({
-  routes: {
-    // ** HTML imports **
-    // Bundle & route index.html to "/". Uses HTMLRewriter to scan the HTML for `<script>` and `<link>` tags, run's Bun's JavaScript & CSS bundler on them, transpiles TSX, downlevels CSS with Bun's CSS parser and serves the result.
-    "/": homepage,
-    // Bundle & route dashboard.html to "/dashboard"
-    "/dashboard": dashboard,
-
-    "/api/users": {
-      async GET(req) {
-        const users = await sql`SELECT * FROM users`;
-        return Response.json(users);
-      },
-      async POST(req) {
-        const { name, email } = await req.json();
-        const [user] =
-          await sql`INSERT INTO users (name, email) VALUES (${name}, ${email})`;
-        return Response.json(user);
-      },
-    },
-    "/api/users/:id": async req => {
-      const { id } = req.params;
-      const [user] = await sql`SELECT * FROM users WHERE id = ${id}`;
-      return Response.json(user);
-    },
-  },
-
-  // dev mode has hot reload and error msg
-  development: true,
-
-  // fetch to handle api requests is optional
-  async fetch(req) {
-    // Return 404 for unmatched routes
-    return new Response("Not Found", { status: 404 });
-  },
-});
-
-console.log(`Listening on ${server.url}`);
+```diff
+- import { activeDocuments } from "../store/whiteboard";
++ import { activeDocuments } from "@/src/store/whiteboard";
 ```
 
-## Custom Bun plugins
-
-```toml
-# bunfig.toml
-[serve.static]
-plugins = ["bun-plugin-tailwind", "./my-plugin.ts]
-```
+never use `import *` syntax, always be explicit with imports.
 
 ---
 > Source: [hzoo/henry.ink](https://github.com/hzoo/henry.ink) — distributed by [TomeVault](https://tomevault.io).
