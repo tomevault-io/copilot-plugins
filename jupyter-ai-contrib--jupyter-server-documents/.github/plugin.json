@@ -1,0 +1,9 @@
+{
+  "name": "jupyter-ai-contrib--jupyter-server-documents",
+  "displayName": "jupyter-server-documents",
+  "description": "Server side document handling with improved output handling and kernel management/status.",
+  "version": "1.0.0",
+  "author": "jupyter-ai-contrib",
+  "homepage": "https://github.com/jupyter-ai-contrib/jupyter-server-documents",
+  "skills": []
+}
