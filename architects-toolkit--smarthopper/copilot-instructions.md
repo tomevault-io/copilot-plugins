@@ -1,52 +1,48 @@
-## infrastructure-aicall
+## infrastructure-aicontext
 
-> Information about AICall, AIRequest, AIToolCall, AIBody, AIAgent, AIInteraction*, AIReturn... Related with AI response generation logic
+> Information about the Context Manager (AIContext)
 
 
-# AICall infrastructure
+# AIContext Infrastructure
 
-## Location
+- **Purpose**
+  - Provide a lightweight, extensible way to collect runtime context (key–value pairs) from multiple sources and make it available to AI requests.
+  - Centralize registration, filtering, and combination of context across the application.
 
-- `src/SmartHopper.Infrastructure/AICall/`
-- Detailed docs: `docs/Providers/AICall/`
+- **Core Concepts**
+  - **Providers**: IAIContextProvider: contract for any context source.
+  - **Manager**: AIContextManager: static registry and aggregator.
 
-## Purpose
+- **Filtering Rules (`providerFilter`)**
+  - `*`: include all providers (default behavior).
+  - `-*`: exclude all providers.
+  - Comma/space separated list of IDs: include only those (e.g., `time, project`).
+  - Prefix with `-` to exclude specific providers (e.g., `*, -private`).
 
-- Provide a provider-agnostic foundation to build, validate, execute, stream, and capture AI calls.
-- Normalize provider-specific behavior into common request, interaction, return, metrics, status, and runtime-message models.
+- **Combination Behavior**
+  - Each provider’s `GetContext()` is merged into a single dictionary.
+  - Keys without an underscore `_` are automatically namespaced as `"{ProviderId}_{key}"`.
+  - Later entries overwrite earlier ones for duplicate keys.
 
-## Core concepts
+- **Integration with AICall**
+  - Context is automatically injected in `src/SmartHopper.Infrastructure/AICall/AIBody.cs`.
+    - In the `AIBody.Interactions` getter, when `ContextFilter` is set and context has content, a synthesized AIInteractionText with `Agent = Context` is inserted at the start of the returned interactions.
+    - This injection is non‑mutating: the internal interactions list remains unchanged; the context message is only added to the returned copy.
 
-- `AIAgent`: Context, System, User, Assistant, ToolCall, ToolResult.
-- `AICallStatus`: Idle, Processing, Streaming, CallingTools, Finished.
-- `IAIInteraction`: Common metadata for every interaction.
-- `AIRequestCall`: Provider/model/capability/body plus HTTP details for one provider call.
-- `AIBody`: Conversation history plus optional JSON schema, context filter, and tool filter. Context injection is non-mutating.
-- `AIReturn`: Normalized result with body, raw provider payload, metrics, status, diagnostics, and errors.
-- `AIToolCall`: Executes one tool call through the tool manager.
-- `ConversationSession`: Orchestrates multi-turn calls, tool loops, streaming, observer callbacks, and final stable results.
+- **Typical Flow**
+  1. Implement a provider: create a class implementing IAIContextProvider and return fast, up‑to‑date context.
+  2. Register it during plugin/app startup via `AIContextManager.RegisterProvider()`.
+  3. In an AI request, set `AIBody.ContextFilter` (e.g., `"*"`, `"time, project"`, `"*, -private"`).
+  4. On access, `AIBody.Interactions` automatically includes a synthesized context message when the filter yields context data.
 
-## Execution guidance
+- **Best Practices**
+  - Keep `GetContext()` non‑blocking and light; avoid long operations or UI thread dependencies.
+  - Use stable, descriptive keys; rely on namespacing rules or include your own underscores when needed.
+  - Register/unregister providers cleanly on lifecycle events to prevent duplicates or stale data.
 
-1. Build an `AIBody` with interactions and optional context/tool/schema filters.
-2. Create an `AIRequestCall` for a single provider turn.
-3. Use `AIRequestCall.Exec()` for one provider call only.
-4. Use `ConversationSession` when a workflow needs tool processing, bounded turns, streaming, observers, cancellation, or stable history persistence.
-5. Use `AIToolCall.Exec()` or `AIToolManager` for exactly one tool call.
-
-## Streaming guidance
-
-- Provider streaming support is exposed through `IStreamingAdapter`.
-- `ConversationSession.Stream(...)` gates streaming by provider/model/settings capabilities and falls back to non-streaming when appropriate.
-- Streaming deltas should be emitted promptly, honor cancellation, and avoid unbounded buffering.
-- UI consumers should prefer `IConversationObserver` callbacks for incremental rendering.
-
-## Design priorities
-
-- Keep provider-specific encoding/decoding in provider projects.
-- Keep orchestration in `ConversationSession`, not components or providers.
-- Attach structured diagnostics with `AIReturn.AddRuntimeMessage(...)` instead of raw log-only errors.
-- Preserve metrics and raw payloads for debugging.
+- **Extensibility**
+  - Add new providers without modifying the manager.
+  - Filter syntax allows flexible, per‑request control over which context sources apply.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
