@@ -1,0 +1,9 @@
+{
+  "name": "loadchange--wx2md-worker",
+  "displayName": "wx2md-worker",
+  "description": "\u5c06\u5fae\u4fe1\u516c\u4f17\u53f7\u6587\u7ae0\u4e00\u952e\u8f6c\u6362\u4e3a Markdown \u683c\u5f0f\uff0c\u57fa\u4e8e Cloudflare Workers \u90e8\u7f72\u3002",
+  "version": "1.0.0",
+  "author": "loadchange",
+  "homepage": "https://github.com/loadchange/wx2md-worker",
+  "skills": []
+}
