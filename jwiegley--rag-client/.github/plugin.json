@@ -1,0 +1,9 @@
+{
+  "name": "jwiegley--rag-client",
+  "displayName": "rag-client",
+  "description": "A client program for vectorizing documents and performing similarity queries",
+  "version": "1.0.0",
+  "author": "jwiegley",
+  "homepage": "https://github.com/jwiegley/rag-client",
+  "skills": []
+}
