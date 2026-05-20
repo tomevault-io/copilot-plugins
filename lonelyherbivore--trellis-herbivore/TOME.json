@@ -4,7 +4,7 @@
   "repo": "Trellis-Herbivore",
   "description": "Trellis-Meta",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LonelyHerbivore/Trellis-Herbivore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:09:08Z"
+  "distributed_at": "2026-05-20T20:57:07Z"
 }
