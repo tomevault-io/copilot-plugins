@@ -1,46 +1,55 @@
-## sports-managers
+## testing-standards
 
-> All sports managers inherit from base classes and follow consistent patterns:
+> - **Test directory**: [test/](mdc:test/) - All test files
 
 
-# Sports Manager Development
+# Testing Standards
 
-## Manager Architecture
-All sports managers inherit from base classes and follow consistent patterns:
-- **Base classes**: [src/nhl_managers.py](mdc:src/nhl_managers.py), [src/nfl_managers.py](mdc:src/nfl_managers.py)
-- **Common functionality**: Data fetching, caching, display rendering
-- **Configuration-driven**: Behavior controlled via config sections
+## Test Organization
+- **Test directory**: [test/](mdc:test/) - All test files
+- **Unit tests**: Test individual components in isolation
+- **Integration tests**: Test component interactions
+- **Hardware tests**: Validate on Raspberry Pi with actual LED matrix
 
-## Required Methods
+## Testing Principles
+- **Test behavior, not implementation**: Focus on what the code does, not how
+- **Mock external dependencies**: Use mocks for APIs, display managers, cache
+- **Test edge cases**: Empty data, API failures, configuration errors
+- **Pi-specific testing**: Validate hardware integration
+
+## Test Structure
 ```python
-def __init__(self, config, display_manager, cache_manager)
-def update(self)  # Fetch fresh data
-def display(self, force_clear=False)  # Render current data
+def test_manager_initialization():
+    """Test that manager initializes with valid config"""
+    config = {"sport_scoreboard": {"enabled": True}}
+    manager = ManagerClass(config, mock_display, mock_cache)
+    assert manager.enabled == True
+
+def test_api_failure_handling():
+    """Test graceful handling of API failures"""
+    # Test that system continues when API fails
+    # Verify fallback to cached data
+    # Check appropriate error logging
 ```
 
-## Data Flow Pattern
-1. **Fetch**: Get data from API (with caching)
-2. **Process**: Extract relevant game information
-3. **Filter**: Apply favorite team preferences
-4. **Display**: Render to LED matrix
+## Mock Patterns
+- **Display Manager**: Mock for testing without hardware
+- **Cache Manager**: Mock for testing data persistence
+- **API responses**: Mock for consistent test data
+- **Configuration**: Use test-specific configs
 
-## Logging Standards
-- **Structured prefixes**: `[NHL Recent]`, `[NFL Live]`, etc.
-- **Context information**: Include team names, game status, dates
-- **Debug levels**: Use appropriate log levels (info, debug, warning, error)
-- **User-friendly messages**: Explain what's happening and why
+## Test Categories
+- **Unit tests**: Individual manager methods
+- **Integration tests**: Manager interactions with services
+- **Configuration tests**: Validate config loading and validation
+- **Error handling tests**: API failures, invalid data, edge cases
 
-## Error Handling
-- **API failures**: Log and continue with cached data if available
-- **No data scenarios**: Distinguish between API issues vs no games available
-- **Off-season awareness**: Provide helpful context during non-active periods
-- **Fallback behavior**: Show alternative content when preferred content unavailable
-
-## Configuration Integration
-- **Required settings**: Validate on initialization
-- **Optional settings**: Provide sensible defaults
-- **Background service**: Use for non-blocking data fetching
-- **Caching strategy**: Implement intelligent cache management
+## Testing Best Practices
+- **Descriptive names**: Test names should explain what they test
+- **Single responsibility**: Each test should verify one thing
+- **Independent tests**: Tests should not depend on each other
+- **Clean setup/teardown**: Reset state between tests
+- **Pi compatibility**: Ensure tests work in Pi environment
 
 ---
 > Source: [ChuckBuilds/LEDMatrix](https://github.com/ChuckBuilds/LEDMatrix) — distributed by [TomeVault](https://tomevault.io).
