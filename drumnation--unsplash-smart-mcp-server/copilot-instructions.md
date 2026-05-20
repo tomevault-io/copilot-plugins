@@ -1,55 +1,69 @@
-## agent-use-project-docs-rules
+## automatic-git-commit-rules
 
-> Ensure that agents actively reference existing project documentation during planning, implementation, and debugging. This reinforces architecture decisions, prevents duplication, and leverages prior domain knowledge.
+> Automatically commit staged changes at logical points in development using conventional commits and metadata logging.
 
-# Rule: Agent Use of Project Documentation
+# Rule: Automatic Git Commit Rules
 
-## Purpose
-Ensure that agents actively reference existing project documentation during planning, implementation, and debugging. This reinforces architecture decisions, prevents duplication, and leverages prior domain knowledge.
+Purpose:
+Automatically commit staged changes at logical points in development using conventional commits and metadata logging.
 
----
+Trigger Conditions:
+- A feature, function, test, or refactor is logically complete
+- Total changed lines exceed 300 (across all files)
+- More than 8 files are staged
+- A stable group of files is complete (e.g. component + styles + test)
+- A previously failing test now passes due to these changes
+- A `.rules`, `README.md`, or config file has been modified
 
-## When to Read Docs
+Commit Message Structure:
+1. `commitSubject` (max 50 chars, required): One-line summary using Conventional Commit format (e.g., `feat: add login screen`)
+2. `commitBody` (optional): Wrap lines to ~72 chars, summarize key changes, bullet major additions if needed.
+3. `commitFooter` (optional): For breaking changes or issue refs (e.g., `BREAKING CHANGE:` or `Closes #123`)
 
-Agents MUST consult relevant documentation:
+Commit Process:
+1. Analyze `git diff` or fallback to `git status` + file list
+2. Generate structured commit message: `Subject`, `Body`, `Footer`
+3. Stage all changes explicitly: `git add -- ${changedFilesList.join(' ')}`
+4. Commit using:
+   ```bash
+   echo "${fullMessage}" | git commit -F -
+   ```
 
-- Before implementing or planning a new feature  
-- Before debugging a non-trivial issue  
-- When using or modifying any shared component, service, or utility  
-- When setting up a new app, package, or configuration  
-- When unsure about naming, architecture, or design patterns
+Metadata Logging:
+- After successful commit, retrieve the hash:
+  ```bash
+  git rev-parse HEAD
+  ```
+- Create a metadata JSON file at `.brain/git/commits/[xx]/[hash].json` with:
+  ```json
+  {
+    "hash": "<commit hash>",
+    "messageSubject": "<subject>",
+    "messageBody": "<body>",
+    "messageFooter": "<footer>",
+    "files": [<file list>],
+    "timestamp": "<UTC timestamp>",
+    "branch": "<branch name>"
+  }
+  ```
+- Create parent directories with `mkdir -p` as needed.
 
----
+Commit Policy Notes:
+- Skip automatic commit if:
+  - Files contain WIP, TODO, or FIXME comments
+  - Code is not in a logically complete state
+- Prefer small, atomic commits
+- Avoid committing unrelated changes together
 
-## What to Read
-
-Agents should prioritize:
-
-- `docs/features/` — Feature implementation and rationale  
-- `docs/architecture/adr/` — Architectural decisions  
-- `docs/concepts/` — Core patterns and abstractions  
-- `docs/packages/[name]/` — Workspace-specific details  
-- `README.md`, `ONBOARDING.md`, `CONTRIBUTING.md` — Setup and standards  
-
-Use index files (`*.index.md`) to navigate efficiently.
-
----
-
-## Usage Expectations
-
-- ✅ Reference relevant documents in the plan or task file  
-- ✅ Reuse prior design decisions and avoid re-debating settled architecture  
-- ✅ Cross-link helpful docs in responses where appropriate  
-- ✅ Load related `.md` files into memory when working on relevant code  
-- ✅ If unclear, run the `consult-documentation-index` process to search  
-
----
-
-## Related Rules
-
-- @project-documentation-structure.rules.mdc  
-- @feature-task-plan-generator.rules.mdc  
-- @agent-self-report.rules.mdc
+Final Output:
+- Return only:
+  ```json
+  {
+    "commitHash": "<commit hash>",
+    "metadataPath": "<path to metadata file>"
+  }
+  ```
+```
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
