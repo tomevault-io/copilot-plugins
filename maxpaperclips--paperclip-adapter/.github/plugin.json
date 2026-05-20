@@ -1,0 +1,9 @@
+{
+  "name": "maxpaperclips--paperclip-adapter",
+  "displayName": "Paperclip-Adapter",
+  "description": "A Paperclip adapter that lets you run Hermes Agent as a managed employee in a Paperclip company.",
+  "version": "1.0.0",
+  "author": "maxpaperclips",
+  "homepage": "https://github.com/maxpaperclips/Paperclip-Adapter",
+  "skills": []
+}
