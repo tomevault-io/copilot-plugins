@@ -1,0 +1,283 @@
+## mcpmc
+
+> If you find yourself implementing JSON-RPC directly (e.g., writing JSON messages, handling protocol-level details, or dealing with stdio), STOP! You are going in the wrong direction. The MCP framework handles all protocol details. Your job is to:
+
+# .cursorrules
+
+## ⚠️ IMPORTANT: JSON-RPC Warning
+
+If you find yourself implementing JSON-RPC directly (e.g., writing JSON messages, handling protocol-level details, or dealing with stdio), STOP! You are going in the wrong direction. The MCP framework handles all protocol details. Your job is to:
+
+1. Implement the actual Minecraft/Mineflayer functionality
+2. Use the provided bot methods and APIs
+3. Let the framework handle all communication
+
+Never:
+
+- Write JSON-RPC messages directly
+- Handle stdio yourself
+- Implement protocol-level error codes
+- Create custom notification systems
+
+## Overview
+
+This project uses the Model Context Protocol (MCP) to bridge interactions between a Minecraft bot (powered by Mineflayer) and an LLM-based client.
+
+The essential flow is:
+
+1. The server starts up ("MinecraftServer") and connects to a Minecraft server automatically (via the Mineflayer bot).
+2. The MCP server is exposed through standard JSON-RPC over stdio.
+3. MCP "tools" correspond to actionable commands in Minecraft (e.g., "dig_area", "navigate_to", etc.).
+4. MCP "resources" correspond to read-only data from Minecraft (e.g., "minecraft://inventory").
+
+When an MCP client issues requests, the server routes these to either:
+• The "toolHandler" (for effectful actions such as "dig_block")  
+• The "resourceHandler" (for returning game state like position, health, etc.)
+
+## MCP Types and Imports
+
+When working with MCP types:
+
+1. Import types from the correct SDK paths:
+   - Transport: "@modelcontextprotocol/sdk/shared/transport.js"
+   - JSONRPCMessage and other core types: "@modelcontextprotocol/sdk/types.js"
+2. Always check for optional fields using type guards (e.g., 'id' in message)
+3. Follow existing implementations in example servers when unsure
+4. Never modify working type imports - MCP has specific paths that must be used
+
+## Progress Callbacks
+
+For long-running operations like navigation and digging:
+
+1. Use progress callbacks to report status to MCP clients
+2. Include a progressToken in \_meta for tracking
+3. Send notifications via "tool/progress" with:
+   - token: unique identifier
+   - progress: 0-100 percentage
+   - status: "in_progress" or "complete"
+   - message: human-readable progress
+
+## API Compatibility and Alternatives
+
+When working with Mineflayer's API:
+
+1. Always check the actual API implementation before assuming method availability
+2. When encountering type/compatibility issues:
+   - Look for alternative methods in the API (e.g., moveSlotItem instead of click)
+   - Consider type casting with 'unknown' when necessary (e.g., `as unknown as Furnace`)
+   - Add proper type annotations to parameters to avoid implicit any
+3. For container operations:
+   - Prefer high-level methods like moveSlotItem over low-level ones
+   - Always handle cleanup (close containers) in finally blocks
+   - Cast specialized containers (like Furnace) appropriately
+4. Error handling:
+   - Wrap all API calls in try/catch blocks
+   - Use wrapError for consistent error reporting
+   - Include specific error messages that help diagnose issues
+
+## File Layout
+
+- src/types/minecraft.ts  
+  Type definitions for core Minecraft interfaces (Position, Block, Entity, etc.). Also includes the "MinecraftBot" interface, specifying the methods the bot should implement (like "digArea", "followPlayer", "attackEntity", etc.).
+
+- src/core/bot.ts  
+  Contains the main "MineflayerBot" class, an implementation of "MinecraftBot" using a real Mineflayer bot with pathfinding, digging, etc.
+
+- src/handlers/tools.ts  
+  Implements "ToolHandler" functions that receive tool requests and execute them against the MinecraftBot methods (e.g., "handleDigArea").
+
+- src/handlers/resources.ts  
+  Implements "ResourceHandler" for read-only data fetches (position, inventory, weather, etc.).
+
+- src/core/server.ts (and src/server.ts in some setups)  
+  Main MCP server that sets up request handlers, ties in the "MineflayerBot" instance, and starts listening for JSON-RPC calls over stdio.
+
+- src/**tests**/\*  
+  Contains Jest tests and "MockMinecraftBot" (a simplified implementation of "MinecraftBot" for testing).
+
+## Tools and Technologies
+
+- Model Context Protocol - an API for clients and servers to expose tools, resources, and prompts.
+- Mineflayer
+- Prismarine
+
+## Code
+
+- Write modern TypeScript against 2024 standards and expectations. Cleanly use async/await where possible.
+- Use bun for CLI commands
+
+## Error Handling
+
+- All errors MUST be properly formatted as JSON-RPC responses over stdio
+- Never throw errors directly as this will crash MCP clients
+- Use the ToolResponse interface with isError: true for error cases
+- Ensure all error messages are properly stringified JSON objects
+
+## Logging Rules
+
+- DO NOT use console.log, console.error, or any other console methods for logging
+- All communication MUST be through JSON-RPC responses over stdio
+- For error conditions, use proper JSON-RPC error response format
+- For debug/info messages, include them in the response data structure
+- Status updates should be sent as proper JSON-RPC notifications
+- Never write directly to stdout/stderr as it will corrupt the JSON-RPC stream
+
+## Commit Rules
+
+Commits must follow the Conventional Commits specification (https://www.conventionalcommits.org/):
+
+1. Format: `<type>(<scope>): <description>`
+
+   - `<type>`: The type of change being made:
+     - feat: A new feature
+     - fix: A bug fix
+     - docs: Documentation only changes
+     - style: Changes that do not affect the meaning of the code
+     - refactor: A code change that neither fixes a bug nor adds a feature
+     - perf: A code change that improves performance
+     - test: Adding missing tests or correcting existing tests
+     - chore: Changes to the build process or auxiliary tools
+     - ci: Changes to CI configuration files and scripts
+   - `<scope>`: Optional, indicates section of codebase (e.g., bot, server, tools)
+   - `<description>`: Clear, concise description in present tense
+
+2. Examples:
+
+   - feat(bot): add block placement functionality
+   - fix(server): resolve reconnection loop issue
+   - docs(api): update tool documentation
+   - refactor(core): simplify connection handling
+
+3. Breaking Changes:
+
+   - Include BREAKING CHANGE: in the commit footer
+   - Example: feat(api)!: change tool response format
+
+4. Body and Footer:
+   - Optional but recommended for complex changes
+   - Separated from header by blank line
+   - Use bullet points for multiple changes
+
+## Tool Handler Implementation Rules
+
+The MinecraftToolHandler bridges Mineflayer's bot capabilities to MCP tools. Each handler maps directly to bot functionality:
+
+1. Navigation & Movement
+
+   - `handleNavigateTo/handleNavigateRelative`: Uses Mineflayer pathfinding
+   - Always provide progress callbacks for pathfinding operations
+   - Handles coordinate translation between absolute/relative positions
+   - Uses goals.GoalBlock/goals.GoalXZ from mineflayer-pathfinder
+
+2. Block Interaction
+
+   - `handleDigBlock/handleDigBlockRelative`: Direct block breaking
+   - `handleDigArea`: Area excavation with progress tracking
+   - `handlePlaceBlock`: Block placement with item selection
+   - `handleInspectBlock`: Block state inspection
+   - Uses Vec3 for position handling
+
+3. Entity Interaction
+
+   - `handleFollowPlayer`: Player tracking with pathfinding
+   - `handleAttackEntity`: Combat with entity targeting
+   - Uses entity.position and entity.type from Mineflayer
+
+4. Inventory Management
+
+   - `handleInspectInventory`: Inventory querying
+   - `handleCraftItem`: Crafting with/without tables
+   - `handleSmeltItem`: Furnace operations
+   - `handleEquipItem`: Equipment management
+   - `handleDepositItem/handleWithdrawItem`: Container interactions
+   - Uses window.items and container APIs
+
+5. World Interaction
+   - `handleChat`: In-game communication
+   - `handleFindBlocks`: Block finding with constraints
+   - `handleFindEntities`: Entity detection
+   - `handleCheckPath`: Path validation
+
+Key Bot Methods Used:
+
+```typescript
+// Core Movement
+bot.pathfinder.goto(goal: goals.Goal)
+bot.navigate.to(x: number, y: number, z: number)
+
+// Block Operations
+bot.dig(block: Block)
+bot.placeBlock(referenceBlock: Block, faceVector: Vec3)
+
+// Entity Interaction
+bot.attack(entity: Entity)
+bot.lookAt(position: Vec3)
+
+// Inventory
+bot.equip(item: Item, destination: string)
+bot.craft(recipe: Recipe, count: number, craftingTable: Block)
+
+// World Interaction
+bot.findBlocks(options: FindBlocksOptions)
+bot.blockAt(position: Vec3)
+bot.chat(message: string)
+```
+
+Testing Focus:
+
+- Test each bot method integration
+- Verify coordinate systems (absolute vs relative)
+- Check entity targeting and tracking
+- Validate inventory operations
+- Test pathfinding edge cases
+
+Remember: Focus on Mineflayer's capabilities and proper bot method usage. The handler layer should cleanly map these capabilities to MCP tools while handling coordinate translations and progress tracking.
+
+## JSON Response Formatting
+
+When implementing tool handlers that return structured data:
+
+1. Avoid using `type: "json"` with `JSON.stringify` for nested objects
+2. Instead, format complex data as human-readable text
+3. Use template literals and proper formatting for nested structures
+4. For lists of items, use bullet points or numbered lists
+5. Include relevant units and round numbers appropriately
+6. Make responses both machine-parseable and human-readable
+
+Examples:
+✅ Good: `Found 3 blocks: \n- Stone at (10, 64, -30), distance: 5.2\n- Dirt at (11, 64, -30), distance: 5.5`
+❌ Bad: `{"blocks":[{"name":"stone","position":{"x":10,"y":64,"z":-30}}]}`
+
+## Building and Construction
+
+When implementing building functionality:
+
+1. Always check inventory before attempting to place blocks
+2. Use find_blocks to locate suitable building locations and materials
+3. Combine digging and building operations for complete structures
+4. Follow a clear building pattern:
+   - Clear the area if needed (dig_area_relative)
+   - Place foundation blocks first
+   - Build walls from bottom to top
+   - Add details like doors and windows last
+5. Consider the bot's position and reachability:
+   - Stay within reach distance (typically 4 blocks)
+   - Move to new positions as needed
+   - Ensure stable ground for the bot to stand on
+6. Handle errors gracefully:
+   - Check for block placement success
+   - Have fallback positions for block placement
+   - Log unreachable or problematic areas
+
+Example building sequence:
+
+1. Survey area with find_blocks
+2. Clear space with dig_area_relative
+3. Check inventory for materials
+4. Place foundation blocks
+5. Build walls and roof
+6. Add finishing touches
+
+---
+> Source: [gerred/mcpmc](https://github.com/gerred/mcpmc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
