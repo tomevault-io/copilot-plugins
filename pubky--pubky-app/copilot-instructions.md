@@ -1,11 +1,11 @@
-## commit-message
+## component-testing
 
-> Enforce conventional commit message format
+> Writing unit tests and snapshot tests for UI component rendering
 
 
-# Commit Message Rules
+# Component Testing Rules
 
-@docs/commit-message.md
+@docs/component-testing.md
 
 ---
 > Source: [pubky/pubky-app](https://github.com/pubky/pubky-app) — distributed by [TomeVault](https://tomevault.io).
