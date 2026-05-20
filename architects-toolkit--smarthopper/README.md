@@ -1,6 +1,8 @@
-# SmartHopper — distributed by TomeVault
+# SmartHopper
 
-> Originally from [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io)
+
+SmartHopper is an open-source project that implements third-party AI APIs to provide advanced features for Grasshopper3D.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.windsurf/rules/*.md` in [architects-toolkit/SmartHopper](http
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/architects-toolkit#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper)
 
 ---
 
