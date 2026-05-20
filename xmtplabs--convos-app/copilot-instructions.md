@@ -1,99 +1,92 @@
-## design-system
+## error-handling
 
-> The following contains rules about using our design system components. Each rule is followed by a small example showing good and bad practices.
+> The following contains rules about error handling in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-The following contains rules about using our design system components. Each rule is followed by a small example showing good and bad practices.
+The following contains rules about error handling in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-- Use design system components instead of native components whenever possible.
+- Prefer throwing errors over catching them, unless the catch block is where we want to handle the error UI/UX.
 
 ```typescript
-// ❌ Bad
-<View style={{ padding: 16 }}>
-  <Text>Hello</Text>
-</View>
+// ❌ Bad:
+try {
+  await api.sendMessage(content)
+} catch (error) {
+  console.or)
+}
 
-// ✅ Good
-<VStack style={{ padding: theme.spacing.md }}>
-  <Text preset="body">Hello</Text>
-</VStack>
+// ✅ Good: Throwing error with context
+try {
+  await api.sendMessage(content)
+} catch (error) {
+  throw new AppError({
+    error,
+    additionalMessage: "Failed to send message",
+  })
+}
 ```
 
-- Prefer specialized layout components over generic View components.
+- When catching errors, only do so at the level where you need to handle the user experience.
 
 ```typescript
-// ❌ Bad
-<View style={{ flexDirection: "column" }}>
-  <View style={{ flexDirection: "row" }}>
-    <Text>Label</Text>
-  </View>
-</View>
-
-// ✅ Good
-<VStack>
-  <HStack>
-    <Text>Label</Text>
-  </HStack>
-</VStack>
+// In UI component where we handle the UX:
+try {
+  await messagingService.sendMessage({ content })
+} catch (error) {
+  captureErrorWithToast(error)
+}
 ```
 
-- Use `VStack` instead of `View` with `flexDirection: "column"`.
+- Always use captureError from [capture-error.ts](mdc:utils/capture-error.ts) when logging errors but continuing execution.
 
 ```typescript
-// ❌ Bad
-<View style={{ flexDirection: "column", gap: 8 }}>
+// ❌ Bad: Using console.error directly
+try {
+  await analytics.trackEvent("user_action")
+} catch (error) {
+  console.error("Analytics error:", error)
+}
 
-// ✅ Good
-<VStack style={{ gap: 8 }}>
+// ✅ Good: Using captureError
+try {
+  await analytics.trackEvent("user_action")
+} catch (error) {
+  // Log but don't disrupt user experience
+  captureError(new AppError({ error }))
+}
 ```
 
-- Use `HStack` instead of `View` with `flexDirection: "row"`.
+- When throwing errors, always create a new error using one of the error from [error.ts](mdc:utils/error.ts)
 
 ```typescript
-// ❌ Bad
-<View style={{ flexDirection: "row", alignItems: "center" }}>
+// ❌ Bad: Throwing original error
+try {
+  await api.fetchData()
+} catch (error) {
+  throw error
+}
 
-// ✅ Good
-<HStack style={{ alignItems: "center" }}>
+// ✅ Good: Creating new AppError
+try {
+  await api.fetchData()
+} catch (error) {
+  throw new AppError({
+    error,
+    additionalMessage: "Failed while fetching data",
+  })
+}
 ```
 
-- Use `Center` instead of manually setting alignment and justification.
+- Always add an "additionalMessage" property to errors to provide more context.
 
 ```typescript
-// ❌ Bad
-<View style={{ alignItems: "center", justifyContent: "center" }}>
+// ❌ Bad: No additional context
+throw new AppError({ error })
 
-// ✅ Good
-<Center>
-```
-
-- Use `AnimatedVStack`, `AnimatedHStack`, and `AnimatedCenter` for animated components.
-
-```typescript
-// ❌ Bad
-<Animated.View style={{ flexDirection: "column", opacity }}>
-
-// ✅ Good
-<AnimatedVStack style={{ opacity }}>
-```
-
-- Use the Text component's built-in presets instead of manually specifying font size, line height, or weight.
-
-```typescript
-// ❌ Bad
-<Text style={{ fontSize: 16, fontWeight: "bold" }}>Hello</Text>
-
-// ✅ Good
-<Text preset="body" weight="bold">Hello</Text>
-```
-
-- Use the color prop to set text color instead of style overrides.
-
-```typescript
-// ❌ Bad
-<Text style={{ color: colors.text.primary }}>Hello</Text>
-
-// ✅ Good
-<Text color="primary">Hello</Text>
+// ✅ Good: Providing additional context
+throw new AppError({
+  error,
+  additionalMessage: "Context about what we were trying to do",
+})
 ```
 
 ---
