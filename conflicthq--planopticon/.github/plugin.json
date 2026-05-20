@@ -1,0 +1,9 @@
+{
+  "name": "conflicthq--planopticon",
+  "displayName": "PlanOpticon",
+  "description": "goes through a video and captures notes and diagrams from the conversation",
+  "version": "1.0.0",
+  "author": "ConflictHQ",
+  "homepage": "https://github.com/ConflictHQ/PlanOpticon",
+  "skills": []
+}
