@@ -1,45 +1,52 @@
-## grasshopper-undo
+## infrastructure-aicall
 
-> Registering undo events so that the user can later ctrl+z an action. Check this rule when writing code that makes changes to the canvas (adding, moving, changing, or deleting components or connections)
+> Information about AICall, AIRequest, AIToolCall, AIBody, AIAgent, AIInteraction*, AIReturn... Related with AI response generation logic
 
 
-# Grasshopper Undo Rule
+# AICall infrastructure
+
+## Location
+
+- `src/SmartHopper.Infrastructure/AICall/`
+- Detailed docs: `docs/Providers/AICall/`
 
 ## Purpose
-Ensure that any code which mutates Grasshopper canvas objects (moving, adding, deleting, wiring, etc.) records an undo event so users can undo with Ctrl+Z.
 
-## Rule
-- **Before** mutating any `IGH_DocumentObject` (e.g. setting `Attributes.Pivot`, adding/removing objects, changing wires), insert:
-  ```csharp
-  obj.RecordUndoEvent("[SH] <Action Description>");
-  ```
-- For batch or multi-step operations, create and commit a `GH_UndoRecord`:
-  ```csharp
-  using Grasshopper.Kernel.Undo;
+- Provide a provider-agnostic foundation to build, validate, execute, stream, and capture AI calls.
+- Normalize provider-specific behavior into common request, interaction, return, metrics, status, and runtime-message models.
 
-  var record = new GH_UndoRecord("[SH] Batch Action");
-  // for each object change:
-  obj.RecordUndoEvent(record);
-  // after all changes:
-  doc.UndoUtil.RecordEvent(record);
-  ```
+## Core concepts
 
-## Examples
-- MoveInstance
-  ```diff
-  - var current = obj.Attributes.Pivot;
-  + obj.RecordUndoEvent("[SH] Move Instance");
-  + var current = obj.Attributes.Pivot;
-  ```
-- AddObjectToCanvas
-  ```diff
-  - doc.AddObject(obj, false);
-  + obj.RecordUndoEvent("[SH] Add Object");
-  + doc.AddObject(obj, false);
-  ```
+- `AIAgent`: Context, System, User, Assistant, ToolCall, ToolResult.
+- `AICallStatus`: Idle, Processing, Streaming, CallingTools, Finished.
+- `IAIInteraction`: Common metadata for every interaction.
+- `AIRequestCall`: Provider/model/capability/body plus HTTP details for one provider call.
+- `AIBody`: Conversation history plus optional JSON schema, context filter, and tool filter. Context injection is non-mutating.
+- `AIReturn`: Normalized result with body, raw provider payload, metrics, status, diagnostics, and errors.
+- `AIToolCall`: Executes one tool call through the tool manager.
+- `ConversationSession`: Orchestrates multi-turn calls, tool loops, streaming, observer callbacks, and final stable results.
 
-## Enforcement
-Code reviews or static analysis should flag any GH canvas mutations missing a preceding RecordUndoEvent or undo-util usage.
+## Execution guidance
+
+1. Build an `AIBody` with interactions and optional context/tool/schema filters.
+2. Create an `AIRequestCall` for a single provider turn.
+3. Use `AIRequestCall.Exec()` for one provider call only.
+4. Use `ConversationSession` when a workflow needs tool processing, bounded turns, streaming, observers, cancellation, or stable history persistence.
+5. Use `AIToolCall.Exec()` or `AIToolManager` for exactly one tool call.
+
+## Streaming guidance
+
+- Provider streaming support is exposed through `IStreamingAdapter`.
+- `ConversationSession.Stream(...)` gates streaming by provider/model/settings capabilities and falls back to non-streaming when appropriate.
+- Streaming deltas should be emitted promptly, honor cancellation, and avoid unbounded buffering.
+- UI consumers should prefer `IConversationObserver` callbacks for incremental rendering.
+
+## Design priorities
+
+- Keep provider-specific encoding/decoding in provider projects.
+- Keep orchestration in `ConversationSession`, not components or providers.
+- Attach structured diagnostics with `AIReturn.AddRuntimeMessage(...)` instead of raw log-only errors.
+- Preserve metrics and raw payloads for debugging.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
