@@ -1,80 +1,79 @@
-## code-comments
+## code-organization
 
-> The following contains rules about how to write comments in our codebase. Each rule is followed by a small example showing good and bad practices.
+> The following contains rules about code organization within files in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-The following contains rules about how to write comments in our codebase. Each rule is followed by a small example showing good and bad practices.
+The following contains rules about code organization within files in our codebase. Each rule is followed by a small example showing good and bad practices.
 
-- Add VERY minimal comments. Like almost 0 except if i tell you to do so.
-- Don't add comments for obvious code or document parameters and return types that are already clear from the function signature.
+- Place exported functions, components, and variables at the top of the file.
 
 ```typescript
-// ❌ Bad
-/**
- * Add two numbers
- * @param a First number to add
- * @param b Second number to add
- * @returns The sum of a and b
- */
+// ❌ Bad: Helper function above exported function
+function formatName(name) {
+  return name.toUpperCase()
+}
 
-// ✅ Good
-function add(args: { a: number; b: number }) {
-  const { a, b } = args
-  return a + b
+export function ProfileCard() {
+  /* implementation */
+}
+
+// ✅ Good: Exported function at the top
+export function ProfileCard() {
+  /* implementation */
+}
+
+function formatName(name) {
+  return name.toUpperCase()
 }
 ```
 
-- Use comments to explain "why" rather than "what" when the code itself clearly shows what it's doing.
+- Place helper functions and non-exported components below the exported items.
 
 ```typescript
-// ❌ Bad: Explains what (obvious from code)
-// Loop through the array and sum values
-for (const item of items) {
-  total += item.price
+// ✅ Good organization
+export function UserProfile() {
+  return (
+    <View>
+      <DisplayName name="John" />
+    </View>
+  )
 }
 
-// ✅ Good: Explains why
-// Calculating total manually instead of using reduce() for performance with large arrays
-for (const item of items) {
-  total += item.price
+// Helper component used only within this file
+const DisplayName = memo(function DisplayName(props: { name: string }) {
+  return <Text>{formatName(props.name)}</Text>
+})
+
+// Helper function
+function formatName(name: string) {
+  return name.toUpperCase()
 }
 ```
 
-- Avoid verbose JSDoc-style documentation when TypeScript types already provide this information.
+- Define types close to their implementation.
 
 ```typescript
-// ❌ Bad
-/**
- * @param {string} userId - The ID of the user
- * @returns {Promise<User>} - The user object
- */
+// ❌ Bad: Type far from its usage
+type IButtonProps = { onPress: () => void; label: string }
 
-// ✅ Good
-async function getUser(args: { userId: string }) {
-  const { userId } = args
-  return api.getUser(userId)
-}
-```
+// Many lines of code...
 
-- If you add comments, place them directly above the specific line or block they explain.
-
-```typescript
-// ❌ Bad
-// These functions handle user authentication
-function login() {
-  /*...*/
-}
-function logout() {
-  /*...*/
+export function Button(props: IButtonProps) {
+  /* implementation */
 }
 
-// ✅ Good
-function login() {
-  /*...*/
+// ✅ Good: Type near its usage
+export function Button(props: { onPress: () => void; label: string }) {
+  /* implementation */
 }
 
-// Logs out user and clears all session storage
-function logout() {
-  /*...*/
+// For reused types, define them above all components
+type IUser = { id: string; name: string }
+
+export function UserList() {
+  /* implementation using IUser */
+}
+export function UserProfile() {
+  /* implementation using IUser */
 }
 ```
 
