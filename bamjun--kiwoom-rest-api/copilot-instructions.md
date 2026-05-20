@@ -1,188 +1,94 @@
-## development-workflow
+## git-commit-rules
 
-> - Python 3.9+ (as specified in [pyproject.toml](mdc:pyproject.toml))
+> [Type] short description [file {number of staged files} - lines {number of staged lines}]
 
-# Development Workflow for Kiwoom REST API
+# Git Commit Message Rules for Kiwoom REST API
 
-## Development Environment Setup
+## Commit Message Format
 
-### Prerequisites
-- Python 3.9+ (as specified in [pyproject.toml](mdc:pyproject.toml))
-- Poetry for dependency management
-- Git for version control
-
-### Initial Setup
-```bash
-# Clone repository
-git clone <repository-url>
-cd kiwoom-rest-api
-
-# Install dependencies
-poetry install
-
-# Activate virtual environment
-poetry shell
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your API credentials
+### Required Format
+```
+[Type] short description [file {number of staged files} - lines {number of staged lines}]
+- detailed description line 1
+- detailed description line 2
+- detailed description line 3
+- detailed description line 4
+- detailed description line 5
 ```
 
-## Development Process
+### Commit Types
+- **Feat**: Implement new feature
+- **Add**: Add asset files
+- **Fix**: Fix bugs
+- **Docs**: Add or update documentation
+- **Style**: Styling work (no code logic changes)
+- **Refactor**: Code refactoring (no functional changes)
+- **Test**: Add or modify tests
+- **Deploy**: Deployment-related changes
+- **Conf**: Build or environment configuration
+- **Chore**: Miscellaneous tasks
 
-### 1. Understanding the Codebase
-- Review [project-structure.mdc](mdc:.cursor/rules/project-structure.mdc) for overall architecture
-- Study [api-development-patterns.mdc](mdc:.cursor/rules/api-development-patterns.mdc) for implementation patterns
-- Reference [korean-stock-api-reference.mdc](mdc:.cursor/rules/korean-stock-api-reference.mdc) for API details
+### Rules
+1. **First Line**: Must start with a tag and short description (under 30 characters)
+2. **File/Line Count**: Include at the end of first line: `[file {count} - lines {count}]`
+3. **Detailed Descriptions**: Up to 5 lines starting with hyphen `-`
+4. **Character Limits**: First line under 30 characters, detailed descriptions under 50 characters each
 
-### 2. Adding New API Methods
+### Examples
 
-#### Step 1: Identify the API
-- Determine the API ID and module
-- Review existing similar methods in the target module
-- Understand the API parameters and response structure
-
-#### Step 2: Implement the Method
-- Follow the standard method pattern from [api-development-patterns.mdc](mdc:.cursor/rules/api-development-patterns.mdc)
-- Use the correct module file (e.g., [src/kiwoom_rest_api/koreanstock/account.py](mdc:src/kiwoom_rest_api/koreanstock/account.py))
-- Include comprehensive Korean documentation
-- Add proper type hints and parameter validation
-
-#### Step 3: Add Test Case
-- Create or update test file in [tests/koreanstock/](mdc:tests/koreanstock/)
-- Follow the test pattern with `print_result()` function
-- Use `print_result=False` for clean output
-- Test with real API credentials
-
-#### Step 4: Verify Implementation
-```bash
-# Run tests
-poetry run pytest tests/koreanstock/test_account.py -v
-
-# Run specific test
-poetry run python tests/koreanstock/test_account.py
+#### Feature Implementation
+```
+[Feat] add account API methods [file 1 - lines 45]
+- add filled_position_request_kt00005 method
+- add account_order_execution_detail_request_kt00007 method
+- add next_day_settlement_schedule_request_kt00008 method
+- add account_order_execution_status_request_kt00009 method
+- add withdrawable_order_amount_request_kt00010 method
 ```
 
-### 3. Code Quality Standards
-
-#### Documentation
-- Include Korean descriptions for all parameters and return fields
-- Provide clear usage examples in docstrings
-- Document API IDs and their purposes
-- Use consistent formatting across all methods
-
-#### Code Style
-- Follow PEP 8 guidelines
-- Use type hints for all parameters
-- Maintain consistent naming conventions
-- Keep methods focused and single-purpose
-
-#### Error Handling
-- Use the base class `_execute_request` method
-- Return raw API responses for caller flexibility
-- Document expected error codes and messages
-
-### 4. Testing Strategy
-
-#### Test Organization
-- Group tests by module functionality
-- Use descriptive test names
-- Include both success and error scenarios
-- Test with various parameter combinations
-
-#### Test Data
-- Use real stock codes (e.g., "005930" for 삼성전자)
-- Use valid date formats ("YYYYMMDD")
-- Test with different market codes (KRX, NXT, etc.)
-
-#### Environment Management
-- Use `.env` file for API credentials
-- Never commit sensitive credentials
-- Use mock data for unit tests when appropriate
-
-### 5. Version Control
-
-#### Branch Strategy
-- Create feature branches for new API implementations
-- Use descriptive branch names (e.g., `feature/kt00012-api`)
-- Keep branches focused on single features
-
-#### Commit Messages
-- Follow the format specified in [git-commit-rules.mdc](mdc:.cursor/rules/git-commit-rules.mdc)
-- Include file and line counts
-- Use appropriate commit types
-- Provide detailed descriptions
-
-#### Pull Request Process
-- Include comprehensive description of changes
-- Reference related API documentation
-- Ensure all tests pass
-- Update documentation if needed
-
-### 6. Deployment and Release
-
-#### Version Management
-- Update version in [pyproject.toml](mdc:pyproject.toml)
-- Follow semantic versioning
-- Update [README.md](mdc:README.md) with new features
-
-#### Release Process
-```bash
-# Build package
-poetry build
-
-# Publish to PyPI
-poetry publish
-
-# Create git tag
-git tag v0.1.11
-git push origin v0.1.11
+#### Bug Fix
+```
+[Fix] resolve API parameter validation [file 1 - lines 12]
+- fix stock_code parameter validation
+- add proper error handling for invalid codes
+- update docstring with parameter constraints
 ```
 
-### 7. Maintenance
+#### Documentation Update
+```
+[Docs] update API documentation [file 2 - lines 8]
+- add comprehensive method descriptions
+- include Korean field descriptions
+- update usage examples
+```
 
-#### Regular Tasks
-- Update dependencies with `poetry update`
-- Review and update documentation
-- Monitor API changes from Kiwoom
-- Address user feedback and issues
+#### Test Addition
+```
+[Test] add test cases for new APIs [file 1 - lines 15]
+- add test for kt00005 API method
+- add test for kt00007 API method
+- add test for kt00008 API method
+```
 
-#### Code Review
-- Review new implementations against established patterns
-- Ensure consistency across modules
-- Verify test coverage
-- Check documentation quality
+#### Refactoring
+```
+[Refactor] improve code structure [file 1 - lines 25]
+- extract common parameter validation
+- standardize method signatures
+- improve error handling consistency
+```
 
-## Common Development Scenarios
+### Staging Information
+- Count only staged files and lines
+- Use `git status` and `git diff --cached --stat` to get accurate counts
+- Include all modified files in the count
 
-### Adding New API Method
-1. Study existing similar methods
-2. Implement following the standard pattern
-3. Add comprehensive documentation
-4. Create test case
-5. Verify functionality
-6. Commit with proper message format
-
-### Fixing Bugs
-1. Identify the issue and affected module
-2. Implement fix following existing patterns
-3. Add test case to prevent regression
-4. Update documentation if needed
-5. Commit with [Fix] type
-
-### Updating Documentation
-1. Review existing documentation
-2. Update relevant files
-3. Ensure consistency across modules
-4. Test examples if applicable
-5. Commit with [Docs] type
-
-### Refactoring Code
-1. Identify areas for improvement
-2. Maintain existing functionality
-3. Update tests if needed
-4. Ensure backward compatibility
-5. Commit with [Refactor] type
+### Best Practices
+1. Use descriptive but concise commit messages
+2. Include relevant API IDs in descriptions when applicable
+3. Group related changes in single commits
+4. Test changes before committing
+5. Follow the established pattern consistently
 
 ---
 > Source: [bamjun/kiwoom-rest-api](https://github.com/bamjun/kiwoom-rest-api) — distributed by [TomeVault](https://tomevault.io).
