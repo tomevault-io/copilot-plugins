@@ -1,0 +1,9 @@
+{
+  "name": "salesforce--multicloudj",
+  "displayName": "multicloudj",
+  "description": "MultiCloudJ: A Cloud Agnostic SDK for enabling open cloud development in Java",
+  "version": "1.0.0",
+  "author": "salesforce",
+  "homepage": "https://github.com/salesforce/multicloudj",
+  "skills": []
+}
