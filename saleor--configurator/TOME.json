@@ -1,0 +1,111 @@
+{
+  "name": "configurator",
+  "owner": "saleor",
+  "repo": "configurator",
+  "description": "A tool that helps you automate the creation of data models in Saleor.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adding-entity-types",
+      "path": ".claude/skills/adding-entity-types",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/adding-entity-types",
+      "description": ""
+    },
+    {
+      "name": "analyzing-test-coverage",
+      "path": ".claude/skills/analyzing-test-coverage",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/analyzing-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "configurator-cli",
+      "path": "plugin/skills/configurator-cli",
+      "github_url": "https://github.com/saleor/configurator/tree/main/plugin/skills/configurator-cli",
+      "description": ""
+    },
+    {
+      "name": "creating-changesets",
+      "path": ".claude/skills/creating-changesets",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/creating-changesets",
+      "description": ""
+    },
+    {
+      "name": "designing-zod-schemas",
+      "path": ".claude/skills/designing-zod-schemas",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/designing-zod-schemas",
+      "description": ""
+    },
+    {
+      "name": "implementing-cli-patterns",
+      "path": ".claude/skills/implementing-cli-patterns",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/implementing-cli-patterns",
+      "description": ""
+    },
+    {
+      "name": "managing-github-ci",
+      "path": ".claude/skills/managing-github-ci",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/managing-github-ci",
+      "description": ""
+    },
+    {
+      "name": "product-modeling",
+      "path": "plugin/skills/product-modeling",
+      "github_url": "https://github.com/saleor/configurator/tree/main/plugin/skills/product-modeling",
+      "description": ""
+    },
+    {
+      "name": "reviewing-typescript-code",
+      "path": ".claude/skills/reviewing-typescript-code",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/reviewing-typescript-code",
+      "description": ""
+    },
+    {
+      "name": "understanding-saleor-domain",
+      "path": ".claude/skills/understanding-saleor-domain",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/understanding-saleor-domain",
+      "description": ""
+    },
+    {
+      "name": "writing-graphql-operations",
+      "path": ".claude/skills/writing-graphql-operations",
+      "github_url": "https://github.com/saleor/configurator/tree/main/.claude/skills/writing-graphql-operations",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/saleor/configurator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T16:30:24Z"
+}
