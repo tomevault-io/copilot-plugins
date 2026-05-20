@@ -1,0 +1,9 @@
+{
+  "name": "omegaice--pydantic-rdf",
+  "displayName": "pydantic-rdf",
+  "description": "A bridge between Pydantic V2 models and RDF graphs",
+  "version": "1.0.0",
+  "author": "Omegaice",
+  "homepage": "https://github.com/Omegaice/pydantic-rdf",
+  "skills": []
+}
