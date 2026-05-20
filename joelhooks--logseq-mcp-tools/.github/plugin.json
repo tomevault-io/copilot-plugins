@@ -1,0 +1,9 @@
+{
+  "name": "joelhooks--logseq-mcp-tools",
+  "displayName": "logseq-mcp-tools",
+  "description": "mcp server for logseq graph",
+  "version": "1.0.0",
+  "author": "joelhooks",
+  "homepage": "https://github.com/joelhooks/logseq-mcp-tools",
+  "skills": []
+}
