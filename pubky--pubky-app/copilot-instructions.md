@@ -1,11 +1,11 @@
-## error-handling
+## local-first
 
-> Error handling conventions using AppError across all layers
+> Local-first write patterns and controller naming conventions
 
 
-# Error Handling Rules
+# Local-First Rules
 
-@docs/error-handling.md
+@docs/local-first.md
 
 ---
 > Source: [pubky/pubky-app](https://github.com/pubky/pubky-app) — distributed by [TomeVault](https://tomevault.io).
