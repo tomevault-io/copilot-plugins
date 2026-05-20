@@ -1,0 +1,9 @@
+{
+  "name": "famiu--llm-conversation",
+  "displayName": "llm_conversation",
+  "description": "Python program to make LLM agents play characters and talk to each other.",
+  "version": "1.0.0",
+  "author": "famiu",
+  "homepage": "https://github.com/famiu/llm_conversation",
+  "skills": []
+}
