@@ -1,0 +1,9 @@
+{
+  "name": "illyism--saasbooks",
+  "displayName": "saasbooks",
+  "description": "SaaSBooks turns your Stripe and Mercury data into actionable financial insights without the accounting headache. Built by SaaS founders for SaaS founders, this open source tool auto-categorizes transa",
+  "version": "1.0.0",
+  "author": "Illyism",
+  "homepage": "https://github.com/Illyism/saasbooks",
+  "skills": []
+}
