@@ -1,0 +1,9 @@
+{
+  "name": "mg-chao--paddle-ocr-rs",
+  "displayName": "paddle-ocr-rs",
+  "description": "Use Rust to call Paddle OCR models via ONNX Runtime for image text recognition.",
+  "version": "1.0.0",
+  "author": "mg-chao",
+  "homepage": "https://github.com/mg-chao/paddle-ocr-rs",
+  "skills": []
+}
