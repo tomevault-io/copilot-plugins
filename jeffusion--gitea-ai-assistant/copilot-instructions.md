@@ -1,56 +1,68 @@
-## 06-contribution-guidelines
+## 07-pr-notification
 
-> This project follows TypeScript best practices and uses TSLint for code style enforcement:
+> 系统通过飞书（Feishu）实现 PR 相关的通知功能，主要包括 PR 创建通知和审阅者指派通知。核心实现在 [src/services/feishu.ts](mdc:src/services/feishu.ts) 中。
 
-# Contribution Guidelines
+# PR 通知功能
 
-## Code Style and Standards
+## 概述
 
-This project follows TypeScript best practices and uses TSLint for code style enforcement:
+系统通过飞书（Feishu）实现 PR 相关的通知功能，主要包括 PR 创建通知和审阅者指派通知。核心实现在 [src/services/feishu.ts](mdc:src/services/feishu.ts) 中。
 
-- Configuration: [tslint.json](mdc:tslint.json)
-- TypeScript settings: [tsconfig.json](mdc:tsconfig.json)
-- Editor config: [.editorconfig](mdc:.editorconfig)
+## 主要功能
 
-Run the linter to check code style:
-```bash
-bun run lint
-```
+### PR 创建通知
 
-## Project Structure Conventions
+当 PR 被创建且有指定审阅者时，系统会自动发送通知：
+- 触发条件：PR 创建事件 + 存在指定审阅者
+- 通知对象：所有指定的审阅者
+- 通知内容：PR 标题和链接
+- 实现位置：[src/controllers/review.ts](mdc:src/controllers/review.ts) 中的 `handlePullRequestEvent` 函数
 
-When contributing to this project, adhere to these structural guidelines:
+### 审阅者指派通知
 
-1. **Controller Layer**:
-   - Business logic should be delegated to services
-   - Controllers should focus on request handling and response formatting
-   - Keep route handlers in the [controllers/](mdc:src/controllers) directory
+当新的审阅者被指派到 PR 时，系统会发送通知：
+- 触发条件：PR review_requested 事件
+- 通知对象：新指派的审阅者
+- 通知内容：PR 标题和链接
+- 实现位置：同样在 `handlePullRequestEvent` 函数中
 
-2. **Service Layer**:
-   - External API interactions belong in the [services/](mdc:src/services) directory
-   - Each service should have a clear, single responsibility
+## 配置要求
 
-3. **LLM Layer**:
-   - LLM provider adapters in [llm/](mdc:src/llm)
-   - Database layer in [db/](mdc:src/db)
-   - Encryption utilities in [crypto/](mdc:src/crypto)
+使用通知功能需要配置以下环境变量：
 
-4. **Configuration**:
-   - Environment-based configurations go in [config/index.ts](mdc:src/config/index.ts)
-   - LLM provider settings are managed through Web UI + SQLite DB
+1. **必需配置**
+   - `FEISHU_WEBHOOK_URL`：飞书 Webhook 地址
 
-5. **Utils**:
-   - Reusable utility functions belong in [utils/](mdc:src/utils)
-   - Logging should use the custom logger from [utils/logger.ts](mdc:src/utils/logger.ts)
+2. **可选配置**
+   - `FEISHU_WEBHOOK_SECRET`：飞书 Webhook 密钥（可选，用于加强安全性）
 
-## Pull Request Guidelines
+## 实现细节
 
-When submitting Pull Requests:
+1. **通知处理流程**
+   - Webhook 事件由 [src/controllers/review.ts](mdc:src/controllers/review.ts) 接收和处理
+   - 通知发送由 [src/services/feishu.ts](mdc:src/services/feishu.ts) 实现
+   - 使用飞书的消息 API 发送通知
 
-1. Include a clear description of changes
-2. Ensure code passes linting checks
-3. Keep changes focused on a single concern
-4. Test your changes locally before submitting
+2. **错误处理**
+   - 通知发送失败不会影响代码审查流程
+   - 所有错误都会被记录但不会中断主流程
+   - 支持失败重试机制
+
+3. **通知格式**
+   - PR 创建通知：使用 🔄 表情符号
+   - 审阅者指派通知：使用 👀 表情符号
+   - 包含 PR 标题和可点击的链接
+
+## 最佳实践
+
+1. **配置建议**
+   - 建议配置 `FEISHU_WEBHOOK_SECRET` 以增强安全性
+   - 确保飞书机器人有足够的权限发送消息
+
+2. **使用注意**
+   - 避免过于频繁的通知以防打扰
+   - 确保 PR 标题清晰以便接收者快速理解
+   - 合理使用审阅者指派功能，避免过多人员参与
 
 ---
 > Source: [jeffusion/gitea-ai-assistant](https://github.com/jeffusion/gitea-ai-assistant) — distributed by [TomeVault](https://tomevault.io).
