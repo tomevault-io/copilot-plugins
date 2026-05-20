@@ -1,0 +1,9 @@
+{
+  "name": "velo--easy-jacoco-maven-plugin",
+  "displayName": "easy-jacoco-maven-plugin",
+  "description": "This project aims at making jacoco easy on modular projects",
+  "version": "1.0.0",
+  "author": "velo",
+  "homepage": "https://github.com/velo/easy-jacoco-maven-plugin",
+  "skills": []
+}
