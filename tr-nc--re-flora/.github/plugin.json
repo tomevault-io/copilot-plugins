@@ -1,0 +1,9 @@
+{
+  "name": "tr-nc--re-flora",
+  "displayName": "re-flora",
+  "description": "An experimental relaxation voxel game built in Rust with Vulkan, inviting you to cultivate a living voxel island at your own pace.",
+  "version": "1.0.0",
+  "author": "tr-nc",
+  "homepage": "https://github.com/tr-nc/re-flora",
+  "skills": []
+}
