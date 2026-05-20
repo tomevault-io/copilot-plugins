@@ -1,150 +1,79 @@
-## elixir-testing
+## git-conventional-commits
 
-> description: Best practices for testing Elixir applications using ExUnit and other testing tools
+> Rule for automatically committing changes made by CursorAI using conventional commits format.
 
-# Elixir Testing Practices
+# Git Conventional Commits
+
+Rule for automatically committing changes made by CursorAI using conventional commits format.
 
 <rule>
-name: elixir_testing
-description: Best practices for testing Elixir applications using ExUnit and other testing tools
+name: conventional_commits
+description: Automatically commit changes made by CursorAI using conventional commits format
 filters:
-  - type: file_extension
-    pattern: "\\.ex$|\\.exs$"
+  - type: event
+    pattern: "build_success"
+  - type: file_change
+    pattern: "*"
 
 actions:
+  - type: execute
+    command: |
+      # Extract the change type and scope from the changes
+      CHANGE_TYPE=""
+      case "$CHANGE_DESCRIPTION" in
+        *"add"*|*"create"*|*"implement"*) CHANGE_TYPE="feat";;
+        *"fix"*|*"correct"*|*"resolve"*) CHANGE_TYPE="fix";;
+        *"refactor"*|*"restructure"*) CHANGE_TYPE="refactor";;
+        *"test"*) CHANGE_TYPE="test";;
+        *"doc"*|*"comment"*) CHANGE_TYPE="docs";;
+        *"style"*|*"format"*) CHANGE_TYPE="style";;
+        *"perf"*|*"optimize"*) CHANGE_TYPE="perf";;
+        *) CHANGE_TYPE="chore";;
+      esac
+
+      # Extract scope from file path
+      SCOPE=$(dirname "$FILE" | tr '/' '-')
+
+      # Commit the changes
+      git add "$FILE"
+      git commit -m "$CHANGE_TYPE($SCOPE): $CHANGE_DESCRIPTION"
+
   - type: suggest
     message: |
-      # Elixir Testing Best Practices
+      Changes should be committed using conventional commits format:
 
-      ## Test Organization
-      - Group related tests in test modules that mirror the production code structure
-      - Use descriptive test names that explain the behavior being tested
-      - Organize tests by functionality or feature
-      - Keep test files and test cases focused and concise
-      
-      ## Test Setup
-      - Use `setup` or `setup_all` blocks to prepare common test data
-      - Consider using fixtures for complex test data
-      - Clean up resources with `on_exit` callbacks
-      - Use contexts to share test data between tests
-      
-      ## Test Assertions
-      - Use specific assertions that clearly communicate intent (`assert_receive`, `assert_in_delta`, etc.)
-      - Write one assertion per test when possible
-      - Include helpful error messages in assertions
-      - Test edge cases and error conditions, not just happy paths
-      
-      ## Mocking and Stubbing
-      - Use Mox for mocking behaviors and interfaces
-      - Prefer dependency injection to make code more testable
-      - Consider using ExMachina for factory patterns
-      - Use the built-in `ExUnit.CaptureLog` for testing logging
-      
-      ## Integration Tests
-      - Use Phoenix.ConnTest for testing HTTP endpoints
-      - Test your Ecto queries against an actual test database
-      - Use sandbox mode for database tests to ensure isolation
-      - Consider property-based testing with StreamData for complex input spaces
-      
-      ## Test Performance
-      - Keep tests fast to encourage running them frequently
-      - Use async: true to run tests in parallel when possible
-      - Avoid unnecessary database operations or external API calls
-      - Be mindful of test data volume
-      
-      ## Doctests
-      - Use doctests for simple function examples
-      - Keep doctests focused on demonstrating usage, not edge cases
-      - Ensure doctests are up-to-date with the actual code behavior
-      - Use doctests as living documentation
+      Format: <type>(<scope>): <description>
+
+      Types:
+      - feat: A new feature
+      - fix: A bug fix
+      - docs: Documentation only changes
+      - style: Changes that do not affect the meaning of the code
+      - refactor: A code change that neither fixes a bug nor adds a feature
+      - perf: A code change that improves performance
+      - test: Adding missing tests or correcting existing tests
+      - chore: Changes to the build process or auxiliary tools
+
+      The scope should be derived from the file path or affected component.
+      The description should be clear and concise, written in imperative mood.
 
 examples:
   - input: |
-      defmodule MyApp.UserTest do
-        use ExUnit.Case
-        
-        test "create user" do
-          user = MyApp.User.create("John", "john@example.com")
-          assert user.name == "John"
-          assert user.email == "john@example.com"
-          assert user.active == true
-          assert user.created_at != nil
-        end
-      end
-    output: |
-      defmodule MyApp.UserTest do
-        use ExUnit.Case, async: true
-        alias MyApp.User
-        
-        describe "create/2" do
-          test "creates a user with the given name and email" do
-            user = User.create("John", "john@example.com")
-            assert user.name == "John"
-            assert user.email == "john@example.com"
-          end
-          
-          test "sets default values for new users" do
-            user = User.create("John", "john@example.com")
-            assert user.active == true
-            assert %DateTime{} = user.created_at
-          end
-          
-          test "validates email format" do
-            assert {:error, :invalid_email} = User.create("John", "invalid-email")
-          end
-        end
-      end
-  
+      # After adding a new function
+      CHANGE_DESCRIPTION="add user authentication function"
+      FILE="src/auth/login.ts"
+    output: "feat(src-auth): add user authentication function"
+
   - input: |
-      defmodule MyApp.PaymentTest do
-        use ExUnit.Case
-        
-        test "process payment with external API" do
-          # Makes actual API call to payment processor
-          result = MyApp.Payment.process("4111111111111111", "123", "12/25", 100)
-          assert result.status == "success"
-        end
-      end
-    output: |
-      defmodule MyApp.PaymentTest do
-        use ExUnit.Case, async: true
-        
-        import Mox
-        
-        # Define mock in test_helper.exs:
-        # Mox.defmock(MockPaymentAPI, for: MyApp.PaymentAPI.Behaviour)
-        
-        setup :verify_on_exit!
-        
-        describe "process/4" do
-          test "processes a valid payment" do
-            expect(MockPaymentAPI, :charge, fn card_number, cvv, expiry, amount ->
-              assert card_number == "4111111111111111"
-              assert cvv == "123"
-              assert expiry == "12/25"
-              assert amount == 100
-              
-              {:ok, %{id: "pay_123", status: "success"}}
-            end)
-            
-            result = MyApp.Payment.process("4111111111111111", "123", "12/25", 100)
-            assert result.status == "success"
-          end
-          
-          test "handles API errors gracefully" do
-            expect(MockPaymentAPI, :charge, fn _, _, _, _ ->
-              {:error, :service_unavailable}
-            end)
-            
-            assert {:error, :payment_failed} = MyApp.Payment.process("4111111111111111", "123", "12/25", 100)
-          end
-        end
-      end
+      # After fixing a bug
+      CHANGE_DESCRIPTION="fix incorrect date parsing"
+      FILE="lib/utils/date.js"
+    output: "fix(lib-utils): fix incorrect date parsing"
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [ihorkatkov/brama](https://github.com/ihorkatkov/brama) — distributed by [TomeVault](https://tomevault.io).
