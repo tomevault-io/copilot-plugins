@@ -1,41 +1,40 @@
-## sdk-implementation
+## tech-requirements
 
-> This rule defines the implementation patterns for SDK packages in the AI Primitives platform.
+> This rule specifies the technology versions and requirements for the AI Primitives platform.
 
-# SDK Implementation Patterns
+# Technology Requirements
 
-This rule defines the implementation patterns for SDK packages in the AI Primitives platform.
+This rule specifies the technology versions and requirements for the AI Primitives platform.
 
 ## Applies to
-**/sdks/**/*.{ts,tsx,js,jsx}
+**/*.{ts,tsx,js,jsx,json}
 
 ## Rule
-### SDK Implementation Requirements
-- SDK implementations in `/sdks/` must maintain zero dependencies (except apis.do) to be publishable on npm
-- Backend implementations of SDK features should be placed in the `/tasks/` folder
-- When moving code from SDK to tasks, ensure all SDK files are completely reverted to maintain zero dependencies
-- Task implementations can use workspace-level dependencies (installed with -w flag)
-- Package entry points in package.json files should point to built files (e.g., dist/index.js) rather than source files
-- Use modern Node.js features (Node 20+ or 22+):
-  - Use built-in fetch instead of node-fetch or require('https')
-  - Avoid older Node.js built-in modules when modern alternatives exist
+### Core Technologies
+- TypeScript: ^5.7.3
+- Node.js: ^20 ||^22
+- Package Manager: pnpm ^9 || ^10
 
-### Versioning Strategy
-- Use semantic-release for version management across SDKs and packages
-- Packages in the `sdks` directory must maintain synchronized version numbers
-- Packages in the `pkgs` directory can be versioned independently
-- During API instability phase, restrict all automatic version increments to patch versions (0.0.x) only
-- All packages must be properly configured in pnpm-workspace.yaml
-- Package names must exactly match names in respective package.json files
+### Frontend
+- Next.js: ^15.2.4
+- React: ^19.0.0
+- React DOM: ^19.0.0
+- Vercel for deployment and preview environments
 
-### Agents.do Implementation Style
-```typescript
-export const agentName = new Agent({
-  name: "agent-name",
-  instructions: "Brief, clear instructions about the agent's role and purpose",
-  model: openai("model-name"),
-})
-```
+### Backend
+- Payload CMS: ^3.28.1
+- MongoDB (via @payloadcms/db-mongodb): latest
+- Cloudflare Workers (for APIs)
+- Hono: ^4.7.4
+- Zod: ^3.24.1
+- Composio for underlying infrastructure
+
+### Development Tools
+- ESLint: ^9.16.0
+- Prettier: ^3.5.3
+- TypeScript: ^5.7.3
+- Wrangler: ^4.2.0
+- Changesets for version management
 
 ---
 > Source: [drivly/ai](https://github.com/drivly/ai) — distributed by [TomeVault](https://tomevault.io).
