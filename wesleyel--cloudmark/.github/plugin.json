@@ -1,0 +1,9 @@
+{
+  "name": "wesleyel--cloudmark",
+  "displayName": "cloudmark",
+  "description": "A universal bookmarklet management tool. Created with cloudflare KV.",
+  "version": "1.0.0",
+  "author": "wesleyel",
+  "homepage": "https://github.com/wesleyel/cloudmark",
+  "skills": []
+}
