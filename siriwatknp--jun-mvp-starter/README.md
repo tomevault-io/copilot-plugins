@@ -2,6 +2,8 @@
 
 > Sourced from [siriwatknp/jun-mvp-starter](https://github.com/siriwatknp/jun-mvp-starter) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+A starter kit for MVP project with Next.js SSG, Line login, and Firebase.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
