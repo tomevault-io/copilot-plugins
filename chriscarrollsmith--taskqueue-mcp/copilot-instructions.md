@@ -1,57 +1,73 @@
-## mcp-clients
+## mcp-implementation
 
-> The SDK provides a high-level client interface:
+> The Model Context Protocol lets you build servers that expose data and functionality to LLM applications in a secure, standardized way. Think of it like a web API, but specifically designed for LLM interactions. MCP servers can:
 
-### Writing MCP Clients
+# MCP TypeScript SDK
 
-The SDK provides a high-level client interface:
+## What is MCP?
+
+The Model Context Protocol lets you build servers that expose data and functionality to LLM applications in a secure, standardized way. Think of it like a web API, but specifically designed for LLM interactions. MCP servers can:
+
+- Expose data through **Resources** (think of these sort of like GET endpoints; they are used to load information into the LLM's context)
+- Provide functionality through **Tools** (sort of like POST endpoints; they are used to execute code or otherwise produce a side effect)
+- Define interaction patterns through **Prompts** (reusable templates for LLM interactions)
+
+## Running Your Server
+
+MCP servers in TypeScript need to be connected to a transport to communicate with clients.
 
 ```typescript
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import {
+  ListPromptsRequestSchema,
+  GetPromptRequestSchema
+} from "@modelcontextprotocol/sdk/types.js";
 
-const transport = new StdioClientTransport({
-  command: "node",
-  args: ["server.js"]
-});
-
-const client = new Client(
+const server = new Server(
   {
-    name: "example-client",
+    name: "example-server",
     version: "1.0.0"
   },
   {
     capabilities: {
-      prompts: {},
-      resources: {},
-      tools: {}
+      prompts: {}
     }
   }
 );
 
-await client.connect(transport);
-
-// List prompts
-const prompts = await client.listPrompts();
-
-// Get a prompt
-const prompt = await client.getPrompt("example-prompt", {
-  arg1: "value"
+server.setRequestHandler(ListPromptsRequestSchema, async () => {
+  return {
+    prompts: [{
+      name: "example-prompt",
+      description: "An example prompt template",
+      arguments: [{
+        name: "arg1",
+        description: "Example argument",
+        required: true
+      }]
+    }]
+  };
 });
 
-// List resources
-const resources = await client.listResources();
-
-// Read a resource
-const resource = await client.readResource("file:///example.txt");
-
-// Call a tool
-const result = await client.callTool({
-  name: "example-tool",
-  arguments: {
-    arg1: "value"
+server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+  if (request.params.name !== "example-prompt") {
+    throw new Error("Unknown prompt");
   }
+  return {
+    description: "Example prompt",
+    messages: [{
+      role: "user",
+      content: {
+        type: "text",
+        text: "Example prompt text"
+      }
+    }]
+  };
 });
+
+const transport = new StdioServerTransport();
+await server.connect(transport);
 ```
 
 ---
