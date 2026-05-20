@@ -1,0 +1,9 @@
+{
+  "name": "bennypowers--design-tokens-language-server",
+  "displayName": "design-tokens-language-server",
+  "description": "Editor tools for working with design tokens",
+  "version": "1.0.0",
+  "author": "bennypowers",
+  "homepage": "https://github.com/bennypowers/design-tokens-language-server",
+  "skills": []
+}
