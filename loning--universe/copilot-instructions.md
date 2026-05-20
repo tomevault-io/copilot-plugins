@@ -1,64 +1,25 @@
-## theory-format
+## theory-maintenance
 
-> 理论内容标准格式
+> 理论体系自动维护
 
-此规则定义形式化理论文件的标准结构和格式要求，确保所有理论文件保持一致的组织方式。
+此规则用于自动维护整个理论体系的一致性，确保所有理论文件都符合格式要求并且保持同步。
 
-## 理论文件标准结构
-1. 标题（包含维度标注）
-2. 语言切换链接
-3. 目录/导航链接
-4. 版本号信息
-5. 理论概述/摘要
-6. 基本定义
-7. 公理系统
-8. 形式化操作
-9. 理论推导/证明
-10. 维度分析
-11. 理论应用（可选）
-12. 理论依赖关系
-13. 参考文献（可选）
+执行以下维护任务：
+1. 检查未索引文件并添加到索引（中英文）
+2. 更新所有理论文件中的维度信息
+3. 检查并修复中英文文档之间的链接关系
+4. 更新版本号到最新的宇宙本论版本号
+5. 重新排序索引文件中的理论列表（按维度从高到低）
+6. 生成或更新依赖关系图
 
-## 必备章节详细要求
+使用脚本：
+- [check_unindexed_files.py](mdc:tools/check_unindexed_files.py) - 检查未索引文件
+- [update_dimensions.py](mdc:tools/update_dimensions.py) - 更新维度信息
+- [fix_critical_links.py](mdc:tools/fix_critical_links.py) - 修复中英文链接
+- [reorder_theories.py](mdc:tools/reorder_theories.py) - 重排索引文件
+- [generate_theory_graph.py](mdc:tools/generate_theory_graph.py) - 生成理论依赖图
 
-### 标题格式
-```
-# 理论名称 [维度：X]
-```
-
-### 语言切换链接
-```
-**[中文版] | [English Version](formal_theory_xxx_en.md)**
-或
-**[Chinese Version](formal_theory_xxx.md) | [English Version]**
-```
-
-### 版本号信息
-```
-> 本文档采用宇宙本论版本号：v37.0
-```
-
-### 基本定义
-必须包含该理论的核心定义，使用形式化数学语言表达
-
-### 公理系统
-列出该理论的公理系统，并说明与XOR/SHIFT等基本操作的关系
-
-### 形式化操作
-详细阐述该理论支持的操作，包括操作规则和限制条件
-
-### 维度分析
-解释该理论的维度来源和计算方式，以及与低维度理论的关系
-
-### 理论依赖关系
-明确列出该理论依赖的其他理论，并提供链接
-
-## 格式规范
-- 使用Markdown格式
-- 数学公式使用LaTeX格式（$`数学公式`$）
-- 章节标题使用适当的层级（#、##、###等）
-- 保持简洁清晰的结构
-- 中英文版本结构保持一致
+维护周期：每次理论体系有重大更新时执行一次完整维护。
 
 ---
 > Source: [loning/universe](https://github.com/loning/universe) — distributed by [TomeVault](https://tomevault.io).
