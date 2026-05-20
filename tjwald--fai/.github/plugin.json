@@ -1,0 +1,9 @@
+{
+  "name": "tjwald--fai",
+  "displayName": "FAI",
+  "description": "Fast ML Inference Building Blocks Library in C#",
+  "version": "1.0.0",
+  "author": "tjwald",
+  "homepage": "https://github.com/tjwald/FAI",
+  "skills": []
+}
