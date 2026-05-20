@@ -1,0 +1,9 @@
+{
+  "name": "affaan-m--sol-onchain-analyst",
+  "displayName": "Sol-Onchain-Analyst",
+  "description": "Current working version of the Data Aggregator + Analyst agent in one solution via the CLI",
+  "version": "1.0.0",
+  "author": "affaan-m",
+  "homepage": "https://github.com/affaan-m/Sol-Onchain-Analyst",
+  "skills": []
+}
