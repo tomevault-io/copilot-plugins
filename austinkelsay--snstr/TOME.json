@@ -4,7 +4,7 @@
   "repo": "snstr",
   "description": "Secure Nostr Software Toolkit for Renegades",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AustinKelsay/snstr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:18:15Z"
+  "distributed_at": "2026-05-20T21:19:41Z"
 }
