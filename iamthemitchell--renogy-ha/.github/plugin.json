@@ -1,0 +1,9 @@
+{
+  "name": "iamthemitchell--renogy-ha",
+  "displayName": "renogy-ha",
+  "description": "Home Assistant integration for monitoring Renogy devices via BLE",
+  "version": "1.0.0",
+  "author": "IAmTheMitchell",
+  "homepage": "https://github.com/IAmTheMitchell/renogy-ha",
+  "skills": []
+}
