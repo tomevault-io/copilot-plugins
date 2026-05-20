@@ -1,0 +1,9 @@
+{
+  "name": "abegehr--chickadee",
+  "displayName": "chickadee",
+  "description": "Simple, privacy-focused web analytics you can self-host on Cloudflare.",
+  "version": "1.0.0",
+  "author": "abegehr",
+  "homepage": "https://github.com/abegehr/chickadee",
+  "skills": []
+}
