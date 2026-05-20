@@ -1,0 +1,9 @@
+{
+  "name": "vortiago--mcp-azure-devops",
+  "displayName": "mcp-azure-devops",
+  "description": "A Model Context Protocol (MCP) server enabling AI assistants to interact with Azure DevOps services via Python SDK.",
+  "version": "1.0.0",
+  "author": "Vortiago",
+  "homepage": "https://github.com/Vortiago/mcp-azure-devops",
+  "skills": []
+}
