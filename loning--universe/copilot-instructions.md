@@ -1,25 +1,34 @@
-## theory-maintenance
+## tools-management
 
-> 理论体系自动维护
+> 维护工具管理
 
-此规则用于自动维护整个理论体系的一致性，确保所有理论文件都符合格式要求并且保持同步。
+此规则用于指导理论体系维护工具的开发、改进和管理，确保所有工具高效运行且符合项目需求。
 
-执行以下维护任务：
-1. 检查未索引文件并添加到索引（中英文）
-2. 更新所有理论文件中的维度信息
-3. 检查并修复中英文文档之间的链接关系
-4. 更新版本号到最新的宇宙本论版本号
-5. 重新排序索引文件中的理论列表（按维度从高到低）
-6. 生成或更新依赖关系图
+维护工具应具备以下功能：
+1. 检查未索引文件
+2. 更新理论维度信息
+3. 修复中英文文档链接
+4. 生成理论依赖关系图
+5. 重排索引文件中的理论列表
+6. 同步中英文内容
+7. 检查并修复损坏的链接
+8. 版本号管理
 
-使用脚本：
-- [check_unindexed_files.py](mdc:tools/check_unindexed_files.py) - 检查未索引文件
-- [update_dimensions.py](mdc:tools/update_dimensions.py) - 更新维度信息
-- [fix_critical_links.py](mdc:tools/fix_critical_links.py) - 修复中英文链接
-- [reorder_theories.py](mdc:tools/reorder_theories.py) - 重排索引文件
-- [generate_theory_graph.py](mdc:tools/generate_theory_graph.py) - 生成理论依赖图
+工具开发原则：
+1. 模块化设计，每个工具专注于单一功能
+2. 提供清晰的命令行参数和帮助信息
+3. 有详细的错误处理和日志输出
+4. 支持批处理和单文件处理模式
+5. 代码注释充分，易于维护
 
-维护周期：每次理论体系有重大更新时执行一次完整维护。
+工具改进方向：
+1. 提高工具执行效率
+2. 增强错误检测和自动修复能力
+3. 改进理论依赖关系分析算法
+4. 添加维护报告生成功能
+5. 开发自动化测试和验证工具
+
+所有工具应放置在tools目录下，命名规范为：功能_动词.py，如check_unindexed_files.py。每个工具应有完整的使用说明，并记录更新历史。
 
 ---
 > Source: [loning/universe](https://github.com/loning/universe) — distributed by [TomeVault](https://tomevault.io).
