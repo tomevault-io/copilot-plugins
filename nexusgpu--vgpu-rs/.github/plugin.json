@@ -1,0 +1,9 @@
+{
+  "name": "nexusgpu--vgpu-rs",
+  "displayName": "vgpu.rs",
+  "description": "vgpu.rs is the fractional GPU & vgpu-hypervisor implementation written in Rust",
+  "version": "1.0.0",
+  "author": "NexusGPU",
+  "homepage": "https://github.com/NexusGPU/vgpu.rs",
+  "skills": []
+}
