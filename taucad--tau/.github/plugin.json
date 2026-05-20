@@ -1,0 +1,14 @@
+{
+  "name": "taucad--tau",
+  "displayName": "tau",
+  "description": "The AI-native CAD platform",
+  "version": "1.0.0",
+  "author": "taucad",
+  "homepage": "https://github.com/taucad/tau",
+  "skills": [
+    {
+      "name": "pr-review-coordinator",
+      "description": ""
+    }
+  ]
+}
