@@ -1,0 +1,9 @@
+{
+  "name": "riemannzeta--patent-mcp-server",
+  "displayName": "patent_mcp_server",
+  "description": "FastMCP Server for USPTO data",
+  "version": "1.0.0",
+  "author": "riemannzeta",
+  "homepage": "https://github.com/riemannzeta/patent_mcp_server",
+  "skills": []
+}
