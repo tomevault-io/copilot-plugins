@@ -7,11 +7,11 @@ God's chosen objectively true one and only vibecoding template
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [di-sukharev/vibe](https://github.com/di-sukharev/vibe).
+Original source: `CLAUDE.md` in [di-sukharev/vibe](https://github.com/di-sukharev/vibe).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
