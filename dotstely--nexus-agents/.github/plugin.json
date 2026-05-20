@@ -1,0 +1,9 @@
+{
+  "name": "dotstely--nexus-agents",
+  "displayName": "nexus-agents",
+  "description": "A distributed multi-modal agent orchestration framework implementing advanced natural language processing, computer vision, and audio processing capabilities through a microservices architecture.",
+  "version": "1.0.0",
+  "author": "dotstely",
+  "homepage": "https://github.com/dotstely/nexus-agents",
+  "skills": []
+}
