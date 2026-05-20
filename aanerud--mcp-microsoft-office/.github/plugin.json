@@ -1,0 +1,9 @@
+{
+  "name": "aanerud--mcp-microsoft-office",
+  "displayName": "MCP-Microsoft-Office",
+  "description": "an local MCP server you can run on your env, connecting you to Microsoft Graph, and the complete M365 eco system.",
+  "version": "1.0.0",
+  "author": "Aanerud",
+  "homepage": "https://github.com/Aanerud/MCP-Microsoft-Office",
+  "skills": []
+}
