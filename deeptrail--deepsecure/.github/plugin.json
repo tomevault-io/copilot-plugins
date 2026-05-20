@@ -1,0 +1,9 @@
+{
+  "name": "deeptrail--deepsecure",
+  "displayName": "deepsecure",
+  "description": "Effortlessly secure your AI agents and AI-powered workflows \u2014 from prototype to production. Get easy-to-use identity, credential, and access management built for fast-moving AI developers.",
+  "version": "1.0.0",
+  "author": "DeepTrail",
+  "homepage": "https://github.com/DeepTrail/deepsecure",
+  "skills": []
+}
