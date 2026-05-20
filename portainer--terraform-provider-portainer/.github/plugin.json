@@ -1,0 +1,9 @@
+{
+  "name": "portainer--terraform-provider-portainer",
+  "displayName": "terraform-provider-portainer",
+  "description": "Portainer Terraform provider",
+  "version": "1.0.0",
+  "author": "portainer",
+  "homepage": "https://github.com/portainer/terraform-provider-portainer",
+  "skills": []
+}
