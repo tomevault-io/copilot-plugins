@@ -1,0 +1,9 @@
+{
+  "name": "realmorrisliu--openrouter-rs",
+  "displayName": "openrouter-rs",
+  "description": "A type-safe OpenRouter Rust SDK.",
+  "version": "1.0.0",
+  "author": "realmorrisliu",
+  "homepage": "https://github.com/realmorrisliu/openrouter-rs",
+  "skills": []
+}
