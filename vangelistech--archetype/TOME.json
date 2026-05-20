@@ -4,7 +4,7 @@
   "repo": "archetype",
   "description": "An AI-Native ECS Simulation Engine combining the composibility of Pydantic with the distributed processing power of Daft Dataframes and Multi-Modal Big Data storage with LanceDB",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/VangelisTech/archetype",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:10:59Z"
+  "distributed_at": "2026-05-20T21:05:05Z"
 }
