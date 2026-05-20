@@ -1,0 +1,9 @@
+{
+  "name": "veriteknik--pluggedin-app",
+  "displayName": "pluggedin-app",
+  "description": "The Crossroads for AI Data Exchanges. A unified, self-hostable web interface for discovering, configuring, and managing Model Context Protocol (MCP) servers\u2014bringing together AI tools, workspaces, pro",
+  "version": "1.0.0",
+  "author": "VeriTeknik",
+  "homepage": "https://github.com/VeriTeknik/pluggedin-app",
+  "skills": []
+}
