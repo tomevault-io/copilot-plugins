@@ -1,0 +1,9 @@
+{
+  "name": "nerivec--zigbee-on-host",
+  "displayName": "zigbee-on-host",
+  "description": "Open Source ZigBee stack designed to run on a host and communicate with a radio co-processor (RCP)",
+  "version": "1.0.0",
+  "author": "Nerivec",
+  "homepage": "https://github.com/Nerivec/zigbee-on-host",
+  "skills": []
+}
