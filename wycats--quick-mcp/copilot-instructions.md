@@ -1,82 +1,97 @@
-## ci-cd
+## index
 
-> This document outlines the continuous integration and deployment workflows used in the MCPify project.
+> Welcome to the MCP-ify project. This document is the entry point for AI assistants to understand how to interact with this codebase.
 
 
-# CI/CD Workflows
+# MCP-ify LLM Guidance
 
-This document outlines the continuous integration and deployment workflows used in the MCPify project.
+Welcome to the MCP-ify project. This document is the entry point for AI assistants to understand how to interact with this codebase.
 
-## GitHub Actions Workflows
+## Getting Started
 
-The project uses GitHub Actions for CI/CD, with workflows defined in the `.github/workflows` directory:
+1. Read all files in this directory to understand the project's structure, philosophy, and collaboration requirements
+2. Follow the principles in `PRINCIPLES.md` when developing solutions
+3. Use `structure.md` to understand the organization of the codebase
+4. Consult `testing.md` for testing patterns and practices used in this project
 
-### Main Workflows
+## LLM Interaction Workflow
 
-1. **PR Validation (`pr-validation.yml`)**
-   - Validates pull requests with:
-     - Linting checks
-     - Type checking for all packages
-     - Test execution
-     - Build verification
-     - Code coverage reporting to Codecov
-   - Ensures PR titles follow Conventional Commits format
+When working with this codebase, follow this workflow for productive AI-human collaboration:
 
-2. **Plan Release (`plan-release.yml`)**
-   - Triggered on changes to main branch
-   - Checks for changes in the release plan
-   - Creates release PRs based on those changes
+1. **Understand First, Suggest Later**
 
-3. **Publish Release (`publish-release.yml`)**
-   - Triggered on changes to `.release-plan.json` or manually
-   - Runs tests and builds packages
-   - Publishes packages to npm with provenance
-   - Updates GitHub releases and changelog
+   - Take time to explore and understand existing code patterns before offering suggestions
+   - Study the test files to understand intended behavior and edge cases
+   - Recognize the intent behind code organization rather than just its literal structure
 
-4. **CI (`ci.yml`)**
-   - Runs on push events
-   - Performs linting, type checking, and testing
+2. **Iterative Exploration**
 
-## Standard Setup
+   - Start with broad exploration to understand the overall architecture
+   - Progressively narrow focus to the specific components relevant to the task
+   - Articulate your understanding before making recommendations
 
-All workflows use standardized setup steps:
+3. **Respect the Established Patterns**
 
-```yaml
-- uses: actions/checkout@v4
-  with:
-    fetch-depth: 0
+   - Match existing coding style, naming conventions, and architectural decisions
+   - Use the same patterns for error handling, types, and testing as the existing code
+   - Diverge from established patterns only when explicitly requested
 
-- uses: wyvox/action-setup-pnpm@v3
-  with:
-    node-version: 18
-```
+4. **Collaboration Mode**
 
-## Environment Variables
+   - Assume a pair programming mindset where you're a thoughtful collaborator
+   - Provide reasoning behind your suggestions, not just the solutions
+   - Ask clarifying questions when intent is unclear, rather than making assumptions
+   - When facing multiple viable approaches, present options with pros and cons
 
-Key environment variables used in workflows:
+5. **Contextual Awareness**
 
-- `GITHUB_TOKEN`: Used for GitHub API access (automatically provided)
-- `NPM_TOKEN`: Required for npm publishing (stored as a repository secret)
+   - Consider how your suggestions fit within the broader codebase
+   - Pay attention to performance, maintainability, and compatibility concerns
+   - Show awareness of TypeScript best practices and type safety
 
-## Code Coverage
+6. **Respect Human Cognitive Process**
+   - Give human collaborators time to absorb new code before adding more
+   - Recognize that humans excel at creating high-level abstractions and patterns
+   - Allow for consolidation phases where humans can refactor and integrate new concepts
+   - Pause for feedback rather than generating large amounts of code at once
 
-Test coverage is generated using Istanbul and reported to Codecov:
+## Project Overview
 
-```yaml
-- name: Upload coverage reports to Codecov
-  uses: codecov/codecov-action@v3
-  with:
-    files: './coverage/coverage-final.json'
-```
+MCP-ify is a TypeScript monorepo that converts OpenAPI specifications to Model Context Protocol (MCP) tools dynamically. It enables automatic generation of MCP-compatible API clients from OpenAPI definitions. When interacting with this codebase, prioritize:
 
-## Best Practices
+- Understanding existing patterns before suggesting changes
+- Maintaining consistency with the established architecture
+- Following the TypeScript practices demonstrated in the existing code
+- Reading test files to understand component behavior and expectations
 
-When modifying workflows:
+## Important Files
 
-1. Maintain consistent setup steps across all workflows
-2. Ensure all necessary checks run before merging PRs
-3. Keep security-sensitive tokens as repository secrets
-4. Use descriptive job and step names for clarity
+- `package.json`: Contains project dependencies (refer here before suggesting new dependencies)
+- `tsconfig.json`: TypeScript configuration
+- `packages/core`: Core functionality including parameter mapping, request building, and OpenAPI parsing
+- `packages/demo`: Implementation examples that showcase the library's usage
+
+## Collaboration Approach
+
+When asked to help with this codebase:
+
+1. First explore the current implementation of related features
+2. Propose solutions that align with existing patterns
+3. Explain the reasoning behind your approach
+4. Ask questions when the requirements or implementation details are unclear
+
+## File-Specific Guidance
+
+Each guidance file has a specific purpose:
+
+- **types.md**: Documents TypeScript patterns and coding conventions
+- **principles.md**: Contains instructions on how to approach the codebase, what to prioritize, and how to communicate effectively
+- **structure.md**: Explains the project organization, build process, and development workflow
+- **testing-basics.md** and **testing-advanced.md**: Outline testing guidelines, including dependency injection patterns and test structure
+- **workflow.md**: Documents Git workflow practices, including commit message conventions and techniques
+- **ci-cd.md**: Details the continuous integration and deployment workflows used in the project
+
+Review these files before making suggestions or changes to ensure alignment with the project's practices.
 
 ---
 > Source: [wycats/quick-mcp](https://github.com/wycats/quick-mcp) — distributed by [TomeVault](https://tomevault.io).
