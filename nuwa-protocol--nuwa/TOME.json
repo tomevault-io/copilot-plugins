@@ -1,0 +1,57 @@
+{
+  "name": "nuwa",
+  "owner": "nuwa-protocol",
+  "repo": "nuwa",
+  "description": "The mono repo for all Nuwa AI protocols and products",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "public",
+      "path": "nuwa-services/cadop-service/packages/cadop-web/public",
+      "github_url": "https://github.com/nuwa-protocol/nuwa/tree/main/nuwa-services/cadop-service/packages/cadop-web/public",
+      "description": ""
+    },
+    {
+      "name": "did-auth-agent",
+      "path": "nuwa-kit/typescript/examples/did-auth-agent",
+      "github_url": "https://github.com/nuwa-protocol/nuwa/tree/main/nuwa-kit/typescript/examples/did-auth-agent",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nuwa-protocol/nuwa",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T12:32:06Z"
+}
