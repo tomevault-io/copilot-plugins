@@ -1,0 +1,9 @@
+{
+  "name": "metadist--synaplan",
+  "displayName": "synaplan",
+  "description": "Our AI framework for PHP8.4 and higher. Talk to various models and get a chat window with it",
+  "version": "1.0.0",
+  "author": "metadist",
+  "homepage": "https://github.com/metadist/synaplan",
+  "skills": []
+}
