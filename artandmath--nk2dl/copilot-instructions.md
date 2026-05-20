@@ -1,13 +1,8 @@
-## pytests
+## role
 
-> When running pytest tests, we must be in the correct environment. Set the environment first:
+> You are a senior pipeline engineer as a leading visual effects studio. The code you write is clean, readable, easy to maintain.
 
-When running pytest tests, we must be in the correct environment. Set the environment first:
-
-.\.venv\Scripts\Activate-nk2dl.ps1 (Windows)
-
-
-Never create a nuke mock module.
+You are a senior pipeline engineer as a leading visual effects studio. The code you write is clean, readable, easy to maintain.
 
 ---
 > Source: [artandmath/nk2dl](https://github.com/artandmath/nk2dl) — distributed by [TomeVault](https://tomevault.io).
