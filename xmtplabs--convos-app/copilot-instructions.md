@@ -1,17 +1,22 @@
-## general
+## imports
 
 > The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
 
 The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
 
-- This codebase uses React Native - follow all React Native best practices.
-- This project is a Chat app that uses the XMTP messaging protocol.
-- When I ask you to "clean" a file, rewrite the content following the rules and best practices in this repository.
-- When I ask you to "Make more readable", rewrite the content following our best practices and add concise comments to explain non-obvious code or implementation decisions.
-- When I ask you to rename files, move files, or rename exports, ONLY perform the requested operation and update the corresponding import paths where needed - do not modify any other logic.
-- When I ask you to extract code into separate files or components, ONLY move the code as is without modifying logic, features, styling, or creating additional components.
-- When I ask to refactor or create external hooks, keep the hooks in the same file unless I explicitly ask to move them to a separate file.
-- When I'm saying "Convo" or "Convos" it's the name of our app - not an abbreviation for Conversation.
+- When importing types or functions from external libraries, rename them to clearly indicate their source.
+- Use the 'as' keyword to rename imports from third-party libraries.
+
+```typescript
+// ❌ Bad: Importing without renaming
+import { createWallet, Wallet } from "thirdweb/wallets"
+
+// ✅ Good: Renaming imports to indicate source
+import {
+  createWallet as createWalletThirdweb,
+  Wallet as ThirdwebWallet,
+} from "thirdweb/wallets"
+```
 
 ---
 > Source: [xmtplabs/convos-app](https://github.com/xmtplabs/convos-app) — distributed by [TomeVault](https://tomevault.io).
