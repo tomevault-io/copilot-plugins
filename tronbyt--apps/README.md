@@ -7,14 +7,14 @@ Hard Fork of Tidbyt Community Repo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [tronbyt/apps](https://github.com/tronbyt/apps).
+Original source: `AGENTS.md` in [tronbyt/apps](https://github.com/tronbyt/apps).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [tronbyt/apps](https://github.com/tronbyt/apps) — a repo with 41+ stars on GitHub.
