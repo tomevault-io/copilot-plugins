@@ -1,0 +1,9 @@
+{
+  "name": "dash0hq--dash0-sdk-web",
+  "displayName": "dash0-sdk-web",
+  "description": "Dash0's web SDK to collect telemetry from end-users",
+  "version": "1.0.0",
+  "author": "dash0hq",
+  "homepage": "https://github.com/dash0hq/dash0-sdk-web",
+  "skills": []
+}
