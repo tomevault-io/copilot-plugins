@@ -2,9 +2,9 @@
   "name": "kube-dc-public",
   "owner": "kube-dc",
   "repo": "kube-dc-public",
-  "description": "",
+  "description": "Installers, Helm charts, Deployments and other resources",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kube-dc/kube-dc-public",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T10:52:48Z"
+  "distributed_at": "2026-05-20T12:46:31Z"
 }
