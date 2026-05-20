@@ -1,0 +1,9 @@
+{
+  "name": "chriscarrollsmith--taskqueue-mcp",
+  "displayName": "taskqueue-mcp",
+  "description": "MCP tool for exposing a structured task queue to guide AI agent workflows. Great for taming an over-enthusiastic Claude. ",
+  "version": "1.0.0",
+  "author": "chriscarrollsmith",
+  "homepage": "https://github.com/chriscarrollsmith/taskqueue-mcp",
+  "skills": []
+}
