@@ -1,72 +1,62 @@
 ## archipy
 
-> ArchiPy clean architecture layer rules — where code lives and how layers interact
+> make format   # Ruff formatter (fixes in place)
 
+# ArchiPy Agent Instructions
 
-# Architecture Patterns
+## Quick Commands
 
-ArchiPy follows **Clean Architecture** with four strictly separated layers.
+```bash
+make format   # Ruff formatter (fixes in place)
+make lint    # Ruff linter + ty type checker
+make behave  # Run all BDD tests
+make check   # format + lint + security + tests
+make ci      # Full CI pipeline locally
+```
 
-## Layer Map
+## Essential Facts
+
+- **Python 3.14+ required** — not 3.x
+- Package manager: **UV** (never `pip install` directly)
+- Tests: **Behave** BDD framework (not pytest)
+- Run single test file: `uv run --extra behave behave features/redis_adapter.feature`
+
+## Architecture
 
 ```
 archipy/
-├── models/       # Domain layer — data structures only
-│   ├── entities/   # Domain model objects (SQLAlchemy/Pydantic)
-│   ├── dtos/       # Data Transfer Objects for API input/output
-│   ├── errors/     # Custom exception classes
-│   └── types/      # Enumerations and type definitions
-├── adapters/     # Infrastructure layer — external integrations
-├── helpers/      # Support layer — pure utilities and cross-cutting concerns
-└── configs/      # Configuration layer — environment-based settings
+├── models/      # Domain layer — entities, DTOs, errors
+├── adapters/    # Infrastructure — external integrations
+├── helpers/    # Utilities, decorators, interceptors
+└── configs/    # pydantic-settings config
 ```
 
-## Layer Rules
+Import direction (one-way): `configs ← models ← helpers ← adapters`
 
-### `models/` — Domain Layer
-- Contains **data structures only** — no business logic, no I/O.
-- Entities use SQLAlchemy or Pydantic; DTOs use Pydantic `BaseModel`.
-- Errors must subclass the project's `BaseError`.
+## Key Conventions
 
-### `adapters/` — Infrastructure Layer
-- Follows **Ports & Adapters** pattern.
-- Every adapter directory must have a `ports.py` (abstract interface) and a `mocks.py` (test double).
-- Adapters may import from `models/` and `configs/` — never from `helpers/decorators` at module level (use lazy imports to avoid circular imports).
+- **Double quotes only** — Ruff enforces this
+- **Google-style docstrings** on public functions
+- Max line length: 120 characters
+- McCabe complexity: max 10 per function
 
-### `helpers/` — Support Layer
-- Pure utilities: no direct external I/O, no database calls.
-- Sub-packages: `utils/`, `decorators/`, `interceptors/`, `metaclasses/`.
-- Decorators must not know about specific adapter implementations.
+## Testing
 
-### `configs/` — Configuration Layer
-- All config classes must extend `pydantic_settings.BaseSettings`.
-- Configuration loaded from environment variables or `.env` files.
-- No hardcoded secrets; use `.env.example` to document required variables.
+- BDD steps use native `async def` (no `asyncio.run()` wrapper)
+- Parallel execution: 8 workers (multiprocessing)
+- Steps must not share mutable global state
 
-## Import Direction (one-way only)
+## Dev Setup
 
-```
-configs  ←  models  ←  helpers  ←  adapters
+```bash
+make install-dev   # Install all deps + pre-commit hooks
+make pre-commit  # Run hooks manually
 ```
 
-- `adapters` may import from `models`, `configs`, `helpers`.
-- `helpers` may import from `models`, `configs`.
-- `models` may import from `configs` only.
-- **Never** import upward (e.g., `models` importing from `adapters`).
+## Linting Exclusions
 
-## Lazy Imports for Optional Dependencies
-
-Lazy imports are only permitted in `archipy/helpers/` (e.g., `helpers/utils/`, `helpers/decorators/`, `helpers/interceptors/`). Use them inside functions/methods — never at module level — to avoid `ImportError` when an optional extra is not installed:
-
-```python
-# ✅ GOOD — lazy import inside a helper utility function
-def encode_jwt(payload: dict) -> str:
-    import jwt  # noqa: PLC0415
-    return jwt.encode(payload, ...)
-```
-
-Adapters **must not** use lazy imports to guard optional dependencies; instead, each adapter lives under its own optional extra and is only imported when that extra is installed.
+`features/` and `scripts/` are excluded from Ruff linting.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/SyntaxArc) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [SyntaxArc/ArchiPy](https://github.com/SyntaxArc/ArchiPy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
