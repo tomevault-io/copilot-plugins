@@ -1,0 +1,9 @@
+{
+  "name": "bobmatnyc--ai-code-review",
+  "displayName": "ai-code-review",
+  "description": "AI-powered code review CLI with multiple providers (Gemini, Claude, OpenAI). Features 95%+ token reduction via semantic chunking, 7 review types (security/performance/evaluation), multi-language suppo",
+  "version": "1.0.0",
+  "author": "bobmatnyc",
+  "homepage": "https://github.com/bobmatnyc/ai-code-review",
+  "skills": []
+}
