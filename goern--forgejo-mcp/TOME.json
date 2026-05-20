@@ -4,7 +4,7 @@
   "repo": "forgejo-mcp",
   "description": "MIRROR ONLY!! This Model Context Protocol (MCP) server provides tools and resources for interacting with the Forgejo (specifically Codeberg.org) REST API.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/goern/forgejo-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T23:12:53Z"
+  "distributed_at": "2026-05-20T05:07:46Z"
 }
