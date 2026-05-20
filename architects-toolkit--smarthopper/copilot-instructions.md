@@ -1,35 +1,28 @@
-## refactor-stop-and-confirm
+## solution-structure
 
-> Only for /src/**. Duplicated code with diverging logic paths that cannot be reconciled without a refactor. Enum/flag contradictions or mismatched defaults that change behavior. Divergent implementations of the same contract in different modules.
+> - `SmartHopper.Core`: Core UI, component base classes, chat UI host, context providers, and shared component infrastructure.
 
 
-# Incoherence gate and stop-processing policy
+# Solution structure
 
-Use this rule with `code-dedup-architecture.md`. It exists to prevent local fixes that hide architectural contradictions.
+- `SmartHopper.Core`: Core UI, component base classes, chat UI host, context providers, and shared component infrastructure.
+- `SmartHopper.Core.Grasshopper`: Grasshopper-specific utilities, converters, canvas helpers, GhJSON integration, and AI tool definitions.
+- `SmartHopper.Components`: Production Grasshopper components. Components generally inherit from base classes in `SmartHopper.Core/ComponentBase`.
+- `SmartHopper.Components.Test`: Test-only Grasshopper components. This project is not built in Release and must not contain production components.
+- `SmartHopper.Infrastructure`: Provider manager, model manager, context manager, AI tool manager, AICall contracts, settings, dialogs, security, and shared infrastructure.
+- `SmartHopper.Menu`: Rhino/Grasshopper menu bar setup and settings entry points.
+- `SmartHopper.Infrastructure.Tests`, `SmartHopper.Core.Tests`, `SmartHopper.Core.Grasshopper.Tests`: xUnit test projects. Avoid tests that require Rhino runtime licensing.
+- `SmartHopper.Providers.*`: AI provider plugin projects. Each provider owns API-specific request/response adaptation while using infrastructure contracts.
 
-## Stop immediately when
+## Placement rule
 
-- Duplicated code has diverging behavior and the correct shared behavior is unclear.
-- Enum values, flags, schema keys, defaults, or settings contradict each other across modules.
-- Different providers, tools, or components implement the same contract with incompatible semantics.
-- A fix would require breaking a public API, component contract, persisted data format, tool schema, or provider response shape.
+Put shared logic at the highest layer that owns the concern:
 
-## Assistant behavior
-
-1. Emit a clear warning with concrete evidence:
-   - File paths.
-   - Symbols or schema keys.
-   - Short snippets or behavior summaries.
-2. Stop further edits in the affected area.
-3. Ask for explicit confirmation and present:
-   - The minimal coherent fix.
-   - The broader refactor option.
-   - Risk level: non-breaking or breaking.
-4. Resume only after user confirmation, or keep the change targeted and localized if the user declines refactoring.
-
-## Default preference
-
-Prefer parent/base extraction for confirmed duplication fixes, but do not force provider-specific or platform-specific quirks into a shared abstraction if it would obscure behavior.
+- Core UI/component behavior → `SmartHopper.Core`.
+- Grasshopper canvas, data tree, and GhJSON behavior → `SmartHopper.Core.Grasshopper`.
+- End-user component wiring → `SmartHopper.Components`.
+- Provider/model/context/tool orchestration and settings → `SmartHopper.Infrastructure`.
+- API-specific quirks → the matching `SmartHopper.Providers.<Name>` project.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
