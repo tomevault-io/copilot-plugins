@@ -1,0 +1,9 @@
+{
+  "name": "eyevinn--moqlivemock",
+  "displayName": "moqlivemock",
+  "description": "Test application simulating a live MoQ video+audio publisher. Includes a subscriber app.",
+  "version": "1.0.0",
+  "author": "Eyevinn",
+  "homepage": "https://github.com/Eyevinn/moqlivemock",
+  "skills": []
+}
