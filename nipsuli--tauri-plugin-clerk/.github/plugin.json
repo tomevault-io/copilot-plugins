@@ -1,0 +1,9 @@
+{
+  "name": "nipsuli--tauri-plugin-clerk",
+  "displayName": "tauri-plugin-clerk",
+  "description": "Official community maintained Clerk SDK for Tauri",
+  "version": "1.0.0",
+  "author": "Nipsuli",
+  "homepage": "https://github.com/Nipsuli/tauri-plugin-clerk",
+  "skills": []
+}
