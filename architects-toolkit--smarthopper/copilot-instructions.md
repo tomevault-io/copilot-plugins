@@ -1,37 +1,16 @@
-## data-tree-processing
+## documentation-and-changelog
 
-> When adding or changing Grasshopper components, workers, data-tree handling, branch matching, grafting, flattening, broadcasting, or output paths
+> - Keep `/docs` synchronized with architectural and behavioral changes in `src/`.
 
 
-# Data-tree processing
+# Documentation and changelog
 
-Use `DataTreeProcessor` as the single source of truth for Grasshopper data-tree mechanics.
-
-## Responsibilities
-
-- Components define UI contracts, parameters, options, state, and processing intent.
-- Workers gather inputs, prepare semantic data, call runner APIs, report progress, and set persistent outputs.
-- `DataTreeProcessor` handles paths, branch matching, grouping, length normalization, grafting, flattening, and output path strategies.
-- Tool/model calls process one logical unit and should not know about `GH_Path` fan-out unless the tool's purpose is explicitly data-tree manipulation.
-
-## Processing topology
-
-Choose a `ProcessingTopology` instead of writing custom branch loops:
-
-- `ItemToItem`: each input item creates a corresponding output item at the same path/index.
-- `ItemGraft`: each item creates its own output branch.
-- `BranchToBranch`: each branch is one logical unit and keeps its path.
-- `BranchFlatten`: each branch is one logical unit and outputs to a flattened result.
-
-## Broadcasting expectations
-
-Flat `{0}` trees have special broadcasting behavior:
-
-- A single flat `{0}` tree does not broadcast to another single same-depth path such as `{1}`.
-- It broadcasts when the other input has multiple same-depth paths or deeper/mixed topology.
-- A direct `{0}` match with deeper `{0;...}` paths matches only `{0}` unless multiple top-level paths trigger broadcasting.
-
-See `docs/Components/ComponentBase/DataTreeProcessingSchema.md` and `docs/Components/ComponentBase/FlatTreeBroadcasting.md`.
+- Keep `/docs` synchronized with architectural and behavioral changes in `src/`.
+- Organize `/docs` in meaningful folders. Each folder should have an `index.md` that links to child pages with relative Markdown links.
+- Prefer concise, AI-friendly documentation: relationships, contracts, data flows, decisions, and gotchas over long prose.
+- Log user-visible, API, architecture, component, provider, tool, workflow, and security changes in `CHANGELOG.md` under `[Unreleased]` using Keep a Changelog sections: Added, Changed, Deprecated, Removed, Fixed, Security.
+- Use `.github/PULL_REQUEST_TEMPLATE.md` for PR bodies and Conventional Commit style for PR titles.
+- Add XML docstrings to C# members; use `<inheritdoc/>` when a parent/interface member already has accurate documentation.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
