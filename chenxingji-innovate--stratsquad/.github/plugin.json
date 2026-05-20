@@ -1,0 +1,9 @@
+{
+  "name": "chenxingji-innovate--stratsquad",
+  "displayName": "stratsquad",
+  "description": "Multi-agent game-industry strategy copilot. Orchestrator + 4 parallel sub-agents + judge + composer, powered by DeepSeek V4. Chinese RAG over a game-industry corpus with BGE-M3 embeddings and a labele",
+  "version": "1.0.0",
+  "author": "ChenxingJi-Innovate",
+  "homepage": "https://github.com/ChenxingJi-Innovate/stratsquad",
+  "skills": []
+}
