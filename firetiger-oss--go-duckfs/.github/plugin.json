@@ -1,0 +1,9 @@
+{
+  "name": "firetiger-oss--go-duckfs",
+  "displayName": "go-duckfs",
+  "description": "DuckDB virtual file system based on io/fs",
+  "version": "1.0.0",
+  "author": "firetiger-oss",
+  "homepage": "https://github.com/firetiger-oss/go-duckfs",
+  "skills": []
+}
