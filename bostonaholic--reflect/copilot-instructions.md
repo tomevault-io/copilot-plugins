@@ -1,50 +1,50 @@
-## simplicity
+## testing
 
-> - Follow consistent file structure
+> - Organize tests by feature/component
 
-# Code Simplicity and Maintainability Rules
+# Testing Rules
 
-## Code Organization
-- Follow consistent file structure
-- Use meaningful file and directory names
-- Implement proper separation of concerns
-- Keep files focused and single-purpose
-- Use appropriate module boundaries
+## Test Organization
+- Organize tests by feature/component
+- Use consistent test file naming
+- Implement proper test hierarchy
+- Use appropriate test categories
+- Maintain test directory structure
 
-## Code Style
-- Follow consistent naming conventions
-- Use clear and descriptive variable names
-- Keep functions small and focused
-- Use appropriate comments
-- Follow DRY (Don't Repeat Yourself) principle
+## Test Quality
+- Write clear and descriptive test names
+- Follow AAA pattern (Arrange, Act, Assert)
+- Test one concept per test
+- Use appropriate assertions
+- Implement proper test isolation
 
-## Code Quality
-- Maintain consistent code formatting
-- Remove unused code
-- Handle edge cases
-- Use appropriate abstraction levels
-- Implement proper error handling
+## Test Coverage
+- Maintain appropriate test coverage
+- Focus on critical paths
+- Test edge cases
+- Include error scenarios
+- Test integration points
 
-## Documentation
-- Write clear documentation
-- Keep documentation up to date
-- Include usage examples
-- Document complex algorithms
-- Maintain API documentation
+## Test Performance
+- Keep tests fast
+- Use appropriate test fixtures
+- Implement proper mocking
+- Use test databases
+- Implement parallel test execution
 
-## Testing
-- Write maintainable tests
-- Use descriptive test names
-- Follow test organization best practices
-- Implement proper test coverage
-- Use appropriate testing patterns
+## Test Maintenance
+- Keep tests up to date
+- Remove obsolete tests
+- Refactor tests when needed
+- Document test requirements
+- Review test code quality
 
-## Refactoring
-- Refactor when code smells are detected
-- Keep refactoring changes small
-- Maintain test coverage during refactoring
-- Document major refactoring changes
-- Review refactoring changes carefully
+## Test Tools
+- Use appropriate testing frameworks
+- Implement proper test runners
+- Use code coverage tools
+- Implement test reporting
+- Use test automation tools
 
 ---
 > Source: [bostonaholic/reflect](https://github.com/bostonaholic/reflect) — distributed by [TomeVault](https://tomevault.io).
