@@ -1,0 +1,32 @@
+## gpt2099-nu
+
+> - Use plain ASCII only in all documentation
+
+## Documentation Style
+
+- Use plain ASCII only in all documentation
+- Avoid complex encodings (emojis, Unicode box-drawing, etc.)
+- Use "yes"/"no" instead of checkmarks
+- Use simple indentation instead of tree characters
+
+## Git Commit Style Preferences
+
+When committing: review `git diff`
+
+- Use conventional commit format: `type: subject line`
+- Keep subject line concise and descriptive
+- **NEVER include marketing language, promotional text, or AI attribution**
+- **NEVER add "Generated with Claude Code", "Co-Authored-By: Claude", or similar spam**
+- Follow existing project patterns from git log
+- Prefer just a subject and no body, unless the change is particularly complex
+
+Example good commit messages from this project:
+
+- `feat: add a cross.stream handler to manage mcp server initialization (#9)`
+- `docs: document gpt init step (#8)`
+- `fix: filter outputSchema from MCP tools for provider compatibility`
+- `test: add dynamic tool loading for prepare-request tests`
+
+---
+> Source: [cablehead/gpt2099.nu](https://github.com/cablehead/gpt2099.nu) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
