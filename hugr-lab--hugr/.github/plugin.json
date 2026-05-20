@@ -1,0 +1,9 @@
+{
+  "name": "hugr-lab--hugr",
+  "displayName": "hugr",
+  "description": "The Hugr service",
+  "version": "1.0.0",
+  "author": "hugr-lab",
+  "homepage": "https://github.com/hugr-lab/hugr",
+  "skills": []
+}
