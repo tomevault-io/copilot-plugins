@@ -1,0 +1,9 @@
+{
+  "name": "estevaom--markdown-journal-rust",
+  "displayName": "markdown-journal-rust",
+  "description": "RAG to index md files accessible via Rust scripts",
+  "version": "1.0.0",
+  "author": "estevaom",
+  "homepage": "https://github.com/estevaom/markdown-journal-rust",
+  "skills": []
+}
