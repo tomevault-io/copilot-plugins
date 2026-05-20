@@ -1,0 +1,9 @@
+{
+  "name": "dohyeondk--sub-tools",
+  "displayName": "sub-tools",
+  "description": "A robust Python toolkit for converting video/audio content into accurate, multilingual subtitles using WhisperX for transcription and Google's Gemini API for proofreading and translation.",
+  "version": "1.0.0",
+  "author": "dohyeondk",
+  "homepage": "https://github.com/dohyeondk/sub-tools",
+  "skills": []
+}
