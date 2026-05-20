@@ -1,0 +1,9 @@
+{
+  "name": "vst93--bili-fm",
+  "displayName": "bili-fm",
+  "description": "bilifm - \u901a\u8fc7\u97f3\u9891\u6765\u542cB\u7ad9\u8282\u76ee\uff0c\u4f60\u53ef\u4ee5\u628a\u5b83\u4f5c\u4e3a\u4e00\u4e2a\u97f3\u4e50\u64ad\u653e\u5668\uff0c\u4e5f\u53ef\u4ee5\u7528\u6765\u4f5c\u4e3a\u77e5\u8bc6\u5b66\u4e60\u7684\u5de5\u5177\u3002 \u4f7f\u7528 Wails \u5f00\u53d1\uff0c\u652f\u6301 Windows\u3001macOS \u548c Linux \u5e73\u53f0\u3002",
+  "version": "1.0.0",
+  "author": "vst93",
+  "homepage": "https://github.com/vst93/bili-fm",
+  "skills": []
+}
