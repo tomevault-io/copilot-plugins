@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--compare-dashboard-functions",
+  "displayName": "compare-dashboard-functions",
+  "description": "Serverless solution for monitoring RPC nodes response time across different blockchains and regions using Vercel Functions",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/compare-dashboard-functions",
+  "skills": []
+}
