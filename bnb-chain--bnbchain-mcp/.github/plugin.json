@@ -1,0 +1,9 @@
+{
+  "name": "bnb-chain--bnbchain-mcp",
+  "displayName": "bnbchain-mcp",
+  "description": "A MCP server for BNB Chain that supports BSC, opBNB, Greenfield, and other popular EVM-compatible networks.",
+  "version": "1.0.0",
+  "author": "bnb-chain",
+  "homepage": "https://github.com/bnb-chain/bnbchain-mcp",
+  "skills": []
+}
