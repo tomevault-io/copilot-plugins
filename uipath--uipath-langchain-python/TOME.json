@@ -4,7 +4,7 @@
   "repo": "uipath-langchain-python",
   "description": "Python SDK that enables developers to build and deploy LangGraph agents to the UiPath Cloud Platform",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UiPath/uipath-langchain-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T22:36:38Z"
+  "distributed_at": "2026-05-20T05:04:38Z"
 }
