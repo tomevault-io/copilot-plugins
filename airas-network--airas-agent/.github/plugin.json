@@ -1,0 +1,9 @@
+{
+  "name": "airas-network--airas-agent",
+  "displayName": "airas-agent",
+  "description": "A web automation system that uses AI with vision capabilities and Playwright to achieve user-defined goals through autonomous web navigation. Supports both OpenAI and Ollama as AI providers.",
+  "version": "1.0.0",
+  "author": "airas-network",
+  "homepage": "https://github.com/airas-network/airas-agent",
+  "skills": []
+}
