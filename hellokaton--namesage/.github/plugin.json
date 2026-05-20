@@ -1,0 +1,9 @@
+{
+  "name": "hellokaton--namesage",
+  "displayName": "namesage",
+  "description": "\ud83d\udc23 A modern web application that generates culturally appropriate Chinese names for non-native speakers, powered by DeepSeek and featuring a Neobrutalism design style.",
+  "version": "1.0.0",
+  "author": "hellokaton",
+  "homepage": "https://github.com/hellokaton/namesage",
+  "skills": []
+}
