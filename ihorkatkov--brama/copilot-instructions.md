@@ -1,12 +1,12 @@
-## elixir-performance
+## elixir-process-design
 
-> name: elixir_performance
+> name: elixir_process_design
 
- # Elixir Performance Optimization
+# Elixir Process Design
 
 <rule>
-name: elixir_performance
-description: Best practices for optimizing performance in Elixir applications
+name: elixir_process_design
+description: Best practices for designing process-based systems in Elixir
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
@@ -14,198 +14,179 @@ filters:
 actions:
   - type: suggest
     message: |
-      # Elixir Performance Optimization Best Practices
+      # Elixir Process Design Best Practices
 
-      ## General Principles
-      - Focus on performance only after functionality is correct
-      - Profile first, optimize later - identify actual bottlenecks
-      - Measure before and after optimization to verify improvements
-      - Remember that premature optimization is the root of many problems
+      ## Process Organization
+      - Implement a single process in one module
+      - Assign exactly one parallel process to each truly concurrent activity
+      - Each process should have only one "role" (server, client, worker, supervisor)
+      - Use processes for structuring the system, not for basic abstraction
       
-      ## Data Structure Selection
-      - Use the right data structure for the operation (Map vs List vs MapSet)
-      - For large lists with frequent lookups, use maps or ETS tables
-      - Use binaries efficiently with proper pattern matching
-      - Consider Stream for large collections when you don't need all results at once
+      ## Process Registration
+      - Register processes with the same name as their module when appropriate
+      - Only register processes that need a long lifespan
+      - Use Registry or other mechanism for dynamic process lookup
       
-      ## Computation Strategies
-      - Prefer pattern matching over conditionals when possible
-      - Use tail recursion for processing collections
-      - Consider using list comprehensions for building lists
-      - Use function capturing (`&`) for cleaner higher-order functions
+      ## Message Protocol
+      - Tag all messages for easier pattern matching and extensibility
+      - Document message formats with typespecs where applicable
+      - Flush unknown messages to prevent message queue buildup
+      - Use timeout mechanisms appropriately, handling late messages
       
-      ## Process Management
-      - Use appropriate concurrency patterns for your workload
-      - Avoid process bottlenecks with proper workload distribution
-      - Consider process pools for limiting resource usage
-      - Use Tasks for parallelizing independent operations
+      ## Server Implementation
+      - Write tail-recursive servers to prevent memory leaks
+      - Use interface functions rather than direct message sends
+      - Prefer OTP behaviors (GenServer, Supervisor, etc.) over raw processes
+      - Keep state transformations explicit and easy to reason about
       
-      ## Memory Management
-      - Avoid unnecessary data copying between processes
-      - Be careful with large binaries and reference counting
-      - Use binary pattern matching efficiently 
-      - Consider binary construction with iodata for large string operations
+      ## Error Handling
+      - Be intentional about trapping exits - processes should either always trap or never trap
+      - Use supervisors for automatic process restarts
+      - Apply the "Let it crash" philosophy for unexpected errors
+      - Log errors appropriately before crashing
       
-      ## Database and I/O Operations
-      - Optimize database queries and use proper indexing
-      - Batch database operations when possible
-      - Use Ecto's preloading effectively to avoid N+1 query problems
-      - Consider caching strategies for frequently accessed data
-      
+      ## Process Dictionary
+      - Avoid the process dictionary (get/put) except in very specialized cases
+      - Pass state explicitly between function calls instead
+
 examples:
   - input: |
-      defmodule Inefficient do
-        def process_list(items) do
-          # Building a new list inefficiently
-          result = []
-          Enum.each(items, fn item ->
-            processed = transform(item)
-            result = result ++ [processed]  # Inefficient append
-          end)
-          result
+      # Raw process using spawn
+      defmodule UserRegistry do
+        def start do
+          spawn(fn -> loop(%{}) end)
         end
         
-        def lookup_value(list, key) do
-          # O(n) lookup in a list
-          Enum.find(list, fn {k, _v} -> k == key end)
+        def register(registry, username, data) do
+          send(registry, {:register, username, data})
         end
         
-        defp transform(item) do
-          # Some transformation
-          item * 2
+        def lookup(registry, username) do
+          send(registry, {:lookup, username, self()})
+          receive do
+            result -> result
+          after 1000 ->
+            :timeout
+          end
+        end
+        
+        defp loop(state) do
+          receive do
+            {:register, username, data} ->
+              loop(Map.put(state, username, data))
+            {:lookup, username, pid} ->
+              send(pid, Map.get(state, username))
+              loop(state)
+          end
         end
       end
     output: |
-      defmodule Optimized do
-        def process_list(items) do
-          # Using map directly - more efficient and cleaner
-          Enum.map(items, &transform/1)
-          
-          # Alternative: if order matters and you're building in reverse
-          # items
-          # |> Enum.reduce([], fn item, acc ->
-          #   [transform(item) | acc]
-          # end)
-          # |> Enum.reverse()
+      defmodule UserRegistry do
+        use GenServer
+        
+        # Client API
+        def start_link(opts \\ []) do
+          GenServer.start_link(__MODULE__, %{}, opts)
         end
         
-        def lookup_value(items, key) do
-          # Convert list to map for repeated lookups
-          # O(1) lookup in a map
-          items_map = Map.new(items)
-          Map.get(items_map, key)
-          
-          # If this function is called repeatedly, even better:
-          # def lookup_value(items_map, key) when is_map(items_map) do
-          #   Map.get(items_map, key)
-          # end
-          # 
-          # def lookup_value(items, key) when is_list(items) do
-          #   items
-          #   |> Map.new()
-          #   |> Map.get(key)
-          # end
+        def register(registry, username, data) do
+          GenServer.cast(registry, {:register, username, data})
         end
         
-        defp transform(item) do
-          # Some transformation
-          item * 2
+        def lookup(registry, username) do
+          GenServer.call(registry, {:lookup, username})
         end
-      end
-  
-  - input: |
-      defmodule SlowStringBuilder do
-        def build_report(data) do
-          # Inefficient string building
-          report = ""
-          
-          report = report <> "REPORT START\n"
-          report = report <> "Date: #{Date.utc_today()}\n"
-          
-          Enum.each(data, fn {key, value} ->
-            report = report <> "#{key}: #{value}\n"  # String concat in a loop
-          end)
-          
-          report = report <> "REPORT END\n"
-          report
+        
+        # Server Callbacks
+        @impl true
+        def init(state) do
+          {:ok, state}
         end
-      end
-    output: |
-      defmodule FastStringBuilder do
-        def build_report(data) do
-          # Using iodata for efficient string building
-          [
-            "REPORT START\n",
-            "Date: ", Date.utc_today() |> Date.to_string(), "\n",
-            Enum.map(data, fn {key, value} ->
-              [to_string(key), ": ", to_string(value), "\n"]
-            end),
-            "REPORT END\n"
-          ]
-          |> IO.iodata_to_binary()
-          
-          # Alternative with comprehension:
-          # report_parts = [
-          #   "REPORT START\n",
-          #   "Date: #{Date.utc_today()}\n",
-          #   for {key, value} <- data do
-          #     "#{key}: #{value}\n"
-          #   end,
-          #   "REPORT END\n"
-          # ]
-          # IO.iodata_to_binary(report_parts)
+        
+        @impl true
+        def handle_cast({:register, username, data}, state) do
+          {:noreply, Map.put(state, username, data)}
+        end
+        
+        @impl true
+        def handle_call({:lookup, username}, _from, state) do
+          {:reply, Map.get(state, username), state}
+        end
+        
+        # Catch unknown messages
+        @impl true
+        def handle_info(msg, state) do
+          require Logger
+          Logger.warn("Received unexpected message: #{inspect(msg)}")
+          {:noreply, state}
         end
       end
       
+      # Usage:
+      {:ok, registry} = UserRegistry.start_link(name: UserRegistry)
+      UserRegistry.register(registry, "alice", %{email: "alice@example.com"})
+      user_data = UserRegistry.lookup(registry, "alice")
+      
   - input: |
-      defmodule SequentialProcessor do
-        def process_files(files) do
-          Enum.map(files, fn file ->
-            {:ok, data} = File.read(file)
-            process_data(data)
-          end)
+      defmodule MessageHandler do
+        def process_messages(pid) do
+          receive do
+            {sender, msg} -> 
+              handle_message(msg)
+              sender ! {:ok, "Processed"}
+              process_messages(pid)
+            msg ->
+              handle_message(msg)
+              process_messages(pid)  
+          end
         end
         
-        defp process_data(data) do
-          # Some CPU-intensive operation
-          :timer.sleep(100)  # Simulating work
-          String.length(data)
+        defp handle_message(msg) do
+          # Process message
         end
       end
     output: |
-      defmodule ParallelProcessor do
-        def process_files(files) do
-          # Process files in parallel using Task
-          files
-          |> Task.async_stream(fn file ->
-            {:ok, data} = File.read(file)
-            process_data(data)
-          end, max_concurrency: 10)  # Limit concurrency to avoid overwhelming system
-          |> Enum.to_list()
-          |> Enum.map(fn {:ok, result} -> result end)
-          
-          # Alternatively for more control:
-          # tasks = Enum.map(files, fn file ->
-          #   Task.async(fn ->
-          #     {:ok, data} = File.read(file)
-          #     process_data(data)
-          #   end)
-          # end)
-          # 
-          # Task.await_many(tasks, 30_000)  # 30 second timeout
+      defmodule MessageHandler do
+        use GenServer
+        
+        def start_link(opts \\ []) do
+          GenServer.start_link(__MODULE__, [], opts)
         end
         
-        defp process_data(data) do
-          # Some CPU-intensive operation
-          :timer.sleep(100)  # Simulating work
-          String.length(data)
+        # Client API
+        def send_message(server, msg) do
+          GenServer.call(server, {:process, msg})
+        end
+        
+        # Server Callbacks
+        @impl true
+        def init(_) do
+          {:ok, []}
+        end
+        
+        @impl true
+        def handle_call({:process, msg}, from, state) do
+          result = handle_message(msg)
+          {:reply, {:ok, "Processed", result}, state}
+        end
+        
+        # Handle unexpected messages
+        @impl true
+        def handle_info(msg, state) do
+          require Logger
+          Logger.warn("Received unexpected message: #{inspect(msg)}")
+          {:noreply, state}
+        end
+        
+        defp handle_message(msg) do
+          # Process message
         end
       end
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [ihorkatkov/brama](https://github.com/ihorkatkov/brama) — distributed by [TomeVault](https://tomevault.io).
