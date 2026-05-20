@@ -1,0 +1,9 @@
+{
+  "name": "ldclabs--anda-db",
+  "displayName": "anda-db",
+  "description": "\ud83d\uddc4 A Rust library designed as a specialized database for AI Agents, focusing on knowledge memory.",
+  "version": "1.0.0",
+  "author": "ldclabs",
+  "homepage": "https://github.com/ldclabs/anda-db",
+  "skills": []
+}
