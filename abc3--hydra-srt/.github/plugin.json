@@ -1,0 +1,9 @@
+{
+  "name": "abc3--hydra-srt",
+  "displayName": "hydra-srt",
+  "description": "HydraSRT \u2013 An Open Source Alternative to Haivision SRT Gateway",
+  "version": "1.0.0",
+  "author": "abc3",
+  "homepage": "https://github.com/abc3/hydra-srt",
+  "skills": []
+}
