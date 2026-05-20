@@ -1,0 +1,44 @@
+{
+  "name": "paddle-ocr-rs",
+  "owner": "mg-chao",
+  "repo": "paddle-ocr-rs",
+  "description": "Use Rust to call Paddle OCR models via ONNX Runtime for image text recognition.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mg-chao/paddle-ocr-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T01:19:18Z"
+}
