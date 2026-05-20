@@ -1,0 +1,9 @@
+{
+  "name": "nooga--paserati",
+  "displayName": "paserati",
+  "description": "TypeScript runtime implementation written in Go. **cough**",
+  "version": "1.0.0",
+  "author": "nooga",
+  "homepage": "https://github.com/nooga/paserati",
+  "skills": []
+}
