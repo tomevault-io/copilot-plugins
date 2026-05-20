@@ -1,0 +1,44 @@
+{
+  "name": "pdftts",
+  "owner": "johnsmith2078",
+  "repo": "pdftts",
+  "description": "\u4e00\u4e2a\u57fa\u4e8ePyQt6\u548cPyMuPDF\u7684PDF\u9605\u8bfb\u5668\uff0c\u96c6\u6210\u4e86OCR\u8bc6\u522b\u548cTTS\u8bed\u97f3\u6717\u8bfb\u529f\u80fd\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/johnsmith2078/pdftts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T17:13:15Z"
+}
