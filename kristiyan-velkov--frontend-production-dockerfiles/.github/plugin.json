@@ -1,0 +1,9 @@
+{
+  "name": "kristiyan-velkov--frontend-production-dockerfiles",
+  "displayName": "frontend-production-dockerfiles",
+  "description": "Production-ready Dockerfiles for React.js, Angular, Vue.js, and Next.js. Optimized for performance, security, and minimal image size. ",
+  "version": "1.0.0",
+  "author": "kristiyan-velkov",
+  "homepage": "https://github.com/kristiyan-velkov/frontend-production-dockerfiles",
+  "skills": []
+}
