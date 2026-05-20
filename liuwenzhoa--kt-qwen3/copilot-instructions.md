@@ -1,100 +1,64 @@
-## ktransformers-v3-success
+## modeling-qwen3-moe
 
-> KTransformers是一个优化大型语言模型推理性能的框架，可在有限硬件资源下运行DeepSeek-V3等大型模型。本规则整理了已验证可成功运行KTransformers的硬件配置，供用户参考。
+> [modeling_qwen3_moe.py](mdc:ktransformers/ktransformers/models/modeling_qwen3_moe.py) 文件实现了Qwen3的MoE (Mixture of Experts)模型架构，是Qwen系列大模型的核心实现之一。
 
-# KTransformers成功运行配置参考
+# Qwen3Moe 模型架构
 
-## 概述
+[modeling_qwen3_moe.py](mdc:ktransformers/ktransformers/models/modeling_qwen3_moe.py) 文件实现了Qwen3的MoE (Mixture of Experts)模型架构，是Qwen系列大模型的核心实现之一。
 
-KTransformers是一个优化大型语言模型推理性能的框架，可在有限硬件资源下运行DeepSeek-V3等大型模型。本规则整理了已验证可成功运行KTransformers的硬件配置，供用户参考。
+## 主要组件
 
-## 成功案例配置
+### 1. 核心模型类
+- `Qwen3MoePreTrainedModel`: 所有Qwen3Moe模型的基类
+- `Qwen3MoeModel`: 基础模型实现，没有特定的头部
+- `Qwen3MoeForCausalLM`: 用于因果语言模型的实现，添加了语言模型头部
 
-### 案例1：服务器级配置
+### 2. 关键模块
+- `Qwen3MoeAttention`: 注意力机制实现，支持旋转位置编码(RoPE)
+- `Qwen3MoeSparseMoeBlock`: 稀疏MoE块实现，专家混合模块
+- `Qwen3MoeRMSNorm`: RMS规范化层
+- `Qwen3MoeDecoderLayer`: 解码器层，包含自注意力和前馈网络
+- `Qwen3MoeRotaryEmbedding`: 旋转位置编码实现
 
-**硬件配置**：
-- GPU: NVIDIA L40s (48GB VRAM)
-- CPU: 双路Intel Xeon 9654处理器 (共192核心)
-- 内存: 768GB DDR5 12通道
+### 3. 特点
+- 支持GQA (Grouped Query Attention) 和旋转位置编码
+- 使用稀疏专家路由机制，每个token选择top-k专家处理
+- 支持滑动窗口注意力机制，用于处理长序列输入
+- 兼容huggingface的transformers库API
 
-**性能指标**：
-- 预填充速度: 108 tokens/s
-- 解码速度: 10.8 tokens/s
+## 技术细节
 
-**软件版本**：
-- KTransformers: main分支源代码编译版本
+1. **MoE实现**: 通过`Qwen3MoeSparseMoeBlock`实现专家混合。每个token通过门控函数选择top-k个专家进行处理，提高模型容量的同时保持计算效率。
 
-### 案例2：高端工作站配置
+2. **注意力机制**: 使用GQA减少计算和内存开销，通过`num_key_value_heads`参数控制key-value头的数量。
 
-**硬件配置**：
-- GPU: 单张NVIDIA RTX 4090 (24GB VRAM)
-- CPU: 双路Intel Xeon 6430 32C处理器 (共64核心128线程)
-- 内存: 480GB DDR5
+3. **位置编码**: 使用旋转位置编码(RoPE)，支持多种扩展方式，如dynamic、linear、yarn等。
 
-**性能指标**：
-- 运行速度: 约6-8 tokens/s
+4. **训练技巧**: 
+   - 实现了负载均衡损失函数`load_balancing_loss_func`
+   - 支持梯度检查点，优化显存使用
 
-## 其他兼容平台
+## 重要参数
 
-据用户报告，KTransformers也可在以下平台上运行：
-- NVIDIA RTX 2080系列显卡
-- AMD GPU (通过ROCm支持)
+- `num_experts`: 专家总数
+- `num_experts_per_tok`: 每个token选择的专家数
+- `decoder_sparse_step`: MoE层的频率
+- `mlp_only_layers`: 使用标准MLP而非MoE的层索引
 
-## 硬件需求分析
+## 使用示例
 
-### 最低要求
+```python
+from transformers import Qwen3MoeForCausalLM, AutoTokenizer
 
-基于成功案例和文档，运行KTransformers(特别是DeepSeek-V3、DeepSeek-R1等大型模型)的最低硬件要求：
+model = Qwen3MoeForCausalLM.from_pretrained("Qwen/Qwen3-MoE-15B-A2B")
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen3-MoE-15B-A2B")
 
-1. **GPU**:
-   - VRAM: 14GB+(推荐24GB+)
-   - 架构: Ampere及以上(RTX 30系列或更新)性能最佳
+prompt = "Hey, are you conscious? Can you talk to me?"
+inputs = tokenizer(prompt, return_tensors="pt")
 
-2. **CPU**:
-   - 核心数: 32+(推荐64+)
-   - 支持AVX2指令集(必须)，AVX512(推荐)
-   - 多处理器系统对MoE模型有显著性能提升
-
-3. **内存**:
-   - 容量: 取决于模型大小，DeepSeek-V3建议128GB+
-   - 类型: DDR4-3200或更快，DDR5更佳
-
-### 性能与硬件关系
-
-1. **GPU性能影响**:
-   - 主要影响注意力计算和预填充速度
-   - VRAM大小决定可处理的上下文长度
-   - 显存带宽对注意力计算性能至关重要
-
-2. **CPU性能影响**:
-   - 核心数直接影响专家并行计算能力
-   - 高时钟频率有助于提高单线程性能
-   - AVX512支持使专家计算更高效
-
-3. **内存性能影响**:
-   - 内存容量决定可加载的模型大小
-   - 多通道配置提高内存带宽
-   - 对于MoE模型尤为重要
-
-## 报告您的成功配置
-
-为帮助更多用户找到合适的硬件配置，KTransformers团队欢迎用户提交成功运行的环境配置。请通过以下链接提交您的配置信息：
-
-[提交成功配置信息](mdc:https:/docs.qq.com/smartsheet/form/AVxgQOYhhNfl%2FBB08J2%2Fv3rnnq?tab=BB08J2)
-
-## 性能优化建议
-
-1. **GPU优化**:
-   - 如有多GPU，考虑使用多GPU配置
-   - 使用适当的CUDA Graph设置
-
-2. **CPU优化**:
-   - 设置`--cpu_infer`参数为物理核心数略小的值
-   - 为获得最佳性能，确保CPU负载不超过90%
-
-3. **内存优化**:
-   - 监控内存使用，避免过度分页
-   - 根据实际DRAM大小选择合适的上下文长度设置
+generate_ids = model.generate(inputs.input_ids, max_length=30)
+tokenizer.batch_decode(generate_ids, skip_special_tokens=True)[0]
+```
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
