@@ -1,26 +1,35 @@
-## provider-authentication
+## refactor-stop-and-confirm
 
-> Provider authentication is request-scoped for behavior and provider-scoped for secrets.
+> Only for /src/**. Duplicated code with diverging logic paths that cannot be reconciled without a refactor. Enum/flag contradictions or mismatched defaults that change behavior. Divergent implementations of the same contract in different modules.
 
 
-# Provider authentication and secrets
+# Incoherence gate and stop-processing policy
 
-Provider authentication is request-scoped for behavior and provider-scoped for secrets.
+Use this rule with `code-dedup-architecture.md`. It exists to prevent local fixes that hide architectural contradictions.
 
-## Rules
+## Stop immediately when
 
-- Do not put API keys, bearer tokens, or secret headers on `AIRequestCall`, `AIRequestCall.Headers`, `AIReturn`, logs, exceptions, docs, or source code.
-- In `PreCall(...)`, set `AIRequestCall.Authentication` to the required scheme:
-  - `none`
-  - `bearer`
-  - `x-api-key`
-- Add only non-secret provider headers to `AIRequestCall.Headers`.
-- Let `AIProvider.CallApi(...)` or provider streaming adapters apply secrets just-in-time from provider settings.
-- Mark secret settings with `SettingDescriptor.IsSecret = true`.
-- Mask or omit secret setting values in diagnostics.
-- For streaming adapters, resolve API keys from provider internals and use shared authentication/header helpers.
+- Duplicated code has diverging behavior and the correct shared behavior is unclear.
+- Enum values, flags, schema keys, defaults, or settings contradict each other across modules.
+- Different providers, tools, or components implement the same contract with incompatible semantics.
+- A fix would require breaking a public API, component contract, persisted data format, tool schema, or provider response shape.
 
-See `docs/Providers/Authentication.md`.
+## Assistant behavior
+
+1. Emit a clear warning with concrete evidence:
+   - File paths.
+   - Symbols or schema keys.
+   - Short snippets or behavior summaries.
+2. Stop further edits in the affected area.
+3. Ask for explicit confirmation and present:
+   - The minimal coherent fix.
+   - The broader refactor option.
+   - Risk level: non-breaking or breaking.
+4. Resume only after user confirmation, or keep the change targeted and localized if the user declines refactoring.
+
+## Default preference
+
+Prefer parent/base extraction for confirmed duplication fixes, but do not force provider-specific or platform-specific quirks into a shared abstraction if it would obscure behavior.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
