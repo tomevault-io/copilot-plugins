@@ -1,0 +1,9 @@
+{
+  "name": "autoffice--luckysheet-lib",
+  "displayName": "luckysheet-lib",
+  "description": "Luckysheet\u7684Java\u5e93\uff0c\u5305\u62ecexcel\u5bfc\u5165\u548c\u5bfc\u51fa\u3002The Java library for Luckysheet, including Excel import and export.",
+  "version": "1.0.0",
+  "author": "autoffice",
+  "homepage": "https://github.com/autoffice/luckysheet-lib",
+  "skills": []
+}
