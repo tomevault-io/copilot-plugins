@@ -1,0 +1,9 @@
+{
+  "name": "cbardyn--ai-swiss-workflows",
+  "displayName": "ai-swiss-workflows",
+  "description": "Create powerful AI workflows that actually work. No toy interfaces, no vendor lock-in.",
+  "version": "1.0.0",
+  "author": "cbardyn",
+  "homepage": "https://github.com/cbardyn/ai-swiss-workflows",
+  "skills": []
+}
