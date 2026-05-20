@@ -7,11 +7,11 @@ Course materials for a free online Python, Math & Machine Learning course. Websi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HaykTarkhanyan/python_math_ml_course](https://github.com/HaykTarkhanyan/python_math_ml_course).
+Original source: `CLAUDE.md` in [HaykTarkhanyan/python_math_ml_course](https://github.com/HaykTarkhanyan/python_math_ml_course).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
