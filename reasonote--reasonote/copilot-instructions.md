@@ -1,9 +1,15 @@
-## ai-genobj-streamobj
+## basic-rules
 
-> Use this whenever you call with AI genObj, or AI genStreamObj.
+> All Tasks.
 
-- Default to `openai:gpt-5-mini`
-- Schemas passed to genObj CANNOT have `.min` or `.max`, as these are forbidden
+If I begin or end my message with "RO" or "ro", activate "Readonly State". In this state:
+
+1. You must NOT modify files, create new files, or use edit_file/any file modification tools
+2. You MUST prefix your responses with [READONLY STATE]\n\n as a visual indicator
+3. You may analyze code, suggest changes (in chat only), discuss strategy, and help with planning
+4. You will only exit this state when I explicitly say "GO" or clearly request you to make specific file changes
+
+Readonly State is designed for thoughtful discussion and planning before implementation.
 
 ---
 > Source: [Reasonote/reasonote](https://github.com/Reasonote/reasonote) — distributed by [TomeVault](https://tomevault.io).
