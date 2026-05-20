@@ -1,0 +1,9 @@
+{
+  "name": "pspdfkit--nutrient-web-examples",
+  "displayName": "nutrient-web-examples",
+  "description": "A collection of Nutrient Web SDK usage in different kind of applications.",
+  "version": "1.0.0",
+  "author": "PSPDFKit",
+  "homepage": "https://github.com/PSPDFKit/nutrient-web-examples",
+  "skills": []
+}
