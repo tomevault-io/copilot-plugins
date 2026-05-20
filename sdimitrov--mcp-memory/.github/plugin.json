@@ -1,0 +1,9 @@
+{
+  "name": "sdimitrov--mcp-memory",
+  "displayName": "mcp-memory",
+  "description": "MCP Memory Server with PostgreSQL and pgvector for long-term memory capabilities",
+  "version": "1.0.0",
+  "author": "sdimitrov",
+  "homepage": "https://github.com/sdimitrov/mcp-memory",
+  "skills": []
+}
