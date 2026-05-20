@@ -4,7 +4,7 @@
   "repo": "benevolus",
   "description": "Fundraising platform for charitable campaigns",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/criskell/benevolus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:00:05Z"
+  "distributed_at": "2026-05-20T20:40:15Z"
 }
