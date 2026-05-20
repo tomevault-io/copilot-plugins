@@ -1,107 +1,202 @@
-## mcp-custom-routes
+## mcp-development
 
-> setupRoutes method for custom HTTP endpoints in MCP servers
+> MCP Server Development Patterns for Tools, Resources, Prompts, and Custom Routes
 
 
-# MCP Custom Routes with setupRoutes
+# MCP Server Development Guide
 
-## Override setupRoutes for Custom Endpoints
+This project follows specific patterns for building MCP (Model Context Protocol) servers using Cloudflare Workers and Durable Objects.
 
-When you need custom HTTP endpoints beyond MCP functionality, override the `setupRoutes` method:
+## Core Architecture
+
+- Main server class extends `McpHonoServerDO<Env>` from `@nullshot/mcp`
+- Server configuration is split into three modules: [tools.ts](mdc:src/tools.ts), [resources.ts](mdc:src/resources.ts), [prompts.ts](mdc:src/prompts.ts)
+- Entry point is [server.ts](mdc:src/server.ts) which coordinates everything
+
+## MCP Server Class Pattern
 
 ```typescript
 export class YourMcpServer extends McpHonoServerDO<Env> {
-  // ... other methods ...
-
-  protected setupRoutes(app: Hono<{ Bindings: Env }>): void {
-    // CRITICAL: Always call parent first to preserve MCP WebSocket/SSE endpoints
-    super.setupRoutes(app);
-    
-    // Now add your custom HTTP routes
-    app.get('/api/health', (c) => {
-      return c.json({ 
-        status: 'healthy', 
-        timestamp: new Date().toISOString(),
-        version: this.getImplementation().version
-      });
-    });
-    
-    app.post('/api/webhook', async (c) => {
-      try {
-        const payload = await c.req.json();
-        // Process webhook payload
-        await this.processWebhook(payload);
-        return c.json({ success: true });
-      } catch (error) {
-        return c.json({ error: error.message }, 400);
-      }
-    });
-    
-    // Access Cloudflare bindings via c.env
-    app.get('/api/data/:id', async (c) => {
-      const id = c.req.param('id');
-      try {
-        // Access D1, KV, R2, etc. via c.env
-        const result = await c.env.DATABASE?.prepare(
-          'SELECT * FROM items WHERE id = ?'
-        ).bind(id).first();
-        
-        return c.json(result || { error: 'Not found' });
-      } catch (error) {
-        return c.json({ error: error.message }, 500);
-      }
-    });
-    
-    // CORS handling for browser clients
-    app.options('*', (c) => {
-      return c.text('', 204, {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      });
-    });
+  constructor(ctx: DurableObjectState, env: Env) {
+    super(ctx, env);
   }
-  
-  private async processWebhook(payload: any) {
-    // Webhook processing logic
+
+  getImplementation(): Implementation {
+    return {
+      name: 'YourMcpServer',
+      version: '1.0.0',
+    };
+  }
+
+  configureServer(server: McpServer): void {
+    setupServerTools(server);
+    setupServerResources(server);
+    setupServerPrompts(server);
+  }
+
+  // OPTIONAL: Override for custom HTTP endpoints
+  protected setupRoutes(app: Hono<{ Bindings: Env }>): void {
+    super.setupRoutes(app); // Call parent to maintain MCP functionality
+    
+    // Add custom routes here
+    app.get('/api/custom', (c) => c.json({ message: 'custom endpoint' }));
   }
 }
 ```
 
-## Common Route Patterns
+## Tools Pattern (src/tools.ts)
 
-### Health Check Endpoint
+Tools are functions that clients can call. Always use this exact pattern:
+
 ```typescript
-app.get('/api/health', (c) => {
-  return c.json({ 
-    status: 'ok', 
-    timestamp: Date.now(),
-    uptime: process.uptime?.() || 0
-  });
-});
+export function setupServerTools(server: McpServer) {
+  server.tool(
+    'tool_name',                    // Unique tool identifier
+    'Brief tool description',       // Human-readable description
+    {                              // Zod schema for parameters
+      param1: z.string().describe('Parameter description'),
+      param2: z.number().optional().describe('Optional parameter'),
+    },       
+    async ({ param1, param2 }) => { // Implementation function
+      // Tool logic here
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Result: ${param1}`
+          }
+        ],
+        // Optional: return additional data
+        metadata: { /* any extra data */ }
+      };
+    }
+  );
+}
 ```
 
-## Key Rules
+**Key Requirements:**
+- Use Zod schemas with `.describe()` for all parameters
+- Return content array with type "text"
+- Handle errors gracefully with try/catch
+- Use descriptive tool names (snake_case)
 
-1. **Always call `super.setupRoutes(app)` first** - This preserves MCP functionality
-2. **Use environment bindings via `c.env`** - Access D1, KV, R2, etc.
-3. **Handle errors gracefully** - Return appropriate HTTP status codes
-4. **Add CORS headers** if supporting browser clients
-5. **Use TypeScript types** for request/response bodies
-6. **Add authentication** for sensitive endpoints
-7. **Follow REST conventions** for API design
+## Resources Pattern (src/resources.ts)
 
-## When to Use setupRoutes
+Resources provide persistent data access. Always use this pattern:
 
-Use `setupRoutes` when you need:
-- REST API endpoints for web/mobile clients
-- Webhook receivers
-- File upload/download endpoints  
-- Health/status monitoring endpoints
-- Integration with external services
-- Custom authentication flows
+```typescript
+export function setupServerResources(server: McpServer) {
+  server.resource(
+    'resource_name',
+    'protocol://path/pattern/{id}',  // URI pattern with placeholders
+    async (uri: URL) => {
+      try {
+        // Parse URI to extract parameters
+        const parts = uri.pathname.split('/');
+        const id = parts[parts.length - 1];
+        
+        // Fetch/compute resource data
+        const data = await fetchResourceData(id);
+        
+        return {
+          contents: [
+            {
+              text: `Resource content: ${JSON.stringify(data)}`,
+              uri: uri.href
+            }
+          ]
+        };
+      } catch (error) {
+        throw new Error(`Failed to fetch resource: ${error.message}`);
+      }
+    }
+  );
+}
+```
 
-The MCP protocol handles AI client communication, while custom routes handle other HTTP clients.
+**Key Requirements:**
+- Use descriptive URI patterns with placeholders
+- Parse URI to extract parameters
+- Return contents array with text and uri
+- Always wrap in try/catch for error handling
+
+## Prompts Pattern (src/prompts.ts)
+
+Prompts provide reusable message templates. Always use this pattern:
+
+```typescript
+export function setupServerPrompts(server: McpServer) {
+  server.prompt(
+    'prompt_name',
+    'Brief prompt description',
+    (args?: { param?: string }) => ({  // Optional parameters
+      messages: [{
+        role: 'assistant',  // or 'user', 'system'
+        content: {
+          type: 'text',
+          text: `Your prompt content here. ${args?.param || ''}`
+        }
+      }]
+    })
+  );
+}
+```
+
+**Key Requirements:**
+- Use descriptive prompt names (snake_case)
+- Support optional parameters via args
+- Always return messages array
+- Use appropriate role (assistant/user/system)
+
+## Custom Routes with setupRoutes
+
+To add custom HTTP endpoints beyond MCP functionality:
+
+```typescript
+protected setupRoutes(app: Hono<{ Bindings: Env }>): void {
+  // CRITICAL: Always call parent first to maintain MCP functionality
+  super.setupRoutes(app);
+  
+  // Add custom endpoints
+  app.get('/api/health', (c) => {
+    return c.json({ status: 'healthy', timestamp: new Date().toISOString() });
+  });
+  
+  app.post('/api/webhook', async (c) => {
+    const body = await c.req.json();
+    // Process webhook
+    return c.json({ received: true });
+  });
+  
+  // Access environment bindings via c.env
+  app.get('/api/data', async (c) => {
+    const result = await c.env.DATABASE.prepare('SELECT * FROM items').all();
+    return c.json(result);
+  });
+}
+```
+
+## Development Checklist
+
+When implementing MCP functionality:
+
+1. **Tools**: Define in `setupServerTools()` with Zod schemas
+2. **Resources**: Define in `setupServerResources()` with URI patterns  
+3. **Prompts**: Define in `setupServerPrompts()` with message templates
+4. **Custom Routes**: Override `setupRoutes()` if HTTP endpoints needed
+5. **Error Handling**: Always use try/catch in async operations
+6. **Types**: Use TypeScript interfaces for complex data structures
+7. **Testing**: Test tools, resources, and prompts independently
+
+## Common Imports
+
+```typescript
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { McpHonoServerDO } from '@nullshot/mcp';
+import { Implementation } from '@modelcontextprotocol/sdk/types.js';
+import { z } from 'zod';
+import { Hono } from 'hono';
+```
 
 ---
 > Source: [null-shot/typescript-agent-toolkit](https://github.com/null-shot/typescript-agent-toolkit) — distributed by [TomeVault](https://tomevault.io).
