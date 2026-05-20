@@ -1,12 +1,12 @@
-## testing
+## timestamps
 
-> Vitest testing; unit, nuxt, and e2e projects; mock consola when needed
+> We store timestamps in UTC and use the global TZ when converting timestamps
 
 
-# Testing
+# Timestamps
 
-- Use Vitest. Tests live under `test/`: `test/unit/` (unit), `test/nuxt/` (Nuxt), `test/e2e/` (e2e). Config in `vitest.config.ts`.
-- In tests that touch code using consola, mock `consola` (e.g. `vi.mock("consola", () => ({ ... }))`). Prefer existing patterns under `test/`.
+- Store datetimes in UTC in the database (Prisma `DateTime`).
+- When converting for display or APIs, use the app's global timezone (or user TZ if added later). Use `date-fns` with UTC helpers / TZ when formatting.
 
 ---
 > Source: [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io).
