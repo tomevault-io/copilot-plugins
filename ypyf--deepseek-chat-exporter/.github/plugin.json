@@ -1,0 +1,9 @@
+{
+  "name": "ypyf--deepseek-chat-exporter",
+  "displayName": "deepseek-chat-exporter",
+  "description": "A Chrome extension that allows you to export your DeepSeek chat conversations to various file formats.",
+  "version": "1.0.0",
+  "author": "ypyf",
+  "homepage": "https://github.com/ypyf/deepseek-chat-exporter",
+  "skills": []
+}
