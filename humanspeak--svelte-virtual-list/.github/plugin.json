@@ -1,0 +1,9 @@
+{
+  "name": "humanspeak--svelte-virtual-list",
+  "displayName": "svelte-virtual-list",
+  "description": "\ud83d\udcdc A performant virtual list/scrolling component for Svelte applications - efficiently render large scrollable lists with minimal memory usage",
+  "version": "1.0.0",
+  "author": "humanspeak",
+  "homepage": "https://github.com/humanspeak/svelte-virtual-list",
+  "skills": []
+}
