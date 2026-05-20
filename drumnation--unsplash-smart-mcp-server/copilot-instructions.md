@@ -1,124 +1,25 @@
-## functional-test-principals-rules
+## onboarding-rules
 
-> Ensure all test suites — regardless of test framework — validate real, end-to-end or integration-level functionality. Tests must act as a backstop for the app. If they pass, the app works. If they fail, something meaningful is broken. This allows the agent to self-validate and iterate safely.
+> Provide new developers with an always up-to-date guide to set up their environment and get running fast.
 
-# Rule: Functional Test Principles
-
-Purpose:
-Ensure all test suites — regardless of test framework — validate real, end-to-end or integration-level functionality. Tests must act as a backstop for the app. If they pass, the app works. If they fail, something meaningful is broken. This allows the agent to self-validate and iterate safely.
-
-Frameworks: Mocha, Vitest, Jest, Playwright, Cypress, Storybook, etc.  
-The principles apply across all test environments.
-
-Agent Behavior:
-
-1. **Test Real Use, Not Implementation**
-   - Simulate real usage, not internals
-   - Validate user-visible outputs or API responses
-   - Never test internal method calls, hook behavior, or prop structures directly
-
-2. **Avoid Mocking**
-   - Mock only:
-     - External APIs (e.g., HTTP requests)
-     - Uncontrollable globals (e.g., time, environment)
-   - Never mock internal app logic or structure just to make a test work
-   - Avoid testing `.mock.calls` or `spyOn()` unless testing infrastructure-level effects
-
-3. **One-to-One Principle**
-   - If the test passes → the feature works
-   - If the test fails → the feature is broken, misaligned, or needs to be updated with intention
-
-4. **Tests Should Be Lightweight and Runnable Often**
-   - Run them after every meaningful code change
-   - Favor a small number of high-signal tests over hundreds of shallow coverage tests
-
-5. **Use for Self-Validation**
-   - The agent should use tests as the basis for confirming its changes are correct
-   - No agent-generated code should be considered complete until the relevant tests pass
-
-6. **Do Not Over-Isolate**
-   - Avoid deep mocking that isolates a function from its context
-   - Prefer integration and functional tests for most features
-   - Unit tests should be used only for pure functions or small reusable utilities
-
-7. **Include Test Planning in Feature Design**
-   - When writing a plan for any task or feature, include:
-     - What needs to be tested
-     - How it can be tested without mocks
-     - What defines success/failure
-
-8. **Failure ≠ Delete**
-   - If a test fails, investigate
-   - Fix the code if it’s a regression
-   - Update the test only after understanding the cause
-   - Never delete or bypass a test just to make the suite green
-
-ruleType: always
-
-# Rule: Functional Test Principles
+# Rule: Auto-generate and maintain ONBOARDING.md
 
 Purpose:
-Ensure all test suites — regardless of test framework — validate real, end-to-end or integration-level functionality. Tests must act as a backstop for the app. If they pass, the app works. If they fail, something meaningful is broken. This allows the agent to self-validate and iterate safely.
+Provide new developers with an always up-to-date guide to set up their environment and get running fast.
 
-Frameworks: Mocha, Vitest, Jest, Playwright, Cypress, Storybook, etc.  
-The principles apply across all test environments.
+When to run:
+- When environment requirements change (e.g., Node version, Docker setup)
+- When onboarding steps change (e.g., new .env vars, setup commands)
+- When any new app or package is added that needs manual linking or config
 
-Agent Behavior:
+Include:
+- Prerequisites (OS, tools, package managers)
+- Environment setup (.env, keys, accounts)
+- How to run each app (with pnpm Nx or standalone)
+- Required accounts/services (e.g., Supabase, Vercel)
 
-1. **Test Real Use, Not Implementation**
-   - Simulate real usage, not internals
-   - Validate user-visible outputs or API responses
-   - Never test internal method calls, hook behavior, or prop structures directly
-
-2. **Avoid Mocking**
-   - Mock only:
-     - External APIs (e.g., HTTP requests)
-     - Uncontrollable globals (e.g., time, environment)
-   - Never mock internal app logic or structure just to make a test work
-   - Avoid testing `.mock.calls` or `spyOn()` unless testing infrastructure-level effects
-
-3. **One-to-One Principle**
-   - If the test passes → the feature works
-   - If the test fails → the feature is broken, misaligned, or needs to be updated with intention
-
-4. **Tests Should Be Lightweight and Runnable Often**
-   - Run them after every meaningful code change
-   - Favor a small number of high-signal tests over hundreds of shallow coverage tests
-
-5. **Use for Self-Validation**
-   - The agent should use tests as the basis for confirming its changes are correct
-   - No agent-generated code should be considered complete until the relevant tests pass
-
-6. **Do Not Over-Isolate**
-   - Avoid deep mocking that isolates a function from its context
-   - Prefer integration and functional tests for most features
-   - Unit tests should be used only for pure functions or small reusable utilities
-
-7. **Include Test Planning in Feature Design**
-   - When writing a plan for any task or feature, include:
-     - What needs to be tested
-     - How it can be tested without mocks
-     - What defines success/failure
-
-8. **Failure ≠ Delete**
-   - If a test fails, investigate
-   - Fix the code if it’s a regression
-   - Update the test only after understanding the cause
-   - Never delete or bypass a test just to make the suite green
-
-# Rule: Detect Active Test Framework
-
-Trigger: When a test plan or test execution step is needed
-
-Behavior:
-- Look for known files:
-  - `vitest.config.ts`
-  - `.mocharc.js`
-  - `jest.config.js`
-  - `playwright.config.ts`
-- Or scan `package.json` for:
-  - Installed devDependencies
-- Or prompt the user: “What test framework should I use here?”
+Format:
+Step-by-step markdown format with command snippets.
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
