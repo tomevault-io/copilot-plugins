@@ -1,0 +1,9 @@
+{
+  "name": "autoembed--autoembed",
+  "displayName": "AutoEmbed",
+  "description": "AutoEmbed: Towards Automated Software Development for Generic Embedded IoT Systems via LLMs (SenSys 2026)",
+  "version": "1.0.0",
+  "author": "AutoEmbed",
+  "homepage": "https://github.com/AutoEmbed/AutoEmbed",
+  "skills": []
+}
