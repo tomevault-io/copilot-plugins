@@ -1,0 +1,23 @@
+## mantis-mcp-server
+
+> - memory-bank/: 記憶體儲存目錄
+
+# Cursor Rules
+- 這個檔案包含了專案的規則和指導方針
+- 用於幫助 AI 理解和導航程式碼庫
+
+## 專案結構
+- memory-bank/: 記憶體儲存目錄
+- docs/archive/: 任務歸檔目錄
+- tasks.md: 任務追蹤的單一真實來源 
+
+## 發布注意事項
+- 如果被要求發布時，
+- 1. 先更新package.json中的版本號，並在發布日誌中記錄，
+- 2. 先執行 npm run build，
+- 3. 再執行 git commit 將所有變更檔案上傳，如果沒有commit成功，不得發布
+- 4. 再執行 npm publish --access public
+
+---
+> Source: [kfnzero/mantis-mcp-server](https://github.com/kfnzero/mantis-mcp-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
