@@ -1,0 +1,9 @@
+{
+  "name": "deckgl-fiber-renderer--fiber-gl",
+  "displayName": "fiber.gl",
+  "description": "A React renderer for deck.gl",
+  "version": "1.0.0",
+  "author": "deckgl-fiber-renderer",
+  "homepage": "https://github.com/deckgl-fiber-renderer/fiber.gl",
+  "skills": []
+}
