@@ -1,0 +1,9 @@
+{
+  "name": "moyf--yearly-glance",
+  "displayName": "yearly-glance",
+  "description": "An obsidian plugin to build \"year at a glance\" view.",
+  "version": "1.0.0",
+  "author": "Moyf",
+  "homepage": "https://github.com/Moyf/yearly-glance",
+  "skills": []
+}
