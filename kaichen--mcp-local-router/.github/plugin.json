@@ -1,0 +1,9 @@
+{
+  "name": "kaichen--mcp-local-router",
+  "displayName": "mcp-local-router",
+  "description": "An MCP (Model Context Protocol) local router that serves as an aggregation proxy for MCP servers.",
+  "version": "1.0.0",
+  "author": "kaichen",
+  "homepage": "https://github.com/kaichen/mcp-local-router",
+  "skills": []
+}
