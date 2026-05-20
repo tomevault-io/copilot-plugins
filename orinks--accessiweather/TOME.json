@@ -4,7 +4,7 @@
   "repo": "AccessiWeather",
   "description": "A free desktop weather app. For the casual check-in or the deep dive.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Orinks/AccessiWeather",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T03:10:59Z"
+  "distributed_at": "2026-05-20T13:10:53Z"
 }
