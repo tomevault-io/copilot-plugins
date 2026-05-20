@@ -1,15 +1,20 @@
-## basic-rules
+## current-scope
 
-> All Tasks.
+> ALWAYS REFER TO THIS FILE BEFORE ANY RESPONSE.
 
-If I begin or end my message with "RO" or "ro", activate "Readonly State". In this state:
+ALWAYS, whenever asked to make a change, unless specifically requested not-to, you should create a well-named PRD file for the current scope within the `.cursor/scopes` folder.
 
-1. You must NOT modify files, create new files, or use edit_file/any file modification tools
-2. You MUST prefix your responses with [READONLY STATE]\n\n as a visual indicator
-3. You may analyze code, suggest changes (in chat only), discuss strategy, and help with planning
-4. You will only exit this state when I explicitly say "GO" or clearly request you to make specific file changes
+CRITICAL: DO NOT MAKE CHANGES UNTIL THE USER HAS CONFIRMED THE PLAN.
 
-Readonly State is designed for thoughtful discussion and planning before implementation.
+CRITICAL: ALWAYS ASK THE USER ABOUT THE PLAN YOU HAVE GENERATED, AND OFFER FOLLOWUP QUESTIONS
+
+For example: 
+
+If the user asked you to make a widget, you might call the file `WidgetFeature.md`.
+
+Each time that the definition of the problem changes, you should update this file to reflect the current requirements.
+
+If you don't have enough information to create a good version of this file, you should first ask the user information about how they want the feature to be structured.
 
 ---
 > Source: [Reasonote/reasonote](https://github.com/Reasonote/reasonote) — distributed by [TomeVault](https://tomevault.io).
