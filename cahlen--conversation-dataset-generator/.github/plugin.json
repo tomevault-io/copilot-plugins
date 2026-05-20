@@ -1,0 +1,9 @@
+{
+  "name": "cahlen--conversation-dataset-generator",
+  "displayName": "conversation-dataset-generator",
+  "description": "Generate multi-speaker conversational datasets for LLM fine-tuning. N-persona support, topic variation, conversation continuation, creative briefs with web search, character pools, Docker support. Sha",
+  "version": "1.0.0",
+  "author": "cahlen",
+  "homepage": "https://github.com/cahlen/conversation-dataset-generator",
+  "skills": []
+}
