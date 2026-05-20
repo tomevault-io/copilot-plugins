@@ -1,0 +1,9 @@
+{
+  "name": "brijr--payload-starter",
+  "displayName": "payload-starter",
+  "description": "Open Source SaaS starter for creating applications with Next.js and Payload",
+  "version": "1.0.0",
+  "author": "brijr",
+  "homepage": "https://github.com/brijr/payload-starter",
+  "skills": []
+}
