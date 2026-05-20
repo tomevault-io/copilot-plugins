@@ -1,36 +1,29 @@
-## code-style
+## deployment-patterns
 
-> This rule defines the code style and naming conventions for the AI Primitives platform.
+> This rule defines the deployment patterns and build configuration for the AI Primitives platform.
 
-# Code Style and Naming Conventions
+# Deployment Patterns
 
-This rule defines the code style and naming conventions for the AI Primitives platform.
+This rule defines the deployment patterns and build configuration for the AI Primitives platform.
 
 ## Applies to
-**/*.{ts,tsx,js,jsx,css,scss}
+**/*.{ts,tsx,js,jsx,json,mjs}
 
 ## Rule
-### Code Style
-- Single quotes
-- No semicolons
-- 2 space indentation
-- Trailing commas
-- 180 character line width
-- JSX uses single quotes
-- JSX brackets on the same line
-- Use modern Node.js features (Node 20+ or 22+):
-  - Use built-in fetch instead of node-fetch or require('https')
-  - Avoid older Node.js built-in modules when modern alternatives exist
-  - Remove unnecessary dependencies in favor of built-in alternatives
+### Deployment Patterns
+- Vercel is used for deployment and preview environments
+- Preview environments follow the URL pattern: https://ai-git-{branch-name}.dev.driv.ly/
+- The Velite content build step (build:content) must be integrated into the Vercel build process
+- Keep next.config.mjs minimal with only essential configurations
+- Avoid using node: imports in package files, particularly in ai-models
 
-### Naming Conventions
-- Use kebab-case for file names
-- Use PascalCase for component names
-- Use camelCase for variable and function names
-- Use UPPER_CASE for constants
-- Use PascalCase for types and interfaces
-- Use kebab-case for CSS class names
-- Use kebab-case for URL paths
+### Build Configuration Principles
+- Use Turborepo for managing the build order in monorepo packages
+- Use Turbopack for Next.js applications, making transpilePackages configuration unnecessary
+- Keep next.config.mjs minimal with only essential configurations
+- Avoid complex webpack configurations entirely
+- Tests should be excluded from the build process
+- Nextra v4 configuration is primarily managed in app/(docs)/docs/layout.tsx
 
 ---
 > Source: [drivly/ai](https://github.com/drivly/ai) — distributed by [TomeVault](https://tomevault.io).
