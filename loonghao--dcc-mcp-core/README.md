@@ -7,14 +7,14 @@ Core library for DCC Model Context Protocol (MCP) providing common utilities and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [loonghao/dcc-mcp-core](https://github.com/loonghao/dcc-mcp-core).
+Original source: `AGENTS.md` in [loonghao/dcc-mcp-core](https://github.com/loonghao/dcc-mcp-core).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/loonghao/dcc-mcp-core](https://github.com/loonghao/dcc-mcp-core)
