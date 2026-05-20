@@ -1,0 +1,9 @@
+{
+  "name": "maestro-org--maestro-mcp-server",
+  "displayName": "maestro-mcp-server",
+  "description": "Maestro MCP Server for Bitcoin",
+  "version": "1.0.0",
+  "author": "maestro-org",
+  "homepage": "https://github.com/maestro-org/maestro-mcp-server",
+  "skills": []
+}
