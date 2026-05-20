@@ -1,0 +1,9 @@
+{
+  "name": "r3bb1t--rusty-box",
+  "displayName": "rusty_box",
+  "description": "Rust rewrite of BOCHS emulator",
+  "version": "1.0.0",
+  "author": "r3bb1t",
+  "homepage": "https://github.com/r3bb1t/rusty_box",
+  "skills": []
+}
