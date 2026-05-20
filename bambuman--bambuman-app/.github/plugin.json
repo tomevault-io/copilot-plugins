@@ -1,0 +1,9 @@
+{
+  "name": "bambuman--bambuman-app",
+  "displayName": "BambuMan.App",
+  "description": "BambuMan is a companion app for Spoolman. It allows you to easily import spools by reading the Bambu Lab NFC tag.",
+  "version": "1.0.0",
+  "author": "bambuman",
+  "homepage": "https://github.com/bambuman/BambuMan.App",
+  "skills": []
+}
