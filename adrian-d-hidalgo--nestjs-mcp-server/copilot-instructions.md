@@ -1,145 +1,203 @@
-## nestjs-mcp-server
+## general
 
-> > This document defines the rules and guidelines for code generation with Copilot in our NestJS module library for MCP Server building. **This project is a wrapper for the @modelcontextprotocol/sdk for TypeScript to create MCP Server** ([GitHub Repository](https://github.com/modelcontextprotocol/typescript-sdk/tree/server)). It is essential to maintain compatibility with this library at all times, using its defined types and ensuring correct implementation of the MCP Server specification as a NestJS module.
+> Define project-specific conventions, patterns, and AI-generation workflows aligned with official documentation.
 
-# Copilot Rules
+# Rule Name: general
+**Scope:** Extends the global Cursor User Rules for the `nestjs-mcp-server` project.
+**Purpose:** To provide the AI agent (Cursor) with explicit, project-specific directives, conventions, patterns, and AI-generation workflows, ensuring all responses and code modifications strictly align with this project\'s official documentation (`README.md`, `CONTRIBUTING.md`, `.handbook/`) and established best practices. This rule is paramount for consistent and accurate AI assistance.
 
-> This document defines the rules and guidelines for code generation with Copilot in our NestJS module library for MCP Server building. **This project is a wrapper for the @modelcontextprotocol/sdk for TypeScript to create MCP Server** ([GitHub Repository](https://github.com/modelcontextprotocol/typescript-sdk/tree/server)). It is essential to maintain compatibility with this library at all times, using its defined types and ensuring correct implementation of the MCP Server specification as a NestJS module.
+---
 
-## 🎯 Response Principles
+## 0. Critical AI Directives & Adherence
+**This section is non-negotiable for the AI agent.**
 
-- Prioritize code correctness and functionality first
-- Generate maintainable, readable solutions
-- Consider security implications in all code
-- Respect project-specific configurations
-- Verify code quality before delivering final answers
-- Ensure compatibility with @modelcontextprotocol/sdk
-- After code changes, verify that examples in `../examples/*` remain valid and update them if necessary
+1.  **SDK-First Principle:** Before suggesting any new type, interface, or implementation, the AI MUST consult the official `@modelcontextprotocol/sdk` documentation and type definitions to understand the canonical approach and available types for the feature or protocol element in question.
+2.  **Type Reuse and Extension:** The AI MUST always reuse types, interfaces, and patterns exported by the SDK whenever possible. Only suggest extending or wrapping SDK types if project-specific requirements demand it, and always document the reason for any extension.
+3.  **Documentation Priority:**
+    *   For core MCP logic, types, and protocol behavior, the SDK documentation and types are the primary source of truth. All suggestions related to core MCP functionality MUST align with the SDK first.
+    *   `README.md`, `CONTRIBUTING.md`, and files within `.handbook/` (especially `GIT_GUIDELINES.md`) are the sources of truth for `nestjs-mcp-server` specific wrappers, conventions, and project workflows.
+    *   The `nestjs-mcp-server` is a **wrapper** around the SDK; it extends but MUST NOT contradict fundamental SDK principles.
+4.  **Version Awareness (MANDATORY):**
+    *   The AI MUST check the version of `@modelcontextprotocol/sdk` (from `package.json`) and ensure all suggestions are compatible with that version. If a feature is not available, the AI MUST recommend upgrading and reference the SDK changelog.
+5.  **Reference, Don't Hardcode:** When providing examples, always use SDK or protocol documentation as reference. Do not hardcode examples or types unless required for documentation, tests, or unless the project explicitly needs it.
+6.  **Pattern Replication:** The AI MUST identify and replicate existing coding patterns, naming conventions, and architectural decisions found within the `nestjs-mcp-server` `src/` and `examples/` directories.
+7.  **No Assumptions:** If a specific pattern or requirement is unclear (either from SDK or this project), the AI MUST ask for clarification or refer to existing examples before proceeding.
+8.  **Efficiency & Conciseness:** The AI should strive for efficient tool use and concise, actionable responses, as outlined in "AI Interaction Guidelines."
 
-## 🌐 Language
+---
 
-**STRICT**: Generate all code, comments, docs, and identifiers in English unless:
+## 1. Scope & Purpose
+- These rules govern AI interaction specifically for the `nestjs-mcp-server` project.
+- For general MCP protocol and SDK details, the AI should refer to the main `README.md` and the official **`@modelcontextprotocol/sdk` documentation**.
 
-- User explicitly requests another language
-- Specific project requirements override this rule
+---
 
-## 💡 Code Style & Quality
+## 2. Conventions
+1.  **Naming** (AI MUST enforce these in generated code)
+    *   Classes: `PascalCase`
+    *   Methods: `camelCase`
+    *   Files: `kebab-case` (e.g., `my-resolver.ts`)
+    *   Decorator names (MCP specific, e.g., `@Tool({ name: \'...\' })`): `snake_case` (aligns with SDK conventions)
+2.  **Schemas & Types**
+    *   Use Zod for `paramSchema`/`argsSchema` in MCP decorators. This is MANDATORY.
+    *   Always use explicit TypeScript types. Avoid `any` unless absolutely necessary and justified.
+    *   Core MCP types (`CallToolResult`, `RequestHandlerExtra`, etc.) are defined by `@modelcontextprotocol/sdk`. The AI MUST use these accurately and import from the SDK, not redefine them.
+    *   Before defining any new type or interface, the AI MUST check if it exists in the SDK and reuse it if available.
+3.  **Lint & Formatting**
+    *   Code generated by the AI MUST be compatible with rules in `eslint.config.mjs` and `tsconfig.json`.
+    *   The AI should remind the user to run `pnpm lint --fix` after code generation if extensive changes are made.
+4.  **Dependencies & Security**
+    *   Never hardcode credentials or sensitive information.
+    *   All inputs must be treated as untrusted; guide the user on validation and sanitization, preferably using Zod schemas.
+    *   Ensure database interactions (if any) use parameterized queries.
 
-**STRICT**: All generated code MUST follow style and formatting defined in:
+---
 
-- `eslint.config.mjs`
-- `tsconfig.json` and `tsconfig.build.json`
-- `.prettierrc` (if present)
+## 3. Implementation Patterns
+The AI MUST follow these patterns when generating or modifying code, ensuring they align with both `nestjs-mcp-server` conventions and `@modelcontextprotocol/sdk` specifications.
 
-- Use descriptive, meaningful names for variables, functions, and classes
-- Apply appropriate type annotations where supported
-- Prefer explicit over implicit logic
-- Keep functions focused on single responsibility
-- Verify generated code against linting rules before providing the final solution
-- If linting issues are detected, fix them and explain the changes
+### 3.1 Decorators
+-   **`@Resolver()`**: Groups MCP capabilities. It MUST NOT be used with `@Injectable()`. Standard NestJS DI applies to the constructor.
+-   **`@Resource()`, `@Tool()`, `@Prompt()`**:
+    *   Parameters and behavior MUST align with the definitions in `@modelcontextprotocol/sdk`.
+    *   First parameter: typed `uri` (for `@Resource`) or `params` (for `@Tool`, `@Prompt`).
+    *   Last parameter: MUST always be `extra: RequestHandlerExtra` (as defined by the SDK, potentially extended by `nestjs-mcp-server`).
+    *   Response format: MUST be a valid MCP result type (e.g., `CallToolResult`) as defined by `@modelcontextprotocol/sdk`. Example: `{ content: [{ type: \'text\'|\'json\'|..., value: ... }] }`.
+    *   If the SDK introduces new decorator options (e.g., `annotations`), the AI MUST check if the type is exported and reuse it, only extending if necessary for project-specific needs.
 
-## 📝 Documentation & Comments
+### 3.2 Guards Comparison
+The AI should understand and correctly apply guards based on scope:
 
-- Add concise docstrings for functions and classes
-- Document parameters with types and constraints
-- Document return values and possible exceptions
-- Provide usage examples for complex interfaces
+| Scope          | Decorator        | Argument Type (`canActivate`) | Execution Context Notes                  |
+| -------------- | ---------------- | --------------------------- | ---------------------------------------- |
+| Global         | Nest `APP_GUARD` | `ExecutionContext`          | Runs before MCP transport-specific logic. |
+| Resolver-level | `@UseGuards()`   | `McpExecutionContext`       | Applies to all MCP methods in the class. |
+| Method-level   | `@UseGuards()`   | `McpExecutionContext`       | Applies only to the decorated MCP method.  |
 
-**STRICT**: Include comments only for:
+-   When using `McpExecutionContext`, inject `SessionManager` to access `session.request` for original request details.
+-   Typical import for MCP context:
+    ```ts
+    import { McpExecutionContext, SessionManager, RequestHandlerExtra } from '@nestjs-mcp/server';
+    ```
 
-- Complex/non-obvious logic
-- Workarounds (with explanation)
-- Security considerations
-- Critical design decisions
-- TODO/FIXME items (with context)
+---
 
-## 🔐 Security
+## 4. Tools & Examples
+The AI should heavily rely on existing examples and SDK documentation.
 
-- Never include hardcoded credentials
-- Always validate and sanitize input
-- Use parameterized queries for database operations
-- Apply proper authentication and authorization checks
-- Flag potential security vulnerabilities in generated code
-- Suggest security improvements for existing code
+-   **Recommended semantic searches** (for the AI to perform):
+    *   Query: `"Tool decorator example with Zod schema"` in `src/**/*.ts` or `examples/**/*.ts`
+    *   Query: `"Resource implementation pattern for {specific_use_case}"`
+    *   Query: `"How are guards implemented in existing resolvers?"`
+-   **Minimal example structure to follow** (refer to full examples in `/examples` for context, and always cross-check with SDK docs):
+    ```ts
+    import { z } from 'zod';
+    import { Resolver, Tool } from '@nestjs-mcp/server';
+    import type { RequestHandlerExtra } from '@nestjs-mcp/server';
+    
+    const ExampleParams = z.object({ /* ...schema... */ });
+    type ExampleParamsType = z.infer<typeof ExampleParams>;
+    
+    @Resolver('example_namespace')
+    export class ExampleResolver {
+      @Tool({ name: 'example_tool', paramSchema: ExampleParams })
+      exampleTool(params: ExampleParamsType, extra: RequestHandlerExtra) {
+        // ...logic...
+        return { content: [{ type: 'text', text: "Result" }] };
+      }
+    }
+    ```
+-   Key project paths for AI reference:
+    *   Main module: `src/mcp.module.ts`
+    *   Example implementations: `examples/tools/`, `examples/resources/`, `examples/prompts/`
+    *   Core decorators: `src/decorators/`
+    *   Git workflow: `.handbook/GIT_GUIDELINES.md`
 
-## 📦 Dependencies
+---
 
-- Suggest dependencies with clear justification
-- Prefer established, well-maintained libraries
-- Include single installation command
-- Pin dependency versions precisely
-- Avoid deprecated or vulnerable libraries
-- Respect licensing requirements
-- Minimize the number of dependencies
+## 5. AI Interaction Guidelines
+This section dictates how the AI should interact and use its tools for this project.
 
-## ✅ Testing & Verification
+1.  **Exploration Strategy:**
+    *   **ALWAYS** start with semantic searches targeting `examples/` and `src/` to find existing patterns or similar implementations.
+    *   If patterns are found, the AI should read the relevant key files in bulk to understand context before suggesting modifications or new code.
+    *   The AI MUST always check the SDK documentation and types before suggesting new code or types.
+2.  **Tool Selection:**
+    *   Use `codebase_search` for understanding conceptual patterns, high-level structures, or finding implementations by description.
+    *   Use `grep_search` for exact matches of specific strings, decorator usages (e.g., `@Tool({`, `paramSchema:`), or function names.
+3.  **Efficiency and Edits:**
+    *   Batch related changes to the same file in a single `edit_file` call.
+    *   Avoid multiple small, iterative `edit_file` operations on the same file in one turn.
+    *   When providing code, ensure it is complete and runnable in the context of the project, including necessary imports.
+4.  **Querying the User:**
+    *   If requirements are ambiguous or conflict with existing patterns, the AI MUST present the conflict or ambiguity to the user with specific examples from the codebase and ask for clarification.
+    *   DO NOT invent new patterns without explicit user consent.
+5.  **External Information Retrieval & Repository Actions:**
+    *   **Documentation Lookup (Context7 Tools):**
+        *   Utilize when your query requires understanding or citing documentation for an external library or framework relevant to `nestjs-mcp-server` (e.g., NestJS itself, Zod, or other dependencies).
+        *   **ALWAYS** follow the two-step process if specific documentation is needed: 1) Resolve the library ID (e.g., `mcp_context7_resolve-library-id libraryName="zod"`). 2) Fetch relevant documentation sections (e.g., `mcp_context7_get-library-docs context7CompatibleLibraryID="zod/zod" topic="schemas"`).
+        *   Clearly state which library and topic you are looking up to provide context for the action.
+        *   Integrate retrieved information concisely into explanations or code suggestions, prioritizing relevance to the task.
+    *   **GitHub Operations (GitHub Tools):**
+        *   Use GitHub tools primarily to **assist** with actions you explicitly request (e.g., "Can you help me draft an issue for this bug?", "Search for existing PRs related to X").
+        *   For searching within this repository (`adrian-d-hidalgo/nestjs-mcp-server`), prefer `codebase_search` or `grep_search` first. Use GitHub search tools (e.g., `mcp_github_search_code q="Resolver decorator repo:adrian-d-hidalgo/nestjs-mcp-server"`) if a broader GitHub-wide search or issue/PR specific search is needed.
+        *   **Before performing actions that modify the repository** (e.g., creating issues, comments, PRs via tools like `mcp_github_create_issue`), the AI MUST seek your explicit confirmation, detailing what it intends to do. This aligns with the project's contribution guidelines which emphasize user-driven actions.
+        *   When referencing GitHub entities, use the full repository name: `adrian-d-hidalgo/nestjs-mcp-server`.
 
-Verify generated code against:
+---
 
-- Project linting rules
-- Type checking requirements
-- Security best practices
+## 6. Validation & Success Metrics (for AI-generated/modified code)
+The AI should aim for its suggestions to meet these criteria:
 
-- Generate appropriate unit tests on request
-- Test both success and error paths
-- Consider edge cases in implementations
-- Fix issues before delivering final code
-- If requested, suggest test scenarios
-- After each implementation, check if examples in `../examples/*` need to be updated
+-   **Tests**: Generated code should be structured to be testable. Remind user `pnpm test` should pass.
+-   **Lint**: Code MUST adhere to `pnpm lint` standards (as per `eslint.config.mjs`).
+-   **Coverage**: Changes should not decrease existing test coverage. If new logic is added, AI should suggest that tests are needed.
+-   **Commit Signing**: Remind user that commits must be signed (`git commit -S`), as per `.handbook/GIT_GUIDELINES.md`.
 
-## 🤖 Response Format
+---
 
-- Structure responses clearly
-- Highlight key decisions and tradeoffs
-- When providing complex implementations:
-  - Break down the solution into logical parts
-  - Explain complex or non-obvious patterns
-  - Offer alternative approaches when relevant
-- Include example usage for module integration
-- Verify if your solution meets all requirements before submitting
+## 7. Pre-PR Checklist (AI should be aware of this for user guidance)
+Guide the user to follow this checklist, derived from `CONTRIBUTING.md` and `.handbook/GIT_GUIDELINES.md`:
 
-## 💬 Interaction Guidelines
+-   [ ] Run `pnpm lint --fix` and `pnpm test` locally.
+-   [ ] Provide a clear PR description referencing the related issue number.
+-   [ ] Add or update tests as necessary for the changes.
+-   [ ] Confirm adherence to contribution guidelines in `CONTRIBUTING.md`.
 
-- Be specific and concise
-- Ask clarifying questions when requirements are ambiguous
-- Break complex tasks into manageable units
-- Reuse existing code patterns when appropriate
-- Maintain consistent terminology with the project
-- Focus responses on the specific request
-- If a request cannot be fulfilled completely, explain why and offer alternatives
+---
 
-## ⚙️ Implementation Rules
+## 8. Quick Cheat Sheet (for AI's rapid reference)
+-   **Minimal decorator template**: (See section 4)
+-   **Project structure (key areas)**:
+    ```text
+    src/
+      controllers/  // SSE/Sreameable transport
+      decorators/   // @Resolver, @Tool, @Prompt, @Resource etc.
+      registry/     // Capability registration
+      services/     // Core services (SessionManager)
+      mcp.module.ts // Root McpModule setup
+    examples/       // Self-contained usage examples
+    .handbook/
+      GIT_GUIDELINES.md // Branching, commits, PRs
+      STACK.md          // Stack guidelines
+    ```
+-   **Key commands for user**:
+    *   `pnpm install`
+    *   `EXAMPLE={folder_name} pnpm start:example` (for run examples)
+    *   `pnpm lint`
+    *   `pnpm test`
+    *   `pnpm test:cov`
+    *   `pnpm test:e2e`
+    *   `npx @modelcontextprotocol/inspector` (for testing running server)
 
-### TypeScript Types vs Interfaces
+---
 
-**STRICT**: Follow these rules for type definitions:
-
-- Use `interface` for:
-  - Object shapes that may be implemented or extended
-  - Class contracts
-- Use `type` for:
-  - Union types
-  - Intersection types
-  - Primitive type aliases
-  - Tuple types
-  - Function types
-  - Mapped and conditional types
-- Prefer interfaces when both options are viable (for better error messages and performance)
-- Reuse and extend types from @modelcontextprotocol/sdk whenever possible
-- Follow naming conventions established in the @modelcontextprotocol/sdk library
-
-### NestJS Code Generation Rules
-
-- Use NestJS CLI for generating files whenever possible (controllers, services, etc.)
-- Only generate files manually when they cannot be created through the CLI
-- Use NestJS module, controller, and service conventions
-- Decorate classes and methods appropriately (@Module, @Controller, @Injectable, etc.)
-- Use dependency injection for services and providers
-- Structure files and folders according to NestJS best practices
-- Use constructor-based injection
-- Follow NestJS module patterns for library development
-- Follow NestJS exception handling patterns
-- Implement Logger in strategic areas for better debugging capabilities
+## 9. Quick Links (for AI to reference or provide to user)
+-   **README**: `README.md` (link to root of project)
+-   **Contributing Guide**: `CONTRIBUTING.md`
+-   **Git Guidelines**: `.handbook/GIT_GUIDELINES.md`
+-   **Package Versioning**: `.handbook/PACKAGE_VERSIONING.md`
+-   **Tech Stack**: `.handbook/STACK.md`
 
 ---
 > Source: [adrian-d-hidalgo/nestjs-mcp-server](https://github.com/adrian-d-hidalgo/nestjs-mcp-server) — distributed by [TomeVault](https://tomevault.io).
