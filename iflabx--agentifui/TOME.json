@@ -4,7 +4,7 @@
   "repo": "agentifui",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iflabx/agentifui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T22:35:05Z"
+  "distributed_at": "2026-05-20T01:15:52Z"
 }
