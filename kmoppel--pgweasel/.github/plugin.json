@@ -1,0 +1,9 @@
+{
+  "name": "kmoppel--pgweasel",
+  "displayName": "pgweasel",
+  "description": "Simple PostgreSQL log parser CLI",
+  "version": "1.0.0",
+  "author": "kmoppel",
+  "homepage": "https://github.com/kmoppel/pgweasel",
+  "skills": []
+}
