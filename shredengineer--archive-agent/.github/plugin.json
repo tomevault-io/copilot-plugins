@@ -1,0 +1,9 @@
+{
+  "name": "shredengineer--archive-agent",
+  "displayName": "Archive-Agent",
+  "description": "Find your files with natural language and ask questions.",
+  "version": "1.0.0",
+  "author": "shredEngineer",
+  "homepage": "https://github.com/shredEngineer/Archive-Agent",
+  "skills": []
+}
