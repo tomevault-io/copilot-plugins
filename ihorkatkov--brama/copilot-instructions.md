@@ -1,12 +1,12 @@
-## elixir-process-design
+## elixir-testing
 
-> name: elixir_process_design
+> description: Best practices for testing Elixir applications using ExUnit and other testing tools
 
-# Elixir Process Design
+# Elixir Testing Practices
 
 <rule>
-name: elixir_process_design
-description: Best practices for designing process-based systems in Elixir
+name: elixir_testing
+description: Best practices for testing Elixir applications using ExUnit and other testing tools
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
@@ -14,172 +14,130 @@ filters:
 actions:
   - type: suggest
     message: |
-      # Elixir Process Design Best Practices
+      # Elixir Testing Best Practices
 
-      ## Process Organization
-      - Implement a single process in one module
-      - Assign exactly one parallel process to each truly concurrent activity
-      - Each process should have only one "role" (server, client, worker, supervisor)
-      - Use processes for structuring the system, not for basic abstraction
+      ## Test Organization
+      - Group related tests in test modules that mirror the production code structure
+      - Use descriptive test names that explain the behavior being tested
+      - Organize tests by functionality or feature
+      - Keep test files and test cases focused and concise
       
-      ## Process Registration
-      - Register processes with the same name as their module when appropriate
-      - Only register processes that need a long lifespan
-      - Use Registry or other mechanism for dynamic process lookup
+      ## Test Setup
+      - Use `setup` or `setup_all` blocks to prepare common test data
+      - Consider using fixtures for complex test data
+      - Clean up resources with `on_exit` callbacks
+      - Use contexts to share test data between tests
       
-      ## Message Protocol
-      - Tag all messages for easier pattern matching and extensibility
-      - Document message formats with typespecs where applicable
-      - Flush unknown messages to prevent message queue buildup
-      - Use timeout mechanisms appropriately, handling late messages
+      ## Test Assertions
+      - Use specific assertions that clearly communicate intent (`assert_receive`, `assert_in_delta`, etc.)
+      - Write one assertion per test when possible
+      - Include helpful error messages in assertions
+      - Test edge cases and error conditions, not just happy paths
       
-      ## Server Implementation
-      - Write tail-recursive servers to prevent memory leaks
-      - Use interface functions rather than direct message sends
-      - Prefer OTP behaviors (GenServer, Supervisor, etc.) over raw processes
-      - Keep state transformations explicit and easy to reason about
+      ## Mocking and Stubbing
+      - Use Mox for mocking behaviors and interfaces
+      - Prefer dependency injection to make code more testable
+      - Consider using ExMachina for factory patterns
+      - Use the built-in `ExUnit.CaptureLog` for testing logging
       
-      ## Error Handling
-      - Be intentional about trapping exits - processes should either always trap or never trap
-      - Use supervisors for automatic process restarts
-      - Apply the "Let it crash" philosophy for unexpected errors
-      - Log errors appropriately before crashing
+      ## Integration Tests
+      - Use Phoenix.ConnTest for testing HTTP endpoints
+      - Test your Ecto queries against an actual test database
+      - Use sandbox mode for database tests to ensure isolation
+      - Consider property-based testing with StreamData for complex input spaces
       
-      ## Process Dictionary
-      - Avoid the process dictionary (get/put) except in very specialized cases
-      - Pass state explicitly between function calls instead
+      ## Test Performance
+      - Keep tests fast to encourage running them frequently
+      - Use async: true to run tests in parallel when possible
+      - Avoid unnecessary database operations or external API calls
+      - Be mindful of test data volume
+      
+      ## Doctests
+      - Use doctests for simple function examples
+      - Keep doctests focused on demonstrating usage, not edge cases
+      - Ensure doctests are up-to-date with the actual code behavior
+      - Use doctests as living documentation
 
 examples:
   - input: |
-      # Raw process using spawn
-      defmodule UserRegistry do
-        def start do
-          spawn(fn -> loop(%{}) end)
-        end
+      defmodule MyApp.UserTest do
+        use ExUnit.Case
         
-        def register(registry, username, data) do
-          send(registry, {:register, username, data})
-        end
-        
-        def lookup(registry, username) do
-          send(registry, {:lookup, username, self()})
-          receive do
-            result -> result
-          after 1000 ->
-            :timeout
-          end
-        end
-        
-        defp loop(state) do
-          receive do
-            {:register, username, data} ->
-              loop(Map.put(state, username, data))
-            {:lookup, username, pid} ->
-              send(pid, Map.get(state, username))
-              loop(state)
-          end
+        test "create user" do
+          user = MyApp.User.create("John", "john@example.com")
+          assert user.name == "John"
+          assert user.email == "john@example.com"
+          assert user.active == true
+          assert user.created_at != nil
         end
       end
     output: |
-      defmodule UserRegistry do
-        use GenServer
+      defmodule MyApp.UserTest do
+        use ExUnit.Case, async: true
+        alias MyApp.User
         
-        # Client API
-        def start_link(opts \\ []) do
-          GenServer.start_link(__MODULE__, %{}, opts)
-        end
-        
-        def register(registry, username, data) do
-          GenServer.cast(registry, {:register, username, data})
-        end
-        
-        def lookup(registry, username) do
-          GenServer.call(registry, {:lookup, username})
-        end
-        
-        # Server Callbacks
-        @impl true
-        def init(state) do
-          {:ok, state}
-        end
-        
-        @impl true
-        def handle_cast({:register, username, data}, state) do
-          {:noreply, Map.put(state, username, data)}
-        end
-        
-        @impl true
-        def handle_call({:lookup, username}, _from, state) do
-          {:reply, Map.get(state, username), state}
-        end
-        
-        # Catch unknown messages
-        @impl true
-        def handle_info(msg, state) do
-          require Logger
-          Logger.warn("Received unexpected message: #{inspect(msg)}")
-          {:noreply, state}
+        describe "create/2" do
+          test "creates a user with the given name and email" do
+            user = User.create("John", "john@example.com")
+            assert user.name == "John"
+            assert user.email == "john@example.com"
+          end
+          
+          test "sets default values for new users" do
+            user = User.create("John", "john@example.com")
+            assert user.active == true
+            assert %DateTime{} = user.created_at
+          end
+          
+          test "validates email format" do
+            assert {:error, :invalid_email} = User.create("John", "invalid-email")
+          end
         end
       end
-      
-      # Usage:
-      {:ok, registry} = UserRegistry.start_link(name: UserRegistry)
-      UserRegistry.register(registry, "alice", %{email: "alice@example.com"})
-      user_data = UserRegistry.lookup(registry, "alice")
-      
+  
   - input: |
-      defmodule MessageHandler do
-        def process_messages(pid) do
-          receive do
-            {sender, msg} -> 
-              handle_message(msg)
-              sender ! {:ok, "Processed"}
-              process_messages(pid)
-            msg ->
-              handle_message(msg)
-              process_messages(pid)  
-          end
-        end
+      defmodule MyApp.PaymentTest do
+        use ExUnit.Case
         
-        defp handle_message(msg) do
-          # Process message
+        test "process payment with external API" do
+          # Makes actual API call to payment processor
+          result = MyApp.Payment.process("4111111111111111", "123", "12/25", 100)
+          assert result.status == "success"
         end
       end
     output: |
-      defmodule MessageHandler do
-        use GenServer
+      defmodule MyApp.PaymentTest do
+        use ExUnit.Case, async: true
         
-        def start_link(opts \\ []) do
-          GenServer.start_link(__MODULE__, [], opts)
-        end
+        import Mox
         
-        # Client API
-        def send_message(server, msg) do
-          GenServer.call(server, {:process, msg})
-        end
+        # Define mock in test_helper.exs:
+        # Mox.defmock(MockPaymentAPI, for: MyApp.PaymentAPI.Behaviour)
         
-        # Server Callbacks
-        @impl true
-        def init(_) do
-          {:ok, []}
-        end
+        setup :verify_on_exit!
         
-        @impl true
-        def handle_call({:process, msg}, from, state) do
-          result = handle_message(msg)
-          {:reply, {:ok, "Processed", result}, state}
-        end
-        
-        # Handle unexpected messages
-        @impl true
-        def handle_info(msg, state) do
-          require Logger
-          Logger.warn("Received unexpected message: #{inspect(msg)}")
-          {:noreply, state}
-        end
-        
-        defp handle_message(msg) do
-          # Process message
+        describe "process/4" do
+          test "processes a valid payment" do
+            expect(MockPaymentAPI, :charge, fn card_number, cvv, expiry, amount ->
+              assert card_number == "4111111111111111"
+              assert cvv == "123"
+              assert expiry == "12/25"
+              assert amount == 100
+              
+              {:ok, %{id: "pay_123", status: "success"}}
+            end)
+            
+            result = MyApp.Payment.process("4111111111111111", "123", "12/25", 100)
+            assert result.status == "success"
+          end
+          
+          test "handles API errors gracefully" do
+            expect(MockPaymentAPI, :charge, fn _, _, _, _ ->
+              {:error, :service_unavailable}
+            end)
+            
+            assert {:error, :payment_failed} = MyApp.Payment.process("4111111111111111", "123", "12/25", 100)
+          end
         end
       end
 
