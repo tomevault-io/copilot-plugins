@@ -17,6 +17,5 @@
 If changing this file then ensure to always keep `AGENTS.md`, `GEMINI.md` and `.github/copilot-instructions.md` in sync
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dave1010)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/dave1010)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [dave1010/wardley-leadership-strategies](https://github.com/dave1010/wardley-leadership-strategies) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
