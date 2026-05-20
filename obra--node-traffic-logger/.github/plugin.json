@@ -1,0 +1,9 @@
+{
+  "name": "obra--node-traffic-logger",
+  "displayName": "node-traffic-logger",
+  "description": "HTTP traffic logger and analyzer for Node.js applications",
+  "version": "1.0.0",
+  "author": "obra",
+  "homepage": "https://github.com/obra/node-traffic-logger",
+  "skills": []
+}
