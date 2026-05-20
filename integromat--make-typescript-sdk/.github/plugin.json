@@ -1,0 +1,9 @@
+{
+  "name": "integromat--make-typescript-sdk",
+  "displayName": "make-typescript-sdk",
+  "description": "Make TypeScript SDK",
+  "version": "1.0.0",
+  "author": "integromat",
+  "homepage": "https://github.com/integromat/make-typescript-sdk",
+  "skills": []
+}
