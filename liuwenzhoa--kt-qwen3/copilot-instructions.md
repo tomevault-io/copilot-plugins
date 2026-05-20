@@ -1,170 +1,100 @@
-## ktransformers-rocm
+## ktransformers-v3-success
 
-> KTransformers已实现对AMD GPU上ROCm的支持，使用户能够在AMD MI系列GPU上部署和运行大语言模型。本规则文件详细介绍KTransformers的ROCm支持特性、安装步骤和常见问题解答。
+> KTransformers是一个优化大型语言模型推理性能的框架，可在有限硬件资源下运行DeepSeek-V3等大型模型。本规则整理了已验证可成功运行KTransformers的硬件配置，供用户参考。
 
-# KTransformers ROCm支持指南
+# KTransformers成功运行配置参考
 
 ## 概述
 
-KTransformers已实现对AMD GPU上ROCm的支持，使用户能够在AMD MI系列GPU上部署和运行大语言模型。本规则文件详细介绍KTransformers的ROCm支持特性、安装步骤和常见问题解答。
+KTransformers是一个优化大型语言模型推理性能的框架，可在有限硬件资源下运行DeepSeek-V3等大型模型。本规则整理了已验证可成功运行KTransformers的硬件配置，供用户参考。
 
-## 支持功能
+## 成功案例配置
 
-- **模型支持**：DeepSeek系列、Mixtral系列和Qwen 2系列模型
-- **量化格式**：支持Q4_K_M和其他GGUF量化格式
-- **ROCm版本**：推荐使用ROCm 5.6或更高版本
-- **AMD GPU**：经过测试支持MI210和MI250上的推理
+### 案例1：服务器级配置
 
-## 安装指南
+**硬件配置**：
+- GPU: NVIDIA L40s (48GB VRAM)
+- CPU: 双路Intel Xeon 9654处理器 (共192核心)
+- 内存: 768GB DDR5 12通道
 
-### 前提条件
+**性能指标**：
+- 预填充速度: 108 tokens/s
+- 解码速度: 10.8 tokens/s
 
-1. **ROCm环境**：确保已正确安装ROCm（推荐5.6+版本）
-2. **CMake**：需要版本3.24或更高
-3. **编译器**：GCC 11或更高版本
-4. **Python环境**：Python 3.10或3.11
+**软件版本**：
+- KTransformers: main分支源代码编译版本
 
-### 安装步骤
+### 案例2：高端工作站配置
 
-#### 1. 创建conda环境
+**硬件配置**：
+- GPU: 单张NVIDIA RTX 4090 (24GB VRAM)
+- CPU: 双路Intel Xeon 6430 32C处理器 (共64核心128线程)
+- 内存: 480GB DDR5
 
-```bash
-conda create -n ktransformers-rocm python=3.11
-conda activate ktransformers-rocm
-```
+**性能指标**：
+- 运行速度: 约6-8 tokens/s
 
-#### 2. 安装PyTorch ROCm版本
+## 其他兼容平台
 
-```bash
-# 对于ROCm 5.6
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.6
-```
+据用户报告，KTransformers也可在以下平台上运行：
+- NVIDIA RTX 2080系列显卡
+- AMD GPU (通过ROCm支持)
 
-#### 3. 安装其他依赖
+## 硬件需求分析
 
-```bash
-pip install ninja safetensors einops transformers packaging protobuf pyyaml
-```
+### 最低要求
 
-#### 4. 克隆KTransformers仓库
+基于成功案例和文档，运行KTransformers(特别是DeepSeek-V3、DeepSeek-R1等大型模型)的最低硬件要求：
 
-```bash
-git clone https://github.com/kvcache-ai/ktransformers.git
-cd ktransformers
-git submodule update --init --recursive
-```
+1. **GPU**:
+   - VRAM: 14GB+(推荐24GB+)
+   - 架构: Ampere及以上(RTX 30系列或更新)性能最佳
 
-#### 5. 安装KTransformers
+2. **CPU**:
+   - 核心数: 32+(推荐64+)
+   - 支持AVX2指令集(必须)，AVX512(推荐)
+   - 多处理器系统对MoE模型有显著性能提升
 
-```bash
-# 使用ROCm专用安装脚本
-USE_ROCM=1 bash install.sh
-```
+3. **内存**:
+   - 容量: 取决于模型大小，DeepSeek-V3建议128GB+
+   - 类型: DDR4-3200或更快，DDR5更佳
 
-## 使用指南
+### 性能与硬件关系
 
-### 本地聊天
+1. **GPU性能影响**:
+   - 主要影响注意力计算和预填充速度
+   - VRAM大小决定可处理的上下文长度
+   - 显存带宽对注意力计算性能至关重要
 
-```bash
-python -m ktransformers.local_chat \
-  --model_path deepseek-ai/DeepSeek-V2-Lite-Chat \
-  --gguf_path /path/to/DeepSeek-V2-Lite-GGUF/ \
-  --optimize_config_path ktransformers/optimize/optimize_rules/rocm/DeepSeek-V2-Lite-Chat-rocm.yaml
-```
+2. **CPU性能影响**:
+   - 核心数直接影响专家并行计算能力
+   - 高时钟频率有助于提高单线程性能
+   - AVX512支持使专家计算更高效
 
-### 启动服务器
+3. **内存性能影响**:
+   - 内存容量决定可加载的模型大小
+   - 多通道配置提高内存带宽
+   - 对于MoE模型尤为重要
 
-```bash
-python ktransformers/server/main.py \
-  --model_path deepseek-ai/DeepSeek-V2-Lite-Chat \
-  --gguf_path /path/to/DeepSeek-V2-Lite-GGUF/ \
-  --optimize_config_path ktransformers/optimize/optimize_rules/rocm/DeepSeek-V2-Lite-Chat-rocm.yaml \
-  --port 10002
-```
+## 报告您的成功配置
 
-### 重要参数
+为帮助更多用户找到合适的硬件配置，KTransformers团队欢迎用户提交成功运行的环境配置。请通过以下链接提交您的配置信息：
 
-- `--optimize_config_path`：指定ROCm专用优化规则路径
-- `--use_rocm`：显式启用ROCm支持（大多数情况下不需要，会自动检测）
-- `--use_flash_attn`：启用FlashAttention支持（如果可用）
+[提交成功配置信息](mdc:https:/docs.qq.com/smartsheet/form/AVxgQOYhhNfl%2FBB08J2%2Fv3rnnq?tab=BB08J2)
 
-## ROCm优化配置
+## 性能优化建议
 
-KTransformers提供了专门针对ROCm的优化配置文件，位于`ktransformers/optimize/optimize_rules/rocm/`目录。这些配置文件针对AMD GPU进行了优化，包括：
+1. **GPU优化**:
+   - 如有多GPU，考虑使用多GPU配置
+   - 使用适当的CUDA Graph设置
 
-1. **专用ROCM规则**：针对不同模型的ROCm专用规则文件
-2. **操作符调整**：优化的ROCm操作符实现
-3. **内存管理**：针对AMD GPU的内存使用模式优化
+2. **CPU优化**:
+   - 设置`--cpu_infer`参数为物理核心数略小的值
+   - 为获得最佳性能，确保CPU负载不超过90%
 
-示例优化配置（DeepSeek-V2-Lite-Chat-rocm.yaml）：
-
-```yaml
-- match:
-    name: "^model\\.layers\\..*\\.self_attn$"
-  replace:
-    class: ktransformers.operators.attention.KDeepSeekLiteAttention
-    kwargs:
-      generate_device: "rocm"
-      prefill_device: "rocm"
-      absorb_for_prefill: True
-
-- match:
-    name: "^model\\.layers\\..*\\.mlp\\.down_proj$"
-  replace:
-    class: ktransformers.operators.linear.KTransformerLinear
-    device: "rocm" 
-    kwargs:
-      generate_device: "rocm"
-      absorb_for_prefill: True
-```
-
-## 性能表现
-
-在AMD MI210和MI250 GPU上的测试性能：
-
-| 模型 | 设备 | 预填充速度 | 解码速度 |
-|---|---|---|---|
-| DeepSeek-V2-Lite-Q4_K_M | MI250 (1卡) | 约 65 tokens/s | 约 40 tokens/s |
-| DeepSeek-V2-Lite-Q4_K_M | MI210 (1卡) | 约 40 tokens/s | 约 25 tokens/s |
-| Mixtral-8x7B-Q4_K_M | MI250 (1卡) | 约 15 tokens/s | 约 8 tokens/s |
-
-## 常见问题
-
-### 1. ROCm环境问题
-
-**问题**：安装后提示找不到HIP库或ROCM相关错误
-**解决方案**：
-- 检查ROCm环境变量：`echo $ROCM_PATH`
-- 确认pytorch正确安装：`python -c "import torch; print(torch.cuda.is_available())"`
-- 重新安装时使用：`USE_ROCM=1 bash install.sh`
-
-### 2. 内存管理
-
-**问题**：显存溢出或OOM错误
-**解决方案**：
-- 尝试减小批处理大小：`--max_batch_size 1`
-- 使用低精度量化：Q3_K_M或Q2_K
-- 确保系统内存足够（建议32GB+）
-
-### 3. 性能问题
-
-**问题**：推理速度慢于预期
-**解决方案**：
-- 确保使用ROCm专用优化规则
-- 尝试更改`--chunk_size`参数（通常64-256之间）
-- 检查是否启用了合适的操作符替换
-
-## 开发状态
-
-ROCm支持处于积极开发阶段，并计划在未来版本中进一步优化：
-
-- 增强对FlashAttention-2的ROCm支持
-- 改进更大模型（如DeepSeek-V3）的性能
-- 为MOE模型添加专门的优化
-
-## 贡献者
-
-ROCm支持的主要贡献者：@wh201906、@qiyuxinlin、@Azure-Tang、@ovowei
+3. **内存优化**:
+   - 监控内存使用，避免过度分页
+   - 根据实际DRAM大小选择合适的上下文长度设置
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
