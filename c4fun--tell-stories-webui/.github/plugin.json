@@ -1,0 +1,9 @@
+{
+  "name": "c4fun--tell-stories-webui",
+  "displayName": "tell-stories-webui",
+  "description": "Dynamic Voice Actor Assignment and Emotional Narration for Realistic Story Play",
+  "version": "1.0.0",
+  "author": "c4fun",
+  "homepage": "https://github.com/c4fun/tell-stories-webui",
+  "skills": []
+}
