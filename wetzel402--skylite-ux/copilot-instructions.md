@@ -1,16 +1,11 @@
-## deployments
+## env-secrets
 
-> Consider Docker, Proxmox, and HA when changing build/config/runtime
+> No process.env; use Nuxt runtimeConfig and nuxt.config / env vars
 
 
-# Deployments
+# Env and secrets
 
-- We deploy via Docker, Proxmox, and Home Assistant (HA). When changing runtime behavior, build, or config, consider all three.
-- Docker: `ha-app/Dockerfile` (multi-stage, repo root as context); `docs/installation/docker.md` for compose/standalone.
-- Proxmox: See `docs/installation/proxmox.md`; env/options align with Docker.
-- HA: `ha-app/config.yaml` (options, schema, image), `ha-app/run.sh` (entrypoint, options from `/data/options.json`, Postgres, migrations), `repository.yaml`. See `docs/contributing/haos.md`.
-- Avoid breaking one deployment path when editing another (e.g. changing an env name only in one place).
-- Base path: `app.baseURL` (default `"/"`). Override at runtime with `NUXT_APP_BASE_URL` when serving under a subpath (see [Nuxt app config](https://nuxt.com/docs/4.x/api/nuxt-config#app)).
+- Do not use `process.env` in app or server code. Use Nuxt `runtimeConfig` and inject values via `nuxt.config` or env vars (aligns with `node/no-process-env`).
 
 ---
 > Source: [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io).
