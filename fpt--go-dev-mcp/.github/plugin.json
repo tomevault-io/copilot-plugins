@@ -1,0 +1,14 @@
+{
+  "name": "fpt--go-dev-mcp",
+  "displayName": "go-dev-mcp",
+  "description": "A MCP server for Golang development",
+  "version": "1.0.0",
+  "author": "fpt",
+  "homepage": "https://github.com/fpt/go-dev-mcp",
+  "skills": [
+    {
+      "name": "add-doc-integration",
+      "description": ""
+    }
+  ]
+}
