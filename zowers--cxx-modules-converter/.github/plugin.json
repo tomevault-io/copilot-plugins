@@ -1,0 +1,9 @@
+{
+  "name": "zowers--cxx-modules-converter",
+  "displayName": "cxx_modules_converter",
+  "description": "`cxx_modules_converter.py` is a Python script to convert C++ sources and headers to C++20 modules.",
+  "version": "1.0.0",
+  "author": "zowers",
+  "homepage": "https://github.com/zowers/cxx_modules_converter",
+  "skills": []
+}
