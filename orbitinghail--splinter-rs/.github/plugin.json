@@ -1,0 +1,9 @@
+{
+  "name": "orbitinghail--splinter-rs",
+  "displayName": "splinter-rs",
+  "description": "A compressed bitmap format optimized for small, sparse sets of u32s with zero-copy querying.",
+  "version": "1.0.0",
+  "author": "orbitinghail",
+  "homepage": "https://github.com/orbitinghail/splinter-rs",
+  "skills": []
+}
