@@ -4,7 +4,7 @@
   "repo": "SpacetimeDSL",
   "description": "The SpacetimeDB Rust Server Module meta-framework",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tamaro-skaljic/SpacetimeDSL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T00:55:23Z"
+  "distributed_at": "2026-05-20T07:27:19Z"
 }
