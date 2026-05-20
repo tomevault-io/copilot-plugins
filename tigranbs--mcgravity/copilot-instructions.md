@@ -1,866 +1,364 @@
-## ratatui
+## rust
 
-> > Target docs: **ratatui 0.30.0** (docs.rs “latest” at time of writing).
+> Comprehensive best practices for Rust development (Edition 2024)
 
-# Ratatui (Rust) — TUI “field guide” for building a full-featured CLI
-> Target docs: **ratatui 0.30.0** (docs.rs “latest” at time of writing).  
-> This file is meant to be a **practical, complete map** of Ratatui’s public surface area: *what exists, what it’s for, how it fits together, and where to read the authoritative docs / examples.*
+# Rust Best Practices (2024-2025)
 
----
+This document outlines a comprehensive set of best practices for Rust development, covering various aspects from code organization to security and tooling. Adhering to these guidelines will help you write idiomatic, efficient, secure, and maintainable Rust code.
 
-## 0) What Ratatui is (and what it is not)
+**Note:** This project uses **Rust Edition 2024** (released Feb 2025 with Rust 1.85).
 
-**Ratatui** is an *immediate-mode* terminal UI library: each frame, your app renders the entire UI into an off-screen **Buffer**, and Ratatui diff-renders only changes to the terminal via a **Backend**.
+## 1. Code Organization and Structure
 
-**Key implications of “immediate mode”:**
-- Your “UI tree” is not persisted by the framework.
-- **Your app owns the state** (selection index, scroll offset, input text, toggles).
-- Each `Terminal::draw` call must fully repaint the UI for the current state (even if nothing changed).
+### 1.1. Directory Structure
 
----
+-   **`src/`**: Contains all the Rust source code.
+    -   **`main.rs`**: The entry point for binary crates.
+    -   **`lib.rs`**: The entry point for library crates.
+    -   **`bin/`**:  Contains source files for multiple binary executables within the same project.  Each file in `bin/` will be compiled into a separate executable.
+    -   **`modules/` or `components/`**: (Optional)  For larger projects, group related modules or components into subdirectories. Use descriptive names.
+    -   **`tests/`**:  Integration tests. (See Testing section below for more details.)
+    -   **`examples/`**: Example code that demonstrates how to use the library.
+-   **`benches/`**: Benchmark tests (using `criterion` or similar).
+-   **`Cargo.toml`**: Project manifest file.
+-   **`Cargo.lock`**: Records the exact versions of dependencies used. **Do not manually edit.**
+-   **`.gitignore`**: Specifies intentionally untracked files that Git should ignore.
+-   **`README.md`**: Project documentation, including usage instructions, build instructions, and license information.
 
-## 1) Crate architecture & “components” at a glance
 
-Ratatui is modular (a workspace of crates) and the top-level `ratatui` crate re-exports what you usually need:
+sayna/
+├── Cargo.toml
+├── Cargo.lock
+├── src/
+│   ├── main.rs         # Entry point for a binary crate
+│   ├── lib.rs          # Entry point for a library crate
+│   ├── modules/
+│   │   ├── module_a.rs # A module within the crate
+│   │   └── module_b.rs # Another module
+│   └── bin/
+│       ├── cli_tool.rs # A separate binary executable
+│       └── worker.rs   # Another binary executable
+├── tests/
+│   └── integration_test.rs # Integration tests
+├── benches/
+│   └── my_benchmark.rs # Benchmark tests using Criterion
+├── examples/
+│   └── example_usage.rs # Example code using the library
+├── README.md
 
-### 1.1 Core building blocks
-- **Terminal + Frame** (render loop entry points)
-- **Backend** (how bytes reach a real terminal)
-- **Buffer + Cell** (the “canvas” widgets draw to)
-- **Layout** (splitting areas with constraints)
-- **Text** (`Span`, `Line`, `Text`)
-- **Style** (`Color`, `Style`, `Modifier`, `Stylize`)
-- **Widgets** (Block, Paragraph, Table, …)
-- **Symbols** (box drawing, markers, sets)
-- **Init utilities** (`run`, `init`, `restore`, viewports)
 
-### 1.2 “Where things live” (major modules)
-- `ratatui::backend` — the `Backend` trait, backend implementations (Crossterm/Termion/Termwiz/TestBackend), and backend-related traits.
-- `ratatui::buffer` — `Buffer`, `Cell`.
-- `ratatui::layout` — `Rect`, `Layout`, `Constraint`, `Direction`, `Flex`, `Margin`, alignment types, etc.
-- `ratatui::style` — `Style`, `Color`, `Modifier`, and convenience styling (`Stylize`).
-- `ratatui::text` — `Span`, `Line`, `Text`, and helpers.
-- `ratatui::symbols` — line/box characters, border sets, markers.
-- `ratatui::widgets` — all built-in widgets, widget traits, widget states.
-- `ratatui::init` — documentation & helpers around init/restore and panic hooks (also see the root-level functions).
-- `ratatui::prelude` — a convenience glob-import set (still available, but not universally recommended).
+### 1.2. File Naming Conventions
 
-### 1.3 Feature flags (important!)
-Ratatui uses feature flags to control:
-- which backend(s) are included (e.g. `crossterm`, `termion`, `termwiz`)
-- whether “all widgets” are built (default is typically “all”)
-- macros, layout cache, underline color support, serde, palette integration, etc.
+-   Rust source files use the `.rs` extension.
+-   Module files (e.g., `module_a.rs`) should be named after the module they define.
+-   Use snake_case for file names (e.g., `my_module.rs`).
 
-**Authoritative list (always check your exact version):**
-```text
-https://docs.rs/crate/ratatui/latest/features
-```
+### 1.3. Module Organization
 
----
-
-## 2) “Hello World” mental model: the rendering pipeline
-
-### 2.1 The minimal moving parts
-1. **Backend** talks to the terminal emulator (stdout, raw mode, alternate screen, cursor).
-2. **Terminal<B>** owns:
-   - double buffers (previous + current)
-   - viewport configuration
-   - cursor state
-3. Each frame:
-   - `Terminal::draw(|f| { ... })`
-   - you use the `Frame` to render widgets into the current `Buffer`
-   - Ratatui diffs current vs previous buffer
-   - backend writes only changed cells
-
-### 2.2 Key types you’ll touch daily
-- `Terminal<B>`
-- `Frame`
-- `Rect`
-- `Buffer`
-- `Layout`, `Constraint`
-- `Style`, `Color`, `Modifier`
-- `Span`, `Line`, `Text`
-- widget types (`Block`, `Paragraph`, `Table`, …)
-
-### 2.3 Immediate-mode best practice (non-negotiable)
-**Always fully render the frame.**  
-Do not “skip” rendering unchanged areas. Diffing happens *after* your closure returns.
-
----
-
-## 3) Terminal initialization & teardown (the “right” way in 0.30)
-
-Ratatui now provides convenience helpers so you don’t need boilerplate raw-mode / alternate-screen / panic hook setup in every project.
-
-### 3.1 `run()` — simplest “just do the right thing”
-Use this for most CLIs:
+-   Use modules to organize code into logical units.
+-   Declare modules in `lib.rs` or `main.rs` using the `mod` keyword.
+-   Use `pub mod` to make modules public.
+-   Create separate files for each module to improve readability and maintainability.
+-   Use `use` statements to bring items from other modules into scope.
 
 ```rust
-fn main() -> std::io::Result<()> {
-    ratatui::run(|terminal| {
-        loop {
-            terminal.draw(|f| f.render_widget("Hello", f.area()))?;
-            // read events, update state, maybe exit...
-        }
-    })
+// lib.rs
+
+pub mod my_module;
+
+mod internal_module; // Not public
+
+
+rust
+// my_module.rs
+
+pub fn my_function() {
+    //...
 }
 ```
 
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/fn.run.html
-```
-
-### 3.2 `init()` / `restore()` — explicit control
-If you want the terminal value and to control shutdown:
-- `init()` initializes a default terminal (Crossterm-based).
-- `restore()` returns terminal settings to normal (disable raw mode, leave alt-screen).
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/fn.init.html
-https://docs.rs/ratatui/latest/ratatui/fn.restore.html
-```
-
-### 3.3 Viewports (`Viewport`) & `TerminalOptions`
-Ratatui supports different ways to “own” the terminal:
-- **Fullscreen**: typical TUI (entire screen)
-- **Inline(height)**: persistent TUI area while normal output scrolls above it (status panels, progress, logs)
-- **Fixed(Rect)**: render into a fixed region
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/enum.Viewport.html
-https://docs.rs/ratatui/latest/ratatui/struct.TerminalOptions.html
-https://docs.rs/ratatui/latest/ratatui/fn.init_with_options.html
-```
-
-Examples (inline viewport):
-```text
-https://ratatui.rs/examples/apps/inline/
-```
-
-### 3.4 Panic hooks (so you don’t “break” the user’s terminal)
-If you manually create a `Terminal` (instead of using `run`/`init`), you must ensure panics restore raw mode & screen state.
-
-Docs & recipes:
-```text
-https://ratatui.rs/recipes/apps/panic-hooks/
-https://ratatui.rs/examples/apps/panic/
-```
-
----
-
-## 4) Terminal, Frame, and buffer lifecycle
-
-### 4.1 `Terminal<B>`: responsibilities and key methods
-`Terminal<B>` is the main entry point.
-- `Terminal::new(backend)` — create with default fullscreen viewport
-- `Terminal::with_options(backend, TerminalOptions)` — customize viewport etc.
-- `Terminal::draw(|frame| { ... }) -> CompletedFrame` — the canonical render call
-- `Terminal::try_draw(|frame| -> Result<(), E> { ... })` — render closure can `?`
-- `Terminal::clear()` — force full clear and redraw
-- `Terminal::flush()` — diff buffers and send updates
-- `Terminal::swap_buffers()` — swap current/previous buffers
-- `Terminal::autoresize()` / `Terminal::resize(area)` — keep buffers consistent with terminal size
-- Cursor helpers (`hide_cursor`, `show_cursor`, `set_cursor_position`, …)
-- Viewport helpers (e.g. `insert_before` for inline viewports)
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/struct.Terminal.html
-```
-
-### 4.2 `Frame`: per-draw “render context”
-`Frame` provides:
-- `frame.area()` — stable area for this frame (prefer over resize events)
-- `frame.render_widget(widget, area)`
-- `frame.render_stateful_widget(widget, area, state)`
-- `_ref` variants for widget references
-- cursor control for text input widgets
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/struct.Frame.html
-```
-
-### 4.3 `CompletedFrame`
-`Terminal::draw` returns a `CompletedFrame` (useful for debugging/testing).
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/struct.CompletedFrame.html
-```
-
-### 4.4 `Buffer` and `Cell`
-Widgets render into a `Buffer` made of `Cell`s:
-- `Cell` stores the “character” (grapheme) plus style.
-- `Buffer` maps 2D terminal coordinates → `Cell` array.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/buffer/struct.Buffer.html
-https://docs.rs/ratatui/latest/ratatui/buffer/struct.Cell.html
-```
-
----
-
-## 5) Backends: how Ratatui talks to the terminal
-
-### 5.1 The `Backend` trait
-A backend must be able to:
-- draw changed cells
-- show/hide/move cursor
-- clear screen regions
-- report size, and support flushing
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/backend/trait.Backend.html
-https://docs.rs/ratatui/latest/ratatui/backend/index.html
-```
-
-### 5.2 Built-in backend implementations
-Ratatui supports:
-- **CrosstermBackend** (default feature)
-- **TermionBackend** (non-Windows)
-- **TermwizBackend**
-- **TestBackend** (for tests and in-memory buffer assertions)
-
-Backend concept guide:
-```text
-https://ratatui.rs/concepts/backends/
-```
-
-### 5.3 Crossterm version compatibility (real-world pitfall)
-If your dependency graph pulls in multiple incompatible Crossterm major versions, you may see “expected Event found Event” type errors, raw-mode issues, or missing methods.
-
-Reference:
-```text
-https://ratatui.rs/concepts/backends/   (see “Crossterm version compatibility”)
-https://ratatui.rs/faq/                (multiple Crossterm versions)
-```
-
----
-
-## 6) Layout system (splitting the screen)
-
-### 6.1 Coordinate system
-- Origin is top-left: `(x=0, y=0)`
-- `Rect { x, y, width, height }` uses `u16` coordinates.
-
-Concept guide:
-```text
-https://ratatui.rs/concepts/layout/
-```
-
-### 6.2 `Rect`, `Size`, `Position`, `Margin`
-- `Rect` is the fundamental region used everywhere.
-- `Size` is a width/height pair.
-- `Position` is an x/y coordinate (used e.g. cursor position).
-- `Margin` is extra padding around a `Rect`.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/layout/struct.Rect.html
-https://docs.rs/ratatui/latest/ratatui/layout/struct.Size.html
-https://docs.rs/ratatui/latest/ratatui/layout/struct.Position.html
-https://docs.rs/ratatui/latest/ratatui/layout/struct.Margin.html
-```
-
-### 6.3 `Layout`: divide a parent area into child `Rect`s
-A `Layout` is a *solver-driven* system that splits an area using:
-- `Direction` (Horizontal / Vertical)
-- `Constraint`s (Length, Min, Max, Percentage, Ratio, Fill)
-- optional `Flex` behavior and spacing
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/layout/struct.Layout.html
-https://docs.rs/ratatui/latest/ratatui/layout/enum.Constraint.html
-https://docs.rs/ratatui/latest/ratatui/layout/enum.Direction.html
-https://docs.rs/ratatui/latest/ratatui/layout/enum.Flex.html
-```
-
-### 6.4 Constraints (the rules of splitting)
-- `Constraint::Length(n)` — fixed size
-- `Constraint::Min(n)` / `Max(n)` — bounds
-- `Constraint::Percentage(p)` — percentage of total
-- `Constraint::Ratio(a,b)` — rational portion
-- `Constraint::Fill(weight)` — proportional “remaining space”
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/layout/enum.Constraint.html
-```
-
-### 6.5 Layout caching (performance)
-`Layout::split(area)` results can be cached (default feature `layout-cache`). You can configure cache size with `Layout::init_cache()`.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/layout/struct.Layout.html
-https://docs.rs/crate/ratatui/latest/features
-```
-
-Examples:
-```text
-https://ratatui.rs/examples/layout/layout/
-https://ratatui.rs/examples/layout/flex/
-```
-
----
-
-## 7) Styling: colors, modifiers, and the `Stylize` convenience API
-
-### 7.1 Core types
-- `Color` — ANSI + RGB + indexed color support
-- `Modifier` — bold/italic/underlined/reversed/etc flags
-- `Style` — foreground/background/underline color + modifiers
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/style/enum.Color.html
-https://docs.rs/ratatui/latest/ratatui/style/struct.Style.html
-https://docs.rs/ratatui/latest/ratatui/style/struct.Modifier.html
-```
-
-### 7.2 `Stylize` (fluent styling)
-Instead of always writing `Style::new().fg(Color::Red).add_modifier(...)`,
-you can use shorthands, e.g. `"hello".red().bold()`.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/style/trait.Stylize.html
-https://docs.rs/ratatui/latest/ratatui/style/index.html
-```
-
-### 7.3 Best practices for styling
-- Define a small theme struct (`struct Theme { ... }`) holding styles.
-- Keep high-contrast palettes; test in light & dark terminals.
-- Be mindful of terminals that don’t support underline color or truecolor.
-- Avoid encoding meaning purely by color; combine with text/symbols.
-
----
-
-## 8) Text model: Span → Line → Text
-
-### 8.1 The hierarchy
-- **Span**: a styled substring (single style)
-- **Line**: a sequence of spans on one row
-- **Text**: multiple lines + global alignment/style
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/text/struct.Span.html
-https://docs.rs/ratatui/latest/ratatui/text/struct.Line.html
-https://docs.rs/ratatui/latest/ratatui/text/struct.Text.html
-https://docs.rs/ratatui/latest/ratatui/text/index.html
-```
-
-### 8.2 Recipes
-Text rendering walkthrough:
-```text
-https://ratatui.rs/recipes/render/display-text/
-```
-
-### 8.3 Best practices for text
-- Prefer `Line` when mixing styles in a single row.
-- Prefer `Text` for multi-line blocks and for alignment.
-- When in doubt, use `Paragraph` for display; it handles wrapping + blocks.
-
----
-
-## 9) Symbols: borders, markers, and box drawing
-
-The `symbols` module provides pre-made characters and “sets” used by widgets:
-- border line characters (single/double/thick, rounded, etc)
-- list markers, scrollbar symbols, block elements, chart markers
-- special border sets like `border::EMPTY` for styling reserved border space
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/symbols/index.html
-https://ratatui.rs/highlights/v027/   (see `border::EMPTY`)
-```
-
----
-
-## 10) Widgets: what exists, how to use them, and what state they require
-
-### 10.1 Widget traits (core concepts)
-#### `Widget`
-A `Widget` is something that can draw itself into a `Buffer` in a `Rect`.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/trait.Widget.html
-```
-
-#### `StatefulWidget`
-Some widgets need mutable state between frames (selection, scroll offset, …).
-Those implement `StatefulWidget` and are rendered with:
-- `frame.render_stateful_widget(widget, area, &mut state)`
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/trait.StatefulWidget.html
-```
-
-#### `WidgetRef` / `StatefulWidgetRef`
-Reference-based variants avoid moving/cloning large widgets; use:
-- `frame.render_widget_ref(&widget, area)`
-- `frame.render_stateful_widget_ref(&widget, area, &mut state)`
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/trait.WidgetRef.html
-https://docs.rs/ratatui/latest/ratatui/widgets/trait.StatefulWidgetRef.html
-```
-
-Widget concept guide:
-```text
-https://ratatui.rs/concepts/widgets/
-```
-
----
-
-### 10.2 Built-in widgets (complete list in ratatui::widgets)
-
-> Ratatui’s widgets are designed to be **composable**. Many take a `Block` so you can add borders/titles/padding and then render the inner content.
-
-Authoritative “widgets module” page:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/index.html
-```
-
-Below is the *full built-in widget list* from Ratatui 0.30’s public module docs, plus the most important companion types each widget uses.
-
----
-
-#### A) Structural / framing widgets
-
-##### 1) `Block`
-The universal “frame” widget: borders, titles, padding, border sets, styles.
-
-Common usage patterns:
-- wrap most widgets in a `Block::bordered().title("...")`
-- use padding/margins to keep content readable
-- use `border_set(...)` to change border glyphs
-- use `border_style(...)` and title style for theming
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Block.html
-```
-
-Related:
-- `Borders`, `BorderType`, border title positioning, etc.
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Borders.html
-https://docs.rs/ratatui/latest/ratatui/widgets/enum.BorderType.html
-```
-
-##### 2) `Clear`
-Clears a rectangular region so you can “overdraw” popups/modals.
-- Not for clearing on first render; use `Terminal::clear` for that.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Clear.html
-```
-
-Example:
-```text
-https://docs.rs/ratatui/latest/src/popup/popup.rs.html
-```
-
----
-
-#### B) Text and content widgets
-
-##### 3) `Paragraph`
-Multiline text widget with wrapping, scrolling, alignment, and optional `Block`.
-
-Companions:
-- `Wrap` (line wrapping options)
-- scroll offset / alignment settings
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Paragraph.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Wrap.html
-```
-
-##### 4) `List`
-Displays a vertical list of items.
-- can be used stateless (just show items)
-- or stateful with `ListState` (selection, offset)
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.List.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.ListState.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.ListItem.html
-```
-
-##### 5) `Table`
-Displays rows and columns with optional header/footer.
-- stateful with `TableState` for selection + scrolling
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Table.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.TableState.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Row.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Cell.html
-```
-
----
-
-#### C) Navigation and UI chrome
-
-##### 6) `Tabs`
-Tab bar widget (usually for switching screens).
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Tabs.html
-```
-
-##### 7) `Scrollbar`
-A scrollbar widget (often paired with `Paragraph`, `List`, `Table`, or custom scrollable regions).
-- uses `ScrollbarState`
-- configurable orientation & symbols
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Scrollbar.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.ScrollbarState.html
-https://docs.rs/ratatui/latest/ratatui/widgets/enum.ScrollbarOrientation.html
-```
-
----
-
-#### D) Data visualization widgets
-
-##### 8) `Gauge`
-Progress bar / completion widget.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Gauge.html
-https://docs.rs/ratatui/latest/src/gauge/gauge.rs.html
-```
-
-##### 9) `LineGauge`
-A single-line gauge variant.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.LineGauge.html
-```
-
-##### 10) `Sparkline`
-Compact line chart (small trend plots).
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Sparkline.html
-```
-
-##### 11) `BarChart`
-Bar charts with groups/bars.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.BarChart.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Bar.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.BarGroup.html
-```
-
-##### 12) `Chart`
-Cartesian plot for one or more datasets.
-
-Companions:
-- `Dataset`
-- `GraphType`
-- axes configuration (`Axis`, `Bounds`, labels)
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Chart.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Dataset.html
-https://docs.rs/ratatui/latest/ratatui/widgets/enum.GraphType.html
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Axis.html
-```
-
----
-
-#### E) Advanced / specialized widgets
-
-##### 13) `Canvas`
-A 2D drawing canvas: draw shapes/points/lines/maps in a coordinate system.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Canvas.html
-https://docs.rs/ratatui/latest/ratatui/widgets/canvas/index.html
-```
-
-##### 14) `Calendar`
-Month view calendar widget.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/struct.Calendar.html
-https://docs.rs/ratatui/latest/ratatui/widgets/calendar/index.html
-```
-
----
-
-## 11) Custom widgets (how to build your own correctly)
-
-### 11.1 The minimal requirement
-To build a custom widget, implement `Widget`:
+### 1.4. Component Architecture
+
+-   For larger applications, consider using a component-based architecture.
+-   Each component should be responsible for a specific part of the application's functionality.
+-   Components should communicate with each other through well-defined interfaces (traits).
+-   Consider using dependency injection to decouple components and improve testability.
+
+### 1.5. Code Splitting Strategies
+
+-   Split code into smaller, reusable modules.
+-   Use feature flags to conditionally compile code for different platforms or features.
+-   Consider using dynamic linking (if supported by your target platform) to reduce binary size.
+
+## 2. Common Patterns and Anti-patterns
+
+### 2.1. Design Patterns
+
+-   **Builder Pattern**: For constructing complex objects with many optional parameters.
+-   **Factory Pattern**: For creating objects without specifying their concrete types.
+-   **Observer Pattern**: For implementing event-driven systems.
+-   **Strategy Pattern**: For selecting algorithms at runtime.
+-   **Visitor Pattern**: For adding new operations to existing data structures without modifying them.
+
+### 2.2. Recommended Approaches for Common Tasks
+
+-   **Data Structures**: Use `Vec` for dynamic arrays, `HashMap` for key-value pairs, `HashSet` for unique elements, `BTreeMap` and `BTreeSet` for sorted collections.
+-   **Concurrency**: Use `Arc` and `Mutex` for shared mutable state, channels for message passing, and the `rayon` crate for data parallelism.
+-   **Asynchronous Programming**: Use `async` and `await` for writing asynchronous code.
+-   **Error Handling**: Use the `Result` type for recoverable errors and `panic!` for unrecoverable errors.
+
+### 2.3. Anti-patterns and Code Smells
+
+-   **Unnecessary Cloning**: Avoid cloning data unless it is absolutely necessary. Use references instead.
+-   **Excessive `unwrap()` Calls**: Handle errors properly instead of using `unwrap()`, which can cause the program to panic.
+-   **Overuse of `unsafe`**: Minimize the use of `unsafe` code and carefully review any unsafe code to ensure it is correct.
+-   **Ignoring Compiler Warnings**: Treat compiler warnings as errors and fix them.
+-   **Premature Optimization**: Focus on writing clear, correct code first, and then optimize only if necessary.
+
+### 2.4. State Management
+
+-   **Immutability by Default**: Prefer immutable data structures and functions that return new values instead of modifying existing ones.
+-   **Ownership and Borrowing**: Use Rust's ownership and borrowing system to manage memory and prevent data races.
+-   **Interior Mutability**: Use `Cell`, `RefCell`, `Mutex`, and `RwLock` for interior mutability when necessary, but be careful to avoid data races.
+
+### 2.5. Error Handling
+
+-   **`Result<T, E>`**: Use `Result` to represent fallible operations. `T` is the success type, and `E` is the error type.
+-   **`Option<T>`**: Use `Option` to represent the possibility of a missing value. `Some(T)` for a value, `None` for no value.
+-   **`?` Operator**: Use the `?` operator to propagate errors up the call stack.
+-   **Custom Error Types**: Define custom error types using enums or structs to provide more context about errors.
+-   **`anyhow` and `thiserror` Crates**: Consider using the `anyhow` crate for simple error handling and the `thiserror` crate for defining custom error types.
+
+## 3. Performance Considerations
+
+### 3.1. Optimization Techniques
+
+-   **Profiling**: Use profiling tools to identify performance bottlenecks:
+    -   **Samply**: Modern profiler with Firefox Profiler UI (recommended for 2024+)
+    -   **pprof-rs**: CPU profiler with Criterion integration
+    -   **cargo-flamegraph**: Classic flamegraph generation
+    -   **Bytehound**: Best available memory profiling tool for Rust
+    -   **DHAT/dhat-rs**: Memory profiling and allocation tracking
+-   **Benchmarking**: Use benchmarking tools to measure performance:
+    -   **Divan**: Modern go-to benchmark framework (simpler API than Criterion)
+    -   **Criterion**: Mature statistical benchmarking
+    -   **Iai-Callgrind**: Instruction-count based (reliable in CI environments)
+-   **Zero-Cost Abstractions**: Leverage Rust's zero-cost abstractions, such as iterators, closures, and generics.
+-   **Inlining**: Use the `#[inline]` attribute to encourage the compiler to inline functions.
+-   **LTO (Link-Time Optimization)**: Enable LTO to improve performance by optimizing across crate boundaries.
+
+### 3.2. Memory Management
+
+-   **Minimize Allocations**: Reduce the number of allocations and deallocations by reusing memory and using stack allocation when possible.
+-   **Avoid Copying Large Data Structures**: Use references or smart pointers to avoid copying large data structures.
+-   **Use Efficient Data Structures**: Choose the right data structure for the job based on its performance characteristics.
+-   **Consider `Box` and `Rc`**: `Box` for single ownership heap allocation, `Rc` and `Arc` for shared ownership (latter thread-safe).
+
+### 3.3. Rendering Optimization
+
+-   **(Relevant if the Rust application involves rendering, e.g., a game or GUI)**
+-   **Batch draw calls**: Combine multiple draw calls into a single draw call to reduce overhead.
+-   **Use efficient data structures**: Use data structures that are optimized for rendering, such as vertex buffers and index buffers.
+-   **Profile rendering performance**: Use profiling tools to identify rendering bottlenecks.
+
+### 3.4. Bundle Size Optimization
+
+-   **Strip Debug Symbols**: Remove debug symbols from release builds to reduce binary size.
+-   **Enable LTO**: LTO can also reduce binary size by removing dead code.
+-   **Use `minisize` Profile**: Create a `minisize` profile in `Cargo.toml` for optimizing for size.
+-   **Avoid Unnecessary Dependencies**: Only include the dependencies that are absolutely necessary.
+
+### 3.5. Lazy Loading
+
+-   **Load Resources on Demand**: Load resources (e.g., images, sounds, data files) only when they are needed.
+-   **Use a Loading Screen**: Display a loading screen while resources are being loaded.
+-   **Consider Streaming**: Stream large resources from disk or network instead of loading them all at once.
+
+## 4. Security Best Practices
+
+### 4.1. Security Auditing Tools
+
+-   **cargo-audit**: Audit dependencies for known vulnerabilities (uses RustSec Advisory Database)
+    ```bash
+    cargo install cargo-audit
+    cargo audit
+    ```
+-   **cargo-deny**: Check dependencies for licenses, bans, and advisories
+-   Run security audits in CI pipelines and pre-commit hooks
+
+### 4.2. Common Vulnerabilities
+
+-   **Buffer Overflows**: Prevent buffer overflows by using safe indexing methods (e.g., `get()`, `get_mut()`) and validating input sizes.
+-   **SQL Injection**: Prevent SQL injection by using parameterized queries and escaping user input.
+-   **Cross-Site Scripting (XSS)**: Prevent XSS by escaping user input when rendering HTML.
+-   **Command Injection**: Prevent command injection by avoiding the use of `std::process::Command` with user-supplied arguments.
+-   **Denial of Service (DoS)**: Protect against DoS attacks by limiting resource usage (e.g., memory, CPU, network connections).
+-   **Integer Overflows**: Use `checked_add`, `checked_sub`, `checked_mul`, etc. Enable `overflow-checks = true` in Cargo.toml for release builds.
+-   **Use-After-Free**:  Rust's ownership system largely prevents this, but be cautious when using `unsafe` code or dealing with raw pointers.
+-   **Data Races**:  Avoid data races by using appropriate synchronization primitives (`Mutex`, `RwLock`, channels).
+-   **Uninitialized Memory**: Rust generally initializes memory, but `unsafe` code can bypass this.  Be careful when working with uninitialized memory.
+
+### 4.3. Input Validation
+
+-   **Validate All Input**: Validate all input from external sources, including user input, network data, and file contents.
+-   **Use a Whitelist Approach**: Define a set of allowed values and reject any input that does not match.
+-   **Sanitize Input**: Remove or escape any potentially dangerous characters from input.
+-   **Limit Input Length**: Limit the length of input strings to prevent buffer overflows.
+-   **Check Data Types**: Ensure that input data is of the expected type.
+
+## 5. Testing Approaches
+
+### 5.1. Unit Testing
+
+-   **Test Individual Units of Code**: Write unit tests to verify the correctness of individual functions, modules, and components.
+-   **Use the `#[test]` Attribute**: Use the `#[test]` attribute to mark functions as unit tests.
+-   **Use `assert!` and `assert_eq!`**: Use `assert!` and `assert_eq!` macros to check that the code behaves as expected.
+-   **Test Driven Development (TDD)**: Consider writing tests before writing code.
+-   **Table-Driven Tests**:  Use parameterized tests or table-driven tests for testing multiple scenarios with different inputs.
+
+### 5.1.1. Modern Testing Tools
+
+-   **cargo-nextest**: Next-generation test runner with better performance and output
+-   **rstest**: Fixture-based testing (like pytest fixtures) with `#[rstest]` macro
+-   **proptest**: Property-based testing with automatic shrinking
+-   **QuickCheck**: Alternative property-based testing framework
+
 ```rust
-use ratatui::{buffer::Buffer, layout::Rect, widgets::Widget};
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-pub struct MyWidget;
-
-impl Widget for MyWidget {
-    fn render(self, area: Rect, buf: &mut Buffer) {
-        // write cells into buf within area
+    #[test]
+    fn test_add() {
+        assert_eq!(add(2, 3), 5);
     }
 }
 ```
 
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/trait.Widget.html
-```
 
-### 11.2 Stateful custom widgets
-If you need persistent state:
-- implement `StatefulWidget` with an associated `State` type
-- render via `Frame::render_stateful_widget`
+### 5.2. Integration Testing
 
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/widgets/trait.StatefulWidget.html
-```
+-   **Test Interactions Between Components**: Write integration tests to verify that different components of the application work together correctly.
+-   **Create a `tests/` Directory**: Place integration tests in a `tests/` directory at the root of the project.
+-   **Use Separate Test Files**: Create separate test files for each integration test.
 
-### 11.3 Rendering helpers & patterns
-- Start by rendering a `Block` and use its `inner(area)` for content.
-- Respect `area` boundaries (never write outside).
-- Prefer using text primitives (`Span`, `Line`) when writing strings.
-- For popups, render `Clear` first, then your widget.
+### 5.3. End-to-End Testing
 
-Example code:
-```text
-https://docs.rs/ratatui/latest/src/custom_widget/custom_widget.rs.html
-```
+-   **Test the Entire Application**: Write end-to-end tests to verify that the entire application works as expected.
+-   **Use a Testing Framework**: Use a testing framework (e.g., `cucumber`, `selenium`) to automate end-to-end tests.
+-   **Test User Flows**: Test common user flows to ensure that the application is usable.
 
----
+### 5.4. Test Organization
 
-## 12) Rendering “under the hood” (for performance + correctness)
+-   **Group Tests by Functionality**: Organize tests into modules and submodules based on the functionality they test.
+-   **Use Descriptive Test Names**: Use descriptive test names that clearly indicate what the test is verifying.
+-   **Keep Tests Separate from Production Code**: Keep tests in separate files and directories to avoid cluttering the production code.
+-   **Run tests frequently**: Integrate tests into your development workflow and run them frequently to catch errors early.
 
-Ratatui concept guide explaining:
-- what immediate-mode means in practice
-- how widgets render into `Buffer`
-- how buffer diffing reduces terminal writes
-- where flicker comes from and how features like scrolling regions help
+### 5.5. Mocking and Stubbing
 
-Docs:
-```text
-https://ratatui.rs/concepts/rendering/under-the-hood/
-```
+-   **Use Mocking Libraries**: Use mocking libraries (e.g., `mockall`, `mockito`) to create mock objects for testing.
+-   **Use Traits for Interfaces**: Define traits for interfaces to enable mocking and stubbing.
+-   **Avoid Global State**: Avoid global state to make it easier to mock and stub dependencies.
 
-Performance notes:
-- Avoid allocating new `Vec`s every frame for large tables; reuse where possible.
-- Prefer `WidgetRef` when widget construction is heavy.
-- Use layout cache (default) unless you have a strict reason not to.
+## 6. Common Pitfalls and Gotchas
 
----
+### 6.1. Frequent Mistakes
 
-## 13) Testing TUIs (unit tests + buffer assertions)
+-   **Borrowing Rules**: Misunderstanding Rust's borrowing rules can lead to compile-time errors. Ensure you understand ownership, borrowing, and lifetimes.
+-   **Move Semantics**: Be aware of move semantics and how they affect ownership. Data is moved by default, not copied.
+-   **Lifetime Annotations**: Forgetting lifetime annotations can lead to compile-time errors. Annotate lifetimes when necessary.
+-   **Error Handling**: Not handling errors properly can lead to unexpected panics. Use `Result` and the `?` operator to handle errors gracefully.
+-   **Unsafe Code**: Overusing or misusing `unsafe` code can lead to undefined behavior and security vulnerabilities.
 
-### 13.1 `TestBackend`
-A backend that renders into memory and provides assertions / buffer inspection.
+### 6.2. Edge Cases
 
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/backend/struct.TestBackend.html
-```
+-   **Integer Overflow**: Be aware of integer overflow and use checked arithmetic methods to prevent it.
+-   **Unicode**: Handle Unicode characters correctly to avoid unexpected behavior.
+-   **File Paths**: Handle file paths correctly, especially when dealing with different operating systems.
+-   **Concurrency**: Be careful when writing concurrent code to avoid data races and deadlocks.
 
-### 13.2 Buffer assertions (project approach)
-This project uses **inline expected buffers** with `TestBackend::assert_buffer_lines()` instead of committed snapshot files.
+### 6.3. Version-Specific Issues
 
-Why:
-- CI-friendly (no golden files to manage or update)
-- React/Jest-like expectations (expected output lives next to the test)
-- Easier to review changes in code review
+-   **Check Release Notes**: Review the release notes for new versions of Rust to identify any breaking changes or new features that may affect your code.
+-   **Use `rustup`**: Use `rustup` to manage multiple versions of Rust.
+-   **Update Dependencies**: Keep your dependencies up to date to take advantage of bug fixes and new features.
 
-Pattern:
-- render your widget/app into a known-size `TestBackend`
-- use the helper `render_app_to_terminal` to mirror the app render loop
-- assert the rendered buffer with inline expected lines
+### 6.4. Compatibility Concerns
 
-Example:
-```rust
-let mut app = create_test_app_with_lines(&["hello"], 0, 5);
-let terminal = render_app_to_terminal(&mut app, 60, 20)?;
+-   **C Interoperability**: Be careful when interacting with C code to avoid undefined behavior.
+-   **Platform-Specific Code**: Use conditional compilation to handle platform-specific code.
+-   **WebAssembly**: Be aware of the limitations of WebAssembly when targeting the web.
 
-terminal.backend().assert_buffer_lines(styled_lines_from_buffer(
-    &terminal,
-    &[
-        " McGravity [Codex/Codex]",
-        "┌Output (waiting for input)──────────────────────────────┐",
-        "│                                                        │",
-        "└────────────────────────────────────────────────────────┘",
-    ],
-));
-```
+### 6.5. Debugging Strategies
 
-Notes:
-- Keep expected lines inline in the test for clarity.
-- Use `styled_lines_from_buffer` when you want to validate symbols/layout while
-  reusing actual buffer styles (avoids hardcoding colors).
+-   **Use `println!`**: Use `println!` statements for quick debugging (remove before committing).
+-   **Use a Debugger**: Use a debugger (e.g., `gdb`, `lldb`) to step through the code and inspect variables.
+-   **Use `assert!`**: Use `assert!` to check that the code behaves as expected.
+-   **Use Structured Logging**: Prefer `tracing` over `log` for structured, async-aware logging:
+    -   Use `#[instrument]` macro to automatically capture function arguments
+    -   Use `tracing-subscriber` for log formatting and filtering
+    -   Configure via `RUST_LOG` environment variable
+    -   Integrate with OpenTelemetry via `tracing-opentelemetry` for production observability
+-   **Clippy**: Use Clippy to catch common mistakes and improve code quality.
+-   **Profiling**: Use Samply or cargo-flamegraph to profile and visualize the execution of your code.
 
----
+## 7. Tooling and Environment
 
-## 14) Macros (ratatui::macros) — ergonomic builders
+### 7.1. Recommended Development Tools
 
-Ratatui provides a “macros module” (feature `macros`, enabled by default) that helps you create:
-- spans, lines, text
-- layouts / constraints
-- other small builder conveniences
+-   **Rustup**: For managing Rust toolchains and versions.
+-   **Cargo**: The Rust package manager and build tool.
+-   **IDE/Editor**: VS Code with the rust-analyzer extension, IntelliJ Rust, or other editors with Rust support.
+-   **Clippy**: A linter for Rust code.
+-   **Rustfmt**: A code formatter for Rust code.
+-   **Cargo-edit**: A utility for easily modifying `Cargo.toml` dependencies.
+-   **Cargo-watch**: Automatically runs tests on file changes.
+-   **lldb or GDB**: Debuggers for Rust applications.
 
-Docs:
-```text
-https://docs.rs/ratatui-macros/
-https://docs.rs/crate/ratatui/latest/features
-```
+### 7.2. Build Configuration
 
-**Recommendation:** use macros for *readability* in UI code, but keep non-UI logic macro-free.
+-   **Use `Cargo.toml`**: Configure build settings, dependencies, and metadata in the `Cargo.toml` file.
+-   **Use Profiles**: Define different build profiles for development, release, and testing.
+-   **Feature Flags**: Use feature flags to conditionally compile code for different platforms or features.
 
----
+toml
+[package]
+name = "sayna"
+version = "0.1.0"
+edition = "2024"
 
-## 15) Practical application architecture (recommended pattern)
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
 
-A common, maintainable TUI structure:
+[dev-dependencies]
+rand = "0.8"
 
-### 15.1 Split into three concerns
-1. **State** (`App`): pure data; no rendering.
-2. **Update**: event handling; modifies state.
-3. **View**: renders state → widgets.
+[features]
+default = ["serde"] # 'default' feature enables 'serde'
+expensive_feature = []
 
-Example shape:
-```rust
-struct App { /* state */ }
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
 
-impl App {
-  fn update(&mut self, event: Event) { /* mutate state */ }
-  fn render(&self, f: &mut Frame) { /* read-only render */ }
-}
-```
 
-### 15.2 Drive it with an event loop
-- poll for input events (keyboard/mouse/resize)
-- apply updates
-- render at a controlled frame rate (avoid 100% CPU loops)
-- use a tick interval for animations, spinners, timeouts
+### 7.3. Linting and Formatting
 
-### 15.3 Resize handling best practice
-- ignore the raw resize event’s dimensions for *current frame* logic
-- always use `frame.area()` during the draw closure (stable for that frame)
+-   **Use Clippy**: Use Clippy to catch common mistakes and enforce coding standards.
+-   **Use Rustfmt**: Use Rustfmt to automatically format code according to the Rust style guide.
+-   **Configure Editor**: Configure your editor to automatically run Clippy and Rustfmt on save.
+-   **Pre-commit Hooks**: Set up pre-commit hooks to run Clippy and Rustfmt before committing code.
 
-(See `Frame::area()` docs.)
+# Run Clippy
+cargo clippy
 
----
+# Run Rustfmt
+cargo fmt
 
-## 16) Where to find authoritative examples (and keep them version-matched)
 
-### 16.1 docs.rs examples embedded as source
-Many examples are visible as `src/<example>/<example>.rs.html`:
-```text
-https://docs.rs/ratatui/latest/src/hello_world/hello_world.rs.html
-https://docs.rs/ratatui/latest/src/popup/popup.rs.html
-https://docs.rs/ratatui/latest/src/gauge/gauge.rs.html
-https://docs.rs/ratatui/latest/src/custom_widget/custom_widget.rs.html
-```
-
-### 16.2 Website examples gallery (with images)
-```text
-https://ratatui.rs/examples/
-```
-
-### 16.3 GitHub repo examples (be careful with “main” vs released version)
-```text
-https://github.com/ratatui/ratatui/tree/main/examples
-```
-
-**Tip:** The Ratatui examples site frequently notes that examples may track the repo’s `main` or `latest` branch; ensure your local crate version matches.
-
----
-
-## 17) Reference index (start here when stuck)
-
-### 17.1 Top-level crate docs (overview + quickstart)
-```text
-https://docs.rs/ratatui/latest/ratatui/
-```
-
-### 17.2 Core API pages
-```text
-https://docs.rs/ratatui/latest/ratatui/struct.Terminal.html
-https://docs.rs/ratatui/latest/ratatui/struct.Frame.html
-https://docs.rs/ratatui/latest/ratatui/backend/index.html
-https://docs.rs/ratatui/latest/ratatui/buffer/index.html
-https://docs.rs/ratatui/latest/ratatui/layout/index.html
-https://docs.rs/ratatui/latest/ratatui/style/index.html
-https://docs.rs/ratatui/latest/ratatui/text/index.html
-https://docs.rs/ratatui/latest/ratatui/widgets/index.html
-https://docs.rs/ratatui/latest/ratatui/symbols/index.html
-```
-
-### 17.3 Concepts & recipes (high signal)
-```text
-https://ratatui.rs/concepts/
-https://ratatui.rs/recipes/
-```
-
----
-
-## 18) “Checklist” for production-quality CLIs
-
-- [ ] Use `ratatui::run()` unless you have a strong reason not to.
-- [ ] Ensure terminal is restored on:
-  - normal exit
-  - errors bubbling to main
-  - panics (panic hook)
-- [ ] Keep a stable render loop (avoid busy-wait).
-- [ ] Store UI state explicitly (selection, scroll, input).
-- [ ] Render the *entire* frame every draw.
-- [ ] Use `TestBackend::assert_buffer_lines()` with inline expectations for regressions.
-- [ ] Keep styles centralized (theme struct).
-- [ ] Handle small terminal sizes gracefully (min sizes + fallbacks).
-- [ ] Be mindful of Crossterm major version conflicts if you use Crossterm.
-
----
-
-## 19) Appendix: the “prelude” module (when to use it)
-
-`ratatui::prelude::*` re-exports common items and modules for convenience.  
-However, Ratatui’s own docs note that universal prelude usage can make it harder to distinguish library vs local types when reading source outside an IDE.
-
-Docs:
-```text
-https://docs.rs/ratatui/latest/ratatui/prelude/index.html
-```
-
-**Recommendation:**  
-- In examples/prototypes: prelude is fine.  
-- In larger codebases: explicit imports often improve readability and diff clarity.
+By following these best practices, you can write high-quality Rust code that is efficient, secure, and maintainable. Remember to stay up-to-date with the latest Rust features and best practices to continuously improve your skills and knowledge.
 
 ---
 > Source: [tigranbs/mcgravity](https://github.com/tigranbs/mcgravity) — distributed by [TomeVault](https://tomevault.io).
