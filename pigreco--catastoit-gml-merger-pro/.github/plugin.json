@@ -1,0 +1,9 @@
+{
+  "name": "pigreco--catastoit-gml-merger-pro",
+  "displayName": "CatastoIT_GML_Merger_Pro",
+  "description": "Plugin QGIS che scarica, organizza e unifica i file GML catastali dell'Agenzia delle Entrate italiana",
+  "version": "1.0.0",
+  "author": "pigreco",
+  "homepage": "https://github.com/pigreco/CatastoIT_GML_Merger_Pro",
+  "skills": []
+}
