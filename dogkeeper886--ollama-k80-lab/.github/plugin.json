@@ -1,0 +1,9 @@
+{
+  "name": "dogkeeper886--ollama-k80-lab",
+  "displayName": "ollama-k80-lab",
+  "description": "A home AI lab powered by a K80 GPU, exploring and experimenting with models using Ollama. A playground for AI research and development.",
+  "version": "1.0.0",
+  "author": "dogkeeper886",
+  "homepage": "https://github.com/dogkeeper886/ollama-k80-lab",
+  "skills": []
+}
