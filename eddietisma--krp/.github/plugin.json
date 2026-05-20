@@ -1,0 +1,9 @@
+{
+  "name": "eddietisma--krp",
+  "displayName": "krp",
+  "description": "A transparent reverse-proxy for dynamic port-forwarding to Kubernetes.",
+  "version": "1.0.0",
+  "author": "eddietisma",
+  "homepage": "https://github.com/eddietisma/krp",
+  "skills": []
+}
