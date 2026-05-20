@@ -1,0 +1,34 @@
+{
+  "name": "neondatabase--ai-rules",
+  "displayName": "ai-rules",
+  "description": "ai-rules",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/ai-rules",
+  "skills": [
+    {
+      "name": "add-neon-docs",
+      "description": ""
+    },
+    {
+      "name": "neon-auth",
+      "description": ""
+    },
+    {
+      "name": "neon-drizzle",
+      "description": ""
+    },
+    {
+      "name": "neon-js",
+      "description": ""
+    },
+    {
+      "name": "neon-serverless",
+      "description": ""
+    },
+    {
+      "name": "neon-toolkit",
+      "description": ""
+    }
+  ]
+}
