@@ -1,0 +1,9 @@
+{
+  "name": "quadbio--cell-annotator",
+  "displayName": "cell-annotator",
+  "description": "Automatically annotate cell types, consistently across samples.",
+  "version": "1.0.0",
+  "author": "quadbio",
+  "homepage": "https://github.com/quadbio/cell-annotator",
+  "skills": []
+}
