@@ -1,0 +1,9 @@
+{
+  "name": "tuannvm--kafka-mcp-server",
+  "displayName": "kafka-mcp-server",
+  "description": "A Model Context Protocol (MCP) server for Apache Kafka implemented in Go, leveraging franz-go and mcp-go.",
+  "version": "1.0.0",
+  "author": "tuannvm",
+  "homepage": "https://github.com/tuannvm/kafka-mcp-server",
+  "skills": []
+}
