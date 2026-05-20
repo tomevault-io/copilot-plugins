@@ -2,7 +2,7 @@
   "name": "Skylite-UX",
   "owner": "Wetzel402",
   "repo": "Skylite-UX",
-  "description": "",
+  "description": "Life, Organized.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -39,7 +39,6 @@
   ],
   "skills": [],
   "source_url": "https://github.com/Wetzel402/Skylite-UX",
-  "claim_url": "https://tomevault.io/claim/Wetzel402",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T05:54:20Z"
+  "distributed_at": "2026-05-20T07:08:40Z"
 }
