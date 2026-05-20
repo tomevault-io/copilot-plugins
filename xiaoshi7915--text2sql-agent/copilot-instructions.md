@@ -1,41 +1,45 @@
-## 04-development-standards
+## 05-deployment-guide
 
-> - JavaScript/Vue代码遵循Airbnb风格指南
+> - 后端: `python -m flask run --debugger --reload`
 
-# 开发规范指南
+# 部署指南
 
-## 代码风格
-- Python代码遵循PEP 8规范
-- JavaScript/Vue代码遵循Airbnb风格指南
-- 所有代码必须有中文注释，说明功能和逻辑
+## 环境要求
+- Python 3.9+
+- Node.js 16+
+- MySQL 8.0+
+- Nginx 1.20+
 
-## 命名约定
-- 变量和函数使用小驼峰命名法 (camelCase)
-- 类名使用大驼峰命名法 (PascalCase)
-- 常量使用全大写下划线分隔 (UPPER_SNAKE_CASE)
-- 数据库表名和字段名使用下划线分隔 (snake_case)
+## 开发环境
+- 后端: `python -m flask run --debugger --reload`
+- 前端: `npm run serve`
+- 数据库: 本地MySQL实例或Docker容器
 
-## 文档规范
-- 每个模块、类和函数都应有文档注释
-- API文档使用Swagger/OpenAPI规范
-- 复杂算法和业务逻辑需要单独的说明文档
+## 测试环境
+- 后端API服务部署在专用测试服务器
+- 前端静态资源通过CI/CD自动部署
+- 使用测试数据库，定期从生产环境同步
 
-## 版本控制
-- 使用Git进行版本控制
-- 遵循Git Flow工作流
-- 提交信息格式: `[类型]: 简短描述`，类型包括feat、fix、docs、style、refactor等
+## 生产环境
+- 使用Docker容器化部署
+- 通过Docker Compose编排服务
+- Nginx作为反向代理和静态资源服务
+- 使用HTTPS加密传输
 
-## 测试规范
-- 所有核心功能必须有单元测试
-- 后端API需要集成测试
-- 前端组件需要UI测试
-- 测试覆盖率要求不低于80%
+## 部署流程
+1. 代码合并到主分支后触发CI/CD流程
+2. 自动运行测试套件
+3. 构建Docker镜像
+4. 将镜像推送到容器仓库
+5. 在目标环境拉取并启动新容器
+6. 执行数据库迁移脚本
+7. 配置Nginx反向代理
 
-## 安全规范
-- 所有用户输入必须进行验证和清洗
-- 敏感数据必须加密存储
-- API访问需要权限控制
-- 定期进行安全审查和更新
+## 监控与维护
+- 使用ELK栈进行日志收集和分析
+- 使用Prometheus监控系统性能指标
+- 定期备份数据库
+- 制定故障恢复计划
 
 ---
 > Source: [xiaoshi7915/Text2Sql_Agent](https://github.com/xiaoshi7915/Text2Sql_Agent) — distributed by [TomeVault](https://tomevault.io).
