@@ -1,16 +1,20 @@
-## fixformal
+## formal-theory-rule
 
-> 修复形式化
+> - 根据第一性原理,需要添加从宇宙本论推到本理论的所有理论.
 
-运行 [check_unindexed_files.py](mdc:tools/check_unindexed_files.py)
-如果有未索引文件, 按照 [formal_theory.md](mdc:formal_theory.md) 原文格式添加链接。
-使用 [generate_theory_json.py](mdc:generate_theory_json.py)  分析的结果[程序结果]更新按照维度高低重新生成 [formal_theory.md](mdc:formal_theory.md) 文件, 如果不存在则按 [formal_theory.md](mdc:formal_theory.md) 原文格式添加链接
+# 原则
 
-如果 [formal_theory.md](mdc:formal_theory.md) 中的链接存在维度而[程序结果]不存在,那么更新相关文件把维度写进去.
-维度从高到低排序
-使用[程序结果]更新 [formal_theory_graph.md](mdc:formal_theory/formal_theory_graph.md) ,节点连线用绿色,节点维度高的在图表中层级高,连线由低维指向高维度,任何低维度的节点的层级不得高于高维度的节点.
+- 根据第一性原理,需要添加从宇宙本论推到本理论的所有理论.
 
-记得更新英文版 [formal_theory_en.md](mdc:formal_theory/formal_theory_en.md)
+# 格式
+
+- 读取 [formal_theory_cosmic_ontology.md](mdc:formal_theory/formal_theory_cosmic_ontology.md) 的版本号为【形式化版本号】。
+- 生成的新文件内容中请在标题后标注理论维度
+- 文件更新了也更新一下版本号到【形式化版本号】。
+- 按照 [formal_theory_dimensional_notation_method.md](mdc:formal_theory/formal_theory_dimensional_notation_method.md) 中的维度应用在文中添加章节
+    - [理论分类与索引]
+    - [理论复杂度评估]
+    - [理论演化轨迹分析]
 
 ---
 > Source: [loning/universe](https://github.com/loning/universe) — distributed by [TomeVault](https://tomevault.io).
