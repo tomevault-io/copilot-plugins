@@ -1,0 +1,9 @@
+{
+  "name": "gojiplus--statqa",
+  "displayName": "statqa",
+  "description": "Extract Stats Q/A from Tables With Provenance",
+  "version": "1.0.0",
+  "author": "gojiplus",
+  "homepage": "https://github.com/gojiplus/statqa",
+  "skills": []
+}
