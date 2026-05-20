@@ -1,29 +1,51 @@
-## project-overview
+## project-structure
 
-> This rule provides context about the AI Primitives platform, its strategic vision, and core components.
+> This rule describes the project structure and organization of the AI Primitives platform.
 
-# AI Primitives Platform Overview
+# Project Structure Convention
 
-This rule provides context about the AI Primitives platform, its strategic vision, and core components.
+This rule describes the project structure and organization of the AI Primitives platform.
 
 ## Applies to
-**/*.{ts,tsx,js,jsx,mdx}
+**/*
 
 ## Rule
-The AI Primitives platform provides composable building blocks that enable developers to create, deploy, and manage AI applications with minimal complexity while maintaining reliability and scalability. The platform emphasizes:
+The project is organized as a monorepo using pnpm workspaces with the following structure:
 
-1. **Economically valuable work** delivered through simple APIs
-2. **Practical applications** of AI that deliver measurable business value
-3. **Composable architecture** with Functions, Workflows, and Agents as core primitives
-4. **Enterprise-grade reliability** with comprehensive testing and evaluation
+```
+ai/
+├── api/                  # API implementations for various services
+├── app/                  # Application code
+│   ├── (apis)/           # API route handlers
+│   ├── (websites)/       # Website components
+│   └── (payload)/        # Payload CMS admin configurations
+├── collections/          # Collection definitions
+│   ├── ai/               # AI-related collections (Functions, Workflows, Agents)
+│   ├── data/             # Data model collections (Things, Nouns, Verbs)
+│   ├── events/           # Event-related collections (Triggers, Searches, Actions)
+│   └── observability/    # Monitoring collections (Generations)
+├── components/           # Reusable UI components
+├── content/              # Content files and assets (MDX files at /content/**/*.mdx)
+├── examples/             # Example implementations
+├── lib/                  # Library code and utilities
+├── pkgs/                 # Shared packages and libraries (can have dependencies)
+│   ├── ai-models/        # AI model abstractions and selection
+│   ├── deploy-worker/    # Cloudflare Workers deployment utilities
+│   └── clickable-links/  # API handler utilities
+├── sdks/                 # Software Development Kits (zero dependencies except apis.do)
+├── tasks/                # Task implementations with dependencies
+├── tests/                # Test suites
+├── websites/             # Website implementations
+├── workers/              # Cloudflare Workers implementations
+```
 
-### Core Primitives
-- **Functions.do**: Strongly-typed composable building blocks
-- **Workflows.do**: Declarative state machines for orchestration
-- **Agents.do**: Autonomous digital workers
-- **LLM.do**: Intelligent AI gateway for routing requests to optimal models
-- **Database.do**: Persistent data storage with Payload CMS
-- **APIs.do**: Unified API gateway for all services
+### Implementation Guidelines
+- Respect the monorepo architecture using pnpm workspaces
+- Place new code in the appropriate directory based on its purpose
+- Follow the naming conventions outlined in CONTRIBUTING.md
+- SDK implementations in `/sdks/` must maintain zero dependencies (except apis.do) to be publishable on npm
+- Backend implementations of SDK features should be placed in the `/tasks/` folder with workspace-level dependencies
+- Package entry points in package.json files should point to built files (e.g., dist/index.js) rather than source files
 
 ---
 > Source: [drivly/ai](https://github.com/drivly/ai) — distributed by [TomeVault](https://tomevault.io).
