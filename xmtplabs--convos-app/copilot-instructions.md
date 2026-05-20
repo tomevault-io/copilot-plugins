@@ -1,148 +1,114 @@
-## react-components
+## react-query
 
-> The following contains rules about React components in our codebase. Each rule is followed by a small example showing good and bad practices.
+> The following contains rules about using React Query in. Each rule is followed by a small example showing good and bad practices.
 
-The following contains rules about React components in our codebase. Each rule is followed by a small example showing good and bad practices.
+The following contains rules about using React Query in. Each rule is followed by a small example showing good and bad practices.
 
-- Prefer early returns over ternaries.
+- Always reuse the queryOptions function instead of defining queries inline.
 
 ```typescript
-// ❌ Bad
-function Component() {
-  return (
-    <View>
-      {isLoading ? (
-        <LoadingIndicator />
-      ) : isError ? (
-        <ErrorMessage />
-      ) : (
-        <Content />
-      )}
-    </View>
-  )
+// ❌options inline
+function UserProfile() {
+  const { dqueryKey: ["user", id],
+    queryFn: ()   })
+
+  return <View>{data && <Texew>
 }
 
-// ✅ Good
-function Component() {
-  if (isLoading) {
-    return <LoadingIndicator />
+// ✅ Good: Using shared queryOts
+export const getUserQueryOptions = (args: { id: string }) => {
+  const { id } = args
+  const enabled = Boolean(id)
+
+  return queryOptions({
+    queryKey: ["user", id],
+    queryFn: enabled ? () => fetchUser({ id }) : skipToken,
+    enabled,
+  })
+}
+
+// In component
+function UserProfile(props: { id: string }) {
+  const { id } = props
+  const { data } = useQuery(getUserQueryOptions({ id }))
+
+  return <View>{data && <Text>{data.name}</Text>}</View>
+}
+```
+
+- Use the utility function to generate consistent query keys.
+
+```typescript
+// ❌ Bad: Manually creating query keys
+const queryKey = ["messages", conversationId, "unread"]
+
+// ✅ Good: Using the getReactQueryKey utility
+import { getReactQueryKey } from "@/utils/react-query/react-query.utils"
+
+const queryKey = getReactQueryKey({
+  baseStr: "messages",
+  conversationId,
+  type: "unread",
+})
+```
+
+- Use the helper functions for custom query patterns.
+
+```typescript
+// ✅ Good: Using helper functions
+import {
+  fetchOnlyIfMissingQuery,
+  fetchOnlyIfStaleQuery,
+} from "@/utils/react-query/react-query.helpers"
+
+// ❌ Bad: Custom fetch logic
+const fetchData = async () => {
+  const cachedData = reactQueryClient.getQueryData(queryKey)
+  if (cachedData && !isStale) {
+    return cachedData
   }
-
-  if (isError) {
-    return <ErrorMessage />
-  }
-
-  return <Content />
+  return reactQueryClient.fetchQuery(queryOptions)
 }
+
+// Only fetch if data is stale
+const data = await fetchOnlyIfStaleQuery(queryOptions)
+
+// Only fetch if data doesn't exist in cache
+const cachedData = await fetchOnlyIfMissingQuery(queryOptions)
+
+// Fetch without duplicating in-flight requests
+const nonDuplicatedData = await fetchWithoutDuplicatesQuery(queryOptions)
 ```
 
-- Minimize useEffect usage.
+- Always use the reactQueryClient from react-query.client.ts for all direct client operations.
 
 ```typescript
-// ❌ Bad: Unnecessary effect
-function Counter() {
-  const [count, setCount] = useState(0)
-  const [doubled, setDoubled] = useState(0)
+// ✅ Good: Using the shared reactQueryClient
+import { reactQueryClient } from "@/utils/react-query/react-query.client"
 
-  useEffect(() => {
-    setDoubled(count * 2)
-  }, [count])
+// ❌ Bad: Creating a new QueryClient instance
+const queryClient = new QueryClient()
+queryClient.invalidateQueries(queryKey)
 
-  return <Text>{doubled}</Text>
-}
-
-// ✅ Good: Computed value
-function Counter() {
-  const [count, setCount] = useState(0)
-  const doubled = count * 2
-
-  return <Text>{doubled}</Text>
-}
+// ✅ Good: Using the shared reactQueryClient
+reactQueryClient.invalidateQueries(queryKey)
+reactQueryClient.setQueryData(queryKey, newData)
+reactQueryClient.ensureQueryData(queryOptions)
 ```
 
-- Wrap components in memo() for performance.
+- Our app persists all queries by default using our persister implementation.
 
 ```typescript
-// ❌ Bad
-export function ExpensiveComponent() {
-  // Implementation
-}
-
-// ✅ Good
-export const ExpensiveComponent = memo(function ExpensiveComponent() {
-  // Implementation
-})
-```
-
-- Avoid using render functions within components.
-
-```typescript
-// ❌ Bad
-function ProfileScreen() {
-  const renderHeader = () => (
-    <Header title="Profile" />
-  )
-
-  return (
-    <Screen>
-      {renderHeader()}
-      <Content />
-    </Screen>
-  )
-}
-
-// ✅ Good
-function ProfileScreen() {
-  return (
-    <Screen>
-      <ProfileHeader />
-      <Content />
-    </Screen>
-  )
-}
-
-const ProfileHeader = memo(function ProfileHeader() {
-  return <Header title="Profile" />
-})
-```
-
-- Use named exports.
-
-```typescript
-// ❌ Bad
-export default function Button() {
-  return <TouchableOpacity><Text>Click me</Text></TouchableOpacity>
-}
-
-// ✅ Good
-export const Button = memo(function Button() {
-  return <TouchableOpacity><Text>Click me</Text></TouchableOpacity>
-})
-```
-
-- Prefer derived state over redundant state.
-
-```typescript
-// ❌ Bad: Using separate state for derived value
-function MediaViewerPortal() {
-  const mediaParams = useStore((state) => state.mediaParams)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    setVisible(!!mediaParams)
-  }, [mediaParams])
-
-  if (!visible) return null
-  // ... rest of component using mediaParams
-}
-
-// ✅ Good: Calculating derived value directly
-function MediaViewerPortal() {
-  const mediaParams = useStore((state) => state.mediaParams)
-  const visible = !!mediaParams // Derived directly
-
-  if (!visible) return null
-  // ... rest of component using mediaParams
+// All queries are persisted by default
+// To opt out of persistence for specific queries:
+export const getEphemeralDataQueryOptions = (args: { id: string }) => {
+  return queryOptions({
+    queryKey: ["ephemeral", args.id],
+    queryFn: () => fetchEphemeralData(args),
+    meta: {
+      persist: false, // This will prevent this query from being persisted
+    },
+  })
 }
 ```
 
