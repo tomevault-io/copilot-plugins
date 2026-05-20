@@ -1,0 +1,9 @@
+{
+  "name": "decker502--repoprompt",
+  "displayName": "repoprompt",
+  "description": "Export repository structure and content to XML format for LLM prompts",
+  "version": "1.0.0",
+  "author": "decker502",
+  "homepage": "https://github.com/decker502/repoprompt",
+  "skills": []
+}
