@@ -1,72 +1,82 @@
-## dify-api-endpoints
+## dify-integration-rule
 
-> 3-layer architecture handles Dify API integration:
+> Dify API integration uses a 3-layer architecture:
 
 
-# Dify API Integration Standards
+# Dify API Integration Development Standards
 
-## Core Architecture
+## Core Principle: Separation of Concerns
 
-3-layer architecture handles Dify API integration:
+Dify API integration uses a 3-layer architecture:
 
-1. **Proxy Layer**: `app/api/dify/[appId]/[...slug]/route.ts` - Authentication and request forwarding
-2. **Service Layer**: `lib/services/dify/` - Business logic and API calls
-3. **Type Layer**: `lib/services/dify/types.ts` - TypeScript type definitions
+### 1. Proxy Layer (Backend Proxy)
+- **Location**: `app/api/dify/[appId]/[...slug]/route.ts`
+- **Responsibility**: Authentication, request forwarding, response proxying
+- **Principle**: MUST NOT handle business logic, only secure forwarding
 
-## Main Service Modules
+### 2. Service Layer (Service Layer)
+- **Location**: `lib/services/dify/*.ts` (organized by functional domain)
+- **Responsibility**: Business logic, API calls, data processing
+- **Principle**: MUST NOT handle authentication details, only call proxy layer
 
-| Service | File | Function |
-|---------|------|----------|
-| Chat | `chat-service.ts` | Chat message streaming processing |
-| Workflow | `workflow-service.ts` | Workflow execution and management |
-| App | `app-service.ts` | Application parameters and info retrieval |
-| Message | `message-service.ts` | Message management and feedback |
-| Conversation | `conversation-service.ts` | Conversation list and management |
-| Completion | `completion-service.ts` | Text generation and streaming output |
+### 3. Type Layer (Type Definitions)
+- **Location**: `lib/services/dify/types.ts`
+- **Responsibility**: Unified definition of all TypeScript data structures
+- **Principle**: MUST serve as data contract for service layer
 
-## Usage Patterns
+## Development Flow for New Dify API
 
-### Import Services
+### Step 1: Define Types
+Add request and response TypeScript interfaces in `types.ts`
+
+### Step 2: Choose/Create Service File
+Select appropriate service file based on functional domain, or create new service file
+
+### Step 3: Implement Service Function
 ```typescript
-// Unified entry import
-import { streamDifyChat, getDifyAppParameters } from '@lib/services/dify';
-
-// Or import from specific service file
-import { streamDifyChat } from '@lib/services/dify/chat-service';
-```
-
-### Error Handling
-```typescript
-try {
-  const result = await someService(appId, params);
-} catch (error) {
-  if (error.status === 401) {
-    // Handle authentication error
-  } else if (error.status === 429) {
-    // Handle rate limiting error
+export async function newDifyFunction(
+  appId: string,
+  payload: RequestType
+): Promise<ResponseType> {
+  const slug = 'api/path';
+  const apiUrl = `/api/dify/${appId}/${slug}`;
+  
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' }
+  });
+  
+  if (!response.ok) {
+    throw new Error(`API call failed: ${response.statusText}`);
   }
+  
+  return response.json();
 }
 ```
 
-### Type Safety
-All API-related types defined in `lib/services/dify/types.ts`:
-- Request types: `Dify*RequestPayload`
-- Response types: `Dify*Response`
-- SSE event types: `Dify*SseEvent`
+### Step 4: Frontend Usage
+```typescript
+import { newDifyFunction } from '@lib/services/dify/service-name';
 
-## Development Standards
+// Use in component or Hook
+const result = await newDifyFunction(appId, params);
+```
 
-1. **New Endpoints**: MUST follow patterns of existing service files
-2. **Type Definitions**: MUST define all related types in types.ts
-3. **Error Handling**: MUST use unified error handling mechanism
-4. **Documentation**: MUST update JSDoc comments for related service functions
+## Core Advantages
 
-## Coverage Statistics
+- **Clarity**: Responsibility separation, code easy to understand
+- **Modularity**: Organized by functional domain, building-block composition
+- **Low Coupling**: Independent layers, minimal impact from changes
+- **Easy Maintenance**: Accurate problem location, centralized configuration modification
+- **Scalability**: Standardized development process for new features
 
-- **Total Endpoints**: 25
-- **Service Files**: 7
-- **Supported App Types**: 5 (chatbot, agent, chatflow, workflow, text-generation)
-- **Coverage**: 100% Dify API functionality
+## Development Requirements
+
+When developing Dify-related features, MUST strictly follow this standard. This ensures:
+
+- **Maintainability**: Easier to locate and fix issues, configuration changes (like API Key) only need modification in one place (proxy layer)
+- **Scalability**: Adding new features only requires creating new types and service functions according to the process, minimal impact on existing code
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
