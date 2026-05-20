@@ -1,0 +1,9 @@
+{
+  "name": "kentcdodds--mediarss",
+  "displayName": "mediarss",
+  "description": "An RSS feed generator for media (audio/video).",
+  "version": "1.0.0",
+  "author": "kentcdodds",
+  "homepage": "https://github.com/kentcdodds/mediarss",
+  "skills": []
+}
