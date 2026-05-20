@@ -1,0 +1,9 @@
+{
+  "name": "teradata--teradata-mcp-server",
+  "displayName": "teradata-mcp-server",
+  "description": "The community development of a MCP server for a Teradata database",
+  "version": "1.0.0",
+  "author": "Teradata",
+  "homepage": "https://github.com/Teradata/teradata-mcp-server",
+  "skills": []
+}
