@@ -1,0 +1,9 @@
+{
+  "name": "with-logic--fast-forward",
+  "displayName": "fast-forward",
+  "description": "A TypeScript library that wraps objects in a cache-aware Proxy for faster method calls. Similar to VCR, snapshot libraries, and request recording tools, fast-forward makes testing faster by caching me",
+  "version": "1.0.0",
+  "author": "with-logic",
+  "homepage": "https://github.com/with-logic/fast-forward",
+  "skills": []
+}
