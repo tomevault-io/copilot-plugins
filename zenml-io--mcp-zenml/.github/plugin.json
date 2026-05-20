@@ -1,0 +1,9 @@
+{
+  "name": "zenml-io--mcp-zenml",
+  "displayName": "mcp-zenml",
+  "description": "MCP server to connect an MCP client (Cursor, Claude Desktop etc) with your ZenML MLOps and LLMOps pipelines",
+  "version": "1.0.0",
+  "author": "zenml-io",
+  "homepage": "https://github.com/zenml-io/mcp-zenml",
+  "skills": []
+}
