@@ -7,13 +7,13 @@ A Symfony package designed for building secure servers based on the Model Contex
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [klapaudius/symfony-mcp-server](https://github.com/klapaudius/symfony-mcp-server).
+Original source: `CLAUDE.md` in [klapaudius/symfony-mcp-server](https://github.com/klapaudius/symfony-mcp-server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
