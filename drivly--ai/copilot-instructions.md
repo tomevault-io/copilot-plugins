@@ -1,29 +1,31 @@
-## deployment-patterns
+## mdx-capabilities
 
-> This rule defines the deployment patterns and build configuration for the AI Primitives platform.
+> This rule defines the capabilities and requirements for MDX-based agent definitions.
 
-# Deployment Patterns
+# MDX-Based Agent Capabilities
 
-This rule defines the deployment patterns and build configuration for the AI Primitives platform.
+This rule defines the capabilities and requirements for MDX-based agent definitions.
 
 ## Applies to
-**/*.{ts,tsx,js,jsx,json,mjs}
+**/content/**/*.mdx
 
 ## Rule
-### Deployment Patterns
-- Vercel is used for deployment and preview environments
-- Preview environments follow the URL pattern: https://ai-git-{branch-name}.dev.driv.ly/
-- The Velite content build step (build:content) must be integrated into the Vercel build process
-- Keep next.config.mjs minimal with only essential configurations
-- Avoid using node: imports in package files, particularly in ai-models
+### MDX-Based Agent Capabilities
+- MDX-based agent definitions support:
+  - Structured data through frontmatter including tools, inputs, and outputs
+  - Full code execution capabilities with import/export support
+  - Visual component integration rendered as JSX/React components
+  - Agent state visualization with support for multiple states/modes
+- MDX content files should be located at `/content/**/*.mdx`
+- The Velite content build step (`build:content`) must be integrated into the Vercel build process
+- Content files should use plural names for core primitives (Functions, Agents, Workflows) to match domain names
 
-### Build Configuration Principles
-- Use Turborepo for managing the build order in monorepo packages
-- Use Turbopack for Next.js applications, making transpilePackages configuration unnecessary
-- Keep next.config.mjs minimal with only essential configurations
-- Avoid complex webpack configurations entirely
-- Tests should be excluded from the build process
-- Nextra v4 configuration is primarily managed in app/(docs)/docs/layout.tsx
+### Documentation Practices
+- Documentation files and references should use plural names for core primitives (Functions, Agents, Workflows) to match domain names
+- The README.md in the root directory contains the strategic vision and should be used as the source of truth
+- MDX files in the content folder should be aligned with this vision
+- Use consistent terminology: Functions, Workflows, Integrations/Actions (not "tools")
+- Composio provides the underlying infrastructure but this should not be exposed in user-facing documentation
 
 ---
 > Source: [drivly/ai](https://github.com/drivly/ai) — distributed by [TomeVault](https://tomevault.io).
