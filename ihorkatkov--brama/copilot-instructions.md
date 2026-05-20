@@ -1,78 +1,178 @@
-## cursor-rules-location
+## elixir-code-structure
 
-> Rules for placing and organizing Cursor rule files in the repository.
+> name: elixir_code_structure
 
-# Cursor Rules Location
-
-Rules for placing and organizing Cursor rule files in the repository.
+# Elixir Code Structure and Style
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: elixir_code_structure
+description: Best practices for structuring and formatting Elixir code
 filters:
-  # Match any .mdc files
   - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+    pattern: "\\.ex$|\\.exs$"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
   - type: suggest
     message: |
-      When creating Cursor rules:
+      # Elixir Code Structure and Style Best Practices
 
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
-
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
-
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      ## Code Organization
+      - Avoid deeply nested code (max 2-3 levels of indentation)
+      - Limit module size (aim for <400 lines per module)
+      - Keep functions short (15-20 lines maximum)
+      - Maintain reasonable line length (80-100 characters)
+      - Prefer function composition over deep nesting
+      
+      ## Imports and Aliases
+      - Avoid using `import`, prefer explicit module references
+      - When imports are necessary, limit to specific functions with the `only` option
+      - Group related imports/aliases together
+      - Always use aliases over imports when possible
+      
+      ## Function Organization
+      - Group related functions together
+      - Order functions in logical top-down flow
+      - Place helper functions near the functions that use them
+      - Clearly separate exported (public) from private functions
+      
+      ## Export Conventions
+      - Group exports by their purpose with comments:
+        - User interface functions
+        - Inter-module exports
+        - Callback implementations (e.g., for behaviours)
+      - Be explicit about which functions are part of your public API
+      
+      ## Whitespace and Formatting
+      - Use consistent spacing and indentation
+      - Place one blank line between function definitions
+      - Place two blank lines between logical sections of code
+      - Format code consistently throughout the project (use formatter)
+      
+      ## Do and Don't
+      - Do operations that must be paired (open/close) in the same function
+      - Don't leave commented-out code - remove it (rely on version control)
+      - Don't repeat code - abstract common patterns into functions
+      - Always write deterministic code when possible
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
-
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+      defmodule DeepNesting do
+        def process_data(data) do
+          case validate_input(data) do
+            {:ok, valid_data} ->
+              case fetch_related_data(valid_data) do
+                {:ok, related_data} ->
+                  case transform_data(valid_data, related_data) do
+                    {:ok, transformed} ->
+                      case save_result(transformed) do
+                        {:ok, result} -> {:ok, result}
+                        {:error, save_error} -> {:error, save_error}
+                      end
+                    {:error, transform_error} -> {:error, transform_error}
+                  end
+                {:error, fetch_error} -> {:error, fetch_error}
+              end
+            {:error, validation_error} -> {:error, validation_error}
+          end
+        end
+        
+        # Other functions...
+      end
+    output: |
+      defmodule FlattenedStructure do
+        def process_data(data) do
+          with {:ok, valid_data} <- validate_input(data),
+               {:ok, related_data} <- fetch_related_data(valid_data),
+               {:ok, transformed} <- transform_data(valid_data, related_data),
+               {:ok, result} <- save_result(transformed) do
+            {:ok, result}
+          end
+        end
+        
+        # Other functions...
+      end
+  
+  - input: |
+      defmodule MixedImports do
+        import List
+        import String
+        import Enum
+        
+        def process_names(names) do
+          filtered = filter(names, &valid_name?/1)
+          capitalized = map(filtered, &capitalize/1)
+          first(capitalized)
+        end
+        
+        defp valid_name?(name) do
+          # Validation logic
+        end
+      end
+    output: |
+      defmodule OrganizedImports do
+        # Only import what's needed
+        import Enum, only: [filter: 2, map: 2]
+        import List, only: [first: 1]
+        import String, only: [capitalize: 1]
+        
+        # Alternative using aliases
+        alias Enum
+        alias List
+        alias String
+        
+        def process_names(names) do
+          filtered = Enum.filter(names, &valid_name?/1)
+          capitalized = Enum.map(filtered, &String.capitalize/1)
+          List.first(capitalized)
+        end
+        
+        defp valid_name?(name) do
+          # Validation logic
+        end
+      end
+      
+  - input: |
+      defmodule FileProcessor do
+        def process_file(path) do
+          file = File.open!(path, [:read])
+          process_content(file)
+          # File.close not called here
+        end
+        
+        def process_content(file) do
+          content = IO.read(file, :all)
+          # Process content
+          content
+        end
+        
+        def close_file(file) do
+          File.close(file)
+        end
+      end
+    output: |
+      defmodule FileProcessor do
+        def process_file(path) do
+          case File.open(path, [:read]) do
+            {:ok, file} ->
+              result = process_content(file)
+              File.close(file)  # Open and close in the same function
+              {:ok, result}
+            {:error, reason} ->
+              {:error, reason}
+          end
+        end
+        
+        def process_content(file) do
+          content = IO.read(file, :all)
+          # Process content
+          content
+        end
+      end
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [ihorkatkov/brama](https://github.com/ihorkatkov/brama) — distributed by [TomeVault](https://tomevault.io).
