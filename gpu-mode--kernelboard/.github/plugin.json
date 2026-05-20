@@ -1,0 +1,9 @@
+{
+  "name": "gpu-mode--kernelboard",
+  "displayName": "kernelboard",
+  "description": "kernelboard is the webapp for https://www.gpumode.com",
+  "version": "1.0.0",
+  "author": "gpu-mode",
+  "homepage": "https://github.com/gpu-mode/kernelboard",
+  "skills": []
+}
