@@ -1,0 +1,9 @@
+{
+  "name": "doobidoo--claude-memory-context",
+  "displayName": "claude-memory-context",
+  "description": "A utility to update Claude project instructions with context from your MCP memory service",
+  "version": "1.0.0",
+  "author": "doobidoo",
+  "homepage": "https://github.com/doobidoo/claude-memory-context",
+  "skills": []
+}
