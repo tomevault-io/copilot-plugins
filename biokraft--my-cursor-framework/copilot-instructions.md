@@ -1,127 +1,86 @@
-## mermaid-best-practices
+## readme-badges
 
-> Mermaid.js Best Practices: Guidelines for creating robust, maintainable, and error-free Mermaid diagrams. Apply when working with `.mmd` files or creating Mermaid diagrams in Markdown.
+> README Badges: Guidelines for adding tech stack and project status badges to README.md files.
 
+# Guidelines for README Badges
 
-# Mermaid.js Best Practices
+This document provides instructions for adding and maintaining informative badges in project `README.md` files. The goal is to provide a quick, at-a-glance overview of the project's status, technology stack, and community links.
 
-This guide provides best practices for creating clear, maintainable, and error-free diagrams using Mermaid.js. Following these guidelines will help prevent common parsing errors and ensure diagrams are accessible and easy to understand.
+Refer to this repository for a comprehensive list of available badges: [inttter/md-badges](https://github.com/inttter/md-badges)
 
-## 1. Core Principles
+## Placement
 
-- **Clarity Over Complexity**: Prioritize conveying information clearly. Mermaid is for creating understandable diagrams, not for intricate graphic design.
-- **Use the Live Editor**: Always use the [Mermaid Live Editor](https://mermaid.live/) for creating, testing, and debugging diagrams. It provides real-time feedback and helps catch syntax errors instantly.
-- **Commit Text, Not Images**: The primary benefit of Mermaid is its text-based format. Always commit the `.mmd` or Markdown source file to version control, not the rendered images. Images should be generated from the source as part of a build or documentation process.
+All badges should be placed in a single block at the top of the `README.md` file, immediately following the main project title (H1).
 
-## 2. Avoiding Common Parsing Errors
+## Badge Selection Guidelines
 
-Parsing errors, like the ones we encountered, are often caused by special characters in node text or edge labels.
+When adding or updating badges, you should analyze the project to select the most relevant ones.
 
-### Node and Edge Text
+### 1. Mandatory Badges
 
-- **Avoid Special Characters in Text**: To prevent parsing issues, avoid using the following special characters in node descriptions or edge labels: `|`, `(`, `)`, `[`, `]`.
-  - **Good**: `NodeA --> |sends data to| NodeB`
-  - **Bad (risky)**: `NodeA --> |sends data (and other items)| NodeB`
-- **Use Alternatives**: If you need a separator, use a hyphen `-` or slash `/` instead of a pipe `|`.
-  - **Good**: `Replica: 1 (Team) / N (Prod)`
-  - **Bad**: `Replica: 1 (Team) | N (Prod)`
-- **Quoting Text**: If you must use special characters, try enclosing the text in quotes. This can sometimes help the parser correctly interpret the string.
-  - **Example**: `A["Node A with (special) characters"]`
+These badges should be present in every `README.md` file.
 
-### Node IDs
+*   **Latest Version:** Always include a badge indicating the latest stable version or release of the project.
+    *   For packages published to a registry (PyPI, npm, Crates.io, etc.), use a version badge from that registry.
+    *   For other projects, use the latest GitHub release or tag.
+    *   **Example (PyPI):** `[![PyPI version](https://img.shields.io/pypi/v/your-package.svg)](https://pypi.python.org/pypi/your-package)`
+    *   **Example (GitHub Release):** `[![GitHub release (latest by date)](https://img.shields.io/github/v/release/your-user/your-repo)](https://github.com/your-user/your-repo/releases/latest)`
 
-- **Use Simple Alphanumeric IDs**: Node IDs should be simple and contain no spaces or special characters.
-  - **Good**: `authService`, `databaseNode`, `userGateway`
-  - **Bad**: `auth-service`, `(database)`, `user gateway`
+*   **Technology Stack:** Display badges for all major technologies used in the project.
+    *   **Languages:** Python, TypeScript, Go, Rust, etc.
+    *   **Frameworks:** FastAPI, React, Django, Vue, etc.
+    *   **Databases:** PostgreSQL, Redis, MongoDB, etc.
+    *   **Tools:** Docker, pre-commit, Ruff, uv, etc.
+    *   **How to identify:** Scan files like `pyproject.toml`, `package.json`, `go.mod`, `Dockerfile`, and `docker-compose.yml` to determine the stack.
 
-## 3. Structure and Readability
+### 2. Recommended Badges (Context-Dependent)
 
-### Layout
+Add these badges if they are relevant to the project.
 
-- **Choose the Right Direction**: Use `graph TD` (Top-Down) for hierarchical flows or `graph LR` (Left-to-Right) for process flows. `LR` is often more readable on wide screens.
-- **Use Subgraphs**: Group related nodes into subgraphs to create logical boundaries and improve clarity.
+*   **Build & CI/CD Status:** If the project uses CI/CD, add a badge showing the build status of the main branch.
+    *   **Source:** Look for configuration files in `.github/workflows`, `.circleci/`, `travis.yml`, etc.
+    *   **Example (GitHub Actions):** `[![CI](https://github.com/your-user/your-repo/actions/workflows/ci.yml/badge.svg)](https://github.com/your-user/your-repo/actions/workflows/ci.yml)`
 
-```mermaid
-subgraph "Authentication Service"
-    authDB[(Database)]
-    authAPI[API]
-end
-```
+*   **Code Quality & Coverage:**
+    *   **Code Coverage:** If the project tracks test coverage (e.g., via Codecov, Coveralls).
+    *   **Linter/Formatter:** A badge for the code formatter or linter used (e.g., Ruff, Prettier, Black).
+    *   **Dependency Manager:** For Python projects using [uv](https://github.com/astral-sh/uv), add the uv badge:
+        *   `[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)`
+    *   **Example (Codecov):** `[![codecov](https://codecov.io/gh/your-user/your-repo/graph/badge.svg?token=YOUR_TOKEN)](https://codecov.io/gh/your-user/your-repo)`
+    *   **Example (Ruff):** `[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)`
+    *   **Example (uv):** `[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)`
 
-### Node Shapes
+*   **License:** Include a badge for the project's license.
+    *   **Source:** Check for a `LICENSE` or `COPYING` file.
+    *   **Example (MIT):** `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
 
-- Use distinct node shapes to represent different types of entities. This adds an extra layer of visual information.
-  - `id[text]`: Rectangle
-  - `id(text)`: Rounded rectangle
-  - `id([text])`: Stadium-shaped
-  - `id{text}`: Diamond (for decisions)
-  - `id((text))`: Circle
-  - `id>text]`: Asymmetric (for flags or tags)
+*   **Community & Social:**
+    *   Links to Discord, Slack, Twitter, etc.
+    *   **Example (Discord):** `[![Discord](https://img.shields.io/discord/YOUR_SERVER_ID?logo=discord)](https://discord.gg/YOUR_INVITE_CODE)`
 
-### Line Breaks
+### Example Implementation
 
-- Use the `<br>` tag inside node text to create multi-line labels. This is essential for keeping nodes tidy and readable.
+Here is an example of a well-formatted badge section:
 
-```mermaid
-A[This is a long description<br>that has been broken<br>into multiple lines.]
-```
+\`\`\`markdown
+# My Awesome Project
 
-## 4. Icons and Visuals
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/your-user/your-repo)](https://github.com/your-user/your-repo/releases/latest)
+[![CI](https://github.com/your-user/your-repo/actions/workflows/ci.yml/badge.svg)](https://github.com/your-user/your-repo/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
-- **Use FontAwesome Icons**: Add visual cues to your diagrams using FontAwesome icons. This makes them more intuitive.
-- **Syntax**: Use the `fa:fa-icon-name` prefix for regular icons and `fab:fa-brand-name` for brand icons.
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=fff)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)](https://www.docker.com/)
 
-```mermaid
-flowchart LR
-    user(fa:fa-user User) --> api(fa:fa-cogs API)
-    api --> db(fa:fa-database Database)
-```
-
-- **Troubleshooting**: If an icon doesn't appear, check the [FontAwesome website](https://fontawesome.com/icons) for its official name or aliases.
-
-## 5. Accessibility
-
-- **Problem**: Screen readers cannot easily interpret the visual relationships in a rendered SVG diagram.
-- **Solution**: Always include accessibility information.
-
-### Title and Description
-
-- **`title`**: Provide a descriptive title using frontmatter. This gives the diagram an accessible name.
-- **`accDescr`**: Provide a detailed text description of the diagram's structure and flow. This is crucial for screen reader users.
-
-```mermaid
+... rest of README ...
+\`
+description:
+globs:
+alwaysApply: false
 ---
-title: User Authentication Flow
----
-graph TD
-    accTitle: User Authentication Flow
-    accDescr {
-        A user starts at the login page. They submit their credentials to the API, which validates them against the database.
-    }
-
-    A[Login Page] --> B{API Validation}
-    B --> C[(Database)]
-```
-
-### Themes and Colors
-
-- **Avoid Hardcoded Themes**: In environments like GitHub that support automatic light/dark mode, do not use the `%%{init}: {'theme': 'dark'}%%` directive. It will override the platform's theme switching and can make the diagram unreadable.
-- **High Contrast**: If using custom colors, ensure they have sufficient contrast in both light and dark modes.
-
-## 6. Makefile for Rendering (Example)
-
-For projects with multiple diagrams, use a `Makefile` to automate rendering.
-
-```makefile
-## charts/render: Render all Mermaid diagrams to PNG.
-charts/render:
-	@echo "🎨 Rendering architecture charts..."
-	mmdc -i docs/charts/architecture.mmd -o docs/charts/architecture.png
-	@echo "✅ Charts rendered!"
-.PHONY: charts/render
-```
-
-This ensures consistency and saves time. If rendering fails, it's a signal that a diagram has a syntax error that needs to be fixed.
 
 ---
 > Source: [biokraft/my-cursor-framework](https://github.com/biokraft/my-cursor-framework) — distributed by [TomeVault](https://tomevault.io).
