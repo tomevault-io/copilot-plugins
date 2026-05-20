@@ -1,132 +1,188 @@
-## api-development-patterns
+## development-workflow
 
-> All API methods in the Kiwoom REST API follow this consistent pattern:
+> - Python 3.9+ (as specified in [pyproject.toml](mdc:pyproject.toml))
 
-# API Development Patterns for Kiwoom REST API
+# Development Workflow for Kiwoom REST API
 
-## Method Implementation Pattern
+## Development Environment Setup
 
-### Standard Method Structure
-All API methods in the Kiwoom REST API follow this consistent pattern:
+### Prerequisites
+- Python 3.9+ (as specified in [pyproject.toml](mdc:pyproject.toml))
+- Poetry for dependency management
+- Git for version control
 
-```python
-def method_name_request_api_id(
-    self,
-    required_param1: str,
-    required_param2: str,
-    optional_param1: str = "",
-    optional_param2: str = "",
-    cont_yn: str = "N",
-    next_key: str = ""
-) -> dict:
-    """
-    Korean method description (API ID)
+### Initial Setup
+```bash
+# Clone repository
+git clone <repository-url>
+cd kiwoom-rest-api
 
-    Args:
-        required_param1 (str): Parameter description with possible values
-        required_param2 (str): Parameter description with possible values
-        optional_param1 (str, optional): Optional parameter description. Defaults to "".
-        optional_param2 (str, optional): Optional parameter description. Defaults to "".
-        cont_yn (str, optional): 연속조회여부. Defaults to "N".
-        next_key (str, optional): 연속조회키. Defaults to "".
+# Install dependencies
+poetry install
 
-    Returns:
-        dict: Response data structure with detailed field descriptions
-            {
-                "field1": str,  # Korean field description
-                "field2": str,  # Korean field description
-                "array_field": [  # Array field description
-                    {
-                        "sub_field1": str,  # Sub-field description
-                        "sub_field2": str,  # Sub-field description
-                    },
-                    ...
-                ],
-                "return_code": int,  # 응답코드
-                "return_msg": str,  # 응답메시지
-            }
+# Activate virtual environment
+poetry shell
 
-    Example:
-        >>> from kiwoom_rest_api import KiwoomRestAPI
-        >>> api = KiwoomRestAPI()
-        >>> result = api.module.method_name_request_api_id(
-        ...     required_param1="value1",
-        ...     required_param2="value2"
-        ... )
-        >>> print(result)
-    """
-    headers = {
-        "cont-yn": cont_yn,
-        "next-key": next_key,
-        "api-id": "api_id",
-    }
-    data = {
-        "required_param1": required_param1,
-        "required_param2": required_param2,
-    }
-    
-    if optional_param1:
-        data["optional_param1"] = optional_param1
-    if optional_param2:
-        data["optional_param2"] = optional_param2
-        
-    return self._execute_request(
-        "POST",
-        json=data,
-        headers=headers,
-    )
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your API credentials
 ```
 
-### Key Patterns to Follow
+## Development Process
 
-1. **Method Naming**: Use descriptive names ending with `_request_api_id`
-2. **Parameter Types**: All parameters should be typed as `str`
-3. **Optional Parameters**: Use empty string defaults for optional parameters
-4. **Pagination Support**: Always include `cont_yn` and `next_key` parameters
-5. **Comprehensive Documentation**: Include Korean descriptions for all fields
-6. **Example Usage**: Provide clear usage examples in docstrings
-7. **Conditional Data**: Only add optional fields to request data if they have values
+### 1. Understanding the Codebase
+- Review [project-structure.mdc](mdc:.cursor/rules/project-structure.mdc) for overall architecture
+- Study [api-development-patterns.mdc](mdc:.cursor/rules/api-development-patterns.mdc) for implementation patterns
+- Reference [korean-stock-api-reference.mdc](mdc:.cursor/rules/korean-stock-api-reference.mdc) for API details
 
-### Common Parameter Patterns
+### 2. Adding New API Methods
 
-#### Pagination Parameters
-- `cont_yn` (str): 연속조회여부, defaults to "N"
-- `next_key` (str): 연속조회키, defaults to ""
+#### Step 1: Identify the API
+- Determine the API ID and module
+- Review existing similar methods in the target module
+- Understand the API parameters and response structure
 
-#### Date Parameters
-- Use format "YYYYMMDD" for date parameters
-- Example: `start_date="20241128"`
+#### Step 2: Implement the Method
+- Follow the standard method pattern from [api-development-patterns.mdc](mdc:.cursor/rules/api-development-patterns.mdc)
+- Use the correct module file (e.g., [src/kiwoom_rest_api/koreanstock/account.py](mdc:src/kiwoom_rest_api/koreanstock/account.py))
+- Include comprehensive Korean documentation
+- Add proper type hints and parameter validation
 
-#### Code Parameters
-- Stock codes: 6-12 digit strings
-- Order numbers: 7-20 digit strings
-- Market codes: specific string values (KRX, NXT, etc.)
+#### Step 3: Add Test Case
+- Create or update test file in [tests/koreanstock/](mdc:tests/koreanstock/)
+- Follow the test pattern with `print_result()` function
+- Use `print_result=False` for clean output
+- Test with real API credentials
 
-### Response Structure
-All API responses include:
-- `return_code` (int): Response status code
-- `return_msg` (str): Response message
-- Data fields specific to each API
+#### Step 4: Verify Implementation
+```bash
+# Run tests
+poetry run pytest tests/koreanstock/test_account.py -v
 
-### Error Handling
-- Use the base class `_execute_request` method for consistent error handling
-- Return raw API responses to allow caller to handle errors appropriately
-
-## Testing Pattern
-
-### Test Method Structure
-```python
-print_result("api_id_result", module.method_name_request_api_id(
-    required_param1="value1",
-    required_param2="value2"
-), print_result=False)
+# Run specific test
+poetry run python tests/koreanstock/test_account.py
 ```
 
-### Test File Organization
-- Test files should be in `tests/koreanstock/` directory
-- Use descriptive test names that match the API ID
-- Include both success and error case testing
-- Use `print_result=False` for clean test output
+### 3. Code Quality Standards
+
+#### Documentation
+- Include Korean descriptions for all parameters and return fields
+- Provide clear usage examples in docstrings
+- Document API IDs and their purposes
+- Use consistent formatting across all methods
+
+#### Code Style
+- Follow PEP 8 guidelines
+- Use type hints for all parameters
+- Maintain consistent naming conventions
+- Keep methods focused and single-purpose
+
+#### Error Handling
+- Use the base class `_execute_request` method
+- Return raw API responses for caller flexibility
+- Document expected error codes and messages
+
+### 4. Testing Strategy
+
+#### Test Organization
+- Group tests by module functionality
+- Use descriptive test names
+- Include both success and error scenarios
+- Test with various parameter combinations
+
+#### Test Data
+- Use real stock codes (e.g., "005930" for 삼성전자)
+- Use valid date formats ("YYYYMMDD")
+- Test with different market codes (KRX, NXT, etc.)
+
+#### Environment Management
+- Use `.env` file for API credentials
+- Never commit sensitive credentials
+- Use mock data for unit tests when appropriate
+
+### 5. Version Control
+
+#### Branch Strategy
+- Create feature branches for new API implementations
+- Use descriptive branch names (e.g., `feature/kt00012-api`)
+- Keep branches focused on single features
+
+#### Commit Messages
+- Follow the format specified in [git-commit-rules.mdc](mdc:.cursor/rules/git-commit-rules.mdc)
+- Include file and line counts
+- Use appropriate commit types
+- Provide detailed descriptions
+
+#### Pull Request Process
+- Include comprehensive description of changes
+- Reference related API documentation
+- Ensure all tests pass
+- Update documentation if needed
+
+### 6. Deployment and Release
+
+#### Version Management
+- Update version in [pyproject.toml](mdc:pyproject.toml)
+- Follow semantic versioning
+- Update [README.md](mdc:README.md) with new features
+
+#### Release Process
+```bash
+# Build package
+poetry build
+
+# Publish to PyPI
+poetry publish
+
+# Create git tag
+git tag v0.1.11
+git push origin v0.1.11
+```
+
+### 7. Maintenance
+
+#### Regular Tasks
+- Update dependencies with `poetry update`
+- Review and update documentation
+- Monitor API changes from Kiwoom
+- Address user feedback and issues
+
+#### Code Review
+- Review new implementations against established patterns
+- Ensure consistency across modules
+- Verify test coverage
+- Check documentation quality
+
+## Common Development Scenarios
+
+### Adding New API Method
+1. Study existing similar methods
+2. Implement following the standard pattern
+3. Add comprehensive documentation
+4. Create test case
+5. Verify functionality
+6. Commit with proper message format
+
+### Fixing Bugs
+1. Identify the issue and affected module
+2. Implement fix following existing patterns
+3. Add test case to prevent regression
+4. Update documentation if needed
+5. Commit with [Fix] type
+
+### Updating Documentation
+1. Review existing documentation
+2. Update relevant files
+3. Ensure consistency across modules
+4. Test examples if applicable
+5. Commit with [Docs] type
+
+### Refactoring Code
+1. Identify areas for improvement
+2. Maintain existing functionality
+3. Update tests if needed
+4. Ensure backward compatibility
+5. Commit with [Refactor] type
 
 ---
 > Source: [bamjun/kiwoom-rest-api](https://github.com/bamjun/kiwoom-rest-api) — distributed by [TomeVault](https://tomevault.io).
