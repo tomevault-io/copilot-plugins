@@ -7,11 +7,11 @@ Docker + Tart images for MAUI dev/testing
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [maui-containers/maui-containers](https://github.com/maui-containers/maui-containers).
+Original source: `CLAUDE.md` in [maui-containers/maui-containers](https://github.com/maui-containers/maui-containers).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
