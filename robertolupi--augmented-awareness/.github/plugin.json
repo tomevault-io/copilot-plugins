@@ -1,0 +1,9 @@
+{
+  "name": "robertolupi--augmented-awareness",
+  "displayName": "augmented-awareness",
+  "description": "Augmented Awareness is a set of tools for offline-first or local-first, quantified self projects. It currently supports keeping and analyzing the content of one's diary (markdown files) using LLMs.",
+  "version": "1.0.0",
+  "author": "robertolupi",
+  "homepage": "https://github.com/robertolupi/augmented-awareness",
+  "skills": []
+}
