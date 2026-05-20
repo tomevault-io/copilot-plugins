@@ -1,0 +1,9 @@
+{
+  "name": "ethanhuang13--swiftui-tca-template",
+  "displayName": "SwiftUI-TCA-Template",
+  "description": "A template project for building iOS/macOS apps with SwiftUI and The Composable Architecture (TCA), featuring a modular package structure for better maintainability and scalability.",
+  "version": "1.0.0",
+  "author": "ethanhuang13",
+  "homepage": "https://github.com/ethanhuang13/SwiftUI-TCA-Template",
+  "skills": []
+}
