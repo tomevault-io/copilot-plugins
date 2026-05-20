@@ -1,11 +1,12 @@
-## lint
+## nuxt4
 
-> Lint rules are defined in eslint.config.mjs
+> This is a nuxt4 project
 
 
-# Lint
+# Nuxt 4
 
-- ESLint config: `eslint.config.mjs` (antfu + Nuxt). Key rules: use `type` not `interface` (`ts/consistent-type-definitions`); no `any` (`ts/no-explicit-any`); no `console`—use consola (`no-console`); no `process.env`—use runtime config (`node/no-process-env`); `perfectionist/sort-imports`; filenames in camelCase with listed exceptions (`unicorn/filename-case`).
+- Use `#app` for app imports. Use `defineNuxtPlugin`, `useRuntimeConfig`, and composables in `composables/`. Server routes live under `server/api/`.
+- Do not use `process.env` in app or server code; use Nuxt runtime config. Prefer `@nuxt/ui` components where they fit.
 
 ---
 > Source: [Wetzel402/Skylite-UX](https://github.com/Wetzel402/Skylite-UX) — distributed by [TomeVault](https://tomevault.io).
