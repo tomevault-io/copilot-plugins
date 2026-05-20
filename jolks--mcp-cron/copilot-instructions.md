@@ -1,0 +1,90 @@
+## mcp-cron
+
+> Go MCP server for cron task scheduling (shell commands and AI prompts).
+
+# CLAUDE.md
+
+Go MCP server for cron task scheduling (shell commands and AI prompts).
+
+## Build & Test
+
+```bash
+go build ./...                # build all packages
+go test ./...                 # run all tests
+go test ./... -cover          # run tests with coverage
+go tool golangci-lint run     # lint (installed as go tool dependency in go.mod)
+go test ./internal/server/ -run TestIntegration -v  # integration tests only
+MCP_CRON_ENABLE_OPENAI_TESTS=true go test ./...     # include AI integration tests (requires OPENAI_API_KEY)
+MCP_CRON_ENABLE_ANTHROPIC_TESTS=true go test ./...  # include AI integration tests (requires ANTHROPIC_API_KEY)
+```
+
+## Project Structure
+
+```
+cmd/mcp-cron/          # Entry point — flag parsing, wiring, graceful shutdown
+internal/
+  agent/               # AI task executor (multi-provider: OpenAI, Anthropic, OpenAI-compatible) + MCP tool loop
+  command/             # Shell command executor (exec.CommandContext with timeout)
+  config/              # Config structs, defaults, env var loading, validation
+  errors/              # Typed errors: NotFound, AlreadyExists, InvalidInput, Internal
+  logging/             # Leveled logger (Debug/Info/Warn/Error/Fatal), file + stdout
+  model/               # Core types: Task, Result, TaskType, TaskStatus, Executor, ResultStore interfaces
+  scheduler/           # Poll-based DB scheduler (robfig/cron parser only), optimistic locking for multi-instance dedup
+  server/              # MCP server, tool registration, HTTP/stdio transport, handlers
+  singleton/           # File-lock-based singleton per db-path (primary/secondary instance selection)
+  sleep/               # Platform-specific system sleep prevention (macOS, Windows)
+  store/               # SQLite store (persistent task definitions + result history, schema migrations)
+npm/
+  mcp-cron/            # Main npm package — JS wrapper that spawns the platform binary
+  mcp-cron-{os}-{arch}/ # Platform-specific packages (darwin/linux/windows × amd64/arm64)
+scripts/
+  build-npm.sh         # Cross-compile Go binaries for all platforms, optional version update
+  publish-npm.sh       # Publish all 7 npm packages (platform packages first, then main)
+```
+
+## Key Conventions
+
+- **Versioning**: `config.Version` defaults to `"dev"` and is injected at build time via `-ldflags "-X github.com/jolks/mcp-cron/internal/config.Version=X.Y.Z"`. The build script and CI handle this automatically from the git tag — never hardcode a version in source.
+- **Vendor directory**: `vendor/` is gitignored — do NOT commit it. Dependencies are tracked via `go.mod` + `go.sum`; run `go mod vendor` locally to recreate.
+- **License header**: Every Go file starts with `// SPDX-License-Identifier: AGPL-3.0-only`
+- **Handler signature**: `func (s *MCPServer) handle<Name>(_ context.Context, request *mcp.CallToolRequest) (*mcp.CallToolResult, error)`
+- **Task types**: `shell_command` (runs a command) and `AI` (runs an LLM prompt)
+- **Task statuses**: pending, running, completed, failed, disabled
+- **Storage**: In-memory read cache refreshed from SQLite on each poll tick; SQLite is the source of truth for task definitions and result history (`modernc.org/sqlite`, pure Go)
+- **Scheduling**: Poll-based — `next_run` column in `tasks` table, polled every `PollInterval` (default 1s). Optimistic locking (`UPDATE ... WHERE next_run = :current`) prevents duplicate execution across multiple instances sharing the same DB. Tasks can be **scheduled** (with a cron expression) or **on-demand** (no schedule, triggered via `run_task`).
+- **Responses API vs Chat Completions** (OpenAI provider): The Responses API is only used when talking directly to OpenAI (`api.openai.com`), Azure OpenAI (`*.openai.azure.com`), or with no custom base URL. All other base URLs default to Chat Completions, which is universally supported by third-party proxies (LiteLLM, Ollama, vLLM, Groq, etc.). `IsResponsesAPICapable()` in `config/config.go` controls this via exact hostname matching and suffix matching. The host lists are unexported — all access goes through the function.
+- **AI task system message**: AI tasks receive a short system message (~450 chars) with their task ID, `get_task_result` usage instructions, and MCP namespace prefix mapping. Tool definitions are NOT listed (models get those via the API).
+- **Graceful shutdown**: Scheduler tracks in-flight task goroutines with a `sync.WaitGroup`; `Stop()` blocks until all running tasks complete and persist results. Shutdown timeout is derived from `DefaultTimeout + 1 minute`. Result store is closed last in `app.Stop()`, after scheduler and server.
+- **Singleton per db-path**: A file lock (`gofrs/flock`) on `<db-path>.lock` determines the **primary** instance. The first instance to acquire the lock is primary and enters keep-alive mode after transport exit (scheduler continues running). Subsequent instances on the same db-path are **secondary** — they serve their MCP request and exit when the transport closes. This prevents N lingering processes when MCP clients spawn mcp-cron per request.
+- **Logging**: Always use the `*logging.Logger` instance — never `fmt.Printf`, `log.Printf`, or `log.Println`. In stdio mode, any write to stdout corrupts the JSON-RPC stream. The logger is created early in `createApp` and passed to all components (scheduler, executors, server).
+- **Transport**: Streamable HTTP (default) or stdio (for CLI/Docker integration). In stdio mode, the primary instance keeps the scheduler running after the MCP client disconnects (stdin EOF). SIGTERM is ignored after transport exit (MCP clients send it during cleanup); only SIGINT (`kill -INT` / Ctrl+C) or SIGKILL triggers shutdown. Secondary instances shut down gracefully after transport exit (waiting for in-flight tasks to complete).
+
+## MCP Tools Exposed
+
+list_tasks, get_task, get_task_result, query_task_result, add_task, add_ai_task, update_task, remove_task, run_task, enable_task, disable_task
+
+## Dependencies
+
+- `github.com/modelcontextprotocol/go-sdk` — Official MCP Go SDK
+- `github.com/openai/openai-go` — OpenAI API client (for AI tasks)
+- `github.com/anthropics/anthropic-sdk-go` — Anthropic API client (for AI tasks)
+- `github.com/robfig/cron/v3` — Cron expression parsing (parser only, no in-memory scheduler engine)
+- `modernc.org/sqlite` — Pure-Go SQLite driver (no CGo) for persistent result history
+- `github.com/gofrs/flock` — File-based locking for singleton instance per db-path
+
+## npm Packaging
+
+Uses the `optionalDependencies` pattern (same as esbuild): one main package (`mcp-cron`) with a JS wrapper + 6 platform-specific packages containing pre-built Go binaries. npm installs only the matching platform package via `os`/`cpu` fields.
+
+- **Build**: `./scripts/build-npm.sh [version]` — cross-compiles all platforms, optionally updates version
+- **Publish**: `./scripts/publish-npm.sh [--dry-run]` — publishes platform packages first, then main
+- **Versions**: All 7 `package.json` files must have matching versions (build script handles this)
+
+## CI
+
+- `.github/workflows/go-test.yml`: runs `golangci-lint` + `go test ./... -cover` on pushes and PRs to main
+- `.github/workflows/npm-publish.yml`: triggered on `v*` tags — cross-compiles, then publishes all npm packages
+
+---
+> Source: [jolks/mcp-cron](https://github.com/jolks/mcp-cron) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
