@@ -7,11 +7,11 @@ An AI-Native ECS Simulation Engine combining the composibility of Pydantic with 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [VangelisTech/archetype](https://github.com/VangelisTech/archetype).
+Original source: `CLAUDE.md` in [VangelisTech/archetype](https://github.com/VangelisTech/archetype).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
