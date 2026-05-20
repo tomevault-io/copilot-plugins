@@ -1,0 +1,75 @@
+{
+  "name": "trailhead-banner",
+  "owner": "nabondance",
+  "repo": "Trailhead-Banner",
+  "description": "Trailhead Banner is a web application that allows users to generate LinkedIn banners using their Trailhead data.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dev-start",
+      "path": ".claude/skills/dev-start",
+      "github_url": "https://github.com/nabondance/Trailhead-Banner/tree/main/.claude/skills/dev-start",
+      "description": ""
+    },
+    {
+      "name": "dev-stop",
+      "path": ".claude/skills/dev-stop",
+      "github_url": "https://github.com/nabondance/Trailhead-Banner/tree/main/.claude/skills/dev-stop",
+      "description": ""
+    },
+    {
+      "name": "format",
+      "path": ".claude/skills/format",
+      "github_url": "https://github.com/nabondance/Trailhead-Banner/tree/main/.claude/skills/format",
+      "description": ""
+    },
+    {
+      "name": "format-fix",
+      "path": ".claude/skills/format-fix",
+      "github_url": "https://github.com/nabondance/Trailhead-Banner/tree/main/.claude/skills/format-fix",
+      "description": ""
+    },
+    {
+      "name": "img-test",
+      "path": ".claude/skills/img-test",
+      "github_url": "https://github.com/nabondance/Trailhead-Banner/tree/main/.claude/skills/img-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nabondance/Trailhead-Banner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T20:30:25Z"
+}
