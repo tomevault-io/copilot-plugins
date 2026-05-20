@@ -1,27 +1,45 @@
-## project-structure
+## raspberry-pi-development
 
-> - **Main entry point**: [run.py](mdc:run.py) - Primary application launcher
+> - **Pi-only execution**: Code must run on Raspberry Pi, not Windows development machine
 
 
-# LEDMatrix Project Structure
+# Raspberry Pi Development Guidelines
 
-## Core Architecture
-- **Main entry point**: [run.py](mdc:run.py) - Primary application launcher
-- **Configuration**: [config/config.json](mdc:config/config.json) - Main configuration file
-- **Display management**: [src/display_controller.py](mdc:src/display_controller.py) - Core display logic
-- **Web interface**: [web_interface_v2.py](mdc:web_interface_v2.py) - Modern web UI
+## Hardware Constraints
+- **Pi-only execution**: Code must run on Raspberry Pi, not Windows development machine
+- **LED matrix library**: Uses [rpi-rgb-led-matrix-master/](mdc:rpi-rgb-led-matrix-master/) for hardware control
+- **Memory limitations**: Optimize for Pi's limited RAM
+- **Performance**: Consider Pi's CPU capabilities in design
 
-## Source Code Organization
-- **Managers**: [src/](mdc:src/) - All sports/weather/stock managers
-- **Assets**: [assets/](mdc:assets/) - Logos, fonts, and static resources
-- **Tests**: [test/](mdc:test/) - Unit and integration tests
-- **Documentation**: [LEDMatrix.wiki/](mdc:LEDMatrix.wiki/) - Comprehensive guides
+## Development Workflow
+- **Local development**: Write and test code on Windows
+- **Pi deployment**: Deploy and test on actual Pi hardware
+- **SSH access**: Use SSH for Pi-based testing and debugging
+- **Service management**: Use systemd services for production deployment
 
-## Key Design Principles
-- **Single Responsibility**: Each manager handles one sport/domain
-- **Consistent Patterns**: All managers follow similar structure
-- **Configuration-Driven**: Behavior controlled via [config/config.json](mdc:config/config.json)
-- **Raspberry Pi Focus**: Optimized for Pi hardware, not Windows development
+## Testing Strategy
+- **Unit tests**: Test logic without hardware dependencies
+- **Integration tests**: Test with mock display managers
+- **Hardware tests**: Validate on actual Pi with LED matrix
+- **Performance tests**: Monitor memory and CPU usage
+
+## Deployment Considerations
+- **Service files**: [ledmatrix.service](mdc:ledmatrix.service), [ledmatrix-web.service](mdc:ledmatrix-web.service)
+- **Installation scripts**: [first_time_install.sh](mdc:first_time_install.sh), [install_service.sh](mdc:install_service.sh)
+- **Dependencies**: [requirements.txt](mdc:requirements.txt) for Pi environment
+- **Permissions**: Handle file permissions for Pi user
+
+## Performance Optimization
+- **Caching**: Use [src/cache_manager.py](mdc:src/cache_manager.py) for data persistence
+- **Background services**: Non-blocking data fetching
+- **Memory management**: Clean up resources regularly
+- **Display optimization**: Minimize unnecessary redraws
+
+## Debugging on Pi
+- **Logging**: Comprehensive logging for remote debugging
+- **Error reporting**: Clear error messages for troubleshooting
+- **Status monitoring**: Health checks and status reporting
+- **Remote access**: Web interface for configuration and monitoring
 
 ---
 > Source: [ChuckBuilds/LEDMatrix](https://github.com/ChuckBuilds/LEDMatrix) — distributed by [TomeVault](https://tomevault.io).
