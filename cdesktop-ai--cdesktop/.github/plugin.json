@@ -1,0 +1,9 @@
+{
+  "name": "cdesktop-ai--cdesktop",
+  "displayName": "cdesktop",
+  "description": "Open-source Claude Code Desktop alternative. Use any provider/model. Web UI for Claude Code, Codex, Gemini CLI, OpenCode, Hermes.",
+  "version": "1.0.0",
+  "author": "cdesktop-ai",
+  "homepage": "https://github.com/cdesktop-ai/cdesktop",
+  "skills": []
+}
