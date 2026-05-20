@@ -7,11 +7,11 @@ Reinforcement Learning Testbed for Quantitative Trading
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [whanyu1212/QuantRL-Lab](https://github.com/whanyu1212/QuantRL-Lab).
+Original source: `CLAUDE.md` in [whanyu1212/QuantRL-Lab](https://github.com/whanyu1212/QuantRL-Lab).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
