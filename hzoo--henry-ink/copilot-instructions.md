@@ -1,61 +1,31 @@
-## react-components
+## signals
 
-> react components
+> global state management
 
-
-- component structure
-  - use pascalCase function components
-  - hooks (useEffect, useSignal, etc.) must be inside components
-  - prefer preact signals over useState
-  - split up large files into multiple components.
-  - avoid passing props unless it's a local signal
-
+## signals usage
 ```ts
-// ❌ BAD - hooks outside component  
-const count = useSignal(0);  
-useEffect(() => {}, []);  
-function app() {} // wrong casing  
+import { batch, type Signal, useComputed, useSignal } from "@preact/signals";
+const count = signal(0);
 
-// ✅ GOOD  
-function MyComponent() {  
-  const count = useSignal(0);  
-  useEffect(() => {}, []);  
-}
+// access with .value, can be used in components
+// think about splitting components to save re-renders
+<button onClick={() => count.value++}>{count.value}</button>;
 ```
 
-signals usage
-- global state → signal()
-- component state → useSignal()
+use computed within components to save re-renders
 
 ```ts
-// top-level signals  
-import { signal } from "@preact/signals";  
-const globalCount = signal(0);
+function Word({ word }: { word: { text: string, index: number } }) {
+  const isCurrent = useComputed(() => currentWordIndex.value === word.index);
 
-// component signals  
-import { useSignal, useComputed, useSignalEffect, useSignals } from "@preact/signals-react/runtime";  
-function Counter() {  
-  const count = useSignal(0);  
-  const double = useComputed(() => count.value * 2);  
-  useSignalEffect(() => console.log(`count: ${count.value}, x2: ${double.value}`));  
-  return <div>{count}</div>;  
-}
-
-effect handling
-- useEffect must be inside components
-- cleanup when needed
-- specify deps properly
-- use AbortController for listeners
-
-```ts
-function MyComponent() {  
-  useEffect(() => {  
-    const controller = new AbortController();  
-    const handler = () => {};  
-    window.addEventListener('resize', handler, { signal: controller.signal });  
-
-    return () => controller.abort();  
-  }, []); // runs only on mount/unmount  
+  return (
+    <span className={cn(
+      "text-blue-500",
+      isCurrent && "text-blue-700"
+    )}>
+      {word.text}
+    </span>
+  )
 }
 ```
 
