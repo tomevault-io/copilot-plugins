@@ -1,0 +1,9 @@
+{
+  "name": "get-convex--mastra",
+  "displayName": "mastra",
+  "description": "Use Mastra with Convex using this Component to run durable workflows.",
+  "version": "1.0.0",
+  "author": "get-convex",
+  "homepage": "https://github.com/get-convex/mastra",
+  "skills": []
+}
