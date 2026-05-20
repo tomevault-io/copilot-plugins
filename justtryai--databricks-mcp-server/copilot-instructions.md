@@ -1,49 +1,56 @@
-## environment
+## mcp-tools
 
-> Development Environment
+> MCP Tool Implementation Guidelines
 
-# Development Environment Standards
+# MCP Tool Implementation Standards
 
-## Python Requirements
-- Python version: >= 3.10
-- Package manager: uv
-- Virtual environment: .venv
+## Function Signature
+- Tool functions should be async
+- Follow the pattern:
+  ```python
+  async def tool_name(params: Dict[str, Any]) -> Dict[str, Any]:
+      """Tool description.
+      
+      Args:
+          params: Dictionary of parameters from MCP client
+          
+      Returns:
+          Dictionary adhering to MCP protocol response format
+      """
+  ```
 
-## Project Configuration
-- Use pyproject.toml for dependencies and build configuration
-- Recommended IDE: Cursor
-- Linting:
-  - pylint
-  - flake8
-  - mypy for type checking
+## Documentation Requirements
+Each tool must have documentation with:
+- name
+- description
+- parameters
+- returns
 
-## Getting Started
-```bash
-# Create and activate virtual environment
-python -m venv .venv
-source .venv/bin/activate  # Linux/macOS
-.venv\Scripts\activate     # Windows
-
-# Install dependencies with uv
-uv pip install -e .
+Example:
+```python
+"""
+name: list_clusters
+description: Lists all available Databricks clusters
+parameters: {}
+returns: List of cluster objects
+"""
 ```
 
-## Running Tests
-```bash
-# Install development dependencies
-uv pip install -e ".[dev]"
+## Error Handling
+- All tool functions must return errors as part of the result object with `isError: true`
+- Example:
+  ```python
+  {
+      "result": None,
+      "isError": True,
+      "errorMessage": "Unable to connect to Databricks API"
+  }
+  ```
 
-# Run tests with pytest
-pytest tests/
-```
-
-## Linting
-```bash
-# Run all linters
-pylint src/ tests/
-flake8 src/ tests/
-mypy src/
-```
+## Performance Considerations
+- Implement appropriate timeouts for all external calls
+- Long-running operations should provide progress updates
+- Handle Databricks API rate limiting and retries
 
 ---
 > Source: [JustTryAI/databricks-mcp-server](https://github.com/JustTryAI/databricks-mcp-server) — distributed by [TomeVault](https://tomevault.io).
