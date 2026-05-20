@@ -1,0 +1,9 @@
+{
+  "name": "sprksocial--client",
+  "displayName": "client",
+  "description": "Open Source TikTok alternative built on AT Protocol",
+  "version": "1.0.0",
+  "author": "sprksocial",
+  "homepage": "https://github.com/sprksocial/client",
+  "skills": []
+}
