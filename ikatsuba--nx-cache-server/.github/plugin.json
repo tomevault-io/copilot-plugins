@@ -1,0 +1,9 @@
+{
+  "name": "ikatsuba--nx-cache-server",
+  "displayName": "nx-cache-server",
+  "description": "The Nx Custom Self-Hosted Remote Cache Server",
+  "version": "1.0.0",
+  "author": "IKatsuba",
+  "homepage": "https://github.com/IKatsuba/nx-cache-server",
+  "skills": []
+}
