@@ -7,11 +7,11 @@ A cocktail recommendation website
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Tendo33/MoodShakerFront](https://github.com/Tendo33/MoodShakerFront).
+Original source: `CLAUDE.md` in [Tendo33/MoodShakerFront](https://github.com/Tendo33/MoodShakerFront).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
