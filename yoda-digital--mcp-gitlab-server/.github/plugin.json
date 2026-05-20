@@ -1,0 +1,9 @@
+{
+  "name": "yoda-digital--mcp-gitlab-server",
+  "displayName": "mcp-gitlab-server",
+  "description": "Production-grade GitLab MCP server with 86 tools \u2014 full GitLab control from any AI agent (Claude, Cursor, Zed).",
+  "version": "1.0.0",
+  "author": "yoda-digital",
+  "homepage": "https://github.com/yoda-digital/mcp-gitlab-server",
+  "skills": []
+}
