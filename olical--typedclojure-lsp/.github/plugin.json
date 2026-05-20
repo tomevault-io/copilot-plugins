@@ -1,0 +1,9 @@
+{
+  "name": "olical--typedclojure-lsp",
+  "displayName": "typedclojure-lsp",
+  "description": "Typed Clojure in your editor.",
+  "version": "1.0.0",
+  "author": "Olical",
+  "homepage": "https://github.com/Olical/typedclojure-lsp",
+  "skills": []
+}
