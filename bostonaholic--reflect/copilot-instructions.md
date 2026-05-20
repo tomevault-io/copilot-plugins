@@ -1,34 +1,49 @@
-## performance
+## security
 
-> - Use appropriate data structures for the use case
+> - Implement proper authentication mechanisms
 
-# Performance Optimization Rules
+# Security Rules
 
-## Code Level Optimization
-- Use appropriate data structures for the use case
-- Implement caching strategies where beneficial
-- Minimize unnecessary object creation
-- Use async/await for I/O operations
-- Implement proper error boundaries
+## Authentication and Authorization
+- Implement proper authentication mechanisms
+- Implement proper token handling
 
-## Memory Management
-- Implement proper garbage collection
-- Monitor memory leaks
-- Use appropriate buffer sizes
-- Implement proper cleanup in event listeners
+## Data Security
+- Encrypt sensitive data at rest
+- Use HTTPS for all communications
+- Implement proper input validation
+- Sanitize user input
 
-## Monitoring and Profiling
-- Implement performance monitoring
-- Use profiling tools
-- Set up performance budgets
-- Monitor key performance indicators
+## API Security
+- Securely store and manage API credentials
+- Use environment variables or secure credential stores for API keys
+- Implement proper API request validation
+- Handle API rate limiting and errors gracefully
+- Use secure API endpoints (HTTPS)
+- Implement proper API response validation
+- Cache API responses appropriately
+- Monitor API usage and errors
+
+## Code Security
+- Keep dependencies updated
+- Scan for known vulnerabilities
+- Implement proper error handling
+- Use secure coding practices
 - Implement proper logging
 
+## Infrastructure Security
+- Use secure configuration management
+- Implement proper access controls
+- Use secure deployment practices
+- Implement proper monitoring
+- Use secure networking practices
+
 ## Testing
-- Include performance tests
-- Set up performance benchmarks
-- Test under load
-- Monitor performance regressions
+- Include security testing
+- Implement penetration testing
+- Use security scanning tools
+- Test for common vulnerabilities
+- Implement proper security monitoring
 
 ---
 > Source: [bostonaholic/reflect](https://github.com/bostonaholic/reflect) — distributed by [TomeVault](https://tomevault.io).
