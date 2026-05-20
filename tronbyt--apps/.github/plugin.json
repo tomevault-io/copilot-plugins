@@ -1,0 +1,9 @@
+{
+  "name": "tronbyt--apps",
+  "displayName": "apps",
+  "description": "Hard Fork of Tidbyt Community Repo",
+  "version": "1.0.0",
+  "author": "tronbyt",
+  "homepage": "https://github.com/tronbyt/apps",
+  "skills": []
+}
