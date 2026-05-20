@@ -1,0 +1,9 @@
+{
+  "name": "wjsoftware--svelte-router",
+  "displayName": "svelte-router",
+  "description": "Next-level routing for Svelte and Sveltekit",
+  "version": "1.0.0",
+  "author": "WJSoftware",
+  "homepage": "https://github.com/WJSoftware/svelte-router",
+  "skills": []
+}
