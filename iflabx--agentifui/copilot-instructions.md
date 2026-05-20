@@ -1,112 +1,82 @@
-## i18n
+## test
 
-> Must read when adding translation keys or working with i18n
+> Must read when writing tests or working with testing framework
 
 
-# AgentifUI Internationalization Development Standards
+# AgentifUI Testing Development Standards
 
 ## Core Architecture
 
-AgentifUI uses next-intl for internationalization with unified JSON configuration architecture:
+AgentifUI uses Jest with React Testing Library for comprehensive testing:
 
-- **Default Language**: English (en-US) as source language
-- **Supported Languages**: 10 languages (zh-CN, en-US, es-ES, zh-TW, ja-JP, de-DE, fr-FR, ru-RU, it-IT, pt-PT)
-- **Framework**: next-intl with Next.js 15 App Router
-- **Validation Tools**: Python scripts wrapped in pnpm scripts for structural consistency validation
+- **Testing Framework**: Jest with Next.js integration
+- **Component Testing**: React Testing Library with jsdom environment
+- **Test Patterns**: `*.test.{ts,tsx}` or `*.spec.{ts,tsx}` or `__tests__/` directory
+- **Coverage**: Currently 0% threshold (temporary, to be increased)
+- **Automation**: Husky handles precommit testing automatically
 
-## Directory Structure
+## Test Configuration
 
 ```
-messages/
-├── en-US.json        # English (primary language)
-├── zh-CN.json        # Simplified Chinese
-├── es-ES.json        # Spanish
-├── zh-TW.json        # Traditional Chinese
-├── ja-JP.json        # Japanese
-├── de-DE.json        # German
-├── fr-FR.json        # French
-├── ru-RU.json        # Russian
-├── it-IT.json        # Italian
-└── pt-PT.json        # Portuguese
-
-i18n/
-└── request.ts        # next-intl configuration
+jest.config.js         # Main Jest configuration
+jest.setup.js          # Test environment setup and mocks
+__tests__/             # Test files directory
+**/*.test.{ts,tsx}     # Inline test files
 ```
 
-## Validation Tools
-
-The project provides i18n validation tool chain:
+## Available Commands
 
 ```bash
-# Quick structural consistency check
-pnpm run i18n:check
+# Run all tests
+pnpm test
 
-# Detailed validation (includes more checks)
-pnpm run i18n:validate
+# Run tests in watch mode
+pnpm test:watch
 
-# Detect missing keys (shows line number positions)
-pnpm run i18n:detect
+# Run tests with coverage
+pnpm test:coverage
+
+# Run tests for CI (no watch, with coverage)
+pnpm test:ci
 ```
 
 ## Development Workflow
 
-### 1. Adding New Translation Keys (MANDATORY PROCESS)
+### 1. Writing Tests (RECOMMENDED PROCESS)
 
-**Step 1**: Add key to `messages/en-US.json` first (source language)
-**Step 2**: Add same structure to all 9 other language files
-**Step 3**: Run validation immediately
+**Step 1**: Create test file alongside component or in `__tests__/` directory
+**Step 2**: Use React Testing Library for component testing
+**Step 3**: Follow existing mocking patterns from `jest.setup.js`
 
-```bash
-pnpm run i18n:check
-```
-
-### 2. Component Usage
+### 2. Test Structure
 
 ```tsx
-import { useTranslations } from 'next-intl';
+import { render, screen } from '@testing-library/react';
+import { ComponentName } from '../component-path';
 
-const Component = () => {
-  const t = useTranslations('pages.admin.feature');
-  return <h1>{t('title')}</h1>;
-};
+describe('ComponentName', () => {
+  test('should render correctly', () => {
+    render(<ComponentName />);
+    expect(screen.getByText('Expected Text')).toBeInTheDocument();
+  });
+});
 ```
 
-## Naming Structure
+## Mocking Setup
 
-### Hierarchical Organization
-```json
-{
-  "common": { "ui": {...} },        // Common UI elements
-  "pages": { "admin": {...} },      // Page-specific content
-  "components": { "sidebar": {...} } // Reusable components
-}
-```
-
-### Parameterized Translations
-```json
-{ "welcome": "Welcome {name} to AgentifUI" }
-```
-
-## Validation Commands
-
-```bash
-# Quick check
-pnpm run i18n:check
-
-# Detailed validation  
-pnpm run i18n:validate
-
-# Detect missing keys
-pnpm run i18n:detect
-```
+Pre-configured mocks in `jest.setup.js`:
+- Next.js router and navigation
+- next/image and next/link
+- next-intl translations
+- Global browser APIs (IntersectionObserver, ResizeObserver)
 
 ## Core Rules
 
-1. **🚫 NO HARDCODING**: MUST NOT hardcode any user-visible text
-2. **✅ STRUCTURE CONSISTENCY**: MUST maintain identical key structure across all language files
-3. **🔍 IMMEDIATE VALIDATION**: MUST run validation scripts after each modification
-4. **📝 Clear Naming**: MUST use descriptive key names and hierarchical structure
-5. **🎯 Functional Grouping**: MUST organize translation keys by functional domains
+1. **🧪 TEST COVERAGE**: SHOULD write tests for new components and critical logic
+2. **🔧 USE MOCKS**: MUST use existing mocks from jest.setup.js
+3. **📝 DESCRIPTIVE NAMES**: MUST use clear test descriptions
+4. **⚡ AUTOMATION**: Tests run automatically via Husky precommit hooks
+5. **🎯 FOCUSED TESTING**: Focus on user behavior rather than implementation details
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
