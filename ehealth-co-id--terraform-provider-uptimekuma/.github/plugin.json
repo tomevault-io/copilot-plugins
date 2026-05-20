@@ -1,0 +1,9 @@
+{
+  "name": "ehealth-co-id--terraform-provider-uptimekuma",
+  "displayName": "terraform-provider-uptimekuma",
+  "description": "This Terraform provider allows you to manage Uptime Kuma resources through Terraform. Uptime Kuma is a self-hosted monitoring tool similar to Uptime Robot.",
+  "version": "1.0.0",
+  "author": "ehealth-co-id",
+  "homepage": "https://github.com/ehealth-co-id/terraform-provider-uptimekuma",
+  "skills": []
+}
