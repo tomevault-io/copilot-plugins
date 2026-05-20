@@ -1,0 +1,9 @@
+{
+  "name": "lumitech-co--lumitech-node-fastify-template",
+  "displayName": "lumitech-node-fastify-template",
+  "description": "A scalable Node.js backend starter powered by Fastify, Swagger, Docker, and Awilix \u2014 built for clean architecture and future growth.",
+  "version": "1.0.0",
+  "author": "lumitech-co",
+  "homepage": "https://github.com/lumitech-co/lumitech-node-fastify-template",
+  "skills": []
+}
