@@ -1,0 +1,9 @@
+{
+  "name": "loicduong--vite-plugin-vue-layouts-next",
+  "displayName": "vite-plugin-vue-layouts-next",
+  "description": "Vue layout plugin for Vite, supports the Vite 8, Vue 3 and Vue Router 5.",
+  "version": "1.0.0",
+  "author": "loicduong",
+  "homepage": "https://github.com/loicduong/vite-plugin-vue-layouts-next",
+  "skills": []
+}
