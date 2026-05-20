@@ -1,75 +1,37 @@
-## 01-quality-assurance
+## 02-typescript-guidelines
 
-> Guidelines for quality assurance and code verification
+> TypeScript standards and best practices for the project
 
-# Quality Assurance Requirements
+# TypeScript Guidelines
 
-Before any task is considered complete, the following quality checks must be run:
+## General TypeScript Guidelines
 
-## Run All Checks in Parallel
+- Always use types from the @slack/web-api package when available
+- Follow TypeScript best practices like explicit return types
+- Avoid any type unless absolutely necessary
+- Use interfaces instead of types for object definitions
+- Prefer explicit member accessibility (public, private)
+- Use strict boolean expressions
+- Properly handle Promise returns and potential errors
 
-The easiest way to run all quality checks is using the check script:
-```bash
-npm run check
-```
+## TypeScript Code Style
 
-This runs ESLint, Prettier checks, TypeScript type checking, security audit, and tests in parallel, then builds the project.
+- Use 2 spaces for indentation
+- Use single quotes for strings
+- Limit line length to 100 characters
+- Use trailing commas in multiline objects and arrays
+- Prefer const over let, avoid var
+- Use optional chaining and nullish coalescing operators
+- Explicitly handle Promise rejections and errors
+- **Minimize comments:** Write clear, self-documenting code. Avoid comments that restate the obvious. Use comments only for complex logic or non-obvious choices.
 
-## Individual Checks
+## Configuration
 
-You can also run individual checks:
-
-1. **ESLint** - Check for code style and potential errors:
-   ```bash
-   npm run lint
-   ```
-   Fix any linting errors before submitting:
-   ```bash
-   npm run lint:fix
-   ```
-
-2. **Prettier** - Format all code consistently:
-   ```bash
-   npm run format
-   ```
-   Verify formatting is correct:
-   ```bash
-   npm run format:check
-   ```
-
-3. **TypeScript** - Ensure all type checks pass:
-   ```bash
-   npm run typecheck
-   ```
-
-4. **Security Audit** - Check for vulnerabilities in dependencies:
-   ```bash
-   npm run audit
-   ```
-
-5. **Build** - Compile the project:
-   ```bash
-   npm run build
-   ```
-
-**Note:** No task should be considered complete until all checks have passed without errors.
-
-## Development Workflow
-
-1. Make your code changes
-2. Update CHANGELOG.md with notable changes under [Unreleased] section
-3. Run all checks: `npm run check` (or individual checks as needed)
-4. Fix any issues found in the checks
-5. Commit your changes only after all checks pass
-
-## Changelog Management
-
-Always document notable changes in CHANGELOG.md:
-
-1. Add new entries under the [Unreleased] section as you work
-2. Focus on functional changes that affect users
-3. Categorize changes as Added, Changed, Fixed, or Removed
-4. During release, move [Unreleased] changes to the version section with date
+TypeScript is configured in `tsconfig.json` with strict type checking. Key settings include:
+- ES2022 target
+- Node.js module resolution
+- Strict null checks
+- Consistent casing in imports
 
 ---
 > Source: [rygwdn/slack-tools](https://github.com/rygwdn/slack-tools) — distributed by [TomeVault](https://tomevault.io).
