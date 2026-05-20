@@ -4,7 +4,7 @@
   "repo": "vibestamps",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RayFernando1337/vibestamps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T07:04:31Z"
+  "distributed_at": "2026-05-20T12:58:47Z"
 }
