@@ -1,0 +1,9 @@
+{
+  "name": "mohtashammurshid--md-to-docx",
+  "displayName": "md-to-docx",
+  "description": "A powerful TypeScript module that converts Markdown text to Microsoft Word (.docx) documents with support for various Markdown features. Perfect for both Node.js and browser environments.",
+  "version": "1.0.0",
+  "author": "MohtashamMurshid",
+  "homepage": "https://github.com/MohtashamMurshid/md-to-docx",
+  "skills": []
+}
