@@ -4,7 +4,7 @@
   "repo": "302-AI-Studio_down",
   "description": "302 AI Studio is a desktop client that supports multiple large language model (LLM) service providers, compatible with Windows, Mac and Linux.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/302ai/302-AI-Studio_down",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T23:05:06Z"
+  "distributed_at": "2026-05-20T03:08:56Z"
 }
