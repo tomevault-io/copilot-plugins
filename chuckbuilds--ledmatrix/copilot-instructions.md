@@ -1,46 +1,54 @@
-## configuration-management
+## error-handling-logging
 
-> - **Main config**: [config/config.json](mdc:config/config.json) - Primary configuration
+> - **Structured prefixes**: Use consistent tags like `[NHL Recent]`, `[NFL Live]`
 
 
-# Configuration Management
+# Error Handling and Logging
 
-## Configuration Structure
-- **Main config**: [config/config.json](mdc:config/config.json) - Primary configuration
-- **Secrets**: [config/config_secrets.json](mdc:config/config_secrets.json) - API keys and sensitive data
-- **Templates**: [config/config.template.json](mdc:config/config.template.json) - Default values
+## Logging Standards
+- **Structured prefixes**: Use consistent tags like `[NHL Recent]`, `[NFL Live]`
+- **Context information**: Include relevant details (team names, game status, dates)
+- **Appropriate levels**: 
+  - `info`: Normal operations and status updates
+  - `debug`: Detailed information for troubleshooting
+  - `warning`: Non-critical issues that should be noted
+  - `error`: Problems that need attention
 
-## Configuration Principles
-- **Validation**: Check required fields and data types on startup
-- **Defaults**: Provide sensible defaults in code, not just config
-- **Environment awareness**: Handle development vs production differences
-- **Security**: Never commit secrets to version control
-
-## Manager Configuration Pattern
+## Error Handling Patterns
 ```python
-def __init__(self, config, display_manager, cache_manager):
-    self.mode_config = config.get("sport_scoreboard", {})
-    self.favorite_teams = self.mode_config.get("favorite_teams", [])
-    self.show_favorite_only = self.mode_config.get("show_favorite_teams_only", False)
+try:
+    data = self._fetch_data()
+    if not data or 'events' not in data:
+        self.logger.warning("[Manager] No events found in API response")
+        return
+except requests.exceptions.RequestException as e:
+    self.logger.error(f"[Manager] API error: {e}")
+    return None
 ```
 
-## Required Configuration Sections
-- **Display settings**: Update intervals, display durations
-- **API settings**: Timeouts, retry logic, rate limiting
-- **Background service**: Threading, caching, priority settings
-- **Team preferences**: Favorite teams, filtering options
+## User-Friendly Messages
+- **Explain the situation**: "No games available during off-season"
+- **Provide context**: "NHL season typically runs October-June"
+- **Suggest solutions**: "Check back when season starts"
+- **Distinguish issues**: API problems vs no data vs filtering results
 
-## Configuration Validation
-- **Type checking**: Ensure numeric values are numbers, lists are lists
-- **Range validation**: Check that intervals are reasonable
-- **Dependency checking**: Verify required services are available
-- **Fallback values**: Provide defaults when config is missing or invalid
+## Graceful Degradation
+- **Fallback content**: Show alternative games when favorites unavailable
+- **Cached data**: Use cached data when API fails
+- **Service continuity**: Continue operation when non-critical features fail
+- **Clear communication**: Explain what's happening to users
 
-## Best Practices
-- **Documentation**: Comment complex configuration options
-- **Examples**: Provide working examples in templates
-- **Migration**: Handle configuration changes between versions
-- **Testing**: Validate configuration in test environments
+## Debugging Support
+- **Comprehensive logging**: Log API responses, filtering results, display updates
+- **State tracking**: Log current state and transitions
+- **Performance monitoring**: Track timing and resource usage
+- **Error context**: Include stack traces for debugging
+
+## Off-Season Awareness
+- **Seasonal messaging**: Different messages for different times of year
+- **Helpful context**: Explain why no games are available
+- **Future planning**: Mention when season starts
+- **Realistic expectations**: Set appropriate expectations during off-season
 
 ---
 > Source: [ChuckBuilds/LEDMatrix](https://github.com/ChuckBuilds/LEDMatrix) — distributed by [TomeVault](https://tomevault.io).
