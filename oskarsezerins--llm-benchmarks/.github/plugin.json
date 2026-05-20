@@ -1,0 +1,9 @@
+{
+  "name": "oskarsezerins--llm-benchmarks",
+  "displayName": "llm-benchmarks",
+  "description": "Popular LLM benchmarks for ruby code generation",
+  "version": "1.0.0",
+  "author": "OskarsEzerins",
+  "homepage": "https://github.com/OskarsEzerins/llm-benchmarks",
+  "skills": []
+}
