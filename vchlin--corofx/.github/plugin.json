@@ -1,0 +1,9 @@
+{
+  "name": "vchlin--corofx",
+  "displayName": "corofx",
+  "description": "Typed effect handlers for C++20 using coroutines.",
+  "version": "1.0.0",
+  "author": "vchlin",
+  "homepage": "https://github.com/vchlin/corofx",
+  "skills": []
+}
