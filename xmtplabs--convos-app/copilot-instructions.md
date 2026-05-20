@@ -1,93 +1,17 @@
-## error-handling
+## expo-config-plugin
 
-> The following contains rules about error handling in our codebase. Each rule is followed by a small example showing good and bad practices.
+> Helpful documentations about expo config plugin
 
-The following contains rules about error handling in our codebase. Each rule is followed by a small example showing good and bad practices.
+Helpful documentations about expo config plugin
 
-- Prefer throwing errors over catching them, unless the catch block is where we want to handle the error UI/UX.
-
-```typescript
-// ❌ Bad:
-try {
-  await api.sendMessage(content)
-} catch (error) {
-  console.or)
-}
-
-// ✅ Good: Throwing error with context
-try {
-  await api.sendMessage(content)
-} catch (error) {
-  throw new AppError({
-    error,
-    additionalMessage: "Failed to send message",
-  })
-}
-```
-
-- When catching errors, only do so at the level where you need to handle the user experience.
-
-```typescript
-// In UI component where we handle the UX:
-try {
-  await messagingService.sendMessage({ content })
-} catch (error) {
-  captureErrorWithToast(error)
-}
-```
-
-- Always use captureError from [capture-error.ts](mdc:utils/capture-error.ts) when logging errors but continuing execution.
-
-```typescript
-// ❌ Bad: Using console.error directly
-try {
-  await analytics.trackEvent("user_action")
-} catch (error) {
-  console.error("Analytics error:", error)
-}
-
-// ✅ Good: Using captureError
-try {
-  await analytics.trackEvent("user_action")
-} catch (error) {
-  // Log but don't disrupt user experience
-  captureError(new AppError({ error }))
-}
-```
-
-- When throwing errors, always create a new error using one of the error from [error.ts](mdc:utils/error.ts)
-
-```typescript
-// ❌ Bad: Throwing original error
-try {
-  await api.fetchData()
-} catch (error) {
-  throw error
-}
-
-// ✅ Good: Creating new AppError
-try {
-  await api.fetchData()
-} catch (error) {
-  throw new AppError({
-    error,
-    additionalMessage: "Failed while fetching data",
-  })
-}
-```
-
-- Always add an "additionalMessage" property to errors to provide more context.
-
-```typescript
-// ❌ Bad: No additional context
-throw new AppError({ error })
-
-// ✅ Good: Providing additional context
-throw new AppError({
-  error,
-  additionalMessage: "Context about what we were trying to do",
-})
-```
+- https://docs.expo.dev/config-plugins/plugins-and-mods
+- https://docs.expo.dev/config-plugins/introduction/
+- https://github.com/expo/expo/tree/876371283800028e0bf1ecd15c937c5ed3288a7f/packages/%40expo/config-plugins
+- https://docs.expo.dev/modules/config-plugin-and-native-module-tutorial/
+- https://docs.expo.dev/modules/native-module-tutorial/
+- https://docs.expo.dev/modules/config-plugin-and-native-module-tutorial/
+- https://docs.expo.dev/modules/use-standalone-expo-module-in-your-project/
+- https://docs.expo.dev/build-reference/app-extensions/ 
 
 ---
 > Source: [xmtplabs/convos-app](https://github.com/xmtplabs/convos-app) — distributed by [TomeVault](https://tomevault.io).
