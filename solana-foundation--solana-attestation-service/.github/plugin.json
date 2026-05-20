@@ -1,0 +1,26 @@
+{
+  "name": "solana-foundation--solana-attestation-service",
+  "displayName": "solana",
+  "description": "https://www.npmjs.com/package/sas-lib",
+  "version": "1.0.0",
+  "author": "solana-foundation",
+  "homepage": "https://github.com/solana-foundation/solana-attestation-service",
+  "skills": [
+    {
+      "name": "create-page",
+      "description": ""
+    },
+    {
+      "name": "llms-txt-generator",
+      "description": ""
+    },
+    {
+      "name": "migrate-page",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
