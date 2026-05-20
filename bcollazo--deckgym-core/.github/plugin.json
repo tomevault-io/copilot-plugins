@@ -1,0 +1,9 @@
+{
+  "name": "bcollazo--deckgym-core",
+  "displayName": "deckgym-core",
+  "description": "Open-source Pok\u00e9mon TCG Pocket (PTCGP) game engine written in Rust.",
+  "version": "1.0.0",
+  "author": "bcollazo",
+  "homepage": "https://github.com/bcollazo/deckgym-core",
+  "skills": []
+}
