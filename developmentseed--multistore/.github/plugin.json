@@ -1,0 +1,9 @@
+{
+  "name": "developmentseed--multistore",
+  "displayName": "multistore",
+  "description": "Components to build an S3 API Gateway",
+  "version": "1.0.0",
+  "author": "developmentseed",
+  "homepage": "https://github.com/developmentseed/multistore",
+  "skills": []
+}
