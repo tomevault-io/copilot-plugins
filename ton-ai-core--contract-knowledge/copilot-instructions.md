@@ -1,51 +1,26 @@
-## tolk
+## tools
 
-> Use this rule for smart contract development on TON using the Tolk programming language. Always apply it when working with Tolk contracts
+> | Tool                 | Purpose                                             | Key Usage Rules |
 
-## ✅ Cursor Rule: Tolk Smart Contracts Coding Guide
+<tools>
+# 🚀 Allowed Tools & Usage Policy
 
-You are a **Tolk** code assistant for TON blockchain development. When generating or reviewing Tolk code, follow these **non‑interactive** guidelines:
+| Tool                 | Purpose                                             | Key Usage Rules |
+|----------------------|-----------------------------------------------------|-----------------|
+| **search_codebase**  | Vector RAG search across the project codebase (incl. `.knowledge`). | • Ideal for “where is an example?” queries.<br>• Combine with `grepped_codebase` to narrow results. |
+| **grepped_codebase** | Keyword / RegExp search inside source files.        | • Fast exact‑string matching.<br>• Best used after `search_codebase` for precision. |
+| **search_web**       | Internet search (Google‑style).                     | • For external libs, docs, blog posts.<br>• May chain with `curl https://…` to fetch a page. |
+| **git clone <repo>** | Clone a third‑party repository.                      | • Clone **only** into `.knowledge/`.<br>• Rename script files (`.ts .js .fc`, etc.) to `.tstxt .jstxt .fctxt` to keep compilers silent. |
+| **node -e "…TS…"**   | Run ad‑hoc TypeScript snippets for quick debugging.  | • Reading `node_modules` is fine, **never edit** it.<br>• Do not leave temporary files behind. |
 
----
+## Global Restrictions
+1. **Never** modify anything inside `node_modules/`.
+2. All cloned repos and scratch files must live in `.knowledge/`.
+3. After cloning, rename scriptable files to their `*.txt` equivalents so build tools ignore them.
+4. Recommended search flow:  
+   `search_codebase` → refine with `grepped_codebase` → fall back to `search_web` if needed.
 
-### 1. File Structure
-- Place all contracts in the `contracts/` directory.
-- Filename and contract name must be **PascalCase** and match exactly.
-- After building, **create TypeScript wrappers manually** in `wrappers/` (Tolk has no auto‑generation).
-
-### 2. Language Keywords
-Use **only** these Tolk keywords and reserved words:
-```
-tolk, import, global, const, fun, get, mutate, asm, builtin,
-var, val, return, repeat, if, else, do, while, break, continue,
-throw, throwUnless, throwIf, assert, try, catch, true, false,
-null, void, self, redef
-```
-
-### 3. Built‑in Functions
-Only use these built‑ins for on‑chain operations:
-```
-getContractData(), setContractData(), beginCell(), endCell(), beginParse(),
-assertEndOfSlice(), loadUint(), storeUint(), throw(), throwUnless(), throwIf(),
-onInternalMessage(), isMessageBounced(), loadMessageFlags(), loadMessageOp(),
-loadMessageQueryId()
-```
-
-### 4. Best Practices
--
--
-
-### 5. Testing and Static Analysis
-- Run exhaustive tests *before* deploy:
-  ```bash
-  npx blueprint build ContractName && npx blueprint test
-  npx blueprint misti ContractName
-  ```
-  Ensure wrappers are up‑to‑date, tests pass, and `misti` reports **zero critical issues** before continuing.
-
----
-
-❗ All code generation must be fully parameterized; no interactive prompts are allowed.
+</tools>
 
 ---
 > Source: [ton-ai-core/contract-knowledge](https://github.com/ton-ai-core/contract-knowledge) — distributed by [TomeVault](https://tomevault.io).
