@@ -1,0 +1,9 @@
+{
+  "name": "avalan-ai--avalan",
+  "displayName": "avalan",
+  "description": "The multi-backend, multi-modal micro-framework for AI agent development, orchestration, and deployment",
+  "version": "1.0.0",
+  "author": "avalan-ai",
+  "homepage": "https://github.com/avalan-ai/avalan",
+  "skills": []
+}
