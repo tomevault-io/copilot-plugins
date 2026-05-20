@@ -1,0 +1,9 @@
+{
+  "name": "coderperseus--svg-backend",
+  "displayName": "svg-backend",
+  "description": "\u57fa\u4e8e\u5f53\u4e0b\u6700\u5f3a\u5927\u6a21\u578b\u7684\u5728\u7ebf SVG \u751f\u6210\u540e\u7aef\u670d\u52a1\uff0c\u4f7f\u7528 nest.js + fastify + PostgreSQL",
+  "version": "1.0.0",
+  "author": "coderPerseus",
+  "homepage": "https://github.com/coderPerseus/svg-backend",
+  "skills": []
+}
