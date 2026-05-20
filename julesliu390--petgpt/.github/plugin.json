@@ -1,0 +1,9 @@
+{
+  "name": "julesliu390--petgpt",
+  "displayName": "PetGPT",
+  "description": "AI desktop pet with social agent(live in telegram, QQ, whatsapp) with map and local memory. Unified access to frontier LLMs",
+  "version": "1.0.0",
+  "author": "JulesLiu390",
+  "homepage": "https://github.com/JulesLiu390/PetGPT",
+  "skills": []
+}
