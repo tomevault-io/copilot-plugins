@@ -1,0 +1,9 @@
+{
+  "name": "mystenlabs--sui-move-bootcamp",
+  "displayName": "sui-move-bootcamp",
+  "description": "Code for Sui & Move bootcamp lessons",
+  "version": "1.0.0",
+  "author": "MystenLabs",
+  "homepage": "https://github.com/MystenLabs/sui-move-bootcamp",
+  "skills": []
+}
