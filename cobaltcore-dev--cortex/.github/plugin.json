@@ -1,0 +1,9 @@
+{
+  "name": "cobaltcore-dev--cortex",
+  "displayName": "cortex",
+  "description": "Unified initial placement and scheduling of workloads within cloud and edge environments",
+  "version": "1.0.0",
+  "author": "cobaltcore-dev",
+  "homepage": "https://github.com/cobaltcore-dev/cortex",
+  "skills": []
+}
