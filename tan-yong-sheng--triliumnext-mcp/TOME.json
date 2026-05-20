@@ -4,7 +4,7 @@
   "repo": "triliumnext-mcp",
   "description": "MCP server for TriliumNext Notes",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tan-yong-sheng/triliumnext-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T02:46:54Z"
+  "distributed_at": "2026-05-20T11:04:42Z"
 }
