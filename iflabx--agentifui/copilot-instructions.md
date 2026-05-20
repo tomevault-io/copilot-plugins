@@ -1,90 +1,112 @@
-## git-commit-rule
+## i18n
 
-> Must read before making any git commits or writing commit messages
+> Must read when adding translation keys or working with i18n
 
 
-# Git Commit Standards
+# AgentifUI Internationalization Development Standards
 
-## Basic Format
+## Core Architecture
+
+AgentifUI uses next-intl for internationalization with unified JSON configuration architecture:
+
+- **Default Language**: English (en-US) as source language
+- **Supported Languages**: 10 languages (zh-CN, en-US, es-ES, zh-TW, ja-JP, de-DE, fr-FR, ru-RU, it-IT, pt-PT)
+- **Framework**: next-intl with Next.js 15 App Router
+- **Validation Tools**: Python scripts wrapped in pnpm scripts for structural consistency validation
+
+## Directory Structure
 
 ```
-<type>(<scope>): <subject>
+messages/
+├── en-US.json        # English (primary language)
+├── zh-CN.json        # Simplified Chinese
+├── es-ES.json        # Spanish
+├── zh-TW.json        # Traditional Chinese
+├── ja-JP.json        # Japanese
+├── de-DE.json        # German
+├── fr-FR.json        # French
+├── ru-RU.json        # Russian
+├── it-IT.json        # Italian
+└── pt-PT.json        # Portuguese
 
-[body]
-
-[footer]
+i18n/
+└── request.ts        # next-intl configuration
 ```
 
-## Type (MANDATORY)
+## Validation Tools
 
-- **feat**: New feature
-- **fix**: Bug fix
-- **docs**: Documentation update
-- **style**: Code formatting (no functional impact)
-- **refactor**: Code refactoring
-- **perf**: Performance optimization
-- **test**: Test-related changes
-- **chore**: Build tools, dependencies, etc.
+The project provides i18n validation tool chain:
 
-## Scope (MANDATORY)
-
-- **api**: Backend API related
-- **ui**: Common UI components
-- **chat**: Chat functionality
-- **sidebar**: Sidebar
-- **auth**: Authentication/authorization
-- **admin**: Admin panel
-- **workflow**: Workflow
-- **mobile**: Mobile adaptation
-- **db**: Database related
-- **config**: Configuration files
-- **deps**: Dependency updates
-- **core**: Core functionality
-- **all**: Multiple modules
-
-## Subject (MANDATORY)
-
-- MUST use English description
-- MUST start with a verb
-- MUST NOT exceed 50 characters
-- MUST NOT end with a period
-- MUST use imperative mood (e.g., "add..." not "added...")
-
-## Examples
-
-### Simple Commits
 ```bash
-git commit -m "feat(chat): add message streaming functionality"
-git commit -m "fix(ui): fix button style issue"
-git commit -m "docs: update API documentation"
+# Quick structural consistency check
+pnpm run i18n:check
+
+# Detailed validation (includes more checks)
+pnpm run i18n:validate
+
+# Detect missing keys (shows line number positions)
+pnpm run i18n:detect
 ```
 
-### Complex Commits
+## Development Workflow
+
+### 1. Adding New Translation Keys (MANDATORY PROCESS)
+
+**Step 1**: Add key to `messages/en-US.json` first (source language)
+**Step 2**: Add same structure to all 9 other language files
+**Step 3**: Run validation immediately
+
 ```bash
-git commit -m "feat(auth): refactor user authentication system" \
-           -m "" \
-           -m "Upgrade to new authentication architecture providing better security." \
-           -m "" \
-           -m "BREAKING CHANGE: Old authentication tokens will no longer be valid."
+pnpm run i18n:check
 ```
 
-### High-Risk Commits
-For core functionality changes that may need rollback, add risk markers:
+### 2. Component Usage
+
+```tsx
+import { useTranslations } from 'next-intl';
+
+const Component = () => {
+  const t = useTranslations('pages.admin.feature');
+  return <h1>{t('title')}</h1>;
+};
+```
+
+## Naming Structure
+
+### Hierarchical Organization
+```json
+{
+  "common": { "ui": {...} },        // Common UI elements
+  "pages": { "admin": {...} },      // Page-specific content
+  "components": { "sidebar": {...} } // Reusable components
+}
+```
+
+### Parameterized Translations
+```json
+{ "welcome": "Welcome {name} to AgentifUI" }
+```
+
+## Validation Commands
+
 ```bash
-git commit -m "fix(core): enhance state management - RISKY_REVERT_CANDIDATE"
+# Quick check
+pnpm run i18n:check
+
+# Detailed validation  
+pnpm run i18n:validate
+
+# Detect missing keys
+pnpm run i18n:detect
 ```
 
-## Best Practices
+## Core Rules
 
-1. **Clear Description**: MUST clearly explain what changed
-2. **Atomic Commits**: MUST contain only one logical change per commit
-3. **Timely Commits**: MUST commit after completing each feature, avoid bulk commits
-4. **English Description**: MUST use English for all commit messages
-
-
-
-- MUST focus on what changed and why
-- MUST use proper grammar and spelling
+1. **🚫 NO HARDCODING**: MUST NOT hardcode any user-visible text
+2. **✅ STRUCTURE CONSISTENCY**: MUST maintain identical key structure across all language files
+3. **🔍 IMMEDIATE VALIDATION**: MUST run validation scripts after each modification
+4. **📝 Clear Naming**: MUST use descriptive key names and hierarchical structure
+5. **🎯 Functional Grouping**: MUST organize translation keys by functional domains
 
 ---
 > Source: [iflabx/agentifui](https://github.com/iflabx/agentifui) — distributed by [TomeVault](https://tomevault.io).
