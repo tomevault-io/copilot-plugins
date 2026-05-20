@@ -1,0 +1,9 @@
+{
+  "name": "oaklight--toolregistry",
+  "displayName": "ToolRegistry",
+  "description": "ToolRegistry: A Protocol-Agnostic Tool Management Library for Function-Calling LLMs (OpenAI, Anthropic, Gemini, LangChain, MCP)",
+  "version": "1.0.0",
+  "author": "Oaklight",
+  "homepage": "https://github.com/Oaklight/ToolRegistry",
+  "skills": []
+}
