@@ -1,0 +1,9 @@
+{
+  "name": "thomvanoorschot--zigma",
+  "displayName": "zigma",
+  "description": "Zigma is an algorithmic trading framework built with the Zig programming language, leveraging an actor-based concurrency model. It aims to provide an efficient, low-latency system for algorithmic trad",
+  "version": "1.0.0",
+  "author": "Thomvanoorschot",
+  "homepage": "https://github.com/Thomvanoorschot/zigma",
+  "skills": []
+}
