@@ -1,0 +1,9 @@
+{
+  "name": "internetblacksmith--createpr",
+  "displayName": "createpr",
+  "description": "Lightning-fast CLI that opens GitHub PR creation pages directly from your terminal - zero API calls",
+  "version": "1.0.0",
+  "author": "internetblacksmith",
+  "homepage": "https://github.com/internetblacksmith/createpr",
+  "skills": []
+}
