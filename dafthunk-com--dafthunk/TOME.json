@@ -1,0 +1,63 @@
+{
+  "name": "dafthunk",
+  "owner": "dafthunk-com",
+  "repo": "dafthunk",
+  "description": "A workflow execution platform built on top of the fantastic Cloudflare infrastructure.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "integration-generator",
+      "path": ".claude/skills/integration-generator",
+      "github_url": "https://github.com/dafthunk-com/dafthunk/tree/main/.claude/skills/integration-generator",
+      "description": ""
+    },
+    {
+      "name": "node-generator",
+      "path": ".claude/skills/node-generator",
+      "github_url": "https://github.com/dafthunk-com/dafthunk/tree/main/.claude/skills/node-generator",
+      "description": ""
+    },
+    {
+      "name": "template-generator",
+      "path": ".claude/skills/template-generator",
+      "github_url": "https://github.com/dafthunk-com/dafthunk/tree/main/.claude/skills/template-generator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dafthunk-com/dafthunk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T12:30:25Z"
+}
