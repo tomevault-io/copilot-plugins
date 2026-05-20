@@ -2,7 +2,7 @@
   "name": "express-mcp-handler",
   "owner": "jhgaylor",
   "repo": "express-mcp-handler",
-  "description": "",
+  "description": "Effortlessly integrate the Model Context Protocol (MCP) into Express with lightweight stateful, stateless, and SSE middleware.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/jhgaylor",
+  "source_url": "https://github.com/jhgaylor/express-mcp-handler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T08:31:10Z"
+  "distributed_at": "2026-05-20T21:24:55Z"
 }
