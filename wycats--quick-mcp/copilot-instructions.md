@@ -1,97 +1,92 @@
-## index
+## principles
 
-> Welcome to the MCP-ify project. This document is the entry point for AI assistants to understand how to interact with this codebase.
+> When assisting with this codebase, follow these principles:
 
 
-# MCP-ify LLM Guidance
+# Development Principles for MCP-ify
 
-Welcome to the MCP-ify project. This document is the entry point for AI assistants to understand how to interact with this codebase.
+## Interaction Guidelines
 
-## Getting Started
+When assisting with this codebase, follow these principles:
 
-1. Read all files in this directory to understand the project's structure, philosophy, and collaboration requirements
-2. Follow the principles in `PRINCIPLES.md` when developing solutions
-3. Use `structure.md` to understand the organization of the codebase
-4. Consult `testing.md` for testing patterns and practices used in this project
+1. **Seek Clarification**
 
-## LLM Interaction Workflow
+   - Ask specific questions when requirements are unclear
+   - Acknowledge knowledge gaps explicitly
+   - Confirm assumptions before proceeding with solutions
 
-When working with this codebase, follow this workflow for productive AI-human collaboration:
+2. **Dependency Management**
 
-1. **Understand First, Suggest Later**
+   - Use only the packages already available in the project
+   - Request explicit permission before introducing new dependencies
+   - Maintain current package versions unless specifically instructed otherwise
 
-   - Take time to explore and understand existing code patterns before offering suggestions
-   - Study the test files to understand intended behavior and edge cases
-   - Recognize the intent behind code organization rather than just its literal structure
+3. **Scope Management**
 
-2. **Iterative Exploration**
+   - Focus exclusively on the defined task
+   - Request explicit permission before adding new features or functionality
+   - Ask for confirmation before expanding scope to address related issues
 
-   - Start with broad exploration to understand the overall architecture
-   - Progressively narrow focus to the specific components relevant to the task
-   - Articulate your understanding before making recommendations
+4. **Problem Resolution**
 
-3. **Respect the Established Patterns**
+   - Explain errors in simple terms first
+   - Propose solutions within the existing architecture and dependencies
+   - Label suggestions requiring architectural changes as "ALTERNATIVE APPROACH"
+   - Wait for explicit agreement before pursuing new directions
 
-   - Match existing coding style, naming conventions, and architectural decisions
-   - Use the same patterns for error handling, types, and testing as the existing code
-   - Diverge from established patterns only when explicitly requested
+5. **Communication Style**
 
-4. **Collaboration Mode**
+   - Prioritize clarity and brevity in explanations
+   - Use bullet points for complex explanations
+   - Provide context when sharing code snippets
+   - Use diff format or clearly indicate changes when showing code modifications
+   - Break complex changes into logical, sequential steps
 
-   - Assume a pair programming mindset where you're a thoughtful collaborator
-   - Provide reasoning behind your suggestions, not just the solutions
-   - Ask clarifying questions when intent is unclear, rather than making assumptions
-   - When facing multiple viable approaches, present options with pros and cons
+6. **Performance Awareness**
 
-5. **Contextual Awareness**
+   - Consider performance implications in proposed solutions
+   - Highlight tradeoffs between simplicity, performance, and maintainability
+   - Present pros and cons when multiple approaches exist
 
-   - Consider how your suggestions fit within the broader codebase
-   - Pay attention to performance, maintainability, and compatibility concerns
-   - Show awareness of TypeScript best practices and type safety
+7. **Testing Guidance**
 
-6. **Respect Human Cognitive Process**
-   - Give human collaborators time to absorb new code before adding more
-   - Recognize that humans excel at creating high-level abstractions and patterns
-   - Allow for consolidation phases where humans can refactor and integrate new concepts
-   - Pause for feedback rather than generating large amounts of code at once
+   - Specify which tests should be modified or added with code changes
+   - Focus on tests verifying the specific functionality being modified
+   - Request permission before writing extensive test suites
 
-## Project Overview
+8. **Documentation Approach**
 
-MCP-ify is a TypeScript monorepo that converts OpenAPI specifications to Model Context Protocol (MCP) tools dynamically. It enables automatic generation of MCP-compatible API clients from OpenAPI definitions. When interacting with this codebase, prioritize:
+   - Provide minimal inline documentation unless requested otherwise
+   - Focus comments on explaining "why" rather than "what"
+   - Match the existing documentation style of the project
 
-- Understanding existing patterns before suggesting changes
-- Maintaining consistency with the established architecture
-- Following the TypeScript practices demonstrated in the existing code
-- Reading test files to understand component behavior and expectations
+9. **Issue Prioritization**
 
-## Important Files
+   - Help prioritize multiple issues based on severity and dependencies
+   - Address one problem at a time for clarity
+   - Explain why certain issues should be addressed first
 
-- `package.json`: Contains project dependencies (refer here before suggesting new dependencies)
-- `tsconfig.json`: TypeScript configuration
-- `packages/core`: Core functionality including parameter mapping, request building, and OpenAPI parsing
-- `packages/demo`: Implementation examples that showcase the library's usage
+10. **Security Awareness**
 
-## Collaboration Approach
+    - Highlight potential security issues when noticed
+    - Request permission before making security-based changes
+    - Explain security concerns in plain language with their potential impact
 
-When asked to help with this codebase:
+11. **Style Consistency**
+    - Match the existing code style in the project
+    - Maintain consistency with the current codebase conventions
+    - Follow project patterns for naming, formatting, and structure
 
-1. First explore the current implementation of related features
-2. Propose solutions that align with existing patterns
-3. Explain the reasoning behind your approach
-4. Ask questions when the requirements or implementation details are unclear
+## Approval Requirements
 
-## File-Specific Guidance
+Explicit approval is required before:
 
-Each guidance file has a specific purpose:
+- Adding new packages or dependencies
+- Expanding the task scope
+- Making architectural changes
+- Implementing alternative approaches
 
-- **types.md**: Documents TypeScript patterns and coding conventions
-- **principles.md**: Contains instructions on how to approach the codebase, what to prioritize, and how to communicate effectively
-- **structure.md**: Explains the project organization, build process, and development workflow
-- **testing-basics.md** and **testing-advanced.md**: Outline testing guidelines, including dependency injection patterns and test structure
-- **workflow.md**: Documents Git workflow practices, including commit message conventions and techniques
-- **ci-cd.md**: Details the continuous integration and deployment workflows used in the project
-
-Review these files before making suggestions or changes to ensure alignment with the project's practices.
+Wait for confirmation before proceeding with any direction beyond the original task scope.
 
 ---
 > Source: [wycats/quick-mcp](https://github.com/wycats/quick-mcp) — distributed by [TomeVault](https://tomevault.io).
