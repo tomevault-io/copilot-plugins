@@ -1,0 +1,9 @@
+{
+  "name": "mercurytechnologies--openai",
+  "displayName": "openai",
+  "description": "Haskell bindings to OpenAI",
+  "version": "1.0.0",
+  "author": "MercuryTechnologies",
+  "homepage": "https://github.com/MercuryTechnologies/openai",
+  "skills": []
+}
