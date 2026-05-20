@@ -1,94 +1,99 @@
-## core-principles
+## design-system
 
-> The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
+> The following contains rules about using our design system components. Each rule is followed by a small example showing good and bad practices.
 
-The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
+The following contains rules about using our design system components. Each rule is followed by a small example showing good and bad practices.
 
-- Write concise TypeScript code.
-
-```typescript
-// ❌ Bad: Verbose implementation
-async function getUserData(userId: string): Promise<IUserData | null> {
-  try {
-    const response = await fetch(`/api/users/${userId}`)
-    if (!response.ok) {
-      throw new Error("Failed to fetch user")
-    }
-    const data = await response.json()
-    return data as IUserData
-  } catch (error) {
-    console.error("Error fetching user:", error)
-    return null
-  }
-}
-
-// ✅ Good: Concise implementation
-async function getUserData(args: { userId: string }) {
-  const { userId } = args
-  try {
-    return api.getUser(userId)
-  } catch (error) {
-    throw new AppError({
-      error,
-      additionalMessage: "Failed to fetch user data",
-    })
-  }
-}
-```
-
-- Use functional programming patterns.
-
-```typescript
-// ❌ Bad: Imperative code
-const results = []
-for (let i = 0; i < items.length; i++) {
-  if (items[i].active) {
-    const processed = processItem(items[i])
-    results.push(processed)
-  }
-}
-
-// ✅ Good: Functional patterns
-const results = items.filter((item) => item.active).map((item) => processItem(item))
-```
-
-- Prefer clean, readable code over compact code.
-
-```typescript
-// ❌ Bad: Hard to read one-liner
-const getInitials = (name) =>
-  name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-
-// ✅ Good: Clear, readable code
-function getInitials(args: { name: string }) {
-  const { name } = args
-
-  const parts = name.split(" ")
-  const firstLetters = parts.map((part) => part[0])
-  const initials = firstLetters.join("")
-
-  return initials.toUpperCase()
-}
-```
-
-- Use descriptive variable names with auxiliary verbs.
+- Use design system components instead of native components whenever possible.
 
 ```typescript
 // ❌ Bad
-const loading = true
-const error = false
-const user = null
-const valid = checkValid()
+<View style={{ padding: 16 }}>
+  <Text>Hello</Text>
+</View>
 
 // ✅ Good
-const isLoading = true
-const hasError = false
-const currentUser = null
-const isValid = checkValid()
+<VStack style={{ padding: theme.spacing.md }}>
+  <Text preset="body">Hello</Text>
+</VStack>
+```
+
+- Prefer specialized layout components over generic View components.
+
+```typescript
+// ❌ Bad
+<View style={{ flexDirection: "column" }}>
+  <View style={{ flexDirection: "row" }}>
+    <Text>Label</Text>
+  </View>
+</View>
+
+// ✅ Good
+<VStack>
+  <HStack>
+    <Text>Label</Text>
+  </HStack>
+</VStack>
+```
+
+- Use `VStack` instead of `View` with `flexDirection: "column"`.
+
+```typescript
+// ❌ Bad
+<View style={{ flexDirection: "column", gap: 8 }}>
+
+// ✅ Good
+<VStack style={{ gap: 8 }}>
+```
+
+- Use `HStack` instead of `View` with `flexDirection: "row"`.
+
+```typescript
+// ❌ Bad
+<View style={{ flexDirection: "row", alignItems: "center" }}>
+
+// ✅ Good
+<HStack style={{ alignItems: "center" }}>
+```
+
+- Use `Center` instead of manually setting alignment and justification.
+
+```typescript
+// ❌ Bad
+<View style={{ alignItems: "center", justifyContent: "center" }}>
+
+// ✅ Good
+<Center>
+```
+
+- Use `AnimatedVStack`, `AnimatedHStack`, and `AnimatedCenter` for animated components.
+
+```typescript
+// ❌ Bad
+<Animated.View style={{ flexDirection: "column", opacity }}>
+
+// ✅ Good
+<AnimatedVStack style={{ opacity }}>
+```
+
+- Use the Text component's built-in presets instead of manually specifying font size, line height, or weight.
+
+```typescript
+// ❌ Bad
+<Text style={{ fontSize: 16, fontWeight: "bold" }}>Hello</Text>
+
+// ✅ Good
+<Text preset="body" weight="bold">Hello</Text>
+```
+
+- Use the color prop to set text color instead of style overrides.
+
+```typescript
+// ❌ Bad
+<Text style={{ color: colors.text.primary }}>Hello</Text>
+
+// ✅ Good
+<Text color="primary">Hello</Text>
 ```
 
 ---
