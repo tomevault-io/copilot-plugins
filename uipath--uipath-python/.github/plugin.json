@@ -1,0 +1,9 @@
+{
+  "name": "uipath--uipath-python",
+  "displayName": "uipath-python",
+  "description": "A comprehensive Python SDK for interacting with UiPath's Automation Platform",
+  "version": "1.0.0",
+  "author": "UiPath",
+  "homepage": "https://github.com/UiPath/uipath-python",
+  "skills": []
+}
