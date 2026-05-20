@@ -1,0 +1,9 @@
+{
+  "name": "senrecep--csharpessentials",
+  "displayName": "CSharpEssentials",
+  "description": "Modular .NET NuGet ecosystem that bridges OOP and Functional Programming in C#.",
+  "version": "1.0.0",
+  "author": "senrecep",
+  "homepage": "https://github.com/senrecep/CSharpEssentials",
+  "skills": []
+}
