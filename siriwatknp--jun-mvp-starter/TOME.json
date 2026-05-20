@@ -2,7 +2,7 @@
   "name": "jun-mvp-starter",
   "owner": "siriwatknp",
   "repo": "jun-mvp-starter",
-  "description": "",
+  "description": "A starter kit for MVP project with Next.js SSG, Line login, and Firebase.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/siriwatknp/jun-mvp-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T00:41:41Z"
+  "distributed_at": "2026-05-20T15:26:49Z"
 }
