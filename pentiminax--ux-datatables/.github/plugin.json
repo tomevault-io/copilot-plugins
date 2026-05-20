@@ -1,0 +1,9 @@
+{
+  "name": "pentiminax--ux-datatables",
+  "displayName": "ux-datatables",
+  "description": "UX DataTables is a Symfony bundle integrating the DataTables library in Symfony applications.",
+  "version": "1.0.0",
+  "author": "pentiminax",
+  "homepage": "https://github.com/pentiminax/ux-datatables",
+  "skills": []
+}
