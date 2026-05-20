@@ -1,0 +1,14 @@
+{
+  "name": "buildonspark--spark",
+  "displayName": "spark",
+  "description": "The Spark Bitcoin layer 2 protocol",
+  "version": "1.0.0",
+  "author": "buildonspark",
+  "homepage": "https://github.com/buildonspark/spark",
+  "skills": [
+    {
+      "name": "proto-regenerate",
+      "description": ""
+    }
+  ]
+}
