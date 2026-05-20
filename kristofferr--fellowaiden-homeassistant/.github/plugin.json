@@ -1,0 +1,9 @@
+{
+  "name": "kristofferr--fellowaiden-homeassistant",
+  "displayName": "FellowAiden-HomeAssistant",
+  "description": "Home Assistant integration for real-time monitoring of Fellow Aiden coffee brewers",
+  "version": "1.0.0",
+  "author": "kristofferR",
+  "homepage": "https://github.com/kristofferR/FellowAiden-HomeAssistant",
+  "skills": []
+}
