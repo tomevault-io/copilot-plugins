@@ -1,0 +1,9 @@
+{
+  "name": "voodoohop--discord-pollinations-family",
+  "displayName": "discord-pollinations-family",
+  "description": "Discord bot family using various LLM models via Pollinations.ai",
+  "version": "1.0.0",
+  "author": "voodoohop",
+  "homepage": "https://github.com/voodoohop/discord-pollinations-family",
+  "skills": []
+}
