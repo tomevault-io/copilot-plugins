@@ -1,0 +1,54 @@
+{
+  "name": "saleor--configurator",
+  "displayName": "configurator",
+  "description": "A tool that helps you automate the creation of data models in Saleor.",
+  "version": "1.0.0",
+  "author": "saleor",
+  "homepage": "https://github.com/saleor/configurator",
+  "skills": [
+    {
+      "name": "adding-entity-types",
+      "description": ""
+    },
+    {
+      "name": "analyzing-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "configurator-cli",
+      "description": ""
+    },
+    {
+      "name": "creating-changesets",
+      "description": ""
+    },
+    {
+      "name": "designing-zod-schemas",
+      "description": ""
+    },
+    {
+      "name": "implementing-cli-patterns",
+      "description": ""
+    },
+    {
+      "name": "managing-github-ci",
+      "description": ""
+    },
+    {
+      "name": "product-modeling",
+      "description": ""
+    },
+    {
+      "name": "reviewing-typescript-code",
+      "description": ""
+    },
+    {
+      "name": "understanding-saleor-domain",
+      "description": ""
+    },
+    {
+      "name": "writing-graphql-operations",
+      "description": ""
+    }
+  ]
+}
