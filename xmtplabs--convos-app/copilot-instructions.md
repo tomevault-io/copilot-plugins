@@ -1,80 +1,94 @@
-## code-organization
+## core-principles
 
-> The following contains rules about code organization within files in our codebase. Each rule is followed by a small example showing good and bad practices.
+> The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
 
-The following contains rules about code organization within files in our codebase. Each rule is followed by a small example showing good and bad practices.
+The following contains core principles for writing code in our codebase. Each principle is followed by a small example showing good and bad practices.
 
-- Place exported functions, components, and variables at the top of the file.
+- Write concise TypeScript code.
 
 ```typescript
-// ❌ Bad: Helper function above exported function
-function formatName(name) {
-  return name.toUpperCase()
+// ❌ Bad: Verbose implementation
+async function getUserData(userId: string): Promise<IUserData | null> {
+  try {
+    const response = await fetch(`/api/users/${userId}`)
+    if (!response.ok) {
+      throw new Error("Failed to fetch user")
+    }
+    const data = await response.json()
+    return data as IUserData
+  } catch (error) {
+    console.error("Error fetching user:", error)
+    return null
+  }
 }
 
-export function ProfileCard() {
-  /* implementation */
-}
-
-// ✅ Good: Exported function at the top
-export function ProfileCard() {
-  /* implementation */
-}
-
-function formatName(name) {
-  return name.toUpperCase()
+// ✅ Good: Concise implementation
+async function getUserData(args: { userId: string }) {
+  const { userId } = args
+  try {
+    return api.getUser(userId)
+  } catch (error) {
+    throw new AppError({
+      error,
+      additionalMessage: "Failed to fetch user data",
+    })
+  }
 }
 ```
 
-- Place helper functions and non-exported components below the exported items.
+- Use functional programming patterns.
 
 ```typescript
-// ✅ Good organization
-export function UserProfile() {
-  return (
-    <View>
-      <DisplayName name="John" />
-    </View>
-  )
+// ❌ Bad: Imperative code
+const results = []
+for (let i = 0; i < items.length; i++) {
+  if (items[i].active) {
+    const processed = processItem(items[i])
+    results.push(processed)
+  }
 }
 
-// Helper component used only within this file
-const DisplayName = memo(function DisplayName(props: { name: string }) {
-  return <Text>{formatName(props.name)}</Text>
-})
+// ✅ Good: Functional patterns
+const results = items.filter((item) => item.active).map((item) => processItem(item))
+```
 
-// Helper function
-function formatName(name: string) {
-  return name.toUpperCase()
+- Prefer clean, readable code over compact code.
+
+```typescript
+// ❌ Bad: Hard to read one-liner
+const getInitials = (name) =>
+  name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+
+// ✅ Good: Clear, readable code
+function getInitials(args: { name: string }) {
+  const { name } = args
+
+  const parts = name.split(" ")
+  const firstLetters = parts.map((part) => part[0])
+  const initials = firstLetters.join("")
+
+  return initials.toUpperCase()
 }
 ```
 
-- Define types close to their implementation.
+- Use descriptive variable names with auxiliary verbs.
 
 ```typescript
-// ❌ Bad: Type far from its usage
-type IButtonProps = { onPress: () => void; label: string }
+// ❌ Bad
+const loading = true
+const error = false
+const user = null
+const valid = checkValid()
 
-// Many lines of code...
-
-export function Button(props: IButtonProps) {
-  /* implementation */
-}
-
-// ✅ Good: Type near its usage
-export function Button(props: { onPress: () => void; label: string }) {
-  /* implementation */
-}
-
-// For reused types, define them above all components
-type IUser = { id: string; name: string }
-
-export function UserList() {
-  /* implementation using IUser */
-}
-export function UserProfile() {
-  /* implementation using IUser */
-}
+// ✅ Good
+const isLoading = true
+const hasError = false
+const currentUser = null
+const isValid = checkValid()
 ```
 
 ---
