@@ -1,7 +1,7 @@
 {
   "name": "siriwatknp--jun-mvp-starter",
   "displayName": "jun-mvp-starter",
-  "description": "jun-mvp-starter",
+  "description": "A starter kit for MVP project with Next.js SSG, Line login, and Firebase.",
   "version": "1.0.0",
   "author": "siriwatknp",
   "homepage": "https://github.com/siriwatknp/jun-mvp-starter",
