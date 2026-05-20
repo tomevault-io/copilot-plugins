@@ -1,0 +1,9 @@
+{
+  "name": "docspring--logstruct",
+  "displayName": "logstruct",
+  "description": "Zero-config, type-safe JSON logging for Ruby on Rails apps.",
+  "version": "1.0.0",
+  "author": "DocSpring",
+  "homepage": "https://github.com/DocSpring/logstruct",
+  "skills": []
+}
