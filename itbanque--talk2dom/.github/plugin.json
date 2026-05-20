@@ -1,0 +1,9 @@
+{
+  "name": "itbanque--talk2dom",
+  "displayName": "talk2dom",
+  "description": "Locate web elements using natural language. Powered by LLM for reliable UI automation.",
+  "version": "1.0.0",
+  "author": "itbanque",
+  "homepage": "https://github.com/itbanque/talk2dom",
+  "skills": []
+}
