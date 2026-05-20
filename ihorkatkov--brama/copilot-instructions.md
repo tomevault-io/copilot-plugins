@@ -1,12 +1,12 @@
-## elixir-naming-conventions
+## elixir-pattern-matching
 
-> name: elixir_naming_conventions
+> name: elixir_pattern_matching
 
-# Elixir Naming Conventions
+# Elixir Pattern Matching
 
 <rule>
-name: elixir_naming_conventions
-description: Guidelines for consistent and idiomatic Elixir naming
+name: elixir_pattern_matching
+description: Effective use of pattern matching, one of Elixir's most powerful features
 filters:
   - type: file_extension
     pattern: "\\.ex$|\\.exs$"
@@ -14,48 +14,86 @@ filters:
 actions:
   - type: suggest
     message: |
-      # Elixir Naming Conventions Best Practices
+      # Elixir Pattern Matching Best Practices
 
-      ## Variable and Function Names
-      - Use snake_case for variables, function names, and module attributes: `user_count`, `calculate_total`
-      - Use descriptive names that convey purpose and avoid abbreviations: `calculate_total` instead of `calc_tot`
-      - Use single-letter variables only for very simple and short functions or comprehensions
+      ## Function Clauses
+      - Use multiple function clauses instead of conditionals when possible
+      - Order pattern matches from specific to general
+      - Use guard clauses to further refine pattern matching
+      - Ensure all possible patterns are covered to avoid function clause errors
       
-      ## Module Names
-      - Use PascalCase (UpperCamelCase) for module names: `UserAccount`, `PaymentProcessor`
-      - Namespace related modules with dot notation: `MyApp.User`, `MyApp.User.Account`
-      - Use plural forms for collections/modules that operate on multiple entities: `Users`, `Accounts`
+      ## Variable Binding
+      - Use the pin operator `^` when you want to match against a variable's value
+      - Use underscore `_` for variables you don't need
+      - Use descriptive names for pattern variables that reflect their purpose
+      - Avoid deep nesting in pattern matches
       
-      ## Constants and Module Attributes
-      - Use ALL_CAPS for configuration constants: `@MAX_CONNECTIONS`, `@DEFAULT_TIMEOUT`
-      - Use snake_case for regular module attributes: `@user_table`, `@compile_options`
+      ## Destructuring
+      - Use pattern matching to destructure complex data types (lists, maps, tuples)
+      - Destructure directly in function parameters when possible
+      - Use pattern matching in `with` statements for sequential operations
+      - Extract only the parts of the data structure you need
       
-      ## Boolean Functions
-      - Use `?` suffix for predicate functions returning boolean values: `admin?`, `valid?`
+      ## Maps and Structs
+      - When matching on maps, only specify the keys you need
+      - Use pattern matching to validate the presence of required keys
+      - Pattern match on specific struct types to ensure correct data type
       
-      ## Bang Functions
-      - Use `!` suffix for functions that raise exceptions on failure: `fetch!`, `update!`
-      - Always provide non-bang version returning {:ok, value} or {:error, reason}
+      ## Tuples and Lists
+      - Use pattern matching to extract elements from tuples by position
+      - Match on list heads and tails with `[head | tail]` syntax
+      - Consider pattern matching in list comprehensions and Enum operations
       
-      ## Test Functions
-      - Prefix test functions with "test_": `test_user_creation`, `test_admin_permissions`
-      
-      ## Protocols and Behaviours
-      - Use clear, descriptive names for protocol functions
-      - Use `-able` or `-er` suffixes where appropriate: `Enumerable`, `Comparable`
+      ## Advanced Patterns
+      - Use pattern matching in `case` statements for cleaner conditional logic
+      - Combine pattern matching with guards for powerful filtering
+      - Consider pattern matching in `receive` blocks for process messages
+      - Use binary pattern matching for parsing binary data
 
 examples:
   - input: |
-      defmodule userManager do
-        def CreateUser(userName, pwd) do
-          # code 
+      def process_data(data) do
+        if is_list(data) do
+          Enum.map(data, fn x -> x * 2 end)
+        else
+          if is_integer(data) do
+            data * 2
+          else
+            if is_binary(data) do
+              "Value: " <> data
+            else
+              {:error, "Unsupported data type"}
+            end
+          end
         end
       end
     output: |
-      defmodule UserManager do
-        def create_user(user_name, password) do
-          # code
-        end
+      def process_data(data) when is_list(data) do
+        Enum.map(data, fn x -> x * 2 end)
+      end
+      
+      def process_data(data) when is_integer(data) do
+        data * 2
+      end
+      
+      def process_data(data) when is_binary(data) do
+        "Value: " <> data
+      end
+      
+      def process_data(_data) do
+        {:error, "Unsupported data type"}
+      end
+  
+  - input: |
+      def extract_user_data(user) do
+        name = user.name
+        email = user.email
+        age = user.age
+        {name, email, age}
+      end
+    output: |
+      def extract_user_data(%{name: name, email: email, age: age}) do
+        {name, email, age}
       end
 
 metadata:
