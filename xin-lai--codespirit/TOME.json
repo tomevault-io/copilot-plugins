@@ -2,9 +2,9 @@
   "name": "CodeSpirit",
   "owner": "xin-lai",
   "repo": "CodeSpirit",
-  "description": "",
+  "description": "CodeSpirit is a revolutionary full-stack low-code + AI development framework that achieves backend-driven full-stack development paradigm through intelligent code generation engine and deep AI collaboration.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/xin-lai",
+  "source_url": "https://github.com/xin-lai/CodeSpirit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T12:50:05Z"
+  "distributed_at": "2026-05-20T22:35:16Z"
 }
