@@ -1,0 +1,9 @@
+{
+  "name": "humanspeak--svelte-motion",
+  "displayName": "svelte-motion",
+  "description": "An API-compatible Svelte wrapper for Framer Motion\u2019s React API \u2014 bring Motion components, variants, transitions, gestures, and layout animations to Svelte via a thin compatibility layer.",
+  "version": "1.0.0",
+  "author": "humanspeak",
+  "homepage": "https://github.com/humanspeak/svelte-motion",
+  "skills": []
+}
