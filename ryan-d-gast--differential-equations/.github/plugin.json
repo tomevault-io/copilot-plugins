@@ -1,0 +1,9 @@
+{
+  "name": "ryan-d-gast--differential-equations",
+  "displayName": "differential-equations",
+  "description": "A high-performance library for numerically solving differential equations in Rust",
+  "version": "1.0.0",
+  "author": "Ryan-D-Gast",
+  "homepage": "https://github.com/Ryan-D-Gast/differential-equations",
+  "skills": []
+}
