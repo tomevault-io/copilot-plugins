@@ -1,0 +1,9 @@
+{
+  "name": "genhub-bio--gen",
+  "displayName": "gen",
+  "description": "Git for genomes",
+  "version": "1.0.0",
+  "author": "genhub-bio",
+  "homepage": "https://github.com/genhub-bio/gen",
+  "skills": []
+}
