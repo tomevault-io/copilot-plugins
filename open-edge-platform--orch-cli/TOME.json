@@ -4,7 +4,7 @@
   "repo": "orch-cli",
   "description": "Open Edge Platform Command Line Interface",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-edge-platform/orch-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T22:52:42Z"
+  "distributed_at": "2026-05-20T03:19:32Z"
 }
