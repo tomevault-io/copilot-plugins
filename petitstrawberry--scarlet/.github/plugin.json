@@ -1,0 +1,9 @@
+{
+  "name": "petitstrawberry--scarlet",
+  "displayName": "Scarlet",
+  "description": "[WIP] A kernel in Rust designed to provide a universal, multi-ABI container runtime. ",
+  "version": "1.0.0",
+  "author": "petitstrawberry",
+  "homepage": "https://github.com/petitstrawberry/Scarlet",
+  "skills": []
+}
