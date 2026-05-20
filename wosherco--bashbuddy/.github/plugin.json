@@ -1,0 +1,9 @@
+{
+  "name": "wosherco--bashbuddy",
+  "displayName": "bashbuddy",
+  "description": "Monorepo containing all bashbuddy.run code",
+  "version": "1.0.0",
+  "author": "wosherco",
+  "homepage": "https://github.com/wosherco/bashbuddy",
+  "skills": []
+}
