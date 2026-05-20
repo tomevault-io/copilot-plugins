@@ -1,0 +1,57 @@
+## substrate
+
+> Agent Substrate is a system built on top of Kubernetes which manages agent-like workloads to achieve higher scale and efficiency than Kubernetes alone can offer, with lower latency.
+
+# Agent Substrate
+
+## Project Overview
+
+Agent Substrate is a system built on top of Kubernetes which manages agent-like workloads to achieve higher scale and efficiency than Kubernetes alone can offer, with lower latency.
+It takes the Kubernetes control-plane out of the critical path to achieve lower latency by mapping a larger set of “actors” (applications such as agents) onto a smaller set of ready “workers” (Kubernetes Pods).
+Agent Substrate relies on the fact that agent-like applications tend to be idle most of the time to achieve heavy multiplexing.
+
+For development, it's recommended to read the `README.md` and `CONTRIBUTING.md` in the root folder.
+See `hack/install-ate.sh` and `cmd/setup` for provisioning and deploying clusters and GCP resources.
+
+## Build and Test Commands
+
+Agent Substrate uses a `Makefile` for its build and test tasks.
+
+### Building
+- **Binaries**: `make build` (builds images and `kubectl-ate`) or `make build-atectl`
+- **Images**: `make build-images` (uses ko to build container images)
+- **Demos**: `make build-demos`
+
+### Testing and Verification
+- **Run Unit Tests**: `make test`
+- **Run E2E Tests**: `make e2e` (Requires GCP cluster setup and built images)
+- **Run Linters and Verifiers**: `make verify` (Includes `go vet` and checks for formatting, boilerplate headers, licenses, and go modules)
+
+## Code Style Guidelines
+
+- **Go Formatting**: Code must be formatted with `gofmt`. Run `make fmt` to automatically format all files before submitting changes.
+- **Copyright Headers**: All files must contain appropriate copyright and license headers. See templates in `hack/boilerplate/`.
+- **Modularity**: Submit small, focused Pull Requests that touch a limited part of the codebase for easier reviews and rebasing.
+- **Go Modules**: Ensure `go.mod` is clean. Run `go mod tidy` if adding or removing dependencies.
+
+## Testing Instructions
+
+1. Write tests for all new code. We will not merge code that lacks tests.
+2. Ensure changes do not break existing tests.
+3. Run `make verify` locally before requesting a code review to catch common issues like missed copyright headers or formatting drift.
+4. For end-to-end tests involving the actual infrastructure, ensure you have a running cluster (setup via `hack/ate-dev-env.sh.example` and `go run ./cmd/setup --all`).
+
+## Security Considerations
+
+The security story for Substrate is very early and many features are missing.
+However! Take care to respect security best practices when writing code in order to improve Substrate's security over time.
+The following is what Substrate currently offers.
+Keep this up to date when updating AGENTS.md.
+
+- **Workload Isolation**: The project uses `gVisor` (`runsc`) for sandboxing and security isolation of workloads on pods. A temporary gVisor patch might be required (check the README instructions).
+
+For future plans for security, reference `docs/roadmap.md`.
+
+---
+> Source: [agent-substrate/substrate](https://github.com/agent-substrate/substrate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
