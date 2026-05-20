@@ -1,6 +1,8 @@
 # express-mcp-handler
 
-> Config by [jhgaylor](https://github.com/jhgaylor/express-mcp-handler) — distributed by [TomeVault](https://tomevault.io/claim/jhgaylor)
+> Source: [jhgaylor/express-mcp-handler](https://github.com/jhgaylor/express-mcp-handler) — distributed by [TomeVault](https://tomevault.io)
+
+Effortlessly integrate the Model Context Protocol (MCP) into Express with lightweight stateful, stateless, and SSE middleware.
 
 ## GitHub Copilot Config
 
@@ -15,9 +17,14 @@ Original source: `.cursor/rules/*.mdc` in [jhgaylor/express-mcp-handler](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jhgaylor](https://tomevault.io/claim/jhgaylor)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jhgaylor/express-mcp-handler](https://github.com/jhgaylor/express-mcp-handler)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jhgaylor) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install jhgaylor/express-mcp-handler
+```
+Source: [github.com/jhgaylor/express-mcp-handler](https://github.com/jhgaylor/express-mcp-handler).
+
+<!-- genome:d-i-q -->
