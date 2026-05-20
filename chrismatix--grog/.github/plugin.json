@@ -1,0 +1,9 @@
+{
+  "name": "chrismatix--grog",
+  "displayName": "grog",
+  "description": "Grog is a mono-repo build tool that is agnostic on how you run your build commands, but instead focuses on caching and parallel execution.",
+  "version": "1.0.0",
+  "author": "chrismatix",
+  "homepage": "https://github.com/chrismatix/grog",
+  "skills": []
+}
