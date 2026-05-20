@@ -1,0 +1,9 @@
+{
+  "name": "heal-research--heuristiclib",
+  "displayName": "HeuristicLib",
+  "description": "A modern, reimagined library for heuristic and evolutionary algorithms",
+  "version": "1.0.0",
+  "author": "heal-research",
+  "homepage": "https://github.com/heal-research/HeuristicLib",
+  "skills": []
+}
