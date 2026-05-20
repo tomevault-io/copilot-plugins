@@ -1,0 +1,9 @@
+{
+  "name": "namehash--ensnode",
+  "displayName": "ensnode",
+  "description": "ENSNode is the full-stack ENSv2 development platform.",
+  "version": "1.0.0",
+  "author": "namehash",
+  "homepage": "https://github.com/namehash/ensnode",
+  "skills": []
+}
