@@ -1,25 +1,37 @@
-## testing-and-build
+## tool-result-envelope
 
-> - SmartHopper targets Rhino 8 / Grasshopper 1 with .NET 7:
+> AI tools that return JSON should attach a metadata envelope under the reserved root key `__envelope`.
 
 
-# Testing and build expectations
+# Tool result envelope
 
-- SmartHopper targets Rhino 8 / Grasshopper 1 with .NET 7:
-  - Windows: `net7.0-windows`.
-  - macOS: `net7.0`.
-- Do not add unit tests that require Rhino/Grasshopper references.
-- If validation needs Rhino/Grasshopper references, create a testing component in `SmartHopper.Components.Test` instead of a unit test.
-- Test projects must stay runnable in CI without Rhino or Grasshopper runtime activation.
-- CI behavior:
-  - Windows runs all tests after Release build.
-  - macOS runs only `SmartHopper.Infrastructure.Tests` for `net7.0`; Core and Grasshopper tests depend on WindowsDesktop/WinForms APIs.
-- Local official build/signing flows are Windows-oriented and require Developer PowerShell for Visual Studio when using scripts that call Strong Name or Windows SDK tools.
-- Do not commit generated signing keys, local certificates, provider API keys, or other local credentials.
-- Prefer focused tests at the lowest layer that owns the behavior:
-  - Infrastructure contracts and managers → `SmartHopper.Infrastructure.Tests`.
-  - Core non-Rhino behavior → `SmartHopper.Core.Tests`.
-  - Grasshopper helper logic that does not require Rhino/Grasshopper references or runtime activation → `SmartHopper.Core.Grasshopper.Tests`.
+AI tools that return JSON should attach a metadata envelope under the reserved root key `__envelope`.
+
+## Pattern
+
+1. Build a root `JObject`.
+2. Place the payload at a predictable key such as `result`, `list`, `json`, `description`, `image`, `components`, or another documented domain-specific key.
+3. Attach `ToolResultEnvelope` with `WithEnvelope(...)` or the extension helpers.
+4. Add the wrapped payload to the interaction stream with `AIBodyBuilder.AddToolResult(...)`/the current body-builder API, or return it through `AIReturn` when the caller wraps it.
+
+## Envelope content
+
+Include useful metadata when available:
+
+- Tool name.
+- Provider and model.
+- Tool-call identifier.
+- Content type.
+- Payload path.
+- Schema reference or compatibility keys for structured outputs.
+
+## Compatibility
+
+- Do not move existing payload keys only to add metadata.
+- Keep `__envelope` additive and non-breaking.
+- Consumers that do not understand the envelope must still be able to read the payload.
+
+See `docs/Tools/ToolResultEnvelope.md`.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
