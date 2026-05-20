@@ -1,0 +1,9 @@
+{
+  "name": "kfastov--tgcli",
+  "displayName": "tgcli",
+  "description": "Telegram user console client and archiver",
+  "version": "1.0.0",
+  "author": "kfastov",
+  "homepage": "https://github.com/kfastov/tgcli",
+  "skills": []
+}
