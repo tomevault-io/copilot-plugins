@@ -1,120 +1,104 @@
-## changelog-rules
+## code-standards-rules
 
-> This file provides rules for managing changelog files within the project-brain-monorepo.
+> 1.  **Readability and Maintainability:** Prioritize code that is easy to understand and modify.
 
-# Changelog Management Rules
+**Core Principles:**
 
-## Changelog Purpose & Standards
+1.  **Readability and Maintainability:** Prioritize code that is easy to understand and modify.
+2.  **Modularity:** Break down large components into smaller, manageable modules.
+3.  **Testability:** Ensure that code is easily testable.
+4.  **Performance:** Optimize code for efficiency.
+5.  **Consistency:** Adhere to established coding standards and patterns.
+6.  **Proactive Refactoring:** Address code complexity and length early.
 
-This file provides rules for managing changelog files within the project-brain-monorepo.
+**Cursor Ruleset (Node.js/TypeScript):**
 
-### Format Standards
-- All changelogs MUST follow [Keep a Changelog](mdc:https:/keepachangelog.com/en/1.0.0) format
-- Version numbers MUST adhere to [Semantic Versioning](mdc:https:/semver.org/spec/v2.0.0.html)
-- Each package MUST maintain its own CHANGELOG.md in its root directory
+**1. File Length and Refactoring:**
 
-## Required Structure
+* **Rule:** "Monitor all `.ts` and `.js` files. When a file exceeds 500 lines, initiate a refactoring process to break down the file into smaller, more focused modules or classes. Prioritize extracting logically related code blocks into separate files or functions."
+* **Action:**
+    * "Analyze the file to identify logical units of functionality."
+    * "Create new files or modules for these units, ensuring clear separation of concerns."
+    * "Update import/export statements to maintain functionality."
+    * "Ensure all extracted code is thoroughly tested."
+    * "Provide a summary of the refactoring steps taken and the rationale behind them."
 
-```markdown
-# Changelog
+**2. Module Structure and Organization:**
 
-All notable changes to this project will be documented in this file.
+* **Rule:** "Organize code into logical modules based on functionality. Utilize the `src/` directory for source code and `test/` for tests. Create subdirectories within `src/` to represent different features or components."
+* **Action:**
+    * "Ensure that related files are grouped together in subdirectories."
+    * "Use `index.ts` files to aggregate exports from subdirectories, providing a clean API for other modules."
+    * "Maintain a clear and consistent file naming convention."
 
-The format is based on [Keep a Changelog](mdc:https:/keepachangelog.com/en/1.0.0),
-and this project adheres to [Semantic Versioning](mdc:https:/semver.org/spec/v2.0.0.html).
+**3. Function and Class Design:**
 
-## [Unreleased]
+* **Rule:** "Functions and classes should have a single responsibility. Keep functions short and focused. Classes should encapsulate related data and behavior."
+* **Action:**
+    * "Refactor long functions into smaller, more manageable functions."
+    * "Extract common logic into reusable functions or classes."
+    * "Adhere to the Single Responsibility Principle (SRP)."
+    * "Use descriptive names for functions and classes."
+    * "Use typescript interfaces to define the shape of objects."
 
-### Added
-- New features
+**4. Error Handling:**
 
-### Changed
-- Changes to existing functionality
+* **Rule:** "Implement robust error handling using `try...catch` blocks and custom error classes. Log errors with sufficient context for debugging."
+* **Action:**
+    * "Wrap potentially error-prone code in `try...catch` blocks."
+    * "Create custom error classes for specific error scenarios."
+    * "Log errors with timestamps, file names, and line numbers."
+    * "Avoid throwing generic errors, provide useful error messages."
 
-### Deprecated
-- Soon-to-be removed features
+**5. Asynchronous Operations:**
 
-### Removed
-- Removed features
+* **Rule:** "Use `async/await` for asynchronous operations. Avoid callback hell. Implement proper error handling for asynchronous code."
+* **Action:**
+    * "Prefer `async/await` over callbacks or promises."
+    * "Use `try...catch` blocks within `async` functions to handle errors."
+    * "Validate inputs and outputs of async functions."
 
-### Fixed
-- Bug fixes
+**6. Testing:**
 
-### Security
-- Vulnerability fixes
+* **Rule:** "Write comprehensive unit tests for all code. Use a testing framework like Jest or Mocha. Aim for 100% test coverage, especially for critical modules."
+* **Action:**
+    * "Create test files in the `test/` directory, mirroring the `src/` directory structure."
+    * "Use mocking and stubbing to isolate units of code."
+    * "Write tests for edge cases and error scenarios."
+    * "Use code coverage tools to measure test effectiveness."
 
-## [x.y.z] - YYYY-MM-DD
-```
+**7. Code Style and Linting:**
 
-## Change Categories
+* **Rule:** "Adhere to a consistent code style using ESLint and Prettier. Configure these tools to enforce coding standards and automatically format code."
+* **Action:**
+    * "Install and configure ESLint and Prettier with appropriate rules."
+    * "Integrate linting and formatting into the development workflow (e.g., using Git hooks or CI/CD pipelines)."
+    * "Use a consistent indentation style, and consistent use of semicolons."
 
-1. **Added** - New features
-2. **Changed** - Changes to existing functionality
-3. **Deprecated** - Soon-to-be removed features
-4. **Removed** - Removed features
-5. **Fixed** - Bug fixes
-6. **Security** - Vulnerability fixes
+**8. Documentation:**
 
-## Workflow Rules
+* **Rule:** "Document code using JSDoc comments. Provide clear and concise explanations for functions, classes, and modules."
+* **Action:**
+    * "Add JSDoc comments to all public functions, classes, and interfaces."
+    * "Explain the purpose, parameters, and return values of functions."
+    * "Document complex logic and algorithms."
+* "Create README files for modules and projects."
 
-### Adding New Changes
-1. ✅ ALWAYS add changes to the [Unreleased] section first
-2. ✅ ALWAYS include a concise description of the change
-3. ✅ ALWAYS categorize changes correctly
-4. ⛔ NEVER add the same change multiple times
-5. ✅ ALWAYS maintain chronological order within each category (newest at top)
+**Cursor Prompts (Examples):**
 
-### Release Process
-1. ✅ ALWAYS get the current date using terminal command: `date +'%Y-%m-%d'`
-2. ✅ ALWAYS move [Unreleased] content to a new version section with the date
-3. ✅ ALWAYS create an empty [Unreleased] section after a release
-4. ✅ ALWAYS include links to compare versions (at bottom of file)
-5. ✅ ALWAYS update the version in package.json to match the new release version
+* "Analyze `src/utils.ts`. If it exceeds 500 lines, refactor it into smaller modules. Create new files in `src/utils/` for each module. Update imports and exports accordingly. Provide a summary of the refactoring."
+* "Refactor the `getUserData` function in `src/api.ts` to improve readability and maintainability. Ensure that all asynchronous operations are handled using `async/await` and that errors are properly logged."
+* "Write unit tests for the `calculateTotal` function in `src/cart.ts`. Aim for 100% test coverage. Use Jest for testing."
+* "Add JSDoc comments to all public functions and classes in `src/services/userService.ts`. Explain the purpose, parameters, and return values."
+* "Configure ESLint and Prettier for this project. Enforce consistent code style and automatically format code. Create a `.eslintrc.js` and `.prettierrc.js` file."
 
-## Version Management
+**Key Considerations:**
 
-### Package.json Synchronization
-1. ✅ ALWAYS update package.json version when creating a new release
-2. ✅ ALWAYS ensure package.json version and CHANGELOG.md version match exactly
-3. ⛔ NEVER have mismatched versions between package.json and CHANGELOG.md
-4. ✅ ALWAYS update both files in the same commit
+* **Iterative Refactoring:** Refactoring should be an ongoing process, not a one-time event.
+* **Human Oversight:** while Cursor can do much of the work, human review is still needed to ensure quality.
+* **Context Awareness:** Cursor needs to be aware of the project's overall architecture and design patterns.
 
-### Version Update Command
-```bash
-# Update version in package.json
-npm version [major|minor|patch] --no-git-tag-version
-```
-
-### Version Validation
-Before release, run the following command to verify consistency:
-```bash
-node -e "const pkg = require('./package.json'); const fs = require('fs'); const cl = fs.readFileSync('./CHANGELOG.md', 'utf8'); const match = cl.match(/## \[([\d\.]+)\]/); console.log(pkg.version === match[1] ? 'Versions match ✅' : 'Version mismatch! ❌');"
-```
-
-## Version Numbering
-
-1. **Major (x.0.0)** - Incompatible API changes
-2. **Minor (0.x.0)** - Backwards-compatible functionality additions
-3. **Patch (0.0.x)** - Backwards-compatible bug fixes
-
-## Pre-Commit Validation
-
-Before committing changelog changes:
-1. Verify sections are in the correct order
-2. Ensure all entries are properly categorized
-3. Check that version follows semantic versioning
-4. Verify date is dynamically generated using terminal
-5. Confirm all entries are clear and concise
-6. Verify package.json version matches CHANGELOG.md version
-
-## Release Checklist
-
-1. Move [Unreleased] items to new version section
-2. Add current date using `date +'%Y-%m-%d'` command
-3. Update package.json version to match new CHANGELOG.md version
-4. Create empty [Unreleased] section
-5. Update version comparison links at bottom of file
-6. Commit both CHANGELOG.md and package.json together
+By implementing this ruleset, you can significantly improve the quality, maintainability, and scalability of your Node.js/TypeScript projects.
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
