@@ -4,7 +4,7 @@
   "repo": "nilcc",
   "description": "Bare metal TEE workload orchestration",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NillionNetwork/nilcc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T08:55:23Z"
+  "distributed_at": "2026-05-20T22:54:44Z"
 }
