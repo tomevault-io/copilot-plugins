@@ -1,0 +1,9 @@
+{
+  "name": "langbot-app--langbot-plugin-sdk",
+  "displayName": "langbot-plugin-sdk",
+  "description": "LangBot Extension Infra including plugin runtime, SDK, sandbox and CLI tools.",
+  "version": "1.0.0",
+  "author": "langbot-app",
+  "homepage": "https://github.com/langbot-app/langbot-plugin-sdk",
+  "skills": []
+}
