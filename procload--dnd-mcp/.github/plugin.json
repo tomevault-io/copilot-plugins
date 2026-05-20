@@ -1,0 +1,9 @@
+{
+  "name": "procload--dnd-mcp",
+  "displayName": "dnd-mcp",
+  "description": "MCP Server implementation of the DnD 5e API using resources, tools, and prompts.",
+  "version": "1.0.0",
+  "author": "procload",
+  "homepage": "https://github.com/procload/dnd-mcp",
+  "skills": []
+}
