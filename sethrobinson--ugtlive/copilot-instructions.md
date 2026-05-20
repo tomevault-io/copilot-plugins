@@ -1,327 +1,352 @@
-## configuration-management
+## debugging-testing
 
-> Configuration and settings management patterns
+> Debugging, logging, and testing patterns
 
 
-# Configuration Management
+# Debugging and Testing Patterns
 
-## ConfigManager Pattern
+## Logging
 
-### Singleton Access
-Always access ConfigManager through the singleton instance:
+### LogManager Usage
+Use LogManager for structured logging:
 
 ```csharp
-var apiKey = ConfigManager.Instance.GetGeminiApiKey();
-ConfigManager.Instance.SetGeminiApiKey("new-key");
+using UGTLive;
+
+// Info log
+LogManager.Instance.LogInfo("Processing started");
+
+// Error log
+LogManager.Instance.LogError("Failed to process", exception);
+
+// Debug log
+LogManager.Instance.LogDebug("Debug information");
 ```
 
-### Configuration Keys
-- Define keys as `public const string` constants
-- Use descriptive UPPER_SNAKE_CASE names
-- Group related keys together
+### Console Output
+Use Console.WriteLine for debug output:
 
 ```csharp
-public const string GEMINI_API_KEY = "gemini_api_key";
-public const string GEMINI_MODEL = "gemini_model";
-public const string TRANSLATION_SERVICE = "translation_service";
+Console.WriteLine($"Processing {count} items");
+Console.WriteLine($"Config value: {key} = {value}");
 ```
 
-## Getter/Setter Pattern
-
-### Standard Pattern
-For each configuration value, provide Get/Set methods:
+### Masking Sensitive Data
+Never log API keys or sensitive information:
 
 ```csharp
-// Get method
-public string GetGeminiApiKey()
-{
-    return GetValue(GEMINI_API_KEY);
-}
+// BAD
+Console.WriteLine($"API Key: {apiKey}");
 
-// Set method (auto-saves)
-public void SetGeminiApiKey(string apiKey)
-{
-    _configValues[GEMINI_API_KEY] = apiKey;
-    SaveConfig();
-}
+// GOOD
+Console.WriteLine($"API Key: {(string.IsNullOrEmpty(apiKey) ? "not set" : "***")}");
 ```
 
-### Typed Getters
-Provide typed getters for common types:
+## Error File Writing
+
+### Service Error Files
+Some services write error details to files for debugging:
 
 ```csharp
-// Boolean
-public bool GetBoolValue(string key, bool defaultValue = false)
+try
 {
-    if (_configValues.TryGetValue(key, out var value))
-    {
-        return value.ToLower() == "true" || value == "1";
-    }
-    return defaultValue;
+    // API call
 }
-
-// Integer
-public int GetIntValue(string key, int defaultValue = 0)
+catch (Exception ex)
 {
-    if (_configValues.TryGetValue(key, out var value))
-    {
-        if (int.TryParse(value, out int result))
-        {
-            return result;
-        }
-    }
-    return defaultValue;
-}
-
-// Double/Float
-public double GetDoubleValue(string key, double defaultValue = 0.0)
-{
-    if (_configValues.TryGetValue(key, out var value))
-    {
-        if (double.TryParse(value, out double result))
-        {
-            return result;
-        }
-    }
-    return defaultValue;
-}
-```
-
-## Configuration Files
-
-### File Structure
-- Main config: `config.txt` (in app directory)
-- Service-specific configs: `gemini_config.txt`, `ollama_config.txt`, etc.
-- Format: `key=value` pairs, one per line
-- Multiline values use tags: `<tag>content</tag>`
-
-### Loading Configuration
-```csharp
-private void LoadConfig()
-{
-    if (!File.Exists(_configFilePath))
-    {
-        CreateDefaultConfig();
-        return;
-    }
+    string errorFile = "gemini_last_error.txt";
+    File.WriteAllText(errorFile, 
+        $"Error: {ex.Message}\n\nStack trace: {ex.StackTrace}");
     
-    string content = File.ReadAllText(_configFilePath);
-    ProcessMultilineValues(content);
-    ProcessSingleLineValues(content);
+    Console.WriteLine($"Error written to {errorFile}");
 }
 ```
 
-### Saving Configuration
+## Debug Configuration Files
+
+### Debug Output Files
+The app writes debug files for troubleshooting:
+
+- `last_llm_request_sent.txt` - Last LLM request
+- `last_llm_reply_received.txt` - Last LLM response
+- `last_ocr_response.json` - Last OCR result
+- `gemini_last_error.txt` - Last Gemini error
+- `openai_audio_log.txt` - OpenAI audio debug log
+
+### Writing Debug Files
 ```csharp
-public void SaveConfig()
+public void WriteDebugFile(string filename, string content)
 {
     try
     {
-        var lines = new List<string>();
-        foreach (var kvp in _configValues)
-        {
-            if (kvp.Value.Contains('\n'))
-            {
-                // Multiline value
-                lines.Add($"<{kvp.Key}>");
-                lines.Add(kvp.Value);
-                lines.Add($"</{kvp.Key}>");
-            }
-            else
-            {
-                lines.Add($"{kvp.Key}={kvp.Value}");
-            }
-        }
-        File.WriteAllLines(_configFilePath, lines);
+        string debugPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+        File.WriteAllText(debugPath, content);
+        Console.WriteLine($"Debug file written: {debugPath}");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Error saving config: {ex.Message}");
+        Console.WriteLine($"Failed to write debug file: {ex.Message}");
     }
 }
 ```
 
-## Service-Specific Configuration
+## Exception Handling
 
-### Separate Config Files
-Some services use separate config files for complex settings:
+### Unhandled Exception Handler
+App.xaml.cs handles unhandled exceptions:
 
-- `gemini_config.txt` - Gemini prompt templates
-- `ollama_config.txt` - Ollama prompt templates
-- `chatgpt_config.txt` - ChatGPT prompt templates
-
-### Loading Service Configs
 ```csharp
-public string GetGeminiPrompt()
+private void App_DispatcherUnhandledException(object sender, 
+    DispatcherUnhandledExceptionEventArgs e)
 {
-    if (File.Exists(_geminiConfigFilePath))
+    Console.WriteLine($"Unhandled exception: {e.Exception.Message}");
+    Console.WriteLine($"Stack trace: {e.Exception.StackTrace}");
+    
+    // Mark as handled to prevent crash
+    e.Handled = true;
+}
+```
+
+### Service Exception Handling
+Services should catch and log exceptions:
+
+```csharp
+public async Task<Result?> ProcessAsync()
+{
+    try
     {
-        return File.ReadAllText(_geminiConfigFilePath);
+        return await DoWorkAsync();
     }
-    return GetDefaultGeminiPrompt();
+    catch (HttpRequestException ex)
+    {
+        Console.WriteLine($"HTTP error: {ex.Message}");
+        LogManager.Instance.LogError("HTTP request failed", ex);
+        return null;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Unexpected error: {ex.Message}");
+        LogManager.Instance.LogError("Unexpected error", ex);
+        return null;
+    }
 }
 ```
 
-## Default Values
+## Debug Builds
 
-### Providing Defaults
-Always provide sensible defaults:
-
-```csharp
-public string GetOllamaModel()
-{
-    return GetValue(OLLAMA_MODEL, "llama3"); // Default model
-}
-
-public int GetCaptureFPS()
-{
-    return GetIntValue(CAPTURE_FPS, 10); // Default 10 FPS
-}
-```
-
-## Settings Window Integration
-
-### Binding Pattern
-Settings window binds directly to ConfigManager:
-
-```csharp
-// In SettingsWindow.xaml.cs
-private void LoadSettings()
-{
-    ApiKeyTextBox.Text = ConfigManager.Instance.GetGeminiApiKey();
-    ModelComboBox.SelectedItem = ConfigManager.Instance.GetGeminiModel();
-}
-
-private void SaveSettings()
-{
-    ConfigManager.Instance.SetGeminiApiKey(ApiKeyTextBox.Text);
-    ConfigManager.Instance.SetGeminiModel(ModelComboBox.SelectedItem?.ToString() ?? "");
-}
-```
-
-### Two-Way Binding
-For real-time updates, use two-way binding:
+### Debug vs Release
+Debug builds use different assembly names:
 
 ```xml
-<TextBox Text="{Binding ApiKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <AssemblyName>ugtlive_debug</AssemblyName>
+</PropertyGroup>
 ```
 
-## Window Position Persistence
-
-### Saving Window State
+### Conditional Compilation
 ```csharp
-public void SetWindowPosition(string windowName, double left, double top, double width, double height)
-{
-    SetValue($"{windowName}_left", left.ToString());
-    SetValue($"{windowName}_top", top.ToString());
-    SetValue($"{windowName}_width", width.ToString());
-    SetValue($"{windowName}_height", height.ToString());
-    SaveConfig();
-}
+#if DEBUG
+    Console.WriteLine("Debug mode - extra logging enabled");
+#endif
 ```
 
-### Loading Window State
+## Testing Translation Services
+
+### Manual Testing Pattern
+1. Set API key in settings
+2. Select service and model
+3. Use Monitor window to capture text
+4. Check ChatBox for results
+5. Review logs for errors
+
+### Service Connection Test
 ```csharp
-public WindowPosition? GetWindowPosition(string windowName)
+public async Task<bool> TestConnectionAsync()
 {
-    var left = GetDoubleValue($"{windowName}_left", -1);
-    var top = GetDoubleValue($"{windowName}_top", -1);
-    
-    if (left < 0 || top < 0)
+    try
     {
-        return null; // No saved position
+        var result = await TranslateAsync("test", "en", "");
+        return result != null;
     }
-    
-    return new WindowPosition
+    catch (Exception ex)
     {
-        X = left,
-        Y = top,
-        Width = GetDoubleValue($"{windowName}_width", 800),
-        Height = GetDoubleValue($"{windowName}_height", 600)
-    };
-}
-```
-
-## API Key Security
-
-### Storage
-- API keys stored in plain text config files (local only)
-- Never log API keys (mask in console output)
-- Never commit API keys to version control
-
-### Masking in Logs
-```csharp
-Console.WriteLine($"API Key: {(key.Length > 0 ? "***" : "not set")}");
-```
-
-## Configuration Validation
-
-### Validation Pattern
-Validate settings before saving:
-
-```csharp
-public bool ValidateSettings()
-{
-    if (string.IsNullOrWhiteSpace(GetGeminiApiKey()))
-    {
-        MessageBox.Show("Gemini API key is required", "Validation Error");
+        Console.WriteLine($"Connection test failed: {ex.Message}");
         return false;
     }
-    
-    if (!IsValidModel(GetGeminiModel()))
+}
+```
+
+## OCR Testing
+
+### Testing OCR Output
+```csharp
+// Write OCR results to file for inspection
+var ocrResults = await ProcessOCRAsync(bitmap);
+var json = JsonSerializer.Serialize(ocrResults, new JsonSerializerOptions 
+{ 
+    WriteIndented = true 
+});
+File.WriteAllText("last_ocr_response.json", json);
+```
+
+### Visual OCR Feedback
+Monitor window shows OCR results visually:
+
+```csharp
+private void DrawOCRResults(Graphics g, List<TextObject> textObjects)
+{
+    foreach (var textObj in textObjects)
     {
-        MessageBox.Show("Invalid model selected", "Validation Error");
-        return false;
+        // Draw bounding box
+        g.DrawRectangle(Pens.Red, textObj.BoundingBox);
+        
+        // Draw text
+        g.DrawString(textObj.Text, font, Brushes.White, textObj.BoundingBox);
+    }
+}
+```
+
+## Performance Debugging
+
+### Timing Operations
+```csharp
+var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+await ProcessAsync();
+stopwatch.Stop();
+Console.WriteLine($"Processing took {stopwatch.ElapsedMilliseconds}ms");
+```
+
+### Memory Usage
+```csharp
+using System.Diagnostics;
+
+var process = Process.GetCurrentProcess();
+Console.WriteLine($"Memory usage: {process.WorkingSet64 / 1024 / 1024} MB");
+```
+
+## Network Debugging
+
+### HTTP Request Logging
+```csharp
+// Log request details
+Console.WriteLine($"Request URL: {url}");
+Console.WriteLine($"Request Method: POST");
+Console.WriteLine($"Request Body: {requestBody}");
+
+var response = await httpClient.PostAsync(url, content);
+
+Console.WriteLine($"Response Status: {response.StatusCode}");
+var responseBody = await response.Content.ReadAsStringAsync();
+Console.WriteLine($"Response Body: {responseBody}");
+```
+
+### WebSocket Debugging
+```csharp
+private void LogWebSocketMessage(string direction, string message)
+{
+    Console.WriteLine($"[WebSocket {direction}] {message}");
+    
+    // Write to log file
+    File.AppendAllText("websocket_log.txt", 
+        $"[{DateTime.Now}] {direction}: {message}\n");
+}
+```
+
+## Configuration Debugging
+
+### Dump Configuration
+```csharp
+public void DumpConfig()
+{
+    Console.WriteLine("=== Configuration Dump ===");
+    foreach (var kvp in _configValues)
+    {
+        string value = kvp.Key.Contains("api_key") ? "***" : kvp.Value;
+        Console.WriteLine($"{kvp.Key} = {value}");
+    }
+    Console.WriteLine("=========================");
+}
+```
+
+## Breakpoint Strategy
+
+### Strategic Breakpoints
+- Entry points of service methods
+- Error handling blocks
+- Configuration loading/saving
+- UI event handlers
+- Async method completions
+
+### Conditional Breakpoints
+```csharp
+// Set breakpoint with condition: text.Length > 100
+if (text.Length > 100)
+{
+    // Breakpoint here
+}
+```
+
+## Unit Testing Considerations
+
+### Testable Code Structure
+- Separate business logic from UI
+- Use dependency injection where possible
+- Make methods static when they don't need instance state
+- Extract complex logic into testable methods
+
+### Example Testable Method
+```csharp
+// Testable static method
+public static string ProcessText(string input)
+{
+    if (string.IsNullOrWhiteSpace(input))
+    {
+        return "";
     }
     
-    return true;
+    return input.Trim().ToLower();
 }
 ```
 
-## Migration and Backwards Compatibility
+## Integration Testing
 
-### Handling Config Changes
-When adding new settings, provide defaults:
-
+### Testing Service Integration
 ```csharp
-// New setting with default
-public string GetNewSetting()
-{
-    return GetValue(NEW_SETTING_KEY, "default-value");
-}
+// Test translation service
+var service = TranslationServiceFactory.CreateService("Gemini");
+var result = await service.TranslateAsync("test", "en", "");
+Assert.IsNotNull(result);
 ```
 
-### Removing Old Settings
-Clean up deprecated settings:
-
+### Testing OCR Integration
 ```csharp
-// Remove old key if it exists
-if (_configValues.ContainsKey("old_key"))
-{
-    _configValues.Remove("old_key");
-    SaveConfig();
-}
+// Test OCR processing
+var bitmap = LoadTestImage();
+var results = await ocrManager.ProcessImageAsync(bitmap);
+Assert.IsTrue(results.Count > 0);
 ```
 
-## Configuration Constants
+## Common Debugging Scenarios
 
-### Supported Values
-Define supported values as constants:
+### Translation Not Working
+1. Check API key is set
+2. Verify service is running (for Ollama)
+3. Check network connection
+4. Review error logs
+5. Test with simple text
 
-```csharp
-public static readonly IReadOnlyList<string> SupportedOcrMethods = new List<string>
-{
-    "EasyOCR",
-    "Manga OCR",
-    "docTR",
-    "Windows OCR"
-};
+### OCR Not Detecting Text
+1. Verify capture region is correct
+2. Check OCR method is set correctly
+3. Verify Python server is running (for EasyOCR)
+4. Check language settings
+5. Review OCR confidence thresholds
 
-public static bool IsSupportedOcrMethod(string method)
-{
-    return SupportedOcrMethods.Contains(method, StringComparer.OrdinalIgnoreCase);
-}
-```
+### UI Not Updating
+1. Verify Dispatcher.Invoke is used
+2. Check if window is visible
+3. Verify data binding is correct
+4. Check for exceptions in logs
 
 ---
 > Source: [SethRobinson/UGTLive](https://github.com/SethRobinson/UGTLive) — distributed by [TomeVault](https://tomevault.io).
