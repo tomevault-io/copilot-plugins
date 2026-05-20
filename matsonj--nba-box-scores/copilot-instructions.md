@@ -1,0 +1,24 @@
+## nba-box-scores
+
+> We are building a project to showcase the speed and interactivity of MotherDuck in a web application. As such, we are prioritizing performance, scalability, and user experience.
+
+We are building a project to showcase the speed and interactivity of MotherDuck in a web application. As such, we are prioritizing performance, scalability, and user experience.
+
+Please find the following resources useful:
+- MotherDuck WASM Client Documentation: https://motherduck.com/docs/key-tasks/data-apps/wasm-client/
+
+Lets talk about how data flows in this app. We have a TypeScript ingestion pipeline in scripts/ingest/ that fetches data from PBPStats APIs and loads it into MotherDuck. Run it with `npm run ingest`. For the web application, we authenticate to MotherDuck and then use the MotherDuck WASM client to query the data and persist it in a local DB in the browser. This database should be used by all pages in the app, and only queries to motherduck should be made inside the dataloader class.
+
+It is totally fine to use regular DuckDB in the backend. If you want to use it, please use the following resources:
+- DuckDB Documentation: https://duckdb.org/docs/
+- DuckDB CLI: https://duckdb.org/docs/sql/cli
+
+Reflect on 5-7 different possible sources of the problem, distill those down to 1-2 most likely sources, and then add logs to validate your assumptions before we move onto implementing the actual code fix.
+
+To check data in MotherDuck, use this in the terminal: `duckdb "md:nba_box_scores_v2?attach_mode=single" -c "<your query>"`
+
+When you need to reference a temp table, just reference the underlying table directly.
+
+---
+> Source: [matsonj/nba-box-scores](https://github.com/matsonj/nba-box-scores) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
