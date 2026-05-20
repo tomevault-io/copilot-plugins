@@ -1,0 +1,9 @@
+{
+  "name": "wojtekerbetowski--tailscale-mikrotik",
+  "displayName": "tailscale-mikrotik",
+  "description": "A lightweight Tailscale Docker container for MikroTik routers with constrained storage",
+  "version": "1.0.0",
+  "author": "wojtekerbetowski",
+  "homepage": "https://github.com/wojtekerbetowski/tailscale-mikrotik",
+  "skills": []
+}
