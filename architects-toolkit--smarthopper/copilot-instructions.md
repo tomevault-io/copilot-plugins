@@ -1,25 +1,38 @@
-## ai-tool-conventions
+## architecture-thinking
 
-> - AI tools live in `src/SmartHopper.Core.Grasshopper/AITools/` and implement `IAIToolProvider`.
+> When adding new major components or features - When refactoring existing systems - When spotting patterns that could benefit from architectural standardization - When encountering design inconsistencies across modules
 
 
-# AI Tool conventions
+# Architecture-first thinking
 
-- AI tools live in `src/SmartHopper.Core.Grasshopper/AITools/` and implement `IAIToolProvider`.
-- Check similar tools before adding or changing behavior.
-- Prefer established tool-family names, for example `gh_get.cs`, `text2json.cs`, `text2text.cs`, `text2textlist.cs`, `list_filter.cs`, or `script_review.cs`. Match existing names when renaming or extending tool families.
-- Each tool provider exposes tools through `GetTools()` with:
-  - Stable tool name.
-  - Clear description and category.
-  - JSON parameter schema.
-  - Required capabilities when model/provider support matters.
-  - Async execution delegate.
-- Tools are discovered by `AIToolManager`; do not hand-register duplicates.
-- Execute tools through `AIToolCall.Exec()` or `AIToolManager.ExecuteTool(...)`; do not call an `AITool.Execute` delegate directly from unrelated code.
-- Validate and sanitize tool arguments from `AIInteractionToolCall.Arguments` before side effects.
-- For JSON tool results, keep payloads at predictable keys (`result`, `list`, or documented domain-specific keys such as `json` or `description`) and attach `ToolResultEnvelope` metadata under `__envelope`.
-- For canvas mutations, follow the Grasshopper undo rule before changing objects, wires, positions, preview, locks, or parameters.
-- Keep long-running or UI-thread-sensitive work off background threads unless explicitly marshaled to the Rhino UI thread.
+## Core principles
+
+- Proactively propose sound base-architecture decisions before implementation
+- Maintain concise AI-oriented documentation in `/docs/*`
+- Use documentation in `/docs/*` as primary guide for coherent, maintainable edits
+- Co-design solutions with user, suggesting improvements with rationale
+- Keep docs synchronized with actual code structure in `/src/`
+
+## Documentation standards
+
+- Keep markdown docs simple and human-readable
+- Optimize for AI token usage (concise, not verbose)
+- Focus on relationships, patterns, and design decisions
+- Include diagrams using mermaid when helpful
+- Document architecture decisions with brief context and rationale
+
+## Before Implementation
+
+1. Analyze how changes fit within existing architecture
+2. Propose architecture improvements with clear rationale
+3. Seek user confirmation before significant structural changes
+4. Update relevant documentation first, then implement code
+
+## During reviews
+
+- Check if implementation follows documented architecture in `/docs/*`
+- Identify patterns in `/docs/*` that should be standardized
+- Suggest documentation updates when code diverges from `/docs/*`
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
