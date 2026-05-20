@@ -1,0 +1,44 @@
+{
+  "name": "Comfyui_PDuse",
+  "owner": "7BEII",
+  "repo": "Comfyui_PDuse",
+  "description": "PD\u4e13\u7528customnode\u8282\u70b9\uff0c\u89e3\u51b3\u5f88\u591a\u56fe\u50cf\u95ee\u9898",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/7BEII/Comfyui_PDuse",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T20:41:53Z"
+}
