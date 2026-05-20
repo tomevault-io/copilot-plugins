@@ -1,0 +1,9 @@
+{
+  "name": "buildkite--buildkite-mcp-server",
+  "displayName": "buildkite-mcp-server",
+  "description": "Official MCP Server for Buildkite.",
+  "version": "1.0.0",
+  "author": "buildkite",
+  "homepage": "https://github.com/buildkite/buildkite-mcp-server",
+  "skills": []
+}
