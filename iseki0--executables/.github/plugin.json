@@ -1,0 +1,9 @@
+{
+  "name": "iseki0--executables",
+  "displayName": "Executables",
+  "description": "Library for executable/object files parsing(include PE version info, virtual memory), in Kotlin multiplatform.",
+  "version": "1.0.0",
+  "author": "iseki0",
+  "homepage": "https://github.com/iseki0/Executables",
+  "skills": []
+}
