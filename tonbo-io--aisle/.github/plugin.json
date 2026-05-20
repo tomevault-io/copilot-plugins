@@ -1,0 +1,9 @@
+{
+  "name": "tonbo-io--aisle",
+  "displayName": "aisle",
+  "description": "A fine push-down parquet scanner in Rust.",
+  "version": "1.0.0",
+  "author": "tonbo-io",
+  "homepage": "https://github.com/tonbo-io/aisle",
+  "skills": []
+}
