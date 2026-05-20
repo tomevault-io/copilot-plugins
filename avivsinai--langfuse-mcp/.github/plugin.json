@@ -1,0 +1,9 @@
+{
+  "name": "avivsinai--langfuse-mcp",
+  "displayName": "langfuse-mcp",
+  "description": "A Model Context Protocol (MCP) server for Langfuse, enabling AI agents to query Langfuse trace data for enhanced debugging and observability",
+  "version": "1.0.0",
+  "author": "avivsinai",
+  "homepage": "https://github.com/avivsinai/langfuse-mcp",
+  "skills": []
+}
