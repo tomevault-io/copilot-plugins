@@ -4,7 +4,7 @@
   "repo": "Summarizerrrr",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trongnguyen24/Summarizerrrr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T02:32:52Z"
+  "distributed_at": "2026-05-20T17:11:37Z"
 }
