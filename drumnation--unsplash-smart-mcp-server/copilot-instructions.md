@@ -1,26 +1,48 @@
-## contributing-rules
+## date-time-rules
 
-> Keep CONTRIBUTING.md up-to-date with current dev workflow, project setup, branching strategy, and code standards.
+> date +'%A, %B %d, %Y at %I:%M:%S %p'
 
-# Rule: Auto-generate and maintain CONTRIBUTING.md
+## Date Command Usage:
+```bash
+# For full timestamps (ALWAYS use this format for document headers and meeting notes):
+date +'%A, %B %d, %Y at %I:%M:%S %p'
 
-Purpose:
-Keep CONTRIBUTING.md up-to-date with current dev workflow, project setup, branching strategy, and code standards.
+# For date-only fields:
+date +'%Y-%m-%d'
 
-When to run:
-- When new scripts, packages, or commands are added
-- When Git branching or PR flow changes
-- When testing, linting, or formatting tools are updated
+# For log timestamps:
+date +'%Y-%m-%d %H:%M:%S'
+```
 
-Include:
-- Setup steps (pnpm, env vars, Docker/Colima, etc.)
-- Gitflow instructions
-- Dev standards (hooks, styled-components, test-first)
-- How to run tests, lint, and format
-- PR submission guidelines
+## Common Scenarios Requiring Date Generation:
+1. Creating/updating documents
+2. Writing meeting notes
+3. Setting "Last Updated" timestamps
+4. Recording creation dates
+5. Dating project milestones
+6. Setting review dates
+7. Adding timestamps to logs
 
-Format:
-Markdown with fenced code blocks and concise section headers.
+## Validation Steps:
+Before completing ANY task involving dates:
+1. Search for date fields that need updating
+2. Run date command for each field
+3. Update ALL dates using command output
+4. Verify no hardcoded dates remain
+
+## Examples:
+
+✅ CORRECT:
+```markdown
+# Meeting Notes
+## $(date +'%A, %B %d, %Y at %I:%M:%S %p')
+```
+
+❌ INCORRECT:
+- Copying dates from other files
+- Using hardcoded dates
+- Leaving dates unchanged
+- Making assumptions about current date
 
 ---
 > Source: [drumnation/unsplash-smart-mcp-server](https://github.com/drumnation/unsplash-smart-mcp-server) — distributed by [TomeVault](https://tomevault.io).
