@@ -1,0 +1,9 @@
+{
+  "name": "simsimbutdifferent--hyperliquidalgobot",
+  "displayName": "HyperLiquidAlgoBot",
+  "description": "A high-frequency trading bot built to trade on 15-min timeframes or less. Fully automated using indicators.",
+  "version": "1.0.0",
+  "author": "SimSimButDifferent",
+  "homepage": "https://github.com/SimSimButDifferent/HyperLiquidAlgoBot",
+  "skills": []
+}
