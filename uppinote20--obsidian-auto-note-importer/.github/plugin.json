@@ -1,0 +1,9 @@
+{
+  "name": "uppinote20--obsidian-auto-note-importer",
+  "displayName": "obsidian-auto-note-importer",
+  "description": "Obsidian plugin that automatically creates notes from external database",
+  "version": "1.0.0",
+  "author": "uppinote20",
+  "homepage": "https://github.com/uppinote20/obsidian-auto-note-importer",
+  "skills": []
+}
