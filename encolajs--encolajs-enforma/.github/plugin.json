@@ -1,0 +1,9 @@
+{
+  "name": "encolajs--encolajs-enforma",
+  "displayName": "encolajs-enforma",
+  "description": "Build VueJS forms your way with Enforma \u2014 UI-agnostic (PrimeVue, Vuetify, Quasar), schema-ready, repeatable fields, powerful validation (Zod, Yup, Valibot or Encola Validator).",
+  "version": "1.0.0",
+  "author": "encolajs",
+  "homepage": "https://github.com/encolajs/encolajs-enforma",
+  "skills": []
+}
