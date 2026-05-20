@@ -1,0 +1,9 @@
+{
+  "name": "pragmaplatform--oxana",
+  "displayName": "oxana",
+  "description": "Job processing in Rust backed by Redis",
+  "version": "1.0.0",
+  "author": "pragmaplatform",
+  "homepage": "https://github.com/pragmaplatform/oxana",
+  "skills": []
+}
