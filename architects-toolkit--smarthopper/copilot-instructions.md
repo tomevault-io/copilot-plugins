@@ -1,35 +1,13 @@
-## webchat-architecture
+## windsurf-rules
 
-> The chat UI is a full WebView interface. Preserve the existing separation of concerns:
+> When generating windsurf rules, stored in .windsurf/rules
 
 
-# WebChat architecture
+Do not modify Windsurf rule files unless the user explicitly asks for rule changes or a PR that updates rules.
 
-The chat UI is a full WebView interface. Preserve the existing separation of concerns:
+When the user only asks for rule suggestions, return the proposed rule content in chat, wrapped in code blocks. Escape the ` character inside those code blocks.
 
-- `ConversationSession`: conversation history, provider calls, tool loops, streaming, cancellation, and stable final results.
-- `HtmlChatRenderer`: converts interactions to HTML.
-- `WebChatDialog`: hosts the WebView, intercepts JS-to-host URL schemes, and injects serialized DOM updates.
-- `WebChatObserver`: maps `IConversationObserver` events to incremental DOM updates.
-- `Resources/`: local HTML, CSS, JavaScript, templates, and third-party assets.
-
-## Bridge rules
-
-- JavaScript sends actions through intercepted URL schemes:
-  - `sh://event?type=send&text=...`
-  - `sh://event?type=clear`
-  - `sh://event?type=cancel`
-  - `clipboard://copy?text=...`
-- URL query keys and values must be encoded in JavaScript and decoded in C#.
-- Host actions triggered from `DocumentLoading` must be deferred to the next UI tick to avoid WebView re-entrancy.
-- All UI updates must run on Rhino's UI thread via `RhinoApp.InvokeOnUiThread(...)`.
-- Serialize and batch DOM updates; avoid one WebView script injection per streaming token.
-
-## Dependencies
-
-Host third-party WebChat JavaScript and CSS locally. Do not use external CDNs.
-
-See `docs/UI/Chat/index.md` and `docs/UI/Chat/WebView-Bridge.md`.
+When the user explicitly asks for a PR or direct rule cleanup, edit `.windsurf/rules/*.md` directly and keep each rule focused on one concern.
 
 ---
 > Source: [architects-toolkit/SmartHopper](https://github.com/architects-toolkit/SmartHopper) — distributed by [TomeVault](https://tomevault.io).
