@@ -1,0 +1,19 @@
+## general-rule
+
+> When creating new files (.ts), functions, or updating the existing code.
+
+
+- Adopt the return early approach.
+- If a function has more than 4 arguments, make it a single argument as an object.
+- Use 'for' loops instead of 'forEach' for iterating arrays.
+- Use dot notation instead of destructuring for accessing object's fields.
+- If you generate hard-coded text or strings, you MUST define all languages for them in the `src/i18n/locales` folder, (Except those are system prompts, logging, or errors) and use them via the `t` method.
+- Avoid casting variables as any
+- When defining properties for a class, define them directly in the constructor's parameters if feasible, for example: `constructor(private plugin: Plugin)`.
+- Always put a `vault.on('create')` in the onLayoutReady callback, otherwise it triggers when opening the app: `src/services/SkillService/SkillService.ts:51-61`
+- Always write readable, maintainable, and reusable code.
+- When finishing generation, no need to run build or test. Leave it for me to review.
+
+---
+> Source: [googlicius/obsidian-steward](https://github.com/googlicius/obsidian-steward) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
