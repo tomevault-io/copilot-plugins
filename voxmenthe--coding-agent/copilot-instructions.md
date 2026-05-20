@@ -1,25 +1,55 @@
-## coding-agent
+## cursor-rules
 
-> **THIS IS OF UTTER IMPORTANCE THE USERS HAPPINESS DEPENDS ON IT!!**
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
-# Code References
 
-**THIS IS OF UTTER IMPORTANCE THE USERS HAPPINESS DEPENDS ON IT!!**
-When referencing code locations, you MUST use clickable format that VS Code recognizes:
-- `path/to/file.ts:123` format (file:line)
-- `path/to/file.ts:123-456` (ranges)
-- Always use relative paths from the project root
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
-**Examples:**
-- `src/server/fwd.ts:92` - single line reference
-- `src/server/pty/pty-manager.ts:274-280` - line range
-- `web/src/client/app.ts:15` - when in parent directory
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-NEVER give a code reference or location in any other format.
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
-# CRITICAL
-**IMPORTANT**: BEFORE YOU DO ANYTHING, READ `spec.md` IN FULL USING THE READ TOOL!
-**IMPORTANT**: NEVER USE GREP, ALWAYS USE RIPGREP!
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
+  
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
+
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
+
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
+
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules 
 
 ---
 > Source: [voxmenthe/coding-agent](https://github.com/voxmenthe/coding-agent) — distributed by [TomeVault](https://tomevault.io).
