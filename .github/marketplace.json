@@ -38409,6 +38409,11 @@
       "description": "bcvk"
     },
     {
+      "name": "julesliu390--petgpt",
+      "source": "./julesliu390--petgpt",
+      "description": "AI desktop pet with social agent(live in telegram, QQ, whatsapp) with map and local memory. Unified access to frontier LLMs"
+    },
+    {
       "name": "okikusan-public--stock-skills",
       "source": "./okikusan-public--stock-skills",
       "description": "stock_skills"
@@ -38922,6 +38927,11 @@
       "name": "ai-twinkle--eval",
       "source": "./ai-twinkle--eval",
       "description": "High-performance LLM evaluation framework with parallel API calls \u2014 up to 17\u00d7 faster than sequential tools. Supports box, math, and logit-based evaluation."
+    },
+    {
+      "name": "jsoma--natural-pdf",
+      "source": "./jsoma--natural-pdf",
+      "description": "A friendly library for working with PDFs"
     },
     {
       "name": "xiashao--kaiyantool",
@@ -40334,6 +40344,11 @@
       "description": "Editor tools for working with design tokens"
     },
     {
+      "name": "royshil--obs-mcp",
+      "source": "./royshil--obs-mcp",
+      "description": "An MCP server for OBS"
+    },
+    {
       "name": "jjongguet--oh-my-product",
       "source": "./jjongguet--oh-my-product",
       "description": "oh-my-product"
@@ -40574,6 +40589,11 @@
       "description": "A C# library that enables automatic application updates via GitHub Releases."
     },
     {
+      "name": "nguyenvanduocit--jira-mcp",
+      "source": "./nguyenvanduocit--jira-mcp",
+      "description": "A Go-based MCP (Model Control Protocol) connector for Jira that enables AI assistants like Claude to interact with Atlassian Jira. This tool provides a seamless interface for AI models to perform comm"
+    },
+    {
       "name": "peteromallet--vibecomfy",
       "source": "./peteromallet--vibecomfy",
       "description": "VibeComfy"
@@ -40747,6 +40767,16 @@
       "name": "avivsinai--langfuse-mcp",
       "source": "./avivsinai--langfuse-mcp",
       "description": "A Model Context Protocol (MCP) server for Langfuse, enabling AI agents to query Langfuse trace data for enhanced debugging and observability"
+    },
+    {
+      "name": "avivsinai--langfuse-mcp",
+      "source": "./avivsinai--langfuse-mcp",
+      "description": "A Model Context Protocol (MCP) server for Langfuse, enabling AI agents to query Langfuse trace data for enhanced debugging and observability"
+    },
+    {
+      "name": "mystenlabs--sui-move-bootcamp",
+      "source": "./mystenlabs--sui-move-bootcamp",
+      "description": "Code for Sui & Move bootcamp lessons"
     },
     {
       "name": "pikapikaspeedup--antigravity-mobility-cli",
@@ -40962,6 +40992,11 @@
       "name": "alchemiststudiosdotai--tinyagent",
       "source": "./alchemiststudiosdotai--tinyagent",
       "description": "tinyAgent uniquely treats functions as first-class citizens, easily transforming them into powerful AI tools. Inspired by human organizational structures, it dynamically orchestrates specialized agent"
+    },
+    {
+      "name": "dereknguyen269--ai-powered-coding-tools",
+      "source": "./dereknguyen269--ai-powered-coding-tools",
+      "description": "Your AI-Powered Coding Tools Best Practices"
     },
     {
       "name": "cohen-liel--hivemind",
@@ -41212,6 +41247,11 @@
       "name": "translated--lara-mcp",
       "source": "./translated--lara-mcp",
       "description": "lara-mcp"
+    },
+    {
+      "name": "cyberchitta--scrapling-fetch-mcp",
+      "source": "./cyberchitta--scrapling-fetch-mcp",
+      "description": "Helps AI assistants access text content from bot-protected websites. MCP server that fetches HTML/markdown from sites with anti-automation measures using Scrapling."
     },
     {
       "name": "mag123c--toktrack",
@@ -43159,6 +43199,16 @@
       "description": "Create and maintain web and native projects"
     },
     {
+      "name": "vortiago--mcp-azure-devops",
+      "source": "./vortiago--mcp-azure-devops",
+      "description": "A Model Context Protocol (MCP) server enabling AI assistants to interact with Azure DevOps services via Python SDK."
+    },
+    {
+      "name": "leehanchung--bing-search-mcp",
+      "source": "./leehanchung--bing-search-mcp",
+      "description": "MCP Server for Bing Search API"
+    },
+    {
       "name": "alibaba--opc-starter",
       "source": "./alibaba--opc-starter",
       "description": "opc-starter"
@@ -43474,6 +43524,11 @@
       "description": "\u6781\u5149\u4e92\u8054\u86d9\u65e0\u9650Cursor\u767b\u5f55\u5668\u7834\u89e3\u5668"
     },
     {
+      "name": "beatrix-ha--beatrix",
+      "source": "./beatrix-ha--beatrix",
+      "description": "what if claude ran your house"
+    },
+    {
       "name": "m1zz--higlab",
       "source": "./m1zz--higlab",
       "description": "HIGLab"
@@ -43742,6 +43797,11 @@
       "name": "tsylvester--paynless-framework",
       "source": "./tsylvester--paynless-framework",
       "description": "Paynless | Build Better Software Faster"
+    },
+    {
+      "name": "griptape-ai--griptape-nodes",
+      "source": "./griptape-ai--griptape-nodes",
+      "description": "griptape-nodes"
     },
     {
       "name": "edisonwong520--wanny",
@@ -47499,6 +47559,56 @@
       "description": "Raspberry Pi LED Matrix Project"
     },
     {
+      "name": "bradleygolden--hexdocs-mcp",
+      "source": "./bradleygolden--hexdocs-mcp",
+      "description": "Semantic search for Hex documentation, right in your editor \u2728"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
+      "name": "chuckbuilds--ledmatrix",
+      "source": "./chuckbuilds--ledmatrix",
+      "description": "Raspberry Pi LED Matrix Project"
+    },
+    {
       "name": "olorehq--olore",
       "source": "./olorehq--olore",
       "description": "Turn library docs into local Agent Skills"
@@ -50582,6 +50692,76 @@
       "name": "przeprogramowani--10x-warmup",
       "source": "./przeprogramowani--10x-warmup",
       "description": "Repozytorium wprowadzaj\u0105ce do szkolenia 10xDevs \ud83d\ude80"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
+    },
+    {
+      "name": "drumnation--unsplash-smart-mcp-server",
+      "source": "./drumnation--unsplash-smart-mcp-server",
+      "description": "AI-powered FastMCP server for intelligent stock photo search, download, and attribution management from Unsplash"
     },
     {
       "name": "bioliminal--bioliminal-mobile-application",
@@ -54977,6 +55157,21 @@
       "name": "micropyramid--opensource-startup-crm",
       "source": "./micropyramid--opensource-startup-crm",
       "description": "OpenSource Startup CRM: Free, Modern CRM for Startups & Small Businesses"
+    },
+    {
+      "name": "benallfree--goodvibes",
+      "source": "./benallfree--goodvibes",
+      "description": "Modern vibecoding Three.js Starter Kit with Cloudflare Deployment"
+    },
+    {
+      "name": "benallfree--goodvibes",
+      "source": "./benallfree--goodvibes",
+      "description": "Modern vibecoding Three.js Starter Kit with Cloudflare Deployment"
+    },
+    {
+      "name": "benallfree--goodvibes",
+      "source": "./benallfree--goodvibes",
+      "description": "Modern vibecoding Three.js Starter Kit with Cloudflare Deployment"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -66074,6 +66269,11 @@
       "description": "A fine push-down parquet scanner in Rust."
     },
     {
+      "name": "kfastov--tgcli",
+      "source": "./kfastov--tgcli",
+      "description": "Telegram user console client and archiver"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -73094,6 +73294,16 @@
       "description": "getting-started-dotnet-aspire"
     },
     {
+      "name": "lexluthor0304--negativeconverter",
+      "source": "./lexluthor0304--negativeconverter",
+      "description": "NegativeConverter"
+    },
+    {
+      "name": "layer-3--nitrolite",
+      "source": "./layer-3--nitrolite",
+      "description": "Nitrolite is a simplified version of Nitro that facilitates prototyping of state-channel applications"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -77239,6 +77449,31 @@
       "description": "openhands-chrome-extension"
     },
     {
+      "name": "united-security-providers--coraza-envoy-go-filter",
+      "source": "./united-security-providers--coraza-envoy-go-filter",
+      "description": "Coraza WAF implementation as golang filter for Envoy proxy"
+    },
+    {
+      "name": "gallantlab--autoflatten",
+      "source": "./gallantlab--autoflatten",
+      "description": "automatically create cortical flatmaps from FreeSurfer surfaces"
+    },
+    {
+      "name": "kaanaydinli--logicdrawer",
+      "source": "./kaanaydinli--logicdrawer",
+      "description": "Interactive web-based digital logic circuit designer & simulator with AI-powered features."
+    },
+    {
+      "name": "ldclabs--anda-db",
+      "source": "./ldclabs--anda-db",
+      "description": "\ud83d\uddc4 A Rust library designed as a specialized database for AI Agents, focusing on knowledge memory."
+    },
+    {
+      "name": "galaxio-labs--galaxy-flow",
+      "source": "./galaxio-labs--galaxy-flow",
+      "description": "dev workflow tools"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -78862,6 +79097,16 @@
       "name": "leonardogrig--ai-video-editor",
       "source": "./leonardogrig--ai-video-editor",
       "description": "ai-video-editor"
+    },
+    {
+      "name": "chnmig--art-design-pro-edge",
+      "source": "./chnmig--art-design-pro-edge",
+      "description": "https://github.com/Daymychen/art-design-pro \u7684\u4e8c\u5f00\u7248\u672c"
+    },
+    {
+      "name": "picstome--picstome",
+      "source": "./picstome--picstome",
+      "description": "Free Galleries and Contracts for Photographers"
     },
     {
       "name": "10xchengtu--mux0",
@@ -80639,6 +80884,16 @@
       "description": "Universal MCP acts as a middle ware for your API applications. It can store your credentials, authorize, enable disable apps on the fly and much more."
     },
     {
+      "name": "universal-mcp--universal-mcp",
+      "source": "./universal-mcp--universal-mcp",
+      "description": "Universal MCP acts as a middle ware for your API applications. It can store your credentials, authorize, enable disable apps on the fly and much more."
+    },
+    {
+      "name": "markpdfdown--markpdfdown-desktop",
+      "source": "./markpdfdown--markpdfdown-desktop",
+      "description": "A high-quality PDF to Markdown tool based on large language model visual recognition. \u4e00\u6b3e\u57fa\u4e8e\u5927\u6a21\u578b\u89c6\u89c9\u8bc6\u522b\u7684\u9ad8\u8d28\u91cfPDF\u8f6cMarkdown\u5de5\u5177\u684c\u9762\u7248"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -82404,6 +82659,21 @@
       "description": "Anitabi \u544a\u522b\u7e41\u7410\u7684\u884c\u524d\u51c6\u5907\uff0c\u8f7b\u677e\u5f00\u542f\u4f60\u7684\u52a8\u753b\u5723\u5730\u5de1\u793c\u4e4b\u65c5\uff01"
     },
     {
+      "name": "clifton--rstructor",
+      "source": "./clifton--rstructor",
+      "description": "Pydantic + Instructor for Rust"
+    },
+    {
+      "name": "shivaduke28--rector",
+      "source": "./shivaduke28--rector",
+      "description": "Rector"
+    },
+    {
+      "name": "nats-tower--nats-tower",
+      "source": "./nats-tower--nats-tower",
+      "description": "A simple manager application for multi-tenancy in NATS"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -84062,6 +84332,11 @@
       "name": "streamnative--streamnative-mcp-server",
       "source": "./streamnative--streamnative-mcp-server",
       "description": "Developer-friendly MCP server bridging Kafka and Pulsar protocols\u2014built with \u2764\ufe0f by StreamNative for an agentic, streaming-first future."
+    },
+    {
+      "name": "hzoo--henry-ink",
+      "source": "./hzoo--henry-ink",
+      "description": "*search by browsing*: annotation aggregation (prev extension-annotation-sidebar)"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -85937,6 +86212,16 @@
       "name": "kston83--react-ai-template",
       "source": "./kston83--react-ai-template",
       "description": "AI-Ready React Template: A feature-based React architecture optimized for AI-assisted development with comprehensive patterns, documentation, and testing strategies. Built with React, TypeScript, Vite"
+    },
+    {
+      "name": "maestro-org--maestro-mcp-server",
+      "source": "./maestro-org--maestro-mcp-server",
+      "description": "Maestro MCP Server for Bitcoin"
+    },
+    {
+      "name": "softscheck--scans2any",
+      "source": "./softscheck--scans2any",
+      "description": "Convert infrastructure scans into various output formats such as Markdown tables, YAML, HTML, CSV, and more. Can also be used to generate launch scripts for various other scanners."
     },
     {
       "name": "lucianaib0318--geomind",
@@ -88459,6 +88744,26 @@
       "description": "shopware-lsp"
     },
     {
+      "name": "cbusillo--odoo-ai",
+      "source": "./cbusillo--odoo-ai",
+      "description": "odoo-ai"
+    },
+    {
+      "name": "rygwdn--slack-tools",
+      "source": "./rygwdn--slack-tools",
+      "description": "slack-tools"
+    },
+    {
+      "name": "cbusillo--odoo-ai",
+      "source": "./cbusillo--odoo-ai",
+      "description": "odoo-ai"
+    },
+    {
+      "name": "galaxio-labs--orion-error",
+      "source": "./galaxio-labs--orion-error",
+      "description": "orion-error"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -90524,6 +90829,26 @@
       "description": "iHub is a secure, open-source AI application suite that empowers organizations to perform creative and general tasks with generative AI - directly within their protected corporate environment, in the "
     },
     {
+      "name": "nooga--paserati",
+      "source": "./nooga--paserati",
+      "description": "TypeScript runtime implementation written in Go. **cough**"
+    },
+    {
+      "name": "async-profiler--rust-agent",
+      "source": "./async-profiler--rust-agent",
+      "description": "Rust agent for async-profiler"
+    },
+    {
+      "name": "layerztec--layerzwallet",
+      "source": "./layerztec--layerzwallet",
+      "description": "layerzwallet"
+    },
+    {
+      "name": "tt-a1i--chat-edit",
+      "source": "./tt-a1i--chat-edit",
+      "description": "A dual-mode AI application combining chat and rich-text AI editing, powered by Vue 3.5 + TypeScript. Features streaming Markdown rendering, Mermaid diagrams, Quill 2.0 rich-text editor, Monaco diff vi"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -92407,6 +92732,21 @@
       "name": "pubky--pubky-app",
       "source": "./pubky--pubky-app",
       "description": "pubky-app"
+    },
+    {
+      "name": "mobilint--mblt-model-zoo",
+      "source": "./mobilint--mblt-model-zoo",
+      "description": "Mobilint Model Zoo Project"
+    },
+    {
+      "name": "tu-wien-datalab--aqueduct",
+      "source": "./tu-wien-datalab--aqueduct",
+      "description": "Aqueduct is a simple yet fully-featured AI gateway built on top of the LiteLLM Router SDK using Django."
+    },
+    {
+      "name": "hxabcd--easiauto",
+      "source": "./hxabcd--easiauto",
+      "description": "\u4e00\u6b3e\u81ea\u52a8\u767b\u5f55\u5e0c\u6c83\u767d\u677f\u7684\u5c0f\u5de5\u5177"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -94562,6 +94902,16 @@
       "name": "vangelistech--archetype",
       "source": "./vangelistech--archetype",
       "description": "An AI-Native ECS Simulation Engine combining the composibility of Pydantic with the distributed processing power of Daft Dataframes and Multi-Modal Big Data storage with LanceDB"
+    },
+    {
+      "name": "r44vc0rp--r2d2",
+      "source": "./r44vc0rp--r2d2",
+      "description": "r2d2"
+    },
+    {
+      "name": "belingud--yaicli",
+      "source": "./belingud--yaicli",
+      "description": "YAICLI: A powerful command-line AI assistant with 25+ LLM providers. Features chat, command execution, quick queries, function calling, MCP support, and persistent history. Seamlessly integrates into "
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -96967,6 +97317,16 @@
       "name": "robertolupi--augmented-awareness",
       "source": "./robertolupi--augmented-awareness",
       "description": "Augmented Awareness is a set of tools for offline-first or local-first, quantified self projects. It currently supports keeping and analyzing the content of one's diary (markdown files) using LLMs."
+    },
+    {
+      "name": "loonghao--dcc-mcp-core",
+      "source": "./loonghao--dcc-mcp-core",
+      "description": "Core library for DCC Model Context Protocol (MCP) providing common utilities and base classes."
+    },
+    {
+      "name": "leonardovida--drizzle-duckdb",
+      "source": "./leonardovida--drizzle-duckdb",
+      "description": "A drizzle ORM client for use with DuckDB. Based on drizzle's Postgres client."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -99762,6 +100122,66 @@
       "name": "iamaleko--simplify-geojson-visvalingam",
       "source": "./iamaleko--simplify-geojson-visvalingam",
       "description": "Takes a GeoJSON object and returns a simplified version. Uses the Visvalingam\u2013Wyatt algorithm with additional logic for stable simplification and preservation of common boundaries."
+    },
+    {
+      "name": "browserbase--stagehand-scaffold",
+      "source": "./browserbase--stagehand-scaffold",
+      "description": "stagehand-scaffold"
+    },
+    {
+      "name": "ton-ai-core--contract-knowledge",
+      "source": "./ton-ai-core--contract-knowledge",
+      "description": "contract-knowledge"
+    },
+    {
+      "name": "nillionnetwork--nilcc",
+      "source": "./nillionnetwork--nilcc",
+      "description": "Bare metal TEE workload orchestration"
+    },
+    {
+      "name": "ton-ai-core--contract-knowledge",
+      "source": "./ton-ai-core--contract-knowledge",
+      "description": "contract-knowledge"
+    },
+    {
+      "name": "ton-ai-core--contract-knowledge",
+      "source": "./ton-ai-core--contract-knowledge",
+      "description": "contract-knowledge"
+    },
+    {
+      "name": "ton-ai-core--contract-knowledge",
+      "source": "./ton-ai-core--contract-knowledge",
+      "description": "contract-knowledge"
+    },
+    {
+      "name": "ton-ai-core--contract-knowledge",
+      "source": "./ton-ai-core--contract-knowledge",
+      "description": "contract-knowledge"
+    },
+    {
+      "name": "ton-ai-core--contract-knowledge",
+      "source": "./ton-ai-core--contract-knowledge",
+      "description": "contract-knowledge"
+    },
+    {
+      "name": "mentra-community--livecaptionsonsmartglasses",
+      "source": "./mentra-community--livecaptionsonsmartglasses",
+      "description": "Live captions app for smart glasses. Runs on MentraOS."
+    },
+    {
+      "name": "ton-ai-core--contract-knowledge",
+      "source": "./ton-ai-core--contract-knowledge",
+      "description": "contract-knowledge"
+    },
+    {
+      "name": "gpu-mode--kernelboard",
+      "source": "./gpu-mode--kernelboard",
+      "description": "kernelboard is the webapp for https://www.gpumode.com"
+    },
+    {
+      "name": "jupyter-ai-contrib--jupyter-server-documents",
+      "source": "./jupyter-ai-contrib--jupyter-server-documents",
+      "description": "Server side document handling with improved output handling and kernel management/status."
     },
     {
       "name": "13point5--agent-canvas",
@@ -105419,6 +105839,11 @@
       "description": "A Go application that manages night routine scheduling between two parents, with Google Calendar integration for automated event creation."
     },
     {
+      "name": "wojtekerbetowski--tailscale-mikrotik",
+      "source": "./wojtekerbetowski--tailscale-mikrotik",
+      "description": "A lightweight Tailscale Docker container for MikroTik routers with constrained storage"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -108407,6 +108832,16 @@
       "name": "austinkelsay--snstr",
       "source": "./austinkelsay--snstr",
       "description": "Secure Nostr Software Toolkit for Renegades"
+    },
+    {
+      "name": "hiperhealth--hiperhealth",
+      "source": "./hiperhealth--hiperhealth",
+      "description": "hiperhealth"
+    },
+    {
+      "name": "zowers--cxx-modules-converter",
+      "source": "./zowers--cxx-modules-converter",
+      "description": "`cxx_modules_converter.py` is a Python script to convert C++ sources and headers to C++20 modules."
     },
     {
       "name": "mohiwalla--memes",
@@ -112132,6 +112567,21 @@
       "name": "maui-containers--maui-containers",
       "source": "./maui-containers--maui-containers",
       "description": "Docker + Tart images for MAUI dev/testing"
+    },
+    {
+      "name": "affaan-m--sol-onchain-analyst",
+      "source": "./affaan-m--sol-onchain-analyst",
+      "description": "Current working version of the Data Aggregator + Analyst agent in one solution via the CLI"
+    },
+    {
+      "name": "benprew--s30",
+      "source": "./benprew--s30",
+      "description": "s30"
+    },
+    {
+      "name": "benprew--s30",
+      "source": "./benprew--s30",
+      "description": "s30"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -116207,6 +116657,21 @@
       "name": "scaleway--cluster-api-provider-scaleway",
       "source": "./scaleway--cluster-api-provider-scaleway",
       "description": "Cluster API infrastructure provider for Scaleway"
+    },
+    {
+      "name": "luckyabner--hexverse",
+      "source": "./luckyabner--hexverse",
+      "description": "An AI-powered fortune-telling application built primarily with TypeScript. "
+    },
+    {
+      "name": "rhinestonewtf--sdk",
+      "source": "./rhinestonewtf--sdk",
+      "description": "End-to-end account abstraction and chain abstraction toolkit"
+    },
+    {
+      "name": "chnmig--art-design-pro-edge-go-server",
+      "source": "./chnmig--art-design-pro-edge-go-server",
+      "description": "https://github.com/ChnMig/art-design-pro-edge \u7684 golang \u540e\u7aef"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -120502,6 +120967,46 @@
       "name": "konfus-org--toybox",
       "source": "./konfus-org--toybox",
       "description": "A simple plugin driven game engine written in C++"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "pauljphilp--effectiveagent",
+      "source": "./pauljphilp--effectiveagent",
+      "description": "EffectiveAgent"
+    },
+    {
+      "name": "pshevche--act-test-runner",
+      "source": "./pshevche--act-test-runner",
+      "description": "Convenient wrapper around https://github.com/nektos/act for implementing e2e tests for GitHub actions"
     },
     {
       "name": "lightninglabs--lnget",
@@ -126052,6 +126557,21 @@
       "name": "teamzisty--deni-ai",
       "source": "./teamzisty--deni-ai",
       "description": "AI Chatbot for Everyone - Access the latest AI models for free"
+    },
+    {
+      "name": "t-unit--tonik",
+      "source": "./t-unit--tonik",
+      "description": "Pure Dart OpenAPI 3.0/3.1 code generator. Creates type-safe API client packages for Dart and Flutter with sealed classes, pattern matching, and full encoding support."
+    },
+    {
+      "name": "hayktarkhanyan--python-math-ml-course",
+      "source": "./hayktarkhanyan--python-math-ml-course",
+      "description": "Course materials for a free online Python, Math & Machine Learning course. Website \u2014 hayktarkhanyan.github.io/python_math_ml_course | YouTube \u2014 youtube.com/@MetricAcademy | Telegram \u2014 t.me/metric_acad"
+    },
+    {
+      "name": "dave1010--wardley-leadership-strategies",
+      "source": "./dave1010--wardley-leadership-strategies",
+      "description": "Wardley Leadership Strategies Website"
     },
     {
       "name": "yschimke--compose-ai-tools",
