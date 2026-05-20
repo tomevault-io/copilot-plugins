@@ -1,0 +1,9 @@
+{
+  "name": "belingud--yaicli",
+  "displayName": "yaicli",
+  "description": "YAICLI: A powerful command-line AI assistant with 25+ LLM providers. Features chat, command execution, quick queries, function calling, MCP support, and persistent history. Seamlessly integrates into ",
+  "version": "1.0.0",
+  "author": "belingud",
+  "homepage": "https://github.com/belingud/yaicli",
+  "skills": []
+}
