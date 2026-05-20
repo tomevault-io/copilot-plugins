@@ -1,0 +1,9 @@
+{
+  "name": "woolball-xyz--woolball-server",
+  "displayName": "woolball-server",
+  "description": "Your own browser-based inference infrastructure by turning idle browsers into compute nodes.",
+  "version": "1.0.0",
+  "author": "woolball-xyz",
+  "homepage": "https://github.com/woolball-xyz/woolball-server",
+  "skills": []
+}
