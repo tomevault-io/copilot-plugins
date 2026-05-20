@@ -1,0 +1,9 @@
+{
+  "name": "tjc-lp--fast-mcp-scala",
+  "displayName": "fast-mcp-scala",
+  "description": "A quick and easy way to deploy MCP servers using Scala",
+  "version": "1.0.0",
+  "author": "TJC-LP",
+  "homepage": "https://github.com/TJC-LP/fast-mcp-scala",
+  "skills": []
+}
