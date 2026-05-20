@@ -7,11 +7,11 @@ Server side document handling with improved output handling and kernel managemen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jupyter-ai-contrib/jupyter-server-documents](https://github.com/jupyter-ai-contrib/jupyter-server-documents).
+Original source: `CLAUDE.md` in [jupyter-ai-contrib/jupyter-server-documents](https://github.com/jupyter-ai-contrib/jupyter-server-documents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
