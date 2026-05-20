@@ -1,29 +1,63 @@
-## effectiveagent
+## clean-code-rules
 
-> *   **Framework:** EffectiveAgent Backend Services.
-
-# Backend Architecture Rules
-
-*   **Framework:** EffectiveAgent Backend Services.
-*   **Core Pattern:** Service-oriented architecture using Effect-TS Layers for dependency management.
-*   **Service Categories:** Organize services under top-level directories: `core`, `ai`, `capabilities`, `execution`, `memory`. Use singular, descriptive names (e.g., `core/file`, not `core/storage/file`).
-*   **Standard Service Structure:** Each service module (`src/services/{category}/{serviceName}/`) should contain:
-    *   `live.ts`: Contains the `make` function(s) defining service implementation(s) and the corresponding `Layer` definition(s) (e.g., `ServiceNameApiLiveLayer`, `ServiceNameConfigLiveLayer` if config is loaded here).
-    *   `types.ts`: Defines service `Context.Tag`s (e.g., `ServiceNameApi`, `ServiceNameConfigData`) and exports inferred service/data types using `ReturnType`/`Effect.Success`. Defines supporting TS types/interfaces for the service API. Service API methods should generally have `R = never` where possible, encapsulating dependencies.
-    *   `errors.ts`: Defines service-specific tagged errors using `Data.TaggedError`.
-    *   `schema.ts`: Defines Effect Schemas for domain configuration files (`XxxConfigFileSchema`) and core data entities (`XxxEntitySchema`, often extending `BaseEntitySchema`). Exports inferred types from schemas (e.g., `XxxEntity`, `XxxEntityData`).
-    *   `docs/`: Contains `PRD.md` and `Architecture.md`.
-    *   `__tests__/`: Contains Vitest test files (`live.test.ts`).
-    *   `index.ts`: Barrel file exporting the public API (Tags, Layers, key types/errors/schemas).
-*   **Naming Conventions:**
-    *   Service Tags: `ServiceNameApi` (e.g., `PromptApi`, `FileApi`). For config data Tags: `ServiceNameConfig` (e.g., `PromptConfig`).
-    *   Inferred Service API Types: `ServiceNameApi` (e.g., `PromptApi`). For config data types: `ServiceNameConfigData` (e.g., `PromptConfigData`).
-    *   Schema Definitions: `XxxEntitySchema`, `XxxConfigFileSchema`. Inferred Types: `XxxEntity`, `XxxEntityData`, `XxxConfigFile`. Global base: `BaseEntitySchema`.
-    *   Implementation Factory: `make`.
-    *   Layers: `ServiceNameApiLiveLayer`, `ServiceNameConfigLiveLayer`.
-    *   Files: `live.ts`, `types.ts`, `errors.ts`, `schema.ts`, `index.ts`. Use kebab-case for multi-word service names only if necessary, prefer single descriptive names (e.g., `file`, `prompt`).
-    *   Contractions: Use `Config`, `Db`, `Impl`, `Def` where appropriate and clear.
+> description: Guidelines for writing clean, maintainable, and human-readable code. Apply these rules when writing or reviewing code to ensure consistency and quality.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/PaulJPhilp) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+description: Guidelines for writing clean, maintainable, and human-readable code. Apply these rules when writing or reviewing code to ensure consistency and quality.
+globs: 
+---
+# Clean Code Guidelines
+
+## Constants Over Magic Numbers
+- Replace hard-coded values with named constants
+- Use descriptive constant names that explain the value's purpose
+- Keep constants at the top of the file or in a dedicated constants file
+
+## Meaningful Names
+- Variables, functions, and classes should reveal their purpose
+- Names should explain why something exists and how it's used
+- Avoid abbreviations unless they're universally understood
+
+## Smart Comments
+- Don't comment on what the code does - make the code self-documenting
+- Use comments to explain why something is done a certain way
+- Document APIs, complex algorithms, and non-obvious side effects
+
+## Single Responsibility
+- Each function should do exactly one thing
+- Functions should be small and focused
+- If a function needs a comment to explain what it does, it should be split
+
+## DRY (Don't Repeat Yourself)
+- Extract repeated code into reusable functions
+- Share common logic through proper abstraction
+- Maintain single sources of truth
+
+## Clean Structure
+- Keep related code together
+- Organize code in a logical hierarchy
+- Use consistent file and folder naming conventions
+
+## Encapsulation
+- Hide implementation details
+- Expose clear interfaces
+- Move nested conditionals into well-named functions
+
+## Code Quality Maintenance
+- Refactor continuously
+- Fix technical debt early
+- Leave code cleaner than you found it
+
+## Testing
+- Write tests before fixing bugs
+- Keep tests readable and maintainable
+- Test edge cases and error conditions
+
+## Version Control
+- Write clear commit messages
+- Make small, focused commits
+- Use meaningful branch names 
+
+---
+> Source: [PaulJPhilp/EffectiveAgent](https://github.com/PaulJPhilp/EffectiveAgent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
