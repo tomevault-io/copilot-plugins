@@ -7,11 +7,11 @@ LangBot Extension Infra including plugin runtime, SDK, sandbox and CLI tools.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [langbot-app/langbot-plugin-sdk](https://github.com/langbot-app/langbot-plugin-sdk).
+Original source: `CLAUDE.md` in [langbot-app/langbot-plugin-sdk](https://github.com/langbot-app/langbot-plugin-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
