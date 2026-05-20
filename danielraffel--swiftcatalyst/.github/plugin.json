@@ -1,0 +1,9 @@
+{
+  "name": "danielraffel--swiftcatalyst",
+  "displayName": "SwiftCatalyst",
+  "description": "SwiftUI iOS template designed to make it easy to start building a project using an AI coding tool like Cursor.",
+  "version": "1.0.0",
+  "author": "danielraffel",
+  "homepage": "https://github.com/danielraffel/SwiftCatalyst",
+  "skills": []
+}
