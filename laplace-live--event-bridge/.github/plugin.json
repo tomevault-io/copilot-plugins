@@ -1,0 +1,9 @@
+{
+  "name": "laplace-live--event-bridge",
+  "displayName": "event-bridge",
+  "description": "A WebSocket bridge connecting LAPLACE Chat to clients",
+  "version": "1.0.0",
+  "author": "laplace-live",
+  "homepage": "https://github.com/laplace-live/event-bridge",
+  "skills": []
+}
