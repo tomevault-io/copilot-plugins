@@ -1,0 +1,9 @@
+{
+  "name": "epam--ai-dial-admin-frontend",
+  "displayName": "ai-dial-admin-frontend",
+  "description": "A UI for AI DIAL Admin Panel",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/ai-dial-admin-frontend",
+  "skills": []
+}
