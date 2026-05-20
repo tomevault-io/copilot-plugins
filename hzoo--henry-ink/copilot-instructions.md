@@ -1,33 +1,17 @@
-## signals
+## styling
 
-> global state management
+> styling, tailwind config, css
 
-## signals usage
-```ts
-import { batch, type Signal, useComputed, useSignal } from "@preact/signals";
-const count = signal(0);
+tailwind v4 configuration is in css files
 
-// access with .value, can be used in components
-// think about splitting components to save re-renders
-<button onClick={() => count.value++}>{count.value}</button>;
-```
+```css
+/* import tailwind v4 */
+@import "tailwindcss"; 
 
-use computed within components to save re-renders
-
-```ts
-function Word({ word }: { word: { text: string, index: number } }) {
-  const isCurrent = useComputed(() => currentWordIndex.value === word.index);
-
-  return (
-    <span className={cn(
-      "text-blue-500",
-      isCurrent && "text-blue-700"
-    )}>
-      {word.text}
-    </span>
-  )
+@theme {
+    /* new colors */
+    --color-discord-dark: oklch(0.24 0.02 264.05); /* #36393f */
 }
-```
 
 ---
 > Source: [hzoo/henry.ink](https://github.com/hzoo/henry.ink) — distributed by [TomeVault](https://tomevault.io).
