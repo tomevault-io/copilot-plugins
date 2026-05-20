@@ -1,0 +1,44 @@
+{
+  "name": "gitea-ai-assistant",
+  "owner": "jeffusion",
+  "repo": "gitea-ai-assistant",
+  "description": "Gitea\u529f\u80fd\u589e\u5f3a\u52a9\u624b\uff0c\u57fa\u4e8eBun\u548cTypeScript\u5f00\u53d1\uff0c\u63d0\u4f9bAI\u9a71\u52a8\u7684\u4ee3\u7801\u5ba1\u67e5\u7b49\u589e\u5f3a\u529f\u80fd\u3002\u672c\u5de5\u5177\u901a\u8fc7Webhook\u4e0eGitea\u96c6\u6210\uff0c\u81ea\u52a8\u5bf9Pull Request\u548c\u63d0\u4ea4\u8fdb\u884c\u4ee3\u7801\u5ba1\u67e5\uff0c\u5e76\u63d0\u4f9b\u667a\u80fd\u5316\u7684\u4ee3\u7801\u8d28\u91cf\u5206\u6790\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jeffusion/gitea-ai-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-20T19:27:56Z"
+}
