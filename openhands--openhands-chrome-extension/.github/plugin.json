@@ -1,0 +1,9 @@
+{
+  "name": "openhands--openhands-chrome-extension",
+  "displayName": "openhands-chrome-extension",
+  "description": "openhands-chrome-extension",
+  "version": "1.0.0",
+  "author": "OpenHands",
+  "homepage": "https://github.com/OpenHands/openhands-chrome-extension",
+  "skills": []
+}
