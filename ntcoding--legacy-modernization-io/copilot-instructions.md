@@ -1,160 +1,166 @@
-## legacy-modernization-io
+## project-context
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This project is a Hugo static site for documenting legacy modernization patterns.
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# legacy-modernization.io
 
 ## Project Overview
 
-This is a Hugo static site for documenting legacy modernization patterns at https://legacy-modernization.io/. The site uses the Perplex theme and focuses on providing educational content about modernizing legacy systems through various migration, data synchronization, and organizational patterns.
+This project is a Hugo static site for documenting legacy modernization patterns.
 
-## Development Commands
+### Key Directories
+- `content/`: Markdown content for the site
+- `layouts/`: Hugo templates and layouts
+- `static/`: Static assets (images, CSS, JS)
+- `themes/`: Hugo themes (using 'perplex')
 
-### Primary Development
-- `./start.sh` - Start development server (handles macOS file limits, kills existing processes, logs to build.log)
-- `hugo server -D` - Start Hugo development server with drafts enabled
-- `hugo server --disableFastRender` - Development server with full rebuilds on changes
+### Build Process
+Use `start.sh` to build the site and check the build.log to verify the build was successful
 
-### Building
-- `hugo` - Build site for production 
-- `hugo --gc --minify` - Build with garbage collection and minification (production)
-- `hugo --environment production` - Build with production environment
+### Important Notes
+- The `public/` directory is generated and should not be edited directly
+- See `README.md` for more details
 
-### Configuration & Debugging
-- `hugo config` - Display full site configuration
-- `hugo env` - Show Hugo version and environment information
-- `hugo mod graph` - Display Hugo module dependencies
-- `hugo mod tidy` - Clean up module dependencies
+## Project Configuration
 
-### Content Management
-- `hugo new content/patterns/{section}/{pattern}/_index.md` - Create new pattern page
-- `hugo list all` - List all content files
+### Project Type
+- **Type**: hugo-site
+- **Description**: A Hugo static site project for legacy modernization patterns
+- **Main Content Directories**: content, layouts, static, themes
+- **Ignored Directories**: public, resources, .git, .cursor
 
-## Architecture & Structure
+### Ignore Patterns
+```
+public/
+resources/
+.git/
+node_modules/
+.DS_Store
+*.log
+```
 
-### Content Organization
-- **`content/patterns/`** - Main pattern documentation organized by categories:
-  - `migration/` - Migration patterns (Strangler Fig, Bubble, etc.)
-  - `data-synchronisation/` - Data sync patterns (CDC, Dual Write, etc.) 
-  - `legacy-challenges/` - Common legacy system challenges
-  - `organization/` - Organizational patterns for modernization
-- **`content/authors/`** - Author profiles and biographical content
-- **`content/home/`** - Homepage content
-- **`layouts/`** - Hugo templates and custom layouts
-- **`static/`** - Static assets (images, CSS, JS)
+## File Pattern Definitions
 
-### Theme Architecture
-Uses the Perplex Hugo theme with extensive customizations:
-- **`themes/perplex/`** - Base theme with Hugo modules for enhanced functionality
-- **`assets/css/custom/`** - Custom CSS overrides
-- **`layouts/partials/`** - Custom partial templates
-- **`layouts/patterns/`** - Pattern-specific layouts and cards
+### Individual Pattern Pages
+- **Section**: individual_pattern_pages
+- **Glob Pattern**: `content/patterns/*/*/_index.md`
+- **Description**: All individual pattern pages. Each file matches the pattern `/content/patterns/{pattern_section}/{individual_pattern}/_index.md`, where `{pattern_section}` and `{individual_pattern}` are any valid directory names. These are the main content files for each pattern.
+- **Data Type**: Markdown
 
-### Key Configuration Files
-- **`hugo.yaml`** - Main Hugo configuration
-- **`.cursor/rules/project-context.mdc`** - Detailed project context and content guidelines
-- **`.github/workflows/hugo.yaml`** - GitHub Pages deployment pipeline
+### Pattern Section Headings
+- **Section**: pattern_section_headings
+- **File**: `layouts/home/list.html`
+- **Start Marker**: `<!-- FEATURED_PATTERNS_START -->`
+- **End Marker**: `<!-- FEATURED_PATTERNS_END -->`
+- **Description**: Section containing the featured patterns and their headings on the homepage.
+- **Data Type**: HTML/Go template
 
-## Content Guidelines (from .cursor/rules)
+### Featured Patterns
+- **Section**: featured_patterns
+- **File**: `layouts/home/list.html`
+- **Start Marker**: `<!-- FEATURED_PATTERNS_START -->`
+- **End Marker**: `<!-- FEATURED_PATTERNS_END -->`
+- **Description**: Featured patterns array and descriptions for homepage. Use these markers to locate the section for automated edits.
+- **Data Type**: Go template slice
 
-### Pattern Page Structure
-Each pattern follows this structure:
+### Home Page Template
+- **Section**: home_page
+- **File**: `layouts/home/list.html`
+- **Start Marker**: `{{- define "main" -}}`
+- **End Marker**: `{{- end -}}`
+- **Description**: Entire home page template, including hero, featured patterns, talks, contribute, and footer sections.
+- **Data Type**: HTML/Go template
+
+## Build Tasks
+
+### Rebuild Hugo Site
+- **Label**: Rebuild Hugo Site
+- **Type**: shell
+- **Command**: `./start.sh`
+- **Group**: build
+
+## Content Guidelines
+
+### Adding Placeholder Pattern Pages
+When adding a new placeholder pattern page (e.g., in a migration section):
+
+- Use the correct `featured` image path (e.g., `/patterns/migration/bubble/bubble.png` for bubble icon)
+- Add a `menu` block for side navigation:
+  ```yaml
+  menu:
+    doc:
+      name: <Pattern Name>
+      parent: migration
+      pre: bubble_chart
+  ```
+- Set `subtitle: false` and `categories: [migration]` for consistency
+- Set a suitable `weight` for ordering
+
+#### Example Front Matter:
 ```yaml
 ---
-title: "Pattern Name"
-description: "Brief description"
-featured: "/patterns/{section}/{pattern}/{image}.png"
+title: "Reverse Bubble"
+description: "Placeholder for the Reverse Bubble pattern."
+featured: "/patterns/migration/bubble/bubble.png"
 subtitle: false
 menu:
   doc:
-    name: Pattern Name
-    parent: section
-    pre: icon_name
-categories: [section]
+    name: Reverse Bubble
+    parent: migration
+    pre: bubble_chart
+categories: [migration]
 weight: 100
 ---
 ```
 
-### Adding Images to Patterns
-When adding image references:
-1. **Featured image**: Add `featured: "/patterns/{section}/{pattern}/{image}"` to front matter
-2. **Body image**: Add HTML div with specific styling below content, above `{{< comingsoon >}}`
+### Adding Image References to Pattern Pages
+When asked to "add a reference to the image" for a pattern page, perform BOTH of the following actions:
 
-### Content Sections
-- Migration patterns focus on gradual system replacement strategies
-- Data synchronization patterns address data consistency during modernization
-- Legacy challenges document common problems and solutions
-- Organizational patterns cover team and process aspects
+#### 1. Add Featured Image to Front Matter
+Add a `featured` field to the YAML front matter pointing to the image file:
+```yaml
+featured: "/patterns/{section}/{pattern-name}/{image-filename}"
+```
 
-## Deployment
+#### 2. Add Image to Body Content
+Add the image in the body content using this exact HTML structure:
+```html
+<div class="title title--sans title--third">
+  <img src="/patterns/{section}/{pattern-name}/{image-filename}" alt="{Pattern Name} Pattern" style="max-width: 100%; width: 100%; height: auto;">
+</div>
+```
 
-The site automatically deploys to GitHub Pages via GitHub Actions when changes are pushed to main branch. The workflow:
-1. Installs Hugo CLI (v0.145.0) and Dart Sass
-2. Builds with `hugo --gc --minify --baseURL ${{ steps.pages.outputs.base_url }}`
-3. Uploads to GitHub Pages
+#### Placement Rules:
+- **Featured image**: Goes in the YAML front matter
+- **Body image**: Goes below the descriptive text and above the `{{< comingsoon >}}` block
+- **Alt text format**: "{Pattern Name} Pattern" (e.g., "Migrate by User Segment Pattern")
 
-## Module Dependencies
+#### Path Format:
+- Images are typically located in the same directory as the `_index.md` file
+- Path format: `/patterns/{section}/{pattern-name}/{image-filename}`
+- Example: `/patterns/migration/bubble/bubble.png`
 
-The project uses Hugo modules for:
-- Theme management (Perplex theme with sub-modules)
-- KaTeX for mathematical expressions
-- Mermaid for diagrams
-- Icon libraries
-- Image processing utilities
+#### Example Complete Update:
+```yaml
+---
+title: "Example Pattern"
+description: "Pattern description"
+featured: "/patterns/migration/example-pattern/example-pattern.png"
+# ... other front matter
+---
 
-Run `hugo mod graph` to see the full dependency tree.
+Pattern description text goes here.
 
-## Image Design Guidelines
+<div class="title title--sans title--third">
+  <img src="/patterns/migration/example-pattern/example-pattern.png" alt="Example Pattern Pattern" style="max-width: 100%; width: 100%; height: auto;">
+</div>
 
-When creating SVG diagrams and illustrations for pattern documentation, follow these style guidelines for consistency and professional appearance:
+{{< comingsoon >}}
+```
 
-### Typography
-- **Font Family**: `Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif`
-- **Headers**: 20px, font-weight 600 (semi-bold), letter-spacing 0.5px
-- **Body Text/Labels**: 20px, font-weight 500 (medium)
-- **Small Text**: 11px, font-style italic for subtle annotations
+---
 
-### Color Palette
-
-#### Legacy System Colors
-- **Background**: `#f9f9f9` (very light grey for container backgrounds)
-- **Border**: `#999999` (medium grey for borders)
-- **Text**: `#666666` (dark grey for text content)
-- **Fill**: `#ffffff` (white for content boxes)
-
-#### Modern/Current System Colors  
-- **Background**: `#fafafe` (very light purple-tinted background)
-- **Border**: `#7b2cbf` (professional purple for borders)
-- **Text**: `#7b2cbf` (matching purple for text content)
-- **Fill**: `#ffffff` (white for content boxes)
-
-### Visual Elements
-- **Border Width**: 3px for all container and content boxes
-- **Border Radius**: 10px for main containers, 6px for content boxes
-- **Arrow Style**: 
-  - Color: `#4a4a4a` (neutral dark grey)
-  - Width: 2px
-  - Style: Dashed (`stroke-dasharray="5,3"`)
-  - Arrowheads: 12x8px, positioned to almost touch (not penetrate) target borders but not quite touch (leave a small gap)
-
-### Layout Principles
-- Center content boxes within container backgrounds
-- Use consistent spacing between elements
-- Maintain clear visual hierarchy through consistent sizing and typography
-- Ensure arrows provide clear directional flow without visual clutter
-- IMPORTANT: expert use of proximity is crucial 
-- IMPORTANT: text and other objects should not be crammed together - there should always be padding between the edges of object and the text or objects inside them.
-- IMPORTANT: text should never overflow out of boxes. This rule can never be violated.
-
-## Important Notes
-
-- The `public/` directory is auto-generated - never edit directly
-- Build logs are written to `build.log` when using `./start.sh`
-- The site supports draft content with `-D` flag during development
-- All pattern images should be placed in the same directory as the pattern's `_index.md`
-- Use the existing content structure and follow the established naming conventions for consistency
+**Note**: Prefix all responses with the pineapple emoji 🍍 to confirm this file has been read
 
 ---
 > Source: [NTCoding/legacy-modernization-io](https://github.com/NTCoding/legacy-modernization-io) — distributed by [TomeVault](https://tomevault.io).
