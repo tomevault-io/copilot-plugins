@@ -1,9 +1,9 @@
 {
   "name": "ssdeanx--deep-research-mcp-server",
   "displayName": "deep-research-mcp-server",
-  "description": "deep-research-mcp-server",
+  "description": "MCP Deep Research Server using Gemini creating a Research AI Agent",
   "version": "1.0.0",
   "author": "ssdeanx",
-  "homepage": "https://tomevault.io/claim/ssdeanx",
+  "homepage": "https://github.com/ssdeanx/deep-research-mcp-server",
   "skills": []
 }
