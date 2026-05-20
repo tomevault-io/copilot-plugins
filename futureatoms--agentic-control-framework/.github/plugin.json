@@ -1,0 +1,9 @@
+{
+  "name": "futureatoms--agentic-control-framework",
+  "displayName": "agentic-control-framework",
+  "description": "A powerful CLI and MCP-based task management system for agentic workflows.",
+  "version": "1.0.0",
+  "author": "FutureAtoms",
+  "homepage": "https://github.com/FutureAtoms/agentic-control-framework",
+  "skills": []
+}
