@@ -1,0 +1,9 @@
+{
+  "name": "flexrpl--cursor-rules-dynamic",
+  "displayName": "cursor-rules-dynamic",
+  "description": "A powerful VSCode extension for dynamic management and analysis of .cursorrules files in Cursor AI projects.",
+  "version": "1.0.0",
+  "author": "fleXRPL",
+  "homepage": "https://github.com/fleXRPL/cursor-rules-dynamic",
+  "skills": []
+}
