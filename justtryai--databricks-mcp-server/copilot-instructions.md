@@ -1,41 +1,49 @@
-## documentation
+## environment
 
-> Documentation Standards
+> Development Environment
 
-# Documentation Standards
+# Development Environment Standards
 
-## Required Documentation Files
-- README.md (project root)
-- tests/README.md
-- examples/README.md
+## Python Requirements
+- Python version: >= 3.10
+- Package manager: uv
+- Virtual environment: .venv
 
-## Python Documentation
-- Use Google-style docstrings for all code
-- Document all parameters, return values, and raised exceptions
-- Include type hints to aid in documentation
+## Project Configuration
+- Use pyproject.toml for dependencies and build configuration
+- Recommended IDE: Cursor
+- Linting:
+  - pylint
+  - flake8
+  - mypy for type checking
 
-## API Documentation
-- API docs should use Sphinx
-- Output directory: docs/api
-- Use autodoc extensions to generate API docs from docstrings
+## Getting Started
+```bash
+# Create and activate virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+.venv\Scripts\activate     # Windows
 
-## Project Documentation
-- README.md should include:
-  - Project description
-  - Installation instructions
-  - Basic usage examples
-  - Configuration options
-  - Link to more detailed documentation
+# Install dependencies with uv
+uv pip install -e .
+```
 
-## Examples
-- Provide well-commented examples showing how to use the MCP server
-- Each example should be runnable without modification
-- Include examples for common use cases
+## Running Tests
+```bash
+# Install development dependencies
+uv pip install -e ".[dev]"
 
-## References
-- MCP Protocol: https://modelcontextprotocol.io/llms-full.txt
-- Python Style Guide: https://peps.python.org/pep-0008/
-- Python SDK: https://github.com/modelcontextprotocol/python-sdk
+# Run tests with pytest
+pytest tests/
+```
+
+## Linting
+```bash
+# Run all linters
+pylint src/ tests/
+flake8 src/ tests/
+mypy src/
+```
 
 ---
 > Source: [JustTryAI/databricks-mcp-server](https://github.com/JustTryAI/databricks-mcp-server) — distributed by [TomeVault](https://tomevault.io).
