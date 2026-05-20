@@ -1,8 +1,8 @@
-## one-way-of-doing-things
+## parse-prd
 
-> When we wirte GoLang, we only write idomatic Go. That means we only provide ONE WAY TO DO THINGS. Add options to change behavior, not a new function.
+> never use parse_prd MCP tool by task-master unless you are asked to do so by the user, as runinng it will delete all existing tasks. xqx
 
-When we wirte GoLang, we only write idomatic Go. That means we only provide ONE WAY TO DO THINGS. Add options to change behavior, not a new function.
+never use parse_prd MCP tool by task-master unless you are asked to do so by the user, as runinng it will delete all existing tasks. xqx
 
 ---
 > Source: [localrivet/gomcp](https://github.com/localrivet/gomcp) — distributed by [TomeVault](https://tomevault.io).
