@@ -1,0 +1,9 @@
+{
+  "name": "acoyfellow--fleet-pattern",
+  "displayName": "fleet-pattern",
+  "description": "A demonstration of hierarchical Durable Objects in Cloudflare Workers, enabling infinite nesting of manager/agent relationships through URL paths.",
+  "version": "1.0.0",
+  "author": "acoyfellow",
+  "homepage": "https://github.com/acoyfellow/fleet-pattern",
+  "skills": []
+}
