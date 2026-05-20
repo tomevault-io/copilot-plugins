@@ -1,0 +1,9 @@
+{
+  "name": "usenocturne--nocturne-connector",
+  "displayName": "nocturne-connector",
+  "description": "Raspberry Pi OS for Wi-Fi connectivity on the Spotify Car Thing",
+  "version": "1.0.0",
+  "author": "usenocturne",
+  "homepage": "https://github.com/usenocturne/nocturne-connector",
+  "skills": []
+}
