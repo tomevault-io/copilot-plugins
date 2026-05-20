@@ -2,7 +2,7 @@
   "name": "depbank",
   "owner": "tyrchen",
   "repo": "depbank",
-  "description": "",
+  "description": "A Rust CLI tool for generating AI-friendly code banks from dependencies. Automatically parses Cargo.toml files, resolves versions, and generates searchable documentation while calculating token counts.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/tyrchen",
+  "source_url": "https://github.com/tyrchen/depbank",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T20:34:24Z"
+  "distributed_at": "2026-05-20T22:34:25Z"
 }
