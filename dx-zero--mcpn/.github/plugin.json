@@ -1,0 +1,9 @@
+{
+  "name": "dx-zero--mcpn",
+  "displayName": "mcpn",
+  "description": "orchestrate & combine prompts + MCP servers into compound MCP tools",
+  "version": "1.0.0",
+  "author": "dx-zero",
+  "homepage": "https://github.com/dx-zero/mcpn",
+  "skills": []
+}
