@@ -1,0 +1,9 @@
+{
+  "name": "droodotfoo--raxol",
+  "displayName": "raxol",
+  "description": "Write one app. Render it to a terminal, a browser, or an agent. Multi-surface runtime for Elixir on OTP -- four render targets from one TEA module.",
+  "version": "1.0.0",
+  "author": "DROOdotFOO",
+  "homepage": "https://github.com/DROOdotFOO/raxol",
+  "skills": []
+}
