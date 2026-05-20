@@ -1,0 +1,9 @@
+{
+  "name": "nguyenvanduocit--jira-mcp",
+  "displayName": "jira-mcp",
+  "description": "A Go-based MCP (Model Control Protocol) connector for Jira that enables AI assistants like Claude to interact with Atlassian Jira. This tool provides a seamless interface for AI models to perform comm",
+  "version": "1.0.0",
+  "author": "nguyenvanduocit",
+  "homepage": "https://github.com/nguyenvanduocit/jira-mcp",
+  "skills": []
+}
