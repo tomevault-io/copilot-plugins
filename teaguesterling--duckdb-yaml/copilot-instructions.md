@@ -1,0 +1,218 @@
+## duckdb-yaml
+
+> This document maintains continuity and understanding across conversation sessions about the DuckDB YAML extension project. It contains my current understanding, thoughts, questions, and ideas about the implementation. If we continue this project in a new conversation, reviewing this document will help me quickly understand the context and status of the project.
+
+# CLAUDE.md - Project Notes for DuckDB YAML Extension
+
+## Purpose of This Document
+
+This document maintains continuity and understanding across conversation sessions about the DuckDB YAML extension project. It contains my current understanding, thoughts, questions, and ideas about the implementation. If we continue this project in a new conversation, reviewing this document will help me quickly understand the context and status of the project.
+
+This is a high-level overview document. For detailed technical implementation notes and specific lessons learned, see CLAUDE_LESSONS.md.
+
+## Project Overview
+
+We are implementing a YAML extension for DuckDB, similar to the existing JSON extension, but using yaml-cpp instead of yyjson. The extension allows users to read YAML files into DuckDB tables and query the data using SQL.
+
+## Current Implementation Status
+
+- [x] Basic YAML file reading with read_yaml and read_yaml_objects functions
+- [x] Multi-document YAML support
+- [x] Top-level sequence handling (treating sequence items as rows)
+- [x] File globbing and file list support
+- [x] Error handling with partial recovery of valid documents
+- [x] Comprehensive parameter handling with error checking
+- [x] Direct file path support (SELECT * FROM 'file.yaml')
+- [x] Test coverage for all implemented features
+- [x] YAML logical type and conversion functions (to/from JSON)
+- [x] Fix segfault in value_to_yaml function with debug mode implementation
+- [x] JSON parity extraction functions (v1.5.0)
+- [x] Arrow operator (`->>`) for string extraction
+- [x] Function aliases for JSON compatibility
+- [x] Extended multi-document modes (v1.6.0)
+- [ ] Explicit column type specification via 'columns' parameter
+- [ ] Comprehensive type detection (dates, timestamps, etc.)
+- [ ] Support for YAML anchors and aliases
+- [ ] Stream processing for large files
+
+## Recent Changes and Findings
+
+1. **YAML Type Implementation**:
+   - Successfully implemented YAML as a type by extending VARCHAR with an alias
+   - Used `LogicalType::SetAlias("yaml")` rather than creating a new type ID
+   - Registered the type and appropriate cast functions
+   - This approach provides a clean integration with DuckDB's type system
+
+2. **Cast Functions and Type Conversions**:
+   - Implemented proper cast functions between YAML, JSON, and VARCHAR
+   - Added special treatment for multi-document YAML
+   - Consistent handling of type conversions across all functions
+
+3. **Display Format Improvements**:
+   - Implemented YAML flow format (inline representation) for display purposes
+   - Block format for storage and internal processing
+   - Multi-document handling for both formats
+
+4. **Code Structure Refactoring**:
+   - Created a yaml_utils namespace for utility functions
+   - Improved code organization with logical sections
+   - Better error handling and resource management
+   - Reduced code duplication through utility functions
+
+5. **Fixed Segfault Issue**:
+   - Added a debug mode implementation that prevents segfaults in value_to_yaml function
+   - Created YAMLDebug class with safer alternative implementations
+   - Added debug scalar functions for testing and diagnostic purposes
+   - Implemented robust error handling with maximum recursion depth limits
+   - Original segfault was related to stack overflow with deeply nested structures
+
+6. **Testing Framework Challenges**:
+   - Discovered SQLLogicTest framework constraints with multi-line strings
+   - Addressed SQL string parsing issues by using flow-style YAML in tests
+   - Found yaml-cpp's parser to be extremely resilient, handling malformed inputs
+   - Adjusted test expectations for error handling given parser behavior
+   - Updated error message expectations to match exact DuckDB error format
+
+7. **v1.5.0 JSON Parity Functions**:
+   - Added extraction functions to match DuckDB's JSON extension capabilities
+   - **`->>` operator**: Arrow operator alias for `yaml_extract_string`
+   - **`yaml_structure`**: Returns JSON schema of YAML document structure
+   - **`yaml_contains`**: Recursive containment checking between YAML documents
+   - **`yaml_merge_patch`**: RFC 7386 merge patch implementation
+   - **`yaml_value`**: Extract scalar values only (NULL for arrays/objects)
+   - **Function aliases**: `yaml_extract_path`, `yaml_extract_path_text`, `to_yaml`
+   - Note: `->` operator cannot be implemented (DuckDB planner hardcodes it to `json_extract`)
+   - Note: `yaml_transform` not implemented (requires binding-time type resolution); use `json_transform(yaml::JSON, structure)` instead
+
+8. **v1.6.0 Extended Multi-Document Modes**:
+   - Expanded `multi_document` parameter from boolean to support four modes:
+   - **`true` / `'rows'`**: Each YAML document becomes a row (default, backward compatible)
+   - **`false` / `'first'`**: Only the first document (backward compatible)
+   - **`'frontmatter'`**: First document is metadata, rest are data rows
+     - Metadata fields added as columns with `meta_` prefix
+     - Option `frontmatter_as_columns=false` returns metadata as single STRUCT column
+   - **`'list'`**: All documents as single row with STRUCT[] column
+     - Option `list_column_name` to customize column name (default: `documents`)
+   - Full backward compatibility with boolean values
+   - Case-insensitive string mode values
+
+9. **Empty YAML Maps Fix (Issue #33)**:
+   - Empty YAML maps (`{}`) were causing "STRUCT to STRUCT cast must have at least one matching member" errors
+   - Root cause: Empty maps created `STRUCT()` with no children, which DuckDB couldn't cast
+   - Solution: Empty maps now return `yaml` type instead of empty `STRUCT()`
+   - `MergeStructTypes` updated to handle empty structs when merging (returns non-empty one)
+   - Sequence/document type detection handles `yaml`-`STRUCT` combinations by preferring STRUCT
+   - This allows empty maps to coexist with populated maps in lists and merged schemas
+
+10. **Document Suffix Stripping (Issue #34)**:
+    - Added `strip_document_suffixes` parameter (default: `true`) to handle non-standard YAML headers
+    - Some applications (e.g., Unity) add custom keywords after standard header elements:
+      - `--- !u!1 &12345 stripped` → `--- !u!1 &12345`
+    - The `stripped` keyword (Unity's marker for placeholder prefab objects) caused yaml-cpp to fail
+    - `StripDocumentSuffixes()` function sanitizes document headers before parsing
+    - Removes bare words appearing after tag/anchor on `---` lines
+    - Enables parsing of Unity `.unity`, `.prefab`, and `.asset` files
+    - Can be disabled with `strip_document_suffixes=false` if needed
+
+## Design Decisions
+
+- We're using yaml-cpp for parsing YAML files
+- YAML type is implemented as an alias for VARCHAR 
+- Multi-document YAML is converted to JSON arrays for compatibility
+- YAML output uses different formats for storage (block) vs. display (flow)
+- We've structured utilities to provide consistent behavior across conversion paths
+- We've prioritized robust error handling throughout the implementation
+
+## Debug Mode Implementation
+
+To address the segfault issue in the value_to_yaml function, we've implemented a debug mode with a safer alternative implementation:
+
+### YAMLDebug Class
+- Implemented a YAMLDebug class with safer versions of the problematic functions
+- Added depth tracking to prevent excessive recursion and stack overflow
+- Implemented comprehensive error handling with try/catch blocks at every level
+- Added logging capabilities for diagnostic purposes
+
+### Debug Functions
+- yaml_debug_enable(): Enables debug mode
+- yaml_debug_disable(): Disables debug mode
+- yaml_debug_is_enabled(): Checks if debug mode is enabled
+- yaml_debug_value_to_yaml(): Uses the safer implementation
+
+### Implementation Details
+- SafeEmitValueToYAML has a maximum recursion depth limit to prevent stack overflow
+- All memory operations are protected with try/catch blocks
+- Special handling for complex types like structs and lists
+- Fallback mechanisms to return valid YAML even when errors occur
+- Integrated with the original ValueToYAMLFunction through a conditional check
+
+### Testing
+- Created dedicated test files for debug mode functions
+- Test cases specifically designed to trigger edge cases
+- Tests are marked with "disabled: true" to exclude them from regular testing
+
+## Questions and Concerns
+
+1. **Performance**: How will the extension handle very large YAML files? Should we implement streaming parsing?
+2. **Type Detection**: The current type detection is basic. How comprehensive should it be?
+3. **Anchors and Aliases**: While yaml-cpp handles these internally, should we add explicit support?
+4. **Integration with JSON**: How tightly should this integrate with DuckDB's JSON functionality?
+5. **Parameter Validation**: How strict should we be with parameter type checking?
+6. **Reader Integration**: Should read_yaml_objects return the YAML type instead of parsed types?
+7. **Debug Mode Production Use**: Should we keep debug mode in production or make it a build option?
+
+## Future Features to Add
+
+1. **Stream Processing**: For large files
+2. **Advanced Type Detection**: Add support for dates, timestamps, and other complex types
+3. **YAML Modification Functions**: Allow modifying YAML structures in place
+4. **Parameter Validation Improvements**: Stricter type checking, duplicate detection
+5. **yaml_transform**: Would require binding-time type resolution (complex)
+
+## Technical Notes
+
+### YAML Type System
+- The YAML type is registered as an alias for VARCHAR
+- Explicit casts are defined for YAML→JSON, JSON→YAML, YAML→VARCHAR, and VARCHAR→YAML
+- The cast functions handle multi-document YAML properly
+- Flow format is used for display, block format for storage
+
+### Utility Functions
+- The yaml_utils namespace contains reusable functions for YAML operations
+- EmitYAML and EmitYAMLMultiDoc handle single and multi-document output
+- ParseYAML handles both single and multi-document input
+- YAMLNodeToJSON converts YAML to JSON with proper type handling
+- Configuration utilities standardize emitter behavior
+
+### Debug Mode
+- YAMLDebug class provides safer alternatives to problematic functions
+- Debug mode can be toggled on/off at runtime via SQL functions
+- SafeEmitValueToYAML prevents stack overflow with deep recursion
+- Debug functions are registered alongside regular functions
+- Integration with the original value_to_yaml function is seamless
+
+## Update Log
+
+- Initial version: Created during first conversation about simplifying the implementation
+- Update 1: Added observations about the prompter, expanded technical notes about yaml-cpp integration, and added more detail on design decisions
+- Update 2: Updated based on implementation progress - added information about test file organization, DuckDB-specific syntax for structs and lists, handling of top-level sequences, and added potential future features
+- Update 3: Updated after implementing robust parameter handling and error handling - marked completed tasks, updated current status, and refined next steps
+- Update 4: Updated with findings from our implementation of file globbing and file list support, improved error recovery, and modernizing the code with C++ best practices
+- Update 5: Added testing findings regarding parameter validation, error messages, duplicate parameters, and idiomatic C++ usage. Updated with planned improvements that have been documented in TODO.md for future implementation
+- Update 6: Added detailed information about direct file path support implementation, including technical details, integration with DuckDB's file extension system, and observations about limitations and future possibilities
+- Update 7: Fixed API compatibility issues with direct file path implementation. Replaced complex TableFunctionRef/DBConfig approach with simpler FileSystem::RegisterSubstrait method. Updated documentation and tests to reflect actual capabilities.
+- Update 8: Restructured documentation approach to use CLAUDE.md for high-level project continuity and CLAUDE_LESSONS.md for detailed technical implementation notes.
+- Update 9: After reviewing PR #4 for direct file reading implementation, noted important differences from my original approach
+- Update 10: Added detailed implementation of YAML type using VARCHAR alias with SetAlias(), including cast functions for proper type conversion between YAML, JSON, and VARCHAR. Resolved issues with type registration and implemented proper multi-document handling.
+- Update 11: Refactored code to use a yaml_utils namespace with improved utility functions. Implemented flow format for display and block format for storage. Identified and began debugging segfault in value_to_yaml function.
+- Update 12: Discovered and resolved issues with DuckDB SQLLogicTest framework handling multi-line YAML strings. Modified test approach to use flow style YAML and updated expectations for error handling given yaml-cpp's resilient parser.
+- Update 13: Implemented debug mode with YAMLDebug class to fix segfault in value_to_yaml function. Added dedicated test files and diagnostic functions. Fixed the stack overflow issue with deep recursion limits and comprehensive error handling.
+- Update 14: Released v1.5.0 with JSON parity functions. Added `->>` operator, `yaml_structure`, `yaml_contains`, `yaml_merge_patch`, `yaml_value`, and function aliases (`yaml_extract_path`, `yaml_extract_path_text`, `to_yaml`). Closed issues #23-26, #28-29, #31. Closed #27 and #30 as wontfix. Updated community-extensions PR.
+- Update 15: Closed issue #13 (jagged struct properties in glob patterns) - was already fixed in commits e6b743a and d57138e. v1.5.0 deployed to community extensions and verified working. No open issues remaining.
+- Update 16: Released v1.6.0 with extended multi-document modes. Added `frontmatter` mode (first doc as metadata, rest as data rows with `meta_` prefix columns) and `list` mode (all documents as single row with STRUCT[] column). Full backward compatibility maintained with boolean values. Added comprehensive tests (85 assertions across 11 sections).
+- Update 17: Fixed issue #33 (empty YAML maps causing STRUCT cast errors). Empty maps now return `yaml` type instead of `STRUCT()`. Updated `MergeStructTypes` and type detection to handle empty struct merging gracefully. Added test file `yaml_empty_maps.test`.
+- Update 18: Fixed issue #34 (Unity YAML files failing to parse). Added `strip_document_suffixes` parameter (default: true) to remove non-standard suffixes like Unity's `stripped` keyword from document headers. Implemented `StripDocumentSuffixes()` preprocessing function. Unity `.unity`, `.meta`, and `.prefab` files now parse correctly. Added test file `yaml_document_suffixes.test`.
+
+---
+> Source: [teaguesterling/duckdb_yaml](https://github.com/teaguesterling/duckdb_yaml) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
