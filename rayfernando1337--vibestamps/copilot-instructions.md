@@ -1,38 +1,31 @@
-## project
+## vercel-ai-sdk
 
-> Project overview: Goals, tech stack (Next.js, shadcn/ui, Bun), design system details, and development guidelines
+> Reference guide for the Vercel AI SDK, including links to documentation, core concepts, API reference, and usage examples for integrating AI models like Gemini.
 
-## Goal
+# Vercel AI SDK Documentation & Usage
 
-This project aims to create a web application that takes SubRip Text (`.srt`) files as input, processes them using the Google Gemini language model via the Vercel AI SDK, and generates meaningful timestamps or summaries based on the content.
+This rule provides quick access to documentation and key information about the Vercel AI SDK, used for integrating AI models into applications.
 
-## Tech Stack
+## Key Documentation Links
 
-- **Framework:** Next.js (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4
-- **UI Components:** shadcn/ui
-- **AI Integration:** Vercel AI SDK
-- **LLM:** Google Gemini
-- **Package Manager:** Bun
+-   **Main SDK Docs:** [https://sdk.vercel.ai/docs](mdc:https:/sdk.vercel.ai/docs)
+-   **Core Concepts:** [https://sdk.vercel.ai/docs/concepts](mdc:https:/sdk.vercel.ai/docs/concepts)
+-   **API Reference:** [https://sdk.vercel.ai/docs/api-reference](mdc:https:/sdk.vercel.ai/docs/api-reference)
+-   **Supported Models/Providers (including Google Gemini):** [https://sdk.vercel.ai/docs/providers](mdc:https:/sdk.vercel.ai/docs/providers)
+-   **Next.js Integration:** [https://sdk.vercel.ai/docs/integrations/nextjs](mdc:https:/sdk.vercel.ai/docs/integrations/nextjs)
 
-## Design System
+## Core Functions/Hooks
 
-We are using **shadcn/ui** for our component library. Components are added individually as needed.
+-   `streamText`: For streaming text responses from an API route.
+-   `generateText`: For non-streaming text generation.
+-   `streamObject`: For streaming structured JSON objects.
+-   `generateObject`: For non-streaming structured object generation.
+-   `useChat` (React Hook): For building chat interfaces.
+-   `useCompletion` (React Hook): For text completion interfaces.
 
-- **Documentation:** [https://ui.shadcn.com/docs/components/](mdc:https:/ui.shadcn.com/docs/components)
-- **Adding Components:** Use the CLI with Bun:
-  ```bash
-  bunx --bun shadcn@latest add <component-name>
-  ```
+## Provider Integration
 
-## Development Rules
-
-1.  **Package Management:** Always use `bun` for installing, removing, or managing dependencies (`bun add`, `bun install`, `bun remove`, etc.).
-2.  **UI Components:** Prefer components from `shadcn/ui` where possible. Install them using the command above.
-3.  **Environment Variables:** Store sensitive information like API keys in environment variables (`.env.local`) and do not commit them to version control.
-4.  **Code Style:** Follow standard TypeScript and React best practices. Ensure code is formatted (consider adding a formatter like Prettier later).
-5.  **Tailwind CSS v4:** Use Tailwind CSS v4 for styling. Refer to the [Tailwind CSS documentation](https://tailwindcss.com/docs) for more information.
+The SDK uses provider-specific packages (e.g., `@ai-sdk/google`, `@ai-sdk/openai`) or compatible layers (`createOpenAICompatible`) to interact with different LLMs. Remember to install the necessary provider package (e.g., `bun add @ai-sdk/google` for Gemini). 
 
 ---
 > Source: [RayFernando1337/vibestamps](https://github.com/RayFernando1337/vibestamps) — distributed by [TomeVault](https://tomevault.io).
