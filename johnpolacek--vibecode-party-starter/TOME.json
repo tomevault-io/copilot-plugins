@@ -2,7 +2,7 @@
   "name": "vibecode.party.starter",
   "owner": "johnpolacek",
   "repo": "vibecode.party.starter",
-  "description": "",
+  "description": "The full stack Next.js starter project for vibe coding.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/johnpolacek/vibecode.party.starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:25:23Z"
+  "distributed_at": "2026-05-21T03:06:06Z"
 }
