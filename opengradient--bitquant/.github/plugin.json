@@ -1,0 +1,9 @@
+{
+  "name": "opengradient--bitquant",
+  "displayName": "BitQuant",
+  "description": "BitQuant is an open-source AI agent framework for building quantitative AI agents, leveraging specialized models for ML-powered analytics, trading, portfolio management, and more.",
+  "version": "1.0.0",
+  "author": "OpenGradient",
+  "homepage": "https://github.com/OpenGradient/BitQuant",
+  "skills": []
+}
