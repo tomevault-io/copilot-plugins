@@ -1,0 +1,44 @@
+{
+  "name": "PhysIO",
+  "owner": "ComputationalPsychiatry",
+  "repo": "PhysIO",
+  "description": "Code Base of the PhysIO Toolbox for Modeling Physiological Noise in fMRI Data (Paper: https://doi.org/10.1016/j.jneumeth.2016.10.019)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ComputationalPsychiatry/PhysIO",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T19:41:43Z"
+}
