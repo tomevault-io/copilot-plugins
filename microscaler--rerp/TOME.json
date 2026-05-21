@@ -4,7 +4,7 @@
   "repo": "rerp",
   "description": "API first ERP system designed for organisations of all sizes",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/microscaler/rerp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T12:55:06Z"
+  "distributed_at": "2026-05-21T07:56:40Z"
 }
