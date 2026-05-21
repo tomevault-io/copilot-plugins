@@ -1,174 +1,55 @@
-## effect-service-test
+## handling-option-types-with-effect-pipelines
 
-> Guidelines for creating and testing effect-based services
+> When: You have an Effect that yields an Option<A> (e.g., after a findById call, or any operation that might not return a value), and you need to perform different effectful actions based on whether the Option is Some<A> or None.
 
+When: You have an Effect that yields an Option<A> (e.g., after a findById call, or any operation that might not return a value), and you need to perform different effectful actions based on whether the Option is Some<A> or None.
 
-# Effect Service Pattern for v3.16+
+Problem: Using Effect.gen with if (Option.isNone(result)) { yield* Effect.fail(...) } else { ... } can sometimes lead to confusing TypeScript type inference errors (like TS2322), where the compiler struggles to determine the exact success (A), error (E), or requirement (R) types of the overall Effect.gen block, potentially inferring unknown or undefined incorrectly.
 
-## Service Interface Definition
-
-Define a clear interface for your service first:
-
-```typescript
-// In types.ts
-export interface MyServiceInterface {
-  readonly operation1: (input: Input) => Effect.Effect<Output, MyError>;
-  readonly operation2: (id: string) => Effect.Effect<Option.Option<Entity>, MyError>;
-}
+Preferred Pattern: Use Effect.flatMap combined with Option.match.
 ```
+import { Effect, Option } from "effect";
 
-## Effect.Service Class Pattern (Canonical)
+// Assume previousEffect: Effect.Effect<Option<MyType>, SomeError, SomeRequirement>
 
-**Always use the Effect.Service class pattern for service definitions and dependency injection. Do NOT use Context.Tag directly or via class-based tag pattern.**
-
-```typescript
-// In service.ts
-export class MyService extends Effect.Service<MyServiceInterface>()("MyService", {
-  effect: Effect.gen(function* () {
-    // Implementation
-  })
-})
-```
-
-## Service Implementation
-
-Implement your service with `Effect.gen`:
-
-```typescript
-// In live.ts
-export const make = Effect.gen(function* () {
-  // Access dependencies directly with yield*
-  const dependency = yield* DependencyService
-  
-  const operation1 = (input: Input): Effect.Effect<Output, MyError> => {
-    return dependency.someMethod(input).pipe(
-      Effect.mapError(err => new MyError({ cause: err }))
-    );
-  };
-  
-  const operation2 = (id: string): Effect.Effect<Option.Option<Entity>, MyError> => {
-    // Implementation
-  };
-  
-  return {
-    operation1,
-    operation2
-  };
-});
-
-// Create the layer
-export const MyServiceLiveLayer = Layer.effect(
-  MyService,
-  make
+const resultingEffect = previousEffect.pipe(
+  Effect.flatMap(Option.match({
+    // Handler for the None case (value is absent)
+    onNone: () => {
+      // Typically fail with a specific error indicating "not found"
+      return Effect.fail(new NotFoundError("Resource not found"));
+      // Or, if appropriate, succeed with a default value:
+      // return Effect.succeed(defaultValue);
+    },
+    // Handler for the Some case (value is present)
+    onSome: (actualValue: MyType) => {
+      // Perform further effectful operations using actualValue
+      return Effect.gen(function* () {
+        // Example: Use the value in another service call
+        const nextResult = yield* someOtherService.process(actualValue);
+        // ... more steps ...
+        return nextResult; // Return the final success value for this branch
+      }).pipe(
+        // Map errors specific to this branch if necessary
+        Effect.mapError((cause) => new ProcessingError("Failed during processing", { cause }))
+      );
+    }
+  }))
+  // The resultingEffect's type signature will correctly combine:
+  // A: The success type from the onSome branch (or onNone if it succeeds)
+  // E: The union of errors from previousEffect, onNone (fail), and onSome (fail/mapError)
+  // R: The union of requirements from previousEffect and the onSome branch
 );
 ```
 
-## Consuming Services
+Benefits:
 
-Access services in Effect.gen functions:
+Improved Type Inference: This pattern explicitly defines the control flow and the resulting Effect type for both the Some and None cases, generally leading to more reliable type inference by TypeScript.
+Clearer Separation: It clearly separates the logic for handling the presence or absence of the value.
+Explicit Error Handling: The onNone branch provides a natural place to introduce specific "not found" errors into the Effect's error channel (E).
+Composition: It aligns well with Effect's compositional nature, using standard operators (flatMap, match) designed for these scenarios.
 
-```typescript
-const program = Effect.gen(function* () {
-  // Access service directly with yield*
-  const myService = yield* MyService;
-  
-  // Use the service
-  const result = yield* myService.operation1(input);
-  
-  return result;
-});
-```
-
-## Layer Composition
-
-Compose service layers properly:
-
-```typescript
-// Combine individual layers
-const AppLayer = Layer.mergeAll(
-  ServiceA.Live,
-  ServiceB.Live,
-  ServiceC.Live
-);
-
-// Use Layer.provide for sequential dependencies 
-const LayerWithDependency = Layer.provide(
-  DependencyLayer,
-  DependentServiceLayer
-);
-```
-
-## Testing Services Using the Test Harness
-
-Use the standard test harness utility to avoid type inference issues:
-
-```typescript
-// Import the test harness utility
-import { createServiceTestHarness } from "@/services/core/test-utils/effect-test-harness.js";
-
-// Create test implementation
-const createTestImpl = () => {
-  return Effect.gen(function* () {
-    // Create any needed state
-    const store = yield* Ref.make(new Map());
-    
-    // Implement service methods
-    const operation1 = (input: Input): Effect.Effect<Output, MyError> => {
-      // Test implementation
-    };
-    
-    return {
-      operation1,
-      // Other methods
-    };
-  });
-};
-
-// Create the test harness for the service
-const serviceHarness = createServiceTestHarness(
-  MyService,  // Pass the service class
-  createTestImpl // Pass the implementation factory
-);
-
-// In your tests
-it("should perform operation1 successfully", async () => {
-  const effect = Effect.gen(function* () {
-    const service = yield* MyService;
-    const result = yield* service.operation1(testInput);
-    expect(result).toEqual(expectedOutput);
-    return result;
-  });
-  
-  // Run the test with the harness
-  await serviceHarness.runTest(effect);
-});
-
-// Test error cases
-it("should fail with specific error", async () => {
-  const effect = Effect.gen(function* () {
-    const service = yield* MyService;
-    return yield* service.operation2("invalid-id");
-  });
-  
-  // Assert specific error
-  await serviceHarness.expectError(effect, "MySpecificErrorTag");
-});
-```
-
-The test harness provides these utilities:
-
-- `runTest`: Run effects expecting success
-- `runFailTest`: Run effects expecting failure, returns Exit state
-- `expectError`: Assert a specific error tag was thrown
-- `TestLayer`: Access the layer directly if needed
-
-## Common Mistakes to Avoid
-
-1. **DO NOT** use `Context.Tag` or any explicit tag property—use only the Effect.Service class pattern for all service definitions and dependency injection.
-2. **DO NOT** use `Context.GenericTag`.
-3. **DO NOT** use function parameter in `Effect.gen` like `function* (_)`—use direct yielding.
-4. **DO NOT** forget to handle errors explicitly in your service implementation.
-5. **DO NOT** mix different versions of the Effect pattern in the same codebase. 
+Recommendation: When handling an Option resulting from an Effectful operation where the subsequent steps are also Effectful and differ based on the Option's state, prefer using Effect.flatMap(Option.match({ onNone: ..., onSome: ... })) over conditional logic within Effect.gen.
 
 ---
 > Source: [PaulJPhilp/EffectiveAgent](https://github.com/PaulJPhilp/EffectiveAgent) — distributed by [TomeVault](https://tomevault.io).
