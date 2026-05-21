@@ -1,0 +1,9 @@
+{
+  "name": "gasstationmanager--leantool",
+  "displayName": "LeanTool",
+  "description": "A \"code intepreter\" for Lean",
+  "version": "1.0.0",
+  "author": "GasStationManager",
+  "homepage": "https://github.com/GasStationManager/LeanTool",
+  "skills": []
+}
