@@ -1,127 +1,93 @@
-## effect-best-practices
+## effect-filesystem
 
-> description: Comprehensive patterns and best practices for Effect-based TypeScript applications
+> Patterns for using FileSystem with Effect
 
----
-description: Comprehensive patterns and best practices for Effect-based TypeScript applications
-globs: **/*.ts
----
-# Effect Best Practices
+# Effect FileSystem Patterns
 
-## Core Patterns
-
-### Service Architecture
-- Always use `Effect.Service` for defining and providing services
-- Define interfaces with readonly methods and Effect return types
-- Implement services as classes or factory functions using Effect.Service
-- Keep services focused on single responsibility
+## Basic Setup
 ```typescript
-// Interface definition
-export interface ILoggingService {
-    readonly getLogger: (name?: string) => Effect.Effect<Logger>
-}
+import { FileSystem } from "@effect/platform"
+import { NodeContext } from "@effect/platform-node"
+import { Effect } from "effect"
+```
 
-// Service class definition (Effect.Service pattern)
-export class LoggingService extends Effect.Service<ILoggingService>()("LoggingService", {
-    effect: Effect.gen(function* () {
-        // Implementation
+## Core Pattern
+Always use the FileSystem service through Effect.gen and provide NodeContext.layer:
+
+```typescript
+const program = Effect.gen(function* () {
+    const fs = yield* FileSystem.FileSystem
+    // Use fs for operations
+})
+
+// Run with NodeContext
+await Effect.runPromise(
+    program.pipe(
+        Effect.provide(NodeContext.layer)
+    )
+)
+```
+
+## Common Operations
+
+### Check File Existence
+```typescript
+const exists = yield* fs.exists("./path/to/file")
+```
+
+### Read/Write Files
+```typescript
+// Write
+yield* fs.writeFileString("./file.txt", content)
+
+// Read
+const content = yield* fs.readFileString("./file.txt", "utf8")
+```
+
+### Directory Operations
+```typescript
+// Create
+yield* fs.makeDirectory("./dir")
+
+// Remove (with recursive option for non-empty directories)
+yield* fs.remove("./dir", { recursive: true })
+```
+
+## Best Practices
+
+1. Always provide NodeContext.layer when running FileSystem operations
+2. Use recursive: true when removing directories that might not be empty
+3. Clean up test files/directories after tests
+4. Handle errors appropriately using Effect's error channel
+5. Use relative paths starting with "./" for clarity
+
+## Testing Pattern
+```typescript
+describe("FileSystem Example", () => {
+    it("should perform file operations", async () => {
+        const program = Effect.gen(function* () {
+            const fs = yield* FileSystem.FileSystem
+            // Perform operations
+            // Clean up after test
+        })
+
+        const result = await Effect.runPromise(
+            program.pipe(
+                Effect.provide(NodeContext.layer)
+            )
+        )
+        // Assert results
     })
 })
 ```
 
-### Effect Generation & Composition
-- Use `Effect.gen` for complex operations
-- Chain operations using `pipe()`
-- Use `yield*` for dependency access
-- Compose effects using `flatMap` for sequential operations
-```typescript
-return Effect.gen(function* () {
-    const service = yield* LoggingService
-    const config = yield* service.getConfig()
-    const result = yield* performOperation(config)
-    return result
-}).pipe(
-    Effect.mapError(e => new DomainError("Operation failed", { cause: e }))
-)
-```
-
-### Error Handling
-- Define domain-specific error hierarchies
-- Use `Effect.fail` instead of throwing errors
-- Handle all error cases explicitly
-- Preserve error context using cause
-
-### Type Safety
-- Define explicit Effect return types
-- Use type parameters for generic operations
-- Create union types for error cases
-- Use branded types for type-safe identifiers
-
-## Advanced Patterns
-
-### Performance & Concurrency
-- Use `Effect.forEach` with concurrency control
-- Add timeouts to long-running operations
-- Track operation timing with performance metrics
-
-### Resource Management
-- Use `Effect.acquireRelease` for cleanup
-- Ensure proper resource scoping
-- Handle cleanup in error cases
-
-### Configuration & State
-- Use Effect for configuration loading
-- Validate configurations at load time
-- Provide type-safe access to values
-
-### Logging & Monitoring
-- Use structured logging
-- Add context annotations
-- Track timing information
-
-## Testing Patterns
-
-### Test Structure
-- Group tests by feature/method
-- Use descriptive names
-- Follow Arrange-Act-Assert
-
-### Mock Services
-- Create interface-compliant mocks
-- Use Effect.succeed/fail for paths
-- Reset state between tests
-
-### Testing Effects
-- Test success and error paths
-- Verify error types and messages
-- Check state changes and interactions
-
-## Best Practices
-1. Always use `Effect.Service` for defining and providing services
-2. Keep services focused and interfaces small
-3. Use Effect for all async/fallible operations
-4. Handle all error cases explicitly
-5. Make error handling predictable and consistent
-6. Use proper dependency injection via Effect.Service class
-7. Keep effects pure and predictable
-8. Add timeouts to external operations
-9. Track performance metrics
-10. Test both success and error paths
-11. Document public interfaces and effects
-
 ## Anti-patterns to Avoid
-1. **Do not use `Context.Tag` directly or via class-based pattern.**
-   - Explicit Context.Tag usage is forbidden. Use the Effect.Service class pattern for all service definitions and dependency injection.
-2. Don't mix Effect with Promise-based code
-3. Don't throw errors in Effect chains
-4. Don't use type assertions unnecessarily
-5. Don't ignore error cases
-6. Don't skip resource cleanup
-7. Don't mix sync and async code without Effect
-8. Don't bypass the Effect type system
-9. Don't use global state
-10. Don't test implementation details
-11. Don't use real services in unit tests
+
+1. Don't use Node's fs module directly - use Effect's FileSystem
+2. Don't forget to provide NodeContext.layer
+3. Don't leave test files/directories uncleaned
+4. Don't use absolute paths in tests
+5. Don't mix Promise-based fs operations with Effect 
 
 ---
 > Source: [PaulJPhilp/EffectiveAgent](https://github.com/PaulJPhilp/EffectiveAgent) — distributed by [TomeVault](https://tomevault.io).
