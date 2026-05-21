@@ -1,184 +1,156 @@
-## supabase-auth-implementation
+## translation-guidelines
 
-> Always when need client-server authentication
+> The localization system organizes translations by:
 
-# Supabase OAuth Implementation Patterns
+# Translation Guidelines for JSON Localization Files
 
-This guide documents the patterns for implementing OAuth authentication with Supabase in a Next.js application that uses internationalization (next-intl).
+## File Structure
 
-## Key Files
+The localization system organizes translations by:
+- **Locale directories**: `en/`, `fi/`, `sv/`
+- **Namespace files**: Correspond to application features (e.g., `Blog.json`, `Footer.json`)
 
-- [app/auth/callback/route.ts](mdc:app/auth/callback/route.ts) - Non-locale-prefixed callback handler
-- [components/auth/SignInForm.tsx](mdc:components/auth/SignInForm.tsx) - OAuth sign-in form
-- [components/auth/RegisterForm.tsx](mdc:components/auth/RegisterForm.tsx) - OAuth registration form
-- [middleware.ts](mdc:middleware.ts) - Middleware that handles locale and auth
-- [supabase/config.toml](mdc:supabase/config.toml) - Supabase configuration
-
-## Implementation Strategy
-
-### 1. Auth Callback Handling
-
-The key to successful OAuth implementation with next-intl is having a non-locale-prefixed callback handler:
-
-```typescript
-// app/auth/callback/route.ts
-export async function GET(request: Request) {
-  const requestUrl = new URL(request.url)
-  const code = requestUrl.searchParams.get('code')
-  
-  // Extract locale from referrer or set default
-  let userLocale = defaultLocale;
-  
-  // Skip server-side code exchange
-  // Instead, add the code to URL fragment for client-side handling
-  const finalRedirectUrl = new URL(`/${userLocale}/`, requestUrl.origin);
-  finalRedirectUrl.hash = `access_token=&refresh_token=&provider_token=&provider_refresh_token=&type=recovery&code=${code}`;
-  
-  return NextResponse.redirect(finalRedirectUrl);
-}
+Example structure:
+```
+messages/
+├── en/                  # English translations
+│   ├── Index.json       # Homepage translations
+│   ├── Blog.json        # Blog-related translations
+│   └── ...
+├── fi/                  # Finnish translations
+├── sv/                  # Swedish translations
+└── ...
 ```
 
-### 2. OAuth Provider Configuration
+## Translation Principles
 
-Configure Supabase with proper redirect URLs:
+1. **Context is Key**
+   - Before translating, examine how the text appears in the UI
+   - Check relevant components using the text to understand usage context
+   - Compare across namespaces to maintain consistent terminology
 
-```toml
-# supabase/config.toml
-[auth]
-site_url = "http://localhost:3000"
-additional_redirect_urls = [
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-  "http://localhost:3000/auth/callback",
-  "http://localhost:54321/auth/v1/callback"
-]
-```
+2. **Namespace-Specific Terminology**
+   - Each namespace may have specific terminology
+   - Maintain consistent translations for repeated terms within a namespace
+   - Analyze the JSON structure for conceptual organization
 
-### 3. Auth UI Components
+3. **Natural Language Over Literal Translations**
+   - **DO NOT** translate word-for-word
+   - Prioritize natural, idiomatic expressions in each target language
+   - Adapt phrases to sound natural to native speakers
 
-Set up OAuth providers in your auth forms:
+4. **Handling Placeholders**
+   - Preserve all placeholders: `{name}`, `{count}`, `{date}`, etc.
+   - Adjust surrounding grammar to accommodate placeholders
+   - Consider variable content when structuring sentences
 
-```typescript
-// components/auth/SignInForm.tsx or RegisterForm.tsx
-const authOptions = {
-  supabaseClient: supabase,
-  view: 'sign_in', // or 'sign_up'
-  providers: ['github', 'google'],
-  redirectTo: `${window.location.origin}/auth/callback`,
-  // ... other options
-}
-```
+5. **Formatting Rules**
+   - Maintain JSON structure and formatting consistency
+   - Use UTF-8 encoding for all files
+   - Ensure proper escaping of special characters
+   - Use 2-space indentation
 
-### 4. Middleware Configuration
+## Language-Specific Guidelines
 
-Update middleware to bypass locale handling for auth routes:
+### English (en)
+- Use clear, concise phrasing
+- Follow American English conventions unless otherwise specified
+- Use sentence case for most UI elements (capitalize first word only)
+- Avoid idioms that may not translate well to other languages
 
-```typescript
-// middleware.ts
-export async function middleware(request: NextRequest) {
-  // Skip middleware for auth callback
-  if (
-    request.nextUrl.pathname === '/auth/callback'
-  ) {
-    return NextResponse.next()
+### Finnish (fi)
+- Adjust for grammatical cases appropriately
+- Remember that Finnish words are often longer than English equivalents
+- Consider compound word formation rules (yhdyssanat)
+- Use appropriate formal/informal tone (generally more formal for business apps)
+- Consider differences in sentence structure compared to English
+
+### Swedish (sv)
+- Pay attention to definite/indefinite forms
+- Use appropriate formal/informal tone ("ni" vs "du")
+- Consider gender agreement in adjectives
+- Maintain natural word order in questions and statements
+- Pay attention to "en" and "ett" words and their different plural forms
+
+## Implementation Process
+
+1. **Translation Workflow**
+   - Identify the target namespace files in each locale folder
+   - Compare existing translations for similar keys
+   - Draft translations that match the tone and style of the application
+   - Review in context if possible
+
+2. **Quality Control**
+   - Run `npm run check-translations` to verify completeness
+   - Review translation in UI context when possible
+   - If available, get feedback from native speakers
+
+## Examples
+
+### Basic Translation Example
+
+English (en/Common.json):
+```json
+{
+  "errorMessages": {
+    "notFound": "The requested resource was not found.",
+    "serverError": "An unexpected error occurred. Please try again later."
   }
-  
-  // Handle other routes with locale
-  // ...
 }
 ```
 
-## Database User Handling
-
-For properly handling OAuth user profiles, create a migration:
-
-```sql
--- Handle data from various OAuth providers
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-DECLARE
-  username_val TEXT;
-  full_name_val TEXT;
-  email_val TEXT;
-  avatar_url_val TEXT;
-BEGIN
-  -- Extract email from auth.users
-  SELECT email INTO email_val FROM auth.users WHERE id = NEW.id;
-  
-  -- Handle provider-specific metadata extraction
-  IF NEW.raw_user_meta_data->>'iss' = 'https://accounts.google.com' THEN
-    -- Extract Google user data
-    username_val := COALESCE(
-      NEW.raw_user_meta_data->>'name',
-      split_part(email_val, '@', 1)
-    );
-    avatar_url_val := NEW.raw_user_meta_data->>'avatar_url';
-  ELSIF NEW.raw_user_meta_data->>'provider' = 'github' THEN
-    -- Extract GitHub user data
-    username_val := COALESCE(
-      NEW.raw_user_meta_data->>'preferred_username',
-      NEW.raw_user_meta_data->>'user_name',
-      split_part(email_val, '@', 1)
-    );
-    avatar_url_val := NEW.raw_user_meta_data->>'avatar_url';
-  ELSE
-    -- Default fallback for other providers
-    username_val := COALESCE(
-      NEW.raw_user_meta_data->>'preferred_username',
-      NEW.raw_user_meta_data->>'name',
-      split_part(email_val, '@', 1),
-      'user_' || NEW.id
-    );
-    avatar_url_val := NEW.raw_user_meta_data->>'avatar_url';
-  END IF;
-  
-  -- Create profile record
-  INSERT INTO public.profiles (id, username, email, avatar_url, created_at, updated_at)
-  VALUES (
-    NEW.id,
-    username_val,
-    email_val,
-    avatar_url_val,
-    NEW.created_at,
-    NEW.created_at
-  );
-  
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+Finnish (fi/Common.json):
+```json
+{
+  "errorMessages": {
+    "notFound": "Pyydettyä resurssia ei löytynyt.",
+    "serverError": "Tapahtui odottamaton virhe. Yritä myöhemmin uudelleen."
+  }
+}
 ```
 
-## Common Issues and Solutions
+Swedish (sv/Common.json):
+```json
+{
+  "errorMessages": {
+    "notFound": "Den begärda resursen kunde inte hittas.",
+    "serverError": "Ett oväntat fel inträffade. Försök igen senare."
+  }
+}
+```
 
-1. **PKCE Flow Issues**:
-   - If getting `both auth code and code verifier should be non-empty` errors, use client-side code exchange instead of server-side.
-   - Keep the callback route outside locale-prefixed paths.
+### Placeholder Example
 
-2. **Cookie Domain Problems**:
-   - For local development, ensure cookies don't have strict same-site policy.
-   - In middleware, set cookie options appropriately:
-   ```typescript
-   options.sameSite = 'lax'  // Not 'strict'
-   ```
+English (en/Profile.json):
+```json
+{
+  "welcome": "Welcome back, {name}! You have {count} new notifications."
+}
+```
 
-3. **Auth Middleware Conflicts**:
-   - Bypass internationalization middleware for auth callback paths
-   - Ensure auth routes are handled before locale routes
+Finnish (fi/Profile.json):
+```json
+{
+  "welcome": "Tervetuloa takaisin, {name}! Sinulla on {count} uutta ilmoitusta."
+}
+```
 
-4. **OAuth Provider Setup**:
-   - Add all possible callback URLs to the `additional_redirect_urls` list
-   - Use appropriate environment variables for provider credentials
-   - For development, set `skip_nonce_check = true` for providers that require it
+Swedish (sv/Profile.json):
+```json
+{
+  "welcome": "Välkommen tillbaka, {name}! Du har {count} nya aviseringar."
+}
+```
 
-## Testing Authentication
+### Pluralization Considerations
 
-When testing authentication:
+Remember that different languages handle pluralization differently:
 
-1. Inspect network requests to identify any redirect or CORS issues
-2. Check browser console for Supabase client errors
-3. Examine cookies to ensure proper session storage
-4. Test both sign-in and sign-up flows
-5. Verify profile creation in the database after successful OAuth auth
+English: "1 item" vs "2 items"
+Finnish: "1 kohde" vs "2 kohdetta"
+Swedish: "1 objekt" vs "2 objekt"
+
+Adapt translations appropriately for grammatical number rules in each language.
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
