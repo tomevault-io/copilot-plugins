@@ -1,0 +1,9 @@
+{
+  "name": "prashamtrivedi--valtown-mcp-server",
+  "displayName": "valtown-mcp-server",
+  "description": "ValTown MCP Server - Execute ValTown functions from AI assistants",
+  "version": "1.0.0",
+  "author": "PrashamTrivedi",
+  "homepage": "https://github.com/PrashamTrivedi/valtown-mcp-server",
+  "skills": []
+}
