@@ -1,0 +1,9 @@
+{
+  "name": "rmusser01--tldw-chatbook",
+  "displayName": "tldw_chatbook",
+  "description": "Standalone Client for tldw_server; NotebookLM(+more) in your terminal; No tracking/Can run entirely offline",
+  "version": "1.0.0",
+  "author": "rmusser01",
+  "homepage": "https://github.com/rmusser01/tldw_chatbook",
+  "skills": []
+}
