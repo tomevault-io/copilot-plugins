@@ -1,0 +1,44 @@
+{
+  "name": "mp-lens",
+  "owner": "chess99",
+  "repo": "mp-lens",
+  "description": "\u2702\ufe0f \u4e00\u952e\u6e05\u7406\u5c0f\u7a0b\u5e8f\u9879\u76ee\u4e2d\u672a\u4f7f\u7528\u7684\u6587\u4ef6\u3001\u4f9d\u8d56\u9879\u548c\u5bfc\u51fa\u9879\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chess99/mp-lens",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T09:43:04Z"
+}
