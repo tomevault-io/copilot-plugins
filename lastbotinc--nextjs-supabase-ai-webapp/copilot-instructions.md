@@ -1,323 +1,757 @@
-## add-data-model
+## admin-api-protection
 
-> Add or modify a new datamodel in supabase
+> Instructions for implementing Admin API protection
 
 ---
-description: Add or modify a new datamodel in supabase
-globs: *.sql, /supabase/*
+description: Instructions for implementing Admin API protection
+globs: /app/api/*/*.ts
 ---
+# Admin API Implementation Pattern
 
+## Context
+In web applications, certain operations need to be restricted to admin users only. This pattern provides a complete implementation guide for admin-only APIs in a Next.js application using Supabase authentication.
 
-# Data Model Security Patterns
+## Implementation Guide
 
-This document describes the security patterns and policies for different types of resources in our Next.js application using Supabase Row Level Security (RLS).
+### 1. Database Setup
 
-Generic instructions on adding a new datamodel:
-1. Always read [datamodel.md](mdc:docs/datamodel.md) for existing datamodel description and [description.md](mdc:docs/description.md) for overall description of the app
-2. Implement a new migration file using supabase cli
-3. Construct the datamodel using guidance in this file
-4. Run the data migration locally using supabase db push in cli
+1. **Admin Flag in Profiles Table**
+   ```sql
+   create table public.profiles (
+     id uuid references auth.users primary key,
+     is_admin boolean default false,
+     -- other fields...
+   );
+   ```
 
-If you need to reset the whole database, always ask before doing it.
-Reset by: supabase db reset
-After reset run all db inilisations as described in [README.md](mdc:README.md)
+2. **Row Level Security (RLS) Policies**
+   ```sql
+   -- Only admins can view all profiles
+   create policy "Admins can view all profiles"
+   on public.profiles for select
+   to authenticated
+   using (
+     auth.uid() in (
+       select id from public.profiles
+       where is_admin = true
+     )
+   );
+   ```
 
-## Access Levels
+### 2. Server-Side Implementation
 
-### 1. Public Access
-Resources that are accessible to all users without authentication.
+1. **Create Admin API Route**
+   ```typescript
+   // app/api/[admin-route]/route.ts
+   import { NextResponse } from 'next/server'
+   import { createClient } from '@/utils/supabase/server'
 
-```sql
--- Basic public read access
-create policy "Public read access"
-  on table_name for select
-  using ( true );
+   export async function POST(request: Request) {
+     try {
+       // 1. Token Verification Layer
+       const authHeader = request.headers.get('Authorization')
+       if (!authHeader?.startsWith('Bearer ')) {
+         return NextResponse.json(
+           { error: 'Missing or invalid authorization header' },
+           { status: 401 }
+         )
+       }
 
--- Public read access with conditions
-create policy "Public read access with conditions"
-  on table_name for select
-  using ( 
-    published = true and 
-    expires_at > now() 
-  );
+       // Create regular client to verify the token
+       const authClient = createClient()
+       const { data: { user }, error: authError } = await authClient.auth.getUser(authHeader.split(' ')[1])
+       
+       if (authError || !user) {
+         return NextResponse.json(
+           { error: 'Unauthorized' },
+           { status: 401 }
+         )
+       }
 
--- Public create access with validation
-create policy "Public create access"
-  on table_name for insert
-  with check (
-    char_length(name) >= 2 and
-    email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
-  );
-```
+       // 2. Admin Role Verification Layer
+       const { data: profile } = await authClient
+         .from('profiles')
+         .select('is_admin')
+         .eq('id', user.id)
+         .single()
 
-### 2. Authenticated Access
-Resources that require user authentication but not specific roles.
+       if (!profile?.is_admin) {
+         return NextResponse.json(
+           { error: 'Forbidden - Admin access required' },
+           { status: 403 }
+         )
+       }
 
-```sql
--- Basic authenticated access
-create policy "Authenticated read access"
-  on table_name for select
-  using ( auth.role() = 'authenticated' );
+       // 3. Service Role Operations Layer
+       const supabase = createClient(undefined, true) // Create service role client
+       
+       // Get request data
+       const data = await request.json()
+       
+       // Perform admin operations with service role client
+       const { data: result, error: operationError } = await supabase
+         .from('your_table')
+         .insert(data)
+         .select()
+         .single()
 
--- Owner-based access
-create policy "Owner access"
-  on table_name for all
-  using ( auth.uid() = user_id );
+       if (operationError) throw operationError
+       
+       return NextResponse.json({ data: result })
+     } catch (err) {
+       console.error('Error:', err)
+       return NextResponse.json(
+         { error: err instanceof Error ? err.message : 'Internal server error' },
+         { status: 500 }
+       )
+     }
+   }
+   ```
 
--- Team-based access
-create policy "Team access"
-  on table_name for all
-  using (
-    auth.uid() in (
-      select member_id 
-      from team_members 
-      where team_id = table_name.team_id
-    )
-  );
-```
+### 3. Client-Side Implementation
 
-### 3. Admin Access
-Resources that require admin privileges.
+1. **Admin Component with Auth Check**
+   ```typescript
+   // components/admin/AdminComponent.tsx
+   'use client'
+   
+   import { useEffect, useState } from 'react'
+   import { createClient } from '@/utils/supabase/client'
+   import { useRouter } from 'next/navigation'
 
-```sql
--- Admin-only access
-create policy "Admin access"
-  on table_name for all
-  using (
-    exists (
-      select 1 from profiles
-      where id = auth.uid()
-      and is_admin = true
-    )
-  );
+   export default function AdminComponent() {
+     const [isAdmin, setIsAdmin] = useState<boolean>(false)
+     const [loading, setLoading] = useState(true)
+     const supabase = createClient()
+     const router = useRouter()
 
--- Admin or owner access
-create policy "Admin or owner access"
-  on table_name for all
-  using (
-    auth.uid() = user_id or
-    exists (
-      select 1 from profiles
-      where id = auth.uid()
-      and is_admin = true
-    )
-  );
-```
+     useEffect(() => {
+       async function checkAdminStatus() {
+         try {
+           const { data: { session } } = await supabase.auth.getSession()
+           if (!session) {
+             router.push('/login')
+             return
+           }
 
-## Policy Patterns
+           const { data: profile } = await supabase
+             .from('profiles')
+             .select('is_admin')
+             .eq('id', session.user.id)
+             .single()
 
-### 1. Content Management
-```sql
--- Published content visible to all
-create policy "Public can view published content"
-  on content for select
-  using ( published = true );
+           if (!profile?.is_admin) {
+             router.push('/unauthorized')
+             return
+           }
 
--- Draft content visible to authors and admins
-create policy "Authors and admins can view drafts"
-  on content for select
-  using (
-    auth.uid() = author_id or
-    exists (
-      select 1 from profiles
-      where id = auth.uid()
-      and is_admin = true
-    )
-  );
+           setIsAdmin(true)
+         } catch (error) {
+           console.error('Error checking admin status:', error)
+           router.push('/error')
+         } finally {
+           setLoading(false)
+         }
+       }
 
--- Only authors can create content
-create policy "Authors can create content"
-  on content for insert
-  with check ( auth.role() = 'authenticated' );
+       checkAdminStatus()
+     }, [supabase, router])
 
--- Only authors can update their content
-create policy "Authors can update own content"
-  on content for update
-  using ( auth.uid() = author_id );
-```
+     if (loading) return <div>Loading...</div>
+     if (!isAdmin) return null
 
-### 2. User Data Management
-```sql
--- Users can view own data
-create policy "Users can view own data"
-  on user_data for select
-  using ( auth.uid() = user_id );
+     return (
+       // Your admin UI here
+     )
+   }
+   ```
 
--- Users can update own data
-create policy "Users can update own data"
-  on user_data for update
-  using ( auth.uid() = user_id )
-  with check (
-    case
-      when auth.uid() = user_id then true
-      else false
-    end
-  );
+2. **Admin API Client**
+   ```typescript
+   // utils/adminApi.ts
+   import { createClient } from '@/utils/supabase/client'
 
--- Admins can view all user data
-create policy "Admins can view all user data"
-  on user_data for select
-  using (
-    exists (
-      select 1 from profiles
-      where id = auth.uid()
-      and is_admin = true
-    )
-  );
-```
+   export class AdminApi {
+     private static async getAuthHeader() {
+       const supabase = createClient()
+       const { data: { session } } = await supabase.auth.getSession()
+       if (!session?.access_token) throw new Error('Not authenticated')
+       return `Bearer ${session.access_token}`
+     }
 
-### 3. Media Management
-```sql
--- Public can view media
-create policy "Public can view media"
-  on media_assets for select
-  using ( true );
+     static async callAdminApi(endpoint: string, data: any) {
+       try {
+         const authHeader = await this.getAuthHeader()
+         
+         const response = await fetch(`/api/${endpoint}`, {
+           method: 'POST',
+           headers: {
+             'Authorization': authHeader,
+             'Content-Type': 'application/json'
+           },
+           body: JSON.stringify(data)
+         })
 
--- Users can upload media
-create policy "Users can upload media"
-  on media_assets for insert
-  with check (
-    auth.uid() = user_id and
-    file_size <= 10485760 and  -- 10MB limit
-    mime_type in ('image/jpeg', 'image/png', 'image/webp')
-  );
+         if (!response.ok) {
+           const error = await response.json()
+           if (response.status === 401) {
+             window.location.href = '/login'
+             return
+           }
+           if (response.status === 403) {
+             window.location.href = '/unauthorized'
+             return
+           }
+           throw new Error(error.error || 'API call failed')
+         }
 
--- Users can manage own media
-create policy "Users can manage own media"
-  on media_assets for all
-  using ( auth.uid() = user_id );
-```
+         return response.json()
+       } catch (error) {
+         console.error('Admin API error:', error)
+         throw error
+       }
+     }
+   }
+   ```
 
-### 4. Analytics and Logging
-```sql
--- Anyone can create analytics events
-create policy "Public can create analytics"
-  on analytics_events for insert
-  with check ( true );
+### 4. Usage Examples
 
--- Only admins can view analytics
-create policy "Admins can view analytics"
-  on analytics_events for select
-  using (
-    exists (
-      select 1 from profiles
-      where id = auth.uid()
-      and is_admin = true
-    )
-  );
-```
+1. **Blog Post Management**
+   ```typescript
+   // Example: Creating a blog post
+   try {
+     const result = await AdminApi.callAdminApi('blog', {
+       title: 'New Post',
+       content: 'Post content...',
+       published: false
+     })
+     console.log('Post created:', result)
+   } catch (error) {
+     console.error('Error creating post:', error)
+   }
+   ```
 
-## Implementation Examples
+2. **User Management**
+   ```typescript
+   // Example: Updating user roles
+   try {
+     const result = await AdminApi.callAdminApi('users/roles', {
+       userId: 'user-id',
+       role: 'editor'
+     })
+     console.log('Role updated:', result)
+   } catch (error) {
+     console.error('Error updating role:', error)
+   }
+   ```
 
-### 1. Blog System
-```sql
--- Posts table policies
-create policy "Public can view published posts"
-  on posts for select using ( published = true );
+### 5. Error Handling
 
-create policy "Authors can view all own posts"
-  on posts for select using ( auth.uid() = author_id );
+1. **Client-Side Error Handling**
+   ```typescript
+   try {
+     await AdminApi.callAdminApi('endpoint', data)
+   } catch (error) {
+     if (error.message.includes('Not authenticated')) {
+       // Handle authentication error
+       router.push('/login')
+     } else if (error.message.includes('Forbidden')) {
+       // Handle authorization error
+       router.push('/unauthorized')
+     } else {
+       // Handle other errors
+       toast.error('Operation failed')
+     }
+   }
+   ```
 
-create policy "Authors can create posts"
-  on posts for insert
-  with check ( auth.role() = 'authenticated' );
+2. **Server-Side Error Handling**
+   ```typescript
+   try {
+     // Your operation
+   } catch (err) {
+     console.error('Operation error:', err)
+     return NextResponse.json({
+       error: err instanceof Error ? err.message : 'Internal server error',
+       code: err.code // Include error code if available
+     }, {
+       status: err.status || 500
+     })
+   }
+   ```
 
-create policy "Authors can update own posts"
-  on posts for update using ( auth.uid() = author_id );
+### 6. Security Considerations
 
--- Comments table policies
-create policy "Public can view comments"
-  on comments for select using ( true );
+1. **Token Management**
+   - Use short-lived access tokens
+   - Implement token refresh logic
+   - Store tokens in HTTP-only cookies
+   - Clear all tokens on logout
 
-create policy "Authenticated users can create comments"
-  on comments for insert
-  with check ( auth.role() = 'authenticated' );
+2. **API Security**
+   - Use HTTPS in production
+   - Implement rate limiting
+   - Add request logging
+   - Use proper CORS settings
 
-create policy "Users can update own comments"
-  on comments for update using ( auth.uid() = author_id );
-```
+3. **Database Security**
+   - Use RLS policies
+   - Audit sensitive operations
+   - Use service role only when necessary
 
-### 2. Contact Form System
-```sql
--- Contacts table policies
-create policy "Anyone can create contacts"
-  on contacts for insert
-  with check ( true );
+### 7. Testing
 
-create policy "Only authenticated users can view contacts"
-  on contacts for select
-  using ( auth.role() = 'authenticated' );
+1. **Authentication Tests**
+   ```typescript
+   describe('Admin API Authentication', () => {
+     it('should reject requests without token', async () => {
+       const response = await fetch('/api/admin/endpoint')
+       expect(response.status).toBe(401)
+     })
 
-create policy "Only admins can update contacts"
-  on contacts for update
-  using (
-    exists (
-      select 1 from profiles
-      where id = auth.uid()
-      and is_admin = true
-    )
-  );
-```
+     it('should reject non-admin users', async () => {
+       const response = await fetch('/api/admin/endpoint', {
+         headers: {
+           'Authorization': `Bearer ${nonAdminToken}`
+         }
+       })
+       expect(response.status).toBe(403)
+     })
+   })
+   ```
 
-### 3. Translation System
-```sql
--- Languages table policies
-create policy "Public can view enabled languages"
-  on languages for select
-  using ( enabled = true );
-
-create policy "Admins can manage languages"
-  on languages for all
-  using (
-    exists (
-      select 1 from profiles
-      where id = auth.uid()
-      and is_admin = true
-    )
-  );
-
--- Translations table policies
-create policy "Public can view translations"
-  on translations for select using ( true );
-
-create policy "Only authenticated users can manage translations"
-  on translations for all
-  using ( auth.role() = 'authenticated' );
-```
+2. **Integration Tests**
+   ```typescript
+   describe('Admin Operations', () => {
+     it('should perform admin operations', async () => {
+       const response = await fetch('/api/admin/endpoint', {
+         method: 'POST',
+         headers: {
+           'Authorization': `Bearer ${adminToken}`,
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(testData)
+       })
+       expect(response.status).toBe(200)
+       const data = await response.json()
+       expect(data).toMatchExpectedStructure()
+     })
+   })
+   ```
 
 ## Best Practices
 
-### 1. Policy Design
-- Start with most restrictive access
-- Use row-level security for all tables
-- Implement policies for each operation type
-- Consider performance impact of complex policies
-- Use appropriate policy combinations
+1. Always use service role client after admin verification
+2. Implement proper error handling and logging
+3. Use TypeScript for better type safety
+4. Follow REST API conventions
+5. Document API endpoints and requirements
+6. Implement proper validation
+7. Use environment variables for sensitive data
+8. Monitor API usage and errors 
 
-### 2. Security Considerations
-- Always enable RLS
-- Use service role sparingly
-- Validate all user input
-- Use appropriate policy granularity
-- Implement proper error handling
+## Testing Strategy
 
-### 3. Performance
-- Keep policies simple when possible
-- Index columns used in policies
-- Use materialized views for complex queries
-- Monitor policy performance
-- Cache frequently accessed data
+### 1. Service Layer Testing
 
-### 4. Testing
-- Test all access patterns
-- Verify policy combinations
-- Test edge cases
-- Use proper test data
-- Monitor policy changes
+For Next.js App Router API routes, we follow a service-layer testing pattern to avoid issues with request context mocking:
 
-## References
-- [Supabase RLS Documentation](mdc:https:/supabase.com/docs/guides/auth/row-level-security)
-- [PostgreSQL RLS Documentation](mdc:https:/www.postgresql.org/docs/current/ddl-rowsecurity.html)
+```typescript
+// 1. Extract business logic to a service file
+// service.ts
+export async function getEnabledLanguages(supabase: SupabaseClient): Promise<Language[]> {
+  const { data, error } = await supabase
+    .from('languages')
+    .select('code, name, native_name, enabled')
+    .eq('enabled', true)
+    .order('name')
+
+  if (error) throw error
+  return data
+}
+
+// 2. Keep route handler thin
+// route.ts
+export async function GET() {
+  try {
+    const supabase = createClient()
+    const data = await getEnabledLanguages(supabase)
+    return NextResponse.json({ data })
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+// 3. Test the service function directly
+// service.test.ts
+describe('Language Service', () => {
+  // Define mock types for better type inference
+  type MockSupabaseClient = {
+    from: jest.Mock
+    select: jest.Mock
+    eq: jest.Mock
+    order: jest.Mock
+  }
+
+  it('should return data successfully', async () => {
+    const mockSupabase = {
+      from: jest.fn().mockReturnThis(),
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      order: jest.fn().mockResolvedValue({
+        data: mockData,
+        error: null
+      })
+    } as MockSupabaseClient as unknown as SupabaseClient
+
+    const result = await serviceFunction(mockSupabase)
+    expect(result).toEqual(mockData)
+  })
+})
+```
+
+### 2. Testing Considerations
+
+1. **Service Layer Pattern**
+   - Extract business logic into service functions
+   - Keep route handlers thin and focused on request/response handling
+   - Test service functions directly to avoid Next.js context issues
+
+2. **Mock Management**
+   - Define mock types for better TypeScript inference
+   - Use chained mock methods with `mockReturnThis()`
+   - Handle known TypeScript limitations with type assertions
+
+3. **Type Safety**
+   - Use type assertions sparingly and document when used
+   - Create specific mock types for external clients
+   - Accept some TypeScript errors for Jest mock limitations
+
+4. **Test Coverage**
+   - Test successful operations
+   - Test error handling
+   - Verify all database operations
+   - Test input validation
+
+### 3. Integration Testing
+
+For full end-to-end testing of API routes:
+- Use Cypress or Playwright for integration tests
+- Test through HTTP requests
+- Mock external services at the network level
+- Include authentication flow testing
+
+### 4. Common Pitfalls
+
+1. **Request Context**
+   - Don't test Next.js API routes directly in Jest
+   - Extract business logic to avoid request context dependencies
+   - Use integration tests for full route testing
+
+2. **Type Inference**
+   - Jest mock type inference has limitations
+   - Use type assertions when necessary
+   - Document known type issues
+
+3. **Mock Setup**
+   - Keep mocks simple and focused
+   - Use factory functions for complex mocks
+   - Clear mocks between tests
+
+### 5. Example Test Structure
+
+```typescript
+describe('Service Name', () => {
+  // Define mock types
+  type MockClient = {
+    method1: jest.Mock
+    method2: jest.Mock
+  }
+
+  // Define mock data
+  const mockData = {
+    // ...
+  }
+
+  // Success case
+  it('should handle successful operation', async () => {
+    const mockClient = {
+      method1: jest.fn().mockReturnThis(),
+      method2: jest.fn().mockResolvedValue({
+        data: mockData,
+        error: null
+      })
+    } as MockClient as unknown as ClientType
+
+    const result = await serviceFunction(mockClient)
+    expect(result).toEqual(mockData)
+  })
+
+  // Error case
+  it('should handle errors', async () => {
+    const mockError = new Error('Test error')
+    const mockClient = {
+      method1: jest.fn().mockReturnThis(),
+      method2: jest.fn().mockResolvedValue({
+        data: null,
+        error: mockError
+      })
+    } as MockClient as unknown as ClientType
+
+    await expect(serviceFunction(mockClient))
+      .rejects.toThrow('Test error')
+  })
+})
+``` 
+
+## Two-Client Authentication Pattern
+
+This pattern ensures secure authentication and database operations by using two separate Supabase clients:
+
+1. **Auth Client**: For token verification
+2. **Service Role Client**: For database operations
+
+### Implementation
+
+```typescript
+// 1. Extract and validate auth token
+const authHeader = request.headers.get('Authorization')
+if (!authHeader?.startsWith('Bearer ')) {
+  console.error('❌ Missing or invalid auth header')
+  return NextResponse.json(
+    { error: 'Missing or invalid authorization header' },
+    { status: 401 }
+  )
+}
+
+// 2. Create auth client and verify token
+console.log('🔑 Creating auth client...')
+const authClient = await createClient()
+const { data: { user }, error: authError } = await authClient.auth.getUser(
+  authHeader.split(' ')[1]
+)
+
+if (authError || !user) {
+  console.error('❌ Auth error:', authError)
+  return NextResponse.json(
+    { error: 'Unauthorized' },
+    { status: 401 }
+  )
+}
+
+console.log('✅ User authenticated:', user.id)
+
+// 3. Create service role client for database operations
+console.log('🔑 Creating service role client...')
+const supabase = await createClient(undefined, true)
+
+// 4. Perform database operations with service role client
+const { data, error } = await supabase
+  .from('table')
+  .select('*')
+```
+
+### Logging Best Practices
+
+```typescript
+// Request logging
+console.log(`\n📝 [${method} ${path}]`, {
+  headers: Object.fromEntries(request.headers),
+  params: Object.fromEntries(searchParams)
+})
+
+// Authentication logging
+console.log('🔑 Auth token:', authHeader ? 'present' : 'missing')
+console.log('👤 User:', user.id)
+
+// Database logging
+console.log('📊 Database operation:', {
+  table: 'table_name',
+  operation: 'operation_type',
+  filters: { /* query params */ }
+})
+
+// Error logging
+console.error('❌ Error:', {
+  type: 'error_type',
+  message: error.message,
+  details: error.details
+})
+```
+
+### Error Handling Pattern
+
+```typescript
+try {
+  // Operation logic
+} catch (error) {
+  // Log error with context
+  console.error('❌ Error in operation:', {
+    endpoint: '/api/endpoint',
+    method: 'METHOD',
+    error: error instanceof Error ? error.message : 'Unknown error'
+  })
+
+  // Return appropriate error response
+  return NextResponse.json(
+    { 
+      error: process.env.NODE_ENV === 'development' 
+        ? error.message 
+        : 'Internal server error'
+    },
+    { status: 500 }
+  )
+}
+```
+
+### Client Creation Pattern
+
+```typescript
+export const createClient = async (useServiceRole = false) => {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = useServiceRole 
+    ? process.env.SUPABASE_SERVICE_ROLE_KEY
+    : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  
+  console.log('\n🔌 Creating client:', {
+    url: url ? 'set' : 'missing',
+    key: key ? 'set' : 'missing',
+    type: useServiceRole ? 'service_role' : 'anon'
+  })
+
+  if (!url || !key) {
+    throw new Error('Missing environment variables')
+  }
+
+  try {
+    const client = await createServerClient(url, key, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+        detectSessionInUrl: false
+      }
+    })
+    console.log('✅ Client created successfully')
+    return client
+  } catch (error) {
+    console.error('❌ Error creating client:', error)
+    throw error
+  }
+}
+```
+
+### Security Best Practices
+
+1. **Token Validation**
+   - Always verify auth token before operations
+   - Use proper token extraction and validation
+   - Handle token expiration gracefully
+
+2. **Client Usage**
+   - Use auth client only for token verification
+   - Use service role client for database operations
+   - Never expose service role key to client
+
+3. **Error Handling**
+   - Log errors with proper context
+   - Return appropriate status codes
+   - Sanitize error messages in production
+
+4. **Logging**
+   - Use consistent logging patterns
+   - Include relevant context in logs
+   - Avoid logging sensitive information
+
+5. **Environment Variables**
+   - Validate required variables
+   - Use appropriate key for each operation
+   - Keep service role key secure
+
+### Common Pitfalls
+
+1. **Token Handling**
+   ```typescript
+   // ❌ Wrong: Using token without verification
+   const token = request.headers.get('Authorization')?.split(' ')[1]
+   
+   // ✅ Right: Proper token verification
+   if (!authHeader?.startsWith('Bearer ')) {
+     return NextResponse.json(
+       { error: 'Invalid authorization header' },
+       { status: 401 }
+     )
+   }
+   ```
+
+2. **Client Usage**
+   ```typescript
+   // ❌ Wrong: Using service role client directly
+   const supabase = createClient(undefined, true)
+   
+   // ✅ Right: Verify auth first, then use service role
+   const authClient = createClient()
+   const { user } = await authClient.auth.getUser()
+   if (user) {
+     const supabase = createClient(undefined, true)
+     // Proceed with operation
+   }
+   ```
+
+3. **Error Exposure**
+   ```typescript
+   // ❌ Wrong: Exposing internal errors
+   return NextResponse.json({ error: error.message })
+   
+   // ✅ Right: Sanitize error messages
+   return NextResponse.json({
+     error: process.env.NODE_ENV === 'development'
+       ? error.message
+       : 'Internal server error'
+   })
+   ```
+
+### Testing Considerations
+
+1. **Authentication Tests**
+   ```typescript
+   it('should require authentication', async () => {
+     const response = await fetch('/api/protected')
+     expect(response.status).toBe(401)
+   })
+
+   it('should validate token format', async () => {
+     const response = await fetch('/api/protected', {
+       headers: { Authorization: 'Invalid' }
+     })
+     expect(response.status).toBe(401)
+   })
+   ```
+
+2. **Operation Tests**
+   ```typescript
+   it('should perform operation with valid token', async () => {
+     const response = await fetch('/api/protected', {
+       headers: { Authorization: `Bearer ${validToken}` }
+     })
+     expect(response.status).toBe(200)
+   })
+   ```
+
+3. **Error Handling Tests**
+   ```typescript
+   it('should handle database errors gracefully', async () => {
+     // Mock database error
+     const response = await fetch('/api/protected', {
+       headers: { Authorization: `Bearer ${validToken}` }
+     })
+     expect(response.status).toBe(500)
+     const data = await response.json()
+     expect(data.error).toBeDefined()
+   })
+   ``` 
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
