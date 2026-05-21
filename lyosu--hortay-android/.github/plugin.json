@@ -1,0 +1,9 @@
+{
+  "name": "lyosu--hortay-android",
+  "displayName": "hortay-android",
+  "description": "A Twitter-style reader for Telegram channels. Built on TDLib + Jetpack Compose + Material 3 Expressive. No analytics, no Firebase, no third-party push.",
+  "version": "1.0.0",
+  "author": "LyoSU",
+  "homepage": "https://github.com/LyoSU/hortay-android",
+  "skills": []
+}
