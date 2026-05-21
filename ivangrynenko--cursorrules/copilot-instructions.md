@@ -1,108 +1,92 @@
-## docker-compose-standards
+## drupal-broken-access-control
 
-> Docker Compose standards Rule
+> Detect and prevent broken access control vulnerabilities in Drupal as defined in OWASP Top 10:2021-A01
 
+# Drupal Broken Access Control Security Standards (OWASP A01:2021)
+
+This rule enforces security best practices to prevent broken access control vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A01.
 
 ## Rule Details
 
-- **Name:** docker_compose_best_practices
+- **Name:** drupal_broken_access_control
 
-- **Description:** Enforces best practices in docker-compose files to ensure maintainability, security, and consistency
+- **Description:** Detect and prevent broken access control vulnerabilities in Drupal as defined in OWASP Top 10:2021-A01
 
 ## Filters
-- file name: `docker-compose\\.ya?ml$`
-- event: `(file_create|file_modify)`
+- file extension pattern: `\\.(php|inc|module|install|theme)$`
+- file path pattern: `(modules|themes|profiles)/custom`
 
-## Rejections
+## Enforcement Checks
 - Conditions:
-  - pattern `^\\s*version\\s*:` – The 'version' field is deprecated in Docker Compose files. Compose files are now version-less by default.
-
-## Rejections
-- Conditions:
-  - pattern `^(  |\t)` – Inconsistent indentation detected. Use 2 spaces for indentation.
-
-## Rejections
-- Conditions:
-  - pattern `^\\s*links\\s*:` – The 'links' key is deprecated. Use networks and service names for inter-service communication.
-
-## Rejections
-- Conditions:
-  - pattern `^\\s*image\\s*:\\s*[^:]+$` – Specify an explicit image tag to ensure consistency.
-
-## Rejections
-- Conditions:
-  - pattern `^\\s*privileged\\s*:\\s*true` – Running services in privileged mode is discouraged for security reasons.
-
-## Rejections
-- Conditions:
-  - pattern `^\\s*services\\s*:\\s*[^\\n]+\\n(?!.*\\blimits\\b)` – Define resource limits for each service to prevent resource exhaustion.
+  - pattern `\\s*\\$routes\\['[^']*'\\]\\s*=\\s*.*(?!_access|access_callback|requirements)` – Route definition is missing access control. Add '_permission', '_role', '_access', or custom access check in requirements.
+    - Pattern 1: Missing access checks in routes
+  - pattern `user_access\\(` – user_access() is deprecated. Use $account->hasPermission() or proper dependency injection with AccessResult methods.
+    - Pattern 2: Using user_access() instead of more secure methods
+  - pattern `(\\$user->id\\(\\)|\\$user->uid)\\s*===?\\s*1` – Avoid hardcoded checks against user ID 1. Use role-based permissions or proper access control services.
+    - Pattern 3: Hard-coded user ID checks
+  - pattern `\\$entity->(?!access)(save|delete|update)\\(\\)` – Entity operation without prior access check. Use \$entity->access('operation') before performing operations.
+    - Pattern 4: Missing access check on entity operations
+  - pattern `\\\\Drupal::currentUser\\(\\)` – Avoid using \\Drupal::currentUser() directly. Inject the current_user service for better testability and security.
+    - Pattern 5: Using Drupal::currentUser() directly in services
+  - pattern `class [A-Za-z0-9_]+Controller.+extends ControllerBase[^}]+public function [a-zA-Z0-9_]+\\([^{]*\\)\\s*\\{(?![^}]*access)` – Controller method lacks explicit access checking. Add checks via route requirements or within the controller method.
+    - Pattern 6: Missing access checks in controllers
+  - pattern `\\$entity->set\\([^)]+\\)\\s*;(?![^;]*access)` – Direct field value manipulation without access check. Verify entity field access before manipulation.
+    - Pattern 7: Direct field value manipulation without access check
+  - pattern `@RestResource\\([^)]*\\)(?![^{]*_access|access_callback)` – REST resource lacks access controls. Add access checks via annotations or in methods.
+    - Pattern 8: Unprotected REST endpoints
+  - pattern `\\$_SERVER\\['REMOTE_ADDR'\\]\\s*===?\\s*` – IP-based access control is insufficient. Use proper Drupal permission system instead.
+    - Pattern 9: Insecure access check by client IP
+  - pattern `#cache\\['contexts'\\]\\s*=\\s*\\[[^\\]]*'user'[^\\]]*\\]` – Using 'user' cache context without proper access checks may expose content to unauthorized users.
+    - Pattern 10: Allow bypassing cache for authenticated users without proper checks
 
 ## Suggestions
 - Guidance:
-To adhere to Docker Compose best practices:
+**Drupal Access Control Best Practices:**
 
-1. **Omit the 'version' field**: Compose files are version-less by default.
-   ```yaml
-   services:
-     web:
-       image: nginx
-   ```
+1. **Route Access Controls:**
+   - Always define access requirements in route definitions
+   - Use permission-based access checks: '_permission', '_role', '_entity_access'
+   - Implement custom access checkers implementing AccessInterface
 
-2. **Use consistent indentation**: Use 2 spaces for indentation.
-   ```yaml
-   services:
-     web:
-       image: nginx
-   ```
+2. **Entity Access Controls:**
+   - Always check entity access: $entity->access('view'|'update'|'delete') 
+   - Use EntityAccessControlHandler for consistent access control
+   - Respect entity field access with $entity->get('field')->access('view'|'edit')
 
-3. **Avoid 'links' key**: Use networks and service names for service communication.
-   ```yaml
-   services:
-     web:
-       image: nginx
-       networks:
-         - my-network
-     db:
-       image: mysql
-       networks:
-         - my-network
-   networks:
-     my-network:
-   ```
+3. **Controller Security:**
+   - Inject and use proper services rather than \Drupal static calls
+   - Add explicit access checks within controller methods
+   - Use AccessResult methods (allowed, forbidden, neutral) with proper caching metadata
 
-4. **Specify explicit image tags**: Prevent unintended updates by defining image tags.
-   ```yaml
-   services:
-     web:
-       image: nginx:1.21.0
-   ```
+4. **Service Security:**
+   - Inject AccountProxyInterface rather than calling currentUser() directly
+   - Use dependency injection for access-related services
+   - Implement session-based CSRF protection with form tokens
 
-5. **Avoid privileged mode**: Do not use 'privileged: true'. Grant specific capabilities if necessary.
-   ```yaml
-   services:
-     web:
-       image: nginx
-       cap_add:
-         - NET_ADMIN
-   ```
+5. **REST/API Security:**
+   - Implement OAuth or proper authentication
+   - Define specific permissions for REST operations
+   - Never rely solely on client-side access control
 
-6. **Define resource limits**: Prevent services from consuming excessive resources.
-   ```yaml
-   services:
-     web:
-       image: nginx
-       deploy:
-         resources:
-           limits:
-             cpus: '0.50'
-             memory: '512M'
-   ```
-
-Implementing these practices ensures secure, maintainable, and consistent Docker Compose configurations.
+## Validation Checks
+- Conditions:
+  - pattern `AccessResult::(allowed|forbidden|neutral)\\(\\)(?=.*addCacheContexts)` – Access check is properly implemented with cache metadata.
+    - Check 1: Ensuring proper access check implementation
+  - pattern `function hook_entity_access\\([^)]*\\)\\s*\\{[^}]*return AccessResult` – Entity access hook is correctly returning AccessResult.
+    - Check 2: Proper hook_entity_access implementation
+  - pattern `_permission|_role|_access|_entity_access|_custom_access` – Route has proper access controls defined.
+    - Check 3: Properly secured route access
+  - pattern `@RestResource\\(.*,\\s*authentication\\s*=\\s*\\{[^}]+\\}` – REST Resource has authentication configured.
+    - Check 4: Secure REST implementation
 
 ## Metadata
 - Priority: high
 - Version: 1.1
+- Tags: security, drupal, access-control, permissions, owasp, language:php, framework:drupal, category:security, subcategory:access-control, standard:owasp-top10, risk:a01-broken-access-control
+## References
+- https://owasp.org/Top10/A01_2021-Broken_Access_Control/
+- https://www.drupal.org/docs/8/api/routing-system/access-checking-on-routes
+- https://www.drupal.org/docs/8/api/entity-api/entity-access-api
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
