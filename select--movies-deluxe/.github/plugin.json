@@ -1,0 +1,9 @@
+{
+  "name": "select--movies-deluxe",
+  "displayName": "movies-deluxe",
+  "description": "Free & public domain movies from Archive.org and YouTube",
+  "version": "1.0.0",
+  "author": "select",
+  "homepage": "https://github.com/select/movies-deluxe",
+  "skills": []
+}
