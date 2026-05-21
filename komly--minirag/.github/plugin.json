@@ -1,0 +1,9 @@
+{
+  "name": "komly--minirag",
+  "displayName": "minirag",
+  "description": "A single-binary RAG system that lets you chat with your documents. Just run the binary, and start asking questions.",
+  "version": "1.0.0",
+  "author": "komly",
+  "homepage": "https://github.com/komly/minirag",
+  "skills": []
+}
