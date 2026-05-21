@@ -1,0 +1,75 @@
+{
+  "name": "dotfiles",
+  "owner": "cndoit18",
+  "repo": "dotfiles",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "drawio-diagrams-enhanced",
+      "path": "home/dot_claude/skills/drawio-diagrams-enhanced",
+      "github_url": "https://github.com/cndoit18/dotfiles/tree/main/home/dot_claude/skills/drawio-diagrams-enhanced",
+      "description": ""
+    },
+    {
+      "name": "excalidraw",
+      "path": "home/dot_claude/skills/excalidraw",
+      "github_url": "https://github.com/cndoit18/dotfiles/tree/main/home/dot_claude/skills/excalidraw",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-patterns",
+      "path": "home/dot_claude/skills/prompt-engineering-patterns",
+      "github_url": "https://github.com/cndoit18/dotfiles/tree/main/home/dot_claude/skills/prompt-engineering-patterns",
+      "description": ""
+    },
+    {
+      "name": "scientific-schematics",
+      "path": "home/dot_claude/skills/scientific-schematics",
+      "github_url": "https://github.com/cndoit18/dotfiles/tree/main/home/dot_claude/skills/scientific-schematics",
+      "description": ""
+    },
+    {
+      "name": "skill-from-masters",
+      "path": "home/dot_claude/skills/skill-from-masters",
+      "github_url": "https://github.com/cndoit18/dotfiles/tree/main/home/dot_claude/skills/skill-from-masters",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cndoit18/dotfiles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T13:30:28Z"
+}
