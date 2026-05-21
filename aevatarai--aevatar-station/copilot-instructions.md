@@ -1,33 +1,217 @@
-## test-rules
+## unit-test-injection-sop
 
-> unit test
+> This document contains Standard Operating Procedures (SOPs) for common unit testing scenarios in Aevatar Station. Each SOP provides step-by-step guidance to solve specific testing challenges.
 
-Output `Running and Fixing Unit Tests`
+# Aevatar Station Unit Testing SOPs
 
-Use context7 for Orleans related issues.
+## 📖 Document Overview
+This document contains Standard Operating Procedures (SOPs) for common unit testing scenarios in Aevatar Station. Each SOP provides step-by-step guidance to solve specific testing challenges.
 
-When working on unit tests, do the following:
-1. Output "!!!Implementing Unit Test Cases!!!".
-2. Analyse what the method does, breakdown and create extensive test cases
-2. Make sure to cover the following test cases:
-    1. Positive Test Cases
-    2. Negative Test Cases
-    3. Boundary Test Cases
-    4. Exception Test Cases
-3. Use Arrange, Act and Assert format. 
-4. Implement using SOLID principles.
-5. Only edit test files.
+## 🎯 How to Use This Document
+1. **Find your scenario** - Use the index below to locate the relevant SOP
+2. **Follow the pattern** - Each SOP follows a consistent structure for easy understanding
+3. **Copy & adapt** - Code examples are ready to use in your tests
+4. **Contribute** - Add new SOPs using the contribution guidelines at the end
 
-You MUST iterate implementing and fixing unit tests until all the following criteria are met:
-- All unit test cases passes.
-- Execute `dotnet test` and it yields no compile error.
-Do not fix warnings.
+## 📚 SOP Index
 
-Use openmemory to get relevant context.
+### Orleans & Distributed Systems
+- [1.1 GrainTypeResolver Injection](#11-graintyperesolver-injection)
+- [1.2 ClusterClient Configuration](#12-clusterclient-configuration-coming-soon) *(Coming Soon)*
+- [1.3 Grain Testing Patterns](#13-grain-testing-patterns-coming-soon) *(Coming Soon)*
 
-For file specific unit test, run command like these examples:
-- `dotnet test framework/test/Aevatar.Core.Tests --filter "FullyQualifiedName~OrleansGrainProxyGeneratorTests" --verbosity normal`
-- `dotnet test framework/test/Aevatar.Core.Tests --filter "FullyQualifiedName~AgentPluginTests" --verbosity normal`
+### Database & Persistence  
+- [2.1 MongoDB Test Configuration](#21-mongodb-test-configuration-coming-soon) *(Coming Soon)*
+- [2.2 Entity Framework Test Setup](#22-entity-framework-test-setup-coming-soon) *(Coming Soon)*
+
+### External Dependencies
+- [3.1 HTTP Client Mocking](#31-http-client-mocking-coming-soon) *(Coming Soon)*
+- [3.2 SignalR Testing](#32-signalr-testing-coming-soon) *(Coming Soon)*
+
+---
+
+## 1.1 GrainTypeResolver Injection
+
+### 🎯 Problem Description
+When writing unit tests for services that depend on Orleans GrainTypeResolver, developers encounter `DependencyInjectionException` because GrainTypeResolver cannot be resolved from the DI container.
+
+### 🔧 Core Principle
+GrainTypeResolver is an Orleans runtime component that must be obtained from `IClusterClient.ServiceProvider`, not directly registered in DI container.
+
+### ⚙️ Key Configuration
+
+#### Test Base Module Pattern
+```csharp
+[DependsOn(
+    typeof(AbpAutofacModule),
+    typeof(AbpTestBaseModule),
+    typeof(AbpAuthorizationModule),
+    typeof(AevatarCQRSModule)
+)]
+public class AevatarOrleansTestBaseModule : AbpModule
+{
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        // Orleans cluster setup
+        context.Services.AddSingleton<ClusterFixture>();
+        context.Services.AddSingleton<IClusterClient>(sp => 
+            sp.GetRequiredService<ClusterFixture>().Cluster.Client);
+        context.Services.AddSingleton<IGrainFactory>(sp => 
+            sp.GetRequiredService<ClusterFixture>().Cluster.GrainFactory);
+        
+        // CRITICAL: Bridge GrainTypeResolver from Orleans to ABP DI
+        context.Services.AddSingleton<GrainTypeResolver>(sp => 
+            sp.GetRequiredService<IClusterClient>().ServiceProvider.GetRequiredService<GrainTypeResolver>());
+        
+        // Optional: Register IGrainTypeProvider if needed
+        context.Services.AddSingleton<IGrainTypeProvider, AttributeGrainTypeProvider>();
+    }
+}
+```
+
+#### Test Module Dependencies
+```csharp
+[DependsOn(
+    typeof(AevatarApplicationModule),
+    typeof(AbpEventBusModule),
+    typeof(AevatarOrleansTestBaseModule), // REQUIRED for GrainTypeResolver
+    typeof(AevatarDomainTestModule)
+)]
+public class AevatarApplicationTestModule : AbpModule
+{
+    // ... module configuration
+}
+```
+
+#### Test Class Injection Pattern
+```csharp
+public abstract class AgentServiceTests<TStartupModule> : AevatarApplicationTestBase<TStartupModule>
+    where TStartupModule : IAbpModule
+{
+    private readonly IClusterClient _clusterClient;
+    private readonly GrainTypeResolver _grainTypeResolver;
+
+    protected AgentServiceTests()
+    {
+        _clusterClient = GetRequiredService<IClusterClient>();
+        
+        // Method 1: From DI container (recommended after proper registration)
+        _grainTypeResolver = GetRequiredService<GrainTypeResolver>();
+        
+        // Method 2: Direct from ClusterClient (fallback)
+        // _grainTypeResolver = _clusterClient.ServiceProvider.GetRequiredService<GrainTypeResolver>();
+    }
+}
+```
+
+### 🔗 Module Hierarchy
+```
+AevatarApplicationTestBase<T>
+  ↓
+AevatarTestBase<T> 
+  ↓
+AbpIntegratedTest<T>
+```
+
+### ❗ Common Issues & Solutions
+
+#### "Unable to resolve GrainTypeResolver"
+- Ensure test module depends on `AevatarOrleansTestBaseModule`
+- Verify ClusterFixture is properly configured
+- Check inheritance chain is correct
+
+#### ClusterFixture Issues
+- Check Orleans cluster configuration
+- Ensure no port conflicts in test environment
+- Verify ClusterFixture implementation
+
+### 💡 Best Practices
+1. **Module Organization**: Keep Orleans test configuration in separate module
+2. **Dependency Order**: Orleans test base module must load before application module
+3. **Resource Management**: Reuse Orleans cluster instances, clean up test resources
+4. **Error Handling**: Add null checks and meaningful test skip logic
+
+### 📦 Required Imports
+```csharp
+using Orleans;
+using Orleans.Metadata;
+using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.Modularity;
+```
+
+### ✅ Quick Checklist
+- [ ] Test module depends on `AevatarOrleansTestBaseModule`
+- [ ] GrainTypeResolver registered from ClusterClient.ServiceProvider
+- [ ] Test class inherits from correct base class
+- [ ] ClusterFixture properly configured
+- [ ] Orleans cluster starts successfully
+
+### 🚫 Anti-Patterns
+❌ **Don't**: `new GrainTypeResolver()` - bypasses Orleans initialization  
+❌ **Don't**: Direct DI registration without ClusterClient bridge  
+❌ **Don't**: Missing module dependencies  
+❌ **Don't**: Static references instead of DI  
+
+✅ **Do**: Use ClusterClient.ServiceProvider bridge pattern  
+✅ **Do**: Proper module dependency chain  
+✅ **Do**: Constructor injection in test classes  
+✅ **Do**: Resource cleanup and test isolation
+
+---
+
+## 🤝 Contributing to This Document
+
+### SOP Template Structure
+When adding a new SOP, please follow this structure:
+
+```markdown
+## X.Y SOP Title
+
+### 🎯 Problem Description
+Brief description of the problem this SOP solves
+
+### 🔧 Core Principle  
+Fundamental concept or approach
+
+### ⚙️ Key Configuration
+Configuration steps with code examples
+
+### ❗ Common Issues & Solutions
+Common problems and their solutions
+
+### 💡 Best Practices
+Recommended approaches and tips
+
+### 📦 Required Imports
+Necessary using statements
+
+### ✅ Quick Checklist
+Step-by-step verification checklist
+
+### 🚫 Anti-Patterns
+What to avoid vs what to do
+```
+
+### Guidelines for Contributors
+1. **Be Specific**: Focus on concrete, actionable solutions
+2. **Include Code**: Provide copy-pasteable code examples
+3. **Test Your Examples**: Ensure all code examples work
+4. **Use Consistent Formatting**: Follow the emoji-based section headers
+5. **Update Index**: Add your new SOP to the index section
+6. **Keep It Concise**: Focus on essential information only
+
+### Categories for New SOPs
+- **Orleans & Distributed Systems**: Grain testing, cluster configuration, streaming
+- **Database & Persistence**: MongoDB, EF Core, repository patterns
+- **External Dependencies**: HTTP clients, third-party services, mocking
+- **Authentication & Authorization**: User context, permissions, roles
+- **Performance Testing**: Load testing, benchmarking, profiling
+- **Integration Testing**: API testing, end-to-end scenarios
+
+---
+
+*Last Updated: 2024-12-19*  
+*Contributors: Development Team*
 
 ---
 > Source: [aevatarAI/aevatar-station](https://github.com/aevatarAI/aevatar-station) — distributed by [TomeVault](https://tomevault.io).
