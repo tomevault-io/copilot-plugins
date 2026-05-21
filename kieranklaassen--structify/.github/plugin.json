@@ -1,0 +1,9 @@
+{
+  "name": "kieranklaassen--structify",
+  "displayName": "structify",
+  "description": "An opinionated Rails DSL for defining extraction schemas for LLM-powered models in Rails and ActiveRecord",
+  "version": "1.0.0",
+  "author": "kieranklaassen",
+  "homepage": "https://github.com/kieranklaassen/structify",
+  "skills": []
+}
