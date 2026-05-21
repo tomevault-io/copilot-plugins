@@ -7,11 +7,11 @@ A mobile Cashu wallet
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SovranBitcoin/Sovran](https://github.com/SovranBitcoin/Sovran).
+Original source: `CLAUDE.md` in [SovranBitcoin/Sovran](https://github.com/SovranBitcoin/Sovran).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
