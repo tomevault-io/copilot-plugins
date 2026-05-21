@@ -1,0 +1,9 @@
+{
+  "name": "cosmicflow-space--mnemos",
+  "displayName": "mnemos",
+  "description": "Personal RAG. Local-first. Drop a folder, ask a question.",
+  "version": "1.0.0",
+  "author": "cosmicflow-space",
+  "homepage": "https://github.com/cosmicflow-space/mnemos",
+  "skills": []
+}
