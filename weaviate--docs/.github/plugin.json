@@ -1,0 +1,9 @@
+{
+  "name": "weaviate--docs",
+  "displayName": "docs",
+  "description": "The documentation repo for Weaviate Database, Cloud, Agents and much more!",
+  "version": "1.0.0",
+  "author": "weaviate",
+  "homepage": "https://github.com/weaviate/docs",
+  "skills": []
+}
