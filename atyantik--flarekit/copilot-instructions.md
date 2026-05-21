@@ -1,55 +1,114 @@
-## error-handling
+## hono-api-patterns
 
-> When working with error handling in the backend:
+> Hono API development patterns for Flarekit backend
 
-When working with error handling in the backend:
+# Hono API Development Patterns
 
-1. Error Class Structure:
-- Always extend from BaseError
-- Use factory methods for common scenarios
-- Include rich context in error constructors
+When creating new API endpoints in Flarekit:
 
-2. Error Types:
-- Use AuthenticationError (401) for identity verification failures
-- Use AuthorizationError (403) for permission issues
-- Use ValidationError (400) for input validation
-- Use NotFoundError (404) for missing resources
-- Use BusinessLogicError (400) for business rule violations
-- Use ExternalServiceError (502) for third-party service issues
-- Use DatabaseError (500) for database operations
-- Use SystemError (500) for infrastructure issues
+## Route Structure
+- Organize routes by version: `/routes/v1/[feature]/`
+- Each feature should have its own directory with an `index.ts` that exports an array of endpoint functions
+- Use descriptive filenames: `[resource][Action].route.ts` (e.g., `storageCreate.route.ts`)
 
-3. Error Context:
-- Always include relevant IDs and references
-- Add operation-specific context
-- Include timing information when relevant
-- Add debugging information in development
+## API Endpoint Creation
+- Always use `createApiEndpoint()` utility from `@/utils/api-builder.util`
+- Follow this structure:
+```typescript
+export const [resourceAction]Endpoint = createApiEndpoint({
+  resource: 'ResourceName',
+  method: 'post|get|put|delete',
+  path: '/api/v1/resource',
+  responseSchema: YourResponseSchema,
+  request: {
+    body: { content: { 'application/json': { schema: YourRequestSchema } } },
+    query: YourQuerySchema, // if needed
+    params: YourParamSchema, // for path parameters like :id
+    headers: HeadersSchema, // if auth required
+  },
+  handler: async (c) => {
+    // Implementation
+  },
+});
+```
 
-4. Error Patterns:
-- Validate early in route handlers
-- Use try-catch blocks in service layer
-- Preserve error chains when wrapping errors
-- Use specific error types over generic ones
+## Route Parameter Patterns
+- For single resource retrieval (GET `/resource/:id`), use `GetOneParamSchema`
+- The route analyzer automatically detects `:id` parameters and applies appropriate schemas
+- Path parameters use curly braces in OpenAPI spec: `/api/v1/storage/{id}`
+- Access path parameters with: `const id = c.req.param('id')`
 
-5. Security:
-- Sanitize error messages in production
-- Remove sensitive information
-- Use appropriate error visibility
-- Follow security best practices
+### Get By ID Routes
+```typescript
+import { GetOneParamSchema } from '@/schemas/getOneQuery.schema';
 
-6. Testing:
-- Test error properties and context
-- Verify error handling middleware
-- Test error chaining
-- Validate error responses
+export const resourceGetOneEndpoint = createApiEndpoint({
+  resource: 'Resource',
+  method: 'get',
+  path: '/api/v1/resource/{id}',
+  responseSchema: ResourceRecordSchema,
+  request: {
+    params: GetOneParamSchema,
+  },
+  handler: async (c) => {
+    const id = c.req.param('id');
+    // Implementation
+  },
+});
+```
 
-7. Monitoring:
-- Log errors with structured format
-- Include request context
-- Add correlation IDs
-- Track error metrics
+### Custom Path Parameters
+For non-standard path parameters (not `:id`), create custom parameter schemas:
+```typescript
+const CustomParamSchema = z.object({
+  slug: z.string().openapi({
+    param: {
+      name: 'slug',
+      in: 'path',
+      description: 'Resource slug identifier',
+      required: true,
+      schema: { type: 'string' },
+    },
+  }),
+}).openapi('CustomParamSchema');
+```
 
-@apps/backend/docs/error-handling.md
+## Schema Patterns
+- Create separate Zod schemas for requests and responses in `/schemas/`
+- Use `.openapi()` method for documentation examples
+- Follow naming: `[Resource][Action][Request|Response]Schema`
+- Always include success/error response schemas
+- Use `GetOneParamSchema` for standard `:id` path parameters
+
+## Database Integration
+- Use `initDBInstance(c.env, c.env)` to get database services
+- Access services via `db.[tableName]` (e.g., `db.storage`)
+- Handle database errors with try/catch and throw appropriate custom errors
+
+## Error Handling
+- Use custom error classes: `ValidationError`, `DatabaseError`, `ExternalServiceError`, `NotFoundError`
+- Always include field-level validation errors for user input
+- Provide meaningful error messages and codes
+- For missing resources, use `NotFoundError` instead of `DatabaseError`
+
+## Response Format
+- Always return JSON responses with consistent structure
+- Include `success: boolean` for operation results
+- Use appropriate HTTP status codes
+- Add pagination headers for list endpoints: `Content-Range`
+
+## Route Analysis
+The route analyzer (`analyzeRoute`) automatically detects:
+- List routes: GET without path variables
+- Get by ID routes: GET with `:id` path parameter specifically
+- Create routes: POST without path variables
+- Update routes: PUT/PATCH with path variables
+- Delete routes: DELETE with path variables
+
+@apps/backend/src/routes/v1/storage/storageCreate.route.ts
+@apps/backend/src/routes/v1/storage/storageGetOne.route.ts
+@apps/backend/src/utils/api-builder.util.ts
+@apps/backend/src/schemas/getOneQuery.schema.ts
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
