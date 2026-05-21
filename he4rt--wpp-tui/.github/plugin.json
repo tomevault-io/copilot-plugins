@@ -1,0 +1,9 @@
+{
+  "name": "he4rt--wpp-tui",
+  "displayName": "wpp-tui",
+  "description": "WhatsApp TUI client built with Baileys + Ink (React for terminal). Real-time chat, poll decryption, event logging, and payload extraction.",
+  "version": "1.0.0",
+  "author": "he4rt",
+  "homepage": "https://github.com/he4rt/wpp-tui",
+  "skills": []
+}
