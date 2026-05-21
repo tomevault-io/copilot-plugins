@@ -1,0 +1,9 @@
+{
+  "name": "serbanb11--bosch-homecom-hass",
+  "displayName": "bosch-homecom-hass",
+  "description": "Bosch HomeCom Easy integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "serbanb11",
+  "homepage": "https://github.com/serbanb11/bosch-homecom-hass",
+  "skills": []
+}
