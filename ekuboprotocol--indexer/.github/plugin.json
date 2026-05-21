@@ -1,0 +1,9 @@
+{
+  "name": "ekuboprotocol--indexer",
+  "displayName": "indexer",
+  "description": "Indexes Ekubo Protocol data on Starknet or EVM chains into a Postgres database",
+  "version": "1.0.0",
+  "author": "EkuboProtocol",
+  "homepage": "https://github.com/EkuboProtocol/indexer",
+  "skills": []
+}
