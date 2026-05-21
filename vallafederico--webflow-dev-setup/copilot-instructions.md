@@ -1,112 +1,41 @@
-## module-system
+## page-transitions
 
-> Custom module system (data-module, lifecycle hooks, subscriptions). Use when creating or editing modules in src/modules/ or wiring DOM to JS.
+> Patterns and rules for the page transition system using Taxi.js and custom module lifecycles. Use when modifying transitions, handling page changes, or implementing cross-page logic.
 
-# Custom Module System Rules
+# Page Transition System Rules
 
 ## Overview
+The project uses `@unseenco/taxi` for client-side navigation. This system is tightly integrated with the custom module lifecycle hooks (`onPageIn`, `onPageOut`, `onMount`, `onDestroy`).
 
-This project uses a custom module system where JavaScript modules are automatically discovered and mounted based on DOM attributes. Each module is a function that receives an element and its dataset, with lifecycle hooks for mounting, destroying, and page transitions.
+## Core Components
+- `src/lib/pages.ts`: Extends Taxi's `Core`, manages the sequence of lifecycle runs during transitions.
+- `src/lib/page-transitions.ts`: Defines Taxi `Transition` classes that bridge Taxi's `onLeave`/`onEnter` with our custom `transitionOut`/`transitionIn`.
 
-## Module Structure
+## Transition Lifecycle Sequence
 
-- **Location**: All modules go in `src/modules/` directory
-- **Export**: Must be a default export function
-- **Signature**: `(element: HTMLElement, dataset: DOMStringMap) => void`
-- **Naming**: Module filename must match the `data-module` attribute value
+### 1. `transitionOut` (Page Exit)
+When navigating away from a page:
+1. `runPageOut()`: Triggers all `onPageOut` hooks in active modules. These should return promises for exit animations.
+2. `runDestroy()`: Cleans up all modules on the current page.
+3. `Scroll.toTop()`: Resets scroll position for the incoming page.
 
-## Lifecycle Hooks
+### 2. `transitionIn` (Page Entrance)
+When the new page content is ready:
+1. `createCycles()`: Scans the new DOM for `data-module` attributes and initializes modules.
+2. `Scroll.resize()` / `Resize.update()`: Recalculates layout metrics for the new page.
+3. `runPageIn()`: Triggers all `onPageIn` hooks in the new modules. These should return promises for entrance animations.
+4. `runMount()`: Runs the `onMount` hooks for all new modules.
 
-Import these from `@/modules/_`:
+## Implementation Rules
+- **Non-Blocking**: Transitions should ideally wait for animations (`await runPageIn()`) before finishing.
+- **Cleanup**: Always ensure `runDestroy()` is called to prevent memory leaks from previous page modules.
+- **Link Filtering**: Taxi is configured via `PAGES_CONFIG.links` to ignore specific links (e.g., `#` anchors, `target="_blank"`, `[data-taxi-ignore]`).
+- **Initial Load**: Use `runInitial()` on the first page load to kickstart the cycle without a full transition.
 
-- `onMount(fn: () => void)` - Runs when module is mounted
-- `onDestroy(fn: () => void)` - Runs when module is destroyed
-- `onPageIn(fn: () => Promise<void>)` - Runs during page entrance
-- `onPageOut(fn: () => Promise<void>, options?)` - Runs during page exit
-- `onView(element, config)` - Intersection observer for viewport detection
-- `onTrack(element, config)` - Scroll tracking with bounds
-
-## Subscription System
-
-Import from `@lib/subs`:
-
-- `Raf.add(fn, priority?)` - Subscribe to animation frame updates
-- `Resize.add(fn, priority?)` - Subscribe to debounced resize events
-
-## DOM Integration
-
-- Use `data-module="moduleName"` attributes on HTML elements
-- The system automatically finds and instantiates modules
-- Module name in attribute must match filename (without extension)
-
-## Best Practices
-
-- Always use lifecycle hooks for cleanup
-- Use `onDestroy` for removing event listeners, observers, and subscriptions
-- Use `onPageIn`/`onPageOut` for page transition animations
-- Use `onView` for scroll-triggered animations
-- Use `onTrack` for scroll-based progress tracking
-- Use `Raf` for smooth, continuous animations
-- Use `Resize` for responsive behavior
-
-## Example Pattern
-
-```typescript
-import { onMount, onDestroy, onPageIn, onPageOut, onView, onTrack } from "@/modules/_";
-import { Raf, Resize } from "@lib/subs";
-import gsap from "@lib/gsap";
-
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  // Setup
-  onMount(() => {
-    // Initialize component
-  });
-
-  // Page transitions
-  onPageIn(async () => {
-    // Animate in during page entrance
-    await gsap.to(element, { opacity: 1, duration: 0.5 });
-  });
-
-  onPageOut(async () => {
-    // Animate out during page exit
-    await gsap.to(element, { opacity: 0, duration: 0.3 });
-  });
-
-  // Viewport detection
-  const observer = onView(element, {
-    threshold: 0.1,
-    callback: ({ isIn }) => {
-      // Handle visibility changes
-    },
-  });
-
-  // Scroll tracking
-  const track = onTrack(element, {
-    bounds: [0, 1],
-    callback: (value) => {
-      // Handle scroll progress
-    },
-  });
-
-  // Animation frame subscription
-  const rafUnsubscribe = Raf.add(({ time }) => {
-    // Smooth animations
-  });
-
-  // Resize subscription
-  const resizeUnsubscribe = Resize.add(({ width, height }) => {
-    // Responsive behavior
-  });
-
-  // Cleanup
-  onDestroy(() => {
-    // Clean up all resources
-    rafUnsubscribe();
-    resizeUnsubscribe();
-  });
-}
-```
+## Adding Custom Transitions
+To add a specific transition for certain pages:
+1. Define a new class in `src/lib/page-transitions.ts` extending `BaseTransition`.
+2. Register it in `src/lib/pages.ts` within the `transitions` object of the `_Pages` class.
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
