@@ -1,163 +1,92 @@
-## airtable-integration
+## app-router-structure
 
-> Bordful uses Airtable as its backend database, providing a no-code solution for managing job listings with a user-friendly interface.
+> Bordful uses Next.js 15 with the App Router for file-based routing. Understanding this structure is crucial for navigation and adding new features.
 
-# Airtable Integration
+# Next.js App Router Structure
 
-Bordful uses Airtable as its backend database, providing a no-code solution for managing job listings with a user-friendly interface.
+Bordful uses Next.js 15 with the App Router for file-based routing. Understanding this structure is crucial for navigation and adding new features.
 
-## Database Structure
+## Core Layout
 
-### Jobs Table
-The main table storing all job listings with these key fields:
-- **Title** - Job title/position name
-- **Company** - Company name
-- **Description** - Rich text job description
-- **Status** - Publication status (Published, Draft, Archived)
-- **Location** - Job location (Remote, City, Country)
-- **Type** - Employment type (Full-time, Part-time, Contract, Freelance)
-- **Level** - Experience level (Junior, Mid-level, Senior, Lead)
-- **Language** - Programming languages/technologies
-- **Salary Min/Max** - Salary range
-- **Currency** - Salary currency
-- **Apply URL** - External application link
-- **Company Logo** - Company logo image
-- **Posted Date** - Publication date
-- **Slug** - URL-friendly identifier
+- [app/layout.tsx](mdc:app/layout.tsx) - Root layout with navigation, footer, and global providers
+- [app/globals.css](mdc:app/globals.css) - Global styles and Tailwind CSS imports
+- [app/page.tsx](mdc:app/page.tsx) - Homepage with job listings
 
-## Data Access Patterns
+## Page Routes
 
-### Environment Variables
-Required Airtable credentials in `.env`:
-```env
-AIRTABLE_ACCESS_TOKEN=pat_your_token_here
-AIRTABLE_BASE_ID=app_your_base_id_here
-AIRTABLE_TABLE_NAME=Jobs
-```
+### Static Pages
+- `app/about/` - About page
+- `app/contact/` - Contact form page
+- `app/faq/` - Frequently asked questions
+- `app/pricing/` - Pricing plans page
+- `app/terms/` - Terms of service
+- `app/privacy/` - Privacy policy
+- `app/changelog/` - Product changelog
 
-### Data Fetching
-Jobs are fetched using the Airtable API with:
-- Filtering by status (only published jobs)
-- Sorting by posted date (newest first)
-- Field selection for performance
-- Pagination for large datasets
+### Job-Related Routes
+- `app/jobs/` - Main jobs listing page
+- `app/jobs/[category]/` - Generic category-based job filtering (currently unused)
+- `app/jobs/[slug]/` - Individual job detail pages
+- `app/jobs/language/[language]/` - Jobs filtered by programming language
+- `app/jobs/languages/` - All programming languages listing
+- `app/jobs/level/[level]/` - Jobs filtered by experience level
+- `app/jobs/levels/` - All experience levels listing
+- `app/jobs/location/[location]/` - Jobs filtered by location
+- `app/jobs/locations/` - All locations listing
+- `app/jobs/type/[type]/` - Jobs filtered by job type
+- `app/jobs/types/` - All job types listing
 
-## Database Operations
+### Special Features
+- `app/job-alerts/` - Job alerts subscription page
 
-### Read Operations
-- **getJobs()** - Fetch all published jobs
-- **getJob(id)** - Fetch single job by ID
-- **testConnection()** - Test Airtable connection
-- Additional filtering and transformation happens in the application layer
+## API Routes
 
-### Data Transformation
-Raw Airtable data is transformed to:
-- Normalize field names and types
-- Generate slugs for URLs
-- Format dates and currencies
-- Process rich text descriptions
-- Optimize images and attachments
+### Core APIs
+- `app/api/subscribe/` - Email subscription endpoint for job alerts
+- `app/api/og/` - General Open Graph image generation
+- `app/api/og/jobs/[slug]/` - Open Graph image generation for job posts
 
-## Content Management
+## Feed Generation
 
-### Admin Interface
-Airtable provides the admin interface for:
-- Adding new job listings
-- Editing existing jobs
-- Managing job status (publish/draft/archive)
-- Bulk operations and data import
-- User permissions and collaboration
+### RSS/Atom/JSON Feeds
+- `app/feed.xml/` - RSS feed for job listings
+- `app/atom.xml/` - Atom feed for job listings  
+- `app/feed.json/` - JSON feed for job listings
 
-### Content Workflow
-1. **Draft Creation** - Jobs start as drafts in Airtable
-2. **Content Review** - Team reviews job details
-3. **Publication** - Status changed to "Published"
-4. **Site Update** - ISR regenerates pages automatically
-5. **Archival** - Old jobs moved to "Archived" status
+## SEO & Meta Files
 
-## Data Validation
+- [app/robots.ts](mdc:app/robots.ts) - Robots.txt generation
+- [app/sitemap.ts](mdc:app/sitemap.ts) - Dynamic sitemap generation
+- [app/not-found.tsx](mdc:app/not-found.tsx) - Custom 404 page
+- `app/favicon.ico` - Site favicon
 
-### Required Fields
-- Title (must be present)
-- Company (must be present)
-- Description (must be present)
-- Status (must be valid option)
+## Dynamic Route Patterns
 
-### Optional Fields
-- All other fields are optional
-- Default values applied where appropriate
-- Graceful handling of missing data
+### Job Filtering Routes
+All job filtering routes follow the pattern:
+- `/jobs/[category]/[value]/` - Filter jobs by specific category value
+- `/jobs/[category]s/` - List all available values for a category
 
-## Performance Optimization
+### Supported Categories
+- `language` - Programming languages (e.g., `/jobs/language/javascript/`)
+- `level` - Experience levels (e.g., `/jobs/level/senior/`)
+- `location` - Job locations (e.g., `/jobs/location/remote/`)
+- `type` - Job types (e.g., `/jobs/type/full-time/`)
 
-### Caching Strategy
-- Static generation at build time
-- ISR for dynamic updates
-- Client-side caching for filters
-- CDN caching for assets
+## Route Generation Strategy
 
-### Data Fetching Optimization
-- Selective field fetching
-- Batch operations where possible
-- Connection pooling
-- Rate limit handling
+Routes are dynamically generated based on Airtable data:
+1. **Static Generation**: Most pages are statically generated at build time
+2. **ISR (Incremental Static Regeneration)**: Job pages use ISR for fresh content
+3. **Dynamic Imports**: Components are lazy-loaded where appropriate
 
-## SEO Integration
+## Navigation Patterns
 
-### Structured Data
-Jobs automatically generate:
-- schema.org JobPosting markup
-- Open Graph meta tags
-- Twitter Card data
-- Rich snippets for search engines
-
-### URL Generation
-- SEO-friendly slugs from job titles
-- Canonical URLs for job pages
-- Sitemap generation from job data
-- RSS feeds for job updates
-
-## Error Handling
-
-### API Errors
-- Graceful degradation for API failures
-- Retry logic for transient errors
-- Fallback content for missing data
-- User-friendly error messages
-
-### Data Validation
-- Type checking for all fields
-- Sanitization of user input
-- Validation of required fields
-- Error logging and monitoring
-
-## Development Workflow
-
-### Local Development
-- Use Airtable's development environment
-- Test data separate from production
-- API key management for team members
-- Local caching for faster development
-
-### Deployment
-- Environment-specific base IDs
-- Production API keys
-- Data migration strategies
-- Backup and recovery procedures
-
-## Best Practices
-
-### Data Management
-- Consistent field naming conventions
-- Regular data cleanup and archival
-- Backup strategies for critical data
-- Documentation of schema changes
-
-### Security
-- Secure API key storage
-- Access control and permissions
-- Data privacy compliance
-- Regular security audits
+The navigation structure is defined in the configuration system and supports:
+- Dropdown menus
+- External links
+- Icon integration
+- Accessibility features
 
 ---
 > Source: [craftled/bordful](https://github.com/craftled/bordful) — distributed by [TomeVault](https://tomevault.io).
