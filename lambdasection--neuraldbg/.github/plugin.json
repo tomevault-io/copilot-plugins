@@ -1,0 +1,9 @@
+{
+  "name": "lambdasection--neuraldbg",
+  "displayName": "NeuralDBG",
+  "description": "A causal inference engine for deep learning training that provides structured explanations of neural network training failures. Understand why your model failed during training through semantic analys",
+  "version": "1.0.0",
+  "author": "LambdaSection",
+  "homepage": "https://github.com/LambdaSection/NeuralDBG",
+  "skills": []
+}
