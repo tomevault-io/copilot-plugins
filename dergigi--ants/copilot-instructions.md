@@ -1,11 +1,9 @@
-## commit-early-commit-often
+## keep-files-small
 
-> Commit all pending changes.
+> Keep files below 420 lines.
 
 
-Commit all pending changes.
-Commit using conventional commits.
-Always commit after each implementation step or change.
+Keep files below 420 lines.
 
 ---
 > Source: [dergigi/ants](https://github.com/dergigi/ants) — distributed by [TomeVault](https://tomevault.io).
