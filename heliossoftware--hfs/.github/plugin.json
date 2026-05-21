@@ -1,0 +1,9 @@
+{
+  "name": "heliossoftware--hfs",
+  "displayName": "hfs",
+  "description": "The Helios FHIR Server is an implementation of the HL7\u00ae FHIR\u00ae standard, built in Rust for high performance and optimized for clinical analytics workloads. ",
+  "version": "1.0.0",
+  "author": "HeliosSoftware",
+  "homepage": "https://github.com/HeliosSoftware/hfs",
+  "skills": []
+}
