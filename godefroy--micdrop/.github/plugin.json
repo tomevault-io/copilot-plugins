@@ -1,0 +1,9 @@
+{
+  "name": "godefroy--micdrop",
+  "displayName": "micdrop",
+  "description": "Micdrop is a set packages for node and browser that simplify voice conversations with AI systems.",
+  "version": "1.0.0",
+  "author": "Godefroy",
+  "homepage": "https://github.com/Godefroy/micdrop",
+  "skills": []
+}
