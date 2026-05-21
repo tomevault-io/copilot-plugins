@@ -1,0 +1,9 @@
+{
+  "name": "mrgoonie--searchapi-mcp-server",
+  "displayName": "searchapi-mcp-server",
+  "description": "TypeScript Model Context Protocol (MCP) server boilerplate providing search API tools/resources. Includes CLI support and extensible structure for connecting AI systems (LLMs) to external data sources",
+  "version": "1.0.0",
+  "author": "mrgoonie",
+  "homepage": "https://github.com/mrgoonie/searchapi-mcp-server",
+  "skills": []
+}
