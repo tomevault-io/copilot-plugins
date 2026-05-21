@@ -7,11 +7,11 @@ A robust Python toolkit for converting video/audio content into accurate, multil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dohyeondk/sub-tools](https://github.com/dohyeondk/sub-tools).
+Original source: `CLAUDE.md` in [dohyeondk/sub-tools](https://github.com/dohyeondk/sub-tools).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
