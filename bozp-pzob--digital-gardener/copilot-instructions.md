@@ -1,31 +1,19 @@
-## discord-config-overview
+## discord-fetching
 
-> This configuration file, `[config/discord-raw.json](mdc:config/discord-raw.json)`, defines the pipeline for fetching, processing, and summarizing data from Discord.
+> The primary source for fetching raw Discord message and user data is [src/plugins/sources/DiscordRawDataSource.ts](mdc:src/plugins/sources/DiscordRawDataSource.ts).
 
-# Discord Raw Configuration Overview
+# Discord Data Fetching
 
-This configuration file, `[config/discord-raw.json](mdc:config/discord-raw.json)`, defines the pipeline for fetching, processing, and summarizing data from Discord.
+The primary source for fetching raw Discord message and user data is [src/plugins/sources/DiscordRawDataSource.ts](mdc:src/plugins/sources/DiscordRawDataSource.ts).
 
-## Key Components:
-
-*   **Data Sources:**
-    *   `DiscordRawDataSource` (`discordRaw`): Fetches raw message data from specified Discord channels listed in `params.channelIds`. Configured with an interval. Bot token and Guild ID are sourced from environment variables.
-    *   `DiscordChannelSource` (`discordChannel`): Fetches processed channel information using the specified AI provider (`openAiProvider`). Also uses channel IDs and environment variables.
-*   **AI Provider:**
-    *   `OpenAIProvider` (`openAiProvider`): Handles interactions with an AI model (specified as `anthropic/claude-3.7-sonnet` via OpenRouter). API key, site URL, and site name are sourced from environment variables (`process.env.OPENAI_API_KEY`, `process.env.SITE_URL`, `process.env.SITE_NAME`).
-*   **Enrichers:**
-    *   `AiTopicsEnricher` (`topicEnricher`): Uses the `openAiProvider` to enrich data (e.g., identify topics) for messages exceeding a `thresholdLength`.
-*   **Storage:**
-    *   `SQLiteStorage` (`SQLiteStorage`): Stores data in a SQLite database defined by `params.dbPath` (`data/discord-raw.sqlite`).
-*   **Generators:**
-    *   `DailySummaryGenerator` (`RawDataGenerator`): Generates daily summaries of type `discord-raw` from the `discordRaw` source, using the AI provider and storing output in `params.outputPath` (`./output/discord/raw`). Runs at a defined interval.
-    *   `DiscordSummaryGenerator` (`DiscordSummaryGenerator`): Generates summaries of type `discordChannelSummary` from the `discordChannel` source, using the AI provider and storing output in `params.outputPath` (`./output/discord/summaries`). Also runs at a defined interval.
-
-## Settings:
-
-*   The pipeline can be set to run only once using `"settings": { "runOnce": true }`.
-*   Intervals for sources and generators are specified in milliseconds.
-*   Crucial configurations like API keys, tokens, and specific IDs rely on environment variables (e.g., `process.env.DISCORD_TOKEN`, `process.env.OPENAI_API_KEY`).
+Key aspects:
+- It implements the `ContentSource` interface defined in [src/plugins/sources/ContentSource.ts](mdc:src/plugins/sources/ContentSource.ts).
+- It fetches data for specific channels (`channelIds`) within a given guild (`guildId`).
+- It uses the `fetchHistorical` method for fetching data for a specific date (does not use cursors for this).
+- The `fetchChannelMessages` method contains the core logic for pagination, rate limiting, and date filtering for a single channel (used by `fetchHistorical`).
+- The `fetchItems` method (for fetching *recent* items) uses the `StoragePlugin` (configured during initialization, likely via [src/plugins/storage/SQLiteStorage.ts](mdc:src/plugins/storage/SQLiteStorage.ts)) to manage cursors (last fetched message ID per channel) to avoid refetching. Cursor keys are constructed like `${this.name}-${channel.id}`.
+- The fetched data structure is defined by the `DiscordRawData` interface in [src/types.ts](mdc:src/types.ts).
+- Helper functions from [src/helpers/](mdc:src/helpers) (like `retryOperation`, `delay`, `createProgressBar`, `logger`) are used extensively.
 
 ---
 > Source: [bozp-pzob/digital-gardener](https://github.com/bozp-pzob/digital-gardener) — distributed by [TomeVault](https://tomevault.io).
