@@ -1,0 +1,9 @@
+{
+  "name": "jaycollett--openirblaster",
+  "displayName": "OpenIRBlaster",
+  "description": "Open Source IR Blaster designed specifically for ESPHome (Home Assistant)",
+  "version": "1.0.0",
+  "author": "jaycollett",
+  "homepage": "https://github.com/jaycollett/OpenIRBlaster",
+  "skills": []
+}
