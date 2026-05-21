@@ -1,0 +1,9 @@
+{
+  "name": "remorses--contextanalyzer",
+  "displayName": "contextanalyzer",
+  "description": "Analyze OpenCode session context usage and tool call performance with terminal histograms",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/contextanalyzer",
+  "skills": []
+}
