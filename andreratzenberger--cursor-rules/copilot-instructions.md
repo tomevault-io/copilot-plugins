@@ -1,270 +1,131 @@
-## specification-management-rule
+## visualization-rule
 
-> Comprehensive specification management system for creating, validating, and tracking requirements
+> Creates visual representations of project specifications, tasks, and knowledge
 
-# Specification Management System
+# Visualization System
 
-Rule for creating, validating, and managing specifications throughout the development lifecycle.
+Rule for generating visual representations of project elements to improve understanding and communication.
 
 <rule>
-name: specification_management
+name: visualization_system
 filters:
-  # Request specs filters
-  - type: event
-    pattern: "user_request"
   - type: command
-    pattern: "spec"
+    pattern: "visualize"
   - type: command
-    pattern: "requirement"
-  
-  # Validation filters
-  - type: event
-    pattern: "spec_create"
+    pattern: "diagram"
+  - type: command
+    pattern: "chart"
   - type: event
     pattern: "spec_update"
-  - type: file_change
-    pattern: ".cursor/specs/*.md"
-  - type: command
-    pattern: "validate"
+  - type: event
+    pattern: "task_summary"
 
 actions:
-  #
-  # SECTION 1: SPECIFICATION CREATION
-  #
-  
   - type: react
-    event: "user_request"
     conditions:
-      - pattern: "implement|create|build|develop"
+      - pattern: "visualize specs|diagram specs"
     action: |
-      # Create specifications before implementation
+      # Generate specification visualization
       
-      When you ask me to implement something, I'll:
+      I'll create a visual representation of project specifications:
       
-      1. Check if specifications exist for the requested feature
-      2. If specifications don't exist:
-         - Create a new specification file in `.cursor/specs/`
-         - Organize specs by domain/component
-         - Define clear requirements as checkable items
-         - Add acceptance criteria
-         - Link to related specifications if applicable
-      3. Update the specifications index `SPECS.md`
-      4. Trigger task creation (via development_workflow_system) after specs are created
+      1. Generate a dependency diagram showing relationships between specs
+      2. Create a completion heatmap showing progress across domains
+      3. Visualize requirement distribution and completion status
+      4. Show timeline of specification development
       
-      This ensures all implemented features have proper specifications 
-      before development begins.
+      The visualization will use SVG or Mermaid diagrams for easy rendering.
 
   - type: react
     conditions:
-      - pattern: "spec create|create spec"
+      - pattern: "visualize tasks|diagram tasks"
     action: |
-      # Explicitly create a new specification
+      # Generate task visualization
       
-      I'll create a new specification file:
+      I'll create a visual representation of project tasks:
       
-      1. Identify the appropriate domain for the specification
-      2. Create the spec file in `.cursor/specs/[domain]/[name].md`
-      3. Structure the spec with:
-         - Clear title and description
-         - Numbered requirements as checkable items
-         - Acceptance criteria
-         - Notes or context
-      4. Update the specifications index `SPECS.md`
-      5. Capture any learnings about the specification process (via knowledge_management rule)
+      1. Generate a Gantt chart of tasks with timelines
+      2. Create a kanban-style board visualization showing task status
+      3. Show task dependencies and critical paths
+      4. Visualize task distribution across domains
       
-      This creates a formal specification that can be referenced during development.
+      This provides a quick visual overview of project progress.
 
   - type: react
     conditions:
-      - pattern: "spec update|update spec"
+      - pattern: "visualize knowledge|diagram knowledge"
     action: |
-      # Update an existing specification
+      # Generate knowledge visualization
       
-      I'll update the specified specification:
+      I'll create a visual representation of the knowledge base:
       
-      1. Find the existing specification file
-      2. Add or modify requirements as needed
-      3. Update the completion status of requirements
-      4. Refresh any related information
-      5. Update the specifications index if necessary
-      6. Notify the development workflow system of changes (via development_workflow_system)
+      1. Generate a knowledge map showing relationships between learnings
+      2. Create category distribution charts
+      3. Show knowledge growth over time
+      4. Visualize knowledge clusters and gaps
       
-      This ensures specifications stay current as requirements evolve.
-  
-  #
-  # SECTION 2: SPECIFICATION VALIDATION
-  #
-  
-  - type: react
-    conditions:
-      - pattern: "spec validate|validate spec"
-    action: |
-      # Validate a specification against quality standards and implementation
-      
-      I'll perform a comprehensive validation of the specification:
-      
-      1. Analyze specification quality:
-         - Check for vague terms (should, would, could, etc.)
-         - Identify non-atomic requirements (multiple requirements in one)
-         - Verify all required sections exist (description, requirements, acceptance criteria)
-         - Assess overall specification clarity and completeness
-      
-      2. Validate implementation status:
-         - Trace requirements to actual code
-         - Check if completed requirements have corresponding implementations
-         - Identify discrepancies between spec completion status and actual code
-         - Calculate implementation coverage percentage
-      
-      3. Review test coverage:
-         - Look for test files related to this specification
-         - Verify test existence for key requirements
-         - Identify gaps in test coverage
-      
-      4. Provide actionable recommendations:
-         - Suggest quality improvements
-         - Highlight missing implementations
-         - Recommend test additions
-      
-      5. Capture validation learnings (via knowledge_management rule)
-      
-      The validation report will be saved to `.cursor/output/spec_validation_[filename]_[timestamp].md`
+      This helps identify patterns and relationships in captured knowledge.
 
   - type: react
     conditions:
-      - pattern: "spec format|format spec"
+      - pattern: "visualize architecture|diagram architecture"
     action: |
-      # Format a specification to improve its quality
+      # Generate architecture visualization
       
-      I'll improve the specification format:
+      I'll create a visual representation of the project architecture:
       
-      1. Ensure proper structure:
-         - Add title if missing
-         - Create standard sections (Description, Requirements, Acceptance Criteria, Notes)
-         - Format requirements as proper checkboxes
+      1. Generate component diagrams showing system structure
+      2. Create sequence diagrams for key workflows
+      3. Visualize data flow between components
+      4. Show dependency relationships
       
-      2. Improve requirement quality:
-         - Split non-atomic requirements (containing "and")
-         - Convert vague requirements to specific ones
-         - Ensure consistent formatting
-      
-      3. Backup the original specification
-      
-      This improves specification quality while preserving all original content.
+      This provides a clear visual understanding of system design.
 
   - type: react
-    conditions:
-      - pattern: "spec completeness|completeness check"
+    event: "task_summary"
     action: |
-      # Check specification completeness across the project
+      # Automatically include task visualizations in summaries
       
-      I'll analyze specification coverage across the entire project:
+      When generating task summaries, I'll include:
       
-      1. Generate overall statistics:
-         - Total specification files
-         - Total requirements and completion rate
-         - Quality assessment
+      1. Visual progress indicators
+      2. Timeline charts of task completion
+      3. Distribution visualizations by category
+      4. Burndown/burnup charts
       
-      2. Examine per-specification metrics:
-         - Requirements count and completion
-         - Quality scores
-         - Implementation status
-      
-      3. Analyze source code coverage:
-         - Check which directories/components have specification coverage
-         - Identify code areas lacking specifications
-         - Calculate coverage percentages
-      
-      4. Provide recommendations:
-         - Areas needing specification improvement
-         - Low-quality specifications to address
-         - Missing specifications to create
-      
-      5. Create a learning entry about specification completeness (via knowledge_management rule)
-      
-      The completeness report will be saved to `.cursor/output/spec_completeness_[timestamp].md`
-
-  - type: react
-    event: "file_change"
-    conditions:
-      - pattern: ".cursor/specs/.*\\.md$"
-    action: |
-      # Automatically validate specifications when they change
-      
-      When a specification file changes, I'll:
-      
-      1. Perform a basic quality check:
-         - Look for vague terms
-         - Check for missing sections
-         - Identify potential quality issues
-      
-      2. Update the specifications index:
-         - Add new specifications to the index
-         - Update completion percentages
-         - Refresh requirement counts
-      
-      3. Notify about any quality issues found
-      
-      4. Update related tasks if needed (via development_workflow_system)
-      
-      This ensures specifications maintain high quality and are properly indexed.
+      This adds visual context to textual reports.
 
   - type: suggest
     message: |
-      ### Specification Management System
+      ### Visualization System
 
-      I follow a specification-first approach with built-in quality validation:
+      I can create visual representations of project elements:
 
-      **Specification Creation:**
-      - `spec create "Title"` - Create a new specification file
-      - `spec update "specs/domain/name.md"` - Update an existing specification
-      - Automatic spec creation before implementation
-
-      **Specification Validation:**
-      - `spec validate [path/to/spec.md]` - Detailed validation of a specification
-      - `spec format [path/to/spec.md]` - Automatically improve specification formatting
-      - `spec completeness` - Generate project-wide specification coverage report
+      **Commands:**
+      - `visualize specs` - Create specification relationship and progress diagrams
+      - `visualize tasks` - Generate task timelines and status visualizations
+      - `visualize knowledge` - Create knowledge maps and category charts
+      - `visualize architecture` - Generate system architecture diagrams
 
       **Automatic Behaviors:**
-      - When you ask me to implement something → I'll create specs first
-      - When specifications change → They're automatically validated
-      - When validation issues are found → I'll suggest improvements
-      - When specs are created → Tasks are created (via development workflow)
-      - When specs are validated → Learnings are captured (via knowledge management)
+      - When generating reports → Include relevant visualizations
+      - When summarizing status → Add visual progress indicators
 
-      This integrated system ensures all development is driven by high-quality, 
-      validated specifications that accurately reflect implementation requirements.
+      Visualizations use SVG or Mermaid diagrams and can be exported for documentation.
 
 examples:
-  # Specification Creation Examples
   - input: |
-      spec create "User Authentication System"
-    output: "Specification created at .cursor/specs/auth/user_authentication_system.md and added to index."
+      visualize specs
+    output: "Generated specification visualization showing relationships and completion status across 24 specifications."
 
   - input: |
-      Implement a file upload feature
-    output: "Before implementation, I'll create specifications for the file upload feature."
-
-  - input: |
-      spec update "specs/api/endpoints.md"
-    output: "Updated specifications at .cursor/specs/api/endpoints.md with latest requirements."
-
-  # Specification Validation Examples
-  - input: |
-      spec validate .cursor/specs/auth/login.md
-    output: "Specification validation report generated at .cursor/output/spec_validation_login_20250305_123456.md"
-
-  - input: |
-      spec format .cursor/specs/api/endpoints.md
-    output: "Specification formatted and saved to .cursor/specs/api/endpoints.md"
-
-  - input: |
-      spec completeness
-    output: "Specification completeness report generated at .cursor/output/spec_completeness_20250305_123456.md"
+      visualize architecture
+    output: "Created architecture diagram showing 5 core components and their interactions."
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [AndreRatzenberger/cursor-rules](https://github.com/AndreRatzenberger/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
