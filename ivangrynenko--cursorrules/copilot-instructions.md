@@ -1,774 +1,441 @@
-## javascript-security-logging-monitoring-failures
+## javascript-security-misconfiguration
 
-> Detect and prevent security logging and monitoring failures in JavaScript applications as defined in OWASP Top 10:2021-A09
+> Detect and prevent security misconfigurations in JavaScript applications as defined in OWASP Top 10:2021-A05
 
-# JavaScript Security Logging and Monitoring Failures (OWASP A09:2021)
+# JavaScript Security Misconfiguration (OWASP A05:2021)
 
 <rule>
-name: javascript_security_logging_monitoring_failures
-description: Detect and prevent security logging and monitoring failures in JavaScript applications as defined in OWASP Top 10:2021-A09
+name: javascript_security_misconfiguration
+description: Detect and prevent security misconfigurations in JavaScript applications as defined in OWASP Top 10:2021-A05
 
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Missing Error Logging
-      - pattern: "(?:try\\s*{[^}]*}\\s*catch\\s*\\([^)]*\\)\\s*{[^}]*})(?![^;{]*(?:console\\.(?:error|warn|log)|logger?\\.(?:error|warn|log)|captureException))"
-        message: "Error caught without proper logging. Implement structured error logging for security events."
+      # Pattern 1: Missing or Insecure HTTP Security Headers
+      - pattern: "app\\.use\\([^)]*?\\)\\s*(?!.*(?:helmet|frameguard|hsts|noSniff|xssFilter|contentSecurityPolicy))"
+        location: "(?:app|server|index)\\.(?:js|ts)$"
+        message: "Missing HTTP security headers. Consider using Helmet.js to set secure HTTP headers."
         
-      # Pattern 2: Sensitive Data in Logs
-      - pattern: "console\\.(?:log|warn|error|info|debug)\\s*\\([^)]*(?:password|token|secret|key|credential|auth|jwt|session|cookie)"
-        negative_pattern: "\\*\\*\\*|redact|mask|sanitize"
-        message: "Potential sensitive data in logs. Ensure sensitive information is redacted before logging."
+      # Pattern 2: Insecure CORS Configuration
+      - pattern: "app\\.use\\(cors\\(\\{[^}]*?origin\\s*:\\s*['\"]\\*['\"]\\s*\\}\\)\\)"
+        message: "Insecure CORS configuration. Avoid using wildcard (*) for CORS origin in production environments."
         
-      # Pattern 3: Missing Authentication Logging
-      - pattern: "(?:login|signin|authenticate|auth)\\s*\\([^)]*\\)\\s*{[^}]*}"
-        negative_pattern: "(?:log|audit|record|track)\\s*\\("
-        message: "Authentication function without logging. Log authentication attempts, successes, and failures."
+      # Pattern 3: Exposed Environment Variables in Client-Side Code
+      - pattern: "process\\.env\\.[A-Z_]+"
+        location: "(?:src|components|pages)"
+        message: "Exposing environment variables in client-side code. Only use environment variables with NEXT_PUBLIC_, REACT_APP_, or VITE_ prefixes for client-side code."
         
-      # Pattern 4: Missing Authorization Logging
-      - pattern: "(?:authorize|checkPermission|hasAccess|isAuthorized|can)\\s*\\([^)]*\\)\\s*{[^}]*}"
-        negative_pattern: "(?:log|audit|record|track)\\s*\\("
-        message: "Authorization check without logging. Log access control decisions, especially denials."
+      # Pattern 4: Insecure Cookie Settings
+      - pattern: "(?:cookie|cookies|session)\\([^)]*?\\{[^}]*?(?:secure\\s*:\\s*false|httpOnly\\s*:\\s*false|sameSite\\s*:\\s*['\"]none['\"])"
+        message: "Insecure cookie configuration. Set secure:true, httpOnly:true, and appropriate sameSite value for cookies."
         
-      # Pattern 5: Insufficient Error Detail
-      - pattern: "(?:console\\.error|logger?\\.error)\\s*\\([^)]*(?:error|err|exception)\\s*\\)"
-        negative_pattern: "(?:error\\.(?:message|stack|code|name)|JSON\\.stringify\\(error\\)|serialize)"
-        message: "Error logging with insufficient detail. Include error type, message, stack trace, and context."
+      # Pattern 5: Missing Content Security Policy
+      - pattern: "app\\.use\\([^)]*?helmet\\([^)]*?\\{[^}]*?contentSecurityPolicy\\s*:\\s*false"
+        message: "Content Security Policy (CSP) is disabled. Enable and configure CSP to prevent XSS attacks."
         
-      # Pattern 6: Missing Security Event Logging
-      - pattern: "(?:bruteForce|rateLimit|block|blacklist|suspicious|anomaly|threat|attack|intrusion|malicious)"
-        negative_pattern: "(?:log|audit|record|track|monitor|alert|notify)"
-        message: "Security event detection without logging. Implement logging for all security-relevant events."
+      # Pattern 6: Debug Information Exposure
+      - pattern: "app\\.use\\([^)]*?morgan\\(['\"]dev['\"]\\)|console\\.(?:log|debug|info|warn|error)\\("
+        location: "(?:app|server|index)\\.(?:js|ts)$"
+        message: "Debug information might be exposed in production. Ensure logging is properly configured based on the environment."
         
-      # Pattern 7: Inconsistent Log Formats
-      - pattern: "console\\.(?:log|warn|error|info|debug)\\s*\\("
-        negative_pattern: "JSON\\.stringify|structured|format"
-        message: "Inconsistent log format. Use structured logging with consistent formats for easier analysis."
+      # Pattern 7: Insecure Server Configuration
+      - pattern: "app\\.disable\\(['\"]x-powered-by['\"]\\)"
+        negative_pattern: true
+        location: "(?:app|server|index)\\.(?:js|ts)$"
+        message: "X-Powered-By header is not disabled. Use app.disable('x-powered-by') to hide technology information."
         
-      # Pattern 8: Missing Log Correlation ID
-      - pattern: "(?:api|http|fetch|axios|request)\\s*\\([^)]*\\)"
-        negative_pattern: "(?:correlationId|requestId|traceId|spanId|context)"
-        message: "API request without correlation ID. Include correlation IDs in logs for request tracing."
+      # Pattern 8: Directory Listing Enabled
+      - pattern: "express\\.static\\([^)]*?\\{[^}]*?index\\s*:\\s*false"
+        message: "Directory listing might be enabled. Set index:true or provide an index file to prevent directory listing."
         
-      # Pattern 9: Missing High-Value Transaction Logging
-      - pattern: "(?:payment|transaction|order|purchase|transfer|withdraw|deposit)\\s*\\([^)]*\\)"
-        negative_pattern: "(?:log|audit|record|track)"
-        message: "High-value transaction without audit logging. Implement comprehensive logging for all transactions."
+      # Pattern 9: Missing Rate Limiting
+      - pattern: "app\\.(?:get|post|put|delete|patch)\\([^)]*?['\"](?:/api|/login|/register|/auth)['\"]"
+        negative_pattern: "(?:rateLimit|rateLimiter|limiter|throttle)"
+        message: "Missing rate limiting for sensitive endpoints. Implement rate limiting to prevent brute force attacks."
         
-      # Pattern 10: Client-Side Logging Issues
-      - pattern: "(?:window\\.onerror|window\\.addEventListener\\s*\\(\\s*['\"]error['\"])"
-        negative_pattern: "(?:send|report|log|capture|track)"
-        message: "Client-side error handler without reporting. Implement error reporting to backend services."
+      # Pattern 10: Insecure WebSocket Configuration
+      - pattern: "new\\s+WebSocket\\([^)]*?\\)|io\\.on\\(['\"]connection['\"]"
+        negative_pattern: "(?:wss://|https://)"
+        message: "Potentially insecure WebSocket connection. Use secure WebSocket (wss://) in production."
         
-      # Pattern 11: Missing Log Levels
-      - pattern: "console\\.log\\s*\\("
-        negative_pattern: "logger?\\.(?:error|warn|info|debug|trace)"
-        message: "Using console.log without proper log levels. Implement a logging library with appropriate log levels."
+      # Pattern 11: Hardcoded Configuration Values
+      - pattern: "(?:apiKey|secret|password|token|credentials)\\s*=\\s*['\"][^'\"]+['\"]"
+        message: "Hardcoded configuration values. Use environment variables or a secure configuration management system."
         
-      # Pattern 12: Missing Monitoring Integration
-      - pattern: "package\\.json"
-        negative_pattern: "(?:sentry|newrelic|datadog|appinsights|loggly|splunk|elasticsearch|winston|bunyan|pino|loglevel)"
-        file_pattern: "package\\.json$"
-        message: "No logging or monitoring dependencies detected. Consider adding a proper logging library and monitoring integration."
+      # Pattern 12: Insecure SSL/TLS Configuration
+      - pattern: "https\\.createServer\\([^)]*?\\{[^}]*?rejectUnauthorized\\s*:\\s*false"
+        message: "Insecure SSL/TLS configuration. Never set rejectUnauthorized:false in production."
         
-      # Pattern 13: Missing Log Aggregation
-      - pattern: "(?:docker-compose\\.ya?ml|\\.env|\\.env\\.example|Dockerfile)"
-        negative_pattern: "(?:sentry|newrelic|datadog|appinsights|loggly|splunk|elasticsearch|logstash|fluentd|kibana)"
-        file_pattern: "(?:docker-compose\\.ya?ml|\\.env|\\.env\\.example|Dockerfile)$"
-        message: "No log aggregation service configured. Implement centralized log collection and analysis."
+      # Pattern 13: Missing Security Middleware
+      - pattern: "express\\(\\)|require\\(['\"]express['\"]\\)"
+        negative_pattern: "(?:helmet|cors|rateLimit|bodyParser\\.json\\(\\{\\s*limit|express\\.json\\(\\{\\s*limit)"
+        location: "(?:app|server|index)\\.(?:js|ts)$"
+        message: "Missing essential security middleware. Consider using helmet, cors, rate limiting, and request size limiting."
         
-      # Pattern 14: Missing Health Checks
-      - pattern: "(?:express|koa|fastify|hapi|http\\.createServer)"
-        negative_pattern: "(?:health|status|heartbeat|alive|ready)"
-        message: "Server without health check endpoint. Implement health checks for monitoring service status."
+      # Pattern 14: Insecure Error Handling
+      - pattern: "app\\.use\\([^)]*?function\\s*\\([^)]*?err[^)]*?\\)\\s*\\{[^}]*?res\\.status[^}]*?err(?:\\.message|\\.stack)"
+        message: "Insecure error handling. Avoid exposing error details like stack traces to clients in production."
         
-      # Pattern 15: Missing Rate Limiting Logs
-      - pattern: "(?:rateLimit|throttle|limiter)"
-        negative_pattern: "(?:log|record|track|monitor|alert|notify)"
-        message: "Rate limiting without logging. Log rate limit events to detect potential attacks."
+      # Pattern 15: Outdated Dependencies Warning
+      - pattern: "(?:\"dependencies\"|\"devDependencies\")\\s*:\\s*\\{[^}]*?['\"](?:express|react|vue|angular|next|nuxt|axios)['\"]\\s*:\\s*['\"]\\^?\\d+\\.\\d+\\.\\d+['\"]"
+        location: "package\\.json$"
+        message: "Check for outdated dependencies. Regularly update dependencies to avoid known vulnerabilities."
 
   - type: suggest
     message: |
-      **JavaScript Security Logging and Monitoring Best Practices:**
+      **JavaScript Security Configuration Best Practices:**
       
-      1. **Structured Error Logging:**
-         - Use structured logging formats (JSON)
-         - Include contextual information with errors
+      1. **HTTP Security Headers:**
+         - Use Helmet.js to set secure HTTP headers
+         - Configure Content Security Policy (CSP)
          - Example:
            ```javascript
-           try {
-             // Operation that might fail
-             processUserData(userData);
-           } catch (error) {
-             logger.error({
-               message: 'Failed to process user data',
-               error: {
-                 name: error.name,
-                 message: error.message,
-                 stack: error.stack
+           const helmet = require('helmet');
+           
+           // Basic usage
+           app.use(helmet());
+           
+           // Custom CSP configuration
+           app.use(
+             helmet.contentSecurityPolicy({
+               directives: {
+                 defaultSrc: ["'self'"],
+                 scriptSrc: ["'self'", "'unsafe-inline'", 'trusted-cdn.com'],
+                 styleSrc: ["'self'", "'unsafe-inline'", 'trusted-cdn.com'],
+                 imgSrc: ["'self'", 'data:', 'trusted-cdn.com'],
+                 connectSrc: ["'self'", 'api.yourdomain.com'],
+                 fontSrc: ["'self'", 'trusted-cdn.com'],
+                 objectSrc: ["'none'"],
+                 mediaSrc: ["'self'"],
+                 frameSrc: ["'none'"],
+                 upgradeInsecureRequests: [],
                },
-               userId: userData.id,
-               context: 'user-processing',
-               timestamp: new Date().toISOString()
-             });
-             // Handle the error appropriately
-           }
+             })
+           );
            ```
       
-      2. **Sensitive Data Redaction:**
-         - Redact sensitive information before logging
-         - Use dedicated functions for sanitization
+      2. **Secure CORS Configuration:**
+         - Specify allowed origins explicitly
+         - Configure appropriate CORS options
          - Example:
            ```javascript
-           function redactSensitiveData(obj) {
-             const sensitiveFields = ['password', 'token', 'secret', 'creditCard', 'ssn'];
-             const redacted = { ...obj };
-             
-             for (const field of sensitiveFields) {
-               if (field in redacted) {
-                 redacted[field] = '***REDACTED***';
+           const cors = require('cors');
+           
+           // Define allowed origins
+           const allowedOrigins = [
+             'https://yourdomain.com',
+             'https://app.yourdomain.com',
+             'https://admin.yourdomain.com'
+           ];
+           
+           // Configure CORS
+           app.use(cors({
+             origin: function(origin, callback) {
+               // Allow requests with no origin (like mobile apps, curl, etc.)
+               if (!origin) return callback(null, true);
+               
+               if (allowedOrigins.indexOf(origin) === -1) {
+                 const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+                 return callback(new Error(msg), false);
                }
-             }
+               
+               return callback(null, true);
+             },
+             methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+             credentials: true,
+             maxAge: 86400 // 24 hours
+           }));
+           ```
+      
+      3. **Environment-Based Configuration:**
+         - Use different configurations for development and production
+         - Validate configuration at startup
+         - Example:
+           ```javascript
+           const express = require('express');
+           const helmet = require('helmet');
+           const morgan = require('morgan');
+           
+           const app = express();
+           
+           // Environment-specific configuration
+           if (process.env.NODE_ENV === 'production') {
+             // Production settings
+             app.use(helmet());
+             app.use(morgan('combined'));
+             app.set('trust proxy', 1); // Trust first proxy
              
-             return redacted;
+             // Disable X-Powered-By header
+             app.disable('x-powered-by');
+           } else {
+             // Development settings
+             app.use(morgan('dev'));
            }
            
-           // Usage
-           logger.info({
-             message: 'User login attempt',
-             user: redactSensitiveData(userData),
-             timestamp: new Date().toISOString()
-           });
+           // Validate required environment variables
+           const requiredEnvVars = ['DATABASE_URL', 'JWT_SECRET'];
+           for (const envVar of requiredEnvVars) {
+             if (!process.env[envVar]) {
+               console.error(`Error: Environment variable ${envVar} is required`);
+               process.exit(1);
+             }
+           }
            ```
       
-      3. **Authentication Logging:**
-         - Log all authentication events
-         - Include success/failure status
+      4. **Secure Cookie Configuration:**
+         - Set secure, httpOnly, and sameSite attributes
+         - Use signed cookies when appropriate
          - Example:
            ```javascript
-           async function authenticateUser(username, password) {
-             try {
-               const user = await User.findOne({ username });
+           const session = require('express-session');
+           
+           app.use(session({
+             secret: process.env.SESSION_SECRET,
+             name: 'sessionId', // Custom cookie name instead of default
+             cookie: {
+               secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+               httpOnly: true, // Prevents client-side JS from reading the cookie
+               sameSite: 'lax', // Controls when cookies are sent with cross-site requests
+               maxAge: 3600000, // 1 hour in milliseconds
+               domain: process.env.NODE_ENV === 'production' ? '.yourdomain.com' : undefined
+             },
+             resave: false,
+             saveUninitialized: false
+           }));
+           ```
+      
+      5. **Request Size Limiting:**
+         - Limit request body size to prevent DoS attacks
+         - Example:
+           ```javascript
+           // Using express built-in middleware
+           app.use(express.json({ limit: '10kb' }));
+           app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+           
+           // Or using body-parser
+           const bodyParser = require('body-parser');
+           app.use(bodyParser.json({ limit: '10kb' }));
+           app.use(bodyParser.urlencoded({ extended: true, limit: '10kb' }));
+           ```
+      
+      6. **Proper Error Handling:**
+         - Use a centralized error handler
+         - Don't expose sensitive information in error responses
+         - Example:
+           ```javascript
+           // Custom error class
+           class AppError extends Error {
+             constructor(message, statusCode) {
+               super(message);
+               this.statusCode = statusCode;
+               this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
+               this.isOperational = true;
                
-               if (!user) {
-                 logger.warn({
-                   message: 'Authentication failed: user not found',
-                   username,
-                   ipAddress: req.ip,
-                   userAgent: req.headers['user-agent'],
-                   timestamp: new Date().toISOString()
+               Error.captureStackTrace(this, this.constructor);
+             }
+           }
+           
+           // Global error handling middleware
+           app.use((err, req, res, next) => {
+             err.statusCode = err.statusCode || 500;
+             err.status = err.status || 'error';
+             
+             // Different handling for development and production
+             if (process.env.NODE_ENV === 'development') {
+               res.status(err.statusCode).json({
+                 status: err.status,
+                 error: err,
+                 message: err.message,
+                 stack: err.stack
+               });
+             } else if (process.env.NODE_ENV === 'production') {
+               // Only send operational errors to the client
+               if (err.isOperational) {
+                 res.status(err.statusCode).json({
+                   status: err.status,
+                   message: err.message
                  });
-                 return { success: false, reason: 'invalid_credentials' };
-               }
-               
-               const isValid = await bcrypt.compare(password, user.passwordHash);
-               
-               if (!isValid) {
-                 logger.warn({
-                   message: 'Authentication failed: invalid password',
-                   username,
-                   userId: user.id,
-                   ipAddress: req.ip,
-                   userAgent: req.headers['user-agent'],
-                   timestamp: new Date().toISOString()
+               } else {
+                 // Log programming or unknown errors
+                 console.error('ERROR 💥', err);
+                 
+                 // Send generic message
+                 res.status(500).json({
+                   status: 'error',
+                   message: 'Something went wrong'
                  });
-                 return { success: false, reason: 'invalid_credentials' };
-               }
-               
-               logger.info({
-                 message: 'User authenticated successfully',
-                 username,
-                 userId: user.id,
-                 ipAddress: req.ip,
-                 userAgent: req.headers['user-agent'],
-                 timestamp: new Date().toISOString()
-               });
-               
-               return { success: true, user };
-             } catch (error) {
-               logger.error({
-                 message: 'Authentication error',
-                 username,
-                 error: {
-                   name: error.name,
-                   message: error.message,
-                   stack: error.stack
-                 },
-                 timestamp: new Date().toISOString()
-               });
-               return { success: false, reason: 'system_error' };
-             }
-           }
-           ```
-      
-      4. **Authorization Logging:**
-         - Log access control decisions
-         - Include user, resource, and action
-         - Example:
-           ```javascript
-           function checkPermission(user, resource, action) {
-             const hasPermission = user.permissions.some(p => 
-               p.resource === resource && p.actions.includes(action)
-             );
-             
-             logger.info({
-               message: `Authorization ${hasPermission ? 'granted' : 'denied'}`,
-               userId: user.id,
-               username: user.username,
-               resource,
-               action,
-               decision: hasPermission ? 'allow' : 'deny',
-               timestamp: new Date().toISOString()
-             });
-             
-             return hasPermission;
-           }
-           ```
-      
-      5. **Comprehensive Error Logging:**
-         - Include detailed error information
-         - Add context for troubleshooting
-         - Example:
-           ```javascript
-           // Using a logging library like Winston
-           const winston = require('winston');
-           
-           const logger = winston.createLogger({
-             level: process.env.LOG_LEVEL || 'info',
-             format: winston.format.combine(
-               winston.format.timestamp(),
-               winston.format.json()
-             ),
-             defaultMeta: { service: 'user-service' },
-             transports: [
-               new winston.transports.Console(),
-               new winston.transports.File({ filename: 'error.log', level: 'error' }),
-               new winston.transports.File({ filename: 'combined.log' })
-             ]
-           });
-           
-           // Usage
-           try {
-             // Operation that might fail
-           } catch (error) {
-             logger.error({
-               message: 'Operation failed',
-               operationName: 'processData',
-               error: {
-                 name: error.name,
-                 message: error.message,
-                 code: error.code,
-                 stack: error.stack
-               },
-               context: {
-                 userId: req.user?.id,
-                 requestId: req.id,
-                 path: req.path,
-                 method: req.method
-               }
-             });
-           }
-           ```
-      
-      6. **Security Event Logging:**
-         - Log all security-relevant events
-         - Include detailed context
-         - Example:
-           ```javascript
-           function detectBruteForce(username, ipAddress) {
-             const attempts = getLoginAttempts(username, ipAddress);
-             
-             if (attempts > MAX_ATTEMPTS) {
-               logger.warn({
-                 message: 'Possible brute force attack detected',
-                 username,
-                 ipAddress,
-                 attempts,
-                 threshold: MAX_ATTEMPTS,
-                 action: 'account_temporarily_locked',
-                 timestamp: new Date().toISOString()
-               });
-               
-               // Implement account lockout or IP blocking
-               lockAccount(username, LOCKOUT_DURATION);
-               return true;
-             }
-             
-             return false;
-           }
-           ```
-      
-      7. **Structured Logging Format:**
-         - Use JSON for machine-readable logs
-         - Maintain consistent field names
-         - Example:
-           ```javascript
-           // Using a structured logging library like Pino
-           const pino = require('pino');
-           
-           const logger = pino({
-             level: process.env.LOG_LEVEL || 'info',
-             base: { pid: process.pid, hostname: os.hostname() },
-             timestamp: pino.stdTimeFunctions.isoTime,
-             formatters: {
-               level: (label) => {
-                 return { level: label };
                }
              }
            });
-           
-           // Usage
-           logger.info({
-             msg: 'User profile updated',
-             userId: user.id,
-             changes: ['email', 'preferences'],
-             source: 'api'
-           });
            ```
       
-      8. **Request Correlation:**
-         - Use correlation IDs across services
-         - Track request flow through the system
+      7. **Rate Limiting:**
+         - Apply rate limiting to sensitive endpoints
+         - Use different limits for different endpoints
          - Example:
            ```javascript
-           // Express middleware for adding correlation IDs
-           const { v4: uuidv4 } = require('uuid');
+           const rateLimit = require('express-rate-limit');
            
-           function correlationMiddleware(req, res, next) {
-             // Use existing correlation ID from headers or generate a new one
-             const correlationId = req.headers['x-correlation-id'] || uuidv4();
-             req.correlationId = correlationId;
+           // Create a rate limiter for API endpoints
+           const apiLimiter = rateLimit({
+             windowMs: 15 * 60 * 1000, // 15 minutes
+             max: 100, // limit each IP to 100 requests per windowMs
+             standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+             legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+             message: 'Too many requests from this IP, please try again after 15 minutes'
+           });
+           
+           // Create a stricter rate limiter for authentication endpoints
+           const authLimiter = rateLimit({
+             windowMs: 15 * 60 * 1000, // 15 minutes
+             max: 5, // limit each IP to 5 login attempts per windowMs
+             standardHeaders: true,
+             legacyHeaders: false,
+             message: 'Too many login attempts from this IP, please try again after 15 minutes'
+           });
+           
+           // Apply rate limiters to routes
+           app.use('/api/', apiLimiter);
+           app.use('/api/auth/', authLimiter);
+           ```
+      
+      8. **Secure WebSocket Configuration:**
+         - Use secure WebSocket connections (wss://)
+         - Implement authentication for WebSocket connections
+         - Example:
+           ```javascript
+           const http = require('http');
+           const https = require('https');
+           const socketIo = require('socket.io');
+           const fs = require('fs');
+           
+           let server;
+           
+           // Create secure server in production
+           if (process.env.NODE_ENV === 'production') {
+             const options = {
+               key: fs.readFileSync('/path/to/private.key'),
+               cert: fs.readFileSync('/path/to/certificate.crt')
+             };
+             server = https.createServer(options, app);
+           } else {
+             server = http.createServer(app);
+           }
+           
+           const io = socketIo(server, {
+             cors: {
+               origin: process.env.NODE_ENV === 'production' 
+                 ? 'https://yourdomain.com' 
+                 : 'http://localhost:3000',
+               methods: ['GET', 'POST'],
+               credentials: true
+             }
+           });
+           
+           // WebSocket authentication middleware
+           io.use((socket, next) => {
+             const token = socket.handshake.auth.token;
              
-             // Add to response headers
-             res.setHeader('x-correlation-id', correlationId);
+             if (!token) {
+               return next(new Error('Authentication error'));
+             }
              
-             // Add to logger context for this request
-             req.logger = logger.child({ correlationId });
+             // Verify token
+             // ...
              
              next();
-           }
-           
-           // Usage in route handlers
-           app.get('/api/users/:id', (req, res) => {
-             req.logger.info({
-               msg: 'User profile requested',
-               userId: req.params.id,
-               path: req.path,
-               method: req.method
-             });
-             
-             // Process request...
            });
            ```
       
-      9. **Transaction Logging:**
-         - Log all high-value transactions
-         - Include before/after states
+      9. **Security Dependency Management:**
+         - Regularly update dependencies
+         - Use tools like npm audit or Snyk
          - Example:
            ```javascript
-           async function processPayment(userId, amount, paymentMethod) {
-             logger.info({
-               message: 'Payment processing started',
-               userId,
-               amount,
-               paymentMethod: {
-                 type: paymentMethod.type,
-                 lastFour: paymentMethod.lastFour
-               },
-               transactionId: generateTransactionId(),
-               timestamp: new Date().toISOString()
-             });
-             
-             try {
-               const result = await paymentGateway.charge({
-                 amount,
-                 source: paymentMethod.token
-               });
-               
-               logger.info({
-                 message: 'Payment processed successfully',
-                 userId,
-                 amount,
-                 transactionId: result.transactionId,
-                 gatewayReference: result.reference,
-                 status: 'success',
-                 timestamp: new Date().toISOString()
-               });
-               
-               return { success: true, transactionId: result.transactionId };
-             } catch (error) {
-               logger.error({
-                 message: 'Payment processing failed',
-                 userId,
-                 amount,
-                 error: {
-                   name: error.name,
-                   message: error.message,
-                   code: error.code
-                 },
-                 status: 'failed',
-                 timestamp: new Date().toISOString()
-               });
-               
-               return { success: false, error: error.message };
+           // package.json scripts
+           {
+             "scripts": {
+               "audit": "npm audit",
+               "audit:fix": "npm audit fix",
+               "outdated": "npm outdated",
+               "update": "npm update",
+               "prestart": "npm audit --production"
              }
            }
            ```
       
-      10. **Client-Side Error Reporting:**
-          - Send client errors to the backend
-          - Include browser and user context
+      10. **Secure Logging Configuration:**
+          - Configure logging based on environment
+          - Avoid logging sensitive information
           - Example:
             ```javascript
-            // Client-side error tracking
-            window.addEventListener('error', function(event) {
-              const errorDetails = {
-                message: event.message,
-                source: event.filename,
-                lineno: event.lineno,
-                colno: event.colno,
-                error: {
-                  stack: event.error?.stack
-                },
-                url: window.location.href,
-                userAgent: navigator.userAgent,
-                timestamp: new Date().toISOString(),
-                // Add user context if available
-                userId: window.currentUser?.id
-              };
-              
-              // Send to backend logging endpoint
-              fetch('/api/log/client-error', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(errorDetails),
-                // Use keepalive to ensure the request completes even if the page is unloading
-                keepalive: true
-              }).catch(err => {
-                // Fallback if the logging endpoint fails
-                console.error('Failed to send error report:', err);
-              });
-            });
-            ```
-      
-      11. **Proper Log Levels:**
-          - Use appropriate log levels
-          - Configure based on environment
-          - Example:
-            ```javascript
-            // Using Winston with proper log levels
             const winston = require('winston');
             
-            const logger = winston.createLogger({
-              level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
-              levels: winston.config.npm.levels,
-              format: winston.format.combine(
-                winston.format.timestamp(),
-                winston.format.json()
-              ),
-              transports: [
-                new winston.transports.Console({
-                  format: winston.format.combine(
-                    winston.format.colorize(),
-                    winston.format.simple()
-                  )
-                })
-              ]
-            });
-            
-            // Usage with appropriate levels
-            logger.error('Critical application error'); // Always logged
-            logger.warn('Potential issue detected'); // Warning conditions
-            logger.info('Normal operational message'); // Normal but significant
-            logger.http('HTTP request received'); // HTTP request logging
-            logger.verbose('Detailed information'); // Detailed debug information
-            logger.debug('Debugging information'); // For developers
-            logger.silly('Extremely detailed tracing'); // Most granular
-            ```
-      
-      12. **Monitoring Integration:**
-          - Integrate with monitoring services
-          - Set up alerts for critical issues
-          - Example:
-            ```javascript
-            // Using Sentry for error monitoring
-            const Sentry = require('@sentry/node');
-            const Tracing = require('@sentry/tracing');
-            const express = require('express');
-            
-            const app = express();
-            
-            Sentry.init({
-              dsn: process.env.SENTRY_DSN,
-              integrations: [
-                new Sentry.Integrations.Http({ tracing: true }),
-                new Tracing.Integrations.Express({ app })
-              ],
-              tracesSampleRate: 1.0
-            });
-            
-            // Use Sentry middleware
-            app.use(Sentry.Handlers.requestHandler());
-            app.use(Sentry.Handlers.tracingHandler());
-            
-            // Your routes here
-            
-            // Error handler
-            app.use(Sentry.Handlers.errorHandler());
-            app.use((err, req, res, next) => {
-              // Custom error handling
-              logger.error({
-                message: 'Express error',
-                error: {
-                  name: err.name,
-                  message: err.message,
-                  stack: err.stack
-                },
-                request: {
-                  path: req.path,
-                  method: req.method,
-                  correlationId: req.correlationId
-                }
-              });
-              
-              res.status(500).json({ error: 'Internal server error' });
-            });
-            ```
-      
-      13. **Log Aggregation:**
-          - Set up centralized log collection
-          - Configure log shipping
-          - Example:
-            ```javascript
-            // Using Winston with Elasticsearch transport
-            const winston = require('winston');
-            const { ElasticsearchTransport } = require('winston-elasticsearch');
-            
-            const esTransportOpts = {
-              level: 'info',
-              clientOpts: {
-                node: process.env.ELASTICSEARCH_URL,
-                auth: {
-                  username: process.env.ELASTICSEARCH_USERNAME,
-                  password: process.env.ELASTICSEARCH_PASSWORD
-                }
-              },
-              indexPrefix: 'app-logs'
+            // Define log levels
+            const levels = {
+              error: 0,
+              warn: 1,
+              info: 2,
+              http: 3,
+              debug: 4,
             };
             
+            // Define log level based on environment
+            const level = () => {
+              const env = process.env.NODE_ENV || 'development';
+              return env === 'development' ? 'debug' : 'warn';
+            };
+            
+            // Define log format
+            const format = winston.format.combine(
+              winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+              winston.format.printf(
+                (info) => `${info.timestamp} ${info.level}: ${info.message}`
+              )
+            );
+            
+            // Define transports
+            const transports = [
+              new winston.transports.Console(),
+              new winston.transports.File({
+                filename: 'logs/error.log',
+                level: 'error',
+              }),
+              new winston.transports.File({ filename: 'logs/all.log' }),
+            ];
+            
+            // Create the logger
             const logger = winston.createLogger({
-              transports: [
-                new winston.transports.Console(),
-                new ElasticsearchTransport(esTransportOpts)
-              ]
-            });
-            ```
-            
-            ```yaml
-            # docker-compose.yml example with ELK stack
-            version: '3'
-            services:
-              app:
-                build: .
-                environment:
-                  - NODE_ENV=production
-                  - ELASTICSEARCH_URL=http://elasticsearch:9200
-                depends_on:
-                  - elasticsearch
-              
-              elasticsearch:
-                image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
-                environment:
-                  - discovery.type=single-node
-                  - ES_JAVA_OPTS=-Xms512m -Xmx512m
-                volumes:
-                  - es_data:/usr/share/elasticsearch/data
-              
-              kibana:
-                image: docker.elastic.co/kibana/kibana:7.14.0
-                ports:
-                  - "5601:5601"
-                depends_on:
-                  - elasticsearch
-              
-              logstash:
-                image: docker.elastic.co/logstash/logstash:7.14.0
-                volumes:
-                  - ./logstash/pipeline:/usr/share/logstash/pipeline
-                depends_on:
-                  - elasticsearch
-            
-            volumes:
-              es_data:
-            ```
-      
-      14. **Health Checks and Monitoring:**
-          - Implement health check endpoints
-          - Monitor application status
-          - Example:
-            ```javascript
-            const express = require('express');
-            const app = express();
-            
-            // Basic health check endpoint
-            app.get('/health', (req, res) => {
-              const status = {
-                status: 'UP',
-                timestamp: new Date().toISOString(),
-                uptime: process.uptime(),
-                memoryUsage: process.memoryUsage(),
-                version: process.env.npm_package_version
-              };
-              
-              // Add database health check
-              try {
-                // Check database connection
-                status.database = { status: 'UP' };
-              } catch (error) {
-                status.database = { status: 'DOWN', error: error.message };
-                status.status = 'DEGRADED';
-              }
-              
-              // Add external service health checks
-              // ...
-              
-              // Log health check results
-              logger.debug({
-                message: 'Health check performed',
-                result: status
-              });
-              
-              const statusCode = status.status === 'UP' ? 200 : 
-                                status.status === 'DEGRADED' ? 200 : 503;
-              
-              res.status(statusCode).json(status);
+              level: level(),
+              levels,
+              format,
+              transports,
             });
             
-            // Detailed readiness probe
-            app.get('/ready', async (req, res) => {
-              const checks = [];
-              let isReady = true;
-              
-              // Check database
-              try {
-                await db.ping();
-                checks.push({ component: 'database', status: 'ready' });
-              } catch (error) {
-                isReady = false;
-                checks.push({ 
-                  component: 'database', 
-                  status: 'not ready',
-                  error: error.message
-                });
-              }
-              
-              // Check cache
-              try {
-                await cache.ping();
-                checks.push({ component: 'cache', status: 'ready' });
-              } catch (error) {
-                isReady = false;
-                checks.push({ 
-                  component: 'cache', 
-                  status: 'not ready',
-                  error: error.message
-                });
-              }
-              
-              // Log readiness check
-              logger.debug({
-                message: 'Readiness check performed',
-                isReady,
-                checks
-              });
-              
-              res.status(isReady ? 200 : 503).json({
-                status: isReady ? 'ready' : 'not ready',
-                checks,
-                timestamp: new Date().toISOString()
-              });
-            });
-            ```
-      
-      15. **Rate Limiting with Logging:**
-          - Log rate limit events
-          - Track potential abuse
-          - Example:
-            ```javascript
-            const rateLimit = require('express-rate-limit');
-            
-            // Create rate limiter with logging
-            const apiLimiter = rateLimit({
-              windowMs: 15 * 60 * 1000, // 15 minutes
-              max: 100, // limit each IP to 100 requests per windowMs
-              standardHeaders: true,
-              legacyHeaders: false,
-              handler: (req, res, next, options) => {
-                // Log rate limit exceeded
-                logger.warn({
-                  message: 'Rate limit exceeded',
-                  ip: req.ip,
-                  path: req.path,
-                  method: req.method,
-                  userAgent: req.headers['user-agent'],
-                  currentLimit: options.max,
-                  windowMs: options.windowMs,
-                  correlationId: req.correlationId,
-                  userId: req.user?.id,
-                  timestamp: new Date().toISOString()
-                });
-                
-                res.status(options.statusCode).json({
-                  status: 'error',
-                  message: options.message
-                });
-              },
-              // Called on all requests to track usage
-              onLimitReached: (req, res, options) => {
-                // This is called when a client hits the rate limit
-                logger.warn({
-                  message: 'Client reached rate limit',
-                  ip: req.ip,
-                  path: req.path,
-                  method: req.method,
-                  userAgent: req.headers['user-agent'],
-                  correlationId: req.correlationId,
-                  userId: req.user?.id,
-                  timestamp: new Date().toISOString()
-                });
-                
-                // Consider additional actions like temporary IP ban
-                // or sending alerts for potential attacks
-              }
-            });
-            
-            // Apply to all API routes
-            app.use('/api/', apiLimiter);
+            module.exports = logger;
             ```
 
   - type: validate
     conditions:
-      # Check 1: Structured Logging
-      - pattern: "(?:winston|pino|bunyan|loglevel|morgan|log4js)"
-        message: "Using a structured logging library."
+      # Check 1: Helmet usage
+      - pattern: "helmet\\(\\)|frameguard\\(\\)|hsts\\(\\)|noSniff\\(\\)|xssFilter\\(\\)|contentSecurityPolicy\\(\\)"
+        message: "Using Helmet.js or individual HTTP security headers middleware."
       
-      # Check 2: Error Logging
-      - pattern: "try\\s*{[^}]*}\\s*catch\\s*\\([^)]*\\)\\s*{[^}]*(?:logger?\\.error|captureException)\\s*\\([^)]*\\)"
-        message: "Implementing proper error logging in catch blocks."
+      # Check 2: Secure CORS configuration
+      - pattern: "cors\\(\\{[^}]*?origin\\s*:\\s*(?!['\"]*\\*)['\"]"
+        message: "Using secure CORS configuration with specific origins."
       
-      # Check 3: Sensitive Data Handling
-      - pattern: "(?:redact|mask|sanitize|filter)\\s*\\([^)]*(?:password|token|secret|key|credential)"
-        message: "Implementing sensitive data redaction in logs."
+      # Check 3: Environment-based configuration
+      - pattern: "process\\.env\\.NODE_ENV\\s*===\\s*['\"]production['\"]"
+        message: "Implementing environment-specific configuration."
       
-      # Check 4: Correlation IDs
-      - pattern: "(?:correlationId|requestId|traceId)"
-        message: "Using correlation IDs for request tracing."
+      # Check 4: Secure cookie settings
+      - pattern: "cookie\\s*:\\s*\\{[^}]*?secure\\s*:\\s*true[^}]*?httpOnly\\s*:\\s*true"
+        message: "Using secure cookie configuration."
       
-      # Check 5: Monitoring Integration
-      - pattern: "(?:sentry|newrelic|datadog|appinsights|loggly|splunk|elasticsearch)"
-        message: "Integrating with monitoring or log aggregation services."
+      # Check 5: Request size limiting
+      - pattern: "(?:express|bodyParser)\\.json\\(\\{[^}]*?limit\\s*:"
+        message: "Implementing request size limiting."
 
 metadata:
   priority: high
@@ -778,8 +445,7 @@ metadata:
     - javascript
     - nodejs
     - browser
-    - logging
-    - monitoring
+    - configuration
     - owasp
     - language:javascript
     - framework:express
@@ -787,17 +453,17 @@ metadata:
     - framework:vue
     - framework:angular
     - category:security
-    - subcategory:logging
+    - subcategory:misconfiguration
     - standard:owasp-top10
-    - risk:a09-security-logging-monitoring-failures
+    - risk:a05-security-misconfiguration
   references:
-    - "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
-    - "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_for_Process_Timing"
-    - "https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Logging_Vocabulary_Cheat_Sheet.md"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#security-logging-monitoring"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Application_Logging_Vocabulary_Cheat_Sheet.html"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html#monitor-activity"
+    - "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html"
+    - "https://expressjs.com/en/advanced/best-practice-security.html"
+    - "https://helmetjs.github.io/"
+    - "https://github.com/OWASP/NodeGoat"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html"
 </rule> 
 
 ---
