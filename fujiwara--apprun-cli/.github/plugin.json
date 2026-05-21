@@ -1,0 +1,9 @@
+{
+  "name": "fujiwara--apprun-cli",
+  "displayName": "apprun-cli",
+  "description": "CLI for sakura AppRunr Shared (\u5171\u7528\u578b) on Sakura Cloud.",
+  "version": "1.0.0",
+  "author": "fujiwara",
+  "homepage": "https://github.com/fujiwara/apprun-cli",
+  "skills": []
+}
