@@ -1,14 +1,73 @@
-## env-requirements
+## gitignore-requirements
 
-> Environment File Requirements
+> Gitignore File Requirements
 
+# Gitignore Requirements
 
-# Environment File Requirements
+## Universal Rules (All Projects)
 
-## sample.env Content
-```bash
-DEEPGRAM_API_KEY=%deepgram_api_key%
-```
+**MUST ignore these items:**ignore
+# Environment variables
+.env
+.env.*
+!.env.example
+!sample.env
+
+# Dependencies (language-specific)
+node_modules/
+__pycache__/
+*.pyc
+vendor/
+target/
+bin/
+obj/
+
+# Build outputs
+dist/
+build/
+*.dll
+*.exe
+*.out
+*.class
+
+# Editor & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Snyk
+.snyk## Language-Specific Templates
+
+For comprehensive language-specific ignores, reference the official GitHub templates:
+
+- **Node.js:** https://github.com/github/gitignore/blob/main/Node.gitignore
+- **Python:** https://github.com/github/gitignore/blob/main/Python.gitignore
+- **Go:** https://github.com/github/gitignore/blob/main/Go.gitignore
+- **Java:** https://github.com/github/gitignore/blob/main/Java.gitignore
+- **C++:** https://github.com/github/gitignore/blob/main/C%2B%2B.gitignore
+- **Ruby:** https://github.com/github/gitignore/blob/main/Ruby.gitignore
+- **PHP:** https://github.com/github/gitignore/blob/main/Composer.gitignore
+- **Rust:** https://github.com/github/gitignore/blob/main/Rust.gitignore
+- **.NET:** https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
+
+## Project-Specific Additions
+
+Add based on your project needs:
+- Frontend build directories (`frontend/dist/`, `frontend/build/`)
+- Cloud provider configs (if not needed in repo)
+- Test coverage reports
+- Local development scripts
 
 ---
 > Source: [deepgram-starters/node-voice-agent](https://github.com/deepgram-starters/node-voice-agent) — distributed by [TomeVault](https://tomevault.io).
