@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-python-genai",
+  "displayName": "opentelemetry-python-genai",
+  "description": "opentelemetry-python-genai",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-python-genai",
+  "skills": []
+}
