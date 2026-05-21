@@ -1,13 +1,16 @@
-## code-hygiene
+## code-modification-principles
 
-> .  **No Redundant Comments:** Only comment non-trivial logic. Avoid comments that merely state the obvious (e.g., `# Import module`, `# Loop through items`). Adhere strictly to the global `<comments>` instruction provided during generation. Docstrings are a special case and should almost always be included for all classes and functions even if trivial.
+> Guiding principles for modifying code (refactoring, cleanup, imports, comments).
 
-.  **No Redundant Comments:** Only comment non-trivial logic. Avoid comments that merely state the obvious (e.g., `# Import module`, `# Loop through items`). Adhere strictly to the global `<comments>` instruction provided during generation. Docstrings are a special case and should almost always be included for all classes and functions even if trivial.
-2.  **No Change Explanations in Code:** NEVER add comments to explain *why* a code change was made (e.g., `# Removed X`, `# Moved Y to Z`, `# Refactored this section`). Explain changes in the chat discussion only. This reinforces `change_guidelines` point 5.
-3.  **Delete, Don't Comment Out:** NEVER leave commented-out blocks of code in the source files. Delete unused or obsolete code directly. Use version control (Git) to track history.3.1. **Verification of Deletion Edits:** When an `edit_file` operation is intended to delete lines or blocks of code:
-        a.  The `instructions` field for the `edit_file` tool should explicitly state the intent to delete (e.g., "Delete lines X-Y," "Remove the following function...").
-        b.  The `code_edit` content should show the complete absence of the code, not commented-out versions.
-        c.  If, after an edit, there's any indication (e.g., from a diff, a subsequent tool error, or user feedback) that the code was commented out instead of deleted, a corrective `edit_file` operation MUST be immediately proposed and executed to ensure complete removal. This is a high-priority correction.
+# Code Modification Principles
+
+
+**MANDATORY. FOLLOW THESE RULES.**
+
+1. **Use standard solutions** before custom code.
+2. **Create abstractions only when:** code repeats 2+ times, complex logic requires it, or user requests it.
+3. **Solve the current problem only.** NO future features.
+4. **FIX BUGS DIRECTLY. DO NOT REDESIGN. STAY WITHIN SCOPE. DO NOT OVERENGINEER**
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
