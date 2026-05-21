@@ -1,0 +1,9 @@
+{
+  "name": "donaldfilimon--abi",
+  "displayName": "abi",
+  "description": "ABI Agent + WDBX Database: A high-speed, fully optimized AI and ML training stack developed in Zig 0.16.0-dev, offering exceptional performance and reliability.",
+  "version": "1.0.0",
+  "author": "donaldfilimon",
+  "homepage": "https://github.com/donaldfilimon/abi",
+  "skills": []
+}
