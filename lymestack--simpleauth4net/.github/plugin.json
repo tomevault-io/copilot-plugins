@@ -1,0 +1,9 @@
+{
+  "name": "lymestack--simpleauth4net",
+  "displayName": "SimpleAuth4Net",
+  "description": "A lightweight, self-hosted authentication and authorization solution for .NET WebAPI, providing local accounts, role management, and SSO support with minimal setup.",
+  "version": "1.0.0",
+  "author": "lymestack",
+  "homepage": "https://github.com/lymestack/SimpleAuth4Net",
+  "skills": []
+}
