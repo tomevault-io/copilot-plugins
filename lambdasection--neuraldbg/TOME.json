@@ -4,7 +4,7 @@
   "repo": "NeuralDBG",
   "description": "A causal inference engine for deep learning training that provides structured explanations of neural network training failures. Understand why your model failed during training through semantic analysis and abductive reasoning, not raw tensor inspection.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LambdaSection/NeuralDBG",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T17:42:41Z"
+  "distributed_at": "2026-05-21T17:59:12Z"
 }
