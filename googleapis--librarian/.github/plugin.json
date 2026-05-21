@@ -1,0 +1,9 @@
+{
+  "name": "googleapis--librarian",
+  "displayName": "librarian",
+  "description": "CLI for managing SDK client library configuration, generation and releases",
+  "version": "1.0.0",
+  "author": "googleapis",
+  "homepage": "https://github.com/googleapis/librarian",
+  "skills": []
+}
