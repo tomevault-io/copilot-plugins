@@ -1,0 +1,9 @@
+{
+  "name": "daangn--karrotcodablekit",
+  "displayName": "KarrotCodableKit",
+  "description": "KarrotCodableKit simplifies Swift's Codable protocol by offering support for polymorphism, property wrappers, and macros to handle complex JSON structures efficiently.",
+  "version": "1.0.0",
+  "author": "daangn",
+  "homepage": "https://github.com/daangn/KarrotCodableKit",
+  "skills": []
+}
