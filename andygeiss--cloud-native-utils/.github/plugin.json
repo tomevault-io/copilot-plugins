@@ -1,0 +1,9 @@
+{
+  "name": "andygeiss--cloud-native-utils",
+  "displayName": "cloud-native-utils",
+  "description": "A collection of high-performance, modular utilities for enhancing testing, transactional consistency, efficiency, security and stability in cloud-native Go applications.",
+  "version": "1.0.0",
+  "author": "andygeiss",
+  "homepage": "https://github.com/andygeiss/cloud-native-utils",
+  "skills": []
+}
