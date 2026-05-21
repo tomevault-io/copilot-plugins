@@ -1,0 +1,9 @@
+{
+  "name": "opensvm--solana-mcp-server",
+  "displayName": "solana-mcp-server",
+  "description": "solana mcp sever to enable solana rpc methods",
+  "version": "1.0.0",
+  "author": "openSVM",
+  "homepage": "https://github.com/openSVM/solana-mcp-server",
+  "skills": []
+}
