@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--nodewright",
+  "displayName": "nodewright",
+  "description": "A Kubernetes Operator to manage Node OS customizations.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/nodewright",
+  "skills": []
+}
