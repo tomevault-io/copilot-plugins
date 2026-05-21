@@ -1,14 +1,15 @@
-## saasbooks
+## nextjs
 
-> - Use Prisma with SQLite for local-first database
+> Best Practices for Next.js with App Router
 
-- Use Prisma with SQLite for local-first database
-- Next.js 15 App Router for routing and API
-- TypeScript for type safety
-- TailwindCSS, Shadcn/UI and Radix for styling
-- React Server Components by default
-- Use Bun
-- Maximize less code and less files, less complexity, less bugs
+- Prioritize using server components (RSC) for performance, SEO, and data fetching
+- Use client components sparingly, only when interactivity is required
+- Take advantage of Next.js file-based routing system for simplicity
+- Centralize shared layouts in layout.tsx for consistency across pages
+- Add loading.tsx to handle loading states for better UX
+- Implement custom error pages with error.tsx to handle errors gracefully
+- Use API route handlers to manage backend logic within the app structure
+- Optimize server-side rendering (SSR) and static site generation (SSG) for faster loading times
 
 ---
 > Source: [Illyism/saasbooks](https://github.com/Illyism/saasbooks) — distributed by [TomeVault](https://tomevault.io).
