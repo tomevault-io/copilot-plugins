@@ -1,12 +1,14 @@
-## test-practices
+## test-rules
 
-> implement unit test
+> unit test
 
+Output `Running and Fixing Unit Tests`
 
-# Unit Test Writing Best Practices
+Use context7 for Orleans related issues.
 
 When working on unit tests, do the following:
 1. Output "!!!Implementing Unit Test Cases!!!".
+2. Analyse what the method does, breakdown and create extensive test cases
 2. Make sure to cover the following test cases:
     1. Positive Test Cases
     2. Negative Test Cases
@@ -17,9 +19,15 @@ When working on unit tests, do the following:
 5. Only edit test files.
 
 You MUST iterate implementing and fixing unit tests until all the following criteria are met:
-1. At least 80% code coverage.
-2. All unit test cases passes.
-3. Execute `dotnet test` and it yields no compile error.
+- All unit test cases passes.
+- Execute `dotnet test` and it yields no compile error.
+Do not fix warnings.
+
+Use openmemory to get relevant context.
+
+For file specific unit test, run command like these examples:
+- `dotnet test framework/test/Aevatar.Core.Tests --filter "FullyQualifiedName~OrleansGrainProxyGeneratorTests" --verbosity normal`
+- `dotnet test framework/test/Aevatar.Core.Tests --filter "FullyQualifiedName~AgentPluginTests" --verbosity normal`
 
 ---
 > Source: [aevatarAI/aevatar-station](https://github.com/aevatarAI/aevatar-station) — distributed by [TomeVault](https://tomevault.io).
