@@ -1,103 +1,103 @@
-## drupal-insecure-design
+## drupal-integrity-failures
 
-> Detect and prevent insecure design patterns in Drupal as defined in OWASP Top 10:2021-A04
+> Detect and prevent software and data integrity failures in Drupal as defined in OWASP Top 10:2021-A08
 
-# Drupal Insecure Design Security Standards (OWASP A04:2021)
+# Drupal Software and Data Integrity Failures Standards (OWASP A08:2021)
 
-This rule enforces security best practices to prevent insecure design vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A04.
+This rule enforces security best practices to prevent software and data integrity failures in Drupal applications, as defined in OWASP Top 10:2021-A08.
 
 ## Rule Details
 
-- **Name:** drupal_insecure_design
+- **Name:** drupal_integrity_failures
 
-- **Description:** Detect and prevent insecure design patterns in Drupal as defined in OWASP Top 10:2021-A04
+- **Description:** Detect and prevent software and data integrity failures in Drupal as defined in OWASP Top 10:2021-A08
 
 ## Filters
-- file extension pattern: `\\.(php|inc|module|install|theme|info\\.yml)$`
-- file path pattern: `(modules|themes|profiles)/custom`
+- file extension pattern: `\\.(php|inc|module|install|theme|yml|json)$`
+- file path pattern: `.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `\\$permissions\\[['\"][^'\"]+['\"]\\]\\s*=\\s*array\\((?![^)]*(administer|manage|edit|delete)[^)]*(content|configuration|users)).*?\\);` – Permissions should follow Drupal naming patterns (verb + object) and be specific. Avoid overly broad permissions.
-    - Pattern 1: Insecure permission design
-  - pattern `if\\s*\\([^\\)]*===?\\s*['\"][a-zA-Z0-9_]+['\"]\\s*\\)` – Consider moving business logic rules to configuration to allow for proper adjustment without code changes.
-    - Pattern 2: Hard-coded business logic values
-  - pattern `preg_replace|str_replace|strip_tags` – Avoid ad hoc sanitization. Use Drupal's built-in sanitization tools: t(), Xss::filter(), etc.
-    - Pattern 3: Ad hoc input sanitization
-  - pattern `class\\s+[a-zA-Z0-9_]+Controller.+\\{[^}]*->query\\(` – Follow separation of concerns. Move database logic to services or repositories, not in controllers.
-    - Pattern 4: Database logic in controllers
-  - pattern `function\\s+[a-zA-Z0-9_]+_entity_access\\([^)]*\\)\\s*\\{[^}]*return\\s+AccessResult::allowed\\(\\);` – Avoid unconditional access grants. Implement proper conditional checks based on roles, permissions, or entity ownership.
-    - Pattern 5: Weak entity access policy
-  - pattern `session_start|session_set_cookie_params` – Avoid custom session management. Use Drupal's session handling system and services.
-    - Pattern 6: Custom session management
-  - pattern `(?:\\\\Drupal::[a-zA-Z_]+\\(\\).*){3,}` – Excessive static service calls indicate poor dependency injection. Use proper service injection.
-    - Pattern 7: Excessive global state dependency
-  - pattern `password_verify\\(|password_hash\\(` – Avoid custom authentication. Use Drupal's built-in authentication system and services.
-    - Pattern 8: Custom user authentication
-  - pattern `function\\s+[a-zA-Z0-9_]+_schema\\(\\)[^{]*\\{[^}]*return\\s+\\$schema;(?![^}]*validate_utf8|[^}]*'not null')` – Database schemas should enforce data integrity with proper constraints (NOT NULL, length, etc.).
-    - Pattern 9: Missing schema definitions
-  - pattern `\\$config\\[['\"](mdc:?!secure_|security_|private_)[^'\"]+['\"]\\]\\s*=\\s*(?:FALSE|0|'0'|\"0\");` – Security-related configuration should default to secure settings (opt-in for potentially insecure features).
-    - Pattern 10: Insecure defaults
+  - pattern `unserialize\\(\\$|unserialize\\([^,]+\\$|php_unserialize\\(\\$` – Insecure PHP deserialization detected. Use safer alternatives like JSON for data interchange or implement proper validation before deserialization.
+    - Pattern 1: Insecure deserialization
+  - pattern `eval\\(|assert\\(|create_function\\(` – Potentially dangerous code execution function detected. Avoid dynamic code execution whenever possible.
+    - Pattern 2: Unsafe use of eval or similar functions
+  - pattern `module_load_include\\(\\$|require(_once)?\\s*\\(\\s*\\$|include(_once)?\\s*\\(\\s*\\$` – Dynamic inclusion of files based on user input is dangerous. Use validated, allowlisted paths only.
+    - Pattern 3: Insecure plugin/module loading
+  - pattern `update\\.settings\\.yml|function [a-zA-Z0-9_]+_update_[0-9]+\\(\\)` – Ensure update hooks validate the integrity of updates and data transformations to prevent unauthorized modifications.
+    - Pattern 4: Missing update verification
+  - pattern `ConfigImporter|\\$config_importer|config_import|cmci` – Validate configuration before import to ensure integrity and detect potentially malicious changes.
+    - Pattern 5: Unsafe configuration imports
+  - pattern `drupal_http_request\\(|\\\\Drupal::httpClient\\(\\)->get\\(|curl_exec\\(` – Always validate data from remote sources before processing or storing it. Implement integrity checks for remote content.
+    - Pattern 6: Unchecked remote data
+  - pattern `composer\\.json` – Verify you're using secure Composer practices: validate package signatures, pin dependencies, and use composer.lock.
+    - Pattern 7: Insecure Composer usage
+  - pattern `INSERT\\s+INTO|UPDATE\\s+[a-zA-Z0-9_]+\\s+SET|db_update\\(|->update\\(|->insert\\(` – Direct database modifications should implement validation to preserve data integrity. Prefer using entity API.
+    - Pattern 8: Direct database modifications
+  - pattern `file_save_data\\(|file_save_upload\\(|file_copy\\(|file_move\\(` – Implement file integrity checking for uploaded or manipulated files to prevent malicious content.
+    - Pattern 9: Missing file integrity verification
+  - pattern `\\$entity\\s*=\\s*new\\s+[A-Za-z]+\\(|::create\\(\\$` – Validate all input used to create entity objects to maintain data integrity and prevent creating malicious entities.
+    - Pattern 10: Unsafe entity creation
 
 ## Suggestions
 - Guidance:
-**Drupal Secure Design Best Practices:**
+**Drupal Data & Software Integrity Best Practices:**
 
-1. **Secure Architecture Principles:**
-   - Follow the principle of least privilege for all user roles and permissions
-   - Implement defense in depth with multiple security layers
-   - Use Drupal's entity/field API for structured data instead of custom tables
-   - Employ service-oriented architecture with proper dependency injection
-   - Follow Drupal coding standards to leverage community security expertise
+1. **Secure Deserialization:**
+   - Avoid PHP's unserialize() with untrusted data entirely
+   - Use JSON or other structured formats for data interchange
+   - When deserialization is necessary, implement allowlists and validation
+   - Consider using Drupal's typed data API for structured data handling
+   - Avoid serializing sensitive data that could be tampered with
 
-2. **Permission System Design:**
-   - Design granular permissions following the verb+object pattern
-   - Avoid creating omnipotent permissions that grant excessive access
-   - Use context-aware access systems like Entity Access or Node Grants
-   - Consider record-based and field-based access for better control
-   - Document permission architecture and security implications
+2. **Update & Configuration Integrity:**
+   - Validate data before and after migrations/updates
+   - Implement checksums/hashing for critical configuration
+   - Use Drupal's Configuration Management system properly
+   - Monitor configuration changes for unauthorized modifications
+   - Implement proper workflow for configuration management
 
-3. **Module Architecture:**
-   - Separate concerns into appropriate services
-   - Use hooks judiciously and document security implications
-   - Implement proper validation and sanitization layers
-   - Design APIs with security in mind from the start
-   - Provide secure default configurations
+3. **Dependency & Plugin Security:**
+   - Verify the integrity of downloaded modules and themes
+   - Use Composer with package signature verification
+   - Pin dependencies to specific versions in production
+   - Maintain awareness of security advisories
+   - Implement proper validation for plugin/module loading
 
-4. **Data Modeling Security:**
-   - Implement appropriate validation constraints on entity fields
-   - Design schema definitions with integrity constraints
-   - Use appropriate field types for sensitive data
-   - Implement field-level access control when needed
-   - Consider encryption for sensitive stored data
+4. **CI/CD Pipeline Security:**
+   - Sign build artifacts
+   - Verify signatures during deployment
+   - Implement proper secrets management
+   - Control access to build and deployment systems
+   - Validate code changes through code reviews
 
-5. **Error Handling and Logging:**
-   - Design contextual error messages (detailed for admins, general for users)
-   - Implement appropriate logging for security events
-   - Avoid exposing sensitive data in error messages
-   - Design fault-tolerant systems that fail securely
-   - Include appropriate transaction management
+5. **Data Integrity Validation:**
+   - Use database constraints to enforce data integrity
+   - Implement validation at every layer of the application
+   - Add integrity checks for critical data flows
+   - Maintain audit logs for data modifications
+   - Regularly verify data consistency
 
 ## Validation Checks
 - Conditions:
-  - pattern `protected\\s+\\$[a-zA-Z0-9_]+;[^}]*public\\s+function\\s+__construct\\([^\\)]*\\)` – Using proper dependency injection pattern.
-    - Check 1: Proper dependency injection
-  - pattern `config\\/schema\\/[a-zA-Z0-9_]+\\.schema\\.yml` – Providing configuration schema for validation.
-    - Check 2: Configuration schema usage
-  - pattern `\\$permissions\\[['\"][a-z\\s]+[a-z0-9\\s]+['\"]\\]\\s*=\\s*\\[` – Following permission naming conventions.
-    - Check 3: Proper permission definition
-  - pattern `@EntityAccessControl\\(|class\\s+[a-zA-Z0-9_]+AccessControlHandler\\s+extends\\s+` – Using dedicated access control handlers for entities.
-    - Check 4: Entity access handlers
+  - pattern `json_encode|json_decode|\\\\Drupal::service\\('serialization\\.|->toArray\\(\\)` – Using safer serialization alternatives.
+    - Check 1: Secure serialization alternatives
+  - pattern `\\$entity->validate\\(\\)|\\$violations\\s*=\\s*\\$entity->validate\\(\\)` – Properly validating entity data.
+    - Check 2: Proper entity validation
+  - pattern `::validateSyncedConfig\\(|ConfigImporter::validate|->getUnprocessedConfiguration\\(\\)` – Implementing configuration validation.
+    - Check 3: Config verification
+  - pattern `file_validate_|FileValidatorInterface|\\$validators` – Using file validation mechanisms.
+    - Check 4: Safe file handling
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-- Tags: security, drupal, design, architecture, owasp, language:php, framework:drupal, category:security, subcategory:design, standard:owasp-top10, risk:a04-insecure-design
+- Tags: security, drupal, integrity, deserialization, owasp, language:php, framework:drupal, category:security, subcategory:integrity, standard:owasp-top10, risk:a08-integrity-failures
 ## References
-- https://owasp.org/Top10/A04_2021-Insecure_Design/
-- https://www.drupal.org/docs/develop/security-in-drupal
-- https://www.drupal.org/docs/8/api/entity-api/access-control-for-entities
-- https://www.drupal.org/docs/8/api/configuration-api/configuration-schemametadata
+- https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
+- https://www.drupal.org/docs/develop/security-in-drupal/drupal-8-sanitizing-output
+- https://www.drupal.org/docs/8/api/configuration-api/configuration-api-overview
+- https://www.drupal.org/docs/develop/using-composer
 
  
 
