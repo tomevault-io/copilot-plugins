@@ -1,0 +1,9 @@
+{
+  "name": "opencompl--fp-lean",
+  "displayName": "fp-lean",
+  "description": "Floating Point Semantics Mechanization for Lean",
+  "version": "1.0.0",
+  "author": "opencompl",
+  "homepage": "https://github.com/opencompl/fp-lean",
+  "skills": []
+}
