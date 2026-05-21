@@ -1,0 +1,9 @@
+{
+  "name": "diffo-dev--ash-neo4j",
+  "displayName": "ash_neo4j",
+  "description": "Ash Neo4j datalayer",
+  "version": "1.0.0",
+  "author": "diffo-dev",
+  "homepage": "https://github.com/diffo-dev/ash_neo4j",
+  "skills": []
+}
