@@ -1,0 +1,9 @@
+{
+  "name": "growthbook--growthbook-mcp",
+  "displayName": "growthbook-mcp",
+  "description": "Official GrowthBook MCP server for creating flags, getting experiments, and more.",
+  "version": "1.0.0",
+  "author": "growthbook",
+  "homepage": "https://github.com/growthbook/growthbook-mcp",
+  "skills": []
+}
