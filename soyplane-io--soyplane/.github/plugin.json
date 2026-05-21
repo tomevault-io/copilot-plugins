@@ -1,0 +1,9 @@
+{
+  "name": "soyplane-io--soyplane",
+  "displayName": "soyplane",
+  "description": "A GitOps-first Terraform operator for Kubernetes. Secure, declarative, and OpenTofu-ready.",
+  "version": "1.0.0",
+  "author": "soyplane-io",
+  "homepage": "https://github.com/soyplane-io/soyplane",
+  "skills": []
+}
