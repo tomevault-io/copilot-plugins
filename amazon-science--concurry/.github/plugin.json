@@ -1,7 +1,7 @@
 {
   "name": "amazon-science--concurry",
   "displayName": "concurry",
-  "description": "concurry",
+  "description": "Easy scaling for AI research and production workloads",
   "version": "1.0.0",
   "author": "amazon-science",
   "homepage": "https://github.com/amazon-science/concurry",
