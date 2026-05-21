@@ -1,14 +1,14 @@
-## python-broken-access-control
+## python-cryptographic-failures
 
-> Detect and prevent broken access control vulnerabilities in Python applications as defined in OWASP Top 10:2021-A01
+> Detect and prevent cryptographic failures in Python applications as defined in OWASP Top 10:2021-A02
 
-# Python Broken Access Control Security Standards (OWASP A01:2021)
+# Python Cryptographic Failures Security Standards (OWASP A02:2021)
 
-This rule enforces security best practices to prevent broken access control vulnerabilities in Python applications, as defined in OWASP Top 10:2021-A01.
+This rule enforces security best practices to prevent cryptographic failures in Python applications, as defined in OWASP Top 10:2021-A02.
 
 <rule>
-name: python_broken_access_control
-description: Detect and prevent broken access control vulnerabilities in Python applications as defined in OWASP Top 10:2021-A01
+name: python_cryptographic_failures
+description: Detect and prevent cryptographic failures in Python applications as defined in OWASP Top 10:2021-A02
 filters:
   - type: file_extension
     pattern: "\\.(py)$"
@@ -18,133 +18,177 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Missing access control in Flask routes
-      - pattern: "@(app|blueprint)\\.route\\([^)]*\\)\\s*\\n\\s*def\\s+[a-zA-Z0-9_]+\\([^)]*\\):\\s*(?![^#]*@login_required|[^#]*current_user\\.|[^#]*session\\[)"
-        message: "Flask route lacks access control. Consider using @login_required or checking user permissions within the function."
+      # Pattern 1: Weak or insecure cryptographic algorithms
+      - pattern: "import\\s+(md5|sha1)|hashlib\\.(md5|sha1)\\(|Crypto\\.Hash\\.(MD5|SHA1)|cryptography\\.hazmat\\.primitives\\.hashes\\.(MD5|SHA1)"
+        message: "Using weak hashing algorithms (MD5/SHA1). Use SHA-256 or stronger algorithms from the hashlib or cryptography packages."
         
-      # Pattern 2: Missing access control in Django views
-      - pattern: "class\\s+[A-Za-z0-9_]+View\\((?!LoginRequiredMixin|PermissionRequiredMixin|UserPassesTestMixin)[^)]*\\):"
-        message: "Django class-based view lacks access control mixins. Consider using LoginRequiredMixin, PermissionRequiredMixin, or UserPassesTestMixin."
+      # Pattern 2: Hardcoded secrets/credentials
+      - pattern: "(password|secret|key|token|auth)\\s*=\\s*['\"][^'\"]+['\"]"
+        message: "Potential hardcoded credentials detected. Store secrets in environment variables or a secure vault."
         
-      # Pattern 3: Insecure direct object reference
-      - pattern: "(get|filter|find)_by_id\\(\\s*request\\.(GET|POST|args|form|json)\\[['\"][^'\"]+['\"]\\]\\s*\\)"
-        message: "Potential insecure direct object reference (IDOR). Validate that the current user has permission to access this object."
+      # Pattern 3: Insecure random number generation
+      - pattern: "random\\.(random|randint|choice|sample)|import random"
+        message: "Using Python's standard random module for security purposes. Use secrets module or cryptography.hazmat.primitives.asymmetric for cryptographic operations."
         
-      # Pattern 4: Hardcoded role checks
-      - pattern: "if\\s+user\\.role\\s*==\\s*['\"]admin['\"]|if\\s+user\\.(is_staff|is_superuser)\\s*:"
-        message: "Hardcoded role checks can be fragile. Consider using a permission system or role-based access control framework."
+      # Pattern 4: Weak SSL/TLS configuration
+      - pattern: "ssl\\.PROTOCOL_(SSLv2|SSLv3|TLSv1|TLSv1_1)|SSLContext\\(\\s*ssl\\.PROTOCOL_(SSLv2|SSLv3|TLSv1|TLSv1_1)\\)"
+        message: "Using deprecated/insecure SSL/TLS protocol versions. Use TLS 1.2+ (ssl.PROTOCOL_TLS_CLIENT with minimum version set)."
         
-      # Pattern 5: Missing authorization in FastAPI
-      - pattern: "@(app|router)\\.([a-z]+)\\([^)]*\\)\\s*\\n\\s*(?:async\\s+)?def\\s+[a-zA-Z0-9_]+\\([^)]*\\):\\s*(?![^#]*Depends\\(|[^#]*Security\\(|[^#]*HTTPBearer\\()"
-        message: "FastAPI endpoint lacks security dependencies. Consider using Depends(get_current_user) or similar security dependencies."
+      # Pattern 5: Missing certificate validation
+      - pattern: "verify\\s*=\\s*False|check_hostname\\s*=\\s*False|CERT_NONE"
+        message: "SSL certificate validation is disabled. Always validate certificates in production environments."
         
-      # Pattern 6: Bypassing access control with admin flags
-      - pattern: "if\\s+request\\.(GET|POST|args|form|json)\\[['\"]admin['\"]\\]|if\\s+request\\.(GET|POST|args|form|json)\\[['\"]debug['\"]\\]"
-        message: "Dangerous admin/debug flags in request parameters could bypass access control. Remove or secure these backdoors."
+      # Pattern 6: Insecure cipher usage
+      - pattern: "DES|RC4|Blowfish|ECB"
+        message: "Using insecure encryption cipher or mode. Use AES with GCM or CBC mode with proper padding."
         
-      # Pattern 7: Insecure use of eval or exec with user input
-      - pattern: "eval\\(|exec\\(.*request\\."
-        message: "Extremely dangerous use of eval() or exec() with user input can lead to code execution. Avoid these functions entirely."
+      # Pattern 7: Insufficient key length
+      - pattern: "RSA\\([^,]+,\\s*[0-9]+\\s*\\)|key_size\\s*=\\s*([0-9]|10[0-9][0-9]|11[0-9][0-9]|12[0-4][0-9])"
+        message: "Using insufficient key length for asymmetric encryption. RSA keys should be at least 2048 bits, preferably 4096 bits."
         
-      # Pattern 8: Missing access control in API endpoints
-      - pattern: "@api_view\\(|@api\\.route\\(|@app\\.api_route\\("
-        message: "API endpoint may lack access control. Ensure proper authentication and authorization checks are implemented."
+      # Pattern 8: Insecure password hashing
+      - pattern: "\\.encode\\(['\"]utf-?8['\"]\\)\\.(digest|hexdigest)\\(\\)|hashlib\\.[a-zA-Z0-9]+\\([^)]*\\)\\.(digest|hexdigest)\\(\\)"
+        message: "Using plain hashing for passwords. Use dedicated password hashing functions like bcrypt, Argon2, or PBKDF2."
         
-      # Pattern 9: Insecure Flask session usage
-      - pattern: "session\\[['\"][^'\"]+['\"]\\]\\s*=\\s*request\\."
-        message: "Setting session variables directly from request data without validation can lead to session-based access control bypasses."
+      # Pattern 9: Missing salt in password hashing
+      - pattern: "pbkdf2_hmac\\([^,]+,[^,]+,[^,]+,\\s*[0-9]+\\s*\\)"
+        message: "Ensure you're using a proper random salt with password hashing functions."
         
-      # Pattern 10: Missing CSRF protection
-      - pattern: "class\\s+[A-Za-z0-9_]+Form\\((?!.*csrf).*\\):|@csrf_exempt"
-        message: "Form or view appears to be missing CSRF protection. Ensure CSRF tokens are properly implemented."
+      # Pattern 10: Insecure cookie settings
+      - pattern: "set_cookie\\([^)]*secure\\s*=\\s*False|set_cookie\\([^)]*httponly\\s*=\\s*False"
+        message: "Cookies with sensitive data should have secure and httponly flags enabled."
 
   - type: suggest
     message: |
-      **Python Access Control Best Practices:**
+      **Python Cryptography Best Practices:**
       
-      1. **Framework-Specific Controls:**
-         - **Django**: Use built-in authentication and permission decorators/mixins
-           - `@login_required`, `LoginRequiredMixin`
-           - `@permission_required`, `PermissionRequiredMixin`
-           - `UserPassesTestMixin` for custom permission logic
-         - **Flask**: Use Flask-Login or similar extensions
-           - `@login_required` decorator
-           - `current_user.is_authenticated` checks
-           - Role-based access control with Flask-Principal
-         - **FastAPI**: Use dependency injection for security
-           - `Depends(get_current_user)` pattern
-           - OAuth2 with `Security(oauth2_scheme)`
-           - JWT validation middleware
+      1. **Secure Password Storage:**
+         - Use dedicated password hashing algorithms:
+           ```python
+           import bcrypt
+           hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(rounds=12))
+           ```
+         - Or use Argon2 (preferred) or PBKDF2 with sufficient iterations:
+           ```python
+           from argon2 import PasswordHasher
+           ph = PasswordHasher()
+           hash = ph.hash(password)
+           ```
       
-      2. **General Access Control Principles:**
-         - Implement access control at the server side, never rely on client-side checks
-         - Use deny-by-default approach (whitelist vs blacklist)
-         - Implement proper session management
-         - Apply principle of least privilege
-         - Use contextual access control (time, location, device-based restrictions when appropriate)
+      2. **Secure Random Number Generation:**
+         - Use the `secrets` module for cryptographic operations:
+           ```python
+           import secrets
+           token = secrets.token_hex(32)  # 256 bits of randomness
+           ```
+         - For cryptographic keys, use proper key generation functions:
+           ```python
+           from cryptography.hazmat.primitives.asymmetric import rsa
+           private_key = rsa.generate_private_key(public_exponent=65537, key_size=4096)
+           ```
       
-      3. **Object-Level Authorization:**
-         - Validate user has permission to access specific resources
-         - Implement row-level security for database access
-         - Use UUIDs instead of sequential IDs when possible
-         - Always verify ownership or permission before allowing operations on objects
+      3. **Secure Communications:**
+         - Use TLS 1.2+ for all communications:
+           ```python
+           import ssl
+           context = ssl.create_default_context()
+           context.minimum_version = ssl.TLSVersion.TLSv1_2
+           ```
+         - Always validate certificates:
+           ```python
+           import requests
+           response = requests.get('https://example.com', verify=True)
+           ```
       
-      4. **API Security:**
-         - Implement proper authentication for all API endpoints
-         - Use token-based authentication with proper validation
-         - Apply rate limiting to prevent brute force attacks
-         - Implement proper CORS configuration
-         - Log and monitor access control failures
+      4. **Proper Key Management:**
+         - Never hardcode secrets in source code
+         - Use environment variables or secure vaults:
+           ```python
+           import os
+           api_key = os.environ.get('API_KEY')
+           ```
+         - Consider using dedicated key management services
       
-      5. **Testing Access Control:**
-         - Write tests specifically for authorization logic
-         - Test vertical access control (different permission levels)
-         - Test horizontal access control (same permission level, different users)
-         - Verify access control works after session timeout/expiration
+      5. **Secure Encryption:**
+         - Use high-level libraries like `cryptography`:
+           ```python
+           from cryptography.fernet import Fernet
+           key = Fernet.generate_key()
+           f = Fernet(key)
+           encrypted = f.encrypt(data)
+           ```
+         - For lower-level needs, use authenticated encryption (AES-GCM):
+           ```python
+           from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+           key = AESGCM.generate_key(bit_length=256)
+           aesgcm = AESGCM(key)
+           nonce = os.urandom(12)
+           encrypted = aesgcm.encrypt(nonce, data, associated_data)
+           ```
+      
+      6. **Secure Cookie Handling:**
+         - Set secure and httponly flags:
+           ```python
+           # Flask example
+           response.set_cookie('session', session_id, httponly=True, secure=True, samesite='Lax')
+           ```
+         - Use signed cookies or tokens:
+           ```python
+           # Django example - uses signed cookies by default
+           request.session['user_id'] = user.id
+           ```
+      
+      7. **Input Validation:**
+         - Validate all cryptographic inputs
+         - Use constant-time comparison for secrets:
+           ```python
+           import hmac
+           def constant_time_compare(a, b):
+               return hmac.compare_digest(a, b)
+           ```
 
   - type: validate
     conditions:
-      # Check 1: Proper Django permission usage
-      - pattern: "@login_required|@permission_required|LoginRequiredMixin|PermissionRequiredMixin"
-        message: "Using Django's built-in access control mechanisms."
+      # Check 1: Proper password hashing
+      - pattern: "bcrypt\\.hashpw|argon2|PasswordHasher|pbkdf2_hmac\\([^,]+,[^,]+,[^,]+,\\s*[0-9]{4,}\\s*\\)"
+        message: "Using secure password hashing algorithm."
       
-      # Check 2: Proper Flask authentication
-      - pattern: "@login_required|current_user\\.is_authenticated|@auth\\.login_required"
-        message: "Implementing proper Flask authentication checks."
+      # Check 2: Secure random generation
+      - pattern: "secrets\\.|urandom|cryptography\\.hazmat\\.primitives\\.asymmetric"
+        message: "Using cryptographically secure random number generation."
       
-      # Check 3: Object-level permission checks
-      - pattern: "\\.has_permission\\(|has_object_permission\\(|can_view\\(|can_edit\\("
-        message: "Implementing object-level permission checks."
+      # Check 3: Strong TLS configuration
+      - pattern: "ssl\\.PROTOCOL_TLS|minimum_version\\s*=\\s*ssl\\.TLSVersion\\.TLSv1_2|create_default_context"
+        message: "Using secure TLS configuration."
       
-      # Check 4: FastAPI security dependencies
-      - pattern: "Depends\\(get_current_user\\)|Security\\(|HTTPBearer\\("
-        message: "Using FastAPI's security dependency injection."
+      # Check 4: Proper certificate validation
+      - pattern: "verify\\s*=\\s*True|check_hostname\\s*=\\s*True|CERT_REQUIRED"
+        message: "Properly validating SSL certificates."
 
 metadata:
-  priority: 90
-  version: "1.0"
+  priority: high
+  version: 1.0
   tags:
-    - python
     - security
-    - access_control
+    - python
+    - cryptography
+    - encryption
     - owasp
     - language:python
-    - category:security
-    - subcategory:authorisation
-    - subcategory:access-control
-    - standard:owasp-top10
-    - risk:a01-broken-access-control
     - framework:django
     - framework:flask
     - framework:fastapi
+    - category:security
+    - subcategory:cryptography
+    - standard:owasp-top10
+    - risk:a02-cryptographic-failures
   references:
-    - https://owasp.org/Top10/A01_2021-Broken_Access_Control/
-    - https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
-    - https://cheatsheetseries.owasp.org/cheatsheets/Access_Control_Cheat_Sheet.html
-    - https://docs.djangoproject.com/en/stable/topics/auth/default/
-    - https://flask-login.readthedocs.io/en/latest/
-    - https://fastapi.tiangolo.com/tutorial/security/
-    - https://cheatsheetseries.owasp.org/cheatsheets/Access_Control_Cheat_Sheet.html
+    - "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+    - "https://docs.python.org/3/library/secrets.html"
+    - "https://cryptography.io/en/latest/"
+    - "https://pypi.org/project/bcrypt/"
+    - "https://pypi.org/project/argon2-cffi/"
 </rule> 
 
 ---
