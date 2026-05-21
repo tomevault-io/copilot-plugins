@@ -1,0 +1,9 @@
+{
+  "name": "dariushoule--x64dbg-automate-pyclient",
+  "displayName": "x64dbg-automate-pyclient",
+  "description": "x64dbg Automate's Python Client - Easy Scriptable and Repeatable Debug Sessions",
+  "version": "1.0.0",
+  "author": "dariushoule",
+  "homepage": "https://github.com/dariushoule/x64dbg-automate-pyclient",
+  "skills": []
+}
