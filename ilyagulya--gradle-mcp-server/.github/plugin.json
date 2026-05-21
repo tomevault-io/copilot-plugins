@@ -1,0 +1,9 @@
+{
+  "name": "ilyagulya--gradle-mcp-server",
+  "displayName": "gradle-mcp-server",
+  "description": "A Model Context Protocol (MCP) server to enable AI tools to interact with Gradle projects programmatically.",
+  "version": "1.0.0",
+  "author": "IlyaGulya",
+  "homepage": "https://github.com/IlyaGulya/gradle-mcp-server",
+  "skills": []
+}
