@@ -1,106 +1,118 @@
-## mermaid-generator
+## monitor-agents
 
-> Standards for implementing Mermaid diagram generation tools
+> Standards for implementing monitoring agents and observability systems
 
 
-# Mermaid Diagram Generator Standards
+# Monitoring Agent Development Standards
 
 ## Core Principles
 
-### Diagram Architecture
-- Support multiple diagram types
-- Implement proper syntax validation
-- Enable customizable styling
+### Agent Architecture
+- Implement modular monitoring components
+- Support multiple data sources
+- Enable real-time processing
 
-### Generation Flow
-- Validate input specifications
-- Support incremental generation
-- Implement proper error handling
+### Data Management
+- Handle data collection efficiently
+- Implement proper data storage
+- Support data aggregation
 
-### Output Management
-- Generate valid Mermaid syntax
-- Support multiple output formats
-- Implement proper formatting
+### Alert Management
+- Implement flexible alert rules
+- Support multiple notification channels
+- Enable alert correlation
 
 ## Code Standards
 
-### Generator Implementation
+### Monitor Implementation
 ```typescript
-// Good: Structured diagram generator
-class MermaidGenerator implements DiagramGenerator {
-    private validators: Map<DiagramType, Validator>;
-    private formatters: Map<DiagramType, Formatter>;
+// Good: Structured monitoring
+class MonitoringAgent implements Agent {
+    private collectors: Map<string, DataCollector>;
+    private processors: Map<string, DataProcessor>;
+    private alertManager: AlertManager;
 
-    async generate(spec: DiagramSpec): Promise<string> {
-        await this.validateSpec(spec);
-        const diagram = await this.createDiagram(spec);
-        return this.formatOutput(diagram);
+    async monitor(): Promise<void> {
+        try {
+            const data = await this.collectData();
+            const processed = await this.processData(data);
+            await this.evaluateAlerts(processed);
+        } catch (error) {
+            await this.handleMonitoringError(error);
+            throw error;
+        }
     }
 
-    private async validateSpec(spec: DiagramSpec): Promise<void> {
-        const validator = this.validators.get(spec.type);
-        if (!validator) {
-            throw new ValidationError(`No validator for type: ${spec.type}`);
-        }
-        await validator.validate(spec);
+    private async collectData(): Promise<MonitoringData[]> {
+        return Promise.all(
+            Array.from(this.collectors.values())
+                .map(collector => collector.collect())
+        );
     }
 }
 
-// Bad: Unstructured generator
-class BadGenerator {
-    generate(input: any) { // ❌ No validation or typing
-        return this.createDiagram(input);
+// Bad: Simple monitoring
+class BadMonitor {
+    check() { // ❌ No proper monitoring structure
+        return this.getData();
     }
 }
 ```
 
-### Syntax Management
+### Data Processing
 ```typescript
-// Good: Proper syntax handling
-class SyntaxManager {
-    async validateSyntax(diagram: Diagram): Promise<void> {
-        const parser = this.getParser(diagram.type);
-        const ast = await parser.parse(diagram.content);
-        await this.validateAst(ast);
+// Good: Structured data processing
+class DataProcessor {
+    async process(data: RawData[]): Promise<ProcessedData[]> {
+        const validated = await this.validateData(data);
+        const normalized = await this.normalizeData(validated);
+        return this.aggregateData(normalized);
     }
 
-    private async validateAst(ast: DiagramAST): Promise<void> {
-        const validator = new AstValidator(this.rules);
-        const issues = await validator.validate(ast);
-        if (issues.length > 0) {
-            throw new SyntaxError(this.formatIssues(issues));
-        }
+    private async validateData(data: RawData[]): Promise<ValidatedData[]> {
+        return Promise.all(
+            data.map(async item => {
+                const isValid = await this.validator.validate(item);
+                if (!isValid) {
+                    throw new DataValidationError(`Invalid data: ${item}`);
+                }
+                return item;
+            })
+        );
     }
 }
 
-// Bad: Simple syntax check
-class BadSyntax {
-    check(content: string) { // ❌ No proper parsing
-        return content.includes('graph');
+// Bad: Simple processing
+class BadProcessor {
+    process(data: any[]) { // ❌ No validation or typing
+        return data.map(d => d * 2);
     }
 }
 ```
 
-### Style Management
+### Alert Management
 ```typescript
-// Good: Structured style handling
-class StyleManager {
-    async applyStyles(diagram: Diagram, styles: Styles): Promise<Diagram> {
-        const validated = await this.validateStyles(styles);
-        const themed = await this.applyTheme(diagram, validated);
-        return this.optimizeStyles(themed);
+// Good: Structured alert handling
+class AlertManager {
+    private rules: Map<string, AlertRule>;
+    private notifiers: Map<string, Notifier>;
+
+    async evaluateAlerts(data: ProcessedData): Promise<void> {
+        const triggeredRules = await this.findTriggeredRules(data);
+        const correlatedAlerts = await this.correlateAlerts(triggeredRules);
+        await this.sendNotifications(correlatedAlerts);
     }
 
-    private async validateStyles(styles: Styles): Promise<ValidatedStyles> {
-        const validator = new StyleValidator(this.themeRules);
-        return validator.validate(styles);
+    private async correlateAlerts(rules: AlertRule[]): Promise<Alert[]> {
+        const correlator = new AlertCorrelator(this.correlationRules);
+        return correlator.correlate(rules);
     }
 }
 
-// Bad: Direct style application
-class BadStyles {
-    apply(diagram: string, styles: any) { // ❌ No validation
-        return diagram + styles;
+// Bad: Simple alerting
+class BadAlerting {
+    alert(value: number) { // ❌ No correlation or management
+        if (value > 100) this.sendAlert();
     }
 }
 ```
@@ -108,60 +120,60 @@ class BadStyles {
 ## Validation Rules
 
 ```typescript
-const MermaidRules = {
-    // Ensure proper diagram validation
-    diagramValidation: {
-        pattern: /validate.*Spec|validate.*Diagram/,
-        message: "Implement proper diagram validation"
+const MonitoringRules = {
+    // Ensure proper monitoring implementation
+    monitoringImplementation: {
+        pattern: /class.*Monitor.*{.*collect.*process/,
+        message: "Implement proper monitoring structure"
     },
     
-    // Check syntax handling
-    syntaxHandling: {
-        pattern: /class.*Syntax.*{.*parse|validate/,
-        message: "Implement proper syntax parsing and validation"
+    // Check data processing
+    dataProcessing: {
+        pattern: /validate.*Data|normalize.*Data/,
+        message: "Implement proper data validation and normalization"
     },
     
-    // Verify style management
-    styleManagement: {
-        pattern: /validate.*Styles|apply.*Theme/,
-        message: "Implement proper style validation and theming"
+    // Verify alert handling
+    alertHandling: {
+        pattern: /correlate.*Alerts|evaluate.*Alerts/,
+        message: "Implement proper alert correlation and evaluation"
     }
 };
 ```
 
 ## Best Practices
 
-1. Diagram Design
-   - Clear structure definition
-   - Proper syntax validation
-   - Style consistency
-
-2. Generation Process
-   - Input validation
-   - Incremental building
+1. Monitor Design
+   - Modular components
+   - Data validation
    - Error handling
 
-3. Output Management
-   - Format validation
-   - Style optimization
-   - Error reporting
+2. Data Management
+   - Efficient collection
+   - Proper storage
+   - Aggregation support
+
+3. Alert Handling
+   - Correlation rules
+   - Notification management
+   - Error recovery
 
 ## Security Considerations
 
-1. Input Validation
-   - Syntax validation
-   - Size limits
-   - Content sanitization
-
-2. Processing Security
+1. Data Collection
+   - Access control
+   - Data validation
    - Resource limits
-   - Timeout handling
-   - Memory management
 
-3. Output Protection
-   - Format validation
-   - Size verification
-   - Content escaping 
+2. Data Storage
+   - Secure storage
+   - Access logging
+   - Retention policies
+
+3. Alert Security
+   - Notification validation
+   - Channel security
+   - Access control 
 
 ---
 > Source: [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
