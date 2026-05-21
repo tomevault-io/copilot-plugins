@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Namma-Flutter/namma_wallet](https://github.com/Namma-Flutter/namma_wallet).
+Original source: `CLAUDE.md` in [Namma-Flutter/namma_wallet](https://github.com/Namma-Flutter/namma_wallet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
