@@ -1,0 +1,9 @@
+{
+  "name": "saturngod--rag-laravel",
+  "displayName": "rag-laravel",
+  "description": "RAG example with Laravel AI SDK , support PDF , Txt, Markdown, Images",
+  "version": "1.0.0",
+  "author": "saturngod",
+  "homepage": "https://github.com/saturngod/rag-laravel",
+  "skills": []
+}
