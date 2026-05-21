@@ -1,179 +1,116 @@
-## database-operations
+## etl-development
 
-> 表结构在etl/load/mysql_tables/下，修改表需要同步修改相应的sql文件
+> 本文档为 `nkuwiki` 项目的ETL（数据提取、转换、加载）系统开发提供指导规范，旨在确保代码的一致性、模块化和可维护性。
 
-# 数据库操作规范 (基于 aiomysql)
+# NKUWiki ETL 开发规范
 
+本文档为 `nkuwiki` 项目的ETL（数据提取、转换、加载）系统开发提供指导规范，旨在确保代码的一致性、模块化和可维护性。
 
-表结构在etl/load/mysql_tables/下，修改表需要同步修改相应的sql文件
+## 1. ETL 核心设计理念
 
+项目ETL流程遵循**阶段式解耦**的设计原则，主要分为三个独立阶段：
 
-## 1. 数据库连接池 (`db_pool_manager.py`)
+1.  **数据采集 (Crawling)**: 从不同数据源（网站、公众号、校园集市等）抓取原始信息，并以标准化的JSON格式存入统一的数据湖。
+2.  **数据处理与索引 (Processing & Indexing)**: 对原始数据进行转换、分块、向量化，并加载到Qdrant向量数据库和Elasticsearch全文索引中。
+3.  **洞察生成与应用 (Insight & Application)**: 基于新增数据，利用大语言模型生成结构化的分析洞察，并存入MySQL数据库，为上层应用提供数据支持。
 
-项目采用基于 `aiomysql` 的异步数据库连接池，为所有数据库操作提供高效、非阻塞的连接管理。
+`etl/daily_pipeline.py` 是驱动阶段2和3的核心任务编排器。
 
-### 核心特性
-- **异步连接池**: 使用 `aiomysql.create_pool` 创建，在应用启动时初始化，在应用关闭时销毁。
-- **上下文管理**: 通过异步上下文管理器 `get_db_connection` 提供连接，确保连接的自动获取和释放。
+---
 
-### 获取连接
+## 2. 阶段一：数据采集 (`etl/crawler/`)
 
-所有数据库操作都应通过 `get_db_connection` 异步上下文管理器获取连接。
+### 任务与职责
+- 从指定的数据源抓取原始数据。
+- 将抓取到的数据处理成**标准JSON格式**。
+- 将JSON文件存储到统一的数据湖 `/data/raw/`。
 
-```python
-# etl/load/db_pool_manager.py
-import aiomysql
-from contextlib import asynccontextmanager
+### 开发新爬虫的步骤
 
-# 全局连接池实例
-db_pool: aiomysql.Pool = None
+1.  **创建爬虫脚本**:
+    - 在 `etl/crawler/` 下为新数据源创建一个独立的`py`文件，例如 `etl/crawler/bilibili_spider.py`。
+    - 爬虫逻辑应包含错误处理、重试机制，并记录详细日志。
 
-# (初始化和关闭逻辑...)
+2.  **标准化输出**:
+    - 爬虫的最终输出**必须**是一个或多个 `.json` 文件。
+    - 每个JSON文件应包含单个数据单元（如一篇文章、一个帖子）的完整信息。
+    - JSON文件必须包含以下核心字段，以确保下游处理流程可以正确识别：
+      ```json
+      {
+        "id": "数据唯一标识，建议使用URL的MD5哈希",
+        "title": "标题",
+        "content": "正文内容",
+        "url": "原始链接",
+        "platform": "平台标识 (例如: 'website', 'wechat', 'market')",
+        "source": "具体来源 (例如: 'nkunews', 'nkuyouth', 'market_sell')",
+        "publish_time": "发布时间 (ISO 8601格式, e.g., '2023-10-27T10:00:00+08:00')"
+      }
+      ```
 
-@asynccontextmanager
-async def get_db_connection():
-    """
-    从连接池获取一个数据库连接的异步上下文管理器。
-    """
-    if not db_pool:
-        raise ConnectionError("数据库连接池不可用。")
+3.  **统一存储**:
+    - 所有生成的 `.json` 文件必须存放到 `/data/raw/` 目录。
+    - 存储路径应遵循规范：`/data/raw/{platform}/{source}/{year}{month}/{article_id}.json`。其中 `article_id` 通常是文件内容的md5。
 
-    conn = None
-    try:
-        conn = await db_pool.acquire()
-        yield conn
-    finally:
-        if conn:
-            await db_pool.release(conn)
+---
 
-# 使用示例
-async def some_db_operation():
-    try:
-        async with get_db_connection() as conn:
-            async with conn.cursor(aiomysql.DictCursor) as cursor:
-                await cursor.execute("SELECT * FROM some_table LIMIT 1")
-                result = await cursor.fetchone()
-                print(result)
-    except Exception as e:
-        logger.error(f"数据库操作失败: {e}")
+## 3. 阶段二 & 三：任务编排 (`etl/daily_pipeline.py`)
+
+`daily_pipeline.py` 是整个ETL流程的"指挥官"，它通过灵活的命令行接口，驱动数据的处理、索引和洞察生成。
+
+### `daily_pipeline.py` 的核心流程
+
+该脚本的工作流由 `--steps` 参数控制，主要包含三个可组合的步骤：`scan`, `index`, `insight`。
+
+1.  **文件扫描 (`scan`)**:
+    - **触发**: 总是执行（除非只单独运行 `index` 或 `insight` 且不带 `scan`）。
+    - **动作**: 调用 `find_new_files_in_timespan` 函数，根据 `--start_time`, `--end_time`, `--hours` 等参数确定时间窗口，在 `/data/raw` 中高效查找此时间段内发布的 `.json` 文件。
+    - **输出**: 一个待处理的文件路径列表。
+
+2.  **建立索引 (`index`)**:
+    - **触发**: 当 `--steps` 包含 `index` 时执行。
+    - **依赖**: `scan` 步骤的输出（文件路径列表）。
+    - **动作**:
+        - **节点化**: 调用 `process_files_to_nodes`，将文件内容异步地读取、处理，并使用 `ChunkCacheManager` 分块，转换为 `llama_index` 的 `TextNode` 对象。
+        - **索引**: 调用 `build_qdrant_indexes`，将 `TextNode` 列表批量送入Qdrant建立向量索引。
+
+3.  **生成洞察 (`insight`)**:
+    - **触发**: 当 `--steps` 包含 `insight` 时执行。
+    - **依赖**: `scan` 步骤的输出（文件路径列表）。
+    - **动作**:
+        - **分类**: 将文件按来源分为三类：**官方** (`website`平台、官方公众号)、**社区** (社团及民间公众号)、**集市** (`market`平台)。
+        - **提示词构建**: 为每个非空分类构建一个详细的Prompt。
+        - **AI生成**: 调用 `core.agent.text_generator.generate_structured_json`，请求大模型返回结构化的JSON洞察报告。
+        - **入库**: 将生成的多条洞察存入MySQL的 `insights` 表。
+
+### 如何使用 `daily_pipeline.py`
+
+```bash
+# 示例1: 执行完整流程（扫描、索引、洞察），处理过去24小时的数据
+python etl/daily_pipeline.py --steps scan,index,insight
+
+# 示例2: 只执行扫描和索引，不生成洞察
+python etl/daily_pipeline.py --steps scan,index
+
+# 示例3: 处理指定时间范围内的数据，且只生成洞察
+python etl/daily_pipeline.py --steps scan,insight --start_time "2023-10-26" --end_time "2023-10-27"
+
+# 示例4: 只处理过去2小时内'wechat'平台的数据，并建立索引
+python etl/daily_pipeline.py --hours 2 --platform wechat --steps scan,index
+
+# 示例5: 使用'all'关键字代表所有步骤
+python etl/daily_pipeline.py --steps all # 等同于 scan,index,insight
 ```
 
-## 2. 核心数据库异步操作 (`db_core.py`)
+## 4. 开发最佳实践
 
-数据库核心操作层 (`db_core.py`) 完全基于 `aiomysql` 实现，所有函数均为异步方法，防止阻塞主应用的 `asyncio` 事件循环。
-
-### 常用异步函数
-
-- `execute_custom_query(query, params, fetch)`: 执行任意自定义SQL。
-- `insert_record(table_name, data)`: 插入单条记录。
-- `batch_insert(table_name, records, batch_size)`: 高效的批量插入。
-- `update_record(table_name, conditions, data)`: 根据条件更新记录。
-- `query_records(table_name, conditions, fields, order_by, limit, offset)`: 功能强大的查询函数，返回数据和总数。
-- `get_by_id(table_name, record_id)`: 通过主键ID获取单条记录。
-- `count_records(table_name, conditions)`: 根据条件统计记录数。
-- `get_all_tables()`: 获取所有表名。
-
-### 使用示例
-
-所有 `db_core` 函数都必须使用 `await` 调用。
-
-```python
-import asyncio
-from etl.load import db_core
-from etl.load.db_pool_manager import init_db_pool, close_db_pool
-
-async def main():
-    # 在应用启动时初始化连接池
-    await init_db_pool()
-
-    try:
-        # 示例1: 插入一条记录
-        new_user_data = {"nickname": "async_user", "openid": f"test_openid_{asyncio.runners.random.randint(1000, 9999)}"}
-        # 假设 wxapp_users 表存在
-        user_id = await db_core.insert_record("wxapp_users", new_user_data)
-        print(f"插入用户成功，ID: {user_id}")
-
-        # 示例2: 查询记录
-        query_conditions = {"nickname": "async_user"}
-        result = await db_core.query_records(
-            table_name="wxapp_users",
-            conditions=query_conditions,
-            fields=["openid", "nickname", "create_time"],
-            limit=1
-        )
-        if result['data']:
-            print("查询结果:", result['data'][0])
-            print("总记录数:", result['total'])
-
-        # 示例3: 批量插入
-        new_posts = [
-            {"openid": new_user_data["openid"], "title": "帖子A", "content": "内容A"},
-            {"openid": new_user_data["openid"], "title": "帖子B", "content": "内容B"},
-        ]
-        # 假设 wxapp_posts 表存在
-        inserted_count = await db_core.batch_insert("wxapp_posts", new_posts)
-        print(f"批量插入 {inserted_count} 条帖子成功")
-
-        # 示例4: 执行自定义SQL
-        custom_sql = "SELECT COUNT(*) as count FROM wxapp_posts WHERE openid = %s"
-        count_result = await db_core.execute_custom_query(custom_sql, [new_user_data["openid"]], fetch='one')
-        print("帖子总数:", count_result['count'])
-
-    finally:
-        # 在应用关闭时关闭连接池
-        await close_db_pool()
-
-if __name__ == "__main__":
-    # 确保在运行环境中已有相关表结构
-    # 例如 wxapp_users, wxapp_posts
-    asyncio.run(main())
-```
-
-## 3. 表结构管理 (`table_manager.py`)
-
-表结构的管理由 `TableManager` 负责，其设计同样是**异步**的，并支持通过命令行进行操作。它依赖 `db_core` 执行所有数据库修改。
-
-### 核心特性
-- **SQL文件驱动**：表结构定义在 `etl/load/mysql_tables/` 目录下的各个 `.sql` 文件中，文件名即表名（如 `wxapp_users.sql`）。
-- **异步操作**：所有管理功能（创建、删除、查询信息）都是 `async` 方法。
-- **命令行支持**：可作为脚本运行，方便地进行数据库初始化和维护。
-
-### 使用示例
-
-```python
-import asyncio
-from etl.load.table_manager import TableManager
-from etl.load.db_pool_manager import init_db_pool, close_db_pool
-
-async def manage_tables():
-    await init_db_pool()
-    manager = TableManager()
-
-    try:
-        # 获取所有可用的表定义
-        available_tables = manager.get_available_table_definitions()
-        print("可用的表定义:", available_tables)
-
-        # 检查 'wxapp_users' 表是否存在
-        exists = await manager.table_exists('wxapp_users')
-        print(f"'wxapp_users' 表是否存在: {exists}")
-
-        # 获取表信息
-        if exists:
-            info = await manager.get_table_info('wxapp_users')
-            if info:
-                print(f"'wxapp_users' 表信息: {info.get('record_count', 0)} 条记录")
-
-        # 重新创建所有表（危险操作！）
-        # await manager.recreate_tables(force=True)
-        # print("所有表已重建")
-    finally:
-        await close_db_pool()
-
-
-if __name__ == "__main__":
-    asyncio.run(manage_tables())
-```
+- **异步优先**: 对于IO密集型操作（如读写文件、数据库访问），应优先使用 `async/await` 范式。
+- **配置驱动**: 
+  - 所有配置项（数据库凭据、路径、模型名称等）均通过根目录的 `config.py` 和 `config.json` 进行管理。
+  - **ETL模块的常量配置**：为了方便管理和复用，所有与ETL流程相关的配置都在 `etl/__init__.py` 中被加载、处理，并定义为模块级常量（如 `DB_HOST`, `RAW_PATH`, `EMBEDDING_MODEL_PATH` 等）。
+  - **最佳实践**: 在ETL模块内部，应直接从 `etl` 包导入这些已定义好的常量，而不是重复调用 `Config` 对象。这保证了配置的统一和代码的简洁。
+- **日志记录**: 在关键步骤和异常处理中添加清晰的日志记录，使用 `core/utils/logger.py` 中的 `register_logger`。
+- **依赖注入**: 核心组件（如 `QdrantIndexer`, `ChunkCacheManager`）应在需要时才实例化，而不是作为全局变量。
+- **环境隔离**: 确保本地开发环境与生产环境的数据目录、配置等相互隔离。
 
 ---
 > Source: [NKU-WIKI/nkuwiki](https://github.com/NKU-WIKI/nkuwiki) — distributed by [TomeVault](https://tomevault.io).
