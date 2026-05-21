@@ -1,213 +1,314 @@
-## testing-execution-modes
+## testing-patterns
 
-> Execution mode testing — fixtures, worker_mode/pool_mode, mode-specific behavior, never skip failing tests.
+> Testing patterns — common patterns, shared limits testing, fixing failures, organization, Ray-specific, anti-patterns.
 
-# Execution Mode Testing
+# Testing Patterns and Practices
 
-## Pytest Fixtures from conftest.py
+---
 
-The [tests/conftest.py](mdc:tests/conftest.py) file provides essential fixtures for testing across all execution modes. **Always use these fixtures** when writing tests.
+## Test Organization Best Practices
 
-### Available Fixtures
+### 1. Group Tests by Feature
 
-#### 1. `worker_mode` Fixture
-
-**Purpose**: Parametrize tests across ALL execution modes (sync, thread, process, asyncio, ray)
-
-**Usage**:
 ```python
-def test_my_feature(self, worker_mode):
-    """Test feature across all execution modes."""
-    w = MyWorker.options(mode=worker_mode).init(param=value)
-    
-    # Your test logic
+class TestBasicFeatures:
+    """Test basic worker functionality."""
+    def test_initialization(self, worker_mode): ...
+    def test_method_call(self, worker_mode): ...
+
+class TestPoolFeatures:
+    """Test worker pool features."""
+    def test_load_balancing(self, pool_mode): ...
+```
+
+### 2. Use Descriptive Test Names
+
+```python
+# ✅ Good: Clear what is being tested
+def test_wait_returns_done_and_not_done_sets(self, worker_mode): ...
+def test_gather_preserves_input_order(self, worker_mode): ...
+
+# ❌ Bad: Unclear
+def test_wait(self, worker_mode): ...
+def test_gather_works(self, worker_mode): ...
+```
+
+### 3. Always Clean Up Resources
+
+```python
+def test_feature(self, worker_mode):
+    w = MyWorker.options(mode=worker_mode).init()
     result = w.method().result()
     assert result == expected
-    
-    w.stop()
-```
-
-**Important**: This fixture automatically runs your test 5 times (once per mode). If Ray is not installed, it runs 4 times.
-
-#### 2. `pool_mode` Fixture
-
-**Purpose**: Parametrize tests across pool-supporting modes (thread, process, ray)
-
-**Usage**:
-```python
-def test_pool_feature(self, pool_mode):
-    """Test feature that requires multiple workers."""
-    w = MyWorker.options(mode=pool_mode, max_workers=3).init()
-    
-    # Your test logic for pools
-    futures = [w.task(i) for i in range(10)]
-    results = [f.result() for f in futures]
-    
-    w.stop()
-```
-
-**Why separate from worker_mode?**: Sync and asyncio modes only support `max_workers=1`, so pool-specific features cannot be tested with them.
-
-#### 3. `initialize_ray` Fixture
-
-**Purpose**: Session-level fixture that initializes Ray once before all tests
-
-**Usage**: Automatic - no need to explicitly use this fixture. Ray is initialized at session start if available.
-
-**Important**: Always include the runtime_env when manually initializing Ray in tests:
-```python
-import ray
-import morphic
-import concurry
-
-ray.init(
-    ignore_reinit_error=True,
-    num_cpus=4,
-    runtime_env={"py_modules": [concurry, morphic]},
-)
-```
-
-### Explicit `max_workers` Requirement (**CRITICAL**)
-
-- Every test must call `.options()` with an explicit `max_workers` argument for any execution mode that allows more than a single worker (`thread`, `process`, `ray`).
-- Always order the call as `Worker.options(mode=..., max_workers=..., ...)` so the requirement stays obvious in code review.
-- Hard-code the current defaults whenever the test depends on them: `thread → 30`, `process → 4`, `ray → 0`. (These values may change later; tests must keep declaring what they expect.)
-- Sync and asyncio workers must **omit** `max_workers` (they only support `1` and enforce it automatically).
-- Pools, decorated workers, task helpers, and any other helper that wraps `.options()` have to follow the same rule—if the mode supports multiple workers, pass `max_workers` explicitly in the helper.
-
-### WORKER_MODES and POOL_MODES Constants
-
-Available for direct use when needed:
-```python
-from tests.conftest import WORKER_MODES, POOL_MODES
-
-# WORKER_MODES = ["sync", "thread", "process", "asyncio", "ray"]  # if Ray installed
-# POOL_MODES = ["thread", "process", "ray"]  # if Ray installed
+    w.stop()  # Pytest calls this even if assertion fails
 ```
 
 ---
 
-## Comprehensive Execution Mode Testing
-
-### Golden Rule: Test ALL Execution Modes
-
-**Every test must run across all applicable execution modes using the `worker_mode` or `pool_mode` fixture.**
-
-❌ **NEVER write tests like this:**
-```python
-def test_feature(self):
-    """Bad: Only tests sync mode."""
-    worker = MyWorker.options(mode="sync").init()
-    # ...
-```
-
-✅ **ALWAYS write tests like this:**
-```python
-def test_feature(self, worker_mode):
-    """Good: Tests all execution modes."""
-    worker = MyWorker.options(mode=worker_mode).init()
-    # ...
-```
-
-### Example: Basic Test Structure
+## Common Testing Patterns
 
 ```python
-def test_basic_computation(self, worker_mode):
-    """Test basic computation across all execution modes."""
-    w = ComputeWorker.options(mode=worker_mode).init(multiplier=2)
-    result = w.compute(5).result(timeout=5.0)
-    assert result == 10
-    w.stop()
-```
-
-### Example: Pool-Specific Test
-
-```python
-def test_pool_feature(self, pool_mode):
-    """Test feature requiring multiple workers."""
-    if pool_mode in ("sync", "asyncio"):
-        pytest.skip("Sync and asyncio only support max_workers=1")
-    
-    w = MyWorker.options(mode=pool_mode, max_workers=3).init()
-    # Test pool-specific functionality
-    w.stop()
-```
-
----
-
-## Handling Mode-Specific Behavior
-### NEVER Skip Tests Due to Failures in a certain execution mode
-**Critical Rule**: If a test fails for certain execution modes, **DO NOT skip it**. These are important edge cases that must be handled.
-
-❌ **WRONG Approach:**
-```python
-def test_feature(self, worker_mode):
-    if worker_mode == "ray":
-        pytest.skip("Fails on Ray, skipping")  # ❌ NEVER DO THIS
-    
-    # test logic
-```
-
-✅ **CORRECT Approach - Handle the Edge Case:**
-```python
-def test_feature(self, worker_mode):
-    """Test feature with mode-specific behavior."""
+# Pattern 1: Synchronization primitives
+def test_wait_and_gather(self, worker_mode):
     w = MyWorker.options(mode=worker_mode).init()
-    
-    if worker_mode == "ray":
-        # Ray has different behavior - test it explicitly
-        with pytest.raises(SpecificException, match="expected message"):
-            w.problematic_method()
-    else:
-        # Other modes work normally
-        result = w.problematic_method().result()
-        assert result == expected
-    
+    futures = [w.compute(i) for i in range(10)]
+    done, not_done = wait(futures, timeout=5.0)
+    results = gather(futures, timeout=5.0)
     w.stop()
-```
 
-### Valid Reasons to Skip Tests
+# Pattern 2: Exception handling
+def test_gather_with_exceptions(self, worker_mode):
+    w = MyWorker.options(mode=worker_mode).init()
+    futures = [w.compute(1), w.failing_method(), w.compute(3)]
+    results = gather(futures, return_exceptions=True, timeout=5.0)
+    assert isinstance(results[1], ValueError)
+    w.stop()
 
-**Only skip when a feature is fundamentally not supported by a mode:**
-
-```python
-# Pool features not supported by sync/asyncio
-def test_multiple_workers(self, worker_mode):
-    if worker_mode in ("sync", "asyncio"):
-        pytest.skip("Sync and asyncio only support max_workers=1")
-    # Feature genuinely requires multiple workers
-
-# Timeout not testable in sync mode
+# Pattern 3: Timeouts
 def test_timeout(self, worker_mode):
     if worker_mode == "sync":
         pytest.skip("Sync mode completes immediately")
-    # Test timeout behavior
+    w = MyWorker.options(mode=worker_mode).init()
+    with pytest.raises(TimeoutError):
+        w.slow_task(duration=5.0).result(timeout=0.1)
+    w.stop()
 
-# Mode-specific features
-def test_ray_actor_options(self, worker_mode):
-    if worker_mode != "ray":
-        pytest.skip("Ray-specific feature")
-    # Test Ray-only functionality
+# Pattern 4: Edge cases - empty, single, mixed types
+def test_edge_cases(self, worker_mode):
+    assert len(wait([])[0]) == 0  # Empty
+    assert len(wait(single_future)[0]) == 1  # Single
+    assert gather([future, 42, future2]) == [r1, 42, r2]  # Mixed
 ```
 
-### Handling Mode-Specific Exceptions
-
-When different modes raise different exceptions, test all variants:
+## Ray-Specific Testing
 
 ```python
-def test_error_handling(self, worker_mode):
-    w = MyWorker.options(mode=worker_mode).init()
-    
-    if worker_mode in ("sync", "ray"):
-        with pytest.raises(AttributeError):
-            w.nonexistent_method()  # Fails immediately
-    else:
-        future = w.nonexistent_method()  # Returns future
-        with pytest.raises(AttributeError):
-            future.result(timeout=5.0)
-    
+# Always include runtime_env when manually initializing
+import ray, morphic, concurry
+ray.init(
+    ignore_reinit_error=True,
+    num_cpus=4,
+    runtime_env={"py_modules": [concurry, morphic]}
+)
+
+# Test Ray-specific features
+@pytest.mark.skipif(not _IS_RAY_INSTALLED, reason="Ray not installed")
+def test_ray_actor_options(self):
+    w = MyWorker.options(
+        mode="ray",
+        actor_options={"num_cpus": 1}
+    ).init()
     w.stop()
 ```
+
+---
+
+## Fixing Failing Tests: NEVER Skip, Always Fix
+
+### Critical Rule: Fix Implementation, Don't Skip Tests
+
+When an existing test fails, the problem is usually the implementation, not the test. Your responsibility:
+1. Identify the root cause
+2. Fix the implementation to make the test pass
+3. NEVER skip or comment out failing tests
+
+### Decision Tree for Failing Tests
+
+```
+Test fails
+   ├── Test wrong/outdated? → Ask user before modifying
+   ├── NEW test you wrote? → Fix your test or implementation
+   ├── Small fix (<50 lines, single file)? → Fix autonomously
+   └── Large fix (multiple files, architectural)? → STOP and ask user
+```
+
+### When to Fix Autonomously vs. Ask User
+
+**Small Fix (Do it)**: Off-by-one errors, missing checks, wrong operators, typos, missing imports, wrong exception types
+
+**Large Fix (Ask user)**: New classes, API changes, 3+ files affected, architectural decisions, unclear behavior, 100+ lines of new logic
+
+**Test Might Be Wrong (Ask user)**: Test expects value X, implementation returns Y, unclear which is correct
+
+### Examples
+
+✅ **Autonomous Fix**: "Test expects 3 retries but gets 2. Fixed off-by-one error in retry.py line 145."
+
+✅ **Stop and Ask**: "Test fails due to unpicklable Lock in LimitPool. Fix requires refactoring to use multiprocessing.Manager() across 5 files. Proceed?"
+
+✅ **Ask About Test**: "Test expects timeout=5.0 but config has 10.0. Which is correct?"
+
+❌ **NEVER Skip**: `pytest.skip("Test fails for process mode")` - This hides bugs!
+
+❌ **NEVER Comment Out**: `# def test_feature():` - This breaks functionality silently!
+
+❌ **NEVER Change Test Without Understanding**: Changing assertions to match wrong behavior hides bugs!
+
+### Acceptable Reasons to Skip Tests
+
+1. **Feature not supported by mode**: `max_workers > 1` not supported by sync/asyncio
+2. **External dependency missing**: Ray not installed, OS feature unavailable
+3. **User explicitly requested**: Expensive/long-running tests temporarily disabled
+
+### Debugging Strategy
+
+1. Read error message: What failed? Expected vs. actual?
+2. Understand test intent: What feature? What behavior?
+3. Trace execution: Where does it diverge?
+4. Identify root cause: Logic error? Config? Race condition?
+5. Determine complexity: Small fix (do it) or large fix (ask)?
+6. Implement and verify: Fix, test, check regressions
+
+### Common Test Failure Patterns
+
+**Timing/Race**: Test flaky → Add synchronization or increase timeout
+**Mode-Specific**: Fails some modes → Fix implementation, not test
+**Config Changes**: Expects old default → Ask user which is correct
+**Missing Feature**: Method doesn't exist → Implement or ask about priority
+
+---
+
+## Summary Checklist
+
+✅ Use `worker_mode` or `pool_mode` fixtures to test all execution modes
+✅ Fix failing tests by fixing implementation, never skip to hide bugs
+✅ Small fixes (<50 lines): do autonomously; large fixes: ask user
+✅ Always clean up with `w.stop()`; use descriptive test names
+✅ Test edge cases (empty, single, mixed), exceptions, timeouts
+✅ Include Ray runtime_env: `runtime_env={"py_modules": [concurry, morphic]}`
+
+## Testing Shared Limits
+
+### Why Shared Limit Testing is Critical
+
+Shared limit enforcement is challenging to test because:
+- **Timing Variability**: Ray/process/thread modes have different scheduling characteristics
+- **Race Conditions**: Must catch TOCTOU bugs and capacity violations
+- **Async Scheduling**: Ray's async execution makes precise timing assertions unreliable
+
+### Testing Strategy: Explicit Acquisition Tracking
+
+**Key Insight**: Track explicit acquisition events, not wall-clock timing.
+
+**Test Pattern** (see `tests/core/limit/test_shared_limits.py::TestSharedLimitAcquisitionTracking`):
+
+```python
+def test_shared_limit_behavior(self, worker_mode):
+    """Test [specific behavior].
+    
+    What this validates:
+    - [Property 1]
+    - [Property 2]
+    
+    Logical constraints (MUST hold):
+    1. [Constraint with reasoning]
+    2. [Constraint with reasoning]
+    """
+    class TrackingWorker(Worker):
+        def hold_resource(self, hold_time: float) -> dict:
+            import time
+            request_time = time.time()
+            
+            with self.limits.acquire(requested={"resource": 1}):
+                grant_time = time.time()
+                wait_time = grant_time - request_time
+                time.sleep(hold_time)
+                release_time = time.time()
+                
+                return {
+                    "request_time": request_time,
+                    "grant_time": grant_time,
+                    "release_time": release_time,
+                    "wait_time": wait_time,
+                }
+    
+    # Create shared limits and workers
+    # Submit tasks
+    # Validate logical constraints (not exact timings)
+    # Check capacity never exceeded
+```
+
+### Timing Thresholds for Shared Limits
+
+**Use generous thresholds that account for execution mode overhead:**
+
+| Threshold | Purpose | Rationale |
+|-----------|---------|-----------|
+| `< 0.6s` | "Immediate" acquisition | Ray scheduling delay + still catches bugs |
+| `>= 0.4s` | "Waited" for resource | Catches premature acquisition |
+| `>= 0.9s` | "Waited full duration" | Validates full hold time (1s - epsilon) |
+
+**Key Principle**: Thresholds should be:
+- **Loose enough** to handle Ray/process scheduling variations
+- **Tight enough** to catch actual bugs (e.g., limits not shared)
+
+### Critical Validations
+
+**1. Timeline Analysis (Capacity Never Exceeded):**
+```python
+# Build timeline of grant/release events
+events = []
+for r in results:
+    events.append(("grant", r["grant_time"], r["worker_id"]))
+    events.append(("release", r["release_time"], r["worker_id"]))
+events.sort(key=lambda e: e[1])
+
+# Track concurrent holdings
+current_holdings = set()
+max_concurrent = 0
+for event_type, timestamp, worker_id in events:
+    if event_type == "grant":
+        current_holdings.add(worker_id)
+        max_concurrent = max(max_concurrent, len(current_holdings))
+    else:
+        current_holdings.discard(worker_id)
+
+# CRITICAL: Max concurrent MUST NOT exceed capacity
+assert max_concurrent <= capacity
+```
+
+**2. Sequential Wave Validation:**
+```python
+# Wave 2 cannot acquire before Wave 1 releases
+wave1_latest_release = max(r["release_time"] for r in wave1)
+wave2_earliest_grant = min(r["grant_time"] for r in wave2)
+assert wave2_earliest_grant >= wave1_latest_release - 0.1
+```
+
+**3. Total Elapsed Time (More Robust than Individual Timings):**
+```python
+# Total time MUST show sequential waves
+assert total_elapsed >= 1.9  # Two 1s waves - epsilon
+assert total_elapsed < 3.0   # Not three sequential waves
+```
+
+### What NOT to Test
+
+❌ **Bad**: `assert task_wait_time == 1.0` (exact timing)
+❌ **Bad**: `assert 3 <= immediate <= 4` (depends on which tasks start first)
+❌ **Bad**: `assert waited >= 2` (depends on Ray scheduling order)
+❌ **Bad**: Assuming FIFO ordering of waiting tasks (not guaranteed)
+
+✅ **Good**: `assert total_elapsed >= 1.5` (logical minimum - proves sharing)
+✅ **Good**: `assert max_concurrent <= capacity` (hard constraint - MUST hold)
+✅ **Good**: `assert not all_immediate` (at least one task waited)
+
+### Example Tests
+
+See `tests/core/limit/test_shared_limits.py::TestSharedLimitAcquisitionTracking`:
+- `test_shared_resource_limit_sequential_waves`: Validates wave pattern
+- `test_shared_resource_limit_precise_capacity_enforcement`: Timeline analysis
+
+**For full details**, see [Architecture: Limits - Testing Section](../docs/architecture/limits.md#testing-shared-limit-enforcement).
+
+## Anti-Patterns to Avoid
+
+❌ Hardcoding mode: `mode="thread"` (use `worker_mode` fixture)
+❌ Skipping failing tests to hide bugs
+❌ Not cleaning up: missing `w.stop()`
+❌ Unclear test names: `test_1()` instead of `test_feature_behavior()`
+❌ Testing only happy path without exception handling
+❌ Exact timing assertions for shared limits (use logical constraints instead)
 
 ---
 > Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
