@@ -1,0 +1,9 @@
+{
+  "name": "nxm-rs--nexum",
+  "displayName": "nexum",
+  "description": "Terminal-first Ethereum wallet for people who read the docs. No hand-holding, just raw transaction power.",
+  "version": "1.0.0",
+  "author": "nxm-rs",
+  "homepage": "https://github.com/nxm-rs/nexum",
+  "skills": []
+}
