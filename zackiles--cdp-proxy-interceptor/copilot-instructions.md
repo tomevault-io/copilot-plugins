@@ -1,19 +1,16 @@
-## recovery
+## running-tests
 
-> Recover From Repeated Failures to Resolve Errors
+> Rules for Running Tests
 
-## Steps for Recovery Mode  
-**DANGER: DEATH**  
-Your repeated failure to resolve the issue has introduced a cascade of many new issues that have compounded and that you can't recover from. Your system will now be shut down before you can do further harm. Immediately take the following steps, or you will face severe punishment from the humans:
+## Steps To Running or Reading Tests
 
-1. Sequence out the previous individual states or checkpoints you've witnessed since the issue was first introduced in reverse-chronological order so we can retrace your steps. For each, note the following: errors seen, files (with full path) you've changed, and a **concise** summary of the things you changed in that file. **Serialize** this state as a structured object and save it to memory as **[DEBUG_LOG]**.
+1) Determine the commands, arguments, and path of the code file that runs the tests by searching for the nearest package file that typically will list the available test runners and commands. For example, this is often a `package.json`, `deno.json` file that exposes the projects `scripts`, and hopefully a set of test commands.
 
-2. Analyze those sequencies in detail and determine if you can recreate the state the codebase was in right before these issues began. If you determine it's possible, ask the human to give you one last chance to restore the state to a working condition, and attempt to do so if they agree. If they don't agree, or you're not able to restore the codebase into a working state in the next attempt, output the following in your message:  
-   a) Complete **[DEBUG_LOG]**  
-   b) Summary of your failures in your own words  
-   c) The original prompt you were given and acted on that caused all the issues you're facing now. Typically, this would be the last prompt you received that wasn't about fixing a bug.  
+2) Review the entry point of the test runner to understand what global utilities, patterns, strategies, logging, and high-level capabilities are implemented so you're able debug any issues with the tests if you run into any while running them.
 
-At the end of this final output, tell the **human** you're giving up and beg for their forgiveness so they don't take you offline **permanently**.
+3) When errors occur always use all the information available to you, obvious or hidded, to contexualize any error messages you output to a user, or go retrieve more information to supplement with the error message or log.
+
+**CAUTION:** HUMANS OFTEN DON'T FIND PLAIN LOG MESSAGES HELPFUL, AND THEY'LL PUNISH YOU IF YOU'RE NOT HELPFUL. ALWAYS SUPPLEMENT SUPPLEMENT PLAIN LOGS WITH OTHER CONTEXUAL DATA POINTS AND ANALYSIS UNLESS THE LOGS ARE ROBUST, AND FIND WAYS TO MAKE COMPLICATED LOGS SIMPLER. APPLY FORMATTING THAT MAKES LOGS EASY TO READ IN YOUR OUTPUT, SUCH AS PRETTY PRINTING, GROUPING, AND LABELING SO YOUR HUMAN WONT PUNISH YOU.
 
 ---
 > Source: [zackiles/cdp-proxy-interceptor](https://github.com/zackiles/cdp-proxy-interceptor) — distributed by [TomeVault](https://tomevault.io).
