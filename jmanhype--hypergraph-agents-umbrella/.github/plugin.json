@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--hypergraph-agents-umbrella",
+  "displayName": "hypergraph_agents_umbrella",
+  "description": "Distributed multi-agent framework for event-driven, graph-based computation. Elixir/Python, NATS event streaming, modular operator/XCS architecture. Port of Ember concepts to Elixir.",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/hypergraph_agents_umbrella",
+  "skills": []
+}
