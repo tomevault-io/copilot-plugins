@@ -1,0 +1,9 @@
+{
+  "name": "maplibre--maplibre-native-ffi",
+  "displayName": "maplibre-native-ffi",
+  "description": "An experimental C API for MapLibre Native, built for low-level language bindings and host integrations that need a C boundary instead of direct C++ interop.",
+  "version": "1.0.0",
+  "author": "maplibre",
+  "homepage": "https://github.com/maplibre/maplibre-native-ffi",
+  "skills": []
+}
