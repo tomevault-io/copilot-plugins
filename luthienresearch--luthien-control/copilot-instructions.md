@@ -1,74 +1,13 @@
-## google-style-docstrings
+## pytest-interpretation
 
-> Document all Python classes and public functions using Google-style docstrings.
+> PYTEST EXIT CODE=0 JUST MEANS THE TESTS RAN. IT DOES NOT MEAN THEY WERE SUCCESSFUL. Always look for the `pytest` summary line at the end of the output (e.g., `==== X passed, Y failed, Z warnings in S.ss ====`).
 
-# Google-Style Python Docstrings
+PYTEST EXIT CODE=0 JUST MEANS THE TESTS RAN. IT DOES NOT MEAN THEY WERE SUCCESSFUL. Always look for the `pytest` summary line at the end of the output (e.g., `==== X passed, Y failed, Z warnings in S.ss ====`).
 
-Document all Python classes and public functions using Google-style docstrings.
+Always pipe results to cat so you can see them.
+`poetry run pytest | cat`
 
-
-```python
-def example_function(param1: int, param2: str) -> bool:
-    """Example function with Google-style docstrings.
-
-    This is a more detailed explanation of the function's purpose
-    and behavior. It can span multiple lines. Side-effects should be
-    documented here.
-
-    Args:
-        param1: The first parameter. We don't need the type here since it's already type-annotated.
-        param2: The second parameter.
-
-    Returns:
-        True if successful, False otherwise.
-
-    Raises:
-        ValueError: If param1 is not a positive integer.
-    """
-    if not isinstance(param1, int) or param1 <= 0:
-        raise ValueError("param1 must be a positive integer")
-    return True
-
-class ExampleClass:
-    """Example class with Google-style docstrings.
-
-    Attributes:
-        attr1: Description of attribute 1.
-        attr2: Description of attribute 2.
-    """
-
-    def __init__(self, attr1: str, attr2: int):
-        """Initializes ExampleClass.
-
-        Args:
-            attr1: The first attribute.
-            attr2: The second attribute.
-        """
-        self.attr1: str = attr1
-        self.attr2: int = attr2
-
-    def example_method(self, param: float) -> str:
-        """Example method for ExampleClass.
-
-        Args:
-            param: A float parameter.
-
-        Returns:
-            A string representation of the parameter.
-        """
-        return str(param)
-
-```
-
-Key elements to include:
-- A concise summary line.
-- An optional extended description.
-- Function docstrings contain the following elements IN ORDER (skipping if empty)
-  1. `Args:` section detailing each parameter, its type, and description.
-  2. `Returns:` section detailing the return type and what is returned.
-  3. `Raises:` section detailing any exceptions that might be raised.
-- For classes, include an `Attributes:` section in the class docstring if applicable.
-- Include usage examples where helpful.
+For reasons unknown, you sometimes don't see the output of pytest the first time you run it. If the first run of pytest seemingly produces no output, just run it again. This seems to work.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
