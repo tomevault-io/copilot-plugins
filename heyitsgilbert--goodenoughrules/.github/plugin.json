@@ -1,0 +1,9 @@
+{
+  "name": "heyitsgilbert--goodenoughrules",
+  "displayName": "GoodEnoughRules",
+  "description": "A set of PSScriptAnalyzer rules that help make it Good Enough!",
+  "version": "1.0.0",
+  "author": "HeyItsGilbert",
+  "homepage": "https://github.com/HeyItsGilbert/GoodEnoughRules",
+  "skills": []
+}
