@@ -1,0 +1,9 @@
+{
+  "name": "percolation-labs--percolate",
+  "displayName": "percolate",
+  "description": "An agentic orchestrator *inside* a relational-vector-graph/key-value database!",
+  "version": "1.0.0",
+  "author": "Percolation-Labs",
+  "homepage": "https://github.com/Percolation-Labs/percolate",
+  "skills": []
+}
