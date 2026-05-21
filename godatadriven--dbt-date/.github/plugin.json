@@ -1,0 +1,9 @@
+{
+  "name": "godatadriven--dbt-date",
+  "displayName": "dbt-date",
+  "description": "Date-related macros for dbt",
+  "version": "1.0.0",
+  "author": "godatadriven",
+  "homepage": "https://github.com/godatadriven/dbt-date",
+  "skills": []
+}
