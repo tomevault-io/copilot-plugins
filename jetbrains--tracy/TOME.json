@@ -4,7 +4,7 @@
   "repo": "tracy",
   "description": "Tracy: AI Tracing Library for Kotlin and Java",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JetBrains/tracy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T15:13:13Z"
+  "distributed_at": "2026-05-21T03:54:06Z"
 }
