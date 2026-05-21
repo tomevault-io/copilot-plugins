@@ -1,0 +1,9 @@
+{
+  "name": "adamritter--pageql",
+  "displayName": "pageql",
+  "description": "Embed SQL directly into HTML",
+  "version": "1.0.0",
+  "author": "adamritter",
+  "homepage": "https://github.com/adamritter/pageql",
+  "skills": []
+}
