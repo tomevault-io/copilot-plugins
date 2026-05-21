@@ -1,0 +1,9 @@
+{
+  "name": "gracefullight--stock-checker",
+  "displayName": "stock-checker",
+  "description": "Fetches multiple tickers\u2019 stock data, calculates key indicators, and auto-generates daily CSV.",
+  "version": "1.0.0",
+  "author": "gracefullight",
+  "homepage": "https://github.com/gracefullight/stock-checker",
+  "skills": []
+}
