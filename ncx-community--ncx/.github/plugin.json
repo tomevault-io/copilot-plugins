@@ -1,0 +1,9 @@
+{
+  "name": "ncx-community--ncx",
+  "displayName": "Ncx",
+  "description": "\u8f7b\u91cf\u7ea7\u3001\u7a33\u5b9a\u3001\u9ad8\u6027\u80fd\u7684\u5185\u7f51\u7a7f\u900f\u5de5\u5177\uff0c\u4e0efrp\u7c7b\u4f3c\uff0c\u65e8\u5728\u5e2e\u52a9\u7528\u6237\u8f7b\u677e\u5c06\u672c\u5730\u670d\u52a1\u66b4\u9732\u5230\u516c\u7f51\u3002A lightweight, stable and high-performance intranet penetration tool. Like frp, Ncx is desighed to help users easily expose local services to the public net",
+  "version": "1.0.0",
+  "author": "NCX-Community",
+  "homepage": "https://github.com/NCX-Community/Ncx",
+  "skills": []
+}
