@@ -4,7 +4,7 @@
   "repo": "antigravity-plus",
   "description": "The Ultimate VS Code Extension for Antigravity Power Users - Auto Accept, Quota Monitor, Auto Wake-up",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ImL1s/antigravity-plus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T02:36:48Z"
+  "distributed_at": "2026-05-21T15:42:22Z"
 }
