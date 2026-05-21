@@ -1,66 +1,104 @@
-## coding-standards
+## data-fetching
 
-> - Write clean, readable code with feature-based organization
+> - Use TanStack Query for all data fetching and async state management
 
-# Coding Standards
+# Data Fetching & Async Management
 
-## Core Principles
+## TanStack Query Pattern
 
-- Write clean, readable code with feature-based organization
-- Keep files small and focused (<200 lines)
-- Use clear, consistent naming and prioritize modularity
-- Always use object as function parameter
-- Always use arrow functions for class methods
-- Always return objects from hooks and async functions
+- Use TanStack Query for all data fetching and async state management
+- Organize query and mutation definitions based on scope:
+  - Feature-specific queries go in `features/feature/_lib/feature-queries.ts`
+  - Shared queries go in `libs/tanstack-query/shared-queries.ts`
+- Structure all query keys with const objects for type safety and organization:
+  ```ts
+  export const featureKeys = {
+    entity: ["entity"] as const,
+    list: ["entity", "list"] as const,
+    detail: (id: string) => ["entity", "detail", id] as const,
+  };
+  ```
+- Create typed query options as functions that return queryOptions for parameterization:
+  ```ts
+  // For queries without parameters
+  export const entityListQueryOptions = () => queryOptions({
+    queryKey: featureKeys.list,
+    queryFn: ({ signal }) => repository.getEntities({ signal }),
+  });
+  
+  // For parameterized queries
+  export const entityDetailQueryOptions = ({ id }: { id: string }) => queryOptions({
+    queryKey: featureKeys.detail(id),
+    queryFn: ({ signal }) => repository.getEntityById({ id, signal }),
+  });
+  ```
+- In route loaders, use `ensureQueryData` to prefetch and cache queries:
+  ```ts
+  export const Route = createFileRoute('/entity/$id')({
+    loader: async ({ params: { id }, context }) => {
+      const data = await context.queryClient.ensureQueryData(
+        entityDetailQueryOptions({ id }),
+      );
+      return { title: data.title };
+    },
+  });
+  ```
+- In components, use the appropriate query hook based on your needs:
+  ```tsx
+  // For regular queries with loading states
+  const { data, isPending, error } = useQuery(entityListQueryOptions());
+  
+  // For components with Suspense
+  const { data } = useSuspenseQuery(entityDetailQueryOptions({ id }));
+  ```
+- Define properly typed mutation options for all state mutations:
+  ```ts
+  export const createEntityMutationOptions = ({ 
+    onSuccess 
+  }: { 
+    onSuccess?: () => void 
+  } = {}) => ({
+    mutationKey: [...featureKeys.entity, "create"],
+    mutationFn: ({ input }: { input: InputType }) => 
+      repository.createEntity({ input }),
+    onSuccess,
+  });
+  ```
+- Use object parameters for all data operation functions
+- All query and mutation functions MUST return objects, never primitive values
+- Create repository interfaces in the domain layer and implementations in the infrastructure layer:
+  - Example: `entity-repository.ts` (interface) and `entity-tanstack-query-repo.ts` (implementation)
+- Implement error handling in query functions, using notFound() for 404s:
+  ```tsx
+  queryFn: async ({ signal }) => {
+    try {
+      return await repository.getEntityById({ id, signal });
+    } catch (error) {
+      if (error.status === 404) {
+        throw notFound();
+      }
+      throw error;
+    }
+  }
+  ```
+- Implement optimistic updates for mutations when appropriate
+- Use TanStack Query's invalidation to manage cache consistency
 
-## Code Style
+## Authentication Implementation Example
 
-### File Naming & Structure
+The authentication implementation demonstrates this pattern:
 
-- Use kebab-case for all file and directory names
-- Organize directories by feature with underscore prefix for feature-specific folders:
-  - `features/feature/_components/`, `features/feature/_controllers/`, etc.
-- Shared components should NOT use underscore prefix:
-  - `components/ui/`, `components/layout/`, `components/shared/`
+- Query keys defined as `authKeys = { user: ["user"], session: ["session"] }`
+- Mutation options typed for specific credential types
+- Repository pattern with `auth-repository.ts` and `auth-tanstack-query-repo.ts`
+- Session fetching via `queryClient.fetchQuery` in root route's `beforeLoad`
+- Context passing for consistent data access across the application
 
-### Imports & Paths
+## Reference Files
 
-- Use absolute imports with the `~` prefix for all project files
-- Import UI components from `~/components/ui/*` NOT from `~/ui/*`
-- Always use direct imports instead of barrel (index) files for better tree-shaking
-- Prefer consistent import ordering: React/external libraries first, followed by absolute imports
-
-### TypeScript & React
-
-- Use TypeScript with proper types; prefer interfaces over types for object shapes
-- Implement functional components with TypeScript interfaces for props
-- Use functional and declarative programming patterns
-
-## Hook Design
-
-- Create single-responsibility hooks that return one state or action
-- All hooks MUST return objects even when returning a single value (e.g., `return { isPending }` not `return isPending`)
-- Avoid hooks that return multiple states or actions to prevent unnecessary re-renders
-- Use composition to combine smaller hooks where needed
-
-## Component Design
-
-- Use compound component design pattern for complex components
-- Follow shadcn/ui patterns for component composition
-- Create small, reusable components that can be composed together
-- Isolate re-renders to the smallest possible component
-- All component event handlers should use object parameters (e.g., `onClick={({ id }) => handleClick({ id })}`)
-
-## Component Performance
-
-- Create smaller components that consume only the specific hooks they need
-- Break UI into logical, focused components to isolate re-renders
-
-## Function Returns
-
-- All functions MUST return objects if needed, even for single values (e.g., `return { result }` not `return result`)
-- All hooks MUST return objects, even for single values (e.g., `return { isPending }` not `return isPending`)
-- All controller methods that return data should return objects for destructuring
+- Query definitions: [auth-queries.ts](mdc:apps/web/src/libs/tanstack-query/auth-queries.ts)
+- Query client setup: [query-client.ts](mdc:apps/web/src/libs/tanstack-query/query-client.ts)
+- Authentication repository: [auth-client-repo.ts](mdc:src/libs/better-auth/auth-client-repo.ts)
 
 ---
 > Source: [masrurimz/tanstack-start-elysia-better-auth-bun](https://github.com/masrurimz/tanstack-start-elysia-better-auth-bun) — distributed by [TomeVault](https://tomevault.io).
