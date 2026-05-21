@@ -1,0 +1,9 @@
+{
+  "name": "huonwe--rkllm-openai-like-api",
+  "displayName": "rkllm_openai_like_api",
+  "description": "The rkllm server which is compatible with OpenAI API, Ollama API, and Claude API format.",
+  "version": "1.0.0",
+  "author": "huonwe",
+  "homepage": "https://github.com/huonwe/rkllm_openai_like_api",
+  "skills": []
+}
