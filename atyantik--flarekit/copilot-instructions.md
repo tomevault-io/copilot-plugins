@@ -1,81 +1,88 @@
-## database-service-patterns
+## error-handling-patterns
 
-> Database service patterns using Drizzle ORM and BaseService
+> Error handling patterns for Flarekit applications
 
 
-# Database Service Patterns
+# Error Handling Patterns
 
-When working with database operations in Flarekit:
+When handling errors in Flarekit applications:
 
-## Schema Definition
-- Define Drizzle schemas in `packages/database/src/schema/[table].schema.ts`
-- Use consistent field naming:
-  - Database: snake_case (`created_at`, `updated_at`)
-  - TypeScript: camelCase (`createdAt`, `updatedAt`)
-- Standard fields for all tables:
+## Custom Error Classes
+Use the appropriate error class for different scenarios:
+
+- `ValidationError` - For user input validation failures
+- `DatabaseError` - For database operation failures  
+- `ExternalServiceError` - For third-party service failures
+- `SystemError` - For unexpected system errors
+- `BaseError` - Base class for all custom errors
+
+## Error Creation Patterns
 ```typescript
-{
-  id: text('id').primaryKey(),
-  createdAt: text('created_at').default(sql`(current_timestamp)`),
-  updatedAt: text('updated_at'),
-  deletedAt: text('deleted_at'), // for soft deletes
-}
-```
+// Validation errors with field-level details
+throw new ValidationError('Invalid input data', [
+  {
+    field: 'email',
+    code: 'INVALID_FORMAT',
+    message: 'Email format is invalid',
+    value: userInput.email
+  }
+]);
 
-## Service Registration
-- Register new services in `packages/database/src/services.ts`:
-```typescript
-export const services = (ctx: Ctx) => ({
-  [getTableName(yourSchema)]: new BaseService<
-    typeof yourSchema.$inferInsert,
-    typeof yourSchema.$inferSelect
-  >(yourSchema, ctx),
+// Database errors with context
+throw DatabaseError.schemaError('users', 'Failed to create user', {
+  originalError: error.message,
+  operation: 'create',
+  data: userData
+});
+
+// External service errors
+throw ExternalServiceError.serviceUnavailable('File storage service', {
+  originalError: error.message,
+  service: 'R2',
+  operation: 'upload'
 });
 ```
 
-## Database Instance Usage
-- Always use `initDBInstance(c.env, c.env)` to get database services
-- Access services by table name: `db.tableName`
-- The BaseService provides these methods:
-  - `create(data)` - Insert new record
-  - `update(id, data)` - Update existing record
-  - `delete(id, permanent?)` - Soft or hard delete
-  - `getById(id, includeDeleted?)` - Get single record
-  - `getByShortId(shortId, includeDeleted?)` - Get by shortId if available
-  - `getMany(ids, includeDeleted?)` - Fetch multiple records by ID
-  - `getManyReference(referenceField, id, range?, sort?, filter?, includeDeleted?)` - Fetch records by foreign key
-  - `getList(range?, sort?, filter?, includeDeleted?)` - Paginated list
-  - `getCount(filter?, includeDeleted?)` - Count records
-  - `bulkUpdate(updates)` - Bulk update operations
-  - `bulkDelete(ids, permanent?)` - Bulk delete operations
+## Error Handling in Routes
+- Always wrap database operations in try/catch blocks
+- Re-throw custom errors, don't catch them in route handlers
+- Let the global error handler manage error responses
+- Include relevant context for debugging
 
-## Common Patterns
-- Use UUID v7 for primary keys (automatically generated)
-- Use nanoid for shortIds (automatically generated)
-- Slugs are auto-generated from title fields
-- Timestamps are automatically managed
-- Soft deletes are supported by default
+## Error Logging
+- Errors are automatically logged with structured format
+- Include request ID for tracing
+- Severe errors (5xx) are logged as errors
+- Client errors (4xx) are logged as warnings
+- Development mode includes stack traces
 
-## Error Handling
-- Wrap database operations in try/catch
-- Throw `DatabaseError.schemaError()` for database-related errors
-- Include context information for debugging
-
-## Example Usage
-```typescript
-try {
-  const db = initDBInstance(c.env, c.env);
-  const records = await db.storage.getList([0, 9], ['createdAt', 'DESC'], {});
-  return c.json(records);
-} catch (error) {
-  throw DatabaseError.schemaError('storage', 'Failed to fetch records', {
-    originalError: error.message,
-  });
+## Response Format
+All errors return consistent JSON structure:
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human readable message",
+    "details": [...], // Field-level errors for validation
+    "requestId": "req_123456789",
+    "timestamp": "2025-01-01T00:00:00.000Z"
+  }
 }
 ```
 
-@packages/database/src/services/base.service.ts
-@packages/database/src/schema/storage.schema.ts
+## Zod Validation Errors
+- Automatically converted to ValidationError format
+- Field paths are properly mapped
+- Include received values for debugging
+
+## Production Considerations
+- Sensitive information is stripped in production
+- Stack traces are only included in development
+- Request IDs enable error tracing across services
+
+@apps/backend/src/handlers/error.handler.ts
+@apps/backend/src/classes/ValidationError.class.ts
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
