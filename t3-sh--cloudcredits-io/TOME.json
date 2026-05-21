@@ -4,7 +4,7 @@
   "repo": "cloudcredits.io",
   "description": "Massive community list of free credits and discounts for clouds, SaaS, tools, etc - with zero affiliations or ads.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/t3-sh/cloudcredits.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T17:11:03Z"
+  "distributed_at": "2026-05-21T04:36:45Z"
 }
