@@ -1,77 +1,18 @@
-## app-requirements
+## code-of-conduct
 
-> Deepgram Starter App Requirements
+> Code of Conduct Requirements
 
+# Code of Conduct Requirements
 
-# Deepgram Starter App Requirements
+Write the contents based on the YAML instructions.
 
-## Overview
+## YAML Instructions
 
-This document defines requirements for building Deepgram starter applications that demonstrate API usage with proper security, UI components, and API contract compliance.
-
-## Step 1: API Contract Compliance & UI
-
-### Core Requirements
-- MUST implement the API contract defined in the interface spec (OpenAPI/AsyncAPI)
-- MUST use components from `@starter-uis` for frontend (DO NOT create custom components)
-- MUST use CSS from `@starter-uis` (DO NOT write custom CSS)
-- MUST use pnpm (not npm/yarn) for JS/TS projects
-- MUST update `deepgram.toml` with correct commands for `[pre-build]`, `[build]`, `[config]`, `[post-build]`
-- MUST rely on imports from starter-uis instead of copy/paste code
-- MUST NOT deviate from the API contract
-- MUST NOT use extra packages that aren't needed
-
-## Step 2: Security Hardening
-
-### JavaScript/TypeScript Projects
-
-#### Package Manager Configuration
-- Set up pnpm 10.0.0 as the package manager
-- Create `.npmrc` with:
-  - `node-linker=pnpm` (force pnpm, breaks npm/yarn)
-  - `ignore-scripts=true` (disable all lifecycle scripts)
-  - `enable-pre-post-scripts=false` (disable pre/post install scripts)
-  - `minimum-release-age=14400` (require packages to be 10+ days old)
-  - `verify-store-integrity=true` (verify package integrity hashes)
-  - `trust-policy=strict` (enforce strict trust policies)
-  - `strict-peer-dependencies=true` (only verified registries)
-
-#### package.json Requirements
-- Add `"packageManager": "pnpm@10.0.0"`
-- Add `engines` field requiring `pnpm >= 10.0.0` and `node >= 24.0.0`
-- Pin ALL dependencies to exact versions (no ranges like ^ or ~)
-- Add `pnpm.overrides` section only if needed for known vulnerabilities
-- Add helper scripts:
-  - `install:all` - Install root + frontend dependencies
-  - `install:frontend` - Install frontend only
-  - `security-check` - Run Snyk scan on root
-  - `security-check:all` - Run Snyk scan on root + frontend
-
-#### Snyk Security Integration
-- Create `.snyk` policy file with block-style empty `ignore:` (not `ignore: {}`)
-- Add `security-check` script to package.json
-- DO NOT add Snyk to GitHub Actions unless workflow already exists
-
-#### Lockfile
-- Regenerate `pnpm-lock.yaml` with pnpm 10
-- Ensure CI uses `--frozen-lockfile` flag (if CI exists)
-
-### Non-JavaScript Projects
-
-#### Dependency Management
-- Pin ALL dependencies to exact versions (no version ranges)
-- Use lockfiles and commit them to version control
-- Configure package manager to verify integrity hashes
-- Set minimum release age if package manager supports it
-
-#### Snyk Security Integration
-- Create `.snyk` policy file with empty `ignore: {}`
-- Add security check command to build system (Makefile, etc.)
-- Use appropriate Snyk action for language:
-  - Python: `snyk/actions/python@master`
-  - Go: `snyk/actions/golang@master`
-  - Java/Maven: `snyk/actions/maven@master`
-  - Docker: `snyk/actions/docker@master`
+```yaml
+code_of_conduct:
+    description: "Deepgram's code of conduct can be found on our website."
+    reference: "https://dpgr.am/coc"
+```
 
 ---
 > Source: [deepgram-starters/node-voice-agent](https://github.com/deepgram-starters/node-voice-agent) — distributed by [TomeVault](https://tomevault.io).
