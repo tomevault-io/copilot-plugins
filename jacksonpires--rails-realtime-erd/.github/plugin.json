@@ -1,0 +1,9 @@
+{
+  "name": "jacksonpires--rails-realtime-erd",
+  "displayName": "rails-realtime-erd",
+  "description": "Live Mermaid ERD viewer for any Rails app, mounted as a real-time route, powered by Hotwire.",
+  "version": "1.0.0",
+  "author": "jacksonpires",
+  "homepage": "https://github.com/jacksonpires/rails-realtime-erd",
+  "skills": []
+}
