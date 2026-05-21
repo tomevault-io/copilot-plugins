@@ -1,0 +1,9 @@
+{
+  "name": "wieslawsoltes--protranslate",
+  "displayName": "ProTranslate",
+  "description": "Professional XAML translation and globalization framework for .NET apps: Avalonia, WPF, MAUI, WinUI, Uno, source-generated bindings, and industry translation formats.",
+  "version": "1.0.0",
+  "author": "wieslawsoltes",
+  "homepage": "https://github.com/wieslawsoltes/ProTranslate",
+  "skills": []
+}
