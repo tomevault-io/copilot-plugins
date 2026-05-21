@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--workers-py",
+  "displayName": "workers-py",
+  "description": "Write Cloudflare Workers in 100% Python via Pyodide.",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/workers-py",
+  "skills": []
+}
