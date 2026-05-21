@@ -1,0 +1,9 @@
+{
+  "name": "haidrrrry--compose-kotlin-agent-skills",
+  "displayName": "compose-kotlin-agent-skills",
+  "description": "Jetpack Compose & Kotlin AI agent skills for Cursor, Claude Code, Codex, Gemini & 27+ agents. Strict MVI \u00b7 Kotlin 2.x K2 \u00b7 Compose 2026 \u00b7 CI-validated.",
+  "version": "1.0.0",
+  "author": "haidrrrry",
+  "homepage": "https://github.com/haidrrrry/compose-kotlin-agent-skills",
+  "skills": []
+}
