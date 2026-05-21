@@ -1,0 +1,9 @@
+{
+  "name": "peetee06--flutter-testing-concepts",
+  "displayName": "flutter-testing-concepts",
+  "description": "A simple app to display Concepts and Challenges based on the VGV Core using bloc/cubit and riverpod, go_router with typed routes, retrofit and get_it. 100% Test coverage with Unit, Widget and Integrat",
+  "version": "1.0.0",
+  "author": "Peetee06",
+  "homepage": "https://github.com/Peetee06/flutter-testing-concepts",
+  "skills": []
+}
