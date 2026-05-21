@@ -1,13 +1,91 @@
-## license-requirements
+## readme-requirements
 
-> License Requirements
+> README Documentation Requirements
 
+# README.md Requirements
 
-# License Requirements
+## Template Reference
 
-## Specifications
-- MUST use an MIT license
-- MUST copyright to Deepgram 2025 or 2026
+When creating or updating README files for starter apps, use the template from:
+
+**Reference:** `@project-template/README.md`
+
+This template provides the standard structure that all Deepgram starter apps must follow.
+
+## Required Customizations
+
+Replace all placeholders in the template:
+
+- `[Project Name]` - Full project name (e.g., "Node.js Live Transcription")
+- `[One-line description with tech stack]` - Brief, specific description
+- `[PROJECT-NAME]` - GitHub repo name in URLs
+- `[Deepgram API Key]` - Keep this link as-is
+- `Framework and tooling needed` - Replace with language/version requirements
+- `command here` / `commands here` - Replace with actual commands
+- `[Step 1]`, `[Step 2]`, etc. - Replace with how the app works
+- Port numbers - Use standard port for the framework
+
+## Language-Specific Adaptations
+
+### Prerequisites Section
+Adjust based on language:
+- **Node.js:** "Node.js 24.0.0+, pnpm 10.0.0+" + security note
+- **Python:** "Python 3.9+, pip or poetry"
+- **Go:** "Go 1.21+"
+- **Ruby:** "Ruby 3.0+, Bundler"
+- **Java:** "Java 17+, Maven or Gradle"
+- **.NET:** ".NET 8.0+"
+- **Rust:** "Rust 1.70+"
+- **PHP:** "PHP 8.1+, Composer"
+- **C++:** "C++17+, CMake"
+
+### Install Commands
+Replace with language-appropriate commands:
+- **Node.js:** `pnpm run install:all` or `pnpm install`
+- **Python:** `pip install -r requirements.txt` or `poetry install`
+- **Go:** `go mod download`
+- **Ruby:** `bundle install`
+- **Java:** `mvn clean install` or `gradle build`
+- **.NET:** `dotnet restore`
+- **Rust:** `cargo build`
+- **PHP:** `composer install`
+
+### Run Commands
+Replace with language-appropriate commands:
+- **Node.js:** `pnpm dev` (dev) / `pnpm build && pnpm start` (prod)
+- **Python:** `python app.py` or `flask run`
+- **Go:** `go run main.go` (dev) / `./binary` (prod)
+- **Ruby:** `ruby server.rb` or `bundle exec rackup`
+- **Java:** `mvn spring-boot:run` or `java -jar target/app.jar`
+- **.NET:** `dotnet run` or `dotnet publish && dotnet app.dll`
+- **Rust:** `cargo run` (dev) / `cargo run --release` (prod)
+- **PHP:** `php -S localhost:8000`
+
+### Port Conventions
+- Node.js/Express: `3000`
+- Flask: `5000`
+- Django: `8000`
+- Go: `8080`
+- Ruby/Sinatra: `4567`
+- PHP: `8000`
+- .NET: `5000`
+
+## What NOT to Include
+
+Remove these from the template if they appear:
+- "What is Deepgram?" explanations
+- "Issue Reporting" section (covered in Getting Help)
+- Detailed architecture diagrams
+- Security implementation details (link only)
+- Author or credits sections
+- Verbose feature lists
+
+## Section Notes
+
+- **Omit "🌐 Open the App"** if the project is CLI-only (no web UI)
+- **Omit "Production Build"** if not applicable
+- **Keep "How It Works"** to 4-5 concise bullet points
+- **Always include** all three "Getting Help" links
 
 ---
 > Source: [deepgram-starters/node-voice-agent](https://github.com/deepgram-starters/node-voice-agent) — distributed by [TomeVault](https://tomevault.io).
