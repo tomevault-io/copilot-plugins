@@ -1,13 +1,14 @@
-## about-codebase
+## best-practices
 
-> General information about the CodeLogic MCP Server codebase and its purpose
+> Best practices for working with the CodeLogic MCP Server codebase
 
-- This repository contains a Model Context Protocol (MCP) server that integrates with CodeLogic's knowledge graph APIs
-- It enables AI programming assistants to access dependency data from CodeLogic to analyze code and database impacts
-- **NEW**: Provides DevOps CI/CD integration capabilities for CodeLogic scanning in Jenkins, GitHub Actions, Azure DevOps, and GitLab CI
-- **NEW**: Generates structured data for AI models to directly modify CI/CD files and implement CodeLogic scanning
-- The core package is in src/codelogic_mcp_server/ with server.py, handlers.py, and utils.py
-- **DevOps Tools**: codelogic-docker-agent, codelogic-build-info, codelogic-pipeline-helper for CI/CD integration
+- Use semantic search before grep for broader context
+- Maintain proper error handling and logging
+- Keep code changes atomic and focused
+- **NEW**: For DevOps tools, provide structured JSON data for AI file modification
+- **NEW**: Include specific file paths, line numbers, and exact code modifications
+- **NEW**: Generate platform-specific CI/CD configurations (Jenkins, GitHub Actions, Azure DevOps, GitLab)
+- **NEW**: Always include setup instructions and validation checks for DevOps integrations
 
 ---
 > Source: [CodeLogicIncEngineering/codelogic-mcp-server](https://github.com/CodeLogicIncEngineering/codelogic-mcp-server) — distributed by [TomeVault](https://tomevault.io).
