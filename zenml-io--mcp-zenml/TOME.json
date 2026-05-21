@@ -4,7 +4,7 @@
   "repo": "mcp-zenml",
   "description": "MCP server to connect an MCP client (Cursor, Claude Desktop etc) with your ZenML MLOps and LLMOps pipelines",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zenml-io/mcp-zenml",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T13:31:55Z"
+  "distributed_at": "2026-05-21T03:13:05Z"
 }
