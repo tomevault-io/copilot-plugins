@@ -1,0 +1,9 @@
+{
+  "name": "gotgenes--pi-packages",
+  "displayName": "pi-packages",
+  "description": "Monorepo for @gotgenes pi packages",
+  "version": "1.0.0",
+  "author": "gotgenes",
+  "homepage": "https://github.com/gotgenes/pi-packages",
+  "skills": []
+}
