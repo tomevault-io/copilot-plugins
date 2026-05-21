@@ -1,0 +1,9 @@
+{
+  "name": "2arons--notion-md-agent",
+  "displayName": "notion-md-agent",
+  "description": "Markdown-first Notion API server with 10 composite tools for AI agents",
+  "version": "1.0.0",
+  "author": "2aronS",
+  "homepage": "https://github.com/2aronS/notion-md-agent",
+  "skills": []
+}
