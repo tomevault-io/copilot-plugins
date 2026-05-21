@@ -1,0 +1,9 @@
+{
+  "name": "vixues--leagent",
+  "displayName": "LeAgent",
+  "description": "Local-first office Agent",
+  "version": "1.0.0",
+  "author": "vixues",
+  "homepage": "https://github.com/vixues/LeAgent",
+  "skills": []
+}
