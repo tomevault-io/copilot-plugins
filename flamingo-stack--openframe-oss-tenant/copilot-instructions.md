@@ -1,578 +1,333 @@
 ## openframe-oss-tenant
 
-> This document outlines the SSO (Single Sign-On) authentication patterns and best practices for the OpenFrame project.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# SSO Authentication in OpenFrame
+# CLAUDE.md
 
-This document outlines the SSO (Single Sign-On) authentication patterns and best practices for the OpenFrame project.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Essential Commands
+
+### Build Commands
+```bash
+mvn clean install                           # Build all Java services and libraries
+mvn clean install -DskipTests              # Build without running tests
+mvn test                                    # Run all tests
+```
+
+### Frontend (UI) Commands
+```bash
+cd openframe/services/openframe-frontend
+npm install                                 # Install dependencies
+npm run dev                                 # Start development server
+npm run build                               # Build for production
+npm run type-check                          # TypeScript type checking
+```
+
+### Rust Client Commands
+```bash
+cd client
+cargo build                                 # Build the Rust client
+cargo test                                  # Run Rust tests
+cargo run                                   # Run the client locally
+```
+
+### Local Development
+```bash
+# Platform-specific startup scripts:
+./scripts/run-mac.sh                        # macOS
+./scripts/run-linux.sh                      # Linux
+./scripts/run-windows.ps1                   # Windows PowerShell
+
+# Silent mode (no prompts):
+./scripts/run-mac.sh --silent
+```
+
+### Docker Operations
+```bash
+# Note: Docker Compose files are located in integrated-tools/ directory
+# Individual service stacks can be found in their respective subdirectories:
+# - integrated-tools/tactical-rmm/
+# - integrated-tools/fleetmdm/
+# - integrated-tools/meshcentral/
+# - integrated-tools/authentik/
+```
 
 ## Architecture Overview
 
-OpenFrame implements OAuth 2.0 with PKCE (Proof Key for Code Exchange) for secure authentication with external providers like Google, Microsoft, and Slack.
-
-### Key Components
-
-- **SSOConfigService**: Manages SSO provider configurations
-- **SocialAuthService**: Handles OAuth authentication flows
-- **GoogleAuthStrategy**: Provider-specific authentication implementation
-- **EncryptionService**: Encrypts/decrypts sensitive configuration data
-- **Frontend SSOService**: Client-side OAuth flow management
-
-## Backend Patterns
-
-### SSO Configuration Management
-
-Use the domain-driven approach for SSO configuration:
-
-```java
-@Service
-public class SSOConfigService {
-    private final SSOConfigRepository ssoConfigRepository;
-    private final EncryptionService encryptionService;
-    
-    /**
-     * Get SSO configuration domain model for internal service usage
-     */
-    public Optional<SSOConfig> getConfigByProvider(String provider) {
-        return ssoConfigRepository.findByProvider(provider);
-    }
-    
-    /**
-     * Get list of enabled SSO providers - used by login components
-     */
-    public List<SSOConfigStatusResponse> getEnabledProviders() {
-        return ssoConfigRepository.findByEnabledTrue().stream()
-            .map(config -> SSOConfigStatusResponse.builder()
-                .provider(config.getProvider())
-                .enabled(true)
-                .clientId(config.getClientId())
-                .build())
-            .collect(Collectors.toList());
-    }
-    
-    /**
-     * Get available SSO providers for admin dropdowns
-     */
-    public List<SSOProviderInfo> getAvailableProviders() {
-        return authStrategies.stream()
-            .map(strategy -> SSOProviderInfo.builder()
-                .provider(strategy.getProvider().getProvider())
-                .displayName(strategy.getProvider().getDisplayName())
-                .build())
-            .collect(Collectors.toList());
-    }
-}
-```
-
-### Provider Strategy Pattern
-
-Implement provider-specific strategies using the Strategy pattern:
-
-```java
-public interface SocialAuthStrategy {
-    SSOProvider getProvider();
-    
-    @Deprecated
-    default String getProviderName() {
-        return getProvider().getProvider();
-    }
-    
-    TokenResponse authenticate(SocialAuthRequest request);
-}
-
-@Component
-public class GoogleAuthStrategy implements SocialAuthStrategy {
-    private final SSOConfigRepository ssoConfigRepository;
-    private final EncryptionService encryptionService;
-    
-    @Override
-    public SSOProvider getProvider() {
-        return SSOProvider.GOOGLE;
-    }
-    
-    @Override
-    public TokenResponse authenticate(SocialAuthRequest request) {
-        SSOConfig googleConfig = getGoogleConfig();
-        String clientSecret = encryptionService.decryptClientSecret(googleConfig.getClientSecret());
-        
-        // Implementation...
-    }
-    
-    private SSOConfig getGoogleConfig() {
-        return ssoConfigRepository.findByProvider(SSOProvider.GOOGLE.getProvider())
-            .filter(SSOConfig::isEnabled)
-            .orElseThrow(() -> new SocialAuthException("provider_not_configured",
-                    "Google OAuth is not configured or disabled"));
-    }
-}
-```
-
-### Provider Enum
-
-Use type-safe enums for provider management:
-
-```java
-public enum SSOProvider {
-    GOOGLE("google", "Google OAuth"),
-    MICROSOFT("microsoft", "Microsoft OAuth"),
-    SLACK("slack", "Slack OAuth");
-    
-    private final String provider;
-    private final String displayName;
-    
-    SSOProvider(String provider, String displayName) {
-        this.provider = provider;
-        this.displayName = displayName;
-    }
-    
-    public static SSOProvider fromProvider(String provider) {
-        return Arrays.stream(values())
-            .filter(p -> p.provider.equals(provider))
-            .findFirst()
-            .orElse(null);
-    }
-    
-    // Getters...
-}
-```
-
-### API Endpoint Design
-
-Follow RESTful patterns for SSO endpoints:
-
-```java
-@RestController
-@RequestMapping("/sso")
-public class SSOConfigController {
-    
-    /**
-     * Get enabled providers for login buttons
-     */
-    @GetMapping("/providers")
-    public List<SSOConfigStatusResponse> getEnabledProviders() {
-        return ssoConfigService.getEnabledProviders();
-    }
-    
-    /**
-     * Get available providers for admin dropdowns
-     */
-    @GetMapping("/providers/available")
-    public List<SSOProviderInfo> getAvailableProviders() {
-        return ssoConfigService.getAvailableProviders();
-    }
-    
-    /**
-     * Get full SSO configuration for admin forms
-     */
-    @GetMapping("/{provider}")
-    public ResponseEntity<SSOConfigResponse> getConfig(@PathVariable String provider) {
-        // Implementation...
-    }
-    
-    /**
-     * Create or update SSO configuration
-     */
-    @PostMapping("/{provider}")
-    public ResponseEntity<SSOConfigResponse> createConfig(
-            @PathVariable String provider,
-            @Valid @RequestBody SSOConfigRequest request) {
-        // Implementation...
-    }
-}
-```
-
-## Frontend Patterns
+OpenFrame is a distributed microservices platform with the following core architecture:
 
 ### Service Layer
+- **openframe-gateway**: API Gateway with JWT authentication, WebSocket support, and tool proxy
+- **openframe-api**: GraphQL API service with OAuth2/OpenID Connect, user management
+- **openframe-management**: Administrative service with scheduled tasks and system management
+- **openframe-stream**: Stream processing service using Kafka for real-time data processing (NOT NiFi)
+- **openframe-config**: Spring Cloud Config Server for centralized configuration management
+- **openframe-client** (Java): Agent management and authentication service
+- **openframe-frontend**: Next.js 16 + React 19 + TypeScript frontend (consumes the external `@flamingo-stack/openframe-frontend-core` design system)
 
-Implement a clean service layer for SSO operations:
+### Client Agent
+- **client/** (Rust): Cross-platform system agent for monitoring and management
 
-```typescript
-export class SSOService {
-  private static readonly BASE_URL = '/sso';
+### Shared Libraries
+- **openframe-data**: Data access layer (MongoDB, Cassandra, Redis, Kafka)
+- **openframe-jwt**: JWT security implementation with cookie support
+- **api-library**: Common API services and DTOs
 
-  /**
-   * Get enabled SSO providers for login buttons
-   */
-  public async getEnabledProviders(): Promise<SSOConfigStatus[]> {
-    return await restClient.get<SSOConfigStatus[]>(`${import.meta.env.VITE_API_URL}${SSOService.BASE_URL}/providers`);
-  }
+### Technology Stack
 
-  /**
-   * Get available SSO providers for admin dropdowns
-   */
-  public async getAvailableProviders(): Promise<SSOProviderInfo[]> {
-    return await restClient.get<SSOProviderInfo[]>(`${import.meta.env.VITE_API_URL}${SSOService.BASE_URL}/providers/available`);
-  }
+#### Backend
+- **Runtime**: Java 21, Spring Boot 3.3.0, Spring Cloud 2023.0.3
+- **API**: GraphQL (Netflix DGS 7.0.0), RESTful services
+- **Security**: JWT with OAuth2, Spring Security, AES-256 encryption
+- **Data**: MongoDB 7.x, Cassandra 4.x, Apache Pinot 1.2.0, Redis
+- **Messaging**: Apache Kafka 3.6.0 for event streaming
+- **Processing**: OpenFrame Stream Service (custom data processing components)
 
-  /**
-   * Get full SSO configuration for admin forms
-   */
-  public async getConfig(provider: string): Promise<SSOConfigResponse> {
-    return await restClient.get<SSOConfigResponse>(`${import.meta.env.VITE_API_URL}${SSOService.BASE_URL}/${provider}`);
-  }
-}
+#### Frontend
+- **Framework**: Next.js 16 + React 19 with TypeScript 5.8 (App Router)
+- **UI Library**: `@flamingo-stack/openframe-frontend-core` — external shared design system. No custom UI primitives.
+- **Data Fetching**: `@tanstack/react-query` (no Apollo Client)
+- **State**: Zustand with immer
+- **Forms**: react-hook-form + zod
+- **Code Quality**: Biome (primary linter + formatter), Husky pre-commit
+- **Build**: Next.js (webpack or Turbopack)
+- See `openframe/services/openframe-frontend/CLAUDE.md` for the full conventions.
+
+#### Infrastructure
+- **Containerization**: Docker and Docker Compose
+- **Orchestration**: Kubernetes 1.28+ with Helm charts (manifests/)
+- **Monitoring**: Prometheus, Grafana, Loki for observability
+- **Service Mesh**: Istio 1.20 for traffic management
+
+## Key Development Patterns
+
+### Authentication Flow
+- Users authenticate through OAuth2/OpenID Connect via `openframe-api`
+- JWTs are stored in HTTP-only cookies for security (moved from Authorization headers)
+- Gateway converts cookies to Authorization headers for internal services
+- Agents use separate authentication flow with service accounts
+
+### Data Flow
+1. **Ingestion**: External tools → `openframe-stream` → Kafka topics
+2. **Processing**: Kafka → Stream Processing Service → enriched data → Cassandra/Pinot
+3. **API Layer**: GraphQL queries → MongoDB/Cassandra/Pinot → client responses
+4. **Real-time**: WebSocket connections through gateway for live updates
+
+### Service Communication
+- **External**: REST APIs through API Gateway
+- **Internal**: Direct service-to-service HTTP calls
+- **Async**: Kafka topics for event-driven communication
+- **Configuration**: Spring Cloud Config for centralized configuration
+
+## Project Structure
+
+```
+.
+├── openframe/                          # Java services and libraries
+│   ├── services/                       # Microservices
+│   │   ├── openframe-gateway/          # API Gateway (port routing)
+│   │   ├── openframe-api/              # GraphQL API and OAuth
+│   │   ├── openframe-management/       # Admin and scheduled tasks
+│   │   ├── openframe-stream/           # Kafka stream processing
+│   │   ├── openframe-config/           # Configuration server
+│   │   ├── openframe-client/           # Agent management service
+│   │   ├── openframe-external-api/     # External API integrations
+│   │   ├── openframe-authorization-server/ # Authorization server
+│   │   └── openframe-frontend/         # Next.js 16 + React 19 frontend
+│   └── libs/                           # Shared libraries
+│       ├── openframe-core/             # Core models and utilities
+│       ├── openframe-data/             # Data access layer
+│       ├── openframe-jwt/              # JWT security implementation
+│       └── api-library/                # Common API services
+├── client/                             # Rust system agent
+├── manifests/                          # Kubernetes Helm charts
+├── integrated-tools/                   # Docker configs for external tools
+├── scripts/                            # Development and deployment scripts
+└── docs/                               # Documentation (flattened structure)
+    ├── getting-started/                # Getting started guides
+    ├── development/                    # Development documentation
+    ├── api/                           # API documentation
+    ├── deployment/                    # Deployment guides
+    ├── operations/                    # Operations manual
+    ├── reference/                     # Technical reference
+    └── diagrams/                      # Architecture diagrams
 ```
 
-### Type Safety
+## Documentation Structure
 
-Define clear TypeScript interfaces:
+The documentation has been restructured into a comprehensive, flat hierarchy:
 
-```typescript
-export interface SSOConfigRequest {
-  clientId: string;
-  clientSecret: string;
-}
+### Main Sections
+- **getting-started/**: Introduction, prerequisites, quick start, first steps
+- **development/**: Complete development guide with architecture, setup, testing
+- **api/**: Authentication, GraphQL, REST, WebSocket documentation
+- **deployment/**: Local, Kubernetes, cloud deployment guides
+- **operations/**: Monitoring, logging, maintenance, troubleshooting
+- **reference/**: Technical reference for services, libraries, configuration
+- **diagrams/**: Visual architecture and system diagrams
 
-export interface SSOConfigResponse {
-  id?: string;
-  provider: string;
-  clientId?: string;
-  clientSecret?: string;
-  enabled: boolean;
-}
+### Key Files
+- `docs/README.md`: Comprehensive master documentation index with navigation
+- `README.md`: Main project README with current architecture (no NiFi references)
+- Individual section READMEs provide detailed navigation within each area
 
-export interface SSOConfigStatus {
-  enabled: boolean;
-  provider: string;
-  clientId?: string;
-}
+## Code Standards
 
-export interface SSOProviderInfo {
-  provider: string;
-  displayName: string;
-}
+### Java/Spring Boot
+- Use Java 21 features (records, sealed classes, pattern matching)
+- Follow Spring Boot 3.x conventions and best practices
+- Constructor injection over field injection
+- Use `@ConfigurationProperties` for type-safe configuration
+- Implement proper exception handling with `@ControllerAdvice`
+- GraphQL DataFetchers in `openframe-api` for data access
 
-export type SSOProvider = 'google' | 'microsoft' | 'slack';
+### React/TypeScript (openframe-frontend)
+- React 19 functional components; hooks at the top of the component, unconditionally (no hooks after early returns, no hooks inside try/catch)
+- TypeScript strict mode for all new code
+- Use components from `@flamingo-stack/openframe-frontend-core` — never create custom UI primitives
+- `@tanstack/react-query` for all server-state fetching; `useToast` (from core lib) is mandatory for API feedback
+- `react-hook-form` + `zod` for forms
+- Zustand stores for client state
+- ODS design tokens only — no hardcoded colors, hex values, or raw font sizes
+- See `openframe/services/openframe-frontend/CLAUDE.md` for the full set of conventions.
+
+### Rust
+- Use Tokio async runtime for I/O operations
+- Implement proper error handling with `anyhow` and `thiserror`
+- Follow Rust naming conventions (snake_case)
+- Use `serde` for serialization/deserialization
+
+## Testing Strategy
+
+### Java
+```bash
+mvn test                                # Run all tests
+mvn test -Dtest=ClassName               # Run specific test class
+mvn test -Dtest=ClassName#methodName    # Run specific test method
+```
+- Unit tests with JUnit 5 and Mockito
+- Integration tests with `@SpringBootTest`
+- Repository tests with `@DataMongoTest`
+- Web layer tests with `MockMvc`
+
+### Frontend
+```bash
+cd openframe/services/openframe-frontend
+npm run type-check                      # TypeScript validation
+npm run lint:biome                      # Biome lint + format check (pre-commit gate)
+npm run build                           # Production build verification
 ```
 
-### Component Patterns
-
-#### Login Button Component
-
-```vue
-<template>
-  <div v-if="showGoogleLogin" class="google-login-wrapper">
-    <button 
-      @click="handleGoogleLogin" 
-      class="google-login-button"
-      :disabled="loading"
-    >
-      <GoogleIcon />
-      Continue with Google
-    </button>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { ssoService } from '@/services/SSOService';
-
-const showGoogleLogin = ref(false);
-const loading = ref(false);
-
-onMounted(async () => {
-  try {
-    const enabledProviders = await ssoService.getEnabledProviders();
-    showGoogleLogin.value = enabledProviders.some(provider => provider.provider === 'google');
-  } catch (error) {
-    console.error('Failed to load SSO providers:', error);
-  }
-});
-
-async function handleGoogleLogin() {
-  loading.value = true;
-  try {
-    // OAuth flow implementation
-  } catch (error) {
-    console.error('Google login failed:', error);
-  } finally {
-    loading.value = false;
-  }
-}
-</script>
+### Rust
+```bash
+cd client
+cargo test                              # Run all Rust tests
+cargo test test_name                    # Run specific test
 ```
 
-#### Admin Settings Component
+## Security Considerations
 
-```vue
-<template>
-  <div class="sso-settings">
-    <form @submit.prevent="handleSubmit">
-      <!-- Provider Selection -->
-      <div class="form-group">
-        <label>OAuth Provider</label>
-        <OFDropdown
-          v-model="selectedProvider"
-          :options="availableProviders"
-          optionLabel="displayName"
-          optionValue="provider"
-          placeholder="Select OAuth Provider"
-          @change="onProviderChange"
-          :loading="loadingProviders"
-        />
-      </div>
+- All services use JWT authentication via HTTP-only cookies (NOT Authorization headers)
+- Agents authenticate with service account credentials
+- Database connections use encrypted credentials
+- External tool integrations proxy through gateway
+- CORS configured for frontend-backend communication
+- Rate limiting implemented at gateway level
 
-      <!-- Configuration Form -->
-      <div v-if="selectedProvider">
-        <Input
-          v-model="form.clientId"
-          label="Client ID"
-          required
-          :error="errors.clientId"
-        />
-        <Input
-          v-model="form.clientSecret"
-          label="Client Secret"
-          type="password"
-          required
-          :error="errors.clientSecret"
-        />
-      </div>
-    </form>
-  </div>
-</template>
+## Local Development Setup
 
-<script setup lang="ts">
-import { ref, reactive, onMounted, watch } from 'vue';
-import { ssoService } from '@/services/SSOService';
-import type { SSOProviderInfo } from '@/types/sso';
+1. **Prerequisites**: Java 21, Maven 3.9+, Docker 24.0+, Node.js 18+, Rust 1.70+ (for client)
+2. **GitHub Token**: Required for private repository access during setup
+3. **Run platform script**: `./scripts/run-mac.sh` (or equivalent for your OS)
+4. **Access URLs**:
+   - UI Dashboard: http://localhost:8080
+   - GraphQL API: http://localhost:8080/graphql
+   - Config Server: http://localhost:8888
 
-const selectedProvider = ref<string>('');
-const availableProviders = ref<SSOProviderInfo[]>([]);
-const loadingProviders = ref(false);
+## Common Tasks
 
-onMounted(() => {
-  loadAvailableProviders();
-});
+### Adding New GraphQL Operations
+1. Add query/mutation to schema in `openframe-api`
+2. Implement DataFetcher class
+3. Register DataFetcher in DGS configuration
+4. Update frontend GraphQL queries
 
-watch(selectedProvider, (newProvider) => {
-  if (newProvider) {
-    loadProviderConfig();
-  }
-});
+### Adding New Microservice
+1. Create Maven module in `openframe/services/`
+2. Follow existing service structure (controller/service/repository)
+3. Add Docker configuration and Helm charts
+4. Register service routes in gateway configuration
 
-async function loadAvailableProviders() {
-  loadingProviders.value = true;
-  try {
-    availableProviders.value = await ssoService.getAvailableProviders();
-    if (availableProviders.value.length > 0) {
-      selectedProvider.value = availableProviders.value[0].provider;
-    }
-  } catch (error) {
-    console.error('Failed to load providers:', error);
-  } finally {
-    loadingProviders.value = false;
-  }
-}
-</script>
+### Integrated Tool Connection
+1. Add tool configuration in `docker-compose.openframe-{tool}.yml`
+2. Implement connection logic in `openframe-client/ToolConnectionService`
+3. Add UI components for tool management
+4. Configure tool-specific data processing in `openframe-stream`
+
+### Documentation Updates
+1. Update relevant section in `docs/` hierarchy
+2. Update cross-references and navigation links
+3. Ensure consistency with master `docs/README.md`
+4. Verify all Mermaid diagrams render correctly
+
+## Architecture Notes (IMPORTANT)
+
+### What Changed
+- **Apache NiFi REMOVED**: Replaced with OpenFrame Stream Service throughout
+- **Authentication Method**: JWT moved from Authorization headers to HTTP-only cookies
+- **Documentation Structure**: Flattened from `docs/docs/` to `docs/`
+- **Apache Pinot**: Added to all relevant architecture diagrams and descriptions
+
+### Current Data Processing Pipeline
+```
+Data Sources → OpenFrame Stream Service → Kafka → [Cassandra/Pinot/MongoDB/Redis]
 ```
 
-## Security Best Practices
+### DO NOT Reference
+- Apache NiFi (removed from project - NOTE: Some NiFi dependencies may still exist in pom.xml but should not be used)
+- Authorization header JWT (now uses cookies)
+- Nested `docs/docs/` structure (flattened)
 
-### Encryption
+### Performance Characteristics
+- **API Response Time**: < 200ms average
+- **Throughput**: 100,000 events/second
+- **Concurrent Users**: 10,000+ supported
+- **Availability**: 99.9% uptime SLA
 
-Always encrypt sensitive configuration data:
+## Troubleshooting
 
-```java
-@Service
-public class EncryptionService {
-    private final StringEncryptor encryptor;
-    
-    public String encryptClientSecret(String clientSecret) {
-        if (clientSecret == null || clientSecret.isEmpty()) {
-            return null;
-        }
-        return encryptor.encrypt(clientSecret);
-    }
-    
-    public String decryptClientSecret(String encryptedSecret) {
-        if (encryptedSecret == null || encryptedSecret.isEmpty()) {
-            return null;
-        }
-        try {
-            return encryptor.decrypt(encryptedSecret);
-        } catch (Exception e) {
-            log.error("Failed to decrypt client secret", e);
-            return null;
-        }
-    }
-}
+### Common Issues
+- **Service startup failures**: Check configuration and dependencies
+- **Database connection errors**: Verify connection strings and credentials
+- **Authentication issues**: Check JWT cookie configuration (not Authorization headers)
+- **Documentation links**: Use flat structure (`docs/section/` not `docs/docs/section/`)
+
+### Diagnostic Commands
+```bash
+# Service health
+curl http://localhost:8080/actuator/health
+
+# Service logs
+docker-compose logs -f service-name
+
+# Container status
+kubectl get pods --sort-by=memory
+
+# JWT token verification (cookies, not headers)
+curl -b cookies.txt http://localhost:8080/api/user/profile
 ```
 
-### PKCE Implementation
+## Integrated Tools
 
-Use PKCE for OAuth flows:
+Current integrations include:
+- **Tactical RMM**: IT management suite
+- **MeshCentral**: Remote management platform  
+- **Fleet MDM**: Mobile device management
+- **Authentik**: Identity provider
 
-```typescript
-export class SSOService {
-  public generateCodeVerifier(): string {
-    const array = new Uint8Array(32);
-    crypto.getRandomValues(array);
-    return btoa(String.fromCharCode(...array))
-      .replace(/=/g, '')
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_');
-  }
-
-  private async generateCodeChallenge(codeVerifier: string): Promise<string> {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(codeVerifier);
-    const digest = await crypto.subtle.digest('SHA-256', data);
-    const base64String = btoa(String.fromCharCode(...new Uint8Array(digest)));
-    return base64String.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-  }
-}
-```
-
-## Error Handling
-
-### Backend Error Handling
-
-```java
-@ControllerAdvice
-public class SSOExceptionHandler {
-    
-    @ExceptionHandler(SocialAuthException.class)
-    public ResponseEntity<ErrorResponse> handleSocialAuthException(SocialAuthException e) {
-        ErrorResponse error = ErrorResponse.builder()
-            .code(e.getErrorCode())
-            .message(e.getMessage())
-            .timestamp(LocalDateTime.now())
-            .build();
-        
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    }
-}
-
-public class SocialAuthException extends RuntimeException {
-    private final String errorCode;
-    
-    public SocialAuthException(String errorCode, String message) {
-        super(message);
-        this.errorCode = errorCode;
-    }
-}
-```
-
-### Frontend Error Handling
-
-```typescript
-try {
-  const config = await ssoService.getConfig(provider);
-  // Handle success
-} catch (error: any) {
-  if (error.response?.data?.errors) {
-    // Handle validation errors
-    const backendErrors = error.response.data.errors;
-    backendErrors.forEach((err: any) => {
-      if (err.field && err.message) {
-        errors[err.field] = err.message;
-      }
-    });
-  } else {
-    // Handle general errors
-    errorMessage.value = error.message || 'Failed to load configuration';
-  }
-}
-```
-
-## Testing Patterns
-
-### Backend Testing
-
-```java
-@ExtendWith(MockitoExtension.class)
-public class GoogleAuthStrategyTest {
-    @Mock
-    private SSOConfigRepository ssoConfigRepository;
-    
-    @Mock
-    private EncryptionService encryptionService;
-    
-    @InjectMocks
-    private GoogleAuthStrategy googleAuthStrategy;
-    
-    @Test
-    public void testAuthenticate_Success() {
-        // Arrange
-        SSOConfig config = SSOConfig.builder()
-            .provider("google")
-            .clientId("test-client-id")
-            .clientSecret("encrypted-secret")
-            .enabled(true)
-            .build();
-            
-        when(ssoConfigRepository.findByProvider("google"))
-            .thenReturn(Optional.of(config));
-        when(encryptionService.decryptClientSecret("encrypted-secret"))
-            .thenReturn("decrypted-secret");
-        
-        // Act & Assert
-        // Test implementation
-    }
-}
-```
-
-### Frontend Testing
-
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-import { mount } from '@vue/test-utils';
-import { ssoService } from '@/services/SSOService';
-import SSOSettings from '@/components/settings/SSOSettings.vue';
-
-vi.mock('@/services/SSOService', () => ({
-  ssoService: {
-    getAvailableProviders: vi.fn(),
-    getConfig: vi.fn(),
-    saveConfig: vi.fn()
-  }
-}));
-
-describe('SSOSettings', () => {
-  it('loads available providers on mount', async () => {
-    const providers = [
-      { provider: 'google', displayName: 'Google OAuth' }
-    ];
-    
-    ssoService.getAvailableProviders.mockResolvedValue(providers);
-    
-    const wrapper = mount(SSOSettings);
-    
-    await wrapper.vm.$nextTick();
-    
-    expect(ssoService.getAvailableProviders).toHaveBeenCalled();
-  });
-});
-```
-
-## Best Practices
-
-1. **Type Safety**: Use enums and TypeScript interfaces for type safety
-2. **Security**: Always encrypt sensitive data and use PKCE for OAuth
-3. **Error Handling**: Provide clear error messages and proper exception handling
-4. **Testing**: Write comprehensive tests for both backend and frontend
-5. **Separation of Concerns**: Keep domain logic separate from DTOs
-6. **API Design**: Follow RESTful patterns for consistent API design
-7. **State Management**: Use reactive patterns for frontend state management
-8. **Validation**: Implement both client-side and server-side validation
-9. **Logging**: Add proper logging for debugging and monitoring
-10. **Documentation**: Document all public APIs and complex business logic
-
-## Common Pitfalls
-
-1. **Circular Dependencies**: Avoid circular dependencies between services
-2. **Hardcoded Values**: Use configuration and enums instead of hardcoded strings
-3. **Missing Validation**: Always validate input data
-4. **Insecure Storage**: Never store secrets in plain text
-5. **Poor Error Messages**: Provide meaningful error messages to users
-6. **Missing Tests**: Ensure good test coverage for critical flows
-7. **Inconsistent APIs**: Follow consistent patterns across all endpoints
-8. **Memory Leaks**: Properly clean up resources and event listeners
-9. **Race Conditions**: Handle async operations properly
-10. **Poor UX**: Provide loading states and proper feedback to users
+Each tool has dedicated documentation in `docs/reference/tools/` and API documentation in `docs/api/tools/`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/flamingo-stack) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
