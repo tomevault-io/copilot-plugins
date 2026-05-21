@@ -1,0 +1,9 @@
+{
+  "name": "samzong--ai-icon-generator",
+  "displayName": "ai-icon-generator",
+  "description": "An opensource icon generation tool based on OpenAI gpt-image-1.",
+  "version": "1.0.0",
+  "author": "samzong",
+  "homepage": "https://github.com/samzong/ai-icon-generator",
+  "skills": []
+}
