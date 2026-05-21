@@ -1,29 +1,12 @@
-## mcp-server-pattern
+## style-guidelines
 
-> Core coding patterns for MCP Server implementation
+> Style guidelines for the CodeLogic MCP Server project
 
-
-# Use the following pattern for MCP server implementation
-
-```python
-server = Server("codelogic-mcp-server")
-
-@server.list_tools()
-async def handle_list_tools() -> list[types.Tool]:
-    # Define and return tools
-    
-@server.call_tool()
-async def handle_call_tool(name: str, arguments: dict | None) -> list[types.TextContent]:
-    # Handle tool execution
-```
-
-- New tools should be added to handle_list_tools() with descriptive names (prefix: `codelogic-`)
-- Tool handlers should be implemented in handle_call_tool()
-- Create handler functions with proper error handling
-- Return results as markdown-formatted text
-- **NEW**: For DevOps tools, return structured JSON data for AI file modification
-- **NEW**: Include helper functions for generating platform-specific CI/CD configurations
-- **NEW**: Use structured output patterns for file modifications with specific line numbers and content
+- Include MPL 2.0 copyright headers in all Python files
+- Use Google-style docstrings for modules/classes/functions
+- Always use Python type hints
+- Keep I/O operations asynchronous
+- Return markdown-formatted text in tool responses
 
 ---
 > Source: [CodeLogicIncEngineering/codelogic-mcp-server](https://github.com/CodeLogicIncEngineering/codelogic-mcp-server) — distributed by [TomeVault](https://tomevault.io).
