@@ -1,0 +1,9 @@
+{
+  "name": "opentools--cli",
+  "displayName": "cli",
+  "description": "cli",
+  "version": "1.0.0",
+  "author": "opentools",
+  "homepage": "https://github.com/opentools/cli",
+  "skills": []
+}
