@@ -1,0 +1,9 @@
+{
+  "name": "dfinke--psaisuite",
+  "displayName": "psaisuite",
+  "description": "Enterprise-grade PowerShell abstraction layer for 15+ GenAI providers. Standardized interface for model benchmarking, tool-calling, and high-performance LLM integration",
+  "version": "1.0.0",
+  "author": "dfinke",
+  "homepage": "https://github.com/dfinke/psaisuite",
+  "skills": []
+}
