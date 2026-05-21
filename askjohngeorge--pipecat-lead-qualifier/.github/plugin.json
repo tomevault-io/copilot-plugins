@@ -1,0 +1,9 @@
+{
+  "name": "askjohngeorge--pipecat-lead-qualifier",
+  "displayName": "pipecat-lead-qualifier",
+  "description": "Pipecat Lead Qualifier is a modular voice assistant application that uses a FastAPI server to orchestrate bot workflows and a Next.js client for user interactions.",
+  "version": "1.0.0",
+  "author": "askjohngeorge",
+  "homepage": "https://github.com/askjohngeorge/pipecat-lead-qualifier",
+  "skills": []
+}
