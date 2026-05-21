@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--ts-rate-limiter",
+  "displayName": "ts-rate-limiter",
+  "description": "A high-performance, flexible rate limiting library for TypeScript.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/ts-rate-limiter",
+  "skills": []
+}
