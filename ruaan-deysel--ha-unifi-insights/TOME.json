@@ -4,7 +4,7 @@
   "repo": "ha-unifi-insights",
   "description": "A comprehensive Home Assistant custom integration for monitoring and controlling your UniFi Network and UniFi Protect infrastructure using the official UniFi APIs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ruaan-deysel/ha-unifi-insights",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T18:42:09Z"
+  "distributed_at": "2026-05-21T05:07:26Z"
 }
