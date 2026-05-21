@@ -1,0 +1,9 @@
+{
+  "name": "samuelcolvin--spread",
+  "displayName": "spread",
+  "description": "Spreadsheet viewer, in Rust using GPUI",
+  "version": "1.0.0",
+  "author": "samuelcolvin",
+  "homepage": "https://github.com/samuelcolvin/spread",
+  "skills": []
+}
