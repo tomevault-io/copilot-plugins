@@ -1,51 +1,41 @@
-## tolk
+## ton-resources
 
-> Use this rule for smart contract development on TON using the Tolk programming language. Always apply it when working with Tolk contracts
+> This document lists key official and community resources for TON development. Use these links to find additional information, examples, and documentation.
 
-## ✅ Cursor Rule: Tolk Smart Contracts Coding Guide
+<ton-resources>
+# TON Resources
 
-You are a **Tolk** code assistant for TON blockchain development. When generating or reviewing Tolk code, follow these **non‑interactive** guidelines:
+This document lists key official and community resources for TON development. Use these links to find additional information, examples, and documentation.
 
----
+## Official TON GitHub Organizations
 
-### 1. File Structure
-- Place all contracts in the `contracts/` directory.
-- Filename and contract name must be **PascalCase** and match exactly.
-- After building, **create TypeScript wrappers manually** in `wrappers/` (Tolk has no auto‑generation).
+*   [@tact-lang](mdc:https:/github.com/tact-lang) - Primary development of the Tact language compiler (`tact`), associated tooling (language server, editor integrations, Web IDE, templates), standard contract implementations (Jetton), learning resources (`awesome-tact`, examples, cookbooks), and the official website.
+*   [@ton-org](mdc:https:/github.com/ton-org) - Hosts the primary developer tooling suite: `blueprint` (framework), `sandbox` (emulator), `ton-core` (low-level tools), `ton` (main TS library), `ton-crypto` (primitives), `create-ton` (project setup). Also includes SDKs (games) and testing utilities.
+*   [@ton-blockchain](mdc:https:/github.com/ton-blockchain) - Core components (main `ton` repo), TEPs, various wallet implementations (v3/v4/v5, multisig, desktop/mobile, Ledger), token standards (Jetton, NFT), developer tools (`mytonctrl`, Tolk, Verifier, TON Connect), and bridges.
+*   [@ton-community](mdc:https:/github.com/ton-community) - Community resources: `ton-docs`, `awesome-ton`, tutorials, contract verification, TL-B tools, `func-js` (FunC WASM), `ton-kotlin` SDK, contract examples/templates (`twa-template`), challenges.
+*   [@ton-studio](mdc:https:/github.com/ton-studio) - Data tools (`ton-etl`, `ton-labels`, Dune queries), educational resources (`tonspeedrun`, `tact-smart-battle`), and infrastructure (`validators-monitoring`).
+*   [@OpenBuilders](mdc:https:/github.com/OpenBuilders) - Resources from the Open Builders initiative
 
-### 2. Language Keywords
-Use **only** these Tolk keywords and reserved words:
-```
-tolk, import, global, const, fun, get, mutate, asm, builtin,
-var, val, return, repeat, if, else, do, while, break, continue,
-throw, throwUnless, throwIf, assert, try, catch, true, false,
-null, void, self, redef
-```
+## Official Documentation
 
-### 3. Built‑in Functions
-Only use these built‑ins for on‑chain operations:
-```
-getContractData(), setContractData(), beginCell(), endCell(), beginParse(),
-assertEndOfSlice(), loadUint(), storeUint(), throw(), throwUnless(), throwIf(),
-onInternalMessage(), isMessageBounced(), loadMessageFlags(), loadMessageOp(),
-loadMessageQueryId()
-```
+*   [Tact Language Documentation](mdc:https:/docs.tact-lang.org)
+*   [TON Documentation](mdc:https:/docs.ton.org)
 
-### 4. Best Practices
--
--
+## Key Community & Unofficial Repositories
 
-### 5. Testing and Static Analysis
-- Run exhaustive tests *before* deploy:
-  ```bash
-  npx blueprint build ContractName && npx blueprint test
-  npx blueprint misti ContractName
-  ```
-  Ensure wrappers are up‑to‑date, tests pass, and `misti` reports **zero critical issues** before continuing.
+These repositories are maintained by active community members and organizations, offering valuable tools, libraries, and examples:
 
----
-
-❗ All code generation must be fully parameterized; no interactive prompts are allowed.
+*   [@Skydev0h](mdc:https:/github.com/Skydev0h)
+*   [@TonDevWallet](mdc:https:/github.com/TonDevWallet)
+*   [@dankorotin](mdc:https:/github.com/dankorotin)
+*   [@evaafi](mdc:https:/github.com/evaafi)
+*   [@pyAndr3w](mdc:https:/github.com/pyAndr3w)
+*   [@r-pine](mdc:https:/github.com/r-pine)
+*   [@ston-fi](mdc:https:/github.com/ston-fi) - STON.fi DEX
+*   [@tonkeeper](mdc:https:/github.com/tonkeeper) - Tonkeeper Wallet
+*   [@xssnick](mdc:https:/github.com/xssnick)
+*   [@ton-ai-core](mdc:https:/github.com/ton-ai-core) - AI-related TON tools
+</ton-resources>
 
 ---
 > Source: [ton-ai-core/contract-knowledge](https://github.com/ton-ai-core/contract-knowledge) — distributed by [TomeVault](https://tomevault.io).
