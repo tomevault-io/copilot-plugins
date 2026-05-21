@@ -1,0 +1,9 @@
+{
+  "name": "gleanwork--glean-cli",
+  "displayName": "glean-cli",
+  "description": "Work seamlessly with Glean from your command line.",
+  "version": "1.0.0",
+  "author": "gleanwork",
+  "homepage": "https://github.com/gleanwork/glean-cli",
+  "skills": []
+}
