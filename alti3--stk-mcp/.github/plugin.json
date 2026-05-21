@@ -1,0 +1,9 @@
+{
+  "name": "alti3--stk-mcp",
+  "displayName": "stk-mcp",
+  "description": "An MCP server allowing LLMs to interact with Ansys/AGI STK - Digital Mission Engineering Software",
+  "version": "1.0.0",
+  "author": "alti3",
+  "homepage": "https://github.com/alti3/stk-mcp",
+  "skills": []
+}
