@@ -1,135 +1,185 @@
-## general
+## interactive-features
 
-> Global Rules for Simple HTML/JS Apps (No Backend)
+> Guidelines for creating interactive features and animations
 
 
-# General Guidelines for Simple Web Apps
+# Interactive Features and Animations
 
-## Code Quality
-- Use ES6+ features (let/const, arrow functions, template literals)
-- Keep functions short and single-purpose (max 20 lines)
-- Use meaningful variable and function names
-- Always handle errors gracefully (try/catch in JS)
-- Keep HTML semantic and accessible
-- Follow the single-file approach for simple apps
+This project encourages creating engaging, interactive web applications with smooth animations and dynamic features.
 
-## File Organization
-- **Single-file apps**: Generate one HTML file with embedded CSS and JavaScript
-- **Multi-file apps**: Use `index.html`, `styles.css`, `script.js` structure
-- **Complex apps**: Organize with subdirectories for `css/`, `js/`, `assets/`
+## Interactive Feature Categories
 
-## HTML Standards
-- Use semantic HTML5 elements (header, main, footer, section, article)
-- Add alt text to all images
-- Use labels for all form inputs
-- Include proper ARIA attributes for accessibility
-- Use proper heading hierarchy (h1, h2, h3...)
+### 1. User Interface Animations
+- **Fade-in effects**: Smooth page load animations
+- **Hover effects**: Interactive button and element states
+- **Transitions**: Smooth state changes and navigation
+- **Loading states**: Visual feedback during operations
 
-## JavaScript Standards
-- Use strict mode (`'use strict';`)
-- Avoid global variables (use IIFE or modules)
-- Prefer querySelector/querySelectorAll over older DOM APIs
-- Use event delegation for dynamic elements
-- Implement proper error handling with try/catch blocks
-- Use modern async/await syntax for promises
+### 2. Dynamic Content
+- **Typing effects**: Animated text appearance
+- **Random content**: Dynamic tips, quotes, or facts
+- **Real-time updates**: Live data visualization
+- **Interactive forms**: Dynamic form behavior
 
-## Example of Good Code:
+### 3. Visual Effects
+- **Parallax scrolling**: Mouse movement effects
+- **Color animations**: Background and theme changes
+- **Particle effects**: Visual interest and engagement
+- **Responsive animations**: Mobile-optimized interactions
 
-<!--
-  Example: Minimal Todo List App (Single HTML/JS/CSS File)
-  - Semantic HTML5
-  - Accessible form
-  - ES6+ JavaScript
-  - All code in one file
--->
+## Implementation Examples
+
+### Landing Page Features
+Reference [apps/simple-webpage/index.html](mdc:apps/simple-webpage/index.html) for:
+- Animated typing effect for headings
+- Background color animations
+- Interactive tip buttons
+- Parallax mouse movement effects
+- Smooth fade-in animations
+
+### Quiz Application Interactions
+Reference [apps/quiz-app/index.html](mdc:apps/quiz-app/index.html) for:
+- Dynamic question loading
+- Progress indicators
+- Interactive answer selection
+- Score animations
+- Result celebrations
+
+## Animation Best Practices
+
+### Performance Considerations
+- Use CSS transforms and opacity for smooth animations
+- Avoid animating layout properties (width, height, margin)
+- Use `requestAnimationFrame` for complex animations
+- Implement reduced motion preferences for accessibility
+
+### Accessibility Guidelines
+- Respect `prefers-reduced-motion` media query
+- Provide alternative text for visual effects
+- Ensure keyboard navigation works with animations
+- Maintain focus indicators during transitions
+
+### Code Examples
+
+#### Smooth Fade-in Animation
+```css
+.fade-in {
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.fade-in.loaded {
+  opacity: 1;
+}
+```
+
+#### Typing Effect
+```javascript
+function typeText(element, text, speed = 60) {
+  element.textContent = '';
+  let i = 0;
+  function typeChar() {
+    if (i < text.length) {
+      element.textContent += text[i];
+      i++;
+      setTimeout(typeChar, speed);
+    }
+  }
+  typeChar();
+}
+```
+
+#### Parallax Mouse Effect
+```javascript
+document.addEventListener('mousemove', (e) => {
+  const percent = (e.clientX / window.innerWidth - 0.5) * 2;
+  element.style.transform = `translateX(${percent * 20}px)`;
+});
+```
+
+## Interactive Feature Checklist
+
+### Basic Interactions
+- [ ] Hover effects on buttons and links
+- [ ] Smooth transitions between states
+- [ ] Loading indicators for async operations
+- [ ] Form validation feedback
+- [ ] Error message animations
+
+### Advanced Features
+- [ ] Dynamic content generation
+- [ ] Real-time data updates
+- [ ] Interactive visualizations
+- [ ] Gesture-based interactions
+- [ ] Sound effects (optional)
+
+### Accessibility
+- [ ] Reduced motion support
+- [ ] Keyboard navigation
+- [ ] Screen reader compatibility
+- [ ] Focus management
+- [ ] Alternative interaction methods
+
+## Animation Libraries and Tools
+
+### CSS Libraries
+- **Animate.css**: Pre-built animation classes
+- **Hover.css**: Hover effect library
+- **AOS**: Animate on scroll library
+
+### JavaScript Libraries
+- **GSAP**: Professional animation library
+- **Framer Motion**: React animation library
+- **Lottie**: After Effects animations
+
+### Performance Tools
+- **Chrome DevTools**: Animation performance analysis
+- **Lighthouse**: Performance auditing
+- **WebPageTest**: Animation performance testing
+
+## Example Implementation
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Todo List</title>
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #f9f9f9;
-      color: #222;
-      margin: 0;
-      padding: 0;
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.01ms !important; }
     }
-    main {
-      max-width: 400px;
-      margin: 2rem auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      padding: 2rem;
+    
+    .interactive-button {
+      transition: all 0.3s ease;
+      transform: scale(1);
     }
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    form {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    input[type="text"] {
-      flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button[type="submit"] {
-      padding: 0.5rem 1rem;
-      background: #0074d9;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button[type="submit"]:hover {
-      background: #005fa3;
-    }
-    ul#todo-list {
-      list-style: none;
-      padding: 0;
-    }
-    ul#todo-list li {
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #eee;
+    
+    .interactive-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Todo List</h1>
-    <form id="todo-form" autocomplete="off">
-      <label for="todo-input" style="display:none;">Add Item</label>
-      <input id="todo-input" type="text" placeholder="Add a new task" required aria-label="Add a new task" />
-      <button type="submit">Add</button>
-    </form>
-    <ul id="todo-list"></ul>
-  </main>
+  <button class="interactive-button" onclick="showTip()">
+    Show AI Tip
+  </button>
+  
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.querySelector('#todo-form');
-      const list = document.querySelector('#todo-list');
-      const input = document.querySelector('#todo-input');
-
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const value = input.value.trim();
-        if (value) {
-          const li = document.createElement('li');
-          li.textContent = value;
-          list.appendChild(li);
-          input.value = '';
-        }
-      });
-    });
+    function showTip() {
+      // Smooth animation with accessibility support
+      const tip = document.getElementById('tip');
+      tip.style.opacity = '0';
+      tip.style.transform = 'translateY(10px)';
+      
+      setTimeout(() => {
+        tip.style.opacity = '1';
+        tip.style.transform = 'translateY(0)';
+      }, 100);
+    }
   </script>
 </body>
 </html>
+```
 
 ---
 > Source: [EnkrateiaLucca/building-apps-with-ai-tools](https://github.com/EnkrateiaLucca/building-apps-with-ai-tools) — distributed by [TomeVault](https://tomevault.io).
