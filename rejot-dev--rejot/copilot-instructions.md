@@ -1,63 +1,168 @@
-## monorepo
+## single-page-application
 
-> Alwayss
+> Single Page Application Guidelines
 
+# Single Page Application Guidelines
 
-# This repository is a monorepo
+## Core Technologies
+- React SPA with Vite
+- Tailwind for styling
+- ShadCN for UI components
+  - Components located under `@components/ui`
+  - Install new components: `npx shadcn@latest add <component>` from `./apps/basic` folder
+  - See [components.json](mdc:apps/basic/components.json) for configuration
 
-# Monorepo Structure and Guidelines
+## State Management
+### Zustand
+- Primary state management solution
+- State files location: `src/app/<domain>/<domain>.state.ts`
 
-## Overview
-- Code is organized by domain functionality rather than technical implementation
+## Routing
+### Configuration
+- Uses React Router v7
+  - Import from `"react-router"` only (NEVER from `react-router-dom`)
+  - Routes defined in [App.tsx](mdc:apps/basic/src/App.tsx)
+  - Most resources are part of a system
+- When creating or moving files that migh be routes, DO NOT FORGET to update App.tsx
+  
+### Navigation
+- Update sidebar links when adding new pages
+  - See `app-sidebar.tsx` and `nav-systems.tsx`
 
-## General Rules
-- Don't add unneccesary prefixes to errors such as "Internal Error:"
-- Prefer to throw instead of logging a warning and returning something empty.
-- Don't add comments clarifying your changes. Comments should mostly explain WHY code looks like it does.
-- Do NOT use type casts unless it VERY explicitly makes sense
+## Project Structure
+### Pages
+- Located in `src/app/<domain>/`
+- Root pages: `src/app/<domain>/<domain>-home.tsx`
+### Fully usable components
+- These are components that are not domain specific at all. (E.g. avatar, breadcrumb, button, card, etc)
+- They go in `src/app/components`
 
-## File Naming Conventions
-### General Pattern
-- Use dots to indicate the main object: `organization.repository.ts`
-- Use dots to indicate file types
-- Examples:
-  - Main files: `organization.service.ts`, `organization.routes.ts`
-  - Test files: `organization.repository.test.ts`
+### API Integration
+- React Query definitions: `src/data/<domain>/<domain>.data.ts`
+- Type-safe backend communication using [fetch.ts](mdc:apps/basic/src/data/fetch.ts)
+- Check available routes in [package.json](mdc:packages/api-interface-controller/package.json)
+
+#### Data Layer Best Practices
+1. Error Handling:
+   - Use `fetchRouteThrowing` instead of `fetchRoute` for queries
+   - Remove `select` handlers that only handle errors
+
+2. Type Definitions:
+   - Create separate types for mutation variables
+   - DO NOT export inferred types from Zod schemas, use inline `z.infer<>` instead
+   - Example:
+     ```typescript
+     // Good
+     function createThing(variables: CreateThingMutationVariables): Promise<z.infer<typeof ThingSchema>>
+
+     // Bad
+     export type ThingResponse = z.infer<typeof ThingSchema>
+     function createThing(): Promise<ThingResponse>
+     ```
+
+3. Mutation Functions:
+   - Take a single variables object instead of multiple parameters
+   - Define mutation variable types separately
+   - Example:
+     ```typescript
+     export type CreateThingMutationVariables = {
+       systemId: string;
+       data: z.infer<typeof ThingPostRequest>;
+     };
+
+     export function createThing({ systemId, data }: CreateThingMutationVariables) {
+       return fetchRouteThrowing(thingPostApi, {
+         params: { systemId },
+         body: data,
+       });
+     }
+     ```
 
 ## Code Style
-### Import Organization
-Sort imports in this order (with blank line between categories):
-1. External imports (npm)
-2. Monorepo imports
-3. Local imports
-- Within each category: alphabetical order
-- Type-only imports last
+- NO default exports
+- NO star imports (* as X), just import the thing directly.
+- Check for existing `.data.ts` files in `src/data` before implementation
+- ABSOLUTELY minimize usages of `useEffect` in React.
+- ALWAYS prefer to use react-query
+- PREFER components with a single purpose. Use multiple files to split out the components if that makes sense.
+- PREFER to use "standard" Tailwind classes, so no calculations like `h-[2px]`. Sometimes they are required however so they are not completed banned.
+- Use curly-brackets even for single-line if-statements.
 
-### Importing Rules
-- When at all possible DO NOT export types.
-- PREFER to recreate types instead of importing them. E.g. a component defines its own types, so do services and repositories.
-- Do NOT export 'default', only use named exports.
-- Prefix node built-in imports with `node:`
+## Examples
+### API Definition
+```ts
+import { type RouteConfig, z } from "@hono/zod-openapi";
 
-## Other
-- Prefer to destruct objects in things like for-loops.
-- In Typescript, never use Array<T>, always use T[]
+export const OrganizationGetResponse = z.object({
+  // ..
+}).openapi("Organization");
 
-## API Development
-### Architecture
-- REST APIs built with Hono framework
-- OpenAPI specifications:
-  - Location: `./packages/api-interface-*`
-  - Example: [organizations.api.ts](mdc:packages/api-interface-controller/organizations.api.ts)
-- Implementation:
-  - Located in specific apps, such as ./apps/controller
-  - Example: [organization-routes.ts](mdc:apps/controller/src/organization/organization-routes.ts)
+export const organizationGetApi = {
+  method: "get",
+  path: "/organization/{organizationCode}",
+  request: {
+    params: z.object({
+      organizationCode: z.string(),
+    }),
+  },
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: OrganizationGetResponse,
+        },
+      },
+      description: "Organization retrieved successfully",
+    },
+    404: {
+      description: "Organization not found",
+    },
+    500: {
+      description: "Internal server error",
+    },
+  },
+  tags: ["organizations"],
+  description: "Get an organization by code",
+} as const satisfies RouteConfig;
+```
 
-## Technology Stack
-### Core Technologies
-- Hono for REST APIs
-- Zod for schema validation and type safety
-- Domain-driven organization structure
+### Data Layer Implementation
+```ts
+type ClerkGetResponse = z.infer<
+  typeof clerkGetApi.responses[200]["content"]["application/json"]["schema"]
+>;
+
+type ClerkPostResponse = z.infer<
+  typeof clerkPostApi.responses[201]["content"]["application/json"]["schema"]
+>;
+
+export function getCurrentClerkUser(): Promise<ApiResult<ClerkGetResponse>> {
+  return fetchRoute(clerkGetApi);
+}
+
+export function useCurrentClerkUser() {
+  return useQuery({
+    queryKey: ["clerk", "current"],
+    queryFn: getCurrentClerkUser,
+    select: (result) => {
+      if (result.status === "error") {
+        throw new Error(result.error);
+      }
+      return result.data;
+    },
+  });
+}
+
+export function createCurrentUser(): Promise<ApiResult<ClerkPostResponse>> {
+  return fetchRoute(clerkPostApi);
+}
+
+export function useCreateCurrentUserMutation() {
+  return useMutation({
+    mutationFn: createCurrentUser,
+  });
+}
+```
 
 ---
 > Source: [rejot-dev/rejot](https://github.com/rejot-dev/rejot) — distributed by [TomeVault](https://tomevault.io).
