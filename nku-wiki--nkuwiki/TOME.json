@@ -2,7 +2,7 @@
   "name": "nkuwiki",
   "owner": "NKU-WIKI",
   "repo": "nkuwiki",
-  "description": "",
+  "description": "nkuwiki\u2014\u2014\u5f00\u6e90\u00b7\u5171\u6cbb\u00b7\u666e\u60e0\u7684\u5357\u5f00\u767e\u79d1",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NKU-WIKI/nkuwiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T09:41:39Z"
+  "distributed_at": "2026-05-21T15:41:54Z"
 }
