@@ -1,145 +1,37 @@
-## concurry
+## coding-core-principles
 
-> Configuration system — two layers of config, public vs internal class defaults, thread safety.
+> Core principles for editing code in concurry library — read-entire-functions rule and no-backward-compatibility policy.
 
-# Configuration System
+# Core Principles
 
+## Always Read Entire Functions (LLM Agent Workflow — CRITICAL)
 
+**When reading or editing a function, ALWAYS retrieve and read the entire function body — from the `def` line to the last line of the function.** Never read only a fragment, a few lines around an edit point, or a single code block within a function.
 
-**CRITICAL**: All default values MUST go through the global configuration system.
+**Why this is non-negotiable:** Functions in this codebase use variable reassignment to reduce cognitive load (see **Prefer Variable Reassignment for Same-Concept Transformations** below). A variable like `futures` may be created as an empty list on line 5, populated in a loop on lines 8-15, and then *reassigned* through a transformation on line 17. If the agent reads only lines 17-25, it sees `futures` and has no idea whether it is the raw version or the transformed version. It will generate code based on wrong assumptions about the variable's state, producing bugs that are invisible at the edit site but catastrophic at runtime.
 
-See [Architecture: Configuration System](docs/architecture/configuration.md) for full details.
+This is the single most common source of LLM-generated bugs in this codebase: the agent reads a 10-line window, sees a variable name, assumes it knows what it contains, and writes code that worked for the *original* value but fails for the *reassigned* value.
 
-## Public API Classes
+**The rules:**
 
-**Rule**: Public API classes must NOT have hardcoded defaults in field declarations.
+1. **Functions:** Always read the entire function. No exceptions. Even if the function is 150 lines, read all of it. You must understand the full lineage of every variable before making any edit.
+2. **Class methods:** Read the entire method, plus the class header (field declarations, `PrivateAttr` declarations, and `__init__`/lifecycle hooks) so you know the available instance state.
+3. **Classes as a whole:** Reading an entire class is not required (classes can be very large). But when editing a method, always read the complete method and the class-level declarations.
+4. **When searching for code to edit:** If a search result lands you in the middle of a function, expand your read to include the entire function before making any changes.
 
-✅ **Correct Pattern**:
-```python
-class MyPublicClass(Typed):
-    my_param: Optional[int] = None  # Default to None
-    
-    def post_initialize(self) -> None:
-        """Apply defaults from global config."""
-        from concurry.config import global_config
-        local_config = global_config.clone()  # Thread-safe
-        
-        if self.my_param is None:
-            self.my_param = local_config.defaults.my_param
-```
+## No Backward Compatibility
 
-❌ **Wrong Pattern**:
-```python
-class MyPublicClass(Typed):
-    my_param: int = 100  # ❌ Hardcoded default!
-```
+This project has a single developer/consumer. Backward compatibility is overhead, not a feature.
 
-**Public API classes include**:
-- `Worker` (via `Worker.options()`)
-- `RetryConfig`
-- `RateLimit`, `Limit`
-- `LimitPool`
-- `PollingStrategy` classes
-- `ProgressBar`
+- **Never maintain backward compatibility** with deprecated patterns or old APIs
+- When making breaking changes, update all code and tests immediately
+- Remove deprecated code paths rather than maintaining them
+- Focus on the best current design, not historical compatibility
+- **Do NOT insert deprecation warnings**, shim layers, compatibility wrappers, or version-checking fallbacks
+- **Do NOT rename old functions** to `_legacy_*` or `_compat_*` — delete them outright
 
-## Internal/Private Classes
-
-**Rule**: Internal classes must NOT have ANY defaults. All values must be explicitly passed.
-
-✅ **Correct Pattern**:
-```python
-class InternalWorkerProxy:
-    def __init__(self, timeout: float):  # No default!
-        self._timeout = timeout
-```
-
-❌ **Wrong Pattern**:
-```python
-class InternalWorkerProxy:
-    def __init__(self, timeout: float = 5.0):  # ❌ Has default!
-        self._timeout = timeout
-```
-
-**Internal classes include**:
-- All `*WorkerProxy` classes
-- All `*WorkerProxyPool` classes
-- `RateLimiter` implementations
-- `LoadBalancer` implementations
-- Any class not exposed in public API
-
-## Caller Responsibility
-
-**Rule**: Code that instantiates internal classes must read from `global_config` and pass values explicitly.
-
-✅ **Correct Pattern**:
-```python
-# In factory/builder code
-from concurry.config import global_config
-
-defaults = global_config.get_defaults(mode)
-worker = InternalWorkerProxy(
-    timeout=defaults.worker_timeout,  # Explicit
-    max_retries=defaults.num_retries  # Explicit
-)
-```
-
-## Docstrings
-
-**Rule**: If a docstring mentions a default value, reference the config key, not a hardcoded value.
-
-✅ **Correct**:
-```python
-def __init__(self, retries: Optional[int] = None):
-    """
-    Args:
-        retries: Number of retries. 
-            Defaults to global_config.defaults.num_retries.
-    """
-```
-
-❌ **Wrong**:
-```python
-def __init__(self, retries: Optional[int] = None):
-    """
-    Args:
-        retries: Number of retries. Defaults to 3.  # ❌ Hardcoded
-    """
-```
-
-## Adding New Configuration
-
-When adding a new configurable parameter:
-
-1. Add to `GlobalDefaults` with concrete default value
-2. Add to `ExecutionModeDefaults` as `Optional[T] = None`
-3. Add `@property` to `ResolvedDefaults` with fallback logic
-4. Update `temp_config()` validation to include new attributes
-5. Update calling code to read from config
-6. Update docstrings to reference config key
-7. Add tests to `test_global_config.py`
-
-## Thread Safety
-
-- Use `global_config.clone()` in **public API** code (user-facing, multi-threaded)
-- Direct access to `global_config` is safe in **internal, synchronous** code paths
-
-## Verification
-
-Before committing changes:
-
-```bash
-# Search for hardcoded numeric defaults
-grep -rn "=\s*[0-9]" src/concurry/core/
-
-# Search for hardcoded enum defaults
-grep -rn "=\s*LoadBalancingAlgorithm\." src/concurry/
-grep -rn "=\s*RateLimitAlgorithm\." src/concurry/
-grep -rn "=\s*PollingAlgorithm\." src/concurry/
-
-# Search for hardcoded sleep times
-grep -rn "time.sleep(" src/concurry/core/
-```
+LLMs trained on public codebases reflexively produce backward-compatibility scaffolding (deprecation decorators, `warnings.warn(...)`, adapter classes). This is the correct pattern for libraries with thousands of consumers; it is pure noise here.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/amazon-science) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
