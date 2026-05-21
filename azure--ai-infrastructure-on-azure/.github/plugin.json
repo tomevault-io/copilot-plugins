@@ -1,0 +1,9 @@
+{
+  "name": "azure--ai-infrastructure-on-azure",
+  "displayName": "ai-infrastructure-on-azure",
+  "description": "This repositories contains examples and best practices for AI workloads on Azure",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/ai-infrastructure-on-azure",
+  "skills": []
+}
