@@ -1,0 +1,9 @@
+{
+  "name": "zackiles--cdp-proxy-interceptor",
+  "displayName": "cdp-proxy-interceptor",
+  "description": "Transparent man-in-the-middle (MitM) proxy for the Chrome DevTools Protocol (CDP). Intercept, modify, inject, and filter messages and events between a CDP-enabled browser and any clients interacting w",
+  "version": "1.0.0",
+  "author": "zackiles",
+  "homepage": "https://github.com/zackiles/cdp-proxy-interceptor",
+  "skills": []
+}
