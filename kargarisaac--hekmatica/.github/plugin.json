@@ -1,0 +1,9 @@
+{
+  "name": "kargarisaac--hekmatica",
+  "displayName": "Hekmatica",
+  "description": "An agent implemented using BAML and LangGraph to do a deep research on questions and generate cited answers.",
+  "version": "1.0.0",
+  "author": "kargarisaac",
+  "homepage": "https://github.com/kargarisaac/Hekmatica",
+  "skills": []
+}
