@@ -1,64 +1,132 @@
-## project-structure
+## security-api-integration
 
-> Project structure and organization guidelines for AI-assisted web development
+> Security guidelines and API integration best practices
 
 
-# Project Structure and Organization
+# Security and API Integration Guidelines
 
-This project follows a structured approach to building simple web apps with AI tools.
+This project emphasizes secure API integration and follows security best practices for web applications.
 
-## Repository Structure
+## Security Principles
 
-- **apps/**: Complete application examples
-  - Each app should be self-contained with its own directory
-  - Use descriptive names (e.g., `quiz-app`, `habit-tracker`, `geo-spatial-app-air-quality`)
-  - Include README.md for complex apps with setup instructions
+### API Key Management
+- **NEVER** expose API keys in frontend code
+- Use environment variables for sensitive data
+- Implement backend proxies for API calls
+- Use HTTPS for all API communications
 
-- **tutorials/**: Step-by-step learning materials
-  - Markdown files with clear instructions
-  - Include code examples and best practices
-  - Reference specific apps in the `apps/` directory
+### Data Protection
+- Validate all user inputs
+- Sanitize data before processing
+- Use proper error handling without exposing sensitive information
+- Implement rate limiting for API calls
 
-- **demos/**: Demonstration materials and walkthroughs
-  - Organized by topic or tool (e.g., `1-claude-walkthrough`, `2-cursor-walkthrough`)
-  - Include migration guides and examples
+## API Integration Patterns
 
-- **presentation/**: Course materials and visual assets
-  - PDFs, images, and HTML presentations
-  - Keep assets organized by date or topic
+### Backend Proxy Pattern
+For apps requiring API keys, use a backend proxy:
 
-## App Development Standards
+```javascript
+// Frontend (safe)
+const response = await fetch('/api/weather', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ location: userLocation })
+});
 
-### File Organization
-- **Single-file apps**: Use `index.html` with embedded CSS and JavaScript
-- **Multi-file apps**: Organize as `index.html`, `styles.css`, `script.js`
-- **Complex apps**: Use subdirectories for `css/`, `js/`, `assets/`
+// Backend proxy handles API key
+```
 
-### Naming Conventions
-- Use kebab-case for directories and files
-- Use descriptive names that indicate functionality
-- Include version numbers for iterations (e.g., `quiz-app-version2`)
+### Environment Variables
+Use environment variables for configuration:
 
-### Documentation Requirements
-- Every app should have a clear purpose
-- Include setup instructions for apps requiring dependencies
-- Document any external API requirements
-- Provide example data files when applicable
+```javascript
+// server.js
+const API_KEY = process.env.WEATHER_API_KEY;
+const PORT = process.env.PORT || 3000;
+```
 
-## Key Files to Reference
+## Implementation Examples
 
-- [README.md](mdc:README.md) - Main project documentation
-- [apps/simple-webpage/index.html](mdc:apps/simple-webpage/index.html) - Basic landing page example
-- [apps/quiz-app/index.html](mdc:apps/quiz-app/index.html) - Interactive quiz application
-- [tutorials/first-web-app.md](mdc:tutorials/first-web-app.md) - Getting started guide
+### Geo-Spatial Air Quality App
+Reference [apps/geo-spatial-app-air-quality/server.js](mdc:apps/geo-spatial-app-air-quality/server.js) for:
+- Backend proxy implementation
+- Environment variable handling
+- Secure API key management
+- Error handling and validation
 
-## Development Workflow
+### Secure API Integration Tutorial
+See [tutorials/secure-api-integration.md](mdc:tutorials/secure-api-integration.md) for:
+- Step-by-step security implementation
+- Backend proxy setup
+- Environment configuration
+- Best practices and common pitfalls
 
-1. **Planning**: Define the problem and requirements
-2. **Specification**: Create detailed spec documents
-3. **Prototyping**: Build initial version with AI assistance
-4. **Implementation**: Refine and polish the application
-5. **Documentation**: Update README and add examples
+## Security Checklist
+
+### Frontend Security
+- [ ] No API keys in client-side code
+- [ ] Input validation and sanitization
+- [ ] Proper error handling
+- [ ] HTTPS enforcement
+- [ ] Content Security Policy headers
+
+### Backend Security
+- [ ] Environment variable usage
+- [ ] API key validation
+- [ ] Rate limiting implementation
+- [ ] CORS configuration
+- [ ] Input validation middleware
+
+### General Security
+- [ ] Regular dependency updates
+- [ ] Security headers implementation
+- [ ] Error logging without sensitive data
+- [ ] User input validation
+- [ ] Secure session management
+
+## Common Security Mistakes to Avoid
+
+1. **Exposing API Keys**: Never put API keys in frontend code
+2. **Insecure HTTP**: Always use HTTPS for production
+3. **Missing Input Validation**: Validate all user inputs
+4. **Error Information Leakage**: Don't expose sensitive data in error messages
+5. **Insecure Dependencies**: Keep dependencies updated
+
+## Tools and Resources
+
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [Web Security Best Practices](https://developer.mozilla.org/en-US/docs/Web/Security)
+- [Node.js Security Best Practices](https://nodejs.org/en/docs/guides/security/)
+- [Environment Variables Guide](https://12factor.net/config)
+
+## Example Secure Implementation
+
+```javascript
+// Secure API call with error handling
+async function fetchWeatherData(location) {
+  try {
+    const response = await fetch('/api/weather', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ location: location.trim() })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Weather data fetch failed:', error);
+    // Handle error gracefully without exposing sensitive info
+    return { error: 'Unable to fetch weather data' };
+  }
+}
+```
 
 ---
 > Source: [EnkrateiaLucca/building-apps-with-ai-tools](https://github.com/EnkrateiaLucca/building-apps-with-ai-tools) — distributed by [TomeVault](https://tomevault.io).
