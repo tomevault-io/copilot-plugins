@@ -1,0 +1,9 @@
+{
+  "name": "rameerez--telegrama",
+  "displayName": "telegrama",
+  "description": "\ud83d\udcac Send Telegram admin notifications in your Rails app",
+  "version": "1.0.0",
+  "author": "rameerez",
+  "homepage": "https://github.com/rameerez/telegrama",
+  "skills": []
+}
