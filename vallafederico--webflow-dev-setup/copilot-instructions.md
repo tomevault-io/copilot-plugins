@@ -1,26 +1,50 @@
-## scroll-system
+## subscription-system
 
-> Scroll service from @lib/scroll (scroll, progress, velocity). Use when implementing scroll-driven animations or scroll subscriptions.
+> Raf and Resize subscription services from @lib/subs. Use when using requestAnimationFrame or resize handlers in modules.
 
-# Scroll System Rules
+# Subscription System Rules
 
-## Basic Scroll Usage
+## Raf Service Usage
 
 ```typescript
-import { Scroll } from "@lib/scroll";
+import { Raf } from "@lib/subs";
 
-// Subscribe to scroll events
-const scrollUnsubscribe = Scroll.add(
-  ({ scroll, limit, progress, velocity, time }) => {
-    // Handle scroll data
-    console.log(`Scroll: ${scroll}/${limit} (${(progress * 100).toFixed(1)}%)`);
-    console.log(`Velocity: ${velocity.toFixed(2)}`);
-  }
-);
+// Subscribe to animation frame updates
+const rafUnsubscribe = Raf.add(({ deltaTime, time }) => {
+  // deltaTime: time since last frame in seconds
+  // time: total time since start (scaled down by 0.01)
+
+  // Update animations
+  element.style.transform = `translateX(${Math.sin(time) * 50}px)`;
+});
 
 // Clean up subscription
 onDestroy(() => {
-  scrollUnsubscribe();
+  rafUnsubscribe();
+});
+```
+
+## Resize Service Usage
+
+```typescript
+import { Resize } from "@lib/subs";
+
+// Subscribe to resize events
+const resizeUnsubscribe = Resize.add(({ width, height }) => {
+  // Handle resize
+  console.log(`Window resized to: ${width}x${height}`);
+
+  // Update responsive behavior
+  if (width < 768) {
+    element.classList.add("mobile");
+  } else {
+    element.classList.remove("mobile");
+  }
+});
+
+// Clean up subscription
+onDestroy(() => {
+  resizeUnsubscribe();
 });
 ```
 
@@ -28,86 +52,52 @@ onDestroy(() => {
 
 ```typescript
 // High priority - critical updates
-Scroll.add(updateCriticalElements, -1);
+Raf.add(updateCriticalAnimation, -1);
+Resize.add(updateCriticalLayout, -1);
 
 // Normal priority - standard updates
-Scroll.add(updateStandardElements, 0);
+Raf.add(updateStandardAnimation, 0);
+Resize.add(updateStandardLayout, 0);
 
 // Low priority - background effects
-Scroll.add(updateBackgroundElements, 1);
-```
-
-## Scroll Management
-
-```typescript
-// Scroll to top immediately
-Scroll.toTop();
-
-// Scroll to specific position
-Scroll.scrollTo(1000, {
-  immediate: true, // Instant scroll
-  // duration: 1,  // Smooth scroll duration
-});
-
-// Get scroll data
-const scrollData = {
-  position: Scroll.scroll,
-  limit: Scroll.limit,
-  progress: Scroll.progress,
-  velocity: Scroll.velocity,
-};
-```
-
-## Webflow Editor Integration
-
-```typescript
-import { handleEditor } from "@webflow/detect-editor";
-
-// Automatic scroll system management
-handleEditor((isEditor) => {
-  if (isEditor) {
-    // Disable smooth scrolling in editor
-    Scroll.destroy();
-  } else {
-    // Enable smooth scrolling in published site
-    Scroll.start();
-  }
-});
+Raf.add(updateBackgroundEffect, 1);
+Resize.add(updateBackgroundLayout, 1);
 ```
 
 ## Component Integration
 
 ```typescript
 export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isEditorMode = false;
-  let scrollUnsubscribe: (() => void) | null = null;
+  // Raf subscription for smooth animations
+  const rafUnsubscribe = Raf.add(({ deltaTime, time }) => {
+    // Smooth rotation
+    element.style.transform = `rotate(${time * 50}deg)`;
 
-  // Editor detection
-  handleEditor((isEditor) => {
-    isEditorMode = isEditor;
+    // Frame-rate independent animation
+    const currentOpacity = parseFloat(element.style.opacity) || 0;
+    element.style.opacity = Math.min(
+      1,
+      currentOpacity + deltaTime * 2
+    ).toString();
+  });
 
-    if (isEditor) {
-      // Clean up scroll subscription in editor
-      scrollUnsubscribe?.();
-      scrollUnsubscribe = null;
+  // Resize subscription for responsive behavior
+  const resizeUnsubscribe = Resize.add(({ width, height }) => {
+    // Responsive font sizing
+    element.style.fontSize = width < 768 ? "14px" : "18px";
+
+    // Responsive positioning
+    if (width < 1024) {
+      element.style.left = "10px";
     } else {
-      // Enable scroll subscription in published mode
-      scrollUnsubscribe = Scroll.add(({ progress, velocity }) => {
-        // Parallax effect
-        element.style.transform = `translateY(${progress * 100}px)`;
-
-        // Velocity-based effects
-        if (Math.abs(velocity) > 0.5) {
-          element.classList.add("scrolling-fast");
-        } else {
-          element.classList.remove("scrolling-fast");
-        }
-      });
+      element.style.left = "50px";
     }
   });
 
+  // Clean up subscriptions
   onDestroy(() => {
-    scrollUnsubscribe?.();
+    rafUnsubscribe();
+    resizeUnsubscribe();
   });
 }
 ```
@@ -117,13 +107,19 @@ export default function (element: HTMLElement, dataset: DOMStringMap) {
 ```typescript
 export default function (element: HTMLElement, dataset: DOMStringMap) {
   let isActive = false;
+  let lastUpdate = 0;
+  const updateInterval = 16; // ~60fps
 
-  const scrollUnsubscribe = Scroll.add(({ progress }) => {
-    // Only update when element is in view
-    if (!isActive) return;
+  // Conditional Raf subscription
+  const rafUnsubscribe = Raf.add(({ time }) => {
+    // Only update when active and at appropriate intervals
+    if (!isActive || time - lastUpdate < updateInterval) return;
 
-    // Lightweight operations only
-    element.style.setProperty("--scroll-progress", progress.toString());
+    lastUpdate = time;
+
+    // Perform expensive calculations
+    const newPosition = calculateComplexPosition(time);
+    element.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px)`;
   });
 
   // Activate only when in view
@@ -134,96 +130,206 @@ export default function (element: HTMLElement, dataset: DOMStringMap) {
   });
 
   onDestroy(() => {
-    scrollUnsubscribe();
+    rafUnsubscribe();
   });
 }
 ```
 
-## Scroll-Based Animations
+## Multiple Subscriptions
 
 ```typescript
-// Parallax effect
-const scrollUnsubscribe = Scroll.add(({ progress }) => {
-  element.style.transform = `translateY(${progress * 200}px)`;
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  const subscriptions: (() => void)[] = [];
+
+  // Multiple Raf subscriptions with different priorities
+  subscriptions.push(
+    Raf.add(updatePosition, -1), // High priority
+    Raf.add(updateRotation, 0), // Normal priority
+    Raf.add(updateOpacity, 1) // Low priority
+  );
+
+  // Multiple Resize subscriptions
+  subscriptions.push(
+    Resize.add(updateLayout, -1), // Critical layout updates
+    Resize.add(updateAnimations, 0), // Animation adjustments
+    Resize.add(updateBackground, 1) // Background effects
+  );
+
+  // Clean up all subscriptions
+  onDestroy(() => {
+    subscriptions.forEach((unsubscribe) => unsubscribe());
+  });
+}
+```
+
+## Frame-Rate Independent Animations
+
+```typescript
+// Good - Frame-rate independent
+Raf.add(({ deltaTime }) => {
+  // Use deltaTime for consistent animation speed
+  const currentOpacity = parseFloat(element.style.opacity) || 0;
+  element.style.opacity = Math.min(
+    1,
+    currentOpacity + deltaTime * 2
+  ).toString();
 });
 
-// Rotation effect
-const scrollUnsubscribe = Scroll.add(({ progress }) => {
-  element.style.transform = `rotate(${progress * 360}deg)`;
-});
-
-// Scale effect
-const scrollUnsubscribe = Scroll.add(({ progress }) => {
-  element.style.transform = `scale(${0.5 + progress * 0.5})`;
-});
-
-// Complex animation
-const scrollUnsubscribe = Scroll.add(({ progress, velocity }) => {
-  element.style.transform = `
-    translateY(${progress * 100}px)
-    rotate(${progress * 180}deg)
-    scale(${0.8 + progress * 0.2})
-  `;
-
-  element.style.opacity = progress.toString();
-  element.style.setProperty("--scroll-progress", progress.toString());
+// Bad - Frame-rate dependent
+Raf.add(({ time }) => {
+  // This will run at different speeds on different devices
+  element.style.opacity = Math.sin(time) * 0.5 + 0.5;
 });
 ```
 
-## Integration with Track System
+## Responsive Design Patterns
 
 ```typescript
-import { onTrack } from "@/modules/_";
+// Efficient responsive updates
+Resize.add(({ width, height }) => {
+  // Use classList for better performance
+  element.classList.toggle("mobile", width < 768);
+  element.classList.toggle("tablet", width >= 768 && width < 1024);
+  element.classList.toggle("desktop", width >= 1024);
 
-// Track system automatically uses scroll data
-const track = onTrack(element, {
-  bounds: [0, 1],
-  top: "bottom",
-  bottom: "top",
-  callback: (value) => {
-    // value is automatically calculated based on scroll position
-    element.style.transform = `translateY(${value * 100}px)`;
-  },
+  // Update CSS custom properties
+  element.style.setProperty("--viewport-width", width.toString());
+  element.style.setProperty("--viewport-height", height.toString());
 });
 ```
 
-## Page Transition Integration
+## Conditional Subscriptions
 
 ```typescript
-// In page transition out
-async transitionOut() {
-  // Reset scroll position for new page
-  Scroll.toTop();
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  let rafUnsubscribe: (() => void) | null = null;
+  let resizeUnsubscribe: (() => void) | null = null;
+
+  onMount(() => {
+    // Start subscriptions when component mounts
+    rafUnsubscribe = Raf.add(updateAnimation);
+    resizeUnsubscribe = Resize.add(updateResponsive);
+  });
+
+  onDestroy(() => {
+    // Clean up subscriptions when component destroys
+    rafUnsubscribe?.();
+    resizeUnsubscribe?.();
+  });
+}
+```
+
+## Observer Integration
+
+```typescript
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  let isActive = false;
+
+  // Only animate when in view
+  const observer = onView(element, {
+    callback: ({ isIn }) => {
+      isActive = isIn;
+    },
+  });
+
+  // Conditional animation
+  const rafUnsubscribe = Raf.add(({ time }) => {
+    if (!isActive) return;
+
+    element.style.transform = `translateY(${Math.sin(time) * 10}px)`;
+  });
+
+  onDestroy(() => {
+    rafUnsubscribe();
+  });
+}
+```
+
+## Data Structures
+
+```typescript
+// Raf Data
+interface RafData {
+  deltaTime: number; // Time since last frame in seconds
+  time: number; // Total time since start (scaled by 0.01)
 }
 
-// In page transition in
-async transitionIn() {
-  // Update scroll calculations for new content
-  Scroll.resize();
+// Resize Data
+interface ResizeData {
+  width: number; // Current window width
+  height: number; // Current window height
 }
+```
+
+## Performance Considerations
+
+```typescript
+// Good - Lightweight operations
+Raf.add(({ time }) => {
+  element.style.transform = `translateX(${time * 10}px)`;
+});
+
+// Bad - Heavy operations every frame
+Raf.add(({ time }) => {
+  // Expensive DOM queries
+  const allElements = document.querySelectorAll(".heavy");
+  allElements.forEach((el) => {
+    // Complex calculations
+    const rect = el.getBoundingClientRect();
+    const distance = calculateDistance(rect, time);
+    el.style.transform = `translate(${distance.x}px, ${distance.y}px)`;
+  });
+});
+```
+
+## Resize Performance
+
+```typescript
+// Good - Efficient responsive updates
+Resize.add(({ width }) => {
+  element.classList.toggle("mobile", width < 768);
+  element.style.fontSize = width < 768 ? "14px" : "18px";
+});
+
+// Bad - Heavy operations on every resize
+Resize.add(({ width, height }) => {
+  // Expensive recalculations
+  const allElements = document.querySelectorAll(".recalculate");
+  allElements.forEach((el) => {
+    const newLayout = calculateComplexLayout(el, width, height);
+    applyComplexLayout(el, newLayout);
+  });
+});
 ```
 
 ## Debug Mode
 
 ```typescript
-// Enable debug logging
-Scroll.add((data) => {
-  console.log("Scroll Debug:", data);
+// Debug Raf subscriptions
+Raf.add((data) => {
+  console.log("Raf Debug:", data);
+}, -999); // Very high priority
+
+// Debug Resize subscriptions
+Resize.add((data) => {
+  console.log("Resize Debug:", data);
 }, -999); // Very high priority
 ```
 
 ## Best Practices
 
-- Always unsubscribe from scroll events in `onDestroy`
-- Use priorities for performance optimization
-- Only update when necessary (e.g., element in view)
-- Keep scroll callbacks lightweight and efficient
-- Handle Webflow editor mode appropriately
+- Always unsubscribe from subscriptions in `onDestroy`
+- Use priorities to ensure critical updates run first
+- Keep Raf callbacks lightweight and efficient
+- Use `deltaTime` for frame-rate independent animations
+- Avoid heavy operations in subscription callbacks
+- Use classList for better performance than style changes
+- Limit DOM queries in subscription callbacks
+- Test performance with multiple subscriptions
+- Handle errors gracefully in subscription callbacks
 - Use CSS transforms instead of layout-triggering properties
-- Test scroll behavior in both editor and published modes
-- Use conditional updates for performance
-- Handle errors gracefully in scroll callbacks
-- Monitor scroll performance with multiple subscriptions
+- Monitor subscription performance in development
+- Use conditional subscriptions for performance optimization
   description:
   globs:
   alwaysApply: false
