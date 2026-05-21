@@ -1,0 +1,9 @@
+{
+  "name": "tidyverse--vitals",
+  "displayName": "vitals",
+  "description": "Large language model evaluation for R",
+  "version": "1.0.0",
+  "author": "tidyverse",
+  "homepage": "https://github.com/tidyverse/vitals",
+  "skills": []
+}
