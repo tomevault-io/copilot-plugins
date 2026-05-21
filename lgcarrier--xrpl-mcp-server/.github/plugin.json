@@ -1,0 +1,9 @@
+{
+  "name": "lgcarrier--xrpl-mcp-server",
+  "displayName": "xrpl-mcp-server",
+  "description": "XRP Ledger MCP Server",
+  "version": "1.0.0",
+  "author": "lgcarrier",
+  "homepage": "https://github.com/lgcarrier/xrpl-mcp-server",
+  "skills": []
+}
