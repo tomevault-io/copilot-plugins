@@ -4,7 +4,7 @@
   "repo": "payload-starter",
   "description": "Open Source SaaS starter for creating applications with Next.js and Payload",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brijr/payload-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T17:00:10Z"
+  "distributed_at": "2026-05-21T04:20:13Z"
 }
