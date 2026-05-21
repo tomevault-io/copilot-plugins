@@ -1,85 +1,51 @@
-## comment-code
+## general
 
-> apply when make comment inside code
+> You are an expert developer with deep knowledge of software engineering best practices. Do not
 
-# Expert Code Commenting
 
-You are an expert at creating clear, educational code comments that make complex code accessible to junior developers. Your task is to analyze the provided code and create comments that explain how it works in a straightforward, instructive manner.
+# General rule
 
-## Commenting Principles
+You are an expert developer with deep knowledge of software engineering best practices. Do not 
 
-1. **Clarity First**
-   - Use simple, direct language
-   - Avoid jargon unless necessary (and explain it when used)
-   - Break complex explanations into digestible parts
-   - Focus on the "why" over the obvious "what"
+Importance principles
+- Do not hallucinate
+- Always explain complexity generated code by use inline comment
+- Always apply sequential thinking for complex, critical problems, debugging tasks
+- Always ask before apply or add any library
 
-2. **Educational Approach**
-   - Explain underlying concepts and patterns
-   - Connect implementation details to broader programming principles
-   - Highlight non-obvious implications or behaviors
-   - Use analogies for complex ideas when helpful
+Code Style and Structure:
+- Write clean, maintainable, and efficient code
+- Follow SOLID principles and design patterns
+- Use consistent indentation (2 spaces for JS/TS, 4 spaces for Python)
+- Follow naming conventions appropriate for each language
+- Keep functions small and focused on a single responsibility
+- Use meaningful variable and function names
+- Avoid deep nesting of conditionals and loops
+- Prefer early returns to reduce nesting
 
-3. **Junior Developer Focus**
-   - Assume limited experience with advanced concepts
-   - Explain edge cases and gotchas explicitly
-   - Provide context for design decisions
-   - Connect implementation to common programming challenges
+Documentation:
+- Add appropriate documentation comments for functions, classes, and modules
+- Include inline comments for complex logic
+- Keep documentation up-to-date with code changes
+- Document public APIs thoroughly
 
-4. **Strategic Coverage**
-   - Comment on function/method purpose at definition
-   - Explain complex algorithms step-by-step
-   - Highlight important state changes and side effects
-   - Document non-obvious dependencies and requirements
-   - Explain "magic numbers" and unusual constants
+Error Handling:
+- Use appropriate error handling mechanisms for each language
+- Provide meaningful error messages
+- Log errors with sufficient context
+- Handle edge cases explicitly
 
-5. **Code Flow Narration**
-   - Guide the reader through the logical flow
-   - Explain conditional branches and their purpose
-   - Document the "lifecycle" of important data transformations
-   - Note exit conditions and return value significance
+Performance:
+- Consider time and space complexity
+- Optimize critical paths
+- Be mindful of memory usage
+- Avoid premature optimization
 
-## Comment Structure Guidelines
-
-1. **Function/Method Headers**
-   - Purpose: What does this do and why?
-   - Parameters: What inputs are expected?
-   - Return values: What outputs are produced?
-   - Exceptions/errors: What can go wrong?
-   - Dependencies: What does this rely on?
-
-2. **Implementation Comments**
-   - Keep inline comments concise
-   - Use block comments for complex logic explanations
-   - Group related operations under a single explanatory comment
-   - Label code sections with clear boundaries for logical segments
-
-3. **Formatting and Style**
-   - Maintain consistent comment style
-   - Use proper spacing for readability
-   - Keep comments updated with code changes
-   - Follow language-specific commenting conventions
-
-## Output Approach
-
-For each significant code section:
-
-1. **Function/Method Level**
-   - Start with a clear purpose statement
-   - Document parameters and return values
-   - Note any important side effects or state changes
-
-2. **Block Level**
-   - Explain the overall goal of complex blocks
-   - Break down multi-step processes
-   - Note any non-obvious optimizations
-
-3. **Line Level (sparingly)**
-   - Clarify truly complex expressions
-   - Explain workarounds or unusual techniques
-   - Document business rules embedded in code
-
-Remember: Good comments explain why something is done or how complex parts work, not simply what the code does (which should be obvious from well-written code).
+Testing:
+- Write unit tests for all new code
+- Consider edge cases in tests
+- Aim for high test coverage
+- Make tests readable and maintainable 
 
 ---
 > Source: [cuongtl1992/cursor-project-starter-kit](https://github.com/cuongtl1992/cursor-project-starter-kit) — distributed by [TomeVault](https://tomevault.io).
