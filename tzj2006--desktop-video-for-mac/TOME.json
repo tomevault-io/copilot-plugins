@@ -1,0 +1,44 @@
+{
+  "name": "desktop-video-for-mac",
+  "owner": "TzJ2006",
+  "repo": "desktop-video-for-mac",
+  "description": "Desktop Video Wallpaper \u662f\u4e00\u6b3e macOS \u4e0a\u8fd0\u884c\u7684\u8f7b\u91cf\u7ea7mac\u52a8\u6001\u58c1\u7eb8\u5e94\u7528\u3002\u5e94\u7528\u5b8c\u5168\u672c\u5730\u8fd0\u884c\uff0c\u4e0d\u6d89\u53ca\u4efb\u4f55\u6570\u636e\u4e0a\u4f20\u6216\u4e91\u7aef\u4ea4\u6362\uff0c\u4fdd\u969c\u9690\u79c1\u4e0e\u5b89\u5168\u3002Desktop Video Wallpaper is a lightweight dynamic wallpaper app for macOS. The app runs entirely locally, with no data uploads or cloud interactions, ensuring your privacy and security.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TzJ2006/desktop-video-for-mac",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T13:35:52Z"
+}
