@@ -1,151 +1,132 @@
-## tdd
+## testing
 
-> Test-driven development guidelines for implementing features
+> Rules and best practices for writing and running tests
 
 
 <rule>
-name: test_driven_development
-description: Guidelines for following test-driven development practices
+name: testing_guidelines
+description: Standards and guidelines for test implementation and execution
 filters:
   - type: file_extension
     pattern: "\\.(test|spec)\\.(ts|tsx)$"
   - type: content
-    pattern: "(?s)describe|test|it|expect"
+    pattern: "(?s)describe|test|it|expect|jest"
 
 actions:
   - type: suggest
     message: |
-      Follow these TDD principles:
+      Follow these testing guidelines:
 
-      1. Red - Write a Failing Test:
-         ```typescript
-         // ❌ Bad: Testing implementation details first
-         test('user repository should call database', () => {
-           const repo = new UserRepository(db);
-           expect(db.save).toBeCalled();
-         });
+      1. Test Execution:
+         - Run tests with `npm test`
+         - Run single test file: `npm test -- path/to/file.test.ts`
+         - Run tests matching pattern: `npm test -- -t "pattern"`
+         - Watch mode: `npm test -- --watch`
 
-         // ✅ Good: Testing behavior first
-         test('should create new user with valid data', () => {
-           const userData = { name: 'John', email: 'john@example.com' };
-           const result = await createUser(userData);
-           expect(result).toHaveProperty('id');
-           expect(result.name).toBe(userData.name);
-         });
-         ```
-
-      2. Green - Write Minimal Code:
-         ```typescript
-         // ❌ Bad: Over-engineering
-         class UserCreator {
-           private validations: ValidationRule[] = [];
-           private hooks: Hook[] = [];  // Not needed yet
+      2. Test Implementation Rules:
+         - Follow TDD approach - implement one test at a time
+         - NEVER increase Jest timeouts
+           ```typescript
+           // ❌ Bad: Increasing timeout
+           jest.setTimeout(10000);
            
-           async createUser(data: UserData) {
-             // Complex implementation with unnecessary features
-           }
-         }
+           // ✅ Good: Fix the underlying performance issue
+           ```
+         - Keep tests focused and independent
+         - Clean up after each test
 
-         // ✅ Good: Minimal implementation
-         async function createUser(data: UserData): Promise<User> {
-           return { id: generateId(), ...data };
-         }
-         ```
+      3. Snapshot Testing:
+         - Always review snapshot changes carefully
+         - Update snapshots only when changes are intentional:
+           ```bash
+           npm test -- -u
+           ```
+         - Include meaningful snapshot names:
+           ```typescript
+           // ❌ Bad
+           expect(component).toMatchSnapshot();
+           
+           // ✅ Good
+           expect(component).toMatchSnapshot('Button in disabled state');
+           ```
 
-      3. Refactor - Improve Design:
+      4. Async Testing:
+         - Use proper async/await syntax
+         - Handle promises correctly
+         - Test both success and error cases
          ```typescript
-         // Before refactoring
-         function validateUser(data: any) {
-           if (!data.email) throw new Error('Email required');
-           if (!data.name) throw new Error('Name required');
-         }
-
-         // After refactoring
-         interface UserData {
-           email: string;
-           name: string;
-         }
-
-         class ValidationError extends Error {
-           constructor(field: keyof UserData) {
-             super(`${field} required`);
+         // ✅ Good async test
+         test('should handle async operation', async () => {
+           expect.assertions(1);
+           try {
+             const result = await asyncOperation();
+             expect(result).toBeDefined();
+           } catch (error) {
+             expect(error).toBeInstanceOf(SpecificError);
            }
-         }
-
-         function validateUser(data: UserData) {
-           for (const [field, value] of Object.entries(data)) {
-             if (!value) throw new ValidationError(field as keyof UserData);
-           }
-         }
+         });
          ```
 
-      Key Principles:
-      - Write tests before implementation
-      - Keep tests focused and fast
-      - Test behavior, not implementation
-      - Use tests as documentation
-      - Maintain short feedback loops
-      - Refactor with confidence
+      5. Mocking Guidelines:
+         - Mock external dependencies
+         - Reset mocks between tests
+         - Use jest.spyOn for monitoring
+         ```typescript
+         // ✅ Good mocking practice
+         beforeEach(() => {
+           jest.clearAllMocks();
+         });
 
-      Test Structure:
-      ```typescript
-      describe('Feature: User Management', () => {
-        // Setup common test data
-        const testUser = { name: 'Test User', email: 'test@example.com' };
-        
-        // Group related tests
-        describe('when creating a new user', () => {
-          test('should succeed with valid data', async () => {
-            const result = await createUser(testUser);
-            expect(result).toBeDefined();
-          });
+         const mockDependency = jest.spyOn(dependency, 'method')
+           .mockImplementation(() => 'mocked');
+         ```
 
-          test('should fail with invalid data', async () => {
-            await expect(createUser({}))
-              .rejects
-              .toThrow('Validation Error');
-          });
-        });
-      });
-      ```
+      6. Test Performance:
+         - If tests timeout, investigate the implementation
+         - Use setup/teardown effectively
+         - Minimize unnecessary async operations
+         ```typescript
+         // ❌ Bad: Slow test with real timer
+         test('delayed operation', async () => {
+           await new Promise(r => setTimeout(r, 1000));
+         });
+
+         // ✅ Good: Using fake timers
+         test('delayed operation', () => {
+           jest.useFakeTimers();
+           jest.advanceTimersByTime(1000);
+         });
+         ```
 
 examples:
   - input: |
-      // ❌ Bad: Testing multiple behaviors at once
-      test('user management', async () => {
-        const user = await createUser(userData);
-        expect(user.id).toBeDefined();
-        
-        const updated = await updateUser(user.id, newData);
-        expect(updated.name).toBe(newData.name);
-        
-        await deleteUser(user.id);
-        expect(await findUser(user.id)).toBeNull();
+      // ❌ Bad: Test with timeout modification
+      jest.setTimeout(10000);
+      test('slow operation', async () => {
+        await slowOperation();
       });
 
-      // ✅ Good: Focused, single-behavior tests
-      describe('User Management', () => {
-        test('should create user with valid data', async () => {
-          const user = await createUser(userData);
-          expect(user.id).toBeDefined();
-        });
-
-        test('should update user details', async () => {
-          const updated = await updateUser(userId, newData);
-          expect(updated.name).toBe(newData.name);
-        });
-
-        test('should delete user', async () => {
-          await deleteUser(userId);
-          expect(await findUser(userId)).toBeNull();
-        });
+      // ✅ Good: Optimized test
+      test('operation performance', async () => {
+        const result = await optimizedOperation();
+        expect(result).toBeDefined();
       });
-    output: "Well-structured, focused tests"
+    output: "Performance-focused test implementation"
+
+  - input: |
+      // ❌ Bad: Snapshot without description
+      expect(render(<Component />)).toMatchSnapshot();
+
+      // ✅ Good: Descriptive snapshot
+      expect(render(<Component />)).toMatchSnapshot(
+        'Component in initial state with default props'
+      );
+    output: "Well-documented snapshot test"
 
 metadata:
   priority: high
   version: 1.0
-  categories: ["testing", "best-practices", "tdd"]
+  categories: ["testing", "best-practices", "jest"]
 </rule>
 
 ---
