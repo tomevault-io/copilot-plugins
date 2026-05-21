@@ -4,7 +4,7 @@
   "repo": "SharpPad",
   "description": "A cross-platform C# editor and playground. (Roslyn +Monaco \u5f00\u53d1\u7684\u5feb\u901f\u9a8c\u8bc1 c# \u4ee3\u7801\u7247\u6bb5\u7684\u5de5\u5177 \u3002\u652f\u6301ai chat/ai completion/ai edit)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gaoconggit/SharpPad",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T23:20:32Z"
+  "distributed_at": "2026-05-21T09:44:43Z"
 }
