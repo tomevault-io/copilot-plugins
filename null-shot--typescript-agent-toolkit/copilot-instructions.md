@@ -1,31 +1,101 @@
-## project-structure
+## shadcn
 
-> This project is structured as a monorepo using yarn workspaces. The main structure is as follows:
+> This project uses @shadcn/ui for UI components. These are beautifully designed, accessible components that you can copy and paste into your apps.
 
-# Project Structure
+# Shadcn UI Components
 
-This project is structured as a monorepo using yarn workspaces. The main structure is as follows:
+This project uses @shadcn/ui for UI components. These are beautifully designed, accessible components that you can copy and paste into your apps.
 
-- `packages/`: Contains all the project packages
-  - `mcp/`: The main MCP (Model Context Protocol) implementation for Cloudflare Workers
-  - `test-utils/`: Utilities for testing
+## Finding and Using Components
 
-- `examples/`: Contains example implementations
-  - `crud-mcp/`: An example CRUD application using the MCP framework
-  - `simple-prompt-agent/`: An example agent that integrates agent framework with only a prompt for chatting.
+Components are available in the `src/components/ui` directory, following the aliases configured in `components.json`
 
-## Key Files
+## Using Components
 
-- Main package: [packages/mcp/src/index.ts](mdc:packages/mcp/src/index.ts)
-- MCP Server implementation: [packages/mcp/src/mcp/server.ts](mdc:packages/mcp/src/mcp/server.ts)
-- Example application: [examples/crud-mcp/src/index.ts](mdc:examples/crud-mcp/src/index.ts)
+Import components from the ui directory using the configured aliases:
 
-## Development Workflow
+```tsx
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+```
 
-1. Install dependencies at the root level: `yarn install`
-2. Build all packages: `yarn build`
-3. Run tests: `yarn test`
-4. To develop specific packages, navigate to their directory and use their specific scripts
+Example usage:
+
+```tsx
+<Button variant="outline">Click me</Button>
+
+<Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Card Content</p>
+  </CardContent>
+  <CardFooter>
+    <p>Card Footer</p>
+  </CardFooter>
+</Card>
+```
+
+## Installing Additional Components
+
+Many more components are available but not currently installed. You can view the complete list at https://ui.shadcn.com/r
+
+To install additional components, use the Shadcn CLI:
+
+
+```bash
+npx shadcn@latest add [component-name]
+```
+
+For example, to add the Accordion component:
+
+```bash
+npx shadcn@latest add accordion
+```
+
+Note: `npx shadcn-ui@latest` is deprecated, use `npx shadcn@latest` instead
+
+Some commonly used components are
+
+- Accordion
+- Alert
+- AlertDialog
+- AspectRatio
+- Avatar
+- Calendar
+- Checkbox
+- Collapsible
+- Command
+- ContextMenu
+- DataTable
+- DatePicker
+- Dropdown Menu
+- Form
+- Hover Card
+- Menubar
+- Navigation Menu
+- Popover
+- Progress
+- Radio Group
+- ScrollArea
+- Select
+- Separator
+- Sheet
+- Skeleton
+- Slider
+- Switch
+- Table
+- Textarea
+- Toast
+- Toggle
+- Tooltip
+
+## Component Styling
+
+This project uses the "new-york" style variant with the "neutral" base color and CSS variables for theming, as configured in `components.json`.
 
 ---
 > Source: [null-shot/typescript-agent-toolkit](https://github.com/null-shot/typescript-agent-toolkit) — distributed by [TomeVault](https://tomevault.io).
