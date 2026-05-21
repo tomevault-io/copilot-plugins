@@ -1,0 +1,9 @@
+{
+  "name": "hugoduncan--mcp-clj",
+  "displayName": "mcp-clj",
+  "description": "An MCP server written in clojure",
+  "version": "1.0.0",
+  "author": "hugoduncan",
+  "homepage": "https://github.com/hugoduncan/mcp-clj",
+  "skills": []
+}
