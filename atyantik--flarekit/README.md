@@ -7,13 +7,13 @@ Flarekit is a scalable, modular, and developer-friendly monorepo ecosystem desig
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Atyantik/flarekit](https://github.com/Atyantik/flarekit).
+Original source: `.cursor/rules/*.mdc` in [Atyantik/flarekit](https://github.com/Atyantik/flarekit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
