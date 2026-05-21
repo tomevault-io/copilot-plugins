@@ -1,0 +1,9 @@
+{
+  "name": "muench-dev--n8n-nodes-bluesky",
+  "displayName": "n8n-nodes-bluesky",
+  "description": "Bluesky Nodes for n8n",
+  "version": "1.0.0",
+  "author": "muench-dev",
+  "homepage": "https://github.com/muench-dev/n8n-nodes-bluesky",
+  "skills": []
+}
