@@ -1,0 +1,9 @@
+{
+  "name": "ben-juodvalkis--ableton-device-creator",
+  "displayName": "Ableton-Device-Creator",
+  "description": "The Ableton Device File Processor is a Python-based system for creating and modifying Ableton Live drum racks (.adg) and sampler instruments. It provides several specialized scripts for different use ",
+  "version": "1.0.0",
+  "author": "ben-juodvalkis",
+  "homepage": "https://github.com/ben-juodvalkis/Ableton-Device-Creator",
+  "skills": []
+}
