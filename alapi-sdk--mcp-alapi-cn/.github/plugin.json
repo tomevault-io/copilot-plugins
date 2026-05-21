@@ -1,0 +1,9 @@
+{
+  "name": "alapi-sdk--mcp-alapi-cn",
+  "displayName": "mcp-alapi-cn",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e [ALAPI](https://www.alapi.cn) \u7684 MCP (Model Control Protocol) \u670d\u52a1\u5668\u5b9e\u73b0\uff0c\u53ef\u4ee5\u901a\u8fc7MCP\u534f\u8bae\u76f4\u63a5\u8c03\u7528ALAPI\u7684\u63a5\u53e3",
+  "version": "1.0.0",
+  "author": "ALAPI-SDK",
+  "homepage": "https://github.com/ALAPI-SDK/mcp-alapi-cn",
+  "skills": []
+}
