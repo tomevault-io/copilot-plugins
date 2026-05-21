@@ -1,203 +1,253 @@
-## testing-faker
+## testing-language
 
-> Faker Standards
+> Testing Language Standards
 
-# Faker Standards
+# Testing Language Standards
 
-Use the faker gem to generate test data when it makes sense.
-Install the `faker` gem if it is not already included in the Gemfile.
+Standards for language handling in tests
 
-## Usage Guidelines
+## Configuration
 
-1. When to Use Faker
-- All personal information (names, emails, addresses)
-- All business data (products, prices, descriptions)
-- All dates and times (except fixed dates)
-- All content (articles, comments, posts)
-- All identifiers (except fixed IDs)
-
-2. When NOT to Use Faker
-- Primary keys or foreign keys
-- Fixed enumeration values
-- Status flags or boolean fields
-- Test-specific values needed for assertions
-
-## Common Patterns
-
-1. Personal Information
+1. Test Environment Setup
 ```ruby
+# test/test_helper.rb
+module ActiveSupport
+  class TestCase
+    # Run tests in parallel
+    parallelize(workers: :number_of_processors)
+
+    # Include FactoryBot syntax methods
+    include FactoryBot::Syntax::Methods
+
+    # Force English locale for all tests
+    setup do
+      I18n.locale = :en
+      I18n.default_locale = :en
+      Rails.application.config.i18n.default_locale = :en
+      Rails.application.config.i18n.locale = :en
+      Rails.application.config.i18n.available_locales = [:en, :de]
+    end
+
+    teardown do
+      I18n.locale = :en
+    end
+  end
+end
+```
+
+2. Application Controller
+```ruby
+# app/controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  before_action :set_locale
+
+  private
+
+  def set_locale
+    return if Rails.env.test? # Skip locale detection in test environment
+    I18n.locale = extract_locale_from_accept_language_header || I18n.default_locale
+  end
+end
+```
+
+## Factory Setup
+
+1. User Factory
+```ruby
+# test/factories/users.rb
 FactoryBot.define do
   factory :user do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    email { Faker::Internet.email(name: "#{first_name} #{last_name}") }
-    phone { Faker::PhoneNumber.phone_number }
-    date_of_birth { Faker::Date.birthday(min_age: 18, max_age: 65) }
-    bio { Faker::Lorem.paragraph(sentence_count: 2) }
-  end
-end
-```
+    email { Faker::Internet.email }
+    password { "password123" }
+    lang { "en" }  # Default to English
 
-2. Business Data
-```ruby
-FactoryBot.define do
-  factory :product do
-    name { Faker::Commerce.product_name }
-    description { Faker::Lorem.paragraph }
-    price { Faker::Commerce.price(range: 10.0..1000.0) }
-    sku { Faker::Barcode.ean }
-    category { Faker::Commerce.department }
-    brand { Faker::Company.name }
-  end
-
-  factory :company do
-    name { Faker::Company.name }
-    catch_phrase { Faker::Company.catch_phrase }
-    industry { Faker::Company.industry }
-    website { Faker::Internet.url }
-    founded_at { Faker::Date.between(from: 20.years.ago, to: 1.year.ago) }
-  end
-end
-```
-
-3. Content Generation
-```ruby
-FactoryBot.define do
-  factory :article do
-    title { Faker::Lorem.sentence(word_count: 4) }
-    content { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
-    excerpt { Faker::Lorem.paragraph }
-    author_name { Faker::Name.name }
-    published_at { Faker::Time.between(from: 1.year.ago, to: Time.current) }
-
-    trait :with_tags do
-      after(:build) do |article|
-        article.tags = [
-          Faker::Lorem.word,
-          Faker::Lorem.word,
-          Faker::Lorem.word
-        ].uniq
+    trait :german do
+      lang { "de" }
+      after(:build) do |user|
+        # Use German Faker data for consistency
+        Faker::Config.locale = "de"
+        user.first_name = Faker::Name.first_name
+        user.last_name = Faker::Name.last_name
+        Faker::Config.locale = "en"  # Reset to English
       end
     end
   end
+end
+```
 
-  factory :comment do
-    content { Faker::Lorem.paragraph }
-    author_name { Faker::Internet.username }
-    author_email { Faker::Internet.email }
-    ip_address { Faker::Internet.ip_v4_address }
+## Testing Guidelines
+
+1. Translation Testing
+```ruby
+# test/models/article_test.rb
+class ArticleTest < ActiveSupport::TestCase
+  test "article title is translated" do
+    article = create(:article, title_en: "English Title", title_de: "Deutscher Titel")
+
+    # Always test English first
+    assert_equal "English Title", article.title
+
+    # Test other languages explicitly
+    I18n.with_locale(:de) do
+      assert_equal "Deutscher Titel", article.title
+    end
+
+    # Reset to English
+    assert_equal "English Title", article.title
   end
 end
 ```
 
-4. Address Information
+2. System Tests
 ```ruby
-FactoryBot.define do
-  factory :address do
-    street { Faker::Address.street_address }
-    city { Faker::Address.city }
-    state { Faker::Address.state }
-    zip_code { Faker::Address.zip_code }
-    country { Faker::Address.country }
+# test/system/localization_test.rb
+class LocalizationTest < ApplicationSystemTestCase
+  test "user sees content in their preferred language" do
+    # Create German user
+    user = create(:user, :german)
+    sign_in(user)
 
-    trait :with_coordinates do
-      latitude { Faker::Address.latitude }
-      longitude { Faker::Address.longitude }
-    end
+    # Test German content
+    visit root_path
+    assert_text "Willkommen"  # German welcome message
+
+    # Switch to English
+    user.update!(lang: "en")
+    visit root_path
+    assert_text "Welcome"  # English welcome message
   end
 end
 ```
 
 ## Best Practices
 
-1. Data Consistency
-- Use locale-aware Faker methods when available
-- Keep data realistic and consistent
-- Use appropriate ranges for numeric values
-- Ensure generated data meets validation rules
+1. Test Data Language
+- Use English for all test data by default
+- Use Faker with English locale for generating test data
+- Use explicit translations only when testing language features
+- Keep test assertions in English
 
-2. Performance
+2. Locale Handling
+- Never rely on browser language detection in tests
+- Always set locale explicitly when needed
+- Reset locale to English after tests
+- Use `I18n.with_locale` for temporary locale changes
+
+3. Factory Usage
+- Default all factories to English
+- Use `:german` trait when testing German-specific features
+- Reset Faker locale after using other languages
+- Keep factory data consistent with locale
+
+4. Error Messages
+- All test failure messages should be in English
+- Use English for custom test helper messages
+- Document any language-specific test behavior
+- Keep error messages clear and consistent
+
+## Common Patterns
+
+1. Testing Translations
 ```ruby
-# Cache expensive Faker calls
-FactoryBot.define do
-  factory :product do
-    # Bad: Generates new description for each association
-    description { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
+# test/models/product_test.rb
+class ProductTest < ActiveSupport::TestCase
+  test "product has translations" do
+    product = create(:product,
+      name_en: "Laptop",
+      name_de: "Laptop",
+      description_en: "Powerful laptop",
+      description_de: "Leistungsstarker Laptop"
+    )
 
-    # Good: Caches description for associations
-    transient do
-      _description { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
-    end
-    description { _description }
-  end
-end
-```
+    # Test English (default)
+    assert_equal "Laptop", product.name
+    assert_equal "Powerful laptop", product.description
 
-3. Localization
-```ruby
-# Support multiple locales
-FactoryBot.define do
-  factory :user do
-    trait :german do
-      after(:build) do |user|
-        Faker::Config.locale = "de"
-        user.first_name = Faker::Name.first_name
-        user.last_name = Faker::Name.last_name
-        Faker::Config.locale = "en"
-      end
-    end
-  end
-end
-```
-
-4. Custom Faker Classes
-```ruby
-# lib/faker/custom_company.rb
-module Faker
-  class CustomCompany < Company
-    class << self
-      def department
-        ["Sales", "Marketing", "Engineering", "Support", "HR"].sample
-      end
-
-      def employee_title
-        "#{fetch('company.position')} #{department}"
-      end
+    # Test German
+    I18n.with_locale(:de) do
+      assert_equal "Laptop", product.name
+      assert_equal "Leistungsstarker Laptop", product.description
     end
   end
 end
 ```
 
-## Common Faker Methods
-
-1. Personal Data
+2. Testing Language Switching
 ```ruby
-Faker::Name.name                 # "John Doe"
-Faker::Internet.email           # "john.doe@example.com"
-Faker::PhoneNumber.phone_number # "555-123-4567"
-Faker::Avatar.image            # "https://robohash.org/123.png"
+# test/system/language_switching_test.rb
+class LanguageSwitchingTest < ApplicationSystemTestCase
+  test "user can switch language" do
+    user = create(:user)
+    sign_in(user)
+
+    visit edit_user_registration_path
+
+    # Switch to German
+    select "Deutsch", from: "Language"
+    click_button "Update"
+
+    assert_equal "de", user.reload.lang
+    assert_text "Profil erfolgreich aktualisiert"
+
+    # Switch back to English
+    select "English", from: "Sprache"
+    click_button "Aktualisieren"
+
+    assert_equal "en", user.reload.lang
+    assert_text "Profile successfully updated"
+  end
+end
 ```
 
-2. Business Data
+3. API Testing
 ```ruby
-Faker::Company.name            # "Acme Inc"
-Faker::Commerce.price          # "99.99"
-Faker::Business.credit_card_number # "4111111111111111"
+# test/controllers/api/v1/products_controller_test.rb
+class Api::V1::ProductsControllerTest < ActionDispatch::IntegrationTest
+  test "returns product in requested language" do
+    product = create(:product,
+      name_en: "Laptop",
+      name_de: "Laptop",
+      description_en: "Powerful laptop",
+      description_de: "Leistungsstarker Laptop"
+    )
+
+    # Test English response
+    get api_v1_product_url(product), headers: { "Accept-Language": "en" }
+    assert_response :success
+    assert_equal "Laptop", response.parsed_body["name"]
+    assert_equal "Powerful laptop", response.parsed_body["description"]
+
+    # Test German response
+    get api_v1_product_url(product), headers: { "Accept-Language": "de" }
+    assert_response :success
+    assert_equal "Laptop", response.parsed_body["name"]
+    assert_equal "Leistungsstarker Laptop", response.parsed_body["description"]
+  end
+end
 ```
 
-3. Internet & Technology
+4. Form Testing
 ```ruby
-Faker::Internet.url            # "http://example.com"
-Faker::Internet.ip_v4_address  # "192.168.1.1"
-Faker::Internet.mac_address    # "00:00:00:00:00:00"
-```
+# test/system/form_validations_test.rb
+class FormValidationsTest < ApplicationSystemTestCase
+  test "shows validation errors in user's language" do
+    visit new_user_registration_path
 
-4. Date & Time
-```ruby
-Faker::Time.between(from: 2.days.ago, to: Time.now)
-Faker::Date.birthday(min_age: 18, max_age: 65)
-Faker::Time.forward(days: 23, period: :morning)
-```
+    # Test English validation messages
+    click_button "Sign up"
+    assert_text "Email can't be blank"
+
+    # Test German validation messages
+    user = create(:user, :german)
+    sign_in(user)
+
+    visit new_article_path
+    click_button "Create Article"
+    assert_text "Titel muss ausgefüllt werden"
+  end
+end
 
 ---
 > Source: [wintermeyer/cursor-rails-rules](https://github.com/wintermeyer/cursor-rails-rules) — distributed by [TomeVault](https://tomevault.io).
