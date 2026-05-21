@@ -1,0 +1,9 @@
+{
+  "name": "iansinnott--vibesidian",
+  "displayName": "vibesidian",
+  "description": "LLM agent for Obsidian with multi-turn tool-use for plugin/theme development and automation.",
+  "version": "1.0.0",
+  "author": "iansinnott",
+  "homepage": "https://github.com/iansinnott/vibesidian",
+  "skills": []
+}
