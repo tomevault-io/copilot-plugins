@@ -1,0 +1,9 @@
+{
+  "name": "zoharbabin--web-researcher-mcp",
+  "displayName": "web-researcher-mcp",
+  "description": "MCP server (Go) for AI assistants: web search, content extraction, academic/patent/news research. Multi-provider routing, 4-tier scraping, search lenses. Works with Claude, Cursor, and any MCP client.",
+  "version": "1.0.0",
+  "author": "zoharbabin",
+  "homepage": "https://github.com/zoharbabin/web-researcher-mcp",
+  "skills": []
+}
