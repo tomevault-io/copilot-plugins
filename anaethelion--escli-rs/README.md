@@ -7,11 +7,11 @@ Proof of Concept Command line tool for Elasticsearch
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Anaethelion/escli-rs](https://github.com/Anaethelion/escli-rs).
+Original source: `CLAUDE.md` in [Anaethelion/escli-rs](https://github.com/Anaethelion/escli-rs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
