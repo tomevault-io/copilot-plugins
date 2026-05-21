@@ -1,0 +1,9 @@
+{
+  "name": "dora1998--gh-glance",
+  "displayName": "gh-glance",
+  "description": "GitHub CLI extension for quickly checking (glancing at) PRs using worktrees.",
+  "version": "1.0.0",
+  "author": "dora1998",
+  "homepage": "https://github.com/dora1998/gh-glance",
+  "skills": []
+}
