@@ -7,11 +7,11 @@ Open-source Claude Code Desktop alternative. Use any provider/model. Web UI for 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cdesktop-ai/cdesktop](https://github.com/cdesktop-ai/cdesktop).
+Original source: `CLAUDE.md` in [cdesktop-ai/cdesktop](https://github.com/cdesktop-ai/cdesktop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
