@@ -1,62 +1,74 @@
-## directory-layout
+## knowledge
 
-> Next.js App Router の標準的な構成をベースに、シンプルさを保ちます。
+> | Day | アプリケーション / テーマ        | 主な技術 / コンセプト                                                                 |
 
-## ディレクトリ構成
+# 過去実装したアプリの一覧
 
-Next.js App Router の標準的な構成をベースに、シンプルさを保ちます。
-
-```plaintext
-/
-├── app/                  # App Router ディレクトリ (ルーティングとUIの中心)
-│   ├── api/              # API Route Handlers (バックエンドAPI)
-│   │   └── [entity]/     # 例: /api/users
-│   │       └── route.ts  # 各HTTPメソッド(GET, POST, PUT, DELETE)に対応する処理
-│   ├── (pages)/          # UIページ (ルート以外、例: /dashboard)
-│   │   └── [page_name]/  # 例: /users
-│   │       ├── page.tsx    # ページのUI (Server/Client Component)
-│   │       └── components/ # そのページ固有のUIコンポーネント
-│   ├── _actions/         # Server Actions (サーバーサイド専用ロジック)
-│   ├── _lib/             # サーバーサイド専用のヘルパー関数やビジネスロジックなど
-│   ├── layout.tsx        # 全体の共通レイアウト
-│   ├── globals.css       # グローバルCSS
-│   └── page.tsx          # ルート('/')のページ
-├── components/           # アプリケーション全体で共有するUIコンポーネント (クライアント中心)
-│   └── ui/               # (オプション) shadcn/ui などのベースコンポーネント置き場
-├── prisma/               # Prisma関連ファイル
-│   ├── schema.prisma     # DBスキーマ定義、データモデル定義
-│   ├── migrations/       # Prisma Migrateによって自動生成されるマイグレーション履歴
-│   └── dev.db            # SQLite データベースファイル (開発用)
-├── lib/                  # クライアント/サーバー共通で使う可能性のあるモジュール
-│   ├── db.ts             # Prisma Client インスタンス生成・管理
-│   ├── utils.ts          # 共通ユーティリティ関数
-│   └── types/            # 共通の型定義
-├── public/               # 静的ファイル (画像など)
-├── .env                  # 環境変数 (DATABASE_URLなど、.gitignore対象)
-├── .gitignore            # Git の無視ファイルリスト
-├── next.config.mjs       # Next.js の設定ファイル
-├── package.json          # プロジェクト情報、依存パッケージ、npm scripts
-├── postcss.config.mjs    # PostCSS 設定 (Tailwind CSS用)
-├── tailwind.config.ts    # Tailwind CSS 設定
-├── tsconfig.json         # TypeScript の設定ファイル
-└── README.md             # プロジェクトの説明
-```
-
-### 主要ディレクトリ/ファイルの説明
-
-- `app/`: ルーティング、UI、APIエンドポイント、サーバーサイドロジックを配置します。
-  - `app/api/`: バックエンドAPIのロジックを記述します。
-  - `app/(pages)/`: ルート('/')以外のフロントエンドページコンポーネントを配置します。ディレクトリ名がURLパスになります (例: `app/(pages)/dashboard/page.tsx` は `/dashboard`)。
-  - `app/page.tsx`: ルート('/')に対応するページコンポーネント。
-  - `app/_actions/`: Server Actions など、主にサーバーサイドで実行されるアクションを配置します。`_` プレフィックスによりルーティング対象外。
-  - `app/_lib/`: サーバーサイド固有のヘルパー関数やビジネスロジックなどを配置します。`_` プレフィックスによりルーティング対象外。
-- `components/`: アプリケーション全体で共有されるUIコンポーネント (主にクライアントコンポーネント) を配置します。
-- `prisma/`: データベース関連のファイルを管理します。
-  - `schema.prisma`: データベースのテーブル構造（モデル）やリレーションを定義します。
-  - `migrations/`: `prisma migrate` によって生成されたSQLファイルが格納され、データベーススキーマの変更履歴を管理します。
-  - `dev.db`: SQLite のデータベースファイル本体です（開発環境用）。
-- `lib/`: アプリケーション全体で使用する共通関数や設定、Prisma Client のインスタンスなどを配置します。
-- `public/`: 画像ファイルなど、ビルドプロセスを経ずにそのまま配信される静的ファイルを配置します。
+| Day | アプリケーション / テーマ        | 主な技術 / コンセプト                                                                 |
+| :-- | :------------------------------- | :------------------------------------------------------------------------------------ |
+| 1   | ToDoアプリ                     | Go, MySQL, OpenAPI, GORM, TailwindCSS                                                 |
+| 2   | シンプル EC                     | Next.js, Prisma, SQLite, React Context, TailwindCSS                                   |
+| 3   | マッチングアプリ                 | Next.js, Prisma, SQLite, TailwindCSS                                                  |
+| 4   | タイムラインSNS                 | Next.js, Prisma, SQLite, TailwindCSS, Server-Sent Events (SSE)                        |
+| 5   | WebRTC ビデオチャット           | Next.js, WebRTC, Server-Sent Events (SSE)                                             |
+| 6   | API Gateway                   | Next.js, TypeScript, TailwindCSS, インメモリ状態管理                                  |
+| 7   | Passkey 認証 (WebAuthn)        | Next.js, Prisma, SQLite, @simplewebauthn/server, @simplewebauthn/browser              |
+| 8   | Git リポジトリブラウザ          | Next.js, Prisma, SQLite, isomorphic-git, git-http-backend, TailwindCSS                |
+| 9   | リアルタイム共同編集エディタ     | Next.js, ShareDB, WebSocket, rich-text OT, React Markdown, TailwindCSS                |
+| 10  | GraphQL Media App             | Next.js, GraphQL (@apollo/server), Prisma, SQLite, TailwindCSS                        |
+| 11  | Lights Out Game               | Next.js, Prisma, SQLite, TailwindCSS, React Hooks, イベントソーシング概念             |
+| 12  | インタラクティブデータエクスプローラ | Next.js, DuckDB, Chart.js, TailwindCSS                                                |
+| 13  | Raft分散合意シミュレータ       | Next.js, TypeScript, TailwindCSS, React DnD, React Context, Raftアルゴリズム視覚化      |
+| 14  | BFF Dashboard               | Next.js, TypeScript, Prisma, SQLite, TailwindCSS, BFFパターン                         |
+| 15  | クレジットカード申請ワークフロー | Next.js, TypeScript, Prisma, SQLite, TailwindCSS, 独自のステート管理                     |
+| 16  | ElasticSearch によるポケモン図鑑 | Next.js, Prisma, SQLite, ElasticSearch, TailwindCSS, 日本語での全文検索  |
+| 17  | MCP Pokémon                  | Go, MCP Protocol, Makefile                                                   |
+| 18  | Expandable REST API           | Next.js, Prisma, SQLite, TailwindCSS, 動的データ展開 (`expand`, `max_depth`)          |
+| 19  | ジョブスケジューラ             | Next.js, TypeScript, Prisma, SQLite, TailwindCSS, 非同期ジョブ実行、スケジューリング       |
+| 20  | SQL パーサー & バリデーター    | Go, 字句解析, 構文解析 (AST), 意味解析 (型チェック), Web UI (net/http, html/template) |
+| 21  | 設備予約システム             | Next.js, Prisma, SQLite, react-big-calendar, date-fns, Zustand, TailwindCSS |
+| 22  | 分散キャッシュシステム        | Next.js, Prisma, SQLite, 一貫性ハッシュ, レプリケーション, 障害シミュレーション, TailwindCSS |
+| 23  | 画像リサイズ API             | Next.js, TypeScript, sharp, TailwindCSS                                               |
+| 24  | 簡易RAGシステム (ベクトル検索) | Next.js, Prisma, SQLite, TailwindCSS, @xenova/transformers, インメモリベクトル検索       |
+| 25  | 地理空間インデックス (Geohash) を利用した近傍検索API | Next.js, Prisma, SQLite, TailwindCSS, Geohash (ngeohash)                              |
+| 26  | 簡易 時系列データベース on SQLite | Next.js, Prisma, SQLite, TailwindCSS, Chart.js, SQL (strftime, ウィンドウ関数) |
+| 27  | HTTP プロトコル挙動シミュレーター | Next.js, TypeScript, Tailwind CSS, React (useReducer), プロトコルシミュレーション (HTTP/1.1 HOL, HTTP/2 多重化) |
+| 28  | Prefix Typing Racer           | Next.js, TypeScript, Prisma, SQLite, TailwindCSS, Trie データ構造                |
+| 29  | 簡易 ETL パイプライン         | Next.js, TypeScript, Prisma, SQLite, TailwindCSS, papaparse, 状態ポーリング, UIでのデータフロー可視化 |
+| 30  | 有限オートマトン可視化ツール   | Next.js, TypeScript, TailwindCSS, React Flow, Zustand, Local Storage, ブルータリズムUI |
+| 31  | Go ORM と CLI シェル          | Go, SQLite, database/sql, reflect, go-prompt                                         |
+| 32  | ユーザースペースネットワークスタック | Go, TUNデバイス, TCP/IP, TLS1.2, HTTP/2, ALPN, ログカラー/インデント統一, レイヤー一時停止 |
+| 33  | ゼロ知識証明"体験型"デモアプリ   | Next.js, TypeScript, TailwindCSS, Schnorr Protocol 体験（UI）、魔法体験（クイズ形式）   |
+| 34  | B+ Tree ベース RDBMS (Go)     | Go, B+ Tree 実装, 永続化 (File I/O), 基本SQL (CRUD), CLI                |
+| 35  | ワークフロー自動化ツール         | Next.js, TypeScript, Prisma, SQLite, TailwindCSS (グラスモーフィズム), Zustand, タスク依存関係, カンバンボード (ドロップダウン代替) |
+| 36  | FUSE Filesystem (SQLite Backend) | Go, hanwen/go-fuse/v2, go-sqlite3, FUSE, SQLite                           |
+| 37  | CHIP-8 エミュレーター (Go)       | Go, Ebiten (v2), CHIP-8 コアロジック, CPUサイクル, メモリ/レジスタ/タイマー管理, 画面描画, キー入力 |
+| 38  | CPU ビジュアライザー           | Next.js, TypeScript, Tailwind CSS, CPU動作シミュレーション, 簡易JSパーサー, UI視覚化 |
+| 39  | インタラクティブCoWシミュレータ | Next.js, TypeScript, Zustand, TailwindCSS, Copy-on-Write (CoW) 原理の視覚化, スナップショット管理, イベントログ, 状態復元 |
+| 40  | Go Microservices with Otel & Grafana | Go, OpenTelemetry (Traces, Metrics, Logs), Grafana Stack (Prometheus, Loki, Tempo, Promtail), Docker Compose, slog, Makefile |
+| 41  | ブラウザセキュリティ・プレイグラウンド | Next.js, TypeScript, TailwindCSS, Middleware, Cookies, 主要HTTPセキュリティヘッダー (CSP, CORS, HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy) のインタラクティブデモ |
+| 42  | Raft NoSQL (Go)    | Go, Raft (hashicorp/raft), BoltDB, FSM, CLI (cobra), 結果整合性 (Eventual Consistency), Last Write Wins, スナップショット/リストア, HTTP API, 3ノードクラスタ, 分散合意アルゴリズム |
+| 43  | 型推論エンジン (Go)           | Go, Hindley-Milner (Algorithm W), participle, html/template, 2カラムUI, CSS Grid |
+| 44 | OSPF シュミレーター | TBD |
+| 45  | Travel Booking Saga（分散トランザクションSAGA体験） | Next.js (App Router, TypeScript), Tailwind CSS, SQLite + better-sqlite3, SAGAパターン, タイムラインUI, 補償処理の段階的可視化, |
+| 46  | ACME CA Simulator | Next.js, TypeScript, Tailwind CSS, better-sqlite3, ACME Protocol (RFC 8555) |
+| 47  | CDN シミュレータ               | Next.js 15, TypeScript, SQLite, better-sqlite3, TailwindCSS v4 (Neumorphism), CDNロジック (LRU, TTL), エッジサーバー地理的分散, キャッシュヒット率統計, リアルタイム更新UI, SQLiteバインド型安全化 |
+| 48  | GUIターミナルエミュレータ         | Go, creack/pty, 擬似端末(pty)制御, exec, ANSIエスケープシーケンス処理, ターミナルエミュレーション |
+| 49  | Go言語 ミニブラウザ             | Go, Fyne, net/http, golang.org/x/net/html, Shift_JIS対応, フレームセット対応 |
+| 50  | HTTP/HTTPS フォワードプロキシ (インテリジェントキャッシュ付き) | Go, SQLite, HTTP/HTTPS Proxy, MITM, 動的証明書生成, キャッシュ (Cache-Control, Expires) |
+| 51  | Monkey 言語コンパイラ & VM | Go, 字句解析, 構文解析, AST, バイトコード, スタックベースVM, REPL |
+| 52  | MMORPG「タイニーレルム冒険譚」 | Next.js (App Router), TypeScript, SQLite (better-sqlite3), Tailwind CSS (ピクセルアート風, VT323), ポーリング同期, E2Eテスト (Playwright) |
+| 53  | CPU対戦付き二人麻雀 (最強AI) | Next.js (App Router), TypeScript, Tailwind CSS (クレイモーフィズム), 麻雀コアロジック (手牌評価, 役判定, 点数計算), CPU AI (向聴数ベース) |
+| 54  | 派手派手オセロバトル             | Next.js (App Router), TypeScript, Tailwind CSS (ネオンスタイル), Framer Motion, 3D風アニメーション, 独自オセロエンジン |
+| 55  | サイバーパンク 3D スペースシューター | Next.js (App Router), TypeScript, React Three Fiber, @react-three/drei, Zustand, nanoid, Three.js, 3D描画, ホーミング弾システム, 大量敵出現 (4形状バリエーション), ランダム回転・サイズ・色彩, スコア連動難易度, 60FPS 3Dアクション |
+| 56  | イベント駆動型システム (Go + Web UI) | Go, Next.js (App Router), TypeScript, NATS, SQLite, Docker Compose, Tailwind CSS, イベント駆動アーキテクチャ, マイクロサービス, 非同期メッセージング, 注文処理・在庫管理・配送サービス, Sagaパターン, CORS対応, リアルタイムUI更新 |
+| 57  | ガベージコレクタ実装システム (Frontend-only) | Next.js (App Router), TypeScript, Tailwind CSS v4 (テクノロジカル・ミニマリズム), Chart.js, react-chartjs-2, Mark-and-Sweep GC, Generational GC (Young/Old), Tri-color marking, Root Set管理, オブジェクトプロモーション, リアルタイム可視化, 完全フロントエンド実装, デバッグ機能, GC効率性測定 |
+| 58  | LSM-Tree ストレージエンジン (Go) | Go, LSM-Tree (Log-Structured Merge Tree), Skip List, WAL (Write-Ahead Log), SSTable (Sorted String Table), Bloom Filter, Compaction (Size-Tiered), CLI, ファイルI/O, 永続化, 高速書き込み特化データ構造, クラッシュリカバリ, 42テストケース |
+| 59  | OAuth2/OpenID Connect Provider + React Client | Go, Next.js (App Router), TypeScript, OAuth2 (RFC 6749), OpenID Connect, SQLite, JWT (RS256), PKCE, CORS対応, グラスモーフィズムUI, Web Crypto API, Authorization Code Flow, カスタムルーター, プリフライトリクエスト対応, 認証認可システム |
+| 60  | Mini OS with Daemon System | C, x86 Assembly, QEMU, フルスタックOS実装 (カーネル, メモリ管理256MB, プロセス管理, 割り込み処理, GDT/TSS, キーボードドライバ, インタラクティブシェル11コマンド, Daemonシステム), バックグラウンドプロセス (システム監視, ハートビート), 2Hzタイマー割り込み, リアルタイムスケジューリング, x86-32bit Multiboot, better-sqlite3風のシンプルな設計思想 |
+| 61  | コンテナランタイム (Go CLI) | Go, Docker Registry API v2, OCI Image Index, Docker manifest v2, better-sqlite3風JSON管理, cobra CLI, chroot風分離, Dockerイメージpull/run/list/inspect, Mac対応Linuxバイナリ実行シミュレーション, tar/gzip展開, 実際のDocker Hub連携 (busybox:latest 2.05MB), 442ファイルrootfs構築, 認証トークン管理, マルチアーキテクチャ対応 |
+| 62  | クッキークリッカーゲーム (Frontend-only) | Next.js (App Router), TypeScript, Tailwind CSS v4 (ポップデザイン), カスタムuseGameフック, useReducer, LocalStorage永続化, 100msゲームループ, 8施設, 55アップグレード (クリック21+施設28+グローバル12), 24実績, 指数価格上昇 (1.15^n), CPS計算, 大数値処理 (兆京垓対応), クリッシュリカバリ, 完全フロントエンド |
+| 63  | 本格検索エンジン (日本語対応) | Next.js 15 (App Router), TypeScript, SQLite (better-sqlite3), Tailwind CSS v4 (テクノロジカル・ミニマリズム), TF-IDF計算, PageRankアルゴリズム, 転置インデックス, 日本語形態素解析 (文字種境界分割), ストップワード除去, スニペット生成・ハイライト, 検索ログ・統計, Server/Client Component分離, 高速検索 (13-20ms), 6文書データセット (青空文庫・Wikipedia・技術記事), RESTful API, 管理画面・統計ページ |
 
 ---
 > Source: [lirlia/100day_challenge_backend](https://github.com/lirlia/100day_challenge_backend) — distributed by [TomeVault](https://tomevault.io).
