@@ -1,0 +1,9 @@
+{
+  "name": "corasan--react-native-nitro-mlx",
+  "displayName": "react-native-nitro-mlx",
+  "description": "Run LLMs on device using Apple's MLX",
+  "version": "1.0.0",
+  "author": "corasan",
+  "homepage": "https://github.com/corasan/react-native-nitro-mlx",
+  "skills": []
+}
