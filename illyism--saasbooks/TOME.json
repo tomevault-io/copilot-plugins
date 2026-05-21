@@ -4,7 +4,7 @@
   "repo": "saasbooks",
   "description": "SaaSBooks turns your Stripe and Mercury data into actionable financial insights without the accounting headache. Built by SaaS founders for SaaS founders, this open source tool auto-categorizes transactions, tracks essential metrics, and helps you make sense of your finances in minutes, not days.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Illyism/saasbooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T02:05:41Z"
+  "distributed_at": "2026-05-21T06:32:57Z"
 }
