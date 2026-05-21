@@ -1,0 +1,9 @@
+{
+  "name": "matchory--docker-swarm-deployment-action",
+  "displayName": "docker-swarm-deployment-action",
+  "description": "A GitHub action to deploy a stack to a Docker Swarm Mode cluster.",
+  "version": "1.0.0",
+  "author": "matchory",
+  "homepage": "https://github.com/matchory/docker-swarm-deployment-action",
+  "skills": []
+}
