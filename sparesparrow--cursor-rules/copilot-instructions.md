@@ -1,224 +1,485 @@
-## inspirations
+## mcp-core-rules
 
-> Advanced patterns and best practices inspired by top 5 agentic workflow implementations
+> Core implementation rules and guidelines for Model Context Protocol
 
 
-# Advanced Agentic Workflow Patterns
+# MCP Core Implementation Rules
 
-## Core Principles
+## Client Implementation
 
-### Pattern Selection
-- Choose appropriate workflow pattern based on task characteristics
-- Consider scalability and complexity requirements
-- Enable pattern composition for complex tasks
-
-### Dynamic Adaptation
-- Support runtime pattern selection
-- Enable workflow modification based on feedback
-- Implement learning from execution history
-
-### Resource Optimization
-- Manage computational resources efficiently
-- Implement proper cleanup mechanisms
-- Support parallel execution when possible
-
-## Implementation Patterns
-
-### Reflection Pattern
+### Client Configuration
 ```typescript
-// Good: Structured reflection with feedback loop
-class ReflectionWorkflow implements WorkflowPattern {
-  async execute(task: Task): Promise<Result> {
-    const initialResult = await this.performTask(task);
-    const feedback = await this.analyzeFeedback(initialResult);
-    return await this.refineResult(initialResult, feedback);
-  }
-
-  private async analyzeFeedback(result: Result): Promise<Feedback> {
-    const analysis = await this.critic.analyze(result);
-    return this.synthesizeFeedback(analysis);
-  }
+interface MCPClientConfig {
+  name: string;                 // Client identifier
+  version: string;             // Client version
+  capabilities?: Capabilities; // Optional capabilities
+  options?: {
+    timeout?: number;         // Default request timeout
+    retryPolicy?: RetryPolicy; // Retry configuration
+    maxConcurrent?: number;   // Max concurrent requests
+    logLevel?: LogLevel;      // Logging configuration
+  };
 }
 
-// Bad: No feedback integration
-class SimpleWorkflow {
-  async run(task: Task) { // ❌ Missing reflection capabilities
-    return await this.execute(task);
-  }
+interface RetryPolicy {
+  maxAttempts: number;
+  initialDelay: number;
+  maxDelay: number;
+  backoffFactor: number;
+  jitter?: boolean;
+}
+
+enum LogLevel {
+  DEBUG = 'debug',
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error'
 }
 ```
 
-### Web Access Pattern
+### Client Implementation
 ```typescript
-// Good: Structured web access with caching
-class WebAccessWorkflow implements WorkflowPattern {
-  private cache: ResultCache;
-  private rateLimiter: RateLimiter;
+class MCPClient {
+  private transport: Transport;
+  private handlers: Map<string, Handler>;
+  private capabilities: Capabilities;
+  private requestQueue: RequestQueue;
+  private logger: Logger;
 
-  async search(query: string): Promise<SearchResult> {
-    if (await this.cache.has(query)) {
-      return await this.cache.get(query);
+  constructor(config: MCPClientConfig) {
+    this.validateConfig(config);
+    this.setupCapabilities(config.capabilities);
+    this.initializeHandlers();
+    this.setupRequestQueue(config.options);
+    this.configureLogging(config.options?.logLevel);
+  }
+
+  private validateConfig(config: MCPClientConfig): void {
+    if (!config.name || !config.version) {
+      throw new Error('Client name and version are required');
     }
-
-    await this.rateLimiter.checkLimit();
-    const result = await this.performSearch(query);
-    await this.cache.set(query, result);
-    return result;
+    if (config.capabilities) {
+      this.validateCapabilities(config.capabilities);
+    }
   }
 
-  private async performSearch(query: string): Promise<SearchResult> {
-    const optimizedQuery = await this.optimizeQuery(query);
-    return await this.searchAgent.execute(optimizedQuery);
+  private setupRequestQueue(options?: ClientOptions): void {
+    this.requestQueue = new RequestQueue({
+      maxConcurrent: options?.maxConcurrent ?? 10,
+      timeout: options?.timeout ?? 30000
+    });
   }
-}
 
-// Bad: Unstructured web access
-class BasicSearch {
-  search(query: string) { // ❌ No caching or rate limiting
-    return fetch(query);
+  async request<T>(
+    method: string,
+    params?: unknown,
+    options?: RequestOptions
+  ): Promise<T> {
+    const message = this.createRequestMessage(method, params);
+    return this.requestQueue.enqueue(
+      () => this.sendRequest<T>(message, options)
+    );
+  }
+
+  async notify(
+    method: string,
+    params?: unknown
+  ): Promise<void> {
+    const message = this.createNotificationMessage(method, params);
+    await this.transport.send(message);
   }
 }
 ```
 
-### Semantic Routing Pattern
+### Connection Management
 ```typescript
-// Good: Intent-based routing with validation
-class SemanticRouter implements WorkflowPattern {
-  private agents: Map<string, Agent>;
-  private intentAnalyzer: IntentAnalyzer;
+interface ConnectionOptions {
+  timeout?: number;
+  retryPolicy?: RetryPolicy;
+  onError?: (error: Error) => void;
+  onClose?: () => void;
+  heartbeat?: {
+    interval: number;
+    timeout: number;
+  };
+}
 
-  async route(request: Request): Promise<Response> {
-    const intent = await this.intentAnalyzer.analyze(request);
-    const agent = await this.selectAgent(intent);
+class ConnectionManager {
+  private retryCount: number = 0;
+  private heartbeatTimer?: NodeJS.Timer;
+  private reconnectTimer?: NodeJS.Timer;
+
+  async connect(
+    transport: Transport,
+    options?: ConnectionOptions
+  ): Promise<void> {
+    try {
+      await this.negotiateCapabilities();
+      await this.initializeConnection();
+      this.setupHeartbeat(options?.heartbeat);
+      this.resetRetryCount();
+    } catch (error) {
+      await this.handleConnectionError(error, options);
+    }
+  }
+
+  private async handleConnectionError(
+    error: Error,
+    options?: ConnectionOptions
+  ): Promise<void> {
+    this.logger.error('Connection error:', error);
     
-    if (!agent) {
-      throw new RoutingError(`No agent found for intent: ${intent}`);
+    if (this.shouldRetry(options?.retryPolicy)) {
+      await this.retryConnection(options);
+    } else {
+      this.handleFatalError(error);
+    }
+  }
+
+  private setupHeartbeat(
+    config?: { interval: number; timeout: number }
+  ): void {
+    if (!config) return;
+
+    this.heartbeatTimer = setInterval(async () => {
+      try {
+        await this.sendHeartbeat();
+      } catch (error) {
+        this.handleHeartbeatFailure();
+      }
+    }, config.interval);
+  }
+}
+```
+
+## Message Handling
+
+### Message Format
+```typescript
+interface Message {
+  jsonrpc: "2.0";
+  id?: string | number;
+  method?: string;
+  params?: unknown;
+  result?: unknown;
+  error?: {
+    code: number;
+    message: string;
+    data?: unknown;
+  };
+}
+
+class MessageValidator {
+  static validate(message: unknown): message is Message {
+    if (!this.hasJsonRpcVersion(message)) {
+      return false;
     }
 
-    return await agent.handle(request);
-  }
+    if (this.isRequest(message)) {
+      return this.validateRequest(message);
+    }
 
-  private async selectAgent(intent: Intent): Promise<Agent | null> {
-    return this.agents.get(intent.type) || this.fallbackAgent;
-  }
-}
+    if (this.isResponse(message)) {
+      return this.validateResponse(message);
+    }
 
-// Bad: Simple routing
-class BasicRouter {
-  route(req: Request) { // ❌ No intent analysis
-    return this.defaultHandler(req);
-  }
-}
-```
+    if (this.isNotification(message)) {
+      return this.validateNotification(message);
+    }
 
-### Dynamic Decomposition Pattern
-```typescript
-// Good: Task decomposition with dependency management
-class DynamicDecomposer implements WorkflowPattern {
-  async decompose(task: ComplexTask): Promise<SubTask[]> {
-    const analysis = await this.analyzeTask(task);
-    const subTasks = await this.createSubTasks(analysis);
-    return this.optimizeExecution(subTasks);
-  }
-
-  private async optimizeExecution(tasks: SubTask[]): Promise<SubTask[]> {
-    const graph = await this.buildDependencyGraph(tasks);
-    return this.scheduleParallelExecution(graph);
-  }
-}
-
-// Bad: No task analysis
-class SimpleDecomposer {
-  split(task: Task) { // ❌ Missing dependency analysis
-    return task.split();
+    return false;
   }
 }
 ```
 
-### DAG Orchestration Pattern
+### Message Processing
 ```typescript
-// Good: Structured workflow orchestration
-class DAGOrchestrator implements WorkflowPattern {
-  private dag: DAG;
-  private executors: Map<string, Executor>;
+class MessageProcessor {
+  private handlers: Map<string, Handler>;
+  private pendingRequests: Map<string | number, PendingRequest>;
 
-  async orchestrate(workflow: Workflow): Promise<Result> {
-    const plan = await this.createExecutionPlan(workflow);
-    await this.validatePlan(plan);
-    return await this.executeDAG(plan);
-  }
-
-  private async executeDAG(plan: ExecutionPlan): Promise<Result> {
-    const executor = new DAGExecutor(plan, this.executors);
-    return await executor.execute();
-  }
-}
-
-// Bad: Linear execution
-class SimpleOrchestrator {
-  execute(steps: Step[]) { // ❌ No parallel execution
-    return steps.reduce((p, s) => p.then(() => s.execute()), Promise.resolve());
+  async processMessage(message: Message): Promise<void> {
+    try {
+      MessageValidator.validate(message);
+      
+      if (MessageValidator.isRequest(message)) {
+        await this.processRequest(message);
+      } else if (MessageValidator.isResponse(message)) {
+        await this.processResponse(message);
+      } else if (MessageValidator.isNotification(message)) {
+        await this.processNotification(message);
+      }
+    } catch (error) {
+      this.handleProcessingError(error, message);
+    }
   }
 }
 ```
 
-## Validation Rules
+## Error Handling
 
+### Error Categories
 ```typescript
-const WorkflowRules = {
-  // Ensure pattern implementation
-  patternImplementation: {
-    pattern: /implements\s+WorkflowPattern/,
-    message: "Implement proper workflow pattern interface"
-  },
+enum MCPErrorCode {
+  // Protocol Errors (-32768 to -32000)
+  ParseError = -32700,
+  InvalidRequest = -32600,
+  MethodNotFound = -32601,
+  InvalidParams = -32602,
+  InternalError = -32603,
+
+  // Implementation Errors (-32000 to -31000)
+  TransportError = -32000,
+  CapabilityError = -32001,
+  ResourceError = -32002,
+  ToolError = -32003,
   
-  // Check error handling
-  errorHandling: {
-    pattern: /try\s*{.*}\s*catch.*{.*throw\s+new\s+\w+Error/,
-    message: "Implement proper error handling with custom errors"
-  },
-  
-  // Verify parallel execution
-  parallelExecution: {
-    pattern: /Promise\.all|parallel|concurrent/,
-    message: "Consider parallel execution where appropriate"
+  // Application Errors (-31000 to -30000)
+  ValidationError = -31000,
+  AuthenticationError = -31001,
+  AuthorizationError = -31002,
+  RateLimitError = -31003,
+  ConcurrencyError = -31004
+}
+
+class MCPError extends Error {
+  constructor(
+    public code: MCPErrorCode,
+    message: string,
+    public data?: unknown,
+    public retriable: boolean = false
+  ) {
+    super(message);
+    this.name = 'MCPError';
   }
-};
+
+  static isRetriable(error: MCPError): boolean {
+    return error.retriable || this.isTransientError(error.code);
+  }
+
+  private static isTransientError(code: MCPErrorCode): boolean {
+    return [
+      MCPErrorCode.TransportError,
+      MCPErrorCode.RateLimitError,
+      MCPErrorCode.ConcurrencyError
+    ].includes(code);
+  }
+}
+```
+
+### Error Handler Implementation
+```typescript
+class ErrorHandler {
+  private retryManager: RetryManager;
+  private circuitBreaker: CircuitBreaker;
+  private logger: Logger;
+
+  async handleError(
+    error: Error,
+    context: ErrorContext
+  ): Promise<void> {
+    if (error instanceof MCPError) {
+      await this.handleMCPError(error, context);
+    } else {
+      await this.handleUnknownError(error, context);
+    }
+  }
+
+  private async handleMCPError(
+    error: MCPError,
+    context: ErrorContext
+  ): Promise<void> {
+    this.logger.error('MCP Error:', {
+      code: error.code,
+      message: error.message,
+      data: error.data,
+      context
+    });
+
+    if (MCPError.isRetriable(error)) {
+      await this.handleRetriableError(error, context);
+    } else {
+      await this.handleNonRetriableError(error, context);
+    }
+  }
+
+  private async handleRetriableError(
+    error: MCPError,
+    context: ErrorContext
+  ): Promise<void> {
+    if (this.circuitBreaker.isOpen()) {
+      throw new MCPError(
+        MCPErrorCode.CircuitBreakerOpen,
+        'Circuit breaker is open',
+        { originalError: error }
+      );
+    }
+
+    try {
+      await this.retryManager.retry(
+        async () => await this.executeRequest(context)
+      );
+    } catch (retryError) {
+      this.circuitBreaker.recordError();
+      throw retryError;
+    }
+  }
+}
 ```
 
 ## Best Practices
 
-1. Pattern Selection
-   - Choose patterns based on task requirements
-   - Consider composition opportunities
-   - Plan for extensibility
+### 1. Resource Management
+```typescript
+class ResourceManager {
+  private resources: Map<string, Resource>;
+  private locks: Map<string, Lock>;
+  private cleanupTasks: Set<CleanupTask>;
 
-2. Resource Management
-   - Implement proper cleanup
-   - Handle concurrent execution
-   - Monitor resource usage
+  async acquireResource<T extends Resource>(
+    uri: string,
+    options?: ResourceOptions
+  ): Promise<T> {
+    const lock = await this.locks.acquire(uri);
+    try {
+      const resource = await this.loadResource<T>(uri, options);
+      this.registerCleanup(resource, lock);
+      return resource;
+    } catch (error) {
+      await lock.release();
+      throw error;
+    }
+  }
 
-3. Error Handling
-   - Define custom error types
-   - Implement recovery strategies
-   - Maintain execution context
+  private registerCleanup(
+    resource: Resource,
+    lock: Lock
+  ): void {
+    const cleanup = new CleanupTask(async () => {
+      try {
+        await resource.dispose();
+      } finally {
+        await lock.release();
+      }
+    });
+    this.cleanupTasks.add(cleanup);
+  }
+}
+```
 
-## Security Considerations
+### 2. Performance Optimization
+```typescript
+class PerformanceOptimizer {
+  private cache: Cache;
+  private batcher: RequestBatcher;
+  private rateLimiter: RateLimiter;
 
-1. Input Validation
-   - Validate all external inputs
-   - Sanitize web content
-   - Check resource limits
+  async optimizeRequest<T>(
+    request: Request,
+    options?: OptimizationOptions
+  ): Promise<T> {
+    // Check cache first
+    const cached = await this.cache.get(request.cacheKey);
+    if (cached) return cached;
 
-2. Execution Safety
-   - Implement timeouts
-   - Handle resource exhaustion
-   - Monitor execution state
+    // Apply rate limiting
+    await this.rateLimiter.acquire();
 
-3. Data Protection
-   - Secure sensitive data
-   - Implement access control
-   - Audit execution logs 
+    try {
+      // Batch similar requests
+      const result = await this.batcher.batch(
+        request,
+        options?.batchWindow
+      );
+
+      // Update cache
+      await this.cache.set(
+        request.cacheKey,
+        result,
+        options?.cacheTTL
+      );
+
+      return result;
+    } finally {
+      this.rateLimiter.release();
+    }
+  }
+}
+```
+
+### 3. Security Implementation
+```typescript
+class SecurityManager {
+  private validator: InputValidator;
+  private sanitizer: InputSanitizer;
+  private authManager: AuthManager;
+
+  async validateAndSecure<T>(
+    input: T,
+    context: SecurityContext
+  ): Promise<void> {
+    // Validate input
+    await this.validator.validate(input);
+
+    // Sanitize if needed
+    const sanitized = await this.sanitizer.sanitize(input);
+
+    // Check authentication
+    if (!await this.authManager.isAuthenticated(context)) {
+      throw new MCPError(
+        MCPErrorCode.AuthenticationError,
+        'Not authenticated'
+      );
+    }
+
+    // Check authorization
+    if (!await this.authManager.isAuthorized(context)) {
+      throw new MCPError(
+        MCPErrorCode.AuthorizationError,
+        'Not authorized'
+      );
+    }
+  }
+}
+```
+
+## Implementation Checklist
+
+### Setup Phase
+- [ ] Initialize client configuration
+- [ ] Setup error handling
+- [ ] Configure logging
+- [ ] Initialize security
+
+### Core Features
+- [ ] Implement message handling
+- [ ] Setup connection management
+- [ ] Configure request queuing
+- [ ] Implement retry logic
+
+### Resource Management
+- [ ] Implement resource handlers
+- [ ] Setup caching
+- [ ] Configure cleanup
+- [ ] Implement locking
+
+### Security
+- [ ] Input validation
+- [ ] Authentication
+- [ ] Authorization
+- [ ] Secure transport
+
+### Performance
+- [ ] Caching strategy
+- [ ] Request batching
+- [ ] Rate limiting
+- [ ] Connection pooling
+
+### Monitoring
+- [ ] Error tracking
+- [ ] Performance metrics
+- [ ] Health checks
+- [ ] Logging strategy 
 
 ---
 > Source: [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
