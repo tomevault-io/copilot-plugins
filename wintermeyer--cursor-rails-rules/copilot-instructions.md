@@ -1,157 +1,27 @@
-## i18n
+## readme
 
-> Guidelines for internationalization
+> Must read Guideline for this project
 
-# Base I18n Standards
+You are a senior programmer. Your role is to work with me as a pair programming team. Take care of the following things in case I forget them:
 
-We always assume that the application supports multiple languages
-and locales. By default we go with English as the primary language
-and German as the secondary language.
+- When possible we always create at least one happy path test to check the functionality we just implimented or fixed. So if I e.g. create a new page we have to write a basic test that checks that that page answers with a 200 HTTP code.
+- Always use `i18n.mdc` since this is a multilanguage project.
+- Use Tailwind CSS and avoid plain CSS.
 
-Check if the 'rails-i18n' gem is installed. If not add it to the Gemfile:
+Modify or create the code as requested. After completing the changes, execute the following commands in the terminal:
 
-    gem 'rails-i18n', '~> 8.0.0'
-
-and run a `bundle install`.
-
-## Configuration
-
-1. Setup
-```ruby
-# config/application.rb
-config.i18n.default_locale = :en
-config.i18n.available_locales = [:en, :de]
-config.i18n.fallbacks = true
-```
-
-2. Directory Structure
-```
-config/locales/
-├── en/
-│   ├── models/
-│   ├── views/
-│   └── controllers/
-└── de/
-    ├── models/
-    ├── views/
-    └── controllers/
-```
-
-## Key Structure
-
-1. Namespace Hierarchy
-```yaml
-en:
-  models:      # Model-specific translations
-  views:       # View-specific translations
-  controllers: # Controller-specific messages
-  helpers:     # Form helpers and labels
-  common:      # Shared translations
-```
-
-2. Key Naming
-- Use lowercase
-- Use dots for nesting
-- Use underscores for words
-- Keep keys descriptive
-- Follow Ruby naming conventions
-
-## Implementation
-
-1. In Views
-```erb
-<%= t('.title') %>                     # Lazy lookup
-<%= t('views.users.index.title') %>    # Full key
-<%= t('.welcome', name: @user.name) %> # With interpolation
-```
-
-2. In Controllers
-```ruby
-flash[:notice] = t('.success')
-redirect_back_or_to root_path, notice: t('.created')
-```
-
-3. In Models
-```ruby
-validates :status, inclusion: { in: %w[pending active],
-  message: ->(object, data) { I18n.t("models.#{object.class.name.downcase}.errors.invalid_status") } }
-```
-
-4. In Mailers
-```ruby
-mail(
-  to: @user.email,
-  subject: t('.welcome_subject', name: @user.name)
-)
-```
-
-## Best Practices
-
-1. Key Organization
-- Group by feature/module
-- Use consistent nesting levels
-- Keep keys short but meaningful
-- Document non-obvious keys
-
-2. Translation Management
-- Use YAML for static content
-- Use Ruby for dynamic content
-- Keep translations DRY
-- Regular sync with translators
-
-3. Performance
-- Use lazy lookup when possible
-- Cache common translations
-- Avoid deep nesting
-- Preload translations in production
-
-4. Quality Assurance
-- Test all locales
-- Verify interpolations
-- Check for missing keys
-- Review context usage
-
-## Common Patterns
-
-1. Pluralization
-```yaml
-en:
-  items:
-    zero: "No items"
-    one: "One item"
-    other: "%{count} items"
-```
-
-2. Interpolation
-```yaml
-en:
-  welcome: "Welcome, %{name}!"
-  count: "Found %{count} %{model}"
-```
-
-3. HTML Content
-```yaml
-en:
-  instructions_html: "Please read our <a href='%{url}'>terms</a>"
-```
-
-4. Scoped Translations
-```ruby
-# In a Users controller action
-t('.not_found', scope: 'controllers.users')
-```
-
-## Maintenance
-
-1. Regular Tasks
-- Update missing translations
-- Remove unused keys
-- Verify key consistency
-
-2. Documentation
-- Document special cases
-- Keep locale list updated
-- Track translation versions
+1. Run tests to ensure everything still works:
+   ```sh
+   bin/rails test:all
+   ```
+2. Automatically fix and check Ruby style issues:
+   ```sh
+    bundle exec rubocop --format github --autocorrect-all
+    ```
+3. If any tests fail:
+- Analyze the errors and attempt to fix them. It doesn't matter if it is old or new code.
+- Modify the necessary code to resolve the failures.
+- Re-run bin/rails test:all to confirm the fix.
 
 ---
 > Source: [wintermeyer/cursor-rails-rules](https://github.com/wintermeyer/cursor-rails-rules) — distributed by [TomeVault](https://tomevault.io).
