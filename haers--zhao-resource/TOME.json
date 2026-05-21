@@ -1,0 +1,44 @@
+{
+  "name": "zhao_resource",
+  "owner": "haers",
+  "repo": "zhao_resource",
+  "description": "\u4e2a\u4eba\u8d44\u6e90\u7ad9\uff0c\u5305\u62ec\u5938\u514b\uff0c\u767e\u5bb6\u8bb2\u575b\uff0ck12\u8d44\u6e90\uff0c\u6444\u5f71\u526a\u8f91\uff0c\u8003\u516c\u8003\u7814\uff0c\u82f1\u8bed\u5b66\u4e60\u89c6\u9891\uff0c\u53ef\u4ee5\u76f4\u63a5\u6d4f\u89c8\u5668\u641c\u7d22\u5373\u53ef\u627e\u5230",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/haers/zhao_resource",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T11:35:45Z"
+}
