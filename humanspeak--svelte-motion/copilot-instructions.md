@@ -1,31 +1,14 @@
-## svelte-motion
+## svelte
 
-> `@humanspeak/svelte-motion` — A Framer Motion-compatible animation library for Svelte 5. Spring physics, gestures, layout animations, exit animations, and scroll effects with a familiar declarative API.
+> Svelte Files
 
-# CLAUDE.md
+When asking for python doc strings please always do it from a senior google engineer perspective.
 
-## Project Overview
+When creating test cases for javascript, please use the vitest library.
 
-`@humanspeak/svelte-motion` — A Framer Motion-compatible animation library for Svelte 5. Spring physics, gestures, layout animations, exit animations, and scroll effects with a familiar declarative API.
+We are using svelte5, so please use the svelte5 syntax.
 
-- **Package**: `@humanspeak/svelte-motion`
-- **Homepage**: <https://motion.svelte.page>
-- **Repository**: <https://github.com/humanspeak/svelte-motion>
-
-## Notes
-
-## AnimatePresence wait mode
-
-- When enter is deferred in `mode="wait"`, mark the enter animation as already handled
-  before flipping `isLoaded` to `ready`. Otherwise the ready-state effects can re-run
-  enter and cause a visible "pop" after the deferred animation completes.
-- For object-based `animate` props, also set `objectAnimateRanOnMount` and
-  `lastAnimatePropJson` when unblocking, to prevent duplicate runs.
-
-## Docs parity: MultiStateBadge example
-
-- Match the motion.dev example: `AnimatePresence mode="sync"` is only used in the label.
-- The icon `AnimatePresence` should use default mode (no explicit `mode` prop).
+When adding comments to the components please use this webpage for references: https://svelte.dev/docs/svelte/faq#How-do-I-document-my-components
 
 ---
 > Source: [humanspeak/svelte-motion](https://github.com/humanspeak/svelte-motion) — distributed by [TomeVault](https://tomevault.io).
