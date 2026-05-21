@@ -1,0 +1,9 @@
+{
+  "name": "quangtruong2003--smoothscroll",
+  "displayName": "SmoothScroll",
+  "description": "Smooth mouse-wheel scrolling for Windows and macOS \u2014 native low-level input interception, frame-perfect easing, per-app exclusion. Built with Rust, Tauri 2, React.",
+  "version": "1.0.0",
+  "author": "quangtruong2003",
+  "homepage": "https://github.com/quangtruong2003/SmoothScroll",
+  "skills": []
+}
