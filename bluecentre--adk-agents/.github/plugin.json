@@ -1,0 +1,9 @@
+{
+  "name": "bluecentre--adk-agents",
+  "displayName": "adk-agents",
+  "description": "Agents built to run on Google's ADK framework",
+  "version": "1.0.0",
+  "author": "BlueCentre",
+  "homepage": "https://github.com/BlueCentre/adk-agents",
+  "skills": []
+}
