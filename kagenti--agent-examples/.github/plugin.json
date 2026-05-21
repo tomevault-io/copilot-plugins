@@ -1,0 +1,9 @@
+{
+  "name": "kagenti--agent-examples",
+  "displayName": "agent-examples",
+  "description": "Sample Agents and Tools for Kagenti platform",
+  "version": "1.0.0",
+  "author": "kagenti",
+  "homepage": "https://github.com/kagenti/agent-examples",
+  "skills": []
+}
