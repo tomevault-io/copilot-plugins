@@ -1,118 +1,112 @@
-## monitor-agents
+## solid-analyzer
 
-> Standards for implementing monitoring agents and observability systems
+> Standards for implementing SOLID principle analysis and code improvement tools
 
 
-# Monitoring Agent Development Standards
+# SOLID Analyzer Development Standards
 
 ## Core Principles
 
-### Agent Architecture
-- Implement modular monitoring components
-- Support multiple data sources
-- Enable real-time processing
+### Analysis Architecture
+- Implement modular analysis components
+- Support multiple programming languages
+- Enable extensible rule sets
 
-### Data Management
-- Handle data collection efficiently
-- Implement proper data storage
-- Support data aggregation
+### Improvement Generation
+- Provide actionable recommendations
+- Maintain code functionality
+- Support progressive enhancement
 
-### Alert Management
-- Implement flexible alert rules
-- Support multiple notification channels
-- Enable alert correlation
+### Pattern Recognition
+- Implement robust pattern matching
+- Support custom pattern definitions
+- Enable context-aware analysis
 
 ## Code Standards
 
-### Monitor Implementation
+### Analyzer Implementation
 ```typescript
-// Good: Structured monitoring
-class MonitoringAgent implements Agent {
-    private collectors: Map<string, DataCollector>;
-    private processors: Map<string, DataProcessor>;
-    private alertManager: AlertManager;
+// Good: Structured analyzer
+class SOLIDAnalyzer implements Analyzer {
+    private patterns: Map<Principle, Pattern[]>;
+    private validators: Map<string, Validator>;
 
-    async monitor(): Promise<void> {
-        try {
-            const data = await this.collectData();
-            const processed = await this.processData(data);
-            await this.evaluateAlerts(processed);
-        } catch (error) {
-            await this.handleMonitoringError(error);
-            throw error;
+    async analyze(code: string): Promise<Analysis> {
+        const ast = await this.parseCode(code);
+        const violations = await this.findViolations(ast);
+        return this.generateReport(violations);
+    }
+
+    private async findViolations(ast: AST): Promise<Violation[]> {
+        return Promise.all(
+            Array.from(this.patterns.entries())
+                .map(([principle, patterns]) => 
+                    this.validatePrinciple(principle, patterns, ast))
+        );
+    }
+}
+
+// Bad: Unstructured analyzer
+class BadAnalyzer {
+    check(code: string) { // ❌ No proper analysis structure
+        return this.findIssues(code);
+    }
+}
+```
+
+### Pattern Matching
+```typescript
+// Good: Robust pattern matching
+class PatternMatcher {
+    async matchPattern(ast: AST, pattern: Pattern): Promise<Match[]> {
+        const context = await this.buildContext(ast);
+        const matches = await this.findMatches(pattern, context);
+        return this.validateMatches(matches);
+    }
+
+    private async buildContext(ast: AST): Promise<Context> {
+        const scope = await this.analyzeScope(ast);
+        const dependencies = await this.analyzeDependencies(ast);
+        return { scope, dependencies };
+    }
+}
+
+// Bad: Simple matching
+class BadMatcher {
+    match(code: string, pattern: string) { // ❌ No context awareness
+        return code.match(pattern);
+    }
+}
+```
+
+### Improvement Generation
+```typescript
+// Good: Structured improvement generation
+class ImprovementGenerator {
+    async generateImprovements(violations: Violation[]): Promise<Improvement[]> {
+        const improvements = [];
+        for (const violation of violations) {
+            const suggestions = await this.createSuggestions(violation);
+            const validatedSuggestions = await this.validateSuggestions(suggestions);
+            improvements.push(...validatedSuggestions);
         }
+        return this.prioritizeImprovements(improvements);
     }
 
-    private async collectData(): Promise<MonitoringData[]> {
+    private async validateSuggestions(suggestions: Suggestion[]): Promise<Suggestion[]> {
         return Promise.all(
-            Array.from(this.collectors.values())
-                .map(collector => collector.collect())
-        );
-    }
-}
-
-// Bad: Simple monitoring
-class BadMonitor {
-    check() { // ❌ No proper monitoring structure
-        return this.getData();
-    }
-}
-```
-
-### Data Processing
-```typescript
-// Good: Structured data processing
-class DataProcessor {
-    async process(data: RawData[]): Promise<ProcessedData[]> {
-        const validated = await this.validateData(data);
-        const normalized = await this.normalizeData(validated);
-        return this.aggregateData(normalized);
-    }
-
-    private async validateData(data: RawData[]): Promise<ValidatedData[]> {
-        return Promise.all(
-            data.map(async item => {
-                const isValid = await this.validator.validate(item);
-                if (!isValid) {
-                    throw new DataValidationError(`Invalid data: ${item}`);
-                }
-                return item;
+            suggestions.map(async suggestion => {
+                const isValid = await this.validateSuggestion(suggestion);
+                return isValid ? suggestion : null;
             })
-        );
+        ).then(results => results.filter(Boolean));
     }
 }
 
-// Bad: Simple processing
-class BadProcessor {
-    process(data: any[]) { // ❌ No validation or typing
-        return data.map(d => d * 2);
-    }
-}
-```
-
-### Alert Management
-```typescript
-// Good: Structured alert handling
-class AlertManager {
-    private rules: Map<string, AlertRule>;
-    private notifiers: Map<string, Notifier>;
-
-    async evaluateAlerts(data: ProcessedData): Promise<void> {
-        const triggeredRules = await this.findTriggeredRules(data);
-        const correlatedAlerts = await this.correlateAlerts(triggeredRules);
-        await this.sendNotifications(correlatedAlerts);
-    }
-
-    private async correlateAlerts(rules: AlertRule[]): Promise<Alert[]> {
-        const correlator = new AlertCorrelator(this.correlationRules);
-        return correlator.correlate(rules);
-    }
-}
-
-// Bad: Simple alerting
-class BadAlerting {
-    alert(value: number) { // ❌ No correlation or management
-        if (value > 100) this.sendAlert();
+// Bad: Simple suggestions
+class BadGenerator {
+    suggest(violation: string) { // ❌ No validation or context
+        return this.getTemplate(violation);
     }
 }
 ```
@@ -120,60 +114,60 @@ class BadAlerting {
 ## Validation Rules
 
 ```typescript
-const MonitoringRules = {
-    // Ensure proper monitoring implementation
-    monitoringImplementation: {
-        pattern: /class.*Monitor.*{.*collect.*process/,
-        message: "Implement proper monitoring structure"
+const SOLIDRules = {
+    // Ensure proper analysis implementation
+    analysisImplementation: {
+        pattern: /class.*Analyzer.*{.*analyze.*ast/,
+        message: "Implement proper AST-based analysis"
     },
     
-    // Check data processing
-    dataProcessing: {
-        pattern: /validate.*Data|normalize.*Data/,
-        message: "Implement proper data validation and normalization"
+    // Check pattern matching
+    patternMatching: {
+        pattern: /class.*Pattern.*{.*context|scope/,
+        message: "Implement context-aware pattern matching"
     },
     
-    // Verify alert handling
-    alertHandling: {
-        pattern: /correlate.*Alerts|evaluate.*Alerts/,
-        message: "Implement proper alert correlation and evaluation"
+    // Verify improvement generation
+    improvementGeneration: {
+        pattern: /validate.*Suggestions|prioritize.*Improvements/,
+        message: "Implement proper improvement validation and prioritization"
     }
 };
 ```
 
 ## Best Practices
 
-1. Monitor Design
-   - Modular components
-   - Data validation
-   - Error handling
+1. Analysis Design
+   - AST-based analysis
+   - Context awareness
+   - Pattern extensibility
 
-2. Data Management
-   - Efficient collection
-   - Proper storage
-   - Aggregation support
+2. Pattern Management
+   - Clear pattern definitions
+   - Validation rules
+   - Context building
 
-3. Alert Handling
-   - Correlation rules
-   - Notification management
-   - Error recovery
+3. Improvement Generation
+   - Code preservation
+   - Progressive enhancement
+   - Validation checks
 
 ## Security Considerations
 
-1. Data Collection
-   - Access control
-   - Data validation
+1. Code Analysis
+   - Safe AST parsing
+   - Memory management
+   - Timeout handling
+
+2. Pattern Security
+   - Input validation
    - Resource limits
+   - Safe regex execution
 
-2. Data Storage
-   - Secure storage
-   - Access logging
-   - Retention policies
-
-3. Alert Security
-   - Notification validation
-   - Channel security
-   - Access control 
+3. Improvement Safety
+   - Code validation
+   - Syntax verification
+   - Security preservation 
 
 ---
 > Source: [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
