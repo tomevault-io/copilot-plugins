@@ -1,35 +1,56 @@
-## project-context
+## repo-structure
 
-> Project-wide context and constraints
+> Repository structure and templates policy
 
 
-# Project Context
+# Repository Structure
 
-Language: TypeScript (Node LTS)
+packages/create-content-sdk-app/ # ← Primary focus of these rules
+├── src/
+│ ├── common/
+│ ├── initializers/
+│ ├── templates/
+│ └── index.ts
+├── dist/
+├── types/
+└── scripts/
 
-Build: `tsc` -> `dist/`, templates bundled via `scripts/build-templates.ts`
+Repository Overview:
 
-Tests: Mocha + Sinon + Chai, coverage via `nyc`
+```
+content-sdk/
+├── packages/
+│   ├── core/                      # Foundation: GraphQL client, cache, retry, fetch utilities
+│   ├── analytics-core/            # Analytics foundation
+│   ├── content/                   # Content client: layout, editing, site resolution, media
+│   ├── search/                    # Search service and APIs
+│   ├── events/                    # Event tracking
+│   ├── personalize/               # Personalization
+│   ├── cli/                       # CLI (sitecore-tools)
+│   ├── create-content-sdk-app/    # Scaffolding CLI & templates
+│   ├── nextjs/                    # Next.js integration, middleware, editing
+│   └── react/                     # React components (Text, Image, Placeholder, etc.)
+├── samples/                       # Example applications
+└── scripts/                       # Monorepo scripts
+```
 
-Lint/format: ESLint + Prettier
+Sources: `src/**`
+Never edit: `dist/**` (compiled output)
 
-Scripts:
+Templates:
 
-- build
-- clean
-- lint
-- test
-- coverage
+- Copied to generated apps
+- Self-contained
+- Use `.env.*.example` for env values
 
-Runtime:
+Initializers:
 
-- Node LTS
-- Do not import from `dist/`
-- CLI entry: `./dist/index.js`
+- Each exposes `init(args)`
+- Reuse common processes/utilities
 
 Referenced:
-@src/index.ts
-@scripts/build-templates.ts
+@packages/create-content-sdk-app/src/common/base/Initializer.ts
+@packages/create-content-sdk-app/src/initializers/nextjs/index.ts
 
 ---
 > Source: [Sitecore/content-sdk](https://github.com/Sitecore/content-sdk) — distributed by [TomeVault](https://tomevault.io).
