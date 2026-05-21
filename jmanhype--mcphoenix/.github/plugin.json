@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--mcphoenix",
+  "displayName": "MCPhoenix",
+  "description": "A simplified implementation of the Model Context Protocol (MCP) server using Elixir's Phoenix Framework.",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/MCPhoenix",
+  "skills": []
+}
