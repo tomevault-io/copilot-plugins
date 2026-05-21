@@ -1,0 +1,14 @@
+{
+  "name": "masumi-network--sokosumi",
+  "displayName": "sokosumi",
+  "description": "This is the monorepo of the Sokosumi Marketplace, the web-app is built with Next.js and TypeScript, with a strong focus on UX and security",
+  "version": "1.0.0",
+  "author": "masumi-network",
+  "homepage": "https://github.com/masumi-network/sokosumi",
+  "skills": [
+    {
+      "name": "building-components",
+      "description": ""
+    }
+  ]
+}
