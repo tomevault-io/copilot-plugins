@@ -1,29 +1,21 @@
-## global
+## server
 
-> When building these experiences, people will refer to the "devvit app" ([/src/devvit](mdc:src/devvit)) and "client" ([/src/client](mdc:src/client)).
+> - This is a serverless node.js environment, you have all node globals at your disposal except: fs, http, https, and net.
 
 
-When building these experiences, people will refer to the "devvit app" ([/src/devvit](mdc:src/devvit)) and "client" ([/src/client](mdc:src/client)).
+Guidelines:
 
-Folders to code in:
+- This is a serverless node.js environment, you have all node globals at your disposal except: fs, http, https, and net.
 
-- [/src/client](mdc:src/client): This is the full screen webview. To persist data and access the server, call `fetch(/my/api/endpoint)`. This is how you get access to the APIs you write in [/src/server](mdc:src/server).
-- [/src/server](mdc:src/server): This is a serverless backend written in Node. This is where you can access redis and save data.
-- [/src/shared](mdc:src/shared): This is where you can place code that is to be shared between the devvit app, client, and server and the webview. It's a great place for shared types.
+- Instead of http or https, prefer fetch
+- You cannot write files as you are running on a read only file system
+- Do not install any libraries that rely on these to function
+- Websockets are not supported
+- HTTP streaming is not supported
+- Redis is accessible from `import { redis } from '@devvit/web/server'`
+- When testing, target the specific file with this command: npm run test:server -- guess.test.ts
 
-Rules:
-
-- Assume that typescript, vite, tailwind, eslint, prettier, and all codebase configuration is working. If there is a bug, it is more likely your code than the codebase configuration.
-- Prefer type aliases over interfaces when writing typescript
-- Prefer named exports over default exports
-- Ignore any information you read about blocks
-- Never cast typescript types. Prefer inference in all circumstances.
-
-Game modes:
-There are two game modes:
-
-1. Classic: This is a daily game that is single player. A user tries to guess the secret word. Entry point is src/client/classic.html. Most server files assume classic mode.
-2. Horde: This is a multiplayer version where everyone plays together to solve words in waves of increasing difficulty. They start with an initial timer and they guess words until the timer hits 0. Entry point is src/client/classic.html. All horde specific code lives in src/server/core/horde. Please name files here like this: filename.horde.ts. For TRPC routes, make everything namespaced under horde.
+As this is a serverless runtime (akin to AWS Lambda), do not try to run SQLite or stateful in memory processes. For realtime use cases, consult the docs with devvit_search to learn more about the realtime service you can use.
 
 ---
 > Source: [reddit/devvit-HotAndCold](https://github.com/reddit/devvit-HotAndCold) — distributed by [TomeVault](https://tomevault.io).
