@@ -1,14 +1,79 @@
-## tdd
+## test-writing-guidelines
 
-> TEST-DRIVEN DEVELOPMENT GUIDELINES. MANDATORY READING BEFORE WRITING CODE.
+> **Default to real objects.** Only mock when you have:
 
-These are the MANDATORY steps for test-driven development. You MUST write tests that initially fail, and only then implement the actual logic that solves the problem at hand and makes the tests pass.
+# Test Writing Guidelines
 
-1.  **Implement Skeleton:** Create the necessary files, classes, function/method signatures, and other skeleton code without full implementation (e.g., using `pass` or `NotImplementedError`).
-2.  **Write Unit Tests:** Implement unit tests for the planned functionality *before* writing the implementation code. Ensure tests cover expected behavior and edge cases. These tests are expected to fail because the functionality isn't implemented yet.
-3.  **Run Unit Tests (Expect Failures):** Run the tests (`poetry run pytest`). They should fail for the unimplemented code. This verifies the tests are correctly targeting the new code.
-4.  **Implement Solution:** Write the actual code to implement the feature or fix (replacing the skeleton code).
-5.  **Run Unit Tests (Verify Pass):** Run the unit tests again. Iterate on the implementation until all unit tests pass.
+## Mocking: Use Real Objects First
+
+**Default to real objects.** Only mock when you have:
+- External dependencies (network, file I/O, databases)
+- Non-deterministic behavior (time, randomness)
+- Expensive/slow operations
+- Hard-to-reproduce error scenarios
+- Not-yet-implemented dependencies
+- Interactions where using mocks significantly simplifies testing
+
+**Red flags:** Mock factories for simple objects, complex mock setup taking more lines than test logic.
+
+## Test Failures: Fix Root Cause, Not Symptoms
+
+**NEVER modify application code just to make tests pass without understanding why they're failing.**
+
+Before changing application code:
+1. **Verify test intent** - Is the test correct and testing the right thing?
+2. **Analyze the failure** - Is it a real bug or test issue?
+3. **Consider scope** - Don't modify base classes to fix one subclass's test
+4. **Prefer specific fixes** - Change the most specific scope possible
+5. **Justify base class changes** - Only if there's a demonstrable flaw affecting all users
+
+Tests validate requirements. Modifying code solely to pass tests without understanding the root cause hides bugs.
+
+
+## Unit Test Logging Guidelines
+
+Unit tests should focus on **behavior and outcomes**, not exact message wording.
+
+### ✅ Good: Test logging behavior, not exact text
+
+<goodcode>
+```python
+# Test that appropriate log level is used
+with caplog.at_level(logging.WARNING):
+    result = some_function()
+    assert len(caplog.records) == 1
+    assert caplog.records[0].levelname == "WARNING"
+
+# Test that key information is present (not exact wording)
+with caplog.at_level(logging.ERROR):
+    result = some_function()
+    assert "transaction" in caplog.text.lower()
+    assert transaction_id in caplog.text
+```
+</goodcode>
+
+### ❌ Avoid: Testing exact log message text
+
+<badcode>
+```python
+# Brittle - breaks when message wording changes
+assert "RequestHeadersSpec: No request found in RequestHeadersSpec for transaction" in caplog.text
+
+# Brittle - exact error message matching
+assert "Error in OpenAIRequestSpec generating log data: Failed to get headers" in caplog.text
+
+```
+</badcode>
+
+### Guidelines
+
+1. **Test log levels** (INFO, WARNING, ERROR) rather than exact messages
+2. **Test presence of key data** (IDs, critical values) in logs
+3. **Use partial matching** for essential keywords, not full sentences
+4. **Focus on behavior**: Was an error logged? Was the right level used?
+5. **Avoid exact string matching** for user-facing messages
+
+**Exception:** Only test exact messages when the message format is part of a public API contract, used for parsing by external systems, or required by regulatory/compliance.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
