@@ -1,43 +1,45 @@
-## 02-app-architecture
+## 03-key-functions
 
-> - **Spaces**: Represented as Chrome tab groups with additional metadata and bookmarks
+> - `initSidebar()` - Initialize the sidebar, creating default spaces if needed
 
-# App Architecture
+# Key Functions
 
-## Core Concepts
+## Space Management
 
-- **Spaces**: Represented as Chrome tab groups with additional metadata and bookmarks
-- **Tabs**: Browser tabs that can be either temporary or pinned (bookmarked)
-- **Bookmarks**: Saved tabs that persist even when the tab is closed
+- `initSidebar()` - Initialize the sidebar, creating default spaces if needed
+- `createSpaceElement(space)` - Create DOM elements for a space
+- `setActiveSpace(spaceId)` - Switch to a specific space
+- `createNewSpace()` - Create a new space
+- `deleteSpace(spaceId)` - Delete a space and its tabs
 
-## State Management
+## Tab Management
 
-The extension maintains a global state in the `spaces` array, with each space containing:
-- `id`: Chrome tab group ID
-- `uuid`: Unique identifier
-- `name`: Display name
-- `color`: Color theme
-- `spaceBookmarks`: Array of pinned tab IDs
-- `temporaryTabs`: Array of temporary tab IDs
-
-Chrome bookmarks are used as the persistent storage mechanism. Each space has a corresponding bookmark folder.
+- `createTabElement(tab, isPinned, isBookmarkOnly)` - Create DOM element for a tab
+- `loadTabs(space, pinnedContainer, tempContainer)` - Load tabs for a space
+- `createNewTab()` - Create a new tab in the active space
+- `closeTab(tabElement, tab, isPinned, isBookmarkOnly)` - Close a tab
+- `moveTabToPinned(space, tab)` - Move a tab to the pinned section
+- `moveTabToTemp(space, tab)` - Move a tab to the temporary section
+- `moveTabToSpace(tabId, spaceId, pinned)` - Move a tab to a different space
 
 ## Event Handlers
 
-The extension uses Chrome event listeners to respond to tab changes:
-- `chrome.tabs.onCreated` - Handles new tab creation
-- `chrome.tabs.onUpdated` - Handles tab URL or title changes
-- `chrome.tabs.onRemoved` - Handles tab closures
-- `chrome.tabs.onActivated` - Handles tab switching
+- `handleTabCreated(tab)` - Handle newly created tabs
+- `handleTabUpdate(tabId, changeInfo, tab)` - Handle tab updates
+- `handleTabRemove(tabId)` - Handle tab removal
+- `handleTabActivated(activeInfo)` - Handle tab activation
 
-## DOM Structure
+## Bookmarks Management
 
-The sidebar UI has these key components:
-- Space switcher at top
-- Per-space tab container
-- Pinned tabs section
-- Temporary tabs section
-- Add space and new tab buttons
+- `updateBookmarkForTab(tab)` - Update bookmark for a tab
+- `searchBookmarks(folderId, tab)` - Search for bookmark matching a tab
+
+## UI Features
+
+- `setupDragAndDrop(pinnedContainer, tempContainer)` - Set up drag-and-drop functionality
+- `showTabContextMenu(x, y, tab, isPinned, isBookmarkOnly, tabElement)` - Show context menu for tabs
+- `showArchivedTabsPopup()` - Display archived tabs popup
+- `updatePinnedFavicons()` - Update the pinned favicons display
 
 ---
 > Source: [nisargkolhe/arcify](https://github.com/nisargkolhe/arcify) — distributed by [TomeVault](https://tomevault.io).
