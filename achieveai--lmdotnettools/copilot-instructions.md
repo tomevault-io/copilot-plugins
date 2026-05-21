@@ -1,35 +1,49 @@
-## test-debugging-rule
+## test-mcp-server
 
-> Guide to debug and fix tests.
+> - Uses "The Mystery of Willowbrook's Lost Compass" with Emily Chen, Marcus Rodriguez, Mrs. Abernathy
 
-# Debugging Tests
+## 🎯 **What the Story Scenario Tests:**
+
+### **📖 Story Content:**
+- Uses "The Mystery of Willowbrook's Lost Compass" with Emily Chen, Marcus Rodriguez, Mrs. Abernathy
+- Rich metadata including characters, locations, objects, relationships, and historical events
+- 3 chapters with different paragraph types (introduction, discovery, revelation)
+
+### **🔍 MCP Memory Operations:**
+- **Storage**: `memory_add` with structured metadata
+- **Retrieval**: `memory_search` by character, location, and object
+- **Semantic Search**: Testing vector similarity with "mysterious ancient artifacts"
+- **Cleanup**: `memory_delete_all` and verification
+
+### **🗄️ Database Validation using memory_db Tools:**
+- **Story Count**: Total memories for the story
+- **Character Analysis**: Cross-chapter character relationships  
+- **Embedding Status**: Verify vector embeddings were generated
+- **Session Isolation**: Ensure proper user/agent/run separation
+- **Metadata Structure**: Validate JSON metadata parsing
+
+### **🧪 Key Database Queries:**
+```sql
+-- Check story memories count
+SELECT COUNT(*) FROM memories WHERE json_extract(metadata, '$.story') = 'willowbrook_mystery';
+
+-- Verify character relationships across chapters
+SELECT chapter, characters, content_preview FROM memories WHERE story = 'willowbrook_mystery';
+
+-- Check embedding generation status
+SELECT id, has_embedding, embedding_size FROM memories WHERE story = 'willowbrook_mystery';
+```
+
+### **✅ Expected Validation Results:**
+- All paragraphs stored with unique IDs
+- Character/location searches return relevant content
+- Database footprints show proper metadata structure
+- Session isolation maintained
+- Vector embeddings generated (with API keys)
+- Semantic search returns contextually relevant results
 
 
-When fixing failed test, it need to be done in step by step process using sequential thinking.
-
-## Step 1:
-
-Look at the failure, analyze the code and come up with Root Cause Assertion. Take a note of supporting evidence.
-
-## Step 2:
-
-Validate the assertion by adding logs to the code and re-running the tests case. Make sure the changes are only for diagnostic purpose.
-
-## Step 3:
-
-If Root Cause is validated, come up with design changes that may address the root cause. Use supporting evidence to check how these design changes will fix the issue. Use sequential thinking where ever necessary.
-
-## Step 4:
-
-Plan how to implement design changes.
-
-## Step 5:
-
-Execute the plan
-
-## Step 6:
-
-Validate test fixes. If tests are still broken go back to Step 1 or Step 3 based on if design was incorrect or root cause analysis was incorrect.
+This scenario provides **end-to-end validation** of the MemoryServer's core functionality, from .env loading through complex memory operations to database analysis, exactly replicating our successful testing approach! 🎉
 
 ---
 > Source: [achieveai/LmDotnetTools](https://github.com/achieveai/LmDotnetTools) — distributed by [TomeVault](https://tomevault.io).
