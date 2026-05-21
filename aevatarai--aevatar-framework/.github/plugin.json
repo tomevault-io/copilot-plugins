@@ -1,0 +1,9 @@
+{
+  "name": "aevatarai--aevatar-framework",
+  "displayName": "aevatar-framework",
+  "description": "A distributed actor-based framework built on Microsoft Orleans for building scalable event-sourced applications.",
+  "version": "1.0.0",
+  "author": "aevatarAI",
+  "homepage": "https://github.com/aevatarAI/aevatar-framework",
+  "skills": []
+}
