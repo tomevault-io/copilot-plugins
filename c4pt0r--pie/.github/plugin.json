@@ -1,0 +1,9 @@
+{
+  "name": "c4pt0r--pie",
+  "displayName": "pie",
+  "description": "Rust port of the pi agent harness \u2014 coding agent + LLM runtime stack",
+  "version": "1.0.0",
+  "author": "c4pt0r",
+  "homepage": "https://github.com/c4pt0r/pie",
+  "skills": []
+}
