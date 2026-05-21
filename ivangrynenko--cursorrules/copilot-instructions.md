@@ -1,228 +1,336 @@
-## python-insecure-design
+## python-integrity-failures
 
-> Detect and prevent insecure design patterns in Python applications as defined in OWASP Top 10:2021-A04
+> Detect and prevent software and data integrity failures in Python applications as defined in OWASP Top 10:2021-A08
 
- # Python Insecure Design Security Standards (OWASP A04:2021)
+# Python Software and Data Integrity Failures Standards (OWASP A08:2021)
 
-This rule enforces security best practices to prevent insecure design vulnerabilities in Python applications, as defined in OWASP Top 10:2021-A04.
+This rule enforces security best practices to prevent software and data integrity failures in Python applications, as defined in OWASP Top 10:2021-A08.
 
 <rule>
-name: python_insecure_design
-description: Detect and prevent insecure design patterns in Python applications as defined in OWASP Top 10:2021-A04
+name: python_integrity_failures
+description: Detect and prevent software and data integrity failures in Python applications as defined in OWASP Top 10:2021-A08
 filters:
   - type: file_extension
-    pattern: "\\.(py)$"
+    pattern: "\\.(py|ini|cfg|yml|yaml|json|toml)$"
   - type: file_path
     pattern: ".*"
 
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Lack of input validation
-      - pattern: "def\\s+[a-zA-Z0-9_]+\\([^)]*\\):\\s*(?![^#]*validate|[^#]*clean|[^#]*sanitize|[^#]*check|[^#]*is_valid)"
-        message: "Function lacks input validation. Consider implementing validation for all user-supplied inputs."
+      # Pattern 1: Insecure deserialization with pickle
+      - pattern: "pickle\\.loads\\(|pickle\\.load\\(|cPickle\\.loads\\(|cPickle\\.load\\("
+        message: "Insecure deserialization detected with pickle. Pickle is not secure against maliciously constructed data and should not be used with untrusted input."
         
-      # Pattern 2: Hardcoded business rules
-      - pattern: "if\\s+[a-zA-Z0-9_]+\\s*(==|!=|>|<|>=|<=)\\s*['\"][^'\"]+['\"]:"
-        message: "Hardcoded business rules detected. Consider using configuration files or database-driven rules for better maintainability."
+      # Pattern 2: Insecure deserialization with yaml.load
+      - pattern: "yaml\\.load\\([^,)]+\\)|yaml\\.load\\([^,)]+,\\s*Loader=yaml\\.Loader\\)"
+        message: "Insecure deserialization detected with yaml.load(). Use yaml.safe_load() instead for untrusted input."
         
-      # Pattern 3: Lack of rate limiting
-      - pattern: "@(app|api|route|blueprint)\\.(get|post|put|delete|patch)\\([^)]*\\)\\s*\\n\\s*(?![^#]*rate_limit|[^#]*throttle|[^#]*limiter)"
-        message: "API endpoint lacks rate limiting. Consider implementing rate limiting to prevent abuse."
+      # Pattern 3: Insecure deserialization with marshal
+      - pattern: "marshal\\.loads\\(|marshal\\.load\\("
+        message: "Insecure deserialization detected with marshal. Marshal is not secure against maliciously constructed data."
         
-      # Pattern 4: Insecure default configurations
-      - pattern: "DEBUG\\s*=\\s*True|DEVELOPMENT\\s*=\\s*True|TESTING\\s*=\\s*True"
-        message: "Insecure default configuration detected. Ensure debug/development modes are disabled in production."
+      # Pattern 4: Insecure deserialization with shelve
+      - pattern: "shelve\\.open\\("
+        message: "Potentially insecure deserialization with shelve detected. Shelve uses pickle internally and is not secure against malicious data."
         
-      # Pattern 5: Lack of error handling
-      - pattern: "(?<!try:\\s*\\n)[^#]*\\n\\s*(?!except|finally)"
-        message: "Consider implementing proper error handling with try-except blocks for operations that might fail."
+      # Pattern 5: Insecure use of eval or exec
+      - pattern: "eval\\(|exec\\(|compile\\([^,]+,\\s*['\"][^'\"]+['\"]\\s*,\\s*['\"]exec['\"]\\)"
+        message: "Insecure use of eval() or exec() detected. These functions can execute arbitrary code and should never be used with untrusted input."
         
-      # Pattern 6: Insecure direct object references
-      - pattern: "get_object_or_404\\(\\s*[^,]+,\\s*pk\\s*=\\s*request\\.(GET|POST|args|form|json)\\[['\"][^'\"]+['\"]\\]\\s*\\)|get\\(\\s*id\\s*=\\s*request\\.(GET|POST|args|form|json)"
-        message: "Potential insecure direct object reference. Validate user's permission to access the requested object."
+      # Pattern 6: Missing integrity verification for downloads
+      - pattern: "urllib\\.request\\.urlretrieve\\(|requests\\.get\\([^)]*\\.exe['\"]\\)|requests\\.get\\([^)]*\\.zip['\"]\\)|requests\\.get\\([^)]*\\.tar\\.gz['\"]\\)"
+        message: "File download without integrity verification detected. Always verify the integrity of downloaded files using checksums or digital signatures."
         
-      # Pattern 7: Missing authentication checks
-      - pattern: "@(app|api|route|blueprint)\\.(get|post|put|delete|patch)\\([^)]*\\)\\s*\\n\\s*(?!.*@login_required|.*@auth\\.login_required|.*@jwt_required|.*current_user|.*request\\.user)"
-        message: "Endpoint lacks authentication checks. Consider adding authentication requirements for sensitive operations."
+      # Pattern 7: Insecure package installation
+      - pattern: "pip\\s+install\\s+[^-]|subprocess\\.(?:call|run|Popen)\\(['\"]pip\\s+install"
+        message: "Insecure package installation detected. Specify package versions and consider using hash verification for pip installations."
         
-      # Pattern 8: Lack of proper logging
-      - pattern: "except\\s+[a-zA-Z0-9_]+\\s*(?:as\\s+[a-zA-Z0-9_]+)?:\\s*(?!.*logger\\.|.*logging\\.|.*print)"
-        message: "Exception caught without proper logging. Implement proper logging for exceptions to aid in debugging and monitoring."
+      # Pattern 8: Missing integrity checks for configuration
+      - pattern: "config\\.read\\(|json\\.loads?\\(|yaml\\.safe_load\\(|toml\\.loads?\\("
+        message: "Configuration loading detected. Ensure integrity verification for configuration files, especially in production environments."
         
-      # Pattern 9: Insecure file uploads
-      - pattern: "request\\.files\\[['\"][^'\"]+['\"]\\]|FileField\\(|FileStorage\\("
-        message: "File upload functionality detected. Ensure proper validation of file types, sizes, and implement virus scanning if applicable."
+      # Pattern 9: Insecure temporary file creation
+      - pattern: "tempfile\\.mktemp\\(|os\\.tempnam\\(|os\\.tmpnam\\("
+        message: "Insecure temporary file creation detected. Use tempfile.mkstemp() or tempfile.TemporaryFile() instead to avoid race conditions."
         
-      # Pattern 10: Lack of security headers
-      - pattern: "response\\.(headers|set_header)\\([^)]*\\)|return\\s+Response\\([^)]*\\)|return\\s+make_response\\([^)]*\\)"
-        message: "Consider adding security headers (Content-Security-Policy, X-Content-Type-Options, etc.) to HTTP responses."
+      # Pattern 10: Insecure file operations with untrusted paths
+      - pattern: "open\\([^,)]+\\+\\s*request\\.|open\\([^,)]+\\+\\s*user_|open\\([^,)]+\\+\\s*input\\("
+        message: "Potentially insecure file operation with user-controlled path detected. Validate and sanitize file paths from untrusted sources."
+        
+      # Pattern 11: Missing integrity checks for updates
+      - pattern: "auto_update|self_update|check_for_updates"
+        message: "Update mechanism detected. Ensure proper integrity verification for software updates using digital signatures or secure checksums."
+        
+      # Pattern 12: Insecure plugin or extension loading
+      - pattern: "importlib\\.import_module\\(|__import__\\(|load_plugin|load_extension|load_module"
+        message: "Dynamic module loading detected. Implement integrity checks and validation before loading external modules or plugins."
+        
+      # Pattern 13: Insecure use of subprocess with shell=True
+      - pattern: "subprocess\\.(?:call|run|Popen)\\([^,)]*shell\\s*=\\s*True"
+        message: "Insecure subprocess execution with shell=True detected. This can lead to command injection if user input is involved."
+        
+      # Pattern 14: Missing integrity verification for serialized data
+      - pattern: "json\\.loads?\\([^,)]*request\\.|json\\.loads?\\([^,)]*user_|json\\.loads?\\([^,)]*input\\("
+        message: "Deserialization of user-controlled data detected. Implement schema validation or integrity checks before processing."
+        
+      # Pattern 15: Insecure use of globals or locals
+      - pattern: "globals\\(\\)\\[|locals\\(\\)\\["
+        message: "Potentially insecure modification of globals or locals detected. This can lead to unexpected behavior or security issues."
 
   - type: suggest
     message: |
-      **Python Secure Design Best Practices:**
+      **Python Software and Data Integrity Best Practices:**
       
-      1. **Implement Defense in Depth:**
-         - Layer security controls throughout your application
-         - Don't rely on a single security mechanism
-         - Assume that each security layer can be bypassed
-      
-      2. **Use Secure Defaults:**
-         - Start with secure configurations by default
-         - Require explicit opt-in for less secure options
-         - Example for Flask:
+      1. **Secure Deserialization:**
+         - Avoid using pickle, marshal, or shelve with untrusted data
+         - Use safer alternatives like JSON with schema validation
+         - Example with JSON schema validation:
            ```python
-           app.config.update(
-               SESSION_COOKIE_SECURE=True,
-               SESSION_COOKIE_HTTPONLY=True,
-               SESSION_COOKIE_SAMESITE='Lax',
-               PERMANENT_SESSION_LIFETIME=timedelta(hours=1)
-           )
-           ```
-      
-      3. **Implement Proper Access Control:**
-         - Use role-based access control (RBAC)
-         - Implement principle of least privilege
-         - Validate access at the controller and service layers
-         - Example:
-           ```python
-           @app.route('/admin')
-           @roles_required('admin')  # Using Flask-Security
-           def admin_dashboard():
-               return render_template('admin/dashboard.html')
-           ```
-      
-      4. **Use Rate Limiting:**
-         - Protect against brute force and DoS attacks
-         - Example with Flask-Limiter:
-           ```python
-           from flask_limiter import Limiter
-           limiter = Limiter(app)
+           import json
+           import jsonschema
            
-           @app.route('/login', methods=['POST'])
-           @limiter.limit("5 per minute")
-           def login():
-               # Login logic
-           ```
-      
-      5. **Implement Proper Error Handling:**
-         - Catch and log exceptions appropriately
-         - Return user-friendly error messages without exposing sensitive details
-         - Example:
-           ```python
+           # Define a schema for validation
+           schema = {
+               "type": "object",
+               "properties": {
+                   "name": {"type": "string"},
+                   "age": {"type": "integer", "minimum": 0}
+               },
+               "required": ["name", "age"]
+           }
+           
+           # Validate data against schema
            try:
-               # Operation that might fail
-               result = perform_operation(user_input)
-           except ValidationError as e:
-               logger.warning(f"Validation error: {str(e)}")
-               return jsonify({"error": "Invalid input provided"}), 400
-           except Exception as e:
-               logger.error(f"Unexpected error: {str(e)}", exc_info=True)
-               return jsonify({"error": "An unexpected error occurred"}), 500
+               data = json.loads(user_input)
+               jsonschema.validate(instance=data, schema=schema)
+               # Process data safely
+           except (json.JSONDecodeError, jsonschema.exceptions.ValidationError) as e:
+               # Handle validation error
+               print(f"Invalid data: {e}")
            ```
       
-      6. **Use Configuration Management:**
-         - Store configuration in environment variables or secure vaults
-         - Use different configurations for development and production
+      2. **YAML Safe Loading:**
+         - Always use yaml.safe_load() instead of yaml.load()
          - Example:
            ```python
+           import yaml
+           
+           # Safe way to load YAML
+           data = yaml.safe_load(yaml_string)
+           
+           # Avoid this:
+           # data = yaml.load(yaml_string)  # Insecure!
+           ```
+      
+      3. **Integrity Verification for Downloads:**
+         - Verify checksums or signatures for downloaded files
+         - Example:
+           ```python
+           import hashlib
+           import requests
+           
+           def download_with_integrity_check(url, expected_hash):
+               response = requests.get(url)
+               file_data = response.content
+               
+               # Calculate hash
+               calculated_hash = hashlib.sha256(file_data).hexdigest()
+               
+               # Verify integrity
+               if calculated_hash != expected_hash:
+                   raise ValueError("Integrity check failed: hash mismatch")
+                   
+               return file_data
+           ```
+      
+      4. **Secure Package Installation:**
+         - Pin dependencies to specific versions
+         - Use hash verification for pip installations
+         - Example requirements.txt with hashes:
+           ```
+           # requirements.txt
+           requests==2.31.0 --hash=sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1
+           ```
+      
+      5. **Secure Configuration Management:**
+         - Validate configuration file integrity
+         - Use environment-specific configurations
+         - Example:
+           ```python
+           import json
+           import hmac
+           import hashlib
+           
+           def load_config_with_integrity(config_file, secret_key):
+               with open(config_file, 'r') as f:
+                   content = f.read()
+                   
+               # Split content into data and signature
+               data, _, signature = content.rpartition('\n')
+               
+               # Verify integrity
+               expected_signature = hmac.new(
+                   secret_key.encode(), 
+                   data.encode(), 
+                   hashlib.sha256
+               ).hexdigest()
+               
+               if not hmac.compare_digest(signature, expected_signature):
+                   raise ValueError("Configuration integrity check failed")
+                   
+               return json.loads(data)
+           ```
+      
+      6. **Secure Temporary Files:**
+         - Use secure temporary file functions
+         - Example:
+           ```python
+           import tempfile
            import os
-           from dotenv import load_dotenv
            
-           load_dotenv()
+           # Secure temporary file creation
+           fd, temp_path = tempfile.mkstemp()
+           try:
+               with os.fdopen(fd, 'w') as temp_file:
+                   temp_file.write('data')
+               # Process the file
+           finally:
+               os.unlink(temp_path)  # Clean up
            
-           DEBUG = os.getenv('DEBUG', 'False') == 'True'
-           SECRET_KEY = os.getenv('SECRET_KEY')
-           DATABASE_URL = os.getenv('DATABASE_URL')
+           # Or use context manager
+           with tempfile.TemporaryFile() as temp_file:
+               temp_file.write(b'data')
+               temp_file.seek(0)
+               # Process the file
            ```
       
-      7. **Implement Proper Logging:**
-         - Log security events and exceptions
-         - Include contextual information but avoid sensitive data
-         - Use structured logging
+      7. **Secure Update Mechanisms:**
+         - Verify signatures for updates
+         - Use HTTPS for update downloads
          - Example:
            ```python
-           import logging
+           import requests
+           import gnupg
            
-           logger = logging.getLogger(__name__)
-           
-           def user_action(user_id, action):
-               logger.info("User action", extra={
-                   "user_id": user_id,
-                   "action": action,
-                   "timestamp": datetime.now().isoformat()
-               })
+           def secure_update(update_url, signature_url, gpg_key):
+               # Download update and signature
+               update_data = requests.get(update_url).content
+               signature = requests.get(signature_url).content
+               
+               # Verify signature
+               gpg = gnupg.GPG()
+               gpg.import_keys(gpg_key)
+               verified = gpg.verify_data(signature, update_data)
+               
+               if not verified:
+                   raise ValueError("Update signature verification failed")
+                   
+               return update_data
            ```
       
-      8. **Use Security Headers:**
-         - Implement Content-Security-Policy, X-Content-Type-Options, etc.
-         - Example with Flask:
-           ```python
-           from flask_talisman import Talisman
-           
-           talisman = Talisman(
-               app,
-               content_security_policy={
-                   'default-src': "'self'",
-                   'script-src': "'self'"
-               }
-           )
-           ```
-      
-      9. **Implement Secure File Handling:**
-         - Validate file types, sizes, and content
-         - Store files outside the web root
-         - Use secure file permissions
+      8. **Secure Plugin Loading:**
+         - Validate plugins before loading
+         - Implement allowlisting for plugins
          - Example:
            ```python
-           import os
-           from werkzeug.utils import secure_filename
+           import importlib
+           import hashlib
            
-           ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg'}
-           MAX_CONTENT_LENGTH = 1 * 1024 * 1024  # 1MB
+           # Allowlist of approved plugins with their hashes
+           APPROVED_PLUGINS = {
+               'safe_plugin': 'sha256:1234567890abcdef',
+               'other_plugin': 'sha256:abcdef1234567890'
+           }
            
-           def allowed_file(filename):
-               return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-           
-           @app.route('/upload', methods=['POST'])
-           def upload_file():
-               if 'file' not in request.files:
-                   return jsonify({"error": "No file part"}), 400
-               
-               file = request.files['file']
-               if file.filename == '':
-                   return jsonify({"error": "No selected file"}), 400
-               
-               if file and allowed_file(file.filename):
-                   filename = secure_filename(file.filename)
-                   file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                   return jsonify({"success": True}), 200
-               
-               return jsonify({"error": "File type not allowed"}), 400
+           def load_plugin_safely(plugin_name, plugin_path):
+               # Check if plugin is in allowlist
+               if plugin_name not in APPROVED_PLUGINS:
+                   raise ValueError(f"Plugin {plugin_name} is not approved")
+                   
+               # Calculate plugin file hash
+               with open(plugin_path, 'rb') as f:
+                   plugin_hash = 'sha256:' + hashlib.sha256(f.read()).hexdigest()
+                   
+               # Verify hash matches expected value
+               if plugin_hash != APPROVED_PLUGINS[plugin_name]:
+                   raise ValueError(f"Plugin {plugin_name} failed integrity check")
+                   
+               # Load plugin safely
+               return importlib.import_module(plugin_name)
            ```
       
-      10. **Use Threat Modeling:**
-          - Identify potential threats during design phase
-          - Implement controls to mitigate identified threats
-          - Regularly review and update threat models
+      9. **Secure Subprocess Execution:**
+         - Avoid shell=True
+         - Use allowlists for commands
+         - Example:
+           ```python
+           import subprocess
+           import shlex
+           
+           def run_command_safely(command, arguments):
+               # Allowlist of safe commands
+               SAFE_COMMANDS = {'ls', 'echo', 'cat'}
+               
+               if command not in SAFE_COMMANDS:
+                   raise ValueError(f"Command {command} is not allowed")
+                   
+               # Build command with arguments
+               cmd = [command] + arguments
+               
+               # Execute without shell
+               return subprocess.run(cmd, shell=False, capture_output=True, text=True)
+           ```
+      
+      10. **Input Validation and Sanitization:**
+          - Validate all inputs before processing
+          - Use schema validation for structured data
+          - Example with Pydantic:
+            ```python
+            from pydantic import BaseModel, validator
+            
+            class UserData(BaseModel):
+                username: str
+                age: int
+                
+                @validator('username')
+                def username_must_be_valid(cls, v):
+                    if not v.isalnum() or len(v) > 30:
+                        raise ValueError('Username must be alphanumeric and <= 30 chars')
+                    return v
+                    
+                @validator('age')
+                def age_must_be_reasonable(cls, v):
+                    if v < 0 or v > 120:
+                        raise ValueError('Age must be between 0 and 120')
+                    return v
+            
+            # Usage
+            try:
+                user = UserData(username=user_input_name, age=user_input_age)
+                # Process validated data
+            except ValueError as e:
+                # Handle validation error
+                print(f"Invalid data: {e}")
+            ```
 
   - type: validate
     conditions:
-      # Check 1: Proper input validation
-      - pattern: "validate|clean|sanitize|check|is_valid"
+      # Check 1: Safe YAML loading
+      - pattern: "yaml\\.safe_load\\("
+        message: "Using safe YAML loading."
+      
+      # Check 2: Secure temporary file usage
+      - pattern: "tempfile\\.mkstemp\\(|tempfile\\.TemporaryFile\\(|tempfile\\.NamedTemporaryFile\\("
+        message: "Using secure temporary file functions."
+      
+      # Check 3: Secure subprocess usage
+      - pattern: "subprocess\\.(?:call|run|Popen)\\([^,)]*shell\\s*=\\s*False"
+        message: "Using subprocess with shell=False."
+      
+      # Check 4: Input validation
+      - pattern: "jsonschema\\.validate|pydantic|dataclass|@validator"
         message: "Implementing input validation."
-      
-      # Check 2: Proper error handling
-      - pattern: "try:\\s*\\n[^#]*\\n\\s*(except|finally)"
-        message: "Using proper error handling with try-except blocks."
-      
-      # Check 3: Rate limiting implementation
-      - pattern: "rate_limit|throttle|limiter"
-        message: "Implementing rate limiting for API endpoints."
-      
-      # Check 4: Proper logging
-      - pattern: "logger\\.|logging\\."
-        message: "Using proper logging mechanisms."
 
 metadata:
   priority: high
@@ -230,25 +338,26 @@ metadata:
   tags:
     - security
     - python
-    - design
-    - architecture
+    - integrity
+    - deserialization
     - owasp
     - language:python
     - framework:django
     - framework:flask
     - framework:fastapi
     - category:security
-    - subcategory:design
+    - subcategory:integrity
     - standard:owasp-top10
-    - risk:a04-insecure-design
+    - risk:a08-software-data-integrity-failures
   references:
-    - "https://owasp.org/Top10/A04_2021-Insecure_Design/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Secure_Product_Design_Cheat_Sheet.html"
-    - "https://flask.palletsprojects.com/en/latest/security/"
-    - "https://docs.djangoproject.com/en/stable/topics/security/"
-    - "https://fastapi.tiangolo.com/advanced/security/"
-    - "https://owasp.org/www-project-proactive-controls/"
-</rule>
+    - "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+    - "https://docs.python.org/3/library/pickle.html#restricting-globals"
+    - "https://pyyaml.org/wiki/PyYAMLDocumentation"
+    - "https://python-security.readthedocs.io/packages.html"
+    - "https://docs.python.org/3/library/tempfile.html#security"
+</rule> 
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
