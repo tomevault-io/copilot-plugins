@@ -1,105 +1,241 @@
-## cursor-rules-tdd
+## development
 
-> Test-driven development guidelines for implementing cursor rules functionality
+> Development best practices and principles for writing clean, maintainable code
 
 
 <rule>
-name: cursor_rules_tdd
-description: Test-driven development approach for implementing cursor rules functionality
+name: development_best_practices
+description: Guidelines for writing high-quality, maintainable code
 filters:
   - type: file_extension
-    pattern: "\\.(ts|tsx|test\\.ts)$"
+    pattern: "\\.(ts|tsx|js|jsx)$"
   - type: content
-    pattern: "(?s)CursorRule|CursorRuleManager"
+    pattern: "(?s)class|function|interface|type|export"
 
 actions:
   - type: suggest
     message: |
-      When implementing cursor rules, follow these test-driven development guidelines:
+      Follow these development best practices:
 
-      1. Core Types:
-      ```typescript
-      interface CursorRule {
-        name: string;
-        description: string;
-        glob?: string[];
-        instructions: string[];
-        metadata?: Record<string, unknown>;
-      }
+      1. DRY (Don't Repeat Yourself):
+         ```typescript
+         // ❌ Bad: Code duplication
+         function validateUser(user: User) {
+           if (!user.email) throw new Error('Email required');
+           if (!user.email.includes('@')) throw new Error('Invalid email');
+         }
+         
+         function validateAdmin(admin: Admin) {
+           if (!admin.email) throw new Error('Email required');
+           if (!admin.email.includes('@')) throw new Error('Invalid email');
+         }
 
-      interface CursorRuleManager {
-        addRule(rule: CursorRule): Promise<void>;
-        getRuleByName(name: string): Promise<CursorRule | null>;
-        getRulesByGlob(filePath: string): Promise<CursorRule[]>;
-        listRules(): Promise<CursorRule[]>;
-        removeRule(name: string): Promise<boolean>;
-      }
-      ```
+         // ✅ Good: Reusable validation
+         function validateEmail(email: string) {
+           if (!email) throw new Error('Email required');
+           if (!email.includes('@')) throw new Error('Invalid email');
+         }
 
-      2. Test Structure:
-      ```typescript
-      // Basic Operations
-      describe('CursorRuleManager - Basic Operations', () => {
-        test('should create and retrieve a rule by name');
-        test('should return null for non-existent rule');
-      });
+         function validateUser(user: User) {
+           validateEmail(user.email);
+         }
 
-      // Glob Pattern Matching
-      describe('CursorRuleManager - Glob Matching', () => {
-        test('should retrieve rules matching file path');
-        test('should return empty array for non-matching path');
-      });
-
-      // Rule Management
-      describe('CursorRuleManager - Management', () => {
-        test('should list all rules');
-        test('should remove existing rule');
-      });
-      ```
-
-      3. Implementation Steps:
-         - Create core interfaces in src/core/rules/types.ts
-         - Implement manager in src/core/rules/manager.ts
-         - Add tests in src/core/rules/__tests__/
-         - Integrate with agent system in src/core/agent.ts
-
-      4. File Structure:
+         function validateAdmin(admin: Admin) {
+           validateEmail(admin.email);
+         }
          ```
-         src/
-         ├── core/
-         │   └── rules/
-         │       ├── __tests__/
-         │       │   └── manager.test.ts
-         │       ├── types.ts
-         │       ├── manager.ts
-         │       └── index.ts
+
+      2. SOLID Principles:
+         a) Single Responsibility:
+            ```typescript
+            // ❌ Bad: Class does too many things
+            class UserManager {
+              createUser() { /* ... */ }
+              validateEmail() { /* ... */ }
+              sendEmail() { /* ... */ }
+              updateDatabase() { /* ... */ }
+            }
+
+            // ✅ Good: Separated responsibilities
+            class UserCreator {
+              constructor(
+                private emailValidator: EmailValidator,
+                private emailService: EmailService,
+                private userRepository: UserRepository
+              ) {}
+
+              async createUser(userData: UserData) {
+                // Orchestrate the process using injected dependencies
+              }
+            }
+            ```
+
+         b) Open/Closed:
+            ```typescript
+            // ❌ Bad: Modifying existing code for new features
+            class PaymentProcessor {
+              process(payment: Payment) {
+                if (payment.type === 'credit') { /* ... */ }
+                if (payment.type === 'debit') { /* ... */ }
+                // Adding new payment types requires modifying this class
+              }
+            }
+
+            // ✅ Good: Extensible through inheritance/implementation
+            interface PaymentStrategy {
+              process(payment: Payment): Promise<void>;
+            }
+
+            class CreditCardProcessor implements PaymentStrategy {
+              process(payment: Payment) { /* ... */ }
+            }
+
+            class DebitCardProcessor implements PaymentStrategy {
+              process(payment: Payment) { /* ... */ }
+            }
+            ```
+
+      3. Composition Over Inheritance:
+         ```typescript
+         // ❌ Bad: Deep inheritance hierarchy
+         class Animal {
+           move() { /* ... */ }
+         }
+         class Bird extends Animal {
+           fly() { /* ... */ }
+         }
+         class Eagle extends Bird {
+           hunt() { /* ... */ }
+         }
+
+         // ✅ Good: Composition with behaviors
+         interface Movable {
+           move(): void;
+         }
+         interface Flyable {
+           fly(): void;
+         }
+         interface Hunter {
+           hunt(): void;
+         }
+
+         class Eagle implements Movable, Flyable, Hunter {
+           constructor(
+             private movement: MovementBehavior,
+             private flight: FlightBehavior,
+             private hunting: HuntingBehavior
+           ) {}
+
+           move() { this.movement.execute(); }
+           fly() { this.flight.execute(); }
+           hunt() { this.hunting.execute(); }
+         }
+         ```
+
+      4. Error Handling:
+         ```typescript
+         // ❌ Bad: Swallowing errors
+         try {
+           riskyOperation();
+         } catch (error) {
+           console.log('Error occurred');
+         }
+
+         // ✅ Good: Proper error handling
+         try {
+           await riskyOperation();
+         } catch (error) {
+           if (error instanceof ValidationError) {
+             // Handle validation errors
+             throw new UserFacingError('Invalid input', { cause: error });
+           }
+           // Log unexpected errors
+           logger.error('Unexpected error', { error });
+           throw new SystemError('Internal error', { cause: error });
+         }
+         ```
+
+      5. Clean Code Practices:
+         - Use meaningful variable and function names
+         - Keep functions small and focused
+         - Limit function parameters (max 3, use objects for more)
+         - Write self-documenting code
+         - Use early returns to reduce nesting
+         ```typescript
+         // ❌ Bad: Deep nesting and unclear names
+         function p(d: any) {
+           if (d) {
+             if (d.u) {
+               if (d.u.a) {
+                 return d.u.a;
+               }
+             }
+           }
+           return null;
+         }
+
+         // ✅ Good: Clear names and early returns
+         function getAdminStatus(userData?: UserData): boolean {
+           if (!userData) return false;
+           if (!userData.user) return false;
+           return userData.user.isAdmin ?? false;
+         }
          ```
 
 examples:
   - input: |
-      // Bad: Test file in wrong location
-      rules/__tests__/manager.test.ts
+      // ❌ Bad: Tight coupling and poor separation
+      class OrderProcessor {
+        private db: Database;
+        private emailer: Emailer;
+        
+        processOrder(order: Order) {
+          this.db.save(order);
+          this.emailer.sendConfirmation(order);
+        }
+      }
 
-      // Good: Test file in correct location
-      src/core/rules/__tests__/manager.test.ts
-    output: "Correctly structured test implementation"
+      // ✅ Good: Dependency injection and separation
+      interface OrderRepository {
+        save(order: Order): Promise<void>;
+      }
+
+      interface NotificationService {
+        sendConfirmation(order: Order): Promise<void>;
+      }
+
+      class OrderProcessor {
+        constructor(
+          private repository: OrderRepository,
+          private notifier: NotificationService
+        ) {}
+
+        async processOrder(order: Order) {
+          await this.repository.save(order);
+          await this.notifier.sendConfirmation(order);
+        }
+      }
+    output: "Well-structured code with proper dependency injection"
 
   - input: |
-      // Bad: Missing test categories
-      describe('CursorRuleManager', () => {
-        test('should work');
-      });
+      // ❌ Bad: Magic numbers and poor naming
+      function calc(x: number) {
+        return x * 1.2 + 5.99;
+      }
 
-      // Good: Properly categorized tests
-      describe('CursorRuleManager - Basic Operations', () => {
-        test('should create and retrieve a rule by name');
-      });
-    output: "Correctly structured test suite"
+      // ✅ Good: Clear constants and intention-revealing names
+      const TAX_RATE = 0.20;
+      const SHIPPING_COST = 5.99;
+
+      function calculateTotalPrice(basePrice: number): number {
+        return basePrice * (1 + TAX_RATE) + SHIPPING_COST;
+      }
+    output: "Self-documenting code with clear intent"
 
 metadata:
   priority: high
   version: 1.0
-  categories: ["testing", "implementation", "rules"]
+  categories: ["development", "best-practices", "clean-code", "SOLID"]
 </rule> 
 
 ---
