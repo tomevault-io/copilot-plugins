@@ -1,85 +1,117 @@
-## adapter-conventions
+## changelog
 
-> ArchiPy adapter layer conventions — ports, mocks, session managers, lazy imports
+> Standards for writing and updating ArchiPy changelog files
 
 
-# Adapter Conventions
+# Changelog Standards
 
-## Required Files per Adapter
+## File & Directory Structure
 
-Every adapter package must contain at minimum:
+- Major version folder: `docs/community/changelog/<MAJOR>/`
+- Per-release file: `docs/community/changelog/<MAJOR>/<version>.md`
+- Each major folder must have an `index.md` with a summary table
+- Root index: `docs/community/changelog/index.md` lists all series
 
+## Page Format (per-version file)
+
+### Frontmatter
+
+```yaml
+---
+title: "Changelog <version>"
+description: "Release notes for ArchiPy <version>"
+---
 ```
-archipy/adapters/<service>/
-├── __init__.py
-├── ports.py        # Abstract interface (ABC)
-└── adapters.py     # Concrete implementation
+
+### H1 & Navigation
+
+```markdown
+# <version> — <YYYY-MM-DD>
+
+[← <newer>](<newer>.md) | [<older> →](<older>.md) | [↑ <MAJOR>.x series](index.md)
 ```
 
-A `mocks.py` is **optional** — only add it when the adapter is used directly in BDD tests and an in-memory test double is needed (e.g., Redis, Kafka). Do not create mocks for adapters that are tested via real instances or testcontainers.
+Navigation link rules:
+- Newest release in series: `[← <prev>](<prev>.md) | [↑ <MAJOR>.x series](index.md)`
+- Oldest release in series: `[<next> →](<next>.md) | [↑ <MAJOR>.x series](index.md)`
+- Middle releases: include both prev and next links
 
-## Ports (Abstract Interfaces)
+## Sections
 
-`ports.py` defines the contract using `abc.ABC`. Implementations (and mocks, if they exist) must both satisfy this interface.
+Use only sections that apply. Always in this order:
 
-```python
+1. `## Added`
+2. `## Changed`
+3. `## Fixed`
+4. `## Removed`
+5. `## Tests`
+6. `## Chore`
+7. `## Dependencies`
+
+H3 sub-sections follow the pattern `### <Layer> - <Component>`:
+
+```markdown
+## Fixed
+
+### Adapters - Kafka
+
+- **SSL Config Typing** - Improved type safety and optional-field handling for SSL configuration.
+    - Replaced dict merge (`|=`) with explicit per-key assignment
+    - Optional SSL fields now fall back to `""` when `None`
+```
+
+Valid layer names: `Models`, `Adapters`, `Helpers`, `Configs`, `Tests`, `Chore`, `Dependencies`.
+
+## Writing Style
+
+- Entry format: `- **Bold Title** - Prose description.`
+- Sub-bullets use 4-space indent for implementation details
+- No trailing period on the bold title; use a sentence-ending period on the prose
+- No emoji; no bare `print()` calls; always double quotes
+
+```markdown
 # ✅ GOOD
-from abc import ABC, abstractmethod
+- **Organization Management** - Implemented comprehensive organization management functionality.
+    - Added `OrganizationAdapter` with CRUD operations
+    - Exposed `GET /organizations/{id}` endpoint
 
-class CachePort(ABC):
-    @abstractmethod
-    def get(self, key: str) -> str | None: ...
-
-    @abstractmethod
-    def set(self, key: str, value: str, ttl: int | None = None) -> None: ...
+# ❌ BAD
+- Organization Management: implemented org management  (missing bold, no period, lowercase verb)
 ```
 
-- `ANN401` (Any) is allowed in ports for `**kwargs` parameters.
-- `ARG002` (unused arguments) is allowed — interface stubs may not use all params.
+## Index Updates
 
-## Mocks (Test Doubles) — Optional
+After creating a new version file, update **three** files and edit **one existing version file**:
 
-Add `mocks.py` only when an in-memory test double is genuinely needed for BDD tests. When present, mocks are exempt from:
-- `ARG001`, `ARG002`, `ARG004`, `ARG005` — unused arguments common in mock signatures
-- `ANN401` — Any types for compatibility
-- `PLR0913` — mock constructors may accept many params
+### Previously newest version file
 
-For adapters tested via real service instances (e.g., using `testcontainers`), skip `mocks.py` entirely.
+The release that was the latest before your new one had no "newer" link. Add the back-link to it:
 
-## Session Managers
+```markdown
+# ❌ BEFORE (4.3.5 was the newest)
+[← 4.3.4](4.3.4.md) | [↑ 4.x series](index.md)
 
-Database adapters use `session_manager_registry.py` for managing SQLAlchemy sessions. These files use lazy imports (`PLC0415`) to break circular import chains — this is intentional and expected.
-
-```python
-# ✅ GOOD — lazy import in session registry
-def get_session_manager() -> SessionManager:
-    from archipy.adapters.postgres.sqlalchemy.adapters import PostgresAdapter  # noqa: PLC0415
-    ...
+# ✅ AFTER (4.3.6 is now newest; 4.3.5 becomes middle)
+[← 4.3.6](4.3.6.md) | [4.3.4 →](4.3.4.md) | [↑ 4.x series](index.md)
 ```
 
-## Async vs Sync Adapters
+### `docs/community/changelog/<MAJOR>/index.md` (and root index)
 
-- Async variants are declared as separate `optional-dependencies` extras (e.g., `sqlalchemy-async`, `starrocks-async`).
-- Async adapters use `asyncio` and `sqlalchemy[asyncio]`.
-- Sync and async implementations are separate classes — do not mix `async def` into sync adapter classes.
+Prepend a row (newest first) to the table:
 
-## Exception Handling at Boundaries
-
-Adapters at the infrastructure boundary (Kafka, Redis, ScyllaDB) may use broad `except Exception` (`BLE001`) only at the outermost boundary where converting to domain errors:
-
-```python
-# ✅ GOOD — broad catch only at adapter boundary, then re-raise as domain error
-try:
-    await self._client.produce(topic, message)
-except Exception as e:  # noqa: BLE001
-    raise KafkaProduceError("Failed to produce message") from e
+```markdown
+| [<ver>](<ver>.md) | YYYY-MM-DD | <One-line summary of most notable change> |
 ```
 
-## Optional Dependency Imports
+### `docs/community/changelog/index.md`
 
-Adapters rely on their optional extra being installed — do **not** use lazy imports to guard third-party dependencies inside adapter classes. If the extra is not installed, the import at module level will fail with a clear `ImportError`, which is the expected behavior.
+Update the release count and version range for the affected series:
 
-Lazy imports (`PLC0415`) are only permitted in `session_manager_registry.py` files to break circular import chains, and in `archipy/helpers/` for optional utility dependencies.
+```markdown
+## [4.x Series](4/index.md)
+
+13 releases — from 4.0.0 to 4.3.6
+```
 
 ---
 > Source: [SyntaxArc/ArchiPy](https://github.com/SyntaxArc/ArchiPy) — distributed by [TomeVault](https://tomevault.io).
