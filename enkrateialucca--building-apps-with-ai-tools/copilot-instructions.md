@@ -1,75 +1,64 @@
-## js-rules
+## project-structure
 
-> JavaScript coding standards and best practices
+> Project structure and organization guidelines for AI-assisted web development
 
 
-# JavaScript Coding Standards
+# Project Structure and Organization
 
-## Code Style
-- Use 2-space indentation
-- Use single quotes for strings
-- Always use semicolons
-- Maximum line length: 80 characters
-- Use meaningful variable and function names
+This project follows a structured approach to building simple web apps with AI tools.
 
-## Modern JavaScript Features
-- Use `const` for variables that won't be reassigned
-- Use `let` for variables that will be reassigned
-- Avoid `var` entirely
-- Use arrow functions for short, simple functions
-- Use template literals for string interpolation
-- Use destructuring for object and array assignment
+## Repository Structure
 
-## Error Handling
-- Always wrap async operations in try/catch blocks
-- Provide meaningful error messages
-- Log errors appropriately (console.error for debugging)
-- Handle edge cases gracefully
+- **apps/**: Complete application examples
+  - Each app should be self-contained with its own directory
+  - Use descriptive names (e.g., `quiz-app`, `habit-tracker`, `geo-spatial-app-air-quality`)
+  - Include README.md for complex apps with setup instructions
 
-## DOM Manipulation
-- Use `querySelector` and `querySelectorAll` instead of older DOM APIs
-- Cache DOM elements when used multiple times
-- Use event delegation for dynamic elements
-- Avoid inline event handlers in HTML
+- **tutorials/**: Step-by-step learning materials
+  - Markdown files with clear instructions
+  - Include code examples and best practices
+  - Reference specific apps in the `apps/` directory
 
-## Performance
-- Minimize DOM queries
-- Use `requestAnimationFrame` for animations
-- Debounce or throttle event handlers when appropriate
-- Use efficient data structures and algorithms
+- **demos/**: Demonstration materials and walkthroughs
+  - Organized by topic or tool (e.g., `1-claude-walkthrough`, `2-cursor-walkthrough`)
+  - Include migration guides and examples
 
-## Example Code
+- **presentation/**: Course materials and visual assets
+  - PDFs, images, and HTML presentations
+  - Keep assets organized by date or topic
 
-```javascript
-'use strict';
+## App Development Standards
 
-// Good: Modern JavaScript with proper error handling
-async function fetchUserData(userId) {
-  try {
-    const response = await fetch(`/api/users/${userId}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const userData = await response.json();
-    return userData;
-  } catch (error) {
-    console.error('Failed to fetch user data:', error);
-    return null;
-  }
-}
+### File Organization
+- **Single-file apps**: Use `index.html` with embedded CSS and JavaScript
+- **Multi-file apps**: Organize as `index.html`, `styles.css`, `script.js`
+- **Complex apps**: Use subdirectories for `css/`, `js/`, `assets/`
 
-// Good: Event delegation and modern DOM manipulation
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('#user-list');
-  
-  container.addEventListener('click', (e) => {
-    if (e.target.matches('.user-item')) {
-      const userId = e.target.dataset.userId;
-      handleUserClick(userId);
-    }
-  });
-});
-```
+### Naming Conventions
+- Use kebab-case for directories and files
+- Use descriptive names that indicate functionality
+- Include version numbers for iterations (e.g., `quiz-app-version2`)
+
+### Documentation Requirements
+- Every app should have a clear purpose
+- Include setup instructions for apps requiring dependencies
+- Document any external API requirements
+- Provide example data files when applicable
+
+## Key Files to Reference
+
+- [README.md](mdc:README.md) - Main project documentation
+- [apps/simple-webpage/index.html](mdc:apps/simple-webpage/index.html) - Basic landing page example
+- [apps/quiz-app/index.html](mdc:apps/quiz-app/index.html) - Interactive quiz application
+- [tutorials/first-web-app.md](mdc:tutorials/first-web-app.md) - Getting started guide
+
+## Development Workflow
+
+1. **Planning**: Define the problem and requirements
+2. **Specification**: Create detailed spec documents
+3. **Prototyping**: Build initial version with AI assistance
+4. **Implementation**: Refine and polish the application
+5. **Documentation**: Update README and add examples
 
 ---
 > Source: [EnkrateiaLucca/building-apps-with-ai-tools](https://github.com/EnkrateiaLucca/building-apps-with-ai-tools) — distributed by [TomeVault](https://tomevault.io).
