@@ -4,7 +4,7 @@
   "repo": "OptimusKG",
   "description": "A modern multimodal knowledge graph with type-specific metadata across biomedical domains.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mims-harvard/OptimusKG",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T20:34:28Z"
+  "distributed_at": "2026-05-21T05:45:54Z"
 }
