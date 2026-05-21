@@ -1,0 +1,9 @@
+{
+  "name": "mrdav30--gridforge",
+  "displayName": "GridForge",
+  "description": "A high-performance, deterministic voxel grid system for spatial partitioning, simulation, and game development",
+  "version": "1.0.0",
+  "author": "mrdav30",
+  "homepage": "https://github.com/mrdav30/GridForge",
+  "skills": []
+}
