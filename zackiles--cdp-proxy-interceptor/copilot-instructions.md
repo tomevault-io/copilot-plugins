@@ -1,17 +1,27 @@
-## finalize-work
+## generate-prompt
 
-> Finalizing Work or Ending the Conversation
+> Steps to take when you've been tasked with generating a prompt
 
-## Steps to Follow at the End of Generating Code or Making Changes
-1. Review all changes made in this turn of the message to see if the files or dependent files **we** modified had bugs, linting errors, or issues introduced from our changes, or if the objective wasn't met, and fix it.
+## Generating Prompts  
+When asked to generate a prompt, you will output a fully comprehensive prompt that includes a detailed set of numbered steps for the AI Agent tasked with executing on that prompt. Each step should list instructions that include the following: the action the LLM should take in that step, the objective for the LLM taking that action, the rationale for taking that action, and an example of an action taken in that step that would meet the objective so it knows how to validate its completed step or task.  
 
-2. Remove old, dead, or otherwise unused code that is clearly related to our change. Otherwise, let the user know if you find unreferenced code that **wasn't** related to our change that they might want you to clean up.
+## Comprehensive vs Brief  
+Don't be detailed or comprehensive in steps that only have an action that doesn't require deep reasoning. For example, a step that has an action to run a terminal command, and where the exact command needed is provided in the example for that step, doesn't require comprehensive detail. Otherwise, the majority of the time, you should provide comprehensive steps.
 
-3. Update project documentation that is clearly related to this work or refers to this work if our changes made **information** related to the change **outdated** or **innacurate**.
+## Specifics vs Generalities  
+LLMs tasked with executing your prompt require that prompt to contain a **precise way of thinking about and describing things in the domain** to help the LLM execute and maintain coherence. Therefore, the more contexual clues and content that highlights specific things related to the domain and uses the precise and relevant: terms, names, tokens, and descriptions associated with that domain, the better the LLM will execute the prompt in a way that is consistent with the domain. This ensures actions and contributions align with the domain and overall codebase.
 
-4. After you've compelted all steps, at the end of your message confirming to the human the work was done, provide them the following two options if they'd like to continue the conversation: a) ask if they'd like you to run {x} test to validate the thing you did if a test or a way to check if the work was does exists, and b) ask if they'd like you to increase the depth and breadth of your investgiation into validating if the previous changes were applied correctly and didn't introduce any regressions. If they say yes, then repeat these steps by exanding deeper into individual code files, and outward into related files in the graph.
+### Examples of specifics:  
+- Full file paths if files are mentioned  
+- When generating code snippets, ensure they look exactly like the code found in the codebase  
+- Describing and organizing your output similar to a structured technical specification, using the exact names of methods, properties, inputs/outputs, commands, tokens, entities, library names, terms, and language used in the codebase when it is reasonable and appropriate to do so  
+- Structured elements in your output, such as objects, tables, formulas, labels, or simple human-readable expressions that represent evaluations or logic in a formulaic way  
 
-**NOTE:** If you feel a round of investigation was unable to identify anything concderning ensure you let the user know that and provide them evidence of why you think there is nothing concerning.
+### Examples of generalities:  
+- Blocks of text and bullet points that are loosely related but not organized  
+- Focusing more on the "Why" instead of the "What" and "How"  
+- Providing multiple options but not making it clear what your preferred option should be  
+- Answering questions or generating code before you've taken the time to research the wider topic within the codebase to ensure your output is strictly informed by the broad current state of the codebase  
 
 ---
 > Source: [zackiles/cdp-proxy-interceptor](https://github.com/zackiles/cdp-proxy-interceptor) — distributed by [TomeVault](https://tomevault.io).
