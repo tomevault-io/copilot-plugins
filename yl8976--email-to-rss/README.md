@@ -7,13 +7,13 @@ A guide to host your own "kill-the-newsletter.com"-like email to RSS service usi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yl8976/Email-to-RSS](https://github.com/yl8976/Email-to-RSS).
+Original source: `.cursor/rules/*.mdc` in [yl8976/Email-to-RSS](https://github.com/yl8976/Email-to-RSS).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
