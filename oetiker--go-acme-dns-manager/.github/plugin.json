@@ -1,0 +1,9 @@
+{
+  "name": "oetiker--go-acme-dns-manager",
+  "displayName": "go-acme-dns-manager",
+  "description": "Automate the process of obtaining and renewing Let's Encrypt certificates using the DNS-01 challenge",
+  "version": "1.0.0",
+  "author": "oetiker",
+  "homepage": "https://github.com/oetiker/go-acme-dns-manager",
+  "skills": []
+}
