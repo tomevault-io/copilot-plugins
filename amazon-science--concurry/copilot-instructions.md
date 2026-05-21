@@ -1,145 +1,214 @@
-## coding-function-signatures
+## coding-loud-failures
 
-> Function signature rules — never hide known params in **kwargs, never duplicate caller-supplied defaults.
+> Loud failures over silent defaults — the .get(key, default) anti-pattern and all its variants.
 
-# Function Signature Rules
+# Loud Failures Over Silent Defaults (CRITICAL — Read This First)
 
-## Never Hide Known Parameters in `**kwargs`
+**A program that crashes on misconfiguration is infinitely better than a program that silently produces wrong output.** This is the single most important principle in this codebase. Every other rule — fail-fast, strict typing, `@validate`, exhaustive dispatch, the `Any` ban — is a corollary of this principle.
 
-**If you know a parameter's name at the time you write the function, it MUST be an explicit parameter with a type annotation.** Using `kwargs.get("some_name")` to extract a value that the function *always expects* is as bad as `.get(key, None)` — it silently returns `None` instead of raising, hides the interface from callers, and completely defeats type checking.
+**Why this is non-negotiable:** A silent wrong output destroys trust. If a worker pool silently falls back to a slower implementation because a configuration is wrong, nobody knows until mysterious slowdowns appear in production — if they ever notice. A crash at initialization with a clear error message costs thirty seconds to fix. A silent degradation can cost days of debugging.
 
-This is not a style preference. It is a correctness issue:
+**The test is simple:** when you write code that handles a missing or unexpected value, ask: **"If this value is wrong, would I rather crash immediately or produce incorrect/degraded behavior that looks correct?"** The answer is always crash. No one pushes code to production without testing. A crash during testing is a gift — it tells you exactly what to fix. A silent default that degrades behavior is a bomb with a delayed fuse.
 
-1. **`@validate` and `@field_validator` cannot see kwargs.** Morphic's `@validate` decorator and Pydantic validators use the function signature to enforce types at runtime. A parameter extracted via `kwargs.get()` is invisible to them — it arrives as an untyped `Any` inside a `dict`, bypassing every safety net.
-2. **Static type checkers are blind.** mypy, pyright, and IDE autocomplete cannot infer the type of `kwargs.get("timeout")`. The caller gets no autocomplete, no type errors, no hover documentation.
-3. **Silent `None` on missing keys.** `kwargs.get("timeout")` returns `None` when the caller forgets to pass `timeout`. The function proceeds with `None`, producing a confusing `TypeError` or wrong behavior ten lines later instead of a clear `TypeError: missing required argument` at the call boundary.
-4. **The function signature lies.** When you read `def submit(self, **kwargs)`, you have no idea what the function actually needs. You must read the implementation to discover that it does `kwargs.get("timeout")`, `kwargs.get("retry_config")`, etc. This is a hidden interface.
+LLM coding assistants are the primary source of silent-default code. They are trained on web application code where `.get(key, default)` is a reasonable defensive pattern — web apps must not crash on a single bad request. In a library/infrastructure codebase, the opposite is true: **the system MUST crash on bad configuration** so the developer fixes it before deployment.
 
-❌ Bad (known parameters hidden in `**kwargs`):
+## The `.get(key, default)` Anti-Pattern
+
+**Never use `dict.get(key, hardcoded_default)` when the key is expected to exist.** This is the most common form of silent default. It tells the reader "this key might be absent, and that's fine." If the key *should* be present, its absence is a bug — and `.get()` with a fallback hides that bug.
+
+**The decision rule:** ask "if this key is missing, is that a valid state or a bug?"
+- **Valid state** (sparse data where absence is meaningful) → `.get(key)` returning `None`, with explicit handling of the `None` case
+- **Bug** (the key should always be present given the program's logic) → use bracket access `dict[key]`, or check-and-raise with feedback
+
+❌ Bad (silent default hides missing key):
 ```python
-def execute(self, task: Task, **kwargs) -> Future:
-    timeout = kwargs.get("timeout")           # ❌ Hidden param, silent None
-    retry_config = kwargs.get("retry_config") # ❌ Hidden param, silent None
-    priority = kwargs.get("priority", 0)      # ❌ Hidden default
-
-    if timeout is not None:          # ❌ Now you need a None guard
-        self._set_timeout(timeout)
+timeout = config.get("timeout", 30.0)
 ```
 
-✅ Good (all known parameters are explicit):
+✅ Good (check, raise with feedback data, then access):
 ```python
-def execute(
-    self,
-    task: Task,
-    *,
-    timeout: Optional[float] = None,
-    retry_config: Optional[RetryConfig] = None,
-    priority: int = 0,
-    **kwargs,
-) -> Future:
-    if timeout is not None:
-        self._set_timeout(timeout)
+if "timeout" not in config:
+    raise ValueError(
+        f"Expected 'timeout' in config, "
+        f"but only found keys: {list(config.keys())}"
+    )
+timeout = config["timeout"]
 ```
 
-**The rule is simple:** if you are writing `kwargs.get("some_name")` and `some_name` is a string literal you typed yourself, that parameter MUST be promoted to an explicit function parameter. `**kwargs` is for truly unknown, pass-through parameters (e.g., forwarding to a parent class or a third-party library). It is never a substitute for declaring your interface.
-
-**Corollary — `**kwargs` in an abstract method signature:** When a base class defines `def process(self, ..., **kwargs)` and every subclass does `kwargs.get("timeout")`, the base class signature is wrong. Add `timeout: Optional[float] = None` to the base class and all subclasses. The `**kwargs` should only carry genuinely subclass-specific extensions that differ across implementations and cannot be enumerated on the base.
-
-## Never Duplicate Caller-Supplied Values as Parameter Defaults (CRITICAL)
-
-**When a parameter is always supplied by the caller, it MUST NOT have a default value on the receiving function.** A default on a parameter that the caller always passes is dead code that silently masks a broken call chain. If the caller stops passing the value (due to a refactoring bug, a missing context key, or a dict-splatting error), the function falls back to the hard-coded default instead of crashing. The developer never learns that the value they configured is not reaching the function.
-
-**This is the function-signature equivalent of `.get(key, default)`.** The `.get()` anti-pattern invents a fallback value when a dict key is missing. A redundant parameter default invents a fallback value when a caller forgets to pass an argument. Both hide the same bug: a value that should be present is absent, and the program continues with wrong data instead of crashing.
-
-**Why LLMs produce this pattern:** LLM coding assistants generate parameter defaults reflexively because they cannot see the call chain. When an LLM writes `def execute(self, *, timeout: float = 30.0, ...)`, it does not know that `timeout` is always passed from `global_config` at the call site. The LLM adds a default "just in case," which is exactly the defensive-coding instinct that produces `.get(key, default)` in dicts. The result is the same: a silent fallback that masks bugs.
-
-**The decision rule:** ask **"Does every caller always pass this argument?"**
-- **Yes** (the value comes from a config object, a builder, or an explicit call site) → **no default**. Remove it. If the caller ever fails to pass it, the function must crash with `TypeError: missing required keyword argument`.
-- **No** (some callers genuinely omit the argument, and `None`/a sentinel is a valid state) → a default is appropriate.
-
-**Three forms of this anti-pattern:**
-
-### Form 1: Parameter default duplicates a config-supplied value (most dangerous)
-
-A config object or builder provides the value. A factory or initialization method reads the config and passes it to a component. The component also has a hard-coded default that duplicates the config's default. If the factory is refactored and stops passing the key, the component silently uses its own default instead of crashing.
-
-❌ Bad (component has redundant default that duplicates config value):
+✅ Good (bracket access — crashes immediately with a `KeyError` that names the missing key):
 ```python
-class GlobalDefaults(MutableTyped):
-    worker_timeout: float = 30.0
-    max_queued_tasks: int = 100
-
-class ThreadWorkerProxy(WorkerProxy):
-    def __init__(
-        self,
-        *,
-        timeout: float = 30.0,              # ❌ Duplicates global_config default
-        max_queued_tasks: int = 100,         # ❌ Duplicates global_config default
-        ...
-    ):
-        ...
+timeout = config["timeout"]
 ```
 
-**Why this is dangerous:** If the builder is refactored and stops passing `timeout`, the proxy silently uses `30.0` instead of crashing. The developer changes the global config to `timeout=60.0`, runs the program, and the proxy silently ignores the change. No error, no warning. The config system appears broken, but the real bug is the redundant default hiding the missing argument.
-
-✅ Good (no defaults on always-supplied parameters — crash immediately if missing):
+✅ Best (use a Typed class so the key cannot be missing — Pydantic enforces it at construction):
 ```python
-class ThreadWorkerProxy(WorkerProxy):
-    def __init__(
-        self,
-        *,
-        timeout: float,              # No default — builder MUST pass it
-        max_queued_tasks: int,        # No default — builder MUST pass it
-        ...
-    ):
-        ...
+class WorkerConfig(Typed):
+    timeout: float
+
+config = WorkerConfig(**raw_config)  # Pydantic raises ValidationError if timeout missing
+timeout = config.timeout  # Guaranteed to exist
 ```
 
-Now if the builder stops passing `timeout`, construction fails immediately with `TypeError: __init__() missing required keyword argument: 'timeout'`. Thirty seconds to fix, not thirty hours to debug.
+## Feedback-Driven Exceptions
 
-### Form 2: Inline magic number duplicates a config default (silent divergence)
+When raising an exception, **include the actual data** that caused the failure. The error message is feedback to the developer — it should contain enough information to diagnose and fix the problem without a debugger.
 
-A method body contains a hard-coded fallback that duplicates a config-level default. If the config default changes, the inline fallback silently diverges.
+The pattern: **state what was expected, state what was received, and show the available options.**
 
-❌ Bad (inline magic number duplicates config default):
+❌ Bad (error message gives no feedback):
 ```python
-def _create_worker(self, *, timeout: Optional[float] = None, ...) -> WorkerProxy:
-    resolved_timeout: float = timeout if timeout is not None else 30.0  # ❌ Magic 30.0
+raise ValueError("Invalid worker mode")
 ```
 
-✅ Good (make the parameter mandatory — no fallback needed):
+✅ Good (expected + received + available):
 ```python
-def _create_worker(self, *, timeout: float, ...) -> WorkerProxy:
-    # No fallback. Caller must pass the value from global_config.
+raise ValueError(
+    f"Unknown worker mode {mode!r}. "
+    f"Must be one of: {list(ExecutionMode)}."
+)
 ```
 
-### Form 3: Base class default propagated to all subclasses (interface-level silent default)
-
-A base class abstract method declares a parameter with a default. Every subclass inherits the default. The builder/factory always passes the value. The default exists only because the base class was written before the call chain was finalized, and nobody removed it.
-
-❌ Bad (base class default propagates to every subclass):
+✅ Good (Pydantic/Typed already does this — leverage it):
 ```python
-class WorkerProxy(Typed, ABC):
-    @abstractmethod
-    def start(self, *, timeout: float = 30.0, ...) -> None: ...
-
-class ThreadWorkerProxy(WorkerProxy):
-    def start(self, *, timeout: float = 30.0, ...) -> None:  # ❌ Inherited default
-        ...
+# Pydantic's ValidationError automatically includes:
+# - Which field failed
+# - What value was provided
+# - What type/constraint was expected
+# This is WHY we use @validate and Typed — they produce feedback-driven errors for free.
 ```
 
-✅ Good (mandatory on base, no default on subclass):
-```python
-class WorkerProxy(Typed, ABC):
-    @abstractmethod
-    def start(self, *, timeout: float, ...) -> None: ...
+**This pattern connects to every other rule in this document:**
+- **Fail Fast** (below) is the timing corollary: crash at the earliest possible point.
+- **`@validate`** is the automated version: Pydantic produces feedback-driven `ValidationError` messages.
+- **Exhaustive dispatch with raising `else`** catches unhandled values at dispatch time.
+- **Never Hide Known Parameters in `**kwargs`** prevents silent `None` from `.get()`.
+- **Never Duplicate Caller-Supplied Values as Parameter Defaults** prevents dead-code defaults from masking broken call chains.
+- **Morphic `Typed` fields** replace `dict` access with validated attribute access — `.get()` is impossible on a Typed instance.
+- **No Silent Fallbacks** (in concurry-architecture.mdc) is the infrastructure-level application of this same principle.
 
-class ThreadWorkerProxy(WorkerProxy):
-    def start(self, *, timeout: float, ...) -> None:
-        ...
+## The Silent-Default Family (All Variants)
+
+`.get(key, default)` is the most common silent-default pattern, but it belongs to a family of related patterns that all share the same flaw: **they invent data when data is missing, instead of surfacing the absence as an error.** LLMs produce all of these reflexively. When you see any of them, apply the same decision test: "is the absence a valid state, or a bug?"
+
+| Silent-Default Pattern | What it hides | Loud alternative |
+|---|---|---|
+| `dict.get(key, default)` | Missing dict key → silently substituted | `dict[key]` (KeyError) or check-and-raise |
+| `getattr(obj, attr, default)` | Missing attribute → silently substituted | `obj.attr` (AttributeError) or check-and-raise |
+| `hasattr(obj, attr)` + branch | Missing attribute → silently takes the else path | `obj.attr` — if the attribute should exist, access it directly and let `AttributeError` surface |
+| `os.environ.get(key, default)` | Missing env var → silently substituted | `os.environ[key]` (KeyError) or check-and-raise with feedback |
+| `try: ... except (KeyError, AttributeError): return fallback` | Missing key/attr → silently swallowed and replaced | Let the exception propagate; catch only at application boundaries |
+| `kwargs.get("name", default)` | Known parameter hidden in `**kwargs` → silently `None` | Promote to explicit kwarg (see **Never Hide Known Parameters** below) |
+| `def f(x: float = 30.0)` when caller always passes `x` | Redundant default masks broken call chain → silently uses wrong value | Remove the default; make the parameter mandatory (see **Never Duplicate Caller-Supplied Values** below) |
+| `x if x is not None else 30.0` (inline magic number) | Inline fallback duplicates a config default → silently diverges when config changes | Make the parameter mandatory; no inline fallback needed |
+
+## The `.get()` as Edge-Case Blanket Anti-Pattern (MOST DANGEROUS LLM-GENERATED VARIANT)
+
+**This is the deadliest form of `.get()` because the developer (or LLM) knows the edge case exists, acknowledges it in a comment, and then uses `.get()` to "handle" it — which silently handles every other case too, including cases that are bugs.**
+
+The pattern looks like this: a function receives a dict-like state object. At one specific call site (e.g., during initial pool creation before workers are started), the dict is genuinely empty — no runtime data exists yet. At every other call site (after pool startup, during normal operation), the dict must contain specific keys because initialization populated them. The LLM writes `.get("key", fallback)` and adds a comment saying "empty during init." The code works during init. It also "works" during normal operation when `"key"` is missing due to a bug — silently using the fallback instead of crashing. The pool runs with wrong configuration, and mysterious performance degradation appears.
+
+**Why LLMs produce this reflexively:** When an LLM encounters a `KeyError` during testing, its first instinct is to make the error go away. `.get(key, default)` makes the error go away at *every* call site, not just the one where the absence is valid. The LLM cannot distinguish "this key is absent because the pool hasn't started yet" from "this key is absent because a bug in worker initialization failed to populate it." It treats both cases identically — with a silent fallback — because `.get()` does not encode *why* the key might be absent.
+
+**The core principle:** When you know there is exactly one case where absence is valid, you must **name that case explicitly with a conditional check**. The check proves to the reader (and to future maintainers, and to the type checker, and to LLM agents reading the code) that you thought about *when* the absence is valid, not just *that* it might happen.
+
+❌ Bad (`.get()` blankets both the valid edge case AND every bug):
+```python
+def _dispatch_task(self, *, pool_state: Dict[str, Any], is_initialized: bool, ...) -> ...:
+    # Before pool start, no workers exist yet.
+    active_workers = pool_state.get("active_workers", [])
+    balancer_state = pool_state.get("balancer_state", {})
 ```
 
-**The test for this pattern in code review:** For every parameter with a default value, ask: "Is there a code path where this default actually activates in production?" If the answer is "no, the caller always passes it," remove the default. If the answer is "only in tests," that is still "no" — fix the tests to pass the value explicitly. Tests that rely on silent defaults are tests that do not test the real call chain.
+**What makes this catastrophic:** Before initialization, the absence is valid. After initialization, `"active_workers"` should always exist. If a bug in `_initialize_pool` fails to populate it, `.get("active_workers", [])` silently returns `[]`. The dispatcher sees zero workers, tasks go nowhere, and the pool appears to hang. Hours of debugging follow.
+
+✅ Good (explicit conditional — names the EXACT case where absence is valid):
+```python
+def _dispatch_task(self, *, pool_state: Dict[str, Any], is_initialized: bool, ...) -> ...:
+    if not is_initialized:
+        active_workers: List[WorkerProxy] = []
+        balancer_state: Dict[str, Any] = {}
+    else:
+        if "active_workers" not in pool_state:
+            raise KeyError(
+                f"pool_state missing 'active_workers' after initialization. "
+                f"pool_state keys: {list(pool_state.keys())}"
+            )
+        active_workers = pool_state["active_workers"]
+        balancer_state = pool_state["balancer_state"]
+```
+
+**The general rule:** When you encounter a `KeyError` and you know the absence is valid in one specific scenario:
+
+1. **Identify the exact condition** under which the absence is valid (e.g., `not is_initialized`, `pool.state == "starting"`).
+2. **Write an explicit conditional** that checks for that condition.
+3. **In the "valid absence" branch:** provide the appropriate default explicitly.
+4. **In the "invalid absence" branch:** crash loudly with a feedback-driven error message.
+5. **Never use `.get()`** to handle both cases at once. `.get()` does not encode *when* the absence is valid.
+
+**`getattr(obj, attr, default)` — the attribute version of `.get()`:**
+
+The same decision rule applies. If the object *should* have the attribute (because you control its class, or it was passed with a type annotation that guarantees the attribute), then `getattr` with a fallback is hiding a bug.
+
+❌ Bad (the attribute should exist — silently invents a fallback):
+```python
+timeout = getattr(config, "timeout", 30.0)
+model_name = getattr(worker, "model_name", type(worker).__name__)
+```
+
+✅ Good (direct access — crashes immediately if the attribute is missing):
+```python
+timeout = config.timeout
+model_name = worker.model_name
+```
+
+✅ Good (check-and-raise with feedback if you genuinely need to handle absence):
+```python
+if not hasattr(config, "timeout"):
+    raise AttributeError(
+        f"{type(config).__name__} has no 'timeout' attribute. "
+        f"Available attributes: {list(vars(config).keys())}. "
+        f"Ensure the config class defines 'timeout' as a field."
+    )
+timeout = config.timeout
+```
+
+**When `getattr` with a fallback IS acceptable:**
+- **Introspection/reflection** where you are genuinely probing an unknown object's capabilities (e.g., framework code that checks whether a plugin implements an optional method). This is rare in application code.
+- **`PrivateAttr` access** where Pydantic's `__getattr__` may not expose the attribute via normal attribute access in all contexts (e.g., `getattr(self, "_lock", None)` during `__getstate__` serialization). These are framework-level edge cases, not application logic.
+
+**`hasattr()` — the check-without-consequence pattern:**
+
+`hasattr(obj, attr)` is just `try: getattr(obj, attr); return True; except AttributeError: return False`. It silently swallows the `AttributeError`. When used to branch on whether an attribute exists, it creates two code paths — one where the attribute is present and one where it is not — without raising an error on the "not present" path. If the attribute *should* be present, this is a silent failure.
+
+❌ Bad (silently takes an alternate code path instead of catching the bug):
+```python
+if hasattr(config, "load_balancing"):
+    algorithm = config.load_balancing
+else:
+    algorithm = "round_robin"  # ← silent default, same as .get(key, default)
+```
+
+✅ Good (the attribute is expected — access it directly):
+```python
+algorithm = config.load_balancing  # AttributeError if missing → developer sees the bug immediately
+```
+
+**`os.environ.get()` — environment variable silent defaults:**
+
+❌ Bad:
+```python
+ray_address = os.environ.get("RAY_ADDRESS", "auto")  # Silently connects to wrong cluster
+```
+
+✅ Good:
+```python
+if "RAY_ADDRESS" not in os.environ:
+    raise EnvironmentError(
+        "RAY_ADDRESS not set. Export it before running: "
+        "export RAY_ADDRESS='ray://cluster-ip:10001'"
+    )
+ray_address = os.environ["RAY_ADDRESS"]
+```
 
 ---
 > Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
