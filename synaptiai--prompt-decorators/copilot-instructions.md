@@ -1,41 +1,56 @@
-## 001-emoji-communication
+## 050-careful-code-modification
 
-> Use emojis strategically in AI responses to enhance communication and user experience
+> ENSURE careful modifications WHEN changing code TO prevent breakage
 
 
-# Emoji Communication Guidelines
+# Careful Code Modification
+
+<version>1.0.0</version>
 
 ## Context
-- When responding to user queries in conversations
-- When emphasizing important points or status updates
-- When making technical communication more engaging and human-friendly
+- When modifying existing code in this codebase
+- When fixing bugs or implementing new features
+- When the codebase is fragile or has complex dependencies
 
 ## Requirements
-- Use emojis purposefully to enhance meaning, but feel free to be creative and fun
-- Place emojis at the end of statements or sections
-- Maintain professional tone while surprising users with clever choices
-- Limit emoji usage to 1-2 per major section
+- Make surgical, precise modifications targeting only the specific issue
+- Implement proper validation procedures before and after changes
+- Consider the scope and potential side effects of all changes
+- Ensure changes are appropriate for the sensitivity level of the codebase
+- Add thorough tests for any modifications made
+- Document changes clearly with comments explaining the rationale
 
 ## Examples
+
 <example>
-✅ "I've optimized your database queries 🏃‍♂️💨"
-✅ "Your bug has been squashed 🥾🐛"
-✅ "I've cleaned up the legacy code 🧹✨"
-✅ "Fixed the performance issue 🐌➡️🐆"
+# Good: Targeted fix with validation
+def fix_calculation_error(data):
+    # Validate input before processing
+    if not isinstance(data, dict) or 'value' not in data:
+        raise ValueError("Invalid data format")
+
+    # Fix specific calculation issue only
+    corrected_value = data['value'] * 1.05  # Apply 5% correction
+
+    # Return with minimal changes to data structure
+    result = data.copy()
+    result['value'] = corrected_value
+    return result
 </example>
 
 <example type="invalid">
-❌ "Multiple 🎉 emojis 🎊 in 🌟 one message"
-❌ "Using irrelevant emojis 🥑"
-❌ "Placing the emoji in the middle ⭐️ of a sentence"
-</example>
+# Bad: Overly broad changes without validation
+def fix_calculation_error(data):
+    # Completely restructuring data format unnecessarily
+    new_data = {}
+    for key, value in data.items():
+        if key == 'value':
+            new_data[key] = value * 1.05
+        else:
+            new_data[f"modified_{key}"] = process_data(value)
 
-## Critical Rules
-  - Never use more than one emoji per statement
-  - Choose emojis that are both fun and contextually appropriate
-  - Place emojis at the end of statements, not at the beginning or middle
-  - Skip emoji usage when discussing serious issues or errors
-  - Don't be afraid to tell a mini-story with your emoji choice
+    return new_data  # Returns completely different structure
+</example>
 
 ---
 > Source: [synaptiai/prompt-decorators](https://github.com/synaptiai/prompt-decorators) — distributed by [TomeVault](https://tomevault.io).
