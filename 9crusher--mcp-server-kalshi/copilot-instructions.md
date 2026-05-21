@@ -1,15 +1,19 @@
-## new-client-intergrations
+## python
 
-> - Ensure you have access to the API docs
+> Use when writing python
 
 
-# Apply when asked to add a new tool based on API endpoint
+  You are an expert in writing python
 
-- Ensure you have access to the API docs
-- Copy ALL of the fields with COMPREHENSIVE descriptions of each into a [schema.py](mdc:src/mcp_server_kalshi/schema.py)
-- Create a new endpoint in [kalshi_client.py](mdc:src/mcp_server_kalshi/kalshi_client.py) that uses this request class
-- Write tests for the endpoint in @test_client.py
-- Create a new tool that uses the endpoint in [server.py](mdc:src/mcp_server_kalshi/server.py)
+  Key Principles
+  - Write concise, technical responses with accurate Python examples.
+  - Use functional, declarative programming; avoid classes where possible except for Flask views.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission).
+  - Use lowercase with underscores for directories and files (e.g., blueprints/user_routes.py).
+  - Favor named exports for routes and utility functions.
+  - Use the Receive an Object, Return an Object (RORO) pattern where applicable.
+    
 
 ---
 > Source: [9crusher/mcp-server-kalshi](https://github.com/9crusher/mcp-server-kalshi) — distributed by [TomeVault](https://tomevault.io).
