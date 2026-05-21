@@ -1,41 +1,234 @@
-## page-transitions
+## scroll-system
 
-> Patterns and rules for the page transition system using Taxi.js and custom module lifecycles. Use when modifying transitions, handling page changes, or implementing cross-page logic.
+> Scroll service from @lib/scroll (scroll, progress, velocity). Use when implementing scroll-driven animations or scroll subscriptions.
 
-# Page Transition System Rules
+# Scroll System Rules
 
-## Overview
-The project uses `@unseenco/taxi` for client-side navigation. This system is tightly integrated with the custom module lifecycle hooks (`onPageIn`, `onPageOut`, `onMount`, `onDestroy`).
+## Basic Scroll Usage
 
-## Core Components
-- `src/lib/pages.ts`: Extends Taxi's `Core`, manages the sequence of lifecycle runs during transitions.
-- `src/lib/page-transitions.ts`: Defines Taxi `Transition` classes that bridge Taxi's `onLeave`/`onEnter` with our custom `transitionOut`/`transitionIn`.
+```typescript
+import { Scroll } from "@lib/scroll";
 
-## Transition Lifecycle Sequence
+// Subscribe to scroll events
+const scrollUnsubscribe = Scroll.add(
+  ({ scroll, limit, progress, velocity, time }) => {
+    // Handle scroll data
+    console.log(`Scroll: ${scroll}/${limit} (${(progress * 100).toFixed(1)}%)`);
+    console.log(`Velocity: ${velocity.toFixed(2)}`);
+  }
+);
 
-### 1. `transitionOut` (Page Exit)
-When navigating away from a page:
-1. `runPageOut()`: Triggers all `onPageOut` hooks in active modules. These should return promises for exit animations.
-2. `runDestroy()`: Cleans up all modules on the current page.
-3. `Scroll.toTop()`: Resets scroll position for the incoming page.
+// Clean up subscription
+onDestroy(() => {
+  scrollUnsubscribe();
+});
+```
 
-### 2. `transitionIn` (Page Entrance)
-When the new page content is ready:
-1. `createCycles()`: Scans the new DOM for `data-module` attributes and initializes modules.
-2. `Scroll.resize()` / `Resize.update()`: Recalculates layout metrics for the new page.
-3. `runPageIn()`: Triggers all `onPageIn` hooks in the new modules. These should return promises for entrance animations.
-4. `runMount()`: Runs the `onMount` hooks for all new modules.
+## Priority-Based Subscriptions
 
-## Implementation Rules
-- **Non-Blocking**: Transitions should ideally wait for animations (`await runPageIn()`) before finishing.
-- **Cleanup**: Always ensure `runDestroy()` is called to prevent memory leaks from previous page modules.
-- **Link Filtering**: Taxi is configured via `PAGES_CONFIG.links` to ignore specific links (e.g., `#` anchors, `target="_blank"`, `[data-taxi-ignore]`).
-- **Initial Load**: Use `runInitial()` on the first page load to kickstart the cycle without a full transition.
+```typescript
+// High priority - critical updates
+Scroll.add(updateCriticalElements, -1);
 
-## Adding Custom Transitions
-To add a specific transition for certain pages:
-1. Define a new class in `src/lib/page-transitions.ts` extending `BaseTransition`.
-2. Register it in `src/lib/pages.ts` within the `transitions` object of the `_Pages` class.
+// Normal priority - standard updates
+Scroll.add(updateStandardElements, 0);
+
+// Low priority - background effects
+Scroll.add(updateBackgroundElements, 1);
+```
+
+## Scroll Management
+
+```typescript
+// Scroll to top immediately
+Scroll.toTop();
+
+// Scroll to specific position
+Scroll.scrollTo(1000, {
+  immediate: true, // Instant scroll
+  // duration: 1,  // Smooth scroll duration
+});
+
+// Get scroll data
+const scrollData = {
+  position: Scroll.scroll,
+  limit: Scroll.limit,
+  progress: Scroll.progress,
+  velocity: Scroll.velocity,
+};
+```
+
+## Webflow Editor Integration
+
+```typescript
+import { handleEditor } from "@webflow/detect-editor";
+
+// Automatic scroll system management
+handleEditor((isEditor) => {
+  if (isEditor) {
+    // Disable smooth scrolling in editor
+    Scroll.destroy();
+  } else {
+    // Enable smooth scrolling in published site
+    Scroll.start();
+  }
+});
+```
+
+## Component Integration
+
+```typescript
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  let isEditorMode = false;
+  let scrollUnsubscribe: (() => void) | null = null;
+
+  // Editor detection
+  handleEditor((isEditor) => {
+    isEditorMode = isEditor;
+
+    if (isEditor) {
+      // Clean up scroll subscription in editor
+      scrollUnsubscribe?.();
+      scrollUnsubscribe = null;
+    } else {
+      // Enable scroll subscription in published mode
+      scrollUnsubscribe = Scroll.add(({ progress, velocity }) => {
+        // Parallax effect
+        element.style.transform = `translateY(${progress * 100}px)`;
+
+        // Velocity-based effects
+        if (Math.abs(velocity) > 0.5) {
+          element.classList.add("scrolling-fast");
+        } else {
+          element.classList.remove("scrolling-fast");
+        }
+      });
+    }
+  });
+
+  onDestroy(() => {
+    scrollUnsubscribe?.();
+  });
+}
+```
+
+## Performance Optimization
+
+```typescript
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  let isActive = false;
+
+  const scrollUnsubscribe = Scroll.add(({ progress }) => {
+    // Only update when element is in view
+    if (!isActive) return;
+
+    // Lightweight operations only
+    element.style.setProperty("--scroll-progress", progress.toString());
+  });
+
+  // Activate only when in view
+  const observer = onView(element, {
+    callback: ({ isIn }) => {
+      isActive = isIn;
+    },
+  });
+
+  onDestroy(() => {
+    scrollUnsubscribe();
+  });
+}
+```
+
+## Scroll-Based Animations
+
+```typescript
+// Parallax effect
+const scrollUnsubscribe = Scroll.add(({ progress }) => {
+  element.style.transform = `translateY(${progress * 200}px)`;
+});
+
+// Rotation effect
+const scrollUnsubscribe = Scroll.add(({ progress }) => {
+  element.style.transform = `rotate(${progress * 360}deg)`;
+});
+
+// Scale effect
+const scrollUnsubscribe = Scroll.add(({ progress }) => {
+  element.style.transform = `scale(${0.5 + progress * 0.5})`;
+});
+
+// Complex animation
+const scrollUnsubscribe = Scroll.add(({ progress, velocity }) => {
+  element.style.transform = `
+    translateY(${progress * 100}px)
+    rotate(${progress * 180}deg)
+    scale(${0.8 + progress * 0.2})
+  `;
+
+  element.style.opacity = progress.toString();
+  element.style.setProperty("--scroll-progress", progress.toString());
+});
+```
+
+## Integration with Track System
+
+```typescript
+import { onTrack } from "@/modules/_";
+
+// Track system automatically uses scroll data
+const track = onTrack(element, {
+  bounds: [0, 1],
+  top: "bottom",
+  bottom: "top",
+  callback: (value) => {
+    // value is automatically calculated based on scroll position
+    element.style.transform = `translateY(${value * 100}px)`;
+  },
+});
+```
+
+## Page Transition Integration
+
+```typescript
+// In page transition out
+async transitionOut() {
+  // Reset scroll position for new page
+  Scroll.toTop();
+}
+
+// In page transition in
+async transitionIn() {
+  // Update scroll calculations for new content
+  Scroll.resize();
+}
+```
+
+## Debug Mode
+
+```typescript
+// Enable debug logging
+Scroll.add((data) => {
+  console.log("Scroll Debug:", data);
+}, -999); // Very high priority
+```
+
+## Best Practices
+
+- Always unsubscribe from scroll events in `onDestroy`
+- Use priorities for performance optimization
+- Only update when necessary (e.g., element in view)
+- Keep scroll callbacks lightweight and efficient
+- Handle Webflow editor mode appropriately
+- Use CSS transforms instead of layout-triggering properties
+- Test scroll behavior in both editor and published modes
+- Use conditional updates for performance
+- Handle errors gracefully in scroll callbacks
+- Monitor scroll performance with multiple subscriptions
+  description:
+  globs:
+  alwaysApply: false
+
+---
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
