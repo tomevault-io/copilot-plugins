@@ -1,97 +1,103 @@
-## drupal-injection
+## drupal-insecure-design
 
-> Detect and prevent injection vulnerabilities in Drupal as defined in OWASP Top 10:2021-A03
+> Detect and prevent insecure design patterns in Drupal as defined in OWASP Top 10:2021-A04
 
-# Drupal Injection Security Standards (OWASP A03:2021)
+# Drupal Insecure Design Security Standards (OWASP A04:2021)
 
-This rule enforces security best practices to prevent injection vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A03.
+This rule enforces security best practices to prevent insecure design vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A04.
 
 ## Rule Details
 
-- **Name:** drupal_injection
+- **Name:** drupal_insecure_design
 
-- **Description:** Detect and prevent injection vulnerabilities in Drupal as defined in OWASP Top 10:2021-A03
+- **Description:** Detect and prevent insecure design patterns in Drupal as defined in OWASP Top 10:2021-A04
 
 ## Filters
-- file extension pattern: `\\.(php|inc|module|install|theme)$`
-- file path pattern: `(modules|themes|profiles|core)/.*`
+- file extension pattern: `\\.(php|inc|module|install|theme|info\\.yml)$`
+- file path pattern: `(modules|themes|profiles)/custom`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `db_query\\(['\"][^'\"]*\\$[^'\"]*['\"]` – Direct variables in SQL queries are vulnerable to SQL injection. Use parameterized queries with placeholders.
-    - Pattern 1: Raw SQL queries without placeholders
-  - pattern `->query\\(['\"][^'\"]*\\$[^'\"]*['\"]` – Use parameterized queries with placeholders to prevent SQL injection: ->query($sql, [$param1, $param2]).
-    - Pattern 2: Modern DB API without placeholders
-  - pattern `<?=|<?php\\s+echo\\s+(?!(t|\\\\t|\\$this->t))[^;]*;` – Direct output may lead to XSS. Use t(), escaped variables with Html::escape(), or Twig templates.
-    - Pattern 3: Unescaped output
-  - pattern `[\"']#markup[\"']\\s*=>\\s*(?!t\\(|\\\\t\\(|Xss::filterAdmin|Html::escape)\\$` – Never use unfiltered variables in #markup. Use t(), Xss::filterAdmin(), or Html::escape().
-    - Pattern 4: Unfiltered user input in render arrays
-  - pattern `->addJsSettings\\(\\[(?![^\\]]*(Xss::filter|Json::encode))\\$` – Filter variables before adding to JavaScript settings using Xss::filter() or properly encode with Json::encode().
-    - Pattern 5: Unescaped variables in JavaScript settings
-  - pattern `exec\\(|shell_exec\\(|system\\(|passthru\\(|proc_open\\(|popen\\(|`` – Command execution functions can lead to command injection. Use Symfony\Component\Process\Process if necessary.
-    - Pattern 6: Direct command execution
-  - pattern `->redirect\\(\\s*\\$(?!(this->|allowed_destinations|config))` – Unvalidated redirects can lead to open redirect vulnerabilities. Whitelist allowed destinations.
-    - Pattern 7: Unvalidated redirect
-  - pattern `->condition\\([^,]*,\\s*\\$(?!(this->|config|entity|storage))[^,]*,` – Use proper input validation before using variables in database conditions to prevent SQL injection.
-    - Pattern 8: Raw user input in conditions
-  - pattern `(?<!buildForm|getFormId)\\s*function\\s+[a-zA-Z0-9_]+Form\\s*\\([^{]*\\{[^}]*return\\s+\\$form;(?![^}]*FormBuilderInterface|[^}]*::TOKEN|[^}]*#token)` – Form submissions must include CSRF protection with $form['#token'].
-    - Pattern 9: Missing CSRF protection in forms
-  - pattern `file_get_contents\\(\\s*\\$(?!(this->|allowed_paths|config))` – Validate file paths before operations to prevent path traversal attacks.
-    - Pattern 10: Unvalidated file operations
+  - pattern `\\$permissions\\[['\"][^'\"]+['\"]\\]\\s*=\\s*array\\((?![^)]*(administer|manage|edit|delete)[^)]*(content|configuration|users)).*?\\);` – Permissions should follow Drupal naming patterns (verb + object) and be specific. Avoid overly broad permissions.
+    - Pattern 1: Insecure permission design
+  - pattern `if\\s*\\([^\\)]*===?\\s*['\"][a-zA-Z0-9_]+['\"]\\s*\\)` – Consider moving business logic rules to configuration to allow for proper adjustment without code changes.
+    - Pattern 2: Hard-coded business logic values
+  - pattern `preg_replace|str_replace|strip_tags` – Avoid ad hoc sanitization. Use Drupal's built-in sanitization tools: t(), Xss::filter(), etc.
+    - Pattern 3: Ad hoc input sanitization
+  - pattern `class\\s+[a-zA-Z0-9_]+Controller.+\\{[^}]*->query\\(` – Follow separation of concerns. Move database logic to services or repositories, not in controllers.
+    - Pattern 4: Database logic in controllers
+  - pattern `function\\s+[a-zA-Z0-9_]+_entity_access\\([^)]*\\)\\s*\\{[^}]*return\\s+AccessResult::allowed\\(\\);` – Avoid unconditional access grants. Implement proper conditional checks based on roles, permissions, or entity ownership.
+    - Pattern 5: Weak entity access policy
+  - pattern `session_start|session_set_cookie_params` – Avoid custom session management. Use Drupal's session handling system and services.
+    - Pattern 6: Custom session management
+  - pattern `(?:\\\\Drupal::[a-zA-Z_]+\\(\\).*){3,}` – Excessive static service calls indicate poor dependency injection. Use proper service injection.
+    - Pattern 7: Excessive global state dependency
+  - pattern `password_verify\\(|password_hash\\(` – Avoid custom authentication. Use Drupal's built-in authentication system and services.
+    - Pattern 8: Custom user authentication
+  - pattern `function\\s+[a-zA-Z0-9_]+_schema\\(\\)[^{]*\\{[^}]*return\\s+\\$schema;(?![^}]*validate_utf8|[^}]*'not null')` – Database schemas should enforce data integrity with proper constraints (NOT NULL, length, etc.).
+    - Pattern 9: Missing schema definitions
+  - pattern `\\$config\\[['\"](mdc:?!secure_|security_|private_)[^'\"]+['\"]\\]\\s*=\\s*(?:FALSE|0|'0'|\"0\");` – Security-related configuration should default to secure settings (opt-in for potentially insecure features).
+    - Pattern 10: Insecure defaults
 
 ## Suggestions
 - Guidance:
-**Drupal Injection Prevention Best Practices:**
+**Drupal Secure Design Best Practices:**
 
-1. **SQL Injection Prevention:**
-   - Always use parameterized queries with placeholders
-   - Use the Database API's condition methods: ->condition(), ->where()
-   - Properly escape table and field names with {}
-   - Consider using EntityQuery for entity operations
+1. **Secure Architecture Principles:**
+   - Follow the principle of least privilege for all user roles and permissions
+   - Implement defense in depth with multiple security layers
+   - Use Drupal's entity/field API for structured data instead of custom tables
+   - Employ service-oriented architecture with proper dependency injection
+   - Follow Drupal coding standards to leverage community security expertise
 
-2. **XSS Prevention:**
-   - Use Drupal's t() function for user-visible strings
-   - Apply appropriate filtering: Html::escape(), Xss::filter(), Xss::filterAdmin()
-   - Use #plain_text instead of #markup when displaying user input
-   - Utilize Twig's automatic escaping in templates
-   - For admin UIs, be careful with Xss::filterAdmin() as it allows some tags
+2. **Permission System Design:**
+   - Design granular permissions following the verb+object pattern
+   - Avoid creating omnipotent permissions that grant excessive access
+   - Use context-aware access systems like Entity Access or Node Grants
+   - Consider record-based and field-based access for better control
+   - Document permission architecture and security implications
 
-3. **CSRF Protection:**
-   - Always include form tokens with $form['#token']
-   - Validate form tokens with FormState->validateToken()
-   - For AJAX requests, utilize Drupal's ajax framework
-   - Use drupal_valid_token() for custom validation
+3. **Module Architecture:**
+   - Separate concerns into appropriate services
+   - Use hooks judiciously and document security implications
+   - Implement proper validation and sanitization layers
+   - Design APIs with security in mind from the start
+   - Provide secure default configurations
 
-4. **Command Injection Prevention:**
-   - Avoid command execution functions entirely
-   - Use Symfony\Component\Process\Process with escaped arguments
-   - Validate and whitelist any input used in command contexts
+4. **Data Modeling Security:**
+   - Implement appropriate validation constraints on entity fields
+   - Design schema definitions with integrity constraints
+   - Use appropriate field types for sensitive data
+   - Implement field-level access control when needed
+   - Consider encryption for sensitive stored data
 
-5. **Path Traversal Prevention:**
-   - Validate file paths with FileSystem::validatedLocalFileSystem()
-   - Use stream wrappers (public://, private://) instead of direct paths
-   - Implement strict input validation for any path components
+5. **Error Handling and Logging:**
+   - Design contextual error messages (detailed for admins, general for users)
+   - Implement appropriate logging for security events
+   - Avoid exposing sensitive data in error messages
+   - Design fault-tolerant systems that fail securely
+   - Include appropriate transaction management
 
 ## Validation Checks
 - Conditions:
-  - pattern `->query\\(['\"][^'\"]*\\?[^'\"]*['\"],\\s*\\[[^\\]]*\\]\\)` – Properly using parameterized queries with placeholders.
-    - Check 1: Proper SQL query usage
-  - pattern `(t\\(|Xss::filter|Html::escape|#plain_text)` – Using proper XSS prevention techniques.
-    - Check 2: Proper XSS prevention
-  - pattern `#token|FormBuilderInterface::TOKEN|drupal_valid_token` – Implementing CSRF protection correctly.
-    - Check 3: Proper CSRF protection
-  - pattern `FileSystem::validatedLocalFileSystem|file_exists\\(\\s*DRUPAL_ROOT` – Using safe file operation practices.
-    - Check 4: Safe file operations
+  - pattern `protected\\s+\\$[a-zA-Z0-9_]+;[^}]*public\\s+function\\s+__construct\\([^\\)]*\\)` – Using proper dependency injection pattern.
+    - Check 1: Proper dependency injection
+  - pattern `config\\/schema\\/[a-zA-Z0-9_]+\\.schema\\.yml` – Providing configuration schema for validation.
+    - Check 2: Configuration schema usage
+  - pattern `\\$permissions\\[['\"][a-z\\s]+[a-z0-9\\s]+['\"]\\]\\s*=\\s*\\[` – Following permission naming conventions.
+    - Check 3: Proper permission definition
+  - pattern `@EntityAccessControl\\(|class\\s+[a-zA-Z0-9_]+AccessControlHandler\\s+extends\\s+` – Using dedicated access control handlers for entities.
+    - Check 4: Entity access handlers
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-- Tags: security, drupal, injection, sql, xss, csrf, owasp, language:php, framework:drupal, category:security, subcategory:injection, standard:owasp-top10, risk:a03-injection
+- Tags: security, drupal, design, architecture, owasp, language:php, framework:drupal, category:security, subcategory:design, standard:owasp-top10, risk:a04-insecure-design
 ## References
-- https://owasp.org/Top10/A03_2021-Injection/
-- https://www.drupal.org/docs/security-in-drupal/writing-secure-code-for-drupal
-- https://www.drupal.org/docs/8/security/drupal-8-sanitizing-output
-- https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Component%21Utility%21Xss.php/class/Xss/9
+- https://owasp.org/Top10/A04_2021-Insecure_Design/
+- https://www.drupal.org/docs/develop/security-in-drupal
+- https://www.drupal.org/docs/8/api/entity-api/access-control-for-entities
+- https://www.drupal.org/docs/8/api/configuration-api/configuration-schemametadata
 
  
 
