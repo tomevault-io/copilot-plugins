@@ -1,14 +1,14 @@
-## python-logging-monitoring-failures
+## python-security-misconfiguration
 
-> Detect and prevent security logging and monitoring failures in Python applications as defined in OWASP Top 10:2021-A09
+> Detect and prevent security misconfigurations in Python applications as defined in OWASP Top 10:2021-A05
 
- # Python Security Logging and Monitoring Failures Standards (OWASP A09:2021)
+ # Python Security Misconfiguration Standards (OWASP A05:2021)
 
-This rule enforces security best practices to prevent security logging and monitoring failures in Python applications, as defined in OWASP Top 10:2021-A09.
+This rule enforces security best practices to prevent security misconfigurations in Python applications, as defined in OWASP Top 10:2021-A05.
 
 <rule>
-name: python_logging_monitoring_failures
-description: Detect and prevent security logging and monitoring failures in Python applications as defined in OWASP Top 10:2021-A09
+name: python_security_misconfiguration
+description: Detect and prevent security misconfigurations in Python applications as defined in OWASP Top 10:2021-A05
 filters:
   - type: file_extension
     pattern: "\\.(py|ini|cfg|yml|yaml|json|toml)$"
@@ -18,402 +18,235 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Missing logging in authentication functions
-      - pattern: "def\\s+(login|authenticate|signin|logout|signout).*?:[^\\n]*?(?!.*logging\\.(info|warning|error|critical))"
-        message: "Authentication function without logging detected. Always log authentication events, especially failures, for security monitoring."
+      # Pattern 1: Debug mode enabled in production settings
+      - pattern: "DEBUG\\s*=\\s*True|debug\\s*=\\s*true|\"debug\"\\s*:\\s*true|debug:\\s*true"
+        message: "Debug mode appears to be enabled. This should be disabled in production environments as it can expose sensitive information."
         
-      # Pattern 2: Missing logging in authorization functions
-      - pattern: "def\\s+(authorize|check_permission|has_permission|is_authorized|require_permission).*?:[^\\n]*?(?!.*logging\\.(info|warning|error|critical))"
-        message: "Authorization function without logging detected. Always log authorization decisions, especially denials, for security monitoring."
+      # Pattern 2: Insecure cookie settings
+      - pattern: "SESSION_COOKIE_SECURE\\s*=\\s*False|session_cookie_secure\\s*=\\s*false|\"session_cookie_secure\"\\s*:\\s*false|session_cookie_secure:\\s*false"
+        message: "Insecure cookie configuration detected. Set SESSION_COOKIE_SECURE to True in production environments."
         
-      # Pattern 3: Missing logging in security-sensitive operations
-      - pattern: "def\\s+(create_user|update_user|delete_user|reset_password|change_password).*?:[^\\n]*?(?!.*logging\\.(info|warning|error|critical))"
-        message: "Security-sensitive user operation without logging detected. Always log security-sensitive operations for audit trails."
+      # Pattern 3: Missing CSRF protection
+      - pattern: "CSRF_ENABLED\\s*=\\s*False|csrf_enabled\\s*=\\s*false|\"csrf_enabled\"\\s*:\\s*false|csrf_enabled:\\s*false|WTF_CSRF_ENABLED\\s*=\\s*False"
+        message: "CSRF protection appears to be disabled. Enable CSRF protection to prevent cross-site request forgery attacks."
         
-      # Pattern 4: Missing logging in exception handlers
-      - pattern: "except\\s+[^:]+:[^\\n]*?(?!.*logging\\.(warning|error|critical|exception))"
-        message: "Exception handler without logging detected. Always log exceptions, especially in security-sensitive code, for monitoring and debugging."
+      # Pattern 4: Insecure CORS settings
+      - pattern: "CORS_ORIGIN_ALLOW_ALL\\s*=\\s*True|cors_origin_allow_all\\s*=\\s*true|\"cors_origin_allow_all\"\\s*:\\s*true|cors_origin_allow_all:\\s*true|Access-Control-Allow-Origin:\\s*\\*"
+        message: "Overly permissive CORS configuration detected. Restrict CORS to specific origins rather than allowing all origins."
         
-      # Pattern 5: Logging sensitive data
-      - pattern: "logging\\.(debug|info|warning|error|critical)\\([^)]*?(password|token|secret|key|credential|auth)"
-        message: "Potential sensitive data logging detected. Avoid logging sensitive information like passwords, tokens, or keys."
+      # Pattern 5: Default or weak secret keys
+      - pattern: "SECRET_KEY\\s*=\\s*['\"]default|SECRET_KEY\\s*=\\s*['\"][a-zA-Z0-9]{1,32}['\"]|secret_key\\s*=\\s*['\"]default|\"secret_key\"\\s*:\\s*\"default|secret_key:\\s*default"
+        message: "Default or potentially weak secret key detected. Use a strong, randomly generated secret key and store it securely."
         
-      # Pattern 6: Insufficient log level in security context
-      - pattern: "logging\\.debug\\([^)]*?(auth|login|permission|security|attack|hack|exploit|vulnerability)"
-        message: "Debug-level logging for security events detected. Use appropriate log levels (INFO, WARNING, ERROR) for security events."
+      # Pattern 6: Exposed sensitive information in error messages
+      - pattern: "DEBUG_PROPAGATE_EXCEPTIONS\\s*=\\s*True|debug_propagate_exceptions\\s*=\\s*true|\"debug_propagate_exceptions\"\\s*:\\s*true|debug_propagate_exceptions:\\s*true"
+        message: "Exception propagation in debug mode is enabled. This can expose sensitive information in error messages."
         
-      # Pattern 7: Missing logging configuration
-      - pattern: "import\\s+logging(?!.*logging\\.basicConfig|.*logging\\.config)"
-        message: "Logging import without configuration detected. Configure logging properly with appropriate handlers, formatters, and levels."
+      # Pattern 7: Insecure SSL/TLS configuration
+      - pattern: "SECURE_SSL_REDIRECT\\s*=\\s*False|secure_ssl_redirect\\s*=\\s*false|\"secure_ssl_redirect\"\\s*:\\s*false|secure_ssl_redirect:\\s*false"
+        message: "SSL redirection appears to be disabled. Enable SSL redirection to ensure secure communications."
         
-      # Pattern 8: Insecure logging configuration
-      - pattern: "logging\\.basicConfig\\([^)]*?level\\s*=\\s*logging\\.DEBUG"
-        message: "Debug-level logging configuration detected. Use appropriate log levels in production to avoid excessive logging."
+      # Pattern 8: Missing security headers
+      - pattern: "SECURE_HSTS_SECONDS\\s*=\\s*0|secure_hsts_seconds\\s*=\\s*0|\"secure_hsts_seconds\"\\s*:\\s*0|secure_hsts_seconds:\\s*0"
+        message: "HTTP Strict Transport Security (HSTS) appears to be disabled. Enable HSTS to enforce secure communications."
         
-      # Pattern 9: Missing request/response logging in web frameworks
-      - pattern: "@app\\.route\\(['\"][^'\"]+['\"]|@api_view\\(|class\\s+\\w+\\(APIView\\)|class\\s+\\w+\\(View\\)"
-        message: "Web endpoint without request logging detected. Consider logging requests and responses for security monitoring."
+      # Pattern 9: Exposed sensitive directories
+      - pattern: "@app\\.route\\(['\"]/(admin|console|management|config|settings|system)['\"]"
+        message: "Potentially sensitive endpoint exposed without access controls. Ensure proper authentication and authorization for administrative endpoints."
         
-      # Pattern 10: Missing correlation IDs in logs
-      - pattern: "logging\\.(debug|info|warning|error|critical)\\([^)]*?(?!.*request_id|.*correlation_id|.*trace_id)"
-        message: "Logging without correlation ID detected. Include correlation IDs in logs to trace requests across systems."
+      # Pattern 10: Default accounts or credentials
+      - pattern: "username\\s*=\\s*['\"]admin['\"]|password\\s*=\\s*['\"]admin|password\\s*=\\s*['\"]password|password\\s*=\\s*['\"]123|user\\s*=\\s*['\"]root['\"]"
+        message: "Default or weak credentials detected. Never use default or easily guessable credentials in any environment."
         
-      # Pattern 11: Missing error handling for logging failures
-      - pattern: "logging\\.(debug|info|warning|error|critical)\\([^)]*?\\)"
-        message: "Logging without error handling detected. Handle potential logging failures to ensure critical events are not missed."
+      # Pattern 11: Insecure file permissions
+      - pattern: "os\\.chmod\\([^,]+,\\s*0o777\\)|os\\.chmod\\([^,]+,\\s*777\\)"
+        message: "Overly permissive file permissions detected. Use the principle of least privilege for file permissions."
         
-      # Pattern 12: Missing logging for database operations
-      - pattern: "(execute|executemany|cursor\\.execute|session\\.execute|query)\\([^)]*?(?!.*logging\\.(debug|info|warning|error|critical))"
-        message: "Database operation without logging detected. Consider logging database operations for audit trails and security monitoring."
+      # Pattern 12: Exposed version information
+      - pattern: "@app\\.route\\(['\"]/(version|build|status|health)['\"]"
+        message: "Endpoints that may expose version information detected. Ensure these endpoints don't reveal sensitive details about your application."
         
-      # Pattern 13: Missing logging for file operations
-      - pattern: "open\\([^)]+,\\s*['\"]w['\"]|open\\([^)]+,\\s*['\"]a['\"]|write\\(|writelines\\("
-        message: "File write operation without logging detected. Consider logging file operations for audit trails."
+      # Pattern 13: Insecure deserialization
+      - pattern: "pickle\\.loads|yaml\\.load\\([^,)]+\\)|json\\.loads\\([^,)]+,\\s*[^)]*object_hook"
+        message: "Potentially insecure deserialization detected. Use safer alternatives like yaml.safe_load() or validate input before deserialization."
         
-      # Pattern 14: Missing logging for subprocess execution
-      - pattern: "subprocess\\.(call|run|Popen)\\([^)]*?(?!.*logging\\.(debug|info|warning|error|critical))"
-        message: "Subprocess execution without logging detected. Always log command execution for security monitoring."
+      # Pattern 14: Missing timeout settings
+      - pattern: "requests\\.get\\([^,)]+\\)|requests\\.(post|put|delete|patch)\\([^,)]+\\)"
+        message: "HTTP request without timeout setting detected. Always set timeouts for HTTP requests to prevent denial of service."
         
-      # Pattern 15: Missing centralized logging configuration
-      - pattern: "logging\\.basicConfig\\([^)]*?(?!.*filename|.*handlers)"
-        message: "Console-only logging configuration detected. Configure centralized logging with file handlers or external logging services."
+      # Pattern 15: Insecure upload directory
+      - pattern: "UPLOAD_FOLDER\\s*=\\s*['\"][^'\"]*(/tmp|/var/tmp)[^'\"]*['\"]|upload_folder\\s*=\\s*['\"][^'\"]*(/tmp|/var/tmp)[^'\"]*['\"]"
+        message: "Insecure upload directory detected. Use a properly secured directory for file uploads, not temporary directories."
 
   - type: suggest
     message: |
-      **Python Security Logging and Monitoring Best Practices:**
+      **Python Security Configuration Best Practices:**
       
-      1. **Structured Logging:**
-         - Use structured logging formats (JSON)
-         - Include contextual information
-         - Example with Python's standard logging:
+      1. **Environment-Specific Configuration:**
+         - Use different configurations for development, testing, and production
+         - Never enable debug mode in production
+         - Example with environment variables:
            ```python
-           import logging
-           import json
+           import os
            
-           class JsonFormatter(logging.Formatter):
-               def format(self, record):
-                   log_record = {
-                       "timestamp": self.formatTime(record),
-                       "level": record.levelname,
-                       "message": record.getMessage(),
-                       "logger": record.name,
-                       "path": record.pathname,
-                       "line": record.lineno
-                   }
-                   
-                   # Add extra attributes from record
-                   for key, value in record.__dict__.items():
-                       if key not in ["args", "asctime", "created", "exc_info", "exc_text", 
-                                     "filename", "funcName", "id", "levelname", "levelno",
-                                     "lineno", "module", "msecs", "message", "msg", "name", 
-                                     "pathname", "process", "processName", "relativeCreated", 
-                                     "stack_info", "thread", "threadName"]:
-                           log_record[key] = value
-                   
-                   return json.dumps(log_record)
-           
-           # Configure logger with JSON formatter
-           logger = logging.getLogger("security_logger")
-           handler = logging.StreamHandler()
-           handler.setFormatter(JsonFormatter())
-           logger.addHandler(handler)
-           logger.setLevel(logging.INFO)
-           
-           # Usage with context
-           logger.info("User login successful", extra={
-               "user_id": user.id,
-               "ip_address": request.remote_addr,
-               "request_id": request.headers.get("X-Request-ID")
-           })
+           DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+           SECRET_KEY = os.environ.get('SECRET_KEY')
            ```
       
-      2. **Security Event Logging:**
-         - Log all authentication events
-         - Log authorization decisions
-         - Log security-sensitive operations
-         - Example:
+      2. **Secure Cookie Configuration:**
+         - Enable secure cookies in production
+         - Set appropriate cookie flags
+         - Example for Django:
            ```python
-           def login(request):
-               username = request.form.get("username")
-               password = request.form.get("password")
-               
-               try:
-                   user = authenticate(username, password)
-                   if user:
-                       # Log successful login
-                       logger.info("User login successful", extra={
-                           "user_id": user.id,
-                           "ip_address": request.remote_addr,
-                           "request_id": request.headers.get("X-Request-ID")
-                       })
-                       return success_response()
-                   else:
-                       # Log failed login
-                       logger.warning("User login failed: invalid credentials", extra={
-                           "username": username,  # Note: log username but never password
-                           "ip_address": request.remote_addr,
-                           "request_id": request.headers.get("X-Request-ID")
-                       })
-                       return error_response("Invalid credentials")
-               except Exception as e:
-                   # Log exceptions
-                   logger.error("Login error", extra={
-                       "error": str(e),
-                       "username": username,
-                       "ip_address": request.remote_addr,
-                       "request_id": request.headers.get("X-Request-ID")
-                   })
-                   return error_response("Login error")
+           SESSION_COOKIE_SECURE = True
+           SESSION_COOKIE_HTTPONLY = True
+           SESSION_COOKIE_SAMESITE = 'Lax'
+           CSRF_COOKIE_SECURE = True
+           CSRF_COOKIE_HTTPONLY = True
            ```
-      
-      3. **Correlation IDs:**
-         - Use request IDs to correlate logs
-         - Propagate IDs across services
-         - Example with Flask:
+         - Example for Flask:
            ```python
-           import uuid
-           from flask import Flask, request, g
-           
-           app = Flask(__name__)
-           
-           @app.before_request
-           def before_request():
-               request_id = request.headers.get("X-Request-ID")
-               if not request_id:
-                   request_id = str(uuid.uuid4())
-               g.request_id = request_id
-           
-           @app.after_request
-           def after_request(response):
-               response.headers["X-Request-ID"] = g.request_id
-               return response
-           
-           # In your view functions
-           @app.route("/api/resource")
-           def get_resource():
-               logger.info("Resource accessed", extra={"request_id": g.request_id})
-               return jsonify({"data": "resource"})
-           ```
-      
-      4. **Appropriate Log Levels:**
-         - DEBUG: Detailed information for debugging
-         - INFO: Confirmation of normal events
-         - WARNING: Potential issues that don't prevent operation
-         - ERROR: Errors that prevent specific operations
-         - CRITICAL: Critical errors that prevent application function
-         - Example:
-           ```python
-           # Normal operation
-           logger.info("User profile updated", extra={"user_id": user.id})
-           
-           # Potential security issue
-           logger.warning("Multiple failed login attempts", extra={
-               "username": username,
-               "attempt_count": attempts,
-               "ip_address": ip_address
-           })
-           
-           # Security violation
-           logger.error("Unauthorized access attempt", extra={
-               "user_id": user.id,
-               "resource": resource_id,
-               "ip_address": ip_address
-           })
-           
-           # Critical security breach
-           logger.critical("Possible data breach detected", extra={
-               "indicators": indicators,
-               "affected_resources": resources
-           })
-           ```
-      
-      5. **Centralized Logging:**
-         - Configure logging to centralized systems
-         - Use appropriate handlers
-         - Example with file rotation:
-           ```python
-           import logging
-           from logging.handlers import RotatingFileHandler
-           
-           logger = logging.getLogger("security_logger")
-           
-           # File handler with rotation
-           file_handler = RotatingFileHandler(
-               "security.log",
-               maxBytes=10485760,  # 10MB
-               backupCount=10
+           app.config.update(
+               SESSION_COOKIE_SECURE=True,
+               SESSION_COOKIE_HTTPONLY=True,
+               SESSION_COOKIE_SAMESITE='Lax',
+               PERMANENT_SESSION_LIFETIME=timedelta(hours=1)
            )
-           file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-           logger.addHandler(file_handler)
-           
-           # Set level
-           logger.setLevel(logging.INFO)
            ```
       
-      6. **Sensitive Data Handling:**
-         - Never log sensitive data
-         - Implement data masking
+      3. **Security Headers:**
+         - Implement HTTP security headers
+         - Example with Flask-Talisman:
+           ```python
+           from flask_talisman import Talisman
+           
+           talisman = Talisman(
+               app,
+               content_security_policy={
+                   'default-src': "'self'",
+                   'script-src': "'self'"
+               },
+               strict_transport_security=True,
+               strict_transport_security_max_age=31536000,
+               frame_options='DENY'
+           )
+           ```
+         - Example for Django:
+           ```python
+           SECURE_HSTS_SECONDS = 31536000
+           SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+           SECURE_HSTS_PRELOAD = True
+           SECURE_CONTENT_TYPE_NOSNIFF = True
+           SECURE_BROWSER_XSS_FILTER = True
+           X_FRAME_OPTIONS = 'DENY'
+           ```
+      
+      4. **CORS Configuration:**
+         - Restrict CORS to specific origins
+         - Example with Flask-CORS:
+           ```python
+           from flask_cors import CORS
+           
+           CORS(app, resources={r"/api/*": {"origins": "https://example.com"}})
+           ```
+         - Example for Django:
+           ```python
+           CORS_ALLOWED_ORIGINS = [
+               "https://example.com",
+               "https://sub.example.com",
+           ]
+           CORS_ALLOW_CREDENTIALS = True
+           ```
+      
+      5. **Secret Management:**
+         - Use environment variables or secure vaults for secrets
+         - Generate strong random secrets
          - Example:
            ```python
-           def mask_sensitive_data(data, fields_to_mask):
-               """Mask sensitive fields in data dictionary."""
-               masked_data = data.copy()
-               for field in fields_to_mask:
-                   if field in masked_data:
-                       masked_data[field] = "********"
-               return masked_data
+           import secrets
            
-           # Usage
-           user_data = {"username": "john", "password": "secret123", "email": "john@example.com"}
-           safe_data = mask_sensitive_data(user_data, ["password"])
-           logger.info("User data processed", extra={"user_data": safe_data})
+           # Generate a secure random secret key
+           secret_key = secrets.token_hex(32)
            ```
       
-      7. **Exception Logging:**
-         - Always log exceptions
-         - Include stack traces for debugging
+      6. **Error Handling:**
+         - Use custom error handlers to prevent information leakage
+         - Example for Flask:
+           ```python
+           @app.errorhandler(Exception)
+           def handle_exception(e):
+               # Log the error
+               app.logger.error(f"Unhandled exception: {str(e)}")
+               # Return a generic error message
+               return jsonify({"error": "An unexpected error occurred"}), 500
+           ```
+      
+      7. **Secure File Uploads:**
+         - Validate file types and sizes
+         - Store uploaded files outside the web root
+         - Use secure permissions
          - Example:
            ```python
-           try:
-               # Some operation
-               result = process_data(data)
-           except Exception as e:
-               logger.error(
-                   "Error processing data",
-                   exc_info=True,  # Include stack trace
-                   extra={
-                       "data_id": data.id,
-                       "error": str(e)
-                   }
-               )
-               raise  # Re-raise or handle appropriately
+           import os
+           from werkzeug.utils import secure_filename
+           
+           UPLOAD_FOLDER = '/path/to/secure/location'
+           ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg'}
+           
+           app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+           app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB limit
+           
+           def allowed_file(filename):
+               return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
            ```
       
-      8. **Audit Logging:**
-         - Log all security-relevant changes
-         - Include before/after states
+      8. **Dependency Management:**
+         - Regularly update dependencies
+         - Use tools like safety or dependabot
+         - Pin dependency versions
+         - Example requirements.txt:
+           ```
+           Flask==2.0.1
+           Werkzeug==2.0.1
+           ```
+      
+      9. **Timeout Configuration:**
+         - Set timeouts for all external service calls
          - Example:
            ```python
-           def update_user_role(user_id, new_role, current_user):
-               user = User.get(user_id)
-               old_role = user.role
-               
-               # Update role
-               user.role = new_role
-               user.save()
-               
-               # Audit log
-               logger.info("User role changed", extra={
-                   "user_id": user_id,
-                   "old_role": old_role,
-                   "new_role": new_role,
-                   "changed_by": current_user.id,
-                   "timestamp": datetime.utcnow().isoformat()
-               })
+           import requests
+           
+           response = requests.get('https://api.example.com', timeout=(3.05, 27))
            ```
       
-      9. **Log Monitoring Integration:**
-         - Configure alerts for security events
-         - Integrate with SIEM systems
-         - Example configuration for ELK stack:
-           ```python
-           import logging
-           from elasticsearch import Elasticsearch
-           from elasticsearch.helpers import bulk
-           
-           class ElasticsearchHandler(logging.Handler):
-               def __init__(self, es_host, index_name):
-                   super().__init__()
-                   self.es = Elasticsearch([es_host])
-                   self.index_name = index_name
-                   self.buffer = []
-                   
-               def emit(self, record):
-                   try:
-                       log_entry = {
-                           "_index": self.index_name,
-                           "_source": {
-                               "timestamp": self.formatter.formatTime(record),
-                               "level": record.levelname,
-                               "message": record.getMessage(),
-                               "logger": record.name
-                           }
-                       }
-                       
-                       # Add extra fields
-                       for key, value in record.__dict__.items():
-                           if key not in ["args", "asctime", "created", "exc_info", "exc_text", 
-                                         "filename", "funcName", "id", "levelname", "levelno",
-                                         "lineno", "module", "msecs", "message", "msg", "name", 
-                                         "pathname", "process", "processName", "relativeCreated", 
-                                         "stack_info", "thread", "threadName"]:
-                               log_entry["_source"][key] = value
-                               
-                       self.buffer.append(log_entry)
-                       
-                       # Bulk insert if buffer is full
-                       if len(self.buffer) >= 10:
-                           self.flush()
-                   except Exception:
-                       self.handleError(record)
-                       
-               def flush(self):
-                   if self.buffer:
-                       bulk(self.es, self.buffer)
-                       self.buffer = []
-           
-           # Usage
-           es_handler = ElasticsearchHandler("localhost:9200", "app-logs")
-           es_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-           logger.addHandler(es_handler)
-           ```
-      
-      10. **Logging Failure Handling:**
-          - Handle logging failures gracefully
-          - Implement fallback mechanisms
+      10. **Secure Deserialization:**
+          - Use safe alternatives for deserialization
+          - Validate input before deserialization
           - Example:
             ```python
-            class FallbackHandler(logging.Handler):
-                def __init__(self, primary_handler, fallback_handler):
-                    super().__init__()
-                    self.primary_handler = primary_handler
-                    self.fallback_handler = fallback_handler
-                    
-                def emit(self, record):
-                    try:
-                        self.primary_handler.emit(record)
-                    except Exception:
-                        try:
-                            self.fallback_handler.emit(record)
-                        except Exception:
-                            # Last resort: print to stderr
-                            import sys
-                            print(f"CRITICAL: Logging failure: {record.getMessage()}", file=sys.stderr)
+            import yaml
             
-            # Usage
-            primary = ElasticsearchHandler("localhost:9200", "app-logs")
-            fallback = logging.FileHandler("fallback.log")
-            handler = FallbackHandler(primary, fallback)
-            logger.addHandler(handler)
+            # Use safe_load instead of load
+            data = yaml.safe_load(yaml_string)
             ```
 
   - type: validate
     conditions:
-      # Check 1: Proper logging configuration
-      - pattern: "logging\\.basicConfig\\(|logging\\.config\\.dictConfig\\(|logging\\.config\\.fileConfig\\("
-        message: "Logging is properly configured."
+      # Check 1: Proper debug configuration
+      - pattern: "DEBUG\\s*=\\s*os\\.environ\\.get\\(['\"]DEBUG['\"]|DEBUG\\s*=\\s*False"
+        message: "Using environment-specific or secure debug configuration."
       
-      # Check 2: Security event logging
-      - pattern: "logging\\.(info|warning|error|critical)\\([^)]*?(login|authenticate|authorize|permission)"
-        message: "Security events are being logged."
+      # Check 2: Secure cookie settings
+      - pattern: "SESSION_COOKIE_SECURE\\s*=\\s*True|session_cookie_secure\\s*=\\s*true"
+        message: "Using secure cookie configuration."
       
-      # Check 3: Structured logging
-      - pattern: "logging\\.(info|warning|error|critical)\\([^)]*?extra\\s*="
-        message: "Structured logging with context is implemented."
+      # Check 3: Security headers implementation
+      - pattern: "SECURE_HSTS_SECONDS|X_FRAME_OPTIONS|Talisman\\(|CSP|Content-Security-Policy"
+        message: "Implementing security headers."
       
-      # Check 4: Correlation ID usage
-      - pattern: "request_id|correlation_id|trace_id"
-        message: "Correlation IDs are used for request tracing."
+      # Check 4: Proper CORS configuration
+      - pattern: "CORS_ALLOWED_ORIGINS|CORS\\(app,\\s*resources"
+        message: "Using restricted CORS configuration."
 
 metadata:
   priority: high
@@ -421,25 +254,24 @@ metadata:
   tags:
     - security
     - python
-    - logging
-    - monitoring
+    - configuration
+    - deployment
     - owasp
     - language:python
     - framework:django
     - framework:flask
     - framework:fastapi
     - category:security
-    - subcategory:logging
+    - subcategory:configuration
     - standard:owasp-top10
-    - risk:a09-security-logging-monitoring-failures
+    - risk:a05-security-misconfiguration
   references:
-    - "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
-    - "https://docs.python.org/3/library/logging.html"
-    - "https://docs.python.org/3/howto/logging-cookbook.html"
-    - "https://docs.djangoproject.com/en/stable/topics/logging/"
-    - "https://flask.palletsprojects.com/en/latest/logging/"
-    - "https://fastapi.tiangolo.com/tutorial/handling-errors/#logging"
+    - "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Configuration_Security_Cheat_Sheet.html"
+    - "https://flask.palletsprojects.com/en/latest/security/"
+    - "https://docs.djangoproject.com/en/stable/topics/security/"
+    - "https://fastapi.tiangolo.com/advanced/security/https/"
+    - "https://owasp.org/www-project-secure-headers/"
 </rule>
 
 ---
