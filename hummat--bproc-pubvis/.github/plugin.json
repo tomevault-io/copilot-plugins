@@ -1,0 +1,9 @@
+{
+  "name": "hummat--bproc-pubvis",
+  "displayName": "bproc-pubvis",
+  "description": "Publication-ready visualization of 3D objects and point clouds in seconds.",
+  "version": "1.0.0",
+  "author": "hummat",
+  "homepage": "https://github.com/hummat/bproc-pubvis",
+  "skills": []
+}
