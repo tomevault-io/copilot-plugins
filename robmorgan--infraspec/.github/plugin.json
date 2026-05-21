@@ -1,0 +1,9 @@
+{
+  "name": "robmorgan--infraspec",
+  "displayName": "infraspec",
+  "description": "\u2705 InfraSpec is a tool for testing your AWS infrastructure code in plain English.",
+  "version": "1.0.0",
+  "author": "robmorgan",
+  "homepage": "https://github.com/robmorgan/infraspec",
+  "skills": []
+}
