@@ -1,55 +1,59 @@
-## vortex-cicd-standards
+## vortex-scaffold-standards
 
-> Standards for Vortex CI/CD and Renovate configuration
+> Standards for Vortex/DrevOps scaffold usage and best practices
 
-# Vortex CI/CD Standards
+# Vortex/DrevOps Scaffold Standards
 
-Ensures proper CI/CD and dependency management configuration.
+Ensures proper usage of Vortex/DrevOps scaffold features and workflows.
 
 <rule>
-name: vortex_cicd_standards
-description: Enforce standards for Vortex CI/CD and Renovate configuration
+name: vortex_scaffold_standards
+description: Enforce standards for Vortex/DrevOps scaffold usage
 filters:
-  - type: file_name
-    pattern: "^config\\.yml$|^renovate\\.json$|\\.github/workflows/.*\\.yml$"
+  - type: file_extension
+    pattern: "\\.(yml|yaml|sh|json|md)$"
+  - type: file_path
+    pattern: "scripts/(vortex|drevops)/"
 
 actions:
   - type: enforce
     conditions:
-      - pattern: "workflows:\\s+version:\\s*2\\.1"
-        message: "Use Vortex's CircleCI configuration template"
+      - pattern: "custom-download-db\\.sh"
+        message: "Use scripts/vortex/download-db.sh router script instead of custom implementation"
 
-      - pattern: "\"extends\":\\s*\\[\\s*\"config:base\"\\s*\\]"
-        message: "Extend Vortex's Renovate configuration for Drupal projects"
+      - pattern: "drush\\s+[a-z-]+\\s+--uri="
+        message: "Use DRUPAL_SITE_URL environment variable instead of hardcoded URI"
 
-      - pattern: "steps:\\s+- run:\\s+name:\\s+Install dependencies"
-        message: "Use scripts/vortex/provision.sh for consistent provisioning"
+      - pattern: "composer\\s+require\\s+[^-]"
+        message: "Use Vortex's composer.json template and Renovate for dependency management"
+
+      - pattern: "docker\\s+exec\\s+-it\\s+\\$\\(docker-compose"
+        message: "Use Ahoy commands for container interactions"
 
   - type: suggest
     message: |
-      CI/CD Best Practices:
-      - Use dual schedules for Drupal updates
-      - Configure automated PR assignments
-      - Enable deployment notifications
-      - Use provided test scaffolds
-      - Implement proper caching strategy
-      - Configure branch protection rules
-      - Use standardized job naming
+      Vortex/DrevOps Best Practices:
+      - Use centralized workflow scripts from scripts/vortex/
+      - Leverage environment variables for configuration
+      - Use Renovate for automated dependency updates
+      - Follow the router script pattern for customizations
+      - Implement proper CI/CD integration
+      - Use provided tool configurations (PHPCS, PHPStan, etc.)
+      - Maintain documentation structure
+      - Ensure CI/CD pipelines include testing and deployment steps
+      - Document CI/CD processes in the README for clarity
 
   - type: validate
     conditions:
-      - pattern: "\"packageRules\":\\s*\\[\\s*\\{\\s*\"matchPackagePatterns\":\\s*\\[\"^drupal/core"
-        message: "Configure separate update schedules for Drupal core and contrib"
+      - pattern: "^\\s*source\\s+\\.env"
+        message: "Use scripts/vortex/bootstrap.sh for environment setup"
 
-      - pattern: "jobs:\\s+build_test:"
-        message: "Include all required test jobs from Vortex template"
-
-      - pattern: "- store_test_results:"
-        message: "Enable test results storage for better CI visibility"
+      - pattern: "docker-compose\\s+exec\\s+cli\\s+vendor/bin/"
+        message: "Use provided Ahoy commands for tool execution"
 
 metadata:
-  priority: critical
-  version: 1.0
+  priority: high
+  version: 1.1
 </rule> 
 
 ---
