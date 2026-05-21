@@ -1,0 +1,9 @@
+{
+  "name": "janeliascicomp--fileglancer",
+  "displayName": "fileglancer",
+  "description": "Browse, share, and publish OME-Zarr data ",
+  "version": "1.0.0",
+  "author": "JaneliaSciComp",
+  "homepage": "https://github.com/JaneliaSciComp/fileglancer",
+  "skills": []
+}
