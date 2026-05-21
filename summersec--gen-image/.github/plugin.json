@@ -1,0 +1,9 @@
+{
+  "name": "summersec--gen-image",
+  "displayName": "Gen-Image",
+  "description": "\u57fa\u4e8eOPENAI \u7684 GPT Image \u6a21\u578b\u524d\u7aef\u56fe\u50cf\u751f\u6210\u5de5\u4f5c\u53f0",
+  "version": "1.0.0",
+  "author": "SummerSec",
+  "homepage": "https://github.com/SummerSec/Gen-Image",
+  "skills": []
+}
