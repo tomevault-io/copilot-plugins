@@ -1,0 +1,9 @@
+{
+  "name": "binary-install--binstaller",
+  "displayName": "binstaller",
+  "description": "binstaller (binst) is a config-driven secure shell-script installer generator that creates reproducible installation scripts for static binaries distributed via GitHub releases. ",
+  "version": "1.0.0",
+  "author": "binary-install",
+  "homepage": "https://github.com/binary-install/binstaller",
+  "skills": []
+}
