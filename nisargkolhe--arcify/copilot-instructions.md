@@ -1,37 +1,46 @@
-## 04-helper-modules
+## 05-code-organization
 
-> The `ChromeHelper` module encapsulates Chrome API interactions and provides a cleaner interface for:
+> 1. Event listener setup on `DOMContentLoaded`
 
-# Helper Modules
+# Code Organization
 
-## ChromeHelper
+## Initialization Flow
 
-The `ChromeHelper` module encapsulates Chrome API interactions and provides a cleaner interface for:
-- Creating new tabs
-- Creating new tab groups
-- Managing tab groups
+1. Event listener setup on `DOMContentLoaded`
+2. `initSidebar()` called
+   - Chrome API calls to get current tabs and groups
+   - Create spaces based on existing tab groups or create default space
+   - Set up DOM elements and event handlers
+3. Setup event listeners for Chrome tab events
 
-## LocalStorage
+## Component Structure
 
-The `LocalStorage` module manages persistent storage using Chrome's bookmarks API:
-- `getOrCreateArcifyFolder()` - Gets or creates the root bookmark folder
-- `getOrCreateSpaceFolder(name)` - Gets or creates a bookmark folder for a space
+The code is organized around the concept of spaces and tabs:
 
-## Utils
+- Space management functions
+- Tab management functions 
+- Event handlers
+- UI interaction handlers
+- Helper functions
 
-The `Utils` module provides utility functions for:
-- Generating UUIDs
-- Getting settings
-- Getting favicon URLs
-- Managing tab name overrides
-- Handling tab archiving and restoration
+## State Persistence
 
-## Constants
+State is persisted in two ways:
 
-The codebase defines several constants:
-- `MouseButton` - Enum for mouse button values
-- Default space names and colors
-- Global state flags like `isCreatingSpace`, `isOpeningBookmark`
+1. Chrome bookmarks API for persistent storage
+   - Each space has its own folder
+   - Bookmarked tabs are stored in these folders
+   
+2. Chrome storage API for extension state
+   - `saveSpaces()` function saves to `chrome.storage.local`
+   - Spaces array contains the current state
+
+## Event Flow
+
+1. User interacts with UI (clicks, drags tabs)
+2. Event handlers update the DOM
+3. Chrome API calls update the browser state
+4. `saveSpaces()` persists the updated state
 
 ---
 > Source: [nisargkolhe/arcify](https://github.com/nisargkolhe/arcify) — distributed by [TomeVault](https://tomevault.io).
