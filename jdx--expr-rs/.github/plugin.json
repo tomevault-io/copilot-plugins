@@ -1,0 +1,9 @@
+{
+  "name": "jdx--expr-rs",
+  "displayName": "expr.rs",
+  "description": "Implementation of go's expr in rust",
+  "version": "1.0.0",
+  "author": "jdx",
+  "homepage": "https://github.com/jdx/expr.rs",
+  "skills": []
+}
