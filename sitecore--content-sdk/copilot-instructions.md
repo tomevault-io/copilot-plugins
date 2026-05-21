@@ -1,28 +1,86 @@
-## cli
+## code-style
 
-> CLI behavior, prompts, init flow, next steps
+> Code style, error handling, logging, imports, lint/format
 
 
-# CLI
+# Code Style
 
-- Drive init via `Initializer.init(args)`
-- Clear prompts and defaults
-- Install dependencies after scaffolding
-- Print next steps
+## Vibe-Coding Principles
 
-Non-goals:
-- No deployments or CI flows
-- No global user state changes
+Core Philosophy:
 
-Backwards compatibility:
-- Avoid breaking arg names
-- Additive changes with defaults
+- Write clean, modular, and idiomatic code
+- Prefer declarative over imperative patterns
+- Make code readable and self-documenting
+- TypeScript-first development approach
+
+Code Organization:
+
+- Use Node LTS
+- Export public types at module boundaries
+- Prefer pure functions and thin wrappers
+- No top-level side effects (except CLI entry)
+- Modular architecture with clear separation of concerns
+
+## Code Quality Standards
+
+TypeScript Usage:
+
+- Enable strict mode in all projects
+- Prefer explicit types over `any`
+- Use discriminated unions for complex state
+- Export types at module boundaries for reusability
+
+Functional Programming:
+
+- Prefer pure functions where possible
+- Use immutable data patterns
+- Avoid side effects in business logic
+- Compose small, focused functions
+
+Readability:
+
+- Use descriptive variable and function names
+- Keep functions small and focused (single responsibility)
+- Add comments for complex business logic only
+- Prefer self-documenting code over extensive comments
+
+## Error Handling
+
+Error Strategy:
+
+- Fail fast with clear, actionable messages
+- Propagate child-process errors with context
+- Use custom error classes for domain-specific errors
+- Handle edge cases explicitly with guard clauses
+
+Security: See `.cursor/rules/safety.mdc` for input validation, secrets, and API security.
+
+## Development Workflow
+
+Logging:
+
+- Clear phases and results
+- Support silent flag if available
+- Use appropriate log levels (debug, info, warn, error)
+- Include context in error messages
+
+Imports:
+
+- Relative for local modules
+- Never import from `dist/`
+- Group imports logically (external, internal, relative)
+- Use barrel exports (index.ts) for clean APIs
+
+Lint and Format:
+
+- Keep ESLint + Prettier passing at all times
+- Follow configured style rules consistently
+- Use automated formatting on save
+- Address linting warnings promptly
 
 Referenced:
-@src/initializers/nextjs/index.ts
-@src/initializers/nextjs/prompts.ts
-@src/initialize.ts
-@src/bin.ts
+@src/common/index.ts
 
 ---
 > Source: [Sitecore/content-sdk](https://github.com/Sitecore/content-sdk) — distributed by [TomeVault](https://tomevault.io).
