@@ -1,19 +1,13 @@
-## python
+## request-schema
 
-> Use when writing python
+> - Ensure you can see the relevant kalshi api documentation in context
 
+# Writing Request Schema Models
 
-  You are an expert in writing python
-
-  Key Principles
-  - Write concise, technical responses with accurate Python examples.
-  - Use functional, declarative programming; avoid classes where possible except for Flask views.
-  - Prefer iteration and modularization over code duplication.
-  - Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission).
-  - Use lowercase with underscores for directories and files (e.g., blueprints/user_routes.py).
-  - Favor named exports for routes and utility functions.
-  - Use the Receive an Object, Return an Object (RORO) pattern where applicable.
-    
+- Ensure you can see the relevant kalshi api documentation in context
+- Write Pydantic models that match the request parameter schema exactly
+- Include documentation on what each field does
+- Include docmentation of whether the field is required
 
 ---
 > Source: [9crusher/mcp-server-kalshi](https://github.com/9crusher/mcp-server-kalshi) — distributed by [TomeVault](https://tomevault.io).
