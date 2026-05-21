@@ -1,0 +1,44 @@
+{
+  "name": "Vue3-Cesium-SandCastle",
+  "owner": "xxjxuejian",
+  "repo": "Vue3-Cesium-SandCastle",
+  "description": "Vue3\u5b9e\u73b0Cesium\u5b98\u7f51\u7684sandcastle\u5728\u7ebf\u793a\u4f8b\u5e93",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xxjxuejian/Vue3-Cesium-SandCastle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T03:43:29Z"
+}
