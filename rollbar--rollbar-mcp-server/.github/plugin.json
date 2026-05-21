@@ -1,0 +1,9 @@
+{
+  "name": "rollbar--rollbar-mcp-server",
+  "displayName": "rollbar-mcp-server",
+  "description": "Model Context Protocol server for Rollbar",
+  "version": "1.0.0",
+  "author": "rollbar",
+  "homepage": "https://github.com/rollbar/rollbar-mcp-server",
+  "skills": []
+}
