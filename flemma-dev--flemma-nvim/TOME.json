@@ -4,7 +4,7 @@
   "repo": "flemma.nvim",
   "description": "An AI workspace inside Neovim where every conversation is a document you own.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Flemma-Dev/flemma.nvim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T13:24:45Z"
+  "distributed_at": "2026-05-21T03:00:57Z"
 }
