@@ -1,0 +1,44 @@
+{
+  "name": "qq_bot_by_deepseek",
+  "owner": "maudslice",
+  "repo": "qq_bot_by_deepseek",
+  "description": "\u7b80\u6613\u7684qq\u673a\u5668\u4eba\u5bf9\u63a5deepseek api\u5b9e\u73b0",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maudslice/qq_bot_by_deepseek",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T21:45:09Z"
+}
