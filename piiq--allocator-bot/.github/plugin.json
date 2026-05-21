@@ -1,0 +1,9 @@
+{
+  "name": "piiq--allocator-bot",
+  "displayName": "allocator-bot",
+  "description": "Asset basket allocator bot built with FastAPI, PyPortfolioOpt, Magentic and OpenBB",
+  "version": "1.0.0",
+  "author": "piiq",
+  "homepage": "https://github.com/piiq/allocator-bot",
+  "skills": []
+}
