@@ -1,20 +1,34 @@
-## commit
+## contribute
 
-> Rule for Commit message with Git
+> 1. Fork the repository
 
+# Contribution Guidelines
 
-# Rule for Commit message with Git
+## Getting Started
+1. Fork the repository
+2. Clone your fork
+3. Install dependencies with `pnpm install`
+4. Make your changes
+5. Run tests with `pnpm test`
+6. Submit a pull request
 
-- Follow Angular Commit Message Spec
-- Format: `type(scope): subject`
-  - type: feat|fix|docs|style|refactor|test|chore|perf
-  - scope: Optional, the scope of the changes
-  - subject: A concise description of the changes
-- Keep the commit message as short as possible, changes on doc could be omited
+## Pull Request Process
+- Ensure your code follows the style guidelines
+- Add tests for new features
+- Update documentation if necessary
+- Follow the commit message conventions
 
-<example>
-feat(auth): add agent command
-</example>
+## Development Workflow
+- Use feature branches
+- Keep pull requests focused on a single feature/fix
+- Ensure all tests pass before submitting
+- Follow the TypeScript coding standards
+- Document any new MCP tools thoroughly
+
+## Release Process
+- Releases are handled via `pnpm release`
+- This creates a Git tag and GitHub release
+- The release process also generates changelog entries
 
 ---
 > Source: [umijs/umi-mcp](https://github.com/umijs/umi-mcp) — distributed by [TomeVault](https://tomevault.io).
