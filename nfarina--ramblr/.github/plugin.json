@@ -1,0 +1,9 @@
+{
+  "name": "nfarina--ramblr",
+  "displayName": "ramblr",
+  "description": "Get the best dictation from the Whisper API everywhere on your Mac, for pennies.",
+  "version": "1.0.0",
+  "author": "nfarina",
+  "homepage": "https://github.com/nfarina/ramblr",
+  "skills": []
+}
