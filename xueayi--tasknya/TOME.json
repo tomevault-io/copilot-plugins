@@ -1,0 +1,44 @@
+{
+  "name": "TaskNya",
+  "owner": "xueayi",
+  "repo": "TaskNya",
+  "description": "TaskNya\u662f\u4e00\u4e2a\u901a\u7528\u7684\u4efb\u52a1\u76d1\u63a7\u4e0e\u901a\u77e5\u5de5\u5177\uff0c\u9002\u7528\u4e8e\u901a\u7528\u4efb\u52a1\u7684\u76d1\u63a7\u548c\u901a\u77e5\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xueayi/TaskNya",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T13:34:05Z"
+}
