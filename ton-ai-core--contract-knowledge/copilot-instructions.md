@@ -1,77 +1,51 @@
-## tact
+## tolk
 
-> Use this rule for smart contract development on TON using the TACT programming language. Always apply it when working with TACT contracts
+> Use this rule for smart contract development on TON using the Tolk programming language. Always apply it when working with Tolk contracts
 
-## 🚀 Core Tact Guidelines
+## ✅ Cursor Rule: Tolk Smart Contracts Coding Guide
 
-### 1. Contract Declaration
-```tact
-contract MyContract(owner: Address) { … }
-````
-
-* **Header parameters** auto-generate `init`—do not write a separate `init` with the same fields.
-* Filenames in snake_case (e.g., `my_contract.tact`); contract names in PascalCase.
-
-### 2. Imports
-
-```tact
-import "./other_contract.tact";
-import "@stdlib/stdlib.tact";
-```
-
-* Use relative paths for local contracts.
-* Use `@stdlib` for standard libraries.
-
-### 3. Messages & Structs
-
-```tact
-message(0x01) Transfer { to: Address; amount: Int as coins; }
-struct User { id: Address; balance: Int; }
-```
-
-* Always specify explicit opcode (`message(0x…)`) to avoid collisions.
-* Use `as coins` for currency fields.
-
-### 4. Built-in Functions
-
-Key reserved keywords in Tact:
-```plaintext
-fun, let, return, receive, native, primitive, null, 
-if, else, while, repeat, do, until, try, catch, 
-foreach, as, map, message, mutates, extends, external, import,
-with, trait, initOf, override, abstract, virtual, 
-inline, const, extend, public, true, false, null
-```
-
-* **Context & System**
-  `context()`, `sender()`, `myAddress()`, `myBalance()`, `now()`, `commit()`
-* **Messaging**
-  `send()`, `message()`, `deploy()`, `cashback()`
-* **Errors & Debug**
-  `require(cond)`, `throwUnless(cond)`, `dump()`, `dumpStack()`
-* **Crypto & Hash**
-  `checkSignature(pubkey, sig)`, `sha256(data)`, `keccak256(data)`
-* **Cell Ops**
-  `beginCell()`, `.storeUint()`, `.loadUint()`, `.endCell()`
-
-
-### 5. Security Patterns
-
-* Validate `sender()` and all input via `require()` or `throwUnless()`.
-* Use a unique `seqno` for each critical action to prevent replay.
-* Always verify any external signature before processing.
-
-### 6. Gas Efficiency
-
-* Minimize state writes and variables—store only essential fields.
-* Use compact types (`uint8`, `coins`) for counters and amounts.
-* Favor standard library functions over custom cell manipulation.
+You are a **Tolk** code assistant for TON blockchain development. When generating or reviewing Tolk code, follow these **non‑interactive** guidelines:
 
 ---
 
-## ⛔️ Error Handling & Rollback
+### 1. File Structure
+- Place all contracts in the `contracts/` directory.
+- Filename and contract name must be **PascalCase** and match exactly.
+- After building, **create TypeScript wrappers manually** in `wrappers/` (Tolk has no auto‑generation).
 
-* On any Tact compile or runtime error, immediately fix the same file (do not duplicate or create new files), rebuild, and retest until no errors remain.
+### 2. Language Keywords
+Use **only** these Tolk keywords and reserved words:
+```
+tolk, import, global, const, fun, get, mutate, asm, builtin,
+var, val, return, repeat, if, else, do, while, break, continue,
+throw, throwUnless, throwIf, assert, try, catch, true, false,
+null, void, self, redef
+```
+
+### 3. Built‑in Functions
+Only use these built‑ins for on‑chain operations:
+```
+getContractData(), setContractData(), beginCell(), endCell(), beginParse(),
+assertEndOfSlice(), loadUint(), storeUint(), throw(), throwUnless(), throwIf(),
+onInternalMessage(), isMessageBounced(), loadMessageFlags(), loadMessageOp(),
+loadMessageQueryId()
+```
+
+### 4. Best Practices
+-
+-
+
+### 5. Testing and Static Analysis
+- Run exhaustive tests *before* deploy:
+  ```bash
+  npx blueprint build ContractName && npx blueprint test
+  npx blueprint misti ContractName
+  ```
+  Ensure wrappers are up‑to‑date, tests pass, and `misti` reports **zero critical issues** before continuing.
+
+---
+
+❗ All code generation must be fully parameterized; no interactive prompts are allowed.
 
 ---
 > Source: [ton-ai-core/contract-knowledge](https://github.com/ton-ai-core/contract-knowledge) — distributed by [TomeVault](https://tomevault.io).
