@@ -1,0 +1,9 @@
+{
+  "name": "sandros94--unjwt",
+  "displayName": "unjwt",
+  "description": "A collection of low-level JWT utilities based on the Web Crypto API.",
+  "version": "1.0.0",
+  "author": "sandros94",
+  "homepage": "https://github.com/sandros94/unjwt",
+  "skills": []
+}
