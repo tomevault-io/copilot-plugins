@@ -1,0 +1,9 @@
+{
+  "name": "nowakeai--kube-insight",
+  "displayName": "kube-insight",
+  "description": "Historical Kubernetes evidence for humans and agents.",
+  "version": "1.0.0",
+  "author": "nowakeai",
+  "homepage": "https://github.com/nowakeai/kube-insight",
+  "skills": []
+}
