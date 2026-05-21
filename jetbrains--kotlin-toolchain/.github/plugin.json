@@ -1,0 +1,9 @@
+{
+  "name": "jetbrains--kotlin-toolchain",
+  "displayName": "kotlin-toolchain",
+  "description": "A set of tools for the Kotlin language, with a focus on user experience and tooling",
+  "version": "1.0.0",
+  "author": "JetBrains",
+  "homepage": "https://github.com/JetBrains/kotlin-toolchain",
+  "skills": []
+}
