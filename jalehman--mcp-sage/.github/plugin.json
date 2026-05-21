@@ -1,0 +1,9 @@
+{
+  "name": "jalehman--mcp-sage",
+  "displayName": "mcp-sage",
+  "description": "MCP Server for getting second opinions/reviews on large amounts of code.",
+  "version": "1.0.0",
+  "author": "jalehman",
+  "homepage": "https://github.com/jalehman/mcp-sage",
+  "skills": []
+}
