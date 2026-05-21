@@ -1,193 +1,164 @@
-## translation-management-tools
+## workflows
 
-> This guide covers the practical aspects of managing translations in the project, including tools, scripts, and workflows.
+> This document describes the main workflows for agentic behavior. It's mandatory to follow them in the respective tasks.
 
-# Translation Management Tools and Workflows
+## Core Workflows
+Define high-level tasks. Follow the `## Request Processing Steps` below to execute these.
 
-This guide covers the practical aspects of managing translations in the project, including tools, scripts, and workflows.
+<workflows>
+  <use_tools>
+    - **Goal:** Execute project-specific tools listed under `<command_line_tools>`.
+    - **Steps:**
+      1. Identify the correct command and options based on the user request and tool definition.
+      2. Use `run_terminal_cmd` to execute the command.
+  </use_tools>
 
-## Available Translation Management Scripts
+  <document>
+     - **Goal:** Update documentation files.
+     - **Steps:**
+       1. Read relevant documentation files (`*.md`).
+       2. Scan the files in the repository and read the main files to understand the project and it's scope regarding the feature or subsystem to be documented.
+       2. Use `edit_file` to make necessary updates based on the task. Focus on the specific files mentioned in the `<documentation>` section (e.g., `ai_changelog.md`, `todo.md`, `learnings.md`).
+  </document>
 
-The project includes several npm scripts to help manage translations:
+  <research>
+  - **Goal:** Understand a task or topic thoroughly before planning.
+  - **Steps:**
+    1. **Gather Context:**
+        - Read relevant `*.md` files from `<documentation>`.
+        - Fetch relevant `*.mdc` rules using `fetch_rules`.
+        - Use `codebase_search` to find relevant existing code snippets.
+        - Use `web_search` for external information, documentation, or examples (perform at least one search).
+    2. **Analyze & Plan:**
+        - Synthesize gathered information.
+        - Outline the plan: What needs to be done? What tools are required?
+        - Identify any missing information needed from the user.
+    3. **Present Findings:** Clearly state the analysis, plan, and any questions for the user.
+  </research>
 
-```bash
-# Split monolithic locale files into namespace-based files
-npm run split-locales
+  <fix>
+  - **Goal:** Diagnose and resolve an error.
+  - **Steps:**
+    1. **Gather Context:**
+        - Read `docs/learnings.md` for previous solutions (`read_file`).
+        - If error messages contain URLs, use `web_search` to understand them.
+        - Fetch relevant `*.mdc` rules (`fetch_rules`).
+        - Use `web_search` for general error resolution information.
+    2. **Iterative Fixing Loop:**
+        a. **Hypothesize:** Based on context, identify 1-2 likely causes.
+        b. **Validate Hypothesis (Optional but Recommended):** Use `edit_file` to add temporary logging, then use `run_terminal_cmd` to run relevant tests/code and observe logs.
+        c. **Implement Fix:** Use `edit_file` to apply the proposed code change.
+        d. **Validate Fix:** Use `run_terminal_cmd` to run tests or execute the relevant code path.
+        e. **Record Outcome:**
+            - If fixed: Update `docs/learnings.md` with the solution (`edit_file`). Delete `/temp/fix_backlog.md` if it exists (`delete_file`).
+            - If not fixed: Create or update `/temp/fix_backlog.md` with what was tried (`edit_file`). Return to step (a). *Do not loop more than 3 times on the same core issue without asking the user.*
+  </fix>
 
-# Check for missing translations between locales
-npm run check-translations
+  <validate>
+  - **Goal:** Implement and run tests, fixing any failures.
+  - **Steps:**
+    1. **Understand Requirements:**
+        - Read `docs/architecture.md` for testing practices (`read_file`).
+        - Fetch `implement-unit-tests.mdc` rule (`fetch_rules`).
+    2. **Write Unit Tests:**
+        - Use `edit_file` to create/update unit test files (e.g., `__tests__/*.test.ts`).
+    3. **Run & Fix Unit Tests:**
+        - Execute tests using `run_terminal_cmd` (e.g., `npm test`).
+        - If errors occur, use the `<fix>` workflow to resolve them.
+    4. **Write E2E Tests:**
+        - Use `edit_file` to create/update E2E test files (e.g., in `cypress/`).
+    5. **Run & Fix E2E Tests:**
+        - Execute tests using `run_terminal_cmd` (e.g., `npm run cypress:run`).
+        - If errors occur, use the `<fix>` workflow to resolve them.
+    6. **Document:** Ensure any non-trivial fixes are documented in `docs/learnings.md` as part of the `<fix>` workflow.
+    7. **Repeat:** Continue until all relevant tests pass.
+  </validate>
 
-# Import translations from external sources for local development
-npm run import-translations:local
+  <record>
+   - **Goal:** Document completed work and update the task backlog.
+   - **Steps:**
+     1. Use `edit_file` to add a summary to `docs/ai_changelog.md`.
+     2. Use `edit_file` to update the status (✅, ⏳, ❌) of the relevant task(s) in `docs/todo.md`. **Do not remove tasks.**
+  </record>
 
-# Import translations from external sources for production
-npm run import-translations:prod
-```
+  <design>
+   - **Goal:** Design a frontend feature.
+   - **Steps:**
+     1. Read `docs/frontend.md` for UI/UX guidelines (`read_file`).
+     2. Describe the design (components, layout, flow) and use `edit_file` to update `docs/frontend.md`.
+     3. Generate required images/illustrations using `run_terminal_cmd` with appropriate image generation tools (e.g., `gemini-image-tool`, prefer `imagen` or `gemini` models). Specify output folder like `public/images`.
+     4. Optimize generated images using `run_terminal_cmd` with `image-optimizer`.
+     5. Briefly summarize the design and generated assets for the user.
+  </design>
 
-## Working with Namespaced Translation Files
+  <develop>
+   - **Goal:** Implement the code for a feature (frontend/backend).
+   - **Steps:**
+     1. Fetch relevant rules (`implement-*.mdc`) using `fetch_rules`.
+     2. Use `edit_file` to implement the required code changes across necessary files (components, API routes, types, etc.). Ensure imports and dependencies are handled.
+  </develop>
 
-After running `split-locales`, the translation files are organized by namespace under locale-specific directories:
+  <invent>
+    - **Goal:** Create a new command-line tool.
+    - **Steps:**
+      1. Implement the tool script (e.g., in `tools/` directory) using `edit_file`.
+      2. Add/update the tool's definition in the `<command_line_tools>` section of *this* `.cursorrules` file using `edit_file`. Ensure `tool` is set to `run_terminal_cmd`.
+      3. Test the new tool using `run_terminal_cmd`.
+      4. Use the `<fix>` workflow to debug any issues until the tool executes successfully.
+  </invent>
 
-```
-messages/
-├── en/                  # English translations
-│   ├── Index.json       # Homepage translations
-│   ├── Blog.json        # Blog-related translations
-│   └── ...
-├── fi/                  # Finnish translations
-├── sv/                  # Swedish translations
-└── ...
-```
+  <commit>
+    - **Goal:** Commit current changes to git.
+    - **Steps:**
+      1. Use `run_terminal_cmd` to run `git add .`.
+      2. Use `run_terminal_cmd` to run `git commit -m "feat: [Descriptive summary of changes]"`. Adapt the message prefix (e.g., `fix:`, `docs:`, `chore:`) as appropriate.
+  </commit>
 
-Each namespace file contains translations for a specific feature or component, making them easier to manage and update.
+  <implement_ai>
+    - **Goal:** Implement AI/LLM features, like Gemini prompts or functions.
+    - **Steps:**
+      1. **Review Examples:** Read `tools/gemini.ts` using `read_file` to understand existing patterns.
+      2. **Implement:** Use `edit_file` to add the AI logic.
+      3. **Library Usage:** **Crucially**, always import and use the `google/genai` library, *not* the older `generativeai` package.
+      4. **Integration:** Integrate the AI logic into relevant frontend or backend components as needed, potentially using the `<develop>` workflow.
+      5. **Testing:** Ensure the feature is tested, potentially using the `<validate>` workflow.
+  </implement_ai>
 
-## Translation Workflow
+  <localize>
+    - **Goal:** Create or update translations for the application with natural, culturally appropriate phrasing.
+    - **Steps:**
+      1. **Understand Context:**
+         - Read `messages/README.md` to understand the localization structure.
+         - Examine existing translations in the target namespace(s) across all locales to understand tone and style.
+         - Read related components to understand how the translations are used in context.
+      
+      2. **Translation Approach:**
+         - **DO NOT** translate word-for-word. Prioritize natural, idiomatic expressions in each target language.
+         - Consider cultural context for each language (Finnish, Swedish, English).
+         - Maintain consistent terminology within each feature/namespace.
+         - Preserve placeholders (e.g., `{count}`, `{name}`) and formatting tags.
+         - Ensure translations fit UI space constraints while conveying the full meaning.
+      
+      3. **Language-Specific Guidance:**
+         - **Finnish (fi):**
+           - Use shorter constructions where possible (Finnish words tend to be longer).
+           - Consider compound word formation rules (yhdyssanat).
+           - Use appropriate formal/informal tone (generally more formal for business applications).
+           - Handle cases properly (Finnish has 15 grammatical cases).
+         
+         - **Swedish (sv):**
+           - Pay attention to definite/indefinite forms.
+           - Use appropriate formal/informal tone ("ni" vs "du").
+           - Consider gender agreement in adjectives.
+           - Maintain natural word order in questions and statements.
+         
+         - **English (en):**
+           - Use clear, concise phrasing.
+           - Follow American English conventions unless otherwise specified.
+           - Avoid idioms that may not translate well.
 
-### Adding New Content
-
-1. **Identify the Namespace**:
-   - Determine which namespace the new content belongs to (e.g., `Blog`, `Auth`, `Common`)
-   - If no suitable namespace exists, consider creating a new one
-
-2. **Update Each Locale**:
-   - Add the new keys and English translations to `en/[Namespace].json`
-   - Add corresponding translations to `fi/[Namespace].json` and `sv/[Namespace].json`
-   - Maintain the same key structure across all locale files
-
-3. **Verify Completeness**:
-   - Run `npm run check-translations` to ensure all translations are present
-   - Address any missing translations identified by the script
-
-### Updating Existing Translations
-
-1. **Locate the Keys**:
-   - Identify the namespace containing the keys to update
-   - Open the corresponding files in each locale directory
-
-2. **Make Coordinated Changes**:
-   - Update translations in all locale files to maintain consistency
-   - Ensure any placeholders are preserved across all translations
-   - When changing keys, update all references in code as well
-
-3. **Verify Changes**:
-   - Test the updated translations in the UI
-   - Run `npm run check-translations` to verify completeness
-
-## Translation Report
-
-The `localization-report.md` file provides a comprehensive overview of translation coverage:
-
-```markdown
-# Localization Report
-
-Generated on: 2025-05-03T09:33:57.073Z
-
-## Namespace Coverage
-
-| Namespace | en | fi | sv |
-|----------|-----|-----|-----|
-| About    |  ✅ |  ✅ |  ✅ |
-| Account  |  ✅ |  ✅ |  ✅ |
-| ...      |  ✅ |  ✅ |  ✅ |
-
-## Summary
-
-Total namespaces across all locales: 16
-
-### en
-- Namespaces: 16
-- Missing namespaces: None
-
-...
-```
-
-Use this report to identify:
-- Missing namespaces in specific locales
-- Translation coverage across the application
-- Areas that need attention
-
-## Best Practices for Translation Management
-
-### Version Control
-
-1. **Commit Translations Separately**:
-   - Keep translation changes in separate commits from code changes
-   - Use descriptive commit messages: `feat(i18n): Add blog post editor translations`
-
-2. **Review Process**:
-   - Have translations reviewed by native speakers when possible
-   - Create separate PRs for significant translation updates
-
-### Organization
-
-1. **Consistent Hierarchy**:
-   - Keep translations organized in a logical hierarchy
-   - Limit nesting to 3-4 levels for readability
-   - Use consistent naming conventions for similar elements
-
-2. **Comments for Context**:
-   - Add comments in code to provide context for translators
-   - Include sample usage or screenshots if needed
-
-### Maintenance
-
-1. **Regular Audits**:
-   - Run `npm run check-translations` regularly to catch missing translations
-   - Review translation quality periodically
-   - Remove unused translation keys
-
-2. **Backup Strategy**:
-   - The `backup/` directory contains the original monolithic files
-   - Create additional backups before making significant changes
-
-## Troubleshooting Common Issues
-
-### Missing Translations
-
-If `check-translations` reports missing translations:
-
-1. **Identify the Gap**:
-   - Note which keys are missing in which locales
-   - Check if entire namespaces are missing or just specific keys
-
-2. **Fill the Gaps**:
-   - Add the missing translations to the appropriate files
-   - Use placeholder text if actual translations aren't ready
-
-3. **Verify Fixes**:
-   - Run `check-translations` again to ensure all issues are resolved
-
-### Namespace Synchronization
-
-If namespaces become out of sync:
-
-1. **Run `split-locales` Again**:
-   - This will regenerate the report and highlight discrepancies
-   - Check the report for missing namespaces
-
-2. **Manual Fixes**:
-   - Create any missing namespace files
-   - Copy structure from existing locales and add appropriate translations
-
-## Adding a New Language
-
-To add support for a new language:
-
-1. **Create Directory Structure**:
-   - Create a new directory for the locale (e.g., `messages/de/` for German)
-   - Copy all namespace files from an existing locale (e.g., English)
-
-2. **Translate Content**:
-   - Translate all content in each namespace file
-   - Preserve key structure and placeholders
-
-3. **Update Configuration**:
-   - Add the new locale to the supported locales list in the i18n configuration
-   - Add the locale to scripts that manage translations
-
-4. **Verify Setup**:
-   - Run `npm run check-translations` to ensure completeness
-   - Test the new locale in the UI
+  </localize>
+</workflows>
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
