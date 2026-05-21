@@ -1,0 +1,9 @@
+{
+  "name": "valenovo--baidu-search-skill",
+  "displayName": "baidu-search-skill",
+  "description": "\u9762\u5411 AI Agent \u7684\u767e\u5ea6 API \u641c\u7d22 Skill\uff0c\u57fa\u4e8e\u767e\u5ea6 AI Search / \u767e\u5ea6\u767e\u79d1 API\uff0c\u9700\u767e\u5ea6 API Key",
+  "version": "1.0.0",
+  "author": "valenovo",
+  "homepage": "https://github.com/valenovo/baidu-search-skill",
+  "skills": []
+}
