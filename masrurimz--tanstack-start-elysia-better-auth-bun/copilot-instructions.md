@@ -1,104 +1,37 @@
-## data-fetching
+## elysia-backend
 
-> - Use TanStack Query for all data fetching and async state management
+> - Organize code by feature modules with clear boundaries
 
-# Data Fetching & Async Management
+# Elysia Backend Guidelines
 
-## TanStack Query Pattern
+## Feature Organization
 
-- Use TanStack Query for all data fetching and async state management
-- Organize query and mutation definitions based on scope:
-  - Feature-specific queries go in `features/feature/_lib/feature-queries.ts`
-  - Shared queries go in `libs/tanstack-query/shared-queries.ts`
-- Structure all query keys with const objects for type safety and organization:
-  ```ts
-  export const featureKeys = {
-    entity: ["entity"] as const,
-    list: ["entity", "list"] as const,
-    detail: (id: string) => ["entity", "detail", id] as const,
-  };
-  ```
-- Create typed query options as functions that return queryOptions for parameterization:
-  ```ts
-  // For queries without parameters
-  export const entityListQueryOptions = () => queryOptions({
-    queryKey: featureKeys.list,
-    queryFn: ({ signal }) => repository.getEntities({ signal }),
-  });
-  
-  // For parameterized queries
-  export const entityDetailQueryOptions = ({ id }: { id: string }) => queryOptions({
-    queryKey: featureKeys.detail(id),
-    queryFn: ({ signal }) => repository.getEntityById({ id, signal }),
-  });
-  ```
-- In route loaders, use `ensureQueryData` to prefetch and cache queries:
-  ```ts
-  export const Route = createFileRoute('/entity/$id')({
-    loader: async ({ params: { id }, context }) => {
-      const data = await context.queryClient.ensureQueryData(
-        entityDetailQueryOptions({ id }),
-      );
-      return { title: data.title };
-    },
-  });
-  ```
-- In components, use the appropriate query hook based on your needs:
-  ```tsx
-  // For regular queries with loading states
-  const { data, isPending, error } = useQuery(entityListQueryOptions());
-  
-  // For components with Suspense
-  const { data } = useSuspenseQuery(entityDetailQueryOptions({ id }));
-  ```
-- Define properly typed mutation options for all state mutations:
-  ```ts
-  export const createEntityMutationOptions = ({ 
-    onSuccess 
-  }: { 
-    onSuccess?: () => void 
-  } = {}) => ({
-    mutationKey: [...featureKeys.entity, "create"],
-    mutationFn: ({ input }: { input: InputType }) => 
-      repository.createEntity({ input }),
-    onSuccess,
-  });
-  ```
-- Use object parameters for all data operation functions
-- All query and mutation functions MUST return objects, never primitive values
-- Create repository interfaces in the domain layer and implementations in the infrastructure layer:
-  - Example: `entity-repository.ts` (interface) and `entity-tanstack-query-repo.ts` (implementation)
-- Implement error handling in query functions, using notFound() for 404s:
-  ```tsx
-  queryFn: async ({ signal }) => {
-    try {
-      return await repository.getEntityById({ id, signal });
-    } catch (error) {
-      if (error.status === 404) {
-        throw notFound();
-      }
-      throw error;
-    }
-  }
-  ```
-- Implement optimistic updates for mutations when appropriate
-- Use TanStack Query's invalidation to manage cache consistency
+- Organize code by feature modules with clear boundaries
+- Each feature contains: routes, service, domain models, and repository implementation
+- Use underscore prefix for all feature-specific internal directories
 
-## Authentication Implementation Example
+## Controller Pattern (Elysia)
 
-The authentication implementation demonstrates this pattern:
+- Use Elysia instances as controllers with method chaining
+- Group related routes using prefixes
+- Include Swagger documentation with the `detail` property
 
-- Query keys defined as `authKeys = { user: ["user"], session: ["session"] }`
-- Mutation options typed for specific credential types
-- Repository pattern with `auth-repository.ts` and `auth-tanstack-query-repo.ts`
-- Session fetching via `queryClient.fetchQuery` in root route's `beforeLoad`
-- Context passing for consistent data access across the application
+## Service Pattern
 
-## Reference Files
+- Use class-based services with arrow function methods
+- Keep business logic in services, separate from controllers
+- All service methods MUST accept object parameters and return objects
 
-- Query definitions: [auth-queries.ts](mdc:apps/web/src/libs/tanstack-query/auth-queries.ts)
-- Query client setup: [query-client.ts](mdc:apps/web/src/libs/tanstack-query/query-client.ts)
-- Authentication repository: [auth-client-repo.ts](mdc:src/libs/better-auth/auth-client-repo.ts)
+## Model Definition
+
+- Use Elysia's validation system (`t.Object()`) for models/DTOs
+- Group related models together in `_domain` directory
+
+## Security
+
+- Validate all inputs using Elysia's built-in validation
+- Implement proper authentication with better-auth
+- Use secure headers and proper CORS configuration
 
 ---
 > Source: [masrurimz/tanstack-start-elysia-better-auth-bun](https://github.com/masrurimz/tanstack-start-elysia-better-auth-bun) — distributed by [TomeVault](https://tomevault.io).
