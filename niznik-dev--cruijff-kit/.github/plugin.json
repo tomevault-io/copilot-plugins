@@ -1,0 +1,42 @@
+{
+  "name": "niznik-dev--cruijff-kit",
+  "displayName": "cruijff_kit",
+  "description": "Tools for conducting social research with LLMs",
+  "version": "1.0.0",
+  "author": "niznik-dev",
+  "homepage": "https://github.com/niznik-dev/cruijff_kit",
+  "skills": [
+    {
+      "name": "analyze-experiment",
+      "description": ""
+    },
+    {
+      "name": "analyze-to-pdf",
+      "description": ""
+    },
+    {
+      "name": "create-inspect-task",
+      "description": ""
+    },
+    {
+      "name": "create-meeting-agenda",
+      "description": ""
+    },
+    {
+      "name": "design-experiment",
+      "description": ""
+    },
+    {
+      "name": "run-experiment",
+      "description": ""
+    },
+    {
+      "name": "scaffold-experiment",
+      "description": ""
+    },
+    {
+      "name": "summarize-experiment",
+      "description": ""
+    }
+  ]
+}
