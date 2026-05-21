@@ -1,0 +1,44 @@
+{
+  "name": "Amaidesu",
+  "owner": "Mai-with-u",
+  "repo": "Amaidesu",
+  "description": "Amadeus\u7684Typo\u5f62\u6001\uff1aA Mai De Su\uff08\u4e00\u53ea\u9ea6\u9ea6\u54e6\uff09\u3002MaiBot\u7684Vtuber\u9879\u76ee",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mai-with-u/Amaidesu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T12:01:52Z"
+}
