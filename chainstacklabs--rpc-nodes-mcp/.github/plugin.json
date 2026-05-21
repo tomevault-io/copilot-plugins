@@ -1,0 +1,9 @@
+{
+  "name": "chainstacklabs--rpc-nodes-mcp",
+  "displayName": "rpc-nodes-mcp",
+  "description": "Minimal, fast, and extensible MCP server for interactions with JSON-RPC blockchain nodes",
+  "version": "1.0.0",
+  "author": "chainstacklabs",
+  "homepage": "https://github.com/chainstacklabs/rpc-nodes-mcp",
+  "skills": []
+}
