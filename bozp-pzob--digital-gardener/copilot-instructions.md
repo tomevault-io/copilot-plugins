@@ -1,56 +1,48 @@
-## 03-plugins-system
+## 04-helper-functions
 
-> The application features a robust plugin system, allowing for modular addition of functionality. Plugins reside in subdirectories within `[src/plugins/](mdc:src/plugins)` and are dynamically loaded by the main scripts (`[src/index.ts](mdc:src/index.ts)`, `[src/historical.ts](mdc:src/historical.ts)`) using helpers like `loadDirectoryModules` from `[src/helpers/configHelper.ts](mdc:src/helpers/configHelper.ts)`.
+> The `[src/helpers/](mdc:src/helpers)` directory provides utility functions used across the application, particularly for configuration loading, data manipulation, and common tasks.
 
-# Plugin System
+# Helper Functions
 
-The application features a robust plugin system, allowing for modular addition of functionality. Plugins reside in subdirectories within `[src/plugins/](mdc:src/plugins)` and are dynamically loaded by the main scripts (`[src/index.ts](mdc:src/index.ts)`, `[src/historical.ts](mdc:src/historical.ts)`) using helpers like `loadDirectoryModules` from `[src/helpers/configHelper.ts](mdc:src/helpers/configHelper.ts)`.
+The `[src/helpers/](mdc:src/helpers)` directory provides utility functions used across the application, particularly for configuration loading, data manipulation, and common tasks.
 
-## Plugin Types
+## Key Helper Files:
 
-Plugins are organized by type into subdirectories:
+*   **`[configHelper.ts](mdc:src/helpers/configHelper.ts)`:**
+    *   Crucial for the plugin system.
+    *   `loadDirectoryModules(type)`: Dynamically imports all `.ts` files from a specified subdirectory within `src/plugins/` (e.g., `sources`, `ai`).
+    *   `loadItems(configArray, classes, type)`: Takes the plugin configuration array from the main JSON config, the loaded classes, and the plugin type. It instantiates each plugin class based on the `type` field in the config, passing `params` to the constructor.
+    *   `loadProviders(items, providers)`: Injects the first available `AiProvider` instance into the `provider` property of other plugin instances (like enrichers, generators, or sources) if they are configured to use one (e.g., `params.provider: "providerName"`).
+    *   `loadStorage(items, storage)`: Injects the first available `StoragePlugin` instance into the `storage` property of other plugin instances if configured.
 
-1.  **Sources (`[src/plugins/sources/](mdc:src/plugins/sources)`)**
-    *   Implement the `[SourcePlugin](mdc:src/types.ts)` interface.
-    *   Responsible for fetching data from external APIs, feeds, or services.
-    *   Must implement `fetchArticles(): Promise<ContentItem[]>`, returning normalized `ContentItem` objects.
-    *   May optionally implement `fetchHistorical(filter: DateConfig | string)` for use with `historical.ts`.
-    *   Examples: `[DiscordRawDataSource.ts](mdc:src/plugins/sources/DiscordRawDataSource.ts)`, `[GitHubDataSource.ts](mdc:src/plugins/sources/GitHubDataSource.ts)`.
+*   **`[dateHelper.ts](mdc:src/helpers/dateHelper.ts)`:**
+    *   Provides functions for date parsing, formatting, and manipulation.
+    *   Used heavily by `[src/historical.ts](mdc:src/historical.ts)` and potentially by plugins dealing with time-sensitive data.
+    *   `parseDate(dateStr)`: Converts string dates.
+    *   `formatDate(date)`: Formats dates into strings.
+    *   `addOneDay(date)`: Simple date arithmetic.
+    *   `callbackDateRangeLogic(filter, callback)`: Iterates through a date range defined by a `DateConfig` filter and executes a callback for each date. Used in `historical.ts` for generating summaries over a range.
 
-2.  **AI Providers (`[src/plugins/ai/](mdc:src/plugins/ai)`)**
-    *   Implement the `[AiProvider](mdc:src/types.ts)` interface.
-    *   Provide wrappers around AI models/APIs (e.g., OpenAI, Claude via OpenRouter).
-    *   Must implement methods like `summarize(text)`, `topics(text)`, `image(text)`.
-    *   These providers are injected as dependencies into other plugins (Sources, Enrichers, Generators) that require AI capabilities.
-    *   Configuration (API keys, models) is typically handled via the JSON config and environment variables.
+*   **`[fileHelper.ts](mdc:src/helpers/fileHelper.ts)`:**
+    *   Utilities for file system operations (reading, writing, checking existence).
+    *   Likely used by storage plugins or generators that output files.
 
-3.  **Enrichers (`[src/plugins/enrichers/](mdc:src/plugins/enrichers)`)**
-    *   Implement the `[EnricherPlugin](mdc:src/types.ts)` interface.
-    *   Process and modify/annotate `ContentItem` objects after fetching.
-    *   Must implement `enrich(articles: ContentItem[]): ContentItem[] | Promise<ContentItem[]>`. 
-    *   Can use AI providers (e.g., for topic extraction, sentiment analysis).
-    *   Example: `AiTopicsEnricher` (inferred from config, likely exists in this directory).
+*   **`[promptHelper.ts](mdc:src/helpers/promptHelper.ts)`:**
+    *   Functions to construct prompts for AI providers.
+    *   Helps maintain consistency in how AI models are prompted for tasks like summarization or topic extraction.
 
-4.  **Generators (`[src/plugins/generators/](mdc:src/plugins/generators)`)**
-    *   (Interface likely defined within this directory or implied)
-    *   Responsible for creating derived content, typically summaries, based on stored `ContentItem` data.
-    *   Often interact with a `StoragePlugin` to retrieve data for a specific period (e.g., a day).
-    *   Usually use an `AiProvider` to generate summary text.
-    *   Output results (e.g., Markdown files) to a configured path (`outputPath`).
-    *   Key method likely involves `generateContent()` or `generateAndStoreSummary(dateStr)`.
-    *   Examples: `DailySummaryGenerator`, `DiscordSummaryGenerator` (inferred from config).
+*   **`[cliHelper.ts](mdc:src/helpers/cliHelper.ts)`:**
+    *   Functions related to command-line interface interactions (e.g., parsing arguments, logging). Used in `index.ts` and `historical.ts`.
 
-5.  **Storage (`[src/plugins/storage/](mdc:src/plugins/storage)`)**
-    *   Implement the `[StoragePlugin](mdc:src/plugins/storage/StoragePlugin.ts)` interface (assuming path).
-    *   Handle persistence of `ContentItem` and potentially other data (like `SummaryItem`).
-    *   Must implement methods for initialization (`init`), saving (`saveContent`), retrieving (`getContent`, `getContentByDate`, etc.), and closing connections (`close`).
-    *   Example: `SQLiteStorage` (inferred from config).
+*   **`[generalHelper.ts](mdc:src/helpers/generalHelper.ts)`:**
+    *   Contains miscellaneous utility functions that don't fit into other specific categories.
 
-## Configuration
+*   **`[cache.ts](mdc:src/helpers/cache.ts)`:**
+    *   Implements a caching mechanism.
+    *   Potentially used by plugins to avoid redundant computations or API calls (e.g., caching AI results or fetched data temporarily).
 
-Each plugin instance is configured via the main JSON configuration file (e.g., `[config/discord-raw.json](mdc:config/discord-raw.json)`). The configuration specifies the `type` (matching the class name), a unique `name`, and `params` specific to that plugin.
-
-Dependencies (like AI Providers and Storage) are automatically injected into other plugins during initialization based on the configuration by helpers in `[configHelper.ts](mdc:src/helpers/configHelper.ts)`.
+## Usage
+Helper functions can be imported and used across the application to maintain consistency and reduce code duplication.
 
 ---
 > Source: [bozp-pzob/digital-gardener](https://github.com/bozp-pzob/digital-gardener) — distributed by [TomeVault](https://tomevault.io).
