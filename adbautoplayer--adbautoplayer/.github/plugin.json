@@ -1,0 +1,9 @@
+{
+  "name": "adbautoplayer--adbautoplayer",
+  "displayName": "AdbAutoPlayer",
+  "description": "Automate tasks (bot) in mobile games like AFK Journey using ADB.",
+  "version": "1.0.0",
+  "author": "AdbAutoPlayer",
+  "homepage": "https://github.com/AdbAutoPlayer/AdbAutoPlayer",
+  "skills": []
+}
