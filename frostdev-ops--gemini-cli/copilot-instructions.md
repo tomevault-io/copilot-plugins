@@ -1,34 +1,34 @@
-## 03-mcp
+## 04-memory
 
-> Use this rule to learn how external tools are integrated via MCP, find the MCP host code and server configuration file, identify built-in and external (E5 embedding) servers, and trace how Gemini function calls are executed as MCP tool requests.
+> Use this rule to locate the persistent memory storage code (MemoryStore), understand the LanceDB backend and embedding generation via MCP, see how prompts are enhanced with context, and find semantic search/filtering logic.
 
-# Gemini Rust Suite: Model Context Protocol (MCP)
+# Gemini Rust Suite: Persistent Memory and Embeddings
 
-MCP allows Gemini to use external tools and services. This is primarily handled by the `gemini-mcp` crate ([mcp/README.md](mdc:mcp/README.md)).
+Persistent, semantic memory is managed by the `gemini-memory` crate ([memory/README.md](mdc:memory/README.md)).
 
 ## Key Components:
 
-*   **MCP Host:** The core logic resides in `McpHost` ([mcp/src/host.rs](mdc:mcp/src/host.rs)). It discovers, manages, and communicates with MCP servers.
-    *   Can run embedded within the CLI.
-    *   Can run as a standalone daemon: `mcp-hostd` ([mcp/src/bin/mcp-hostd.rs](mdc:mcp/src/bin/mcp-hostd.rs)).
-*   **MCP Servers:** External processes providing tools (capabilities). The host connects to them based on configuration.
-    *   **Configuration:** Defined in `~/.config/gemini-suite/mcp_servers.json`. Specifies server name, transport (stdio, sse, websocket), command to launch (for stdio), etc. See [mcp/README.md](mdc:mcp/README.md) for format.
-    *   **Transports:** Supports `Stdio`, `SSE`, and `WebSocket`.
-    *   **Communication:** Uses JSON-RPC 2.0.
-*   **Built-in Servers:** The source code for common servers is included within `gemini-mcp`:
-    *   `command` ([mcp/src/servers/command/mod.rs](mdc:mcp/src/servers/command/mod.rs)): Executes shell commands (requires user confirmation by default).
-    *   `filesystem` ([mcp/src/servers/filesystem/mod.rs](mdc:mcp/src/servers/filesystem/mod.rs)): Reads/writes files, lists directories.
-    *   `memory_store` ([mcp/src/servers/memory_store/mod.rs](mdc:mcp/src/servers/memory_store/mod.rs)): Simple key-value storage (distinct from the main `gemini-memory` LanceDB store). *Note: This server might be less relevant now with the dedicated E5 embedding server.* 
-    *   These can be run via CLI flags (e.g., `gemini --filesystem-mcp`) or configured in `mcp_servers.json` to be launched by the host.
-*   **External Python E5 Embedding Server:** A crucial server for semantic memory.
-    *   Located in [mcp_embedding_server/](mdc:mcp_embedding_server).
-    *   Provides the `embed` tool using E5 models.
-    *   Communicates via `stdio` JSON-RPC.
-    *   See [mcp_embedding_server/README.md](mdc:mcp_embedding_server/README.md) and the server script [mcp_embedding_server/server.py](mdc:mcp_embedding_server/server.py).
-*   **Gemini Integration:**
-    *   The MCP host translates server capabilities into Gemini `FunctionDeclaration`s.
-    *   It dispatches Gemini `FunctionCall`s to the appropriate MCP server's tool.
-    *   Handles user confirmation for potentially sensitive tools.
+*   **`MemoryStore` ([memory/src/store.rs](mdc:memory/src/store.rs))**: Main struct for interacting with the memory database.
+*   **`Memory` Struct ([memory/src/memory.rs](mdc:memory/src/memory.rs))**: Represents a single memory item (key, value, timestamp, tags, metadata, vector embedding).
+*   **LanceDB Integration:**
+    *   Uses LanceDB ([https://lancedb.com/](mdc:https:/lancedb.com)) as the vector database for efficient storage and semantic search.
+    *   Database typically located at `~/.local/share/gemini-suite/memory.db` ([memory/src/config.rs](mdc:memory/src/config.rs)).
+    *   Schema defined using Apache Arrow ([memory/src/schema.rs](mdc:memory/src/schema.rs)), including a vector column.
+    *   CRUD operations and vector search are implemented using the LanceDB Rust SDK.
+*   **Embeddings via MCP:**
+    *   Generating vector embeddings (numerical representations of text meaning) is required for semantic search.
+    *   This is **delegated** to an external MCP server providing an `embed` tool.
+    *   The `MemoryStore` requires an implementation of the `McpHostInterface` trait ([memory/src/broker.rs](mdc:memory/src/broker.rs)) to call this external tool.
+    *   The primary embedding server used is the Python E5 server ([mcp_embedding_server/README.md](mdc:mcp_embedding_server/README.md)).
+*   **Semantic Search:**
+    *   The `get_semantically_similar` method ([memory/src/store.rs](mdc:memory/src/store.rs)) takes query text, calls the MCP `embed` tool to get the query vector, and then performs a vector similarity search in LanceDB.
+    *   More advanced search combining semantic, keyword, tag, and time filters is available via `search_memories` ([memory/src/store.rs](mdc:memory/src/store.rs)).
+*   **Prompt Enhancement:**
+    *   The `enhance_prompt` function ([memory/src/broker.rs](mdc:memory/src/broker.rs)) automatically retrieves relevant memories based on a user prompt (using semantic search) and prepends them as context.
+    *   Configurable via the `enable_memory_broker` flag/setting.
+*   **Auto Memory:**
+    *   Automatically extracts and saves key information from conversations.
+    *   Configurable via the `enable_auto_memory` flag/setting. Requires analysis logic (potentially involving LLM calls) and uses the `add_memory` function.
 
 ---
 > Source: [frostdev-ops/gemini-cli](https://github.com/frostdev-ops/gemini-cli) — distributed by [TomeVault](https://tomevault.io).
