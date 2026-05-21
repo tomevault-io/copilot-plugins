@@ -4,7 +4,7 @@
   "repo": "quant-trading-platform",
   "description": "\u91cf\u5316\u4ea4\u6613\u5b66\u4e60\u5e73\u53f0\u662f\u4e00\u4e2a\u5168\u6808\u5e94\u7528\u7a0b\u5e8f\uff0c\u65e8\u5728\u4e3a\u91cf\u5316\u4ea4\u6613\u7231\u597d\u8005\u548c\u5b66\u4e60\u8005\u63d0\u4f9b\u4e00\u4e2a\u7efc\u5408\u6027\u7684\u5b66\u4e60\u548c\u5b9e\u8df5\u73af\u5883\u3002\u8be5\u5e73\u53f0\u7ed3\u5408\u4e86\u80a1\u7968\u6570\u636e\u83b7\u53d6\u3001\u7b56\u7565\u5f00\u53d1\u3001\u56de\u6d4b\u5206\u6790\u3001\u5b66\u4e60\u8d44\u6e90\u548c\u53ef\u89c6\u5316\u4eea\u8868\u76d8\u7b49\u529f\u80fd\uff0c\u5e2e\u52a9\u7528\u6237\u7cfb\u7edf\u6027\u5730\u5b66\u4e60\u548c\u5b9e\u8df5\u91cf\u5316\u4ea4\u6613\u77e5\u8bc6\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eleven-day/quant-trading-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T10:32:04Z"
+  "distributed_at": "2026-05-21T00:20:14Z"
 }
