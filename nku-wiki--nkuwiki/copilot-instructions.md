@@ -1,103 +1,133 @@
-## api-development
+## data
 
-> - **GET**: 用于幂等操作（如获取数据）。所有参数必须通过**查询字符串** (`?key=value`) 传递。**禁止**在GET请求中使用路径参数或请求体。
+> 本文档详细说明了 `nkuwiki` 项目数据仓库（位于 `/data` 目录）的组织结构、内容和用途。
 
-# API 开发核心规范
+# NKUWiki 数据仓库 (`/data`) 结构说明
 
-## 1. 接口设计与命名
+本文档详细说明了 `nkuwiki` 项目数据仓库（位于 `/data` 目录）的组织结构、内容和用途。
 
-### 1.1 请求方法
-- **GET**: 用于幂等操作（如获取数据）。所有参数必须通过**查询字符串** (`?key=value`) 传递。**禁止**在GET请求中使用路径参数或请求体。
-- **POST**: 用于非幂等操作（如创建或更新数据）。所有参数必须通过**请求体**（JSON格式）传递。**禁止**在POST请求中使用查询参数或路径参数。
+## 1. 顶层目录结构
 
-### 1.2 路由命名
-- 所有接口路径使用**小写字母**。
-- 单词之间使用**短横线 `-`** 分隔，**禁止**使用下划线 `_`。
-- 示例: `/api/wxapp/notification/mark-read-batch`
+`/data` 目录是整个项目的数据中枢，包含了原始数据、处理后的数据、数据库文件、模型缓存以及各类索引。
 
-### 1.3 字段命名
-- **统一单数形式**: 集合类型的字段名应使用单数形式，例如 `image` (图片列表), `tag` (标签列表)。
-- **计数字段规范**:
-  - `like_count`, `favorite_count`, `post_count`, `follower_count`, `following_count`, `comment_count`, `view_count`
-- **严格遵循**: 所有API接口的请求和响应都必须使用规范的字段名。
-
-## 2. 标准响应格式
-
-所有API端点都 **必须** 返回 `api.models.common.Response` 类的实例，例如 `Response.success()` 或 `Response.paged()`。这确保了API响应结构的一致性。
-
-### 2.1 基础响应结构
-```json
-{
-  "code": 200,
-  "message": "success",
-  "data": {},
-  "details": null,
-  "timestamp": "2023-01-01 12:00:00"
-}
+```
+/data
+├── cache/          # 通用缓存目录
+├── elasticsearch/  # Elasticsearch 索引及数据
+├── index/          # 其他类型的索引 (如 BM25)
+├── models/         # 本地化的机器学习模型 (如 embedding, reranker)
+├── mysql/          # MySQL 数据库文件
+├── nltk/           # NLTK 自然语言处理工具包数据
+├── qdrant/         # Qdrant 向量数据库快照和数据
+├── raw/            # 所有爬虫抓取的原始数据
+└── redis/          # Redis 数据文件
 ```
 
-### 2.2 分页响应结构
-对于返回列表数据的接口，必须包含 `pagination` 字段。
-```json
-{
-  "code": 200,
-  "message": "success",
-  "data": [...],
-  "pagination": {
-    "total": 100,
-    "page": 1,
-    "page_size": 10,
-    "total_pages": 10,
-    "has_more": true
-  }
-}
-```
-- **分页查询参数**: 客户端请求时应使用 `page` 和 `page_size`。
+---
 
-### 2.3 禁止的操作
-- **不使用 `response_model`**: 接口定义中 **禁止** 使用 `response_model` 参数。文档由FastAPI根据返回类型注解自动生成。
-- **直接传递字典**: 服务层（如 `db_core`）获取的原始 `dict` 或 `list[dict]` 数据应直接传递给 `Response` 对象，**禁止** 将这些字典在接口层实例化为Pydantic模型再传递。
+## 2. 原始数据 (`/data/raw`)
 
-### 示例：正确的返回方式
-```python
-# 正确 ✅: 直接返回 Response 对象，并将原始字典作为数据传递
-from api.models.common import Response, PaginationInfo
-from etl.load import db_core
+所有通过爬虫抓取的原始数据都统一存放在 `/data/raw` 目录，它是所有数据处理流程的唯一入口。这种统一存储的策略支持不同频率（如小时级、天级）的增量更新。
 
-@router.get("/insights")
-async def get_insights(page: int = 1, page_size: int = 10):
-    result = await db_core.query_records("insights", limit=page_size, offset=(page - 1) * page_size)
-    insights_data = result.get('data', [])
-    total = result.get('total', 0)
-    
-    pagination = PaginationInfo(
-        total=total, page=page, page_size=page_size,
-        total_pages=(total + page_size - 1) // page_size if page_size > 0 else 0,
-        has_more=page * page_size < total
-    )
-    
-    return Response.paged(data=insights_data, pagination=pagination)
-```
+-   **结构**: `/data/raw/{platform}/{source}/{year}{month}/{article_title}/`
+-   **示例**: `/data/raw/website/nku/202210/【关注二十大】.../`
 
-### 为什么执行此规则？
-1.  **性能**: 避免了将数据库查询结果反序列化为字典后，再序列化为Pydantic模型对象所带来的不必要性能开销。
-2.  **一致性**: 确保所有API响应都遵循统一的结构（code, message, data, pagination等）。
-3.  **解耦**: 保持API逻辑与数据模型定义的解耦。Pydantic模型仅用于定义数据结构，而不应干预运行时行为。
+### 目录层级解释
 
-## 3. 数据库交互
+-   `{platform}`: 数据来源平台，例如 `website` (网站)、`wechat` (微信公众号)、`xhs` (小红书)等。
+-   `{source}`: 具体的来源子标识。对于 `website` 平台，通常是网站域名或机构缩写，如 `nku` (nku.edu.cn)。
+-   `{year}{month}`: 数据发布或爬取的年月，如 `202210`。
+-   `{article_title}`: 以文章标题命名的目录，存放与该文章相关的所有原始文件。
 
-- **使用核心模块**: 所有数据库操作都 **必须** 通过 `etl.load.db_core` 中的异步函数进行。
-- **禁止原生SQL**: **严禁** 在API路由中直接编写和执行原生的SQL查询字符串。
+### 文件内容
 
-```python
-import etl.load.db_core as db_core
+在每个文章标题目录下，通常包含以下一种或多种文件：
 
-result = await db_core.query_records(
-    table_name="users",
-    conditions={"status": "active"},
-    limit=10
-)
-```
+1.  **`{article_title}.json` (核心)**: 结构化的数据文件，包含了从原始页面提取的关键信息。这是下游ETL处理的主要数据源。
+    -   `title`: 标题
+    -   `author`: 作者或发布机构
+    -   `publish_time`: **发布时间 (重要)**，可用于精确增量处理。
+    -   `content`: 正文内容
+    -   `url`: 原始链接
+    -   `platform`: 平台标识
+    -   ... (其他元数据)
+2.  `original.html`: (可选) 网页的原始 HTML 文件，作为最原始的凭证。
+3.  `{article_title}.md`: (可选) 从 HTML 转换来的 Markdown 格式文件，便于阅读。
+
+---
+
+## 3. 数据库与索引文件
+
+这些目录大部分由 Docker Compose 或应用初始化脚本管理，存放着各个数据服务的持久化数据和索引文件。
+
+### 3.1. MySQL (`/data/mysql`)
+
+-   **用途**: 存储关系型数据，是项目的核心数据库。
+-   **包含内容**: `website_nku`, `wechat_nku`, `wxapp_post`, `insights` 等核心业务表。
+
+### 3.2. Qdrant (`/data/qdrant`)
+
+-   **用途**: 存储文本的向量表示，用于语义搜索和 RAG。
+-   **包含内容**: 集合 (Collections) 的快照 (snapshots)、分段 (segments) 数据和向量索引。
+
+### 3.3. Elasticsearch (`/data/elasticsearch`)
+
+-   **用途**: 提供全文搜索（如 BM25）和关键词检索能力。
+-   **包含内容**: 倒排索引 (Inverted Index) 文件、文档数据和集群元数据。
+
+### 3.4. Redis (`/data/redis`)
+
+-   **用途**: 高速缓存服务。
+-   **包含内容**: `dump.rdb` 快照文件，用于缓存热点数据、会话信息、任务队列等。
+
+### 3.5. 其他索引 (`/data/index`)
+
+-   **用途**: 存放除 Qdrant 和 Elasticsearch 之外的其他类型的索引文件。
+-   **示例**: 本地存储的 `BM25` 索引模型文件。
+
+---
+
+## 4. 模型与缓存
+
+### 4.1. 模型文件 (`/data/models`)
+
+-   **用途**: 存放从网络上下载或在本地训练的机器学习模型，避免重复下载。
+-   **示例**: Hugging Face 上的 Embedding 模型、Reranker 模型、LLM 等。
+
+### 4.2. NLTK 数据 (`/data/nltk`)
+
+-   **用途**: 存放 `Natural Language Toolkit (NLTK)` 包所需的数据。
+-   **示例**: `punkt` 分词器模型、`stopwords` 停用词表等。
+
+### 4.3. 通用缓存 (`/data/cache`)
+
+-   **用途**: 存放应用运行时产生的通用缓存文件，以提高性能。
+-   **示例**: chunking 过程的缓存、API 调用的临时结果等。
+
+---
+
+## 5. 数据处理流程概览
+
+1.  **爬取 (Crawling)**
+    -   爬虫脚本从各个平台 (`website`, `wechat` 等) 抓取数据。
+    -   所有新抓取的数据，无论频率如何，都统一按照 `/data/raw/{platform}/...` 的结构存放。
+
+2.  **增量识别与索引 (Incremental Indexing)**
+    -   `daily_pipeline.py` (或类似脚本) 定期执行。
+    -   脚本扫描 `/data/raw` 目录，基于**文件修改时间**或文件内 `publish_time` 字段，找出在指定时间窗口内（如过去一小时）新增或更新的 `.json` 文件。
+    -   **ETL处理**: 对新发现的文件的内容进行清洗、分块。
+    -   **向量化**: 调用 `/data/models` 中的嵌入模型，将文本块转换为向量，存入 Qdrant。
+    -   **全文索引**: (可选) 将数据同步到 Elasticsearch。
+    -   **元数据入库**: 将结构化数据存入 MySQL 对应的数据表中。
+
+3.  **洞察生成 (Insight Generation)**
+    -   `daily_pipeline.py` 基于该批次新增的文本节点 (`TextNode`)。
+    -   通过大语言模型（LLM）进行聚类、摘要和分析，生成洞察。
+    -   生成的洞察报告存入 MySQL 的 `insights` 表中。
+
+4.  **应用访问**
+    -   后端 API 服务从 MySQL, Qdrant, Elasticsearch 等数据库中检索数据。
+    -   前端（微信小程序、Web）通过 API 获取数据并展示给用户。 
 
 ---
 > Source: [NKU-WIKI/nkuwiki](https://github.com/NKU-WIKI/nkuwiki) — distributed by [TomeVault](https://tomevault.io).
