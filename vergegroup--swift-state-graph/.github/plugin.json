@@ -1,0 +1,9 @@
+{
+  "name": "vergegroup--swift-state-graph",
+  "displayName": "swift-state-graph",
+  "description": "\u2744\ufe0f A next-generation graph-based state management library for SwiftUI and UIKit. Compatible with `@Observable`",
+  "version": "1.0.0",
+  "author": "VergeGroup",
+  "homepage": "https://github.com/VergeGroup/swift-state-graph",
+  "skills": []
+}
