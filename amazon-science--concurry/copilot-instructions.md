@@ -1,214 +1,370 @@
-## coding-loud-failures
+## coding-morphic
 
-> Loud failures over silent defaults — the .get(key, default) anti-pattern and all its variants.
+> Morphic Typed & Registry patterns — anti-patterns, aliases, ClassVar, classproperty, PrivateAttr.
 
-# Loud Failures Over Silent Defaults (CRITICAL — Read This First)
+# Morphic Typed & Registry Patterns
 
-**A program that crashes on misconfiguration is infinitely better than a program that silently produces wrong output.** This is the single most important principle in this codebase. Every other rule — fail-fast, strict typing, `@validate`, exhaustive dispatch, the `Any` ban — is a corollary of this principle.
+Concurry's data model is built on `morphic.Typed` (immutable Pydantic BaseModel) and `morphic.Registry` (inheritance-based class registration with string-based factory lookup). Understanding these two base classes is essential to writing idiomatic Concurry code.
 
-**Why this is non-negotiable:** A silent wrong output destroys trust. If a worker pool silently falls back to a slower implementation because a configuration is wrong, nobody knows until mysterious slowdowns appear in production — if they ever notice. A crash at initialization with a clear error message costs thirty seconds to fix. A silent degradation can cost days of debugging.
+## Quick Reference: What Typed Gives You for Free
 
-**The test is simple:** when you write code that handles a missing or unexpected value, ask: **"If this value is wrong, would I rather crash immediately or produce incorrect/degraded behavior that looks correct?"** The answer is always crash. No one pushes code to production without testing. A crash during testing is a gift — it tells you exactly what to fix. A silent default that degrades behavior is a bomb with a delayed fuse.
-
-LLM coding assistants are the primary source of silent-default code. They are trained on web application code where `.get(key, default)` is a reasonable defensive pattern — web apps must not crash on a single bad request. In a library/infrastructure codebase, the opposite is true: **the system MUST crash on bad configuration** so the developer fixes it before deployment.
-
-## The `.get(key, default)` Anti-Pattern
-
-**Never use `dict.get(key, hardcoded_default)` when the key is expected to exist.** This is the most common form of silent default. It tells the reader "this key might be absent, and that's fine." If the key *should* be present, its absence is a bug — and `.get()` with a fallback hides that bug.
-
-**The decision rule:** ask "if this key is missing, is that a valid state or a bug?"
-- **Valid state** (sparse data where absence is meaningful) → `.get(key)` returning `None`, with explicit handling of the `None` case
-- **Bug** (the key should always be present given the program's logic) → use bracket access `dict[key]`, or check-and-raise with feedback
-
-❌ Bad (silent default hides missing key):
-```python
-timeout = config.get("timeout", 30.0)
-```
-
-✅ Good (check, raise with feedback data, then access):
-```python
-if "timeout" not in config:
-    raise ValueError(
-        f"Expected 'timeout' in config, "
-        f"but only found keys: {list(config.keys())}"
-    )
-timeout = config["timeout"]
-```
-
-✅ Good (bracket access — crashes immediately with a `KeyError` that names the missing key):
-```python
-timeout = config["timeout"]
-```
-
-✅ Best (use a Typed class so the key cannot be missing — Pydantic enforces it at construction):
-```python
-class WorkerConfig(Typed):
-    timeout: float
-
-config = WorkerConfig(**raw_config)  # Pydantic raises ValidationError if timeout missing
-timeout = config.timeout  # Guaranteed to exist
-```
-
-## Feedback-Driven Exceptions
-
-When raising an exception, **include the actual data** that caused the failure. The error message is feedback to the developer — it should contain enough information to diagnose and fix the problem without a debugger.
-
-The pattern: **state what was expected, state what was received, and show the available options.**
-
-❌ Bad (error message gives no feedback):
-```python
-raise ValueError("Invalid worker mode")
-```
-
-✅ Good (expected + received + available):
-```python
-raise ValueError(
-    f"Unknown worker mode {mode!r}. "
-    f"Must be one of: {list(ExecutionMode)}."
-)
-```
-
-✅ Good (Pydantic/Typed already does this — leverage it):
-```python
-# Pydantic's ValidationError automatically includes:
-# - Which field failed
-# - What value was provided
-# - What type/constraint was expected
-# This is WHY we use @validate and Typed — they produce feedback-driven errors for free.
-```
-
-**This pattern connects to every other rule in this document:**
-- **Fail Fast** (below) is the timing corollary: crash at the earliest possible point.
-- **`@validate`** is the automated version: Pydantic produces feedback-driven `ValidationError` messages.
-- **Exhaustive dispatch with raising `else`** catches unhandled values at dispatch time.
-- **Never Hide Known Parameters in `**kwargs`** prevents silent `None` from `.get()`.
-- **Never Duplicate Caller-Supplied Values as Parameter Defaults** prevents dead-code defaults from masking broken call chains.
-- **Morphic `Typed` fields** replace `dict` access with validated attribute access — `.get()` is impossible on a Typed instance.
-- **No Silent Fallbacks** (in concurry-architecture.mdc) is the infrastructure-level application of this same principle.
-
-## The Silent-Default Family (All Variants)
-
-`.get(key, default)` is the most common silent-default pattern, but it belongs to a family of related patterns that all share the same flaw: **they invent data when data is missing, instead of surfacing the absence as an error.** LLMs produce all of these reflexively. When you see any of them, apply the same decision test: "is the absence a valid state, or a bug?"
-
-| Silent-Default Pattern | What it hides | Loud alternative |
+| Feature | How | Manual Code It Replaces |
 |---|---|---|
-| `dict.get(key, default)` | Missing dict key → silently substituted | `dict[key]` (KeyError) or check-and-raise |
-| `getattr(obj, attr, default)` | Missing attribute → silently substituted | `obj.attr` (AttributeError) or check-and-raise |
-| `hasattr(obj, attr)` + branch | Missing attribute → silently takes the else path | `obj.attr` — if the attribute should exist, access it directly and let `AttributeError` surface |
-| `os.environ.get(key, default)` | Missing env var → silently substituted | `os.environ[key]` (KeyError) or check-and-raise with feedback |
-| `try: ... except (KeyError, AttributeError): return fallback` | Missing key/attr → silently swallowed and replaced | Let the exception propagate; catch only at application boundaries |
-| `kwargs.get("name", default)` | Known parameter hidden in `**kwargs` → silently `None` | Promote to explicit kwarg (see **Never Hide Known Parameters** below) |
-| `def f(x: float = 30.0)` when caller always passes `x` | Redundant default masks broken call chain → silently uses wrong value | Remove the default; make the parameter mandatory (see **Never Duplicate Caller-Supplied Values** below) |
-| `x if x is not None else 30.0` (inline magic number) | Inline fallback duplicates a config default → silently diverges when config changes | Make the parameter mandatory; no inline fallback needed |
+| Immutability | `frozen=True` by default | No need for `__slots__`, `@dataclass(frozen=True)` |
+| Validation on construction | Pydantic field types | Manual `if not isinstance(...)` checks |
+| Type coercion | Automatic (`"25"` → `int(25)`) | Manual `int(x)` calls |
+| Serialization | `.model_dump()` → dict | Hand-written `.to_dict()` methods |
+| Factory method | `MyClass.of(...)` or `Base.of("subclass", ...)` | Manual `__init__` wiring |
+| Lifecycle hooks | `pre_initialize`, `pre_validate`, `post_initialize`, `post_validate` | `__init__` overrides with `object.__setattr__` |
+| Registry lookup | `Base.of("thread", ...)` | Manual if/elif chains or dict dispatches |
+| Nested model coercion | `dict` → `Typed` subclass automatically | Manual `MyModel(**d)` construction |
 
-## The `.get()` as Edge-Case Blanket Anti-Pattern (MOST DANGEROUS LLM-GENERATED VARIANT)
+## Anti-Pattern 1: Hand-Written `to_dict()` Methods
 
-**This is the deadliest form of `.get()` because the developer (or LLM) knows the edge case exists, acknowledges it in a comment, and then uses `.get()` to "handle" it — which silently handles every other case too, including cases that are bugs.**
+`Typed` inherits Pydantic's `.model_dump()` which serializes all fields to a dict recursively. Never write a custom `to_dict()` on a `Typed` subclass.
 
-The pattern looks like this: a function receives a dict-like state object. At one specific call site (e.g., during initial pool creation before workers are started), the dict is genuinely empty — no runtime data exists yet. At every other call site (after pool startup, during normal operation), the dict must contain specific keys because initialization populated them. The LLM writes `.get("key", fallback)` and adds a comment saying "empty during init." The code works during init. It also "works" during normal operation when `"key"` is missing due to a bug — silently using the fallback instead of crashing. The pool runs with wrong configuration, and mysterious performance degradation appears.
-
-**Why LLMs produce this reflexively:** When an LLM encounters a `KeyError` during testing, its first instinct is to make the error go away. `.get(key, default)` makes the error go away at *every* call site, not just the one where the absence is valid. The LLM cannot distinguish "this key is absent because the pool hasn't started yet" from "this key is absent because a bug in worker initialization failed to populate it." It treats both cases identically — with a silent fallback — because `.get()` does not encode *why* the key might be absent.
-
-**The core principle:** When you know there is exactly one case where absence is valid, you must **name that case explicitly with a conditional check**. The check proves to the reader (and to future maintainers, and to the type checker, and to LLM agents reading the code) that you thought about *when* the absence is valid, not just *that* it might happen.
-
-❌ Bad (`.get()` blankets both the valid edge case AND every bug):
+❌ Bad (hand-written serialization on a Typed subclass):
 ```python
-def _dispatch_task(self, *, pool_state: Dict[str, Any], is_initialized: bool, ...) -> ...:
-    # Before pool start, no workers exist yet.
-    active_workers = pool_state.get("active_workers", [])
-    balancer_state = pool_state.get("balancer_state", {})
+class RetryConfig(Typed):
+    max_retries: int
+    wait_seconds: float
+    algorithm: str
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "max_retries": self.max_retries,
+            "wait_seconds": self.wait_seconds,
+            "algorithm": self.algorithm,
+        }
 ```
 
-**What makes this catastrophic:** Before initialization, the absence is valid. After initialization, `"active_workers"` should always exist. If a bug in `_initialize_pool` fails to populate it, `.get("active_workers", [])` silently returns `[]`. The dispatcher sees zero workers, tasks go nowhere, and the pool appears to hang. Hours of debugging follow.
-
-✅ Good (explicit conditional — names the EXACT case where absence is valid):
+✅ Good (use the built-in):
 ```python
-def _dispatch_task(self, *, pool_state: Dict[str, Any], is_initialized: bool, ...) -> ...:
-    if not is_initialized:
-        active_workers: List[WorkerProxy] = []
-        balancer_state: Dict[str, Any] = {}
-    else:
-        if "active_workers" not in pool_state:
-            raise KeyError(
-                f"pool_state missing 'active_workers' after initialization. "
-                f"pool_state keys: {list(pool_state.keys())}"
-            )
-        active_workers = pool_state["active_workers"]
-        balancer_state = pool_state["balancer_state"]
+class RetryConfig(Typed):
+    max_retries: int
+    wait_seconds: float
+    algorithm: str
+
+# Call sites:
+config_dict = retry_config.model_dump()
 ```
 
-**The general rule:** When you encounter a `KeyError` and you know the absence is valid in one specific scenario:
+**Exception:** If you need to *exclude* certain fields or rename keys for a specific serialization context, use `model_dump(include=..., exclude=...)` rather than writing a custom method.
 
-1. **Identify the exact condition** under which the absence is valid (e.g., `not is_initialized`, `pool.state == "starting"`).
-2. **Write an explicit conditional** that checks for that condition.
-3. **In the "valid absence" branch:** provide the appropriate default explicitly.
-4. **In the "invalid absence" branch:** crash loudly with a feedback-driven error message.
-5. **Never use `.get()`** to handle both cases at once. `.get()` does not encode *when* the absence is valid.
+## Anti-Pattern 2: Using `object.__setattr__` to Mutate Typed Fields
 
-**`getattr(obj, attr, default)` — the attribute version of `.get()`:**
+`Typed` is frozen (immutable). Calling `object.__setattr__(self, "field", value)` bypasses Pydantic validation and breaks the immutability contract. If you need to normalize a field during construction, use `model_post_init` (Pydantic's built-in hook) or Typed's `pre_initialize` lifecycle hook.
 
-The same decision rule applies. If the object *should* have the attribute (because you control its class, or it was passed with a type annotation that guarantees the attribute), then `getattr` with a fallback is hiding a bug.
-
-❌ Bad (the attribute should exist — silently invents a fallback):
+❌ Bad (bypassing frozen with `object.__setattr__` for field normalization):
 ```python
-timeout = getattr(config, "timeout", 30.0)
-model_name = getattr(worker, "model_name", type(worker).__name__)
+class LimitPool(Typed):
+    load_balancing: Optional[str] = None
+
+    def post_initialize(self) -> None:
+        if self.load_balancing is None:
+            local_config = global_config.clone()
+            object.__setattr__(self, "load_balancing", local_config.defaults.limit_pool_load_balancing)
 ```
 
-✅ Good (direct access — crashes immediately if the attribute is missing):
+✅ Good (normalize in `pre_initialize` before Pydantic validates):
 ```python
-timeout = config.timeout
-model_name = worker.model_name
+class LimitPool(Typed):
+    load_balancing: str  # Always resolved after construction
+
+    @classmethod
+    def pre_initialize(cls, data: dict) -> None:
+        if data.get("load_balancing") is None:
+            local_config = global_config.clone()
+            data["load_balancing"] = local_config.defaults.limit_pool_load_balancing
 ```
 
-✅ Good (check-and-raise with feedback if you genuinely need to handle absence):
+**When `object.__setattr__` IS acceptable:**
+- On `MutableTyped` subclasses (which are not frozen) — e.g., `GlobalDefaults`, `PromptMOOConfig`
+- Setting `PrivateAttr` values in `post_initialize` (Pydantic explicitly supports this)
+- On non-Typed objects where you are stamping runtime metadata
+
+## Anti-Pattern 3: Mutable State as Typed Fields with `= None`
+
+`Typed` fields are frozen after construction. Storing mutable runtime state (queues, locks, processes, balancer instances) as regular fields and then assigning them in `post_initialize` via `object.__setattr__` works but is semantically wrong — it says "this is an immutable config field" when it is actually mutable runtime state. Use Pydantic's `PrivateAttr` for mutable internal state on frozen models.
+
+Concurry already does this correctly in most places — follow the existing pattern:
+
+✅ Good (from `ProcessWorkerProxy`):
 ```python
-if not hasattr(config, "timeout"):
-    raise AttributeError(
-        f"{type(config).__name__} has no 'timeout' attribute. "
-        f"Available attributes: {list(vars(config).keys())}. "
-        f"Ensure the config class defines 'timeout' as a field."
-    )
-timeout = config.timeout
+from pydantic import PrivateAttr
+
+class ProcessWorkerProxy(WorkerProxy):
+    _command_queue: Any = PrivateAttr()
+    _result_queue: Any = PrivateAttr()
+    _futures: dict = PrivateAttr()
+    _futures_lock: Any = PrivateAttr()
+    _process: Any = PrivateAttr()
+    _result_thread: Any = PrivateAttr()
 ```
 
-**When `getattr` with a fallback IS acceptable:**
-- **Introspection/reflection** where you are genuinely probing an unknown object's capabilities (e.g., framework code that checks whether a plugin implements an optional method). This is rare in application code.
-- **`PrivateAttr` access** where Pydantic's `__getattr__` may not expose the attribute via normal attribute access in all contexts (e.g., `getattr(self, "_lock", None)` during `__getstate__` serialization). These are framework-level edge cases, not application logic.
-
-**`hasattr()` — the check-without-consequence pattern:**
-
-`hasattr(obj, attr)` is just `try: getattr(obj, attr); return True; except AttributeError: return False`. It silently swallows the `AttributeError`. When used to branch on whether an attribute exists, it creates two code paths — one where the attribute is present and one where it is not — without raising an error on the "not present" path. If the attribute *should* be present, this is a silent failure.
-
-❌ Bad (silently takes an alternate code path instead of catching the bug):
+✅ Good (from `LimitPool`):
 ```python
-if hasattr(config, "load_balancing"):
-    algorithm = config.load_balancing
+class LimitPool(Typed):
+    _balancer: Any = PrivateAttr()
+```
+
+**Rule of thumb:** If a field is set once at construction and never changes, it is a Typed field. If it is created/mutated during the object's lifetime (locks, queues, runtime handles, balancers), it must be a `PrivateAttr`.
+
+## Anti-Pattern 4: Manual Registry Dispatch Instead of `Registry.of()`
+
+The `Registry` pattern provides `Base.of("key", **kwargs)` which resolves the correct subclass by name/alias. Never write manual if/elif dispatch chains or dict-based lookups to select subclasses.
+
+❌ Bad (manual dispatch):
+```python
+if mode == "thread":
+    proxy = ThreadWorkerProxy(...)
+elif mode == "process":
+    proxy = ProcessWorkerProxy(...)
+elif mode == "ray":
+    proxy = RayWorkerProxy(...)
 else:
-    algorithm = "round_robin"  # ← silent default, same as .get(key, default)
+    raise ValueError(f"Unknown mode: {mode}")
 ```
 
-✅ Good (the attribute is expected — access it directly):
+✅ Good (use Registry):
 ```python
-algorithm = config.load_balancing  # AttributeError if missing → developer sees the bug immediately
+proxy = WorkerProxy.of(mode, ...)
 ```
 
-**`os.environ.get()` — environment variable silent defaults:**
+This works because each subclass registers itself via `aliases` (or its class name is auto-registered). The `of()` method handles case-insensitive matching, alias resolution, and hierarchy scoping automatically.
 
-❌ Bad:
+### `Base.of()` vs `Base.get_subclass()` — Instantiation vs Class Lookup
+
+The Registry provides two distinct lookup methods. Using the wrong one is a common and expensive mistake:
+
+| Method | Returns | Use when |
+|---|---|---|
+| `Base.of("key", **kwargs)` | An **instance** of the resolved subclass | You need a constructed object ready to use |
+| `Base.get_subclass("key")` | The **class itself** (not an instance) | You need the class to call classmethods, read ClassVars, or construct later with specific arguments |
+
+**The anti-pattern:** instantiating a subclass just to get its class reference. This is wasteful (construction may be expensive or require mandatory fields) and semantically wrong (the instance is immediately discarded).
+
+❌ Bad (instantiate then discard — wasteful and may fail):
 ```python
-ray_address = os.environ.get("RAY_ADDRESS", "auto")  # Silently connects to wrong cluster
+proxy_cls = WorkerProxy.of("thread").__class__   # ❌ Constructs a throwaway instance
+proxy_cls = type(WorkerProxy.of("thread"))        # ❌ Same problem, different syntax
 ```
 
-✅ Good:
+These fail outright if the subclass has mandatory fields with no defaults.
+
+✅ Good (direct class lookup — no instantiation):
 ```python
-if "RAY_ADDRESS" not in os.environ:
-    raise EnvironmentError(
-        "RAY_ADDRESS not set. Export it before running: "
-        "export RAY_ADDRESS='ray://cluster-ip:10001'"
-    )
-ray_address = os.environ["RAY_ADDRESS"]
+proxy_cls: Type[WorkerProxy] = WorkerProxy.get_subclass("thread")
 ```
+
+**Decision rule:** Ask **"Do I need an instance, or do I need the class?"**
+- Need to call instance methods or access instance fields → `Base.of("key", field=value)`
+- Need to call classmethods, read ClassVars, or construct later → `Base.get_subclass("key")`
+
+## Anti-Pattern 5: Ignoring Typed's Validation for Constructor Inputs
+
+`Typed` automatically coerces compatible types (e.g., `"25"` → `int(25)`, `dict` → nested `Typed` subclass). Never add manual type-conversion code before constructing a Typed object.
+
+❌ Bad (manual coercion before Typed construction):
+```python
+timeout = float(config["timeout"])
+max_retries = int(config["max_retries"])
+retry_cfg = RetryConfig(timeout=timeout, max_retries=max_retries, ...)
+```
+
+✅ Good (let Typed/Pydantic handle coercion):
+```python
+retry_cfg = RetryConfig(timeout=config["timeout"], max_retries=config["max_retries"], ...)
+```
+
+Similarly, when passing a `dict` to a field typed as a `Typed` subclass, Pydantic automatically coerces the dict into the model:
+
+```python
+class Limit(Typed, ABC):
+    key: str
+    capacity: int
+
+class RateLimit(Limit):
+    window: float
+
+class LimitPool(Typed):
+    limits: List[Limit]
+
+# Pydantic coerces dicts into the appropriate Limit subclass:
+pool = LimitPool(limits=[
+    RateLimit(key="rpm", capacity=100, window=60),
+])
+```
+
+## Anti-Pattern 6: Using Bare `dict` for Configuration Bundles
+
+When passing structured configuration through multiple layers, avoid bare `Dict[str, Any]`. Define a `Typed` config class so typos and type errors are caught at construction time.
+
+❌ Bad (ad-hoc dict keys with no validation):
+```python
+worker_config = {
+    "timeout": 30,
+    "max_retires": 3,    # ← typo: "retires" instead of "retries"
+    "algorithm": "exponential",
+}
+```
+
+✅ Good (validated config class):
+```python
+class RetryConfig(Typed):
+    timeout: float
+    max_retries: int = 3
+    algorithm: str = "exponential"
+
+retry_cfg = RetryConfig(timeout=30)  # Validated, typos caught
+```
+
+## (Optional) Anti-Pattern 7: Not Using `aliases` for Registry Subclasses
+
+Every `Registry` subclass is automatically registered under its class name (case-insensitive). If you want additional lookup keys (e.g., `"thread"` for `ThreadWorkerProxy`), use `aliases` instead of relying on call sites to know the full class name.
+
+❌ Bad (no aliases — call sites must know full class name):
+```python
+class ThreadWorkerProxy(WorkerProxy):
+    pass
+
+# Call site must use exact class name:
+proxy = WorkerProxy.of("ThreadWorkerProxy")
+```
+
+✅ Good (aliases for convenient lookup):
+```python
+class ThreadWorkerProxy(WorkerProxy):
+    aliases = ["thread"]
+
+# Call site uses short name:
+proxy = WorkerProxy.of("thread")
+```
+
+### `aliases` Style Rules
+
+**Do not include the lowercase class name in `aliases`.** The Registry automatically registers every subclass under a case-insensitive version of its class name. Including it in `aliases` is redundant noise that a reader must mentally deduplicate.
+
+❌ Bad (redundant lowercase class name):
+```python
+class ThreadWorkerProxy(WorkerProxy):
+    aliases: ClassVar[List[str]] = ["threadworkerproxy", "thread"]
+```
+
+✅ Good (only genuinely new aliases):
+```python
+class ThreadWorkerProxy(WorkerProxy):
+    aliases: ClassVar[List[str]] = ["thread"]
+```
+
+If the class has no aliases beyond its own name, omit `aliases` entirely.
+
+### Registry Subclass Body Ordering
+
+Within a `Typed + Registry` subclass, declare members in the following order. This makes the class scannable: identity first, then class-level constants, then per-instance fields, then methods.
+
+1. **`aliases`** (if any) — immediately after the docstring, before all other attributes. This is the class's "identity card" in the Registry: a reader scanning the file sees what names resolve to this class before anything else.
+2. **Other `ClassVar` attributes** — class-level constants like `mode`, feature flags. Separated from `aliases` by a blank line.
+3. **Instance fields** — separated from ClassVars by a blank line. Fields with defaults first, then mandatory fields (no default).
+4. **Methods** — lifecycle hooks, public methods, private methods.
+
+❌ Bad (mixed ordering):
+```python
+class ThreadWorkerProxy(WorkerProxy):
+    """Thread-based worker proxy."""
+    timeout: float = 30.0                                           # Instance field first
+    mode: ClassVar[ExecutionMode] = ExecutionMode.THREAD            # ClassVar after instance field
+    aliases: ClassVar[List[str]] = ["thread"]                       # aliases buried
+```
+
+✅ Good (correct ordering):
+```python
+class ThreadWorkerProxy(WorkerProxy):
+    """Thread-based worker proxy."""
+    aliases: ClassVar[List[str]] = ["thread"]                       # 1. aliases first
+
+    mode: ClassVar[ExecutionMode] = ExecutionMode.THREAD            # 2. Other ClassVars
+
+    timeout: float = 30.0                                           # 3. Instance fields
+```
+
+## Anti-Pattern 8: `@classmethod` Returning a Fixed Constant
+
+A `@classmethod` that takes no arguments (other than `cls`) and always returns the same fixed value is a `ClassVar` in disguise. The method-call syntax (`cls.some_value()`) hides the fact that the value is static and forces every call site to use parentheses for no reason.
+
+**Code smell:** a base class `@classmethod` with `raise NotImplementedError()` and subclasses that return a literal.
+
+❌ Bad (classmethod returning a constant):
+```python
+class BaseHandler(Typed, Registry):
+    @classmethod
+    @abstractmethod
+    def max_batch_size(cls) -> int:
+        raise NotImplementedError()
+
+class HttpHandler(BaseHandler):
+    @classmethod
+    def max_batch_size(cls) -> int:
+        return 100
+
+# Call site — parentheses required:
+batch_size = handler_cls.max_batch_size()
+```
+
+✅ Good (ClassVar — value accessed like an attribute):
+```python
+class BaseHandler(Typed, Registry):
+    max_batch_size: ClassVar[int]  # No default → subclass must set it
+
+class HttpHandler(BaseHandler):
+    max_batch_size: ClassVar[int] = 100
+
+# Call site — no parentheses:
+batch_size = handler_cls.max_batch_size
+```
+
+**The migration path matters.** When a value starts as a `ClassVar` but later needs to become computed (dynamic), the correct migration is to `@classproperty` (from `morphic`), NOT to `@classmethod`. This is because `@classproperty` preserves the attribute-access syntax — **calling code does not change**.
+
+### `@classproperty` for Computed Class-Level Attributes
+
+`morphic.classproperty` is the class-level equivalent of `@property`. It is accessed as `cls.attribute` (no parentheses), but runs a function under the hood. This makes it the ideal migration target when a `ClassVar` needs to become dynamic:
+
+**Migration: `ClassVar` → `@classproperty` (no call-site changes):**
+```python
+# BEFORE: ClassVar
+class BaseHandler(Typed, Registry):
+    max_batch_size: ClassVar[int]
+
+class HttpHandler(BaseHandler):
+    max_batch_size: ClassVar[int] = 100
+
+# AFTER: @classproperty — call sites unchanged
+from morphic import classproperty
+
+class BaseHandler(Typed, Registry):
+    @classproperty
+    def max_batch_size(cls) -> int:
+        return cls._base_batch_size * cls._scaling_factor
+
+# Call sites unchanged:
+batch_size = handler_cls.max_batch_size  # ← No parentheses, same as before
+```
+
+**When to use each:**
+
+| Pattern | When to use | Access syntax |
+|---|---|---|
+| `ClassVar` | Fixed constant, same for all instances of a subclass, never computed | `cls.value` |
+| `@classproperty` | Computed from other ClassVars or class-level state, may vary by subclass | `cls.value` (same as ClassVar) |
+| `@classmethod` | True method that takes arguments, performs side effects, or returns different values based on arguments | `cls.method(args)` |
+
+**Decision rule:** If the method takes no arguments beyond `cls` and always returns the same value for a given subclass, it is NOT a `@classmethod`. Use `ClassVar` if the value is a literal, or `@classproperty` if it is computed from other class-level attributes.
+
+## Anti-Pattern 9: Plain Classes Where Typed Would Add Value
+
+If a class primarily holds configuration (immutable after construction) plus some derived fields, prefer `Typed` over a plain class. You get free validation, serialization, immutability, and `model_dump()`.
+
+**Judgment call:** Not every class needs to be `Typed`. Use `Typed` when you want immutable config + validation + serialization. Use plain classes (or `MutableTyped`) for stateful service objects where the overhead of frozen fields is not worth it. Concurry's `Worker` facade class is intentionally a plain class because it is a user-facing API with mutable lifecycle state; the internal `WorkerProxy` and `WorkerBuilder` correctly use `Typed`.
 
 ---
 > Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
