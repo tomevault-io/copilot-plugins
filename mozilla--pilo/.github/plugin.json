@@ -1,0 +1,9 @@
+{
+  "name": "mozilla--pilo",
+  "displayName": "pilo",
+  "description": "A powerful AI-powered web automation tool that helps you get answers and take actions in the browser.",
+  "version": "1.0.0",
+  "author": "mozilla",
+  "homepage": "https://github.com/mozilla/pilo",
+  "skills": []
+}
