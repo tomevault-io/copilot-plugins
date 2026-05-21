@@ -1,0 +1,9 @@
+{
+  "name": "browserbase--stagehand-agent",
+  "displayName": "stagehand-agent",
+  "description": "stagehand-agent",
+  "version": "1.0.0",
+  "author": "browserbase",
+  "homepage": "https://github.com/browserbase/stagehand-agent",
+  "skills": []
+}
