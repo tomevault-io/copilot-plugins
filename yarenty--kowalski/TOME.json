@@ -4,7 +4,7 @@
   "repo": "kowalski",
   "description": "High performance Rust based AI Agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yarenty/kowalski",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T11:20:19Z"
+  "distributed_at": "2026-05-21T06:17:46Z"
 }
