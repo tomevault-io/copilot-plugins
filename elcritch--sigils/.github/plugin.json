@@ -1,0 +1,9 @@
+{
+  "name": "elcritch--sigils",
+  "displayName": "sigils",
+  "description": "Sigils - a slot and signals implementation for the Nim programming language",
+  "version": "1.0.0",
+  "author": "elcritch",
+  "homepage": "https://github.com/elcritch/sigils",
+  "skills": []
+}
