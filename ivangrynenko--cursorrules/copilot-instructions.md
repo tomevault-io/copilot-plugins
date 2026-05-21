@@ -1,93 +1,122 @@
-## lagoon-docker-compose-standards
+## lagoon-yml-standards
 
-> Standards for Lagoon Docker Compose configuration
+> Standards for Lagoon configuration files and deployment workflows
 
-# Lagoon Docker Compose Standards
+# Lagoon Configuration Standards
 
-Ensures proper Docker Compose configuration for Lagoon deployments, following best practices and Lagoon-specific requirements.
+Ensures proper configuration and best practices for Lagoon deployment files, focusing on environment configuration, routes, tasks, and deployment workflows.
 
 <rule>
-name: lagoon_docker_compose_standards
-description: Enforce standards for Lagoon Docker Compose files
+name: lagoon_yml_standards
+description: Enforce standards for Lagoon configuration files
 filters:
+  - type: file_extension
+    pattern: "\\.(yml|yaml)$"
   - type: file_name
-    pattern: "^docker-compose(\\.\\w+)?\\.yml$"
+    pattern: "^\\.lagoon(\\.\\w+)?\\.yml$"
 
 actions:
   - type: enforce
     conditions:
-      - pattern: "services:\\s+\\w+:\\s+(?!.*labels:[\\s\\S]*lagoon)"
-        message: "Add Lagoon labels to service definitions for proper Lagoon integration"
+      - pattern: "environments:\\s*[\\w-]+:\\s*routes:\\s*-\\s*\\w+:\\s*-[^:]+:\\s*tls-acme:\\s*true"
+        message: "Ensure tls-acme is set to 'false' until DNS points to Lagoon to prevent certificate issuance failures"
 
-      - pattern: "version:\\s*['\"]*2"
-        message: "Use Docker Compose format version 3 or higher for compatibility with modern Docker features"
+      - pattern: "post-rollout:\\s*-\\s*run:\\s*command:\\s*drush(?!.*\\|\\|)"
+        message: "Wrap Drush commands in proper error handling using '|| exit 1' to ensure deployment fails on command errors"
 
-      - pattern: "volumes:\\s+[^:]+:\\s+(?!.*delegated)"
-        message: "Use 'delegated' mount consistency for better performance on macOS development environments"
+      - pattern: "pre-rollout:\\s*-\\s*run:\\s*command:\\s*(?!.*if)"
+        message: "Add conditional checks for pre-rollout tasks to ensure they only run when necessary"
+
+      - pattern: "cronjobs:\\s*-\\s*name:[^\\n]*\\n\\s*schedule:\\s*'\\*\\s*\\*'"
+        message: "Use 'M' or 'H' notation for randomized cron scheduling to prevent server load spikes"
         
-      - pattern: "services:\\s+\\w+:\\s+(?!.*restart:)"
-        message: "Define restart policy for services to ensure proper behavior during deployment"
+      - pattern: "routes:\\s*-\\s*\\w+:\\s*-[^:]+:\\s*(?!.*redirects:)"
+        message: "Consider configuring redirects for routes to handle legacy URLs or domain migrations"
 
   - type: suggest
     message: |
-      ## Lagoon Docker Compose Best Practices:
+      ## Lagoon Configuration Best Practices:
       
-      ### Service Configuration
-      - Define service types via labels (e.g., `lagoon.type: nginx`)
-      - Use proper image naming conventions (e.g., `amazeeio/nginx-drupal:latest`)
-      - Set appropriate environment variables using Lagoon variables
-      - Define health checks for critical services
-      - Configure proper networking with Lagoon defaults
-      - Set resource constraints appropriate for each environment
+      ### Environment Configuration
+      - Use environment-specific configurations for different deployment targets
+      - Define environment types for proper resource allocation
+      - Configure environment variables specific to each environment
+      - Use environment-specific routes and domains
       
-      ### Volume Configuration
-      - Use named volumes for persistent data
-      - Configure appropriate volume mounts with correct permissions
-      - Use 'delegated' mount consistency for macOS performance
-      - Avoid mounting the entire codebase when possible
+      ### Routes Configuration
+      - Configure routes with appropriate SSL settings
+      - Set up redirects for legacy URLs
+      - Configure proper insecure traffic handling (Allow or Redirect)
+      - Use wildcard domains for feature branch environments
       
-      ### Build Configuration
-      - Use build arguments appropriately
-      - Define proper Dockerfile paths
-      - Use multi-stage builds for smaller images
+      ### Tasks Configuration
+      - Implement proper pre-rollout tasks with error handling
+      - Configure post-rollout tasks with appropriate conditions
+      - Use conditional task execution based on environment
+      - Include database sync in PR environments
+      - Implement proper backup strategies before major changes
       
-      ### Example Service Configuration:
+      ### Cron Configuration
+      - Use randomized cron schedules with 'M' and 'H' notation
+      - Set appropriate frequency for different tasks
+      - Ensure cron jobs have proper error handling
+      - Use descriptive names for cron jobs
+      
+      ### Example Configuration:
       ```yaml
-      services:
-        nginx:
-          build:
-            context: .
-            dockerfile: nginx.dockerfile
-          labels:
-            lagoon.type: nginx
-            lagoon.persistent: /app/web/sites/default/files/
-          volumes:
-            - app:/app:delegated
-          depends_on:
-            - php
-          environment:
-            LAGOON_ROUTE: ${LAGOON_ROUTE:-http://project.docker.amazee.io}
+      environments:
+        main:
+          cronjobs:
+            - name: drush-cron
+              schedule: '*/15 * * * *'
+              command: drush cron
+              service: cli
+          routes:
+            - nginx:
+              - example.com:
+                  tls-acme: true
+                  insecure: Redirect
+                  redirects:
+                    - www.example.com
+          tasks:
+            pre-rollout:
+              - run:
+                  name: Drush pre-update
+                  command: |
+                    if drush status --fields=bootstrap | grep -q "Successful"; then
+                      drush state:set system.maintenance_mode 1 -y
+                      drush cr
+                    fi
+                  service: cli
+            post-rollout:
+              - run:
+                  name: Drush post-update
+                  command: |
+                    drush updb -y || exit 1
+                    drush cr
+                    drush state:set system.maintenance_mode 0 -y
+                  service: cli
       ```
 
   - type: validate
     conditions:
-      - pattern: "services:\\s+cli:\\s+(?!.*build:)"
-        message: "CLI service should have proper build configuration for Lagoon compatibility"
+      - pattern: "environments:\\s*[\\w-]+:\\s*types:\\s*[^\\n]*"
+        message: "Define environment types for proper resource allocation and environment-specific configuration"
 
-      - pattern: "services:\\s+\\w+:\\s+(?!.*depends_on:)"
-        message: "Define service dependencies for proper startup order and container relationships"
+      - pattern: "tasks:\\s*(pre|post)-rollout:"
+        message: "Include both pre and post rollout tasks for robust deployments and proper application state management"
 
-      - pattern: "networks:\\s+(?!.*default:)"
-        message: "Configure proper network settings for Lagoon compatibility and service communication"
+      - pattern: "routes:\\s*-\\s*\\w+:\\s*-[^:]+:\\s*insecure:\\s*(Allow|Redirect)"
+        message: "Configure proper insecure traffic handling to ensure secure access to your application"
         
-      - pattern: "services:\\s+mariadb:\\s+(?!.*image:\\s+amazeeio\\/mariadb)"
-        message: "Use Lagoon-provided MariaDB image for compatibility with Lagoon environment"
+      - pattern: "(?!.*backup-strategy:)"
+        message: "Consider implementing a backup strategy for critical environments to prevent data loss"
         
-      - pattern: "services:\\s+\\w+:\\s+environment:\\s+(?!.*\\$\\{LAGOON)"
-        message: "Use Lagoon environment variables with fallbacks for local development"
+      - pattern: "cronjobs:\\s*-\\s*name:[^\\n]*\\n\\s*schedule:[^\\n]*\\n\\s*(?!.*service:)"
+        message: "Specify the service for cron jobs to ensure they run in the correct container"
 
 metadata:
-  priority: high
+  priority: critical
   version: 1.1
 </rule> 
 
