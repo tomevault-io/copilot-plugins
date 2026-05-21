@@ -1,0 +1,9 @@
+{
+  "name": "aleksejs1--obsidian-contact-sync-plugin",
+  "displayName": "obsidian-contact-sync-plugin",
+  "description": "Obsidian plugin for sync Google Contacts with obsidian notes",
+  "version": "1.0.0",
+  "author": "aleksejs1",
+  "homepage": "https://github.com/aleksejs1/obsidian-contact-sync-plugin",
+  "skills": []
+}
