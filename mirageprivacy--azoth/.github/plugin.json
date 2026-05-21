@@ -1,0 +1,9 @@
+{
+  "name": "mirageprivacy--azoth",
+  "displayName": "azoth",
+  "description": "A deterministic EVM bytecode obfuscator written in Rust",
+  "version": "1.0.0",
+  "author": "MiragePrivacy",
+  "homepage": "https://github.com/MiragePrivacy/azoth",
+  "skills": []
+}
