@@ -1,75 +1,13 @@
-## master
+## planning
 
-> Rules for placing and organizing Cursor rule files in the repository.
+> This rule is helpful for the planning phase of implementation
 
+When asked to come up with an implementation plan. It should have the following components.
 
-<rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
-filters:
-  # Match any .mdc files
-  - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
-
-actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
-  - type: suggest
-    message: |
-      When creating Cursor rules:
-
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
-
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
-
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
-
-examples:
-  - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
-
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
-
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+1. A list of small tasks to do to complete the plan
+2. For each task, some psuedocode of what will change with a brief explanation
+3. Some design questions. Don't assume the user knows everything, scrutinize the ticket and focus on producing best outcomes based on what the user actually needs. 
+4. Store Plans in the .agent folder
 
 ---
 > Source: [turlockmike/hataraku](https://github.com/turlockmike/hataraku) — distributed by [TomeVault](https://tomevault.io).
