@@ -1,0 +1,9 @@
+{
+  "name": "brentyates--squaregolf-connector",
+  "displayName": "squaregolf-connector",
+  "description": "Connect to the Square Golf LM for things like GSPro, swing metrics, etc",
+  "version": "1.0.0",
+  "author": "brentyates",
+  "homepage": "https://github.com/brentyates/squaregolf-connector",
+  "skills": []
+}
