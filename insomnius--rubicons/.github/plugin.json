@@ -1,0 +1,9 @@
+{
+  "name": "insomnius--rubicons",
+  "displayName": "rubicons",
+  "description": "Lightweight, pure Ruby SVG icon toolkit inspired by React Icons.",
+  "version": "1.0.0",
+  "author": "insomnius",
+  "homepage": "https://github.com/insomnius/rubicons",
+  "skills": []
+}
