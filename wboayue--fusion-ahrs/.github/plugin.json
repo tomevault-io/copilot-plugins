@@ -1,0 +1,9 @@
+{
+  "name": "wboayue--fusion-ahrs",
+  "displayName": "fusion-ahrs",
+  "description": "Fusion AHRS is a sensor fusion library for Inertial Measurement Units (IMUs), optimized for embedded systems.",
+  "version": "1.0.0",
+  "author": "wboayue",
+  "homepage": "https://github.com/wboayue/fusion-ahrs",
+  "skills": []
+}
