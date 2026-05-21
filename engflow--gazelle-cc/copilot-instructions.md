@@ -1,23 +1,29 @@
-## style
+## unit-tests
 
-> Code style and structure guidelines for this project
+> How to run and write unit tests in this project
 
-# Code style guidelines
+# Unit tests
 
-## Directory structure
+## Running tests
 
-- Logic specific to `language.Language` interface is put under the `language/cc/` directory.
-- Utilities still related to `language.Language` interface but big enough to deserve their own Go packages are put under the `language/internal/cc/` directory.
-- Generic utilities unrelated to `language.Language` interface are put under the `internal/` directory.
+- Use the command `bazel test //...` to run all tests.
+- `example/` directory contains slow end-to-end tests that can only be run manually by the `.github/workflows/test_e2e.sh` script.
 
-## Code style for Go files
+## Adding unit tests
 
-- Always include a copyright header at the beginning of the file.
-- Wrap comments at the column 80.
-- Prefer using `internal/collections/set.go` to raw `map[T]bool` or `map[T]struct{}`.
-- Prefer using sequential operations from `internal/collections/collections.go` unless the outcome code structure is too complicated.
-- Always name symbols beginning with a lowercase letter unless they need to be exported to another package.
-- Attach docs to a function when its name and arguments don't clearly indicate its purpose. You don't have to describe arguments and a return value if their meaning can be deduced from names and types.
+- For testing generic logic add/update `*_test.go` file.
+- Test files must be wrapped with `go_test` Bazel rule. Use the same Go package as the tested Go library. Place the tested `go_library` dependency under the `"embed"` attribute of `go_test`.
+- Prefer using [assert](https://pkg.go.dev/github.com/stretchr/testify/assert) and [require](https://pkg.go.dev/github.com/stretchr/testify/require) packages to raw [`testing.T.Fail`](https://pkg.go.dev/testing#T.Fail) calls.
+- Use [`testing.T.Run`](https://pkg.go.dev/testing#T.Run) to associate test cases with their descriptions.
+- Organize test cases within a `Test*` function into a slice of structs:
+```go
+testCases := []struct {
+    description string
+    // test case args ...
+} {
+    // ...
+}
+```
 
 ---
 > Source: [EngFlow/gazelle_cc](https://github.com/EngFlow/gazelle_cc) — distributed by [TomeVault](https://tomevault.io).
