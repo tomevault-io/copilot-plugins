@@ -1,36 +1,37 @@
-## mcp
+## project-structure
 
-> - All MCP tools should follow a consistent structure
+> - `src/`: Source code for the project
 
-# MCP Tools Implementation
+# Project Structure Overview
 
-## Tool Structure
-- All MCP tools should follow a consistent structure
-- Each tool is defined in `src/tools/` with a prefix of `umi-`
-- Tools should export a function that returns a `Tool` object
-- Tools should define input and output schemas
+## Main Directories
+- `src/`: Source code for the project
+  - `src/tools/`: Individual MCP tools implementation
+  - `src/cli.ts`: CLI entry point
+  - `src/index.ts`: Library exports
+- `fixtures/`: Test fixtures for development
+- `dist/`: Build output
+- `.cursor/`: Cursor configuration and rules
 
-## Input/Output Schemas
-- Define input schemas using zod
-- Define output schemas to match expected return values
-- Follow [MCP spec](mdc:https:/github.com/ModelContractProtocol/spec) for schema definitions
-- Use descriptive names for schema properties
+## Key Files
+- `src/cli.ts`: [CLI entry point](mdc:src/cli.ts)
+- `src/index.ts`: [Library exports](mdc:src/index.ts)
+- `src/types.ts`: [Type definitions](mdc:src/types.ts)
+- `src/parse.ts`: [Command parsing logic](mdc:src/parse.ts)
 
-## Error Handling
-- Use proper error handling with descriptive messages
-- Return structured error responses when appropriate
-- Validate inputs before processing
+## MCP Tools
+- Config tools: `umi-config-list`, `umi-config-get`, `umi-config-set`, `umi-config-remove`
+- Data tools: `umi-route-list`, `umi-appdata-list`, `umi-plugin-list`, `umi-version`
+- Generator tools: `umi-generate-page` and other generators
+- Build tools: `umi-build`, `umi-setup`, `umi-lint`
+- Information tools: `umi-help`, `umi-changelog`, `umi-deadcode`
 
-## Tool Implementation
-- Keep tool implementations focused on a single responsibility
-- Reuse common code for similar tools (like config management)
-- Document tools with clear descriptions
-- Export tools in the `src/index.ts` file for consumption
-
-## Examples
-- Config tools: [umi-config.ts](mdc:src/tools/umi-config.ts)
-- Generator tools: [umi-generate.ts](mdc:src/tools/umi-generate.ts)
-- Data retrieval tools: [umi-route-list.ts](mdc:src/tools/umi-route-list.ts)
+## Development Workflow
+1. Implement a new tool in `src/tools/`
+2. Export the tool in `src/index.ts`
+3. Test with `pnpm dev` or `tsx ./src/cli.ts fixtures/normal`
+4. Write tests in a matching `.test.ts` file
+5. Build with `pnpm build`
 
 ---
 > Source: [umijs/umi-mcp](https://github.com/umijs/umi-mcp) — distributed by [TomeVault](https://tomevault.io).
