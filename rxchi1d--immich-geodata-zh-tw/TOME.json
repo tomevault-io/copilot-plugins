@@ -4,7 +4,7 @@
   "repo": "immich-geodata-zh-tw",
   "description": "Immich \u53cd\u5411\u5730\u7406\u7de8\u78bc - \u81fa\u7063\u7279\u5316\uff0c\u63d0\u4f9b\u66f4\u7cbe\u78ba\u7684\u5730\u7406\u8cc7\u8a0a\u8207\u4e2d\u6587\u5316\u512a\u5316\uff0c\u6539\u5584\u884c\u653f\u5340\u986f\u793a\u8207\u7ffb\u8b6f\u6e96\u78ba\u5ea6\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RxChi1d/immich-geodata-zh-tw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T17:09:16Z"
+  "distributed_at": "2026-05-21T04:24:05Z"
 }
