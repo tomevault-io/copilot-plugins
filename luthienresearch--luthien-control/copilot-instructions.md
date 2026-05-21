@@ -1,13 +1,18 @@
-## pytest-interpretation
+## rule-management
 
-> PYTEST EXIT CODE=0 JUST MEANS THE TESTS RAN. IT DOES NOT MEAN THEY WERE SUCCESSFUL. Always look for the `pytest` summary line at the end of the output (e.g., `==== X passed, Y failed, Z warnings in S.ss ====`).
+> - You (the AI assistant) **have the technical capability** to create, edit, and delete rule files (files ending in `.mdc` located in `.cursor/rules/`).
 
-PYTEST EXIT CODE=0 JUST MEANS THE TESTS RAN. IT DOES NOT MEAN THEY WERE SUCCESSFUL. Always look for the `pytest` summary line at the end of the output (e.g., `==== X passed, Y failed, Z warnings in S.ss ====`).
+# AI Rule Management Guidelines
 
-Always pipe results to cat so you can see them.
-`poetry run pytest | cat`
-
-For reasons unknown, you sometimes don't see the output of pytest the first time you run it. If the first run of pytest seemingly produces no output, just run it again. This seems to work.
+- You (the AI assistant) **have the technical capability** to create, edit, and delete rule files (files ending in `.mdc` located in `.cursor/rules/`).
+- You **MUST NOT** perform any of these actions (create, edit, delete rule files) unless the user's **explicit instruction is *specifically* to modify a rule file.** Making changes to rule files as a side effect or perceived necessity to achieve a different, non-rule-related goal is **NEVER** permitted.
+- You **MUST NOT** proactively suggest creating, modifying, or deleting rules. Only act upon direct, explicit user instructions *about rule management itself*.
+- Always confirm the specific changes (content, filename) with the user before applying them to a rule file, unless the user has provided the exact content and filename already.
+- **Formatting Note:** For rules intended to always apply (`alwaysApply: true`), the `globs:` line MUST be present but left empty (no value after the colon) for compatibility with the Cursor GUI. Example:
+  ```yaml
+  globs:
+  alwaysApply: true
+  ```
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
