@@ -1,30 +1,27 @@
-## rule-types
+## security-practices
 
-> Documentation of Cursor rule types and header configuration
+> Security Best Practices
 
-## Rule Types and Header Configuration
+# Security Best Practices
 
-Rule visibility and activation are controlled by the YAML header (`--- ... ---`) in each `.mdc` file:
+1.  **Input Validation:**
+    *   Treat all external input as untrusted. This includes client HTTP requests, data loaded from configurations, and inputs to policies.
+    *   Use Pydantic models rigorously to validate the structure and types of incoming data.
+    *   Perform semantic validation where necessary (e.g., checking allowed values, lengths).
 
-1.  **Always:** The rule content is always included in the AI's context.
-    *   `description: <any text or empty>`
-    *   `globs: <empty>`
-    *   `alwaysApply: true`
+2.  **Security Scanning:**
+    *   Run `bandit` regularly (e.g., before commits or as part of CI) to identify common security vulnerabilities: `poetry run bandit -r luthien_control/`
+    *   Address or explicitly acknowledge (with `# nosec` comments and justification) issues reported by `bandit`.
 
-2.  **Agent Requested:** A short description is always visible to the AI. The AI can request the full rule content using the `fetch_rules` tool if needed.
-    *   `description: <Must contain the description text>`
-    *   `globs: <empty>`
-    *   `alwaysApply: false`
+3.  **Secrets Handling:**
+    *   Adhere strictly to the `config_and_secrets.mdc` rule.
+    *   Ensure logs do not inadvertently expose sensitive information. Consider redaction mechanisms if necessary.
 
-3.  **Auto Attached:** The rule content is automatically included in the AI's context if a relevant file (matching the glob pattern) is attached or being actively edited.
-    *   `description: <any text or empty>`
-    *   `globs: <Must contain glob pattern(s), e.g., *.py>`
-    *   `alwaysApply: false`
+4.  **Dependency Security:**
+    *   Keep dependencies updated to patch known vulnerabilities.
+    *   Consider using tools like `pip-audit` or GitHub's Dependabot in the future.
 
-4.  **Manual:** The rule content is only included if the rule is explicitly mentioned by the user in their query.
-    *   `description: <empty>`
-    *   `globs: <empty>`
-    *   `alwaysApply: false`
+5.  **HTTPS:** Ensure all communication with external services (backend APIs) uses HTTPS.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
