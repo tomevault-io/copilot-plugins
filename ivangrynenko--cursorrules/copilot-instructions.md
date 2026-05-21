@@ -1,374 +1,278 @@
-## javascript-broken-access-control
+## javascript-cryptographic-failures
 
-> Detect and prevent broken access control patterns in JavaScript applications as defined in OWASP Top 10:2021-A01
+> Detect and prevent cryptographic failures in JavaScript applications as defined in OWASP Top 10:2021-A02
 
-# JavaScript Broken Access Control (OWASP A01:2021)
-
-This rule identifies and prevents broken access control vulnerabilities in JavaScript applications, focusing on both browser and Node.js environments, as defined in OWASP Top 10:2021-A01.
+# JavaScript Cryptographic Failures (OWASP A02:2021)
 
 <rule>
-name: javascript_broken_access_control
-description: Detect and prevent broken access control patterns in JavaScript applications as defined in OWASP Top 10:2021-A01
+name: javascript_cryptographic_failures
+description: Detect and prevent cryptographic failures in JavaScript applications as defined in OWASP Top 10:2021-A02
 
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Detect Direct Reference to User-Supplied IDs (IDOR vulnerability)
-      - pattern: "(?:req|request)\\.(?:params|query|body)\\.(?:id|userId|recordId)[^\\n]*?(?:findById|getById|find\\(|get\\()"
-        message: "Potential Insecure Direct Object Reference (IDOR) vulnerability. User-supplied IDs should be validated against user permissions before database access."
+      # Pattern 1: Weak or insecure cryptographic algorithms
+      - pattern: "(?:createHash|crypto\\.createHash)\\(['\"](?:md5|sha1)['\"]\\)|(?:crypto|require\\(['\"]crypto['\"]\\))\\.(?:createHash|Hash)\\(['\"](?:md5|sha1)['\"]\\)|new (?:MD5|SHA1)\\(|CryptoJS\\.(?:MD5|SHA1)\\("
+        message: "Using weak hashing algorithms (MD5/SHA1). Use SHA-256 or stronger algorithms."
         
-      # Pattern 2: Detect Missing Authorization Checks in Route Handlers
-      - pattern: "(?:app|router)\\.(?:get|post|put|delete|patch)\\(['\"][^'\"]+['\"],\\s*(?:async)?\\s*\\(?(?:req|request),\\s*(?:res|response)(?:,[^\\)]+)?\\)?\\s*=>\\s*\\{[^\\}]*?\\}\\)"
-        negative_pattern: "(?:isAuthenticated|isAuthorized|checkPermission|verifyAccess|auth\\.check|authenticate|authorize|userHasAccess|checkAuth|permissions\\.|requireAuth|requiresAuth|ensureAuth|\\bauth\\b|\\broles?\\b|\\bpermission\\b|\\baccess\\b)"
-        message: "Route handler appears to be missing authorization checks. Implement proper access control to verify user permissions before processing requests."
+      # Pattern 2: Hardcoded secrets/credentials
+      - pattern: "(?:const|let|var)\\s+(?:password|secret|key|token|auth|apiKey|api_key)\\s*=\\s*['\"][^'\"]+['\"]"
+        message: "Potential hardcoded credentials detected. Store secrets in environment variables or a secure vault."
         
-      # Pattern 3: Detect JWT Token Validation Issues
-      - pattern: "(?:jwt|jsonwebtoken)\\.verify\\((?:[^,]+),\\s*['\"]((?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?)['\"]"
-        message: "Hardcoded JWT secret detected. Store JWT secrets securely in environment variables or a configuration manager."
+      # Pattern 3: Insecure random number generation
+      - pattern: "Math\\.random\\(\\)|Math\\.floor\\(\\s*Math\\.random\\(\\)\\s*\\*"
+        message: "Using Math.random() for security purposes. Use crypto.randomBytes() or Web Crypto API for cryptographic operations."
         
-      # Pattern 4: Detect Client-Side Authorization Checks
-      - pattern: "if\\s*\\((?:user|currentUser)\\.(?:role|isAdmin|hasPermission|can[A-Z][a-zA-Z]+|is[A-Z][a-zA-Z]+)\\)\\s*\\{[^\\}]*?(?:fetch|axios|\\$\\.ajax|http\\.get|http\\.post)\\([^\\)]*?\\)"
-        message: "Authorization logic implemented on client-side. Client-side authorization checks can be bypassed. Always enforce authorization on the server."
+      # Pattern 4: Weak SSL/TLS configuration
+      - pattern: "(?:tls|https|require\\(['\"]https['\"]\\)|require\\(['\"]tls['\"]\\))\\.(?:createServer|request|get)\\([^\\)]*?{[^}]*?secureProtocol\\s*:\\s*['\"](?:SSLv2_method|SSLv3_method|TLSv1_method|TLSv1_1_method)['\"]"
+        message: "Using deprecated/insecure SSL/TLS protocol versions. Use TLS 1.2+ for secure communications."
         
-      # Pattern 5: Detect Improper CORS Configuration
-      - pattern: "(?:app\\.use\\(cors\\(\\{[^\\}]*?origin:\\s*['\"]\\*['\"])|Access-Control-Allow-Origin:\\s*['\"]\\*['\"]"
-        message: "Wildcard CORS policy detected. This allows any domain to make cross-origin requests. Restrict CORS to specific trusted domains."
+      # Pattern 5: Missing certificate validation
+      - pattern: "(?:rejectUnauthorized|strictSSL)\\s*:\\s*false"
+        message: "SSL certificate validation is disabled. Always validate certificates in production environments."
         
-      # Pattern 6: Detect Lack of Role Checks in Admin Functions
-      - pattern: "(?:function|const)\\s+(?:admin|updateUser|deleteUser|createUser|updateRole|manageUsers|setPermission)[^\\{]*?\\{[^\\}]*?\\}"
-        negative_pattern: "(?:role|permission|isAdmin|hasAccess|authorize|authenticate|auth\\.check|checkPermission|checkRole|verifyRole|ensureAdmin|adminOnly|adminRequired|requirePermission)"
-        message: "Administrative function appears to be missing role or permission checks. Implement proper authorization checks to restrict access to administrative functions."
+      # Pattern 6: Insecure cipher usage
+      - pattern: "(?:createCipheriv|crypto\\.createCipheriv)\\(['\"](?:des|des3|rc4|bf|blowfish|aes-\\d+-ecb)['\"]"
+        message: "Using insecure encryption cipher or mode. Use AES with GCM or CBC mode with proper padding."
         
-      # Pattern 7: Detect Missing Login Rate Limiting
-      - pattern: "(?:function|const)\\s+(?:login|signin|authenticate|auth)[^\\{]*?\\{[^\\}]*?(?:compare(?:Sync)?|check(?:Password)?|match(?:Password)?|verify(?:Password)?)[^\\}]*?\\}"
-        negative_pattern: "(?:rate(?:Limit)?|throttle|limit|delay|cooldown|attempt|counter|maxTries|maxAttempts|lockout|timeout)"
-        message: "Login function appears to be missing rate limiting. Implement rate limiting to prevent brute force attacks."
+      # Pattern 7: Insufficient key length
+      - pattern: "(?:generateKeyPair|generateKeyPairSync)\\([^,]*?['\"]rsa['\"][^,]*?{[^}]*?modulusLength\\s*:\\s*(\\d{1,3}|1[0-9]{3}|20[0-3][0-9]|204[0-7])\\s*}"
+        message: "Using insufficient key length for asymmetric encryption. RSA keys should be at least 2048 bits, preferably 4096 bits."
         
-      # Pattern 8: Detect Horizontal Privilege Escalation Vulnerability
-      - pattern: "(?:findById|findOne|findByPk|get)\\((?:req|request)\\.(?:params|query|body)\\.(?:id|userId|accountId)\\)"
-        negative_pattern: "(?:!=|!==|===|==)\\s*(?:req\\.user\\.id|req\\.userId|currentUser\\.id|user\\.id|session\\.userId)"
-        message: "Potential horizontal privilege escalation vulnerability. Ensure the requested resource belongs to the authenticated user."
+      # Pattern 8: Insecure password hashing
+      - pattern: "(?:createHash|crypto\\.createHash)\\([^)]*?\\)\\.(?:update|digest)\\([^)]*?\\)|CryptoJS\\.(?:SHA256|SHA512|SHA3)\\([^)]*?\\)"
+        negative_pattern: "(?:bcrypt|scrypt|pbkdf2|argon2)"
+        message: "Using plain hashing for passwords. Use dedicated password hashing functions like bcrypt, scrypt, or PBKDF2."
         
-      # Pattern 9: Detect Missing CSRF Protection
-      - pattern: "(?:app|router)\\.(?:post|put|delete|patch)\\(['\"][^'\"]+['\"]"
-        negative_pattern: "(?:csrf|xsrf|csurf|csrfProtection|antiForgery|csrfToken|csrfMiddleware)"
-        message: "Route may be missing CSRF protection. Implement CSRF tokens for state-changing operations to prevent cross-site request forgery attacks."
+      # Pattern 9: Missing salt in password hashing
+      - pattern: "(?:pbkdf2|pbkdf2Sync)\\([^,]+,[^,]+,[^,]+,\\s*\\d+\\s*,[^,]+\\)"
+        negative_pattern: "(?:salt|crypto\\.randomBytes)"
+        message: "Ensure you're using a proper random salt with password hashing functions."
         
-      # Pattern 10: Detect Bypassing Access Control with Path Traversal
-      - pattern: "(?:fs|require)(?:\\.promises)?\\.(read|open|access|stat)(?:File|Sync)?\\([^\\)]*?(?:req|request)\\.(?:params|query|body|path)\\.[^\\)]*?\\)"
-        negative_pattern: "(?:normalize|resolve|sanitize|validate|pathValidation|checkPath)"
-        message: "Potential path traversal vulnerability in file access. Validate and sanitize user-supplied paths to prevent directory traversal attacks."
+      # Pattern 10: Insecure cookie settings
+      - pattern: "(?:document\\.cookie|cookies\\.set|res\\.cookie|cookie\\.serialize)\\([^)]*?\\)"
+        negative_pattern: "(?:secure\\s*:|httpOnly\\s*:|sameSite\\s*:)"
+        message: "Cookies with sensitive data should have secure and httpOnly flags enabled."
         
-      # Pattern 11: Detect Missing Authentication Middleware
-      - pattern: "(?:new\\s+)?express\\(\\)|(?:import|require)\\(['\"]express['\"]\\)"
-        negative_pattern: "(?:app\\.use\\((?:passport|auth|jwt|session|authenticate)|passport\\.authenticate|express-session|express-jwt|jsonwebtoken|requiresAuth|\\bauth\\b)"
-        message: "Express application may be missing authentication middleware. Implement proper authentication to secure your application."
+      # Pattern 11: Client-side encryption
+      - pattern: "(?:encrypt|decrypt|createCipher|createDecipher)\\([^)]*?\\)"
+        location: "(?:frontend|client|browser|react|vue|angular)"
+        message: "Performing sensitive cryptographic operations on the client side. Move encryption/decryption logic to the server."
         
-      # Pattern 12: Detect Insecure Cookie Settings
-      - pattern: "(?:res\\.cookie|cookie\\.set|cookies\\.set|document\\.cookie)\\([^\\)]*?\\)"
-        negative_pattern: "(?:secure:\\s*true|httpOnly:\\s*true|sameSite|expires|maxAge)"
-        message: "Cookies appear to be set without security attributes. Set the secure, httpOnly, and sameSite attributes for sensitive cookies."
-      
-      # Pattern 13: Detect Hidden Form Fields for Access Control
-      - pattern: "<input[^>]*?type=['\"]hidden['\"][^>]*?(?:(?:name|id)=['\"](?:admin|role|isAdmin|access|permission|privilege)['\"])"
-        message: "Hidden form fields used for access control. Never rely on hidden form fields for access control decisions as they can be easily manipulated."
+      # Pattern 12: Insecure JWT implementation
+      - pattern: "(?:jwt\\.sign|jsonwebtoken\\.sign)\\([^,]*?,[^,]*?,[^\\)]*?\\)"
+        negative_pattern: "(?:expiresIn|algorithm\\s*:\\s*['\"](?:HS256|HS384|HS512|RS256|RS384|RS512|ES256|ES384|ES512)['\"])"
+        message: "JWT implementation missing expiration or using weak algorithm. Set expiresIn and use a strong algorithm."
         
-      # Pattern 14: Detect Client-Side Access Control Routing
-      - pattern: "(?:isAdmin|hasRole|hasPermission|userCan|canAccess)\\s*\\?\\s*<(?:Route|Navigate|Link|Redirect)"
-        message: "Client-side conditional routing based on user roles detected. Always enforce access control on the server side as client-side checks can be bypassed."
+      # Pattern 13: Weak PRNG in Node.js
+      - pattern: "(?:crypto\\.pseudoRandomBytes|crypto\\.rng|crypto\\.randomInt)\\("
+        message: "Using potentially weak pseudorandom number generator. Use crypto.randomBytes() for cryptographic security."
         
-      # Pattern 15: Detect Access Control based on URL Parameters
-      - pattern: "if\\s*\\((?:req|request)\\.(?:query|params)\\.(?:admin|mode|access|role|type)\\s*===?\\s*['\"](?:admin|true|1|superuser|manager)['\"]\\)"
-        message: "Access control based on URL parameters detected. Never use request parameters for access control decisions as they can be easily manipulated."
+      # Pattern 14: Insecure local storage usage for sensitive data
+      - pattern: "(?:localStorage\\.setItem|sessionStorage\\.setItem)\\(['\"](?:token|auth|jwt|password|secret|key|credential)['\"]"
+        message: "Storing sensitive data in browser storage. Use secure HttpOnly cookies for authentication tokens."
+        
+      # Pattern 15: Weak password validation
+      - pattern: "(?:password\\.length\\s*>=?\\s*\\d|password\\.match\\(['\"][^'\"]+['\"]\\))"
+        negative_pattern: "(?:password\\.length\\s*>=?\\s*(?:8|9|10|11|12)|[A-Z]|[a-z]|[0-9]|[^A-Za-z0-9])"
+        message: "Weak password validation. Require at least 12 characters with a mix of uppercase, lowercase, numbers, and special characters."
 
   - type: suggest
     message: |
-      **JavaScript Access Control Best Practices:**
+      **JavaScript Cryptography Best Practices:**
       
-      1. **Implement Server-Side Access Control**
-         - Never rely solely on client-side access control
-         - Use middleware to enforce authorization
-         - Example Express.js middleware:
+      1. **Secure Password Storage:**
+         - Use dedicated password hashing algorithms:
            ```javascript
-           // Role-based access control middleware
-           function requireRole(role) {
-             return (req, res, next) => {
-               if (!req.user) {
-                 return res.status(401).json({ error: 'Authentication required' });
-               }
-               
-               if (!req.user.roles.includes(role)) {
-                 return res.status(403).json({ error: 'Insufficient permissions' });
-               }
-               
-               next();
-             };
+           // Node.js with bcrypt
+           const bcrypt = require('bcrypt');
+           const saltRounds = 12;
+           const hashedPassword = await bcrypt.hash(password, saltRounds);
+           
+           // Verify password
+           const match = await bcrypt.compare(password, hashedPassword);
+           ```
+         - Or use Argon2 (preferred) or PBKDF2 with sufficient iterations:
+           ```javascript
+           // Node.js with crypto
+           const crypto = require('crypto');
+           
+           function hashPassword(password) {
+             const salt = crypto.randomBytes(16);
+             const hash = crypto.pbkdf2Sync(password, salt, 310000, 32, 'sha256');
+             return { salt: salt.toString('hex'), hash: hash.toString('hex') };
            }
-           
-           // Usage in routes
-           app.get('/admin/users', requireRole('admin'), (req, res) => {
-             // Handle admin-only route
-           });
            ```
       
-      2. **Implement Proper Authentication**
-         - Use established authentication libraries
-         - Implement multi-factor authentication for sensitive operations
-         - Example with Passport.js:
+      2. **Secure Random Number Generation:**
+         - In Node.js:
            ```javascript
-           const passport = require('passport');
-           const JwtStrategy = require('passport-jwt').Strategy;
-           
-           passport.use(new JwtStrategy(jwtOptions, async (payload, done) => {
-             try {
-               const user = await User.findById(payload.sub);
-               if (!user) {
-                 return done(null, false);
-               }
-               return done(null, user);
-             } catch (error) {
-               return done(error, false);
-             }
-           }));
-           
-           // Protect routes
-           app.get('/protected', 
-             passport.authenticate('jwt', { session: false }),
-             (req, res) => {
-               res.json({ success: true });
-             }
-           );
+           const crypto = require('crypto');
+           const randomBytes = crypto.randomBytes(32); // 256 bits of randomness
+           ```
+         - In browsers:
+           ```javascript
+           const array = new Uint8Array(32);
+           window.crypto.getRandomValues(array);
            ```
       
-      3. **Implement Proper Authorization**
-         - Use attribute or role-based access control
-         - Check permissions for each protected resource
-         - Example:
+      3. **Secure Communications:**
+         - Use TLS 1.2+ for all communications:
            ```javascript
-           // Permission-based middleware
-           function checkPermission(permission) {
-             return async (req, res, next) => {
-               try {
-                 // Get user permissions from database
-                 const userPermissions = await getUserPermissions(req.user.id);
-                 
-                 if (!userPermissions.includes(permission)) {
-                   return res.status(403).json({ error: 'Permission denied' });
-                 }
-                 
-                 next();
-               } catch (error) {
-                 next(error);
-               }
-             };
-           }
+           // Node.js HTTPS server
+           const https = require('https');
+           const fs = require('fs');
            
-           // Usage
-           app.post('/articles', 
-             authenticate,
-             checkPermission('article:create'), 
-             (req, res) => {
-               // Create article
-             }
-           );
-           ```
-      
-      4. **Protect Against Insecure Direct Object References (IDOR)**
-         - Validate that the requested resource belongs to the user
-         - Use indirect references or access control lists
-         - Example:
-           ```javascript
-           app.get('/documents/:id', authenticate, async (req, res) => {
-             try {
-               const document = await Document.findById(req.params.id);
-               
-               // Check if document exists
-               if (!document) {
-                 return res.status(404).json({ error: 'Document not found' });
-               }
-               
-               // Check if user owns the document or has access
-               if (document.userId !== req.user.id && 
-                   !(await userHasAccess(req.user.id, document.id))) {
-                 return res.status(403).json({ error: 'Access denied' });
-               }
-               
-               res.json(document);
-             } catch (error) {
-               res.status(500).json({ error: error.message });
-             }
-           });
-           ```
-      
-      5. **Implement Proper CORS Configuration**
-         - Never use wildcard (*) in production
-         - Whitelist specific trusted origins
-         - Example:
-           ```javascript
-           const cors = require('cors');
-           
-           const corsOptions = {
-             origin: ['https://trusted-app.com', 'https://admin.trusted-app.com'],
-             methods: ['GET', 'POST', 'PUT', 'DELETE'],
-             allowedHeaders: ['Content-Type', 'Authorization'],
-             credentials: true,
-             maxAge: 86400 // 24 hours
+           const options = {
+             key: fs.readFileSync('private-key.pem'),
+             cert: fs.readFileSync('certificate.pem'),
+             minVersion: 'TLSv1.2'
            };
            
-           app.use(cors(corsOptions));
+           https.createServer(options, (req, res) => {
+             res.writeHead(200);
+             res.end('Hello, world!');
+           }).listen(443);
            ```
-      
-      6. **Implement CSRF Protection**
-         - Use anti-CSRF tokens for state-changing operations
-         - Validate the token on the server
-         - Example with csurf:
+         - Always validate certificates:
            ```javascript
-           const csrf = require('csurf');
+           // Node.js HTTPS request
+           const https = require('https');
            
-           // Setup CSRF protection
-           const csrfProtection = csrf({ cookie: true });
-           
-           // Generate CSRF token
-           app.get('/form', csrfProtection, (req, res) => {
-             res.render('form', { csrfToken: req.csrfToken() });
-           });
-           
-           // Validate CSRF token
-           app.post('/process', csrfProtection, (req, res) => {
-             // Process the request
-           });
-           ```
-      
-      7. **Implement Secure Cookie Settings**
-         - Set secure, httpOnly, and sameSite attributes
-         - Use appropriate expiration times
-         - Example:
-           ```javascript
-           res.cookie('sessionId', sessionId, {
-             httpOnly: true,  // Prevents JavaScript access
-             secure: true,    // Only sent over HTTPS
-             sameSite: 'strict', // Prevents CSRF attacks
-             maxAge: 3600000, // 1 hour
+           const options = {
+             hostname: 'example.com',
+             port: 443,
              path: '/',
-             domain: 'yourdomain.com'
+             method: 'GET',
+             rejectUnauthorized: true // Default, but explicitly set for clarity
+           };
+           
+           const req = https.request(options, (res) => {
+             // Handle response
            });
            ```
       
-      8. **Implement Rate Limiting**
-         - Apply rate limiting to authentication endpoints
-         - Prevent brute force attacks
-         - Example with express-rate-limit:
+      4. **Proper Key Management:**
+         - Never hardcode secrets in source code
+         - Use environment variables or secure vaults:
            ```javascript
-           const rateLimit = require('express-rate-limit');
-           
-           const loginLimiter = rateLimit({
-             windowMs: 15 * 60 * 1000, // 15 minutes
-             max: 5, // 5 attempts per window
-             standardHeaders: true,
-             legacyHeaders: false,
-             message: {
-               error: 'Too many login attempts, please try again after 15 minutes'
-             }
-           });
-           
-           app.post('/login', loginLimiter, (req, res) => {
-             // Handle login
-           });
+           // Node.js with dotenv
+           require('dotenv').config();
+           const apiKey = process.env.API_KEY;
            ```
+         - Consider using dedicated key management services
       
-      9. **Implement Proper Session Management**
-         - Use secure session management libraries
-         - Rotate session IDs after login
-         - Example:
+      5. **Secure Encryption:**
+         - Use authenticated encryption (AES-GCM):
            ```javascript
-           const session = require('express-session');
+           // Node.js crypto
+           const crypto = require('crypto');
            
-           app.use(session({
-             secret: process.env.SESSION_SECRET,
-             resave: false,
-             saveUninitialized: false,
-             cookie: {
-               secure: true,
-               httpOnly: true,
-               sameSite: 'strict',
-               maxAge: 3600000 // 1 hour
-             }
-           }));
-           
-           app.post('/login', (req, res) => {
-             // Authenticate user
+           function encrypt(text, masterKey) {
+             const iv = crypto.randomBytes(12);
+             const cipher = crypto.createCipheriv('aes-256-gcm', masterKey, iv);
              
-             // Regenerate session to prevent session fixation
-             req.session.regenerate((err) => {
-               if (err) {
-                 return res.status(500).json({ error: 'Failed to create session' });
-               }
-               
-               // Set authenticated user in session
-               req.session.userId = user.id;
-               req.session.authenticated = true;
-               
-               res.json({ success: true });
-             });
+             let encrypted = cipher.update(text, 'utf8', 'hex');
+             encrypted += cipher.final('hex');
+             
+             const authTag = cipher.getAuthTag().toString('hex');
+             
+             return {
+               iv: iv.toString('hex'),
+               encrypted,
+               authTag
+             };
+           }
+           
+           function decrypt(encrypted, masterKey) {
+             const decipher = crypto.createDecipheriv(
+               'aes-256-gcm',
+               masterKey,
+               Buffer.from(encrypted.iv, 'hex')
+             );
+             
+             decipher.setAuthTag(Buffer.from(encrypted.authTag, 'hex'));
+             
+             let decrypted = decipher.update(encrypted.encrypted, 'hex', 'utf8');
+             decrypted += decipher.final('utf8');
+             
+             return decrypted;
+           }
+           ```
+      
+      6. **Secure Cookie Handling:**
+         - Set secure and httpOnly flags:
+           ```javascript
+           // Express.js
+           res.cookie('session', sessionId, {
+             httpOnly: true,
+             secure: true,
+             sameSite: 'strict',
+             maxAge: 3600000 // 1 hour
            });
            ```
       
-      10. **Implement Proper Access Control for APIs**
-          - Use OAuth 2.0 or JWT for API authentication
-          - Implement proper scope checking
-          - Example with JWT:
-            ```javascript
-            const jwt = require('jsonwebtoken');
-            
-            function verifyToken(req, res, next) {
-              const token = req.headers.authorization?.split(' ')[1];
-              
-              if (!token) {
-                return res.status(401).json({ error: 'No token provided' });
-              }
-              
-              try {
-                const decoded = jwt.verify(token, process.env.JWT_SECRET);
-                req.user = decoded;
-                
-                // Check if token has required scope
-                if (req.route.path === '/api/admin' && !decoded.scopes.includes('admin')) {
-                  return res.status(403).json({ error: 'Insufficient scope' });
-                }
-                
-                next();
-              } catch (error) {
-                return res.status(401).json({ error: 'Invalid token' });
-              }
-            }
-            
-            // Protect API routes
-            app.get('/api/users', verifyToken, (req, res) => {
-              // Handle request
-            });
-            ```
+      7. **JWT Security:**
+         - Use strong algorithms and set expiration:
+           ```javascript
+           // Node.js with jsonwebtoken
+           const jwt = require('jsonwebtoken');
+           
+           const token = jwt.sign(
+             { userId: user.id },
+             process.env.JWT_SECRET,
+             { 
+               expiresIn: '1h',
+               algorithm: 'HS256'
+             }
+           );
+           ```
+         - Validate tokens properly:
+           ```javascript
+           try {
+             const decoded = jwt.verify(token, process.env.JWT_SECRET);
+             // Process request with decoded data
+           } catch (err) {
+             // Handle invalid token
+           }
+           ```
+      
+      8. **Constant-Time Comparison:**
+         - Use crypto.timingSafeEqual for comparing secrets:
+           ```javascript
+           const crypto = require('crypto');
+           
+           function safeCompare(a, b) {
+             const bufA = Buffer.from(a);
+             const bufB = Buffer.from(b);
+             
+             // Ensure the buffers are the same length to avoid timing attacks
+             // based on length differences
+             if (bufA.length !== bufB.length) {
+               return false;
+             }
+             
+             return crypto.timingSafeEqual(bufA, bufB);
+           }
+           ```
 
   - type: validate
     conditions:
-      # Check 1: Authentication middleware
-      - pattern: "(?:app\\.use\\((?:authenticate|auth\\.initialize|passport\\.initialize|express-session|jwt))|(?:passport\\.authenticate\\()|(?:auth\\.required)"
-        message: "Authentication middleware is implemented correctly."
+      # Check 1: Proper password hashing
+      - pattern: "bcrypt\\.hash|scrypt|pbkdf2|argon2"
+        message: "Using secure password hashing algorithm."
       
-      # Check 2: Authorization checks
-      - pattern: "(?:isAuthorized|checkPermission|hasRole|requireRole|checkAccess|canAccess|checkAuth|roleRequired|requireScope)"
-        message: "Authorization checks are implemented."
+      # Check 2: Secure random generation
+      - pattern: "crypto\\.randomBytes|window\\.crypto\\.getRandomValues"
+        message: "Using cryptographically secure random number generation."
       
-      # Check 3: CSRF protection
-      - pattern: "(?:csrf|csurf|csrfProtection|antiForgery|csrfToken)"
-        message: "CSRF protection is implemented."
+      # Check 3: Strong TLS configuration
+      - pattern: "minVersion\\s*:\\s*['\"]TLSv1_2['\"]|minVersion\\s*:\\s*['\"]TLSv1_3['\"]"
+        message: "Using secure TLS configuration."
       
-      # Check 4: Secure cookies
-      - pattern: "(?:cookie|cookies).*(?:secure:\\s*true|httpOnly:\\s*true|sameSite)"
-        message: "Secure cookie settings are configured."
-      
-      # Check 5: CORS configuration
-      - pattern: "cors\\(\\{[^\\}]*?origin:\\s*\\[[^\\]]+\\]"
-        message: "CORS is configured with specific origins rather than wildcards."
+      # Check 4: Proper certificate validation
+      - pattern: "rejectUnauthorized\\s*:\\s*true|strictSSL\\s*:\\s*true"
+        message: "Properly validating SSL certificates."
 
 metadata:
   priority: high
@@ -376,27 +280,27 @@ metadata:
   tags:
     - security
     - javascript
-    - access-control
-    - authorization
-    - authentication
+    - nodejs
+    - browser
+    - cryptography
+    - encryption
     - owasp
     - language:javascript
-    - language:typescript
     - framework:express
     - framework:react
-    - framework:angular
     - framework:vue
+    - framework:angular
     - category:security
-    - subcategory:access-control
+    - subcategory:cryptography
     - standard:owasp-top10
-    - risk:a01-broken-access-control
+    - risk:a02-cryptographic-failures
   references:
-    - "https://owasp.org/Top10/A01_2021-Broken_Access_Control/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Access_Control_Cheat_Sheet.html"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
-    - "https://nodejs.org/en/security/best-practices/"
-    - "https://expressjs.com/en/advanced/best-practice-security.html"
-    - "https://auth0.com/blog/node-js-and-express-tutorial-building-and-securing-restful-apis/"
+    - "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+    - "https://nodejs.org/api/crypto.html"
+    - "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto"
+    - "https://www.npmjs.com/package/bcrypt"
+    - "https://www.npmjs.com/package/jsonwebtoken"
 </rule> 
 
 ---
