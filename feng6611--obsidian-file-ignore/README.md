@@ -7,13 +7,13 @@ An Obsidian plugin that controls file indexing by managing dot prefixes on files
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Feng6611/Obsidian-File-Ignore](https://github.com/Feng6611/Obsidian-File-Ignore).
+Original source: `AGENTS.md` in [Feng6611/Obsidian-File-Ignore](https://github.com/Feng6611/Obsidian-File-Ignore).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
