@@ -7,11 +7,11 @@ Generate App Store & Google Play preview videos and screenshots from a simple Ty
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [trunghaiy/appshot](https://github.com/trunghaiy/appshot).
+Original source: `CLAUDE.md` in [trunghaiy/appshot](https://github.com/trunghaiy/appshot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
