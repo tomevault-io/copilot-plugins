@@ -1,0 +1,9 @@
+{
+  "name": "cocoanetics--swiftmail",
+  "displayName": "SwiftMail",
+  "description": "Swift Mail Access to IMAP and SMTP",
+  "version": "1.0.0",
+  "author": "Cocoanetics",
+  "homepage": "https://github.com/Cocoanetics/SwiftMail",
+  "skills": []
+}
