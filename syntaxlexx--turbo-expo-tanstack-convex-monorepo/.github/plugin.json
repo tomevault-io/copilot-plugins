@@ -1,0 +1,9 @@
+{
+  "name": "syntaxlexx--turbo-expo-tanstack-convex-monorepo",
+  "displayName": "turbo-expo-tanstack-convex-monorepo",
+  "description": "Fullstack monorepo template feat. Expo (App Router), Turbo, TanStack, Convex",
+  "version": "1.0.0",
+  "author": "syntaxlexx",
+  "homepage": "https://github.com/syntaxlexx/turbo-expo-tanstack-convex-monorepo",
+  "skills": []
+}
