@@ -1,0 +1,9 @@
+{
+  "name": "counterpoint-studio--audio-file-mcp-app",
+  "displayName": "audio-file-mcp-app",
+  "description": "An MCP App for playing and inspecting local audio files in an MCP host.",
+  "version": "1.0.0",
+  "author": "counterpoint-studio",
+  "homepage": "https://github.com/counterpoint-studio/audio-file-mcp-app",
+  "skills": []
+}
