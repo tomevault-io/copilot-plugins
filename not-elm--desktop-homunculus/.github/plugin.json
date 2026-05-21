@@ -1,0 +1,9 @@
+{
+  "name": "not-elm--desktop-homunculus",
+  "displayName": "desktop-homunculus",
+  "description": "Desktop mascot built with bevy",
+  "version": "1.0.0",
+  "author": "not-elm",
+  "homepage": "https://github.com/not-elm/desktop-homunculus",
+  "skills": []
+}
