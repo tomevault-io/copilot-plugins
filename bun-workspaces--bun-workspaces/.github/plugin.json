@@ -1,0 +1,9 @@
+{
+  "name": "bun-workspaces--bun-workspaces",
+  "displayName": "bun-workspaces",
+  "description": "A tool for managing monorepos using Bun. Not a framework but an enhancement to native workspaces. Develop JavaScript and TypeScript projects with the bun-workspaces CLI and API.",
+  "version": "1.0.0",
+  "author": "bun-workspaces",
+  "homepage": "https://github.com/bun-workspaces/bun-workspaces",
+  "skills": []
+}
