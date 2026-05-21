@@ -1,0 +1,44 @@
+{
+  "name": "LuckyGo",
+  "owner": "jialechen7",
+  "repo": "LuckyGo",
+  "description": "LuckyGo\uff1a\u57fa\u4e8e go-zero \u6846\u67b6\u7684\u62bd\u5956\u7cfb\u7edf\u540e\u53f0",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jialechen7/LuckyGo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T11:55:28Z"
+}
