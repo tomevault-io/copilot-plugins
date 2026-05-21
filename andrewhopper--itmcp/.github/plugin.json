@@ -1,0 +1,9 @@
+{
+  "name": "andrewhopper--itmcp",
+  "displayName": "itmcp",
+  "description": "MCP to provide secure IT tools for AI network troubleshooting (remote ssh, ping, nslookup, etc)",
+  "version": "1.0.0",
+  "author": "andrewhopper",
+  "homepage": "https://github.com/andrewhopper/itmcp",
+  "skills": []
+}
