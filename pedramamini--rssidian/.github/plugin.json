@@ -1,0 +1,9 @@
+{
+  "name": "pedramamini--rssidian",
+  "displayName": "RSSidian",
+  "description": "An MCP-capable intelligent RSS feed ingestion and summarization to markdown tool.",
+  "version": "1.0.0",
+  "author": "pedramamini",
+  "homepage": "https://github.com/pedramamini/RSSidian",
+  "skills": []
+}
