@@ -4,7 +4,7 @@
   "repo": "ts-sdk",
   "description": "The Arkade SDK is a TypeScript library for building Bitcoin wallets with the Ark protocol.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arkade-os/ts-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T22:40:10Z"
+  "distributed_at": "2026-05-21T07:51:15Z"
 }
