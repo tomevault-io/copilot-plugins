@@ -2,16 +2,18 @@
 
 > Tome by [masrurimz](https://github.com/masrurimz/tanstack-start-elysia-better-auth-bun) — distributed by [TomeVault](https://tomevault.io)
 
+Full-stack monorepo template with TanStack Start, Elysia.js, and Better Auth. Features end-to-end type safety, blazing performance, and seamless authentication. Perfect starting point for modern web   applications.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [masrurimz/tanstack-start-elysia-better-auth-bun](https://github.com/masrurimz/tanstack-start-elysia-better-auth-bun).
+Original source: `CLAUDE.md` in [masrurimz/tanstack-start-elysia-better-auth-bun](https://github.com/masrurimz/tanstack-start-elysia-better-auth-bun).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
