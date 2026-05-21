@@ -1,247 +1,113 @@
-## go-architecture
+## go-convention
 
-> 1. **Clean Architecture**
+> - Follow the Go style guide (https://go.dev/doc/effective_go).
 
-# IDE Cursor Rules for Golang Development
+# Golang Guidelines
+- Follow the Go style guide (https://go.dev/doc/effective_go).
+- Use lowercase package names (e.g., `http`, `utils`).
+- Prefer explicit error handling with `if err != nil` over panics.
+- Use structs with exported fields (capitalized) for public APIs; lowercase for internal use.
+- Avoid unnecessary interfaces; only define them when multiple implementations are needed.
+- Use `go fmt` style: no unnecessary whitespace, consistent indentation.
+- Structure files: one main type/struct per file with related methods, helpers in separate utils files.
+- Naming: Short, concise, and contextual (e.g., `db` for database, `srv` for server).
+- Applying the Design Pattern when see the use case is fit with any design pattern.
 
-## Architecture & Structure
 
-1. **Clean Architecture**
-   - Maintain clear separation between layers: domain, repository, usecase, handler
-   - Follow dependency rule: inner layers must not depend on outer layers
-   - Domain entities should not have dependencies on frameworks or external libraries
-   - Use dependency injection for infrastructure dependencies
+# Golang IDE Cursor Rules
 
-2. **Project Structure**
+These rules govern how the cursor behaves in your IDE to ensure that all generated Golang code passes linters (`golint`), static analysis (`go vet`), and can run without issues.
+
+## Automatic Imports
+
+1. **Auto-import**: When a new package is referenced, the cursor automatically adds the import to the top of the file
+2. **Clean imports**: When removing code that uses an import, the cursor automatically removes unused imports
+3. **Group imports**: Standard library imports are grouped first, followed by third-party libraries, then local packages
+4. **Alphabetical order**: Imports within each group are sorted alphabetically
+
+## Indentation and Formatting
+
+1. **Tab-based indentation**: Always use tabs (not spaces) for indentation
+2. **Auto-format on save**: Always run `gofmt` when saving a file
+3. **Standard bracing**: Opening braces always on the same line as the statement:
+   ```go
+   if condition {
+       // Code
+   }
    ```
-root/
-├── cmd
-│   ├── app
-│   └── tools
-├── config
-├── documents
-├── internal
-│   ├── domain
-│   │   ├── authentication
-│   │   ├── shared
-│   │   │   ├── errors
-│   │   │   └── valueobjects
-│   │   └── user
-│   ├── infrastructure
-│   │   ├── background
-│   │   ├── db
-│   │   │   ├── migrations
-│   │   │   └── repository
-│   │   ├── file_storage
-│   │   ├── filestorage
-│   │   ├── logging
-│   │   ├── server
-│   │   └── temporal
-│   ├── interfaces
-│   │   ├── persistence
-│   │   └── rest
-│   ├── middleware
-│   ├── shared
-│   └── usecases
-├── pkg
-│   └── utils
+4. **Line length**: Hard wrap at 100 characters
 
+## Variable and Function Naming
+
+1. **camelCase for private**: Private variables and functions use camelCase
+2. **PascalCase for exported**: Exported variables and functions use PascalCase
+3. **Acronyms**: Acronyms in names are all uppercase (e.g., `HTTPServer` not `HttpServer`)
+4. **Short-lived variables**: Use short names for variables with small scopes
+5. **Descriptive names**: Use descriptive names for exported functions and variables
+6. **Context parameter**: Name the context parameter `ctx` when present
+
+## Error Handling
+
+1. **Error checking**: Every error must be checked - cursor enforces checking after functions that return errors
+2. **Error documentation**: Mandatory error documentation for exported functions
+3. **Error wrapping**: Use `fmt.Errorf("context: %w", err)` for wrapping errors
+4. **Early returns**: The cursor favors early returns for error conditions, reducing nesting
+
+## Comments and Documentation
+
+1. **Package documentation**: Every package has documentation in a separate `doc.go` file
+2. **Function documentation**: All exported functions have godoc-compatible documentation
+3. **Linting comments**: When cursor detects a comment that doesn't start with the name of the thing being commented, it's automatically fixed
+4. **TODO format**: Standard format for TODOs: `// TODO(username): explanation`
+
+## Code Structure
+
+1. **File organization**: Types come first, followed by constants, variables, then functions
+2. **Interface consistency**: Method declarations in interfaces match the same order as their implementations
+3. **Balanced grouping**: Related constants and variables are grouped together
+4. **Method ordering**: Methods for the same type are grouped together
+
+## Testing
+
+1. **Auto-create test**: When creating a new function, the cursor offers to create a corresponding test file
+2. **Table-driven tests**: The cursor prefers table-driven test templates
+3. **Descriptive test names**: Test functions follow the format `TestSubject_Action_Condition`
+4. **Test helper functions**: Helper functions are marked with `t.Helper()`
+
+## Concurrency Patterns
+
+1. **Mutex naming**: Name mutex variables with a `mu` prefix
+2. **Context first**: In function parameters, context is always the first parameter
+3. **Go routine boundary**: When spawning a goroutine, cursor automatically adds comments about responsibility for closure variables
+4. **Channel direction**: Channels always specify direction when used as parameters:
+   ```go
+   func consume(ch <-chan int) {} // Receive-only
+   func produce(ch chan<- int) {} // Send-only
    ```
 
-3. **Domain-Driven Design**
-   - Model domain entities around business concepts
-   - Use value objects for immutable concepts
-   - Implement aggregate roots to maintain consistency boundaries
-   - Define repository interfaces in the domain layer
-   - Keep business logic in domain entities or domain services
+## Safe Code Patterns
 
-## Code Quality Principles
+1. **Nil checks**: Cursor enforces nil checks before dereferencing pointers
+2. **Range copy check**: Warns when using a range variable in a goroutine to prevent closure issues
+3. **Struct initialization**: Enforces field names in struct initialization for clarity
+4. **Blank identifier**: Prompts for a comment when using blank identifier (`_`) to explain why
 
-4. **SOLID Principles**
-   - **Single Responsibility**: Each struct/function should have only one reason to change
-   - **Open/Closed**: Extend behavior through interfaces rather than modification
-   - **Liskov Substitution**: Interface implementations must be substitutable
-   - **Interface Segregation**: Prefer small, focused interfaces (1-3 methods)
-   - **Dependency Inversion**: Depend on abstractions, not concrete implementations
+## IDE Integration Features
 
-5. **DRY (Don't Repeat Yourself)**
-   - Extract common functionality into shared packages
-   - Use middleware for cross-cutting concerns
-   - Create utility functions for repeated operations
-   - Implement generic repository patterns where appropriate
+1. **Auto-completion**: Intelligent suggestions for functions and variables
+2. **Hover information**: Show documentation, type information, and potential issues on hover
+3. **Jump to definition**: Quick navigation to declarations and implementations
+4. **Find usages**: Locate all references to a symbol across the codebase
+5. **Refactoring tools**: Rename, extract function, and other refactorings with preview
+6. **Error diagnostics**: Real-time error highlighting with suggestions for fixes
+7. **Auto-implement interfaces**: Generate method stubs for implementing interfaces
 
-6. **Design Patterns**
-   - **Repository Pattern**: Abstract data access behind interfaces
-   - **Factory Pattern**: Create complex objects
-   - **Strategy Pattern**: Switch algorithms at runtime
-   - **Adapter Pattern**: Convert interfaces
-   - **Decorator Pattern**: Add behavior dynamically
-   - **Dependency Injection**: Provide dependencies from outside
+## Pre-Commit Checks
 
-## Development Approaches
-
-7. **Test-Driven Development**
-   - Write tests before implementation code
-   - Start with test cases that validate interface contracts
-   - Use table-driven tests for comprehensive test coverage
-   - Use mocks for external dependencies
-   - Run all tests after each change (`go test ./...`)
-
-8. **Testing Practices**
-   - Test each layer independently
-   - Use interfaces to mock dependencies
-   - Organize tests to mirror production code structure
-   - Maintain test coverage above 80%
-   - Write integration tests for critical paths
-
-## Golang-Specific Best Practices
-
-9. **Code Organization**
-   - Group related functionality in packages
-   - Use meaningful package names (avoid `util`, `common`, etc.)
-   - Follow standard Go project layout
-   - Keep packages small and focused
-
-10. **Error Handling**
-    - Use custom error types for domain-specific errors
-    - Wrap errors with context using `fmt.Errorf("context: %w", err)`
-    - Return errors rather than panic
-    - Check all error returns
-    - Use structured logging with errors
-
-11. **Interfaces**
-    - Define interfaces where behavior varies
-    - Keep interfaces small (1-3 methods)
-    - Define interfaces where they're used, not implemented
-    - Use embedded interfaces to compose larger interfaces
-
-12. **Concurrency**
-    - Use goroutines and channels appropriately
-    - Avoid shared memory; prefer communication
-    - Use sync package for simple synchronization
-    - Implement proper context propagation
-    - Handle goroutine termination properly
-
-13. **Performance**
-    - Use pointers judiciously (only when mutation is needed)
-    - Minimize allocations in hot paths
-    - Use sync.Pool for frequently allocated objects
-    - Benchmark performance-critical code
-    - Profile before optimizing
-
-## Implementation Guidelines
-
-14. **Repository Layer**
-    - Implement repository interfaces defined in domain
-    - Handle database-specific errors and conversions
-    - Use prepared statements for security
-    - Implement proper transaction handling
-    - Use context for timeouts and cancellation
-
-15. **Use Case Layer**
-    - Orchestrate domain operations
-    - Validate input
-    - Handle transaction boundaries
-    - Implement business processes
-    - Return domain objects (not persistence models)
-
-16. **Handler Layer**
-    - Convert between domain models and DTOs
-    - Validate request parameters
-    - Handle HTTP-specific concerns
-    - Implement consistent error responses
-    - Use middleware for cross-cutting concerns
-
-17. **Configuration**
-    - Use environment variables with sane defaults
-    - Implement configuration validation
-    - Support different environments (dev, test, prod)
-    - Keep sensitive information in environment variables
-
-## Specific Patterns
-
-18. **Dependency Injection**
-    ```go
-    type Service struct {
-        repo Repository
-        logger Logger
-    }
-    
-    func NewService(repo Repository, logger Logger) *Service {
-        return &Service{
-            repo: repo,
-            logger: logger,
-        }
-    }
-    ```
-
-19. **Repository Interface**
-    ```go
-    type UserRepository interface {
-        FindByID(ctx context.Context, id string) (*User, error)
-        Save(ctx context.Context, user *User) error
-        Delete(ctx context.Context, id string) error
-    }
-    ```
-
-20. **Error Types**
-    ```go
-    type NotFoundError struct {
-        Entity string
-        ID     string
-    }
-    
-    func (e *NotFoundError) Error() string {
-        return fmt.Sprintf("%s with ID %s not found", e.Entity, e.ID)
-    }
-    ```
-
-21. **Table-Driven Tests**
-    ```go
-    func TestValidateUser(t *testing.T) {
-        tests := []struct {
-            name    string
-            user    User
-            wantErr bool
-        }{
-            {"valid user", User{Name: "John", Email: "john@example.com"}, false},
-            {"empty name", User{Email: "john@example.com"}, true},
-            {"invalid email", User{Name: "John", Email: "invalid"}, true},
-        }
-        
-        for _, tt := range tests {
-            t.Run(tt.name, func(t *testing.T) {
-                if err := ValidateUser(tt.user); (err != nil) != tt.wantErr {
-                    t.Errorf("ValidateUser() error = %v, wantErr %v", err, tt.wantErr)
-                }
-            })
-        }
-    }
-    ```
-
-22. **Middleware Pattern**
-    ```go
-    func LoggingMiddleware(next http.Handler) http.Handler {
-        return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-            start := time.Now()
-            next.ServeHTTP(w, r)
-            log.Printf("%s %s took %s", r.Method, r.URL.Path, time.Since(start))
-        })
-    }
-    ```
-
-## Commands for IDE Cursor
-
-- **Generate domain entity**: Create a new domain entity with validation methods
-- **Create repository interface**: Generate a repository interface for a domain entity
-- **Implement repository**: Create concrete implementation of a repository interface
-- **Generate use case**: Create a new use case implementing business logic
-- **Add handler**: Create a new HTTP handler for a use case
-- **Create test**: Generate test boilerplate for any component
-- **Add middleware**: Create new middleware for cross-cutting concerns
-- **Refactor to interface**: Extract interface from concrete implementation
-- **Add factory method**: Create factory method for complex object creation
-- Use built-in golang http server, not using other libs, including http mux
+1. **Automated pre-commit**: Run `golint`, `go vet`, and `go test` before allowing commits
+2. **Dependency check**: Verify dependencies are properly managed and vendored
+3. **License header**: Ensure all new files have the appropriate license header
+4. **Coverage check**: Verify that new code has sufficient test coverage
 
 ---
 > Source: [FreePeak/cortex](https://github.com/FreePeak/cortex) — distributed by [TomeVault](https://tomevault.io).
