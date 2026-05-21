@@ -4,7 +4,7 @@
   "repo": "constructive",
   "description": "Secure, Modular Postgres for Teams",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/constructive-io/constructive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T22:45:03Z"
+  "distributed_at": "2026-05-21T07:55:32Z"
 }
