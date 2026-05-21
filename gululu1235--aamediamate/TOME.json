@@ -4,7 +4,7 @@
   "repo": "AAMediaMate",
   "description": "Android Auto Media Mate",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gululu1235/AAMediaMate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T07:33:13Z"
+  "distributed_at": "2026-05-21T16:21:18Z"
 }
