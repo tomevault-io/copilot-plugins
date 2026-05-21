@@ -1,0 +1,9 @@
+{
+  "name": "flywhl--cyantic",
+  "displayName": "cyantic",
+  "description": "Build complex types from simple blueprints with Pydantic",
+  "version": "1.0.0",
+  "author": "flywhl",
+  "homepage": "https://github.com/flywhl/cyantic",
+  "skills": []
+}
