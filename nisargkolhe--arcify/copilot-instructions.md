@@ -1,24 +1,43 @@
-## 01-project-overview
+## 02-app-architecture
 
-> This Chrome extension provides Arc browser-like sidebar functionality for managing tabs, spaces, and bookmarks. It organizes browser tabs into spaces (tab groups) and allows users to:
+> - **Spaces**: Represented as Chrome tab groups with additional metadata and bookmarks
 
-# Arcsidebar Chrome Extension Overview
+# App Architecture
 
-This Chrome extension provides Arc browser-like sidebar functionality for managing tabs, spaces, and bookmarks. It organizes browser tabs into spaces (tab groups) and allows users to:
+## Core Concepts
 
-- Create and manage multiple spaces (similar to Arc's Spaces)
-- Save tabs as bookmarks within spaces
-- Easily switch between spaces
-- Archive and restore tabs
-- Drag and drop tabs between spaces or within a space
+- **Spaces**: Represented as Chrome tab groups with additional metadata and bookmarks
+- **Tabs**: Browser tabs that can be either temporary or pinned (bookmarked)
+- **Bookmarks**: Saved tabs that persist even when the tab is closed
 
-## Key Files
+## State Management
 
-- [sidebar.js](mdc:sidebar.js) - The main UI and functionality implementation
-- [chromeHelper.js](mdc:chromeHelper.js) - Helper functions for Chrome API interactions
-- [localstorage.js](mdc:localstorage.js) - Storage management for persistent data
-- [utils.js](mdc:utils.js) - Utility functions used throughout the extension
-- [icons.js](mdc:icons.js) - SVG icon definitions for the UI
+The extension maintains a global state in the `spaces` array, with each space containing:
+- `id`: Chrome tab group ID
+- `uuid`: Unique identifier
+- `name`: Display name
+- `color`: Color theme
+- `spaceBookmarks`: Array of pinned tab IDs
+- `temporaryTabs`: Array of temporary tab IDs
+
+Chrome bookmarks are used as the persistent storage mechanism. Each space has a corresponding bookmark folder.
+
+## Event Handlers
+
+The extension uses Chrome event listeners to respond to tab changes:
+- `chrome.tabs.onCreated` - Handles new tab creation
+- `chrome.tabs.onUpdated` - Handles tab URL or title changes
+- `chrome.tabs.onRemoved` - Handles tab closures
+- `chrome.tabs.onActivated` - Handles tab switching
+
+## DOM Structure
+
+The sidebar UI has these key components:
+- Space switcher at top
+- Per-space tab container
+- Pinned tabs section
+- Temporary tabs section
+- Add space and new tab buttons
 
 ---
 > Source: [nisargkolhe/arcify](https://github.com/nisargkolhe/arcify) — distributed by [TomeVault](https://tomevault.io).
