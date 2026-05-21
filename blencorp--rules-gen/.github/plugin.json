@@ -1,0 +1,9 @@
+{
+  "name": "blencorp--rules-gen",
+  "displayName": "rules-gen",
+  "description": "CLI tool to generate cursor and windsurf rules",
+  "version": "1.0.0",
+  "author": "blencorp",
+  "homepage": "https://github.com/blencorp/rules-gen",
+  "skills": []
+}
