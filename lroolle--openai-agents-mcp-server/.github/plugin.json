@@ -1,0 +1,9 @@
+{
+  "name": "lroolle--openai-agents-mcp-server",
+  "displayName": "openai-agents-mcp-server",
+  "description": "OpenAI Agents And Tools as MCP Server",
+  "version": "1.0.0",
+  "author": "lroolle",
+  "homepage": "https://github.com/lroolle/openai-agents-mcp-server",
+  "skills": []
+}
