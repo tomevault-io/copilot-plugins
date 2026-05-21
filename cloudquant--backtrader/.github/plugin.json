@@ -1,0 +1,9 @@
+{
+  "name": "cloudquant--backtrader",
+  "displayName": "backtrader",
+  "description": "Quantitative Trading Framework (Backtesting & Live Trading) for Quants",
+  "version": "1.0.0",
+  "author": "cloudQuant",
+  "homepage": "https://github.com/cloudQuant/backtrader",
+  "skills": []
+}
