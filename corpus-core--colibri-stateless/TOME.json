@@ -4,7 +4,7 @@
   "repo": "colibri-stateless",
   "description": "the c4 monorepo ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/corpus-core/colibri-stateless",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T18:45:22Z"
+  "distributed_at": "2026-05-21T17:33:08Z"
 }
