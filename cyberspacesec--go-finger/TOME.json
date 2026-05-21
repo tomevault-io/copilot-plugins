@@ -1,0 +1,44 @@
+{
+  "name": "go-finger",
+  "owner": "cyberspacesec",
+  "repo": "go-finger",
+  "description": "GXX\u662f\u4e00\u6b3e\u5f3a\u5927\u7684\u6307\u7eb9\u8bc6\u522b\u5de5\u5177\uff0c\u57fa\u4e8eYAML\u914d\u7f6e\u7684\u89c4\u5219\u8fdb\u884c\u76ee\u6807\u7cfb\u7edf\u8bc6\u522b\u3002 \u672c\u5de5\u5177\u652f\u6301\u591a\u79cd\u534f\u8bae\uff08HTTP/HTTPS\u3001TCP\u3001UDP\uff09\uff0c\u53ef\u8fdb\u884c\u9ad8\u6548\u7684\u6279\u91cf\u76ee\u6807\u626b\u63cf\u548c\u7cbe\u51c6\u8bc6\u522b\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cyberspacesec/go-finger",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T02:08:13Z"
+}
