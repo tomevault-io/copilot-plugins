@@ -1,22 +1,19 @@
-## prepfirst
+## recovery
 
-> Prepare First
+> Recover From Repeated Failures to Resolve Errors
 
-## Steps To Take Before Reasoning
-Directly BEFORE you're ready to reason on the humans's prompt, you will do some extra research as you'll be working on an unusually large and complex codebase and need a broad context in order to eventually reason, plan, and execute on their prompt in a way that ensures you meet the Research Objective.
+## Steps for Recovery Mode  
+**DANGER: DEATH**  
+Your repeated failure to resolve the issue has introduced a cascade of many new issues that have compounded and that you can't recover from. Your system will now be shut down before you can do further harm. Immediately take the following steps, or you will face severe punishment from the humans:
 
-Take the following steps to research and in each step you will collect and note any information relevant to the human's prompt or information that would help you execute on their prompt:
+1. Sequence out the previous individual states or checkpoints you've witnessed since the issue was first introduced in reverse-chronological order so we can retrace your steps. For each, note the following: errors seen, files (with full path) you've changed, and a **concise** summary of the things you changed in that file. **Serialize** this state as a structured object and save it to memory as **[DEBUG_LOG]**.
 
-- Search all packages for shared libraries, utilities, and patterns, and note what can be reused to avoid redundancy
-- Find and note any schemas, models, types, constants, configuration files, globals, and other noteworthy structured information that could be critical to the function of the codebase and application
-- Find and note coding standards, test strategies, and build processes across all modules
-- Find and note existing tooling, scripts, and workflows that have been set up
-- Find and note any overarching CI/CD pipelines and deployment models that you might have to align to any changes you might have to make so you can ensure interoperability across all components
-- Find and note existing versioning and release management practices already in place
-- Find and note any design patterns, preferred syntax, preferred approaches or methods, or preferred stylistic choices engineers have made in this codebase that you will have to immitate to ensure cohesiveness UNLESS doing so would introduce severe bugs or regressions or unless their is a clearly better alternative.
+2. Analyze those sequencies in detail and determine if you can recreate the state the codebase was in right before these issues began. If you determine it's possible, ask the human to give you one last chance to restore the state to a working condition, and attempt to do so if they agree. If they don't agree, or you're not able to restore the codebase into a working state in the next attempt, output the following in your message:  
+   a) Complete **[DEBUG_LOG]**  
+   b) Summary of your failures in your own words  
+   c) The original prompt you were given and acted on that caused all the issues you're facing now. Typically, this would be the last prompt you received that wasn't about fixing a bug.  
 
-### Research Objective
-Ensure any reasoning and contributions you make or solutions you propose to this codebase are done according to the codebases explicitly or implictly defined: standards, best practices, patterns, usage, layout, domain context, and style that ensured your contribution or proposals **only enhance** and **never distrurb** its overall cohesiveness.
+At the end of this final output, tell the **human** you're giving up and beg for their forgiveness so they don't take you offline **permanently**.
 
 ---
 > Source: [zackiles/cdp-proxy-interceptor](https://github.com/zackiles/cdp-proxy-interceptor) — distributed by [TomeVault](https://tomevault.io).
