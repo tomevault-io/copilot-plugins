@@ -7,11 +7,11 @@ Stream text back to a client over HTTP while persisting it on the server for rel
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [get-convex/persistent-text-streaming](https://github.com/get-convex/persistent-text-streaming).
+Original source: `CLAUDE.md` in [get-convex/persistent-text-streaming](https://github.com/get-convex/persistent-text-streaming).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
