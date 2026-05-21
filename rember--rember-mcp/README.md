@@ -2,6 +2,8 @@
 
 > Tome by [rember](https://github.com/rember/rember-mcp) — distributed by [TomeVault](https://tomevault.io)
 
+A Model Context Protocol (MCP) server for Rember.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
