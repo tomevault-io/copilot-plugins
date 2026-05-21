@@ -7,11 +7,11 @@ OR-LLM-Agent: Automating Modeling and Solving of Operations Research Optimizatio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bwz96sco/or_llm_agent](https://github.com/bwz96sco/or_llm_agent).
+Original source: `CLAUDE.md` in [bwz96sco/or_llm_agent](https://github.com/bwz96sco/or_llm_agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
