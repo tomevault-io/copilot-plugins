@@ -1,36 +1,20 @@
-## swiftmail-logging
+## swiftmail-project
 
-> SwiftMail logging standards and log level reference
+> SwiftMail project-specific coding standards and organization rules
 
- # SwiftMail Logging Reference
+ # SwiftMail Project Rules
 
-- SwiftMail uses the Swift Logging package for logging
-- CLI demos bridge to OSLog
+## Code Organization
 
-## Log Levels
-
-- `.critical`: For fatal application errors
-- `.error`: For errors that impact functionality but allow recovery
-- `.warning`: For potential issues that don't impact functionality
-- `.notice`: For important events in normal operation
-- `.info`: For general information about application flow
-- `.debug`: For detailed debugging information (normally suppressed)
-- `.trace`: For extremely detailed flow tracing (normally suppressed)
-
-## Logging Best Practices
-
-- Log messages should be:
-  - Clear and concise
-  - Grammatically correct
-  - Free of unnecessary technical jargon
-  - Helpful for debugging without requiring source code access
-- when adding extra logging during debugging, mark it with // FIXME: Delete
-- Production code should minimize direct `print()` calls in favor of the logging system
-- Developers should run with `ENABLE_DEBUG_OUTPUT=1` when developing or debugging
-- Protocol-specific logging:
-  - IMAP: Use trace-level logging for protocol commands and responses
-  - SMTP: Use trace-level logging for protocol commands and responses
-  - Always redact sensitive information (passwords, authentication tokens) in logs
+- Protocol conformances for types should always be in a separate file named `Type+Protocol.swift`
+- Group extensions next to their model definitions in the file structure
+- Move files on the file system rather than generating them unnecessarily
+- Maintain a clear directory structure:
+  - `Sources/SwiftMail/IMAP/` - Code related to IMAP
+  - `Sources/SwiftMail/SMTP/` - Code related to SMTP
+  - `Sources/SwiftMail/Core/` - Code common to IMAP and SMTP implementations
+  - `Demos` - Demo Apps
+  - `Tests` - Test files
 
 ---
 > Source: [Cocoanetics/SwiftMail](https://github.com/Cocoanetics/SwiftMail) — distributed by [TomeVault](https://tomevault.io).
