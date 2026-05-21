@@ -1,26 +1,45 @@
-## meaningful-comments
+## translation-resources
 
-> When writing code comments, please follow these guidelines:
+> Translation Resources Rule
 
-# Rule: Write Meaningful Code Comments
+# Translation Resources Rule
 
-When writing code comments, please follow these guidelines:
+## Overview
+All user-facing text in the application, including error messages and toast notifications, must be stored in translation files rather than hardcoded in the codebase.
 
-1. **Be descriptive**: Explain the "why" behind the code, not just the "what". The code itself shows what it does; comments should explain why it's done that way.
+## Translation Files
+The project uses the following translation files:
+- [messages/en.json](mdc:messages/en.json) - English translations
+- [messages/zh.json](mdc:messages/zh.json) - Chinese translations
 
-2. **Document complex logic**: Add comments to explain any complex algorithms or business logic that might be difficult to understand at first glance.
+## Guidelines
 
-3. **Keep comments updated**: When code changes, make sure the comments remain accurate. Outdated comments are misleading.
+1. **No Hardcoded Strings**: Never hardcode user-facing text directly in components or utilities.
 
-4. **Use proper grammar and formatting**: Write in complete sentences with proper punctuation. Use consistent formatting for better readability.
+2. **Message Organization**: Organize messages by feature or module to maintain a clean structure.
 
-5. **Comment public APIs**: Document parameters, return values, and exceptions for public methods and functions.
+3. **Complete Coverage**: Every string in English must have a corresponding entry in Chinese.
 
-6. **Avoid redundant comments**: Don't add comments that merely repeat what the code clearly states.
+4. **Usage Example**:
+   ```jsx
+   // Incorrect ❌
+   <div>Error: Failed to save data</div>
+   
+   // Correct ✅
+   <div>{t('errors.failedToSave')}</div>
+   ```
 
-7. **Use TODO, FIXME, and NOTE consistently**: These special comment markers should be used appropriately to mark areas needing future attention.
+5. **Error Messages**: All error messages from API calls or validation must use translation keys.
 
-Remember: good comments explain "why" rather than "how". The code shows how; comments explain why the code exists and why it was implemented in a particular way.
+6. **Toast Notifications**: All toast/notification messages must use translation keys.
+
+7. **Dynamic Content**: For messages with variables, use appropriate interpolation syntax:
+   ```jsx
+   // Example
+   t('notifications.itemsAdded', { count: 5 })
+   ```
+
+This ensures the application is fully internationalized and can easily support multiple languages.
 
 ---
 > Source: [baifan1366/project-management-system](https://github.com/baifan1366/project-management-system) — distributed by [TomeVault](https://tomevault.io).
