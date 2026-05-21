@@ -1,0 +1,9 @@
+{
+  "name": "nwiizo--cargo-autodd",
+  "displayName": "cargo-autodd",
+  "description": "A tool that automatically manages Rust dependencies by analyzing your source code and updating Cargo.toml",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/cargo-autodd",
+  "skills": []
+}
