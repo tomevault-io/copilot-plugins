@@ -1,0 +1,9 @@
+{
+  "name": "brad-edwards--algos",
+  "displayName": "algos",
+  "description": "Collection of useful algorithms in Rust",
+  "version": "1.0.0",
+  "author": "Brad-Edwards",
+  "homepage": "https://github.com/Brad-Edwards/algos",
+  "skills": []
+}
