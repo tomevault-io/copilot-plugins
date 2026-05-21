@@ -1,0 +1,9 @@
+{
+  "name": "adamprime--comiccaster",
+  "displayName": "comiccaster",
+  "description": "RSS feed service for daily funnies and political cartoons",
+  "version": "1.0.0",
+  "author": "adamprime",
+  "homepage": "https://github.com/adamprime/comiccaster",
+  "skills": []
+}
