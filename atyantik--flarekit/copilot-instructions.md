@@ -1,132 +1,79 @@
-## flarekit
+## backend-specific-patterns
 
-> This repository is a monorepo containing Cloudflare Workers, a web app, and a shared database package. Development tasks are coordinated via **npm** and **TurboRepo**. See the [README](README.md) for a complete project overview.
+> When working in the Flarekit backend:
 
-# Agent Instructions
+# Backend-Specific Development Patterns
 
-This repository is a monorepo containing Cloudflare Workers, a web app, and a shared database package. Development tasks are coordinated via **npm** and **TurboRepo**. See the [README](README.md) for a complete project overview.
+When working in the Flarekit backend:
 
-## Quick start
+## Route Registration Pattern
+- Each route file exports a single endpoint function
+- Route directories have an `index.ts` that exports an array of endpoints
+- Main routes index imports and spreads all route arrays
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start all apps and services for local development:
-   ```bash
-   npm run dev
-   ```
-   You can start a single workspace with Turbo filters, e.g.:
-   ```bash
-   npx flarekit dev --filter="@flarekit/backend"
-   ```
+## File Naming Conventions
+- Route files: `[resource][Action].route.ts` (e.g., `userCreate.route.ts`)
+- Schema files: `[resource].schema.ts`
+- Parameter schema files: `[purpose].schema.ts` (e.g., `getOneQuery.schema.ts`)
+- Handler files: `[purpose].handler.ts`
+- Utility files: `[purpose].util.ts`
 
-## Testing
+## Import Aliases
+Use these path aliases consistently:
+- `@/` - src root
+- `@utils/` - src/utils
+- `@/schemas/` - src/schemas
+- `@/classes/` - src/classes
+- `@/handlers/` - src/handlers
 
-- Run unit tests for all workspaces:
-  ```bash
-  npm test
-  ```
-- Run end‑to‑end tests (requires Playwright):
-  ```bash
-  npx playwright install && npm run test:e2e
-  ```
-- Backend tests can also be run directly:
-  ```bash
-  npm run test -w @flarekit/backend
-  ```
+## API Versioning
+- All API routes start with `/api/v1/`
+- Group related endpoints under resource paths
+- Use RESTful conventions where possible
 
-## Database migrations
+## Schema Organization
+- Request/Response schemas in `/schemas/[resource].schema.ts`
+- Parameter schemas in `/schemas/[purpose].schema.ts`
+- Use `GetOneParamSchema` for standard `:id` path parameters
+- Include OpenAPI examples in all schemas
+- Use descriptive schema names with suffixes: `CreateRequest`, `SuccessResponse`
 
-Generate migration files then apply them locally:
-
-```bash
-npx flarekit build:migrations
-npx flarekit migrate:d1:local
-```
-
-Production migrations use `migrate:d1:production`.
-
-## Linting and formatting
-
-- Lint code with ESLint:
-  ```bash
-  npm run lint
-  ```
-- Format with Prettier:
-  ```bash
-  npm run format
-  ```
-
-Pre‑commit hooks run `lint-staged`; pre‑push hooks run the test suites. These hooks are installed via Husky.
-
-## Environment configuration
-
-Shared variables live in `.dev.vars`. Each workspace receives a copy when running `npm run setup` (or implicitly via `npm run dev`). You can add additional variables per workspace as described in `apps/backend/README.md`.
-
-## Route Parameter Development Patterns
-
-When working with API routes that require path parameters:
-
-### Standard ID Parameters
-
+## Route Parameter Handling
 - Use `:id` for single resource identification in route paths
-- Import `GetOneParamSchema` from `@/schemas/getOneQuery.schema` for validation
 - OpenAPI spec uses curly braces: `/api/v1/storage/{id}`
+- Route analyzer automatically detects `:id` parameters for get-by-id routes
 - Access parameters with: `const id = c.req.param('id')`
+- Import `GetOneParamSchema` from `@/schemas/getOneQuery.schema`
 
-### Route Analysis
+## Database Integration
+- Always initialize DB with: `const db = initDBInstance(c.env, c.env)`
+- Use service methods from BaseService
+- Handle pagination with range parameters: `[start, end]`
+- Include total count in list responses via headers
 
-The route analyzer automatically detects:
+## Validation Patterns
+- Use Zod schemas for all input validation
+- Validate file uploads with size and type constraints
+- Provide detailed field-level error messages
+- Parse JSON query parameters safely
+- Use `GetOneParamSchema` for path parameter validation
 
-- **Get By ID Routes**: Only routes with specifically `:id` parameter (not other parameter names)
-- **List Routes**: GET routes without path variables
-- **Create Routes**: POST routes without path variables
-- **Update/Delete Routes**: PUT/PATCH/DELETE routes with path variables
-
-### Error Handling for Missing Resources
-
+## Error Handling Patterns
 - Use `NotFoundError` for missing resources, not `DatabaseError`
+- Throw specific error types: `ValidationError`, `AuthenticationError`, etc.
 - Include context information in error constructors
-- Example: `throw new NotFoundError('Storage', id);`
+- Let global error handler manage error responses
 
-### Custom Parameters
+## Response Headers
+- Set CORS headers appropriately
+- Include `Content-Range` for paginated responses
+- Expose necessary headers with `Access-Control-Expose-Headers`
+- Add caching headers when appropriate
 
-For non-standard path parameters (not `:id`), create custom parameter schemas:
-
-```typescript
-const CustomParamSchema = z
-  .object({
-    paramName: z.string().openapi({
-      param: {
-        name: 'paramName',
-        in: 'path',
-        description: 'Description of the parameter',
-        required: true,
-        schema: { type: 'string' },
-      },
-    }),
-  })
-  .openapi('CustomParamSchema');
-```
-
-## Documentation and style guides
-
-- **Backend error system**: see `apps/backend/docs/error-handling.md` for detailed patterns.
-- Additional development conventions are defined in `.cursor/rules/`:
-  - `monorepo-organization.mdc`
-  - `cloudflare-worker-patterns.mdc`
-  - `database-service-patterns.mdc`
-  - `error-handling-patterns.mdc`
-  - `hono-api-patterns.mdc`
-  - `error-handling.mdc`
-
-Follow these guidelines when editing the respective areas.
-
-## Requirements
-
-- Node.js version `>=22.16.0` is specified in `package.json`.
-- The README lists Node 18+ and npm as prerequisites.
+@src/routes/v1/storage/storageList.route.ts
+@src/routes/v1/storage/storageGetOne.route.ts
+@src/utils/api-builder.util.ts
+@src/schemas/getOneQuery.schema.ts
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
