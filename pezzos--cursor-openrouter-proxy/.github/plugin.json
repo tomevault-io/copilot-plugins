@@ -1,0 +1,9 @@
+{
+  "name": "pezzos--cursor-openrouter-proxy",
+  "displayName": "cursor-openrouter-proxy",
+  "description": "This project sets up a Docker Compose configuration for the Cursor Deepseek API Proxy",
+  "version": "1.0.0",
+  "author": "pezzos",
+  "homepage": "https://github.com/pezzos/cursor-openrouter-proxy",
+  "skills": []
+}
