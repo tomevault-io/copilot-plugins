@@ -2,7 +2,7 @@
   "name": "rember-mcp",
   "owner": "rember",
   "repo": "rember-mcp",
-  "description": "",
+  "description": "A Model Context Protocol (MCP) server for Rember.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rember/rember-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:53:40Z"
+  "distributed_at": "2026-05-21T06:14:40Z"
 }
