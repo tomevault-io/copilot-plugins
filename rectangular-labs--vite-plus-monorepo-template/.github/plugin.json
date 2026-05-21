@@ -1,0 +1,9 @@
+{
+  "name": "rectangular-labs--vite-plus-monorepo-template",
+  "displayName": "vite-plus-monorepo-template",
+  "description": "Vite plus monorepo template with better auth, drizzle, tanstack start",
+  "version": "1.0.0",
+  "author": "rectangular-labs",
+  "homepage": "https://github.com/rectangular-labs/vite-plus-monorepo-template",
+  "skills": []
+}
