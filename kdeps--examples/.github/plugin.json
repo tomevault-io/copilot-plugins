@@ -1,0 +1,9 @@
+{
+  "name": "kdeps--examples",
+  "displayName": "examples",
+  "description": "Legacy - Examples of Kdeps v1 AI Agents",
+  "version": "1.0.0",
+  "author": "kdeps",
+  "homepage": "https://github.com/kdeps/examples",
+  "skills": []
+}
