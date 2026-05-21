@@ -7,13 +7,13 @@ SaaSBooks turns your Stripe and Mercury data into actionable financial insights 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Illyism/saasbooks](https://github.com/Illyism/saasbooks).
+Original source: `.cursor/rules/*.mdc` in [Illyism/saasbooks](https://github.com/Illyism/saasbooks).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
