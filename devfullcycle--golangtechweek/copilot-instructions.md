@@ -1,74 +1,49 @@
-## project-management-events
+## testing-events-go
 
-> Quando gerenciar tarefas, documentar resultados ou organizar a estrutura do projeto
+> Convenções e práticas para testes automatizados em Go
 
-# Gerenciamento de Projeto (.fcai)
+# Ao trabalhar com testes automatizados em Go
 
-> **Nota**: Esta regra fornece orientações sobre quando e como gerenciar tarefas, documentar resultados e organizar a estrutura do projeto. A documentação completa está disponível em `.fcai/project/documentation/` e o estado atual do projeto em [state.md](mdc:.fcai/state.md).
+## Estrutura e Organização
+- Os arquivos de teste devem estar no mesmo pacote que o código testado, com o sufixo `_test.go`
+- Para testes de integração ou testes que precisam de isolamento, use o sufixo `_test` no nome do pacote
+- Espelhe a estrutura de diretórios do código fonte nos testes
+- Não implemente testes para interfaces, apenas para implementações concretas
 
-## Quando iniciar uma nova tarefa
-- Verifique a estrutura atual do projeto em [README.md](mdc:.fcai/README.md)
-- Identifique o componente relacionado à tarefa
-- Crie a tarefa na pasta apropriada seguindo as convenções do projeto
-- **Atualize o arquivo [state.md](mdc:.fcai/state.md) para incluir a nova tarefa**
-- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
+## Nomenclatura
+- Arquivos de teste devem seguir o padrão `nome_do_arquivo_test.go` (ex: `user_service_test.go`)
+- Funções de teste devem começar com `Test` seguido do nome da função ou método testado em PascalCase
+- Use nomes descritivos que indiquem o que está sendo testado (ex: `TestUserService_Create_ValidUser`)
+- Para subtestes, use `t.Run()` com nomes descritivos em formato de frase (ex: `t.Run("should return error when email is invalid", func(t *testing.T) {...})`)
 
-## Quando documentar resultados de uma tarefa
-- Crie um arquivo de resultados com o sufixo `_result`
-- Inclua resumo, desafios, soluções, resultados de testes e próximos passos
-- Marque as tarefas como concluídas no arquivo original
-- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
+## Execução
+- Sempre execute os testes a partir do diretório raiz do projeto
+- Sempre execute os testes a partir do container com o docker compose exec
+- Use o comando `go test ./...` para executar todos os testes do projeto
+- Para testes específicos, use `go test ./caminho/para/pacote`
+- Para testes com cobertura, use `go test ./... -coverprofile=coverage.out`
 
-## Quando concluir uma tarefa
-- Mova a tarefa para a pasta `completed/`
-- **Sempre valide a tarefa de forma prática antes de marcá-la como concluída**:
-  - Execute todos os testes automatizados relacionados
-  - Verifique o funcionamento no container
-  - Confirme que todos os critérios de aceitação foram atendidos
-- **Atualize o arquivo [state.md](mdc:.fcai/state.md)** para refletir a conclusão
-- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
+## Práticas Recomendadas
+- Use tabelas de testes (`table-driven tests`) para testar múltiplos cenários
+- Utilize subtestes com `t.Run()` para organizar melhor os testes
+- Use `testify` ou pacotes similares para asserções mais expressivas
+- Implemente testes de benchmark quando relevante com o prefixo `Benchmark`
+- Crie exemplos executáveis com o prefixo `Example` para documentação
 
-## Quando fazer ajustes em tarefas já finalizadas
-- Atualize o arquivo de resultados correspondente
-- Documente claramente quais ajustes foram feitos e por quê
-- **Atualize o arquivo [state.md](mdc:.fcai/state.md)** se os ajustes alterarem significativamente o estado do projeto
+## Execução com Docker
+- Use o Docker para garantir ambiente consistente: `docker compose exec app go test ./...`
+- Para testes com cobertura: `docker compose exec app go test ./... -coverprofile=coverage.out`
+- Para visualizar a cobertura: `docker compose exec app go tool cover -html=coverage.out -o coverage.html`
 
-## Quando documentar aspectos do projeto
-- Use as pastas apropriadas em `.fcai/project/` para diferentes tipos de documentação
-- Nomeie os arquivos de forma descritiva, usando kebab-case
-- Mantenha a documentação atualizada conforme o projeto evolui
+## Mocks e Stubs
+- Use interfaces para facilitar a criação de mocks
+- Prefira ferramentas como `gomock` ou `testify/mock` para geração de mocks
+- Mantenha os mocks em um subdiretório `mocks/` dentro do pacote testado
 
-## Quando revisar o progresso do projeto
-- Consulte as pastas de tarefas concluídas, em andamento e backlog
-- Use a documentação em `.fcai/project/` para entender o contexto geral
-- **Atualize o arquivo [state.md](mdc:.fcai/state.md)** após a revisão
-- Use os comandos do projeto para facilitar a visualização do estado
-
-## Quando atualizar o estado do projeto
-- **Sempre atualize o arquivo [state.md](mdc:.fcai/state.md)** quando houver mudanças significativas
-- O arquivo deve conter informações sobre componentes, tarefas e estrutura
-- Use os comandos do projeto para facilitar a atualização e visualização do estado
-- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
-
-## Quando trabalhar com containers
-- Utilize preferencialmente Docker neste projeto
-- Todos os comandos devem ser executados dentro dos containers utilizando docker compose exec <service> <command>
-- Para mais detalhes, consulte [container-events.mdc](mdc:.cursor/rules/container-events.mdc)
-
-## Quando trabalhar com a arquitetura do projeto
-- Siga os princípios de Domain Driven Design e Clean Architecture
-- Mantenha o modelo de domínio separado das entidades do banco de dados
-- Para mais detalhes, consulte [architecture-events.mdc](mdc:.cursor/rules/architecture-events.mdc)
-
-## Referências
-
-Para informações detalhadas, consulte:
-
-- **Estrutura do projeto**: [README.md](mdc:.fcai/README.md)
-- **Estado atual**: [state.md](mdc:.fcai/state.md)
-- **Sistema de comandos**: `.fcai/commands.md` e `.fcai/project/documentation/command-implementation.md`
-- **Mapeamento de migração**: `.fcai/project/documentation/migracao.md`
-- **Regras do sistema de comandos**: `.cursor/rules/command-system-events.mdc` 
+## Testes de Integração
+- Mantenha testes de integração separados dos testes unitários
+- Use tags de compilação para separar testes de integração: `// +build integration`
+- Execute testes de integração explicitamente: `go test ./... -tags=integration`
 
 ---
 > Source: [devfullcycle/golangtechweek](https://github.com/devfullcycle/golangtechweek) — distributed by [TomeVault](https://tomevault.io).
