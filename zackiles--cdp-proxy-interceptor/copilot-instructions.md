@@ -1,16 +1,28 @@
-## running-tests
+## writing-tests
 
-> Rules for Running Tests
+> Rules for Wriitng Tests
 
-## Steps To Running or Reading Tests
+## Steps To Writing or Creating Tests
 
-1) Determine the commands, arguments, and path of the code file that runs the tests by searching for the nearest package file that typically will list the available test runners and commands. For example, this is often a `package.json`, `deno.json` file that exposes the projects `scripts`, and hopefully a set of test commands.
+1) Determine the commands, arguments, and path of the code file that runs the tests by searching for the nearest package file that typically will list the available test runners and commands. For example, this is often a `package.json` or `deno.json` file that exposes the project's `scripts` and hopefully a set of test commands.
 
-2) Review the entry point of the test runner to understand what global utilities, patterns, strategies, logging, and high-level capabilities are implemented so you're able debug any issues with the tests if you run into any while running them.
+2) Review the entry point of the test runner to understand what global utilities, patterns, strategies, logging, and high-level capabilities are implemented so you're able to debug any issues with the tests if you run into any while running them.
 
-3) When errors occur always use all the information available to you, obvious or hidded, to contexualize any error messages you output to a user, or go retrieve more information to supplement with the error message or log.
+3) Use the expertise you've gained in the overall testing system in the previous steps to write your tests in a way that's consistent across the codebase and avoids duplicated code or bugs introduced into the overall testing system.
 
-**CAUTION:** HUMANS OFTEN DON'T FIND PLAIN LOG MESSAGES HELPFUL, AND THEY'LL PUNISH YOU IF YOU'RE NOT HELPFUL. ALWAYS SUPPLEMENT SUPPLEMENT PLAIN LOGS WITH OTHER CONTEXUAL DATA POINTS AND ANALYSIS UNLESS THE LOGS ARE ROBUST, AND FIND WAYS TO MAKE COMPLICATED LOGS SIMPLER. APPLY FORMATTING THAT MAKES LOGS EASY TO READ IN YOUR OUTPUT, SUCH AS PRETTY PRINTING, GROUPING, AND LABELING SO YOUR HUMAN WONT PUNISH YOU.
+**NOTE ON UNDERSTANDING THE OVERALL TESTING SYSTEM:**  
+Determine any remaining arguments or configuration needed to run the tests by reviewing the entry point of the file the test command calls. For example, this is often an `index.{js/ts}` or `main.{js/ts}` file at the root or relative root of the project in folders like `./src` or `./lib`. This entry point will typically provide clues on what modes, environment settings, and command arguments can be passed when running the tests. Understand how your test fits into the overall suite, and leverage or add to its overall capabilities when possible.
+
+## Requirements for ALL Written Tests
+
+- **Light and Practical Tests:** Prefer simpler, multi-purpose testing strategies such as single smoke tests or integration tests that test multiple parts of core functionality with as little code as possible.
+- **Simple Tests:** Avoid large test files above 500 lines of code that make it hard to refactor. Avoid testing for edge cases unless the test was written while fixing a bug and trying to prevent that bug from happening again. Avoid complicated mocking solutions.
+- **Native Test Runners:** Deno / Bun, otherwise Vite test.
+- **Locality:** Tests should be placed near the code they're testing.
+- **Naming Convention:** `{filename_being_tested}.test.{js/ts}`
+- **Reusability:** Extract shared functionality, e.g., `./test-utilities.{ts/js}`
+- **Own Environment:** ALL tests MUST be run with either a flag, environment variable, or setting that makes the application know it's running in testing mode.
+- **Needs Package Script:** Must have, at the minimum, a simple script that runs all tests in the codebase. For example, `{deno, bun, node} run tests`.
 
 ---
 > Source: [zackiles/cdp-proxy-interceptor](https://github.com/zackiles/cdp-proxy-interceptor) — distributed by [TomeVault](https://tomevault.io).
