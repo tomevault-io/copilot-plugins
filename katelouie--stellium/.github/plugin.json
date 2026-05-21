@@ -1,0 +1,9 @@
+{
+  "name": "katelouie--stellium",
+  "displayName": "stellium",
+  "description": "A modern Python library for astrological chart calculation, visualization, reporting and data analysis. Built on the Swiss Ephemeris for astronomical accuracy.",
+  "version": "1.0.0",
+  "author": "katelouie",
+  "homepage": "https://github.com/katelouie/stellium",
+  "skills": []
+}
