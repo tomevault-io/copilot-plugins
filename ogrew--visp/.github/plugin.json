@@ -1,0 +1,9 @@
+{
+  "name": "ogrew--visp",
+  "displayName": "visp",
+  "description": "ffmpeg wrapper CLI tool written in Common Lisp",
+  "version": "1.0.0",
+  "author": "ogrew",
+  "homepage": "https://github.com/ogrew/visp",
+  "skills": []
+}
