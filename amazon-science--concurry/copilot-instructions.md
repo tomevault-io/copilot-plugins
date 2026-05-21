@@ -1,512 +1,235 @@
-## coding-style
+## coding-type-hints
 
-> Code style rules — naming, guard clauses, dispatch, variable reassignment, mutation, strings, truncation, imports.
+> Type hints, the Any ban, Optional/Union scrutiny, and variable annotation rules.
 
-# Code Style
-- Follow PEP 8 style guidelines (enforced by Ruff)
-- Use descriptive variable names: `timeout_seconds` not `t`, `worker_count` not `n`
-- Boolean variables and functions: prefix with `is_`, `has_`, `can_`, `should_`
-- Keep functions focused and single-purpose (Single Responsibility Principle)
-- Add comprehensive docstrings for all public APIs (Google style with Args/Returns/Raises)
-- Include usage examples in docstrings for complex functionality
+# Type Hints and Typing Rules
 
-## Guard Clauses and Early Returns
+## Type Hints
+- **Always include type hints** for all function parameters and return values
+- **Always use capitalized `typing` imports**: `List`, `Dict`, `Set`, `Tuple`, `Optional`, `Union`, `FrozenSet`
+- Do NOT use lowercase built-in generics (`list[str]`, `dict[str, int]`) or pipe unions (`str | None`) even though Python 3.10+ supports them
+- **Rationale:** Capitalized typing imports are visually distinct and grep-able. `List` is unambiguously a type annotation; `list` could be a variable name, a builtin call, or a type hint. This makes bulk find-and-replace across files reliable, and makes it immediately clear when reading code that a line involves type annotations.
+- Use `-> None` for functions that return no value (side-effect functions, lifecycle hooks like `post_initialize`, `on_start`, `on_stop`)
+- Use `-> NoReturn` ONLY for functions that genuinely never return (unconditional `raise`, `sys.exit()`, infinite loops)
+- Include type hints for class attributes and instance variables
+- **Prefer `morphic.Typed` over `TypedDict`** for structured data. `TypedDict` is a fallback for cases where `Typed` cannot be used (e.g., dicts that must remain plain `dict` for JSON serialization to a third-party API, or when the consuming code expects a raw dict, not a model). When you control both producer and consumer, use `Typed`.
+- **`Protocol` is for function parameters and call-site typing, NOT for Pydantic/Typed field types.** Pydantic v2 validates Protocol fields with `isinstance()` at construction time, which (a) rejects `None` for non-Optional fields even in tests that don't exercise the field, and (b) fails on proxy objects that use `__getattr__`-based dynamic dispatch (e.g., Concurry `Worker` proxies) because Python's `isinstance` Protocol check inspects the type's `__dict__` and MRO, not dynamic attributes. Declare such fields as `Any` and document the duck-typed contract in a comment referencing the Protocol class. The Protocol provides type safety at *call sites* (IDE autocomplete, static analysis); Pydantic field validation is the wrong enforcement point.
 
-Reduce nesting by checking preconditions first and returning/raising early. This keeps the happy path at low indentation and makes control flow obvious.
+### Strict `Any` Ban (CRITICAL)
 
-❌ Bad (deeply nested):
+**`Any` is as good as no typing.** Using `Any` removes the entire reason to use Morphic Typed, Pydantic, and type hints. It tells neither the reader nor the type checker what the value actually is. LLM coding assistants produce `Any` reflexively because it silences type errors without solving them.
+
+**`Any` is ONLY acceptable in these specific situations:**
+
+| Situation | Why `Any` is acceptable | Example |
+|---|---|---|
+| **Pydantic/Typed fields for duck-typed workers** | Pydantic's `isinstance()` validation rejects Concurry `WorkerProxy` proxy objects; the Protocol cannot be used as a field type. | `worker: Any  # WorkerProtocol; see types.py` |
+| **`_serialize_value`-style functions** | Serialization functions that genuinely accept any Python object. | `def serialize(value: Any) -> Any:` |
+| **`Dict[str, Any]` for genuinely heterogeneous dicts** | When the dict's values are mixed types by design (JSON payloads, config dicts, serialized output). | `metadata: Dict[str, Any]` |
+| **`**kwargs: Any`** | Catch-all for pass-through kwargs to parent classes or third-party libraries. | `**kwargs: Any` |
+| **`PrivateAttr` for opaque runtime handles** | Locks, queues, processes, event loops — objects from external libraries whose type is complex or private. | `_lock: Any = PrivateAttr()` |
+
+**`Any` is NEVER acceptable in these situations:**
+
+| Situation | What to use instead | Example fix |
+|---|---|---|
+| **Function parameters where you know the type** | Use the actual type. | `task: Task` not `task: Any` |
+| **Return types where you know the type** | Use the actual type. | `-> List[Future]` not `-> List[Any]` |
+| **List/Dict generic parameters** | Spell out the element type. | `List[WorkerProxy]` not `List[Any]` |
+| **Forward references within the same package** | Use string annotations or fix import ordering. See the Forward References rule below. | `result: "WorkerResult"` not `result: Any` |
+
+**The test is simple:** when you write `Any`, ask: **"Do I know what type this actually is at runtime?"** If yes, write that type. If you are writing `Any` to avoid an import or to silence a type error, fix the import or the type error instead.
+
+❌ Bad (known types hidden behind `Any`):
 ```python
-def process_task(self, task: Task) -> Result:
-    if task is not None:
-        if task.is_valid():
-            if self._is_running:
-                return self._execute(task)
-            else:
-                raise WorkerStoppedError()
-        else:
-            raise InvalidTaskError()
-    else:
-        raise ValueError("task is None")
+def submit_batch(
+    self,
+    tasks: List[Any],              # ❌ These are Task objects
+    callback: Optional[Any] = None,  # ❌ This is Callable[[Result], None]
+) -> List[Any]:                    # ❌ These are Future objects
 ```
 
-✅ Good (guard clauses):
+✅ Good (actual types everywhere they are known):
 ```python
-def process_task(self, task: Task) -> Result:
-    if task is None:
-        raise ValueError("task is None")
-    if not task.is_valid():
-        raise InvalidTaskError()
-    if not self._is_running:
-        raise WorkerStoppedError()
-    return self._execute(task)
+def submit_batch(
+    self,
+    tasks: List[Task],
+    callback: Optional[Callable[[Result], None]] = None,
+) -> List[Future]:
 ```
 
-## Exhaustive Dispatch: `if-elif-else` with a Raising `else`
+### No `Any` for Forward References (CRITICAL)
 
-When a variable has a **closed set of valid values** and you are dispatching behavior based on it, always use a full `if-elif-else` ladder where the `else` branch raises an exception. This makes two things immediately clear to the reader: (a) exactly which values are handled, and (b) that no value falls through silently.
+**Never use `Any` as a workaround for forward references.** This defeats the entire purpose of Morphic Typed — if the field is typed `Any`, Pydantic cannot validate it, the IDE cannot autocomplete it, and the reader does not know what it holds.
 
-Contrast this with a **feature flag** (a boolean or optional condition that enables/disables a behavior). Feature flags correctly use a bare `if` with no `else`, because the "else" case is "do nothing, proceed normally" — not an error.
+**Forward references within the same file:** Use a string annotation (`"ClassName"`) or add `from __future__ import annotations` at the top of the file.
 
-**Closed-set dispatch — ALWAYS use `if-elif-else` with raising `else`:**
+**Forward references across files:** Fix the import ordering. In a well-structured package, there should be no circular imports. The dependency graph flows one way. If module A needs a type from module B and module B needs a type from module A, the modules need restructuring — either extract the shared type into a lower-level module, or merge the files.
 
-❌ Bad (validate-then-dispatch — reader must remember the set of valid values):
+❌ Bad (using `Any` to avoid importing a type from another module):
 ```python
-algorithm: str = config.get("load_balancing", "round_robin")
-if algorithm not in ("round_robin", "least_loaded", "random"):
-    raise ValueError(f"Unknown algorithm={algorithm!r}")
-
-if algorithm == "round_robin":
-    return RoundRobinBalancer(...)
-if algorithm == "least_loaded":
-    return LeastLoadedBalancer(...)
-return RandomBalancer(...)  # ← reader must infer this is the "random" case
+class WorkerPool(Typed):
+    balancer: Any  # LoadBalancer (Any required: forward ref)
+    workers: List[Any]  # List[WorkerProxy] (Any: forward ref)
 ```
 
-✅ Good (exhaustive dispatch — every case is explicit, invalid values caught):
+✅ Good (import the type and use it directly):
 ```python
-if algorithm == "round_robin":
-    return RoundRobinBalancer(...)
-elif algorithm == "least_loaded":
-    return LeastLoadedBalancer(...)
-elif algorithm == "random":
-    return RandomBalancer(...)
-else:
-    raise ValueError(
-        f"Unknown load_balancing algorithm={algorithm!r}. "
-        f"Must be 'round_robin', 'least_loaded', or 'random'."
-    )
+from concurry.core.limit.balancer import LoadBalancer
+from concurry.core.worker.proxy import WorkerProxy
+
+class WorkerPool(Typed):
+    balancer: LoadBalancer
+    workers: List[WorkerProxy]
 ```
 
-**Why the `else` matters:** Without it, adding a fourth algorithm value later silently falls through to the last branch. With `else: raise`, the new value is caught immediately. This is the textual equivalent of a `match/case` with exhaustiveness checking.
-
-**Feature flag — bare `if` is correct:**
-
-✅ Good (optional behavior, not a dispatch):
+✅ Also good (string annotation when the type is defined later in the same file):
 ```python
-if self.enable_metrics:
-    self._metrics_collector.record(elapsed_ms)
+class WorkerPool(Typed):
+    balancer: "LoadBalancer"
 ```
 
-Here, the `if` block enables an optional feature. There is no `else` because the alternative is "don't record metrics" — that is a valid default, not an error. An `else` branch would be empty noise.
+**If adding the import creates a circular dependency, that is a bug in the module structure.** Fix the structure (extract the shared type into a leaf module) instead of papering over it with `Any`.
 
-**Decision rule:** Ask "is the `else` case an error, or is it 'do nothing'?"
-- **Error** (closed set dispatch) → `if-elif-else` with raising `else`
-- **Do nothing** (feature flag) → bare `if`, no `else`
+### Scrutinize Every `Optional` and `Union` (CRITICAL)
 
-## Naming Conventions
+**`Optional` is the second most common way LLMs degrade your type system, after `Any`.** When an LLM declares a value as `Optional[X]`, it is saying "this can be `None`." That claim must be justified. LLMs add `Optional` reflexively as a defensive measure — it silences type errors by broadening the type instead of fixing the root cause. The result is an `Optional` cascade: once a function returns `Optional[X]`, every caller must handle `None`, which means either (a) cluttering every call site with `if result is None` guards, or (b) ignoring the `None` case, which blows up at runtime.
 
-- `snake_case` for functions, methods, variables, modules
-- `CamelCase` for classes
-- `UPPER_SNAKE_CASE` for module-level constants
-- Prefix private attributes with `_`: `self._internal_state`
-- Name by intent, not implementation: `failed_futures` not `bad_list`
-- Include units where ambiguous: `timeout_seconds`, `max_retries`, `delay_ms`
-- Avoid abbreviations: `configuration` not `cfg`, `response` not `resp`, `message` not `msg`
+**The rule is simple:** when you see `Optional[X]`, ask: **"Can this genuinely be `None` at runtime, and why?"** If the answer is "no" or "only during initialization before a lifecycle hook sets it," remove the `Optional` and fix the initialization so the value is always present after construction.
 
-## Never Rename Variables Just to Shorten Them (Namespace Pollution)
+**Never let the LLM broaden a type signature to fix a bug.** When debugging, LLMs frequently propose changing `X` to `Optional[X]` or `Union[X, Y]` to make a type error go away. This hides the bug instead of fixing it. The correct response is to trace *why* the value is `None` and fix the code path that produces it.
 
-**Never create a new local variable that is just a shorter or abbreviated alias for an existing parameter, attribute, or variable.** This is namespace pollution: it forces the reader to hold two names for the same value in their head, and the shorter name invariably loses the meaning that the original name carried.
+**Use `@overload` with `Literal` when return type depends on input values.** When a function's return type varies based on a parameter (e.g., a `mode` string, a boolean flag), define `@overload` signatures so the type checker can narrow the return type at each call site. This eliminates unnecessary `Union` return types and removes the need for `isinstance` checks or `cast()` at call sites.
 
-This pattern is one of the most damaging things an LLM can do to a codebase. The original variable was named carefully — `load_balancing_algorithm` tells you exactly what it is: the algorithm for load balancing. When the LLM renames it to `algorithm`, the reader now sees a generic word that could refer to *any* algorithm in a codebase that has multiple algorithm concepts (load balancing algorithm, rate limit algorithm, retry algorithm, polling algorithm). The reader must scroll back to the assignment `algorithm = load_balancing_algorithm` to figure out which algorithm it is. That scroll-and-remember cost is paid on every single read of the function, forever.
+#### Anti-Pattern: `ClassVar` Default + `Optional` Field + `pre_initialize` Fallback
 
-**Why LLMs do this:** LLMs are trained on codebases where variable renaming is common for two reasons: (1) reducing line length (a cosmetic concern that tools like Black handle automatically), and (2) Python convention of abbreviating `self.long_attribute` to a local when accessed many times. Both reasons are wrong in this context. Line length is never a reason to sacrifice clarity. And accessing `self.long_attribute` directly is *better* than creating a local alias because it tells the reader *where* the value lives.
+A particularly insidious form of unnecessary `Optional` occurs with `Typed + Registry` hierarchies: a base class declares a `ClassVar` with a default, an `Optional` instance field, and a `pre_initialize` hook that copies the `ClassVar` into the field when it is `None`. This makes the field `Optional` for no reason — the value is *always* set after construction, but the type system does not know that. Every consumer of the field must handle `None` even though `None` is impossible after initialization.
 
-**The rule is absolute:** if a variable already has a name, use that name. Do not create a second name for it.
+The fix: make the instance field **mandatory (no default)** on the base class. Subclasses override it with their own default. This forces every concrete subclass to declare a value, and the type checker knows the field is never `None`.
 
-**Form 1: Renaming a parameter to a shorter local**
-
-❌ Bad (renames `load_balancing_algorithm` to `algorithm` — now reader must remember which algorithm):
+❌ Bad (ClassVar default + Optional field + pre_initialize fallback):
 ```python
-def create_balancer(self, *, load_balancing_algorithm: str, ...) -> LoadBalancer:
-    algorithm: str = load_balancing_algorithm
-    if algorithm not in ("round_robin", "least_loaded", "random"):
-        raise ValueError(f"Unknown algorithm={algorithm!r}")
-    if algorithm == "round_robin":
-        ...
+class BaseHandler(Typed, Registry):
+    _default_timeout: ClassVar[float] = 30.0                # ClassVar: invisible to Pydantic
+    timeout: Optional[float] = None                         # Optional: pollutes every consumer
+
+    @classmethod
+    def pre_initialize(cls, data: Dict[str, Any]) -> None:
+        if data.get("timeout") is None:
+            data["timeout"] = cls._default_timeout          # Fallback: makes Optional "work"
+
+class HttpHandler(BaseHandler):
+    _default_timeout: ClassVar[float] = 10.0                # Overrides ClassVar, but still Optional
 ```
 
-✅ Good (use the original name — it is perfectly clear):
+**Why this is bad:**
+
+1. `timeout` is typed `Optional[float]`, so every method that uses `self.timeout` must handle `None` — even though `pre_initialize` guarantees it is never `None` after construction. The type system does not see `pre_initialize`; it sees `Optional[float]`.
+2. The `ClassVar` `_default_timeout` is invisible to Pydantic serialization (`model_dump()` excludes ClassVars) and to IDE autocomplete on instances. It exists only to service the `pre_initialize` fallback.
+3. A new `BaseHandler` subclass that forgets to set `_default_timeout` silently inherits `30.0` from the base class. There is no error, no warning — just a silent default that may be wrong.
+
+✅ Good (mandatory field on base, subclass defaults):
 ```python
-def create_balancer(self, *, load_balancing_algorithm: str, ...) -> LoadBalancer:
-    if load_balancing_algorithm not in ("round_robin", "least_loaded", "random"):
-        raise ValueError(
-            f"Unknown load_balancing_algorithm={load_balancing_algorithm!r}. "
-            f"Must be 'round_robin', 'least_loaded', or 'random'."
-        )
-    if load_balancing_algorithm == "round_robin":
-        ...
+class BaseHandler(Typed, Registry):
+    timeout: float                                          # Mandatory: no default on base
+
+class HttpHandler(BaseHandler):
+    timeout: float = 10.0                                   # Subclass provides its default
+
+class GrpcHandler(BaseHandler):
+    timeout: float = 30.0                                   # Different subclass, different default
+
+class CustomHandler(BaseHandler):
+    timeout: float                                          # No default → caller MUST pass it
+    # CustomHandler()  → ValidationError: timeout is required
+    # CustomHandler(timeout=5.0)  → works
 ```
 
-**Form 2: Abbreviating a parameter to save characters**
+**Why this is better:**
 
-❌ Bad (`futs` and `wrks` are opaque abbreviations — reader must scroll to the assignment):
+1. `timeout` is typed `float`, not `Optional[float]`. Every consumer knows it is always present. No `None` guards needed.
+2. No `ClassVar`, no `pre_initialize` fallback, no hidden indirection.
+3. A new subclass that forgets to set `timeout` **fails at construction time** — Pydantic raises `ValidationError: timeout is required`. This early failure is exactly what fail-fast demands.
+4. A subclass that intentionally has no default forces the caller to pass `timeout` explicitly, which is correct when the right value depends on context.
+
+**General principle:** When a `Typed + Registry` hierarchy has a field where different subclasses need different defaults, make the field **mandatory on the base class** and **override the default on each subclass**. Do NOT use `ClassVar` + `Optional` + `pre_initialize` — that pattern exists only to avoid making the field mandatory, and the cost is `Optional` pollution across the entire codebase.
+
+### Type-Annotate All Intermediate Variables (CRITICAL)
+
+**Every local variable MUST have a type annotation the first time it is assigned.** If the variable later changes type (which should be rare), annotate the re-assignment. This applies even when the type is "obvious" from the right-hand side.
+
+**Why this matters:**
+
+1. **Readability.** A reader scanning a 200-line function can see `futures: List[Future] = []` and immediately know the shape. Without the annotation, they must trace through the loop body to figure out what gets put into `futures`.
+2. **Refactoring safety.** When you change the return type of a called function, annotated variables produce immediate type errors at every downstream usage. Unannotated variables silently propagate the wrong type.
+3. **LLM code generation.** When an LLM reads your function to extend it, explicit types on every variable tell it exactly what data is available. Without annotations, it guesses — and guesses wrong.
+
+❌ Bad (no annotations on intermediates):
 ```python
-def gather_results(self, *, futures: List[Future], workers: List[WorkerProxy], ...) -> ...:
-    futs: List[Future] = futures
-    wrks: List[WorkerProxy] = workers
+workers = [self._create_worker(i) for i in range(count)]
+results = {}
+pending = set()
+
+for future in completed:
+    result = future.result()
 ```
 
-✅ Good (keep the original names):
+✅ Good (every variable annotated at first assignment):
 ```python
-def gather_results(self, *, futures: List[Future], workers: List[WorkerProxy], ...) -> ...:
-    # Use `futures` and `workers` directly — they already have perfect names.
+workers: List[WorkerProxy] = [self._create_worker(i) for i in range(count)]
+results: Dict[str, Result] = {}
+pending: Set[Future] = set()
+
+for future in completed:
+    result: Result = future.result()
 ```
 
-If you genuinely need a new variable (e.g., because the value is transformed — filtered, sorted, resolved from `None`), give it a name that describes *what changed*, not a shorter version of the original. `completed_futures` tells you "these are the done ones." `futs` tells you nothing.
+**Loop variables** in `for` loops should be annotated when the iterable's element type is not obvious:
 
-**Form 3: Creating a local alias for `self.attribute` or `obj.attribute`**
-
-❌ Bad (creates a local `cfg` that aliases `global_config.defaults` — reader must remember what `cfg` is):
 ```python
-cfg = global_config.defaults
-timeout = cfg.worker_timeout
-max_retries = cfg.num_retries
-```
+# Obvious (iterating a List[WorkerProxy]) — annotation optional but encouraged:
+for worker in self._workers:
+    ...
 
-✅ Good (access the attribute path directly — it is self-documenting):
-```python
-timeout = global_config.defaults.worker_timeout
-max_retries = global_config.defaults.num_retries
-```
-
-✅ Also acceptable (when accessing many fields, a well-named local is justified — but name it descriptively):
-```python
-default_config: ResolvedDefaults = global_config.defaults
-timeout = default_config.worker_timeout
-max_retries = default_config.num_retries
-```
-
-The difference: `default_config` tells the reader exactly what it is. `cfg` is a three-letter abbreviation that could be anything.
-
-**Form 4: Chained aliasing — the most egregious variant**
-
-This is when the LLM creates multiple aliases in a chain, each one stripping more context from the name. The reader now has to hold THREE names in their head for what is a single two-level attribute access. This is the worst form of namespace pollution because each link in the chain makes the code harder to follow, not easier.
-
-❌ Bad (three variables for `worker_proxy.retry_config.max_retries` — completely unacceptable):
-```python
-retry_cfg: RetryConfig = worker_proxy.retry_config        # alias 1
-max_r: int = retry_cfg.max_retries                        # alias 2
-# ... later ...
-if attempts > max_r:                                      # uses alias 2
-```
-
-The reader sees `max_r` and must trace backward: `max_r` came from `retry_cfg.max_retries`, which came from `worker_proxy.retry_config.max_retries`. Three names, zero added value.
-
-✅ Good (use the original path — it is perfectly clear):
-```python
-if attempts > worker_proxy.retry_config.max_retries:
+# Not obvious (iterating dict items, zip, enumerate) — annotation required:
+for worker_id, proxy in self._proxy_map.items():
+    worker_id: str
+    proxy: WorkerProxy
     ...
 ```
 
-No aliases. No mental bookkeeping. Every reference tells the reader where the value comes from.
+**This rule has no exceptions.** Annotate every intermediate variable. The cost is a few extra characters per line. The benefit is that every function reads like a specification of the data flowing through it.
 
-**When creating a new local variable IS appropriate:**
-- The value is **transformed**: filtered, sorted, resolved from `None`, cast to a different type. The new name should describe the transformation: `completed_futures`, `active_workers`, `filtered_results`.
-- The value is **a loop-mutation target**: `current_worker = initial_worker` where `current_worker` is reassigned during failover. The name `current_worker` conveys that it changes; `initial_worker` conveys that it does not.
-- The attribute path is **deeply nested** (3+ levels of indexing/attribute access) AND the expression is error-prone to retype. At 3+ levels, the expression becomes hard to read inline and easy to mistype.
-- **Loop variables and comprehension variables** are always fine — they are iteration bindings, not aliases.
-
-**The depth threshold — when an alias starts being useful:**
-
-Single-level access (`self.attribute`, `obj.field`, `dict["key"]`, `list[0]`) is never worth aliasing. It is short, self-documenting, and tells the reader *where* the value lives. Two-level access (`worker_proxy.retry_config`) is borderline but usually fine inline — the full path is still readable and the reader sees exactly which object the value comes from. At three or more levels of chained access, a local variable starts being justified because the expression is long enough to be error-prone when repeated:
-
-❌ Bad (single-level — just use the original):
+❌ Bad (lowercase generics, pipe unions):
 ```python
-limits: List[Limit] = pool.limits
-# ... later ...
-for limit in limits:  # ← reader must scroll to see where limits came from
+def process(items: list[str], config: dict[str, int] | None = None) -> str | None:
+    pass
 ```
 
-✅ Good (single-level — use the attribute path directly):
+✅ Good (capitalized typing imports):
 ```python
-for limit in pool.limits:  # ← reader sees the source immediately
+from typing import List, Dict, Optional
+
+def process(items: List[str], config: Optional[Dict[str, int]] = None) -> Optional[str]:
+    pass
 ```
 
-❌ Bad (single-level alias of a parameter — pointless renaming):
+❌ Bad (NoReturn misuse):
 ```python
-v: MyType = self.var_name
-idx: int = self.var_dict[0]
-val: str = self.var_dict["key"]
-```
+from typing import NoReturn
 
-✅ Good (just reference them directly):
-```python
-# Use self.var_name, self.var_dict[0], self.var_dict["key"] inline.
-```
-
-✅ Good (3+ levels — a local IS justified because the expression is error-prone):
-```python
-retry_wait: float = self._proxy_map[worker_id].retry_config.wait_seconds
-```
-
-These deeply nested chains are hard to retype correctly and obscure when inlined in a larger expression. A descriptively named local is genuinely helpful here.
-
-## Prefer Variable Reassignment for Same-Concept Transformations (CRITICAL)
-
-When a variable goes through a transformation but represents **the same conceptual entity** (same type, same purpose, just processed further), **reassign to the same variable name** rather than inventing a new name. A new name for the same concept forces the reader and the LLM agent to track two names for one thing, which increases cognitive load without adding information.
-
-**The decision rule:** ask **"After the transformation, is this conceptually the same entity?"**
-- **Yes** (same type, same purpose, just cleaned/filtered/enriched) → reassign to the same name
-- **No** (the type changes, or the new value represents a fundamentally different concept) → use a new, descriptive name
-
-✅ Good (reassignment — conceptual identity preserved):
-```python
-## Build worker proxies for all modes
-workers: List[WorkerProxy] = [self._create_proxy(i) for i in range(count)]
-
-## Filter to only healthy workers
-workers = [w for w in workers if w.is_healthy()]
-```
-
-`workers` is still "the workers" — they are just filtered now. The comprehension makes the transformation obvious. A new name like `healthy_workers` or `filtered_workers` adds a second binding that the reader (and the LLM) must track, for zero informational benefit when the old value is no longer needed.
-
-❌ Bad (new name for the same concept — now the reader tracks two names):
-```python
-workers: List[WorkerProxy] = [self._create_proxy(i) for i in range(count)]
-healthy_workers: List[WorkerProxy] = [w for w in workers if w.is_healthy()]
-```
-
-Now the reader sees both `workers` and `healthy_workers` in scope and must remember that `healthy_workers` is the one to use downstream. If a later edit accidentally uses `workers` instead, the code silently includes unhealthy workers. With reassignment, the old value is gone — there is only one name and it always refers to the latest version.
-
-✅ Good (new name — conceptual identity changes):
-```python
-raw_response: bytes = socket.recv(4096)
-parsed_message: Message = Message.from_bytes(raw_response)
-```
-
-`raw_response` is bytes from a socket. `parsed_message` is a `Message` — completely different type, completely different concept. A new name is essential here.
-
-**Conditional reassignment — DANGEROUS, avoid:**
-
-**Never conditionally reassign a variable** unless the variable is immediately consumed on the next line or in the very next statement. Conditional reassignment creates a variable whose value depends on a branch, which is hard to reason about and almost impossible for an LLM to track reliably.
-
-❌ Bad (conditional reassignment — which version does `futures` hold?):
-```python
-futures: List[Future] = submit_batch(tasks)
-if enable_timeout_filtering:
-    futures = filter_timed_out(futures)
-# ... 30 lines later ...
-# Reader must remember: did enable_timeout_filtering fire? What state is futures in?
-results = gather(futures)
-```
-
-✅ Good (separate names make the state explicit):
-```python
-futures: List[Future] = submit_batch(tasks)
-filtered_futures: List[Future] = (
-    filter_timed_out(futures) if enable_timeout_filtering else futures
-)
-results = gather(filtered_futures)
-```
-
-Here the conceptual identity genuinely changes: raw futures vs. filtered futures. The conditional makes them different things, so they get different names. After the assignment, the reader knows exactly which version `filtered_futures` holds, regardless of the `enable_timeout_filtering` flag.
-
-**Unconditional reassignment — SAFE, preferred:**
-
-When the reassignment is unconditional (always happens, no branches), use the same name:
-
-```python
-## Collect futures from all workers
-futures: List[Future] = [w.submit(task) for w in workers for task in tasks]
-
-## Deduplicate by task ID
-futures = deduplicate_futures(futures)
-
-## Sort by submission time for deterministic ordering
-futures = sorted(futures, key=lambda f: f.submitted_at)
-```
-
-Each step transforms `futures` unconditionally. The reader sees a clean pipeline. There is no ambiguity about which version of `futures` exists at any point — it is always the latest.
-
-## Avoid Mutating Caller-Supplied Parameters (Prefer Comprehensions and Return Values)
-
-**Prefer returning new values over mutating parameters that were passed to you by a caller.** When a function receives a list, dict, or other mutable container from its caller, modifying that container in-place creates invisible action-at-a-distance: the caller's variable changes without any visible assignment on the caller's side. This is a common source of bugs, especially when LLM agents generate code that reads the caller and the callee independently without seeing the full picture.
-
-**Mutating your own local variables is fine.** This rule applies to parameters passed in from outside, not to variables you created within the function.
-
-**The decision rule:**
-- **Own local variable** (you created it in this function) → mutate freely, including `my_list[0] = "abcd"`, `.append()`, `.update()`, etc.
-- **Caller-supplied parameter** (passed as an argument) → prefer returning a new value. If in-place mutation is genuinely needed (performance-critical, very large data structure), document it in the docstring.
-
-**Prefer comprehensions over in-place mutation loops:**
-
-When building or transforming collections, list comprehensions, dict comprehensions, and generator expressions are preferred over loops that mutate a container element-by-element. Comprehensions make the intent clear in a single expression — the reader sees the full transformation at once rather than tracing through a loop body to understand what changes.
-
-This is not always possible (some transformations have complex conditional logic or side effects that do not fit a comprehension), but it should be the default.
-
-❌ Bad (mutates the caller's list in-place — caller does not expect this):
-```python
-def tag_futures(futures: List[Future], tag: str) -> None:
-    for i in range(len(futures)):
-        futures[i] = futures[i].with_tag(tag)  # ← caller's list silently modified
-```
-
-✅ Good (returns a new list — caller sees the transformation at the assignment):
-```python
-def tag_futures(futures: List[Future], tag: str) -> List[Future]:
-    return [future.with_tag(tag) for future in futures]
-
-# Caller:
-futures = tag_futures(futures, tag="priority")
-```
-
-The caller's reassignment (`futures = ...`) makes the transformation visible. Without it, the caller's `futures` would silently change after the function call — no assignment, no signal.
-
-❌ Bad (in-place loop mutation where a comprehension is cleaner):
-```python
-results: Dict[str, float] = {}
-for worker_id, timings in timing_dict.items():
-    results[worker_id] = sum(timings) / len(timings)
-```
-
-✅ Good (dict comprehension — intent is clear in one expression):
-```python
-results: Dict[str, float] = {
-    worker_id: sum(timings) / len(timings)
-    for worker_id, timings in timing_dict.items()
-}
-```
-
-**When in-place mutation of parameters IS acceptable:**
-
-- **Explicit accumulator pattern:** The function's entire purpose is to populate a container passed to it, and this is documented: `def populate_results(*, results: Dict[str, float], batch: Batch) -> None:`. The docstring should say "Mutates `results` in-place."
-- **Performance-critical code** with very large data structures where creating a copy would be prohibitively expensive.
-- **Framework hooks** where the API contract specifies mutation (e.g., Morphic's `pre_initialize(cls, data: dict)` which mutates `data` by design).
-
-## String Formatting
-
-- **Always use f-strings** (Python 3.6+), not `.format()` or `%` formatting
-- f-strings are faster, more readable, and less error-prone
-
-❌ Bad:
-```python
-log.info("Worker {} started with {} tasks".format(worker_id, task_count))
-log.info("Worker %s started with %d tasks" % (worker_id, task_count))
+def on_start(self) -> NoReturn:  # ❌ This function returns normally!
+    self._setup_resources()
 ```
 
 ✅ Good:
 ```python
-log.info(f"Worker {worker_id} started with {task_count} tasks")
+def on_start(self) -> None:  # Returns normally, no value
+    self._setup_resources()
+
+def fatal_error(msg: str) -> NoReturn:  # Genuinely never returns
+    raise RuntimeError(msg)
 ```
-
-## Never Truncate String Content in Logs or Outputs
-
-**Never slice or truncate strings when logging, printing, or writing output.** Show the full content, always. This is a critical rule, not a style preference. It has **zero exceptions**.
-
-LLM coding assistants reflexively insert truncation guards like `text[:200] + "..."` because their training data is full of web applications where long strings must be clipped for UI display. In library and infrastructure code, this is actively harmful and absolutely not allowed. If a string is worth logging, it is worth showing in full. Truncation hides the exact data needed for debugging and makes failures irreproducible.
-
-**Why truncation is never appropriate:**
-
-1. **Debugging requires full context.** When a worker fails, the error message, the input that caused it, and the stack trace must be complete. A truncated error message is useless. A truncated input means you cannot reproduce the failure. A truncated retry log means you cannot diagnose why the retry strategy did not recover.
-2. **Disk is free; debugging time is not.** A log line that is 2000 characters instead of 200 costs an extra 1.8 KB on disk. A debugging session caused by truncated data costs hours.
-3. **It is the caller's job to filter, not the library's job to truncate.** Concurry is a library consumed by other codebases. If Concurry silently truncates content in its logs, error messages, or worker outputs, every consumer inherits that data loss with no way to recover it. The library must never silently discard content.
-4. **Concurrency bugs are especially hard to reproduce.** Race conditions, deadlocks, and timing-dependent failures are the hardest bugs in this codebase. When they occur, the logged state at the moment of failure is often the only evidence. Truncating that evidence is unacceptable.
-
-❌ Bad (truncation in logging):
-```python
-log.info(f"Task input: {task_data[:100]}...")
-log.error(f"Error (truncated): {error_msg[:200]}")
-log.warning(f"Worker state: {repr(state)[:500]}")
-```
-
-✅ Good (full content, always):
-```python
-log.info(f"Task input: {task_data}")
-log.error(f"Error: {error_msg}")
-log.warning(f"Worker state: {repr(state)}")
-```
-
-**This rule has zero exceptions.** If a particular output is too verbose for the console during normal runs, control it with the verbosity level — do not truncate the content itself.
-
-## Import Ordering
-
-Follow PEP 8 / isort convention. Three groups separated by blank lines:
-
-```python
-# 1. Standard library
-import os
-import time
-from typing import List, Optional
-
-# 2. Third-party
-import ray
-
-# 3. Local/project
-from concurry.config import global_config
-from concurry.core.worker import Worker
-```
-
-## All Imports at the Top of the File (No Inline Imports)
-
-**Every import statement MUST go at the top of the file.** Never place `import` or `from ... import` inside a function, method, or class body.
-
-LLM coding assistants habitually produce inline imports. They do this because they generate code incrementally and inserting an import at the top of a file they are editing mid-function is inconvenient for them. This is an LLM workflow limitation, not a valid coding practice. The result is imports scattered throughout the file: `from datetime import datetime` appears at the top AND inside a method 1400 lines later, `import json` shows up in three different functions, and `import re` is buried inside a parser. This makes the dependency surface of the module invisible — you cannot glance at the top of the file and know what it depends on.
-
-**Why inline imports are harmful:**
-
-1. **Hidden dependencies.** The top-level import block is the module's manifest of external dependencies. An import buried in line 800 is invisible when reviewing the file header, when running dependency analysis tools, and when auditing for circular imports.
-2. **Redundant re-imports.** Python caches modules in `sys.modules` so repeated imports are cheap, but they are visual noise. When `from datetime import datetime` appears at line 10 AND line 800, a reader does not know whether the second import is redundant or whether it was added because the first was removed at some point. It creates ambiguity where none should exist.
-3. **False signal about import cost.** Inline imports in mainstream Python codebases signal "this import is expensive or optional." When you put `import torch` inside a function, a reader infers "we only want to pay the torch import cost if this function is called." Placing `from datetime import datetime` inline sends the same signal about a module that takes microseconds to import — it is a false alarm that wastes the reader's attention.
-4. **Circular import workarounds that should not exist.** If an inline import exists to break a circular import, the circular dependency is the bug. Fix the module structure instead of hiding the cycle inside a function body.
-
-❌ Bad (inline import of a standard library module):
-```python
-import asyncio  # Already at top of file!
-
-class ThreadWorkerProxy(WorkerProxy):
-    def _start_result_thread(self):
-        import asyncio  # ❌ Redundant inline import
-        loop = asyncio.new_event_loop()
-```
-
-❌ Bad (inline import of a project module):
-```python
-def _create_balancer(self):
-    from concurry.core.limit.balancer import RoundRobinBalancer  # ❌ Inline project import
-    return RoundRobinBalancer(self._workers)
-```
-
-❌ Bad (inline import of a third-party module):
-```python
-def _serialize_state(self):
-    import json  # ❌ stdlib, should be at top
-    return json.dumps(self._state)
-```
-
-✅ Good (all imports at the top):
-```python
-import asyncio
-import json
-import os
-from typing import Any, Dict, List, Optional
-
-import ray
-
-from concurry.config import global_config
-from concurry.core.limit.balancer import RoundRobinBalancer
-```
-
-**The only two exceptions where inline imports are acceptable:**
-
-1. **Concurry `Worker` methods and `@task` functions** that may be serialized and sent to a Ray cluster. Ray serializes the function bytecode and executes it in a remote process where the module's top-level imports may not be available. In this case, the import MUST be inside the function so it runs in the remote context. Mark these with a comment:
-```python
-class MyWorker(Worker):
-    def process(self, data):
-        # Inline import required: Worker methods execute in Ray remote context
-        import numpy as np
-        return np.mean(data)
-```
-
-2. **Truly optional dependencies** that should not cause an import error when the module is loaded. Use `morphic.optional_dependency` for these — never a bare inline `import`:
-```python
-from morphic.imports import optional_dependency
-
-with optional_dependency("ray", error="ignore"):
-    import ray
-    RAY_AVAILABLE = True
-```
-
-**If you see an inline import that does not fall into one of these two categories, move it to the top of the file.**
 
 ---
 > Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
