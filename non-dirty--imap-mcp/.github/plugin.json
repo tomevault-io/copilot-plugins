@@ -1,0 +1,9 @@
+{
+  "name": "non-dirty--imap-mcp",
+  "displayName": "imap-mcp",
+  "description": "IMAP Model Context Protocol server for interactive email processing",
+  "version": "1.0.0",
+  "author": "non-dirty",
+  "homepage": "https://github.com/non-dirty/imap-mcp",
+  "skills": []
+}
