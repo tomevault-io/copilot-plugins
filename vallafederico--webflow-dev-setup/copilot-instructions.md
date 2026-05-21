@@ -1,84 +1,80 @@
-## development-workflow
+## dom-attributes
 
-> Steps for creating and testing modules, from new file to data-module wiring. Use when starting a new module or onboarding.
+> DOM attribute conventions (data-module, data-* options, kebab-case). Use when adding or reading attributes for modules or component config.
 
-# Development Workflow Rules
+# DOM Attribute Conventions
 
-## Creating New Modules
+## Module Attributes
 
-1. Create file in `src/modules/` with descriptive name
-# Development Workflow Rules
+- **Primary**: `data-module="moduleName"` - Links element to module
+# DOM Attribute Conventions
 
-## Module Development Steps
+## Module Attributes
 
-1. Create module file in `src/modules/`
-2. Use default export function with correct signature
-3. Import necessary lifecycle hooks and subscription services
-4. Add `data-module` attribute to HTML element
-5. Test module functionality
+- **Primary**: `data-module="moduleName"` - Links element to module
+- **Secondary**: `data-*` attributes for module configuration
+- **Naming**: Use kebab-case for attribute names
 
-## Module Development Pattern
+## Common Patterns
+
+```html
+<!-- Basic module -->
+<div data-module="cycle"></div>
+
+<!-- With configuration -->
+<div data-module="nav" data-speed="0.5" data-delay="100"></div>
+
+<!-- With animation options -->
+<div data-module="fade" data-duration="0.8" data-ease="power2.out"></div>
+
+<!-- With responsive options -->
+<div data-module="parallax" data-mobile="false" data-desktop="true"></div>
+```
+
+## Dataset Access
+
+Access custom attributes in modules:
 
 ```typescript
-// 1. Start with basic structure
-import { onMount, onDestroy, onPageIn, onPageOut } from "@/modules/_";
-import { Raf, Resize } from "@lib/subs";
-
 export default function (element: HTMLElement, dataset: DOMStringMap) {
-  console.log("Module loaded:", element);
-
-  // 2. Add lifecycle hooks
-  onMount(() => {
-    console.log("Module mounted");
-  });
-
-  onDestroy(() => {
-    console.log("Module destroyed");
-  });
-
-  // 3. Add page transitions
-  onPageIn(async () => {
-    console.log("Page entering");
-  });
-
-  onPageOut(async () => {
-    console.log("Page exiting");
-  });
-
-  // 4. Add functionality incrementally
-  // 5. Test each addition
-  // 6. Add error handling
+  // Parse numeric values
+  const speed = parseFloat(dataset.speed || "1");
+  const delay = parseInt(dataset.delay || "0");
+  const duration = parseFloat(dataset.duration || "0.5");
+  
+  // String values
+  const animation = dataset.animation || "default";
+  const ease = dataset.ease || "power2.out";
+  
+  // Boolean values
+  const mobile = dataset.mobile === "true";
+  const desktop = dataset.desktop !== "false";
 }
 ```
 
-## Debugging
+## Validation
 
-- Use console.log for module loading confirmation
-- Check browser console for errors
-- Verify `data-module` attribute matches filename
-- Ensure proper import paths
-- Test lifecycle hooks individually
-- Test page transitions
-- Test subscription cleanup
+- Always check for required attributes
+- Provide sensible defaults
+- Use type conversion for numeric values
+- Validate attribute values when needed
+- Handle missing or invalid attributes gracefully
 
-## Testing
+## Error Handling
 
-- Test module mounting/destruction
-- Test page transitions (in/out)
-- Test viewport detection
-- Test scroll tracking
-- Test subscription services (Raf/Resize)
-- Test with different dataset values
-- Test error scenarios
-
-## Common Issues
-
-- Module not loading: Check attribute name matches filename
-- Lifecycle not firing: Check import paths
-- GSAP errors: Ensure proper cleanup in onDestroy
-- Memory leaks: Always clean up observers, listeners, and subscriptions
-- Page transitions not working: Check onPageIn/onPageOut implementation
-- Subscription leaks: Always unsubscribe in onDestroy
+```typescript
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  try {
+    const speed = parseFloat(dataset.speed || "1");
+    if (isNaN(speed) || speed < 0) {
+      console.warn("Invalid speed value, using default");
+      speed = 1;
+    }
+  } catch (error) {
+    console.error("Error parsing dataset:", error);
+  }
+}
+```
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
