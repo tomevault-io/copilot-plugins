@@ -4,7 +4,7 @@
   "repo": "juscraper",
   "description": "Raspador (sempre incompleto) de tribunais do sistema judici\u00e1rio.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jtrecenti/juscraper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T18:38:52Z"
+  "distributed_at": "2026-05-21T05:03:33Z"
 }
