@@ -1,12 +1,12 @@
-## code-tests
+## general-guidelines
 
-> When making tests please follow the below
+> Please follow these guidelines:
 
-
-# Tests
-When making tests please follow the below
-- `asyncio_mode = auto` is set in pytest.ini so when making tests don't mark tests with pytest.mark.asyncio
-- When testing if errors are thrown (`with pytest.raises(...)`) do not try to match exception text to some predefined value
+# General Guidelines
+Please follow these guidelines:
+- all functions should have type hints for parameters and outputs. For built in type hints (like `list`, `dict`, `tuple`) don't import the typing library, just use the more modern type hints built into Python.
+- avoid using comments and rather give descriptive function/variable names. Only use comments when absolutely necessary to communicate something you can't infer from the code or mention design decisions.
+- Please copy the formatting choices in the file (e.g. don't redistribute lines as these were chosen by black formatter)
 
 ---
 > Source: [Metaculus/forecasting-tools](https://github.com/Metaculus/forecasting-tools) — distributed by [TomeVault](https://tomevault.io).
