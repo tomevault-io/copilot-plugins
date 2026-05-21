@@ -1,0 +1,9 @@
+{
+  "name": "austinkelsay--nostr-mcp-server",
+  "displayName": "nostr-mcp-server",
+  "description": "A Model Context Protocol (MCP) server that provides Nostr capabilities to AI agents",
+  "version": "1.0.0",
+  "author": "AustinKelsay",
+  "homepage": "https://github.com/AustinKelsay/nostr-mcp-server",
+  "skills": []
+}
