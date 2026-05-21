@@ -1,0 +1,9 @@
+{
+  "name": "atlanhq--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "Atlan AI Agent Toolkit",
+  "version": "1.0.0",
+  "author": "atlanhq",
+  "homepage": "https://github.com/atlanhq/agent-toolkit",
+  "skills": []
+}
