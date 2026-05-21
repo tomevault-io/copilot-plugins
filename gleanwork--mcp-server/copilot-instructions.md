@@ -1,83 +1,15 @@
-## node-testing
+## typescript-style-guide
 
-> Always prefer inline snapshot matching whenever possible.  If necessary, have local normalization/sanitization functions to replace things that are noisy or unstable, like timestamps or error stacks.
+> Put all publicly exported functions and types at the top of the file, below imports.
 
-# Testing Style Guide
+### Dependencies
 
-### Testing Frameworks
+- use pnpm
 
-- use vitest
+### Function Organization
 
-### Expectations
-
-Always prefer inline snapshot matching whenever possible.  If necessary, have local normalization/sanitization functions to replace things that are noisy or unstable, like timestamps or error stacks.
-
-Always prefer `toThrowMatchingInlineSnapshot()` over naked `toThrow()` or `toThrow()` with a regex.
-
-### Test Organization
-
-Tests are in `src/test`
-
-### Mocking HTTP Requests
-
-We use `msw`. We use v2 so don't use the v1 api.
-
-### File I/O
-
-Use node-fixturify against a temp directory.  Do not mock file system operations.  Set XDG variables like XDG_DATA_HOME, XDG_STATE_HOME, XDG_CONFIG_HOME &c. so that files are written to the temp directory.
-
-IMPORTANT: when setting an XDG variable be sure to call `Logger.reset`.  The logging utilities use a singleton that only checks for the XDG directory on initialization.  Be sure to call `Logger.reset` in `afterEach` and not in `beforeEach` so you don't poison future tests.
-
-Here are the usage docs from fixturify's README
-
-```js
-const fixturify = require('fixturify')
-
-const obj = {
-  'foo.txt': 'foo.txt contents',
-  'subdir': {
-    'bar.txt': 'bar.txt contents'
-  }
-}
-
-fixturify.writeSync('testdir', obj) // write it to disk
-
-fixturify.readSync('testdir') // => deep-equals obj
-
-fixturify.readSync('testdir', { globs: ['foo*'] }) // glob support
-// => { foo.txt: 'foo.text contents' }
-
-fixturify.readSync('testdir', { ignore: ['foo*'] }) // glob support
-// => { subdir: { bar.txt: 'bar.text contents' } }
-
-fixturify.writeSync('testDir', {
-  'subdir': { 'bar.txt': null }
-}) // remove subdir/bar.txt
-
-fixturify.readSync('testdir') // => { foo.txt: 'foo.text contents' }
-
-fixturify.writeSync('testDir', {
-  'subdir': null
-}) // remove subdir/
-```
-
-```js
-const fixturify = require('fixturify')
-
-const obj = {
-  'subdir': {
-    'foo.txt': 'foo.txt contents'
-  },
-  'emptydir': {}
-}
-
-fixturify.writeSync('testdir', obj) // write it to disk
-
-fixturify.readSync('testdir', { ignoreEmptyDirs: true })
-// => { subdir: { foo.txt': 'foo.txt contents' } }
-```
-
-Keep in mind that we always use ESM and always write in TypeScript, so convert the usage appropriately.
+Put all publicly exported functions and types at the top of the file, below imports.
+Put private, non-exported functions below all the publicly exported functions.
 
 ---
 > Source: [gleanwork/mcp-server](https://github.com/gleanwork/mcp-server) — distributed by [TomeVault](https://tomevault.io).
