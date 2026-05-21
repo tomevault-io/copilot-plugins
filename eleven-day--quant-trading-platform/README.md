@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eleven-day/quant-trading-platform](https://github.com/eleven-day/quant-trading-platform).
+Original source: `CLAUDE.md` in [eleven-day/quant-trading-platform](https://github.com/eleven-day/quant-trading-platform).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
