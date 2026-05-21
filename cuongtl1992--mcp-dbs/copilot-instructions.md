@@ -1,115 +1,78 @@
-## database-implementations
+## esm-imports
 
-> When implementing or modifying database connectors, follow these guidelines:
+> This project uses ECMAScript Modules (ESM) exclusively. Follow these rules when writing imports:
 
-# Database Implementation Rules
+# ESM Import Rules
 
-When implementing or modifying database connectors, follow these guidelines:
+This project uses ECMAScript Modules (ESM) exclusively. Follow these rules when writing imports:
 
-## Interface Compliance
+## Always include .js extension
 
-All database implementations must fully implement the `Database` interface:
-
-```typescript
-export interface Database {
-  connect(): Promise<void>;
-  disconnect(): Promise<void>;
-  query(query: string, params?: any[]): Promise<any>;
-  execute(query: string, params?: any[]): Promise<void>;
-  getTables(): Promise<string[]>;
-  getTableSchema(tableName: string): Promise<TableSchema>;
-  getSchema(): Promise<SchemaInfo>;
-}
-```
-
-## Connection Management
-
-- Always implement proper connection management with explicit connect/disconnect methods
-- Release resources in disconnect methods to prevent memory leaks
-- Validate connection state before executing queries
+When importing local files, always include the `.js` extension in the import path.
 
 ```typescript
 // ✅ Good
-async disconnect(): Promise<void> {
-  if (this.pool) {
-    await this.pool.end();
-    this.pool = null;
-  }
-}
+import { Database } from './interfaces/database.js';
 
 // ❌ Bad
-async disconnect(): Promise<void> {
-  await this.pool.end();
-}
+import { Database } from './interfaces/database';
 ```
 
-## Error Handling
+## Handling CommonJS modules
 
-- Include informative error messages
-- Properly propagate database-specific errors
-- Use the ensureConnected pattern to check connection state
+Some dependencies are CommonJS modules. When importing them, use this pattern:
 
 ```typescript
 // ✅ Good
-private ensureConnected(): void {
-  if (!this.pool) {
-    throw new Error('Database not connected. Call connect() first.');
-  }
-}
-
-async query(query: string, params: any[] = []): Promise<any> {
-  this.ensureConnected();
-  try {
-    const result = await this.pool!.query(query, params);
-    return result.rows;
-  } catch (error) {
-    throw new Error(`Query execution failed: ${error.message}`);
-  }
-}
+import pkg from 'pg';
+const { Pool } = pkg;
 
 // ❌ Bad
-async query(query: string, params: any[] = []): Promise<any> {
-  return this.pool.query(query, params);
-}
+import { Pool } from 'pg';
 ```
 
-## Configuration
+## Import ordering
 
-- Use typed configuration objects with clear property names
-- Document each configuration property with JSDoc comments
-- Use environment variables as a secondary configuration source
-
-```typescript
-/**
- * Configuration for PostgreSQL database connection
- */
-export interface PostgresConfig {
-  /**
-   * Database host
-   */
-  host: string;
-  
-  /**
-   * Database port (default: 5432)
-   */
-  port?: number;
-  
-  // Other properties...
-}
-```
-
-## Query Parameters
-
-- Always use parameterized queries to prevent SQL injection
-- Validate parameter types when necessary
-- Document parameter requirements
+Follow this order for imports:
+1. Node.js built-in modules
+2. External dependencies
+3. Local imports
 
 ```typescript
 // ✅ Good
-await db.query('SELECT * FROM users WHERE age > $1', [21]);
+import fs from 'fs';
+import path from 'path';
+
+import express from 'express';
+import pkg from 'pg';
+const { Pool } = pkg;
+
+import { Database } from './interfaces/database.js';
+import { SQLiteConfig } from './databases/sqlite.js';
+
+// ❌ Bad (mixed order)
+import express from 'express';
+import { Database } from './interfaces/database.js';
+import fs from 'fs';
+import pkg from 'pg';
+const { Pool } = pkg;
+```
+
+## Named exports
+
+Prefer named exports over default exports for better IDE auto-import support:
+
+```typescript
+// ✅ Good
+export class PostgresDatabase implements Database {
+  // ...
+}
 
 // ❌ Bad
-await db.query(`SELECT * FROM users WHERE age > ${age}`);
+class PostgresDatabase implements Database {
+  // ...
+}
+export default PostgresDatabase;
 ``` 
 
 ---
