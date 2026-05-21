@@ -1,242 +1,75 @@
-## development
+## master
 
-> Development best practices and principles for writing clean, maintainable code
+> Rules for placing and organizing Cursor rule files in the repository.
 
 
 <rule>
-name: development_best_practices
-description: Guidelines for writing high-quality, maintainable code
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
+  # Match any .mdc files
   - type: file_extension
-    pattern: "\\.(ts|tsx|js|jsx)$"
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
   - type: content
-    pattern: "(?s)class|function|interface|type|export"
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
   - type: suggest
     message: |
-      Follow these development best practices:
+      When creating Cursor rules:
 
-      1. DRY (Don't Repeat Yourself):
-         ```typescript
-         // ❌ Bad: Code duplication
-         function validateUser(user: User) {
-           if (!user.email) throw new Error('Email required');
-           if (!user.email.includes('@')) throw new Error('Invalid email');
-         }
-         
-         function validateAdmin(admin: Admin) {
-           if (!admin.email) throw new Error('Email required');
-           if (!admin.email.includes('@')) throw new Error('Invalid email');
-         }
-
-         // ✅ Good: Reusable validation
-         function validateEmail(email: string) {
-           if (!email) throw new Error('Email required');
-           if (!email.includes('@')) throw new Error('Invalid email');
-         }
-
-         function validateUser(user: User) {
-           validateEmail(user.email);
-         }
-
-         function validateAdmin(admin: Admin) {
-           validateEmail(admin.email);
-         }
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
          ```
 
-      2. SOLID Principles:
-         a) Single Responsibility:
-            ```typescript
-            // ❌ Bad: Class does too many things
-            class UserManager {
-              createUser() { /* ... */ }
-              validateEmail() { /* ... */ }
-              sendEmail() { /* ... */ }
-              updateDatabase() { /* ... */ }
-            }
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
 
-            // ✅ Good: Separated responsibilities
-            class UserCreator {
-              constructor(
-                private emailValidator: EmailValidator,
-                private emailService: EmailService,
-                private userRepository: UserRepository
-              ) {}
-
-              async createUser(userData: UserData) {
-                // Orchestrate the process using injected dependencies
-              }
-            }
-            ```
-
-         b) Open/Closed:
-            ```typescript
-            // ❌ Bad: Modifying existing code for new features
-            class PaymentProcessor {
-              process(payment: Payment) {
-                if (payment.type === 'credit') { /* ... */ }
-                if (payment.type === 'debit') { /* ... */ }
-                // Adding new payment types requires modifying this class
-              }
-            }
-
-            // ✅ Good: Extensible through inheritance/implementation
-            interface PaymentStrategy {
-              process(payment: Payment): Promise<void>;
-            }
-
-            class CreditCardProcessor implements PaymentStrategy {
-              process(payment: Payment) { /* ... */ }
-            }
-
-            class DebitCardProcessor implements PaymentStrategy {
-              process(payment: Payment) { /* ... */ }
-            }
-            ```
-
-      3. Composition Over Inheritance:
-         ```typescript
-         // ❌ Bad: Deep inheritance hierarchy
-         class Animal {
-           move() { /* ... */ }
-         }
-         class Bird extends Animal {
-           fly() { /* ... */ }
-         }
-         class Eagle extends Bird {
-           hunt() { /* ... */ }
-         }
-
-         // ✅ Good: Composition with behaviors
-         interface Movable {
-           move(): void;
-         }
-         interface Flyable {
-           fly(): void;
-         }
-         interface Hunter {
-           hunt(): void;
-         }
-
-         class Eagle implements Movable, Flyable, Hunter {
-           constructor(
-             private movement: MovementBehavior,
-             private flight: FlightBehavior,
-             private hunting: HuntingBehavior
-           ) {}
-
-           move() { this.movement.execute(); }
-           fly() { this.flight.execute(); }
-           hunt() { this.hunting.execute(); }
-         }
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
          ```
 
-      4. Error Handling:
-         ```typescript
-         // ❌ Bad: Swallowing errors
-         try {
-           riskyOperation();
-         } catch (error) {
-           console.log('Error occurred');
-         }
-
-         // ✅ Good: Proper error handling
-         try {
-           await riskyOperation();
-         } catch (error) {
-           if (error instanceof ValidationError) {
-             // Handle validation errors
-             throw new UserFacingError('Invalid input', { cause: error });
-           }
-           // Log unexpected errors
-           logger.error('Unexpected error', { error });
-           throw new SystemError('Internal error', { cause: error });
-         }
-         ```
-
-      5. Clean Code Practices:
-         - Use meaningful variable and function names
-         - Keep functions small and focused
-         - Limit function parameters (max 3, use objects for more)
-         - Write self-documenting code
-         - Use early returns to reduce nesting
-         ```typescript
-         // ❌ Bad: Deep nesting and unclear names
-         function p(d: any) {
-           if (d) {
-             if (d.u) {
-               if (d.u.a) {
-                 return d.u.a;
-               }
-             }
-           }
-           return null;
-         }
-
-         // ✅ Good: Clear names and early returns
-         function getAdminStatus(userData?: UserData): boolean {
-           if (!userData) return false;
-           if (!userData.user) return false;
-           return userData.user.isAdmin ?? false;
-         }
-         ```
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      // ❌ Bad: Tight coupling and poor separation
-      class OrderProcessor {
-        private db: Database;
-        private emailer: Emailer;
-        
-        processOrder(order: Order) {
-          this.db.save(order);
-          this.emailer.sendConfirmation(order);
-        }
-      }
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
 
-      // ✅ Good: Dependency injection and separation
-      interface OrderRepository {
-        save(order: Order): Promise<void>;
-      }
-
-      interface NotificationService {
-        sendConfirmation(order: Order): Promise<void>;
-      }
-
-      class OrderProcessor {
-        constructor(
-          private repository: OrderRepository,
-          private notifier: NotificationService
-        ) {}
-
-        async processOrder(order: Order) {
-          await this.repository.save(order);
-          await this.notifier.sendConfirmation(order);
-        }
-      }
-    output: "Well-structured code with proper dependency injection"
-
-  - input: |
-      // ❌ Bad: Magic numbers and poor naming
-      function calc(x: number) {
-        return x * 1.2 + 5.99;
-      }
-
-      // ✅ Good: Clear constants and intention-revealing names
-      const TAX_RATE = 0.20;
-      const SHIPPING_COST = 5.99;
-
-      function calculateTotalPrice(basePrice: number): number {
-        return basePrice * (1 + TAX_RATE) + SHIPPING_COST;
-      }
-    output: "Self-documenting code with clear intent"
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
   priority: high
   version: 1.0
-  categories: ["development", "best-practices", "clean-code", "SOLID"]
-</rule> 
+</rule>
 
 ---
 > Source: [turlockmike/hataraku](https://github.com/turlockmike/hataraku) — distributed by [TomeVault](https://tomevault.io).
