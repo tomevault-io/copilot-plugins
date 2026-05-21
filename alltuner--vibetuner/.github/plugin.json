@@ -1,0 +1,9 @@
+{
+  "name": "alltuner--vibetuner",
+  "displayName": "vibetuner",
+  "description": "Production-ready FastAPI scaffolding \u2014 flexible databases (MongoDB, PostgreSQL, MySQL, SQLite), HTMX frontend, OAuth auth. Generate full-stack apps in seconds.",
+  "version": "1.0.0",
+  "author": "alltuner",
+  "homepage": "https://github.com/alltuner/vibetuner",
+  "skills": []
+}
