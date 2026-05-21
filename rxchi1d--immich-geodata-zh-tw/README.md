@@ -7,11 +7,11 @@ Immich 反向地理編碼 - 臺灣特化，提供更精確的地理資訊與中�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RxChi1d/immich-geodata-zh-tw](https://github.com/RxChi1d/immich-geodata-zh-tw).
+Original source: `CLAUDE.md` in [RxChi1d/immich-geodata-zh-tw](https://github.com/RxChi1d/immich-geodata-zh-tw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
