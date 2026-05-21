@@ -1,354 +1,78 @@
-## controller-app
+## cursor-rules-location
 
-> When working in the controller app
+> Cursor Rules Location
 
+# Cursor Rules Location
 
-# Controller App
+Rules for placing and organizing Cursor rule files in the repository.
 
-## Overview
-- This is a Bun/NodeJS app.
-- We use a standard flow: `x.routes.ts` -> `x.service.ts` -> `x.repository.ts`
-- For external API calls, use `x.api-client.ts`
+<rule>
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
+filters:
+  # Match any .mdc files
+  - type: file_extension
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
-### Specific Questions
-- When asked to create a new API route, we mean creating an api definition, routes implementation, service method and repository method with a database query.
+actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
 
-## Dependency Injection
-- Uses `npm:typed-inject`
-- Injection context defined in [injector.ts](mdc:apps/controller/src/injector.ts)
-- Key principles:
-  - Use interfaces for injectables
-  - Classes inject other classes
-  - All injectable classes (with `static inject`) must be added to `injector.ts`
-- When creating a new file that is injectable, ALWAYS make sure to add it to injector.ts
+  - type: suggest
+    message: |
+      When creating Cursor rules:
 
-Example injectable class with authentication:
-```ts
-import { tokens } from "typed-inject";
-import { createRoute } from "@hono/zod-openapi";
-import type { IAuthenticationMiddleware } from "@/authentication/authentication.middleware.ts";
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
+         ```
 
-export interface IMyService {
-  createThing(thing: Thing): Promise<ThingEntity>;
-}
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
 
-export class ExampleRoutes {
-  static inject = tokens("myService", "authenticationMiddleware");
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
 
-  #routes;
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
-  constructor(
-    myService: IMyService,
-    authenticationMiddleware: IAuthenticationMiddleware,
-  ) {
-    this.#routes = new OpenAPIHono()
-      .openapi(
-        createRoute({
-          ...myThingCreateApi,
-          middleware: [authenticationMiddleware.requireLogin()] as const,
-        }),
-        async (c) => {
-          const { organizationId } = c.req.valid("param");
-          const clerkUserId = c.get("clerkUserId");
-          await authenticationMiddleware.requireOrganizationAccess(clerkUserId, organizationId);
+examples:
+  - input: |
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
 
-          const thing = c.req.valid("json");
-          const result = await myService.createThing(thing);
-          return c.json(result, 201);
-        },
-      );
-  }
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
-  get routes() {
-    return this.#routes;
-  }
-}
-```
-
-### Identifiers (ids) and codes
-- We use two types of identifiers:
-  1. External IDs (codes): Stes used in APIs and services (e.g., "ORG_123", "PERS_456")
-  2. Internal IDs: Numeric values used in the database and repositories
-- Naming conventions:
-  - In API definitions and service layer: Use `organizationId` for the external code
-  - In repository layer: 
-    - Use `organizationCode` when referring to the external code
-    - Use `organizationId` when referring to the internal numeric ID
-  - In database schema:
-    - `code` column for external IDs (string)
-    - `id` column for internal IDs (number)
-- When joining tables in repositories:
-  - Service methods receive external codes (`organizationId`)
-  - Repository methods accept external codes (`organizationCode`)
-  - Repository joins with organization table to get internal IDs
-  - Example:
-    ```ts
-    // Service
-    async update(params: { organizationId: string, slug: string }) {
-      // organizationId here is the external code
-      await repository.update({ organizationCode: params.organizationId, slug });
-    }
-
-    // Repository
-    async update(params: { organizationCode: string, slug: string }) {
-      // Join with organization to get internal ID
-      .innerJoin(
-        schema.organization,
-        and(
-          eq(schema.organization.id, schema.thing.organizationId),
-          eq(schema.organization.code, params.organizationCode),
-        ),
-      )
-    }
-    ```
-
-## Database & ORM
-### Drizzle Usage
-- Drizzle is used as ORM/Query Builder
-- One Typescript method in a repository class should generally have ONE Postgres query. Having multiple ones is only allowed for very complex write operations.
-- If a query is complicated, first write the query in pure Postgres. Then rewrite with Drizzle's query builder.
-- Use CTEs with `with` and `$with` as needed
-- Schema defined in [schema.ts](mdc:apps/controller/src/postgres/schema.ts)
-- In repositories BE VERY MINDFUL about ids and codes. Usually we are only handed a string (code) from the API, the query is responsible for getting the assoicated id.
-- When doing multiple mutations in a single repository method, ALWAYS make sure they're in a transaction.
-
-## Services & Repositories
-- Services and repositories generally have similar methods.
-- The types these methods take however, are per repository and service.
-  - Repositories deal with more private data. The service layer converts those to public data.
-- When at all possible DO NOT export types from a repository or service. The only reason to export is when the type might be needed in tests.
-- PREFER to recreate types instead of importing them.
-
-### Repository Pattern
-Example repository:
-```ts
-import { tokens } from "typed-inject";
-import type { PostgresManager } from "@/postgres/postgres.ts";
-
-export interface ISomeRepository {
-  // ...
-}
-
-export class SomeRepository implements ISomeRepository {
-  static inject = tokens("postgres");
-
-  #db: PostgresManager["db"];
-
-  constructor(postgres: PostgresManager) {
-    this.#db = postgres.db;
-  }
-
-  async createThing(someCode: string): Promise<Thing> {
-    const org = this.#db.$with("org").as(
-      this.#db
-        .select({
-          id: schema.organization.id,
-          code: schema.organization.code,
-          name: schema.organization.name,
-        })
-        .from(schema.organization)
-        .where(eq(schema.organization.code, someCode)),
-    );
-    const res = await this.#db
-      .with(org)
-      .insert(schema.organization).values({
-        organizationId: sql`SELECT id FROM org`,
-        // ...
-      }).returning({
-        // ...
-      });
-  }
-}
-```
-
-### Service
-- Example transformation in a service:
-
-```ts
-export type CreatePublicSchema = { /*..*/ };
-  // ...
-  async createPublicSchema(
-    systemSlug: string,
-    publicSchema: CreatePublicSchema,
-  ): Promise<PublicSchema> {
-    const { code, name, majorVersion, minorVersion, dataStoreSlug, schema } =
-      await this.#publicSchemaRepository.create(systemSlug, {
-        name: publicSchema.name,
-        code: generateCodeForEntity("Public Schema"),
-        connectionSlug: publicSchema.dataStoreSlug,
-        schema: publicSchema.schema,
-      });
-
-    return {
-      id: code,
-      name,
-      version: `${majorVersion}.${minorVersion}`,
-      dataStoreSlug,
-      schema,
-    };
-  }
-```
-
-## API Development
-### OpenAPI Specification
-- Create OpenAPI spec first in `packages/api-interface-controller`
-- Always implement both route AND api files (`<domain>.api.ts` and `<domain>.routes.ts`)
-- Add `*.api.ts` files to relevant `package.json` exports
-- Import using `@rejot-dev/api-interface-controller/<file>`
-- NEVER import a `*.api.ts` using the local path from any other package. Always use `@rejot-dev/api-interface-controller/*` that you added to package.json
-
-Example API definition:
-```ts
-import { type RouteConfig, z } from "@hono/zod-openapi";
-
-export const OrganizationGetResponseSchema = z.object({
-  // ..
-}).openapi("Organization");
-
-// PREFER to import this type instead of inferring from Zod
-export type Organization = {
-  // .. (MAKE SURE this matches schema above)
-}
-
-export const organizationGetApi = {
-  method: "get",
-  path: "/organizations/{organizationId}",
-  request: {
-    params: z.object({
-      organizationId: z.string(),
-    }),
-  },
-  responses: {
-    200: {
-      content: {
-        "application/json": {
-          schema: OrganizationGetResponse,
-        },
-      },
-      description: "Organization retrieved successfully",
-    },
-    400: {
-      description: "Invalid request body",
-      content: {
-        "application/json": {
-          schema: ZodErrorSchema,
-        },
-      },
-    },
-    404: {
-      description: "Organization not found",
-    },
-    500: {
-      description: "Internal server error",
-    },
-  },
-  tags: ["organizations"],
-  description: "Get an organization by code",
-} satisfies RouteConfig;
-```
-
-## Authentication
-### Route Authentication
-- All routes should require authentication using `authenticationMiddleware`
-- Two levels of authentication:
-  1. Login check: `authenticationMiddleware.requireLogin()`
-  2. Organization access: `authenticationMiddleware.requireOrganizationAccess(clerkUserId, organizationId)`
-- Always add both in this order:
-  ```ts
-  .openapi(
-    createRoute({
-      ...someApi,
-      middleware: [authenticationMiddleware.requireLogin()] as const,
-    }),
-    async (c) => {
-      const { organizationId } = c.req.valid("param");
-      const clerkUserId = c.get("clerkUserId");
-      await authenticationMiddleware.requireOrganizationAccess(clerkUserId, organizationId);
-      // ... rest of the route handler
-    }
-  )
-  ```
-
-## Error Handling
-- Each domain has its own `<domain>.error.ts`
-- Extends from [base-error.ts](mdc:apps/controller/src/error/base-error.ts)
-
-Example error definition:
-```ts
-import { BaseError, type ErrorDefinition, type ErrorMap } from "@/error/base-error.ts";
-
-export type ClerkErrorCode =
-  | "CLERK_USER_NOT_FOUND"
-  | "CLERK_USER_INCOMPLETE_PROFILE";
-
-export type ClerkErrorContext = {
-  clerkUserId?: string;
-  missingFields?: string[];
-};
-
-export const ClerkErrors = {
-  USER_NOT_FOUND: {
-    code: "CLERK_USER_NOT_FOUND",
-    message: "User not found",
-    httpStatus: 404,
-  },
-  INCOMPLETE_PROFILE: {
-    code: "CLERK_USER_INCOMPLETE_PROFILE",
-    message: "User has incomplete profile information",
-    httpStatus: 400,
-  },
-} as const satisfies ErrorMap<ClerkErrorCode, ClerkErrorContext>;
-
-export class ClerkError extends BaseError<ClerkErrorCode, ClerkErrorContext> {
-  constructor(definition: ErrorDefinition<ClerkErrorCode, ClerkErrorContext>) {
-    super(definition);
-  }
-}
-```
-
-## Testing
-- For database queries, use `dbDescribe`
-  - Import: `import { dbDescribe } from "@/postgres/db-test.ts";`
-  - Opens transaction and rolls back after test
-- Use `import { test, describe, expect, ... } from "bun:test";` for assertions in tests
-- Example:
-```ts
-dbDescribe("SomeRepository tests", async (ctx) => {
-  // Reusable methods
-  async function createTestThing() {
-    // ctx.resolve will be typed automatically, do not add casts.
-    const thingRepository = ctx.resolve("thingRepository");
-    return await thingRepository.bla()''
-  }
-
-  // actual tests
-  test("create - do bla", async () => {
-    const connectionRepository = ctx.resolve("connectionRepository");
-    // ..
-    expect(connection).toBeDefined();
-    // more expect
-  });
-
-  test("create - something that should throw", async () => {
-    expect(thingRepository.get(system.slug, "NON EXISTENT")).rejects.toThrow(
-      DomainError,
-    );
-  });
-});
-
-```
-
-## TypeScript Guidelines
-### Code Style
-- Use Javascript private (#) for private members
-- Always use `import type` and indicate `type` as needed
-- Always use curly braces, even for single-line blocks
-- Use `T[]` instead of `Array<T>`
-- Avoid:
-  - Enums
-  - Constructor parameter members
-  - TypeScript constructs that don't work with type stripping
-- NEVER use Unsafe type casting unless EXPLICITELY asked for.
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [rejot-dev/rejot](https://github.com/rejot-dev/rejot) — distributed by [TomeVault](https://tomevault.io).
