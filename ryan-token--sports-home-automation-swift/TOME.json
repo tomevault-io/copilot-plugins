@@ -1,0 +1,44 @@
+{
+  "name": "sports-home-automation-swift",
+  "owner": "ryan-token",
+  "repo": "sports-home-automation-swift",
+  "description": "Serveless Swift on AWS to remotely control Philips Hue bulbs whenever my favorite sports teams score or win.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ryan-token/sports-home-automation-swift",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T19:55:36Z"
+}
