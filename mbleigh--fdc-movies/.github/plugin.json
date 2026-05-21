@@ -1,0 +1,9 @@
+{
+  "name": "mbleigh--fdc-movies",
+  "displayName": "fdc-movies",
+  "description": "A sample application that uses Firebase to build a movie review app with Data Connect, App Hosting, and Genkit.",
+  "version": "1.0.0",
+  "author": "mbleigh",
+  "homepage": "https://github.com/mbleigh/fdc-movies",
+  "skills": []
+}
