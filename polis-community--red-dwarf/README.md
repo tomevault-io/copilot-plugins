@@ -7,11 +7,11 @@ A DIMensional REDuction library for reproducing and experimenting with Polis-lik
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [polis-community/red-dwarf](https://github.com/polis-community/red-dwarf).
+Original source: `CLAUDE.md` in [polis-community/red-dwarf](https://github.com/polis-community/red-dwarf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
