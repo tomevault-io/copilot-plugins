@@ -1,94 +1,135 @@
-## ai-development-workflow
+## general
 
-> AI-assisted development workflow and best practices
+> Global Rules for Simple HTML/JS Apps (No Backend)
 
 
-# AI-Assisted Development Workflow
+# General Guidelines for Simple Web Apps
 
-This project emphasizes using AI tools (Claude and Cursor) effectively for web development.
-
-## AI Tools Integration
-
-### Claude Usage
-- **Problem Definition**: Use Claude for initial problem analysis and requirements gathering
-- **Research**: Leverage Claude's knowledge for API documentation and best practices
-- **Flow Diagramming**: Use Claude's mermaid capabilities for visualizing app flows
-- **Code Generation**: Generate initial prototypes and boilerplate code
-- **Code Review**: Use Claude for code quality assessment and improvements
-
-### Cursor IDE Features
-- **Spec Documents**: Use @ symbol to reference specification files
-- **File Context**: Reference multiple files with @filename for better context
-- **Cursor Rules**: Leverage .cursor/rules for consistent AI behavior
-- **AI Chat**: Use Cursor's AI chat for quick code assistance and debugging
-
-## Development Process
-
-### 1. Planning Phase
-```
-Problem Definition → Research → Flow Diagramming → Specification
-```
-
-**Key Activities:**
-- Define the problem clearly with Claude
-- Research APIs and technologies needed
-- Create flow diagrams using mermaid
-- Write detailed specification documents
-
-### 2. Specification Phase
-- Create detailed spec documents in markdown
-- Include user stories and acceptance criteria
-- Define data structures and API requirements
-- Set up .cursorrules for the project
-
-### 3. Development Phase
-- Start with Claude Artifacts/Projects for prototyping
-- Use Cursor for implementation and refinement
+## Code Quality
+- Use ES6+ features (let/const, arrow functions, template literals)
+- Keep functions short and single-purpose (max 20 lines)
+- Use meaningful variable and function names
+- Always handle errors gracefully (try/catch in JS)
+- Keep HTML semantic and accessible
 - Follow the single-file approach for simple apps
-- Implement proper error handling and accessibility
 
-### 4. Testing and Refinement
-- Test functionality across different browsers
-- Validate accessibility compliance
-- Optimize performance and user experience
-- Update documentation as needed
+## File Organization
+- **Single-file apps**: Generate one HTML file with embedded CSS and JavaScript
+- **Multi-file apps**: Use `index.html`, `styles.css`, `script.js` structure
+- **Complex apps**: Organize with subdirectories for `css/`, `js/`, `assets/`
 
-## Best Practices
+## HTML Standards
+- Use semantic HTML5 elements (header, main, footer, section, article)
+- Add alt text to all images
+- Use labels for all form inputs
+- Include proper ARIA attributes for accessibility
+- Use proper heading hierarchy (h1, h2, h3...)
 
-### AI Prompting
-- Be specific about requirements and constraints
-- Provide context about the project structure
-- Ask for explanations of generated code
-- Request multiple implementation approaches when appropriate
+## JavaScript Standards
+- Use strict mode (`'use strict';`)
+- Avoid global variables (use IIFE or modules)
+- Prefer querySelector/querySelectorAll over older DOM APIs
+- Use event delegation for dynamic elements
+- Implement proper error handling with try/catch blocks
+- Use modern async/await syntax for promises
 
-### Code Quality
-- Always review AI-generated code
-- Ensure proper error handling
-- Follow accessibility guidelines
-- Test thoroughly before deployment
+## Example of Good Code:
 
-### Documentation
-- Document AI-assisted decisions
-- Include setup instructions for complex apps
-- Provide examples and use cases
-- Keep README files updated
+<!--
+  Example: Minimal Todo List App (Single HTML/JS/CSS File)
+  - Semantic HTML5
+  - Accessible form
+  - ES6+ JavaScript
+  - All code in one file
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Todo List</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f9f9f9;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      max-width: 400px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    form {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button[type="submit"] {
+      padding: 0.5rem 1rem;
+      background: #0074d9;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background: #005fa3;
+    }
+    ul#todo-list {
+      list-style: none;
+      padding: 0;
+    }
+    ul#todo-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Todo List</h1>
+    <form id="todo-form" autocomplete="off">
+      <label for="todo-input" style="display:none;">Add Item</label>
+      <input id="todo-input" type="text" placeholder="Add a new task" required aria-label="Add a new task" />
+      <button type="submit">Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.querySelector('#todo-form');
+      const list = document.querySelector('#todo-list');
+      const input = document.querySelector('#todo-input');
 
-## Key Resources
-
-- [Claude Documentation](https://docs.anthropic.com/claude/)
-- [Cursor Documentation](https://docs.cursor.com/)
-- [Claude Tokenizer Tool](https://claude-tokenizer.vercel.app/)
-- [Cursor Rules Examples](https://github.com/PatrickJS/awesome-cursorrules)
-
-## Example Workflow
-
-1. **Problem**: "I need a quiz application"
-2. **Research**: Use Claude to research quiz app patterns and best practices
-3. **Specification**: Create [apps/quiz-app/docs/spec-doc.md](mdc:apps/quiz-app/docs/spec-doc.md)
-4. **Prototype**: Use Claude to generate initial HTML structure
-5. **Implementation**: Use Cursor to refine and add interactivity
-6. **Testing**: Validate functionality and accessibility
-7. **Documentation**: Update README with setup instructions
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const value = input.value.trim();
+        if (value) {
+          const li = document.createElement('li');
+          li.textContent = value;
+          list.appendChild(li);
+          input.value = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
 
 ---
 > Source: [EnkrateiaLucca/building-apps-with-ai-tools](https://github.com/EnkrateiaLucca/building-apps-with-ai-tools) — distributed by [TomeVault](https://tomevault.io).
