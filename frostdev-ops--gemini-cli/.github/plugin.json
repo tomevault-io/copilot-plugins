@@ -1,0 +1,9 @@
+{
+  "name": "frostdev-ops--gemini-cli",
+  "displayName": "gemini-cli",
+  "description": "> Gemini Rust Suite \ud83e\udd80: A powerful, modular Rust toolkit for interacting with Google Gemini. Features a feature-rich CLI, persistent semantic memory (LanceDB), and extensible tool integration via the M",
+  "version": "1.0.0",
+  "author": "frostdev-ops",
+  "homepage": "https://github.com/frostdev-ops/gemini-cli",
+  "skills": []
+}
