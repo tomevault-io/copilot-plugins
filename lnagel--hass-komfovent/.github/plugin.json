@@ -1,0 +1,9 @@
+{
+  "name": "lnagel--hass-komfovent",
+  "displayName": "hass-komfovent",
+  "description": "Home Assistant Komfovent C6, C6M and C8 air handling units integration ",
+  "version": "1.0.0",
+  "author": "lnagel",
+  "homepage": "https://github.com/lnagel/hass-komfovent",
+  "skills": []
+}
