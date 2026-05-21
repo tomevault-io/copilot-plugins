@@ -1,14 +1,31 @@
-## commit-message
+## update-examples
 
-> Commit message guidelines
+> Update the `pytidb` dependency in all example projects (e.g., `examples/auto_embedding/reqs.txt`) and verify that they work with the latest version.
 
 
-Example commit messages:
+Update the `pytidb` dependency in all example projects (e.g., `examples/auto_embedding/reqs.txt`) and verify that they work with the latest version.
 
-- feat: support prefilter for table.search() API
-- refactor: unify create mode and exist_ok to be if_exists="skip"
-- build: bump pytidb version to 0.0.10.dev1
-- docs: add image search example
+### Steps
+
+1. List all examples
+2. Using `todo_write` tool to add each example to the ToDo list.
+3. Process each example as following steps one by one.
+   1. Check the latest `pytidb` version in `pyproject.toml`.
+   2. Update the `reqs.txt` files accordingly.
+   3. Create a virtual environment (If not exists):
+
+      ```bash
+      python -m venv .venv
+      source .venv/bin/activate
+      ```
+
+   4. Install dependencies:
+
+      ```bash
+      pip install -q -r reqs.txt
+      ```
+
+   5. Run the example entry point (python main.py or streamlit run app.py) to confirm functionality.
 
 ---
 > Source: [pingcap/pytidb](https://github.com/pingcap/pytidb) — distributed by [TomeVault](https://tomevault.io).
