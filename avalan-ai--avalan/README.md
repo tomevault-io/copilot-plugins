@@ -7,11 +7,11 @@ The multi-backend, multi-modal micro-framework for AI agent development, orchest
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [avalan-ai/avalan](https://github.com/avalan-ai/avalan).
+Original source: `CLAUDE.md` in [avalan-ai/avalan](https://github.com/avalan-ai/avalan).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
