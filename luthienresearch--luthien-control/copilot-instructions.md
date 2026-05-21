@@ -1,16 +1,22 @@
-## code-modification-principles
+## config-and-secrets
 
-> Guiding principles for modifying code (refactoring, cleanup, imports, comments).
+> Configuration and Secrets Management
 
-# Code Modification Principles
+# Configuration and Secrets Management
 
+1.  **Environment Variables:** ALL configuration values that differ between environments (development, testing, production) or are sensitive MUST be loaded from environment variables. This includes:
+    *   Backend API endpoints (e.g., OpenAI URL)
+    *   Backend API keys
+    *   Proxy authentication keys/tokens
+    *   Database connection details (host, port, user, password, database name)
+    *   Any other external service credentials or configurations.
 
-**MANDATORY. FOLLOW THESE RULES.**
+2.  **`.env` File:**
+    *   Use a `.env` file in the project root for *development* environment variables.
+    *   This file MUST NOT be committed to Git.
+    *   Ensure `.env` is listed in the `.gitignore` file.
 
-1. **Use standard solutions** before custom code.
-2. **Create abstractions only when:** code repeats 2+ times, complex logic requires it, or user requests it.
-3. **Solve the current problem only.** NO future features.
-4. **FIX BUGS DIRECTLY. DO NOT REDESIGN. STAY WITHIN SCOPE. DO NOT OVERENGINEER**
+3.  **No Hardcoding:** Absolutely NO secrets, API keys, or environment-specific configurations should be hardcoded directly into the source code.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
