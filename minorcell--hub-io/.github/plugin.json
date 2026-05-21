@@ -1,0 +1,9 @@
+{
+  "name": "minorcell--hub-io",
+  "displayName": "hub-io",
+  "description": "Hub-IO is a headless application for generating stable contributor SVG links for public GitHub repositories.",
+  "version": "1.0.0",
+  "author": "minorcell",
+  "homepage": "https://github.com/minorcell/hub-io",
+  "skills": []
+}
