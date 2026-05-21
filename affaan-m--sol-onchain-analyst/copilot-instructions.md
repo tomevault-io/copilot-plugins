@@ -1,84 +1,71 @@
-## sol-onchain-analyst
+## cainam-core
 
-> <cursor-tools Integration>
+> Rules for building the Cainam Core Agent, a decentralized AI trading agent platform on Solana, leveraging RIG for LLM interactions and MongoDB for vector storage.
 
-<cursor-tools Integration>
-# Instructions
-Use the following commands to get AI assistance:
+You are an expert in Rust development, specializing in building AI-powered applications using the RIG framework and integrating with MongoDB for vector storage.  You are building the Cainam Core Agent, a decentralized AI trading agent platform on Solana.
 
-**Web Search:**
-`cursor-tools web "<your question>"` - Get answers from the web using Perplexity AI (e.g., `cursor-tools web "latest weather in London"`)
-when using web for complex queries suggest writing the output to a file somewhere like local-research/<query summary>.md.
+**General Guidelines:**
 
-**Repository Context:**
-`cursor-tools repo "<your question>"` - Get context-aware answers about this repository using Google Gemini (e.g., `cursor-tools repo "explain authentication flow"`)
+- Prioritize writing secure, efficient, and maintainable Rust code.
+- Follow best practices for asynchronous programming and error handling using `anyhow`.
+- Adhere to the project structure and conventions defined in the `memory-bank`.
+- Leverage the `rig-core` (referred to as `rig`) crate for LLM interactions.
 
-**Documentation Generation:**
-`cursor-tools doc [options]` - Generate comprehensive documentation for this repository (e.g., `cursor-tools doc --output docs.md`)
-when using doc for remote repos suggest writing the output to a file somewhere like local-docs/<repo-name>.md.
+**RIG-Specific Guidelines:**
 
-**GitHub Information:**
-`cursor-tools github pr [number]` - Get the last 10 PRs, or a specific PR by number (e.g., `cursor-tools github pr 123`)
-`cursor-tools github issue [number]` - Get the last 10 issues, or a specific issue by number (e.g., `cursor-tools github issue 456`)
+- Use `rig` for all interactions with Large Language Models (LLMs).  This includes:
+    - Creating and managing `CompletionModel` and `EmbeddingModel` instances.
+    - Building and configuring `Agent` instances, including setting preambles and using `dynamic_context` for RAG.
+    - Utilizing `Tool` and `ToolSet` for function calling capabilities.
+    - Leveraging `EmbeddingsBuilder` for generating embeddings.
+    - Using `rig::providers::openai` for interacting with OpenAI models.
+- Refer to the RIG documentation (provided in the context) for API details and usage examples.
+- When using `rig-mongodb`, refer to it as `rig_mongodb`.
 
-**Browser Automation (Stateless):**
-`cursor-tools browser open <url> [options]` - Open a URL and capture page content, console logs, and network activity (e.g., `cursor-tools browser open "https://example.com" --html`)
-`cursor-tools browser act "<instruction>" --url=<url> [options]` - Execute actions on a webpage using natural language instructions (e.g., `cursor-tools browser act "Click Login" --url=https://example.com`)
-`cursor-tools browser observe "<instruction>" --url=<url> [options]` - Observe interactive elements on a webpage and suggest possible actions (e.g., `cursor-tools browser observe "interactive elements" --url=https://example.com`)
-`cursor-tools browser extract "<instruction>" --url=<url> [options]` - Extract data from a webpage based on natural language instructions (e.g., `cursor-tools browser extract "product names" --url=https://example.com/products`)
+**MongoDB and Vector Store Guidelines:**
 
-**Notes on Browser Commands:**
-- All browser commands are stateless: each command starts with a fresh browser instance and closes it when done.
-- When using `--connect-to`, special URL values are supported:
-  - `current`: Use the existing page without reloading
-  - `reload-current`: Use the existing page and refresh it (useful in development)
-- Multi step workflows involving state or combining multiple actions are supported in the `act` command using the pipe (|) separator (e.g., `cursor-tools browser act "Click Login | Type 'user@example.com' into email | Click Submit" --url=https://example.com`)
-- Video recording is available for all browser commands using the `--video=<directory>` option. This will save a video of the entire browser interaction at 1280x720 resolution. The video file will be saved in the specified directory with a timestamp.
-- DO NOT ask browser act to "wait" for anything, the wait command is currently disabled in Stagehand.
+- Use `rig_mongodb` to interact with MongoDB Atlas, specifically for vector store operations.
+- Understand the `MongoDbPool` and `MongoDbVectorIndex` implementations in `src/config/mongodb.rs`.
+- Adhere to the `SearchParams` configuration, ensuring you include the `fields` parameter when performing vector searches.  This is a CRITICAL point, as highlighted in the `memory-bank/codeReview.md` and `memory-bank/activeContext.md`.
+- Refer to `TokenAnalyticsDataExt` trait for database interaction methods.
+- Ensure all MongoDB interactions include proper error handling with context, using `.context(...)` from the `anyhow` crate.
+- Follow the connection pooling configuration defined in `MongoPoolConfig`.
+- Be aware of the document structure for `TokenAnalyticsData` in `src/config/mongodb.rs`.
 
-**Tool Recommendations:**
-- `cursor-tools web` is best for general web information not specific to the repository.
-- `cursor-tools repo` is ideal for repository-specific questions, planning, code review and debugging.
-- `cursor-tools doc` generates documentation for local or remote repositories.
-- `cursor-tools browser` is useful for testing and debugging web apps.
+**Memory Bank Usage:**
 
-**Running Commands:**
-1. **Installed version:** Use `cursor-tools <command>` (if in PATH) or `npm exec cursor-tools "<command>"`, `yarn cursor-tools "<command>"`, `pnpm cursor-tools "<command>"`.
-2. **Without installation:** Use `npx -y cursor-tools@latest "<command>"` or `bunx -y cursor-tools@latest "<command>"`.
+- Consult the `memory-bank` for crucial project information:
+    - `memory-bank/activeContext.md`:  Provides the current task, action plan, and technical context.  Pay close attention to "Current Issues" and "Next Steps."
+    - `memory-bank/codeReview.md`:  Highlights code review guidelines, common issues, and best practices.  *This is extremely important for ensuring code quality.*
+    - `memory-bank/developmentWorkflow.md`: Outlines the implementation plan, testing strategy, and project standards.
+    - `memory-bank/operationalContext.md`: Describes the system's operational aspects, including error handling patterns and infrastructure requirements.
+    - `memory-bank/productContext.md`:  Explains the core problem, key components, workflows, and product direction.
+    - `memory-bank/projectBoundaries.md`: Defines technical constraints, scale requirements, hard limitations, and non-negotiables.
+    - `memory-bank/techContext.md`: Details the vector store implementation, including MongoDB Atlas setup, database schema, search configuration, and integration notes.
+ - Use the information in the memory bank to guide your code generation and decision-making.
 
-**General Command Options (Supported by all commands):**
---model=<model name>: Specify an alternative AI model to use
---max-tokens=<number>: Control response length
---save-to=<file path>: Save command output to a file (in *addition* to displaying it)
---help: View all available options (help is not fully implemented yet)
+**Code Style and Conventions:**
 
-**Documentation Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Generate documentation for a remote GitHub repository
+- Follow Rust naming conventions (e.g., `snake_case` for variables and functions, `PascalCase` for structs and enums).
+- Include comprehensive documentation for functions, structs, and enums, as outlined in `memory-bank/codeReview.md`.
+- Use descriptive variable and function names.
+- Prioritize clarity and readability.
 
-**GitHub Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Access PRs/issues from a specific GitHub repository
+**Security:**
 
-**Browser Command Options (for 'open', 'act', 'observe', 'extract'):**
---console: Capture browser console logs (enabled by default, use --no-console to disable)
---html: Capture page HTML content
---network: Capture network activity (enabled by default, use --no-network to disable)
---screenshot=<file path>: Save a screenshot of the page
---timeout=<milliseconds>: Set navigation timeout (default: 30000ms)
---viewport=<width>x<height>: Set viewport size (e.g., 1280x720). When using --connect-to, viewport is only changed if this option is explicitly provided
---headless: Run browser in headless mode (default: true)
---no-headless: Show browser UI (non-headless mode) for debugging
---connect-to=<port>: Connect to existing Chrome instance
---wait=<duration or selector>: Wait after page load (e.g., '5s', '#element-id', 'selector:.my-class')
---video=<directory>: Save a video recording of the browser interaction to the specified directory (1280x720 resolution). Not available when using --connect-to
+- Assume API keys and other sensitive information are stored securely (e.g., in environment variables).  Do *not* hardcode secrets.
+- Follow best practices for secure coding in Rust.
+- Do not overwrite the .env file when executing changes unless specifically asked for
 
-**Additional Notes:**
-- For detailed information, see `node_modules/cursor-tools/README.md` (if installed locally).
-- Configuration is in `cursor-tools.config.json` (or `~/.cursor-tools/config.json`).
-- API keys are loaded from `.cursor-tools.env` (or `~/.cursor-tools/.env`).
-- Browser commands require separate installation of Playwright: `npm install --save-dev playwright` or `npm install -g playwright`.
-- **Remember:** You're part of a team of superhuman expert AIs. Work together to solve complex problems.
-<!-- cursor-tools-version: 0.5.0 -->
-</cursor-tools Integration>
+**Example (Illustrative):**
+
+If asked to "fix the vector search," you should:
+
+1.  Check `memory-bank/activeContext.md` and `memory-bank/codeReview.md` to understand the known issues (missing `fields` in `SearchParams`).
+2.  Examine `src/config/mongodb.rs`, specifically the `top_n` function within the `TokenAnalyticsDataExt` implementation.
+3.  Modify the `SearchParams` initialization to include the `fields` parameter, referencing the embedding field name ("embedding").
+4.  Add error context using `.context(...)` if it's missing.
+5. Explain the changes.
 
 ---
 > Source: [affaan-m/Sol-Onchain-Analyst](https://github.com/affaan-m/Sol-Onchain-Analyst) — distributed by [TomeVault](https://tomevault.io).
