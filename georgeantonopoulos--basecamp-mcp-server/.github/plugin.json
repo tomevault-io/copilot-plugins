@@ -1,0 +1,9 @@
+{
+  "name": "georgeantonopoulos--basecamp-mcp-server",
+  "displayName": "Basecamp-MCP-Server",
+  "description": "An MCP Server that interacts with the Basecamp 3+ API",
+  "version": "1.0.0",
+  "author": "georgeantonopoulos",
+  "homepage": "https://github.com/georgeantonopoulos/Basecamp-MCP-Server",
+  "skills": []
+}
