@@ -1,0 +1,44 @@
+{
+  "name": "App-Toolkit-for-Android",
+  "owner": "MihaiCristianCondrea",
+  "repo": "App-Toolkit-for-Android",
+  "description": "App Toolkit is a versatile Android library designed to streamline development by providing pre-built components and utilities that adhere to modern design principles.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MihaiCristianCondrea/App-Toolkit-for-Android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T23:50:41Z"
+}
