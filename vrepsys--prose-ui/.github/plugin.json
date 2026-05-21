@@ -1,0 +1,9 @@
+{
+  "name": "vrepsys--prose-ui",
+  "displayName": "prose-ui",
+  "description": "Refined typography and components for building content-focused websites with Next.js and MDX.",
+  "version": "1.0.0",
+  "author": "vrepsys",
+  "homepage": "https://github.com/vrepsys/prose-ui",
+  "skills": []
+}
