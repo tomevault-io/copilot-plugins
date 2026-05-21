@@ -1,0 +1,9 @@
+{
+  "name": "yapit-tts--yapit",
+  "displayName": "yapit",
+  "description": "Listen to anything. TTS for documents, papers, and web pages.",
+  "version": "1.0.0",
+  "author": "yapit-tts",
+  "homepage": "https://github.com/yapit-tts/yapit",
+  "skills": []
+}
