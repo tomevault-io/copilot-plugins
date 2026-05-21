@@ -1,0 +1,9 @@
+{
+  "name": "palladius--ai-friendly-agents",
+  "displayName": "ai-friendly-agents",
+  "description": "A bunch of friendly agents ready to use with ADK, MCP, A2A et al.",
+  "version": "1.0.0",
+  "author": "palladius",
+  "homepage": "https://github.com/palladius/ai-friendly-agents",
+  "skills": []
+}
