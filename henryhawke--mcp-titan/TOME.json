@@ -2,9 +2,9 @@
   "name": "mcp-titan",
   "owner": "henryhawke",
   "repo": "mcp-titan",
-  "description": "",
+  "description": "This tool is a cutting-edge memory engine that blends real-time learning, persistent three-tier context awareness, and seamless plug-n-play LLM integration to continuously evolve and enrich your AI\u2019s intelligence. ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/henryhawke",
+  "source_url": "https://github.com/henryhawke/mcp-titan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T07:44:03Z"
+  "distributed_at": "2026-05-21T03:46:28Z"
 }
