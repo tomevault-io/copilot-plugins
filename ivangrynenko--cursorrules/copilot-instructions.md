@@ -1,252 +1,497 @@
-## python-security-misconfiguration
+## python-ssrf
 
-> Detect and prevent security misconfigurations in Python applications as defined in OWASP Top 10:2021-A05
+> Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in Python applications as defined in OWASP Top 10:2021-A10
 
- # Python Security Misconfiguration Standards (OWASP A05:2021)
+ # Python Server-Side Request Forgery (SSRF) Standards (OWASP A10:2021)
 
-This rule enforces security best practices to prevent security misconfigurations in Python applications, as defined in OWASP Top 10:2021-A05.
+This rule enforces security best practices to prevent Server-Side Request Forgery (SSRF) vulnerabilities in Python applications, as defined in OWASP Top 10:2021-A10.
 
 <rule>
-name: python_security_misconfiguration
-description: Detect and prevent security misconfigurations in Python applications as defined in OWASP Top 10:2021-A05
+name: python_ssrf
+description: Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in Python applications as defined in OWASP Top 10:2021-A10
 filters:
   - type: file_extension
-    pattern: "\\.(py|ini|cfg|yml|yaml|json|toml)$"
+    pattern: "\\.py$"
   - type: file_path
     pattern: ".*"
 
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Debug mode enabled in production settings
-      - pattern: "DEBUG\\s*=\\s*True|debug\\s*=\\s*true|\"debug\"\\s*:\\s*true|debug:\\s*true"
-        message: "Debug mode appears to be enabled. This should be disabled in production environments as it can expose sensitive information."
+      # Pattern 1: Detect direct use of requests library with user input
+      - pattern: "requests\\.(get|post|put|delete|head|options|patch)\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used directly in HTTP requests. Implement URL validation and allowlisting."
         
-      # Pattern 2: Insecure cookie settings
-      - pattern: "SESSION_COOKIE_SECURE\\s*=\\s*False|session_cookie_secure\\s*=\\s*false|\"session_cookie_secure\"\\s*:\\s*false|session_cookie_secure:\\s*false"
-        message: "Insecure cookie configuration detected. Set SESSION_COOKIE_SECURE to True in production environments."
+      # Pattern 2: Detect urllib usage with user input
+      - pattern: "urllib\\.(request|parse)\\.\\w+\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used directly in urllib functions. Implement URL validation and allowlisting."
         
-      # Pattern 3: Missing CSRF protection
-      - pattern: "CSRF_ENABLED\\s*=\\s*False|csrf_enabled\\s*=\\s*false|\"csrf_enabled\"\\s*:\\s*false|csrf_enabled:\\s*false|WTF_CSRF_ENABLED\\s*=\\s*False"
-        message: "CSRF protection appears to be disabled. Enable CSRF protection to prevent cross-site request forgery attacks."
+      # Pattern 3: Detect http.client usage with user input
+      - pattern: "http\\.client\\.\\w+\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used directly in http.client functions. Implement URL validation and allowlisting."
         
-      # Pattern 4: Insecure CORS settings
-      - pattern: "CORS_ORIGIN_ALLOW_ALL\\s*=\\s*True|cors_origin_allow_all\\s*=\\s*true|\"cors_origin_allow_all\"\\s*:\\s*true|cors_origin_allow_all:\\s*true|Access-Control-Allow-Origin:\\s*\\*"
-        message: "Overly permissive CORS configuration detected. Restrict CORS to specific origins rather than allowing all origins."
+      # Pattern 4: Detect aiohttp usage with user input
+      - pattern: "aiohttp\\.\\w+\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used directly in aiohttp functions. Implement URL validation and allowlisting."
         
-      # Pattern 5: Default or weak secret keys
-      - pattern: "SECRET_KEY\\s*=\\s*['\"]default|SECRET_KEY\\s*=\\s*['\"][a-zA-Z0-9]{1,32}['\"]|secret_key\\s*=\\s*['\"]default|\"secret_key\"\\s*:\\s*\"default|secret_key:\\s*default"
-        message: "Default or potentially weak secret key detected. Use a strong, randomly generated secret key and store it securely."
+      # Pattern 5: Detect httpx usage with user input
+      - pattern: "httpx\\.\\w+\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used directly in httpx functions. Implement URL validation and allowlisting."
         
-      # Pattern 6: Exposed sensitive information in error messages
-      - pattern: "DEBUG_PROPAGATE_EXCEPTIONS\\s*=\\s*True|debug_propagate_exceptions\\s*=\\s*true|\"debug_propagate_exceptions\"\\s*:\\s*true|debug_propagate_exceptions:\\s*true"
-        message: "Exception propagation in debug mode is enabled. This can expose sensitive information in error messages."
+      # Pattern 6: Detect pycurl usage with user input
+      - pattern: "pycurl\\.\\w+\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used directly in pycurl functions. Implement URL validation and allowlisting."
         
-      # Pattern 7: Insecure SSL/TLS configuration
-      - pattern: "SECURE_SSL_REDIRECT\\s*=\\s*False|secure_ssl_redirect\\s*=\\s*false|\"secure_ssl_redirect\"\\s*:\\s*false|secure_ssl_redirect:\\s*false"
-        message: "SSL redirection appears to be disabled. Enable SSL redirection to ensure secure communications."
+      # Pattern 7: Detect subprocess calls with user input that might lead to SSRF
+      - pattern: "subprocess\\.(Popen|call|run|check_output|check_call)\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used in subprocess calls, which might lead to SSRF. Validate and sanitize input."
         
-      # Pattern 8: Missing security headers
-      - pattern: "SECURE_HSTS_SECONDS\\s*=\\s*0|secure_hsts_seconds\\s*=\\s*0|\"secure_hsts_seconds\"\\s*:\\s*0|secure_hsts_seconds:\\s*0"
-        message: "HTTP Strict Transport Security (HSTS) appears to be disabled. Enable HSTS to enforce secure communications."
+      # Pattern 8: Detect os.system calls with user input that might lead to SSRF
+      - pattern: "os\\.(system|popen|spawn)\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used in OS commands, which might lead to SSRF. Validate and sanitize input."
         
-      # Pattern 9: Exposed sensitive directories
-      - pattern: "@app\\.route\\(['\"]/(admin|console|management|config|settings|system)['\"]"
-        message: "Potentially sensitive endpoint exposed without access controls. Ensure proper authentication and authorization for administrative endpoints."
+      # Pattern 9: Detect URL construction with user input
+      - pattern: "(f|r)[\"\']https?://[^\"\']*?\\{[^\\}]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used in URL construction. Implement URL validation and allowlisting."
         
-      # Pattern 10: Default accounts or credentials
-      - pattern: "username\\s*=\\s*['\"]admin['\"]|password\\s*=\\s*['\"]admin|password\\s*=\\s*['\"]password|password\\s*=\\s*['\"]123|user\\s*=\\s*['\"]root['\"]"
-        message: "Default or weak credentials detected. Never use default or easily guessable credentials in any environment."
+      # Pattern 10: Detect URL joining with user input
+      - pattern: "urljoin\\([^,]+,[^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used in URL joining. Implement URL validation and allowlisting."
         
-      # Pattern 11: Insecure file permissions
-      - pattern: "os\\.chmod\\([^,]+,\\s*0o777\\)|os\\.chmod\\([^,]+,\\s*777\\)"
-        message: "Overly permissive file permissions detected. Use the principle of least privilege for file permissions."
+      # Pattern 11: Detect file opening with user input (potential local SSRF)
+      - pattern: "open\\([^,]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential local SSRF vulnerability detected. User-controlled input is being used in file operations. Validate file paths and use path sanitization."
         
-      # Pattern 12: Exposed version information
-      - pattern: "@app\\.route\\(['\"]/(version|build|status|health)['\"]"
-        message: "Endpoints that may expose version information detected. Ensure these endpoints don't reveal sensitive details about your application."
+      # Pattern 12: Detect XML/YAML parsing with user input (potential XXE leading to SSRF)
+      - pattern: "(ET\\.fromstring|ET\\.parse|ET\\.XML|minidom\\.parse|parseString|yaml\\.load)\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential XXE vulnerability that could lead to SSRF detected. User-controlled input is being used in XML/YAML parsing. Use safe parsing methods and disable external entities."
         
-      # Pattern 13: Insecure deserialization
-      - pattern: "pickle\\.loads|yaml\\.load\\([^,)]+\\)|json\\.loads\\([^,)]+,\\s*[^)]*object_hook"
-        message: "Potentially insecure deserialization detected. Use safer alternatives like yaml.safe_load() or validate input before deserialization."
+      # Pattern 13: Detect socket connections with user input
+      - pattern: "socket\\.(socket|create_connection)\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used in socket connections. Implement host/port validation and allowlisting."
         
-      # Pattern 14: Missing timeout settings
-      - pattern: "requests\\.get\\([^,)]+\\)|requests\\.(post|put|delete|patch)\\([^,)]+\\)"
-        message: "HTTP request without timeout setting detected. Always set timeouts for HTTP requests to prevent denial of service."
+      # Pattern 14: Detect FTP connections with user input
+      - pattern: "ftplib\\.FTP\\([^)]*?\\b(request\\.\\w+|params\\[\\'[^\\']+\\'\\]|data\\[\\'[^\\']+\\'\\]|json\\[\\'[^\\']+\\'\\]|args\\.get|form\\.get)"
+        message: "Potential SSRF vulnerability detected. User-controlled input is being used in FTP connections. Implement host validation and allowlisting."
         
-      # Pattern 15: Insecure upload directory
-      - pattern: "UPLOAD_FOLDER\\s*=\\s*['\"][^'\"]*(/tmp|/var/tmp)[^'\"]*['\"]|upload_folder\\s*=\\s*['\"][^'\"]*(/tmp|/var/tmp)[^'\"]*['\"]"
-        message: "Insecure upload directory detected. Use a properly secured directory for file uploads, not temporary directories."
+      # Pattern 15: Detect missing URL validation before making requests
+      - pattern: "def\\s+\\w+\\([^)]*?\\):[^\\n]*?\\n(?:[^\\n]*?\\n)*?[^\\n]*?requests\\.(get|post|put|delete|head|options|patch)\\([^)]*?url\\s*=\\s*[^\\n]*?(?!.*?validate_url)"
+        message: "Missing URL validation before making HTTP requests. Implement URL validation with allowlisting to prevent SSRF attacks."
 
   - type: suggest
     message: |
-      **Python Security Configuration Best Practices:**
+      **Python Server-Side Request Forgery (SSRF) Prevention Best Practices:**
       
-      1. **Environment-Specific Configuration:**
-         - Use different configurations for development, testing, and production
-         - Never enable debug mode in production
-         - Example with environment variables:
+      1. **URL Validation and Allowlisting:**
+         - Implement strict URL validation
+         - Use allowlists for domains, IP ranges, and protocols
+         - Example implementation:
            ```python
-           import os
+           import re
+           import socket
+           import ipaddress
+           from urllib.parse import urlparse
            
-           DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-           SECRET_KEY = os.environ.get('SECRET_KEY')
-           ```
-      
-      2. **Secure Cookie Configuration:**
-         - Enable secure cookies in production
-         - Set appropriate cookie flags
-         - Example for Django:
-           ```python
-           SESSION_COOKIE_SECURE = True
-           SESSION_COOKIE_HTTPONLY = True
-           SESSION_COOKIE_SAMESITE = 'Lax'
-           CSRF_COOKIE_SECURE = True
-           CSRF_COOKIE_HTTPONLY = True
-           ```
-         - Example for Flask:
-           ```python
-           app.config.update(
-               SESSION_COOKIE_SECURE=True,
-               SESSION_COOKIE_HTTPONLY=True,
-               SESSION_COOKIE_SAMESITE='Lax',
-               PERMANENT_SESSION_LIFETIME=timedelta(hours=1)
-           )
-           ```
-      
-      3. **Security Headers:**
-         - Implement HTTP security headers
-         - Example with Flask-Talisman:
-           ```python
-           from flask_talisman import Talisman
+           def is_valid_url(url, allowed_domains=None, allowed_protocols=None, block_private_ips=True):
+               """
+               Validate URLs against allowlists and block private IPs.
+               
+               Args:
+                   url (str): The URL to validate
+                   allowed_domains (list): List of allowed domains
+                   allowed_protocols (list): List of allowed protocols
+                   block_private_ips (bool): Whether to block private IPs
+                   
+               Returns:
+                   bool: True if URL is valid according to rules
+               """
+               if not url:
+                   return False
+                   
+               # Default allowlists if none provided
+               if allowed_domains is None:
+                   allowed_domains = ["example.com", "api.example.com"]
+               if allowed_protocols is None:
+                   allowed_protocols = ["https"]
+                   
+               try:
+                   # Parse URL
+                   parsed_url = urlparse(url)
+                   
+                   # Check protocol
+                   if parsed_url.scheme not in allowed_protocols:
+                       return False
+                       
+                   # Check domain against allowlist
+                   if parsed_url.netloc not in allowed_domains:
+                       return False
+                       
+                   # Block private IPs if enabled
+                   if block_private_ips:
+                       hostname = parsed_url.netloc.split(':')[0]
+                       try:
+                           ip_addresses = socket.getaddrinfo(
+                               hostname, None, socket.AF_INET, socket.SOCK_STREAM
+                           )
+                           for family, socktype, proto, canonname, sockaddr in ip_addresses:
+                               ip = sockaddr[0]
+                               ip_obj = ipaddress.ip_address(ip)
+                               if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_reserved:
+                                   return False
+                       except socket.gaierror:
+                           # DNS resolution failed
+                           return False
+                           
+                   return True
+               except Exception:
+                   return False
            
-           talisman = Talisman(
-               app,
-               content_security_policy={
-                   'default-src': "'self'",
-                   'script-src': "'self'"
-               },
-               strict_transport_security=True,
-               strict_transport_security_max_age=31536000,
-               frame_options='DENY'
-           )
-           ```
-         - Example for Django:
-           ```python
-           SECURE_HSTS_SECONDS = 31536000
-           SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-           SECURE_HSTS_PRELOAD = True
-           SECURE_CONTENT_TYPE_NOSNIFF = True
-           SECURE_BROWSER_XSS_FILTER = True
-           X_FRAME_OPTIONS = 'DENY'
+           # Usage example
+           def fetch_resource(resource_url):
+               if not is_valid_url(resource_url):
+                   raise ValueError("Invalid or disallowed URL")
+                   
+               # Proceed with request
+               import requests
+               return requests.get(resource_url)
            ```
       
-      4. **CORS Configuration:**
-         - Restrict CORS to specific origins
-         - Example with Flask-CORS:
+      2. **Implement Network-Level Controls:**
+         - Use network-level allowlists
+         - Configure firewalls to block outbound requests to internal resources
+         - Example with proxy configuration:
            ```python
-           from flask_cors import CORS
+           import requests
            
-           CORS(app, resources={r"/api/*": {"origins": "https://example.com"}})
+           def safe_request(url):
+               # Configure proxy that implements URL filtering
+               proxies = {
+                   'http': 'http://ssrf-protecting-proxy:8080',
+                   'https': 'http://ssrf-protecting-proxy:8080'
+               }
+               
+               # Set timeout to prevent long-running requests
+               timeout = 10
+               
+               try:
+                   return requests.get(url, proxies=proxies, timeout=timeout)
+               except requests.exceptions.RequestException as e:
+                   # Log the error and handle gracefully
+                   logging.error(f"Request failed: {e}")
+                   return None
            ```
-         - Example for Django:
+      
+      3. **Use Safe Libraries and Wrappers:**
+         - Create wrapper functions for HTTP requests
+         - Implement consistent security controls
+         - Example wrapper:
            ```python
-           CORS_ALLOWED_ORIGINS = [
-               "https://example.com",
-               "https://sub.example.com",
-           ]
-           CORS_ALLOW_CREDENTIALS = True
-           ```
-      
-      5. **Secret Management:**
-         - Use environment variables or secure vaults for secrets
-         - Generate strong random secrets
-         - Example:
-           ```python
-           import secrets
+           import requests
+           from urllib.parse import urlparse
            
-           # Generate a secure random secret key
-           secret_key = secrets.token_hex(32)
-           ```
-      
-      6. **Error Handling:**
-         - Use custom error handlers to prevent information leakage
-         - Example for Flask:
-           ```python
-           @app.errorhandler(Exception)
-           def handle_exception(e):
-               # Log the error
-               app.logger.error(f"Unhandled exception: {str(e)}")
-               # Return a generic error message
-               return jsonify({"error": "An unexpected error occurred"}), 500
-           ```
-      
-      7. **Secure File Uploads:**
-         - Validate file types and sizes
-         - Store uploaded files outside the web root
-         - Use secure permissions
-         - Example:
-           ```python
-           import os
-           from werkzeug.utils import secure_filename
+           class SafeRequestHandler:
+               def __init__(self, allowed_domains=None, allowed_protocols=None):
+                   self.allowed_domains = allowed_domains or ["api.example.com"]
+                   self.allowed_protocols = allowed_protocols or ["https"]
+                   
+               def validate_url(self, url):
+                   parsed_url = urlparse(url)
+                   
+                   # Validate protocol
+                   if parsed_url.scheme not in self.allowed_protocols:
+                       return False
+                       
+                   # Validate domain
+                   if parsed_url.netloc not in self.allowed_domains:
+                       return False
+                       
+                   return True
+                   
+               def request(self, method, url, **kwargs):
+                   if not self.validate_url(url):
+                       raise ValueError(f"URL validation failed for: {url}")
+                       
+                   # Set sensible defaults
+                   kwargs.setdefault('timeout', 10)
+                   
+                   # Make the request
+                   return requests.request(method, url, **kwargs)
+                   
+               def get(self, url, **kwargs):
+                   return self.request('GET', url, **kwargs)
+                   
+               def post(self, url, **kwargs):
+                   return self.request('POST', url, **kwargs)
            
-           UPLOAD_FOLDER = '/path/to/secure/location'
-           ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg'}
-           
-           app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-           app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB limit
-           
-           def allowed_file(filename):
-               return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           # Usage
+           safe_requests = SafeRequestHandler()
+           response = safe_requests.get('https://api.example.com/data')
            ```
       
-      8. **Dependency Management:**
-         - Regularly update dependencies
-         - Use tools like safety or dependabot
-         - Pin dependency versions
-         - Example requirements.txt:
-           ```
-           Flask==2.0.1
-           Werkzeug==2.0.1
-           ```
-      
-      9. **Timeout Configuration:**
-         - Set timeouts for all external service calls
+      4. **Disable Redirects or Implement Redirect Validation:**
+         - Disable automatic redirects
+         - Validate each redirect location
          - Example:
            ```python
            import requests
            
-           response = requests.get('https://api.example.com', timeout=(3.05, 27))
+           def safe_request_with_redirect_validation(url, allowed_domains):
+               # Disable automatic redirects
+               session = requests.Session()
+               response = session.get(url, allow_redirects=False)
+               
+               # Handle redirects manually with validation
+               redirect_count = 0
+               max_redirects = 5
+               
+               while 300 <= response.status_code < 400 and redirect_count < max_redirects:
+                   redirect_url = response.headers.get('Location')
+                   
+                   # Validate redirect URL
+                   parsed_url = urlparse(redirect_url)
+                   if parsed_url.netloc not in allowed_domains:
+                       raise ValueError(f"Redirect to disallowed domain: {parsed_url.netloc}")
+                       
+                   # Follow the redirect with validation
+                   redirect_count += 1
+                   response = session.get(redirect_url, allow_redirects=False)
+                   
+               return response
            ```
       
-      10. **Secure Deserialization:**
-          - Use safe alternatives for deserialization
-          - Validate input before deserialization
-          - Example:
+      5. **Use Metadata Instead of Direct URLs:**
+         - Use resource identifiers instead of URLs
+         - Resolve identifiers server-side
+         - Example:
+           ```python
+           def fetch_resource_by_id(resource_id):
+               # Map of allowed resources
+               resource_map = {
+                   "user_profile": "https://api.example.com/profiles/",
+                   "product_data": "https://api.example.com/products/",
+                   "weather_info": "https://api.weather.com/forecast/"
+               }
+               
+               # Check if resource_id is in allowed list
+               if resource_id not in resource_map:
+                   raise ValueError(f"Unknown resource ID: {resource_id}")
+                   
+               # Construct URL from safe base + ID
+               base_url = resource_map[resource_id]
+               return requests.get(base_url)
+           ```
+      
+      6. **Implement Response Handling Controls:**
+         - Sanitize and validate responses
+         - Prevent response data from being used in further requests
+         - Example:
+           ```python
+           def safe_request_with_response_validation(url):
+               response = requests.get(url)
+               
+               # Check response size
+               if len(response.content) > MAX_RESPONSE_SIZE:
+                   raise ValueError("Response too large")
+                   
+               # Validate content type
+               content_type = response.headers.get('Content-Type', '')
+               if not content_type.startswith('application/json'):
+                   raise ValueError(f"Unexpected content type: {content_type}")
+                   
+               # Parse and validate JSON structure
+               try:
+                   data = response.json()
+                   # Validate expected structure
+                   if 'result' not in data:
+                       raise ValueError("Invalid response structure")
+                   return data
+               except ValueError:
+                   raise ValueError("Invalid JSON response")
+           ```
+      
+      7. **Use Timeouts and Circuit Breakers:**
+         - Set appropriate timeouts
+         - Implement circuit breakers for failing services
+         - Example:
+           ```python
+           import requests
+           from requests.exceptions import Timeout, ConnectionError
+           
+           def request_with_circuit_breaker(url, max_retries=3, timeout=5):
+               retries = 0
+               while retries < max_retries:
+                   try:
+                       return requests.get(url, timeout=timeout)
+                   except (Timeout, ConnectionError) as e:
+                       retries += 1
+                       if retries >= max_retries:
+                           # Circuit is now open
+                           raise ValueError(f"Circuit breaker open for {url}: {str(e)}")
+                       # Exponential backoff
+                       time.sleep(2 ** retries)
+           ```
+      
+      8. **Implement Proper Logging and Monitoring:**
+         - Log all outbound requests
+         - Monitor for unusual patterns
+         - Example:
+           ```python
+           import logging
+           import requests
+           
+           def logged_request(url, **kwargs):
+               # Log the outbound request
+               logging.info(f"Outbound request to: {url}")
+               
+               try:
+                   response = requests.get(url, **kwargs)
+                   # Log the response
+                   logging.info(f"Response from {url}: status={response.status_code}")
+                   return response
+               except Exception as e:
+                   # Log the error
+                   logging.error(f"Request to {url} failed: {str(e)}")
+                   raise
+           ```
+      
+      9. **Use DNS Resolution Controls:**
+         - Implement DNS resolution controls
+         - Block internal DNS names
+         - Example:
+           ```python
+           import socket
+           import ipaddress
+           
+           def is_safe_host(hostname):
+               try:
+                   # Resolve hostname to IP
+                   ip_addresses = socket.getaddrinfo(
+                       hostname, None, socket.AF_INET, socket.SOCK_STREAM
+                   )
+                   
+                   for family, socktype, proto, canonname, sockaddr in ip_addresses:
+                       ip = sockaddr[0]
+                       ip_obj = ipaddress.ip_address(ip)
+                       
+                       # Check if IP is private/internal
+                       if (ip_obj.is_private or ip_obj.is_loopback or 
+                           ip_obj.is_link_local or ip_obj.is_reserved):
+                           return False
+                           
+                   return True
+               except (socket.gaierror, ValueError):
+                   return False
+                   
+           def safe_request_with_dns_check(url):
+               parsed_url = urlparse(url)
+               hostname = parsed_url.netloc.split(':')[0]
+               
+               if not is_safe_host(hostname):
+                   raise ValueError(f"Hostname resolves to unsafe IP: {hostname}")
+                   
+               return requests.get(url)
+           ```
+      
+      10. **Implement Defense in Depth:**
+          - Combine multiple protection mechanisms
+          - Don't rely on a single control
+          - Example comprehensive approach:
             ```python
-            import yaml
+            class SSRFProtectedClient:
+                def __init__(self):
+                    self.allowed_domains = ["api.example.com", "cdn.example.com"]
+                    self.allowed_protocols = ["https"]
+                    self.max_redirects = 3
+                    self.timeout = 10
+                    
+                def is_safe_url(self, url):
+                    # URL validation
+                    parsed_url = urlparse(url)
+                    
+                    # Protocol check
+                    if parsed_url.scheme not in self.allowed_protocols:
+                        return False
+                        
+                    # Domain check
+                    if parsed_url.netloc not in self.allowed_domains:
+                        return False
+                        
+                    # DNS resolution check
+                    hostname = parsed_url.netloc.split(':')[0]
+                    try:
+                        ip_addresses = socket.getaddrinfo(
+                            hostname, None, socket.AF_INET, socket.SOCK_STREAM
+                        )
+                        for family, socktype, proto, canonname, sockaddr in ip_addresses:
+                            ip = sockaddr[0]
+                            ip_obj = ipaddress.ip_address(ip)
+                            if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_reserved:
+                                return False
+                    except socket.gaierror:
+                        return False
+                        
+                    return True
+                    
+                def request(self, method, url, **kwargs):
+                    # Validate URL
+                    if not self.is_safe_url(url):
+                        raise ValueError(f"URL failed security validation: {url}")
+                        
+                    # Set sensible defaults
+                    kwargs.setdefault('timeout', self.timeout)
+                    kwargs.setdefault('allow_redirects', False)
+                    
+                    # Make initial request
+                    session = requests.Session()
+                    response = session.request(method, url, **kwargs)
+                    
+                    # Handle redirects manually with validation
+                    redirect_count = 0
+                    
+                    while 300 <= response.status_code < 400 and redirect_count < self.max_redirects:
+                        redirect_url = response.headers.get('Location')
+                        
+                        # Validate redirect URL
+                        if not self.is_safe_url(redirect_url):
+                            raise ValueError(f"Redirect URL failed security validation: {redirect_url}")
+                            
+                        # Follow the redirect with validation
+                        redirect_count += 1
+                        response = session.request(method, redirect_url, **kwargs)
+                        
+                    # Log the request
+                    logging.info(f"{method} request to {url} completed with status {response.status_code}")
+                    
+                    return response
+                    
+                def get(self, url, **kwargs):
+                    return self.request('GET', url, **kwargs)
+                    
+                def post(self, url, **kwargs):
+                    return self.request('POST', url, **kwargs)
             
-            # Use safe_load instead of load
-            data = yaml.safe_load(yaml_string)
+            # Usage
+            client = SSRFProtectedClient()
+            response = client.get('https://api.example.com/data')
             ```
 
   - type: validate
     conditions:
-      # Check 1: Proper debug configuration
-      - pattern: "DEBUG\\s*=\\s*os\\.environ\\.get\\(['\"]DEBUG['\"]|DEBUG\\s*=\\s*False"
-        message: "Using environment-specific or secure debug configuration."
+      # Check 1: URL validation implementation
+      - pattern: "def\\s+is_valid_url|def\\s+validate_url"
+        message: "URL validation function is implemented."
       
-      # Check 2: Secure cookie settings
-      - pattern: "SESSION_COOKIE_SECURE\\s*=\\s*True|session_cookie_secure\\s*=\\s*true"
-        message: "Using secure cookie configuration."
+      # Check 2: Allowlist implementation
+      - pattern: "allowed_domains|allowed_urls|ALLOWED_HOSTS|whitelist"
+        message: "URL allowlisting is implemented."
       
-      # Check 3: Security headers implementation
-      - pattern: "SECURE_HSTS_SECONDS|X_FRAME_OPTIONS|Talisman\\(|CSP|Content-Security-Policy"
-        message: "Implementing security headers."
+      # Check 3: Safe request wrapper
+      - pattern: "class\\s+\\w+Request|def\\s+safe_request"
+        message: "Safe request wrapper is implemented."
       
-      # Check 4: Proper CORS configuration
-      - pattern: "CORS_ALLOWED_ORIGINS|CORS\\(app,\\s*resources"
-        message: "Using restricted CORS configuration."
+      # Check 4: IP address validation
+      - pattern: "ipaddress\\.ip_address|is_private|is_loopback|is_reserved"
+        message: "IP address validation is implemented to prevent access to internal resources."
 
 metadata:
   priority: high
@@ -254,24 +499,23 @@ metadata:
   tags:
     - security
     - python
-    - configuration
-    - deployment
+    - ssrf
     - owasp
     - language:python
     - framework:django
     - framework:flask
     - framework:fastapi
     - category:security
-    - subcategory:configuration
+    - subcategory:ssrf
     - standard:owasp-top10
-    - risk:a05-security-misconfiguration
+    - risk:a10-server-side-request-forgery
   references:
-    - "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Configuration_Security_Cheat_Sheet.html"
-    - "https://flask.palletsprojects.com/en/latest/security/"
-    - "https://docs.djangoproject.com/en/stable/topics/security/"
-    - "https://fastapi.tiangolo.com/advanced/security/https/"
-    - "https://owasp.org/www-project-secure-headers/"
+    - "https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+    - "https://portswigger.net/web-security/ssrf"
+    - "https://docs.python.org/3/library/urllib.request.html"
+    - "https://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification"
+    - "https://docs.python.org/3/library/ipaddress.html"
 </rule>
 
 ---
