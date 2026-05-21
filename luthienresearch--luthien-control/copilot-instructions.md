@@ -1,53 +1,10 @@
-## exception-handling
+## fail-hard
 
-> **NEVER proceed on catch-all exceptions.** When catching exceptions, follow these guidelines:
+> In general, code should NOT 'fallback' to another solution when something doesn't work as expected *unless specifically told otherwise*. Code should default to failing quickly, loudly, and obviously.
 
-# Exception Handling Rules
+In general, code should NOT 'fallback' to another solution when something doesn't work as expected *unless specifically told otherwise*. Code should default to failing quickly, loudly, and obviously.
 
-**NEVER proceed on catch-all exceptions.** When catching exceptions, follow these guidelines:
-
-### ✅ Allowed: Specific Exception Handling
-```python
-try:
-    risky_operation()
-except ValueError as e:
-    # Handle specific exception and continue
-    logger.warning(f"Invalid value: {e}")
-    return default_value
-except KeyError as e:
-    # Handle specific exception and continue
-    logger.error(f"Missing key: {e}")
-    return None
-```
-
-### ✅ Allowed: Catch-All with Re-raise
-```python
-try:
-    risky_operation()
-except Exception as e:
-    # Log for debugging but always re-raise
-    logger.error(f"Unexpected error in operation: {e}")
-    raise  # Always re-raise catch-all exceptions
-```
-
-### ❌ Prohibited: Catch-All with Continue
-```python
-try:
-    risky_operation()
-except Exception as e:
-    # NEVER do this - catch-all and continue
-    logger.error(f"Error: {e}")
-    return None  # This silently swallows all errors
-```
-
-### ❌ Prohibited: Silent Catch-All
-```python
-try:
-    risky_operation()
-except:
-    # NEVER do this - silent catch-all
-    pass
-```
+Prefer raising exceptions over not doing so. Avoid Union[...] and Optional[T] types as both arguments and return values. Branching conditional logic should correspond to business logic distinctions, not trying to recover from ambigious input values.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
