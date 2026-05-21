@@ -38819,6 +38819,11 @@
       "description": "Chain-reactivity at critical mass"
     },
     {
+      "name": "ai4scientist--nano-scientist",
+      "source": "./ai4scientist--nano-scientist",
+      "description": "An autonomous research agent that turns a topic into a peer-reviewed technical report"
+    },
+    {
       "name": "espennilsen--pi",
       "source": "./espennilsen--pi",
       "description": "pi"
@@ -39017,6 +39022,11 @@
       "name": "berlinbra--alpha-vantage-mcp",
       "source": "./berlinbra--alpha-vantage-mcp",
       "description": "MCP Server for Alpha Advantage API"
+    },
+    {
+      "name": "eliheuer--bezy",
+      "source": "./eliheuer--bezy",
+      "description": "A font editor built with Bevy"
     },
     {
       "name": "xiashao--kaiyantool",
@@ -40294,6 +40304,11 @@
       "description": "Open Source SaaS starter for creating applications with Next.js and Payload"
     },
     {
+      "name": "daangn--graplix",
+      "source": "./daangn--graplix",
+      "description": "Authorization framework for implementing Relation-based Access Control (ReBAC) with the Resolver (Inspired by GraphQL)"
+    },
+    {
       "name": "sugarforever--01coder-agent-skills",
       "source": "./sugarforever--01coder-agent-skills",
       "description": "01coder-agent-skills"
@@ -41069,6 +41084,11 @@
       "description": "  A type-safe, declarative AI agent framework for Swift. Build composable AI pipelines with Steps, Agents, structured           outputs, and tool integration. Features FIFO session management, MCP sup"
     },
     {
+      "name": "gasstationmanager--leantool",
+      "source": "./gasstationmanager--leantool",
+      "description": "A \"code intepreter\" for Lean"
+    },
+    {
       "name": "pikapikaspeedup--antigravity-mobility-cli",
       "source": "./pikapikaspeedup--antigravity-mobility-cli",
       "description": "\u4e00\u4e2a\u5b9e\u73b0 antigravity \u81ea\u7531\u7684\u9879\u76ee\uff0c\u4f60\u7684 OpenClaw \u4f55\u5fc5\u662f OpenClaw"
@@ -41624,6 +41644,11 @@
       "description": "Montelimar - Extract text from anywhere"
     },
     {
+      "name": "reown-com--appkit-web-examples",
+      "source": "./reown-com--appkit-web-examples",
+      "description": "Web dApp examples implementing Reown AppKit"
+    },
+    {
       "name": "mag123c--toktrack",
       "source": "./mag123c--toktrack",
       "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)"
@@ -41907,6 +41932,11 @@
       "name": "haru--redmine-ai-helper",
       "source": "./haru--redmine-ai-helper",
       "description": "Add AI Agent to Redmine"
+    },
+    {
+      "name": "jhb-software--payload-plugins",
+      "source": "./jhb-software--payload-plugins",
+      "description": "Powerful plugins designed to enhance Payload CMS"
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -42949,6 +42979,171 @@
       "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
     },
     {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -43547,6 +43742,11 @@
       "name": "tkxb--iotsploit",
       "source": "./tkxb--iotsploit",
       "description": "iotsploit"
+    },
+    {
+      "name": "jkitchin--litdb",
+      "source": "./jkitchin--litdb",
+      "description": "A literature database"
     },
     {
       "name": "keep-starknet-strange--starknet-agentic",
@@ -45779,6 +45979,11 @@
       "description": "mcp-xmind"
     },
     {
+      "name": "gradion-ai--ipybox",
+      "source": "./gradion-ai--ipybox",
+      "description": "Unified execution environment for Python code, shell commands, and programmatic MCP tool calls."
+    },
+    {
       "name": "ersinkoc--fluidflow",
       "source": "./ersinkoc--fluidflow",
       "description": "Sketch to App"
@@ -46239,6 +46444,11 @@
       "description": "strapi-mcp-server"
     },
     {
+      "name": "hooshyar--flutter-gen-ai-chat-ui",
+      "source": "./hooshyar--flutter-gen-ai-chat-ui",
+      "description": "A modern, customizable chat UI package for Flutter applications, optimized for AI interactions."
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -46507,6 +46717,11 @@
       "name": "vishnusanal--remindme",
       "source": "./vishnusanal--remindme",
       "description": "Set alarms for a specific date in the future (alarm, not a reminder!)"
+    },
+    {
+      "name": "ruchernchong--mcp-server-google-analytics",
+      "source": "./ruchernchong--mcp-server-google-analytics",
+      "description": "Model Context Protocol server for Google Analytics, enabling LLMs to fetch and analyze web analytics data"
     },
     {
       "name": "motoya0118--pavlok-cli-agent",
@@ -46877,6 +47092,11 @@
       "name": "wesleyel--cloudmark",
       "source": "./wesleyel--cloudmark",
       "description": "A universal bookmarklet management tool. Created with cloudflare KV."
+    },
+    {
+      "name": "mamertofabian--bolt-to-github",
+      "source": "./mamertofabian--bolt-to-github",
+      "description": "bolt-to-github"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -50674,6 +50894,11 @@
       "description": "Brain is an elegant Laravel Package that helps you organize your Laravel application using Domain-Driven Design principles through a simple command-line interface."
     },
     {
+      "name": "xiaomingx--awesome-llm",
+      "source": "./xiaomingx--awesome-llm",
+      "description": "Awesome-LLM: a curated list of Large Language Model.\ud83d\udd25 \u5927\u578b\u8bed\u8a00\u6a21\u578b\uff08LLM\uff09\u5df2\u7ecf\u5e2d\u5377\u4e86 \u5168\u7403\uff0c\u4e0d\u518d\u5c40\u9650\u4e8e NLP \u6216 AI \u793e\u533a\u3002\u8fd9\u91cc\u6574\u7406\u4e86\u4e00\u4e9b\u5173\u4e8e\u5927\u578b\u8bed\u8a00\u6a21\u578b\uff0c\u7279\u522b\u662f\u4e0e ChatGPT \u76f8\u5173\u7684\u7814\u7a76\u8bba\u6587\uff0c\u6db5\u76d6\u4e86 LLM \u8bad\u7ec3\u6846\u67b6\u3001\u90e8\u7f72\u5de5\u5177\u3001\u8bfe\u7a0b\u4e0e\u6559\u7a0b\uff0c\u4ee5\u53ca\u6240\u6709\u516c\u5f00\u7684 LLM \u68c0\u67e5\u70b9\u548c API\u3002"
+    },
+    {
       "name": "attilaszasz--sdd-pilot",
       "source": "./attilaszasz--sdd-pilot",
       "description": "Replace chaotic AI code generation with a disciplined, spec-driven workflow. SDD Pilot enforces structured development phases and quality gates, leveraging AI agents to conduct online research for bes"
@@ -52284,6 +52509,21 @@
       "description": "Open source TMS for freight brokers"
     },
     {
+      "name": "ivo-toby--contentful-mcp",
+      "source": "./ivo-toby--contentful-mcp",
+      "description": "MCP (Model Context Protocol) server for the Contentful Management API"
+    },
+    {
+      "name": "flamingo-stack--openframe-oss-tenant",
+      "source": "./flamingo-stack--openframe-oss-tenant",
+      "description": "Code base for OSS OpenFrame single tenant version"
+    },
+    {
+      "name": "delegateas--xrmbedrock",
+      "source": "./delegateas--xrmbedrock",
+      "description": "XrmBedrock replaces XrmFramework as a starting ground for our Dataverse projects"
+    },
+    {
       "name": "bioliminal--bioliminal-mobile-application",
       "source": "./bioliminal--bioliminal-mobile-application",
       "description": "Bioliminal mobile application (Flutter)"
@@ -52742,6 +52982,11 @@
       "name": "gropaul--dash",
       "source": "./gropaul--dash",
       "description": "Local GUI and Data Canvas as a DuckDB extension"
+    },
+    {
+      "name": "ncx-community--ncx",
+      "source": "./ncx-community--ncx",
+      "description": "\u8f7b\u91cf\u7ea7\u3001\u7a33\u5b9a\u3001\u9ad8\u6027\u80fd\u7684\u5185\u7f51\u7a7f\u900f\u5de5\u5177\uff0c\u4e0efrp\u7c7b\u4f3c\uff0c\u65e8\u5728\u5e2e\u52a9\u7528\u6237\u8f7b\u677e\u5c06\u672c\u5730\u670d\u52a1\u66b4\u9732\u5230\u516c\u7f51\u3002A lightweight, stable and high-performance intranet penetration tool. Like frp, Ncx is desighed to help users easily expose local services to the public net"
     },
     {
       "name": "shinchven--nano-banana-skills",
@@ -54437,6 +54682,11 @@
       "name": "cseti007--comfyui-workflows",
       "source": "./cseti007--comfyui-workflows",
       "description": "The purpose of this repository only to share various ComfyUI workflows time to time"
+    },
+    {
+      "name": "zhe-qi--uniez-template",
+      "source": "./zhe-qi--uniez-template",
+      "description": "uniez-template\uff0c\u4e00\u4e2a\u201c\u529f\u80fd\u201d\u548c\u201c\u5f00\u53d1\u4f53\u9a8c\u201d\u4f18\u5148\u7684 uniapp \u6a21\u677f"
     },
     {
       "name": "alonw0--llm-docs-optimizer",
@@ -62369,6 +62619,11 @@
       "description": "Security Scan orchestrator for AI Agents \ud83c\udfaf"
     },
     {
+      "name": "spiko-tech--effect-messaging",
+      "source": "./spiko-tech--effect-messaging",
+      "description": "A message broker toolkit for Effect"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -65934,6 +66189,11 @@
       "description": "Unofficial NHentai mobile app with flutter and bloc"
     },
     {
+      "name": "pfrankov--whisper-server",
+      "source": "./pfrankov--whisper-server",
+      "description": "macOS menu bar app providing a local HTTP server compatible with the OpenAI Whisper API for fast and private audio transcription."
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -67717,6 +67977,11 @@
       "name": "kazuph--mcp-fetch",
       "source": "./kazuph--mcp-fetch",
       "description": "mcp-fetch"
+    },
+    {
+      "name": "kasarlabs--cairo-coder",
+      "source": "./kasarlabs--cairo-coder",
+      "description": "Vibe. Prove. Verify."
     },
     {
       "name": "w3cj--ruta",
@@ -74564,6 +74829,11 @@
       "description": "Runtime by Miren"
     },
     {
+      "name": "haers--zhao-resource",
+      "source": "./haers--zhao-resource",
+      "description": "\u4e2a\u4eba\u8d44\u6e90\u7ad9\uff0c\u5305\u62ec\u5938\u514b\uff0c\u767e\u5bb6\u8bb2\u575b\uff0ck12\u8d44\u6e90\uff0c\u6444\u5f71\u526a\u8f91\uff0c\u8003\u516c\u8003\u7814\uff0c\u82f1\u8bed\u5b66\u4e60\u89c6\u9891\uff0c\u53ef\u4ee5\u76f4\u63a5\u6d4f\u89c8\u5668\u641c\u7d22\u5373\u53ef\u627e\u5230"
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -75757,6 +76027,26 @@
       "name": "mkutz--approvej",
       "source": "./mkutz--approvej",
       "description": "A simple implementation of approval testing for the JVM"
+    },
+    {
+      "name": "huaibaobao--mobilemanger",
+      "source": "./huaibaobao--mobilemanger",
+      "description": "MobileManager \u662f\u4e00\u4e2a\u5f3a\u5927\u7684\u79fb\u52a8\u8bbe\u5907\u7ba1\u7406\u7cfb\u7edf\uff0c\u57fa\u4e8e ADB (Android Debug Bridge) \u5b9e\u73b0\u8bbe\u5907\u63a7\u5236\u548c\u7ba1\u7406\u3002\u7cfb\u7edf\u91c7\u7528 GoFrame + Vue3 Pure Admin + WebScrcpy \u6280\u672f\u6808\uff0c\u63d0\u4f9b\u8bbe\u5907\u7ba1\u7406\u3001\u5e94\u7528\u7ba1\u7406\u3001\u8fdc\u7a0b\u63a7\u5236\u7b49\u529f\u80fd\u3002"
+    },
+    {
+      "name": "magarcia--mcp-server-giphy",
+      "source": "./magarcia--mcp-server-giphy",
+      "description": "An implementation of Giphy integration with Model Context Protocol"
+    },
+    {
+      "name": "mai-with-u--amaidesu",
+      "source": "./mai-with-u--amaidesu",
+      "description": "Amadeus\u7684Typo\u5f62\u6001\uff1aA Mai De Su\uff08\u4e00\u53ea\u9ea6\u9ea6\u54e6\uff09\u3002MaiBot\u7684Vtuber\u9879\u76ee"
+    },
+    {
+      "name": "minggh--demo-mock-server",
+      "source": "./minggh--demo-mock-server",
+      "description": "\u4e00\u4e2a\u6280\u672f\u6f14\u793a\u5408\u96c6\uff0c\u7528\u53ef\u89c6\u5316\u548c\u4ea4\u4e92\u7684\u65b9\u5f0f\u89e3\u91ca\u7f16\u7a0b\u6982\u5ff5\u3001\u7b97\u6cd5\u539f\u7406\u548c\u751f\u6d3b\u4e2d\u7684\u6570\u5b66\u95ee\u9898\u3002"
     },
     {
       "name": "inureyes--gyeol",
@@ -78442,6 +78732,11 @@
       "name": "lymestack--simpleauth4net",
       "source": "./lymestack--simpleauth4net",
       "description": "A lightweight, self-hosted authentication and authorization solution for .NET WebAPI, providing local accounts, role management, and SSO support with minimal setup."
+    },
+    {
+      "name": "alti3--stk-mcp",
+      "source": "./alti3--stk-mcp",
+      "description": "An MCP server allowing LLMs to interact with Ansys/AGI STK - Digital Mission Engineering Software"
     },
     {
       "name": "navikt--cplt",
@@ -85134,6 +85429,16 @@
       "description": "A custom home assistant Integration to help load balancing your house power"
     },
     {
+      "name": "martinhrvn--hive-pal",
+      "source": "./martinhrvn--hive-pal",
+      "description": "A comprehensive mobile-first beekeeping management application to track hives, inspections, and colony health."
+    },
+    {
+      "name": "flywhl--cyantic",
+      "source": "./flywhl--cyantic",
+      "description": "Build complex types from simple blueprints with Pydantic"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -87064,6 +87369,21 @@
       "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
     },
     {
+      "name": "mycelia-tech--mycelia",
+      "source": "./mycelia-tech--mycelia",
+      "description": "Privacy-First AI Memory "
+    },
+    {
+      "name": "envision-research--fractflow",
+      "source": "./envision-research--fractflow",
+      "description": "FractFlow"
+    },
+    {
+      "name": "inpsyde--multisyde",
+      "source": "./inpsyde--multisyde",
+      "description": "A WordPress plugin that explores potential improvements for WordPress Multisite."
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -88922,6 +89242,16 @@
       "name": "lastbotinc--nextjs-supabase-ai-webapp",
       "source": "./lastbotinc--nextjs-supabase-ai-webapp",
       "description": "nextjs-supabase-ai-webapp"
+    },
+    {
+      "name": "atomdeniz--server",
+      "source": "./atomdeniz--server",
+      "description": "server"
+    },
+    {
+      "name": "adamprime--comiccaster",
+      "source": "./adamprime--comiccaster",
+      "description": "RSS feed service for daily funnies and political cartoons"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -90937,6 +91267,16 @@
       "name": "cfircoo--aws-sso-manager",
       "source": "./cfircoo--aws-sso-manager",
       "description": "aws-sso-manager"
+    },
+    {
+      "name": "puppyone-ai--puppyone",
+      "source": "./puppyone-ai--puppyone",
+      "description": "Context drive for your AI agents"
+    },
+    {
+      "name": "sovranbitcoin--sovran",
+      "source": "./sovranbitcoin--sovran",
+      "description": "A mobile Cashu wallet"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -95857,6 +96197,21 @@
       "name": "philra94--homeassistant-hoymiles-cloud",
       "source": "./philra94--homeassistant-hoymiles-cloud",
       "description": "Home Assistant integration for Hoymiles Cloud API, primarily developed for HYT inverters with battery storage systems. This integration provides monitoring of solar production, energy flows, and batte"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "quadbio--cell-annotator",
+      "source": "./quadbio--cell-annotator",
+      "description": "Automatically annotate cell types, consistently across samples."
+    },
+    {
+      "name": "getnao--sylph",
+      "source": "./getnao--sylph",
+      "description": "The open-source company brain. Run your entire company with AI agents, skills, and a self-improving context."
     },
     {
       "name": "develite98--angular-best-practices",
@@ -109054,6 +109409,16 @@
       "description": "req-update-check"
     },
     {
+      "name": "navisbio--aact-clinicaltrials-mcp",
+      "source": "./navisbio--aact-clinicaltrials-mcp",
+      "description": "AACT_clinicaltrials_MCP"
+    },
+    {
+      "name": "jiaqianjing--comfyui-midjourneyhub",
+      "source": "./jiaqianjing--comfyui-midjourneyhub",
+      "description": "ComfyUI \u4e2d\u4f7f\u7528\u5546\u4e1a\u6a21\u578b\u7ed8\u56fe\uff08GPT-Image, MJ, Recraft, Ideogram \u7b49\uff09"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -112002,6 +112367,26 @@
       "name": "diffo-dev--ash-neo4j",
       "source": "./diffo-dev--ash-neo4j",
       "description": "Ash Neo4j datalayer"
+    },
+    {
+      "name": "tx3-lang--trix",
+      "source": "./tx3-lang--trix",
+      "description": "The Tx3 package manager"
+    },
+    {
+      "name": "jialechen7--luckygo",
+      "source": "./jialechen7--luckygo",
+      "description": "LuckyGo\uff1a\u57fa\u4e8e go-zero \u6846\u67b6\u7684\u62bd\u5956\u7cfb\u7edf\u540e\u53f0"
+    },
+    {
+      "name": "minorcell--perfedge",
+      "source": "./minorcell--perfedge",
+      "description": "PerfEdge \u96c6Web\u6027\u80fd\u4f18\u5316\u5b66\u4e60\u3001\u4f53\u9a8c\u4e3a\u4e3b\u7684\u5f00\u6e90\u77e5\u8bc6\u5e93\u3002"
+    },
+    {
+      "name": "middaysan--cpu-affinity-tool",
+      "source": "./middaysan--cpu-affinity-tool",
+      "description": "Cross-platform GUI application for managing CPU affinity of processes"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -115262,6 +115647,21 @@
       "name": "logicshao--autovoicecollation",
       "source": "./logicshao--autovoicecollation",
       "description": "AutoVoiceCollation \u662f\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684\u81ea\u52a8\u8bed\u97f3\u8bc6\u522b\uff08ASR\uff09\u548c\u6587\u672c\u5904\u7406\u5de5\u5177\uff0c\u65e8\u5728\u5e2e\u52a9\u7528\u6237\u5feb\u901f\u6574\u7406\u548c\u6da6\u8272\u8bed\u97f3\u8f6c\u5f55\u6587\u672c\u3002"
+    },
+    {
+      "name": "niznik-dev--cruijff-kit",
+      "source": "./niznik-dev--cruijff-kit",
+      "description": "Tools for conducting social research with LLMs"
+    },
+    {
+      "name": "tosun-si--world-cup-qatar-elt-airflow-dbt",
+      "source": "./tosun-si--world-cup-qatar-elt-airflow-dbt",
+      "description": "This repo via a real world use case, shows how to launch dbt models from a DAG in Apache Airflow."
+    },
+    {
+      "name": "epoko77-ai--design-diversity",
+      "source": "./epoko77-ai--design-diversity",
+      "description": "Claude Code \uc0b0\ucd9c\ubb3c\uc758 \ub514\uc790\uc778 \ub2e4\uc591\uc131 \ud655\ubcf4 \u2014 \uacf5\uac1c \ub514\uc790\uc778 \uc2dc\uc2a4\ud15c\uc744 \uc99d\ub958\ud55c \ud504\ub86c\ud504\ud2b8\ud615 \ub514\uc790\uc778 \ud329 40\uc885 \uce74\ud0c8\ub85c\uadf8 (PPT 20 + \uc6f9 20)"
     },
     {
       "name": "mohiwalla--memes",
@@ -119227,6 +119627,66 @@
       "name": "loufe--ab-av1-gui",
       "source": "./loufe--ab-av1-gui",
       "description": "A simple Python GUI for AB-AV1 conversion of video files to AV1, minimizing file size while maintaining quality. Includes stats, saved config, and more."
+    },
+    {
+      "name": "aonozan--fieldforge",
+      "source": "./aonozan--fieldforge",
+      "description": "FieldForge brings the power of Signed Distance Function (SDF) modeling directly into Blender, leveraging the robust libfive library via the Python bindings. Create complex, non-destructive shapes with"
+    },
+    {
+      "name": "vishaltelangre--aitext",
+      "source": "./vishaltelangre--aitext",
+      "description": "Use AI to do anything with the selected text!"
+    },
+    {
+      "name": "aretw0--vault-seed",
+      "source": "./aretw0--vault-seed",
+      "description": "Template para um vault no Obsidian ou Visual Studio Code (Foam), combinando estrutura m\u00ednima com flexibilidade, inspirado nos m\u00e9todos PARA e Zettelkasten."
+    },
+    {
+      "name": "swordintel--spectra",
+      "source": "./swordintel--spectra",
+      "description": "A....most-in-one intelligence toolkit for crawling, archiving and exploring Telegram with limited thus far features for tracking users and attestation of multiple accounts into one profile."
+    },
+    {
+      "name": "havonz--xxtcloudcontrol",
+      "source": "./havonz--xxtcloudcontrol",
+      "description": "\u7528\u4e8e XXTouch 1.3.8+ \u7684\u4e91\u63a7\u670d\u52a1\u7aef\uff08WebSocket + \u9759\u6001\u524d\u7aef\uff09\u4e0e\u7ba1\u7406\u9762\u677f\u3002"
+    },
+    {
+      "name": "sergiobayona--vector-mcp",
+      "source": "./sergiobayona--vector-mcp",
+      "description": "A server implementation for the Model Context Protocol (MCP) in Ruby."
+    },
+    {
+      "name": "emanuelefaja--habits",
+      "source": "./emanuelefaja--habits",
+      "description": "Build any habit in 30 days."
+    },
+    {
+      "name": "samefarrar--mcp-ankiconnect",
+      "source": "./samefarrar--mcp-ankiconnect",
+      "description": "mcp-ankiconnect"
+    },
+    {
+      "name": "cloudcarver--anclax",
+      "source": "./cloudcarver--anclax",
+      "description": "Anclax is a framework for building serverless and reliable applications in speed of light with confidence"
+    },
+    {
+      "name": "gwen31792--ehentai-toplist-archive",
+      "source": "./gwen31792--ehentai-toplist-archive",
+      "description": "ehentai-toplist-archive"
+    },
+    {
+      "name": "aretw0--vault-seed",
+      "source": "./aretw0--vault-seed",
+      "description": "Template para um vault no Obsidian ou Visual Studio Code (Foam), combinando estrutura m\u00ednima com flexibilidade, inspirado nos m\u00e9todos PARA e Zettelkasten."
+    },
+    {
+      "name": "z-fetch--z-fetch",
+      "source": "./z-fetch--z-fetch",
+      "description": "The pragmatic native fetch API wrapper for JavaScript."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -128124,6 +128584,21 @@
       "description": "**In development and testing** This multi-platform system combats content scraping by unauthorized AI bots targeting creative, FOSS, or documentation sites. It employs a multi-layered defense strategy"
     },
     {
+      "name": "sukechannnn--giff",
+      "source": "./sukechannnn--giff",
+      "description": "Interactive terminal UI for staging Git diffs."
+    },
+    {
+      "name": "soyplane-io--soyplane",
+      "source": "./soyplane-io--soyplane",
+      "description": "A GitOps-first Terraform operator for Kubernetes. Secure, declarative, and OpenTofu-ready."
+    },
+    {
+      "name": "lgcarrier--xrpl-mcp-server",
+      "source": "./lgcarrier--xrpl-mcp-server",
+      "description": "XRP Ledger MCP Server"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -134087,6 +134562,31 @@
       "name": "one-eyed-fish--devflow-skills",
       "source": "./one-eyed-fish--devflow-skills",
       "description": "devflow-skills"
+    },
+    {
+      "name": "ak1ra-lab--sing-box-tproxy",
+      "source": "./ak1ra-lab--sing-box-tproxy",
+      "description": "configure sing-box as a transparent proxy with Ansible"
+    },
+    {
+      "name": "tomribbens--factorios",
+      "source": "./tomribbens--factorios",
+      "description": "A joke Linux distribution whose only purpose is playing Factorio."
+    },
+    {
+      "name": "jacksonpires--rails-realtime-erd",
+      "source": "./jacksonpires--rails-realtime-erd",
+      "description": "Live Mermaid ERD viewer for any Rails app, mounted as a real-time route, powered by Hotwire."
+    },
+    {
+      "name": "zauberzeug--feldfreund-devkit-ros",
+      "source": "./zauberzeug--feldfreund-devkit-ros",
+      "description": "Control your Feldfreund autonomous weeding platform with ROS2"
+    },
+    {
+      "name": "annmys--goclaw",
+      "source": "./annmys--goclaw",
+      "description": "goclaw"
     },
     {
       "name": "yschimke--compose-ai-tools",
