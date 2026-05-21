@@ -1,0 +1,9 @@
+{
+  "name": "buildthehomelab--storage-planner",
+  "displayName": "storage-planner",
+  "description": "Interactive RAID storage planner with a server rack UI: visualize drive configs, estimate usable capacity and performance across ZFS, Unraid, SnapRAID and more.",
+  "version": "1.0.0",
+  "author": "buildthehomelab",
+  "homepage": "https://github.com/buildthehomelab/storage-planner",
+  "skills": []
+}
