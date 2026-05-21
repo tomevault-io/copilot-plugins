@@ -1,178 +1,66 @@
-## tanstack-start-elysia-better-auth-bun
+## coding-standards
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - Write clean, readable code with feature-based organization
 
-# CLAUDE.md
+# Coding Standards
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Core Principles
 
-## Project Overview
+- Write clean, readable code with feature-based organization
+- Keep files small and focused (<200 lines)
+- Use clear, consistent naming and prioritize modularity
+- Always use object as function parameter
+- Always use arrow functions for class methods
+- Always return objects from hooks and async functions
 
-This is a full-stack monorepo using Bun workspaces with TanStack Start frontend and Elysia backend. The project demonstrates clean architecture with feature-based organization.
+## Code Style
 
-### Tech Stack
+### File Naming & Structure
 
-- **Frontend**: TanStack Start (React Router + SSR), TanStack Query, Jotai (state), shadcn/ui
-- **Backend**: Elysia.js with Better Auth, Swagger docs
-- **Database**: Drizzle ORM with SQLite/Turso
-- **Runtime**: Bun
-- **Styling**: Tailwind CSS
+- Use kebab-case for all file and directory names
+- Organize directories by feature with underscore prefix for feature-specific folders:
+  - `features/feature/_components/`, `features/feature/_controllers/`, etc.
+- Shared components should NOT use underscore prefix:
+  - `components/ui/`, `components/layout/`, `components/shared/`
 
-## Common Commands
+### Imports & Paths
 
-### Development
+- Use absolute imports with the `~` prefix for all project files
+- Import UI components from `~/components/ui/*` NOT from `~/ui/*`
+- Always use direct imports instead of barrel (index) files for better tree-shaking
+- Prefer consistent import ordering: React/external libraries first, followed by absolute imports
 
-```bash
-# Start all apps in dev mode
-bun dev
+### TypeScript & React
 
-# Install dependencies
-bun install
+- Use TypeScript with proper types; prefer interfaces over types for object shapes
+- Implement functional components with TypeScript interfaces for props
+- Use functional and declarative programming patterns
 
-# Run specific app
-bun --filter=backend dev
-bun --filter=web dev
-```
+## Hook Design
 
-### Code Quality
+- Create single-responsibility hooks that return one state or action
+- All hooks MUST return objects even when returning a single value (e.g., `return { isPending }` not `return isPending`)
+- Avoid hooks that return multiple states or actions to prevent unnecessary re-renders
+- Use composition to combine smaller hooks where needed
 
-```bash
-# Type check all packages
-bun typecheck
+## Component Design
 
-# Lint all packages
-bun lint
-bun lint:fix
+- Use compound component design pattern for complex components
+- Follow shadcn/ui patterns for component composition
+- Create small, reusable components that can be composed together
+- Isolate re-renders to the smallest possible component
+- All component event handlers should use object parameters (e.g., `onClick={({ id }) => handleClick({ id })}`)
 
-# Format all packages
-bun format
-bun format:fix
+## Component Performance
 
-# Check workspace dependencies
-bun lint:ws
-```
+- Create smaller components that consume only the specific hooks they need
+- Break UI into logical, focused components to isolate re-renders
 
-### Database Operations
+## Function Returns
 
-```bash
-# Generate migrations
-bun db:generate
-
-# Push schema to database
-bun db:push
-
-# Seed database
-bun db:seed
-
-# Open Drizzle Studio
-bun db:studio
-```
-
-### Build & Clean
-
-```bash
-# Build all packages
-bun build
-
-# Clean all node_modules and build artifacts
-bun clean
-```
-
-## Architecture
-
-### Monorepo Structure
-
-```
-apps/
-├── backend/          # Elysia.js API server
-└── web/              # TanStack Start frontend
-packages/
-├── backend-client/   # Type-safe API client (Eden Treaty)
-└── db/              # Drizzle ORM schemas and migrations
-tooling/             # Shared configs (ESLint, Prettier, TypeScript, Tailwind)
-```
-
-### Clean Architecture Layers
-
-- **Domain**: Business entities, repository interfaces (`*-entity.ts`, `*-repository.ts`)
-- **Application**: Services, use cases (`*-service.ts`)
-- **Infrastructure**: Repository implementations (`*-drizzle-db-repo.ts`, `*-api-repo.ts`)
-- **Presentation**: Controllers, components (`*-controller.ts`, `*-routes.ts`)
-
-### Feature Organization
-
-Both frontend and backend use feature-based organization:
-
-```
-features/
-└── feature-name/
-    ├── _components/     # Feature-specific UI components
-    ├── _controllers/    # State management controllers
-    ├── _domain/         # Domain models and interfaces
-    ├── _lib/           # Infrastructure implementations
-    └── _services/      # Business logic services
-```
-
-## Key Patterns
-
-### Backend (Elysia)
-
-- Use Elysia instances as controllers with method chaining
-- Group routes with prefixes and include Swagger `detail` property
-- Class-based services with arrow function methods
-- All methods accept/return objects for consistency
-
-### Frontend (TanStack Start)
-
-- Class-based controllers with Jotai atoms for state
-- All hooks return objects (even single values): `return { isPending }`
-- Repository pattern for data fetching with descriptive naming
-- Component composition following shadcn/ui patterns
-
-### Authentication
-
-- Better Auth integration on both frontend and backend
-- Session management with type-safe exports
-- Authentication middleware in backend
-
-### Database
-
-- Drizzle ORM with type-safe schemas
-- Repository pattern for data access
-- Migrations managed via Drizzle Kit
-
-## Development Guidelines
-
-### Code Style
-
-- Use arrow functions for class methods
-- Object parameters and returns for all functions
-- Absolute imports with `~` prefix
-- Direct imports (avoid barrel files)
-- Feature-specific folders use underscore prefix
-
-### File Naming
-
-- kebab-case for all files and directories
-- Descriptive repository names: `entity-infrastructure-type-repo.ts`
-- Clear entity/model separation: `*-entity.ts` vs `*-model.ts`
-
-### Performance
-
-- Small, focused components with isolated re-renders
-- Single-responsibility hooks
-- Proper TypeScript with interfaces over types
-
-## Environment Setup
-
-The project uses a shared `.env` file at the root level. Backend and web apps access it via `with-env` scripts that load environment variables.
-
-## Key Features Implemented
-
-- **Count**: File-based persistence demo
-- **Messages**: CRUD operations with database persistence
-- **Pokemon**: External API integration with caching
-- **Auth**: Complete authentication flow with Better Auth
+- All functions MUST return objects if needed, even for single values (e.g., `return { result }` not `return result`)
+- All hooks MUST return objects, even for single values (e.g., `return { isPending }` not `return isPending`)
+- All controller methods that return data should return objects for destructuring
 
 ---
 > Source: [masrurimz/tanstack-start-elysia-better-auth-bun](https://github.com/masrurimz/tanstack-start-elysia-better-auth-bun) — distributed by [TomeVault](https://tomevault.io).
