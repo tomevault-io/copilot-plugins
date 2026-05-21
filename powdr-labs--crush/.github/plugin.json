@@ -1,0 +1,9 @@
+{
+  "name": "powdr-labs--crush",
+  "displayName": "crush",
+  "description": "Compiles WebAssembly into a ZK friendly IR with infinite-registers and write-once memory.",
+  "version": "1.0.0",
+  "author": "powdr-labs",
+  "homepage": "https://github.com/powdr-labs/crush",
+  "skills": []
+}
