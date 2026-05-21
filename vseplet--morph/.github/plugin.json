@@ -1,0 +1,9 @@
+{
+  "name": "vseplet--morph",
+  "displayName": "morph",
+  "description": "Embeddable fullstack library designed for creating Hypermedia-Driven Applications without a build step, based on HTMX and Hono",
+  "version": "1.0.0",
+  "author": "vseplet",
+  "homepage": "https://github.com/vseplet/morph",
+  "skills": []
+}
