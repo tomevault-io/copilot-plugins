@@ -1,0 +1,9 @@
+{
+  "name": "j03-dev--oxapy",
+  "displayName": "oxapy",
+  "description": "OxAPY is python HTTP server library build in Rust",
+  "version": "1.0.0",
+  "author": "j03-dev",
+  "homepage": "https://github.com/j03-dev/oxapy",
+  "skills": []
+}
