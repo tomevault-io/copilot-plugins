@@ -1,0 +1,9 @@
+{
+  "name": "joachimhodana--dbt-doctor",
+  "displayName": "dbt-doctor",
+  "description": "Your agent writes bad dbt. This catches it.",
+  "version": "1.0.0",
+  "author": "joachimhodana",
+  "homepage": "https://github.com/joachimhodana/dbt-doctor",
+  "skills": []
+}
