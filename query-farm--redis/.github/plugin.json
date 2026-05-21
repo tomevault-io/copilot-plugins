@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--redis",
+  "displayName": "redis",
+  "description": "DuckDB Redis Client community extension",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/redis",
+  "skills": []
+}
