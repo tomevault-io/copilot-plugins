@@ -1,92 +1,102 @@
-## testing-pytest-commands
+## testing-what-to-test
 
-> Pytest command format, flags, timeout configuration, and reading test results.
+> What to test — never test library functionality, never hardcode Typed defaults, documentation rules pointer.
 
-# Pytest Commands and Timeout Configuration
+# What to Test
 
-## Test Timeout Configuration
+- Write comprehensive test coverage for all features
+- Update tests immediately when making breaking changes
+- Test both success and failure cases (use `pytest.raises` for expected exceptions)
+- Include edge cases and error conditions (empty inputs, `None` values, boundary values, concurrent access)
+- Use descriptive test names: `test_worker_stop_during_active_submission_cancels_pending_futures`
+- Follow the AAA pattern: Arrange (setup), Act (call), Assert (verify)
+- Use `@pytest.mark.parametrize` to cover multiple scenarios from a single test function
+- Never catch and suppress test failures — fix the code or the test
 
-**ALL tests have a 60-second timeout by default** to prevent hanging tests.
+## Never Test Imported Library Functionality (CRITICAL — LLM Anti-Pattern)
 
-- **Configured in**: `tests/conftest.py` via `pytest_configure` hook
-- **Default**: 60 seconds per test
-- **Method**: Thread-based timeout (compatible with Ray and multiprocessing)
-- **Override**: Use `pytest --timeout=120` to change timeout. NEVER make it less than 60.
-- **Disable**: Use `pytest --timeout=0` to disable timeout
-- **On Timeout**: Full stack trace is displayed for debugging
-- **Behavior**: Timeout marks test as **FAILED** but **continues to next test** (non-fatal)
+**Tests must target YOUR code's behavior, not the behavior of imported libraries.** If a function works because a library (morphic, Pydantic, Ray, etc.) does its job correctly, you do not need a test that verifies the library works. The library's own test suite covers that. Your test suite covers YOUR logic.
 
-**Why 60 seconds?**: Most tests should complete in < 60 seconds. The 60-second timeout catches hanging tests (deadlocks, infinite loops, semaphore issues) while allowing slower integration tests to complete.
+**Why LLMs produce this anti-pattern:** LLM coding assistants reflexively generate "smoke tests" that verify framework behavior rather than application behavior. When asked to "add tests for `@validate`," an LLM will write tests that pass a wrong type and assert `ValidationError` is raised. This tests that `morphic.validate` works — it does not test that your function computes the correct result, handles edge cases, or integrates correctly with the rest of the system. These tests provide zero value: they will never fail unless someone upgrades morphic to a broken version, which is not your test suite's job to catch.
 
-**Important**: Timeouts do NOT stop the entire test suite! When a test times out:
-1. The test is marked as **FAILED** with timeout information
-2. Full stack traces are displayed showing where the hang occurred
-3. The test runner **continues to the next test**
-4. All remaining tests will still run
+**The decision rule:** before writing a test, ask: **"If this test fails, does it mean MY code has a bug, or does it mean a LIBRARY has a bug?"** If the answer is "a library has a bug," do not write the test.
 
-This allows you to identify multiple hanging tests in a single test run.
+| ❌ Tests that target library behavior (NEVER write these) | ✅ Tests that target YOUR behavior (ALWAYS write these) |
+|---|---|
+| `@validate` rejects wrong types with `ValidationError` | `wait()` returns done and not-done sets with correct futures in each |
+| `Typed` fields are immutable after construction | `gather()` preserves input order when given a list of futures |
+| `Registry.of("name")` resolves the correct subclass | `WorkerBuilder` raises `ValueError` for incompatible mode + limits combo |
+| `model_dump()` serializes all fields | Worker pool distributes tasks across workers via load balancer |
+| `@field_validator` runs during construction | `RetryConfig` retry loop stops after `max_retries` exhausted |
+| Pydantic coerces `"25"` to `int(25)` | `LimitSet.acquire()` blocks when capacity is exhausted |
+| `ray.wait()` returns ready and not-ready refs | `stop()` cancels pending futures when called during active submission |
 
-**Example timeout error output**:
-```
-++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++
-~~~~ Stack of MainThread (140735268369408) ~~~~
-File "/path/to/test.py", line 123, in test_something
-    result = future.result()
-File "/path/to/future.py", line 456, in result
-    self._wait()
-```
+**Specific libraries this applies to in this codebase:**
+- `morphic.validate`, `morphic.Typed`, `morphic.Registry`, `morphic.MutableTyped` — assume they work
+- `pydantic.ValidationError`, `@field_validator`, `model_dump()`, `PrivateAttr` — assume they work
+- `ray`, `ray.wait()`, `ray.get()`, `ray.remote` — assume they work
+- `concurrent.futures`, `threading`, `multiprocessing` — assume they work
+- `pytest.raises`, `pytest.mark.parametrize`, pytest fixtures — assume they work
 
-## Running Tests
+**What you SHOULD test:** the logic YOUR code adds on top of these libraries. If `gather()` polls futures with a `PollingStrategy` and returns results in input order, test that the ordering is preserved and the polling terminates — not that `ray.wait()` returns the correct ObjectRefs or that `@validate` rejects a dict where a `List[Future]` is expected.
 
-**Standard pytest command format**:
+## Never Hardcode Typed Default Values in Tests (CRITICAL)
 
-```bash
-pytest --full-trace -rf <test-dir-or-file-or-test-name>
-```
+**When testing a method that receives parameters from a `Typed` class's fields, use `ClassName.param_default_values` to supply defaults — never re-type the values manually.** `param_default_values` is a `@classproperty` on every Morphic `Typed` class that returns a `Dict[str, Any]` of all fields that have defaults, mapped to their default values.
 
-**What is `<test-dir-or-file-or-test-name>`?**
+**Why this matters:**
 
-This is the pytest target specifying what to test. It can be:
+1. **Silent divergence.** When a class field default changes (e.g., `GlobalDefaults.worker_timeout` moves from `30.0` to `60.0`), every test that hardcodes `timeout=30.0` is now testing against a stale value. The test still passes — it passes the old default explicitly — so nobody discovers that the new default is not exercised in tests. The test provides false confidence.
 
-- **A directory**: `tests/core/retry/` - Run all tests in the directory
-- **A specific file**: `tests/core/retry/test_worker_retry.py` - Run all tests in the file
-- **A specific test class**: `tests/core/retry/test_worker_retry.py::TestBasicRetries` - Run all tests in the class
-- **A specific test method**: `tests/core/retry/test_worker_retry.py::TestBasicRetries::test_retry_success_after_failures` - Run a single test
-- **A specific parametrized test**: `tests/core/retry/test_worker_retry.py::TestBasicRetries::test_retry_success_after_failures[thread]` - Run one specific parameter variant
+2. **Redundant maintenance burden.** A `Typed` class with 8 defaulted fields produces 8 magic numbers that must be synchronized between the class definition and every test that calls the method. When a field is renamed (e.g., `timeout` → `worker_timeout`), every test must be updated manually. With `param_default_values`, the rename propagates automatically.
 
-**Examples**:
-```bash
-# Run all retry tests
-pytest --full-trace -rf tests/core/retry/
+3. **Tests that hardcode defaults test nothing.** If a test passes `max_retries=3` and the class default is `max_retries=3`, the test is not verifying that the class default is correct — it is bypassing the class default entirely and substituting its own value. The test would pass even if the class default were changed to `max_retries=10`, because the test never reads the class default. This is a test that appears to cover a code path but actually covers a hardcoded constant.
 
-# Run a specific test file
-pytest --full-trace -rf tests/core/retry/test_worker_retry.py
+**The pattern:**
 
-# Run a specific test class
-pytest --full-trace -rf tests/core/retry/test_worker_retry.py::TestBasicRetries
-
-# Run a specific test method
-pytest --full-trace -rf tests/core/retry/test_worker_retry.py::TestBasicRetries::test_retry_success_after_failures
-
-# Run a specific parametrized variant
-pytest --full-trace -rf 'tests/core/retry/test_worker_retry.py::TestBasicRetries::test_retry_success_after_failures[thread]'
+```python
+# ❌ Bad: hardcoded defaults that duplicate RetryConfig class fields
+retry_config = RetryConfig(
+    num_retries=3,                # duplicates RetryConfig.num_retries
+    retry_algorithm="exponential", # duplicates RetryConfig.retry_algorithm
+    retry_wait=2.0,               # duplicates RetryConfig.retry_wait
+    retry_jitter=0.7,             # duplicates RetryConfig.retry_jitter
+)
 ```
 
-**What do the flags mean?**:
-- `--full-trace`: Show complete traceback information for errors (helps with debugging)
-- `-rf`: Report extra summary info for failed tests (r = report, f = failed)
+```python
+# ✅ Good: splat the class defaults, override only what the test cares about
+retry_config = RetryConfig(
+    **RetryConfig.param_default_values,  # all defaults from the Typed class
+    num_retries=5,  # test-specific override
+)
+```
 
-**Optional flags you can add**:
-- `-x`: Stop on first failure (useful when debugging one specific issue)
-- `-v`: Verbose output showing all test names
-- `-s`: Disable output capture (shows print statements in real-time)
-- `--timeout=300`: Set custom timeout (default is 60s from conftest.py)
+**How `param_default_values` works:** It reads the Pydantic JSON schema and returns a dict of `{field_name: default_value}` for every field that has an explicit default. Fields without defaults (mandatory fields) are not included. This means `**RetryConfig.param_default_values` supplies exactly the fields that would be auto-filled if you constructed a `RetryConfig()` with no arguments — and nothing more.
 
-**CRITICAL - NEVER DO THIS**:
-- ❌ `pytest -q` - Suppresses output, makes debugging impossible
-- ❌ `pytest --tb=line` - Only shows one line per failure, hides context
-- ❌ `pytest -qq` - Ultra-quiet mode, completely useless for debugging
-- ❌ `pytest ... 2>&1 | tail` - Hides progress and real-time output
+**When a test SHOULD hardcode a value:** When the test is specifically verifying behavior under a non-default value. For example, `test_fibonacci_backoff` should pass `retry_algorithm="fibonacci"` explicitly, because the test exists to verify Fibonacci behavior. The explicit value overrides the splatted default:
+
+```python
+# ✅ Good: test-specific override on top of class defaults
+retry_config = RetryConfig(
+    **RetryConfig.param_default_values,
+    retry_algorithm="fibonacci",  # explicitly overrides the default
+    num_retries=5,                # test needs exactly 5 retries
+)
+```
+
+## Documentation
+
+**CRITICAL**: See [documentation-practices.mdc](mdc:.cursor/rules/documentation-practices.mdc) for comprehensive documentation rules.
+
+**Key principles**:
+- ❌ **NEVER create summary .md files** documenting completed work
+- ✅ **Provide structured chat summaries** at end of each session
+- ✅ **Update architecture docs** for design decisions and historical context
+- ✅ **Update user guides** ONLY when user-facing behavior changes
+- ✅ **Update API docstrings** to reference config keys for defaults
+- ✅ **Add testcases** for novel edge cases with detailed docstrings
+- ❌ **DO NOT ADD DEMO SCRIPTS OR DEMO MARKDOWN FILES**
 
 ---
 > Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
