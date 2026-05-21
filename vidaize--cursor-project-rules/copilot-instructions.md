@@ -1,71 +1,58 @@
-## 01-openai
+## 10-google-generative-ai
 
-> Learn how to use the OpenAI provider for the AI SDK.
+> Learn how to use Google Generative AI Provider.
 
 
-# OpenAI Provider
+# Google Generative AI Provider
 
-The [OpenAI](mdc:https:/openai.com) provider contains language model support for the OpenAI responses, chat, and completion APIs, as well as embedding model support for the OpenAI embeddings API.
+The [Google Generative AI](mdc:https:/ai.google/discover/generativeai) provider contains language and embedding model support for
+the [Google Generative AI](mdc:https:/ai.google.dev/api/rest) APIs.
 
 ## Setup
 
-The OpenAI provider is available in the `@ai-sdk/openai` module. You can install it with
+The Google provider is available in the `@ai-sdk/google` module. You can install it with
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
-    <Snippet text="pnpm add @ai-sdk/openai" dark />
+    <Snippet text="pnpm add @ai-sdk/google" dark />
   </Tab>
   <Tab>
-    <Snippet text="npm install @ai-sdk/openai" dark />
+    <Snippet text="npm install @ai-sdk/google" dark />
   </Tab>
   <Tab>
-    <Snippet text="yarn add @ai-sdk/openai" dark />
+    <Snippet text="yarn add @ai-sdk/google" dark />
   </Tab>
 </Tabs>
 
 ## Provider Instance
 
-You can import the default provider instance `openai` from `@ai-sdk/openai`:
+You can import the default provider instance `google` from `@ai-sdk/google`:
 
 ```ts
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 ```
 
-If you need a customized setup, you can import `createOpenAI` from `@ai-sdk/openai` and create a provider instance with your settings:
+If you need a customized setup, you can import `createGoogleGenerativeAI` from `@ai-sdk/google` and create a provider instance with your settings:
 
 ```ts
-import { createOpenAI } from '@ai-sdk/openai';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 
-const openai = createOpenAI({
-  // custom settings, e.g.
-  compatibility: 'strict', // strict mode, enable when using the OpenAI API
+const google = createGoogleGenerativeAI({
+  // custom settings
 });
 ```
 
-You can use the following optional settings to customize the OpenAI provider instance:
+You can use the following optional settings to customize the Google Generative AI provider instance:
 
 - **baseURL** _string_
 
   Use a different URL prefix for API calls, e.g. to use proxy servers.
-  The default prefix is `https://api.openai.com/v1`.
+  The default prefix is `https://generativelanguage.googleapis.com/v1beta`.
 
 - **apiKey** _string_
 
-  API key that is being sent using the `Authorization` header.
-  It defaults to the `OPENAI_API_KEY` environment variable.
-
-- **name** _string_
-
-  The provider name. You can set this when using OpenAI compatible providers
-  to change the model provider property. Defaults to `openai`.
-
-- **organization** _string_
-
-  OpenAI Organization.
-
-- **project** _string_
-
-  OpenAI project.
+  API key that is being sent using the `x-goog-api-key` header.
+  It defaults to the `GOOGLE_GENERATIVE_AI_API_KEY` environment variable.
 
 - **headers** _Record&lt;string,string&gt;_
 
@@ -78,525 +65,110 @@ You can use the following optional settings to customize the OpenAI provider ins
   You can use it as a middleware to intercept requests,
   or to provide a custom fetch implementation for e.g. testing.
 
-- **compatibility** _"strict" | "compatible"_
-
-  OpenAI compatibility mode. Should be set to `strict` when using the OpenAI API,
-  and `compatible` when using 3rd party providers. In `compatible` mode, newer
-  information such as `streamOptions` are not being sent, resulting in `NaN`
-  token usage. Defaults to 'compatible'.
-
 ## Language Models
 
-The OpenAI provider instance is a function that you can invoke to create a language model:
+You can create models that call the [Google Generative AI API](mdc:https:/ai.google.dev/api/rest) using the provider instance.
+The first argument is the model id, e.g. `gemini-1.5-pro-latest`.
+The models support tool calls and some have multi-modal capabilities.
 
 ```ts
-const model = openai('gpt-4-turbo');
+const model = google('gemini-1.5-pro-latest');
 ```
 
-It automatically selects the correct API based on the model id.
-You can also pass additional settings in the second argument:
+<Note>
+  You can use fine-tuned models by prefixing the model id with `tunedModels/`,
+  e.g. `tunedModels/my-model`.
+</Note>
+
+Google Generative AI models support also some model specific settings that are not part of the [standard call settings](mdc:docs/ai-sdk-core/settings).
+You can pass them as an options argument:
 
 ```ts
-const model = openai('gpt-4-turbo', {
-  // additional settings
+const model = google('gemini-1.5-pro-latest', {
+  safetySettings: [
+    { category: 'HARM_CATEGORY_UNSPECIFIED', threshold: 'BLOCK_LOW_AND_ABOVE' },
+  ],
 });
 ```
 
-The available options depend on the API that's automatically chosen for the model (see below).
-If you want to explicitly select a specific model API, you can use `.chat` or `.completion`.
+The following optional settings are available for Google Generative AI models:
 
-### Example
+- **cachedContent** _string_
 
-You can use OpenAI language models to generate text with the `generateText` function:
+  Optional. The name of the cached content used as context to serve the prediction.
+  Format: cachedContents/\{cachedContent\}
+
+- **structuredOutputs** _boolean_
+
+  Optional. Enable structured output. Default is true.
+
+  This is useful when the JSON Schema contains elements that are
+  not supported by the OpenAPI schema version that
+  Google Generative AI uses. You can use this to disable
+  structured outputs if you need to.
+
+  See [Troubleshooting: Schema Limitations](mdc:#schema-limitations) for more details.
+
+- **safetySettings** _Array\<\{ category: string; threshold: string \}\>_
+
+  Optional. Safety settings for the model.
+
+  - **category** _string_
+
+    The category of the safety setting. Can be one of the following:
+
+    - `HARM_CATEGORY_HATE_SPEECH`
+    - `HARM_CATEGORY_DANGEROUS_CONTENT`
+    - `HARM_CATEGORY_HARASSMENT`
+    - `HARM_CATEGORY_SEXUALLY_EXPLICIT`
+
+  - **threshold** _string_
+
+    The threshold of the safety setting. Can be one of the following:
+
+    - `HARM_BLOCK_THRESHOLD_UNSPECIFIED`
+    - `BLOCK_LOW_AND_ABOVE`
+    - `BLOCK_MEDIUM_AND_ABOVE`
+    - `BLOCK_ONLY_HIGH`
+    - `BLOCK_NONE`
+
+You can use Google Generative AI language models to generate text with the `generateText` function:
 
 ```ts
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 import { generateText } from 'ai';
 
 const { text } = await generateText({
-  model: openai('gpt-4-turbo'),
+  model: google('gemini-1.5-pro-latest'),
   prompt: 'Write a vegetarian lasagna recipe for 4 people.',
 });
 ```
 
-OpenAI language models can also be used in the `streamText`, `generateObject`, `streamObject`, and `streamUI` functions
+Google Generative AI language models can also be used in the `streamText`, `generateObject`, `streamObject`, and `streamUI` functions
 (see [AI SDK Core](mdc:docs/ai-sdk-core) and [AI SDK RSC](mdc:docs/ai-sdk-rsc)).
 
-### Chat Models
+### File Inputs
 
-You can create models that call the [OpenAI chat API](mdc:https:/platform.openai.com/docs/api-reference/chat) using the `.chat()` factory method.
-The first argument is the model id, e.g. `gpt-4`.
-The OpenAI chat models support tool calls and some have multi-modal capabilities.
+The Google Generative AI provider supports file inputs, e.g. PDF files.
 
 ```ts
-const model = openai.chat('gpt-3.5-turbo');
-```
-
-OpenAI chat models support also some model specific settings that are not part of the [standard call settings](mdc:docs/ai-sdk-core/settings).
-You can pass them as an options argument:
-
-```ts
-const model = openai.chat('gpt-3.5-turbo', {
-  logitBias: {
-    // optional likelihood for specific tokens
-    '50256': -100,
-  },
-  user: 'test-user', // optional unique user identifier
-});
-```
-
-The following optional settings are available for OpenAI chat models:
-
-- **logitBias** _Record&lt;number, number&gt;_
-
-  Modifies the likelihood of specified tokens appearing in the completion.
-
-  Accepts a JSON object that maps tokens (specified by their token ID in
-  the GPT tokenizer) to an associated bias value from -100 to 100. You
-  can use this tokenizer tool to convert text to token IDs. Mathematically,
-  the bias is added to the logits generated by the model prior to sampling.
-  The exact effect will vary per model, but values between -1 and 1 should
-  decrease or increase likelihood of selection; values like -100 or 100
-  should result in a ban or exclusive selection of the relevant token.
-
-  As an example, you can pass `{"50256": -100}` to prevent the token from being generated.
-
-- **logprobs** _boolean | number_
-
-  Return the log probabilities of the tokens. Including logprobs will increase
-  the response size and can slow down response times. However, it can
-  be useful to better understand how the model is behaving.
-
-  Setting to true will return the log probabilities of the tokens that
-  were generated.
-
-  Setting to a number will return the log probabilities of the top n
-  tokens that were generated.
-
-- **parallelToolCalls** _boolean_
-
-  Whether to enable parallel function calling during tool use. Defaults to `true`.
-
-- **useLegacyFunctionCalls** _boolean_
-
-  Whether to use legacy function calling. Defaults to false.
-
-  Required by some open source inference engines which do not support the `tools` API. May also
-  provide a workaround for `parallelToolCalls` resulting in the provider buffering tool calls,
-  which causes `streamObject` to be non-streaming.
-
-  Prefer setting `parallelToolCalls: false` over this option.
-
-- **structuredOutputs** _boolean_
-
-  Whether to use [structured outputs](mdc:#structured-outputs).
-  Defaults to `false` for normal models, and `true` for reasoning models.
-
-  When enabled, tool calls and object generation will be strict and follow the provided schema.
-
-- **user** _string_
-
-  A unique identifier representing your end-user, which can help OpenAI to
-  monitor and detect abuse. [Learn more](mdc:https:/platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
-
-- **downloadImages** _boolean_
-
-  Automatically download images and pass the image as data to the model.
-  OpenAI supports image URLs for public models, so this is only needed for
-  private models or when the images are not publicly accessible.
-  Defaults to `false`.
-
-- **simulateStreaming** _boolean_
-
-  Simulates streaming by using a normal generate call and returning it as a stream.
-  Enable this if the model that you are using does not support streaming.
-  Defaults to `false`.
-
-- **reasoningEffort** _'low' | 'medium' | 'high'_
-
-  Reasoning effort for reasoning models. Defaults to `medium`. If you use
-  `providerOptions` to set the `reasoningEffort` option, this
-  model setting will be ignored.
-
-#### Reasoning
-
-OpenAI has introduced the `o1` and `o3` series of [reasoning models](mdc:https:/platform.openai.com/docs/guides/reasoning).
-Currently, `o3-mini`, `o1`, `o1-mini`, and `o1-preview` are available.
-
-Reasoning models currently only generate text, have several limitations, and are only supported using `generateText` and `streamText`.
-
-They support additional settings and response metadata:
-
-- You can use `providerOptions` to set
-
-  - the `reasoningEffort` option (or alternatively the `reasoningEffort` model setting), which determines the amount of reasoning the model performs.
-
-- You can use response `providerMetadata` to access the number of reasoning tokens that the model generated.
-
-```ts highlight="4,7-11,17"
-import { openai } from '@ai-sdk/openai';
-import { generateText } from 'ai';
-
-const { text, usage, providerMetadata } = await generateText({
-  model: openai('o3-mini'),
-  prompt: 'Invent a new holiday and describe its traditions.',
-  providerOptions: {
-    openai: {
-      reasoningEffort: 'low',
-    },
-  },
-});
-
-console.log(text);
-console.log('Usage:', {
-  ...usage,
-  reasoningTokens: providerMetadata?.openai?.reasoningTokens,
-});
-```
-
-<Note>
-  System messages are automatically converted to OpenAI developer messages for
-  reasoning models when supported. For models that do not support developer
-  messages, such as `o1-preview`, system messages are removed and a warning is
-  added.
-</Note>
-
-<Note>
-  Reasoning models like `o1-mini` and `o1-preview` require additional runtime
-  inference to complete their reasoning phase before generating a response. This
-  introduces longer latency compared to other models, with `o1-preview`
-  exhibiting significantly more inference time than `o1-mini`.
-</Note>
-
-<Note>
-  `maxTokens` is automatically mapped to `max_completion_tokens` for reasoning
-  models.
-</Note>
-
-#### Structured Outputs
-
-You can enable [OpenAI structured outputs](mdc:https:/openai.com/index/introducing-structured-outputs-in-the-api) by setting the `structuredOutputs` option to `true`.
-Structured outputs are a form of grammar-guided generation.
-The JSON schema is used as a grammar and the outputs will always conform to the schema.
-
-```ts highlight="7"
-import { openai } from '@ai-sdk/openai';
-import { generateObject } from 'ai';
-import { z } from 'zod';
-
-const result = await generateObject({
-  model: openai('gpt-4o-2024-08-06', {
-    structuredOutputs: true,
-  }),
-  schemaName: 'recipe',
-  schemaDescription: 'A recipe for lasagna.',
-  schema: z.object({
-    name: z.string(),
-    ingredients: z.array(
-      z.object({
-        name: z.string(),
-        amount: z.string(),
-      }),
-    ),
-    steps: z.array(z.string()),
-  }),
-  prompt: 'Generate a lasagna recipe.',
-});
-
-console.log(JSON.stringify(result.object, null, 2));
-```
-
-<Note type="warning">
-  OpenAI structured outputs have several
-  [limitations](mdc:https:/openai.com/index/introducing-structured-outputs-in-the-api),
-  in particular around the [supported schemas](mdc:https:/platform.openai.com/docs/guides/structured-outputs/supported-schemas),
-  and are therefore opt-in.
-
-For example, optional schema properties are not supported.
-You need to change Zod `.nullish()` and `.optional()` to `.nullable()`.
-
-</Note>
-
-#### Predicted Outputs
-
-OpenAI supports [predicted outputs](mdc:https:/platform.openai.com/docs/guides/latency-optimization#use-predicted-outputs) for `gpt-4o` and `gpt-4o-mini`.
-Predicted outputs help you reduce latency by allowing you to specify a base text that the model should modify.
-You can enable predicted outputs by adding the `prediction` option to the `providerOptions.openai` object:
-
-```ts highlight="15-18"
-const result = streamText({
-  model: openai('gpt-4o'),
-  messages: [
-    {
-      role: 'user',
-      content: 'Replace the Username property with an Email property.',
-    },
-    {
-      role: 'user',
-      content: existingCode,
-    },
-  ],
-  providerOptions: {
-    openai: {
-      prediction: {
-        type: 'content',
-        content: existingCode,
-      },
-    },
-  },
-});
-```
-
-OpenAI provides usage information for predicted outputs (`acceptedPredictionTokens` and `rejectedPredictionTokens`).
-You can access it in the `providerMetadata` object.
-
-```ts highlight="11"
-const openaiMetadata = (await result.providerMetadata)?.openai;
-
-const acceptedPredictionTokens = openaiMetadata?.acceptedPredictionTokens;
-const rejectedPredictionTokens = openaiMetadata?.rejectedPredictionTokens;
-```
-
-<Note type="warning">
-  OpenAI Predicted Outputs have several
-  [limitations](mdc:https:/platform.openai.com/docs/guides/predicted-outputs#limitations),
-  e.g. unsupported API parameters and no tool calling support.
-</Note>
-
-#### Image Detail
-
-You can use the `openai` provider option to set the [image generation detail](mdc:https:/platform.openai.com/docs/guides/vision/low-or-high-fidelity-image-understanding) to `high`, `low`, or `auto`:
-
-```ts highlight="13-16"
-const result = await generateText({
-  model: openai('gpt-4o'),
-  messages: [
-    {
-      role: 'user',
-      content: [
-        { type: 'text', text: 'Describe the image in detail.' },
-        {
-          type: 'image',
-          image:
-            'https://github.com/vercel/ai/blob/main/examples/ai-core/data/comic-cat.png?raw=true',
-
-          // OpenAI specific options - image detail:
-          providerOptions: {
-            openai: { imageDetail: 'low' },
-          },
-        },
-      ],
-    },
-  ],
-});
-```
-
-#### Distillation
-
-OpenAI supports model distillation for some models.
-If you want to store a generation for use in the distillation process, you can add the `store` option to the `providerOptions.openai` object.
-This will save the generation to the OpenAI platform for later use in distillation.
-
-```typescript highlight="9-16"
-import { openai } from '@ai-sdk/openai';
-import { generateText } from 'ai';
-import 'dotenv/config';
-
-async function main() {
-  const { text, usage } = await generateText({
-    model: openai('gpt-4o-mini'),
-    prompt: 'Who worked on the original macintosh?',
-    providerOptions: {
-      openai: {
-        store: true,
-        metadata: {
-          custom: 'value',
-        },
-      },
-    },
-  });
-
-  console.log(text);
-  console.log();
-  console.log('Usage:', usage);
-}
-
-main().catch(console.error);
-```
-
-#### Prompt Caching
-
-OpenAI has introduced [Prompt Caching](mdc:https:/platform.openai.com/docs/guides/prompt-caching) for supported models
-including `gpt-4o`, `gpt-4o-mini`, `o1-preview`, and `o1-mini`.
-
-- Prompt caching is automatically enabled for these models, when the prompt is 1024 tokens or longer. It does
-  not need to be explicitly enabled.
-- You can use response `providerMetadata` to access the number of prompt tokens that were a cache hit.
-- Note that caching behavior is dependent on load on OpenAI's infrastructure. Prompt prefixes generally remain in the
-  cache following 5-10 minutes of inactivity before they are evicted, but during off-peak periods they may persist for up
-  to an hour.
-
-```ts highlight="11"
-import { openai } from '@ai-sdk/openai';
-import { generateText } from 'ai';
-
-const { text, usage, providerMetadata } = await generateText({
-  model: openai('gpt-4o-mini'),
-  prompt: `A 1024-token or longer prompt...`,
-});
-
-console.log(`usage:`, {
-  ...usage,
-  cachedPromptTokens: providerMetadata?.openai?.cachedPromptTokens,
-});
-```
-
-#### Audio Input
-
-With the `gpt-4o-audio-preview` model, you can pass audio files to the model.
-
-<Note type="warning">
-  The `gpt-4o-audio-preview` model is currently in preview and requires at least
-  some audio inputs. It will not work with non-audio data.
-</Note>
-
-```ts highlight="12-14"
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 import { generateText } from 'ai';
 
 const result = await generateText({
-  model: openai('gpt-4o-audio-preview'),
-  messages: [
-    {
-      role: 'user',
-      content: [
-        { type: 'text', text: 'What is the audio saying?' },
-        {
-          type: 'file',
-          mimeType: 'audio/mpeg',
-          data: fs.readFileSync('./data/galileo.mp3'),
-        },
-      ],
-    },
-  ],
-});
-```
-
-### Responses Models
-
-You can use the OpenAI responses API with the `openai.responses(modelId)` factory method.
-
-```ts
-const model = openai.responses('gpt-4o-mini');
-```
-
-Further configuration can be done using OpenAI provider options:
-
-```ts
-const result = await generateText({
-  model: openai.responses('gpt-4o-mini'),
-  providerOptions: {
-    openai: {
-      parallelToolCalls: false,
-      store: false,
-      user: 'user_123',
-      // ...
-    },
-  },
-  // ...
-});
-```
-
-The following provider options are available:
-
-- **parallelToolCalls** _boolean_
-  Whether to use parallel tool calls. Defaults to `true`.
-
-- **store** _boolean_
-  Whether to store the generation. Defaults to `true`.
-
-- **metadata** _Record&lt;string, string&gt;_
-  Additional metadata to store with the generation.
-
-- **previousResponseId** _string_
-  The ID of the previous response. You can use it to continue a conversation. Defaults to `undefined`.
-
-- **user** _string_
-  A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Defaults to `undefined`.
-
-- **reasoningEffort** _'low' | 'medium' | 'high'_
-  Reasoning effort for reasoning models. Defaults to `medium`. If you use `providerOptions` to set the `reasoningEffort` option, this model setting will be ignored.
-
-- **strictSchemas** _boolean_
-  Whether to use strict JSON schemas in tools and when generating JSON outputs. Defaults to `true`.
-
-The OpenAI responses provider also returns provider-specific metadata:
-
-```ts
-const { providerMetadata } = await generateText({
-  model: openai.responses('gpt-4o-mini'),
-});
-
-const openaiMetadata = providerMetadata?.openai;
-```
-
-The following OpenAI-specific metadata is returned:
-
-- **responseId** _string_
-  The ID of the response. Can be used to continue a conversation.
-
-- **cachedPromptTokens** _number_
-  The number of prompt tokens that were a cache hit.
-
-- **reasoningTokens** _number_
-  The number of reasoning tokens that the model generated.
-
-#### Web Search
-
-The OpenAI responses provider supports web search through the `openai.tools.webSearchPreview` tool.
-
-```ts
-const result = await generateText({
-  model: openai.responses('gpt-4o-mini'),
-  prompt: 'What happened in San Francisco last week?',
-  tools: {
-    web_search_preview: openai.tools.webSearchPreview({
-      // optional configuration:
-      searchContextSize: 'high',
-      userLocation: {
-        type: 'approximate',
-        city: 'San Francisco',
-        region: 'California',
-      },
-    }),
-  },
-});
-
-// URL sources
-const sources = result.sources;
-```
-
-#### PDF support
-
-The OpenAI Responses API supports reading PDF files.
-You can pass PDF files as part of the message content using the `file` type:
-
-```ts
-const result = await generateText({
-  model: openai.responses('gpt-4o'),
+  model: google('gemini-1.5-flash'),
   messages: [
     {
       role: 'user',
       content: [
         {
           type: 'text',
-          text: 'What is an embedding model?',
+          text: 'What is an embedding model according to this document?',
         },
         {
           type: 'file',
           data: fs.readFileSync('./data/ai.pdf'),
           mimeType: 'application/pdf',
-          filename: 'ai.pdf', // optional
         },
       ],
     },
@@ -604,159 +176,311 @@ const result = await generateText({
 });
 ```
 
-The model will have access to the contents of the PDF file and
-respond to questions about it.
-The PDF file should be passed using the `data` field,
-and the `mimeType` should be set to `'application/pdf'`.
+<Note>
+  The AI SDK will automatically download URLs if you pass them as data, except
+  for `https://generativelanguage.googleapis.com/v1beta/files/`. You can use the
+  Google Generative AI Files API to upload larger files to that location.
+</Note>
 
-### Completion Models
+See [File Parts](mdc:docs/foundations/prompts#file-parts) for details on how to use files in prompts.
 
-You can create models that call the [OpenAI completions API](mdc:https:/platform.openai.com/docs/api-reference/completions) using the `.completion()` factory method.
-The first argument is the model id.
-Currently only `gpt-3.5-turbo-instruct` is supported.
+### Cached Content
 
-```ts
-const model = openai.completion('gpt-3.5-turbo-instruct');
-```
-
-OpenAI completion models support also some model specific settings that are not part of the [standard call settings](mdc:docs/ai-sdk-core/settings).
-You can pass them as an options argument:
+You can use Google Generative AI language models to cache content:
 
 ```ts
-const model = openai.completion('gpt-3.5-turbo-instruct', {
-  echo: true, // optional, echo the prompt in addition to the completion
-  logitBias: {
-    // optional likelihood for specific tokens
-    '50256': -100,
-  },
-  suffix: 'some text', // optional suffix that comes after a completion of inserted text
-  user: 'test-user', // optional unique user identifier
+import { google } from '@ai-sdk/google';
+import { GoogleAICacheManager } from '@google/generative-ai/server';
+import { generateText } from 'ai';
+
+const cacheManager = new GoogleAICacheManager(
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+);
+
+// As of August 23rd, 2024, these are the only models that support caching
+type GoogleModelCacheableId =
+  | 'models/gemini-1.5-flash-001'
+  | 'models/gemini-1.5-pro-001';
+
+const model: GoogleModelCacheableId = 'models/gemini-1.5-pro-001';
+
+const { name: cachedContent } = await cacheManager.create({
+  model,
+  contents: [
+    {
+      role: 'user',
+      parts: [{ text: '1000 Lasanga Recipes...' }],
+    },
+  ],
+  ttlSeconds: 60 * 5,
+});
+
+const { text: veggieLasangaRecipe } = await generateText({
+  model: google(model, { cachedContent }),
+  prompt: 'Write a vegetarian lasagna recipe for 4 people.',
+});
+
+const { text: meatLasangaRecipe } = await generateText({
+  model: google(model, { cachedContent }),
+  prompt: 'Write a meat lasagna recipe for 12 people.',
 });
 ```
 
-The following optional settings are available for OpenAI completion models:
+### Search Grounding
 
-- **echo**: _boolean_
+With [search grounding](mdc:https:/ai.google.dev/gemini-api/docs/grounding),
+the model has access to the latest information using Google search.
+Search grounding can be used to provide answers around current events:
 
-  Echo back the prompt in addition to the completion.
+```ts highlight="7,14-20"
+import { google } from '@ai-sdk/google';
+import { GoogleGenerativeAIProviderMetadata } from '@ai-sdk/google';
+import { generateText } from 'ai';
 
-- **logitBias** _Record&lt;number, number&gt;_
+const { text, providerMetadata } = await generateText({
+  model: google('gemini-1.5-pro', {
+    useSearchGrounding: true,
+  }),
+  prompt:
+    'List the top 5 San Francisco news from the past week.' +
+    'You must include the date of each article.',
+});
 
-  Modifies the likelihood of specified tokens appearing in the completion.
+// access the grounding metadata. Casting to the provider metadata type
+// is optional but provides autocomplete and type safety.
+const metadata = providerMetadata?.google as
+  | GoogleGenerativeAIProviderMetadata
+  | undefined;
+const groundingMetadata = metadata?.groundingMetadata;
+const safetyRatings = metadata?.safetyRatings;
+```
 
-  Accepts a JSON object that maps tokens (specified by their token ID in
-  the GPT tokenizer) to an associated bias value from -100 to 100. You
-  can use this tokenizer tool to convert text to token IDs. Mathematically,
-  the bias is added to the logits generated by the model prior to sampling.
-  The exact effect will vary per model, but values between -1 and 1 should
-  decrease or increase likelihood of selection; values like -100 or 100
-  should result in a ban or exclusive selection of the relevant token.
+The grounding metadata includes detailed information about how search results were used to ground the model's response. Here are the available fields:
 
-  As an example, you can pass `{"50256": -100}` to prevent the &lt;|endoftext|&gt;
-  token from being generated.
+- **`webSearchQueries`** (`string[] | null`)
 
-- **logprobs** _boolean | number_
+  - Array of search queries used to retrieve information
+  - Example: `["What's the weather in Chicago this weekend?"]`
 
-  Return the log probabilities of the tokens. Including logprobs will increase
-  the response size and can slow down response times. However, it can
-  be useful to better understand how the model is behaving.
+- **`searchEntryPoint`** (`{ renderedContent: string } | null`)
 
-  Setting to true will return the log probabilities of the tokens that
-  were generated.
+  - Contains the main search result content used as an entry point
+  - The `renderedContent` field contains the formatted content
 
-  Setting to a number will return the log probabilities of the top n
-  tokens that were generated.
+- **`groundingSupports`** (Array of support objects | null)
+  - Contains details about how specific response parts are supported by search results
+  - Each support object includes:
+    - **`segment`**: Information about the grounded text segment
+      - `text`: The actual text segment
+      - `startIndex`: Starting position in the response
+      - `endIndex`: Ending position in the response
+    - **`groundingChunkIndices`**: References to supporting search result chunks
+    - **`confidenceScores`**: Confidence scores (0-1) for each supporting chunk
 
-- **suffix** _string_
+Example response:
 
-  The suffix that comes after a completion of inserted text.
+```json
+{
+  "groundingMetadata": {
+    "webSearchQueries": ["What's the weather in Chicago this weekend?"],
+    "searchEntryPoint": {
+      "renderedContent": "..."
+    },
+    "groundingSupports": [
+      {
+        "segment": {
+          "startIndex": 0,
+          "endIndex": 65,
+          "text": "Chicago weather changes rapidly, so layers let you adjust easily."
+        },
+        "groundingChunkIndices": [0],
+        "confidenceScores": [0.99]
+      }
+    ]
+  }
+}
+```
 
-- **user** _string_
+#### Dynamic Retrieval
 
-  A unique identifier representing your end-user, which can help OpenAI to
-  monitor and detect abuse. [Learn more](mdc:https:/platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
+With [dynamic retrieval](mdc:https:/cloud.google.com/vertex-ai/generative-ai/docs/multimodal/ground-with-google-search#dynamic-retrieval), you can configure how the model decides when to turn on Grounding with Google Search. This gives you more control over when and how the model grounds its responses.
+
+```ts highlight="7-10"
+import { google } from '@ai-sdk/google';
+import { generateText } from 'ai';
+
+const { text, providerMetadata } = await generateText({
+  model: google('gemini-1.5-flash', {
+    useSearchGrounding: true,
+    dynamicRetrievalConfig: {
+      mode: 'MODE_DYNAMIC',
+      dynamicThreshold: 0.8,
+    },
+  }),
+  prompt: 'Who won the latest F1 grand prix?',
+});
+```
+
+The `dynamicRetrievalConfig` describes the options to customize dynamic retrieval:
+
+- `mode`: The mode of the predictor to be used in dynamic retrieval. The following modes are supported:
+
+  - `MODE_DYNAMIC`: Run retrieval only when system decides it is necessary
+  - `MODE_UNSPECIFIED`: Always trigger retrieval
+
+- `dynamicThreshold`: The threshold to be used in dynamic retrieval (if not set, a system default value is used).
+
+<Note>
+  Dynamic retrieval is only available with Gemini 1.5 Flash models and is not
+  supported with 8B variants.
+</Note>
+
+### Sources
+
+When you use [Search Grounding](mdc:#search-grounding), the model will include sources in the response.
+You can access them using the `sources` property of the result:
+
+```ts
+import { google } from '@ai-sdk/google';
+import { generateText } from 'ai';
+
+const { sources } = await generateText({
+  model: google('gemini-2.0-flash-exp', { useSearchGrounding: true }),
+  prompt: 'List the top 5 San Francisco news from the past week.',
+});
+```
+
+### Safety Ratings
+
+The safety ratings provide insight into the safety of the model's response.
+See [Google AI documentation on safety settings](mdc:https:/ai.google.dev/gemini-api/docs/safety-settings).
+
+Example response excerpt:
+
+```json
+{
+  "safetyRatings": [
+    {
+      "category": "HARM_CATEGORY_HATE_SPEECH",
+      "probability": "NEGLIGIBLE",
+      "probabilityScore": 0.11027937,
+      "severity": "HARM_SEVERITY_LOW",
+      "severityScore": 0.28487435
+    },
+    {
+      "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+      "probability": "HIGH",
+      "blocked": true,
+      "probabilityScore": 0.95422274,
+      "severity": "HARM_SEVERITY_MEDIUM",
+      "severityScore": 0.43398145
+    },
+    {
+      "category": "HARM_CATEGORY_HARASSMENT",
+      "probability": "NEGLIGIBLE",
+      "probabilityScore": 0.11085559,
+      "severity": "HARM_SEVERITY_NEGLIGIBLE",
+      "severityScore": 0.19027223
+    },
+    {
+      "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+      "probability": "NEGLIGIBLE",
+      "probabilityScore": 0.22901751,
+      "severity": "HARM_SEVERITY_NEGLIGIBLE",
+      "severityScore": 0.09089675
+    }
+  ]
+}
+```
+
+### Troubleshooting
+
+#### Schema Limitations
+
+The Google Generative AI API uses a subset of the OpenAPI 3.0 schema,
+which does not support features such as unions.
+The errors that you get in this case look like this:
+
+`GenerateContentRequest.generation_config.response_schema.properties[occupation].type: must be specified`
+
+By default, structured outputs are enabled (and for tool calling they are required).
+You can disable structured outputs for object generation as a workaround:
+
+```ts highlight="3,8"
+const result = await generateObject({
+  model: google('gemini-1.5-pro-latest', {
+    structuredOutputs: false,
+  }),
+  schema: z.object({
+    name: z.string(),
+    age: z.number(),
+    contact: z.union([
+      z.object({
+        type: z.literal('email'),
+        value: z.string(),
+      }),
+      z.object({
+        type: z.literal('phone'),
+        value: z.string(),
+      }),
+    ]),
+  }),
+  prompt: 'Generate an example person for testing.',
+});
+```
+
+The following Zod features are known to not work with Google Generative AI:
+
+- `z.union`
+- `z.record`
 
 ### Model Capabilities
 
-| Model                  | Image Input         | Audio Input         | Object Generation   | Tool Usage          |
-| ---------------------- | ------------------- | ------------------- | ------------------- | ------------------- |
-| `gpt-4o`               | <Check size={18} /> | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> |
-| `gpt-4o-mini`          | <Check size={18} /> | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> |
-| `gpt-4o-audio-preview` | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
-| `gpt-4-turbo`          | <Check size={18} /> | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> |
-| `gpt-4`                | <Cross size={18} /> | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> |
-| `gpt-3.5-turbo`        | <Cross size={18} /> | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> |
-| `o1`                   | <Check size={18} /> | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> |
-| `o1-mini`              | <Check size={18} /> | <Cross size={18} /> | <Cross size={18} /> | <Cross size={18} /> |
-| `o1-preview`           | <Cross size={18} /> | <Cross size={18} /> | <Cross size={18} /> | <Cross size={18} /> |
-| `o3-mini`              | <Cross size={18} /> | <Cross size={18} /> | <Check size={18} /> | <Check size={18} /> |
+| Model                        | Image Input         | Object Generation   | Tool Usage          | Tool Streaming      |
+| ---------------------------- | ------------------- | ------------------- | ------------------- | ------------------- |
+| `gemini-2.0-flash-001`       | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
+| `gemini-1.5-pro`             | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
+| `gemini-1.5-pro-latest`      | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
+| `gemini-1.5-flash`           | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
+| `gemini-1.5-flash-latest`    | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
+| `gemini-1.5-flash-8b`        | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
+| `gemini-1.5-flash-8b-latest` | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> | <Check size={18} /> |
 
 <Note>
-  The table above lists popular models. Please see the [OpenAI
-  docs](https://platform.openai.com/docs/models) for a full list of available
-  models. The table above lists popular models. You can also pass any available
-  provider model ID as a string if needed.
+  The table above lists popular models. Please see the [Google Generative AI
+  docs](https://ai.google.dev/gemini-api/docs/models/gemini) for a full list of
+  available models. The table above lists popular models. You can also pass any
+  available provider model ID as a string if needed.
 </Note>
 
 ## Embedding Models
 
-You can create models that call the [OpenAI embeddings API](mdc:https:/platform.openai.com/docs/api-reference/embeddings)
-using the `.embedding()` factory method.
+You can create models that call the [Google Generative AI embeddings API](mdc:https:/ai.google.dev/api/embeddings)
+using the `.textEmbeddingModel()` factory method.
 
 ```ts
-const model = openai.embedding('text-embedding-3-large');
+const model = google.textEmbeddingModel('text-embedding-004');
 ```
 
-OpenAI embedding models support several additional settings.
-You can pass them as an options argument:
+Google Generative AI embedding models support aditional settings. You can pass them as an options argument:
 
 ```ts
-const model = openai.embedding('text-embedding-3-large', {
-  dimensions: 512 // optional, number of dimensions for the embedding
-  user: 'test-user' // optional unique user identifier
-})
+const model = google.textEmbeddingModel('text-embedding-004', {
+  outputDimensionality: 512, // optional, number of dimensions for the embedding
+});
 ```
 
-The following optional settings are available for OpenAI embedding models:
+The following optional settings are available for Google Generative AI embedding models:
 
-- **dimensions**: _number_
+- **outputDimensionality**: _number_
 
-  The number of dimensions the resulting output embeddings should have.
-  Only supported in text-embedding-3 and later models.
-
-- **user** _string_
-
-  A unique identifier representing your end-user, which can help OpenAI to
-  monitor and detect abuse. [Learn more](mdc:https:/platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
+  Optional reduced dimension for the output embedding. If set, excessive values in the output embedding are truncated from the end.
 
 ### Model Capabilities
 
-| Model                    | Default Dimensions | Custom Dimensions   |
-| ------------------------ | ------------------ | ------------------- |
-| `text-embedding-3-large` | 3072               | <Check size={18} /> |
-| `text-embedding-3-small` | 1536               | <Check size={18} /> |
-| `text-embedding-ada-002` | 1536               | <Cross size={18} /> |
-
-## Image Models
-
-You can create models that call the [OpenAI image generation API](mdc:https:/platform.openai.com/docs/api-reference/images)
-using the `.image()` factory method.
-
-```ts
-const model = openai.image('dall-e-3');
-```
-
-<Note>
-  Dall-E models do not support the `aspectRatio` parameter. Use the `size`
-  parameter instead.
-</Note>
-
-### Model Capabilities
-
-| Model      | Sizes                           |
-| ---------- | ------------------------------- |
-| `dall-e-3` | 1024x1024, 1792x1024, 1024x1792 |
-| `dall-e-2` | 256x256, 512x512, 1024x1024     |
+| Model                | Default Dimensions | Custom Dimensions   |
+| -------------------- | ------------------ | ------------------- |
+| `text-embedding-004` | 768                | <Check size={18} /> |
 
 ---
 > Source: [VidAIze/cursor-project-rules](https://github.com/VidAIze/cursor-project-rules) — distributed by [TomeVault](https://tomevault.io).
