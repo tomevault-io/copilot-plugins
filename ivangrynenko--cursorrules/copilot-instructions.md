@@ -1,41 +1,108 @@
-## debugging-standards
+## docker-compose-standards
 
-> Standards for debugging and error handling
+> Docker Compose standards Rule
 
-# Debugging Standards
-
-Ensures proper debugging practices and error handling.
 
 ## Rule Details
 
-- **Name:** debugging_standards
+- **Name:** docker_compose_best_practices
 
-- **Description:** Enforce standards for debugging and error handling
+- **Description:** Enforces best practices in docker-compose files to ensure maintainability, security, and consistency
 
 ## Filters
-- file extension pattern: `\\.(php|js|ts|vue|jsx|tsx|py)$`
+- file name: `docker-compose\\.ya?ml$`
+- event: `(file_create|file_modify)`
 
-## Enforcement Checks
+## Rejections
 - Conditions:
-  - pattern `console\\.log\\(|print_r\\(|var_dump\\(` – Replace debug statements with proper logging
-  - pattern `catch\\s*\\([^)]*\\)\\s*\\{\\s*\\}` – Implement proper error handling in catch blocks
+  - pattern `^\\s*version\\s*:` – The 'version' field is deprecated in Docker Compose files. Compose files are now version-less by default.
+
+## Rejections
+- Conditions:
+  - pattern `^(  |\t)` – Inconsistent indentation detected. Use 2 spaces for indentation.
+
+## Rejections
+- Conditions:
+  - pattern `^\\s*links\\s*:` – The 'links' key is deprecated. Use networks and service names for inter-service communication.
+
+## Rejections
+- Conditions:
+  - pattern `^\\s*image\\s*:\\s*[^:]+$` – Specify an explicit image tag to ensure consistency.
+
+## Rejections
+- Conditions:
+  - pattern `^\\s*privileged\\s*:\\s*true` – Running services in privileged mode is discouraged for security reasons.
+
+## Rejections
+- Conditions:
+  - pattern `^\\s*services\\s*:\\s*[^\\n]+\\n(?!.*\\blimits\\b)` – Define resource limits for each service to prevent resource exhaustion.
 
 ## Suggestions
 - Guidance:
-Debugging Best Practices:
-- Address root causes, not symptoms
-- Add descriptive logging messages
-- Create isolated test functions
-- Implement comprehensive error handling
-- Use appropriate logging levels
-- Add context to error messages
-- Consider debugging tools integration
+To adhere to Docker Compose best practices:
+
+1. **Omit the 'version' field**: Compose files are version-less by default.
+   ```yaml
+   services:
+     web:
+       image: nginx
+   ```
+
+2. **Use consistent indentation**: Use 2 spaces for indentation.
+   ```yaml
+   services:
+     web:
+       image: nginx
+   ```
+
+3. **Avoid 'links' key**: Use networks and service names for service communication.
+   ```yaml
+   services:
+     web:
+       image: nginx
+       networks:
+         - my-network
+     db:
+       image: mysql
+       networks:
+         - my-network
+   networks:
+     my-network:
+   ```
+
+4. **Specify explicit image tags**: Prevent unintended updates by defining image tags.
+   ```yaml
+   services:
+     web:
+       image: nginx:1.21.0
+   ```
+
+5. **Avoid privileged mode**: Do not use 'privileged: true'. Grant specific capabilities if necessary.
+   ```yaml
+   services:
+     web:
+       image: nginx
+       cap_add:
+         - NET_ADMIN
+   ```
+
+6. **Define resource limits**: Prevent services from consuming excessive resources.
+   ```yaml
+   services:
+     web:
+       image: nginx
+       deploy:
+         resources:
+           limits:
+             cpus: '0.50'
+             memory: '512M'
+   ```
+
+Implementing these practices ensures secure, maintainable, and consistent Docker Compose configurations.
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-
- 
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
