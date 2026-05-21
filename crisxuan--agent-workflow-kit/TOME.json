@@ -1,0 +1,44 @@
+{
+  "name": "agent-workflow-kit",
+  "owner": "crisxuan",
+  "repo": "agent-workflow-kit",
+  "description": "AI Workflow Integration \u2014 Evaluate risk (0\u201316), pick the minimal safe workflow, and get your AGENTS.md instantly. Bilingual, tool-agnostic rules & Skill packs for any AI coding agent. Ship faster with fewer surprises.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/crisxuan/agent-workflow-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T08:01:28Z"
+}
