@@ -1,51 +1,108 @@
-## confluence-editing-standards
+## cursor-rules
 
-> Purpose: Ensure Markdown renders cleanly in Confluence by applying spacing, nesting, and code formatting rules during page creation/updates.
+> Describes how and where to create Cursor Rules
 
-# Confluence Editing Standards (Markdown Authoring)
+# Cursor Rules Location
 
-Purpose: Ensure Markdown renders cleanly in Confluence by applying spacing, nesting, and code formatting rules during page creation/updates.
+Standards for placing and organizing Cursor rule files in the repository, ensuring rules are always up-to-date and follow best practices.
 
-## Lists & Spacing
-- Always insert a blank line between list items.
+## Rule Details
 
-- Use nested sub-bullets for subpoints; never concatenate multiple points on a single line.
+- **Name:** cursor_rules_location_and_maintenance
 
-- For ordered lists, keep each step single-purpose; add an empty line between steps when a step has sub-bullets.
+- **Description:** Standards for placing and maintaining Cursor rule files in the correct directory
 
-## Inline vs Code Blocks
-- Prefer inline code for short, single-line commands or file paths (e.g., `composer install`).
+## Filters
+- file extension pattern: `\\.mdc$`
+  - Match files that look like Cursor rules
+- content: `(?s)<rule>.*?</rule>`
+  - Match file creation or modification events
+- event: `file_create|file_modify`
 
-- Use fenced code blocks only when necessary (multi-line commands, config snippets). Verify Confluence renders the block without collapsing; otherwise, convert to inline steps.
+## Rejections
+- Conditions:
+  - pattern `^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)` – Cursor rule files (.mdc) must be placed in the .cursor/rules directory
 
-- Do not mix bullets and code blocks without a blank line before and after the block.
+## Suggestions
+- Guidance:
+## Cursor Rules Best Practices
 
-## Headings & Anchors
-- Keep headings concise; avoid trailing punctuation.
+### 1. Location and Structure
+- **Location:** Always place rule files in **PROJECT_ROOT/.cursor/rules/**
+- **Directory Structure:**
+  ```
+  PROJECT_ROOT/
+  ├── .cursor/
+  │   └── rules/
+  │       ├── your-rule-name.mdc
+  │       └── ...
+  └── ...
+  ```
 
-- When using Markdown format, avoid enabling heading anchors if they introduce ID artifacts in rendered output.
+### 2. Naming Conventions
+- Use **kebab-case** for filenames (e.g., `php-drupal-standards.mdc`)
+- Always use the **.mdc** extension
+- Make names descriptive of the rule's purpose
+- Group related rules with common prefixes (e.g., `drupal-*`, `lagoon-*`)
 
-## Tables
-- Keep tables simple (5–7 columns max). Prefer bullets when content wraps heavily.
+### 3. Rule File Structure
+```
+---
+description: Brief description of the rule
+globs: *.php, *.module, *.inc
+alwaysApply: false
+---
+# Rule Title
 
-- Add a brief sentence above a large table explaining what it captures.
+<rule>
+name: rule_name_in_snake_case
+description: Detailed description of what the rule enforces
+filters:
+  - type: file_extension
+    pattern: "pattern_to_match"
 
-## Nested Structure
-- Depth guidance: limit nesting to two levels (bullet → sub-bullet). If content requires more depth, split into a new subsection.
+actions:
+  - type: enforce|suggest|validate
+    conditions:
+      - pattern: "regex_pattern"
+        message: "Clear message explaining the issue"
 
-## Check Before Publish (Quicklist)
-- Bullets have blank lines between items.
+metadata:
+  priority: high|medium|low
+  version: 1.1
+</rule>
+```
 
-- Sub-bullets are properly indented and grouped.
+### 4. Rule Maintenance
+- **When adding new rules:**
+  - Check for overlapping or conflicting rules
+  - Ensure patterns are efficient and specific
+  - Test rules against sample code
+- **When modifying existing rules:**
+  - Update version number
+  - Document changes in commit messages
+  - Review and update related rules for consistency
+  - Consider backward compatibility
 
-- Commands are inline where possible; multi-line blocks tested for rendering.
+### 5. Best Practices for Rule Content
+- Use clear, specific regex patterns
+- Provide helpful, actionable messages
+- Include examples of good and bad code
+- Set appropriate priority levels
+- Use multiple conditions for complex rules
+- Consider performance impact of complex patterns
 
-- No anchor artifacts in headings.
+### 6. Rule Testing
+- Test rules against both compliant and non-compliant code
+- Verify that messages are clear and helpful
+- Check for false positives and false negatives
+- Ensure rules don't conflict with each other
 
-- Tables are readable; consider bullets if wide.
-
-## Optional Page Label Cue
-When editing an existing Confluence page, if the page has label `format-spaced-lists`, apply these spacing rules strictly even if the original content is inconsistent.
+## Metadata
+- Priority: high|medium|low
+- Version: 1.1
+- - **When Adding New Rules: **
+- - **When Modifying Existing Rules: **
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
