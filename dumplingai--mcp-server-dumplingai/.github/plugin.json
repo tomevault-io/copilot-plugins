@@ -1,0 +1,9 @@
+{
+  "name": "dumplingai--mcp-server-dumplingai",
+  "displayName": "mcp-server-dumplingai",
+  "description": "MCP (Model Context Protocol) server for Dumpling AI",
+  "version": "1.0.0",
+  "author": "DumplingAI",
+  "homepage": "https://github.com/DumplingAI/mcp-server-dumplingai",
+  "skills": []
+}
