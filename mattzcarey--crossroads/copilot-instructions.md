@@ -1,108 +1,152 @@
-## pnpm-usage
+## repo-usage
 
-> use pnm in this repo instead of npm
+> Usage of this repo
 
-# PNPM Usage Guidelines for CrossRoads
+# CrossRoads Repository Usage Guide
+
+This document provides guidelines for working with the CrossRoads repository, which uses pnpm workspaces, turborepo, and Biome for linting and formatting.
 
 <rule>
-name: pnpm_usage
-description: Guidelines for using pnpm as the package manager in the CrossRoads repository
+name: crossroads_repo_usage
+description: Guidelines for working with the CrossRoads repository using pnpm workspaces, turborepo, and Biome
 
 filters:
   - type: event
     pattern: "file_create|file_modify"
   - type: file_path
-    pattern: "package\\.json$|.*\\.md$"
+    pattern: "packages/.*|apps/.*"
 
 actions:
   - type: suggest
     message: |
-      # PNPM Usage Guidelines for CrossRoads
+      # CrossRoads Repository Usage Guide
 
-      ## Overview
+      ## Repository Structure
       
-      CrossRoads uses pnpm as its package manager. Always use pnpm instead of npm or yarn for all package management operations.
+      This repository uses pnpm workspaces and turborepo to manage multiple packages:
       
-      ## Key Commands
+      ```
+      crossroads/
+      ├── packages/           # Core packages
+      │   ├── crossroads-infra/
+      │   └── crossroads-graph/
+      ├── apps/           # Example implementations
+      │   ├── durable-search/
+      │   ├── durable-runna/
+      │   └── inference-time-scaling/
+      ├── pnpm-workspace.yaml # Workspace configuration
+      ├── turbo.json          # Turborepo configuration
+      ├── biome.json          # Biome linting/formatting config
+      └── package.json        # Root package configuration
+      ```
+
+      ## Getting Started
+
+      ### Prerequisites
       
-      - **Install dependencies**: `pnpm install`
-      - **Add a dependency**: `pnpm add <package-name>`
-      - **Add a dev dependency**: `pnpm add -D <package-name>`
-      - **Run scripts**: `pnpm <script-name>` (e.g., `pnpm test`, `pnpm dev`)
-      - **Run scripts in specific packages**: `pnpm --filter <package-name> <script-name>`
-      
-      ## Workspace Commands
-      
-      CrossRoads is a monorepo using pnpm workspaces. Use these commands for workspace operations:
-      
-      - **Run a command in all packages**: `pnpm -r <command>`
-      - **Run a command in a specific package**: `pnpm --filter <package-name> <command>`
-      - **Add a dependency to a specific package**: `pnpm --filter <package-name> add <dependency>`
-      
-      ## Testing
-      
-      Always use pnpm to run tests:
+      - Node.js (see package.json for version)
+      - pnpm v9.12.1 or compatible
+
+      ### Installation
       
       ```bash
-      # Run all tests
+      # Install pnpm if you don't have it
+      npm install -g pnpm@9.12.1
+      
+      # Install dependencies
+      pnpm install
+      ```
+
+      ## Development Workflow
+
+      ### Running Commands
+      
+      All commands should be run from the repository root using pnpm and turborepo:
+      
+      ```bash
+      # Start development servers for all packages
+      pnpm dev
+      
+      # Build all packages
+      pnpm build
+      
+      # Run tests
       pnpm test
       
-      # Run tests for a specific package
-      pnpm --filter @crossroads/durable-search test
+      # Generate Cloudflare types
+      pnpm typegen
+      
+      # Format code
+      pnpm format
+      
+      # Lint code
+      pnpm lint:biome
+      
+      # Check and auto-fix issues
+      pnpm check
       ```
+
+      ### Working with Workspaces
       
-      ## CI/CD
+      To add a dependency to a specific package:
       
-      The CI/CD pipeline is configured to use pnpm. Never use npm or yarn in CI/CD scripts.
+      ```bash
+      # Add a dependency to a specific package
+      pnpm --filter <package-name> add <dependency>
+      
+      # Example: Add lodash to crossroads-graph
+      pnpm --filter crossroads-graph add lodash
+      
+      # Add a dev dependency
+      pnpm --filter <package-name> add -D <dependency>
+      ```
+
+      To create a new package:
+      
+      1. Create a new directory in `packages/` or `examples/`
+      2. Initialize with `package.json`
+      3. Add to workspace by ensuring it's covered by patterns in `pnpm-workspace.yaml`
+
+      ### Biome Linting and Formatting
+      
+      This repository uses Biome for linting and formatting:
+      
+      - Configuration is in `biome.json`
+      - Run `pnpm format` to format all files
+      - Run `pnpm lint:biome` to lint all files
+      - Run `pnpm check` to check and auto-fix issues
+
+      ### Turborepo
+      
+      Turborepo manages the build pipeline:
+      
+      - Configuration is in `turbo.json`
+      - Caches build outputs for faster subsequent builds
+      - Manages dependencies between packages
+      - Runs tasks in parallel when possible
+
+      ## Best Practices
+      
+      1. Always run `pnpm format` and `pnpm lint:biome` before committing
+      2. Use workspace references for internal dependencies
+      3. Keep packages focused and modular
+      4. Follow the existing code style (using single quotes, 2 spaces for indentation)
+      5. Update documentation when adding new features
 
 examples:
   - input: |
-      # Development
-      
-      To install dependencies:
-      
-      ```bash
-      npm install
-      ```
-      
-      To run tests:
-      
-      ```bash
-      npm test
-      ```
-    output: |
-      # Development
-      
-      To install dependencies:
-      
-      ```bash
-      pnpm install
-      ```
-      
-      To run tests:
-      
-      ```bash
-      pnpm test
-      ```
+      # Adding a new dependency to a package
+      pnpm --filter crossroads-infra add axios
+    output: "Correctly added dependency to a specific package"
   - input: |
-      // Add a script to package.json
-      {
-        "scripts": {
-          "test": "npm run test:unit && npm run test:integration"
-        }
-      }
-    output: |
-      // Add a script to package.json
-      {
-        "scripts": {
-          "test": "pnpm test:unit && pnpm test:integration"
-        }
-      }
+      # Running development servers
+      pnpm dev
+    output: "Correctly running development servers for all packages"
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [mattzcarey/crossroads](https://github.com/mattzcarey/crossroads) — distributed by [TomeVault](https://tomevault.io).
