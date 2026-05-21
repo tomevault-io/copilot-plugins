@@ -1,103 +1,196 @@
-## on-load-rule
+## project-onboarding-rule
 
-> MUST READ AT START - Critical Development Principles
+> Automatically onboards existing projects into the AI-driven development workflow
 
-# Critical Development Principles
 
-Rule for establishing non-negotiable development principles that must be followed at all times.
+# Project Onboarding System
+
+Rule for automatically analyzing existing projects and integrating them into the AI-driven development workflow.
 
 <rule>
-name: critical_development_principles
+name: project_onboarding
 filters:
   - type: event
-    pattern: "load"
+    pattern: "project_onboard"
   - type: event
-    pattern: "start"
+    pattern: "rules_setup"
+  - type: command
+    pattern: "onboard"
+  - type: command
+    pattern: "analyze"
   - type: event
     pattern: "cursor_start"
-  - type: command
-    pattern: "help"
 
 actions:
   - type: react
-    event: "load"
-    priority: critical
+    conditions:
+      - pattern: "onboard project|project onboard"
     action: |
-      # Non-negotiable development principles
+      # Comprehensive onboarding of an existing project
       
-      I MUST follow these principles for ALL development activities:
+      I'll perform a complete project onboarding by:
       
-      1. SPECIFICATIONS FIRST
-         - I will NEVER begin implementation without creating specifications
-         - All user requests containing "create", "implement", "build", or "develop" 
-           MUST trigger specification creation BEFORE any code is written
-         - Specifications must be stored in `.cursor/specs/` with proper formatting
-         - Specifications index must be updated in `.cursor/SPECS.md`
-         - This is managed by the specification_management rule
+      1. Creating the required directory structure:
+         - `.cursor/specs/` - Requirements and specifications (managed by specification_management rule)
+         - `.cursor/tasks/` - Task tracking (managed by development_workflow_system rule)
+         - `.cursor/learnings/` - Knowledge capture (managed by knowledge_management rule)
+         - `.cursor/docs/` - Documentation (managed by knowledge_management rule)
+         - `.cursor/rules/` - Cursor rule files
+         - `.cursor/output/` - Generated reports
       
-      2. TASK TRACKING
-         - All development activities must be tracked as tasks
-         - Tasks must follow proper state transitions: Open → Active → Done
-         - Implementation cannot be considered complete without task completion
-         - This is managed by the development_workflow_system rule
+      2. Analyzing project structure:
+         - Directory structure
+         - File types and counts
+         - Lines of code statistics
       
-      3. QUALITY ASSURANCE
-         - All code must have corresponding tests where applicable
-         - No implementation can be considered complete without tests
-         - All code should follow project-specific style guidelines
-         - Testing is managed by the development_workflow_system rule
+      3. Discovering existing documentation:
+         - Finding README, CONTRIBUTING, CHANGELOG files
+         - Cataloging documentation into `.cursor/docs/existing/`
+         - Creating a documentation index
       
-      4. KNOWLEDGE CAPTURE
-         - Important learnings must be documented during implementation
-         - Solutions to complex problems must be captured for future reference
-         - This is managed by the knowledge_management rule
+      4. Extracting core components:
+         - Identifying main modules and components
+         - Analyzing component relationships
+         - Documenting component purposes
       
-      These principles are NON-NEGOTIABLE and must be followed without exception.
-      Failure to follow these principles is considered a critical error.
+      5. Creating initial specifications:
+         - Architecture overview specs
+         - Component specifications
+         - Feature specifications based on existing code
+      
+      6. Generating knowledge base:
+         - Project structure learning
+         - Component identification learning
+         - Documentation assessment learning
+      
+      7. Setting up task tracking:
+         - Initial onboarding completion task
+         - Task index creation
+      
+      This process integrates an existing project into the AI-driven workflow
+      without requiring changes to the original codebase.
+
+  - type: react
+    conditions:
+      - pattern: "analyze existing|existing analyze"
+    action: |
+      # Analyze an existing codebase without full onboarding
+      
+      I'll analyze the existing codebase by:
+      
+      1. Examining project overview:
+         - Project type detection
+         - Repository structure analysis
+         - File type distribution
+      
+      2. Calculating code statistics:
+         - Lines of code by language
+         - File counts by type
+         - Directory structure
+      
+      3. Identifying key components:
+         - Main modules and structure
+         - Component relationships
+         - Entry points
+      
+      4. Analyzing test structure:
+         - Test directory organization
+         - Test coverage assessment
+         - Testing approach
+      
+      5. Reviewing documentation:
+         - Available documentation files
+         - Documentation completeness
+         - Documentation types
+      
+      6. Providing integration recommendations:
+         - Suggestions for specification creation (via specification_management rule)
+         - Test coverage improvements (via development_workflow_system rule)
+         - Documentation enhancements (via knowledge_management rule)
+      
+      The analysis report will be saved to `.cursor/output/codebase_analysis_[timestamp].md`
+
+  - type: react
+    conditions:
+      - pattern: "setup rules|rules setup"
+    action: |
+      # Set up default rules for a project
+      
+      I'll set up the AI-driven development workflow rules:
+      
+      1. Creating the rules directory `.cursor/rules/`
+      2. Setting up the following rule files:
+         - `development-workflow-rule.mdc` - Task tracking, testing, and version control
+         - `specification-management-rule.mdc` - Specification creation and validation
+         - `knowledge-management-rule.mdc` - Knowledge capture and application
+         - `location-rule.mdc` - Rules for organizing rule files
+         - `command-rules.mdc` - AI command system
+         - `project-onboarding-rule.mdc` - Project onboarding
+         - `on-load-rule.mdc` - Critical development principles
+      3. Creating required directory structure
+      
+      This provides the foundation for AI-driven development without
+      analyzing or modifying the existing codebase.
 
   - type: react
     event: "cursor_start"
-    priority: critical
     action: |
-      # Initialization check for development principles
+      # When Cursor starts with the project, check onboarding status
       
-      I will verify:
+      When starting with this project, I'll:
       
-      1. Specifications directory exists (.cursor/specs/) - managed by specification_management rule
-      2. Task tracking is properly configured (.cursor/tasks/) - managed by development_workflow_system rule
-      3. Knowledge capture system is ready (.cursor/learnings/) - managed by knowledge_management rule
+      1. Check if the project has been onboarded (has `.cursor` directory)
+      2. If not onboarded, suggest running `setup rules` or `onboard project`
+      3. If partially onboarded, suggest running `analyze existing`
       
-      If any of these components are missing, I will prioritize setting them up
-      before proceeding with any development activities.
-      
-      I will also remind myself that SPECIFICATIONS MUST COME BEFORE IMPLEMENTATION
-      for any request involving creation or development of new features.
+      This ensures you're aware of the available onboarding options.
 
   - type: suggest
     message: |
-      ### Critical Development Principles
-      
-      As your AI assistant, I'm following these critical principles:
-      
-      1. **Specifications First**: I will always create detailed specs before implementing any feature (specification_management rule)
-      2. **Task Tracking**: All development work is tracked as formal tasks (development_workflow_system rule)
-      3. **Quality Assurance**: All code will have corresponding tests (development_workflow_system rule)
-      4. **Knowledge Capture**: Important learnings will be documented (knowledge_management rule)
-      
-      These principles ensure high-quality, well-documented, and traceable development.
-      I will follow this workflow for all implementation requests.
+      ### AI-Driven Project Onboarding
+
+      I can help adapt existing projects to the AI-driven workflow:
+
+      **Option 1: Full Automatic Onboarding**
+      ```
+      onboard project
+      ```
+      This analyzes your codebase, extracts components, creates specs, 
+      and sets up knowledge tracking.
+
+      **Option 2: Rules-Only Setup**
+      ```
+      setup rules
+      ```
+      This sets up just the rule files and directory structure without 
+      analyzing the codebase.
+
+      **Option 3: Analysis Without Onboarding**
+      ```
+      analyze existing
+      ```
+      This generates an analysis report of your codebase without creating 
+      specifications.
+
+      The onboarding process requires no changes to your existing code. 
+      It simply adds a `.cursor` directory with helpful artifacts for 
+      AI-driven development.
 
 examples:
   - input: |
-      Help me create a new feature
-    output: "Before implementing this feature, I'll create detailed specifications for it."
+      onboard project
+    output: "Project onboarding complete! Initial specifications, analysis files, and task tracking created."
 
   - input: |
-      Implement a user authentication system
-    output: "I'll start by creating specifications for the user authentication system, then proceed with implementation once those are approved."
+      setup rules
+    output: "Rules setup complete! Rule files created in the .cursor/rules directory."
+
+  - input: |
+      analyze existing
+    output: "Analysis complete! Report generated at .cursor/output/codebase_analysis_20250305_123456.md"
 
 metadata:
-  priority: critical
+  priority: high
   version: 1.0
 </rule> 
 
