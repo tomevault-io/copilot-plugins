@@ -1,0 +1,9 @@
+{
+  "name": "rtsoliday--elegant",
+  "displayName": "elegant",
+  "description": "Tool for simulating particle accelerators. Models beam dynamics, tracks particles, optimizes accelerator parameters.",
+  "version": "1.0.0",
+  "author": "rtsoliday",
+  "homepage": "https://github.com/rtsoliday/elegant",
+  "skills": []
+}
