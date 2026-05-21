@@ -1,16 +1,33 @@
-## translation-guidelines
+## translation-management-tools
 
-> The localization system organizes translations by:
+> This guide covers the practical aspects of managing translations in the project, including tools, scripts, and workflows.
 
-# Translation Guidelines for JSON Localization Files
+# Translation Management Tools and Workflows
 
-## File Structure
+This guide covers the practical aspects of managing translations in the project, including tools, scripts, and workflows.
 
-The localization system organizes translations by:
-- **Locale directories**: `en/`, `fi/`, `sv/`
-- **Namespace files**: Correspond to application features (e.g., `Blog.json`, `Footer.json`)
+## Available Translation Management Scripts
 
-Example structure:
+The project includes several npm scripts to help manage translations:
+
+```bash
+# Split monolithic locale files into namespace-based files
+npm run split-locales
+
+# Check for missing translations between locales
+npm run check-translations
+
+# Import translations from external sources for local development
+npm run import-translations:local
+
+# Import translations from external sources for production
+npm run import-translations:prod
+```
+
+## Working with Namespaced Translation Files
+
+After running `split-locales`, the translation files are organized by namespace under locale-specific directories:
+
 ```
 messages/
 ├── en/                  # English translations
@@ -22,135 +39,155 @@ messages/
 └── ...
 ```
 
-## Translation Principles
+Each namespace file contains translations for a specific feature or component, making them easier to manage and update.
 
-1. **Context is Key**
-   - Before translating, examine how the text appears in the UI
-   - Check relevant components using the text to understand usage context
-   - Compare across namespaces to maintain consistent terminology
+## Translation Workflow
 
-2. **Namespace-Specific Terminology**
-   - Each namespace may have specific terminology
-   - Maintain consistent translations for repeated terms within a namespace
-   - Analyze the JSON structure for conceptual organization
+### Adding New Content
 
-3. **Natural Language Over Literal Translations**
-   - **DO NOT** translate word-for-word
-   - Prioritize natural, idiomatic expressions in each target language
-   - Adapt phrases to sound natural to native speakers
+1. **Identify the Namespace**:
+   - Determine which namespace the new content belongs to (e.g., `Blog`, `Auth`, `Common`)
+   - If no suitable namespace exists, consider creating a new one
 
-4. **Handling Placeholders**
-   - Preserve all placeholders: `{name}`, `{count}`, `{date}`, etc.
-   - Adjust surrounding grammar to accommodate placeholders
-   - Consider variable content when structuring sentences
+2. **Update Each Locale**:
+   - Add the new keys and English translations to `en/[Namespace].json`
+   - Add corresponding translations to `fi/[Namespace].json` and `sv/[Namespace].json`
+   - Maintain the same key structure across all locale files
 
-5. **Formatting Rules**
-   - Maintain JSON structure and formatting consistency
-   - Use UTF-8 encoding for all files
-   - Ensure proper escaping of special characters
-   - Use 2-space indentation
+3. **Verify Completeness**:
+   - Run `npm run check-translations` to ensure all translations are present
+   - Address any missing translations identified by the script
 
-## Language-Specific Guidelines
+### Updating Existing Translations
 
-### English (en)
-- Use clear, concise phrasing
-- Follow American English conventions unless otherwise specified
-- Use sentence case for most UI elements (capitalize first word only)
-- Avoid idioms that may not translate well to other languages
+1. **Locate the Keys**:
+   - Identify the namespace containing the keys to update
+   - Open the corresponding files in each locale directory
 
-### Finnish (fi)
-- Adjust for grammatical cases appropriately
-- Remember that Finnish words are often longer than English equivalents
-- Consider compound word formation rules (yhdyssanat)
-- Use appropriate formal/informal tone (generally more formal for business apps)
-- Consider differences in sentence structure compared to English
+2. **Make Coordinated Changes**:
+   - Update translations in all locale files to maintain consistency
+   - Ensure any placeholders are preserved across all translations
+   - When changing keys, update all references in code as well
 
-### Swedish (sv)
-- Pay attention to definite/indefinite forms
-- Use appropriate formal/informal tone ("ni" vs "du")
-- Consider gender agreement in adjectives
-- Maintain natural word order in questions and statements
-- Pay attention to "en" and "ett" words and their different plural forms
-
-## Implementation Process
-
-1. **Translation Workflow**
-   - Identify the target namespace files in each locale folder
-   - Compare existing translations for similar keys
-   - Draft translations that match the tone and style of the application
-   - Review in context if possible
-
-2. **Quality Control**
+3. **Verify Changes**:
+   - Test the updated translations in the UI
    - Run `npm run check-translations` to verify completeness
-   - Review translation in UI context when possible
-   - If available, get feedback from native speakers
 
-## Examples
+## Translation Report
 
-### Basic Translation Example
+The `localization-report.md` file provides a comprehensive overview of translation coverage:
 
-English (en/Common.json):
-```json
-{
-  "errorMessages": {
-    "notFound": "The requested resource was not found.",
-    "serverError": "An unexpected error occurred. Please try again later."
-  }
-}
+```markdown
+# Localization Report
+
+Generated on: 2025-05-03T09:33:57.073Z
+
+## Namespace Coverage
+
+| Namespace | en | fi | sv |
+|----------|-----|-----|-----|
+| About    |  ✅ |  ✅ |  ✅ |
+| Account  |  ✅ |  ✅ |  ✅ |
+| ...      |  ✅ |  ✅ |  ✅ |
+
+## Summary
+
+Total namespaces across all locales: 16
+
+### en
+- Namespaces: 16
+- Missing namespaces: None
+
+...
 ```
 
-Finnish (fi/Common.json):
-```json
-{
-  "errorMessages": {
-    "notFound": "Pyydettyä resurssia ei löytynyt.",
-    "serverError": "Tapahtui odottamaton virhe. Yritä myöhemmin uudelleen."
-  }
-}
-```
+Use this report to identify:
+- Missing namespaces in specific locales
+- Translation coverage across the application
+- Areas that need attention
 
-Swedish (sv/Common.json):
-```json
-{
-  "errorMessages": {
-    "notFound": "Den begärda resursen kunde inte hittas.",
-    "serverError": "Ett oväntat fel inträffade. Försök igen senare."
-  }
-}
-```
+## Best Practices for Translation Management
 
-### Placeholder Example
+### Version Control
 
-English (en/Profile.json):
-```json
-{
-  "welcome": "Welcome back, {name}! You have {count} new notifications."
-}
-```
+1. **Commit Translations Separately**:
+   - Keep translation changes in separate commits from code changes
+   - Use descriptive commit messages: `feat(i18n): Add blog post editor translations`
 
-Finnish (fi/Profile.json):
-```json
-{
-  "welcome": "Tervetuloa takaisin, {name}! Sinulla on {count} uutta ilmoitusta."
-}
-```
+2. **Review Process**:
+   - Have translations reviewed by native speakers when possible
+   - Create separate PRs for significant translation updates
 
-Swedish (sv/Profile.json):
-```json
-{
-  "welcome": "Välkommen tillbaka, {name}! Du har {count} nya aviseringar."
-}
-```
+### Organization
 
-### Pluralization Considerations
+1. **Consistent Hierarchy**:
+   - Keep translations organized in a logical hierarchy
+   - Limit nesting to 3-4 levels for readability
+   - Use consistent naming conventions for similar elements
 
-Remember that different languages handle pluralization differently:
+2. **Comments for Context**:
+   - Add comments in code to provide context for translators
+   - Include sample usage or screenshots if needed
 
-English: "1 item" vs "2 items"
-Finnish: "1 kohde" vs "2 kohdetta"
-Swedish: "1 objekt" vs "2 objekt"
+### Maintenance
 
-Adapt translations appropriately for grammatical number rules in each language.
+1. **Regular Audits**:
+   - Run `npm run check-translations` regularly to catch missing translations
+   - Review translation quality periodically
+   - Remove unused translation keys
+
+2. **Backup Strategy**:
+   - The `backup/` directory contains the original monolithic files
+   - Create additional backups before making significant changes
+
+## Troubleshooting Common Issues
+
+### Missing Translations
+
+If `check-translations` reports missing translations:
+
+1. **Identify the Gap**:
+   - Note which keys are missing in which locales
+   - Check if entire namespaces are missing or just specific keys
+
+2. **Fill the Gaps**:
+   - Add the missing translations to the appropriate files
+   - Use placeholder text if actual translations aren't ready
+
+3. **Verify Fixes**:
+   - Run `check-translations` again to ensure all issues are resolved
+
+### Namespace Synchronization
+
+If namespaces become out of sync:
+
+1. **Run `split-locales` Again**:
+   - This will regenerate the report and highlight discrepancies
+   - Check the report for missing namespaces
+
+2. **Manual Fixes**:
+   - Create any missing namespace files
+   - Copy structure from existing locales and add appropriate translations
+
+## Adding a New Language
+
+To add support for a new language:
+
+1. **Create Directory Structure**:
+   - Create a new directory for the locale (e.g., `messages/de/` for German)
+   - Copy all namespace files from an existing locale (e.g., English)
+
+2. **Translate Content**:
+   - Translate all content in each namespace file
+   - Preserve key structure and placeholders
+
+3. **Update Configuration**:
+   - Add the new locale to the supported locales list in the i18n configuration
+   - Add the locale to scripts that manage translations
+
+4. **Verify Setup**:
+   - Run `npm run check-translations` to ensure completeness
+   - Test the new locale in the UI
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
