@@ -1,133 +1,179 @@
-## data
+## database-operations
 
-> 本文档详细说明了 `nkuwiki` 项目数据仓库（位于 `/data` 目录）的组织结构、内容和用途。
+> 表结构在etl/load/mysql_tables/下，修改表需要同步修改相应的sql文件
 
-# NKUWiki 数据仓库 (`/data`) 结构说明
+# 数据库操作规范 (基于 aiomysql)
 
-本文档详细说明了 `nkuwiki` 项目数据仓库（位于 `/data` 目录）的组织结构、内容和用途。
 
-## 1. 顶层目录结构
+表结构在etl/load/mysql_tables/下，修改表需要同步修改相应的sql文件
 
-`/data` 目录是整个项目的数据中枢，包含了原始数据、处理后的数据、数据库文件、模型缓存以及各类索引。
 
+## 1. 数据库连接池 (`db_pool_manager.py`)
+
+项目采用基于 `aiomysql` 的异步数据库连接池，为所有数据库操作提供高效、非阻塞的连接管理。
+
+### 核心特性
+- **异步连接池**: 使用 `aiomysql.create_pool` 创建，在应用启动时初始化，在应用关闭时销毁。
+- **上下文管理**: 通过异步上下文管理器 `get_db_connection` 提供连接，确保连接的自动获取和释放。
+
+### 获取连接
+
+所有数据库操作都应通过 `get_db_connection` 异步上下文管理器获取连接。
+
+```python
+# etl/load/db_pool_manager.py
+import aiomysql
+from contextlib import asynccontextmanager
+
+# 全局连接池实例
+db_pool: aiomysql.Pool = None
+
+# (初始化和关闭逻辑...)
+
+@asynccontextmanager
+async def get_db_connection():
+    """
+    从连接池获取一个数据库连接的异步上下文管理器。
+    """
+    if not db_pool:
+        raise ConnectionError("数据库连接池不可用。")
+
+    conn = None
+    try:
+        conn = await db_pool.acquire()
+        yield conn
+    finally:
+        if conn:
+            await db_pool.release(conn)
+
+# 使用示例
+async def some_db_operation():
+    try:
+        async with get_db_connection() as conn:
+            async with conn.cursor(aiomysql.DictCursor) as cursor:
+                await cursor.execute("SELECT * FROM some_table LIMIT 1")
+                result = await cursor.fetchone()
+                print(result)
+    except Exception as e:
+        logger.error(f"数据库操作失败: {e}")
 ```
-/data
-├── cache/          # 通用缓存目录
-├── elasticsearch/  # Elasticsearch 索引及数据
-├── index/          # 其他类型的索引 (如 BM25)
-├── models/         # 本地化的机器学习模型 (如 embedding, reranker)
-├── mysql/          # MySQL 数据库文件
-├── nltk/           # NLTK 自然语言处理工具包数据
-├── qdrant/         # Qdrant 向量数据库快照和数据
-├── raw/            # 所有爬虫抓取的原始数据
-└── redis/          # Redis 数据文件
+
+## 2. 核心数据库异步操作 (`db_core.py`)
+
+数据库核心操作层 (`db_core.py`) 完全基于 `aiomysql` 实现，所有函数均为异步方法，防止阻塞主应用的 `asyncio` 事件循环。
+
+### 常用异步函数
+
+- `execute_custom_query(query, params, fetch)`: 执行任意自定义SQL。
+- `insert_record(table_name, data)`: 插入单条记录。
+- `batch_insert(table_name, records, batch_size)`: 高效的批量插入。
+- `update_record(table_name, conditions, data)`: 根据条件更新记录。
+- `query_records(table_name, conditions, fields, order_by, limit, offset)`: 功能强大的查询函数，返回数据和总数。
+- `get_by_id(table_name, record_id)`: 通过主键ID获取单条记录。
+- `count_records(table_name, conditions)`: 根据条件统计记录数。
+- `get_all_tables()`: 获取所有表名。
+
+### 使用示例
+
+所有 `db_core` 函数都必须使用 `await` 调用。
+
+```python
+import asyncio
+from etl.load import db_core
+from etl.load.db_pool_manager import init_db_pool, close_db_pool
+
+async def main():
+    # 在应用启动时初始化连接池
+    await init_db_pool()
+
+    try:
+        # 示例1: 插入一条记录
+        new_user_data = {"nickname": "async_user", "openid": f"test_openid_{asyncio.runners.random.randint(1000, 9999)}"}
+        # 假设 wxapp_users 表存在
+        user_id = await db_core.insert_record("wxapp_users", new_user_data)
+        print(f"插入用户成功，ID: {user_id}")
+
+        # 示例2: 查询记录
+        query_conditions = {"nickname": "async_user"}
+        result = await db_core.query_records(
+            table_name="wxapp_users",
+            conditions=query_conditions,
+            fields=["openid", "nickname", "create_time"],
+            limit=1
+        )
+        if result['data']:
+            print("查询结果:", result['data'][0])
+            print("总记录数:", result['total'])
+
+        # 示例3: 批量插入
+        new_posts = [
+            {"openid": new_user_data["openid"], "title": "帖子A", "content": "内容A"},
+            {"openid": new_user_data["openid"], "title": "帖子B", "content": "内容B"},
+        ]
+        # 假设 wxapp_posts 表存在
+        inserted_count = await db_core.batch_insert("wxapp_posts", new_posts)
+        print(f"批量插入 {inserted_count} 条帖子成功")
+
+        # 示例4: 执行自定义SQL
+        custom_sql = "SELECT COUNT(*) as count FROM wxapp_posts WHERE openid = %s"
+        count_result = await db_core.execute_custom_query(custom_sql, [new_user_data["openid"]], fetch='one')
+        print("帖子总数:", count_result['count'])
+
+    finally:
+        # 在应用关闭时关闭连接池
+        await close_db_pool()
+
+if __name__ == "__main__":
+    # 确保在运行环境中已有相关表结构
+    # 例如 wxapp_users, wxapp_posts
+    asyncio.run(main())
 ```
 
----
+## 3. 表结构管理 (`table_manager.py`)
 
-## 2. 原始数据 (`/data/raw`)
+表结构的管理由 `TableManager` 负责，其设计同样是**异步**的，并支持通过命令行进行操作。它依赖 `db_core` 执行所有数据库修改。
 
-所有通过爬虫抓取的原始数据都统一存放在 `/data/raw` 目录，它是所有数据处理流程的唯一入口。这种统一存储的策略支持不同频率（如小时级、天级）的增量更新。
+### 核心特性
+- **SQL文件驱动**：表结构定义在 `etl/load/mysql_tables/` 目录下的各个 `.sql` 文件中，文件名即表名（如 `wxapp_users.sql`）。
+- **异步操作**：所有管理功能（创建、删除、查询信息）都是 `async` 方法。
+- **命令行支持**：可作为脚本运行，方便地进行数据库初始化和维护。
 
--   **结构**: `/data/raw/{platform}/{source}/{year}{month}/{article_title}/`
--   **示例**: `/data/raw/website/nku/202210/【关注二十大】.../`
+### 使用示例
 
-### 目录层级解释
+```python
+import asyncio
+from etl.load.table_manager import TableManager
+from etl.load.db_pool_manager import init_db_pool, close_db_pool
 
--   `{platform}`: 数据来源平台，例如 `website` (网站)、`wechat` (微信公众号)、`xhs` (小红书)等。
--   `{source}`: 具体的来源子标识。对于 `website` 平台，通常是网站域名或机构缩写，如 `nku` (nku.edu.cn)。
--   `{year}{month}`: 数据发布或爬取的年月，如 `202210`。
--   `{article_title}`: 以文章标题命名的目录，存放与该文章相关的所有原始文件。
+async def manage_tables():
+    await init_db_pool()
+    manager = TableManager()
 
-### 文件内容
+    try:
+        # 获取所有可用的表定义
+        available_tables = manager.get_available_table_definitions()
+        print("可用的表定义:", available_tables)
 
-在每个文章标题目录下，通常包含以下一种或多种文件：
+        # 检查 'wxapp_users' 表是否存在
+        exists = await manager.table_exists('wxapp_users')
+        print(f"'wxapp_users' 表是否存在: {exists}")
 
-1.  **`{article_title}.json` (核心)**: 结构化的数据文件，包含了从原始页面提取的关键信息。这是下游ETL处理的主要数据源。
-    -   `title`: 标题
-    -   `author`: 作者或发布机构
-    -   `publish_time`: **发布时间 (重要)**，可用于精确增量处理。
-    -   `content`: 正文内容
-    -   `url`: 原始链接
-    -   `platform`: 平台标识
-    -   ... (其他元数据)
-2.  `original.html`: (可选) 网页的原始 HTML 文件，作为最原始的凭证。
-3.  `{article_title}.md`: (可选) 从 HTML 转换来的 Markdown 格式文件，便于阅读。
+        # 获取表信息
+        if exists:
+            info = await manager.get_table_info('wxapp_users')
+            if info:
+                print(f"'wxapp_users' 表信息: {info.get('record_count', 0)} 条记录")
 
----
+        # 重新创建所有表（危险操作！）
+        # await manager.recreate_tables(force=True)
+        # print("所有表已重建")
+    finally:
+        await close_db_pool()
 
-## 3. 数据库与索引文件
 
-这些目录大部分由 Docker Compose 或应用初始化脚本管理，存放着各个数据服务的持久化数据和索引文件。
-
-### 3.1. MySQL (`/data/mysql`)
-
--   **用途**: 存储关系型数据，是项目的核心数据库。
--   **包含内容**: `website_nku`, `wechat_nku`, `wxapp_post`, `insights` 等核心业务表。
-
-### 3.2. Qdrant (`/data/qdrant`)
-
--   **用途**: 存储文本的向量表示，用于语义搜索和 RAG。
--   **包含内容**: 集合 (Collections) 的快照 (snapshots)、分段 (segments) 数据和向量索引。
-
-### 3.3. Elasticsearch (`/data/elasticsearch`)
-
--   **用途**: 提供全文搜索（如 BM25）和关键词检索能力。
--   **包含内容**: 倒排索引 (Inverted Index) 文件、文档数据和集群元数据。
-
-### 3.4. Redis (`/data/redis`)
-
--   **用途**: 高速缓存服务。
--   **包含内容**: `dump.rdb` 快照文件，用于缓存热点数据、会话信息、任务队列等。
-
-### 3.5. 其他索引 (`/data/index`)
-
--   **用途**: 存放除 Qdrant 和 Elasticsearch 之外的其他类型的索引文件。
--   **示例**: 本地存储的 `BM25` 索引模型文件。
-
----
-
-## 4. 模型与缓存
-
-### 4.1. 模型文件 (`/data/models`)
-
--   **用途**: 存放从网络上下载或在本地训练的机器学习模型，避免重复下载。
--   **示例**: Hugging Face 上的 Embedding 模型、Reranker 模型、LLM 等。
-
-### 4.2. NLTK 数据 (`/data/nltk`)
-
--   **用途**: 存放 `Natural Language Toolkit (NLTK)` 包所需的数据。
--   **示例**: `punkt` 分词器模型、`stopwords` 停用词表等。
-
-### 4.3. 通用缓存 (`/data/cache`)
-
--   **用途**: 存放应用运行时产生的通用缓存文件，以提高性能。
--   **示例**: chunking 过程的缓存、API 调用的临时结果等。
-
----
-
-## 5. 数据处理流程概览
-
-1.  **爬取 (Crawling)**
-    -   爬虫脚本从各个平台 (`website`, `wechat` 等) 抓取数据。
-    -   所有新抓取的数据，无论频率如何，都统一按照 `/data/raw/{platform}/...` 的结构存放。
-
-2.  **增量识别与索引 (Incremental Indexing)**
-    -   `daily_pipeline.py` (或类似脚本) 定期执行。
-    -   脚本扫描 `/data/raw` 目录，基于**文件修改时间**或文件内 `publish_time` 字段，找出在指定时间窗口内（如过去一小时）新增或更新的 `.json` 文件。
-    -   **ETL处理**: 对新发现的文件的内容进行清洗、分块。
-    -   **向量化**: 调用 `/data/models` 中的嵌入模型，将文本块转换为向量，存入 Qdrant。
-    -   **全文索引**: (可选) 将数据同步到 Elasticsearch。
-    -   **元数据入库**: 将结构化数据存入 MySQL 对应的数据表中。
-
-3.  **洞察生成 (Insight Generation)**
-    -   `daily_pipeline.py` 基于该批次新增的文本节点 (`TextNode`)。
-    -   通过大语言模型（LLM）进行聚类、摘要和分析，生成洞察。
-    -   生成的洞察报告存入 MySQL 的 `insights` 表中。
-
-4.  **应用访问**
-    -   后端 API 服务从 MySQL, Qdrant, Elasticsearch 等数据库中检索数据。
-    -   前端（微信小程序、Web）通过 API 获取数据并展示给用户。 
+if __name__ == "__main__":
+    asyncio.run(manage_tables())
+```
 
 ---
 > Source: [NKU-WIKI/nkuwiki](https://github.com/NKU-WIKI/nkuwiki) — distributed by [TomeVault](https://tomevault.io).
