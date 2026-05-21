@@ -1,18 +1,22 @@
-## test
+## typescript
 
-> Rules for test files
+> Rules for TypeScript files
 
 
-# Test Guidelines
+# TypeScript Guidelines
 
-- Use Vitest for testing: `pnpm test` or `vitest run`
-- Use `test()` instead of `describe()` + `it()` for test cases
-- Test files should be named with the `.test.ts` extension
-- Place test files next to the files they test
-- Use the `expect()` API for assertions
-- Test coverage should be comprehensive for all tools
-- Mock external dependencies like file system operations and CLI commands
-- For testing MCP tools, ensure proper validation of input/output schemas
+- Files should end with a new line
+- Use ES modules (`import`/`export`)
+- Use `type` for type imports
+- When importing Node.js modules, don't use specifiers for `fs` and `path`
+- Use `pathe` instead of `path` module for Windows compatibility
+- Formatting:
+  - Prettier with: `printWidth: 80, singleQuote: true, trailingComma: all`
+  - Use 2 spaces for indentation
+- Use TypeScript's strict mode
+- Use `zod` for runtime type validation
+- For MCP tools, follow the [MCP spec](mdc:https:/github.com/ModelContractProtocol/spec) and use `fastmcp` for implementation
+- Use the `effect` library for functional programming patterns when appropriate
 
 ---
 > Source: [umijs/umi-mcp](https://github.com/umijs/umi-mcp) — distributed by [TomeVault](https://tomevault.io).
