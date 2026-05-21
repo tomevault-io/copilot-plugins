@@ -1,0 +1,9 @@
+{
+  "name": "cybrota--scharf",
+  "displayName": "scharf",
+  "description": "Static analysis tool to Identify and Fix GitHub Actions prone to Supply\u2011Chain Risks",
+  "version": "1.0.0",
+  "author": "cybrota",
+  "homepage": "https://github.com/cybrota/scharf",
+  "skills": []
+}
