@@ -1,268 +1,204 @@
-## database-schema
+## mobile-app-cursor-rules
 
-> This rule is for when working with the database, especially when creating new columns and tables
+> Use this rule when working in the mobile app
 
- ---
-description: Guidelines for creating and modifying database schema with Drizzle ORM
-globs: packages/db/src/schema/**/*
-alwaysApply: false
----
-# Database Schema Guidelines
+## Mobile App Development Guidelines
 
-## Core Principles
+### Component Organization
 
-- Use Drizzle ORM for all database operations
-- PlanetScale is our database provider (MySQL-compatible)
-- Follow existing schema patterns
-- Include timestamps and owner information on all tables
-- Use TypeID for all primary keys and relations
+- Organize components by usage pattern:
+  - `/components/ui/` - Reusable UI components (buttons, inputs, cards, etc.)
+  - `/components/app/` - Larger application components used in multiple places
+  - `/(home)/pathToTsxRoute/components/` - Route-specific components
 
-## Schema Organization
+- Never inline components in route TSX pages - extract them to proper component files
 
-1. Place schema files in the `packages/db/src/schema/` directory
-2. Organize tables by product/feature area (one file per area)
-3. Export all schema from `packages/db/src/schema.ts`
-4. When adding a new schema file:
-   - Check if it fits in an existing file first
-   - If not, create a new file with a descriptive name
-   - Add the export to `schema.ts`
+### Styling & UI
 
-## Table Structure
+- Use NativeWind for all styling:
+```tsx
+// Good
+<View className="flex-1 items-center justify-center bg-background p-4">
+  <Text className="text-lg font-medium text-foreground">Hello World</Text>
+</View>
 
-### Basic Table Template
-
-```typescript
-import { relations } from "drizzle-orm";
-import { int, json, mysqlEnum, timestamp, varchar } from "drizzle-orm/mysql-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
-
-import { cloudTypeIdGenerator } from "@potential/utils/typeid";
-import { timestamps } from "../schema/helpers";
-import { typeIdColumn } from "../customColumnTypes";
-import { users } from "./user";
-
-export const myFeatureTable = mysqlTable(
-  "my_feature_table",
-  {
-    // Primary key with TypeID
-    id: typeIdColumn("myFeature", "id")
-      .primaryKey()
-      .$default(() => cloudTypeIdGenerator("myFeature")),
-    
-    // Owner reference (required for all tables)
-    ownerId: typeIdColumn("user", "owner_id").notNull(),
-    
-    // Table-specific columns
-    name: varchar("name", { length: 255 }).notNull(),
-    description: varchar("description", { length: 1000 }),
-    type: mysqlEnum("type", ["type_a", "type_b", "type_c"]),
-    
-    // For numeric values, use appropriate size and constraints
-    count: int("count").unsigned().default(0),
-    amount: int("amount", { unsigned: true }).default(0),
-    
-    // For JSON data with type safety
-    metadata: json("metadata").$type<MyFeatureMetadata>(),
-    
-    // Timestamps (add to every table)
-    ...timestamps.createUpdate,
-  }
-);
-
-// Define TypeScript types for JSON columns
-export type MyFeatureMetadata = {
-  version: number;
-  settings: {
-    enabled: boolean;
-    threshold: number;
-  };
-};
-
-// Set up relations
-export const myFeatureTableRelations = relations(
-  myFeatureTable,
-  ({ many, one }) => ({
-    owner: one(users, {
-      fields: [myFeatureTable.ownerId],
-      references: [users.id],
-    }),
-    relatedItems: many(someOtherTable),
-  })
-);
-
-// Zod schemas for validation
-export const insertMyFeatureSchema = createInsertSchema(myFeatureTable);
-export const selectMyFeatureSchema = createSelectSchema(myFeatureTable);
+// Avoid
+<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+  <Text style={{ fontSize: 18, fontWeight: '500' }}>Hello World</Text>
+</View>
 ```
 
-## Column Types
+- Import UI components rather than React Native primitives:
+```tsx
+// Good
+import { Text, Button, Input } from "~/components/ui";
 
-### IDs and Relations
-
-- Use `typeIdColumn` for all ID columns
-- Example ID configuration:
-
-```typescript
-// Primary key
-id: typeIdColumn("featureName", "id")
-  .primaryKey()
-  .$default(() => cloudTypeIdGenerator("featureName")),
-
-// Foreign key
-userId: typeIdColumn("user", "user_id").notNull(),
+// Avoid
+import { Text } from "react-native";
 ```
 
-### Owner References
+- Leverage existing components before creating custom ones:
+```tsx
+// Good
+import { Button } from "~/components/ui";
 
-Every table must include an owner reference:
-
-```typescript
-ownerId: typeIdColumn("user", "owner_id").notNull(),
+// Avoid creating custom buttons when the existing one works
 ```
 
-### Timestamps
+### Loading States
 
-Always add timestamps to tables using the helper:
+- Use the Loading component from `~/components/loading` for all loading states:
+```tsx
+import { Loading } from "~/components/loading";
 
-```typescript
-// For tables with created/updated timestamps
-...timestamps.createUpdate,
-
-// For tables with only created timestamp
-...timestamps.create,
-
-// For tables with created/updated/logged timestamps
-...timestamps.createUpdateLogged,
+// Use with appropriate size
+<Loading size="md" />
 ```
 
-### Numeric Columns
+- Available sizes: tiny, sm, md, lg, xl, 2xl, 3xl, mega
 
-Select the appropriate integer size based on expected values:
+### Lists & Scrolling
 
-```typescript
-// For small numbers (0-255)
-smallValue: tinyint("small_value").unsigned(),
+- Always use FlatList instead of mapping items in a ScrollView:
+```tsx
+// Good
+<FlatList
+  data={items}
+  renderItem={({ item }) => <ItemComponent item={item} />}
+  keyExtractor={(item) => item.id}
+/>
 
-// For medium numbers (0-65,535)
-mediumValue: smallint("medium_value").unsigned(),
-
-// For larger numbers (0-16,777,215)
-largeValue: mediumint("large_value").unsigned(),
-
-// For very large numbers (0-4,294,967,295)
-veryLargeValue: int("very_large_value").unsigned(),
+// Avoid
+<ScrollView>
+  {items.map(item => (
+    <ItemComponent key={item.id} item={item} />
+  ))}
+</ScrollView>
 ```
 
-### String Columns
+- Ensure every screen has a scroll container (either FlatList, ScrollView, or a parent with one)
+- Avoid nested ScrollViews unless absolutely necessary for specific use cases
 
-```typescript
-// Short text
-name: varchar("name", { length: 255 }).notNull(),
+### Hooks & Utilities
 
-// Medium text
-description: varchar("description", { length: 1000 }),
-
-// Long text
-content: text("content"),
+- Place reusable hooks in `~/lib/hooks/` with descriptive names:
+```tsx
+// ~/lib/hooks/usePermission.ts
+export function usePermission() {
+  // Implementation
+}
 ```
 
-### Enum Columns
-
-```typescript
-status: mysqlEnum("status", ["active", "inactive", "pending"]).notNull().default("pending"),
+- Place utility functions in `~/utils/` with descriptive names:
+```tsx
+// ~/utils/format-date.ts
+export function formatDate(date: Date): string {
+  // Implementation
+}
 ```
 
-### JSON Columns
+### Imports & Path Aliases
 
-- Always define TypeScript types for JSON columns
-- Export types for reuse across the codebase
-- For client-shared types, place them in `packages/consts`
+- Always use the `~/` path alias for local imports, never use relative paths:
+```tsx
+// Good
+import { Button } from "~/components/ui/button";
+import { usePermission } from "~/lib/hooks/usePermission";
 
-```typescript
-// Define the type
-export type FeatureSettings = {
-  enabled: boolean;
-  options: {
-    key: string;
-    value: number;
-  }[];
-};
-
-// Use with the column
-settings: json("settings").$type<FeatureSettings>(),
+// Avoid
+import { Button } from "../../components/ui/button";
+import { usePermission } from "../../../lib/hooks/usePermission";
 ```
 
-## TypeID Management
+### Navigation
 
-When adding a new entity type that needs a TypeID:
+- Use Expo Router for all navigation
+- Organize routes in the `app/` directory with the appropriate folder structure
+- Use route params for passing minimal data between screens
 
-1. Add a new entry to `cloudIdTypesMapNameToPrefix` in `packages/utils/typeid.ts`
-2. Follow the existing prefix patterns:
-   - Auth: `acX`
-   - User: `uX`
-   - Tracking: `tX`
-   - AI: `aX`
-   - Consumption: `cX`
-   - Integration: `iX`
-   - Sleep: `sX`
+### Error Handling
 
-Example:
+- Implement proper error boundaries at the route level
+- Display user-friendly error messages
+- Log errors for debugging purposes
+- Use try/catch blocks for handling async operations
 
-```typescript
-export const cloudIdTypesMapNameToPrefix = {
-  // existing entries...
+### Performance Considerations
+
+- Properly memoize components, callbacks, and values with `useMemo` and `useCallback`
+- Optimize images for mobile:
+  - Use appropriate image formats (WebP when possible)
+  - Implement lazy loading where appropriate
+  - Consider implementing a image caching strategy
+
+### Component Structure Pattern
+
+```tsx
+// ~/components/ui/example-component.tsx
+import React from "react";
+import { View } from "react-native";
+import { Text } from "~/components/ui/text";
+import { cn } from "~/utils/ui";
+
+interface ExampleComponentProps {
+  title: string;
+  description?: string;
+  className?: string;
+}
+
+export function ExampleComponent({ 
+  title, 
+  description, 
+  className 
+}: ExampleComponentProps) {
+  return (
+    <View className={cn("p-4 bg-card rounded-lg", className)}>
+      <Text className="text-lg font-medium">{title}</Text>
+      {description && (
+        <Text className="text-sm text-muted-foreground mt-1">
+          {description}
+        </Text>
+      )}
+    </View>
+  );
+}
+```
+
+### Screen Structure Pattern
+
+```tsx
+// app/(home)/example/screen.tsx
+import React from "react";
+import { View, ScrollView } from "react-native";
+import { Text } from "~/components/ui/text";
+import { usePermission } from "~/lib/hooks/usePermission";
+import { ExampleComponent } from "./components/example-component";
+import { Loading } from "~/components/loading";
+
+export default function ExampleScreen() {
+  const { hasPermission, isLoading } = usePermission("camera");
   
-  // New entry - follow existing patterns
-  myFeature: "mf",  // Add new entity with appropriate prefix
-};
-```
-
-## Relations
-
-Always define relations for your tables:
-
-```typescript
-export const tableRelations = relations(
-  myTable,
-  ({ many, one }) => ({
-    // One-to-many relation
-    owner: one(users, {
-      fields: [myTable.ownerId],
-      references: [users.id],
-    }),
-    
-    // One-to-one relation
-    profile: one(profiles, {
-      fields: [myTable.profileId],
-      references: [profiles.id],
-    }),
-    
-    // Many-to-one relation (from the "many" side)
-    category: one(categories, {
-      fields: [myTable.categoryId],
-      references: [categories.id],
-    }),
-    
-    // Many-to-many relation (need a junction table)
-    tags: many(tagToItemTable),
-  })
-);
-```
-
-## Schemas and Validation
-
-- Create Zod schemas for your tables to enable validation:
-
-```typescript
-export const insertMyTableSchema = createInsertSchema(myTable);
-export const selectMyTableSchema = createSelectSchema(myTable);
-
-// Customize schema with additional validation
-export const customInsertSchema = insertMyTableSchema.extend({
-  name: z.string().min(3).max(50),
-  email: z.string().email(),
-});
+  if (isLoading) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Loading size="lg" />
+      </View>
+    );
+  }
+  
+  return (
+    <ScrollView className="flex-1 bg-background">
+      <View className="p-4">
+        <Text className="text-2xl font-bold mb-4">Example Screen</Text>
+        <ExampleComponent 
+          title="Example Component" 
+          description="This is an example component" 
+        />
+        {/* More content */}
+      </View>
+    </ScrollView>
+  );
+}
 ```
 
 ---
