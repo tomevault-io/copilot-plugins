@@ -1,98 +1,101 @@
-## drupal-security-misconfiguration
+## drupal-ssrf
 
-> Detect and prevent security misconfigurations in Drupal as defined in OWASP Top 10:2021-A05
+> Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in Drupal applications as defined in OWASP Top 10:2021-A10
 
-# Drupal Security Misconfiguration Standards (OWASP A05:2021)
+# Drupal Server-Side Request Forgery Standards (OWASP A10:2021)
 
-This rule enforces security best practices to prevent misconfiguration vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A05.
+This rule enforces security best practices to prevent Server-Side Request Forgery (SSRF) vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A10.
 
 ## Rule Details
 
-- **Name:** drupal_security_misconfiguration
+- **Name:** drupal_ssrf
 
-- **Description:** Detect and prevent security misconfigurations in Drupal as defined in OWASP Top 10:2021-A05
+- **Description:** Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in Drupal applications as defined in OWASP Top 10:2021-A10
 
 ## Filters
-- file extension pattern: `\\.(php|inc|module|install|theme|yml|info\\.yml)$`
+- file extension pattern: `\\.(php|inc|module|install|theme)$`
 - file path pattern: `.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `\\$settings\\['update_free_access'\\]\\s*=\\s*TRUE|\\$settings\\['cache'\\]\\s*=\\s*FALSE|\\$settings\\['rebuild_access'\\]\\s*=\\s*TRUE|\\$config\\['system\\.performance'\\]\\['cache'\\]\\s*=\\s*FALSE` – Development settings detected in production code. Ensure these settings are only enabled in development environments.
-    - Pattern 1: Development settings in production code
-  - pattern `settings\\.php|settings\\.local\\.php` – Verify that $settings['trusted_host_patterns'] is properly configured to prevent HTTP Host header attacks.
-    - Pattern 2: Missing or weak trusted host patterns
-  - pattern `\\$config\\['system\\.logging'\\]\\['error_level'\\]\\s*=\\s*'verbose'|ini_set\\('display_errors'\\s*,\\s*'1'\\)|error_reporting\\(E_ALL\\)` – Error display should be disabled in production. Use 'hide' for error_level in production.
-    - Pattern 3: Debugging/error display enabled
-  - pattern `\\$settings\\['file_chmod_directory'\\]\\s*=\\s*0777|\\$settings\\['file_chmod_file'\\]\\s*=\\s*0666` – Excessively permissive file permissions detected. Use more restrictive permissions.
-    - Pattern 4: Insecure file permissions settings
-  - pattern `\\.htaccess|sites/default/default\\.settings\\.php` – Ensure Content-Security-Policy headers are properly configured to prevent XSS attacks.
-    - Pattern 5: Disabled or misconfigured CSP headers
-  - pattern `session\\.cookie_secure\\s*=\\s*0|session\\.cookie_httponly\\s*=\\s*0|\\$settings\\['cookie_secure_only'\\]\\s*=\\s*FALSE` – Session cookies should be secure and HTTP-only in production environments.
-    - Pattern 6: Insecure session cookie settings
-  - pattern `settings\\.php` – Ensure $settings['file_private_path'] is properly configured for storing sensitive files.
-    - Pattern 7: Missing or misconfigured private file path
-  - pattern `core\\.extension\\.yml` – Check for development modules (devel, webprofiler, etc.) that should not be enabled in production.
-    - Pattern 8: Development modules enabled in production
-  - pattern `function\\s+[a-zA-Z0-9_]+_install\\(\\)` – Remove or secure default/demo content and users in production environments.
-    - Pattern 9: Default or demo content in production
-  - pattern `\\.htaccess|nginx\\.conf` – Verify X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, and Referrer-Policy headers are properly configured.
-    - Pattern 10: Missing or misconfigured security headers
+  - pattern `(file_get_contents|fopen|curl_exec|drupal_http_request|\\$client->request|\\$client->get|Drupal::httpClient\\(\\)->get)\\s*\\([^)]*\\$_(GET|POST|REQUEST|COOKIE|SERVER|FILES)[^)]*\\)` – Potential SSRF vulnerability: URL constructed with user input. Validate and sanitize user-supplied URL parameters before making requests.
+    - Pattern 1: Unsafe URL construction with user input
+  - pattern `GuzzleHttp\\\\Client[^;]*;[^;]*->request\\s*\\([^;]*\\$[^;]*` – Validate and restrict URLs before making HTTP requests with Guzzle to prevent SSRF attacks.
+    - Pattern 2: Unsafe Guzzle HTTP client usage
+  - pattern `(Http(Client|Request)|curl_exec|file_get_contents)\\s*\\([^)]*(http|\\$[a-zA-Z0-9_]+)[^)]*\\)[^;]*;(?![^;]*(valid|check|sanitize|UrlHelper))` – HTTP requests should validate URLs with \\Drupal\\Component\\Utility\\UrlHelper::isValid() before execution to prevent SSRF.
+    - Pattern 3: Missing URL validation before making HTTP requests
+  - pattern `(https?:?//|www\\.)\\s*\\.\\s*\\$[a-zA-Z0-9_]+` – Potential SSRF vulnerability: URL being constructed with variable concatenation. Use URL validation and allowlisting.
+    - Pattern 4: Unsafe URL construction with variable input
+  - pattern `file_get_contents\\([\"'](mdc:?:http|https|ftp|php|data|expect|zip|phar)://` – Avoid using PHP wrappers with file operations that could lead to SSRF vulnerabilities.
+    - Pattern 5: Using file system wrappers which can lead to SSRF
+  - pattern `CURLOPT_PROXY[^;]*none|CURLOPT_PROXY[^;]*null` – Bypassing proxy settings can lead to SSRF vulnerabilities. Maintain proper proxy configurations.
+    - Pattern 6: Bypassing local proxy settings
+  - pattern `simplexml_load_|DOMDocument|SimpleXMLElement|xml_parse` – XML processing without disabling external entities can lead to XXE and SSRF. Use libxml_disable_entity_loader(true).
+    - Pattern 7: Unsafe processing of XML with external entities
+  - pattern `(127\\.0\\.0\\.1|10\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}|172\\.(1[6-9]|2[0-9]|3[0-1])\\.[0-9]{1,3}\\.[0-9]{1,3}|192\\.168\\.[0-9]{1,3}\\.[0-9]{1,3}|169\\.254\\.[0-9]{1,3}\\.[0-9]{1,3}|localhost)` – Hardcoded internal IP addresses or localhost may facilitate SSRF attacks if exposed to user manipulation.
+    - Pattern 8: Accessing or using internal network IPs
+  - pattern `\\\\Drupal::httpClient\\(\\)(?!.*[^;]*UrlHelper::isValid)` – Always validate URLs with UrlHelper::isValid() before making HTTP requests with Drupal's HTTP client.
+    - Pattern 9: Custom Drupal HTTP client usage without validation
+  - pattern `curl_setopt\\([^,]+,\\s*CURLOPT_PORT,\\s*\\$[a-zA-Z0-9_]+` – Potential SSRF vulnerability: Restrict allowed ports for outbound HTTP requests to prevent service probing.
+    - Pattern 10: Allowing unrestricted ports in HTTP requests
 
 ## Suggestions
 - Guidance:
-**Drupal Security Configuration Best Practices:**
+**Drupal SSRF Prevention Best Practices:**
 
-1. **Environment-Specific Configurations:**
-   - Use `settings.local.php` for environment-specific settings
-   - Maintain separate development, staging, and production configurations
-   - Never enable development settings in production: update_free_access, rebuild_access, etc.
-   - Use environment variables or secrets management for sensitive information
+1. **Input Validation for URLs:**
+   - Always validate any user-supplied URL or URL components
+   - Use `\Drupal\Component\Utility\UrlHelper::isValid()` to validate URLs
+   - Implement allowlists rather than blocklists for domains/IPs
+   - Parse URLs and validate each component (protocol, domain, port, path)
 
-2. **Essential Security Settings:**
-   - Configure trusted_host_patterns to prevent HTTP Host header attacks
-   - Set secure file permissions (e.g., 0755 for directories, 0644 for files)
-   - Configure private file path for sensitive uploads
-   - Set file_scan_ignore_directories to prevent public access to sensitive directories
-   - Implement secure session cookie settings (HTTPOnly, Secure, SameSite)
+2. **Network-Level Controls:**
+   - Implement network-level access controls for internal services
+   - Use application firewalls to restrict outbound connections
+   - Configure proxies to control and monitor outbound requests
+   - Segment sensitive internal services from public-facing applications
 
-3. **Error Handling:**
-   - Disable verbose error reporting in production with $config['system.logging']['error_level'] = 'hide'
-   - Configure custom error pages that don't leak system information
-   - Implement appropriate logging without exposing sensitive data
+3. **Request Handling:**
+   - Avoid passing raw user input to HTTP clients
+   - Set reasonable timeouts for all HTTP requests
+   - Disable HTTP redirects or limit redirect chains
+   - Validate response types match expected formats
+   - Use dedicated service accounts with minimal privileges for API calls
 
-4. **Security Headers:**
-   - Set Content-Security-Policy to restrict resource origins
-   - Configure X-Frame-Options to prevent clickjacking
-   - Enable X-Content-Type-Options to prevent MIME-type sniffing
-   - Set Referrer-Policy to control information in HTTP referers
+4. **Drupal-Specific Controls:**
+   - Utilize Drupal's built-in UrlHelper class for URL validation
+   - Configure Guzzle HTTP client with appropriate security options
+   - Consider using middleware to enforce URL validation
+   - Use Drupal's logging system to record suspicious outbound requests
+   - Implement specific content security policies
 
-5. **Module & Extension Security:**
-   - Disable and uninstall unnecessary modules in production
-   - Keep core and contributed modules updated
-   - Remove development modules from production (devel, webprofiler, etc.)
-   - Implement proper configuration management workflows
+5. **Authentication and Access Controls:**
+   - Implement proper authentication for internal service calls
+   - Use context-specific API tokens with limited privileges
+   - Avoid exposing service credentials in code or configurations
+   - Implement rate limiting for outbound requests
 
 ## Validation Checks
 - Conditions:
-  - pattern `\\$settings\\['trusted_host_patterns'\\]\\s*=\\s*\\[\\s*['\"][^\"']+['\"]` – Trusted host patterns are properly configured.
-    - Check 1: Proper trusted host patterns
-  - pattern `\\$settings\\['cookie_secure_only'\\]\\s*=\\s*TRUE|session\\.cookie_secure\\s*=\\s*1` – Secure cookie settings are properly configured.
-    - Check 2: Secure session cookie settings
-  - pattern `\\$settings\\['file_private_path'\\]\\s*=\\s*(\"|')[^\"']+(\"|')` – Private file path is configured for sensitive files.
-    - Check 3: Private file path configuration
-  - pattern `\\$config\\['system\\.logging'\\]\\['error_level'\\]\\s*=\\s*'hide'` – Error reporting is properly configured for production.
-    - Check 4: Production error settings
+  - pattern `UrlHelper::isValid\\([^)]+\\)` – Using proper URL validation with UrlHelper.
+    - Check 1: Proper URL validation
+  - pattern `array_intersect|in_array|allowlist|whitelist` – Implementing domain/URL allowlisting for outbound requests.
+    - Check 2: Allowlisting domains
+  - pattern `libxml_disable_entity_loader\\(true\\)` – Properly disabling XML external entities.
+    - Check 3: Safe XML processing
+  - pattern `\\\\Drupal::httpClient\\(\\)[^;]*\\$options` – Using Drupal's HTTP client with explicit options.
+    - Check 4: Using Drupal's HTTP client safely
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-- Tags: security, drupal, configuration, misconfiguration, owasp, language:php, framework:drupal, category:security, subcategory:configuration, standard:owasp-top10, risk:a05-misconfiguration
+- Tags: security, drupal, ssrf, owasp, language:php, framework:drupal, category:security, subcategory:ssrf, standard:owasp-top10, risk:a10-ssrf
 ## References
-- https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
-- https://www.drupal.org/docs/security-in-drupal/securing-your-site
-- https://www.drupal.org/docs/security-in-drupal/drupal-security-best-practices
-- https://www.drupal.org/docs/8/security/writing-secure-code-for-drupal-8
+- https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
+- https://cwe.mitre.org/data/definitions/918.html
+- https://www.drupal.org/docs/develop/security-in-drupal/writing-secure-code-for-drupal
+- https://portswigger.net/web-security/ssrf
+- https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html
 
  
 
