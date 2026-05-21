@@ -1,0 +1,9 @@
+{
+  "name": "bigbrozer--comfyture",
+  "displayName": "comfyture",
+  "description": "Stack to self-host your own ComfyUI instance",
+  "version": "1.0.0",
+  "author": "bigbrozer",
+  "homepage": "https://github.com/bigbrozer/comfyture",
+  "skills": []
+}
