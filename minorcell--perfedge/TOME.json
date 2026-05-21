@@ -4,7 +4,7 @@
   "repo": "perfedge",
   "description": "PerfEdge \u96c6Web\u6027\u80fd\u4f18\u5316\u5b66\u4e60\u3001\u4f53\u9a8c\u4e3a\u4e3b\u7684\u5f00\u6e90\u77e5\u8bc6\u5e93\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/minorcell/perfedge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T00:07:31Z"
+  "distributed_at": "2026-05-21T11:57:52Z"
 }
