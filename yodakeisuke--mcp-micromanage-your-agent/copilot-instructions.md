@@ -1,39 +1,33 @@
-## task-plannning
+## task-status-update-rule
 
-> When tickets have been assigned or revising the implementation plan
+> Always When updating the status of a task
 
-# Task Planning Guide
+    **STRICT RULES - MUST BE FOLLOWED WITHOUT EXCEPTION:**
+    There is always exactly one task in either the in_progress or user_review state.
+    Before updating the status, we guarantee that each condition is met.
 
-## Purpose
-- To design a structured implementation approach before any coding begins
-- To ensure clear understanding of requirements and dependencies
-- To divide tickets into small PRs and commits for easier review and integration
+    needsRefinment → in_progress conditions:
+    ✅ Requirements have been sufficiently clarified and ready for implementation
+    ✅ **Fully understand the code's dependencies and have already reviewed them**
+    ✅ The impact on existing code has been assessed
+    
+    in_progress → user_review conditions:
+    ✅ I explicitly checked that there were no compile errors
+    ✅ Necessary tests have been added and all pass
+    ✅ Required documentation updates are completed
 
-## Output
-- A comprehensive work plan organized by PRs and commits
-- Each PR should be small, functional, and independently reviewable
-- Each commit should represent an atomic change within its PR
-- To minimize dependencies between PRs, ideally making them independently implementable
+    user_review → in_progress conditions:
+    ✅ From feedback, the content to be modified is completely clear
 
-## Method
-### Analysis Phase
-- Analyze the task's architecture requirements thoroughly
-- Explore and read all potentially relevant existing code and similar reference code
-- Develop a meta architecture plan for the solution
+    **user_review → completed conditions**:
+    ✅ Only when explicitly approved by the user, absolutely.
 
-### Planning Approach
-- Break down the task into smallest possible PRs
-- Order PRs logically (e.g., setup → core logic → tests)
-- Define 2-4 minimal atomic commits for each PR
-- Prefer splitting tasks into PRs rather than large commits
+    * → needsRefinment conditions:
+    ✅ It becomes apparent that the task requirements are unclear or incomplete
 
-### Implementation Criteria
-- Only proceed after achieving 100% clarity and confidence
-- Ensure all affected parts of the codebase have been fully identified through dependency tracing
-- **The work plan must be approved by the user before implementation**
-
-## Prohibited Actions
-- **Any implementation or code writing, even "example code"**
+    * → cancelled conditions:
+    ✅ There is a clear reason why the task is no longer needed, or alternative methods or solutions to meet the requirements are clear
+    ✅ The impact of cancellation on other related tasks has been evaluated
 
 ---
 > Source: [yodakeisuke/mcp-micromanage-your-agent](https://github.com/yodakeisuke/mcp-micromanage-your-agent) — distributed by [TomeVault](https://tomevault.io).
