@@ -1,0 +1,9 @@
+{
+  "name": "shah91n--weaviate-cluster-webapp",
+  "displayName": "weaviate-cluster-webapp",
+  "description": "A lightweight Streamlit web app built for developers who need a quick, visual way to manage and understand their Weaviate cluster. It's designed for development, staging, and testing environments (not",
+  "version": "1.0.0",
+  "author": "Shah91n",
+  "homepage": "https://github.com/Shah91n/weaviate-cluster-webapp",
+  "skills": []
+}
