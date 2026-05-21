@@ -1,0 +1,30 @@
+{
+  "name": "cndoit18--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles",
+  "version": "1.0.0",
+  "author": "cndoit18",
+  "homepage": "https://github.com/cndoit18/dotfiles",
+  "skills": [
+    {
+      "name": "drawio-diagrams-enhanced",
+      "description": ""
+    },
+    {
+      "name": "excalidraw",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-patterns",
+      "description": ""
+    },
+    {
+      "name": "scientific-schematics",
+      "description": ""
+    },
+    {
+      "name": "skill-from-masters",
+      "description": ""
+    }
+  ]
+}
