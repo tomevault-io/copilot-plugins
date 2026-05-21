@@ -1,0 +1,44 @@
+{
+  "name": "vmq-fastapi",
+  "owner": "daojiAnime",
+  "repo": "vmq-fastapi",
+  "description": "\u8be5\u9879\u76ee\u662f\u53c2\u8003 V \u514d\u7b7e\u9879\u76ee\u8fdb\u884c\u5f00\u53d1\u7684 fastapi \u7248\u672c\u4e2d\u53f0\u9879\u76ee\uff0c\u4e0e\u539f\u6709\u9879\u76ee\u8bbe\u8ba1\u6709\u5f88\u5927\u533a\u522b\uff0c\u65e0\u6cd5\u517c\u5bb9\u539f\u6709\u76d1\u63a7\u7aef\u548c\u63a5\u53e3\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daojiAnime/vmq-fastapi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T21:37:09Z"
+}
