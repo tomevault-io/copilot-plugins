@@ -1,59 +1,21 @@
-## git-rules
+## quality-gates
 
-> Follow these rules closely when working with git and GitHub.
+> Run these checks after making any changes to Dart files.
 
+# Quality Gates
 
-# Git and GitHub rules
+Run these checks after making any changes to Dart files.
 
-Follow these rules closely when working with git and GitHub.
+## Dart Code Quality
 
-## General Rules
+After modifying any `*.dart` files, use the dart tool to run the following checks:
 
-### Before committing
-
-1. Run `dart format` and `dart analyze` if there are any `*.dart` files to be committed
-   - You can check for staged `.dart` files using this command:
-
-     ```bash
-     git diff --name-only --staged | grep '\.dart$'
-     ```
-
-2. Fix all infos, warnings issues and errors the commands surface
-3. Repeat step 1. and 2. until all issues are resolved
-4. Stage any files that were changed in this process
-5. Proceed with the commit
-
-### GitHub
-
-- The owner of this repository is `Peetee06`
-- The repository is called `flutter-testing-concepts`
-- The default branch is `main` - use it as the base branch when creating new branches if not otherwise specified
-
-### Commit messages
-
-Prefix commit messages depending on the changes
-
-- features: `feat:`
-- refactorings: `refactor:`
-- bug fixes: `fix:`
-- only tests: `test:` - if tests are part of a feature addition, use `feat:`
-- everything in the `.github` directory as well as configuration files related to continuous integration like `.coderabbit.yaml` or `codecov.yml`: `ci:`
-- documentation: `docs:`
-- cleanups, dependency updates, SDK updates, etc.: `chore:`
-
-## Pull Request creation
-
-When asked to open a Pull Request follow these steps
-
-1. Verify if you are on the `main` branch using `git rev-parse --abbrev-ref HEAD | cat` command
-   1. If you are on `main`:
-      1. create a new branch with a fitting name and using a prefix like for commit messages
-      2. checkout the new branch you created
-      3. publish the new branch
-   2. If you are on another branch, continue with the next step
-2. Stage all files if the user did not specify any specific files to commit
-3. Follow the instructions in section "Before committing" and commit with a meaningful message describing the changes
-4. Create the Pull Request with a meaningful title using the same prefix as for commit messages and use the [PULL_REQUEST_TEMPLATE.md](mdc:.github/PULL_REQUEST_TEMPLATE.md) for the description containing a concise summary of the changes
+1. Run `format` in the affected packages to format the code
+2. Run `analyze` in the affected packages to check for issues
+3. Fix all infos, warnings, and errors surfaced by these commands
+4. Run `test` in the affected packages to ensure all tests pass
+5. Fix any failing tests
+6. Repeat steps 1-5 until all issues are resolved and all tests pass
 
 ---
 > Source: [Peetee06/flutter-testing-concepts](https://github.com/Peetee06/flutter-testing-concepts) — distributed by [TomeVault](https://tomevault.io).
