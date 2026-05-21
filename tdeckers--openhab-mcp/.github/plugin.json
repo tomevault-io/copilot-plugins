@@ -1,0 +1,9 @@
+{
+  "name": "tdeckers--openhab-mcp",
+  "displayName": "openhab-mcp",
+  "description": "An MCP server for OpenHAB",
+  "version": "1.0.0",
+  "author": "tdeckers",
+  "homepage": "https://github.com/tdeckers/openhab-mcp",
+  "skills": []
+}
