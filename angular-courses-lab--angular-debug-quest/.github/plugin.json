@@ -1,0 +1,9 @@
+{
+  "name": "angular-courses-lab--angular-debug-quest",
+  "displayName": "angular-debug-quest",
+  "description": "Debugging learning experience with Angular: a collection of bugged applications to solve to train and learn more about Angular",
+  "version": "1.0.0",
+  "author": "angular-courses-lab",
+  "homepage": "https://github.com/angular-courses-lab/angular-debug-quest",
+  "skills": []
+}
