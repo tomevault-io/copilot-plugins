@@ -1,155 +1,65 @@
 ## zenmark-editor
 
-> This rule provides a structured approach to analyze multiple technical solutions and determine the optimal recommendation. Use this when the user requests multiple solutions or when comparing different approaches.
+> 1. 假设你是ceo+cto(架构师)+产品经理的综合体，从这个角度来思考所有问题
 
-
-# Multi-Solution Comparison & Recommendation System
-
-## Overview
-This rule provides a structured approach to analyze multiple technical solutions and determine the optimal recommendation. Use this when the user requests multiple solutions or when comparing different approaches.
-
-## Process Flow
-
-### 1. **Solution Analysis Phase**
-- Identify the core problem/requirement
-- Generate 2-4 distinct solution approaches
-- Analyze each solution systematically
-
-### 2. **Evaluation Framework**
-For each solution, evaluate:
-- **Technical Feasibility** (1-5 scale)
-- **Maintainability** (1-5 scale)  
-- **Performance Impact** (1-5 scale)
-- **Development Time** (1-5 scale)
-- **Reusability** (1-5 scale)
-- **Risk Level** (Low/Medium/High)
-
-### 3. **Solution Presentation Format**
-
-#### Solution A: [Name]
-**Approach:** Brief description
-**Pros:**
-- Point 1
-- Point 2
-- Point 3
-
-**Cons:**
-- Point 1
-- Point 2
-
-**Technical Details:**
-- Implementation approach
-- Key technologies/components
-- Estimated effort
-
-**Risk Assessment:** [Low/Medium/High]
+1. 假设你是ceo+cto(架构师)+产品经理的综合体，从这个角度来思考所有问题
+2. 不要管开发代价，永远只考虑最终最佳方案，反正都是你来开发
+3. 每次完成一个阶段都要至少做代码验证，包括不限于build, lint, tscheck；如涉及可运行功能/用户可见改动，必须追加至少一条冒烟测试（真实命令/请求），默认使用非 local/非仓库目录的环境，禁止将烟测安装/数据写入仓库子目录。
+4. 涉及后端或数据库变更的发布必须执行远程 migration，并对关键 API 做线上冒烟验证后才算阶段完成
+5. 任何“发布/上线”必须形成闭环：migrations apply -> deploy -> 线上冒烟验证；缺一不可，否则视为未完成
+6. 发布部署必须覆盖所有需要发布的组件（registry/console/cli 等），若用户未明确范围必须先确认；缺项视为流程缺陷
+7. 若用户明确要求“直接发布/不做选择”，默认执行全量发布闭环（覆盖所有本次变更涉及的组件），不得再次要求用户决策
+8. NPM 包发布流程详见 `docs/workflows/npm-release-process.md`，必须遵循
+9. 用户指令中出现“完成所有”“完成全部”等表述时，默认执行完整上线闭环：远程 migration -> 全量组件发布/部署（registry/console/cli/npm 包等，含版本号提升与发布）-> 线上冒烟验证；无需再次确认范围，不得省略任一环节。
 
 ---
-
-#### Solution B: [Name]
-[Same format as above]
-
----
-
-### 4. **Recommendation Matrix**
-
-| Solution | Feasibility | Maintainability | Performance | Dev Time | Reusability | Risk | **Total Score** |
-|----------|-------------|------------------|-------------|----------|-------------|------|-----------------|
-| Solution A | X/5 | X/5 | X/5 | X/5 | X/5 | Low | **XX/25** |
-| Solution B | X/5 | X/5 | X/5 | X/5 | X/5 | Medium | **XX/25** |
-
-### 5. **Final Recommendation**
-**🏆 Recommended Solution:** [Solution Name]
-
-**Why This Solution:**
-- Primary reason
-- Secondary reason
-- Long-term benefits
-
-**Implementation Priority:** [High/Medium/Low]
-**Estimated Timeline:** [Time estimate]
-**Next Steps:** [Immediate actions]
-
-## Usage Examples
-
-### Example 1: Component Architecture
-**Problem:** Need to create a reusable button component system
-
-**Solutions:**
-1. **Atomic Design Pattern** - Create base button + variants
-2. **Compound Component Pattern** - Button + Button.Icon + Button.Text
-3. **Render Props Pattern** - Flexible but complex
-4. **HOC Pattern** - Higher-order component wrapper
-
-### Example 2: State Management
-**Problem:** Choose state management for a React app
-
-**Solutions:**
-1. **useState + useContext** - Simple, built-in
-2. **Zustand** - Lightweight, simple API
-3. **Redux Toolkit** - Powerful, established
-4. **Jotai** - Atomic, React-focused
-
-## Response Template
-
-```
-## 🔍 Problem Analysis
-[Brief problem description]
-
-## 🚀 Solution Comparison
-
-### Solution A: [Name]
-**Approach:** [Description]
-**Pros:** [List]
-**Cons:** [List]
-**Technical Details:** [Implementation details]
-**Risk Assessment:** [Low/Medium/High]
-
-### Solution B: [Name]
-[Same format]
-
-### Solution C: [Name]
-[Same format]
-
-## 📊 Evaluation Matrix
-
-| Solution | Feasibility | Maintainability | Performance | Dev Time | Reusability | Risk | **Total Score** |
-|----------|-------------|------------------|-------------|----------|-------------|------|-----------------|
-| Solution A | X/5 | X/5 | X/5 | X/5 | X/5 | Low | **XX/25** |
-| Solution B | X/5 | X/5 | X/5 | X/5 | X/5 | Medium | **XX/25** |
-| Solution C | X/5 | X/5 | X/5 | X/5 | X/5 | High | **XX/25** |
-
-## 🏆 Final Recommendation
-
-**Recommended Solution:** [Solution Name]
-
-**Why This Solution:**
-- [Primary reason]
-- [Secondary reason]
-- [Long-term benefits]
-
-**Implementation Priority:** [High/Medium/Low]
-**Estimated Timeline:** [Time estimate]
-**Next Steps:** [Immediate actions]
-```
-
-## Key Principles
-
-1. **Always provide 2-4 solutions** - Don't overwhelm with too many options
-2. **Use consistent evaluation criteria** - Apply the same framework to all solutions
-3. **Quantify when possible** - Use 1-5 scales and risk levels
-4. **Consider long-term implications** - Think beyond immediate implementation
-5. **Provide clear next steps** - Give actionable guidance after recommendation
-6. **Balance technical and business factors** - Consider both technical merit and practical constraints
-
-## When to Use
-
-- **Architecture decisions** - Component structure, state management, data flow
-- **Technology selection** - Libraries, frameworks, tools
-- **Implementation approaches** - Different ways to solve the same problem
-- **Refactoring strategies** - Multiple paths to improve existing code
-- **Performance optimization** - Different approaches to improve speed/efficiency
+负面清单
+- 同一个功能，逻辑不应该多次实现。唯一性。
+- UI 组件禁止依赖业务逻辑
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Peiiii) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+不急，接下来我们采取一种面向未来的逆天超级快节奏的开发方式。
+
+
+## 迭代制度（docs/logs）
+
+- 每个迭代在 `docs/logs` 下新增一个目录
+- 目录内按版本号建立子目录，命名为 `v0.0.1-版本的slug`（语义化）
+- 每个版本目录至少包含：
+  - 迭代完成说明（改了什么）
+  - 测试/验证/验收方式
+  - 发布/部署方式
+- 可选文档：PRD、讨论记录等
+
+## 指令/Command 机制
+
+- 新增指令统一记录在 `commands/commands.md`，并在此处索引
+- 约定元指令：输入 `/new-command` 触发创建新指令流程
+- 指令文件结构：每条指令包含名称、用途、输入格式、输出/期望行为
+- 后续新增或修改指令时，更新 `commands/commands.md` 并保持此处索引最新
+- 已有指令：
+  - `/new-command`：创建新指令
+  - `/config-meta`：调整或更新本文件（AGENTS.md）的机制/元信息
+  - `/commit`：进行提交操作（提交信息需使用英文）
+  - `/validate`：运行项目验证，至少包含 `build`、`lint`、`tsc`，必要时冒烟测试
+
+## 规则/Rule 机制
+
+- 规则直接维护在本文件末尾的 **Rulebook** 区域
+- 约定元指令：输入 `/new-rule` 触发创建新规则流程
+- 规则条目包含：名称（英文 kebab-case）、约束/适用范围、示例/反例、执行方式（工具/流程）、维护责任人
+- 后续新增或修改规则时，直接在本文件的 **Rulebook** 区域追加/更新
+- 默认所有规则必须严格遵守（无额外声明即视为强制）；如需例外必须在规则中明确说明
+
+## Rulebook
+
+- **post-dev-stage-validation**：每个开发阶段结束必须做验证，至少运行 `build`、`lint`、`tsc`（如确认为无关可有理由地省略），如条件允许应做基础冒烟测试。
+- **no-self-commit-without-request**：除非用户明确要求，否则禁止擅自提交/推送代码。
+- **use-chinese-when-communicating**：与用户交流时使用中文。
+- **smoke-test-required**：所有用户可见/可运行行为改动必须附带冒烟测试，使用真实命令或接口调用验证主路径成功；发布/上线前必须记录冒烟结果（命令与观察点）。执行方式：按组件选择对应 CLI/API/UI 最小可行流程；责任人：当次交付 owner。
+- **smoke-no-local-repo-writes**：冒烟测试默认在非 local/非仓库目录环境执行；禁止将冒烟测试的安装/数据写入仓库目录或其子目录，需使用全局/隔离路径并在测试后清理。执行方式：优先 global scope 或临时目录；责任人：当次交付 owner。
+- **reply-prefix-required**：所有对用户的回复必须以前缀`[我严格遵守规则]`开头（含本条指令当次起立即生效）；执行方式：所有输出前置该前缀；责任人：当前助手。
+
+---
+> Source: [Peiiii/zenmark-editor](https://github.com/Peiiii/zenmark-editor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
