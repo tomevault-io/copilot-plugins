@@ -1,0 +1,9 @@
+{
+  "name": "atomicstrata--atomicmemory-core",
+  "displayName": "atomicmemory-core",
+  "description": "Deprecated split repo; AtomicMemory Core now lives in atomicstrata/atomicmemory/packages/core.",
+  "version": "1.0.0",
+  "author": "atomicstrata",
+  "homepage": "https://github.com/atomicstrata/atomicmemory-core",
+  "skills": []
+}
