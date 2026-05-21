@@ -1,0 +1,9 @@
+{
+  "name": "nicobrinkkemper--vite-plugin-react-server",
+  "displayName": "vite-plugin-react-server",
+  "description": "Vite plugin for React Server Components (RSC)",
+  "version": "1.0.0",
+  "author": "nicobrinkkemper",
+  "homepage": "https://github.com/nicobrinkkemper/vite-plugin-react-server",
+  "skills": []
+}
