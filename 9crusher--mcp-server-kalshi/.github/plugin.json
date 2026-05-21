@@ -1,0 +1,9 @@
+{
+  "name": "9crusher--mcp-server-kalshi",
+  "displayName": "mcp-server-kalshi",
+  "description": "A MCP server to interact with Kalshi prediction markets",
+  "version": "1.0.0",
+  "author": "9crusher",
+  "homepage": "https://github.com/9crusher/mcp-server-kalshi",
+  "skills": []
+}
