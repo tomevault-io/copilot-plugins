@@ -1,0 +1,9 @@
+{
+  "name": "msakowski--obsidian-library-linker",
+  "displayName": "obsidian-library-linker",
+  "description": "This Obsidian plugin enhances your note-taking experience by providing seamless integration with JW Library links and Bible references.",
+  "version": "1.0.0",
+  "author": "msakowski",
+  "homepage": "https://github.com/msakowski/obsidian-library-linker",
+  "skills": []
+}
