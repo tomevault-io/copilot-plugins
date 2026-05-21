@@ -1,366 +1,112 @@
-## lifecycle-management
+## module-system
 
-> Module lifecycle (onMount, onDestroy, onPageIn, onPageOut). Use when initializing, cleaning up, or animating page transitions.
+> Custom module system (data-module, lifecycle hooks, subscriptions). Use when creating or editing modules in src/modules/ or wiring DOM to JS.
 
-# Lifecycle Management Rules
+# Custom Module System Rules
 
-## Mounting Phase
+## Overview
 
-```typescript
-onMount(() => {
-  // Initialize component state
-  // Set up initial styles
-  // Add event listeners
-  // Create observers
-  // Start subscription services
-  // Initialize scroll tracking
-});
-```
+This project uses a custom module system where JavaScript modules are automatically discovered and mounted based on DOM attributes. Each module is a function that receives an element and its dataset, with lifecycle hooks for mounting, destroying, and page transitions.
 
-## Destruction Phase
+## Module Structure
 
-```typescript
-onDestroy(() => {
-  // Remove event listeners
-  // Clear intervals/timeouts
-  // Destroy observers and trackers
-  // Reset element styles
-  // Clean up GSAP animations
-  // Unsubscribe from Raf/Resize/Scroll
-  // Clean up Webflow editor handlers
-});
-```
+- **Location**: All modules go in `src/modules/` directory
+- **Export**: Must be a default export function
+- **Signature**: `(element: HTMLElement, dataset: DOMStringMap) => void`
+- **Naming**: Module filename must match the `data-module` attribute value
 
-## Page Transitions
+## Lifecycle Hooks
 
-```typescript
-// Page entrance
-onPageIn(async () => {
-  // Animate in new state
-  await gsap.to(element, {
-    duration: 0.5,
-    opacity: 1,
-    y: 0,
-    ease: "power2.out",
-  });
-});
+Import these from `@/modules/_`:
 
-// Page exit (with visibility check)
-onPageOut(
-  async () => {
-    // Animate out current state
-    await gsap.to(element, {
-      duration: 0.3,
-      opacity: 0,
-      y: -20,
-      ease: "power2.in",
-    });
-  },
-  { element } // Only animate if visible
-);
-```
+- `onMount(fn: () => void)` - Runs when module is mounted
+- `onDestroy(fn: () => void)` - Runs when module is destroyed
+- `onPageIn(fn: () => Promise<void>)` - Runs during page entrance
+- `onPageOut(fn: () => Promise<void>, options?)` - Runs during page exit
+- `onView(element, config)` - Intersection observer for viewport detection
+- `onTrack(element, config)` - Scroll tracking with bounds
 
-## Viewport Detection
+## Subscription System
 
-```typescript
-const observer = onView(element, {
-  threshold: 0.1,
-  rootMargin: "0px",
-  autoStart: false,
-  once: false,
-  callback: ({ isIn, direction }) => {
-    if (isIn) {
-      // Element entered viewport
-      element.classList.add("in-view");
-    } else {
-      // Element left viewport
-      element.classList.remove("in-view");
-    }
-  },
-});
+Import from `@lib/subs`:
 
-// Start observer in onMount
-onMount(() => {
-  observer.start();
-});
-```
+- `Raf.add(fn, priority?)` - Subscribe to animation frame updates
+- `Resize.add(fn, priority?)` - Subscribe to debounced resize events
 
-## Scroll Tracking
+## DOM Integration
 
-```typescript
-const track = onTrack(element, {
-  bounds: [0, 1],
-  top: "center",
-  bottom: "center",
-  callback: (value) => {
-    // Handle scroll progress (0-1)
-    element.style.transform = `translateY(${value * 100}px)`;
-    element.style.setProperty("--scroll-progress", value.toString());
-  },
-});
-```
-
-## Subscription Management
-
-```typescript
-// Animation frame subscription
-const rafUnsubscribe = Raf.add(({ deltaTime, time }) => {
-  // Smooth animations
-  element.style.transform = `rotate(${time * 50}deg)`;
-});
-
-// Resize subscription
-const resizeUnsubscribe = Resize.add(({ width, height }) => {
-  // Responsive behavior
-  element.style.fontSize = width < 768 ? "14px" : "18px";
-});
-
-// Scroll subscription
-const scrollUnsubscribe = Scroll.add(({ progress, velocity }) => {
-  // Scroll-based effects
-  element.style.setProperty("--scroll-progress", progress.toString());
-});
-
-// Clean up subscriptions
-onDestroy(() => {
-  rafUnsubscribe();
-  resizeUnsubscribe();
-  scrollUnsubscribe();
-});
-```
-
-## Webflow Editor Integration
-
-```typescript
-import { handleEditor } from "@webflow/detect-editor";
-
-let isEditorMode = false;
-
-handleEditor((isEditor) => {
-  isEditorMode = isEditor;
-
-  if (isEditor) {
-    // Disable features in editor
-    element.style.pointerEvents = "none";
-    element.classList.add("editor-mode");
-  } else {
-    // Enable features in published mode
-    element.style.pointerEvents = "auto";
-    element.classList.remove("editor-mode");
-  }
-});
-
-// Conditional feature usage
-if (!isEditorMode) {
-  // Only enable features in published mode
-  const observer = onView(element, {
-    /* config */
-  });
-  const track = onTrack(element, {
-    /* config */
-  });
-}
-```
-
-## Advanced Observer Patterns
-
-```typescript
-// Direction-based animations
-const observer = new Observe(element, {
-  threshold: 0.1,
-  callback: ({ isIn, direction }) => {
-    if (isIn) {
-      if (direction > 0) {
-        // Scrolling down - animate from bottom
-        gsap.fromTo(
-          element,
-          { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 }
-        );
-      } else {
-        // Scrolling up - animate from top
-        gsap.fromTo(
-          element,
-          { y: -50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 }
-        );
-      }
-    }
-  },
-});
-```
-
-## Performance Optimization
-
-```typescript
-// Conditional tracking
-let track: Track | null = null;
-let isActive = false;
-
-const observer = new Observe(element, {
-  threshold: 0.1,
-  callback: ({ isIn }) => {
-    if (isIn && !isActive) {
-      // Start tracking when in view
-      track = new Track(element, {
-        bounds: [0, 1],
-        callback: (value) => {
-          element.style.setProperty("--progress", value.toString());
-        },
-      });
-      isActive = true;
-    } else if (!isIn && isActive) {
-      // Stop tracking when out of view
-      track?.destroy();
-      track = null;
-      isActive = false;
-    }
-  },
-});
-
-onDestroy(() => {
-  observer.destroy();
-  track?.destroy();
-});
-```
-
-## Priority-Based Subscriptions
-
-```typescript
-// High priority - critical updates
-Raf.add(updateCriticalAnimation, -1);
-Resize.add(updateCriticalLayout, -1);
-
-// Normal priority - standard updates
-Raf.add(updateStandardAnimation, 0);
-Resize.add(updateStandardLayout, 0);
-
-// Low priority - background effects
-Raf.add(updateBackgroundEffect, 1);
-Resize.add(updateBackgroundLayout, 1);
-```
-
-## Complete Component Example
-
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isEditorMode = false;
-  let subscriptions: (() => void)[] = [];
-  let observers: any[] = [];
-
-  // Webflow editor detection
-  handleEditor((isEditor) => {
-    isEditorMode = isEditor;
-
-    if (isEditor) {
-      // Clean up published mode features
-      subscriptions.forEach((unsubscribe) => unsubscribe());
-      observers.forEach((observer) => observer.destroy());
-      subscriptions = [];
-      observers = [];
-
-      // Editor mode setup
-      element.classList.add("editor-mode");
-    } else {
-      // Published mode setup
-      element.classList.remove("editor-mode");
-      setupFeatures();
-    }
-  });
-
-  function setupFeatures() {
-    // Viewport observer
-    const observer = onView(element, {
-      threshold: 0.1,
-      callback: ({ isIn }) => {
-        element.classList.toggle("in-view", isIn);
-      },
-    });
-    observers.push(observer);
-
-    // Scroll tracking
-    const track = onTrack(element, {
-      bounds: [0, 1],
-      callback: (value) => {
-        element.style.setProperty("--scroll-progress", value.toString());
-      },
-    });
-    observers.push(track);
-
-    // Subscriptions
-    subscriptions.push(
-      Raf.add(({ time }) => {
-        if (element.classList.contains("in-view")) {
-          element.style.transform = `translateY(${Math.sin(time) * 5}px)`;
-        }
-      }),
-      Resize.add(({ width }) => {
-        element.style.fontSize = width < 768 ? "14px" : "18px";
-      }),
-      Scroll.add(({ progress }) => {
-        element.style.setProperty("--global-scroll", progress.toString());
-      })
-    );
-  }
-
-  // Lifecycle hooks
-  onMount(() => {
-    if (!isEditorMode) {
-      setupFeatures();
-    }
-  });
-
-  onPageIn(async () => {
-    if (!isEditorMode) {
-      await gsap.to(element, {
-        duration: 0.5,
-        opacity: 1,
-        y: 0,
-        ease: "power2.out",
-      });
-    }
-  });
-
-  onPageOut(
-    async () => {
-      if (!isEditorMode) {
-        await gsap.to(element, {
-          duration: 0.3,
-          opacity: 0,
-          y: -20,
-          ease: "power2.in",
-        });
-      }
-    },
-    { element }
-  );
-
-  onDestroy(() => {
-    subscriptions.forEach((unsubscribe) => unsubscribe());
-    observers.forEach((observer) => observer.destroy());
-  });
-}
-```
+- Use `data-module="moduleName"` attributes on HTML elements
+- The system automatically finds and instantiates modules
+- Module name in attribute must match filename (without extension)
 
 ## Best Practices
 
-- Always clean up in `onDestroy`
-- Use async/await for page transitions
-- Use visibility check in `onPageOut` for performance
-- Handle Webflow editor mode appropriately
-- Use priority-based subscriptions for performance
-- Test all lifecycle phases in both editor and published modes
-- Use conditional feature enabling based on editor mode
-- Handle edge cases and errors gracefully
-- Use proper TypeScript types
-- Unsubscribe from all services
-- Use GSAP for smooth animations
-- Optimize for performance in both modes
+- Always use lifecycle hooks for cleanup
+- Use `onDestroy` for removing event listeners, observers, and subscriptions
+- Use `onPageIn`/`onPageOut` for page transition animations
+- Use `onView` for scroll-triggered animations
+- Use `onTrack` for scroll-based progress tracking
+- Use `Raf` for smooth, continuous animations
+- Use `Resize` for responsive behavior
 
-- Use proper TypeScript types
-- Unsubscribe from all services
-- Use GSAP for smooth animations
-- Test all lifecycle phases
+## Example Pattern
+
+```typescript
+import { onMount, onDestroy, onPageIn, onPageOut, onView, onTrack } from "@/modules/_";
+import { Raf, Resize } from "@lib/subs";
+import gsap from "@lib/gsap";
+
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  // Setup
+  onMount(() => {
+    // Initialize component
+  });
+
+  // Page transitions
+  onPageIn(async () => {
+    // Animate in during page entrance
+    await gsap.to(element, { opacity: 1, duration: 0.5 });
+  });
+
+  onPageOut(async () => {
+    // Animate out during page exit
+    await gsap.to(element, { opacity: 0, duration: 0.3 });
+  });
+
+  // Viewport detection
+  const observer = onView(element, {
+    threshold: 0.1,
+    callback: ({ isIn }) => {
+      // Handle visibility changes
+    },
+  });
+
+  // Scroll tracking
+  const track = onTrack(element, {
+    bounds: [0, 1],
+    callback: (value) => {
+      // Handle scroll progress
+    },
+  });
+
+  // Animation frame subscription
+  const rafUnsubscribe = Raf.add(({ time }) => {
+    // Smooth animations
+  });
+
+  // Resize subscription
+  const resizeUnsubscribe = Resize.add(({ width, height }) => {
+    // Responsive behavior
+  });
+
+  // Cleanup
+  onDestroy(() => {
+    // Clean up all resources
+    rafUnsubscribe();
+    resizeUnsubscribe();
+  });
+}
+```
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
