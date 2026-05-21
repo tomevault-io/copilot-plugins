@@ -1,0 +1,9 @@
+{
+  "name": "arcaputo3--mcp-server-whisper",
+  "displayName": "mcp-server-whisper",
+  "description": "An MCP Server for audio transcription using OpenAI",
+  "version": "1.0.0",
+  "author": "arcaputo3",
+  "homepage": "https://github.com/arcaputo3/mcp-server-whisper",
+  "skills": []
+}
