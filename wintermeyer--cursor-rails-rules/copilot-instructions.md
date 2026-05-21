@@ -1,48 +1,108 @@
-## testing-factory-bot
+## testing-faker
 
-> FactoryBot Standards
+> Faker Standards
 
-# FactoryBot Standards
+# Faker Standards
 
-Use FactoryBot rather than fixtures in Rails tests.
-Install the `factory_bot` gem if it is not already included in the Gemfile.
+Use the faker gem to generate test data when it makes sense.
+Install the `faker` gem if it is not already included in the Gemfile.
 
-## Factory Organization
+## Usage Guidelines
 
-1. Directory Structure
-```
-test/factories/
-├── users.rb
-├── posts.rb
-├── comments.rb
-└── traits/
-    ├── addressable.rb
-    └── timestampable.rb
-```
+1. When to Use Faker
+- All personal information (names, emails, addresses)
+- All business data (products, prices, descriptions)
+- All dates and times (except fixed dates)
+- All content (articles, comments, posts)
+- All identifiers (except fixed IDs)
 
-2. Basic Factory Structure
+2. When NOT to Use Faker
+- Primary keys or foreign keys
+- Fixed enumeration values
+- Status flags or boolean fields
+- Test-specific values needed for assertions
+
+## Common Patterns
+
+1. Personal Information
 ```ruby
-# test/factories/users.rb
 FactoryBot.define do
   factory :user do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    email { Faker::Internet.email }
-    password { "password123" }
+    email { Faker::Internet.email(name: "#{first_name} #{last_name}") }
+    phone { Faker::PhoneNumber.phone_number }
+    date_of_birth { Faker::Date.birthday(min_age: 18, max_age: 65) }
+    bio { Faker::Lorem.paragraph(sentence_count: 2) }
+  end
+end
+```
 
-    trait :admin do
-      role { "admin" }
-      admin_since { Time.current }
+2. Business Data
+```ruby
+FactoryBot.define do
+  factory :product do
+    name { Faker::Commerce.product_name }
+    description { Faker::Lorem.paragraph }
+    price { Faker::Commerce.price(range: 10.0..1000.0) }
+    sku { Faker::Barcode.ean }
+    category { Faker::Commerce.department }
+    brand { Faker::Company.name }
+  end
+
+  factory :company do
+    name { Faker::Company.name }
+    catch_phrase { Faker::Company.catch_phrase }
+    industry { Faker::Company.industry }
+    website { Faker::Internet.url }
+    founded_at { Faker::Date.between(from: 20.years.ago, to: 1.year.ago) }
+  end
+end
+```
+
+3. Content Generation
+```ruby
+FactoryBot.define do
+  factory :article do
+    title { Faker::Lorem.sentence(word_count: 4) }
+    content { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
+    excerpt { Faker::Lorem.paragraph }
+    author_name { Faker::Name.name }
+    published_at { Faker::Time.between(from: 1.year.ago, to: Time.current) }
+
+    trait :with_tags do
+      after(:build) do |article|
+        article.tags = [
+          Faker::Lorem.word,
+          Faker::Lorem.word,
+          Faker::Lorem.word
+        ].uniq
+      end
     end
+  end
 
-    trait :inactive do
-      active { false }
-      deactivated_at { Time.current }
-    end
+  factory :comment do
+    content { Faker::Lorem.paragraph }
+    author_name { Faker::Internet.username }
+    author_email { Faker::Internet.email }
+    ip_address { Faker::Internet.ip_v4_address }
+  end
+end
+```
 
-    factory :admin_user do
-      role { "admin" }
-      admin_since { Time.current }
+4. Address Information
+```ruby
+FactoryBot.define do
+  factory :address do
+    street { Faker::Address.street_address }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
+    zip_code { Faker::Address.zip_code }
+    country { Faker::Address.country }
+
+    trait :with_coordinates do
+      latitude { Faker::Address.latitude }
+      longitude { Faker::Address.longitude }
     end
   end
 end
@@ -50,203 +110,93 @@ end
 
 ## Best Practices
 
-1. Factory Design
-- Keep factories minimal
-- Use traits for variations
-- Use sequences for unique values
-- Follow database constraints
+1. Data Consistency
+- Use locale-aware Faker methods when available
+- Keep data realistic and consistent
+- Use appropriate ranges for numeric values
+- Ensure generated data meets validation rules
 
-2. Naming Conventions
-- Use singular form for factory names
-- Use descriptive trait names
-- Prefix dynamic values with `with_`
-- Use verb past tense for states
-
-3. Data Generation
-- Use Faker for realistic data
-- Use sequences for unique fields
-- Use associations when needed
-- Keep data consistent
-
-4. Performance
-- Avoid unnecessary associations
-- Use `build` instead of `create` when possible
-- Use `traits` to minimize database hits
-- Clean up test data properly
-
-## Common Patterns
-
-1. Associations
+2. Performance
 ```ruby
-# test/factories/posts.rb
+# Cache expensive Faker calls
 FactoryBot.define do
-  factory :post do
-    association :user
-    title { Faker::Lorem.sentence }
-    content { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
+  factory :product do
+    # Bad: Generates new description for each association
+    description { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
 
-    trait :with_comments do
-      after(:create) do |post|
-        create_list(:comment, 3, post: post)
+    # Good: Caches description for associations
+    transient do
+      _description { Faker::Lorem.paragraphs(number: 3).join("\n\n") }
+    end
+    description { _description }
+  end
+end
+```
+
+3. Localization
+```ruby
+# Support multiple locales
+FactoryBot.define do
+  factory :user do
+    trait :german do
+      after(:build) do |user|
+        Faker::Config.locale = "de"
+        user.first_name = Faker::Name.first_name
+        user.last_name = Faker::Name.last_name
+        Faker::Config.locale = "en"
       end
     end
-
-    trait :published do
-      published_at { Time.current }
-      status { "published" }
-    end
-  end
-end
-
-# test/factories/comments.rb
-FactoryBot.define do
-  factory :comment do
-    association :user
-    association :post
-    content { Faker::Lorem.paragraph }
   end
 end
 ```
 
-2. Sequences
+4. Custom Faker Classes
 ```ruby
-# test/factories/products.rb
-FactoryBot.define do
-  sequence :sku do |n|
-    "PROD#{n.to_s.rjust(6, '0')}"
-  end
+# lib/faker/custom_company.rb
+module Faker
+  class CustomCompany < Company
+    class << self
+      def department
+        ["Sales", "Marketing", "Engineering", "Support", "HR"].sample
+      end
 
-  factory :product do
-    name { Faker::Commerce.product_name }
-    sku
-    price { Faker::Commerce.price(range: 10..100.0) }
-
-    trait :on_sale do
-      sale_price { price * 0.8 }
-      sale_starts_at { Time.current }
-      sale_ends_at { 7.days.from_now }
+      def employee_title
+        "#{fetch('company.position')} #{department}"
+      end
     end
   end
 end
 ```
 
-3. Shared Traits
-```ruby
-# test/factories/traits/timestampable.rb
-FactoryBot.define do
-  trait :timestampable do
-    created_at { Time.current }
-    updated_at { Time.current }
-  end
-end
+## Common Faker Methods
 
-# test/factories/traits/addressable.rb
-FactoryBot.define do
-  trait :addressable do
-    street { Faker::Address.street_address }
-    city { Faker::Address.city }
-    state { Faker::Address.state }
-    zip_code { Faker::Address.zip_code }
-    country { Faker::Address.country }
-  end
-end
+1. Personal Data
+```ruby
+Faker::Name.name                 # "John Doe"
+Faker::Internet.email           # "john.doe@example.com"
+Faker::PhoneNumber.phone_number # "555-123-4567"
+Faker::Avatar.image            # "https://robohash.org/123.png"
 ```
 
-## Testing Examples
-
-1. Model Tests
+2. Business Data
 ```ruby
-# test/models/user_test.rb
-require "test_helper"
-
-class UserTest < ActiveSupport::TestCase
-  test "valid user" do
-    user = build(:user)
-    assert user.valid?
-  end
-
-  test "admin user has admin privileges" do
-    admin = create(:admin_user)
-    assert admin.admin?
-    assert_not_nil admin.admin_since
-  end
-
-  test "inactive user" do
-    user = create(:user, :inactive)
-    assert_not user.active?
-    assert_not_nil user.deactivated_at
-  end
-end
+Faker::Company.name            # "Acme Inc"
+Faker::Commerce.price          # "99.99"
+Faker::Business.credit_card_number # "4111111111111111"
 ```
 
-2. Controller Tests
+3. Internet & Technology
 ```ruby
-# test/controllers/posts_controller_test.rb
-require "test_helper"
-
-class PostsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = create(:user)
-    @post = create(:post, user: @user)
-    sign_in @user
-  end
-
-  test "should get index" do
-    create_list(:post, 3, :published)
-    get posts_url
-    assert_response :success
-    assert_select ".post", count: 4  # 3 + 1 from setup
-  end
-
-  test "should create post" do
-    assert_difference("Post.count") do
-      post posts_url, params: {
-        post: attributes_for(:post)
-      }
-    end
-    assert_redirected_to post_url(Post.last)
-  end
-end
+Faker::Internet.url            # "http://example.com"
+Faker::Internet.ip_v4_address  # "192.168.1.1"
+Faker::Internet.mac_address    # "00:00:00:00:00:00"
 ```
 
-3. System Tests
+4. Date & Time
 ```ruby
-# test/system/user_registration_test.rb
-require "application_system_test_case"
-
-class UserRegistrationTest < ApplicationSystemTestCase
-  test "user can register" do
-    user_attributes = attributes_for(:user)
-
-    visit new_user_registration_path
-
-    fill_in "First name", with: user_attributes[:first_name]
-    fill_in "Last name", with: user_attributes[:last_name]
-    fill_in "Email", with: user_attributes[:email]
-    fill_in "Password", with: user_attributes[:password]
-    click_button "Sign up"
-
-    assert_text "Welcome! You have signed up successfully"
-  end
-end
-```
-
-## Helper Methods
-
-1. Custom Factory Helpers
-```ruby
-# test/support/factory_bot_helpers.rb
-module FactoryBotHelpers
-  def create_list_with_traits(factory_name, count, *traits_and_attributes)
-    traits = traits_and_attributes.extract_options!
-    create_list(factory_name, count, *traits_and_attributes, traits)
-  end
-
-  def attributes_for_list(factory_name, count, *traits_and_attributes)
-    traits = traits_and_attributes.extract_options!
-    attributes_for_list(factory_name, count, *traits_and_attributes, traits)
-  end
-end
+Faker::Time.between(from: 2.days.ago, to: Time.now)
+Faker::Date.birthday(min_age: 18, max_age: 65)
+Faker::Time.forward(days: 23, period: :morning)
 ```
 
 ---
