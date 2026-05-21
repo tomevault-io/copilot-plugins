@@ -1,0 +1,9 @@
+{
+  "name": "wintermeyer--cursor-rails-rules",
+  "displayName": "cursor-rails-rules",
+  "description": "Opinionated Cursor editor rules to improve and speed up Ruby on Rails development.",
+  "version": "1.0.0",
+  "author": "wintermeyer",
+  "homepage": "https://github.com/wintermeyer/cursor-rails-rules",
+  "skills": []
+}
