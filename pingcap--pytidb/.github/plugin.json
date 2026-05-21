@@ -1,0 +1,9 @@
+{
+  "name": "pingcap--pytidb",
+  "displayName": "pytidb",
+  "description": "TiDB AI SDK: Unified Multi-Modal Data Platform for AI Apps & Agents",
+  "version": "1.0.0",
+  "author": "pingcap",
+  "homepage": "https://github.com/pingcap/pytidb",
+  "skills": []
+}
