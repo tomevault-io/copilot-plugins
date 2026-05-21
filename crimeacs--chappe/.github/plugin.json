@@ -1,0 +1,9 @@
+{
+  "name": "crimeacs--chappe",
+  "displayName": "chappe",
+  "description": "CLI tool surface for Telegram channel agents",
+  "version": "1.0.0",
+  "author": "crimeacs",
+  "homepage": "https://github.com/crimeacs/chappe",
+  "skills": []
+}
