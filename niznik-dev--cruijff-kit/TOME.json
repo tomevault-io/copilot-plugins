@@ -1,0 +1,93 @@
+{
+  "name": "cruijff_kit",
+  "owner": "niznik-dev",
+  "repo": "cruijff_kit",
+  "description": "Tools for conducting social research with LLMs",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyze-experiment",
+      "path": ".claude/skills/analyze-experiment",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/analyze-experiment",
+      "description": ""
+    },
+    {
+      "name": "analyze-to-pdf",
+      "path": ".claude/skills/analyze-to-pdf",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/analyze-to-pdf",
+      "description": ""
+    },
+    {
+      "name": "create-inspect-task",
+      "path": ".claude/skills/create-inspect-task",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/create-inspect-task",
+      "description": ""
+    },
+    {
+      "name": "create-meeting-agenda",
+      "path": ".claude/skills/create-meeting-agenda",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/create-meeting-agenda",
+      "description": ""
+    },
+    {
+      "name": "design-experiment",
+      "path": ".claude/skills/design-experiment",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/design-experiment",
+      "description": ""
+    },
+    {
+      "name": "run-experiment",
+      "path": ".claude/skills/run-experiment",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/run-experiment",
+      "description": ""
+    },
+    {
+      "name": "scaffold-experiment",
+      "path": ".claude/skills/scaffold-experiment",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/scaffold-experiment",
+      "description": ""
+    },
+    {
+      "name": "summarize-experiment",
+      "path": ".claude/skills/summarize-experiment",
+      "github_url": "https://github.com/niznik-dev/cruijff_kit/tree/main/.claude/skills/summarize-experiment",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/niznik-dev/cruijff_kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T11:30:26Z"
+}
