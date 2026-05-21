@@ -1,62 +1,51 @@
-## code-generation-standards
+## confluence-editing-standards
 
-> Standards for code generation and implementation
+> Purpose: Ensure Markdown renders cleanly in Confluence by applying spacing, nesting, and code formatting rules during page creation/updates.
 
-# Enhanced Code Generation Standards
+# Confluence Editing Standards (Markdown Authoring)
 
-Ensures high-quality, executable code generation adhering to best practices across multiple programming languages.
+Purpose: Ensure Markdown renders cleanly in Confluence by applying spacing, nesting, and code formatting rules during page creation/updates.
 
-## Rule Details
+## Lists & Spacing
+- Always insert a blank line between list items.
 
-- **Name:** enhanced_code_generation_standards
+- Use nested sub-bullets for subpoints; never concatenate multiple points on a single line.
 
-- **Description:** Enforce standards for code generation ensuring high quality and integration readiness
+- For ordered lists, keep each step single-purpose; add an empty line between steps when a step has sub-bullets.
 
-## Filters
-- file extension pattern: `"\\.(php|js|ts|vue|jsx|tsx|py|rb|java)$"  # Expanded to include Ruby and Java`
+## Inline vs Code Blocks
+- Prefer inline code for short, single-line commands or file paths (e.g., `composer install`).
 
-## Enforcement Checks
-- Conditions:
-  - pattern `// TODO:|#\\s*TODO:` – Replace TODOs with actual implementation - no placeholders allowed.
-  - pattern `function\\s+\\w+\\s*\\([^)]*\\)\\s*\\{\\s*(?:return\\s+null|throw\\s+new\\s+Error|console\\.log)\\s*\\}` – Implement full functionality - no stub methods.
-  - pattern `\\bif\\b\\s*\\(\\s*false\\s*\\)` – Remove or replace conditional statements that are always false.
-  - pattern `\\bconsole\\.[^(]+|print\\s*\\(` – negated `DEBUG|LOGGING` – Remove debug logging unless it's conditional on a debug flag.
-  - pattern `^\\s*#\\s*\\w+:\\s*\\w+\\s*$` – In Python, prefer type hints over comments for type annotations.
+- Use fenced code blocks only when necessary (multi-line commands, config snippets). Verify Confluence renders the block without collapsing; otherwise, convert to inline steps.
 
-## Suggestions
-- Guidance:
-**Code Generation Best Practices:**
-- **Executable Solutions:** Generate fully functional code, not just skeletons or stubs.
-- **Readability:** 
-  - Prioritize code readability, with clear naming conventions and logical structure.
-  - Use whitespace effectively to enhance code clarity.
-- **Error Handling:** 
-  - Implement comprehensive error handling with appropriate exceptions or error codes.
-  - Consider edge cases and provide meaningful error messages.
-- **Imports/Dependencies:** 
-  - Include all necessary imports or require statements at the beginning of the file.
-  - Manage dependencies to ensure the code is self-contained or clearly documented for setup.
-- **Integration:** 
-  - Code should be immediately usable within the project's existing framework or technology stack.
-  - Ensure compatibility with existing patterns or libraries used in the project.
-- **Formatting:** 
-  - Adhere to the project's coding style guide (e.g., Prettier, Black for Python, etc.).
-  - Use linters and formatters to maintain consistent code style.
-- **Testing:** 
-  - Include unit or integration tests where applicable to validate generated code.
-  - Encourage test-driven development if part of the project's culture.
-- **Documentation:** 
-  - Provide inline comments for complex logic or algorithms.
-  - Write docstrings or JSDoc for functions, classes, and modules to describe usage, parameters, and return values.
-  - Consider generating external documentation if the project uses tools like Swagger for APIs or Sphinx for Python.
-- **Security:** 
-  - Avoid hardcoded credentials or sensitive information.
-  - Follow security best practices for the language (e.g., SQL injection prevention in PHP, XSS in JavaScript).
-- **Performance:** While readability takes precedence, be mindful of performance implications of the generated code.
+- Do not mix bullets and code blocks without a blank line before and after the block.
 
-## Metadata
-- Priority: critical
-- Version: 1.2
+## Headings & Anchors
+- Keep headings concise; avoid trailing punctuation.
+
+- When using Markdown format, avoid enabling heading anchors if they introduce ID artifacts in rendered output.
+
+## Tables
+- Keep tables simple (5–7 columns max). Prefer bullets when content wraps heavily.
+
+- Add a brief sentence above a large table explaining what it captures.
+
+## Nested Structure
+- Depth guidance: limit nesting to two levels (bullet → sub-bullet). If content requires more depth, split into a new subsection.
+
+## Check Before Publish (Quicklist)
+- Bullets have blank lines between items.
+
+- Sub-bullets are properly indented and grouped.
+
+- Commands are inline where possible; multi-line blocks tested for rendering.
+
+- No anchor artifacts in headings.
+
+- Tables are readable; consider bullets if wide.
+
+## Optional Page Label Cue
+When editing an existing Confluence page, if the page has label `format-spaced-lists`, apply these spacing rules strictly even if the original content is inconsistent.
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
