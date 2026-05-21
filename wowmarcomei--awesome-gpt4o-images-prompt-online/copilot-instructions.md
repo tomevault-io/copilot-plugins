@@ -1,37 +1,34 @@
-## coding-standards
+## component-guidelines
 
-> - You can @ files here
+> - 使用 TypeScript 的严格类型检查
 
-# Your rule content
+# 组件开发指南
 
-- You can @ files here
-- You can use markdown but dont have to
+## 组件结构
+- 组件应该是单一职责的
+- 使用适当的组件分层结构
+- 实现适当的错误边界
+- 遵循 React 组件命名约定
 
-# 编码规范指南
+## 状态管理
+- 使用适当的状态管理策略
+  - 本地状态：useState
+  - 复杂状态：useReducer
+  - 共享状态：Context API
+- 实现适当的状态初始化
+- 处理所有可能的状态场景
 
-## TypeScript 使用规范
-- 始终使用 TypeScript 严格模式
-- 优先使用 `type` 而不是 `interface`
-- 为所有组件和函数添加适当的类型注解
-- 避免使用 `any` 类型，优先使用 `unknown`
+## Props 和类型
+- 为所有 Props 定义清晰的接口
+- 使用适当的默认值
+- 实现必要的 Props 验证
+- 使用 TypeScript 的严格类型检查
 
-## React 最佳实践
-- 使用函数组件和 Hooks
-- 组件文件使用 `.tsx` 扩展名
-- 遵循 React 18 的并发特性最佳实践
-- 使用 `use client` 和 `use server` 指令进行客户端/服务器代码分离
-
-## 样式指南
-- 使用 Tailwind CSS 进行样式设计
-- 遵循 Shadcn UI 组件库的设计规范
-- 确保所有组件都是响应式的
-- 使用 CSS 变量进行主题定制
-
-## 性能优化
-- 实现组件懒加载
-- 使用适当的缓存策略
-- 优化图片加载
-- 实现适当的预加载策略
+## 组件测试
+- 编写单元测试
+- 实现集成测试
+- 测试边界情况
+- 确保适当的测试覆盖率
 
 ---
 > Source: [wowmarcomei/awesome-gpt4o-images-prompt-online](https://github.com/wowmarcomei/awesome-gpt4o-images-prompt-online) — distributed by [TomeVault](https://tomevault.io).
