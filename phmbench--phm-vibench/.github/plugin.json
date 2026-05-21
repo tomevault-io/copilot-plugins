@@ -1,0 +1,9 @@
+{
+  "name": "phmbench--phm-vibench",
+  "displayName": "PHM-Vibench",
+  "description": "PHM-Vibench",
+  "version": "1.0.0",
+  "author": "PHMbench",
+  "homepage": "https://github.com/PHMbench/PHM-Vibench",
+  "skills": []
+}
