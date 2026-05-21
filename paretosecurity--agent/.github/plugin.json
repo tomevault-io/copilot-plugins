@@ -1,0 +1,9 @@
+{
+  "name": "paretosecurity--agent",
+  "displayName": "agent",
+  "description": "Automatically audit your Linux or Windows machine for basic security hygiene.",
+  "version": "1.0.0",
+  "author": "ParetoSecurity",
+  "homepage": "https://github.com/ParetoSecurity/agent",
+  "skills": []
+}
