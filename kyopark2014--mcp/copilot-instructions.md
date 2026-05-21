@@ -1,0 +1,12 @@
+## mcp
+
+> - 문제의 난이도를 1-5로 평가해서 4이상이라면 적절한 계획을 세워서 순차적으로 수행합니다.
+
+# Workflow
+- 문제의 난이도를 1-5로 평가해서 4이상이라면 적절한 계획을 세워서 순차적으로 수행합니다.
+- 계획은 checklist를 만들어 관리하고, 결과를 marking하여 반복하지 않습니다.
+- 최종 결과는 contents 폴더에 md 파일로 저장합니다.
+
+---
+> Source: [kyopark2014/mcp](https://github.com/kyopark2014/mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
