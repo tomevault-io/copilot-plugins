@@ -1,0 +1,9 @@
+{
+  "name": "ebay--evo-web",
+  "displayName": "evo-web",
+  "description": "Home of our Evo branded CSS, Marko & React components",
+  "version": "1.0.0",
+  "author": "eBay",
+  "homepage": "https://github.com/eBay/evo-web",
+  "skills": []
+}
