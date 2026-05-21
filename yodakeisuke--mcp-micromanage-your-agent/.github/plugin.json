@@ -1,0 +1,9 @@
+{
+  "name": "yodakeisuke--mcp-micromanage-your-agent",
+  "displayName": "mcp-micromanage-your-agent",
+  "description": "A Micromanagement Tool for Development Workflows: Helps coding agent plan, track, and visualize sequential development tasks with detailed commit-level granularity. Features interactive visualization,",
+  "version": "1.0.0",
+  "author": "yodakeisuke",
+  "homepage": "https://github.com/yodakeisuke/mcp-micromanage-your-agent",
+  "skills": []
+}
