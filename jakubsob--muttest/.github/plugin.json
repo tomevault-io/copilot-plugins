@@ -1,0 +1,9 @@
+{
+  "name": "jakubsob--muttest",
+  "displayName": "muttest",
+  "description": "Mutation testing for R \u2014 measure test assertion quality, not just coverage",
+  "version": "1.0.0",
+  "author": "jakubsob",
+  "homepage": "https://github.com/jakubsob/muttest",
+  "skills": []
+}
