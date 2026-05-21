@@ -1,36 +1,43 @@
-## 01-project-overview
+## 02-aggregator-components
 
-> This project is Digital Gardener, a configurable system designed to cultivate content from various sources, process it using AI, and generate summaries.
+> The `[src/aggregator/](mdc:src/aggregator)` directory contains the core logic for orchestrating the data flow.
 
-# Project Overview: Digital Gardener
+# Aggregator Components
 
-This project is Digital Gardener, a configurable system designed to cultivate content from various sources, process it using AI, and generate summaries.
+The `[src/aggregator/](mdc:src/aggregator)` directory contains the core logic for orchestrating the data flow.
 
-## Main Entry Point
+## 1. Content Aggregator (`[ContentAggregator.ts](mdc:src/aggregator/ContentAggregator.ts)`)
 
-The primary execution starts in `[src/index.ts](mdc:src/index.ts)`. This script:
+This is the primary aggregator used by the main `[src/index.ts](mdc:src/index.ts)` script for continuous operation.
 
-1.  Loads environment variables (`dotenv`).
-2.  Parses command-line arguments (`--source`, `--onlyFetch`, `--output`).
-3.  Dynamically loads plugins (Sources, AI Providers, Enrichers, Generators, Storage) from subdirectories within `[src/plugins/](mdc:src/plugins)` using helpers from `[src/helpers/configHelper.ts](mdc:src/helpers/configHelper.ts)`.
-4.  Reads a JSON configuration file (specified by `--source`, e.g., `[config/discord-raw.json](mdc:config/discord-raw.json)`) to get plugin settings and parameters.
-5.  Initializes instances of configured plugins, injecting dependencies like AI providers and storage.
-6.  Instantiates the `[src/aggregator/ContentAggregator.ts](mdc:src/aggregator/ContentAggregator.ts)`.
-7.  Registers the initialized plugins with the aggregator.
-8.  Schedules periodic fetching for each source (`aggregator.fetchAndStore`) based on its configured interval.
-9.  Schedules periodic summary generation for each generator (`generator.instance.generateContent`) based on its interval (unless `--onlyFetch` is true).
-10. Can run continuously or execute once (`runOnce` setting in config).
-11. Handles graceful shutdown.
+*   **Responsibilities:**
+    *   Manages registered plugins: Sources, Enrichers, Storage.
+    *   Initiates data fetching from sources (`fetchAndStore`).
+    *   Passes fetched data through registered enrichers.
+    *   Saves processed data using the registered storage plugin.
+    *   (Note: Generators are managed separately by `index.ts` but interact with data produced via the aggregator and stored).
+*   **Key Methods:**
+    *   `registerSource(source: SourcePlugin)`
+    *   `registerEnricher(enricher: EnricherPlugin)`
+    *   `registerStorage(storage: StoragePlugin)`
+    *   `fetchAndStore(sourceName: string)`: Fetches from a specific source, enriches, and stores.
 
-## Core Concepts
+## 2. Historical Aggregator (`[HistoricalAggregator.ts](mdc:src/aggregator/HistoricalAggregator.ts)`)
 
-*   **Configuration-driven:** Behavior is heavily defined by JSON configuration files.
-*   **Plugin-based:** Functionality (data sources, AI, storage, etc.) is implemented as modular plugins.
-*   **Aggregation:** The `ContentAggregator` orchestrates the flow of data from sources through enrichers to storage and triggers generators.
-*   **Scheduling:** Uses `setInterval` for recurring data fetching and summary generation.
-*   **Normalization:** A central `[ContentItem](mdc:src/types.ts)` interface standardizes data from different sources.
+This aggregator is specifically used by the `[src/historical.ts](mdc:src/historical.ts)` script for fetching past data.
 
-See also: `[historical-script.mdc](mdc:.cursor/rules/historical-script.mdc)` for fetching past data.
+*   **Responsibilities:**
+    *   Similar to `ContentAggregator` but designed for fetching data for specific dates or ranges.
+    *   Manages sources that implement the `fetchHistorical` method.
+    *   Manages registered Enrichers and Storage.
+*   **Key Methods:**
+    *   `registerSource(source: SourcePlugin & { fetchHistorical: Function })`
+    *   `registerEnricher(enricher: EnricherPlugin)`
+    *   `registerStorage(storage: StoragePlugin)`
+    *   `fetchAndStore(sourceName: string, date: string)`: Fetches data for a specific date.
+    *   `fetchAndStoreRange(sourceName: string, filter: DateConfig)`: Fetches data for a date range.
+
+Both aggregators rely heavily on the plugin system and the shared interfaces defined in `[src/types.ts](mdc:src/types.ts)`.
 
 ---
 > Source: [bozp-pzob/digital-gardener](https://github.com/bozp-pzob/digital-gardener) — distributed by [TomeVault](https://tomevault.io).
