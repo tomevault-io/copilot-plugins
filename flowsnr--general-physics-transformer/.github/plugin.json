@@ -1,0 +1,9 @@
+{
+  "name": "flowsnr--general-physics-transformer",
+  "displayName": "General-Physics-Transformer",
+  "description": "A foundation model to learn multiple physical systems at once",
+  "version": "1.0.0",
+  "author": "FloWsnr",
+  "homepage": "https://github.com/FloWsnr/General-Physics-Transformer",
+  "skills": []
+}
