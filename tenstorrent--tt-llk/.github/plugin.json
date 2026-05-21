@@ -1,0 +1,9 @@
+{
+  "name": "tenstorrent--tt-llk",
+  "displayName": "tt-llk",
+  "description": "tt-llk",
+  "version": "1.0.0",
+  "author": "tenstorrent",
+  "homepage": "https://github.com/tenstorrent/tt-llk",
+  "skills": []
+}
