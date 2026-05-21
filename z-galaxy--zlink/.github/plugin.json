@@ -1,0 +1,9 @@
+{
+  "name": "z-galaxy--zlink",
+  "displayName": "zlink",
+  "description": "An asynchronous no-std-compatible Varlink Rust crate",
+  "version": "1.0.0",
+  "author": "z-galaxy",
+  "homepage": "https://github.com/z-galaxy/zlink",
+  "skills": []
+}
