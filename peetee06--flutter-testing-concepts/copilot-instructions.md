@@ -1,21 +1,475 @@
-## quality-gates
+## testing-rules
 
-> Run these checks after making any changes to Dart files.
+> Use these rules when writing or updating tests or working with mocks
 
-# Quality Gates
+# Testing Rules
 
-Run these checks after making any changes to Dart files.
+## General
 
-## Dart Code Quality
+- Use the dart test tool to run tests
+- Use direct class references for group descriptions (e.g., `group(MyClass, () {...})`).
+- For provider instances or other objects (e.g., `usernameProvider`), use quoted strings instead (e.g., `group('usernameProvider', () {...})`), as they would otherwise display as "Instance of [...]" in test output.
+- ALWAYS write helper methods for pumping the widget under test or reading/listening to providers
+- Avoid structural or obvious comments like "Arrange, Act, Assert", "verify xyz"
+- Match against full instances instead of just properties when using freezed classes
 
-After modifying any `*.dart` files, use the dart tool to run the following checks:
+## Mocking
 
-1. Run `format` in the affected packages to format the code
-2. Run `analyze` in the affected packages to check for issues
-3. Fix all infos, warnings, and errors surfaced by these commands
-4. Run `test` in the affected packages to ensure all tests pass
-5. Fix any failing tests
-6. Repeat steps 1-5 until all issues are resolved and all tests pass
+We're using the `mockito` package for mocking.
+
+### Creating mocks
+
+1. Look at the `mocks.dart` file if the class already has a mock
+   1. If yes, use it
+   2. If no, add it and run the dart build runner to generate it
+
+If the file does not exist, yet, create it and follow this structure:
+
+```dart
+
+@GenerateMocks([
+  SomeClass,
+])
+class GeneratedMocks {}
+
+```
+
+Avoid adding the mocks to the respective test files. ONLY add them to the `mocks.dart` file.
+
+### Using mocks
+
+Follow this outline to use mocks:
+
+```dart
+void main() {
+  late MockRestClient client;
+
+  setUp(() {
+    client = MockRestClient();
+
+    when(client.someMethod('someParameter')).thenAnswer((_) => 'some result');
+  });
+}
+```
+
+IMPORTANT: Put any helper methods you create in the same scope as the mocks so we don't have to pass them in separately.
+
+## Overriding Riverpod Providers
+
+Use the following convention for overriding the different providers. All examples apply to the `overrides` in `ProviderScope`, as well as `ProviderContainer`:
+
+### Value Providers
+
+```dart
+overrides: [
+  someValueProvider.overrideWithValue(someValue),
+],
+```
+
+### Future Providers
+
+Use the Builder pattern to create a value so we can test data, loading and error states of the provider.
+The Builder's signature is `FutureOr<ReturnTypeProvider> Function(FutureProviderRef<ReturnTypeOfProvider>)`.
+
+```dart
+overrides: [
+  someFutureProvider.overrideWith(valueBuilder),
+],
+```
+
+Examples:  
+  
+Complete with value:
+
+```dart
+FutureOr<String> usernameBuilder(FutureProviderRef<String> ref) => 'username';
+// ...
+overrides: [
+  usernameProvider.overrideWith(usernameBuilder),
+],
+/// ...
+```
+
+Complete with error:
+
+```dart
+final error = Exception();
+FutureOr<String> usernameBuilder(FutureProviderRef<String> ref) => throw error;
+// ...
+overrides: [
+  usernameProvider.overrideWith(usernameBuilder),
+],
+/// expect `error` to be thrown
+```
+
+Do not complete:
+
+```dart
+FutureOr<String> usernameBuilder(FutureProviderRef<String> ref) => Completer<String>().future;
+// ...
+overrides: [
+  usernameProvider.overrideWith(usernameBuilder),
+],
+/// ...
+```
+
+### Notifier Providers
+
+Use `overrideWithBuild` to override the build method of a notifier. This allows testing different states (loading, error, success) without creating fake classes.
+
+The builder's signature is `FutureOr<ReturnType> Function(Ref ref, NotifierType notifier)`.
+
+Use `_` wildcards for unused parameters.
+
+Examples:  
+Complete with value:
+
+```dart
+overrides: [
+  usernameControllerProvider.overrideWithBuild(
+    (_, __) => 'username',
+  ),
+];
+```
+
+Complete with error:
+
+```dart
+final error = Exception();
+// ...
+overrides: [
+  usernameControllerProvider.overrideWithBuild(
+    (_, __) => throw error,
+  ),
+];
+// ...
+// expect `error` to be thrown
+```
+
+With a delay:
+
+```dart
+overrides: [
+  usernameControllerProvider.overrideWithBuild(
+    (_, __) async {
+      await Future<void>.delayed(const Duration(seconds: 1));
+      return 'username';
+    },
+  ),
+];
+```
+
+Not completing = infinitely in loading state:
+
+```dart
+overrides: [
+  usernameControllerProvider.overrideWithBuild(
+    (_, __) => Completer<String>().future,
+  ),
+];
+```
+
+Testing state transitions (e.g., error then retry succeeds):
+
+Use a list of callbacks with `removeAt(0)` to ensure the build method is called the expected number of times. If called more than expected, the empty list will throw.
+
+```dart
+final buildResults = <String Function()>[
+  () => throw Exception('Error'),
+  () => 'username',
+];
+// ...
+overrides: [
+  usernameControllerProvider.overrideWithBuild(
+    (_, __) => buildResults.removeAt(0)(),
+  ),
+];
+// ...
+// first render shows error
+// trigger retry, now shows 'username'
+```
+
+### Testing Riverpod family providers
+
+Family providers are tested similarly to other providers. But instead of `container.read(provider)` we have to do `container.read(provider(parameter))`.
+For overriding, we do `provider(parameter).overrideWith(...)`. The same goes for `container.listen`.
+
+## Unit Tests
+
+When testing riverpod providers or notifiers, use `ProviderContainer.test()` which automatically disposes the container when the test completes.
+
+### Testing Riverpod value providers
+
+Create a helper method that reads and returns the value of the provider.  
+Example:
+
+```dart
+String getUsername({required User user}) {
+  final container = ProviderContainer.test(
+    overrides: [
+      userProvider.overrideWithValue(user),
+    ],
+  );
+  return container.read(usernameProvider);
+}
+
+test('some test', () {
+  final username = getUsername(user: User());
+  expect(username, 'username');
+});
+```
+
+### Testing Riverpod future providers
+
+Create a helper method that reads and returns the future value of the provider.  
+Example:
+
+```dart
+Future<String> getUsername({required User user}) async {
+  final container = ProviderContainer.test(
+    overrides: [
+      userProvider.overrideWithValue(user),
+    ],
+  );
+  return container.read(usernameFutureProvider.future);
+}
+
+test('some test', () async {
+  final username = await getUsername(user: User());
+  expect(username, 'username');
+});
+```
+
+### Testing Riverpod notifier providers
+
+Create a helper method that listens to the provider and collects state changes.  
+Use `container.listen` with a states list to track async state transitions.  
+Example:
+
+```dart
+import 'package:fake_async/fake_async.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+late List<AsyncValue<String>> states;
+
+setUp(() {
+  states = [];
+});
+
+ProviderSubscription<AsyncValue<String>> listenToNotifier({required User user}) {
+  final container = ProviderContainer.test(
+    overrides: [
+      userProvider.overrideWithValue(user),
+    ],
+  );
+
+  return container.listen<AsyncValue<String>>(
+    usernameProvider,
+    (_, next) => states.add(next),
+    fireImmediately: true,
+  );
+}
+
+test('initial state is loading', () {
+  listenToNotifier(user: User());
+  expect(states, [const AsyncLoading<String>()]);
+});
+
+test(
+  'emits [loading, data] when build succeeds',
+  () => fakeAsync((async) {
+    listenToNotifier(user: User());
+    async.flushMicrotasks();
+
+    expect(states, [
+      isA<AsyncLoading<String>>(),
+      isA<AsyncData<String>>()
+          .having((d) => d.value, 'value', 'username'),
+    ]);
+  }),
+);
+```
+
+## Widget Tests
+
+### Helper method
+
+Create a helper method to pump the test widget. Pass any parameters needed for testing to it as named parameters.  
+See [pump_app.dart](mdc:bloc_app/test/helpers/pump_app.dart) for API of `pumpApp` in `bloc_app`.
+See [pump_app.dart](mdc:riverpod_app/test/helpers/pump_app.dart) for API of `pumpApp` in `riverpod_app`.
+
+Example:
+
+```dart
+Future<void> createTestWidget(
+  WidgetTester tester, {
+  required String name,
+  }) async {
+  await tester.pumpApp(
+    widget: WidgetUnderTest(
+      name: name,
+    ),
+  );
+}
+```
+
+### Getting the context
+
+```dart
+final context = tester.element(find.byType(WidgetUnderTest));
+```
+
+### Riverpod provider overrides
+
+To override providers, use the `createTestWidget` method and pass any required parameters to it.  
+Example:
+
+```dart
+Future<void> createTestWidget(
+  WidgetTester tester, {
+  required String username,
+  }) async {
+  await tester.pumpApp(
+    overrides: [
+      userNameProvider.overrideWithValue(username),
+    ],
+    widget: WidgetUnderTest(
+      name: username,
+    ),
+  );
+}
+```
+
+### Accessing Riverpod providers
+
+Use the following to get a provider within a test, for example to check on its state value
+
+```dart
+final container = ProviderScope.containerOf(context);
+final username = container.read(usernameProvider);
+```
+
+### Accessing Riverpod notifiers
+
+Use the following to get a notifier within a test, for example to call a method on it
+
+```dart
+final container = ProviderScope.containerOf(context);
+await container.read(usernameProvider.notifier).updateUsername('Updated Username');
+```
+
+### Using ValueVariants
+
+ValueVariants allow you to run the same test multiple times with different input values, which enables more thorough testing with less code duplication.
+
+IMPORTANT: The variants need to be instantiated OUTSIDE of the test method and only its reference may be passed to the `variant` parameter and referenced inside the test.
+
+#### Simple ValueVariants
+
+Simple variants use a basic type like `bool`, `int`, or `String` and are useful for testing behavior across different conditions:
+
+```dart
+final ValueVariant<bool> isGermanLocale = ValueVariant<bool>(<bool>{true, false});
+
+testWidgets(
+  'renders correct text based on locale',
+  variant: isGermanLocale,
+  (final WidgetTester tester) async {
+    final bool isGerman = isGermanLocale.currentValue!;
+
+    await tester.pumpApp(
+      locale: isGerman ? const Locale('de') : null,
+      widget: const LocalizedTextWidget(),
+    );
+
+    expect(
+      find.text(isGerman ? 'Hallo' : 'Hello'),
+      findsOneWidget,
+    );
+  },
+);
+```
+
+#### Complex ValueVariants
+
+For more complex test cases, create a custom class that extends `ValueVariant<T>` with a custom type.
+IMPORTANT: The custom class should be at the END of the file.
+
+1. First, define a type that captures all test parameters:
+
+```dart
+typedef ButtonVariantSignature = ({
+  String label,
+  Color color,
+  bool isEnabled,
+});
+```
+
+2. Create your custom variant class:
+
+```dart
+class ButtonVariant extends ValueVariant<ButtonVariantSignature> {
+  ButtonVariant()
+      : super(<ButtonVariantSignature>{
+          (
+            label: 'Primary Button',
+            color: Colors.blue,
+            isEnabled: true,
+          ),
+          (
+            label: 'Disabled Button',
+            color: Colors.blue,
+            isEnabled: false,
+          ),
+          (
+            label: 'Danger Button',
+            color: Colors.red,
+            isEnabled: true,
+          ),
+        });
+
+  @override
+  String describeValue(final ButtonVariantSignature value) {
+    return '${value.label} (${value.isEnabled ? 'enabled' : 'disabled'})';
+  }
+}
+```
+
+3. Use the complex variant in your test:
+
+```dart
+final ButtonVariant buttonVariant = ButtonVariant();
+
+testWidgets(
+  'CustomButton renders correctly with different configurations',
+  variant: buttonVariant,
+  (final WidgetTester tester) async {
+    final ButtonVariantSignature config = buttonVariant.currentValue!;
+    
+    await tester.pumpApp(
+      widget: CustomButton(
+        label: config.label,
+        color: config.color,
+        isEnabled: config.isEnabled,
+        onPressed: config.isEnabled ? () {} : null,
+      ),
+    );
+    
+    expect(find.text(config.label), findsOneWidget);
+    
+    final ElevatedButton button = tester.widget(find.byType(ElevatedButton));
+    expect(button.onPressed != null, config.isEnabled);
+    
+    final Material material = tester.widget<Material>(
+      find.descendant(
+        of: find.byType(ElevatedButton),
+        matching: find.byType(Material),
+      ),
+    );
+    expect(material.color, equals(config.color));
+  },
+);
+```
 
 ---
 > Source: [Peetee06/flutter-testing-concepts](https://github.com/Peetee06/flutter-testing-concepts) — distributed by [TomeVault](https://tomevault.io).
