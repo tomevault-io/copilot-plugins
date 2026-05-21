@@ -1,0 +1,9 @@
+{
+  "name": "druvpai--diffusionlab",
+  "displayName": "DiffusionLab",
+  "description": "Easy no-frills Jax implementations of common abstractions for simple diffusion models.",
+  "version": "1.0.0",
+  "author": "DruvPai",
+  "homepage": "https://github.com/DruvPai/DiffusionLab",
+  "skills": []
+}
