@@ -1,0 +1,44 @@
+{
+  "name": "prompt-collections",
+  "owner": "cyharyanto",
+  "repo": "prompt-collections",
+  "description": "\ud83e\udd1d Human-AI collaborative prompt engineering: empowering people to work effectively with AI | \ud83e\udde0 Mental models for real understanding, not just tricks | \ud83d\udca1 Designed for humans, by humans+AI | \ud83d\udd0d Focus on your intent, let AI handle implementation | \ud83d\udee0\ufe0f Practical frameworks that center human expertise | \ud83c\udf31 Grow your capability, don't just automate",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cyharyanto/prompt-collections",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T08:29:26Z"
+}
