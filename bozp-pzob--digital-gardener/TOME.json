@@ -4,7 +4,7 @@
   "repo": "digital-gardener",
   "description": "Cultivate your organization's knowledge with our AI-powered information garden. Plant seeds from multiple sources, watch insights bloom in real-time, and harvest beautifully tended summaries grown in one living workspace.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bozp-pzob/digital-gardener",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T05:37:14Z"
+  "distributed_at": "2026-05-21T18:20:52Z"
 }
