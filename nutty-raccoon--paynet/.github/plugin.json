@@ -1,0 +1,9 @@
+{
+  "name": "nutty-raccoon--paynet",
+  "displayName": "paynet",
+  "description": " A privacy-preserving payment network. Enabling seamless off-chain transactions with bearer tokens backed by on-chain assets.",
+  "version": "1.0.0",
+  "author": "nutty-raccoon",
+  "homepage": "https://github.com/nutty-raccoon/paynet",
+  "skills": []
+}
