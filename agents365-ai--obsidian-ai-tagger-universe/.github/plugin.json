@@ -1,0 +1,9 @@
+{
+  "name": "agents365-ai--obsidian-ai-tagger-universe",
+  "displayName": "obsidian-ai-tagger-universe",
+  "description": "An intelligent Obsidian plugin that leverages AI to automatically analyze note content and suggest relevant tags, supporting both local and cloud-based LLM services.",
+  "version": "1.0.0",
+  "author": "Agents365-ai",
+  "homepage": "https://github.com/Agents365-ai/obsidian-ai-tagger-universe",
+  "skills": []
+}
