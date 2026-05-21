@@ -1,0 +1,9 @@
+{
+  "name": "coocolab--coocolab-tradingview-mcp",
+  "displayName": "Coocolab-Tradingview-MCP",
+  "description": "\u7528 Claude Code \u63a7\u5236 TradingView \u684c\u9762\u7248\u2014\u2014\u6668\u9593\u6383\u63cf\u3001Pine Script \u958b\u767c\u3001\u5716\u8868\u64cd\u4f5c\uff0c\u5168\u90e8\u5c0d\u8a71\u5b8c\u6210\u3002\u7e41\u9ad4\u4e2d\u6587\u7248\uff0c\u57fa\u65bc tradesdontlie/tradingview-mcp\u3002",
+  "version": "1.0.0",
+  "author": "coocolab",
+  "homepage": "https://github.com/coocolab/Coocolab-Tradingview-MCP",
+  "skills": []
+}
