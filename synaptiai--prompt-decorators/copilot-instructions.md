@@ -1,54 +1,69 @@
-## 060-coding-patterns
+## 070-workflow-preferences
 
-> FOLLOW coding patterns WHEN writing code TO maintain codebase quality
+> MAINTAIN development discipline WHEN implementing changes TO preserve codebase integrity
 
 
-# Coding Pattern Preferences
+# Coding Workflow Preferences
 
 <version>1.0.0</version>
 
 ## Context
-- When writing new code or modifying existing code
-- When implementing features or fixing bugs
-- When refactoring or optimizing code
+- When implementing new features
+- When fixing bugs or addressing issues
+- When refactoring or improving existing code
+- When reviewing code changes
 
 ## Requirements
-- Prefer simple solutions over complex ones
-- Avoid code duplication by checking for similar functionality elsewhere in the codebase
-- Ensure code complies with pre-commit requirements
-- Only make changes that are explicitly requested or well understood
-- Exhaust all options within existing implementation before introducing new patterns
-- Remove old implementations when introducing new ones to avoid duplicate logic
-- Keep codebase clean and organized
-- Avoid writing scripts in files, especially for one-time operations
-- Refactor files exceeding 200-300 lines of code
-- Use mocking data only for tests, never for dev or prod environments
-- Never add stubbing or fake data patterns affecting dev or prod environments
-- Never overwrite env files without explicit confirmation
+- Focus exclusively on code areas relevant to the current task
+- Do not modify code unrelated to the assigned task
+- Write thorough tests for all major functionality
+- Preserve existing architectural patterns unless explicitly instructed otherwise
+- Analyze potential impacts of changes on other methods and code areas
+- Consider side effects before implementing changes
+- Maintain backward compatibility when possible
+- Document significant architectural decisions
 
 ## Examples
 
 <example>
-# Good: Simple solution with no duplication
-def calculate_total(items):
-    """Calculate total price of items using existing utility function."""
-    from utils.pricing import apply_discount
+# Good: Focused change with proper testing
+# Task: Fix validation in user registration
 
-    base_total = sum(item.price for item in items)
-    return apply_discount(base_total)  # Reusing existing functionality
+# 1. Only modify the relevant validation function
+def validate_user_input(user_data):
+    """Validate user registration data with fixed email validation."""
+    if not is_valid_email(user_data.get('email')):
+        raise ValidationError("Invalid email format")
+    # Other existing validation logic...
+
+# 2. Add thorough tests for the fix
+def test_validate_user_input_with_invalid_email():
+    """Test that invalid emails are properly rejected."""
+    with pytest.raises(ValidationError):
+        validate_user_input({'email': 'invalid-email'})
+
+def test_validate_user_input_with_valid_email():
+    """Test that valid emails pass validation."""
+    result = validate_user_input({'email': 'user@example.com'})
+    assert result is True
 </example>
 
 <example type="invalid">
-# Bad: Duplicating existing functionality
-def calculate_total(items):
-    """Calculate total with duplicated discount logic."""
-    base_total = sum(item.price for item in items)
+# Bad: Unfocused changes beyond task scope
+# Task: Fix validation in user registration
 
-    # Reimplementing discount logic that already exists in utils.pricing
-    if base_total > 100:
-        return base_total * 0.9
-    else:
-        return base_total
+# 1. Modifying unrelated authentication system
+def authenticate_user(username, password):
+    """Authenticate user with new token-based system."""
+    # Completely rewriting authentication when task was only about validation
+    token = generate_jwt_token(username, password)
+    return {'authenticated': True, 'token': token}
+
+# 2. Changing database schema without tests
+def update_user_schema():
+    """Update user table with new fields."""
+    # Adding schema changes unrelated to the validation fix
+    db.execute("ALTER TABLE users ADD COLUMN last_login TIMESTAMP")
 </example>
 
 ---
