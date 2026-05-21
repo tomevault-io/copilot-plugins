@@ -1,0 +1,9 @@
+{
+  "name": "adobe--commerce-checkout-starter-kit",
+  "displayName": "commerce-checkout-starter-kit",
+  "description": "An AppBuilder starter kit that provides the scaffolding for checkout integration patterns with Adobe Commerce.",
+  "version": "1.0.0",
+  "author": "adobe",
+  "homepage": "https://github.com/adobe/commerce-checkout-starter-kit",
+  "skills": []
+}
