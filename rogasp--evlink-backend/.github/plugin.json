@@ -1,9 +1,9 @@
 {
   "name": "rogasp--evlink-backend",
   "displayName": "evlink-backend",
-  "description": "evlink-backend",
+  "description": "EVLinkHA \u2013 secure EV \u2194 Home Assistant proxy",
   "version": "1.0.0",
   "author": "rogasp",
-  "homepage": "https://tomevault.io/claim/rogasp",
+  "homepage": "https://github.com/rogasp/evlink-backend",
   "skills": []
 }
