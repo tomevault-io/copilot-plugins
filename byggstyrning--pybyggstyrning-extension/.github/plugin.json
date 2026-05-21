@@ -1,0 +1,9 @@
+{
+  "name": "byggstyrning--pybyggstyrning-extension",
+  "displayName": "pyByggstyrning.extension",
+  "description": "pyRevit extension",
+  "version": "1.0.0",
+  "author": "byggstyrning",
+  "homepage": "https://github.com/byggstyrning/pyByggstyrning.extension",
+  "skills": []
+}
