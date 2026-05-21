@@ -1,0 +1,9 @@
+{
+  "name": "portone-io--mcp-server",
+  "displayName": "mcp-server",
+  "description": "PortOne MCP Server for Developers",
+  "version": "1.0.0",
+  "author": "portone-io",
+  "homepage": "https://github.com/portone-io/mcp-server",
+  "skills": []
+}
