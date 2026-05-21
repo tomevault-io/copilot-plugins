@@ -1,0 +1,9 @@
+{
+  "name": "lework--dify-plugin-prometheus",
+  "displayName": "dify-plugin-prometheus",
+  "description": "dify-plugin-prometheus",
+  "version": "1.0.0",
+  "author": "lework",
+  "homepage": "https://github.com/lework/dify-plugin-prometheus",
+  "skills": []
+}
