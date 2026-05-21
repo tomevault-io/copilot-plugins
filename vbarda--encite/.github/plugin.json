@@ -1,0 +1,9 @@
+{
+  "name": "vbarda--encite",
+  "displayName": "encite",
+  "description": "Named Entity Recognition using Claude Citations",
+  "version": "1.0.0",
+  "author": "vbarda",
+  "homepage": "https://github.com/vbarda/encite",
+  "skills": []
+}
