@@ -1,0 +1,9 @@
+{
+  "name": "rhamenator--ai-scraping-defense",
+  "displayName": "ai-scraping-defense",
+  "description": "**In development and testing** This multi-platform system combats content scraping by unauthorized AI bots targeting creative, FOSS, or documentation sites. It employs a multi-layered defense strategy",
+  "version": "1.0.0",
+  "author": "rhamenator",
+  "homepage": "https://github.com/rhamenator/ai-scraping-defense",
+  "skills": []
+}
