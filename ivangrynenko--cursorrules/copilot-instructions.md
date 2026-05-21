@@ -1,14 +1,14 @@
-## python-cryptographic-failures
+## python-injection
 
-> Detect and prevent cryptographic failures in Python applications as defined in OWASP Top 10:2021-A02
+> Detect and prevent injection vulnerabilities in Python applications as defined in OWASP Top 10:2021-A03
 
-# Python Cryptographic Failures Security Standards (OWASP A02:2021)
+ # Python Injection Security Standards (OWASP A03:2021)
 
-This rule enforces security best practices to prevent cryptographic failures in Python applications, as defined in OWASP Top 10:2021-A02.
+This rule enforces security best practices to prevent injection vulnerabilities in Python applications, as defined in OWASP Top 10:2021-A03.
 
 <rule>
-name: python_cryptographic_failures
-description: Detect and prevent cryptographic failures in Python applications as defined in OWASP Top 10:2021-A02
+name: python_injection
+description: Detect and prevent injection vulnerabilities in Python applications as defined in OWASP Top 10:2021-A03
 filters:
   - type: file_extension
     pattern: "\\.(py)$"
@@ -18,152 +18,134 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Weak or insecure cryptographic algorithms
-      - pattern: "import\\s+(md5|sha1)|hashlib\\.(md5|sha1)\\(|Crypto\\.Hash\\.(MD5|SHA1)|cryptography\\.hazmat\\.primitives\\.hashes\\.(MD5|SHA1)"
-        message: "Using weak hashing algorithms (MD5/SHA1). Use SHA-256 or stronger algorithms from the hashlib or cryptography packages."
+      # Pattern 1: SQL Injection - String concatenation in SQL queries
+      - pattern: "cursor\\.(execute|executemany)\\([\"'][^\"']*\\s*[\\+%]|cursor\\.(execute|executemany)\\([^,]+\\+\\s*[a-zA-Z_][a-zA-Z0-9_]*"
+        message: "Potential SQL injection vulnerability. Use parameterized queries with placeholders instead of string concatenation."
         
-      # Pattern 2: Hardcoded secrets/credentials
-      - pattern: "(password|secret|key|token|auth)\\s*=\\s*['\"][^'\"]+['\"]"
-        message: "Potential hardcoded credentials detected. Store secrets in environment variables or a secure vault."
+      # Pattern 2: SQL Injection - String formatting in SQL queries
+      - pattern: "cursor\\.(execute|executemany)\\([\"'][^\"']*%[^\"']*[\"']\\s*%\\s*|cursor\\.(execute|executemany)\\([\"'][^\"']*{[^\"']*}[\"']\\.format"
+        message: "Potential SQL injection vulnerability. Use parameterized queries with placeholders instead of string formatting."
         
-      # Pattern 3: Insecure random number generation
-      - pattern: "random\\.(random|randint|choice|sample)|import random"
-        message: "Using Python's standard random module for security purposes. Use secrets module or cryptography.hazmat.primitives.asymmetric for cryptographic operations."
+      # Pattern 3: Command Injection - Shell command execution with user input
+      - pattern: "(os\\.system|os\\.popen|subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*\\+\\s*[a-zA-Z_][a-zA-Z0-9_]*|\\b(os\\.system|os\\.popen|subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*format\\(|\\b(os\\.system|os\\.popen|subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*f['\"]"
+        message: "Potential command injection vulnerability. Never use string concatenation or formatting with shell commands. Use subprocess with shell=False and pass arguments as a list."
         
-      # Pattern 4: Weak SSL/TLS configuration
-      - pattern: "ssl\\.PROTOCOL_(SSLv2|SSLv3|TLSv1|TLSv1_1)|SSLContext\\(\\s*ssl\\.PROTOCOL_(SSLv2|SSLv3|TLSv1|TLSv1_1)\\)"
-        message: "Using deprecated/insecure SSL/TLS protocol versions. Use TLS 1.2+ (ssl.PROTOCOL_TLS_CLIENT with minimum version set)."
+      # Pattern 4: Command Injection - Shell=True in subprocess
+      - pattern: "(subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*shell\\s*=\\s*True"
+        message: "Using shell=True with subprocess functions is dangerous and can lead to command injection. Use shell=False (default) and pass arguments as a list."
         
-      # Pattern 5: Missing certificate validation
-      - pattern: "verify\\s*=\\s*False|check_hostname\\s*=\\s*False|CERT_NONE"
-        message: "SSL certificate validation is disabled. Always validate certificates in production environments."
+      # Pattern 5: XSS - Unescaped template variables
+      - pattern: "\\{\\{\\s*[^|]*\\s*\\}\\}|\\{\\%\\s*autoescape\\s+off\\s*\\%\\}"
+        message: "Potential XSS vulnerability. Ensure all template variables are properly escaped. Avoid using 'autoescape off' in templates."
         
-      # Pattern 6: Insecure cipher usage
-      - pattern: "DES|RC4|Blowfish|ECB"
-        message: "Using insecure encryption cipher or mode. Use AES with GCM or CBC mode with proper padding."
+      # Pattern 6: XSS - Unsafe HTML rendering in Flask/Django
+      - pattern: "render_template\\([^)]*\\)|render\\([^)]*\\)|mark_safe\\([^)]*\\)|safe\\s*\\|"
+        message: "Potential XSS vulnerability. Ensure all user-supplied data is properly escaped before rendering in templates."
         
-      # Pattern 7: Insufficient key length
-      - pattern: "RSA\\([^,]+,\\s*[0-9]+\\s*\\)|key_size\\s*=\\s*([0-9]|10[0-9][0-9]|11[0-9][0-9]|12[0-4][0-9])"
-        message: "Using insufficient key length for asymmetric encryption. RSA keys should be at least 2048 bits, preferably 4096 bits."
+      # Pattern 7: Path Traversal - Unsafe file operations
+      - pattern: "open\\([^)]*\\+|open\\([^)]*format\\(|open\\([^)]*f['\"]"
+        message: "Potential path traversal vulnerability. Validate and sanitize file paths before opening files. Consider using os.path.abspath and os.path.normpath."
         
-      # Pattern 8: Insecure password hashing
-      - pattern: "\\.encode\\(['\"]utf-?8['\"]\\)\\.(digest|hexdigest)\\(\\)|hashlib\\.[a-zA-Z0-9]+\\([^)]*\\)\\.(digest|hexdigest)\\(\\)"
-        message: "Using plain hashing for passwords. Use dedicated password hashing functions like bcrypt, Argon2, or PBKDF2."
+      # Pattern 8: LDAP Injection - Unsafe LDAP queries
+      - pattern: "ldap\\.search\\([^)]*\\+|ldap\\.search\\([^)]*format\\(|ldap\\.search\\([^)]*f['\"]"
+        message: "Potential LDAP injection vulnerability. Use proper LDAP escaping for user-supplied input in LDAP queries."
         
-      # Pattern 9: Missing salt in password hashing
-      - pattern: "pbkdf2_hmac\\([^,]+,[^,]+,[^,]+,\\s*[0-9]+\\s*\\)"
-        message: "Ensure you're using a proper random salt with password hashing functions."
+      # Pattern 9: NoSQL Injection - Unsafe MongoDB queries
+      - pattern: "find\\(\\{[^}]*\\+|find\\(\\{[^}]*format\\(|find\\(\\{[^}]*f['\"]"
+        message: "Potential NoSQL injection vulnerability. Use parameterized queries or proper escaping for MongoDB queries."
         
-      # Pattern 10: Insecure cookie settings
-      - pattern: "set_cookie\\([^)]*secure\\s*=\\s*False|set_cookie\\([^)]*httponly\\s*=\\s*False"
-        message: "Cookies with sensitive data should have secure and httponly flags enabled."
+      # Pattern 10: Template Injection - Unsafe template rendering
+      - pattern: "Template\\([^)]*\\)\\.(render|substitute)\\(|eval\\([^)]*\\)|exec\\([^)]*\\)"
+        message: "Potential template injection or code injection vulnerability. Avoid using eval() or exec() with user input, and ensure template variables are properly validated."
 
   - type: suggest
     message: |
-      **Python Cryptography Best Practices:**
+      **Python Injection Prevention Best Practices:**
       
-      1. **Secure Password Storage:**
-         - Use dedicated password hashing algorithms:
+      1. **SQL Injection Prevention:**
+         - Use parameterized queries (prepared statements) with placeholders:
            ```python
-           import bcrypt
-           hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(rounds=12))
+           # Safe SQL query with parameters
+           cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
+           
+           # Django ORM (safe by default)
+           User.objects.filter(username=username, password=password)
+           
+           # SQLAlchemy (safe by default)
+           session.query(User).filter(User.username == username, User.password == password)
            ```
-         - Or use Argon2 (preferred) or PBKDF2 with sufficient iterations:
-           ```python
-           from argon2 import PasswordHasher
-           ph = PasswordHasher()
-           hash = ph.hash(password)
-           ```
+         - Use ORM frameworks when possible (Django ORM, SQLAlchemy)
+         - Apply proper input validation and sanitization
       
-      2. **Secure Random Number Generation:**
-         - Use the `secrets` module for cryptographic operations:
+      2. **Command Injection Prevention:**
+         - Never use shell=True with subprocess functions
+         - Pass command arguments as a list, not a string:
            ```python
-           import secrets
-           token = secrets.token_hex(32)  # 256 bits of randomness
+           # Safe command execution
+           subprocess.run(["ls", "-l", user_dir], shell=False)
            ```
-         - For cryptographic keys, use proper key generation functions:
-           ```python
-           from cryptography.hazmat.primitives.asymmetric import rsa
-           private_key = rsa.generate_private_key(public_exponent=65537, key_size=4096)
-           ```
+         - Use shlex.quote() if you must include user input in shell commands
+         - Consider using safer alternatives like Python libraries instead of shell commands
       
-      3. **Secure Communications:**
-         - Use TLS 1.2+ for all communications:
+      3. **XSS Prevention:**
+         - Use template auto-escaping (enabled by default in modern frameworks)
+         - Explicitly escape user input before rendering:
            ```python
-           import ssl
-           context = ssl.create_default_context()
-           context.minimum_version = ssl.TLSVersion.TLSv1_2
+           # Django
+           from django.utils.html import escape
+           safe_data = escape(user_input)
+           
+           # Flask/Jinja2
+           from markupsafe import escape
+           safe_data = escape(user_input)
            ```
-         - Always validate certificates:
-           ```python
-           import requests
-           response = requests.get('https://example.com', verify=True)
-           ```
+         - Use Content-Security-Policy headers
+         - Validate input against allowlists
       
-      4. **Proper Key Management:**
-         - Never hardcode secrets in source code
-         - Use environment variables or secure vaults:
+      4. **Path Traversal Prevention:**
+         - Validate and sanitize file paths:
            ```python
            import os
-           api_key = os.environ.get('API_KEY')
+           safe_path = os.path.normpath(os.path.join(safe_base_dir, user_filename))
+           if not safe_path.startswith(safe_base_dir):
+               raise ValueError("Invalid path")
            ```
-         - Consider using dedicated key management services
+         - Use os.path.abspath() and os.path.normpath()
+         - Implement proper access controls
+         - Consider using libraries like Werkzeug's secure_filename()
       
-      5. **Secure Encryption:**
-         - Use high-level libraries like `cryptography`:
+      5. **NoSQL Injection Prevention:**
+         - Use parameterized queries or query builders
+         - Validate input against schemas
+         - Apply proper type checking
            ```python
-           from cryptography.fernet import Fernet
-           key = Fernet.generate_key()
-           f = Fernet(key)
-           encrypted = f.encrypt(data)
-           ```
-         - For lower-level needs, use authenticated encryption (AES-GCM):
-           ```python
-           from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-           key = AESGCM.generate_key(bit_length=256)
-           aesgcm = AESGCM(key)
-           nonce = os.urandom(12)
-           encrypted = aesgcm.encrypt(nonce, data, associated_data)
+           # Safe MongoDB query
+           collection.find({"username": username, "status": "active"})
            ```
       
-      6. **Secure Cookie Handling:**
-         - Set secure and httponly flags:
-           ```python
-           # Flask example
-           response.set_cookie('session', session_id, httponly=True, secure=True, samesite='Lax')
-           ```
-         - Use signed cookies or tokens:
-           ```python
-           # Django example - uses signed cookies by default
-           request.session['user_id'] = user.id
-           ```
-      
-      7. **Input Validation:**
-         - Validate all cryptographic inputs
-         - Use constant-time comparison for secrets:
-           ```python
-           import hmac
-           def constant_time_compare(a, b):
-               return hmac.compare_digest(a, b)
-           ```
+      6. **Template Injection Prevention:**
+         - Avoid using eval() or exec() with user input
+         - Use sandboxed template engines
+         - Limit template functionality to what's necessary
+         - Apply proper input validation
 
   - type: validate
     conditions:
-      # Check 1: Proper password hashing
-      - pattern: "bcrypt\\.hashpw|argon2|PasswordHasher|pbkdf2_hmac\\([^,]+,[^,]+,[^,]+,\\s*[0-9]{4,}\\s*\\)"
-        message: "Using secure password hashing algorithm."
+      # Check 1: Safe SQL queries
+      - pattern: "cursor\\.(execute|executemany)\\([\"'][^\"']*[\"']\\s*,\\s*\\(|cursor\\.(execute|executemany)\\([\"'][^\"']*[\"']\\s*,\\s*\\[|Model\\.objects\\.filter\\(|session\\.query\\("
+        message: "Using parameterized queries or ORM for database access."
       
-      # Check 2: Secure random generation
-      - pattern: "secrets\\.|urandom|cryptography\\.hazmat\\.primitives\\.asymmetric"
-        message: "Using cryptographically secure random number generation."
+      # Check 2: Safe command execution
+      - pattern: "(subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\(\\[[^\\]]*\\]"
+        message: "Using subprocess with arguments as a list (safe pattern)."
       
-      # Check 3: Strong TLS configuration
-      - pattern: "ssl\\.PROTOCOL_TLS|minimum_version\\s*=\\s*ssl\\.TLSVersion\\.TLSv1_2|create_default_context"
-        message: "Using secure TLS configuration."
+      # Check 3: Proper input validation
+      - pattern: "validate|sanitize|clean|escape|is_valid\\(|validators\\."
+        message: "Implementing input validation or sanitization."
       
-      # Check 4: Proper certificate validation
-      - pattern: "verify\\s*=\\s*True|check_hostname\\s*=\\s*True|CERT_REQUIRED"
-        message: "Properly validating SSL certificates."
+      # Check 4: Safe file operations
+      - pattern: "os\\.path\\.join|os\\.path\\.abspath|os\\.path\\.normpath|secure_filename"
+        message: "Using safe file path handling techniques."
 
 metadata:
   priority: high
@@ -171,25 +153,28 @@ metadata:
   tags:
     - security
     - python
-    - cryptography
-    - encryption
+    - injection
+    - sql-injection
+    - xss
+    - command-injection
     - owasp
     - language:python
     - framework:django
     - framework:flask
     - framework:fastapi
     - category:security
-    - subcategory:cryptography
+    - subcategory:injection
     - standard:owasp-top10
-    - risk:a02-cryptographic-failures
+    - risk:a03-injection
   references:
-    - "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
-    - "https://docs.python.org/3/library/secrets.html"
-    - "https://cryptography.io/en/latest/"
-    - "https://pypi.org/project/bcrypt/"
-    - "https://pypi.org/project/argon2-cffi/"
-</rule> 
+    - "https://owasp.org/Top10/A03_2021-Injection/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html"
+    - "https://docs.python.org/3/library/subprocess.html"
+    - "https://docs.djangoproject.com/en/stable/topics/security/"
+    - "https://flask.palletsprojects.com/en/latest/security/"
+</rule>
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
