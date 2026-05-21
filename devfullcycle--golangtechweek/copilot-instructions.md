@@ -1,8 +1,15 @@
-## command-system-events
+## container-events
 
-> Quando falar da de comandos e da pasta .fcai
+> Para inicializar a aplicação ou executar a aplicação com docker
 
- Leia o arquivo de [commands.md](mdc:.fcai/commands.md) para entender a regra de comandos
+# Quando precisar iniciar a aplicação pela primeira vez ou para retomar o projeto onde parou
+
+- Para inicializar a aplicação, você precisa utilizar o comando docker comopose up -d
+    - Caso esteja usando o podman: podman-compose up -d
+
+- Todos os comandos devem ser executados sempre dentro dos containers através do docker comopse exec <container name> <command>
+
+- Nome dos serviços no @docker-compose.yaml
 
 ---
 > Source: [devfullcycle/golangtechweek](https://github.com/devfullcycle/golangtechweek) — distributed by [TomeVault](https://tomevault.io).
