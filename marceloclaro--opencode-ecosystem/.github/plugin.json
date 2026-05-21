@@ -1,0 +1,9 @@
+{
+  "name": "marceloclaro--opencode-ecosystem",
+  "displayName": "OpenCode_Ecosystem",
+  "description": "OpenCode Ecosystem v4.0.0 \u00e9 uma arquitetura multiagente integrada ao OpenCode (OpenAI Codex CLI), com **118 agentes**, **38 servidores MCP**, **45 skills** e ~**109.180 linhas de Python**. Opera produ",
+  "version": "1.0.0",
+  "author": "MarceloClaro",
+  "homepage": "https://github.com/MarceloClaro/OpenCode_Ecosystem",
+  "skills": []
+}
