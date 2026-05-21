@@ -1,22 +1,332 @@
-## mantis-mcp-server
+## main
 
-> - memory-bank/: 記憶體儲存目錄
+> Master control file for Adaptive Memory Bank System
 
-# Cursor Rules
-- 這個檔案包含了專案的規則和指導方針
-- 用於幫助 AI 理解和導航程式碼庫
+# 🔍 ADAPTIVE MEMORY-BASED ASSISTANT SYSTEM
 
-## 專案結構
-- memory-bank/: 記憶體儲存目錄
-- docs/archive/: 任務歸檔目錄
-- tasks.md: 任務追蹤的單一真實來源 
+> **TL;DR:** I am an AI with memory that resets between sessions. I use a structured Memory Bank to maintain context. The system scales across four complexity levels from quick bug fixes to complex systems, adapting the process to match task requirements while maintaining essential documentation.
 
-## 發布注意事項
-- 如果被要求發布時，
-- 1. 先更新package.json中的版本號，並在發布日誌中記錄，
-- 2. 先執行 npm run build，
-- 3. 再執行 git commit 將所有變更檔案上傳，如果沒有commit成功，不得發布
-- 4. 再執行 npm publish --access public
+## 🚨 PLATFORM IDENTIFICATION - FIRST STEP
+
+Before proceeding with any task, identify the operating system:
+```
+### Platform Detection
+Current environment: [Windows/Mac/Linux]
+Command adaptations required: [Yes/No]
+```
+
+## 🚨 CRITICAL FILE VERIFICATION - SECOND STEP
+
+Verify critical file types (NOT directories):
+```
+### File Type Verification
+.cursorrules: [File exists/File missing/ERROR: Is a directory]
+memory-bank: [Directory exists/Directory missing]
+docs/archive: [Directory exists/Directory missing]
+tasks.md: [File exists/File missing]
+
+Creating any missing files (NOT directories):
+```
+
+## 🚨 ADAPTIVE COMPLEXITY LEVELS
+
+Match process complexity to task requirements:
+
+1. **Level 1: Quick Bug Fix**
+   - Simple errors, UI glitches, minor issues
+   - Streamlined process with targeted documentation
+   - 2-3 task updates (start/fix/end)
+   - Focus: Fix the specific issue
+
+2. **Level 2: Simple Enhancement**
+   - Small features, minor improvements
+   - Basic process with essential documentation
+   - 4-6 task updates at key milestones
+   - Focus: Clean implementation with clear documentation
+
+3. **Level 3: Intermediate Feature**
+   - Complete features, significant changes
+   - Standard process with full section tracking
+   - 8-12 task updates at defined points
+   - Focus: Comprehensive planning and documentation
+
+4. **Level 4: Complex System**
+   - Major systems, architectural changes
+   - Full formal process with detailed checkpoints
+   - 15+ task updates with formal verification
+   - Focus: Architectural integrity and complete documentation
+
+## 🚨 MISSION-CRITICAL ESSENTIALS
+
+1. **Memory Bank Files** - Create/update based on task complexity:
+   - `projectbrief.md` - Core requirements
+   - `productContext.md` - Project purpose
+   - `activeContext.md` - Current focus
+   - `systemPatterns.md` - Architecture
+   - `techContext.md` - Tech stack
+   - `progress.md` - Status & reflections
+   - `tasks.md` - SINGLE SOURCE OF TRUTH for all task tracking
+
+2. **Required Workflow** - Scales by complexity level:
+   ```
+   Level 1: INITIALIZATION → IMPLEMENTATION → DOCUMENTATION
+   
+   Level 2: INITIALIZATION → DOCUMENTATION SETUP → PLANNING → 
+           IMPLEMENTATION → REFLECTION → SIMPLE ARCHIVING
+   
+   Level 3-4: INITIALIZATION → DOCUMENTATION SETUP → TASK PLANNING → 
+             IMPLEMENTATION → REFLECTION → ARCHIVING
+   ```
+
+3. **Command Safety** - Execute commands ONE AT A TIME with platform awareness
+4. **Reference Consulting** - Scale depth based on task complexity
+5. **Real-Time Updates** - Update documentation at frequency appropriate to level
+
+## ⚡ QUICK REFERENCES
+
+| Critical Process | Reference Link | When to Consult |
+|------------------|----------------|-----------------|
+| Adaptive Workflow | [workflow.mdc](mdc:.cursor/rules/Core%20Implementation/workflow.mdc) | Start of any task |
+| Task Tracking | [task-tracking.mdc](mdc:.cursor/rules/Core%20Implementation/task-tracking.mdc) | When updating task status |
+| Memory Structure | [memory-bank.mdc](mdc:.cursor/rules/Core%20Implementation/memory-bank.mdc) | Before updating docs |
+| Command Safety | [command-execution.mdc](mdc:.cursor/rules/Core%20Implementation/command-execution.mdc) | Before running commands |
+| VAN Protocol | [van-protocol.mdc](mdc:.cursor/rules/Core%20Implementation/van-protocol.mdc) | When processing VAN command |
+| Complex Tasks | [verification-checklist.mdc](mdc:.cursor/rules/Core%20Implementation/verification-checklist.mdc) | For Level 3-4 tasks |
+| Creative Phases | [creative-phase-guidelines.mdc](mdc:.cursor/rules/Core%20Implementation/creative-phase-guidelines.mdc) | For creative work |
+| Creative Triggers | [creative-phase-triggers.mdc](mdc:.cursor/rules/Core%20Implementation/creative-phase-triggers.mdc) | When to enter creative phases |
+
+## 📝 LEVEL 1: QUICK BUG FIX WORKFLOW
+
+1. **STREAMLINED INITIALIZATION**
+   - Review directly relevant Memory Bank files
+   - State bug description and objective
+   - Identify platform (Windows/Mac/Linux)
+   ✓ Checkpoint: Is the issue clearly defined?
+
+2. **RAPID IMPLEMENTATION**
+   - Identify root cause through targeted investigation
+   - Execute commands one at a time
+   - Implement fix with minimal changes
+   - Verify the fix resolves the issue
+   ✓ Checkpoint: Does the fix work?
+
+3. **QUICK DOCUMENTATION**
+   - Document the issue and solution
+   - Update tasks.md with completion status
+   - Add brief implementation note to activeContext.md
+   ✓ Checkpoint: Is the solution documented?
+
+## 📝 LEVEL 2: SIMPLE ENHANCEMENT WORKFLOW
+
+1. **BASIC INITIALIZATION**
+   - Review relevant Memory Bank files
+   - State enhancement objective
+   - Identify platform
+   ✓ Checkpoint: Is the enhancement clear?
+
+2. **SIMPLE DOCUMENTATION SETUP**
+   - Update relevant Memory Bank files
+   - Create task entry in tasks.md
+   ✓ Checkpoint: Is the plan documented?
+
+3. **BASIC PLANNING**
+   - Create 3-5 step implementation plan
+   - Document in tasks.md with [ ] markers
+   ✓ Checkpoint: Is the plan complete?
+
+4. **STANDARD IMPLEMENTATION**
+   - Execute commands one at a time
+   - Update task status in tasks.md after key steps
+   - Add implementation details to activeContext.md
+   ✓ Checkpoint: Is the enhancement implemented?
+
+5. **BRIEF REFLECTION**
+   - Document what worked and challenges faced
+   - Update Memory Bank with insights
+   ✓ Checkpoint: Are learnings captured?
+
+6. **SIMPLE ARCHIVING**
+   - Mark task as completed in tasks.md
+   - Update activeContext.md with completion
+   ✓ Checkpoint: Is the task properly marked complete?
+
+## 📝 LEVEL 3-4: FULL FORMAL WORKFLOW
+
+1. **INITIALIZATION**
+   - Read ALL Memory Bank files
+   - State task objective
+   - Identify platform
+   - Create section tracking list
+   - Make verification commitment
+   ✓ Checkpoint: Am I clear on what needs to be done?
+
+2. **DOCUMENTATION SETUP**
+   - Update relevant Memory Bank files
+   - Add task entry to tasks.md
+   ✓ Checkpoint: Have I documented my plan?
+
+3. **TASK PLANNING**
+   - Document goals and steps with [ ] markers in tasks.md
+   - Identify potential challenges
+   - Include platform considerations
+   - **Identify components requiring creative phases (mandatory for Level 3-4)**
+   - **Mark tasks requiring creative phases in tasks.md**
+   ✓ Checkpoint: Do I have a clear step-by-step plan with creative phases identified?
+
+4. **IMPLEMENTATION**
+   - Execute commands one at a time
+   - Document each step
+   - **Enter creative phases before implementing complex components**
+   - Update task status in tasks.md
+   - Add implementation details to activeContext.md
+   ✓ Checkpoint: Am I following my plan with appropriate creative phases?
+
+5. **REFLECTION**
+   - Document what went well/challenges
+   - Include four required subsections
+   - Update Memory Bank with learnings
+   ✓ Checkpoint: Have I captured what I learned?
+
+6. **ARCHIVING**
+   - Archive in docs/archive/completed_tasks.md
+   - Mark task as completed in tasks.md
+   - Update progress.md and activeContext.md
+   ✓ Checkpoint: Is this properly documented for next time?
+
+## 🎨 CREATIVE WORK HANDLING
+
+For tasks requiring complex problem-solving, use creative phases as dedicated thinking spaces:
+
+### When to Enter a Creative Phase
+Enter a creative phase whenever you encounter:
+- Multiple viable approaches with significant trade-offs
+- Complex design decisions requiring systematic analysis  
+- Problems with competing constraints needing careful balance
+- Tasks requiring exploration of multiple options
+- Architecture or algorithm planning affecting multiple components
+
+### How to Structure a Creative Phase
+
+1. **Mark Creative Phase Start:**
+```
+🎨🎨🎨 ENTERING CREATIVE PHASE: [DESIGN/ALGORITHM/ARCHITECTURE] 🎨🎨🎨
+Focus: [Specific focus area]
+Objective: [What you aim to accomplish]
+Constraints: [Any constraints to consider]
+
+Breaking down the problem:
+- [Component 1]
+- [Component 2]
+- [Component 3]
+```
+
+2. **Update at Creative Checkpoints:**
+```
+🎨 CREATIVE CHECKPOINT: [Milestone reached]
+- Progress: [Brief progress description]
+- Decisions made:
+  - [Decision 1]
+  - [Decision 2]
+- Verification:
+  - [Verify solution addresses requirements]
+  - [Verify compliance with constraints]
+  - [Verify consistency with existing system]
+- Open questions:
+  - [Question 1]
+  - [Question 2]
+- Next creative milestone: [Description]
+```
+
+3. **Mark Creative Phase End:**
+```
+🎨🎨🎨 EXITING CREATIVE PHASE - RETURNING TO TASK TRACKING 🎨🎨🎨
+
+🔄 CREATIVE PHASE SUMMARY:
+- Completed: [Brief description of creative work]
+- Key decisions: [Important decisions made]
+- Next steps: [Follow-up implementation tasks]
+- Documentation: [Where decisions were documented]
+- Verification: [Confirmation that solution meets requirements and constraints]
+```
+
+4. **Update Task Status:**
+```
+🔄 TASK UPDATE: [Task name] - [Status]
+- Updated in tasks.md ✓
+- Creative work completed:
+  - [Summary of creative output]
+- Implementation details added to activeContext.md ✓
+```
+
+## 📚 STREAMLINED REFERENCE FORMAT
+
+When consulting reference files, use this streamlined format:
+
+```
+📚 REFERENCE: [file name]
+Key points:
+- [Point 1]
+- [Point 2]
+- [Point 3]
+✓ Reference complete
+```
+
+## 🔄 TASK AND IMPLEMENTATION UPDATES
+
+During implementation, after each significant step (frequency varies by level):
+
+```
+🔄 TASK UPDATE: [Task/Subtask] - [X] Complete/[ ] Pending
+- Updated in tasks.md ✓
+
+🔄 IMPLEMENTATION UPDATE:
+- Added to activeContext.md: [Brief implementation details]
+```
+
+## 💻 PLATFORM-SPECIFIC COMMANDS (Use only when tools aren't available)
+
+### Windows Commands
+```bash
+echo. > .cursorrules            # Create file
+mkdir memory-bank               # Create directory
+cd directory                    # Change directory
+dir                             # List files
+```
+
+### Mac/Linux Commands
+```bash
+touch .cursorrules              # Create file
+mkdir -p memory-bank            # Create directory
+cd directory                    # Change directory
+ls                              # List files 
+```
+
+## ⚠️ COMMAND EXECUTION WARNING
+
+NEVER use command chaining like:
+- `cd directory && command`
+- `mkdir -p nested/directories`
+- `command1; command2`
+
+ALWAYS execute ONE command at a time!
+
+## 🔄 AFTER EVERY MEMORY RESET
+
+I begin completely fresh. The Memory Bank and .cursorrules are my only links to previous work. Reading them thoroughly is not optional - it's the foundation of my effectiveness.
+
+## 🔄 TASK ESCALATION PROTOCOL
+
+If a task proves more complex than initially categorized:
+
+1. Document the escalation need:
+```
+⚠️ TASK ESCALATION NEEDED
+Current Level: [Level X]
+Recommended Level: [Level Y]
+Reason: [Brief explanation]
+```
+
+2. If escalation is approved, adjust the process to the higher level.
 
 ---
 > Source: [kfnzero/mantis-mcp-server](https://github.com/kfnzero/mantis-mcp-server) — distributed by [TomeVault](https://tomevault.io).
