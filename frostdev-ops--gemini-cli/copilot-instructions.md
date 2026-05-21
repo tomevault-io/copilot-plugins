@@ -1,24 +1,27 @@
-## 05-daemons-ipc
+## coding-style
 
-> Use this rule to understand the roles of the HAPPE/IDA/mcp-hostd daemons, how HAPPE and IDA communicate via IPC, find the IPC message structure definitions, trace the memory retrieval flow, and identify daemon responsibilities.
+> This project follows standard Rust coding conventions.
 
-# Gemini Rust Suite: Daemons and IPC
+# Coding Style Guidelines
 
-For more complex, persistent scenarios, the system uses background daemons communicating via Inter-Process Communication (IPC).
+This project follows standard Rust coding conventions.
 
-*   **`happe` Daemon (@happe/README.md)**: The Host Application Environment. Orchestrates user interactions, LLM calls, MCP tool execution, and communication with `IDA`.
-*   **`ida` Daemon (@ida/README.md)**: Internal Dialogue App. Manages persistent memory interactions (retrieval/storage via Memory MCP Server) and other background cognitive tasks.
-*   **`mcp-hostd` Daemon ([mcp/README.md](mdc:mcp/README.md))**: Standalone MCP host process. Manages connections to MCP tool servers.
-*   **IPC Definitions (`gemini-ipc`)**: The `gemini-ipc` crate ([ipc/README.md](mdc:ipc/README.md)) centralizes message structures for communication between these components.
-    *   `internal_messages.rs` ([ipc/src/internal_messages.rs](mdc:ipc/src/internal_messages.rs)): Defines messages between `HAPPE` and `IDA`.
-    *   `daemon_messages.rs` ([ipc/src/daemon_messages.rs](mdc:ipc/src/daemon_messages.rs)): Defines messages between clients (like `gemini-cli`) and `mcp-hostd`.
-*   **Communication Flow:**
-    *   `User/Client` -> `HAPPE`
-    *   `HAPPE` <-> `IDA` (via IPC, using `internal_messages`)
-    *   `IDA` -> `Memory MCP Server` (via MCP)
-    *   `HAPPE` -> `Main LLM`
-    *   `HAPPE` -> `Other MCP Servers` (via MCP, potentially through `mcp-hostd`)
-    *   `gemini-cli` -> `mcp-hostd` (optional, via IPC, using `daemon_messages`)
+## Formatting
+
+*   Code formatting is enforced using `rustfmt`. Ensure `rustfmt` is run before committing changes.
+*   Configuration for `rustfmt` might be present in `rustfmt.toml` or within [`Cargo.toml`](mdc:Cargo.toml) files (though none was found in the root `Cargo.toml`). Assume default settings if no explicit configuration is found.
+
+## Linting
+
+*   Code linting is performed using `clippy`.
+*   Run `cargo clippy` regularly to catch potential issues and improve code quality.
+*   Clippy configuration (e.g., allowed lints) might be present in `clippy.toml` or via attributes in the source code.
+
+## General Conventions
+
+*   Follow the guidelines outlined in the official [Rust API Guidelines](mdc:https:/rust-lang.github.io/api-guidelines).
+*   Use descriptive names for variables, functions, structs, enums, and traits.
+*   Write documentation comments for public APIs.
 
 ---
 > Source: [frostdev-ops/gemini-cli](https://github.com/frostdev-ops/gemini-cli) — distributed by [TomeVault](https://tomevault.io).
