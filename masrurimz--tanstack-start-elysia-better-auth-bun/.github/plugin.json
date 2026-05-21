@@ -1,7 +1,7 @@
 {
   "name": "masrurimz--tanstack-start-elysia-better-auth-bun",
   "displayName": "tanstack-start-elysia-better-auth-bun",
-  "description": "tanstack-start-elysia-better-auth-bun",
+  "description": "Full-stack monorepo template with TanStack Start, Elysia.js, and Better Auth. Features end-to-end type safety, blazing performance, and seamless authentication. Perfect starting point for modern web  ",
   "version": "1.0.0",
   "author": "masrurimz",
   "homepage": "https://github.com/masrurimz/tanstack-start-elysia-better-auth-bun",
