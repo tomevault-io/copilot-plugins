@@ -1,22 +1,22 @@
-## 01-project-overview
+## 02-cli
 
-> Use this rule to get a high-level project overview, identify the core function of each crate, understand major subsystems, and find the entry-point documentation for components.
+> Use this rule to understand CLI configuration (API key, model, prompts, history/memory flags), history persistence via the wrapper function, interaction modes, MCP/memory integration points, and where to configure tool servers.
 
-# Gemini Rust Suite: Project Overview and Core Crates
+# Gemini Rust Suite: Command Line Interface (CLI)
 
-This project is a Cargo workspace providing a suite of Rust crates for interacting with Google Gemini models, featuring tool usage (MCP), persistent memory, and a CLI.
+The primary user interface is provided by the `gemini-cli` crate ([cli/README.md](mdc:cli/README.md)).
 
-See the main [README.md](mdc:README.md) for a full overview.
+## Key Components:
 
-## Core Crates:
-
-*   **`gemini-core` ([core/README.md](mdc:core/README.md))**: Foundational components. Includes the async `GeminiClient`, API types, configuration (`GeminiConfig`), error handling, and shared JSON-RPC types.
-*   **`gemini-ipc` ([ipc/README.md](mdc:ipc/README.md))**: Centralizes Inter-Process Communication message definitions (structs/enums) used between daemons (`HAPPE`, `IDA`, `mcp-hostd`) and clients (`gemini-cli`).
-*   **`gemini-mcp` ([mcp/README.md](mdc:mcp/README.md))**: Implements the Model Context Protocol (MCP) **host** side. Manages discovering, launching, and communicating with MCP **servers** (tools). Includes the `mcp-hostd` binary and built-in server implementations.
-*   **`gemini-memory` ([memory/README.md](mdc:memory/README.md))**: Implements persistent semantic memory using LanceDB. Relies on an MCP host (`McpHostInterface`) for embedding generation.
-*   **`gemini-cli` ([cli/README.md](mdc:cli/README.md))**: The main command-line interface. Integrates the other crates for user interaction, tool use, and memory.
-*   **`HAPPE` (@happe/README.md)**: Host Application Environment daemon. Manages interactions between user, LLM, `IDA`, and MCP servers. Intended as the primary execution environment.
-*   **`IDA` (@ida/README.md)**: Internal Dialogue App daemon. Manages persistent memory and background cognitive tasks, communicating with `HAPPE` via IPC.
+*   **Binary:** `gemini-cli-bin` is the compiled executable.
+*   **Wrapper:** The `gemini` command (usually installed via `install.sh` to `~/.bashrc` or `~/.zshrc`) is a crucial wrapper around `gemini-cli-bin` that manages session environment variables (`GEMINI_SESSION_ID`) for history persistence across separate command invocations. See the wrapper function definition in [README.md](mdc:README.md).
+*   **Dependencies:** Leverages `gemini-core` for API communication, `gemini-mcp` for tool integration, and `gemini-memory` for memory features.
+*   **Configuration:**
+    *   `~/.config/gemini-suite/config.toml`: Stores API key, default model, system prompt, feature flags (history, memory broker, auto memory). Managed via `gemini --set-...` flags or manual editing. See [cli/README.md](mdc:cli/README.md).
+    *   `~/.config/gemini-suite/mcp_servers.json`: Configures connections to MCP servers (used by the embedded MCP host or the `mcp-hostd` daemon). See [mcp/README.md](mdc:mcp/README.md).
+*   **Interaction Modes:** Supports single-shot prompts (default), interactive chat (`-i`), task loops (`-t`), and combined interactive task mode (`-i -t`). These are detailed in [INTERACTIVE-TASKS.md](mdc:INTERACTIVE-TASKS.md).
+*   **History:** Saved in `~/.local/share/gemini-suite/history/`. Requires the wrapper function for history across commands.
+*   **Built-in Server Execution:** Can run built-in MCP servers directly via flags (`--filesystem-mcp`, `--command-mcp`, `--memory-store-mcp`).
 
 ---
 > Source: [frostdev-ops/gemini-cli](https://github.com/frostdev-ops/gemini-cli) — distributed by [TomeVault](https://tomevault.io).
