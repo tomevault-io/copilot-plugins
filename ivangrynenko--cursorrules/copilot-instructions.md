@@ -1,40 +1,45 @@
-## testing-guidelines
+## tests-documentation-maintenance
 
-> Testing Guidelines
+> Require tests for new functionality and enforce documentation updates.
 
-# Revised Cursor Rule File - Testing Guidelines (preserving functionality)
-# This file outlines testing policies that maintain existing functionality while incorporating best software testing practices.
-# It enforces separation of production and test code, allows controlled use of test hooks, and defines processes for exceptions and documentation alignment.
-rules:
-  - name: Test-Production Separation
-    description: "Test code must remain strictly separated from production code."
-    guidelines:
-      - "Place test code in dedicated test directories or modules, separate from production code."
-      - "Allow test-specific helpers or hooks only in a controlled manner (e.g., via clearly isolated interfaces or configurations)."
-      - "Production code should remain unchanged for testing, unless using approved test extension points."
-  - name: Testability (Mocks and Stubs)
-    description: "Enable testability by using mocks and stubs for external dependencies."
-    guidelines:
-      - "Prefer dependency injection or interfaces to swap real components with mocks or stubs in tests."
-      - "Avoid duplicating production logic in test code; tests should call into production code or use simplified mocks rather than reimplementing logic."
-  - name: Exception Handling
-    description: "Any necessary modification to production code for testing is an exception and requires review."
-    guidelines:
-      - "Document and justify any change made to production code solely for testing purposes."
-      - "Obtain approval through a formal review process (e.g., code review by senior developers or architects) for such changes."
-      - "Ensure that any approved change does not alter the intended functionality of the production code."
-  - name: Documentation Alignment
-    description: "Align test expectations with existing documentation without modifying production documentation."
-    guidelines:
-      - "Write tests to validate behaviors as documented in product or code documentation."
-      - "If a test reveals a discrepancy between actual behavior and documentation, address it by updating the documentation via the normal process, not by changing production code to fit tests."
-      - "Keep production code comments and descriptions unchanged during testing; refine tests or documentation instead to resolve mismatches."
-  - name: Industry Best Practices
-    description: "Follow industry best practices for software testing with clear boundaries."
-    guidelines:
-      - "Clearly delineate test types (unit, integration, end-to-end) and ensure each is executed in appropriate environments."
-      - "Isolate tests to avoid side effects, and clean up any test data or state after execution."
-      - "Integrate tests into continuous integration workflows to run automatically without requiring changes to production code."
+# Tests & Documentation Maintenance
+
+Ensures that tests are written and updated for Drupal modules and plugins, and that documentation remains current.
+
+<rule>
+name: tests_documentation_maintenance
+description: Require tests for new functionality and enforce documentation updates.
+filters:
+  - type: file_extension
+    pattern: "\\.(php|feature|md|theme|module|install|info|inc)$"
+
+actions:
+  - type: enforce
+    conditions:
+      - pattern: "class .*Test extends"
+        message: "Ensure all Drupal modules and plugins have unit tests."
+
+      - pattern: "Feature:.*"
+        message: "Ensure front-end affecting plugins have Behat tests."
+
+      - pattern: "function .*\\("
+        message: "When modifying existing functionality, check and update related tests."
+
+      - pattern: "# README"
+        message: "Ensure README.md exists in each module and is kept up to date."
+
+  - type: suggest
+    message: |
+      Keep tests and documentation updated:
+      - Write **unit tests** for Drupal modules and backend logic.
+      - Write **Behat tests** for plugins that affect front-end behavior.
+      - If functionality changes, **update corresponding tests**.
+      - Maintain a **README.md** file in each module and update it with relevant changes.
+
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
