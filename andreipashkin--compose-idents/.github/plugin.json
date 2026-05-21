@@ -1,0 +1,9 @@
+{
+  "name": "andreipashkin--compose-idents",
+  "displayName": "compose-idents",
+  "description": "A macro for generating new identifiers (names of variables, functions, traits, etc.) by concatenating one or more arbitrary parts, applying other manipulations, and iteratively generating multiple var",
+  "version": "1.0.0",
+  "author": "AndreiPashkin",
+  "homepage": "https://github.com/AndreiPashkin/compose-idents",
+  "skills": []
+}
