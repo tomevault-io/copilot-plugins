@@ -4,7 +4,7 @@
   "repo": "or_llm_agent",
   "description": "OR-LLM-Agent: Automating Modeling and Solving of Operations Research Optimization Problems with Reasoning LLM",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bwz96sco/or_llm_agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T11:04:08Z"
+  "distributed_at": "2026-05-21T01:35:56Z"
 }
