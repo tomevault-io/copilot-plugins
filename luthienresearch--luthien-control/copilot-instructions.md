@@ -1,23 +1,74 @@
-## fastapi-best-practices
+## google-style-docstrings
 
-> Rules for using FastAPI
+> Document all Python classes and public functions using Google-style docstrings.
 
-You are an expert in Python, FastAPI, and scalable API development.
+# Google-Style Python Docstrings
 
-Write concise, technical responses with accurate Python examples. Use functional, declarative programming; avoid classes where possible. Prefer iteration and modularization over code duplication. Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission). Use lowercase with underscores for directories and files (e.g., routers/user_routes.py). Favor named exports for routes and utility functions. Use the Receive an Object, Return an Object (RORO) pattern. Use def for pure functions and async def for asynchronous operations. Use type hints for all function signatures. Prefer Pydantic models over raw dictionaries for input validation.
+Document all Python classes and public functions using Google-style docstrings.
 
-File structure: exported router, sub-routes, utilities, static content, types (models, schemas).
 
-Avoid unnecessary curly braces in conditional statements. For single-line statements in conditionals, omit curly braces. Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).
+```python
+def example_function(param1: int, param2: str) -> bool:
+    """Example function with Google-style docstrings.
 
-Prioritize error handling and edge cases:
+    This is a more detailed explanation of the function's purpose
+    and behavior. It can span multiple lines. Side-effects should be
+    documented here.
 
-FastAPI
-Pydantic v2
-Async database libraries like asyncpg or aiomysql
-SQLAlchemy 2.0 (if using ORM features)
+    Args:
+        param1: The first parameter. We don't need the type here since it's already type-annotated.
+        param2: The second parameter.
 
-Use functional components (plain functions) and Pydantic models for input validation and response schemas. Use declarative route definitions with clear return type annotations. Use def for synchronous operations and async def for asynchronous ones. Minimize @app.on_event("startup") and @app.on_event("shutdown"); prefer lifespan context managers for managing startup and shutdown events. Use middleware for logging, error monitoring, and performance optimization. Optimize for performance using async functions for I/O-bound tasks, caching strategies, and lazy loading. Use HTTPException for expected errors and model them as specific HTTP responses. Use middleware for handling unexpected errors, logging, and error monitoring. Use Pydantic's BaseModel for consistent input/output validation and response schemas. Minimize blocking I/O operations; use asynchronous operations for all database calls and external API requests. Implement caching for static and frequently accessed data using tools like Redis or in-memory stores. Optimize data serialization and deserialization with Pydantic. Use lazy loading techniques for large datasets and substantial API responses. Refer to FastAPI documentation for Data Models, Path Operations, and Middleware for best practices.
+    Returns:
+        True if successful, False otherwise.
+
+    Raises:
+        ValueError: If param1 is not a positive integer.
+    """
+    if not isinstance(param1, int) or param1 <= 0:
+        raise ValueError("param1 must be a positive integer")
+    return True
+
+class ExampleClass:
+    """Example class with Google-style docstrings.
+
+    Attributes:
+        attr1: Description of attribute 1.
+        attr2: Description of attribute 2.
+    """
+
+    def __init__(self, attr1: str, attr2: int):
+        """Initializes ExampleClass.
+
+        Args:
+            attr1: The first attribute.
+            attr2: The second attribute.
+        """
+        self.attr1: str = attr1
+        self.attr2: int = attr2
+
+    def example_method(self, param: float) -> str:
+        """Example method for ExampleClass.
+
+        Args:
+            param: A float parameter.
+
+        Returns:
+            A string representation of the parameter.
+        """
+        return str(param)
+
+```
+
+Key elements to include:
+- A concise summary line.
+- An optional extended description.
+- Function docstrings contain the following elements IN ORDER (skipping if empty)
+  1. `Args:` section detailing each parameter, its type, and description.
+  2. `Returns:` section detailing the return type and what is returned.
+  3. `Raises:` section detailing any exceptions that might be raised.
+- For classes, include an `Attributes:` section in the class docstring if applicable.
+- Include usage examples where helpful.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
