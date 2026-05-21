@@ -1,0 +1,9 @@
+{
+  "name": "jlevy--chopdiff",
+  "displayName": "chopdiff",
+  "description": "Diff filtering, text mapping, and windowed transforms for LLM apps",
+  "version": "1.0.0",
+  "author": "jlevy",
+  "homepage": "https://github.com/jlevy/chopdiff",
+  "skills": []
+}
