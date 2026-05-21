@@ -1,0 +1,9 @@
+{
+  "name": "microscaler--brrtrouter",
+  "displayName": "BRRTRouter",
+  "description": "BRRTRouter is a high-performance, coroutine-powered request router for Rust, driven entirely by an OpenAPI 3.1.0 Specification",
+  "version": "1.0.0",
+  "author": "microscaler",
+  "homepage": "https://github.com/microscaler/BRRTRouter",
+  "skills": []
+}
