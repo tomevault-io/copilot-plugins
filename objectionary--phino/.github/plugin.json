@@ -1,0 +1,9 @@
+{
+  "name": "objectionary--phino",
+  "displayName": "phino",
+  "description": "Command-Line Normalizer, Rewriter, and Dataizer of \ud835\udf11-Calculus Expressions",
+  "version": "1.0.0",
+  "author": "objectionary",
+  "homepage": "https://github.com/objectionary/phino",
+  "skills": []
+}
