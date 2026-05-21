@@ -4,7 +4,7 @@
   "repo": "mnemos",
   "description": "Personal RAG. Local-first. Drop a folder, ask a question.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cosmicflow-space/mnemos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T02:33:18Z"
+  "distributed_at": "2026-05-21T14:26:44Z"
 }
