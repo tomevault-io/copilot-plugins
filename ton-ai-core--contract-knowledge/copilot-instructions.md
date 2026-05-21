@@ -1,41 +1,47 @@
-## ton-resources
+## toncenter-api
 
-> This document lists key official and community resources for TON development. Use these links to find additional information, examples, and documentation.
+> **CRITICAL**: Always verify blockchain results with curl after any contract operation.
 
-<ton-resources>
-# TON Resources
+<toncenter-api>
+# TON Center API Verification Rule
 
-This document lists key official and community resources for TON development. Use these links to find additional information, examples, and documentation.
+**CRITICAL**: Always verify blockchain results with curl after any contract operation.
 
-## Official TON GitHub Organizations
+## API Endpoints
+- **Testnet**: `https://testnet.toncenter.com/api/v2/`
+- **Mainnet**: `https://toncenter.com/api/v2/`
 
-*   [@tact-lang](mdc:https:/github.com/tact-lang) - Primary development of the Tact language compiler (`tact`), associated tooling (language server, editor integrations, Web IDE, templates), standard contract implementations (Jetton), learning resources (`awesome-tact`, examples, cookbooks), and the official website.
-*   [@ton-org](mdc:https:/github.com/ton-org) - Hosts the primary developer tooling suite: `blueprint` (framework), `sandbox` (emulator), `ton-core` (low-level tools), `ton` (main TS library), `ton-crypto` (primitives), `create-ton` (project setup). Also includes SDKs (games) and testing utilities.
-*   [@ton-blockchain](mdc:https:/github.com/ton-blockchain) - Core components (main `ton` repo), TEPs, various wallet implementations (v3/v4/v5, multisig, desktop/mobile, Ledger), token standards (Jetton, NFT), developer tools (`mytonctrl`, Tolk, Verifier, TON Connect), and bridges.
-*   [@ton-community](mdc:https:/github.com/ton-community) - Community resources: `ton-docs`, `awesome-ton`, tutorials, contract verification, TL-B tools, `func-js` (FunC WASM), `ton-kotlin` SDK, contract examples/templates (`twa-template`), challenges.
-*   [@ton-studio](mdc:https:/github.com/ton-studio) - Data tools (`ton-etl`, `ton-labels`, Dune queries), educational resources (`tonspeedrun`, `tact-smart-battle`), and infrastructure (`validators-monitoring`).
-*   [@OpenBuilders](mdc:https:/github.com/OpenBuilders) - Resources from the Open Builders initiative
+## Essential curl Commands
 
-## Official Documentation
+### Contract Status Check
+```bash
+curl -s "https://testnet.toncenter.com/api/v2/getAddressInformation?address={ADDRESS}" | jq '.result.state'
+```
+Must return `"active"` for successful deployment.
 
-*   [Tact Language Documentation](mdc:https:/docs.tact-lang.org)
-*   [TON Documentation](mdc:https:/docs.ton.org)
+### Get Method Call
+```bash
+curl -s -X POST "https://testnet.toncenter.com/api/v2/runGetMethod" \
+  -H "Content-Type: application/json" \
+  -d '{"address":"{ADDRESS}","method":"{METHOD}","stack":[]}' | jq
+```
 
-## Key Community & Unofficial Repositories
+### Transaction History
+```bash
+curl -s "https://testnet.toncenter.com/api/v2/getTransactions?address={ADDRESS}&limit=5" | jq
+```
 
-These repositories are maintained by active community members and organizations, offering valuable tools, libraries, and examples:
+## Verification Checklist
+After any contract operation:
+- [ ] Contract state is `"active"`
+- [ ] Get methods return expected data
+- [ ] Transaction history shows success
 
-*   [@Skydev0h](mdc:https:/github.com/Skydev0h)
-*   [@TonDevWallet](mdc:https:/github.com/TonDevWallet)
-*   [@dankorotin](mdc:https:/github.com/dankorotin)
-*   [@evaafi](mdc:https:/github.com/evaafi)
-*   [@pyAndr3w](mdc:https:/github.com/pyAndr3w)
-*   [@r-pine](mdc:https:/github.com/r-pine)
-*   [@ston-fi](mdc:https:/github.com/ston-fi) - STON.fi DEX
-*   [@tonkeeper](mdc:https:/github.com/tonkeeper) - Tonkeeper Wallet
-*   [@xssnick](mdc:https:/github.com/xssnick)
-*   [@ton-ai-core](mdc:https:/github.com/ton-ai-core) - AI-related TON tools
-</ton-resources>
+## Best Practices
+- Always use `-s` flag and pipe to `jq`
+- Check testnet before mainnet
+- Verify state before proceeding
+</toncenter-api>
 
 ---
 > Source: [ton-ai-core/contract-knowledge](https://github.com/ton-ai-core/contract-knowledge) — distributed by [TomeVault](https://tomevault.io).
