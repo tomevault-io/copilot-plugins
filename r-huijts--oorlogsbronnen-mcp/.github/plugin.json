@@ -1,0 +1,9 @@
+{
+  "name": "r-huijts--oorlogsbronnen-mcp",
+  "displayName": "oorlogsbronnen-mcp",
+  "description": "MCP server for accessing Dutch World War II archives through the Oorlogsbronnen API. Provides structured access to historical records, photographs, and documents from 1940-1945 Netherlands.",
+  "version": "1.0.0",
+  "author": "r-huijts",
+  "homepage": "https://github.com/r-huijts/oorlogsbronnen-mcp",
+  "skills": []
+}
