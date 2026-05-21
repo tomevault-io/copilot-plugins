@@ -1,0 +1,44 @@
+{
+  "name": "AB-AV1-GUI",
+  "owner": "Loufe",
+  "repo": "AB-AV1-GUI",
+  "description": "A simple Python GUI for AB-AV1 conversion of video files to AV1, minimizing file size while maintaining quality. Includes stats, saved config, and more.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Loufe/AB-AV1-GUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T10:19:05Z"
+}
