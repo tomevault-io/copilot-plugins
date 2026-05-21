@@ -1,36 +1,55 @@
-## coding-core-principles
+## coding-exceptions
 
-> Core principles for editing code in concurry library — read-entire-functions rule and no-backward-compatibility policy.
+> Exception handling and fail-fast rules for concurry.
 
-# Core Principles
+# Exception Handling and Fail Fast
 
-## Always Read Entire Functions (LLM Agent Workflow — CRITICAL)
+## Fail Fast
 
-**When reading or editing a function, ALWAYS retrieve and read the entire function body — from the `def` line to the last line of the function.** Never read only a fragment, a few lines around an edit point, or a single code block within a function.
+This is the timing corollary of the **Loud Failures Over Silent Defaults** principle above: detect invalid state at the *earliest possible point*. Invalid inputs should raise exceptions at the function boundary where they enter, not deep inside nested calls where the traceback is useless. A `.get(key, default)` that silently invents a value is the opposite of fail-fast — it lets the invalid state propagate silently until it causes mysterious behavior.
 
-**Why this is non-negotiable:** Functions in this codebase use variable reassignment to reduce cognitive load (see **Prefer Variable Reassignment for Same-Concept Transformations** below). A variable like `futures` may be created as an empty list on line 5, populated in a loop on lines 8-15, and then *reassigned* through a transformation on line 17. If the agent reads only lines 17-25, it sees `futures` and has no idea whether it is the raw version or the transformed version. It will generate code based on wrong assumptions about the variable's state, producing bugs that are invisible at the edit site but catastrophic at runtime.
+- Validate arguments at the top of public methods before any work is done
+- Raise specific, descriptive exceptions immediately when preconditions are violated
+- Prefer raising over returning sentinel values (`None`, `-1`, `False`) for error conditions
 
-This is the single most common source of LLM-generated bugs in this codebase: the agent reads a 10-line window, sees a variable name, assumes it knows what it contains, and writes code that worked for the *original* value but fails for the *reassigned* value.
+```python
+def submit(self, task: Task, priority: int) -> Future:
+    if task is None:
+        raise ValueError("task must not be None")
+    if priority < 0:
+        raise ValueError(f"priority must be non-negative, got {priority}")
+    if not self._is_running:
+        raise WorkerStoppedError(f"Cannot submit to stopped worker {self._id}")
+    return self._enqueue(task, priority)
+```
 
-**The rules:**
+## Exception Handling
 
-1. **Functions:** Always read the entire function. No exceptions. Even if the function is 150 lines, read all of it. You must understand the full lineage of every variable before making any edit.
-2. **Class methods:** Read the entire method, plus the class header (field declarations, `PrivateAttr` declarations, and `__init__`/lifecycle hooks) so you know the available instance state.
-3. **Classes as a whole:** Reading an entire class is not required (classes can be very large). But when editing a method, always read the complete method and the class-level declarations.
-4. **When searching for code to edit:** If a search result lands you in the middle of a function, expand your read to include the entire function before making any changes.
+- **Catch narrow, specific exceptions** (`ValueError`, `TypeError`, `TimeoutError`), never bare `except:` or `except Exception:`
+- **Raise low, catch high**: let lower-level functions raise; catch at application boundaries (CLI, web handler, top-level orchestrator)
+- **Never silently swallow exceptions**: `except: pass` hides bugs. If you must catch broadly, at minimum log the exception
+- **Use custom exception classes** for domain-specific errors (`WorkerStoppedError`, `LimitExceededError`) — callers can then catch precisely what they need
+- **Include context in error messages**: the message should contain enough information to diagnose the problem without a debugger. Follow the feedback-driven exception pattern from **Loud Failures Over Silent Defaults**: state what was expected, what was received, and what the available options are (e.g., `f"Unknown worker mode {mode!r}. Must be one of: {list(ExecutionMode)}."`).
 
-## No Backward Compatibility
+❌ Bad:
+```python
+try:
+    result = worker.execute(task)
+except Exception:
+    pass
+```
 
-This project has a single developer/consumer. Backward compatibility is overhead, not a feature.
-
-- **Never maintain backward compatibility** with deprecated patterns or old APIs
-- When making breaking changes, update all code and tests immediately
-- Remove deprecated code paths rather than maintaining them
-- Focus on the best current design, not historical compatibility
-- **Do NOT insert deprecation warnings**, shim layers, compatibility wrappers, or version-checking fallbacks
-- **Do NOT rename old functions** to `_legacy_*` or `_compat_*` — delete them outright
-
-LLMs trained on public codebases reflexively produce backward-compatibility scaffolding (deprecation decorators, `warnings.warn(...)`, adapter classes). This is the correct pattern for libraries with thousands of consumers; it is pure noise here.
+✅ Good:
+```python
+try:
+    result = worker.execute(task)
+except TimeoutError:
+    log.warning(f"Task {task.id} timed out after {timeout_seconds}s on worker {worker.id}")
+    raise
+except WorkerStoppedError:
+    log.error(f"Worker {worker.id} stopped unexpectedly during task {task.id}")
+    raise
+```
 
 ---
 > Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
