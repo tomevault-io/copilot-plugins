@@ -1,78 +1,69 @@
-## documentation-style
+## memory-management
 
-> Documentation and comment conventions for the colibri-stateless codebase
+> Memory management patterns and conventions in colibri-stateless
 
 
-# Documentation Style
+# Memory Management
 
-## Language
+## Safe Allocation
 
-All comments and documentation in the code MUST be written in English.
+Always use safe allocation wrappers (defined in `src/util/bytes.h`). They abort on OOM:
 
-## Public API Documentation
+- `safe_malloc(size)` -- allocate memory, abort if NULL
+- `safe_calloc(count, size)` -- allocate zeroed memory
+- `safe_realloc(ptr, size)` -- resize allocation
+- `safe_free(ptr)` -- free memory (macro for `free()`)
 
-Use `/** ... */` block comments for public functions, structs, and macros in header files:
+## Ownership Annotations
 
-```c
-/**
- * Verify the given proof against the current sync committee state.
- *
- * The verification result is stored in `ctx->data` on success.
- *
- * Example:
- *
- * ```c
- * verify_ctx_t ctx = {0};
- * c4_status_t status = c4_verify(&ctx);
- * ```
- *
- * @param ctx the verification context
- * @return C4_SUCCESS, C4_ERROR, or C4_PENDING
- */
-```
+Use Clang static analyzer annotations for ownership tracking:
 
-- Use Markdown syntax in doc comments (code blocks, lists, bold, etc.).
-- Only `@param` and `@return` are allowed as tags. Do NOT use `@brief`, `@note`, `@see`, or other tags.
-
-## Section Markers (for documentation generation)
-
-Used to organize code sections for auto-generated documentation (gitbook + agents):
-
-- `// : Section` -- top-level section (e.g., `// : Ethereum`, `// : APIs`)
-- `// :: Subsection` -- second level (e.g., `// :: Internal APIs`)
-- `// ::: Detail` -- third level (e.g., `// ::: verify.h`)
-
-Content lines after a section marker start with `//` followed by a space and Markdown content:
+- `M_RET` -- function returns newly allocated memory (caller owns it)
+- `M_TAKE(n)` -- function takes ownership of parameter n (will free it)
 
 ```c
-// ::: verify.h
-// The verifier API executes a proof verification.
-// When calling `c4_verify_from_bytes`, call `c4_verify` until the status
-// is either `C4_ERROR` or `C4_SUCCESS`.
-//
-// Example:
-//
-// ```c
-// verify_ctx_t ctx = {0};
-// c4_status_t status = c4_verify(&ctx);
-// ```
-//
+prover_ctx_t* c4_prover_create(...) M_RET;     // Caller must free
+void c4_prover_free(prover_ctx_t* ctx) M_TAKE(1); // Takes ownership
 ```
 
-The section ends when a non-`//` line is encountered or a new section marker appears.
+## bytes_t (Fat Pointer)
 
-## Inline Comments
+`bytes_t` is a non-owning view: `{uint32_t len, uint8_t* data}`. Passed by value.
 
-- Use `//` for inline explanations.
-- Keep comments brief and relevant -- explain *why*, not *what*.
-- Field documentation in structs uses trailing `//`:
+- `NULL_BYTES` -- the zero/empty value `{0, NULL}`
+- `bytes_dup(b)` -- create a heap-allocated copy (caller must free the `.data`)
+- Never free a `bytes_t` directly unless you created it with `bytes_dup()`.
+
+## buffer_t (Growable Buffer)
+
+`buffer_t` is an owning growable buffer: `{bytes_t data, int32_t allocated}`.
+
+- `allocated > 0` -- heap-allocated, must be freed with `buffer_free()`
+- `allocated < 0` -- fixed/stack buffer, do NOT free
+- `allocated == 0` -- uninitialized/empty
 
 ```c
-typedef struct {
-  uint32_t len;             // the length of the data
-  uint8_t* data COUNTED_BY(len); // the data pointer
-} bytes_t;
+buffer_t buf = {0};               // Start empty
+buffer_append(&buf, some_bytes);   // Grow and append
+buffer_free(&buf);                 // Free only if heap-allocated
 ```
+
+Use `buffer_grow(&buf, needed)` to pre-allocate capacity.
+
+## State Machine Cleanup
+
+- `c4_state_free(state)` -- free all requests and errors in a state.
+- `c4_request_free(req)` -- free a single data request.
+- Always free prover/verifier contexts when done:
+  - `c4_prover_free(ctx)` for prover
+  - Verifier context: `c4_state_free(&ctx.state)`
+
+## Common Pitfalls
+
+- `bytes_t` is a view -- do not use it after the underlying buffer is freed.
+- `buffer_t` with `allocated < 0` is stack-based -- do not return it from a function.
+- SSZ objects (`ssz_ob_t`) reference memory from the original proof bytes -- do not free proof data while SSZ objects are in use.
+- `bprintf()` writes into a `buffer_t` -- make sure the buffer is initialized before use.
 
 ---
 > Source: [corpus-core/colibri-stateless](https://github.com/corpus-core/colibri-stateless) — distributed by [TomeVault](https://tomevault.io).
