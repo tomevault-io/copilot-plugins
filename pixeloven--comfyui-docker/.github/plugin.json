@@ -1,0 +1,9 @@
+{
+  "name": "pixeloven--comfyui-docker",
+  "displayName": "ComfyUI-Docker",
+  "description": "Complete Docker/K8s ready images setup for ComfyUI",
+  "version": "1.0.0",
+  "author": "pixeloven",
+  "homepage": "https://github.com/pixeloven/ComfyUI-Docker",
+  "skills": []
+}
