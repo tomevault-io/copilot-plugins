@@ -1,0 +1,9 @@
+{
+  "name": "ajac-zero--orpheus",
+  "displayName": "orpheus",
+  "description": "A blazing fast OpenAI-compatible client for Python, written in Rust.",
+  "version": "1.0.0",
+  "author": "ajac-zero",
+  "homepage": "https://github.com/ajac-zero/orpheus",
+  "skills": []
+}
