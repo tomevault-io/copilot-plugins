@@ -1,79 +1,184 @@
-## project-tools
+## supabase-auth-implementation
 
-> vertex specific tools
+> Always when need client-server authentication
 
-<vertex_tools>
-    "vertex-ai-video": {
-      "description": "Generate videos using Google's Veo models via Vertex AI API with native audio support, including Veo 3 with advanced audio capabilities",
-      "tool": "run_terminal_cmd",
-      "command": "npm run vertex-ai-video",
-      "subcommands": {
-        "generate": {
-          "description": "Generate a video using Veo models on Vertex AI",
-          "options": {
-            "prompt": "Required: Text prompt for video generation",
-            "model": "(Optional) Model to use: \"veo-2.0-generate-001\" or \"veo-3.0-generate-preview\" (default: veo-2.0-generate-001)",
-            "image": "(Optional) Path to input image for image-to-video generation",
-            "output": "(Optional) Output filename pattern (default: video.mp4)",
-            "folder": "(Optional) Output folder path (default: public/videos)",
-            "negative-prompt": "(Optional) Text to discourage the model from generating",
-            "aspect-ratio": "(Optional) Aspect ratio: \"16:9\" or \"9:16\" (default: 16:9)",
-            "person-generation": "(Optional) Person generation mode: \"dont_allow\" or \"allow_adult\" (default: dont_allow)",
-            "number-of-videos": "(Optional) Number of videos to generate: 1-4 (default: 1)",
-            "duration-seconds": "(Optional) Duration in seconds: 5-8 (default: 5)",
-            "enhance-prompt": "(Optional) Enable prompt rewriter (enabled by default)",
-            "no-enhance-prompt": "(Optional) Disable prompt rewriter",
-            "region": "(Optional) Google Cloud region (default: us-central1)"
-          },
-          "examples": [
-            "# Generate a text-to-video with Veo 3 (with native audio)",
-            "npm run vertex-ai-video -- generate -p \"A musician playing piano with beautiful classical music and ambient room sound\" -m veo-3.0-generate-preview --person-generation allow_adult",
-            "",
-            "# Generate an image-to-video with Veo 2 on Vertex AI",
-            "npm run vertex-ai-video -- generate -p \"The scene comes to life with natural sounds\" -i input.jpg -m veo-2.0-generate-001 --duration-seconds 8 --aspect-ratio 9:16",
-            "",
-            "# Generate multiple videos with negative prompt and audio",
-            "npm run vertex-ai-video -- generate -p \"A peaceful forest scene with bird songs and wind through trees\" --negative-prompt \"violence, scary, loud noises\" --number-of-videos 2 -m veo-3.0-generate-preview"
-          ]
-        }
-      },
-      "requires": [
-        "vertex-ai-service-account.json with Google Cloud credentials",
-        "google-auth-library package",
-        "commander package",
-        "Active Google Cloud project with Vertex AI API enabled"
-      ]
-    },
-    "vertex-ai-image": {
-      "description": "Generate images using Google's Vertex AI API with Imagen 4.0 and Imagen 3.0 models (for Gemini models use gemini-image tool)",
-      "tool": "run_terminal_cmd",
-      "command": "npm run vertex-ai-image",
-      "subcommands": {
-        "generate": {
-          "description": "Generate an image using Vertex AI Imagen models",
-          "options": {
-            "prompt": "Required: Text prompt for image generation",
-            "model": "(Optional) Model to use: \"imagen-4.0\" or \"imagen-3.0\" (default: imagen-4.0)",
-            "output": "(Optional) Output filename (default: vertex-generated-image.png)",
-            "folder": "(Optional) Output folder path (default: public/images)",
-            "num-outputs": "(Optional) Number of images to generate (1-4, default: 1)",
-            "negative-prompt": "(Optional) Negative prompt (things to avoid)",
-            "aspect-ratio": "(Optional) Aspect ratio: \"1:1\", \"16:9\", \"9:16\", \"4:3\", \"3:4\" (default: 1:1)",
-            "region": "(Optional) Google Cloud region (default: us-central1)",
-            "safety-filter": "(Optional) Safety filter level: \"block_few\", \"block_some\", \"block_most\" (default: block_some)"
-          },
-          "example": "npm run vertex-ai-image -- generate -p \"A futuristic cityscape at sunset\" -m imagen-4.0 --aspect-ratio 16:9 -n 2"
-        }
-      },
-      "requires": [
-        "vertex-ai-service-account.json with Google Cloud credentials",
-        "google-auth-library package",
-        "commander package",
-        "Active Google Cloud project with Vertex AI API enabled"
-      ],
-      "note": "For Gemini image generation and editing, use: npm run gemini-image"
-    },
-  <vertex_tools> 
+# Supabase OAuth Implementation Patterns
+
+This guide documents the patterns for implementing OAuth authentication with Supabase in a Next.js application that uses internationalization (next-intl).
+
+## Key Files
+
+- [app/auth/callback/route.ts](mdc:app/auth/callback/route.ts) - Non-locale-prefixed callback handler
+- [components/auth/SignInForm.tsx](mdc:components/auth/SignInForm.tsx) - OAuth sign-in form
+- [components/auth/RegisterForm.tsx](mdc:components/auth/RegisterForm.tsx) - OAuth registration form
+- [middleware.ts](mdc:middleware.ts) - Middleware that handles locale and auth
+- [supabase/config.toml](mdc:supabase/config.toml) - Supabase configuration
+
+## Implementation Strategy
+
+### 1. Auth Callback Handling
+
+The key to successful OAuth implementation with next-intl is having a non-locale-prefixed callback handler:
+
+```typescript
+// app/auth/callback/route.ts
+export async function GET(request: Request) {
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get('code')
+  
+  // Extract locale from referrer or set default
+  let userLocale = defaultLocale;
+  
+  // Skip server-side code exchange
+  // Instead, add the code to URL fragment for client-side handling
+  const finalRedirectUrl = new URL(`/${userLocale}/`, requestUrl.origin);
+  finalRedirectUrl.hash = `access_token=&refresh_token=&provider_token=&provider_refresh_token=&type=recovery&code=${code}`;
+  
+  return NextResponse.redirect(finalRedirectUrl);
+}
+```
+
+### 2. OAuth Provider Configuration
+
+Configure Supabase with proper redirect URLs:
+
+```toml
+# supabase/config.toml
+[auth]
+site_url = "http://localhost:3000"
+additional_redirect_urls = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "http://localhost:3000/auth/callback",
+  "http://localhost:54321/auth/v1/callback"
+]
+```
+
+### 3. Auth UI Components
+
+Set up OAuth providers in your auth forms:
+
+```typescript
+// components/auth/SignInForm.tsx or RegisterForm.tsx
+const authOptions = {
+  supabaseClient: supabase,
+  view: 'sign_in', // or 'sign_up'
+  providers: ['github', 'google'],
+  redirectTo: `${window.location.origin}/auth/callback`,
+  // ... other options
+}
+```
+
+### 4. Middleware Configuration
+
+Update middleware to bypass locale handling for auth routes:
+
+```typescript
+// middleware.ts
+export async function middleware(request: NextRequest) {
+  // Skip middleware for auth callback
+  if (
+    request.nextUrl.pathname === '/auth/callback'
+  ) {
+    return NextResponse.next()
+  }
+  
+  // Handle other routes with locale
+  // ...
+}
+```
+
+## Database User Handling
+
+For properly handling OAuth user profiles, create a migration:
+
+```sql
+-- Handle data from various OAuth providers
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+DECLARE
+  username_val TEXT;
+  full_name_val TEXT;
+  email_val TEXT;
+  avatar_url_val TEXT;
+BEGIN
+  -- Extract email from auth.users
+  SELECT email INTO email_val FROM auth.users WHERE id = NEW.id;
+  
+  -- Handle provider-specific metadata extraction
+  IF NEW.raw_user_meta_data->>'iss' = 'https://accounts.google.com' THEN
+    -- Extract Google user data
+    username_val := COALESCE(
+      NEW.raw_user_meta_data->>'name',
+      split_part(email_val, '@', 1)
+    );
+    avatar_url_val := NEW.raw_user_meta_data->>'avatar_url';
+  ELSIF NEW.raw_user_meta_data->>'provider' = 'github' THEN
+    -- Extract GitHub user data
+    username_val := COALESCE(
+      NEW.raw_user_meta_data->>'preferred_username',
+      NEW.raw_user_meta_data->>'user_name',
+      split_part(email_val, '@', 1)
+    );
+    avatar_url_val := NEW.raw_user_meta_data->>'avatar_url';
+  ELSE
+    -- Default fallback for other providers
+    username_val := COALESCE(
+      NEW.raw_user_meta_data->>'preferred_username',
+      NEW.raw_user_meta_data->>'name',
+      split_part(email_val, '@', 1),
+      'user_' || NEW.id
+    );
+    avatar_url_val := NEW.raw_user_meta_data->>'avatar_url';
+  END IF;
+  
+  -- Create profile record
+  INSERT INTO public.profiles (id, username, email, avatar_url, created_at, updated_at)
+  VALUES (
+    NEW.id,
+    username_val,
+    email_val,
+    avatar_url_val,
+    NEW.created_at,
+    NEW.created_at
+  );
+  
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+```
+
+## Common Issues and Solutions
+
+1. **PKCE Flow Issues**:
+   - If getting `both auth code and code verifier should be non-empty` errors, use client-side code exchange instead of server-side.
+   - Keep the callback route outside locale-prefixed paths.
+
+2. **Cookie Domain Problems**:
+   - For local development, ensure cookies don't have strict same-site policy.
+   - In middleware, set cookie options appropriately:
+   ```typescript
+   options.sameSite = 'lax'  // Not 'strict'
+   ```
+
+3. **Auth Middleware Conflicts**:
+   - Bypass internationalization middleware for auth callback paths
+   - Ensure auth routes are handled before locale routes
+
+4. **OAuth Provider Setup**:
+   - Add all possible callback URLs to the `additional_redirect_urls` list
+   - Use appropriate environment variables for provider credentials
+   - For development, set `skip_nonce_check = true` for providers that require it
+
+## Testing Authentication
+
+When testing authentication:
+
+1. Inspect network requests to identify any redirect or CORS issues
+2. Check browser console for Supabase client errors
+3. Examine cookies to ensure proper session storage
+4. Test both sign-in and sign-up flows
+5. Verify profile creation in the database after successful OAuth auth
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
