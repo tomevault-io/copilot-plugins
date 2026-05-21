@@ -1,0 +1,9 @@
+{
+  "name": "guyernest--step-functions-agent",
+  "displayName": "step-functions-agent",
+  "description": "CDK project to build AWS Serverless AI Agent with Lambda and Step Functions.",
+  "version": "1.0.0",
+  "author": "guyernest",
+  "homepage": "https://github.com/guyernest/step-functions-agent",
+  "skills": []
+}
