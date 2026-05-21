@@ -1,0 +1,9 @@
+{
+  "name": "kalligator--ulauncher-gemini-direct",
+  "displayName": "ulauncher-gemini-direct",
+  "description": "Get answers from Gemini AI directly in your Ulauncher window.",
+  "version": "1.0.0",
+  "author": "kalligator",
+  "homepage": "https://github.com/kalligator/ulauncher-gemini-direct",
+  "skills": []
+}
