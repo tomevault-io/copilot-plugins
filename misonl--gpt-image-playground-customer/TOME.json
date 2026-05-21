@@ -1,0 +1,44 @@
+{
+  "name": "gpt-image-playground-customer",
+  "owner": "MisonL",
+  "repo": "gpt-image-playground-customer",
+  "description": "\u672c\u5730\u90e8\u7f72\u7684 GPT \u56fe\u7247\u751f\u6210\u4e0e\u7f16\u8f91\u670d\u52a1\uff0c\u652f\u6301\u6d41\u5f0f\u9884\u89c8\u3001\u56fe\u7247\u5206\u4eab\u548c Agent API",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MisonL/gpt-image-playground-customer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T03:18:38Z"
+}
