@@ -7,11 +7,11 @@ Automatically annotate cell types, consistently across samples.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [quadbio/cell-annotator](https://github.com/quadbio/cell-annotator).
+Original source: `CLAUDE.md` in [quadbio/cell-annotator](https://github.com/quadbio/cell-annotator).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
