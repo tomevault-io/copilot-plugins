@@ -1,86 +1,81 @@
-## php-memory-optimisation
+## project-definition-template
 
-> PHP memory optimisation standards and actionable checks
+> Template for defining project context
 
-# PHP Memory Optimisation Standards
+# Comprehensive Project Definition Template
 
-Guidance and automated checks to reduce peak memory usage in PHP applications. Based on widely accepted practices and the article "PHP Memory Optimization Tips" by Khouloud Haddad.
+This rule enforces best practices for documenting project context, ensuring clarity and maintainability through well-documented README files and documentation.
 
 <rule>
-name: php_memory_optimisation
-description: Detect memory-heavy patterns and suggest streaming, generators, and better data handling
+name: comprehensive_project_definition
+description: Enforce comprehensive project context definition for CursorAI
 filters:
   - type: file_extension
-    pattern: "\\.php$"
+    pattern: "\\.md$"
+  - type: file_path
+    pattern: "README.md|/docs/"
 
 actions:
   - type: enforce
     conditions:
-      # Avoid loading entire DB result sets into memory.
-      - pattern: "->fetchAll\\("
-        message: "Avoid fetchAll() on large result sets; iterate with fetch() in a loop or wrap with a generator (yield)."
+      - pattern: "## Project Purpose"
+        message: "Define the purpose of the project in the README file, including its goals and objectives."
 
-      - pattern: "\\bmysqli_fetch_all\\("
-        message: "Avoid mysqli_fetch_all() for large queries; prefer streaming fetch (e.g., mysqli_fetch_assoc in a loop)."
+      - pattern: "## Technical Stack"
+        message: "List the technical stack used in the project in the README file, including language versions and frameworks."
 
-      # Avoid repeated full-file loads inside loops.
-      - pattern: "foreach\\s*\\([^)]*\\)\\s*\\{[^}]*file_get_contents\\("
-        message: "Avoid file_get_contents() inside loops; stream with SplFileObject or read once and reuse."
+      - pattern: "## Folder Structure"
+        message: "Document the folder structure in the README file with a brief explanation for each significant directory."
 
-      # Avoid array_merge in tight loops as it copies arrays.
-      - pattern: "foreach\\s*\\([^)]*\\)\\s*\\{[^}]*=\\s*array_merge\\("
-        message: "Avoid array_merge() inside loops; append elements directly or preallocate arrays."
+      - pattern: "## Customizations"
+        message: "Include any custom themes, modules, or libraries in the README file, explaining their functionality."
 
-      # Use caution with range() on large ranges (allocates full array).
-      - pattern: "\\brange\\s*\\("
-        message: "range() allocates full arrays; for large ranges consider generators (yield) to avoid high memory."
+      - pattern: "## Libraries"
+        message: "List any third-party libraries used in the project in the README file, including versions for reproducibility."
+
+      - pattern: "## Setup Instructions"
+        message: "Provide clear setup instructions in the README to help new contributors or users get started."
+
+      - pattern: "## Contribution Guidelines"
+        message: "Document contribution guidelines if the project is open-source or team-based."
 
   - type: suggest
     message: |
-      **PHP memory optimisation recommendations:**
-
-      - **Stream database results:** Prefer `$stmt->fetch(PDO::FETCH_ASSOC)` in a `while` loop or use generators instead of `fetchAll()`.
-      - **Use generators (yield):** Iterate large datasets without allocating full arrays.
-      - **Stream files:** Use `SplFileObject` or chunked reads instead of `file_get_contents()` for large files.
-      - **Minimise array copying:** Avoid `array_merge()` in loops; push items directly or pre-size with known capacity (e.g., `SplFixedArray`).
-      - **Free memory explicitly:** `unset($var)` after large data is no longer needed; consider `gc_collect_cycles()` for long-running scripts.
-      - **Profile memory:** Use `memory_get_usage()` and tools like Xdebug/Blackfire to spot peaks.
-      - **OPcache:** Ensure OPcache is enabled and sized appropriately in production.
+      **Project Definition Best Practices:**
+      - **README and Docs:** Use both README.md for an overview and /docs/ for detailed documentation.
+      - **Project Purpose:** Clearly articulate why the project exists, its objectives, and who it serves.
+      - **Technical Stack:** Include all technologies, versions, and possibly why each was chosen.
+      - **Folder Structure:** Use tree diagrams or simple bullet points to describe the project's layout.
+      - **Customizations:** Explain any custom code, including its purpose and how it integrates with the project.
+      - **Libraries:** Detail external dependencies, why they're used, and how to manage them (e.g., npm, composer).
+      - **Setup Instructions:** Provide step-by-step guidance for setting up the project environment.
+      - **Contribution Guidelines:** Outline how to contribute, including coding standards, branch management, and pull request process.
+      - **License:** Include information about the project's licensing for legal clarity.
+      - **Roadmap:** Optionally, add a roadmap section to discuss future plans or features.
 
   - type: validate
     conditions:
-      # Detect full-file reads that likely could be streamed.
-      - pattern: "\\bfile\\s*\\("
-        message: "file() reads entire files into memory; prefer SplFileObject for line-by-line streaming."
+      - pattern: "## Project Purpose"
+        message: "Ensure the project purpose is clearly defined for understanding the project's intent."
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+      - pattern: "## Technical Stack"
+        message: "Ensure the technical stack is documented to aid in tech stack comprehension."
 
-<rule>
-name: php_ini_opcache_recommendations
-description: Recommend enabling OPcache for lower memory and better performance when editing php.ini
-filters:
-  - type: file_extension
-    pattern: "\\.ini$"
+      - pattern: "## Folder Structure"
+        message: "Ensure the folder structure is outlined for navigation ease."
 
-actions:
-  - type: suggest
-    message: |
-      **OPcache recommendations (php.ini):**
-      - Set `opcache.enable=1` and `opcache.enable_cli=1` for CLI scripts that process large datasets.
-      - Size memory pool appropriately, e.g., `opcache.memory_consumption=128` (adjust to your project).
-      - Consider `opcache.interned_strings_buffer` and `opcache.max_accelerated_files` for larger codebases.
+      - pattern: "## Customizations"
+        message: "Ensure customizations are documented for understanding unique project elements."
 
-  - type: enforce
-    conditions:
-      - pattern: "(?mi)^opcache\\.enable\\s*=\\s*0"
-        message: "Enable OPcache in production (set opcache.enable=1) to reduce memory and CPU overhead."
+      - pattern: "## Libraries"
+        message: "Ensure libraries are listed for dependency management."
+
+      - pattern: "## Setup Instructions"
+        message: "Ensure setup instructions are included to facilitate onboarding."
 
 metadata:
   priority: medium
-  version: 1.0
+  version: 1.1
 </rule>
 
 ---
