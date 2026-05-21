@@ -1,0 +1,9 @@
+{
+  "name": "gradion-ai--ipybox",
+  "displayName": "ipybox",
+  "description": "Unified execution environment for Python code, shell commands, and programmatic MCP tool calls.",
+  "version": "1.0.0",
+  "author": "gradion-ai",
+  "homepage": "https://github.com/gradion-ai/ipybox",
+  "skills": []
+}
