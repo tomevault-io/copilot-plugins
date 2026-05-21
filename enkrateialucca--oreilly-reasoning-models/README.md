@@ -7,13 +7,13 @@ Repository for the O'Reilly live training course: "Working with o1, DeepSeek, an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [EnkrateiaLucca/oreilly-reasoning-models](https://github.com/EnkrateiaLucca/oreilly-reasoning-models).
+Original source: `CLAUDE.md` in [EnkrateiaLucca/oreilly-reasoning-models](https://github.com/EnkrateiaLucca/oreilly-reasoning-models).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
