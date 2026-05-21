@@ -1,245 +1,267 @@
-## amis-cards
+## api-design
 
-> 本文档定义了 CodeSpirit Amis Cards V2.0 项目的核心原则，确保开发过程保持一致性和高质量。
+> CodeSpirit API 设计规范 - RESTful、路由、响应格式等
 
-# CodeSpirit Amis Cards V2.0 基本原则
 
-## 概述
+# RESTful 约定
 
-本文档定义了 CodeSpirit Amis Cards V2.0 项目的核心原则，确保开发过程保持一致性和高质量。
+| HTTP 方法 | 用途 | 幂等性 |
+|----------|------|-------|
+| **GET** | 查询资源（列表或单个） | ✅ |
+| **POST** | 创建资源 | ❌ |
+| **PUT** | 完整更新资源 | ✅ |
+| **PATCH** | 部分更新资源 | ✅ |
+| **DELETE** | 删除资源 | ✅ |
 
-## 🎯 核心原则
+# HTTP 状态码
 
-### 1. 完全隔离原则
+| 状态码 | 场景 | 响应方式 |
+|-------|------|---------|
+| 200 OK | GET/PUT/PATCH/DELETE 成功 | `SuccessResponse(data)` |
+| 201 Created | POST 创建成功 | `SuccessResponseWithCreate()` |
+| 400 Bad Request | 参数验证失败、业务规则错误 | `BadResponse()` 或抛出异常 |
+| 401 Unauthorized | 未认证 | 框架自动处理 |
+| 403 Forbidden | 无权限 | 框架自动处理 |
+| 404 Not Found | 资源不存在 | 抛出 `BusinessException` |
 
-**原则描述**: 与现有 `cards-sdk` 完全隔离，确保两个系统可以长期并存。
+# 路由规范
 
-**执行要求**:
-- ✅ 使用独立的命名空间 `AmisCards`
-- ✅ 所有文件路径使用 `/amis-cards/` 前缀
-- ✅ CSS类名使用 `amis-cards-` 前缀
-- ✅ 全局变量使用 `window.AmisCards` 命名空间
-- ✅ 不引用或依赖现有 `cards-sdk` 的任何文件
-- ❌ 禁止修改现有 `cards-sdk` 的任何代码
-- ❌ 禁止使用与 `cards-sdk` 相同的类名或变量名
+- 使用复数形式：`/api/users` 而非 `/api/user`
+- 服务前缀：`/{service-name}/api/{controller}` (如 `/exam/api/Questions`)
+- 版本控制：`/api/v{version}/{controller}` (未来需要时)
 
-### 2. 配置优先原则
+示例：
+```csharp
+using CodeSpirit.Core.Attributes;
+using CodeSpirit.Navigation.Resources;
 
-**原则描述**: 优先使用配置化开发，减少手写代码，提高开发效率。
-
-**执行要求**:
-- ✅ 所有卡片通过JSON配置定义
-- ✅ 页面布局通过Amis Page配置实现
-- ✅ 主题样式通过CSS变量配置
-- ❌ 禁止硬编码业务逻辑
-- ❌ 禁止在渲染器中写死样式值
-
-### 3. 渐进增强原则
-
-**原则描述**: 从基础功能开始，逐步增加高级功能，确保每个阶段都是可用的。
-
-**执行要求**:
-- ✅ 优先实现核心卡片类型（统计卡片）
-- ✅ 确保基础功能完整可用后再添加高级功能
-- ✅ 每个功能模块独立可测试
-- ❌ 禁止一次性实现所有功能
-- ❌ 禁止跳过基础功能直接实现高级功能
-
-**实施顺序**:
-1. 核心SDK + 统计卡片
-2. 图表卡片 + 信息卡片
-3. 操作卡片 + 表单卡片
-4. 插件系统 + 高级功能
-
-### 4. 模块化架构原则
-
-**原则描述**: 采用模块化设计，确保代码可维护、可扩展、可测试。
-
-**执行要求**:
-- ✅ 每个卡片类型独立的渲染器文件
-- ✅ 样式按功能模块分离
-- ✅ 配置文件按业务域分组
-- ❌ 禁止模块间紧耦合
-- ❌ 禁止在一个文件中混合多个功能
-
-### 5. 向后兼容原则
-
-**原则描述**: 确保API和配置的向后兼容性，避免破坏性变更。
-
-**执行要求**:
-- ✅ API接口保持稳定
-- ✅ 配置格式向后兼容
-- ✅ 提供版本迁移指南
-- ❌ 禁止直接删除已发布的API
-- ❌ 禁止修改已有配置的语义
-
-## 🔧 技术原则
-
-### 6. 性能优先原则
-
-**原则描述**: 确保良好的性能表现，特别是在大数据量和移动端场景。
-
-**执行要求**:
-- ✅ 初始化时间 < 500ms
-- ✅ 卡片渲染时间 < 300ms
-- ✅ 内存使用 < 50MB
-- ✅ 支持虚拟滚动和分页
-- ✅ 实现防抖和节流
-- ❌ 禁止内存泄漏
-- ❌ 禁止阻塞UI线程
-
-### 7. 响应式设计原则
-
-**原则描述**: 采用移动优先的响应式设计，确保在所有设备上都有良好体验。
-
-**执行要求**:
-- ✅ 移动优先的CSS媒体查询
-- ✅ 流式网格布局系统
-- ✅ 触控友好的交互设计
-- ✅ 自适应的字体和间距
-- ✅ 支持横竖屏切换
-- ❌ 禁止固定像素尺寸
-- ❌ 禁止仅为桌面端优化
-
-**响应式断点**:
-- `xs`: < 576px (手机)
-- `sm`: 576px - 768px (平板竖屏)
-- `md`: 768px - 992px (平板横屏)
-- `lg`: 992px - 1200px (桌面)
-- `xl`: ≥ 1200px (大屏桌面)
-
-## 🎨 设计原则
-
-### 8. 一致性原则
-
-**原则描述**: 保持视觉和交互的一致性，提供统一的用户体验。
-
-**执行要求**:
-- ✅ 统一的颜色系统和主题
-- ✅ 一致的组件行为和交互
-- ✅ 统一的图标和字体规范
-- ❌ 禁止随意偏离设计系统
-
-### 9. 用户体验原则
-
-**原则描述**: 以用户为中心，提供直观、高效的使用体验。
-
-**执行要求**:
-- ✅ 统一的设计语言和视觉风格
-- ✅ 一致的交互模式和行为
-- ✅ 标准化的组件和样式
-- ✅ 统一的错误处理和反馈
-- ❌ 禁止不一致的视觉设计
-- ❌ 禁止相同功能的不同交互方式
-
-**设计系统**:
-```css
-:root {
-    /* 统一的设计令牌 */
-    --amis-cards-primary: #007bff;
-    --amis-cards-border-radius: 6px;
-    --amis-cards-box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    --amis-cards-transition: all 0.3s ease;
+[Route("/exam/api/[controller]")]
+[DisplayName("题目管理")]
+[Navigation(Icon = "fa-solid fa-book", 
+    TitleResourceKey = "Controller.Questions", 
+    TitleResourceType = typeof(NavigationResources),
+    PlatformType = PlatformType.Tenant)]
+public class QuestionsController : ApiControllerBase
+{
+    [HttpGet]
+    [DisplayName("获取题目列表")]
+    public async Task<ActionResult<ApiResponse<PageList<QuestionDto>>>> GetList(
+        [FromQuery] QuestionQueryDto query)
+    {
+        var result = await _service.GetPagedListAsync(query);
+        return SuccessResponse(result);
+    }
+    
+    [HttpGet("{id}")]
+    [DisplayName("获取题目详情")]
+    public async Task<ActionResult<ApiResponse<QuestionDto>>> GetById(long id)
+    {
+        var result = await _service.GetByIdAsync(id);
+        return SuccessResponse(result);
+    }
 }
 ```
 
-### 10. 数据安全原则
+# Action 命名约定
 
-**原则描述**: 确保数据传输和存储的安全性，防止安全漏洞。
+| HTTP 方法 | 方法命名 | 示例 |
+|----------|---------|------|
+| GET (列表) | `GetList` / `Get{Entity}s` | `GetRoles()` |
+| GET (单个) | `GetById` / `Get{Entity}` | `GetRole(long id)` |
+| POST | `Create` | `Create(CreateDto dto)` |
+| PUT | `Update` | `Update(long id, UpdateDto dto)` |
+| DELETE | `Delete` | `Delete(long id)` |
+| DELETE (批量) | `BatchDelete` | `BatchDelete(long[] ids)` |
 
-**执行要求**:
-- ✅ 直观的界面布局和导航
-- ✅ 及时的反馈和状态提示
-- ✅ 合理的默认值和智能推荐
-- ✅ 流畅的动画和过渡效果
-- ✅ 容错性设计和错误恢复
-- ❌ 禁止复杂难懂的操作流程
-- ❌ 禁止无反馈的用户操作
+# 响应格式
 
-**用户体验检查点**:
-- 新用户能否在5分钟内上手？
-- 常用操作是否在3次点击内完成？
-- 错误信息是否清晰可理解？
-- 加载状态是否有适当提示？
+## 基类响应方法
 
-### 11. 权限控制原则
+```csharp
+// 成功响应（带数据）- 返回 200
+return SuccessResponse(data);  // { status: 0, msg: "操作成功！", data: {...} }
 
-**原则描述**: 实现细粒度的权限控制，确保用户只能访问授权的功能。
+// 成功响应（无数据）- 返回 200
+return SuccessResponse();
 
-**执行要求**:
-- ✅ 必须集成现有TokenManager认证系统
-- ✅ 支持基于角色的权限控制
-- ✅ 功能级和数据级权限验证
-- ❌ 禁止绕过权限检查
+// 创建成功响应 - 返回 201
+return SuccessResponseWithCreate<RoleDto>(nameof(GetRole), roleDto);
 
-## 📋 质量原则
-
-### 12. 代码质量原则
-
-**原则描述**: 保持高质量的代码标准，确保可读性和可维护性。
-
-**执行要求**:
-- ✅ 清晰的命名规范
-- ✅ 完整的代码注释
-- ✅ 合理的函数和类设计
-- ✅ 统一的代码风格
-- ❌ 禁止复杂的嵌套逻辑
-- ❌ 禁止重复代码
-
-### 13. 测试覆盖原则
-
-**原则描述**: 确保充分的测试覆盖，保证代码质量和功能稳定性。
-
-**执行要求**:
-- ✅ 核心功能单元测试
-- ✅ 集成测试覆盖
-- ✅ 浏览器兼容性测试
-- ✅ 性能测试验证
-
-## 📖 文档原则
-
-### 14. 文档完整性原则
-
-**原则描述**: 提供完整、准确、易懂的文档，降低使用和维护成本。
-
-**执行要求**:
-- ✅ API接口文档完整
-- ✅ 配置选项说明详细
-- ✅ 示例代码可运行
-- ✅ 常见问题解答
-- ❌ 禁止过时的文档内容
-
-**文档结构**:
-```
-docs/
-├── api.md              # API参考文档
-├── components.md       # 组件使用指南
-├── examples.md         # 完整示例
-├── troubleshooting.md  # 故障排除
-├── theming.md          # 主题定制
-└── migration.md        # 迁移指南
+// 失败响应 - 返回指定状态码（默认 400）
+return BadResponse("操作失败", code: 1, statusCode: 400);
 ```
 
-### 15. 渐进式部署原则
+## 分页响应
 
-**原则描述**: 采用渐进式部署策略，降低上线风险。
+使用 `PageList<T>` 作为分页响应类型：
 
-**执行要求**:
-- ✅ 分阶段功能发布
-- ✅ 灰度测试验证
-- ✅ 回滚方案准备
-- ❌ 禁止一次性大规模变更
+```csharp
+public async Task<ActionResult<ApiResponse<PageList<RoleDto>>>> GetRoles(
+    [FromQuery] RoleQueryDto queryDto)
+{
+    PageList<RoleDto> result = await _roleService.GetRolesAsync(queryDto);
+    return SuccessResponse(result);
+}
+```
 
-### 16. 持续改进原则
+## 文件下载
 
-**原则描述**: 基于用户反馈和性能监控，持续优化和改进系统。
+```csharp
+// Excel 文件下载
+return DownloadExcelFile(fileBytes, "导出数据.xlsx");
 
-**执行要求**:
-- ✅ 用户反馈收集机制
-- ✅ 性能监控和分析
-- ✅ 定期代码审查
+// CSV 文件下载
+return DownloadCsvFile(fileBytes, "导出数据.csv");
 
-- ✅ 技术债务管理 
+// 通用文件下载
+return DownloadFile(fileBytes, "文件名.zip", "application/zip");
+
+// 流式文件下载
+return DownloadFile(fileStream, "大文件.pdf", "application/pdf");
+```
+
+# 认证授权
+
+- 默认所有控制器需要认证（继承自基类配置）
+- 匿名访问：`[AllowAnonymous]`
+- 显式认证：`[Authorize]`
+
+```csharp
+// 无需登录的控制器
+[AllowAnonymous]
+[Navigation(Hidden = true)]
+[NoAudit("授权控制器不需要审计")]
+public class AuthController : ApiControllerBase { }
+
+// 显式要求认证
+[Authorize]
+public class ApiKeysController : ApiControllerBase { }
+```
+
+# 审计支持
+
+- **启用审计**：`[Audit]` - 控制器或方法级别
+- **禁用审计**：`[NoAudit]` - 敏感操作或高频接口
+
+```csharp
+// 启用审计并配置详细日志
+[Audit(EntityName = nameof(Department), LogRequestParams = true, LogResponseData = true)]
+public class DepartmentsController : ApiControllerBase { }
+
+// 禁用审计
+[NoAudit("授权控制器不需要审计")]
+public class AuthController : ApiControllerBase { }
+```
+
+# 操作特性
+
+> 📖 详细操作特性配置参见 [controller.mdc](mdc:.cursor/rules/controller.mdc)
+
+操作特性用于定义前端操作按钮，必须包含：
+- `DisplayName`: 操作显示名称（控制器方法）
+- `Icon`: Font Awesome 图标类名
+
+常用操作特性：
+- **Operation**: 基础操作特性
+- **HeaderOperation**: 表头操作（新增、导入、导出等）
+- **RowOperation**: 行操作（编辑、删除等）
+- **BatchOperation**: 批量操作
+
+示例：
+```csharp
+[HttpPut("{id}/unlock")]
+[Operation("解锁", "ajax", null, "确定要解除用户锁定吗？", "lockoutEnd != null",
+    LabelResourceKey = "Operations.Unlock",
+    LabelResourceType = typeof(OperationsResources),
+    Icon = "fa-solid fa-unlock")]
+[DisplayName("解锁用户")]
+public async Task<ActionResult<ApiResponse>> UnlockUser(long id)
+{
+    await _service.UnlockAsync(id);
+    return SuccessResponse();
+}
+```
+
+# 参数绑定
+
+| 来源 | 特性 | 示例 |
+|-----|------|------|
+| 查询字符串 | `[FromQuery]` | `GetList([FromQuery] QueryDto query)` |
+| 请求体 | `[FromBody]` | `Create([FromBody] CreateDto dto)` |
+| 路由参数 | `[FromRoute]` 或省略 | `GetById(long id)` |
+| 表单数据 | `[FromForm]` | `Upload([FromForm] IFormFile file)` |
+
+> 💡 Action 方法如果存在多个参数，请使用 DTO 模型替代。
+
+# 批量操作路由
+
+```csharp
+// 批量删除
+[HttpDelete("batch")]
+[DisplayName("批量删除")]
+public async Task<ActionResult<ApiResponse>> BatchDelete([FromBody] long[] ids)
+{
+    await _service.BatchDeleteAsync(ids);
+    return SuccessResponse();
+}
+
+// 批量导入
+[HttpPost("batch-import")]
+[DisplayName("批量导入")]
+public async Task<ActionResult<ApiResponse<BatchImportResult>>> BatchImport(
+    [FromForm] IFormFile file)
+{
+    var result = await _service.BatchImportAsync(file);
+    return SuccessResponse(result);
+}
+
+// 导出
+[HttpGet("export")]
+[DisplayName("导出数据")]
+public async Task<ActionResult> Export([FromQuery] ExportQueryDto query)
+{
+    var bytes = await _service.ExportAsync(query);
+    return DownloadExcelFile(bytes, "导出数据.xlsx");
+}
+```
+
+# 异常处理
+
+- 不在 Action 中捕获异常
+- 使用统一异常过滤器 `HttpResponseExceptionFilter`
+- 抛出业务异常：`throw new BusinessException("错误消息")`
+- 本地化异常：`throw new BusinessException("Errors.InvalidStartTime")`
+
+```csharp
+// ❌ 错误：在 Action 中捕获异常
+public async Task<ActionResult<ApiResponse>> Create(CreateDto dto)
+{
+    try
+    {
+        await _service.CreateAsync(dto);
+        return SuccessResponse();
+    }
+    catch (Exception ex)
+    {
+        return BadResponse(ex.Message);  // 不推荐
+    }
+}
+
+// ✅ 正确：让异常过滤器处理
+public async Task<ActionResult<ApiResponse>> Create(CreateDto dto)
+{
+    await _service.CreateAsync(dto);  // 异常会被过滤器捕获
+    return SuccessResponse();
+}
+```
+
+# 参考文件
+
+- API 响应类: [ApiResponse.cs](mdc:Src/CodeSpirit.Core/ApiResponse.cs)
+- 控制器基类: [ApiControllerBase.cs](mdc:Src/CodeSpirit.Shared/Controllers/ApiControllerBase.cs)
+- 异常过滤器: [HttpResponseExceptionFilter.cs](mdc:Src/CodeSpirit.Shared/Filters/HttpResponseExceptionFilter.cs)
+- 控制器规范: [controller.mdc](mdc:.cursor/rules/controller.mdc)
+- 安全规范: [security.mdc](mdc:.cursor/rules/security.mdc)
 
 ---
 > Source: [xin-lai/CodeSpirit](https://github.com/xin-lai/CodeSpirit) — distributed by [TomeVault](https://tomevault.io).
