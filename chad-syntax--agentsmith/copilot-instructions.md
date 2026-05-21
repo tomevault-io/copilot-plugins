@@ -1,35 +1,10 @@
-## agentsmith
+## psql
 
-> - **Development**: `npm run dev` - Start Next.js dev server
+> 1. All psql should be written in lowercase syntax
 
-# CLAUDE.md - AgentSmith Development Guidelines
-
-## Build and Test Commands
-
-- **Development**: `npm run dev` - Start Next.js dev server
-- **Build**: `npm run build` - Build the Next.js application
-- **Start**: `npm run start` - Start production server
-- **Test**: `npm run test` - Run all tests with Jest
-- **Test (Watch)**: `npm run test:watch` - Run tests in watch mode
-- **Test Single File**: `npm run test -- -t "test name"` or `npm run test -- path/to/file.test.ts`
-- **Type Generation**: `npm run typegen` - Generate Supabase TypeScript types
-
-## Code Style Guidelines
-
-- **Components**: Use named exports only; default exports only for Next.js page files
-- **Functions**: Declare with const arrow format: `const myFunc = (params: Type) => {}`
-- **Types**: Always explicitly type props as separate types, not inline
-- **File Structure**:
-  - Components in `/components` folder with max 2 components per file
-  - Page components in `/page-components`
-- **Imports**: Use path aliases: `@/` for src, `&/` for lib, `~/` for root
-- **Naming**: PascalCase for components, camelCase for functions, kebab-case for files
-- **Icons**: Only use icons from `lucide-react`
-- **Styling**: Only use Tailwind CSS, no custom CSS
-- **SQL**: Lowercase syntax for queries, concise index declarations with `create index concurrently`
-- **Error Handling**: Use try/catch with appropriate error logging
-
-Always follow existing patterns in the codebase.
+1. All psql should be written in lowercase syntax
+2. When creating psql indices we should be as concise as we can, omitting defaults like the index name and the type. So we rather do `create index on table(column)` instead of `create idx_table_column on table using btree (column)`
+3. We should add indices to columns that reference other tables and columns that are queried frequently. e.g. if the column is `slug` it will most likely be queried on that instead of `id` so we should create an index on it.
 
 ---
 > Source: [chad-syntax/agentsmith](https://github.com/chad-syntax/agentsmith) — distributed by [TomeVault](https://tomevault.io).
