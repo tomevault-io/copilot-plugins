@@ -7,11 +7,11 @@ CLI AI assistant doing your code reviews
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Galvanized-Pukeko/gaunt-sloth-assistant](https://github.com/Galvanized-Pukeko/gaunt-sloth-assistant).
+Original source: `CLAUDE.md` in [Galvanized-Pukeko/gaunt-sloth-assistant](https://github.com/Galvanized-Pukeko/gaunt-sloth-assistant).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
