@@ -2,6 +2,8 @@
 
 > Sourced from [NKU-WIKI/nkuwiki](https://github.com/NKU-WIKI/nkuwiki) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+nkuwiki——开源·共治·普惠的南开百科
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
