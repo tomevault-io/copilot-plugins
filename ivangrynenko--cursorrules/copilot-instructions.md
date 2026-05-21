@@ -1,441 +1,825 @@
-## javascript-security-misconfiguration
+## javascript-server-side-request-forgery
 
-> Detect and prevent security misconfigurations in JavaScript applications as defined in OWASP Top 10:2021-A05
+> Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in JavaScript applications as defined in OWASP Top 10:2021-A10
 
-# JavaScript Security Misconfiguration (OWASP A05:2021)
+# JavaScript Server-Side Request Forgery (OWASP A10:2021)
 
 <rule>
-name: javascript_security_misconfiguration
-description: Detect and prevent security misconfigurations in JavaScript applications as defined in OWASP Top 10:2021-A05
+name: javascript_server_side_request_forgery
+description: Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in JavaScript applications as defined in OWASP Top 10:2021-A10
 
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Missing or Insecure HTTP Security Headers
-      - pattern: "app\\.use\\([^)]*?\\)\\s*(?!.*(?:helmet|frameguard|hsts|noSniff|xssFilter|contentSecurityPolicy))"
-        location: "(?:app|server|index)\\.(?:js|ts)$"
-        message: "Missing HTTP security headers. Consider using Helmet.js to set secure HTTP headers."
+      # Pattern 1: URL from User Input
+      - pattern: "(fetch|axios\\.get|axios\\.post|axios\\.put|axios\\.delete|axios\\.patch|http\\.get|http\\.request|https\\.get|https\\.request|\\$\\.ajax|XMLHttpRequest|got|request|superagent|needle)\\s*\\([^)]*(?:\\$_GET|\\$_POST|\\$_REQUEST|req\\.(?:body|query|params)|request\\.(?:body|query|params)|event\\.(?:body|queryStringParameters|pathParameters)|params|userInput|data\\["
+        message: "Potential SSRF vulnerability: URL constructed from user input. Implement URL validation, allowlisting, or use a URL parser library to validate and sanitize user-provided URLs."
         
-      # Pattern 2: Insecure CORS Configuration
-      - pattern: "app\\.use\\(cors\\(\\{[^}]*?origin\\s*:\\s*['\"]\\*['\"]\\s*\\}\\)\\)"
-        message: "Insecure CORS configuration. Avoid using wildcard (*) for CORS origin in production environments."
+      # Pattern 2: Dynamic URL in HTTP Request
+      - pattern: "(fetch|axios|http\\.get|http\\.request|https\\.get|https\\.request|\\$\\.ajax|XMLHttpRequest|got|request|superagent|needle)\\s*\\(\\s*['\"`]https?:\\/\\/[^'\"`]*['\"`]\\s*\\+\\s*"
+        message: "Potential SSRF vulnerability: Dynamic URL in HTTP request. Use URL parsing and validation before making the request."
         
-      # Pattern 3: Exposed Environment Variables in Client-Side Code
-      - pattern: "process\\.env\\.[A-Z_]+"
-        location: "(?:src|components|pages)"
-        message: "Exposing environment variables in client-side code. Only use environment variables with NEXT_PUBLIC_, REACT_APP_, or VITE_ prefixes for client-side code."
+      # Pattern 3: URL Redirection Without Validation
+      - pattern: "(res\\.redirect|res\\.location|window\\.location|location\\.href|location\\.replace|location\\.assign|location\\.port|history\\.pushState|history\\.replaceState)\\s*\\([^)]*(?:req\\.(?:query|body|params)|request\\.(?:query|body|params)|userInput)"
+        message: "URL redirection without proper validation may lead to SSRF. Implement strict validation for URLs before redirecting."
         
-      # Pattern 4: Insecure Cookie Settings
-      - pattern: "(?:cookie|cookies|session)\\([^)]*?\\{[^}]*?(?:secure\\s*:\\s*false|httpOnly\\s*:\\s*false|sameSite\\s*:\\s*['\"]none['\"])"
-        message: "Insecure cookie configuration. Set secure:true, httpOnly:true, and appropriate sameSite value for cookies."
+      # Pattern 4: Direct IP Address Usage
+      - pattern: "(fetch|axios\\.get|axios\\.post|axios\\.put|axios\\.delete|axios\\.patch|http\\.get|http\\.request|https\\.get|https\\.request)\\s*\\(\\s*['\"`]https?:\\/\\/\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"
+        message: "Direct use of IP addresses in requests may bypass hostname-based restrictions. Consider using allowlisted hostnames instead."
         
-      # Pattern 5: Missing Content Security Policy
-      - pattern: "app\\.use\\([^)]*?helmet\\([^)]*?\\{[^}]*?contentSecurityPolicy\\s*:\\s*false"
-        message: "Content Security Policy (CSP) is disabled. Enable and configure CSP to prevent XSS attacks."
+      # Pattern 5: Local Network Access
+      - pattern: "(fetch|axios\\.get|axios\\.post|axios\\.put|axios\\.delete|axios\\.patch|http\\.get|http\\.request|https\\.get|https\\.request)\\s*\\(\\s*['\"`]https?:\\/\\/(?:localhost|127\\.0\\.0\\.1|0\\.0\\.0\\.0|192\\.168\\.|10\\.|172\\.(?:1[6-9]|2[0-9]|3[0-1])\\.|::1)"
+        message: "Request to internal network address detected. Restrict access to internal resources to prevent SSRF attacks."
         
-      # Pattern 6: Debug Information Exposure
-      - pattern: "app\\.use\\([^)]*?morgan\\(['\"]dev['\"]\\)|console\\.(?:log|debug|info|warn|error)\\("
-        location: "(?:app|server|index)\\.(?:js|ts)$"
-        message: "Debug information might be exposed in production. Ensure logging is properly configured based on the environment."
+      # Pattern 6: File Protocol Usage
+      - pattern: "(fetch|axios\\.get|axios\\.post|axios\\.put|axios\\.delete|axios\\.patch|http\\.get|http\\.request|https\\.get|https\\.request)\\s*\\(\\s*['\"`]file:\\/\\/"
+        message: "Use of file:// protocol may lead to local file access. Block or restrict file:// protocol usage."
         
-      # Pattern 7: Insecure Server Configuration
-      - pattern: "app\\.disable\\(['\"]x-powered-by['\"]\\)"
-        negative_pattern: true
-        location: "(?:app|server|index)\\.(?:js|ts)$"
-        message: "X-Powered-By header is not disabled. Use app.disable('x-powered-by') to hide technology information."
+      # Pattern 7: Missing URL Validation
+      - pattern: "(fetch|axios\\.get|axios\\.post|axios\\.put|axios\\.delete|axios\\.patch|http\\.get|http\\.request|https\\.get|https\\.request)\\s*\\([^)]*\\burl\\b[^)]*\\)"
+        negative_pattern: "(validat|sanitiz|check|parse).*\\burl\\b|allowlist|whitelist|URL\\.(parse|canParse)|new URL\\(|isValidURL"
+        message: "HTTP request without URL validation. Implement URL validation before making external requests."
         
-      # Pattern 8: Directory Listing Enabled
-      - pattern: "express\\.static\\([^)]*?\\{[^}]*?index\\s*:\\s*false"
-        message: "Directory listing might be enabled. Set index:true or provide an index file to prevent directory listing."
+      # Pattern 8: HTTP Request in User-Defined Function
+      - pattern: "function\\s+[a-zA-Z0-9_]*(?:request|fetch|get|http|curl)\\s*\\([^)]*\\)\\s*\\{[^}]*(?:fetch|axios|http\\.get|http\\.request|https\\.get|https\\.request)"
+        negative_pattern: "(validat|sanitiz|check|parse).*\\burl\\b|allowlist|whitelist|new URL\\(|isValidURL"
+        message: "User-defined HTTP request function without URL validation. Implement proper URL validation and sanitization."
         
-      # Pattern 9: Missing Rate Limiting
-      - pattern: "app\\.(?:get|post|put|delete|patch)\\([^)]*?['\"](?:/api|/login|/register|/auth)['\"]"
-        negative_pattern: "(?:rateLimit|rateLimiter|limiter|throttle)"
-        message: "Missing rate limiting for sensitive endpoints. Implement rate limiting to prevent brute force attacks."
+      # Pattern 9: Proxy Functionality
+      - pattern: "(?:proxy|forward|relay).*(?:req\\.(?:url|path)|request\\.(?:url|path))"
+        negative_pattern: "(validat|sanitiz|check|parse).*\\burl\\b|allowlist|whitelist"
+        message: "Proxy or request forwarding functionality detected. Implement strict URL validation and allowlisting."
         
-      # Pattern 10: Insecure WebSocket Configuration
-      - pattern: "new\\s+WebSocket\\([^)]*?\\)|io\\.on\\(['\"]connection['\"]"
-        negative_pattern: "(?:wss://|https://)"
-        message: "Potentially insecure WebSocket connection. Use secure WebSocket (wss://) in production."
+      # Pattern 10: Alternative HTTP Methods
+      - pattern: "(fetch|axios)\\s*\\([^)]*method\\s*:\\s*['\"`](?:GET|POST|PUT|DELETE|PATCH|OPTIONS|HEAD)['\"`]"
+        negative_pattern: "(validat|sanitiz|check|parse).*\\burl\\b|allowlist|whitelist|new URL\\(|isValidURL"
+        message: "HTTP request with explicit method without URL validation. Implement URL validation for all HTTP methods."
         
-      # Pattern 11: Hardcoded Configuration Values
-      - pattern: "(?:apiKey|secret|password|token|credentials)\\s*=\\s*['\"][^'\"]+['\"]"
-        message: "Hardcoded configuration values. Use environment variables or a secure configuration management system."
+      # Pattern 11: URL Building from Parts
+      - pattern: "new URL\\s*\\((?:[^,)]+,\\s*){1,}(?:req\\.(?:body|query|params)|request\\.(?:body|query|params)|userinput)"
+        message: "Building URL with user input. Validate and sanitize all URL components and use an allowlist for base URLs."
         
-      # Pattern 12: Insecure SSL/TLS Configuration
-      - pattern: "https\\.createServer\\([^)]*?\\{[^}]*?rejectUnauthorized\\s*:\\s*false"
-        message: "Insecure SSL/TLS configuration. Never set rejectUnauthorized:false in production."
+      # Pattern 12: Protocol-Relative URLs
+      - pattern: "(fetch|axios)\\s*\\(['\"`]\\/\\/[^'\"`]+['\"`]"
+        message: "Protocol-relative URL usage may lead to SSRF. Always specify the protocol and validate URLs."
         
-      # Pattern 13: Missing Security Middleware
-      - pattern: "express\\(\\)|require\\(['\"]express['\"]\\)"
-        negative_pattern: "(?:helmet|cors|rateLimit|bodyParser\\.json\\(\\{\\s*limit|express\\.json\\(\\{\\s*limit)"
-        location: "(?:app|server|index)\\.(?:js|ts)$"
-        message: "Missing essential security middleware. Consider using helmet, cors, rate limiting, and request size limiting."
+      # Pattern 13: Express-like Route with URL Parameter
+      - pattern: "app\\.(?:get|post|put|delete|patch)\\s*\\(['\"`][^'\"`]*\\/:[a-zA-Z0-9_]+(?:\\/|['\"`])"
+        negative_pattern: "(validat|sanitiz|check|parse).*\\burl\\b|allowlist|whitelist|new URL\\(|isValidURL"
+        message: "Route with dynamic parameter that might be used in URL construction. Ensure proper validation before making any HTTP requests within this route handler."
         
-      # Pattern 14: Insecure Error Handling
-      - pattern: "app\\.use\\([^)]*?function\\s*\\([^)]*?err[^)]*?\\)\\s*\\{[^}]*?res\\.status[^}]*?err(?:\\.message|\\.stack)"
-        message: "Insecure error handling. Avoid exposing error details like stack traces to clients in production."
+      # Pattern 14: URL Parsing without Validation
+      - pattern: "URL\\.parse\\s*\\(|new URL\\s*\\("
+        negative_pattern: "try\\s*\\{|catch\\s*\\(|validat|sanitiz|check"
+        message: "URL parsing without validation or error handling. Implement proper error handling and validation for URL parsing."
         
-      # Pattern 15: Outdated Dependencies Warning
-      - pattern: "(?:\"dependencies\"|\"devDependencies\")\\s*:\\s*\\{[^}]*?['\"](?:express|react|vue|angular|next|nuxt|axios)['\"]\\s*:\\s*['\"]\\^?\\d+\\.\\d+\\.\\d+['\"]"
-        location: "package\\.json$"
-        message: "Check for outdated dependencies. Regularly update dependencies to avoid known vulnerabilities."
+      # Pattern 15: Service Discovery / Cloud Metadata Access
+      - pattern: "(fetch|axios\\.get|http\\.get)\\s*\\(['\"`]https?:\\/\\/(?:169\\.254\\.169\\.254|fd00:ec2|metadata\\.google|metadata\\.azure|169\\.254\\.169\\.254\\/latest\\/meta-data)"
+        message: "Access to cloud service metadata endpoints detected. Restrict access to cloud metadata services to prevent server information disclosure."
 
   - type: suggest
     message: |
-      **JavaScript Security Configuration Best Practices:**
+      **JavaScript Server-Side Request Forgery (SSRF) Prevention Best Practices:**
       
-      1. **HTTP Security Headers:**
-         - Use Helmet.js to set secure HTTP headers
-         - Configure Content Security Policy (CSP)
+      1. **Implement URL Validation and Sanitization:**
+         - Use built-in URL parsing libraries to validate URLs
+         - Validate both the URL format and components
          - Example:
            ```javascript
-           const helmet = require('helmet');
+           function isValidUrl(url) {
+             try {
+               const parsedUrl = new URL(url);
+               // Check protocol is http: or https:
+               if (!/^https?:$/.test(parsedUrl.protocol)) {
+                 return false;
+               }
+               // Additional validation logic here
+               return true;
+             } catch (error) {
+               // Invalid URL format
+               return false;
+             }
+           }
            
-           // Basic usage
-           app.use(helmet());
+           // Usage
+           const userProvidedUrl = req.body.targetUrl;
+           if (!isValidUrl(userProvidedUrl)) {
+             return res.status(400).json({ error: 'Invalid URL format or protocol' });
+           }
            
-           // Custom CSP configuration
-           app.use(
-             helmet.contentSecurityPolicy({
-               directives: {
-                 defaultSrc: ["'self'"],
-                 scriptSrc: ["'self'", "'unsafe-inline'", 'trusted-cdn.com'],
-                 styleSrc: ["'self'", "'unsafe-inline'", 'trusted-cdn.com'],
-                 imgSrc: ["'self'", 'data:', 'trusted-cdn.com'],
-                 connectSrc: ["'self'", 'api.yourdomain.com'],
-                 fontSrc: ["'self'", 'trusted-cdn.com'],
-                 objectSrc: ["'none'"],
-                 mediaSrc: ["'self'"],
-                 frameSrc: ["'none'"],
-                 upgradeInsecureRequests: [],
-               },
-             })
-           );
+           // Now make the request with the validated URL
            ```
       
-      2. **Secure CORS Configuration:**
-         - Specify allowed origins explicitly
-         - Configure appropriate CORS options
+      2. **Implement Strict Allowlisting:**
+         - Define allowlist of permitted domains and endpoints
+         - Reject requests to any domains not on the allowlist
          - Example:
            ```javascript
-           const cors = require('cors');
-           
-           // Define allowed origins
-           const allowedOrigins = [
-             'https://yourdomain.com',
-             'https://app.yourdomain.com',
-             'https://admin.yourdomain.com'
+           const ALLOWED_DOMAINS = [
+             'api.example.com',
+             'cdn.example.com',
+             'partner-api.trusted-domain.com'
            ];
            
-           // Configure CORS
-           app.use(cors({
-             origin: function(origin, callback) {
-               // Allow requests with no origin (like mobile apps, curl, etc.)
-               if (!origin) return callback(null, true);
+           function isAllowedDomain(url) {
+             try {
+               const parsedUrl = new URL(url);
+               return ALLOWED_DOMAINS.includes(parsedUrl.hostname);
+             } catch (error) {
+               return false;
+             }
+           }
+           
+           // Usage
+           const targetUrl = req.body.webhookUrl;
+           if (!isAllowedDomain(targetUrl)) {
+             logger.warn({
+               message: 'SSRF attempt blocked: domain not in allowlist',
+               url: targetUrl,
+               ip: req.ip,
+               userId: req.user?.id
+             });
+             return res.status(403).json({ error: 'Domain not allowed' });
+           }
+           ```
+      
+      3. **Block Access to Internal Networks:**
+         - Prevent requests to private IP ranges
+         - Block localhost and internal hostnames
+         - Example:
+           ```javascript
+           function isInternalHostname(hostname) {
+             // Check for localhost and common internal hostnames
+             if (hostname === 'localhost' || hostname.endsWith('.local') || hostname.endsWith('.internal')) {
+               return true;
+             }
+             return false;
+           }
+           
+           function isPrivateIP(ip) {
+             // Check for private IP ranges
+             const privateRanges = [
+               /^127\./,                     // 127.0.0.0/8
+               /^10\./,                      // 10.0.0.0/8
+               /^172\.(1[6-9]|2[0-9]|3[0-1])\./, // 172.16.0.0/12
+               /^192\.168\./,                // 192.168.0.0/16
+               /^169\.254\./,                // 169.254.0.0/16
+               /^::1$/,                      // localhost IPv6
+               /^f[cd][0-9a-f]{2}:/i,        // fc00::/7 unique local IPv6
+               /^fe80:/i                     // fe80::/10 link-local IPv6
+             ];
+             
+             return privateRanges.some(range => range.test(ip));
+           }
+           
+           function isUrlSafe(url) {
+             try {
+               const parsedUrl = new URL(url);
                
-               if (allowedOrigins.indexOf(origin) === -1) {
-                 const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-                 return callback(new Error(msg), false);
+               // Block internal hostnames
+               if (isInternalHostname(parsedUrl.hostname)) {
+                 return false;
                }
                
-               return callback(null, true);
-             },
-             methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-             credentials: true,
-             maxAge: 86400 // 24 hours
-           }));
-           ```
-      
-      3. **Environment-Based Configuration:**
-         - Use different configurations for development and production
-         - Validate configuration at startup
-         - Example:
-           ```javascript
-           const express = require('express');
-           const helmet = require('helmet');
-           const morgan = require('morgan');
-           
-           const app = express();
-           
-           // Environment-specific configuration
-           if (process.env.NODE_ENV === 'production') {
-             // Production settings
-             app.use(helmet());
-             app.use(morgan('combined'));
-             app.set('trust proxy', 1); // Trust first proxy
-             
-             // Disable X-Powered-By header
-             app.disable('x-powered-by');
-           } else {
-             // Development settings
-             app.use(morgan('dev'));
-           }
-           
-           // Validate required environment variables
-           const requiredEnvVars = ['DATABASE_URL', 'JWT_SECRET'];
-           for (const envVar of requiredEnvVars) {
-             if (!process.env[envVar]) {
-               console.error(`Error: Environment variable ${envVar} is required`);
-               process.exit(1);
-             }
-           }
-           ```
-      
-      4. **Secure Cookie Configuration:**
-         - Set secure, httpOnly, and sameSite attributes
-         - Use signed cookies when appropriate
-         - Example:
-           ```javascript
-           const session = require('express-session');
-           
-           app.use(session({
-             secret: process.env.SESSION_SECRET,
-             name: 'sessionId', // Custom cookie name instead of default
-             cookie: {
-               secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-               httpOnly: true, // Prevents client-side JS from reading the cookie
-               sameSite: 'lax', // Controls when cookies are sent with cross-site requests
-               maxAge: 3600000, // 1 hour in milliseconds
-               domain: process.env.NODE_ENV === 'production' ? '.yourdomain.com' : undefined
-             },
-             resave: false,
-             saveUninitialized: false
-           }));
-           ```
-      
-      5. **Request Size Limiting:**
-         - Limit request body size to prevent DoS attacks
-         - Example:
-           ```javascript
-           // Using express built-in middleware
-           app.use(express.json({ limit: '10kb' }));
-           app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-           
-           // Or using body-parser
-           const bodyParser = require('body-parser');
-           app.use(bodyParser.json({ limit: '10kb' }));
-           app.use(bodyParser.urlencoded({ extended: true, limit: '10kb' }));
-           ```
-      
-      6. **Proper Error Handling:**
-         - Use a centralized error handler
-         - Don't expose sensitive information in error responses
-         - Example:
-           ```javascript
-           // Custom error class
-           class AppError extends Error {
-             constructor(message, statusCode) {
-               super(message);
-               this.statusCode = statusCode;
-               this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
-               this.isOperational = true;
-               
-               Error.captureStackTrace(this, this.constructor);
-             }
-           }
-           
-           // Global error handling middleware
-           app.use((err, req, res, next) => {
-             err.statusCode = err.statusCode || 500;
-             err.status = err.status || 'error';
-             
-             // Different handling for development and production
-             if (process.env.NODE_ENV === 'development') {
-               res.status(err.statusCode).json({
-                 status: err.status,
-                 error: err,
-                 message: err.message,
-                 stack: err.stack
-               });
-             } else if (process.env.NODE_ENV === 'production') {
-               // Only send operational errors to the client
-               if (err.isOperational) {
-                 res.status(err.statusCode).json({
-                   status: err.status,
-                   message: err.message
-                 });
-               } else {
-                 // Log programming or unknown errors
-                 console.error('ERROR 💥', err);
+               // Resolve hostname to IP (in real implementation, use async DNS resolution)
+               // This example is simplified - in production you would use DNS resolution
+               let ip;
+               try {
+                 // Note: This is a pseudo-code example
+                 // In real code, you'd use a DNS resolution library
+                 ip = dnsResolve(parsedUrl.hostname);
                  
-                 // Send generic message
-                 res.status(500).json({
-                   status: 'error',
-                   message: 'Something went wrong'
-                 });
+                 // Block private IPs
+                 if (isPrivateIP(ip)) {
+                   return false;
+                 }
+               } catch (error) {
+                 // If DNS resolution fails, err on the side of caution
+                 return false;
                }
+               
+               return true;
+             } catch (error) {
+               return false;
              }
-           });
+           }
            ```
       
-      7. **Rate Limiting:**
-         - Apply rate limiting to sensitive endpoints
-         - Use different limits for different endpoints
+      4. **Disable Dangerous URL Protocols:**
+         - Restrict allowed URL protocols to HTTP and HTTPS
+         - Block file://, ftp://, gopher://, etc.
          - Example:
            ```javascript
-           const rateLimit = require('express-rate-limit');
+           function hasAllowedProtocol(url) {
+             try {
+               const parsedUrl = new URL(url);
+               const allowedProtocols = ['http:', 'https:'];
+               return allowedProtocols.includes(parsedUrl.protocol);
+             } catch (error) {
+               return false;
+             }
+           }
            
-           // Create a rate limiter for API endpoints
-           const apiLimiter = rateLimit({
-             windowMs: 15 * 60 * 1000, // 15 minutes
-             max: 100, // limit each IP to 100 requests per windowMs
-             standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-             legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-             message: 'Too many requests from this IP, please try again after 15 minutes'
-           });
-           
-           // Create a stricter rate limiter for authentication endpoints
-           const authLimiter = rateLimit({
-             windowMs: 15 * 60 * 1000, // 15 minutes
-             max: 5, // limit each IP to 5 login attempts per windowMs
-             standardHeaders: true,
-             legacyHeaders: false,
-             message: 'Too many login attempts from this IP, please try again after 15 minutes'
-           });
-           
-           // Apply rate limiters to routes
-           app.use('/api/', apiLimiter);
-           app.use('/api/auth/', authLimiter);
+           // Usage
+           const targetUrl = req.body.documentUrl;
+           if (!hasAllowedProtocol(targetUrl)) {
+             logger.warn({
+               message: 'SSRF attempt blocked: disallowed protocol',
+               url: targetUrl,
+               protocol: new URL(targetUrl).protocol,
+               ip: req.ip
+             });
+             return res.status(403).json({ error: 'URL protocol not allowed' });
+           }
            ```
       
-      8. **Secure WebSocket Configuration:**
-         - Use secure WebSocket connections (wss://)
-         - Implement authentication for WebSocket connections
+      5. **Implement Network-Level Protection:**
+         - Use firewall rules to block outbound requests to internal networks
+         - Configure proxy servers to restrict external requests
          - Example:
            ```javascript
-           const http = require('http');
-           const https = require('https');
-           const socketIo = require('socket.io');
-           const fs = require('fs');
+           // Using a proxy for outbound requests
+           const axios = require('axios');
+           const HttpsProxyAgent = require('https-proxy-agent');
            
-           let server;
+           // Configure proxy with appropriate controls
+           const httpsAgent = new HttpsProxyAgent({
+             host: 'proxy.example.com',
+             port: 3128,
+             // This proxy should be configured to block access to internal networks
+           });
            
-           // Create secure server in production
-           if (process.env.NODE_ENV === 'production') {
-             const options = {
-               key: fs.readFileSync('/path/to/private.key'),
-               cert: fs.readFileSync('/path/to/certificate.crt')
+           // Make requests through the proxy
+           async function secureExternalRequest(url) {
+             try {
+               const response = await axios.get(url, {
+                 httpsAgent,
+                 timeout: 5000, // Set reasonable timeout
+                 maxRedirects: 2 // Limit redirects
+               });
+               return response.data;
+             } catch (error) {
+               logger.error({
+                 message: 'External request failed',
+                 url,
+                 error: error.message
+               });
+               throw new Error('Failed to fetch external resource');
+             }
+           }
+           ```
+      
+      6. **Use Service-Specific Endpoints:**
+         - Instead of passing full URLs, use service identifiers
+         - Map identifiers to URLs on the server side
+         - Example:
+           ```javascript
+           // Client makes request with service identifier, not raw URL
+           app.get('/proxy-service/:serviceId', async (req, res) => {
+             const { serviceId } = req.params;
+             
+             // Service mapping defined server-side
+             const serviceMap = {
+               'weather-api': 'https://api.weather.example.com/current',
+               'news-feed': 'https://api.news.example.com/feed',
+               'product-info': 'https://api.products.example.com/details'
              };
-             server = https.createServer(options, app);
-           } else {
-             server = http.createServer(app);
-           }
-           
-           const io = socketIo(server, {
-             cors: {
-               origin: process.env.NODE_ENV === 'production' 
-                 ? 'https://yourdomain.com' 
-                 : 'http://localhost:3000',
-               methods: ['GET', 'POST'],
-               credentials: true
-             }
-           });
-           
-           // WebSocket authentication middleware
-           io.use((socket, next) => {
-             const token = socket.handshake.auth.token;
              
-             if (!token) {
-               return next(new Error('Authentication error'));
+             // Check if service is defined
+             if (!serviceMap[serviceId]) {
+               return res.status(404).json({ error: 'Service not found' });
              }
              
-             // Verify token
-             // ...
-             
-             next();
+             try {
+               // Make request to mapped URL (not user-controlled)
+               const response = await axios.get(serviceMap[serviceId]);
+               return res.json(response.data);
+             } catch (error) {
+               return res.status(500).json({ error: 'Service request failed' });
+             }
            });
            ```
       
-      9. **Security Dependency Management:**
-         - Regularly update dependencies
-         - Use tools like npm audit or Snyk
+      7. **Implement Context-Specific Encodings:**
+         - Use context-appropriate encoding for URL parameters
+         - Don't rely solely on standard URL encoding
          - Example:
            ```javascript
-           // package.json scripts
-           {
-             "scripts": {
-               "audit": "npm audit",
-               "audit:fix": "npm audit fix",
-               "outdated": "npm outdated",
-               "update": "npm update",
-               "prestart": "npm audit --production"
+           function safeUrl(baseUrl, params) {
+             // Start with a verified base URL
+             const url = new URL(baseUrl);
+             
+             // Add parameters safely
+             for (const [key, value] of Object.entries(params)) {
+               // Ensure values are strings and properly encoded
+               url.searchParams.append(key, String(value));
+             }
+             
+             // Verify the final URL is still valid
+             if (!isAllowedDomain(url.toString())) {
+               throw new Error('URL creation resulted in disallowed domain');
+             }
+             
+             return url.toString();
+           }
+           
+           // Usage
+           try {
+             const apiUrl = safeUrl('https://api.example.com/data', {
+               id: userId,
+               format: 'json'
+             });
+             const response = await axios.get(apiUrl);
+             // Process response
+           } catch (error) {
+             // Handle error
+           }
+           ```
+      
+      8. **Use Defense in Depth:**
+         - Combine multiple validation strategies
+         - Don't rely on a single protection measure
+         - Example:
+           ```javascript
+           async function secureExternalRequest(url, options = {}) {
+             // 1. Validate URL format
+             if (!isValidUrl(url)) {
+               throw new Error('Invalid URL format');
+             }
+             
+             // 2. Check against allowlist
+             if (!isAllowedDomain(url)) {
+               throw new Error('Domain not in allowlist');
+             }
+             
+             // 3. Verify not internal network
+             const parsedUrl = new URL(url);
+             if (await isInternalNetwork(parsedUrl.hostname)) {
+               throw new Error('Access to internal networks not allowed');
+             }
+             
+             // 4. Validate protocol
+             if (!hasAllowedProtocol(url)) {
+               throw new Error('Protocol not allowed');
+             }
+             
+             // 5. Set additional security headers and options
+             const secureOptions = {
+               ...options,
+               timeout: options.timeout || 5000,
+               maxRedirects: options.maxRedirects || 2,
+               headers: {
+                 ...options.headers,
+                 'User-Agent': 'SecureApp/1.0'
+               }
+             };
+             
+             // 6. Make request with all validations passed
+             try {
+               return await axios(url, secureOptions);
+             } catch (error) {
+               logger.error({
+                 message: 'Secure external request failed',
+                 url,
+                 error: error.message
+               });
+               throw new Error('External request failed');
              }
            }
            ```
       
-      10. **Secure Logging Configuration:**
-          - Configure logging based on environment
-          - Avoid logging sensitive information
+      9. **Validate and Sanitize Request Parameters:**
+         - Don't trust any user-supplied input for URL construction
+         - Validate all components used in URL building
+         - Example:
+           ```javascript
+           // API that fetches weather data for a city
+           app.get('/api/weather', async (req, res) => {
+             const { city } = req.query;
+             
+             // 1. Validate parameter exists and is valid
+             if (!city || typeof city !== 'string' || city.length > 100) {
+               return res.status(400).json({ error: 'Invalid city parameter' });
+             }
+             
+             // 2. Sanitize the parameter
+             const sanitizedCity = encodeURIComponent(city.trim());
+             
+             // 3. Construct URL with validated parameter
+             const weatherApiUrl = `https://api.weather.example.com/current?city=${sanitizedCity}`;
+             
+             // 4. Additional validation of the final URL
+             if (!isValidUrl(weatherApiUrl)) {
+               return res.status(400).json({ error: 'Invalid URL construction' });
+             }
+             
+             try {
+               const response = await axios.get(weatherApiUrl);
+               return res.json(response.data);
+             } catch (error) {
+               logger.error({
+                 message: 'Weather API request failed',
+                 city,
+                 error: error.message
+               });
+               return res.status(500).json({ error: 'Failed to fetch weather data' });
+             }
+           });
+           ```
+      
+      10. **Implement Request Timeouts:**
+          - Set appropriate timeouts for all HTTP requests
+          - Prevent long-running SSRF probes
           - Example:
             ```javascript
-            const winston = require('winston');
+            async function fetchWithTimeout(url, options = {}) {
+              // Default timeout of 5 seconds
+              const timeout = options.timeout || 5000;
+              
+              // Create an abort controller to handle timeout
+              const controller = new AbortController();
+              const timeoutId = setTimeout(() => controller.abort(), timeout);
+              
+              try {
+                const response = await fetch(url, {
+                  ...options,
+                  signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                return response;
+              } catch (error) {
+                clearTimeout(timeoutId);
+                if (error.name === 'AbortError') {
+                  throw new Error(`Request timed out after ${timeout}ms`);
+                }
+                throw error;
+              }
+            }
             
-            // Define log levels
-            const levels = {
-              error: 0,
-              warn: 1,
-              info: 2,
-              http: 3,
-              debug: 4,
-            };
+            // Usage
+            try {
+              const response = await fetchWithTimeout('https://api.example.com/data', {
+                timeout: 3000, // 3 seconds timeout
+                headers: { 'Content-Type': 'application/json' }
+              });
+              const data = await response.json();
+              // Process data
+            } catch (error) {
+              console.error('Request failed:', error.message);
+            }
+            ```
+      
+      11. **Rate Limit External Requests:**
+          - Implement rate limiting for outbound requests
+          - Prevent SSRF probing and DoS attacks
+          - Example:
+            ```javascript
+            const { RateLimiter } = require('limiter');
             
-            // Define log level based on environment
-            const level = () => {
-              const env = process.env.NODE_ENV || 'development';
-              return env === 'development' ? 'debug' : 'warn';
-            };
-            
-            // Define log format
-            const format = winston.format.combine(
-              winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-              winston.format.printf(
-                (info) => `${info.timestamp} ${info.level}: ${info.message}`
-              )
-            );
-            
-            // Define transports
-            const transports = [
-              new winston.transports.Console(),
-              new winston.transports.File({
-                filename: 'logs/error.log',
-                level: 'error',
-              }),
-              new winston.transports.File({ filename: 'logs/all.log' }),
-            ];
-            
-            // Create the logger
-            const logger = winston.createLogger({
-              level: level(),
-              levels,
-              format,
-              transports,
+            // Create a rate limiter: 100 requests per minute
+            const externalRequestLimiter = new RateLimiter({
+              tokensPerInterval: 100,
+              interval: 'minute'
             });
             
-            module.exports = logger;
+            async function rateLimitedRequest(url, options = {}) {
+              // Check if we have tokens available
+              const remainingRequests = await externalRequestLimiter.removeTokens(1);
+              
+              if (remainingRequests < 0) {
+                throw new Error('Rate limit exceeded for external requests');
+              }
+              
+              // Proceed with the request
+              return axios(url, options);
+            }
+            
+            // Usage
+            app.get('/api/external-data', async (req, res) => {
+              const { url } = req.query;
+              
+              if (!isValidUrl(url) || !isAllowedDomain(url)) {
+                return res.status(403).json({ error: 'URL not allowed' });
+              }
+              
+              try {
+                const response = await rateLimitedRequest(url);
+                return res.json(response.data);
+              } catch (error) {
+                if (error.message === 'Rate limit exceeded for external requests') {
+                  return res.status(429).json({ error: 'Too many requests' });
+                }
+                return res.status(500).json({ error: 'Failed to fetch data' });
+              }
+            });
+            ```
+      
+      12. **Use Web Application Firewalls (WAF):**
+          - Configure WAF rules to detect and block SSRF patterns
+          - Implement server-side firewall rules
+          - Example:
+            ```javascript
+            // Middleware to detect SSRF attack patterns
+            function ssrfProtectionMiddleware(req, res, next) {
+              const url = req.query.url || req.body.url;
+              
+              if (!url) {
+                return next();
+              }
+              
+              // Check for suspicious URL patterns
+              const ssrfPatterns = [
+                /file:\/\//i,
+                /^(ftps?|gopher|data|dict):\/\//i,
+                /^\/\/\//,
+                /(localhost|127\.0\.0\.1|0\.0\.0\.0|::1)/i,
+                /^(10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|192\.168\.)/
+              ];
+              
+              if (ssrfPatterns.some(pattern => pattern.test(url))) {
+                logger.warn({
+                  message: 'Potential SSRF attack detected',
+                  url,
+                  ip: req.ip,
+                  path: req.path,
+                  method: req.method,
+                  userId: req.user?.id
+                });
+                
+                return res.status(403).json({
+                  error: 'Access denied - suspicious URL detected'
+                });
+              }
+              
+              next();
+            }
+            
+            // Apply middleware to all routes
+            app.use(ssrfProtectionMiddleware);
+            ```
+      
+      13. **Implement Centralized Request Services:**
+          - Create a dedicated service for external requests
+          - Implement all security controls in one place
+          - Example:
+            ```javascript
+            // externalRequestService.js
+            const axios = require('axios');
+            
+            class ExternalRequestService {
+              constructor(options = {}) {
+                this.allowedDomains = options.allowedDomains || [];
+                this.maxRedirects = options.maxRedirects || 2;
+                this.timeout = options.timeout || 5000;
+                this.logger = options.logger || console;
+              }
+              
+              async request(url, options = {}) {
+                // Validate URL
+                if (!this._isValidUrl(url)) {
+                  throw new Error('Invalid URL format');
+                }
+                
+                // Check allowlist
+                if (!this._isAllowedDomain(url)) {
+                  throw new Error('Domain not in allowlist');
+                }
+                
+                // Configure request options
+                const requestOptions = {
+                  ...options,
+                  timeout: options.timeout || this.timeout,
+                  maxRedirects: options.maxRedirects || this.maxRedirects,
+                  validateStatus: status => status >= 200 && status < 300
+                };
+                
+                try {
+                  const response = await axios(url, requestOptions);
+                  return response.data;
+                } catch (error) {
+                  this.logger.error({
+                    message: 'External request failed',
+                    url,
+                    error: error.message
+                  });
+                  throw new Error(`External request failed: ${error.message}`);
+                }
+              }
+              
+              _isValidUrl(url) {
+                try {
+                  const parsedUrl = new URL(url);
+                  return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
+                } catch (error) {
+                  return false;
+                }
+              }
+              
+              _isAllowedDomain(url) {
+                try {
+                  const parsedUrl = new URL(url);
+                  return this.allowedDomains.includes(parsedUrl.hostname);
+                } catch (error) {
+                  return false;
+                }
+              }
+            }
+            
+            module.exports = ExternalRequestService;
+            
+            // Usage in application
+            const ExternalRequestService = require('./externalRequestService');
+            
+            const requestService = new ExternalRequestService({
+              allowedDomains: [
+                'api.example.com',
+                'cdn.example.com',
+                'partner.trusted-domain.com'
+              ],
+              logger: appLogger,
+              timeout: 3000
+            });
+            
+            app.get('/api/external-data', async (req, res) => {
+              try {
+                // Use the service for all external requests
+                const data = await requestService.request('https://api.example.com/data');
+                return res.json(data);
+              } catch (error) {
+                return res.status(500).json({ error: error.message });
+              }
+            });
+            ```
+      
+      14. **Monitor and Audit External Requests:**
+          - Log all external requests for audit purposes
+          - Implement anomaly detection
+          - Example:
+            ```javascript
+            // Middleware to log and monitor all external requests
+            function requestMonitoringMiddleware(req, res, next) {
+              // Only intercept routes that might make external requests
+              if (!req.path.startsWith('/api/proxy') && !req.path.startsWith('/api/external')) {
+                return next();
+              }
+              
+              // Store original fetch/http.request methods
+              const originalFetch = global.fetch;
+              const originalHttpRequest = require('http').request;
+              const originalHttpsRequest = require('https').request;
+              
+              // Override fetch
+              global.fetch = async function monitoredFetch(url, options) {
+                const requestId = uuid.v4();
+                const startTime = Date.now();
+                
+                logger.info({
+                  message: 'External request initiated',
+                  requestId,
+                  url,
+                  method: options?.method || 'GET',
+                  userContext: {
+                    userId: req.user?.id,
+                    ip: req.ip,
+                    userAgent: req.headers['user-agent']
+                  },
+                  timestamp: new Date().toISOString()
+                });
+                
+                try {
+                  const response = await originalFetch(url, options);
+                  
+                  // Log successful request
+                  logger.info({
+                    message: 'External request completed',
+                    requestId,
+                    url,
+                    statusCode: response.status,
+                    duration: Date.now() - startTime,
+                    timestamp: new Date().toISOString()
+                  });
+                  
+                  return response;
+                } catch (error) {
+                  // Log failed request
+                  logger.error({
+                    message: 'External request failed',
+                    requestId,
+                    url,
+                    error: error.message,
+                    duration: Date.now() - startTime,
+                    timestamp: new Date().toISOString()
+                  });
+                  
+                  throw error;
+                }
+              };
+              
+              // Similar overrides for http.request and https.request
+              // ...
+              
+              // Continue with the request
+              res.on('finish', () => {
+                // Restore original methods after request completes
+                global.fetch = originalFetch;
+                require('http').request = originalHttpRequest;
+                require('https').request = originalHttpsRequest;
+              });
+              
+              next();
+            }
+            
+            // Apply middleware
+            app.use(requestMonitoringMiddleware);
+            ```
+      
+      15. **Implement Output Validation:**
+          - Validate responses from external services
+          - Use schema validation for expected formats
+          - Example:
+            ```javascript
+            const Joi = require('joi');
+            
+            // Define expected schemas for external APIs
+            const apiSchemas = {
+              weatherApi: Joi.object({
+                location: Joi.string().required(),
+                temperature: Joi.number().required(),
+                conditions: Joi.string().required(),
+                forecast: Joi.array().items(Joi.object())
+              }),
+              
+              userApi: Joi.object({
+                id: Joi.string().required(),
+                name: Joi.string().required(),
+                email: Joi.string().email().required()
+              })
+            };
+            
+            async function validateExternalResponse(data, schemaName) {
+              const schema = apiSchemas[schemaName];
+              
+              if (!schema) {
+                throw new Error(`Schema not found: ${schemaName}`);
+              }
+              
+              try {
+                const result = await schema.validateAsync(data);
+                return result;
+              } catch (error) {
+                logger.error({
+                  message: 'External API response validation failed',
+                  schemaName,
+                  error: error.message,
+                  data: JSON.stringify(data).substring(0, 200) // Log partial data for debugging
+                });
+                
+                throw new Error(`Invalid response format from external API: ${error.message}`);
+              }
+            }
+            
+            // Usage
+            app.get('/api/weather/:city', async (req, res) => {
+              const { city } = req.params;
+              
+              try {
+                // Fetch data from external API
+                const apiUrl = `https://api.weather.example.com/current?city=${encodeURIComponent(city)}`;
+                const response = await axios.get(apiUrl);
+                
+                // Validate the response against the expected schema
+                const validatedData = await validateExternalResponse(response.data, 'weatherApi');
+                
+                // Return the validated data
+                return res.json(validatedData);
+              } catch (error) {
+                return res.status(500).json({ error: error.message });
+              }
+            });
             ```
 
   - type: validate
     conditions:
-      # Check 1: Helmet usage
-      - pattern: "helmet\\(\\)|frameguard\\(\\)|hsts\\(\\)|noSniff\\(\\)|xssFilter\\(\\)|contentSecurityPolicy\\(\\)"
-        message: "Using Helmet.js or individual HTTP security headers middleware."
+      # Check 1: URL validation
+      - pattern: "function\\s+(?:isValidUrl|validateUrl|checkUrl)\\s*\\([^)]*\\)\\s*\\{[^}]*new URL\\([^)]*\\)"
+        message: "Using URL validation function with proper parsing."
       
-      # Check 2: Secure CORS configuration
-      - pattern: "cors\\(\\{[^}]*?origin\\s*:\\s*(?!['\"]*\\*)['\"]"
-        message: "Using secure CORS configuration with specific origins."
+      # Check 2: Domain allowlisting
+      - pattern: "(?:allowlist|whitelist|allowed(?:Domain|Host))\\s*=\\s*\\["
+        message: "Implementing domain allowlisting for outbound requests."
       
-      # Check 3: Environment-based configuration
-      - pattern: "process\\.env\\.NODE_ENV\\s*===\\s*['\"]production['\"]"
-        message: "Implementing environment-specific configuration."
+      # Check 3: Private IP filtering
+      - pattern: "(?:isPrivateIP|isInternalNetwork|blockInternalAddresses)"
+        message: "Checking for and blocking private IP addresses."
       
-      # Check 4: Secure cookie settings
-      - pattern: "cookie\\s*:\\s*\\{[^}]*?secure\\s*:\\s*true[^}]*?httpOnly\\s*:\\s*true"
-        message: "Using secure cookie configuration."
+      # Check 4: Protocol restriction
+      - pattern: "(?:allowedProtocols|validProtocols)\\s*=\\s*\\[\\s*['\"]https?:['\"]"
+        message: "Restricting URL protocols to HTTP/HTTPS only."
       
-      # Check 5: Request size limiting
-      - pattern: "(?:express|bodyParser)\\.json\\(\\{[^}]*?limit\\s*:"
-        message: "Implementing request size limiting."
+      # Check 5: Request timeout implementation
+      - pattern: "timeout:\\s*\\d+"
+        message: "Setting timeouts for outbound HTTP requests."
 
 metadata:
   priority: high
@@ -445,7 +829,7 @@ metadata:
     - javascript
     - nodejs
     - browser
-    - configuration
+    - ssrf
     - owasp
     - language:javascript
     - framework:express
@@ -453,17 +837,16 @@ metadata:
     - framework:vue
     - framework:angular
     - category:security
-    - subcategory:misconfiguration
+    - subcategory:ssrf
     - standard:owasp-top10
-    - risk:a05-security-misconfiguration
+    - risk:a10-server-side-request-forgery
   references:
-    - "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html"
-    - "https://expressjs.com/en/advanced/best-practice-security.html"
-    - "https://helmetjs.github.io/"
-    - "https://github.com/OWASP/NodeGoat"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html"
+    - "https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html"
+    - "https://portswigger.net/web-security/ssrf"
+    - "https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.md"
+    - "https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Server-Side_Request_Forgery"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#ssrf-protection"
 </rule> 
 
 ---
