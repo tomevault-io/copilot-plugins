@@ -1,0 +1,9 @@
+{
+  "name": "okay-bet--plugin-polymarket",
+  "displayName": "plugin-polymarket",
+  "description": "An ElizaOs plugin that enables Polymarket market data and trading on an agent",
+  "version": "1.0.0",
+  "author": "Okay-Bet",
+  "homepage": "https://github.com/Okay-Bet/plugin-polymarket",
+  "skills": []
+}
