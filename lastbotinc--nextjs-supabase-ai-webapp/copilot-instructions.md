@@ -1,811 +1,517 @@
-## implement-nextjs-api
+## implement-unit-tests
 
-> This described desing patterns and implementation guidance for APIs
+> Description of unit testing design patterns and instructions
 
 ---
-description: This described desing patterns and implementation guidance for APIs
-globs: *.ts
----
----
-description:
+description: implementation pattern for unit tests with vitest
 globs:
 ---
 
-# NextJS API Implementation Patterns
+# Unit Testing Implementation Patterns (Vitest)
 
-This document describes the patterns for implementing different types of API routes in a NextJS application with authentication levels and external service integration.
+This document describes the patterns and best practices for implementing unit tests in our Next.js application using **Vitest**, covering both component testing and API route testing.
 
-## Common Setup
+## Test Setup
 
-- Always read [backend.md](mdc:docs/backend.md) for instructions on the backend details and [architecture.md](mdc:docs/architecture.md) for overall architecture
-
-### Directory Structure with examples
+### Directory Structure
+(Remains the same)
 ```
 app/
+  components/
+    Button/
+      Button.tsx
+      __tests__/
+        Button.test.tsx
   api/
-    # Public Routes
     languages/
-      route.ts        # Public GET, authenticated POST/PATCH/DELETE
-    
-    # Authenticated Routes
-    upload/
-      route.ts        # File upload with authentication
-    
-    # Admin Routes
-    translations/
-      route.ts        # Admin-only translation management
-      generate/
-        route.ts      # AI-powered translation generation
-    
-    # AI-Enhanced Routes
-    research-enhance/
-      route.ts        # AI analysis with Gemini and Tavily
-    tavily-search/
-      route.ts        # Advanced search functionality
+      route.ts
+      __tests__/
+        route.test.ts
 ```
 
 ### Required Dependencies
+Update your `package.json` devDependencies:
 ```json
 {
-  "dependencies": {
-    "next": "^14.0.0",
-    "@supabase/supabase-js": "^2.0.0",
-    "@google/generative-ai": "^0.1.0",
-    "@tavily/core": "^1.0.0"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.0", // For DOM matchers
+    "@testing-library/react": "^15.0.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@vitejs/plugin-react": "^4.2.0", // For Vite + React
+    "jsdom": "^24.0.0", // Test environment
+    "vitest": "^1.5.0", // Test runner
+    "vite-tsconfig-paths": "^4.3.0", // For resolving tsconfig paths
+    "resize-observer-polyfill": "^1.5.1" // Polyfill for JSDOM
   }
 }
 ```
 
-## Authentication Levels
-
-### 1. Public Routes
+### Vitest Configuration (`vitest.config.ts`)
 ```typescript
-// Example: GET /api/languages
-export async function GET() {
-  try {
-    const supabase = createClient(undefined, true) // Public client
-    
-    const { data, error } = await supabase
-      .from('table')
-      .select('*')
-      .eq('enabled', true)
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
-    if (error) throw error
-
-    return NextResponse.json({ data })
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
-  }
-}
+export default defineConfig({
+  plugins: [react(), tsconfigPaths()],
+  test: {
+    environment: 'jsdom', // Use JSDOM for browser-like environment
+    setupFiles: ['./vitest.setup.ts'], // Setup file for global configurations
+    include: ['**/*.test.{ts,tsx}'], // Test file pattern
+    globals: true, // Optional: Makes vi, expect, etc. globally available
+  },
+})
 ```
 
-### 2. Authenticated Routes
+### Vitest Setup (`vitest.setup.ts`)
+This file configures testing-library matchers and adds necessary polyfills.
 ```typescript
-// Example: Protected route requiring authentication
-export async function POST(request: Request) {
-  try {
-    // 1. Verify authentication
-    const authHeader = request.headers.get('Authorization')
-    if (!authHeader?.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { error: 'Missing or invalid authorization header' },
-        { status: 401 }
-      )
-    }
+import '@testing-library/jest-dom'
+import { expect, afterEach } from 'vitest'
+import { cleanup } from '@testing-library/react'
+import * as matchers from '@testing-library/jest-dom/matchers'
+import 'resize-observer-polyfill' // Polyfill for ResizeObserver in JSDOM
 
-    // 2. Create authenticated client
-    const supabase = createClient()
-    
-    // 3. Verify token and get user
-    const { data: { user }, error: authError } = await supabase.auth.getUser(
-      authHeader.split(' ')[1]
-    )
+// Extend Vitest's expect method with testing-library matchers
+expect.extend(matchers)
 
-    if (authError || !user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
-    }
-
-    // 4. Process authenticated request
-    const { data } = await request.json()
-    
-    // 5. Perform operation with user context
-    const result = await supabase
-      .from('table')
-      .insert({ ...data, user_id: user.id })
-
-    return NextResponse.json({ result })
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
-  }
-}
+// Cleanup after each test case
+afterEach(() => {
+  cleanup()
+})
 ```
 
-### 3. Admin Routes
+## Component Testing
+
+### 1. Basic Component Test Structure
 ```typescript
-// Example: Admin-only route
-export async function PUT(request: Request) {
-  try {
-    // 1. Verify authentication
-    const authHeader = request.headers.get('Authorization')
-    if (!authHeader?.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { error: 'Missing or invalid authorization header' },
-        { status: 401 }
-      )
-    }
+// No environment pragma needed with vitest.config.ts
+import { render, screen, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom' // Matchers are extended in setup
+import { describe, it, expect, beforeEach, vi } from 'vitest' // Import from vitest
+import { ComponentToTest } from '../ComponentToTest'
 
-    // 2. Create authenticated client
-    const authClient = createClient()
-    
-    // 3. Verify token and get user
-    const { data: { user }, error: authError } = await authClient.auth.getUser(
-      authHeader.split(' ')[1]
-    )
-
-    if (authError || !user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
-    }
-
-    // 4. Verify admin status
-    const { data: profile } = await authClient
-      .from('profiles')
-      .select('is_admin')
-      .eq('id', user.id)
-      .single()
-
-    if (!profile?.is_admin) {
-      return NextResponse.json(
-        { error: 'Forbidden - Admin access required' },
-        { status: 403 }
-      )
-    }
-
-    // 5. Use service role client for admin operations
-    const supabase = createClient(undefined, true)
-    
-    // 6. Process admin request
-    const { data } = await request.json()
-    const result = await supabase
-      .from('table')
-      .upsert(data)
-
-    return NextResponse.json({ result })
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+describe('ComponentToTest', () => {
+  // Setup default props and mocks
+  const defaultProps = {
+    onAction: vi.fn() // Use vi.fn()
   }
-}
+
+  beforeEach(() => {
+    vi.clearAllMocks() // Use vi.clearAllMocks()
+  })
+
+  it('renders correctly', () => {
+    render(<ComponentToTest {...defaultProps} />)
+    // Add assertions using expect() extended with jest-dom matchers
+    expect(screen.getByText('Some Text')).toBeInTheDocument()
+  })
+})
 ```
 
-## API Route Patterns
-
-### 1. CRUD Operations
+### 2. Testing with Internationalization
+(Pattern remains largely the same, ensure `vi.mock` is used if mocking `next-intl`)
 ```typescript
-// GET - List/Read
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  // ... handle query parameters
-}
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+import { NextIntlClientProvider } from 'next-intl'
+import Component from '../Component' // Assume this is the component using translations
 
-// POST - Create
-export async function POST(request: Request) {
-  const body = await request.json()
-  // ... handle creation
-}
-
-// PUT/PATCH - Update
-export async function PUT(request: Request) {
-  const body = await request.json()
-  // ... handle update
-}
-
-// DELETE - Remove
-export async function DELETE(request: Request) {
-  const { searchParams } = new URL(request.url)
-  // ... handle deletion
-}
-```
-
-### 2. File Upload
-```typescript
-export async function POST(request: NextRequest) {
-  try {
-    const formData = await request.formData()
-    const file = formData.get('file') as File
-    
-    // Convert file to buffer
-    const buffer = await file.arrayBuffer()
-
-    // Upload to storage
-    const { data, error } = await supabase.storage
-      .from('bucket')
-      .upload(`${Date.now()}-${file.name}`, buffer, {
-        contentType: file.type,
-        upsert: true
-      })
-
-    return NextResponse.json({ url: data.path })
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Upload failed' },
-      { status: 500 }
-    )
+// Mock translations
+const mockTranslations = {
+  namespace: {
+    key: 'Translated text'
   }
 }
-```
 
-### 3. AI Integration
-```typescript
-export async function POST(request: Request) {
-  try {
-    // 1. Initialize AI clients
-    const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.5-flash',
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 2048,
-      }
-    })
-
-    // 2. Process request
-    const { prompt } = await request.json()
-    
-    // 3. Generate AI response
-    const result = await model.generateContent({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }]
-    })
-
-    return NextResponse.json({ 
-      response: result.response.text() 
-    })
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'AI processing failed' },
-      { status: 500 }
-    )
+// Mock next-intl if needed (using vi.mock)
+vi.mock('next-intl', async (importOriginal) => {
+  const mod = await importOriginal<typeof import('next-intl')>()
+  return {
+    ...mod,
+    useTranslations: () => (key: string) => mockTranslations.namespace[key] || key,
+    // Mock other exports like NextIntlClientProvider if necessary,
+    // but often letting the real provider work is fine for client components.
   }
-}
-```
+})
 
-## Error Handling
 
-### 1. Standard Error Response Pattern
-```typescript
-function handleError(error: unknown) {
-  console.error('Error:', error)
-  
-  if (error instanceof Error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    )
-  }
-  
-  return NextResponse.json(
-    { error: 'An unexpected error occurred' },
-    { status: 500 }
+// Helper function to render with translations
+const renderWithTranslations = (component: React.ReactNode) => {
+  return render(
+    <NextIntlClientProvider messages={mockTranslations} locale="en">
+      {component}
+    </NextIntlClientProvider>
   )
 }
+
+it('renders translated content', () => {
+  renderWithTranslations(<Component />)
+  expect(screen.getByText('Translated text')).toBeInTheDocument()
+})
 ```
 
-### 2. HTTP Status Codes
+### 3. Testing UI Components
+Example from Button component tests (using `vi.fn`):
 ```typescript
-const HTTP_STATUS = {
-  OK: 200,
-  CREATED: 201,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404,
-  INTERNAL_ERROR: 500
-}
+import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+import { Button } from '../Button'
 
-// Usage
-return NextResponse.json(
-  { error: 'Resource not found' },
-  { status: HTTP_STATUS.NOT_FOUND }
-)
+describe('Button', () => {
+  it('applies correct size classes', () => {
+    const { rerender } = render(<Button size="sm">Small</Button>)
+    expect(screen.getByRole('button', { name: 'Small' }))
+      .toHaveClass('text-sm h-8 px-3') // jest-dom matcher
+
+    rerender(<Button size="md">Medium</Button>)
+    expect(screen.getByRole('button', { name: 'Medium' }))
+      .toHaveClass('text-base h-10 px-4') // jest-dom matcher
+  })
+
+  it('handles click events', () => {
+    const handleClick = vi.fn() // Use vi.fn()
+    render(<Button onClick={handleClick}>Click me</Button>)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Click me' }))
+    expect(handleClick).toHaveBeenCalledTimes(1) // jest-dom matcher
+  })
+})
 ```
 
-## External Services Integration
-
-### 1. AI Services (Gemini)
+### 4. Testing Rich Text Editor
+Example from RichTextEditor tests (using `vi.fn`):
 ```typescript
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_STUDIO_KEY!)
-const model = genAI.getGenerativeModel({
-  model: 'gemini-2.5-flash',
-  generationConfig: {
-    temperature: 0.7,
-    maxOutputTokens: 2048,
-  },
-  safetySettings: [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+// ... other imports
+
+// Mock child components/hooks using vi.mock
+
+describe('RichTextEditor', () => {
+  const mockOnChange = vi.fn(); // Use vi.fn()
+  const defaultProps = { /* ... */ onChange: mockOnChange }
+
+  it('applies text formatting when toolbar buttons are clicked', async () => {
+    renderWithTranslations(<RichTextEditor {...defaultProps} />)
+
+    fireEvent.click(screen.getByTitle('Bold'))
+    expect(screen.getByTitle('Bold')).toHaveClass('bg-gray-200') // jest-dom matcher
+
+    fireEvent.click(screen.getByTitle('Italic'))
+    expect(screen.getByTitle('Italic')).toHaveClass('bg-gray-200') // jest-dom matcher
+  })
+
+  it('inserts selected image from media selector', async () => {
+    renderWithTranslations(<RichTextEditor {...defaultProps} />)
+    fireEvent.click(screen.getByTitle('Image'))
+    fireEvent.click(screen.getByTestId('editor-media-selector-select'))
+
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledWith( // jest-dom matcher
+        expect.stringContaining('src="test.jpg"')
+      )
+    })
+  })
+})
+```
+
+## API Route Testing
+
+### 1. Basic API Route Test Structure
+```typescript
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { POST } from '../route' // Assuming route handler is exported
+
+// Mock external dependencies using vi.mock
+vi.mock('external-package', () => ({
+  someFunction: vi.fn()
+}))
+
+describe('POST /api/endpoint', () => {
+  beforeEach(() => {
+    vi.clearAllMocks() // Use vi
+    // Reset environment variables if modified
+    // process.env.REQUIRED_ENV_VAR = 'test-value';
+  })
+
+  it('handles successful request', async () => {
+    // Mock Request object
+    const request = new Request('http://api/endpoint', {
+      method: 'POST',
+      body: JSON.stringify({ data: 'test' })
+    })
+
+    // Execute the handler
+    const response = await POST(request)
+    const data = await response.json()
+
+    // Assertions
+    expect(response.status).toBe(200)
+    expect(data).toEqual(expect.objectContaining({
+      success: true
+    }))
+  })
+})
+```
+
+### 2. Testing Authentication
+Example using `vi.mock` and `vi.fn`:
+```typescript
+import { describe, it, expect, vi } from 'vitest'
+import { createClient } from '@/utils/supabase/server' // or client
+import { POST } from '../route'
+
+// Mock Supabase client
+vi.mock('@/utils/supabase/server', () => ({ // or client
+  createClient: vi.fn()
+}))
+
+describe('POST /api/tavily-search', () => {
+  it('handles missing authorization header', async () => {
+    const request = new Request('http://localhost/api/tavily-search', {
+      method: 'POST',
+      body: JSON.stringify({ query: 'test' })
+      // No Authorization header
+    })
+
+    const response = await POST(request)
+    const data = await response.json()
+
+    expect(response.status).toBe(401)
+    expect(data.error).toBe('Missing or invalid authorization header')
+  })
+
+  it('handles invalid authorization token', async () => {
+    // Mock getUser to return error or no user
+    const mockGetUser = vi.fn().mockResolvedValue({
+      data: { user: null },
+      error: new Error('Invalid token')
+    })
+    ;(createClient as vi.Mock).mockReturnValue({
+      auth: { getUser: mockGetUser }
+    })
+
+    const request = new Request('http://localhost/api/tavily-search', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer invalid-token'
+      },
+      body: JSON.stringify({ query: 'test' })
+    })
+
+    const response = await POST(request)
+    expect(response.status).toBe(401)
+    // Ensure getUser was called with the token
+    expect(mockGetUser).toHaveBeenCalledWith('invalid-token')
+  })
+})
+```
+
+### 3. Testing External Service Integration
+Example using `vi.mock` and `vi.fn`:
+```typescript
+import { describe, it, expect, vi } from 'vitest'
+import { POST } from '../route'
+import Replicate from 'replicate' // Assuming Replicate is used
+
+// Mock Replicate
+const mockRun = vi.fn()
+vi.mock('replicate', () => ({
+  // Mock the default export if Replicate is default exported
+  default: vi.fn().mockImplementation(() => ({ run: mockRun }))
+  // Or mock named exports if needed
+}))
+
+describe('POST /api/recraft', () => {
+  it('generates an image successfully', async () => {
+    const request = new Request('http://localhost/api/recraft', { /* ... */ })
+    const mockImageUrl = 'https://example.com/image.png'
+    mockRun.mockResolvedValueOnce([mockImageUrl]) // Mock the run method
+
+    const response = await POST(request)
+    const data = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(data.images).toEqual([mockImageUrl])
+    expect(mockRun).toHaveBeenCalledWith(
+      'recraft-ai/recraft-v3',
+      expect.objectContaining({ /* ... */ })
+    )
+  })
+
+  it('handles API errors', async () => {
+    const request = new Request('http://localhost/api/recraft', { /* ... */ })
+    mockRun.mockRejectedValueOnce(new Error('API error')) // Mock rejection
+
+    const response = await POST(request)
+    const data = await response.json()
+
+    expect(response.status).toBe(500)
+    expect(data.error).toBe('API error')
+  })
+})
+```
+
+## Mocking Patterns
+
+### 1. Environment Variables
+Setting `process.env` directly might be unreliable in Vitest's environment. Prefer using:
+- **`.env.test` file:** Vitest automatically loads `.env.test`.
+- **Vitest config:** Use `define` or `envDir` options in `vitest.config.ts`.
+- **Mocking modules:** If a module reads `process.env`, mock that module to return test values.
+
+Example using module mocking (if `config.ts` reads env vars):
+```typescript
+// __mocks__/config.ts
+export const SUPABASE_URL = 'mock-url';
+export const API_KEY = 'mock-key';
+
+// In test file:
+vi.mock('@/lib/config'); // Vitest automatically uses the __mocks__ version
+```
+
+### 2. External Dependencies (Modules)
+Use `vi.mock` for mocking modules. Place mocks **before** importing the module under test.
+```typescript
+import { describe, it, expect, vi } from 'vitest'
+
+// Mock Next.js headers
+vi.mock('next/headers', () => ({
+  cookies: vi.fn(() => ({
+    get: vi.fn(),
+    set: vi.fn(),
+    delete: vi.fn()
+  }))
+}))
+
+// Mock Supabase client
+const mockGetUser = vi.fn()
+vi.mock('@/utils/supabase/server', () => ({
+  createClient: vi.fn(() => ({
+    auth: {
+      getUser: mockGetUser.mockResolvedValue({ data: { user: { id: 'test-user' } }, error: null })
     }
-  ]
+  }))
+}))
+
+// Now import the module using the mocked dependencies
+import { someApiHandler } from '../route'
+
+describe('someApiHandler', () => {
+  // ... tests ...
 })
 ```
+**Important:** Be mindful of hoisting. If the module being mocked is used at the top level of the module under test, define mock functions *before* the `vi.mock` call, as seen in `__tests__/components/ContactForm.test.tsx`.
 
-### 2. Search Services (Tavily)
+### 3. Components and Images
 ```typescript
-const tavilyClient = tavily({ apiKey: process.env.TAVILY_API_KEY! })
+import { vi } from 'vitest'
+import type { ImageProps } from 'next/image' // Assuming ImageProps type exists
 
-const searchResults = await tavilyClient.search(query, {
-  searchDepth: 'advanced',
-  maxResults: max_results,
-  includeAnswer: false
-})
+// Mock next/image
+vi.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: ImageProps) => <img {...props} alt={props.alt || ''} />
+}))
+
+// Mock child component
+// Ensure factory returns { default: MockComponent } for default exports
+vi.mock('../ChildComponent', () => ({
+  __esModule: true,
+  default: ({ onAction }: { onAction: () => void }) => (
+    <button onClick={onAction}>Mock Button</button>
+  )
+}))
 ```
 
 ## Best Practices
 
-### 1. Environment Variables
-```typescript
-// Required environment variables
-const REQUIRED_ENV = [
-  'SUPABASE_URL',
-  'SUPABASE_ANON_KEY',
-  'SUPABASE_SERVICE_ROLE_KEY',
-  'GOOGLE_AI_STUDIO_KEY',
-  'TAVILY_API_KEY'
-]
+### 1. Test Organization
+(Remains the same)
+- Group tests logically by feature or scenario
+- Use descriptive test names (`it('should render correctly when loading')`)
+- Follow the Arrange-Act-Assert pattern
+- Keep tests focused and atomic
 
-// Validation
-REQUIRED_ENV.forEach(env => {
-  if (!process.env[env]) {
-    throw new Error(`Missing required environment variable: ${env}`)
-  }
+### 2. Mocking Strategy
+- Mock external dependencies (APIs, DB) at the boundary.
+- Use `vi.fn()` and `vi.spyOn()` to create mocks and spies.
+- Use `vi.clearAllMocks()` or `vi.resetAllMocks()` in `beforeEach` or `afterEach`.
+- Keep mock data realistic but minimal.
+- **Hoisting:** Be aware that `vi.mock` calls are hoisted. Define helper mock functions *before* the `vi.mock` call if the factory function needs them.
+- **Factory Returns:** For default exports, the `vi.mock` factory must return an object like `{ default: MockImplementation }`.
+
+### 3. Testing Priorities
+(Remains the same)
+1. Test user interactions and events
+2. Test component rendering based on props/state
+3. Test error states and edge cases
+4. Test accessibility features
+5. Test integration points (mocking the external part)
+
+### 4. Common Patterns
+(Matchers come from `@testing-library/jest-dom` via setup file)
+```typescript
+// Testing loading states
+it('shows loading state', () => {
+  render(<Component isLoading={true} />)
+  expect(screen.getByRole('progressbar')).toBeInTheDocument()
+})
+
+// Testing error states
+it('shows error message', () => {
+  render(<Component error="Test error" />)
+  expect(screen.getByText('Test error')).toBeInTheDocument()
+})
+
+// Testing async operations
+it('handles async operation', async () => {
+  render(<Component />)
+  fireEvent.click(screen.getByRole('button'))
+  // Use findBy* queries which automatically wait
+  expect(await screen.findByText('Success')).toBeInTheDocument()
+  // Or use waitFor for more complex checks
+  // await waitFor(() => {
+  //   expect(someMockFn).toHaveBeenCalled()
+  // })
 })
 ```
 
-### 2. Request Validation
+### 5. Testing Library Query Priority
+(Remains the same - uses Testing Library)
 ```typescript
-function validateRequest(body: unknown, requiredFields: string[]) {
-  for (const field of requiredFields) {
-    if (!(field in (body as object))) {
-      throw new Error(`Missing required field: ${field}`)
-    }
-  }
-}
+// Prefer semantic queries
+screen.getByRole('button', { name: /Submit/i }) // Use regex for case-insensitivity
+// Over implementation details
+screen.getByTestId('submit-button')
+
+// For text that might include line breaks or extra whitespace
+screen.getByText((content, element) => content.includes('Expected Text'))
 ```
 
-### 3. Response Headers
+### 6. Type-Safe Mocks
+Use `vi.Mock` or `vi.MockedFunction` for type safety.
 ```typescript
-const headers = {
-  'Content-Type': 'application/json',
-  'Cache-Control': 'no-store',
-  'Access-Control-Allow-Origin': '*'
-}
+import { vi } from 'vitest'
 
-return NextResponse.json(data, { headers })
+const mockCallback = vi.fn() as vi.MockedFunction<
+  (value: string) => void
+>
+
+const mockAsyncFunction = vi.fn() as vi.MockedFunction<
+  (query: string) => Promise<Result[]>
+>
+
+// For mocked modules/classes
+const mockedCreateClient = vi.mocked(createClient)
 ```
 
-### 4. Rate Limiting
-```typescript
-import { rateLimit } from '@/utils/rate-limit'
-
-const limiter = rateLimit({
-  interval: 60 * 1000, // 1 minute
-  uniqueTokenPerInterval: 500
-})
-
-try {
-  await limiter.check(5, 'UNIQUE_TOKEN') // 5 requests per minute
-  // Process request
-} catch {
-  return NextResponse.json(
-    { error: 'Rate limit exceeded' },
-    { status: 429 }
-  )
-}
-```
-
-### 5. Logging
-```typescript
-function logRequest(method: string, path: string, body?: unknown) {
-  console.log(`[${new Date().toISOString()}] ${method} ${path}`, {
-    body: body ? JSON.stringify(body) : undefined
-  })
-}
-```
-
-### 6. Security Headers
-```typescript
-const securityHeaders = {
-  'X-DNS-Prefetch-Control': 'on',
-  'X-XSS-Protection': '1; mode=block',
-  'X-Frame-Options': 'SAMEORIGIN',
-  'X-Content-Type-Options': 'nosniff',
-  'Referrer-Policy': 'origin-when-cross-origin'
-}
-```
-
-## API Implementation Patterns
-
-### Base API Structure
-
-```typescript
-import { NextResponse } from 'next/server'
-import { createClient } from '@/utils/supabase/server'
-
-export async function GET(request: Request) {
-  try {
-    // 1. Log request details
-    console.log('\n📝 [GET /api/endpoint]', {
-      headers: Object.fromEntries(request.headers),
-      url: request.url
-    })
-
-    // 2. Extract and validate parameters
-    const { searchParams } = new URL(request.url)
-    const param1 = searchParams.get('param1')
-    const param2 = searchParams.get('param2')
-
-    if (!param1 || !param2) {
-      console.error('❌ Missing required parameters')
-      return NextResponse.json(
-        { error: 'Missing required parameters' },
-        { status: 400 }
-      )
-    }
-
-    // 3. Authenticate user (if required)
-    const authHeader = request.headers.get('Authorization')
-    if (!authHeader?.startsWith('Bearer ')) {
-      console.error('❌ Missing or invalid auth header')
-      return NextResponse.json(
-        { error: 'Missing or invalid authorization header' },
-        { status: 401 }
-      )
-    }
-
-    // 4. Verify token
-    console.log('🔑 Creating auth client...')
-    const authClient = await createClient()
-    const { data: { user }, error: authError } = await authClient.auth.getUser(
-      authHeader.split(' ')[1]
-    )
-    
-    if (authError || !user) {
-      console.error('❌ Auth error:', authError)
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
-    }
-
-    console.log('✅ User authenticated:', user.id)
-
-    // 5. Create service role client for database operations
-    console.log('🔑 Creating service role client...')
-    const supabase = await createClient(undefined, true)
-
-    // 6. Perform database operation
-    console.log('📊 Fetching data...')
-    const { data, error } = await supabase
-      .from('table')
-      .select('*')
-      .eq('user_id', user.id)
-
-    if (error) {
-      console.error('❌ Database error:', error)
-      return NextResponse.json(
-        { error: 'Failed to fetch data' },
-        { status: 500 }
-      )
-    }
-
-    // 7. Return success response
-    console.log('✅ Successfully fetched data')
-    return NextResponse.json(data)
-  } catch (error) {
-    // 8. Handle unexpected errors
-    console.error('❌ Unexpected error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
-  }
-}
-```
-
-### Database Operations Pattern
-
-```typescript
-// Fetch single record with proper error handling
-const fetchSingle = async (supabase, table, filters) => {
-  console.log(`📊 Fetching ${table} record:`, filters)
-  
-  const { data, error } = await supabase
-    .from(table)
-    .select('*')
-    .match(filters)
-    .maybeSingle() // Prefer over .single() to handle not found gracefully
-
-  if (error) {
-    console.error(`❌ Error fetching ${table}:`, error)
-    throw error
-  }
-
-  return data // Can be null if not found
-}
-
-// Insert with validation
-const insertRecord = async (supabase, table, data) => {
-  console.log(`📊 Inserting ${table} record:`, data)
-
-  const { data: inserted, error } = await supabase
-    .from(table)
-    .insert(data)
-    .select()
-    .single()
-
-  if (error) {
-    console.error(`❌ Error inserting ${table}:`, error)
-    throw error
-  }
-
-  return inserted
-}
-
-// Update with optimistic concurrency
-const updateRecord = async (supabase, table, id, data, version) => {
-  console.log(`📊 Updating ${table} record:`, { id, data })
-
-  const { data: updated, error } = await supabase
-    .from(table)
-    .update(data)
-    .eq('id', id)
-    .eq('version', version) // Optimistic concurrency check
-    .select()
-    .single()
-
-  if (error) {
-    console.error(`❌ Error updating ${table}:`, error)
-    throw error
-  }
-
-  return updated
-}
-```
-
-### Request Validation Pattern
-
-```typescript
-import { z } from 'zod'
-
-// Define schema
-const requestSchema = z.object({
-  param1: z.string().min(1),
-  param2: z.number().min(0),
-  param3: z.enum(['value1', 'value2']),
-  param4: z.date().optional()
-})
-
-// Validate request
-const validateRequest = async (request: Request) => {
-  try {
-    const body = await request.json()
-    return requestSchema.parse(body)
-  } catch (error) {
-    console.error('❌ Validation error:', error)
-    throw new Error('Invalid request data')
-  }
-}
-
-// Use in API route
-export async function POST(request: Request) {
-  try {
-    const validatedData = await validateRequest(request)
-    // Proceed with operation using validated data
-  } catch (error) {
-    if (error.message === 'Invalid request data') {
-      return NextResponse.json(
-        { error: 'Invalid request data' },
-        { status: 400 }
-      )
-    }
-    throw error
-  }
-}
-```
-
-### Error Response Pattern
-
-```typescript
-const createErrorResponse = (
-  error: any,
-  defaultMessage = 'Internal server error',
-  status = 500
-) => {
-  // Log error with context
-  console.error('❌ Error:', {
-    message: error.message,
-    code: error.code,
-    details: error.details
-  })
-
-  // Return sanitized error response
-  return NextResponse.json(
-    {
-      error: process.env.NODE_ENV === 'development'
-        ? error.message
-        : defaultMessage,
-      code: error.code,
-      details: process.env.NODE_ENV === 'development'
-        ? error.details
-        : undefined
-    },
-    { status }
-  )
-}
-
-// Usage in API route
-export async function GET(request: Request) {
-  try {
-    // API logic
-  } catch (error) {
-    if (error.code === 'VALIDATION_ERROR') {
-      return createErrorResponse(error, 'Invalid request data', 400)
-    }
-    if (error.code === 'NOT_FOUND') {
-      return createErrorResponse(error, 'Resource not found', 404)
-    }
-    return createErrorResponse(error)
-  }
-}
-```
-
-### Transaction Pattern
-
-```typescript
-export async function POST(request: Request) {
-  try {
-    const supabase = await createClient(undefined, true)
-    
-    // Start transaction
-    const { data, error } = await supabase.rpc('begin_transaction')
-    if (error) throw error
-
-    try {
-      // Perform multiple operations
-      const { error: op1Error } = await supabase
-        .from('table1')
-        .insert(data1)
-      if (op1Error) throw op1Error
-
-      const { error: op2Error } = await supabase
-        .from('table2')
-        .update(data2)
-      if (op2Error) throw op2Error
-
-      // Commit transaction
-      await supabase.rpc('commit_transaction')
-    } catch (error) {
-      // Rollback on error
-      await supabase.rpc('rollback_transaction')
-      throw error
-    }
-
-    return NextResponse.json({ success: true })
-  } catch (error) {
-    return createErrorResponse(error)
-  }
-}
-```
-
-### Batch Operation Pattern
-
-```typescript
-export async function POST(request: Request) {
-  try {
-    const { items } = await request.json()
-    const supabase = await createClient(undefined, true)
-
-    // Process items in batches
-    const batchSize = 100
-    const results = []
-
-    for (let i = 0; i < items.length; i += batchSize) {
-      const batch = items.slice(i, i + batchSize)
-      
-      const { data, error } = await supabase
-        .from('table')
-        .upsert(batch, {
-          onConflict: 'id'
-        })
-        .select()
-
-      if (error) throw error
-      results.push(...(data || []))
-    }
-
-    return NextResponse.json(results)
-  } catch (error) {
-    return createErrorResponse(error)
-  }
-}
-```
-
-### Rate Limiting Pattern
-
-```typescript
-import { rateLimit } from '@/utils/rate-limit'
-
-const limiter = rateLimit({
-  interval: 60 * 1000, // 1 minute
-  uniqueTokenPerInterval: 500
-})
-
-export async function POST(request: Request) {
-  try {
-    // Get client IP
-    const ip = request.headers.get('x-forwarded-for') || 'unknown'
-    
-    // Check rate limit
-    try {
-      await limiter.check(5, ip) // 5 requests per minute per IP
-    } catch {
-      return NextResponse.json(
-        { error: 'Too many requests' },
-        { status: 429 }
-      )
-    }
-
-    // Proceed with API logic
-  } catch (error) {
-    return createErrorResponse(error)
-  }
-}
-```
-
-### Caching Pattern
-
-```typescript
-import { redis } from '@/utils/redis'
-
-export async function GET(request: Request) {
-  try {
-    const cacheKey = request.url
-    
-    // Try to get from cache
-    const cached = await redis.get(cacheKey)
-    if (cached) {
-      return NextResponse.json(JSON.parse(cached))
-    }
-
-    // Fetch fresh data
-    const supabase = await createClient(undefined, true)
-    const { data, error } = await supabase
-      .from('table')
-      .select('*')
-
-    if (error) throw error
-
-    // Cache the result
-    await redis.set(cacheKey, JSON.stringify(data), 'EX', 300) // 5 minutes
-
-    return NextResponse.json(data)
-  } catch (error) {
-    return createErrorResponse(error)
-  }
-}
-```
+## References
+- [Vitest Documentation](mdc:https:/vitest.dev/)
+- [Testing Library Documentation](mdc:https:/testing-library.com/docs/react-testing-library/intro)
+- [@testing-library/jest-dom Matchers](mdc:https:/github.com/testing-library/jest-dom#usage)
+- [Next.js Testing](mdc:https:/nextjs.org/docs/testing)
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
