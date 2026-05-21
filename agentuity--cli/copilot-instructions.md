@@ -1,143 +1,37 @@
-## prompt-docstrings
+## testing
 
-> https://stackoverflow.com/questions/19230971/how-do-i-jsdoc-a-nested-objects-methods
+> - ✅ ALWAYS use `go run .` instead of building the binary for testing
 
-# Prompt JSDoc Docstrings and Multi-File Support
+# Testing Rules
 
-https://stackoverflow.com/questions/19230971/how-do-i-jsdoc-a-nested-objects-methods
+## Use `go run .` for Testing
+- ✅ ALWAYS use `go run .` instead of building the binary for testing
+- ✅ This is faster and avoids unnecessary binary generation
+- ❌ Don't use `go build -o agentuity` unless you need a persistent binary
 
-## Goal
-Add JSDoc-style docstrings to generated prompt functions and support scanning multiple YAML files in the prompts directory for better IDE support and organization.
+## Testing Workflow
+```bash
+# ✅ Good: Test with go run
+go run . bundle
+go run . dev
+go run . project create
 
-## Features Implemented
-
-### 1. Multi-File Support
-The CLI now scans the entire `prompts` directory and processes all YAML files:
-- **Directory Locations**: Checks `src/prompts/` and `prompts/` directories
-- **File Types**: Processes all `.yaml` and `.yml` files
-- **Combined Output**: Merges all prompts from multiple files into a single generated output
-- **Legacy Support**: Still supports single `prompts.yaml` file in various locations
-
-### 2. JSDoc Comments on Functions and Types
-Generate JSDoc comments on both JavaScript functions and TypeScript type definitions:
-
-**JavaScript Functions:**
-```javascript
-system: /**
- * System prompt:
- * You are a {role:senior} code reviewer specializing in {language:JavaScript}.
- * Your experience level is {experience:expert}
- * 
- */
-({ role, language, experience } = {}) => {
-    return interpolateTemplate("...", { role, language, experience })
-},
+# ❌ Avoid: Building every time for testing
+go build -o agentuity && ./agentuity bundle
 ```
 
-**TypeScript Type Definitions:**
-```typescript
-export type Assistant = {
-  slug: string;
-  /**
-   * System prompt:
-   * You are a {role:helpful assistant} specializing in {domain:programming}.  
-   * Your experience level is {experience:intermediate}
-   * 
-   */
-  system: (variables?: {
-    role?: string | "helpful assistant";
-    domain?: string | "programming";
-    experience?: string | "intermediate"
-  }) => string;
-  /**
-   * User prompt:
-   * Help the user with: {task:their question}
-   * Use a {!tone} approach.
-   */
-  prompt: (variables: {
-    task?: string | "their question";
-    tone: string
-  }) => string
-};
-```
+## When to Build
+- Only build when you need a persistent binary for:
+  - Installation scripts
+  - Distribution
+  - CI/CD pipelines
+  - Manual testing outside the project directory
 
-### 3. Content Inclusion
-- **System Prompts**: Include the actual system prompt content in JSDoc
-- **User Prompts**: Include the actual user prompt content in JSDoc
-- **Template Preservation**: Show original templates exactly as written in YAML
-- **Variable Syntax**: Preserve `{variable:default}`, `{!variable}`, `{{variable}}` syntax
-- **Line Wrapping**: Automatically wrap long lines at 80 characters for readability
-
-### 4. Template Preservation
-- Show original templates exactly as written in YAML
-- Preserve variable syntax: `{variable:default}`, `{!variable}`, `{{variable}}`
-- Maintain line breaks and formatting
-- Escape JSDoc special characters (`*/` becomes `*\/`)
-- Escape JSDoc comment characters (`*/` → `* /`)
-
-### 4. IDE Integration
-- Docstrings should be visible in IDE hover tooltips when accessing `prompts.promptName`
-- Should work with "Go to Definition" functionality
-- Provide IntelliSense documentation
-- Show original prompt template for reference
-
-## Implementation
-
-### Code Generator Updates
-1. **PromptsCollection JSDoc**: Add JSDoc comments to each property in the `PromptsCollection` type
-2. **Template Escaping**: Handle JSDoc comment characters in templates
-3. **Line Break Handling**: Split templates by newlines and add proper JSDoc formatting
-4. **Prompt-Only Focus**: Only include `@prompt` section, not `@system`
-
-### File Structure
-- **`_index.js`**: Contains actual prompt objects (no JSDoc on individual objects)
-- **`index.d.ts`**: Contains TypeScript types with JSDoc comments on `PromptsCollection` properties
-
-## Example Output
-
-```typescript
-export type PromptsCollection = {
-  /**
-   * Optional Variables with Defaults - Test optional variables that have default values
-   *
-   * @prompt
-   * Help the user with: {task:their question}
-   * Use a {tone:friendly} approach.
-   */
-  optionalWithDefaults: OptionalWithDefaults;
-  /**
-   * Required Variables Test - Test required variables that must be provided
-   *
-   * @prompt
-   * Complete this {!task} for the user.
-   * The task must be specified.
-   */
-  requiredVariables: RequiredVariables;
-};
-```
-
-## Key Decisions
-
-### Why PromptsCollection Only
-- Individual prompt objects are not directly accessible to users
-- IDE hover works on `prompts.promptName` which maps to `PromptsCollection` properties
-- Avoids redundant JSDoc comments that don't provide value
-
-### Why Prompt Template Only
-- Users primarily care about what the prompt does, not the system instructions
-- Keeps JSDoc comments focused and concise
-- System templates are implementation details
-
-### Why No Individual Type JSDoc
-- Individual prompt types are not directly used by developers
-- JSDoc on `PromptsCollection` properties provides the IDE support needed
-- Keeps generated code clean and focused
-
-## Benefits
-- **IDE Support**: Better IntelliSense and hover information on `prompts.promptName`
-- **Focused Documentation**: Shows only the prompt template that users will see
-- **Clean Code**: No redundant JSDoc comments on unused objects
-- **Self-Documenting**: Developers can understand prompts without looking at YAML
+## Development Benefits
+- Faster iteration cycle
+- No need to manage binary files
+- Cleaner development workflow
+- Less disk space usage
 
 ---
 > Source: [agentuity/cli](https://github.com/agentuity/cli) — distributed by [TomeVault](https://tomevault.io).
