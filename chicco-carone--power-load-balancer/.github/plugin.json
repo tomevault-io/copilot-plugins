@@ -1,0 +1,9 @@
+{
+  "name": "chicco-carone--power-load-balancer",
+  "displayName": "Power-Load-Balancer",
+  "description": "A custom home assistant Integration to help load balancing your house power",
+  "version": "1.0.0",
+  "author": "chicco-carone",
+  "homepage": "https://github.com/chicco-carone/Power-Load-Balancer",
+  "skills": []
+}
