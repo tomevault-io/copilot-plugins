@@ -7,13 +7,13 @@ Multi-Platform AI Client focused in Roleplay and Tabletop experience
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vitorfdl/narratrix](https://github.com/vitorfdl/narratrix).
+Original source: `.cursor/rules/*.mdc` in [vitorfdl/narratrix](https://github.com/vitorfdl/narratrix).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
