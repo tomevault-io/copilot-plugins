@@ -1,60 +1,78 @@
-## c-coding-style
+## documentation-style
 
-> C coding style conventions for the colibri-stateless codebase
+> Documentation and comment conventions for the colibri-stateless codebase
 
 
-# C Coding Style
+# Documentation Style
 
-## Naming Conventions
+## Language
 
-- **Functions**: `snake_case` with module prefix: `c4_verify()`, `ssz_get()`, `bytes_as_le()`, `buffer_append()`, `json_parse()`.
-- **Types**: `snake_case_t` suffix: `bytes_t`, `ssz_ob_t`, `verify_ctx_t`, `c4_state_t`.
-- **Enums**: `UPPER_SNAKE_CASE` values: `C4_SUCCESS`, `SSZ_TYPE_UINT`, `C4_CHAIN_TYPE_ETHEREUM`.
-- **Macros**: `UPPER_SNAKE_CASE`: `TRY_ASYNC()`, `THROW_ERROR()`, `NULL_BYTES`, `HASH_LEN`.
-- **Files**: `snake_case.c` / `snake_case.h` pairs. Test files: `test_<feature>.c`.
+All comments and documentation in the code MUST be written in English.
 
-## Module Prefixes
+## Public API Documentation
 
-| Prefix | Module |
-|--------|--------|
-| `c4_` | Core API (verify, prover, state) |
-| `ssz_` | SSZ encoding/decoding |
-| `bytes_` | Byte operations |
-| `buffer_` | Buffer management |
-| `json_` | JSON parsing |
+Use `/** ... */` block comments for public functions, structs, and macros in header files:
 
-## Header Files
+```c
+/**
+ * Verify the given proof against the current sync committee state.
+ *
+ * The verification result is stored in `ctx->data` on success.
+ *
+ * Example:
+ *
+ * ```c
+ * verify_ctx_t ctx = {0};
+ * c4_status_t status = c4_verify(&ctx);
+ * ```
+ *
+ * @param ctx the verification context
+ * @return C4_SUCCESS, C4_ERROR, or C4_PENDING
+ */
+```
 
-- Include guards: `#ifndef filename_h__` / `#define filename_h__` (NOT `#pragma once`).
-- Always wrap with `#ifdef __cplusplus extern "C" { #endif` ... `#endif`.
-- Includes: local headers first (`"./header.h"`), then system headers (`<stdlib.h>`).
+- Use Markdown syntax in doc comments (code blocks, lists, bold, etc.).
+- Only `@param` and `@return` are allowed as tags. Do NOT use `@brief`, `@note`, `@see`, or other tags.
 
-## Function Annotations
+## Section Markers (for documentation generation)
 
-- `NONNULL` / `NONNULL_FOR((n))` -- mark parameters that must not be NULL.
-- `RETURNS_NONNULL` -- function never returns NULL.
-- `M_RET` -- function returns allocated memory (caller must free).
-- `M_TAKE(n)` -- function takes ownership of parameter n.
-- `COUNTED_BY(len)` -- array size annotation for bounds checking.
+Used to organize code sections for auto-generated documentation (gitbook + agents):
 
-## Formatting
+- `// : Section` -- top-level section (e.g., `// : Ethereum`, `// : APIs`)
+- `// :: Subsection` -- second level (e.g., `// :: Internal APIs`)
+- `// ::: Detail` -- third level (e.g., `// ::: verify.h`)
 
-Always format C code using the `.clang-format` file in the project root. Key settings (BasedOnStyle: LLVM):
+Content lines after a section marker start with `//` followed by a space and Markdown content:
 
-- No column limit (`ColumnLimit: 0`) -- lines are not wrapped.
-- Pointer alignment left: `int* ptr` (not `int *ptr`).
-- Space after C-style casts: `(int) x`.
-- Opening brace on same line (`BreakBeforeBraces: Custom`, `AfterControlStatement: Never`), `else` on new line (`BeforeElse: true`).
-- Align consecutive assignments, declarations, macros, and trailing comments.
-- Short blocks, case labels, functions, ifs, and loops allowed on a single line.
-- Includes are sorted (`SortIncludes: true`).
+```c
+// ::: verify.h
+// The verifier API executes a proof verification.
+// When calling `c4_verify_from_bytes`, call `c4_verify` until the status
+// is either `C4_ERROR` or `C4_SUCCESS`.
+//
+// Example:
+//
+// ```c
+// verify_ctx_t ctx = {0};
+// c4_status_t status = c4_verify(&ctx);
+// ```
+//
+```
 
-## Type Patterns
+The section ends when a non-`//` line is encountered or a new section marker appears.
 
-- Typedef structs: `typedef struct { ... } name_t;`
-- Forward declarations: `typedef struct name name_t;`
-- Enum typedefs: `typedef enum { ... } name_t;`
-- `bytes_t` is always passed by value (it is a fat pointer, not a reference type).
+## Inline Comments
+
+- Use `//` for inline explanations.
+- Keep comments brief and relevant -- explain *why*, not *what*.
+- Field documentation in structs uses trailing `//`:
+
+```c
+typedef struct {
+  uint32_t len;             // the length of the data
+  uint8_t* data COUNTED_BY(len); // the data pointer
+} bytes_t;
+```
 
 ---
 > Source: [corpus-core/colibri-stateless](https://github.com/corpus-core/colibri-stateless) — distributed by [TomeVault](https://tomevault.io).
