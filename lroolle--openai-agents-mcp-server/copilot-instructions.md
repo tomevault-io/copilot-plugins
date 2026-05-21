@@ -1,34 +1,40 @@
-## done
+## wip
 
-> DONE
+> WIP
 
 
-# Completed Tasks
-- [x] Set up the basic project structure
-  - [x] Create server.py, cli.py, and __main__.py files
-  - [x] Update pyproject.toml with dependencies
-  - [x] Create README.md with project description and usage instructions
-- [x] Implement the MCP server using FastMCP
-  - [x] Define the server class and configuration
-  - [x] Implement OpenAI agents tools integration
-  - [x] Add error handling and logging
-- [x] Add CLI for running and installing the server
-  - [x] Implement command-line interface
-  - [x] Add installation command for Claude desktop app
+# Work In Progress
+- [x] Integrate OpenAI Agents SDK tools
+  - [x] Implement WebSearchTool
+  - [x] Implement FileSearchTool
+  - [x] Implement ComputerTool
 - [x] Design and implement agent-based approach
   - [x] Create specialized agents for each tool
   - [x] Create orchestrator agent that can coordinate between specialized agents
   - [x] Update server.py to expose agents via MCP
   - [x] Update README with agent-based documentation
-- [x] Fix tool initialization
-  - [x] Implement dynamic creation of the FileSearchTool with client-provided vector_store_ids
-  - [x] Create SimpleAsyncComputer implementation for ComputerTool
-  - [x] Update documentation with implementation details
 - [x] Enhance AsyncComputer implementation
-  - [x] Implement all required abstract methods from AsyncComputer
-  - [x] Add state tracking for simulation (cursor position, screen dimensions)
-  - [x] Improve command handling with parsing for different command types
-  - [x] Add detailed logging/output for simulated actions
+  - [x] Implement all required abstract methods
+  - [x] Add state tracking for simulation
+  - [x] Improve command handling functionality
+  - [x] Add detailed logging/output for debugging
+- [ ] Improve error handling and logging
+  - [ ] Add structured logging
+  - [ ] Add error reporting
+- [ ] Add tests
+  - [ ] Unit tests
+  - [ ] Integration tests
+- [x] Set up the basic project structure
+  - [x] Create server.py, cli.py, and __main__.py files
+  - [x] Update pyproject.toml with dependencies
+  - [x] Create README.md with project description and usage instructions
+- [ ] Implement the MCP server using FastMCP
+  - [x] Define the server class and configuration
+  - [x] Implement OpenAI agents tools integration
+  - [ ] Add error handling and logging
+- [ ] Add CLI for running and installing the server
+  - [x] Implement command-line interface
+  - [x] Add installation command for Claude desktop app
 
 ---
 > Source: [lroolle/openai-agents-mcp-server](https://github.com/lroolle/openai-agents-mcp-server) — distributed by [TomeVault](https://tomevault.io).
