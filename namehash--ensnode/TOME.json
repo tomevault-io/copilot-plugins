@@ -4,7 +4,7 @@
   "repo": "ensnode",
   "description": "ENSNode is the full-stack ENSv2 development platform.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/namehash/ensnode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T22:58:06Z"
+  "distributed_at": "2026-05-21T08:08:50Z"
 }
