@@ -1,0 +1,9 @@
+{
+  "name": "spences10--mcp-turso-cloud",
+  "displayName": "mcp-turso-cloud",
+  "description": "\ud83d\uddc2\ufe0f A Model Context Protocol (MCP) server that provides integration with Turso databases for LLMs. This server implements a two-level authentication system to handle both organization-level and databas",
+  "version": "1.0.0",
+  "author": "spences10",
+  "homepage": "https://github.com/spences10/mcp-turso-cloud",
+  "skills": []
+}
