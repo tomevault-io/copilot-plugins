@@ -1,0 +1,9 @@
+{
+  "name": "reown-com--appkit-web-examples",
+  "displayName": "appkit-web-examples",
+  "description": "Web dApp examples implementing Reown AppKit",
+  "version": "1.0.0",
+  "author": "reown-com",
+  "homepage": "https://github.com/reown-com/appkit-web-examples",
+  "skills": []
+}
