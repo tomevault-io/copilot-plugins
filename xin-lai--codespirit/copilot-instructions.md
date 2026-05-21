@@ -1,51 +1,146 @@
-## enum
+## i18n
 
-> CodeSpirit 枚举开发规范 - 枚举定义、Display特性和多语言支持
+> CodeSpirit 多语言国际化规范 - 资源文件、本地化、前后端多语言支持
 
 
-# 枚举（Enum）规则
+# 多语言国际化规范
 
-## 基本要求
+## 支持语言
+- **简体中文** (zh-CN) - 默认语言
+- **英文** (en)
 
-1. 枚举需添加 Display 特性（支持多语言）
-2. 每个枚举值必须添加 XML 文档注释
-3. 枚举值使用 PascalCase 命名
-4. 明确指定枚举值（避免依赖默认值）
+## 资源文件命名规范
 
-## 枚举示例（多语言）
+### 共享资源
+```
+CodeSpirit.Localization/Resources/
+  ├── SharedResources.cs              # 资源类
+  ├── Shared.resx                     # 中文（默认）
+  ├── Shared.en.resx                  # 英文
+  ├── Display.resx / Display.en.resx  # 显示文本资源
+  ├── Validation.resx / Validation.en.resx  # 验证消息资源
+```
+
+### 服务特定资源
+```
+CodeSpirit.ExamApi/Resources/
+  ├── ExamDisplayResources.cs         # 资源类
+  ├── ExamDisplay.resx                # 中文（默认）
+  └── ExamDisplay.en.resx             # 英文
+```
+
+## 资源键命名规范
+- **通用**: `Common.{Key}` (如 `Common.Save`, `Common.Delete`)
+- **错误**: `Errors.{Key}` (如 `Errors.NotFound`, `Errors.InvalidInput`)
+- **验证**: `Validation.{Rule}` (如 `Validation.Required`, `Validation.StringLengthMax`)
+- **DTO描述**: `{EntityName}.{PropertyName}.Description` (如 `Question.Content.Description`)
+
+示例资源文件（Display.resx）：
+```xml
+<data name="Common.Save" xml:space="preserve">
+  <value>保存</value>
+</data>
+<data name="Common.Delete" xml:space="preserve">
+  <value>删除</value>
+</data>
+<data name="Question.Content.Description" xml:space="preserve">
+  <value>请输入题目的具体内容</value>
+</data>
+```
+
+## Controller 中使用本地化
 
 ```csharp
 using CodeSpirit.Localization.Resources;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Localization;
 
-/// <summary>
-/// 题目类型枚举
-/// </summary>
+public class QuestionsController : ApiControllerBase
+{
+    private readonly IStringLocalizer<SharedResources> _localizer;
+    
+    public QuestionsController(IStringLocalizer<SharedResources> localizer)
+    {
+        _localizer = localizer;
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult<ApiResponse>> Create(CreateQuestionDto dto)
+    {
+        await _service.CreateAsync(dto);
+        return SuccessResponse(message: _localizer["Common.Save"].Value);
+    }
+}
+```
+
+## DTO 验证特性多语言
+
+### Display 特性
+```csharp
+using CodeSpirit.Localization.Resources;
+
+public class CreateQuestionDto
+{
+    [Display(Name = "Content", ResourceType = typeof(DisplayResources))]
+    [Required(ErrorMessageResourceType = typeof(ValidationResources), 
+             ErrorMessageResourceName = "Required")]
+    [StringLength(2000, 
+        ErrorMessageResourceType = typeof(ValidationResources),
+        ErrorMessageResourceName = "StringLengthMax")]
+    public string Content { get; set; } = string.Empty;
+    
+    [Display(Name = "Score", ResourceType = typeof(DisplayResources))]
+    [Range(0, 100, 
+        ErrorMessageResourceType = typeof(ValidationResources),
+        ErrorMessageResourceName = "Range")]
+    public decimal Score { get; set; }
+}
+```
+
+### 描述信息多语言
+```csharp
+using CodeSpirit.Localization.Attributes;
+
+public class CreateQuestionDto
+{
+    [Display(Name = "Content", ResourceType = typeof(DisplayResources))]
+    [LocalizedDescription("Question.Content.Description", typeof(ExamDisplayResources))]
+    public string Content { get; set; } = string.Empty;
+}
+```
+
+## 本地化异常
+
+```csharp
+// 使用资源键
+throw new BusinessException("Errors.InvalidStartTime");
+
+// 带参数（使用占位符 {0}, {1}）
+throw new ValidationException("Errors.NotFound", resourceId);
+```
+
+资源文件定义：
+```xml
+<data name="Errors.NotFound" xml:space="preserve">
+  <value>资源 {0} 未找到</value>
+</data>
+```
+
+## 枚举多语言
+```csharp
 public enum QuestionType
 {
-    /// <summary>
-    /// 单选题
-    /// </summary>
     [Display(Name = "SingleChoice", ResourceType = typeof(DisplayResources))]
     SingleChoice = 1,
     
-    /// <summary>
-    /// 多选题
-    /// </summary>
     [Display(Name = "MultipleChoice", ResourceType = typeof(DisplayResources))]
     MultipleChoice = 2,
     
-    /// <summary>
-    /// 判断题
-    /// </summary>
     [Display(Name = "TrueFalse", ResourceType = typeof(DisplayResources))]
     TrueFalse = 3
 }
 ```
 
-## 资源文件配置
-
-对应的资源文件（Display.resx）：
+资源文件：
 ```xml
 <data name="SingleChoice" xml:space="preserve">
   <value>单选题</value>
@@ -53,32 +148,25 @@ public enum QuestionType
 <data name="MultipleChoice" xml:space="preserve">
   <value>多选题</value>
 </data>
-<data name="TrueFalse" xml:space="preserve">
-  <value>判断题</value>
-</data>
 ```
 
-英文资源文件（Display.en.resx）：
-```xml
-<data name="SingleChoice" xml:space="preserve">
-  <value>Single Choice</value>
-</data>
-<data name="MultipleChoice" xml:space="preserve">
-  <value>Multiple Choice</value>
-</data>
-<data name="TrueFalse" xml:space="preserve">
-  <value>True/False</value>
-</data>
-```
+## 注意事项
 
-## 在 QueryDto 中的使用
+### 强制要求（必须遵守）
+- ✅ 所有面向用户的文本必须支持多语言
+- ✅ 资源文件必须同时提供中文和英文版本
+- ✅ 验证消息、异常消息全部使用本地化
 
-枚举用于查询 DTO 筛选条件时，**仅使用 `[DisplayName]`**，不要添加 `[AmisSelectField]`。框架会根据枚举的 Display 特性自动生成下拉选项。详见 [dto.mdc - 查询 DTO 中枚举字段](mdc:.cursor/rules/dto.mdc)。
+### 最佳实践（推荐遵守）
+- 💡 新开发的 DTO、枚举、控制器应使用多语言写法
+- 💡 逐步迁移现有硬编码文本到资源文件
+- 💡 定期检查资源文件是否有缺失的翻译
 
-## 参考文档
-
-- 多语言规范: [i18n.mdc](mdc:.cursor/rules/i18n.mdc)
-- 查询 DTO 枚举配置: [dto.mdc](mdc:.cursor/rules/dto.mdc)
+### 迁移指南
+对于现有代码，建议采用渐进式迁移：
+1. 新功能必须使用多语言写法
+2. 修改现有功能时，同步迁移为多语言写法
+3. 定期批量迁移高频使用的文本
 
 ---
 > Source: [xin-lai/CodeSpirit](https://github.com/xin-lai/CodeSpirit) — distributed by [TomeVault](https://tomevault.io).
