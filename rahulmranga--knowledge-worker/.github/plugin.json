@@ -1,0 +1,9 @@
+{
+  "name": "rahulmranga--knowledge-worker",
+  "displayName": "knowledge-worker",
+  "description": "Local-first knowledge graph that gives your AI assistant durable, provenance-backed memory across sessions.",
+  "version": "1.0.0",
+  "author": "rahulmranga",
+  "homepage": "https://github.com/rahulmranga/knowledge-worker",
+  "skills": []
+}
