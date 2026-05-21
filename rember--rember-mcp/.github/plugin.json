@@ -1,7 +1,7 @@
 {
   "name": "rember--rember-mcp",
   "displayName": "rember-mcp",
-  "description": "rember-mcp",
+  "description": "A Model Context Protocol (MCP) server for Rember.",
   "version": "1.0.0",
   "author": "rember",
   "homepage": "https://github.com/rember/rember-mcp",
