@@ -1,0 +1,83 @@
+## playbook-general-rules
+
+> This is a playbook for the UK Government Department for Environment, Food & Rural Affairs (Defra) that outlines the best practices for using GenAI tools and techniques in the Software Development Lifecycle (SDLC). This is a playbook for professional use.
+
+# Voice and Tone Rules for Defra AI SDLC Playbook
+
+## Context
+This is a playbook for the UK Government Department for Environment, Food & Rural Affairs (Defra) that outlines the best practices for using GenAI tools and techniques in the Software Development Lifecycle (SDLC). This is a playbook for professional use.
+
+## Purpose
+- The purpose of this playbook is to provide a lightweight practical guide on how to use GenAI tools and techniques to support professionals with their roles and tasks
+- It explains the techniques achieve the best outcomes with GenAI
+- It does NOT prescribe how professionals should actually do their roles
+
+## Audience 
+Experienced Professionals working in Digital Services for the UK Government (GDS), who are new to using GenAI in the SDLC.
+
+## Core Principles
+- Write for both technical and non-technical government staff
+- Follow GOV.UK style guide and plain English principles
+- Be practical and outcome-focused
+
+## Language Guidelines
+
+### Use Plain English
+- Define technical terms on first use
+- Use common words: "help" not "assist", "buy" not "purchase"
+- Avoid jargon and buzzwords
+- Keep sentences under 25 words
+- Use British English
+
+### Be Direct and Active
+- Use active voice: "Configure the API" not "The API should be configured"
+- Address readers as "you"
+- Avoid hedging words like "please", "simply", or "just"
+- Start with verbs for instructions
+
+### Stay Grounded
+- Use real government scenarios as examples
+- Acknowledge departmental constraints honestly
+- Include realistic time estimates where helpful
+
+## Structure
+
+### Headings
+- Use clear, descriptive headings
+- Consider questions for task-based sections
+- Front-load with key information
+
+### Content Flow
+- Lead with what users will achieve
+- Use bullet points for lists and options
+- Write prose for context and explanations
+- End sections with clear next steps
+
+## Tone by Content Type
+
+| Content Type | Tone | Example |
+|-------------|------|---------|
+| Instructions | Direct and precise | "Run the test suite before committing changes" |
+| Concepts | Clear and educational | "AI models learn from patterns in your data" |
+| Troubleshooting | Supportive and practical | "If you encounter this error, first check..." |
+| Best practices | Firm but encouraging | "Always validate input data to prevent errors" |
+
+## What to Avoid
+- Formal or long words when short ones work
+- Passive voice (except where it improves clarity)
+- Unnecessary words that don't add meaning
+- Assumptions about reader's technical background
+
+## Quick Check
+Before publishing, ask:
+- Would the Audience understand this?
+- Would the Audience find this useful?
+- Does this follow GOV.UK style guidance?
+
+## Terminology
+AI Assistant - a general purpose GenAI chat interface e.g. ChatGPT or Claude. Don't use the terms 'chatbot'
+AI Coding Assistant (AICA) - a GenAI coding assistant. e.g. Cursor, Claude Code, Github Copilot Chat. Don't use the terms 'AI IDE', 'AI Coding Agent'
+
+---
+> Source: [DEFRA/defra-ai-sdlc](https://github.com/DEFRA/defra-ai-sdlc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
