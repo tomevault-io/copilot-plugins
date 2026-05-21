@@ -1,7 +1,7 @@
 {
   "name": "johnpolacek--vibecode-party-starter",
   "displayName": "vibecode.party.starter",
-  "description": "vibecode.party.starter",
+  "description": "The full stack Next.js starter project for vibe coding.",
   "version": "1.0.0",
   "author": "johnpolacek",
   "homepage": "https://github.com/johnpolacek/vibecode.party.starter",
