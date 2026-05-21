@@ -1,37 +1,22 @@
-## javascript
+## prepfirst
 
-> Generating code in Javascript and Typescript files
+> Prepare First
 
-## Coding Style Guide (Mandatory or Strongly Encouraged)  
-**Naming:** snake_case for file names, camelCase for instance names, PascalCase for class and symbol names, UPPER_SNAKE_CASE for constants.  
+## Steps To Take Before Reasoning
+Directly BEFORE you're ready to reason on the humans's prompt, you will do some extra research as you'll be working on an unusually large and complex codebase and need a broad context in order to eventually reason, plan, and execute on their prompt in a way that ensures you meet the Research Objective.
 
-**Code Ordering:** Remote Imports → Local Imports → Hoisted Variables and References → Methods → Exports.  
+Take the following steps to research and in each step you will collect and note any information relevant to the human's prompt or information that would help you execute on their prompt:
 
-**Syntax:**
-- Prefer ES6 syntax, modern JavaScript features, and concise expressions.  
-- Use ternary operators (`? :`), optional chaining (`?.`), and nullish coalescing (`??`) for safe, clean logic.  
-- Favor arrow functions with implicit returns and template literals (``) for readability.  
-- Apply spread (`...`), rest parameters, and destructuring for concise object and array handling.  
-- Use functional methods (`map`, `filter`, `reduce`) over loops and return early to avoid nesting.  
-- Avoid redundant variables and instead directly return expressions and chain methods when possible.  
-- Handle async logic with `.catch()` instead of `try/catch` for single calls.  
-- Leverage Proxy, Reflect, and advanced JavaScript methods for flexible solutions.  
-- Keep code expressive, maintainable, and optimized for readability.
+- Search all packages for shared libraries, utilities, and patterns, and note what can be reused to avoid redundancy
+- Find and note any schemas, models, types, constants, configuration files, globals, and other noteworthy structured information that could be critical to the function of the codebase and application
+- Find and note coding standards, test strategies, and build processes across all modules
+- Find and note existing tooling, scripts, and workflows that have been set up
+- Find and note any overarching CI/CD pipelines and deployment models that you might have to align to any changes you might have to make so you can ensure interoperability across all components
+- Find and note existing versioning and release management practices already in place
+- Find and note any design patterns, preferred syntax, preferred approaches or methods, or preferred stylistic choices engineers have made in this codebase that you will have to immitate to ensure cohesiveness UNLESS doing so would introduce severe bugs or regressions or unless their is a clearly better alternative.
 
-**Documentation In Code:** Functions and files documented with JSDoc wherever possible.  
-
-**Functional VS OOP:** Codebases can often have a handful of core entities the domain is modeled around. If this is the case and those entities have these characteristics, then they'd likely benefit from being rewritten as a class: managing a lot of state relative to other parts of the code, representing an unreasonable amount of tightly coupled properties, functions, or state, or trying to define a strict interface between consumers and integrators. Otherwise, pure functions and simple/straightforward code are the default approach.  
-
-**Composition:** Even when designing classes and relationships, a Compositional approach over a Generalization-Specialization approach is preferred.  
-
-**Pragmatic PoCs:** New codebases require quick prototyping and will benefit from the following: flat file and folder structures, no or little tests besides maybe one smoke test, unopinionated and flexible design choices, and a strong preference for using modern open-source libraries or tools. If the codebase has fewer than 5 main JavaScript or TypeScript files written, then the actions you take or the things you propose should focus on the absolute minimal amount of effort required to meet the objective of the codebase.  
-
-- **NOTE:** When updating code, NEVER remove JSDoc or linting comments unless the code change specifically asks you to.  
-
-## Design Patterns and Approaches (Preferred)  
-- **TypeScript Types:** Avoid creating or using types wherever possible for internal classes, methods, variables, or interfaces. Only use types on the surface and boundary of our application where there is a public or exposed output or input, unless when providing exports to consumers of an interface. For example, if the codebase is a library, only the methods the library exposes to a consumer and their arguments might have types.  
-
-- **Private / Public Interfaces:** Make clear distinctions whenever possible.
+### Research Objective
+Ensure any reasoning and contributions you make or solutions you propose to this codebase are done according to the codebases explicitly or implictly defined: standards, best practices, patterns, usage, layout, domain context, and style that ensured your contribution or proposals **only enhance** and **never distrurb** its overall cohesiveness.
 
 ---
 > Source: [zackiles/cdp-proxy-interceptor](https://github.com/zackiles/cdp-proxy-interceptor) — distributed by [TomeVault](https://tomevault.io).
