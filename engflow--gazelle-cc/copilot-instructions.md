@@ -1,25 +1,23 @@
-## integration-tests
+## style
 
-> How to run and write integration tests in this project
+> Code style and structure guidelines for this project
 
-# Integration tests
+# Code style guidelines
 
-## Running tests
+## Directory structure
 
-- Use the command `bazel test //...` to run all tests.
-- `example/` directory contains slow end-to-end tests that can only be run manually by the `.github/workflows/test_e2e.sh` script.
+- Logic specific to `language.Language` interface is put under the `language/cc/` directory.
+- Utilities still related to `language.Language` interface but big enough to deserve their own Go packages are put under the `language/internal/cc/` directory.
+- Generic utilities unrelated to `language.Language` interface are put under the `internal/` directory.
 
-## Test structure
+## Code style for Go files
 
-- `language/cc/testdata/` directory contains integration tests checking whether `gazelle_cc` produces expected Bazel rules for certain repository examples.
-- Check out [generationtest.bzl](https://github.com/bazel-contrib/bazel-gazelle/blob/master/internal/generationtest/generationtest.bzl) to understand `gazelle_generation_test` macro
-- Check out `bazel/gazelle_compilation_tests.bzl` to understand `gazelle_compilation_test` macro.
-- All scenarios under `language/cc/testdata/` must be covered by `gazelle_generation_test`.
-- By default, a scenario should be covered by `gazelle_compilation_test`, unless the scenario is not compilable by design, because of, e.g., unresolved `cc_library` dependencies.
-
-## Adding integration tests
-
-- In case of new `gazelle_cc` features, especially new/modified directives defined in `func (c *ccLanguage) KnownDirectives() []string`, add an appropriate test scenario under `language/cc/testdata/`.
+- Always include a copyright header at the beginning of the file.
+- Wrap comments at the column 80.
+- Prefer using `internal/collections/set.go` to raw `map[T]bool` or `map[T]struct{}`.
+- Prefer using sequential operations from `internal/collections/collections.go` unless the outcome code structure is too complicated.
+- Always name symbols beginning with a lowercase letter unless they need to be exported to another package.
+- Attach docs to a function when its name and arguments don't clearly indicate its purpose. You don't have to describe arguments and a return value if their meaning can be deduced from names and types.
 
 ---
 > Source: [EngFlow/gazelle_cc](https://github.com/EngFlow/gazelle_cc) — distributed by [TomeVault](https://tomevault.io).
