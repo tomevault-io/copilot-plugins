@@ -1,16 +1,35 @@
-## content-sdk
+## agent-tasks
 
-> For AI agent instructions, commands, and coding rules in this repository, use:
+> Example agent tasks for adding utilities, fixing tests, and changing scaffolding templates
 
-# GitHub Copilot — Sitecore Content SDK
 
-For AI agent instructions, commands, and coding rules in this repository, use:
+# Example Agent Tasks
 
-- **`AGENTS.md`** (repo root) — Canonical source: project overview, quick commands, package structure, DO/DON'T, boundaries, git workflow. For scaffolded head apps under `samples/`, use that app’s `AGENTS.md`.
-- **`.cursor/rules/`** — Detailed coding rules (code-style, safety, sitecore, testing, etc.). Security and secrets: see `safety.mdc`.
-- **`Skills.md`** and **`.agents/skills/`** — Capability-level instructions (e.g. component registration, Sitecore client, editing) for tools that support the [Agent Skills](https://agentskills.io) standard.
+## 1. Add a utility in a package
 
-Do not edit `dist/**`, commit `.env`/`.env.local`, or change CI/config without explicit instruction.
+Example: Add a constant in `packages/core/src/constants.ts`:
+
+- Export from `packages/core/src/index.ts` if public
+- Add JSDoc: `@internal` for internal APIs; `@public` and full `@param`/`@returns` for public APIs
+- Add tests in `packages/core/src/constants.test.ts` (if needed)
+- Run `yarn api-extractor` if you change public exports
+
+## 2. Fix a failing test
+
+```bash
+yarn test-packages
+# Or: cd packages/content && yarn test
+```
+
+- Locate the failing `*.test.ts` file
+- Preserve intended behavior; fix assertions or implementation
+- Re-run tests before completing
+
+## 3. Change a scaffolding template
+
+- Edit under `packages/create-content-sdk-app/src/templates/nextjs/` or `nextjs-app-router/`
+- Use `.env.remote.example` for env vars (never `.env`)
+- Verify: Run `yarn watch` (with `watch.json`) or `yarn scaffold-samples`, then `npm install && npm run build` in the generated sample
 
 ---
 > Source: [Sitecore/content-sdk](https://github.com/Sitecore/content-sdk) — distributed by [TomeVault](https://tomevault.io).
