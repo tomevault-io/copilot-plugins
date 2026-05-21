@@ -1,73 +1,157 @@
-## expo
+## game
 
-> - We are using Expo SDK 52 and Expo Router 4
+> https://pokeapi.co/docs/v2#info
 
-# Expo Project Rules
+# API
 
-## Project Configuration
-- We are using Expo SDK 52 and Expo Router 4
-- Always check the [Expo Documentation](mdc:https:/docs.expo.dev) when implementing new features
-- Always check the [Expo Router Documentation](mdc:https:/expo.github.io/router/docs) for routing-specific implementations
-- Async Storage
-- Responsive
+https://pokeapi.co/docs/v2#info
 
-## Styling Guidelines
-- Always use styled-components for styling
-- Create styled components in separate files with `.styles.ts` extension
-- Keep global theme configuration in a centralized theme file
+# Pokémon Tamagotchi Game
+
+## Game Concept
+- Players start with one Pokémon from the first generation (1-151)
+- Players must take care of their Pokémon like a virtual pet (Tamagotchi style)
+- Experience is gained through care activities
+- Pokémon can evolve when reaching level 10
+
+## Core Features
+
+### Starting the Game
+- New players select or are randomly assigned a starter Pokémon from Gen 1
+- Each Pokémon starts at level 1 with basic stats
+- Player creates a trainer profile
+
+### Pokémon Care Mechanics
+- **Hunger**: Feed your Pokémon regularly to maintain health
+- **Happiness**: Play with your Pokémon to increase happiness
+- **Cleanliness**: Groom your Pokémon to keep it clean
+- **Energy**: Let your Pokémon rest to restore energy
+- **Health**: Monitor overall health status
+- All stats decline over time if neglected
+
+### Experience & Leveling
+- Gain experience points (XP) through various care activities
+- Daily bonuses for consecutive logins
+- Special events provide bonus XP
+- Level progression: 1-10 for first evolution stage
+- XP requirements increase with each level
+
+### Evolution
+- Pokémon can evolve when reaching level 10
+- Evolution requires a special evolution item or completing a challenge
+- Evolved Pokémon have better stats and new abilities
+- Some Pokémon have multiple evolution paths
+
+### Mini-games
+- **Training**: Mini-games to boost stats
+- **Battles**: Simple battle system against AI opponents
+- **Exploration**: Find items in the environment
+
+## Technical Implementation
+
+### Pokémon Data
+- Use PokeAPI to fetch Gen 1 Pokémon data
+- Store the following data for each Pokémon:
+  - Basic info (name, ID, types, sprites)
+  - Stats (HP, attack, defense, etc.)
+  - Evolution chain
+  - Moves and abilities
 
 ```typescript
-// Example of styled components implementation
-import styled from 'styled-components/native';
+interface PokemonBase {
+  id: number;
+  name: string;
+  types: string[];
+  sprite: string;
+  evolvesAt: number;
+  evolvesTo: number | null;
+}
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: ${props => props.theme.colors.background};
-`;
-
-export const Title = styled.Text`
-  font-size: 18px;
-  color: ${props => props.theme.colors.text};
-`;
+interface PlayerPokemon extends PokemonBase {
+  level: number;
+  experience: number;
+  hunger: number; // 0-100
+  happiness: number; // 0-100
+  cleanliness: number; // 0-100
+  energy: number; // 0-100
+  health: number; // 0-100
+  lastCaredFor: Date;
+}
 ```
 
-## File Structure
-- Screen components should be in `.tsx` files
-- Business logic, hooks, and handlers should be in `.ts` files
-- Organize related files in feature folders
-- Folder for Types
+### Game State Management
+- Use local storage for game progress
+- Implement auto-save functionality
+- Track time even when the app is closed
+- Create state hooks for managing game data
 
-## Routing Guidelines
-- Use Expo Router for navigation
-- Implement URL-based navigation with file-based routing
-- Place layouts in `_layout.tsx` files
-- Use URL params for dynamic routes
+```typescript
+// Example state management with hooks
+const usePokemonState = () => {
+  const [playerPokemon, setPlayerPokemon] = useState<PlayerPokemon | null>(null);
+  
+  // Load saved Pokémon from storage
+  useEffect(() => {
+    const savedPokemon = localStorage.getItem('playerPokemon');
+    if (savedPokemon) {
+      setPlayerPokemon(JSON.parse(savedPokemon));
+    }
+  }, []);
+  
+  // Save Pokémon state to storage
+  useEffect(() => {
+    if (playerPokemon) {
+      localStorage.setItem('playerPokemon', JSON.stringify(playerPokemon));
+    }
+  }, [playerPokemon]);
+  
+  return { playerPokemon, setPlayerPokemon };
+};
+```
 
-## Component Guidelines
-- Split screens into smaller reusable components
-- Use TypeScript interfaces for component props
-- Implement proper loading and error states
+### Time Management
+- Implement real-time stat decay
+- Schedule notifications for feeding and care
+- Day/night cycle affecting certain activities
 
-## State Management
-- Use React hooks for local state
-- Implement custom hooks for reusable logic
-- Keep business logic separate from UI components
+### UI/UX Guidelines
+- Main screen shows Pokémon with status indicators
+- Interactive elements for feeding, playing, etc.
+- Animations for status changes and level ups
+- Celebratory animations for evolution
 
-## Performance Guidelines
-- Implement proper memoization for expensive computations
-- Use `React.memo()` for components that re-render often
-- Avoid unnecessary re-renders
+## Screens and Components
 
-## Expo Best Practices
-- Use Expo modules over native modules when available
-- Implement proper permissions handling
-- Test on both iOS and Android regularly
-- Follow Expo's security guidelines
+### Main Screens
+1. **Welcome/Login**: Player profile creation/login
+2. **Starter Selection**: Choose starter Pokémon
+3. **Main Care Screen**: Primary interaction with Pokémon
+4. **Stats Screen**: Detailed Pokémon stats
+5. **Activities Screen**: Mini-games and training
+6. **Evolution Screen**: Evolution process and celebration
+7. **Settings Screen**: Game settings and options
 
-## TypeScript Usage
-- Use strict typing for all components and functions
-- Define interfaces for all component props
-- Use type guards when necessary
+### Key Components
+- **PokemonDisplay**: Shows Pokémon sprite with animations
+- **StatBar**: Visual indicator for stats (hunger, happiness, etc.)
+- **ActionButton**: Buttons for care actions
+- **EvolutionModal**: Handles evolution process
+- **MiniGameContainer**: Wrapper for mini-games
+- **NotificationSystem**: Alerts for Pokémon needs
+
+## Future Features
+- Multiple Pokémon collection
+- Pokémon breeding
+- Trading with other players
+- Seasonal events
+- Special location-based activities
+
+
+## Setup Constants File
+- File used to setup experience needed for evolving;
+- HP for each evolution
+- Basic stats
+- Time for things decreasing
 
 ---
 > Source: [gabrielumatch/pokemon](https://github.com/gabrielumatch/pokemon) — distributed by [TomeVault](https://tomevault.io).
