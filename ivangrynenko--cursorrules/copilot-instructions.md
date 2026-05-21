@@ -1,81 +1,120 @@
-## project-definition-template
+## pull-request-changelist-instructions
 
-> Template for defining project context
+> Guidelines for creating consistent pull request changelists in markdown format with proper code block formatting
 
-# Comprehensive Project Definition Template
+---
+description: Updated guidelines for creating consistent pull request changelists in markdown format, ensuring strict raw markdown code block formatting and proper structure.
+globs: "*.md"
+alwaysApply: false
+---
+# Pull Request Changelist Format
 
-This rule enforces best practices for documenting project context, ensuring clarity and maintainability through well-documented README files and documentation.
+This document outlines strict standards for creating and formatting pull request changelists in markdown. Following these guidelines ensures that the output remains as raw markdown (unrendered) and prevents any issues with Cursor’s markdown rendering.
 
 <rule>
-name: comprehensive_project_definition
-description: Enforce comprehensive project context definition for CursorAI
+name: pull_request_changelist_format
+description: Updated guidelines for creating consistent pull request changelists in markdown with strict code block handling and structured formatting.
 filters:
   - type: file_extension
     pattern: "\\.md$"
-  - type: file_path
-    pattern: "README.md|/docs/"
+  - type: content
+    pattern: "(?i)(pull request|pr|changelist|changelog)"
 
 actions:
-  - type: enforce
-    conditions:
-      - pattern: "## Project Purpose"
-        message: "Define the purpose of the project in the README file, including its goals and objectives."
-
-      - pattern: "## Technical Stack"
-        message: "List the technical stack used in the project in the README file, including language versions and frameworks."
-
-      - pattern: "## Folder Structure"
-        message: "Document the folder structure in the README file with a brief explanation for each significant directory."
-
-      - pattern: "## Customizations"
-        message: "Include any custom themes, modules, or libraries in the README file, explaining their functionality."
-
-      - pattern: "## Libraries"
-        message: "List any third-party libraries used in the project in the README file, including versions for reproducibility."
-
-      - pattern: "## Setup Instructions"
-        message: "Provide clear setup instructions in the README to help new contributors or users get started."
-
-      - pattern: "## Contribution Guidelines"
-        message: "Document contribution guidelines if the project is open-source or team-based."
-
   - type: suggest
     message: |
-      **Project Definition Best Practices:**
-      - **README and Docs:** Use both README.md for an overview and /docs/ for detailed documentation.
-      - **Project Purpose:** Clearly articulate why the project exists, its objectives, and who it serves.
-      - **Technical Stack:** Include all technologies, versions, and possibly why each was chosen.
-      - **Folder Structure:** Use tree diagrams or simple bullet points to describe the project's layout.
-      - **Customizations:** Explain any custom code, including its purpose and how it integrates with the project.
-      - **Libraries:** Detail external dependencies, why they're used, and how to manage them (e.g., npm, composer).
-      - **Setup Instructions:** Provide step-by-step guidance for setting up the project environment.
-      - **Contribution Guidelines:** Outline how to contribute, including coding standards, branch management, and pull request process.
-      - **License:** Include information about the project's licensing for legal clarity.
-      - **Roadmap:** Optionally, add a roadmap section to discuss future plans or features.
+      ## Updated Pull Request Changelist Guidelines
 
+      To guarantee clarity and consistency, please adhere to the following time-tested, unambiguous guidelines when requesting a PR changelist from Cursor:
+
+      ### 1. Request Format
+      **Always explicitly request raw markdown output in a code block** using one of these exact phrases:
+      - "Return markdown as code"
+      - "Return as code inside markdown as code (one block)"
+      - "Provide the markdown in a code block"
+      - "Return the content as a markdown code block, not as formatted text"
+      - "Generate the PR changelist in a markdown code block"
+
+      Avoid ambiguous wording that could lead to a rendered (formatted) output.
+
+      ### 2. Expected Response Format
+      Cursor should always respond with a raw markdown code block that looks like:
+      ```
+      ```markdown
+      # Summary of Changes
+
+      ## Category Name
+      - Change item
+      ```
+      ```
+
+      ### 3. Handling Incorrect Format
+      If the response is rendered markdown rather than a raw code block, prompt with one of the following:
+      - "Please provide the exact markdown in a code block using triple backticks, not as formatted text."
+      - "I require the raw markdown syntax; reformat your response with triple backticks."
+      - "Reformat your output as a code block enclosed in triple backticks."
+
+      ### 4. Changelist Structure
+      - **Main Heading:** Must begin with `# Summary of Changes`
+      - **Categories:** Use `##` headings to group related changes.
+      - **Changes:** List each change with a bullet (`-`), starting with a past tense verb (e.g., Added, Updated, Removed).
+      - **Code/Variables:** Enclose module names or configuration settings in backticks (e.g., `module_name`).
+
+      ### 5. Content Requirements
+      - Be specific about what changed and why.
+      - Group similar changes under the appropriate category headings.
+      - For configuration changes, include both the setting name and its new value.
+      - Keep each entry concise but descriptive.
+
+      ### 6. Example Command
+      To request a changelist from Cursor, try:
+      ```
+      Prepare a PR changelist based on these changes. Return the markdown in a code block with triple backticks.
+      ```
+
+      Adhering to these traditional, time-tested formatting guidelines not only prevents ambiguity but also paves the way for future improvements in automated changelist generation.
+      
   - type: validate
     conditions:
-      - pattern: "## Project Purpose"
-        message: "Ensure the project purpose is clearly defined for understanding the project's intent."
+      - pattern: "^```\\s*markdown\\s*\\n#\\s+Summary\\s+of\\s+Changes"
+        message: "The changelist must be a raw markdown code block starting with '# Summary of Changes'. Ensure the use of triple backticks and correct heading structure."
+      - pattern: "-\\s+(Added|Updated|Removed)\\b"
+        message: "Each bullet point must begin with a past tense verb: 'Added', 'Updated', or 'Removed'."
+      
+examples:
+  - input: |
+      Request: "Create a PR changelist for my changes. Return markdown code as code."
+      
+      Good Response from Cursor:
+      ```markdown
+      # Summary of Changes
 
-      - pattern: "## Technical Stack"
-        message: "Ensure the technical stack is documented to aid in tech stack comprehension."
+      ## Environment Configuration
+      - Updated `STAGE_FILE_PROXY_URL` to data.safeworkaustralia.gov.au
+      - Updated `LOCALDEV_URL` to dataswa.docker.amazee.io
 
-      - pattern: "## Folder Structure"
-        message: "Ensure the folder structure is outlined for navigation ease."
+      ## Module Changes
+      - Removed `page_cache` module
+      - Added `stage_file_proxy` module
+      ```
+    output: |
+      This is the correct format for Cursor to return a changelist – as a raw markdown code block enclosed in triple backticks.
+      
+  - input: |
+      Request: "Create a PR changelist for my changes."
+      
+      Bad Response from Cursor (rendered markdown instead of a code block):
+      # Summary of Changes
 
-      - pattern: "## Customizations"
-        message: "Ensure customizations are documented for understanding unique project elements."
-
-      - pattern: "## Libraries"
-        message: "Ensure libraries are listed for dependency management."
-
-      - pattern: "## Setup Instructions"
-        message: "Ensure setup instructions are included to facilitate onboarding."
+      ## Environment Configuration
+      - Updated `STAGE_FILE_PROXY_URL` to data.safeworkaustralia.gov.au
+      - Updated `LOCALDEV_URL` to dataswa.docker.amazee.io
+    output: |
+      This response is incorrectly formatted as rendered markdown. Please ask Cursor to provide the output as a raw markdown code block with triple backticks.
 
 metadata:
   priority: medium
-  version: 1.1
+  version: 1.2
 </rule>
 
 ---
