@@ -1,0 +1,100 @@
+## codeformat
+
+> after making changes make sure the file compiles and all clippy warnings are fixed.
+
+after making changes make sure the file compiles and all clippy warnings are fixed.
+
+run cargo clippy -p runar_node --all-targets --all-features -- -D warnings
+
+
+## 🚀 **Core Principles**
+- **One change at a time**: Modify only what's necessary for the current task
+- **Zero regressions**: All tests must pass after each task
+- **Performance first**: Prefer references over ownership, avoid unnecessary allocations
+
+## 📝 **Code Quality Standards**
+- **Compilation**: `cargo check` must pass
+- **Clippy**: `cargo clippy --all-targets --all-features -- -D warnings` must pass
+- **Absolute Paths Check**: `cargo clippy --workspace -- -W clippy::absolute_paths` must pass
+- **Tests**: `cargo test --all` must pass
+- **Formatting**: 
+ - Use `format!("Error: {e}")` not `format!("Error: {}", e)` -  run cargo fmt --all at the end of every task.
+ - Use proper imports, do not do `let context = runar_serializer::SerializationContext {...}` import the type and use `let context = SerializationContext{...}`
+
+**IMPORTANT: Use ONLY IDE tools for code changes**
+- **NO command line tools** (sed, grep, etc.)
+- **NO Python scripts**
+- **NO bulk find/replace operations**
+- **Change line by line** using IDE features
+- **If IDE tools fail repeatedly, stop and notify user to restart IDE**
+
+ALWAYS RUN `cargo fmt --all` before running Clippy commands to ensure code is properly formatted.
+
+**After implementing features, run BOTH Clippy commands:**
+1. `cargo clippy --workspace --all-targets --all-features -- -D warnings` (critical issues)
+2. `cargo clippy --workspace -- -W clippy::absolute_paths` (qualified path violations)
+
+Always add timeout to test commands to make sure it does not run foerever incase of race conditionsn that makes teh code run indefinitvely.
+
+## 🔑 **Ownership & Borrowing**
+- **Prefer references**: Use `&str`/`&[u8]`/`&T` over `String`/`Vec<u8>`/`T`
+- **API signatures**: Accept `impl AsRef<str>` instead of `impl Into<String>` where practical
+- **Return references**: Return `&T` or `Arc<T>` instead of cloning
+- **Avoid cloning**: Use `Arc::clone(&arc)` instead of `arc.clone()`
+
+## 🚫 **Allocation Reduction**
+- **No intermediate Vecs**: Use iterators that don't materialize temporary collections
+- **Pre-allocate**: Use `with_capacity` when size is known
+- **Reuse buffers**: Pool or reuse buffers across calls when safe
+- **Avoid collect()**: Prefer `for_each`, `try_for_each`, or streaming
+
+## 🔒 **Concurrency & Locking**
+- **Never hold locks across await**: Split critical sections or clone before awaiting
+- **Use tokio locks**: `tokio::sync::{Mutex, RwLock}` in async code
+- **Minimal lock scope**: Keep locks as small as possible
+- **Consider DashMap**: For concurrent maps, prefer storing `Arc<T>` values
+
+## 📊 **Collections**
+- **Iterate by reference**: `for item in &collection`
+- **Choose wisely**: `VecDeque` for FIFO, `SmallVec` for small fixed bounds
+- **Avoid materialization**: Don't collect unless you need the collection
+
+## 📝 **Logging Standards**
+- **Use macros only**: `log_debug!`, `log_info!`, `log_warn!`, `log_error!`
+- **Never direct calls**: Don't call `logger.debug()` directly
+- **Implicit capture**: `log_debug!(logger, "topic={topic} id={id}")`
+- **Level consistency**: `debug` for tracing, `info` for milestones, `warn`/`error` for exceptions
+
+## 🔧 **Error Handling**
+- **Concise errors**: `format!("Failed to parse: {e}")` not `format!("Failed to parse: {}", e)`
+- **No double logging**: Avoid logging the same error across layers
+- **Structured errors**: Use context and propagate without rebuilding
+
+## 🚀 **Hot Path Optimization**
+- **DashMap conversion**: Avoid `Arc<RwLock<HashMap<..>>>` with `Arc<DashMap<..>>` for concurrent access
+- **Lock-free reads**: Use DashMap's lock-free read operations
+- **Guard extraction**: Extract values before await to avoid holding guards across async
+- **Memory efficiency**: Store `Arc<T>` in maps, avoid large moves
+
+## 📋 **Testing Requirements**
+- **Unit tests**: Happy path and edge cases for modified code
+- **Integration tests**: Cross-crate tests must remain green
+- **Performance**: No regressions in hot path performance
+- **Timeout**: Use 45s timeout for tests to catch deadlocks
+
+## ⚠️ **Common Pitfalls**
+- **Holding guards across await**: Extract values before async operations
+- **Read-then-write races**: Use DashMap's atomic operations
+- **Excessive cloning**: Use references and Arc where possible
+- **Lock ordering**: Avoid nested locks and consider lock-free alternatives
+
+## 📊 **Success Metrics**
+- ✅ All tests pass with timeout
+- ✅ No clippy warnings
+- ✅ Clean compilation
+- ✅ No performance regressions
+- ✅ Maintained functionality
+
+---
+> Source: [runar-labs/runar-rust](https://github.com/runar-labs/runar-rust) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
