@@ -1,0 +1,9 @@
+{
+  "name": "gfazioli--mantine-picker",
+  "displayName": "mantine-picker",
+  "description": "A Mantine 9 iOS-style wheel picker component with 3D rotation, drag/wheel/keyboard navigation, momentum scrolling, and customizable item rendering.",
+  "version": "1.0.0",
+  "author": "gfazioli",
+  "homepage": "https://github.com/gfazioli/mantine-picker",
+  "skills": []
+}
