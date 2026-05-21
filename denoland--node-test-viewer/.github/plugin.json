@@ -1,0 +1,9 @@
+{
+  "name": "denoland--node-test-viewer",
+  "displayName": "node_test_viewer",
+  "description": "The viewer of daily node test result",
+  "version": "1.0.0",
+  "author": "denoland",
+  "homepage": "https://github.com/denoland/node_test_viewer",
+  "skills": []
+}
