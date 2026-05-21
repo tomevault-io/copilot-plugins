@@ -1,0 +1,9 @@
+{
+  "name": "faker2048--singbox-gui",
+  "displayName": "singbox-gui",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e Tauri + Next.js \u5f00\u53d1\u7684 sing-box \u56fe\u5f62\u754c\u9762\u3002\u652f\u6301 Windows\u3002",
+  "version": "1.0.0",
+  "author": "faker2048",
+  "homepage": "https://github.com/faker2048/singbox-gui",
+  "skills": []
+}
