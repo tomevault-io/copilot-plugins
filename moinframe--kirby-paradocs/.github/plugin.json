@@ -1,0 +1,9 @@
+{
+  "name": "moinframe--kirby-paradocs",
+  "displayName": "kirby-paradocs",
+  "description": "Auto-generate beautiful documentation pages using markdown",
+  "version": "1.0.0",
+  "author": "moinframe",
+  "homepage": "https://github.com/moinframe/kirby-paradocs",
+  "skills": []
+}
