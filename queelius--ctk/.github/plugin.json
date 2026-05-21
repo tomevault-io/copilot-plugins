@@ -1,0 +1,9 @@
+{
+  "name": "queelius--ctk",
+  "displayName": "ctk",
+  "description": "Conversation Toolkit - Unified CLI for managing AI conversations from ChatGPT, Claude, Gemini, and more. Import, search, export, and chat with your conversation history.",
+  "version": "1.0.0",
+  "author": "queelius",
+  "homepage": "https://github.com/queelius/ctk",
+  "skills": []
+}
