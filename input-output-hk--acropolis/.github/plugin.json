@@ -1,0 +1,9 @@
+{
+  "name": "input-output-hk--acropolis",
+  "displayName": "acropolis",
+  "description": "Acropolis modular node architecture & components in Rust",
+  "version": "1.0.0",
+  "author": "input-output-hk",
+  "homepage": "https://github.com/input-output-hk/acropolis",
+  "skills": []
+}
