@@ -1,0 +1,9 @@
+{
+  "name": "strawberry-computer--speakbuild",
+  "displayName": "speakbuild",
+  "description": "Mobile voice assistant that can generate UI on the go",
+  "version": "1.0.0",
+  "author": "Strawberry-Computer",
+  "homepage": "https://github.com/Strawberry-Computer/speakbuild",
+  "skills": []
+}
