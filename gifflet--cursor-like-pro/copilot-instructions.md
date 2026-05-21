@@ -1,0 +1,99 @@
+## cursor-rules
+
+> How to add new cursor rules to the project
+
+# Cursor Rules Location
+
+How to add new cursor rules to the project
+
+1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+    ```
+    .cursor/rules/
+    ├── your-rule-name.mdc
+    ├── another-rule.mdc
+    └── ...
+    ```
+
+2. Follow the naming convention:
+    - Use kebab-case for filenames
+    - Always use .mdc extension
+    - Make names descriptive of the rule's purpose
+
+3. Directory structure:
+    ```
+    PROJECT_ROOT/
+    ├── .cursor/
+    │   └── rules/
+    │       ├── your-rule-name.mdc
+    │       └── ...
+    └── ...
+    ```
+
+4. Never place rule files:
+    - In the project root
+    - In subdirectories outside .cursor/rules
+    - In any other location
+
+5. Cursor rules have the following structure:
+
+```
+---
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/* 
+alwaysApply: false
+---
+# Rule Title
+
+Main content explaining the rule with markdown formatting.
+
+1. Step-by-step instructions
+2. Code examples
+3. Guidelines
+
+Example:
+```typescript
+// Good example
+function goodExample() {
+  // Implementation following guidelines
+}
+
+// Bad example
+function badExample() {
+  // Implementation not following guidelines
+}
+```
+
+6. Rule Types and Properties:
+
+The rule properties (description, globs, alwaysApply) must be filled according to how the rule will be added to the chat context. Only one of these properties should have a valid/defined value at a time (note that false in alwaysApply is considered empty as it's the default value).
+
+Types of rules:
+
+a) Always Rules:
+   - Set `alwaysApply: true`
+   - Leave `description` and `globs` empty
+   - These rules are automatically added to every chat context
+
+b) Auto Attached Rules:
+   - Set `globs` with a pattern matching the files to be modified
+   - Leave `description` and `alwaysApply` with default values
+   - These rules are automatically added when working with files matching the glob pattern
+
+c) Agent Requested Rules:
+   - Set `description` with a clear purpose of the rule
+   - Leave `globs` and `alwaysApply` with default values
+   - These rules are added when the AI agent recognizes their relevance based on the description
+
+d) Manual Rules:
+   - Leave all properties with default values
+   - These rules are only added when manually requested by the user
+   - Properties should be:
+     ```
+     description: 
+     globs: 
+     alwaysApply: false
+     ```
+
+---
+> Source: [gifflet/cursor-like-pro](https://github.com/gifflet/cursor-like-pro) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
