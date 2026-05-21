@@ -1,0 +1,9 @@
+{
+  "name": "thu-wingtecher--lsprag",
+  "displayName": "LSPRAG",
+  "description": "Real-time multi-language unit test generation tool via LSP",
+  "version": "1.0.0",
+  "author": "THU-WingTecher",
+  "homepage": "https://github.com/THU-WingTecher/LSPRAG",
+  "skills": []
+}
