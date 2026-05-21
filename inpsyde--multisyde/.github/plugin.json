@@ -1,0 +1,9 @@
+{
+  "name": "inpsyde--multisyde",
+  "displayName": "multisyde",
+  "description": "A WordPress plugin that explores potential improvements for WordPress Multisite.",
+  "version": "1.0.0",
+  "author": "inpsyde",
+  "homepage": "https://github.com/inpsyde/multisyde",
+  "skills": []
+}
