@@ -1,94 +1,74 @@
-## conventions-go
+## project-management-events
 
-> Convenções de código e práticas de desenvolvimento
+> Quando gerenciar tarefas, documentar resultados ou organizar a estrutura do projeto
 
-## Convenções para Go
+# Gerenciamento de Projeto (.fcai)
 
-### 1. Estrutura de Pastas e Arquivos
-- **snake_case**: Para arquivos Go, use nomes em snake_case (letras minúsculas separadas por underscores).
-- **CamelCase**: Para nomes de pacotes exportados, siga a convenção CamelCase.
-- **lowercase**: Para pacotes (diretórios), use nomes em minúsculas sem underscores.
+> **Nota**: Esta regra fornece orientações sobre quando e como gerenciar tarefas, documentar resultados e organizar a estrutura do projeto. A documentação completa está disponível em `.fcai/project/documentation/` e o estado atual do projeto em [state.md](mdc:.fcai/state.md).
 
-### 2. Estrutura do Projeto (baseada em golang-standards/project-layout)
-```
-/
-├── cmd/                    # Aplicações principais do projeto
-│   ├── app/                # Nome da aplicação
-│   │   └── main.go         # Ponto de entrada da aplicação
-│   └── cli/                # Ferramentas de linha de comando
-├── internal/               # Código privado da aplicação
-├── pkg/                    # Bibliotecas que podem ser usadas por aplicações externas
-├── api/                    # Especificações de API, protobuf, etc.
-├── web/                    # Componentes web (templates, assets, etc.)
-├── configs/                # Arquivos de configuração
-├── deployments/            # Configurações de implantação (docker, k8s, etc.)
-└── docs/                   # Documentação do projeto
-```
+## Quando iniciar uma nova tarefa
+- Verifique a estrutura atual do projeto em [README.md](mdc:.fcai/README.md)
+- Identifique o componente relacionado à tarefa
+- Crie a tarefa na pasta apropriada seguindo as convenções do projeto
+- **Atualize o arquivo [state.md](mdc:.fcai/state.md) para incluir a nova tarefa**
+- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
 
-### 3. Nomes de Tipos e Interfaces
-- **PascalCase** para tipos exportados (UserService, OrderRepository).
-- **camelCase** para variáveis e funções não exportadas (calculatePrice, getUserByID).
-- Evite redundância: Não use UserServiceStruct, apenas UserService.
-- Interfaces com um único método geralmente são nomeadas com o sufixo "er" (Reader, Writer).
+## Quando documentar resultados de uma tarefa
+- Crie um arquivo de resultados com o sufixo `_result`
+- Inclua resumo, desafios, soluções, resultados de testes e próximos passos
+- Marque as tarefas como concluídas no arquivo original
+- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
 
-### 4. Nomes de Variáveis e Funções
-- **camelCase** para variáveis e funções não exportadas (calculatePrice, getUserByID).
-- **PascalCase** para variáveis e funções exportadas (ProcessPayment, SendEmail).
-- Use nomes claros e descritivos, evitando abreviações excessivas (GetUserData e não gud).
-- Acrônimos em nomes devem ser tratados como uma palavra (HttpServer → HTTPServer, Api → API).
-- Nunca use Impl como sufixo para dizer que está implementando uma interface.
+## Quando concluir uma tarefa
+- Mova a tarefa para a pasta `completed/`
+- **Sempre valide a tarefa de forma prática antes de marcá-la como concluída**:
+  - Execute todos os testes automatizados relacionados
+  - Verifique o funcionamento no container
+  - Confirme que todos os critérios de aceitação foram atendidos
+- **Atualize o arquivo [state.md](mdc:.fcai/state.md)** para refletir a conclusão
+- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
 
-### 5. Convenções para Testes
-- Arquivos de teste têm o sufixo _test.go (user_service_test.go).
-- Funções de teste começam com Test seguido do nome da função testada (TestUserService_Process).
-- Benchmarks começam com Benchmark (BenchmarkUserService_Process).
-- Exemplos começam com Example (ExampleUserService_Process).
-- Os testes ficam no mesmo pacote que o código testado.
+## Quando fazer ajustes em tarefas já finalizadas
+- Atualize o arquivo de resultados correspondente
+- Documente claramente quais ajustes foram feitos e por quê
+- **Atualize o arquivo [state.md](mdc:.fcai/state.md)** se os ajustes alterarem significativamente o estado do projeto
 
-### 6. Importações
-- Organize as importações em grupos:
-  1. Pacotes da biblioteca padrão
-  2. Pacotes de terceiros
-  3. Pacotes internos do projeto
-- Use o caminho completo de importação baseado no módulo Go.
+## Quando documentar aspectos do projeto
+- Use as pastas apropriadas em `.fcai/project/` para diferentes tipos de documentação
+- Nomeie os arquivos de forma descritiva, usando kebab-case
+- Mantenha a documentação atualizada conforme o projeto evolui
 
-Exemplo:
-```go
-import (
-    "context"
-    "fmt"
-    
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
-    
-    "github.com/seu-usuario/seu-projeto/internal/domain"
-)
-```
+## Quando revisar o progresso do projeto
+- Consulte as pastas de tarefas concluídas, em andamento e backlog
+- Use a documentação em `.fcai/project/` para entender o contexto geral
+- **Atualize o arquivo [state.md](mdc:.fcai/state.md)** após a revisão
+- Use os comandos do projeto para facilitar a visualização do estado
 
-### 7. Tratamento de Erros
-- Retorne erros explicitamente em vez de usar panics.
-- Use pacotes como "errors" ou "github.com/pkg/errors" para criar e enriquecer erros.
-- Verifique erros imediatamente após a chamada que pode gerá-los.
-- Evite usar _ para ignorar erros, a menos que seja absolutamente necessário.
+## Quando atualizar o estado do projeto
+- **Sempre atualize o arquivo [state.md](mdc:.fcai/state.md)** quando houver mudanças significativas
+- O arquivo deve conter informações sobre componentes, tarefas e estrutura
+- Use os comandos do projeto para facilitar a atualização e visualização do estado
+- Para detalhes completos, consulte [command-implementation.md](mdc:.fcai/project/documentation/command-implementation.md)
 
-### 8. Documentação
-- Todos os pacotes e funções/tipos exportados devem ter comentários de documentação.
-- Comentários de documentação começam com o nome do elemento que estão documentando em inglês.
-- Use frases completas com ponto final.
+## Quando trabalhar com containers
+- Utilize preferencialmente Docker neste projeto
+- Todos os comandos devem ser executados dentro dos containers utilizando docker compose exec <service> <command>
+- Para mais detalhes, consulte [container-events.mdc](mdc:.cursor/rules/container-events.mdc)
 
-Exemplo:
-```go
-// UserService providers methods...
-type UserService struct {
-    // ...
-}
+## Quando trabalhar com a arquitetura do projeto
+- Siga os princípios de Domain Driven Design e Clean Architecture
+- Mantenha o modelo de domínio separado das entidades do banco de dados
+- Para mais detalhes, consulte [architecture-events.mdc](mdc:.cursor/rules/architecture-events.mdc)
 
-// Process process the payment
-// Returns a response
-func (s *UserService) Process(ctx context.Context, req Request) (Response, error) {
-    // ...
-}
-```
+## Referências
+
+Para informações detalhadas, consulte:
+
+- **Estrutura do projeto**: [README.md](mdc:.fcai/README.md)
+- **Estado atual**: [state.md](mdc:.fcai/state.md)
+- **Sistema de comandos**: `.fcai/commands.md` e `.fcai/project/documentation/command-implementation.md`
+- **Mapeamento de migração**: `.fcai/project/documentation/migracao.md`
+- **Regras do sistema de comandos**: `.cursor/rules/command-system-events.mdc` 
 
 ---
 > Source: [devfullcycle/golangtechweek](https://github.com/devfullcycle/golangtechweek) — distributed by [TomeVault](https://tomevault.io).
