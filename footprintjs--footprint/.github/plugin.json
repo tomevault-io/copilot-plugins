@@ -1,0 +1,9 @@
+{
+  "name": "footprintjs--footprint",
+  "displayName": "footPrint",
+  "description": "The flowchart pattern for backend code \u2014 self-explainable systems that AI can reason about. Causal traces, auto-generated tool descriptions, transactional state.",
+  "version": "1.0.0",
+  "author": "footprintjs",
+  "homepage": "https://github.com/footprintjs/footPrint",
+  "skills": []
+}
