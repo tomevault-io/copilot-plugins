@@ -1,353 +1,143 @@
-## code-generation
+## prompt-docstrings
 
-> Code Generation Development Rules for CLI and SDK
+> https://stackoverflow.com/questions/19230971/how-do-i-jsdoc-a-nested-objects-methods
 
+# Prompt JSDoc Docstrings and Multi-File Support
 
-# Code Generation Development Rules
+https://stackoverflow.com/questions/19230971/how-do-i-jsdoc-a-nested-objects-methods
 
-> **⚠️ IMPORTANT**: These rules apply to both CLI and SDK development. Keep both codebases in sync when making changes.
+## Goal
+Add JSDoc-style docstrings to generated prompt functions and support scanning multiple YAML files in the prompts directory for better IDE support and organization.
 
-## Core Principles
+## Features Implemented
 
-### Never Modify Generated Content in Source Files
-- ❌ NEVER edit files in `sdk-js/src/` that contain generated content
-- ❌ NEVER hardcode generated content like `copyWriter` prompts in source files
-- ✅ ALWAYS generate content into `node_modules/@agentuity/sdk/dist/` or `src/` directories
-- ✅ Use dynamic loading patterns for generated content
-
-### Code Generation Workflow
-1. **Modify CLI generation logic** (e.g., `internal/bundler/prompts.go`)
-2. **Update SDK to handle generated content dynamically** (e.g., `src/apis/prompt/index.ts`)
-3. **Build and test the full pipeline**: CLI generation → SDK loading → Agent usage
-
-### Multi-File Support
-- **Directory Scanning**: CLI scans `src/prompts/` and `prompts/` directories for all YAML files
-- **File Processing**: Processes all `.yaml` and `.yml` files found in the prompts directory
-- **Combined Output**: Merges prompts from multiple files into a single generated output
+### 1. Multi-File Support
+The CLI now scans the entire `prompts` directory and processes all YAML files:
+- **Directory Locations**: Checks `src/prompts/` and `prompts/` directories
+- **File Types**: Processes all `.yaml` and `.yml` files
+- **Combined Output**: Merges all prompts from multiple files into a single generated output
 - **Legacy Support**: Still supports single `prompts.yaml` file in various locations
 
-### JSDoc Documentation
-- **Function Comments**: Generated `system` and `prompt` functions include JSDoc comments with actual prompt content
-- **IDE Support**: JSDoc comments provide better IDE hover tooltips and documentation
-- **Content Preservation**: Original prompt templates are preserved exactly as written in YAML
-- **Line Wrapping**: Long lines are automatically wrapped at 80 characters for readability
+### 2. JSDoc Comments on Functions and Types
+Generate JSDoc comments on both JavaScript functions and TypeScript type definitions:
 
-### Optional Field Handling
-- ✅ Generated code should NEVER require optional chaining (`?.`)
-- ✅ Always generate both `system` and `prompt` fields, even if empty
-- ✅ Empty fields should return empty strings, not undefined
-- ❌ Never generate partial objects that require optional chaining
+**JavaScript Functions:**
+```javascript
+system: /**
+ * System prompt:
+ * You are a {role:senior} code reviewer specializing in {language:JavaScript}.
+ * Your experience level is {experience:expert}
+ * 
+ */
+({ role, language, experience } = {}) => {
+    return interpolateTemplate("...", { role, language, experience })
+},
+```
 
-## Architecture Overview
+**TypeScript Type Definitions:**
+```typescript
+export type Assistant = {
+  slug: string;
+  /**
+   * System prompt:
+   * You are a {role:helpful assistant} specializing in {domain:programming}.  
+   * Your experience level is {experience:intermediate}
+   * 
+   */
+  system: (variables?: {
+    role?: string | "helpful assistant";
+    domain?: string | "programming";
+    experience?: string | "intermediate"
+  }) => string;
+  /**
+   * User prompt:
+   * Help the user with: {task:their question}
+   * Use a {!tone} approach.
+   */
+  prompt: (variables: {
+    task?: string | "their question";
+    tone: string
+  }) => string
+};
+```
+
+### 3. Content Inclusion
+- **System Prompts**: Include the actual system prompt content in JSDoc
+- **User Prompts**: Include the actual user prompt content in JSDoc
+- **Template Preservation**: Show original templates exactly as written in YAML
+- **Variable Syntax**: Preserve `{variable:default}`, `{!variable}`, `{{variable}}` syntax
+- **Line Wrapping**: Automatically wrap long lines at 80 characters for readability
+
+### 4. Template Preservation
+- Show original templates exactly as written in YAML
+- Preserve variable syntax: `{variable:default}`, `{!variable}`, `{{variable}}`
+- Maintain line breaks and formatting
+- Escape JSDoc special characters (`*/` becomes `*\/`)
+- Escape JSDoc comment characters (`*/` → `* /`)
+
+### 4. IDE Integration
+- Docstrings should be visible in IDE hover tooltips when accessing `prompts.promptName`
+- Should work with "Go to Definition" functionality
+- Provide IntelliSense documentation
+- Show original prompt template for reference
+
+## Implementation
+
+### Code Generator Updates
+1. **PromptsCollection JSDoc**: Add JSDoc comments to each property in the `PromptsCollection` type
+2. **Template Escaping**: Handle JSDoc comment characters in templates
+3. **Line Break Handling**: Split templates by newlines and add proper JSDoc formatting
+4. **Prompt-Only Focus**: Only include `@prompt` section, not `@system`
 
 ### File Structure
-```
-sdk-js/src/apis/prompt/
-├── generic_types.ts          # Simple utility types for CLI to use
-├── generated/
-│   ├── index.d.ts           # Shell TypeScript definitions (replaced by CLI)
-│   ├── index.js             # Shell JavaScript (replaced by CLI)
-│   └── _index.js            # Actual generated JavaScript (created by CLI)
-├── index.ts                 # Main API with dynamic loading
-└── signature.ts             # Signature function factory
-```
+- **`_index.js`**: Contains actual prompt objects (no JSDoc on individual objects)
+- **`index.d.ts`**: Contains TypeScript types with JSDoc comments on `PromptsCollection` properties
 
-### Key Learnings from Implementation
-
-#### 1. Simplified Architecture
-- **Use shell files**: `index.d.ts` and `index.js` are placeholders that get completely replaced
-- **Less complex generics**: Avoid overly complex TypeScript generics that cause compilation issues
-- **Rely on code generation**: Let the CLI do the heavy lifting instead of complex type manipulation
-
-#### 2. Slug-Based Naming
-- **Use slugs directly**: Generate code using the original slug names (e.g., `'simple-helper'`)
-- **Quote property names**: Use `'slug-name'` syntax in TypeScript interfaces
-- **Bracket notation**: Use `prompts['slug-name']` in JavaScript for property access
-- **CamelCase variables**: Use `strcase.ToLowerCamel(slug)` for JavaScript variable names
-
-#### 3. Type Safety Without Complexity
-```typescript
-// ✅ Simple, working approach
-export type PromptsCollection = Record<string, any>;
-export type PromptSignature<T> = (params: any) => string;
-
-// ❌ Avoid overly complex generics that cause compilation issues
-export type ComplexGeneric<T extends Prompt<infer A, infer B, infer C, infer D, infer E>> = ...
-```
-
-## CLI-Specific Rules
-
-### Generation Target Locations
-```go
-// ✅ Correct: Generate into installed SDK
-sdkPath := filepath.Join(root, "node_modules", "@agentuity", "sdk", "dist", "generated")
-
-// ❌ Wrong: Generate into source SDK
-sdkPath := filepath.Join(root, "src", "generated")
-```
-
-### Slug Handling in Code Generation
-```go
-// ✅ Correct: Use slugs directly with proper quoting
-const %s = {
-    slug: "%s",
-    // ... fields
-};`, strcase.ToLowerCamel(prompt.Slug), prompt.Slug
-
-// In TypeScript interfaces
-exports = append(exports, fmt.Sprintf("  '%s': %s;", prompt.Slug, strcase.ToCamel(prompt.Slug)))
-
-// In JavaScript property access
-bodyParts = append(bodyParts, fmt.Sprintf("const result = prompts['%s'].system(params)", prompt.Slug))
-```
-
-### File Generation Pattern
-```go
-func FindSDKGeneratedDir(ctx BundleContext, projectDir string) (string, error) {
-    possibleRoots := []string{
-        findWorkspaceInstallDir(ctx.Logger, projectDir),
-        projectDir,
-    }
-
-    for _, root := range possibleRoots {
-        // Try dist directory first (production)
-        sdkPath := filepath.Join(root, "node_modules", "@agentuity", "sdk", "dist", "generated")
-        if _, err := os.Stat(filepath.Join(root, "node_modules", "@agentuity", "sdk")); err == nil {
-            if err := os.MkdirAll(sdkPath, 0755); err == nil {
-                return sdkPath, nil
-            }
-        }
-        // Fallback to src directory (development)
-        sdkPath = filepath.Join(root, "node_modules", "@agentuity", "sdk", "src", "generated")
-        if _, err := os.Stat(filepath.Join(root, "node_modules", "@agentuity", "sdk", "src")); err == nil {
-            if err := os.MkdirAll(sdkPath, 0755); err == nil {
-                return sdkPath, nil
-            }
-        }
-    }
-    return "", fmt.Errorf("could not find @agentuity/sdk in node_modules")
-}
-```
-
-## SDK-Specific Rules
-
-### Path Resolution
-- Use absolute paths only (relative paths don't work in bundled environments)
-- Check `dist/` directory first, then `src/` directory
-- Always provide fallbacks for missing generated content
-
-### Dynamic Loading Pattern
-Generated content doesn't exist at SDK build time, so use dynamic loading patterns:
+## Example Output
 
 ```typescript
-// ✅ Good: Dynamic loading with fallbacks
-public async loadGeneratedContent(): Promise<void> {
-  try {
-    const path = require('path');
-    const fs = require('fs');
-    
-    const possiblePaths = [
-      path.join(process.cwd(), 'node_modules', '@agentuity', 'sdk', 'dist', 'generated', 'content.js'),
-      path.join(process.cwd(), 'node_modules', '@agentuity', 'sdk', 'src', 'generated', 'content.js')
-    ];
-    
-    for (const possiblePath of possiblePaths) {
-      if (fs.existsSync(possiblePath)) {
-        const generatedModule = require(possiblePath);
-        this.content = generatedModule.content || defaultContent;
-        break;
-      }
-    }
-  } catch (error) {
-    this.content = defaultContent;
-    console.warn('No generated content found');
-  }
-}
-```
-
-### Context Integration
-```typescript
-// ✅ Good: Load generated content in context creation
-export async function createServerContext(req: ServerContextRequest): Promise<AgentContext> {
-  // ... other initialization
-  
-  // Load generated content dynamically
-  await promptAPI.loadPrompts();
-  
-  return {
-    // ... other context properties
-    prompts: {
-      getPrompt: (slug: string) => promptAPI.prompts[slug],
-      compile: (slug: string, params: any) => {
-        // Use signature functions or fallback to manual compilation
-        const signature = promptAPI.signatures[slug];
-        if (signature) {
-          return signature(params);
-        }
-        // Fallback logic...
-      }
-    },
-  };
-}
-```
-
-### Type Safety
-- Generate TypeScript definitions for generated content
-- Use proper type annotations for dynamic imports
-- Maintain type safety throughout the loading process
-- Keep types simple to avoid compilation issues
-
-## Common Patterns
-
-### Generated Content API Class
-```typescript
-export default class GeneratedContentAPI {
-  public content: typeof defaultContent;
-
-  constructor() {
-    this.content = defaultContent;
-  }
-
-  public async loadContent(): Promise<void> {
-    // Dynamic loading logic here
-  }
-}
-```
-
-### Error Handling
-```typescript
-try {
-  // Try to load generated content
-  const generatedModule = require(possiblePath);
-  this.content = generatedModule.content || defaultContent;
-} catch (error) {
-  // Fallback to default content
-  this.content = defaultContent;
-  console.warn('No generated content found');
-}
-```
-
-## Common Pitfalls to Avoid
-
-### ❌ Don't Do This
-```go
-// Hardcoding generated content in source files
-const prompts = `export const prompts = { copyWriter: { ... } };`
-
-// Generating to source SDK files
-sdkPath := filepath.Join(root, "src", "generated")
-
-// Not checking if SDK exists
-os.WriteFile(path, content, 0644) // Without checking if path exists
-
-// Using unquoted slugs in TypeScript
-optional-with-defaults: OptionalWithDefaults; // ❌ Invalid syntax
-```
-
-```typescript
-// Hardcoding generated content in source files
-export const prompts = {
-  copyWriter: { /* hardcoded content */ }
+export type PromptsCollection = {
+  /**
+   * Optional Variables with Defaults - Test optional variables that have default values
+   *
+   * @prompt
+   * Help the user with: {task:their question}
+   * Use a {tone:friendly} approach.
+   */
+  optionalWithDefaults: OptionalWithDefaults;
+  /**
+   * Required Variables Test - Test required variables that must be provided
+   *
+   * @prompt
+   * Complete this {!task} for the user.
+   * The task must be specified.
+   */
+  requiredVariables: RequiredVariables;
 };
-
-// Using relative imports that don't work in bundles
-const generatedModule = require('./generated/_index.js');
-
-// Not providing fallbacks
-const generatedModule = require(possiblePath); // Will crash if file doesn't exist
-
-// Overly complex generics that cause compilation issues
-export type ComplexGeneric<T extends Prompt<infer A, infer B, infer C, infer D, infer E>> = ...
 ```
 
-### ✅ Do This Instead
-```go
-// Generate dynamic content from YAML/data
-content := GenerateTypeScriptTypes(prompts)
+## Key Decisions
 
-// Generate to installed SDK
-sdkPath := filepath.Join(root, "node_modules", "@agentuity", "sdk", "dist", "generated")
+### Why PromptsCollection Only
+- Individual prompt objects are not directly accessible to users
+- IDE hover works on `prompts.promptName` which maps to `PromptsCollection` properties
+- Avoids redundant JSDoc comments that don't provide value
 
-// Check and create directories
-if err := os.MkdirAll(sdkPath, 0755); err != nil {
-    return fmt.Errorf("failed to create directory: %w", err)
-}
+### Why Prompt Template Only
+- Users primarily care about what the prompt does, not the system instructions
+- Keeps JSDoc comments focused and concise
+- System templates are implementation details
 
-// Use quoted slugs in TypeScript
-'optional-with-defaults': OptionalWithDefaults; // ✅ Valid syntax
-```
+### Why No Individual Type JSDoc
+- Individual prompt types are not directly used by developers
+- JSDoc on `PromptsCollection` properties provides the IDE support needed
+- Keeps generated code clean and focused
 
-```typescript
-// Dynamic loading with absolute paths
-const possiblePaths = [
-  path.join(process.cwd(), 'node_modules', '@agentuity', 'sdk', 'dist', 'generated', '_index.js')
-];
-
-// With proper error handling
-try {
-  const generatedModule = require(possiblePath);
-  this.content = generatedModule.content || defaultContent;
-} catch (error) {
-  this.content = defaultContent;
-}
-
-// Simple, working types
-export type PromptsCollection = Record<string, any>;
-export type PromptSignature<T> = (params: any) => string;
-```
-
-## Build Considerations
-
-- Generated content is loaded at runtime, not build time
-- Use `require()` for CommonJS compatibility in bundled environments
-- Avoid `import()` statements for generated content
-- Ensure fallbacks work when generated content is missing
-- Keep TypeScript types simple to avoid compilation issues
-
-## Development Workflow
-
-### When Making Changes to Generated Content Structure:
-1. **Update CLI code generation** in `cli/internal/bundler/prompts/code_generator.go`
-2. **Update SDK to handle new structure** in `src/apis/prompt/index.ts`
-3. **Bump SDK version** in `package.json`
-4. **Build SDK**: `npm run build`
-5. **Run bundle command**: `go run . bundle` to regenerate content
-6. **Copy dist to node_modules**: Use `./build-and-copy.sh <target-directory>` or `cp -r dist/* node_modules/@agentuity/sdk/dist/` (if needed)
-
-**Note**: After the first setup, you only need to run step 6 for subsequent changes to avoid reinstalling the entire package.
-
-### Quick SDK Update Workflow:
-For faster iteration when testing SDK changes:
-```bash
-# In sdk-js directory
-npm run build
-./build-and-copy.sh /path/to/test-project/node_modules/@agentuity/sdk/dist
-```
-
-This copies the built SDK directly to your test project without reinstalling the package.
-
-### Required Exports
-- ✅ Always export `interpolateTemplate` from main SDK index
-- ✅ Generated content must import from `@agentuity/sdk` (not relative paths)
-- ✅ Ensure all dependencies are properly exported
-
-## Key Implementation Notes
-
-### What We Learned
-1. **Shell-based approach works better** than complex type manipulation
-2. **Slug-based naming** is more intuitive than camelCase conversion
-3. **Simple types** are more maintainable than complex generics
-4. **Complete file replacement** is cleaner than partial updates
-5. **Proper quoting** is essential for TypeScript interfaces with hyphens
-
-### Best Practices
-- Use slugs directly in generated code with proper quoting
-- Keep generic types simple and focused
-- Rely on code generation for complex type structures
-- Provide clear fallbacks for missing generated content
-- Test the full pipeline regularly
-
-Remember: The CLI's job is to generate content into the installed SDK, and the SDK's job is to load generated content dynamically, not contain hardcoded generated content.
+## Benefits
+- **IDE Support**: Better IntelliSense and hover information on `prompts.promptName`
+- **Focused Documentation**: Shows only the prompt template that users will see
+- **Clean Code**: No redundant JSDoc comments on unused objects
+- **Self-Documenting**: Developers can understand prompts without looking at YAML
 
 ---
 > Source: [agentuity/cli](https://github.com/agentuity/cli) — distributed by [TomeVault](https://tomevault.io).
