@@ -1,0 +1,9 @@
+{
+  "name": "enkrateialucca--oreilly-python-course",
+  "displayName": "oreilly-python-course",
+  "description": "Source code and notebooks for my OReilly Live Course about automating tasks with AI tools and Python.",
+  "version": "1.0.0",
+  "author": "EnkrateiaLucca",
+  "homepage": "https://github.com/EnkrateiaLucca/oreilly-python-course",
+  "skills": []
+}
