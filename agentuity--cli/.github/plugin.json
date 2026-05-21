@@ -1,0 +1,9 @@
+{
+  "name": "agentuity--cli",
+  "displayName": "cli",
+  "description": "The Agentuity Cloud Platform Tooling \ud83e\udd16",
+  "version": "1.0.0",
+  "author": "agentuity",
+  "homepage": "https://github.com/agentuity/cli",
+  "skills": []
+}
