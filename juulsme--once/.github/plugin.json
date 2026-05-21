@@ -1,0 +1,9 @@
+{
+  "name": "juulsme--once",
+  "displayName": "Once",
+  "description": "An Ecto type for distributed, locally unique 64-bits IDs with prefixes, sortability and masking",
+  "version": "1.0.0",
+  "author": "juulSme",
+  "homepage": "https://github.com/juulSme/Once",
+  "skills": []
+}
