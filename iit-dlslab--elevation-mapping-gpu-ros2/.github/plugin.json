@@ -1,0 +1,9 @@
+{
+  "name": "iit-dlslab--elevation-mapping-gpu-ros2",
+  "displayName": "elevation_mapping_gpu_ros2",
+  "description": "This repo contains the implementation of elevation mapping cupy for ros2 humble. The package works for x64 architecture and ARM arch for NVIDIA Jetson Orin boards",
+  "version": "1.0.0",
+  "author": "iit-DLSLab",
+  "homepage": "https://github.com/iit-DLSLab/elevation_mapping_gpu_ros2",
+  "skills": []
+}
