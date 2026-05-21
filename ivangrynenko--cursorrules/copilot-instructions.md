@@ -1,38 +1,54 @@
-## third-party-integration
+## vortex-cicd-standards
 
-> Standards for integrating external services
+> Standards for Vortex CI/CD and Renovate configuration
 
-# Third-Party Integration Standards
+# Vortex CI/CD Standards
 
-Ensures consistent and secure third-party service integration.
+Ensures proper CI/CD and dependency management configuration.
 
 <rule>
-name: third_party_integration
-description: Enforce standards for external service integration
+name: vortex_cicd_standards
+description: Enforce standards for Vortex CI/CD and Renovate configuration
 filters:
-  - type: file_extension
-    pattern: "\\.(php|js|ts)$"
+  - type: file_name
+    pattern: "^config\\.yml$|^renovate\\.json$|\\.github/workflows/.*\\.yml$"
 
 actions:
   - type: enforce
     conditions:
-      - pattern: "new\\s+[A-Z][a-zA-Z]*Client\\("
-        message: "Implement proper error handling for external services"
+      - pattern: "workflows:\\s+version:\\s*2\\.1"
+        message: "Use Vortex's CircleCI configuration template"
 
-      - pattern: "process\\.env\\.|getenv\\("
-        message: "Use configuration management for API credentials"
+      - pattern: "\"extends\":\\s*\\[\\s*\"config:base\"\\s*\\]"
+        message: "Extend Vortex's Renovate configuration for Drupal projects"
+
+      - pattern: "steps:\\s+- run:\\s+name:\\s+Install dependencies"
+        message: "Use scripts/vortex/provision.sh for consistent provisioning"
 
   - type: suggest
     message: |
-      Integration Best Practices:
-      - Implement proper error handling
-      - Use environment variables
-      - Create service abstractions
-      - Implement retry mechanisms
-      - Monitor integration health
+      CI/CD Best Practices:
+      - Use dual schedules for Drupal updates
+      - Configure automated PR assignments
+      - Enable deployment notifications
+      - Use provided test scaffolds
+      - Implement proper caching strategy
+      - Configure branch protection rules
+      - Use standardized job naming
+
+  - type: validate
+    conditions:
+      - pattern: "\"packageRules\":\\s*\\[\\s*\\{\\s*\"matchPackagePatterns\":\\s*\\[\"^drupal/core"
+        message: "Configure separate update schedules for Drupal core and contrib"
+
+      - pattern: "jobs:\\s+build_test:"
+        message: "Include all required test jobs from Vortex template"
+
+      - pattern: "- store_test_results:"
+        message: "Enable test results storage for better CI visibility"
 
 metadata:
-  priority: high
+  priority: critical
   version: 1.0
 </rule> 
 
