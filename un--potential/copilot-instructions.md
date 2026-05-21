@@ -1,125 +1,239 @@
-## mobile-backend-communication
+## trpc-backend-procedures
 
-> Use when the mobile app communicates with the backend
+> applied to all backend trpc procedures
 
-## tRPC v11 with TanStack Query Communication
+## tRPC v11 Backend Procedures
 
 ### Core Principles
 
-- Use tRPC v11 with TanStack Query for all frontend-backend communication
-- Follow the modern tRPC TanStack Query client pattern (not the classic integration)
-- Ensure each query has a unique and descriptive query key
-- Implement proper error handling for all mutations
+- Use `protectedProcedure` by default for all procedures
+- Organize procedures using merged routers by feature domain
+- Follow descriptive, hierarchical naming conventions for routers
+- Use Zod for all input validation
+- Standardize error handling with error objects from a central location
+- Leverage the context for database access and user authentication
 
-### Query Implementation
+### Router Structure
 
-- Use `queryOptions` for regular queries:
 ```typescript
-const queryOptions = trpc.path.to.query.queryOptions(
-  { 
-    // Input parameters here
-  },
-  {
-    // Additional TanStack Query options
-    staleTime: 60000, // Example: 1 minute stale time
-  }
-);
+// Structure routers by feature domain
+import { router } from "../trpc";
+import { userProfileRouter } from "./user/profile";
+import { userSettingsRouter } from "./user/settings";
+import { healthCheckRouter } from "./system/health";
 
-const query = useQuery(queryOptions);
-```
-
-- Use `infiniteQueryOptions` for paginated/infinite data:
-```typescript
-const infiniteQueryOptions = trpc.path.to.query.infiniteQueryOptions(
-  {
-    // Input parameters including cursor
-  },
-  {
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-  }
-);
-
-const infiniteQuery = useInfiniteQuery(infiniteQueryOptions);
-```
-
-### Mutation Implementation
-
-- Always implement `onSuccess` and `onError` handlers for mutations:
-```typescript
-const mutationOptions = trpc.path.to.mutation.mutationOptions({
-  onSuccess: (data) => {
-    // Handle success
-    // - Update UI state
-    // - Show success notification
-    // - Invalidate relevant queries
-  },
-  onError: (error) => {
-    // Handle error
-    // - Display error message
-    // - Log error information
-    // - Restore previous state if needed
-  }
+export const appRouter = router({
+  user: router({
+    profile: userProfileRouter,
+    settings: userSettingsRouter,
+  }),
+  system: router({
+    health: healthCheckRouter,
+  }),
 });
 
-const mutation = useMutation(mutationOptions);
+export type AppRouter = typeof appRouter;
 ```
 
-### Query Key Management
+### Router Naming Conventions
 
-- Use descriptive and unique query keys by leveraging tRPC's built-in key generation:
+- Use descriptive, hierarchical names that reflect the feature domain
+- Follow a consistent pattern: `domain.entity.action`
+- Examples:
+  - `user.profile.getDetails`
+  - `user.profile.health.checkStatus`
+  - `payment.subscription.cancel`
+  - `content.article.publish`
+
+### Procedure Implementation
+
 ```typescript
-// Get specific query key
-const queryKey = trpc.path.to.query.queryKey();
+// Example procedure in user/profile.ts
+import { router, protectedProcedure } from "../../trpc";
+import { z } from "zod";
+import { PROFILE_ERRORS } from "@potential/consts/errors";
 
-// Get router-level query key (matches all queries in router)
-const routerQueryKey = trpc.router.pathKey();
+export const userProfileRouter = router({
+  getDetails: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string().optional(), // Optional - defaults to current user
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { db, auth } = ctx;
+      const user = auth.user;
+      
+      try {
+        const userId = input.userId || ctx.user.id;
+        const profile = await db.user.findUnique({
+          where: { id: userId },
+          select: {
+            id: true,
+            name: true,
+            // Select other fields
+          },
+        });
+        
+        if (!profile) {
+          throw PROFILE_ERRORS.PROFILE_NOT_FOUND;
+        }
+        
+        return profile;
+      } catch (error) {
+        // Handle error, returning request ID
+        if (error === PROFILE_ERRORS.PROFILE_NOT_FOUND) {
+          throw {
+            code: "NOT_FOUND",
+            message: error.message,
+            requestId: ctx.requestId,
+          };
+        }
+        
+        throw {
+          code: "INTERNAL_SERVER_ERROR",
+          message: PROFILE_ERRORS.UNKNOWN_ERROR.message,
+          requestId: ctx.requestId,
+        };
+      }
+    }),
+    
+  updateDetails: protectedProcedure
+    .input(
+      z.object({
+        name: z.string().min(2).optional(),
+        bio: z.string().max(500).optional(),
+        // Other fields
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { db } = ctx;
+      
+      try {
+        const updatedProfile = await db.user.update({
+          where: { id: ctx.user.id },
+          data: input,
+        });
+        
+        return updatedProfile;
+      } catch (error) {
+        throw {
+          code: "INTERNAL_SERVER_ERROR",
+          message: PROFILE_ERRORS.UPDATE_FAILED.message,
+          requestId: ctx.requestId,
+        };
+      }
+    }),
+});
 ```
 
-- Invalidate queries properly after mutations:
+### Context Setup
+
 ```typescript
-const queryClient = useQueryClient();
+// server/trpc.ts
+import { initTRPC, TRPCError } from '@trpc/server';
+import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
+import { getServerSession } from 'next-auth/next';
+import { nanoid } from 'nanoid';
+import { db } from '@potential/db';
 
-// In onSuccess handler
-queryClient.invalidateQueries({ queryKey: trpc.path.to.query.queryKey() });
-```
+export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+  const requestId = nanoid();
+  const session = await getServerSession(opts.req, opts.res);
+  
+  return {
+    db,
+    user: session?.user,
+    requestId,
+  };
+};
 
-### Type Safety
+const t = initTRPC.context<typeof createTRPCContext>().create();
 
-- Leverage tRPC's type inference:
-```typescript
-import { inferInput, inferOutput } from '@trpc/tanstack-react-query';
+export const router = t.router;
+export const procedure = t.procedure;
 
-// For a specific procedure
-type Input = inferInput<typeof trpc.path.to.procedure>;
-type Output = inferOutput<typeof trpc.path.to.procedure>;
+// Define middleware to check authentication
+const isAuthed = t.middleware(({ ctx, next }) => {
+  if (!ctx.user) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+  return next({
+    ctx: {
+      user: ctx.user,
+    },
+  });
+});
 
-// For full router
-import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
-import { AppRouter } from './path/to/router';
-
-type Inputs = inferRouterInputs<AppRouter>;
-type Outputs = inferRouterOutputs<AppRouter>;
+export const protectedProcedure = procedure.use(isAuthed);
 ```
 
 ### Error Handling
 
-- Implement consistent error handling across the application
-- Always display user-friendly error messages
-- Log detailed error information when appropriate
-- Consider using a toast or notification system for errors
+- Define standardized error objects in a central location:
 
-### Performance Optimizations
+```typescript
+// packages/consts/backend/errors/routerName.ts
+export const ROUTERNAME = {
+    PROCEDURENAME: {
+        PROFILE_NOT_FOUND: {
+            code: 'PROFILE_NOT_FOUND',
+            message: 'The requested profile could not be found',
+        },
+        UPDATE_FAILED: {
+            code: 'UPDATE_FAILED',
+            message: 'Failed to update profile information',
+        },
+        UNKNOWN_ERROR: {
+            code: 'UNKNOWN_ERROR',
+            message: 'An unexpected error occurred',
+        },
+      }
+};
 
-- Set appropriate staleTime and cacheTime based on data freshness requirements
-- Use prefetching for anticipated data needs
-- Consider optimistic updates for mutations that modify data
-- Implement proper query invalidation strategies to avoid over-fetching
+export const AUTH_ERRORS = {
+  // Auth related errors
+};
 
-### Testing
+// Other error categories
+```
 
-- Write unit tests for complex query and mutation logic
-- Test error handling paths to ensure they work correctly
-- Mock tRPC responses in tests to simulate different server scenarios
+- Always return the requestId with the error:
+
+```typescript
+try {
+  // Procedure logic
+} catch (error) {
+  throw {
+    code: error.code || 'INTERNAL_SERVER_ERROR',
+    message: error.message || 'An unexpected error occurred',
+    requestId: ctx.requestId,
+  };
+}
+```
+
+### Input Validation with Zod
+
+- Always use Zod for input validation
+- Create reusable schemas for common data structures
+- Provide helpful error messages in schema definitions
+
+```typescript
+// Common schemas
+export const userSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email format"),
+});
+
+// Procedure input
+.input(
+  z.object({
+    userId: z.string().uuid("Invalid user ID format"),
+    data: userSchema.partial().omit({ id: true }),
+  })
+)
+```
 
 ---
 > Source: [un/potential](https://github.com/un/potential) — distributed by [TomeVault](https://tomevault.io).
