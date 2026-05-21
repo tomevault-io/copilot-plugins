@@ -4,7 +4,7 @@
   "repo": "one",
   "description": "A beautifully designed fasting tracker with full Wear OS support.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/charliesbot/one",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T14:56:39Z"
+  "distributed_at": "2026-05-21T03:38:07Z"
 }
