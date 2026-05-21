@@ -1,0 +1,9 @@
+{
+  "name": "hypnguyen1209--offensive-claude",
+  "displayName": "offensive-claude",
+  "description": "Offensive security toolkit for Claude Code covering red team, exploit dev, AD attacks, EDR bypass, mobile pentest",
+  "version": "1.0.0",
+  "author": "hypnguyen1209",
+  "homepage": "https://github.com/hypnguyen1209/offensive-claude",
+  "skills": []
+}
