@@ -1,0 +1,9 @@
+{
+  "name": "gnana997--ollama-copilot",
+  "displayName": "ollama-copilot",
+  "description": "AI Inline Suggestion and Chat feature powered by Ollama Local LLMs",
+  "version": "1.0.0",
+  "author": "gnana997",
+  "homepage": "https://github.com/gnana997/ollama-copilot",
+  "skills": []
+}
