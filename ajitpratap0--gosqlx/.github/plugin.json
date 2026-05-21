@@ -1,0 +1,9 @@
+{
+  "name": "ajitpratap0--gosqlx",
+  "displayName": "GoSQLX",
+  "description": "High-performance SQL parser, formatter, linter & security scanner for Go - 1.5M+ ops/sec, multi-dialect, zero-copy, race-free",
+  "version": "1.0.0",
+  "author": "ajitpratap0",
+  "homepage": "https://github.com/ajitpratap0/GoSQLX",
+  "skills": []
+}
