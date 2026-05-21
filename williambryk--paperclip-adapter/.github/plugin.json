@@ -1,0 +1,9 @@
+{
+  "name": "williambryk--paperclip-adapter",
+  "displayName": "Paperclip-Adapter",
+  "description": "A Paperclip adapter that lets you run Hermes Agent as a managed employee in a Paperclip company.",
+  "version": "1.0.0",
+  "author": "WilliamBryk",
+  "homepage": "https://github.com/WilliamBryk/Paperclip-Adapter",
+  "skills": []
+}
