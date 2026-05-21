@@ -1,0 +1,9 @@
+{
+  "name": "smartsheet-platform--smar-mcp",
+  "displayName": "smar-mcp",
+  "description": "Smartsheet MCP Server",
+  "version": "1.0.0",
+  "author": "smartsheet-platform",
+  "homepage": "https://github.com/smartsheet-platform/smar-mcp",
+  "skills": []
+}
