@@ -1,84 +1,60 @@
-## build-and-test
+## c-coding-style
 
-> Build system and test conventions for the colibri-stateless project
+> C coding style conventions for the colibri-stateless codebase
 
 
-# Build and Test
+# C Coding Style
 
-## Building
+## Naming Conventions
 
-Use CMake presets for standard builds:
+- **Functions**: `snake_case` with module prefix: `c4_verify()`, `ssz_get()`, `bytes_as_le()`, `buffer_append()`, `json_parse()`.
+- **Types**: `snake_case_t` suffix: `bytes_t`, `ssz_ob_t`, `verify_ctx_t`, `c4_state_t`.
+- **Enums**: `UPPER_SNAKE_CASE` values: `C4_SUCCESS`, `SSZ_TYPE_UINT`, `C4_CHAIN_TYPE_ETHEREUM`.
+- **Macros**: `UPPER_SNAKE_CASE`: `TRY_ASYNC()`, `THROW_ERROR()`, `NULL_BYTES`, `HASH_LEN`.
+- **Files**: `snake_case.c` / `snake_case.h` pairs. Test files: `test_<feature>.c`.
 
-```bash
-cmake --preset default          # Debug with OP-Stack + HTTP server + tests
-cmake --build build/default     # Build everything
-```
+## Module Prefixes
 
-Available presets: `default`, `testing`, `full-features`, `wasm`, `wasm-profile`.
+| Prefix | Module |
+|--------|--------|
+| `c4_` | Core API (verify, prover, state) |
+| `ssz_` | SSZ encoding/decoding |
+| `bytes_` | Byte operations |
+| `buffer_` | Buffer management |
+| `json_` | JSON parsing |
 
-## Running Tests
+## Header Files
 
-```bash
-ctest --test-dir build/default                        # All tests
-./build/default/test/unittests/test_<feature>          # Single test
-```
+- Include guards: `#ifndef filename_h__` / `#define filename_h__` (NOT `#pragma once`).
+- Always wrap with `#ifdef __cplusplus extern "C" { #endif` ... `#endif`.
+- Includes: local headers first (`"./header.h"`), then system headers (`<stdlib.h>`).
 
-## Creating New Tests
+## Function Annotations
 
-1. Create `test/unittests/test_<feature>.c` using the Unity pattern.
-2. No need to modify any `CMakeLists.txt` -- test files are auto-discovered.
-3. Use `setUp()`/`tearDown()` for per-test setup.
-4. Register tests with `RUN_TEST(test_function_name)` in `main()`.
-5. For RPC tests, use `./scripts/create_test.sh <testname> <method> <args...>` to generate test data.
+- `NONNULL` / `NONNULL_FOR((n))` -- mark parameters that must not be NULL.
+- `RETURNS_NONNULL` -- function never returns NULL.
+- `M_RET` -- function returns allocated memory (caller must free).
+- `M_TAKE(n)` -- function takes ownership of parameter n.
+- `COUNTED_BY(len)` -- array size annotation for bounds checking.
 
-## Test Pattern
+## Formatting
 
-```c
-#include "unity.h"
+Always format C code using the `.clang-format` file in the project root. Key settings (BasedOnStyle: LLVM):
 
-void setUp(void) { }
-void tearDown(void) { }
+- No column limit (`ColumnLimit: 0`) -- lines are not wrapped.
+- Pointer alignment left: `int* ptr` (not `int *ptr`).
+- Space after C-style casts: `(int) x`.
+- Opening brace on same line (`BreakBeforeBraces: Custom`, `AfterControlStatement: Never`), `else` on new line (`BeforeElse: true`).
+- Align consecutive assignments, declarations, macros, and trailing comments.
+- Short blocks, case labels, functions, ifs, and loops allowed on a single line.
+- Includes are sorted (`SortIncludes: true`).
 
-void test_my_feature(void) {
-    TEST_ASSERT_EQUAL_INT(expected, actual);
-}
+## Type Patterns
 
-int main(void) {
-    UNITY_BEGIN();
-    RUN_TEST(test_my_feature);
-    return UNITY_END();
-}
-```
-
-## Adding New Chain Modules
-
-Register verifier and prover in the chain's `CMakeLists.txt`:
-
-```cmake
-add_verifier(
-  NAME my_verifier
-  GET_REQ_TYPE my_get_request_type
-  VERIFY my_verify
-  METHOD_TYPE my_get_method_type
-)
-
-add_prover(
-  NAME my_prover
-  PROOF my_prover_execute
-)
-```
-
-These macros are defined in `src/chains/chains.cmake`.
-
-## Key CMake Options
-
-- `TEST=ON` -- build unit tests
-- `HTTP_SERVER=ON` -- build HTTP server
-- `CHAIN_OP=ON` -- include OP-Stack support
-- `CHAIN_ETH=ON` -- include Ethereum support (default ON)
-- `EMBEDDED=ON` -- build for embedded target
-- `WASM=ON` -- build WebAssembly
-- `COVERAGE=ON` -- enable test coverage
+- Typedef structs: `typedef struct { ... } name_t;`
+- Forward declarations: `typedef struct name name_t;`
+- Enum typedefs: `typedef enum { ... } name_t;`
+- `bytes_t` is always passed by value (it is a fat pointer, not a reference type).
 
 ---
 > Source: [corpus-core/colibri-stateless](https://github.com/corpus-core/colibri-stateless) — distributed by [TomeVault](https://tomevault.io).
