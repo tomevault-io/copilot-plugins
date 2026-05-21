@@ -1,0 +1,9 @@
+{
+  "name": "dbcls--togomcp",
+  "displayName": "togomcp",
+  "description": "MCP server for the RDF Portal (Public version)",
+  "version": "1.0.0",
+  "author": "dbcls",
+  "homepage": "https://github.com/dbcls/togomcp",
+  "skills": []
+}
