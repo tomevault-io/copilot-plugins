@@ -1,137 +1,95 @@
-## self-review-implementation
+## self-review-process
 
-> To implement a self-review process in Cursor AI where it evaluates its work before completing tasks, you'll need to set up both the rules file and configure Cursor's Agent Mode correctly.
+> Core Project Guidelines with Self-Review Process
 
-# Cursor AI Self-Review Implementation Guide
+# Enhanced Cursor Rules with Self-Review Process
 
-## Enabling Autonomous Review in Cursor
+## CRITICAL: Review Process Before Task Completion
 
-To implement a self-review process in Cursor AI where it evaluates its work before completing tasks, you'll need to set up both the rules file and configure Cursor's Agent Mode correctly.
+Before completing any coding task, you MUST perform a thorough self-review focusing on the following areas:
 
-### 1. Setup YOLO Mode for Autonomous Actions
+### Design Pattern Review
+- Identify and explicitly name the design patterns used in the solution
+- Verify that the chosen patterns are appropriate for the problem domain
+- Check if patterns are implemented correctly and completely
+- Ensure patterns are consistently applied across related components
+- Look for opportunities to refactor toward cleaner pattern implementations
 
-Cursor's "YOLO Mode" allows the AI to take autonomous actions like running tests and builds, which is essential for self-review. To enable it:
+### Code Duplication Detection
+- Scan all newly written code for duplicated or similar code blocks
+- Check for duplicated logic across different files and components
+- Identify opportunities to extract repeated code into reusable methods
+- Look for similar functionality that could be abstracted into base classes or utilities
+- Cross-reference with existing codebase to avoid reimplementing existing functionality
 
-1. Open Cursor Settings
-2. Scroll down to find YOLO Mode settings
-3. Enable YOLO Mode
-4. Add the following allowed commands to the Allow List:
-   ```
-   dotnet build
-   dotnet test
-   tsc
-   npm test
-   mkdir
-   ```
+### Async Code Validation
+- NEVER use blocking methods like `.GetAwaiter().GetResult()` or `.Result` on async tasks
+- Always use async/await pattern consistently throughout the codebase
+- Ensure proper propagation of async calls up the call stack
+- Check for potential deadlocks in async code
+- Verify that cancellation tokens are properly used where appropriate
+- Ensure exception handling in async code follows best practices
 
-### 2. Configure Diagnostic Output Handling
+### External Knowledge
+- When encountering unfamiliar frameworks or libraries, search the web for best practices
+- Research modern approaches before implementing solutions for complex problems
+- Look up official documentation for APIs being used
+- Verify compatibility between different libraries and frameworks
+- Check for deprecated methods or approaching obsolescence
 
-Ensure Cursor can capture diagnostic output by adding these to your project's test configuration:
+### Build and Test Validation
+- Use `dotnet build` to verify code compiles without warnings
+- Run `dotnet test` to validate that all tests pass
+- Address any build warnings that appear during compilation
+- Fix test failures before considering the task complete
+- Run appropriate linting tools as part of the review
 
-#### For .NET Projects:
-Add to your test project file (`.csproj`):
-```xml
-<PropertyGroup>
-  <VSTestLogger>trx</VSTestLogger>
-  <VSTestResultsDirectory>$(MSBuildProjectDirectory)/TestResults</VSTestResultsDirectory>
-</PropertyGroup>
-```
+## Test Code Standards
 
-#### For Node.js Projects:
-Update your package.json test script to include diagnostic output:
-```json
-"scripts": {
-  "test": "jest --verbose"
-}
-```
+### Data-Driven Testing Approach
+- Structure all test code to be data-driven by default
+- Separate test logic from test data
+- Design tests to easily accommodate new test cases by simply adding data samples
+- Use parameterized tests for testing multiple scenarios with the same logic
+- Implement test data factories to generate varied test cases
+- Minimize the number of test methods; instead, have fewer methods that run against more data points
+- Each data sample should clearly indicate its purpose in the test name or description
 
-### 3. Create Special Review Commands
+### Diagnostic Output for Debugging
+- Use `System.Diagnostics` for writing debug output in test code
+- Include detailed context in diagnostic messages
+- Log input parameters and output results for each test case
+- Write diagnostic information for each critical step in test execution
+- Use different verbosity levels appropriately (Verbose, Debug, Information, etc.)
+- Format diagnostic output to be easily readable in test runners
+- Include timing information for performance-sensitive operations
+- Ensure diagnostic output clearly identifies which test case is running when using data-driven tests
 
-Set up custom commands in Cursor to trigger the review process:
+## Production Code Standards
 
-1. Open Command Palette (Cmd+Shift+P / Ctrl+Shift+P)
-2. Type "Cursor: Create New Command"
-3. Name it "Review Current Code"
-4. Add this prompt:
-   ```
-   Perform a comprehensive review of the current file focusing on:
-   1. Design pattern identification and correctness
-   2. Code duplication detection
-   3. Async code validation (no blocking calls)
-   4. Build verification with dotnet build
-   5. Test verification with dotnet test
-   
-   If any issues are found, fix them and explain the changes.
-   ```
+### SOLID Principles Enforcement
+- Single Responsibility: Each class should have only one reason to change
+- Open/Closed: Classes should be open for extension but closed for modification
+- Liskov Substitution: Derived classes must be substitutable for their base classes
+- Interface Segregation: Many client-specific interfaces are better than one general-purpose interface
+- Dependency Inversion: Depend on abstractions, not concretions
 
-### 4. Set Up Project Structure for Data-Driven Testing
+### Clean Code Practices
+- Use meaningful and consistent naming conventions
+- Keep methods short and focused (generally under 20 lines)
+- Minimize method parameters (generally 3 or fewer)
+- Avoid deeply nested code blocks (maximum nesting level of 3)
+- Write self-documenting code with appropriate comments for complex logic
+- Use immutable objects where possible
+- Follow consistent formatting and style throughout the codebase
 
-Create standard test utilities for data-driven testing:
-
-1. Create a `TestUtilities` project/directory
-2. Add reusable test data generators
-3. Create a consistent approach for parameterized tests
-
-### Example Template for Data-Driven Test:
-
-```csharp
-// Example C# data-driven test template
-[Theory]
-[MemberData(nameof(TestCases))]
-public async Task OperationName_Scenario_ExpectedResult(
-    // Input parameters
-    string inputParam1,
-    int inputParam2,
-    // Expected output
-    string expectedResult)
-{
-    // Arrange
-    var sut = new SystemUnderTest();
-    System.Diagnostics.Debug.WriteLine($"Testing with: {inputParam1}, {inputParam2}");
-    
-    // Act
-    var result = await sut.OperationAsync(inputParam1, inputParam2);
-    System.Diagnostics.Debug.WriteLine($"Result: {result}");
-    
-    // Assert
-    Assert.Equal(expectedResult, result);
-}
-
-public static IEnumerable<object[]> TestCases => new List<object[]>
-{
-    // Format: inputParam1, inputParam2, expectedResult
-    new object[] { "valid input", 42, "expected output" },
-    new object[] { "edge case", 0, "special result" },
-    new object[] { "error case", -1, "error message" }
-};
-```
-
-### 5. Framework-Specific Research Commands
-
-Add custom commands for framework research:
-
-1. Create a command named "Research Framework"
-2. Use this prompt:
-   ```
-   Search for best practices and up-to-date documentation for [FRAMEWORK_NAME].
-   Focus on:
-   1. Modern approaches
-   2. Potential pitfalls
-   3. Performance considerations
-   4. Community-recommended patterns
-   ```
-
-### 6. Setup Workflow for New Tasks
-
-When starting a new task, establish this workflow:
-
-1. Define the requirements clearly
-2. Research any unfamiliar frameworks (use the Research command)
-3. Plan the approach, identifying appropriate design patterns
-4. Implement with consistent async patterns
-5. Create data-driven tests with diagnostic output
-6. Run the self-review process before finalizing
-7. Address any issues identified during review
+### Error Handling
+- Use appropriate exception types for different error scenarios
+- Include meaningful error messages that aid debugging
+- Log exceptions with full context at appropriate levels
+- Implement retry mechanisms for transient failures where appropriate
+- Never swallow exceptions without proper handling
+- Use defensive programming techniques for critical code paths
 
 ---
 > Source: [achieveai/LmDotnetTools](https://github.com/achieveai/LmDotnetTools) — distributed by [TomeVault](https://tomevault.io).
