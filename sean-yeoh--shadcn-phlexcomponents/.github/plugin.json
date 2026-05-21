@@ -1,0 +1,9 @@
+{
+  "name": "sean-yeoh--shadcn-phlexcomponents",
+  "displayName": "shadcn_phlexcomponents",
+  "description": "A modern UI component library for Ruby on Rails applications, built with Phlex and styled with Tailwind CSS. Inspired by shadcn/ui.",
+  "version": "1.0.0",
+  "author": "sean-yeoh",
+  "homepage": "https://github.com/sean-yeoh/shadcn_phlexcomponents",
+  "skills": []
+}
