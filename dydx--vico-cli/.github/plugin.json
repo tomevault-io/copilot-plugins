@@ -1,0 +1,9 @@
+{
+  "name": "dydx--vico-cli",
+  "displayName": "vico-cli",
+  "description": "My attempts at reverse engineering the vicohome.io api to get my bird data",
+  "version": "1.0.0",
+  "author": "dydx",
+  "homepage": "https://github.com/dydx/vico-cli",
+  "skills": []
+}
