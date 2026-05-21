@@ -2,6 +2,8 @@
 
 > Source: [johnpolacek/vibecode.party.starter](https://github.com/johnpolacek/vibecode.party.starter) — distributed by [TomeVault](https://tomevault.io)
 
+The full stack Next.js starter project for vibe coding.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
