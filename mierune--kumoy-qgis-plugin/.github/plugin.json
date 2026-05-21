@@ -1,0 +1,9 @@
+{
+  "name": "mierune--kumoy-qgis-plugin",
+  "displayName": "kumoy-qgis-plugin",
+  "description": "QGIS plugin for managing Kumoy projects",
+  "version": "1.0.0",
+  "author": "MIERUNE",
+  "homepage": "https://github.com/MIERUNE/kumoy-qgis-plugin",
+  "skills": []
+}
