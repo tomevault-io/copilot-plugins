@@ -1,0 +1,9 @@
+{
+  "name": "gptme--gptme-agent-template",
+  "displayName": "gptme-agent-template",
+  "description": "Agent workspace template for gptme - create persistent autonomous agents that build, learn, socialize, and assist you with whatever you need.",
+  "version": "1.0.0",
+  "author": "gptme",
+  "homepage": "https://github.com/gptme/gptme-agent-template",
+  "skills": []
+}
