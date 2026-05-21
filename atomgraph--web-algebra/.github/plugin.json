@@ -1,0 +1,9 @@
+{
+  "name": "atomgraph--web-algebra",
+  "displayName": "Web-Algebra",
+  "description": "Suite of generic Linked Data/SPARQL as well as LinkedDataHub-specific MCP tools",
+  "version": "1.0.0",
+  "author": "AtomGraph",
+  "homepage": "https://github.com/AtomGraph/Web-Algebra",
+  "skills": []
+}
