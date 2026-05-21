@@ -1,0 +1,9 @@
+{
+  "name": "mercator-ocean--oceanbench",
+  "displayName": "oceanbench",
+  "description": "Benchmark evaluating ocean forecasting systems against reference datasets and observations.",
+  "version": "1.0.0",
+  "author": "mercator-ocean",
+  "homepage": "https://github.com/mercator-ocean/oceanbench",
+  "skills": []
+}
