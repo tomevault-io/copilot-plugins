@@ -1,0 +1,44 @@
+{
+  "name": "ThoughtEcho",
+  "owner": "Shangjin-Xiao",
+  "repo": "ThoughtEcho",
+  "description": "\ud83d\udcdd \u4f60\u7684\u4e13\u5c5e\u7075\u611f\u6458\u5f55\u672c / Your Personal Inspiration Notebook with AI Power \u2728",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Shangjin-Xiao/ThoughtEcho",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T22:04:06Z"
+}
