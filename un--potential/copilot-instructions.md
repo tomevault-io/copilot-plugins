@@ -1,166 +1,125 @@
-## mobile-app-toast
+## mobile-backend-communication
 
-> Guidelines for using sonner-native for toast notifications in the mobile app
+> Use when the mobile app communicates with the backend
 
- ---
-description: Guidelines for using sonner-native for toast notifications in the mobile app
-globs: apps/mobile/**/*
-alwaysApply: false
----
-# Mobile App Toast Notifications
+## tRPC v11 with TanStack Query Communication
 
-Use the `sonner-native` library for displaying toast notifications in the mobile app. The Toaster component is already configured in the root layout with proper styling.
+### Core Principles
 
-## Basic Usage
+- Use tRPC v11 with TanStack Query for all frontend-backend communication
+- Follow the modern tRPC TanStack Query client pattern (not the classic integration)
+- Ensure each query has a unique and descriptive query key
+- Implement proper error handling for all mutations
 
-Import the toast function from sonner-native:
+### Query Implementation
 
+- Use `queryOptions` for regular queries:
 ```typescript
-import { toast } from 'sonner-native';
-```
-
-## Toast Variations
-
-### Basic Toast
-
-```typescript
-toast('This is a basic toast message');
-```
-
-### Success Toast
-
-Use for successful operations:
-
-```typescript
-toast.success('Operation completed successfully');
-```
-
-### Error Toast
-
-Use for error notifications:
-
-```typescript
-toast.error('An error occurred');
-```
-
-### Warning Toast
-
-Use for warning notifications:
-
-```typescript
-toast.warning('Warning: This action cannot be undone');
-```
-
-### Loading Toast
-
-Use for async operations that need loading indicators:
-
-```typescript
-toast.loading('Loading data...');
-```
-
-### Promise Toast
-
-Use for handling promises with different states:
-
-```typescript
-toast.promise(fetchData(), {
-  loading: 'Fetching data...',
-  success: (data) => `Successfully fetched ${data.length} items`,
-  error: 'Failed to fetch data'
-});
-```
-
-## Advanced Usage
-
-### With Description
-
-Add more context with a description:
-
-```typescript
-toast('User updated', {
-  description: 'User profile has been updated successfully'
-});
-```
-
-### With Custom Duration
-
-Default duration is 4000ms. Override it:
-
-```typescript
-toast('Quick notification', { duration: 2000 });
-// Or for persistent toast:
-toast('Important message', { duration: Infinity });
-```
-
-### With Action Buttons
-
-Add action buttons to toasts:
-
-```typescript
-toast('New message received', {
-  action: {
-    label: 'View',
-    onClick: () => navigateToMessages()
+const queryOptions = trpc.path.to.query.queryOptions(
+  { 
+    // Input parameters here
+  },
+  {
+    // Additional TanStack Query options
+    staleTime: 60000, // Example: 1 minute stale time
   }
-});
-```
-
-### With Cancel Option
-
-Add a cancel option to toasts:
-
-```typescript
-toast('Changes applied', {
-  cancel: {
-    label: 'Undo',
-    onClick: () => revertChanges()
-  }
-});
-```
-
-### Updating Existing Toasts
-
-```typescript
-const toastId = toast.loading('Processing...');
-
-// Later update the same toast:
-toast.success('Completed!', { id: toastId });
-```
-
-### Dismissing Toasts
-
-```typescript
-// Dismiss a specific toast
-const id = toast('Hello');
-toast.dismiss(id);
-
-// Dismiss all toasts
-toast.dismiss();
-```
-
-## Custom JSX Content
-
-For more complex toast content:
-
-```typescript
-toast.custom(
-  <View className="flex-row items-center">
-    <Icon name="info" size={20} />
-    <Text className="ml-2">Custom toast content</Text>
-  </View>
 );
+
+const query = useQuery(queryOptions);
 ```
 
-## Best Practices
+- Use `infiniteQueryOptions` for paginated/infinite data:
+```typescript
+const infiniteQueryOptions = trpc.path.to.query.infiniteQueryOptions(
+  {
+    // Input parameters including cursor
+  },
+  {
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+  }
+);
 
-1. Keep toast messages concise and meaningful
-2. Use appropriate toast types for different scenarios
-3. Include actionable information when possible
-4. For critical errors that require user action, consider using modals instead
-5. Don't overuse toasts - they should be for important notifications only
-6. Use the same toast ID when updating an existing toast to avoid multiple toasts
-7. Set appropriate durations based on the importance and length of the message
+const infiniteQuery = useInfiniteQuery(infiniteQueryOptions);
+```
+
+### Mutation Implementation
+
+- Always implement `onSuccess` and `onError` handlers for mutations:
+```typescript
+const mutationOptions = trpc.path.to.mutation.mutationOptions({
+  onSuccess: (data) => {
+    // Handle success
+    // - Update UI state
+    // - Show success notification
+    // - Invalidate relevant queries
+  },
+  onError: (error) => {
+    // Handle error
+    // - Display error message
+    // - Log error information
+    // - Restore previous state if needed
+  }
+});
+
+const mutation = useMutation(mutationOptions);
+```
+
+### Query Key Management
+
+- Use descriptive and unique query keys by leveraging tRPC's built-in key generation:
+```typescript
+// Get specific query key
+const queryKey = trpc.path.to.query.queryKey();
+
+// Get router-level query key (matches all queries in router)
+const routerQueryKey = trpc.router.pathKey();
+```
+
+- Invalidate queries properly after mutations:
+```typescript
+const queryClient = useQueryClient();
+
+// In onSuccess handler
+queryClient.invalidateQueries({ queryKey: trpc.path.to.query.queryKey() });
+```
+
+### Type Safety
+
+- Leverage tRPC's type inference:
+```typescript
+import { inferInput, inferOutput } from '@trpc/tanstack-react-query';
+
+// For a specific procedure
+type Input = inferInput<typeof trpc.path.to.procedure>;
+type Output = inferOutput<typeof trpc.path.to.procedure>;
+
+// For full router
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
+import { AppRouter } from './path/to/router';
+
+type Inputs = inferRouterInputs<AppRouter>;
+type Outputs = inferRouterOutputs<AppRouter>;
+```
+
+### Error Handling
+
+- Implement consistent error handling across the application
+- Always display user-friendly error messages
+- Log detailed error information when appropriate
+- Consider using a toast or notification system for errors
+
+### Performance Optimizations
+
+- Set appropriate staleTime and cacheTime based on data freshness requirements
+- Use prefetching for anticipated data needs
+- Consider optimistic updates for mutations that modify data
+- Implement proper query invalidation strategies to avoid over-fetching
+
+### Testing
+
+- Write unit tests for complex query and mutation logic
+- Test error handling paths to ensure they work correctly
+- Mock tRPC responses in tests to simulate different server scenarios
 
 ---
 > Source: [un/potential](https://github.com/un/potential) — distributed by [TomeVault](https://tomevault.io).
