@@ -1,234 +1,115 @@
-## coding-type-hints
+## coding-validate
 
-> Type hints, the Any ban, Optional/Union scrutiny, and variable annotation rules.
+> Runtime type enforcement with @validate — when to use, performance and serialization exemptions.
 
-# Type Hints and Typing Rules
+# Runtime Type Enforcement with `@validate` (CRITICAL)
 
-## Type Hints
-- **Always include type hints** for all function parameters and return values
-- **Always use capitalized `typing` imports**: `List`, `Dict`, `Set`, `Tuple`, `Optional`, `Union`, `FrozenSet`
-- Do NOT use lowercase built-in generics (`list[str]`, `dict[str, int]`) or pipe unions (`str | None`) even though Python 3.10+ supports them
-- **Rationale:** Capitalized typing imports are visually distinct and grep-able. `List` is unambiguously a type annotation; `list` could be a variable name, a builtin call, or a type hint. This makes bulk find-and-replace across files reliable, and makes it immediately clear when reading code that a line involves type annotations.
-- Use `-> None` for functions that return no value (side-effect functions, lifecycle hooks like `post_initialize`, `on_start`, `on_stop`)
-- Use `-> NoReturn` ONLY for functions that genuinely never return (unconditional `raise`, `sys.exit()`, infinite loops)
-- Include type hints for class attributes and instance variables
-- **Prefer `morphic.Typed` over `TypedDict`** for structured data. `TypedDict` is a fallback for cases where `Typed` cannot be used (e.g., dicts that must remain plain `dict` for JSON serialization to a third-party API, or when the consuming code expects a raw dict, not a model). When you control both producer and consumer, use `Typed`.
-- **`Protocol` is for function parameters and call-site typing, NOT for Pydantic/Typed field types.** Pydantic v2 validates Protocol fields with `isinstance()` at construction time, which (a) rejects `None` for non-Optional fields even in tests that don't exercise the field, and (b) fails on proxy objects that use `__getattr__`-based dynamic dispatch (e.g., Concurry `Worker` proxies) because Python's `isinstance` Protocol check inspects the type's `__dict__` and MRO, not dynamic attributes. Declare such fields as `Any` and document the duck-typed contract in a comment referencing the Protocol class. The Protocol provides type safety at *call sites* (IDE autocomplete, static analysis); Pydantic field validation is the wrong enforcement point.
+## What `@validate` Does and Why It Matters
 
-### Strict `Any` Ban (CRITICAL)
+`morphic.validate` is a decorator built on Pydantic's `validate_call` that brings full Pydantic validation to regular functions and methods. When you decorate a function with `@validate`, every call validates and coerces its arguments against the declared type hints at runtime — not just at type-check time, not just in tests, but on every single invocation.
 
-**`Any` is as good as no typing.** Using `Any` removes the entire reason to use Morphic Typed, Pydantic, and type hints. It tells neither the reader nor the type checker what the value actually is. LLM coding assistants produce `Any` reflexively because it silences type errors without solving them.
+This is the bridge between "type hints as documentation" and "type hints as enforcement." Without `@validate`, a function annotated `def submit(task: Task)` will happily accept a string, a number, or `None` at runtime — Python ignores annotations by default. With `@validate`, the same function rejects invalid inputs immediately with a clear `ValidationError`, and automatically coerces compatible types (e.g., a dict into a `Task` object via Pydantic's model coercion).
 
-**`Any` is ONLY acceptable in these specific situations:**
+The interaction with the Strict `Any` Ban is direct: `@validate` can only enforce types that are declared. If a parameter is typed `Any`, `@validate` passes it through without checking. Every `Any` in a `@validate`-decorated function is a parameter that bypasses runtime validation entirely. The two rules reinforce each other: the `Any` ban ensures types are declared precisely, and `@validate` ensures those precise declarations are enforced at runtime.
 
-| Situation | Why `Any` is acceptable | Example |
+For LLM coding agents, `@validate` is a critical safety net. When an agent generates a call like `worker.submit(task=some_variable)`, the agent may have constructed `some_variable` incorrectly — wrong type, wrong structure, missing fields. Without `@validate`, this error propagates silently. With `@validate`, the error is caught at the function boundary with a clear `ValidationError` at the call site.
+
+`@validate` works with Morphic `Typed` classes, `Typed + Registry` subclasses, standalone functions, and class methods. Dict arguments are automatically coerced into `Typed` instances. String arguments are coerced into ints, floats, and bools. `AutoEnum` values are resolved by fuzzy matching. This coercion means `@validate` is not just a gate — it is a normalizer that converts loosely-typed data into strongly-typed objects at the function boundary.
+
+The latency cost is real but small: a few hundred microseconds per call. For Concurry's user-facing API (`.options()`, `.init()`, `gather()`, `wait()` called with a list) this is invisible — the actual work (thread/process/Ray dispatch) dwarfs the validation cost by orders of magnitude. The only places where `@validate` must be omitted are **tight inner loops in concurrency primitives** where microseconds compound into seconds.
+
+### When to Use `@validate` in Concurry
+
+**Default: use `@validate` on every public function and method.** The decorator should be present unless a specific exception applies.
+
+| Category | Use `@validate`? | Rationale |
 |---|---|---|
-| **Pydantic/Typed fields for duck-typed workers** | Pydantic's `isinstance()` validation rejects Concurry `WorkerProxy` proxy objects; the Protocol cannot be used as a field type. | `worker: Any  # WorkerProtocol; see types.py` |
-| **`_serialize_value`-style functions** | Serialization functions that genuinely accept any Python object. | `def serialize(value: Any) -> Any:` |
-| **`Dict[str, Any]` for genuinely heterogeneous dicts** | When the dict's values are mixed types by design (JSON payloads, config dicts, serialized output). | `metadata: Dict[str, Any]` |
-| **`**kwargs: Any`** | Catch-all for pass-through kwargs to parent classes or third-party libraries. | `**kwargs: Any` |
-| **`PrivateAttr` for opaque runtime handles** | Locks, queues, processes, event loops — objects from external libraries whose type is complex or private. | `_lock: Any = PrivateAttr()` |
+| **All public module-level functions** (`wait`, `gather`, `wrap_future`) | **YES** | User-facing entry points. |
+| **All public methods of user-facing classes** (`Worker.options`, `LimitSet.acquire`) | **YES** | `Worker.options()` already uses `@validate`. Extend to all public methods. |
+| **Factory functions** | **YES** | Construct objects from user config; coercion is essential. |
+| **Private methods** (`_create_retry_configs`, `_dispatch_to_worker`) | **No** (type hints required, `@validate` optional) | Called from validated public methods. Double-validating wastes cycles. |
+| **Morphic lifecycle hooks** (`pre_initialize`, `post_initialize`, `pre_validate`) | **No** | The Morphic framework calls these with already-validated data. |
+| **Pydantic `@field_validator` methods** | **No** | Already part of Pydantic's validation pipeline. |
+| **`AutoEnum` methods, `__getattr__`, `__getitem__`** | **No** | Input types guaranteed by the Python language or Morphic framework. |
+| **Hot-path concurrency primitives** (see below) | **No** (with documented justification) | Called thousands/millions of times per second. |
+| **Worker methods serialized across Ray** (see below) | **Case-by-case** | `@validate` closure may not be picklable. |
 
-**`Any` is NEVER acceptable in these situations:**
+### Performance Exemption (CRITICAL for Concurry)
 
-| Situation | What to use instead | Example fix |
+Concurry's core primitives are called in tight loops at very high frequency. The following components are **explicitly exempt** from `@validate` because the validation overhead compounds into visible latency:
+
+| Component | Call frequency | Why exempt |
 |---|---|---|
-| **Function parameters where you know the type** | Use the actual type. | `task: Task` not `task: Any` |
-| **Return types where you know the type** | Use the actual type. | `-> List[Future]` not `-> List[Any]` |
-| **List/Dict generic parameters** | Spell out the element type. | `List[WorkerProxy]` not `List[Any]` |
-| **Forward references within the same package** | Use string annotations or fix import ordering. See the Forward References rule below. | `result: "WorkerResult"` not `result: Any` |
+| `BaseFuture.result()`, `.done()`, `.cancel()`, `.exception()` | Once per future in `wait()`/`gather()` loops (50,000+/sec) | 200µs × 50k = 10s added to a 2s gather |
+| `async_wait()`, `async_gather()` inner loops | Same as above | Async hot path |
+| `Acquisition.__init__()`, `.update()`, `.release()` | Once per limit acquisition per task submission | Thousands/sec in rate-limited workers |
+| `LimitSet` internal synchronization methods | Called under lock on every task dispatch | Microseconds matter under contention |
 
-**The test is simple:** when you write `Any`, ask: **"Do I know what type this actually is at runtime?"** If yes, write that type. If you are writing `Any` to avoid an import or to silence a type error, fix the import or the type error instead.
-
-❌ Bad (known types hidden behind `Any`):
-```python
-def submit_batch(
-    self,
-    tasks: List[Any],              # ❌ These are Task objects
-    callback: Optional[Any] = None,  # ❌ This is Callable[[Result], None]
-) -> List[Any]:                    # ❌ These are Future objects
-```
-
-✅ Good (actual types everywhere they are known):
-```python
-def submit_batch(
-    self,
-    tasks: List[Task],
-    callback: Optional[Callable[[Result], None]] = None,
-) -> List[Future]:
-```
-
-### No `Any` for Forward References (CRITICAL)
-
-**Never use `Any` as a workaround for forward references.** This defeats the entire purpose of Morphic Typed — if the field is typed `Any`, Pydantic cannot validate it, the IDE cannot autocomplete it, and the reader does not know what it holds.
-
-**Forward references within the same file:** Use a string annotation (`"ClassName"`) or add `from __future__ import annotations` at the top of the file.
-
-**Forward references across files:** Fix the import ordering. In a well-structured package, there should be no circular imports. The dependency graph flows one way. If module A needs a type from module B and module B needs a type from module A, the modules need restructuring — either extract the shared type into a lower-level module, or merge the files.
-
-❌ Bad (using `Any` to avoid importing a type from another module):
-```python
-class WorkerPool(Typed):
-    balancer: Any  # LoadBalancer (Any required: forward ref)
-    workers: List[Any]  # List[WorkerProxy] (Any: forward ref)
-```
-
-✅ Good (import the type and use it directly):
-```python
-from concurry.core.limit.balancer import LoadBalancer
-from concurry.core.worker.proxy import WorkerProxy
-
-class WorkerPool(Typed):
-    balancer: LoadBalancer
-    workers: List[WorkerProxy]
-```
-
-✅ Also good (string annotation when the type is defined later in the same file):
-```python
-class WorkerPool(Typed):
-    balancer: "LoadBalancer"
-```
-
-**If adding the import creates a circular dependency, that is a bug in the module structure.** Fix the structure (extract the shared type into a leaf module) instead of papering over it with `Any`.
-
-### Scrutinize Every `Optional` and `Union` (CRITICAL)
-
-**`Optional` is the second most common way LLMs degrade your type system, after `Any`.** When an LLM declares a value as `Optional[X]`, it is saying "this can be `None`." That claim must be justified. LLMs add `Optional` reflexively as a defensive measure — it silences type errors by broadening the type instead of fixing the root cause. The result is an `Optional` cascade: once a function returns `Optional[X]`, every caller must handle `None`, which means either (a) cluttering every call site with `if result is None` guards, or (b) ignoring the `None` case, which blows up at runtime.
-
-**The rule is simple:** when you see `Optional[X]`, ask: **"Can this genuinely be `None` at runtime, and why?"** If the answer is "no" or "only during initialization before a lifecycle hook sets it," remove the `Optional` and fix the initialization so the value is always present after construction.
-
-**Never let the LLM broaden a type signature to fix a bug.** When debugging, LLMs frequently propose changing `X` to `Optional[X]` or `Union[X, Y]` to make a type error go away. This hides the bug instead of fixing it. The correct response is to trace *why* the value is `None` and fix the code path that produces it.
-
-**Use `@overload` with `Literal` when return type depends on input values.** When a function's return type varies based on a parameter (e.g., a `mode` string, a boolean flag), define `@overload` signatures so the type checker can narrow the return type at each call site. This eliminates unnecessary `Union` return types and removes the need for `isinstance` checks or `cast()` at call sites.
-
-#### Anti-Pattern: `ClassVar` Default + `Optional` Field + `pre_initialize` Fallback
-
-A particularly insidious form of unnecessary `Optional` occurs with `Typed + Registry` hierarchies: a base class declares a `ClassVar` with a default, an `Optional` instance field, and a `pre_initialize` hook that copies the `ClassVar` into the field when it is `None`. This makes the field `Optional` for no reason — the value is *always* set after construction, but the type system does not know that. Every consumer of the field must handle `None` even though `None` is impossible after initialization.
-
-The fix: make the instance field **mandatory (no default)** on the base class. Subclasses override it with their own default. This forces every concrete subclass to declare a value, and the type checker knows the field is never `None`.
-
-❌ Bad (ClassVar default + Optional field + pre_initialize fallback):
-```python
-class BaseHandler(Typed, Registry):
-    _default_timeout: ClassVar[float] = 30.0                # ClassVar: invisible to Pydantic
-    timeout: Optional[float] = None                         # Optional: pollutes every consumer
-
-    @classmethod
-    def pre_initialize(cls, data: Dict[str, Any]) -> None:
-        if data.get("timeout") is None:
-            data["timeout"] = cls._default_timeout          # Fallback: makes Optional "work"
-
-class HttpHandler(BaseHandler):
-    _default_timeout: ClassVar[float] = 10.0                # Overrides ClassVar, but still Optional
-```
-
-**Why this is bad:**
-
-1. `timeout` is typed `Optional[float]`, so every method that uses `self.timeout` must handle `None` — even though `pre_initialize` guarantees it is never `None` after construction. The type system does not see `pre_initialize`; it sees `Optional[float]`.
-2. The `ClassVar` `_default_timeout` is invisible to Pydantic serialization (`model_dump()` excludes ClassVars) and to IDE autocomplete on instances. It exists only to service the `pre_initialize` fallback.
-3. A new `BaseHandler` subclass that forgets to set `_default_timeout` silently inherits `30.0` from the base class. There is no error, no warning — just a silent default that may be wrong.
-
-✅ Good (mandatory field on base, subclass defaults):
-```python
-class BaseHandler(Typed, Registry):
-    timeout: float                                          # Mandatory: no default on base
-
-class HttpHandler(BaseHandler):
-    timeout: float = 10.0                                   # Subclass provides its default
-
-class GrpcHandler(BaseHandler):
-    timeout: float = 30.0                                   # Different subclass, different default
-
-class CustomHandler(BaseHandler):
-    timeout: float                                          # No default → caller MUST pass it
-    # CustomHandler()  → ValidationError: timeout is required
-    # CustomHandler(timeout=5.0)  → works
-```
-
-**Why this is better:**
-
-1. `timeout` is typed `float`, not `Optional[float]`. Every consumer knows it is always present. No `None` guards needed.
-2. No `ClassVar`, no `pre_initialize` fallback, no hidden indirection.
-3. A new subclass that forgets to set `timeout` **fails at construction time** — Pydantic raises `ValidationError: timeout is required`. This early failure is exactly what fail-fast demands.
-4. A subclass that intentionally has no default forces the caller to pass `timeout` explicitly, which is correct when the right value depends on context.
-
-**General principle:** When a `Typed + Registry` hierarchy has a field where different subclasses need different defaults, make the field **mandatory on the base class** and **override the default on each subclass**. Do NOT use `ClassVar` + `Optional` + `pre_initialize` — that pattern exists only to avoid making the field mandatory, and the cost is `Optional` pollution across the entire codebase.
-
-### Type-Annotate All Intermediate Variables (CRITICAL)
-
-**Every local variable MUST have a type annotation the first time it is assigned.** If the variable later changes type (which should be rare), annotate the re-assignment. This applies even when the type is "obvious" from the right-hand side.
-
-**Why this matters:**
-
-1. **Readability.** A reader scanning a 200-line function can see `futures: List[Future] = []` and immediately know the shape. Without the annotation, they must trace through the loop body to figure out what gets put into `futures`.
-2. **Refactoring safety.** When you change the return type of a called function, annotated variables produce immediate type errors at every downstream usage. Unannotated variables silently propagate the wrong type.
-3. **LLM code generation.** When an LLM reads your function to extend it, explicit types on every variable tell it exactly what data is available. Without annotations, it guesses — and guesses wrong.
-
-❌ Bad (no annotations on intermediates):
-```python
-workers = [self._create_worker(i) for i in range(count)]
-results = {}
-pending = set()
-
-for future in completed:
-    result = future.result()
-```
-
-✅ Good (every variable annotated at first assignment):
-```python
-workers: List[WorkerProxy] = [self._create_worker(i) for i in range(count)]
-results: Dict[str, Result] = {}
-pending: Set[Future] = set()
-
-for future in completed:
-    result: Result = future.result()
-```
-
-**Loop variables** in `for` loops should be annotated when the iterable's element type is not obvious:
+When `@validate` is omitted from a public function for performance, the omission **MUST** be documented with a comment:
 
 ```python
-# Obvious (iterating a List[WorkerProxy]) — annotation optional but encouraged:
-for worker in self._workers:
-    ...
-
-# Not obvious (iterating dict items, zip, enumerate) — annotation required:
-for worker_id, proxy in self._proxy_map.items():
-    worker_id: str
-    proxy: WorkerProxy
+# @validate omitted: hot path — called once per future in wait()/gather() loops.
+# At 50k futures/sec, 200µs/call validation overhead would add 10s to a 2s operation.
+def result(self, timeout: Optional[float] = None) -> Any:
     ...
 ```
 
-**This rule has no exceptions.** Annotate every intermediate variable. The cost is a few extra characters per line. The benefit is that every function reads like a specification of the data flowing through it.
+For these components, `Typed` on the class (validated once at construction) provides sufficient type safety without per-call overhead.
 
-❌ Bad (lowercase generics, pipe unions):
+Without this justification, the omission will be treated as a bug and `@validate` will be added back.
+
+### Serialization Exemption
+
+Concurry `Worker` methods may be serialized and sent to remote Ray processes. The `@validate` decorator wraps the function in a Pydantic `validate_call` closure that may not serialize cleanly across process boundaries. When `@validate` cannot be used on a Worker method for this reason, document it:
+
 ```python
-def process(items: list[str], config: dict[str, int] | None = None) -> str | None:
-    pass
+class MyWorker(Worker):
+    # @validate omitted: Worker methods are serialized for Ray remote execution.
+    # validate_call closure is not picklable across process boundaries.
+    def process(self, data: List[float]) -> float:
+        ...
 ```
 
-✅ Good (capitalized typing imports):
-```python
-from typing import List, Dict, Optional
+Note that `@validate` on `Worker.options()` (a classmethod, not serialized) is fine and already used.
 
-def process(items: List[str], config: Optional[Dict[str, int]] = None) -> Optional[str]:
-    pass
+### Examples
+
+✅ Good (public function with `@validate` — already done in Concurry):
+```python
+@classmethod
+@validate
+def options(
+    cls: Type[T],
+    *,
+    mode: Union[ExecutionMode, _NO_ARG_TYPE] = _NO_ARG,
+    blocking: Union[bool, _NO_ARG_TYPE] = _NO_ARG,
+    max_workers: Optional[Union[conint(ge=0), _NO_ARG_TYPE]] = _NO_ARG,
+    ...
+) -> WorkerBuilder:
+    ...
 ```
 
-❌ Bad (NoReturn misuse):
+✅ Good (private method — type hints required, `@validate` optional):
 ```python
-from typing import NoReturn
-
-def on_start(self) -> NoReturn:  # ❌ This function returns normally!
-    self._setup_resources()
+def _create_retry_configs(self) -> Optional[Dict[str, Optional[RetryConfig]]]:
+    ...
 ```
 
-✅ Good:
+✅ Good (hot-path exemption with documented justification):
 ```python
-def on_start(self) -> None:  # Returns normally, no value
-    self._setup_resources()
+class ThreadFuture(BaseFuture):
+    # @validate omitted: hot path — result() is called in tight
+    # wait()/gather() loops at 50k+ calls/sec.
+    def result(self, timeout: Optional[float] = None) -> Any:
+        ...
+```
 
-def fatal_error(msg: str) -> NoReturn:  # Genuinely never returns
-    raise RuntimeError(msg)
+❌ Bad (public method missing `@validate` without justification):
+```python
+class LimitPool(Typed):
+    def acquire(self, *, requested: Dict[str, int]) -> LimitSetAcquisition:
+        # ❌ Public method, not a hot path, no justification for missing @validate
+        ...
 ```
 
 ---
