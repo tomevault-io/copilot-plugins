@@ -1,114 +1,72 @@
-## hono-api-patterns
+## monorepo-organization
 
-> Hono API development patterns for Flarekit backend
+> Monorepo organization and development patterns for Flarekit
 
-# Hono API Development Patterns
 
-When creating new API endpoints in Flarekit:
+# Monorepo Organization Patterns
 
-## Route Structure
-- Organize routes by version: `/routes/v1/[feature]/`
-- Each feature should have its own directory with an `index.ts` that exports an array of endpoint functions
-- Use descriptive filenames: `[resource][Action].route.ts` (e.g., `storageCreate.route.ts`)
+When working with the Flarekit monorepo:
 
-## API Endpoint Creation
-- Always use `createApiEndpoint()` utility from `@/utils/api-builder.util`
-- Follow this structure:
-```typescript
-export const [resourceAction]Endpoint = createApiEndpoint({
-  resource: 'ResourceName',
-  method: 'post|get|put|delete',
-  path: '/api/v1/resource',
-  responseSchema: YourResponseSchema,
-  request: {
-    body: { content: { 'application/json': { schema: YourRequestSchema } } },
-    query: YourQuerySchema, // if needed
-    params: YourParamSchema, // for path parameters like :id
-    headers: HeadersSchema, // if auth required
-  },
-  handler: async (c) => {
-    // Implementation
-  },
-});
+## Project Structure
+```
+flarekit/
+├── apps/
+│   ├── backend/     # Cloudflare Worker API (Hono)
+│   └── web/         # Frontend application (Astro)
+├── packages/
+│   └── database/    # Shared database layer (Drizzle)
+├── scripts/         # Utility scripts
+└── .github/         # CI/CD workflows
 ```
 
-## Route Parameter Patterns
-- For single resource retrieval (GET `/resource/:id`), use `GetOneParamSchema`
-- The route analyzer automatically detects `:id` parameters and applies appropriate schemas
-- Path parameters use curly braces in OpenAPI spec: `/api/v1/storage/{id}`
-- Access path parameters with: `const id = c.req.param('id')`
+## Package Dependencies
+- Use workspace references: `"@flarekit/database": "*"`
+- Shared packages should be built before dependent apps
+- Use TurboRepo for efficient builds and caching
 
-### Get By ID Routes
-```typescript
-import { GetOneParamSchema } from '@/schemas/getOneQuery.schema';
+## Development Workflow
+- Start all services: `npm run dev` (from root)
+- Individual services: `npm run dev --filter="@flarekit/backend"`
+- Database migrations: `npx flarekit migrate:d1:local`
 
-export const resourceGetOneEndpoint = createApiEndpoint({
-  resource: 'Resource',
-  method: 'get',
-  path: '/api/v1/resource/{id}',
-  responseSchema: ResourceRecordSchema,
-  request: {
-    params: GetOneParamSchema,
-  },
-  handler: async (c) => {
-    const id = c.req.param('id');
-    // Implementation
-  },
-});
-```
+## Shared Code Patterns
+- Database schemas and services in `packages/database`
+- Utility functions should be in appropriate packages
+- Type definitions shared across apps
+- Common configurations in root or shared packages
 
-### Custom Path Parameters
-For non-standard path parameters (not `:id`), create custom parameter schemas:
-```typescript
-const CustomParamSchema = z.object({
-  slug: z.string().openapi({
-    param: {
-      name: 'slug',
-      in: 'path',
-      description: 'Resource slug identifier',
-      required: true,
-      schema: { type: 'string' },
-    },
-  }),
-}).openapi('CustomParamSchema');
-```
+## Build Process
+- Database package builds first (dependency for backend)
+- Backend and web can build in parallel
+- Use `turbo.json` for build orchestration
+- Generate migrations before building database package
 
-## Schema Patterns
-- Create separate Zod schemas for requests and responses in `/schemas/`
-- Use `.openapi()` method for documentation examples
-- Follow naming: `[Resource][Action][Request|Response]Schema`
-- Always include success/error response schemas
-- Use `GetOneParamSchema` for standard `:id` path parameters
+## Environment Management
+- Each app has its own `.dev.vars` for local secrets
+- Shared environment variables in root `.env`
+- Use `wrangler.json` for Cloudflare-specific config
+- Different persistence paths for different environments
 
-## Database Integration
-- Use `initDBInstance(c.env, c.env)` to get database services
-- Access services via `db.[tableName]` (e.g., `db.storage`)
-- Handle database errors with try/catch and throw appropriate custom errors
+## Testing Strategy
+- Unit tests in each package/app
+- Integration tests for database operations
+- E2E tests for full application flows
+- Use Vitest with Cloudflare Workers pool
 
-## Error Handling
-- Use custom error classes: `ValidationError`, `DatabaseError`, `ExternalServiceError`, `NotFoundError`
-- Always include field-level validation errors for user input
-- Provide meaningful error messages and codes
-- For missing resources, use `NotFoundError` instead of `DatabaseError`
+## Deployment
+- Database migrations run first
+- Backend and frontend deploy independently
+- Use GitHub Actions for automated deployment
+- Environment-specific configurations
 
-## Response Format
-- Always return JSON responses with consistent structure
-- Include `success: boolean` for operation results
-- Use appropriate HTTP status codes
-- Add pagination headers for list endpoints: `Content-Range`
+## Code Sharing Best Practices
+- Export types from packages for use in apps
+- Keep business logic in appropriate layers
+- Avoid circular dependencies between packages
+- Use path aliases for clean imports (`@/`, `@utils/`)
 
-## Route Analysis
-The route analyzer (`analyzeRoute`) automatically detects:
-- List routes: GET without path variables
-- Get by ID routes: GET with `:id` path parameter specifically
-- Create routes: POST without path variables
-- Update routes: PUT/PATCH with path variables
-- Delete routes: DELETE with path variables
-
-@apps/backend/src/routes/v1/storage/storageCreate.route.ts
-@apps/backend/src/routes/v1/storage/storageGetOne.route.ts
-@apps/backend/src/utils/api-builder.util.ts
-@apps/backend/src/schemas/getOneQuery.schema.ts
+@turbo.json
+@package.json
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
