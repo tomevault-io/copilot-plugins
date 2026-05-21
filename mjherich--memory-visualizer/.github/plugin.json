@@ -1,0 +1,9 @@
+{
+  "name": "mjherich--memory-visualizer",
+  "displayName": "memory-visualizer",
+  "description": "Interactive visualizer for Anthropic's Memory MCP knowledge graphs. Instantly explore, debug, and analyze entities, relations, and observations from memory.json files in the Model Context Protocol.",
+  "version": "1.0.0",
+  "author": "mjherich",
+  "homepage": "https://github.com/mjherich/memory-visualizer",
+  "skills": []
+}
