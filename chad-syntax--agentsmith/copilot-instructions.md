@@ -1,28 +1,36 @@
 ## agentsmith
 
-> These rules are helpful for contrubuting to the front-end Nextjs code and the typescript code.
+> - **Development**: `npm run dev` - Start Next.js dev server
 
+# CLAUDE.md - AgentSmith Development Guidelines
 
-# Agentsmith tsx contributing rules for cursor AI
+## Build and Test Commands
 
-1. Only use named exports (`export const thing`, not `export default`)¹
-2. All pages should have a single top level page component in page-components
-3. All components should be in components folder either as a single file named after the component or in a subfolder named after the component¹
-4. All functions should be declared in const rocket format: `const rocket = async (payload: any) => { ... }`¹
-5. All props should be explicitly typed as `type ComponentProps = { ... }` and not typed inline ex: `props: { foo: any }` is bad `props: ComponentProps` is good. DO NOT deconstruct props, if a component has props, it should be named as `props` and deconstructed in the body of the component. Write `const foo = (props: FooProps) => { const { arg, arg2 } = props; }` rather than `const foo = ({ arg, arg2 }: FooProps) => {}`
-6. Only use icons from `lucide-react`
-7. Only use tailwind css
-8. Each component file should have at most 2 react components, any more than that and it should be split up into multiple component files/folders.
-9. Any links to pages that exist under the web-studio should be prefixed with /app
-10. All functions that take more than 1 argument, should use an `options` syntax instead of adding many arguments. i.e. `const foo = (options: FooOptions) => {}` rather than `const foo = (bar: string, baz: string, quux: string) => {}`
-11. If the response for a function is an object, then it should be typed separately rather than inline. i.e. `const foo = (): FooResult => {}` instead of `const foo = (): { foo: string; bar: string; baz: string } => {}` 
-12. DO NOT edit any generated files within the `__generated__` folder.
-13. DO NOT create new types if they can be inferred from the supabase generated types OR can be inferred from the return of a supabase.from call using `Awaited<ReturnType><>`
+- **Development**: `npm run dev` - Start Next.js dev server
+- **Build**: `npm run build` - Build the Next.js application
+- **Start**: `npm run start` - Start production server
+- **Test**: `npm run test` - Run all tests with Jest
+- **Test (Watch)**: `npm run test:watch` - Run tests in watch mode
+- **Test Single File**: `npm run test -- -t "test name"` or `npm run test -- path/to/file.test.ts`
+- **Type Generation**: `npm run typegen` - Generate Supabase TypeScript types
 
+## Code Style Guidelines
 
-¹ Exception for the Nextjs page.tsx files. They should only have one default function export.
+- **Components**: Use named exports only; default exports only for Next.js page files
+- **Functions**: Declare with const arrow format: `const myFunc = (params: Type) => {}`
+- **Types**: Always explicitly type props as separate types, not inline
+- **File Structure**:
+  - Components in `/components` folder with max 2 components per file
+  - Page components in `/page-components`
+- **Imports**: Use path aliases: `@/` for src, `&/` for lib, `~/` for root
+- **Naming**: PascalCase for components, camelCase for functions, kebab-case for files
+- **Icons**: Only use icons from `lucide-react`
+- **Styling**: Only use Tailwind CSS, no custom CSS
+- **SQL**: Lowercase syntax for queries, concise index declarations with `create index concurrently`
+- **Error Handling**: Use try/catch with appropriate error logging
+
+Always follow existing patterns in the codebase.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/chad-syntax)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/chad-syntax)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [chad-syntax/agentsmith](https://github.com/chad-syntax/agentsmith) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
