@@ -1,0 +1,44 @@
+{
+  "name": "iptv-tool",
+  "owner": "super321",
+  "repo": "iptv-tool",
+  "description": "IPTV\u5de5\u5177\uff0c\u81ea\u52a8\u66f4\u65b0\u76f4\u64ad\u6e90\u4ee5\u53caEPG\uff0c\u5e76\u63d0\u4f9b\u5728\u7ebf\u63a5\u53e3\uff0c\u4ec5\u4f9b\u5b66\u4e60\u7814\u7a76\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/super321/iptv-tool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T00:21:13Z"
+}
