@@ -1,0 +1,9 @@
+{
+  "name": "crossplane-contrib--function-kro",
+  "displayName": "function-kro",
+  "description": "YAML+CEL experience from kro as a Crossplane function",
+  "version": "1.0.0",
+  "author": "crossplane-contrib",
+  "homepage": "https://github.com/crossplane-contrib/function-kro",
+  "skills": []
+}
