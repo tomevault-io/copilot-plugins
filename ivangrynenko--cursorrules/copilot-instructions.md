@@ -1,53 +1,45 @@
-## generic-bash-style
+## git-commit-standards
 
-> Enforce general Bash scripting standards with enhanced logging
+> Enforce structured Git commit messages.
 
-# Enhanced Bash Scripting Standard with Colorized Logging
+# Git Commit Standards
 
-This rule enforces best practices for writing Bash scripts, with an emphasis on using colorized logging for better output readability.
+Ensures consistent Git commit messages.
 
 ## Rule Details
 
-- **Name:** enhanced_bash_style
+- **Name:** git_commit_standards
 
-- **Description:** Enforce Bash scripting standards with colorized logging
+- **Description:** Enforce structured Git commit messages.
 
 ## Filters
-- file extension pattern: `\\.sh$`
+- file extension pattern: `\\.git/.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `^#!/usr/bin/env bash$` – All scripts should start with the shebang '#!/usr/bin/env bash'.
-  - pattern `^set -eu$` – Enable 'set -eu' for script robustness.
-  - pattern `^set -x$` – negated `^\\[ \"\\${DEBUG-}\" = \"1\" ] && set -x$` – Use conditional 'set -x' based on debug flag.
-  - pattern `^# @formatter:off$` – Start of formatting block for log functions.
-  - pattern `note\\(\\) { printf \"       %s\\n\" \"\\${1}\"; }$` – Include 'note' function for plain messages.
-  - pattern `info\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[34m\\[INFO] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[INFO] %s\\n\" \"\\${1}\"; }$` – Include 'info' function for blue informational messages.
-  - pattern `pass\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[32m\\[ OK ] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[ OK ] %s\\n\" \"\\${1}\"; }$` – Include 'pass' function for green success messages.
-  - pattern `fail\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[31m\\[FAIL] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[FAIL] %s\\n\" \"\\${1}\"; }$` – Include 'fail' function for red error messages.
-  - pattern `warn\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[33m\\[WARN] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[WARN] %s\\n\" \"\\${1}\"; }$` – Include 'warn' function for yellow warning messages.
-  - pattern `^# @formatter:on$` – End of formatting block for log functions.
+  - pattern `^(?!fix|feat|perf|docs|style|refactor|test|chore): ` – Use a commit message prefix followed by colon and space (fix:, feat:, etc.).
+    - More precise regex to ensure prefix is followed by colon and space
+  - pattern `^(fix|feat|perf|docs|style|refactor|test|chore): [A-Z]` – First word after prefix should be lowercase.
+    - Check for uppercase after the prefix
+  - pattern `^(fix|feat|perf|docs|style|refactor|test|chore): .{46,}` – Keep commit message content (excluding prefix) under 46 characters.
+    - More precise length check that excludes the prefix from the count
+  - pattern `^(fix|feat|perf|docs|style|refactor|test|chore):(?! )` – Include a space after the colon in prefix.
+    - Ensure there's a space after the colon
 
 ## Suggestions
 - Guidance:
-**Bash Scripting Best Practices:**
-- **Error Handling:** Use `set -eu` to catch errors and undefined variables early.
-- **Debugging:** Implement conditional debugging with `set -x` using a DEBUG variable.
-- **Logging Functions:** Use colorized logging for better script output readability:
-  - `note()` for plain notes
-  - `info()` for blue informational messages
-  - `pass()` for green success messages
-  - `fail()` for red error messages
-  - `warn()` for yellow warnings, ensuring users can distinguish different types of messages easily
-- **Security:** Avoid using `eval` or similar constructs; use safe alternatives.
-- **Documentation:** Include descriptive comments, especially for complex logic.
-- **Portability:** Use `/usr/bin/env bash` for the shebang to ensure script runs with bash on any system.
-- **Variable Checks:** Ensure necessary variables are set, enhancing script reliability.
-- **Exit Codes:** Use explicit exit codes for different failure scenarios.
-- **Color Support:** Ensure logging functions check for terminal color support before applying colors.
+Recommended commit format:
+- "fix: resolved bug in user authentication"
+- "feat: added new search functionality"
+- "docs: updated installation guide"
+- "style: fixed button alignment"
+- "refactor: simplified login logic"
+- "test: added unit tests for auth"
+- "chore: updated dependencies"
+- "perf: optimized database queries"
 
 ## Metadata
-- Priority: medium
+- Priority: high
 - Version: 1.2
 
 ---
