@@ -1,0 +1,9 @@
+{
+  "name": "keathmilligan--obsidian-paste-reformatter",
+  "displayName": "obsidian-paste-reformatter",
+  "description": "A plugin for Obsidian that reformats pasted HTML and plain text content, giving you precise control over how content is transformed when pasted into your notes.",
+  "version": "1.0.0",
+  "author": "keathmilligan",
+  "homepage": "https://github.com/keathmilligan/obsidian-paste-reformatter",
+  "skills": []
+}
