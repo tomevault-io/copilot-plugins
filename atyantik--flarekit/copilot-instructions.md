@@ -1,66 +1,81 @@
-## cloudflare-worker-patterns
+## database-service-patterns
 
-> Cloudflare Worker development patterns for Flarekit
+> Database service patterns using Drizzle ORM and BaseService
 
 
-# Cloudflare Worker Development Patterns
+# Database Service Patterns
 
-When developing Cloudflare Workers in Flarekit:
+When working with database operations in Flarekit:
 
-## Worker Entry Point
-- Export default object with `fetch`, `queue`, and `scheduled` handlers
-- Use `satisfies ExportedHandler<Env>` for type safety
-- Main app logic should be in separate modules
+## Schema Definition
+- Define Drizzle schemas in `packages/database/src/schema/[table].schema.ts`
+- Use consistent field naming:
+  - Database: snake_case (`created_at`, `updated_at`)
+  - TypeScript: camelCase (`createdAt`, `updatedAt`)
+- Standard fields for all tables:
+```typescript
+{
+  id: text('id').primaryKey(),
+  createdAt: text('created_at').default(sql`(current_timestamp)`),
+  updatedAt: text('updated_at'),
+  deletedAt: text('deleted_at'), // for soft deletes
+}
+```
 
-## Environment Variables
-- Access via `c.env` in Hono context
-- Define types in `worker-configuration.d.ts`
-- Use `.dev.vars` for local development secrets
+## Service Registration
+- Register new services in `packages/database/src/services.ts`:
+```typescript
+export const services = (ctx: Ctx) => ({
+  [getTableName(yourSchema)]: new BaseService<
+    typeof yourSchema.$inferInsert,
+    typeof yourSchema.$inferSelect
+  >(yourSchema, ctx),
+});
+```
 
-## D1 Database Integration
-- Access D1 via `c.env.DB`
-- Use Drizzle ORM with `drizzle(env.DB, { schema })`
-- Implement connection pooling with WeakMap pattern
+## Database Instance Usage
+- Always use `initDBInstance(c.env, c.env)` to get database services
+- Access services by table name: `db.tableName`
+- The BaseService provides these methods:
+  - `create(data)` - Insert new record
+  - `update(id, data)` - Update existing record
+  - `delete(id, permanent?)` - Soft or hard delete
+  - `getById(id, includeDeleted?)` - Get single record
+  - `getByShortId(shortId, includeDeleted?)` - Get by shortId if available
+  - `getMany(ids, includeDeleted?)` - Fetch multiple records by ID
+  - `getManyReference(referenceField, id, range?, sort?, filter?, includeDeleted?)` - Fetch records by foreign key
+  - `getList(range?, sort?, filter?, includeDeleted?)` - Paginated list
+  - `getCount(filter?, includeDeleted?)` - Count records
+  - `bulkUpdate(updates)` - Bulk update operations
+  - `bulkDelete(ids, permanent?)` - Bulk delete operations
 
-## R2 Storage Integration
-- Access R2 buckets via `c.env.R2_BUCKET`
-- Use for file uploads and static asset storage
-- Implement proper error handling for storage operations
+## Common Patterns
+- Use UUID v7 for primary keys (automatically generated)
+- Use nanoid for shortIds (automatically generated)
+- Slugs are auto-generated from title fields
+- Timestamps are automatically managed
+- Soft deletes are supported by default
 
-## Queue Handling
-- Implement queue handlers in `/handlers/queue.handler.ts`
-- Use for background processing and async operations
-- Handle batch processing for efficiency
+## Error Handling
+- Wrap database operations in try/catch
+- Throw `DatabaseError.schemaError()` for database-related errors
+- Include context information for debugging
 
-## Scheduled Events
-- Implement cron handlers in `/handlers/scheduled.handler.ts`
-- Use for maintenance tasks and periodic operations
-- Consider timezone implications for scheduling
+## Example Usage
+```typescript
+try {
+  const db = initDBInstance(c.env, c.env);
+  const records = await db.storage.getList([0, 9], ['createdAt', 'DESC'], {});
+  return c.json(records);
+} catch (error) {
+  throw DatabaseError.schemaError('storage', 'Failed to fetch records', {
+    originalError: error.message,
+  });
+}
+```
 
-## Edge-First Considerations
-- Minimize cold start time by avoiding heavy imports
-- Use streaming responses for large data
-- Implement proper caching strategies
-- Consider geographic distribution of data
-
-## Local Development
-- Use `wrangler dev` with persistence: `--persist-to=../../.wrangler/state`
-- Test scheduled events with `--test-scheduled`
-- Use different ports for different services
-
-## Deployment
-- Use `wrangler deploy` for production deployment
-- Implement proper CI/CD with GitHub Actions
-- Use environment-specific configurations
-
-## Performance Best Practices
-- Use connection pooling for database connections
-- Implement request-level caching where appropriate
-- Use Cloudflare's edge caching for static content
-- Monitor CPU time and memory usage
-
-@apps/backend/src/index.ts
-@apps/backend/wrangler.json
+@packages/database/src/services/base.service.ts
+@packages/database/src/schema/storage.schema.ts
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
