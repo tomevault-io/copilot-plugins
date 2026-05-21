@@ -1,116 +1,136 @@
-## etl-development
+## field-naming-rules
 
-> 本文档为 `nkuwiki` 项目的ETL（数据提取、转换、加载）系统开发提供指导规范，旨在确保代码的一致性、模块化和可维护性。
+> **API接口字段名必须与数据库表字段名保持严格一致**
 
-# NKUWiki ETL 开发规范
+# 字段名规范
 
-本文档为 `nkuwiki` 项目的ETL（数据提取、转换、加载）系统开发提供指导规范，旨在确保代码的一致性、模块化和可维护性。
+## 核心原则
 
-## 1. ETL 核心设计理念
+**API接口字段名必须与数据库表字段名保持严格一致**
 
-项目ETL流程遵循**阶段式解耦**的设计原则，主要分为三个独立阶段：
+## 字段名映射规范
 
-1.  **数据采集 (Crawling)**: 从不同数据源（网站、公众号、校园集市等）抓取原始信息，并以标准化的JSON格式存入统一的数据湖。
-2.  **数据处理与索引 (Processing & Indexing)**: 对原始数据进行转换、分块、向量化，并加载到Qdrant向量数据库和Elasticsearch全文索引中。
-3.  **洞察生成与应用 (Insight & Application)**: 基于新增数据，利用大语言模型生成结构化的分析洞察，并存入MySQL数据库，为上层应用提供数据支持。
+### 1. 数据库表字段到API响应字段的映射
 
-`etl/daily_pipeline.py` 是驱动阶段2和3的核心任务编排器。
+API接口返回的字段名应该直接使用数据库表中的字段名，不进行任何转换。
 
----
+#### 标准字段（所有表共有）
+- `id` - 主键ID
+- `create_time` - 创建时间  
+- `update_time` - 更新时间
+- `title` - 标题
+- `content` - 内容
+- `author` - 作者（website_nku/wechat_nku表）
+- `original_url` - 原始链接
+- `platform` - 平台标识
+- `publish_time` - 发布时间
 
-## 2. 阶段一：数据采集 (`etl/crawler/`)
+#### 特定表字段
+**website_nku表专有字段：**
+- `scrape_time` - 爬取时间
+- `view_count` - 浏览数
+- `pagerank_score` - PageRank分数
+- `is_official` - 是否为官方信息
 
-### 任务与职责
-- 从指定的数据源抓取原始数据。
-- 将抓取到的数据处理成**标准JSON格式**。
-- 将JSON文件存储到统一的数据湖 `/data/raw/`。
+**wechat_nku表专有字段：**
+- `scrape_time` - 爬取时间
+- `view_count` - 阅读数
+- `like_count` - 点赞数
+- `is_official` - 是否为官方信息
 
-### 开发新爬虫的步骤
+**market_nku表专有字段：**
+- `category` - 分类
+- `image` - 图片列表
+- `status` - 状态
+- `view_count` - 浏览数
+- `like_count` - 点赞数
+- `comment_count` - 评论数
 
-1.  **创建爬虫脚本**:
-    - 在 `etl/crawler/` 下为新数据源创建一个独立的`py`文件，例如 `etl/crawler/bilibili_spider.py`。
-    - 爬虫逻辑应包含错误处理、重试机制，并记录详细日志。
+**wxapp_post表专有字段：**
+- `openid` - 用户openid
+- `nickname` - 用户昵称（作为author的来源）
+- `avatar` - 用户头像
+- `phone` - 手机号
+- `wechatId` - 微信号
+- `qqId` - QQ号
+- `bio` - 用户简介
+- `category_id` - 分类ID
+- `image` - 图片列表
+- `tag` - 标签列表
+- `location` - 位置信息
+- `allow_comment` - 是否允许评论
+- `is_public` - 是否公开
+- `view_count` - 浏览数
+- `like_count` - 点赞数
+- `comment_count` - 评论数
+- `favorite_count` - 收藏数
+- `status` - 帖子状态
+- `is_deleted` - 是否删除
 
-2.  **标准化输出**:
-    - 爬虫的最终输出**必须**是一个或多个 `.json` 文件。
-    - 每个JSON文件应包含单个数据单元（如一篇文章、一个帖子）的完整信息。
-    - JSON文件必须包含以下核心字段，以确保下游处理流程可以正确识别：
-      ```json
-      {
-        "id": "数据唯一标识，建议使用URL的MD5哈希",
-        "title": "标题",
-        "content": "正文内容",
-        "url": "原始链接",
-        "platform": "平台标识 (例如: 'website', 'wechat', 'market')",
-        "source": "具体来源 (例如: 'nkunews', 'nkuyouth', 'market_sell')",
-        "publish_time": "发布时间 (ISO 8601格式, e.g., '2023-10-27T10:00:00+08:00')"
-      }
-      ```
+### 2. 字段转换规则
 
-3.  **统一存储**:
-    - 所有生成的 `.json` 文件必须存放到 `/data/raw/` 目录。
-    - 存储路径应遵循规范：`/data/raw/{platform}/{source}/{year}{month}/{article_id}.json`。其中 `article_id` 通常是文件内容的md5。
+#### 时间字段处理
+- 数据库中的 `datetime` 类型字段在API中统一转换为 `string` 格式
+- 格式：`str(datetime_value)` 或 ISO 8601 格式
 
----
+#### JSON字段处理
+- 数据库中的 `json` 类型字段（如 `tag`, `image`, `location`）在API中保持为对象或字符串
+- 空值时返回空字符串 `""`
 
-## 3. 阶段二 & 三：任务编排 (`etl/daily_pipeline.py`)
+#### 特殊字段映射
+- `wxapp_post.nickname` → API中的 `author` 字段
+- `wxapp_post.id` → 构造 `original_url` 为 `wxapp://post/{id}`
 
-`daily_pipeline.py` 是整个ETL流程的"指挥官"，它通过灵活的命令行接口，驱动数据的处理、索引和洞察生成。
+### 3. 禁止的字段名转换
 
-### `daily_pipeline.py` 的核心流程
+❌ **严禁进行以下转换：**
+- `url` ↔ `original_url`（必须使用 `original_url`）
+- `source` ↔ `platform`（必须使用 `platform`）
+- 下划线命名 ↔ 驼峰命名的转换
+- 数据库字段名的任何形式的"美化"或"简化"
 
-该脚本的工作流由 `--steps` 参数控制，主要包含三个可组合的步骤：`scan`, `index`, `insight`。
+### 4. API响应标准格式
 
-1.  **文件扫描 (`scan`)**:
-    - **触发**: 总是执行（除非只单独运行 `index` 或 `insight` 且不带 `scan`）。
-    - **动作**: 调用 `find_new_files_in_timespan` 函数，根据 `--start_time`, `--end_time`, `--hours` 等参数确定时间窗口，在 `/data/raw` 中高效查找此时间段内发布的 `.json` 文件。
-    - **输出**: 一个待处理的文件路径列表。
+每个接口的响应数据项必须包含以下核心字段：
 
-2.  **建立索引 (`index`)**:
-    - **触发**: 当 `--steps` 包含 `index` 时执行。
-    - **依赖**: `scan` 步骤的输出（文件路径列表）。
-    - **动作**:
-        - **节点化**: 调用 `process_files_to_nodes`，将文件内容异步地读取、处理，并使用 `ChunkCacheManager` 分块，转换为 `llama_index` 的 `TextNode` 对象。
-        - **索引**: 调用 `build_qdrant_indexes`，将 `TextNode` 列表批量送入Qdrant建立向量索引。
-
-3.  **生成洞察 (`insight`)**:
-    - **触发**: 当 `--steps` 包含 `insight` 时执行。
-    - **依赖**: `scan` 步骤的输出（文件路径列表）。
-    - **动作**:
-        - **分类**: 将文件按来源分为三类：**官方** (`website`平台、官方公众号)、**社区** (社团及民间公众号)、**集市** (`market`平台)。
-        - **提示词构建**: 为每个非空分类构建一个详细的Prompt。
-        - **AI生成**: 调用 `core.agent.text_generator.generate_structured_json`，请求大模型返回结构化的JSON洞察报告。
-        - **入库**: 将生成的多条洞察存入MySQL的 `insights` 表。
-
-### 如何使用 `daily_pipeline.py`
-
-```bash
-# 示例1: 执行完整流程（扫描、索引、洞察），处理过去24小时的数据
-python etl/daily_pipeline.py --steps scan,index,insight
-
-# 示例2: 只执行扫描和索引，不生成洞察
-python etl/daily_pipeline.py --steps scan,index
-
-# 示例3: 处理指定时间范围内的数据，且只生成洞察
-python etl/daily_pipeline.py --steps scan,insight --start_time "2023-10-26" --end_time "2023-10-27"
-
-# 示例4: 只处理过去2小时内'wechat'平台的数据，并建立索引
-python etl/daily_pipeline.py --hours 2 --platform wechat --steps scan,index
-
-# 示例5: 使用'all'关键字代表所有步骤
-python etl/daily_pipeline.py --steps all # 等同于 scan,index,insight
+```json
+{
+  "create_time": "2025-01-15T10:30:00",
+  "update_time": "2025-01-15T10:30:00", 
+  "author": "作者名称",
+  "platform": "平台标识",
+  "original_url": "原文链接",
+  "tag": "标签信息",
+  "title": "标题",
+  "content": "内容",
+  "relevance": 0.85
+}
 ```
 
-## 4. 开发最佳实践
+### 5. 验证规则
 
-- **异步优先**: 对于IO密集型操作（如读写文件、数据库访问），应优先使用 `async/await` 范式。
-- **配置驱动**: 
-  - 所有配置项（数据库凭据、路径、模型名称等）均通过根目录的 `config.py` 和 `config.json` 进行管理。
-  - **ETL模块的常量配置**：为了方便管理和复用，所有与ETL流程相关的配置都在 `etl/__init__.py` 中被加载、处理，并定义为模块级常量（如 `DB_HOST`, `RAW_PATH`, `EMBEDDING_MODEL_PATH` 等）。
-  - **最佳实践**: 在ETL模块内部，应直接从 `etl` 包导入这些已定义好的常量，而不是重复调用 `Config` 对象。这保证了配置的统一和代码的简洁。
-- **日志记录**: 在关键步骤和异常处理中添加清晰的日志记录，使用 `core/utils/logger.py` 中的 `register_logger`。
-- **依赖注入**: 核心组件（如 `QdrantIndexer`, `ChunkCacheManager`）应在需要时才实例化，而不是作为全局变量。
-- **环境隔离**: 确保本地开发环境与生产环境的数据目录、配置等相互隔离。
+在开发API接口时：
+1. 检查返回字段名是否与对应数据库表字段名完全一致
+2. 确保没有进行任何字段名转换
+3. 保留数据库表中存在的所有有用字段（如 `is_official`, `view_count` 等）
+4. 对于不同表的相同概念字段（如author），优先使用数据库中的实际字段名
+
+### 6. 特殊情况处理
+
+#### 多表查询时的字段冲突
+- 不同表有相同字段名时，保持原字段名不变
+- 通过 `platform` 字段区分数据来源
+
+#### 计算字段
+- `relevance` - 相关度分数（计算得出，非数据库字段）
+- `is_truncated` - 内容是否被截断（API处理标识）
+
+## 执行要求
+
+1. **新建接口**：严格按照此规范设计字段名
+2. **修改现有接口**：逐步调整为符合此规范
+3. **代码审查**：字段名一致性作为必检项
+4. **文档更新**：API文档必须反映真实的数据库字段名
 
 ---
 > Source: [NKU-WIKI/nkuwiki](https://github.com/NKU-WIKI/nkuwiki) — distributed by [TomeVault](https://tomevault.io).
