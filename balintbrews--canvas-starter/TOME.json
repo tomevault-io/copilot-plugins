@@ -1,0 +1,57 @@
+{
+  "name": "canvas-starter",
+  "owner": "balintbrews",
+  "repo": "canvas-starter",
+  "description": "Get the latest experimental features for Drupal Canvas Code Components with this template repository for Drupal Canvas Create.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "canvas-component-definition",
+      "path": ".agents/skills/canvas-component-definition",
+      "github_url": "https://github.com/balintbrews/canvas-starter/tree/main/.agents/skills/canvas-component-definition",
+      "description": ""
+    },
+    {
+      "name": "canvas-styling-conventions",
+      "path": ".agents/skills/canvas-styling-conventions",
+      "github_url": "https://github.com/balintbrews/canvas-starter/tree/main/.agents/skills/canvas-styling-conventions",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/balintbrews/canvas-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T17:30:27Z"
+}
