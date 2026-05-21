@@ -1,0 +1,9 @@
+{
+  "name": "dingodb--dingofs",
+  "displayName": "dingofs",
+  "description": "DingoFS is a project fork from Curve. Curve is a sandbox project hosted by the CNCF Foundation. It's cloud-native, high-performance, and easy to operate. Curve is an open-source distributed storage sy",
+  "version": "1.0.0",
+  "author": "dingodb",
+  "homepage": "https://github.com/dingodb/dingofs",
+  "skills": []
+}
