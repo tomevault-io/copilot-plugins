@@ -1,205 +1,166 @@
-## mobile-app-cursor-rules
+## mobile-app-toast
 
-> Use this rule when working in the mobile app
+> Guidelines for using sonner-native for toast notifications in the mobile app
 
-## Mobile App Development Guidelines
+ ---
+description: Guidelines for using sonner-native for toast notifications in the mobile app
+globs: apps/mobile/**/*
+alwaysApply: false
+---
+# Mobile App Toast Notifications
 
-### Component Organization
+Use the `sonner-native` library for displaying toast notifications in the mobile app. The Toaster component is already configured in the root layout with proper styling.
 
-- Organize components by usage pattern:
-  - `/components/ui/` - Reusable UI components (buttons, inputs, cards, etc.)
-  - `/components/app/` - Larger application components used in multiple places
-  - `/(home)/pathToTsxRoute/components/` - Route-specific components
+## Basic Usage
 
-- Never inline components in route TSX pages - extract them to proper component files
+Import the toast function from sonner-native:
 
-### Styling & UI
-
-- Use NativeWind for all styling:
-```tsx
-// Good
-<View className="flex-1 items-center justify-center bg-background p-4">
-  <Text className="text-lg font-medium text-foreground">Hello World</Text>
-</View>
-
-// Avoid
-<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-  <Text style={{ fontSize: 18, fontWeight: '500' }}>Hello World</Text>
-</View>
+```typescript
+import { toast } from 'sonner-native';
 ```
 
-- Import UI components rather than React Native primitives:
-```tsx
-// Good
-import { Text, Button, Input } from "~/components/ui";
+## Toast Variations
 
-// Avoid
-import { Text } from "react-native";
+### Basic Toast
+
+```typescript
+toast('This is a basic toast message');
 ```
 
-- Leverage existing components before creating custom ones:
-```tsx
-// Good
-import { Button } from "~/components/ui";
+### Success Toast
 
-// Avoid creating custom buttons when the existing one works
+Use for successful operations:
+
+```typescript
+toast.success('Operation completed successfully');
 ```
 
-### Loading States
+### Error Toast
 
-- Use the Loading component from `~/components/loading` for all loading states:
-```tsx
-import { Loading } from "~/components/loading";
+Use for error notifications:
 
-// Use with appropriate size
-<Loading size="md" />
+```typescript
+toast.error('An error occurred');
 ```
 
-- Available sizes: tiny, sm, md, lg, xl, 2xl, 3xl, mega
+### Warning Toast
 
-### Lists & Scrolling
+Use for warning notifications:
 
-- Always use FlatList instead of mapping items in a ScrollView:
-```tsx
-// Good
-<FlatList
-  data={items}
-  renderItem={({ item }) => <ItemComponent item={item} />}
-  keyExtractor={(item) => item.id}
-/>
-
-// Avoid
-<ScrollView>
-  {items.map(item => (
-    <ItemComponent key={item.id} item={item} />
-  ))}
-</ScrollView>
+```typescript
+toast.warning('Warning: This action cannot be undone');
 ```
 
-- Ensure every screen has a scroll container (either FlatList, ScrollView, or a parent with one)
-- Avoid nested ScrollViews unless absolutely necessary for specific use cases
+### Loading Toast
 
-### Hooks & Utilities
+Use for async operations that need loading indicators:
 
-- Place reusable hooks in `~/lib/hooks/` with descriptive names:
-```tsx
-// ~/lib/hooks/usePermission.ts
-export function usePermission() {
-  // Implementation
-}
+```typescript
+toast.loading('Loading data...');
 ```
 
-- Place utility functions in `~/utils/` with descriptive names:
-```tsx
-// ~/utils/format-date.ts
-export function formatDate(date: Date): string {
-  // Implementation
-}
+### Promise Toast
+
+Use for handling promises with different states:
+
+```typescript
+toast.promise(fetchData(), {
+  loading: 'Fetching data...',
+  success: (data) => `Successfully fetched ${data.length} items`,
+  error: 'Failed to fetch data'
+});
 ```
 
-### Imports & Path Aliases
+## Advanced Usage
 
-- Always use the `~/` path alias for local imports, never use relative paths:
-```tsx
-// Good
-import { Button } from "~/components/ui/button";
-import { usePermission } from "~/lib/hooks/usePermission";
+### With Description
 
-// Avoid
-import { Button } from "../../components/ui/button";
-import { usePermission } from "../../../lib/hooks/usePermission";
+Add more context with a description:
+
+```typescript
+toast('User updated', {
+  description: 'User profile has been updated successfully'
+});
 ```
 
-### Navigation
+### With Custom Duration
 
-- Use Expo Router for all navigation
-- Organize routes in the `app/` directory with the appropriate folder structure
-- Use route params for passing minimal data between screens
+Default duration is 4000ms. Override it:
 
-### Error Handling
-
-- Implement proper error boundaries at the route level
-- Display user-friendly error messages
-- Log errors for debugging purposes
-- Use try/catch blocks for handling async operations
-
-### Performance Considerations
-
-- Properly memoize components, callbacks, and values with `useMemo` and `useCallback`
-- Optimize images for mobile:
-  - Use appropriate image formats (WebP when possible)
-  - Implement lazy loading where appropriate
-  - Consider implementing a image caching strategy
-
-### Component Structure Pattern
-
-```tsx
-// ~/components/ui/example-component.tsx
-import React from "react";
-import { View } from "react-native";
-import { Text } from "~/components/ui/text";
-import { cn } from "~/utils/ui";
-
-interface ExampleComponentProps {
-  title: string;
-  description?: string;
-  className?: string;
-}
-
-export function ExampleComponent({ 
-  title, 
-  description, 
-  className 
-}: ExampleComponentProps) {
-  return (
-    <View className={cn("p-4 bg-card rounded-lg", className)}>
-      <Text className="text-lg font-medium">{title}</Text>
-      {description && (
-        <Text className="text-sm text-muted-foreground mt-1">
-          {description}
-        </Text>
-      )}
-    </View>
-  );
-}
+```typescript
+toast('Quick notification', { duration: 2000 });
+// Or for persistent toast:
+toast('Important message', { duration: Infinity });
 ```
 
-### Screen Structure Pattern
+### With Action Buttons
 
-```tsx
-// app/(home)/example/screen.tsx
-import React from "react";
-import { View, ScrollView } from "react-native";
-import { Text } from "~/components/ui/text";
-import { usePermission } from "~/lib/hooks/usePermission";
-import { ExampleComponent } from "./components/example-component";
-import { Loading } from "~/components/loading";
+Add action buttons to toasts:
 
-export default function ExampleScreen() {
-  const { hasPermission, isLoading } = usePermission("camera");
-  
-  if (isLoading) {
-    return (
-      <View className="flex-1 items-center justify-center">
-        <Loading size="lg" />
-      </View>
-    );
+```typescript
+toast('New message received', {
+  action: {
+    label: 'View',
+    onClick: () => navigateToMessages()
   }
-  
-  return (
-    <ScrollView className="flex-1 bg-background">
-      <View className="p-4">
-        <Text className="text-2xl font-bold mb-4">Example Screen</Text>
-        <ExampleComponent 
-          title="Example Component" 
-          description="This is an example component" 
-        />
-        {/* More content */}
-      </View>
-    </ScrollView>
-  );
-}
+});
 ```
+
+### With Cancel Option
+
+Add a cancel option to toasts:
+
+```typescript
+toast('Changes applied', {
+  cancel: {
+    label: 'Undo',
+    onClick: () => revertChanges()
+  }
+});
+```
+
+### Updating Existing Toasts
+
+```typescript
+const toastId = toast.loading('Processing...');
+
+// Later update the same toast:
+toast.success('Completed!', { id: toastId });
+```
+
+### Dismissing Toasts
+
+```typescript
+// Dismiss a specific toast
+const id = toast('Hello');
+toast.dismiss(id);
+
+// Dismiss all toasts
+toast.dismiss();
+```
+
+## Custom JSX Content
+
+For more complex toast content:
+
+```typescript
+toast.custom(
+  <View className="flex-row items-center">
+    <Icon name="info" size={20} />
+    <Text className="ml-2">Custom toast content</Text>
+  </View>
+);
+```
+
+## Best Practices
+
+1. Keep toast messages concise and meaningful
+2. Use appropriate toast types for different scenarios
+3. Include actionable information when possible
+4. For critical errors that require user action, consider using modals instead
+5. Don't overuse toasts - they should be for important notifications only
+6. Use the same toast ID when updating an existing toast to avoid multiple toasts
+7. Set appropriate durations based on the importance and length of the message
 
 ---
 > Source: [un/potential](https://github.com/un/potential) — distributed by [TomeVault](https://tomevault.io).
