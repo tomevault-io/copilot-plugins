@@ -1,0 +1,554 @@
+## skewed-emacs
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with the integrated Skewed Emacs and Gendl development environment.
+
+# Skewed Emacs + Gendl Docker Development Environment
+
+This file provides guidance to Claude Code (claude.ai/code) when working with the integrated Skewed Emacs and Gendl development environment.
+
+## Overview
+
+This setup provides a complete Lisp development environment with:
+- **Skewed Emacs Container**: Custom Emacs configuration with MCP integration
+- **Gendl Container**: 3D CAD/modeling system with Common Lisp REPL and MCP integration
+- **Network Integration**: Containers communicate via Docker network for SLIME connections
+- **MCP Services**: Both containers expose services via Model Context Protocol for external tool integration
+
+## MCP Integration
+
+The containers are now wrapped as MCP (Model Context Protocol) services, providing seamless integration with Claude Code and other MCP-enabled tools.
+
+### Available MCP Services
+
+**Emacs Lisp Evaluation Service:**
+- **Service Name**: `mcp__skewed-emacs__skewed-emacs__lisp_eval`
+- **Purpose**: Evaluate Emacs Lisp code remotely
+- **Usage**: `mcp__skewed-emacs__skewed-emacs__lisp_eval(code="(+ 1 2 3)")`
+
+**Gendl Common Lisp Services (included with skewed-emacs):**
+- `mcp__gendl_ccl__gendl_ccl__lisp_eval` — Gendl on Clozure CL (port 9080)
+- `mcp__gendl_sbcl__gendl_sbcl__lisp_eval` — Gendl on SBCL (port 9090)
+
+**Commercial Genworks GDL Services (via supplemental overlay repos):**
+- `mcp__genworks_gdl_smp__genworks_gdl_smp__lisp_eval` — GDL with NURBS (port 9098)
+- `mcp__genworks_gdl_enterprise_smp__genworks_gdl_enterprise_smp__lisp_eval` — Enterprise variant
+- These are not included in skewed-emacs. Licensed users receive a supplemental
+  repo to clone as a sibling directory, then run its `./install` script to
+  add Docker Compose and MCP config overlays into skewed-emacs.
+
+**Ping Services:**
+- `mcp__skewed_emacs__skewed_emacs__ping_lisp` - Check Emacs availability
+- `mcp__gendl_ccl__gendl_ccl__ping_lisp` - Check Gendl CCL availability
+- `mcp__gendl_sbcl__gendl_sbcl__ping_lisp` - Check Gendl SBCL availability
+
+### MCP vs Raw HTTP
+
+**Previous Approach (Deprecated):**
+```bash
+# Raw HTTP calls (no longer recommended)
+curl -X POST http://localhost:7080/lisply/lisp-eval -d '{"code": "(+ 1 2 3)"}'  # only from inside container
+```
+
+**Current Approach (Recommended):**
+```python
+# Through MCP services (seamless with Claude Code)
+mcp__skewed_emacs__skewed_emacs__lisp_eval(code="(+ 1 2 3)")
+```
+
+
+### Verification Commands
+
+Check if workarounds are active:
+```bash
+# Test current environment via MCP
+mcp__skewed_emacs__skewed_emacs__lisp_eval(code='(list (getenv "SHELL") shell-file-name (getenv "PATH"))')
+
+# Test native compilation settings
+mcp__skewed_emacs__skewed_emacs__lisp_eval(code='native-comp-jit-compilation')
+
+# Test assembler accessibility
+mcp__skewed_emacs__skewed_emacs__lisp_eval(code='(shell-command-to-string "which as")')
+```
+
+## Quick Start
+
+### 1. Start the Environment
+
+```bash
+# Navigate to skewed-emacs directory
+cd ~/projects/skewed-emacs
+
+# Start the full container stack
+./compose-dev up
+
+# Verify services are running via MCP
+mcp__skewed_emacs__skewed_emacs__ping_lisp()      # Should return "pong"
+mcp__gendl_ccl__gendl_ccl__ping_lisp()            # Should return "pong"
+```
+
+### 2. Connect to Development Environment
+
+```bash
+# Connect to Emacs in the container
+docker exec -it skewed-emacs emacsclient -t
+
+# From within Emacs, connect to Gendl SLIME
+# M-x slime-connect RET gendl-ccl RET 4200 RET
+```
+
+## Container Details
+
+### Skewed Emacs Container (`skewed-emacs`)
+- **Base**: Custom Emacs configuration
+- **Network Name**: `skewed-emacs` (accessible as `skewed-emacs:7080` from other containers)
+- **Host Ports**: 
+- `6942` → `6942` (ttyd web terminal)
+- **MCP Service**: Available via `mcp__skewed-emacs__*` functions
+- **Mount**: `~/projects` → `/projects`
+
+### Gendl/GDL Containers
+
+**Included with skewed-emacs** (free, open-source Gendl kernel):
+
+| Container | Image | HTTP Port | Swank Port |
+|-----------|-------|-----------|------------|
+| `gendl-ccl` | `genworks/gendl:devo-ccl` | 9080 (host: 19080) | 4200 |
+| `gendl-sbcl` | `genworks/gendl:devo-sbcl` | 9090 (host: 29080) | 4210 |
+
+**Available via supplemental overlay repos** (licensed, commercial GDL with NURBS):
+
+| Container | HTTP Port | Swank Port |
+|-----------|-----------|------------|
+| `genworks-gdl-smp` | 9098 | 4218 |
+| `genworks-gdl-non-smp` | 9089 | 4209 |
+| `genworks-gdl-enterprise-smp` | 9098 | 4218 |
+
+Licensed users clone their supplemental repo as a sibling to `skewed-emacs/`,
+run `./install`, then `./compose-dev up` picks up the overlay automatically.
+
+All containers mount `~/projects` → `/projects` and join `skewed-network`.
+Check the Dashboard (`*dashboard*` buffer) for current service health.
+
+### Docker Network
+- **Network Name**: `skewed-network`
+- **Purpose**: Enables container-to-container communication
+- **Key Benefit**: Allows SLIME connection from Skewed Emacs to Gendl Swank server
+
+## Development Workflow
+
+### 1. Basic SLIME Development
+```elisp
+;; In Skewed Emacs container, after slime-connect to gendl-ccl:4200
+;; Load Quicklisp
+(load-quicklisp)
+
+;; Add project directories
+(pushnew "~/projects/gendl/demos/" ql:*local-project-directories* :test #'equalp)
+
+;; Enable development mode
+(setq gwl:*developing?* t)
+
+;; Load systems
+(ql:quickload :wire-world)
+(ql:quickload :bus)
+```
+
+### 2. MCP API Development  
+```python
+# Test Gendl MCP service
+result = mcp__gendl_ccl__gendl_ccl__lisp_eval(code="(+ 1 2 3)")
+
+# Test Emacs MCP service
+result = mcp__skewed_emacs__skewed_emacs__lisp_eval(code="(+ 1 2 3)")
+
+# Test connectivity
+gendl_status = mcp__gendl_ccl__gendl_ccl__ping_lisp()
+emacs_status = mcp__skewed_emacs__skewed_emacs__ping_lisp()
+```
+
+### 3. Monitoring Claude Code Activity
+With MCP services running, you can monitor what Claude Code or other agents are doing:
+
+```bash
+# Watch Emacs activities
+docker logs -f skewed-emacs
+
+# Watch Gendl activities  
+docker logs -f gendl-ccl
+
+# Or from within Emacs, watch the *Messages* buffer for API calls
+```
+
+## MCP API Usage
+
+For detailed MCP API documentation, examples, and best practices, see:
+**`dot-files/emacs.d/sideloaded/lisply-backend/CLAUDE.md`**
+
+### Quick MCP API Reference
+```python
+# Basic evaluation
+mcp__skewed_emacs__skewed_emacs__lisp_eval(code="(+ 1 2 3)")
+
+# File editing (see lisply-backend docs for detailed patterns)
+mcp__skewed_emacs__skewed_emacs__lisp_eval(code='(find-file "/path/to/file.lisp")')
+
+# Test connectivity
+mcp__skewed_emacs__skewed_emacs__ping_lisp()
+```
+
+**⚠️ CRITICAL WARNING**: When using MCP file editing, you share the **global current buffer** with the user. Always use `with-current-buffer` patterns to avoid conflicts. See lisply-backend documentation for safe practices.
+
+## File Editing via MCP
+
+**For comprehensive file editing documentation, see:**
+**`dot-files/emacs.d/sideloaded/lisply-backend/CLAUDE.md`**
+
+That documentation includes:
+- Detailed MCP API patterns
+- Paredit mode instructions for Lisp editing
+- Safe buffer operations vs string manipulation
+- Interactive prompt avoidance
+- Error recovery patterns
+- **Shared buffer footgun warnings**
+
+## Network Architecture
+
+```
+Host Machine
+├── MCP Services (via lisply-mcp wrapper)
+│   ├── mcp__skewed-emacs__*    → skewed-emacs:7080
+│   ├── mcp__gendl-ccl__*       → gendl-ccl:9080      (included)
+│   ├── mcp__gendl-sbcl__*      → gendl-sbcl:9090     (included)
+│   └── mcp__genworks-gdl-*__*  → genworks-gdl-*:9098  (overlay)
+└── Host Ports: 6942 (ttyd), 19080 (gendl-ccl), 29080 (gendl-sbcl)
+
+Docker Network: skewed-network
+├── skewed-emacs   (Emacs + MCP + ttyd)           ── always present
+├── gendl-ccl      (CCL + Swank 4200)             ── always present
+├── gendl-sbcl     (SBCL + Swank 4210)            ── always present
+└── genworks-gdl-* (Allegro CL + Swank 4218/4209) ── overlay repos
+```
+
+## Commands Reference
+
+### Container Management
+```bash
+# Create network (one-time)
+docker network create skewed-network
+
+# List running containers
+docker ps
+
+# Stop containers
+docker stop skewed-emacs gendl-ccl
+
+# Remove containers
+docker rm skewed-emacs gendl-ccl
+
+# Remove network
+docker network rm skewed-network
+```
+
+### Development Commands
+```bash
+# Connect to Emacs
+docker exec -it skewed-emacs emacsclient -t
+
+# Connect to Gendl REPL directly
+docker exec -it gendl-ccl ccl
+
+# Check logs
+docker logs skewed-emacs
+docker logs gendl-ccl
+```
+
+### Testing Connectivity
+```python
+# Test MCP services
+emacs_status = mcp__skewed_emacs__skewed_emacs__ping_lisp()
+gendl_status = mcp__gendl_ccl__gendl_ccl__ping_lisp()
+
+# Test basic operations
+emacs_result = mcp__skewed_emacs__skewed_emacs__lisp_eval(code="(+ 1 2 3)")
+gendl_result = mcp__gendl_ccl__gendl_ccl__lisp_eval(code="(+ 1 2 3)")
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **MCP services not responding**:
+   - Check if containers are running: `docker ps`
+   - Verify MCP wrapper is configured correctly
+   - Check container logs: `docker logs <container-name>`
+
+2. **Containers not communicating**:
+   - Ensure both containers are on the same network: `docker network ls`
+   - Check container names: `docker ps --format "table {{.Names}}\t{{.Networks}}"`
+
+3. **SLIME connection fails**:
+   - Verify Swank is running: `docker exec gendl-ccl netstat -an | grep 4200`
+   - Check network connectivity: `docker exec skewed-emacs telnet gendl-ccl 4200`
+
+4. **Mount issues**:
+   - Ensure `~/projects` exists on host
+   - Check permissions: `ls -la ~/projects`
+
+### Reset Environment
+```bash
+# Stop and remove everything
+cd ~/projects/skewed-emacs
+./compose-dev down
+
+# Recreate from scratch
+./compose-dev up
+```
+
+## Integration with Claude Code
+
+This environment is designed to work seamlessly with Claude Code:
+
+1. **MCP Service Access**: Claude Code can use MCP services directly without HTTP calls
+2. **File System Access**: Both containers mount `~/projects` for shared file access
+3. **Real-time Monitoring**: Use `docker exec` to connect to Emacs and watch Claude's activities
+4. **Development Feedback Loop**: Edit files, test with Claude, see results in real-time
+
+### Example Claude Code Workflow
+```python
+# Claude makes changes via MCP services
+result = mcp__gendl_ccl__gendl_ccl__lisp_eval(code='(ql:quickload :my-project)')
+
+# You can see the results in your SLIME session
+# And use Update! links in Gendl web interface for live reloading
+```
+
+## Important Notes
+
+### Security Considerations
+- MCP services allow arbitrary Lisp evaluation
+- Only use in trusted, containerized environments
+- Do not expose services to untrusted networks
+
+### Data Types
+- All results are returned as strings (using `format "%s"`)
+- Complex Lisp data structures maintain their textual representation
+- Boolean values: `t` for true, `nil` for false
+
+### Error Handling
+- Syntax errors and runtime errors are caught and returned in result
+- MCP services provide consistent error reporting
+
+## Related Documentation
+
+- **Gendl MCP Docs**: Use `gendl-ccl:get_docs(id="claude-md")` or equivalent for each backend
+- **Main Gendl Guide**: `/projects/CLAUDE.md` (top-level project documentation)
+
+## Lessons Learned (March 2026 Session)
+
+### Reading SLIME REPL Buffers via MCP
+When reading `*slime-repl allegro<N>*` buffers from MCP:
+- **Use `(buffer-string)`** — this works reliably
+- **Do NOT use `(buffer-substring-no-properties ...)`** — returns empty strings for SLIME REPL buffers
+- **Send commands**: `(with-current-buffer "*slime-repl allegro<2>*" (goto-char (point-max)) (insert "(your-form)") (slime-repl-return))`
+- **Read SLDB debugger buffers**: `(with-current-buffer "*sldb allegro<2>/N*" (buffer-substring-no-properties (point-min) (min 2000 (point-max))))`
+- **Abort debugger**: `(with-current-buffer "*sldb allegro<2>/N*" (sldb-abort))`
+- **Avoid `sleep-for` between send and read** — timing is unreliable, just read the buffer and check for a prompt
+
+### File Creation Through Emacs When /projects/ Is Not Directly Writable
+Claude's scratch container cannot write to `/projects/`. Create files through Emacs:
+```elisp
+;; Write initial content
+(with-temp-buffer
+  (insert "file header...")
+  (write-region (point-min) (point-max) "/projects/path/to/new-file.lisp"))
+
+;; Append more content
+(with-temp-buffer
+  (insert "more content...")
+  (append-to-file (point-min) (point-max) "/projects/path/to/new-file.lisp"))
+```
+This avoids triple-escaping issues when content contains strings with quotes (e.g., JSON in CL).
+
+### Modern-Mode Allegro CL: Case Sensitivity
+`genworks-gdl-enterprise-smp` runs modern-mode Allegro CL with `(readtable-case *readtable*)` → `:preserve`.
+- Keywords are case-sensitive: `:email` ≠ `:EMAIL`
+- When interning strings as keywords, do NOT upcase: `(intern key :keyword)` not `(intern (string-upcase key) :keyword)`
+- This affects JSON parsing, property access, and any dynamic symbol creation
+
+### `kill-sexp` for Balanced Replacements
+The most reliable pattern for replacing a sexp in Emacs:
+```elisp
+(goto-char (point-min))
+(search-forward "(defun target-function")
+(beginning-of-line)
+(kill-sexp)
+(insert "(defun target-function () ...new balanced body...)")
+```
+This is safer than region-based deletion because `kill-sexp` guarantees structural correctness.
+
+### AllegroServe: Symbol Names to Know
+- `*response-method-not-allowed*` (NOT `*response-not-allowed*`)
+- Use `(do-external-symbols ...)` to discover available symbols when unsure
+- `gwl:with-all-servers` iterates over `gwl:*http-server*` and `gwl:*https-server*`
+- Use `gwl:*http-server*` not `net.aserve:*wserver*` (Franz commandeered the default for their web IDE)
+
+### `*print-readably*` in Error Handlers
+Allegro CL's `dumplisp` and build processes can produce conditions containing unprintable objects (byte arrays).
+Always bind `*print-readably*` to nil in error handlers:
+```lisp
+(handler-case (risky-operation)
+  (error (c)
+    (let ((*print-readably* nil))
+      (format t "Error: ~a" c))))
+```
+
+## Version History
+
+- **Initial Setup**: Basic container configuration
+- **Network Integration**: Added Docker network for container communication
+- **SLIME Integration**: Enabled seamless Emacs-to-Gendl SLIME connections
+- **HTTP API Setup**: Both containers expose HTTP APIs for external tool integration
+- **MCP Migration**: Transitioned from raw HTTP to MCP services for better integration
+
+
+## Development Lessons Learned
+
+**For detailed lessons learned including:**
+- **Shared current buffer footgun and solutions**
+- String escaping and code generation best practices
+- Interactive prompt handling
+- Successful MCP file editing workflows
+- Paredit mode workflows
+- Error recovery patterns
+
+**See: `dot-files/emacs.d/sideloaded/lisply-backend/CLAUDE.md`**
+
+### Key Takeaway: Shared Buffer State
+When using MCP file editing, remember that you **share the global current buffer** with the user. This was discovered during viewport menu development when buffer switching conflicts occurred. Always use explicit buffer targeting with `with-current-buffer` patterns.
+
+### Quick Reference: Safe Patterns
+```elisp
+;; BAD: Relies on global current buffer
+(search-forward "target")
+
+;; GOOD: Explicit buffer targeting
+(with-current-buffer "specific-file.lisp"
+  (search-forward "target"))
+```
+
+
+## Emacs-Native Tool Preference
+
+**Prefer Emacs native tools over shell commands:**
+
+| Task | Prefer | Avoid |
+|------|--------|-------|
+| File listing | `(dired-noselect "/path/")` | `(shell-command-to-string "ls")` |
+| Git status | `(magit-status)` or `(vc-dir)` | `(shell-command-to-string "git status")` |
+| File operations | `(rename-file)`, `(copy-file)` | `(shell-command "mv ...")` |
+| Search in files | `(grep-find)`, `(project-find-regexp)` | `(shell-command "grep ...")` |
+
+**Always refresh stale buffers before consulting:**
+```elisp
+;; Dired: refresh before reading
+(with-current-buffer (dired-noselect "/projects/skewed-emacs/")
+  (revert-buffer)  ;; Same as pressing 'g' interactively
+  ...)
+
+;; File buffers: revert if file changed on disk
+(with-current-buffer (find-file-noselect "/path/to/file")
+  (when (not (verify-visited-file-modtime (current-buffer)))
+    (revert-buffer t t t))
+  ...)
+```
+
+**Why this matters:**
+- Native Emacs tools integrate with the shared buffer state
+- Shell commands bypass Emacs's knowledge of file system state
+- Dired buffers can become stale; always `(revert-buffer)` before trusting contents
+
+
+## Critical Best Practices for Claude (Learned 2026-01-04)
+
+### File Path Confusion - Always Use MCP
+**WRONG**: Assuming files are in `/mnt/project` (Claude.ai container filesystem)
+**RIGHT**: Files in Dave's projects are at `/projects/apps/...` and accessed via skewed-emacs MCP
+
+Example:
+```elisp
+;; WRONG - trying to use local filesystem
+(with-temp-file "/mnt/project/assembly.lisp" ...)
+
+;; RIGHT - use MCP to access Dave's environment
+(with-current-buffer (find-file-noselect "/projects/apps/tw-site-2025/source/assembly.lisp")
+  ...)
+```
+
+**Rule**: If you find yourself creating files in `/home/claude/`, you're doing it wrong. Use skewed-emacs MCP.
+
+### Minibuffer Blocking Issue
+**Symptom**: All MCP calls suddenly fail with connectivity errors
+**Cause**: Emacs is waiting for minibuffer input (e.g., "File changed on disk. Discard edits? (yes or no)")
+**Solution**: Alert Dave that Emacs needs input before continuing
+
+### Incremental Editing > Wholesale Replacement
+**WRONG**: Using `with-temp-file` to rewrite entire complex files
+```elisp
+(with-temp-file "/path/to/file.lisp"
+  (insert "entire new file..."))  ;; Often creates unbalanced parens!
+```
+
+**RIGHT**: Make targeted edits with structural navigation
+```elisp
+(with-current-buffer "file.lisp"
+  (when (fboundp 'paredit-mode) (paredit-mode 1))
+  (save-excursion
+    (goto-char (point-min))
+    (search-forward "string-to-find")
+    (search-backward "opening-quote")
+    (kill-sexp)
+    (insert "replacement"))
+  (check-parens)
+  (save-buffer))
+```
+
+### When Structural Editing Fails
+If you're stuck in unbalanced buffer hell:
+1. Ask Dave to revert the file: `git checkout path/to/file`
+2. Ask Dave to create a placeholder comment where you can insert balanced content
+3. Insert the content into the placeholder position
+
+Example workflow that works:
+```elisp
+;; Dave creates placeholder in buffer:
+;;
+;; Insert balanced lhtml body here
+;;
+
+;; Claude inserts at that position:
+(goto-char (point-min))
+(search-forward ";; Insert balanced lhtml body here")
+(beginning-of-line)
+(kill-line 3)  ;; Remove comment
+(insert "balanced content...")
+```
+
+### LHTML Format (for GDL Web Projects)
+
+GDL uses `with-lhtml-string` for HTML generation. Two syntaxes exist:
+
+**OLD htmlgen compatibility format (extra parens):**
+```lisp
+((:a :href "url" :class "style") "Link Text")
+```
+
+**NEW lhtml native format (cleaner, preferred for new code):**
+```lisp
+(:a :href "url" :class "style" "Link Text")
+```
+
+Use the native format for new code in tw-site-2025 and similar projects.
+
+---
+> Source: [gornskew/skewed-emacs](https://github.com/gornskew/skewed-emacs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
