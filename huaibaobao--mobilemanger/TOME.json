@@ -1,0 +1,44 @@
+{
+  "name": "MobileManger",
+  "owner": "huaibaobao",
+  "repo": "MobileManger",
+  "description": "MobileManager \u662f\u4e00\u4e2a\u5f3a\u5927\u7684\u79fb\u52a8\u8bbe\u5907\u7ba1\u7406\u7cfb\u7edf\uff0c\u57fa\u4e8e ADB (Android Debug Bridge) \u5b9e\u73b0\u8bbe\u5907\u63a7\u5236\u548c\u7ba1\u7406\u3002\u7cfb\u7edf\u91c7\u7528 GoFrame + Vue3 Pure Admin + WebScrcpy \u6280\u672f\u6808\uff0c\u63d0\u4f9b\u8bbe\u5907\u7ba1\u7406\u3001\u5e94\u7528\u7ba1\u7406\u3001\u8fdc\u7a0b\u63a7\u5236\u7b49\u529f\u80fd\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huaibaobao/MobileManger",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T11:34:39Z"
+}
