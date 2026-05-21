@@ -1,0 +1,9 @@
+{
+  "name": "lukaszzborek--langfuse-dotnet",
+  "displayName": "Langfuse-dotnet",
+  "description": "Unofficial .NET SDK for Langfuse",
+  "version": "1.0.0",
+  "author": "lukaszzborek",
+  "homepage": "https://github.com/lukaszzborek/Langfuse-dotnet",
+  "skills": []
+}
