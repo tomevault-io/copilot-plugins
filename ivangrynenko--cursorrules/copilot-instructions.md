@@ -1,108 +1,41 @@
-## cursor-rules
+## debugging-standards
 
-> Describes how and where to create Cursor Rules
+> Standards for debugging and error handling
 
-# Cursor Rules Location
+# Debugging Standards
 
-Standards for placing and organizing Cursor rule files in the repository, ensuring rules are always up-to-date and follow best practices.
+Ensures proper debugging practices and error handling.
 
 ## Rule Details
 
-- **Name:** cursor_rules_location_and_maintenance
+- **Name:** debugging_standards
 
-- **Description:** Standards for placing and maintaining Cursor rule files in the correct directory
+- **Description:** Enforce standards for debugging and error handling
 
 ## Filters
-- file extension pattern: `\\.mdc$`
-  - Match files that look like Cursor rules
-- content: `(?s)<rule>.*?</rule>`
-  - Match file creation or modification events
-- event: `file_create|file_modify`
+- file extension pattern: `\\.(php|js|ts|vue|jsx|tsx|py)$`
 
-## Rejections
+## Enforcement Checks
 - Conditions:
-  - pattern `^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)` – Cursor rule files (.mdc) must be placed in the .cursor/rules directory
+  - pattern `console\\.log\\(|print_r\\(|var_dump\\(` – Replace debug statements with proper logging
+  - pattern `catch\\s*\\([^)]*\\)\\s*\\{\\s*\\}` – Implement proper error handling in catch blocks
 
 ## Suggestions
 - Guidance:
-## Cursor Rules Best Practices
-
-### 1. Location and Structure
-- **Location:** Always place rule files in **PROJECT_ROOT/.cursor/rules/**
-- **Directory Structure:**
-  ```
-  PROJECT_ROOT/
-  ├── .cursor/
-  │   └── rules/
-  │       ├── your-rule-name.mdc
-  │       └── ...
-  └── ...
-  ```
-
-### 2. Naming Conventions
-- Use **kebab-case** for filenames (e.g., `php-drupal-standards.mdc`)
-- Always use the **.mdc** extension
-- Make names descriptive of the rule's purpose
-- Group related rules with common prefixes (e.g., `drupal-*`, `lagoon-*`)
-
-### 3. Rule File Structure
-```
----
-description: Brief description of the rule
-globs: *.php, *.module, *.inc
-alwaysApply: false
----
-# Rule Title
-
-<rule>
-name: rule_name_in_snake_case
-description: Detailed description of what the rule enforces
-filters:
-  - type: file_extension
-    pattern: "pattern_to_match"
-
-actions:
-  - type: enforce|suggest|validate
-    conditions:
-      - pattern: "regex_pattern"
-        message: "Clear message explaining the issue"
-
-metadata:
-  priority: high|medium|low
-  version: 1.1
-</rule>
-```
-
-### 4. Rule Maintenance
-- **When adding new rules:**
-  - Check for overlapping or conflicting rules
-  - Ensure patterns are efficient and specific
-  - Test rules against sample code
-- **When modifying existing rules:**
-  - Update version number
-  - Document changes in commit messages
-  - Review and update related rules for consistency
-  - Consider backward compatibility
-
-### 5. Best Practices for Rule Content
-- Use clear, specific regex patterns
-- Provide helpful, actionable messages
-- Include examples of good and bad code
-- Set appropriate priority levels
-- Use multiple conditions for complex rules
-- Consider performance impact of complex patterns
-
-### 6. Rule Testing
-- Test rules against both compliant and non-compliant code
-- Verify that messages are clear and helpful
-- Check for false positives and false negatives
-- Ensure rules don't conflict with each other
+Debugging Best Practices:
+- Address root causes, not symptoms
+- Add descriptive logging messages
+- Create isolated test functions
+- Implement comprehensive error handling
+- Use appropriate logging levels
+- Add context to error messages
+- Consider debugging tools integration
 
 ## Metadata
-- Priority: high|medium|low
+- Priority: high
 - Version: 1.1
-- - **When Adding New Rules: **
-- - **When Modifying Existing Rules: **
+
+ 
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
