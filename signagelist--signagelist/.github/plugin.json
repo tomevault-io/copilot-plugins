@@ -1,0 +1,9 @@
+{
+  "name": "signagelist--signagelist",
+  "displayName": "signagelist",
+  "description": "A curated list of digital signage software.",
+  "version": "1.0.0",
+  "author": "SignageList",
+  "homepage": "https://github.com/SignageList/signagelist",
+  "skills": []
+}
