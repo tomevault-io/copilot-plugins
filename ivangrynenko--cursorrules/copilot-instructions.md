@@ -1,45 +1,40 @@
-## tests-documentation-maintenance
+## third-party-integration
 
-> Require tests for new functionality and enforce documentation updates.
+> Standards for integrating external services
 
-# Tests & Documentation Maintenance
+# Third-Party Integration Standards
 
-Ensures that tests are written and updated for Drupal modules and plugins, and that documentation remains current.
+Ensures consistent and secure third-party service integration.
 
 <rule>
-name: tests_documentation_maintenance
-description: Require tests for new functionality and enforce documentation updates.
+name: third_party_integration
+description: Enforce standards for external service integration
 filters:
   - type: file_extension
-    pattern: "\\.(php|feature|md|theme|module|install|info|inc)$"
+    pattern: "\\.(php|js|ts)$"
 
 actions:
   - type: enforce
     conditions:
-      - pattern: "class .*Test extends"
-        message: "Ensure all Drupal modules and plugins have unit tests."
+      - pattern: "new\\s+[A-Z][a-zA-Z]*Client\\("
+        message: "Implement proper error handling for external services"
 
-      - pattern: "Feature:.*"
-        message: "Ensure front-end affecting plugins have Behat tests."
-
-      - pattern: "function .*\\("
-        message: "When modifying existing functionality, check and update related tests."
-
-      - pattern: "# README"
-        message: "Ensure README.md exists in each module and is kept up to date."
+      - pattern: "process\\.env\\.|getenv\\("
+        message: "Use configuration management for API credentials"
 
   - type: suggest
     message: |
-      Keep tests and documentation updated:
-      - Write **unit tests** for Drupal modules and backend logic.
-      - Write **Behat tests** for plugins that affect front-end behavior.
-      - If functionality changes, **update corresponding tests**.
-      - Maintain a **README.md** file in each module and update it with relevant changes.
+      Integration Best Practices:
+      - Implement proper error handling
+      - Use environment variables
+      - Create service abstractions
+      - Implement retry mechanisms
+      - Monitor integration health
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
