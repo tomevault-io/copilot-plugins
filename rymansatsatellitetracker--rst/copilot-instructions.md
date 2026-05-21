@@ -1,0 +1,43 @@
+## rst
+
+> - 人工衛星との通信を行うための地上局ソフトウェアです。
+
+---
+applyTo: "**"
+---
+
+# 基本事項
+## 技術要素
+- Electron
+- Vue 3
+- TypeScript
+- Pinia
+- Vite
+- serialport
+- Jest
+
+## このシステムについて
+- 人工衛星との通信を行うための地上局ソフトウェアです。
+- 主にアマチュア人工衛星制作者、その運用者、およびアマチュア無線家が使用します。
+
+### 機能
+- 地図上への衛星位置の表示
+- 無線機制御
+- ローテーター制御
+
+### サブ機能
+- 人工衛星管理
+- 無線機管理
+- ローテーター管理
+- 地上局管理
+- TLEの取得
+- 日本語、英語の表示切替
+
+## レビュー
+### 使用言語
+- 「Pull request overview」は日本語で記述してください。
+- レビューは日本語で行ってください。
+
+---
+> Source: [RymansatSatelliteTracker/RST](https://github.com/RymansatSatelliteTracker/RST) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
