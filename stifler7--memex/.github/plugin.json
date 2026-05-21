@@ -1,0 +1,9 @@
+{
+  "name": "stifler7--memex",
+  "displayName": "memex",
+  "description": "Persistent memory for AI coding agents via MCP \u2014 a bitemporal knowledge graph of your codebase, served to Claude Code, Cursor, Gemini CLI, and any MCP client. Tree-sitter + Gemini Flash \u2192 Neo4j (via G",
+  "version": "1.0.0",
+  "author": "STiFLeR7",
+  "homepage": "https://github.com/STiFLeR7/memex",
+  "skills": []
+}
