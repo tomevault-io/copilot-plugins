@@ -1,0 +1,9 @@
+{
+  "name": "freepeak--cortex",
+  "displayName": "cortex",
+  "description": "A declarative platform for building Model Context Protocol (MCP) servers in Golang\u2014exposing tools, resources & prompts in a clean, structured way",
+  "version": "1.0.0",
+  "author": "FreePeak",
+  "homepage": "https://github.com/FreePeak/cortex",
+  "skills": []
+}
