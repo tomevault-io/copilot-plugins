@@ -1,183 +1,154 @@
-## 02-typescript
+## crewai-agent
 
-> TypeScript development standards and best practices
+> Standards for developing CrewAI agents and workflows
 
 
-# TypeScript Development Standards
+# CrewAI Agent Development Standards
 
 ## Core Principles
 
-### Type Safety
-- Use strict TypeScript configuration
-- Avoid `any` type usage
-- Leverage union types and generics
+### Agent Architecture
+- Define clear agent roles and responsibilities
+- Implement proper tool integration
+- Configure memory and state management
 
-### Code Organization
-- Follow modular design patterns
-- Use proper file and folder structure
-- Implement clean architecture principles
+### Workflow Design
+- Structure agent interactions
+- Define clear communication protocols
+- Implement proper error handling
 
-### Error Handling
-- Use typed error handling
-- Implement proper async/await patterns
-- Provide meaningful error messages
+### Resource Management
+- Handle API keys and credentials securely
+- Manage memory and computational resources
+- Implement proper cleanup mechanisms
 
 ## Code Standards
 
-### Type Definitions
-```typescript
-// Good: Proper type definitions
-interface UserData {
-  id: string;
-  name: string;
-  roles: UserRole[];
-}
+### Agent Definition
+```python
+# Good: Structured agent definition
+class ResearchAgent(Agent):
+    def __init__(self, config: AgentConfig):
+        self.role = "Research Specialist"
+        self.goal = "Conduct thorough research and provide accurate information"
+        self.tools = self.setup_tools(config.allowed_tools)
+        self.memory = self.configure_memory(config.memory_settings)
+        self.validate_configuration()
 
-type UserRole = 'admin' | 'user' | 'guest';
+    def setup_tools(self, allowed_tools: List[str]) -> List[Tool]:
+        return [self.get_validated_tool(tool) for tool in allowed_tools]
 
-// Bad: Loose typing
-interface BadUser {
-  id: any; // ❌ Avoid any
-  data: object; // ❌ Too generic
-}
+    def validate_configuration(self):
+        if not self.role or not self.goal:
+            raise AgentConfigError("Agent must have role and goal defined")
+
+# Bad: Unstructured agent
+class BadAgent:
+    def __init__(self): # ❌ Missing configuration and validation
+        self.tools = ["search", "analyze"]
 ```
 
-### Error Handling
-```typescript
-// Good: Typed error handling
-class ApiError extends Error {
-  constructor(
-    public statusCode: number,
-    message: string,
-    public details?: Record<string, unknown>
-  ) {
-    super(message);
-  }
-}
+### Workflow Implementation
+```python
+# Good: Proper workflow management
+class ResearchWorkflow:
+    def __init__(self, agents: List[Agent], config: WorkflowConfig):
+        self.agents = self.validate_agents(agents)
+        self.config = self.validate_config(config)
+        self.memory_manager = MemoryManager(config.memory_settings)
 
-async function fetchUser(id: string): Promise<User> {
-  try {
-    const response = await api.get(`/users/${id}`);
-    return response.data;
-  } catch (error) {
-    if (error instanceof ApiError) {
-      handleApiError(error);
-    }
-    throw new Error('Failed to fetch user');
-  }
-}
+    async def execute(self, task: Task) -> Result:
+        try:
+            plan = await self.create_execution_plan(task)
+            result = await self.execute_with_agents(plan)
+            return await self.validate_result(result)
+        except WorkflowError as e:
+            await self.handle_workflow_error(e)
+            raise
 
-// Bad: Untyped error handling
-async function badFetch(id: string) {
-  try {
-    return await api.get(id);
-  } catch (e: any) { // ❌ Untyped error
-    console.log(e);
-  }
-}
+# Bad: Poor workflow management
+class BadWorkflow:
+    def run(self, task): # ❌ No error handling or validation
+        return self.agent.process(task)
 ```
 
-### Async Patterns
-```typescript
-// Good: Proper async handling
-async function processData<T>(
-  data: T[],
-  processor: (item: T) => Promise<void>
-): Promise<void> {
-  await Promise.all(
-    data.map(async (item) => {
-      try {
-        await processor(item);
-      } catch (error) {
-        handleProcessingError(error);
-      }
-    })
-  );
-}
+### Memory Management
+```python
+# Good: Structured memory handling
+class MemoryManager:
+    def __init__(self, config: MemoryConfig):
+        self.validate_config(config)
+        self.storage = self.initialize_storage(config)
+        self.cleanup_scheduler = self.setup_cleanup(config)
 
-// Bad: Poor async handling
-async function badProcess(items: any[]) {
-  for (const item of items) {
-    await process(item); // ❌ Sequential processing
-  }
-}
+    async def store(self, key: str, data: Any) -> None:
+        await self.validate_data(data)
+        await self.storage.set(key, data)
+        await self.schedule_cleanup(key)
+
+# Bad: Unsafe memory handling
+class BadMemory:
+    def save(self, data): # ❌ No validation or cleanup
+        self.data.append(data)
 ```
 
 ## Validation Rules
 
-```typescript
-const TypeScriptRules = {
-  // Enforce strict typing
-  noExplicitAny: {
-    pattern: /: any(?!\s*\/\/\s*allowed)/,
-    message: "Avoid using 'any' type"
-  },
-  
-  // Proper error handling
-  typedErrorHandling: {
-    pattern: /catch\s*\(error:\s*[A-Z][A-Za-z]+Error\)/,
-    message: "Use typed error handling"
-  },
-  
-  // Async/await usage
-  asyncAwaitUsage: {
-    pattern: /async\s+function.*try\s*{.*}\s*catch/,
-    message: "Implement proper async/await error handling"
-  }
-};
-```
-
-## Configuration
-
-### TSConfig Standards
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  }
+```python
+const CrewAIRules = {
+    # Ensure proper agent configuration
+    agentConfiguration: {
+        pattern: /class.*Agent.*{.*validate_configuration/,
+        message: "Implement proper agent configuration validation"
+    },
+    
+    # Check workflow error handling
+    workflowErrorHandling: {
+        pattern: /try.*{.*}.*catch.*{.*handle_workflow_error/,
+        message: "Implement proper workflow error handling"
+    },
+    
+    # Verify memory management
+    memoryManagement: {
+        pattern: /class.*Memory.*{.*cleanup|validate/,
+        message: "Implement proper memory management"
+    }
 }
 ```
 
 ## Best Practices
 
-1. Type Definitions
-   - Create interfaces for data structures
-   - Use type aliases for unions
-   - Leverage generics for reusability
+1. Agent Design
+   - Clear role definition
+   - Proper tool integration
+   - Memory management
 
-2. Error Management
-   - Create custom error classes
-   - Use discriminated unions for errors
-   - Implement proper error boundaries
+2. Workflow Management
+   - Error handling
+   - Progress tracking
+   - Resource cleanup
 
-3. Async Operations
-   - Use Promise.all for parallel operations
-   - Implement proper cancellation
-   - Handle timeouts appropriately
+3. Security
+   - API key management
+   - Data validation
+   - Access control
 
 ## Security Considerations
 
-1. Input Validation
-   - Validate all external data
-   - Use runtime type checking
-   - Implement proper sanitization
+1. Credential Management
+   - Secure API key storage
+   - Proper environment variables
+   - Access control implementation
 
-2. Type Safety
-   - Avoid type assertions
-   - Use strict null checks
-   - Implement proper access control
+2. Data Protection
+   - Input validation
+   - Output sanitization
+   - Memory cleanup
 
-3. Error Exposure
-   - Sanitize error messages
-   - Implement proper logging
-   - Control stack trace exposure 
+3. Resource Control
+   - Rate limiting
+   - Memory limits
+   - Compute restrictions 
 
 ---
 > Source: [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
