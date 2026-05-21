@@ -1,80 +1,82 @@
-## testing-bdd
+## tooling-workflow
 
-> BDD/Behave testing conventions for ArchiPy feature files and step implementations
+> ArchiPy developer workflow — package manager, make targets, pre-commit, versioning
 
 
-# Testing with BDD (Behave)
+# Developer Tooling & Workflow
 
-ArchiPy uses the **Behave** BDD framework (v1.3.3). Tests are written as Gherkin scenarios.
+## Package Manager
 
-## Directory Structure
-
-```
-features/
-├── *.feature                    # Gherkin scenario files
-├── environment.py               # Global setup/teardown hooks
-├── scenario_context.py          # Per-scenario state container
-├── test_helpers.py              # Shared async/sync utilities
-└── steps/
-    └── *.py                     # Step implementations (Given/When/Then)
-```
-
-## Running Tests
+Always use **`uv`** — never `pip install` directly.
 
 ```bash
-make behave
-uv run --extra behave behave features/file_name.feature
-uv run --extra behave behave features/file_name.feature:42
+# Install all deps (including dev + all extras)
+uv sync --all-extras --all-groups
+
+# Add a new dependency
+uv add <package>
+
+# Add a dev dependency
+uv add --group dev <package>
 ```
 
-## Writing Feature Files
+## Common Make Targets
 
-- Keep `.feature` files **declarative** — describe behavior, not implementation.
-- Use `@tags` to categorize scenarios for selective runs.
+| Command | What it does |
+|---|---|
+| `make install-dev` | Install all deps + pre-commit hooks |
+| `make format` | Ruff formatter (fixes in place) |
+| `make lint` | Ruff linter + ty type checker |
+| `make behave` | Run all BDD tests |
+| `make check` | format + lint + security + tests |
+| `make security` | Bandit scan → `bandit-report.json` |
+| `make pre-commit` | Run all pre-commit hooks manually |
+| `make clean` | Remove build artifacts and caches |
+| `make build` | Build distribution packages |
+| `make ci` | Full CI pipeline locally |
 
-```gherkin
-# ✅ GOOD
-@redis @cache
-Feature: Cache adapter
-  Scenario: Store and retrieve a value
-    Given a running Redis instance
-    When I store "hello" under key "greeting"
-    Then I can retrieve "hello" from key "greeting"
+## Pre-commit Hooks
+
+Hooks run automatically on `git commit`. They include (in order):
+1. `check-added-large-files`
+2. `check-yaml`, `check-toml`, `check-json`, `pretty-format-json`
+3. `end-of-file-fixer`, `trailing-whitespace-fixer`
+4. `uv lock` / `uv sync` (on post-checkout and post-merge)
+5. `codespell` — catches common typos in `.py`/`.pyi` files
+6. `ruff-format` → `ruff check --fix` → `add-trailing-comma`
+7. `validate-pyproject` — validates `pyproject.toml`
+8. `ty check` — strict type checking
+
+Run manually:
+```bash
+make pre-commit
+# or directly:
+uv run pre-commit run --all-files
 ```
 
-## Writing Step Files
+## Documentation
 
-- Step functions are exempt from: `ANN001`, `ANN201`, `ARG001`, `PLR0913`, `F811`.
-- Step redefinition (`F811`) is allowed — Behave reuses steps across features.
-- Use `get_current_scenario_context(context)` to share state between steps.
-
-## Async Steps
-
-Behave 1.3.3 supports `async def` step functions **natively** — no `asyncio.run()` or `@async_run_until_complete` wrapper needed. Always declare async steps with `async def` and use `await` directly.
-
-```python
-# ❌ BAD — never use asyncio.run() inside a step
-@when("something async happens")
-def step_impl(context):
-    result = asyncio.run(some_async_call())
-
-# ✅ GOOD — declare the step as async def and await directly
-@when("something async happens")
-async def step_impl(context):
-    result = await some_async_call()
+```bash
+make docs-serve        # Live-reload local server (balanced)
+make docs-serve-fast   # Fast rebuild (skip heavy API gen)
+make docs-build        # Build static site
+make docs-deploy       # Deploy to GitHub Pages
 ```
 
-Sync operations work fine inside `async def` steps, so steps with mixed sync/async branches (e.g. if/elif over frameworks) should be converted to `async def` entirely.
+## Version Bumping
 
-The only place `asyncio.run()` is acceptable is in **non-step** callbacks (e.g. `scenario_context.py` cleanup methods) that may be called from outside an event loop.
+```bash
+make bump-patch message="fix: correct edge case in JWT utils"
+make bump-minor message="feat: add ScyllaDB async adapter"
+make bump-major message="breaking: redesign config layer"
+```
 
-## Parallel Execution
+## Dependency Updates
 
-Behave is configured to run with **8 parallel workers** (multiprocessing). Steps must not share mutable global state across scenarios.
-
-## Linting Exclusions
-
-`features/` and `scripts/` are excluded from Ruff linting. Do not add type annotations to step functions.
+```bash
+make update        # Update uv.lock to latest compatible versions
+make update-all    # Also upgrade uv itself and Python
+```
 
 ---
 > Source: [SyntaxArc/ArchiPy](https://github.com/SyntaxArc/ArchiPy) — distributed by [TomeVault](https://tomevault.io).
