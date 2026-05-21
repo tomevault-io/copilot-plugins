@@ -1,0 +1,9 @@
+{
+  "name": "cuongtl1992--mcp-dbs",
+  "displayName": "mcp-dbs",
+  "description": "The MCP Server support your LLMs integrate with SQL Database (SQLite, SQL Server, Postgres SQL)",
+  "version": "1.0.0",
+  "author": "cuongtl1992",
+  "homepage": "https://github.com/cuongtl1992/mcp-dbs",
+  "skills": []
+}
