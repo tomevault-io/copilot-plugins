@@ -1,0 +1,9 @@
+{
+  "name": "visactor--superset-visactor",
+  "displayName": "Superset-VisActor",
+  "description": "A BI example project, based on apache/superset, replaces the charts in the superset project with VChart and VTable.",
+  "version": "1.0.0",
+  "author": "VisActor",
+  "homepage": "https://github.com/VisActor/Superset-VisActor",
+  "skills": []
+}
