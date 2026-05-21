@@ -1,0 +1,9 @@
+{
+  "name": "tosun-si--world-cup-qatar-elt-airflow-dbt",
+  "displayName": "world-cup-qatar-elt-airflow-dbt",
+  "description": "This repo via a real world use case, shows how to launch dbt models from a DAG in Apache Airflow.",
+  "version": "1.0.0",
+  "author": "tosun-si",
+  "homepage": "https://github.com/tosun-si/world-cup-qatar-elt-airflow-dbt",
+  "skills": []
+}
