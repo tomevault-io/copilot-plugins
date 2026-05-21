@@ -1,0 +1,9 @@
+{
+  "name": "ahtavarasmus--lightfriend",
+  "displayName": "lightfriend",
+  "description": "The first verifiably private cloud AI assistant. Runs in AWS Nitro Enclave with hardware attestation - nobody can access user data, not even the developer. Bridges WhatsApp, Telegram, Signal, email to",
+  "version": "1.0.0",
+  "author": "ahtavarasmus",
+  "homepage": "https://github.com/ahtavarasmus/lightfriend",
+  "skills": []
+}
