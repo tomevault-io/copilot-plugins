@@ -1,8 +1,22 @@
-## params
+## prefer-functional-style
 
-> How to express parameters
+> Using functional over imperative style
 
-For constructors and functions with more than 2 parameters, instead of positional parameters, use a `…Params` object as the parameter so it's clearer what is happening at the function/constructor callsite.
+Strongly prefer using functional style over imperative. That includes but is not limited to:
+
+	1.	Prefer Immutability: instead of modifying state, create new structures with changes
+	2.	Guarantee Function Purity:
+	•	Guideline: Analyze function bodies to ensure outputs depend solely on inputs; warn when external state is read or modified.
+	3.	Promote Modular, Composable Design:
+	•	Guideline: Encourage the decomposition of tasks into small, reusable functions and support refactoring into higher-order functions and function composition (e.g., using combinators like map, filter, and reduce).
+	4.	Support Declarative Constructs:
+	•	Guideline: Recommend replacing imperative loops with declarative data transformation constructs and pattern matching when available.
+	5.	Integrate Robust Error Handling:
+	•	Guideline: Suggest the use of algebraic data types (e.g., Option, Either, Result) and monadic error patterns to handle exceptional conditions explicitly.
+	7.	Leverage the Type System:
+	•	Guideline: Utilize static type checking and inference to enforce contracts; highlight type mismatches that might indicate unintended side effects.
+	8.	Encourage Concurrency-Ready Patterns:
+	•	Guideline: Identify stateless functions and immutable data as candidates for safe concurrent execution; recommend parallel processing libraries when appropriate.
 
 ---
 > Source: [SentinelTeam/grim](https://github.com/SentinelTeam/grim) — distributed by [TomeVault](https://tomevault.io).
