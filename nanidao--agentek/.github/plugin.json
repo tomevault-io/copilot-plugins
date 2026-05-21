@@ -1,0 +1,9 @@
+{
+  "name": "nanidao--agentek",
+  "displayName": "agentek",
+  "description": "An extensible TypeScript toolkit that simplifies complex EVM blockchain interactions into composable, intent-based tools. Provides a unified, type-safe interface for both on-chain actions and off-chai",
+  "version": "1.0.0",
+  "author": "NaniDAO",
+  "homepage": "https://github.com/NaniDAO/agentek",
+  "skills": []
+}
