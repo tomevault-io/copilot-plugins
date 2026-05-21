@@ -1,0 +1,9 @@
+{
+  "name": "hitesit--pymol-fitter",
+  "displayName": "PyMol_Fitter",
+  "description": "Ready-To-Use Pymol Plugin for Docking and Minimization",
+  "version": "1.0.0",
+  "author": "HiteSit",
+  "homepage": "https://github.com/HiteSit/PyMol_Fitter",
+  "skills": []
+}
