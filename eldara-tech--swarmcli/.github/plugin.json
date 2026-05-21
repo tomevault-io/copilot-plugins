@@ -1,0 +1,9 @@
+{
+  "name": "eldara-tech--swarmcli",
+  "displayName": "swarmcli",
+  "description": "A terminal UI for Docker Swarm that makes cluster state easier to see, understand, and reason about.",
+  "version": "1.0.0",
+  "author": "Eldara-Tech",
+  "homepage": "https://github.com/Eldara-Tech/swarmcli",
+  "skills": []
+}
