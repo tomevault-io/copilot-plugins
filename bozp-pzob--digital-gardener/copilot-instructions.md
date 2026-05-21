@@ -1,49 +1,47 @@
-## historical-script
+## types-structure
 
-> This script, `[src/historical.ts](mdc:src/historical.ts)`, provides functionality to fetch and process data from past dates or date ranges, separate from the continuous operation managed by `[src/index.ts](mdc:src/index.ts)`.
+> The `[src/types.ts](mdc:src/types.ts)` file defines the essential TypeScript interfaces and types used throughout the aggregator system, ensuring consistency between plugins and components.
 
-# Historical Data Script
+# Core Data Types and Interfaces
 
-This script, `[src/historical.ts](mdc:src/historical.ts)`, provides functionality to fetch and process data from past dates or date ranges, separate from the continuous operation managed by `[src/index.ts](mdc:src/index.ts)`.
+The `[src/types.ts](mdc:src/types.ts)` file defines the essential TypeScript interfaces and types used throughout the aggregator system, ensuring consistency between plugins and components.
 
-## Purpose
+## Key Interfaces:
 
-*   Backfill data for specific dates or periods.
-*   Generate summaries for past dates.
-*   Test source plugins' historical fetching capabilities.
+*   **`ContentItem`**: The central data structure representing a single piece of fetched content. It normalizes data from various sources.
+    *   `cid: string`: Unique ID from the original source.
+    *   `type: string`: Nature of the content (e.g., "discordMessage").
+    *   `source: string`: Name of the originating source plugin.
+    *   `title?: string`: Optional title.
+    *   `text?: string`: Main content body.
+    *   `link?: string`: URL to the original item.
+    *   `topics?: string[]`: Topics assigned (likely by an enricher).
+    *   `date?: number`: Timestamp of creation/publication.
+    *   `metadata?: Record<string, any>`: Source-specific additional data.
 
-## Execution
+*   **`SummaryItem`**: Represents a generated summary, potentially combining multiple `ContentItem`s.
+    *   `type: string`: Type of summary.
+    *   `title?: string`: Summary title.
+    *   `categories?: string`: Categories associated with the summary.
+    *   `markdown?: string`: The summary content in Markdown format.
+    *   `date?: number`: Timestamp for the summary period.
 
-Run via Node.js:
-`node dist/historical.js [arguments]` (assuming compiled code is in `dist/`)
+*   **Plugin Interfaces**: Define the contracts that plugins must adhere to.
+    *   `SourcePlugin`: Requires `name` and `fetchArticles(): Promise<ContentItem[]>`. May also have `fetchHistorical(...)`.
+    *   `EnricherPlugin`: Requires `enrich(articles: ContentItem[]): Promise<ContentItem[]> | ContentItem[]`.
+    *   `AiProvider`: Requires `summarize(text)`, `topics(text)`, `image(text)`.
+    *   `StoragePlugin`: (Imported from `[src/plugins/storage/StoragePlugin.ts](mdc:src/plugins/storage/StoragePlugin.ts)`). Requires methods like `init`, `saveContent`, `getContent*`, `close`.
 
-## Key Differences from `index.ts`
+*   **Configuration Interfaces**: Define the shape of configuration objects.
+    *   `ConfigItem`: Base structure for plugin definitions in JSON config (`type`, `name`, `params`, `interval`).
+    *   `InstanceConfig`: Runtime representation of an initialized plugin instance.
+    *   `StorageConfig`, `AiEnricherConfig`, `DateConfig`, `OutputConfig`: Specific parameter structures for different plugin types or features.
 
-*   **Entry Point:** `src/historical.ts` vs `src/index.ts`.
-*   **Aggregator:** Uses `[HistoricalAggregator](mdc:src/aggregator/HistoricalAggregator.ts)` which specifically handles date/range-based fetching, vs `ContentAggregator` for continuous fetching.
-*   **Source Requirement:** Only registers source plugins that explicitly implement a `fetchHistorical` method.
-*   **Date Arguments:** Accepts command-line arguments for specifying dates:
-    *   `--date=YYYY-MM-DD`: Fetch for a single specific date.
-    *   `--before=YYYY-MM-DD`: Fetch data *before* this date (exclusive).
-    *   `--after=YYYY-MM-DD`: Fetch data *after* this date (exclusive).
-    *   `--during=YYYY-MM-DD`: Fetch data *during* this date (equivalent to --date).
-    *   Can combine `--before` and `--after` for a range.
-*   **Date Handling:** Uses helpers from `[src/helpers/dateHelper.ts](mdc:src/helpers/dateHelper.ts)` (`parseDate`, `callbackDateRangeLogic`) to manage date filtering and iteration.
-*   **Operation Mode:** Runs once to fetch/generate for the specified dates and then exits. It does not use `setInterval` for continuous operation.
-*   **Summary Generation:** If not using `--onlyFetch`, it generates summaries for the specified date(s) using `generator.instance.generateAndStoreSummary(dateStr)`. For ranges, it iterates through each date in the range.
+*   **Discord-Specific Types**: Detailed structures for handling Discord data.
+    *   `DiscordRawData`: Structure of raw data fetched by `[DiscordRawDataSource.ts](mdc:src/plugins/sources/DiscordRawDataSource.ts)`.
+    *   `DiscordSummary`: Structure for summaries generated specifically from Discord data, including FAQs, help interactions, and action items.
 
-## Workflow
-
-1.  Parse arguments (source config, date filters, output path, onlyFetch).
-2.  Load plugins and configuration (similar to `index.ts`).
-3.  Initialize `HistoricalAggregator`.
-4.  Register sources with `fetchHistorical`, enrichers, and storage.
-5.  Determine the date filter (`DateConfig` object) based on arguments.
-6.  Call `aggregator.fetchAndStore(sourceName, date)` or `aggregator.fetchAndStoreRange(sourceName, filter)` for each registered source.
-7.  If `onlyFetch` is false:
-    *   Iterate through the date(s) using `callbackDateRangeLogic` if needed.
-    *   Call `generator.generateAndStoreSummary(date)` for each relevant generator and date.
-8.  Close storage connections and exit.
+Understanding these types is fundamental to developing or modifying plugins and understanding the data flow within the system.
 
 ---
 > Source: [bozp-pzob/digital-gardener](https://github.com/bozp-pzob/digital-gardener) — distributed by [TomeVault](https://tomevault.io).
