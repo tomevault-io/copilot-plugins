@@ -1,0 +1,9 @@
+{
+  "name": "elliotxx--neovim-config",
+  "displayName": "neovim-config",
+  "description": "My neovim config",
+  "version": "1.0.0",
+  "author": "elliotxx",
+  "homepage": "https://github.com/elliotxx/neovim-config",
+  "skills": []
+}
