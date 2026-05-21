@@ -1,35 +1,28 @@
-## agent-tasks
+## cli
 
-> Example agent tasks for adding utilities, fixing tests, and changing scaffolding templates
+> CLI behavior, prompts, init flow, next steps
 
 
-# Example Agent Tasks
+# CLI
 
-## 1. Add a utility in a package
+- Drive init via `Initializer.init(args)`
+- Clear prompts and defaults
+- Install dependencies after scaffolding
+- Print next steps
 
-Example: Add a constant in `packages/core/src/constants.ts`:
+Non-goals:
+- No deployments or CI flows
+- No global user state changes
 
-- Export from `packages/core/src/index.ts` if public
-- Add JSDoc: `@internal` for internal APIs; `@public` and full `@param`/`@returns` for public APIs
-- Add tests in `packages/core/src/constants.test.ts` (if needed)
-- Run `yarn api-extractor` if you change public exports
+Backwards compatibility:
+- Avoid breaking arg names
+- Additive changes with defaults
 
-## 2. Fix a failing test
-
-```bash
-yarn test-packages
-# Or: cd packages/content && yarn test
-```
-
-- Locate the failing `*.test.ts` file
-- Preserve intended behavior; fix assertions or implementation
-- Re-run tests before completing
-
-## 3. Change a scaffolding template
-
-- Edit under `packages/create-content-sdk-app/src/templates/nextjs/` or `nextjs-app-router/`
-- Use `.env.remote.example` for env vars (never `.env`)
-- Verify: Run `yarn watch` (with `watch.json`) or `yarn scaffold-samples`, then `npm install && npm run build` in the generated sample
+Referenced:
+@src/initializers/nextjs/index.ts
+@src/initializers/nextjs/prompts.ts
+@src/initialize.ts
+@src/bin.ts
 
 ---
 > Source: [Sitecore/content-sdk](https://github.com/Sitecore/content-sdk) — distributed by [TomeVault](https://tomevault.io).
