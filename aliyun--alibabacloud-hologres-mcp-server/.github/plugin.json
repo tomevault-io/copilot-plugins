@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--alibabacloud-hologres-mcp-server",
+  "displayName": "alibabacloud-hologres-mcp-server",
+  "description": "alibabacloud-hologres-mcp-server",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/alibabacloud-hologres-mcp-server",
+  "skills": []
+}
