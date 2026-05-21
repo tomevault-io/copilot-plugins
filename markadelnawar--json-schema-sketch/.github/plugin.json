@@ -1,0 +1,9 @@
+{
+  "name": "markadelnawar--json-schema-sketch",
+  "displayName": "json-schema-sketch",
+  "description": "Infer compact schema descriptions from any JSON value. For AI/LLM tool-use contexts optimization..",
+  "version": "1.0.0",
+  "author": "markadelnawar",
+  "homepage": "https://github.com/markadelnawar/json-schema-sketch",
+  "skills": []
+}
