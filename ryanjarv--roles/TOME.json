@@ -4,7 +4,7 @@
   "repo": "roles",
   "description": "Unauthenticated enumeration of AWS IAM Roles.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RyanJarv/roles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T21:04:33Z"
+  "distributed_at": "2026-05-21T06:10:59Z"
 }
