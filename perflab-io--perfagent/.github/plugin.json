@@ -1,0 +1,9 @@
+{
+  "name": "perflab-io--perfagent",
+  "displayName": "perfagent",
+  "description": "A performance insights and knowledge assistant agent built on top of Chrome DevTools internals, Mastra, AI SDK and NextJS",
+  "version": "1.0.0",
+  "author": "PerfLab-io",
+  "homepage": "https://github.com/PerfLab-io/perfagent",
+  "skills": []
+}
