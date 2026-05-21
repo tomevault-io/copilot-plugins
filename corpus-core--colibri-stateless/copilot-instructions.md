@@ -1,69 +1,66 @@
-## memory-management
+## review-agents
 
-> Memory management patterns and conventions in colibri-stateless
+> Guides intelligent use of review agents (security, QA, code-reviewer) during planning and implementation
 
 
-# Memory Management
+## Review Agents
 
-## Safe Allocation
+Three specialized review agents are available as subagents in `.cursor/agents/`:
 
-Always use safe allocation wrappers (defined in `src/util/bytes.h`). They abort on OOM:
+| Agent | Strength | When to consider |
+|-------|----------|-----------------|
+| **security-agent** | Memory safety, crypto correctness, input validation, information leakage | Changes to parsing, crypto, network code, memory management, or any code handling untrusted data |
+| **qa-agent** | Test coverage analysis, writing new unit tests, mapping changes to test files | New features, bug fixes, refactored logic, changed public APIs |
+| **code-reviewer** | Readability, naming, duplication, refactoring opportunities, convention compliance | Substantial new code, complex refactorings, changes touching multiple modules |
 
-- `safe_malloc(size)` -- allocate memory, abort if NULL
-- `safe_calloc(count, size)` -- allocate zeroed memory
-- `safe_realloc(ptr, size)` -- resize allocation
-- `safe_free(ptr)` -- free memory (macro for `free()`)
+## When Planning a Task
 
-## Ownership Annotations
+When creating a TODO list for a non-trivial task, **decide which (if any) review agents should be involved** and add them as explicit TODO items at the appropriate point in the plan. This is a judgment call -- not every change needs review agents.
 
-Use Clang static analyzer annotations for ownership tracking:
+### Guidelines for the decision
 
-- `M_RET` -- function returns newly allocated memory (caller owns it)
-- `M_TAKE(n)` -- function takes ownership of parameter n (will free it)
+- **No agents needed**: Trivial changes (typos, comment fixes, config tweaks, documentation-only).
+- **One agent**: Most changes benefit from at least one. Pick the most relevant:
+  - New feature → `qa-agent` (ensure tests exist)
+  - Security-sensitive code → `security-agent`
+  - Large refactoring → `code-reviewer`
+- **Two or three agents**: For substantial changes that cross concerns (e.g. a new SSZ parser that handles untrusted input and needs tests → all three).
 
-```c
-prover_ctx_t* c4_prover_create(...) M_RET;     // Caller must free
-void c4_prover_free(prover_ctx_t* ctx) M_TAKE(1); // Takes ownership
+### Where to place review steps in the TODO list
+
+- **Plan review** (optional): Before implementation, if the approach has security or architectural implications, invoke the relevant agent(s) on the plan description to get early feedback.
+- **Post-implementation review**: After the code changes are complete, invoke the relevant agent(s) on the actual diff. This is the more common and valuable review point.
+- Run multiple agents **in parallel** using the Task tool when possible, to minimize latency.
+
+### Example TODO lists
+
+Substantial feature (all 3 agents):
+```
+1. [in_progress] Implement new SSZ union type handler
+2. [pending]     Add union serialization/deserialization
+3. [pending]     Update ssz_dump for union display
+4. [pending]     security-agent: Review memory safety and input validation
+5. [pending]     code-reviewer: Check readability and convention compliance
+6. [pending]     qa-agent: Verify test coverage, add missing tests
 ```
 
-## bytes_t (Fat Pointer)
-
-`bytes_t` is a non-owning view: `{uint32_t len, uint8_t* data}`. Passed by value.
-
-- `NULL_BYTES` -- the zero/empty value `{0, NULL}`
-- `bytes_dup(b)` -- create a heap-allocated copy (caller must free the `.data`)
-- Never free a `bytes_t` directly unless you created it with `bytes_dup()`.
-
-## buffer_t (Growable Buffer)
-
-`buffer_t` is an owning growable buffer: `{bytes_t data, int32_t allocated}`.
-
-- `allocated > 0` -- heap-allocated, must be freed with `buffer_free()`
-- `allocated < 0` -- fixed/stack buffer, do NOT free
-- `allocated == 0` -- uninitialized/empty
-
-```c
-buffer_t buf = {0};               // Start empty
-buffer_append(&buf, some_bytes);   // Grow and append
-buffer_free(&buf);                 // Free only if heap-allocated
+Bug fix in crypto code (2 agents):
+```
+1. [in_progress] Fix BLS signature edge case
+2. [pending]     security-agent: Verify fix doesn't introduce new vulnerabilities
+3. [pending]     qa-agent: Add regression test for the edge case
 ```
 
-Use `buffer_grow(&buf, needed)` to pre-allocate capacity.
+Simple refactoring (1 agent):
+```
+1. [in_progress] Extract helper function from verify_block
+2. [pending]     code-reviewer: Check naming and structure
+```
 
-## State Machine Cleanup
-
-- `c4_state_free(state)` -- free all requests and errors in a state.
-- `c4_request_free(req)` -- free a single data request.
-- Always free prover/verifier contexts when done:
-  - `c4_prover_free(ctx)` for prover
-  - Verifier context: `c4_state_free(&ctx.state)`
-
-## Common Pitfalls
-
-- `bytes_t` is a view -- do not use it after the underlying buffer is freed.
-- `buffer_t` with `allocated < 0` is stack-based -- do not return it from a function.
-- SSZ objects (`ssz_ob_t`) reference memory from the original proof bytes -- do not free proof data while SSZ objects are in use.
-- `bprintf()` writes into a `buffer_t` -- make sure the buffer is initialized before use.
+Config change (no agents):
+```
+1. [in_progress] Update CMake preset for new build option
+```
 
 ---
 > Source: [corpus-core/colibri-stateless](https://github.com/corpus-core/colibri-stateless) — distributed by [TomeVault](https://tomevault.io).
