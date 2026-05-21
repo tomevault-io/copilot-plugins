@@ -1,0 +1,9 @@
+{
+  "name": "aliev--baker",
+  "displayName": "baker",
+  "description": "Baker is a command-line tool that helps you quickly scaffold new projects. It supports language-independent hooks for automating routine tasks. Baker is written in Rust and distributed as a standalone",
+  "version": "1.0.0",
+  "author": "aliev",
+  "homepage": "https://github.com/aliev/baker",
+  "skills": []
+}
