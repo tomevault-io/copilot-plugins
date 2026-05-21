@@ -1,0 +1,9 @@
+{
+  "name": "soloterm--grapheme",
+  "displayName": "grapheme",
+  "description": "A PHP package to measure the width of unicode strings rendered to a terminal.",
+  "version": "1.0.0",
+  "author": "soloterm",
+  "homepage": "https://github.com/soloterm/grapheme",
+  "skills": []
+}
