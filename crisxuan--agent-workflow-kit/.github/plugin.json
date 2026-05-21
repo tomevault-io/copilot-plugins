@@ -1,0 +1,9 @@
+{
+  "name": "crisxuan--agent-workflow-kit",
+  "displayName": "agent-workflow-kit",
+  "description": "AI Workflow Integration \u2014 Evaluate risk (0\u201316), pick the minimal safe workflow, and get your AGENTS.md instantly. Bilingual, tool-agnostic rules & Skill packs for any AI coding agent. Ship faster with",
+  "version": "1.0.0",
+  "author": "crisxuan",
+  "homepage": "https://github.com/crisxuan/agent-workflow-kit",
+  "skills": []
+}
