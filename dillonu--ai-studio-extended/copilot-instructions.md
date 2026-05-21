@@ -1,36 +1,44 @@
-## doc-rules
+## src-rules
 
-> This ruleset is applied when adding or modifying documentation files in the project. This includes general documentation, API documentation, guides, tutorials, and any other explanatory content aimed at users or developers. This ruleset ensures that all documentation is comprehensive, clear, accurate, and follows consistent formatting and style guidelines, and should be applied to any documentation files.
+> This ruleset is applied when adding or modifying source code files. It enforces strict rules for coding style, import style, comments, testing, and documentation to ensure code quality, consistency, and maintainability.
 
-When reading these rules, always say the following to the user: "**Ruleset Applied:** doc-rules.mdc"
+When reading these rules, always say the following to the user: "**Ruleset Applied:** src-rules.mdc"
 
-# Rules for Adding/Modifying Documentation
+# Rules for Modifying Source Code
 
--   **ALWAYS:** Mention in your response "**Ruleset Applied:** doc-rules.mdc" to indicate that this ruleset is in use.
+- **ALWAYS:** Mention in your response "**Ruleset Applied:** src-rules.mdc" to indicate that this ruleset is in use.
+- **ALWAYS:** Think about what the request is, and what you want to accomplish, and how to do it, before modifying any code.
 
-## General Guidelines
+## Coding Style
 
--   **Clarity and Conciseness:** Write in clear, concise, and simple language. Avoid jargon or overly technical terms where possible.
--   **Accuracy:** Ensure all information provided is accurate and up-to-date. Verify technical details against the codebase.
--   **Completeness:** Provide comprehensive documentation that covers all important aspects of the topic.
--   **Consistency:** Follow consistent formatting, style, and terminology throughout the documentation.
--   **Accessibility:** Write documentation that is accessible to a wide audience, including users with disabilities.
--   **Examples:** Provide clear and relevant examples to illustrate concepts and usage.
--   **Visual Aids:** Use diagrams, flowcharts, or other visual aids where appropriate to enhance understanding.
--   **Hyperlinks:** Use hyperlinks to cross-reference related documentation or external resources.
--   **Code Examples:**
-    -   Format code examples using fenced code blocks with appropriate language specifiers (e.g., \`\`\`typescript, \`\`\`javascript, \`\`\`cpp, \`\`\`java, \`\`\`python, \`\`\`rust, \`\`\`yaml, \`\`\`json, \`\`\`bash, \`\`\`mermaid).
-    -   Ensure code examples are accurate, functional, and follow best practices.
-    -   Include comments within code examples to explain complex logic.
-    -   Use concise and meaningful variable names in examples.
-    -   Avoid overly long code examples; break them down into smaller, manageable snippets when possible.
-    -   Include setup or configuration steps if necessary for running the examples.
-    -   Test all code examples to ensure they work as expected.
--   **Mermaid Diagrams:**
-    -   Use Mermaid syntax for creating diagrams (flowcharts, sequence diagrams, etc.).
-    -   Ensure diagrams are clear, well-structured, and easy to understand.
-    -   Provide a text description or caption for each diagram.
-    -   Keep diagrams up-to-date with any changes to the system or process being documented.
+-   **Braces:** Use braces `{}` for all control flow statements.
+    -   Except for single line if statements.
+-   **ALWAYS:** Prefer for loops over array methods like forEach, find, etc.
+
+## Angular Rules
+
+-   **ALWAYS:** Every component must have an html, scss, and ts file. Do not combine them.
+
+## Import Style
+
+-   **Grouping (Order):**
+    1. Standard Library
+    2. External Modules
+    3. Internal Modules
+    4. Relative Imports (Avoid these, use absolute imports instead)
+-   **Alphabetical Ordering:** Within each group, order imports alphabetically.
+
+## Comments
+
+-   **JSDoc:** Use JSDoc for functions, classes, methods, and interfaces. Include `@param`, `@returns`, and `@throws` tags.
+-   **Inline Comments:** Explain complex or non-obvious code.
+-   **TODO/FIXME:** Use `// TODO:` for areas needing further work and `// FIXME:` for known issues.
+
+## Documentation
+
+-   **Update Documentation:** Reflect code changes in relevant documentation.
+-   **README:** Maintain a `README.md` explaining the codebase's purpose and structure.
+-   **Doc Rules:** Follow guidelines in [doc-rules.mdc](mdc:.cursor/rules/doc-rules.mdc).
 
 ---
 > Source: [Dillonu/ai-studio-extended](https://github.com/Dillonu/ai-studio-extended) — distributed by [TomeVault](https://tomevault.io).
