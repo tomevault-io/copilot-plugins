@@ -1,0 +1,44 @@
+{
+  "name": "Oxidarb",
+  "owner": "Arkilo-Labs",
+  "repo": "Oxidarb",
+  "description": "\u4e00\u4e2a\u57fa\u4e8eRust\u7684\u4e09\u89d2\u5957\u5229\u7a0b\u5e8f,\u5faa\u73af\u6027\u80fd\u4f4e\u81f310\u00b5s",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Arkilo-Labs/Oxidarb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T04:46:36Z"
+}
