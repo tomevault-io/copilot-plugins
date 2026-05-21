@@ -1,35 +1,78 @@
-## architecture
+## conventions
 
-> Architecture overview and file-structure rules for every new resource
+> Coding conventions, patterns, and hard rules for every file in this repo
 
 
-# Layered Architecture
+# Hard Rules
 
-Routes → Controllers → Services → Repositories → Prisma (PostgreSQL).
+**Environment variables:** Never use `process.env` directly anywhere. Import the typed config object from `src/config/env.ts`.
 
-Every new resource requires exactly these five files, in this order:
+**Error handling:** Throw from `src/errors/index.ts`. In controllers, always catch and call `this.handleError(error, next)` — never `res.status().json()` on error paths. Available classes: `AppError`, `ValidationError`, `AuthenticationError`, `AuthorizationError`, `NotFoundError`, `ConflictError`, `InternalServerError`.
 
-| File | Purpose |
-|------|---------|
-| `src/validations/<name>.validation.ts` | Zod v4 schemas + `RequestHandler` exports |
-| `src/repository/<name>.repository.ts` | `I<Name>Repository` interface + class extending `BaseRepository` |
-| `src/services/<name>.service.ts` | `I<Name>Service` interface + class |
-| `src/controllers/<name>.controller.ts` | `I<Name>Controller` interface + class extending `BaseController` |
-| `src/routes/<name>.route.ts` | class extending `BaseRoute`, exports router instance |
+**Logging:** Use the Pino logger from `src/config/logger.ts`. Never use `console.log/warn/error`.
 
-After creating those files:
-1. Register repository, service, and controller in `src/container/index.ts` following the existing init pattern.
-2. Mount the route in `src/app.ts` at `/api/v1/<name>`.
-3. Export all interfaces and classes from the barrel files (`src/repository/index.ts`, `src/services/index.ts`, `src/controllers/index.ts`).
+**Validation:** Zod v4 schemas in `src/validations/`. Use `validateBody(schema)` from `src/lib/validate.ts` to produce middleware. Export both the schema type and the `RequestHandler` from the validation file.
 
-# DI Container
+**Package manager:** pnpm only. Never generate `package-lock.json` or `yarn.lock`.
 
-`Container` (singleton in `src/container/index.ts`) is the only place where `new Repository/Service/Controller()` is called. Access instances in routes via `this.container.get<Name>Controller()`.
+# TypeScript
 
-# Entry Points
+- Strict mode — no `any`, no `@ts-ignore`
+- All type-only imports must use `import type`
+- Explicit return types on all public methods and class properties
+- No floating promises — always `await` or `.catch()`
+- Prefer `??` over `||` for nullish checks
 
-- `src/index.ts` — binds the port only (import `app` in tests without binding)
-- `src/app.ts` — all middleware and route mounting
+# Formatting (Prettier)
+
+4-space indent · single quotes · semicolons · trailing commas · 100-char line limit
+
+# Controller Pattern
+
+Controller methods are arrow function *properties* (not regular methods) so `this` is bound correctly when passed as route handlers:
+
+```ts
+public createFoo = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        // ...
+        this.sendResponse(res, 201, 'Foo created', data);
+    } catch (error) {
+        this.handleError(error, next);
+    }
+};
+```
+
+# Repository Pattern
+
+- Extend `BaseRepository`
+- Use `this.prisma.<model>` for all queries
+- In `update`/`delete`, wrap Prisma calls in try/catch and call `this.handlePrismaError(error)`
+- Use `this.findManyWithPagination()` and `this.count()` from the base class for list/count operations
+
+# Route Pattern
+
+```ts
+export class FooRoute extends BaseRoute {
+    private fooController!: IFooController;
+
+    protected initializeRoutes(): void {
+        this.fooController = this.container.getFooController();
+        this.router.post('/', fooLimiter, protect, createFooValidation, this.fooController.createFoo);
+        // ...
+    }
+}
+
+const fooRoute = new FooRoute();
+const fooRoutes = fooRoute.getRouter();
+export default fooRoutes;
+```
+
+# Authentication & Security
+
+- Protected routes: apply `protect` middleware (JWT from HttpOnly cookie)
+- All mutating routes require a CSRF token (double-submit cookie pattern via `doubleCsrfProtection`)
+- Rate-limit every route group with its own limiter from `src/middleware/limiter.middleware.ts`
+- Passwords hashed with bcrypt; never log or return password fields
 
 ---
 > Source: [KhaledSaeed18/node-express-boilerplate](https://github.com/KhaledSaeed18/node-express-boilerplate) — distributed by [TomeVault](https://tomevault.io).
