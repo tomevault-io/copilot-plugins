@@ -1,0 +1,9 @@
+{
+  "name": "b7s--catraca",
+  "displayName": "catraca",
+  "description": "PHP Quality Guardian that enforces the Catraca (ratchet) principle: quality metrics can only improve or stay the same, never regress.",
+  "version": "1.0.0",
+  "author": "b7s",
+  "homepage": "https://github.com/b7s/catraca",
+  "skills": []
+}
