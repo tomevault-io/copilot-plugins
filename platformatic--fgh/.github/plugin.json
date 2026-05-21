@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--fgh",
+  "displayName": "fgh",
+  "description": "A typescript implementation of the JQ language",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/fgh",
+  "skills": []
+}
