@@ -1,99 +1,84 @@
-## documentation
+## python-code-style
 
-> Documentation standards for ArchiPy MkDocs pages
+> Core Python code style standards for ArchiPy (enforced by Ruff)
 
 
-# Documentation Standards
+# Python Code Style
 
-## File Naming
+## Strings & Quotes
+- Always use **double quotes** for all strings (inline and multiline).
+- `ruff format` enforces this automatically — never use single quotes.
 
-- All filenames must be lowercase `snake_case` (e.g., `config_management.md`, `bdd_testing.md`).
-- Every directory must have an `index.md` overview file.
-- Adapter and helper filenames must match the Python module name exactly (e.g., `scylladb.md`, `metaclasses.md`).
-
-## Page Structure
-
-Every page must open with YAML frontmatter:
-
-```yaml
----
-title: <Short Human-Readable Title>
-description: <One-sentence description of the page>
----
-```
-
-Heading hierarchy: `#` H1 (matches `title`) → `##` major sections → `###` subsections. Do not skip levels.
-
-### Adapter Example Pages — required sections (in order)
-
-1. `## Installation` — single `bash` block: `uv add "archipy[extra]"`
-2. `## Configuration` → `### Environment Variables` (bash block) + `### Direct Configuration` (python block)
-3. `## Basic Usage` — complete, runnable Python snippets
-4. `## Advanced <Feature>` — deeper patterns (add as needed)
-5. `## See Also` — 4–6 relative links to related docs
-
-### API Reference Pages — required sections
-
-H1 + intro prose → `## Ports`, `## Adapters`, `## Mocks`, each with an mkdocstrings directive:
-
-```markdown
-::: archipy.adapters.<name>.ports
-    options:
-      show_root_toc_entry: false
-      heading_level: 3
-```
-
-## Code Example Standards
-
-- Always use `import logging` and `logger = logging.getLogger(__name__)`. Never use `print()`.
-- Full Python 3.14+ type hints: `list[str]`, `dict[str, Any]`, `X | Y` — never `Optional[X]` or `Union[X, Y]`.
-- Google-style docstrings on every defined function or class.
-- Catch specific exception types only; always chain with `raise ... from e`.
-- Every fenced code block must have a language tag (`python` or `bash`).
+## Docstrings
+- **Google-style** docstrings required on all public functions, classes, and methods.
+- `__init__` methods do not require docstrings (D107 is ignored).
 
 ```python
 # ✅ GOOD
-import logging
-
-logger = logging.getLogger(__name__)
-
-def get_item(key: str) -> str | None:
-    """Retrieve an item by key.
+def fetch_user(user_id: int) -> User:
+    """Fetch a user by their ID.
 
     Args:
-        key: The cache key to look up.
+        user_id: The unique identifier of the user.
 
     Returns:
-        The cached value, or None if not found.
+        The matching User entity.
 
     Raises:
-        CacheError: If the cache is unreachable.
+        NotFoundError: If no user with the given ID exists.
     """
-    try:
-        return cache.get(key)
-    except ConnectionError as e:
-        raise CacheError("Cache unreachable") from e
 ```
 
-## Writing Style
+## Line Length & Formatting
+- Max line length: **120 characters**.
+- Indentation: **4 spaces** (no tabs).
+- Every file must end with a **newline character**.
 
-- **Admonitions**: use block quote callouts instead of MkDocs `!!!` admonitions, as PyCharm's markdown formatter strips the required indentation. Format: `> **Type:** message text` where Type is one of `Tip`, `Note`, `Warning`, `Danger`.
-  - Single-line: `> **Tip:** Install the extra before use.`
-  - Multi-line: prefix every line with `>`, use `>` on blank lines to keep the block together.
-  - With nested code block: open with `> **Tip:** intro text`, then `>`, then `> \`\`\`lang ... \`\`\``
-- **Cross-links**: always relative paths (e.g., `[Error Handling](../error_handling.md)`).
-- **Emphasis**: bold (`**term**`) for key terms on first mention. No emoji outside `index.md` and overview pages.
-- **Tables**: use for structured comparison data (extras matrix, config options).
-- **`## See Also`**: end every adapter example page with this section linking to error handling, config, BDD testing, related helpers, and the corresponding API reference page.
+## Type Hints
+- Use Python 3.14+ syntax: `X | Y` instead of `Union[X, Y]`, `X | None` instead of `Optional[X]`.
+- Use lowercase built-ins: `list[str]`, `dict[str, int]`, `tuple[int, ...]`.
 
-## New Adapter Checklist
+## Import Order
+Strictly follow this section order (enforced by Ruff/isort):
+1. `from __future__ import ...`
+2. Standard library
+3. Third-party packages
+4. First-party (`archipy`)
+5. Local folder
 
-When documenting a new adapter, create **both** files:
+```python
+# ✅ GOOD
+from __future__ import annotations
 
-- `docs/examples/adapters/<name>.md` — example guide with all 5 required sections
-- `docs/api_reference/adapters/<name>.md` — API reference with mkdocstrings directives
+import os
+from typing import TYPE_CHECKING
 
-Then add both entries under the appropriate `nav:` keys in `mkdocs.yml`.
+import pydantic
+
+from archipy.models.errors import NotFoundError
+```
+
+## Error Handling
+- Always use **specific exception types** — never bare `except:` or `except Exception:` at top level.
+- Preserve context with `raise ... from e`.
+
+```python
+# ❌ BAD
+try:
+    result = db.get(user_id)
+except Exception:
+    raise ValueError("Not found")
+
+# ✅ GOOD
+try:
+    result = db.get(user_id)
+except KeyError as e:
+    raise NotFoundError(resource_type=User) from e
+```
+
+## Complexity
+- Keep McCabe complexity **below 10** per function.
+- Max 5 function arguments (use dataclasses/DTOs for more).
 
 ---
 > Source: [SyntaxArc/ArchiPy](https://github.com/SyntaxArc/ArchiPy) — distributed by [TomeVault](https://tomevault.io).
