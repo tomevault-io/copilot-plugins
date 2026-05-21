@@ -1,117 +1,99 @@
-## changelog
+## documentation
 
-> Standards for writing and updating ArchiPy changelog files
+> Documentation standards for ArchiPy MkDocs pages
 
 
-# Changelog Standards
+# Documentation Standards
 
-## File & Directory Structure
+## File Naming
 
-- Major version folder: `docs/community/changelog/<MAJOR>/`
-- Per-release file: `docs/community/changelog/<MAJOR>/<version>.md`
-- Each major folder must have an `index.md` with a summary table
-- Root index: `docs/community/changelog/index.md` lists all series
+- All filenames must be lowercase `snake_case` (e.g., `config_management.md`, `bdd_testing.md`).
+- Every directory must have an `index.md` overview file.
+- Adapter and helper filenames must match the Python module name exactly (e.g., `scylladb.md`, `metaclasses.md`).
 
-## Page Format (per-version file)
+## Page Structure
 
-### Frontmatter
+Every page must open with YAML frontmatter:
 
 ```yaml
 ---
-title: "Changelog <version>"
-description: "Release notes for ArchiPy <version>"
+title: <Short Human-Readable Title>
+description: <One-sentence description of the page>
 ---
 ```
 
-### H1 & Navigation
+Heading hierarchy: `#` H1 (matches `title`) → `##` major sections → `###` subsections. Do not skip levels.
+
+### Adapter Example Pages — required sections (in order)
+
+1. `## Installation` — single `bash` block: `uv add "archipy[extra]"`
+2. `## Configuration` → `### Environment Variables` (bash block) + `### Direct Configuration` (python block)
+3. `## Basic Usage` — complete, runnable Python snippets
+4. `## Advanced <Feature>` — deeper patterns (add as needed)
+5. `## See Also` — 4–6 relative links to related docs
+
+### API Reference Pages — required sections
+
+H1 + intro prose → `## Ports`, `## Adapters`, `## Mocks`, each with an mkdocstrings directive:
 
 ```markdown
-# <version> — <YYYY-MM-DD>
-
-[← <newer>](<newer>.md) | [<older> →](<older>.md) | [↑ <MAJOR>.x series](index.md)
+::: archipy.adapters.<name>.ports
+    options:
+      show_root_toc_entry: false
+      heading_level: 3
 ```
 
-Navigation link rules:
-- Newest release in series: `[← <prev>](<prev>.md) | [↑ <MAJOR>.x series](index.md)`
-- Oldest release in series: `[<next> →](<next>.md) | [↑ <MAJOR>.x series](index.md)`
-- Middle releases: include both prev and next links
+## Code Example Standards
 
-## Sections
+- Always use `import logging` and `logger = logging.getLogger(__name__)`. Never use `print()`.
+- Full Python 3.14+ type hints: `list[str]`, `dict[str, Any]`, `X | Y` — never `Optional[X]` or `Union[X, Y]`.
+- Google-style docstrings on every defined function or class.
+- Catch specific exception types only; always chain with `raise ... from e`.
+- Every fenced code block must have a language tag (`python` or `bash`).
 
-Use only sections that apply. Always in this order:
+```python
+# ✅ GOOD
+import logging
 
-1. `## Added`
-2. `## Changed`
-3. `## Fixed`
-4. `## Removed`
-5. `## Tests`
-6. `## Chore`
-7. `## Dependencies`
+logger = logging.getLogger(__name__)
 
-H3 sub-sections follow the pattern `### <Layer> - <Component>`:
+def get_item(key: str) -> str | None:
+    """Retrieve an item by key.
 
-```markdown
-## Fixed
+    Args:
+        key: The cache key to look up.
 
-### Adapters - Kafka
+    Returns:
+        The cached value, or None if not found.
 
-- **SSL Config Typing** - Improved type safety and optional-field handling for SSL configuration.
-    - Replaced dict merge (`|=`) with explicit per-key assignment
-    - Optional SSL fields now fall back to `""` when `None`
+    Raises:
+        CacheError: If the cache is unreachable.
+    """
+    try:
+        return cache.get(key)
+    except ConnectionError as e:
+        raise CacheError("Cache unreachable") from e
 ```
-
-Valid layer names: `Models`, `Adapters`, `Helpers`, `Configs`, `Tests`, `Chore`, `Dependencies`.
 
 ## Writing Style
 
-- Entry format: `- **Bold Title** - Prose description.`
-- Sub-bullets use 4-space indent for implementation details
-- No trailing period on the bold title; use a sentence-ending period on the prose
-- No emoji; no bare `print()` calls; always double quotes
+- **Admonitions**: use block quote callouts instead of MkDocs `!!!` admonitions, as PyCharm's markdown formatter strips the required indentation. Format: `> **Type:** message text` where Type is one of `Tip`, `Note`, `Warning`, `Danger`.
+  - Single-line: `> **Tip:** Install the extra before use.`
+  - Multi-line: prefix every line with `>`, use `>` on blank lines to keep the block together.
+  - With nested code block: open with `> **Tip:** intro text`, then `>`, then `> \`\`\`lang ... \`\`\``
+- **Cross-links**: always relative paths (e.g., `[Error Handling](../error_handling.md)`).
+- **Emphasis**: bold (`**term**`) for key terms on first mention. No emoji outside `index.md` and overview pages.
+- **Tables**: use for structured comparison data (extras matrix, config options).
+- **`## See Also`**: end every adapter example page with this section linking to error handling, config, BDD testing, related helpers, and the corresponding API reference page.
 
-```markdown
-# ✅ GOOD
-- **Organization Management** - Implemented comprehensive organization management functionality.
-    - Added `OrganizationAdapter` with CRUD operations
-    - Exposed `GET /organizations/{id}` endpoint
+## New Adapter Checklist
 
-# ❌ BAD
-- Organization Management: implemented org management  (missing bold, no period, lowercase verb)
-```
+When documenting a new adapter, create **both** files:
 
-## Index Updates
+- `docs/examples/adapters/<name>.md` — example guide with all 5 required sections
+- `docs/api_reference/adapters/<name>.md` — API reference with mkdocstrings directives
 
-After creating a new version file, update **three** files and edit **one existing version file**:
-
-### Previously newest version file
-
-The release that was the latest before your new one had no "newer" link. Add the back-link to it:
-
-```markdown
-# ❌ BEFORE (4.3.5 was the newest)
-[← 4.3.4](4.3.4.md) | [↑ 4.x series](index.md)
-
-# ✅ AFTER (4.3.6 is now newest; 4.3.5 becomes middle)
-[← 4.3.6](4.3.6.md) | [4.3.4 →](4.3.4.md) | [↑ 4.x series](index.md)
-```
-
-### `docs/community/changelog/<MAJOR>/index.md` (and root index)
-
-Prepend a row (newest first) to the table:
-
-```markdown
-| [<ver>](<ver>.md) | YYYY-MM-DD | <One-line summary of most notable change> |
-```
-
-### `docs/community/changelog/index.md`
-
-Update the release count and version range for the affected series:
-
-```markdown
-## [4.x Series](4/index.md)
-
-13 releases — from 4.0.0 to 4.3.6
-```
+Then add both entries under the appropriate `nav:` keys in `mkdocs.yml`.
 
 ---
 > Source: [SyntaxArc/ArchiPy](https://github.com/SyntaxArc/ArchiPy) — distributed by [TomeVault](https://tomevault.io).
