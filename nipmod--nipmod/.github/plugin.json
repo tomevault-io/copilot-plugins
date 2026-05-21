@@ -1,0 +1,9 @@
+{
+  "name": "nipmod--nipmod",
+  "displayName": "nipmod",
+  "description": "Verifiable package layer for agent code",
+  "version": "1.0.0",
+  "author": "nipmod",
+  "homepage": "https://github.com/nipmod/nipmod",
+  "skills": []
+}
