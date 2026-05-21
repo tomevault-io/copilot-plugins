@@ -1,0 +1,9 @@
+{
+  "name": "r2luna--brain",
+  "displayName": "brain",
+  "description": "Brain is an elegant Laravel Package that helps you organize your Laravel application using Domain-Driven Design principles through a simple command-line interface.",
+  "version": "1.0.0",
+  "author": "r2luna",
+  "homepage": "https://github.com/r2luna/brain",
+  "skills": []
+}
