@@ -1,0 +1,9 @@
+{
+  "name": "daangn--graplix",
+  "displayName": "graplix",
+  "description": "Authorization framework for implementing Relation-based Access Control (ReBAC) with the Resolver (Inspired by GraphQL)",
+  "version": "1.0.0",
+  "author": "daangn",
+  "homepage": "https://github.com/daangn/graplix",
+  "skills": []
+}
