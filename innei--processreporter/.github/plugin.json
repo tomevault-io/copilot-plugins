@@ -1,0 +1,9 @@
+{
+  "name": "innei--processreporter",
+  "displayName": "ProcessReporter",
+  "description": "A macOS application built with AppKit/Cocoa that monitors and reports real-time system activity.",
+  "version": "1.0.0",
+  "author": "Innei",
+  "homepage": "https://github.com/Innei/ProcessReporter",
+  "skills": []
+}
