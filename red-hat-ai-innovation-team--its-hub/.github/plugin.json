@@ -1,0 +1,9 @@
+{
+  "name": "red-hat-ai-innovation-team--its-hub",
+  "displayName": "its_hub",
+  "description": "A Python library for inference-time scaling LLMs",
+  "version": "1.0.0",
+  "author": "Red-Hat-AI-Innovation-Team",
+  "homepage": "https://github.com/Red-Hat-AI-Innovation-Team/its_hub",
+  "skills": []
+}
