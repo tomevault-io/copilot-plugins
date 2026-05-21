@@ -1,46 +1,46 @@
-## client-rules
+## server-rules
 
-> Next.js & TypeScript Guidelines
+> Python (FastAPI & Pipecat) Guidelines
 
-# /client – Next.js & TypeScript Guidelines
+# Python (FastAPI & Pipecat) Guidelines
 
-## Basic Principles
+## General Python & FastAPI Principles
 
-- We're using pnpm as our package manager.
-- Use TypeScript's strict mode. Always annotate variables, function parameters, and return types.
-- Use Next.js recommended conventions for file structure:
-  - Place pages in the `/app` or `/pages` directory.
-  - Place reusable components in `/components`.
-  - Place styles (CSS/SCSS) in `/styles` or inline with CSS Modules.
-- Ensure each file exports only one main item (component, function, etc.).
-- Use clear naming conventions:
-  - Use PascalCase for React components and classes.
-  - Use camelCase for functions, variables, and hooks.
-  - Use kebab-case for filenames and directories.
-- Use public API wrappers when possible and follow Next.js' server/client boundaries:
-  - Client-side code should not invoke server-only functions.
-  - Clearly demarcate client modules (e.g. pipecat-widget.tsx) versus server modules.
+- Write concise, clear code using def (synchronous) or async def (asynchronous) where needed.
+- Use type hints for all function signatures and prefer Pydantic models for input/output validation.
+- Write early returns and guard clauses to handle edge cases in functions.
+- Name variables, functions, and parameters using lowercase_with_underscores.
+- Keep functions small and focused, using helper functions as necessary.
+- _Do not run the bot server; I'll handle that._
 
-## Functions & Components
+## FastAPI Specifics
 
-- Begin component names and functions with a verb where applicable (e.g. renderWidget, fetchData).
-- Write comments and JSDoc for functions and components:
-  - Describe parameters, return types, and any assumptions.
-- Avoid long functions (try to keep below 20 instructions per function).
-- Favor functional components and hooks over class components.
-- For state management, use React's useState/useEffect and other hooks following best practices.
+- Use descriptive HTTP status codes and HTTPException for proper error handling.
+- Write clear startup and shutdown handlers – use lifespan context managers where possible.
+- Document endpoints with summary and description in route decorators.
 
-## Styling and Assets
+## Pipecat and Bot Conventions
 
-- Use CSS Modules or styled-components as preferred for modular and reusable styling.
-- Use efficient import paths relative to the client directory.
-- Optimize bundle size: lazy load heavy components using dynamic imports when needed.
+- Follow the Pipecat framework's architectural concepts: frames, processors, and pipelines.
+- Write bots as small, modular services:
+  - Separate business logic into individual functions.
+  - Keep the orchestration of AI processing clear and sequential.
+- Use logging (e.g., loguru) for debug and error traces, making sure to log key events.
+- Organize bot-specific code in the `server/bots` package, with each bot following a similar structure:
+  - Setup services and transports clearly.
+  - Use async patterns for I/O-bound operations.
+- Clearly document transition points and actions performed along the bot pipeline:
+  - Explain and comment on how frames are passed between processors.
+  - Include instructions on error handling and recovery should any pipeline component fail.
 
-## File Naming and Version Control
+## Error Handling
 
-- In /client, use filenames following kebab-case conventions. For example:
-  - Use filenames like pipecat-widget.tsx, fetch-data.ts, etc.
-- Ensure that build artifacts (e.g., .next or Docker build results) are excluded through .gitignore.
+- Use early return patterns to reduce nesting on input validations and error conditions.
+- Implement global error handling middleware or exception handlers in FastAPI.
+
+## File Naming
+
+- Use snake_case filenames for Python scripts and modules (e.g., bot_framework.py, run_helpers.py).
 
 ---
 > Source: [askjohngeorge/pipecat-lead-qualifier](https://github.com/askjohngeorge/pipecat-lead-qualifier) — distributed by [TomeVault](https://tomevault.io).
