@@ -1,29 +1,35 @@
-## node-express-boilerplate
+## architecture
 
-> Copilot-specific wrapper for this repository.
+> Architecture overview and file-structure rules for every new resource
 
-# GitHub Copilot Instructions
 
-Copilot-specific wrapper for this repository.
+# Layered Architecture
 
-## Primary Source
+Routes → Controllers → Services → Repositories → Prisma (PostgreSQL).
 
-Use [AGENTS.md](../AGENTS.md) as the canonical instructions for architecture, commands, hard rules, and scaffolding order.
+Every new resource requires exactly these five files, in this order:
 
-## Copilot-Specific Notes
+| File | Purpose |
+|------|---------|
+| `src/validations/<name>.validation.ts` | Zod v4 schemas + `RequestHandler` exports |
+| `src/repository/<name>.repository.ts` | `I<Name>Repository` interface + class extending `BaseRepository` |
+| `src/services/<name>.service.ts` | `I<Name>Service` interface + class |
+| `src/controllers/<name>.controller.ts` | `I<Name>Controller` interface + class extending `BaseController` |
+| `src/routes/<name>.route.ts` | class extending `BaseRoute`, exports router instance |
 
-- Keep edits small and local. Avoid broad refactors unless explicitly requested.
-- Follow the layered boundary contract exactly:
-  - Routes -> Controllers -> Services -> Repositories -> Prisma.
-- When changing request/response behavior, validate route middleware order in `src/routes/` and error flow in `src/controllers/base.controller.ts`.
-- For schema changes, run both `pnpm prisma:migrate` and `pnpm prisma:generate`.
-- Before finishing code changes, run `pnpm full-check` and the most relevant tests.
+After creating those files:
+1. Register repository, service, and controller in `src/container/index.ts` following the existing init pattern.
+2. Mount the route in `src/app.ts` at `/api/v1/<name>`.
+3. Export all interfaces and classes from the barrel files (`src/repository/index.ts`, `src/services/index.ts`, `src/controllers/index.ts`).
 
-## References
+# DI Container
 
-- Shared agent guidance: [AGENTS.md](../AGENTS.md)
-- Project overview: [README.md](../README.md)
-- Contributor workflow: [CONTRIBUTING.md](../CONTRIBUTING.md)
+`Container` (singleton in `src/container/index.ts`) is the only place where `new Repository/Service/Controller()` is called. Access instances in routes via `this.container.get<Name>Controller()`.
+
+# Entry Points
+
+- `src/index.ts` — binds the port only (import `app` in tests without binding)
+- `src/app.ts` — all middleware and route mounting
 
 ---
 > Source: [KhaledSaeed18/node-express-boilerplate](https://github.com/KhaledSaeed18/node-express-boilerplate) — distributed by [TomeVault](https://tomevault.io).
