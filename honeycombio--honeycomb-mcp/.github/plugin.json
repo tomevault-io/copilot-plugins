@@ -1,0 +1,9 @@
+{
+  "name": "honeycombio--honeycomb-mcp",
+  "displayName": "honeycomb-mcp",
+  "description": "Allows Honeycomb Enterprise customers to use AI to query and analyze their data, alerts, dashboards, and more; and cross-reference production behavior with the codebase.",
+  "version": "1.0.0",
+  "author": "honeycombio",
+  "homepage": "https://github.com/honeycombio/honeycomb-mcp",
+  "skills": []
+}
