@@ -1,0 +1,9 @@
+{
+  "name": "paymicro--invait",
+  "displayName": "InvAit",
+  "description": "Extension for Visual Studio 2022/2026. Adds a simple chat with the LLM model.",
+  "version": "1.0.0",
+  "author": "paymicro",
+  "homepage": "https://github.com/paymicro/InvAit",
+  "skills": []
+}
