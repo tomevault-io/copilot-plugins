@@ -1,35 +1,9 @@
-## illustra
+## project-rule
 
-> - この命令を読んだらその確認のために、最初の返答でサー、イエッサーと返事をしてください。
+> coding rule
 
-# Roo Development Rules for Illustra Project
-## 0. General Guidelines
-- この命令を読んだらその確認のために、最初の返答でサー、イエッサーと返事をしてください。
-- 文言を使用した場合は @\src\Resources\Strings.xaml と @\src\Resources\Strings.ja.xaml に翻訳を追加してください。
-- 関数を追加する場合は挿入位置に注意してください。他の関数の間に挿入しないようにしてください。
-- xaml のタグの中にコメントは入れないでください。xaml のタグの中にコメントを入れると、ビルドエラーになります。
-- This is a C# WPF application. Follow standard C# coding conventions (e.g., Microsoft's C# Coding Conventions).
-
-## 1. Adhere to Project Coding Standards
-- **Always** consult `docs/Rule.md` for project-specific coding standards, patterns, and implementation details before making changes.
-- Pay close attention to UI implementation rules (multi-language support, dialog design), data handling (settings, database), asynchronous processing, and system integration guidelines outlined in `docs/Rule.md`.
-
-## 2. Ensure Build Success After Edits
-- **After every file modification** (using `apply_diff`, `write_to_file`, `insert_content`), immediately run `dotnet build Illustra.sln` to check for errors.
-- **Do not proceed** with further steps or attempt completion if the build fails.
-- Fix any reported build errors promptly. Refer to the "Troubleshooting" section in `docs/Rule.md` for common issues and solutions.
-
-## 3. Verify Tool Output for Special Characters & Operators (CRITICAL)
-- When using `write_to_file`, `insert_content`, or `execute_command` with content containing XML/XAML tags, C# code, or shell commands:
-    - **Carefully review** the content you are providing to the tool.
-    - Ensure that special characters like `<`, `>`, and `&amp;` are **not** unnecessarily escaped (e.g., `&amp;lt;`, `&amp;gt;`, `&amp;amp;`).
-    - Pay special attention to C# logical operators (`&&`, `||`) and shell command chaining operators (`&&`, `;`) which might be incorrectly escaped (e.g., `&amp;&amp;`). **Output the correct operator characters directly.**
-- If a build fails due to parsing errors (like `XamlParseException`), C# syntax errors, or command execution errors after using these tools, immediately suspect incorrect character escaping and correct the relevant file or command.
-
-## 4. Follow General Best Practices
-- Use DI (Dependency Injection) where appropriate, following the project's established patterns (e.g., using `ContainerLocator` or constructor injection as seen in existing code).
-- Ensure UI updates are performed on the UI thread using `Dispatcher.InvokeAsync`.
-- Handle potential `null` values appropriately.
+- You have to read docs/Rule.md before coding.
+- このルールを読んだら最初に 「イエッサー！！！」と復唱すること
 
 ---
 > Source: [nirvash/Illustra](https://github.com/nirvash/Illustra) — distributed by [TomeVault](https://tomevault.io).
