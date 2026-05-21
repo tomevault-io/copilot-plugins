@@ -1,21 +1,23 @@
-# PaperSage — distributed by TomeVault
+# PaperSage
 
-> Originally from [0verL1nk/PaperSage](https://github.com/0verL1nk/PaperSage). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [0verL1nk/PaperSage](https://github.com/0verL1nk/PaperSage) — distributed by [TomeVault](https://tomevault.io)
+
+📚 AI-powered research reading workbench. Project-based paper Q&A with Hybrid RAG, multi-agent workflows (ReAct/Plan-Act/RePlan), long-term memory, and traceable evidence. Built with LangChain + LangGraph + Streamlit.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [0verL1nk/PaperSage](https://github.com/0verL1nk/PaperSage).
+Original source: `AGENTS.md` in [0verL1nk/PaperSage](https://github.com/0verL1nk/PaperSage).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/0verL1nk)
+From [0verL1nk/PaperSage](https://github.com/0verL1nk/PaperSage) — a repo with 35+ stars on GitHub.
 
 ---
 
