@@ -1,0 +1,9 @@
+{
+  "name": "getnao--sylph",
+  "displayName": "sylph",
+  "description": "The open-source company brain. Run your entire company with AI agents, skills, and a self-improving context.",
+  "version": "1.0.0",
+  "author": "getnao",
+  "homepage": "https://github.com/getnao/sylph",
+  "skills": []
+}
