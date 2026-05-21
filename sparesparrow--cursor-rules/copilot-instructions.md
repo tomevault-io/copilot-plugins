@@ -1,154 +1,224 @@
-## crewai-agent
+## inspirations
 
-> Standards for developing CrewAI agents and workflows
+> Advanced patterns and best practices inspired by top 5 agentic workflow implementations
 
 
-# CrewAI Agent Development Standards
+# Advanced Agentic Workflow Patterns
 
 ## Core Principles
 
-### Agent Architecture
-- Define clear agent roles and responsibilities
-- Implement proper tool integration
-- Configure memory and state management
+### Pattern Selection
+- Choose appropriate workflow pattern based on task characteristics
+- Consider scalability and complexity requirements
+- Enable pattern composition for complex tasks
 
-### Workflow Design
-- Structure agent interactions
-- Define clear communication protocols
-- Implement proper error handling
+### Dynamic Adaptation
+- Support runtime pattern selection
+- Enable workflow modification based on feedback
+- Implement learning from execution history
 
-### Resource Management
-- Handle API keys and credentials securely
-- Manage memory and computational resources
+### Resource Optimization
+- Manage computational resources efficiently
 - Implement proper cleanup mechanisms
+- Support parallel execution when possible
 
-## Code Standards
+## Implementation Patterns
 
-### Agent Definition
-```python
-# Good: Structured agent definition
-class ResearchAgent(Agent):
-    def __init__(self, config: AgentConfig):
-        self.role = "Research Specialist"
-        self.goal = "Conduct thorough research and provide accurate information"
-        self.tools = self.setup_tools(config.allowed_tools)
-        self.memory = self.configure_memory(config.memory_settings)
-        self.validate_configuration()
+### Reflection Pattern
+```typescript
+// Good: Structured reflection with feedback loop
+class ReflectionWorkflow implements WorkflowPattern {
+  async execute(task: Task): Promise<Result> {
+    const initialResult = await this.performTask(task);
+    const feedback = await this.analyzeFeedback(initialResult);
+    return await this.refineResult(initialResult, feedback);
+  }
 
-    def setup_tools(self, allowed_tools: List[str]) -> List[Tool]:
-        return [self.get_validated_tool(tool) for tool in allowed_tools]
+  private async analyzeFeedback(result: Result): Promise<Feedback> {
+    const analysis = await this.critic.analyze(result);
+    return this.synthesizeFeedback(analysis);
+  }
+}
 
-    def validate_configuration(self):
-        if not self.role or not self.goal:
-            raise AgentConfigError("Agent must have role and goal defined")
-
-# Bad: Unstructured agent
-class BadAgent:
-    def __init__(self): # ❌ Missing configuration and validation
-        self.tools = ["search", "analyze"]
+// Bad: No feedback integration
+class SimpleWorkflow {
+  async run(task: Task) { // ❌ Missing reflection capabilities
+    return await this.execute(task);
+  }
+}
 ```
 
-### Workflow Implementation
-```python
-# Good: Proper workflow management
-class ResearchWorkflow:
-    def __init__(self, agents: List[Agent], config: WorkflowConfig):
-        self.agents = self.validate_agents(agents)
-        self.config = self.validate_config(config)
-        self.memory_manager = MemoryManager(config.memory_settings)
+### Web Access Pattern
+```typescript
+// Good: Structured web access with caching
+class WebAccessWorkflow implements WorkflowPattern {
+  private cache: ResultCache;
+  private rateLimiter: RateLimiter;
 
-    async def execute(self, task: Task) -> Result:
-        try:
-            plan = await self.create_execution_plan(task)
-            result = await self.execute_with_agents(plan)
-            return await self.validate_result(result)
-        except WorkflowError as e:
-            await self.handle_workflow_error(e)
-            raise
+  async search(query: string): Promise<SearchResult> {
+    if (await this.cache.has(query)) {
+      return await this.cache.get(query);
+    }
 
-# Bad: Poor workflow management
-class BadWorkflow:
-    def run(self, task): # ❌ No error handling or validation
-        return self.agent.process(task)
+    await this.rateLimiter.checkLimit();
+    const result = await this.performSearch(query);
+    await this.cache.set(query, result);
+    return result;
+  }
+
+  private async performSearch(query: string): Promise<SearchResult> {
+    const optimizedQuery = await this.optimizeQuery(query);
+    return await this.searchAgent.execute(optimizedQuery);
+  }
+}
+
+// Bad: Unstructured web access
+class BasicSearch {
+  search(query: string) { // ❌ No caching or rate limiting
+    return fetch(query);
+  }
+}
 ```
 
-### Memory Management
-```python
-# Good: Structured memory handling
-class MemoryManager:
-    def __init__(self, config: MemoryConfig):
-        self.validate_config(config)
-        self.storage = self.initialize_storage(config)
-        self.cleanup_scheduler = self.setup_cleanup(config)
+### Semantic Routing Pattern
+```typescript
+// Good: Intent-based routing with validation
+class SemanticRouter implements WorkflowPattern {
+  private agents: Map<string, Agent>;
+  private intentAnalyzer: IntentAnalyzer;
 
-    async def store(self, key: str, data: Any) -> None:
-        await self.validate_data(data)
-        await self.storage.set(key, data)
-        await self.schedule_cleanup(key)
+  async route(request: Request): Promise<Response> {
+    const intent = await this.intentAnalyzer.analyze(request);
+    const agent = await this.selectAgent(intent);
+    
+    if (!agent) {
+      throw new RoutingError(`No agent found for intent: ${intent}`);
+    }
 
-# Bad: Unsafe memory handling
-class BadMemory:
-    def save(self, data): # ❌ No validation or cleanup
-        self.data.append(data)
+    return await agent.handle(request);
+  }
+
+  private async selectAgent(intent: Intent): Promise<Agent | null> {
+    return this.agents.get(intent.type) || this.fallbackAgent;
+  }
+}
+
+// Bad: Simple routing
+class BasicRouter {
+  route(req: Request) { // ❌ No intent analysis
+    return this.defaultHandler(req);
+  }
+}
+```
+
+### Dynamic Decomposition Pattern
+```typescript
+// Good: Task decomposition with dependency management
+class DynamicDecomposer implements WorkflowPattern {
+  async decompose(task: ComplexTask): Promise<SubTask[]> {
+    const analysis = await this.analyzeTask(task);
+    const subTasks = await this.createSubTasks(analysis);
+    return this.optimizeExecution(subTasks);
+  }
+
+  private async optimizeExecution(tasks: SubTask[]): Promise<SubTask[]> {
+    const graph = await this.buildDependencyGraph(tasks);
+    return this.scheduleParallelExecution(graph);
+  }
+}
+
+// Bad: No task analysis
+class SimpleDecomposer {
+  split(task: Task) { // ❌ Missing dependency analysis
+    return task.split();
+  }
+}
+```
+
+### DAG Orchestration Pattern
+```typescript
+// Good: Structured workflow orchestration
+class DAGOrchestrator implements WorkflowPattern {
+  private dag: DAG;
+  private executors: Map<string, Executor>;
+
+  async orchestrate(workflow: Workflow): Promise<Result> {
+    const plan = await this.createExecutionPlan(workflow);
+    await this.validatePlan(plan);
+    return await this.executeDAG(plan);
+  }
+
+  private async executeDAG(plan: ExecutionPlan): Promise<Result> {
+    const executor = new DAGExecutor(plan, this.executors);
+    return await executor.execute();
+  }
+}
+
+// Bad: Linear execution
+class SimpleOrchestrator {
+  execute(steps: Step[]) { // ❌ No parallel execution
+    return steps.reduce((p, s) => p.then(() => s.execute()), Promise.resolve());
+  }
+}
 ```
 
 ## Validation Rules
 
-```python
-const CrewAIRules = {
-    # Ensure proper agent configuration
-    agentConfiguration: {
-        pattern: /class.*Agent.*{.*validate_configuration/,
-        message: "Implement proper agent configuration validation"
-    },
-    
-    # Check workflow error handling
-    workflowErrorHandling: {
-        pattern: /try.*{.*}.*catch.*{.*handle_workflow_error/,
-        message: "Implement proper workflow error handling"
-    },
-    
-    # Verify memory management
-    memoryManagement: {
-        pattern: /class.*Memory.*{.*cleanup|validate/,
-        message: "Implement proper memory management"
-    }
-}
+```typescript
+const WorkflowRules = {
+  // Ensure pattern implementation
+  patternImplementation: {
+    pattern: /implements\s+WorkflowPattern/,
+    message: "Implement proper workflow pattern interface"
+  },
+  
+  // Check error handling
+  errorHandling: {
+    pattern: /try\s*{.*}\s*catch.*{.*throw\s+new\s+\w+Error/,
+    message: "Implement proper error handling with custom errors"
+  },
+  
+  // Verify parallel execution
+  parallelExecution: {
+    pattern: /Promise\.all|parallel|concurrent/,
+    message: "Consider parallel execution where appropriate"
+  }
+};
 ```
 
 ## Best Practices
 
-1. Agent Design
-   - Clear role definition
-   - Proper tool integration
-   - Memory management
+1. Pattern Selection
+   - Choose patterns based on task requirements
+   - Consider composition opportunities
+   - Plan for extensibility
 
-2. Workflow Management
-   - Error handling
-   - Progress tracking
-   - Resource cleanup
+2. Resource Management
+   - Implement proper cleanup
+   - Handle concurrent execution
+   - Monitor resource usage
 
-3. Security
-   - API key management
-   - Data validation
-   - Access control
+3. Error Handling
+   - Define custom error types
+   - Implement recovery strategies
+   - Maintain execution context
 
 ## Security Considerations
 
-1. Credential Management
-   - Secure API key storage
-   - Proper environment variables
-   - Access control implementation
+1. Input Validation
+   - Validate all external inputs
+   - Sanitize web content
+   - Check resource limits
 
-2. Data Protection
-   - Input validation
-   - Output sanitization
-   - Memory cleanup
+2. Execution Safety
+   - Implement timeouts
+   - Handle resource exhaustion
+   - Monitor execution state
 
-3. Resource Control
-   - Rate limiting
-   - Memory limits
-   - Compute restrictions 
+3. Data Protection
+   - Secure sensitive data
+   - Implement access control
+   - Audit execution logs 
 
 ---
 > Source: [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
