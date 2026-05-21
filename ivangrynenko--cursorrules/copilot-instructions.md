@@ -1,103 +1,105 @@
-## drupal-integrity-failures
+## drupal-logging-failures
 
-> Detect and prevent software and data integrity failures in Drupal as defined in OWASP Top 10:2021-A08
+> Detect and prevent security logging and monitoring failures in Drupal as defined in OWASP Top 10:2021-A09
 
-# Drupal Software and Data Integrity Failures Standards (OWASP A08:2021)
+# Drupal Security Logging and Monitoring Failures Standards (OWASP A09:2021)
 
-This rule enforces security best practices to prevent software and data integrity failures in Drupal applications, as defined in OWASP Top 10:2021-A08.
+This rule enforces security best practices to prevent logging and monitoring failures in Drupal applications, as defined in OWASP Top 10:2021-A09.
 
 ## Rule Details
 
-- **Name:** drupal_integrity_failures
+- **Name:** drupal_logging_failures
 
-- **Description:** Detect and prevent software and data integrity failures in Drupal as defined in OWASP Top 10:2021-A08
+- **Description:** Detect and prevent security logging and monitoring failures in Drupal as defined in OWASP Top 10:2021-A09
 
 ## Filters
-- file extension pattern: `\\.(php|inc|module|install|theme|yml|json)$`
+- file extension pattern: `\\.(php|inc|module|install|theme|yml)$`
 - file path pattern: `.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `unserialize\\(\\$|unserialize\\([^,]+\\$|php_unserialize\\(\\$` – Insecure PHP deserialization detected. Use safer alternatives like JSON for data interchange or implement proper validation before deserialization.
-    - Pattern 1: Insecure deserialization
-  - pattern `eval\\(|assert\\(|create_function\\(` – Potentially dangerous code execution function detected. Avoid dynamic code execution whenever possible.
-    - Pattern 2: Unsafe use of eval or similar functions
-  - pattern `module_load_include\\(\\$|require(_once)?\\s*\\(\\s*\\$|include(_once)?\\s*\\(\\s*\\$` – Dynamic inclusion of files based on user input is dangerous. Use validated, allowlisted paths only.
-    - Pattern 3: Insecure plugin/module loading
-  - pattern `update\\.settings\\.yml|function [a-zA-Z0-9_]+_update_[0-9]+\\(\\)` – Ensure update hooks validate the integrity of updates and data transformations to prevent unauthorized modifications.
-    - Pattern 4: Missing update verification
-  - pattern `ConfigImporter|\\$config_importer|config_import|cmci` – Validate configuration before import to ensure integrity and detect potentially malicious changes.
-    - Pattern 5: Unsafe configuration imports
-  - pattern `drupal_http_request\\(|\\\\Drupal::httpClient\\(\\)->get\\(|curl_exec\\(` – Always validate data from remote sources before processing or storing it. Implement integrity checks for remote content.
-    - Pattern 6: Unchecked remote data
-  - pattern `composer\\.json` – Verify you're using secure Composer practices: validate package signatures, pin dependencies, and use composer.lock.
-    - Pattern 7: Insecure Composer usage
-  - pattern `INSERT\\s+INTO|UPDATE\\s+[a-zA-Z0-9_]+\\s+SET|db_update\\(|->update\\(|->insert\\(` – Direct database modifications should implement validation to preserve data integrity. Prefer using entity API.
-    - Pattern 8: Direct database modifications
-  - pattern `file_save_data\\(|file_save_upload\\(|file_copy\\(|file_move\\(` – Implement file integrity checking for uploaded or manipulated files to prevent malicious content.
-    - Pattern 9: Missing file integrity verification
-  - pattern `\\$entity\\s*=\\s*new\\s+[A-Za-z]+\\(|::create\\(\\$` – Validate all input used to create entity objects to maintain data integrity and prevent creating malicious entities.
-    - Pattern 10: Unsafe entity creation
+  - pattern `(delete|update|create|execute|grant|revoke|config|schema).*function[^}]*\\{(?![^}]*(log|watchdog|logger))` – Critical operations should include logging. Implement proper logging for security-relevant actions.
+    - Pattern 1: Missing critical event logging
+  - pattern `@include|@require|@eval|error_reporting\\(0\\)|ini_set\\(['\"](mdc:display_errors|log_errors)['\"],\\s*['\"]0['\"]\\)` – Avoid suppressing errors and warnings. Implement proper error handling and logging instead.
+    - Pattern 2: Suppressed error logging
+  - pattern `catch\\s*\\([^{]*\\)\\s*\\{(?![^}]*log|[^}]*watchdog|[^}]*logger)` – Exceptions should be properly logged, especially in security-critical sections.
+    - Pattern 3: Improper exception handling without logging
+  - pattern `dblog\\.settings\\.yml|syslog\\.settings\\.yml|logging\\.settings\\.yml` – Ensure logging is properly configured and not disabled. Verify log verbosity and retention policies.
+    - Pattern 4: Disabled watchdog
+  - pattern `(login|authenticate|logout|password).*function[^}]*\\{(?![^}]*(log|watchdog|logger))` – Authentication events should always be logged for security monitoring and auditing.
+    - Pattern 5: Missing authentication event logging
+  - pattern `AccessResult::(allowed|forbidden|neutral)\\([^)]*\\)(?![^;]*(log|watchdog|logger))` – Consider logging significant access control decisions, especially denials, for security monitoring.
+    - Pattern 6: Failure to log access control decisions
+  - pattern `(file_save|file_delete|file_move|file_copy)[^;]*;(?![^;]*(log|watchdog|logger))` – File operations should be logged, especially for security-sensitive files.
+    - Pattern 7: Missing logging in file operations
+  - pattern `(\\->log|watchdog)\\([^,)]*,[^,)]*\\)` – Log messages should include sufficient context and detail for effective security monitoring.
+    - Pattern 8: Insufficient detail in log messages
+  - pattern `\\$config->set\\([^;]*;(?![^;]*(log|watchdog|logger))` – Configuration changes should be logged to maintain an audit trail and detect unauthorized changes.
+    - Pattern 9: Failure to log configuration changes
+  - pattern `class\\s+[a-zA-Z0-9_]+Resource.+\\{[^}]*function\\s+[a-zA-Z0-9_]+\\([^{]*\\)\\s*\\{(?![^}]*(log|watchdog|logger))` – API endpoint access should be logged for security monitoring, especially for sensitive operations.
+    - Pattern 10: Missing logs for API access
 
 ## Suggestions
 - Guidance:
-**Drupal Data & Software Integrity Best Practices:**
+**Drupal Security Logging & Monitoring Best Practices:**
 
-1. **Secure Deserialization:**
-   - Avoid PHP's unserialize() with untrusted data entirely
-   - Use JSON or other structured formats for data interchange
-   - When deserialization is necessary, implement allowlists and validation
-   - Consider using Drupal's typed data API for structured data handling
-   - Avoid serializing sensitive data that could be tampered with
+1. **Comprehensive Logging Implementation:**
+   - Use Drupal's Logger Factory service: `\Drupal::logger('module_name')`
+   - Implement proper log levels: emergency, alert, critical, error, warning, notice, info, debug
+   - Include context in log messages with relevant identifiers and information
+   - Log security-relevant events consistently across the application
+   - Structure log messages to facilitate automated analysis
 
-2. **Update & Configuration Integrity:**
-   - Validate data before and after migrations/updates
-   - Implement checksums/hashing for critical configuration
-   - Use Drupal's Configuration Management system properly
-   - Monitor configuration changes for unauthorized modifications
-   - Implement proper workflow for configuration management
+2. **Critical Events to Log:**
+   - Authentication events (login attempts, failures, logouts)
+   - Access control decisions (particularly denials)
+   - All administrative actions
+   - Data modification operations on sensitive information
+   - Configuration and settings changes
+   - File operations (uploads, downloads of sensitive content)
+   - API access and usage
 
-3. **Dependency & Plugin Security:**
-   - Verify the integrity of downloaded modules and themes
-   - Use Composer with package signature verification
-   - Pin dependencies to specific versions in production
-   - Maintain awareness of security advisories
-   - Implement proper validation for plugin/module loading
+3. **Logging Configuration:**
+   - Configure appropriate log retention periods based on security requirements
+   - Implement log rotation to maintain performance
+   - Consider using syslog for centralized logging
+   - Protect log files from unauthorized access and modification
+   - Configure appropriate verbosity for different environments
 
-4. **CI/CD Pipeline Security:**
-   - Sign build artifacts
-   - Verify signatures during deployment
-   - Implement proper secrets management
-   - Control access to build and deployment systems
-   - Validate code changes through code reviews
+4. **Monitoring Implementation:**
+   - Define security-relevant log patterns to monitor
+   - Implement log aggregation and analysis
+   - Set up alerts for suspicious activity patterns
+   - Establish response procedures for security events
+   - Consider integration with SIEM solutions
 
-5. **Data Integrity Validation:**
-   - Use database constraints to enforce data integrity
-   - Implement validation at every layer of the application
-   - Add integrity checks for critical data flows
-   - Maintain audit logs for data modifications
-   - Regularly verify data consistency
+5. **Error Handling:**
+   - Log exceptions with appropriate error levels
+   - Include stack traces in development but not production
+   - Implement custom error handlers that ensure proper logging
+   - Avoid suppressing errors that might indicate security issues
+   - Monitor for patterns in error logs that could indicate attacks
 
 ## Validation Checks
 - Conditions:
-  - pattern `json_encode|json_decode|\\\\Drupal::service\\('serialization\\.|->toArray\\(\\)` – Using safer serialization alternatives.
-    - Check 1: Secure serialization alternatives
-  - pattern `\\$entity->validate\\(\\)|\\$violations\\s*=\\s*\\$entity->validate\\(\\)` – Properly validating entity data.
-    - Check 2: Proper entity validation
-  - pattern `::validateSyncedConfig\\(|ConfigImporter::validate|->getUnprocessedConfiguration\\(\\)` – Implementing configuration validation.
-    - Check 3: Config verification
-  - pattern `file_validate_|FileValidatorInterface|\\$validators` – Using file validation mechanisms.
-    - Check 4: Safe file handling
+  - pattern `\\\\Drupal::logger\\([^)]+\\)->\\w+\\(|\\$this->logger->\\w+\\(` – Using Drupal's logger service correctly.
+    - Check 1: Proper logger usage
+  - pattern `->\\w+\\([^,]+,\\s*[^,]+,\\s*\\[` – Including context information in log messages.
+    - Check 2: Context in log messages
+  - pattern `dblog\\.settings|syslog\\.settings|logging\\.yml` – Configuring logging appropriately.
+    - Check 3: Logging configuration
+  - pattern `catch[^{]*\\{[^}]*logger|catch[^{]*\\{[^}]*watchdog|catch[^{]*\\{[^}]*log` – Properly logging exceptions.
+    - Check 4: Exception logging
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-- Tags: security, drupal, integrity, deserialization, owasp, language:php, framework:drupal, category:security, subcategory:integrity, standard:owasp-top10, risk:a08-integrity-failures
+- Tags: security, drupal, logging, monitoring, owasp, language:php, framework:drupal, category:security, subcategory:logging, standard:owasp-top10, risk:a09-logging-monitoring
 ## References
-- https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
-- https://www.drupal.org/docs/develop/security-in-drupal/drupal-8-sanitizing-output
-- https://www.drupal.org/docs/8/api/configuration-api/configuration-api-overview
-- https://www.drupal.org/docs/develop/using-composer
+- https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
+- https://www.drupal.org/docs/8/api/logging-api/overview
+- https://www.drupal.org/docs/develop/security-in-drupal/writing-secure-code-for-drupal
+- https://www.drupal.org/docs/8/modules/syslog
 
  
 
