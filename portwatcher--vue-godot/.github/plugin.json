@@ -1,0 +1,9 @@
+{
+  "name": "portwatcher--vue-godot",
+  "displayName": "vue-godot",
+  "description": "bridging Vue.js and Godot Engine for game UI and cross platform applications",
+  "version": "1.0.0",
+  "author": "portwatcher",
+  "homepage": "https://github.com/portwatcher/vue-godot",
+  "skills": []
+}
