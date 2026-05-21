@@ -1,0 +1,9 @@
+{
+  "name": "phoozle--kamal-podman",
+  "displayName": "kamal_podman",
+  "description": "Podman support for Kamal",
+  "version": "1.0.0",
+  "author": "phoozle",
+  "homepage": "https://github.com/phoozle/kamal_podman",
+  "skills": []
+}
