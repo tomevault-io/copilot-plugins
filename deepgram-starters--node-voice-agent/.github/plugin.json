@@ -1,0 +1,9 @@
+{
+  "name": "deepgram-starters--node-voice-agent",
+  "displayName": "node-voice-agent",
+  "description": "Get started using Deepgram's Voice Agent with this Node demo app",
+  "version": "1.0.0",
+  "author": "deepgram-starters",
+  "homepage": "https://github.com/deepgram-starters/node-voice-agent",
+  "skills": []
+}
