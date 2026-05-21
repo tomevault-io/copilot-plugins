@@ -1,10 +1,10 @@
-## bamldocs
+## langgraphdocs
 
-> When asked about BAML, use the "baml-docs" MCP server:
+> When asked about LangGraph, use the "langgraph-docs" MCP server:
 
-When asked about BAML, use the "baml-docs" MCP server:
+When asked about LangGraph, use the "langgraph-docs" MCP server:
 - Call the list_doc_sources tool to find available documentation sources.
-- Call the fetch_docs tool to open the BAML docs index (https://docs.boundaryml.com/llms.txt).
+- Call the fetch_docs tool to open the LangGraph docs index (https://langchain-ai.github.io/langgraph/llms.txt).
 - Examine the list of documentation topics for relevance.
 - Call fetch_docs on the relevant documentation URL(s) to get details.
 - Use the retrieved documentation content to answer the question.
