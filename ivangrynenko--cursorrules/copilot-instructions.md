@@ -1,14 +1,14 @@
-## python-integrity-failures
+## python-logging-monitoring-failures
 
-> Detect and prevent software and data integrity failures in Python applications as defined in OWASP Top 10:2021-A08
+> Detect and prevent security logging and monitoring failures in Python applications as defined in OWASP Top 10:2021-A09
 
-# Python Software and Data Integrity Failures Standards (OWASP A08:2021)
+ # Python Security Logging and Monitoring Failures Standards (OWASP A09:2021)
 
-This rule enforces security best practices to prevent software and data integrity failures in Python applications, as defined in OWASP Top 10:2021-A08.
+This rule enforces security best practices to prevent security logging and monitoring failures in Python applications, as defined in OWASP Top 10:2021-A09.
 
 <rule>
-name: python_integrity_failures
-description: Detect and prevent software and data integrity failures in Python applications as defined in OWASP Top 10:2021-A08
+name: python_logging_monitoring_failures
+description: Detect and prevent security logging and monitoring failures in Python applications as defined in OWASP Top 10:2021-A09
 filters:
   - type: file_extension
     pattern: "\\.(py|ini|cfg|yml|yaml|json|toml)$"
@@ -18,319 +18,402 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: Insecure deserialization with pickle
-      - pattern: "pickle\\.loads\\(|pickle\\.load\\(|cPickle\\.loads\\(|cPickle\\.load\\("
-        message: "Insecure deserialization detected with pickle. Pickle is not secure against maliciously constructed data and should not be used with untrusted input."
+      # Pattern 1: Missing logging in authentication functions
+      - pattern: "def\\s+(login|authenticate|signin|logout|signout).*?:[^\\n]*?(?!.*logging\\.(info|warning|error|critical))"
+        message: "Authentication function without logging detected. Always log authentication events, especially failures, for security monitoring."
         
-      # Pattern 2: Insecure deserialization with yaml.load
-      - pattern: "yaml\\.load\\([^,)]+\\)|yaml\\.load\\([^,)]+,\\s*Loader=yaml\\.Loader\\)"
-        message: "Insecure deserialization detected with yaml.load(). Use yaml.safe_load() instead for untrusted input."
+      # Pattern 2: Missing logging in authorization functions
+      - pattern: "def\\s+(authorize|check_permission|has_permission|is_authorized|require_permission).*?:[^\\n]*?(?!.*logging\\.(info|warning|error|critical))"
+        message: "Authorization function without logging detected. Always log authorization decisions, especially denials, for security monitoring."
         
-      # Pattern 3: Insecure deserialization with marshal
-      - pattern: "marshal\\.loads\\(|marshal\\.load\\("
-        message: "Insecure deserialization detected with marshal. Marshal is not secure against maliciously constructed data."
+      # Pattern 3: Missing logging in security-sensitive operations
+      - pattern: "def\\s+(create_user|update_user|delete_user|reset_password|change_password).*?:[^\\n]*?(?!.*logging\\.(info|warning|error|critical))"
+        message: "Security-sensitive user operation without logging detected. Always log security-sensitive operations for audit trails."
         
-      # Pattern 4: Insecure deserialization with shelve
-      - pattern: "shelve\\.open\\("
-        message: "Potentially insecure deserialization with shelve detected. Shelve uses pickle internally and is not secure against malicious data."
+      # Pattern 4: Missing logging in exception handlers
+      - pattern: "except\\s+[^:]+:[^\\n]*?(?!.*logging\\.(warning|error|critical|exception))"
+        message: "Exception handler without logging detected. Always log exceptions, especially in security-sensitive code, for monitoring and debugging."
         
-      # Pattern 5: Insecure use of eval or exec
-      - pattern: "eval\\(|exec\\(|compile\\([^,]+,\\s*['\"][^'\"]+['\"]\\s*,\\s*['\"]exec['\"]\\)"
-        message: "Insecure use of eval() or exec() detected. These functions can execute arbitrary code and should never be used with untrusted input."
+      # Pattern 5: Logging sensitive data
+      - pattern: "logging\\.(debug|info|warning|error|critical)\\([^)]*?(password|token|secret|key|credential|auth)"
+        message: "Potential sensitive data logging detected. Avoid logging sensitive information like passwords, tokens, or keys."
         
-      # Pattern 6: Missing integrity verification for downloads
-      - pattern: "urllib\\.request\\.urlretrieve\\(|requests\\.get\\([^)]*\\.exe['\"]\\)|requests\\.get\\([^)]*\\.zip['\"]\\)|requests\\.get\\([^)]*\\.tar\\.gz['\"]\\)"
-        message: "File download without integrity verification detected. Always verify the integrity of downloaded files using checksums or digital signatures."
+      # Pattern 6: Insufficient log level in security context
+      - pattern: "logging\\.debug\\([^)]*?(auth|login|permission|security|attack|hack|exploit|vulnerability)"
+        message: "Debug-level logging for security events detected. Use appropriate log levels (INFO, WARNING, ERROR) for security events."
         
-      # Pattern 7: Insecure package installation
-      - pattern: "pip\\s+install\\s+[^-]|subprocess\\.(?:call|run|Popen)\\(['\"]pip\\s+install"
-        message: "Insecure package installation detected. Specify package versions and consider using hash verification for pip installations."
+      # Pattern 7: Missing logging configuration
+      - pattern: "import\\s+logging(?!.*logging\\.basicConfig|.*logging\\.config)"
+        message: "Logging import without configuration detected. Configure logging properly with appropriate handlers, formatters, and levels."
         
-      # Pattern 8: Missing integrity checks for configuration
-      - pattern: "config\\.read\\(|json\\.loads?\\(|yaml\\.safe_load\\(|toml\\.loads?\\("
-        message: "Configuration loading detected. Ensure integrity verification for configuration files, especially in production environments."
+      # Pattern 8: Insecure logging configuration
+      - pattern: "logging\\.basicConfig\\([^)]*?level\\s*=\\s*logging\\.DEBUG"
+        message: "Debug-level logging configuration detected. Use appropriate log levels in production to avoid excessive logging."
         
-      # Pattern 9: Insecure temporary file creation
-      - pattern: "tempfile\\.mktemp\\(|os\\.tempnam\\(|os\\.tmpnam\\("
-        message: "Insecure temporary file creation detected. Use tempfile.mkstemp() or tempfile.TemporaryFile() instead to avoid race conditions."
+      # Pattern 9: Missing request/response logging in web frameworks
+      - pattern: "@app\\.route\\(['\"][^'\"]+['\"]|@api_view\\(|class\\s+\\w+\\(APIView\\)|class\\s+\\w+\\(View\\)"
+        message: "Web endpoint without request logging detected. Consider logging requests and responses for security monitoring."
         
-      # Pattern 10: Insecure file operations with untrusted paths
-      - pattern: "open\\([^,)]+\\+\\s*request\\.|open\\([^,)]+\\+\\s*user_|open\\([^,)]+\\+\\s*input\\("
-        message: "Potentially insecure file operation with user-controlled path detected. Validate and sanitize file paths from untrusted sources."
+      # Pattern 10: Missing correlation IDs in logs
+      - pattern: "logging\\.(debug|info|warning|error|critical)\\([^)]*?(?!.*request_id|.*correlation_id|.*trace_id)"
+        message: "Logging without correlation ID detected. Include correlation IDs in logs to trace requests across systems."
         
-      # Pattern 11: Missing integrity checks for updates
-      - pattern: "auto_update|self_update|check_for_updates"
-        message: "Update mechanism detected. Ensure proper integrity verification for software updates using digital signatures or secure checksums."
+      # Pattern 11: Missing error handling for logging failures
+      - pattern: "logging\\.(debug|info|warning|error|critical)\\([^)]*?\\)"
+        message: "Logging without error handling detected. Handle potential logging failures to ensure critical events are not missed."
         
-      # Pattern 12: Insecure plugin or extension loading
-      - pattern: "importlib\\.import_module\\(|__import__\\(|load_plugin|load_extension|load_module"
-        message: "Dynamic module loading detected. Implement integrity checks and validation before loading external modules or plugins."
+      # Pattern 12: Missing logging for database operations
+      - pattern: "(execute|executemany|cursor\\.execute|session\\.execute|query)\\([^)]*?(?!.*logging\\.(debug|info|warning|error|critical))"
+        message: "Database operation without logging detected. Consider logging database operations for audit trails and security monitoring."
         
-      # Pattern 13: Insecure use of subprocess with shell=True
-      - pattern: "subprocess\\.(?:call|run|Popen)\\([^,)]*shell\\s*=\\s*True"
-        message: "Insecure subprocess execution with shell=True detected. This can lead to command injection if user input is involved."
+      # Pattern 13: Missing logging for file operations
+      - pattern: "open\\([^)]+,\\s*['\"]w['\"]|open\\([^)]+,\\s*['\"]a['\"]|write\\(|writelines\\("
+        message: "File write operation without logging detected. Consider logging file operations for audit trails."
         
-      # Pattern 14: Missing integrity verification for serialized data
-      - pattern: "json\\.loads?\\([^,)]*request\\.|json\\.loads?\\([^,)]*user_|json\\.loads?\\([^,)]*input\\("
-        message: "Deserialization of user-controlled data detected. Implement schema validation or integrity checks before processing."
+      # Pattern 14: Missing logging for subprocess execution
+      - pattern: "subprocess\\.(call|run|Popen)\\([^)]*?(?!.*logging\\.(debug|info|warning|error|critical))"
+        message: "Subprocess execution without logging detected. Always log command execution for security monitoring."
         
-      # Pattern 15: Insecure use of globals or locals
-      - pattern: "globals\\(\\)\\[|locals\\(\\)\\["
-        message: "Potentially insecure modification of globals or locals detected. This can lead to unexpected behavior or security issues."
+      # Pattern 15: Missing centralized logging configuration
+      - pattern: "logging\\.basicConfig\\([^)]*?(?!.*filename|.*handlers)"
+        message: "Console-only logging configuration detected. Configure centralized logging with file handlers or external logging services."
 
   - type: suggest
     message: |
-      **Python Software and Data Integrity Best Practices:**
+      **Python Security Logging and Monitoring Best Practices:**
       
-      1. **Secure Deserialization:**
-         - Avoid using pickle, marshal, or shelve with untrusted data
-         - Use safer alternatives like JSON with schema validation
-         - Example with JSON schema validation:
+      1. **Structured Logging:**
+         - Use structured logging formats (JSON)
+         - Include contextual information
+         - Example with Python's standard logging:
            ```python
+           import logging
            import json
-           import jsonschema
            
-           # Define a schema for validation
-           schema = {
-               "type": "object",
-               "properties": {
-                   "name": {"type": "string"},
-                   "age": {"type": "integer", "minimum": 0}
-               },
-               "required": ["name", "age"]
-           }
+           class JsonFormatter(logging.Formatter):
+               def format(self, record):
+                   log_record = {
+                       "timestamp": self.formatTime(record),
+                       "level": record.levelname,
+                       "message": record.getMessage(),
+                       "logger": record.name,
+                       "path": record.pathname,
+                       "line": record.lineno
+                   }
+                   
+                   # Add extra attributes from record
+                   for key, value in record.__dict__.items():
+                       if key not in ["args", "asctime", "created", "exc_info", "exc_text", 
+                                     "filename", "funcName", "id", "levelname", "levelno",
+                                     "lineno", "module", "msecs", "message", "msg", "name", 
+                                     "pathname", "process", "processName", "relativeCreated", 
+                                     "stack_info", "thread", "threadName"]:
+                           log_record[key] = value
+                   
+                   return json.dumps(log_record)
            
-           # Validate data against schema
+           # Configure logger with JSON formatter
+           logger = logging.getLogger("security_logger")
+           handler = logging.StreamHandler()
+           handler.setFormatter(JsonFormatter())
+           logger.addHandler(handler)
+           logger.setLevel(logging.INFO)
+           
+           # Usage with context
+           logger.info("User login successful", extra={
+               "user_id": user.id,
+               "ip_address": request.remote_addr,
+               "request_id": request.headers.get("X-Request-ID")
+           })
+           ```
+      
+      2. **Security Event Logging:**
+         - Log all authentication events
+         - Log authorization decisions
+         - Log security-sensitive operations
+         - Example:
+           ```python
+           def login(request):
+               username = request.form.get("username")
+               password = request.form.get("password")
+               
+               try:
+                   user = authenticate(username, password)
+                   if user:
+                       # Log successful login
+                       logger.info("User login successful", extra={
+                           "user_id": user.id,
+                           "ip_address": request.remote_addr,
+                           "request_id": request.headers.get("X-Request-ID")
+                       })
+                       return success_response()
+                   else:
+                       # Log failed login
+                       logger.warning("User login failed: invalid credentials", extra={
+                           "username": username,  # Note: log username but never password
+                           "ip_address": request.remote_addr,
+                           "request_id": request.headers.get("X-Request-ID")
+                       })
+                       return error_response("Invalid credentials")
+               except Exception as e:
+                   # Log exceptions
+                   logger.error("Login error", extra={
+                       "error": str(e),
+                       "username": username,
+                       "ip_address": request.remote_addr,
+                       "request_id": request.headers.get("X-Request-ID")
+                   })
+                   return error_response("Login error")
+           ```
+      
+      3. **Correlation IDs:**
+         - Use request IDs to correlate logs
+         - Propagate IDs across services
+         - Example with Flask:
+           ```python
+           import uuid
+           from flask import Flask, request, g
+           
+           app = Flask(__name__)
+           
+           @app.before_request
+           def before_request():
+               request_id = request.headers.get("X-Request-ID")
+               if not request_id:
+                   request_id = str(uuid.uuid4())
+               g.request_id = request_id
+           
+           @app.after_request
+           def after_request(response):
+               response.headers["X-Request-ID"] = g.request_id
+               return response
+           
+           # In your view functions
+           @app.route("/api/resource")
+           def get_resource():
+               logger.info("Resource accessed", extra={"request_id": g.request_id})
+               return jsonify({"data": "resource"})
+           ```
+      
+      4. **Appropriate Log Levels:**
+         - DEBUG: Detailed information for debugging
+         - INFO: Confirmation of normal events
+         - WARNING: Potential issues that don't prevent operation
+         - ERROR: Errors that prevent specific operations
+         - CRITICAL: Critical errors that prevent application function
+         - Example:
+           ```python
+           # Normal operation
+           logger.info("User profile updated", extra={"user_id": user.id})
+           
+           # Potential security issue
+           logger.warning("Multiple failed login attempts", extra={
+               "username": username,
+               "attempt_count": attempts,
+               "ip_address": ip_address
+           })
+           
+           # Security violation
+           logger.error("Unauthorized access attempt", extra={
+               "user_id": user.id,
+               "resource": resource_id,
+               "ip_address": ip_address
+           })
+           
+           # Critical security breach
+           logger.critical("Possible data breach detected", extra={
+               "indicators": indicators,
+               "affected_resources": resources
+           })
+           ```
+      
+      5. **Centralized Logging:**
+         - Configure logging to centralized systems
+         - Use appropriate handlers
+         - Example with file rotation:
+           ```python
+           import logging
+           from logging.handlers import RotatingFileHandler
+           
+           logger = logging.getLogger("security_logger")
+           
+           # File handler with rotation
+           file_handler = RotatingFileHandler(
+               "security.log",
+               maxBytes=10485760,  # 10MB
+               backupCount=10
+           )
+           file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+           logger.addHandler(file_handler)
+           
+           # Set level
+           logger.setLevel(logging.INFO)
+           ```
+      
+      6. **Sensitive Data Handling:**
+         - Never log sensitive data
+         - Implement data masking
+         - Example:
+           ```python
+           def mask_sensitive_data(data, fields_to_mask):
+               """Mask sensitive fields in data dictionary."""
+               masked_data = data.copy()
+               for field in fields_to_mask:
+                   if field in masked_data:
+                       masked_data[field] = "********"
+               return masked_data
+           
+           # Usage
+           user_data = {"username": "john", "password": "secret123", "email": "john@example.com"}
+           safe_data = mask_sensitive_data(user_data, ["password"])
+           logger.info("User data processed", extra={"user_data": safe_data})
+           ```
+      
+      7. **Exception Logging:**
+         - Always log exceptions
+         - Include stack traces for debugging
+         - Example:
+           ```python
            try:
-               data = json.loads(user_input)
-               jsonschema.validate(instance=data, schema=schema)
-               # Process data safely
-           except (json.JSONDecodeError, jsonschema.exceptions.ValidationError) as e:
-               # Handle validation error
-               print(f"Invalid data: {e}")
+               # Some operation
+               result = process_data(data)
+           except Exception as e:
+               logger.error(
+                   "Error processing data",
+                   exc_info=True,  # Include stack trace
+                   extra={
+                       "data_id": data.id,
+                       "error": str(e)
+                   }
+               )
+               raise  # Re-raise or handle appropriately
            ```
       
-      2. **YAML Safe Loading:**
-         - Always use yaml.safe_load() instead of yaml.load()
+      8. **Audit Logging:**
+         - Log all security-relevant changes
+         - Include before/after states
          - Example:
            ```python
-           import yaml
-           
-           # Safe way to load YAML
-           data = yaml.safe_load(yaml_string)
-           
-           # Avoid this:
-           # data = yaml.load(yaml_string)  # Insecure!
+           def update_user_role(user_id, new_role, current_user):
+               user = User.get(user_id)
+               old_role = user.role
+               
+               # Update role
+               user.role = new_role
+               user.save()
+               
+               # Audit log
+               logger.info("User role changed", extra={
+                   "user_id": user_id,
+                   "old_role": old_role,
+                   "new_role": new_role,
+                   "changed_by": current_user.id,
+                   "timestamp": datetime.utcnow().isoformat()
+               })
            ```
       
-      3. **Integrity Verification for Downloads:**
-         - Verify checksums or signatures for downloaded files
-         - Example:
+      9. **Log Monitoring Integration:**
+         - Configure alerts for security events
+         - Integrate with SIEM systems
+         - Example configuration for ELK stack:
            ```python
-           import hashlib
-           import requests
+           import logging
+           from elasticsearch import Elasticsearch
+           from elasticsearch.helpers import bulk
            
-           def download_with_integrity_check(url, expected_hash):
-               response = requests.get(url)
-               file_data = response.content
-               
-               # Calculate hash
-               calculated_hash = hashlib.sha256(file_data).hexdigest()
-               
-               # Verify integrity
-               if calculated_hash != expected_hash:
-                   raise ValueError("Integrity check failed: hash mismatch")
+           class ElasticsearchHandler(logging.Handler):
+               def __init__(self, es_host, index_name):
+                   super().__init__()
+                   self.es = Elasticsearch([es_host])
+                   self.index_name = index_name
+                   self.buffer = []
                    
-               return file_data
+               def emit(self, record):
+                   try:
+                       log_entry = {
+                           "_index": self.index_name,
+                           "_source": {
+                               "timestamp": self.formatter.formatTime(record),
+                               "level": record.levelname,
+                               "message": record.getMessage(),
+                               "logger": record.name
+                           }
+                       }
+                       
+                       # Add extra fields
+                       for key, value in record.__dict__.items():
+                           if key not in ["args", "asctime", "created", "exc_info", "exc_text", 
+                                         "filename", "funcName", "id", "levelname", "levelno",
+                                         "lineno", "module", "msecs", "message", "msg", "name", 
+                                         "pathname", "process", "processName", "relativeCreated", 
+                                         "stack_info", "thread", "threadName"]:
+                               log_entry["_source"][key] = value
+                               
+                       self.buffer.append(log_entry)
+                       
+                       # Bulk insert if buffer is full
+                       if len(self.buffer) >= 10:
+                           self.flush()
+                   except Exception:
+                       self.handleError(record)
+                       
+               def flush(self):
+                   if self.buffer:
+                       bulk(self.es, self.buffer)
+                       self.buffer = []
+           
+           # Usage
+           es_handler = ElasticsearchHandler("localhost:9200", "app-logs")
+           es_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+           logger.addHandler(es_handler)
            ```
       
-      4. **Secure Package Installation:**
-         - Pin dependencies to specific versions
-         - Use hash verification for pip installations
-         - Example requirements.txt with hashes:
-           ```
-           # requirements.txt
-           requests==2.31.0 --hash=sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1
-           ```
-      
-      5. **Secure Configuration Management:**
-         - Validate configuration file integrity
-         - Use environment-specific configurations
-         - Example:
-           ```python
-           import json
-           import hmac
-           import hashlib
-           
-           def load_config_with_integrity(config_file, secret_key):
-               with open(config_file, 'r') as f:
-                   content = f.read()
-                   
-               # Split content into data and signature
-               data, _, signature = content.rpartition('\n')
-               
-               # Verify integrity
-               expected_signature = hmac.new(
-                   secret_key.encode(), 
-                   data.encode(), 
-                   hashlib.sha256
-               ).hexdigest()
-               
-               if not hmac.compare_digest(signature, expected_signature):
-                   raise ValueError("Configuration integrity check failed")
-                   
-               return json.loads(data)
-           ```
-      
-      6. **Secure Temporary Files:**
-         - Use secure temporary file functions
-         - Example:
-           ```python
-           import tempfile
-           import os
-           
-           # Secure temporary file creation
-           fd, temp_path = tempfile.mkstemp()
-           try:
-               with os.fdopen(fd, 'w') as temp_file:
-                   temp_file.write('data')
-               # Process the file
-           finally:
-               os.unlink(temp_path)  # Clean up
-           
-           # Or use context manager
-           with tempfile.TemporaryFile() as temp_file:
-               temp_file.write(b'data')
-               temp_file.seek(0)
-               # Process the file
-           ```
-      
-      7. **Secure Update Mechanisms:**
-         - Verify signatures for updates
-         - Use HTTPS for update downloads
-         - Example:
-           ```python
-           import requests
-           import gnupg
-           
-           def secure_update(update_url, signature_url, gpg_key):
-               # Download update and signature
-               update_data = requests.get(update_url).content
-               signature = requests.get(signature_url).content
-               
-               # Verify signature
-               gpg = gnupg.GPG()
-               gpg.import_keys(gpg_key)
-               verified = gpg.verify_data(signature, update_data)
-               
-               if not verified:
-                   raise ValueError("Update signature verification failed")
-                   
-               return update_data
-           ```
-      
-      8. **Secure Plugin Loading:**
-         - Validate plugins before loading
-         - Implement allowlisting for plugins
-         - Example:
-           ```python
-           import importlib
-           import hashlib
-           
-           # Allowlist of approved plugins with their hashes
-           APPROVED_PLUGINS = {
-               'safe_plugin': 'sha256:1234567890abcdef',
-               'other_plugin': 'sha256:abcdef1234567890'
-           }
-           
-           def load_plugin_safely(plugin_name, plugin_path):
-               # Check if plugin is in allowlist
-               if plugin_name not in APPROVED_PLUGINS:
-                   raise ValueError(f"Plugin {plugin_name} is not approved")
-                   
-               # Calculate plugin file hash
-               with open(plugin_path, 'rb') as f:
-                   plugin_hash = 'sha256:' + hashlib.sha256(f.read()).hexdigest()
-                   
-               # Verify hash matches expected value
-               if plugin_hash != APPROVED_PLUGINS[plugin_name]:
-                   raise ValueError(f"Plugin {plugin_name} failed integrity check")
-                   
-               # Load plugin safely
-               return importlib.import_module(plugin_name)
-           ```
-      
-      9. **Secure Subprocess Execution:**
-         - Avoid shell=True
-         - Use allowlists for commands
-         - Example:
-           ```python
-           import subprocess
-           import shlex
-           
-           def run_command_safely(command, arguments):
-               # Allowlist of safe commands
-               SAFE_COMMANDS = {'ls', 'echo', 'cat'}
-               
-               if command not in SAFE_COMMANDS:
-                   raise ValueError(f"Command {command} is not allowed")
-                   
-               # Build command with arguments
-               cmd = [command] + arguments
-               
-               # Execute without shell
-               return subprocess.run(cmd, shell=False, capture_output=True, text=True)
-           ```
-      
-      10. **Input Validation and Sanitization:**
-          - Validate all inputs before processing
-          - Use schema validation for structured data
-          - Example with Pydantic:
+      10. **Logging Failure Handling:**
+          - Handle logging failures gracefully
+          - Implement fallback mechanisms
+          - Example:
             ```python
-            from pydantic import BaseModel, validator
-            
-            class UserData(BaseModel):
-                username: str
-                age: int
-                
-                @validator('username')
-                def username_must_be_valid(cls, v):
-                    if not v.isalnum() or len(v) > 30:
-                        raise ValueError('Username must be alphanumeric and <= 30 chars')
-                    return v
+            class FallbackHandler(logging.Handler):
+                def __init__(self, primary_handler, fallback_handler):
+                    super().__init__()
+                    self.primary_handler = primary_handler
+                    self.fallback_handler = fallback_handler
                     
-                @validator('age')
-                def age_must_be_reasonable(cls, v):
-                    if v < 0 or v > 120:
-                        raise ValueError('Age must be between 0 and 120')
-                    return v
+                def emit(self, record):
+                    try:
+                        self.primary_handler.emit(record)
+                    except Exception:
+                        try:
+                            self.fallback_handler.emit(record)
+                        except Exception:
+                            # Last resort: print to stderr
+                            import sys
+                            print(f"CRITICAL: Logging failure: {record.getMessage()}", file=sys.stderr)
             
             # Usage
-            try:
-                user = UserData(username=user_input_name, age=user_input_age)
-                # Process validated data
-            except ValueError as e:
-                # Handle validation error
-                print(f"Invalid data: {e}")
+            primary = ElasticsearchHandler("localhost:9200", "app-logs")
+            fallback = logging.FileHandler("fallback.log")
+            handler = FallbackHandler(primary, fallback)
+            logger.addHandler(handler)
             ```
 
   - type: validate
     conditions:
-      # Check 1: Safe YAML loading
-      - pattern: "yaml\\.safe_load\\("
-        message: "Using safe YAML loading."
+      # Check 1: Proper logging configuration
+      - pattern: "logging\\.basicConfig\\(|logging\\.config\\.dictConfig\\(|logging\\.config\\.fileConfig\\("
+        message: "Logging is properly configured."
       
-      # Check 2: Secure temporary file usage
-      - pattern: "tempfile\\.mkstemp\\(|tempfile\\.TemporaryFile\\(|tempfile\\.NamedTemporaryFile\\("
-        message: "Using secure temporary file functions."
+      # Check 2: Security event logging
+      - pattern: "logging\\.(info|warning|error|critical)\\([^)]*?(login|authenticate|authorize|permission)"
+        message: "Security events are being logged."
       
-      # Check 3: Secure subprocess usage
-      - pattern: "subprocess\\.(?:call|run|Popen)\\([^,)]*shell\\s*=\\s*False"
-        message: "Using subprocess with shell=False."
+      # Check 3: Structured logging
+      - pattern: "logging\\.(info|warning|error|critical)\\([^)]*?extra\\s*="
+        message: "Structured logging with context is implemented."
       
-      # Check 4: Input validation
-      - pattern: "jsonschema\\.validate|pydantic|dataclass|@validator"
-        message: "Implementing input validation."
+      # Check 4: Correlation ID usage
+      - pattern: "request_id|correlation_id|trace_id"
+        message: "Correlation IDs are used for request tracing."
 
 metadata:
   priority: high
@@ -338,26 +421,26 @@ metadata:
   tags:
     - security
     - python
-    - integrity
-    - deserialization
+    - logging
+    - monitoring
     - owasp
     - language:python
     - framework:django
     - framework:flask
     - framework:fastapi
     - category:security
-    - subcategory:integrity
+    - subcategory:logging
     - standard:owasp-top10
-    - risk:a08-software-data-integrity-failures
+    - risk:a09-security-logging-monitoring-failures
   references:
-    - "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
-    - "https://docs.python.org/3/library/pickle.html#restricting-globals"
-    - "https://pyyaml.org/wiki/PyYAMLDocumentation"
-    - "https://python-security.readthedocs.io/packages.html"
-    - "https://docs.python.org/3/library/tempfile.html#security"
-</rule> 
+    - "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+    - "https://docs.python.org/3/library/logging.html"
+    - "https://docs.python.org/3/howto/logging-cookbook.html"
+    - "https://docs.djangoproject.com/en/stable/topics/logging/"
+    - "https://flask.palletsprojects.com/en/latest/logging/"
+    - "https://fastapi.tiangolo.com/tutorial/handling-errors/#logging"
+</rule>
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
