@@ -1,88 +1,55 @@
-## error-handling-patterns
+## error-handling
 
-> Error handling patterns for Flarekit applications
+> When working with error handling in the backend:
 
+When working with error handling in the backend:
 
-# Error Handling Patterns
+1. Error Class Structure:
+- Always extend from BaseError
+- Use factory methods for common scenarios
+- Include rich context in error constructors
 
-When handling errors in Flarekit applications:
+2. Error Types:
+- Use AuthenticationError (401) for identity verification failures
+- Use AuthorizationError (403) for permission issues
+- Use ValidationError (400) for input validation
+- Use NotFoundError (404) for missing resources
+- Use BusinessLogicError (400) for business rule violations
+- Use ExternalServiceError (502) for third-party service issues
+- Use DatabaseError (500) for database operations
+- Use SystemError (500) for infrastructure issues
 
-## Custom Error Classes
-Use the appropriate error class for different scenarios:
+3. Error Context:
+- Always include relevant IDs and references
+- Add operation-specific context
+- Include timing information when relevant
+- Add debugging information in development
 
-- `ValidationError` - For user input validation failures
-- `DatabaseError` - For database operation failures  
-- `ExternalServiceError` - For third-party service failures
-- `SystemError` - For unexpected system errors
-- `BaseError` - Base class for all custom errors
+4. Error Patterns:
+- Validate early in route handlers
+- Use try-catch blocks in service layer
+- Preserve error chains when wrapping errors
+- Use specific error types over generic ones
 
-## Error Creation Patterns
-```typescript
-// Validation errors with field-level details
-throw new ValidationError('Invalid input data', [
-  {
-    field: 'email',
-    code: 'INVALID_FORMAT',
-    message: 'Email format is invalid',
-    value: userInput.email
-  }
-]);
+5. Security:
+- Sanitize error messages in production
+- Remove sensitive information
+- Use appropriate error visibility
+- Follow security best practices
 
-// Database errors with context
-throw DatabaseError.schemaError('users', 'Failed to create user', {
-  originalError: error.message,
-  operation: 'create',
-  data: userData
-});
+6. Testing:
+- Test error properties and context
+- Verify error handling middleware
+- Test error chaining
+- Validate error responses
 
-// External service errors
-throw ExternalServiceError.serviceUnavailable('File storage service', {
-  originalError: error.message,
-  service: 'R2',
-  operation: 'upload'
-});
-```
+7. Monitoring:
+- Log errors with structured format
+- Include request context
+- Add correlation IDs
+- Track error metrics
 
-## Error Handling in Routes
-- Always wrap database operations in try/catch blocks
-- Re-throw custom errors, don't catch them in route handlers
-- Let the global error handler manage error responses
-- Include relevant context for debugging
-
-## Error Logging
-- Errors are automatically logged with structured format
-- Include request ID for tracing
-- Severe errors (5xx) are logged as errors
-- Client errors (4xx) are logged as warnings
-- Development mode includes stack traces
-
-## Response Format
-All errors return consistent JSON structure:
-```json
-{
-  "success": false,
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Human readable message",
-    "details": [...], // Field-level errors for validation
-    "requestId": "req_123456789",
-    "timestamp": "2025-01-01T00:00:00.000Z"
-  }
-}
-```
-
-## Zod Validation Errors
-- Automatically converted to ValidationError format
-- Field paths are properly mapped
-- Include received values for debugging
-
-## Production Considerations
-- Sensitive information is stripped in production
-- Stack traces are only included in development
-- Request IDs enable error tracing across services
-
-@apps/backend/src/handlers/error.handler.ts
-@apps/backend/src/classes/ValidationError.class.ts
+@apps/backend/docs/error-handling.md
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
