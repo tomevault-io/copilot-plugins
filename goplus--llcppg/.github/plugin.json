@@ -1,0 +1,9 @@
+{
+  "name": "goplus--llcppg",
+  "displayName": "llcppg",
+  "description": "LLGo autogen tool for C/C++ libraries",
+  "version": "1.0.0",
+  "author": "goplus",
+  "homepage": "https://github.com/goplus/llcppg",
+  "skills": []
+}
