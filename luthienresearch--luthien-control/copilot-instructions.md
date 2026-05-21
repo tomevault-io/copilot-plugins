@@ -1,27 +1,14 @@
-## security-practices
+## tdd
 
-> Security Best Practices
+> TEST-DRIVEN DEVELOPMENT GUIDELINES. MANDATORY READING BEFORE WRITING CODE.
 
-# Security Best Practices
+These are the MANDATORY steps for test-driven development. You MUST write tests that initially fail, and only then implement the actual logic that solves the problem at hand and makes the tests pass.
 
-1.  **Input Validation:**
-    *   Treat all external input as untrusted. This includes client HTTP requests, data loaded from configurations, and inputs to policies.
-    *   Use Pydantic models rigorously to validate the structure and types of incoming data.
-    *   Perform semantic validation where necessary (e.g., checking allowed values, lengths).
-
-2.  **Security Scanning:**
-    *   Run `bandit` regularly (e.g., before commits or as part of CI) to identify common security vulnerabilities: `poetry run bandit -r luthien_control/`
-    *   Address or explicitly acknowledge (with `# nosec` comments and justification) issues reported by `bandit`.
-
-3.  **Secrets Handling:**
-    *   Adhere strictly to the `config_and_secrets.mdc` rule.
-    *   Ensure logs do not inadvertently expose sensitive information. Consider redaction mechanisms if necessary.
-
-4.  **Dependency Security:**
-    *   Keep dependencies updated to patch known vulnerabilities.
-    *   Consider using tools like `pip-audit` or GitHub's Dependabot in the future.
-
-5.  **HTTPS:** Ensure all communication with external services (backend APIs) uses HTTPS.
+1.  **Implement Skeleton:** Create the necessary files, classes, function/method signatures, and other skeleton code without full implementation (e.g., using `pass` or `NotImplementedError`).
+2.  **Write Unit Tests:** Implement unit tests for the planned functionality *before* writing the implementation code. Ensure tests cover expected behavior and edge cases. These tests are expected to fail because the functionality isn't implemented yet.
+3.  **Run Unit Tests (Expect Failures):** Run the tests (`poetry run pytest`). They should fail for the unimplemented code. This verifies the tests are correctly targeting the new code.
+4.  **Implement Solution:** Write the actual code to implement the feature or fix (replacing the skeleton code).
+5.  **Run Unit Tests (Verify Pass):** Run the unit tests again. Iterate on the implementation until all unit tests pass.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
