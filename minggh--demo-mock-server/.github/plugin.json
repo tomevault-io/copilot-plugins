@@ -1,0 +1,9 @@
+{
+  "name": "minggh--demo-mock-server",
+  "displayName": "demo-mock-server",
+  "description": "\u4e00\u4e2a\u6280\u672f\u6f14\u793a\u5408\u96c6\uff0c\u7528\u53ef\u89c6\u5316\u548c\u4ea4\u4e92\u7684\u65b9\u5f0f\u89e3\u91ca\u7f16\u7a0b\u6982\u5ff5\u3001\u7b97\u6cd5\u539f\u7406\u548c\u751f\u6d3b\u4e2d\u7684\u6570\u5b66\u95ee\u9898\u3002",
+  "version": "1.0.0",
+  "author": "MingGH",
+  "homepage": "https://github.com/MingGH/demo-mock-server",
+  "skills": []
+}
