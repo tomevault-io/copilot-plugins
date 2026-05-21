@@ -1,116 +1,1134 @@
-## coding-validate
+## concurry-architecture
 
-> Runtime type enforcement with @validate — when to use, performance and serialization exemptions.
+> These architecture details are useful when designing, integrating or refactoring major components of concurry, when debugging challenging errors and race conditions, and when testing cross-feature functionality. Also refer to the respective files in docs/architecture/ for comprehensive details.
 
-# Runtime Type Enforcement with `@validate` (CRITICAL)
+# Cursor Rules: Concurry Architecture
 
-## What `@validate` Does and Why It Matters
+## Synchronization Architecture and Rules
 
-`morphic.validate` is a decorator built on Pydantic's `validate_call` that brings full Pydantic validation to regular functions and methods. When you decorate a function with `@validate`, every call validates and coerces its arguments against the declared type hints at runtime — not just at type-check time, not just in tests, but on every single invocation.
+**CRITICAL**: Follow these rules when working with `wait()`, `gather()`, or future implementations.
 
-This is the bridge between "type hints as documentation" and "type hints as enforcement." Without `@validate`, a function annotated `def submit(task: Task)` will happily accept a string, a number, or `None` at runtime — Python ignores annotations by default. With `@validate`, the same function rejects invalid inputs immediately with a clear `ValidationError`, and automatically coerces compatible types (e.g., a dict into a `Task` object via Pydantic's model coercion).
+For comprehensive architecture details, see [docs/architecture/synchronization.md](../../docs/architecture/synchronization.md)
 
-The interaction with the Strict `Any` Ban is direct: `@validate` can only enforce types that are declared. If a parameter is typed `Any`, `@validate` passes it through without checking. Every `Any` in a `@validate`-decorated function is a parameter that bypasses runtime validation entirely. The two rules reinforce each other: the `Any` ban ensures types are declared precisely, and `@validate` ensures those precise declarations are enforced at runtime.
+### BaseFuture Implementations
 
-For LLM coding agents, `@validate` is a critical safety net. When an agent generates a call like `worker.submit(task=some_variable)`, the agent may have constructed `some_variable` incorrectly — wrong type, wrong structure, missing fields. Without `@validate`, this error propagates silently. With `@validate`, the error is caught at the function boundary with a clear `ValidationError` at the call site.
+**Rule 1**: Each future type has a specific state management strategy:
+- `SyncFuture`: Caches everything (immutable at creation)
+- `ConcurrentFuture`: Pure delegation wrapper (NO caching of `_result`, `_exception`, `_done`, `_cancelled`)
+- `AsyncioFuture`: Pure delegation wrapper (NO caching of `_result`, `_exception`, `_done`)
+- `RayFuture`: Caches state after fetching (stores `_result`, `_exception`, `_done`, `_cancelled`)
 
-`@validate` works with Morphic `Typed` classes, `Typed + Registry` subclasses, standalone functions, and class methods. Dict arguments are automatically coerced into `Typed` instances. String arguments are coerced into ints, floats, and bools. `AutoEnum` values are resolved by fuzzy matching. This coercion means `@validate` is not just a gate — it is a normalizer that converts loosely-typed data into strongly-typed objects at the function boundary.
-
-The latency cost is real but small: a few hundred microseconds per call. For Concurry's user-facing API (`.options()`, `.init()`, `gather()`, `wait()` called with a list) this is invisible — the actual work (thread/process/Ray dispatch) dwarfs the validation cost by orders of magnitude. The only places where `@validate` must be omitted are **tight inner loops in concurrency primitives** where microseconds compound into seconds.
-
-### When to Use `@validate` in Concurry
-
-**Default: use `@validate` on every public function and method.** The decorator should be present unless a specific exception applies.
-
-| Category | Use `@validate`? | Rationale |
-|---|---|---|
-| **All public module-level functions** (`wait`, `gather`, `wrap_future`) | **YES** | User-facing entry points. |
-| **All public methods of user-facing classes** (`Worker.options`, `LimitSet.acquire`) | **YES** | `Worker.options()` already uses `@validate`. Extend to all public methods. |
-| **Factory functions** | **YES** | Construct objects from user config; coercion is essential. |
-| **Private methods** (`_create_retry_configs`, `_dispatch_to_worker`) | **No** (type hints required, `@validate` optional) | Called from validated public methods. Double-validating wastes cycles. |
-| **Morphic lifecycle hooks** (`pre_initialize`, `post_initialize`, `pre_validate`) | **No** | The Morphic framework calls these with already-validated data. |
-| **Pydantic `@field_validator` methods** | **No** | Already part of Pydantic's validation pipeline. |
-| **`AutoEnum` methods, `__getattr__`, `__getitem__`** | **No** | Input types guaranteed by the Python language or Morphic framework. |
-| **Hot-path concurrency primitives** (see below) | **No** (with documented justification) | Called thousands/millions of times per second. |
-| **Worker methods serialized across Ray** (see below) | **Case-by-case** | `@validate` closure may not be picklable. |
-
-### Performance Exemption (CRITICAL for Concurry)
-
-Concurry's core primitives are called in tight loops at very high frequency. The following components are **explicitly exempt** from `@validate` because the validation overhead compounds into visible latency:
-
-| Component | Call frequency | Why exempt |
-|---|---|---|
-| `BaseFuture.result()`, `.done()`, `.cancel()`, `.exception()` | Once per future in `wait()`/`gather()` loops (50,000+/sec) | 200µs × 50k = 10s added to a 2s gather |
-| `async_wait()`, `async_gather()` inner loops | Same as above | Async hot path |
-| `Acquisition.__init__()`, `.update()`, `.release()` | Once per limit acquisition per task submission | Thousands/sec in rate-limited workers |
-| `LimitSet` internal synchronization methods | Called under lock on every task dispatch | Microseconds matter under contention |
-
-When `@validate` is omitted from a public function for performance, the omission **MUST** be documented with a comment:
-
+**Rule 2**: NEVER set `_done=True` without fetching the result:
 ```python
-# @validate omitted: hot path — called once per future in wait()/gather() loops.
-# At 50k futures/sec, 200µs/call validation overhead would add 10s to a 2s operation.
-def result(self, timeout: Optional[float] = None) -> Any:
-    ...
+# ❌ WRONG - RayFuture bug
+def done(self) -> bool:
+    ready, _ = ray.wait([self._object_ref], timeout=0)
+    if len(ready) > 0:
+        self._done = True  # ❌ BUG: _result is still None!
+        return True
+
+# ✅ CORRECT
+def done(self) -> bool:
+    if self._done:
+        return True
+    ready, _ = ray.wait([self._object_ref], timeout=0)
+    return len(ready) > 0  # Don't set _done here
 ```
 
-For these components, `Typed` on the class (validated once at construction) provides sufficient type safety without per-call overhead.
+**Rule 3**: All futures must raise consistent exception types:
+- Raise `concurrent.futures.CancelledError`, NOT `asyncio.CancelledError`
+- Raise `TimeoutError`, NOT `ray.exceptions.GetTimeoutError`
 
-Without this justification, the omission will be treated as a bug and `@validate` will be added back.
+**Rule 4**: Callbacks must receive the wrapper (BaseFuture), not the underlying future:
+```python
+# ✅ CORRECT
+def add_done_callback(self, fn: Callable) -> None:
+    self._future.add_done_callback(lambda _: fn(self))  # Pass self, not _
+```
 
-### Serialization Exemption
+**Rule 5**: Always use `wrap_future()` when accepting external futures:
+```python
+# ✅ CORRECT
+from concurry.core.future import wrap_future
 
-Concurry `Worker` methods may be serialized and sent to remote Ray processes. The `@validate` decorator wraps the function in a Pydantic `validate_call` closure that may not serialize cleanly across process boundaries. When `@validate` cannot be used on a Worker method for this reason, document it:
+futures_list = [wrap_future(f) for f in external_futures]
+```
+
+### wait() and gather() Functions
+
+**Rule 6**: Cannot mix structure and variadic arguments:
+```python
+# ❌ WRONG
+futures = [f1, f2, f3]
+wait(futures, f4, f5)  # Raises ValueError
+
+# ✅ CORRECT
+wait([f1, f2, f3, f4, f5])  # Pass as list
+wait(f1, f2, f3, f4, f5)     # Pass individually
+```
+
+**Rule 7**: Dict inputs must return dicts with preserved keys:
+```python
+tasks = {"task1": f1, "task2": f2}
+results = gather(tasks)
+# Must return: {"task1": r1, "task2": r2}
+```
+
+**Rule 8**: Always call `fut.result(timeout=0)` after `wait()` completes:
+```python
+# ✅ CORRECT
+done, not_done = wait(futures_list, ...)
+for fut in done:
+    result = fut.result(timeout=0)  # timeout=0 is safe, future is done
+```
+
+**Rule 9**: Ray batch checking must use single `ray.wait()` call:
+```python
+# ✅ CORRECT - batch all Ray futures
+ready, not_ready = ray.wait(
+    ray_futures, 
+    num_returns=len(ray_futures),  # Check all at once
+    timeout=0
+)
+```
+
+### Polling Strategies
+
+**Rule 10**: All polling intervals must come from `global_config`:
+```python
+# ❌ WRONG
+strategy = FixedPollingStrategy(interval=0.01)  # Hardcoded!
+
+# ✅ CORRECT
+from concurry.config import global_config
+defaults = global_config.defaults
+strategy = FixedPollingStrategy(interval=defaults.polling_fixed_interval)
+```
+
+**Rule 11**: New polling strategies must inherit from `BasePollingStrategy`:
+```python
+class CustomStrategy(BasePollingStrategy):
+    aliases = ["custom", PollingAlgorithm.Custom]
+    
+    def get_next_interval(self) -> float: ...
+    def record_completion(self) -> None: ...
+    def record_no_completion(self) -> None: ...
+    def reset(self) -> None: ...
+```
+
+### Extension Guidelines
+
+**Adding New Future Type**:
+1. Inherit from `BaseFuture` and implement all abstract methods
+2. Define `__slots__` with minimal fields (delegate when possible)
+3. Use `FUTURE_UUID_PREFIX` class variable
+4. Update `wrap_future()` function to detect new type
+5. Update `_check_futures_batch()` for batch optimization (if applicable)
+
+**Adding New Polling Strategy**:
+1. Inherit from `BasePollingStrategy` (Registry + MutableTyped)
+2. Define `aliases` for factory creation
+3. Add to `PollingAlgorithm` enum
+4. Add configuration defaults to `GlobalDefaults`
+5. Update strategy creation in `wait()` and `gather()`
+
+## Core Design Principle: No Silent Fallbacks
+
+**CRITICAL**: Concurry must **fail noisily** rather than silently degrade performance.
+
+### The Rule
+
+❌ **NEVER** auto-fallback to slower implementations when configured implementation fails
+✅ **ALWAYS** fail loudly with actionable error messages
+✅ **DO** have multiple implementations (flexibility is good)
+✅ **DO** select implementation via explicit configuration
+❌ **DON'T** downgrade silently (causes mysterious slowdowns)
+
+### Why This Matters
+
+Silent fallbacks are the **bane of concurrency frameworks**. They cause:
+- **Mysterious slowdowns** that are hard to diagnose
+- **Production surprises** when code suddenly runs 10-100x slower
+- **False confidence** in development that breaks in production
+- **Debugging nightmares** trying to find why "the same code" performs differently
+
+### Real-World Example
 
 ```python
+# ❌ WRONG: Silent fallback
+try:
+    return RaySharedLimitSet(...)
+except RayNotAvailableError:
+    # Silently use slower implementation
+    return InMemorySharedLimitSet(...)  # User thinks they have distributed limits!
+
+# ✅ RIGHT: Noisy failure
+if mode == "ray" and not ray.is_initialized():
+    raise RuntimeError(
+        "Ray mode selected but Ray is not initialized. "
+        "Call ray.init() before creating workers, or use mode='thread'."
+    )
+```
+
+### Implementation Guidelines
+
+1. **Configuration is a contract** - If user specifies `mode="ray"`, they expect Ray
+2. **Fail at initialization** - Check requirements during `.init()`, not during execution
+3. **Clear error messages** - Tell user exactly what's wrong and how to fix it
+4. **No implicit downgrades** - Don't automatically use slower implementation
+5. **Document requirements** - Each mode's dependencies must be clear
+
+### When to Apply This
+
+- ✅ Execution mode selection (thread vs process vs ray)
+- ✅ Limit backend selection (InMemory vs Multiprocess vs Ray)
+- ✅ Feature availability checks (Ray not installed, dependencies missing)
+- ✅ Resource requirements (not enough CPU cores, memory constraints)
+
+### Exception: Performance-Neutral Edge Cases
+
+The ONLY acceptable "fallback" is when it's **semantically equivalent and performance-neutral**:
+
+```python
+# OK: Not really a fallback, just edge case handling
+if len(my_list) == 0:
+    return default_value
+```
+
+This is fine because there's **no performance implication** - it's just handling an edge case.
+
+---
+
+## Worker and Worker Pool Architecture and Rules
+
+For comprehensive architecture details, see [docs/architecture/workers.md](../../docs/architecture/workers.md)
+
+### Worker Base Class
+
+**RULE**: Worker class does NOT inherit from Typed (allows flexible `__init__` signatures).
+
+- User-defined workers have complete freedom in `__init__` signature
+- ✅ Supports cooperative multiple inheritance with Typed/BaseModel (ALL modes including Ray)
+- ✅ Validation decorators (`@validate`, `@validate_call`) work with ALL modes including Ray
+- ✅ **DO**: Use Typed/BaseModel inheritance - automatic composition wrapper enables Ray compatibility
+- ✅ **DO**: Use decorators (@validate, @validate_call) for validation without inheritance
+- ✅ **DO**: Use plain Python classes when validation not needed
+
+**Automatic Ray Compatibility**:
+
+Typed/BaseModel workers are automatically wrapped with composition pattern for Ray mode:
+
+```python
+# ✅ WORKS - Automatic composition wrapper for Ray
+class MyWorker(Worker, Typed):
+    name: str
+    
+    def process(self) -> str:
+        return f"Processing {self.name}"
+
+# This now works seamlessly with Ray mode - no code changes needed!
+worker = MyWorker.options(mode="ray").init(name="test")
+result = worker.process().result()  # "Processing test"
+
+# ✅ Also works - Validation decorators
 class MyWorker(Worker):
-    # @validate omitted: Worker methods are serialized for Ray remote execution.
-    # validate_call closure is not picklable across process boundaries.
-    def process(self, data: List[float]) -> float:
-        ...
+    @validate
+    def __init__(self, name: str):
+        self.name = name
 ```
 
-Note that `@validate` on `Worker.options()` (a classmethod, not serialized) is fine and already used.
+The composition wrapper is applied transparently - you don't need to do anything special!
 
-### Examples
+### WorkerProxy Hierarchy
 
-✅ Good (public function with `@validate` — already done in Concurry):
+**RULE**: All WorkerProxy classes inherit from `WorkerProxy(Typed, ABC)`.
+
+- Each proxy sets `mode: ClassVar[ExecutionMode]` at class level (NOT passed as parameter)
+- Public configuration fields are immutable and validated by Pydantic
+- Private attributes use `PrivateAttr()`, initialized in `post_initialize()`
+- Must implement abstract method: `_execute_method(method_name, *args, **kwargs) -> BaseFuture`
+- ✅ **DO**: Use `ClassVar` for mode attribute
+- ✅ **DO**: Initialize private attrs in `post_initialize()` with `object.__setattr__()`
+- ✅ **DO**: Cache method wrappers in `_method_cache`
+- ❌ **DON'T**: Pass mode as constructor parameter
+- ❌ **DON'T**: Put synchronization primitives in public fields
+
+**Proxy Types**:
+- `SyncWorkerProxy`: Direct execution, `SyncFuture`, no queues
+- `ThreadWorkerProxy`: Thread + command queue, `ConcurrentFuture`
+- `ProcessWorkerProxy`: Process + 2 queues + result thread, `ConcurrentFuture`
+- `AsyncioWorkerProxy`: Event loop thread + sync thread, `ConcurrentFuture`
+- `RayWorkerProxy`: Ray actor, `RayFuture`, zero-copy ObjectRef
+
+### WorkerProxyPool Hierarchy
+
+**RULE**: All WorkerProxyPool classes inherit from `WorkerProxyPool(Typed, ABC)`.
+
+- Pool is client-side, manages remote workers (not a remote actor itself)
+- Must implement: `_initialize_pool()`, `_create_worker(worker_index)`, `_get_on_demand_limit()`
+- Load balancer selects worker index, tracks active/total calls
+- Each worker has independent submission semaphore (`max_queued_tasks`)
+- All workers share same LimitSet instances (via LimitPool)
+- Worker indices sequential (0, 1, 2, ...) for round-robin in LimitPool
+- ✅ **DO**: Create workers with sequential indices
+- ✅ **DO**: Pass `worker_index` to `_transform_worker_limits()`
+- ✅ **DO**: Use load balancer to select worker
+- ✅ **DO**: Wrap futures to release semaphore and record completion
+- ❌ **DON'T**: Share LimitPool across workers (each gets own copy with unique index)
+- ❌ **DON'T**: Hold semaphore during method execution (wrap future for release)
+
+**Pool Types**:
+- `InMemoryWorkerProxyPool`: Sync, Thread, Asyncio workers
+- `MultiprocessWorkerProxyPool`: Process workers
+- `RayWorkerProxyPool`: Ray workers
+
+### WorkerBuilder
+
+**RULE**: WorkerBuilder is the factory that creates workers or pools.
+
+- Validates configuration (max_workers, on_demand compatibility)
+- Applies defaults from global config
+- Processes limits parameter (creates LimitPool)
+- Creates retry config if num_retries > 0
+- Applies composition wrapper for Typed/BaseModel workers (all modes)
+- Decides single worker vs pool via `_should_create_pool()`
+- ✅ **DO**: Process limits with `_transform_worker_limits()`
+- ✅ **DO**: Create retry config from builder params
+- ✅ **DO**: Apply composition wrapper for Typed/BaseModel workers
+- ❌ **DON'T**: Create proxy directly (always use builder)
+
+### Worker Wrapping
+
+**RULE**: `_create_worker_wrapper()` injects limits and retry logic.
+
+- Always sets `self.limits` (even if empty LimitPool)
+- Uses `object.__setattr__()` to bypass frozen Pydantic models
+- For Ray: Pre-wraps methods at class level (Ray bypasses `__getattribute__`)
+- For other modes: Wraps methods dynamically via `__getattribute__`
+- ✅ **DO**: Create LimitPool from list of Limits inside wrapper `__init__`
+- ✅ **DO**: Use `object.__setattr__()` to set limits attribute
+- ✅ **DO**: Pass `for_ray=True` when creating Ray worker wrapper
+- ❌ **DON'T**: Serialize threading.Lock or similar primitives
+
+### Submission Queue
+
+**RULE**: Client-side semaphore limits in-flight tasks per worker (`max_queued_tasks`).
+
+- Prevents memory exhaustion from thousands of pending futures
+- Acquired in `__getattr__` BEFORE stopped check (atomic with execution)
+- Released via future callback when task completes
+- Bypassed for: Sync mode, Asyncio mode, blocking mode, on-demand workers
+- ✅ **DO**: Acquire semaphore before checking stopped flag
+- ✅ **DO**: Wrap future to release semaphore on completion
+- ✅ **DO**: Bypass for modes that don't need it
+- ❌ **DON'T**: Hold semaphore during user code execution
+
+### Future Unwrapping
+
+**RULE**: Automatically unwrap BaseFuture arguments (unless `unwrap_futures=False`).
+
+- Fast-path: Check if any futures/collections present before unwrapping
+- Recursively unwrap using `morphic.map_collection`
+- Ray optimization: Extract ObjectRef from RayFuture (zero-copy)
+- ✅ **DO**: Use fast-path to avoid expensive unwrapping
+- ✅ **DO**: For Ray, return `obj._object_ref` for RayFuture
+- ✅ **DO**: Resolve nested ObjectRefs (Ray limitation workaround)
+- ❌ **DON'T**: Unwrap when `unwrap_futures=False`
+
+### Load Balancing
+
+**RULE**: Load balancer tracks per-worker statistics with thread-safe access.
+
+- All state modifications under lock
+- `select_worker(num_workers)`: Returns worker index
+- `record_start(worker_id)`: Called when task dispatched
+- `record_complete(worker_id)`: Called when task finishes (via future callback)
+- ✅ **DO**: Hold lock only during state updates
+- ✅ **DO**: Use callback to record completion
+- ❌ **DON'T**: Hold lock during task execution
+- ❌ **DON'T**: Call `record_complete()` before submitting future
+
+**Algorithms**:
+- `RoundRobin`: Even distribution (default for persistent pools)
+- `LeastActiveLoad`: Fewest active calls
+- `LeastTotalLoad`: Fewest total calls
+- `Random`: Random selection (default for on-demand pools)
+
+### On-Demand Workers
+
+**RULE**: On-demand workers created per request, destroyed after completion.
+
+- Concurrency limits: Thread/Process = `max(1, cpu_count()-1)`, Ray = unlimited
+- Cleanup in separate thread to avoid deadlock
+- Don't share limits across on-demand workers (each gets own copy)
+- ✅ **DO**: Schedule cleanup in separate thread
+- ✅ **DO**: Track in `_on_demand_workers` list with lock
+- ✅ **DO**: Use `_wait_for_on_demand_slot()` to enforce concurrency limit
+- ❌ **DON'T**: Call `worker.stop()` directly from callback
+- ❌ **DON'T**: Use limits with on-demand workers (not shared)
+
+### Shared Limits Across Pool
+
+For comprehensive architecture details, see [docs/architecture/limits.md](../../docs/architecture/limits.md)
+
+**RULE**: All workers in pool share same LimitSet instances.
+
+- Builder creates shared LimitSet with `is_pool=True`
+- Each worker gets LimitPool with same LimitSet instances
+- Worker index used for round-robin offset in LimitPool
+- ✅ **DO**: Create shared LimitSet at pool level
+- ✅ **DO**: Pass unique worker_index to each worker
+- ✅ **DO**: Each worker gets own LimitPool (NOT shared)
+- ❌ **DON'T**: Create separate LimitSets per worker
+- ❌ **DON'T**: Share LimitPool across workers
+
+### Mode-Specific Rules
+
+**Sync**:
+- Direct execution in current thread
+- Async functions via `asyncio.run()` (blocks)
+- No threads, no queues, zero overhead
+
+**Thread**:
+- Command queue + worker thread
+- Async functions via `asyncio.run()` in worker thread (no concurrency)
+- Queue timeout via `command_queue_timeout`
+
+**Process**:
+- Two queues (command + result) + worker process + result thread
+- Worker class, init args/kwargs, retry config serialized with `cloudpickle`
+- Async functions via `asyncio.run()` in worker process (no concurrency)
+- Exception types preserved across process boundary
+- **CRITICAL**: Use `forkserver` context (safe with gRPC threads), NOT `fork` (causes segfaults with Ray client)
+
+**Asyncio**:
+- Event loop thread (async methods) + sync thread (sync methods)
+- True async concurrency in event loop
+- 10-50x speedup for concurrent I/O operations
+- ~13% overhead for sync methods vs Thread
+
+**Ray**:
+- Ray actor (distributed process)
+- RayFuture wraps ObjectRef
+- Zero-copy: RayFuture → ObjectRef passed directly
+- Native async support (Ray handles automatically)
+- Retry logic pre-applied at class level (bypasses `__getattribute__`)
+- ✅ Compatible with Typed/BaseModel via automatic composition wrapper
+- **CRITICAL**: Actors execute methods serially by default (one at a time)
+- For N concurrent tasks, need N separate actors (not N tasks on 1 actor)
+
+### Process Mode Serialization Rules
+
+**RULE**: Use `cloudpickle` for ALL user-provided objects, standard pickle for infrastructure.
+
+**Why Cloudpickle:**
+- Users define functions/classes in Jupyter notebooks (local scope)
+- Standard `pickle` cannot serialize local functions, lambdas, or `__main__` modules
+- Common workflow: define worker/function in notebook, use process mode for CPU tasks
+- ✅ **DO**: Use `cloudpickle` for: worker_cls, init_args, init_kwargs, retry_config
+- ❌ **DON'T**: Use cloudpickle for: Queues, Locks, Manager proxies (breaks multiprocessing)
+
+**RULE**: Manager and workers MUST use same multiprocessing context.
+
+**Why Same Context:**
+- Manager proxies use custom `__reduce__` for pickling
+- Proxy pickling requires same context (fork/spawn/forkserver) on both ends
+- Mixing contexts causes `TypeError: cannot pickle 'weakref.ReferenceType' object`
+- ✅ **DO**: Create Manager with same context as workers (both use forkserver by default)
+- ❌ **DON'T**: Create Manager with spawn, workers with forkserver (FAILS)
+
+**RULE**: Default to `forkserver` context, NOT `fork` or `spawn`.
+
+**Why Forkserver:**
+- `fork` (default on Unix): UNSAFE with active threads (Ray client gRPC), causes segfaults
+- `spawn`: SAFE but SLOW (~10-20s per worker startup on Linux)
+- `forkserver`: SAFE and FAST (~200ms startup), best balance
+- ✅ **DO**: Use `forkserver` from `global_config.defaults.mp_context`
+- ✅ **DO**: Allow override via `Worker.options(mp_context="spawn")` if needed
+- ❌ **DON'T**: Use `fork` when Ray client may be active (common workflow)
+
+**Historical Context (October 2025):**
+1. **Attempt 1**: Use `fork` - FAILED (segfaults with Ray client mode)
+2. **Attempt 2**: Use `spawn` for everything - FAILED (10-20s startup, unusable)
+3. **Attempt 3**: Use `spawn` for Manager, `forkserver` for workers - FAILED (pickling errors)
+4. **Final Solution**: Use `forkserver` for both + cloudpickle for user objects - SUCCESS
+
+### Adding New Worker Types
+
+**Steps**:
+1. Create `NewModeWorkerProxy(WorkerProxy)` with `mode: ClassVar`
+2. Implement `_execute_method()` returning appropriate BaseFuture subclass
+3. Create `NewModeFuture(BaseFuture)` with `FUTURE_UUID_PREFIX`
+4. Create `NewModeWorkerProxyPool(WorkerProxyPool)` if pools supported
+5. Add to `ExecutionMode` enum
+6. Update `WorkerBuilder._create_single_worker()` and `_create_pool()`
+7. Update `wrap_future()` to detect new future type
+8. Add configuration defaults to `GlobalDefaults`
+9. Write comprehensive tests
+
+### Critical Gotchas
+
+1. **Ray + Pydantic/Typed**: ✅ Fully supported via automatic composition wrapper (no code changes needed)
+2. **Async in non-Asyncio**: Works but no concurrency (sequential via `asyncio.run()`)
+3. **Submission queue vs limits**: Two separate mechanisms (client-side vs worker-side)
+4. **On-demand + limits**: Limits NOT shared (each worker gets own copy)
+5. **Method caching**: `__getattr__` caches wrappers, can become stale for callable attributes
+6. **Pool exceptions**: Don't stop pool, stored in futures
+7. **Worker state in pools**: Per-worker state, NOT per-pool
+8. **Stop timeout**: Per-operation, not total (N workers × timeout)
+9. **Cloudpickle closures**: Capture outer scope, can serialize unexpected objects
+10. **Load balancer reset**: State lost on pool restart
+11. **Process mode + fork + Ray client**: UNSAFE - causes segfaults/deadlocks (use forkserver)
+12. **Multiprocessing context mixing**: Manager and workers MUST use same context
+13. **Standard pickle for local functions**: FAILS - use cloudpickle for all user objects
+14. **Ray actor serial execution**: One method at a time by default (N actors needed for N concurrent tasks)
+
+## Limit System Architecture and Rules
+
+For comprehensive architecture details, see [docs/architecture/limits.md](../../docs/architecture/limits.md)
+
+### Layer 1: Limit Classes (Data Containers)
+
+**RULE**: Limit objects are **NOT thread-safe** and must never be used directly for synchronization.
+
+- `Limit`, `RateLimit`, `CallLimit`, `ResourceLimit` are pure data containers
+- No internal locking or thread-safety
+- All state (`_impl`, `_current_usage`) is unprotected
+- `can_acquire()` is NOT thread-safe
+- ✅ **DO**: Use within LimitSet for thread-safe operations
+- ❌ **DON'T**: Call `limit.can_acquire()` from multiple threads
+- ❌ **DON'T**: Add locks or synchronization to Limit classes
+
+### Layer 2: LimitSet (Thread-Safe Executor)
+
+**RULE**: `LimitSet` is a factory function that returns appropriate backend implementation. All thread-safety happens here.
+
+- Returns `InMemorySharedLimitSet`, `MultiprocessSharedLimitSet`, or `RaySharedLimitSet`
+- Always use `LimitSet()` factory, never instantiate backends directly
+- All acquisition/release must happen through LimitSet methods
+- Lock granularity: Hold lock only during check + acquire and release
+- ✅ **DO**: Use `with limitset.acquire()` for all acquisitions
+- ✅ **DO**: Make `LimitSetAcquisition.__enter__` / `__exit__` the only acquisition/release entry points
+- ❌ **DON'T**: Hold lock during user code execution
+- ❌ **DON'T**: Call `limit.can_acquire()` directly from LimitSet - always under lock
+
+**RULE**: Multiprocess and Ray backends must use centralized shared state, NOT local Limit object state.
+
+- `MultiprocessSharedLimitSet`: Use `Manager.dict()` for all limit state
+- `RaySharedLimitSet`: Use `LimitTrackerActor` for all limit state
+- Override `_can_acquire_all()` to check shared state, not `limit.can_acquire()`
+- Local Limit objects are COPIES after pickling, not shared
+- ✅ **DO**: Check `self._resource_state` / `self._rate_limit_state` in `_can_acquire_all()`
+- ❌ **DON'T**: Trust `limit._current_usage` or `limit._impl` state in multiprocess/Ray
+
+### Layer 3: LimitPool (Load-Balanced Wrapper)
+
+**RULE**: `LimitPool` is **private** to each worker (NOT shared). LimitSets within pool ARE shared.
+
+- Each worker gets own `LimitPool` instance
+- No cross-worker synchronization in LimitPool (fast, scalable)
+- LimitSets within pool are shared (coordinated limiting)
+- Must be `morphic.Typed` subclass (immutable public attributes)
+- ✅ **DO**: Create one LimitPool per worker with unique `worker_index`
+- ✅ **DO**: Use `PrivateAttr` for `_balancer`
+- ❌ **DON'T**: Share LimitPool across workers
+- ❌ **DON'T**: Add synchronization primitives to LimitPool
+
+**RULE**: LimitPool must support serialization for Ray/Process workers.
+
+- Implement `__getstate__` to exclude `_balancer` (contains lock)
+- Implement `__setstate__` to recreate `_balancer` from config
+- Store only serializable state in public attributes
+- ✅ **DO**: Exclude non-serializable state in `__getstate__`
+- ✅ **DO**: Recreate non-serializable state in `__setstate__`
+- ❌ **DON'T**: Store `threading.Lock` or other non-picklable objects in public attributes
+
+**RULE**: LimitPool does NOT support string key indexing.
+
+- Only integer indexing: `pool[0]` returns LimitSet
+- String keys ambiguous when LimitSets have different keys
+- ✅ **DO**: Use `pool[index]["key"]` to get Limit from specific LimitSet
+- ❌ **DON'T**: Implement `__getitem__` for string keys
+- ❌ **DON'T**: Assume all LimitSets have same keys
+
+### Worker Integration
+
+**RULE**: Workers **always** have `self.limits` available, even without configuration.
+
+- `limits=None` → Empty LimitPool with empty LimitSet
+- Always wrap in LimitPool (unified interface)
+- For Ray/Process single workers: Pass `List[Limit]`, wrap inside actor/process
+- For pools: Pass LimitSet/List[LimitSet], wrap in LimitPool with unique `worker_index` per worker
+- ✅ **DO**: Use `_transform_worker_limits()` to normalize all inputs to LimitPool
+- ✅ **DO**: Create empty LimitPool for `limits=None`
+- ❌ **DON'T**: Set `self.limits = None` on workers
+- ❌ **DON'T**: Assume `self.limits` can be None
+
+**RULE**: Worker pools must assign unique `worker_index` to each worker's LimitPool.
+
+- Enables round-robin offset for load distribution
+- Worker N gets `worker_index=N`
+- On-demand workers use incrementing counter for indices
+- ✅ **DO**: Pass `worker_index` to `_transform_worker_limits()` for each worker
+- ✅ **DO**: Use `_on_demand_counter` for on-demand worker indices
+- ❌ **DON'T**: Reuse same `worker_index` for multiple workers in a pool
+
+**RULE**: Mode compatibility must be validated when passing LimitSet to Worker.
+
+- `InMemorySharedLimitSet` only with `sync`, `thread`, `asyncio` workers
+- `MultiprocessSharedLimitSet` only with `process` workers
+- `RaySharedLimitSet` only with `ray` workers
+- ✅ **DO**: Call `_validate_mode_compatibility()` in `_transform_worker_limits()`
+- ✅ **DO**: Raise clear ValueError for incompatible modes
+- ❌ **DON'T**: Allow mode mismatches (will cause runtime failures)
+
+### Acquisition Flow Rules
+
+**RULE**: Config must be copied during acquisition to prevent mutations.
+
+- `LimitSetAcquisition.__init__`: `self.config = dict(config) if config else {}`
+- Prevents user code from mutating LimitSet's config
+- ✅ **DO**: Copy config dict in `LimitSetAcquisition.__init__`
+- ❌ **DON'T**: Store reference to LimitSet's config dict
+
+**RULE**: RateLimits must be updated before context exit. CallLimit/ResourceLimit must NOT be updated.
+
+- `LimitSetAcquisition.__exit__`: Validate all RateLimits updated
+- Raise `RuntimeError` if any RateLimit not updated
+- CallLimit: usage always 1, no update needed
+- ResourceLimit: acquired = used, no update needed
+- ✅ **DO**: Track `_updated_keys` in `LimitSetAcquisition.update()`
+- ✅ **DO**: Validate all RateLimits in `_updated_keys` before release
+- ❌ **DON'T**: Require update for CallLimit or ResourceLimit
+
+**RULE**: Atomic multi-limit acquisition must hold lock for entire check + acquire operation.
+
+- Prevents TOCTOU (Time-Of-Check-Time-Of-Use) races
+- Check `_can_acquire_all()` and `_acquire_all()` under same lock hold
+- Brief lock hold (microseconds) - acceptable
+- ✅ **DO**: Wrap check + acquire in single `with self._lock`
+- ❌ **DON'T**: Release lock between check and acquire
+- ❌ **DON'T**: Hold lock during user code execution
+
+### Partial Acquisition Rules
+
+**RULE**: CallLimit and ResourceLimit are automatically included with default=1 when not specified in `requested`.
+
+- Empty `requested` → Acquire ALL limits (RateLimits must raise ValueError)
+- Non-empty `requested` → Acquire specified + auto-add CallLimit/ResourceLimit with default=1
+- RateLimits NOT auto-added (must be explicit)
+- ✅ **DO**: Auto-include CallLimit/ResourceLimit in `_build_requested_amounts()`
+- ✅ **DO**: Raise ValueError if RateLimit not specified when acquiring all
+- ❌ **DON'T**: Auto-include unspecified RateLimits
+
+### Extension Rules
+
+**RULE**: New Limit types must update both base and backend-specific implementations.
+
+When adding new Limit type:
+1. Subclass `Limit`, implement abstract methods
+2. Update `BaseLimitSet._acquire_all()` with new limit type case
+3. Update `BaseLimitSet._release_acquisitions()` with new limit type case
+4. Update `MultiprocessSharedLimitSet._can_acquire_all()` with shared state handling
+5. Update `RaySharedLimitSet` / `LimitTrackerActor` with centralized state handling
+
+**RULE**: New load balancing algorithms must handle serialization for Ray/Process.
+
+When adding new algorithm:
+1. Add to `LoadBalancingAlgorithm` enum
+2. Create balancer class inheriting from `BaseLoadBalancer`
+3. Update `LimitPool.post_initialize()` to instantiate new balancer
+4. If balancer has non-serializable state, update `LimitPool.__getstate__` / `__setstate__`
+
+**RULE**: New LimitSet backends must handle shared state correctly for their execution mode.
+
+When adding new backend:
+1. Subclass `BaseLimitSet`
+2. Implement all abstract methods (`acquire`, `try_acquire`, `release_limit_set_acquisition`, etc.)
+3. If state not naturally shared: Override `_can_acquire_all()` to use shared state source
+4. Update `LimitSet` factory function to return new backend for specific mode
+5. Update `_validate_mode_compatibility()` to handle new backend
+
+### Code Quality Rules
+
+**RULE**: Never bypass frozen model protection incorrectly.
+
+- Use `object.__setattr__(self, "limits", limit_pool)` to set limits on frozen Typed/BaseModel workers
+- This is safe because it's done once in `__init__`, not during concurrent execution
+- ✅ **DO**: Use `object.__setattr__` in `_create_worker_wrapper()` to set `self.limits`
+- ❌ **DON'T**: Use `object.__setattr__` for arbitrary attribute modifications
+- ❌ **DON'T**: Modify frozen attributes after initialization
+
+**RULE**: Follow explicit check patterns from Concurry coding standards.
+
+- Use `len(collection) == 0` not `not collection`
+- Use `value is None` not `not value`
+- Always include type hints
+- See main Concurry cursor rules for full coding standards
+
+### Testing Rules
+
+**RULE**: Test all execution modes for Limit features.
+
+- Use `worker_mode` fixture for tests that work with all modes
+- Use `pool_mode` or explicit skip for pool-specific tests
+- Test `InMemorySharedLimitSet`, `MultiprocessSharedLimitSet`, and `RaySharedLimitSet`
+- Test serialization for Ray/Process workers
+- ✅ **DO**: Parametrize tests across all modes
+- ✅ **DO**: Test mode compatibility validation
+- ❌ **DON'T**: Test only one execution mode
+
+**RULE**: Test both successful and failed acquisitions.
+
+- Test `try_acquire()` success and failure paths
+- Test timeout scenarios
+- Test atomic rollback on partial failure
+- Test RateLimit update validation
+- ✅ **DO**: Test error paths (missing update, timeout, invalid usage)
+- ✅ **DO**: Test acquisition rollback on partial failure
+- ❌ **DON'T**: Only test happy paths
+
+**RULE**: Ray shared limits tests must use N actors for N concurrent tasks.
+
+**Why:**
+- Ray actors execute methods serially (one at a time) by default
+- 2 actors with 3 tasks each = max 2 concurrent tasks (NOT 6!)
+- Tasks 2-3 are queued inside each actor, not executing
+- To test capacity=3 limit, need at least 4+ separate actors
+
+**Testing Pattern:**
 ```python
-@classmethod
-@validate
-def options(
-    cls: Type[T],
-    *,
-    mode: Union[ExecutionMode, _NO_ARG_TYPE] = _NO_ARG,
-    blocking: Union[bool, _NO_ARG_TYPE] = _NO_ARG,
-    max_workers: Optional[Union[conint(ge=0), _NO_ARG_TYPE]] = _NO_ARG,
-    ...
-) -> WorkerBuilder:
-    ...
+# ❌ WRONG: 2 actors, 6 tasks total = only 2 concurrent tasks
+w1, w2 = [create_ray_worker() for _ in range(2)]
+futures = []
+for _ in range(3):
+    futures.append(w1.task())  # Tasks queued in w1
+    futures.append(w2.task())  # Tasks queued in w2
+# Only 2 tasks run concurrently!
+
+# ✅ CORRECT: 6 actors, 6 tasks total = 6 concurrent tasks
+workers = [create_ray_worker() for _ in range(6)]
+futures = [w.task() for w in workers]  # 6 concurrent tasks
 ```
 
-✅ Good (private method — type hints required, `@validate` optional):
+- ✅ **DO**: Create N actors to test N-way concurrency
+- ✅ **DO**: Submit one task per actor for concurrent execution
+- ❌ **DON'T**: Submit multiple tasks to one actor (they're queued, not concurrent)
+
+## Retry Architecture and Rules
+
+For comprehensive architecture details, see [docs/architecture/retries.md](../../docs/architecture/retries.md)
+
+**RULE**: ALL retry logic must execute actor-side (inside worker), NEVER client-side.
+
+- Retry loops run in actor/process/thread context
+- Avoids round-trip latency for each retry
+- Only final result crosses process boundary
+- ✅ **DO**: Apply retry in `execute_with_retry` / `execute_with_retry_async`
+- ❌ **DON'T**: Implement retry logic in WorkerProxy or client-side code
+
+**RULE**: Zero overhead when disabled: `num_retries=0` must have NO performance impact.
+
+- Short-circuit in `_create_retry_config()`: Return `None` if `num_retries == 0`
+- Short-circuit in `_create_worker_wrapper()`: Skip retry wrapping if config is `None`
+- Short-circuit in `_execute_task()`: Direct execution if `num_retries == 0`
+- ✅ **DO**: Check `num_retries > 0` before any retry logic
+- ❌ **DON'T**: Create RetryConfig or wrapper overhead when retries disabled
+
+### RetryConfig (Configuration Class)
+
+**RULE**: RetryConfig is `morphic.Typed` (Pydantic-based) for validation, defaults from global_config.
+
+- All fields default to `None`, resolved in `post_initialize()` from `global_config`
+- Validation via `@field_validator` decorators
+- Frozen after initialization (immutable public attributes)
+- ✅ **DO**: Load defaults from `global_config.clone()` in `post_initialize()`
+- ✅ **DO**: Use `object.__setattr__` to set defaults (frozen instance)
+- ❌ **DON'T**: Hardcode default values in field definitions
+
+**RULE**: `retry_on` must be list of exception classes or callables accepting `(exception, **context)`.
+
+- Validator converts single item to list
+- Exception classes must be `BaseException` subclasses
+- Callables must return `bool`
+- ✅ **DO**: Check both `isinstance(item, type)` and `callable(item)` in validator
+- ❌ **DON'T**: Accept arbitrary objects
+
+**RULE**: `retry_until` must be list of callables accepting `(result, **context)`.
+
+- Validator converts single item to list
+- All validators must return `True` for result to be valid (AND logic)
+- ✅ **DO**: Pass result and full context to validators
+- ❌ **DON'T**: Use OR logic (any validator passing)
+
+### Retry Execution Functions
+
+**RULE**: Provide THREE execution functions for different contexts.
+
+1. `execute_with_retry(func, args, kwargs, config, context)` - Sync functions
+2. `execute_with_retry_async(async_func, args, kwargs, config, context)` - Async functions
+3. `execute_with_retry_auto(fn, args, kwargs, config, context)` - TaskWorker dispatcher
+
+- `execute_with_retry_auto` detects function type and dispatches to appropriate function
+- Use `inspect.iscoroutinefunction(fn)` for detection
+- Use `asyncio.run()` to run async retry in sync contexts
+- ✅ **DO**: Use `execute_with_retry_auto` ONLY in `_execute_task` (TaskWorker)
+- ✅ **DO**: Use `execute_with_retry` for sync methods, `execute_with_retry_async` for async methods
+- ❌ **DON'T**: Use `execute_with_retry_auto` in regular method wrappers (not needed)
+
+**RULE**: Context dict must include all debugging information.
+
 ```python
-def _create_retry_configs(self) -> Optional[Dict[str, Optional[RetryConfig]]]:
-    ...
+context = {
+    "method_name": str,        # Function/method name
+    "worker_class": str,       # Worker class name or "TaskWorker"
+    "attempt": int,            # Current attempt (1-indexed, updated in loop)
+    "elapsed_time": float,     # Seconds since first attempt (updated in loop)
+    "args": tuple,             # Original positional arguments
+    "kwargs": dict,            # Original keyword arguments
+}
 ```
 
-✅ Good (hot-path exemption with documented justification):
+- ✅ **DO**: Update `attempt` and `elapsed_time` each loop iteration
+- ✅ **DO**: Pass context to filters, validators, and error messages
+- ❌ **DON'T**: Omit any context fields
+
+**RULE**: Retry loop must handle both exceptions and validation failures.
+
 ```python
-class ThreadFuture(BaseFuture):
-    # @validate omitted: hot path — result() is called in tight
-    # wait()/gather() loops at 50k+ calls/sec.
-    def result(self, timeout: Optional[float] = None) -> Any:
-        ...
+for attempt in 1..max_attempts:
+    try:
+        result = func(*args, **kwargs)
+        
+        # Check validators if configured
+        if config.retry_until:
+            is_valid, error_msg = _validate_result(result, validators, context)
+            if is_valid:
+                return result
+            else:
+                collect_validation_error(error_msg)
+                if last_attempt:
+                    raise RetryValidationError(...)
+                sleep_and_continue()
+        else:
+            return result
+    
+    except Exception as e:
+        if not _should_retry_on_exception(e, filters, context):
+            raise  # Not retriable
+        if last_attempt:
+            raise  # Exhausted retries
+        sleep_and_continue()
 ```
 
-❌ Bad (public method missing `@validate` without justification):
+- ✅ **DO**: Check validators even on successful execution
+- ✅ **DO**: Collect all results and errors for `RetryValidationError`
+- ❌ **DON'T**: Skip validation on intermediate attempts
+- ❌ **DON'T**: Ignore exception filters
+
+### Worker Method Wrapping
+
+**RULE**: Use TWO different wrapping strategies based on execution mode.
+
+1. **__getattribute__ Interception** (sync, thread, process, asyncio):
+   - Wrap methods on first access
+   - Mark with `__wrapped_with_retry__` flag to avoid double-wrapping
+   - Only wrap public methods (no `_` prefix), callables, not classes
+
+2. **Pre-Wrapped Methods** (Ray only):
+   - Wrap methods at class level before `ray.remote()`
+   - Iterate `worker_cls.__dict__` (only direct methods, not inherited)
+   - Bind `self` at call time via `original_method.__get__(self, type(self))`
+
+- ✅ **DO**: Use `for_ray` parameter to select strategy in `_create_worker_wrapper()`
+- ✅ **DO**: Skip inherited methods in Ray pre-wrapping
+- ❌ **DON'T**: Use `__getattribute__` for Ray (breaks signature inspection)
+- ❌ **DON'T**: Wrap private methods or special methods
+
+**RULE**: Preserve method attributes in wrappers.
+
 ```python
-class LimitPool(Typed):
-    def acquire(self, *, requested: Dict[str, int]) -> LimitSetAcquisition:
-        # ❌ Public method, not a hot path, no justification for missing @validate
-        ...
+wrapped.__name__ = method.__name__
+wrapped.__doc__ = method.__doc__
+wrapped.__wrapped_with_retry__ = True  # Marker flag
 ```
+
+- ✅ **DO**: Copy `__name__` and `__doc__` to wrapper
+- ✅ **DO**: Set `__wrapped_with_retry__` marker for cache detection
+- ❌ **DON'T**: Lose method metadata
+
+### TaskWorker Integration
+
+**RULE**: Apply retry in `_execute_task` method, NOT in `submit()`.
+
+- `submit()` is public → would be wrapped by `__getattribute__` → double-wrapping
+- `_execute_task()` is private → NOT wrapped by `__getattribute__` → single retry application
+- ✅ **DO**: Check `self.retry_config is not None and num_retries > 0` in `_execute_task()`
+- ✅ **DO**: Use `execute_with_retry_auto()` to handle both sync and async functions
+- ❌ **DON'T**: Apply retry logic in `submit()` or `map()` methods
+
+**RULE**: TaskWorker context must use "TaskWorker" as worker class name.
+
+```python
+context = {
+    "method_name": fn.__name__ if hasattr(fn, "__name__") else "anonymous_function",
+    "worker_class_name": "TaskWorker",  # Always "TaskWorker", not actual class
+}
+```
+
+- ✅ **DO**: Use `"TaskWorker"` literal for `worker_class_name`
+- ✅ **DO**: Handle anonymous functions gracefully
+- ❌ **DON'T**: Use actual worker proxy class name
+
+### Backoff Algorithms
+
+**RULE**: Support three backoff algorithms with Full Jitter.
+
+1. **Linear**: `wait = base_wait * attempt`
+2. **Exponential** (default): `wait = base_wait * (2 ** (attempt - 1))`
+3. **Fibonacci**: `wait = base_wait * fibonacci(attempt)`
+
+**RULE**: Apply Full Jitter after backoff calculation.
+
+```python
+calculated_wait = algorithm(attempt, base_wait)
+
+if config.retry_jitter > 0:
+    wait = random.uniform(0, calculated_wait)  # Full Jitter
+else:
+    wait = calculated_wait
+
+return max(0, wait)
+```
+
+- ✅ **DO**: Apply jitter AFTER algorithm calculation
+- ✅ **DO**: Use `random.uniform(0, calculated_wait)` for Full Jitter
+- ❌ **DON'T**: Use partial jitter or fixed jitter amounts
+- ❌ **DON'T**: Allow negative wait times
+
+**RULE**: Fibonacci sequence starts at 1: `[1, 1, 2, 3, 5, 8, 13, ...]`.
+
+```python
+def _fibonacci(n: int) -> int:
+    if n <= 2:
+        return 1
+    a, b = 1, 1
+    for _ in range(n - 2):
+        a, b = b, a + b
+    return b
+```
+
+- ✅ **DO**: Return 1 for `n <= 2`
+- ❌ **DON'T**: Start sequence at 0 or use different indexing
+
+### Exception Filtering
+
+**RULE**: Check all filters in order, return True on first match.
+
+```python
+def _should_retry_on_exception(exception, retry_on_filters, context):
+    for filter_item in retry_on_filters:
+        if isinstance(filter_item, type):
+            # Exception class
+            if isinstance(exception, filter_item):
+                return True
+        elif callable(filter_item):
+            # Callable filter
+            try:
+                if filter_item(exception=exception, **context):
+                    return True
+            except Exception:
+                continue  # If filter raises, skip it
+    return False
+```
+
+- ✅ **DO**: Check both exception classes and callables
+- ✅ **DO**: Catch and ignore exceptions from filters
+- ❌ **DON'T**: Let filter exceptions propagate
+- ❌ **DON'T**: Use AND logic (all filters must match)
+
+### Output Validation
+
+**RULE**: All validators must return True for result to be valid (AND logic).
+
+```python
+def _validate_result(result, validators, context):
+    for validator in validators:
+        try:
+            if not validator(result=result, **context):
+                return False, f"Validator '{validator.__name__}' returned False"
+        except Exception as e:
+            return False, f"Validator '{validator.__name__}' raised: {e}"
+    return True, None
+```
+
+- ✅ **DO**: Require ALL validators to return True
+- ✅ **DO**: Catch validator exceptions and treat as validation failure
+- ✅ **DO**: Return descriptive error messages
+- ❌ **DON'T**: Use OR logic (any validator passing)
+- ❌ **DON'T**: Let validator exceptions propagate
+
+### RetryValidationError
+
+**RULE**: RetryValidationError must be pickleable for multiprocessing.
+
+```python
+class RetryValidationError(Exception):
+    def __reduce__(self):
+        """Support pickling for multiprocessing."""
+        return (
+            self.__class__,
+            (self.attempts, self.all_results, self.validation_errors, self.method_name),
+        )
+```
+
+- ✅ **DO**: Implement `__reduce__` for pickle support
+- ✅ **DO**: Store all results and validation errors from all attempts
+- ❌ **DON'T**: Omit any attributes from `__reduce__`
+### Integration Rules
+
+### Interaction with Limits
+
+**RULE**: Retry and limits are independent but coordinated systems.
+
+- Each retry is a complete new method invocation
+- Limits acquired/released via context manager for each attempt
+- Failed attempts release limits immediately (context manager `__exit__`)
+- ✅ **DO**: Let user methods handle limit acquisition normally
+- ✅ **DO**: Rely on context manager to release limits on exception
+- ❌ **DON'T**: Manually manage limits in retry logic
+- ❌ **DON'T**: Hold limits across retry sleep periods
+
+**Flow**:
+```
+Retry Loop
+  ↓
+  User Method
+    ↓
+    with self.limits.acquire():  ← Acquire
+      ... method body ...
+      acq.update()
+    ← Limits released (even on exception)
+  ↓
+  Check exception/validation
+  ↓
+  Sleep + retry if needed
+```
+
+### Serialization
+
+**RULE**: Handle Ray and Process serialization requirements.
+
+**For Process mode**:
+- `RetryConfig`: Pickleable by default (Pydantic model)
+- `RetryValidationError`: Implement `__reduce__`
+- User functions: Must be pickleable
+
+**For Ray mode**:
+- Regular workers: `RetryConfig` passed during actor creation (no special handling)
+- TaskWorker: Serialize `RetryConfig` with `cloudpickle` to avoid Pydantic lock issues
+
+```python
+# In ray_worker.py _execute_task for TaskWorker
+retry_config_bytes = cloudpickle.dumps(self.retry_config)
+
+def ray_retry_wrapper(*args, **kwargs):
+    r_config = cloudpickle.loads(retry_config_bytes)
+    return execute_with_retry_auto(fn, args, kwargs, r_config, context)
+```
+
+- ✅ **DO**: Use `cloudpickle.dumps/loads` for RetryConfig in Ray TaskWorker
+- ❌ **DON'T**: Pass RetryConfig directly to Ray remote function for TaskWorker
+
+### Extension Rules
+
+### Adding New Retry Algorithms
+
+1. Add to `RetryAlgorithm` enum in `constants.py`
+2. Implement in `calculate_retry_wait()` in `retry.py`
+3. Add default to `GlobalDefaults` in `config.py`
+4. Jitter is applied AFTER algorithm calculation (don't modify jitter logic)
+
+### Adding Context Fields
+
+1. Add field to `context` dict in `execute_with_retry` / `execute_with_retry_async`
+2. Update docstring to document new field
+3. Pass to filters/validators via `**context`
+4. Update architecture doc with new field
+
+### Adding Validator/Filter Features
+
+1. Ensure backward compatibility (new features should be optional)
+2. Add validation in `RetryConfig` validators
+3. Pass additional context via `context` dict
+4. Document in RetryConfig docstring
+
+------------------------------------------------
+
+# Quick References
+
+### Quick Reference - Limits
+
+| Concern | Responsibility | Thread-Safe? |
+|---------|----------------|--------------|
+| Define constraints | `Limit` (RateLimit, CallLimit, ResourceLimit) | ❌ NO |
+| Acquire/release | `LimitSet` (factory → backend implementation) | ✅ YES |
+| Load balancing | `LimitPool` (private per worker) | ❌ N/A (no sharing) |
+| Worker integration | `_transform_worker_limits()`, `_create_worker_wrapper()` | ✅ YES (via LimitSet) |
+
+| Backend | Mode | Synchronization | Shared State |
+|---------|------|----------------|--------------|
+| `InMemorySharedLimitSet` | sync, thread, asyncio | `threading.Lock` | Local objects (naturally shared) |
+| `MultiprocessSharedLimitSet` | process | `Manager.Lock()` | `Manager.dict()` (centralized) |
+| `RaySharedLimitSet` | ray | Ray actor | `LimitTrackerActor` (centralized) |
+
+| Input | Transformation | Output |
+|-------|---------------|--------|
+| `None` | Create empty LimitSet | LimitPool([empty_limitset]) |
+| `List[Limit]` | Create LimitSet | LimitPool([limitset]) |
+| `LimitSet` | Wrap in LimitPool | LimitPool([limitset]) |
+| `List[LimitSet]` | Aggregate in LimitPool | LimitPool(limitsets) |
+| `LimitPool` | Pass through | LimitPool (unchanged) |
+
+### Quick Reference - Retry mechanisms
+
+| Component | Location | Purpose | Key Methods |
+|-----------|----------|---------|-------------|
+| `RetryConfig` | `retry.py` | Configuration | `post_initialize()`, validators |
+| `execute_with_retry` | `retry.py` | Sync retry loop | Main retry logic |
+| `execute_with_retry_async` | `retry.py` | Async retry loop | Async retry logic |
+| `execute_with_retry_auto` | `retry.py` | TaskWorker dispatcher | Sync/async detection |
+| `_create_worker_wrapper` | `base_worker.py` | Method wrapping | Creates wrapper class |
+| `create_retry_wrapper` | `retry.py` | Single method wrapper | Wraps one method |
+| `calculate_retry_wait` | `retry.py` | Backoff + jitter | Returns wait time |
+| `_should_retry_on_exception` | `retry.py` | Exception filtering | Returns bool |
+| `_validate_result` | `retry.py` | Output validation | Returns (bool, error) |
+
+| Execution Mode | Wrapping Strategy | TaskWorker Function |
+|----------------|-------------------|---------------------|
+| sync, thread, process, asyncio | `__getattribute__` | `execute_with_retry_auto` |
+| ray | Pre-wrapped at class level | `cloudpickle` + `execute_with_retry_auto` |
+
+| Algorithm | Formula | Example (base=1.0) |
+|-----------|---------|-------------------|
+| Linear | `base * attempt` | 1, 2, 3, 4, 5, ... |
+| Exponential | `base * 2^(attempt-1)` | 1, 2, 4, 8, 16, ... |
+| Fibonacci | `base * fib(attempt)` | 1, 1, 2, 3, 5, 8, ... |
+
+Then apply Full Jitter: `random.uniform(0, calculated_wait)`
+
+## Common Pitfalls to Avoid
+
+❌ Apply retry in `submit()` method (causes double-wrapping)
+❌ Use closure capture for retry logic in process/ray modes
+❌ Forget to set `num_retries > 0` in RetryConfig
+❌ Set future timeout too short for retry delays
+❌ Use `__getattribute__` for Ray workers (breaks signature)
+❌ Forget `__reduce__` for RetryValidationError
+❌ Hold limits across retry sleep periods
+❌ Apply retry client-side
+
+**See [testing-practices.mdc](mdc:.cursor/rules/testing-practices.mdc) for comprehensive testing rules.**
 
 ---
 > Source: [amazon-science/concurry](https://github.com/amazon-science/concurry) — distributed by [TomeVault](https://tomevault.io).
