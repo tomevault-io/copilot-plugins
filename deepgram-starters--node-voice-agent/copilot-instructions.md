@@ -1,18 +1,28 @@
-## code-of-conduct
+## contributing-requirements
 
-> Code of Conduct Requirements
+> Contributing Guidelines Requirements
 
-# Code of Conduct Requirements
+# Contributing Requirements
 
-Write the contents based on the YAML instructions.
+When creating or updating CONTRIBUTING.md files for starter apps, use the template from:
 
-## YAML Instructions
+**Reference:** `@project-template/CONTRIBUTING.md`
 
-```yaml
-code_of_conduct:
-    description: "Deepgram's code of conduct can be found on our website."
-    reference: "https://dpgr.am/coc"
-```
+This template includes:
+- Prerequisites and installation instructions (Node.js/pnpm focused)
+- Bug reporting guidelines
+- Enhancement suggestion process
+- Pull request requirements
+- Security scanning requirements
+- Community connection channels
+
+## Project-Specific Customizations
+
+Adjust the following based on your project:
+- Update installation commands if not using pnpm
+- Add language-specific security scanning commands
+- Include any special SDK setup requirements (see lines 128-141 for template)
+- Add cloud provider setup steps if applicable (see lines 105-126 for template)
 
 ---
 > Source: [deepgram-starters/node-voice-agent](https://github.com/deepgram-starters/node-voice-agent) — distributed by [TomeVault](https://tomevault.io).
