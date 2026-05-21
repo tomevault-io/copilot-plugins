@@ -4,7 +4,7 @@
   "repo": "SlingMD",
   "description": "Tools for Use with ObsidianMD",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Caleb68864/SlingMD",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T11:42:56Z"
+  "distributed_at": "2026-05-21T20:16:30Z"
 }
