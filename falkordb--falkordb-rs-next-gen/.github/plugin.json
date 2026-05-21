@@ -1,0 +1,9 @@
+{
+  "name": "falkordb--falkordb-rs-next-gen",
+  "displayName": "falkordb-rs-next-gen",
+  "description": "The next-generation, high-performance FalkorDB engine rewritten in Rust. A lightning-fast Graph Database powered by GraphBLAS sparse matrix algebra, purpose-built for Knowledge Graphs and GraphRAG.",
+  "version": "1.0.0",
+  "author": "FalkorDB",
+  "homepage": "https://github.com/FalkorDB/falkordb-rs-next-gen",
+  "skills": []
+}
