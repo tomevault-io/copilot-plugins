@@ -1,0 +1,44 @@
+{
+  "name": "lni",
+  "owner": "lightning-node-interface",
+  "repo": "lni",
+  "description": "LNI Remote - Lightning Node Interface. A standard interface to remote connect to CLN, LND, Phoenixd, LNURL, BOLT 11, BOLT 12, NWC, Spark, Strike, Blink, and Speed. Language Binding support for kotlin, swift, react-native, nodejs (typescript, javaScript). ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lightning-node-interface/lni",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T22:18:49Z"
+}
