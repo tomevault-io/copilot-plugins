@@ -1,0 +1,9 @@
+{
+  "name": "metaculus--forecasting-tools",
+  "displayName": "forecasting-tools",
+  "description": "A framework for building a AI Forecasting Bot for Metaculus. Additionally AI Forecasting tools to help humans forecast the future. ",
+  "version": "1.0.0",
+  "author": "Metaculus",
+  "homepage": "https://github.com/Metaculus/forecasting-tools",
+  "skills": []
+}
