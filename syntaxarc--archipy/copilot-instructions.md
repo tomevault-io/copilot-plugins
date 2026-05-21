@@ -1,81 +1,78 @@
-## tooling-workflow
+## typing-strict
 
-> ArchiPy developer workflow — package manager, make targets, pre-commit, versioning
+> Strict type annotation rules for ArchiPy source code (enforced by ty)
 
 
-# Developer Tooling & Workflow
+# Strict Typing
 
-## Package Manager
+ArchiPy enforces strict type checking via `ty` (configured in `pyproject.toml` under `[tool.ty.rules]`).
 
-Always use **`uv`** — never `pip install` directly.
+## Annotations Required
 
-```bash
-# Install all deps (including dev + all extras)
-uv sync --all-extras --all-groups
+All public functions and methods must have **complete type annotations** — parameters and return types.
 
-# Add a new dependency
-uv add <package>
+```python
+# ❌ BAD
+def get_user(user_id):
+    ...
 
-# Add a dev dependency
-uv add --group dev <package>
+# ✅ GOOD
+def get_user(user_id: int) -> User:
+    ...
 ```
 
-## Common Make Targets
+## Modern Union Syntax
 
-| Command | What it does |
-|---|---|
-| `make install-dev` | Install all deps + pre-commit hooks |
-| `make format` | Ruff formatter (fixes in place) |
-| `make lint` | Ruff linter + ty type checker |
-| `make behave` | Run all BDD tests |
-| `make check` | format + lint + security + tests |
-| `make security` | Bandit scan → `bandit-report.json` |
-| `make pre-commit` | Run all pre-commit hooks manually |
-| `make clean` | Remove build artifacts and caches |
-| `make build` | Build distribution packages |
-| `make ci` | Full CI pipeline locally |
+Use Python 3.14+ union syntax throughout:
 
-## Pre-commit Hooks
+```python
+# ❌ BAD
+from typing import Optional, Union
+def process(value: Optional[str]) -> Union[int, str]: ...
 
-Hooks run automatically on `git commit`. They include (in order):
-1. `check-added-large-files`
-2. `check-yaml`, `check-toml`, `check-json`, `pretty-format-json`
-3. `end-of-file-fixer`, `trailing-whitespace-fixer`
-4. `uv lock` / `uv sync` (on post-checkout and post-merge)
-5. `codespell` — catches common typos in `.py`/`.pyi` files
-6. `ruff-format` → `ruff check --fix` → `add-trailing-comma`
-7. `validate-pyproject` — validates `pyproject.toml`
-8. `ty check` — strict type checking
-
-Run manually:
-```bash
-make pre-commit
-# or directly:
-uv run pre-commit run --all-files
+# ✅ GOOD
+def process(value: str | None) -> int | str: ...
 ```
 
-## Documentation
+## Avoid `Any`
 
-```bash
-make docs-serve        # Live-reload local server (balanced)
-make docs-serve-fast   # Fast rebuild (skip heavy API gen)
-make docs-build        # Build static site
-make docs-deploy       # Deploy to GitHub Pages
+`Any` is prohibited in production code except in explicitly exempted files (ports interfaces, gRPC message types, Redis mocks). When `Any` is genuinely needed, add a `# noqa: ANN401` comment with a justification.
+
+## `TYPE_CHECKING` Guard
+
+Move imports used only for type hints under `TYPE_CHECKING` **only when safe**. Do not move imports that Pydantic evaluates at runtime:
+
+```python
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from archipy.models.entities import UserEntity  # safe — only used in annotation
+
+# ❌ Do NOT guard Pydantic field types — Pydantic evaluates them at runtime
+class MyModel(BaseModel):
+    user: UserEntity  # must be importable at runtime
 ```
 
-## Version Bumping
+## Exemptions (per pyproject.toml)
+
+These files have `ANN401` (Any) exemptions due to interface constraints:
+- `archipy/adapters/orm/sqlalchemy/ports.py`
+- `archipy/adapters/elasticsearch/ports.py`
+- `archipy/adapters/keycloak/ports.py`
+- `archipy/adapters/redis/ports.py`
+- `archipy/adapters/scylladb/ports.py`
+- `archipy/helpers/decorators/*`
+- `archipy/helpers/interceptors/grpc/base/client_interceptor.py`
+
+BDD step files (`features/steps/*`) are exempt from `ANN001` and `ANN201`.
+
+## Running the Type Checker
 
 ```bash
-make bump-patch message="fix: correct edge case in JWT utils"
-make bump-minor message="feat: add ScyllaDB async adapter"
-make bump-major message="breaking: redesign config layer"
-```
-
-## Dependency Updates
-
-```bash
-make update        # Update uv.lock to latest compatible versions
-make update-all    # Also upgrade uv itself and Python
+uv run ty check archipy/
+# or via make:
+make lint
 ```
 
 ---
