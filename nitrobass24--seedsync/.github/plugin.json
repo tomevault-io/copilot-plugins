@@ -1,0 +1,9 @@
+{
+  "name": "nitrobass24--seedsync",
+  "displayName": "seedsync",
+  "description": "SeedSync - Fast seedbox file synchronization. Modernized fork with Docker-only deployment, Python 3.12",
+  "version": "1.0.0",
+  "author": "nitrobass24",
+  "homepage": "https://github.com/nitrobass24/seedsync",
+  "skills": []
+}
