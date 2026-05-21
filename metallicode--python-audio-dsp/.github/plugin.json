@@ -1,0 +1,9 @@
+{
+  "name": "metallicode--python-audio-dsp",
+  "displayName": "python_audio_dsp",
+  "description": "Extremely over packed Python audio DSP, synthesis, effects etc.. library   ",
+  "version": "1.0.0",
+  "author": "Metallicode",
+  "homepage": "https://github.com/Metallicode/python_audio_dsp",
+  "skills": []
+}
