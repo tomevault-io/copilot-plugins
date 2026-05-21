@@ -1,0 +1,9 @@
+{
+  "name": "muhammadghiffari--weview",
+  "displayName": "weview",
+  "description": "WiFi-based Spatial Intelligence Platform - Real-time human pose estimation, 3D Observatory, and CSI sensing visualization using MediaPipe, WebGL, and Rust.",
+  "version": "1.0.0",
+  "author": "muhammadghiffari",
+  "homepage": "https://github.com/muhammadghiffari/weview",
+  "skills": []
+}
