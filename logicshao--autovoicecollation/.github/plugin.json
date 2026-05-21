@@ -1,0 +1,9 @@
+{
+  "name": "logicshao--autovoicecollation",
+  "displayName": "AutoVoiceCollation",
+  "description": "AutoVoiceCollation \u662f\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684\u81ea\u52a8\u8bed\u97f3\u8bc6\u522b\uff08ASR\uff09\u548c\u6587\u672c\u5904\u7406\u5de5\u5177\uff0c\u65e8\u5728\u5e2e\u52a9\u7528\u6237\u5feb\u901f\u6574\u7406\u548c\u6da6\u8272\u8bed\u97f3\u8f6c\u5f55\u6587\u672c\u3002",
+  "version": "1.0.0",
+  "author": "LogicShao",
+  "homepage": "https://github.com/LogicShao/AutoVoiceCollation",
+  "skills": []
+}
