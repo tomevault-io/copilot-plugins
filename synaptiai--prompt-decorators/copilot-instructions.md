@@ -1,116 +1,41 @@
-## 000-cursor-rules
+## 001-emoji-communication
 
-> Use ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
+> Use emojis strategically in AI responses to enhance communication and user experience
 
-# Cursor Rules Format
-## Core Structure
 
-```mdc
----
-description: ACTION when TRIGGER to OUTCOME
-globs: *.mdc
----
-
-# Rule Title
+# Emoji Communication Guidelines
 
 ## Context
-- When to apply this rule
-- Prerequisites or conditions
+- When responding to user queries in conversations
+- When emphasizing important points or status updates
+- When making technical communication more engaging and human-friendly
 
 ## Requirements
-- Concise, actionable items
-- Each requirement must be testable
+- Use emojis purposefully to enhance meaning, but feel free to be creative and fun
+- Place emojis at the end of statements or sections
+- Maintain professional tone while surprising users with clever choices
+- Limit emoji usage to 1-2 per major section
 
 ## Examples
 <example>
-Good concise example with explanation
+✅ "I've optimized your database queries 🏃‍♂️💨"
+✅ "Your bug has been squashed 🥾🐛"
+✅ "I've cleaned up the legacy code 🧹✨"
+✅ "Fixed the performance issue 🐌➡️🐆"
 </example>
 
 <example type="invalid">
-Invalid concise example with explanation
+❌ "Multiple 🎉 emojis 🎊 in 🌟 one message"
+❌ "Using irrelevant emojis 🥑"
+❌ "Placing the emoji in the middle ⭐️ of a sentence"
 </example>
-```
 
-## File Organization
-
-### Location
-- Path: `.cursor/rules/`
-- Extension: `.mdc`
-
-### Naming Convention
-PREFIX-name.mdc where PREFIX is:
-- 0XX: Core standards
-- 1XX: Tool configs
-- 3XX: Testing standards
-- 1XXX: Language rules
-- 2XXX: Framework rules
-- 8XX: Workflows
-- 9XX: Templates
-- _name.mdc: Private rules
-
-### Glob Pattern Examples
-Common glob patterns for different rule types:
-- Core standards: .cursor/rules/*.mdc
-- Language rules: src/**/*.{js,ts}
-- Testing standards: **/*.test.{js,ts}
-- React components: src/components/**/*.tsx
-- Documentation: docs/**/*.md
-- Configuration files: *.config.{js,json}
-- Build artifacts: dist/**/*
-- Multiple extensions: src/**/*.{js,jsx,ts,tsx}
-- Multiple files: dist/**/*, docs/**/*.md
-
-## Required Fields
-
-### Frontmatter
-- description: ACTION TRIGGER OUTCOME format
-- globs: `glob pattern for files and folders`
-
-### Body
-- <version>X.Y.Z</version>
-- context: Usage conditions
-- requirements: Actionable items
-- examples: Both valid and invalid
-
-## Formatting Guidelines
-
-- Use Concise Markdown primarily
-- XML tags limited to:
-  - <example>
-  - <danger>
-  - <required>
-  - <rules>
-  - <rule>
-  - <critical>
-  - <version>
-- Always indent content within XML or nested XML tags by 2 spaces
-- Keep rules as short as possbile
-- Use Mermaid syntax if it will be shorter or clearer than describing a complex rule
-- Use Emojis where appropriate to convey meaning that will improve rule understanding by the AI Agent
-- Keep examples as short as possible to clearly convey the positive or negative example
-
-## AI Optimization Tips
-
-1. Use precise, deterministic ACTION TRIGGER OUTCOME format in descriptions
-2. Provide concise positive and negative example of rule application in practice
-3. Optimize for AI context window efficiency
-4. Remove any non-essential or redundant information
-5. Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
-
-## AI Context Efficiency
-
-1. Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI AGent
-2. Limit examples to essential patterns only
-3. Use hierarchical structure for quick parsing
-4. Remove redundant information across sections
-5. Maintain high information density with minimal tokens
-6. Focus on machine-actionable instructions over human explanations
-
-<critical>
-  - NEVER include verbose explanations or redundant context that increases AI token overhead
-  - Keep file as short and to the point as possible BUT NEVER at the expense of sacrificing rule impact and usefulness for the AI Agent.
-  - the front matter can ONLY have the fields description and globs.
-</critical>
+## Critical Rules
+  - Never use more than one emoji per statement
+  - Choose emojis that are both fun and contextually appropriate
+  - Place emojis at the end of statements, not at the beginning or middle
+  - Skip emoji usage when discussing serious issues or errors
+  - Don't be afraid to tell a mini-story with your emoji choice
 
 ---
 > Source: [synaptiai/prompt-decorators](https://github.com/synaptiai/prompt-decorators) — distributed by [TomeVault](https://tomevault.io).
