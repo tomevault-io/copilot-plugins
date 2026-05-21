@@ -2,9 +2,9 @@
   "name": "openframe-oss-tenant",
   "owner": "flamingo-stack",
   "repo": "openframe-oss-tenant",
-  "description": "",
+  "description": "Code base for OSS OpenFrame single tenant version",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flamingo-stack/openframe-oss-tenant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T00:51:58Z"
+  "distributed_at": "2026-05-21T12:33:18Z"
 }
