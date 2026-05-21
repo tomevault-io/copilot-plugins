@@ -1,0 +1,9 @@
+{
+  "name": "acryldata--mcp-server-datahub",
+  "displayName": "mcp-server-datahub",
+  "description": "The official Model Context Protocol (MCP) server for DataHub (https://datahub.com)",
+  "version": "1.0.0",
+  "author": "acryldata",
+  "homepage": "https://github.com/acryldata/mcp-server-datahub",
+  "skills": []
+}
