@@ -1,0 +1,9 @@
+{
+  "name": "estepanov--fullstack-bun",
+  "displayName": "fullstack-bun",
+  "description": "bun, hono, vite, react, biome boilerplate",
+  "version": "1.0.0",
+  "author": "estepanov",
+  "homepage": "https://github.com/estepanov/fullstack-bun",
+  "skills": []
+}
