@@ -1,89 +1,86 @@
-## php-drupal-development-standards
+## php-memory-optimisation
 
-> Standards for PHP and Drupal development
+> PHP memory optimisation standards and actionable checks
 
-# Enhanced PHP and Drupal Development Standards
+# PHP Memory Optimisation Standards
 
-Ensures adherence to PHP 8.3+ features and Drupal development best practices for improved code quality, security, and maintainability.
+Guidance and automated checks to reduce peak memory usage in PHP applications. Based on widely accepted practices and the article "PHP Memory Optimization Tips" by Khouloud Haddad.
 
 <rule>
-name: enhanced_php_drupal_development_standards
-description: Enforce PHP 8.3+ and Drupal development standards
+name: php_memory_optimisation
+description: Detect memory-heavy patterns and suggest streaming, generators, and better data handling
 filters:
   - type: file_extension
-    pattern: "\\.(php|module|inc|install|theme)$"
-  - type: file_path
-    pattern: "web/modules/custom/|web/themes/custom/"
+    pattern: "\\.php$"
 
 actions:
   - type: enforce
     conditions:
-      - pattern: "^(?!declare\\(strict_types=1\\);)"
-        message: "Add 'declare(strict_types=1);' at the beginning of PHP files for type safety."
+      # Avoid loading entire DB result sets into memory.
+      - pattern: "->fetchAll\\("
+        message: "Avoid fetchAll() on large result sets; iterate with fetch() in a loop or wrap with a generator (yield)."
 
-      - pattern: "class\\s+\\w+\\s*(?!\\{[^}]*readonly\\s+\\$)"
-        message: "Consider using readonly properties where immutability is required for better code safety."
+      - pattern: "\\bmysqli_fetch_all\\("
+        message: "Avoid mysqli_fetch_all() for large queries; prefer streaming fetch (e.g., mysqli_fetch_assoc in a loop)."
 
-      - pattern: "public\\s+function\\s+\\w+\\([^)]*\\)\\s*(?!:)"
-        message: "Add return type declarations for all methods to enhance type safety."
+      # Avoid repeated full-file loads inside loops.
+      - pattern: "foreach\\s*\\([^)]*\\)\\s*\\{[^}]*file_get_contents\\("
+        message: "Avoid file_get_contents() inside loops; stream with SplFileObject or read once and reuse."
 
-      - pattern: "extends\\s+\\w+\\s*\\{[^}]*public\\s+function\\s+\\w+\\([^)]*\\)\\s*(?!#\\[Override\\])"
-        message: "Add #[Override] attribute for overridden methods for clear intent."
+      # Avoid array_merge in tight loops as it copies arrays.
+      - pattern: "foreach\\s*\\([^)]*\\)\\s*\\{[^}]*=\\s*array_merge\\("
+        message: "Avoid array_merge() inside loops; append elements directly or preallocate arrays."
 
-      - pattern: "\\$\\w+\\s*(?!:)"
-        message: "Use typed properties with proper nullability to improve code readability and prevent errors."
-
-      - pattern: "function\\s+hook_\\w+\\([^)]*\\)\\s*(?!:)"
-        message: "Add type hints and return types for all hooks to leverage PHP's type system."
-
-      - pattern: "new\\s+\\w+\\([^)]*\\)\\s*(?!;\\s*//\\s*@inject)"
-        message: "Use proper dependency injection with services for better testability and modularity."
-
-      - pattern: "extends\\s+FormBase\\s*\\{[^}]*validate"
-        message: "Implement proper form validation in FormBase classes for security."
-
-      - pattern: "(?<!\\bTRUE\\b)\\btrue\\b|(?<!\\bFALSE\\b)\\bfalse\\b|(?<!\\bNULL\\b)\\bnull\\b"
-        message: "Use uppercase for TRUE, FALSE, and NULL constants for consistency."
-
-      - pattern: "(?i)\\/\\/\\s[a-z]"
-        message: "Ensure inline comments begin with a capital letter and end with a period for readability."
-
-      - pattern: "\\$this->config\\('\\w+'\\)"
-        message: "Use ConfigFactory for configuration management to ensure proper dependency injection."
+      # Use caution with range() on large ranges (allocates full array).
+      - pattern: "\\brange\\s*\\("
+        message: "range() allocates full arrays; for large ranges consider generators (yield) to avoid high memory."
 
   - type: suggest
     message: |
-      **PHP/Drupal Development Best Practices:**
-      - **File Structure:** Place module files in `web/modules/custom/[module_name]/` for organization.
-      - **Module Files:** Ensure modules include .info.yml, .module, .libraries.yml, .services.yml where applicable.
-      - **Dependencies:** Use hook_requirements() to manage external dependencies.
-      - **Forms:** Use FormBase or ConfigFormBase for creating forms, always include CSRF protection.
-      - **Caching:** Apply proper cache tags and contexts for performance optimization.
-      - **Error Handling & Logging:** Implement robust error handling and logging using Drupal's mechanisms.
-      - **Type Safety:** Leverage type safety in form methods and throughout your code.
-      - **Dependency Injection:** Follow Drupal's dependency injection patterns for better maintainability.
-      - **Service Container:** Use Drupal's service container to manage dependencies.
-      - **Security:** Validate all user inputs, use Drupal's security practices like sanitization and escaping.
-      - **Schema Updates:** Implement hook_update_N() for database schema changes.
-      - **Translation:** Use Drupal's t() function for all user-facing strings.
+      **PHP memory optimisation recommendations:**
+
+      - **Stream database results:** Prefer `$stmt->fetch(PDO::FETCH_ASSOC)` in a `while` loop or use generators instead of `fetchAll()`.
+      - **Use generators (yield):** Iterate large datasets without allocating full arrays.
+      - **Stream files:** Use `SplFileObject` or chunked reads instead of `file_get_contents()` for large files.
+      - **Minimise array copying:** Avoid `array_merge()` in loops; push items directly or pre-size with known capacity (e.g., `SplFixedArray`).
+      - **Free memory explicitly:** `unset($var)` after large data is no longer needed; consider `gc_collect_cycles()` for long-running scripts.
+      - **Profile memory:** Use `memory_get_usage()` and tools like Xdebug/Blackfire to spot peaks.
+      - **OPcache:** Ensure OPcache is enabled and sized appropriately in production.
 
   - type: validate
     conditions:
-      - pattern: "web/modules/custom/[^/]+/\\.info\\.yml$"
-        message: "Ensure each custom module has a required .info.yml file."
-
-      - pattern: "web/modules/custom/[^/]+/\\.module$"
-        message: "Ensure module has .module file if hooks are implemented."
-
-      - pattern: "web/modules/custom/[^/]+/src/Form/\\w+Form\\.php$"
-        message: "Place form classes in the Form directory for consistency."
-
-      - pattern: "try\\s*\\{[^}]*\\}\\s*catch\\s*\\([^)]*\\)\\s*\\{\\s*\\}"
-        message: "Implement proper exception handling in catch blocks for robustness."
+      # Detect full-file reads that likely could be streamed.
+      - pattern: "\\bfile\\s*\\("
+        message: "file() reads entire files into memory; prefer SplFileObject for line-by-line streaming."
 
 metadata:
-  priority: critical
-  version: 1.1
+  priority: high
+  version: 1.0
+</rule>
+
+<rule>
+name: php_ini_opcache_recommendations
+description: Recommend enabling OPcache for lower memory and better performance when editing php.ini
+filters:
+  - type: file_extension
+    pattern: "\\.ini$"
+
+actions:
+  - type: suggest
+    message: |
+      **OPcache recommendations (php.ini):**
+      - Set `opcache.enable=1` and `opcache.enable_cli=1` for CLI scripts that process large datasets.
+      - Size memory pool appropriately, e.g., `opcache.memory_consumption=128` (adjust to your project).
+      - Consider `opcache.interned_strings_buffer` and `opcache.max_accelerated_files` for larger codebases.
+
+  - type: enforce
+    conditions:
+      - pattern: "(?mi)^opcache\\.enable\\s*=\\s*0"
+        message: "Enable OPcache in production (set opcache.enable=1) to reduce memory and CPU overhead."
+
+metadata:
+  priority: medium
+  version: 1.0
 </rule>
 
 ---
