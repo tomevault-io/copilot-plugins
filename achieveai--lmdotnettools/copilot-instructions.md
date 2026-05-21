@@ -1,91 +1,94 @@
-## llm-based-unit-tests
+## production-test-standards
 
-> When writing unit tests requiring LLM calls.
+> This document contains rules and guidelines for Cursor AI to follow when assisting with code in this project. These rules ensure that generated code meets quality standards for both production and test code.
 
-# Hybrid Real/Mock Data Unit‐Testing Guideline
+# Cursor Rules for Production and Test Code
 
-_Why_: when we depend on a 3rd-party LLM endpoint we want strong coverage of our **translation layer** without hammering the live service on every CI run.  We therefore combine one **real, captured** request/response pair with deterministic **replay** assertions.
+## Introduction
+This document contains rules and guidelines for Cursor AI to follow when assisting with code in this project. These rules ensure that generated code meets quality standards for both production and test code.
 
-This document explains the pattern already used for function-calling tests and now extended to **reasoning** payloads.
-
+## Project Structure Rules
+---
+Description: Core Project Guidelines
+Globs: *
 ---
 
-## 1. Terminology
+## Production Code Standards
 
-| Term                | Meaning                                                     |
-|---------------------|-------------------------------------------------------------|
-| *Live round-trip*   | One manual call to the real provider that we freeze to disk |
-| *Replay run*        | Regular `dotnet test` that deserialises the JSON artefacts  |
-| *Gold-file*         | The canonical JSON file stored under `tests/TestData/…`     |
+### Code Duplication
+- Never duplicate code across the codebase
+- Extract repeated logic into reusable functions, methods, or classes
+- Identify and refactor any duplicated code patterns
+- Use inheritance, composition, or utilities for shared functionality
+- Before implementing something new, check if similar functionality already exists
 
----
+### Code Organization
+- Follow a consistent and clean code structure
+- Group related functionality into well-named classes or modules
+- Use appropriate design patterns for the problem at hand
+- Separate concerns: UI logic, business logic, data access, etc.
+- Keep files focused on a single responsibility
+- Use meaningful directory structure that reflects the domain
+- Keep modules and functions small and focused
 
-## 2. Directory layout
+### Logging
+- Implement comprehensive and consistent logging
+- Add appropriate log levels (DEBUG, INFO, WARNING, ERROR)
+- Include contextual information in log messages (request IDs, user IDs)
+- Log entry and exit points of critical paths
+- Include meaningful error messages with stack traces when exceptions occur
+- Log important business events for audit trail
+- Don't log sensitive information (passwords, tokens, PII)
+- Include timestamps in log formats
 
-```
- tests/
-   TestData/
-     OpenAI/              # provider-specific
-       MyCase.LmCoreRequest.json  # frozen request (user msgs + options)
-       MyCase.FinalResponse.json  # frozen **LmCore** response after translation
-     Anthropic/
-     Common/
-```
+### Design Patterns
+- Use appropriate design patterns for the problem domain
+- Follow SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion)
+- Implement dependency injection for better testability
+- Consider using factory patterns for object creation
+- Use builder patterns for complex object construction
+- Implement repository patterns for data access
+- Consider observer patterns for event-driven architectures
+- Apply strategy patterns for varying algorithms
 
-*Never* store the raw vendor JSON here – those go under `tests/TestFiles/` so we can exercise multiple translation scenarios without polluting the canonical data.
+## Test Code Standards
 
----
+### Testing Production Code
+- Ensure every production code unit has corresponding test(s)
+- Tests should verify both expected functionality and edge cases
+- Use descriptive test names that explain the test's purpose
+- Structure tests using Arrange-Act-Assert pattern
+- Mock external dependencies appropriately
+- Test both happy paths and error paths
+- Include integration tests for system components
+- Verify that tests are actually testing the intended behavior
 
-## 3. `ProviderTestDataManager`
+### Diagnostic Logging
+- Add detailed diagnostic logs in test code for debugging
+- Log test setup and teardown processes
+- Include expected vs. actual values in test assertions
+- Log environment and configuration details that affect tests
+- Use DEBUG level for test diagnostic information
+- Provide context in logs to help identify test failures
+- Format logs to be easily readable in CI/CD pipelines
 
-Helper that hides path logic & `JsonSerializerOptions` so tests don’t repeat boilerplate.  API:
+### Avoiding Code Duplication
+- Don't duplicate test setup code across test files
+- Use test fixtures, factories, or builders for common test data
+- Implement shared setup and teardown methods
+- Create helper methods for common assertion patterns
+- Avoid copy-pasting test code between similar tests
+- Leverage parameterized tests for testing similar scenarios
 
-* `SaveLmCoreRequest()` / `LoadLmCoreRequest()`
-* `SaveFinalResponse()` / `LoadFinalResponse()`
-* `GetTestCaseNames()` – discovery for `[Theory]` data-driven suites
-
-Json options mirror the provider naming policies (camelCase) but also register our custom converters (`UnionJsonConverter`, shadow-property converter, etc.).
-
----
-
-## 4. Writing a new hybrid test
-
-1. **Call the real provider once** (manually or via a script) and dump the raw JSON under `tests/TestFiles/`.
-2. In the unit-test translate that JSON → `IMessage[]` via the provider factory/parsers.
-3. **Save** the request and translated response **only if** the gold-files don’t exist:
-
-```csharp
-var mgr = new ProviderTestDataManager();
-if (!File.Exists(mgr.GetTestDataPath(name, ProviderType.OpenAI, DataType.LmCoreRequest)))
-    mgr.SaveLmCoreRequest(name, ProviderType.OpenAI, messages, options);
-
-if (mgr.LoadFinalResponse(name, ProviderType.OpenAI) is null)
-    mgr.SaveFinalResponse(name, ProviderType.OpenAI, translatedMsgs);
-```
-
-4. On every run after that we simply `Load*` and assert invariants (order, message types, important content).
-
-## 5. Streaming / delta tests
-
-For streaming APIs we feed the sequence of provider deltas into the corresponding *builder* (`TextMessageBuilder`, `ReasoningMessageBuilder`, etc.) and assert the final built message equals the stored gold-file.
-
----
-
-## 6. Gotchas
-
-* Keep provider-specific IDs deterministic (e.g. strip UUIDs if not relevant) before serialising.
-* Be mindful of fields that providers may change (timestamps); exclude them from equality assertions or store only the stable subset.
-* If the translation logic legitimately changes, delete the old gold-files and commit the updated versions along with the refactor.
-
----
-
-## 7. Updating existing cases
-
-Run the test once with `DELETE_OLD_GOLD=1 dotnet test`; the helper recognises the env-var and overwrites existing files.  CI blocks such changes unless the new JSON is committed.
-
----
-
-By following this approach we achieve rapid, deterministic CI while still grounding our converters in **real** provider payloads. 
+### Test Utilities
+- Move common test code to a dedicated TestUtilities project
+- Create reusable test data generators
+- Implement common assertion helpers
+- Add utilities for setting up test environments
+- Create mocks and stubs for commonly used dependencies
+- Provide utilities for database setup/teardown
+- Implement helpers for authentication/authorization in tests
+- Create utilities for network/API simulation
 
 ---
 > Source: [achieveai/LmDotnetTools](https://github.com/achieveai/LmDotnetTools) — distributed by [TomeVault](https://tomevault.io).
