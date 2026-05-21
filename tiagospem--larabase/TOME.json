@@ -2,9 +2,9 @@
   "name": "larabase",
   "owner": "Tiagospem",
   "repo": "larabase",
-  "description": "",
+  "description": "An opinionated MySQL GUI for Laravel developers - UNDER DEVELOPMENT",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Tiagospem/larabase",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T03:55:40Z"
+  "distributed_at": "2026-05-21T09:43:37Z"
 }
