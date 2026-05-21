@@ -1,201 +1,232 @@
-## mcp-development
+## mcp-generation-patterns
 
-> MCP Server Development Patterns for Tools, Resources, Prompts, and Custom Routes
+> Code generation patterns for MCP server components
 
 
-# MCP Server Development Guide
+# MCP Component Generation Patterns
 
-This project follows specific patterns for building MCP (Model Context Protocol) servers using Cloudflare Workers and Durable Objects.
+## Tool Generation Rules
 
-## Core Architecture
-
-- Main server class extends `McpHonoServerDO<Env>` from `@nullshot/mcp`
-- Server configuration is split into three modules: [tools.ts](mdc:src/tools.ts), [resources.ts](mdc:src/resources.ts), [prompts.ts](mdc:src/prompts.ts)
-- Entry point is [server.ts](mdc:src/server.ts) which coordinates everything
-
-## MCP Server Class Pattern
+When generating tools in [tools.ts](mdc:src/tools.ts):
 
 ```typescript
-export class YourMcpServer extends McpHonoServerDO<Env> {
+// ALWAYS follow this exact pattern
+server.tool(
+  'action_noun',                    // Use snake_case, action + noun format
+  'Action description in imperative mood',
+  {
+    // REQUIRED parameters first, then optional
+    required_param: z.string().describe('Clear description'),
+    optional_param: z.string().optional().describe('Optional description'),
+  },
+  async ({ required_param, optional_param }) => {
+    try {
+      // Validate inputs if needed
+      if (!required_param?.trim()) {
+        throw new Error('Required parameter cannot be empty');
+      }
+
+      // Core logic here
+      const result = await performAction(required_param, optional_param);
+      
+      return {
+        content: [{
+          type: "text",
+          text: `Success: ${result.message}`
+        }],
+        result  // Include actual data for programmatic use
+      };
+    } catch (error) {
+      return {
+        content: [{
+          type: "text", 
+          text: `Error: ${error.message}`
+        }],
+        isError: true
+      };
+    }
+  }
+);
+```
+
+**Tool Naming Convention:**
+- `create_item` not `createItem` or `item_create`
+- `get_status` not `status` or `getStatus`  
+- `update_settings` not `updateSettings`
+
+## Resource Generation Rules
+
+When generating resources in [resources.ts](mdc:src/resources.ts):
+
+```typescript
+// Pattern for single item resources
+server.resource(
+  'get_item',
+  'data://service/items/{id}',
+  async (uri: URL) => {
+    const id = uri.pathname.split('/').pop();
+    // Implementation
+  }
+);
+
+// Pattern for collection resources  
+server.resource(
+  'list_items',
+  'data://service/items?filter={filter}',
+  async (uri: URL) => {
+    const filter = uri.searchParams.get('filter');
+    // Implementation
+  }
+);
+```
+
+**Resource URI Patterns:**
+- Use descriptive schemes: `data://`, `config://`, `status://`
+- Always include placeholders: `{id}`, `{category}`, `{filter}`
+- Support query parameters for filtering/options
+
+## Prompt Generation Rules
+
+When generating prompts in [prompts.ts](mdc:src/prompts.ts):
+
+```typescript
+// Interactive prompts for user guidance
+server.prompt(
+  'help_getting_started',
+  'Get help with initial setup and usage',
+  (args?: { topic?: string }) => ({
+    messages: [{
+      role: 'assistant',
+      content: {
+        type: 'text',
+        text: `Welcome! I can help you with ${args?.topic || 'getting started'}.
+
+Here are the available options:
+1. Basic setup - Get started with initial configuration
+2. Advanced features - Learn about advanced capabilities  
+3. Troubleshooting - Solve common issues
+
+What would you like to learn about?`
+      }
+    }]
+  })
+);
+
+// System prompts for AI behavior
+server.prompt(
+  'system_behavior',
+  'Configure AI assistant behavior for this domain',
+  () => ({
+    messages: [{
+      role: 'system',
+      content: {
+        type: 'text',
+        text: `You are a helpful assistant specialized in [domain].
+        
+Guidelines:
+- Always be accurate and helpful
+- Ask clarifying questions when needed
+- Provide step-by-step instructions
+- Include relevant examples`
+      }
+    }]
+  })
+);
+```
+
+## Server Extension Pattern
+
+When extending the server class in [server.ts](mdc:src/server.ts):
+
+```typescript
+export class DomainMcpServer extends McpHonoServerDO<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
   }
 
   getImplementation(): Implementation {
     return {
-      name: 'YourMcpServer',
+      name: 'DomainMcpServer',      // Use descriptive, domain-specific name
       version: '1.0.0',
     };
   }
 
   configureServer(server: McpServer): void {
-    setupServerTools(server);
+    setupServerTools(server);       // Always include all three
     setupServerResources(server);
     setupServerPrompts(server);
   }
 
-  // OPTIONAL: Override for custom HTTP endpoints
+  // Only add setupRoutes if custom HTTP endpoints are needed
   protected setupRoutes(app: Hono<{ Bindings: Env }>): void {
-    super.setupRoutes(app); // Call parent to maintain MCP functionality
+    super.setupRoutes(app);  // CRITICAL: Always call parent first
     
-    // Add custom routes here
-    app.get('/api/custom', (c) => c.json({ message: 'custom endpoint' }));
+    // Group related endpoints
+    app.get('/api/health', this.handleHealthCheck.bind(this));
+    app.post('/api/webhook', this.handleWebhook.bind(this));
+  }
+
+  private async handleHealthCheck(c: any) {
+    return c.json({ status: 'ok', timestamp: Date.now() });
+  }
+
+  private async handleWebhook(c: any) {
+    // Implementation
   }
 }
 ```
 
-## Tools Pattern (src/tools.ts)
+## Error Handling Patterns
 
-Tools are functions that clients can call. Always use this exact pattern:
+Always include proper error handling:
 
 ```typescript
-export function setupServerTools(server: McpServer) {
-  server.tool(
-    'tool_name',                    // Unique tool identifier
-    'Brief tool description',       // Human-readable description
-    {                              // Zod schema for parameters
-      param1: z.string().describe('Parameter description'),
-      param2: z.number().optional().describe('Optional parameter'),
-    },       
-    async ({ param1, param2 }) => { // Implementation function
-      // Tool logic here
-      return {
-        content: [
-          {
-            type: "text",
-            text: `Result: ${param1}`
-          }
-        ],
-        // Optional: return additional data
-        metadata: { /* any extra data */ }
-      };
-    }
-  );
+// In tools
+try {
+  const result = await riskyOperation();
+  return { content: [{ type: "text", text: `Success: ${result}` }] };
+} catch (error) {
+  console.error('Tool error:', error);
+  return { 
+    content: [{ type: "text", text: `Error: ${error.message}` }],
+    isError: true 
+  };
+}
+
+// In resources  
+try {
+  const data = await fetchData();
+  return { contents: [{ text: JSON.stringify(data), uri: uri.href }] };
+} catch (error) {
+  throw new Error(`Resource fetch failed: ${error.message}`);
 }
 ```
 
-**Key Requirements:**
-- Use Zod schemas with `.describe()` for all parameters
-- Return content array with type "text"
-- Handle errors gracefully with try/catch
-- Use descriptive tool names (snake_case)
+## Validation Patterns
 
-## Resources Pattern (src/resources.ts)
-
-Resources provide persistent data access. Always use this pattern:
+Use Zod for comprehensive validation:
 
 ```typescript
-export function setupServerResources(server: McpServer) {
-  server.resource(
-    'resource_name',
-    'protocol://path/pattern/{id}',  // URI pattern with placeholders
-    async (uri: URL) => {
-      try {
-        // Parse URI to extract parameters
-        const parts = uri.pathname.split('/');
-        const id = parts[parts.length - 1];
-        
-        // Fetch/compute resource data
-        const data = await fetchResourceData(id);
-        
-        return {
-          contents: [
-            {
-              text: `Resource content: ${JSON.stringify(data)}`,
-              uri: uri.href
-            }
-          ]
-        };
-      } catch (error) {
-        throw new Error(`Failed to fetch resource: ${error.message}`);
-      }
-    }
-  );
-}
-```
-
-**Key Requirements:**
-- Use descriptive URI patterns with placeholders
-- Parse URI to extract parameters
-- Return contents array with text and uri
-- Always wrap in try/catch for error handling
-
-## Prompts Pattern (src/prompts.ts)
-
-Prompts provide reusable message templates. Always use this pattern:
-
-```typescript
-export function setupServerPrompts(server: McpServer) {
-  server.prompt(
-    'prompt_name',
-    'Brief prompt description',
-    (args?: { param?: string }) => ({  // Optional parameters
-      messages: [{
-        role: 'assistant',  // or 'user', 'system'
-        content: {
-          type: 'text',
-          text: `Your prompt content here. ${args?.param || ''}`
-        }
-      }]
-    })
-  );
-}
-```
-
-**Key Requirements:**
-- Use descriptive prompt names (snake_case)
-- Support optional parameters via args
-- Always return messages array
-- Use appropriate role (assistant/user/system)
-
-## Custom Routes with setupRoutes
-
-To add custom HTTP endpoints beyond MCP functionality:
-
-```typescript
-protected setupRoutes(app: Hono<{ Bindings: Env }>): void {
-  // CRITICAL: Always call parent first to maintain MCP functionality
-  super.setupRoutes(app);
+// Complex parameter schemas
+{
+  // Strings with constraints
+  title: z.string().min(1).max(100).describe('Item title (1-100 chars)'),
   
-  // Add custom endpoints
-  app.get('/api/health', (c) => {
-    return c.json({ status: 'healthy', timestamp: new Date().toISOString() });
-  });
+  // Enums for controlled values
+  status: z.enum(['draft', 'published', 'archived']).describe('Publication status'),
   
-  app.post('/api/webhook', async (c) => {
-    const body = await c.req.json();
-    // Process webhook
-    return c.json({ received: true });
-  });
+  // Optional with defaults
+  priority: z.number().min(1).max(5).default(3).describe('Priority level (1-5)'),
   
-  // Access environment bindings via c.env
-  app.get('/api/data', async (c) => {
-    const result = await c.env.DATABASE.prepare('SELECT * FROM items').all();
-    return c.json(result);
-  });
+  // Arrays with validation
+  tags: z.array(z.string().min(1)).optional().describe('List of tags'),
+  
+  // Nested objects
+  metadata: z.object({
+    category: z.string(),
+    subcategory: z.string().optional()
+  }).optional().describe('Additional metadata')
 }
-```
-
-## Development Checklist
-
-When implementing MCP functionality:
-
-1. **Tools**: Define in `setupServerTools()` with Zod schemas
-2. **Resources**: Define in `setupServerResources()` with URI patterns  
-3. **Prompts**: Define in `setupServerPrompts()` with message templates
-4. **Custom Routes**: Override `setupRoutes()` if HTTP endpoints needed
-5. **Error Handling**: Always use try/catch in async operations
-6. **Types**: Use TypeScript interfaces for complex data structures
-7. **Testing**: Test tools, resources, and prompts independently
-
-## Common Imports
-
-```typescript
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { McpHonoServerDO } from '@nullshot/mcp';
-import { Implementation } from '@modelcontextprotocol/sdk/types.js';
-import { z } from 'zod';
-import { Hono } from 'hono';
 ```
 
 ---
