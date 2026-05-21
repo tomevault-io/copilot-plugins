@@ -1,0 +1,9 @@
+{
+  "name": "bigconfig-ai--big-config",
+  "displayName": "big-config",
+  "description": "The first agentic package manager.",
+  "version": "1.0.0",
+  "author": "bigconfig-ai",
+  "homepage": "https://github.com/bigconfig-ai/big-config",
+  "skills": []
+}
