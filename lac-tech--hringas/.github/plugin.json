@@ -1,0 +1,9 @@
+{
+  "name": "lac-tech--hringas",
+  "displayName": "hringas",
+  "description": "Pure rust bindings to io_uring. No libc.",
+  "version": "1.0.0",
+  "author": "LAC-Tech",
+  "homepage": "https://github.com/LAC-Tech/hringas",
+  "skills": []
+}
