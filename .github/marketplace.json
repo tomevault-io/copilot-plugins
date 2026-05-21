@@ -43144,6 +43144,101 @@
       "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
     },
     {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
+      "name": "ivangrynenko--cursorrules",
+      "source": "./ivangrynenko--cursorrules",
+      "description": "A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and Drupal-specific rules"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -43747,6 +43842,11 @@
       "name": "jkitchin--litdb",
       "source": "./jkitchin--litdb",
       "description": "A literature database"
+    },
+    {
+      "name": "solanakite--kite",
+      "source": "./solanakite--kite",
+      "description": "The modern Solana framework for the browser and node.js"
     },
     {
       "name": "keep-starknet-strange--starknet-agentic",
@@ -44387,6 +44487,26 @@
       "name": "vhscom--private-landing",
       "source": "./vhscom--private-landing",
       "description": "\ud83d\udd10 Learn authentication by building it right. An extensible, standards-compliant reference implementation for Cloudflare Workers with Hono, Turso, PBKDF2, and JWT dual-token sessions."
+    },
+    {
+      "name": "mattzcarey--crossroads",
+      "source": "./mattzcarey--crossroads",
+      "description": "ai agents doing agentic things on cloudflare durable objects"
+    },
+    {
+      "name": "mattzcarey--crossroads",
+      "source": "./mattzcarey--crossroads",
+      "description": "ai agents doing agentic things on cloudflare durable objects"
+    },
+    {
+      "name": "mattzcarey--crossroads",
+      "source": "./mattzcarey--crossroads",
+      "description": "ai agents doing agentic things on cloudflare durable objects"
+    },
+    {
+      "name": "mattzcarey--crossroads",
+      "source": "./mattzcarey--crossroads",
+      "description": "ai agents doing agentic things on cloudflare durable objects"
     },
     {
       "name": "m1zz--higlab",
@@ -45064,6 +45184,46 @@
       "description": "IPTV\u5de5\u5177\uff0c\u81ea\u52a8\u66f4\u65b0\u76f4\u64ad\u6e90\u4ee5\u53caEPG\uff0c\u5e76\u63d0\u4f9b\u5728\u7ebf\u63a5\u53e3\uff0c\u4ec5\u4f9b\u5b66\u4e60\u7814\u7a76\u3002"
     },
     {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
+      "name": "waynesutton--promptstack",
+      "source": "./waynesutton--promptstack",
+      "description": "A searchable collection of AI prompts and code gen cursor rules, for bolt.new, loveable, windsurf, trae, to enhance your workflow for developers."
+    },
+    {
       "name": "pproenca--agent-tui",
       "source": "./pproenca--agent-tui",
       "description": "TUI automation for AI agents. Control any terminal app from code."
@@ -45422,6 +45582,11 @@
       "name": "sampsoon--hover",
       "source": "./sampsoon--hover",
       "description": "hover"
+    },
+    {
+      "name": "ocean-industries-concept-lab--openbridge-webcomponents",
+      "source": "./ocean-industries-concept-lab--openbridge-webcomponents",
+      "description": "OpenBridge design system implemented as Lit-based web components with support for all major frontend frameworks."
     },
     {
       "name": "liangdabiao--tikhub-api-skill",
@@ -47387,6 +47552,26 @@
       "name": "timothywarner-org--copilot-cert-prep",
       "source": "./timothywarner-org--copilot-cert-prep",
       "description": "GitHub Copilot Certification Exam Preparation"
+    },
+    {
+      "name": "sparesparrow--cursor-rules",
+      "source": "./sparesparrow--cursor-rules",
+      "description": "A library of rules for the Cursor IDE, providing organized instructions for the Agent Composer LLM backend."
+    },
+    {
+      "name": "sparesparrow--cursor-rules",
+      "source": "./sparesparrow--cursor-rules",
+      "description": "A library of rules for the Cursor IDE, providing organized instructions for the Agent Composer LLM backend."
+    },
+    {
+      "name": "sparesparrow--cursor-rules",
+      "source": "./sparesparrow--cursor-rules",
+      "description": "A library of rules for the Cursor IDE, providing organized instructions for the Agent Composer LLM backend."
+    },
+    {
+      "name": "sparesparrow--cursor-rules",
+      "source": "./sparesparrow--cursor-rules",
+      "description": "A library of rules for the Cursor IDE, providing organized instructions for the Agent Composer LLM backend."
     },
     {
       "name": "aelf-hzz780--ai-bounty-skill",
@@ -55254,6 +55439,11 @@
       "description": "card-creation"
     },
     {
+      "name": "france-nuage--plateforme",
+      "source": "./france-nuage--plateforme",
+      "description": "Monorepo de France-Nuage (Control-plane, agents, clients) \ud83c\uddeb\ud83c\uddf7"
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -57442,6 +57632,16 @@
       "name": "oylbin--obsidian-external-file-embed-and-link",
       "source": "./oylbin--obsidian-external-file-embed-and-link",
       "description": "Embed and link local files outside your obsidian vault with relative paths for cross-device and multi-platform compatibility."
+    },
+    {
+      "name": "namma-flutter--namma-wallet",
+      "source": "./namma-flutter--namma-wallet",
+      "description": "namma_wallet"
+    },
+    {
+      "name": "p2p-lanes--edgeos",
+      "source": "./p2p-lanes--edgeos",
+      "description": "EdgeOS"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -60994,6 +61194,21 @@
       "description": "CLI for sakura AppRunr Shared (\u5171\u7528\u578b) on Sakura Cloud."
     },
     {
+      "name": "anjor--coinmarket-mcp-server",
+      "source": "./anjor--coinmarket-mcp-server",
+      "description": "coinmarket-mcp-server"
+    },
+    {
+      "name": "gptme--gptme-agent-template",
+      "source": "./gptme--gptme-agent-template",
+      "description": "Agent workspace template for gptme - create persistent autonomous agents that build, learn, socialize, and assist you with whatever you need."
+    },
+    {
+      "name": "nitrobass24--seedsync",
+      "source": "./nitrobass24--seedsync",
+      "description": "SeedSync - Fast seedbox file synchronization. Modernized fork with Docker-only deployment, Python 3.12"
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -61752,6 +61967,11 @@
       "name": "dero--hideous",
       "source": "./dero--hideous",
       "description": "Map each keyboard separately in Windows"
+    },
+    {
+      "name": "mimilabs--hccinfhir",
+      "source": "./mimilabs--hccinfhir",
+      "description": "HCC Algorithm that works with FHIR and 837"
     },
     {
       "name": "rust-works--succinctly",
@@ -62622,6 +62842,16 @@
       "name": "spiko-tech--effect-messaging",
       "source": "./spiko-tech--effect-messaging",
       "description": "A message broker toolkit for Effect"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -63534,6 +63764,21 @@
       "description": "synchrotron"
     },
     {
+      "name": "ahmedosman101--commit-sage-cli",
+      "source": "./ahmedosman101--commit-sage-cli",
+      "description": "Generates Conventional Commit messages with AI. Supports OpenAI, Ollama, and Gemini."
+    },
+    {
+      "name": "paretosecurity--agent",
+      "source": "./paretosecurity--agent",
+      "description": "Automatically audit your Linux or Windows machine for basic security hygiene."
+    },
+    {
+      "name": "ambient-innovation--boa-restrictor",
+      "source": "./ambient-innovation--boa-restrictor",
+      "description": "A Python and Django linting library"
+    },
+    {
       "name": "izittmarvin--memcoach",
       "source": "./izittmarvin--memcoach",
       "description": "\u4e00\u4e2aAI \u9762\u8bd5\u6559\u7ec3\u5e73\u53f0\uff1a\u7ad9\u5728\u5de8\u4eba\u80a9\u8180\u4e0a\uff0c\u878d\u5408\u7b80\u5386\u9762\u8bd5\u3001GitHub \u9879\u76ee\u5206\u6790\u4e0e\u6301\u4e45\u5316\u753b\u50cf\u8bb0\u5fc6\u4e09\u5927\u667a\u80fd\u95ed\u73af\uff0c\u63d0\u4f9b\u52a8\u6001\u8ffd\u95ee\u3001\u6e90\u7801\u8bc1\u636e\u9a71\u52a8\u7684\u95ee\u9898\u751f\u6210\u4e0e\u6301\u7eed   \u8fdb\u5316\u7684\u4e2a\u6027\u5316\u8bad\u7ec3\u8def\u5f84\u3002"
@@ -64387,6 +64632,16 @@
       "name": "constructive-io--constructive",
       "source": "./constructive-io--constructive",
       "description": "Secure, Modular Postgres for Teams"
+    },
+    {
+      "name": "iit-dlslab--elevation-mapping-gpu-ros2",
+      "source": "./iit-dlslab--elevation-mapping-gpu-ros2",
+      "description": "This repo contains the implementation of elevation mapping cupy for ros2 humble. The package works for x64 architecture and ARM arch for NVIDIA Jetson Orin boards"
+    },
+    {
+      "name": "xiaomingx--improve-your-prompt",
+      "source": "./xiaomingx--improve-your-prompt",
+      "description": "\u5982\u4f55\u5f97\u5230\u6700\u597d\u7684\u7ed3\u679c\uff0cImprove-Your-Prompt\u662f\u4e00\u4e2a\u7528\u4e8e\u4f18\u5316prompt\u7684prompt"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -65304,6 +65559,16 @@
       "description": "Podman support for Kamal"
     },
     {
+      "name": "vseplet--morph",
+      "source": "./vseplet--morph",
+      "description": "Embeddable fullstack library designed for creating Hypermedia-Driven Applications without a build step, based on HTMX and Hono"
+    },
+    {
+      "name": "jkoelker--schwab-mcp",
+      "source": "./jkoelker--schwab-mcp",
+      "description": "Chat with your portfolio."
+    },
+    {
       "name": "janbjorge--rekal",
       "source": "./janbjorge--rekal",
       "description": "Long-term memory for LLMs. MCP server backed by hybrid search in a single SQLite file."
@@ -66192,6 +66457,11 @@
       "name": "pfrankov--whisper-server",
       "source": "./pfrankov--whisper-server",
       "description": "macOS menu bar app providing a local HTTP server compatible with the OpenAI Whisper API for fast and private audio transcription."
+    },
+    {
+      "name": "lukonik--ngverse",
+      "source": "./lukonik--ngverse",
+      "description": "Zoneless Angular Components, that you Copy-and-Paste Integration. No Installation Required"
     },
     {
       "name": "66reapollo2--agentsge",
@@ -67119,6 +67389,16 @@
       "description": "SaaSBooks turns your Stripe and Mercury data into actionable financial insights without the accounting headache. Built by SaaS founders for SaaS founders, this open source tool auto-categorizes transa"
     },
     {
+      "name": "opensyte--opensyte",
+      "source": "./opensyte--opensyte",
+      "description": "An open source all-in-one business management software."
+    },
+    {
+      "name": "luftaquila--pointify",
+      "source": "./luftaquila--pointify",
+      "description": "DIY retro analog gauges for real-time system and Claude usage monitoring"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -67982,6 +68262,16 @@
       "name": "kasarlabs--cairo-coder",
       "source": "./kasarlabs--cairo-coder",
       "description": "Vibe. Prove. Verify."
+    },
+    {
+      "name": "grafana--nanogit",
+      "source": "./grafana--nanogit",
+      "description": "A minimal cloud-ready Git implementation."
+    },
+    {
+      "name": "kitlangton--void",
+      "source": "./kitlangton--void",
+      "description": "A Simple Meditation App"
     },
     {
       "name": "w3cj--ruta",
@@ -69587,6 +69877,11 @@
       "name": "lemline--lemline",
       "source": "./lemline--lemline",
       "description": "Serverless Workflow DSL runtime for existing infrastructure. Highly efficient, event-driven, with minimal database reliance"
+    },
+    {
+      "name": "samfold--mcp-net",
+      "source": "./samfold--mcp-net",
+      "description": "A fully featured C# implementation of Anthropic's Model Context Protocol (MCP)"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -73824,6 +74119,11 @@
       "description": "A collection of low-level JWT utilities based on the Web Crypto API."
     },
     {
+      "name": "jdx--expr-rs",
+      "source": "./jdx--expr-rs",
+      "description": "Implementation of go's expr in rust"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -74832,6 +75132,11 @@
       "name": "haers--zhao-resource",
       "source": "./haers--zhao-resource",
       "description": "\u4e2a\u4eba\u8d44\u6e90\u7ad9\uff0c\u5305\u62ec\u5938\u514b\uff0c\u767e\u5bb6\u8bb2\u575b\uff0ck12\u8d44\u6e90\uff0c\u6444\u5f71\u526a\u8f91\uff0c\u8003\u516c\u8003\u7814\uff0c\u82f1\u8bed\u5b66\u4e60\u89c6\u9891\uff0c\u53ef\u4ee5\u76f4\u63a5\u6d4f\u89c8\u5668\u641c\u7d22\u5373\u53ef\u627e\u5230"
+    },
+    {
+      "name": "pgedge--control-plane",
+      "source": "./pgedge--control-plane",
+      "description": "pgEdge Postgres Control Plane"
     },
     {
       "name": "skywind3000--gamesample",
@@ -76047,6 +76352,11 @@
       "name": "minggh--demo-mock-server",
       "source": "./minggh--demo-mock-server",
       "description": "\u4e00\u4e2a\u6280\u672f\u6f14\u793a\u5408\u96c6\uff0c\u7528\u53ef\u89c6\u5316\u548c\u4ea4\u4e92\u7684\u65b9\u5f0f\u89e3\u91ca\u7f16\u7a0b\u6982\u5ff5\u3001\u7b97\u6cd5\u539f\u7406\u548c\u751f\u6d3b\u4e2d\u7684\u6570\u5b66\u95ee\u9898\u3002"
+    },
+    {
+      "name": "tangem--tangem-app-ios",
+      "source": "./tangem--tangem-app-ios",
+      "description": "tangem-app-ios"
     },
     {
       "name": "inureyes--gyeol",
@@ -77382,6 +77692,11 @@
       "name": "nxm-rs--nexum",
       "source": "./nxm-rs--nexum",
       "description": "Terminal-first Ethereum wallet for people who read the docs. No hand-holding, just raw transaction power."
+    },
+    {
+      "name": "andyhaha--component-framework",
+      "source": "./andyhaha--component-framework",
+      "description": "Using a 'componentization' development approach to handle complex pages or business logic."
     },
     {
       "name": "compozy--kb",
@@ -78737,6 +79052,21 @@
       "name": "alti3--stk-mcp",
       "source": "./alti3--stk-mcp",
       "description": "An MCP server allowing LLMs to interact with Ansys/AGI STK - Digital Mission Engineering Software"
+    },
+    {
+      "name": "adbautoplayer--adbautoplayer",
+      "source": "./adbautoplayer--adbautoplayer",
+      "description": "Automate tasks (bot) in mobile games like AFK Journey using ADB."
+    },
+    {
+      "name": "longtermrisk--openweights",
+      "source": "./longtermrisk--openweights",
+      "description": "A python sdk for LLM finetuning and inference on runpod infrastructure"
+    },
+    {
+      "name": "goplus--llcppg",
+      "source": "./goplus--llcppg",
+      "description": "LLGo autogen tool for C/C++ libraries"
     },
     {
       "name": "navikt--cplt",
@@ -83532,6 +83862,11 @@
       "name": "docspring--logstruct",
       "source": "./docspring--logstruct",
       "description": "Zero-config, type-safe JSON logging for Ruby on Rails apps."
+    },
+    {
+      "name": "keathmilligan--obsidian-paste-reformatter",
+      "source": "./keathmilligan--obsidian-paste-reformatter",
+      "description": "A plugin for Obsidian that reformats pasted HTML and plain text content, giving you precise control over how content is transformed when pasted into your notes."
     },
     {
       "name": "10xchengtu--mux0",
@@ -89252,6 +89587,11 @@
       "name": "adamprime--comiccaster",
       "source": "./adamprime--comiccaster",
       "description": "RSS feed service for daily funnies and political cartoons"
+    },
+    {
+      "name": "enkrateialucca--oreilly-reasoning-models",
+      "source": "./enkrateialucca--oreilly-reasoning-models",
+      "description": "Repository for the O'Reilly live training course: \"Working with o1, DeepSeek, and Gemini 2.0 Reasoning Capabilities\""
     },
     {
       "name": "iamtouchskyer--logex",
@@ -103309,6 +103649,11 @@
       "description": "recsys-lite"
     },
     {
+      "name": "grafana-ps--dpm-finder",
+      "source": "./grafana-ps--dpm-finder",
+      "description": "dpm-finder"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -112389,6 +112734,11 @@
       "description": "Cross-platform GUI application for managing CPU affinity of processes"
     },
     {
+      "name": "dengbiao--dreaminatool",
+      "source": "./dengbiao--dreaminatool",
+      "description": "\u5373\u68a6\u63d2\u4ef6"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -115662,6 +116012,26 @@
       "name": "epoko77-ai--design-diversity",
       "source": "./epoko77-ai--design-diversity",
       "description": "Claude Code \uc0b0\ucd9c\ubb3c\uc758 \ub514\uc790\uc778 \ub2e4\uc591\uc131 \ud655\ubcf4 \u2014 \uacf5\uac1c \ub514\uc790\uc778 \uc2dc\uc2a4\ud15c\uc744 \uc99d\ub958\ud55c \ud504\ub86c\ud504\ud2b8\ud615 \ub514\uc790\uc778 \ud329 40\uc885 \uce74\ud0c8\ub85c\uadf8 (PPT 20 + \uc6f9 20)"
+    },
+    {
+      "name": "estepanov--fullstack-bun",
+      "source": "./estepanov--fullstack-bun",
+      "description": "bun, hono, vite, react, biome boilerplate"
+    },
+    {
+      "name": "tzj2006--desktop-video-for-mac",
+      "source": "./tzj2006--desktop-video-for-mac",
+      "description": "Desktop Video Wallpaper \u662f\u4e00\u6b3e macOS \u4e0a\u8fd0\u884c\u7684\u8f7b\u91cf\u7ea7mac\u52a8\u6001\u58c1\u7eb8\u5e94\u7528\u3002\u5e94\u7528\u5b8c\u5168\u672c\u5730\u8fd0\u884c\uff0c\u4e0d\u6d89\u53ca\u4efb\u4f55\u6570\u636e\u4e0a\u4f20\u6216\u4e91\u7aef\u4ea4\u6362\uff0c\u4fdd\u969c\u9690\u79c1\u4e0e\u5b89\u5168\u3002Desktop Video Wallpaper is a lightweight dynamic wallpaper app for macOS. The app runs entirely locally, with no data"
+    },
+    {
+      "name": "dongzhuoyao--vincent-genai-course",
+      "source": "./dongzhuoyao--vincent-genai-course",
+      "description": "vincent-genai-course"
+    },
+    {
+      "name": "cybrota--scharf",
+      "source": "./cybrota--scharf",
+      "description": "Static analysis tool to Identify and Fix GitHub Actions prone to Supply\u2011Chain Risks"
     },
     {
       "name": "mohiwalla--memes",
@@ -119687,6 +120057,11 @@
       "name": "z-fetch--z-fetch",
       "source": "./z-fetch--z-fetch",
       "description": "The pragmatic native fetch API wrapper for JavaScript."
+    },
+    {
+      "name": "daniel-carreon--mcp-servers",
+      "source": "./daniel-carreon--mcp-servers",
+      "description": "MCP_servers"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -123977,6 +124352,11 @@
       "name": "dong-zehao--arxivsummarydaily",
       "source": "./dong-zehao--arxivsummarydaily",
       "description": "Track arxiv daily update and use LLM to summarize."
+    },
+    {
+      "name": "xueayi--tasknya",
+      "source": "./xueayi--tasknya",
+      "description": "TaskNya\u662f\u4e00\u4e2a\u901a\u7528\u7684\u4efb\u52a1\u76d1\u63a7\u4e0e\u901a\u77e5\u5de5\u5177\uff0c\u9002\u7528\u4e8e\u901a\u7528\u4efb\u52a1\u7684\u76d1\u63a7\u548c\u901a\u77e5\u3002"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -128597,6 +128977,11 @@
       "name": "lgcarrier--xrpl-mcp-server",
       "source": "./lgcarrier--xrpl-mcp-server",
       "description": "XRP Ledger MCP Server"
+    },
+    {
+      "name": "cndoit18--dotfiles",
+      "source": "./cndoit18--dotfiles",
+      "description": "dotfiles"
     },
     {
       "name": "lightninglabs--lnget",
@@ -134587,6 +134972,31 @@
       "name": "annmys--goclaw",
       "source": "./annmys--goclaw",
       "description": "goclaw"
+    },
+    {
+      "name": "lochmueller--seal",
+      "source": "./lochmueller--seal",
+      "description": "\ud83d\udd0d Integration of SEAL framework for TYPO3 \ud83d\udd0d"
+    },
+    {
+      "name": "browserbase--stagehand-agent",
+      "source": "./browserbase--stagehand-agent",
+      "description": "stagehand-agent"
+    },
+    {
+      "name": "mooooooooner--myichuan",
+      "source": "./mooooooooner--myichuan",
+      "description": "myichuan"
+    },
+    {
+      "name": "trunghaiy--appshot",
+      "source": "./trunghaiy--appshot",
+      "description": "Generate App Store & Google Play preview videos and screenshots from a simple TypeScript config. Built on Remotion + React + Tailwind. Ships with AI agent skills for Claude Code \u2014 scan your app, direc"
+    },
+    {
+      "name": "mierune--kumoy-qgis-plugin",
+      "source": "./mierune--kumoy-qgis-plugin",
+      "description": "QGIS plugin for managing Kumoy projects"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -153669,6 +154079,36 @@
       "description": "noctalia-plugins"
     },
     {
+      "name": "jetbrains--kotlin-toolchain",
+      "source": "./jetbrains--kotlin-toolchain",
+      "description": "A set of tools for the Kotlin language, with a focus on user experience and tooling"
+    },
+    {
+      "name": "codymullins--starling",
+      "source": "./codymullins--starling",
+      "description": "starling"
+    },
+    {
+      "name": "rocklambros--harness-engineering",
+      "source": "./rocklambros--harness-engineering",
+      "description": "harness-engineering"
+    },
+    {
+      "name": "muhammadghiffari--weview",
+      "source": "./muhammadghiffari--weview",
+      "description": "WiFi-based Spatial Intelligence Platform - Real-time human pose estimation, 3D Observatory, and CSI sensing visualization using MediaPipe, WebGL, and Rust."
+    },
+    {
+      "name": "cosmicflow-space--mnemos",
+      "source": "./cosmicflow-space--mnemos",
+      "description": "Personal RAG. Local-first. Drop a folder, ask a question."
+    },
+    {
+      "name": "atomicstrata--atomicmemory-core",
+      "source": "./atomicstrata--atomicmemory-core",
+      "description": "Deprecated split repo; AtomicMemory Core now lives in atomicstrata/atomicmemory/packages/core."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -163124,6 +163564,61 @@
       "description": "Analyze OpenCode session context usage and tool call performance with terminal histograms"
     },
     {
+      "name": "airoasting--slide-library",
+      "source": "./airoasting--slide-library",
+      "description": "slide_library"
+    },
+    {
+      "name": "crimeacs--chappe",
+      "source": "./crimeacs--chappe",
+      "description": "CLI tool surface for Telegram channel agents"
+    },
+    {
+      "name": "themattberman--slideshow-kit",
+      "source": "./themattberman--slideshow-kit",
+      "description": "Brand-DNA-driven carousel generation kit for agentic content workflows"
+    },
+    {
+      "name": "ernanej--glancer",
+      "source": "./ernanej--glancer",
+      "description": "A Ruby on Rails engine that adds a natural language database query interface to Rails app."
+    },
+    {
+      "name": "zoharbabin--web-researcher-mcp",
+      "source": "./zoharbabin--web-researcher-mcp",
+      "description": "MCP server (Go) for AI assistants: web search, content extraction, academic/patent/news research. Multi-provider routing, 4-tier scraping, search lenses. Works with Claude, Cursor, and any MCP client."
+    },
+    {
+      "name": "htlin222--img-hosting",
+      "source": "./htlin222--img-hosting",
+      "description": "Private, self-hosted, Imgur-shaped image host on Cloudflare Workers (R2 + D1) \u2014 with a Claude Code skill + CLI."
+    },
+    {
+      "name": "summersec--gen-image",
+      "source": "./summersec--gen-image",
+      "description": "\u57fa\u4e8eOPENAI \u7684 GPT Image \u6a21\u578b\u524d\u7aef\u56fe\u50cf\u751f\u6210\u5de5\u4f5c\u53f0"
+    },
+    {
+      "name": "2arons--notion-md-agent",
+      "source": "./2arons--notion-md-agent",
+      "description": "Markdown-first Notion API server with 10 composite tools for AI agents"
+    },
+    {
+      "name": "yunyoujun--weixin-ts",
+      "source": "./yunyoujun--weixin-ts",
+      "description": "\ud83e\udd16 \u5fae\u4fe1\u673a\u5668\u4eba TS SDK\u3002"
+    },
+    {
+      "name": "mrrichsylvester--token-bleed",
+      "source": "./mrrichsylvester--token-bleed",
+      "description": "token-bleed"
+    },
+    {
+      "name": "quangtruong2003--smoothscroll",
+      "source": "./quangtruong2003--smoothscroll",
+      "description": "Smooth mouse-wheel scrolling for Windows and macOS \u2014 native low-level input interception, frame-perfect easing, per-app exclusion. Built with Rust, Tauri 2, React."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -165302,6 +165797,16 @@
       "name": "misonl--gpt-image-playground-customer",
       "source": "./misonl--gpt-image-playground-customer",
       "description": "\u672c\u5730\u90e8\u7f72\u7684 GPT \u56fe\u7247\u751f\u6210\u4e0e\u7f16\u8f91\u670d\u52a1\uff0c\u652f\u6301\u6d41\u5f0f\u9884\u89c8\u3001\u56fe\u7247\u5206\u4eab\u548c Agent API"
+    },
+    {
+      "name": "cranmer--cairn",
+      "source": "./cranmer--cairn",
+      "description": "cairn"
+    },
+    {
+      "name": "saturngod--rag-laravel",
+      "source": "./saturngod--rag-laravel",
+      "description": "RAG example with Laravel AI SDK , support PDF , Txt, Markdown, Images"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -266222,6 +266727,11 @@
       "name": "thegatewaymaker--eaglesec13",
       "source": "./thegatewaymaker--eaglesec13",
       "description": "eaglesec13"
+    },
+    {
+      "name": "yamwoong--fullstack-auth-template",
+      "source": "./yamwoong--fullstack-auth-template",
+      "description": "fullstack-auth-template"
     }
   ]
 }
