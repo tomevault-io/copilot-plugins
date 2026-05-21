@@ -1,0 +1,9 @@
+{
+  "name": "w3spi5--codepack",
+  "displayName": "codepack",
+  "description": "CLI tool to extract folder structure and file contents with a directory excluded possibility",
+  "version": "1.0.0",
+  "author": "w3spi5",
+  "homepage": "https://github.com/w3spi5/codepack",
+  "skills": []
+}
