@@ -1,0 +1,9 @@
+{
+  "name": "grafana-ps--dpm-finder",
+  "displayName": "dpm-finder",
+  "description": "dpm-finder",
+  "version": "1.0.0",
+  "author": "grafana-ps",
+  "homepage": "https://github.com/grafana-ps/dpm-finder",
+  "skills": []
+}
