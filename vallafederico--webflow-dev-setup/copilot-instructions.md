@@ -1,340 +1,99 @@
-## subscription-system
+## typescript-patterns
 
-> Raf and Resize subscription services from @lib/subs. Use when using requestAnimationFrame or resize handlers in modules.
+> TypeScript patterns for modules (signature, imports, types). Use when writing or refactoring module code in src/modules/ or lib.
 
-# Subscription System Rules
+# TypeScript Patterns for Module System
 
-## Raf Service Usage
+## Module Function Signature
 
-```typescript
-import { Raf } from "@lib/subs";
+Always use this exact signature for module functions:
+# TypeScript Patterns for Module System
 
-// Subscribe to animation frame updates
-const rafUnsubscribe = Raf.add(({ deltaTime, time }) => {
-  // deltaTime: time since last frame in seconds
-  // time: total time since start (scaled down by 0.01)
+## Module Function Signature
 
-  // Update animations
-  element.style.transform = `translateX(${Math.sin(time) * 50}px)`;
-});
-
-// Clean up subscription
-onDestroy(() => {
-  rafUnsubscribe();
-});
-```
-
-## Resize Service Usage
-
-```typescript
-import { Resize } from "@lib/subs";
-
-// Subscribe to resize events
-const resizeUnsubscribe = Resize.add(({ width, height }) => {
-  // Handle resize
-  console.log(`Window resized to: ${width}x${height}`);
-
-  // Update responsive behavior
-  if (width < 768) {
-    element.classList.add("mobile");
-  } else {
-    element.classList.remove("mobile");
-  }
-});
-
-// Clean up subscription
-onDestroy(() => {
-  resizeUnsubscribe();
-});
-```
-
-## Priority-Based Subscriptions
-
-```typescript
-// High priority - critical updates
-Raf.add(updateCriticalAnimation, -1);
-Resize.add(updateCriticalLayout, -1);
-
-// Normal priority - standard updates
-Raf.add(updateStandardAnimation, 0);
-Resize.add(updateStandardLayout, 0);
-
-// Low priority - background effects
-Raf.add(updateBackgroundEffect, 1);
-Resize.add(updateBackgroundLayout, 1);
-```
-
-## Component Integration
+Always use this exact signature for module functions:
 
 ```typescript
 export default function (element: HTMLElement, dataset: DOMStringMap) {
-  // Raf subscription for smooth animations
-  const rafUnsubscribe = Raf.add(({ deltaTime, time }) => {
-    // Smooth rotation
-    element.style.transform = `rotate(${time * 50}deg)`;
-
-    // Frame-rate independent animation
-    const currentOpacity = parseFloat(element.style.opacity) || 0;
-    element.style.opacity = Math.min(
-      1,
-      currentOpacity + deltaTime * 2
-    ).toString();
-  });
-
-  // Resize subscription for responsive behavior
-  const resizeUnsubscribe = Resize.add(({ width, height }) => {
-    // Responsive font sizing
-    element.style.fontSize = width < 768 ? "14px" : "18px";
-
-    // Responsive positioning
-    if (width < 1024) {
-      element.style.left = "10px";
-    } else {
-      element.style.left = "50px";
-    }
-  });
-
-  // Clean up subscriptions
-  onDestroy(() => {
-    rafUnsubscribe();
-    resizeUnsubscribe();
-  });
+  // Module implementation
 }
 ```
 
-## Performance Optimization
+## Import Patterns
+
+- Always import lifecycle hooks from `@/modules/_`
+- Use `@lib/` for utility libraries and subscription services
+- Use `@utils/` for utility functions
+- Use `@/` for relative imports from src
+
+## Type Safety
+
+- Use proper TypeScript types for all parameters
+- Define interfaces for complex configurations
+- Use `DOMStringMap` for dataset access
+- Use `HTMLElement` for element typing
+- Use proper return types for functions
+
+## Common Patterns
 
 ```typescript
+// GSAP animations
+import gsap from "@lib/gsap";
+
+// Subscription services
+import { Raf, Resize } from "@lib/subs";
+
+// State management
+import State from "@lib/hey";
+
+// Utility functions
+import { clientRect } from "@utils/client-rect";
+import { clamp, map } from "@utils/math";
+
+// Lifecycle hooks
+import { onMount, onDestroy, onPageIn, onPageOut, onView, onTrack } from "@/modules/_";
+```
+
+## Configuration Interfaces
+
+```typescript
+interface ModuleConfig {
+  speed?: number;
+  delay?: number;
+  duration?: number;
+  ease?: string;
+  mobile?: boolean;
+  desktop?: boolean;
+}
+
 export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isActive = false;
-  let lastUpdate = 0;
-  const updateInterval = 16; // ~60fps
-
-  // Conditional Raf subscription
-  const rafUnsubscribe = Raf.add(({ time }) => {
-    // Only update when active and at appropriate intervals
-    if (!isActive || time - lastUpdate < updateInterval) return;
-
-    lastUpdate = time;
-
-    // Perform expensive calculations
-    const newPosition = calculateComplexPosition(time);
-    element.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px)`;
-  });
-
-  // Activate only when in view
-  const observer = onView(element, {
-    callback: ({ isIn }) => {
-      isActive = isIn;
-    },
-  });
-
-  onDestroy(() => {
-    rafUnsubscribe();
-  });
+  const config: ModuleConfig = {
+    speed: parseFloat(dataset.speed || "1"),
+    delay: parseInt(dataset.delay || "0"),
+    duration: parseFloat(dataset.duration || "0.5"),
+    ease: dataset.ease || "power2.out",
+    mobile: dataset.mobile === "true",
+    desktop: dataset.desktop !== "false",
+  };
 }
 ```
 
-## Multiple Subscriptions
+## Error Handling
 
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  const subscriptions: (() => void)[] = [];
-
-  // Multiple Raf subscriptions with different priorities
-  subscriptions.push(
-    Raf.add(updatePosition, -1), // High priority
-    Raf.add(updateRotation, 0), // Normal priority
-    Raf.add(updateOpacity, 1) // Low priority
-  );
-
-  // Multiple Resize subscriptions
-  subscriptions.push(
-    Resize.add(updateLayout, -1), // Critical layout updates
-    Resize.add(updateAnimations, 0), // Animation adjustments
-    Resize.add(updateBackground, 1) // Background effects
-  );
-
-  // Clean up all subscriptions
-  onDestroy(() => {
-    subscriptions.forEach((unsubscribe) => unsubscribe());
-  });
-}
-```
-
-## Frame-Rate Independent Animations
-
-```typescript
-// Good - Frame-rate independent
-Raf.add(({ deltaTime }) => {
-  // Use deltaTime for consistent animation speed
-  const currentOpacity = parseFloat(element.style.opacity) || 0;
-  element.style.opacity = Math.min(
-    1,
-    currentOpacity + deltaTime * 2
-  ).toString();
-});
-
-// Bad - Frame-rate dependent
-Raf.add(({ time }) => {
-  // This will run at different speeds on different devices
-  element.style.opacity = Math.sin(time) * 0.5 + 0.5;
-});
-```
-
-## Responsive Design Patterns
-
-```typescript
-// Efficient responsive updates
-Resize.add(({ width, height }) => {
-  // Use classList for better performance
-  element.classList.toggle("mobile", width < 768);
-  element.classList.toggle("tablet", width >= 768 && width < 1024);
-  element.classList.toggle("desktop", width >= 1024);
-
-  // Update CSS custom properties
-  element.style.setProperty("--viewport-width", width.toString());
-  element.style.setProperty("--viewport-height", height.toString());
-});
-```
-
-## Conditional Subscriptions
-
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let rafUnsubscribe: (() => void) | null = null;
-  let resizeUnsubscribe: (() => void) | null = null;
-
-  onMount(() => {
-    // Start subscriptions when component mounts
-    rafUnsubscribe = Raf.add(updateAnimation);
-    resizeUnsubscribe = Resize.add(updateResponsive);
-  });
-
-  onDestroy(() => {
-    // Clean up subscriptions when component destroys
-    rafUnsubscribe?.();
-    resizeUnsubscribe?.();
-  });
-}
-```
-
-## Observer Integration
-
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isActive = false;
-
-  // Only animate when in view
-  const observer = onView(element, {
-    callback: ({ isIn }) => {
-      isActive = isIn;
-    },
-  });
-
-  // Conditional animation
-  const rafUnsubscribe = Raf.add(({ time }) => {
-    if (!isActive) return;
-
-    element.style.transform = `translateY(${Math.sin(time) * 10}px)`;
-  });
-
-  onDestroy(() => {
-    rafUnsubscribe();
-  });
-}
-```
-
-## Data Structures
-
-```typescript
-// Raf Data
-interface RafData {
-  deltaTime: number; // Time since last frame in seconds
-  time: number; // Total time since start (scaled by 0.01)
-}
-
-// Resize Data
-interface ResizeData {
-  width: number; // Current window width
-  height: number; // Current window height
-}
-```
-
-## Performance Considerations
-
-```typescript
-// Good - Lightweight operations
-Raf.add(({ time }) => {
-  element.style.transform = `translateX(${time * 10}px)`;
-});
-
-// Bad - Heavy operations every frame
-Raf.add(({ time }) => {
-  // Expensive DOM queries
-  const allElements = document.querySelectorAll(".heavy");
-  allElements.forEach((el) => {
-    // Complex calculations
-    const rect = el.getBoundingClientRect();
-    const distance = calculateDistance(rect, time);
-    el.style.transform = `translate(${distance.x}px, ${distance.y}px)`;
-  });
-});
-```
-
-## Resize Performance
-
-```typescript
-// Good - Efficient responsive updates
-Resize.add(({ width }) => {
-  element.classList.toggle("mobile", width < 768);
-  element.style.fontSize = width < 768 ? "14px" : "18px";
-});
-
-// Bad - Heavy operations on every resize
-Resize.add(({ width, height }) => {
-  // Expensive recalculations
-  const allElements = document.querySelectorAll(".recalculate");
-  allElements.forEach((el) => {
-    const newLayout = calculateComplexLayout(el, width, height);
-    applyComplexLayout(el, newLayout);
-  });
-});
-```
-
-## Debug Mode
-
-```typescript
-// Debug Raf subscriptions
-Raf.add((data) => {
-  console.log("Raf Debug:", data);
-}, -999); // Very high priority
-
-// Debug Resize subscriptions
-Resize.add((data) => {
-  console.log("Resize Debug:", data);
-}, -999); // Very high priority
-```
+- Wrap module initialization in try-catch
+- Use console.warn for non-critical errors
+- Use console.error for critical errors
+- Return null for failed module loads
+- Validate all inputs and configurations
 
 ## Best Practices
 
-- Always unsubscribe from subscriptions in `onDestroy`
-- Use priorities to ensure critical updates run first
-- Keep Raf callbacks lightweight and efficient
-- Use `deltaTime` for frame-rate independent animations
-- Avoid heavy operations in subscription callbacks
-- Use classList for better performance than style changes
-- Limit DOM queries in subscription callbacks
-- Test performance with multiple subscriptions
-- Handle errors gracefully in subscription callbacks
-- Use CSS transforms instead of layout-triggering properties
-- Monitor subscription performance in development
-- Use conditional subscriptions for performance optimization
-  description:
-  globs:
-  alwaysApply: false
-
----
+- Use strict TypeScript configuration
+- Define proper interfaces for complex data
+- Use type guards for runtime validation
+- Handle all possible error cases
+- Use proper async/await patterns
+- Document complex type relationships
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
