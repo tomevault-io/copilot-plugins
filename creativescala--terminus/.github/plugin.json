@@ -1,0 +1,9 @@
+{
+  "name": "creativescala--terminus",
+  "displayName": "terminus",
+  "description": "Terminal interaction for Scala",
+  "version": "1.0.0",
+  "author": "creativescala",
+  "homepage": "https://github.com/creativescala/terminus",
+  "skills": []
+}
