@@ -1,0 +1,9 @@
+{
+  "name": "longtermrisk--openweights",
+  "displayName": "openweights",
+  "description": "A python sdk for LLM finetuning and inference on runpod infrastructure",
+  "version": "1.0.0",
+  "author": "longtermrisk",
+  "homepage": "https://github.com/longtermrisk/openweights",
+  "skills": []
+}
