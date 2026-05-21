@@ -1,6 +1,8 @@
-# cursor-rules — distributed by TomeVault
+# cursor-rules
 
-> Originally from [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — distributed by [TomeVault](https://tomevault.io)
+
+A library of rules for the Cursor IDE, providing organized instructions for the Agent Composer LLM backend.
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [sparesparrow/cursor-rules](https://gi
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/sparesparrow)
+From [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — a repo with 70+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/sparesparrow) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
