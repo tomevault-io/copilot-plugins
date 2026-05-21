@@ -1,0 +1,9 @@
+{
+  "name": "brightdigit--swift-build",
+  "displayName": "swift-build",
+  "description": "GitHub Action for building and testing Swift packages across all platforms.",
+  "version": "1.0.0",
+  "author": "brightdigit",
+  "homepage": "https://github.com/brightdigit/swift-build",
+  "skills": []
+}
