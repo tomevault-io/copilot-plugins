@@ -1,34 +1,46 @@
-## contribute
+## general
 
-> 1. Fork the repository
+> General Rules
 
-# Contribution Guidelines
+# General
+- Use pnpm to install dependencies
+- This is an MCP (Model Context Protocol) collection for the umi framework
 
-## Getting Started
-1. Fork the repository
-2. Clone your fork
-3. Install dependencies with `pnpm install`
-4. Make your changes
-5. Run tests with `pnpm test`
-6. Submit a pull request
+# Build & Test Commands
+- Dev: `pnpm dev` or `mcp-inspector tsx ./src/cli.ts fixtures/normal`
+- Build CLI: `pnpm build:cli` or `bun build src/cli.ts --external effect --external @valibot/to-json-schema --minify --outfile dist/cli.mjs --target=node`
+- Build Index: `pnpm build:index` or `bun build src/index.ts --external fastmcp --minify --outfile dist/index.mjs --target=node`
+- Build All: `pnpm build`
+- Format: `pnpm format` or `prettier --write .`
+- Test: `pnpm test` or `vitest run`
+- Watch Tests: `pnpm test:watch` or `vitest`
+- Type Check: `pnpm typecheck` or `tsc --noEmit`
 
-## Pull Request Process
-- Ensure your code follows the style guidelines
-- Add tests for new features
-- Update documentation if necessary
-- Follow the commit message conventions
+# Code Style Guidelines
+- TypeScript with strict type checking
+- Single quotes for strings
+- Trailing commas required
+- Max line length: 80 chars
+- No semicolons
+- Use async/await for promises
 
-## Development Workflow
-- Use feature branches
-- Keep pull requests focused on a single feature/fix
-- Ensure all tests pass before submitting
-- Follow the TypeScript coding standards
-- Document any new MCP tools thoroughly
+# Import Order (via @trivago/prettier-plugin-sort-imports)
+1. Node built-ins (^node:)
+2. External packages (^@?\w)
+3. Internal aliases (^@/)
+4. Relative imports (^[./])
 
-## Release Process
-- Releases are handled via `pnpm release`
-- This creates a Git tag and GitHub release
-- The release process also generates changelog entries
+# Error Handling
+- Use zod for runtime type validation
+- Prefer throwing errors over returning null/undefined
+- Use descriptive error messages
+
+# Naming Conventions
+- PascalCase for types/interfaces/classes
+- camelCase for variables/functions
+- Use type over interface where possible
+- Suffix tool classes with 'Tool'
+- MCP tools are prefixed with 'umi-' (e.g., umi-help, umi-config-list)
 
 ---
 > Source: [umijs/umi-mcp](https://github.com/umijs/umi-mcp) — distributed by [TomeVault](https://tomevault.io).
