@@ -1,515 +1,811 @@
-## implement-frontend-page
+## implement-nextjs-api
 
-> This describes the design pattern and implementation guidance for implementing nextjs page.
+> This described desing patterns and implementation guidance for APIs
 
 ---
-description: This describes the design pattern and implementation guidance for implementing nextjs page.
-globs: *.tsx, /app/[locale]
+description: This described desing patterns and implementation guidance for APIs
+globs: *.ts
+---
+---
+description:
+globs:
 ---
 
-# NextJS Frontend Page Implementation Patterns
+# NextJS API Implementation Patterns
 
-This document describes the patterns for implementing different types of pages in a NextJS application with authentication, localization, and server communication.
+This document describes the patterns for implementing different types of API routes in a NextJS application with authentication levels and external service integration.
 
 ## Common Setup
 
-- Always read [frontend.md](mdc:docs/frontend.md) for instructions on the styles, [brand-info.ts](mdc:lib/brand-info.ts) for constructing text and [architecture.md](mdc:docs/architecture.md) for overall architecture
+- Always read [backend.md](mdc:docs/backend.md) for instructions on the backend details and [architecture.md](mdc:docs/architecture.md) for overall architecture
 
-### Directory Structure
+### Directory Structure with examples
+```
 app/
-  [locale]/
-    page.tsx                 # Public page
-    about/
-      page.tsx              # Public page
-    account/
-      settings/
-        page.tsx           # Account page (authenticated)
-      security/
-        page.tsx          # Account page (authenticated)
-    admin/
-      contacts/
-        page.tsx         # Admin page (authenticated + admin)
-      analytics/
-        page.tsx        # Admin page (authenticated + admin)
-      AdminLayoutClient.tsx  # Admin layout wrapper
-    layout.tsx  # Root layout with locale provider
-    page.tsx    # Home page
-  i18n/
-    server-utils.ts  # Server utilities for localization
-    client-utils.ts  # Client utilities for localization
-  messages/
-    en.json     # English translations
-    fi.json     # Finnish translations
-    sv.json     # Swedish translations
+  api/
+    # Public Routes
+    languages/
+      route.ts        # Public GET, authenticated POST/PATCH/DELETE
+    
+    # Authenticated Routes
+    upload/
+      route.ts        # File upload with authentication
+    
+    # Admin Routes
+    translations/
+      route.ts        # Admin-only translation management
+      generate/
+        route.ts      # AI-powered translation generation
+    
+    # AI-Enhanced Routes
+    research-enhance/
+      route.ts        # AI analysis with Gemini and Tavily
+    tavily-search/
+      route.ts        # Advanced search functionality
+```
 
 ### Required Dependencies
 ```json
 {
   "dependencies": {
     "next": "^14.0.0",
-    "next-intl": "^3.0.0",
-    "@supabase/supabase-js": "^2.0.0"
+    "@supabase/supabase-js": "^2.0.0",
+    "@google/generative-ai": "^0.1.0",
+    "@tavily/core": "^1.0.0"
   }
 }
 ```
 
-### Localisation Configuration
+## Authentication Levels
 
-1. **Root Layout Setup** (`app/[locale]/layout.tsx`):
+### 1. Public Routes
 ```typescript
-import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from '@/app/i18n/server-utils'
-
-interface Props {
-  children: React.ReactNode
-  params: { locale: string }
-}
-
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
-  const messages = await getMessages(locale)
-
-  return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      {children}
-    </NextIntlClientProvider>
-  )
-}
-```
-
-2. **Server Utilities** (`app/i18n/server-utils.ts`):
-```typescript
-import { createSharedPathnamesNavigation } from 'next-intl/navigation'
-import { getRequestConfig } from 'next-intl/server'
-
-export const locales = ['en', 'fi', 'sv']
-export const defaultLocale = 'en'
-
-// For server components
-export async function getMessages(locale: string) {
-  return (await import(`@/messages/${locale}.json`)).default
-}
-
-// Setup locale for server components
-export async function setupServerLocale(locale: string) {
-  const messages = await getMessages(locale)
-  return { locale, messages }
-}
-
-// Navigation utilities
-export const { Link, redirect, usePathname, useRouter } = 
-  createSharedPathnamesNavigation({ locales })
-```
-
-3. **Client Utilities** (`app/i18n/client-utils.ts`):
-```typescript
-'use client'
-
-import { useTranslations } from 'next-intl'
-import { createSharedPathnamesNavigation } from 'next-intl/navigation'
-
-export const locales = ['en', 'fi', 'sv']
-
-// Navigation utilities for client components
-export const { Link, usePathname, useRouter } = 
-  createSharedPathnamesNavigation({ locales })
-
-// Hook for switching locales
-export function useLocale() {
-  const router = useRouter()
-  const pathname = usePathname()
-  
-  const switchLocale = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale })
-  }
-
-  return { switchLocale }
-}
-```
-### Usage Examples
-
-1. **Server Components**:
-```typescript
-import { getTranslations } from 'next-intl/server'
-
-export default async function Page() {
-  const t = await getTranslations('Namespace')
-  return <h1>{t('title')}</h1>
-}
-```
-
-2. **Client Components**:
-```typescript
-'use client'
-
-import { useTranslations } from 'next-intl'
-
-export default function Component() {
-  const t = useTranslations('Namespace')
-  return <button>{t('buttons.submit')}</button>
-}
-```
-
-3. **Locale Switcher Component**:
-```typescript
-'use client'
-
-import { useLocale, locales } from '@/app/i18n/client-utils'
-
-export default function LocaleSwitcher() {
-  const { switchLocale } = useLocale()
-  
-  return (
-    <select onChange={(e) => switchLocale(e.target.value)}>
-      {locales.map((locale) => (
-        <option key={locale} value={locale}>
-          {locale.toUpperCase()}
-        </option>
-      ))}
-    </select>
-  )
-}
-```
-
-4. **Localized Links**:
-```typescript
-import { Link } from '@/app/i18n/client-utils'
-
-export default function Navigation() {
-  return (
-    <nav>
-      <Link href="/">Home</Link>
-      <Link href="/about">About</Link>
-    </nav>
-  )
-}
-```
-
-### Best Practices
-
-1. **Translation Keys**:
-- Use nested structures for better organization
-- Use consistent naming conventions
-- Keep keys descriptive and hierarchical
-- Group common translations under shared namespaces
-
-2. **Dynamic Values**:
-```typescript
-// Using variables
-t('welcome', { name: user.name })
-
-// Using plurals
-t('items', { count: items.length })
-
-// Using rich text
-t.rich('terms', {
-  link: (chunks) => <a href="/terms">{chunks}</a>
-})
-```
-
-3. **Date and Number Formatting**:
-```typescript
-import { useFormatter } from 'next-intl'
-
-export default function Component() {
-  const format = useFormatter()
-  
-  return (
-    <div>
-      {format.dateTime(date, { dateStyle: 'full' })}
-      {format.number(amount, { style: 'currency', currency: 'EUR' })}
-    </div>
-  )
-}
-```
-
-4. **SEO Considerations**:
-- Use appropriate lang attributes
-- Implement hreflang tags
-- Consider locale-specific metadata
-- Use locale-specific URLs
-
-## Public Pages
-
-Public pages are server-side rendered and accessible to all users.
-
-### Pattern
-```typescript
-'use server'
-
-import { getTranslations } from 'next-intl/server'
-import { setupServerLocale } from '@/app/i18n/server-utils'
-
-interface Props {
-  params: Promise<{
-    locale: string
-  }>
-}
-
-export default async function PublicPage({ params }: Props) {
-  // 1. Setup localization
-  const { locale } = await params
-  await setupServerLocale(locale)
-  const t = await getTranslations('PageNamespace')
-
-  // 2. Optional: Server-side data fetching
-  const data = await fetchServerData()
-
-  // 3. Return server-rendered content
-  return (
-    <main>
-      <h1>{t('title')}</h1>
-      {/* Page content */}
-    </main>
-  )
-}
-```
-
-### Key Features
-- Server-side rendering
-- Server-side translations
-- No authentication required
-- Direct database access
-- SEO-friendly
-
-## Account Pages
-
-Account pages require authentication but not admin rights.
-
-### Pattern
-```typescript
-'use client'
-
-import { useTranslations } from 'next-intl'
-import { useAuth } from '@/components/auth/AuthProvider'
-import { useState } from 'react'
-import { createClient } from '@/utils/supabase/client'
-
-export default function AccountPage() {
-  // 1. Setup hooks
-  const t = useTranslations('Account.namespace')
-  const { session } = useAuth()
-  const [loading, setLoading] = useState(false)
-  const supabase = createClient()
-
-  // 2. Handle authenticated actions
-  const handleAction = async () => {
-    if (!session?.user) return
-    
-    try {
-      setLoading(true)
-      // Perform authenticated action
-      const { error } = await supabase
-        .from('table')
-        .update({ /* data */ })
-        .eq('user_id', session.user.id)
-
-      if (error) throw error
-    } catch (error) {
-      console.error('Error:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // 3. Return client-side rendered content
-  return (
-    <div>
-      {/* Protected content */}
-    </div>
-  )
-}
-```
-
-### Key Features
-- Client-side rendering
-- Authentication required
-- Client-side translations
-- Form handling
-- Real-time updates
-- Loading states
-
-## Admin Pages
-
-Admin pages require both authentication and admin rights.
-
-### Admin Layout Pattern
-```typescript
-'use client'
-
-import { useAuth } from '@/components/auth/AuthProvider'
-import { redirect } from 'next/navigation'
-
-export default function AdminLayoutClient({
-  children,
-  params: { locale }
-}: {
-  children: React.ReactNode
-  params: { locale: string }
-}) {
-  const { isAuthenticated, isAdmin, loading } = useAuth()
-
-  // 1. Handle loading state
-  if (loading) return <LoadingComponent />
-
-  // 2. Handle authentication/authorization
-  if (!isAuthenticated || !isAdmin) {
-    redirect(`/${locale}/auth/sign-in?next=${encodeURIComponent(`/${locale}/admin`)}`)
-  }
-
-  // 3. Render admin layout
-  return <div className="admin-layout">{children}</div>
-}
-```
-
-### Admin Page Pattern
-```typescript
-'use client'
-
-export default function AdminPage() {
-  // 1. Setup hooks
-  const t = useTranslations('Admin.namespace')
-  const { session, isAdmin } = useAuth()
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  // 2. Setup data fetching
-  const fetchData = useCallback(async () => {
-    if (!session?.user || !isAdmin) return
-    
-    try {
-      setLoading(true)
-      const { data, error } = await supabase
-        .from('table')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (error) throw error
-      setData(data)
-    } catch (error) {
-      setError(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }, [session, isAdmin])
-
-  // 3. Setup effects
-  useEffect(() => {
-    if (session?.user && isAdmin) {
-      fetchData()
-    }
-  }, [session?.user?.id, isAdmin])
-
-  // 4. Return admin content
-  return (
-    <div>
-      {loading && <LoadingSpinner />}
-      {error && <ErrorMessage error={error} />}
-      {data && <DataTable data={data} />}
-    </div>
-  )
-}
-```
-
-### Key Features
-- Client-side rendering
-- Authentication and authorization required
-- Admin layout wrapper
-- Advanced data management
-- Error boundaries
-- Loading states
-- Real-time updates
-
-## Best Practices
-
-### 1. Error Handling
-```typescript
-try {
-  // Operation
-} catch (error) {
-  console.error('Error:', error)
-  setError(error instanceof Error ? error.message : 'An error occurred')
-} finally {
-  setLoading(false)
-}
-```
-
-### 2. Loading States
-```typescript
-const { loading, startLoading, stopLoading } = useLoadingWithTimeout({
-  timeout: 10000,
-  onTimeout: () => setError('Request timed out')
-})
-```
-
-### 3. Data Fetching
-```typescript
-const fetchData = useCallback(async () => {
+// Example: GET /api/languages
+export async function GET() {
   try {
-    startLoading()
+    const supabase = createClient(undefined, true) // Public client
+    
     const { data, error } = await supabase
       .from('table')
       .select('*')
+      .eq('enabled', true)
+
     if (error) throw error
-    setData(data)
-  } catch (error) {
-    handleError(error)
-  } finally {
-    stopLoading()
-  }
-}, [dependencies])
-```
 
-### 4. Form Handling
-```typescript
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  if (loading) return
-
-  try {
-    setLoading(true)
-    // Form submission logic
+    return NextResponse.json({ data })
   } catch (error) {
-    setError(error.message)
-  } finally {
-    setLoading(false)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
   }
 }
 ```
 
-### 5. Authentication Checks
+### 2. Authenticated Routes
 ```typescript
-useEffect(() => {
-  if (!authLoading && (!session?.user || !isAdmin)) {
-    router.replace(`/${locale}/auth/sign-in?next=${encodeURIComponent(currentPath)}`)
+// Example: Protected route requiring authentication
+export async function POST(request: Request) {
+  try {
+    // 1. Verify authentication
+    const authHeader = request.headers.get('Authorization')
+    if (!authHeader?.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: 'Missing or invalid authorization header' },
+        { status: 401 }
+      )
+    }
+
+    // 2. Create authenticated client
+    const supabase = createClient()
+    
+    // 3. Verify token and get user
+    const { data: { user }, error: authError } = await supabase.auth.getUser(
+      authHeader.split(' ')[1]
+    )
+
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    // 4. Process authenticated request
+    const { data } = await request.json()
+    
+    // 5. Perform operation with user context
+    const result = await supabase
+      .from('table')
+      .insert({ ...data, user_id: user.id })
+
+    return NextResponse.json({ result })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
   }
-}, [session, isAdmin, authLoading])
+}
 ```
 
-### 6. Localization
+### 3. Admin Routes
 ```typescript
-// Server-side
-const t = await getTranslations('Namespace')
+// Example: Admin-only route
+export async function PUT(request: Request) {
+  try {
+    // 1. Verify authentication
+    const authHeader = request.headers.get('Authorization')
+    if (!authHeader?.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: 'Missing or invalid authorization header' },
+        { status: 401 }
+      )
+    }
 
-// Client-side
-const t = useTranslations('Namespace')
+    // 2. Create authenticated client
+    const authClient = createClient()
+    
+    // 3. Verify token and get user
+    const { data: { user }, error: authError } = await authClient.auth.getUser(
+      authHeader.split(' ')[1]
+    )
+
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    // 4. Verify admin status
+    const { data: profile } = await authClient
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile?.is_admin) {
+      return NextResponse.json(
+        { error: 'Forbidden - Admin access required' },
+        { status: 403 }
+      )
+    }
+
+    // 5. Use service role client for admin operations
+    const supabase = createClient(undefined, true)
+    
+    // 6. Process admin request
+    const { data } = await request.json()
+    const result = await supabase
+      .from('table')
+      .upsert(data)
+
+    return NextResponse.json({ result })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
 ```
 
-### 7. Performance Optimization
-- Use `useCallback` for functions
-- Use `useMemo` for expensive computations
-- Use `useRef` for stable references
-- Implement proper loading states
-- Use proper error boundaries
-- Implement proper caching strategies
+## API Route Patterns
 
-### 8. Security Best Practices
-- Always validate user permissions
-- Implement proper CSRF protection
-- Use proper content security policies
-- Implement rate limiting
-- Use proper input validation
-- Use proper output sanitization
+### 1. CRUD Operations
+```typescript
+// GET - List/Read
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  // ... handle query parameters
+}
+
+// POST - Create
+export async function POST(request: Request) {
+  const body = await request.json()
+  // ... handle creation
+}
+
+// PUT/PATCH - Update
+export async function PUT(request: Request) {
+  const body = await request.json()
+  // ... handle update
+}
+
+// DELETE - Remove
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url)
+  // ... handle deletion
+}
+```
+
+### 2. File Upload
+```typescript
+export async function POST(request: NextRequest) {
+  try {
+    const formData = await request.formData()
+    const file = formData.get('file') as File
+    
+    // Convert file to buffer
+    const buffer = await file.arrayBuffer()
+
+    // Upload to storage
+    const { data, error } = await supabase.storage
+      .from('bucket')
+      .upload(`${Date.now()}-${file.name}`, buffer, {
+        contentType: file.type,
+        upsert: true
+      })
+
+    return NextResponse.json({ url: data.path })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Upload failed' },
+      { status: 500 }
+    )
+  }
+}
+```
+
+### 3. AI Integration
+```typescript
+export async function POST(request: Request) {
+  try {
+    // 1. Initialize AI clients
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.5-flash',
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 2048,
+      }
+    })
+
+    // 2. Process request
+    const { prompt } = await request.json()
+    
+    // 3. Generate AI response
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }]
+    })
+
+    return NextResponse.json({ 
+      response: result.response.text() 
+    })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'AI processing failed' },
+      { status: 500 }
+    )
+  }
+}
+```
+
+## Error Handling
+
+### 1. Standard Error Response Pattern
+```typescript
+function handleError(error: unknown) {
+  console.error('Error:', error)
+  
+  if (error instanceof Error) {
+    return NextResponse.json(
+      { error: error.message },
+      { status: 500 }
+    )
+  }
+  
+  return NextResponse.json(
+    { error: 'An unexpected error occurred' },
+    { status: 500 }
+  )
+}
+```
+
+### 2. HTTP Status Codes
+```typescript
+const HTTP_STATUS = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_ERROR: 500
+}
+
+// Usage
+return NextResponse.json(
+  { error: 'Resource not found' },
+  { status: HTTP_STATUS.NOT_FOUND }
+)
+```
+
+## External Services Integration
+
+### 1. AI Services (Gemini)
+```typescript
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_STUDIO_KEY!)
+const model = genAI.getGenerativeModel({
+  model: 'gemini-2.5-flash',
+  generationConfig: {
+    temperature: 0.7,
+    maxOutputTokens: 2048,
+  },
+  safetySettings: [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    }
+  ]
+})
+```
+
+### 2. Search Services (Tavily)
+```typescript
+const tavilyClient = tavily({ apiKey: process.env.TAVILY_API_KEY! })
+
+const searchResults = await tavilyClient.search(query, {
+  searchDepth: 'advanced',
+  maxResults: max_results,
+  includeAnswer: false
+})
+```
+
+## Best Practices
+
+### 1. Environment Variables
+```typescript
+// Required environment variables
+const REQUIRED_ENV = [
+  'SUPABASE_URL',
+  'SUPABASE_ANON_KEY',
+  'SUPABASE_SERVICE_ROLE_KEY',
+  'GOOGLE_AI_STUDIO_KEY',
+  'TAVILY_API_KEY'
+]
+
+// Validation
+REQUIRED_ENV.forEach(env => {
+  if (!process.env[env]) {
+    throw new Error(`Missing required environment variable: ${env}`)
+  }
+})
+```
+
+### 2. Request Validation
+```typescript
+function validateRequest(body: unknown, requiredFields: string[]) {
+  for (const field of requiredFields) {
+    if (!(field in (body as object))) {
+      throw new Error(`Missing required field: ${field}`)
+    }
+  }
+}
+```
+
+### 3. Response Headers
+```typescript
+const headers = {
+  'Content-Type': 'application/json',
+  'Cache-Control': 'no-store',
+  'Access-Control-Allow-Origin': '*'
+}
+
+return NextResponse.json(data, { headers })
+```
+
+### 4. Rate Limiting
+```typescript
+import { rateLimit } from '@/utils/rate-limit'
+
+const limiter = rateLimit({
+  interval: 60 * 1000, // 1 minute
+  uniqueTokenPerInterval: 500
+})
+
+try {
+  await limiter.check(5, 'UNIQUE_TOKEN') // 5 requests per minute
+  // Process request
+} catch {
+  return NextResponse.json(
+    { error: 'Rate limit exceeded' },
+    { status: 429 }
+  )
+}
+```
+
+### 5. Logging
+```typescript
+function logRequest(method: string, path: string, body?: unknown) {
+  console.log(`[${new Date().toISOString()}] ${method} ${path}`, {
+    body: body ? JSON.stringify(body) : undefined
+  })
+}
+```
+
+### 6. Security Headers
+```typescript
+const securityHeaders = {
+  'X-DNS-Prefetch-Control': 'on',
+  'X-XSS-Protection': '1; mode=block',
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'origin-when-cross-origin'
+}
+```
+
+## API Implementation Patterns
+
+### Base API Structure
+
+```typescript
+import { NextResponse } from 'next/server'
+import { createClient } from '@/utils/supabase/server'
+
+export async function GET(request: Request) {
+  try {
+    // 1. Log request details
+    console.log('\n📝 [GET /api/endpoint]', {
+      headers: Object.fromEntries(request.headers),
+      url: request.url
+    })
+
+    // 2. Extract and validate parameters
+    const { searchParams } = new URL(request.url)
+    const param1 = searchParams.get('param1')
+    const param2 = searchParams.get('param2')
+
+    if (!param1 || !param2) {
+      console.error('❌ Missing required parameters')
+      return NextResponse.json(
+        { error: 'Missing required parameters' },
+        { status: 400 }
+      )
+    }
+
+    // 3. Authenticate user (if required)
+    const authHeader = request.headers.get('Authorization')
+    if (!authHeader?.startsWith('Bearer ')) {
+      console.error('❌ Missing or invalid auth header')
+      return NextResponse.json(
+        { error: 'Missing or invalid authorization header' },
+        { status: 401 }
+      )
+    }
+
+    // 4. Verify token
+    console.log('🔑 Creating auth client...')
+    const authClient = await createClient()
+    const { data: { user }, error: authError } = await authClient.auth.getUser(
+      authHeader.split(' ')[1]
+    )
+    
+    if (authError || !user) {
+      console.error('❌ Auth error:', authError)
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    console.log('✅ User authenticated:', user.id)
+
+    // 5. Create service role client for database operations
+    console.log('🔑 Creating service role client...')
+    const supabase = await createClient(undefined, true)
+
+    // 6. Perform database operation
+    console.log('📊 Fetching data...')
+    const { data, error } = await supabase
+      .from('table')
+      .select('*')
+      .eq('user_id', user.id)
+
+    if (error) {
+      console.error('❌ Database error:', error)
+      return NextResponse.json(
+        { error: 'Failed to fetch data' },
+        { status: 500 }
+      )
+    }
+
+    // 7. Return success response
+    console.log('✅ Successfully fetched data')
+    return NextResponse.json(data)
+  } catch (error) {
+    // 8. Handle unexpected errors
+    console.error('❌ Unexpected error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+```
+
+### Database Operations Pattern
+
+```typescript
+// Fetch single record with proper error handling
+const fetchSingle = async (supabase, table, filters) => {
+  console.log(`📊 Fetching ${table} record:`, filters)
+  
+  const { data, error } = await supabase
+    .from(table)
+    .select('*')
+    .match(filters)
+    .maybeSingle() // Prefer over .single() to handle not found gracefully
+
+  if (error) {
+    console.error(`❌ Error fetching ${table}:`, error)
+    throw error
+  }
+
+  return data // Can be null if not found
+}
+
+// Insert with validation
+const insertRecord = async (supabase, table, data) => {
+  console.log(`📊 Inserting ${table} record:`, data)
+
+  const { data: inserted, error } = await supabase
+    .from(table)
+    .insert(data)
+    .select()
+    .single()
+
+  if (error) {
+    console.error(`❌ Error inserting ${table}:`, error)
+    throw error
+  }
+
+  return inserted
+}
+
+// Update with optimistic concurrency
+const updateRecord = async (supabase, table, id, data, version) => {
+  console.log(`📊 Updating ${table} record:`, { id, data })
+
+  const { data: updated, error } = await supabase
+    .from(table)
+    .update(data)
+    .eq('id', id)
+    .eq('version', version) // Optimistic concurrency check
+    .select()
+    .single()
+
+  if (error) {
+    console.error(`❌ Error updating ${table}:`, error)
+    throw error
+  }
+
+  return updated
+}
+```
+
+### Request Validation Pattern
+
+```typescript
+import { z } from 'zod'
+
+// Define schema
+const requestSchema = z.object({
+  param1: z.string().min(1),
+  param2: z.number().min(0),
+  param3: z.enum(['value1', 'value2']),
+  param4: z.date().optional()
+})
+
+// Validate request
+const validateRequest = async (request: Request) => {
+  try {
+    const body = await request.json()
+    return requestSchema.parse(body)
+  } catch (error) {
+    console.error('❌ Validation error:', error)
+    throw new Error('Invalid request data')
+  }
+}
+
+// Use in API route
+export async function POST(request: Request) {
+  try {
+    const validatedData = await validateRequest(request)
+    // Proceed with operation using validated data
+  } catch (error) {
+    if (error.message === 'Invalid request data') {
+      return NextResponse.json(
+        { error: 'Invalid request data' },
+        { status: 400 }
+      )
+    }
+    throw error
+  }
+}
+```
+
+### Error Response Pattern
+
+```typescript
+const createErrorResponse = (
+  error: any,
+  defaultMessage = 'Internal server error',
+  status = 500
+) => {
+  // Log error with context
+  console.error('❌ Error:', {
+    message: error.message,
+    code: error.code,
+    details: error.details
+  })
+
+  // Return sanitized error response
+  return NextResponse.json(
+    {
+      error: process.env.NODE_ENV === 'development'
+        ? error.message
+        : defaultMessage,
+      code: error.code,
+      details: process.env.NODE_ENV === 'development'
+        ? error.details
+        : undefined
+    },
+    { status }
+  )
+}
+
+// Usage in API route
+export async function GET(request: Request) {
+  try {
+    // API logic
+  } catch (error) {
+    if (error.code === 'VALIDATION_ERROR') {
+      return createErrorResponse(error, 'Invalid request data', 400)
+    }
+    if (error.code === 'NOT_FOUND') {
+      return createErrorResponse(error, 'Resource not found', 404)
+    }
+    return createErrorResponse(error)
+  }
+}
+```
+
+### Transaction Pattern
+
+```typescript
+export async function POST(request: Request) {
+  try {
+    const supabase = await createClient(undefined, true)
+    
+    // Start transaction
+    const { data, error } = await supabase.rpc('begin_transaction')
+    if (error) throw error
+
+    try {
+      // Perform multiple operations
+      const { error: op1Error } = await supabase
+        .from('table1')
+        .insert(data1)
+      if (op1Error) throw op1Error
+
+      const { error: op2Error } = await supabase
+        .from('table2')
+        .update(data2)
+      if (op2Error) throw op2Error
+
+      // Commit transaction
+      await supabase.rpc('commit_transaction')
+    } catch (error) {
+      // Rollback on error
+      await supabase.rpc('rollback_transaction')
+      throw error
+    }
+
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    return createErrorResponse(error)
+  }
+}
+```
+
+### Batch Operation Pattern
+
+```typescript
+export async function POST(request: Request) {
+  try {
+    const { items } = await request.json()
+    const supabase = await createClient(undefined, true)
+
+    // Process items in batches
+    const batchSize = 100
+    const results = []
+
+    for (let i = 0; i < items.length; i += batchSize) {
+      const batch = items.slice(i, i + batchSize)
+      
+      const { data, error } = await supabase
+        .from('table')
+        .upsert(batch, {
+          onConflict: 'id'
+        })
+        .select()
+
+      if (error) throw error
+      results.push(...(data || []))
+    }
+
+    return NextResponse.json(results)
+  } catch (error) {
+    return createErrorResponse(error)
+  }
+}
+```
+
+### Rate Limiting Pattern
+
+```typescript
+import { rateLimit } from '@/utils/rate-limit'
+
+const limiter = rateLimit({
+  interval: 60 * 1000, // 1 minute
+  uniqueTokenPerInterval: 500
+})
+
+export async function POST(request: Request) {
+  try {
+    // Get client IP
+    const ip = request.headers.get('x-forwarded-for') || 'unknown'
+    
+    // Check rate limit
+    try {
+      await limiter.check(5, ip) // 5 requests per minute per IP
+    } catch {
+      return NextResponse.json(
+        { error: 'Too many requests' },
+        { status: 429 }
+      )
+    }
+
+    // Proceed with API logic
+  } catch (error) {
+    return createErrorResponse(error)
+  }
+}
+```
+
+### Caching Pattern
+
+```typescript
+import { redis } from '@/utils/redis'
+
+export async function GET(request: Request) {
+  try {
+    const cacheKey = request.url
+    
+    // Try to get from cache
+    const cached = await redis.get(cacheKey)
+    if (cached) {
+      return NextResponse.json(JSON.parse(cached))
+    }
+
+    // Fetch fresh data
+    const supabase = await createClient(undefined, true)
+    const { data, error } = await supabase
+      .from('table')
+      .select('*')
+
+    if (error) throw error
+
+    // Cache the result
+    await redis.set(cacheKey, JSON.stringify(data), 'EX', 300) // 5 minutes
+
+    return NextResponse.json(data)
+  } catch (error) {
+    return createErrorResponse(error)
+  }
+}
+```
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
