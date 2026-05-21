@@ -1,0 +1,9 @@
+{
+  "name": "enlightware--ferlium",
+  "displayName": "ferlium",
+  "description": "A small, statically-typed functional scripting language for Rust hosts. Whole-module type inference, Rust-style syntax, no ambient I/O. ",
+  "version": "1.0.0",
+  "author": "enlightware",
+  "homepage": "https://github.com/enlightware/ferlium",
+  "skills": []
+}
