@@ -1,0 +1,9 @@
+{
+  "name": "edspencer--mdx-prompt",
+  "displayName": "mdx-prompt",
+  "description": "Composable prompts powered by MDX & React",
+  "version": "1.0.0",
+  "author": "edspencer",
+  "homepage": "https://github.com/edspencer/mdx-prompt",
+  "skills": []
+}
