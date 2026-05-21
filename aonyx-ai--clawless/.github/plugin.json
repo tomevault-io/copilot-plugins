@@ -1,0 +1,9 @@
+{
+  "name": "aonyx-ai--clawless",
+  "displayName": "clawless",
+  "description": "A framework to build command-line applications in Rust",
+  "version": "1.0.0",
+  "author": "aonyx-ai",
+  "homepage": "https://github.com/aonyx-ai/clawless",
+  "skills": []
+}
