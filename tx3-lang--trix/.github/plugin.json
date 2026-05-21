@@ -1,0 +1,9 @@
+{
+  "name": "tx3-lang--trix",
+  "displayName": "trix",
+  "description": "The Tx3 package manager",
+  "version": "1.0.0",
+  "author": "tx3-lang",
+  "homepage": "https://github.com/tx3-lang/trix",
+  "skills": []
+}
