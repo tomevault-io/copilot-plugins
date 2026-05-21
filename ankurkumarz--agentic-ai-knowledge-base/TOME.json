@@ -4,7 +4,7 @@
   "repo": "agentic-ai-knowledge-base",
   "description": "Agentic AI is the fast evolving technology landscape and this repository is an effort to consolidate the accelerators, frameworks, patterns, and more.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ankurkumarz/agentic-ai-knowledge-base",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T21:33:52Z"
+  "distributed_at": "2026-05-21T22:05:45Z"
 }
