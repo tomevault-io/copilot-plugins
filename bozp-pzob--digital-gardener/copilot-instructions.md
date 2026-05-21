@@ -1,43 +1,56 @@
-## 02-aggregator-components
+## 03-plugins-system
 
-> The `[src/aggregator/](mdc:src/aggregator)` directory contains the core logic for orchestrating the data flow.
+> The application features a robust plugin system, allowing for modular addition of functionality. Plugins reside in subdirectories within `[src/plugins/](mdc:src/plugins)` and are dynamically loaded by the main scripts (`[src/index.ts](mdc:src/index.ts)`, `[src/historical.ts](mdc:src/historical.ts)`) using helpers like `loadDirectoryModules` from `[src/helpers/configHelper.ts](mdc:src/helpers/configHelper.ts)`.
 
-# Aggregator Components
+# Plugin System
 
-The `[src/aggregator/](mdc:src/aggregator)` directory contains the core logic for orchestrating the data flow.
+The application features a robust plugin system, allowing for modular addition of functionality. Plugins reside in subdirectories within `[src/plugins/](mdc:src/plugins)` and are dynamically loaded by the main scripts (`[src/index.ts](mdc:src/index.ts)`, `[src/historical.ts](mdc:src/historical.ts)`) using helpers like `loadDirectoryModules` from `[src/helpers/configHelper.ts](mdc:src/helpers/configHelper.ts)`.
 
-## 1. Content Aggregator (`[ContentAggregator.ts](mdc:src/aggregator/ContentAggregator.ts)`)
+## Plugin Types
 
-This is the primary aggregator used by the main `[src/index.ts](mdc:src/index.ts)` script for continuous operation.
+Plugins are organized by type into subdirectories:
 
-*   **Responsibilities:**
-    *   Manages registered plugins: Sources, Enrichers, Storage.
-    *   Initiates data fetching from sources (`fetchAndStore`).
-    *   Passes fetched data through registered enrichers.
-    *   Saves processed data using the registered storage plugin.
-    *   (Note: Generators are managed separately by `index.ts` but interact with data produced via the aggregator and stored).
-*   **Key Methods:**
-    *   `registerSource(source: SourcePlugin)`
-    *   `registerEnricher(enricher: EnricherPlugin)`
-    *   `registerStorage(storage: StoragePlugin)`
-    *   `fetchAndStore(sourceName: string)`: Fetches from a specific source, enriches, and stores.
+1.  **Sources (`[src/plugins/sources/](mdc:src/plugins/sources)`)**
+    *   Implement the `[SourcePlugin](mdc:src/types.ts)` interface.
+    *   Responsible for fetching data from external APIs, feeds, or services.
+    *   Must implement `fetchArticles(): Promise<ContentItem[]>`, returning normalized `ContentItem` objects.
+    *   May optionally implement `fetchHistorical(filter: DateConfig | string)` for use with `historical.ts`.
+    *   Examples: `[DiscordRawDataSource.ts](mdc:src/plugins/sources/DiscordRawDataSource.ts)`, `[GitHubDataSource.ts](mdc:src/plugins/sources/GitHubDataSource.ts)`.
 
-## 2. Historical Aggregator (`[HistoricalAggregator.ts](mdc:src/aggregator/HistoricalAggregator.ts)`)
+2.  **AI Providers (`[src/plugins/ai/](mdc:src/plugins/ai)`)**
+    *   Implement the `[AiProvider](mdc:src/types.ts)` interface.
+    *   Provide wrappers around AI models/APIs (e.g., OpenAI, Claude via OpenRouter).
+    *   Must implement methods like `summarize(text)`, `topics(text)`, `image(text)`.
+    *   These providers are injected as dependencies into other plugins (Sources, Enrichers, Generators) that require AI capabilities.
+    *   Configuration (API keys, models) is typically handled via the JSON config and environment variables.
 
-This aggregator is specifically used by the `[src/historical.ts](mdc:src/historical.ts)` script for fetching past data.
+3.  **Enrichers (`[src/plugins/enrichers/](mdc:src/plugins/enrichers)`)**
+    *   Implement the `[EnricherPlugin](mdc:src/types.ts)` interface.
+    *   Process and modify/annotate `ContentItem` objects after fetching.
+    *   Must implement `enrich(articles: ContentItem[]): ContentItem[] | Promise<ContentItem[]>`. 
+    *   Can use AI providers (e.g., for topic extraction, sentiment analysis).
+    *   Example: `AiTopicsEnricher` (inferred from config, likely exists in this directory).
 
-*   **Responsibilities:**
-    *   Similar to `ContentAggregator` but designed for fetching data for specific dates or ranges.
-    *   Manages sources that implement the `fetchHistorical` method.
-    *   Manages registered Enrichers and Storage.
-*   **Key Methods:**
-    *   `registerSource(source: SourcePlugin & { fetchHistorical: Function })`
-    *   `registerEnricher(enricher: EnricherPlugin)`
-    *   `registerStorage(storage: StoragePlugin)`
-    *   `fetchAndStore(sourceName: string, date: string)`: Fetches data for a specific date.
-    *   `fetchAndStoreRange(sourceName: string, filter: DateConfig)`: Fetches data for a date range.
+4.  **Generators (`[src/plugins/generators/](mdc:src/plugins/generators)`)**
+    *   (Interface likely defined within this directory or implied)
+    *   Responsible for creating derived content, typically summaries, based on stored `ContentItem` data.
+    *   Often interact with a `StoragePlugin` to retrieve data for a specific period (e.g., a day).
+    *   Usually use an `AiProvider` to generate summary text.
+    *   Output results (e.g., Markdown files) to a configured path (`outputPath`).
+    *   Key method likely involves `generateContent()` or `generateAndStoreSummary(dateStr)`.
+    *   Examples: `DailySummaryGenerator`, `DiscordSummaryGenerator` (inferred from config).
 
-Both aggregators rely heavily on the plugin system and the shared interfaces defined in `[src/types.ts](mdc:src/types.ts)`.
+5.  **Storage (`[src/plugins/storage/](mdc:src/plugins/storage)`)**
+    *   Implement the `[StoragePlugin](mdc:src/plugins/storage/StoragePlugin.ts)` interface (assuming path).
+    *   Handle persistence of `ContentItem` and potentially other data (like `SummaryItem`).
+    *   Must implement methods for initialization (`init`), saving (`saveContent`), retrieving (`getContent`, `getContentByDate`, etc.), and closing connections (`close`).
+    *   Example: `SQLiteStorage` (inferred from config).
+
+## Configuration
+
+Each plugin instance is configured via the main JSON configuration file (e.g., `[config/discord-raw.json](mdc:config/discord-raw.json)`). The configuration specifies the `type` (matching the class name), a unique `name`, and `params` specific to that plugin.
+
+Dependencies (like AI Providers and Storage) are automatically injected into other plugins during initialization based on the configuration by helpers in `[configHelper.ts](mdc:src/helpers/configHelper.ts)`.
 
 ---
 > Source: [bozp-pzob/digital-gardener](https://github.com/bozp-pzob/digital-gardener) — distributed by [TomeVault](https://tomevault.io).
