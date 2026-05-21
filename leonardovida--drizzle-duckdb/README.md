@@ -7,11 +7,11 @@ A drizzle ORM client for use with DuckDB. Based on drizzle's Postgres client.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leonardovida/drizzle-duckdb](https://github.com/leonardovida/drizzle-duckdb).
+Original source: `CLAUDE.md` in [leonardovida/drizzle-duckdb](https://github.com/leonardovida/drizzle-duckdb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
