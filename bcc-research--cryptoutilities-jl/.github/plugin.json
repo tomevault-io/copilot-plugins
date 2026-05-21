@@ -1,0 +1,9 @@
+{
+  "name": "bcc-research--cryptoutilities-jl",
+  "displayName": "CryptoUtilities.jl",
+  "description": "CryptoUtilities.jl",
+  "version": "1.0.0",
+  "author": "bcc-research",
+  "homepage": "https://github.com/bcc-research/CryptoUtilities.jl",
+  "skills": []
+}
