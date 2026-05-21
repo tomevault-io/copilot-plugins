@@ -1,21 +1,30 @@
-## shadcn-usage
+## tailwindcss-v4
 
-> When you want to use ShaCN Components and installing
+> When you want to use the tailwindcss on the client side
 
 
-# ShadCN Guide
+# Tailwind CSS v4 Guide
 
-- When you want to install a component from shadcn use this command.
+- Use utility-first classes for consistent and maintainable styling
+- Create custom components with `@apply` directive for reusability
+- Utilize responsive design utilities for mobile-first development
+- Implement dark mode support using Tailwind's built-in classes
 
-````bash
 
-pnpm dlx shadcn@canary add <component>
+- For the tailwind css v4 we are using `@tailwindcss/postcss` and `postcss.config.mjs` PostCSS configuration.
 
-````
+```mjs
 
-- For the ShadCN Configerations you could find them in [components.json](mdc:components.json).
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+export default config;
 
-- Components should Always be build inside the `./components` directory.
+```
+
+- This is the current globals.css file [globals.css](mdc:app/globals.css).
 
 ---
 > Source: [VidAIze/cursor-project-rules](https://github.com/VidAIze/cursor-project-rules) — distributed by [TomeVault](https://tomevault.io).
