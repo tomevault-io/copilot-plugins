@@ -1,0 +1,9 @@
+{
+  "name": "ahmedosman101--commit-sage-cli",
+  "displayName": "commit-sage-cli",
+  "description": "Generates Conventional Commit messages with AI. Supports OpenAI, Ollama, and Gemini.",
+  "version": "1.0.0",
+  "author": "AhmedOsman101",
+  "homepage": "https://github.com/AhmedOsman101/commit-sage-cli",
+  "skills": []
+}
