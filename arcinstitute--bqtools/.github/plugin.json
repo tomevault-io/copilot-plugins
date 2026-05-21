@@ -1,0 +1,9 @@
+{
+  "name": "arcinstitute--bqtools",
+  "displayName": "bqtools",
+  "description": "A command line utilty for working with BINSEQ files",
+  "version": "1.0.0",
+  "author": "ArcInstitute",
+  "homepage": "https://github.com/ArcInstitute/bqtools",
+  "skills": []
+}
