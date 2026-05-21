@@ -1,0 +1,9 @@
+{
+  "name": "tsvikas--sync-with-uv",
+  "displayName": "sync-with-uv",
+  "description": "Sync .pre-commit-config.yaml from uv.lock",
+  "version": "1.0.0",
+  "author": "tsvikas",
+  "homepage": "https://github.com/tsvikas/sync-with-uv",
+  "skills": []
+}
