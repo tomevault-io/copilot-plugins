@@ -1,0 +1,9 @@
+{
+  "name": "hatamiarash7--duckdb-netquack",
+  "displayName": "duckdb-netquack",
+  "description": "DuckDB extension for parsing, extracting, and analyzing domains, URIs, and paths with ease.",
+  "version": "1.0.0",
+  "author": "hatamiarash7",
+  "homepage": "https://github.com/hatamiarash7/duckdb-netquack",
+  "skills": []
+}
