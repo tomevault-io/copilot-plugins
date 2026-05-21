@@ -1,92 +1,100 @@
-## drupal-broken-access-control
+## drupal-cryptographic-failures
 
-> Detect and prevent broken access control vulnerabilities in Drupal as defined in OWASP Top 10:2021-A01
+> Detect and prevent cryptographic failures in Drupal as defined in OWASP Top 10:2021-A02
 
-# Drupal Broken Access Control Security Standards (OWASP A01:2021)
+# Drupal Cryptographic Failures Security Standards (OWASP A02:2021)
 
-This rule enforces security best practices to prevent broken access control vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A01.
+This rule enforces security best practices to prevent cryptographic failures in Drupal applications, as defined in OWASP Top 10:2021-A02.
 
 ## Rule Details
 
-- **Name:** drupal_broken_access_control
+- **Name:** drupal_cryptographic_failures
 
-- **Description:** Detect and prevent broken access control vulnerabilities in Drupal as defined in OWASP Top 10:2021-A01
+- **Description:** Detect and prevent cryptographic failures in Drupal as defined in OWASP Top 10:2021-A02
 
 ## Filters
 - file extension pattern: `\\.(php|inc|module|install|theme)$`
-- file path pattern: `(modules|themes|profiles)/custom`
+- file path pattern: `(modules|themes|profiles|core)/.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `\\s*\\$routes\\['[^']*'\\]\\s*=\\s*.*(?!_access|access_callback|requirements)` – Route definition is missing access control. Add '_permission', '_role', '_access', or custom access check in requirements.
-    - Pattern 1: Missing access checks in routes
-  - pattern `user_access\\(` – user_access() is deprecated. Use $account->hasPermission() or proper dependency injection with AccessResult methods.
-    - Pattern 2: Using user_access() instead of more secure methods
-  - pattern `(\\$user->id\\(\\)|\\$user->uid)\\s*===?\\s*1` – Avoid hardcoded checks against user ID 1. Use role-based permissions or proper access control services.
-    - Pattern 3: Hard-coded user ID checks
-  - pattern `\\$entity->(?!access)(save|delete|update)\\(\\)` – Entity operation without prior access check. Use \$entity->access('operation') before performing operations.
-    - Pattern 4: Missing access check on entity operations
-  - pattern `\\\\Drupal::currentUser\\(\\)` – Avoid using \\Drupal::currentUser() directly. Inject the current_user service for better testability and security.
-    - Pattern 5: Using Drupal::currentUser() directly in services
-  - pattern `class [A-Za-z0-9_]+Controller.+extends ControllerBase[^}]+public function [a-zA-Z0-9_]+\\([^{]*\\)\\s*\\{(?![^}]*access)` – Controller method lacks explicit access checking. Add checks via route requirements or within the controller method.
-    - Pattern 6: Missing access checks in controllers
-  - pattern `\\$entity->set\\([^)]+\\)\\s*;(?![^;]*access)` – Direct field value manipulation without access check. Verify entity field access before manipulation.
-    - Pattern 7: Direct field value manipulation without access check
-  - pattern `@RestResource\\([^)]*\\)(?![^{]*_access|access_callback)` – REST resource lacks access controls. Add access checks via annotations or in methods.
-    - Pattern 8: Unprotected REST endpoints
-  - pattern `\\$_SERVER\\['REMOTE_ADDR'\\]\\s*===?\\s*` – IP-based access control is insufficient. Use proper Drupal permission system instead.
-    - Pattern 9: Insecure access check by client IP
-  - pattern `#cache\\['contexts'\\]\\s*=\\s*\\[[^\\]]*'user'[^\\]]*\\]` – Using 'user' cache context without proper access checks may expose content to unauthorized users.
-    - Pattern 10: Allow bypassing cache for authenticated users without proper checks
+  - pattern `(md5|sha1)\\([^)]*\\)` – Weak hash algorithm detected. Use password_hash() for passwords or hash('sha256'/'sha512') for other data.
+    - Pattern 1: Use of weak hash algorithms
+  - pattern `(password|key|token|secret|credentials|pwd)\\s*=\\s*['\"][^'\"]+['\"]` – Hardcoded credentials or sensitive keys detected. Use Drupal's State API, key module, or environment variables.
+    - Pattern 2: Hardcoded credentials or keys
+  - pattern `\\$user->setPassword\\((?!password_hash|\\$hash)[^)]+\\)` – Never store plaintext passwords. Drupal handles password hashing internally.
+    - Pattern 3: Plaintext password storage
+  - pattern `file_(get|put)_contents\\([^,]+,\\s*[^,]+\\)` – Consider encrypting sensitive file contents using Drupal's encryption API or PHP's openssl functions.
+    - Pattern 4: Improper file encryption
+  - pattern `\\$settings\\[['\"](mdc:?!hash_salt|update_free_access)[^]]+\\]\\s*=\\s*['\"][^\"']+['\"]` – Sensitive data in settings.php should be moved to environment variables or settings.local.php.
+    - Pattern 5: Unprotected sensitive data in settings
+  - pattern `(rand|mt_rand|array_rand)\\(` – Insecure random number generation. Use random_bytes() or random_int() for cryptographic purposes.
+    - Pattern 6: Insecure random number generation
+  - pattern `'#cache'|'cache'` – Ensure HTTPS is enforced for cached pages containing sensitive information.
+    - Pattern 7: Missing HTTPS enforcement
+  - pattern `(->set|->get)\\('field_[^']*(?:password|ssn|credit|card|secret|key|token|credentials|pwd)[^']*'\\)` – Consider using field encryption for sensitive data fields.
+    - Pattern 8: Missing encryption for content with private information
+  - pattern `session_(start|regenerate_id)` – Avoid custom session handling. Use Drupal's session management services.
+    - Pattern 9: Custom session handling without proper security
+  - pattern `\\$token\\s*=\\s*.*?\\$[^;]+;(?![^;]*expir|[^;]*valid)` – API tokens should include expiration time or rotation mechanism.
+    - Pattern 10: API tokens without expiration or rotation
 
 ## Suggestions
 - Guidance:
-**Drupal Access Control Best Practices:**
+**Drupal Cryptographic Security Best Practices:**
 
-1. **Route Access Controls:**
-   - Always define access requirements in route definitions
-   - Use permission-based access checks: '_permission', '_role', '_entity_access'
-   - Implement custom access checkers implementing AccessInterface
+1. **Secure Data Storage:**
+   - Use Drupal's Key module for storing encryption keys
+   - Store sensitive configuration in environment variables or settings.local.php
+   - Use Drupal's State API for non-configuration sensitive data
+   - Never store plaintext sensitive information in the database
 
-2. **Entity Access Controls:**
-   - Always check entity access: $entity->access('view'|'update'|'delete') 
-   - Use EntityAccessControlHandler for consistent access control
-   - Respect entity field access with $entity->get('field')->access('view'|'edit')
+2. **Encryption and Hashing:**
+   - Use Drupal's password hashing system, which uses password_hash() internally
+   - For non-password data hashing, use SHA-256 or SHA-512
+   - Use the Encrypt module or PHP's openssl_encrypt() with proper algorithms (AES-256-GCM)
+   - Always use proper salting techniques
 
-3. **Controller Security:**
-   - Inject and use proper services rather than \Drupal static calls
-   - Add explicit access checks within controller methods
-   - Use AccessResult methods (allowed, forbidden, neutral) with proper caching metadata
+3. **Communication Security:**
+   - Enforce HTTPS site-wide using settings.php configuration
+   - Use secure cookies (secure, HttpOnly, SameSite)
+   - Implement proper Content-Security-Policy headers
+   - Use TLS 1.2+ for all connections
 
-4. **Service Security:**
-   - Inject AccountProxyInterface rather than calling currentUser() directly
-   - Use dependency injection for access-related services
-   - Implement session-based CSRF protection with form tokens
+4. **API Security:**
+   - Use OAuth or JWT with proper signature verification
+   - Implement token expiration and rotation
+   - Use HMAC for API request signatures when appropriate
+   - Never expose internal encryption keys through APIs
 
-5. **REST/API Security:**
-   - Implement OAuth or proper authentication
-   - Define specific permissions for REST operations
-   - Never rely solely on client-side access control
+5. **Configuration Best Practices:**
+   - Regularly rotate encryption keys and credentials
+   - Implement secure key storage using key management services
+   - Monitor and log cryptographic operations 
+   - Maintain an inventory of cryptographic algorithms in use
 
 ## Validation Checks
 - Conditions:
-  - pattern `AccessResult::(allowed|forbidden|neutral)\\(\\)(?=.*addCacheContexts)` – Access check is properly implemented with cache metadata.
-    - Check 1: Ensuring proper access check implementation
-  - pattern `function hook_entity_access\\([^)]*\\)\\s*\\{[^}]*return AccessResult` – Entity access hook is correctly returning AccessResult.
-    - Check 2: Proper hook_entity_access implementation
-  - pattern `_permission|_role|_access|_entity_access|_custom_access` – Route has proper access controls defined.
-    - Check 3: Properly secured route access
-  - pattern `@RestResource\\(.*,\\s*authentication\\s*=\\s*\\{[^}]+\\}` – REST Resource has authentication configured.
-    - Check 4: Secure REST implementation
+  - pattern `UserInterface::PASSWORD_|password_hash\\(` – Using Drupal's password system correctly.
+    - Check 1: Proper password handling
+  - pattern `random_bytes|random_int|\\\\Drupal::service\\('random'\\)` – Using secure random generation methods.
+    - Check 2: Proper random generation
+  - pattern `getenv\\('|\\$_ENV\\['|\\$_SERVER\\['|settings\\.local\\.php` – Using environment variables or local settings correctly.
+    - Check 3: Secure settings
+  - pattern `openssl_encrypt\\(|\\\\Drupal::service\\('encryption'\\)` – Using proper encryption methods.
+    - Check 4: Proper encryption usage
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-- Tags: security, drupal, access-control, permissions, owasp, language:php, framework:drupal, category:security, subcategory:access-control, standard:owasp-top10, risk:a01-broken-access-control
+- Tags: security, drupal, cryptography, encryption, owasp, language:php, framework:drupal, category:security, subcategory:cryptography, standard:owasp-top10, risk:a02-cryptographic-failures
 ## References
-- https://owasp.org/Top10/A01_2021-Broken_Access_Control/
-- https://www.drupal.org/docs/8/api/routing-system/access-checking-on-routes
-- https://www.drupal.org/docs/8/api/entity-api/entity-access-api
+- https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
+- https://www.drupal.org/docs/security-in-drupal
+- https://www.drupal.org/project/key
+- https://www.drupal.org/project/encrypt
+
+ 
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
