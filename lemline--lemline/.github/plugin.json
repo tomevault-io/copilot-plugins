@@ -1,0 +1,9 @@
+{
+  "name": "lemline--lemline",
+  "displayName": "lemline",
+  "description": "Serverless Workflow DSL runtime for existing infrastructure. Highly efficient, event-driven, with minimal database reliance",
+  "version": "1.0.0",
+  "author": "lemline",
+  "homepage": "https://github.com/lemline/lemline",
+  "skills": []
+}
