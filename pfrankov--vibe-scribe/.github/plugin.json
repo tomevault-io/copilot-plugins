@@ -1,0 +1,9 @@
+{
+  "name": "pfrankov--vibe-scribe",
+  "displayName": "vibe-scribe",
+  "description": "MacOS app for automatic call summarization and transcription, ideal for meetings, interviews, and brainstorming. Boost your productivity with AI-powered summaries and easy export of notes.",
+  "version": "1.0.0",
+  "author": "pfrankov",
+  "homepage": "https://github.com/pfrankov/vibe-scribe",
+  "skills": []
+}
