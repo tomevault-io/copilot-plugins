@@ -1,0 +1,9 @@
+{
+  "name": "publicrust--rust-template",
+  "displayName": "rust-template",
+  "description": "rust-template",
+  "version": "1.0.0",
+  "author": "publicrust",
+  "homepage": "https://github.com/publicrust/rust-template",
+  "skills": []
+}
