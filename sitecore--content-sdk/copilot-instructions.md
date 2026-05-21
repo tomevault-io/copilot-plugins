@@ -1,86 +1,85 @@
-## code-style
+## general
 
-> Code style, error handling, logging, imports, lint/format
+> Core coding principles and universal standards for the Content SDK
 
 
-# Code Style
+# General Coding Principles
 
-## Vibe-Coding Principles
+## Universal Standards
 
-Core Philosophy:
+- DRY Principle
+- SOLID Principles
+- Write self-documenting code with clear intent
+- Use meaningful names that express business concepts
+- Prefer explicit over implicit behavior
+- Make dependencies and requirements obvious
 
-- Write clean, modular, and idiomatic code
-- Prefer declarative over imperative patterns
-- Make code readable and self-documenting
-- TypeScript-first development approach
+## Architecture Patterns
 
-Code Organization:
+Modular Design:
 
-- Use Node LTS
-- Export public types at module boundaries
-- Prefer pure functions and thin wrappers
-- No top-level side effects (except CLI entry)
-- Modular architecture with clear separation of concerns
+- Organize code into focused, cohesive modules
+- Minimize coupling between modules
+- Use clear interfaces between layers
+- Follow established patterns consistently
 
-## Code Quality Standards
+Data Flow:
 
-TypeScript Usage:
+- Prefer unidirectional data flow
+- Validate inputs at system boundaries
+- Transform data at appropriate layers
+- Handle errors close to their source
 
-- Enable strict mode in all projects
-- Prefer explicit types over `any`
-- Use discriminated unions for complex state
-- Export types at module boundaries for reusability
+Testing:
 
-Functional Programming:
+- Write testable code with minimal dependencies
+- Use dependency injection for better testability
+- Mock external services and side effects
+- Test behavior, not implementation details
 
-- Prefer pure functions where possible
-- Use immutable data patterns
-- Avoid side effects in business logic
-- Compose small, focused functions
+## Development Standards
 
-Readability:
+Version Control:
 
-- Use descriptive variable and function names
-- Keep functions small and focused (single responsibility)
-- Add comments for complex business logic only
-- Prefer self-documenting code over extensive comments
+- Write descriptive commit messages
+- Keep commits focused and atomic
+- Use branching strategies appropriate to team size
+- Review code before merging
 
-## Error Handling
+Documentation:
 
-Error Strategy:
+- Document public APIs and interfaces with tsdoc comments
+- Include usage examples for complex functionality
+- Keep documentation close to code
+- Update documentation with code changes
 
-- Fail fast with clear, actionable messages
-- Propagate child-process errors with context
-- Use custom error classes for domain-specific errors
-- Handle edge cases explicitly with guard clauses
+Performance:
 
-Security: See `.cursor/rules/safety.mdc` for input validation, secrets, and API security.
+- Optimize for readability first, performance second
+- Profile before optimizing
+- Cache expensive operations appropriately
+- Consider memory usage and cleanup
 
-## Development Workflow
+## Quality Assurance
 
-Logging:
+Code Review:
 
-- Clear phases and results
-- Support silent flag if available
-- Use appropriate log levels (debug, info, warn, error)
-- Include context in error messages
+- Review for logic, readability, and maintainability
+- Check error handling and edge cases
+- Verify tests cover new functionality
+- Ensure documentation is updated
 
-Imports:
+Continuous Integration:
 
-- Relative for local modules
-- Never import from `dist/`
-- Group imports logically (external, internal, relative)
-- Use barrel exports (index.ts) for clean APIs
-
-Lint and Format:
-
-- Keep ESLint + Prettier passing at all times
-- Follow configured style rules consistently
-- Use automated formatting on save
-- Address linting warnings promptly
+- All tests must pass before merging
+- Linting and formatting checks must pass
+- Build process must complete successfully
+- No breaking changes without proper migration
 
 Referenced:
-@src/common/index.ts
+@packages/create-content-sdk-app/src/common/
+@packages/core/src/
+@eslint.config.mjs
 
 ---
 > Source: [Sitecore/content-sdk](https://github.com/Sitecore/content-sdk) — distributed by [TomeVault](https://tomevault.io).
