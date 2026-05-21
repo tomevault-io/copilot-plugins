@@ -1,0 +1,9 @@
+{
+  "name": "setheliot--eks-demo",
+  "displayName": "eks_demo",
+  "description": "Deploys complete EKS cluster including Persistent Storage, Load Balancer, and demo app",
+  "version": "1.0.0",
+  "author": "setheliot",
+  "homepage": "https://github.com/setheliot/eks_demo",
+  "skills": []
+}
