@@ -1,0 +1,9 @@
+{
+  "name": "proteusllp--proteusllp-actuarial-library",
+  "displayName": "proteusllp-actuarial-library",
+  "description": "An actuarial stochastic modeling library in python.",
+  "version": "1.0.0",
+  "author": "ProteusLLP",
+  "homepage": "https://github.com/ProteusLLP/proteusllp-actuarial-library",
+  "skills": []
+}
