@@ -1,0 +1,44 @@
+{
+  "name": "mcp-alapi-cn",
+  "owner": "ALAPI-SDK",
+  "repo": "mcp-alapi-cn",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e [ALAPI](https://www.alapi.cn) \u7684 MCP (Model Control Protocol) \u670d\u52a1\u5668\u5b9e\u73b0\uff0c\u53ef\u4ee5\u901a\u8fc7MCP\u534f\u8bae\u76f4\u63a5\u8c03\u7528ALAPI\u7684\u63a5\u53e3",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ALAPI-SDK/mcp-alapi-cn",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T03:35:46Z"
+}
