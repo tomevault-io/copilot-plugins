@@ -1,43 +1,38 @@
-## security-practices
+## tailwind-standards
 
-> Security best practices for PHP, JavaScript, and Drupal
+> Tailwind CSS class organization and best practices
 
-# Security Best Practices
+# Tailwind CSS Standards
 
-Ensures application security standards are maintained.
+Ensures consistent and optimized usage of Tailwind CSS classes.
 
 <rule>
-name: security_practices
-description: Enforce security best practices across the application
+name: tailwind_standards
+description: Enforce Tailwind CSS best practices and organization
 filters:
   - type: file_extension
-    pattern: "\\.(php|js|vue|jsx|tsx)$"
+    pattern: "\\.(vue|jsx|tsx|html)$"
 
 actions:
   - type: enforce
     conditions:
-      - pattern: "eval\\("
-        message: "Avoid using eval() - security risk"
+      - pattern: "class=\"[^\"]*\\s{2,}"
+        message: "Remove multiple spaces between Tailwind classes"
 
-      - pattern: "\\$_GET|\\$_POST|\\$_REQUEST"
-        message: "Use Drupal's input sanitization methods"
-
-      - pattern: "innerHTML"
-        message: "Use textContent or sanitize HTML content"
+      - pattern: "class=\"[^\"]*(?:text-\\w+\\s+text-\\w+|bg-\\w+\\s+bg-\\w+)"
+        message: "Avoid conflicting utility classes"
 
   - type: suggest
     message: |
-      Security Best Practices:
-      - Implement CSRF protection
-      - Use prepared statements for queries
-      - Sanitize user input
-      - Implement proper access controls
-      - Follow security updates protocol
-      - Ensure Drupal file permissions are secure (see drupal-file-permissions.mdc)
-      - Use ahoy cli commands instead of direct docker compose exec
+      Tailwind Best Practices:
+      - Group related utilities together
+      - Use @apply for commonly repeated patterns
+      - Follow responsive design patterns
+      - Implement proper dark mode support
+      - Consider extracting components for repeated patterns
 
 metadata:
-  priority: critical
+  priority: medium
   version: 1.0
 </rule> 
 
