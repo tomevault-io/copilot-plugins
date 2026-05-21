@@ -1,0 +1,9 @@
+{
+  "name": "signalwire--docs-legacy",
+  "displayName": "docs-legacy",
+  "description": "The source for the SignalWire Docs website.",
+  "version": "1.0.0",
+  "author": "signalwire",
+  "homepage": "https://github.com/signalwire/docs-legacy",
+  "skills": []
+}
