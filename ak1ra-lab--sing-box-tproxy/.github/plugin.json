@@ -1,0 +1,9 @@
+{
+  "name": "ak1ra-lab--sing-box-tproxy",
+  "displayName": "sing-box-tproxy",
+  "description": "configure sing-box as a transparent proxy with Ansible",
+  "version": "1.0.0",
+  "author": "ak1ra-lab",
+  "homepage": "https://github.com/ak1ra-lab/sing-box-tproxy",
+  "skills": []
+}
