@@ -4,7 +4,7 @@
   "repo": "pyRadPlan",
   "description": "An open-source radiotherapy treatment planning toolkit designed for interoperability with matRad developed @ DKFZ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/e0404/pyRadPlan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T14:51:21Z"
+  "distributed_at": "2026-05-21T03:32:19Z"
 }
