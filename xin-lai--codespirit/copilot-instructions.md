@@ -1,206 +1,344 @@
-## project-structure
+## security
 
-> CodeSpirit 项目结构详细说明 - 完整的项目目录树和组件分类
+> CodeSpirit 安全规范 - 权限系统、审计实体、多租户隔离、数据保护
 
 
-# CodeSpirit 项目结构
+# 安全规范
 
-## 完整目录树
+> 📖 控制器级别的安全特性（`[Authorize]`、`[AllowAnonymous]`、`[NoAudit]`、`[Audit]`）参见 [controller.mdc](mdc:.cursor/rules/controller.mdc)
 
-```
-Src/
-├── ApiServices/                                        # API服务层
-│   ├── CodeSpirit.AiCardsApi/                         # AI卡片API服务
-│   ├── CodeSpirit.ApprovalApi/                        # 审批工作流API服务
-│   ├── CodeSpirit.ConfigCenter/                       # 配置中心API
-│   ├── CodeSpirit.ContentApi/                         # 内容管理API
-│   ├── CodeSpirit.DigitalPartner.Plugins.ExamAnalyst/ # 考试分析插件（AI伙伴工具）
-│   ├── CodeSpirit.ExamApi/                            # 考试系统API
-│   ├── CodeSpirit.FileStorageApi/                     # 文件存储API
-│   ├── CodeSpirit.IdentityApi/                        # 身份认证API
-│   ├── CodeSpirit.MallApi/                            # 商城API
-│   ├── CodeSpirit.MessagingApi/                       # 消息服务API
-│   ├── CodeSpirit.PartnerApi/                         # 伙伴API（AI助手前端）
-│   ├── CodeSpirit.PathfinderAgent/                    # Pathfinder代理（AI目标管理代理）
-│   ├── CodeSpirit.PathfinderApi/                      # Pathfinder API（AI目标管理）
-│   └── CodeSpirit.SurveyApi/                          # 问卷调查API
-├── Components/                                         # 独立组件库
-│   ├── CodeSpirit.Aggregator/                         # 数据聚合器组件
-│   ├── CodeSpirit.AiFormFill/                         # AI表单智能填充组件
-│   ├── CodeSpirit.Amis/                               # AMIS界面生成引擎
-│   ├── CodeSpirit.Audit/                              # 审计追踪组件（含LLM审计）
-│   ├── CodeSpirit.Authorization/                      # 权限管理组件（RBAC+ABAC）
-│   ├── CodeSpirit.Caching/                            # 分布式缓存组件（多级缓存+分布式锁）
-│   ├── CodeSpirit.Charts/                             # 智能图表组件
-│   ├── CodeSpirit.ConfigCenter.Client/                # 配置中心客户端
-│   ├── CodeSpirit.LLM/                                # 大语言模型集成组件
-│   ├── CodeSpirit.Localization/                       # 多语言本地化组件
-│   ├── CodeSpirit.Messaging/                          # 消息队列组件
-│   ├── CodeSpirit.MultiTenant/                        # 多租户组件
-│   ├── CodeSpirit.Navigation/                         # 导航组件
-│   ├── CodeSpirit.OData/                              # OData查询组件
-│   ├── CodeSpirit.PartnerSdk/                         # 伙伴SDK（AI助手工具SDK）
-│   ├── CodeSpirit.PathfinderTools/                    # Pathfinder工具库
-│   ├── CodeSpirit.PdfGeneration/                      # PDF生成组件
-│   ├── CodeSpirit.ScheduledTasks/                     # 定时任务组件（分布式调度）
-│   ├── CodeSpirit.Settings/                           # 设置管理组件
-│   ├── CodeSpirit.Shared/                             # 组件共享库
-│   ├── CodeSpirit.UdlCards/                           # UDL卡片组件
-│   └── CodeSpirit.VectorSearch/                       # 向量搜索组件（AI语义搜索）
-├── CodeSpirit.AppHost/                                 # Aspire应用宿主（启动项目）
-├── CodeSpirit.Core/                                    # 核心框架定义
-├── CodeSpirit.ServiceDefaults/                         # 服务默认配置
-├── CodeSpirit.Shared/                                  # 全局共享库
-└── CodeSpirit.Web/                                     # Web前端项目
-```
+## 权限系统架构
 
-## 项目分类说明
+### 权限代码格式
 
-### API服务层 (14个服务)
-
-**注意**: 项目数量可能随开发进度变化，此处列出当前主要服务。
-
-#### 核心业务系统
-- **IdentityApi**: JWT认证、用户管理、角色权限、部门组织
-- **ExamApi**: 题库管理、考试系统、阅卷、统计分析
-- **SurveyApi**: 问卷设计、数据收集、统计分析
-- **ApprovalApi**: 审批流程、表单流转、工作流引擎
-
-#### AI 增强系统
-- **AiCardsApi**: AI卡片、智能生成
-- **PartnerApi**: AI伙伴对话前端
-- **DigitalPartner.Plugins.ExamAnalyst**: 考试分析AI插件
-- **PathfinderApi**: AI驱动的目标管理系统
-- **PathfinderAgent**: Pathfinder智能代理
-
-#### 基础设施服务
-- **ConfigCenter**: 配置中心、动态配置管理
-- **FileStorageApi**: 文件存储、引用计数、生命周期管理
-- **MessagingApi**: 消息服务、通知推送
-- **ContentApi**: 内容管理
-- **MallApi**: 商城系统
-
-### 核心组件库 (多个组件)
-
-**注意**: 组件数量可能随开发进度变化，此处列出主要组件。
-
-#### 界面生成
-- **Amis**: 零前端代码CRUD界面生成引擎
-- **UdlCards**: UDL卡片组件库
-- **Navigation**: 智能导航组件
-
-#### AI 集成
-- **LLM**: 大语言模型统一接口（OpenAI、通义千问、DeepSeek）
-- **AiFormFill**: AI表单智能填充组件
-- **VectorSearch**: 向量搜索、AI语义搜索
-- **PartnerSdk**: AI助手工具开发SDK
-- **PathfinderTools**: Pathfinder工具库
-
-#### 权限审计
-- **Authorization**: RBAC+ABAC混合权限模型
-- **Audit**: 审计追踪组件（含LLM审计）
-
-#### 多租户
-- **MultiTenant**: 多租户数据隔离
-- **Localization**: 多语言本地化
-
-#### 性能优化
-- **Caching**: 多级缓存（L1内存+L2Redis）、分布式锁
-- **ScheduledTasks**: 分布式定时任务调度
-
-#### 数据处理
-- **Aggregator**: 数据聚合器、字段替换
-- **Charts**: 智能图表、可视化
-- **OData**: OData查询支持
-
-#### 基础设施
-- **Settings**: 设置管理组件
-- **PdfGeneration**: PDF生成服务
-- **ConfigCenter.Client**: 配置中心客户端
-- **Messaging**: 消息队列、事件总线
-- **Shared**: 组件共享库
-
-## 典型API项目结构
+权限代码由系统自动生成，格式为：`{module}_{controller}_{action}`
 
 ```
-CodeSpirit.ExamApi/
-├── Configuration/              # API配置类
-│   └── ExamApiConfiguration.cs
-├── Controllers/                # API控制器
-│   ├── QuestionsController.cs
-│   └── ExamsController.cs
-├── Data/                       # 数据访问层
-│   ├── ExamDbContext.cs
-│   ├── MySqlExamDbContext.cs
-│   ├── SqlServerExamDbContext.cs
-│   └── Configurations/         # 实体配置
-├── Dtos/                       # 数据传输对象
-│   ├── Question/
-│   │   ├── CreateQuestionDto.cs
-│   │   ├── UpdateQuestionDto.cs
-│   │   └── QuestionDto.cs
-│   └── Exam/
-├── Services/                   # 业务服务
-│   ├── IQuestionService.cs
-│   └── QuestionService.cs
-├── MappingProfiles/            # AutoMapper配置
-├── Resources/                  # 多语言资源
-│   ├── ExamDisplayResources.cs
-│   ├── ExamDisplay.resx
-│   └── ExamDisplay.en.resx
-├── Migrations/                 # 数据库迁移
-│   ├── MySql/
-│   └── SqlServer/
-└── Program.cs                  # 启动文件（仅2行代码）
+exam_questions_getList         // 考试模块-题目控制器-获取列表
+identity_users_create          // 身份模块-用户控制器-创建
 ```
 
-## 开发流程
+### PermissionAttribute 特性
 
-### 新建 API 服务
-1. 创建项目并引用 `CodeSpirit.Shared`
-2. 创建 `Configuration/{ApiName}Configuration.cs` 继承 `BaseApiConfiguration`
-3. `Program.cs` 中使用统一启动框架（2行代码）
-4. 创建 DbContext、实体、配置
-5. 创建迁移（MySql 和 SqlServer）
+用于自定义权限名称、描述和继承关系：
 
-### 开发 CRUD 功能
-1. 定义实体（Entity）
-2. 创建 DTO（Create/Update/Query/List）
-3. 实现服务（Service）继承 `BaseCRUDService`
-4. 创建控制器（Controller）继承 `ApiControllerBase`
-5. 添加 AutoMapper 配置
-6. 前端自动生成（零前端代码）
+```csharp
+using CodeSpirit.Core.Attributes;
 
-### 添加多语言
-1. 在 `Resources/` 创建资源文件
-2. DTO 使用 `[Display(ResourceType = typeof(...))]`
-3. 验证使用 `ErrorMessageResourceType`
-4. 异常使用资源键 `throw new BusinessException("Errors.NotFound")`
+[HttpPut("{id}")]
+[Permission(
+    Name = "exam_questions_update",        // 自定义权限代码
+    DisplayName = "更新题目",               // 显示名称
+    Description = "允许更新题目内容",        // 权限描述
+    Parent = "exam_questions",              // 父级权限
+    AllowInheritedPermissions = new[] { "exam_questions_manage" }  // 继承权限
+)]
+[DisplayName("更新题目")]
+public async Task<ActionResult<ApiResponse<QuestionDto>>> Update(
+    long id, [FromBody] UpdateQuestionDto dto)
+{
+    // 拥有 exam_questions_manage 权限的用户也可以执行此操作
+}
+```
 
-## 技术栈对应
+### 权限继承机制
 
-| 功能 | 技术选型 | 对应组件 |
-|------|---------|---------|
-| API开发 | .NET 10 + Aspire | ServiceDefaults, Core |
-| 数据访问 | EF Core 9 | Shared (BaseCRUDService) |
-| 数据库 | MySQL/SQL Server | 多数据库迁移支持 |
-| 缓存 | Redis | Caching 组件 |
-| 消息队列 | RabbitMQ | Messaging 组件 |
-| 权限 | RBAC+ABAC | Authorization 组件 |
-| 审计 | Elasticsearch/GreptimeDB | Audit 组件 |
-| 多租户 | 数据隔离 | MultiTenant 组件 |
-| 多语言 | Resx资源文件 | Localization 组件 |
-| 前端生成 | AMIS | Amis 组件 |
-| AI集成 | OpenAI/通义千问/DeepSeek | LLM, AiFormFill 组件 |
-| 定时任务 | 分布式调度 | ScheduledTasks 组件 |
+`AllowInheritedPermissions` 允许配置权限继承，用户拥有任一继承权限时可访问当前接口：
 
-## 参考文档
+```csharp
+// 方法级别继承
+[Permission(AllowInheritedPermissions = new[] { "Question.Manage", "Question.Admin" })]
+public async Task<ActionResult> UpdateQuestion(long id) { }
+```
 
-详细的开发指南请参考：
-- [命名约定规范](mdc:.cursor/rules/naming-conventions.mdc)
-- [API设计规范](mdc:.cursor/rules/api-design.mdc)
-- [统一启动框架](mdc:.cursor/rules/startup-framework.mdc)
-- [依赖注入规范](mdc:.cursor/rules/dependency-injection.mdc)
+### IHasPermissionService
+
+服务层权限检查：
+
+```csharp
+public class QuestionService : IScopedDependency
+{
+    private readonly IHasPermissionService _permissionService;
+
+    public QuestionService(IHasPermissionService permissionService)
+    {
+        _permissionService = permissionService;
+    }
+
+    public async Task<bool> CanManageQuestionAsync()
+    {
+        // 检查用户是否拥有指定权限
+        return _permissionService.HasPermission("exam_questions_manage");
+    }
+    
+    public async Task<bool> CanAccessModuleAsync()
+    {
+        // 检查导航权限（仅检查一二级权限）
+        return _permissionService.HasNavigationPermission("exam_questions");
+    }
+}
+```
+
+## 审计实体
+
+### AuditableEntityBase
+
+实体继承 `AuditableEntityBase<TKey>` 自动记录审计信息：
+
+```csharp
+using CodeSpirit.Shared.Entities;
+
+public class Question : AuditableEntityBase<long>, IMultiTenant
+{
+    // 自动记录以下字段（由框架自动填充）：
+    // - CreatedBy (long)      创建人ID
+    // - CreatedAt (DateTime)  创建时间
+    // - UpdatedBy (long?)     更新人ID
+    // - UpdatedAt (DateTime?) 更新时间
+    // - IsDeleted (bool)      软删除标记
+    // - DeletedBy (long?)     删除人ID
+    // - DeletedAt (DateTime?) 删除时间
+    
+    public string Content { get; set; } = string.Empty;
+    public string TenantId { get; set; } = string.Empty;  // 多租户支持
+}
+```
+
+### 实体审计接口
+
+| 接口 | 说明 | 包含字段 |
+|-----|------|---------|
+| `ICreatable` | 创建审计 | `CreatedBy`, `CreatedAt` |
+| `IUpdatable` | 更新审计 | `UpdatedBy`, `UpdatedAt` |
+| `ISoftDelete` | 软删除 | `IsDeleted`, `DeletedBy`, `DeletedAt` |
+| `IFullAuditable` | 完整审计 | 以上全部 |
+
+## 多租户数据隔离
+
+### IMultiTenant 接口
+
+实体实现 `IMultiTenant` 接口，自动应用租户数据过滤：
+
+```csharp
+using CodeSpirit.Core;
+
+public class Question : AuditableEntityBase<long>, IMultiTenant
+{
+    public string TenantId { get; set; } = string.Empty;  // 注意：类型为 string
+    public string Content { get; set; } = string.Empty;
+}
+```
+
+### 租户过滤行为
+
+```csharp
+// 查询时自动应用租户过滤器，无需手动添加 Where 条件
+public async Task<List<QuestionDto>> GetListAsync()
+{
+    var entities = await _dbContext.Questions
+        .ToListAsync();  // ✅ 自动过滤当前租户的数据
+    return _mapper.Map<List<QuestionDto>>(entities);
+}
+
+// ❌ 禁止：手动添加租户过滤（除非明确需要跨租户查询）
+public async Task<List<QuestionDto>> GetListAsync()
+{
+    var entities = await _dbContext.Questions
+        .Where(q => q.TenantId == _currentTenant.Id)  // 不需要
+        .ToListAsync();
+}
+```
+
+## 数据保护
+
+### 排除敏感字段
+
+DTO 中排除不应返回给客户端的字段：
+
+```csharp
+using Newtonsoft.Json;
+using CodeSpirit.Amis.Attributes.Columns;
+
+public class UserDto
+{
+    public long Id { get; set; }
+    public string Username { get; set; } = string.Empty;
+    
+    [JsonIgnore]  // 不在 API 响应中返回
+    public string PasswordHash { get; set; } = string.Empty;
+    
+    [IgnoreColumn]  // 不在列表表格中显示
+    public string InternalNote { get; set; } = string.Empty;
+}
+```
+
+### 密码安全存储
+
+密码必须使用哈希存储，禁止明文：
+
+```csharp
+// ✅ 正确：存储密码哈希
+user.PasswordHash = _passwordHasher.HashPassword(user, password);
+
+// ❌ 禁止：明文存储密码
+user.Password = password;
+```
+
+## SQL 注入防护
+
+使用 EF Core 参数化查询（默认安全）：
+
+```csharp
+// ✅ 安全：EF Core 自动参数化
+public async Task<Question?> GetByCodeAsync(string code)
+{
+    return await _dbContext.Questions
+        .FirstOrDefaultAsync(q => q.Code == code);
+}
+
+// ✅ 安全：使用参数化 SQL
+public async Task<List<Question>> SearchAsync(string keyword)
+{
+    return await _dbContext.Questions
+        .FromSqlInterpolated($"SELECT * FROM Questions WHERE Content LIKE {$"%{keyword}%"}")
+        .ToListAsync();
+}
+
+// ❌ 危险：字符串拼接（禁止）
+public async Task<Question?> GetByCodeAsync(string code)
+{
+    var sql = $"SELECT * FROM Questions WHERE Code = '{code}'";  // SQL 注入风险！
+    return await _dbContext.Questions.FromSqlRaw(sql).FirstOrDefaultAsync();
+}
+```
+
+## 日志安全
+
+### 敏感信息脱敏
+
+日志中禁止记录敏感信息：
+
+```csharp
+// ✅ 安全：只记录必要信息
+_logger.LogInformation("用户登录: {Username}, IP: {IpAddress}", 
+    username, 
+    ipAddress);
+
+// ✅ 安全：使用脱敏字符串
+_logger.LogInformation("API密钥验证: {MaskedKey}", 
+    $"{apiKey[..4]}****{apiKey[^4..]}");
+
+// ❌ 危险：记录密码（禁止）
+_logger.LogInformation("用户登录: {Username}, Password: {Password}", 
+    username, password);
+
+// ❌ 危险：记录完整 Token（禁止）
+_logger.LogInformation("Token: {Token}", token);
+```
+
+### 异常日志处理
+
+```csharp
+try
+{
+    await _service.ProcessAsync(data);
+}
+catch (Exception ex)
+{
+    // ✅ 记录异常但不暴露敏感上下文
+    _logger.LogError(ex, "处理数据失败: EntityId={EntityId}", data.Id);
+    throw;  // 重新抛出，由统一异常处理器处理
+}
+```
+
+## CORS 配置
+
+框架统一配置 CORS，API 项目无需单独配置：
+
+```csharp
+// CommonApiServiceExtensions 已配置
+app.UseCors("AllowSpecificOriginsWithCredentials");
+```
+
+自定义配置（仅在特殊需求时）：
+
+```csharp
+// appsettings.json
+{
+  "Cors": {
+    "AllowedOrigins": ["https://yourdomain.com"],
+    "AllowCredentials": true
+  }
+}
+```
+
+## CSRF/XSS 防护
+
+- **CSRF**: API 使用 JWT 认证，天然防御 CSRF 攻击
+- **XSS**: AMIS 框架自动转义输出，后端无需手动处理
+
+## 安全配置
+
+### JWT 配置
+
+```json
+{
+  "Jwt": {
+    "SecretKey": "your-secret-key-at-least-32-characters",
+    "Issuer": "CodeSpirit",
+    "Audience": "CodeSpirit",
+    "ExpireMinutes": 120,
+    "RefreshExpireMinutes": 10080
+  }
+}
+```
+
+### 审计配置
+
+```json
+{
+  "Audit": {
+    "Enabled": true,
+    "LogRequestParams": true,
+    "LogResponseData": false,
+    "SensitiveData": {
+      "Enabled": true,
+      "SensitiveFieldPatterns": ["password", "token", "apiKey", "secret"],
+      "ExcludedFields": ["password", "newPassword", "confirmPassword"]
+    }
+  }
+}
+```
+
+## 禁止事项
+
+| 禁止 | 原因 | 正确做法 |
+|-----|------|---------|
+| 明文存储密码 | 安全风险 | 使用密码哈希 |
+| SQL 字符串拼接 | SQL 注入风险 | EF Core 参数化查询 |
+| 日志记录密码/Token | 信息泄露 | 只记录必要标识信息 |
+| 手动租户过滤 | 可能遗漏 | 使用 `IMultiTenant` 自动过滤 |
+| DTO 返回密码字段 | 信息泄露 | 使用 `[JsonIgnore]` 排除 |
+
+## 安全检查清单
+
+- [ ] 实体继承 `AuditableEntityBase` 实现自动审计
+- [ ] 多租户实体实现 `IMultiTenant` 接口
+- [ ] DTO 中使用 `[JsonIgnore]` 排除敏感字段
+- [ ] 密码使用哈希存储
+- [ ] 数据库查询使用 EF Core 参数化（避免 `FromSqlRaw` 拼接）
+- [ ] 日志中不记录密码、Token 等敏感信息
+- [ ] 敏感操作配置权限检查
+- [ ] 定期审查权限配置和审计日志
+
+## 参考文件
+
+- 权限特性: [PermissionAttribute.cs](mdc:Src/CodeSpirit.Core/Attributes/PermissionAttribute.cs)
+- 权限服务: [IHasPermissionService.cs](mdc:Src/CodeSpirit.Core/Authorization/IHasPermissionService.cs)
+- 审计实体基类: [AuditableEntityBase.cs](mdc:Src/CodeSpirit.Shared/Entities/AuditableEntityBase.cs)
+- 多租户接口: [IMultiTenant.cs](mdc:Src/CodeSpirit.Core/IMultiTenant.cs)
+- 审计组件: [CodeSpirit.Audit/README.md](mdc:Src/Components/CodeSpirit.Audit/README.md)
+- 控制器规范: [controller.mdc](mdc:.cursor/rules/controller.mdc)
 
 ---
 > Source: [xin-lai/CodeSpirit](https://github.com/xin-lai/CodeSpirit) — distributed by [TomeVault](https://tomevault.io).
