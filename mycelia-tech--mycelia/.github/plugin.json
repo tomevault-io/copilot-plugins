@@ -1,0 +1,14 @@
+{
+  "name": "mycelia-tech--mycelia",
+  "displayName": "mycelia",
+  "description": "Privacy-First AI Memory ",
+  "version": "1.0.0",
+  "author": "mycelia-tech",
+  "homepage": "https://github.com/mycelia-tech/mycelia",
+  "skills": [
+    {
+      "name": "post-change-checks",
+      "description": ""
+    }
+  ]
+}
