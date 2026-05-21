@@ -1,0 +1,18 @@
+{
+  "name": "balintbrews--canvas-starter",
+  "displayName": "canvas-starter",
+  "description": "Get the latest experimental features for Drupal Canvas Code Components with this template repository for Drupal Canvas Create.",
+  "version": "1.0.0",
+  "author": "balintbrews",
+  "homepage": "https://github.com/balintbrews/canvas-starter",
+  "skills": [
+    {
+      "name": "canvas-component-definition",
+      "description": ""
+    },
+    {
+      "name": "canvas-styling-conventions",
+      "description": ""
+    }
+  ]
+}
