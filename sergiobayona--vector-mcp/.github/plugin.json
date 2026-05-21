@@ -1,0 +1,9 @@
+{
+  "name": "sergiobayona--vector-mcp",
+  "displayName": "vector_mcp",
+  "description": "A server implementation for the Model Context Protocol (MCP) in Ruby.",
+  "version": "1.0.0",
+  "author": "sergiobayona",
+  "homepage": "https://github.com/sergiobayona/vector_mcp",
+  "skills": []
+}
