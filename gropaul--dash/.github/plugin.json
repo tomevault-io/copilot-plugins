@@ -1,0 +1,9 @@
+{
+  "name": "gropaul--dash",
+  "displayName": "dash",
+  "description": "Local GUI and Data Canvas as a DuckDB extension",
+  "version": "1.0.0",
+  "author": "gropaul",
+  "homepage": "https://github.com/gropaul/dash",
+  "skills": []
+}
