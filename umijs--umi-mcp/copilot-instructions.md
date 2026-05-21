@@ -1,37 +1,18 @@
-## project-structure
+## test
 
-> - `src/`: Source code for the project
+> Rules for test files
 
-# Project Structure Overview
 
-## Main Directories
-- `src/`: Source code for the project
-  - `src/tools/`: Individual MCP tools implementation
-  - `src/cli.ts`: CLI entry point
-  - `src/index.ts`: Library exports
-- `fixtures/`: Test fixtures for development
-- `dist/`: Build output
-- `.cursor/`: Cursor configuration and rules
+# Test Guidelines
 
-## Key Files
-- `src/cli.ts`: [CLI entry point](mdc:src/cli.ts)
-- `src/index.ts`: [Library exports](mdc:src/index.ts)
-- `src/types.ts`: [Type definitions](mdc:src/types.ts)
-- `src/parse.ts`: [Command parsing logic](mdc:src/parse.ts)
-
-## MCP Tools
-- Config tools: `umi-config-list`, `umi-config-get`, `umi-config-set`, `umi-config-remove`
-- Data tools: `umi-route-list`, `umi-appdata-list`, `umi-plugin-list`, `umi-version`
-- Generator tools: `umi-generate-page` and other generators
-- Build tools: `umi-build`, `umi-setup`, `umi-lint`
-- Information tools: `umi-help`, `umi-changelog`, `umi-deadcode`
-
-## Development Workflow
-1. Implement a new tool in `src/tools/`
-2. Export the tool in `src/index.ts`
-3. Test with `pnpm dev` or `tsx ./src/cli.ts fixtures/normal`
-4. Write tests in a matching `.test.ts` file
-5. Build with `pnpm build`
+- Use Vitest for testing: `pnpm test` or `vitest run`
+- Use `test()` instead of `describe()` + `it()` for test cases
+- Test files should be named with the `.test.ts` extension
+- Place test files next to the files they test
+- Use the `expect()` API for assertions
+- Test coverage should be comprehensive for all tools
+- Mock external dependencies like file system operations and CLI commands
+- For testing MCP tools, ensure proper validation of input/output schemas
 
 ---
 > Source: [umijs/umi-mcp](https://github.com/umijs/umi-mcp) — distributed by [TomeVault](https://tomevault.io).
