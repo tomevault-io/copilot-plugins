@@ -1,371 +1,42 @@
-## webflow-integration
+## webflow-mcp
 
-> Webflow Designer detection (handleEditor) and editor vs published behavior. Use when disabling features in Designer or handling editor mode.
+> How to effectively use the Webflow MCP in Cursor. Use when calling Webflow MCP tools, CMS, Designer, sites, or data-modules.
 
-# Webflow Integration Rules
 
-## Editor Detection
+# Webflow MCP usage
 
-```typescript
-import { handleEditor } from "@webflow/detect-editor";
+## Before calling tools
 
-// Basic editor detection
-handleEditor((isEditor) => {
-  if (isEditor) {
-    console.log("Webflow editor is active");
-    // Disable custom features
-  } else {
-    console.log("Published site mode");
-    // Enable custom features
-  }
-});
-```
+- **Never assume site or collection IDs.** Use the Sites (or CMS) tools to list sites/collections and use the returned IDs. If the user didn't specify a site, list sites and ask which one.
+- **Designer API needs Designer + Bridge:** Elements, styles, assets, variables, and Designer page tools only work when the Webflow Designer is open and the **Webflow MCP Bridge App** is open and connected. For design/canvas tasks, remind the user if needed.
+- **Designer element builder:** Max **3 levels** of nesting. Build complex layouts in steps or multiple calls.
 
-## Component Integration
+## When using tools
 
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isEditorMode = false;
+- **Context:** Every Webflow MCP tool requires a `context` string: 15–25 words, third-person, describing why the tool is being called (e.g. "Listing sites to resolve site ID for CMS collection lookup").
+- **Styles:** Use long-form CSS property names (e.g. `margin-top`, `grid-row-gap`) as required by the Designer style tool.
+- **CMS:** Provide required fields and `name`/`slug` when creating or updating items. Get collection details first if the schema is unknown.
+- **Publishing:** Data API changes are draft until published. Use the publish tool only after confirming with the user.
 
-  // Detect editor mode
-  handleEditor((isEditor) => {
-    isEditorMode = isEditor;
+## Effective patterns
 
-    if (isEditor) {
-      // Editor-specific behavior
-      element.style.pointerEvents = "none";
-      element.classList.add("editor-mode");
-    } else {
-      // Published site behavior
-      element.style.pointerEvents = "auto";
-      element.classList.remove("editor-mode");
-    }
-  });
+- **Bulk CMS:** List items (paginate if needed) → get collection schema → validate required fields/slugs → create/update in batches; offer preview before large updates.
+- **Audits:** Use Sites → Pages (and Collections/Items) to analyze links, alt text, meta descriptions; then suggest fixes.
+- **Safe publish:** List what would be published, confirm with user, then publish.
+- **Designer work:** Confirm page and selection → use element builder (≤3 levels) → apply styles with long-form properties; split complex layouts into steps.
 
-  // Conditional functionality
-  if (!isEditorMode) {
-    // Only run custom animations in published mode
-    const observer = onView(element, {
-      callback: ({ isIn }) => {
-        if (isIn) {
-          element.classList.add("animated");
-        }
-      },
-    });
+## Data-modules: read HTML/CSS structure first
 
-    onDestroy(() => observer.destroy());
-  }
-}
-```
+- **Never guess the DOM.** Before writing or editing any data-module (or DOM-targeting script), fetch the real structure from Webflow.
+- **Where to read structure:**
+  - **Data API → get_page_content(page_id):** Use when you have a page_id (from list pages). No Designer needed. Gives page content/structure for that page.
+  - **Designer → get_all_elements:** When Designer + Bridge are open. Use `include_style_properties: false` and `include_all_breakpoint_styles: false` when only structure/classes/IDs are needed (avoids context overflow). Use `true` only when CSS is needed for the implementation.
+  - **Designer → get_selected_element:** When the user has selected the container or relevant element; use for that subtree.
+- **Use what you get:** Derive selectors and data-module placement from the returned nodes. Prefer `data-module` (and data-attributes for options) for hooking behavior.
+- **Adding data-module:** Use element_tool **add_or_update_attribute** only if the element has `canHaveAttributes: true`; otherwise tell the user where to add it in the Designer.
+- **Implement flow:** Resolve page → get_page_content or get_all_elements/get_selected_element → summarize wrapper, classes, IDs, nesting → write JS that matches that structure → add data-module attribute (or instruct user) → register script via Custom Code/Scripts.
 
-## Scroll System Integration
-
-```typescript
-import { handleEditor } from "@webflow/detect-editor";
-import { Scroll } from "@lib/scroll";
-
-// Automatic scroll system management
-handleEditor((isEditor) => {
-  if (isEditor) {
-    // Disable smooth scrolling in editor
-    Scroll.destroy();
-  } else {
-    // Enable smooth scrolling in published site
-    Scroll.start();
-  }
-});
-```
-
-## Advanced Integration
-
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isEditorMode = false;
-  let scrollUnsubscribe: (() => void) | null = null;
-  let observer: any = null;
-
-  // Editor detection with full feature management
-  handleEditor((isEditor) => {
-    isEditorMode = isEditor;
-
-    if (isEditor) {
-      // Clean up published mode features
-      scrollUnsubscribe?.();
-      observer?.destroy();
-
-      // Editor mode setup
-      element.classList.add("editor-mode");
-      element.style.transform = "none"; // Reset any transforms
-    } else {
-      // Published mode setup
-      element.classList.remove("editor-mode");
-
-      // Enable scroll-based animations
-      scrollUnsubscribe = Scroll.add(({ progress }) => {
-        element.style.transform = `translateY(${progress * 50}px)`;
-      });
-
-      // Enable viewport animations
-      observer = onView(element, {
-        callback: ({ isIn }) => {
-          element.classList.toggle("in-view", isIn);
-        },
-      });
-    }
-  });
-
-  // Clean up on destroy
-  onDestroy(() => {
-    scrollUnsubscribe?.();
-    observer?.destroy();
-  });
-}
-```
-
-## Animation Management
-
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isEditorMode = false;
-  let animations: any[] = [];
-
-  handleEditor((isEditor) => {
-    isEditorMode = isEditor;
-
-    if (isEditor) {
-      // Disable all animations in editor
-      animations.forEach((animation) => animation.kill());
-      animations = [];
-
-      // Show static state
-      element.style.opacity = "1";
-      element.style.transform = "none";
-    } else {
-      // Enable animations in published mode
-      setupAnimations();
-    }
-  });
-
-  function setupAnimations() {
-    // Page entrance animation
-    onPageIn(async () => {
-      const animation = gsap.fromTo(
-        element,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.6 }
-      );
-      animations.push(animation);
-    });
-
-    // Scroll-based animation
-    const scrollAnimation = onTrack(element, {
-      bounds: [0, 1],
-      callback: (value) => {
-        element.style.setProperty("--scroll-progress", value.toString());
-      },
-    });
-
-    onDestroy(() => {
-      scrollAnimation.destroy();
-    });
-  }
-}
-```
-
-## Lifecycle Integration
-
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isEditorMode = false;
-  let subscriptions: (() => void)[] = [];
-  let observers: any[] = [];
-
-  // Webflow editor detection
-  handleEditor((isEditor) => {
-    isEditorMode = isEditor;
-
-    if (isEditor) {
-      // Clean up published mode features
-      subscriptions.forEach((unsubscribe) => unsubscribe());
-      observers.forEach((observer) => observer.destroy());
-      subscriptions = [];
-      observers = [];
-
-      // Editor mode setup
-      element.classList.add("editor-mode");
-    } else {
-      // Published mode setup
-      element.classList.remove("editor-mode");
-      setupFeatures();
-    }
-  });
-
-  function setupFeatures() {
-    // Viewport observer
-    const observer = onView(element, {
-      threshold: 0.1,
-      callback: ({ isIn }) => {
-        element.classList.toggle("in-view", isIn);
-      },
-    });
-    observers.push(observer);
-
-    // Scroll tracking
-    const track = onTrack(element, {
-      bounds: [0, 1],
-      callback: (value) => {
-        element.style.setProperty("--scroll-progress", value.toString());
-      },
-    });
-    observers.push(track);
-
-    // Subscriptions
-    subscriptions.push(
-      Raf.add(({ time }) => {
-        if (element.classList.contains("in-view")) {
-          element.style.transform = `translateY(${Math.sin(time) * 5}px)`;
-        }
-      }),
-      Resize.add(({ width }) => {
-        element.style.fontSize = width < 768 ? "14px" : "18px";
-      }),
-      Scroll.add(({ progress }) => {
-        element.style.setProperty("--global-scroll", progress.toString());
-      })
-    );
-  }
-
-  // Lifecycle hooks
-  onMount(() => {
-    if (!isEditorMode) {
-      setupFeatures();
-    }
-  });
-
-  onPageIn(async () => {
-    if (!isEditorMode) {
-      await gsap.to(element, {
-        duration: 0.5,
-        opacity: 1,
-        y: 0,
-        ease: "power2.out",
-      });
-    }
-  });
-
-  onPageOut(
-    async () => {
-      if (!isEditorMode) {
-        await gsap.to(element, {
-          duration: 0.3,
-          opacity: 0,
-          y: -20,
-          ease: "power2.in",
-        });
-      }
-    },
-    { element }
-  );
-
-  onDestroy(() => {
-    subscriptions.forEach((unsubscribe) => unsubscribe());
-    observers.forEach((observer) => observer.destroy());
-  });
-}
-```
-
-## Performance Optimization
-
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  let isEditorMode = false;
-  let isActive = false;
-
-  handleEditor((isEditor) => {
-    isEditorMode = isEditor;
-
-    if (isEditor) {
-      // Disable all features for performance
-      isActive = false;
-      element.style.pointerEvents = "none";
-    } else {
-      // Enable features in published mode
-      isActive = true;
-      element.style.pointerEvents = "auto";
-    }
-  });
-
-  // Conditional feature usage
-  const rafUnsubscribe = Raf.add(({ time }) => {
-    if (!isActive || isEditorMode) return;
-
-    element.style.transform = `translateY(${Math.sin(time) * 10}px)`;
-  });
-
-  onDestroy(() => {
-    rafUnsubscribe();
-  });
-}
-```
-
-## Debug Mode
-
-```typescript
-// Enable debug logging
-handleEditor((isEditor) => {
-  console.log("Editor mode changed:", isEditor);
-
-  if (isEditor) {
-    console.log("Editor mode detected - disabling custom features");
-  } else {
-    console.log("Published mode detected - enabling custom features");
-  }
-});
-```
-
-## Testing
-
-```typescript
-// Test editor detection
-const testEditorDetection = () => {
-  const isEditor = document.body.firstElementChild?.classList.contains(
-    "w-editor-publish-node"
-  );
-  console.log("Editor detection test:", isEditor);
-  return isEditor;
-};
-
-// Test feature integration
-const testFeatureIntegration = () => {
-  const isEditor = testEditorDetection();
-
-  if (isEditor) {
-    console.log("Features should be disabled");
-  } else {
-    console.log("Features should be enabled");
-  }
-};
-```
-
-## Best Practices
-
-- Always handle editor mode in components
-- Disable heavy features in editor mode
-- Show static state in editor mode
-- Enable full features in published mode
-- Test in both editor and published modes
-- Provide graceful fallbacks for all features
-- Monitor performance in both modes
-- Use appropriate logging for each mode
-- Clean up features when switching modes
-- Handle mode changes reactively
-- Optimize for editor performance
-- Ensure smooth user experience in published mode
-  description:
-  globs:
-  alwaysApply: false
-
----
+Reference: [Webflow MCP – How it works](https://developers.webflow.com/mcp/reference/how-it-works). Full rules and skills: `docs/webflow-mcp-cursor.md`.
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
