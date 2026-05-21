@@ -1,0 +1,9 @@
+{
+  "name": "project-kiri--kiri-friends",
+  "displayName": "Kiri-Friends",
+  "description": "A bidirectional watchOS companion for Claude, OpenCode, and Codex CLI.",
+  "version": "1.0.0",
+  "author": "Project-Kiri",
+  "homepage": "https://github.com/Project-Kiri/Kiri-Friends",
+  "skills": []
+}
