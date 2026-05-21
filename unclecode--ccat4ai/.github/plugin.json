@@ -1,0 +1,9 @@
+{
+  "name": "unclecode--ccat4ai",
+  "displayName": "ccat4ai",
+  "description": "Fast, simple tool to concatenate Git repositories into single files for LLM analysis",
+  "version": "1.0.0",
+  "author": "unclecode",
+  "homepage": "https://github.com/unclecode/ccat4ai",
+  "skills": []
+}
