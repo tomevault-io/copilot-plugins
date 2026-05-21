@@ -1,0 +1,369 @@
+## pyrevitdev
+
+> Organizing your PyRevit extension code is crucial for maintainability. PyRevit provides an **extension** architecture that encourages modular code separation. Follow these guidelines:
+
+# PyRevit Development Best Practices
+
+## 1. Code Structure
+
+Organizing your PyRevit extension code is crucial for maintainability. PyRevit provides an **extension** architecture that encourages modular code separation. Follow these guidelines:
+
+- **Use Extensions (Don’t Modify Core)**  
+  Keep your scripts in a separate `.extension` folder rather than altering the core pyRevit tools. This ensures your custom scripts remain safe from pyRevit updates and can be shared independently.
+
+- **Bundle Commands Properly**  
+  Structure each tool as a command bundle (a folder ending in `.pushbutton`). Inside that, include a `script.py` (and optionally a `config.py` for additional options). This bundle approach organizes commands logically and helps avoid a single giant script.
+
+- **Shared Code in `lib` Folder**  
+  For common functions or classes, use a `lib/` subfolder in your extension or panel bundle. PyRevit adds the bundle’s `lib` directory to the search path, so you can import modules easily. This promotes modularity and code reuse.
+
+- **Follow PyRevit Script Conventions**  
+  At the top of each script, define metadata like `__doc__`, `__title__`, and `__author__`. These become tool tooltips and labels in Revit. Use `__context__` if needed to control command availability.
+
+- **Prefer PyRevit APIs and Utilities**  
+  Use pyRevit’s provided modules (e.g. `pyrevit.script`, `pyrevit.forms`, etc.) for common tasks instead of directly accessing Revit APIs. Consistent use of these helpers enhances code clarity.
+
+- **Version Control and Organization**  
+  Keep your extension in a version-controlled repository (e.g., Git) with a clear hierarchy: one folder per extension, organized by tabs/panels and then command bundles. Document your tools with a README for setup and usage instructions.
+
+## 2. Debugging Best Practices
+
+Effective debugging in IronPython for PyRevit is essential since traditional debuggers are hard to attach. Adopt these strategies:
+
+- **Use Logging for Insight**  
+  Instrument your scripts with logging calls using `pyrevit.script.get_logger()`. Use `logger.debug()`, `info()`, `warning()`, etc., to trace execution and identify issues. Toggle debug mode when necessary.
+
+- **Prints and PyRevit Output**  
+  Supplement logging with `print()` statements when needed. This simple approach can help validate critical variables or workflow checkpoints, especially during early development.
+
+- **Avoid Relying on Interactive Debuggers**  
+  Since attaching Visual Studio or VS Code is not straightforward in this environment, use a test-driven approach: isolate complex logic outside Revit or use RevitPythonShell to run snippets interactively.
+
+- **Granular Exception Handling**  
+  Wrap only small code segments in `try/except` blocks. Catch specific exceptions (e.g., `KeyError`, Revit API exceptions) to provide meaningful error messages rather than a blanket `except:`.
+
+- **Defensive Programming**  
+  Proactively check conditions (e.g., user selections, list lengths) to prevent errors instead of solely relying on error handling. This makes your code more robust and predictable.
+
+- **Fail Gracefully (but Not Silently)**  
+  Handle exceptions in a way that informs the user (e.g., using TaskDialog or `forms.alert`) instead of just logging them. This improves the user experience by providing clear feedback.
+
+- **Leverage PyRevit Transactions**  
+  When modifying the Revit document, use the `pyrevit.revit.Transaction` context manager. This ensures that if an error occurs, the transaction is rolled back, leaving Revit in a stable state.
+
+- **Iterative Testing**  
+  Develop and test your scripts on small examples or dummy models to isolate issues early. This minimizes the risk of encountering basic logic errors in the full Revit environment.
+
+## 3. WPF and IronPython Integration
+
+Creating rich WPF UIs in PyRevit requires careful handling of the UI thread and event management. Follow these best practices:
+
+- **Separate UI Layout with XAML**  
+  Define your WPF UI in a XAML file and load it in IronPython. This keeps UI design declarative and your Python code focused on event handling.
+
+- **Use PyRevit Forms Framework**  
+  Leverage `pyrevit.forms` utilities (e.g., subclassing `forms.WPFWindow` or `forms.WPFPanel`) for common UI tasks. This framework handles XAML loading and event wiring, reducing boilerplate code.
+
+- **Modal vs. Modeless Windows**  
+  Decide if your window should be modal (blocking Revit until closed) or modeless (allowing interaction with Revit). For modeless windows, do not call Revit API methods directly from the UI; use the ExternalEvent pattern instead.
+
+- **Use ExternalEvent for Revit Actions**  
+  In modeless scenarios, any Revit API action should be executed via an ExternalEvent and IExternalEventHandler. This pattern safely delegates actions from the UI thread to Revit’s main thread.
+
+- **UI Performance Considerations**  
+  Avoid overly complex WPF visuals and heavy data bindings in IronPython. Offload heavy computations or data loading (e.g., using background threads with `Dispatcher.Invoke` for UI updates) to maintain a responsive interface.
+
+- **Closing and Cleanup**  
+  Ensure you release references to large objects when a WPF window is closed. Unsubscribe from any events (such as Revit’s selection or document events) to prevent memory leaks.
+
+## 4. Best Practices for IronPython 2.7
+
+Since PyRevit uses IronPython 2.7, you must consider its particularities:
+
+- **Memory Management and Garbage Collection**  
+  IronPython uses the .NET garbage collector. Avoid holding onto large objects longer than necessary, and be aware that modern PyRevit uses Lightweight Scopes to reduce memory bloat.
+
+- **Dispose Unmanaged Resources**  
+  Dispose of .NET objects that implement IDisposable (like FileStreams or certain Revit API classes) using context managers or finally blocks to prevent memory leaks.
+
+- **.NET Interoperability**  
+  Import .NET libraries using `import clr` and add references to needed assemblies. Ensure these assemblies target a compatible .NET Framework version with Revit.
+
+- **Avoid CPython-Specific Modules**  
+  Do not rely on C-extension modules (like NumPy, SciPy, etc.) as they are not compatible with IronPython. Seek pure-Python alternatives or .NET equivalents.
+
+- **Python 2.7 Language Considerations**  
+  Write your code using Python 2.7 conventions (e.g., no f-strings). Consider importing features from `__future__` (like `print_function` and `division`) to mitigate common pitfalls.
+
+- **Threading and Concurrency**  
+  While IronPython 2.7 does not have a Global Interpreter Lock (GIL) and allows true multi-threading, all Revit API calls must remain on the main thread. Use threads only for independent calculations or I/O tasks, and marshal UI updates to the UI thread.
+
+- **Handling Legacy Issues**  
+  Be prepared to address legacy library quirks or missing modules in IronPython. Sometimes you may need to include pure-Python modules directly in your extension’s lib folder.
+
+- **String Formatting Safety**
+  Very important!
+  Avoid %-style formatting which can cause errors and remember that to use ironpython compatible formatting.
+  
+  Preferred: use .format() for safer, more readable formatting
+  message = "Value is {} and code is {}".format(value, code)
+
+## 5. IronPython Scopes and Events for WPF Windows
+
+Managing scopes and event handlers in WPF UIs is critical for maintaining functionality over the lifetime of a modeless window.
+
+- **Script Lifetime vs. UI Lifetime**  
+  Ensure that the scope holding your WPF window’s event handlers remains active as long as the window is open. Use a class-based approach and store a reference to the window in a module-level variable to prevent premature garbage collection.
+
+- **Avoiding Scope Leaks**  
+  While keeping necessary references, avoid excessive global state that could lead to memory leaks. Use caching or file-based storage if you need to persist large data between runs.
+
+- **Event Handler Patterns**  
+  Bind event handlers by assigning them to WPF control events (e.g., `button.Click += handler_function`). Prefer class methods for these handlers to ensure they remain callable as long as the window exists.
+
+- **Revit Events and Threads**  
+  If your UI must respond to Revit events (like selection changes), subscribe to those events within a stable scope (e.g., the panel class constructor) and always unsubscribe upon window closure.
+
+- **External Events for Complex Interactions**  
+  Use ExternalEvent to handle Revit API calls from a modeless UI. This decouples UI interactions from Revit actions, reducing the risk of threading issues.
+
+- **Threading Concerns**  
+  For any background processing, use background threads carefully. Always marshal UI updates to the main thread using the WPF Dispatcher and ensure all Revit API calls occur on the main thread.
+
+- **Testing UIs**  
+  Thoroughly test your WPF windows. Monitor for memory leaks by repeatedly opening and closing windows, and verify that event handlers are responsive over long sessions.
+
+## 6. Script Reloading and Runtime Updates
+
+Understanding when scripts can be updated live versus when a reload is required is crucial for efficient development:
+
+- **.pushbutton Scripts Support Live Updates**  
+  Scripts in `.pushbutton` folders can be edited and will automatically reload when executed again. You can modify these scripts during runtime and test changes immediately without restarting Revit or reloading the extension.
+
+- **lib Folder Scripts Require Reload**  
+  Scripts in the `lib/` folder are loaded into memory when the extension is initialized. When you modify files in the `lib/` folder, you **must reload the extension in pyRevit** for changes to take effect. The extension will continue using the old cached version until reloaded.
+
+- **startup.py Requires Reload**  
+  The `startup.py` file is executed when the extension loads. Any changes to `startup.py` or functions defined within it require a full extension reload to take effect.
+
+- **Notify Users About Reload Requirements**  
+  When updating shared library code or startup functions, always inform users that they need to reload the extension in pyRevit to use the updated code. This prevents confusion when changes don't appear to take effect.
+
+- **Development Workflow Recommendation**  
+  For rapid iteration during development:
+  - Test changes to `.pushbutton` scripts directly (they update automatically)
+  - For `lib/` folder changes, use pyRevit's reload extension command or restart Revit
+  - Consider keeping frequently-changing code in `.pushbutton` scripts during active development, then refactor to `lib/` once stable
+
+---
+
+This Markdown file outlines the essential rules and best practices for PyRevit development with a focus on code structure, debugging, WPF integration, IronPython 2.7 practices, managing scopes and events for WPF windows, and script reloading requirements.  
+## 6. Common Pitfalls and Debugging Patterns
+
+Based on real-world debugging sessions, here are critical patterns to avoid and debugging strategies:
+
+### Initialization Code Placement
+
+- **CRITICAL: Check Indentation Carefully**  
+  Initialization code must be in the correct scope. A common error is placing initialization code inside exception handlers of other methods, causing it to never execute. Always verify that:
+  - Initialization code is directly in `__init__`'s try block, not nested in other method's exception handlers
+  - Event handler creation, view initialization, and data loading happen in the correct order
+  - Code is at the correct indentation level (same as other `__init__` statements)
+
+- **Initialize Attributes Early**  
+  Always initialize instance attributes that may be accessed in cleanup methods (like `OnClosing`) to `None` at the start of `__init__`:
+  ```python
+  def __init__(self):
+      self.active_view = None  # Prevent AttributeError in OnClosing
+      try:
+          # ... initialization code ...
+  ```
+
+- **Use hasattr() for Defensive Checks**  
+  When accessing attributes in cleanup or error handlers, always check if they exist first:
+  ```python
+  if hasattr(self, 'active_view') and self.active_view:
+      # Safe to use self.active_view
+  ```
+
+### Path Calculation Errors
+
+- **Verify Directory Navigation**  
+  When calculating paths to shared resources (like styles), carefully count directory levels:
+  ```python
+  script_dir = op.dirname(__file__)           # script.py directory
+  panel_dir = op.dirname(script_dir)          # panel directory
+  tab_dir = op.dirname(panel_dir)            # tab directory
+  extension_dir = op.dirname(tab_dir)        # extension root (NOT op.dirname(op.dirname(tab_dir)))
+  ```
+  Common mistake: going up one level too many with `op.dirname(op.dirname(...))` when only one level is needed.
+
+### XAML Structure Requirements
+
+- **Property Setters Before Children**  
+  In XAML, property setters (like `Grid.RowDefinitions`) must come BEFORE child elements. This is a WPF parsing requirement:
+  ```xml
+  <!-- CORRECT -->
+  <Grid>
+      <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <Border Grid.Row="0">...</Border>
+  </Grid>
+  
+  <!-- INCORRECT - will cause parsing errors -->
+  <Grid>
+      <Border>...</Border>
+      <Grid.RowDefinitions>...</Grid.RowDefinitions>
+  </Grid>
+  ```
+
+- **Style TargetType Must Match Element Type**  
+  Styles with `TargetType` can only be applied to matching element types. If you need similar styling for different element types, create separate styles:
+  ```xml
+  <!-- Style for StatusBar -->
+  <Style x:Key="StandardStatusBarStyle" TargetType="StatusBar">...</Style>
+  
+  <!-- Separate style for Border used as status bar -->
+  <Style x:Key="StatusBarBorderStyle" TargetType="Border">...</Style>
+  ```
+
+### Resource Loading and XAML Parsing
+
+- **StaticResource vs DynamicResource**  
+  - `StaticResource`: Resolved at XAML parse time. Use when resources are guaranteed to exist when XAML loads.
+  - `DynamicResource`: Resolved at runtime. Use when resources may be loaded after XAML parsing (e.g., styles loaded programmatically):
+  ```xml
+  <!-- Use DynamicResource when styles load after XAML parsing -->
+  <Border Style="{DynamicResource BusyOverlayStyle}">...</Border>
+  ```
+
+- **Loading Styles Before XAML Parsing**  
+  If using `StaticResource`, ensure styles are loaded into `Application.Resources` BEFORE `WPFWindow.__init__()` is called. Otherwise, use `DynamicResource` or load styles into window Resources after XAML loads.
+
+### UI Stack Limitations
+
+- **PyRevit Stack Item Limit**  
+  PyRevit stacks can only contain 2 or 3 items maximum. If you need more items, split into multiple stacks or remove less critical items:
+  ```yaml
+  # bundle.yaml - CORRECT (2-3 items)
+  layout:
+    - Config
+    - Monitor
+    - Write
+  
+  # INCORRECT (4 items - will cause error)
+  layout:
+    - Config
+    - Monitor
+    - Write
+    - Debug Areas  # Remove or move to separate stack
+  ```
+
+### Debugging Initialization Issues
+
+- **Symptoms of Initialization Code Not Running**  
+  If initialization code appears correct but doesn't execute:
+  1. Check indentation - code may be nested in wrong scope
+  2. Verify it's in `__init__`'s try block, not another method's exception handler
+  3. Check for silent exceptions - add explicit logging around initialization steps
+  4. Verify method calls are actually being made (not just defined)
+
+- **Verification Pattern**  
+  When debugging initialization, verify execution order:
+  ```python
+  def __init__(self):
+      self.active_view = None
+      try:
+          # Step 1: Load styles
+          ensure_styles_loaded()
+          
+          # Step 2: Create window
+          WPFWindow.__init__(self, xaml_file)
+          
+          # Step 3: Initialize attributes
+          self.active_view = get_active_view(doc)
+          
+          # Step 4: Load data
+          self.load_categories()
+  ```
+  If any step fails silently, subsequent steps won't execute.
+
+---
+
+## 7. Collecting pyRevit Debug Logs
+
+When a script fails at runtime or pyRevit itself misbehaves, the runtime debug log is the primary diagnostic artifact. This section covers how to activate logging, collect logs, and interpret them.
+
+Reference: [pyRevit – Collecting Debug Log](https://pyrevitlabs.notion.site/Collecting-Debug-Log-61941fa7782844e98e416e66ac39e4cf)
+
+### Activating File Logging
+
+- **Via pyRevit Settings (normal operation)**  
+  Open pyRevit Settings → Reporting Levels and activate **File Debug Logging**.
+
+- **Via config file (when pyRevit fails to load)**  
+  If pyRevit crashes Revit on startup, edit the config file directly:
+  1. Navigate to `%APPDATA%/pyRevit/`
+  2. Open (or create) `pyRevit_config.ini`
+  3. Ensure the `[core]` section contains `filelogging = true`:
+  ```ini
+  [core]
+  filelogging = true
+  ```
+
+### Clearing Existing Logs Before Reproduction
+
+Clear stale logs so only the relevant session is captured:
+
+```
+pyrevit caches clear --all
+```
+
+### Collecting the Debug Log
+
+1. Start Revit (it will load more slowly while logging).
+2. Reproduce the issue or wait for the crash.
+3. Navigate to `%APPDATA%/pyRevit/<RevitVersion>/` (e.g. `%APPDATA%/pyRevit/2025/`).
+4. Find the file ending in `_runtime.log` — this is the debug log for that session.
+
+### Log File Location Quick Reference
+
+| Item | Path |
+|------|------|
+| pyRevit config | `%APPDATA%/pyRevit/pyRevit_config.ini` |
+| Runtime logs | `%APPDATA%/pyRevit/<RevitVersion>/pyRevit_*_runtime.log` |
+
+### Using the Cursor Runtime Log Viewer
+
+This project includes a Cursor command (`.cursor/commands/runtimelogs.md`) that automates log reading. Key functions:
+
+- `Show-RecentLogs -Lines 100` — last 100 lines, all levels
+- `Show-RecentErrors -Lines 50` — only ERROR entries
+- `Show-RecentWarnings -Lines 50` — only WARNING entries
+- `Search-Logs -SearchTerm "MyScript"` — search for a specific term
+- `List-AllLogFiles` — list all available log files with sizes and dates
+
+### Interpreting Common Log Patterns
+
+- **IronPython tracebacks** — look for `Traceback (most recent call last):` followed by the exception. The last file/line in the traceback is usually the root cause.
+- **XAML parse errors** — appear as `XamlParseException`. Check for mismatched resource keys, missing `DynamicResource` references, or property-element ordering issues (see Section 6).
+- **Extension load failures** — search for `ERROR` entries near the start of the log. These often indicate missing dependencies or syntax errors in `startup.py` or `lib/` modules.
+- **Transaction errors** — `InvalidOperationException` during document modification usually means a transaction was not started or was rolled back. Verify `Transaction` context manager usage.
+
+### Workflow for Debugging with Logs
+
+1. **Enable file logging** (settings or config file).
+2. **Clear caches** with `pyrevit caches clear --all`.
+3. **Restart Revit** and reproduce the problem.
+4. **Read the log** using the Cursor runtime log viewer or directly from `%APPDATA%/pyRevit/<RevitVersion>/`.
+5. **Search for ERROR/WARNING** entries and IronPython tracebacks.
+6. **Disable file logging** after debugging to avoid performance overhead.
+
+---
+
+This Markdown file outlines the essential rules and best practices for PyRevit development with a focus on code structure, debugging, WPF integration, IronPython 2.7 practices, managing scopes and events for WPF windows, common pitfalls to avoid, and collecting runtime debug logs.  
+
+---
+> Source: [byggstyrning/pyByggstyrning.extension](https://github.com/byggstyrning/pyByggstyrning.extension) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
