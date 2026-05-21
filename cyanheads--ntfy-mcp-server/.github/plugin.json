@@ -1,0 +1,9 @@
+{
+  "name": "cyanheads--ntfy-mcp-server",
+  "displayName": "ntfy-mcp-server",
+  "description": "Send, manage, and replay ntfy push notifications via MCP. STDIO or Streamable HTTP.",
+  "version": "1.0.0",
+  "author": "cyanheads",
+  "homepage": "https://github.com/cyanheads/ntfy-mcp-server",
+  "skills": []
+}
