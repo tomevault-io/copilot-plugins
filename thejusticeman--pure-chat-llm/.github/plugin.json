@@ -1,0 +1,9 @@
+{
+  "name": "thejusticeman--pure-chat-llm",
+  "displayName": "pure-chat-llm",
+  "description": "Turn notes into conversations with chatGPT or better yet Ollama",
+  "version": "1.0.0",
+  "author": "TheJusticeMan",
+  "homepage": "https://github.com/TheJusticeMan/pure-chat-llm",
+  "skills": []
+}
