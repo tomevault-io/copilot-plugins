@@ -1,0 +1,9 @@
+{
+  "name": "mslavov--shelly-forge",
+  "displayName": "shelly-forge",
+  "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo",
+  "version": "1.0.0",
+  "author": "mslavov",
+  "homepage": "https://github.com/mslavov/shelly-forge",
+  "skills": []
+}
