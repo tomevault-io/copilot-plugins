@@ -1,0 +1,9 @@
+{
+  "name": "lochmueller--seal",
+  "displayName": "seal",
+  "description": "\ud83d\udd0d Integration of SEAL framework for TYPO3 \ud83d\udd0d",
+  "version": "1.0.0",
+  "author": "lochmueller",
+  "homepage": "https://github.com/lochmueller/seal",
+  "skills": []
+}
