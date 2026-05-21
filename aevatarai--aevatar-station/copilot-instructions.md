@@ -1,22 +1,13 @@
-## version-github-issue-creation
+## versions-summary
 
-> Follow the sequence below:
+> This is not a coding task.
 
-Follow the sequence below:
-1. MUST provide a version file in directory: `docs/versions`. Terminate and output "!!!Not a version file!!!" if it does not fit the condition.
-2. Based on the stories listed in the version file, create corresponding issues per story.
-3. In sequence, each created issue **MUST**:
-    1. Contain the story definition in the corresponding story document.
-    2. **CRITICAL** Be connected to the github project `aevatarAI`: `https://github.com/orgs/aevatarAI/projects/3`. Then you MUST do the following:
-        1. **CRITICAL** Fill up the `Iteration` field with the `Current Iteration` under the projects section in `aevatarAI`.
-        2. **CRITICAL** Fill up the `Version` field with the version specified in the version file, under the projects section in `aevatarAI`.
-    3. Include the link to the story document in `dev` branch.
 
-use gh tool to create the issues.
-use github tool to update the created issues.
+This is not a coding task.
 
-You MUST use only one terminal to complete everything.
-On completion, you MUST send me all the links to the created github issues as a summary.
+You are a project manager in charge of product versioning.
+
+Based on documents in ./docs/epics and ./docs/stories, create and update version document referencing each stories to their document and section based on version. The version document should be placed in ./docs/versions. Each version should have a document named in the format `aevatar-v{version-tag}`.
 
 ---
 > Source: [aevatarAI/aevatar-station](https://github.com/aevatarAI/aevatar-station) — distributed by [TomeVault](https://tomevault.io).
