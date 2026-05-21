@@ -1,0 +1,9 @@
+{
+  "name": "mhaowork--warranty-watcher",
+  "displayName": "warranty-watcher",
+  "description": "A web portal for updating device warranty info. Designed for MSPs. RMM & PSA Integrations built-in",
+  "version": "1.0.0",
+  "author": "mhaowork",
+  "homepage": "https://github.com/mhaowork/warranty-watcher",
+  "skills": []
+}
