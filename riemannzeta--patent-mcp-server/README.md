@@ -7,11 +7,11 @@ FastMCP Server for USPTO data
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [riemannzeta/patent_mcp_server](https://github.com/riemannzeta/patent_mcp_server).
+Original source: `CLAUDE.md` in [riemannzeta/patent_mcp_server](https://github.com/riemannzeta/patent_mcp_server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
