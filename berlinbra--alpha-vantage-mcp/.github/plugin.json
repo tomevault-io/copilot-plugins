@@ -1,0 +1,9 @@
+{
+  "name": "berlinbra--alpha-vantage-mcp",
+  "displayName": "alpha-vantage-mcp",
+  "description": "MCP Server for Alpha Advantage API",
+  "version": "1.0.0",
+  "author": "berlinbra",
+  "homepage": "https://github.com/berlinbra/alpha-vantage-mcp",
+  "skills": []
+}
