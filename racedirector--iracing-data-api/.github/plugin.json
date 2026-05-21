@@ -1,0 +1,9 @@
+{
+  "name": "racedirector--iracing-data-api",
+  "displayName": "iracing-data-api",
+  "description": "Axios API implementation and cli for the `/data` API on iRacing",
+  "version": "1.0.0",
+  "author": "racedirector",
+  "homepage": "https://github.com/racedirector/iracing-data-api",
+  "skills": []
+}
