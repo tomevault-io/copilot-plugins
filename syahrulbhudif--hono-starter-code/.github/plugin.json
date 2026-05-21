@@ -1,0 +1,9 @@
+{
+  "name": "syahrulbhudif--hono-starter-code",
+  "displayName": "Hono-Starter-Code",
+  "description": "Starter code for RESTful API with hono framework, JWT Access/Refresh Token, Oauth (Google), OTP Email, Redis Caching",
+  "version": "1.0.0",
+  "author": "SyahrulBhudiF",
+  "homepage": "https://github.com/SyahrulBhudiF/Hono-Starter-Code",
+  "skills": []
+}
