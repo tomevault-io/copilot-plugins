@@ -1,168 +1,46 @@
-## single-page-application
+## static-site
 
-> Single Page Application Guidelines
+> Static landing page and documentation for ReJot, a database sync engine.
 
-# Single Page Application Guidelines
+# https://rejot.dev
 
-## Core Technologies
-- React SPA with Vite
-- Tailwind for styling
-- ShadCN for UI components
-  - Components located under `@components/ui`
-  - Install new components: `npx shadcn@latest add <component>` from `./apps/basic` folder
-  - See [components.json](mdc:apps/basic/components.json) for configuration
+Static landing page and documentation for ReJot, a database sync engine.
 
-## State Management
-### Zustand
-- Primary state management solution
-- State files location: `src/app/<domain>/<domain>.state.ts`
+## Technology
 
-## Routing
-### Configuration
-- Uses React Router v7
-  - Import from `"react-router"` only (NEVER from `react-router-dom`)
-  - Routes defined in [App.tsx](mdc:apps/basic/src/App.tsx)
-  - Most resources are part of a system
-- When creating or moving files that migh be routes, DO NOT FORGET to update App.tsx
-  
-### Navigation
-- Update sidebar links when adding new pages
-  - See `app-sidebar.tsx` and `nav-systems.tsx`
+- Astro: we use astro components extensively.
+- Tailwind: ALWAYS use Tailwind css as opposed to vanilla CSS.
 
 ## Project Structure
-### Pages
-- Located in `src/app/<domain>/`
-- Root pages: `src/app/<domain>/<domain>-home.tsx`
-### Fully usable components
-- These are components that are not domain specific at all. (E.g. avatar, breadcrumb, button, card, etc)
-- They go in `src/app/components`
 
-### API Integration
-- React Query definitions: `src/data/<domain>/<domain>.data.ts`
-- Type-safe backend communication using [fetch.ts](mdc:apps/basic/src/data/fetch.ts)
-- Check available routes in [package.json](mdc:packages/api-interface-controller/package.json)
+This is an Astro-based website with the following structure:
 
-#### Data Layer Best Practices
-1. Error Handling:
-   - Use `fetchRouteThrowing` instead of `fetchRoute` for queries
-   - Remove `select` handlers that only handle errors
+- `apps/static-site/src/pages/` - Contains Astro pages that define routes
+- `apps/static-site/src/components/` - Contains reusable Astro, React, or other UI components
+- `apps/static-site/src/layouts/` - Contains layout templates for pages
+- `apps/static-site/src/content/` - Contains blog posts and other content collections
+- `apps/static-site/src/styles/` - Contains global CSS styles
+- `apps/static-site/src/pixi/` - Contains PixiJS-related code for interactive graphics
+- `apps/static-site/src/util/` - Contains utility functions
+- `apps/static-site/public/` - Contains static assets like images and fonts
+- `apps/static-site/functions/` - Contains Cloudflare Pages Functions for server-side functionality
 
-2. Type Definitions:
-   - Create separate types for mutation variables
-   - DO NOT export inferred types from Zod schemas, use inline `z.infer<>` instead
-   - Example:
-     ```typescript
-     // Good
-     function createThing(variables: CreateThingMutationVariables): Promise<z.infer<typeof ThingSchema>>
+## Content Management
 
-     // Bad
-     export type ThingResponse = z.infer<typeof ThingSchema>
-     function createThing(): Promise<ThingResponse>
-     ```
+How content is organized and managed:
 
-3. Mutation Functions:
-   - Take a single variables object instead of multiple parameters
-   - Define mutation variable types separately
-   - Example:
-     ```typescript
-     export type CreateThingMutationVariables = {
-       systemId: string;
-       data: z.infer<typeof ThingPostRequest>;
-     };
+- Blog posts are stored in `apps/static-site/src/content/blog/` as MDX files
+- Content collections are configured in `apps/static-site/src/content.config.ts`
+- Static assets for content are stored in `apps/static-site/public/content/`
 
-     export function createThing({ systemId, data }: CreateThingMutationVariables) {
-       return fetchRouteThrowing(thingPostApi, {
-         params: { systemId },
-         body: data,
-       });
-     }
-     ```
+## Special Features
 
-## Code Style
-- NO default exports
-- NO star imports (* as X), just import the thing directly.
-- Check for existing `.data.ts` files in `src/data` before implementation
-- ABSOLUTELY minimize usages of `useEffect` in React.
-- ALWAYS prefer to use react-query
-- PREFER components with a single purpose. Use multiple files to split out the components if that makes sense.
-- PREFER to use "standard" Tailwind classes, so no calculations like `h-[2px]`. Sometimes they are required however so they are not completed banned.
-- Use curly-brackets even for single-line if-statements.
+Notable features of this project:
 
-## Examples
-### API Definition
-```ts
-import { type RouteConfig, z } from "@hono/zod-openapi";
-
-export const OrganizationGetResponse = z.object({
-  // ..
-}).openapi("Organization");
-
-export const organizationGetApi = {
-  method: "get",
-  path: "/organization/{organizationCode}",
-  request: {
-    params: z.object({
-      organizationCode: z.string(),
-    }),
-  },
-  responses: {
-    200: {
-      content: {
-        "application/json": {
-          schema: OrganizationGetResponse,
-        },
-      },
-      description: "Organization retrieved successfully",
-    },
-    404: {
-      description: "Organization not found",
-    },
-    500: {
-      description: "Internal server error",
-    },
-  },
-  tags: ["organizations"],
-  description: "Get an organization by code",
-} as const satisfies RouteConfig;
-```
-
-### Data Layer Implementation
-```ts
-type ClerkGetResponse = z.infer<
-  typeof clerkGetApi.responses[200]["content"]["application/json"]["schema"]
->;
-
-type ClerkPostResponse = z.infer<
-  typeof clerkPostApi.responses[201]["content"]["application/json"]["schema"]
->;
-
-export function getCurrentClerkUser(): Promise<ApiResult<ClerkGetResponse>> {
-  return fetchRoute(clerkGetApi);
-}
-
-export function useCurrentClerkUser() {
-  return useQuery({
-    queryKey: ["clerk", "current"],
-    queryFn: getCurrentClerkUser,
-    select: (result) => {
-      if (result.status === "error") {
-        throw new Error(result.error);
-      }
-      return result.data;
-    },
-  });
-}
-
-export function createCurrentUser(): Promise<ApiResult<ClerkPostResponse>> {
-  return fetchRoute(clerkPostApi);
-}
-
-export function useCreateCurrentUserMutation() {
-  return useMutation({
-    mutationFn: createCurrentUser,
-  });
-}
-```
+- Chess visualization using PixiJS (`apps/static-site/src/chess.ts`, `apps/static-site/src/chessPieces.ts`)
+- Cloudflare Pages Functions for server-side functionality (`apps/static-site/functions/`)
+- Excalidraw SVG processing (`apps/static-site/scripts/process-excalidraw-svgs.ts`)
+- Form handling with Cloudflare Pages plugin (`apps/static-site/functions/resend.ts`)
 
 ---
 > Source: [rejot-dev/rejot](https://github.com/rejot-dev/rejot) — distributed by [TomeVault](https://tomevault.io).
