@@ -7,11 +7,11 @@ Deprecated split repo; AtomicMemory Core now lives in atomicstrata/atomicmemory/
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [atomicstrata/atomicmemory-core](https://github.com/atomicstrata/atomicmemory-core).
+Original source: `CLAUDE.md` in [atomicstrata/atomicmemory-core](https://github.com/atomicstrata/atomicmemory-core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
