@@ -1,0 +1,9 @@
+{
+  "name": "qdrant--webinar-vibe-coding-rag",
+  "displayName": "webinar-vibe-coding-rag",
+  "description": "An attempt to live code a working Retrieval Augmented Generation app with AI coding tools",
+  "version": "1.0.0",
+  "author": "qdrant",
+  "homepage": "https://github.com/qdrant/webinar-vibe-coding-rag",
+  "skills": []
+}
