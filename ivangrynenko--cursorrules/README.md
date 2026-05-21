@@ -7,11 +7,11 @@ A set of cursor rules for Cursor AI IDE that support PHP, Python, JavaScript and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules).
+Original source: `CLAUDE.md` in [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
