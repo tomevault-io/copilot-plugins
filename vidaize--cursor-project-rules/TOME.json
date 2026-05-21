@@ -1,0 +1,44 @@
+{
+  "name": "cursor-project-rules",
+  "owner": "VidAIze",
+  "repo": "cursor-project-rules",
+  "description": "**Cursor Project Rules** is a collection of local documentation that instructs the Cursor AI on how to work efficiently with modern frameworks and libraries. Unlike web-scraped documentation that might be outdated or incomplete, these rules provide Cursor's AI with accurate, comprehensive, and immediately accessible information.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VidAIze/cursor-project-rules",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T05:31:59Z"
+}
