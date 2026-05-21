@@ -1,0 +1,9 @@
+{
+  "name": "bsmi021--mcp-file-context-server",
+  "displayName": "mcp-file-context-server",
+  "description": "A Model Context Protocol (MCP) server that provides file system context to Large Language Models (LLMs). This server enables LLMs to read, search, and analyze code files with advanced caching and real",
+  "version": "1.0.0",
+  "author": "bsmi021",
+  "homepage": "https://github.com/bsmi021/mcp-file-context-server",
+  "skills": []
+}
