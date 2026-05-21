@@ -1,62 +1,13 @@
-## ai-tdd-workflow
+## code-hygiene
 
-> This rule outlines the strict Test-Driven Development process to be followed by the AI assistant when implementing new features or fixing bugs. This complements the broader `development_workflow` by providing specific TDD execution steps for the AI.
+> .  **No Redundant Comments:** Only comment non-trivial logic. Avoid comments that merely state the obvious (e.g., `# Import module`, `# Loop through items`). Adhere strictly to the global `<comments>` instruction provided during generation. Docstrings are a special case and should almost always be included for all classes and functions even if trivial.
 
-# AI Test-Driven Development (TDD) Workflow
-
-This rule outlines the strict Test-Driven Development process to be followed by the AI assistant when implementing new features or fixing bugs. This complements the broader `development_workflow` by providing specific TDD execution steps for the AI.
-
-## Core TDD Cycle (AI Execution Steps)
-
-1.  **Step 1: Understand Requirements & Plan**
-    *   Clarify the task, inputs, outputs, and expected behavior.
-    *   Briefly outline the classes/functions/modules to be created or modified.
-
-2.  **Step 2: Create Minimal Skeleton (No Logic)**
-    *   Create the necessary new files (e.g., `example_module.py`, `test_example_module.py`).
-    *   Define class structures and function/method signatures.
-    *   **Crucially, implement NO functional logic at this stage.** Use `pass`, `return NotImplemented`, or raise `NotImplementedError` in method bodies.
-    *   Example:
-        ```python
-        # In my_module.py
-        class MyService:
-            def __init__(self):
-                pass
-
-            def perform_action(self, data: str) -> bool:
-                raise NotImplementedError("Logic not yet implemented.")
-        ```
-
-3.  **Step 3: Write Unit Test(s) (Red Phase Target)**
-    *   In the corresponding test file (e.g., `test_example_module.py`), write one or more unit tests that define the expected behavior of the code outlined in Step 2.
-    *   Cover success cases, failure cases, edge cases, and invalid inputs.
-    *   These tests should target the *intended functionality* of the skeleton code.
-
-4.  **Step 4: Run Tests - EXPECT FAILURES (Red Phase Verification)**
-    *   Execute the unit tests (e.g., `poetry run pytest path/to/test_file.py | cat`).
-    *   **The tests MUST fail at this point.** This is critical:
-        *   It verifies that the tests are correctly set up and are testing the intended code.
-        *   It ensures that the tests will actually pass due to the new code, not due to an issue with the test itself.
-    *   If tests pass unexpectedly, re-evaluate the tests or the minimality of the skeleton.
-
-5.  **Step 5: Implement Functional Code (Green Phase Target)**
-    *   Write the *minimum amount of code* in the implementation file (e.g., `example_module.py`) required to make the failing test(s) from Step 4 pass.
-    *   Focus solely on fulfilling the requirements defined by the current failing test(s).
-
-6.  **Step 6: Run Tests - VERIFY PASS (Green Phase Verification)**
-    *   Execute the unit tests again.
-    *   All tests written for the current piece of functionality should now pass.
-    *   If tests still fail, debug and modify the functional code (Step 5) until they pass.
-
-7.  **Step 7: Refactor (Optional but Recommended)**
-    *   With passing tests as a safety net, refactor both the implementation code and the test code for clarity, efficiency, and maintainability.
-    *   Ensure that tests continue to pass after refactoring.
-
-8.  **Repeat for Additional Functionality**
-    *   If the feature requires more functionality, return to Step 3 (or Step 2 if new skeletons are needed) to write the next test for the next piece of behavior, and repeat the cycle.
-
-## Adherence
-Failure to follow these steps, particularly skipping the "Red" phase (Step 4) by writing implementation logic before test failure confirmation, is a deviation from the required TDD practice.
+.  **No Redundant Comments:** Only comment non-trivial logic. Avoid comments that merely state the obvious (e.g., `# Import module`, `# Loop through items`). Adhere strictly to the global `<comments>` instruction provided during generation. Docstrings are a special case and should almost always be included for all classes and functions even if trivial.
+2.  **No Change Explanations in Code:** NEVER add comments to explain *why* a code change was made (e.g., `# Removed X`, `# Moved Y to Z`, `# Refactored this section`). Explain changes in the chat discussion only. This reinforces `change_guidelines` point 5.
+3.  **Delete, Don't Comment Out:** NEVER leave commented-out blocks of code in the source files. Delete unused or obsolete code directly. Use version control (Git) to track history.3.1. **Verification of Deletion Edits:** When an `edit_file` operation is intended to delete lines or blocks of code:
+        a.  The `instructions` field for the `edit_file` tool should explicitly state the intent to delete (e.g., "Delete lines X-Y," "Remove the following function...").
+        b.  The `code_edit` content should show the complete absence of the code, not commented-out versions.
+        c.  If, after an edit, there's any indication (e.g., from a diff, a subsequent tool error, or user feedback) that the code was commented out instead of deleted, a corrective `edit_file` operation MUST be immediately proposed and executed to ensure complete removal. This is a high-priority correction.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
