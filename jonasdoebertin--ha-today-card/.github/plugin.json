@@ -1,0 +1,9 @@
+{
+  "name": "jonasdoebertin--ha-today-card",
+  "displayName": "ha-today-card",
+  "description": "Show todays (or any other days) calendar schedule on your Home Assistant Lovelace Dashboard",
+  "version": "1.0.0",
+  "author": "JonasDoebertin",
+  "homepage": "https://github.com/JonasDoebertin/ha-today-card",
+  "skills": []
+}
