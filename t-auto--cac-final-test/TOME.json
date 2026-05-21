@@ -1,0 +1,44 @@
+{
+  "name": "CAC-final-test",
+  "owner": "T-Auto",
+  "repo": "CAC-final-test",
+  "description": "Benchmark for Evaluating the Performance of Natural Language Models and Agents / \u81ea\u7136\u8bed\u8a00\u6a21\u578b & Agent\u6027\u80fd\u8bc4\u6d4b\u57fa\u51c6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/T-Auto/CAC-final-test",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T10:07:58Z"
+}
