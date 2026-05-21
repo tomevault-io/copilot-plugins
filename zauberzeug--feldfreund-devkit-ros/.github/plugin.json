@@ -1,0 +1,9 @@
+{
+  "name": "zauberzeug--feldfreund-devkit-ros",
+  "displayName": "feldfreund_devkit_ros",
+  "description": "Control your Feldfreund autonomous weeding platform with ROS2",
+  "version": "1.0.0",
+  "author": "zauberzeug",
+  "homepage": "https://github.com/zauberzeug/feldfreund_devkit_ros",
+  "skills": []
+}
