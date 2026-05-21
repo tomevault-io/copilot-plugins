@@ -1,107 +1,46 @@
-## repository-structure
+## security-requirements
 
-> Repository Structure Requirements
+> Security Policy Requirements
 
-# Repository Structure Requirements
+# Security Requirements
 
-## Expected Structure
+When creating or updating SECURITY.md files for starter apps, use the template from:
 
-**Every starter app MUST follow this structure:**
+**Reference:** `@project-template/SECURITY.md`
 
-```
-[project-name]/
-├── [docs]           → README.md, CONTRIBUTING.md, SECURITY.md, CODE_OF_CONDUCT.md, LICENSE
-├── [config]         → deepgram.toml, sample.env, .gitignore, .snyk
-├── [dependencies]   → Language-specific (see below)
-├── [main-app]       → Language-specific entry point
-└── frontend/        → (Optional) Web UI
-```
+This template includes:
+- Link to Deepgram's main security policy
+- Supply chain security measures (Node.js focused, but adaptable)
+- Package manager security configurations
+- Dependency pinning strategy
+- Snyk integration and local security checks
+- Lockfile protection practices
+- Security issue reporting procedures
 
-## Language-Specific Files
+## Project-Specific Customizations
 
-### Node.js
-- **Dependencies:** `package.json`, `pnpm-lock.yaml`, `.npmrc`
-- **Frontend app:** `frontend/index.html` → `frontend/main.js` (Vite entry point chain)
-- **Server app:** `server.js`
-- **Package manager:** pnpm (≥10.0.0) ONLY - NOT npm or yarn
-- **Key rules:** All dependencies pinned to exact versions (no `^` or `~`)
+Adjust the following based on your project:
 
-### Python
-- **Dependencies:** `requirements.txt`, `pyproject.toml`, or `poetry.lock`
-- **Main app:** `app.py`, `main.py`, or `server.py`
-- **Package manager:** pip, poetry, or uv
-- **Key rules:** Pin all dependencies to exact versions
-- **Framework considerations:**
-  - Flask: Main app typically `app.py` or `run.py`
-  - Django: Main app `manage.py` with `settings.py` in project directory
+### For AWS/Cloud Projects
+Add after "Dependency Pinning Strategy" section:
 
-### Go
-- **Dependencies:** `go.mod`, `go.sum`
-- **Main app:** `main.go` or `server.go`
-- **Package manager:** go modules
-- **Key rules:** Use vendoring if appropriate
+**AWS Credentials Security:**
+- Never commit `.env` with real credentials
+- Use IAM roles when possible
+- Rotate access keys regularly
+- Use least-privilege IAM policies
+- Store credentials in environment variables
+- Use AWS Secrets Manager for production
 
-### .NET
-- **Dependencies:** `*.csproj`, `*.sln`, `packages.lock.json`
-- **Main app:** `Program.cs` or `Startup.cs`
-- **Package manager:** NuGet
-- **Key rules:** Use lock file for dependency pinning
+**Required IAM Permissions:**
+- Document minimum required permissions for your service
 
-### Rust
-- **Dependencies:** `Cargo.toml`, `Cargo.lock`
-- **Main app:** `main.rs` or `lib.rs` in `src/`
-- **Package manager:** cargo
-- **Key rules:** Commit Cargo.lock for applications
-
-### Java
-- **Dependencies:** `pom.xml` (Maven) or `build.gradle` (Gradle)
-- **Main app:** `Main.java` or `Application.java` in `src/main/java/`
-- **Package manager:** Maven or Gradle
-- **Key rules:** Commit lockfiles (`pom.xml.lock` or `gradle.lockfile`)
-
-### C++
-- **Dependencies:** `CMakeLists.txt`, `conanfile.txt`, or `vcpkg.json`
-- **Main app:** `main.cpp` or `main.cc` in `src/`
-- **Build system:** CMake, Meson, or Make
-- **Key rules:** Document build dependencies and toolchain requirements
-
-### Ruby
-- **Dependencies:** `Gemfile`, `Gemfile.lock`
-- **Main app:** `app.rb`, `server.rb`, or `config.ru` (Rack apps)
-- **Package manager:** Bundler
-- **Key rules:** Always commit `Gemfile.lock`
-
-### PHP
-- **Dependencies:** `composer.json`, `composer.lock`
-- **Main app:** `index.php` or `public/index.php`
-- **Package manager:** Composer
-- **Key rules:** Commit `composer.lock` for version consistency
-
-## Universal Requirements
-
-**MUST have (all languages):**
-- Documentation: `README.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `LICENSE`
-- Configuration: `deepgram.toml`, `sample.env`, `.gitignore`, `.snyk`
-- Dependencies pinned to exact versions
-- Language-specific dependency lockfile
-
-**MUST NOT have:**
-- Multiple package manager lockfiles (e.g., both `pnpm-lock.yaml` and `package-lock.json`)
-- Separate `config.js` files (use inline CONFIG object or environment variables)
-- Temporary files or old test scripts
-- Committed `.env` files (only `sample.env` should be tracked)
-
-## File-Specific Requirements
-
-For detailed requirements on individual files, see:
-- `@project-template/.cursor/rules/readme-requirements.mdc`
-- `@project-template/.cursor/rules/contributing-requirements.mdc`
-- `@project-template/.cursor/rules/security-requirements.mdc`
-- `@project-template/.cursor/rules/code-of-conduct.mdc`
-- `@project-template/.cursor/rules/env-requirements.mdc`
-- `@project-template/.cursor/rules/gitignore-requirements.mdc`
-- `@project-template/.cursor/rules/deepgram-toml.mdc`
-- `@project-template/.cursor/rules/license-requirements.mdc`
+### For Local SDK Dependencies
+Add to "Dependency Pinning Strategy" section if using local file references:
+- Explain the local SDK path configuration
+- Document directory structure requirements
+- Note that paths may need adjustment per developer
+- Indicate when SDK will be replaced with npm version
 
 ---
 > Source: [deepgram-starters/node-voice-agent](https://github.com/deepgram-starters/node-voice-agent) — distributed by [TomeVault](https://tomevault.io).
