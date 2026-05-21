@@ -1,0 +1,9 @@
+{
+  "name": "simonaszilinskas--ai-impact-tracker",
+  "displayName": "ai-impact-tracker",
+  "description": "A browser extension (for now only Chrome) that estimates the environmental impact of your AI interactions.",
+  "version": "1.0.0",
+  "author": "simonaszilinskas",
+  "homepage": "https://github.com/simonaszilinskas/ai-impact-tracker",
+  "skills": []
+}
