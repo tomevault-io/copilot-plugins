@@ -1,43 +1,47 @@
-## accessibility-standards
+## api-standards
 
-> WCAG compliance and accessibility best practices
+> RESTful API design and documentation standards
 
-# Accessibility Standards
+# Enhanced API Standards
 
-Ensures WCAG compliance and accessibility best practices.
+Ensures consistent API design, documentation, and implementation best practices across PHP, JavaScript, and TypeScript files.
 
 ## Rule Details
 
-- **Name:** accessibility_standards
+- **Name:** enhanced_api_standards
 
-- **Description:** Enforce accessibility standards and WCAG compliance
+- **Description:** Enforce enhanced API design, implementation, and documentation standards
 
 ## Filters
-- file extension pattern: `"\\.(vue|jsx|tsx|html|php|css|scss|sass)$" # Expanded to include CSS files`
+- file extension pattern: `\\.(php|js|ts)$`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `<img[^>]+(?!alt=)[^>]*>` – Images must have alt attributes for screen readers.
-  - pattern `aria-[a-z]+=\"\"` – ARIA attributes should not be empty; provide meaningful values.
-  - pattern `<button[^>]*>(?![^<]*[^\\s])[^<]*</button>` – Buttons should have meaningful, descriptive content.
-  - pattern `<a[^>]*href=\"#[^\"]*\"[^>]*>(?![^<]*<svg)[^<]*</a>` – Links with href='#' should either be removed or have an aria-label for context.
-  - pattern `<input[^>]+type=\"(text|email|password|search|tel|url)\"[^>]*>` – negated `aria-label|aria-labelledby|title` – Form inputs should include an aria-label or aria-labelledby attribute for better screen reader support.
-  - pattern `<video[^>]*>(?!<track)[^<]*</video>` – Videos should include captions for accessibility.
+  - pattern `@api\\s+(?!GET|POST|PUT|DELETE|PATCH|OPTIONS|HEAD)` – Use standard HTTP methods (GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD) for API endpoints.
+  - pattern `function\\s+[a-zA-Z]+Api\\s*\\([^)]*\\)\\s*\\{[^}]*\\}` – negated `(?s)(throw new \\w+Exception|return\\s+(?:\\d{3}|4\\d\\d|5\\d\\d))` – Ensure API functions handle or return errors appropriately using exceptions or HTTP status codes.
+  - pattern `(?<!@api\\s+)(?<!\\s+returns\\s+)(?<!\\s+throws\\s+)[A-Z]{3,}(?!\\s+)` – HTTP methods should be prefixed with '@api' for documentation purposes.
+  - pattern `\\bresponse\\b(?![^;]*\\.json\\()` – Ensure all API responses are properly formatted, preferably as JSON.
 
 ## Suggestions
 - Guidance:
-**Accessibility Best Practices:**
-- **Heading Hierarchy:** Use headings (h1 to h6) in a logical order to structure content.
-- **Keyboard Navigation:** Ensure all interactive elements are accessible via keyboard.
-- **Semantic HTML:** Favor semantic elements like <nav>, <article>, <section>, and <aside> for better structure comprehension.
-- **Color Contrast:** Check color contrast ratios meet WCAG guidelines (4.5:1 for normal text, 7:1 for large text).
-- **Skip Navigation Links:** Provide 'skip to main content' links for keyboard users to bypass repetitive navigation.
-- **Focus Management:** Ensure focus indicators are visible and manage focus for modal dialogs or dynamic content changes.
-- **Form Labels:** Associate labels with form controls using the 'for' attribute or wrap controls with <label>.
-- **Descriptive Links:** Use descriptive text for links, avoiding generic phrases like "click here."
-- **Touch Targets:** Ensure touch target sizes are large enough (at least 44x44 pixels) for mobile users.
-- **Timeouts:** Avoid or provide options to extend time limits where possible, or warn users before session expiry.
-- **Language Attribute:** Set the lang attribute on the <html> element to indicate the primary language of the page.
+**API Best Practices:**
+- **HTTP Methods:** Use proper HTTP methods for operations (GET for retrieval, POST for creation, etc.).
+- **Status Codes:** Use appropriate HTTP status codes to communicate the result of the request.
+- **Versioning:** Implement API versioning to manage changes without breaking existing integrations.
+- **Documentation:** 
+  - **Swagger/OpenAPI:** Use tools like Swagger for comprehensive API documentation.
+  - **Endpoint Descriptions:** Clearly document all endpoints including path, methods, parameters, and possible responses.
+- **Authentication & Security:**
+  - Implement OAuth, JWT, or similar secure authentication methods.
+  - Use HTTPS for all API communications.
+- **Rate Limiting:** Implement rate limiting to prevent abuse and ensure fair usage.
+- **Error Handling:** 
+  - Provide clear, human-readable error messages with corresponding status codes.
+  - Implement error logging for debugging purposes.
+- **Pagination:** For list endpoints, implement pagination to manage large datasets.
+- **Validation:** Validate input data at the API level to ensure data integrity.
+- **CORS:** Configure CORS headers if your API is meant to be consumed by web applications from different domains.
+- **Monitoring:** Set up monitoring for API performance and usage statistics.
 
 ## Metadata
 - Priority: high
