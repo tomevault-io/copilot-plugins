@@ -1,70 +1,76 @@
-## narratrix
+## theme
 
-> React + Tauri desktop app. Package manager: pnpm. Linter/formatter: Biome (see `biome.json`).
+> Ensure to use themed colors specified in the tailwindcss below.
 
-# Narratrix
+# Narratrix UI Stylization
 
-React + Tauri desktop app. Package manager: pnpm. Linter/formatter: Biome (see `biome.json`).
 
-IMPORTANT: Run `pnpm biome check --fix` before committing. Do not skip this.
-
-IMPORTANT: Never log, print, or embed API keys, tokens, or secrets. Tauri FS/security constraints apply — respect scoped permissions.
-
-# Code Style
-
-- Strict TypeScript. No `any`. Use `!` (non-null assertion) only when you can prove the value exists.
-- Validate all external input (API responses, file reads, user input) with Zod schemas in `src/schema/`.
-- Naming: `camelCase` variables/functions, `PascalCase` components/types, `UPPER_SNAKE_CASE` constants, `kebab-case` files.
-- Imports order: std/react → third-party → internal `@/`. Prefer `import type` where possible.
-- Line width 200 (configured in `biome.json`). Spaces, not tabs.
-
-# React Patterns
-
-- Functional components only. Hooks at the top level — never inside conditions or loops.
-- Respect `exhaustive-deps`. If a dependency feels wrong, restructure the effect — don't suppress the warning.
-- Heavy logic belongs in `services/` or custom hooks in `hooks/`, not in component bodies.
-- Immutable state updates. Use Immer when the update shape is complex.
-- State management: Zustand/Jotai stores in `hooks/`. No prop-drilling past two levels.
-- Clean up effects: cancel pending requests, clear timers, unsubscribe listeners in `useEffect` cleanup.
-- Debounce/throttle via `utils/`. No fire-and-forget promises — always `await` or handle the rejection.
-
-# Error Handling
-
-- Never swallow errors. Every `catch` must log, surface to the user (error toasts), or re-throw.
-- Toasts are for errors and warnings only. Do not add success toasts — if the UI accepted the action (form closed, item appeared in list, etc.), that is sufficient feedback. If you find existing success toasts, remove them.
-- Async services return typed results — bubble errors up, don't handle them silently at the service layer.
-- Add React error boundaries around independently-failing UI regions.
-
-# Architecture Decisions
-
-- UI: `components/` and `pages/`. Business logic: `services/`. Helpers: `lib/utils.ts` and `utils/`. Schemas: `src/schema/`.
-- Backend (Tauri): SQLite with migrations in `src-tauri/database/migrations/`. Inference engine in `src-tauri/inference/` supports multiple LLM providers.
-- API keys are stored per profile. Never share keys across profiles.
-
-# Domain Knowledge
-
-Before working on a feature area you're unfamiliar with, check for relevant skill. These contain domain-specific context about app subsystems, conventions, and known gotchas that aren't obvious from the code alone. Read the matching skill before making changes.
-
-# When Making Changes
-
-- Read the relevant code before proposing changes. Don't guess at existing patterns.
-- Match the style of surrounding code. If unsure, check a similar file first.
-- Don't add abstractions, utilities, or refactors beyond what was asked. Three similar lines beat a premature abstraction.
-- Keep changes small and focused. One concern per commit.
-- If something looks wrong in the existing code, mention it — but fix only what was requested unless asked.
-
-# Profile Restrictions
-- Whenever you have to access database, ensure to always filter with current Profile ID.
-- Double-check that you're not exposing data from other profiles.
-
-# UI Components
-- Use HelpTooltips for help/descriptional text to save space, each information in the UI counts.
-- For Modals, utilize the pattern from "@/components/shared/Dialog" to maintain consistency across the app.
-- Utilize "@/components/shared/DestructiveConfirmDialog" for confirmation on destructive operations.
-
-IMPORTANT: Run `pnpm biome check --fix` before committing. Verify the build passes.
-
-IMPORTANT: Never log or expose secrets. API keys stay per-profile and never leave the encryption layer.
+# Color
+Ensure to use themed colors specified in the tailwindcss below.
+```css
+@layer base {
+  :root {
+    --background: 220 20% 97%; /* #F5F7FA instead of pure white */
+    --foreground: 240 10% 3.9%; /* #0A0A0B */
+    --sidebar: 223 25% 94%; /* #EDF0F5 softer sidebar */
+    --card: 0 0% 99%; /* #FCFCFC slightly off-white for cards */
+    --card-foreground: 240 10% 3.9%; /* #0A0A0B */
+    --popover: 220 20% 97%; /* #F5F7FA matches background */
+    --popover-foreground: 240 10% 3.9%; /* #0A0A0B */
+    --primary: 293 59% 74%; /* #DB9EE5 */
+    --primary-foreground: 0 0% 98%; /* #FAFAFA */
+    --secondary: 220 14% 90%; /* #E5E9F0 softer secondary */
+    --secondary-foreground: 240 5.9% 10%; /* #191919 */
+    --muted: 220 16% 92%; /* #EBF0F5 softer muted background */
+    --muted-foreground: 240 3.8% 46.1%; /* #71717A */
+    --accent: 225 25% 94%; /* #EEF1F8 soft accent background */
+    --accent-foreground: 293 59% 74%; /* #DB9EE5 */
+    --destructive: 293 45% 40%; /* #8b3794 */
+    --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+    --border: 220 13% 85%; /* #D9DEE5 softer border */
+    --input: 220 13% 85%; /* #D9DEE5 softer input */
+    --ring: 240 10% 3.9%; /* #18181B */
+    --chart-1: 12 76% 61%; /* #E67E67 */
+    --chart-2: 173 58% 39%; /* #2A9D8F */
+    --chart-3: 197 37% 24%; /* #264653 */
+    --chart-4: 43 74% 66%; /* #ECD662 */
+    --chart-5: 27 87% 67%; /* #F4A261 */
+    --radius: 0.8rem;
+  }
+  .dark {
+    --background: 0 0% 16%; /* #282828 */
+    --foreground: 0 0% 85%; /* #D9D9D9 */
+    --content: 0 0% 21%; /* #353535 */
+    --sidebar: 0 0% 8%; /* #141415 */
+    --card: 0 0% 16%; /* #282828 */
+    --card-foreground: 0 0% 67%; /* #AAAAAA */
+    --popover: 223 9% 18%; /* #2B2D30 */
+    --popover-foreground: 223 9% 73%; /* #B4B8BF */
+    --primary: 293 59% 74%; /* #db9ee5 */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF */
+    --secondary: 223 7% 24%; /* #393B40 */
+    --secondary-foreground: 223 2% 54%; /* #878B8D */
+    --muted: 0 0% 20%; /* #333333 */
+    --muted-foreground: 223 2% 54%; /* #878B8D */
+    --accent: 0 0% 15%; /* #252525 */
+    --accent-foreground: 293 59% 74%; /* #db9ee5 */
+    --destructive: 0 52% 55%; /* #C2362E */
+    --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+    --border: 223 6% 27%; /* #43454A */
+    --input: 223 6% 27%; /* #43454A */
+    --ring: 293 59% 74%; /* #db9ee5 */
+    --chart-1: 293 45% 60%; /* #C76BD1 - derived from primary */
+    --chart-2: 293 35% 45%; /* #9A53A3 - darker primary */
+    --chart-3: 260 40% 55%; /* #7B6EDB - complementary to primary */
+    --chart-4: 320 70% 60%; /* #E55A9B - analogous to primary */
+    --chart-5: 350 65% 55%; /* #DB5A69 - triadic with primary */
+    --chart-6: 230 60% 60%; /* #5A7EE5 - cool contrast */
+    --chart-7: 180 50% 45%; /* #39A3A3 - teal complement */
+    --chart-8: 30 80% 60%;  /* #E5A33A - warm contrast */
+    --radius: 0.4rem;
+  }
+}
+```
 
 ---
 > Source: [vitorfdl/narratrix](https://github.com/vitorfdl/narratrix) — distributed by [TomeVault](https://tomevault.io).
