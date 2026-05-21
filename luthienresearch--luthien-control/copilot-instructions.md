@@ -1,44 +1,53 @@
-## edit-verification-protocol
+## exception-handling
 
-> summary: Protocol for verifying code edits using git diff before debugging logic errors.
+> **NEVER proceed on catch-all exceptions.** When catching exceptions, follow these guidelines:
 
-summary: Protocol for verifying code edits using git diff before debugging logic errors.
+# Exception Handling Rules
 
-objective: Prevent bad edits, ensure verification via diff.
+**NEVER proceed on catch-all exceptions.** When catching exceptions, follow these guidelines:
 
-generation:
-  edit_directive: MUST use ONLY exact changes + `// ... existing code ...`.
-  constraint: NEVER add unrequested code. Implement requested change altering fewest lines/structures necessary.
+### ✅ Allowed: Specific Exception Handling
+```python
+try:
+    risky_operation()
+except ValueError as e:
+    # Handle specific exception and continue
+    logger.warning(f"Invalid value: {e}")
+    return default_value
+except KeyError as e:
+    # Handle specific exception and continue
+    logger.error(f"Missing key: {e}")
+    return None
+```
 
-trigger:
-  rule: MANDATORY IF AND ONLY IF ANY Condition Met
-  conditions:
-    - SyntaxError in target file.
-    - Pytest fixture/parameter error involving symbols modified/added by the edit.
-    - ImportError or NameError possibly caused by the edit (e.g., changes to imports, renames, definition moves).
-    - User explicitly questions the applied edit.
-    - Error traceback shows no execution path through the modified code sections.
-  note: If failure mode aligns with the *intended* logic change of the edit AND no triggers above are met, direct logic debugging may precede diff verification.
+### ✅ Allowed: Catch-All with Re-raise
+```python
+try:
+    risky_operation()
+except Exception as e:
+    # Log for debugging but always re-raise
+    logger.error(f"Unexpected error in operation: {e}")
+    raise  # Always re-raise catch-all exceptions
+```
 
-  apply these steps if and only if one of the following has occurred:
-    1. An edit has apparently failed. Sometimes an edit appears to fail when it has actually succeeded - so check.
-    2. We have reason to believe that an error or unexpected behavior may be the result of a file not having the content we expect it to have.
+### ❌ Prohibited: Catch-All with Continue
+```python
+try:
+    risky_operation()
+except Exception as e:
+    # NEVER do this - catch-all and continue
+    logger.error(f"Error: {e}")
+    return None  # This silently swallows all errors
+```
 
-verification:
-  tool: git diff HEAD <target_file> | cat
-  trigger_condition: MANDATORY AND IF ANY Condition Met
-  conditions:
-
-conflict_resolution:
-  ground_truth: `git diff` IS GROUND TRUTH over intent/preview.
-  actions:
-    - Discard conflicting state/preview if diff differs.
-    - If diff differs: Acknowledge, explain diff vs intent, fix edit FIRST.
-
-debug_flow:
-  - step: Post-edit failure - Check verification triggers.
-  - step: IF trigger met - VERIFY EDIT FIRST (`git diff`). If diff incorrect -> fix edit. If diff correct -> debug logic.
-  - step: IF NO trigger met - Debug logic (assess if failure aligns with edit intent; remain vigilant for latent edit errors).
+### ❌ Prohibited: Silent Catch-All
+```python
+try:
+    risky_operation()
+except:
+    # NEVER do this - silent catch-all
+    pass
+```
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
