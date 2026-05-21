@@ -1,0 +1,9 @@
+{
+  "name": "adamghill--dj-lite-tenant",
+  "displayName": "dj-lite-tenant",
+  "description": "Multi-tenant SQLite databases for Django.",
+  "version": "1.0.0",
+  "author": "adamghill",
+  "homepage": "https://github.com/adamghill/dj-lite-tenant",
+  "skills": []
+}
