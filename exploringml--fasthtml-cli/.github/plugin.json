@@ -1,0 +1,9 @@
+{
+  "name": "exploringml--fasthtml-cli",
+  "displayName": "fasthtml-cli",
+  "description": "Fastest way to scaffold FastHTML applications.",
+  "version": "1.0.0",
+  "author": "ExploringML",
+  "homepage": "https://github.com/ExploringML/fasthtml-cli",
+  "skills": []
+}
