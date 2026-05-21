@@ -1,106 +1,59 @@
-## email-to-rss
+## project-implementation-plan
 
-> This file gives coding agents fast context for working in this repository.
+> Project Implementation Plan
 
-# AGENTS.md
+# Detailed Project Implementation Plan
 
-This file gives coding agents fast context for working in this repository.
+This section is a top-level "blueprint" describing the solution architecture and how each component fits together.
 
-## Project summary
+## Overview
 
-Email-to-RSS is a Cloudflare Worker that ingests newsletters from ForwardEmail and exposes them as RSS feeds.
+**Goal:** Build a service that turns email newsletters into RSS feeds, so you can subscribe in an RSS reader like Reeder. The service should provide unique email addresses per feed, a front-end admin panel, indefinite (or long-term) storage of newsletters, and minimal cost—preferably using Cloudflare services plus ForwardEmail.net.
 
-Core goals:
+## Key Components
 
-- Self-hosted and private
-- Free-tier-friendly (Cloudflare + ForwardEmail)
-- Minimal operational overhead
+1. **ForwardEmail.net**
+   - Accept incoming newsletters on your custom domain’s email addresses.
+   - Forward them (via webhook) to your API endpoint for processing.
+   - Free inbound plan includes JSON + raw MIME data.
+2. **Cloudflare Workers**
+   - **Inbound Worker:** Receives the webhook from ForwardEmail.net, parses/stores newsletter data in KV (or R2).
+   - **RSS Worker:** Serves RSS feeds by reading from KV and outputting XML.
+   - **Admin Worker (potential):** Could serve a small UI or JSON API for feed management.
+3. **Cloudflare KV**
+   - Key-value store for storing newsletter items (subject, date, HTML, etc.).
+   - Minimal cost for text data.
+   - Indefinite retention if you keep usage under limits.
+4. **Cloudflare Pages (Optional)**
+   - Could host a separate front-end for admin tasks.
+   - Alternatively, build a simple admin UI directly within the Worker.
+5. **Admin Dashboard**
+   - Basic login and feed creation (generate random email addresses).
+   - List newsletters and optionally delete them or rename feed titles.
+   - For a simple approach, implement a minimal password-protected area or JSON endpoints.
+6. **Domain / DNS Setup**
+   - Use your custom domain (e.g. `mynewsletters.dev`).
+   - Add DNS records so ForwardEmail.net is the MX handler.
+   - Configure Cloudflare for general DNS (with “Orange Cloud” or not, depending on your proxying preferences).
+   - Verify your domain following ForwardEmail.net’s instructions.
 
-## Runtime and stack
+## Data Flow
 
-- Runtime: Cloudflare Workers
-- Framework: Hono (`src/index.ts` + `src/routes/*`)
-- Storage: Cloudflare KV (`EMAIL_STORAGE` binding)
-- Typescript + Vitest for development/testing
+1. A newsletter arrives at `newsletterXYZ@mynewsletters.dev`.
+2. ForwardEmail.net triggers a webhook to `https://your-worker.example.com/api/inbound?feed=XYZ` with JSON + raw MIME.
+3. The Worker parses the email, extracts relevant information (date, subject, HTML body), and stores it in KV under a key like `feed:XYZ:timestamp`.
+4. When your RSS reader (e.g. Reeder) requests `GET https://your-worker.example.com/rss/XYZ`, the Worker fetches all items from KV for that feed, builds an RSS XML response, and returns it.
+5. *(Optional)* The Admin Dashboard (via a password-protected route or a separate Cloudflare Pages front-end) can create new feed IDs, display items, etc.
 
-## Important files
+## Summary of Implementation Steps
 
-- `setup.sh`: bootstraps local setup, KV namespaces, secrets, and local Wrangler config
-- `wrangler-example.toml`: template used by setup
-- `src/index.ts`: app boot + CORS + inbound IP allowlist middleware
-- `src/routes/inbound.ts`: email ingestion endpoint
-- `src/routes/rss.ts`: RSS rendering endpoint
-- `src/routes/admin.ts`: admin UI and feed/email management
-- `src/test/setup.ts`: test runtime mocks (KV + Cache)
-
-## KV data model
-
-Current keys used by routes:
-
-- `feeds:list` -> `{ feeds: Array<{ id, title }> }`
-- `feeds:list.feeds[].description` -> optional description (used to keep the dashboard fast; older data may omit it)
-- `feed:<feedId>:config` -> feed config object
-- `feed:<feedId>:config.allowed_senders` -> optional sender allowlist (email or domain)
-- `feed:<feedId>:metadata` -> `{ emails: Array<{ key, subject, receivedAt }> }`
-- `feed:<feedId>:<timestamp>` -> stored email body/metadata
-
-Notes:
-
-- Some utility files contain alternate key helpers not used by routes (`src/utils/storage.ts`).
-- Keep route behavior and key schema consistent when refactoring.
-
-## Setup/deploy workflow
-
-1. `npx wrangler login`
-2. `bash setup.sh`
-3. Configure ForwardEmail DNS records in Cloudflare
-4. `npm run deploy`
-
-`setup.sh` assumes Wrangler v4 command syntax (`wrangler kv namespace ...`).
-
-## Development workflow
-
-- Install: `npm install`
-- Test: `npm test`
-- Build (dry-run deploy bundle): `npm run build`
-- Dev server: `npm run dev`
-
-## Testing notes
-
-- Tests run in Node environment (`vitest.config.ts`), not DOM.
-- Hono v4 test requests pass env as the 3rd arg: `app.request(path, init, env)`.
-- Some tests intentionally hit validation errors; stderr logs are expected.
-
-## Security assumptions
-
-- Inbound endpoint only accepts requests from ForwardEmail source IPs.
-- Admin access uses a signed cookie gate and password stored in Worker secret (`ADMIN_PASSWORD`).
-- Admin pages set `Cache-Control: no-store`.
-- Prefer setting `allowed_senders` on legitimate feeds to reduce inbound spam.
-- Do not hardcode credentials or domain-specific secrets into tracked files.
-
-## Spam cleanup workflow
-
-- First choice: use dashboard bulk actions (`/admin`) with search + checkbox selection.
-- Use **Table** view for bulk delete.
-- Table columns are resizable and sortable; widths persist per-browser via localStorage.
-- **Select Results** selects all rows currently shown by the search filter; **Clear Selection** unselects everything.
-- Bulk deletes are performed asynchronously (batched requests) so the UI stays responsive.
-- Avoid wildcard deletion; prefer search + small batches to reduce risk of deleting legitimate feeds.
-
-## Cloudflare/Wrangler conventions
-
-- `wrangler.toml` is generated locally from `wrangler-example.toml`.
-- Keep `compatibility_date` current on meaningful runtime upgrades.
-- Prefer explicit `--env production` for deploy/secret commands.
-
-## If you change behavior
-
-Update all of the following together:
-
-- `README.md`
-- `setup.sh` (if setup/deploy assumptions changed)
-- tests under `src/routes/*.test.ts` and `src/test/setup.ts`
+1. Set up the Domain and ForwardEmail.net for inbound mail.
+2. Create a Cloudflare Worker to handle the inbound webhook.
+3. Parse the email (using ForwardEmail.net’s parsed data or parsing the raw MIME if necessary).
+4. Store the data in KV.
+5. Create an RSS Worker endpoint to retrieve the data and output XML.
+6. *(Optional)* Develop an Admin UI to create new feeds, list items, and manage them.
+7. Deploy and test the solution. Subscribe to the feed with Reeder.
 
 ---
 > Source: [yl8976/Email-to-RSS](https://github.com/yl8976/Email-to-RSS) — distributed by [TomeVault](https://tomevault.io).
