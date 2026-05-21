@@ -1,24 +1,39 @@
-## solution-exploration-guide
+## task-plannning
 
-> When examining how to implement an issue
+> When tickets have been assigned or revising the implementation plan
+
+# Task Planning Guide
 
 ## Purpose
-- nformation gathering and Brainstorming potential approaches
+- To design a structured implementation approach before any coding begins
+- To ensure clear understanding of requirements and dependencies
+- To divide tickets into small PRs and commits for easier review and integration
 
-## Forbidden: 
-- Concrete planning, implementation details, or any code writing
-
-##output-format
-- file: ticket_[issue name].md
-- chapters:
-    - Summary of the issue that will be resolved with the ticket
-    - Overview of the architecture, domain model and data model to be changed or added this time
-    - Work plan based on PR and commitment units(This is only for creating chapters, do not write content)
+## Output
+- A comprehensive work plan organized by PRs and commits
+- Each PR should be small, functional, and independently reviewable
+- Each commit should represent an atomic change within its PR
+- To minimize dependencies between PRs, ideally making them independently implementable
 
 ## Method
-- Understand the issue from the given information and existing code
-- research and interviews with users to ensure that we have all the information we need to complete the task
-- Analyze potential impacts to the existing codebase
+### Analysis Phase
+- Analyze the task's architecture requirements thoroughly
+- Explore and read all potentially relevant existing code and similar reference code
+- Develop a meta architecture plan for the solution
+
+### Planning Approach
+- Break down the task into smallest possible PRs
+- Order PRs logically (e.g., setup → core logic → tests)
+- Define 2-4 minimal atomic commits for each PR
+- Prefer splitting tasks into PRs rather than large commits
+
+### Implementation Criteria
+- Only proceed after achieving 100% clarity and confidence
+- Ensure all affected parts of the codebase have been fully identified through dependency tracing
+- **The work plan must be approved by the user before implementation**
+
+## Prohibited Actions
+- **Any implementation or code writing, even "example code"**
 
 ---
 > Source: [yodakeisuke/mcp-micromanage-your-agent](https://github.com/yodakeisuke/mcp-micromanage-your-agent) — distributed by [TomeVault](https://tomevault.io).
