@@ -1,37 +1,108 @@
-## testing
+## unit-testing
 
-> - ✅ ALWAYS use `go run .` instead of building the binary for testing
+> Unit Testing Rules for CLI
 
-# Testing Rules
 
-## Use `go run .` for Testing
-- ✅ ALWAYS use `go run .` instead of building the binary for testing
-- ✅ This is faster and avoids unnecessary binary generation
-- ❌ Don't use `go build -o agentuity` unless you need a persistent binary
+# Unit Testing Rules
 
-## Testing Workflow
-```bash
-# ✅ Good: Test with go run
-go run . bundle
-go run . dev
-go run . project create
+## Use Testify for All Tests
+- ✅ ALWAYS use `github.com/stretchr/testify/assert` and `github.com/stretchr/testify/require` for testing
+- ✅ Use `assert.Equal()`, `assert.True()`, `assert.False()`, `assert.NoError()`, `assert.Error()` for assertions
+- ✅ Use `require.NoError()`, `require.True()`, `require.False()` for fatal assertions that should stop test execution
+- ✅ Use table-driven tests with `t.Run()` for multiple test cases
 
-# ❌ Avoid: Building every time for testing
-go build -o agentuity && ./agentuity bundle
+## Test Structure Pattern
+```go
+func TestFunctionName(t *testing.T) {
+    tests := []struct {
+        name     string
+        input    string
+        expected string
+    }{
+        {"test case 1", "input1", "expected1"},
+        {"test case 2", "input2", "expected2"},
+    }
+
+    for _, test := range tests {
+        t.Run(test.name, func(t *testing.T) {
+            result := FunctionName(test.input)
+            assert.Equal(t, test.expected, result)
+        })
+    }
+}
 ```
 
-## When to Build
-- Only build when you need a persistent binary for:
-  - Installation scripts
-  - Distribution
-  - CI/CD pipelines
-  - Manual testing outside the project directory
+## Reference Examples
+- See `internal/util/strings_test.go` for basic assertion patterns
+- See `internal/util/api_test.go` for complex test scenarios with `require` and `assert`
+- See `internal/bundler/bundler_test.go` for table-driven test patterns
 
-## Development Benefits
-- Faster iteration cycle
-- No need to manage binary files
-- Cleaner development workflow
-- Less disk space usage
+## Common Testify Patterns
+
+### Basic Assertions
+```go
+import (
+    "testing"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/require"
+)
+
+func TestBasicAssertions(t *testing.T) {
+    // Equality
+    assert.Equal(t, expected, actual)
+    assert.NotEqual(t, expected, actual)
+    
+    // Boolean checks
+    assert.True(t, condition)
+    assert.False(t, condition)
+    
+    // Error handling
+    assert.NoError(t, err)
+    assert.Error(t, err)
+    
+    // Fatal assertions (stop test on failure)
+    require.NoError(t, err)
+    require.True(t, condition)
+}
+```
+
+### Table-Driven Tests
+```go
+func TestMultipleCases(t *testing.T) {
+    tests := []struct {
+        name     string
+        input    string
+        expected string
+    }{
+        {"empty string", "", ""},
+        {"simple case", "input", "output"},
+        {"special chars", "input@#$", "output___"},
+    }
+
+    for _, test := range tests {
+        t.Run(test.name, func(t *testing.T) {
+            result := ProcessInput(test.input)
+            assert.Equal(t, test.expected, result)
+        })
+    }
+}
+```
+
+### Error Testing
+```go
+func TestErrorHandling(t *testing.T) {
+    t.Run("should return error for invalid input", func(t *testing.T) {
+        err := ProcessInvalidInput("invalid")
+        require.Error(t, err)
+        assert.Contains(t, err.Error(), "invalid input")
+    })
+    
+    t.Run("should not return error for valid input", func(t *testing.T) {
+        err := ProcessValidInput("valid")
+        assert.NoError(t, err)
+    })
+}
+```
 
 ---
 > Source: [agentuity/cli](https://github.com/agentuity/cli) — distributed by [TomeVault](https://tomevault.io).
