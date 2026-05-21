@@ -1,0 +1,9 @@
+{
+  "name": "twenty-bellows--pattern-builder",
+  "displayName": "pattern-builder",
+  "description": "A way to manage WordPress Patterns in Themes",
+  "version": "1.0.0",
+  "author": "Twenty-Bellows",
+  "homepage": "https://github.com/Twenty-Bellows/pattern-builder",
+  "skills": []
+}
