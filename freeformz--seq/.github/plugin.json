@@ -1,0 +1,9 @@
+{
+  "name": "freeformz--seq",
+  "displayName": "seq",
+  "description": "Iterator utiliies for Golang",
+  "version": "1.0.0",
+  "author": "freeformz",
+  "homepage": "https://github.com/freeformz/seq",
+  "skills": []
+}
