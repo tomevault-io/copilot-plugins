@@ -1,0 +1,9 @@
+{
+  "name": "mineru98--mysql-mcp-server",
+  "displayName": "mysql-mcp-server",
+  "description": "A server application designed on top of MCP to interact with Cursor and MySQL.",
+  "version": "1.0.0",
+  "author": "Mineru98",
+  "homepage": "https://github.com/Mineru98/mysql-mcp-server",
+  "skills": []
+}
