@@ -1,0 +1,9 @@
+{
+  "name": "vhscom--private-landing",
+  "displayName": "private-landing",
+  "description": "\ud83d\udd10 Learn authentication by building it right. An extensible, standards-compliant reference implementation for Cloudflare Workers with Hono, Turso, PBKDF2, and JWT dual-token sessions.",
+  "version": "1.0.0",
+  "author": "vhscom",
+  "homepage": "https://github.com/vhscom/private-landing",
+  "skills": []
+}
