@@ -1,69 +1,135 @@
-## 070-workflow-preferences
+## 400-md-docs
 
-> MAINTAIN development discipline WHEN implementing changes TO preserve codebase integrity
+> ALWAYS use when writing or updating Markdown files to ensure consistent formatting and readability. This rule enforces standardized Markdown practices across all documentation.
 
-
-# Coding Workflow Preferences
-
-<version>1.0.0</version>
-
-## Context
-- When implementing new features
-- When fixing bugs or addressing issues
-- When refactoring or improving existing code
-- When reviewing code changes
+# Markdown Documentation Standards
 
 ## Requirements
-- Focus exclusively on code areas relevant to the current task
-- Do not modify code unrelated to the assigned task
-- Write thorough tests for all major functionality
-- Preserve existing architectural patterns unless explicitly instructed otherwise
-- Analyze potential impacts of changes on other methods and code areas
-- Consider side effects before implementing changes
-- Maintain backward compatibility when possible
-- Document significant architectural decisions
 
-## Examples
+- Follow the official [Markdown Guide](mdc:https:/www.markdownguide.org) for all basic and extended syntax
+- Maintain clear document structure and readability
+- Include appropriate metadata when required
+- Use Mermaid diagrams for visual documentation where appropriate
+- Always Include YAML front matter for metadata but Keep metadata concise
+
+## Markdown Reference
+
+For all basic and extended Markdown syntax, refer to:
+- [Basic Syntax Guide](mdc:https:/www.markdownguide.org/basic-syntax)
+- [Extended Syntax Guide](mdc:https:/www.markdownguide.org/extended-syntax)
+
+## Formatting Rules
+
+- Use ATX-style headings with space after hash: `# Heading`
+- Maintain proper heading hierarchy (don't skip levels)
+- Maximum heading depth: 4 levels
+- Add blank line before and after headings
+- Indent content within XML tags by 2 spaces
+- Close XML tags on their own line at the parent indentation level
+- Use blockquotes with emoji for different types of callouts:
 
 <example>
-# Good: Focused change with proper testing
-# Task: Fix validation in user registration
+  > 🚨 **Warning:** Critical information here.
 
-# 1. Only modify the relevant validation function
-def validate_user_input(user_data):
-    """Validate user registration data with fixed email validation."""
-    if not is_valid_email(user_data.get('email')):
-        raise ValidationError("Invalid email format")
-    # Other existing validation logic...
+  > 💡 **Tip:** Helpful suggestion.
 
-# 2. Add thorough tests for the fix
-def test_validate_user_input_with_invalid_email():
-    """Test that invalid emails are properly rejected."""
-    with pytest.raises(ValidationError):
-        validate_user_input({'email': 'invalid-email'})
+  > ℹ️ **Note:** Additional context.
+</example>
 
-def test_validate_user_input_with_valid_email():
-    """Test that valid emails pass validation."""
-    result = validate_user_input({'email': 'user@example.com'})
-    assert result is True
+## Code Blocks
+
+- Use triple backticks with language specification
+- Indent code blocks properly
+- Add blank line before and after
+- Use inline code for short references
+
+<example>
+```typescript
+function example(): void {
+  console.log('Hello, Universe!');
+}
+```
+
+Reference the `example()` function inline.
+</example>
+
+## Tables
+
+- Use alignment indicators
+- Include header row separator
+- Keep tables simple and readable
+- Add blank lines before and after
+
+<example>
+| Name    | Type    | Description     |
+|:--------|:-------:|---------------:|
+| id      | number  | Primary key    |
+| name    | string  | User's name    |
+</example>
+
+## Special Elements
+
+### Callouts
+
+Use blockquotes with emoji for different types of callouts:
+
+<example>
+> 🚨 **Warning:** Critical information here.
+
+> 💡 **Tip:** Helpful suggestion.
+
+> ℹ️ **Note:** Additional context.
+</example>
+
+### Mermaid Diagrams
+
+Use Mermaid diagrams to visualize:
+- Architecture flows
+- Process sequences
+- Decision trees
+- State machines
+- Component relationships
+- AI agent rule flows
+
+### When to Use Mermaid
+
+- Simple and Complex workflows need visualization
+- System architecture needs to be explained
+- Process flows have multiple branches
+- State transitions need to be clear
+- AI decision trees need to be mapped
+
+### Diagram Best Practices
+
+1. Include clear titles using the `---` syntax
+2. Use descriptive node labels
+3. Add comments for complex flows
+4. Group related components using subgraphs
+5. Use consistent direction (TD/LR/TB)
+6. Keep diagrams focused and specific
+
+<example>
+```mermaid
+---
+title: Example Workflow
+---
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Process 1]
+    B -->|No| D[Process 2]
+    C --> E[End]
+    D --> E
+```
 </example>
 
 <example type="invalid">
-# Bad: Unfocused changes beyond task scope
-# Task: Fix validation in user registration
+```mermaid
+graph TD
+A-->B
+B-->C
+```
 
-# 1. Modifying unrelated authentication system
-def authenticate_user(username, password):
-    """Authenticate user with new token-based system."""
-    # Completely rewriting authentication when task was only about validation
-    token = generate_jwt_token(username, password)
-    return {'authenticated': True, 'token': token}
-
-# 2. Changing database schema without tests
-def update_user_schema():
-    """Update user table with new fields."""
-    # Adding schema changes unrelated to the validation fix
-    db.execute("ALTER TABLE users ADD COLUMN last_login TIMESTAMP")
+No title, unclear labels, no context
 </example>
 
 ---
