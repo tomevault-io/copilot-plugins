@@ -1,0 +1,9 @@
+{
+  "name": "cloudcoil--cloudcoil",
+  "displayName": "cloudcoil",
+  "description": "Modern async-first Kubernetes client for Python with Pydantic models - bringing cloud-native operations and K8s development to life with elegant Pythonic APIs",
+  "version": "1.0.0",
+  "author": "cloudcoil",
+  "homepage": "https://github.com/cloudcoil/cloudcoil",
+  "skills": []
+}
