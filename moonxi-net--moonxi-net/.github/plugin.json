@@ -1,0 +1,9 @@
+{
+  "name": "moonxi-net--moonxi-net",
+  "displayName": "moonxi-net",
+  "description": "A deep learning training framework in MoonBit with tape-based autograd, a PyTorch-like API, and tagless final backends for CPU/GPU. Accelerated by CUDA/cuDNN.",
+  "version": "1.0.0",
+  "author": "moonxi-net",
+  "homepage": "https://github.com/moonxi-net/moonxi-net",
+  "skills": []
+}
