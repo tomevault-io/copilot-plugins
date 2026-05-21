@@ -1,0 +1,116 @@
+## mcp-server
+
+> See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the authoritative contributor guide. It covers:
+
+# Keboola MCP Server - Project Guide
+
+## Contributing Guidelines
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the authoritative contributor guide. It covers:
+
+- **RFC requirement** — when a design doc in `feature_spec/<feature-name>/RFC.md` is required before implementation (new tools, new architectural concepts, new end-to-end behavior), and the required RFC structure
+- **Testing requirements** — regression tests for bug fixes, unit + E2E tests for features, and parametrize conventions
+- **PR checklist** — the full set of items every PR must address (branch naming, version bump, `uv.lock`, `tox`, RFC link, etc.)
+
+The rules in this file (git workflow, versioning, venv setup) complement `CONTRIBUTING.md` — when the two overlap, `CONTRIBUTING.md` is the source of truth for contributor-facing process. Read it before opening a PR.
+
+## Git Workflow
+- **Always create a branch first** before committing changes
+- Branch names must start with the Linear issue ID and be short (e.g., `AI-2480-whitelist-n8n-domains`)
+  - **Exception:** release branches use `release/vX.Y.Z` (e.g., `release/v1.55.0`) — these have no Linear issue
+- Commit messages must **start** with the Linear issue ID (e.g., `AI-2480: description`)
+- When working on a Linear task, **check the current branch first** (`git branch`). If not already on the correct task branch, create one before making any changes: `git checkout -b AI-XXXX-short-description`
+- When creating PRs, use the template at `.github/pull_request_template.md`
+- **Every PR must include a `pyproject.toml` version bump** — bump before merging; see [Versioning](#versioning) for the rules
+- **Never use `git push --force`** or rebase commits that have already been pushed - use merge commits instead to avoid rewriting history for others
+
+## Testing
+- **All tox checks must pass before pushing** — CI runs the same checks (pytest, black, flake8, check-tools-docs) and will fail the build if any of them fail
+- **Use tox** for final testing - it runs pytest, black (formatting), flake8 (linter), and check-tools-docs (verifies TOOLS.md is up-to-date)
+- It's OK to use pytest directly for running individual tests during development
+- Activate the virtual environment first (e.g., `source <venv>/bin/activate`)
+- Run specific tests: `tox -e py310 -- tests/test_file.py -v`
+- Run all checks: `tox`
+- **Write parameterized tests** (`@pytest.mark.parametrize`) to reduce boilerplate; declare parameter names as a tuple of strings, not a single comma-separated string (e.g. `('a', 'b')` not `'a, b'`)
+- **Be careful with mocking** - don't mock too much or tests will just test the mocks, not the real code
+- **Extend existing tests instead of adding new ones** - when adding new scenarios (e.g. OAuth bearer token cases), add parameters to an existing parametrized test rather than writing a separate test function; this avoids test bloat and keeps related cases together
+- **Only test what's necessary** - add test cases that cover genuinely new behavior, not duplicates of cases already covered by existing parametrize entries
+
+## Virtual Environments
+- Look for a venv folder in the project root (e.g., `3.10.venv/`, `.venv/`) that contains an editable install of the project, or ask the user which venv to use
+- Activate the venv before running tox or uv commands
+- After version bump in `pyproject.toml`, sync lock file: `uv lock` (no `--active` flag — unlike `uv sync`, `uv lock` does not accept it)
+
+## Setting Up a Fresh Clone
+Run these steps once after cloning the repository:
+```bash
+# 1. Create virtual environment (requires Python 3.10)
+python3.10 -m venv 3.10.venv
+
+# 2. Activate and install uv
+source 3.10.venv/bin/activate
+pip install --upgrade pip uv
+
+# 3. Sync all dependencies from the lock file
+#    --active is required so uv installs into the already-activated venv
+uv sync --active --extra dev --extra tests
+
+# 4. Verify everything works
+tox
+```
+All four tox environments (pytest, black, flake8, check-tools-docs) should exit 0.
+
+## Integration Tests
+
+See `integtests/README.md` for setup and conventions.
+
+## Local End-to-End Testing with MCP
+
+For manual end-to-end testing, you can set up a local MCP server in a `.mcp.json` file
+in the project root (it is already in `.gitignore`). Point it to the venv's Python
+interpreter which has the package installed in editable mode — this ensures the server
+runs your local source code. Placing the `.mcp.json` in the project root allows you to
+test from the same Claude Code (or other MCP client) session where you develop, with the
+server always reflecting your latest code changes:
+
+```json
+{
+  "mcpServers": {
+    "keboola-local": {
+      "command": "<absolute-path-to-project>/.venv/bin/python",
+      "args": ["-m", "keboola_mcp_server"],
+      "env": {
+        "KBC_STORAGE_API_URL": "https://connection.<stack>.keboola.com",
+        "KBC_STORAGE_TOKEN": "<your-token>",
+        "KBC_BRANCH_ID": "<optional-branch-id>"
+      }
+    }
+  }
+}
+```
+
+- Use the **absolute path** to the venv Python — relative paths or bare `python` may pick up
+  a different interpreter that doesn't have your local edits.
+- After making code changes, the MCP server must be **reloaded** to pick them up.
+- If the editable install is stale (e.g. after `git pull` with dependency changes), run
+  `uv sync --active --extra dev --extra tests` to update it.
+- Do not commit tokens.
+
+## Versioning
+
+- **Every PR must bump `pyproject.toml` version** before merging.
+- Use semantic versioning:
+  - **Patch** (`1.x.y` → `1.x.y+1`): bug fixes, refactoring, docs, tests, chores
+  - **Minor** (`1.x.y` → `1.x+1.0`): new features, new tools, new capabilities
+  - **Major**: breaking API/protocol changes (rare)
+- After bumping, always sync the lock file: `uv lock`
+- Commit the version bump and `uv.lock` change together (can be a separate commit or bundled with
+  the main feature commit).
+
+## Security Considerations
+- When whitelisting domains in OAuth, prefer **explicit domain lists over regex patterns**
+- Regex could unintentionally allow future domains that weren't reviewed (principle of least privilege)
+
+---
+> Source: [keboola/mcp-server](https://github.com/keboola/mcp-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
