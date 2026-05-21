@@ -1,78 +1,108 @@
-## cursor-rules-location
+## pnpm-usage
 
-> Standards for placing Cursor rule files in the correct place
+> use pnm in this repo instead of npm
 
-# Cursor Rules Location
-
-Rules for placing and organizing Cursor rule files in the repository.
+# PNPM Usage Guidelines for CrossRoads
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: pnpm_usage
+description: Guidelines for using pnpm as the package manager in the CrossRoads repository
+
 filters:
-  # Match any .mdc files
-  - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
   - type: event
-    pattern: "file_create"
+    pattern: "file_create|file_modify"
+  - type: file_path
+    pattern: "package\\.json$|.*\\.md$"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
   - type: suggest
     message: |
-      When creating Cursor rules:
+      # PNPM Usage Guidelines for CrossRoads
 
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
-
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
-
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      ## Overview
+      
+      CrossRoads uses pnpm as its package manager. Always use pnpm instead of npm or yarn for all package management operations.
+      
+      ## Key Commands
+      
+      - **Install dependencies**: `pnpm install`
+      - **Add a dependency**: `pnpm add <package-name>`
+      - **Add a dev dependency**: `pnpm add -D <package-name>`
+      - **Run scripts**: `pnpm <script-name>` (e.g., `pnpm test`, `pnpm dev`)
+      - **Run scripts in specific packages**: `pnpm --filter <package-name> <script-name>`
+      
+      ## Workspace Commands
+      
+      CrossRoads is a monorepo using pnpm workspaces. Use these commands for workspace operations:
+      
+      - **Run a command in all packages**: `pnpm -r <command>`
+      - **Run a command in a specific package**: `pnpm --filter <package-name> <command>`
+      - **Add a dependency to a specific package**: `pnpm --filter <package-name> add <dependency>`
+      
+      ## Testing
+      
+      Always use pnpm to run tests:
+      
+      ```bash
+      # Run all tests
+      pnpm test
+      
+      # Run tests for a specific package
+      pnpm --filter @crossroads/durable-search test
+      ```
+      
+      ## CI/CD
+      
+      The CI/CD pipeline is configured to use pnpm. Never use npm or yarn in CI/CD scripts.
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
-
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+      # Development
+      
+      To install dependencies:
+      
+      ```bash
+      npm install
+      ```
+      
+      To run tests:
+      
+      ```bash
+      npm test
+      ```
+    output: |
+      # Development
+      
+      To install dependencies:
+      
+      ```bash
+      pnpm install
+      ```
+      
+      To run tests:
+      
+      ```bash
+      pnpm test
+      ```
+  - input: |
+      // Add a script to package.json
+      {
+        "scripts": {
+          "test": "npm run test:unit && npm run test:integration"
+        }
+      }
+    output: |
+      // Add a script to package.json
+      {
+        "scripts": {
+          "test": "pnpm test:unit && pnpm test:integration"
+        }
+      }
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [mattzcarey/crossroads](https://github.com/mattzcarey/crossroads) — distributed by [TomeVault](https://tomevault.io).
