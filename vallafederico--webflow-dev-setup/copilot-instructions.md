@@ -1,80 +1,61 @@
-## dom-attributes
+## file-organization
 
-> DOM attribute conventions (data-module, data-* options, kebab-case). Use when adding or reading attributes for modules or component config.
+> File and folder structure (src/modules/, lib, utils). Use when adding files, organizing imports, or navigating the codebase.
 
-# DOM Attribute Conventions
+# File Organization Rules
 
-## Module Attributes
+## Module Files
 
-- **Primary**: `data-module="moduleName"` - Links element to module
-# DOM Attribute Conventions
+- **Location**: `src/modules/` directory
+# File Organization Rules
 
-## Module Attributes
+## Module Structure
 
-- **Primary**: `data-module="moduleName"` - Links element to module
-- **Secondary**: `data-*` attributes for module configuration
-- **Naming**: Use kebab-case for attribute names
+- **Location**: `src/modules/` directory
+- **Naming**: Use descriptive, kebab-case names
+- **Extension**: `.ts` for TypeScript modules
+- **Structure**: One module per file
 
-## Common Patterns
-
-```html
-<!-- Basic module -->
-<div data-module="cycle"></div>
-
-<!-- With configuration -->
-<div data-module="nav" data-speed="0.5" data-delay="100"></div>
-
-<!-- With animation options -->
-<div data-module="fade" data-duration="0.8" data-ease="power2.out"></div>
-
-<!-- With responsive options -->
-<div data-module="parallax" data-mobile="false" data-desktop="true"></div>
-```
-
-## Dataset Access
-
-Access custom attributes in modules:
+## Import Organization
 
 ```typescript
+// 1. External libraries
+import gsap from "gsap";
+
+// 2. Internal modules (lifecycle hooks)
+import { onMount, onDestroy, onPageIn, onPageOut, onView, onTrack } from "@/modules/_";
+
+// 3. Subscription services
+import { Raf, Resize } from "@lib/subs";
+
+// 4. Internal libraries
+import { Scroll } from "@lib/scroll";
+import State from "@lib/hey";
+
+// 5. Utilities
+import { clientRect } from "@utils/client-rect";
+import { clamp, map } from "@utils/math";
+
+// 6. Module implementation
 export default function (element: HTMLElement, dataset: DOMStringMap) {
-  // Parse numeric values
-  const speed = parseFloat(dataset.speed || "1");
-  const delay = parseInt(dataset.delay || "0");
-  const duration = parseFloat(dataset.duration || "0.5");
-  
-  // String values
-  const animation = dataset.animation || "default";
-  const ease = dataset.ease || "power2.out";
-  
-  // Boolean values
-  const mobile = dataset.mobile === "true";
-  const desktop = dataset.desktop !== "false";
+  // Implementation
 }
 ```
 
-## Validation
+## File Naming Conventions
 
-- Always check for required attributes
-- Provide sensible defaults
-- Use type conversion for numeric values
-- Validate attribute values when needed
-- Handle missing or invalid attributes gracefully
+- Use descriptive names that match functionality
+- Avoid generic names like `module.ts` or `component.ts`
+- Use kebab-case for multi-word names
+- Examples: `cycle.ts`, `nav.ts`, `scroll-animation.ts`
 
-## Error Handling
+## Module Categories
 
-```typescript
-export default function (element: HTMLElement, dataset: DOMStringMap) {
-  try {
-    const speed = parseFloat(dataset.speed || "1");
-    if (isNaN(speed) || speed < 0) {
-      console.warn("Invalid speed value, using default");
-      speed = 1;
-    }
-  } catch (error) {
-    console.error("Error parsing dataset:", error);
-  }
-}
-```
+- **Animation**: `cycle.ts`, `fade.ts`, `slide.ts`
+- **Navigation**: `nav.ts`, `menu.ts`, `tabs.ts`
+- **Interaction**: `hover.ts`, `click.ts`, `scroll.ts`
+- **Layout**: `grid.ts`, `masonry.ts`, `sticky.ts`
+- **Effects**: `parallax.ts`, `reveal.ts`, `morph.ts`
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
