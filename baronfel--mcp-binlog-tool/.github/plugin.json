@@ -1,0 +1,9 @@
+{
+  "name": "baronfel--mcp-binlog-tool",
+  "displayName": "mcp-binlog-tool",
+  "description": "A Model Context Protocol server binary that exposes information inside an MSBuild Binary Log to LLMs to aid build analysis.",
+  "version": "1.0.0",
+  "author": "baronfel",
+  "homepage": "https://github.com/baronfel/mcp-binlog-tool",
+  "skills": []
+}
