@@ -1,59 +1,42 @@
-## vortex-scaffold-standards
+## vue-best-practices
 
-> Standards for Vortex/DrevOps scaffold usage and best practices
+> Vue 3 and NuxtJS specific standards and optimizations
 
-# Vortex/DrevOps Scaffold Standards
+# Vue 3 and NuxtJS Best Practices
 
-Ensures proper usage of Vortex/DrevOps scaffold features and workflows.
+Ensures Vue 3 and NuxtJS code follows recommended patterns and optimizations.
 
 <rule>
-name: vortex_scaffold_standards
-description: Enforce standards for Vortex/DrevOps scaffold usage
+name: vue_nuxt_best_practices
+description: Enforce Vue 3 and NuxtJS coding standards and optimizations
 filters:
   - type: file_extension
-    pattern: "\\.(yml|yaml|sh|json|md)$"
-  - type: file_path
-    pattern: "scripts/(vortex|drevops)/"
+    pattern: "\\.(vue|js|ts)$"
 
 actions:
   - type: enforce
     conditions:
-      - pattern: "custom-download-db\\.sh"
-        message: "Use scripts/vortex/download-db.sh router script instead of custom implementation"
+      - pattern: "(?<!defineProps|interface|type)\\{\\s*[a-zA-Z]+\\s*:\\s*[a-zA-Z]+\\s*\\}"
+        message: "Use TypeScript interfaces for prop definitions"
 
-      - pattern: "drush\\s+[a-z-]+\\s+--uri="
-        message: "Use DRUPAL_SITE_URL environment variable instead of hardcoded URI"
+      - pattern: "watch\\(.*,.*\\{\\s*immediate:\\s*true\\s*\\}"
+        message: "Consider using computed property instead of immediate watch"
 
-      - pattern: "composer\\s+require\\s+[^-]"
-        message: "Use Vortex's composer.json template and Renovate for dependency management"
-
-      - pattern: "docker\\s+exec\\s+-it\\s+\\$\\(docker-compose"
-        message: "Use Ahoy commands for container interactions"
+      - pattern: "v-if.*v-for"
+        message: "Avoid using v-if with v-for on the same element"
 
   - type: suggest
     message: |
-      Vortex/DrevOps Best Practices:
-      - Use centralized workflow scripts from scripts/vortex/
-      - Leverage environment variables for configuration
-      - Use Renovate for automated dependency updates
-      - Follow the router script pattern for customizations
-      - Implement proper CI/CD integration
-      - Use provided tool configurations (PHPCS, PHPStan, etc.)
-      - Maintain documentation structure
-      - Ensure CI/CD pipelines include testing and deployment steps
-      - Document CI/CD processes in the README for clarity
-
-  - type: validate
-    conditions:
-      - pattern: "^\\s*source\\s+\\.env"
-        message: "Use scripts/vortex/bootstrap.sh for environment setup"
-
-      - pattern: "docker-compose\\s+exec\\s+cli\\s+vendor/bin/"
-        message: "Use provided Ahoy commands for tool execution"
+      Vue 3 Best Practices:
+      - Use Composition API for complex components
+      - Implement proper prop validation
+      - Use TypeScript for better type safety
+      - Leverage Vue 3's reactivity system effectively
+      - Consider using <script setup> syntax
 
 metadata:
   priority: high
-  version: 1.1
+  version: 1.0
 </rule> 
 
 ---
