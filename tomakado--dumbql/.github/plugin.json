@@ -1,0 +1,9 @@
+{
+  "name": "tomakado--dumbql",
+  "displayName": "dumbql",
+  "description": "Simple (dumb?) query language",
+  "version": "1.0.0",
+  "author": "tomakado",
+  "homepage": "https://github.com/tomakado/dumbql",
+  "skills": []
+}
