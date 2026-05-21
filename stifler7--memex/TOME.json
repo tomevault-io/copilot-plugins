@@ -1,0 +1,44 @@
+{
+  "name": "memex",
+  "owner": "STiFLeR7",
+  "repo": "memex",
+  "description": "Persistent memory for AI coding agents via MCP \u2014 a bitemporal knowledge graph of your codebase, served to Claude Code, Cursor, Gemini CLI, and any MCP client. Tree-sitter + Gemini Flash \u2192 Neo4j (via Graphiti). 12 MCP tools, hierarchical clusters, two-regime confidence decay.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/STiFLeR7/memex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T02:32:50Z"
+}
