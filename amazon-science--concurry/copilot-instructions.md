@@ -1,54 +1,65 @@
-## coding-exceptions
+## coding-explicit-checks
 
-> Exception handling and fail-fast rules for concurry.
+> Explicit checks for collection emptiness and None — deviates from PEP 8 intentionally.
 
-# Exception Handling and Fail Fast
+# Explicit Checks
 
-## Fail Fast
+## Collection Emptiness (DEVIATES FROM PEP 8 — INTENTIONAL)
+- **Never use `not x` to check if a collection is empty**
+- **Always use `len(x) == 0`** for emptiness checks
+- **Use `len(x) > 0`** for non-empty checks
 
-This is the timing corollary of the **Loud Failures Over Silent Defaults** principle above: detect invalid state at the *earliest possible point*. Invalid inputs should raise exceptions at the function boundary where they enter, not deep inside nested calls where the traceback is useless. A `.get(key, default)` that silently invents a value is the opposite of fail-fast — it lets the invalid state propagate silently until it causes mysterious behavior.
+**Rationale:** This rule intentionally deviates from PEP 8 and the Google Python Style Guide, both of which recommend `if not seq:`. We enforce `len(x)` for three reasons:
 
-- Validate arguments at the top of public methods before any work is done
-- Raise specific, descriptive exceptions immediately when preconditions are violated
-- Prefer raising over returning sentinel values (`None`, `-1`, `False`) for error conditions
+1. **`len()` signals container type.** `len(x)` only works on sized containers. `not x` works on anything with `__bool__`, including `False`, `0`, `None`, and `""`. Writing `len(x)` communicates "x is a collection" in a way that `not x` does not. `len(False)` raises `TypeError` — that is a *feature*, not a bug, because it catches type confusion at the call site.
+2. **Truthiness conflates distinct concepts.** `not x` is true for `None`, `0`, `False`, `""`, `[]`, `{}`, and `set()`. These are semantically different. In a concurrency library that handles diverse user-provided types across thread/process/ray boundaries, treating emptiness and falsiness as the same concept produces subtle bugs.
+3. **Uniform behavior across collection types.** NumPy arrays and Pandas DataFrames raise `ValueError` when cast to bool if they have more than one element. `len()` works uniformly across all sized containers.
 
-```python
-def submit(self, task: Task, priority: int) -> Future:
-    if task is None:
-        raise ValueError("task must not be None")
-    if priority < 0:
-        raise ValueError(f"priority must be non-negative, got {priority}")
-    if not self._is_running:
-        raise WorkerStoppedError(f"Cannot submit to stopped worker {self._id}")
-    return self._enqueue(task, priority)
-```
-
-## Exception Handling
-
-- **Catch narrow, specific exceptions** (`ValueError`, `TypeError`, `TimeoutError`), never bare `except:` or `except Exception:`
-- **Raise low, catch high**: let lower-level functions raise; catch at application boundaries (CLI, web handler, top-level orchestrator)
-- **Never silently swallow exceptions**: `except: pass` hides bugs. If you must catch broadly, at minimum log the exception
-- **Use custom exception classes** for domain-specific errors (`WorkerStoppedError`, `LimitExceededError`) — callers can then catch precisely what they need
-- **Include context in error messages**: the message should contain enough information to diagnose the problem without a debugger. Follow the feedback-driven exception pattern from **Loud Failures Over Silent Defaults**: state what was expected, what was received, and what the available options are (e.g., `f"Unknown worker mode {mode!r}. Must be one of: {list(ExecutionMode)}."`).
+**Linter suppression:** Disable Pylint C1802 (`use-implicit-booleaness-not-len`) and Ruff PLC1802 for this project.
 
 ❌ Bad:
 ```python
-try:
-    result = worker.execute(task)
-except Exception:
+if not my_list:
+    pass
+if my_dict:
+    pass
+if not futures:
     pass
 ```
 
 ✅ Good:
 ```python
-try:
-    result = worker.execute(task)
-except TimeoutError:
-    log.warning(f"Task {task.id} timed out after {timeout_seconds}s on worker {worker.id}")
-    raise
-except WorkerStoppedError:
-    log.error(f"Worker {worker.id} stopped unexpectedly during task {task.id}")
-    raise
+if len(my_list) == 0:
+    pass
+if len(my_dict) > 0:
+    pass
+if len(futures) == 0:
+    pass
+```
+
+## None Checks
+- When checking whether a variable is `None`: **always use `is None` or `is not None`**
+- **Never use `not x` or `if x` as a proxy for None checking** — `0`, `""`, `[]`, and `False` are valid non-None values that would be incorrectly treated as None
+- This is PEP 8, Google Python Style Guide, and Flake8 E711/E712 — universally agreed upon
+
+**Why `is` not `==`:** `None` is a singleton. `is` tests object identity (is this the exact same object?), which is always correct. `==` tests equality, which can be overridden by `__eq__` methods and produce surprising results with custom objects.
+
+❌ Bad:
+```python
+if not value:      # ❌ Catches 0, "", [], False — not just None
+    pass
+if value:          # ❌ Misses 0, "", [], False as valid non-None
+    pass
+if value == None:  # ❌ Uses equality, not identity
+    pass
+```
+
+✅ Good:
+```python
+if value is None:
+    pass
+if value is not None:
+    pass
 ```
 
 ---
