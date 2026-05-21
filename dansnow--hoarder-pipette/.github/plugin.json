@@ -1,0 +1,9 @@
+{
+  "name": "dansnow--hoarder-pipette",
+  "displayName": "hoarder-pipette",
+  "description": "An extension that inject your bookmarks from your Hoarder app into your search results",
+  "version": "1.0.0",
+  "author": "DanSnow",
+  "homepage": "https://github.com/DanSnow/hoarder-pipette",
+  "skills": []
+}
