@@ -1,0 +1,44 @@
+{
+  "name": "Dynamic_OCPP_EVSE",
+  "owner": "LeoAlioth",
+  "repo": "Dynamic_OCPP_EVSE",
+  "description": "Intelligent load management for Home Assistant. Dynamically distributes available power across your managed loads \u2014 EV chargers (via OCPP), smart plugs, and more \u2014 based on solar production, battery state, grid capacity, and per-load operating modes. Works with both grid-tied and off-grid installations.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LeoAlioth/Dynamic_OCPP_EVSE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T17:54:04Z"
+}
