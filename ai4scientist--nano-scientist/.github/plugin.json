@@ -1,0 +1,9 @@
+{
+  "name": "ai4scientist--nano-scientist",
+  "displayName": "nano-scientist",
+  "description": "An autonomous research agent that turns a topic into a peer-reviewed technical report",
+  "version": "1.0.0",
+  "author": "AI4Scientist",
+  "homepage": "https://github.com/AI4Scientist/nano-scientist",
+  "skills": []
+}
