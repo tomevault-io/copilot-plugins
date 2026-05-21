@@ -1,45 +1,37 @@
-## 03-key-functions
+## 04-helper-modules
 
-> - `initSidebar()` - Initialize the sidebar, creating default spaces if needed
+> The `ChromeHelper` module encapsulates Chrome API interactions and provides a cleaner interface for:
 
-# Key Functions
+# Helper Modules
 
-## Space Management
+## ChromeHelper
 
-- `initSidebar()` - Initialize the sidebar, creating default spaces if needed
-- `createSpaceElement(space)` - Create DOM elements for a space
-- `setActiveSpace(spaceId)` - Switch to a specific space
-- `createNewSpace()` - Create a new space
-- `deleteSpace(spaceId)` - Delete a space and its tabs
+The `ChromeHelper` module encapsulates Chrome API interactions and provides a cleaner interface for:
+- Creating new tabs
+- Creating new tab groups
+- Managing tab groups
 
-## Tab Management
+## LocalStorage
 
-- `createTabElement(tab, isPinned, isBookmarkOnly)` - Create DOM element for a tab
-- `loadTabs(space, pinnedContainer, tempContainer)` - Load tabs for a space
-- `createNewTab()` - Create a new tab in the active space
-- `closeTab(tabElement, tab, isPinned, isBookmarkOnly)` - Close a tab
-- `moveTabToPinned(space, tab)` - Move a tab to the pinned section
-- `moveTabToTemp(space, tab)` - Move a tab to the temporary section
-- `moveTabToSpace(tabId, spaceId, pinned)` - Move a tab to a different space
+The `LocalStorage` module manages persistent storage using Chrome's bookmarks API:
+- `getOrCreateArcifyFolder()` - Gets or creates the root bookmark folder
+- `getOrCreateSpaceFolder(name)` - Gets or creates a bookmark folder for a space
 
-## Event Handlers
+## Utils
 
-- `handleTabCreated(tab)` - Handle newly created tabs
-- `handleTabUpdate(tabId, changeInfo, tab)` - Handle tab updates
-- `handleTabRemove(tabId)` - Handle tab removal
-- `handleTabActivated(activeInfo)` - Handle tab activation
+The `Utils` module provides utility functions for:
+- Generating UUIDs
+- Getting settings
+- Getting favicon URLs
+- Managing tab name overrides
+- Handling tab archiving and restoration
 
-## Bookmarks Management
+## Constants
 
-- `updateBookmarkForTab(tab)` - Update bookmark for a tab
-- `searchBookmarks(folderId, tab)` - Search for bookmark matching a tab
-
-## UI Features
-
-- `setupDragAndDrop(pinnedContainer, tempContainer)` - Set up drag-and-drop functionality
-- `showTabContextMenu(x, y, tab, isPinned, isBookmarkOnly, tabElement)` - Show context menu for tabs
-- `showArchivedTabsPopup()` - Display archived tabs popup
-- `updatePinnedFavicons()` - Update the pinned favicons display
+The codebase defines several constants:
+- `MouseButton` - Enum for mouse button values
+- Default space names and colors
+- Global state flags like `isCreatingSpace`, `isOpeningBookmark`
 
 ---
 > Source: [nisargkolhe/arcify](https://github.com/nisargkolhe/arcify) — distributed by [TomeVault](https://tomevault.io).
