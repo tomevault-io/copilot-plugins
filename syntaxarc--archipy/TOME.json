@@ -4,7 +4,7 @@
   "repo": "ArchiPy",
   "description": "Architecture + Python \u2013 perfect for structured design.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SyntaxArc/ArchiPy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T14:02:38Z"
+  "distributed_at": "2026-05-21T08:25:39Z"
 }
