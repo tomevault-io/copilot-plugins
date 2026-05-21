@@ -1,0 +1,9 @@
+{
+  "name": "plasma-umass--bigo",
+  "displayName": "bigO",
+  "description": "Measures empirical computational complexity (in both time and space) of functions",
+  "version": "1.0.0",
+  "author": "plasma-umass",
+  "homepage": "https://github.com/plasma-umass/bigO",
+  "skills": []
+}
