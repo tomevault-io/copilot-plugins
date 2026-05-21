@@ -1,84 +1,80 @@
-## python-code-style
+## testing-bdd
 
-> Core Python code style standards for ArchiPy (enforced by Ruff)
+> BDD/Behave testing conventions for ArchiPy feature files and step implementations
 
 
-# Python Code Style
+# Testing with BDD (Behave)
 
-## Strings & Quotes
-- Always use **double quotes** for all strings (inline and multiline).
-- `ruff format` enforces this automatically — never use single quotes.
+ArchiPy uses the **Behave** BDD framework (v1.3.3). Tests are written as Gherkin scenarios.
 
-## Docstrings
-- **Google-style** docstrings required on all public functions, classes, and methods.
-- `__init__` methods do not require docstrings (D107 is ignored).
+## Directory Structure
 
-```python
-# ✅ GOOD
-def fetch_user(user_id: int) -> User:
-    """Fetch a user by their ID.
-
-    Args:
-        user_id: The unique identifier of the user.
-
-    Returns:
-        The matching User entity.
-
-    Raises:
-        NotFoundError: If no user with the given ID exists.
-    """
+```
+features/
+├── *.feature                    # Gherkin scenario files
+├── environment.py               # Global setup/teardown hooks
+├── scenario_context.py          # Per-scenario state container
+├── test_helpers.py              # Shared async/sync utilities
+└── steps/
+    └── *.py                     # Step implementations (Given/When/Then)
 ```
 
-## Line Length & Formatting
-- Max line length: **120 characters**.
-- Indentation: **4 spaces** (no tabs).
-- Every file must end with a **newline character**.
+## Running Tests
 
-## Type Hints
-- Use Python 3.14+ syntax: `X | Y` instead of `Union[X, Y]`, `X | None` instead of `Optional[X]`.
-- Use lowercase built-ins: `list[str]`, `dict[str, int]`, `tuple[int, ...]`.
-
-## Import Order
-Strictly follow this section order (enforced by Ruff/isort):
-1. `from __future__ import ...`
-2. Standard library
-3. Third-party packages
-4. First-party (`archipy`)
-5. Local folder
-
-```python
-# ✅ GOOD
-from __future__ import annotations
-
-import os
-from typing import TYPE_CHECKING
-
-import pydantic
-
-from archipy.models.errors import NotFoundError
+```bash
+make behave
+uv run --extra behave behave features/file_name.feature
+uv run --extra behave behave features/file_name.feature:42
 ```
 
-## Error Handling
-- Always use **specific exception types** — never bare `except:` or `except Exception:` at top level.
-- Preserve context with `raise ... from e`.
+## Writing Feature Files
 
-```python
-# ❌ BAD
-try:
-    result = db.get(user_id)
-except Exception:
-    raise ValueError("Not found")
+- Keep `.feature` files **declarative** — describe behavior, not implementation.
+- Use `@tags` to categorize scenarios for selective runs.
 
+```gherkin
 # ✅ GOOD
-try:
-    result = db.get(user_id)
-except KeyError as e:
-    raise NotFoundError(resource_type=User) from e
+@redis @cache
+Feature: Cache adapter
+  Scenario: Store and retrieve a value
+    Given a running Redis instance
+    When I store "hello" under key "greeting"
+    Then I can retrieve "hello" from key "greeting"
 ```
 
-## Complexity
-- Keep McCabe complexity **below 10** per function.
-- Max 5 function arguments (use dataclasses/DTOs for more).
+## Writing Step Files
+
+- Step functions are exempt from: `ANN001`, `ANN201`, `ARG001`, `PLR0913`, `F811`.
+- Step redefinition (`F811`) is allowed — Behave reuses steps across features.
+- Use `get_current_scenario_context(context)` to share state between steps.
+
+## Async Steps
+
+Behave 1.3.3 supports `async def` step functions **natively** — no `asyncio.run()` or `@async_run_until_complete` wrapper needed. Always declare async steps with `async def` and use `await` directly.
+
+```python
+# ❌ BAD — never use asyncio.run() inside a step
+@when("something async happens")
+def step_impl(context):
+    result = asyncio.run(some_async_call())
+
+# ✅ GOOD — declare the step as async def and await directly
+@when("something async happens")
+async def step_impl(context):
+    result = await some_async_call()
+```
+
+Sync operations work fine inside `async def` steps, so steps with mixed sync/async branches (e.g. if/elif over frameworks) should be converted to `async def` entirely.
+
+The only place `asyncio.run()` is acceptable is in **non-step** callbacks (e.g. `scenario_context.py` cleanup methods) that may be called from outside an event loop.
+
+## Parallel Execution
+
+Behave is configured to run with **8 parallel workers** (multiprocessing). Steps must not share mutable global state across scenarios.
+
+## Linting Exclusions
+
+`features/` and `scripts/` are excluded from Ruff linting. Do not add type annotations to step functions.
 
 ---
 > Source: [SyntaxArc/ArchiPy](https://github.com/SyntaxArc/ArchiPy) — distributed by [TomeVault](https://tomevault.io).
