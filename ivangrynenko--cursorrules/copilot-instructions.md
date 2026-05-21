@@ -1,110 +1,97 @@
-## drupal-file-permissions
+## drupal-injection
 
-> Drupal file permissions security standards
+> Detect and prevent injection vulnerabilities in Drupal as defined in OWASP Top 10:2021-A03
 
-# Drupal File Permissions Security
+# Drupal Injection Security Standards (OWASP A03:2021)
 
-Standards for securing Drupal file permissions in Docker environments and production servers, ensuring proper security while maintaining functionality.
+This rule enforces security best practices to prevent injection vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A03.
 
 ## Rule Details
 
-- **Name:** drupal_file_permissions
+- **Name:** drupal_injection
 
-- **Description:** Enforce secure file permissions for Drupal sites/default directory and critical files
+- **Description:** Detect and prevent injection vulnerabilities in Drupal as defined in OWASP Top 10:2021-A03
 
 ## Filters
-- file extension pattern: `\\.(dockerfile|sh|yml)$`
-- file name: `^Dockerfile$|^docker-compose\\.yml$`
-- content: `(?i)chmod|chown|drupal|settings\\.php|services\\.yml`
+- file extension pattern: `\\.(php|inc|module|install|theme)$`
+- file path pattern: `(modules|themes|profiles|core)/.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `chmod\\s+(?!755)\\d+\\s+[^\\n]*sites\\/default(?![^\\n]*files)` – sites/default directory should have 755 permissions (read-only for group/others)
-  - pattern `chmod\\s+(?!444)\\d+\\s+[^\\n]*settings\\.php` – settings.php should have 444 permissions (read-only for everyone)
-  - pattern `chmod\\s+(?!444)\\d+\\s+[^\\n]*services\\.yml` – services.yml should have 444 permissions (read-only for everyone)
-  - pattern `chmod\\s+(?!755)\\d+\\s+[^\\n]*sites\\/default\\/files` – sites/default/files directory should have 755 permissions with proper ownership
-  - pattern `chown\\s+(?!www-data:www-data)[^\\s]+\\s+[^\\n]*sites\\/default\\/files` – sites/default/files should be owned by the web server user (www-data:www-data)
+  - pattern `db_query\\(['\"][^'\"]*\\$[^'\"]*['\"]` – Direct variables in SQL queries are vulnerable to SQL injection. Use parameterized queries with placeholders.
+    - Pattern 1: Raw SQL queries without placeholders
+  - pattern `->query\\(['\"][^'\"]*\\$[^'\"]*['\"]` – Use parameterized queries with placeholders to prevent SQL injection: ->query($sql, [$param1, $param2]).
+    - Pattern 2: Modern DB API without placeholders
+  - pattern `<?=|<?php\\s+echo\\s+(?!(t|\\\\t|\\$this->t))[^;]*;` – Direct output may lead to XSS. Use t(), escaped variables with Html::escape(), or Twig templates.
+    - Pattern 3: Unescaped output
+  - pattern `[\"']#markup[\"']\\s*=>\\s*(?!t\\(|\\\\t\\(|Xss::filterAdmin|Html::escape)\\$` – Never use unfiltered variables in #markup. Use t(), Xss::filterAdmin(), or Html::escape().
+    - Pattern 4: Unfiltered user input in render arrays
+  - pattern `->addJsSettings\\(\\[(?![^\\]]*(Xss::filter|Json::encode))\\$` – Filter variables before adding to JavaScript settings using Xss::filter() or properly encode with Json::encode().
+    - Pattern 5: Unescaped variables in JavaScript settings
+  - pattern `exec\\(|shell_exec\\(|system\\(|passthru\\(|proc_open\\(|popen\\(|`` – Command execution functions can lead to command injection. Use Symfony\Component\Process\Process if necessary.
+    - Pattern 6: Direct command execution
+  - pattern `->redirect\\(\\s*\\$(?!(this->|allowed_destinations|config))` – Unvalidated redirects can lead to open redirect vulnerabilities. Whitelist allowed destinations.
+    - Pattern 7: Unvalidated redirect
+  - pattern `->condition\\([^,]*,\\s*\\$(?!(this->|config|entity|storage))[^,]*,` – Use proper input validation before using variables in database conditions to prevent SQL injection.
+    - Pattern 8: Raw user input in conditions
+  - pattern `(?<!buildForm|getFormId)\\s*function\\s+[a-zA-Z0-9_]+Form\\s*\\([^{]*\\{[^}]*return\\s+\\$form;(?![^}]*FormBuilderInterface|[^}]*::TOKEN|[^}]*#token)` – Form submissions must include CSRF protection with $form['#token'].
+    - Pattern 9: Missing CSRF protection in forms
+  - pattern `file_get_contents\\(\\s*\\$(?!(this->|allowed_paths|config))` – Validate file paths before operations to prevent path traversal attacks.
+    - Pattern 10: Unvalidated file operations
 
 ## Suggestions
 - Guidance:
-## Drupal File Permissions Security Best Practices
+**Drupal Injection Prevention Best Practices:**
 
-### 1. Critical File Permissions
-- **sites/default directory**: 755 (drwxr-xr-x)
-- **settings.php**: 444 (r--r--r--)
-- **services.yml**: 444 (r--r--r--)
-- **settings.local.php**: 444 (r--r--r--)
-- **sites/default/files**: 755 (drwxr-xr-x)
-- **sites/default/files/** (contents): 644 (rw-r--r--) for files, 755 (drwxr-xr-x) for directories
+1. **SQL Injection Prevention:**
+   - Always use parameterized queries with placeholders
+   - Use the Database API's condition methods: ->condition(), ->where()
+   - Properly escape table and field names with {}
+   - Consider using EntityQuery for entity operations
 
-### 2. Ownership Configuration
-- **Web root**: application user (varies by environment)
-- **sites/default/files**: web server user (www-data:www-data)
+2. **XSS Prevention:**
+   - Use Drupal's t() function for user-visible strings
+   - Apply appropriate filtering: Html::escape(), Xss::filter(), Xss::filterAdmin()
+   - Use #plain_text instead of #markup when displaying user input
+   - Utilize Twig's automatic escaping in templates
+   - For admin UIs, be careful with Xss::filterAdmin() as it allows some tags
 
-### 3. Implementation in Dockerfile
-```dockerfile
-# Set proper permissions for Drupal
-RUN mkdir -p /app/${WEBROOT}/sites/default/files && \
-    chown www-data:www-data /app/${WEBROOT}/sites/default/files && \
-    chmod 755 /app/${WEBROOT}/sites/default && \
-    chmod 444 /app/${WEBROOT}/sites/default/settings.php && \
-    chmod 444 /app/${WEBROOT}/sites/default/services.yml && \
-    find /app/${WEBROOT}/sites/default/files -type d -exec chmod 755 {} \\; && \
-    find /app/${WEBROOT}/sites/default/files -type f -exec chmod 644 {} \\;
-```
+3. **CSRF Protection:**
+   - Always include form tokens with $form['#token']
+   - Validate form tokens with FormState->validateToken()
+   - For AJAX requests, utilize Drupal's ajax framework
+   - Use drupal_valid_token() for custom validation
 
-### 4. Permission Fix Script
-Create a script at `/app/scripts/custom/fix-drupal-permissions.sh`:
-```bash
-#!/bin/bash
+4. **Command Injection Prevention:**
+   - Avoid command execution functions entirely
+   - Use Symfony\Component\Process\Process with escaped arguments
+   - Validate and whitelist any input used in command contexts
 
-# Exit on error
-set -e
+5. **Path Traversal Prevention:**
+   - Validate file paths with FileSystem::validatedLocalFileSystem()
+   - Use stream wrappers (public://, private://) instead of direct paths
+   - Implement strict input validation for any path components
 
-WEBROOT=${WEBROOT:-web}
-
-echo "Setting Drupal file permissions..."
-
-# Ensure directories exist
-mkdir -p /app/${WEBROOT}/sites/default/files
-
-# Set ownership
-chown www-data:www-data /app/${WEBROOT}/sites/default/files
-
-# Set directory permissions
-chmod 755 /app/${WEBROOT}/sites/default
-chmod 755 /app/${WEBROOT}/sites/default/files
-find /app/${WEBROOT}/sites/default/files -type d -exec chmod 755 {} \;
-
-# Set file permissions
-chmod 444 /app/${WEBROOT}/sites/default/settings.php
-[ -f /app/${WEBROOT}/sites/default/services.yml ] && chmod 444 /app/${WEBROOT}/sites/default/services.yml
-[ -f /app/${WEBROOT}/sites/default/settings.local.php ] && chmod 444 /app/${WEBROOT}/sites/default/settings.local.php
-find /app/${WEBROOT}/sites/default/files -type f -exec chmod 644 {} \;
-
-echo "Drupal file permissions set successfully."
-```
-
-### 5. Verify Permissions
-```bash
-# Check file permissions
-ahoy cli "ls -la /app/${WEBROOT}/sites/default"
-ahoy cli "ls -la /app/${WEBROOT}/sites/default/files"
-
-# Check Drupal status
-ahoy drush status-report | grep -i "protected"
-```
-
-### 6. Security Considerations
-- Never set 777 permissions on any Drupal files or directories
-- Temporary files should be stored in private file system when possible
-- Use Drupal's private file system for sensitive uploads
-- Implement file access controls through Drupal's permission system
-- Consider using file encryption for highly sensitive data
+## Validation Checks
+- Conditions:
+  - pattern `->query\\(['\"][^'\"]*\\?[^'\"]*['\"],\\s*\\[[^\\]]*\\]\\)` – Properly using parameterized queries with placeholders.
+    - Check 1: Proper SQL query usage
+  - pattern `(t\\(|Xss::filter|Html::escape|#plain_text)` – Using proper XSS prevention techniques.
+    - Check 2: Proper XSS prevention
+  - pattern `#token|FormBuilderInterface::TOKEN|drupal_valid_token` – Implementing CSRF protection correctly.
+    - Check 3: Proper CSRF protection
+  - pattern `FileSystem::validatedLocalFileSystem|file_exists\\(\\s*DRUPAL_ROOT` – Using safe file operation practices.
+    - Check 4: Safe file operations
 
 ## Metadata
 - Priority: high
-- Version: 1.2
+- Version: 1.1
+- Tags: security, drupal, injection, sql, xss, csrf, owasp, language:php, framework:drupal, category:security, subcategory:injection, standard:owasp-top10, risk:a03-injection
+## References
+- https://owasp.org/Top10/A03_2021-Injection/
+- https://www.drupal.org/docs/security-in-drupal/writing-secure-code-for-drupal
+- https://www.drupal.org/docs/8/security/drupal-8-sanitizing-output
+- https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Component%21Utility%21Xss.php/class/Xss/9
 
  
 
