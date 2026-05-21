@@ -1,0 +1,15 @@
+## singbox-gui
+
+> You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
+
+You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
+
+- use `tarui v2` api, and new features.
+- use powershell format instead of cmd/bash
+- use `pnpm dlx @shadcn/ui@latest add xxx` to add component instead of modifying `src/components/ui/xxx.tsx`
+- use `cargo add xxx` to add dependency instead of modifying `Cargo.toml`
+- use `pnpm add xxx` to add dependency instead of modifying `package.json`
+
+---
+> Source: [faker2048/singbox-gui](https://github.com/faker2048/singbox-gui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
