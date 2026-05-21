@@ -1,0 +1,9 @@
+{
+  "name": "cloudtolocalllm-online--cloudtolocalllm",
+  "displayName": "CloudToLocalLLM",
+  "description": "Privacy-first desktop AI companion with 5 pillars: unified chat, OpenClaw Gateway, evolving avatar, desktop control, and vision. Auth0 with encrypted tunneling.",
+  "version": "1.0.0",
+  "author": "CloudToLocalLLM-online",
+  "homepage": "https://github.com/CloudToLocalLLM-online/CloudToLocalLLM",
+  "skills": []
+}
