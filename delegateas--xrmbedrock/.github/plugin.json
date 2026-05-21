@@ -1,0 +1,9 @@
+{
+  "name": "delegateas--xrmbedrock",
+  "displayName": "XrmBedrock",
+  "description": "XrmBedrock replaces XrmFramework as a starting ground for our Dataverse projects",
+  "version": "1.0.0",
+  "author": "delegateas",
+  "homepage": "https://github.com/delegateas/XrmBedrock",
+  "skills": []
+}
