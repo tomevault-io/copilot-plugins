@@ -1,0 +1,9 @@
+{
+  "name": "saharcarmel--thealmanac",
+  "displayName": "TheAlmanac",
+  "description": "A documentation assistant leveraging Model Context Protocol (MCP) to help programmers access the most up-to-date and relevant information from API and software documentation.",
+  "version": "1.0.0",
+  "author": "SaharCarmel",
+  "homepage": "https://github.com/SaharCarmel/TheAlmanac",
+  "skills": []
+}
