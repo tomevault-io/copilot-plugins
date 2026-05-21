@@ -1,0 +1,9 @@
+{
+  "name": "ryan-token--sports-home-automation-swift",
+  "displayName": "sports-home-automation-swift",
+  "description": "Serveless Swift on AWS to remotely control Philips Hue bulbs whenever my favorite sports teams score or win.",
+  "version": "1.0.0",
+  "author": "ryan-token",
+  "homepage": "https://github.com/ryan-token/sports-home-automation-swift",
+  "skills": []
+}
