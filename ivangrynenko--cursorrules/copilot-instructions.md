@@ -1,101 +1,103 @@
-## drupal-ssrf
+## drupal-vulnerable-components
 
-> Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in Drupal applications as defined in OWASP Top 10:2021-A10
+> Detect and prevent vulnerabilities related to outdated or vulnerable components in Drupal as defined in OWASP Top 10:2021-A06
 
-# Drupal Server-Side Request Forgery Standards (OWASP A10:2021)
+# Drupal Vulnerable and Outdated Components Standards (OWASP A06:2021)
 
-This rule enforces security best practices to prevent Server-Side Request Forgery (SSRF) vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A10.
+This rule enforces security best practices to prevent vulnerabilities related to outdated or vulnerable components in Drupal applications, as defined in OWASP Top 10:2021-A06.
 
 ## Rule Details
 
-- **Name:** drupal_ssrf
+- **Name:** drupal_vulnerable_components
 
-- **Description:** Detect and prevent Server-Side Request Forgery (SSRF) vulnerabilities in Drupal applications as defined in OWASP Top 10:2021-A10
+- **Description:** Detect and prevent vulnerabilities related to outdated or vulnerable components in Drupal as defined in OWASP Top 10:2021-A06
 
 ## Filters
-- file extension pattern: `\\.(php|inc|module|install|theme)$`
+- file extension pattern: `\\.(php|inc|module|install|info\\.yml|json)$`
 - file path pattern: `.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `(file_get_contents|fopen|curl_exec|drupal_http_request|\\$client->request|\\$client->get|Drupal::httpClient\\(\\)->get)\\s*\\([^)]*\\$_(GET|POST|REQUEST|COOKIE|SERVER|FILES)[^)]*\\)` – Potential SSRF vulnerability: URL constructed with user input. Validate and sanitize user-supplied URL parameters before making requests.
-    - Pattern 1: Unsafe URL construction with user input
-  - pattern `GuzzleHttp\\\\Client[^;]*;[^;]*->request\\s*\\([^;]*\\$[^;]*` – Validate and restrict URLs before making HTTP requests with Guzzle to prevent SSRF attacks.
-    - Pattern 2: Unsafe Guzzle HTTP client usage
-  - pattern `(Http(Client|Request)|curl_exec|file_get_contents)\\s*\\([^)]*(http|\\$[a-zA-Z0-9_]+)[^)]*\\)[^;]*;(?![^;]*(valid|check|sanitize|UrlHelper))` – HTTP requests should validate URLs with \\Drupal\\Component\\Utility\\UrlHelper::isValid() before execution to prevent SSRF.
-    - Pattern 3: Missing URL validation before making HTTP requests
-  - pattern `(https?:?//|www\\.)\\s*\\.\\s*\\$[a-zA-Z0-9_]+` – Potential SSRF vulnerability: URL being constructed with variable concatenation. Use URL validation and allowlisting.
-    - Pattern 4: Unsafe URL construction with variable input
-  - pattern `file_get_contents\\([\"'](mdc:?:http|https|ftp|php|data|expect|zip|phar)://` – Avoid using PHP wrappers with file operations that could lead to SSRF vulnerabilities.
-    - Pattern 5: Using file system wrappers which can lead to SSRF
-  - pattern `CURLOPT_PROXY[^;]*none|CURLOPT_PROXY[^;]*null` – Bypassing proxy settings can lead to SSRF vulnerabilities. Maintain proper proxy configurations.
-    - Pattern 6: Bypassing local proxy settings
-  - pattern `simplexml_load_|DOMDocument|SimpleXMLElement|xml_parse` – XML processing without disabling external entities can lead to XXE and SSRF. Use libxml_disable_entity_loader(true).
-    - Pattern 7: Unsafe processing of XML with external entities
-  - pattern `(127\\.0\\.0\\.1|10\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}|172\\.(1[6-9]|2[0-9]|3[0-1])\\.[0-9]{1,3}\\.[0-9]{1,3}|192\\.168\\.[0-9]{1,3}\\.[0-9]{1,3}|169\\.254\\.[0-9]{1,3}\\.[0-9]{1,3}|localhost)` – Hardcoded internal IP addresses or localhost may facilitate SSRF attacks if exposed to user manipulation.
-    - Pattern 8: Accessing or using internal network IPs
-  - pattern `\\\\Drupal::httpClient\\(\\)(?!.*[^;]*UrlHelper::isValid)` – Always validate URLs with UrlHelper::isValid() before making HTTP requests with Drupal's HTTP client.
-    - Pattern 9: Custom Drupal HTTP client usage without validation
-  - pattern `curl_setopt\\([^,]+,\\s*CURLOPT_PORT,\\s*\\$[a-zA-Z0-9_]+` – Potential SSRF vulnerability: Restrict allowed ports for outbound HTTP requests to prevent service probing.
-    - Pattern 10: Allowing unrestricted ports in HTTP requests
+  - pattern `core:\\s*('|\")8\\.[0-6](mdc:'|\")|core_version_requirement:\\s*('|\")[^9].+('|\")` – Potentially outdated Drupal core version detected. Consider upgrading to the latest secure version of Drupal 9 or 10.
+    - Pattern 1: Outdated Drupal core version declaration
+  - pattern `drupal_set_message\\(|format_date\\(|drupal_render\\(|entity_load\\(|variable_get\\(|variable_set\\(` – Deprecated function detected. Use modern replacements to ensure compatibility and security updates.
+    - Pattern 2: Usage of deprecated functions
+  - pattern `jquery\\.min\\.js\\?v=1\\.|jquery-1\\.|jquery-2\\.|ckeditor/|tinymce/|angular\\.js@1\\.` – Potentially vulnerable JavaScript library version detected. Update to the latest secure version.
+    - Pattern 3: Known vulnerable libraries referenced
+  - pattern `<script\\s+src=['\"]http|<script\\s+src=['\"]//|<link\\s+[^>]*href=['\"]http` – External scripts or stylesheets without Subresource Integrity (SRI) checks detected. Add integrity and crossorigin attributes.
+    - Pattern 4: Direct inclusion of external scripts without SRI
+  - pattern `module:\\s*('[^']*captcha'|'recaptcha'|'xmlrpc'|'openid'|'php')` – Potentially vulnerable or deprecated module detected. Consider using more secure alternatives.
+    - Pattern 5: Use of obsolete or removed modules
+  - pattern `\"drupal/[^\"]+\":\\s*\"(~|\\^)?[0-9]\\.[0-9]\\.[0-9]\"` – Hard-coded specific version detected in composer.json. Consider using version ranges to receive security updates.
+    - Pattern 6: Hard-coded versions in composer.json
+  - pattern `mysql_|split\\(|ereg\\(|eregi\\(|create_function\\(|each\\(` – Deprecated or insecure PHP function detected. Use modern alternatives for better security.
+    - Pattern 7: Outdated or insecure PHP API usage
+  - pattern `type:\\s*module\\s*\\nname:` – Ensure your module specifies core_version_requirement to prevent installation on unsupported Drupal versions.
+    - Pattern 8: Usage of contrib modules without version constraints
+  - pattern `composer\\.json` – Consider adding drupal/core-security-advisories as a dev dependency to detect known vulnerable packages.
+    - Pattern 9: Missing security advisories handling in composer.json
+  - pattern `check_plain\\(|filter_xss\\(|filter_xss_admin\\(` – Legacy text sanitization function detected. Use Html::escape() or Xss::filter() instead.
+    - Pattern 10: Direct usage of vulnerable sanitization functions
 
 ## Suggestions
 - Guidance:
-**Drupal SSRF Prevention Best Practices:**
+**Drupal Component Security Best Practices:**
 
-1. **Input Validation for URLs:**
-   - Always validate any user-supplied URL or URL components
-   - Use `\Drupal\Component\Utility\UrlHelper::isValid()` to validate URLs
-   - Implement allowlists rather than blocklists for domains/IPs
-   - Parse URLs and validate each component (protocol, domain, port, path)
+1. **Update Management:**
+   - Keep Drupal core updated to the latest secure version
+   - Subscribe to the Drupal Security Newsletter
+   - Implement a regular update schedule (monthly at minimum)
+   - Use security advisories checking in your development workflow
+   - Implement Composer's security-advisories metadata
 
-2. **Network-Level Controls:**
-   - Implement network-level access controls for internal services
-   - Use application firewalls to restrict outbound connections
-   - Configure proxies to control and monitor outbound requests
-   - Segment sensitive internal services from public-facing applications
+2. **Dependency Management:**
+   - Use Composer for managing all dependencies
+   - Specify version constraints that allow security updates
+   - Add drupal/core-security-advisories as a dev dependency
+   - Regularly run `composer update --with-dependencies`
+   - Use `composer outdated` to identify outdated packages
 
-3. **Request Handling:**
-   - Avoid passing raw user input to HTTP clients
-   - Set reasonable timeouts for all HTTP requests
-   - Disable HTTP redirects or limit redirect chains
-   - Validate response types match expected formats
-   - Use dedicated service accounts with minimal privileges for API calls
+3. **API Usage:**
+   - Use modern Drupal APIs rather than deprecated functions
+   - Migrate away from jQuery to modern JavaScript where possible
+   - Implement Subresource Integrity (SRI) for external resources
+   - Update custom code to use current best practices
+   - Follow the Drupal API deprecation policies
 
-4. **Drupal-Specific Controls:**
-   - Utilize Drupal's built-in UrlHelper class for URL validation
-   - Configure Guzzle HTTP client with appropriate security options
-   - Consider using middleware to enforce URL validation
-   - Use Drupal's logging system to record suspicious outbound requests
-   - Implement specific content security policies
+4. **Security Monitoring:**
+   - Implement automated vulnerability scanning in CI/CD
+   - Use tools like Drupal Check or Upgrade Status module
+   - Monitor the Drupal security advisories page
+   - Implement automated updates for non-critical dependencies
+   - Set up alerts for security issues in used components
 
-5. **Authentication and Access Controls:**
-   - Implement proper authentication for internal service calls
-   - Use context-specific API tokens with limited privileges
-   - Avoid exposing service credentials in code or configurations
-   - Implement rate limiting for outbound requests
+5. **Module Management:**
+   - Remove unused modules from your codebase
+   - Prefer well-maintained modules with security teams
+   - Implement proper version constraints in module info files
+   - Consider the security impact before adding new dependencies
+   - Document your dependency management practices
 
 ## Validation Checks
 - Conditions:
-  - pattern `UrlHelper::isValid\\([^)]+\\)` – Using proper URL validation with UrlHelper.
-    - Check 1: Proper URL validation
-  - pattern `array_intersect|in_array|allowlist|whitelist` – Implementing domain/URL allowlisting for outbound requests.
-    - Check 2: Allowlisting domains
-  - pattern `libxml_disable_entity_loader\\(true\\)` – Properly disabling XML external entities.
-    - Check 3: Safe XML processing
-  - pattern `\\\\Drupal::httpClient\\(\\)[^;]*\\$options` – Using Drupal's HTTP client with explicit options.
-    - Check 4: Using Drupal's HTTP client safely
+  - pattern `core_version_requirement:\\s*[\"']\\^(8\\.8|8\\.9|9|10)\\.[0-9]+[\"']` – Using proper core version requirements.
+    - Check 1: Proper core version requirement
+  - pattern `\\\\Drupal::messenger\\(\\)|->messenger\\(\\)|\\\\Drupal::service\\('messenger'\\)` – Using modern message API instead of deprecated functions.
+    - Check 2: Use of modern APIs
+  - pattern `\"require\":\\s*\\{[^}]*\"drupal/core(-recommended)?\":\\s*\"\\^[0-9]+\\.[0-9]+\"` – Using proper version constraints in Composer.
+    - Check 3: Proper composer usage
+  - pattern `integrity=[\"'][a-zA-Z0-9\\+/=\\-_]+[\"']\\s+crossorigin=[\"']anonymous[\"']` – Properly implementing Subresource Integrity.
+    - Check 4: SRI implementation
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-- Tags: security, drupal, ssrf, owasp, language:php, framework:drupal, category:security, subcategory:ssrf, standard:owasp-top10, risk:a10-ssrf
+- Tags: security, drupal, dependencies, vulnerable-components, owasp, language:php, framework:drupal, category:security, subcategory:dependencies, standard:owasp-top10, risk:a06-vulnerable-components
 ## References
-- https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
-- https://cwe.mitre.org/data/definitions/918.html
-- https://www.drupal.org/docs/develop/security-in-drupal/writing-secure-code-for-drupal
-- https://portswigger.net/web-security/ssrf
-- https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html
+- https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
+- https://www.drupal.org/docs/security-in-drupal/staying-up-to-date
+- https://www.drupal.org/docs/upgrading-drupal
+- https://www.drupal.org/docs/develop/using-composer/managing-dependencies-for-a-drupal-project
 
  
 
