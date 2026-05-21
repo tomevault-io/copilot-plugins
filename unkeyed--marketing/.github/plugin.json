@@ -1,0 +1,9 @@
+{
+  "name": "unkeyed--marketing",
+  "displayName": "marketing",
+  "description": "Marketing repository for Unkey, includes landing, playground and glossary generator ",
+  "version": "1.0.0",
+  "author": "unkeyed",
+  "homepage": "https://github.com/unkeyed/marketing",
+  "skills": []
+}
