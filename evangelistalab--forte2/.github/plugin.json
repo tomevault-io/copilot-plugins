@@ -1,0 +1,9 @@
+{
+  "name": "evangelistalab--forte2",
+  "displayName": "forte2",
+  "description": "Standalone, open-source suite of quantum chemistry methods for strongly correlated electrons",
+  "version": "1.0.0",
+  "author": "evangelistalab",
+  "homepage": "https://github.com/evangelistalab/forte2",
+  "skills": []
+}
