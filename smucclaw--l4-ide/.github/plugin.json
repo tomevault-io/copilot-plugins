@@ -1,0 +1,9 @@
+{
+  "name": "smucclaw--l4-ide",
+  "displayName": "l4-ide",
+  "description": "L4 - Rules-as-code - is an open-source functional specification language for business rules, legal contracts, and legislation/regulation, with a CNL syntax for isomorphism.",
+  "version": "1.0.0",
+  "author": "smucclaw",
+  "homepage": "https://github.com/smucclaw/l4-ide",
+  "skills": []
+}
