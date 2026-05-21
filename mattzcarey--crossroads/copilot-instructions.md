@@ -1,220 +1,78 @@
-## crossroads-cloudflare-guide
+## cursor-rules-location
 
-> Cloudflare Development Platform Guideline
+> Standards for placing Cursor rule files in the correct place
 
-# Cloudflare Development Platform Guidelines for CrossRoads
+# Cursor Rules Location
 
-This document provides guidelines for working with Cloudflare Workers and Durable Objects in the CrossRoads repository.
+Rules for placing and organizing Cursor rule files in the repository.
 
 <rule>
-name: crossroads_cloudflare_guide
-description: Guidelines for working with Cloudflare Workers and Durable Objects in the CrossRoads repository
-
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
-  - type: event
-    pattern: "file_create|file_modify"
-  - type: file_path
-    pattern: "packages/.*|apps/.*"
+  # Match any .mdc files
   - type: file_extension
-    pattern: "\\.ts$|\\.js$"
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
   - type: suggest
     message: |
-      # Cloudflare Development Platform Guidelines for CrossRoads
+      When creating Cursor rules:
 
-      ## Overview
-      
-      CrossRoads is built on Cloudflare's Developer Platform, focusing on:
-      
-      - Cloudflare Workers for serverless execution
-      - Durable Objects for stateful applications
-      - Agent SDK for building AI-powered agents
-      
-      ## Cloudflare Workers
-
-      ### Structure
-      
-      Workers typically follow this structure:
-      
-      ```typescript
-      // Worker entry point
-      export default {
-        async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-          // Handle request
-        }
-      };
-      
-      // Environment interface
-      export interface Env {
-        // Bindings defined in wrangler.toml
-        MY_DURABLE_OBJECT: DurableObjectNamespace;
-        MY_KV: KVNamespace;
-        // etc.
-      }
-      ```
-
-      ### Best Practices
-      
-      1. Use TypeScript for type safety
-      2. Define proper environment interfaces
-      3. Use arrow functions with explicit return types
-      4. Leverage Cloudflare's built-in APIs (Workers KV, D1, R2, etc.)
-      5. Handle errors gracefully with appropriate status codes
-
-      ## Durable Objects
-
-      ### Structure
-      
-      Durable Objects typically follow this structure:
-      
-      ```typescript
-      import { DurableObject } from "cloudflare:workers";
-      
-      export class MyDurableObject extends DurableObject<Env> {
-        constructor(state: DurableObjectState, env: Env) {
-          super(state, env);
-        }
-        
-        // Handle HTTP requests
-        async fetch(request: Request): Promise<Response> {
-          // Process request
-        }
-        
-        // Custom methods
-        async customMethod(): Promise<void> {
-          // Access storage
-          await this.ctx.storage.put('key', 'value');
-        }
-      }
-      ```
-
-      ### State Management
-      
-      Durable Objects provide two ways to manage state:
-      
-      1. **In-memory state**: Fast but lost on instance shutdown
-         ```typescript
-         private myState: Map<string, any> = new Map();
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
          ```
-      
-      2. **Persistent storage**: Durable but with higher latency
-         ```typescript
-         // Write
-         await this.ctx.storage.put('key', value);
-         
-         // Read
-         const value = await this.ctx.storage.get('key');
-         
-         // Delete
-         await this.ctx.storage.delete('key');
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
          ```
 
-      ## Agent SDK
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
 
-      The Agent SDK provides a higher-level abstraction over Durable Objects for building AI agents:
-      
-      ```typescript
-      import { Agent } from "agents-sdk";
-      
-      export class MyAgent extends Agent<Env> {
-        // Handle WebSocket connections
-        async onConnect(connection: Connection): Promise<void> {
-          // Handle new connection
-        }
-        
-        // Handle WebSocket messages
-        async onMessage(connection: Connection, message: string | ArrayBuffer): Promise<void> {
-          // Process message
-        }
-        
-        // Handle state updates
-        async onStateUpdate(state: any): Promise<void> {
-          // React to state changes
-        }
-      }
-      ```
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
 
-      ### State Management with Agent SDK
-      
-      The Agent SDK provides a simplified state management API:
-      
-      ```typescript
-      // Update state
-      this.setState({
-        ...this.state,
-        counter: this.state.counter + 1,
-      });
-      
-      // Access state
-      const currentCount = this.state.counter;
-      
-      // Direct SQL access if needed
-      const results = await this.sql`SELECT * FROM my_table`;
-      ```
-
-      ## Development and Testing
-
-      ### Local Development
-      
-      Use Wrangler for local development:
-      
-      ```bash
-      # Start local development server
-      pnpm --filter <package-name> dev
-      
-      # Deploy to Cloudflare
-      pnpm --filter <package-name> deploy
-      ```
-
-      ### Testing
-      
-      Use Vitest with the Cloudflare Workers pool for testing:
-      
-      ```typescript
-      import { describe, it, expect } from 'vitest';
-      
-      describe('My Worker', () => {
-        it('handles requests correctly', async () => {
-          // Test implementation
-        });
-      });
-      ```
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      // Bad: No type safety
-      export default {
-        async fetch(request, env, ctx) {
-          return new Response("Hello");
-        }
-      };
-    output: |
-      // Good: Using TypeScript with proper types
-      export default {
-        async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-          return new Response("Hello");
-        }
-      };
-  - input: |
-      // Bad: Using function declaration and no return type
-      export class MyDurableObject extends DurableObject {
-        async fetch(request) {
-          // Implementation
-        }
-      }
-    output: |
-      // Good: Using proper typing
-      export class MyDurableObject extends DurableObject<Env> {
-        async fetch(request: Request): Promise<Response> {
-          // Implementation
-        }
-      }
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
+
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [mattzcarey/crossroads](https://github.com/mattzcarey/crossroads) — distributed by [TomeVault](https://tomevault.io).
