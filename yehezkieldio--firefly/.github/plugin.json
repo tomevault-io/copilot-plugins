@@ -1,0 +1,9 @@
+{
+  "name": "yehezkieldio--firefly",
+  "displayName": "firefly",
+  "description": "Automation release management CLI for semantic versioning, changelog generation, and GitHub release publishing.",
+  "version": "1.0.0",
+  "author": "yehezkieldio",
+  "homepage": "https://github.com/yehezkieldio/firefly",
+  "skills": []
+}
