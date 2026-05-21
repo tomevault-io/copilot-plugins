@@ -1,0 +1,9 @@
+{
+  "name": "creaturechat--creature-chat",
+  "displayName": "creature-chat",
+  "description": "Minecraft mod that lets mobs talk, think, and react with real personality using AI! Chat, gift, fight, or befriend any creature. Your world just got way more alive.",
+  "version": "1.0.0",
+  "author": "CreatureChat",
+  "homepage": "https://github.com/CreatureChat/creature-chat",
+  "skills": []
+}
