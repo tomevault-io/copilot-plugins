@@ -1,0 +1,9 @@
+{
+  "name": "mcp-agents-ai--mcp-agents-hub",
+  "displayName": "mcp-agents-hub",
+  "description": "The open-source ecosystem for building, discovering, and deploying Model Context Protocol servers and clients.",
+  "version": "1.0.0",
+  "author": "mcp-agents-ai",
+  "homepage": "https://github.com/mcp-agents-ai/mcp-agents-hub",
+  "skills": []
+}
