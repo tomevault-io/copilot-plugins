@@ -1,105 +1,98 @@
-## drupal-logging-failures
+## drupal-security-misconfiguration
 
-> Detect and prevent security logging and monitoring failures in Drupal as defined in OWASP Top 10:2021-A09
+> Detect and prevent security misconfigurations in Drupal as defined in OWASP Top 10:2021-A05
 
-# Drupal Security Logging and Monitoring Failures Standards (OWASP A09:2021)
+# Drupal Security Misconfiguration Standards (OWASP A05:2021)
 
-This rule enforces security best practices to prevent logging and monitoring failures in Drupal applications, as defined in OWASP Top 10:2021-A09.
+This rule enforces security best practices to prevent misconfiguration vulnerabilities in Drupal applications, as defined in OWASP Top 10:2021-A05.
 
 ## Rule Details
 
-- **Name:** drupal_logging_failures
+- **Name:** drupal_security_misconfiguration
 
-- **Description:** Detect and prevent security logging and monitoring failures in Drupal as defined in OWASP Top 10:2021-A09
+- **Description:** Detect and prevent security misconfigurations in Drupal as defined in OWASP Top 10:2021-A05
 
 ## Filters
-- file extension pattern: `\\.(php|inc|module|install|theme|yml)$`
+- file extension pattern: `\\.(php|inc|module|install|theme|yml|info\\.yml)$`
 - file path pattern: `.*`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `(delete|update|create|execute|grant|revoke|config|schema).*function[^}]*\\{(?![^}]*(log|watchdog|logger))` – Critical operations should include logging. Implement proper logging for security-relevant actions.
-    - Pattern 1: Missing critical event logging
-  - pattern `@include|@require|@eval|error_reporting\\(0\\)|ini_set\\(['\"](mdc:display_errors|log_errors)['\"],\\s*['\"]0['\"]\\)` – Avoid suppressing errors and warnings. Implement proper error handling and logging instead.
-    - Pattern 2: Suppressed error logging
-  - pattern `catch\\s*\\([^{]*\\)\\s*\\{(?![^}]*log|[^}]*watchdog|[^}]*logger)` – Exceptions should be properly logged, especially in security-critical sections.
-    - Pattern 3: Improper exception handling without logging
-  - pattern `dblog\\.settings\\.yml|syslog\\.settings\\.yml|logging\\.settings\\.yml` – Ensure logging is properly configured and not disabled. Verify log verbosity and retention policies.
-    - Pattern 4: Disabled watchdog
-  - pattern `(login|authenticate|logout|password).*function[^}]*\\{(?![^}]*(log|watchdog|logger))` – Authentication events should always be logged for security monitoring and auditing.
-    - Pattern 5: Missing authentication event logging
-  - pattern `AccessResult::(allowed|forbidden|neutral)\\([^)]*\\)(?![^;]*(log|watchdog|logger))` – Consider logging significant access control decisions, especially denials, for security monitoring.
-    - Pattern 6: Failure to log access control decisions
-  - pattern `(file_save|file_delete|file_move|file_copy)[^;]*;(?![^;]*(log|watchdog|logger))` – File operations should be logged, especially for security-sensitive files.
-    - Pattern 7: Missing logging in file operations
-  - pattern `(\\->log|watchdog)\\([^,)]*,[^,)]*\\)` – Log messages should include sufficient context and detail for effective security monitoring.
-    - Pattern 8: Insufficient detail in log messages
-  - pattern `\\$config->set\\([^;]*;(?![^;]*(log|watchdog|logger))` – Configuration changes should be logged to maintain an audit trail and detect unauthorized changes.
-    - Pattern 9: Failure to log configuration changes
-  - pattern `class\\s+[a-zA-Z0-9_]+Resource.+\\{[^}]*function\\s+[a-zA-Z0-9_]+\\([^{]*\\)\\s*\\{(?![^}]*(log|watchdog|logger))` – API endpoint access should be logged for security monitoring, especially for sensitive operations.
-    - Pattern 10: Missing logs for API access
+  - pattern `\\$settings\\['update_free_access'\\]\\s*=\\s*TRUE|\\$settings\\['cache'\\]\\s*=\\s*FALSE|\\$settings\\['rebuild_access'\\]\\s*=\\s*TRUE|\\$config\\['system\\.performance'\\]\\['cache'\\]\\s*=\\s*FALSE` – Development settings detected in production code. Ensure these settings are only enabled in development environments.
+    - Pattern 1: Development settings in production code
+  - pattern `settings\\.php|settings\\.local\\.php` – Verify that $settings['trusted_host_patterns'] is properly configured to prevent HTTP Host header attacks.
+    - Pattern 2: Missing or weak trusted host patterns
+  - pattern `\\$config\\['system\\.logging'\\]\\['error_level'\\]\\s*=\\s*'verbose'|ini_set\\('display_errors'\\s*,\\s*'1'\\)|error_reporting\\(E_ALL\\)` – Error display should be disabled in production. Use 'hide' for error_level in production.
+    - Pattern 3: Debugging/error display enabled
+  - pattern `\\$settings\\['file_chmod_directory'\\]\\s*=\\s*0777|\\$settings\\['file_chmod_file'\\]\\s*=\\s*0666` – Excessively permissive file permissions detected. Use more restrictive permissions.
+    - Pattern 4: Insecure file permissions settings
+  - pattern `\\.htaccess|sites/default/default\\.settings\\.php` – Ensure Content-Security-Policy headers are properly configured to prevent XSS attacks.
+    - Pattern 5: Disabled or misconfigured CSP headers
+  - pattern `session\\.cookie_secure\\s*=\\s*0|session\\.cookie_httponly\\s*=\\s*0|\\$settings\\['cookie_secure_only'\\]\\s*=\\s*FALSE` – Session cookies should be secure and HTTP-only in production environments.
+    - Pattern 6: Insecure session cookie settings
+  - pattern `settings\\.php` – Ensure $settings['file_private_path'] is properly configured for storing sensitive files.
+    - Pattern 7: Missing or misconfigured private file path
+  - pattern `core\\.extension\\.yml` – Check for development modules (devel, webprofiler, etc.) that should not be enabled in production.
+    - Pattern 8: Development modules enabled in production
+  - pattern `function\\s+[a-zA-Z0-9_]+_install\\(\\)` – Remove or secure default/demo content and users in production environments.
+    - Pattern 9: Default or demo content in production
+  - pattern `\\.htaccess|nginx\\.conf` – Verify X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, and Referrer-Policy headers are properly configured.
+    - Pattern 10: Missing or misconfigured security headers
 
 ## Suggestions
 - Guidance:
-**Drupal Security Logging & Monitoring Best Practices:**
+**Drupal Security Configuration Best Practices:**
 
-1. **Comprehensive Logging Implementation:**
-   - Use Drupal's Logger Factory service: `\Drupal::logger('module_name')`
-   - Implement proper log levels: emergency, alert, critical, error, warning, notice, info, debug
-   - Include context in log messages with relevant identifiers and information
-   - Log security-relevant events consistently across the application
-   - Structure log messages to facilitate automated analysis
+1. **Environment-Specific Configurations:**
+   - Use `settings.local.php` for environment-specific settings
+   - Maintain separate development, staging, and production configurations
+   - Never enable development settings in production: update_free_access, rebuild_access, etc.
+   - Use environment variables or secrets management for sensitive information
 
-2. **Critical Events to Log:**
-   - Authentication events (login attempts, failures, logouts)
-   - Access control decisions (particularly denials)
-   - All administrative actions
-   - Data modification operations on sensitive information
-   - Configuration and settings changes
-   - File operations (uploads, downloads of sensitive content)
-   - API access and usage
+2. **Essential Security Settings:**
+   - Configure trusted_host_patterns to prevent HTTP Host header attacks
+   - Set secure file permissions (e.g., 0755 for directories, 0644 for files)
+   - Configure private file path for sensitive uploads
+   - Set file_scan_ignore_directories to prevent public access to sensitive directories
+   - Implement secure session cookie settings (HTTPOnly, Secure, SameSite)
 
-3. **Logging Configuration:**
-   - Configure appropriate log retention periods based on security requirements
-   - Implement log rotation to maintain performance
-   - Consider using syslog for centralized logging
-   - Protect log files from unauthorized access and modification
-   - Configure appropriate verbosity for different environments
+3. **Error Handling:**
+   - Disable verbose error reporting in production with $config['system.logging']['error_level'] = 'hide'
+   - Configure custom error pages that don't leak system information
+   - Implement appropriate logging without exposing sensitive data
 
-4. **Monitoring Implementation:**
-   - Define security-relevant log patterns to monitor
-   - Implement log aggregation and analysis
-   - Set up alerts for suspicious activity patterns
-   - Establish response procedures for security events
-   - Consider integration with SIEM solutions
+4. **Security Headers:**
+   - Set Content-Security-Policy to restrict resource origins
+   - Configure X-Frame-Options to prevent clickjacking
+   - Enable X-Content-Type-Options to prevent MIME-type sniffing
+   - Set Referrer-Policy to control information in HTTP referers
 
-5. **Error Handling:**
-   - Log exceptions with appropriate error levels
-   - Include stack traces in development but not production
-   - Implement custom error handlers that ensure proper logging
-   - Avoid suppressing errors that might indicate security issues
-   - Monitor for patterns in error logs that could indicate attacks
+5. **Module & Extension Security:**
+   - Disable and uninstall unnecessary modules in production
+   - Keep core and contributed modules updated
+   - Remove development modules from production (devel, webprofiler, etc.)
+   - Implement proper configuration management workflows
 
 ## Validation Checks
 - Conditions:
-  - pattern `\\\\Drupal::logger\\([^)]+\\)->\\w+\\(|\\$this->logger->\\w+\\(` – Using Drupal's logger service correctly.
-    - Check 1: Proper logger usage
-  - pattern `->\\w+\\([^,]+,\\s*[^,]+,\\s*\\[` – Including context information in log messages.
-    - Check 2: Context in log messages
-  - pattern `dblog\\.settings|syslog\\.settings|logging\\.yml` – Configuring logging appropriately.
-    - Check 3: Logging configuration
-  - pattern `catch[^{]*\\{[^}]*logger|catch[^{]*\\{[^}]*watchdog|catch[^{]*\\{[^}]*log` – Properly logging exceptions.
-    - Check 4: Exception logging
+  - pattern `\\$settings\\['trusted_host_patterns'\\]\\s*=\\s*\\[\\s*['\"][^\"']+['\"]` – Trusted host patterns are properly configured.
+    - Check 1: Proper trusted host patterns
+  - pattern `\\$settings\\['cookie_secure_only'\\]\\s*=\\s*TRUE|session\\.cookie_secure\\s*=\\s*1` – Secure cookie settings are properly configured.
+    - Check 2: Secure session cookie settings
+  - pattern `\\$settings\\['file_private_path'\\]\\s*=\\s*(\"|')[^\"']+(\"|')` – Private file path is configured for sensitive files.
+    - Check 3: Private file path configuration
+  - pattern `\\$config\\['system\\.logging'\\]\\['error_level'\\]\\s*=\\s*'hide'` – Error reporting is properly configured for production.
+    - Check 4: Production error settings
 
 ## Metadata
 - Priority: high
 - Version: 1.1
-- Tags: security, drupal, logging, monitoring, owasp, language:php, framework:drupal, category:security, subcategory:logging, standard:owasp-top10, risk:a09-logging-monitoring
+- Tags: security, drupal, configuration, misconfiguration, owasp, language:php, framework:drupal, category:security, subcategory:configuration, standard:owasp-top10, risk:a05-misconfiguration
 ## References
-- https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
-- https://www.drupal.org/docs/8/api/logging-api/overview
-- https://www.drupal.org/docs/develop/security-in-drupal/writing-secure-code-for-drupal
-- https://www.drupal.org/docs/8/modules/syslog
+- https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
+- https://www.drupal.org/docs/security-in-drupal/securing-your-site
+- https://www.drupal.org/docs/security-in-drupal/drupal-security-best-practices
+- https://www.drupal.org/docs/8/security/writing-secure-code-for-drupal-8
 
  
 
