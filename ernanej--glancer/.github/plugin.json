@@ -1,0 +1,9 @@
+{
+  "name": "ernanej--glancer",
+  "displayName": "glancer",
+  "description": "A Ruby on Rails engine that adds a natural language database query interface to Rails app.",
+  "version": "1.0.0",
+  "author": "ErnaneJ",
+  "homepage": "https://github.com/ErnaneJ/glancer",
+  "skills": []
+}
