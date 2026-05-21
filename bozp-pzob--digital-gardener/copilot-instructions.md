@@ -1,48 +1,31 @@
-## 04-helper-functions
+## discord-config-overview
 
-> The `[src/helpers/](mdc:src/helpers)` directory provides utility functions used across the application, particularly for configuration loading, data manipulation, and common tasks.
+> This configuration file, `[config/discord-raw.json](mdc:config/discord-raw.json)`, defines the pipeline for fetching, processing, and summarizing data from Discord.
 
-# Helper Functions
+# Discord Raw Configuration Overview
 
-The `[src/helpers/](mdc:src/helpers)` directory provides utility functions used across the application, particularly for configuration loading, data manipulation, and common tasks.
+This configuration file, `[config/discord-raw.json](mdc:config/discord-raw.json)`, defines the pipeline for fetching, processing, and summarizing data from Discord.
 
-## Key Helper Files:
+## Key Components:
 
-*   **`[configHelper.ts](mdc:src/helpers/configHelper.ts)`:**
-    *   Crucial for the plugin system.
-    *   `loadDirectoryModules(type)`: Dynamically imports all `.ts` files from a specified subdirectory within `src/plugins/` (e.g., `sources`, `ai`).
-    *   `loadItems(configArray, classes, type)`: Takes the plugin configuration array from the main JSON config, the loaded classes, and the plugin type. It instantiates each plugin class based on the `type` field in the config, passing `params` to the constructor.
-    *   `loadProviders(items, providers)`: Injects the first available `AiProvider` instance into the `provider` property of other plugin instances (like enrichers, generators, or sources) if they are configured to use one (e.g., `params.provider: "providerName"`).
-    *   `loadStorage(items, storage)`: Injects the first available `StoragePlugin` instance into the `storage` property of other plugin instances if configured.
+*   **Data Sources:**
+    *   `DiscordRawDataSource` (`discordRaw`): Fetches raw message data from specified Discord channels listed in `params.channelIds`. Configured with an interval. Bot token and Guild ID are sourced from environment variables.
+    *   `DiscordChannelSource` (`discordChannel`): Fetches processed channel information using the specified AI provider (`openAiProvider`). Also uses channel IDs and environment variables.
+*   **AI Provider:**
+    *   `OpenAIProvider` (`openAiProvider`): Handles interactions with an AI model (specified as `anthropic/claude-3.7-sonnet` via OpenRouter). API key, site URL, and site name are sourced from environment variables (`process.env.OPENAI_API_KEY`, `process.env.SITE_URL`, `process.env.SITE_NAME`).
+*   **Enrichers:**
+    *   `AiTopicsEnricher` (`topicEnricher`): Uses the `openAiProvider` to enrich data (e.g., identify topics) for messages exceeding a `thresholdLength`.
+*   **Storage:**
+    *   `SQLiteStorage` (`SQLiteStorage`): Stores data in a SQLite database defined by `params.dbPath` (`data/discord-raw.sqlite`).
+*   **Generators:**
+    *   `DailySummaryGenerator` (`RawDataGenerator`): Generates daily summaries of type `discord-raw` from the `discordRaw` source, using the AI provider and storing output in `params.outputPath` (`./output/discord/raw`). Runs at a defined interval.
+    *   `DiscordSummaryGenerator` (`DiscordSummaryGenerator`): Generates summaries of type `discordChannelSummary` from the `discordChannel` source, using the AI provider and storing output in `params.outputPath` (`./output/discord/summaries`). Also runs at a defined interval.
 
-*   **`[dateHelper.ts](mdc:src/helpers/dateHelper.ts)`:**
-    *   Provides functions for date parsing, formatting, and manipulation.
-    *   Used heavily by `[src/historical.ts](mdc:src/historical.ts)` and potentially by plugins dealing with time-sensitive data.
-    *   `parseDate(dateStr)`: Converts string dates.
-    *   `formatDate(date)`: Formats dates into strings.
-    *   `addOneDay(date)`: Simple date arithmetic.
-    *   `callbackDateRangeLogic(filter, callback)`: Iterates through a date range defined by a `DateConfig` filter and executes a callback for each date. Used in `historical.ts` for generating summaries over a range.
+## Settings:
 
-*   **`[fileHelper.ts](mdc:src/helpers/fileHelper.ts)`:**
-    *   Utilities for file system operations (reading, writing, checking existence).
-    *   Likely used by storage plugins or generators that output files.
-
-*   **`[promptHelper.ts](mdc:src/helpers/promptHelper.ts)`:**
-    *   Functions to construct prompts for AI providers.
-    *   Helps maintain consistency in how AI models are prompted for tasks like summarization or topic extraction.
-
-*   **`[cliHelper.ts](mdc:src/helpers/cliHelper.ts)`:**
-    *   Functions related to command-line interface interactions (e.g., parsing arguments, logging). Used in `index.ts` and `historical.ts`.
-
-*   **`[generalHelper.ts](mdc:src/helpers/generalHelper.ts)`:**
-    *   Contains miscellaneous utility functions that don't fit into other specific categories.
-
-*   **`[cache.ts](mdc:src/helpers/cache.ts)`:**
-    *   Implements a caching mechanism.
-    *   Potentially used by plugins to avoid redundant computations or API calls (e.g., caching AI results or fetched data temporarily).
-
-## Usage
-Helper functions can be imported and used across the application to maintain consistency and reduce code duplication.
+*   The pipeline can be set to run only once using `"settings": { "runOnce": true }`.
+*   Intervals for sources and generators are specified in milliseconds.
+*   Crucial configurations like API keys, tokens, and specific IDs rely on environment variables (e.g., `process.env.DISCORD_TOKEN`, `process.env.OPENAI_API_KEY`).
 
 ---
 > Source: [bozp-pzob/digital-gardener](https://github.com/bozp-pzob/digital-gardener) — distributed by [TomeVault](https://tomevault.io).
