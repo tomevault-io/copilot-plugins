@@ -1,0 +1,9 @@
+{
+  "name": "ackee-blockchain--solana-vscode",
+  "displayName": "solana-vscode",
+  "description": "VS Code extension for Solana",
+  "version": "1.0.0",
+  "author": "Ackee-Blockchain",
+  "homepage": "https://github.com/Ackee-Blockchain/solana-vscode",
+  "skills": []
+}
