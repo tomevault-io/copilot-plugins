@@ -1,253 +1,252 @@
-## testing-language
+## views
 
-> Testing Language Standards
+> Standards for views in Rails.
 
-# Testing Language Standards
+## Structure
 
-Standards for language handling in tests
+1. Directory Organization
+```
+app/views/
+├── layouts/
+├── shared/
+├── components/
+└── [resource]/
+    ├── index.html.erb
+    ├── show.html.erb
+    ├── _form.html.erb
+    └── [action].html.erb
+```
 
-## Configuration
+2. Naming Conventions
+- Use lowercase
+- Use underscores for spaces
+- Prefix partials with underscore
+- Use meaningful names
+- Follow resource naming
 
-1. Test Environment Setup
+## Templates
+
+1. Layout Files
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : 'Default Title' %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application", defer: true %>
+  </head>
+  <body>
+    <%= render "shared/header" %>
+    <main>
+      <%= render "shared/flash" %>
+      <%= yield %>
+    </main>
+    <%= render "shared/footer" %>
+  </body>
+</html>
+```
+
+2. Index Views
+```erb
+<% content_for :title, t('.title') %>
+
+<div class="container">
+  <header class="mb-4">
+    <h1><%= t('.title') %></h1>
+    <%= link_to t('.new'), new_resource_path, class: 'button' %>
+  </header>
+
+  <%= render 'filter_form' if @filters.present? %>
+
+  <% if @resources.any? %>
+    <%= render @resources %>
+  <% else %>
+    <%= render 'shared/empty_state' %>
+  <% end %>
+
+  <%= render 'shared/pagination', collection: @resources %>
+</div>
+```
+
+3. Show Views
+```erb
+<% content_for :title, t('.title', name: @resource.name) %>
+
+<div class="container">
+  <header class="mb-4">
+    <h1><%= t('.title', name: @resource.name) %></h1>
+    <div class="actions">
+      <%= link_to t('.edit'), edit_resource_path(@resource), class: 'button' %>
+      <%= button_to t('.delete'), resource_path(@resource),
+          method: :delete,
+          class: 'button button--danger',
+          data: { confirm: t('.confirm_delete') } %>
+    </div>
+  </header>
+
+  <%= render 'details', resource: @resource %>
+  <%= render 'related_resources' if @resource.related.any? %>
+</div>
+```
+
+4. Form Partials
+```erb
+<%= form_with model: @resource, class: 'form' do |f| %>
+  <%= render 'shared/error_messages', resource: @resource %>
+
+  <div class="form-group">
+    <%= f.label :attribute %>
+    <%= f.text_field :attribute, class: 'form-control' %>
+    <%= f.error_message :attribute %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'button' %>
+    <%= link_to t('.cancel'), :back, class: 'button button--secondary' %>
+  </div>
+<% end %>
+```
+
+## Components
+
+1. Component Structure
 ```ruby
-# test/test_helper.rb
-module ActiveSupport
-  class TestCase
-    # Run tests in parallel
-    parallelize(workers: :number_of_processors)
+# app/components/card_component.rb
+class CardComponent < ViewComponent::Base
+  def initialize(title:, content:)
+    @title = title
+    @content = content
+  end
+end
 
-    # Include FactoryBot syntax methods
-    include FactoryBot::Syntax::Methods
+# app/components/card_component.html.erb
+<div class="card">
+  <div class="card-header">
+    <h3><%= @title %></h3>
+  </div>
+  <div class="card-body">
+    <%= @content %>
+  </div>
+</div>
+```
 
-    # Force English locale for all tests
-    setup do
-      I18n.locale = :en
-      I18n.default_locale = :en
-      Rails.application.config.i18n.default_locale = :en
-      Rails.application.config.i18n.locale = :en
-      Rails.application.config.i18n.available_locales = [:en, :de]
+2. Component Usage
+```erb
+<%= render(CardComponent.new(title: t('.title'), content: content)) %>
+```
+
+## Helpers
+
+1. View Helpers
+```ruby
+# app/helpers/application_helper.rb
+module ApplicationHelper
+  def page_title(title = nil)
+    if title.present?
+      content_for(:title) { title }
+    else
+      content_for?(:title) ? content_for(:title) : t('common.default_title')
     end
+  end
 
-    teardown do
-      I18n.locale = :en
-    end
+  def format_date(date)
+    l(date, format: :long) if date.present?
   end
 end
 ```
 
-2. Application Controller
+2. Form Helpers
 ```ruby
-# app/controllers/application_controller.rb
-class ApplicationController < ActionController::Base
-  before_action :set_locale
+# app/helpers/form_helper.rb
+module FormHelper
+  def error_message_for(resource, attribute)
+    return unless resource.errors[attribute].any?
 
-  private
-
-  def set_locale
-    return if Rails.env.test? # Skip locale detection in test environment
-    I18n.locale = extract_locale_from_accept_language_header || I18n.default_locale
-  end
-end
-```
-
-## Factory Setup
-
-1. User Factory
-```ruby
-# test/factories/users.rb
-FactoryBot.define do
-  factory :user do
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
-    email { Faker::Internet.email }
-    password { "password123" }
-    lang { "en" }  # Default to English
-
-    trait :german do
-      lang { "de" }
-      after(:build) do |user|
-        # Use German Faker data for consistency
-        Faker::Config.locale = "de"
-        user.first_name = Faker::Name.first_name
-        user.last_name = Faker::Name.last_name
-        Faker::Config.locale = "en"  # Reset to English
-      end
-    end
-  end
-end
-```
-
-## Testing Guidelines
-
-1. Translation Testing
-```ruby
-# test/models/article_test.rb
-class ArticleTest < ActiveSupport::TestCase
-  test "article title is translated" do
-    article = create(:article, title_en: "English Title", title_de: "Deutscher Titel")
-
-    # Always test English first
-    assert_equal "English Title", article.title
-
-    # Test other languages explicitly
-    I18n.with_locale(:de) do
-      assert_equal "Deutscher Titel", article.title
-    end
-
-    # Reset to English
-    assert_equal "English Title", article.title
-  end
-end
-```
-
-2. System Tests
-```ruby
-# test/system/localization_test.rb
-class LocalizationTest < ApplicationSystemTestCase
-  test "user sees content in their preferred language" do
-    # Create German user
-    user = create(:user, :german)
-    sign_in(user)
-
-    # Test German content
-    visit root_path
-    assert_text "Willkommen"  # German welcome message
-
-    # Switch to English
-    user.update!(lang: "en")
-    visit root_path
-    assert_text "Welcome"  # English welcome message
+    content_tag(:span, resource.errors[attribute].first, class: 'error-message')
   end
 end
 ```
 
 ## Best Practices
 
-1. Test Data Language
-- Use English for all test data by default
-- Use Faker with English locale for generating test data
-- Use explicit translations only when testing language features
-- Keep test assertions in English
+1. General Guidelines
+- Keep views simple and focused
+- Use partials for reusability
+- Leverage view components
+- Follow DRY principles
+- Use proper HTML semantics
 
-2. Locale Handling
-- Never rely on browser language detection in tests
-- Always set locale explicitly when needed
-- Reset locale to English after tests
-- Use `I18n.with_locale` for temporary locale changes
+2. Performance
+- Cache where appropriate
+- Minimize database queries
+- Use fragment caching
+- Optimize assets
+- Lazy load when possible
 
-3. Factory Usage
-- Default all factories to English
-- Use `:german` trait when testing German-specific features
-- Reset Faker locale after using other languages
-- Keep factory data consistent with locale
+3. Security
+- Escape HTML by default
+- Use content_tag helpers
+- Sanitize user input
+- Protect against XSS
+- Use CSRF protection
 
-4. Error Messages
-- All test failure messages should be in English
-- Use English for custom test helper messages
-- Document any language-specific test behavior
-- Keep error messages clear and consistent
+4. Accessibility
+- Use semantic HTML
+- Include ARIA attributes
+- Provide alt text
+- Ensure keyboard navigation
+- Test with screen readers
 
-## Common Patterns
+## Testing
 
-1. Testing Translations
+1. View Tests
 ```ruby
-# test/models/product_test.rb
-class ProductTest < ActiveSupport::TestCase
-  test "product has translations" do
-    product = create(:product,
-      name_en: "Laptop",
-      name_de: "Laptop",
-      description_en: "Powerful laptop",
-      description_de: "Leistungsstarker Laptop"
-    )
+# test/views/users/index_test.rb
+require "test_helper"
 
-    # Test English (default)
-    assert_equal "Laptop", product.name
-    assert_equal "Powerful laptop", product.description
+class Users::IndexTest < ActionView::TestCase
+  test "displays user list" do
+    render template: "users/index"
 
-    # Test German
-    I18n.with_locale(:de) do
-      assert_equal "Laptop", product.name
-      assert_equal "Leistungsstarker Laptop", product.description
-    end
+    assert_select "h1", text: I18n.t("users.index.title")
+    assert_select ".user", count: User.count
   end
 end
 ```
 
-2. Testing Language Switching
+2. Component Tests
 ```ruby
-# test/system/language_switching_test.rb
-class LanguageSwitchingTest < ApplicationSystemTestCase
-  test "user can switch language" do
-    user = create(:user)
-    sign_in(user)
+# test/components/card_component_test.rb
+require "test_helper"
 
-    visit edit_user_registration_path
+class CardComponentTest < ViewComponent::TestCase
+  test "renders component" do
+    render_inline(CardComponent.new(title: "Test", content: "Content"))
 
-    # Switch to German
-    select "Deutsch", from: "Language"
-    click_button "Update"
-
-    assert_equal "de", user.reload.lang
-    assert_text "Profil erfolgreich aktualisiert"
-
-    # Switch back to English
-    select "English", from: "Sprache"
-    click_button "Aktualisieren"
-
-    assert_equal "en", user.reload.lang
-    assert_text "Profile successfully updated"
+    assert_selector ".card"
+    assert_selector "h3", text: "Test"
+    assert_text "Content"
   end
 end
 ```
 
-3. API Testing
-```ruby
-# test/controllers/api/v1/products_controller_test.rb
-class Api::V1::ProductsControllerTest < ActionDispatch::IntegrationTest
-  test "returns product in requested language" do
-    product = create(:product,
-      name_en: "Laptop",
-      name_de: "Laptop",
-      description_en: "Powerful laptop",
-      description_de: "Leistungsstarker Laptop"
-    )
+## Maintenance
 
-    # Test English response
-    get api_v1_product_url(product), headers: { "Accept-Language": "en" }
-    assert_response :success
-    assert_equal "Laptop", response.parsed_body["name"]
-    assert_equal "Powerful laptop", response.parsed_body["description"]
+1. Regular Tasks
+- Review view complexity
+- Update deprecated syntax
+- Check accessibility
+- Optimize performance
+- Update dependencies
 
-    # Test German response
-    get api_v1_product_url(product), headers: { "Accept-Language": "de" }
-    assert_response :success
-    assert_equal "Laptop", response.parsed_body["name"]
-    assert_equal "Leistungsstarker Laptop", response.parsed_body["description"]
-  end
-end
-```
-
-4. Form Testing
-```ruby
-# test/system/form_validations_test.rb
-class FormValidationsTest < ApplicationSystemTestCase
-  test "shows validation errors in user's language" do
-    visit new_user_registration_path
-
-    # Test English validation messages
-    click_button "Sign up"
-    assert_text "Email can't be blank"
-
-    # Test German validation messages
-    user = create(:user, :german)
-    sign_in(user)
-
-    visit new_article_path
-    click_button "Create Article"
-    assert_text "Titel muss ausgefüllt werden"
-  end
-end
+2. Code Quality
+- Run linters
+- Check HTML validity
+- Verify translations
+- Test responsiveness
+- Review security
 
 ---
 > Source: [wintermeyer/cursor-rails-rules](https://github.com/wintermeyer/cursor-rails-rules) — distributed by [TomeVault](https://tomevault.io).
