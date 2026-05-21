@@ -1,0 +1,9 @@
+{
+  "name": "dojoengine--torii",
+  "displayName": "torii",
+  "description": "Automatic indexer for Dojo.",
+  "version": "1.0.0",
+  "author": "dojoengine",
+  "homepage": "https://github.com/dojoengine/torii",
+  "skills": []
+}
