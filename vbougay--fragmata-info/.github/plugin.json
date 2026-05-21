@@ -1,0 +1,9 @@
+{
+  "name": "vbougay--fragmata-info",
+  "displayName": "fragmata.info",
+  "description": "Track water levels across 21 Cyprus reservoirs. Real-time storage capacity, inflow data, and drought forecasts for Kouris, Asprokremmos, Evretou and more.",
+  "version": "1.0.0",
+  "author": "vbougay",
+  "homepage": "https://github.com/vbougay/fragmata.info",
+  "skills": []
+}
