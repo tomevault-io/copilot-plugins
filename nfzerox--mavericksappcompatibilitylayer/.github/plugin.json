@@ -1,0 +1,9 @@
+{
+  "name": "nfzerox--mavericksappcompatibilitylayer",
+  "displayName": "MavericksAppCompatibilityLayer",
+  "description": "A backport compatibility layer for old macOS. Out of the box: patches iWork from May 2016 to run on OS X 10.9 Mavericks. Under the hood: Mach-O bind weakening + stub dylib injection. Pair with Claude ",
+  "version": "1.0.0",
+  "author": "nfzerox",
+  "homepage": "https://github.com/nfzerox/MavericksAppCompatibilityLayer",
+  "skills": []
+}
