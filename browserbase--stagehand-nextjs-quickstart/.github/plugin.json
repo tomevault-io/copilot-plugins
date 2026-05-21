@@ -1,0 +1,9 @@
+{
+  "name": "browserbase--stagehand-nextjs-quickstart",
+  "displayName": "stagehand-nextjs-quickstart",
+  "description": "A quickstart for NextJS",
+  "version": "1.0.0",
+  "author": "browserbase",
+  "homepage": "https://github.com/browserbase/stagehand-nextjs-quickstart",
+  "skills": []
+}
