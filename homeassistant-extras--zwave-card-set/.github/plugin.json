@@ -1,0 +1,9 @@
+{
+  "name": "homeassistant-extras--zwave-card-set",
+  "displayName": "zwave-card-set",
+  "description": "Set of cards for different Zooz Z-Wave devices",
+  "version": "1.0.0",
+  "author": "homeassistant-extras",
+  "homepage": "https://github.com/homeassistant-extras/zwave-card-set",
+  "skills": []
+}
