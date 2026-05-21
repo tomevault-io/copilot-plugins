@@ -1,207 +1,79 @@
-## nextjs-json-translation-usage
+## project-tools
 
-> Whwn ever user wants to perform localisations or translations
+> vertex specific tools
 
-# Next.js Internationalization Implementation
-
-This guide explains how to use translations in Next.js with next-intl and the namespace-based JSON structure.
-
-## Translation File Structure
-
-The project uses a namespace-based organization:
-
-```
-messages/
-├── en/                   # English translations
-│   ├── Index.json        # Home page translations
-│   ├── Blog.json         # Blog-related translations
-│   └── ...               # Other feature namespaces
-├── fi/                   # Finnish translations (same structure)
-├── sv/                   # Swedish translations (same structure)
-└── ...
-```
-
-## Using Translations in Code
-
-### Client Components
-
-Use the `useTranslations` hook:
-
-```tsx
-'use client';
-import { useTranslations } from 'next-intl';
-
-export default function MyComponent() {
-  // Specify the namespace to use
-  const t = useTranslations('Blog');
-  
-  return (
-    <div>
-      <h1>{t('title')}</h1>
-      <p>{t('description')}</p>
-      
-      {/* Accessing nested keys */}
-      <button>{t('actions.save')}</button>
-      
-      {/* With placeholders */}
-      <p>{t('welcome', { name: 'User', count: 5 })}</p>
-    </div>
-  );
-}
-```
-
-### Server Components
-
-Use the `getTranslations` function:
-
-```tsx
-import { getTranslations } from 'next-intl/server';
-
-export default async function MyServerComponent() {
-  // Specify the namespace to use
-  const t = await getTranslations('Blog');
-  
-  return (
-    <div>
-      <h1>{t('title')}</h1>
-      <p>{t('description')}</p>
-    </div>
-  );
-}
-```
-
-### Page Metadata
-
-For page metadata (title, description), use `getTranslations` in `generateMetadata`:
-
-```tsx
-import { getTranslations } from 'next-intl/server';
-import type { Metadata } from 'next';
-
-export async function generateMetadata(
-  { params }: { params: { locale: string } }
-): Promise<Metadata> {
-  const t = await getTranslations('Blog');
-  
-  return {
-    title: t('meta.title'),
-    description: t('meta.description')
-  };
-}
-```
-
-## Rich Text Formatting
-
-For rich text with HTML:
-
-```tsx
-// In your component
-<div dangerouslySetInnerHTML={{ __html: t('richTextContent') }} />
-
-// In your JSON
-{
-  "richTextContent": "This is <strong>bold</strong> and this is <em>italic</em>"
-}
-```
-
-## Handling Pluralization
-
-For pluralization, use ICU message format:
-
-```tsx
-// In your component
-<p>{t('itemCount', { count: items.length })}</p>
-
-// In your JSON
-{
-  "itemCount": "{count, plural, =0{No items} one{# item} other{# items}}"
-}
-```
-
-## Translation Format Best Practices
-
-1. **Structured Organization**:
-   ```json
-   {
-     "section": {
-       "subsection": {
-         "key": "Value"
-       }
-     }
-   }
-   ```
-
-2. **Consistent Naming**:
-   - Use camelCase for all keys
-   - Group related items under common parents
-   - Keep hierarchy no more than 3-4 levels deep for readability
-
-3. **Common Patterns**:
-   - Use "title", "description", "label", "placeholder", "button" consistently
-   - Group form fields under a "fields" key
-   - Group error messages under "errors"
-   - Group UI actions under "actions"
-
-4. **Metadata Pattern**:
-   ```json
-   {
-     "meta": {
-       "title": "Page Title for SEO",
-       "description": "Page description for SEO"
-     },
-     "content": {
-       // Actual page content
-     }
-   }
-   ```
-
-## Special Characters and Encoding
-
-1. Handle special characters correctly:
-   - Use Unicode directly (e.g., "ä", "ö", "å")
-   - Escape quotes: `"quote": "They said \"hello\""`
-   - Escape backticks: `"code": "Use the \`npm\` command"`
-
-2. Use proper line breaks with `\n`:
-   ```json
-   {
-     "multiline": "First line\nSecond line"
-   }
-   ```
-
-## Troubleshooting
-
-1. **Missing Translation Key**:
-   - Check if key exists in all locale files
-   - Verify correct namespace is being used
-   - Check capitalization (keys are case-sensitive)
-
-2. **Placeholder Not Working**:
-   - Ensure the same placeholder is in all translations
-   - Check formatting `{name}` vs `{{name}}`
-
-3. **Date/Number Formatting**:
-   Use built-in formatters:
-   ```tsx
-   const t = useTranslations('Common');
-   const format = useFormatter();
-   
-   // Format date according to the current locale
-   format.dateTime(new Date(), { dateStyle: 'full' });
-   
-   // Format number according to the current locale
-   format.number(1000, { style: 'currency', currency: 'EUR' });
-   ```
-
-## Adding New Translations
-
-1. When adding a new key:
-   - Add to all locale files to maintain consistency
-   - Run `npm run check-translations` to verify completeness
-
-2. When adding a new namespace:
-   - Create parallel files in all locale directories
-   - Follow the established naming patterns
+<vertex_tools>
+    "vertex-ai-video": {
+      "description": "Generate videos using Google's Veo models via Vertex AI API with native audio support, including Veo 3 with advanced audio capabilities",
+      "tool": "run_terminal_cmd",
+      "command": "npm run vertex-ai-video",
+      "subcommands": {
+        "generate": {
+          "description": "Generate a video using Veo models on Vertex AI",
+          "options": {
+            "prompt": "Required: Text prompt for video generation",
+            "model": "(Optional) Model to use: \"veo-2.0-generate-001\" or \"veo-3.0-generate-preview\" (default: veo-2.0-generate-001)",
+            "image": "(Optional) Path to input image for image-to-video generation",
+            "output": "(Optional) Output filename pattern (default: video.mp4)",
+            "folder": "(Optional) Output folder path (default: public/videos)",
+            "negative-prompt": "(Optional) Text to discourage the model from generating",
+            "aspect-ratio": "(Optional) Aspect ratio: \"16:9\" or \"9:16\" (default: 16:9)",
+            "person-generation": "(Optional) Person generation mode: \"dont_allow\" or \"allow_adult\" (default: dont_allow)",
+            "number-of-videos": "(Optional) Number of videos to generate: 1-4 (default: 1)",
+            "duration-seconds": "(Optional) Duration in seconds: 5-8 (default: 5)",
+            "enhance-prompt": "(Optional) Enable prompt rewriter (enabled by default)",
+            "no-enhance-prompt": "(Optional) Disable prompt rewriter",
+            "region": "(Optional) Google Cloud region (default: us-central1)"
+          },
+          "examples": [
+            "# Generate a text-to-video with Veo 3 (with native audio)",
+            "npm run vertex-ai-video -- generate -p \"A musician playing piano with beautiful classical music and ambient room sound\" -m veo-3.0-generate-preview --person-generation allow_adult",
+            "",
+            "# Generate an image-to-video with Veo 2 on Vertex AI",
+            "npm run vertex-ai-video -- generate -p \"The scene comes to life with natural sounds\" -i input.jpg -m veo-2.0-generate-001 --duration-seconds 8 --aspect-ratio 9:16",
+            "",
+            "# Generate multiple videos with negative prompt and audio",
+            "npm run vertex-ai-video -- generate -p \"A peaceful forest scene with bird songs and wind through trees\" --negative-prompt \"violence, scary, loud noises\" --number-of-videos 2 -m veo-3.0-generate-preview"
+          ]
+        }
+      },
+      "requires": [
+        "vertex-ai-service-account.json with Google Cloud credentials",
+        "google-auth-library package",
+        "commander package",
+        "Active Google Cloud project with Vertex AI API enabled"
+      ]
+    },
+    "vertex-ai-image": {
+      "description": "Generate images using Google's Vertex AI API with Imagen 4.0 and Imagen 3.0 models (for Gemini models use gemini-image tool)",
+      "tool": "run_terminal_cmd",
+      "command": "npm run vertex-ai-image",
+      "subcommands": {
+        "generate": {
+          "description": "Generate an image using Vertex AI Imagen models",
+          "options": {
+            "prompt": "Required: Text prompt for image generation",
+            "model": "(Optional) Model to use: \"imagen-4.0\" or \"imagen-3.0\" (default: imagen-4.0)",
+            "output": "(Optional) Output filename (default: vertex-generated-image.png)",
+            "folder": "(Optional) Output folder path (default: public/images)",
+            "num-outputs": "(Optional) Number of images to generate (1-4, default: 1)",
+            "negative-prompt": "(Optional) Negative prompt (things to avoid)",
+            "aspect-ratio": "(Optional) Aspect ratio: \"1:1\", \"16:9\", \"9:16\", \"4:3\", \"3:4\" (default: 1:1)",
+            "region": "(Optional) Google Cloud region (default: us-central1)",
+            "safety-filter": "(Optional) Safety filter level: \"block_few\", \"block_some\", \"block_most\" (default: block_some)"
+          },
+          "example": "npm run vertex-ai-image -- generate -p \"A futuristic cityscape at sunset\" -m imagen-4.0 --aspect-ratio 16:9 -n 2"
+        }
+      },
+      "requires": [
+        "vertex-ai-service-account.json with Google Cloud credentials",
+        "google-auth-library package",
+        "commander package",
+        "Active Google Cloud project with Vertex AI API enabled"
+      ],
+      "note": "For Gemini image generation and editing, use: npm run gemini-image"
+    },
+  <vertex_tools> 
 
 ---
 > Source: [LastBotInc/nextjs-supabase-ai-webapp](https://github.com/LastBotInc/nextjs-supabase-ai-webapp) — distributed by [TomeVault](https://tomevault.io).
