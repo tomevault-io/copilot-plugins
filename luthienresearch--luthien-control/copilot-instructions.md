@@ -1,8 +1,8 @@
-## ruletypeagentrequested
+## ruletypeautoattached
 
-> This is the description the AI always sees
+> This is the content the AI only sees if one of the files currently being worked on matched the filenamepattern.
 
-This is the content the AI only sees if they specifically request it
+This is the content the AI only sees if one of the files currently being worked on matched the filenamepattern.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
