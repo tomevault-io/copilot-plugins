@@ -1,0 +1,9 @@
+{
+  "name": "drumtorben--polars-ts",
+  "displayName": "polars-ts",
+  "description": "Polars Time Series Extension",
+  "version": "1.0.0",
+  "author": "drumtorben",
+  "homepage": "https://github.com/drumtorben/polars-ts",
+  "skills": []
+}
