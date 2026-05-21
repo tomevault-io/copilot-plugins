@@ -1,0 +1,9 @@
+{
+  "name": "zeon-studio--open-remark",
+  "displayName": "open-remark",
+  "description": "OpenRemark is an open-source, self-hostable comment system designed specifically for static websites ( Astro, Hugo, or Next.js). It aims to provide a fully featured commenting experience with minimal ",
+  "version": "1.0.0",
+  "author": "zeon-studio",
+  "homepage": "https://github.com/zeon-studio/open-remark",
+  "skills": []
+}
