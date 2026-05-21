@@ -1,0 +1,9 @@
+{
+  "name": "devolutions--psign",
+  "displayName": "psign",
+  "description": "Portable code signing tool",
+  "version": "1.0.0",
+  "author": "Devolutions",
+  "homepage": "https://github.com/Devolutions/psign",
+  "skills": []
+}
