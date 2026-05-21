@@ -1,0 +1,9 @@
+{
+  "name": "mlcast-community--mlcast",
+  "displayName": "mlcast",
+  "description": "the home of the mlcast nowcasting python package",
+  "version": "1.0.0",
+  "author": "mlcast-community",
+  "homepage": "https://github.com/mlcast-community/mlcast",
+  "skills": []
+}
