@@ -1,0 +1,9 @@
+{
+  "name": "pgedge--control-plane",
+  "displayName": "control-plane",
+  "description": "pgEdge Postgres Control Plane",
+  "version": "1.0.0",
+  "author": "pgEdge",
+  "homepage": "https://github.com/pgEdge/control-plane",
+  "skills": []
+}
