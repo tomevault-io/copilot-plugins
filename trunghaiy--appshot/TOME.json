@@ -4,7 +4,7 @@
   "repo": "appshot",
   "description": "Generate App Store & Google Play preview videos and screenshots from a simple TypeScript config. Built on Remotion + React + Tailwind. Ships with AI agent skills for Claude Code \u2014 scan your app, direct the creative, render to MP4.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trunghaiy/appshot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T01:53:05Z"
+  "distributed_at": "2026-05-21T14:21:46Z"
 }
