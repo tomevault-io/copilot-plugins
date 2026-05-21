@@ -1,0 +1,9 @@
+{
+  "name": "dataplat--fabrictools",
+  "displayName": "FabricTools",
+  "description": "FabricTools is a free, open-source, community-driven PowerShell module designed to facilitate the management of Microsoft Fabric workspaces and capacities.",
+  "version": "1.0.0",
+  "author": "dataplat",
+  "homepage": "https://github.com/dataplat/FabricTools",
+  "skills": []
+}
