@@ -1,0 +1,9 @@
+{
+  "name": "chrisdiana--breezybox-cardputer",
+  "displayName": "breezybox-cardputer",
+  "description": "A BusyBox-inspired shell and virtual terminal system for Cardputer ADV",
+  "version": "1.0.0",
+  "author": "chrisdiana",
+  "homepage": "https://github.com/chrisdiana/breezybox-cardputer",
+  "skills": []
+}
