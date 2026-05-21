@@ -1,0 +1,9 @@
+{
+  "name": "keboola--mcp-server",
+  "displayName": "mcp-server",
+  "description": "Model Context Protocol (MCP) Server for the Keboola Platform",
+  "version": "1.0.0",
+  "author": "keboola",
+  "homepage": "https://github.com/keboola/mcp-server",
+  "skills": []
+}
