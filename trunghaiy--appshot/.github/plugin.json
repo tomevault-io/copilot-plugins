@@ -1,0 +1,9 @@
+{
+  "name": "trunghaiy--appshot",
+  "displayName": "appshot",
+  "description": "Generate App Store & Google Play preview videos and screenshots from a simple TypeScript config. Built on Remotion + React + Tailwind. Ships with AI agent skills for Claude Code \u2014 scan your app, direc",
+  "version": "1.0.0",
+  "author": "trunghaiy",
+  "homepage": "https://github.com/trunghaiy/appshot",
+  "skills": []
+}
