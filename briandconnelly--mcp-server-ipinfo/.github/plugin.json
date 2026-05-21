@@ -1,0 +1,9 @@
+{
+  "name": "briandconnelly--mcp-server-ipinfo",
+  "displayName": "mcp-server-ipinfo",
+  "description": "IP Geolocation Server for MCP",
+  "version": "1.0.0",
+  "author": "briandconnelly",
+  "homepage": "https://github.com/briandconnelly/mcp-server-ipinfo",
+  "skills": []
+}
