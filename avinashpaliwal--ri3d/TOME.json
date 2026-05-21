@@ -1,0 +1,44 @@
+{
+  "name": "RI3D",
+  "owner": "avinashpaliwal",
+  "repo": "RI3D",
+  "description": "[ICCV 2025] RI3D: Few-Shot Gaussian Splatting With Repair and Inpainting Diffusion Priors",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/avinashpaliwal/RI3D",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T09:59:07Z"
+}
