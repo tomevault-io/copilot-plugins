@@ -1,18 +1,30 @@
-## rule-management
+## rule-types
 
-> - You (the AI assistant) **have the technical capability** to create, edit, and delete rule files (files ending in `.mdc` located in `.cursor/rules/`).
+> Documentation of Cursor rule types and header configuration
 
-# AI Rule Management Guidelines
+## Rule Types and Header Configuration
 
-- You (the AI assistant) **have the technical capability** to create, edit, and delete rule files (files ending in `.mdc` located in `.cursor/rules/`).
-- You **MUST NOT** perform any of these actions (create, edit, delete rule files) unless the user's **explicit instruction is *specifically* to modify a rule file.** Making changes to rule files as a side effect or perceived necessity to achieve a different, non-rule-related goal is **NEVER** permitted.
-- You **MUST NOT** proactively suggest creating, modifying, or deleting rules. Only act upon direct, explicit user instructions *about rule management itself*.
-- Always confirm the specific changes (content, filename) with the user before applying them to a rule file, unless the user has provided the exact content and filename already.
-- **Formatting Note:** For rules intended to always apply (`alwaysApply: true`), the `globs:` line MUST be present but left empty (no value after the colon) for compatibility with the Cursor GUI. Example:
-  ```yaml
-  globs:
-  alwaysApply: true
-  ```
+Rule visibility and activation are controlled by the YAML header (`--- ... ---`) in each `.mdc` file:
+
+1.  **Always:** The rule content is always included in the AI's context.
+    *   `description: <any text or empty>`
+    *   `globs: <empty>`
+    *   `alwaysApply: true`
+
+2.  **Agent Requested:** A short description is always visible to the AI. The AI can request the full rule content using the `fetch_rules` tool if needed.
+    *   `description: <Must contain the description text>`
+    *   `globs: <empty>`
+    *   `alwaysApply: false`
+
+3.  **Auto Attached:** The rule content is automatically included in the AI's context if a relevant file (matching the glob pattern) is attached or being actively edited.
+    *   `description: <any text or empty>`
+    *   `globs: <Must contain glob pattern(s), e.g., *.py>`
+    *   `alwaysApply: false`
+
+4.  **Manual:** The rule content is only included if the rule is explicitly mentioned by the user in their query.
+    *   `description: <empty>`
+    *   `globs: <empty>`
+    *   `alwaysApply: false`
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
