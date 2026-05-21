@@ -1,0 +1,9 @@
+{
+  "name": "aiurda--cursor10x",
+  "displayName": "cursor10x",
+  "description": "Cursor10x is a comprehensive suite of tools that enhances the A.I. agent's capabilities within the Cursor IDE, providing persistent memory across sessions, standardized task management, and enforced b",
+  "version": "1.0.0",
+  "author": "aiurda",
+  "homepage": "https://github.com/aiurda/cursor10x",
+  "skills": []
+}
