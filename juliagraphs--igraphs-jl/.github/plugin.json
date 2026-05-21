@@ -1,0 +1,9 @@
+{
+  "name": "juliagraphs--igraphs-jl",
+  "displayName": "IGraphs.jl",
+  "description": "IGraphs.jl",
+  "version": "1.0.0",
+  "author": "JuliaGraphs",
+  "homepage": "https://github.com/JuliaGraphs/IGraphs.jl",
+  "skills": []
+}
