@@ -1,0 +1,9 @@
+{
+  "name": "spiko-tech--effect-messaging",
+  "displayName": "effect-messaging",
+  "description": "A message broker toolkit for Effect",
+  "version": "1.0.0",
+  "author": "spiko-tech",
+  "homepage": "https://github.com/spiko-tech/effect-messaging",
+  "skills": []
+}
