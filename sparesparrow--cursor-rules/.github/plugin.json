@@ -1,9 +1,9 @@
 {
   "name": "sparesparrow--cursor-rules",
   "displayName": "cursor-rules",
-  "description": "cursor-rules",
+  "description": "A library of rules for the Cursor IDE, providing organized instructions for the Agent Composer LLM backend.",
   "version": "1.0.0",
   "author": "sparesparrow",
-  "homepage": "https://tomevault.io/claim/sparesparrow",
+  "homepage": "https://github.com/sparesparrow/cursor-rules",
   "skills": []
 }
