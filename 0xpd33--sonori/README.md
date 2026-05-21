@@ -7,11 +7,11 @@ Sonori is a fully local STT app for Linux (Wayland).
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [0xPD33/sonori](https://github.com/0xPD33/sonori).
+Original source: `CLAUDE.md` in [0xPD33/sonori](https://github.com/0xPD33/sonori).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
