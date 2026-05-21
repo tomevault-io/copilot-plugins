@@ -1,0 +1,9 @@
+{
+  "name": "tetherto--wdk-wallet-spark",
+  "displayName": "wdk-wallet-spark",
+  "description": "WDK module to manage BIP-44 wallets for the Spark blockchain with Lightning Network integration.",
+  "version": "1.0.0",
+  "author": "tetherto",
+  "homepage": "https://github.com/tetherto/wdk-wallet-spark",
+  "skills": []
+}
