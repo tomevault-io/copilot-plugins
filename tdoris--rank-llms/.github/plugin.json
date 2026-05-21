@@ -1,0 +1,9 @@
+{
+  "name": "tdoris--rank-llms",
+  "displayName": "rank_llms",
+  "description": "Rank-LLMs is a CLI tool for evaluating local LLMs via Ollama. ",
+  "version": "1.0.0",
+  "author": "tdoris",
+  "homepage": "https://github.com/tdoris/rank_llms",
+  "skills": []
+}
