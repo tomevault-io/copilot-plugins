@@ -1,0 +1,9 @@
+{
+  "name": "khwerhahn--mindmatrix",
+  "displayName": "MindMatrix",
+  "description": "Obsidian plugin to push vault notes to a postgres vector database to use in personal ai assistants",
+  "version": "1.0.0",
+  "author": "khwerhahn",
+  "homepage": "https://github.com/khwerhahn/MindMatrix",
+  "skills": []
+}
