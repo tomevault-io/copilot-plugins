@@ -1,46 +1,36 @@
-## general
+## mcp
 
-> General Rules
+> - All MCP tools should follow a consistent structure
 
-# General
-- Use pnpm to install dependencies
-- This is an MCP (Model Context Protocol) collection for the umi framework
+# MCP Tools Implementation
 
-# Build & Test Commands
-- Dev: `pnpm dev` or `mcp-inspector tsx ./src/cli.ts fixtures/normal`
-- Build CLI: `pnpm build:cli` or `bun build src/cli.ts --external effect --external @valibot/to-json-schema --minify --outfile dist/cli.mjs --target=node`
-- Build Index: `pnpm build:index` or `bun build src/index.ts --external fastmcp --minify --outfile dist/index.mjs --target=node`
-- Build All: `pnpm build`
-- Format: `pnpm format` or `prettier --write .`
-- Test: `pnpm test` or `vitest run`
-- Watch Tests: `pnpm test:watch` or `vitest`
-- Type Check: `pnpm typecheck` or `tsc --noEmit`
+## Tool Structure
+- All MCP tools should follow a consistent structure
+- Each tool is defined in `src/tools/` with a prefix of `umi-`
+- Tools should export a function that returns a `Tool` object
+- Tools should define input and output schemas
 
-# Code Style Guidelines
-- TypeScript with strict type checking
-- Single quotes for strings
-- Trailing commas required
-- Max line length: 80 chars
-- No semicolons
-- Use async/await for promises
+## Input/Output Schemas
+- Define input schemas using zod
+- Define output schemas to match expected return values
+- Follow [MCP spec](mdc:https:/github.com/ModelContractProtocol/spec) for schema definitions
+- Use descriptive names for schema properties
 
-# Import Order (via @trivago/prettier-plugin-sort-imports)
-1. Node built-ins (^node:)
-2. External packages (^@?\w)
-3. Internal aliases (^@/)
-4. Relative imports (^[./])
+## Error Handling
+- Use proper error handling with descriptive messages
+- Return structured error responses when appropriate
+- Validate inputs before processing
 
-# Error Handling
-- Use zod for runtime type validation
-- Prefer throwing errors over returning null/undefined
-- Use descriptive error messages
+## Tool Implementation
+- Keep tool implementations focused on a single responsibility
+- Reuse common code for similar tools (like config management)
+- Document tools with clear descriptions
+- Export tools in the `src/index.ts` file for consumption
 
-# Naming Conventions
-- PascalCase for types/interfaces/classes
-- camelCase for variables/functions
-- Use type over interface where possible
-- Suffix tool classes with 'Tool'
-- MCP tools are prefixed with 'umi-' (e.g., umi-help, umi-config-list)
+## Examples
+- Config tools: [umi-config.ts](mdc:src/tools/umi-config.ts)
+- Generator tools: [umi-generate.ts](mdc:src/tools/umi-generate.ts)
+- Data retrieval tools: [umi-route-list.ts](mdc:src/tools/umi-route-list.ts)
 
 ---
 > Source: [umijs/umi-mcp](https://github.com/umijs/umi-mcp) — distributed by [TomeVault](https://tomevault.io).
