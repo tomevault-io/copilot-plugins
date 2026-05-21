@@ -1,22 +1,51 @@
-## config-and-secrets
+## dev-tracking
 
-> Configuration and Secrets Management
+> Follow these steps whenever an important feature, bugfix, or other meaningful non-trivial milestone is completed, prior to git commit.
 
-# Configuration and Secrets Management
+# Mandatory dev tracking updates prior to git commits
 
-1.  **Environment Variables:** ALL configuration values that differ between environments (development, testing, production) or are sensitive MUST be loaded from environment variables. This includes:
-    *   Backend API endpoints (e.g., OpenAI URL)
-    *   Backend API keys
-    *   Proxy authentication keys/tokens
-    *   Database connection details (host, port, user, password, database name)
-    *   Any other external service credentials or configurations.
+### 1. Rotate Log (If Necessary)
 
-2.  **`.env` File:**
-    *   Use a `.env` file in the project root for *development* environment variables.
-    *   This file MUST NOT be committed to Git.
-    *   Ensure `.env` is listed in the `.gitignore` file.
+**Before adding a new log entry**, ALWAYS run the log rotation script. This script handles checking if rotation is needed based on line count and performs the rotation automatically:
+```bash
+bash scripts/rotate_dev_log.sh
+```
+This ensures the active log file remains manageable and archives older entries.
 
-3.  **No Hardcoding:** Absolutely NO secrets, API keys, or environment-specific configurations should be hardcoded directly into the source code.
+### 2. Update dev/development_log.md - Historical Record
+Append the new entry (starting with a newline if the file is not empty or was just created by the rotation script) to the current `dev/development_log.md` using the following format:
+```markdown
+## [YYYY-MM-DD HH:MM] - [AI Chosen Title]
+
+### Changes Made
+- Specific file changes or commands executed
+- Include exact commands with outputs if relevant
+
+### Current Status
+- What's currently working
+- What's currently broken
+- Any errors encountered (with exact error messages)
+```
+
+### 3. Update dev/current_context.md - Current State Snapshot
+Replace the **entire** content of `dev/current_context.md` with the current state using this template:
+```markdown
+# Current Task
+## Short Description of Current Task
+ - Status: Complete (or something else if not complete)
+ - Major changes made
+ - Follow-up tasks, if any (Excluding git commit/push/etc)
+```
+
+## IMPORTANT GUIDELINES
+
+1.  **Update First**: Always update tracking files BEFORE moving to a new task or ending work.
+2.  **Rotate Log First**: Always run the rotation script `bash scripts/rotate_dev_log.sh` *before* appending to `dev/development_log.md`.
+3.  **Continuation Header**: The rotation script should handle creating the continuation header in the new log file.
+4.  **Be Specific**: Include specific file names, commands, and error messages in the log.
+5.  **Timestamps**: Use accurate timestamps in `dev/development_log.md` entries.
+
+IMPORTANT: This is not optional. Every change requires running the rotation script and subsequent tracking file updates.
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
