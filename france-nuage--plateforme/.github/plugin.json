@@ -1,0 +1,9 @@
+{
+  "name": "france-nuage--plateforme",
+  "displayName": "plateforme",
+  "description": "Monorepo de France-Nuage (Control-plane, agents, clients) \ud83c\uddeb\ud83c\uddf7",
+  "version": "1.0.0",
+  "author": "France-Nuage",
+  "homepage": "https://github.com/France-Nuage/plateforme",
+  "skills": []
+}
