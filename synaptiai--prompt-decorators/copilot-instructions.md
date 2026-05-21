@@ -1,55 +1,54 @@
-## 050-careful-code-modification
+## 060-coding-patterns
 
-> ENSURE careful modifications WHEN changing code TO prevent breakage
+> FOLLOW coding patterns WHEN writing code TO maintain codebase quality
 
 
-# Careful Code Modification
+# Coding Pattern Preferences
 
 <version>1.0.0</version>
 
 ## Context
-- When modifying existing code in this codebase
-- When fixing bugs or implementing new features
-- When the codebase is fragile or has complex dependencies
+- When writing new code or modifying existing code
+- When implementing features or fixing bugs
+- When refactoring or optimizing code
 
 ## Requirements
-- Make surgical, precise modifications targeting only the specific issue
-- Implement proper validation procedures before and after changes
-- Consider the scope and potential side effects of all changes
-- Ensure changes are appropriate for the sensitivity level of the codebase
-- Add thorough tests for any modifications made
-- Document changes clearly with comments explaining the rationale
+- Prefer simple solutions over complex ones
+- Avoid code duplication by checking for similar functionality elsewhere in the codebase
+- Ensure code complies with pre-commit requirements
+- Only make changes that are explicitly requested or well understood
+- Exhaust all options within existing implementation before introducing new patterns
+- Remove old implementations when introducing new ones to avoid duplicate logic
+- Keep codebase clean and organized
+- Avoid writing scripts in files, especially for one-time operations
+- Refactor files exceeding 200-300 lines of code
+- Use mocking data only for tests, never for dev or prod environments
+- Never add stubbing or fake data patterns affecting dev or prod environments
+- Never overwrite env files without explicit confirmation
 
 ## Examples
 
 <example>
-# Good: Targeted fix with validation
-def fix_calculation_error(data):
-    # Validate input before processing
-    if not isinstance(data, dict) or 'value' not in data:
-        raise ValueError("Invalid data format")
+# Good: Simple solution with no duplication
+def calculate_total(items):
+    """Calculate total price of items using existing utility function."""
+    from utils.pricing import apply_discount
 
-    # Fix specific calculation issue only
-    corrected_value = data['value'] * 1.05  # Apply 5% correction
-
-    # Return with minimal changes to data structure
-    result = data.copy()
-    result['value'] = corrected_value
-    return result
+    base_total = sum(item.price for item in items)
+    return apply_discount(base_total)  # Reusing existing functionality
 </example>
 
 <example type="invalid">
-# Bad: Overly broad changes without validation
-def fix_calculation_error(data):
-    # Completely restructuring data format unnecessarily
-    new_data = {}
-    for key, value in data.items():
-        if key == 'value':
-            new_data[key] = value * 1.05
-        else:
-            new_data[f"modified_{key}"] = process_data(value)
+# Bad: Duplicating existing functionality
+def calculate_total(items):
+    """Calculate total with duplicated discount logic."""
+    base_total = sum(item.price for item in items)
 
-    return new_data  # Returns completely different structure
+    # Reimplementing discount logic that already exists in utils.pricing
+    if base_total > 100:
+        return base_total * 0.9
+    else:
+        return base_total
 </example>
 
 ---
