@@ -1,0 +1,9 @@
+{
+  "name": "loufe--ab-av1-gui",
+  "displayName": "AB-AV1-GUI",
+  "description": "A simple Python GUI for AB-AV1 conversion of video files to AV1, minimizing file size while maintaining quality. Includes stats, saved config, and more.",
+  "version": "1.0.0",
+  "author": "Loufe",
+  "homepage": "https://github.com/Loufe/AB-AV1-GUI",
+  "skills": []
+}
