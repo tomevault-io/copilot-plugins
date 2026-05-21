@@ -1,0 +1,9 @@
+{
+  "name": "mimilabs--hccinfhir",
+  "displayName": "hccinfhir",
+  "description": "HCC Algorithm that works with FHIR and 837",
+  "version": "1.0.0",
+  "author": "mimilabs",
+  "homepage": "https://github.com/mimilabs/hccinfhir",
+  "skills": []
+}
