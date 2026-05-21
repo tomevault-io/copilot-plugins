@@ -1,0 +1,9 @@
+{
+  "name": "ai4curation--owl-mcp",
+  "displayName": "owl-mcp",
+  "description": "MCP server for OWL applications",
+  "version": "1.0.0",
+  "author": "ai4curation",
+  "homepage": "https://github.com/ai4curation/owl-mcp",
+  "skills": []
+}
