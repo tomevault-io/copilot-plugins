@@ -1,0 +1,9 @@
+{
+  "name": "restdb--codehooks-mcp-server",
+  "displayName": "codehooks-mcp-server",
+  "description": "MCP server for codehooks.io",
+  "version": "1.0.0",
+  "author": "RestDB",
+  "homepage": "https://github.com/RestDB/codehooks-mcp-server",
+  "skills": []
+}
