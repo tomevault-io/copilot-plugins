@@ -1,0 +1,9 @@
+{
+  "name": "upload-post--n8n-nodes-upload-post",
+  "displayName": "n8n-nodes-upload-post",
+  "description": "\ud83d\ude80 Official n8n community node for Upload-Post API. Schedule & publish to TikTok, Instagram, YouTube, LinkedIn, X, Facebook, Pinterest, Threads, Reddit & Bluesky from your n8n workflows.",
+  "version": "1.0.0",
+  "author": "Upload-Post",
+  "homepage": "https://github.com/Upload-Post/n8n-nodes-upload-post",
+  "skills": []
+}
