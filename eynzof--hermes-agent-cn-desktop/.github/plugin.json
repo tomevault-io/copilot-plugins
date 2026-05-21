@@ -1,0 +1,9 @@
+{
+  "name": "eynzof--hermes-agent-cn-desktop",
+  "displayName": "hermes-agent-cn-desktop",
+  "description": "Hermes Agent CN desktop app built with Tauri, React, and Rust",
+  "version": "1.0.0",
+  "author": "Eynzof",
+  "homepage": "https://github.com/Eynzof/hermes-agent-cn-desktop",
+  "skills": []
+}
