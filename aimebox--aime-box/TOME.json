@@ -1,0 +1,44 @@
+{
+  "name": "aime-box",
+  "owner": "AimeBox",
+  "repo": "aime-box",
+  "description": "\u4e00\u6b3e\u57fa\u4e8e langchain + electron\u5f00\u53d1\u7684\u591a\u5e73\u53f0\u684c\u9762\u7aef Chat \u5ba2\u6237\u7aef \u652f\u6301\u672c\u5730\u77e5\u8bc6\u5e93\uff0ctool\u8c03\u7528\uff0c\u591a\u4e2a\u667a\u80fdagent\u8c03\u7528  \u76ee\u6807\u5c3d\u91cf\u5b9e\u73b0\u5168\u79bb\u7ebf\u672c\u5730\u53ef\u6267\u884c\u7684\u667a\u80fdagent",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/AimeBox/aime-box",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T06:16:41Z"
+}
