@@ -1,0 +1,9 @@
+{
+  "name": "engflow--gazelle-cc",
+  "displayName": "gazelle_cc",
+  "description": "Public repository for the Gazelle C++ extension",
+  "version": "1.0.0",
+  "author": "EngFlow",
+  "homepage": "https://github.com/EngFlow/gazelle_cc",
+  "skills": []
+}
