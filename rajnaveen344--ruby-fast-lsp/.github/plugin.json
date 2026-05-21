@@ -1,0 +1,9 @@
+{
+  "name": "rajnaveen344--ruby-fast-lsp",
+  "displayName": "ruby-fast-lsp",
+  "description": "A ruby LSP implementation in rust using prism parser",
+  "version": "1.0.0",
+  "author": "rajnaveen344",
+  "homepage": "https://github.com/rajnaveen344/ruby-fast-lsp",
+  "skills": []
+}
