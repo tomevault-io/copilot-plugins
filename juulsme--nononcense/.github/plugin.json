@@ -1,0 +1,9 @@
+{
+  "name": "juulsme--nononcense",
+  "displayName": "NoNoncense",
+  "description": "Generate locally unique counter, sortable and encrypted nonces in distributed Elixir",
+  "version": "1.0.0",
+  "author": "juulSme",
+  "homepage": "https://github.com/juulSme/NoNoncense",
+  "skills": []
+}
