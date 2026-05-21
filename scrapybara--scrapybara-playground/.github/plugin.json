@@ -1,0 +1,9 @@
+{
+  "name": "scrapybara--scrapybara-playground",
+  "displayName": "scrapybara-playground",
+  "description": "Computer use playground hosted on Scrapybara instances",
+  "version": "1.0.0",
+  "author": "Scrapybara",
+  "homepage": "https://github.com/Scrapybara/scrapybara-playground",
+  "skills": []
+}
