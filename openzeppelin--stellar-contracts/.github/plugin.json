@@ -1,0 +1,9 @@
+{
+  "name": "openzeppelin--stellar-contracts",
+  "displayName": "stellar-contracts",
+  "description": "OpenZeppelin Contracts written in Rust for Stellar Soroban",
+  "version": "1.0.0",
+  "author": "OpenZeppelin",
+  "homepage": "https://github.com/OpenZeppelin/stellar-contracts",
+  "skills": []
+}
