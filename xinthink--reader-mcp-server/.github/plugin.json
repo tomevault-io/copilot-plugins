@@ -1,0 +1,9 @@
+{
+  "name": "xinthink--reader-mcp-server",
+  "displayName": "reader-mcp-server",
+  "description": "Connect your Readwise Reader library to LLMs.",
+  "version": "1.0.0",
+  "author": "xinthink",
+  "homepage": "https://github.com/xinthink/reader-mcp-server",
+  "skills": []
+}
