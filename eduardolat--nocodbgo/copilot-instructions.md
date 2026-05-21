@@ -1,21 +1,38 @@
-## golang-style
+## nocodb-api-docs
 
-> - All Golang code must be idiomatic, efficient, and extremely human-readable.
+> The NocoDB API is divided into 2 parts:
 
 
-# Go Style
+# Structure
 
-- All Golang code must be idiomatic, efficient, and extremely human-readable.
-- All functions must be documented with comments in an idiomatic manner and in English.
-- You should not include redundant comments inside functions because the code is expected to be self-explanatory.
+The NocoDB API is divided into 2 parts:
 
-## How to test Go code?
+- Data API's: They are to manage the data of a specific table
+- Meta API's: They are used to manage higher-level things like users, databases, views, etc
 
-To test Golang code you should ALWAYS use the `task test` command, literally.
+## Overview
 
-## How to lint Go code?
+In this link you can find a brief description of the two APIs, as well as information about the query parameters that are useful for the Data API.
 
-To lint Golang code you should ALWAYS use the `task lint` command, literally.
+https://docs.nocodb.com/developer-resources/rest-APIs/overview
+
+## Data API's
+
+In the links below you can find information on how to use the data API's.
+
+https://data-apis-v2.nocodb.com
+https://data-apis-v2.nocodb.com/swagger-v2.json
+
+The swagger-v2.json file is downloaded locally and renamed to `openapi.json`
+
+## Meta API's
+
+In the links below you can find information on how to use the meta API's.
+
+https://meta-apis-v2.nocodb.com
+https://meta-apis-v2.nocodb.com/swagger-v2.json
+
+The swagger-v2.json file is downloaded locally and renamed to `openapi.json`
 
 ---
 > Source: [eduardolat/nocodbgo](https://github.com/eduardolat/nocodbgo) — distributed by [TomeVault](https://tomevault.io).
