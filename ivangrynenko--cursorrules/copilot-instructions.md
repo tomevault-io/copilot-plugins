@@ -1,14 +1,14 @@
-## python-injection
+## python-insecure-design
 
-> Detect and prevent injection vulnerabilities in Python applications as defined in OWASP Top 10:2021-A03
+> Detect and prevent insecure design patterns in Python applications as defined in OWASP Top 10:2021-A04
 
- # Python Injection Security Standards (OWASP A03:2021)
+ # Python Insecure Design Security Standards (OWASP A04:2021)
 
-This rule enforces security best practices to prevent injection vulnerabilities in Python applications, as defined in OWASP Top 10:2021-A03.
+This rule enforces security best practices to prevent insecure design vulnerabilities in Python applications, as defined in OWASP Top 10:2021-A04.
 
 <rule>
-name: python_injection
-description: Detect and prevent injection vulnerabilities in Python applications as defined in OWASP Top 10:2021-A03
+name: python_insecure_design
+description: Detect and prevent insecure design patterns in Python applications as defined in OWASP Top 10:2021-A04
 filters:
   - type: file_extension
     pattern: "\\.(py)$"
@@ -18,134 +18,211 @@ filters:
 actions:
   - type: enforce
     conditions:
-      # Pattern 1: SQL Injection - String concatenation in SQL queries
-      - pattern: "cursor\\.(execute|executemany)\\([\"'][^\"']*\\s*[\\+%]|cursor\\.(execute|executemany)\\([^,]+\\+\\s*[a-zA-Z_][a-zA-Z0-9_]*"
-        message: "Potential SQL injection vulnerability. Use parameterized queries with placeholders instead of string concatenation."
+      # Pattern 1: Lack of input validation
+      - pattern: "def\\s+[a-zA-Z0-9_]+\\([^)]*\\):\\s*(?![^#]*validate|[^#]*clean|[^#]*sanitize|[^#]*check|[^#]*is_valid)"
+        message: "Function lacks input validation. Consider implementing validation for all user-supplied inputs."
         
-      # Pattern 2: SQL Injection - String formatting in SQL queries
-      - pattern: "cursor\\.(execute|executemany)\\([\"'][^\"']*%[^\"']*[\"']\\s*%\\s*|cursor\\.(execute|executemany)\\([\"'][^\"']*{[^\"']*}[\"']\\.format"
-        message: "Potential SQL injection vulnerability. Use parameterized queries with placeholders instead of string formatting."
+      # Pattern 2: Hardcoded business rules
+      - pattern: "if\\s+[a-zA-Z0-9_]+\\s*(==|!=|>|<|>=|<=)\\s*['\"][^'\"]+['\"]:"
+        message: "Hardcoded business rules detected. Consider using configuration files or database-driven rules for better maintainability."
         
-      # Pattern 3: Command Injection - Shell command execution with user input
-      - pattern: "(os\\.system|os\\.popen|subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*\\+\\s*[a-zA-Z_][a-zA-Z0-9_]*|\\b(os\\.system|os\\.popen|subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*format\\(|\\b(os\\.system|os\\.popen|subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*f['\"]"
-        message: "Potential command injection vulnerability. Never use string concatenation or formatting with shell commands. Use subprocess with shell=False and pass arguments as a list."
+      # Pattern 3: Lack of rate limiting
+      - pattern: "@(app|api|route|blueprint)\\.(get|post|put|delete|patch)\\([^)]*\\)\\s*\\n\\s*(?![^#]*rate_limit|[^#]*throttle|[^#]*limiter)"
+        message: "API endpoint lacks rate limiting. Consider implementing rate limiting to prevent abuse."
         
-      # Pattern 4: Command Injection - Shell=True in subprocess
-      - pattern: "(subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\([^)]*shell\\s*=\\s*True"
-        message: "Using shell=True with subprocess functions is dangerous and can lead to command injection. Use shell=False (default) and pass arguments as a list."
+      # Pattern 4: Insecure default configurations
+      - pattern: "DEBUG\\s*=\\s*True|DEVELOPMENT\\s*=\\s*True|TESTING\\s*=\\s*True"
+        message: "Insecure default configuration detected. Ensure debug/development modes are disabled in production."
         
-      # Pattern 5: XSS - Unescaped template variables
-      - pattern: "\\{\\{\\s*[^|]*\\s*\\}\\}|\\{\\%\\s*autoescape\\s+off\\s*\\%\\}"
-        message: "Potential XSS vulnerability. Ensure all template variables are properly escaped. Avoid using 'autoescape off' in templates."
+      # Pattern 5: Lack of error handling
+      - pattern: "(?<!try:\\s*\\n)[^#]*\\n\\s*(?!except|finally)"
+        message: "Consider implementing proper error handling with try-except blocks for operations that might fail."
         
-      # Pattern 6: XSS - Unsafe HTML rendering in Flask/Django
-      - pattern: "render_template\\([^)]*\\)|render\\([^)]*\\)|mark_safe\\([^)]*\\)|safe\\s*\\|"
-        message: "Potential XSS vulnerability. Ensure all user-supplied data is properly escaped before rendering in templates."
+      # Pattern 6: Insecure direct object references
+      - pattern: "get_object_or_404\\(\\s*[^,]+,\\s*pk\\s*=\\s*request\\.(GET|POST|args|form|json)\\[['\"][^'\"]+['\"]\\]\\s*\\)|get\\(\\s*id\\s*=\\s*request\\.(GET|POST|args|form|json)"
+        message: "Potential insecure direct object reference. Validate user's permission to access the requested object."
         
-      # Pattern 7: Path Traversal - Unsafe file operations
-      - pattern: "open\\([^)]*\\+|open\\([^)]*format\\(|open\\([^)]*f['\"]"
-        message: "Potential path traversal vulnerability. Validate and sanitize file paths before opening files. Consider using os.path.abspath and os.path.normpath."
+      # Pattern 7: Missing authentication checks
+      - pattern: "@(app|api|route|blueprint)\\.(get|post|put|delete|patch)\\([^)]*\\)\\s*\\n\\s*(?!.*@login_required|.*@auth\\.login_required|.*@jwt_required|.*current_user|.*request\\.user)"
+        message: "Endpoint lacks authentication checks. Consider adding authentication requirements for sensitive operations."
         
-      # Pattern 8: LDAP Injection - Unsafe LDAP queries
-      - pattern: "ldap\\.search\\([^)]*\\+|ldap\\.search\\([^)]*format\\(|ldap\\.search\\([^)]*f['\"]"
-        message: "Potential LDAP injection vulnerability. Use proper LDAP escaping for user-supplied input in LDAP queries."
+      # Pattern 8: Lack of proper logging
+      - pattern: "except\\s+[a-zA-Z0-9_]+\\s*(?:as\\s+[a-zA-Z0-9_]+)?:\\s*(?!.*logger\\.|.*logging\\.|.*print)"
+        message: "Exception caught without proper logging. Implement proper logging for exceptions to aid in debugging and monitoring."
         
-      # Pattern 9: NoSQL Injection - Unsafe MongoDB queries
-      - pattern: "find\\(\\{[^}]*\\+|find\\(\\{[^}]*format\\(|find\\(\\{[^}]*f['\"]"
-        message: "Potential NoSQL injection vulnerability. Use parameterized queries or proper escaping for MongoDB queries."
+      # Pattern 9: Insecure file uploads
+      - pattern: "request\\.files\\[['\"][^'\"]+['\"]\\]|FileField\\(|FileStorage\\("
+        message: "File upload functionality detected. Ensure proper validation of file types, sizes, and implement virus scanning if applicable."
         
-      # Pattern 10: Template Injection - Unsafe template rendering
-      - pattern: "Template\\([^)]*\\)\\.(render|substitute)\\(|eval\\([^)]*\\)|exec\\([^)]*\\)"
-        message: "Potential template injection or code injection vulnerability. Avoid using eval() or exec() with user input, and ensure template variables are properly validated."
+      # Pattern 10: Lack of security headers
+      - pattern: "response\\.(headers|set_header)\\([^)]*\\)|return\\s+Response\\([^)]*\\)|return\\s+make_response\\([^)]*\\)"
+        message: "Consider adding security headers (Content-Security-Policy, X-Content-Type-Options, etc.) to HTTP responses."
 
   - type: suggest
     message: |
-      **Python Injection Prevention Best Practices:**
+      **Python Secure Design Best Practices:**
       
-      1. **SQL Injection Prevention:**
-         - Use parameterized queries (prepared statements) with placeholders:
+      1. **Implement Defense in Depth:**
+         - Layer security controls throughout your application
+         - Don't rely on a single security mechanism
+         - Assume that each security layer can be bypassed
+      
+      2. **Use Secure Defaults:**
+         - Start with secure configurations by default
+         - Require explicit opt-in for less secure options
+         - Example for Flask:
            ```python
-           # Safe SQL query with parameters
-           cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
-           
-           # Django ORM (safe by default)
-           User.objects.filter(username=username, password=password)
-           
-           # SQLAlchemy (safe by default)
-           session.query(User).filter(User.username == username, User.password == password)
+           app.config.update(
+               SESSION_COOKIE_SECURE=True,
+               SESSION_COOKIE_HTTPONLY=True,
+               SESSION_COOKIE_SAMESITE='Lax',
+               PERMANENT_SESSION_LIFETIME=timedelta(hours=1)
+           )
            ```
-         - Use ORM frameworks when possible (Django ORM, SQLAlchemy)
-         - Apply proper input validation and sanitization
       
-      2. **Command Injection Prevention:**
-         - Never use shell=True with subprocess functions
-         - Pass command arguments as a list, not a string:
+      3. **Implement Proper Access Control:**
+         - Use role-based access control (RBAC)
+         - Implement principle of least privilege
+         - Validate access at the controller and service layers
+         - Example:
            ```python
-           # Safe command execution
-           subprocess.run(["ls", "-l", user_dir], shell=False)
+           @app.route('/admin')
+           @roles_required('admin')  # Using Flask-Security
+           def admin_dashboard():
+               return render_template('admin/dashboard.html')
            ```
-         - Use shlex.quote() if you must include user input in shell commands
-         - Consider using safer alternatives like Python libraries instead of shell commands
       
-      3. **XSS Prevention:**
-         - Use template auto-escaping (enabled by default in modern frameworks)
-         - Explicitly escape user input before rendering:
+      4. **Use Rate Limiting:**
+         - Protect against brute force and DoS attacks
+         - Example with Flask-Limiter:
            ```python
-           # Django
-           from django.utils.html import escape
-           safe_data = escape(user_input)
+           from flask_limiter import Limiter
+           limiter = Limiter(app)
            
-           # Flask/Jinja2
-           from markupsafe import escape
-           safe_data = escape(user_input)
+           @app.route('/login', methods=['POST'])
+           @limiter.limit("5 per minute")
+           def login():
+               # Login logic
            ```
-         - Use Content-Security-Policy headers
-         - Validate input against allowlists
       
-      4. **Path Traversal Prevention:**
-         - Validate and sanitize file paths:
+      5. **Implement Proper Error Handling:**
+         - Catch and log exceptions appropriately
+         - Return user-friendly error messages without exposing sensitive details
+         - Example:
+           ```python
+           try:
+               # Operation that might fail
+               result = perform_operation(user_input)
+           except ValidationError as e:
+               logger.warning(f"Validation error: {str(e)}")
+               return jsonify({"error": "Invalid input provided"}), 400
+           except Exception as e:
+               logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+               return jsonify({"error": "An unexpected error occurred"}), 500
+           ```
+      
+      6. **Use Configuration Management:**
+         - Store configuration in environment variables or secure vaults
+         - Use different configurations for development and production
+         - Example:
            ```python
            import os
-           safe_path = os.path.normpath(os.path.join(safe_base_dir, user_filename))
-           if not safe_path.startswith(safe_base_dir):
-               raise ValueError("Invalid path")
+           from dotenv import load_dotenv
+           
+           load_dotenv()
+           
+           DEBUG = os.getenv('DEBUG', 'False') == 'True'
+           SECRET_KEY = os.getenv('SECRET_KEY')
+           DATABASE_URL = os.getenv('DATABASE_URL')
            ```
-         - Use os.path.abspath() and os.path.normpath()
-         - Implement proper access controls
-         - Consider using libraries like Werkzeug's secure_filename()
       
-      5. **NoSQL Injection Prevention:**
-         - Use parameterized queries or query builders
-         - Validate input against schemas
-         - Apply proper type checking
+      7. **Implement Proper Logging:**
+         - Log security events and exceptions
+         - Include contextual information but avoid sensitive data
+         - Use structured logging
+         - Example:
            ```python
-           # Safe MongoDB query
-           collection.find({"username": username, "status": "active"})
+           import logging
+           
+           logger = logging.getLogger(__name__)
+           
+           def user_action(user_id, action):
+               logger.info("User action", extra={
+                   "user_id": user_id,
+                   "action": action,
+                   "timestamp": datetime.now().isoformat()
+               })
            ```
       
-      6. **Template Injection Prevention:**
-         - Avoid using eval() or exec() with user input
-         - Use sandboxed template engines
-         - Limit template functionality to what's necessary
-         - Apply proper input validation
+      8. **Use Security Headers:**
+         - Implement Content-Security-Policy, X-Content-Type-Options, etc.
+         - Example with Flask:
+           ```python
+           from flask_talisman import Talisman
+           
+           talisman = Talisman(
+               app,
+               content_security_policy={
+                   'default-src': "'self'",
+                   'script-src': "'self'"
+               }
+           )
+           ```
+      
+      9. **Implement Secure File Handling:**
+         - Validate file types, sizes, and content
+         - Store files outside the web root
+         - Use secure file permissions
+         - Example:
+           ```python
+           import os
+           from werkzeug.utils import secure_filename
+           
+           ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg'}
+           MAX_CONTENT_LENGTH = 1 * 1024 * 1024  # 1MB
+           
+           def allowed_file(filename):
+               return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           
+           @app.route('/upload', methods=['POST'])
+           def upload_file():
+               if 'file' not in request.files:
+                   return jsonify({"error": "No file part"}), 400
+               
+               file = request.files['file']
+               if file.filename == '':
+                   return jsonify({"error": "No selected file"}), 400
+               
+               if file and allowed_file(file.filename):
+                   filename = secure_filename(file.filename)
+                   file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                   return jsonify({"success": True}), 200
+               
+               return jsonify({"error": "File type not allowed"}), 400
+           ```
+      
+      10. **Use Threat Modeling:**
+          - Identify potential threats during design phase
+          - Implement controls to mitigate identified threats
+          - Regularly review and update threat models
 
   - type: validate
     conditions:
-      # Check 1: Safe SQL queries
-      - pattern: "cursor\\.(execute|executemany)\\([\"'][^\"']*[\"']\\s*,\\s*\\(|cursor\\.(execute|executemany)\\([\"'][^\"']*[\"']\\s*,\\s*\\[|Model\\.objects\\.filter\\(|session\\.query\\("
-        message: "Using parameterized queries or ORM for database access."
+      # Check 1: Proper input validation
+      - pattern: "validate|clean|sanitize|check|is_valid"
+        message: "Implementing input validation."
       
-      # Check 2: Safe command execution
-      - pattern: "(subprocess\\.Popen|subprocess\\.call|subprocess\\.run|subprocess\\.check_output)\\(\\[[^\\]]*\\]"
-        message: "Using subprocess with arguments as a list (safe pattern)."
+      # Check 2: Proper error handling
+      - pattern: "try:\\s*\\n[^#]*\\n\\s*(except|finally)"
+        message: "Using proper error handling with try-except blocks."
       
-      # Check 3: Proper input validation
-      - pattern: "validate|sanitize|clean|escape|is_valid\\(|validators\\."
-        message: "Implementing input validation or sanitization."
+      # Check 3: Rate limiting implementation
+      - pattern: "rate_limit|throttle|limiter"
+        message: "Implementing rate limiting for API endpoints."
       
-      # Check 4: Safe file operations
-      - pattern: "os\\.path\\.join|os\\.path\\.abspath|os\\.path\\.normpath|secure_filename"
-        message: "Using safe file path handling techniques."
+      # Check 4: Proper logging
+      - pattern: "logger\\.|logging\\."
+        message: "Using proper logging mechanisms."
 
 metadata:
   priority: high
@@ -153,27 +230,24 @@ metadata:
   tags:
     - security
     - python
-    - injection
-    - sql-injection
-    - xss
-    - command-injection
+    - design
+    - architecture
     - owasp
     - language:python
     - framework:django
     - framework:flask
     - framework:fastapi
     - category:security
-    - subcategory:injection
+    - subcategory:design
     - standard:owasp-top10
-    - risk:a03-injection
+    - risk:a04-insecure-design
   references:
-    - "https://owasp.org/Top10/A03_2021-Injection/"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
-    - "https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html"
-    - "https://docs.python.org/3/library/subprocess.html"
-    - "https://docs.djangoproject.com/en/stable/topics/security/"
+    - "https://owasp.org/Top10/A04_2021-Insecure_Design/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Secure_Product_Design_Cheat_Sheet.html"
     - "https://flask.palletsprojects.com/en/latest/security/"
+    - "https://docs.djangoproject.com/en/stable/topics/security/"
+    - "https://fastapi.tiangolo.com/advanced/security/"
+    - "https://owasp.org/www-project-proactive-controls/"
 </rule>
 
 ---
