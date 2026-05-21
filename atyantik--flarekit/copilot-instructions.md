@@ -1,79 +1,66 @@
-## backend-specific-patterns
+## cloudflare-worker-patterns
 
-> When working in the Flarekit backend:
+> Cloudflare Worker development patterns for Flarekit
 
-# Backend-Specific Development Patterns
 
-When working in the Flarekit backend:
+# Cloudflare Worker Development Patterns
 
-## Route Registration Pattern
-- Each route file exports a single endpoint function
-- Route directories have an `index.ts` that exports an array of endpoints
-- Main routes index imports and spreads all route arrays
+When developing Cloudflare Workers in Flarekit:
 
-## File Naming Conventions
-- Route files: `[resource][Action].route.ts` (e.g., `userCreate.route.ts`)
-- Schema files: `[resource].schema.ts`
-- Parameter schema files: `[purpose].schema.ts` (e.g., `getOneQuery.schema.ts`)
-- Handler files: `[purpose].handler.ts`
-- Utility files: `[purpose].util.ts`
+## Worker Entry Point
+- Export default object with `fetch`, `queue`, and `scheduled` handlers
+- Use `satisfies ExportedHandler<Env>` for type safety
+- Main app logic should be in separate modules
 
-## Import Aliases
-Use these path aliases consistently:
-- `@/` - src root
-- `@utils/` - src/utils
-- `@/schemas/` - src/schemas
-- `@/classes/` - src/classes
-- `@/handlers/` - src/handlers
+## Environment Variables
+- Access via `c.env` in Hono context
+- Define types in `worker-configuration.d.ts`
+- Use `.dev.vars` for local development secrets
 
-## API Versioning
-- All API routes start with `/api/v1/`
-- Group related endpoints under resource paths
-- Use RESTful conventions where possible
+## D1 Database Integration
+- Access D1 via `c.env.DB`
+- Use Drizzle ORM with `drizzle(env.DB, { schema })`
+- Implement connection pooling with WeakMap pattern
 
-## Schema Organization
-- Request/Response schemas in `/schemas/[resource].schema.ts`
-- Parameter schemas in `/schemas/[purpose].schema.ts`
-- Use `GetOneParamSchema` for standard `:id` path parameters
-- Include OpenAPI examples in all schemas
-- Use descriptive schema names with suffixes: `CreateRequest`, `SuccessResponse`
+## R2 Storage Integration
+- Access R2 buckets via `c.env.R2_BUCKET`
+- Use for file uploads and static asset storage
+- Implement proper error handling for storage operations
 
-## Route Parameter Handling
-- Use `:id` for single resource identification in route paths
-- OpenAPI spec uses curly braces: `/api/v1/storage/{id}`
-- Route analyzer automatically detects `:id` parameters for get-by-id routes
-- Access parameters with: `const id = c.req.param('id')`
-- Import `GetOneParamSchema` from `@/schemas/getOneQuery.schema`
+## Queue Handling
+- Implement queue handlers in `/handlers/queue.handler.ts`
+- Use for background processing and async operations
+- Handle batch processing for efficiency
 
-## Database Integration
-- Always initialize DB with: `const db = initDBInstance(c.env, c.env)`
-- Use service methods from BaseService
-- Handle pagination with range parameters: `[start, end]`
-- Include total count in list responses via headers
+## Scheduled Events
+- Implement cron handlers in `/handlers/scheduled.handler.ts`
+- Use for maintenance tasks and periodic operations
+- Consider timezone implications for scheduling
 
-## Validation Patterns
-- Use Zod schemas for all input validation
-- Validate file uploads with size and type constraints
-- Provide detailed field-level error messages
-- Parse JSON query parameters safely
-- Use `GetOneParamSchema` for path parameter validation
+## Edge-First Considerations
+- Minimize cold start time by avoiding heavy imports
+- Use streaming responses for large data
+- Implement proper caching strategies
+- Consider geographic distribution of data
 
-## Error Handling Patterns
-- Use `NotFoundError` for missing resources, not `DatabaseError`
-- Throw specific error types: `ValidationError`, `AuthenticationError`, etc.
-- Include context information in error constructors
-- Let global error handler manage error responses
+## Local Development
+- Use `wrangler dev` with persistence: `--persist-to=../../.wrangler/state`
+- Test scheduled events with `--test-scheduled`
+- Use different ports for different services
 
-## Response Headers
-- Set CORS headers appropriately
-- Include `Content-Range` for paginated responses
-- Expose necessary headers with `Access-Control-Expose-Headers`
-- Add caching headers when appropriate
+## Deployment
+- Use `wrangler deploy` for production deployment
+- Implement proper CI/CD with GitHub Actions
+- Use environment-specific configurations
 
-@src/routes/v1/storage/storageList.route.ts
-@src/routes/v1/storage/storageGetOne.route.ts
-@src/utils/api-builder.util.ts
-@src/schemas/getOneQuery.schema.ts
+## Performance Best Practices
+- Use connection pooling for database connections
+- Implement request-level caching where appropriate
+- Use Cloudflare's edge caching for static content
+- Monitor CPU time and memory usage
+
+@apps/backend/src/index.ts
+@apps/backend/wrangler.json
 
 ---
 > Source: [Atyantik/flarekit](https://github.com/Atyantik/flarekit) — distributed by [TomeVault](https://tomevault.io).
