@@ -1,0 +1,9 @@
+{
+  "name": "calle-ai--awesome-phone-call-skill",
+  "displayName": "awesome-phone-call-skill",
+  "description": "A curated collection of portable phone-call skills, provider adapters, scheduler recipes, and automation patterns for AI agents.",
+  "version": "1.0.0",
+  "author": "CALLE-AI",
+  "homepage": "https://github.com/CALLE-AI/awesome-phone-call-skill",
+  "skills": []
+}
