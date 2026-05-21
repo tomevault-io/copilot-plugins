@@ -1,0 +1,9 @@
+{
+  "name": "leoalioth--dynamic-ocpp-evse",
+  "displayName": "Dynamic_OCPP_EVSE",
+  "description": "Intelligent load management for Home Assistant. Dynamically distributes available power across your managed loads \u2014 EV chargers (via OCPP), smart plugs, and more \u2014 based on solar production, battery s",
+  "version": "1.0.0",
+  "author": "LeoAlioth",
+  "homepage": "https://github.com/LeoAlioth/Dynamic_OCPP_EVSE",
+  "skills": []
+}
