@@ -1,0 +1,9 @@
+{
+  "name": "aklos--scryer",
+  "displayName": "scryer",
+  "description": "Visual architecture modeling for AI agents. Edit C4 diagrams in a drag-and-drop editor. AI reads, modifies, and implements the same model through built-in MCP server.",
+  "version": "1.0.0",
+  "author": "aklos",
+  "homepage": "https://github.com/aklos/scryer",
+  "skills": []
+}
