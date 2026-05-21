@@ -1,0 +1,9 @@
+{
+  "name": "ambient-innovation--boa-restrictor",
+  "displayName": "boa-restrictor",
+  "description": "A Python and Django linting library",
+  "version": "1.0.0",
+  "author": "ambient-innovation",
+  "homepage": "https://github.com/ambient-innovation/boa-restrictor",
+  "skills": []
+}
