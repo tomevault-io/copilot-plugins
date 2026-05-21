@@ -1,0 +1,9 @@
+{
+  "name": "obetomuniz--web-ai-sdk",
+  "displayName": "web-ai-sdk",
+  "description": "Building blocks for the Web's Built-in AI APIs. Composable. No runtime deps. Just lifecycle, streaming, and AbortSignals.",
+  "version": "1.0.0",
+  "author": "obetomuniz",
+  "homepage": "https://github.com/obetomuniz/web-ai-sdk",
+  "skills": []
+}
