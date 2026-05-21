@@ -1,0 +1,9 @@
+{
+  "name": "codelogicincengineering--codelogic-mcp-server",
+  "displayName": "codelogic-mcp-server",
+  "description": "An MCP Server to utilize Codelogic's rich software dependency data in your AI programming assistant.",
+  "version": "1.0.0",
+  "author": "CodeLogicIncEngineering",
+  "homepage": "https://github.com/CodeLogicIncEngineering/codelogic-mcp-server",
+  "skills": []
+}
