@@ -1,99 +1,104 @@
-## 01-base-devops
+## 02-typescript
 
-> Standards for implementing AI-driven DevOps pipelines and automation
+> TypeScript development standards and best practices
 
 
-# AI DevOps Pipeline Standards
+# TypeScript Development Standards
 
-## Core Components
+## Core Principles
 
-### Predictive Analytics & Monitoring
-- Implement proactive issue detection
-- Use ML models for anomaly detection
-- Set up comprehensive logging and metrics
+### Type Safety
+- Use strict TypeScript configuration
+- Avoid `any` type usage
+- Leverage union types and generics
 
-### Automated Testing & Code Generation
-- Implement AI-driven test case generation
-- Use code quality analysis tools
-- Automate code review processes
+### Code Organization
+- Follow modular design patterns
+- Use proper file and folder structure
+- Implement clean architecture principles
 
-### Self-Healing Systems
-- Implement auto-remediation capabilities
-- Set up dynamic resource allocation
-- Monitor system health metrics
+### Error Handling
+- Use typed error handling
+- Implement proper async/await patterns
+- Provide meaningful error messages
 
 ## Code Standards
 
-### Pipeline Configuration
-```yaml
-# Good: Structured pipeline with AI integration
-name: AI-Enhanced CI/CD
-on: [push, pull_request]
+### Type Definitions
+```typescript
+// Good: Proper type definitions
+interface UserData {
+  id: string;
+  name: string;
+  roles: UserRole[];
+}
 
-jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: AI Code Review
-        uses: ai-code-review@v1
-        with:
-          model: 'code-review-v1'
-          
-  test:
-    needs: analyze
-    steps:
-      - name: Generate Tests
-        uses: ai-test-gen@v1
-        
-# Bad: Basic pipeline without intelligence
-name: Basic CI
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2 # ❌ Missing intelligence layer
+type UserRole = 'admin' | 'user' | 'guest';
+
+// Bad: Loose typing
+interface BadUser {
+  id: any; // ❌ Avoid any
+  data: object; // ❌ Too generic
+}
 ```
 
-### Monitoring Implementation
+### Error Handling
 ```typescript
-// Good: AI-driven monitoring
-class AIPoweredMonitoring {
-  async detectAnomalies(metrics: Metrics[]): Promise<Alert[]> {
-    const predictions = await this.model.predict(metrics);
-    return this.analyzeAnomalies(predictions);
-  }
-  
-  private async analyzeAnomalies(predictions: Prediction[]): Promise<Alert[]> {
-    return predictions
-      .filter(p => p.confidence > this.threshold)
-      .map(p => this.createAlert(p));
+// Good: Typed error handling
+class ApiError extends Error {
+  constructor(
+    public statusCode: number,
+    message: string,
+    public details?: Record<string, unknown>
+  ) {
+    super(message);
   }
 }
 
-// Bad: Simple threshold monitoring
-class BasicMonitoring {
-  checkMetrics(metrics: Metrics[]) {
-    return metrics.filter(m => m.value > threshold); // ❌ No intelligence
+async function fetchUser(id: string): Promise<User> {
+  try {
+    const response = await api.get(`/users/${id}`);
+    return response.data;
+  } catch (error) {
+    if (error instanceof ApiError) {
+      handleApiError(error);
+    }
+    throw new Error('Failed to fetch user');
+  }
+}
+
+// Bad: Untyped error handling
+async function badFetch(id: string) {
+  try {
+    return await api.get(id);
+  } catch (e: any) { // ❌ Untyped error
+    console.log(e);
   }
 }
 ```
 
-### Resource Management
+### Async Patterns
 ```typescript
-// Good: ML-based resource allocation
-class ResourceManager {
-  async optimizeResources(usage: Usage[]): Promise<Allocation[]> {
-    const prediction = await this.predictFutureUsage(usage);
-    return this.allocateBasedOnPrediction(prediction);
-  }
+// Good: Proper async handling
+async function processData<T>(
+  data: T[],
+  processor: (item: T) => Promise<void>
+): Promise<void> {
+  await Promise.all(
+    data.map(async (item) => {
+      try {
+        await processor(item);
+      } catch (error) {
+        handleProcessingError(error);
+      }
+    })
+  );
 }
 
-// Bad: Static allocation
-class BasicManager {
-  allocateResources() {
-    return DEFAULT_ALLOCATION; // ❌ No dynamic adjustment
+// Bad: Poor async handling
+async function badProcess(items: any[]) {
+  for (const item of items) {
+    await process(item); // ❌ Sequential processing
   }
 }
 ```
@@ -101,60 +106,78 @@ class BasicManager {
 ## Validation Rules
 
 ```typescript
-const DevOpsRules = {
-  // Ensure AI integration in pipelines
-  requireAIIntegration: {
-    pattern: /uses:\s*.*ai-.*@v\d/,
-    message: "Pipelines should integrate AI capabilities"
+const TypeScriptRules = {
+  // Enforce strict typing
+  noExplicitAny: {
+    pattern: /: any(?!\s*\/\/\s*allowed)/,
+    message: "Avoid using 'any' type"
   },
   
-  // Validate monitoring implementation
-  monitoringImplementation: {
-    pattern: /class.*Monitoring.*{[^}]*predict|analyze/,
-    message: "Monitoring should include predictive capabilities"
+  // Proper error handling
+  typedErrorHandling: {
+    pattern: /catch\s*\(error:\s*[A-Z][A-Za-z]+Error\)/,
+    message: "Use typed error handling"
   },
   
-  // Check for dynamic resource management
-  resourceManagement: {
-    pattern: /predict.*Usage|optimize.*Resources/,
-    message: "Resource management should be dynamic and predictive"
+  // Async/await usage
+  asyncAwaitUsage: {
+    pattern: /async\s+function.*try\s*{.*}\s*catch/,
+    message: "Implement proper async/await error handling"
   }
 };
 ```
 
+## Configuration
+
+### TSConfig Standards
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
+```
+
+## Best Practices
+
+1. Type Definitions
+   - Create interfaces for data structures
+   - Use type aliases for unions
+   - Leverage generics for reusability
+
+2. Error Management
+   - Create custom error classes
+   - Use discriminated unions for errors
+   - Implement proper error boundaries
+
+3. Async Operations
+   - Use Promise.all for parallel operations
+   - Implement proper cancellation
+   - Handle timeouts appropriately
+
 ## Security Considerations
 
-1. Model Security
-   - Validate ML model inputs and outputs
-   - Monitor for model drift
-   - Implement model versioning
+1. Input Validation
+   - Validate all external data
+   - Use runtime type checking
+   - Implement proper sanitization
 
-2. Pipeline Security
-   - Secure CI/CD configurations
-   - Implement least privilege access
-   - Scan for security vulnerabilities
+2. Type Safety
+   - Avoid type assertions
+   - Use strict null checks
+   - Implement proper access control
 
-3. Resource Protection
-   - Implement resource quotas
-   - Monitor resource usage patterns
-   - Set up abuse detection
-
-## Infrastructure Requirements
-
-1. Containerization
-   - Use secure base images
-   - Implement multi-stage builds
-   - Regular security updates
-
-2. Monitoring Stack
-   - Prometheus for metrics
-   - Grafana for visualization
-   - ELK for log analysis
-
-3. AI Integration
-   - Model serving infrastructure
-   - Feature store setup
-   - Model monitoring tools 
+3. Error Exposure
+   - Sanitize error messages
+   - Implement proper logging
+   - Control stack trace exposure 
 
 ---
 > Source: [sparesparrow/cursor-rules](https://github.com/sparesparrow/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
