@@ -1,0 +1,9 @@
+{
+  "name": "hummat--mini-mesh",
+  "displayName": "mini-mesh",
+  "description": "Create detailed, textured 3D meshes of anything from a short smartphone video.",
+  "version": "1.0.0",
+  "author": "hummat",
+  "homepage": "https://github.com/hummat/mini-mesh",
+  "skills": []
+}
