@@ -1,0 +1,9 @@
+{
+  "name": "mkutz--approvej",
+  "displayName": "ApproveJ",
+  "description": "A simple implementation of approval testing for the JVM",
+  "version": "1.0.0",
+  "author": "mkutz",
+  "homepage": "https://github.com/mkutz/ApproveJ",
+  "skills": []
+}
