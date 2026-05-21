@@ -1,4 +1,4 @@
-## test-rule
+## untitled
 
 > description: "A test rule for development"
 
