@@ -1,0 +1,9 @@
+{
+  "name": "voicelinkvr--vrcls",
+  "displayName": "VRCLS",
+  "description": "\u4e00\u4e2a\u7528\u4e8e\u5728VRCAHT\u4e2d\u4f7f\u7528\u8bed\u97f3\u6765\u63a7\u5236\u6a21\u578b\u6216\u4f5c\u4e3a\u7ffb\u8bd1\u5668\u8f93\u51fa\u5185\u5bb9\u7684\u8d85\u8f7b\u91cf\u7ea7\u672c\u5730\u90e8\u7f72\u7a0b\u5e8f\u3002VRCLS, also known as VRChat LinguaSync, is a super lightweight local deployment program used in VRCAHT to control models or output content as a translator us",
+  "version": "1.0.0",
+  "author": "VoiceLinkVR",
+  "homepage": "https://github.com/VoiceLinkVR/VRCLS",
+  "skills": []
+}
