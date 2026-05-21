@@ -1,24 +1,65 @@
-## mcp-package
+## mcp-quick-reference
 
-> The MCP (Model Context Protocol) package implements a server for the Model Context Protocol on Cloudflare Workers.
+> Quick reference for MCP development patterns
 
-# MCP Package
+# MCP Development Quick Reference
 
-The MCP (Model Context Protocol) package implements a server for the Model Context Protocol on Cloudflare Workers.
+## When Building MCP Servers
 
-## Key Components
+### Required Files & Structure
+- [server.ts](mdc:src/server.ts) - Main server class extending `McpHonoServerDO<Env>`
+- [tools.ts](mdc:src/tools.ts) - Function tools clients can call
+- [resources.ts](mdc:src/resources.ts) - Persistent data resources
+- [prompts.ts](mdc:src/prompts.ts) - Reusable message templates
 
-- **Server**: [packages/mcp/src/mcp/server.ts](mdc:packages/mcp/src/mcp/server.ts) - Core implementation of the MCP server
-- **Hono Server**: [packages/mcp/src/mcp/hono-server.ts](mdc:packages/mcp/src/mcp/hono-server.ts) - Hono framework integration
-- **Transports**:
-  - **SSE Transport**: [packages/mcp/src/mcp/sse-transport.ts](mdc:packages/mcp/src/mcp/sse-transport.ts) - Server-Sent Events transport
-  - **WebSocket Transport**: [packages/mcp/src/mcp/websocket-transport.ts](mdc:packages/mcp/src/mcp/websocket-transport.ts) - WebSocket transport
+### Quick Patterns
 
-## Usage
+**Tools** - Functions clients call:
+```typescript
+server.tool('verb_noun', 'Description', { param: z.string().describe('...') }, async ({ param }) => {
+  return { content: [{ type: "text", text: `Result: ${param}` }] };
+});
+```
 
-The package exports a server implementation that can be used to create MCP endpoints in Cloudflare Workers. It leverages the Hono framework for routing and provides different transport mechanisms.
+**Resources** - Data access:
+```typescript
+server.resource('get_item', 'data://service/items/{id}', async (uri: URL) => {
+  const id = uri.pathname.split('/').pop();
+  return { contents: [{ text: `Data for ${id}`, uri: uri.href }] };
+});
+```
 
-Main integration point is through the index file: [packages/mcp/src/index.ts](mdc:packages/mcp/src/index.ts)
+**Prompts** - Message templates:
+```typescript
+server.prompt('help_topic', 'Description', () => ({
+  messages: [{ role: 'assistant', content: { type: 'text', text: 'Help content' } }]
+}));
+```
+
+**Custom Routes** - HTTP endpoints:
+```typescript
+protected setupRoutes(app: Hono<{ Bindings: Env }>): void {
+  super.setupRoutes(app); // ALWAYS call parent first
+  app.get('/api/custom', (c) => c.json({ message: 'custom' }));
+}
+```
+
+### Key Requirements
+- ✅ Use Zod schemas with `.describe()` for tool parameters
+- ✅ Always call `super.setupRoutes(app)` before adding custom routes
+- ✅ Return `content` array for tools, `contents` array for resources
+- ✅ Use snake_case for tool/resource/prompt names
+- ✅ Include error handling with try/catch
+- ✅ Access environment bindings via `c.env` in routes
+
+### Import Checklist
+```typescript
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { McpHonoServerDO } from '@nullshot/mcp';
+import { z } from 'zod';
+```
+
+See detailed patterns in [mcp-development.mdc](mdc:.cursor/rules/mcp-development.mdc) and [mcp-generation-patterns.mdc](mdc:.cursor/rules/mcp-generation-patterns.mdc).
 
 ---
 > Source: [null-shot/typescript-agent-toolkit](https://github.com/null-shot/typescript-agent-toolkit) — distributed by [TomeVault](https://tomevault.io).
