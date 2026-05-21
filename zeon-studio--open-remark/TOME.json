@@ -4,7 +4,7 @@
   "repo": "open-remark",
   "description": "OpenRemark is an open-source, self-hostable comment system designed specifically for static websites ( Astro, Hugo, or Next.js). It aims to provide a fully featured commenting experience with minimal setup.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zeon-studio/open-remark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T08:03:34Z"
+  "distributed_at": "2026-05-21T17:48:53Z"
 }
