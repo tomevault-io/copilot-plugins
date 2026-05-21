@@ -1,0 +1,9 @@
+{
+  "name": "jfim--obsidian-tasks-mcp",
+  "displayName": "obsidian-tasks-mcp",
+  "description": "Obsidian tasks MCP server",
+  "version": "1.0.0",
+  "author": "jfim",
+  "homepage": "https://github.com/jfim/obsidian-tasks-mcp",
+  "skills": []
+}
