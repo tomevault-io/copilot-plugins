@@ -1,0 +1,9 @@
+{
+  "name": "scrapegraphai--scrapegraph-mcp",
+  "displayName": "scrapegraph-mcp",
+  "description": "ScapeGraph MCP Server",
+  "version": "1.0.0",
+  "author": "ScrapeGraphAI",
+  "homepage": "https://github.com/ScrapeGraphAI/scrapegraph-mcp",
+  "skills": []
+}
