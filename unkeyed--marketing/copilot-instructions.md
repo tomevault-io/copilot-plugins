@@ -1,59 +1,58 @@
-## analyze-issue
+## bug-fix
 
-> Reading GitHub issues
+> Instruction for fixing bugs
 
-# Analyze Issue
+# Bug Fix
 
-Fetch GitHub issue details and create a comprehensive implementation specification.
-
-## Template Sections:
-
-### 1. Issue Summary
-Brief overview of the issue
-
-### 2. Problem Statement  
-Clear definition of what needs to be solved
-
-### 3. Technical Approach
-High-level solution approach and architecture decisions
-
-### 4. Implementation Plan
-Step-by-step breakdown of implementation tasks
-
-### 5. Test Plan
-Testing strategy and test cases to write
-
-### 6. Files to Modify
-List of existing files that need changes
-
-### 7. Files to Create
-New files that need to be created
-
-### 8. Existing Utilities to Leverage
-Project utilities/helpers that can be reused
-
-### 9. Success Criteria
-Measurable criteria for completion
-
-### 10. Out of Scope
-What won't be addressed in this implementation
+Streamline bug fixing workflow from issue creation to pull request.
 
 ## Process:
-1. Fetch issue details using `gh issue view <issue_number>`
-    - Usage:  `gh issue view {<number> | <url>} [flags]`
-    - Flags:
-        -c, --comments          View issue comments
-        -q, --jq expression     Filter JSON output using a jq expression
-            --json fields       Output JSON with the specified fields
-        -t, --template string   Format JSON output using a Go template; see "gh help formatting"
-        -w, --web               Open an issue in the browser
-    - Never use a flag that's not reported as the flags from the CLI
-2. Review related code and project structure
-3. Analyze requirements thoroughly
-4. Create detailed technical specification
-5. Follow strict TDD principles, KISS approach
-6. Enforce 300-line file limit where applicable
-7. Output the full technical specification for review
+
+### Before Starting:
+1. **GitHub**: Read the GitHub issue extensively and analyse it. Use the .cursor/rules/analyze-issue.mdc rule for analyzing it
+2. **Git**: Create and checkout a feature branch (`git checkout -b fix/<issue-description>`)
+3. Create a bug-fix tracker .md file where you keep track of your tasks and the progress. 
+
+### Fix the Bug:
+1. Reproduce the issue
+2. Write failing test that demonstrates the bug
+3. Pinpoint the error
+   - Add debug logs for every step to verify the latest log you can see to pinpoint the error
+   - use the format: `[debug: ${branchName.slice(0,5)}]` for the debug logs, so that you can easily remove them afterwards
+3. Implement the fix
+   - formulate a hypthesis first
+   - then apply your changes that addresses that fix
+   - run the regression test file to validate or invalidate it
+   - if it's invalidated, 
+      - keep track of the notes and the invalidation result
+      - remove the previous changes
+      - repeat this step by formulating a new hypothesis based on your newly gained knowledge on where to pinpoint the error (upstream or downstream)
+4. Verify test passes
+5. Run full test suite
+6. Review code changes
+
+### Guidelines:
+- Update your bug-fix tracker and put all the context in there that you see
+- Think of this as your home for tracing the work you're doing
+- Work through the "Fix the Bug" steps sequentially, only move to the next task once the previous one was successfully finished
+- For every "Fix the Bugs" step, add sub-bullet points with context for what you've tried, what worked and what didn't work
+- Commit according to the commit.mdc rule
+    - every "fixing the bug" point should get it's own commit as that's how you denote progress
+- Keep your bug fix .md filte tracker up to date. When you analyze the code to formulate hyptheses about what could cause the root cause, add them in a section called "Root Cause Hypotheses", so that you can validate or invalidate them by running the test file after each. This helps you keep track of your logical changes
+
+### On Completion:
+1. **Git**: Commit with descriptive message referencing the issue
+   - Format: `fix: <description> (#<issue-number>)`
+2. **Git**: Push the branch to remote repository
+3. **GitHub**: Create PR and link the issue
+   - Use "Fixes #<issue-number>" in PR description
+   - Add relevant labels and reviewers
+
+## Best Practices:
+- Keep changes focused on the specific bug
+- Include regression tests
+- Update documentation if behavior changes
+- Consider edge cases and related issues
 
 ---
 > Source: [unkeyed/marketing](https://github.com/unkeyed/marketing) — distributed by [TomeVault](https://tomevault.io).
