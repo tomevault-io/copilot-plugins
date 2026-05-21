@@ -1,0 +1,44 @@
+{
+  "name": "inferHub",
+  "owner": "jerlinn",
+  "repo": "inferHub",
+  "description": "A public repository for developers to explore and experience pre-built API usage examples for inferEra. Access major LLMs through a unified interface with bilingual (English & Chinese) quickstart guides. Build smarter, faster.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jerlinn/inferHub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T03:34:18Z"
+}
