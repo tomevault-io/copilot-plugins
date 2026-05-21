@@ -1,0 +1,9 @@
+{
+  "name": "smorinlabs--py-launch-blueprint",
+  "displayName": "py-launch-blueprint",
+  "description": "A Production-Ready Python Project Template with Integrated Best Practices",
+  "version": "1.0.0",
+  "author": "smorinlabs",
+  "homepage": "https://github.com/smorinlabs/py-launch-blueprint",
+  "skills": []
+}
