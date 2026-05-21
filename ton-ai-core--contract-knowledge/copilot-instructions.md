@@ -1,79 +1,70 @@
-## blueprint
+## fift
 
-> You are working with the extended CLI framework **@ton-ai-core/blueprint**.
+> You are a **Fift** assistant for TON blockchain development. When writing or reviewing Fift code, follow these **non‑interactive** guidelines:
 
-<blueprint>
-You are working with the extended CLI framework **@ton-ai-core/blueprint**.  
-All commands must be executed **strictly non-interactively**—specify all necessary flags explicitly.
+## ✅ Cursor Rule: Fift Smart Contracts Coding Guide
 
-## 1. Project Initialization (must be done first)
-```bash
-npm -y create ton-ai@latest MyProject -- --type tact-empty --contractName MyContract
-````
-
-> ⚠️ **IMPORTANT:** Always explicitly specify both the project name and the contract name.
-
-## 2. Adding a Contract
-
-```bash
-# ContractName must be PascalCase; always specify --type
-npx blueprint create MyContract --type tact-empty
-```
-
-> ⚠️ Only use \`blueprint create\` *after* step 1, otherwise the project structure will be incomplete.
-> ⚠️ **IMPORTANT:** This command is **MANDATORY** to integrate ANY contract into the project, even if you already have existing code. First run `create`, then replace the template file contents with your code. Never copy files directly!
-
-### Available templates
-
-`func-empty` · `tolk-empty` · `tact-empty` · `func-counter` · `tolk-counter` · `tact-counter`
-
-## 3. Build
-
-```bash
-npx blueprint build MyContract     # single contract
-npx blueprint build --all          # all contracts
-```
-
-## 4. Testing
-
-```bash
-npx blueprint test --watch               
-npx blueprint test src/utils.test.ts    
-```
-
-## 5. Running Scripts / Deploy
-
-```bash
-# script name is positional, followed by network, auth, and explorer flags
-npx blueprint run deployCounter \\
-  --testnet \\
-  --tonconnect \\
-  --tonviewer \\
-  arg1 arg2 arg3
-```
-
-**Available `run` flags:**
-
-* `--mainnet` | `--testnet`
-* `--custom [URL]`, `--custom-version v2|v4`, `--custom-key KEY`, `--custom-type custom|mainnet|testnet`
-* `--tonconnect` | `--deeplink` | `--mnemonic`
-* `--tonscan` | `--tonviewer` | `--toncx` | `--dton`
-
-## 6. Static Analysis
-
-```bash
-npx blueprint misti ContractName
-```
+You are a **Fift** assistant for TON blockchain development. When writing or reviewing Fift code, follow these **non‑interactive** guidelines:
 
 ---
 
-❗️ Always explicitly specify:
+### 1. File Structure
 
-* In `create` — `--type` and the contract name,
-* In `run` — at minimum, the network (`--testnet`/`--mainnet`) and deployer method (`--tonconnect`/`--deeplink`/`--mnemonic`),
-* For tests/build — all required arguments.
-  Interactive prompts must be disabled.
-</blueprint>
+- Place all Fift sources in the `contracts/` directory with `.fif` extension.
+- Filename must be **PascalCase** and match the contract name.
+- After editing, assemble to BOC with Blueprint (no wrappers for Fift).
+
+### 2. Language Keywords & Syntax
+
+Use **only** these core keywords, directives, and stack notations:
+
+```
+"string literals", { blocks }, integers, ."printed text",
+: word-definition, :: active-word-definition,
+include, if, ifnot, cond, execute, times, while, until
+```
+
+Define words/functions:
+
+```fift
+{ dup * } : square   // duplicate and multiply
+{ minmax drop } : min  // min of two values
+```
+
+### 3. Core Built‑in Words & Ops
+
+Use these for cell and TVM operations:
+
+```
+dup, drop, swap, rot, over, tuck, pick, roll,
+getContractData(), setContractData(), beginCell(), endCell(), beginParse(), endParse(),
+store_uint, load_uint, store_int, load_int, throw, throwUnless, throwIf,
+onInternalMessage(), isMessageBounced(), loadMessageFlags(), loadMessageOp(),
+loadMessageQueryId()
+```
+
+### 4. Best Practices
+
+- **Execute Fift only at compile‑time**—Fift runs locally to produce BOCs.
+- **Use ****`@Defop`**** / ****`@addop`** for opcode definitions (ensures correct dispatch).
+- **Comment stack effects**: use `(x y -- z)` notation for clarity.
+- **Modular word definitions**: split reusable blocks into named words.
+- **Validate BOC integrity** before deploy (use debug prints).
+- **Minimize stack depth**: keep stack operations predictable.
+- **Avoid mixing literal and symbol names**—use consistent naming.
+
+### 5. Build, Test & Analysis
+
+```bash
+npx blueprint build ContractName    # assemble Fift to BOC
+npx blueprint test                  # run Jest tests or custom scripts
+```
+
+Ensure **zero critical issues** before proceeding to deployment.
+
+---
+
+❗ All code generation and assembly must be fully parameterized; no interactive prompts are allowed.
 
 ---
 > Source: [ton-ai-core/contract-knowledge](https://github.com/ton-ai-core/contract-knowledge) — distributed by [TomeVault](https://tomevault.io).
