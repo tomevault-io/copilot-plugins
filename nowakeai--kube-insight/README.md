@@ -7,11 +7,11 @@ Historical Kubernetes evidence for humans and agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nowakeai/kube-insight](https://github.com/nowakeai/kube-insight).
+Original source: `CLAUDE.md` in [nowakeai/kube-insight](https://github.com/nowakeai/kube-insight).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
