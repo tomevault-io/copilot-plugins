@@ -7,13 +7,13 @@ A causal inference engine for deep learning training that provides structured ex
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [LambdaSection/NeuralDBG](https://github.com/LambdaSection/NeuralDBG).
+Original source: `AGENTS.md` in [LambdaSection/NeuralDBG](https://github.com/LambdaSection/NeuralDBG).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
