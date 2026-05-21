@@ -1,37 +1,63 @@
-## exception-handling
+## monorepo
 
-> Anti-pattern: Catching an exception only to log and rethrow it
+> Alwayss
 
-# Exception Handling Guidelines
 
-## Don't Catch Just to Log
+# This repository is a monorepo
 
-Anti-pattern: Catching an exception only to log and rethrow it
-```typescript
-async function doSomething() {
-  try {
-    await someOperation();
-  } catch (error) {
-    console.error('Error:', error);  // Unnecessary logging
-    throw error;  // Just rethrow
-  }
-}
-```
+# Monorepo Structure and Guidelines
 
-Better: Let the exception propagate if you're not handling it
-```typescript
-async function doSomething() {
-  await someOperation();
-}
-```
+## Overview
+- Code is organized by domain functionality rather than technical implementation
 
-## When to Use Try-Catch
+## General Rules
+- Don't add unneccesary prefixes to errors such as "Internal Error:"
+- Prefer to throw instead of logging a warning and returning something empty.
+- Don't add comments clarifying your changes. Comments should mostly explain WHY code looks like it does.
+- Do NOT use type casts unless it VERY explicitly makes sense
 
-Only catch exceptions when you are:
-1. Transforming the error into a more appropriate type
-2. Adding critical context that would be lost otherwise
-3. Performing cleanup or recovery operations
-4. Actually handling the error (e.g., fallback behavior)
+## File Naming Conventions
+### General Pattern
+- Use dots to indicate the main object: `organization.repository.ts`
+- Use dots to indicate file types
+- Examples:
+  - Main files: `organization.service.ts`, `organization.routes.ts`
+  - Test files: `organization.repository.test.ts`
+
+## Code Style
+### Import Organization
+Sort imports in this order (with blank line between categories):
+1. External imports (npm)
+2. Monorepo imports
+3. Local imports
+- Within each category: alphabetical order
+- Type-only imports last
+
+### Importing Rules
+- When at all possible DO NOT export types.
+- PREFER to recreate types instead of importing them. E.g. a component defines its own types, so do services and repositories.
+- Do NOT export 'default', only use named exports.
+- Prefix node built-in imports with `node:`
+
+## Other
+- Prefer to destruct objects in things like for-loops.
+- In Typescript, never use Array<T>, always use T[]
+
+## API Development
+### Architecture
+- REST APIs built with Hono framework
+- OpenAPI specifications:
+  - Location: `./packages/api-interface-*`
+  - Example: [organizations.api.ts](mdc:packages/api-interface-controller/organizations.api.ts)
+- Implementation:
+  - Located in specific apps, such as ./apps/controller
+  - Example: [organization-routes.ts](mdc:apps/controller/src/organization/organization-routes.ts)
+
+## Technology Stack
+### Core Technologies
+- Hono for REST APIs
+- Zod for schema validation and type safety
+- Domain-driven organization structure
 
 ---
 > Source: [rejot-dev/rejot](https://github.com/rejot-dev/rejot) — distributed by [TomeVault](https://tomevault.io).
