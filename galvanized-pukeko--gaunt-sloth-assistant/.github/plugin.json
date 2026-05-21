@@ -1,0 +1,9 @@
+{
+  "name": "galvanized-pukeko--gaunt-sloth-assistant",
+  "displayName": "gaunt-sloth-assistant",
+  "description": "CLI AI assistant doing your code reviews",
+  "version": "1.0.0",
+  "author": "Galvanized-Pukeko",
+  "homepage": "https://github.com/Galvanized-Pukeko/gaunt-sloth-assistant",
+  "skills": []
+}
