@@ -1,105 +1,54 @@
-## drupal-vulnerable-components
+## generic-bash-style
 
-> Detect and prevent vulnerabilities related to outdated or vulnerable components in Drupal as defined in OWASP Top 10:2021-A06
+> Enforce general Bash scripting standards with enhanced logging
 
-# Drupal Vulnerable and Outdated Components Standards (OWASP A06:2021)
+# Enhanced Bash Scripting Standard with Colorized Logging
 
-This rule enforces security best practices to prevent vulnerabilities related to outdated or vulnerable components in Drupal applications, as defined in OWASP Top 10:2021-A06.
+This rule enforces best practices for writing Bash scripts, with an emphasis on using colorized logging for better output readability.
 
 ## Rule Details
 
-- **Name:** drupal_vulnerable_components
+- **Name:** enhanced_bash_style
 
-- **Description:** Detect and prevent vulnerabilities related to outdated or vulnerable components in Drupal as defined in OWASP Top 10:2021-A06
+- **Description:** Enforce Bash scripting standards with colorized logging
 
 ## Filters
-- file extension pattern: `\\.(php|inc|module|install|info\\.yml|json)$`
-- file path pattern: `.*`
+- file extension pattern: `\\.sh$`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `core:\\s*('|\")8\\.[0-6](mdc:'|\")|core_version_requirement:\\s*('|\")[^9].+('|\")` – Potentially outdated Drupal core version detected. Consider upgrading to the latest secure version of Drupal 9 or 10.
-    - Pattern 1: Outdated Drupal core version declaration
-  - pattern `drupal_set_message\\(|format_date\\(|drupal_render\\(|entity_load\\(|variable_get\\(|variable_set\\(` – Deprecated function detected. Use modern replacements to ensure compatibility and security updates.
-    - Pattern 2: Usage of deprecated functions
-  - pattern `jquery\\.min\\.js\\?v=1\\.|jquery-1\\.|jquery-2\\.|ckeditor/|tinymce/|angular\\.js@1\\.` – Potentially vulnerable JavaScript library version detected. Update to the latest secure version.
-    - Pattern 3: Known vulnerable libraries referenced
-  - pattern `<script\\s+src=['\"]http|<script\\s+src=['\"]//|<link\\s+[^>]*href=['\"]http` – External scripts or stylesheets without Subresource Integrity (SRI) checks detected. Add integrity and crossorigin attributes.
-    - Pattern 4: Direct inclusion of external scripts without SRI
-  - pattern `module:\\s*('[^']*captcha'|'recaptcha'|'xmlrpc'|'openid'|'php')` – Potentially vulnerable or deprecated module detected. Consider using more secure alternatives.
-    - Pattern 5: Use of obsolete or removed modules
-  - pattern `\"drupal/[^\"]+\":\\s*\"(~|\\^)?[0-9]\\.[0-9]\\.[0-9]\"` – Hard-coded specific version detected in composer.json. Consider using version ranges to receive security updates.
-    - Pattern 6: Hard-coded versions in composer.json
-  - pattern `mysql_|split\\(|ereg\\(|eregi\\(|create_function\\(|each\\(` – Deprecated or insecure PHP function detected. Use modern alternatives for better security.
-    - Pattern 7: Outdated or insecure PHP API usage
-  - pattern `type:\\s*module\\s*\\nname:` – Ensure your module specifies core_version_requirement to prevent installation on unsupported Drupal versions.
-    - Pattern 8: Usage of contrib modules without version constraints
-  - pattern `composer\\.json` – Consider adding drupal/core-security-advisories as a dev dependency to detect known vulnerable packages.
-    - Pattern 9: Missing security advisories handling in composer.json
-  - pattern `check_plain\\(|filter_xss\\(|filter_xss_admin\\(` – Legacy text sanitization function detected. Use Html::escape() or Xss::filter() instead.
-    - Pattern 10: Direct usage of vulnerable sanitization functions
+  - pattern `^#!/usr/bin/env bash$` – All scripts should start with the shebang '#!/usr/bin/env bash'.
+  - pattern `^set -eu$` – Enable 'set -eu' for script robustness.
+  - pattern `^set -x$` – negated `^\\[ \"\\${DEBUG-}\" = \"1\" ] && set -x$` – Use conditional 'set -x' based on debug flag.
+  - pattern `^# @formatter:off$` – Start of formatting block for log functions.
+  - pattern `note\\(\\) { printf \"       %s\\n\" \"\\${1}\"; }$` – Include 'note' function for plain messages.
+  - pattern `info\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[34m\\[INFO] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[INFO] %s\\n\" \"\\${1}\"; }$` – Include 'info' function for blue informational messages.
+  - pattern `pass\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[32m\\[ OK ] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[ OK ] %s\\n\" \"\\${1}\"; }$` – Include 'pass' function for green success messages.
+  - pattern `fail\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[31m\\[FAIL] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[FAIL] %s\\n\" \"\\${1}\"; }$` – Include 'fail' function for red error messages.
+  - pattern `warn\\(\\) { \\[ \"\\${TERM:-}\" != \"dumb\" ] && tput colors >/dev/null 2>&1 && printf \"\\\\033\\[33m\\[WARN] %s\\\\033\\[0m\\n\" \"\\${1}\" || printf \"\\[WARN] %s\\n\" \"\\${1}\"; }$` – Include 'warn' function for yellow warning messages.
+  - pattern `^# @formatter:on$` – End of formatting block for log functions.
 
 ## Suggestions
 - Guidance:
-**Drupal Component Security Best Practices:**
-
-1. **Update Management:**
-   - Keep Drupal core updated to the latest secure version
-   - Subscribe to the Drupal Security Newsletter
-   - Implement a regular update schedule (monthly at minimum)
-   - Use security advisories checking in your development workflow
-   - Implement Composer's security-advisories metadata
-
-2. **Dependency Management:**
-   - Use Composer for managing all dependencies
-   - Specify version constraints that allow security updates
-   - Add drupal/core-security-advisories as a dev dependency
-   - Regularly run `composer update --with-dependencies`
-   - Use `composer outdated` to identify outdated packages
-
-3. **API Usage:**
-   - Use modern Drupal APIs rather than deprecated functions
-   - Migrate away from jQuery to modern JavaScript where possible
-   - Implement Subresource Integrity (SRI) for external resources
-   - Update custom code to use current best practices
-   - Follow the Drupal API deprecation policies
-
-4. **Security Monitoring:**
-   - Implement automated vulnerability scanning in CI/CD
-   - Use tools like Drupal Check or Upgrade Status module
-   - Monitor the Drupal security advisories page
-   - Implement automated updates for non-critical dependencies
-   - Set up alerts for security issues in used components
-
-5. **Module Management:**
-   - Remove unused modules from your codebase
-   - Prefer well-maintained modules with security teams
-   - Implement proper version constraints in module info files
-   - Consider the security impact before adding new dependencies
-   - Document your dependency management practices
-
-## Validation Checks
-- Conditions:
-  - pattern `core_version_requirement:\\s*[\"']\\^(8\\.8|8\\.9|9|10)\\.[0-9]+[\"']` – Using proper core version requirements.
-    - Check 1: Proper core version requirement
-  - pattern `\\\\Drupal::messenger\\(\\)|->messenger\\(\\)|\\\\Drupal::service\\('messenger'\\)` – Using modern message API instead of deprecated functions.
-    - Check 2: Use of modern APIs
-  - pattern `\"require\":\\s*\\{[^}]*\"drupal/core(-recommended)?\":\\s*\"\\^[0-9]+\\.[0-9]+\"` – Using proper version constraints in Composer.
-    - Check 3: Proper composer usage
-  - pattern `integrity=[\"'][a-zA-Z0-9\\+/=\\-_]+[\"']\\s+crossorigin=[\"']anonymous[\"']` – Properly implementing Subresource Integrity.
-    - Check 4: SRI implementation
+**Bash Scripting Best Practices:**
+- **Error Handling:** Use `set -eu` to catch errors and undefined variables early.
+- **Debugging:** Implement conditional debugging with `set -x` using a DEBUG variable.
+- **Logging Functions:** Use colorized logging for better script output readability:
+  - `note()` for plain notes
+  - `info()` for blue informational messages
+  - `pass()` for green success messages
+  - `fail()` for red error messages
+  - `warn()` for yellow warnings, ensuring users can distinguish different types of messages easily
+- **Security:** Avoid using `eval` or similar constructs; use safe alternatives.
+- **Documentation:** Include descriptive comments, especially for complex logic.
+- **Portability:** Use `/usr/bin/env bash` for the shebang to ensure script runs with bash on any system.
+- **Variable Checks:** Ensure necessary variables are set, enhancing script reliability.
+- **Exit Codes:** Use explicit exit codes for different failure scenarios.
+- **Color Support:** Ensure logging functions check for terminal color support before applying colors.
 
 ## Metadata
-- Priority: high
-- Version: 1.1
-- Tags: security, drupal, dependencies, vulnerable-components, owasp, language:php, framework:drupal, category:security, subcategory:dependencies, standard:owasp-top10, risk:a06-vulnerable-components
-## References
-- https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
-- https://www.drupal.org/docs/security-in-drupal/staying-up-to-date
-- https://www.drupal.org/docs/upgrading-drupal
-- https://www.drupal.org/docs/develop/using-composer/managing-dependencies-for-a-drupal-project
-
- 
+- Priority: medium
+- Version: 1.2
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
