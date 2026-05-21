@@ -1,99 +1,371 @@
-## typescript-patterns
+## webflow-integration
 
-> TypeScript patterns for modules (signature, imports, types). Use when writing or refactoring module code in src/modules/ or lib.
+> Webflow Designer detection (handleEditor) and editor vs published behavior. Use when disabling features in Designer or handling editor mode.
 
-# TypeScript Patterns for Module System
+# Webflow Integration Rules
 
-## Module Function Signature
+## Editor Detection
 
-Always use this exact signature for module functions:
-# TypeScript Patterns for Module System
+```typescript
+import { handleEditor } from "@webflow/detect-editor";
 
-## Module Function Signature
+// Basic editor detection
+handleEditor((isEditor) => {
+  if (isEditor) {
+    console.log("Webflow editor is active");
+    // Disable custom features
+  } else {
+    console.log("Published site mode");
+    // Enable custom features
+  }
+});
+```
 
-Always use this exact signature for module functions:
+## Component Integration
 
 ```typescript
 export default function (element: HTMLElement, dataset: DOMStringMap) {
-  // Module implementation
+  let isEditorMode = false;
+
+  // Detect editor mode
+  handleEditor((isEditor) => {
+    isEditorMode = isEditor;
+
+    if (isEditor) {
+      // Editor-specific behavior
+      element.style.pointerEvents = "none";
+      element.classList.add("editor-mode");
+    } else {
+      // Published site behavior
+      element.style.pointerEvents = "auto";
+      element.classList.remove("editor-mode");
+    }
+  });
+
+  // Conditional functionality
+  if (!isEditorMode) {
+    // Only run custom animations in published mode
+    const observer = onView(element, {
+      callback: ({ isIn }) => {
+        if (isIn) {
+          element.classList.add("animated");
+        }
+      },
+    });
+
+    onDestroy(() => observer.destroy());
+  }
 }
 ```
 
-## Import Patterns
-
-- Always import lifecycle hooks from `@/modules/_`
-- Use `@lib/` for utility libraries and subscription services
-- Use `@utils/` for utility functions
-- Use `@/` for relative imports from src
-
-## Type Safety
-
-- Use proper TypeScript types for all parameters
-- Define interfaces for complex configurations
-- Use `DOMStringMap` for dataset access
-- Use `HTMLElement` for element typing
-- Use proper return types for functions
-
-## Common Patterns
+## Scroll System Integration
 
 ```typescript
-// GSAP animations
-import gsap from "@lib/gsap";
+import { handleEditor } from "@webflow/detect-editor";
+import { Scroll } from "@lib/scroll";
 
-// Subscription services
-import { Raf, Resize } from "@lib/subs";
-
-// State management
-import State from "@lib/hey";
-
-// Utility functions
-import { clientRect } from "@utils/client-rect";
-import { clamp, map } from "@utils/math";
-
-// Lifecycle hooks
-import { onMount, onDestroy, onPageIn, onPageOut, onView, onTrack } from "@/modules/_";
+// Automatic scroll system management
+handleEditor((isEditor) => {
+  if (isEditor) {
+    // Disable smooth scrolling in editor
+    Scroll.destroy();
+  } else {
+    // Enable smooth scrolling in published site
+    Scroll.start();
+  }
+});
 ```
 
-## Configuration Interfaces
+## Advanced Integration
 
 ```typescript
-interface ModuleConfig {
-  speed?: number;
-  delay?: number;
-  duration?: number;
-  ease?: string;
-  mobile?: boolean;
-  desktop?: boolean;
-}
-
 export default function (element: HTMLElement, dataset: DOMStringMap) {
-  const config: ModuleConfig = {
-    speed: parseFloat(dataset.speed || "1"),
-    delay: parseInt(dataset.delay || "0"),
-    duration: parseFloat(dataset.duration || "0.5"),
-    ease: dataset.ease || "power2.out",
-    mobile: dataset.mobile === "true",
-    desktop: dataset.desktop !== "false",
-  };
+  let isEditorMode = false;
+  let scrollUnsubscribe: (() => void) | null = null;
+  let observer: any = null;
+
+  // Editor detection with full feature management
+  handleEditor((isEditor) => {
+    isEditorMode = isEditor;
+
+    if (isEditor) {
+      // Clean up published mode features
+      scrollUnsubscribe?.();
+      observer?.destroy();
+
+      // Editor mode setup
+      element.classList.add("editor-mode");
+      element.style.transform = "none"; // Reset any transforms
+    } else {
+      // Published mode setup
+      element.classList.remove("editor-mode");
+
+      // Enable scroll-based animations
+      scrollUnsubscribe = Scroll.add(({ progress }) => {
+        element.style.transform = `translateY(${progress * 50}px)`;
+      });
+
+      // Enable viewport animations
+      observer = onView(element, {
+        callback: ({ isIn }) => {
+          element.classList.toggle("in-view", isIn);
+        },
+      });
+    }
+  });
+
+  // Clean up on destroy
+  onDestroy(() => {
+    scrollUnsubscribe?.();
+    observer?.destroy();
+  });
 }
 ```
 
-## Error Handling
+## Animation Management
 
-- Wrap module initialization in try-catch
-- Use console.warn for non-critical errors
-- Use console.error for critical errors
-- Return null for failed module loads
-- Validate all inputs and configurations
+```typescript
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  let isEditorMode = false;
+  let animations: any[] = [];
+
+  handleEditor((isEditor) => {
+    isEditorMode = isEditor;
+
+    if (isEditor) {
+      // Disable all animations in editor
+      animations.forEach((animation) => animation.kill());
+      animations = [];
+
+      // Show static state
+      element.style.opacity = "1";
+      element.style.transform = "none";
+    } else {
+      // Enable animations in published mode
+      setupAnimations();
+    }
+  });
+
+  function setupAnimations() {
+    // Page entrance animation
+    onPageIn(async () => {
+      const animation = gsap.fromTo(
+        element,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.6 }
+      );
+      animations.push(animation);
+    });
+
+    // Scroll-based animation
+    const scrollAnimation = onTrack(element, {
+      bounds: [0, 1],
+      callback: (value) => {
+        element.style.setProperty("--scroll-progress", value.toString());
+      },
+    });
+
+    onDestroy(() => {
+      scrollAnimation.destroy();
+    });
+  }
+}
+```
+
+## Lifecycle Integration
+
+```typescript
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  let isEditorMode = false;
+  let subscriptions: (() => void)[] = [];
+  let observers: any[] = [];
+
+  // Webflow editor detection
+  handleEditor((isEditor) => {
+    isEditorMode = isEditor;
+
+    if (isEditor) {
+      // Clean up published mode features
+      subscriptions.forEach((unsubscribe) => unsubscribe());
+      observers.forEach((observer) => observer.destroy());
+      subscriptions = [];
+      observers = [];
+
+      // Editor mode setup
+      element.classList.add("editor-mode");
+    } else {
+      // Published mode setup
+      element.classList.remove("editor-mode");
+      setupFeatures();
+    }
+  });
+
+  function setupFeatures() {
+    // Viewport observer
+    const observer = onView(element, {
+      threshold: 0.1,
+      callback: ({ isIn }) => {
+        element.classList.toggle("in-view", isIn);
+      },
+    });
+    observers.push(observer);
+
+    // Scroll tracking
+    const track = onTrack(element, {
+      bounds: [0, 1],
+      callback: (value) => {
+        element.style.setProperty("--scroll-progress", value.toString());
+      },
+    });
+    observers.push(track);
+
+    // Subscriptions
+    subscriptions.push(
+      Raf.add(({ time }) => {
+        if (element.classList.contains("in-view")) {
+          element.style.transform = `translateY(${Math.sin(time) * 5}px)`;
+        }
+      }),
+      Resize.add(({ width }) => {
+        element.style.fontSize = width < 768 ? "14px" : "18px";
+      }),
+      Scroll.add(({ progress }) => {
+        element.style.setProperty("--global-scroll", progress.toString());
+      })
+    );
+  }
+
+  // Lifecycle hooks
+  onMount(() => {
+    if (!isEditorMode) {
+      setupFeatures();
+    }
+  });
+
+  onPageIn(async () => {
+    if (!isEditorMode) {
+      await gsap.to(element, {
+        duration: 0.5,
+        opacity: 1,
+        y: 0,
+        ease: "power2.out",
+      });
+    }
+  });
+
+  onPageOut(
+    async () => {
+      if (!isEditorMode) {
+        await gsap.to(element, {
+          duration: 0.3,
+          opacity: 0,
+          y: -20,
+          ease: "power2.in",
+        });
+      }
+    },
+    { element }
+  );
+
+  onDestroy(() => {
+    subscriptions.forEach((unsubscribe) => unsubscribe());
+    observers.forEach((observer) => observer.destroy());
+  });
+}
+```
+
+## Performance Optimization
+
+```typescript
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  let isEditorMode = false;
+  let isActive = false;
+
+  handleEditor((isEditor) => {
+    isEditorMode = isEditor;
+
+    if (isEditor) {
+      // Disable all features for performance
+      isActive = false;
+      element.style.pointerEvents = "none";
+    } else {
+      // Enable features in published mode
+      isActive = true;
+      element.style.pointerEvents = "auto";
+    }
+  });
+
+  // Conditional feature usage
+  const rafUnsubscribe = Raf.add(({ time }) => {
+    if (!isActive || isEditorMode) return;
+
+    element.style.transform = `translateY(${Math.sin(time) * 10}px)`;
+  });
+
+  onDestroy(() => {
+    rafUnsubscribe();
+  });
+}
+```
+
+## Debug Mode
+
+```typescript
+// Enable debug logging
+handleEditor((isEditor) => {
+  console.log("Editor mode changed:", isEditor);
+
+  if (isEditor) {
+    console.log("Editor mode detected - disabling custom features");
+  } else {
+    console.log("Published mode detected - enabling custom features");
+  }
+});
+```
+
+## Testing
+
+```typescript
+// Test editor detection
+const testEditorDetection = () => {
+  const isEditor = document.body.firstElementChild?.classList.contains(
+    "w-editor-publish-node"
+  );
+  console.log("Editor detection test:", isEditor);
+  return isEditor;
+};
+
+// Test feature integration
+const testFeatureIntegration = () => {
+  const isEditor = testEditorDetection();
+
+  if (isEditor) {
+    console.log("Features should be disabled");
+  } else {
+    console.log("Features should be enabled");
+  }
+};
+```
 
 ## Best Practices
 
-- Use strict TypeScript configuration
-- Define proper interfaces for complex data
-- Use type guards for runtime validation
-- Handle all possible error cases
-- Use proper async/await patterns
-- Document complex type relationships
+- Always handle editor mode in components
+- Disable heavy features in editor mode
+- Show static state in editor mode
+- Enable full features in published mode
+- Test in both editor and published modes
+- Provide graceful fallbacks for all features
+- Monitor performance in both modes
+- Use appropriate logging for each mode
+- Clean up features when switching modes
+- Handle mode changes reactively
+- Optimize for editor performance
+- Ensure smooth user experience in published mode
+  description:
+  globs:
+  alwaysApply: false
+
+---
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
