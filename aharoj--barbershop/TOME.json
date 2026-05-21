@@ -4,7 +4,7 @@
   "repo": "barbershop",
   "description": "Full-Stack Barbershop Management Platform \u2013 A modern system for barbers, shop owners, and clients to manage appointments, schedules, and services. Built with Spring Boot 3, PostgreSQL, Next.js, Tailwind CSS, and JWT Authentication.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aharoJ/barbershop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T14:44:14Z"
+  "distributed_at": "2026-05-21T04:03:36Z"
 }
