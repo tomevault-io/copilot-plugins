@@ -1,0 +1,9 @@
+{
+  "name": "ruchernchong--mcp-server-google-analytics",
+  "displayName": "mcp-server-google-analytics",
+  "description": "Model Context Protocol server for Google Analytics, enabling LLMs to fetch and analyze web analytics data",
+  "version": "1.0.0",
+  "author": "ruchernchong",
+  "homepage": "https://github.com/ruchernchong/mcp-server-google-analytics",
+  "skills": []
+}
