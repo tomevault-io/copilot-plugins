@@ -1,0 +1,9 @@
+{
+  "name": "zoedsoupe--mentor",
+  "displayName": "mentor",
+  "description": "LLM strutured outputs done in a composable and extensible way for elixir",
+  "version": "1.0.0",
+  "author": "zoedsoupe",
+  "homepage": "https://github.com/zoedsoupe/mentor",
+  "skills": []
+}
