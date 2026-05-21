@@ -1,6 +1,6 @@
 # codeguide-vite-supabase
 
-> Tome by [CodeGuide-dev](https://github.com/CodeGuide-dev/codeguide-vite-supabase) — distributed by [TomeVault](https://tomevault.io/claim/CodeGuide-dev)
+> Tome by [CodeGuide-dev](https://github.com/CodeGuide-dev/codeguide-vite-supabase) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [CodeGuide-dev/codeguide-vite-supabase
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/CodeGuide-dev)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/CodeGuide-dev/codeguide-vite-supabase](https://github.com/CodeGuide-dev/codeguide-vite-supabase)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install CodeGuide-dev/codeguide-vite-supabase
 ```
-Or browse all formats at [https://tomevault.io/claim/CodeGuide-dev](https://tomevault.io/claim/CodeGuide-dev).
+Source: [github.com/CodeGuide-dev/codeguide-vite-supabase](https://github.com/CodeGuide-dev/codeguide-vite-supabase).
 
 <!-- genome:t-i-p -->
