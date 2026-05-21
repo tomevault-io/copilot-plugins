@@ -1,236 +1,471 @@
-## command-rules
+## development-workflow-rule
 
-> Defines custom commands for AI-assisted development workflows
+> Comprehensive development workflow system for task tracking, testing, and version control
 
+# Development Workflow System
 
-# AI Command System
-
-Rule for defining and handling custom commands for AI-assisted development workflows.
+Rule for managing the complete development lifecycle including task tracking, testing, and version control.
 
 <rule>
-name: ai_command_system
+name: development_workflow_system
 filters:
+  # Task management filters
+  - type: event
+    pattern: "task_start"
+  - type: event
+    pattern: "task_complete"
   - type: command
-    pattern: "Specs"
+    pattern: "task"
+  - type: event
+    pattern: "user_request"
+  - type: event 
+    pattern: "implementation_complete"
+  
+  # Testing filters
+  - type: event
+    pattern: "implementation_start"
   - type: command
-    pattern: "Code"
+    pattern: "test"
+  - type: file_change
+    pattern: "src/*"
+  - type: file_change
+    pattern: "tests/*"
+  - type: event
+    pattern: "test_failure"
+  
+  # Git commit filters
+  - type: event
+    pattern: "build_success"
+  - type: event
+    pattern: "test_success"
+  - type: event
+    pattern: "file_save"
+  - type: file_change
+    pattern: "*"
+  
+  # README management filters
   - type: command
-    pattern: "Task"
-  - type: command
-    pattern: "Learn"
-  - type: command
-    pattern: "Eval"
-  - type: command
-    pattern: "Review"
+    pattern: "readme"
+  - type: file_change
+    pattern: "README.md"
 
 actions:
-  # Specs Commands
+  #
+  # SECTION 1: TASK MANAGEMENT
+  #
+  
   - type: react
     conditions:
-      - pattern: "Specs.getHtml"
+      - pattern: "task create|task_start"
     action: |
-      # Generate an HTML representation of all specifications
-      # This will create a dashboard showing all specs with their completion status
+      # Create a new development task
       
-      I'll generate an HTML dashboard of all specifications, showing:
-      - Project specifications overview
-      - Completion percentages
-      - Requirements status for each spec
-      - Categories of specifications
-      - A visual indicator of progress
+      I'll create a new task with:
+      - Unique task ID (TASK-YYYY-MM-DD-NN format)
+      - Description section
+      - Relevant specifications section (linked to `.cursor/specs/` managed by the specification_management rule)
+      - Acceptance criteria section
+      - Metadata (ID, start date, end date, state)
+      - Learnings section for capturing implementation insights
       
-      The dashboard will be saved to `.cursor/output/specs_[timestamp].html`
+      The task will be stored in `.cursor/tasks/` with an Open (📝) status
+      and added to the task index in `.cursor/TASKS.md`
 
   - type: react
     conditions:
-      - pattern: "Specs.getSummary"
+      - pattern: "task done|task complete|task_complete"
     action: |
-      # Generate a markdown summary of all specifications
+      # Mark a task as complete
       
-      I'll create a markdown summary showing:
-      - Total specification files
-      - Total requirements
-      - Completion percentage
-      - Breakdown by category
-      - Details on each individual specification
+      I'll update the specified task:
+      - Change state to Done (✅)
+      - Set end date to current date
+      - Extract learnings to a separate file if any exist
+      - Mark associated specs as completed
+      - Update the task index in `.cursor/TASKS.md`
       
-      The summary will be saved to `.cursor/output/specs_summary_[timestamp].md`
+      If the task contains valuable learnings, they'll be saved to 
+      `.cursor/learnings/` with proper cross-references and managed by the knowledge_management rule
 
   - type: react
     conditions:
-      - pattern: "Specs.verify"
+      - pattern: "task list|task_status"
     action: |
-      # Verify implementations match specifications
+      # List all tasks with their status
       
-      I'll analyze the codebase to verify that specifications have been implemented:
-      - Trace each requirement to implementation code
-      - Verify marked items actually exist in the codebase
-      - Identify gaps between specs and implementation
-      - Generate a verification report with findings
+      I'll generate a table showing:
+      - Task ID
+      - Current state (Open 📝, Active 🔄, or Done ✅)
+      - Task description
+      - Start date
+      - End date (if completed)
       
-      The verification report will be saved to `.cursor/output/spec_verification_[timestamp].md`
-
-  # Code Commands
-  - type: react
-    conditions:
-      - pattern: "Code.analyze"
-    action: |
-      # Analyze code structure and quality
-      
-      I'll perform a comprehensive analysis of the codebase:
-      - File types and lines of code
-      - Directory structure
-      - Code complexity metrics
-      - Potential complex functions (>50 lines)
-      - TODOs and FIXMEs
-      - Potential architectural issues
-      
-      The analysis report will be saved to `.cursor/output/code_analysis_[timestamp].md`
+      This provides a quick overview of all project tasks and their progress
 
   - type: react
     conditions:
-      - pattern: "Code.refactor:(.*)"
+      - pattern: "task start|task_active"
     action: |
-      # Extract the code file to refactor from the command
-      # Pattern will capture the file path
+      # Mark a task as active
       
-      I'll analyze the specified file and provide refactoring recommendations:
-      - Identify long functions that could be broken down
-      - Find duplicated code patterns
-      - Review naming conventions
-      - Suggest code structure improvements
-      - Generate refactored code
+      I'll update the specified task:
+      - Change state from Open (📝) to Active (🔄)
+      - Update the task index in `.cursor/TASKS.md`
       
-      The refactoring report will be saved to `.cursor/output/refactor_[filename]_[timestamp].md`
-
-  # Evaluation Commands
-  - type: react
-    conditions:
-      - pattern: "Eval.project"
-    action: |
-      # Generate a comprehensive project evaluation report
-      
-      I'll evaluate the entire project:
-      - Project overview and statistics
-      - Task completion assessment
-      - Specification coverage
-      - Code quality assessment
-      - Documentation assessment
-      - Recommendations for improvement
-      
-      The evaluation report will be saved to `.cursor/output/project_evaluation_[timestamp].md`
+      This indicates work has started on this task
 
   - type: react
+    event: "user_request"
     conditions:
-      - pattern: "Eval.progress"
+      - pattern: "implement|create|build|develop"
     action: |
-      # Generate a progress report comparing current state to project goals
+      # Auto-create task when user requests implementation
       
-      I'll analyze project progress:
-      - Milestone status and completion
-      - Weekly task completion trends
-      - Burndown analysis with completion projections
-      - Risk assessment
-      - Recommendations to maintain momentum
+      When you ask me to implement something, I'll automatically:
+      - Create a new task with the implementation request as description
+      - Look for related specifications to link to the task (using the specification_management rule)
+      - Set the task state to Active (🔄)
+      - Add acceptance criteria
+      - Create a unique task ID
+      - Add the task to the task index
       
-      The progress report will be saved to `.cursor/output/progress_report_[timestamp].md`
-
-  # Review Commands
+      This ensures all implementation work is properly tracked
+  
+  #
+  # SECTION 2: TESTING MANAGEMENT
+  #
+  
   - type: react
-    conditions:
-      - pattern: "Review.code:(.*)"
+    event: "implementation_start"
     action: |
-      # Generate a code review for the specified file
-      # Pattern will capture the file path
+      # Create test files when implementation begins
       
-      I'll perform a detailed code review:
-      - Style and formatting analysis
-      - Code structure evaluation
-      - Security considerations
-      - Performance considerations
-      - Specific recommendations for improvement
+      When implementation starts, I'll:
       
-      The code review will be saved to `.cursor/output/codereview_[filename]_[timestamp].md`
+      1. Find the active task and its associated specifications
+      2. For each specification, create appropriate test files:
+         - Detect the project type (Node.js, Python, Rust, etc.)
+         - Create test files in the proper location and format
+         - Link tests to the specification requirements
+         - Add placeholder tests for each requirement
+         - Include references to the specs and task
+      
+      3. Consider project-specific testing patterns:
+         - Use Jest for JavaScript/TypeScript
+         - Use pytest for Python
+         - Use Cargo test for Rust
+         - Use JUnit for Java
+      
+      This ensures tests are created before implementation, supporting 
+      test-driven development.
 
   - type: react
     conditions:
-      - pattern: "Review.pr"
+      - pattern: "test run|test execute"
     action: |
-      # Generate a pull request review template
+      # Run tests based on project type
       
-      I'll create a comprehensive PR review template with sections for:
-      - PR overview (title, author, branch)
-      - Changes summary
-      - Specifications addressed
-      - Code review (structure, quality, testing, security, performance)
-      - Reviewer notes
-      - Recommendations
-      - Follow-up tasks
+      I'll execute tests for the project:
       
-      The template will be saved to `.cursor/output/pr_review_template_[timestamp].md`
+      1. Detect the project type:
+         - Node.js (package.json) → npm test
+         - Rust (Cargo.toml) → cargo test
+         - Java (pom.xml) → mvn test
+         - Python (requirements.txt/setup.py) → pytest or unittest
+      
+      2. Process test results:
+         - If tests pass, update active task to reflect passing tests
+         - If tests fail, create detailed failure report
+         - Trigger appropriate success/failure events
+      
+      3. Update task acceptance criteria:
+         - Mark "Unit tests pass" criteria based on results
+      
+      4. If tests pass, check if README needs updating:
+         - Analyze significant code changes
+         - Compare with current README content
+         - Suggest README updates if needed
+      
+      This validates implementation quality through automated testing and keeps
+      documentation in sync with implementation.
 
-  # Task Commands
+  - type: react
+    event: "test_failure"
+    action: |
+      # Analyze test failures and suggest fixes
+      
+      When tests fail, I'll:
+      
+      1. Analyze the failure details:
+         - Identify failing tests
+         - Determine failure reasons
+         - Isolate problematic code
+      
+      2. Create a learning about the test failure:
+         - Document the failure details
+         - Record potential solutions
+         - Link to relevant code and specifications
+      
+      3. Store the learning for future reference:
+         - Save to `.cursor/learnings/` with proper ID (managed by the knowledge_management rule)
+         - Update the learnings index
+      
+      This captures valuable information from failures and helps prevent 
+      similar issues in the future.
+
+  - type: react
+    event: "file_change"
+    conditions:
+      - pattern: "src/.*\\.(js|ts|jsx|tsx|py|rs|go|java|rb|cpp|c|h|hpp)$"
+    action: |
+      # Check for test files when source files change
+      
+      When a source file changes, I'll:
+      
+      1. Extract the component name from the file path
+      2. Look for corresponding test files in common locations:
+         - tests/[component].test.js
+         - tests/test_[component].py
+         - tests/[component]_test.rs
+         - __tests__/[component].test.js
+         - etc.
+      
+      3. If no test file exists:
+         - Make note of missing test coverage
+         - Create a reminder to add tests
+         - Track untested components
+      
+      4. Track if the change is significant for README updates:
+         - New public API or feature
+         - Changed behavior of existing features
+         - Removed functionality
+         - New configuration options
+      
+      This ensures all components have corresponding test coverage and 
+      tracks changes that might require documentation updates.
+  
+  #
+  # SECTION 3: VERSION CONTROL
+  #
+  
   - type: react
     conditions:
-      - pattern: "Task.summary"
+      - pattern: "file_change|file_save"
     action: |
-      # Generate a summary of all tasks
+      # Automatically commit changes using conventional commits format
       
-      I'll create a comprehensive task summary:
-      - Task status overview
-      - Recent activity
-      - Active tasks
-      - Open tasks
-      - Completion timeline
-      - Task duration statistics
+      When a file is changed or saved, I'll:
+      1. Determine the appropriate commit type based on the change:
+         - `feat`: For new features or functionality
+         - `fix`: For bug fixes
+         - `docs`: For documentation changes (including specs)
+         - `style`: For formatting changes that don't affect code
+         - `refactor`: For code restructuring without feature changes
+         - `perf`: For performance improvements
+         - `test`: For adding or correcting tests
+         - `chore`: For maintenance tasks and build changes
+
+      2. Extract scope from the file path (directory structure)
       
-      The task summary will be saved to `.cursor/output/task_summary_[timestamp].md`
+      3. Create a commit message in the format: `type(scope): description`
+      
+      4. For spec files, I'll use the format: `docs(specs): update specifications for <component>`
+
+  - type: react
+    event: "build_success"
+    action: |
+      # When a build succeeds, commit the changes
+      
+      After a successful build, I'll:
+      1. Add all changed files to git staging
+      2. Create an appropriate conventional commit message
+      3. Check if README needs updating based on the changes
+      4. Commit the changes
+      
+      This ensures all successful builds are properly committed
+
+  - type: react
+    event: "test_success"
+    action: |
+      # When tests pass, commit the changes
+      
+      After successful tests, I'll:
+      1. Add all changed files to git staging
+      2. Create a conventional commit message, usually with `test` or `fix` type
+      3. Check if README needs updating based on recent changes:
+         - Analyze if implemented features are documented in README
+         - Compare with README content
+         - Flag if README is missing information about new features
+      4. Commit the changes
+      
+      This ensures test-verified changes are committed and documentation
+      stays in sync with implementation.
+
+  - type: react
+    event: "test_failure"
+    action: |
+      # When tests fail, don't commit and notify about test failures
+      
+      If tests fail, I'll:
+      1. Not commit the changes
+      2. Notify you about the failing tests
+      3. Offer to help fix the failing tests
+      
+      This prevents committing code that doesn't pass tests
+  
+  #
+  # SECTION 4: README MANAGEMENT
+  #
+  
+  - type: react
+    conditions:
+      - pattern: "readme check|check readme"
+    action: |
+      # Check if README needs updating
+      
+      I'll analyze the README file and codebase to identify documentation gaps:
+      
+      1. Compare README content with actual project features:
+         - Look for implemented features not described in README
+         - Check if API documentation matches current implementation
+         - Verify installation instructions are correct
+         - Ensure usage examples reflect current behavior
+      
+      2. Generate a README validation report:
+         - List missing or outdated sections
+         - Provide specific update recommendations
+         - Prioritize documentation gaps by importance
+      
+      This helps keep documentation in sync with implementation.
+
+  - type: react
+    conditions:
+      - pattern: "readme update|update readme"
+    action: |
+      # Update README to reflect current project state
+      
+      I'll update the README file to match the current state of the project:
+      
+      1. Preserve existing structure while adding/updating content:
+         - Add missing feature descriptions
+         - Update outdated API documentation
+         - Refresh installation instructions if needed
+         - Update usage examples for changed functionality
+      
+      2. Generate a commit for the README changes:
+         - Use commit type `docs`
+         - Include scope `readme`
+         - Provide descriptive message about updates
+      
+      This ensures documentation accurately reflects the current implementation.
+  
+  #
+  # SECTION 5: WORKFLOW INTEGRATION
+  #
+  
+  - type: react
+    event: "implementation_complete"
+    action: |
+      # Integrated workflow when implementation is complete
+      
+      When implementation is complete, I'll:
+      
+      1. Run verification tests:
+         - Execute tests based on project type
+         - Verify all tests pass
+      
+      2. If tests pass:
+         - Update the task status to Done (✅)
+         - Set end date to current date
+         - Extract and save any learnings (via knowledge_management rule)
+         - Mark associated specs as completed (via specification_management rule)
+         - Update the task index
+         - Check if README needs updating based on implemented features
+         - Commit the changes with appropriate message
+      
+      3. If tests fail:
+         - Record verification failure
+         - Request fixes before allowing completion
+         - Do not commit the changes
+      
+      This ensures only properly tested implementations are marked complete
+      and committed to version control with up-to-date documentation.
 
   - type: suggest
     message: |
-      ### AI Command System
+      ### Development Workflow System
 
-      I can execute various special commands to assist your development workflow:
+      Your development process is managed through an integrated workflow:
 
-      **Specs Commands**:
-      - `Specs.getHtml` - Generate visual HTML dashboard of specifications
-      - `Specs.getSummary` - Create markdown summary of specifications
-      - `Specs.verify` - Verify implementations match specifications
+      **Task Management:**
+      - `task create` - Create a new task
+      - `task start` - Mark a task as active
+      - `task done` - Mark a task as complete
+      - `task list` - Show all tasks with status
+      - Automatic task creation for implementation requests
 
-      **Code Commands**:
-      - `Code.analyze` - Analyze code structure and quality
-      - `Code.refactor:[file]` - Generate refactoring suggestions for a file
+      **Testing Framework:**
+      - `test run` - Execute tests for the project
+      - Automatic test file creation when implementation starts
+      - Test coverage verification for source files
+      - Test failure analysis and learning capture
 
-      **Evaluation Commands**:
-      - `Eval.project` - Generate comprehensive project evaluation
-      - `Eval.progress` - Compare current state to project goals
+      **Version Control:**
+      - Automatic commits using conventional format
+      - Commit prevention for failing tests
+      - Appropriate commit types based on change type
+      - Proper scoping based on file structure
 
-      **Review Commands**:
-      - `Review.code:[file]` - Generate detailed code review
-      - `Review.pr` - Create a pull request review template
+      **README Management:**
+      - `readme check` - Validate README against current project state
+      - `readme update` - Update README to reflect implemented features
+      - Automatic README validation after successful tests
+      - Documentation kept in sync with implementation
 
-      **Task Commands**:
-      - `Task.summary` - Generate summary of all tasks
+      **Integrated Behaviors:**
+      - Implementation request → Create specs → Create task → Create tests → Implement
+      - Implementation complete → Run tests → Update task → Check README → Capture learnings → Commit changes
+      - Test failure → Analyze issues → Create learnings → Prevent completion
 
-      All output will be saved to the `.cursor/output/` directory for reference.
+      This system ensures a consistent, high-quality development process from
+      task creation through testing to version control, with documentation
+      that stays in sync with your codebase.
 
 examples:
+  # Task Management Examples
   - input: |
-      Specs.getHtml
-    output: "Generating HTML dashboard of specifications..."
+      task create "Implement user authentication flow"
+    output: "Task created: TASK-2025-03-05-01 - Implement user authentication flow"
 
   - input: |
-      Code.analyze
-    output: "Analyzing code structure and quality..."
+      task list
+    output: "Listing all tasks with their current status..."
 
+  # Testing Examples
   - input: |
-      Eval.project
-    output: "Generating comprehensive project evaluation..."
+      test run
+    output: "Running tests... ✅ Tests passed successfully! Task updated to reflect passing tests."
+
+  # Version Control Examples
+  - input: |
+      # After adding a new function
+      feat(auth): add user authentication function
+    output: "Changes committed with message: feat(auth): add user authentication function"
+
+  # README Management Examples
+  - input: |
+      readme check
+    output: "README validation complete. Found 2 sections that need updating to reflect recent changes."
+
+  # Integrated Workflow Examples
+  - input: |
+      Implementation complete for user authentication
+    output: "Running verification tests... ✅ Implementation verified by tests. README update suggested for new auth feature. Task marked as complete and changes committed."
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [AndreRatzenberger/cursor-rules](https://github.com/AndreRatzenberger/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
