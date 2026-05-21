@@ -1,0 +1,14 @@
+{
+  "name": "neondatabase--neon-auth-nextjs-template",
+  "displayName": "neon",
+  "description": "A template to get started with Neon Auth",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/neon-auth-nextjs-template",
+  "skills": [
+    {
+      "name": "neon-auth",
+      "description": ""
+    }
+  ]
+}
