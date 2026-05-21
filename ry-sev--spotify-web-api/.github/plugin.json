@@ -1,0 +1,9 @@
+{
+  "name": "ry-sev--spotify-web-api",
+  "displayName": "spotify_web_api",
+  "description": "A wrapper for the Spotify Web API",
+  "version": "1.0.0",
+  "author": "ry-sev",
+  "homepage": "https://github.com/ry-sev/spotify_web_api",
+  "skills": []
+}
