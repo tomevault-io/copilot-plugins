@@ -1,0 +1,9 @@
+{
+  "name": "loadpartner--tms",
+  "displayName": "tms",
+  "description": "Open source TMS for freight brokers",
+  "version": "1.0.0",
+  "author": "loadpartner",
+  "homepage": "https://github.com/loadpartner/tms",
+  "skills": []
+}
