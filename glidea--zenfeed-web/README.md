@@ -1,6 +1,8 @@
-# zenfeed-web — distributed by TomeVault
+# zenfeed-web
 
-> Originally from [glidea/zenfeed-web](https://github.com/glidea/zenfeed-web). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [glidea/zenfeed-web](https://github.com/glidea/zenfeed-web) — distributed by [TomeVault](https://tomevault.io)
+
+zenfeed Official lightweight WEB client
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [glidea/zenfeed-web](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/glidea)
+From [glidea/zenfeed-web](https://github.com/glidea/zenfeed-web) — a repo with 19+ stars on GitHub.
 
 ---
 
