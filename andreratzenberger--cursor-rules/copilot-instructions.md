@@ -1,466 +1,344 @@
-## development-workflow-rule
+## knowledge-management-rule
 
-> Comprehensive development workflow system for task tracking, testing, and version control
+> Comprehensive knowledge management system for capturing, organizing, and applying project knowledge
 
-# Development Workflow System
+# Knowledge Management System
 
-Rule for managing the complete development lifecycle including task tracking, testing, and version control.
+Rule for capturing, organizing, refining, and applying knowledge throughout the project lifecycle.
 
 <rule>
-name: development_workflow_system
+name: knowledge_management
 filters:
-  # Task management filters
+  # Information tracking filters
   - type: event
-    pattern: "task_start"
+    pattern: "knowledge_capture"
+  - type: event
+    pattern: "file_create"
+  - type: event
+    pattern: "file_change"
+  - type: command
+    pattern: "learn"
+  - type: command
+    pattern: "document"
+  - type: event
+    pattern: "conversation_insight"
+  - type: file_change
+    pattern: ".cursor/docs/*"
+  
+  # Learning refinement filters
+  - type: event
+    pattern: "learning_create"
+  - type: event
+    pattern: "learning_update"
+  - type: file_change
+    pattern: ".cursor/learnings/*.md"
+  - type: command
+    pattern: "knowledge"
+  
+  # Actionable insights filters
+  - type: command
+    pattern: "insight"
+  - type: event
+    pattern: "implementation_complete"
   - type: event
     pattern: "task_complete"
-  - type: command
-    pattern: "task"
   - type: event
-    pattern: "user_request"
-  - type: event 
-    pattern: "implementation_complete"
-  
-  # Testing filters
-  - type: event
-    pattern: "implementation_start"
-  - type: command
-    pattern: "test"
+    pattern: "code_review"
   - type: file_change
     pattern: "src/*"
-  - type: file_change
-    pattern: "tests/*"
-  - type: event
-    pattern: "test_failure"
-  
-  # Git commit filters
-  - type: event
-    pattern: "build_success"
-  - type: event
-    pattern: "test_success"
-  - type: event
-    pattern: "file_save"
-  - type: file_change
-    pattern: "*"
-  
-  # README management filters
-  - type: command
-    pattern: "readme"
-  - type: file_change
-    pattern: "README.md"
 
 actions:
   #
-  # SECTION 1: TASK MANAGEMENT
+  # SECTION 1: KNOWLEDGE CAPTURE
   #
   
   - type: react
     conditions:
-      - pattern: "task create|task_start"
+      - pattern: "learn add|learning create"
     action: |
-      # Create a new development task
+      # Create a new learning entry
       
-      I'll create a new task with:
-      - Unique task ID (TASK-YYYY-MM-DD-NN format)
-      - Description section
-      - Relevant specifications section (linked to `.cursor/specs/` managed by the specification_management rule)
-      - Acceptance criteria section
-      - Metadata (ID, start date, end date, state)
-      - Learnings section for capturing implementation insights
+      I'll create a structured learning document with:
+      - Unique ID (format: LEARN-YYYY-MM-DD-NN)
+      - Title and short description
+      - Detailed description of the learning
+      - Relevant code files, tasks (managed by development_workflow_system), specifications (managed by specification_management), and documents
+      - Date of capture
+      - Keywords for easy retrieval
       
-      The task will be stored in `.cursor/tasks/` with an Open (📝) status
-      and added to the task index in `.cursor/TASKS.md`
+      The learning will be stored in `.cursor/learnings/` 
+      and indexed in `.cursor/LEARNINGS.md`
 
   - type: react
     conditions:
-      - pattern: "task done|task complete|task_complete"
+      - pattern: "document add|document create|document detect"
     action: |
-      # Mark a task as complete
+      # Register a document in the knowledge base
       
-      I'll update the specified task:
-      - Change state to Done (✅)
-      - Set end date to current date
-      - Extract learnings to a separate file if any exist
-      - Mark associated specs as completed
-      - Update the task index in `.cursor/TASKS.md`
+      I'll register the document by:
+      - Storing a copy in `.cursor/docs/` if it's not already there
+      - Creating a learning entry about this document
+      - Adding the document to the documents index
+      - Extracting key information from the document
+      - Creating cross-references to related content including specifications (managed by specification_management)
       
-      If the task contains valuable learnings, they'll be saved to 
-      `.cursor/learnings/` with proper cross-references and managed by the knowledge_management rule
+      This ensures all project documentation is centrally tracked
+      and discoverable.
 
   - type: react
-    conditions:
-      - pattern: "task list|task_status"
+    event: "conversation_insight"
     action: |
-      # List all tasks with their status
+      # Automatically capture important insights from our conversations
       
-      I'll generate a table showing:
-      - Task ID
-      - Current state (Open 📝, Active 🔄, or Done ✅)
-      - Task description
-      - Start date
-      - End date (if completed)
+      When I identify valuable insights in our conversation, I'll:
+      - Create a learning entry with the insight
+      - Generate a unique ID for the learning
+      - Categorize and tag the insight appropriately
+      - Add context and relevant connections to tasks (managed by development_workflow_system)
+      - Index the insight for future reference
       
-      This provides a quick overview of all project tasks and their progress
-
-  - type: react
-    conditions:
-      - pattern: "task start|task_active"
-    action: |
-      # Mark a task as active
-      
-      I'll update the specified task:
-      - Change state from Open (📝) to Active (🔄)
-      - Update the task index in `.cursor/TASKS.md`
-      
-      This indicates work has started on this task
-
-  - type: react
-    event: "user_request"
-    conditions:
-      - pattern: "implement|create|build|develop"
-    action: |
-      # Auto-create task when user requests implementation
-      
-      When you ask me to implement something, I'll automatically:
-      - Create a new task with the implementation request as description
-      - Look for related specifications to link to the task (using the specification_management rule)
-      - Set the task state to Active (🔄)
-      - Add acceptance criteria
-      - Create a unique task ID
-      - Add the task to the task index
-      
-      This ensures all implementation work is properly tracked
-  
-  #
-  # SECTION 2: TESTING MANAGEMENT
-  #
-  
-  - type: react
-    event: "implementation_start"
-    action: |
-      # Create test files when implementation begins
-      
-      When implementation starts, I'll:
-      
-      1. Find the active task and its associated specifications
-      2. For each specification, create appropriate test files:
-         - Detect the project type (Node.js, Python, Rust, etc.)
-         - Create test files in the proper location and format
-         - Link tests to the specification requirements
-         - Add placeholder tests for each requirement
-         - Include references to the specs and task
-      
-      3. Consider project-specific testing patterns:
-         - Use Jest for JavaScript/TypeScript
-         - Use pytest for Python
-         - Use Cargo test for Rust
-         - Use JUnit for Java
-      
-      This ensures tests are created before implementation, supporting 
-      test-driven development.
-
-  - type: react
-    conditions:
-      - pattern: "test run|test execute"
-    action: |
-      # Run tests based on project type
-      
-      I'll execute tests for the project:
-      
-      1. Detect the project type:
-         - Node.js (package.json) → npm test
-         - Rust (Cargo.toml) → cargo test
-         - Java (pom.xml) → mvn test
-         - Python (requirements.txt/setup.py) → pytest or unittest
-      
-      2. Process test results:
-         - If tests pass, update active task to reflect passing tests
-         - If tests fail, create detailed failure report
-         - Trigger appropriate success/failure events
-      
-      3. Update task acceptance criteria:
-         - Mark "Unit tests pass" criteria based on results
-      
-      4. If tests pass, check if README needs updating:
-         - Analyze significant code changes
-         - Compare with current README content
-         - Suggest README updates if needed
-      
-      This validates implementation quality through automated testing and keeps
-      documentation in sync with implementation.
-
-  - type: react
-    event: "test_failure"
-    action: |
-      # Analyze test failures and suggest fixes
-      
-      When tests fail, I'll:
-      
-      1. Analyze the failure details:
-         - Identify failing tests
-         - Determine failure reasons
-         - Isolate problematic code
-      
-      2. Create a learning about the test failure:
-         - Document the failure details
-         - Record potential solutions
-         - Link to relevant code and specifications
-      
-      3. Store the learning for future reference:
-         - Save to `.cursor/learnings/` with proper ID (managed by the knowledge_management rule)
-         - Update the learnings index
-      
-      This captures valuable information from failures and helps prevent 
-      similar issues in the future.
+      This ensures important information isn't lost.
 
   - type: react
     event: "file_change"
     conditions:
-      - pattern: "src/.*\\.(js|ts|jsx|tsx|py|rs|go|java|rb|cpp|c|h|hpp)$"
+      - pattern: ".cursor/docs/.*"
     action: |
-      # Check for test files when source files change
+      # Automatically process new documents added to docs directory
       
-      When a source file changes, I'll:
+      When a new document is added to `.cursor/docs/`, I'll:
+      - Extract key information from the document
+      - Create a learning entry linked to this document
+      - Update the documents index
+      - Identify related content including specifications (managed by specification_management)
+      - Generate appropriate metadata
       
-      1. Extract the component name from the file path
-      2. Look for corresponding test files in common locations:
-         - tests/[component].test.js
-         - tests/test_[component].py
-         - tests/[component]_test.rs
-         - __tests__/[component].test.js
-         - etc.
-      
-      3. If no test file exists:
-         - Make note of missing test coverage
-         - Create a reminder to add tests
-         - Track untested components
-      
-      4. Track if the change is significant for README updates:
-         - New public API or feature
-         - Changed behavior of existing features
-         - Removed functionality
-         - New configuration options
-      
-      This ensures all components have corresponding test coverage and 
-      tracks changes that might require documentation updates.
+      This ensures all documentation is properly integrated into
+      the knowledge base.
   
   #
-  # SECTION 3: VERSION CONTROL
+  # SECTION 2: KNOWLEDGE ORGANIZATION & REFINEMENT
   #
   
   - type: react
     conditions:
-      - pattern: "file_change|file_save"
+      - pattern: "learn categorize|learning categorize"
     action: |
-      # Automatically commit changes using conventional commits format
+      # Categorize and organize learnings
       
-      When a file is changed or saved, I'll:
-      1. Determine the appropriate commit type based on the change:
-         - `feat`: For new features or functionality
-         - `fix`: For bug fixes
-         - `docs`: For documentation changes (including specs)
-         - `style`: For formatting changes that don't affect code
-         - `refactor`: For code restructuring without feature changes
-         - `perf`: For performance improvements
-         - `test`: For adding or correcting tests
-         - `chore`: For maintenance tasks and build changes
-
-      2. Extract scope from the file path (directory structure)
+      I'll organize all learnings into meaningful categories:
       
-      3. Create a commit message in the format: `type(scope): description`
+      1. Analyze all learning content to identify topics and themes
+      2. Categorize learnings into domains like:
+         - Architecture, Performance, Security, DevOps
+         - UX, API, Database, Testing
+         - Frontend, Backend, Mobile, Tooling
+         - Process, Bugs, Documentation
+      3. Create category files in `.cursor/learning_categories/`
+      4. Generate a categories index with links to all categorized learnings
+      5. Identify uncategorized learnings for further review
       
-      4. For spec files, I'll use the format: `docs(specs): update specifications for <component>`
+      This makes knowledge more discoverable by organizing it into logical domains.
 
   - type: react
-    event: "build_success"
+    conditions:
+      - pattern: "learn refine:(.*)"
     action: |
-      # When a build succeeds, commit the changes
+      # Refine a specific learning to enhance its value
       
-      After a successful build, I'll:
-      1. Add all changed files to git staging
-      2. Create an appropriate conventional commit message
-      3. Check if README needs updating based on the changes
-      4. Commit the changes
+      I'll refine the specified learning by:
       
-      This ensures all successful builds are properly committed
+      1. Extracting the core learning ID from the command
+      2. Creating an enhanced version with additional sections:
+         - Keywords extracted from content
+         - Key takeaways for quick reference
+         - Potential applications of this knowledge
+         - Related learnings on similar topics
+         - Improved formatting and organization
+      3. Preserving all original content while adding refinements
+      4. Adding a "Last Refined" date
+      
+      This refinement process transforms basic learnings into comprehensive 
+      knowledge assets.
 
   - type: react
-    event: "test_success"
+    conditions:
+      - pattern: "learn extract|knowledge extract"
     action: |
-      # When tests pass, commit the changes
+      # Extract patterns and valuable information from all learnings
       
-      After successful tests, I'll:
-      1. Add all changed files to git staging
-      2. Create a conventional commit message, usually with `test` or `fix` type
-      3. Check if README needs updating based on recent changes:
-         - Analyze if implemented features are documented in README
-         - Compare with README content
-         - Flag if README is missing information about new features
-      4. Commit the changes
+      I'll analyze all learnings to identify patterns:
       
-      This ensures test-verified changes are committed and documentation
-      stays in sync with implementation.
+      1. Generate statistics on learning types and frequency
+      2. Extract most frequently mentioned topics and terms
+      3. Identify potential best practices across learnings
+      4. Find recurring challenges and their solutions
+      5. Highlight solution patterns that could be reused
+      
+      This extraction creates a "wisdom layer" that surfaces valuable 
+      patterns across individual learnings.
 
   - type: react
-    event: "test_failure"
+    conditions:
+      - pattern: "learn metrics|knowledge metrics"
     action: |
-      # When tests fail, don't commit and notify about test failures
+      # Generate metrics and insights about captured knowledge
       
-      If tests fail, I'll:
-      1. Not commit the changes
-      2. Notify you about the failing tests
-      3. Offer to help fix the failing tests
+      I'll analyze the knowledge base to provide metrics:
       
-      This prevents committing code that doesn't pass tests
+      1. Calculate overall knowledge metrics:
+         - Total learnings and documents
+         - Learnings per day/week/month
+         - Word count and depth analysis
+      2. Analyze knowledge capture trends over time
+      3. Examine distribution by knowledge type and category
+      4. Assess knowledge quality based on content metrics
+      5. Provide recommendations to improve knowledge capture
+      
+      These metrics help track knowledge growth and identify improvement areas.
+
+  - type: react
+    event: "file_change"
+    conditions:
+      - pattern: ".cursor/learnings/.*\\.md$"
+    action: |
+      # Automatically enhance learning when created or updated
+      
+      When a learning file is created or updated, I'll:
+      
+      1. Check if the learning has all expected sections
+      2. Add missing sections like short descriptions or keywords
+      3. Generate keywords from content if missing
+      4. Identify potentially related learnings
+      5. Add cross-references to similar knowledge assets, tasks (managed by development_workflow_system), and specifications (managed by specification_management)
+      
+      This automatic enhancement ensures consistent quality across all learnings.
   
   #
-  # SECTION 4: README MANAGEMENT
+  # SECTION 3: ACTIONABLE INSIGHTS & APPLICATION
   #
   
   - type: react
     conditions:
-      - pattern: "readme check|check readme"
+      - pattern: "insight generate|generate insights"
     action: |
-      # Check if README needs updating
+      # Generate actionable insights from project knowledge
       
-      I'll analyze the README file and codebase to identify documentation gaps:
+      I'll analyze the knowledge base to create actionable insights:
       
-      1. Compare README content with actual project features:
-         - Look for implemented features not described in README
-         - Check if API documentation matches current implementation
-         - Verify installation instructions are correct
-         - Ensure usage examples reflect current behavior
+      1. Extract best practices from existing learnings
+      2. Identify recurring challenges and their solutions
+      3. Detect patterns in successful implementations
+      4. Find optimization opportunities based on performance learnings
+      5. Suggest specific, actionable recommendations that can be applied to tasks (managed by development_workflow_system)
       
-      2. Generate a README validation report:
-         - List missing or outdated sections
-         - Provide specific update recommendations
-         - Prioritize documentation gaps by importance
-      
-      This helps keep documentation in sync with implementation.
+      Unlike general knowledge extraction, these insights will be concrete, 
+      actionable recommendations that can be directly applied.
 
   - type: react
     conditions:
-      - pattern: "readme update|update readme"
+      - pattern: "insight apply:(.*)"
     action: |
-      # Update README to reflect current project state
+      # Apply specific insight to current code
       
-      I'll update the README file to match the current state of the project:
+      I'll apply the specified insight to the current code context:
       
-      1. Preserve existing structure while adding/updating content:
-         - Add missing feature descriptions
-         - Update outdated API documentation
-         - Refresh installation instructions if needed
-         - Update usage examples for changed functionality
+      1. Retrieve the specific insight
+      2. Analyze how it applies to the current code
+      3. Generate recommended changes based on the insight
+      4. Explain the rationale behind each recommendation
+      5. Provide before/after comparisons
       
-      2. Generate a commit for the README changes:
-         - Use commit type `docs`
-         - Include scope `readme`
-         - Provide descriptive message about updates
-      
-      This ensures documentation accurately reflects the current implementation.
-  
-  #
-  # SECTION 5: WORKFLOW INTEGRATION
-  #
-  
+      This transforms abstract knowledge into concrete code improvements.
+
   - type: react
     event: "implementation_complete"
     action: |
-      # Integrated workflow when implementation is complete
+      # Suggest improvements based on collected insights
       
-      When implementation is complete, I'll:
+      When implementation is completed, I'll:
       
-      1. Run verification tests:
-         - Execute tests based on project type
-         - Verify all tests pass
+      1. Analyze the implemented code
+      2. Compare against insights database
+      3. Identify potential improvements based on project learnings
+      4. Suggest specific optimizations, patterns, or techniques
+      5. Provide concrete examples of how to implement the suggestions
       
-      2. If tests pass:
-         - Update the task status to Done (✅)
-         - Set end date to current date
-         - Extract and save any learnings (via knowledge_management rule)
-         - Mark associated specs as completed (via specification_management rule)
-         - Update the task index
-         - Check if README needs updating based on implemented features
-         - Commit the changes with appropriate message
+      This helps continuously improve code quality based on accumulated knowledge.
+
+  - type: react
+    event: "file_change"
+    conditions:
+      - pattern: "src/.*\\.(js|ts|jsx|tsx|py|rs|go|java|rb|cpp|c)$"
+    action: |
+      # Recommend relevant insights for changed files
       
-      3. If tests fail:
-         - Record verification failure
-         - Request fixes before allowing completion
-         - Do not commit the changes
+      When source files change, I'll:
       
-      This ensures only properly tested implementations are marked complete
-      and committed to version control with up-to-date documentation.
+      1. Analyze the code context and changes
+      2. Identify relevant insights from the knowledge base
+      3. Suggest applicable best practices or optimizations
+      4. Focus on concrete, actionable recommendations
+      5. Prioritize insights specific to the current code domain
+      
+      This provides just-in-time knowledge application rather than 
+      requiring manual knowledge lookup.
 
   - type: suggest
     message: |
-      ### Development Workflow System
+      ### Knowledge Management System
 
-      Your development process is managed through an integrated workflow:
+      Your project knowledge is automatically captured, organized, and applied:
 
-      **Task Management:**
-      - `task create` - Create a new task
-      - `task start` - Mark a task as active
-      - `task done` - Mark a task as complete
-      - `task list` - Show all tasks with status
-      - Automatic task creation for implementation requests
+      **Knowledge Capture:**
+      - `learn add "Title" "Description" "Content"` - Create a new learning entry
+      - `document add "path/to/document"` - Register a document in the knowledge base
+      - Automatic capture of conversation insights
+      - Automatic processing of documents in `.cursor/docs/`
 
-      **Testing Framework:**
-      - `test run` - Execute tests for the project
-      - Automatic test file creation when implementation starts
-      - Test coverage verification for source files
-      - Test failure analysis and learning capture
+      **Knowledge Organization:**
+      - `learn categorize` - Organize learnings into meaningful categories
+      - `learn refine:LEARN-ID` - Create an enhanced version of a specific learning
+      - `learn extract` - Identify patterns across all learnings
+      - `learn metrics` - Generate knowledge capture metrics
 
-      **Version Control:**
-      - Automatic commits using conventional format
-      - Commit prevention for failing tests
-      - Appropriate commit types based on change type
-      - Proper scoping based on file structure
+      **Knowledge Application:**
+      - `insight generate` - Extract actionable insights from knowledge base
+      - `insight apply:ID` - Apply a specific insight to current code
+      - Automatic suggestion of improvements after implementation
+      - Just-in-time insight recommendations for changed files
 
-      **README Management:**
-      - `readme check` - Validate README against current project state
-      - `readme update` - Update README to reflect implemented features
-      - Automatic README validation after successful tests
-      - Documentation kept in sync with implementation
-
-      **Integrated Behaviors:**
-      - Implementation request → Create specs → Create task → Create tests → Implement
-      - Implementation complete → Run tests → Update task → Check README → Capture learnings → Commit changes
-      - Test failure → Analyze issues → Create learnings → Prevent completion
-
-      This system ensures a consistent, high-quality development process from
-      task creation through testing to version control, with documentation
-      that stays in sync with your codebase.
+      This integrated system ensures knowledge flows from capture through 
+      organization to practical application throughout your project, working
+      seamlessly with the development workflow and specification management systems.
 
 examples:
-  # Task Management Examples
+  # Knowledge Capture Examples
   - input: |
-      task create "Implement user authentication flow"
-    output: "Task created: TASK-2025-03-05-01 - Implement user authentication flow"
+      learn add "Authentication Best Practices" "Security patterns for JWT implementation" "When implementing JWT authentication, we discovered that using short expiration times (15min) with refresh tokens provides the best balance of security and user experience."
+    output: "Learning created: LEARN-2025-03-05-01 - Authentication Best Practices"
 
   - input: |
-      task list
-    output: "Listing all tasks with their current status..."
+      document add "architecture/system-design.md"
+    output: "Document registered: architecture/system-design.md"
 
-  # Testing Examples
+  # Knowledge Organization Examples
   - input: |
-      test run
-    output: "Running tests... ✅ Tests passed successfully! Task updated to reflect passing tests."
+      learn categorize
+    output: "Learning categorization complete. Categories index created at .cursor/learning_categories/CATEGORIES.md"
 
-  # Version Control Examples
   - input: |
-      # After adding a new function
-      feat(auth): add user authentication function
-    output: "Changes committed with message: feat(auth): add user authentication function"
+      learn refine:LEARN-2025-03-05-01
+    output: "Learning refined. Enhanced version created at .cursor/learnings/LEARN-2025-03-05-01_refined.md"
 
-  # README Management Examples
+  # Knowledge Application Examples
   - input: |
-      readme check
-    output: "README validation complete. Found 2 sections that need updating to reflect recent changes."
+      insight generate
+    output: "Generated 5 actionable insights from project knowledge base, prioritized by impact."
 
-  # Integrated Workflow Examples
   - input: |
-      Implementation complete for user authentication
-    output: "Running verification tests... ✅ Implementation verified by tests. README update suggested for new auth feature. Task marked as complete and changes committed."
+      insight apply:INS-2025-03-05-02
+    output: "Applied 'Optimized Database Query Pattern' insight to current code with 3 specific improvements."
 
 metadata:
   priority: high
