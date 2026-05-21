@@ -1,0 +1,9 @@
+{
+  "name": "yeongseon--azure-functions-openapi-python",
+  "displayName": "azure-functions-openapi-python",
+  "description": "OpenAPI (Swagger) documentation and Swagger UI for Azure Functions Python v2 \u2014 Part of the Azure Functions Python DX Toolkit",
+  "version": "1.0.0",
+  "author": "yeongseon",
+  "homepage": "https://github.com/yeongseon/azure-functions-openapi-python",
+  "skills": []
+}
