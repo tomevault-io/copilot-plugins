@@ -1,79 +1,59 @@
-## esm-imports
+## project-overview
 
-> This project uses ECMAScript Modules (ESM) exclusively. Follow these rules when writing imports:
+> This project provides an MCP (Model Context Protocol) server implementation for database connections. It allows LLM-powered applications to connect to and query databases through the MCP protocol.
 
-# ESM Import Rules
+# MCP Database Server Project Overview
 
-This project uses ECMAScript Modules (ESM) exclusively. Follow these rules when writing imports:
+## Project Purpose
+This project provides an MCP (Model Context Protocol) server implementation for database connections. It allows LLM-powered applications to connect to and query databases through the MCP protocol.
 
-## Always include .js extension
+## Key Technologies
+- TypeScript
+- Node.js
+- Model Context Protocol (MCP)
+- Database Connections (SQLite, PostgreSQL, SQL Server)
+- ESM Modules
 
-When importing local files, always include the `.js` extension in the import path.
+## Architecture
 
-```typescript
-// ✅ Good
-import { Database } from './interfaces/database.js';
+The project follows a modular architecture:
 
-// ❌ Bad
-import { Database } from './interfaces/database';
-```
+### Core Components
+- **Database Interfaces**: Defines the common interface that all database implementations must follow.
+- **Database Implementations**: Concrete implementations for each supported database type.
+- **MCP Server**: The main server that handles MCP protocol communication.
+- **Factory**: Creates database instances based on configuration.
+- **Tools**: MCP tool implementations for database operations.
+- **Resources**: MCP resource implementations for database schema information.
 
-## Handling CommonJS modules
+### Directory Structure
 
-Some dependencies are CommonJS modules. When importing them, use this pattern:
+- `src/`: Source code
+  - `interfaces/`: TypeScript interfaces for the codebase
+  - `databases/`: Database implementations
+  - `tools/`: MCP tool implementations
+  - `resources/`: MCP resource implementations
+  - `server.ts`: Main MCP server implementation
+  - `factory.ts`: Database factory
+  - `index.ts`: Entry point and exports
 
-```typescript
-// ✅ Good
-import pkg from 'pg';
-const { Pool } = pkg;
+- `test/`: Test files
+- `dist/`: Compiled JavaScript output
+- `assets/`: Static assets
 
-// ❌ Bad
-import { Pool } from 'pg';
-```
+## Important Development Notes
 
-## Import ordering
+1. The project uses ES modules (ESM) with `.js` extensions in import paths.
+2. Some dependencies (like 'pg') are CommonJS modules and require special import handling.
+3. All database implementations follow the same interface for consistency.
+4. The server supports both STDIO and SSE transports for different use cases.
 
-Follow this order for imports:
-1. Node.js built-in modules
-2. External dependencies
-3. Local imports
+## Common Tasks
 
-```typescript
-// ✅ Good
-import fs from 'fs';
-import path from 'path';
-
-import express from 'express';
-import pkg from 'pg';
-const { Pool } = pkg;
-
-import { Database } from './interfaces/database.js';
-import { SQLiteConfig } from './databases/sqlite.js';
-
-// ❌ Bad (mixed order)
-import express from 'express';
-import { Database } from './interfaces/database.js';
-import fs from 'fs';
-import pkg from 'pg';
-const { Pool } = pkg;
-```
-
-## Named exports
-
-Prefer named exports over default exports for better IDE auto-import support:
-
-```typescript
-// ✅ Good
-export class PostgresDatabase implements Database {
-  // ...
-}
-
-// ❌ Bad
-class PostgresDatabase implements Database {
-  // ...
-}
-export default PostgresDatabase;
-``` 
+- **Adding a new database type**: Create a new implementation in `src/databases/` following the Database interface, then update the factory.
+- **Adding new MCP tools**: Add to the tools directory and register in the server.
+- **Running in development**: Use `npm run dev` to start the TypeScript compiler in watch mode.
+- **Testing**: Run `npm test` to execute the Jest test suite. 
 
 ---
 > Source: [cuongtl1992/mcp-dbs](https://github.com/cuongtl1992/mcp-dbs) — distributed by [TomeVault](https://tomevault.io).
