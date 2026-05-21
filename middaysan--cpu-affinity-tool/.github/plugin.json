@@ -1,0 +1,9 @@
+{
+  "name": "middaysan--cpu-affinity-tool",
+  "displayName": "cpu-affinity-tool",
+  "description": "Cross-platform GUI application for managing CPU affinity of processes",
+  "version": "1.0.0",
+  "author": "middaysan",
+  "homepage": "https://github.com/middaysan/cpu-affinity-tool",
+  "skills": []
+}
