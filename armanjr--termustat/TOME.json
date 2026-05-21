@@ -4,7 +4,7 @@
   "repo": "termustat",
   "description": "Termustat is the online timetabling tool for university students in Iran.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ArmanJR/termustat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T15:22:08Z"
+  "distributed_at": "2026-05-21T03:59:41Z"
 }
