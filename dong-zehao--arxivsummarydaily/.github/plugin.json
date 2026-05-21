@@ -1,0 +1,9 @@
+{
+  "name": "dong-zehao--arxivsummarydaily",
+  "displayName": "ArxivSummaryDaily",
+  "description": "Track arxiv daily update and use LLM to summarize.",
+  "version": "1.0.0",
+  "author": "dong-zehao",
+  "homepage": "https://github.com/dong-zehao/ArxivSummaryDaily",
+  "skills": []
+}
