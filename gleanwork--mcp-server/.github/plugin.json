@@ -1,0 +1,9 @@
+{
+  "name": "gleanwork--mcp-server",
+  "displayName": "mcp-server",
+  "description": "MCP server for Glean API integration",
+  "version": "1.0.0",
+  "author": "gleanwork",
+  "homepage": "https://github.com/gleanwork/mcp-server",
+  "skills": []
+}
