@@ -1,0 +1,9 @@
+{
+  "name": "hncompanion--browser-extension",
+  "displayName": "browser-extension",
+  "description": "Hacker News Companion browser extension",
+  "version": "1.0.0",
+  "author": "hncompanion",
+  "homepage": "https://github.com/hncompanion/browser-extension",
+  "skills": []
+}
