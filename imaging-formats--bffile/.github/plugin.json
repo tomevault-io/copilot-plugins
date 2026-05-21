@@ -1,0 +1,9 @@
+{
+  "name": "imaging-formats--bffile",
+  "displayName": "bffile",
+  "description": "Modern Bio-Formats wrapper with clean lazy Python API",
+  "version": "1.0.0",
+  "author": "imaging-formats",
+  "homepage": "https://github.com/imaging-formats/bffile",
+  "skills": []
+}
