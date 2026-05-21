@@ -1,61 +1,85 @@
-## archipy
+## adapter-conventions
 
-> make format   # Ruff formatter (fixes in place)
+> ArchiPy adapter layer conventions — ports, mocks, session managers, lazy imports
 
-# ArchiPy Agent Instructions
 
-## Quick Commands
+# Adapter Conventions
 
-```bash
-make format   # Ruff formatter (fixes in place)
-make lint    # Ruff linter + ty type checker
-make behave  # Run all BDD tests
-make check   # format + lint + security + tests
-make ci      # Full CI pipeline locally
-```
+## Required Files per Adapter
 
-## Essential Facts
-
-- **Python 3.14+ required** — not 3.x
-- Package manager: **UV** (never `pip install` directly)
-- Tests: **Behave** BDD framework (not pytest)
-- Run single test file: `uv run --extra behave behave features/redis_adapter.feature`
-
-## Architecture
+Every adapter package must contain at minimum:
 
 ```
-archipy/
-├── models/      # Domain layer — entities, DTOs, errors
-├── adapters/    # Infrastructure — external integrations
-├── helpers/    # Utilities, decorators, interceptors
-└── configs/    # pydantic-settings config
+archipy/adapters/<service>/
+├── __init__.py
+├── ports.py        # Abstract interface (ABC)
+└── adapters.py     # Concrete implementation
 ```
 
-Import direction (one-way): `configs ← models ← helpers ← adapters`
+A `mocks.py` is **optional** — only add it when the adapter is used directly in BDD tests and an in-memory test double is needed (e.g., Redis, Kafka). Do not create mocks for adapters that are tested via real instances or testcontainers.
 
-## Key Conventions
+## Ports (Abstract Interfaces)
 
-- **Double quotes only** — Ruff enforces this
-- **Google-style docstrings** on public functions
-- Max line length: 120 characters
-- McCabe complexity: max 10 per function
+`ports.py` defines the contract using `abc.ABC`. Implementations (and mocks, if they exist) must both satisfy this interface.
 
-## Testing
+```python
+# ✅ GOOD
+from abc import ABC, abstractmethod
 
-- BDD steps use native `async def` (no `asyncio.run()` wrapper)
-- Parallel execution: 8 workers (multiprocessing)
-- Steps must not share mutable global state
+class CachePort(ABC):
+    @abstractmethod
+    def get(self, key: str) -> str | None: ...
 
-## Dev Setup
-
-```bash
-make install-dev   # Install all deps + pre-commit hooks
-make pre-commit  # Run hooks manually
+    @abstractmethod
+    def set(self, key: str, value: str, ttl: int | None = None) -> None: ...
 ```
 
-## Linting Exclusions
+- `ANN401` (Any) is allowed in ports for `**kwargs` parameters.
+- `ARG002` (unused arguments) is allowed — interface stubs may not use all params.
 
-`features/` and `scripts/` are excluded from Ruff linting.
+## Mocks (Test Doubles) — Optional
+
+Add `mocks.py` only when an in-memory test double is genuinely needed for BDD tests. When present, mocks are exempt from:
+- `ARG001`, `ARG002`, `ARG004`, `ARG005` — unused arguments common in mock signatures
+- `ANN401` — Any types for compatibility
+- `PLR0913` — mock constructors may accept many params
+
+For adapters tested via real service instances (e.g., using `testcontainers`), skip `mocks.py` entirely.
+
+## Session Managers
+
+Database adapters use `session_manager_registry.py` for managing SQLAlchemy sessions. These files use lazy imports (`PLC0415`) to break circular import chains — this is intentional and expected.
+
+```python
+# ✅ GOOD — lazy import in session registry
+def get_session_manager() -> SessionManager:
+    from archipy.adapters.postgres.sqlalchemy.adapters import PostgresAdapter  # noqa: PLC0415
+    ...
+```
+
+## Async vs Sync Adapters
+
+- Async variants are declared as separate `optional-dependencies` extras (e.g., `sqlalchemy-async`, `starrocks-async`).
+- Async adapters use `asyncio` and `sqlalchemy[asyncio]`.
+- Sync and async implementations are separate classes — do not mix `async def` into sync adapter classes.
+
+## Exception Handling at Boundaries
+
+Adapters at the infrastructure boundary (Kafka, Redis, ScyllaDB) may use broad `except Exception` (`BLE001`) only at the outermost boundary where converting to domain errors:
+
+```python
+# ✅ GOOD — broad catch only at adapter boundary, then re-raise as domain error
+try:
+    await self._client.produce(topic, message)
+except Exception as e:  # noqa: BLE001
+    raise KafkaProduceError("Failed to produce message") from e
+```
+
+## Optional Dependency Imports
+
+Adapters rely on their optional extra being installed — do **not** use lazy imports to guard third-party dependencies inside adapter classes. If the extra is not installed, the import at module level will fail with a clear `ImportError`, which is the expected behavior.
+
+Lazy imports (`PLC0415`) are only permitted in `session_manager_registry.py` files to break circular import chains, and in `archipy/helpers/` for optional utility dependencies.
 
 ---
 > Source: [SyntaxArc/ArchiPy](https://github.com/SyntaxArc/ArchiPy) — distributed by [TomeVault](https://tomevault.io).
