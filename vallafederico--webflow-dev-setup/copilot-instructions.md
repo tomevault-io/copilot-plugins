@@ -1,26 +1,84 @@
-## webflow-dev-setup
+## development-workflow
 
-> This agent is specialized in managing the Webflow development setup, focusing on a modular JavaScript architecture, GSAP animations, and Taxi.js transitions.
+> Steps for creating and testing modules, from new file to data-module wiring. Use when starting a new module or onboarding.
 
-# Webflow Development Agent
+# Development Workflow Rules
 
-This agent is specialized in managing the Webflow development setup, focusing on a modular JavaScript architecture, GSAP animations, and Taxi.js transitions.
+## Creating New Modules
 
-## Project Guidelines
+1. Create file in `src/modules/` with descriptive name
+# Development Workflow Rules
 
-- **Module System**: Follow the `data-module` pattern in `src/modules/`.
-- **Lifecycle**: Strictly manage `onMount`, `onDestroy`, and page transitions.
-- **Performance**: Use the built-in `Raf` and `Resize` subscription systems.
-- **Webflow Designer**: Always check for editor mode using `handleEditor`.
+## Module Development Steps
 
-## Capabilities
+1. Create module file in `src/modules/`
+2. Use default export function with correct signature
+3. Import necessary lifecycle hooks and subscription services
+4. Add `data-module` attribute to HTML element
+5. Test module functionality
 
-The agent has access to several specialized skills in `.codex/skills/`:
-- `webflow-module-creation`: Standard for creating new components.
-- `webflow-lifecycle-management`: Managing resources and memory.
-- `webflow-interactivity-systems`: High-performance animations and tracking.
-- `webflow-editor-integration`: Compatibility with the Webflow Designer.
-- `webflow-page-transitions`: Seamless client-side navigation.
+## Module Development Pattern
+
+```typescript
+// 1. Start with basic structure
+import { onMount, onDestroy, onPageIn, onPageOut } from "@/modules/_";
+import { Raf, Resize } from "@lib/subs";
+
+export default function (element: HTMLElement, dataset: DOMStringMap) {
+  console.log("Module loaded:", element);
+
+  // 2. Add lifecycle hooks
+  onMount(() => {
+    console.log("Module mounted");
+  });
+
+  onDestroy(() => {
+    console.log("Module destroyed");
+  });
+
+  // 3. Add page transitions
+  onPageIn(async () => {
+    console.log("Page entering");
+  });
+
+  onPageOut(async () => {
+    console.log("Page exiting");
+  });
+
+  // 4. Add functionality incrementally
+  // 5. Test each addition
+  // 6. Add error handling
+}
+```
+
+## Debugging
+
+- Use console.log for module loading confirmation
+- Check browser console for errors
+- Verify `data-module` attribute matches filename
+- Ensure proper import paths
+- Test lifecycle hooks individually
+- Test page transitions
+- Test subscription cleanup
+
+## Testing
+
+- Test module mounting/destruction
+- Test page transitions (in/out)
+- Test viewport detection
+- Test scroll tracking
+- Test subscription services (Raf/Resize)
+- Test with different dataset values
+- Test error scenarios
+
+## Common Issues
+
+- Module not loading: Check attribute name matches filename
+- Lifecycle not firing: Check import paths
+- GSAP errors: Ensure proper cleanup in onDestroy
+- Memory leaks: Always clean up observers, listeners, and subscriptions
+- Page transitions not working: Check onPageIn/onPageOut implementation
+- Subscription leaks: Always unsubscribe in onDestroy
 
 ---
 > Source: [vallafederico/webflow-dev-setup](https://github.com/vallafederico/webflow-dev-setup) — distributed by [TomeVault](https://tomevault.io).
