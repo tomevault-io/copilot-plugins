@@ -1,46 +1,53 @@
-## git-commit-standards
+## github-actions-standards
 
-> Enforce structured Git commit messages.
+> Ensures GitHub Actions workflows follow best practices and use the latest action versions.
 
-# Git Commit Standards
+ # GitHub Actions Standards
 
-Ensures consistent Git commit messages.
+Ensures GitHub Actions workflows follow best practices and use the latest action versions.
 
 ## Rule Details
 
-- **Name:** git_commit_standards
+- **Name:** github_actions_standards
 
-- **Description:** Enforce structured Git commit messages.
+- **Description:** Enforce standards for GitHub Actions workflows
 
 ## Filters
-- file extension pattern: `\\.git/.*`
+- file extension pattern: `\\.ya?ml$`
+- file path pattern: `\\.github/workflows/`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `^(?!fix|feat|perf|docs|style|refactor|test|chore): ` – Use a commit message prefix followed by colon and space (fix:, feat:, etc.).
-    - More precise regex to ensure prefix is followed by colon and space
-  - pattern `^(fix|feat|perf|docs|style|refactor|test|chore): [A-Z]` – First word after prefix should be lowercase.
-    - Check for uppercase after the prefix
-  - pattern `^(fix|feat|perf|docs|style|refactor|test|chore): .{46,}` – Keep commit message content (excluding prefix) under 46 characters.
-    - More precise length check that excludes the prefix from the count
-  - pattern `^(fix|feat|perf|docs|style|refactor|test|chore):(?! )` – Include a space after the colon in prefix.
-    - Ensure there's a space after the colon
+  - pattern `uses:\\s*actions/upload-artifact@v[123]` – Use actions/upload-artifact@v4 instead of older versions. Version 3 is deprecated: https://github.blog/changelog/2024-04-16-deprecation-notice-v3-of-the-artifact-actions/
+  - pattern `uses:\\s*actions/download-artifact@v[123]` – Use actions/download-artifact@v4 instead of older versions.
+  - pattern `uses:\\s*actions/checkout@v[12]` – Consider using actions/checkout@v4 for the latest features and security updates.
 
 ## Suggestions
 - Guidance:
-Recommended commit format:
-- "fix: resolved bug in user authentication"
-- "feat: added new search functionality"
-- "docs: updated installation guide"
-- "style: fixed button alignment"
-- "refactor: simplified login logic"
-- "test: added unit tests for auth"
-- "chore: updated dependencies"
-- "perf: optimized database queries"
+**GitHub Actions Best Practices:**
+- **Latest Action Versions:** Always use the latest stable versions of GitHub Actions.
+  - `actions/checkout@v4`
+  - `actions/upload-artifact@v4`
+  - `actions/download-artifact@v4`
+  - `actions/setup-node@v4`
+  - `actions/setup-python@v5`
+- **Workflow Structure:** Organize workflows with clear job names and step descriptions.
+- **Caching:** Implement caching for dependencies to speed up workflows.
+- **Security:** Use `GITHUB_TOKEN` with minimum required permissions.
+- **Artifacts:** Use descriptive names for artifacts and set appropriate retention periods.
+- **Matrix Strategy:** Use matrix builds for testing across multiple environments.
+- **Timeouts:** Set appropriate timeouts for jobs to prevent hanging workflows.
+
+## Validation Checks
+- Conditions:
+  - pattern `uses:\\s*actions/upload-artifact@v4` – Good job using the latest version of actions/upload-artifact!
+  - pattern `uses:\\s*actions/download-artifact@v4` – Good job using the latest version of actions/download-artifact!
+  - pattern `uses:\\s*actions/checkout@v[34]` – Good job using a recent version of actions/checkout!
 
 ## Metadata
 - Priority: high
-- Version: 1.2
+- Version: 1.1
+- Tags: ci/cd, github, automation
 
 ---
 > Source: [ivangrynenko/cursorrules](https://github.com/ivangrynenko/cursorrules) — distributed by [TomeVault](https://tomevault.io).
