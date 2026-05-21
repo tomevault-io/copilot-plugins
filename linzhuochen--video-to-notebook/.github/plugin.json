@@ -1,0 +1,9 @@
+{
+  "name": "linzhuochen--video-to-notebook",
+  "displayName": "video-to-notebook",
+  "description": "Read open-course video as one merged notebook using claude/codex \u2014 textbook + concept encyclopedia in a single static site.",
+  "version": "1.0.0",
+  "author": "LinZhuoChen",
+  "homepage": "https://github.com/LinZhuoChen/video-to-notebook",
+  "skills": []
+}
