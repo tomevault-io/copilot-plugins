@@ -1,0 +1,9 @@
+{
+  "name": "grafana--nanogit",
+  "displayName": "nanogit",
+  "description": "A minimal cloud-ready Git implementation.",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/nanogit",
+  "skills": []
+}
