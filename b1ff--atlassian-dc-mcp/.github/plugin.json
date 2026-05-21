@@ -1,0 +1,9 @@
+{
+  "name": "b1ff--atlassian-dc-mcp",
+  "displayName": "atlassian-dc-mcp",
+  "description": "MCP servers for the Atlassian products (Bitbucket, Confluence, JIRA) of the Data Center version",
+  "version": "1.0.0",
+  "author": "b1ff",
+  "homepage": "https://github.com/b1ff/atlassian-dc-mcp",
+  "skills": []
+}
