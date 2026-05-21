@@ -1,0 +1,9 @@
+{
+  "name": "vidaize--cursor-project-rules",
+  "displayName": "cursor-project-rules",
+  "description": "**Cursor Project Rules** is a collection of local documentation that instructs the Cursor AI on how to work efficiently with modern frameworks and libraries. Unlike web-scraped documentation that migh",
+  "version": "1.0.0",
+  "author": "VidAIze",
+  "homepage": "https://github.com/VidAIze/cursor-project-rules",
+  "skills": []
+}
