@@ -7,11 +7,11 @@ The open-source company brain. Run your entire company with AI agents, skills, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [getnao/sylph](https://github.com/getnao/sylph).
+Original source: `CLAUDE.md` in [getnao/sylph](https://github.com/getnao/sylph).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
