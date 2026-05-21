@@ -1,22 +1,44 @@
-## documentation-style
+## edit-verification-protocol
 
-> Write plainly and honestly. We're not selling anything.
+> summary: Protocol for verifying code edits using git diff before debugging logic errors.
 
-# Documentation Style
+summary: Protocol for verifying code edits using git diff before debugging logic errors.
 
-Write plainly and honestly. We're not selling anything.
+objective: Prevent bad edits, ensure verification via diff.
 
-## Guidelines
-- Use simple, direct language
-- State what was done, not how great it is  
-- Start with action verbs: "Added", "Fixed", "Updated", "Removed"
-- Be specific and factual
+generation:
+  edit_directive: MUST use ONLY exact changes + `// ... existing code ...`.
+  constraint: NEVER add unrequested code. Implement requested change altering fewest lines/structures necessary.
 
-## Examples
-- "Added user authentication"
-- "Fixed memory leak in parser" 
-- "Updated API to return JSON"
-- "Removed deprecated endpoints"
+trigger:
+  rule: MANDATORY IF AND ONLY IF ANY Condition Met
+  conditions:
+    - SyntaxError in target file.
+    - Pytest fixture/parameter error involving symbols modified/added by the edit.
+    - ImportError or NameError possibly caused by the edit (e.g., changes to imports, renames, definition moves).
+    - User explicitly questions the applied edit.
+    - Error traceback shows no execution path through the modified code sections.
+  note: If failure mode aligns with the *intended* logic change of the edit AND no triggers above are met, direct logic debugging may precede diff verification.
+
+  apply these steps if and only if one of the following has occurred:
+    1. An edit has apparently failed. Sometimes an edit appears to fail when it has actually succeeded - so check.
+    2. We have reason to believe that an error or unexpected behavior may be the result of a file not having the content we expect it to have.
+
+verification:
+  tool: git diff HEAD <target_file> | cat
+  trigger_condition: MANDATORY AND IF ANY Condition Met
+  conditions:
+
+conflict_resolution:
+  ground_truth: `git diff` IS GROUND TRUTH over intent/preview.
+  actions:
+    - Discard conflicting state/preview if diff differs.
+    - If diff differs: Acknowledge, explain diff vs intent, fix edit FIRST.
+
+debug_flow:
+  - step: Post-edit failure - Check verification triggers.
+  - step: IF trigger met - VERIFY EDIT FIRST (`git diff`). If diff incorrect -> fix edit. If diff correct -> debug logic.
+  - step: IF NO trigger met - Debug logic (assess if failure aligns with edit intent; remain vigilant for latent edit errors).
 
 ---
 > Source: [LuthienResearch/luthien_control](https://github.com/LuthienResearch/luthien_control) — distributed by [TomeVault](https://tomevault.io).
