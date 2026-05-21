@@ -1,0 +1,9 @@
+{
+  "name": "layr-labs--devkit-cli",
+  "displayName": "devkit-cli",
+  "description": "A CLI toolkit for scaffolding, developing, and testing EigenLayer Autonomous Verifiable Services (AVS).",
+  "version": "1.0.0",
+  "author": "Layr-Labs",
+  "homepage": "https://github.com/Layr-Labs/devkit-cli",
+  "skills": []
+}
