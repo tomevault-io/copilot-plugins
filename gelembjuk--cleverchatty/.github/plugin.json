@@ -1,0 +1,9 @@
+{
+  "name": "gelembjuk--cleverchatty",
+  "displayName": "cleverchatty",
+  "description": "Common AI Agent written with Go. Supports MCP, RAG, A2A, AI Memory",
+  "version": "1.0.0",
+  "author": "Gelembjuk",
+  "homepage": "https://github.com/Gelembjuk/cleverchatty",
+  "skills": []
+}
