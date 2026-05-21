@@ -1,0 +1,9 @@
+{
+  "name": "martinapugliese--askademic",
+  "displayName": "askademic",
+  "description": "Agent that summarises literature and answers academic questions using the arXiv API",
+  "version": "1.0.0",
+  "author": "martinapugliese",
+  "homepage": "https://github.com/martinapugliese/askademic",
+  "skills": []
+}
