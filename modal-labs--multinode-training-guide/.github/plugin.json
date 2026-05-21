@@ -1,0 +1,9 @@
+{
+  "name": "modal-labs--multinode-training-guide",
+  "displayName": "multinode-training-guide",
+  "description": "Well documented examples of running distributed training jobs on Modal",
+  "version": "1.0.0",
+  "author": "modal-labs",
+  "homepage": "https://github.com/modal-labs/multinode-training-guide",
+  "skills": []
+}
