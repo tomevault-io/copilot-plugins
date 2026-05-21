@@ -1,0 +1,9 @@
+{
+  "name": "jiaqianjing--comfyui-midjourneyhub",
+  "displayName": "ComfyUI-MidjourneyHub",
+  "description": "ComfyUI \u4e2d\u4f7f\u7528\u5546\u4e1a\u6a21\u578b\u7ed8\u56fe\uff08GPT-Image, MJ, Recraft, Ideogram \u7b49\uff09",
+  "version": "1.0.0",
+  "author": "jiaqianjing",
+  "homepage": "https://github.com/jiaqianjing/ComfyUI-MidjourneyHub",
+  "skills": []
+}
