@@ -4,7 +4,7 @@
   "repo": "PuPu",
   "description": "PuPu is a lightweight, cross-platform desktop AI client that works with both local and cloud-hosted models. Whether you prefer running models on your own machine or connecting to providers like OpenAI and Anthropic, PuPu gives you a unified, elegant interface \u2014 your AI, your rules.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haoxiang-xu/PuPu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T15:36:16Z"
+  "distributed_at": "2026-05-21T04:15:25Z"
 }
