@@ -1,0 +1,44 @@
+{
+  "name": "homeassistant-hoymiles-cloud",
+  "owner": "Philra94",
+  "repo": "homeassistant-hoymiles-cloud",
+  "description": "Home Assistant integration for Hoymiles Cloud API, primarily developed for HYT inverters with battery storage systems. This integration provides monitoring of solar production, energy flows, and battery status, with full configuration capabilities for battery operating modes (Self-Consumption, Economy, Backup, Off-Grid, Peak Shaving, Time of Use).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Philra94/homeassistant-hoymiles-cloud",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T10:27:57Z"
+}
