@@ -1,0 +1,9 @@
+{
+  "name": "yaroslavyaroslav--llm-runner",
+  "displayName": "llm_runner",
+  "description": "OpenAI-sublime-text package core package implemented in rust",
+  "version": "1.0.0",
+  "author": "yaroslavyaroslav",
+  "homepage": "https://github.com/yaroslavyaroslav/llm_runner",
+  "skills": []
+}
