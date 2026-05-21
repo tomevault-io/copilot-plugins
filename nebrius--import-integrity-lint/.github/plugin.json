@@ -1,0 +1,9 @@
+{
+  "name": "nebrius--import-integrity-lint",
+  "displayName": "import-integrity-lint",
+  "description": "High-performance ESLint/Oxlint plugin that catches dead code, broken imports, and architectural violations. Optimized for monorepos.",
+  "version": "1.0.0",
+  "author": "nebrius",
+  "homepage": "https://github.com/nebrius/import-integrity-lint",
+  "skills": []
+}
