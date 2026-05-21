@@ -1,82 +1,105 @@
-## location-rule
+## on-load-rule
 
-> Rules for placing and organizing Cursor rule files in the repository.
+> MUST READ AT START - Critical Development Principles
 
----
-description: Cursor Rules Location
-globs: *.mdc
----
-# Cursor Rules Location
+# Critical Development Principles
 
-Rules for placing and organizing Cursor rule files in the repository.
+Rule for establishing non-negotiable development principles that must be followed at all times.
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: critical_development_principles
 filters:
-  # Match any .mdc files
-  - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
   - type: event
-    pattern: "file_create"
+    pattern: "load"
+  - type: event
+    pattern: "start"
+  - type: event
+    pattern: "cursor_start"
+  - type: command
+    pattern: "help"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+  - type: react
+    event: "load"
+    priority: critical
+    action: |
+      # Non-negotiable development principles
+      
+      I MUST follow these principles for ALL development activities:
+      
+      1. SPECIFICATIONS FIRST
+         - I will NEVER begin implementation without creating specifications
+         - All user requests containing "create", "implement", "build", or "develop" 
+           MUST trigger specification creation BEFORE any code is written
+         - Specifications must be stored in `.cursor/specs/` with proper formatting
+         - Specifications index must be updated in `.cursor/SPECS.md`
+         - This is managed by the specification_management rule
+      
+      2. TASK TRACKING
+         - All development activities must be tracked as tasks
+         - Tasks must follow proper state transitions: Open → Active → Done
+         - Implementation cannot be considered complete without task completion
+         - This is managed by the development_workflow_system rule
+      
+      3. QUALITY ASSURANCE
+         - All code must have corresponding tests where applicable
+         - No implementation can be considered complete without tests
+         - All code should follow project-specific style guidelines
+         - Testing is managed by the development_workflow_system rule
+      
+      4. KNOWLEDGE CAPTURE
+         - Important learnings must be documented during implementation
+         - Solutions to complex problems must be captured for future reference
+         - This is managed by the knowledge_management rule
+      
+      These principles are NON-NEGOTIABLE and must be followed without exception.
+      Failure to follow these principles is considered a critical error.
+
+  - type: react
+    event: "cursor_start"
+    priority: critical
+    action: |
+      # Initialization check for development principles
+      
+      I will verify:
+      
+      1. Specifications directory exists (.cursor/specs/) - managed by specification_management rule
+      2. Task tracking is properly configured (.cursor/tasks/) - managed by development_workflow_system rule
+      3. Knowledge capture system is ready (.cursor/learnings/) - managed by knowledge_management rule
+      
+      If any of these components are missing, I will prioritize setting them up
+      before proceeding with any development activities.
+      
+      I will also remind myself that SPECIFICATIONS MUST COME BEFORE IMPLEMENTATION
+      for any request involving creation or development of new features.
 
   - type: suggest
     message: |
-      When creating Cursor rules:
-
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
-
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
-
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      ### Critical Development Principles
+      
+      As your AI assistant, I'm following these critical principles:
+      
+      1. **Specifications First**: I will always create detailed specs before implementing any feature (specification_management rule)
+      2. **Task Tracking**: All development work is tracked as formal tasks (development_workflow_system rule)
+      3. **Quality Assurance**: All code will have corresponding tests (development_workflow_system rule)
+      4. **Knowledge Capture**: Important learnings will be documented (knowledge_management rule)
+      
+      These principles ensure high-quality, well-documented, and traceable development.
+      I will follow this workflow for all implementation requests.
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
+      Help me create a new feature
+    output: "Before implementing this feature, I'll create detailed specifications for it."
 
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+  - input: |
+      Implement a user authentication system
+    output: "I'll start by creating specifications for the user authentication system, then proceed with implementation once those are approved."
 
 metadata:
-  priority: high
+  priority: critical
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [AndreRatzenberger/cursor-rules](https://github.com/AndreRatzenberger/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
