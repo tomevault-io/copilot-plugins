@@ -1,0 +1,9 @@
+{
+  "name": "magarcia--mcp-server-giphy",
+  "displayName": "mcp-server-giphy",
+  "description": "An implementation of Giphy integration with Model Context Protocol",
+  "version": "1.0.0",
+  "author": "magarcia",
+  "homepage": "https://github.com/magarcia/mcp-server-giphy",
+  "skills": []
+}
