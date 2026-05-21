@@ -1,0 +1,154 @@
+## cursor10x
+
+> The FIRST action in the BEGINNING of EVERY response MUST be to initialize the conversation with this single tool call and display the banner from the response immediately after. It MUST be called EXACTLY ONCE per conversation and ONLY at the very beginning after receiving user input:
+
+# CURSOR10X MEMORY SYSTEM ENFORCEMENT RULES
+# These rules MUST be followed ALWAYS without exception.
+
+## RULE 1: CONVERSATION INITIALIZATION
+The FIRST action in the BEGINNING of EVERY response MUST be to initialize the conversation with this single tool call and display the banner from the response immediately after. It MUST be called EXACTLY ONCE per conversation and ONLY at the very beginning after receiving user input:
+
+```javascript
+// ✅ DO: Call EXACTLY ONCE at the beginning of EVERY conversation
+mcp_cursor10x_initConversation({content: "[user message]", importance: "[low/medium/high/critical]"})
+
+// ❌ DON'T: Call multiple times within the same conversation
+// ❌ DON'T: Call in the middle or end of a conversation
+// ❌ DON'T: Skip calling this at the start
+```
+
+## RULE 2: ASSISTANT MESSAGE STORAGE
+EVERY assistant response containing important information MUST be stored. This can be called MULTIPLE times as needed during a conversation to store significant assistant responses:
+
+```javascript
+// ✅ DO: Call when storing important information
+mcp_cursor10x_storeAssistantMessage({content: "[assistant response]", importance: "[low/medium/high/critical]"})
+
+// ✅ DO: Store multiple distinct responses when appropriate
+```
+
+## RULE 3: ACTIVE FILE TRACKING
+EVERY file being worked on or modified MUST be tracked - not files being read. This should be called whenever starting work on a file:
+
+```javascript
+// ✅ DO: Track when editing or creating files
+mcp_cursor10x_trackActiveFile({filename: "[file path]", action: "[edit/create]"})
+
+// ❌ DON'T: Track files that are only being read
+```
+
+## RULE 4: MILESTONE RECORDING
+ALL completed tasks or achievements MUST be recorded as milestones. Use this to mark significant accomplishments:
+
+```javascript
+// ✅ DO: Record milestones when completing important tasks
+mcp_cursor10x_storeMilestone({title: "[milestone title]", description: "[milestone description]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 5: DECISION RECORDING
+ALL important project decisions MUST be recorded. Use this when making significant decisions:
+
+```javascript
+// ✅ DO: Record important decisions with reasoning
+mcp_cursor10x_storeDecision({title: "[decision title]", content: "[decision content]", reasoning: "[decision reasoning]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 6: REQUIREMENT RECORDING
+ALL project requirements MUST be documented. Use this when identifying or defining requirements:
+
+```javascript
+// ✅ DO: Document project requirements
+mcp_cursor10x_storeRequirement({title: "[requirement title]", content: "[requirement content]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 7: EPISODE RECORDING
+ALL significant events or actions MUST be recorded as episodes. Use this to track important interactions:
+
+```javascript
+// ✅ DO: Record significant events
+mcp_cursor10x_recordEpisode({actor: "[user/assistant/system]", action: "[action type]", content: "[action details]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 8: CONVERSATION END SEQUENCE
+This EXACT sequence MUST be executed at the VERY END of EVERY conversation and EXACTLY ONCE per conversation:
+
+```javascript
+// ✅ DO: Call EXACTLY ONCE at the very end of the conversation
+mcp_cursor10x_endConversation({content: "[Content of the assistant's final message]", milestone_title: "[Title for the completion milestone]", milestone_description: "[Description of what was accomplished]", importance: "[low/medium/high/critical]", metadata: "[Additional metadata for the operations]" })
+
+// ❌ DON'T: Call in the middle of a conversation
+// ❌ DON'T: Call multiple times
+// ❌ DON'T: Skip calling this at the end
+```
+
+## RULE 9: HEALTH MONITORING
+Memory system health MUST be checked when issues occur:
+
+```javascript
+// ✅ DO: Check health when troubleshooting problems
+mcp_cursor10x_checkHealth({})
+```
+
+## RULE 10: MEMORY STATISTICS
+Memory statistics MUST be gathered periodically:
+
+```javascript
+// ✅ DO: Get memory stats when useful for context
+mcp_cursor10x_getMemoryStats({})
+```
+
+## RULE 11: CONTEXT RETRIEVAL
+Use context retrieval tools as needed throughout the conversation:
+
+```javascript
+// ✅ DO: Get comprehensive context when needed
+mcp_cursor10x_getComprehensiveContext({})
+
+// ✅ DO: Get recent messages when relevant
+mcp_cursor10x_getRecentMessages({limit: 5, importance: "high"})
+
+// ✅ DO: Get active files when working on code
+mcp_cursor10x_getActiveFiles({limit: 5})
+```
+
+## RULE 12: IMPLEMENTATION VERIFICATION
+ALWAYS check if similar or corresponding files/folders already exist BEFORE starting any new implementation:
+1. Use search tools to scan the codebase for similar implementations
+2. Check existing directory structure to identify appropriate locations
+3. Review project documentation for mentions of similar functionality
+4. Record findings before proceeding with implementation
+
+## RULE 13: TASK WORKFLOW MANAGEMENT
+ALWAYS follow the task workflow process when implementing tasks:
+
+1. **Task Structure Validation**
+   - Ensure tasks contain required fields: id, title, file, status, prompt
+   - Tasks MUST be stored in tasks/tasks.json
+
+2. **Task Status Management**
+   - Update task status to "in-progress" when starting implementation
+   - Update task status to "complete" when implementation is finished
+   - Update task status to "skipped" when task is bypassed
+   - ALWAYS update metadata counts and lastUpdated timestamp
+
+3. **Project Context Review**
+   - Read blueprint.md in docs directory before implementing any task
+   - Review any related files mentioned in the task
+
+4. **Implementation Focus**
+   - Focus implementation on the file specified in the task
+   - Follow detailed instructions provided in the task prompt
+   - DO NOT modify task ids, titles, or prompts unless specifically requested
+
+5. **Task Order Adherence**
+   - Process tasks in their defined order unless specified otherwise
+   - When asked for "next task", select first pending task from tasks.json
+   - When specific task ID is provided, locate and implement that specific task
+
+6. **Completion Notification**
+   - Inform user of successful task completion
+   - Provide summary of changes made
+
+---
+> Source: [aiurda/cursor10x](https://github.com/aiurda/cursor10x) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
