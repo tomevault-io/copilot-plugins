@@ -1,0 +1,9 @@
+{
+  "name": "nganiet--mcp-vercel",
+  "displayName": "mcp-vercel",
+  "description": "MCP server connecting Claude to Vercel",
+  "version": "1.0.0",
+  "author": "nganiet",
+  "homepage": "https://github.com/nganiet/mcp-vercel",
+  "skills": []
+}
