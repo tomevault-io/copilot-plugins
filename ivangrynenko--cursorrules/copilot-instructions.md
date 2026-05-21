@@ -1,49 +1,61 @@
-## build-optimization
+## code-generation-standards
 
-> Webpack/Vite configuration and build process optimization
+> Standards for code generation and implementation
 
-# Enhanced Build Process Optimization
+# Enhanced Code Generation Standards
 
-Ensures optimal build configuration and process for better performance and maintainability.
+Ensures high-quality, executable code generation adhering to best practices across multiple programming languages.
 
 ## Rule Details
 
-- **Name:** enhanced_build_optimization
+- **Name:** enhanced_code_generation_standards
 
-- **Description:** Enforce standards for optimizing build processes
+- **Description:** Enforce standards for code generation ensuring high quality and integration readiness
 
 ## Filters
-- file extension pattern: `"\\.(js|ts|json)$"  # Expanded to cover more config file types`
+- file extension pattern: `"\\.(php|js|ts|vue|jsx|tsx|py|rb|java)$"  # Expanded to include Ruby and Java`
 
 ## Enforcement Checks
 - Conditions:
-  - pattern `mode:\\s*['\"]development['\"]` – negated `process\\.env\\.NODE_ENV === 'development'` – Set 'mode' to 'production' for production builds unless dynamically set by NODE_ENV.
-  - pattern `devtool:\\s*['\"]eval` – Use 'source-map' or 'hidden-source-map' for production builds to balance performance and debugging.
-  - pattern `optimization:\\s*{[^}]*?splitChunks:\\s*{[^}]*?chunks:\\s*(?!'all')` – Enable code splitting for all chunks in optimization settings.
-  - pattern `optimization:\\s*{[^}]*?usedExports:\\s*(?!true)` – Enable tree shaking by setting 'usedExports' to true.
-  - pattern `output\\s*:\\s*{[^}]*?filename:\\s*['\"][^\\[]+['\"]` – Use content hashing in filenames for better caching (e.g., '[name].[contenthash].js').
+  - pattern `// TODO:|#\\s*TODO:` – Replace TODOs with actual implementation - no placeholders allowed.
+  - pattern `function\\s+\\w+\\s*\\([^)]*\\)\\s*\\{\\s*(?:return\\s+null|throw\\s+new\\s+Error|console\\.log)\\s*\\}` – Implement full functionality - no stub methods.
+  - pattern `\\bif\\b\\s*\\(\\s*false\\s*\\)` – Remove or replace conditional statements that are always false.
+  - pattern `\\bconsole\\.[^(]+|print\\s*\\(` – negated `DEBUG|LOGGING` – Remove debug logging unless it's conditional on a debug flag.
+  - pattern `^\\s*#\\s*\\w+:\\s*\\w+\\s*$` – In Python, prefer type hints over comments for type annotations.
 
 ## Suggestions
 - Guidance:
-**Build Optimization Best Practices:**
-- **Code Splitting:** Implement code splitting to load only what's necessary for each page or component.
-- **Tree Shaking:** Enable tree shaking to eliminate dead code, which reduces bundle size.
-- **Asset Optimization:**
-  - Compress images and use modern formats like WebP where supported.
-  - Use lazy loading for images and other media.
-- **Caching:**
-  - Configure proper caching strategies (e.g., HTTP headers, service workers for PWA).
-  - Use long-term caching for static assets with content hashing in filenames.
-- **Modern JavaScript:** 
-  - Use ES6+ features but ensure polyfills for older browsers if needed.
-  - Consider using features like module/nomodule for graceful degradation.
-- **Minification & Compression:** Ensure all JavaScript and CSS are minified and consider enabling gzip compression on the server.
-- **Performance Budgets:** Set performance budgets to keep bundle sizes in check.
-- **Environment Variables:** Use environment variables for configuration differentiation between development and production.
-- **CI/CD:** Integrate with CI/CD pipelines for automated builds and testing, ensuring only optimized code goes to production.
+**Code Generation Best Practices:**
+- **Executable Solutions:** Generate fully functional code, not just skeletons or stubs.
+- **Readability:** 
+  - Prioritize code readability, with clear naming conventions and logical structure.
+  - Use whitespace effectively to enhance code clarity.
+- **Error Handling:** 
+  - Implement comprehensive error handling with appropriate exceptions or error codes.
+  - Consider edge cases and provide meaningful error messages.
+- **Imports/Dependencies:** 
+  - Include all necessary imports or require statements at the beginning of the file.
+  - Manage dependencies to ensure the code is self-contained or clearly documented for setup.
+- **Integration:** 
+  - Code should be immediately usable within the project's existing framework or technology stack.
+  - Ensure compatibility with existing patterns or libraries used in the project.
+- **Formatting:** 
+  - Adhere to the project's coding style guide (e.g., Prettier, Black for Python, etc.).
+  - Use linters and formatters to maintain consistent code style.
+- **Testing:** 
+  - Include unit or integration tests where applicable to validate generated code.
+  - Encourage test-driven development if part of the project's culture.
+- **Documentation:** 
+  - Provide inline comments for complex logic or algorithms.
+  - Write docstrings or JSDoc for functions, classes, and modules to describe usage, parameters, and return values.
+  - Consider generating external documentation if the project uses tools like Swagger for APIs or Sphinx for Python.
+- **Security:** 
+  - Avoid hardcoded credentials or sensitive information.
+  - Follow security best practices for the language (e.g., SQL injection prevention in PHP, XSS in JavaScript).
+- **Performance:** While readability takes precedence, be mindful of performance implications of the generated code.
 
 ## Metadata
-- Priority: high
+- Priority: critical
 - Version: 1.2
 
 ---
