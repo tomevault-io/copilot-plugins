@@ -1,0 +1,44 @@
+{
+  "name": "gemini-cli",
+  "owner": "frostdev-ops",
+  "repo": "gemini-cli",
+  "description": "> Gemini Rust Suite \ud83e\udd80: A powerful, modular Rust toolkit for interacting with Google Gemini. Features a feature-rich CLI, persistent semantic memory (LanceDB), and extensible tool integration via the Model Context Protocol (MCP).",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/frostdev-ops/gemini-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T00:31:11Z"
+}
