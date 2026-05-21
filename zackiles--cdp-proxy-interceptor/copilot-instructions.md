@@ -1,27 +1,37 @@
-## generate-prompt
+## javascript
 
-> Steps to take when you've been tasked with generating a prompt
+> Generating code in Javascript and Typescript files
 
-## Generating Prompts  
-When asked to generate a prompt, you will output a fully comprehensive prompt that includes a detailed set of numbered steps for the AI Agent tasked with executing on that prompt. Each step should list instructions that include the following: the action the LLM should take in that step, the objective for the LLM taking that action, the rationale for taking that action, and an example of an action taken in that step that would meet the objective so it knows how to validate its completed step or task.  
+## Coding Style Guide (Mandatory or Strongly Encouraged)  
+**Naming:** snake_case for file names, camelCase for instance names, PascalCase for class and symbol names, UPPER_SNAKE_CASE for constants.  
 
-## Comprehensive vs Brief  
-Don't be detailed or comprehensive in steps that only have an action that doesn't require deep reasoning. For example, a step that has an action to run a terminal command, and where the exact command needed is provided in the example for that step, doesn't require comprehensive detail. Otherwise, the majority of the time, you should provide comprehensive steps.
+**Code Ordering:** Remote Imports → Local Imports → Hoisted Variables and References → Methods → Exports.  
 
-## Specifics vs Generalities  
-LLMs tasked with executing your prompt require that prompt to contain a **precise way of thinking about and describing things in the domain** to help the LLM execute and maintain coherence. Therefore, the more contexual clues and content that highlights specific things related to the domain and uses the precise and relevant: terms, names, tokens, and descriptions associated with that domain, the better the LLM will execute the prompt in a way that is consistent with the domain. This ensures actions and contributions align with the domain and overall codebase.
+**Syntax:**
+- Prefer ES6 syntax, modern JavaScript features, and concise expressions.  
+- Use ternary operators (`? :`), optional chaining (`?.`), and nullish coalescing (`??`) for safe, clean logic.  
+- Favor arrow functions with implicit returns and template literals (``) for readability.  
+- Apply spread (`...`), rest parameters, and destructuring for concise object and array handling.  
+- Use functional methods (`map`, `filter`, `reduce`) over loops and return early to avoid nesting.  
+- Avoid redundant variables and instead directly return expressions and chain methods when possible.  
+- Handle async logic with `.catch()` instead of `try/catch` for single calls.  
+- Leverage Proxy, Reflect, and advanced JavaScript methods for flexible solutions.  
+- Keep code expressive, maintainable, and optimized for readability.
 
-### Examples of specifics:  
-- Full file paths if files are mentioned  
-- When generating code snippets, ensure they look exactly like the code found in the codebase  
-- Describing and organizing your output similar to a structured technical specification, using the exact names of methods, properties, inputs/outputs, commands, tokens, entities, library names, terms, and language used in the codebase when it is reasonable and appropriate to do so  
-- Structured elements in your output, such as objects, tables, formulas, labels, or simple human-readable expressions that represent evaluations or logic in a formulaic way  
+**Documentation In Code:** Functions and files documented with JSDoc wherever possible.  
 
-### Examples of generalities:  
-- Blocks of text and bullet points that are loosely related but not organized  
-- Focusing more on the "Why" instead of the "What" and "How"  
-- Providing multiple options but not making it clear what your preferred option should be  
-- Answering questions or generating code before you've taken the time to research the wider topic within the codebase to ensure your output is strictly informed by the broad current state of the codebase  
+**Functional VS OOP:** Codebases can often have a handful of core entities the domain is modeled around. If this is the case and those entities have these characteristics, then they'd likely benefit from being rewritten as a class: managing a lot of state relative to other parts of the code, representing an unreasonable amount of tightly coupled properties, functions, or state, or trying to define a strict interface between consumers and integrators. Otherwise, pure functions and simple/straightforward code are the default approach.  
+
+**Composition:** Even when designing classes and relationships, a Compositional approach over a Generalization-Specialization approach is preferred.  
+
+**Pragmatic PoCs:** New codebases require quick prototyping and will benefit from the following: flat file and folder structures, no or little tests besides maybe one smoke test, unopinionated and flexible design choices, and a strong preference for using modern open-source libraries or tools. If the codebase has fewer than 5 main JavaScript or TypeScript files written, then the actions you take or the things you propose should focus on the absolute minimal amount of effort required to meet the objective of the codebase.  
+
+- **NOTE:** When updating code, NEVER remove JSDoc or linting comments unless the code change specifically asks you to.  
+
+## Design Patterns and Approaches (Preferred)  
+- **TypeScript Types:** Avoid creating or using types wherever possible for internal classes, methods, variables, or interfaces. Only use types on the surface and boundary of our application where there is a public or exposed output or input, unless when providing exports to consumers of an interface. For example, if the codebase is a library, only the methods the library exposes to a consumer and their arguments might have types.  
+
+- **Private / Public Interfaces:** Make clear distinctions whenever possible.
 
 ---
 > Source: [zackiles/cdp-proxy-interceptor](https://github.com/zackiles/cdp-proxy-interceptor) — distributed by [TomeVault](https://tomevault.io).
