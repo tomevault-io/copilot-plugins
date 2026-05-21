@@ -1,0 +1,9 @@
+{
+  "name": "kodrea--rs300-v4l2-driver",
+  "displayName": "rs300-v4l2-driver",
+  "description": "rs300-v4l2-driver",
+  "version": "1.0.0",
+  "author": "Kodrea",
+  "homepage": "https://github.com/Kodrea/rs300-v4l2-driver",
+  "skills": []
+}
