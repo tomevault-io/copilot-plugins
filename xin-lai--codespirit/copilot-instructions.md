@@ -1,141 +1,245 @@
-## all
+## amis-cards
 
-> description: CodeSpirit 全局开发规范概览 - 核心原则和规范索引
+> 本文档定义了 CodeSpirit Amis Cards V2.0 项目的核心原则，确保开发过程保持一致性和高质量。
 
-﻿---
-description: CodeSpirit 全局开发规范概览 - 核心原则和规范索引
-globs: 
-alwaysApply: true
----
+# CodeSpirit Amis Cards V2.0 基本原则
 
-# 通用要求
+## 概述
 
-- 严格遵守项目结构规范，保持代码组织一致性
-- EF 迁移按数据库目录创建（SqlServer/MySql）
-- 分布式程序优先考虑：高可用、容错、降级、最终一致性
-- 所有面向用户的文本必须支持多语言（中文/英文）
-- 异步编程：所有 I/O 操作使用 `async/await`，禁止 `Task.Result` 和 `Task.Wait()`
+本文档定义了 CodeSpirit Amis Cards V2.0 项目的核心原则，确保开发过程保持一致性和高质量。
 
-> 💡 **详细规范**: 本文件是全局概览，详细规范请参考专项文档
+## 🎯 核心原则
 
-# 技术栈
+### 1. 完全隔离原则
 
-- **框架**: .NET 10 + Aspire 13.0
-- **数据库**: MySQL 8.0 / SQL Server 2022 + GreptimeDB（审计）
-- **缓存/消息**: Redis + RabbitMQ
-- **前端**: React + AMIS (AntD 主题)
-- **AI**: OpenAI、通义千问、DeepSeek
+**原则描述**: 与现有 `cards-sdk` 完全隔离，确保两个系统可以长期并存。
 
-# 核心规范
+**执行要求**:
+- ✅ 使用独立的命名空间 `AmisCards`
+- ✅ 所有文件路径使用 `/amis-cards/` 前缀
+- ✅ CSS类名使用 `amis-cards-` 前缀
+- ✅ 全局变量使用 `window.AmisCards` 命名空间
+- ✅ 不引用或依赖现有 `cards-sdk` 的任何文件
+- ❌ 禁止修改现有 `cards-sdk` 的任何代码
+- ❌ 禁止使用与 `cards-sdk` 相同的类名或变量名
 
-## 统一启动框架
-- Program.cs 仅需 2 行代码 + 配置类继承 `BaseApiConfiguration`
-- 📖 [详细规范](mdc:.cursor/rules/startup-framework.mdc)
+### 2. 配置优先原则
 
-## 依赖注入
-- 自动注册：`IScopedDependency` / `ITransientDependency` / `ISingletonDependency`
-- 📖 [详细规范](mdc:.cursor/rules/dependency-injection.mdc)
+**原则描述**: 优先使用配置化开发，减少手写代码，提高开发效率。
 
-## 命名约定
-- 实体：`User`、DTO：`CreateUserDto`、服务：`UserService`、控制器：`UsersController`
-- 📖 [详细规范](mdc:.cursor/rules/naming-conventions.mdc)
+**执行要求**:
+- ✅ 所有卡片通过JSON配置定义
+- ✅ 页面布局通过Amis Page配置实现
+- ✅ 主题样式通过CSS变量配置
+- ❌ 禁止硬编码业务逻辑
+- ❌ 禁止在渲染器中写死样式值
 
-## API 设计
-- RESTful 标准 + 统一响应格式 `ApiResponse<T>` + 操作特性标记
-- 📖 [详细规范](mdc:.cursor/rules/api-design.mdc)
+### 3. 渐进增强原则
 
-## 多语言国际化
-- 支持中英文 + 资源文件 + DTO 验证特性多语言
-- 📖 [详细规范](mdc:.cursor/rules/i18n.mdc)
+**原则描述**: 从基础功能开始，逐步增加高级功能，确保每个阶段都是可用的。
 
-## AI 功能开发
-- AI 表单填充（`[AiFormFill]`）+ AI 长任务（`aiForm`）+ LLM 集成
-- 📖 [详细规范](mdc:.cursor/rules/ai-development.mdc)
+**执行要求**:
+- ✅ 优先实现核心卡片类型（统计卡片）
+- ✅ 确保基础功能完整可用后再添加高级功能
+- ✅ 每个功能模块独立可测试
+- ❌ 禁止一次性实现所有功能
+- ❌ 禁止跳过基础功能直接实现高级功能
 
-## 性能优化
-- 异步编程 + 多级缓存（L1+L2）+ EF Core 查询优化
-- 📖 [详细规范](mdc:.cursor/rules/performance.mdc)
+**实施顺序**:
+1. 核心SDK + 统计卡片
+2. 图表卡片 + 信息卡片
+3. 操作卡片 + 表单卡片
+4. 插件系统 + 高级功能
 
-## 安全规范
-- 权限控制（`[Authorize]` + `[RequirePermission]`）+ 审计追踪 + 数据加密
-- 📖 [详细规范](mdc:.cursor/rules/security.mdc)
+### 4. 模块化架构原则
 
-## 包管理规范
-- 集中式包管理：所有包版本在 `Directory.Packages.props` 中统一管理
-- 项目文件中只引用包名，不指定版本
-- 避免冗余引用：通过传递依赖可用的包不需要显式引用
-- 📖 [详细规范](mdc:.cursor/rules/package-management.mdc)
+**原则描述**: 采用模块化设计，确保代码可维护、可扩展、可测试。
 
-# 数据访问
+**执行要求**:
+- ✅ 每个卡片类型独立的渲染器文件
+- ✅ 样式按功能模块分离
+- ✅ 配置文件按业务域分组
+- ❌ 禁止模块间紧耦合
+- ❌ 禁止在一个文件中混合多个功能
 
-- **多数据库支持**: 使用数据库特定 DbContext（`SqlServer{Service}DbContext` / `MySql{Service}DbContext`）
-- **Code First 迁移**: 按数据库创建独立迁移（SqlServer/MySql），**必须使用数据库特定 DbContext**
-- **雪花 ID 配置**: 使用 `IIdGenerator` 的实体必须配置 `ValueGeneratedNever()`
-- **实体配置**: `IEntityTypeConfiguration<T>`
-- **只读查询**: `AsNoTracking()`，避免 N+1 用 `Include` + `AsSplitQuery()`
-- **多租户**: 实体实现 `IMultiTenant`，自动应用租户过滤器
-- 📖 [详细规范](mdc:.cursor/rules/database.mdc)
+### 5. 向后兼容原则
 
-# 代码质量
+**原则描述**: 确保API和配置的向后兼容性，避免破坏性变更。
 
-- 一个 .cs 文件一个顶级类型
-- XML 文档注释：`<summary>`, `<param>`, `<returns>`, `<exception>`
-- 时间使用 UTC 格式
+**执行要求**:
+- ✅ API接口保持稳定
+- ✅ 配置格式向后兼容
+- ✅ 提供版本迁移指南
+- ❌ 禁止直接删除已发布的API
+- ❌ 禁止修改已有配置的语义
 
-# 组件使用
+## 🔧 技术原则
 
-- **AMIS**: `antd` 主题，CSS 类用 `antd-` 前缀，特性驱动
-- **LLM**: 使用 `ILLMClientFactory`，提示词指定 JSON 输出
+### 6. 性能优先原则
 
-# 调试运行
+**原则描述**: 确保良好的性能表现，特别是在大数据量和移动端场景。
 
-- **启动**: `CodeSpirit.AppHost` (Aspire 协调) → `aspire run` 或 F5
-- **Dashboard**: Aspire 管理面板
-- **健康检查**: `/health`
+**执行要求**:
+- ✅ 初始化时间 < 500ms
+- ✅ 卡片渲染时间 < 300ms
+- ✅ 内存使用 < 50MB
+- ✅ 支持虚拟滚动和分页
+- ✅ 实现防抖和节流
+- ❌ 禁止内存泄漏
+- ❌ 禁止阻塞UI线程
 
-# 项目结构
+### 7. 响应式设计原则
 
+**原则描述**: 采用移动优先的响应式设计，确保在所有设备上都有良好体验。
+
+**执行要求**:
+- ✅ 移动优先的CSS媒体查询
+- ✅ 流式网格布局系统
+- ✅ 触控友好的交互设计
+- ✅ 自适应的字体和间距
+- ✅ 支持横竖屏切换
+- ❌ 禁止固定像素尺寸
+- ❌ 禁止仅为桌面端优化
+
+**响应式断点**:
+- `xs`: < 576px (手机)
+- `sm`: 576px - 768px (平板竖屏)
+- `md`: 768px - 992px (平板横屏)
+- `lg`: 992px - 1200px (桌面)
+- `xl`: ≥ 1200px (大屏桌面)
+
+## 🎨 设计原则
+
+### 8. 一致性原则
+
+**原则描述**: 保持视觉和交互的一致性，提供统一的用户体验。
+
+**执行要求**:
+- ✅ 统一的颜色系统和主题
+- ✅ 一致的组件行为和交互
+- ✅ 统一的图标和字体规范
+- ❌ 禁止随意偏离设计系统
+
+### 9. 用户体验原则
+
+**原则描述**: 以用户为中心，提供直观、高效的使用体验。
+
+**执行要求**:
+- ✅ 统一的设计语言和视觉风格
+- ✅ 一致的交互模式和行为
+- ✅ 标准化的组件和样式
+- ✅ 统一的错误处理和反馈
+- ❌ 禁止不一致的视觉设计
+- ❌ 禁止相同功能的不同交互方式
+
+**设计系统**:
+```css
+:root {
+    /* 统一的设计令牌 */
+    --amis-cards-primary: #007bff;
+    --amis-cards-border-radius: 6px;
+    --amis-cards-box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --amis-cards-transition: all 0.3s ease;
+}
 ```
-Src/
-├── ApiServices/        # 14个API服务（Identity, Exam, Survey, AI等）
-├── Components/         # 多个核心组件（Amis, LLM, Caching等）
-├── CodeSpirit.AppHost/ # Aspire应用宿主
-├── CodeSpirit.Core/    # 核心框架
-└── CodeSpirit.Web/     # Web前端
+
+### 10. 数据安全原则
+
+**原则描述**: 确保数据传输和存储的安全性，防止安全漏洞。
+
+**执行要求**:
+- ✅ 直观的界面布局和导航
+- ✅ 及时的反馈和状态提示
+- ✅ 合理的默认值和智能推荐
+- ✅ 流畅的动画和过渡效果
+- ✅ 容错性设计和错误恢复
+- ❌ 禁止复杂难懂的操作流程
+- ❌ 禁止无反馈的用户操作
+
+**用户体验检查点**:
+- 新用户能否在5分钟内上手？
+- 常用操作是否在3次点击内完成？
+- 错误信息是否清晰可理解？
+- 加载状态是否有适当提示？
+
+### 11. 权限控制原则
+
+**原则描述**: 实现细粒度的权限控制，确保用户只能访问授权的功能。
+
+**执行要求**:
+- ✅ 必须集成现有TokenManager认证系统
+- ✅ 支持基于角色的权限控制
+- ✅ 功能级和数据级权限验证
+- ❌ 禁止绕过权限检查
+
+## 📋 质量原则
+
+### 12. 代码质量原则
+
+**原则描述**: 保持高质量的代码标准，确保可读性和可维护性。
+
+**执行要求**:
+- ✅ 清晰的命名规范
+- ✅ 完整的代码注释
+- ✅ 合理的函数和类设计
+- ✅ 统一的代码风格
+- ❌ 禁止复杂的嵌套逻辑
+- ❌ 禁止重复代码
+
+### 13. 测试覆盖原则
+
+**原则描述**: 确保充分的测试覆盖，保证代码质量和功能稳定性。
+
+**执行要求**:
+- ✅ 核心功能单元测试
+- ✅ 集成测试覆盖
+- ✅ 浏览器兼容性测试
+- ✅ 性能测试验证
+
+## 📖 文档原则
+
+### 14. 文档完整性原则
+
+**原则描述**: 提供完整、准确、易懂的文档，降低使用和维护成本。
+
+**执行要求**:
+- ✅ API接口文档完整
+- ✅ 配置选项说明详细
+- ✅ 示例代码可运行
+- ✅ 常见问题解答
+- ❌ 禁止过时的文档内容
+
+**文档结构**:
+```
+docs/
+├── api.md              # API参考文档
+├── components.md       # 组件使用指南
+├── examples.md         # 完整示例
+├── troubleshooting.md  # 故障排除
+├── theming.md          # 主题定制
+└── migration.md        # 迁移指南
 ```
 
-📖 [完整项目结构](mdc:.cursor/rules/project-structure.mdc)
+### 15. 渐进式部署原则
 
-# 规范文档索引
+**原则描述**: 采用渐进式部署策略，降低上线风险。
 
-## 通用规范
-- [C#通用规范](mdc:.cursor/rules/cs.mdc) - XML注释、时间格式、序列化
-- [命名约定](mdc:.cursor/rules/naming-conventions.mdc) - 实体、DTO、服务、控制器命名
+**执行要求**:
+- ✅ 分阶段功能发布
+- ✅ 灰度测试验证
+- ✅ 回滚方案准备
+- ❌ 禁止一次性大规模变更
 
-## 按文件类型
-- [DTO规范](mdc:.cursor/rules/dto.mdc) - DTO特性、验证、映射
-- [控制器规范](mdc:.cursor/rules/controller.mdc) - API控制器、操作特性
-- [服务类规范](mdc:.cursor/rules/service.mdc) - 服务接口、实现、生命周期
-- [枚举规范](mdc:.cursor/rules/enum.mdc) - 枚举定义、多语言支持
+### 16. 持续改进原则
 
-## 专项规范
-- [API设计](mdc:.cursor/rules/api-design.mdc) - RESTful、路由、响应格式
-- [依赖注入](mdc:.cursor/rules/dependency-injection.mdc) - Scrutor自动注册
-- [启动框架](mdc:.cursor/rules/startup-framework.mdc) - Program.cs配置
-- [数据库迁移](mdc:.cursor/rules/database.mdc) - 多数据库、DbContext、迁移命令
-- [多语言](mdc:.cursor/rules/i18n.mdc) - 资源文件、本地化
-- [AI开发](mdc:.cursor/rules/ai-development.mdc) - AI表单、长任务、LLM
-- [性能优化](mdc:.cursor/rules/performance.mdc) - 异步、缓存、查询
-- [安全规范](mdc:.cursor/rules/security.mdc) - 权限、审计、加密
-- [测试规范](mdc:.cursor/rules/testing.mdc) - 单元测试、集成测试、Mock使用
+**原则描述**: 基于用户反馈和性能监控，持续优化和改进系统。
 
-## 项目结构
-- [项目结构](mdc:.cursor/rules/project-structure.mdc) - 完整目录树
+**执行要求**:
+- ✅ 用户反馈收集机制
+- ✅ 性能监控和分析
+- ✅ 定期代码审查
 
-## 包管理
-- [包管理规范](mdc:.cursor/rules/package-management.mdc) - 集中式包管理、版本统一、传递依赖处理
-
-> 💡 专项规范会根据文件类型自动应用
+- ✅ 技术债务管理 
 
 ---
 > Source: [xin-lai/CodeSpirit](https://github.com/xin-lai/CodeSpirit) — distributed by [TomeVault](https://tomevault.io).
