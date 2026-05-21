@@ -1,0 +1,44 @@
+{
+  "name": "PromptLibrary",
+  "owner": "MrXie23",
+  "repo": "PromptLibrary",
+  "description": "Prompt Library is an open-source, high-quality AI prompt repository that supports multiple languages and categorized search, helping you efficiently explore the unlimited potential of AI.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MrXie23/PromptLibrary",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-21T05:07:03Z"
+}
