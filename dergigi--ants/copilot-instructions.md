@@ -1,9 +1,9 @@
-## keep-files-small
+## no-need-for-tests
 
-> Keep files below 420 lines.
+> No need to write tests.
 
 
-Keep files below 420 lines.
+No need to write tests.
 
 ---
 > Source: [dergigi/ants](https://github.com/dergigi/ants) — distributed by [TomeVault](https://tomevault.io).
