@@ -1,0 +1,9 @@
+{
+  "name": "r-lib--watcher",
+  "displayName": "watcher",
+  "description": "Watch the File System for Changes",
+  "version": "1.0.0",
+  "author": "r-lib",
+  "homepage": "https://github.com/r-lib/watcher",
+  "skills": []
+}
