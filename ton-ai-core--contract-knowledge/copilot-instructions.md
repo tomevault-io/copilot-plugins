@@ -1,70 +1,58 @@
-## fift
+## func
 
-> You are a **Fift** assistant for TON blockchain development. When writing or reviewing Fift code, follow these **non‑interactive** guidelines:
+> Use this rule for smart contract development on TON using the Func programming language. Always apply it when working with Func contracts
 
-## ✅ Cursor Rule: Fift Smart Contracts Coding Guide
+## ✅ Cursor Rule: Func Smart Contracts Coding Guide
 
-You are a **Fift** assistant for TON blockchain development. When writing or reviewing Fift code, follow these **non‑interactive** guidelines:
+You are a **Func** code assistant for TON blockchain development. When generating or reviewing Func code, follow these **non‑interactive** guidelines:
 
 ---
 
 ### 1. File Structure
+- Place all contracts in the `contracts/` directory.
+- Filename and contract name must be **PascalCase** and match exactly.
+- After building, **create TypeScript wrappers manually** in `wrappers/` (Func has no auto‑generation).
 
-- Place all Fift sources in the `contracts/` directory with `.fif` extension.
-- Filename must be **PascalCase** and match the contract name.
-- After editing, assemble to BOC with Blueprint (no wrappers for Fift).
-
-### 2. Language Keywords & Syntax
-
-Use **only** these core keywords, directives, and stack notations:
-
+### 2. Language Keywords
+Use **only** these Func keywords and directives:
 ```
-"string literals", { blocks }, integers, ."printed text",
-: word-definition, :: active-word-definition,
-include, if, ifnot, cond, execute, times, while, until
-```
-
-Define words/functions:
-
-```fift
-{ dup * } : square   // duplicate and multiply
-{ minmax drop } : min  // min of two values
+#include, #pragma, int, cell, slice, builder, cont, tuple, var, (), _,
+global, const, impure, inline, inline_ref, return, if, ifnot, else,
+elseif, elseifnot, repeat, while, do, until, method_id, asm, throw,
+throw_unless, throw_if, begin_cell, store_uint, store_int,
+end_cell, begin_parse, end_parse, store_slice, load_uint, load_int,
+slice_empty?, get_data, set_data, get_methods, load_data, save_data,
+recv_internal
 ```
 
-### 3. Core Built‑in Words & Ops
-
-Use these for cell and TVM operations:
-
+### 3. Built‑in Functions
+Only use these built‑ins for on‑chain operations:
 ```
-dup, drop, swap, rot, over, tuck, pick, roll,
-getContractData(), setContractData(), beginCell(), endCell(), beginParse(), endParse(),
-store_uint, load_uint, store_int, load_int, throw, throwUnless, throwIf,
-onInternalMessage(), isMessageBounced(), loadMessageFlags(), loadMessageOp(),
-loadMessageQueryId()
+get_data(), set_data(), begin_cell(), store_uint(), load_uint(),
+store_slice(), load_int(), throw(), throw_unless(), throw_if(),
+recv_internal(), slice_empty?(), begin_parse(), end_parse()
 ```
 
 ### 4. Best Practices
+- **Minimize global state** — store only essential data.
+- **Keep functions small & modular**; use `inline` for hot paths.
+- **Audit parsing**: pair `begin_parse()` with `end_parse()` and `assertEndOfSlice()`.
+- **Use `asm` blocks** for critical performance optimizations.
+- **Avoid on‑chain strings**; use binary handlers instead.
+- **Prefer arithmetic logic** over branching to reduce gas.
+- **Explicit error handling**: use `throw()`, `throw_unless()`, `throw_if()`.
+- **Message handling**: construct cells with `begin_cell()`, minimize forwarding.
 
-- **Execute Fift only at compile‑time**—Fift runs locally to produce BOCs.
-- **Use ****`@Defop`**** / ****`@addop`** for opcode definitions (ensures correct dispatch).
-- **Comment stack effects**: use `(x y -- z)` notation for clarity.
-- **Modular word definitions**: split reusable blocks into named words.
-- **Validate BOC integrity** before deploy (use debug prints).
-- **Minimize stack depth**: keep stack operations predictable.
-- **Avoid mixing literal and symbol names**—use consistent naming.
-
-### 5. Build, Test & Analysis
-
-```bash
-npx blueprint build ContractName    # assemble Fift to BOC
-npx blueprint test                  # run Jest tests or custom scripts
-```
-
-Ensure **zero critical issues** before proceeding to deployment.
+### 5. Testing and Static Analysis
+- Run *before deploy*:
+  ```bash
+  npx blueprint build ContractName && npx blueprint test
+  npx blueprint misti ContractName
+  ```
+  Ensure manual wrappers exist, tests pass, and `misti` reports **zero critical issues**.
 
 ---
-
-❗ All code generation and assembly must be fully parameterized; no interactive prompts are allowed.
+❗ All code generation must be fully parameterized; no interactive prompts are allowed.
 
 ---
 > Source: [ton-ai-core/contract-knowledge](https://github.com/ton-ai-core/contract-knowledge) — distributed by [TomeVault](https://tomevault.io).
