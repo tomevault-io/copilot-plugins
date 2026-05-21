@@ -1,21 +1,23 @@
 # evlink-backend
 
-> Tome by [rogasp](https://github.com/rogasp/evlink-backend) — distributed by [TomeVault](https://tomevault.io/claim/rogasp)
+> Tome by [rogasp](https://github.com/rogasp/evlink-backend) — distributed by [TomeVault](https://tomevault.io)
+
+EVLinkHA – secure EV ↔ Home Assistant proxy
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [rogasp/evlink-backend](https://github.com/rogasp/evlink-backend).
+Original source: `CLAUDE.md` in [rogasp/evlink-backend](https://github.com/rogasp/evlink-backend).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/rogasp)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/rogasp/evlink-backend](https://github.com/rogasp/evlink-backend)
 
 ---
 
