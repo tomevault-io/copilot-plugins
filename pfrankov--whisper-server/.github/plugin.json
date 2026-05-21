@@ -1,0 +1,9 @@
+{
+  "name": "pfrankov--whisper-server",
+  "displayName": "whisper-server",
+  "description": "macOS menu bar app providing a local HTTP server compatible with the OpenAI Whisper API for fast and private audio transcription.",
+  "version": "1.0.0",
+  "author": "pfrankov",
+  "homepage": "https://github.com/pfrankov/whisper-server",
+  "skills": []
+}
