@@ -1,0 +1,20 @@
+## cursorai-nextjs
+
+> - This is the Next.js 15 project using React 19.
+
+- This is the Next.js 15 project using React 19.
+- The project is using Tailwind CSS for styling.
+- The project is using Shadcn UI for components. Do everything using shadcn whenever possible.
+
+- Every single time we need to run a shadcn command, use `npx shadcn@latest`
+
+- It's Next.js so use Server Components when possible
+- Use server actions when possible
+- Use Next.js 15
+
+- If you generating validation schemas, forms, actions, working with db - THEN ALWAYS use the database schema from @/lib/db/schema.ts as A SINGLE SOURCE OF TRUTH.
+- NEVER MODIFY OR REMOVE ANYTHING FROM THE DATABASE SCHEMA, UNLESS I EXPLICITLY TELL YOU TO DO SO.
+
+---
+> Source: [piotr-jura-udemy/cursorai-nextjs](https://github.com/piotr-jura-udemy/cursorai-nextjs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
