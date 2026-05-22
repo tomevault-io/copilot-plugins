@@ -1,119 +1,114 @@
-## local-development-environment
+## log-directory-navigation
 
-> Instructions for local development, test execution, and environment management
+> How to navigate and read log files (logs/pytest/, logs/unity/, logs/unillm/, logs/unify/, logs/orchestra/, logs/all/)
 
 
-# Local Development Environment
+# Log Directory Navigation
 
-## Python Interpreter
-- **ALWAYS** use the project's virtual environment interpreter: `.venv/bin/python`.
-- Do not use global python or other system interpreters.
+## Tool Behavior for Logs
 
-## Environment Bootstrap (fresh clone / Cloud Agents)
-- The repo virtualenv lives at **`.venv/`** and is intentionally not committed.
-- If `.venv/` is missing (common in fresh clones and Cursor Cloud Agents), bootstrap it with:
-  - `pip install uv && uv sync --all-groups`
-- `tests/parallel_run.sh` will also auto-bootstrap `.venv/` (and install `uv` via `pip --user` if needed).
-- Prefer `python3` over `python` in shell scripts; some environments don't provide a `python` shim.
+The `logs/` directory is gitignored, which affects tool availability:
 
-## Running Tests
+| Tool | Works? | Notes |
+|------|--------|-------|
+| **Read** | ✅ Yes | Preferred for reading log file contents |
+| **Shell** | ✅ Yes | Use `ls` to explore directory structure |
+| **LS** | ⚠️ Unreliable | May work with direct paths |
+| **Glob** | ❌ No | Git-aware index excludes gitignored paths |
+| **Grep** | ❌ No | Git-aware index excludes gitignored paths |
 
-### Terminal Isolation (Automatic)
-Each terminal session (including each Cursor agent) automatically gets its own **isolated tmux server**. This means:
-- Your tests don't interfere with other agents' tests
-- `tmux kill-server` only affects YOUR terminal's sessions
-- No configuration needed - it's automatic
+## Log Directories
 
-### Choosing the Right Command
+| Directory | Purpose |
+|-----------|---------|
+| `logs/pytest/` | Test output logs (datetime-prefixed subdirs per run) |
+| `logs/unity/` | Unity LOGGER output (async tool loop, managers) |
+| `logs/unillm/` | Raw LLM request/response traces |
+| `logs/unify/` | Unify SDK HTTP traces |
+| `logs/orchestra/` | Orchestra session logs with per-request API traces |
+| `logs/all/` | Cross-repo OTEL traces |
 
-The script **always blocks** until all tests complete (or timeout), streaming pass/fail results inline as tests finish.
+## Practical Workflow
 
-| Scenario | Command |
-|----------|---------|
-| **Default** | `tests/parallel_run.sh [path]` |
-| **Serial mode** (one session per file) | `tests/parallel_run.sh -s [path]` |
-| **With timeout** | `tests/parallel_run.sh --timeout 300 [path]` |
-
-**Note:** Do not use `parallel_cloud_run.sh` directly. For CI, use commit message tags (see `propose-ci-tests-for-commits.mdc`).
-
-- The script blocks until all tests complete, then reports success (exit 0), failure (exit 1), or timeout (exit 2).
-- `--timeout N` aborts if tests don't complete within N seconds.
-
-#### Parallelism Behavior
-
-- By default: One tmux session per *test*. All tests run concurrently (maximum speed).
-- With `-s`: One tmux session per *file*. Tests within a file run serially.
-
-**Examples:**
+**Step 1: Explore with Shell**
 ```bash
-# Single test file with multiple tests (default: runs all tests concurrently)
-tests/parallel_run.sh tests/contact_manager/test_ask.py
+# List log directories (sorted by time, newest last)
+ls logs/pytest/
 
-# Specific test functions
-tests/parallel_run.sh tests/test_foo.py::test_one tests/test_bar.py::test_two
-
-# Small directory
-tests/parallel_run.sh tests/actor/
-
-# Large test suite with serial mode (one session per file, fewer total sessions)
-tests/parallel_run.sh -s tests/
-
-# With timeout (abort after 5 minutes)
-tests/parallel_run.sh --timeout 300 tests/contact_manager/
+# List contents of a specific run
+ls logs/pytest/2025-12-05T14-30-45_unity_dev_ttys042/
 ```
 
-### Failure Handling
-- If the script exits with code 1, failures were detected.
-- Do **NOT** inspect `tmux` panes directly.
-- **ALWAYS** read the corresponding log file in `logs/pytest/` for the failed session.
-
-### Log Directory Naming
-Log directories use a **datetime-prefixed format** for natural time-based ordering in the filesystem:
-- Format: `YYYY-MM-DDTHH-MM-SS_{socket_name}` (e.g., `2025-12-05T14-30-45_unity_dev_ttys042`)
-- The datetime is when the test run started
-- The socket name identifies the terminal session (for isolation)
-
-**Finding your logs:**
-- The script prints the log directory path when tests start
-- Directories are sorted chronologically, so recent runs appear at the bottom of `ls` output
-- Each run gets its own directory, even from the same terminal
-
-**Example directory listing:**
+**Step 2: Read with Read tool**
 ```
-logs/pytest/
-├── 2025-12-05T09-15-22_unity_dev_ttys004/
-├── 2025-12-05T10-30-45_unity_dev_ttys026/
-├── 2025-12-05T14-22-18_unity_dev_ttys004/
-└── 2025-12-05T15-00-00_unity_dev_ttys042/
+Read: logs/pytest/2025-12-05T14-30-45_unity_dev_ttys042/contact_manager-test_ask.txt
 ```
 
-**Environment variables:**
-- `UNITY_LOG_SUBDIR`: The full datetime-prefixed log directory name (set by `parallel_run.sh`)
-- `UNITY_TEST_SOCKET`: The terminal socket name for tmux isolation (e.g., `unity_dev_ttys004`)
+## Orchestra Trace Files
 
-### Cleanup (REQUIRED)
-- **ALWAYS** kill failed tmux sessions after extracting failure info from `logs/pytest/`.
-- Logs are persisted in `logs/pytest/`; keeping sessions open is unnecessary.
-- Run: `tests/kill_failed.sh` to kill all failed sessions from YOUR terminal.
-- Run: `tests/kill_server.sh` to kill the entire tmux server for YOUR terminal.
-- For cross-terminal cleanup: `tests/kill_failed.sh --all` or `tests/kill_server.sh --all`
+Orchestra logs are organized by session with granular per-request traces:
 
-### Permissions
-- Use `required_permissions: ['all']` to ensure access to `.env` and log files.
+```
+logs/orchestra/
+└── 2025-12-30T18-27-43/              # Session (one per orchestra start)
+    └── requests/                      # Per-request API traces
+        ├── 2025-12-30T18-28-03.852_DELETE_project-name_81ms_5cc61e5f.json
+        ├── 2025-12-30T18-28-03.934_GET_projects_20ms_8e6fb277.json
+        └── 2025-12-30T18-46-55.980_GET_projects_43ms_7be454fc.json
+```
 
-## Pre-commit Hooks
-- The `pre-commit` tool is installed in the project `dev` dependencies.
-- **Execution**: Run via the python module to ensure path visibility:
-  - `.venv/bin/python -m pre_commit run --all-files`
-- **When to run**: If you modify files and want to ensure they pass CI checks, run pre-commit *before* committing.
+**Filename format:** `{datetime}_{METHOD}_{route}_{duration}_{trace_id_short}.json`
+- `trace_id_short` = last 8 chars of the OpenTelemetry trace_id
 
-## Dependencies
-- This project uses `uv` for dependency management.
-- Config file: `pyproject.toml`
+**Trace correlation:** Each pytest run logs `TRACE_ID=<32-char-hex>` to stdout. Match the last 8 chars to Orchestra filenames:
+```
+# In pytest output:
+[TRACE] TRACE_ID=099b207f89222185695d25977be454fc test=test_foo
 
-## Edit Safety
-- **Protected Files**: Do not edit `uv.lock` or `package-lock.json` manually. Use the appropriate package manager commands.
-- **Sensitive Files**: Do not output the contents of `.env` or `*.key` files to the chat.
+# Corresponding Orchestra file:
+logs/orchestra/<session>/requests/*_7be454fc.json
+```
+
+## Worktree Symlinks
+
+In worktrees, log directories contain a `_root` symlink pointing to the main repository's logs. Use this when looking for logs from tests run in the main repo.
+
+```bash
+# List main repo's logs from a worktree
+ls logs/pytest/_root/
+```
+
+## Example: Debugging a Test Failure
+
+```bash
+# 1. Find recent log directories
+ls logs/pytest/
+
+# 2. List logs in the most recent run
+ls logs/pytest/2025-12-21T16-00-00_unity_dev_ttys042/
+```
+
+Then use the Read tool:
+```
+Read: logs/pytest/2025-12-21T16-00-00_unity_dev_ttys042/contact_manager-test_ask.txt
+```
+
+## Example: Correlating Test ↔ Orchestra Traces
+
+When debugging why a test's API call failed:
+
+```bash
+# 1. Find the trace_id from pytest output (or grep the log file)
+# Look for: [TRACE] TRACE_ID=099b207f89222185695d25977be454fc test=test_foo
+
+# 2. Find the Orchestra session (most recent)
+ls logs/orchestra/
+
+# 3. Find the matching trace file (last 8 chars of trace_id)
+ls logs/orchestra/2025-12-30T18-27-43/requests/*7be454fc*
+```
+
+Then read the trace file to see the full request/response with all spans.
 
 ---
 > Source: [unifyai/unity](https://github.com/unifyai/unity) — distributed by [TomeVault](https://tomevault.io).
