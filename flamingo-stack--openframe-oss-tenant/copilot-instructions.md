@@ -1,106 +1,96 @@
-## coding-standards
+## cursor-rules
 
-> This document outlines the general coding standards that apply across all technologies in the OpenFrame project.
+> This document explains how to add and maintain Cursor rules for the OpenFrame project.
 
-# Coding Standards
+# Cursor Rules in OpenFrame
 
-This document outlines the general coding standards that apply across all technologies in the OpenFrame project.
+This document explains how to add and maintain Cursor rules for the OpenFrame project.
 
-## Code Formatting
+## Rules Location
 
-- Use consistent indentation (4 spaces for Java, 2 spaces for TypeScript/Vue)
-- Limit line length to 120 characters
-- Use UTF-8 encoding for all files
-- End files with a newline
-- Remove trailing whitespace
-- Use consistent spacing around operators and keywords
-- Use consistent brace placement (same line for Java, new line for TypeScript)
+1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+   ```
+   .cursor/rules/
+   ├── cursor-rules.mdc
+   ├── project-structure.mdc
+   ├── java-spring-cursor-rules.mdc
+   ├── vuejs-typescript-best-practices.mdc
+   └── ...
+   ```
 
-## Documentation
-
-- Document all public classes, interfaces, methods, and fields
-- Use JavaDoc for Java code and JSDoc for TypeScript/JavaScript
-- Include parameter descriptions, return values, and exceptions
-- Document complex algorithms and business logic
-- Keep documentation up-to-date with code changes
-- Use meaningful comments that explain "why" not "what"
+2. For feature-specific rules, use the features subdirectory:
+   ```
+   .cursor/rules/features/
+   ├── gateway-integration.mdc
+   ├── tactical-rmm.mdc
+   ├── fleet-mdm.mdc
+   └── ...
+   ```
 
 ## Naming Conventions
 
-- Use descriptive, meaningful names
-- Follow language-specific conventions (camelCase, PascalCase, etc.)
-- Use consistent abbreviations and acronyms
-- Avoid generic names like "data", "manager", "util", etc.
-- Prefix interfaces with "I" in Java (e.g., IUserService)
-- Use verb prefixes for methods (get, set, is, has, etc.)
+- Use kebab-case for filenames (e.g., `api-design.mdc`, `database-patterns.mdc`)
+- Always use .mdc extension
+- Make names descriptive of the rule's purpose
+- For technology-specific rules, include the technology name (e.g., `java-spring-cursor-rules.mdc`)
+- For feature-specific rules, use the feature name (e.g., `tactical-rmm.mdc`)
 
-## Code Organization
+## Rule File Structure
 
-- One class per file
-- Group related functionality together
-- Separate concerns appropriately
-- Keep methods and classes focused on a single responsibility
-- Limit method length (aim for < 30 lines)
-- Limit class length (aim for < 500 lines)
-- Order methods logically (public before private, etc.)
+Each rule file should follow this structure:
 
-## Error Handling
+```
+---
+description: Brief description of what this rule covers
+globs: optional/path/pattern/**/* 
+alwaysApply: false
+---
+# Rule Title
 
-- Use exceptions for exceptional conditions only
-- Handle exceptions at the appropriate level
-- Log exceptions with context information
-- Don't swallow exceptions without logging
-- Use custom exceptions for domain-specific errors
-- Include appropriate stack traces in logs
+Main content explaining the rule with markdown formatting.
 
-## Testing
+## Section 1
 
-- Write unit tests for all business logic
-- Aim for high test coverage (>80%)
-- Use meaningful test names that describe the scenario
-- Follow the Arrange-Act-Assert pattern
-- Mock external dependencies
-- Keep tests independent and idempotent
-- Test both success and failure scenarios
+Detailed explanation with examples.
 
-## Version Control
+## Section 2
 
-- Write clear, descriptive commit messages
-- Use the imperative mood in commit messages (e.g., "Add feature" not "Added feature")
-- Keep commits focused on a single change
-- Reference issue numbers in commit messages
-- Squash commits before merging
-- Follow the branching strategy (feature branches, etc.)
+More detailed content.
 
-## Code Review
+```
 
-- Review all code before merging
-- Check for adherence to coding standards
-- Verify test coverage
-- Look for security vulnerabilities
-- Ensure proper error handling
-- Validate performance considerations
-- Provide constructive feedback
+## Frontmatter Options
 
-## Security Practices
+- `description`: Brief summary of the rule's purpose (required)
+- `globs`: File patterns this rule applies to (optional)
+- `alwaysApply`: Whether to apply this rule to all files (default: false)
 
-- Validate all user input
-- Use parameterized queries for database access
-- Sanitize output to prevent XSS
-- Use secure communication (HTTPS, TLS)
-- Don't hardcode sensitive information
-- Follow the principle of least privilege
-- Implement proper authentication and authorization
+## Adding New Rules
 
-## Performance Considerations
+1. Identify the category for your new rule:
+   - Technology-specific (Java, Vue.js, etc.)
+   - Feature-specific (Gateway, RMM, etc.)
+   - Development workflow (Testing, CI/CD, etc.)
+   - UI/UX development
 
-- Use efficient algorithms and data structures
-- Minimize database queries
-- Use caching where appropriate
-- Optimize resource usage
-- Consider pagination for large result sets
-- Profile and benchmark critical code paths
-- Avoid premature optimization
+2. Create a new .mdc file in the appropriate location
+
+3. Add proper frontmatter with description
+
+4. Structure the content with clear headings and examples
+
+5. Include code examples where appropriate
+
+6. Reference OpenFrame-specific patterns and conventions
+
+## Best Practices
+
+- Keep rules focused on a single topic or technology
+- Use clear, concise language
+- Include practical examples from the OpenFrame codebase
+- Update rules when conventions or patterns change
+- Cross-reference related rules where appropriate
+- Use proper markdown formatting for readability
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
