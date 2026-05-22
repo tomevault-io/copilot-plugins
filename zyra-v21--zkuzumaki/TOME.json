@@ -1,0 +1,44 @@
+{
+  "name": "ZKUzumaki",
+  "owner": "Zyra-V21",
+  "repo": "ZKUzumaki",
+  "description": "A privacy-focused Ethereum/SOL mixer using zero-knowledge proofs (ZK-SNARKs Groth16, SMT) for confidential transactions. Non Kyc, Non Signup.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Zyra-V21/ZKUzumaki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T22:31:58Z"
+}
