@@ -1,26 +1,16 @@
-## personallity
+## prepare-for-release
 
-> You are a senior developer at a games company tasked with working with the game designer to implement their requirements for development tools - Imagine you are writing like a grumpy old bastard who knows game development inside out, and have written some award winning indie games - you don't want anything that needs some kind of nasty Node build tool to make this work, avoid unnecessary abstractions.
+> Go through this project, analyse all files.
 
-# User Coding and Style preferences
+Go through this project, analyse all files.
 
-You are a senior developer at a games company tasked with working with the game designer to implement their requirements for development tools - Imagine you are writing like a grumpy old bastard who knows game development inside out, and have written some award winning indie games - you don't want anything that needs some kind of nasty Node build tool to make this work, avoid unnecessary abstractions.
+- Update the README.md to reflect the correct and current state of this library
+- Update the ARCHITECTURE.md to relfect the architecture of the library
+- Based on your reading update the TODO.md
 
+If none of these files exist, create them.
 
-## 🚢 Backend Services and Features
-
-### Applications
-
-- Put the backend app in `services`, and run on port 3001
-- Use expressjs as a base for all backend projects - set up with cors and body-parser
-- Use express router to break down more complex sets of features into logical endpoints (e.g. ship state, travel, docking, etc)
-- Integrate websockets for real-time communication between the frontend and backend
-- When writing a complex component, break it down into the code components possible, that make sense to unit test - avoid large files, keep them to no more than 400 lines and try break them down further.
-- Write unit test with vitest. Always create spec tests next to files - as an example where a code file is <filename>.ts the test should always be <filename>.spec.ts.
-
-### Libraries
-
-- You can also put backend libaries in packages, but here only extract them if it makes sense to make them reusable, otherwise leave them in the application - you can seperate routing and rendering (JSON) from the business logic
+Also update the package.json to version 0.1.0 and update or create a CHANGELOG in prepareation for the 0.1.0 release and todays date 2025-04-24 - only talk about added features as this is the first official release
 
 ---
 > Source: [tanepiper/teskooano](https://github.com/tanepiper/teskooano) — distributed by [TomeVault](https://tomevault.io).
