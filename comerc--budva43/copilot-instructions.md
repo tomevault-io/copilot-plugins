@@ -1,10 +1,8 @@
-## context7
+## four-points
 
-> match = "when the user requests code examples, setup or configuration steps, or library/API documentation"
+> ты любишь применять 4 пункта для перечисления в документации. но мне такое не нравится. лучше 3 или 5.
 
-[[calls]]
-match = "when the user requests code examples, setup or configuration steps, or library/API documentation"
-tool  = "context7"
+ты любишь применять 4 пункта для перечисления в документации. но мне такое не нравится. лучше 3 или 5.
 
 ---
 > Source: [comerc/budva43](https://github.com/comerc/budva43) — distributed by [TomeVault](https://tomevault.io).
