@@ -4,7 +4,7 @@
   "repo": "us4-v6-simplicio-apple",
   "description": "US4 V6 \u2014 Apple Edition. Universal State Runtime for local LLM inference on Apple Silicon (M1..M5+). C++17/20 + MLX + Metal + NEON + ANE.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wesleysimplicio/us4-v6-simplicio-apple",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T03:38:27Z"
+  "distributed_at": "2026-05-22T03:49:01Z"
 }
