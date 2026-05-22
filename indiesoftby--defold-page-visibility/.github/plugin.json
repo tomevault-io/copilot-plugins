@@ -1,0 +1,9 @@
+{
+  "name": "indiesoftby--defold-page-visibility",
+  "displayName": "defold-page-visibility",
+  "description": "This extension for the Defold game engine provides a way to detect when the page is visible or hidden.",
+  "version": "1.0.0",
+  "author": "indiesoftby",
+  "homepage": "https://github.com/indiesoftby/defold-page-visibility",
+  "skills": []
+}
