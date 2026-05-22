@@ -2,7 +2,7 @@
   "name": "r2-data2",
   "owner": "tyrchen",
   "repo": "r2-data2",
-  "description": "",
+  "description": "A web-based SQL query tool and data browser with visualization capabilities, built with Rust (Axum) and React (TypeScript/Vite). 95% of the code is written by AI agent.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/tyrchen",
+  "source_url": "https://github.com/tyrchen/r2-data2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T19:56:22Z"
+  "distributed_at": "2026-05-22T01:44:31Z"
 }
