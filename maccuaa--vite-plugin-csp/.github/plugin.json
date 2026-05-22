@@ -1,0 +1,9 @@
+{
+  "name": "maccuaa--vite-plugin-csp",
+  "displayName": "vite-plugin-csp",
+  "description": "Vite CSP / SRI Plugin for Bun",
+  "version": "1.0.0",
+  "author": "maccuaa",
+  "homepage": "https://github.com/maccuaa/vite-plugin-csp",
+  "skills": []
+}
