@@ -1,0 +1,9 @@
+{
+  "name": "lerianstudio--midaz-sdk-golang",
+  "displayName": "midaz-sdk-golang",
+  "description": "A Go client library for the Midaz financial ledger APIs. This SDK provides a flexible, and idiomatic way to interact with the Midaz platform, enabling developers to build robust financial applications",
+  "version": "1.0.0",
+  "author": "LerianStudio",
+  "homepage": "https://github.com/LerianStudio/midaz-sdk-golang",
+  "skills": []
+}
