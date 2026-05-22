@@ -1,31 +1,31 @@
-## 03-data-flow
+## 04-ai-integration
 
-> The application uses Zustand for state management located in [lib/store.ts](mdc:lib/store.ts). This store manages:
+> The app provides an AI chat interface with support for several AI models through the AI SDK and LangChain integrations.
 
-# Data Flow and State Management
+# AI Integration
 
-## Store
-The application uses Zustand for state management located in [lib/store.ts](mdc:lib/store.ts). This store manages:
-- Chat sessions (create, delete, rename)
-- Messages (add, update)
-- Current session state
-- Loading states
+## Overview
+The app provides an AI chat interface with support for several AI models through the AI SDK and LangChain integrations.
 
-## Supabase Integration
-Database interactions are managed through the Supabase client at [lib/supabase/client.ts](mdc:lib/supabase/client.ts). The database has:
-- `sessions` table - Stores chat sessions
-- `messages` table - Stores chat messages with session relationships
+## Key AI Files
+- [lib/ai.ts](mdc:lib/ai.ts) - Contains base AI configuration
+- [lib/ai/tools/](mdc:lib/ai/tools/) - Contains AI function tools for specific data retrieval
+- [app/api/chat/route.ts](mdc:app/api/chat/route.ts) - API route that processes chat messages and calls the AI
 
-## API Routes
-API endpoints are organized in the [app/api/](mdc:app/api/) directory:
-- `/api/chat` - Handles chat completions and interactions with AI models
-- `/api/messages` - CRUD operations for messages
- 
-## Data Flow
-1. User interactions trigger store actions
-2. Store actions update local state and Supabase
-3. Components react to state changes via store hooks
-4. API calls for AI interactions happen via fetch calls
+## AI Features
+- Chat interface with message history
+- Special data visualizations for specific intents:
+  - Weather data
+  - Earthquake information
+  - Currency exchange rates
+  - Cryptocurrency data
+  - Stock market data
+
+## Response Format
+The AI can return:
+- Plain text responses
+- Structured data for special visualizations
+- Tool calls and function executions
 
 ---
 > Source: [Deuz-AI/Deuz-Chat](https://github.com/Deuz-AI/Deuz-Chat) — distributed by [TomeVault](https://tomevault.io).
