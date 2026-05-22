@@ -1,0 +1,9 @@
+{
+  "name": "williamcotton--webdsl",
+  "displayName": "webdsl",
+  "description": "WebDSL \u2013 A fast C-based DSL for building web apps with SQL, Lua and jq",
+  "version": "1.0.0",
+  "author": "williamcotton",
+  "homepage": "https://github.com/williamcotton/webdsl",
+  "skills": []
+}
