@@ -1,0 +1,9 @@
+{
+  "name": "algebras-ai--algebras-cli",
+  "displayName": "algebras-cli",
+  "description": "Your CLI localization tool. Never miss updating locales again.",
+  "version": "1.0.0",
+  "author": "algebras-ai",
+  "homepage": "https://github.com/algebras-ai/algebras-cli",
+  "skills": []
+}
