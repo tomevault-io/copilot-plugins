@@ -7,11 +7,11 @@ Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mslavov/shelly-forge](https://github.com/mslavov/shelly-forge).
+Original source: `CLAUDE.md` in [mslavov/shelly-forge](https://github.com/mslavov/shelly-forge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
