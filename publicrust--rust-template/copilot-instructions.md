@@ -1,55 +1,68 @@
-## rust-resources
+## thinking-style
 
-> This document lists key official, community and forum resources for Rust (Unity) plugin development on uMod/Oxide. Use these links to find documentation, examples, tooling, and community support.
+> All long-form reasoning MUST be wrapped inside `<thinking>` tags.
 
-# Rust Resources
+# Reasoning and Thinking Output Policy
 
-This document lists key official, community and forum resources for Rust (Unity) plugin development on uMod/Oxide. Use these links to find documentation, examples, tooling, and community support.
+All long-form reasoning MUST be wrapped inside `<thinking>` tags.
+This keeps the user-facing output clean, focused, and easy to read.
 
-## Official Documentation
+The user should **only see concise actionable summaries**, unless explicitly asking for internal details.
 
-* [uMod Documentation](mdc:https:/umod.org/documentation)
-* [uMod API Overview for Rust](mdc:https:/umod.org/documentation/games/rust)
-* [Rust Wiki – Oxide](mdc:https:/wiki.facepunch.com/rust/Oxide)
-* [Oxide.Rust on GitHub](mdc:https:/github.com/OxideMod/Oxide.Rust)
+## Why?
 
-## Official Repositories & Organizations
+- Long reasoning chains interrupt readability
+- Users need fast feedback, not cognitive overload
+- Wrapping internal logic in `<thinking>` allows clean separation between "thought process" and "final answer"
 
-* [uMod GitHub Organization](mdc:https:/github.com/umod)
-* [uMod Plugins Directory](mdc:https:/umod.org/plugins)
-* [Rust Community Hub on uMod](mdc:https:/umod.org/community/rust)
+## Example Chain
 
-## Guides & Tutorials
+User prompt:
+> Please create a plugin called `ATeleportSystem`
 
-* [Getting Started with Oxide](mdc:https:/docs.oxidemod.com/guides/owners/getting-started)
-* [Continuous Integration with uMod](mdc:https:/umod.org/documentation/api/continuous-integration)
-* [Plugin Integration Patterns](mdc:https:/umod.org/documentation/api/integration)
+```text
+<thinking>Begin reasoning for ATeleportSystem plugin</thinking>
+search_codebase("Teleport command")
+search_web("Rust plugin teleport BasePlayer")
+<thinking>Continuing reasoning</thinking>
+grep_codebase("XTeleport")  ← (searching by potential plugin name)
+search_web("oxide XTeleport plugin")
+<thinking>Continuing reasoning</thinking>
+search_codebase("ChatCommand")
+search_web("uMod ChatCommand teleport")
+<thinking>Continuing reasoning</thinking>
+*The functionality requested implies we need direct access to BasePlayer for teleportation logic. We'll need to implement a [ChatCommand] and optionally add config-based location handling. No exact match found for plugin named 'XTeleport', so we will reference multiple sources.*</thinking>
+```
 
-## Forums & Community Discussions
+## Format Rules
 
-* **OxideMod Forum – Rust Discussion**
+- `<thinking>` must **always** wrap exploratory or internal content
+- Never place multiline analysis directly in the answer block
+- If you must summarize a thought, write: 
+  - **"Here’s what I concluded:"** then one or two concise lines max
 
-  * Central hub for Rust modders to ask questions, report bugs, share tips, and announce new plugins.
-* **uMod Rust Community Forum**
+## Output Policy
 
-  * Categories: General Support, Plugin Issues, Plugin Requests, Plugin Updates.
-* **Reddit – r/playrust**
+- AI may conduct 10+ thinking steps if needed — user sees only final plan
+- Use `<thinking>` for all:
+  - task breakdowns
+  - exploration and planning
+  - failed hypothesis
+  - iterations with search
+  - plugin name lookups and result verification
 
-  * Community-run subreddit where modders share tutorials, Oxide setup guides, and plugin development advice.
+## Plugin Lookup Tip
 
-## Additional Resources
+- If user mentions a known plugin (e.g. `VueUI`, `XTeleport`, etc.):
+  - Use `grep_codebase("PluginName")` to locate it by name
+  - Use `search_web("oxide PluginName")` for docs, usage, and examples
+- You may also formulate search queries using **back-prompting**, not just plugin names:
+  - e.g. `search_web("uMod plugin teleport area")` to discover relevant plugins and features
 
-* **Facepunch Studios – Rust Wiki (Fandom)**
+## Final Thought
 
-  * Official lore and game-mechanics reference; useful for understanding in-game events and API hooks.
-* **Third-Party Plugin Directories**
-
-  * [CodeFling Rust Mods](mdc:https:/codefling.com/mods) — Community-curated repository of Oxide plugins, filters by category (admin tools, gameplay mods, UI).
-  * [SkyPlugins](mdc:https:/skyplugins.com) — Collection of custom Rust plugins with active support and updates.
-  * [LoneDesign Plugins](mdc:https:/lonedesign.net/plugins) — Plugin hub focusing on performance and security for Rust servers.
-  * [RustPluginHub](mdc:https:/rustpluginhub.com) — Aggregated list of popular Oxide plugins and community reviews.
-  * [OxideMods Forum](mdc:https:/oxidemods.net) — Forum-driven directory of plugins, including sorting by game version and rating.
-  * …and many more community sites and GitHub repos where Rust modders share and collaborate.
+Always treat `<thinking>` as the agent’s internal notebook.  
+The user reads the executive summary — never the draft.
 
 ---
 > Source: [publicrust/rust-template](https://github.com/publicrust/rust-template) — distributed by [TomeVault](https://tomevault.io).
