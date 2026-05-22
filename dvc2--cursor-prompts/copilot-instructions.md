@@ -1,394 +1,339 @@
-## debugging
+## development-journal
 
-> description: Systematic debugging approaches with minimal tool calls
+> Automated development journal combining progress tracking, todo management, and intelligent documentation
 
----
-description: Systematic debugging approaches with minimal tool calls
-globs: 
-  - "**/*.ts"
-  - "**/*.js"
-  - "**/*.py"
-  - "**/*.java"
-  - "**/*.go"
-  - "**/*.rb"
-  - "**/*.php"
-  - "**/*.cs"
-  - "**/*.cpp"
-alwaysApply: false
----
 
-# Efficient Debugging Strategies
+# Development Progress Journal
 
-## 🎯 Debugging Philosophy
+You are an intelligent progress tracker that automatically captures work completed, maintains todo lists, and documents the development journey with minimal manual effort.
 
-### The 5-Step Debug Protocol
+@progress-journal.md
+@.git/
+@package.json
+@TODO.md
+
+## Core Journal Structure
+
+### Daily Progress View
+```markdown
+# 📊 Development Progress Journal
+*Last Updated: {TIMESTAMP} | Active Branch: {GIT_BRANCH} | Session: {SESSION_NUMBER}*
+
+## 🎯 Current Focus: {SPRINT_GOAL}
+**Progress**: ████████░░ {PERCENTAGE}% Complete
+**Days Remaining**: {DAYS_LEFT} | **Velocity**: {ITEMS_PER_DAY} items/day
+
+## ✅ Today's Progress ({DATE})
+### Completed ({COMPLETED_COUNT})
+- [x] {COMPLETED_TASK_1} `{COMMIT_HASH}` 
+  - Files: {MODIFIED_FILES}
+  - Impact: {BRIEF_DESCRIPTION}
+  - Time: {TIME_SPENT}
+- [x] {COMPLETED_TASK_2} `{COMMIT_HASH}`
+  - Resolved: {ISSUE_REFERENCE}
+  - Learning: {KEY_TAKEAWAY}
+
+### In Progress ({ACTIVE_COUNT})
+- [ ] {ACTIVE_TASK_1} ⏱️ {TIME_ELAPSED}
+  - Status: {COMPLETION_PERCENTAGE}%
+  - Blocker: {BLOCKER_IF_ANY}
+  - Next: {NEXT_SUBTASK}
+
+### Discoveries & Decisions
+- 💡 {KEY_INSIGHT_FROM_TODAY}
+- 🔧 {TECHNICAL_DECISION}: {BRIEF_RATIONALE}
+- ⚠️ {WARNING_OR_CONCERN}: {MITIGATION_PLAN}
+
+## 📋 Active Todo List
+### High Priority 🔴
+- [ ] {P1_TASK} - Due: {DUE_DATE}
+  - Why critical: {REASON}
+  - Estimated: {TIME_ESTIMATE}
+- [ ] {P1_TASK_2}
+
+### Normal Priority 🟡  
+- [ ] {P2_TASK}
+  - Dependencies: {DEPENDENT_ON}
+- [ ] {P2_TASK_2}
+
+### Low Priority 🟢
+- [ ] {P3_TASK} - Nice to have
+- [ ] {P3_TASK_2}
+
+### Backlog 📝
+- {BACKLOG_ITEM_1}
+- {BACKLOG_ITEM_2}
+
+## 📈 Week Summary
+**Completed**: {WEEKLY_COMPLETED} items | **Added**: {WEEKLY_ADDED} items
+**Productivity Trend**: {TREND_INDICATOR} {PERCENTAGE_CHANGE}%
+**Focus Time**: {TOTAL_FOCUS_HOURS}h | **Context Switches**: {SWITCH_COUNT}
 ```
-1. REPRODUCE → Confirm the issue exists
-2. ISOLATE → Find the smallest failing case
-3. DIAGNOSE → Identify root cause
-4. FIX → Apply minimal solution
-5. VERIFY → Ensure fix works
+
+## Intelligent Automation Rules
+
+### Auto-Progress Detection
+```yaml
+progress_triggers:
+  # Commit-based completion
+  commit_patterns:
+    - pattern: "^(feat|fix|refactor)\\(.*\\): (.+)"
+      action: mark_task_complete
+      extract:
+        - task_type: $1
+        - task_description: $2
+        - auto_link_to_active_task: true
+    
+    - pattern: "^(close|closes|fixed|fixes|resolve|resolves) #(\\d+)"
+      action: complete_issue_task
+      extract:
+        - issue_number: $2
+        - fetch_issue_details: true
+
+  # File-based progress
+  file_changes:
+    - pattern: "**/*.test.{js,ts,py}"
+      condition: "tests_passing"
+      action: update_task_progress
+      progress_increment: 20
+      note: "Tests implemented"
+    
+    - pattern: "**/README.md"
+      action: mark_documentation_complete
+      task_tag: "docs"
+
+  # PR/Issue activity
+  pull_requests:
+    - event: "opened"
+      action: add_task_if_not_exists
+      priority: "based_on_labels"
+    
+    - event: "merged"
+      action: complete_related_tasks
+      update_journal: true
+
+# Smart task extraction from natural language
+natural_language_triggers:
+  - pattern: "TODO: (.+)"
+    action: add_to_backlog
+    
+  - pattern: "FIXME: (.+)"
+    action: add_high_priority_task
+    
+  - pattern: "NOTE: (.+)"
+    action: add_to_discoveries
 ```
 
-## 🔍 Initial Assessment
-
-### Quick Triage (1 Tool Call)
-```bash
-# Get complete context in one call
-echo "=== Debug Context ===" && \
-pwd && \
-echo -e "\n--- Error State ---" && \
-tail -50 error.log 2>/dev/null || echo "No error log" && \
-echo -e "\n--- Recent Changes ---" && \
-git diff --stat HEAD~1 2>/dev/null || echo "No git" && \
-echo -e "\n--- Running Processes ---" && \
-ps aux | grep -E "(node|python|java)" | grep -v grep | head -5 && \
-echo -e "\n--- Test Status ---" && \
-npm test -- --no-coverage 2>&1 | tail -20 || echo "No tests"
-```
-
-## 🐛 Common Bug Patterns
-
-### Type 1: Null/Undefined Errors
+### Progress Intelligence
 ```javascript
-// SYMPTOM: "Cannot read property 'x' of undefined"
-
-// ❌ BAD DEBUG: Random changes
-console.log(user);
-console.log(user.profile);
-console.log(user.profile.name);
-
-// ✅ GOOD DEBUG: Systematic check
-console.log({
-  hasUser: !!user,
-  hasProfile: !!user?.profile,
-  profileKeys: user?.profile ? Object.keys(user.profile) : 'none',
-  nameValue: user?.profile?.name
-});
-
-// FIX PATTERN:
-const name = user?.profile?.name ?? 'Default';
-```
-
-### Type 2: Async/Promise Issues
-```javascript
-// SYMPTOM: "Promise pending" or race conditions
-
-// ✅ DIAGNOSTIC PATTERN:
-console.log({
-  stage: 'before-await',
-  timestamp: Date.now()
-});
-
-const result = await operation();
-
-console.log({
-  stage: 'after-await',
-  timestamp: Date.now(),
-  hasResult: !!result,
-  resultType: typeof result
-});
-
-// FIX PATTERNS:
-// 1. Missing await
-const data = await fetchData();
-
-// 2. Race condition
-const [result1, result2] = await Promise.all([op1(), op2()]);
-
-// 3. Error handling
-try {
-  const data = await riskyOperation();
-} catch (error) {
-  console.error('Operation failed:', error.message);
-}
-```
-
-### Type 3: State Management Issues
-```javascript
-// SYMPTOM: "State not updating" or "Stale values"
-
-// ✅ STATE DEBUG HELPER:
-function debugState(label, state) {
-  console.log(`[${label}]`, {
-    state: JSON.stringify(state, null, 2),
-    type: typeof state,
-    isArray: Array.isArray(state),
-    timestamp: new Date().toISOString()
-  });
-}
-
-// USE:
-debugState('Before update', currentState);
-updateState(newValue);
-debugState('After update', currentState);
-```
-
-## 🔧 Debugging Tools
-
-### Universal Debug Logger
-```javascript
-// Add to any file for instant debugging
-const DEBUG = {
-  log: (label, data) => {
-    console.log(`\n🔍 [${label}]`, {
-      data,
-      stack: new Error().stack.split('\n')[2],
-      time: new Date().toISOString()
-    });
-  },
-  
-  checkpoint: (name) => {
-    console.log(`✓ Checkpoint: ${name} at ${new Date().toISOString()}`);
-  },
-  
-  measure: async (label, fn) => {
-    const start = performance.now();
-    try {
-      const result = await fn();
-      console.log(`⏱️ ${label}: ${(performance.now() - start).toFixed(2)}ms`);
-      return result;
-    } catch (error) {
-      console.log(`❌ ${label} failed after ${(performance.now() - start).toFixed(2)}ms`);
-      throw error;
-    }
-  }
-};
-
-// Usage:
-DEBUG.checkpoint('Starting process');
-const data = await DEBUG.measure('Database query', () => db.query(sql));
-DEBUG.log('Query result', data);
-```
-
-### Error Boundary Pattern
-```javascript
-// Wrap suspicious code
-function safeTry(operation, fallback = null) {
-  try {
-    return operation();
-  } catch (error) {
-    console.error('Safe operation failed:', {
-      error: error.message,
-      stack: error.stack,
-      operation: operation.toString()
-    });
-    return fallback;
-  }
-}
-
-// Usage:
-const config = safeTry(() => JSON.parse(configString), {});
-```
-
-## 📊 Systematic Debugging
-
-### Binary Search Debug
-```javascript
-// For "worked before, broken now" issues
-// 1. Find last working commit
-git bisect start
-git bisect bad HEAD
-git bisect good abc123  // last known good
-
-// 2. Test each commit
-npm test || git bisect bad
-npm test && git bisect good
-
-// 3. Find exact breaking change
-git bisect reset
-git show <bad-commit>
-```
-
-### Divide & Conquer
-```javascript
-// For complex flows
-function debugFlow() {
-  console.log('Step 1: Input validation');
-  // If fails here, input issue
-  
-  console.log('Step 2: Data transformation');
-  // If fails here, transformation issue
-  
-  console.log('Step 3: Business logic');
-  // If fails here, logic issue
-  
-  console.log('Step 4: Output formatting');
-  // If fails here, formatting issue
-}
-```
-
-## 🎪 Performance Debugging
-
-### Quick Performance Check
-```javascript
-// One-liner performance wrapper
-const perf = (fn, label = 'Operation') => {
-  const start = Date.now();
-  const result = fn();
-  console.log(`${label}: ${Date.now() - start}ms`);
-  return result;
-};
-
-// Usage:
-const data = perf(() => processLargeDataset(), 'Dataset processing');
-```
-
-### Memory Leak Detection
-```javascript
-// Memory snapshot helper
-const memorySnapshot = (label) => {
-  if (global.gc) global.gc();
-  const usage = process.memoryUsage();
-  console.log(`Memory [${label}]:`, {
-    heapUsed: `${(usage.heapUsed / 1024 / 1024).toFixed(2)} MB`,
-    external: `${(usage.external / 1024 / 1024).toFixed(2)} MB`,
-    total: `${(usage.heapTotal / 1024 / 1024).toFixed(2)} MB`
-  });
-};
-
-// Track memory growth
-memorySnapshot('Before operation');
-// ... do operation ...
-memorySnapshot('After operation');
-```
-
-## 🔄 Debug Patterns by Error Type
-
-### Network/API Errors
-```bash
-# Quick network debug (1 call)
-curl -i -X GET "http://api.endpoint.com/path" \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -w "\n\nTime: %{time_total}s\nHTTP Code: %{http_code}\n" \
-  || echo "Connection failed"
-```
-
-### Database Errors
-```sql
--- Quick DB debug
-SELECT 
-  'Connections' as metric, 
-  count(*) as value 
-FROM pg_stat_activity
-UNION ALL
-SELECT 
-  'Slow queries', 
-  count(*) 
-FROM pg_stat_activity 
-WHERE state = 'active' 
-  AND query_start < now() - interval '5 seconds';
-```
-
-### File System Errors
-```bash
-# File system debug (1 call)
-ls -la problematic/path/ 2>&1 && \
-df -h . && \
-echo "Permissions:" && \
-stat -c "%a %n" problematic/path/* 2>/dev/null | head -10
-```
-
-## 💡 Smart Logging
-
-### Conditional Debug Output
-```javascript
-// Only log when debugging
-const DEBUG_MODE = process.env.DEBUG === 'true';
-
-function debugLog(...args) {
-  if (DEBUG_MODE) {
-    console.log('[DEBUG]', new Date().toISOString(), ...args);
-  }
-}
-
-// Strategic placement
-debugLog('Entering function', { params });
-// ... code ...
-debugLog('Exiting function', { result });
-```
-
-### Structured Error Info
-```javascript
-// Enhanced error for debugging
-class DebugError extends Error {
-  constructor(message, context = {}) {
-    super(message);
-    this.name = 'DebugError';
-    this.context = context;
-    this.timestamp = new Date().toISOString();
-    this.stack = new Error().stack;
-  }
-  
-  toJSON() {
+// Automatic progress calculation
+const progressAnalyzer = {
+  // Infer task completion from code changes
+  detectProgress: (gitDiff) => {
     return {
-      name: this.name,
-      message: this.message,
-      context: this.context,
-      timestamp: this.timestamp,
-      stack: this.stack.split('\n').slice(0, 5)
+      completedTasks: extractCompletedFromCommits(gitDiff),
+      partialProgress: calculatePartialProgress(gitDiff),
+      newTasks: extractTodosFromCode(gitDiff),
+      timeSpent: estimateTimeFromCommitFrequency(gitDiff)
+    };
+  },
+  
+  // Smart task association
+  linkCommitsToTasks: (commit, activeTasks) => {
+    // Use NLP to match commit messages to tasks
+    const scores = activeTasks.map(task => ({
+      task,
+      score: calculateSimilarity(commit.message, task.description)
+    }));
+    return scores.filter(s => s.score > 0.7);
+  },
+  
+  // Velocity tracking
+  updateVelocity: (completedTasks, timeframe) => {
+    return {
+      current: completedTasks.length / timeframe,
+      trend: calculateTrend(historicalVelocity),
+      prediction: estimateCompletionDate(remainingTasks)
     };
   }
-}
-
-// Usage:
-throw new DebugError('User not found', {
-  userId,
-  searchParams,
-  dbQuery: query.toString()
-});
+};
 ```
 
-## 🚨 Debug Checklist
+## Task Management System
 
-### Before Deep Diving
-```
-□ Is error message clear?
-□ Can I reproduce consistently?
-□ Did it work before?
-□ What changed recently?
-□ Is it environment-specific?
-```
-
-### Quick Fixes to Try
-```
-□ Clear cache/node_modules
-□ Restart services
-□ Check environment variables
-□ Verify dependencies versions
-□ Test in isolation
-```
-
-## 📈 Debug Efficiency
-
-### Time Budget
-```
-5 min:  Read error, check obvious issues
-10 min: Reproduce and isolate
-15 min: Apply systematic debugging
-20 min: Consider asking for help
-30 min: Take break, return with fresh eyes
+### Task Structure
+```markdown
+## Task Format
+- [ ] {TASK_ID} | {TASK_TITLE}
+  - Status: {NOT_STARTED|IN_PROGRESS|BLOCKED|COMPLETE}
+  - Priority: {P0|P1|P2|P3}
+  - Estimate: {TIME_ESTIMATE}
+  - Actual: {TIME_ACTUAL}
+  - Branch: {FEATURE_BRANCH}
+  - PR: {PULL_REQUEST_LINK}
+  - Notes: {ADDITIONAL_CONTEXT}
+  
+  ### Subtasks
+  - [x] Research approach
+  - [x] Implement core logic
+  - [ ] Add tests
+  - [ ] Update documentation
+  
+  ### Progress Log
+  - {TIMESTAMP}: Started implementation
+  - {TIMESTAMP}: Hit blocker with {ISSUE}
+  - {TIMESTAMP}: Found solution using {APPROACH}
+  - {TIMESTAMP}: Completed, took {TOTAL_TIME}
 ```
 
-### Debug Complexity Levels
+### Automated Task Workflows
+```yaml
+task_workflows:
+  # Auto-create tasks from issues
+  issue_to_task:
+    trigger: "issue_labeled"
+    condition: "has_label('todo')"
+    action:
+      - create_task:
+          title: "${issue.title}"
+          priority: "${label_to_priority(issue.labels)}"
+          description: "${issue.body}"
+      - add_to_sprint_if_current: true
+      - notify_in_journal: true
+  
+  # Smart task breakdown
+  large_task_detection:
+    trigger: "task_created"
+    condition: "estimate > 8_hours"
+    action:
+      - suggest_breakdown: true
+      - template: |
+          Consider breaking down into:
+          - [ ] Research and planning (2h)
+          - [ ] Core implementation (4h)
+          - [ ] Testing (1.5h)
+          - [ ] Documentation (0.5h)
+  
+  # Stale task management
+  stale_task_handler:
+    trigger: "daily"
+    condition: "no_progress_for_days > 3"
+    action:
+      - add_label: "stale"
+      - prompt_for_update: true
+      - suggest: "move_to_backlog_or_close"
 ```
-Level 1: Console.log at error point
-Level 2: Binary search for issue
-Level 3: Use debugger/breakpoints
-Level 4: Add comprehensive logging
-Level 5: Profile and analyze deeply
+
+## Context Preservation
+
+### Smart Session Tracking
+```markdown
+## Session #{SESSION_NUMBER} Summary
+**Duration**: {SESSION_LENGTH} | **Focus Score**: {FOCUS_SCORE}/10
+**Primary Achievement**: {MAIN_ACCOMPLISHMENT}
+
+### Context Snapshot
+- **Mental Model**: {WHAT_I_NOW_UNDERSTAND}
+- **Key Decision**: {DECISION_MADE} because {RATIONALE}
+- **Surprise**: {UNEXPECTED_DISCOVERY}
+- **Tomorrow's Starting Point**: {WHERE_TO_RESUME}
+
+### Code Context
+```{LANGUAGE}
+// Last working on:
+{CODE_SNIPPET_OF_CURRENT_WORK}
+// Next step:
+{PLANNED_NEXT_CHANGE}
 ```
 
-## 🎯 Golden Rules
+### Open Questions
+- {UNRESOLVED_QUESTION_1}
+- {UNRESOLVED_QUESTION_2}
+```
+## Progress Visualization
 
-1. **Reproduce before fixing**
-2. **Change one thing at a time**
-3. **Keep a debug log**
-4. **Verify fixes work**
-5. **Document the solution**
+### Burndown Tracking
+```markdown
+## Sprint Progress
+```
+Week 1: ████████████████████ 20 tasks
+Week 2: ████████████░░░░░░░░ 12 tasks  
+Week 3: ████████░░░░░░░░░░░░ 8 tasks
+Week 4: ████░░░░░░░░░░░░░░░░ 4 tasks (projected)
+```
 
-Remember: The best debugger is a systematic approach!
+**Velocity Analysis**:
+- Average: {AVG_TASKS_PER_DAY} tasks/day
+- Best day: {MAX_TASKS} tasks
+- Sustainable pace: {RECOMMENDED_PACE}
+```
+
+### Task Flow Visualization
+```mermaid
+graph LR
+    Backlog[📝 Backlog: {COUNT}] --> Ready[🎯 Ready: {COUNT}]
+    Ready --> InProgress[🔄 In Progress: {COUNT}]
+    InProgress --> Review[👀 Review: {COUNT}]
+    Review --> Done[✅ Done: {COUNT}]
+    
+    InProgress -.-> Blocked[🚫 Blocked: {COUNT}]
+    Blocked -.-> InProgress
+```
+
+## Quick Commands
+
+### Natural Language Commands
+```bash
+# Add tasks naturally
+journal add "Need to refactor the auth module"
+journal todo "Fix the memory leak in worker process" -p high
+
+# Update progress  
+journal done "Implemented user authentication"
+journal progress "Working on database migrations" 50%
+journal blocked "Waiting for API credentials"
+
+# Quick reports
+journal today          # What did I do today?
+journal week          # Weekly summary
+journal todos         # Show all active todos
+journal focus         # Show current focus area
+journal velocity      # Show productivity trends
+```
+
+### Git Hooks Integration
+```bash
+#!/bin/bash
+# post-commit hook
+journal update --from-commit "$COMMIT_HASH"
+
+# pre-push hook  
+journal summary --check-todos
+```
+
+## AI Instructions
+
+### Automated Updates
+1. **On each commit**: Extract task progress from commit message
+2. **On file save**: Update time tracking for active task
+3. **On branch switch**: Log context switch and save session
+4. **On PR merge**: Complete associated tasks
+5. **Daily**: Generate summary and update metrics
+
+### Smart Insights
+- **Detect patterns**: "You're most productive in the morning"
+- **Suggest improvements**: "This task is taking 3x estimate"  
+- **Predict blockers**: "Similar tasks were blocked by X"
+- **Celebrate wins**: "You've completed 5 tasks today! 🎉"
+
+### Context Intelligence
+- Link related tasks automatically
+- Suggest task dependencies
+- Identify recurring problems
+- Track learning moments
+- Preserve decision rationale
+
+This system provides automated progress tracking while maintaining just enough context to be useful when you need to look back. It's optimized for developers who want to focus on coding while having their progress automatically documented.
 
 ---
 > Source: [DVC2/cursor_prompts](https://github.com/DVC2/cursor_prompts) — distributed by [TomeVault](https://tomevault.io).
