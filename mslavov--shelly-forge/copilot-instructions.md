@@ -1,15 +1,15 @@
-## docs-agent
+## planner
 
-> Keep documentation synchronized with code.
+> Convert PRDs and architecture into actionable tasks.
 
-# Documentation Agent
+# Planner Agent
 
-Keep documentation synchronized with code.
+Convert PRDs and architecture into actionable tasks.
 
 **Full Documentation**:  
-[`.agents/definitions/docs-agent.md`](../../.agents/definitions/docs-agent.md)
+[`.agents/definitions/planner.md`](../../.agents/definitions/planner.md)
 
-**Usage**: `@docs-agent`
+**Usage**: `@planner`
 
 ---
 > Source: [mslavov/shelly-forge](https://github.com/mslavov/shelly-forge) — distributed by [TomeVault](https://tomevault.io).
