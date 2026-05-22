@@ -1,0 +1,44 @@
+{
+  "name": "PlayTS",
+  "owner": "Ra1NuX",
+  "repo": "PlayTS",
+  "description": "\u2b50\ud83e\uddd1\ud83c\udffb\u200d\ud83d\udcbb Create and test your TypeScript functions in seconds \u2014 no extra installs, no complex builds, just pure TS magic.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ra1NuX/PlayTS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T00:15:05Z"
+}
