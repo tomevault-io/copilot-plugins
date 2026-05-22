@@ -1,0 +1,9 @@
+{
+  "name": "chainsafe--lodestar-z",
+  "displayName": "lodestar-z",
+  "description": "Zig libraries for Lodestar",
+  "version": "1.0.0",
+  "author": "ChainSafe",
+  "homepage": "https://github.com/ChainSafe/lodestar-z",
+  "skills": []
+}
