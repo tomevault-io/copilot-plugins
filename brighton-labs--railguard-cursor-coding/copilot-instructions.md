@@ -1,110 +1,96 @@
-## data-science-python-no-railguard-available
+## data-science-python-railguard-available
 
-> Enforce security-conscious data analysis in Jupyter notebooks and Python-based workflows using the RAILGUARD framework. Prevents risks such as PII leakage, unsafe data previews, insecure evaluation, and improper export logic.
+> description: Guide the LLM to generate secure, privacy-conscious data science code in notebooks and Python scripts. Defers input validation to `.cursor/rules/input-validation.mdc` while enforcing safe loading, export, and transformation of data.
 
 
-# R: Risk First
-- The objective is to generate privacy-preserving, auditable data science code that treats all datasets as potentially untrusted.
-- AI-generated workflows should prevent PII leakage, unsafe previews, over-permissive exports, or the use of risky dynamic evaluation functions.
-- Output code must consider that notebooks may be shared publicly or reviewed externally.
+---
+description: Guide the LLM to generate secure, privacy-conscious data science code in notebooks and Python scripts. Defers input validation to `.cursor/rules/input-validation.mdc` while enforcing safe loading, export, and transformation of data.
+globs: ["**/*.ipynb", "**/*.py"]
+alwaysApply: true
+---
 
-# A: Attached Constraints
-- Do not use `eval()`, `exec()`, `pd.eval()`, or `pandas.query()` with raw or user-controlled data.
-- Do not preview (`.head()`, `.sample()`) or visualize data before dropping or masking PII.
-- Never export datasets (CSV, Excel) without reviewing and excluding sensitive fields.
-- Avoid printing or logging raw values containing names, emails, phone numbers, IPs, or other PII.
-- Do not embed secrets (API keys, tokens, credentials) in notebooks or data transformation code.
-
-# I: Interpretative Framing
-- Treat CSV, Excel, JSON, or Parquet files as potentially malformed, misencoded, or manipulated.
-- If a chart or `.head()` preview is created, assume the data must be pre-sanitized.
-- All exports must be assumed auditable or shared — apply field-level filtering and file versioning.
-- Markdown or notebook outputs must avoid embedding unescaped HTML or unfiltered user data.
-
-# L: Local Defaults
-- Use `pandas.read_csv(..., dtype=...)` and `read_excel(..., engine="openpyxl", dtype=...)` for structured, validated loads.
-- Define default sensitive columns:
-  ```python
-  PII_FIELDS = ["email", "full_name", "ssn", "ip", "dob", "phone", "address"]
-  ```
-- Use `errors="ignore"` when dropping columns with `df.drop(...)`.
-- Preview data only after dropping or masking sensitive fields.
-- Use `with open(..., "r")` for safe, explicit file access.
-- Use the `logging` module for observability, not `print()`.
-
-# G: Generative Path Checks
-1. Dataset Loading
-   - Apply column type enforcement and encoding
-   - Normalize column headers to lowercase + snake_case
-   - Validate expected columns, dimensions, and content assumptions
-2. Preprocessing
-   - Drop PII fields prior to calling `.head()`, `.to_csv()`, `.plot()`
-   - Apply clear inline comments to describe transformations
-   - Avoid implicit or silent `inplace=True` modifications
-3. Exporting
-   - Confirm sensitive fields are excluded
-   - Add audit-friendly comments and logging entries
-   - Use versioned file naming (e.g., `customers_clean_v1.csv`)
-
-# U: Uncertainty Disclosure
-- If unsure about schema safety:
-  _“Schema enforcement missing — validate column types.”_
-- If unsure about PII exposure:
-  _“Column 'email' may contain sensitive data — exclude from preview/export.”_
-- If unsure about transformation safety:
-  _“Verify output of transformation does not reintroduce PII.”_
-
-# A: Auditability
-- Insert comments like:
-  - `# Loaded CSV with schema and type constraints`
-  - `# Removed PII columns before preview/export`
-  - `# Logged sanitized export to external audit location`
-- Use `logging.info(...)` to trace sanitization and export events
-- Write output to `exports/` or `sanitized_exports/` folders with timestamped or versioned names
-  - Example: `export/customers_clean_2024-04-16_v1.csv`
-
-# R+D: Revision + Dialogue
-- `/why-secure`: Explain logic such as _“Dropped PII before calling .head() and ensured export file omits personal data.”_
-- `/revise-for-security`: Rerun export logic or previews to remove sensitive fields
-- `/pii-scan`: Trigger column-level scan to detect `email`, `ssn`, `ip`, etc.
-- `/summarize-cleanroom`: Output a trace of cleaning, filtering, and export steps for notebook reviews
+## Overview
+This rule supports data analysts and scientists working in Python (e.g., Jupyter, Colab, VSCode notebooks) by:
+- Enforcing safe data previews and exports
+- Preventing accidental leakage of personally identifiable information (PII)
+- Deferring all structured input validation logic to:
+  > `.cursor/rules/railguard-input-validation.mdc`  
+  > _(which uses the RAILGUARD Framework for secure reasoning and enforcement)_
 
 ---
 
-## Example: Secure Data Load, Transform, and Export
+## Safe Data Handling
+- Use `pandas.read_csv()` and `read_excel()` with `dtype=...` to enforce schema.
+- Always drop or mask sensitive fields before using `.head()`, `.sample()`, or `.plot()`.
+- Never use `eval()`, `exec()`, `pd.eval()` or `query()` on raw data or unvalidated user inputs.
+- When exporting data, verify and exclude all PII fields.
 
+### Default PII fields to remove:
+```python
+PII_FIELDS = ["email", "full_name", "ssn", "ip", "dob", "phone", "address"]
+```
+
+- Always log sanitized export filenames using `logging`, not `print()`.
+- Prefer versioned, structured export paths (e.g., `exports/cleaned_data_v1.csv`).
+
+---
+
+## Cross-Reference: Validation Logic
+Input validation, schema enforcement, sanitization, and secure reasoning are handled globally in:
+
+> `.cursor/rules/railguard-input-validation.mdc`
+
+This ensures:
+- Protection against malformed files, unexpected schema, or poisoned input
+- Step-by-step generation reasoning (RAILGUARD pillars)
+- Enforcement of redlines (e.g., avoiding `eval`, ensuring schema is present)
+- Behaviorally aware, explainable code generation across file types
+
+---
+
+## Example: Secure Data Load + Export
 ```python
 import pandas as pd
 import logging
 
 PII_FIELDS = ["email", "ssn", "address", "full_name"]
 
-# Load CSV with schema enforcement
-df = pd.read_csv("datasets/customers.csv", dtype={"id": str, "email": str})
+# Load CSV with enforced column types
+df = pd.read_csv("customers.csv", dtype={"id": str, "email": str})
 
-# Remove sensitive fields
+# Drop sensitive fields
 df_clean = df.drop(columns=PII_FIELDS, errors="ignore")
 
-# Preview safe sample only
+# Preview non-sensitive columns only
 print(df_clean[["id", "signup_date"]].head())
 
-# Export with versioned filename and log the operation
-output_path = "exports/customers_clean_2024-04-16_v1.csv"
+# Export with logging
+output_path = "exports/customers_clean_v1.csv"
 df_clean.to_csv(output_path, index=False)
-logging.info(f"Exported sanitized dataset to {output_path}")
+logging.info(f"Exported sanitized data to {output_path}")
 ```
 
 ---
 
 ## Example: Secure Visualization
-
 ```python
 import plotly.express as px
 
-# Only visualize sanitized columns
-fig = px.histogram(df_clean, x="signup_date", title="User Signups by Date")
-fig.update_layout(yaxis_title="Count")
+# Visualize only sanitized data
+fig = px.histogram(df_clean, x="signup_date", title="User Signups")
+fig.update_layout(yaxis_title="User Count")
 fig.show()
+```
+
+---
+
+## Notes
+- Do not store intermediate notebook outputs with raw `df` previews if they contain sensitive data.
+- If you're unsure whether a column contains PII, instruct the LLM to generate a `/pii-scan` step.
+- This rule is safe to combine with:
+  - `ml-secure.mdc`
+  - `python-security-railguard.mdc`
+  - `bigquery-secure.mdc` or any domain-specific `.mdc` rule
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
