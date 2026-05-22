@@ -1,0 +1,9 @@
+{
+  "name": "stoffel-labs--mpc-protocols",
+  "displayName": "mpc-protocols",
+  "description": "MPC Protocols for the Stoffel framework",
+  "version": "1.0.0",
+  "author": "Stoffel-Labs",
+  "homepage": "https://github.com/Stoffel-Labs/mpc-protocols",
+  "skills": []
+}
