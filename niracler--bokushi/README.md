@@ -7,11 +7,11 @@ Personal blog documenting tech & life | 博物志：记录技术与生活的话�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [niracler/bokushi](https://github.com/niracler/bokushi).
+Original source: `CLAUDE.md` in [niracler/bokushi](https://github.com/niracler/bokushi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
