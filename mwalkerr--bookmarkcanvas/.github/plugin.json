@@ -1,0 +1,9 @@
+{
+  "name": "mwalkerr--bookmarkcanvas",
+  "displayName": "BookmarkCanvas",
+  "description": "IntelliJ Plugin that offers an infinite canvas to organize code bookmarks",
+  "version": "1.0.0",
+  "author": "mwalkerr",
+  "homepage": "https://github.com/mwalkerr/BookmarkCanvas",
+  "skills": []
+}
