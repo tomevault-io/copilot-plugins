@@ -4,7 +4,7 @@
   "repo": "what-the-token",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DhvanilPatel/what-the-token",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T17:10:07Z"
+  "distributed_at": "2026-05-22T19:00:15Z"
 }
