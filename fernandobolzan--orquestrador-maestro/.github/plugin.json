@@ -1,0 +1,9 @@
+{
+  "name": "fernandobolzan--orquestrador-maestro",
+  "displayName": "Orquestrador-Maestro",
+  "description": "AI agent orchestration kit for Windows with Codex skills, hooks, routing rules and profiles for Claude, OpenCode, Cursor, Gemini and Windsurf.",
+  "version": "1.0.0",
+  "author": "FernandoBolzan",
+  "homepage": "https://github.com/FernandoBolzan/Orquestrador-Maestro",
+  "skills": []
+}
