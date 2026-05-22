@@ -7,13 +7,13 @@ Uppi: A self-hosted robust uptime monitoring solution built with Laravel
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [janyksteenbeek/uppi](https://github.com/janyksteenbeek/uppi).
+Original source: `.cursor/rules/*.mdc` in [janyksteenbeek/uppi](https://github.com/janyksteenbeek/uppi).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
