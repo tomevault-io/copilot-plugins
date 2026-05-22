@@ -2,6 +2,8 @@
 
 > Sourced from [wolforest/jscommon](https://github.com/wolforest/jscommon) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+The simple utils facade for javascript/typescript，the only utils you need for frontEnd application
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [wolforest/jscommon](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [wolforest/jscommon](https://github.com/wolforest/jscommon) — a repo with 0+ stars on GitHub.
+From [wolforest/jscommon](https://github.com/wolforest/jscommon) — a repo with 16+ stars on GitHub.
 
 ---
 
