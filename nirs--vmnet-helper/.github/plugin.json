@@ -1,0 +1,9 @@
+{
+  "name": "nirs--vmnet-helper",
+  "displayName": "vmnet-helper",
+  "description": "High-performance network proxy connecting VMs to macOS vmnet",
+  "version": "1.0.0",
+  "author": "nirs",
+  "homepage": "https://github.com/nirs/vmnet-helper",
+  "skills": []
+}
