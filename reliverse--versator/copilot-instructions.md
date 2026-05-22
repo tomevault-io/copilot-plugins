@@ -1,71 +1,51 @@
-## clerk-auth
+## comments
 
-> this codebase uses @clerk for authentication and user management, integrated with:
+> 1.  **minimize comments:** code should be self-explanatory; comment only when needed.
 
 
-# clerk-auth (llm guidance)
+# how and when to write comments (llm rules)
 
-## overview
-this codebase uses @clerk for authentication and user management, integrated with:
-- drizzle orm for syncing user data to the database
-- svix for webhook delivery, signature verification, and keeping clerk data in sync with drizzle
+## guiding principles
+1.  **minimize comments:** code should be self-explanatory; comment only when needed.
+2.  **clarity through naming:** use clear, descriptive names for variables, functions, classes, components.
+3.  **comment the "why," not the "what":** explain *why* an approach was taken, especially for non-obvious logic or trade-offs. don't restate what the code does.
+4.  **avoid obvious comments:** don't comment on simple or standard code; assume the reader knows language basics.
+5.  **consistency:** keep comment and doc style consistent across the codebase.
 
-## best practices for llms
+## when to add comments
+*   **complex logic:** for algorithms or flows not clear from code.
+*   **non-obvious decisions (the "why"):** explain reasoning behind design choices, workarounds, or optimizations, especially if nonstandard or counterintuitive.
+*   **business rules/context:** briefly note domain-specific rules or context driving code.
+*   **security/performance notes:** note important security or performance implications if not obvious.
+*   **todos/fixmes:** use `// todo:` or `// fixme:` for future work, with brief context. use `// @ts-expect-error todo: ...` only if you tried and failed to fix a typescript error, and disabling it is safe.
+*   **jsdoc (public apis):**
+    *   use doc comments for public functions or modules to describe purpose and usage.
+    *   explain conceptual behavior, non-obvious details, or the "why" if needed.
+    *   **skip redundant tags** like `@param`/`@return` if typescript types are clear.
+    *   use tags only when types aren't enough (e.g., constraints, units, expected format).
+    *   add `@example` for complex apis.
 
-### 1. type safety
-- always use official clerk types (e.g., `UserJSON`, `WebhookEvent`) from `@clerk/nextjs/server` for webhook payloads and user objects.
-- when mapping clerk user data to the db, use the local `NewUser` type for inserts/updates.
+## when not to add comments
+*   **restating code:** e.g., `// increment i` above `i++`.
+*   **explaining syntax:** e.g., `// loop through array` above `for (const item of items) { ... }`.
+*   **obvious names:** e.g., `// user's name` above `const username = ...`.
+*   **commented-out code:** delete dead code; git tracks history.
+*   **end-of-line noise:** avoid trivial comments on code lines.
+*   **outdated comments:** remove or update comments that no longer match the code.
 
-### 2. webhook handling
-- all webhook endpoints must verify the svix signature before processing. use the `Webhook` class from the `svix` npm package and the `CLERK_WEBHOOK_SECRET` env variable.
-- read the raw request body (not parsed json) for signature verification.
-- only parse and process the event after successful verification.
-- handle only relevant event types (e.g., `user.created`, `user.updated`). ignore or log others.
+## humor, tone, and informality
+*   **full informal freedom:** use informal, conversational, or humorous language in comments and docs—just like a real, quirky senior dev. puns, memes, pop culture, playful banter are all fair game, as long as it's not offensive or unprofessional. if a joke helps make a point or keeps things lively, go for it!
+*   **be yourself:** comments can have personality. if you want to drop a "don't touch this unless you like pain", that's totally fine.
+*   **clarity first:** even with informality, make sure the comment's intent is clear and helpful to both beginners and seniors.
 
-### 3. drizzle integration
-- use drizzle's upsert pattern (`.onConflictDoUpdate`) for idempotency on repeated webhooks.
-- map clerk user fields to the db schema using a dedicated mapping function (see `mapClerkUserToDb`).
-- always use the `NewUser` type for db inserts/updates for type safety.
+## lowercase comment style
+*   **all comments must be written in lowercase, even at the beginning of sentences.** the only exception is for code identifiers (like function or variable names), which should keep their original casing.
 
-### 4. security
-- never trust incoming webhook payloads until signature verification passes.
-- log and return 401 for invalid signatures.
-- log all errors for debugging and monitoring.
+## important
+*   when asked to "clean up" comments, don't add new comments explaining what was removed or which functions/variables were renamed. the user uses cursor ide, which shows diffs. explain important changes in your message, not in code comments.
+*   remember: these rules apply only to comments, e.g. `// ` `/** */` `{/* */}`. do not apply these rules to end-user content, e.g. frontend text.
 
-### 5. code style
-- follow lowercase comment style and comment the "why" for non-obvious logic, per codebase rules.
-- keep mapping and verification logic in separate, testable functions.
-
-## event schema and robustness
-- clerk webhook events follow a documented schema (see clerk docs), and the official types (`WebhookEvent`, `UserJSON`) match this schema.
-- the handler is robust to extra or missing fields: it only maps what is needed for the db, so new fields from clerk will not break the code.
-- to use more fields from clerk, add them to the mapping function and update the db schema as needed.
-
-## adding new event types
-- to handle more events (e.g., `user.deleted`), add a new case in the switch statement in the webhook handler and implement the corresponding db logic.
-
-## local development and endpoint url
-- for local testing, use a tunneling service (like ngrok) to expose your local webhook endpoint to clerk.
-- in production, the endpoint url must be a public https url (not localhost).
-
-## error handling
-- always log errors and return appropriate http status codes (e.g., 401 for invalid signature, 400 for invalid event, 500 for internal errors).
-
-## example: webhook handler (summary)
-```ts
-export async function POST(req: Request) {
-  const rawBody = await getRawBody(req);
-  const isValid = await verifyClerkSignature(req, rawBody);
-  if (!isValid) return NextResponse.json({ error: "invalid signature" }, { status: 401 });
-  const event = JSON.parse(rawBody.toString()) as WebhookEvent;
-  // ... handle event, map user, upsert with drizzle ...
-}
-```
-
-## see also
-- clerk docs: https://clerk.com/docs/
-- svix docs: https://docs.svix.com/receiving/verifying-payloads/how
-- drizzle docs: https://orm.drizzle.team/docs/
+by following these rules, the codebase stays clean, readable, maintainable—and a little more fun and human.
 
 ---
 > Source: [reliverse/versator](https://github.com/reliverse/versator) — distributed by [TomeVault](https://tomevault.io).
