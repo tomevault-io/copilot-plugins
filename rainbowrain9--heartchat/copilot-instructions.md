@@ -1,107 +1,152 @@
-## daily-report
+## database-design
 
-> HeartChat的每日心情报告功能是情感分析模块的重要组成部分，通过对用户一天内的情绪数据进行汇总和分析，生成直观的可视化报告，帮助用户了解自己的情绪变化趋势和规律。
+> HeartChat使用微信小程序云开发提供的云数据库（NoSQL数据库）存储应用数据。数据库设计遵循文档型数据库的最佳实践，合理设计集合结构和索引。
 
-# 每日心情报告功能
+# 数据库设计
 
-## 功能概述
-HeartChat的每日心情报告功能是情感分析模块的重要组成部分，通过对用户一天内的情绪数据进行汇总和分析，生成直观的可视化报告，帮助用户了解自己的情绪变化趋势和规律。
+## 概述
+HeartChat使用微信小程序云开发提供的云数据库（NoSQL数据库）存储应用数据。数据库设计遵循文档型数据库的最佳实践，合理设计集合结构和索引。
 
-## 相关文件结构
-- 前端部分：
-  - [miniprogram/packageEmotion/pages/daily-report/](mdc:miniprogram/packageEmotion/pages/daily-report/)：每日报告页面
-  - [miniprogram/components/emotion-dashboard/](mdc:miniprogram/components/emotion-dashboard/)：情绪仪表盘组件
-  - [miniprogram/components/emotion-pie/](mdc:miniprogram/components/emotion-pie/)：情绪饼图组件
+## 数据库设计原则
+根据[database_design.md](mdc:database_design.md)文件，HeartChat的数据库设计遵循以下原则：
+- 合理拆分集合，避免单一集合过大
+- 优先考虑查询场景，设计适合查询需求的数据结构
+- 适当冗余数据，减少多集合查询
+- 建立必要索引，提高查询性能
+- 考虑数据增长趋势，预留扩展空间
 
-- 后端部分：
-  - [cloudfunctions/generateDailyReports/](mdc:cloudfunctions/generateDailyReports/)：生成每日报告的云函数
-  - [cloudfunctions/analysis/](mdc:cloudfunctions/analysis/)：数据分析相关云函数
+## 主要集合
 
-## 报告生成流程
-根据[每日心情报告系统使用文档.md](mdc:docs/使用文档/每日心情报告系统使用文档.md)，报告生成流程如下：
+### users - 用户集合
+存储用户基本信息
+```javascript
+{
+  _id: "用户ID",
+  openid: "微信OpenID",
+  nickname: "用户昵称",
+  avatar: "头像URL",
+  created_at: "创建时间",
+  last_active: "最后活跃时间",
+  settings: {
+    // 用户设置项
+  }
+}
+```
 
-1. 定时触发：系统每天凌晨通过云函数定时触发器自动执行报告生成
-2. 数据收集：从情绪记录集合中获取用户当天的情绪数据
-3. 数据分析：计算各类情绪的占比、情绪变化曲线、高峰值等指标
-4. 内容生成：根据分析结果生成文字总结和建议
-5. 报告存储：将生成的报告保存到daily_reports集合
-6. 通知用户：向用户发送报告已生成的通知
+### chats - 聊天集合
+存储聊天会话信息
+```javascript
+{
+  _id: "会话ID",
+  user_id: "用户ID",
+  role_id: "角色ID",
+  title: "会话标题",
+  created_at: "创建时间",
+  updated_at: "更新时间",
+  message_count: 消息数量
+}
+```
 
-## 报告数据结构
+### messages - 消息集合
+存储聊天消息内容
+```javascript
+{
+  _id: "消息ID",
+  chat_id: "会话ID",
+  role: "user/assistant", // 消息角色
+  content: "消息内容",
+  created_at: "创建时间",
+  emotion: "情感标签",
+  emotion_score: 情感分数
+}
+```
+
+### roles - 角色集合
+存储AI角色信息
+```javascript
+{
+  _id: "角色ID",
+  name: "角色名称",
+  avatar: "头像URL",
+  description: "角色描述",
+  personality: "性格特点",
+  expertise: "专长领域",
+  is_system: true/false, // 是否为系统角色
+  created_by: "创建者ID", // 若为用户创建
+  prompt_template: "提示词模板",
+  created_at: "创建时间",
+  updated_at: "更新时间"
+}
+```
+
+### emotions - 情感记录集合
+存储用户情感分析记录
+```javascript
+{
+  _id: "记录ID",
+  user_id: "用户ID",
+  timestamp: "记录时间",
+  message_id: "关联消息ID",
+  primary_emotion: "主要情绪",
+  emotion_scores: {
+    // 各情绪类别的分数
+    "joy": 0.7,
+    "sadness": 0.1,
+    // ...其他情绪
+  },
+  tags: ["标签1", "标签2"], // 情绪标签
+  notes: "备注信息" // 用户添加的备注
+}
+```
+
+### daily_reports - 每日报告集合
+存储用户每日情绪报告
 ```javascript
 {
   _id: "报告ID",
   user_id: "用户ID",
-  date: "报告日期", // YYYY-MM-DD格式
-  summary: "总结文字", // AI生成的情绪总结
+  date: "报告日期",
+  summary: "总结文字",
   emotion_stats: {
     // 情绪统计数据
-    joy: 0.35, // 各情绪类别占比
-    sadness: 0.15,
-    anger: 0.05,
-    fear: 0.1,
-    surprise: 0.2,
-    disgust: 0.05,
-    neutral: 0.1
   },
-  emotion_trend: [
-    // 情绪变化趋势数据，按时间排序
-    {time: "08:30", primary_emotion: "joy", score: 0.8},
-    {time: "12:15", primary_emotion: "surprise", score: 0.6},
-    // ...更多时间点数据
-  ],
   highlights: [
-    // 情绪亮点，如情绪高峰或低谷
-    {
-      time: "15:20",
-      emotion: "joy",
-      score: 0.9,
-      message: "今天最开心的时刻",
-      related_message_id: "消息ID"
-    }
-    // ...其他亮点
+    // 当日情绪亮点
   ],
   suggestions: [
-    // 基于情绪数据的建议
-    "今天你的积极情绪占比较高，建议继续保持这种状态",
-    "下午出现了一些焦虑情绪，可以尝试进行5分钟的深呼吸练习"
-    // ...更多建议
+    // 基于情绪的建议
   ],
-  tags: ["积极", "波动", "进步"], // 情绪标签
   created_at: "创建时间"
 }
 ```
 
-## 报告页面设计
-根据[每日心情报告功能使用指南.md](mdc:docs/使用文档/每日心情报告功能使用指南.md)，报告页面包含以下部分：
+### user_preferences - 用户偏好集合
+存储用户个性化设置
+```javascript
+{
+  _id: "用户ID",
+  theme: "主题设置",
+  notification_settings: {
+    // 通知设置
+  },
+  privacy_settings: {
+    // 隐私设置
+  },
+  favorite_roles: ["角色ID1", "角色ID2"], // 收藏的角色
+  updated_at: "更新时间"
+}
+```
 
-1. 日期选择器：允许用户查看历史报告
-2. 情绪概览：展示当天主要情绪占比的饼图
-3. 情绪变化趋势：展示情绪随时间变化的折线图
-4. 情绪亮点：展示情绪的高峰和低谷时刻
-5. 文字总结：AI生成的对当天情绪的总结
-6. 建议部分：基于情绪数据提供的改善建议
-7. 详细记录：可查看详细的情绪记录列表
+## 索引设计
+- users集合：openid字段创建唯一索引
+- messages集合：chat_id字段创建索引，加速会话消息查询
+- emotions集合：user_id和timestamp字段创建复合索引，加速用户情绪历史查询
+- daily_reports集合：user_id和date字段创建复合索引
 
-## 数据可视化
-- 饼图：使用ECharts组件展示各类情绪的占比
-- 折线图：使用ECharts组件展示情绪随时间的变化趋势
-- 仪表盘：展示当天情绪健康指数
-- 色彩编码：使用不同颜色代表不同类型的情绪
-
-## 主要功能实现
-- 自动生成：系统自动生成每日报告
-- 历史查询：用户可查看历史报告
-- 数据可视化：直观展示情绪数据
-- 情绪分析：提供情绪变化趋势分析
-- 建议生成：基于情绪数据提供个性化建议
-- 分享功能：允许用户分享报告（可选）
-
-## 相关接口
-- 获取报告列表：获取用户的报告列表
-- 获取报告详情：获取指定日期的报告详情
-- 手动生成报告：手动触发报告生成（管理功能）
-- 报告反馈：用户对报告内容的反馈
+## 数据备份策略
+- 定期导出关键数据（如用户数据、角色定义等）
+- 重要数据操作前进行备份
+- 利用云开发提供的自动备份能力
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
