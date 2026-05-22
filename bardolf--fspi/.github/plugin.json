@@ -1,0 +1,9 @@
+{
+  "name": "bardolf--fspi",
+  "displayName": "fspi",
+  "description": "Fedora sway post install (tested on Fedora 42)",
+  "version": "1.0.0",
+  "author": "bardolf",
+  "homepage": "https://github.com/bardolf/fspi",
+  "skills": []
+}
