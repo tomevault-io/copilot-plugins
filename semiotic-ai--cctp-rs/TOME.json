@@ -4,7 +4,7 @@
   "repo": "cctp-rs",
   "description": "Rust implementation of Circle CCTP",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/semiotic-ai/cctp-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T14:59:08Z"
+  "distributed_at": "2026-05-22T15:13:42Z"
 }
