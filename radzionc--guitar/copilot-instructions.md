@@ -1,49 +1,55 @@
-## functions
+## package-manager
 
-> USE object parameters WHEN writing functions with multiple parameters TO improve code maintainability
+> USE specified package manager WHEN managing dependencies TO ensure consistent dependency resolution
 
 
-# TypeScript Function Rules
+# Package Manager Selection Rules
 
 ## Context
-- Apply when writing TypeScript functions with multiple parameters
-- Applies to both function declarations and arrow function expressions
-- Aims to improve code maintainability and readability
+- Applies when installing, updating, or removing dependencies
+- Applies when running package scripts
+- Based on the project's packageManager field in package.json
+- Currently, this project uses yarn@4.7.0 as specified in package.json
+- Consistent package manager usage prevents lock file conflicts and ensures reliable dependency resolution
 
 ## Requirements
-- Functions with more than 1 parameter must use an object parameter pattern
-- Name input types with the pattern: `{FunctionName}Input`
-- For single parameters, direct arguments are acceptable
-- Object parameters should use destructuring in the function signature
+- Always use the package manager specified in the root package.json's packageManager field
+- Do not use other package managers unless the packageManager field is updated
+- Use the correct command equivalents based on the specified package manager
 
 ## Examples
 <example>
-// Good: Using object parameter for multiple parameters
-type UpdateNameInput = {
-  id: string
-  newName: string
-}
+# If package.json specifies yarn (current configuration)
+# Installing a package
+yarn add react
 
-const updateName = ({
-  id,
-  newName
-}: UpdateNameInput) => {
-  // ...
-}
-</example>
+# Installing a dev dependency
+yarn add -D eslint
 
-<example>
-// Good: Single parameter uses direct argument
-const getUser = (id: string) => {
-  // ...
-}
+# Removing a package
+yarn remove lodash
+
+# Installing all dependencies
+yarn
+
+# Running a script
+yarn build
 </example>
 
 <example type="invalid">
-// Bad: Multiple direct parameters
-const updateName = (id: string, newName: string) => {
-  // ...
-}
+# Using npm when package.json specifies yarn
+npm install react
+npm install --save-dev eslint
+npm uninstall lodash
+npm install
+npm run build
+
+# Using pnpm when package.json specifies yarn
+pnpm add react
+pnpm add -D eslint
+pnpm remove lodash
+pnpm install
+pnpm run build
 </example>
 
 ---
