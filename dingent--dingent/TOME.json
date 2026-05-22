@@ -4,7 +4,7 @@
   "repo": "Dingent",
   "description": "A lightweight, user-friendly LLM Agent framework focused on simplifying data retrieval application development.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Dingent/Dingent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T01:30:24Z"
+  "distributed_at": "2026-05-22T02:44:01Z"
 }
