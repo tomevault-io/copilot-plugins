@@ -7,11 +7,11 @@ Easy no-frills Jax implementations of common abstractions for simple diffusion m
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DruvPai/DiffusionLab](https://github.com/DruvPai/DiffusionLab).
+Original source: `CLAUDE.md` in [DruvPai/DiffusionLab](https://github.com/DruvPai/DiffusionLab).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
