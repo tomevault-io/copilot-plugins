@@ -1,0 +1,9 @@
+{
+  "name": "maruel--genai",
+  "displayName": "genai",
+  "description": "The opinionated high performance professional-grade AI package for Go",
+  "version": "1.0.0",
+  "author": "maruel",
+  "homepage": "https://github.com/maruel/genai",
+  "skills": []
+}
