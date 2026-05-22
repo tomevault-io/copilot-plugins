@@ -1,0 +1,9 @@
+{
+  "name": "fuba--histree-core",
+  "displayName": "histree-core",
+  "description": "A command-line tool that provides the core functionality for storing and retrieving shell command history with directory context in SQLite database.",
+  "version": "1.0.0",
+  "author": "fuba",
+  "homepage": "https://github.com/fuba/histree-core",
+  "skills": []
+}
