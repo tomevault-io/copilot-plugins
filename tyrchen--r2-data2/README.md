@@ -1,6 +1,8 @@
 # r2-data2
 
-> Tome by [tyrchen](https://github.com/tyrchen/r2-data2) — distributed by [TomeVault](https://tomevault.io/claim/tyrchen)
+> Tome by [tyrchen](https://github.com/tyrchen/r2-data2) — distributed by [TomeVault](https://tomevault.io)
+
+A web-based SQL query tool and data browser with visualization capabilities, built with Rust (Axum) and React (TypeScript/Vite). 95% of the code is written by AI agent.
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [tyrchen/r2-data2](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/tyrchen)
+From [tyrchen/r2-data2](https://github.com/tyrchen/r2-data2) — a repo with 19+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/tyrchen) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
