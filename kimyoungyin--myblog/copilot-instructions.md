@@ -1,49 +1,69 @@
-## typescript-standards
+## ui-components
 
-> - **ALWAYS** use strict TypeScript mode (already configured in [tsconfig.json](mdc:tsconfig.json))
+> - **ALWAYS** use shadcn/ui components from [src/components/ui/](mdc:src/components/ui)
 
+# UI Components & Design System (MANDATORY)
 
-# TypeScript Standards (MANDATORY)
+## 🎨 **Component Architecture (MUST FOLLOW)**
 
-## 🔒 **Type Safety (MUST ENFORCE)**
+- **ALWAYS** use shadcn/ui components from [src/components/ui/](mdc:src/components/ui)
+- **ALWAYS** follow the existing component patterns in [src/components/](mdc:src/components)
+- **NEVER** create custom UI components without following the design system
+- **MUST** use `class-variance-authority (cva)` for component variants
 
-- **ALWAYS** use strict TypeScript mode (already configured in [tsconfig.json](mdc:tsconfig.json))
-- **NEVER** use `any` type - use proper interfaces or `unknown`
-- **MUST** define interfaces for all data structures in [src/types/index.ts](mdc:src/types/index.ts)
-- **ALWAYS** use Zod schemas for runtime validation (see [src/lib/schemas.ts](mdc:src/lib/schemas.ts))
+## 🧩 **shadcn/ui Usage (CRITICAL)**
 
-## 📝 **Interface Definitions (CRITICAL)**
+Based on [src/components/ui/button.tsx](mdc:src/components/ui/button.tsx):
+
+- **ALWAYS** use the `cn()` utility function for className merging
+- **ALWAYS** implement proper variant systems using cva
+- **ALWAYS** use Radix UI primitives as the foundation
+- **NEVER** override shadcn/ui component styles directly
 
 ```typescript
-// ✅ CORRECT - Use interfaces for object shapes
-export interface User {
-    id: string;
-    email: string;
-    is_admin: boolean;
-}
+// ✅ CORRECT - Following shadcn/ui patterns
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-// ❌ WRONG - Don't use type aliases for object shapes
-export type User = {
-    id: string;
-    email: string;
-    is_admin: boolean;
-};
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2...",
+  {
+    variants: {
+      variant: { default, destructive, outline, secondary, ghost, link },
+      size: { default, sm, lg, icon }
+    },
+    defaultVariants: { variant: "default", size: "default" }
+  }
+);
+
+// ❌ WRONG - Not following design system
+const CustomButton = ({ className, ...props }) => (
+  <button className={`bg-blue-500 text-white px-4 py-2 ${className}`} {...props} />
+);
 ```
 
-## 🚫 **FORBIDDEN TypeScript Practices**
+## 🚫 **FORBIDDEN UI Practices**
 
-- **NEVER** use `any` type
-- **NEVER** use `@ts-ignore` or `@ts-nocheck`
-- **NEVER** cast types without proper validation
-- **NEVER** use `Object` or `Function` constructors
-- **NEVER** create untyped arrays or objects
+- **NEVER** use inline styles
+- **NEVER** create components without proper TypeScript interfaces
+- **NEVER** bypass the design system for "quick fixes"
+- **NEVER** use hardcoded colors or spacing values
+- **NEVER** create components that don't follow accessibility guidelines
 
-## ✅ **REQUIRED Practices**
+## ✅ **REQUIRED UI Practices**
 
-- **ALWAYS** use proper return types for functions
-- **ALWAYS** validate external data with Zod schemas
-- **ALWAYS** use generic types when appropriate (e.g., `useDebounce<T>` from 'use-debounce')
-- **ALWAYS** handle null/undefined cases explicitly
+- **ALWAYS** use Tailwind CSS classes for styling
+- **ALWAYS** implement proper accessibility attributes (aria-labels, roles)
+- **ALWAYS** use semantic HTML elements
+- **ALWAYS** implement responsive design patterns
+- **ALWAYS** use the established color tokens and spacing scale
+
+## 🎯 **Design Tokens**
+
+- **ALWAYS** use CSS custom properties defined in [src/app/globals.css](mdc:src/app/globals.css)
+- **ALWAYS** follow the established color palette and spacing scale
+- **ALWAYS** implement dark/light mode support
+- **ALWAYS** use consistent border radius and shadow values
   description:
   globs:
   alwaysApply: true
