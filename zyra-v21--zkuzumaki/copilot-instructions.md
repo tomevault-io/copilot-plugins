@@ -1,112 +1,55 @@
-## circom-rules
+## cursor-rules
 
-> description: Guidelines and best practices for writing Circom circuits and related scripts in the ZK Mixer project.
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
----
-description: Guidelines and best practices for writing Circom circuits and related scripts in the ZK Mixer project.
-globs: ["circuits/**/*.circom", "scripts/zk*.js"] # Apply to circuits and related ZK scripts
-alwaysApply: true
----
 
-- **1. General Style & Structure**
-    - **Pragma & Versioning**:
-        - Start every `.circom` file with `pragma circom 2.x.x;`.
-        - Maintain a consistent Circom compiler version across the project (check project setup or `package.json`). Use version `2.0.0` or higher as required by libraries like `circomlib`.
-    - **File Naming & Organization**:
-        - Store all circuit files within the `/circuits` directory.
-        - Use descriptive names for circuit files (e.g., `mixer.circom`, `poseidon_hasher.circom`).
-        - **Local Libraries:** Place crucial external circuit components (like hashers or verifiers copied from other sources) in a dedicated `/circuits/lib/` directory and document their origin clearly. This ensures stability and availability.
-        - **Remove obsolete files**: Do not keep old versions with suffixes like `_old.circom` in the codebase.
-    - **Comments & Readability**:
-        - Use `//` for single-line and `/* ... */` for multi-line comments.
-        - Document the purpose of each `template`, its inputs/outputs, and any complex internal logic.
-        - Explain the rationale behind non-obvious constraints.
-    - **Naming Conventions**:
-        - `UpperCamelCase` for `template` names (e.g., `VerifyMerklePath`, `Mixer`).
-        - `camelCase` for `signal`, `var`, and `component` instance names (e.g., `nullifierHash`, `intermediateSignal`, `commitmentHasher`).
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
-- **2. Signals & I/O**
-    - **Explicit Declaration**: Clearly declare signals as `input` or `output` within templates.
-        ```circom
-        template Example(n) {
-            signal input in_value;
-            signal output out_value;
-            // ...
-        }
-        ```
-    - **Public Inputs (`main { public [...] }`)**:
-        - **CRITICAL**: The order, number, and type of signals listed in `public [...]` in the `main` component **must exactly match** the public inputs expected by the generated `Verifier.sol` contract. Mismatches guarantee proof verification failure.
-        - **Minimality**: Only declare signals as public if they are absolutely required for the verification logic or to prevent attacks (e.g., `root`, `nullifierHash`, `recipient`, `fee`, `chainId`). Do not expose internal witness values unnecessarily.
-        - **Cross-Chain Protection**: Always include `chainId` as a public input to prevent cross-chain replay attacks.
-        - **Fee Protection**: Include `fee` and `refund` params to enable economic security checks.
-        - **Documentation**: Clearly document the expected public inputs in the NatSpec comments of the corresponding Solidity contract function (e.g., `ZKMixer.withdraw`).
-    - **Intermediate Signals**:
-        - Use `signal name;` to define intermediate values for clarity or complex calculations.
-        - Be aware that complex expressions assigned (`<==`) to intermediate signals contribute to constraints.
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-- **3. Constraints & Logic (`===`, `<==`, `<--`)**
-    - **Constraint Requirement**:
-        - **CRITICAL**: Any computation or relationship that must hold true for the proof to be valid **must** be enforced by a constraint (`===` for equality, `<==` for assignment *and* constraint).
-        - Logic assigned using `<--` (non-constraining assignment) is **not** part of the ZK proof and can be freely manipulated by a malicious prover. **Never use `<--` for calculations that need to be proven.**
-    - **Equality vs. Assignment**:
-        - `signal_a === signal_b;` // Constrains `signal_a` to be equal to `signal_b`.
-        - `signal_a <== expression;` // Constrains `signal_a` to be equal to the result of `expression`.
-    - **Avoiding Under-Constraint**: Ensure all logical steps are linked by constraints back to the public inputs. Double-check that no path exists for a prover to satisfy constraints with invalid intermediate values.
-    - **Avoiding Over-Constraint**: Do not add redundant constraints that check the same condition multiple times, as this increases proving cost without improving security.
-    - **Non-Zero Validation**: Always constrain sensitive private inputs (like `nullifier` and `secret`) to be non-zero to prevent attacks.
-        ```circom
-        // Example of validating non-zero inputs
-        component nullifierNonZero = IsZero();
-        nullifierNonZero.in <== nullifier;
-        signal nullifierIsValid <== 1 - nullifierNonZero.out;
-        nullifierIsValid === 1; // Constraint: nullifier cannot be zero
-        ```
-    - **Economic Constraints**: Validate economic parameters (e.g., `fee <= refund`) to prevent economic attacks.
-    - **Assertions for Debugging**:
-        - Use `assert(condition);` (e.g., from `circomlib/circuits/comparators.circom`) *during development* to verify assumptions about signal values.
-        - **Remove or comment out `assert()` statements before production deployment**, as they add unnecessary constraints.
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
-- **4. Modularity & Libraries (`circomlib` & Local)**
-    - **Template Design**: Encapsulate reusable logic within `template`s. Pass parameters (like `levels` for trees) to make templates flexible.
-    - **Component Usage**: Instantiate templates using `component name = TemplateName(params);`.
-    - **Using `circomlib`**:
-        - **Verify Availability:** Before relying on a `circomlib` component, confirm its existence and exact path within the specific version installed in `node_modules` (e.g., using `ls` or `find`). Versions can differ significantly.
-        - **Prefer Standard Components:** Use audited components for standard operations:
-            - Hashing: `Poseidon`
-            - Comparisons: `LessThan`, `IsEqual`, `IsZero`
-            - Bit Operations: `Num2Bits`, `Num2Bits_strict`, `Bits2Num`
-        - Avoid implementing custom cryptographic primitives unless absolutely necessary and audited.
-    - **Using Local Libraries (`circuits/lib/`)**:
-        - For crucial, complex, or potentially version-sensitive components (like Merkle Tree verifiers), consider copying the known-good source code into `circuits/lib/` and importing it locally (e.g., `include "../lib/verify_merkle_path.circom";`).
-        - Document the origin and version of any copied components.
-    - **Include Management**:
-        - Use consistent relative paths for includes.
-        - Provide all necessary library paths to the `circom` compiler using the `-l` flag (e.g., `circom ... -l node_modules/circomlib/circuits -l circuits`).
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
+  
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
-- **5. Hashing (Poseidon)**
-    - **Use Poseidon:** Employ the `Poseidon` template from `circomlib` for hashing within the circuit. It is significantly more constraint-efficient than Pedersen or SHA256.
-    - **Parameter Consistency:** Be aware that Poseidon implementations can vary based on internal parameters (rounds, constants, MDS matrix). Ensure the Circom version is compatible with JS/Solidity versions. See [zk_workflow.mdc](mdc:.cursor/rules/zk_workflow.mdc) for consistency checks.
-    - **Domain Separation:** If using the same hash function for different purposes, ensure inputs cannot overlap or use distinct Poseidon instances (e.g., `Poseidon(2)` vs `Poseidon(3)`).
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-- **6. Merkle Trees (Standard/Dense)**
-    - **Verifier Choice:**
-        - Use a standard Merkle tree verifier template (like the `VerifyMerklePath` example we adopted from external sources and placed in `circuits/lib/`) for verifying proofs generated by standard JS libraries (`merkletreejs`, `@zk-kit/incremental-merkle-tree`).
-        - **Avoid `SMTVerifier`** unless specifically working with Sparse Merkle Trees and a compatible JS proof generation library.
-    - **Required Inputs:** Standard verifiers typically require `leaf`, `root`, `pathElements[levels]`, and `pathIndices[levels]`. Ensure these are provided correctly.
-    - **Hasher Consistency:** The internal hash function used by the verifier template (e.g., `Poseidon(2)` inside `VerifyMerklePath`) MUST match the hash function used to generate the tree and proof in JS/Solidity.
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
-- **7. Optimization**
-    - **Constraint Minimization**: Aim for the fewest possible constraints.
-    - **Signal Reuse**: Combine operations where feasible.
-    - **Efficient Comparisons/Hashing/Bit Operations**: Follow best practices mentioned previously.
-    - **Conditional Logic**: Use `Mux1` or arithmetic tricks carefully.
-
-- **8. Security Considerations**
-    - **Input Validation/Non-Zero Checks**: As detailed previously.
-    *   **Hash Consistency & Replay Protection**: Ensure cryptographic consistency across the stack (JS/Circom/Solidity) and include context (like `chainId`, `recipient`) in hashes or public inputs where needed to prevent replays. See [zk_workflow.mdc](mdc:.cursor/rules/zk_workflow.mdc).
-
-- **9. Testing & Workflow Integration**
-    *   Follow guidelines in [zk_workflow.mdc](mdc:.cursor/rules/zk_workflow.mdc). Emphasize testing with inputs generated consistently with circuit expectations.
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules 
 
 ---
 > Source: [Zyra-V21/ZKUzumaki](https://github.com/Zyra-V21/ZKUzumaki) — distributed by [TomeVault](https://tomevault.io).
