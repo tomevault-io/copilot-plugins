@@ -1,0 +1,9 @@
+{
+  "name": "c3ny--users-service",
+  "displayName": "users-service",
+  "description": "Microsservi\u00e7o de usu\u00e1rio do projeto Sangue Solid\u00e1rio.",
+  "version": "1.0.0",
+  "author": "c3ny",
+  "homepage": "https://github.com/c3ny/users-service",
+  "skills": []
+}
