@@ -1,0 +1,9 @@
+{
+  "name": "nativecli--nativecli",
+  "displayName": "NativeCLI",
+  "description": "An interactive installer for NativePHP",
+  "version": "1.0.0",
+  "author": "NativeCLI",
+  "homepage": "https://github.com/NativeCLI/NativeCLI",
+  "skills": []
+}
