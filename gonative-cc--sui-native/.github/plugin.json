@@ -1,0 +1,9 @@
+{
+  "name": "gonative-cc--sui-native",
+  "displayName": "sui-native",
+  "description": "Move packages for Native Bitcoin Chain Abstraction on Sui",
+  "version": "1.0.0",
+  "author": "gonative-cc",
+  "homepage": "https://github.com/gonative-cc/sui-native",
+  "skills": []
+}
