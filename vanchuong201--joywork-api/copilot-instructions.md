@@ -1,15 +1,15 @@
-## api-contracts
+## architecture
 
-> JoyWork API response contract and compatibility rules
+> JoyWork API module boundaries and shared architecture
 
 
-# JoyWork API Contracts
+# JoyWork API Architecture
 
-- Keep the primary API contract consistent: success responses use `{ data: ... }` and failures use `{ error: { code, message, details? } }`.
-- Do not introduce new top-level response shapes for new endpoints; preserve legacy fields like `success` or `reacted` only when maintaining an existing endpoint contract.
-- Keep controller payload field names aligned with what the frontend already reads directly, such as `accessToken`, `user`, `company`, `job`, `posts`, `pagination`, or `url`.
-- When an endpoint contract changes, update the route schema, controller response, service DTO shaping, and counterpart frontend consumers in the same task.
-- Prefer stable, explicit DTO shaping over leaking raw Prisma records when the frontend depends on a curated response shape.
+- Keep business code inside `src/modules/*`, shared infrastructure in `src/shared`, config in `src/config`, and schema or migrations in `prisma`.
+- A feature module should own its `controller`, `service`, `routes`, and `schema` files; avoid cross-module shortcuts that bypass service boundaries.
+- Register new modules centrally in `src/app.ts` and keep route prefixes under `/api/...` with Swagger metadata.
+- Reuse existing shared helpers like `AppError`, `prisma`, auth, storage, and email services before introducing new infrastructure code.
+- Preserve current API contracts for the web app, or update both repos together when a contract must change.
 
 ---
 > Source: [vanchuong201/joywork-api](https://github.com/vanchuong201/joywork-api) — distributed by [TomeVault](https://tomevault.io).
