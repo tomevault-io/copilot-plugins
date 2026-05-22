@@ -1,0 +1,9 @@
+{
+  "name": "emiperez95--claude-agents",
+  "displayName": "claude-agents",
+  "description": "Specialized Claude Code agents for automating information gathering from Jira, GitHub, and Notion",
+  "version": "1.0.0",
+  "author": "emiperez95",
+  "homepage": "https://github.com/emiperez95/claude-agents",
+  "skills": []
+}
