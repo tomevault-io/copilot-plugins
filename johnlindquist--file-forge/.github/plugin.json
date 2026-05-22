@@ -1,0 +1,9 @@
+{
+  "name": "johnlindquist--file-forge",
+  "displayName": "file-forge",
+  "description": "GitHub and local directory ingestion CLI tool",
+  "version": "1.0.0",
+  "author": "johnlindquist",
+  "homepage": "https://github.com/johnlindquist/file-forge",
+  "skills": []
+}
