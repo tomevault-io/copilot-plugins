@@ -1,27 +1,19 @@
-## cli-commands
+## project-structure
 
-> - All CLI commands and their arguments are defined in [src/cli.rs](mdc:src/cli.rs) using the `clap` crate.
+> This project is a Rust CLI tool for automating and managing Android devices via ADB.
 
-# CLI Commands Reference
+# Project Structure Guide
 
-- All CLI commands and their arguments are defined in [src/cli.rs](mdc:src/cli.rs) using the `clap` crate.
-- The main command parser is the `Cli` struct, with subcommands in the `Commands` enum.
-- Supported commands include:
-  - `open`: Open an app
-  - `uninstall`: Uninstall an app
-  - `clear`: Clear app data
-  - `force-kill`: Force kill an app
-  - `download [--output <path>]`: Download APK
-  - `app-info`: Show app info
-  - `device`: Show device info
-  - `screenshot [--output <path>]`: Take a screenshot
-  - `record [--output <path>]`: Record the screen
-  - `network`: Show network info
-  - `wifi`: Enable ADB over Wi-Fi
-  - `usb`: Switch ADB back to USB mode
-  - `health`: Device health check
-  - `launch <URL>`: Launch a URL or deep link
-- Command dispatch and execution logic is handled in [src/main.rs](mdc:src/main.rs), which calls methods on the `AdbClient` struct.
+This project is a Rust CLI tool for automating and managing Android devices via ADB.
+
+- The main entry point is [src/main.rs](mdc:src/main.rs), which handles CLI parsing, device selection, and dispatches commands.
+- CLI argument parsing and command definitions are in [src/cli.rs](mdc:src/cli.rs).
+- All ADB-related logic and device/app operations are implemented in [src/adb_client.rs](mdc:src/adb_client.rs).
+- The [src/app.rs](mdc:src/app.rs) file defines the `App` struct, representing an installed Android app.
+- The [README.md](mdc:README.md) provides an overview, features, usage examples, and installation instructions.
+- The [extras/t-rec.gif](mdc:extras/t-rec.gif) file is a demo GIF for documentation.
+
+All source code is in the `src/` directory. The project uses [Cargo](mdc:https:/doc.rust-lang.org/cargo) for building and dependency management, with configuration in [Cargo.toml](mdc:Cargo.toml) and [Cargo.lock](mdc:Cargo.lock).
 
 ---
 > Source: [cesarferreira/dab](https://github.com/cesarferreira/dab) — distributed by [TomeVault](https://tomevault.io).
