@@ -1,0 +1,44 @@
+{
+  "name": "MelonS-Agents",
+  "owner": "MelonS",
+  "repo": "MelonS-Agents",
+  "description": "Multi-skill AI assistant framework, agentskills.io spec compliant. Skill #1 music-video (60s 9:16 shorts, beat-aligned, genre-aware), Skill #2 job-hunt (30+ boards, LLM filter). v0.4.0 shipped. Orchestrator + 4 subagents + 3-layer reactive auditor.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MelonS/MelonS-Agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T00:02:41Z"
+}
