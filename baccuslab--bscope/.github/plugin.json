@@ -1,0 +1,9 @@
+{
+  "name": "baccuslab--bscope",
+  "displayName": "bscope",
+  "description": "Neural-network functional microscopy: trivially easy access to hidden-layer activations, gradients, and contributions in your favorite pytorch model + memory-efficient reduction and logging tools.",
+  "version": "1.0.0",
+  "author": "baccuslab",
+  "homepage": "https://github.com/baccuslab/bscope",
+  "skills": []
+}
