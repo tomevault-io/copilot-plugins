@@ -1,185 +1,141 @@
-## van
+## vanilla-extract
 
-> dealing with van, vanjs, van-x, or content.ts injection script
+> any time dealing with css
 
-# VanJS: Core Concepts and API Reference
 
-## Overview
+# Vanilla Extract
 
-VanJS is a lightweight framework that focuses on three core functionalities:
+Zero-runtime CSS-in-TypeScript solution that generates static CSS files at build time.
 
-- DOM composition/manipulation
-- State management
-- State binding
+## Installation
 
-> "The best solution is usually the one with the least unnecessary complexity" - Occam's Razor
-
-## DOM Composition
-
-### Basic Usage
-
-```javascript
-const { a, div, li, p, ul } = van.tags
-
-const Hello = () => div(p('👋Hello'), ul(li('🗺️World'), li(a({ href: 'https://vanjs.org/' }, '🍦VanJS'))))
-
-van.add(document.body, Hello())
+```bash
+npm install @vanilla-extract/css
 ```
 
-Key differences from React:
+## Key Features
 
-- Pure JavaScript without transpilation
-- No virtual DOM layer
-- Direct DOM object manipulation
-- Components are vanilla JavaScript functions
-
-### Tag Functions (van.tags)
-
-#### API Reference
-
-```typescript
-tagFunction([props], ...children) => HTMLElement
-```
-
-Parameters:
-
-- `props`: Optional object with HTML element properties
-- `children`: Zero or more child nodes (DOM nodes, primitives, State objects, or functions)
-
-Properties can be:
-
-- Primitive values (string, number, boolean, bigint)
-- null
-- State objects
-- Functions for derived properties
-
-## State Management
-
-### Basic State (van.state)
-
-```javascript
-const counter = van.state(0) // Create state
-counter.val // Get value
-counter.val = 1 // Set value
-```
-
-Key characteristics:
-
-- Immutable .val property
-- Triggers UI updates on value changes
-- Supports primitive values and objects
-
-### Derived State (van.derive)
-
-```javascript
-const doubled = van.derive(() => counter.val * 2)
-```
-
-Features:
-
-- Automatically updates when dependencies change
-- Read-only
-- Can depend on multiple states
-- Supports side effects
-
-## State Binding
-
-### Property Binding
-
-```javascript
-// State as property
-div({ class: myState })
-
-// Derived property
-div({ class: () => `status-${myState.val}` })
-```
-
-### Child Node Binding
-
-```javascript
-// State as child
-div(textState)
-
-// Derived child
-div(() => `Count: ${counter.val}`)
-```
-
-### Event Handler Binding
-
-```javascript
-// Direct handler
-button({ onclick: () => counter.val++ })
-
-// Derived handler
-button({ onclick: van.derive(() => (isEnabled.val ? () => counter.val++ : null)) })
-```
-
-## Advanced Features
-
-### Stateful Binding
-
-- Allows DOM mutation instead of regeneration
-- Optimizes performance for complex updates
-- Takes current DOM node as parameter
-
-```javascript
-div((dom) => {
-  if (shouldUpdate) return newNode
-  // Modify existing dom
-  return dom
-})
-```
-
-### Polymorphic Binding
-
-Supports multiple value types:
-
-- Static values
-- State objects
-- Binding functions
-
-```javascript
-const val = (v) => {
-  const protoOfV = Object.getPrototypeOf(v ?? 0)
-  if (protoOfV === stateProto) return v.val
-  if (protoOfV === Function.prototype) return v()
-  return v
-}
-```
-
-## Best Practices
-
-1. Component Organization
-
-   - Capitalize component names
-   - Keep components pure when possible
-   - Use functional composition
-
-2. State Management
-
-   - Keep states minimal
-   - Use derived states for computed values
-   - Avoid unnecessary state updates
-
-3. Performance
-   - Use stateful binding for complex updates
-   - Minimize DOM regeneration
-   - Keep binding functions simple
+- **Zero Runtime** - All styles are generated at build time
+- **Type-safe** - Full TypeScript support
+- **Framework Agnostic** - Works with webpack, esbuild, Vite, Next.js
+- **First-class Theming** - Create single or multiple themes with type-safe token contracts
+- **Real CSS Output** - Generates actual CSS files, no runtime CSS-in-JS overhead
 
 ## Core APIs
 
-1. `van.tags` - DOM element creation
-2. `van.add` - Add elements to DOM
-3. `van.state` - Create reactive state
-4. `van.derive` - Create derived state
-5. `van.hydrate` - SSR hydration
+### Basic Styling
 
-## Limitations
+```typescript
+import { style } from '@vanilla-extract/css'
 
-1. State-derived child nodes cannot return arrays
-2. Removed nodes (null/undefined) cannot be restored
-3. DOM nodes must not be already connected
-4. State.val is immutable
+export const className = style({
+  display: 'flex',
+  flexDirection: 'column',
+  // Supports nested selectors
+  selectors: {
+    '&:nth-child(2n)': {
+      background: 'aliceblue',
+    },
+  },
+  // Media queries
+  '@media': {
+    'screen and (min-width: 768px)': {
+      flexDirection: 'row',
+    },
+  },
+})
+```
+
+### Theming
+
+```typescript
+import { createTheme } from '@vanilla-extract/css'
+
+export const [themeClass, vars] = createTheme({
+  color: {
+    brand: 'blue',
+    white: '#fff',
+  },
+  space: {
+    small: '4px',
+    medium: '8px',
+  },
+})
+```
+
+### CSS Variables
+
+```typescript
+import { createVar, style } from '@vanilla-extract/css'
+
+const shadowColor = createVar()
+
+export const shadow = style({
+  boxShadow: `0 0 10px ${shadowColor}`,
+  selectors: {
+    '.light &': {
+      vars: { [shadowColor]: 'black' },
+    },
+    '.dark &': {
+      vars: { [shadowColor]: 'white' },
+    },
+  },
+})
+```
+
+### Style Variants
+
+```typescript
+import { styleVariants } from '@vanilla-extract/css'
+
+export const background = styleVariants({
+  primary: { background: 'navy' },
+  secondary: { background: 'blue' },
+  tertiary: { background: 'aqua' },
+})
+```
+
+## Output
+
+Generates standard CSS files with unique class names and CSS variables:
+
+```css
+:root {
+  --space-none__ya5b7b0: 0;
+  --space-small__ya5b7b1: 4px;
+  --space-medium__ya5b7b2: 8px;
+  --space-large__ya5b7b3: 12px;
+}
+
+.Hero_container__1ldw6lo0 {
+  padding: var(--space-medium__ya5b7b2);
+}
+```
+
+## Official Integrations
+
+- Astro
+- esbuild
+- Gatsby
+- Next.js
+- Parcel
+- Remix
+- Rollup
+- Vite
+- Webpack
+
+## Additional Packages
+
+- Sprinkles
+- Recipes
+- Dynamic
+- CSS Utils
+
+## Resources
+
+- [Official Documentation](mdc:https:/vanilla-extract.style)
+- [GitHub Discussions](mdc:https:/github.com/vanilla-extract-css/vanilla-extract/discussions)
+- [Discord Community](mdc:https:/discord.gg/vanilla-extract)
 
 ---
 > Source: [benallfree/xg](https://github.com/benallfree/xg) — distributed by [TomeVault](https://tomevault.io).
