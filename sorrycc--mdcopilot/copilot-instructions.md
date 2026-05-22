@@ -1,20 +1,39 @@
-## commit
+## general
 
-> Commit Message
+> General Rules
 
+# General
+- Use pnpm to install dependencies
 
-# Your rule content
+# Build & Test Commands
+- Build: `bun build src/cli.ts --minify --outfile dist/cli.mjs --target=node`
+- Dev: `tsx ./src/cli.ts`
+- Format: `prettier --write .`
 
-- Follow Angular Commit Message Spec
-- Format: `type(scope): subject`
-  - type: feat|fix|docs|style|refactor|test|chore|perf
-  - scope: Optional, the scope of the changes
-  - subject: A concise description of the changes
-- Keep the commit message as short as possible, changes on doc could be omited
+# Code Style Guidelines
+- TypeScript with strict type checking
+- Single quotes for strings
+- Trailing commas required
+- Max line length: 80 chars
+- No semicolons
+- Use async/await for promises
 
-<example>
-feat(auth): add agent command
-</example>
+# Import Order (via @trivago/prettier-plugin-sort-imports)
+1. Node built-ins (^node:)
+2. External packages (^@?\w)
+3. Internal aliases (^@/)
+4. Relative imports (^[./])
+
+# Error Handling
+- Use zod for runtime type validation
+- Prefer throwing errors over returning null/undefined
+- Use descriptive error messages
+
+# Naming Conventions
+- PascalCase for types/interfaces/classes
+- camelCase for variables/functions
+- Use type over interface where possible
+- Suffix tool classes with 'Tool'
 
 ---
 > Source: [sorrycc/mdcopilot](https://github.com/sorrycc/mdcopilot) — distributed by [TomeVault](https://tomevault.io).
