@@ -1,0 +1,9 @@
+{
+  "name": "voxmenthe--mlx-finetune-demo",
+  "displayName": "mlx_finetune_demo",
+  "description": "mlx_finetune_demo",
+  "version": "1.0.0",
+  "author": "voxmenthe",
+  "homepage": "https://github.com/voxmenthe/mlx_finetune_demo",
+  "skills": []
+}
