@@ -1,0 +1,9 @@
+{
+  "name": "standardagents--composer-api",
+  "displayName": "composer-api",
+  "description": "OpenAI-compatible API proxy for Cursor Composer",
+  "version": "1.0.0",
+  "author": "standardagents",
+  "homepage": "https://github.com/standardagents/composer-api",
+  "skills": []
+}
