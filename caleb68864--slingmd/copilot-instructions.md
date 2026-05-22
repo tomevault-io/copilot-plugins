@@ -1,45 +1,58 @@
-## dotnet-framework-namespace-naming
+## dotnet-framework-property-naming
 
-> description: Enforces .NET Framework namespace naming conventions
+> description: Enforces .NET Framework property naming conventions
 
 ---
-description: Enforces .NET Framework namespace naming conventions
+description: Enforces .NET Framework property naming conventions
 globs: "*.cs"
 ---
-# .NET Framework Namespace Naming
+# .NET Framework Property Naming
 
 <rule>
-name: dotnet_namespace_naming
-description: Ensures namespaces follow .NET Framework naming conventions
+name: dotnet_property_naming
+description: Ensures properties follow .NET Framework naming conventions and best practices
 filters:
   - type: file_extension
     pattern: "\\.cs$"
   - type: content
-    pattern: "namespace\\s+[\\w.]+"
+    pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+[\\w]+\\s*\\{\\s*(?:get|set)"
 
 actions:
   - type: reject
     conditions:
-      - pattern: "namespace\\s+[a-z]"
-        message: "Namespace names must start with an uppercase letter"
-      - pattern: "namespace\\s+[^\\w.]"
-        message: "Namespace names can only contain letters, numbers, and dots"
+      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+[a-z]\\w*\\s*\\{"
+        message: "Property names must start with an uppercase letter"
+      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+_\\w+\\s*\\{"
+        message: "Property names should not start with an underscore"
+      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+m_\\w+\\s*\\{"
+        message: "Avoid Hungarian notation in property names"
 
   - type: suggest
     message: |
-      Namespace naming guidelines:
-      1. Start with an uppercase letter
-      2. Use PascalCase
-      3. Use dots for hierarchy
-      4. Avoid underscores
+      Property naming guidelines:
+      1. Use PascalCase
+      2. Start with an uppercase letter
+      3. Use nouns or noun phrases
+      4. Boolean properties should:
+         - Start with Is, Has, Can, or Should
+         - Express a condition
+      5. Consider using:
+         - Id (not ID) for identifiers
+         - Url (not URL) for URLs
+      6. Collection properties should be plural
+      7. Avoid prefixes or Hungarian notation
 
 examples:
   - input: |
-      namespace myProject.core
-      namespace 1InvalidNamespace
-      namespace My_Project
+      public string userName { get; set; }
+      private bool _isActive { get; set; }
+      protected List<string> m_Items { get; set; }
+      public string URL { get; set; }
     output: |
-      namespace MyProject.Core
+      public string UserName { get; set; }
+      private bool IsActive { get; set; }
+      protected List<string> Items { get; set; }
+      public string Url { get; set; }
 
 metadata:
   priority: high
