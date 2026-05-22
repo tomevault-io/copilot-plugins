@@ -1,0 +1,9 @@
+{
+  "name": "fhhd11--airflow-llm-backend",
+  "displayName": "airflow-llm-backend",
+  "description": "Production-ready FastAPI backend for LLM chat with Supabase and LiteLLM integration",
+  "version": "1.0.0",
+  "author": "fhhd11",
+  "homepage": "https://github.com/fhhd11/airflow-llm-backend",
+  "skills": []
+}
