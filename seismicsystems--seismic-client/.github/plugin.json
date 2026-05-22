@@ -1,0 +1,9 @@
+{
+  "name": "seismicsystems--seismic-client",
+  "displayName": "seismic-client",
+  "description": "Seismic's TypeScript client, powered by Viem actions & Wagmi hooks",
+  "version": "1.0.0",
+  "author": "SeismicSystems",
+  "homepage": "https://github.com/SeismicSystems/seismic-client",
+  "skills": []
+}
