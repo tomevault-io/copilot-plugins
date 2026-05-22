@@ -2,7 +2,7 @@
   "name": "manta-templates",
   "owner": "manta-digital",
   "repo": "manta-templates",
-  "description": "",
+  "description": "manta.digital public template monorepo",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/manta-digital/manta-templates",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T00:18:56Z"
+  "distributed_at": "2026-05-22T14:35:37Z"
 }
