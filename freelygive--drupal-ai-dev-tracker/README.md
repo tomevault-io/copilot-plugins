@@ -7,11 +7,11 @@ Website for tracking Drupal AI Issues from D.o
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FreelyGive/Drupal-AI-Dev-Tracker](https://github.com/FreelyGive/Drupal-AI-Dev-Tracker).
+Original source: `CLAUDE.md` in [FreelyGive/Drupal-AI-Dev-Tracker](https://github.com/FreelyGive/Drupal-AI-Dev-Tracker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
