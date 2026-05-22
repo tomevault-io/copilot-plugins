@@ -1,56 +1,38 @@
-## workflow-sync
+## workflow
 
-> The project has two parallel workflows that MUST remain synchronized:
+> Workflow conventions - commits, branching, planning
 
-# Workflow Synchronization
 
-## Critical: CLI and SKILL Workflows Must Stay in Sync
+# Workflow Conventions
 
-The project has two parallel workflows that MUST remain synchronized:
+## Conventional Commits
 
-1. **CLI Workflow (Taskfile.yml)** - `task setup:all`, `task teardown`, etc.
-2. **SKILL Workflow (SKILL.md)** - Cortex Code agentic workflow
+Use semantic commit messages:
 
-### Files That Must Stay in Sync
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation
+- `refactor:` code refactoring
+- `test:` tests
+- `chore:` maintenance
 
-| CLI Path | SKILL Path | Must Match |
-|----------|------------|------------|
-| `Taskfile.yml` setup:all steps | `SKILL.md` "Run all mode" section | Execution order, manifest updates |
-| `Taskfile.yml` teardown task | `SKILL.md` "Teardown Flow" section | Confirmation behavior, cleanup paths |
-| `Taskfile.yml` CLEANUP_PATHS | `SKILL.md` "Clean Generated Files" | Exact same file list |
-| `src/polaris_local_forge/setup.py` | `SKILL.md` workflow logic | Exit codes, status handling |
+## Issue Fixing Workflow
 
-### When Changing Either Workflow
+1. Create branch: `issues/<issue-context>` (e.g., `issues/k3d-cluster-timeout`)
+2. Use **Workspace Tree** in Cursor to understand structure before fixing
+3. Make focused, atomic commits
+4. Reference issue in commit message when applicable
 
-1. **Check the other workflow** - Does it need the same change?
-2. **Update both** - Keep behavior identical
-3. **Verify constants** - `CLEANUP_PATHS` must match between Taskfile and SKILL.md
-4. **Test both paths** - Run `task setup:all` AND test via Cortex Code
+## Planning First
 
-### Key Synchronization Points
+**CRITICAL:** When you see questions, "WDYT", or ambiguous requests:
 
-- **Manifest format**: Single template at `polaris-forge-setup/templates/manifest.md.j2`
-- **Runtime detection**: `plf setup runtime ensure` used by both
-- **Cleanup paths**: `.kube work k8s scripts bin notebooks .env .aws .envrc .gitignore .venv`
-- **Preserved paths**: `.snow-utils/` always preserved for replay/audit
-- **Confirmation**: Destructive operations require user confirmation in BOTH paths
+1. **Switch to Plan mode** - Don't run agent mode directly
+2. **Understand scope** - Read relevant code, check dependencies
+3. **Propose approach** - Outline steps before executing
+4. **Get approval** - Wait for user confirmation
 
-### Commands That Wrap CLI
-
-The SKILL.md workflow uses CLI commands - changes to CLI affect SKILL:
-
-```
-./bin/plf teardown --yes     # SKILL calls this AFTER getting user confirmation
-./bin/plf setup manifest *   # Used by both workflows
-./bin/plf setup runtime *    # Used by both workflows
-```
-
-### Never Change Independently
-
-- Exit codes from `plf setup replay` (0, 10, 11)
-- Manifest status values (PENDING, IN_PROGRESS, COMPLETE, REMOVED)
-- Resource numbering in manifest (1-7)
-- File/directory cleanup list
+Plan → Execute pattern ensures better outcomes than diving straight into changes.
 
 ---
 > Source: [Snowflake-Labs/polaris-local-forge](https://github.com/Snowflake-Labs/polaris-local-forge) — distributed by [TomeVault](https://tomevault.io).
