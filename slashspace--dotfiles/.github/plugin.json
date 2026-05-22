@@ -1,0 +1,9 @@
+{
+  "name": "slashspace--dotfiles",
+  "displayName": "dotfiles",
+  "description": "dotfiles macos ghostty neovim tmux sketchybar aerospace stow zsh terminal theme-engine",
+  "version": "1.0.0",
+  "author": "slashspace",
+  "homepage": "https://github.com/slashspace/dotfiles",
+  "skills": []
+}
