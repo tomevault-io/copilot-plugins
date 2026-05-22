@@ -1,0 +1,9 @@
+{
+  "name": "coji--zodix",
+  "displayName": "zodix",
+  "description": "Zod utilities for React Router v7 loaders and actions.",
+  "version": "1.0.0",
+  "author": "coji",
+  "homepage": "https://github.com/coji/zodix",
+  "skills": []
+}
