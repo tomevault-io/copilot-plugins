@@ -1,77 +1,17 @@
-## ts-rules
+## verification
 
-> Language server, Apex parser, and VS Code extension host notes; general TS via skills
+> Run verification after code changes
 
 
-# LSP positioning and VS Code web extension rules
+After making code changes, follow the verification checklist in `.claude/skills/verification/SKILL.md`: compile, lint, Effect language service (where applicable), test, bundle, knip, check:dupes. On compile failure, use `.claude/skills/verification/references/compile.md` (TS4023 / TS1261 skills).
 
-Apex-language-support-specific TypeScript notes. Pulled from the previous `.cursor/rules/ts-rules.mdc`.
+**Debug mode** (active bug investigation, Cursor Debug mode, instrumentation): priority is reproduce → fix → validate with runtime evidence. **Do not require lint** between iterations; defer knip/dupes/full tests until the bug is fixed or pre-merge. See `SKILL.md` section **Debug mode**.
 
-## Related
+If the user **suspends lint** (lint is in the way): do not run lint or prioritize lint-only fixes until they say otherwise or pre-PR; see **Lint suspended** in the same SKILL.
 
-- General TS: `.claude/skills/typescript/SKILL.md`
-- Effect: `.claude/skills/effect-best-practices/SKILL.md` (+ `references/effect-llm.md`)
-- Extension/services consumption: `.claude/skills/services-extension-consumption/SKILL.md`
-- Apex parser: `.claude/skills/apex-language/SKILL.md` (+ `references/language-rules.md`)
-- Monorepo builds use Wireit (not turbo): `.claude/skills/wireit/SKILL.md`
+Delegate to the verifier subagent (`@.cursor/agents/verifier.md`) to check for dead code (knip only). The stop hook covers compile, lint, Effect LS, test, `bundle`; do not fix in the verifier — parent fixes.
 
-## Language Server Protocol (LSP)
-
-- Positions (line:column) from the client side are both 0-based indexes
-- This includes ranges (start-position and end-position)
-- The `lsp-compliant-services` layer transforms position data to parser-ast values and back
-
-## Apex parser/ast
-
-- Positions in package `apex-parser-ast` follow the form defined by the ANTLR4 base parser
-- Positions in parser-ast use a 1-based index for line numbers and 0-based index for column numbers
-- Code in `apex-parser-ast` should never use a different indexing scheme
-
-## Apex class semantics
-
-- For a class that defines Apex source, never use method `testMethod`, as it is a reserved word
-
-## VS Code web extension development
-
-### Web extension runtime environment
-
-Web extensions run in a Browser WebWorker environment within the VS Code extension host, subject to browser worker sandbox restrictions. This environment has significant limitations compared to Node.js-based extensions.
-
-### Module loading and bundling
-
-- Web extensions do not support ES module imports, `require()` for external modules, or `importScripts()`. The ONLY exception is `require('vscode')`, which works via a special shim.
-- All web extension code MUST be bundled into a single file before deployment. Use esbuild (preferred) or webpack to produce a single-file output.
-- Never attempt to dynamically load additional extension files or node modules at runtime in web extensions.
-
-### Node.js APIs and globals
-
-- Node.js globals and built-in modules (`process`, `os`, `setImmediate`, `path`, `util`, `url`, `fs`, `crypto`, etc.) are NOT available at runtime in web extensions.
-- These APIs can be polyfilled at build time using webpack or similar bundlers with appropriate configuration, but the runtime will never have native Node.js support.
-- Always verify that any dependencies used in web extensions are browser-compatible or have browser builds available.
-
-### File system access
-
-- Workspace files and folders are on a virtual file system in web extensions.
-- ALL file system operations MUST use the VS Code file system API: `vscode.workspace.fs` (methods: `readFile`, `writeFile`, `readDirectory`, `createDirectory`, `delete`, `rename`, `copy`, `stat`).
-- Never use Node.js `fs` module methods directly in web extension code, even if polyfilled.
-- Extension context locations (`ExtensionContext.extensionUri`) and storage locations (`ExtensionContext.storageUri`, `ExtensionContext.globalStorageUri`) are also on virtual file systems and require `vscode.workspace.fs`.
-
-### Network and web resources
-
-- Use the Fetch API (`fetch()`) for all HTTP/HTTPS requests to web resources in web extensions.
-- All accessed external resources MUST support Cross-Origin Resource Sharing (CORS). Resources without proper CORS headers will fail to load.
-- Never use Node.js-specific HTTP libraries like `http`, `https`, or `axios` (unless they have browser-compatible builds).
-
-### Process and worker management
-
-- Creating child processes or running executables is NOT possible in web extensions.
-- To run background work or language servers, use the Web Worker API (`new Worker()`) instead.
-- Language servers in web extensions must be packaged as browser-compatible workers and communicate via the Language Server Protocol over Web Worker messaging.
-
-### Extension activation
-
-- Web extensions must export their lifecycle functions using CommonJS-style exports: `exports.activate = ...` and `exports.deactivate = ...`.
-- Do not use ES module `export` syntax for the main activation functions in web extension entry points.
+A stop hook runs compile, lint, Effect LS, test, `bundle` when the agent stops (knip excluded — repo has pre-existing unused files). If verification fails, the agent continues with a fix instruction.
 
 ---
 > Source: [forcedotcom/apex-language-support](https://github.com/forcedotcom/apex-language-support) — distributed by [TomeVault](https://tomevault.io).
