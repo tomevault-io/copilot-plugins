@@ -1,0 +1,9 @@
+{
+  "name": "talboom--ook-op-signal",
+  "displayName": "ook-op-signal",
+  "description": "A tool to add an \"Also on Signal\"-badge to your Whatsapp profile, encouraging others to switch from Whatsapp to Signal (or any other Big Tech app). Available on https://www.signalbadge.eu or https://w",
+  "version": "1.0.0",
+  "author": "talboom",
+  "homepage": "https://github.com/talboom/ook-op-signal",
+  "skills": []
+}
