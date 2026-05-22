@@ -1,0 +1,9 @@
+{
+  "name": "openclaw--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Useful skills for agents and claws.",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/agent-skills",
+  "skills": []
+}
