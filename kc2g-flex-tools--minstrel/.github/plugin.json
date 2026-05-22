@@ -1,0 +1,9 @@
+{
+  "name": "kc2g-flex-tools--minstrel",
+  "displayName": "minstrel",
+  "description": "FlexRadio GUI for Linux",
+  "version": "1.0.0",
+  "author": "kc2g-flex-tools",
+  "homepage": "https://github.com/kc2g-flex-tools/minstrel",
+  "skills": []
+}
