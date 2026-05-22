@@ -1,0 +1,9 @@
+{
+  "name": "ropnfop--usekit",
+  "displayName": "usekit",
+  "description": "# how to usekit  **Position-aware data I/O toolkit**   Minimal input. Auto path tracking. No config needed.   Use safely and intuitively:   `use.read.json()`, `usf.read.json()`, `u.rj()`, `uf.rj()`  u",
+  "version": "1.0.0",
+  "author": "ropnfop",
+  "homepage": "https://github.com/ropnfop/usekit",
+  "skills": []
+}
