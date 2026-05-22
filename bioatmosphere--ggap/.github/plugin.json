@@ -1,0 +1,9 @@
+{
+  "name": "bioatmosphere--ggap",
+  "displayName": "GGap",
+  "description": "A scalable GPU-enabled agent-based forest model--Make Gap Model (GAPpy) Great Again",
+  "version": "1.0.0",
+  "author": "bioatmosphere",
+  "homepage": "https://github.com/bioatmosphere/GGap",
+  "skills": []
+}
