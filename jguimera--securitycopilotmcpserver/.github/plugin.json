@@ -1,0 +1,9 @@
+{
+  "name": "jguimera--securitycopilotmcpserver",
+  "displayName": "SecurityCopilotMCPServer",
+  "description": "MCP Server that integrates with Security Copilot, Sentinel and other tools (in the future). It enhance the process of developing , testing and uploading Security Copilot artifacts. ",
+  "version": "1.0.0",
+  "author": "jguimera",
+  "homepage": "https://github.com/jguimera/SecurityCopilotMCPServer",
+  "skills": []
+}
