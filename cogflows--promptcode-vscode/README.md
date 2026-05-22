@@ -7,11 +7,11 @@ PromptCode: The VS Code extension that saves the day when your AI code agent (Cu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cogflows/promptcode-vscode](https://github.com/cogflows/promptcode-vscode).
+Original source: `CLAUDE.md` in [cogflows/promptcode-vscode](https://github.com/cogflows/promptcode-vscode).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
