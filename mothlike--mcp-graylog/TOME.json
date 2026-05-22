@@ -1,8 +1,8 @@
 {
-  "name": "mcp_graylog",
+  "name": "mcp-graylog",
   "owner": "mothlike",
-  "repo": "mcp_graylog",
-  "description": "",
+  "repo": "mcp-graylog",
+  "description": "Model Context Protocol server for querying Graylog 6+ from AI assistants",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/mothlike/mcp_graylog",
+  "source_url": "https://github.com/mothlike/mcp-graylog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T15:42:51Z"
+  "distributed_at": "2026-05-22T07:24:54Z"
 }
