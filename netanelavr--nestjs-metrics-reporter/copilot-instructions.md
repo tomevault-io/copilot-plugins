@@ -1,43 +1,81 @@
-## code-review
+## nestjs-metrics-reporter
 
-> Code review checklist for PRs
+> Rules for contributing to nestjs-metrics-reporter
 
 
-# Code Review Checklist
+# NestJS Metrics Reporter - Development Rules
 
-When reviewing or submitting code changes, verify:
+## Project Overview
 
-## Required Checks
+This is a NestJS module that provides a zero-dependency-injection Prometheus metrics reporter. The key design principle is that `ReporterService` is a **static class** that can be used anywhere without injecting dependencies.
 
-- [ ] All tests pass (`npm test`)
-- [ ] No linting errors (`npm run lint`)
-- [ ] Code is formatted (`npm run format:check`)
-- [ ] Build succeeds (`npm run build`)
+## Code Style
 
-## Code Quality
+- Use **tabs** for indentation (not spaces)
+- Use **single quotes** for strings
+- Always use **semicolons**
+- Use **Prettier** for formatting (run `npm run format`)
+- Run `npm run lint:fix` before committing
 
-- [ ] No `any` types unless absolutely necessary
-- [ ] Functions have appropriate error handling
-- [ ] No console.log statements (use NestJS Logger if needed)
-- [ ] No hardcoded values that should be configurable
+## Architecture Principles
 
-## Metrics Best Practices
+### Static Service Pattern
+- `ReporterService` uses static methods to allow metrics reporting from anywhere
+- The module initializes the service once, then static methods work globally
+- Never require dependency injection for basic metrics reporting
 
-- [ ] Metric names follow Prometheus naming conventions (snake_case, _total suffix for counters)
-- [ ] Labels are low-cardinality (avoid user IDs, timestamps as labels)
-- [ ] Histograms use appropriate bucket sizes for the use case
+### Module Configuration
+- Support both `forRoot()` (sync) and `forRootAsync()` (async with DI)
+- Always mark the module as `@Global()` so metrics are available everywhere
+- Export `ReporterService` from the module
 
-## Testing
+## Testing Guidelines
 
-- [ ] New features have corresponding unit tests
-- [ ] Edge cases are covered
-- [ ] Tests are deterministic (no flaky tests)
+### Unit Tests
+- Co-locate test files with implementation (`*.spec.ts` next to `*.ts`)
+- Mock `prom-client` Registry when needed
+- Test both forRoot and forRootAsync configurations
 
-## Documentation
+### E2E Tests
+- Place in `test/` directory with `.e2e.spec.ts` suffix
+- Use supertest for HTTP endpoint testing
+- Test the `/metrics` endpoint responses
 
-- [ ] README updated if public API changed
-- [ ] JSDoc comments for public methods
-- [ ] CHANGELOG entry if needed (managed by semantic-release)
+## Commit Messages
+
+Use conventional commits:
+- `feat:` - New features (minor version bump)
+- `fix:` - Bug fixes (patch version bump)
+- `docs:` - Documentation only
+- `test:` - Adding tests
+- `refactor:` - Code changes without feature/fix
+- `chore:` - Maintenance tasks
+
+## File Structure
+
+```
+src/
+├── index.ts              # Public API exports
+├── constants.ts          # Injection tokens
+├── interfaces.ts         # TypeScript interfaces
+├── metrics/              # Metrics service and controller
+│   ├── metrics.service.ts
+│   ├── metrics.service.spec.ts
+│   ├── metrics.controller.ts
+│   └── metrics.controller.spec.ts
+└── reporter/             # Reporter module and service
+    ├── reporter.module.ts
+    ├── reporter.module.spec.ts
+    ├── reporter.service.ts
+    └── reporter.service.spec.ts
+```
+
+## Important Notes
+
+- The package has **prom-client** as its only runtime dependency
+- NestJS packages are **peer dependencies** (users must install them)
+- Support NestJS versions 7 through 11
+- The `/metrics` endpoint is automatically registered by MetricsController
 
 ---
 > Source: [netanelavr/nestjs-metrics-reporter](https://github.com/netanelavr/nestjs-metrics-reporter) — distributed by [TomeVault](https://tomevault.io).
