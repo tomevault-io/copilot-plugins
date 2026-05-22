@@ -1,94 +1,59 @@
-## commit-workflow
+## development-workflow
 
-> - 동일한 작업 내용별로 변경사항을 그룹화
+> - [프론트엔드 설계](mdc:docs/design/frontend.md)에 따라 컴포넌트 구현
 
-# 커밋 워크플로우 가이드
+# 개발 워크플로우 가이드
 
-## 변경사항 확인 및 커밋 절차
+## 개발 단계
 
-1. **변경사항 확인**
-   ```bash
-   # 전체 변경사항 확인
-   git status
-   
-   # 각 파일별 변경 내용 확인
-   git diff
-   
-   # 특정 파일의 변경 내용 확인
-   git diff <파일명>
-   ```
+1. **프론트엔드 개발**
+   - [프론트엔드 설계](mdc:docs/design/frontend.md)에 따라 컴포넌트 구현
+   - Mantine UI Kit를 사용한 UI 구현
+   - 로컬 스토리지를 활용한 데이터 관리
 
-2. **변경사항 그룹화**
-   - 동일한 작업 내용별로 변경사항을 그룹화
-   - 예시 그룹:
-     - 문서화 관련 변경
-     - 코드 리팩토링
-     - 기능 추가
-     - 버그 수정
-     - 테스트 코드
-     - 설정 파일 변경
+2. **백엔드 개발**
+   - [백엔드 설계](mdc:docs/design/backend.md)에 따라 API 구현
+   - [인프라 설계](mdc:docs/design/infrastructure.md)에 따라 AWS 리소스 구성
+   - [보안 설계](mdc:docs/design/security.md)에 따라 인증/인가 구현
 
-3. **순차적 커밋**
-   ```bash
-   # 1. 문서화 변경사항 커밋
-   git add docs/
-   git commit -m "docs: 문서 업데이트"
-   
-   # 2. 코드 리팩토링 커밋
-   git add src/
-   git commit -m "refactor: 코드 구조 개선"
-   
-   # 3. 기능 추가 커밋
-   git add src/features/
-   git commit -m "feat: 새로운 기능 추가"
-   ```
+3. **모니터링 및 최적화**
+   - [모니터링 설계](mdc:docs/design/monitoring.md)에 따라 모니터링 구성
+   - [비용 최적화](mdc:docs/design/optimization.md)에 따라 리소스 최적화
 
-## 커밋 메시지 규칙
+## 개발 원칙
 
-1. **커밋 타입**
-   - `feat`: 새로운 기능
-   - `fix`: 버그 수정
-   - `docs`: 문서 변경
-   - `style`: 코드 포맷팅
-   - `refactor`: 코드 리팩토링
-   - `test`: 테스트 코드
-   - `chore`: 빌드/설정 변경
+1. **TDD 접근**
+   - 코어 비즈니스 로직은 TDD로 구현
+   - 테스트 커버리지 80% 이상 유지
 
-2. **커밋 메시지 형식**
-   ```
-   <타입>: <설명>
-   
-   - 변경 내용 1
-   - 변경 내용 2
-   ```
+2. **코드 품질**
+   - ESLint와 Prettier를 사용한 코드 스타일 통일
+   - TypeScript의 타입 시스템 활용
+   - 코드 리뷰 필수
 
-3. **예시**
-   ```
-   feat: 사용자 인증 기능 추가
-   
-   - 로그인 폼 구현
-   - JWT 토큰 처리
-   - 인증 상태 관리
-   ```
+3. **문서화**
+   - 주요 컴포넌트 개발 후 문서화
+   - API 문서 자동 생성
+   - 아키텍처 변경 시 관련 문서 업데이트
 
-## 주의사항
+## 배포 프로세스
 
-1. **작업 단위 분리**
-   - 하나의 커밋은 하나의 작업 단위만 포함
-   - 관련 없는 변경사항은 별도 커밋으로 분리
+1. **개발 환경**
+   - 로컬 개발 환경 설정
+   - DynamoDB Local 사용
+   - LocalStack을 통한 AWS 서비스 에뮬레이션
 
-2. **변경사항 검토**
-   - 커밋 전 `git diff`로 변경 내용 재확인
-   - 불필요한 변경사항 제외
+2. **테스트 환경**
+   - 자동화된 테스트 실행
+   - 통합 테스트 수행
+   - E2E 테스트 실행
 
-3. **커밋 순서**
-   - 문서화 → 리팩토링 → 기능 추가 → 버그 수정
-   - 의존성이 있는 변경사항은 순서 고려
+3. **운영 환경**
+   - [구현 계획](mdc:docs/design/implementation.md)에 따른 배포
+   - 모니터링 및 알림 설정
+   - 롤백 전략 준비
 
-4. **커밋 전 확인사항**
-   - 변경사항이 의도한 대로인지 확인
-   - 테스트가 통과하는지 확인
-   - 린트 규칙을 준수하는지 확인
+자세한 구현 계획은 [구현 계획](mdc:docs/design/implementation.md)을 참조하세요.
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
