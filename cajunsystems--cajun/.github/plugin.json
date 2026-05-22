@@ -1,0 +1,9 @@
+{
+  "name": "cajunsystems--cajun",
+  "displayName": "cajun",
+  "description": "A pluggable actor system written in java leveraging modern features from JDK21+",
+  "version": "1.0.0",
+  "author": "CajunSystems",
+  "homepage": "https://github.com/CajunSystems/cajun",
+  "skills": []
+}
