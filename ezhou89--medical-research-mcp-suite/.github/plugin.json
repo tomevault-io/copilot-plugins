@@ -1,0 +1,9 @@
+{
+  "name": "ezhou89--medical-research-mcp-suite",
+  "displayName": "medical-research-mcp-suite",
+  "description": "AI-Enhanced Medical Research API unifying ClinicalTrials.gov, PubMed, and FDA databases with intelligent cross-database analysis",
+  "version": "1.0.0",
+  "author": "ezhou89",
+  "homepage": "https://github.com/ezhou89/medical-research-mcp-suite",
+  "skills": []
+}
