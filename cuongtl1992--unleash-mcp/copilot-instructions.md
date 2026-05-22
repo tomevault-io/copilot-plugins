@@ -1,97 +1,97 @@
-## mcp-prompt-implementation
+## mcp-resource-implementation
 
-> When implementing new Model Context Protocol (MCP) prompts for the Unleash MCP Server, follow these patterns:
+> When implementing new MCP resources, follow these consistent patterns to maintain code quality and readability:
 
-# MCP Prompt Implementation Guidelines
+# MCP Resource Implementation Guidelines
 
-When implementing new Model Context Protocol (MCP) prompts for the Unleash MCP Server, follow these patterns:
+When implementing new MCP resources, follow these consistent patterns to maintain code quality and readability:
 
-## Structure
+## File Structure
+- Place all MCP resource implementations in the `src/resources/` directory
+- Use kebab-case for filenames (e.g., `flags.ts`, `strategies.ts`)
+- Group related resources in the same file
 
-Each MCP prompt file should contain:
-
-1. A parameter schema using Zod for validation
-2. A handler function that processes inputs and returns formatted messages
-3. An exported prompt definition object
-
-## Naming Convention
-
-- File name: `feature-name.ts` (kebab-case)
-- Schema: `FeatureNameParamsSchema` (PascalCase + ParamsSchema suffix)
-- Handler: `handleFeatureNamePrompt` (handle + PascalCase + Prompt suffix)
-- Export: `featureNamePrompt` (camelCase + Prompt suffix)
-
-## Implementation Template
-
+## Handler Implementation Pattern
+1. Create handler functions with the naming convention `handle[ResourceName]`:
 ```typescript
-/**
- * Brief description of the prompt purpose
- */
+export async function handle[ResourceName](mdc:uri: URL, params?: any) {
+  try {
+    const result = await apiFunction(params);
+    
+    return {
+      contents: [{
+        uri: uri.href,
+        text: JSON.stringify(result, null, 2)
+      }]
+    };
+  } catch (error: any) {
+    return {
+      contents: [{
+        uri: uri.href,
+        text: JSON.stringify({ error: error.message })
+      }]
+    };
+  }
+}
+```
 
-import { z } from 'zod';
-
-/**
- * Define any needed schemas for validation
- */
-const RequiredDataSchema = z.object({
-  // Add properties with appropriate Zod validators
-  property: z.string(),
-  optionalProperty: z.number().optional()
-}).passthrough();
-
-/**
- * Parameters schema for this prompt
- */
-export const FeatureNameParamsSchema = {
-  requiredParam: z.string(),
-  optionalData: RequiredDataSchema.optional()
-};
-
-/**
- * Handler for this prompt
- */
-export function handleFeatureNamePrompt({ 
-  requiredParam, 
-  optionalData = {} 
-}: { 
-  requiredParam: string; 
-  optionalData?: any 
-}) {
+2. Always include parameter validation and error handling for specific cases:
+```typescript
+if (!result) {
   return {
-    messages: [{
-      role: "user",
-      content: {
-        type: "text",
-        text: `Prompt text that uses ${requiredParam} and:
-${JSON.stringify(optionalData, null, 2)}
-
-Instructions for the AI on how to respond, including which tools to use.`
-      }
+    contents: [{
+      uri: uri.href,
+      text: JSON.stringify({ error: `Resource '${paramName}' not found` })
     }]
   };
 }
-
-/**
- * Prompt definition export
- */
-export const featureNamePrompt = {
-  name: "descriptiveName",
-  paramsSchema: FeatureNameParamsSchema,
-  handler: handleFeatureNamePrompt
-};
 ```
 
-## Best Practices
+3. Export resources array for registration:
+```typescript
+export const resourceName = [
+  {
+    name: "resource-list",
+    template: "unleash://resource-path",
+    handler: handleResourceList
+  },
+  {
+    name: "resource-details",
+    template: new ResourceTemplate("unleash://resource-path/{paramName}", { list: undefined }),
+    handler: handleResourceDetails
+  }
+];
+```
 
-1. Use Zod for all parameter validation
-2. Include clear JSDoc comments
-3. Format multi-line strings with template literals
-4. Provide default values for optional parameters
-5. Use proper TypeScript typing for handler parameters
-6. Format JSON with indentation for readability
-7. Include instructions for tool usage in the prompt text
-8. Export only the final prompt definition object
-9. Follow the project structure for importing dependencies
+## Response Format
+- Always return responses in this consistent format:
+```typescript
+{
+  contents: [{
+    uri: uri.href,
+    text: JSON.stringify(result, null, 2)
+  }]
+}
+```
+
+## Error Handling
+- Wrap all API calls in try/catch blocks
+- Return standardized error responses:
+```typescript
+{
+  contents: [{
+    uri: uri.href,
+    text: JSON.stringify({ error: error.message })
+  }]
+}
+```
+
+## Template URI Structure
+- Use consistent URI patterns: `unleash://<resource-type>[/<resource-id>]`
+- For parameterized templates, use `ResourceTemplate` class with proper typing
+- Include `list: undefined` for detail resources to prevent listing behavior
+
+By following these guidelines, you'll maintain consistency across all MCP resource implementations in the project.
 
 ---
 > Source: [cuongtl1992/unleash-mcp](https://github.com/cuongtl1992/unleash-mcp) — distributed by [TomeVault](https://tomevault.io).
