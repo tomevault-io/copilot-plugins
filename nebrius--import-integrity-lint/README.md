@@ -7,11 +7,11 @@ High-performance ESLint/Oxlint plugin that catches dead code, broken imports, an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nebrius/import-integrity-lint](https://github.com/nebrius/import-integrity-lint).
+Original source: `CLAUDE.md` in [nebrius/import-integrity-lint](https://github.com/nebrius/import-integrity-lint).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
