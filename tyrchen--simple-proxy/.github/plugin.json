@@ -1,0 +1,9 @@
+{
+  "name": "tyrchen--simple-proxy",
+  "displayName": "simple-proxy",
+  "description": "Simple http reverse proxy using pingora",
+  "version": "1.0.0",
+  "author": "tyrchen",
+  "homepage": "https://github.com/tyrchen/simple-proxy",
+  "skills": []
+}
