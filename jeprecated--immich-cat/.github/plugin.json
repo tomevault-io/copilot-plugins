@@ -1,0 +1,9 @@
+{
+  "name": "jeprecated--immich-cat",
+  "displayName": "immich-cat",
+  "description": "Immich Cat[egoriser]. Quickly assign your assets to albums.",
+  "version": "1.0.0",
+  "author": "jeprecated",
+  "homepage": "https://github.com/jeprecated/immich-cat",
+  "skills": []
+}
