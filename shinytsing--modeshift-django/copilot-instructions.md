@@ -1,261 +1,96 @@
-## javascript-typescript
+## language-specific
 
-> JavaScript和TypeScript语言特定规则
+> 语言特定规则总览和自动应用
 
 
-# JavaScript和TypeScript语言特定规则
+# 语言特定规则总览
 
-基于awesome-cursorrules的JavaScript/TypeScript最佳实践。
+基于awesome-cursorrules的语言特定规则，根据文件类型自动应用相应的编码规范。
 
-## TypeScript最佳实践
+## 规则映射
 
-### 类型注解
-```typescript
-// 函数类型注解
-function processData(data: string[]): Promise<ProcessedData> {
-  // 实现
-}
+### Python文件 (*.py)
+- **规则文件**: [python-specific.mdc](mdc:python-specific.mdc)
+- **应用范围**: 所有Python文件
+- **重点**: 类型注解、文档字符串、Django最佳实践
 
-// 接口定义
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  isActive?: boolean;
-}
+### JavaScript/TypeScript文件 (*.js, *.ts, *.jsx, *.tsx)
+- **规则文件**: [javascript-typescript.mdc](mdc:javascript-typescript.mdc)
+- **应用范围**: 前端JavaScript和TypeScript文件
+- **重点**: 类型安全、React最佳实践、现代ES特性
 
-// 泛型使用
-function createApiResponse<T>(data: T, success: boolean): ApiResponse<T> {
-  return { data, success, timestamp: Date.now() };
-}
+### HTML/CSS文件 (*.html, *.css, *.scss, *.sass, *.less)
+- **规则文件**: [html-css.mdc](mdc:html-css.mdc)
+- **应用范围**: 前端模板和样式文件
+- **重点**: 语义化HTML、现代CSS特性、响应式设计
+
+### 配置文件 (*.yml, *.yaml, *.json)
+- **规则文件**: [yaml-json.mdc](mdc:yaml-json.mdc)
+- **应用范围**: 配置文件和数据文件
+- **重点**: 格式规范、验证、环境配置
+
+### Shell脚本 (*.sh, *.bash, *.zsh, *.fish)
+- **规则文件**: [shell-scripts.mdc](mdc:shell-scripts.mdc)
+- **应用范围**: 部署脚本和自动化脚本
+- **重点**: 错误处理、安全性、可维护性
+
+## 自动应用机制
+
+Cursor会根据文件扩展名自动应用相应的规则：
+
+```mermaid
+graph TD
+    A[文件编辑] --> B{文件类型}
+    B -->|*.py| C[Python规则]
+    B -->|*.js,*.ts| D[JS/TS规则]
+    B -->|*.html,*.css| E[HTML/CSS规则]
+    B -->|*.yml,*.json| F[YAML/JSON规则]
+    B -->|*.sh| G[Shell规则]
+    C --> H[应用相应最佳实践]
+    D --> H
+    E --> H
+    F --> H
+    G --> H
 ```
 
-### React组件规范
-```typescript
-import React, { FC, useState, useEffect } from 'react';
+## 规则优先级
 
-interface ComponentProps {
-  title: string;
-  onAction: (value: string) => void;
-  children?: React.ReactNode;
-}
+1. **语言特定规则** - 最高优先级
+2. **项目特定规则** - 中等优先级
+3. **通用编程规则** - 基础优先级
 
-const MyComponent: FC<ComponentProps> = ({ title, onAction, children }) => {
-  const [state, setState] = useState<string>('');
-  
-  useEffect(() => {
-    // 副作用处理
-  }, []);
-  
-  return (
-    <div>
-      <h1>{title}</h1>
-      {children}
-    </div>
-  );
-};
+## 使用指南
 
-export default MyComponent;
-```
+### 开发时
+- 编辑Python文件时，自动应用Python最佳实践
+- 编写前端代码时，自动应用JavaScript/TypeScript规范
+- 修改配置文件时，自动应用YAML/JSON格式要求
 
-## 代码组织
+### 代码审查时
+- 检查是否遵循了相应语言的编码规范
+- 验证类型注解和文档字符串的完整性
+- 确保代码风格的一致性
 
-### 目录结构
-```
-src/
-  components/
-    ui/
-      Button.tsx
-      Input.tsx
-    forms/
-      LoginForm.tsx
-  hooks/
-    useApi.ts
-    useLocalStorage.ts
-  services/
-    api.ts
-    auth.ts
-  types/
-    index.ts
-    api.ts
-  utils/
-    helpers.ts
-    constants.ts
-  pages/
-    Home.tsx
-    Profile.tsx
-```
+### 部署时
+- Shell脚本遵循安全性和错误处理规范
+- 配置文件符合格式和验证要求
+- 所有文件都符合项目整体标准
 
-### 导入/导出规范
-```typescript
-// 优先使用命名导出
-export const utilityFunction = () => {};
-export const CONSTANT_VALUE = 'value';
+## 规则更新
 
-// 默认导出用于主要组件
-export default MyComponent;
+当需要更新语言特定规则时：
+1. 修改对应的 `.mdc` 文件
+2. 确保规则与项目需求一致
+3. 测试规则的有效性
+4. 更新文档说明
 
-// 导入顺序：第三方库 -> 内部模块 -> 相对路径
-import React from 'react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
-import { apiService } from '@/services/api';
-import './styles.css';
-```
+## 自定义规则
 
-## 错误处理
-
-```typescript
-// 异步函数错误处理
-async function fetchUserData(id: string): Promise<User | null> {
-  try {
-    const response = await api.get(`/users/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('获取用户数据失败:', error);
-    return null;
-  }
-}
-
-// 类型安全的错误处理
-type ApiError = {
-  message: string;
-  code: number;
-};
-
-function handleApiError(error: unknown): ApiError {
-  if (error instanceof Error) {
-    return { message: error.message, code: 500 };
-  }
-  return { message: '未知错误', code: 500 };
-}
-```
-
-## 性能优化
-
-### React性能优化
-```typescript
-// 使用React.memo优化重渲染
-const ExpensiveComponent = React.memo<Props>(({ data }) => {
-  return <div>{/* 渲染逻辑 */}</div>;
-});
-
-// 使用useMemo缓存计算结果
-const expensiveValue = useMemo(() => {
-  return computeExpensiveValue(data);
-}, [data]);
-
-// 使用useCallback缓存函数
-const handleClick = useCallback((id: string) => {
-  onItemClick(id);
-}, [onItemClick]);
-```
-
-### 代码分割
-```typescript
-// 懒加载组件
-const LazyComponent = React.lazy(() => import('./LazyComponent'));
-
-// 使用Suspense包装
-<Suspense fallback={<Loading />}>
-  <LazyComponent />
-</Suspense>
-```
-
-## 测试规范
-
-```typescript
-// 使用Jest和React Testing Library
-import { render, screen, fireEvent } from '@testing-library/react';
-import { MyComponent } from './MyComponent';
-
-describe('MyComponent', () => {
-  it('应该正确渲染标题', () => {
-    render(<MyComponent title="测试标题" onAction={jest.fn()} />);
-    expect(screen.getByText('测试标题')).toBeInTheDocument();
-  });
-  
-  it('应该处理点击事件', () => {
-    const mockOnAction = jest.fn();
-    render(<MyComponent title="测试" onAction={mockOnAction} />);
-    
-    fireEvent.click(screen.getByRole('button'));
-    expect(mockOnAction).toHaveBeenCalledWith('expected-value');
-  });
-});
-```
-
-## 代码质量
-
-### ESLint配置
-```json
-{
-  "extends": [
-    "@typescript-eslint/recommended",
-    "react-hooks/recommended"
-  ],
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/explicit-function-return-type": "warn",
-    "react-hooks/exhaustive-deps": "warn"
-  }
-}
-```
-
-### 命名规范
-- 组件：PascalCase (`MyComponent`)
-- 函数/变量：camelCase (`handleClick`)
-- 常量：UPPER_SNAKE_CASE (`API_BASE_URL`)
-- 接口：PascalCase，前缀I (`IUserData`)
-- 类型：PascalCase (`UserData`)
-
-## 现代JavaScript特性
-
-```typescript
-// 使用可选链和空值合并
-const userName = user?.profile?.name ?? '未知用户';
-
-// 使用解构赋值
-const { id, name, email } = user;
-
-// 使用模板字符串
-const message = `欢迎 ${name}，您的ID是 ${id}`;
-
-// 使用箭头函数
-const users = data.map(user => ({
-  ...user,
-  displayName: `${user.firstName} ${user.lastName}`
-}));
-```
-
-## 异步处理
-
-```typescript
-// 使用async/await
-async function loadData() {
-  try {
-    const [users, posts] = await Promise.all([
-      fetchUsers(),
-      fetchPosts()
-    ]);
-    return { users, posts };
-  } catch (error) {
-    console.error('加载数据失败:', error);
-    throw error;
-  }
-}
-
-// 使用Promise.allSettled处理多个异步操作
-const results = await Promise.allSettled([
-  fetchUsers(),
-  fetchPosts(),
-  fetchComments()
-]);
-
-const successfulResults = results
-  .filter(result => result.status === 'fulfilled')
-  .map(result => result.value);
-```
+如果需要为特定项目添加自定义规则：
+1. 在对应的语言规则文件中添加
+2. 使用 `globs` 字段指定应用范围
+3. 确保与现有规则不冲突
+4. 添加适当的文档说明
 
 ---
 > Source: [shinytsing/modeshift_django](https://github.com/shinytsing/modeshift_django) — distributed by [TomeVault](https://tomevault.io).
