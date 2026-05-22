@@ -1,0 +1,9 @@
+{
+  "name": "smolcars--react-native-nitro-ark",
+  "displayName": "react-native-nitro-ark",
+  "description": "Pure C++ NitroModule for Ark",
+  "version": "1.0.0",
+  "author": "smolcars",
+  "homepage": "https://github.com/smolcars/react-native-nitro-ark",
+  "skills": []
+}
