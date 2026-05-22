@@ -1,0 +1,9 @@
+{
+  "name": "davimf721--kget",
+  "displayName": "KGet",
+  "description": "KGet is a modern, lightweight download manager written in Rust for fast and reliable file downloads from the command line and native app for windows, linux and mac.",
+  "version": "1.0.0",
+  "author": "davimf721",
+  "homepage": "https://github.com/davimf721/KGet",
+  "skills": []
+}
