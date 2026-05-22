@@ -7,14 +7,14 @@ Claude Code + Discord 봇 + codex 호출 통합 플러그인 — 패스트캠퍼
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [treylom/ThisCode](https://github.com/treylom/ThisCode).
+Original source: `AGENTS.md` in [treylom/ThisCode](https://github.com/treylom/ThisCode).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/treylom/ThisCode](https://github.com/treylom/ThisCode)
