@@ -7,11 +7,11 @@ Brokk brings code intelligence to AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [BrokkAi/brokk](https://github.com/BrokkAi/brokk).
+Original source: `CLAUDE.md` in [BrokkAi/brokk](https://github.com/BrokkAi/brokk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
