@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--ts-dns",
+  "displayName": "ts-dns",
+  "description": "\ud83c\udf10 A command-line & library DNS client. Like dig & dog, but for TypeScript.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/ts-dns",
+  "skills": []
+}
