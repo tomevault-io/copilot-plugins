@@ -1,0 +1,9 @@
+{
+  "name": "73ai--infralayer",
+  "displayName": "infralayer",
+  "description": "InfraGPT is an AI SRE Copilot for the Cloud that provides infrastructure management agents through Slack integration. The system consists of multiple services that work together to deliver intelligent",
+  "version": "1.0.0",
+  "author": "73ai",
+  "homepage": "https://github.com/73ai/infralayer",
+  "skills": []
+}
