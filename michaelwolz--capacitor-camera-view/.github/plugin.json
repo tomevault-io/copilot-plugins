@@ -1,0 +1,9 @@
+{
+  "name": "michaelwolz--capacitor-camera-view",
+  "displayName": "capacitor-camera-view",
+  "description": "\ud83c\udf9e\ufe0f A Capacitor plugin for embedding a live camera feed directly into your app.",
+  "version": "1.0.0",
+  "author": "michaelwolz",
+  "homepage": "https://github.com/michaelwolz/capacitor-camera-view",
+  "skills": []
+}
