@@ -1,20 +1,20 @@
-## 30-text-processing
+## 40-gui-layout
 
-> description: Text processing, escapes, and regex (PCRE)
+> description: Class-based GUI with deterministic layout and validation
 
 ---
-description: Text processing, escapes, and regex (PCRE)
+description: Class-based GUI with deterministic layout and validation
 alwaysApply: false
 ---
 
-Rules
-- Backtick-only escapes; canonical sequences: `` `, `", `', `n, `r, `t, `s, `b, `v, `a, `f, `:, `;.
-- Built-ins: `Trim/StrUpper/StrLower/StrReplace/StrSplit/InStr/SubStr`.
-- Regex PCRE options: `i/m/s/x`; escape literals; prefer named groups when helpful.
+GUI rules
+- GUI code must be encapsulated in classes using `Gui()`; no legacy v1 syntax.
+- Store control refs in `Map()`; bind with `.OnEvent(..., .Bind(this))`.
+- Compute layout deterministically; validate overlaps and boundaries; generate report when debugging.
 
 References
-- Modules reference: `Modules/Module_TextProcessing.md`, `Modules/Module_Escapes.md`
-- Additional examples: `AHK_Notes/Concepts/string-handling-in-ahk-v2.md`
+- Modules reference: `Modules/Module_GUI.md`
+- Additional examples: `AHK_Notes/Classes/gui-class-best-practices.md`, `AHK_Notes/Concepts/GUI_Controls_and_Patterns.md`
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
