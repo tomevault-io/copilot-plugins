@@ -7,11 +7,11 @@ Database, forum, and wiki for 音MAD/YTPMV
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [otoDB/otoDB](https://github.com/otoDB/otoDB).
+Original source: `CLAUDE.md` in [otoDB/otoDB](https://github.com/otoDB/otoDB).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
