@@ -1,0 +1,9 @@
+{
+  "name": "adird--nestjs-context-logger",
+  "displayName": "nestjs-context-logger",
+  "description": "Contextual Logger for NestJS",
+  "version": "1.0.0",
+  "author": "AdirD",
+  "homepage": "https://github.com/AdirD/nestjs-context-logger",
+  "skills": []
+}
