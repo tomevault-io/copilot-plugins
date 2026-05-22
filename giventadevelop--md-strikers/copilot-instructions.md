@@ -1,262 +1,303 @@
-## image-containment-prevention-hero-images-cards
+## loading-animation-pattern
 
-> CSS rules and patterns for displaying images without cropping or truncation
+> This rule defines the standard pattern for loading animations used across admin pages and success pages. The pattern provides consistent visual feedback with animated loading images and wavy overlay effects, matching the design aesthetic used in EventList and manage-events pages.
 
-
-# Image Containment Prevention Pattern
+# Loading Animation Pattern
 
 ## **Overview**
-This rule defines the correct CSS patterns for displaying banner, hero, and sponsor images that must be fully visible without cropping or truncation on any side. This pattern ensures images maintain their aspect ratio and are contained within their containers.
+This rule defines the standard pattern for loading animations used across admin pages and success pages. The pattern provides consistent visual feedback with animated loading images and wavy overlay effects, matching the design aesthetic used in EventList and manage-events pages.
 
 ## **Problem Solved**
-- **Image Cropping**: Prevents images from being cut off on left, right, top, or bottom edges
-- **Aspect Ratio Preservation**: Maintains original image proportions
-- **Consistent Display**: Ensures images display the same way across different screen sizes
-- **User Experience**: Users can see complete images without important content being hidden
+- **Consistent Loading UI**: Ensures all loading states use the same visual pattern across admin and success pages
+- **Visual Feedback**: Provides engaging animations (pulse, zoom, wavy overlay) to indicate processing
+- **Professional Appearance**: Uses high-quality loading images with smooth animations
+- **User Experience**: Clear visual indication that content is being loaded
 
 ## **Core Pattern**
 
-### **Container Styling**
+### **Loading Container Structure**
 ```tsx
-// ✅ DO: Use flexible height container
-<div className="relative w-full h-auto rounded-t-2xl overflow-hidden">
-  {/* Image content */}
-</div>
-
-// ❌ DON'T: Use fixed height container
-<div className="relative w-full h-[448px] rounded-t-2xl overflow-hidden">
-  {/* This causes cropping */}
-</div>
-```
-
-### **Image Styling**
-```tsx
-// ✅ DO: Use object-contain with flexible dimensions
-<Image
-  src={imageUrl}
-  alt="Description"
-  width={800}
-  height={600}
-  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
-  style={{
-    backgroundColor: 'transparent',
-    borderRadius: '1rem 1rem 0 0'
-  }}
-/>
-
-// ❌ DON'T: Use object-cover with fixed dimensions
-<Image
-  src={imageUrl}
-  alt="Description"
-  width={800}
-  height={600}
-  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-  style={{
-    borderRadius: '1rem 1rem 0 0'
-  }}
-/>
+// ✅ DO: Use the standard loading animation pattern
+if (loading) {
+  return (
+    <div className="flex justify-center items-center min-h-[600px] w-full">
+      <div className="relative w-full max-w-6xl">
+        <Image
+          src="/images/loading_events.jpg"
+          alt="Loading..."
+          width={800}
+          height={600}
+          className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
+          priority
+        />
+        <div className="absolute inset-0 rounded-lg overflow-hidden">
+          <div className="wavy-animation"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
 ```
 
 ## **Key CSS Properties**
 
 ### **Container Requirements**
-- **`relative`**: Enables absolute positioning of child elements (badges, overlays)
+- **`flex justify-center items-center`**: Centers loading content horizontally and vertically
+- **`min-h-[600px]`**: Minimum height (600px) for consistent loading area
 - **`w-full`**: Full width of parent container
-- **`h-auto`**: **CRITICAL**: Flexible height allows image to maintain aspect ratio
-- **`rounded-t-2xl`**: Rounded top corners (1rem radius)
-- **`overflow-hidden`**: Clips content to rounded corners
+- **`relative`**: Enables absolute positioning of overlay
+- **`w-full max-w-6xl`**: Full width with maximum width constraint (1152px)
 
 ### **Image Requirements**
-- **`w-full`**: Full width of container
-- **`h-auto`**: **CRITICAL**: Flexible height maintains aspect ratio
-- **`object-contain`**: **CRITICAL**: Shows complete image without cropping (alternative to `object-cover`)
-- **`group-hover:scale-105`**: Optional hover effect for interactivity
-- **`transition-transform duration-300`**: Smooth hover animation
-- **`backgroundColor: 'transparent'`**: Allows card gradient to show through
-- **`borderRadius: '1rem 1rem 0 0'`**: Matches container's rounded corners
+- **`src="/images/loading_events.jpg"`**: Standard loading image path
+- **`width={800} height={600}`**: Image dimensions for Next.js Image optimization
+- **`w-full h-auto`**: Full width with automatic height (maintains aspect ratio)
+- **`rounded-lg`**: Medium border radius (8px) for rounded corners
+- **`shadow-2xl`**: Large shadow for depth
+- **`animate-pulse`**: Tailwind pulse animation (opacity fade in/out)
+- **`zoom-loading`**: Custom zoom animation (scale 0.8 → 1.1 → 1.0)
+- **`priority`**: Next.js Image priority loading (loads immediately)
 
-## **When to Use This Pattern**
+### **Wavy Overlay Requirements**
+- **`absolute inset-0`**: Covers entire container (absolute positioned, all sides at 0)
+- **`rounded-lg overflow-hidden`**: Matches container border radius, clips overlay
+- **`wavy-animation`**: Custom CSS class for wavy shimmer effect
 
-### **Use `object-contain` When:**
-- ✅ Banner images (sponsor banners, event banners)
-- ✅ Hero images that must show complete content
-- ✅ Logo images that need full visibility
-- ✅ Images where cropping would hide important content
-- ✅ Images in cards or containers where aspect ratio matters
+## **CSS Animation Definitions**
 
-### **Use `object-cover` When:**
-- ✅ Background images where cropping is acceptable
-- ✅ Thumbnail images where partial visibility is fine
-- ✅ Decorative images where content isn't critical
-- ✅ Images in fixed-size containers where filling space is priority
+### **Zoom Loading Animation** (defined in `src/app/globals.css`)
+```css
+@keyframes zoomInOut {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
 
-## **Complete Example Pattern**
+.zoom-loading {
+  animation: zoomInOut 2s ease-in-out infinite;
+}
+```
+
+### **Wavy Animation** (defined in `src/app/globals.css`)
+```css
+@keyframes wavy {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-15px) scale(1.05);
+    opacity: 0.7;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.wavy-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 193, 7, 0.2) 25%,
+    rgba(255, 193, 7, 0.4) 50%,
+    rgba(255, 193, 7, 0.2) 75%,
+    transparent 100%);
+  background-size: 200% 100%;
+  animation:
+    wavy 3s ease-in-out infinite,
+    shimmer 2s ease-in-out infinite;
+  border-radius: inherit;
+  pointer-events: none;
+}
+```
+
+## **Complete Example**
+
+### **EventList Loading Pattern**
+```tsx
+// ✅ DO: Use the standard loading animation pattern (EventList component)
+if (loading) {
+  return (
+    <div className="flex justify-center items-center min-h-[600px] w-full">
+      <div className="relative w-full max-w-6xl">
+        <Image
+          src="/images/loading_events.jpg"
+          alt="Loading events..."
+          width={800}
+          height={600}
+          className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
+          priority
+        />
+        <div className="absolute inset-0 rounded-lg overflow-hidden">
+          <div className="wavy-animation"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### **Membership Success Loading Pattern**
+```tsx
+// ✅ DO: Use the standard loading animation pattern (MembershipSuccessClient component)
+if (loading) {
+  return (
+    <div className="flex justify-center items-center min-h-[600px] w-full">
+      <div className="relative w-full max-w-6xl">
+        <Image
+          src="/images/loading_events.jpg"
+          alt="Loading membership subscription..."
+          width={800}
+          height={600}
+          className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
+          priority
+        />
+        <div className="absolute inset-0 rounded-lg overflow-hidden">
+          <div className="wavy-animation"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+## **Required Imports**
 
 ```tsx
-{/* Image Container - Matching events page style */}
-<div className="relative w-full h-auto rounded-t-2xl overflow-hidden">
-  {imageUrl ? (
-    <Image
-      src={imageUrl}
-      alt="Image description"
-      width={800}
-      height={600}
-      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
-      style={{
-        backgroundColor: 'transparent',
-        borderRadius: '1rem 1rem 0 0'
-      }}
-    />
-  ) : (
-    <div
-      className="w-full h-80 flex items-center justify-center"
-      style={{
-        backgroundColor: 'transparent',
-        borderRadius: '1rem 1rem 0 0'
-      }}
-    >
-      <span className="text-gray-400 text-5xl">🏢</span>
-    </div>
-  )}
-</div>
+import Image from 'next/image';
+```
+
+## **Animation Behavior**
+
+### **Combined Animations**
+1. **Pulse Animation** (`animate-pulse`): Tailwind CSS built-in animation
+   - Fades opacity between 1.0 and 0.5
+   - Duration: 2s
+   - Infinite loop
+
+2. **Zoom Animation** (`zoom-loading`): Custom CSS animation
+   - Scales from 0.8 → 1.1 → 1.0
+   - Opacity changes: 0.7 → 1.0 → 0.9
+   - Duration: 2s
+   - Easing: ease-in-out
+   - Infinite loop
+
+3. **Wavy Animation** (`wavy-animation`): Custom CSS overlay
+   - Vertical movement: translateY(0px) → translateY(-15px) → translateY(0px)
+   - Scale: 1.0 → 1.05 → 1.0
+   - Opacity: 0.3 → 0.7 → 0.3
+   - Shimmer effect: horizontal gradient movement
+   - Duration: 3s (wavy) + 2s (shimmer)
+   - Infinite loop
+
+## **Best Practices**
+
+### **DO:**
+- ✅ Use Next.js `Image` component (not `<img>` tag)
+- ✅ Always include `priority` prop for loading images
+- ✅ Use `/images/loading_events.jpg` as the standard loading image
+- ✅ Include both `animate-pulse` and `zoom-loading` classes
+- ✅ Always include the `wavy-animation` overlay div
+- ✅ Use `min-h-[600px]` for consistent loading area height
+- ✅ Use `max-w-6xl` for maximum width constraint
+- ✅ Use `relative` container with `absolute inset-0` overlay
+- ✅ Include descriptive `alt` text for accessibility
+
+### **DON'T:**
+- ❌ Use different loading images (always use `/images/loading_events.jpg`)
+- ❌ Skip the `wavy-animation` overlay (required for visual consistency)
+- ❌ Use `<img>` tag instead of Next.js `Image` component
+- ❌ Omit `priority` prop (causes loading delay)
+- ❌ Use different animation classes or custom animations
+- ❌ Skip `rounded-lg` border radius (required for overlay clipping)
+- ❌ Use different container dimensions (always use `min-h-[600px]`)
+
+## **Accessibility Requirements**
+
+### **Required Attributes**
+- **`alt`**: Descriptive text for screen readers (e.g., "Loading events...", "Loading membership subscription...")
+- **`priority`**: Next.js Image optimization (loads immediately)
+
+### **Example with Accessibility**
+```tsx
+<Image
+  src="/images/loading_events.jpg"
+  alt="Loading events..."
+  width={800}
+  height={600}
+  className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
+  priority
+/>
 ```
 
 ## **Reference Implementations**
 
-### **Events Page Pattern**
-See [`src/app/events/page.tsx`](mdc:src/app/events/page.tsx) lines 771-783 for the canonical implementation:
-```tsx
-<div className="relative w-full h-auto rounded-t-2xl overflow-hidden">
-  {event.thumbnailUrl ? (
-    <Image
-      src={event.thumbnailUrl}
-      alt={event.title}
-      width={800}
-      height={600}
-      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
-      style={{
-        backgroundColor: 'transparent',
-        borderRadius: '1rem 1rem 0 0'
-      }}
-    />
-  ) : (
-    {/* Placeholder */}
-  )}
-</div>
-```
-
-### **Sponsor Images Pattern**
-See [`src/app/events/[id]/page.tsx`](mdc:src/app/events/[id]/page.tsx) lines 964-991 for sponsor banner images:
-```tsx
-<div className="relative w-full h-auto rounded-t-2xl overflow-hidden">
-  {displayImageUrl ? (
-    <Image
-      src={displayImageUrl}
-      alt={sponsor.name}
-      width={800}
-      height={600}
-      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
-      style={{
-        backgroundColor: 'transparent',
-        borderRadius: '1rem 1rem 0 0'
-      }}
-    />
-  ) : (
-    {/* Placeholder */}
-  )}
-</div>
-```
-
-### **OurSponsorsSection Pattern**
-See [`src/components/OurSponsorsSection.tsx`](mdc:src/components/OurSponsorsSection.tsx) lines 201-224 for sponsor section images.
-
-## **Common Anti-Patterns to Avoid**
-
-```tsx
-// ❌ DON'T: Use fixed height with object-cover
-<div className="relative w-full h-[448px] rounded-t-2xl overflow-hidden">
-  <Image
-    className="w-full h-full object-cover"
-    {/* This crops images */}
-  />
-</div>
-
-// ❌ DON'T: Use object-cover for images that must be fully visible
-<Image
-  className="w-full h-full object-cover"
-  {/* This will crop important content */}
-/>
-
-// ❌ DON'T: Mix fixed height container with object-contain
-<div className="relative w-full h-[448px]">
-  <Image
-    className="w-full h-auto object-contain"
-    {/* Container height conflicts with image sizing */}
-  />
-</div>
-```
+- **EventList Component**: [`src/components/EventList.tsx`](mdc:src/components/EventList.tsx) - Lines 202-219
+- **Membership Success Client**: [`src/app/membership/success/MembershipSuccessClient.tsx`](mdc:src/app/membership/success/MembershipSuccessClient.tsx) - Lines 422-437
+- **CSS Animations**: [`src/app/globals.css`](mdc:src/app/globals.css) - Lines 513-594
+- **Manage Events Page**: [`src/app/admin/manage-events/page.tsx`](mdc:src/app/admin/manage-events/page.tsx) - Uses EventList component
 
 ## **Troubleshooting**
 
-### **Image Still Getting Cropped?**
-1. Check container height: Must be `h-auto`, not fixed height (`h-[XXXpx]`)
-2. Check image class: Must use `object-contain`, not `object-cover`
-3. Check image dimensions: Use `w-full h-auto`, not `w-full h-full`
-4. Verify overflow: Container should have `overflow-hidden` for rounded corners
+### **Animation Not Working?**
+- Check that CSS classes are defined in `src/app/globals.css`
+- Verify `wavy-animation` and `zoom-loading` classes are present
+- Ensure `animate-pulse` is available (Tailwind CSS built-in)
+- Check browser console for CSS errors
 
-### **Image Too Small?**
-- Ensure `width` and `height` props are set appropriately (e.g., `width={800} height={600}`)
-- Check if container has sufficient width (`w-full`)
-- Verify no conflicting CSS is overriding the styles
+### **Image Not Loading?**
+- Verify `/images/loading_events.jpg` exists in `public/images/`
+- Check Next.js Image optimization is working (check Network tab)
+- Ensure `priority` prop is included
+- Verify `width` and `height` props match image dimensions
 
-### **Image Not Centered?**
-- Add `flex items-center justify-center` to container if needed
-- Use `object-position: center` in style if required
+### **Overlay Not Visible?**
+- Check that container has `relative` positioning
+- Verify overlay div has `absolute inset-0`
+- Ensure `rounded-lg overflow-hidden` is on overlay container
+- Check that `wavy-animation` class is applied
 
-## **Hero Section Mobile Layout — Aspect-Ratio Containment (March 2026)**
-
-The homepage hero section uses a 4-section split layout with images of **varying aspect ratios** (5:6 portrait, 5:2 landscape, 5:1 ultra-wide). On mobile, each requires a different containment strategy. The full technique is documented in the dedicated rule:
-
-**See [Hero Mobile Image Containment](mdc:.cursor/rules/hero_mobile_image_containment_aspect_ratio.mdc)** for:
-- The **aspect-ratio matching technique** (container ratio = image ratio + `object-contain` = zero crop, zero gaps)
-- Section-by-section CSS with rationale for each approach
-- Decision tree: when to use `aspect-ratio` vs `max-height` cap vs `object-cover`
-- Common pitfalls and lessons learned from iterative fixes
-- Desktop (768px+) strategy differences
-
-### **Quick Summary**
-
-| Section | Image Ratio | Mobile Technique | Container Key CSS |
-|---------|-------------|-----------------|-------------------|
-| 1 (Kerala) | 5:6 portrait | `object-contain` + `max-height: 22vh` + dark bg | `background: #1a0a2e` blends side bars |
-| 2 (Slideshow) | 5:2 landscape | `aspect-ratio: 5/2` + `object-contain` | Zero crop, zero gaps |
-| 3 (Mission) | 5:1 ultra-wide | `aspect-ratio: 5/1` + `object-contain` + text overlay | `position: absolute` text + gradient |
-
----
+### **Layout Issues?**
+- Verify `min-h-[600px]` is set on container
+- Check that `flex justify-center items-center` is applied
+- Ensure `w-full max-w-6xl` is on image container
+- Verify responsive classes work on mobile
 
 ## **Related Patterns**
 
-- See [Hero Mobile Image Containment](mdc:.cursor/rules/hero_mobile_image_containment_aspect_ratio.mdc) for the complete mobile technique
 - See [MOSC Styling Standards](mdc:.cursor/rules/mosc_styling_standards.mdc) for overall design system
-- See [`src/app/events/page.tsx`](mdc:src/app/events/page.tsx) for reference implementation
-- See [`src/components/OurSponsorsSection.tsx`](mdc:src/components/OurSponsorsSection.tsx) for sponsor image pattern
+- See [`src/components/EventList.tsx`](mdc:src/components/EventList.tsx) for complete implementation
+- See [`src/app/membership/success/MembershipSuccessClient.tsx`](mdc:src/app/membership/success/MembershipSuccessClient.tsx) for success page implementation
 
-## **Summary Checklist**
+## **Summary**
 
-Before submitting images that must not be cropped:
-- [ ] Container uses `h-auto` (not fixed height)
-- [ ] Image uses `object-contain` (not `object-cover`)
-- [ ] Image uses `w-full h-auto` (not `w-full h-full`)
-- [ ] Container has `overflow-hidden` for rounded corners
-- [ ] Image has `backgroundColor: 'transparent'` in style
-- [ ] Image has matching `borderRadius` in style
-- [ ] Placeholder div matches image container styling
+**Key Pattern**: Loading states should use:
+- Next.js `Image` component with `/images/loading_events.jpg`
+- Classes: `animate-pulse zoom-loading`
+- Wavy overlay: `<div className="wavy-animation"></div>`
+- Container: `flex justify-center items-center min-h-[600px] w-full`
+- Image container: `relative w-full max-w-6xl`
 
-**Hero section mobile** (see [dedicated rule](mdc:.cursor/rules/hero_mobile_image_containment_aspect_ratio.mdc)):
-- [ ] Section 1: `object-contain` + `max-height: 22vh` + `background: #1a0a2e` (portrait → side gaps blend with dark bg)
-- [ ] Section 2: `aspect-ratio: 5/2` + `object-contain` (landscape → ratio match = zero crop)
-- [ ] Section 3: `aspect-ratio: 5/1` + `object-contain` + `position: absolute` text overlay (ultra-wide → ratio match + gradient text)
-- [ ] All sections: `background: #1a0a2e` on containers, no `min-height`, no decorative styles
+This ensures consistent, professional loading animations across all admin and success pages.
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
