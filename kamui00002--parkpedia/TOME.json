@@ -1,0 +1,44 @@
+{
+  "name": "ParkPedia",
+  "owner": "kamui00002",
+  "repo": "ParkPedia",
+  "description": "\u3042\u306a\u305f\u306e\u77e5\u308a\u305f\u3044\u516c\u5712\u306e\u60c5\u5831\u3092\u3053\u3053\u306b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kamui00002/ParkPedia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T06:38:35Z"
+}
