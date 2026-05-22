@@ -7,11 +7,11 @@ A ray tracer implementation written in Elixir
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [alirux/my-elixir-ray-tracer](https://github.com/alirux/my-elixir-ray-tracer).
+Original source: `CLAUDE.md` in [alirux/my-elixir-ray-tracer](https://github.com/alirux/my-elixir-ray-tracer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
