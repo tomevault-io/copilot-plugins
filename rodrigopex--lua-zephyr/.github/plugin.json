@@ -1,0 +1,9 @@
+{
+  "name": "rodrigopex--lua-zephyr",
+  "displayName": "lua_zephyr",
+  "description": "A module to enable developers to use Lua on Zephyr RTOS",
+  "version": "1.0.0",
+  "author": "rodrigopex",
+  "homepage": "https://github.com/rodrigopex/lua_zephyr",
+  "skills": []
+}
