@@ -1,564 +1,106 @@
-## ci-cd-pipeline
+## coding-standards
 
-> This document outlines the CI/CD pipeline configuration and best practices for the OpenFrame project.
+> This document outlines the general coding standards that apply across all technologies in the OpenFrame project.
 
-# CI/CD Pipeline
+# Coding Standards
 
-This document outlines the CI/CD pipeline configuration and best practices for the OpenFrame project.
+This document outlines the general coding standards that apply across all technologies in the OpenFrame project.
 
-## Pipeline Overview
+## Code Formatting
 
-OpenFrame uses GitHub Actions for continuous integration and deployment, following these stages:
+- Use consistent indentation (4 spaces for Java, 2 spaces for TypeScript/Vue)
+- Limit line length to 120 characters
+- Use UTF-8 encoding for all files
+- End files with a newline
+- Remove trailing whitespace
+- Use consistent spacing around operators and keywords
+- Use consistent brace placement (same line for Java, new line for TypeScript)
 
-1. **Build**: Compile code and build artifacts
-2. **Test**: Run unit and integration tests
-3. **Analyze**: Perform static code analysis and security scanning
-4. **Package**: Create Docker images
-5. **Deploy**: Deploy to staging and production environments
+## Documentation
 
-```
-┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐
-│         │     │         │     │         │     │         │     │         │
-│  Build  │────▶│  Test   │────▶│ Analyze │────▶│ Package │────▶│ Deploy  │
-│         │     │         │     │         │     │         │     │         │
-└─────────┘     └─────────┘     └─────────┘     └─────────┘     └─────────┘
-```
+- Document all public classes, interfaces, methods, and fields
+- Use JavaDoc for Java code and JSDoc for TypeScript/JavaScript
+- Include parameter descriptions, return values, and exceptions
+- Document complex algorithms and business logic
+- Keep documentation up-to-date with code changes
+- Use meaningful comments that explain "why" not "what"
 
-## GitHub Actions Workflow
+## Naming Conventions
 
-The main workflow is defined in `.github/workflows/deploy.yml`:
+- Use descriptive, meaningful names
+- Follow language-specific conventions (camelCase, PascalCase, etc.)
+- Use consistent abbreviations and acronyms
+- Avoid generic names like "data", "manager", "util", etc.
+- Prefix interfaces with "I" in Java (e.g., IUserService)
+- Use verb prefixes for methods (get, set, is, has, etc.)
 
-```yaml
-name: Build and Deploy
+## Code Organization
 
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+- One class per file
+- Group related functionality together
+- Separate concerns appropriately
+- Keep methods and classes focused on a single responsibility
+- Limit method length (aim for < 30 lines)
+- Limit class length (aim for < 500 lines)
+- Order methods logically (public before private, etc.)
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: 'maven'
-        
-    - name: Build with Maven
-      run: mvn -B clean package -DskipTests
-      
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-        
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: |
-          **/target/*.jar
-          !**/target/classes
-          !**/target/test-classes
+## Error Handling
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: 'maven'
-        
-    - name: Download build artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
-        
-    - name: Run Tests
-      run: mvn -B test
-      
-    - name: Upload test results
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results
-        path: |
-          **/target/surefire-reports
-          **/target/site/jacoco
+- Use exceptions for exceptional conditions only
+- Handle exceptions at the appropriate level
+- Log exceptions with context information
+- Don't swallow exceptions without logging
+- Use custom exceptions for domain-specific errors
+- Include appropriate stack traces in logs
 
-  analyze:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: 'maven'
-        
-    - name: SonarQube Scan
-      run: mvn -B sonar:sonar
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        
-    - name: OWASP Dependency Check
-      run: mvn -B org.owasp:dependency-check-maven:check
-      
-    - name: Upload analysis results
-      uses: actions/upload-artifact@v3
-      with:
-        name: analysis-results
-        path: |
-          **/target/dependency-check-report.html
-          **/target/sonar
+## Testing
 
-  package:
-    needs: [test, analyze]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-      
-    - name: Login to DockerHub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
-    - name: Download build artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
-        
-    - name: Build and push API image
-      uses: docker/build-push-action@v4
-      with:
-        context: ./services/openframe-api
-        push: ${{ github.event_name != 'pull_request' }}
-        tags: openframe/api:latest,openframe/api:${{ github.sha }}
-        
-    - name: Build and push Gateway image
-      uses: docker/build-push-action@v4
-      with:
-        context: ./services/openframe-gateway
-        push: ${{ github.event_name != 'pull_request' }}
-        tags: openframe/gateway:latest,openframe/gateway:${{ github.sha }}
-        
-    # Additional services...
+- Write unit tests for all business logic
+- Aim for high test coverage (>80%)
+- Use meaningful test names that describe the scenario
+- Follow the Arrange-Act-Assert pattern
+- Mock external dependencies
+- Keep tests independent and idempotent
+- Test both success and failure scenarios
 
-  deploy-staging:
-    if: github.event_name != 'pull_request'
-    needs: package
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set Kubernetes context
-      uses: azure/k8s-set-context@v3
-      with:
-        kubeconfig: ${{ secrets.KUBE_CONFIG_STAGING }}
-        
-    - name: Deploy to Kubernetes
-      run: |
-        # Update image tags
-        sed -i "s|image: openframe/api:.*|image: openframe/api:${{ github.sha }}|g" kubernetes/staging/*.yaml
-        sed -i "s|image: openframe/gateway:.*|image: openframe/gateway:${{ github.sha }}|g" kubernetes/staging/*.yaml
-        
-        # Apply Kubernetes manifests
-        kubectl apply -f kubernetes/staging/
-        
-    - name: Verify deployment
-      run: |
-        kubectl rollout status deployment/openframe-api -n openframe
-        kubectl rollout status deployment/openframe-gateway -n openframe
+## Version Control
 
-  deploy-production:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: deploy-staging
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set Kubernetes context
-      uses: azure/k8s-set-context@v3
-      with:
-        kubeconfig: ${{ secrets.KUBE_CONFIG_PRODUCTION }}
-        
-    - name: Deploy to Kubernetes
-      run: |
-        # Update image tags
-        sed -i "s|image: openframe/api:.*|image: openframe/api:${{ github.sha }}|g" kubernetes/production/*.yaml
-        sed -i "s|image: openframe/gateway:.*|image: openframe/gateway:${{ github.sha }}|g" kubernetes/production/*.yaml
-        
-        # Apply Kubernetes manifests
-        kubectl apply -f kubernetes/production/
-        
-    - name: Verify deployment
-      run: |
-        kubectl rollout status deployment/openframe-api -n openframe
-        kubectl rollout status deployment/openframe-gateway -n openframe
-```
+- Write clear, descriptive commit messages
+- Use the imperative mood in commit messages (e.g., "Add feature" not "Added feature")
+- Keep commits focused on a single change
+- Reference issue numbers in commit messages
+- Squash commits before merging
+- Follow the branching strategy (feature branches, etc.)
 
-## Branch Strategy
+## Code Review
 
-OpenFrame follows a GitFlow-inspired branching strategy:
+- Review all code before merging
+- Check for adherence to coding standards
+- Verify test coverage
+- Look for security vulnerabilities
+- Ensure proper error handling
+- Validate performance considerations
+- Provide constructive feedback
 
-- `main`: Production-ready code
-- `develop`: Integration branch for features
-- `feature/*`: Feature branches
-- `release/*`: Release preparation branches
-- `hotfix/*`: Hotfix branches for production issues
+## Security Practices
 
-```
-    ┌─── feature/a ───┐
-    │                 │
-    │     ┌─── feature/b ───┐
-    │     │                 │
-    │     │     ┌─── feature/c ───┐
-    │     │     │                 │
-    ▼     ▼     ▼                 │
-────────────────────────────────  │
-develop                         │  │
-                                │  │
-                                │  │
-                                ▼  ▼
-────────────────────────────────────
-main
-    │                 │
-    └─── hotfix/x ────┘
-```
+- Validate all user input
+- Use parameterized queries for database access
+- Sanitize output to prevent XSS
+- Use secure communication (HTTPS, TLS)
+- Don't hardcode sensitive information
+- Follow the principle of least privilege
+- Implement proper authentication and authorization
 
-## Environment Configuration
+## Performance Considerations
 
-OpenFrame uses environment-specific configuration:
-
-- **Development**: Local development environment
-- **Staging**: Pre-production environment for testing
-- **Production**: Live environment
-
-Environment-specific configuration is stored in:
-- `config/application-{env}.yml` for Spring Boot services
-- `.env.{env}` for frontend applications
-
-Example environment configuration:
-```yaml
-# application-staging.yml
-spring:
-  data:
-    mongodb:
-      uri: ${MONGO_URI}
-  kafka:
-    bootstrap-servers: ${KAFKA_SERVERS}
-    
-logging:
-  level:
-    root: INFO
-    com.openframe: DEBUG
-    
-openframe:
-  security:
-    jwt:
-      secret: ${JWT_SECRET}
-      expiration: 86400
-```
-
-## Secrets Management
-
-Secrets are managed using GitHub Secrets and environment variables:
-
-1. Secrets are stored in GitHub Secrets
-2. Secrets are passed to workflows as environment variables
-3. Kubernetes secrets are created from GitHub Secrets
-4. Applications access secrets through environment variables
-
-Example Kubernetes secret creation:
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: openframe-secrets
-  namespace: openframe
-type: Opaque
-data:
-  MONGO_URI: ${{ secrets.MONGO_URI_BASE64 }}
-  KAFKA_SERVERS: ${{ secrets.KAFKA_SERVERS_BASE64 }}
-  JWT_SECRET: ${{ secrets.JWT_SECRET_BASE64 }}
-```
-
-## Deployment Strategy
-
-OpenFrame uses a blue-green deployment strategy:
-
-1. Deploy new version alongside the existing version
-2. Run smoke tests on the new version
-3. Switch traffic to the new version
-4. Monitor for issues
-5. If issues occur, switch back to the previous version
-
-Example blue-green deployment:
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: openframe-api
-  namespace: openframe
-spec:
-  selector:
-    app: openframe-api
-    version: blue  # Switch between blue and green
-  ports:
-  - port: 80
-    targetPort: 8080
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: openframe-api-blue
-  namespace: openframe
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: openframe-api
-      version: blue
-  template:
-    metadata:
-      labels:
-        app: openframe-api
-        version: blue
-    spec:
-      containers:
-      - name: api
-        image: openframe/api:${VERSION}
-        # Container spec
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: openframe-api-green
-  namespace: openframe
-spec:
-  replicas: 0  # Scale up during deployment
-  selector:
-    matchLabels:
-      app: openframe-api
-      version: green
-  template:
-    metadata:
-      labels:
-        app: openframe-api
-        version: green
-    spec:
-      containers:
-      - name: api
-        image: openframe/api:${NEW_VERSION}
-        # Container spec
-```
-
-## Monitoring and Alerting
-
-The CI/CD pipeline includes monitoring and alerting:
-
-1. Monitor deployment status
-2. Check application health
-3. Verify metrics
-4. Send alerts for failures
-
-Example monitoring implementation:
-```yaml
-- name: Monitor deployment
-  run: |
-    # Check deployment status
-    kubectl rollout status deployment/openframe-api -n openframe
-    
-    # Check application health
-    for i in {1..10}; do
-      STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.openframe.com/actuator/health)
-      if [ $STATUS -eq 200 ]; then
-        echo "Application is healthy"
-        exit 0
-      fi
-      sleep 10
-    done
-    
-    echo "Application failed to become healthy"
-    exit 1
-```
-
-## Artifact Management
-
-Artifacts are managed throughout the pipeline:
-
-1. Build artifacts are stored as GitHub Actions artifacts
-2. Docker images are stored in DockerHub
-3. Helm charts are stored in a Helm repository
-4. Kubernetes manifests are stored in the Git repository
-
-Example artifact management:
-```yaml
-- name: Upload build artifacts
-  uses: actions/upload-artifact@v3
-  with:
-    name: build-artifacts
-    path: |
-      **/target/*.jar
-      !**/target/classes
-      !**/target/test-classes
-```
-
-## Testing in the Pipeline
-
-The pipeline includes multiple testing stages:
-
-1. Unit tests during the build stage
-2. Integration tests in the test stage
-3. End-to-end tests in the staging environment
-4. Smoke tests in the production environment
-
-Example testing implementation:
-```yaml
-- name: Run Unit Tests
-  run: mvn -B test
-  
-- name: Run Integration Tests
-  run: mvn -B verify -P integration-tests
-  
-- name: Run E2E Tests
-  run: |
-    cd e2e-tests
-    npm install
-    npm run test:staging
-  
-- name: Run Smoke Tests
-  run: |
-    cd smoke-tests
-    npm install
-    npm run test:production
-```
-
-## Best Practices
-
-1. **Fail Fast**: Detect issues early in the pipeline
-   ```yaml
-   - name: Verify build
-     run: |
-       if [ ! -f services/openframe-api/target/openframe-api.jar ]; then
-         echo "Build failed: JAR file not found"
-         exit 1
-       fi
-   ```
-
-2. **Parallel Execution**: Run independent jobs in parallel
-   ```yaml
-   jobs:
-     test:
-       strategy:
-         matrix:
-           service: [api, gateway, management, stream]
-       steps:
-         - name: Run Tests
-           run: cd services/openframe-${{ matrix.service }} && mvn test
-   ```
-
-3. **Caching**: Cache dependencies to speed up builds
-   ```yaml
-   - name: Cache Maven packages
-     uses: actions/cache@v3
-     with:
-       path: ~/.m2
-       key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-       restore-keys: ${{ runner.os }}-m2
-   ```
-
-4. **Versioning**: Use semantic versioning for releases
-   ```yaml
-   - name: Set version
-     run: |
-       VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')
-       echo "VERSION=$VERSION" >> $GITHUB_ENV
-   ```
-
-5. **Rollback Plan**: Always have a rollback strategy
-   ```yaml
-   - name: Rollback on failure
-     if: failure()
-     run: |
-       kubectl rollout undo deployment/openframe-api -n openframe
-       kubectl rollout undo deployment/openframe-gateway -n openframe
-   ```
-
-6. **Security Scanning**: Include security scans in the pipeline
-   ```yaml
-   - name: Run security scan
-     run: |
-       trivy image openframe/api:${{ github.sha }}
-       trivy image openframe/gateway:${{ github.sha }}
-   ```
-
-7. **Documentation**: Update documentation as part of the pipeline
-   ```yaml
-   - name: Update API documentation
-     run: |
-       cd services/openframe-api
-       mvn springdoc:generate
-       aws s3 sync target/generated-docs s3://docs.openframe.com/api/
-   ```
-
-8. **Approval Gates**: Require approvals for production deployments
-   ```yaml
-   deploy-production:
-     needs: deploy-staging
-     environment:
-       name: production
-       url: https://openframe.com
-     # This creates an approval gate before deployment
-   ```
-
-9. **Notifications**: Send notifications for pipeline events
-   ```yaml
-   - name: Send deployment notification
-     if: success()
-     uses: rtCamp/action-slack-notify@v2
-     env:
-       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-       SLACK_TITLE: "Deployment Successful"
-       SLACK_MESSAGE: "OpenFrame has been deployed to production"
-   ```
-
-10. **Metrics**: Collect and analyze pipeline metrics
-    ```yaml
-    - name: Record deployment metrics
-      run: |
-        START_TIME=$(cat start_time.txt)
-        END_TIME=$(date +%s)
-        DURATION=$((END_TIME - START_TIME))
-        echo "Deployment duration: $DURATION seconds"
-        curl -X POST "https://metrics.openframe.com/api/deployment" \
-          -H "Content-Type: application/json" \
-          -d "{\"duration\": $DURATION, \"commit\": \"${{ github.sha }}\", \"status\": \"success\"}"
-    ```
+- Use efficient algorithms and data structures
+- Minimize database queries
+- Use caching where appropriate
+- Optimize resource usage
+- Consider pagination for large result sets
+- Profile and benchmark critical code paths
+- Avoid premature optimization
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
