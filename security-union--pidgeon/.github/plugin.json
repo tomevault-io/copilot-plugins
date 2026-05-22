@@ -1,0 +1,9 @@
+{
+  "name": "security-union--pidgeon",
+  "displayName": "pidgeon",
+  "description": "PID Controller written in Rust",
+  "version": "1.0.0",
+  "author": "security-union",
+  "homepage": "https://github.com/security-union/pidgeon",
+  "skills": []
+}
