@@ -1,542 +1,985 @@
-## testing-standards
+## ui-components
 
-> This document outlines the testing standards and best practices for the OpenFrame project.
+> This document outlines the UI component standards and usage patterns for the OpenFrame project.
 
-# Testing Standards
+# UI Components
 
-This document outlines the testing standards and best practices for the OpenFrame project.
+This document outlines the UI component standards and usage patterns for the OpenFrame project.
 
-## Testing Pyramid
+## Component Library
 
-OpenFrame follows the testing pyramid approach:
+OpenFrame uses a shared component library to ensure consistency across the application. The component library is located in `services/openframe-frontend/src/components/ui/`.
 
+### Core Components
+
+- Use shared components from the component library
+- Follow consistent naming conventions
+- Implement proper props and events
+- Document component usage
+- Support both light and dark modes
+
+Example component structure:
 ```
-    /\
-   /  \
-  /    \
- / E2E  \
-/--------\
-/ Integration \
-/----------------\
-/     Unit Tests    \
-/----------------------\
-```
-
-- **Unit Tests**: Test individual components in isolation
-- **Integration Tests**: Test interactions between components
-- **End-to-End Tests**: Test complete user flows
-
-## Unit Testing
-
-### Java Unit Tests
-
-Java unit tests use JUnit 5 and Mockito:
-
-```java
-@ExtendWith(MockitoExtension.class)
-public class DeviceServiceTest {
-    @Mock
-    private DeviceRepository deviceRepository;
-    
-    @InjectMocks
-    private DeviceService deviceService;
-    
-    @Test
-    public void testGetDeviceById() {
-        // Arrange
-        String deviceId = "device-123";
-        Device expectedDevice = new Device();
-        expectedDevice.setId(deviceId);
-        expectedDevice.setHostname("test-device");
-        
-        when(deviceRepository.findById(deviceId)).thenReturn(Mono.just(expectedDevice));
-        
-        // Act
-        Mono<Device> result = deviceService.getDeviceById(deviceId);
-        
-        // Assert
-        StepVerifier.create(result)
-            .expectNext(expectedDevice)
-            .verifyComplete();
-        
-        verify(deviceRepository).findById(deviceId);
-    }
-}
+components/
+├── ui/                 # Shared UI components
+│   ├── Button.vue      # Button component
+│   ├── Card.vue        # Card component
+│   ├── DataTable.vue   # Data table component
+│   ├── Dialog.vue      # Dialog component
+│   ├── Dropdown.vue    # Dropdown component
+│   ├── Input.vue       # Input component
+│   ├── Tabs.vue        # Tabs component
+│   └── ...
+├── shared/             # Shared feature components
+│   ├── Header.vue      # Application header
+│   ├── Sidebar.vue     # Application sidebar
+│   ├── Footer.vue      # Application footer
+│   └── ...
+└── features/           # Feature-specific components
+    ├── rmm/            # RMM components
+    ├── mdm/            # MDM components
+    └── ...
 ```
 
-### Vue.js Unit Tests
+### Button Component
 
-Vue.js unit tests use Vitest and Vue Test Utils:
+The Button component is used for all clickable actions in the application.
 
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-import { mount } from '@vue/test-utils';
-import DeviceList from '@/components/DeviceList.vue';
+```vue
+<template>
+  <button
+    :class="[
+      'of-button',
+      `of-button--${variant}`,
+      `of-button--${size}`,
+      { 'of-button--loading': loading }
+    ]"
+    :disabled="disabled || loading"
+    @click="$emit('click', $event)"
+  >
+    <span v-if="loading" class="of-button__loader"></span>
+    <span v-else class="of-button__content">
+      <slot></slot>
+    </span>
+  </button>
+</template>
 
-describe('DeviceList', () => {
-  it('renders devices correctly', async () => {
-    // Arrange
-    const devices = [
-      { id: '1', hostname: 'device-1', status: 'online' },
-      { id: '2', hostname: 'device-2', status: 'offline' }
-    ];
-    
-    // Act
-    const wrapper = mount(DeviceList, {
-      props: {
-        devices
-      }
-    });
-    
-    // Assert
-    expect(wrapper.findAll('tr').length).toBe(devices.length + 1); // +1 for header row
-    expect(wrapper.text()).toContain('device-1');
-    expect(wrapper.text()).toContain('device-2');
-  });
-  
-  it('emits select event when device is clicked', async () => {
-    // Arrange
-    const devices = [
-      { id: '1', hostname: 'device-1', status: 'online' }
-    ];
-    
-    const wrapper = mount(DeviceList, {
-      props: {
-        devices
-      }
-    });
-    
-    // Act
-    await wrapper.find('tr:nth-child(2)').trigger('click');
-    
-    // Assert
-    expect(wrapper.emitted().select).toBeTruthy();
-    expect(wrapper.emitted().select[0]).toEqual([devices[0]]);
-  });
-});
-```
-
-## Integration Testing
-
-### Spring Boot Integration Tests
-
-Spring Boot integration tests use `@SpringBootTest`:
-
-```java
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DeviceControllerIntegrationTest {
-    @Autowired
-    private WebTestClient webTestClient;
-    
-    @Autowired
-    private DeviceRepository deviceRepository;
-    
-    @BeforeEach
-    public void setup() {
-        deviceRepository.deleteAll().block();
-    }
-    
-    @Test
-    public void testGetDevices() {
-        // Arrange
-        Device device1 = new Device();
-        device1.setHostname("device-1");
-        device1.setStatus("online");
-        
-        Device device2 = new Device();
-        device2.setHostname("device-2");
-        device2.setStatus("offline");
-        
-        deviceRepository.saveAll(Arrays.asList(device1, device2)).blockLast();
-        
-        // Act & Assert
-        webTestClient.get()
-            .uri("/api/devices")
-            .exchange()
-            .expectStatus().isOk()
-            .expectBodyList(Device.class)
-            .hasSize(2)
-            .contains(device1, device2);
-    }
-}
-```
-
-### API Integration Tests
-
-API integration tests use WebTestClient:
-
-```java
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ApiIntegrationTest {
-    @Autowired
-    private WebTestClient webTestClient;
-    
-    @Test
-    public void testCreateDevice() {
-        // Arrange
-        DeviceRequest request = new DeviceRequest();
-        request.setHostname("test-device");
-        request.setOperatingSystem("Linux");
-        
-        // Act & Assert
-        webTestClient.post()
-            .uri("/api/devices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(request)
-            .exchange()
-            .expectStatus().isCreated()
-            .expectBody()
-            .jsonPath("$.id").isNotEmpty()
-            .jsonPath("$.hostname").isEqualTo("test-device")
-            .jsonPath("$.operatingSystem").isEqualTo("Linux");
-    }
-}
-```
-
-## End-to-End Testing
-
-### Cypress Tests
-
-End-to-end tests use Cypress:
-
-```javascript
-describe('Device Management', () => {
-  beforeEach(() => {
-    cy.login('admin', 'password');
-    cy.visit('/devices');
-  });
-  
-  it('should display device list', () => {
-    cy.get('table').should('be.visible');
-    cy.get('tr').should('have.length.greaterThan', 1);
-  });
-  
-  it('should navigate to device details', () => {
-    cy.get('tr').eq(1).click();
-    cy.url().should('include', '/devices/');
-    cy.get('h1').should('contain', 'Device Details');
-  });
-  
-  it('should create a new device', () => {
-    cy.get('[data-test="add-device-button"]').click();
-    cy.get('[data-test="hostname-input"]').type('new-device');
-    cy.get('[data-test="os-select"]').select('Linux');
-    cy.get('[data-test="save-button"]').click();
-    
-    cy.get('table').should('contain', 'new-device');
-  });
-});
-```
-
-## Test Coverage
-
-- Aim for at least 80% code coverage for unit tests
-- Focus on testing business logic and edge cases
-- Use JaCoCo for Java code coverage
-- Use c8 for JavaScript/TypeScript code coverage
-
-Example JaCoCo configuration:
-
-```xml
-<plugin>
-    <groupId>org.jacoco</groupId>
-    <artifactId>jacoco-maven-plugin</artifactId>
-    <version>0.8.8</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>prepare-agent</goal>
-            </goals>
-        </execution>
-        <execution>
-            <id>report</id>
-            <phase>test</phase>
-            <goals>
-                <goal>report</goal>
-            </goals>
-        </execution>
-        <execution>
-            <id>check</id>
-            <goals>
-                <goal>check</goal>
-            </goals>
-            <configuration>
-                <rules>
-                    <rule>
-                        <element>BUNDLE</element>
-                        <limits>
-                            <limit>
-                                <counter>INSTRUCTION</counter>
-                                <value>COVEREDRATIO</value>
-                                <minimum>0.80</minimum>
-                            </limit>
-                        </limits>
-                    </rule>
-                </rules>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-```
-
-## Mocking
-
-### Java Mocking
-
-Use Mockito for Java mocking:
-
-```java
-@ExtendWith(MockitoExtension.class)
-public class AlertServiceTest {
-    @Mock
-    private NotificationService notificationService;
-    
-    @Mock
-    private DeviceRepository deviceRepository;
-    
-    @InjectMocks
-    private AlertService alertService;
-    
-    @Test
-    public void testProcessAlert() {
-        // Arrange
-        String deviceId = "device-123";
-        Device device = new Device();
-        device.setId(deviceId);
-        device.setHostname("test-device");
-        
-        Alert alert = new Alert();
-        alert.setDeviceId(deviceId);
-        alert.setType("CPU_HIGH");
-        alert.setSeverity("HIGH");
-        
-        when(deviceRepository.findById(deviceId)).thenReturn(Mono.just(device));
-        when(notificationService.sendNotification(any())).thenReturn(Mono.empty());
-        
-        // Act
-        Mono<Void> result = alertService.processAlert(alert);
-        
-        // Assert
-        StepVerifier.create(result)
-            .verifyComplete();
-        
-        verify(deviceRepository).findById(deviceId);
-        verify(notificationService).sendNotification(any());
-    }
-}
-```
-
-### JavaScript Mocking
-
-Use Vitest for JavaScript mocking:
-
-```typescript
-import { describe, it, expect, vi } from 'vitest';
-import { useDeviceStore } from '@/stores/deviceStore';
-import { createPinia, setActivePinia } from 'pinia';
-import { DeviceService } from '@/services/DeviceService';
-
-// Mock the DeviceService
-vi.mock('@/services/DeviceService', () => ({
-  DeviceService: {
-    getDevices: vi.fn(),
-    getDeviceById: vi.fn(),
-    createDevice: vi.fn(),
-    updateDevice: vi.fn(),
-    deleteDevice: vi.fn()
+<script setup lang="ts">
+defineProps({
+  variant: {
+    type: String,
+    default: 'primary',
+    validator: (value: string) => ['primary', 'secondary', 'danger', 'ghost'].includes(value)
+  },
+  size: {
+    type: String,
+    default: 'medium',
+    validator: (value: string) => ['small', 'medium', 'large'].includes(value)
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
-}));
-
-describe('DeviceStore', () => {
-  beforeEach(() => {
-    setActivePinia(createPinia());
-  });
-  
-  it('fetches devices', async () => {
-    // Arrange
-    const devices = [
-      { id: '1', hostname: 'device-1', status: 'online' },
-      { id: '2', hostname: 'device-2', status: 'offline' }
-    ];
-    
-    DeviceService.getDevices.mockResolvedValue(devices);
-    
-    const store = useDeviceStore();
-    
-    // Act
-    await store.fetchDevices();
-    
-    // Assert
-    expect(DeviceService.getDevices).toHaveBeenCalled();
-    expect(store.devices).toEqual(devices);
-  });
 });
-```
 
-## Test Data
+defineEmits(['click']);
+</script>
 
-### Test Fixtures
-
-Use test fixtures for consistent test data:
-
-```java
-public class TestFixtures {
-    public static Device createTestDevice() {
-        Device device = new Device();
-        device.setId("device-123");
-        device.setHostname("test-device");
-        device.setOperatingSystem("Linux");
-        device.setStatus("online");
-        device.setLastSeen(LocalDateTime.now());
-        return device;
-    }
-    
-    public static Alert createTestAlert() {
-        Alert alert = new Alert();
-        alert.setId("alert-123");
-        alert.setDeviceId("device-123");
-        alert.setType("CPU_HIGH");
-        alert.setSeverity("HIGH");
-        alert.setTimestamp(LocalDateTime.now());
-        return alert;
-    }
+<style scoped>
+.of-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-```
 
-### Test Containers
-
-Use Testcontainers for integration tests with real databases:
-
-```java
-@Testcontainers
-@SpringBootTest
-public class MongoDbIntegrationTest {
-    @Container
-    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0");
-    
-    @DynamicPropertySource
-    static void setProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
-    }
-    
-    @Autowired
-    private DeviceRepository deviceRepository;
-    
-    @Test
-    public void testSaveAndFindDevice() {
-        // Arrange
-        Device device = TestFixtures.createTestDevice();
-        
-        // Act
-        Device savedDevice = deviceRepository.save(device).block();
-        Device foundDevice = deviceRepository.findById(savedDevice.getId()).block();
-        
-        // Assert
-        assertNotNull(foundDevice);
-        assertEquals(device.getHostname(), foundDevice.getHostname());
-    }
+.of-button--primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
 }
+
+.of-button--secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.of-button--danger {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+}
+
+.of-button--ghost {
+  background-color: transparent;
+  color: var(--text-color);
+  border: none;
+}
+
+.of-button--small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.of-button--medium {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.of-button--large {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.of-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.of-button__loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
 ```
 
-## Test Naming Conventions
-
-- Use descriptive test names that explain what is being tested
-- Follow the pattern: `test{MethodName}_{Scenario}_{ExpectedResult}`
-- For BDD style: `should{ExpectedBehavior}When{Scenario}`
-
-Examples:
-```java
-@Test
-public void testGetDeviceById_ExistingDevice_ReturnsDevice() { ... }
-
-@Test
-public void testGetDeviceById_NonExistingDevice_ReturnsEmpty() { ... }
-
-@Test
-public void shouldReturnDeviceWhenValidIdProvided() { ... }
-
-@Test
-public void shouldThrowExceptionWhenInvalidIdProvided() { ... }
+Usage example:
+```vue
+<Button variant="primary" size="medium" @click="saveChanges">Save Changes</Button>
+<Button variant="secondary" @click="cancel">Cancel</Button>
+<Button variant="danger" @click="deleteItem">Delete</Button>
+<Button variant="ghost" @click="showDetails">View Details</Button>
+<Button loading>Processing...</Button>
 ```
 
-## Test Organization
+### Data Table Component
 
-- Group tests by functionality
-- Use nested classes for related tests
-- Separate unit tests from integration tests
-- Use appropriate test directories
+The DataTable component is used for displaying tabular data throughout the application.
 
-Example test organization:
+```vue
+<template>
+  <div class="of-data-table">
+    <div v-if="loading" class="of-data-table__loading">
+      <div class="of-data-table__spinner"></div>
+      <span>Loading data...</span>
+    </div>
+    <table v-else>
+      <thead>
+        <tr>
+          <th v-for="column in columns" :key="column.field">
+            {{ column.label }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, index) in data" :key="index">
+          <td v-for="column in columns" :key="column.field">
+            <slot :name="column.field" :row="row">
+              {{ getColumnValue(row, column) }}
+            </slot>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div v-if="!loading && data.length === 0" class="of-data-table__empty">
+      <slot name="empty">No data available</slot>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+
+const props = defineProps({
+  columns: {
+    type: Array,
+    required: true
+  },
+  data: {
+    type: Array,
+    default: () => []
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const getColumnValue = (row: any, column: any) => {
+  if (column.formatter) {
+    return column.formatter(row);
+  }
+  
+  const value = column.field.split('.').reduce((obj, key) => {
+    return obj && obj[key] !== undefined ? obj[key] : null;
+  }, row);
+  
+  return value !== null ? value : '';
+};
+</script>
+
+<style scoped>
+.of-data-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.of-data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.of-data-table th,
+.of-data-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.of-data-table th {
+  font-weight: 600;
+  background-color: var(--background-color-light);
+}
+
+.of-data-table tr:hover {
+  background-color: var(--hover-color);
+}
+
+.of-data-table__loading,
+.of-data-table__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--text-color-secondary);
+}
+
+.of-data-table__spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
 ```
-src/
-├── test/
-│   ├── java/
-│   │   └── com/openframe/
-│   │       ├── unit/
-│   │       │   ├── service/
-│   │       │   ├── repository/
-│   │       │   └── util/
-│   │       ├── integration/
-│   │       │   ├── api/
-│   │       │   ├── repository/
-│   │       │   └── service/
-│   │       └── e2e/
-│   └── resources/
-│       ├── fixtures/
-│       └── application-test.yml
+
+Usage example:
+```vue
+<template>
+  <DataTable :columns="columns" :data="devices" :loading="loading">
+    <template #status="{ row }">
+      <span :class="['status', `status--${row.status.toLowerCase()}`]">
+        {{ row.status }}
+      </span>
+    </template>
+    <template #actions="{ row }">
+      <Button variant="ghost" size="small" @click="viewDevice(row)">View</Button>
+      <Button variant="danger" size="small" @click="deleteDevice(row)">Delete</Button>
+    </template>
+  </DataTable>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import DataTable from '@/components/ui/DataTable.vue';
+import Button from '@/components/ui/Button.vue';
+
+const devices = ref([]);
+const loading = ref(true);
+
+const columns = [
+  { field: 'hostname', label: 'Hostname' },
+  { field: 'operatingSystem', label: 'OS' },
+  { field: 'status', label: 'Status' },
+  { field: 'lastSeen', label: 'Last Seen', formatter: (row) => formatDate(row.lastSeen) },
+  { field: 'actions', label: 'Actions' }
+];
+
+onMounted(async () => {
+  try {
+    devices.value = await fetchDevices();
+  } catch (error) {
+    console.error('Failed to fetch devices:', error);
+  } finally {
+    loading.value = false;
+  }
+});
+
+function viewDevice(device) {
+  // Implementation
+}
+
+function deleteDevice(device) {
+  // Implementation
+}
+
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleString();
+}
+</script>
 ```
 
-## Continuous Integration
+## Form Components
 
-- Run tests automatically on every pull request
-- Fail the build if tests fail
-- Generate and publish test reports
-- Track test coverage over time
+### Input Component
 
-Example GitHub Actions workflow:
-```yaml
-name: Test
+The Input component is used for text input fields.
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+```vue
+<template>
+  <div class="of-form-group">
+    <label v-if="label" :for="id" class="of-form-label">
+      {{ label }}
+      <span v-if="required" class="of-form-required">*</span>
+    </label>
+    <div class="of-input-wrapper">
+      <input
+        :id="id"
+        :type="type"
+        :value="modelValue"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :required="required"
+        class="of-input"
+        @input="$emit('update:modelValue', $event.target.value)"
+      />
+    </div>
+    <div v-if="error" class="of-form-error">{{ error }}</div>
+    <div v-if="hint" class="of-form-hint">{{ hint }}</div>
+  </div>
+</template>
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        
-    - name: Run Tests
-      run: mvn test
-      
-    - name: Upload Test Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-report
-        path: target/site/jacoco/
+<script setup lang="ts">
+import { computed } from 'vue';
+
+const props = defineProps({
+  modelValue: {
+    type: [String, Number],
+    default: ''
+  },
+  label: {
+    type: String,
+    default: ''
+  },
+  type: {
+    type: String,
+    default: 'text'
+  },
+  placeholder: {
+    type: String,
+    default: ''
+  },
+  required: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  error: {
+    type: String,
+    default: ''
+  },
+  hint: {
+    type: String,
+    default: ''
+  },
+  id: {
+    type: String,
+    default: () => `input-${Math.random().toString(36).substring(2, 9)}`
+  }
+});
+
+defineEmits(['update:modelValue']);
+</script>
+
+<style scoped>
+.of-form-group {
+  margin-bottom: 16px;
+}
+
+.of-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.of-form-required {
+  color: var(--danger-color);
+  margin-left: 4px;
+}
+
+.of-input-wrapper {
+  position: relative;
+}
+
+.of-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.of-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.of-input:disabled {
+  background-color: var(--background-color-light);
+  cursor: not-allowed;
+}
+
+.of-form-error {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--danger-color);
+}
+
+.of-form-hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-color-secondary);
+}
+</style>
+```
+
+Usage example:
+```vue
+<template>
+  <form @submit.prevent="submitForm">
+    <Input
+      v-model="form.hostname"
+      label="Hostname"
+      required
+      :error="errors.hostname"
+    />
+    <Input
+      v-model="form.ipAddress"
+      label="IP Address"
+      placeholder="192.168.1.1"
+      :error="errors.ipAddress"
+    />
+    <Input
+      v-model="form.port"
+      type="number"
+      label="Port"
+      :hint="'Default: 22'"
+    />
+    <Button type="submit">Save</Button>
+  </form>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive } from 'vue';
+import Input from '@/components/ui/Input.vue';
+import Button from '@/components/ui/Button.vue';
+
+const form = reactive({
+  hostname: '',
+  ipAddress: '',
+  port: 22
+});
+
+const errors = reactive({
+  hostname: '',
+  ipAddress: ''
+});
+
+function validateForm() {
+  let isValid = true;
+  
+  if (!form.hostname) {
+    errors.hostname = 'Hostname is required';
+    isValid = false;
+  } else {
+    errors.hostname = '';
+  }
+  
+  if (form.ipAddress && !isValidIpAddress(form.ipAddress)) {
+    errors.ipAddress = 'Invalid IP address format';
+    isValid = false;
+  } else {
+    errors.ipAddress = '';
+  }
+  
+  return isValid;
+}
+
+function submitForm() {
+  if (validateForm()) {
+    // Submit form
+  }
+}
+
+function isValidIpAddress(ip) {
+  const regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+  return regex.test(ip);
+}
+</script>
+```
+
+### Select Component
+
+The Select component is used for dropdown selection.
+
+```vue
+<template>
+  <div class="of-form-group">
+    <label v-if="label" :for="id" class="of-form-label">
+      {{ label }}
+      <span v-if="required" class="of-form-required">*</span>
+    </label>
+    <div class="of-select-wrapper">
+      <select
+        :id="id"
+        :value="modelValue"
+        :disabled="disabled"
+        :required="required"
+        class="of-select"
+        @change="$emit('update:modelValue', $event.target.value)"
+      >
+        <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
+        <option
+          v-for="option in options"
+          :key="option.value"
+          :value="option.value"
+        >
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+    <div v-if="error" class="of-form-error">{{ error }}</div>
+    <div v-if="hint" class="of-form-hint">{{ hint }}</div>
+  </div>
+</template>
+
+<script setup lang="ts">
+const props = defineProps({
+  modelValue: {
+    type: [String, Number],
+    default: ''
+  },
+  options: {
+    type: Array,
+    required: true
+  },
+  label: {
+    type: String,
+    default: ''
+  },
+  placeholder: {
+    type: String,
+    default: 'Select an option'
+  },
+  required: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  error: {
+    type: String,
+    default: ''
+  },
+  hint: {
+    type: String,
+    default: ''
+  },
+  id: {
+    type: String,
+    default: () => `select-${Math.random().toString(36).substring(2, 9)}`
+  }
+});
+
+defineEmits(['update:modelValue']);
+</script>
+
+<style scoped>
+.of-form-group {
+  margin-bottom: 16px;
+}
+
+.of-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.of-form-required {
+  color: var(--danger-color);
+  margin-left: 4px;
+}
+
+.of-select-wrapper {
+  position: relative;
+}
+
+.of-select-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--text-color);
+  pointer-events: none;
+}
+
+.of-select {
+  width: 100%;
+  padding: 8px 12px;
+  padding-right: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  appearance: none;
+  background-color: var(--background-color);
+  transition: border-color 0.2s ease;
+}
+
+.of-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.of-select:disabled {
+  background-color: var(--background-color-light);
+  cursor: not-allowed;
+}
+
+.of-form-error {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--danger-color);
+}
+
+.of-form-hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-color-secondary);
+}
+</style>
+```
+
+Usage example:
+```vue
+<template>
+  <Select
+    v-model="selectedOs"
+    :options="osOptions"
+    label="Operating System"
+    required
+    :error="errors.os"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref, reactive } from 'vue';
+import Select from '@/components/ui/Select.vue';
+
+const selectedOs = ref('');
+const errors = reactive({
+  os: ''
+});
+
+const osOptions = [
+  { value: 'windows', label: 'Windows' },
+  { value: 'linux', label: 'Linux' },
+  { value: 'macos', label: 'macOS' }
+];
+</script>
+```
+
+## Layout Components
+
+### Card Component
+
+The Card component is used for content containers throughout the application.
+
+```vue
+<template>
+  <div class="of-card" :class="{ 'of-card--no-padding': noPadding }">
+    <div v-if="title || $slots.header" class="of-card__header">
+      <h3 v-if="title" class="of-card__title">{{ title }}</h3>
+      <slot name="header"></slot>
+    </div>
+    <div class="of-card__body">
+      <slot></slot>
+    </div>
+    <div v-if="$slots.footer" class="of-card__footer">
+      <slot name="footer"></slot>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+defineProps({
+  title: {
+    type: String,
+    default: ''
+  },
+  noPadding: {
+    type: Boolean,
+    default: false
+  }
+});
+</script>
+
+<style scoped>
+.of-card {
+  background-color: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.of-card__header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.of-card__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.of-card__body {
+  padding: 16px;
+}
+
+.of-card--no-padding .of-card__body {
+  padding: 0;
+}
+
+.of-card__footer {
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+}
+</style>
+```
+
+Usage example:
+```vue
+<template>
+  <Card title="Device Information">
+    <div class="device-info">
+      <div class="device-info__item">
+        <span class="device-info__label">Hostname:</span>
+        <span class="device-info__value">{{ device.hostname }}</span>
+      </div>
+      <div class="device-info__item">
+        <span class="device-info__label">OS:</span>
+        <span class="device-info__value">{{ device.operatingSystem }}</span>
+      </div>
+      <div class="device-info__item">
+        <span class="device-info__label">Status:</span>
+        <span class="device-info__value">{{ device.status }}</span>
+      </div>
+    </div>
+    <template #footer>
+      <Button variant="primary" @click="editDevice">Edit</Button>
+      <Button variant="secondary" @click="refreshDevice">Refresh</Button>
+    </template>
+  </Card>
+</template>
+
+<script setup lang="ts">
+import Card from '@/components/ui/Card.vue';
+import Button from '@/components/ui/Button.vue';
+
+const device = {
+  hostname: 'server-01',
+  operatingSystem: 'Linux',
+  status: 'Online'
+};
+
+function editDevice() {
+  // Implementation
+}
+
+function refreshDevice() {
+  // Implementation
+}
+</script>
+
+<style scoped>
+.device-info__item {
+  margin-bottom: 8px;
+}
+
+.device-info__label {
+  font-weight: 500;
+  margin-right: 8px;
+}
+</style>
+```
+
+### Tabs Component
+
+The Tabs component is used for tabbed interfaces throughout the application.
+
+```vue
+<template>
+  <div class="of-tabs">
+    <div class="of-tabs__header">
+      <button
+        v-for="tab in tabs"
+        :key="tab.value"
+        class="of-tabs__tab"
+        :class="{ 'of-tabs__tab--active': modelValue === tab.value }"
+        @click="$emit('update:modelValue', tab.value)"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+    <div class="of-tabs__content">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+defineProps({
+  modelValue: {
+    type: [String, Number],
+    required: true
+  },
+  tabs: {
+    type: Array,
+    required: true
+  }
+});
+
+defineEmits(['update:modelValue']);
+</script>
+
+<style scoped>
+.of-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.of-tabs__header {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 16px;
+}
+
+.of-tabs__tab {
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color-secondary);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.of-tabs__tab--active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.of-tabs__tab:hover {
+  color: var(--primary-color);
+}
+
+.of-tabs__content {
+  padding: 8px 0;
+}
+</style>
+```
+
+Usage example:
+```vue
+<template>
+  <Tabs v-model="activeTab" :tabs="tabs">
+    <div v-if="activeTab === 'info'">
+      <Card title="Device Information">
+        <!-- Device information content -->
+      </Card>
+    </div>
+    <div v-else-if="activeTab === 'monitoring'">
+      <Card title="Monitoring">
+        <!-- Monitoring content -->
+      </Card>
+    </div>
+    <div v-else-if="activeTab === 'scripts'">
+      <Card title="Scripts">
+        <!-- Scripts content -->
+      </Card>
+    </div>
+  </Tabs>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import Tabs from '@/components/ui/Tabs.vue';
+import Card from '@/components/ui/Card.vue';
+
+const activeTab = ref('info');
+const tabs = [
+  { value: 'info', label: 'Information' },
+  { value: 'monitoring', label: 'Monitoring' },
+  { value: 'scripts', label: 'Scripts' }
+];
+</script>
 ```
 
 ## Best Practices
 
-1. **Write Tests First**: Follow Test-Driven Development (TDD) where appropriate
-2. **Keep Tests Simple**: Each test should verify one specific behavior
-3. **Use Assertions Effectively**: Make assertions specific and meaningful
-4. **Isolate Tests**: Tests should not depend on each other
-5. **Mock External Dependencies**: Use mocks for external services
-6. **Test Edge Cases**: Include tests for boundary conditions and error scenarios
-7. **Maintain Tests**: Update tests when code changes
-8. **Optimize Test Performance**: Keep tests fast to run
-9. **Use Test Suites**: Group related tests together
-10. **Document Test Requirements**: Explain what each test is verifying
+1. **Component Reuse**: Use shared components from the component library
+2. **Consistent Styling**: Follow the design system for colors, spacing, and typography
+3. **Responsive Design**: Ensure components work on all screen sizes
+4. **Accessibility**: Implement proper ARIA attributes and keyboard navigation
+5. **Dark Mode Support**: Support both light and dark modes
+6. **Performance**: Optimize component rendering and avoid unnecessary re-renders
+7. **Documentation**: Document component props, events, and usage examples
+8. **Testing**: Write unit tests for components
+9. **Naming Conventions**: Use consistent naming for components, props, and events
+10. **Slot Usage**: Use slots for customizable content
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
