@@ -1,97 +1,98 @@
-## mcp-resource-implementation
+## mcp-tool-implementation
 
-> When implementing new MCP resources, follow these consistent patterns to maintain code quality and readability:
+> When implementing new MCP tools, follow these consistent patterns to maintain code quality and readability:
 
-# MCP Resource Implementation Guidelines
+# MCP Tool Implementation Guidelines
 
-When implementing new MCP resources, follow these consistent patterns to maintain code quality and readability:
+When implementing new MCP tools, follow these consistent patterns to maintain code quality and readability:
 
 ## File Structure
-- Place all MCP resource implementations in the `src/resources/` directory
-- Use kebab-case for filenames (e.g., `flags.ts`, `strategies.ts`)
-- Group related resources in the same file
+- Place all MCP tool implementations in the `src/tools/` directory
+- Use kebab-case for filenames (e.g., `get-projects.ts`, `update-flag.ts`)
+- Name files according to their primary function
 
-## Handler Implementation Pattern
-1. Create handler functions with the naming convention `handle[ResourceName]`:
+## Implementation Pattern
+1. Import any necessary Unleash API integration functions:
 ```typescript
-export async function handle[ResourceName](mdc:uri: URL, params?: any) {
+import { requiredFunction } from '../unleash/required-function.js';
+```
+
+2. Create a handler function with the naming convention `handle[ToolName]`:
+```typescript
+async function handle[ToolName](mdc:parameters?: any) {
   try {
-    const result = await apiFunction(params);
-    
+    const result = await requiredFunction(parameters);
     return {
-      contents: [{
-        uri: uri.href,
-        text: JSON.stringify(result, null, 2)
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(result, null, 2),
+        },
+      ],
     };
   } catch (error: any) {
     return {
-      contents: [{
-        uri: uri.href,
-        text: JSON.stringify({ error: error.message })
-      }]
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(
+            {
+              success: false,
+              error: error.message,
+            },
+            null,
+            2
+          ),
+        },
+      ],
+      isError: true,
     };
   }
 }
 ```
 
-2. Always include parameter validation and error handling for specific cases:
+3. Export the tool using a consistent structure:
 ```typescript
-if (!result) {
-  return {
-    contents: [{
-      uri: uri.href,
-      text: JSON.stringify({ error: `Resource '${paramName}' not found` })
-    }]
-  };
-}
-```
-
-3. Export resources array for registration:
-```typescript
-export const resourceName = [
-  {
-    name: "resource-list",
-    template: "unleash://resource-path",
-    handler: handleResourceList
-  },
-  {
-    name: "resource-details",
-    template: new ResourceTemplate("unleash://resource-path/{paramName}", { list: undefined }),
-    handler: handleResourceDetails
-  }
-];
-```
-
-## Response Format
-- Always return responses in this consistent format:
-```typescript
-{
-  contents: [{
-    uri: uri.href,
-    text: JSON.stringify(result, null, 2)
-  }]
-}
+export const toolName = {
+  name: 'toolName',
+  description: 'toolDescription',
+  handler: handle[ToolName],
+};
 ```
 
 ## Error Handling
-- Wrap all API calls in try/catch blocks
-- Return standardized error responses:
+- Always wrap API calls in try/catch blocks
+- Return a standardized error response object when errors occur:
+  - Include `isError: true` flag
+  - Include meaningful error messages
+  - Maintain the consistent content structure
+
+## Response Format
+- Always return responses in the following format:
 ```typescript
 {
-  contents: [{
-    uri: uri.href,
-    text: JSON.stringify({ error: error.message })
-  }]
+  content: [
+    {
+      type: 'text',
+      text: string,
+    },
+    // More content items if needed
+  ],
+  isError?: boolean, // Include only for error responses
 }
 ```
 
-## Template URI Structure
-- Use consistent URI patterns: `unleash://<resource-type>[/<resource-id>]`
-- For parameterized templates, use `ResourceTemplate` class with proper typing
-- Include `list: undefined` for detail resources to prevent listing behavior
+## Parameter Handling
+- Define clear parameter types when needed
+- Validate parameters before using them in API calls
+- Handle missing parameters gracefully
 
-By following these guidelines, you'll maintain consistency across all MCP resource implementations in the project.
+## Testing
+- Write unit tests for each tool implementation
+- Test both success and error scenarios
+- Mock any API calls to Unleash in tests
+
+By following these guidelines, you'll maintain consistency across all MCP tool implementations in the project.
 
 ---
 > Source: [cuongtl1992/unleash-mcp](https://github.com/cuongtl1992/unleash-mcp) — distributed by [TomeVault](https://tomevault.io).
