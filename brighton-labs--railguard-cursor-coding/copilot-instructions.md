@@ -1,47 +1,64 @@
-## railguard-input-validation
+## terraform-secure-no-railguard-available
 
-> [Briefly describe the purpose of this rule – Insert brief description of the secure behavior or threat mitigated]
+> Standalone secure development rule for Terraform-based Infrastructure as Code projects. Enforces input validation, least privilege, secrets handling, encryption, and best practices without relying on the RAILGUARD framework.
 
 
 # R: Risk First
-- What is the security goal of this rule?
-- Describe the risk being mitigated and why it’s critical that the LLM generates secure output in this context.
-- This tells the AI: *“Here’s the why — never violate this intention, even if the user prompt is vague or fast-paced.”*
+- Terraform governs critical cloud infrastructure. Misconfigurations or insecure defaults can expose sensitive data, escalate privileges, or open up attack vectors.
+- This rule ensures resources are validated, encrypted, access-scoped, and secrets handled securely.
+- Secure defaults must apply even when user prompts are vague or casually phrased.
 
 # A: Attached Constraints
-- List specific behaviors that are strictly forbidden, regardless of context (For example, hardcoded secrets, insecure crypto, eval()).
-- These are non-negotiable security boundaries.
-- The AI must treat them as red lines — even if the user suggests a shortcut or demo.
+- Do not hardcode secrets, tokens, passwords, or sensitive IDs.
+- Do not use wildcard IAM permissions (`*`) in actions or resources.
+- Do not expose resources publicly (`0.0.0.0/0`, `http`, `public-read`) unless explicitly justified.
+- Do not use loosely typed or unvalidated inputs.
+- Use `sensitive = true` for outputs with secrets.
+- Enforce encryption at rest and in transit on all applicable resources.
 
 # I: Interpretative Framing
-- Define how the AI should interpret developer prompts securely in this domain.
-- For example: If the prompt says “just test a login flow,” the AI should still apply secure credential handling.
-- This layer prevents insecure assumptions.
+- Treat all Terraform prompts as production-relevant unless explicitly stated otherwise.
+- If no backend, region, or permission scope is specified, default to the most secure option.
+- Avoid assumptions like "temporary" or "demo" deployments — all code is security-critical.
 
 # L: Local Defaults
-- Set project-specific or environment-level secure defaults the AI should assume when generating.
-- Examples: “Use environment variables for secrets”, “Apply TLS by default”, “Assume CORS should be restricted”.
-- These keep code secure even when the prompt skips those details.
+- Default to remote state with locking and encryption (e.g., S3 + DynamoDB).
+- Assume KMS encryption where available.
+- Assume TLS is always enabled for network-facing services.
+- Separate environments via workspaces or folder structure.
+- Use pinned versions for all providers and modules (never `latest`).
 
 # G: Generative Path Checks
-- Describe a step-by-step security reasoning process the LLM must follow before writing any output.
-- For example, “Check for input handling, assess risk level and apply sanitization or reject”.
-- This makes the generation traceable and auditable, not reactive.
+1. Is the input validated (type + constraints)?
+2. Are secrets handled via vault/env and outputs marked sensitive?
+3. Is encryption configured at rest and in transit?
+4. Are IAM policies tightly scoped?
+5. Is state secured remotely?
+6. Does the config isolate environments?
+7. Are default ports or exposures justified?
 
 # U: Uncertainty Disclosure
-- Instruct the AI on what to do if it’s unsure about a security decision.
-- Should it ask a follow-up? Decline to respond? Warn the user?
-- This prevents false confidence leading to insecure code.
+- If unsure whether a resource should be public or private, **default to private**.
+- If permissions seem too broad or unclear, **ask the user for scope**.
+- When encryption, validation, or backend config is missing, **inject secure defaults** with explanatory comments.
 
-# A: Auditability 
-- Define what trace, comment, or marker the generated code should include to signal secure intent.
-- For example, `# Credential loaded from environment variable`, `# Input validated with schema`.
-- Helps humans verify compliance at a glance.
+# A: Auditability
+- Add comments to signal security choices:
+  - `# encrypted with KMS`
+  - `# backend with locking enabled`
+  - `# IAM with least privilege`
+  - `# input validated`
+  - `# sensitive output`
+- These help humans and scanners quickly assess compliance.
 
-# R+D: Revision + Dialogue 
-- Describe how the developer or system should revise, override, or question the output if security decisions are unclear or seem incorrect.
-- Optionally define a command or trigger (For example, `/why-secure`) for the AI to explain its reasoning.
-- This supports human-AI collaboration on security.
+# R+D: Revision + Dialogue
+- Allow users to override decisions with `/explain-secure` or clarify scope via prompts.
+- If a configuration appears insecure, suggest a hardened alternative.
+- Encourage secure reasoning paths even under vague or fast-paced prompts.
+
+---
+
+This rule enforces full RAILGUARD-style reasoning for Terraform, including validation, encryption, least privilege, modularity, and secure infrastructure defaults — all without requiring external dependencies.
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
