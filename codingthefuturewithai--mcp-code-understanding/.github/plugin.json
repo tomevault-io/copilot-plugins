@@ -1,0 +1,9 @@
+{
+  "name": "codingthefuturewithai--mcp-code-understanding",
+  "displayName": "mcp-code-understanding",
+  "description": "An MCP (Model Context Protocol) server designed to understand codebases and provide intelligent context to AI coding assistants",
+  "version": "1.0.0",
+  "author": "codingthefuturewithai",
+  "homepage": "https://github.com/codingthefuturewithai/mcp-code-understanding",
+  "skills": []
+}
