@@ -1,0 +1,44 @@
+{
+  "name": "ThisCode",
+  "owner": "treylom",
+  "repo": "ThisCode",
+  "description": "Claude Code + Discord \ubd07 + codex \ud638\ucd9c \ud1b5\ud569 \ud50c\ub7ec\uadf8\uc778 \u2014 \ud328\uc2a4\ud2b8\ucea0\ud37c\uc2a4 \uac15\uc758\uc6a9",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/treylom/ThisCode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T04:32:59Z"
+}
