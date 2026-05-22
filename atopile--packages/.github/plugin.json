@@ -1,7 +1,7 @@
 {
   "name": "atopile--packages",
   "displayName": "packages",
-  "description": "packages",
+  "description": "First-party packages \ud83d\udce6 from atopile",
   "version": "1.0.0",
   "author": "atopile",
   "homepage": "https://github.com/atopile/packages",
