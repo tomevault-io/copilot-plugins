@@ -1,0 +1,44 @@
+{
+  "name": "papercut-theater",
+  "owner": "zesonzhang",
+  "repo": "papercut-theater",
+  "description": "A demo app to show how a cross-device web application works. It provides a synchronized, dual-interface experience showcasing traditional Chinese Paper-cut art, allowing one device to act as the \"Stage\" display while another serves as the \"Director\" remote control.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zesonzhang/papercut-theater",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T04:00:32Z"
+}
