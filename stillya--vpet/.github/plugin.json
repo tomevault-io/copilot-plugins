@@ -1,0 +1,9 @@
+{
+  "name": "stillya--vpet",
+  "displayName": "vpet",
+  "description": "An IntelliJ IDEA plugin that brings cute pixel pet companions to your coding environment",
+  "version": "1.0.0",
+  "author": "stillya",
+  "homepage": "https://github.com/stillya/vpet",
+  "skills": []
+}
