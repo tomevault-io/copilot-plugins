@@ -1,36 +1,34 @@
-## 99-enforcement-checklist
+## playbook-gui
 
-> Final Enforcement Checklist (ClautoHotkey)
+> description: Playbook — AHK v2 GUI tasks (class-based, deterministic layout)
 
 ---
-alwaysApply: true
----
-Final Enforcement Checklist (ClautoHotkey)
-
-- AHK-only: No server/backend assumed; only AHK v2 scripts executed
-- Scope: Touched only files required for the task; avoided unnecessary scans
-- OOP: Classes instantiated without `new`; callbacks bound via `.Bind(this)`; `__Delete` where needed
-- Data: Used `Map()` for key→value; arrays are 1‑based
-- GUI: Class-based; deterministic layout; validation present where inputs exist
-- Strings/Regex: Backtick-only escaping; PCRE `i/m/s/x` used appropriately
-- Arrows: Fat arrows used only for single-line expressions
-- Lint: Checked @Linter Errors for edited files; fixed or documented rationale/minimal fix
-- Tests: Ran or provided steps to run relevant `Tests\*.ahk` where applicable
-- Output: Brief status + concise summary; no extraneous logs/specs included
----
-description: Final enforcement checklist (apply before completing tasks)
+description: Playbook — AHK v2 GUI tasks (class-based, deterministic layout)
 alwaysApply: false
 ---
 
-Checklist
-- Syntax: commas/colons; backtick escapes; no v1 syntax; fat arrows single-line only.
-- OOP: instantiate without `new`; `.Bind(this)`; `__Delete` cleans resources.
-- Storage: `Map()` for key→value; arrays are 1-based.
-- GUI: class-based; deterministic layout; validation/report.
-- Lint: re-check @Linter Errors after edits; fix introduced errors.
+When to use
+- Any GUI creation/refactor/debug task in this repo.
+
+Playbook
+1) Search first
+   - Check existing patterns in `AHK_Notes/Classes/gui-class-best-practices.md`, `AHK_Notes/Concepts/GUI_Controls_and_Patterns.md`, `AHK_Notes/Concepts/GUI_State_Management.md`.
+   - Grep for similar classes before adding new ones.
+2) Plan
+   - Class-based only; instantiate without `new`. Store control refs in `Map()`.
+   - Bind handlers via `.OnEvent(..., .Bind(this))`. Avoid free-standing callbacks.
+3) Layout
+   - Apply deterministic layout computation; validate boundaries/overlaps; generate a layout report.
+4) Implement
+   - Group methods (init, interaction, mutation). Provide `__Delete` to clean timers/resources.
+   - Use hotkeys only if scoped; avoid global side-effects.
+5) Lint and finalize
+   - Review @Linter Errors and fix introduced issues. Re-run after edits.
+   - Cross-check `.cursor/rules/40-gui-layout.mdc`, `10-core-ahk-system.mdc`, `99-enforcement-checklist.mdc`.
 
 References
-- Modules reference: `Modules/Module_Instructions.md` (diagnostic checklist), `Modules/Module_Classes.md`, `Modules/Module_GUI.md`
+- Rules: `.cursor/rules/40-gui-layout.mdc`, `.cursor/rules/10-core-ahk-system.mdc`, `.cursor/rules/99-enforcement-checklist.mdc`, `.cursor/rules/00-always-linter.mdc`
+- Notes: `AHK_Notes/Classes/gui-class-best-practices.md`, `AHK_Notes/Concepts/GUI_Controls_and_Patterns.md`, `AHK_Notes/Concepts/GUI_State_Management.md`
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
