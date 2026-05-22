@@ -1,18 +1,14 @@
-## adb-client
+## app-struct
 
-> - The [src/adb_client.rs](mdc:src/adb_client.rs) file defines the `AdbClient` struct, which encapsulates all ADB-related operations.
+> - The [src/app.rs](mdc:src/app.rs) file defines the `App` struct, which represents an installed Android application.
 
-# ADB Client Logic
+# App Struct Reference
 
-- The [src/adb_client.rs](mdc:src/adb_client.rs) file defines the `AdbClient` struct, which encapsulates all ADB-related operations.
-- Key responsibilities:
-  - Device discovery and selection
-  - Listing installed apps
-  - App operations: open, uninstall, clear data, force kill, download APK, show app info
-  - Device operations: show device info, take screenshot, record screen, show network info, enable Wi-Fi/USB, health check
-  - Launching URLs or deep links on the device
-- Each public method on `AdbClient` corresponds to a CLI command and is called from [src/main.rs](mdc:src/main.rs).
-- The `App` struct used for app info is defined in [src/app.rs](mdc:src/app.rs).
+- The [src/app.rs](mdc:src/app.rs) file defines the `App` struct, which represents an installed Android application.
+- Fields:
+  - `package_name`: The unique package identifier of the app
+  - `app_name`: The display name of the app
+- The `App` struct is used throughout [src/adb_client.rs](mdc:src/adb_client.rs) for listing, selecting, and operating on installed apps.
 
 ---
 > Source: [cesarferreira/dab](https://github.com/cesarferreira/dab) — distributed by [TomeVault](https://tomevault.io).
