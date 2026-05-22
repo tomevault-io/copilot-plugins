@@ -1,50 +1,50 @@
-## database-entities
+## deployment-railway
 
-> Database entity and repository patterns for GORM
+> Railway deployment configuration and environment setup
 
 
-# Database Entity and Repository Rules
+# Railway Deployment Rules
 
-## Entity Definitions
-- Define entities in [internal/entity](mdc:internal/entity) directory
-- Use GORM tags for database mapping
-- Include `CreatedAt`, `UpdatedAt`, `DeletedAt` for soft deletes
-- Use proper foreign key relationships
+## Configuration Files
+- [railway.toml](mdc:railway.toml) configures Railway deployment
+- Set `GIN_MODE=release` for production logging
+- Use Dockerfile builder for containerized deployment
 
-## Repository Pattern
-- Interface definitions in [internal/usecase/repo](mdc:internal/usecase/repo)
-- Implementations in [pkg/repository](mdc:pkg/repository)
-- Use GORM for database operations
-- Handle errors properly with structured `AppError`
+## Environment Variables
+- `GIN_MODE=release` enables production optimizations (definir en Railway Dashboard si los logs muestran "debug")
+- [configs/config.go](mdc:configs/config.go) usa por defecto `release` si no está definido
+- [railway.toml](mdc:railway.toml) define `GIN_MODE=release` en `[env]` para el servicio
+- Database connection via Railway's PostgreSQL service
+- JWT secrets and other sensitive data via Railway environment
 
-## Bank Account Entity
-- Reference [BankAccount](mdc:internal/entity/bank_account.go) for structure
-- Include user association: `UserID uint`
-- Support notification settings and balance tracking
+## Long-running endpoints
+- `analyze-sms-batch`: **100 SMS**, **4 chunks**; contexto servidor y cliente **~10 min** (429 + lentitud del modelo gratuito)
+- Modelo gratuito OpenRouter puede 429; hay reintentos con backoff en código
 
-## Transaction Entity
-- Reference [Transaction](mdc:internal/entity/transaction.go) for extended fields
-- Include bank account association: `BankAccountID *uint`
-- Support validation status and AI confidence
+## Logging Configuration
+- Production mode uses JSON logging format
+- Compact request/response logging for Railway console
+- Structured error reporting with request IDs
 
-## Migration Handling
-- Use GORM AutoMigrate in [database.go](mdc:pkg/database/database.go)
-- Add new entities to `runMigrations()` function
-- Include in `DropTables()` for cleanup (reverse dependency order)
+## Database Migrations
+- GORM AutoMigrate handles schema changes automatically
+- No manual migration scripts needed for Railway
+- Database initialization in [database.go](mdc:pkg/database/database.go)
 
-## Query Patterns
-```go
-// Preload relationships
-db.Preload("Category").Where("user_id = ?", userID).Find(&expenses)
-
-// Use transactions for complex operations
-tx := r.db.Begin()
-defer func() {
-    if r := recover(); r != nil {
-        tx.Rollback()
-    }
-}()
+## Build Process
+```dockerfile
+RUN CGO_ENABLED=0 GOOS=linux go build -tags netgo -ldflags '-s -w' -o app ./cmd/server
 ```
+
+## Health Checks
+- Implement health check endpoints for Railway monitoring
+- Database connectivity verification
+- Service status reporting
+
+## Security Headers
+- CORS configuration for frontend integration
+- Security headers middleware for production
+- Rate limiting for API protection
 
 ---
 > Source: [nick130920/fintech-backend](https://github.com/nick130920/fintech-backend) — distributed by [TomeVault](https://tomevault.io).
