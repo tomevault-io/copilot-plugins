@@ -1,0 +1,9 @@
+{
+  "name": "nodedaemon--nodedaemon",
+  "displayName": "NodeDaemon",
+  "description": "Node.js process manager with zero external dependencies, built entirely with Node.js built-in modules.",
+  "version": "1.0.0",
+  "author": "NodeDaemon",
+  "homepage": "https://github.com/NodeDaemon/NodeDaemon",
+  "skills": []
+}
