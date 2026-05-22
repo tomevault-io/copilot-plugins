@@ -1,0 +1,44 @@
+{
+  "name": "usekit",
+  "owner": "ropnfop",
+  "repo": "usekit",
+  "description": "# how to usekit  **Position-aware data I/O toolkit**   Minimal input. Auto path tracking. No config needed.   Use safely and intuitively:   `use.read.json()`, `usf.read.json()`, `u.rj()`, `uf.rj()`  usekit lets you manage files with zero setup.   No need to remember or set paths.   Everything works by location\u2014simple and safe.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ropnfop/usekit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T10:36:29Z"
+}
