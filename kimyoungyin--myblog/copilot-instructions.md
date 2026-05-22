@@ -1,72 +1,36 @@
-## performance-optimization
+## project-architecture
 
-> - **ALWAYS** use `useCallback` for functions passed as props
+> - **Entry Point**: [src/app/layout.tsx](mdc:src/app/layout.tsx) is the root layout
 
-# Performance Optimization & Caching (MANDATORY)
 
-## ⚡ **React Performance (MUST OPTIMIZE)**
+# Project Architecture Rules
 
-- **ALWAYS** use `useCallback` for functions passed as props
-- **ALWAYS** use `useMemo` for expensive calculations
-- **ALWAYS** use `React.memo` for components that re-render frequently
-- **NEVER** create new objects/arrays in render without memoization
+## 🏗️ **Directory Structure (MUST FOLLOW)**
 
-## 🗄️ **React Query Caching (CRITICAL)**
+- **Entry Point**: [src/app/layout.tsx](mdc:src/app/layout.tsx) is the root layout
+- **Pages**: All pages go in [src/app/](mdc:src/app) following Next.js 14 App Router
+- **Components**: Reusable components in [src/components/](mdc:src/components)
+- **Business Logic**: Core logic in [src/lib/](mdc:src/lib)
+- **Custom Hooks**: React hooks in [src/hooks/](mdc:src/hooks)
+- **State Management**: Zustand stores in [src/stores/](mdc:src/stores)
+- **Type Definitions**: TypeScript types in [src/types/](mdc:src/types)
 
-Based on [src/lib/query-provider.tsx](mdc:src/lib/query-provider.tsx):
+## 📁 **File Organization (CRITICAL)**
 
-- **ALWAYS** use React Query for server state management
-- **ALWAYS** implement proper cache invalidation strategies
-- **ALWAYS** set appropriate `staleTime` and `gcTime` values
-- **NEVER** bypass React Query for data fetching
+- **NEVER** create files outside the established directory structure
+- **ALWAYS** use `@/*` path alias for imports from `src/`
+- **MUST** follow the existing naming conventions:
+    - Components: PascalCase (e.g., `MarkdownEditor.tsx`)
+    - Files: kebab-case (e.g., `file-upload.ts`)
+    - Functions: camelCase (e.g., `createPostAction`)
+    - Types: PascalCase (e.g., `CreatePostData`)
 
-```typescript
-// ✅ CORRECT - Proper React Query usage
-const { data: posts } = useQuery({
-    queryKey: ['posts', page, limit],
-    queryFn: () => getPosts({ page, limit }),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000, // 10 minutes
-    refetchOnWindowFocus: false,
-});
+## 🚫 **FORBIDDEN Practices**
 
-// ❌ WRONG - Bypassing React Query
-const [posts, setPosts] = useState([]);
-useEffect(() => {
-    fetch('/api/posts')
-        .then((res) => res.json())
-        .then(setPosts);
-}, []);
-```
-
-## 🚫 **FORBIDDEN Performance Practices**
-
-- **NEVER** create functions inside render without useCallback
-- **NEVER** create new objects/arrays in render without useMemo
-- **NEVER** use useEffect for data fetching when React Query is available
-- **NEVER** implement custom caching when React Query handles it
-- **NEVER** use forceUpdate or similar anti-patterns
-
-## ✅ **REQUIRED Optimization Practices**
-
-- **ALWAYS** implement proper dependency arrays in useEffect
-- **ALWAYS** use React.memo for expensive components
-- **ALWAYS** implement proper error boundaries
-- **ALWAYS** use lazy loading for large components
-- **ALWAYS** optimize images with Next.js Image component
-
-## 📊 **Caching Strategy**
-
-- **ALWAYS** use consistent query keys for related data
-- **ALWAYS** implement optimistic updates for better UX
-- **ALWAYS** handle loading and error states properly
-- **ALWAYS** use background refetching for fresh data
-
-description:
-globs:
-alwaysApply: true
-
----
+- **NEVER** create components in the wrong directory
+- **NEVER** use relative imports when `@/*` alias is available
+- **NEVER** mix different naming conventions in the same file
+- **NEVER** create utility functions outside [src/lib/](mdc:src/lib) or [src/utils/](mdc:src/utils)
 
 ---
 > Source: [kimyoungyin/myblog](https://github.com/kimyoungyin/myblog) — distributed by [TomeVault](https://tomevault.io).
