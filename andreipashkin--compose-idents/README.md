@@ -7,11 +7,11 @@ A macro for generating new identifiers (names of variables, functions, traits, e
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AndreiPashkin/compose-idents](https://github.com/AndreiPashkin/compose-idents).
+Original source: `CLAUDE.md` in [AndreiPashkin/compose-idents](https://github.com/AndreiPashkin/compose-idents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
