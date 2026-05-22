@@ -1,0 +1,9 @@
+{
+  "name": "melons--melons-agents",
+  "displayName": "MelonS-Agents",
+  "description": "Multi-skill AI assistant framework, agentskills.io spec compliant. Skill #1 music-video (60s 9:16 shorts, beat-aligned, genre-aware), Skill #2 job-hunt (30+ boards, LLM filter). v0.4.0 shipped. Orches",
+  "version": "1.0.0",
+  "author": "MelonS",
+  "homepage": "https://github.com/MelonS/MelonS-Agents",
+  "skills": []
+}
