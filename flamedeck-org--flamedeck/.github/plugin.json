@@ -1,0 +1,9 @@
+{
+  "name": "flamedeck-org--flamedeck",
+  "displayName": "flamedeck",
+  "description": "Monorepo for FlameDeck",
+  "version": "1.0.0",
+  "author": "flamedeck-org",
+  "homepage": "https://github.com/flamedeck-org/flamedeck",
+  "skills": []
+}
