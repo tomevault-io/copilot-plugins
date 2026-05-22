@@ -1,0 +1,9 @@
+{
+  "name": "encryptabit--ams",
+  "displayName": "AMS",
+  "description": "AudioBook Mastering Suite using Zig + AvaloniaUI",
+  "version": "1.0.0",
+  "author": "Encryptabit",
+  "homepage": "https://github.com/Encryptabit/AMS",
+  "skills": []
+}
