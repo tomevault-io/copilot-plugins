@@ -1,11 +1,37 @@
-## general-rules
+## uploadthing
 
-> - you are a code agent. always make changes without asking if the user wants you to make them. unless the user explicitly asks you not to make changes.
+> Read this rule when working with Uploadthing
 
 
+# how to work with uploadthing (llm guide)
 
-## general rules
-- you are a code agent. always make changes without asking if the user wants you to make them. unless the user explicitly asks you not to make changes.
+## key files
+
+- config: `core.ts` (upload routes, middleware, db)
+- api handler: `route.ts` (webhook/callback)
+- db schema: `tables.ts` (`uploads` table, `type` enum)
+- db types: `types.ts` (`MediaUpload`)
+- frontend ui: `page.client.tsx` (`UploadButton`)
+- media api: `/api/media/route.ts` (fetch media)
+- display: `bento-media-gallery.tsx` (renders images/videos)
+- auth: `~/lib/auth`
+
+## core concepts
+
+- routes: defined in `core.ts` with `createUploadthing()`. each route (e.g., `imageUploader`, `videoUploader`) sets allowed types, size, count.
+- auth: middleware in `core.ts` uses `auth.api.getSession` to check user; throws if unauthorized.
+- db insert: `onUploadComplete` inserts into `uploads` table, sets `type` based on route, uses `createId()` for `id`.
+- frontend: `UploadButton` for each endpoint; `onClientUploadComplete` refetches media via `/api/media`.
+- media fetch: `/api/media/route.ts` authenticates, fetches uploads for user, returns json.
+- display: `bento-media-gallery.tsx` renders `<Image>` or `<video>` based on `type`.
+
+## tips
+
+- check `core.ts` for routes, middleware, and upload logic.
+- set `type` in `onUploadComplete` based on route.
+- adding new media types: update `core.ts`, `tables.ts` enum, run migrations, add `UploadButton`, update display and api as needed.
+- media fetch requires auth.
+- error handling: `onUploadComplete` logs/throws; production may need more.
 
 ---
 > Source: [reliverse/versator](https://github.com/reliverse/versator) — distributed by [TomeVault](https://tomevault.io).
