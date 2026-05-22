@@ -2,7 +2,7 @@
   "name": "nms_optimizer-web",
   "owner": "jbelew",
   "repo": "nms_optimizer-web",
-  "description": "",
+  "description": "Design the perfect starship layout or multitool build in No Man's Sky. Use smart optimization tools to maximize adjacency bonuses, supercharged slots, and overall performance.",
   "type": "config",
   "source_format": "GEMINI.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/jbelew",
+  "source_url": "https://github.com/jbelew/nms_optimizer-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T15:54:07Z"
+  "distributed_at": "2026-05-22T20:38:33Z"
 }
