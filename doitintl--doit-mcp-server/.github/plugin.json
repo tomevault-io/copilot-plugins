@@ -1,0 +1,9 @@
+{
+  "name": "doitintl--doit-mcp-server",
+  "displayName": "doit-mcp-server",
+  "description": "DoiT official MCP Server",
+  "version": "1.0.0",
+  "author": "doitintl",
+  "homepage": "https://github.com/doitintl/doit-mcp-server",
+  "skills": []
+}
