@@ -1,0 +1,9 @@
+{
+  "name": "craigdallimore--taskchampion-jni",
+  "displayName": "taskchampion-jni",
+  "description": "JNI bindings to taskchampion",
+  "version": "1.0.0",
+  "author": "craigdallimore",
+  "homepage": "https://github.com/craigdallimore/taskchampion-jni",
+  "skills": []
+}
