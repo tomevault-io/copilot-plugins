@@ -1,0 +1,9 @@
+{
+  "name": "catchnip--mcp-selenium-grid",
+  "displayName": "mcp-selenium-grid",
+  "description": "[pre-release, testing usage] A Model Context Protocol (MCP) server that enables AI Agents to request and manage Selenium browser instances through a secure API. Perfect for your automated browser test",
+  "version": "1.0.0",
+  "author": "CatchNip",
+  "homepage": "https://github.com/CatchNip/mcp-selenium-grid",
+  "skills": []
+}
