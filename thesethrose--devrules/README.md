@@ -2,6 +2,8 @@
 
 > Tome by [TheSethRose](https://github.com/TheSethRose/DevRules) — distributed by [TomeVault](https://tomevault.io)
 
+A comprehensive collection of AI prompt engineering rules designed to enhance AI-assisted development workflows.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
