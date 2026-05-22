@@ -1,59 +1,92 @@
-## dotnet-framework-class-naming
+## dotnet-framework-exception-handling
 
-> description: Enforces .NET Framework class naming conventions
+> description: Enforces .NET Framework exception handling best practices
 
 ---
-description: Enforces .NET Framework class naming conventions
+description: Enforces .NET Framework exception handling best practices
 globs: "*.cs"
 ---
-# .NET Framework Class Naming
+# .NET Framework Exception Handling
 
 <rule>
-name: dotnet_class_naming
-description: Ensures classes follow .NET Framework naming conventions and best practices
+name: dotnet_exception_handling
+description: Ensures proper exception handling patterns and practices in .NET Framework
 filters:
   - type: file_extension
     pattern: "\\.cs$"
   - type: content
-    pattern: "\\bclass\\s+[\\w]+"
+    pattern: "(?:try|catch|throw|Exception)"
 
 actions:
   - type: reject
     conditions:
-      - pattern: "\\bclass\\s+[a-z]"
-        message: "Class names must start with an uppercase letter"
-      - pattern: "\\bclass\\s+I[A-Z]"
-        message: "Class names should not start with 'I' (reserved for interfaces)"
-      - pattern: "\\bclass\\s+_"
-        message: "Class names should not start with an underscore"
-      - pattern: "\\bclass\\s+.*Base$"
-        message: "Avoid using 'Base' suffix for non-abstract classes"
+      - pattern: "catch\\s*\\(\\s*Exception\\s*\\)"
+        message: "Avoid catching generic Exception - catch specific exceptions"
+      - pattern: "catch\\s*\\(\\s*\\)\\s*{"
+        message: "Empty catch blocks are not allowed"
+      - pattern: "throw\\s+ex\\s*;"
+        message: "Use 'throw' instead of 'throw ex' to preserve stack trace"
+      - pattern: "catch.*?{\\s*?return\\s*null\\s*?}"
+        message: "Don't swallow exceptions by returning null"
+      - pattern: "catch.*?{\\s*?//.*?\\s*?}"
+        message: "Don't use empty catch blocks with comments"
 
   - type: suggest
     message: |
-      Class naming guidelines:
-      1. Use PascalCase
-      2. Start with an uppercase letter
-      3. Use nouns or noun phrases
-      4. Be descriptive and clear
-      5. Avoid prefixes
-      6. Consider using suffix patterns:
-         - Exception → for custom exceptions
-         - Collection → for collection classes
-         - Manager/Service → for service classes
-         - Factory → for factory pattern implementations
+      Exception handling guidelines:
+      1. Catch specific exceptions, not Exception
+      2. Preserve the stack trace
+      3. Don't swallow exceptions
+      4. Use try-finally for cleanup
+      5. Custom exceptions should:
+         - End with 'Exception'
+         - Inherit from Exception
+         - Be serializable
+      6. Include meaningful exception messages
+      7. Log exceptions appropriately
 
 examples:
   - input: |
-      class myClass
-      class _Helper
-      class IManager
-      class baseController
+      try {
+          // Some code
+      }
+      catch (Exception ex) {
+          return null;
+      }
+
+      try {
+          // Some code
+      }
+      catch {
+          // Just ignore
+      }
+
+      catch (Exception ex) {
+          throw ex;
+      }
     output: |
-      class MyClass
-      class Helper
-      class Manager
-      class Controller
+      try {
+          // Some code
+      }
+      catch (InvalidOperationException ex) {
+          Logger.LogError(ex);
+          throw;
+      }
+
+      try {
+          // Some code
+      }
+      catch (SqlException ex) {
+          Logger.LogError(ex);
+          throw new DatabaseException("Database operation failed", ex);
+      }
+
+      try {
+          // Some code
+      }
+      finally {
+          // Cleanup code
+      }
 
 metadata:
   priority: high
