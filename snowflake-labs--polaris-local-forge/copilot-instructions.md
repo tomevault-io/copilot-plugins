@@ -1,109 +1,56 @@
-## skill-development
+## workflow-sync
 
-> Detailed Cortex Code skill development patterns (applies to SKILL.md files)
+> The project has two parallel workflows that MUST remain synchronized:
 
+# Workflow Synchronization
 
-# Cortex Code Skill Development
+## Critical: CLI and SKILL Workflows Must Stay in Sync
 
-## Reference Repositories
+The project has two parallel workflows that MUST remain synchronized:
 
-**Best Practices:** `~/snow-works/coco/skills/BEST_PRACTICES.local.md`
+1. **CLI Workflow (Taskfile.yml)** - `task setup:all`, `task teardown`, etc.
+2. **SKILL Workflow (SKILL.md)** - Cortex Code agentic workflow
 
-**CLI Source (Python package):**
-- `~/git/kameshsampath/snow-utils` - Scripts consumed by skills via uv git dependency
+### Files That Must Stay in Sync
 
-**Skills (SKILL.md files):**
-- `~/git/kameshsampath/snow-utils-skills` - PAT, Networks, Volumes skills
-- `~/git/kameshsampath/kamesh-demo-skills` - Demo skills (hirc-duckdb, smart-crowd-counter)
+| CLI Path | SKILL Path | Must Match |
+|----------|------------|------------|
+| `Taskfile.yml` setup:all steps | `SKILL.md` "Run all mode" section | Execution order, manifest updates |
+| `Taskfile.yml` teardown task | `SKILL.md` "Teardown Flow" section | Confirmation behavior, cleanup paths |
+| `Taskfile.yml` CLEANUP_PATHS | `SKILL.md` "Clean Generated Files" | Exact same file list |
+| `src/polaris_local_forge/setup.py` | `SKILL.md` workflow logic | Exit codes, status handling |
 
-## SKILL.md Structure
+### When Changing Either Workflow
 
-```markdown
----
-name: skill-name
-description: "Triggers: keyword1, keyword2, ..."
----
+1. **Check the other workflow** - Does it need the same change?
+2. **Update both** - Keep behavior identical
+3. **Verify constants** - `CLEANUP_PATHS` must match between Taskfile and SKILL.md
+4. **Test both paths** - Run `task setup:all` AND test via Cortex Code
 
-# Skill Title
+### Key Synchronization Points
 
-**📍 MANIFEST FILE:** `.snow-utils/snow-utils-manifest.md`
-**📋 PREREQUISITE:** NO PREREQUISITE or list dependencies
-**⚠️ CONNECTION USAGE:** Which connection/auth model
-**📌 ROLE MODEL:** (if applicable)
+- **Manifest format**: Single template at `polaris-forge-setup/templates/manifest.md.j2`
+- **Runtime detection**: `plf setup runtime ensure` used by both
+- **Cleanup paths**: `.kube work k8s scripts bin notebooks .env .aws .envrc .gitignore .venv`
+- **Preserved paths**: `.snow-utils/` always preserved for replay/audit
+- **Confirmation**: Destructive operations require user confirmation in BOTH paths
 
-## Workflow
+### Commands That Wrap CLI
 
-**FORBIDDEN ACTIONS -- NEVER DO THESE:**
-- List prohibited actions
+The SKILL.md workflow uses CLI commands - changes to CLI affect SKILL:
 
-**INTERACTIVE PRINCIPLE:** Ask user, wait for response
-
-### Step N: Step Name
-[SHOW/DO/SUMMARIZE pattern]
-
-## CLI Reference
-[Tables with exact command/option names]
-
-## Troubleshooting
-[Common issues and fixes]
+```
+./bin/plf teardown --yes     # SKILL calls this AFTER getting user confirmation
+./bin/plf setup manifest *   # Used by both workflows
+./bin/plf setup runtime *    # Used by both workflows
 ```
 
-## Key Patterns
+### Never Change Independently
 
-### SHOW/DO/SUMMARIZE (Pedagogical UX)
-
-Every action in a skill should follow this three-phase pattern:
-
-1. **SHOW** - Preview what we're about to do (display SQL/command with explanation)
-2. **DO** - Execute after user approval
-3. **SUMMARIZE** - Explain result and connect to learning goal
-
-### CLI Thin Wrapper Pattern
-
-- CLI does ONE thing (run subprocess, exit)
-- SKILL.md handles: orchestration, user prompts, manifest updates, .env edits
-- Status checks use native tools (`k3d cluster list`, `kubectl get`)
-
-### Manifest-Driven Operations
-
-- Track resources in `.snow-utils/snow-utils-manifest.md`
-- Use START/END markers: `<!-- START -- skill-name -->`
-- Update progressively (after each step, not at end)
-- Include cleanup instructions in manifest
-
-### .env Handling
-
-- **CLI:** Read-only via `load_dotenv()`
-- **SKILL.md:** Write via Edit/StrReplace tool (NEVER sed/awk)
-
-### User Confirmation Rules
-
-- Show full preview before destructive operations
-- Use `ask_user_question` tool with 4-option limit
-- Wait for explicit approval ("yes", "ok", "proceed")
-- `--yes` flag for non-interactive execution after approval
-
-## Naming Conventions
-
-| Resource | Pattern | Example |
-|----------|---------|---------|
-| Network Rule | `{SA_USER}_NETWORK_RULE` | `KAMESHS_DEMO_NETWORK_RULE` |
-| Service Role | `{PROJECT}_ACCESS` | `KAMESHS_DEMO_ACCESS` |
-| Service User | `{PROJECT}_RUNNER` | `KAMESHS_DEMO_RUNNER` |
-
-## SQL Verification
-
-**MANDATORY:** Before writing ANY SQL, verify syntax against Snowflake docs:
-1. `web_search: "Snowflake <COMMAND> syntax"`
-2. `web_fetch: https://docs.snowflake.com/en/sql-reference/sql/<command>`
-
-## Forbidden in Skills
-
-- NEVER skip dry-run/preview output
-- NEVER use sed/awk for config edits
-- NEVER guess CLI options (run `--help` first)
-- NEVER run raw SQL for cleanup (use CLI commands)
-- NEVER write to `~/.snow-utils/` (project-scoped only)
+- Exit codes from `plf setup replay` (0, 10, 11)
+- Manifest status values (PENDING, IN_PROGRESS, COMPLETE, REMOVED)
+- Resource numbering in manifest (1-7)
+- File/directory cleanup list
 
 ---
 > Source: [Snowflake-Labs/polaris-local-forge](https://github.com/Snowflake-Labs/polaris-local-forge) — distributed by [TomeVault](https://tomevault.io).
