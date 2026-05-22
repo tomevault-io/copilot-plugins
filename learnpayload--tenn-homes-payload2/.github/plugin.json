@@ -1,0 +1,9 @@
+{
+  "name": "learnpayload--tenn-homes-payload2",
+  "displayName": "tenn-homes-payload2",
+  "description": "A fictitious real estate platform built with Payload CMS and Next.js that will enable property browsing, agent connections, and property management with features like saved searches, detailed listings",
+  "version": "1.0.0",
+  "author": "LearnPayload",
+  "homepage": "https://github.com/LearnPayload/tenn-homes-payload2",
+  "skills": []
+}
