@@ -1,27 +1,48 @@
-## doc-maintenance
+## playwright-rules
 
-> Delegate to doc-maintenance subagent when code/config/scripts change; catches code→doc drift
+> See `.claude/skills/playwright-e2e/` for full skill with references.
 
 
+# Playwright E2E Test Rules
 
-When code is edited (or code changes are in conversation context), delegate to the [doc-maintenance agent](../../agents/doc-maintenance.md) with `run_in_background: true`. Subagent fixes docs directly; no report-back required.
+See `.claude/skills/playwright-e2e/` for full skill with references.
 
-## Activate on changes to
+## Waiting and Timing
 
-- `**/*.ts`, `**/*.tsx`
-- `**/package.json`
-- `**/esbuild.config.*`
-- `scripts/**`
-- `**/.vscodeignore`
-- `**/.vscode/**`
-- `**/tsconfig*.json`
-- `.esbuild-web-extra-settings.json`
-- `.github/**`
+- **Never** `waitForTimeout` — wait for specific page elements
+- `page.waitForSelector()` — elements appear
+- `expect(locator).toBeVisible()` — visibility
+- `page.waitForLoadState()` — page state changes
+- **Don't** use `page.waitForResponse()` — doesn't work in desktop/electron
+- **Don't** use `networkidle` — not available on desktop/electron
+- Use `test.step` to organize sequential tests
 
-## Scope
+## Selectors and Assertions
 
-- In scope: `.claude/skills/`, `.claude/agents/`, `.cursor/rules/`, `docs/`, `contributing/`, `packages/**/README.md`
-- Excluded: `**/*.plan.md`, `**/plan.md`
+- Prefer `aria` (`getByRole`) over CSS selectors
+- `expect` assertions need clear error messages. Import `expect` from playwright
+- Fail early, avoid fallbacks/retries
+- Reusable locators belong in `e2e-tests/shared/utils/locators.ts`
+
+## Commands and Shortcuts
+
+- Use `f1` for commands, not meta-shift-P
+- Use `Control` for all. **No** `ControlOrMeta`
+
+## Reuse
+
+- Check `e2e-tests/shared/` before creating new utilities or PageObjects
+- Check `e2e-tests/pages/` for existing page objects
+
+## Debugging
+
+- Use `locator.innerHTML()` on a known-good locator to get accurate inner locators
+- Take screenshots — review in `test-results` folder
+- Use emojis infrequently
+
+## References
+
+- https://playwright.dev/docs
 
 ---
 > Source: [forcedotcom/apex-language-support](https://github.com/forcedotcom/apex-language-support) — distributed by [TomeVault](https://tomevault.io).
