@@ -1,0 +1,9 @@
+{
+  "name": "oorzc--vscode-sync-tool",
+  "displayName": "vscode_sync_tool",
+  "description": "vscode FTP/SFTP/SSH Sync Tool",
+  "version": "1.0.0",
+  "author": "oorzc",
+  "homepage": "https://github.com/oorzc/vscode_sync_tool",
+  "skills": []
+}
