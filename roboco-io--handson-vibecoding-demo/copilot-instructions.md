@@ -1,70 +1,94 @@
-## coding-standards
+## commit-workflow
 
-> - ESLint와 Prettier를 사용한 일관된 코드 스타일
+> - 동일한 작업 내용별로 변경사항을 그룹화
 
-# 코딩 표준 가이드
+# 커밋 워크플로우 가이드
 
-## 일반 원칙
+## 변경사항 확인 및 커밋 절차
 
-1. **코드 스타일**
-   - ESLint와 Prettier를 사용한 일관된 코드 스타일
-   - TypeScript의 타입 시스템 활용
-   - 명확한 변수명과 함수명 사용
+1. **변경사항 확인**
+   ```bash
+   # 전체 변경사항 확인
+   git status
+   
+   # 각 파일별 변경 내용 확인
+   git diff
+   
+   # 특정 파일의 변경 내용 확인
+   git diff <파일명>
+   ```
 
-2. **아키텍처 원칙**
-   - [아키텍처 개요](mdc:docs/design/architecture.md)에 따른 구조 준수
-   - Clean Architecture 원칙 적용
-   - SOLID 원칙 준수
+2. **변경사항 그룹화**
+   - 동일한 작업 내용별로 변경사항을 그룹화
+   - 예시 그룹:
+     - 문서화 관련 변경
+     - 코드 리팩토링
+     - 기능 추가
+     - 버그 수정
+     - 테스트 코드
+     - 설정 파일 변경
 
-## 프론트엔드 표준
+3. **순차적 커밋**
+   ```bash
+   # 1. 문서화 변경사항 커밋
+   git add docs/
+   git commit -m "docs: 문서 업데이트"
+   
+   # 2. 코드 리팩토링 커밋
+   git add src/
+   git commit -m "refactor: 코드 구조 개선"
+   
+   # 3. 기능 추가 커밋
+   git add src/features/
+   git commit -m "feat: 새로운 기능 추가"
+   ```
 
-1. **컴포넌트 구조**
-   - [프론트엔드 설계](mdc:docs/design/frontend.md)에 따른 컴포넌트 구현
-   - 재사용 가능한 컴포넌트 설계
-   - Props 타입 정의 필수
+## 커밋 메시지 규칙
 
-2. **상태 관리**
-   - React Context API 사용
-   - 커스텀 훅을 통한 로직 분리
-   - 불필요한 리렌더링 방지
+1. **커밋 타입**
+   - `feat`: 새로운 기능
+   - `fix`: 버그 수정
+   - `docs`: 문서 변경
+   - `style`: 코드 포맷팅
+   - `refactor`: 코드 리팩토링
+   - `test`: 테스트 코드
+   - `chore`: 빌드/설정 변경
 
-## 백엔드 표준
+2. **커밋 메시지 형식**
+   ```
+   <타입>: <설명>
+   
+   - 변경 내용 1
+   - 변경 내용 2
+   ```
 
-1. **API 설계**
-   - [백엔드 설계](mdc:docs/design/backend.md)에 따른 API 구현
-   - RESTful API 원칙 준수
-   - 에러 처리 표준화
+3. **예시**
+   ```
+   feat: 사용자 인증 기능 추가
+   
+   - 로그인 폼 구현
+   - JWT 토큰 처리
+   - 인증 상태 관리
+   ```
 
-2. **인프라 코드**
-   - [인프라 설계](mdc:docs/design/infrastructure.md)에 따른 리소스 구성
-   - CDK를 사용한 인프라 코드화
-   - 환경별 설정 분리
+## 주의사항
 
-## 보안 표준
+1. **작업 단위 분리**
+   - 하나의 커밋은 하나의 작업 단위만 포함
+   - 관련 없는 변경사항은 별도 커밋으로 분리
 
-1. **인증/인가**
-   - [보안 설계](mdc:docs/design/security.md)에 따른 구현
-   - Cognito를 통한 사용자 인증
-   - API Gateway 권한 설정
+2. **변경사항 검토**
+   - 커밋 전 `git diff`로 변경 내용 재확인
+   - 불필요한 변경사항 제외
 
-2. **데이터 보안**
-   - 민감 정보 암호화
-   - 최소 권한 원칙 적용
-   - 보안 모범 사례 준수
+3. **커밋 순서**
+   - 문서화 → 리팩토링 → 기능 추가 → 버그 수정
+   - 의존성이 있는 변경사항은 순서 고려
 
-## 모니터링 및 최적화
-
-1. **로깅**
-   - [모니터링 설계](mdc:docs/design/monitoring.md)에 따른 로깅 구현
-   - 구조화된 로그 포맷 사용
-   - 적절한 로그 레벨 설정
-
-2. **성능 최적화**
-   - [비용 최적화](mdc:docs/design/optimization.md)에 따른 리소스 최적화
-   - Lambda 함수 최적화
-   - DynamoDB 쿼리 최적화
-
-자세한 구현 가이드라인은 [구현 계획](mdc:docs/design/implementation.md)을 참조하세요.
+4. **커밋 전 확인사항**
+   - 변경사항이 의도한 대로인지 확인
+   - 테스트가 통과하는지 확인
+   - 린트 규칙을 준수하는지 확인
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
