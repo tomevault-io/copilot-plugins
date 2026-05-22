@@ -1,0 +1,111 @@
+{
+  "name": "agents-in-a-box",
+  "owner": "stevengonsalvez",
+  "repo": "agents-in-a-box",
+  "description": "context engineering for agentic coding",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "compound-docs",
+      "path": "toolkit/packages/skills/compound-docs",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/compound-docs",
+      "description": ""
+    },
+    {
+      "name": "crypto-research",
+      "path": "toolkit/packages/skills/crypto-research",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/crypto-research",
+      "description": ""
+    },
+    {
+      "name": "debug-bridge",
+      "path": "toolkit/packages/skills/debug-bridge",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/debug-bridge",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "toolkit/packages/skills/frontend-design",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "path": "toolkit/packages/skills/oracle",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/oracle",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "path": "toolkit/packages/skills/reflect",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/reflect",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "path": "toolkit/clawdhub-skills/reflect",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/clawdhub-skills/reflect",
+      "description": ""
+    },
+    {
+      "name": "retro-pdf",
+      "path": "toolkit/packages/skills/retro-pdf",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/retro-pdf",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "toolkit/packages/skills/skill-creator",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "tmux-monitor",
+      "path": "toolkit/packages/skills/tmux-monitor",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/tmux-monitor",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "toolkit/packages/skills/webapp-testing",
+      "github_url": "https://github.com/stevengonsalvez/agents-in-a-box/tree/main/toolkit/packages/skills/webapp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/stevengonsalvez/agents-in-a-box",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T20:30:25Z"
+}
