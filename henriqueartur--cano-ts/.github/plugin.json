@@ -1,0 +1,9 @@
+{
+  "name": "henriqueartur--cano-ts",
+  "displayName": "cano-ts",
+  "description": "\ud83d\udd17 | A lightweight utility, inspired by Elixir\u2019s pipe operator |>, for composing sync and async functions in a clean, readable pipeline.",
+  "version": "1.0.0",
+  "author": "HenriqueArtur",
+  "homepage": "https://github.com/HenriqueArtur/cano-ts",
+  "skills": []
+}
