@@ -1,0 +1,9 @@
+{
+  "name": "onflow--flowactions",
+  "displayName": "FlowActions",
+  "description": "Flow Actions. Composable DeFi primitives (money legos) for building financial workflows on the Flow network. Sources, Sinks, Swappers, PriceOracles, and Flashers",
+  "version": "1.0.0",
+  "author": "onflow",
+  "homepage": "https://github.com/onflow/FlowActions",
+  "skills": []
+}
