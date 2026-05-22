@@ -1,103 +1,93 @@
-## fastapi-secure-railguard-available
+## java-database-secure-no-railguard-available
 
-> Secure development rule for FastAPI-based Python projects, focused on API structure, authentication, and context-aware server logic. Input validation is enforced globally via railguard-input-validation.mdc.
+> Enforces secure and auditable database access patterns in Java applications by preventing SQL injection, enforcing safe JDBC and ORM usage, protecting credentials, and guiding logging and configuration practices.
 
 
-## Overview
+# R: Risk First
+The goal of this rule is to ensure safe, auditable, and robust database access in Java applications.
 
-This rule provides secure-by-default coding conventions for FastAPI projects, including:
-- API design and route handling
-- Auth/session control
-- Secure handling of path/query/body input
-- Output formatting and response control
-- Logging, dependency injection, and context reasoning
+The following risks are mitigated:
+- SQL injection due to unsafe query construction
+- Leaking credentials in source code or logs
+- Poor ORM configuration leading to unintended DB writes or untracked queries
+- Unsafe exception handling that can crash critical database access logic
+- Lack of input validation before constructing dynamic queries
 
-Input validation (e.g. pydantic, zod-like schemas, sanitization, type safety) is enforced globally via:
-> `.cursor/rules/railguard-input-validation.mdc`  
-> (This rule uses the RAILGUARD Framework for reflective, behavioral AI reasoning.)
+This rule teaches the LLM to reason about these concerns even when prompts are vague (for example, “connect to DB” or “get user by name”).
 
----
+# A: Attached Constraints
+- Never use string concatenation to build SQL queries.
+- Avoid direct use of `Statement`. Always use `PreparedStatement` or ORM-based parameterization.
+- Never log raw SQL queries or parameters with user input.
+- Never hardcode sensitive credentials (for example, DB password) into the codebase.
+- Avoid unguarded auto-commits or DB writes without transactional control.
 
-## API Route Design
+# I: Interpretative Framing
+- If the prompt asks for DB interaction, assume secure query logic and credential separation are expected.
+- If prompted to use JDBC, enforce `PreparedStatement` and parameter binding.
+- If using Spring Boot or Spring Data JPA, assume proper use of annotations and entity mapping.
+- Credentials must always be externalized via environment variables or secret vaults.
 
-- Use explicit HTTP methods (`@app.post`, `@app.get`, etc.)
-- Always return structured responses using `JSONResponse`, `Response`, or typed Pydantic models
-- Avoid wildcard `@app.route("*")` routes
+// Ambiguity Handling:
+- For prompts like “get user by name,” enforce input validation and parameter binding.
+- If the developer uses raw SQL with hardcoded values, suggest a secure, param-based version and note config guidelines.
 
----
+# L: Local Defaults
+- Assume the use of Spring Boot + Spring Data JPA as the ORM layer.
+- If JDBC is used, assume modern usage with `PreparedStatement`.
+- Assume the following environment variables are configured:
+  - `SPRING_DATASOURCE_URL`
+  - `SPRING_DATASOURCE_USERNAME`
+  - `SPRING_DATASOURCE_PASSWORD`
+- Default log level is set to suppress SQL query printing or sanitize it via masking.
 
-## Authentication & Tokens
+# G: Generative Path Checks
+1. Determine if the code requires a DB interaction.
+2. If yes, ask:
+   - Is an ORM (for example, JPA) present?
+   - If no ORM: use `PreparedStatement`, and validate input before executing queries.
+3. Ensure no sensitive values are printed or leaked.
+4. Wrap all JDBC interactions in a try-with-resources block and catch `SQLException`.
+5. If applicable, encapsulate DB writes in a transactional method.
 
-- Never handle JWT tokens, secrets, or password checks inside path-level routes
-- Delegate to service layers or secure utility functions
-- Use **OAuth2PasswordBearer**, not raw `Authorization` header parsing
-- Ensure password hashing uses `bcrypt` or `argon2`; never store plaintext
+// SQL Injection Checklist:
+// - Avoid string concatenation in SQL queries
+// - Always use parameter binding
+// - Validate all user inputs
 
----
+# U: Uncertainty Disclosure
+- If unsure about ORM usage or correct JDBC syntax, add:
+  _"Confirm whether Spring Data JPA is configured for this application."_
+- If unsure whether a column requires escaping or transformation, suggest a review.
+- If hardcoded credentials are detected, recommend secure loading and point to Spring Boot docs.
 
-## Request Handling
+# A: Auditability
+- Add comments such as:
+  - `// Using PreparedStatement to protect against SQL injection`
+  - `// Credentials loaded from environment configuration`
+  - `// Logging sanitized or omitted for sensitive operations`
+- Encourage use of annotations:
+  - `@Entity`, `@Table`, `@Column`, `@Transactional`
 
-- Avoid using untyped `request: Request` as the only parameter — instead use structured Pydantic models
-- Do not parse `.form()`, `.json()` manually unless necessary — FastAPI handles this securely by default
-- Always use dependency injection for DB access, background jobs, and auth checks (e.g., `Depends(...)`)
+# R+D: Revision + Dialogue
+- `/explain-db-security`: Describe the rationale behind using parameterized queries or JPA.
+- `/revise-for-db-safety`: Regenerate unsafe raw query examples using secure templates.
+- `/secure-connection-config`: Generate `.properties` or `application.yml` snippets to externalize DB credentials.
 
----
+// Testing Guidance:
+- Run static analysis using SonarQube or SpotBugs
+- Validate DB behavior against injection payloads like `' OR 1=1 --`
+- Ensure no secrets are leaked in logs during runtime
 
-## Response Handling
-
-- Avoid returning raw dictionaries or untyped JSON
-- Ensure all API responses are typed, even in `async def` routes
-- Use exception handlers (e.g. `@app.exception_handler(...)`) to manage untrusted input or auth failures
-
----
-
-## Logging & Observability
-
-- Use the `logging` module, not `print()`
-- Mask sensitive fields in logs (passwords, tokens, API keys)
-- Do not log raw request bodies unless explicitly scrubbed
-
----
-
-## Security Add-ons
-
-- Set security headers via middleware (e.g. `X-Frame-Options`, `X-Content-Type-Options`)
-- Apply rate limiting for public-facing endpoints
-- Use CORS properly — restrict allowed origins to production domains
-- Avoid `eval`, `exec`, `pickle.load()` unless required and sandboxed
-
----
-
-## Cross-Reference: Validation Logic
-
-All input validation, sanitization, and reflective enforcement of secure behaviors is handled by:
-
-> `.cursor/rules/railguard-input-validation.mdc`
-
-This includes:
-- Type enforcement
-- Schema validation using Pydantic
-- AI reasoning paths for detecting insecure defaults
-- Auto-commenting to track sanitization
-
----
-
-## Example Snippet
-
-```python
-from fastapi import APIRouter, Depends, HTTPException
-from models import LoginPayload
-from services.auth import verify_user
-from starlette.responses import JSONResponse
-
-router = APIRouter()
-
-@router.post("/login")
-async def login(payload: LoginPayload):
-    user = verify_user(payload.username, payload.password)
-    if not user:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    return JSONResponse({"access_token": user.token})
+// Example Reference:
+- [JDBC PreparedStatement API](https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html)
+- [Spring Data JPA Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+- [Hibernate ORM Documentation (Official)](https://hibernate.org/orm/documentation/)
+- [Hibernate @Entity and Annotation Reference](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#chapters-annotations)
+- [Spring Boot Security](https://docs.spring.io/spring-boot/how-to/security.html#page-title)
+- [Spring Boot Environment Variables](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config)
+- [Logging in Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
+- [OWASP SQL Injection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
