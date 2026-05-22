@@ -1,0 +1,9 @@
+{
+  "name": "danmackinlay--openreview-finder",
+  "displayName": "openreview_finder",
+  "description": "Semantic search for openreviws conferences and journals",
+  "version": "1.0.0",
+  "author": "danmackinlay",
+  "homepage": "https://github.com/danmackinlay/openreview_finder",
+  "skills": []
+}
