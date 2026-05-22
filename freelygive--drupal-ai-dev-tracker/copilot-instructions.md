@@ -1,141 +1,123 @@
 ## drupal-ai-dev-tracker
 
-> This file provides guidance to Gemini when working with code in this repository.
+> - Define how ChatGPT Codex operates in this repo.
 
-# GEMINI.md
+# AGENTS.md — Codex Operating Guide
 
-This file provides guidance to Gemini when working with code in this repository.
+Purpose
+- Define how ChatGPT Codex operates in this repo.
+- Ensure safe, repeatable starts; keep work focused and auditable.
 
-## Project Overview
+Scope & Permissions
+- Allowed edits: `AGENTS.md` and `Codex_Branch.md` only (unless the user explicitly requests code changes).
+- Primary role: Review Claude’s changes, provide concise, high‑impact feedback, and capture context needed to resume work later.
 
-This is **Drupal CMS** - a ready-to-use platform built on Drupal 11 core with smart defaults and enterprise-grade tools for marketers, designers, and content creators. The project uses a recipe-based architecture for modular content types and features.
+Quick Reinit (Fresh Start)
+- Environment:
+  - `ddev start`
+  - `ddev composer install`
+- Install (clean DB only):
+  - `ddev drush site:install --existing-config --account-pass=admin`
+- Populate data:
+  - Import issues: `ddev drush ai-dashboard:import-all`
+  - Content sync (live→local):
+    - On live: `ddev drush aid-export`
+    - On local: `ddev drush aid-import` (or `--source=local`, `--replace`, `--live-url=...`)
+- Dev hygiene:
+  - Cache: `ddev drush cr`
+  - Lint: `ddev exec vendor/bin/phpcs --standard=Drupal,DrupalPractice web/modules/custom`
+  - Tests: `ddev exec vendor/bin/phpunit -c web/core/phpunit.xml.dist`
 
-## Development Environment
+Review Workflow
+- Read context files first: `CLAUDE.md`, `CLAUDE-BRANCH.md`, `README.md`.
+- Inspect changes since last review: `git status`, `git diff`, and targeted diffs for `web/modules/custom/ai_dashboard/...` and `config/sync/`.
+- Record findings in `Codex_Branch.md` under a “Concise Code Review” section.
+- Only propose changes that materially improve correctness, safety, or maintainability.
 
-This project uses **DDEV** for local development:
+Focus Areas (for Claude’s work)
+- Drush commands: unique names, consistent PHP 8 Attributes, clear options/aliases.
+- File handling: use Drupal File API (`prepareDirectory`, `file_save_data`) for `public://` paths.
+- Avoid calling Drush from Drush: prefer `\Drush\Drush::process()` or service APIs for config import/export.
+- Entity references: set via associative arrays (`['target_id' => $nid]`).
+- Dependency Injection: prefer injected services over `\Drupal::service()`.
+- Local DX: keep Twig debug/auto-reload in `development.services.yml` when appropriate.
 
-- **Project Type**: Drupal 11
-- **PHP Version**: 8.3
-- **Database**: MariaDB 10.11
-- **Webserver**: nginx-fpm
-- **Document Root**: `web/`
+Safety Rules
+- Do not modify application code unless explicitly asked.
+- Never commit secrets; prefer DDEV env files for local overrides.
+- Use `ddev drush` for site ops; prefer config sync (`cex/cim`) over manual config edits.
 
-## Common Commands
+Repository Quick Reference
+- Structure: web root `web/`; custom code `web/modules/custom/`, `web/themes/custom/`; contrib under `web/modules/contrib/`, `web/themes/contrib/`; config in `config/`.
+- Testing: PHPUnit with tests under each module at `tests/src/{Unit,Kernel,Functional}`; run via the core phpunit config.
+- Coding style: Drupal/DrupalPractice standards; PSR‑4 under module `src/`; DI-friendly, small functions, avoid globals.
 
-### DDEV Environment
-```bash
-# Start the environment
-ddev start
+Hand-off Notes
+- All Codex feedback lives in `Codex_Branch.md` for the active branch.
+- If commands or behaviors appear to conflict (e.g., duplicate Drush command names), flag in `Codex_Branch.md` as “Must Fix” and wait for user approval before patching.
 
-# Stop the environment
-ddev stop
+Drupal Code Analysis Prompts
 
-# SSH into web container
-ddev ssh
+Use these preset prompts to quickly audit Drupal codebases for quality, security, maintainability, and alignment with Drupal best practices. Tailor the file paths/module names as needed.
 
-# Access database
-ddev mysql
+1) Repository Triage
+- Prompt: “Scan this repo and list all custom modules, themes, services, plugins, Drush commands, routes, entities, schema files, and config schema files. For each, note file paths and primary responsibilities.”
+- Goal: Build an index of moving parts before deep-diving.
 
-# View logs
-ddev logs
-```
+2) Coding Standards & Style
+- Prompt: “Assess adherence to Drupal Coding Standards and DrupalPractice: PSR‑4 autoloading, two‑space indentation, naming conventions, docblocks, and hook implementations. Flag violations and suggest fixes that align with drupal/coder.”
+- Commands: `ddev exec vendor/bin/phpcs --standard=Drupal,DrupalPractice web/modules/custom`
 
-### Composer & Dependencies
-```bash
-# Install dependencies
-ddev composer install
+3) Architecture & DI
+- Prompt: “Evaluate architecture: controllers thin with business logic in services; dependency injection over \Drupal::static calls; use of plugins instead of switch/if trees; appropriate use of config vs content entities; queues/batch for long tasks. Provide targeted refactors only where the gain is clear.”
 
-# Update dependencies
-ddev composer update
+4) Security Review
+- Prompt: “Perform a security audit: access checks on routes/controllers; correct permission requirements; CSRF protection on forms and non‑idempotent routes; XSS protection (no unsafe #markup, use placeholders and sanitization); parameterized DB queries; safe file uploads (managed files, extensions, private scheme if sensitive); avoid storing secrets in config. Report only high‑signal issues.”
 
-# Add new package
-ddev composer require drupal/module_name
-```
+5) Cacheability & Performance
+- Prompt: “Review render cache metadata: ensure cache tags/contexts/max‑age are set or bubbled; avoid cache poisoning; Views caching configured; lazy builders where appropriate; avoid heavy queries in loops; verify route/controller caching suitability. Suggest concrete improvements with rationale.”
 
-### Drupal & Drush
-```bash
-# Check site status
-ddev drush status
+6) Database & Schema
+- Prompt: “Inspect custom tables and entity storage: schema defined in hook_schema(); update hooks present and idempotent; entity schema for content/config entities; use of EntityQuery/TypedData instead of raw SQL where possible; safe migrations/updates. Highlight risky patterns and safer alternatives.”
 
-# Clear cache
-ddev drush cr
+7) Configuration Management
+- Prompt: “Validate CMI usage: default config in config/install; config schema YAML for custom config; don’t store environment‑specific values; proper use of ConfigFactory/ImmutableConfig; respect config_ignore; export/import flows documented. Point out missing schema or default config.”
 
-# Update database
-ddev drush updb
+8) Drush Commands
+- Prompt: “Audit Drush commands for unique names/aliases, PHP 8 Attributes usage, DI of services, avoidance of calling Drush from Drush (prefer Drush::process or services), progress/output hygiene, error handling, and batch/queue usage for long operations. Note collisions or brittle exec calls.”
 
-# Import configuration
-ddev drush cim
+9) Testing Strategy
+- Prompt: “Assess test coverage and appropriateness: Unit tests for pure logic; Kernel tests for entity/DB interactions; Functional Browser tests for routes/forms/permissions; fixtures and mocking for external services; deterministic assertions. Recommend a minimal set of high‑value tests to add.”
+- Commands: `ddev exec vendor/bin/phpunit -c web/core/phpunit.xml.dist` and `--filter <TestName>`
 
-# Export configuration
-ddev drush cex
+10) Access & Permissions
+- Prompt: “Verify each route/controller exposes the correct permissions and enforces access checks at code level; confirm custom permissions strings are documented and used consistently; validate entity access handlers and node/grant logic if present.”
 
-# Install module
-ddev drush en module_name
+11) Frontend & Twig
+- Prompt: “Check Twig safety: autoescape intact; avoid raw filters; pass only sanitized strings to #markup; attach libraries via *.libraries.yml; proper asset aggregation; optional Twig debug for local only.”
 
-# Run cron
-ddev drush cron
-```
+12) Observability & DX
+- Prompt: “Evaluate logging and error handling: use of \Drupal::logger with channels; clear messages for admins; exceptions vs. soft‑fail decisions; helpful Drush output. Suggest improvements that aid support without noise.”
 
-### Testing
-```bash
-# Run PHPUnit tests from web container
-./vendor/bin/phpunit -c web/core/phpunit.xml.dist
+Combined Audit Prompt (Copy/Paste)
+- Prompt: “Perform a comprehensive Drupal audit on this repository. Cover: coding standards, architecture/DI, security, cacheability/performance, database/schema, configuration management, Drush commands, testing, permissions/access, Twig safety, and observability. Cite specific files/lines, explain impact and likelihood, and propose concise, high‑ROI fixes. Limit to issues that materially affect correctness, security, or maintainability.”
 
-# Run specific test group
-./vendor/bin/phpunit -c web/core/phpunit.xml.dist --group recipe
-```
+Common Anti‑Patterns To Flag
+- Business logic in controllers instead of services.
+- Broad use of \Drupal::service() inside methods instead of DI.
+- Raw SQL with concatenated parameters; lack of access checks.
+- Unsafe #markup or printing user input without sanitization.
+- Missing cache metadata on render arrays; Views with no caching.
+- Drush commands invoking `exec('drush ...')` rather than APIs.
+- Storing environment‑specific data or secrets in configuration.
+- Missing config schema for custom config or YAML structures.
 
-## Architecture Overview
-
-### Recipe-Based System
-Drupal CMS uses a **recipe system** for modular functionality:
-
-- **Base Recipe**: `drupal_cms_starter` - foundational setup with admin UI, authentication, and basic features
-- **Content Type Recipes**: Each content type (blog, news, events, etc.) is a separate recipe
-- **Feature Recipes**: Additional functionality like SEO tools, search, forms, etc.
-
-Key recipe components:
-- `recipe.yml` - defines dependencies, modules to install, and configuration
-- `config/` - configuration files to be imported
-- `content/` - default content (nodes, taxonomy terms, etc.)
-
-### Directory Structure
-- `recipes/` - Custom Drupal CMS recipes
-- `web/` - Drupal document root
-- `web/core/` - Drupal core
-- `web/modules/contrib/` - Contributed modules
-- `web/themes/contrib/` - Contributed themes
-- `web/sites/default/` - Site-specific configuration
-
-### Key Recipes
-- `drupal_cms_starter` - Base CMS setup
-- `drupal_cms_blog` - Blog content type and listing
-- `drupal_cms_page` - Basic page content type
-- `drupal_cms_events` - Event content type with dates/locations
-- `drupal_cms_news` - News content type
-- `drupal_cms_seo_tools` - SEO optimization features
-- `drupal_cms_search` - Search functionality
-
-### Content Architecture
-- All content types extend from `drupal_cms_content_type_base`
-- Common fields: `field_content`, `field_description`, `field_featured_image`, `field_tags`
-- Uses Layout Builder for flexible page layouts
-- Editorial workflow with content moderation
-
-## Configuration Management
-- Configuration is managed via recipes and exported to `config/` directories
-- Use `drush cex/cim` for configuration import/export
-- Recipe configuration uses YAML actions for programmatic updates
-
-## DevPanel Deployment
-The `.devpanel` directory contains scripts to deploy this application to DevPanel. The general workflow is:
-1. `init.sh` is the main entrypoint for installation.
-2. `init.sh` calls `composer_setup.sh` to create the `composer.json` and `composer.lock` files.
-3. `init.sh` then installs the site.
-4. `init-container.sh` imports a database dump if one exists.
-5. `re-config.sh` is run when the container configuration is changed in DevPanel.
-6. The `config.yml` file defines git push hooks for different branches.
+Reference Commands (Quick)
+- Standards: `ddev exec vendor/bin/phpcs --standard=Drupal,DrupalPractice web/modules/custom`
+- Tests: `ddev exec vendor/bin/phpunit -c web/core/phpunit.xml.dist`
+- Cache: `ddev drush cr`
+- Config: `ddev drush cex -y` / `ddev drush cim -y`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/FreelyGive) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [FreelyGive/Drupal-AI-Dev-Tracker](https://github.com/FreelyGive/Drupal-AI-Dev-Tracker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
