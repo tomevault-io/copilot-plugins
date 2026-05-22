@@ -1,0 +1,9 @@
+{
+  "name": "aiddbot--aiddbot",
+  "displayName": "AIDDbot",
+  "description": "AI-Driven development helper bot",
+  "version": "1.0.0",
+  "author": "AIDDbot",
+  "homepage": "https://github.com/AIDDbot/AIDDbot",
+  "skills": []
+}
