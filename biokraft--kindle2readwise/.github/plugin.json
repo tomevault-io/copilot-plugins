@@ -1,0 +1,9 @@
+{
+  "name": "biokraft--kindle2readwise",
+  "displayName": "kindle2readwise",
+  "description": "Export your Kindle \"My Clippings.txt\" to Readwise",
+  "version": "1.0.0",
+  "author": "biokraft",
+  "homepage": "https://github.com/biokraft/kindle2readwise",
+  "skills": []
+}
