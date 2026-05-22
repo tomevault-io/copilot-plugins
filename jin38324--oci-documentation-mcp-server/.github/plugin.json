@@ -1,0 +1,9 @@
+{
+  "name": "jin38324--oci-documentation-mcp-server",
+  "displayName": "oci-documentation-mcp-server",
+  "description": "Model Context Protocol (MCP) server for OCI Documentation",
+  "version": "1.0.0",
+  "author": "jin38324",
+  "homepage": "https://github.com/jin38324/oci-documentation-mcp-server",
+  "skills": []
+}
