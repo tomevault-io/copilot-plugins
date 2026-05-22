@@ -1,0 +1,9 @@
+{
+  "name": "nuri428--mcp-kipris",
+  "displayName": "mcp_kipris",
+  "description": "mcp server for kipris plus, for search patent in http://kipris.or.kr",
+  "version": "1.0.0",
+  "author": "nuri428",
+  "homepage": "https://github.com/nuri428/mcp_kipris",
+  "skills": []
+}
