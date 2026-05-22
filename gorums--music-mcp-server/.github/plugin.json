@@ -1,0 +1,9 @@
+{
+  "name": "gorums--music-mcp-server",
+  "displayName": "music-mcp-server",
+  "description": "A powerful Model Context Protocol (MCP) server that provides intelligent access to your local music collection through advanced metadata management, album type classification, and comprehensive analyt",
+  "version": "1.0.0",
+  "author": "gorums",
+  "homepage": "https://github.com/gorums/music-mcp-server",
+  "skills": []
+}
