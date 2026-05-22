@@ -1,0 +1,9 @@
+{
+  "name": "tronbyt--tronberry",
+  "displayName": "tronberry",
+  "description": "A daemon to fetch images from Tronbyt and display on a matrix LED display connected to a Raspberry Pi.",
+  "version": "1.0.0",
+  "author": "tronbyt",
+  "homepage": "https://github.com/tronbyt/tronberry",
+  "skills": []
+}
