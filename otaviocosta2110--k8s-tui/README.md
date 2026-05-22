@@ -7,11 +7,11 @@ Terminal-based Kubernetes resource manager with multi-cluster support
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [otavioCosta2110/k8s-tui](https://github.com/otavioCosta2110/k8s-tui).
+Original source: `CLAUDE.md` in [otavioCosta2110/k8s-tui](https://github.com/otavioCosta2110/k8s-tui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
