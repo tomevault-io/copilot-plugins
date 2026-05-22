@@ -1,88 +1,92 @@
-## flamedeck-subscription-model
+## project-context
 
-> Describes how user subscriptions are managed in the application
+> This project is an nx monorepo for a web-based tool designed to view and collaborate on performance profiles, similar to Google Docs but specifically for trace files. It incorporates parts of the Speedscope profiler viewer for certain functionalities.
 
-# Rule: FlameDeck Subscription Management
+# Project Context: Trace View Pilot
 
-This rule describes the subscription lifecycle and data model for FlameDeck, primarily managed through Stripe and Supabase.
+## Project Purpose
 
-## Core Tables
+This project is an nx monorepo for a web-based tool designed to view and collaborate on performance profiles, similar to Google Docs but specifically for trace files. It incorporates parts of the Speedscope profiler viewer for certain functionalities.
 
-1.  **`public.subscription_plans`** ([Schema in packages/supabase-integration/src/index.ts](mdc:packages/supabase-integration/src/index.ts))
-    *   Stores details about available subscription plans (e.g., "Free", "Pro").
-    *   Key columns:
-        *   `id` (uuid): Internal plan identifier.
-        *   `name` (text): User-facing plan name.
-        *   `stripe_price_id` (text): The ID of the corresponding Price object in Stripe. Crucial for creating Stripe Checkout Sessions. This will be `NULL` for the "Free" plan.
-        *   Plan-specific feature limits (e.g., `retention_days`, `monthly_upload_limit`, `total_trace_limit`).
-    *   **Important Note:** A "Free" plan record **must exist** in this table for the system to correctly revert users to a free tier upon cancellation of paid plans. Its `name` should be exactly 'Free'.
+## Core Technologies
 
-2.  **`public.user_subscriptions`** ([Schema in packages/supabase-integration/src/index.ts](mdc:packages/supabase-integration/src/index.ts))
-    *   Stores the state of each user's current subscription plan.
-    *   Each user should ideally have one active record in this table representing their current plan (`status` of `active`, `trialing`, or `free`).
-    *   Key columns:
-        *   `user_id` (uuid): Foreign key to `auth.users.id`. Has a UNIQUE constraint.
-        *   `plan_id` (uuid): Foreign key to `subscription_plans.id`.
-        *   `stripe_customer_id` (text): The Stripe Customer ID.
-        *   `stripe_subscription_id` (text): The Stripe Subscription ID (NULL for users on the free plan not via a canceled Stripe sub).
-        *   `status` (text): Mirrors the Stripe subscription status (e.g., `active`, `trialing`) or indicates a system-managed status (`free`, `canceled`).
-        *   `current_period_start` (timestamptz): Start of the current billing period. For the "Free" plan (after a revert), this is set to when the user reverted.
-        *   `current_period_end` (timestamptz): End of the current billing period. For the "Free" plan (after a revert), this is set to 30 days after `current_period_start` to satisfy `NOT NULL` constraints, though it may not have direct billing implications.
-        *   `cancel_at_period_end` (boolean): True if a Stripe subscription is set to cancel at the end of the current period.
-        *   `canceled_at` (timestamptz): When a Stripe subscription was actually canceled.
-        *   `monthly_uploads_used` (integer): Tracks usage for metered features.
+*   **Frontend Framework:** React
+*   **Build Tool:** Vite
+*   **Language:** TypeScript
+*   **UI Library:** shadcn-ui
+*   **Styling:** Tailwind CSS
+*   **Backend/Database:** Supabase
 
-## Subscription Lifecycle & Edge Functions
+## Development Setup
 
-Details on the overall architecture can be found in [docs/stripe-architecture.md](mdc:docs/stripe-architecture.md).
+*   Requires Node.js and yarn
+*   Standard setup: `git clone`, `cd <project>`, `yarn` & `yarn dev`.
+*   **Crucial:** Remind the user to update Supabase types after schema changes using the command in the README (`yarn supabase gen types typescript --project-id jczffinsulwdzhgzggcj --schema public > packages/supabase-integration/src/index.ts`)
 
-1.  **Creating a Paid Subscription:**
-    *   User initiates an upgrade/subscribe action on the frontend.
-    *   The [create-stripe-checkout-session Edge Function](mdc:supabase/functions/create-stripe-checkout-session/index.ts) is called.
-        *   It retrieves the `stripe_price_id` from `subscription_plans`.
-        *   Creates/retrieves a Stripe Customer.
-        *   Creates a Stripe Checkout Session.
-        *   Returns the session URL to the client for redirect.
-        *   Crucially, it embeds `user_id` and your internal `plan_id` in the Stripe Checkout Session metadata.
+## Packages
 
-2.  **Webhook Synchronization (`stripe-webhook-handler`):**
-    *   The [stripe-webhook-handler Edge Function](mdc:supabase/functions/stripe-webhook-handler/index.ts) listens for events from Stripe to keep `user_subscriptions` in sync.
-    *   **`checkout.session.completed` / `customer.subscription.created` / `invoice.payment_succeeded` (for creation):**
-        *   These events trigger the creation/update of a record in `user_subscriptions` for the user, linking their `user_id` (from metadata) to the `plan_id` (from metadata), and storing relevant Stripe IDs and status (`active` or `trialing`).
-    *   **`customer.subscription.updated`:**
-        *   Handles changes like plan upgrades/downgrades (if implemented), or if `cancel_at_period_end` is set.
-        *   Updates the corresponding fields in `user_subscriptions`.
-    *   **`customer.subscription.deleted` (Revert to Free Logic):**
-        *   This is a critical event for when a paid Stripe subscription is definitively canceled.
-        *   The handler attempts to retrieve the `user_id` from the subscription's metadata.
-        *   It dynamically queries the `subscription_plans` table for the plan named 'Free' to get its `id`.
-        *   It then **`upserts`** the record in `user_subscriptions` (matching on `user_id`):
-            *   `plan_id` is set to the Free plan's ID.
-            *   `status` is set to `'free'`.
-            *   `stripe_subscription_id` is set to `NULL`.
-            *   `monthly_uploads_used` is reset to `0`.
-            *   `current_period_start` is set to the current timestamp.
-            *   `current_period_end` is set to 30 days after `current_period_start`.
-            *   Other relevant fields like `cancel_at_period_end` are reset.
-        *   If `user_id` is missing from metadata or the 'Free' plan is not found in the database, an error is logged, and a fallback might occur (e.g., simply marking the old record as `canceled` without a full revert to a structured Free plan state).
+* `packages/speedscope-core`: Core logic of speedscope
+* `packages/speedscope-import`: We share the core logic of parsing a profile from a file / array buffer and converting it to the speedscope format between the client and a supabase edge function. To do this we ensure that the code is simple typescript and does not import from any external modules (since Vite and Deno handle module resolution differently).
+* `packages/speedscope-gl`: Flamechart rendering code from speedscope
+* `packages/speedscope-theme`: Theme definitions for flamegraphs
+* `packages/flamechart-to-png`: Code for rendering a flamegraph to a png file, using speedscope utils
+* `packages/supabase-integration`: Where the database schema types are stored
 
-3.  **Managing Subscription (Stripe Customer Portal):**
-    *   Users can manage their payment methods, cancel subscriptions, etc., via the Stripe Customer Portal.
-    *   The [manage-stripe-subscription Edge Function](mdc:supabase/functions/manage-stripe-subscription/index.ts) generates a secure link to this portal.
-    *   Changes made in the portal trigger webhooks (e.g., `customer.subscription.updated`, `customer.subscription.deleted`) that are processed by `stripe-webhook-handler`.
+### `supabase`
 
-## Frontend Consumption
+The root supabase folder contains database migrations as well as edge functions. Right now the following edge functions exist:
 
-*   The [useUserSubscription hook](mdc:apps/client/src/hooks/useUserSubscription.ts) is the primary way the frontend accesses the user's current subscription state.
-    *   It fetches data based on an RPC call (e.g., `get_user_active_subscription`) which queries `user_subscriptions`.
-    *   It derives `isProUser` and `isActiveSubscription` flags based on the plan name and status (`active` or `trialing`).
-*   Usage data (limits) is fetched via another RPC (e.g., `get_user_subscription_usage`) which joins `user_subscriptions` with `subscription_plans` using `WHERE us.status IN ('active', 'trialing', 'free')`.
+* `/subabase/functions/api-upload-trace`: Allows users with an API key to upload a trace, which is converted to a speescope format, compressed, and stored in the backend. It runs on Deno and uses shared logic from `packages/speedscope-import`.
+* `/supabase/functions/trace-analysis-socket`: Socket that the client connects to when a chat session is initiated (see chat-architecture.md for details)
+* `/supabase/functions/delete-user`: Function to delete the user and their associated data
+* `/supabase/functions/cleanup-old-traces`: Function called from a cron job that deletes old traces and their associated storage objects
 
-## Key Considerations
+### `apps/client`
 
-*   **Metadata:** Consistently setting `user_id` and internal `plan_id` in Stripe object metadata (Checkout Sessions, Subscriptions) is vital for linking Stripe events back to your internal user and plan records.
-*   **"Free" Plan Record:** A plan named 'Free' must be defined in `subscription_plans` for the revert-to-free logic to work.
-*   **`NOT NULL` Constraints:** Database constraints on `user_subscriptions` (e.g., for `current_period_start`, `current_period_end`) must be handled when reverting to the free tier, typically by setting appropriate default values.
+This is the frontend client for the trace viewer, which allows for uploading, organizing, viewing, and commenting on traces, among other things. It is deployed to https://www.flamedeck.com.
+
+*   `src/`: Main application source code.
+    *   `components/`: Reusable UI components. This is where the speedscope UI lives
+    *   `hooks/`: Reusable hooks
+    *   `pages/`: Top-level page components.
+    *   `docs/`: Documentation that is rendered from mdx files
+    *   `lib/`: Utility functions - this is where the speedscope core logic lives. Contains:
+        *   `api.ts`: Functions for interacting with the backend API (Supabase).
+        *   `utils.ts`: General-purpose utility functions used across the application.
+        *   `storage.ts`: Logic related to trace file storage and retrieval (Supabase Storage).
+        *   `speedscope-core/`: Core logic adapted from Speedscope for trace data processing.
+        *   `speedscope-gl/`: WebGL rendering logic adapted from Speedscope for visualizations.
+        *   `speedscope-import/`: Logic for importing various trace file formats.
+        *   `util/`: More specific utility functions
+    *   `types/`: TypeScript definitions.
+    *   `hooks/`: Custom React hooks.
+    *   `integrations/`: Third-party service integrations (e.g., Supabase).
+    *   `contexts/`: React Contexts.
+    *   `App.tsx`: Main application component.
+    *   `main.tsx`: Application entry point.
+*   `public/`: Static assets.
+
+
+Standard Vite/React/TS/Tailwind/Supabase config files (`vite.config.ts`, `tailwind.config.ts`, `tsconfig.*.json`, `package.json`, `components.json`) also live in `apps/client`.
+
+#### Database schema
+
+The database schema is defined in `packages/supabase-integration/src/index.ts`
+
+### `apps/flamechart-server`
+
+A server deployed to fly.io which provides an API for rendering flamecharts (via `packages/flamechart-to-png`) and handles the core logic for the chat agent.
+
+## Deployment
+
+Deployment is handled with vercel by running `vercel --prod`
+
+## Key Takeaways for New Engineers
+
+1. We use NX for managing the client monorepo (e.g. `yarn nx run client:dev`)
+1. The client web app is a TypeScript/React/Vite/Tailwind project using shadcn-ui and integrating with Supabase.
+1. Its core purpose is collaborative viewing of performance traces, leveraging adapted Speedscope code.
+1. Remember to update Supabase types after schema changes using the specified command.
 
 ---
 > Source: [flamedeck-org/flamedeck](https://github.com/flamedeck-org/flamedeck) — distributed by [TomeVault](https://tomevault.io).
