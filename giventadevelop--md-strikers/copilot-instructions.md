@@ -1,123 +1,75 @@
-## prisma
+## self-improve
 
-> - **Prisma Client Initialization**
+> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
 
-# Prisma Usage Rules
 
-- **Prisma Client Initialization**
-  - ✅ DO: Use the standard singleton pattern in `src/lib/prisma.ts`
-    ```typescript
-    import { PrismaClient } from '@prisma/client'
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
 
-    const globalForPrisma = globalThis as unknown as {
-      prisma: PrismaClient | undefined
-    }
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage
 
-    export const prisma =
-      globalForPrisma.prisma ??
-      new PrismaClient({
-        log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-      })
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used in 3+ files
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security or performance patterns emerge
 
-    if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
-    ```
-  - ❌ DON'T: Create multiple Prisma client instances
-  - ❌ DON'T: Initialize Prisma client without proper global caching
-  - ❌ DON'T: Use direct instantiation in route handlers or components
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases are discovered
+    - Related rules have been updated
+    - Implementation details have changed
 
-- **Runtime Configuration**
-  - ✅ DO: Always use Node.js runtime for routes with Prisma
-    ```typescript
-    // Required for Prisma compatibility
-    export const runtime = 'nodejs'
-    ```
-  - ❌ DON'T: Use Edge runtime with Prisma operations
-  - ❌ DON'T: Omit runtime configuration in API routes using Prisma
+- **Example Pattern Recognition:**
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
+  
+  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
 
-- **Import Requirements**
-  - ✅ DO: Import Prisma client from the centralized location
-    ```typescript
-    import { prisma } from '@/lib/prisma'
-    ```
-  - ❌ DON'T: Import PrismaClient directly in route files
-  - ❌ DON'T: Create new PrismaClient instances outside `src/lib/prisma.ts`
+- **Rule Quality Checks:**
+  - Rules should be actionable and specific
+  - Examples should come from actual code
+  - References should be up to date
+  - Patterns should be consistently enforced
 
-- **Error Handling**
-  - ✅ DO: Use try-catch blocks around Prisma operations
-    ```typescript
-    try {
-      const result = await prisma.user.findMany()
-    } catch (error) {
-      console.error('Database error:', error)
-      throw new Error('Failed to fetch users')
-    }
-    ```
-  - ✅ DO: Log database errors with proper context
-  - ❌ DON'T: Expose raw Prisma errors to clients
+- **Continuous Improvement:**
+  - Monitor code review comments
+  - Track common development questions
+  - Update rules after major refactors
+  - Add links to relevant documentation
+  - Cross-reference related rules
 
-- **Transaction Handling**
-  - ✅ DO: Use transactions for multiple operations
-    ```typescript
-    await prisma.$transaction([
-      prisma.user.create({ data: userData }),
-      prisma.log.create({ data: logData })
-    ])
-    ```
-  - ❌ DON'T: Perform multiple dependent operations without transactions
+- **Rule Deprecation:**
+  - Mark outdated patterns as deprecated
+  - Remove rules that no longer apply
+  - Update references to deprecated rules
+  - Document migration paths for old patterns
 
-- **Performance Considerations**
-  - ✅ DO: Use proper select and include statements
-    ```typescript
-    const user = await prisma.user.findUnique({
-      where: { id },
-      select: { id: true, email: true }
-    })
-    ```
-  - ❌ DON'T: Fetch unnecessary fields
-  - ❌ DON'T: Use nested includes without proper selection
+- **Documentation Updates:**
+  - Keep examples synchronized with code
+  - Update references to external docs
+  - Maintain links between related rules
+  - Document breaking changes
 
-- **Environment Setup**
-  - ✅ DO: Include DATABASE_URL in .env
-    ```env
-    DATABASE_URL="postgresql://user:password@localhost:5432/db?schema=public"
-    ```
-  - ✅ DO: Include DIRECT_URL for serverless environments
-  - ❌ DON'T: Commit database credentials to version control
-
-- **File Organization**
-  - ✅ DO: Keep Prisma schema in `prisma/schema.prisma`
-  - ✅ DO: Keep client initialization in `src/lib/prisma.ts`
-  - ✅ DO: Keep migrations in `prisma/migrations`
-  - ❌ DON'T: Place Prisma-related files in component directories
-
-- **Validation Rules**
-  These rules will be automatically checked:
-  1. All API routes using Prisma must have `runtime = 'nodejs'`
-  2. No direct PrismaClient instantiation outside `src/lib/prisma.ts`
-  3. Proper error handling around Prisma operations
-  4. Consistent import pattern for Prisma client
-  5. Transaction usage for multiple operations
-  6. Proper field selection in queries
-
-- **Automated Checks**
-  The following patterns trigger warnings:
-  - Missing runtime declaration in API routes
-  - Direct PrismaClient imports
-  - Missing try-catch blocks around Prisma operations
-  - Missing transaction blocks for multiple operations
-  - Missing field selection in queries
-
-- **Migration and Deployment**
-  - ✅ DO: Run migrations in deployment scripts
-    ```bash
-    npx prisma migrate deploy
-    ```
-  - ✅ DO: Generate Prisma client in build steps
-    ```bash
-    npx prisma generate
-    ```
-  - ❌ DON'T: Skip migration steps in deployment
-  - ❌ DON'T: Deploy without generating client
+Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
