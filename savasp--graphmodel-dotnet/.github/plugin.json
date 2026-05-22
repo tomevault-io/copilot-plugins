@@ -1,0 +1,9 @@
+{
+  "name": "savasp--graphmodel-dotnet",
+  "displayName": "graphmodel-dotnet",
+  "description": "An abstraction for a Graph that supports LINQ expressions.",
+  "version": "1.0.0",
+  "author": "savasp",
+  "homepage": "https://github.com/savasp/graphmodel-dotnet",
+  "skills": []
+}
