@@ -1,59 +1,45 @@
-## dotnet-framework-method-naming
+## dotnet-framework-namespace-naming
 
-> description: Enforces .NET Framework method naming conventions
+> description: Enforces .NET Framework namespace naming conventions
 
 ---
-description: Enforces .NET Framework method naming conventions
+description: Enforces .NET Framework namespace naming conventions
 globs: "*.cs"
 ---
-# .NET Framework Method Naming
+# .NET Framework Namespace Naming
 
 <rule>
-name: dotnet_method_naming
-description: Ensures methods follow .NET Framework naming conventions and best practices
+name: dotnet_namespace_naming
+description: Ensures namespaces follow .NET Framework naming conventions
 filters:
   - type: file_extension
     pattern: "\\.cs$"
   - type: content
-    pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+[\\w]+\\s*\\("
+    pattern: "namespace\\s+[\\w.]+"
 
 actions:
   - type: reject
     conditions:
-      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+[a-z]\\w*\\s*\\("
-        message: "Method names must start with an uppercase letter"
-      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+_\\w+\\s*\\("
-        message: "Method names should not start with an underscore"
-      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+Get_\\w+\\s*\\("
-        message: "Avoid using underscores in method names"
+      - pattern: "namespace\\s+[a-z]"
+        message: "Namespace names must start with an uppercase letter"
+      - pattern: "namespace\\s+[^\\w.]"
+        message: "Namespace names can only contain letters, numbers, and dots"
 
   - type: suggest
     message: |
-      Method naming guidelines:
-      1. Use PascalCase
-      2. Start with an uppercase letter
-      3. Use verbs or verb phrases
-      4. Common prefixes:
-         - Get - for retrieving data
-         - Set - for setting data
-         - Is/Has/Can - for boolean returns
-         - Calculate/Compute - for computations
-         - Initialize/Init - for initialization
-         - Validate - for validation
-      5. Be descriptive about the operation
-      6. Avoid Hungarian notation
+      Namespace naming guidelines:
+      1. Start with an uppercase letter
+      2. Use PascalCase
+      3. Use dots for hierarchy
+      4. Avoid underscores
 
 examples:
   - input: |
-      public void getData()
-      private string get_UserName()
-      protected bool isValid()
-      internal void _initialize()
+      namespace myProject.core
+      namespace 1InvalidNamespace
+      namespace My_Project
     output: |
-      public void GetData()
-      private string GetUserName()
-      protected bool IsValid()
-      internal void Initialize()
+      namespace MyProject.Core
 
 metadata:
   priority: high
