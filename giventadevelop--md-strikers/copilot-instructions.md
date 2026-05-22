@@ -1,303 +1,446 @@
-## loading-animation-pattern
+## media-gallery-grid-style
 
-> This rule defines the standard pattern for loading animations used across admin pages and success pages. The pattern provides consistent visual feedback with animated loading images and wavy overlay effects, matching the design aesthetic used in EventList and manage-events pages.
+> Media gallery grid styling pattern with medium dark gradient backgrounds for admin pages and conservative gradients for public pages
 
-# Loading Animation Pattern
+
+# Media Gallery Grid Styling Pattern
 
 ## **Overview**
-This rule defines the standard pattern for loading animations used across admin pages and success pages. The pattern provides consistent visual feedback with animated loading images and wavy overlay effects, matching the design aesthetic used in EventList and manage-events pages.
+This rule defines the standard pattern for displaying media/image grids with gradient backgrounds, matching the design aesthetic of both admin pages (medium dark gradients) and public-facing gallery pages (conservative warm tones). The pattern provides consistent styling, subtle visual depth, and proper icon presentation.
 
 ## **Problem Solved**
-- **Consistent Loading UI**: Ensures all loading states use the same visual pattern across admin and success pages
-- **Visual Feedback**: Provides engaging animations (pulse, zoom, wavy overlay) to indicate processing
-- **Professional Appearance**: Uses high-quality loading images with smooth animations
-- **User Experience**: Clear visual indication that content is being loaded
+- **Consistent Grid Styling**: Ensures all media grids use the same visual pattern across admin and public pages
+- **Medium Dark Gradient Backgrounds**: Provides professional medium dark gradient backgrounds for admin pages that enhance without overwhelming
+- **Conservative Gradient Backgrounds**: Provides subtle, professional gradient backgrounds for public pages
+- **Icon Standardization**: Provides consistent icon container and sizing for action buttons (references Icon Standards and Admin Action Buttons rules)
+- **Visual Hierarchy**: Creates clear separation between grid container and individual media items
+- **Responsive Design**: Works consistently across different screen sizes
 
 ## **Core Pattern**
 
-### **Loading Container Structure**
+### **Grid Container Structure**
 ```tsx
-// ✅ DO: Use the standard loading animation pattern
-if (loading) {
-  return (
-    <div className="flex justify-center items-center min-h-[600px] w-full">
-      <div className="relative w-full max-w-6xl">
-        <Image
-          src="/images/loading_events.jpg"
-          alt="Loading..."
-          width={800}
-          height={600}
-          className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
-          priority
-        />
-        <div className="absolute inset-0 rounded-lg overflow-hidden">
-          <div className="wavy-animation"></div>
-        </div>
-      </div>
+// ✅ DO: Use the standard media grid container pattern
+// Admin Pages (Medium Dark Gradient)
+<div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-700 via-gray-800 to-gray-700 border border-gray-600/30 shadow-2xl mb-8">
+  {/* Medium Dark Radial Gradient Overlay */}
+  <div className="absolute inset-0 pointer-events-none opacity-60" style={{ backgroundImage: 'radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 55%)' }} />
+
+  {/* Grid Content */}
+  <div className="relative px-6 py-10 sm:px-10 lg:px-14">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* Media items */}
     </div>
-  );
-}
+  </div>
+</div>
 ```
 
 ## **Key CSS Properties**
 
 ### **Container Requirements**
-- **`flex justify-center items-center`**: Centers loading content horizontally and vertically
-- **`min-h-[600px]`**: Minimum height (600px) for consistent loading area
-- **`w-full`**: Full width of parent container
 - **`relative`**: Enables absolute positioning of overlay
-- **`w-full max-w-6xl`**: Full width with maximum width constraint (1152px)
+- **`overflow-hidden`**: Clips content to rounded corners
+- **`rounded-3xl`**: Large border radius (24px) for modern appearance
+- **`bg-gradient-to-br`**: Diagonal gradient from top-left to bottom-right
+- **Admin Pages**: `from-gray-700 via-gray-800 to-gray-700` (medium dark gradient)
+- **Public Pages**: `from-background via-muted to-background` (conservative warm tones)
+- **Event Pages**: `from-gray-900 via-purple-900 to-indigo-900` (bold dark gradient)
+- **Border**:
+  - Admin: `border-gray-600/30` (medium dark border)
+  - Public: `border-border/30` (subtle border)
+  - Event: `border-white/10` (light border on dark)
+- **Shadow**:
+  - Admin: `shadow-2xl` (large shadow for depth)
+  - Public: `sacred-shadow-lg` (MOSC shadow)
+  - Event: `shadow-2xl` (large shadow)
+- **`mb-8`**: Bottom margin (32px) for spacing
 
-### **Image Requirements**
-- **`src="/images/loading_events.jpg"`**: Standard loading image path
-- **`width={800} height={600}`**: Image dimensions for Next.js Image optimization
-- **`w-full h-auto`**: Full width with automatic height (maintains aspect ratio)
-- **`rounded-lg`**: Medium border radius (8px) for rounded corners
-- **`shadow-2xl`**: Large shadow for depth
-- **`animate-pulse`**: Tailwind pulse animation (opacity fade in/out)
-- **`zoom-loading`**: Custom zoom animation (scale 0.8 → 1.1 → 1.0)
-- **`priority`**: Next.js Image priority loading (loads immediately)
+### **Radial Gradient Overlay Requirements**
+- **`absolute inset-0`**: Covers entire container
+- **`pointer-events-none`**: Doesn't interfere with interactions
+- **Opacity**:
+  - **Admin Pages (Medium Dark)**: `opacity-60` (60% for medium dark backgrounds)
+  - **Public Pages (Conservative)**: `opacity-30` (30% for subtlety)
+  - **Event Pages (Bold Dark)**: `opacity-70` (70% for bold dark backgrounds)
+- **Radial Gradient**:
+  - **Admin Pages**: `radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 55%)` (white at 12% opacity)
+  - **Public Pages**: `radial-gradient(circle at top left, rgba(139, 125, 107, 0.08), transparent 55%)` (primary color at 8% opacity)
+  - **Event Pages**: `radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 55%)` (white at 18% opacity)
+  - Starts at top-left corner
+  - Fades to transparent at 55% radius
 
-### **Wavy Overlay Requirements**
-- **`absolute inset-0`**: Covers entire container (absolute positioned, all sides at 0)
-- **`rounded-lg overflow-hidden`**: Matches container border radius, clips overlay
-- **`wavy-animation`**: Custom CSS class for wavy shimmer effect
+### **Grid Content Requirements**
+- **`relative`**: Positions content above overlay
+- **`px-6 py-10 sm:px-10 lg:px-14`**: Responsive padding
+  - Mobile: 24px horizontal, 40px vertical
+  - Small screens: 40px horizontal
+  - Large screens: 56px horizontal
 
-## **CSS Animation Definitions**
+### **Grid Requirements**
+- **`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4`**: Responsive grid
+  - Mobile: 1 column
+  - Small screens (640px+): 2 columns
+  - Medium screens (768px+): 3 columns
+  - Large screens (1024px+): 4 columns
+- **`gap-6`**: Consistent gap between items (24px)
 
-### **Zoom Loading Animation** (defined in `src/app/globals.css`)
-```css
-@keyframes zoomInOut {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-}
+## **Color Coding System**
 
-.zoom-loading {
-  animation: zoomInOut 2s ease-in-out infinite;
-}
+### **Admin Pages** (Medium Dark Gradient)
+- **Background**: `from-gray-700 via-gray-800 to-gray-700`
+- **Border**: `border-gray-600/30`
+- **Radial Gradient**: `rgba(255, 255, 255, 0.12)` (white at 12% opacity)
+- **Overlay Opacity**: `opacity-60` (60% for medium dark backgrounds)
+
+### **Public Pages** (MOSC Warm Earth Tones)
+- **Background**: `from-background via-muted to-background`
+- **Border**: `border-border/30`
+- **Radial Gradient**: `rgba(139, 125, 107, 0.08)` (primary color at 8% opacity)
+
+### **Event Pages** (Bold Dark Gradient)
+- **Background**: `from-gray-900 via-purple-900 to-indigo-900`
+- **Border**: `border-white/10` (light border on dark background)
+- **Radial Gradient**: `rgba(255,255,255,0.18)` (white at 18% opacity)
+- **Overlay Opacity**: `opacity-70` (70% for bold dark backgrounds)
+- **Inner Thumbnail Container**: `bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 shadow-inner` (glassmorphism effect)
+
+## **Icon Button Styling Pattern**
+
+**CRITICAL**: All buttons and icons within grid tiles must follow the styling patterns defined in [Icon and Button Styles](mdc:.cursor/rules/icons_buttons_styles.mdc). This ensures consistency across all media gallery pages.
+
+### **Action Button Icons in Grid Tiles**
+```tsx
+// ✅ DO: Use the standard icon button pattern from icons_buttons_styles.mdc
+<button
+  onClick={handleAction}
+  className="flex-shrink-0 w-10 h-10 rounded-lg bg-{color}-100 hover:bg-{color}-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+  title="Action Label"
+  aria-label="Action Label"
+  type="button"
+>
+  <IconComponent className="w-5 h-5 text-{color}-600" />
+</button>
 ```
 
-### **Wavy Animation** (defined in `src/app/globals.css`)
-```css
-@keyframes wavy {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translateY(-15px) scale(1.05);
-    opacity: 0.7;
-  }
-}
+### **Icon Button Requirements** (from icons_buttons_styles.mdc)
+- **`flex-shrink-0`**: Prevents icon container from shrinking
+- **`w-10 h-10`**: Fixed icon container size (40px × 40px) - Medium Action Icons pattern
+- **`rounded-lg`**: Medium border radius (8px)
+- **`bg-{color}-100`**: Light background color matching action type
+- **`hover:bg-{color}-200`**: Darker background on hover
+- **`flex items-center justify-center`**: Centers icon within container
+- **`transition-all duration-300`**: Smooth transitions
+- **`hover:scale-110`**: 10% scale increase on hover
+- **Icon Size**: `w-5 h-5` (20px × 20px) - Medium Action Icons pattern
+- **Icon Color**: `text-{color}-600` (matching action type)
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
+### **Color Coding for Icons** (from icons_buttons_styles.mdc)
+- **Edit Actions**: `bg-blue-100 hover:bg-blue-200 text-blue-600`
+- **Delete Actions**: `bg-red-100 hover:bg-red-200 text-red-600`
+- **View Actions**: `bg-green-100 hover:bg-green-200 text-green-600`
+- **Upload Actions**: `bg-purple-100 hover:bg-purple-200 text-purple-600`
 
-.wavy-animation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(255, 193, 7, 0.2) 25%,
-    rgba(255, 193, 7, 0.4) 50%,
-    rgba(255, 193, 7, 0.2) 75%,
-    transparent 100%);
-  background-size: 200% 100%;
-  animation:
-    wavy 3s ease-in-out infinite,
-    shimmer 2s ease-in-out infinite;
-  border-radius: inherit;
-  pointer-events: none;
-}
-```
+### **References for Icon and Button Styling**
+- **PRIMARY REFERENCE**: See [Icon and Button Styles](mdc:.cursor/rules/icons_buttons_styles.mdc) for complete icon sizing, styling, color palette, button patterns, and SVG guidelines
+- See [Icon Standards](mdc:.cursor/rules/icon_standards.mdc) for complete icon sizing, styling, and color palette guidelines
+- See [Admin Action Buttons Styling](mdc:.cursor/rules/admin_action_buttons_styling.mdc) for full-width vertical action buttons and icon container patterns
 
 ## **Complete Example**
 
-### **EventList Loading Pattern**
+### **Admin Media Grid** (Medium Dark Gradient)
 ```tsx
-// ✅ DO: Use the standard loading animation pattern (EventList component)
-if (loading) {
-  return (
-    <div className="flex justify-center items-center min-h-[600px] w-full">
-      <div className="relative w-full max-w-6xl">
-        <Image
-          src="/images/loading_events.jpg"
-          alt="Loading events..."
-          width={800}
-          height={600}
-          className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
-          priority
-        />
-        <div className="absolute inset-0 rounded-lg overflow-hidden">
-          <div className="wavy-animation"></div>
+{!loading && sortedMedia.length > 0 && (
+  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-700 via-gray-800 to-gray-700 border border-gray-600/30 shadow-2xl mb-8">
+    {/* Medium Dark Radial Gradient Overlay */}
+    <div className="absolute inset-0 pointer-events-none opacity-60" style={{ backgroundImage: 'radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 55%)' }} />
+
+    {/* Grid Content */}
+    <div className="relative px-6 py-10 sm:px-10 lg:px-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {mediaItems.map((item) => (
+          <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden group flex flex-col justify-between">
+            {/* Media Image */}
+            <div className="relative h-48 bg-gray-200">
+              <img src={item.fileUrl} alt={item.title} className="w-full h-full object-cover" />
+            </div>
+
+            {/* Media Info */}
+            <div className="p-4">
+              <h3 className="font-semibold text-lg truncate">{item.title}</h3>
+              <p className="text-gray-600 text-sm h-10 overflow-hidden">{item.description}</p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="p-4 pt-0 flex justify-end gap-2">
+              <button
+                onClick={() => handleEdit(item)}
+                className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                title="Edit Media"
+                aria-label="Edit Media"
+                type="button"
+              >
+                <FaEdit className="w-5 h-5 text-blue-600" />
+              </button>
+              <button
+                onClick={() => handleDelete(item)}
+                className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-100 hover:bg-red-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                title="Delete Media"
+                aria-label="Delete Media"
+                type="button"
+              >
+                <FaTrashAlt className="w-5 h-5 text-red-600" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+```
+
+### **MOSC Gallery Grid** (Conservative Warm Tones)
+```tsx
+<section className="py-16 bg-muted">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Grid Container with Conservative Gradient Background */}
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-background via-muted to-background border border-border/30 sacred-shadow-lg">
+      {/* Subtle Radial Gradient Overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-40" style={{ backgroundImage: 'radial-gradient(circle at top left, rgba(139, 125, 107, 0.08), transparent 55%)' }} />
+
+      {/* Grid Content */}
+      <div className="relative px-6 py-10 sm:px-10 lg:px-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Gallery items */}
         </div>
       </div>
     </div>
-  );
-}
+  </div>
+</section>
 ```
 
-### **Membership Success Loading Pattern**
+### **Event Pages Gallery Grid** (Bold Dark Gradient with Inner Container)
 ```tsx
-// ✅ DO: Use the standard loading animation pattern (MembershipSuccessClient component)
-if (loading) {
-  return (
-    <div className="flex justify-center items-center min-h-[600px] w-full">
-      <div className="relative w-full max-w-6xl">
-        <Image
-          src="/images/loading_events.jpg"
-          alt="Loading membership subscription..."
-          width={800}
-          height={600}
-          className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
-          priority
-        />
-        <div className="absolute inset-0 rounded-lg overflow-hidden">
-          <div className="wavy-animation"></div>
+{/* Gallery Section - Event Page Style */}
+{gallery.length > 0 && (
+  <div className="mb-12 mt-12">
+    {/* Outer Gradient Container */}
+    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 border border-white/10 shadow-2xl">
+      {/* Bold Dark Radial Gradient Overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-70" style={{ backgroundImage: 'radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 55%)' }} />
+
+      {/* Grid Content */}
+      <div className="relative px-6 py-10 sm:px-10 lg:px-14">
+        {/* Header Section (optional) */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 text-white mb-10">
+          {/* Header content */}
         </div>
+
+        {/* Inner Thumbnail Container - Glassmorphism Effect */}
+        {previewMedia.length > 0 && (
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 shadow-inner">
+            {/* Thumbnail Grid - Uses flexbox with centered alignment */}
+            <div className="flex flex-wrap gap-3 justify-center items-start">
+              {previewMedia.map((mediaItem) => (
+                <button
+                  key={mediaItem.id}
+                  className="relative w-[220px] h-[220px] rounded-2xl overflow-hidden bg-white/8 border border-white/22 backdrop-blur-[10px] shadow-[0_18px_30px_-18px_rgba(15,23,42,0.55)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_40px_-20px_rgba(15,23,42,0.65)] hover:border-white/35 group"
+                >
+                  {/* Image */}
+                  <Image
+                    src={mediaItem.fileUrl}
+                    alt={mediaItem.altText || mediaItem.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(min-width: 1024px) 220px, (min-width: 640px) 200px, 160px"
+                  />
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
-  );
-}
+  </div>
+)}
 ```
 
-## **Required Imports**
+**Event Page Inner Container Requirements:**
+- **`bg-white/10`**: Semi-transparent white background (10% opacity)
+- **`backdrop-blur-sm`**: Small backdrop blur for glassmorphism effect
+- **`rounded-2xl`**: Large border radius (16px) for inner container
+- **`border border-white/20`**: Light border (20% opacity white)
+- **`p-6`**: Padding (24px) for inner container
+- **`shadow-inner`**: Inner shadow for depth
 
-```tsx
-import Image from 'next/image';
-```
+**Event Page Thumbnail Requirements:**
+- **Size**: `w-[220px] h-[220px]` (220px × 220px) - Fixed square thumbnails
+- **Border Radius**: `rounded-2xl` (16px)
+- **Background**: `bg-white/8` (8% opacity white)
+- **Border**: `border border-white/22` (22% opacity white)
+- **Backdrop Blur**: `backdrop-blur-[10px]` (10px blur)
+- **Shadow**: `shadow-[0_18px_30px_-18px_rgba(15,23,42,0.55)]` (custom shadow)
+- **Hover Effect**: `hover:-translate-y-1.5` (lifts up 6px) with enhanced shadow
+- **Image Hover**: `group-hover:scale-110` (10% scale increase)
+- **Overlay**: Gradient overlay on hover (`from-black/60 via-transparent to-transparent`)
 
-## **Animation Behavior**
+## **Media Card Styling**
 
-### **Combined Animations**
-1. **Pulse Animation** (`animate-pulse`): Tailwind CSS built-in animation
-   - Fades opacity between 1.0 and 0.5
-   - Duration: 2s
-   - Infinite loop
+### **Card Requirements**
+- **`bg-white`**: White background for cards
+- **`rounded-lg`**: Medium border radius (8px)
+- **`shadow-md`**: Medium shadow for depth
+- **`overflow-hidden`**: Clips content to rounded corners
+- **`flex flex-col`**: Vertical flex layout
+- **`justify-between`**: Spaces content evenly
 
-2. **Zoom Animation** (`zoom-loading`): Custom CSS animation
-   - Scales from 0.8 → 1.1 → 1.0
-   - Opacity changes: 0.7 → 1.0 → 0.9
-   - Duration: 2s
-   - Easing: ease-in-out
-   - Infinite loop
+### **Image Container**
+- **`relative h-48`**: Fixed height (192px) for consistent card size
+- **`bg-gray-200`**: Placeholder background color
+- **`object-cover`**: Maintains aspect ratio while filling container
 
-3. **Wavy Animation** (`wavy-animation`): Custom CSS overlay
-   - Vertical movement: translateY(0px) → translateY(-15px) → translateY(0px)
-   - Scale: 1.0 → 1.05 → 1.0
-   - Opacity: 0.3 → 0.7 → 0.3
-   - Shimmer effect: horizontal gradient movement
-   - Duration: 3s (wavy) + 2s (shimmer)
-   - Infinite loop
+## **Responsive Breakpoints**
 
-## **Best Practices**
+### **Grid Column Behavior**
+- **`grid-cols-1`** (mobile, default): 1 column, full width cards
+- **`sm:grid-cols-2`** (640px+): 2 columns, side-by-side on small tablets
+- **`md:grid-cols-3`** (768px+): 3 columns, better use of medium screens
+- **`lg:grid-cols-4`** (1024px+): 4 columns, optimal for desktop (admin pages)
 
-### **DO:**
-- ✅ Use Next.js `Image` component (not `<img>` tag)
-- ✅ Always include `priority` prop for loading images
-- ✅ Use `/images/loading_events.jpg` as the standard loading image
-- ✅ Include both `animate-pulse` and `zoom-loading` classes
-- ✅ Always include the `wavy-animation` overlay div
-- ✅ Use `min-h-[600px]` for consistent loading area height
-- ✅ Use `max-w-6xl` for maximum width constraint
-- ✅ Use `relative` container with `absolute inset-0` overlay
-- ✅ Include descriptive `alt` text for accessibility
-
-### **DON'T:**
-- ❌ Use different loading images (always use `/images/loading_events.jpg`)
-- ❌ Skip the `wavy-animation` overlay (required for visual consistency)
-- ❌ Use `<img>` tag instead of Next.js `Image` component
-- ❌ Omit `priority` prop (causes loading delay)
-- ❌ Use different animation classes or custom animations
-- ❌ Skip `rounded-lg` border radius (required for overlay clipping)
-- ❌ Use different container dimensions (always use `min-h-[600px]`)
+### **Padding Scaling**
+- **Mobile**: `px-6 py-10` (24px horizontal, 40px vertical)
+- **Small screens**: `sm:px-10` (40px horizontal)
+- **Large screens**: `lg:px-14` (56px horizontal)
 
 ## **Accessibility Requirements**
 
 ### **Required Attributes**
-- **`alt`**: Descriptive text for screen readers (e.g., "Loading events...", "Loading membership subscription...")
-- **`priority`**: Next.js Image optimization (loads immediately)
+- **`title`**: Tooltip text for hover state
+- **`aria-label`**: Screen reader accessible label (should match button text)
+- **`type="button"`**: Explicit button type
+- **Semantic HTML**: Use `<button>` for actions, not `<div>`
 
 ### **Example with Accessibility**
 ```tsx
-<Image
-  src="/images/loading_events.jpg"
-  alt="Loading events..."
-  width={800}
-  height={600}
-  className="w-full h-auto rounded-lg shadow-2xl animate-pulse zoom-loading"
-  priority
-/>
+<button
+  onClick={handleAction}
+  className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+  title="Edit Media"
+  aria-label="Edit Media"
+  type="button"
+>
+  <FaEdit className="w-5 h-5 text-blue-600" />
+</button>
 ```
+
+## **Best Practices**
+
+### **DO:**
+- ✅ Use conservative gradient backgrounds (`from-{color}-50 via-gray-50 to-{color}-50`)
+- ✅ Include subtle radial gradient overlay at low opacity (30-40%)
+- ✅ Use consistent grid layout: `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6`
+- ✅ Always include `title` and `aria-label` attributes on icon buttons
+- ✅ Use `w-10 h-10` for icon containers, `w-5 h-5` for icons
+- ✅ Include hover effects: `hover:scale-110 transition-all duration-300`
+- ✅ Use semantic color choices (blue for edit, red for delete, green for view)
+- ✅ Match border colors to gradient colors (`border-{color}-200/50`)
+
+### **DON'T:**
+- ❌ Use light conservative gradients on admin pages (use medium dark gradients)
+- ❌ Skip radial gradient overlay (adds visual depth)
+- ❌ Use different grid layouts on different pages
+- ❌ Mix icon container sizes (always use `w-10 h-10`)
+- ❌ Skip accessibility attributes (`title`, `aria-label`)
+- ❌ Use different gap values (always use `gap-6`)
+- ❌ Omit hover effects on icon buttons
+- ❌ Use arbitrary colors without semantic meaning
+
+## **Color Reference Table**
+
+| Page Type | Background Gradient | Border | Radial Gradient Color | Overlay Opacity | Inner Container |
+|----|----|----|----|----|----|
+| **Admin Pages** | `from-gray-700 via-gray-800 to-gray-700` | `border-gray-600/30` | `rgba(255, 255, 255, 0.12)` | 60% | N/A |
+| **MOSC Public** | `from-background via-muted to-background` | `border-border/30` | `rgba(139, 125, 107, 0.08)` | 40% | N/A |
+| **Event Pages** | `from-gray-900 via-purple-900 to-indigo-900` | `border-white/10` | `rgba(255,255,255,0.18)` | 70% | `bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-6 shadow-inner` |
 
 ## **Reference Implementations**
 
-- **EventList Component**: [`src/components/EventList.tsx`](mdc:src/components/EventList.tsx) - Lines 202-219
-- **Membership Success Client**: [`src/app/membership/success/MembershipSuccessClient.tsx`](mdc:src/app/membership/success/MembershipSuccessClient.tsx) - Lines 422-437
-- **CSS Animations**: [`src/app/globals.css`](mdc:src/app/globals.css) - Lines 513-594
-- **Manage Events Page**: [`src/app/admin/manage-events/page.tsx`](mdc:src/app/admin/manage-events/page.tsx) - Uses EventList component
+- **Admin Media Page**: [`src/app/admin/media/page.tsx`](mdc:src/app/admin/media/page.tsx) - Lines 764-824 (media grid with gradient background)
+- **MOSC Gallery Page**: [`src/app/mosc/gallery/page.tsx`](mdc:src/app/mosc/gallery/page.tsx) - Lines 309-376 (gallery grid with conservative gradient)
+- **Events Page Gallery**: [`src/app/events/[id]/page.tsx`](mdc:src/app/events/[id]/page.tsx) - Lines 1129-1203 (event gallery with dark gradient)
 
 ## **Troubleshooting**
 
-### **Animation Not Working?**
-- Check that CSS classes are defined in `src/app/globals.css`
-- Verify `wavy-animation` and `zoom-loading` classes are present
-- Ensure `animate-pulse` is available (Tailwind CSS built-in)
-- Check browser console for CSS errors
+### **Gradient Not Visible?**
+- Check that gradient colors are light enough (`-50` shades)
+- Verify opacity is set correctly (30-40% for conservative, 70% for bold)
+- Ensure radial gradient overlay is present
 
-### **Image Not Loading?**
-- Verify `/images/loading_events.jpg` exists in `public/images/`
-- Check Next.js Image optimization is working (check Network tab)
-- Ensure `priority` prop is included
-- Verify `width` and `height` props match image dimensions
+### **Icons Not Scaling on Hover?**
+- Check that `hover:scale-110` is included
+- Verify `transition-all duration-300` is present
+- Ensure parent container doesn't have `overflow-hidden` that clips the scale
 
-### **Overlay Not Visible?**
-- Check that container has `relative` positioning
-- Verify overlay div has `absolute inset-0`
-- Ensure `rounded-lg overflow-hidden` is on overlay container
-- Check that `wavy-animation` class is applied
+### **Grid Not Responsive?**
+- Verify grid classes: `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4`
+- Check that Tailwind responsive breakpoints are configured correctly
+- Ensure container has sufficient width for columns to display
 
-### **Layout Issues?**
-- Verify `min-h-[600px]` is set on container
-- Check that `flex justify-center items-center` is applied
-- Ensure `w-full max-w-6xl` is on image container
-- Verify responsive classes work on mobile
+### **Border Not Visible?**
+- Check border opacity (`/50` or `/30` for subtle borders)
+- Verify border color matches gradient color family
+- Ensure border width is set (`border` = 1px)
 
 ## **Related Patterns**
 
+- **PRIMARY**: See [Icon and Button Styles](mdc:.cursor/rules/icons_buttons_styles.mdc) for complete button and icon styling patterns used within grid tiles
+- See [Admin Action Buttons Styling](mdc:.cursor/rules/admin_action_buttons_styling.mdc) for full-width vertical action buttons and icon container patterns
+- See [Icon Standards](mdc:.cursor/rules/icon_standards.mdc) for complete icon sizing, styling, color palette, and SVG patterns
 - See [MOSC Styling Standards](mdc:.cursor/rules/mosc_styling_standards.mdc) for overall design system
-- See [`src/components/EventList.tsx`](mdc:src/components/EventList.tsx) for complete implementation
-- See [`src/app/membership/success/MembershipSuccessClient.tsx`](mdc:src/app/membership/success/MembershipSuccessClient.tsx) for success page implementation
+- See [Pagination Footer](mdc:.cursor/rules/pagination_footer_styling_pattern.mdc) for pagination controls
+
+## **Event Page Gallery Structure**
+
+### **Two-Level Container Pattern**
+Event pages use a two-level container structure for enhanced visual depth:
+
+1. **Outer Container** (Gradient Background):
+   - Background: `from-gray-900 via-purple-900 to-indigo-900` (bold dark gradient)
+   - Border: `border-white/10` (light border on dark)
+   - Shadow: `shadow-2xl` (large shadow)
+   - Radial overlay: `opacity-70` with `rgba(255,255,255,0.18)`
+
+2. **Inner Container** (Glassmorphism Thumbnail Container):
+   - Background: `bg-white/10 backdrop-blur-sm` (semi-transparent with blur)
+   - Border: `border border-white/20` (light border)
+   - Border radius: `rounded-2xl` (16px)
+   - Padding: `p-6` (24px)
+   - Shadow: `shadow-inner` (inner shadow for depth)
+
+### **Thumbnail Grid Styling**
+- **Layout**: Flexbox with `flex-wrap` and `justify-center` for centered alignment
+- **Gap**: `gap-3` (12px) between thumbnails
+- **Thumbnail Size**: `w-[220px] h-[220px]` (220px × 220px) - Fixed square
+- **Thumbnail Styling**: Glassmorphism effect with backdrop blur, semi-transparent background, and hover lift effect
+- **Responsive**: Thumbnails adapt on mobile (see CSS module for breakpoints)
 
 ## **Summary**
 
-**Key Pattern**: Loading states should use:
-- Next.js `Image` component with `/images/loading_events.jpg`
-- Classes: `animate-pulse zoom-loading`
-- Wavy overlay: `<div className="wavy-animation"></div>`
-- Container: `flex justify-center items-center min-h-[600px] w-full`
-- Image container: `relative w-full max-w-6xl`
+**Key Pattern**: Media grids should use gradient backgrounds with subtle radial overlays:
+- **Admin Pages**: Medium dark gradients (`from-gray-700 via-gray-800 to-gray-700`) with 60% overlay opacity
+- **Public Pages**: Warm earth tones (`from-background via-muted to-background`) with 40% overlay opacity
+- **Event Pages**: Bold dark gradients (`from-gray-900 via-purple-900 to-indigo-900`) with 70% overlay opacity and inner glassmorphism container
 
-This ensures consistent, professional loading animations across all admin and success pages.
+**Icon Buttons**: All buttons and icons within grid tiles must follow the patterns defined in [Icon and Button Styles](mdc:.cursor/rules/icons_buttons_styles.mdc):
+- Fixed container size (`w-10 h-10` for medium action icons)
+- Icon size (`w-5 h-5` for medium action icons)
+- Semantic colors (blue for edit, red for delete, green for view)
+- Hover effects (`hover:scale-110` for square buttons)
+- Proper accessibility attributes (`title`, `aria-label`)
+
+This ensures consistent, professional appearance across all media gallery pages while maintaining appropriate styling for each context.
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
