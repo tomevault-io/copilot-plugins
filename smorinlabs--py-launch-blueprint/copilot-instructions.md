@@ -1,32 +1,79 @@
-## py-launch-blueprint
+## doc-template
 
-> - Setup: `just setup` or `uv pip install --editable ".[dev]"`
+> Standard rule for documentation consistency
 
-# CLAUDE.md - Agent Guidelines for Py Launch Blueprint
 
-## Project Commands
-- Setup: `just setup` or `uv pip install --editable ".[dev]"`
-- Format: `just format` or `uvx ruff format py_launch_blueprint/`
-- Lint: `just lint` or `uvx ruff check py_launch_blueprint/`
-- Type check: `just typecheck` or `uvx --with-editable . mypy py_launch_blueprint/`
-- Test all: `just test` or `uvx --with-editable . pytest`
-- Test single: `uvx --with-editable . pytest tests/test_file.py::test_name`
-- All checks: `just check`
-- Pre-commit: `just pre-commit-run`
+name: doc-template
+description: |
+  This rule defines the standardized structure to be followed for all documentation rules
+  created in this project. It ensures that every documentation rule provides clarity,
+  utility, and consistency for contributors.
 
-## Code Style Guidelines
-- Line length: 88 characters (Black standard)
-- Types: Strict typing required for all functions
-- Imports: Sorted with relative imports preferred
-- Naming: PEP 8 conventions enforced via Ruff
-- Errors: Prefer explicit error handling over assertions
-- Tests: Type annotations optional for test files
-- Security: No hardcoded credentials, follow bandit rules
+template: |
+  # [Tool/Feature Name] Documentation Rule
 
-## Developer Environment
-- Python: 3.10+ required
-- Package manager: `uv` recommended, pip supported
-- IDE: VS Code with Ruff, MyPy and Pylance extensions
+  ## Introduction
+  [What is the tool?]
+
+  ## Purpose and Problem Solved by This Feature/Tool
+  - Key benefits and value proposition
+
+  ## Getting Started
+  - Basic setup steps
+  - Quick example demonstrating core functionality
+
+  ## Usage
+  [How to use this feature in this project]
+
+  - Common use cases with practical examples
+  - Command references and syntax
+
+  ## Configuration
+  [How to configure this tool in this project]
+
+  - Key configuration options and parameters
+  - Example configurations for common scenarios
+
+  ## Testing
+  [How to test this feature in this project]
+
+  - Instructions on how to test the command stand alone with the expected results
+  - Instructions on how to test this command in this project specifically
+
+  ## Disabling the Feature
+  [How to disable this feature in this project]
+
+  - Instructions for temporarily or permanently disabling
+  - Selective disabling options for specific contexts
+
+  ## References
+  - Links to relevant host technology documentation
+  - Additional resources and further reading
+
+validation:
+  required_sections:
+    - Introduction
+    - Purpose and Problem Solved by This Feature/Tool
+    - Getting Started
+    - Usage
+    - Configuration
+    - Testing
+    - Disabling the Feature
+    - References
+
+  required_elements:
+    - Practical examples
+    - Standalone and integrated testing instructions
+    - Configuration options
+    - Disabling guidance
+    - Links to host documentation or external resources
+
+formatting:
+  - Use markdown formatting
+  - Use `##` for main section headers
+  - Include bullet points for lists and guidance
+  - Include `[placeholder text]` for user to replace
+  - Ensure examples are contextual to this project
 
 ---
 > Source: [smorinlabs/py-launch-blueprint](https://github.com/smorinlabs/py-launch-blueprint) — distributed by [TomeVault](https://tomevault.io).
