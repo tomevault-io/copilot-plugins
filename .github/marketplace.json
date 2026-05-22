@@ -68174,6 +68174,56 @@
       "description": "\ud83d\udcc8 A zero-dependency-injection Prometheus metrics reporter for NestJS"
     },
     {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "martin-papy--qdrant-loader",
+      "source": "./martin-papy--qdrant-loader",
+      "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -74089,6 +74139,51 @@
       "description": "High-performance ESLint/Oxlint plugin that catches dead code, broken imports, and architectural violations. Optimized for monorepos."
     },
     {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "tyrchen--simple-proxy",
+      "source": "./tyrchen--simple-proxy",
+      "description": "Simple http reverse proxy using pingora"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -75162,6 +75257,21 @@
       "name": "algebras-ai--algebras-cli",
       "source": "./algebras-ai--algebras-cli",
       "description": "Your CLI localization tool. Never miss updating locales again."
+    },
+    {
+      "name": "waynesutton--nextjsaichatconvextemplate",
+      "source": "./waynesutton--nextjsaichatconvextemplate",
+      "description": "A real-time AI chat application built with Next.js, Convex, Tailwind CSS, and OpenAI."
+    },
+    {
+      "name": "waynesutton--nextjsaichatconvextemplate",
+      "source": "./waynesutton--nextjsaichatconvextemplate",
+      "description": "A real-time AI chat application built with Next.js, Convex, Tailwind CSS, and OpenAI."
+    },
+    {
+      "name": "waynesutton--nextjsaichatconvextemplate",
+      "source": "./waynesutton--nextjsaichatconvextemplate",
+      "description": "A real-time AI chat application built with Next.js, Convex, Tailwind CSS, and OpenAI."
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -78854,6 +78964,16 @@
       "description": "bypass AI upload limits by uploading unlimited files as one file"
     },
     {
+      "name": "superfly--flymcp",
+      "source": "./superfly--flymcp",
+      "description": "MCP server for Fly.io CLI integration with Claude Desktop"
+    },
+    {
+      "name": "superfly--flymcp",
+      "source": "./superfly--flymcp",
+      "description": "MCP server for Fly.io CLI integration with Claude Desktop"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -80337,6 +80457,26 @@
       "name": "government-communication-service--assist-service",
       "source": "./government-communication-service--assist-service",
       "description": "Assist Service"
+    },
+    {
+      "name": "comerc--budva43",
+      "source": "./comerc--budva43",
+      "description": "Telegram-Forwarder (UNIX-way) - forwards (or copies) messages from monitored channels and groups to target ones according to specified rules to obtain thematic digests"
+    },
+    {
+      "name": "comerc--budva43",
+      "source": "./comerc--budva43",
+      "description": "Telegram-Forwarder (UNIX-way) - forwards (or copies) messages from monitored channels and groups to target ones according to specified rules to obtain thematic digests"
+    },
+    {
+      "name": "comerc--budva43",
+      "source": "./comerc--budva43",
+      "description": "Telegram-Forwarder (UNIX-way) - forwards (or copies) messages from monitored channels and groups to target ones according to specified rules to obtain thematic digests"
+    },
+    {
+      "name": "comerc--budva43",
+      "source": "./comerc--budva43",
+      "description": "Telegram-Forwarder (UNIX-way) - forwards (or copies) messages from monitored channels and groups to target ones according to specified rules to obtain thematic digests"
     },
     {
       "name": "navikt--cplt",
@@ -83552,6 +83692,21 @@
       "name": "minorcell--hub-io",
       "source": "./minorcell--hub-io",
       "description": "Hub-IO is a headless application for generating stable contributor SVG links for public GitHub repositories."
+    },
+    {
+      "name": "przeprogramowani--10x-magic-docs",
+      "source": "./przeprogramowani--10x-magic-docs",
+      "description": "Generate docs with Agentic AI"
+    },
+    {
+      "name": "przeprogramowani--10x-magic-docs",
+      "source": "./przeprogramowani--10x-magic-docs",
+      "description": "Generate docs with Agentic AI"
+    },
+    {
+      "name": "przeprogramowani--10x-magic-docs",
+      "source": "./przeprogramowani--10x-magic-docs",
+      "description": "Generate docs with Agentic AI"
     },
     {
       "name": "khangbdd--phoenix",
@@ -89372,6 +89527,21 @@
       "name": "tanepiper--teskooano",
       "source": "./tanepiper--teskooano",
       "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
+    },
+    {
+      "name": "aiurda--cursor10x",
+      "source": "./aiurda--cursor10x",
+      "description": "Cursor10x is a comprehensive suite of tools that enhances the A.I. agent's capabilities within the Cursor IDE, providing persistent memory across sessions, standardized task management, and enforced b"
+    },
+    {
+      "name": "aiurda--cursor10x",
+      "source": "./aiurda--cursor10x",
+      "description": "Cursor10x is a comprehensive suite of tools that enhances the A.I. agent's capabilities within the Cursor IDE, providing persistent memory across sessions, standardized task management, and enforced b"
+    },
+    {
+      "name": "aiurda--cursor10x",
+      "source": "./aiurda--cursor10x",
+      "description": "Cursor10x is a comprehensive suite of tools that enhances the A.I. agent's capabilities within the Cursor IDE, providing persistent memory across sessions, standardized task management, and enforced b"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -98674,6 +98844,61 @@
       "description": "XLerate is an Excel add-in to speed up financial modelling tasks and spot potential errors with ease, incl. advanced auditing and formula consistency tools."
     },
     {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
+      "name": "caleb68864--slingmd",
+      "source": "./caleb68864--slingmd",
+      "description": "Tools for Use with ObsidianMD"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -100907,6 +101132,11 @@
       "name": "shipkit-io--bones",
       "source": "./shipkit-io--bones",
       "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "r-huijts--opentk-mcp",
+      "source": "./r-huijts--opentk-mcp",
+      "description": "A Model Context Protocol (MCP) server providing access to Dutch parliamentary data (Tweede Kamer) through OpenTK . This server enables AI assistants to search, retrieve, and analyze parliamentary docu"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -123144,6 +123374,16 @@
       "description": "An opinionated MySQL GUI for Laravel developers - UNDER DEVELOPMENT"
     },
     {
+      "name": "fearlessgeekmedia--fearlesscms",
+      "source": "./fearlessgeekmedia--fearlesscms",
+      "description": "A flat-file content management system. Fast and fearless!"
+    },
+    {
+      "name": "codingthefuturewithai--mcp-code-understanding",
+      "source": "./codingthefuturewithai--mcp-code-understanding",
+      "description": "An MCP (Model Context Protocol) server designed to understand codebases and provide intelligent context to AI coding assistants"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -132497,6 +132737,11 @@
       "name": "taggartbg--vibeframe",
       "source": "./taggartbg--vibeframe",
       "description": "VSCode Extension to enable UIs for MCP Servers (SSE)"
+    },
+    {
+      "name": "flight505--contextcraft",
+      "source": "./flight505--contextcraft",
+      "description": "ContextCraft"
     },
     {
       "name": "lightninglabs--lnget",
@@ -157989,6 +158234,51 @@
       "description": "A CLI tool to help users migrate data from their LangSmith cloud/self-hosted workspaces"
     },
     {
+      "name": "liyue-cheng--marina",
+      "source": "./liyue-cheng--marina",
+      "description": "re-define terminal"
+    },
+    {
+      "name": "nodedaemon--nodedaemon",
+      "source": "./nodedaemon--nodedaemon",
+      "description": "Node.js process manager with zero external dependencies, built entirely with Node.js built-in modules."
+    },
+    {
+      "name": "nodedaemon--nodedaemon",
+      "source": "./nodedaemon--nodedaemon",
+      "description": "Node.js process manager with zero external dependencies, built entirely with Node.js built-in modules."
+    },
+    {
+      "name": "jaff-chemistry--jaff",
+      "source": "./jaff-chemistry--jaff",
+      "description": "An astrochemical network parser that supports multiple reaction network formats including KIDA, UDFA, PRIZMO, KROME, and UCLCHEM."
+    },
+    {
+      "name": "nodedaemon--nodedaemon",
+      "source": "./nodedaemon--nodedaemon",
+      "description": "Node.js process manager with zero external dependencies, built entirely with Node.js built-in modules."
+    },
+    {
+      "name": "epilande--gemini-grounding",
+      "source": "./epilande--gemini-grounding",
+      "description": "An MCP server that provides real-time information using Google Gemini's grounding capabilities"
+    },
+    {
+      "name": "ivangarzab--bark",
+      "source": "./ivangarzab--bark",
+      "description": "A light-weight logging library for Android & KMP projects."
+    },
+    {
+      "name": "rice-awa--minecraft-wiki-fetch-api",
+      "source": "./rice-awa--minecraft-wiki-fetch-api",
+      "description": "\u4e00\u4e2a\u7528\u4e8e\u6293\u53d6\u548c\u8f6c\u6362 Minecraft \u4e2d\u6587 Wiki \u5185\u5bb9\u7684 API \u670d\u52a1\u3002\u53ef\u641c\u7d22\u6216\u6293\u53d6minecraft wiki\u9875\u9762\u5185\u5bb9\u5e76\u5c06\u5176\u8f6c\u5316\u4e3amarkdown\u683c\u5f0f"
+    },
+    {
+      "name": "nodedaemon--nodedaemon",
+      "source": "./nodedaemon--nodedaemon",
+      "description": "Node.js process manager with zero external dependencies, built entirely with Node.js built-in modules."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -167614,6 +167904,46 @@
       "description": "A powerful command-line utility for manipulating Xcode project files (.xcodeproj)"
     },
     {
+      "name": "tdevid523-bot--orange",
+      "source": "./tdevid523-bot--orange",
+      "description": "orange"
+    },
+    {
+      "name": "carlosalbornoz--issp-builder",
+      "source": "./carlosalbornoz--issp-builder",
+      "description": "ISSP Builder"
+    },
+    {
+      "name": "fernandobolzan--orquestrador-maestro",
+      "source": "./fernandobolzan--orquestrador-maestro",
+      "description": "AI agent orchestration kit for Windows with Codex skills, hooks, routing rules and profiles for Claude, OpenCode, Cursor, Gemini and Windsurf."
+    },
+    {
+      "name": "utopai-research--pai-pro",
+      "source": "./utopai-research--pai-pro",
+      "description": "Local AI filmmaking canvas + skills for your coding agent \u2014 scripts, characters, clips, voices, all on a visual timeline. From Utopai Studios"
+    },
+    {
+      "name": "tdevid523-bot--orange",
+      "source": "./tdevid523-bot--orange",
+      "description": "orange"
+    },
+    {
+      "name": "prettysmartdev--ane",
+      "source": "./prettysmartdev--ane",
+      "description": "A New Editor / Agent Native Editor"
+    },
+    {
+      "name": "ondrej-sulc--cerebro",
+      "source": "./ondrej-sulc--cerebro",
+      "description": "CereBro"
+    },
+    {
+      "name": "pavi2410--vector",
+      "source": "./pavi2410--vector",
+      "description": "vector is a SVG editor [ALPHA]"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -169862,6 +170192,21 @@
       "name": "akitaonrails--ai-memory",
       "source": "./akitaonrails--ai-memory",
       "description": "Solution for long term memory for agent coding CLIs and to facilitate hand off between different agent vendors"
+    },
+    {
+      "name": "treylom--thiscode",
+      "source": "./treylom--thiscode",
+      "description": "Claude Code + Discord \ubd07 + codex \ud638\ucd9c \ud1b5\ud569 \ud50c\ub7ec\uadf8\uc778 \u2014 \ud328\uc2a4\ud2b8\ucea0\ud37c\uc2a4 \uac15\uc758\uc6a9"
+    },
+    {
+      "name": "treylom--thiscode",
+      "source": "./treylom--thiscode",
+      "description": "Claude Code + Discord \ubd07 + codex \ud638\ucd9c \ud1b5\ud569 \ud50c\ub7ec\uadf8\uc778 \u2014 \ud328\uc2a4\ud2b8\ucea0\ud37c\uc2a4 \uac15\uc758\uc6a9"
+    },
+    {
+      "name": "tsmar--4dreamteam",
+      "source": "./tsmar--4dreamteam",
+      "description": "AI team workflow for Codex that turns ideas into product briefs, implementation tasks, quality reviews, documentation, and launch-ready product messaging"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -270997,6 +271342,176 @@
       "name": "sja-pathway--apppath",
       "source": "./sja-pathway--apppath",
       "description": "AppPath is an open-source mobile app development hub under SJA Pathway, dedicated to creating cross-platform apps for Android and iOS using **React Native (Expo)** and **Firebase**."
+    },
+    {
+      "name": "kimasill--kimasill-github-io",
+      "source": "./kimasill--kimasill-github-io",
+      "description": "developments"
+    },
+    {
+      "name": "osmarbriones--enemydrops",
+      "source": "./osmarbriones--enemydrops",
+      "description": "EnemyDrops"
+    },
+    {
+      "name": "freetaban--peptide-manager",
+      "source": "./freetaban--peptide-manager",
+      "description": "peptide-manager"
+    },
+    {
+      "name": "mncoleman--mncoleman",
+      "source": "./mncoleman--mncoleman",
+      "description": "The official website of Matthew Coleman"
+    },
+    {
+      "name": "zarleyltd--ierne-snooker",
+      "source": "./zarleyltd--ierne-snooker",
+      "description": "Ierne Snooker"
+    },
+    {
+      "name": "galing-pup--galing-pup",
+      "source": "./galing-pup--galing-pup",
+      "description": "A modern university thesis repository system for academic paper discovery, research management, and AI-assisted summarization. Built with Next.js 16, React 19, and shadcn/ui."
+    },
+    {
+      "name": "asherbirdy--h28-page",
+      "source": "./asherbirdy--h28-page",
+      "description": "H28_page"
+    },
+    {
+      "name": "paalmessenlien--spondadmin",
+      "source": "./paalmessenlien--spondadmin",
+      "description": "spondadmin"
+    },
+    {
+      "name": "nbiotminsk--goszakupki-auto-kp",
+      "source": "./nbiotminsk--goszakupki-auto-kp",
+      "description": "goszakupki_auto_KP"
+    },
+    {
+      "name": "galing-pup--galing-pup",
+      "source": "./galing-pup--galing-pup",
+      "description": "A modern university thesis repository system for academic paper discovery, research management, and AI-assisted summarization. Built with Next.js 16, React 19, and shadcn/ui."
+    },
+    {
+      "name": "tbstechudt-dotcom--power-ca-mobileapp-staff",
+      "source": "./tbstechudt-dotcom--power-ca-mobileapp-staff",
+      "description": "Power-CA_MobileApp_Staff"
+    },
+    {
+      "name": "hugocllt--wandr2",
+      "source": "./hugocllt--wandr2",
+      "description": "activity app"
+    },
+    {
+      "name": "nurakmaljalil91--cerxos-shell",
+      "source": "./nurakmaljalil91--cerxos-shell",
+      "description": "Shell/Host for Micro-frontend of Cerxos Web System"
+    },
+    {
+      "name": "bardolf--fspi",
+      "source": "./bardolf--fspi",
+      "description": "Fedora sway post install (tested on Fedora 42)"
+    },
+    {
+      "name": "raghuboi--pocket-gpt",
+      "source": "./raghuboi--pocket-gpt",
+      "description": "Faithful reproduction of 'Attention Is All You Need' (Vaswani et al. 2017) in pure PyTorch. ~700 lines. Paper-faithful baseline + systematic modernization swaps."
+    },
+    {
+      "name": "google-developer-group-qassim-unversity--send-certificates",
+      "source": "./google-developer-group-qassim-unversity--send-certificates",
+      "description": "send-certificates"
+    },
+    {
+      "name": "zinnli--todaystemperature",
+      "source": "./zinnli--todaystemperature",
+      "description": "\uc624\ub298\uc758 \uc628\ub3c4"
+    },
+    {
+      "name": "mativia--matiasvia-web",
+      "source": "./mativia--matiasvia-web",
+      "description": "mi portfolio personal"
+    },
+    {
+      "name": "rag2504--portfolio",
+      "source": "./rag2504--portfolio",
+      "description": "My portfolio"
+    },
+    {
+      "name": "hugocllt--wandr2",
+      "source": "./hugocllt--wandr2",
+      "description": "activity app"
+    },
+    {
+      "name": "gowthamavtech--unique-garden",
+      "source": "./gowthamavtech--unique-garden",
+      "description": "unique-garden"
+    },
+    {
+      "name": "malaudos35--winenot",
+      "source": "./malaudos35--winenot",
+      "description": "WineNot is a WineCoder wine cellar application"
+    },
+    {
+      "name": "youranreus--applog",
+      "source": "./youranreus--applog",
+      "description": "Applog"
+    },
+    {
+      "name": "kkoppenhaver--good-ice-map",
+      "source": "./kkoppenhaver--good-ice-map",
+      "description": "A map of places to find good ice"
+    },
+    {
+      "name": "bardolf--fspi",
+      "source": "./bardolf--fspi",
+      "description": "Fedora sway post install (tested on Fedora 42)"
+    },
+    {
+      "name": "alcmdbackup--explainanythingbackup",
+      "source": "./alcmdbackup--explainanythingbackup",
+      "description": "explainanythingbackup"
+    },
+    {
+      "name": "freetaban--peptide-manager",
+      "source": "./freetaban--peptide-manager",
+      "description": "peptide-manager"
+    },
+    {
+      "name": "samuelpilot86--flashbackmirror",
+      "source": "./samuelpilot86--flashbackmirror",
+      "description": "MirrorBack: see and hear yourself back, be your own coach"
+    },
+    {
+      "name": "phileiny--aidream-site",
+      "source": "./phileiny--aidream-site",
+      "description": "\u661f\u667a\u672a\u4f86\u7db2\u7ad9"
+    },
+    {
+      "name": "r00t-kim--r00t-kim-github-io",
+      "source": "./r00t-kim--r00t-kim-github-io",
+      "description": "r00t-kim.github.io"
+    },
+    {
+      "name": "8b-is--8b-theme",
+      "source": "./8b-is--8b-theme",
+      "description": "Dark Theme CRT Retro"
+    },
+    {
+      "name": "loancrate--access-tokens",
+      "source": "./loancrate--access-tokens",
+      "description": "Personal access token library and tools"
+    },
+    {
+      "name": "efbakir--efbakir-personalwebsite",
+      "source": "./efbakir--efbakir-personalwebsite",
+      "description": "Personal website for Efe Eren Can Bakir"
+    },
+    {
+      "name": "timwfitnum--worfin-strategies",
+      "source": "./timwfitnum--worfin-strategies",
+      "description": "worfin_strategies"
     }
   ]
 }
