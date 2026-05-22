@@ -1,0 +1,44 @@
+{
+  "name": "js-package-manager-mcp",
+  "owner": "shacharsol",
+  "repo": "js-package-manager-mcp",
+  "description": "Free MCP server for AI-powered JavaScript package management - Works with Claude, Windsurf, Cursor",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shacharsol/js-package-manager-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T03:35:29Z"
+}
