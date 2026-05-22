@@ -67219,6 +67219,16 @@
       "description": "ai_lab_tracker"
     },
     {
+      "name": "alexfazio--ai-lab-tracker",
+      "source": "./alexfazio--ai-lab-tracker",
+      "description": "ai_lab_tracker"
+    },
+    {
+      "name": "alexfazio--ai-lab-tracker",
+      "source": "./alexfazio--ai-lab-tracker",
+      "description": "ai_lab_tracker"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -75149,6 +75159,11 @@
       "description": "This project sets up a Docker Compose configuration for the Cursor Deepseek API Proxy"
     },
     {
+      "name": "algebras-ai--algebras-cli",
+      "source": "./algebras-ai--algebras-cli",
+      "description": "Your CLI localization tool. Never miss updating locales again."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -81737,6 +81752,11 @@
       "name": "lukexlau--react-router-v7-monorepo",
       "source": "./lukexlau--react-router-v7-monorepo",
       "description": "\ud83d\udce6 React Router v7 (Remix) Monorepo with Cloudflare Workers, Drizzle ORM & D1, Shadcn/UI, and Tailwind CSS v4."
+    },
+    {
+      "name": "jeprecated--immich-cat",
+      "source": "./jeprecated--immich-cat",
+      "description": "Immich Cat[egoriser]. Quickly assign your assets to albums."
     },
     {
       "name": "mulhamna--jira-commands",
@@ -89317,6 +89337,41 @@
       "name": "purrnet--purrdiction",
       "source": "./purrnet--purrdiction",
       "description": "PurrDiction"
+    },
+    {
+      "name": "tanepiper--teskooano",
+      "source": "./tanepiper--teskooano",
+      "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
+    },
+    {
+      "name": "tanepiper--teskooano",
+      "source": "./tanepiper--teskooano",
+      "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
+    },
+    {
+      "name": "tanepiper--teskooano",
+      "source": "./tanepiper--teskooano",
+      "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
+    },
+    {
+      "name": "tanepiper--teskooano",
+      "source": "./tanepiper--teskooano",
+      "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
+    },
+    {
+      "name": "tanepiper--teskooano",
+      "source": "./tanepiper--teskooano",
+      "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
+    },
+    {
+      "name": "tanepiper--teskooano",
+      "source": "./tanepiper--teskooano",
+      "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
+    },
+    {
+      "name": "tanepiper--teskooano",
+      "source": "./tanepiper--teskooano",
+      "description": "A Multi-camera ThreeJS powered 3D N-body simulator"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -106044,6 +106099,11 @@
       "description": "Solar positioning algorithms for Julia."
     },
     {
+      "name": "flow-ciandt--bcp-agent",
+      "source": "./flow-ciandt--bcp-agent",
+      "description": "bcp-agent"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -115359,6 +115419,31 @@
       "description": "mcp-server"
     },
     {
+      "name": "benallfree--xg",
+      "source": "./benallfree--xg",
+      "description": "Play games right in your X feed"
+    },
+    {
+      "name": "benallfree--xg",
+      "source": "./benallfree--xg",
+      "description": "Play games right in your X feed"
+    },
+    {
+      "name": "benallfree--xg",
+      "source": "./benallfree--xg",
+      "description": "Play games right in your X feed"
+    },
+    {
+      "name": "benallfree--xg",
+      "source": "./benallfree--xg",
+      "description": "Play games right in your X feed"
+    },
+    {
+      "name": "benallfree--xg",
+      "source": "./benallfree--xg",
+      "description": "Play games right in your X feed"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -118782,6 +118867,11 @@
       "name": "linkml--dm-bip",
       "source": "./linkml--dm-bip",
       "description": "Data Model Based Ingestion Pipeline"
+    },
+    {
+      "name": "kidiatoliny--hunter",
+      "source": "./kidiatoliny--hunter",
+      "description": "The Cape Verdean Network for Creators, Thinkers, and Builders. Hunter is more than a platform \u2014 it\u2019s a movement. Built by Cape Verdeans for Cape Verdeans, Hunter is where ideas take shape, projects fi"
     },
     {
       "name": "mohiwalla--memes",
@@ -122967,6 +123057,91 @@
       "name": "unifyai--unity",
       "source": "./unifyai--unity",
       "description": "The recursive realtime agent \ud83d\udd01"
+    },
+    {
+      "name": "slashspace--dotfiles",
+      "source": "./slashspace--dotfiles",
+      "description": "dotfiles macos ghostty neovim tmux sketchybar aerospace stow zsh terminal theme-engine"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "brighton-labs--railguard-cursor-coding",
+      "source": "./brighton-labs--railguard-cursor-coding",
+      "description": "Secure cursor rules following the R.A.I.L.G.U.A.R.D Framework"
+    },
+    {
+      "name": "tiagospem--larabase",
+      "source": "./tiagospem--larabase",
+      "description": "An opinionated MySQL GUI for Laravel developers - UNDER DEVELOPMENT"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -132319,6 +132494,11 @@
       "description": "A drop-in agent for GitHub Actions that automatically identifies CI bottlenecks and generates fixes. FastCI analyzes your workflows in real-time, flags performance issues as GitHub Issues, and can aut"
     },
     {
+      "name": "taggartbg--vibeframe",
+      "source": "./taggartbg--vibeframe",
+      "description": "VSCode Extension to enable UIs for MCP Servers (SSE)"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -138592,6 +138772,11 @@
       "name": "psegarel--sveltekit5-starter-betterauth",
       "source": "./psegarel--sveltekit5-starter-betterauth",
       "description": "A SvelteKit5 starter template with Better Auth & Shadcn"
+    },
+    {
+      "name": "nesevis--exhaust",
+      "source": "./nesevis--exhaust",
+      "description": "Property-based testing library based on Reflective Generators"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -157749,6 +157934,61 @@
       "description": "Train Sim World + Arduino = Your custom controllers"
     },
     {
+      "name": "devridge0--smartsale",
+      "source": "./devridge0--smartsale",
+      "description": "SmartSale is a decentralized platform designed for executing batch auctions, facilitating fair initial offerings and token buyback programs. It aims to provide a streamlined user experience for both p"
+    },
+    {
+      "name": "merkr-software--cadencr",
+      "source": "./merkr-software--cadencr",
+      "description": "The IDE for the era of agents \u2014 one local workspace to read, steer, and ship with Claude Code, OpenCode, and Codex."
+    },
+    {
+      "name": "shacharsol--js-package-manager-mcp",
+      "source": "./shacharsol--js-package-manager-mcp",
+      "description": "Free MCP server for AI-powered JavaScript package management - Works with Claude, Windsurf, Cursor"
+    },
+    {
+      "name": "yuanyuanyuan--full-stack-next-js-cloudflare-template",
+      "source": "./yuanyuanyuan--full-stack-next-js-cloudflare-template",
+      "description": "Full-Stack-Next.js-Cloudflare-Template"
+    },
+    {
+      "name": "merkr-software--cadencr",
+      "source": "./merkr-software--cadencr",
+      "description": "The IDE for the era of agents \u2014 one local workspace to read, steer, and ship with Claude Code, OpenCode, and Codex."
+    },
+    {
+      "name": "jazzychad--ios-code-audit",
+      "source": "./jazzychad--ios-code-audit",
+      "description": "Agent skill for comprehensive ios codebase audit"
+    },
+    {
+      "name": "mixar-ai--mixar-app",
+      "source": "./mixar-ai--mixar-app",
+      "description": "mixar-app"
+    },
+    {
+      "name": "glsec--glsec",
+      "source": "./glsec--glsec",
+      "description": "GitLab CI security linter \u2014 find misconfigurations and vulnerabilities in .gitlab-ci.yml files"
+    },
+    {
+      "name": "yuanyuanyuan--full-stack-next-js-cloudflare-template",
+      "source": "./yuanyuanyuan--full-stack-next-js-cloudflare-template",
+      "description": "Full-Stack-Next.js-Cloudflare-Template"
+    },
+    {
+      "name": "shacharsol--js-package-manager-mcp",
+      "source": "./shacharsol--js-package-manager-mcp",
+      "description": "Free MCP server for AI-powered JavaScript package management - Works with Claude, Windsurf, Cursor"
+    },
+    {
+      "name": "langchain-ai--langsmith-data-migration-tool",
+      "source": "./langchain-ai--langsmith-data-migration-tool",
+      "description": "A CLI tool to help users migrate data from their LangSmith cloud/self-hosted workspaces"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -167299,6 +167539,81 @@
       "description": "A versatile WebRTC plugin for OBS Studio that provides Universal WebRTC Input & Output."
     },
     {
+      "name": "wesleysimplicio--us4-v6-simplicio-apple",
+      "source": "./wesleysimplicio--us4-v6-simplicio-apple",
+      "description": "US4 V6 \u2014 Apple Edition. Universal State Runtime for local LLM inference on Apple Silicon (M1..M5+). C++17/20 + MLX + Metal + NEON + ANE."
+    },
+    {
+      "name": "int-brain-lab--ibl-ai-agent",
+      "source": "./int-brain-lab--ibl-ai-agent",
+      "description": "IBL AI Agent helps you use a coding agent such as OpenAI Codex to analyze International Brain Laboratory (IBL) data."
+    },
+    {
+      "name": "octopus7--chatgpt-images-2",
+      "source": "./octopus7--chatgpt-images-2",
+      "description": "\uc774\ubbf8\uc9c0 2.0 \uad00\ub828\ubb38\uc11c"
+    },
+    {
+      "name": "igorwarzocha--agent-pages",
+      "source": "./igorwarzocha--agent-pages",
+      "description": "React artifacts that work with all your coding agents."
+    },
+    {
+      "name": "walkinglabs--modern-llm-notebook",
+      "source": "./walkinglabs--modern-llm-notebook",
+      "description": "A hands-on guide with 23 Jupyter Notebooks to master modern Large Language Models from the ground up, using PyTorch to implement core components like BPE Tokenizers, Multi-Head Attention, MoE, RLHF, a"
+    },
+    {
+      "name": "federicocervelli--blazeplot",
+      "source": "./federicocervelli--blazeplot",
+      "description": "Fast WebGL2 Plotting Engine"
+    },
+    {
+      "name": "wesleysimplicio--us4-v6-simplicio-apple",
+      "source": "./wesleysimplicio--us4-v6-simplicio-apple",
+      "description": "US4 V6 \u2014 Apple Edition. Universal State Runtime for local LLM inference on Apple Silicon (M1..M5+). C++17/20 + MLX + Metal + NEON + ANE."
+    },
+    {
+      "name": "truehooha--llm-wiki-skilled",
+      "source": "./truehooha--llm-wiki-skilled",
+      "description": "This is my implementation of Karpathy's LLM Wiki. A key highlight is the use of agent skills to enforce workflow rigidity and mitigate agent behavioral deviation."
+    },
+    {
+      "name": "walkinglabs--modern-llm-notebook",
+      "source": "./walkinglabs--modern-llm-notebook",
+      "description": "A hands-on guide with 23 Jupyter Notebooks to master modern Large Language Models from the ground up, using PyTorch to implement core components like BPE Tokenizers, Multi-Head Attention, MoE, RLHF, a"
+    },
+    {
+      "name": "aryanwf--carbon",
+      "source": "./aryanwf--carbon",
+      "description": "\ud83d\udcc3 open-source research paper manager"
+    },
+    {
+      "name": "docusphere--video-analyzer",
+      "source": "./docusphere--video-analyzer",
+      "description": "Analyze any video and produce an .avt (Agentic Video Transcript) file \u2014 structured visual descriptions, timestamped transcripts, scene tags, and frame references for AI agent consumption."
+    },
+    {
+      "name": "pozzettiandrea--comfyui-pixal3d",
+      "source": "./pozzettiandrea--comfyui-pixal3d",
+      "description": "ComfyUI nodes for Pixal3D (SIGGRAPH 2026, TencentARC) - pixel-aligned image-to-3D. Academic-only model license."
+    },
+    {
+      "name": "clintcan--macrdp",
+      "source": "./clintcan--macrdp",
+      "description": "A native RDP server for macOS, written in Rust on top of IronRDP. "
+    },
+    {
+      "name": "tolo--xcodeproj-cli",
+      "source": "./tolo--xcodeproj-cli",
+      "description": "A powerful command-line utility for manipulating Xcode project files (.xcodeproj)"
+    },
+    {
+      "name": "tolo--xcodeproj-cli",
+      "source": "./tolo--xcodeproj-cli",
+      "description": "A powerful command-line utility for manipulating Xcode project files (.xcodeproj)"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -169522,6 +169837,31 @@
       "name": "joey-233--prompthub",
       "source": "./joey-233--prompthub",
       "description": "\u672c\u5730\u4f18\u5148\u7684\u684c\u9762\u63d0\u793a\u8bcd\u5de5\u574a\uff1a\u60ac\u6d6e\u7403\u79d2\u6536\u7075\u611f\uff0c\u6309\u6807\u7b7e/\u6536\u85cf\u6574\u7406\uff0c\u81ea\u5e26\u6d4b\u8bd5\u53f0\u76f4\u63a5\u63a5\u4f60\u81ea\u5df1\u7684 OpenAI \u517c\u5bb9 API \u51fa\u56fe\u3002"
+    },
+    {
+      "name": "mohamed-hossam1--nextjs-cache-architecture",
+      "source": "./mohamed-hossam1--nextjs-cache-architecture",
+      "description": "Next.js 16+ caching architecture. Applies to any App Router project regardless of domain."
+    },
+    {
+      "name": "atomicstrata--atomicmemory",
+      "source": "./atomicstrata--atomicmemory",
+      "description": "Portable semantic memory for AI agents: core engine, TypeScript SDK, framework adapters, MCP server, CLI, and host plugins."
+    },
+    {
+      "name": "asdrubalivan--remote-venezuela-hiring",
+      "source": "./asdrubalivan--remote-venezuela-hiring",
+      "description": "Community-curated list of companies and how they handle applications from candidates based in Venezuela."
+    },
+    {
+      "name": "mohamed-hossam1--nextjs-cache-architecture",
+      "source": "./mohamed-hossam1--nextjs-cache-architecture",
+      "description": "Next.js 16+ caching architecture. Applies to any App Router project regardless of domain."
+    },
+    {
+      "name": "akitaonrails--ai-memory",
+      "source": "./akitaonrails--ai-memory",
+      "description": "Solution for long term memory for agent coding CLIs and to facilitate hand off between different agent vendors"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -270512,6 +270852,151 @@
       "name": "adityatripathi676--seo-tracker",
       "source": "./adityatripathi676--seo-tracker",
       "description": "SEO_Tracker"
+    },
+    {
+      "name": "skysilent--libyuv",
+      "source": "./skysilent--libyuv",
+      "description": "libyuv"
+    },
+    {
+      "name": "nbiotminsk--goszakupki-auto-kp",
+      "source": "./nbiotminsk--goszakupki-auto-kp",
+      "description": "goszakupki_auto_KP"
+    },
+    {
+      "name": "zesonzhang--papercut-theater",
+      "source": "./zesonzhang--papercut-theater",
+      "description": "A demo app to show how a cross-device web application works. It provides a synchronized, dual-interface experience showcasing traditional Chinese Paper-cut art, allowing one device to act as the \"Stag"
+    },
+    {
+      "name": "azkalbhqi--iyic-website",
+      "source": "./azkalbhqi--iyic-website",
+      "description": "iyic-website"
+    },
+    {
+      "name": "fraken-baken--agent-memory",
+      "source": "./fraken-baken--agent-memory",
+      "description": "Agent Memory Server"
+    },
+    {
+      "name": "yogi-langnickel--etoro-dashboard",
+      "source": "./yogi-langnickel--etoro-dashboard",
+      "description": "Security-first eToro dashboard scaffold"
+    },
+    {
+      "name": "mir-abdullah-mahammad-lab--better-auth",
+      "source": "./mir-abdullah-mahammad-lab--better-auth",
+      "description": "better-auth"
+    },
+    {
+      "name": "csisz--wastenot",
+      "source": "./csisz--wastenot",
+      "description": "wastenot"
+    },
+    {
+      "name": "hoyvoh--study-documents",
+      "source": "./hoyvoh--study-documents",
+      "description": "study-documents"
+    },
+    {
+      "name": "vasu840--ai-interview-preparation-platform",
+      "source": "./vasu840--ai-interview-preparation-platform",
+      "description": "Full-stack AI-powered interview preparation platform built with Next.js, FastAPI, Tailwind CSS, and Gemini AI featuring AI interview simulation, voice interaction, resume analysis, and dashboard modul"
+    },
+    {
+      "name": "ericshearer--tejaswiquiz",
+      "source": "./ericshearer--tejaswiquiz",
+      "description": "TejaswiQuiz"
+    },
+    {
+      "name": "wjfenglove--pomodoro",
+      "source": "./wjfenglove--pomodoro",
+      "description": "Pomodoro"
+    },
+    {
+      "name": "sachinai1981-web--focus-forecast",
+      "source": "./sachinai1981-web--focus-forecast",
+      "description": "Pomodoro tracker that forecasts how much you'll focus tomorrow \u2014 then dares you to beat the line. Pure-static PWA + local TimesFM deep mode."
+    },
+    {
+      "name": "jaydippatel83--cointopper-plus",
+      "source": "./jaydippatel83--cointopper-plus",
+      "description": "cointopper-plus"
+    },
+    {
+      "name": "an-idd--x-beacon-web",
+      "source": "./an-idd--x-beacon-web",
+      "description": "X-Beacon-Web"
+    },
+    {
+      "name": "egemopro--web-automation-labs",
+      "source": "./egemopro--web-automation-labs",
+      "description": "Multi-platform web automation framework with Chrome DevTools MCP and OpenCode AI"
+    },
+    {
+      "name": "fenrirzheng--gemini-chat",
+      "source": "./fenrirzheng--gemini-chat",
+      "description": "gemini-chat"
+    },
+    {
+      "name": "devdonzo--ratedrop-signal-harbor",
+      "source": "./devdonzo--ratedrop-signal-harbor",
+      "description": "ratedrop-signal-harbor"
+    },
+    {
+      "name": "nestaraapp--nestara",
+      "source": "./nestaraapp--nestara",
+      "description": "Repo for Nestara app"
+    },
+    {
+      "name": "vanchuong201--joywork-api",
+      "source": "./vanchuong201--joywork-api",
+      "description": "joywork-api"
+    },
+    {
+      "name": "wjfenglove--pomodoro",
+      "source": "./wjfenglove--pomodoro",
+      "description": "Pomodoro"
+    },
+    {
+      "name": "bkuri-org--vfab",
+      "source": "./bkuri-org--vfab",
+      "description": "vfab: headless-first FSM plotter manager with vpype + per-session recording"
+    },
+    {
+      "name": "mayhemed--momos",
+      "source": "./mayhemed--momos",
+      "description": "MomOS \u2014 Open-source AI care companion: voice, vision, memory, biography"
+    },
+    {
+      "name": "jamilraza001--my-portfolio",
+      "source": "./jamilraza001--my-portfolio",
+      "description": "my-portfolio"
+    },
+    {
+      "name": "mramachandran--suzukipgh",
+      "source": "./mramachandran--suzukipgh",
+      "description": "suzukipgh"
+    },
+    {
+      "name": "level-up-together--product-service",
+      "source": "./level-up-together--product-service",
+      "description": "product-service"
+    },
+    {
+      "name": "hayek--claudeusagepage",
+      "source": "./hayek--claudeusagepage",
+      "description": "ClaudeUsagePage"
+    },
+    {
+      "name": "bba70--restaurant-agent",
+      "source": "./bba70--restaurant-agent",
+      "description": "Restaurant-Agent"
+    },
+    {
+      "name": "sja-pathway--apppath",
+      "source": "./sja-pathway--apppath",
+      "description": "AppPath is an open-source mobile app development hub under SJA Pathway, dedicated to creating cross-platform apps for Android and iOS using **React Native (Expo)** and **Firebase**."
     }
   ]
 }
