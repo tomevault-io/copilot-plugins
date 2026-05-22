@@ -1,4 +1,4 @@
-## uppi
+## laravel-boost
 
 > <laravel-boost-guidelines>
 
