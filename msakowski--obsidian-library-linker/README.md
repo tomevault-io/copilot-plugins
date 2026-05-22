@@ -7,11 +7,11 @@ This Obsidian plugin enhances your note-taking experience by providing seamless 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [msakowski/obsidian-library-linker](https://github.com/msakowski/obsidian-library-linker).
+Original source: `CLAUDE.md` in [msakowski/obsidian-library-linker](https://github.com/msakowski/obsidian-library-linker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
