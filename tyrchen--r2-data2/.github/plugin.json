@@ -1,9 +1,9 @@
 {
   "name": "tyrchen--r2-data2",
   "displayName": "r2-data2",
-  "description": "r2-data2",
+  "description": "A web-based SQL query tool and data browser with visualization capabilities, built with Rust (Axum) and React (TypeScript/Vite). 95% of the code is written by AI agent.",
   "version": "1.0.0",
   "author": "tyrchen",
-  "homepage": "https://tomevault.io/claim/tyrchen",
+  "homepage": "https://github.com/tyrchen/r2-data2",
   "skills": []
 }
