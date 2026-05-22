@@ -1,0 +1,9 @@
+{
+  "name": "gizmodata--quack-jdbc",
+  "displayName": "quack-jdbc",
+  "description": "JDBC driver for DuckDB's Quack remote protocol (quack:// URI scheme). Lets any JVM tool query a remote DuckDB server over HTTP.",
+  "version": "1.0.0",
+  "author": "gizmodata",
+  "homepage": "https://github.com/gizmodata/quack-jdbc",
+  "skills": []
+}
