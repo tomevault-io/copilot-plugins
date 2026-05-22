@@ -1,84 +1,79 @@
-## cursor-rule-format
+## cursor-rules-location
 
-> Cursor Rule Format Standards
+> Cursor Rules Location
 
 
-# Cursor Rule Format Standards
+# Cursor Rules Location
 
-Standards for formatting Cursor rule files.
+Rules for placing and organizing Cursor rule files in the repository.
 
 <rule>
-name: cursor_rule_format_standards
-description: Enforces consistent formatting for Cursor rule files
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
+  # Match any .mdc files
   - type: file_extension
     pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
   - type: content
-    pattern: "<rule>"
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
 actions:
-  - type: suggest
+  - type: reject
     conditions:
-      - pattern: "^(?!---\\ndescription:.*\\nglobs:.*\\n---\\n\\n#.*\\n\\n.*\\n\\n<rule>)"
-        message: "Rule files must start with YAML frontmatter followed by title and description"
-      
-      - pattern: "<rule>\\s*(?!\\s*name:)"
-        message: "Rule block must start with name field"
-        
-      - pattern: "actions:\\s*(?!\\s*-\\s*type:)"
-        message: "Actions must be listed with proper indentation and type field"
-        
-      - pattern: "examples:\\s*(?!\\s*-\\s*input:)"
-        message: "Examples must include input and output sections"
-        
-      - pattern: "</rule>\\s*(?!\\s*$)"
-        message: "Rule block should be the last element in the file"
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
+  - type: suggest
+    message: |
+      When creating Cursor rules:
+
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
+         ```
+
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
+
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
+
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      <rule>
-      name: some_rule
-      actions:
-        type: suggest
-      </rule>
-    output: |
-      ---
-      description: Rule Description
-      globs: *.ext
-      ---
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
 
-      # Rule Title
-
-      Detailed description of the rule's purpose.
-
-      <rule>
-      name: some_rule
-      description: Detailed rule description
-      filters:
-        - type: file_extension
-          pattern: "\\.ext$"
-      
-      actions:
-        - type: suggest
-          conditions:
-            - pattern: "pattern_to_match"
-              message: "Suggestion message"
-
-      examples:
-        - input: |
-            Example input code
-          output: |
-            Example output code
-
-      metadata:
-        priority: high
-        version: 1.0
-      </rule>
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [Caleb68864/SlingMD](https://github.com/Caleb68864/SlingMD) — distributed by [TomeVault](https://tomevault.io).
