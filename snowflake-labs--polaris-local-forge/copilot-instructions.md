@@ -1,31 +1,46 @@
-## cortex-skills
+## project-context
 
-> Cortex Code skill development - quick reference (detailed patterns in skill-development.mdc)
+> Project references and toolkit documentation for polaris-local-forge
 
 
-# Cortex Code Skills - Quick Reference
+# Project Context
 
-**Full Best Practices:** `~/snow-works/coco/skills/BEST_PRACTICES.local.md`
+## GitHub Repository
 
-**Reference Repos:**
-- `~/git/kameshsampath/snow-utils` - CLI scripts (PAT, Networks, Volumes) + Taskfile patterns
-- `~/git/kameshsampath/snow-utils-skills` - Cortex Code skills consuming snow-utils
+- **Project:** https://github.com/Snowflake-Labs/polaris-local-forge
+
+## Toolkit Documentation
+
+When working with this project, reference these docs:
+
+- **RustFS:** https://docs.rustfs.com/
+- **Apache Polaris:** https://polaris.apache.org/
+- **Apache Iceberg:** https://iceberg.apache.org/
+
+## Snowflake Documentation
+
+For Snowflake-related work, always reference:
+
+- **Snowflake Open Catalog:** https://docs.snowflake.com/en/user-guide/opencatalog/overview
+  - Managed service for Apache Polaris
+  - Iceberg REST protocol, catalogs, namespaces, credential vending, RBAC
+- **Snowflake SQL & Features:** https://docs.snowflake.com/en/
+  - SQL commands, functions, data types
+  - User guides, developer guides, tutorials
+- **Snowflake Managed Iceberg Tables:** https://docs.snowflake.com/en/user-guide/tutorials/create-your-first-iceberg-table
+  - Tutorial for creating and working with Apache Iceberg tables in Snowflake
+
+## Apache Polaris API Reference
+
+- **Catalog API (Iceberg REST):** https://editor.swagger.io/?url=https://raw.githubusercontent.com/apache/polaris/refs/heads/main/spec/generated/bundled-polaris-catalog-service.yaml
+- **Management API:** https://editor.swagger.io/?url=https://raw.githubusercontent.com/apache/polaris/refs/heads/main/spec/polaris-management-service.yml
+
+## Related Skill Repos
+
+For CLI and skill patterns, reference:
+
+- `~/git/kameshsampath/snow-utils-skills` - PAT, Networks, Volumes skills
 - `~/git/kameshsampath/kamesh-demo-skills` - Demo skills (hirc-duckdb, smart-crowd-counter)
-
-## Core Principles
-
-1. **SHOW/DO/SUMMARIZE** - Preview → Execute with approval → Explain result
-2. **Manifest-Driven** - Track in `.snow-utils/snow-utils-manifest.md`
-3. **CLI Thin Wrapper** - CLI does ONE thing; SKILL.md orchestrates
-4. **Plan First** - For questions/WDYT, plan before executing
-
-## Quick Don'ts
-
-- NEVER sed/awk for .env edits — use Edit/StrReplace
-- NEVER skip user confirmation for destructive ops
-- NEVER guess CLI options — run `--help` first
-
-*Detailed patterns activate when editing SKILL.md files.*
 
 ---
 > Source: [Snowflake-Labs/polaris-local-forge](https://github.com/Snowflake-Labs/polaris-local-forge) — distributed by [TomeVault](https://tomevault.io).
