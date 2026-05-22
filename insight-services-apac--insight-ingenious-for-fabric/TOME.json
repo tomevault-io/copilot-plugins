@@ -2,9 +2,9 @@
   "name": "Insight_Ingenious_For_Fabric",
   "owner": "Insight-Services-APAC",
   "repo": "Insight_Ingenious_For_Fabric",
-  "description": "",
+  "description": "Framework for Accelerated Microsoft Fabric Development, Testing and Deployment",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Insight-Services-APAC",
+  "source_url": "https://github.com/Insight-Services-APAC/Insight_Ingenious_For_Fabric",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T08:47:35Z"
+  "distributed_at": "2026-05-22T08:42:22Z"
 }
