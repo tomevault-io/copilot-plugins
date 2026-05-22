@@ -1,0 +1,9 @@
+{
+  "name": "sologuy--bookmarksummarizer",
+  "displayName": "BookmarkSummarizer",
+  "description": "\ud83e\udde0 Turn Chrome bookmarks into a personal knowledge base with AI summaries. Supports OpenAI, Deepseek, Qwen, and Ollama.",
+  "version": "1.0.0",
+  "author": "sologuy",
+  "homepage": "https://github.com/sologuy/BookmarkSummarizer",
+  "skills": []
+}
