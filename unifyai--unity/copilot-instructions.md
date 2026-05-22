@@ -1,49 +1,17 @@
-## parallelize-test-analysis
+## state-manager-prompts-vs-tool-docstrings
 
-> Run tests in background and analyze failures while they run
+> State Manager Interface Design (Base APIs, Prompts, and Tool Docstrings)
 
 
-# Parallelize Test Analysis
+# State Manager Interface Design
 
-Tests run in tmux sessions and stream results inline. For long test runs, you can start them in the background and analyze early failures while remaining tests complete.
+## Base Class Public APIs
 
-## The Mental Model
+The public API for all state managers (`ContactManager`, `TranscriptManager`, `TaskScheduler`, `WebSearcher` etc.) is fully contained in the docstrings of the abstract methods defined on the base class `Base{SomeManager}` in `base.py`. All high level usage instructions should be fully encapsulated in these docstrings. These docstrings are then attached to the public methods of any derived class via `@functools.wraps(Base{StateManager}.{public_method}, updated=())`. These docstrings should not make **any** reference to **other managers** (we don't want to lock in any brittle cross-references, as other managers may change) and should also not make any reference to their **internal implementation**, including the private tools used for any particular instantiation of this abstract base class, with a consistent implementation agnostic public API.
 
-When you run `parallel_run.sh`, each test spawns in its own tmux session. The script blocks until all tests complete, streaming pass/fail results inline as tests finish. Log files are written to `logs/pytest/` as each test completes.
+## Prompts vs Tool Docstrings
 
-For long-running test suites, you can run in the background and analyze failures incrementally:
-1. Start tests with `block_until_ms: 0` in the Shell tool call
-2. Read log files as they appear in `logs/pytest/`
-3. Analyze failures immediately
-4. Check back later for final results
-
-## Workflow (Background Mode)
-
-```bash
-# 1. Start tests in background (use block_until_ms: 0 in Shell tool call)
-tests/parallel_run.sh tests/some_module/
-
-# 2. Check what logs exist (tests write here as they complete)
-ls logs/pytest/<latest-run-dir>/
-
-# 3. Read and analyze any failures that have appeared
-# (Use the Read tool on specific log files)
-
-# 4. Continue reasoning about the failure while tests run
-# 5. Check back later for more results if needed
-```
-
-## The Principle: Time-to-Solution Over Turns
-
-Prioritize **minimizing time to find a solution** rather than minimizing turns or waiting for "complete" information. Early failures often provide enough signal to begin investigation. You can always check for additional failures later.
-
-This doesn't mean being hasty or sacrificing thoroughness. It means: **don't wait for information you don't need yet**.
-
-## Relationship to Other Rules
-
-- **`surgical-verification-before-tests.mdc`**: Covers *pre-test* optimization (quick verification scripts)
-- **This rule**: Covers *mid-test* optimization (incremental analysis)
-- **`log-directory-navigation.mdc`**: Explains how to read from `logs/pytest/` (use Shell for `ls`, Read tool for file contents)
+The prompts in each prompt builder file should focus on the high level usage patterns, general guidance to the LLM, and specifically how to reason about the **composition** of tools, which tool to use in which scenario with contrastive explanations etc. However, in order to have a fully modular design and maximise our separation of concerns, it's very important that we do **not** bloat these prompts with any purely tool-specific information. This belongs exclusively in the tool's unique docstring (which the LLM gets access to). If the guidance is about deciding between two tools or using these tools together for complex composite behaviour, then it belongs in the prompt for the high-level public method in `prompt_builders.py`. If it's purely tool-specific, then it belongs in the tools own docstring.
 
 ---
 > Source: [unifyai/unity](https://github.com/unifyai/unity) — distributed by [TomeVault](https://tomevault.io).
