@@ -1,0 +1,9 @@
+{
+  "name": "sepinetam--mcp-for-stata",
+  "displayName": "mcp-for-stata",
+  "description": "Integrate Stata into your agent. ",
+  "version": "1.0.0",
+  "author": "SepineTam",
+  "homepage": "https://github.com/SepineTam/mcp-for-stata",
+  "skills": []
+}
