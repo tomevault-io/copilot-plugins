@@ -1,0 +1,9 @@
+{
+  "name": "nesevis--exhaust",
+  "displayName": "exhaust",
+  "description": "Property-based testing library based on Reflective Generators",
+  "version": "1.0.0",
+  "author": "nesevis",
+  "homepage": "https://github.com/nesevis/exhaust",
+  "skills": []
+}
