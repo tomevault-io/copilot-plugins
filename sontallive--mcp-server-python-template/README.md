@@ -1,6 +1,8 @@
-# mcp-server-python-template — distributed by TomeVault
+# mcp-server-python-template
 
-> Originally from [sontallive/mcp-server-python-template](https://github.com/sontallive/mcp-server-python-template). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [sontallive/mcp-server-python-template](https://github.com/sontallive/mcp-server-python-template) — distributed by [TomeVault](https://tomevault.io)
+
+This template provides a streamlined foundation for building Model Context Protocol (MCP) servers in Python. It's designed to make AI-assisted development of MCP tools easier and more efficient.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [sontallive/mcp-server-python-template
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/sontallive#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/sontallive/mcp-server-python-template](https://github.com/sontallive/mcp-server-python-template)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install sontallive/mcp-server-python-template
 ```
-Or browse all formats at [https://tomevault.io/claim/sontallive](https://tomevault.io/claim/sontallive).
+Source: [github.com/sontallive/mcp-server-python-template](https://github.com/sontallive/mcp-server-python-template).
 
 <!-- genome:d-i-q -->
