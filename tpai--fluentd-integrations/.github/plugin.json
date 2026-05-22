@@ -1,0 +1,9 @@
+{
+  "name": "tpai--fluentd-integrations",
+  "displayName": "fluentd-integrations",
+  "description": "This repository contains Docker Compose examples demonstrating how to use Fluentd to collect and forward logs to different log aggregation systems.",
+  "version": "1.0.0",
+  "author": "tpai",
+  "homepage": "https://github.com/tpai/fluentd-integrations",
+  "skills": []
+}
