@@ -1,258 +1,162 @@
-## markdown-rules
-
-> This rule helps to avoid markdown linting errors
-
-# Markdown Linting Rules
-
-This document outlines the rules for writing consistent, maintainable Markdown files that pass linting checks.
-
-## Spacing Rules
-
-### MD031: Fenced Code Blocks
-
-Fenced code blocks should be surrounded by blank lines.
-
-❌ Incorrect:
-```shell
-**Usage:**
-```bash
-# Code example
-```
-```
-
-✅ Correct:
-```shell
-**Usage:**
-
-```bash
-# Code example
-```
-```
-
-### MD032: Lists
-
-Lists should be surrounded by blank lines.
-
-❌ Incorrect:
-```shell
-This script cleans up:
-- Item 1
-- Item 2
-```
-
-✅ Correct:
-```shell
-This script cleans up:
-
-- Item 1
-- Item 2
-```
-
-### MD047: Files Must End With Single Newline
-
-Files should end with a single empty line.
-
-❌ Incorrect:
-```shell
-# Header
-Content
-No newline at end```
-
-✅ Correct:
-```shell
-# Header
-Content
-
-```
-
-### MD009: No Trailing Spaces
-
-Lines should not have trailing spaces.
-
-❌ Incorrect:
-```shell
-This line ends with spaces   
-Next line
-```
-
-✅ Correct:
-```shell
-This line has no trailing spaces
-Next line
-```
-
-## Formatting Rules
-
-### MD050: Strong Style
-
-Use asterisks (`**`) for strong emphasis, not underscores (`__`).
-
-❌ Incorrect: `__bold text__`
-
-✅ Correct: `**bold text**`
-
-### MD040: Fenced Code Language
-
-Fenced code blocks must have a language specified.
-
-❌ Incorrect:
-```
-# Some code without language
-```
-
-✅ Correct:
-```bash
-# Bash script
-```
-
-✅ Correct:
-```python
-# Python code
-```
-
-✅ Correct:
-```shell
-# Directory structure
-project/
-├── src/
-│   └── main.py
-└── README.md
-```
-
-Common language specifiers:
-- `shell` - For directory structures, shell commands
-- `bash` - For bash scripts and commands
-- `python` - For Python code
-- `javascript` - For JavaScript code
-- `json` - For JSON data
-- `yaml` - For YAML files
-- `mermaid` - For Mermaid diagrams
-- `markdown` - For markdown examples
-
-### Code Formatting for Special Syntax
-
-For directory/file names with underscores or special characters, use backticks instead of emphasis.
-
-❌ Incorrect: `**__pycache__**` or `__pycache__`
-
-✅ Corr`__pycache__` ``
-
-## Header Rules
-
-### MD001: Header Increment
-
-Headers should increment by one level at a time.
-
-❌ Incorrect:
-```shell
-# Header 1
-### Header 3
-```
-
-✅ Correct:
-```shell
-# Header 1
-## Header 2
-### Header 3
-```
-
-### MD022: Headers Should Be Surrounded By Blank Lines
-
-❌ Incorrect:
-```shell
-# Header 1
-Content starts here
-```
-
-✅ Correct:
-```shell
-# Header 1
-
-Content starts here
-```
-
-### MD025: Single H1 Header
-
-Only one top-level header (H1) is allowed per document.
-
-## List Rules
-
-### MD004: List Style
-
-Use consistent list markers. Prefer dashes (`-`) for unordered lists.
-
-❌ Incorrect (mixed):
-```shell
-- Item 1
-* Item 2
-+ Item 3
-```
-
-✅ Correct:
-```shell
-- Item 1
-- Item 2
-- Item 3
-```
-
-### MD029: Ordered List Item Prefix
-
-Use incrementing numbers for ordered lists.
-
-❌ Incorrect:
-```shell
-1. Item 1
-1. Item 2
-1. Item 3
-```
-
-✅ Correct:
-```shell
-1. Item 1
-2. Item 2
-3. Item 3
-```
-
-## Link Rules
-
-### MD034: Bare URLs
-
-Enclose bare URLs in angle brackets or format them as links.
-
-❌ Incorrect: `https://example.com`
-
-✅ Correct: `<https://example.com>` or `@Example`
-
-## Code Rules
-
-### MD038: Spaces Inside Code Spans
-
-Don't use spaces immediately inside code spans.
-
-❌ Incorrect: `` ` code ` ``
-
-✅ Correct: `` `code` ``
-
-## General Best Practices
-
-1. Use consistent indentation (usually 2 or 4 spaces)
-2. Keep line length under 120 characters
-3. Use reference-style links for better readability
-4. Use a trailing slash for directory paths
-5. Ensure proper escaping of special characters
-6. Always specify a language for code fences
-7. End files with a single newline
-8. Remove trailing spaces from all lines
-
-## IDE Integration
-
-To enable these rules in your editor:
-
-- VS Code: Install the "markdownlint" extension
-- JetBrains IDEs: Use the bundled Markdown support or install "Markdown Navigator Enhanced"
-- Vim/Neovim: Use "ale" with markdownlint rules
-
-These rules ensure consistency and improve readability across all Markdown documents in the codebase.
+## python-github-rules
+
+> Development rules for python code and modules
+
+{
+    "general": {
+        "coding_style": {
+            "language": "Python",
+            "use_strict": true,
+            "indentation": "4 spaces",
+            "max_line_length": 120,
+            "comments": {
+                "style": "# for single-line, ''' for multi-line",
+                "require_comments": true
+            }
+        },
+        
+        "naming_conventions": {
+            "variables": "snake_case",
+            "functions": "snake_case",
+            "classes": "PascalCase",
+            "interfaces": "PascalCase",
+            "files": "snake_case"
+        },
+        
+        "error_handling": {
+            "prefer_try_catch": true,
+            "log_errors": true
+        },
+        
+        "testing": {
+            "require_tests": true,
+            "test_coverage": "80%",
+            "test_types": ["unit", "integration"]
+        },
+        
+        "documentation": {
+            "require_docs": true,
+            "doc_tool": "docstrings",
+            "style_guide": "Google Python Style Guide"
+        },
+        
+        "security": {
+            "require_https": true,
+            "sanitize_inputs": true,
+            "validate_inputs": true,
+            "use_env_vars": true
+        },
+        
+        "configuration_management": {
+            "config_files": [".env"],
+            "env_management": "python-dotenv",
+            "secrets_management": "environment variables"
+        },
+        
+        "code_review": {
+            "require_reviews": true,
+            "review_tool": "GitHub Pull Requests",
+            "review_criteria": ["functionality", "code quality", "security"]
+        },
+        
+        "version_control": {
+            "system": "Git",
+            "branching_strategy": "GitHub Flow",
+            "commit_message_format": "Conventional Commits"
+        },
+        
+        "logging": {
+            "logging_tool": "Python logging module",
+            "log_levels": ["debug", "info", "warn", "error"],
+            "log_retention_policy": "7 days"
+        },
+        
+        "monitoring": {
+            "monitoring_tool": "Not specified",
+            "metrics": ["file processing time", "classification accuracy", "error rate"]
+        },
+        
+        "dependency_management": {
+            "package_manager": "pip",
+            "versioning_strategy": "Semantic Versioning"
+        },
+        
+        "accessibility": {
+            "standards": ["Not applicable"],
+            "testing_tools": ["Not applicable"]
+        },
+        
+        "internationalization": {
+            "i18n_tool": "Not applicable",
+            "supported_languages": ["English"],
+            "default_language": "English"
+        },
+        
+        "ci_cd": {
+            "ci_tool": "GitHub Actions",
+            "cd_tool": "Not specified",
+            "pipeline_configuration": ".github/workflows/main.yml"
+        },
+        
+        "code_formatting": {
+            "formatter": "Black",
+            "linting_tool": "Pylint",
+            "rules": ["PEP 8", "project-specific rules"]
+        },
+        
+        "architecture": {
+            "patterns": ["Modular design"],
+            "principles": ["Single Responsibility", "DRY"]
+        }
+    },
+    
+    "project_specific": {
+        "use_framework": "None",
+        "styling": "Not applicable",
+        "testing_framework": "pytest",
+        "build_tool": "setuptools",
+        
+        "deployment": {
+            "environment": "Local machine",
+            "automation": "Not specified",
+            "strategy": "Manual deployment"
+        },
+        
+        "performance": {
+            "benchmarking_tool": "Not specified",
+            "performance_goals": {
+                "response_time": "< 5 seconds per file",
+                "throughput": "Not specified",
+                "error_rate": "< 1%"
+            }
+        }
+    },
+    
+    "context": {
+        "codebase_overview": "Python-based file organization tool using AI for content analysis and classification",
+        "libraries": [
+            "watchdog", "spacy", "PyPDF2", "python-docx", "pandas", "beautifulsoup4", 
+            "transformers", "scikit-learn", "joblib", "python-dotenv", "torch", "pytest", 
+            "shutil", "logging", "pytest-mock"
+        ],
+        
+        "coding_practices": {
+            "modularity": true,
+            "DRY_principle": true,
+            "performance_optimization": true
+        }
+    },
+    
+    "behavior": {
+        "verbosity": {
+            "level": 2,
+            "range": [0, 3]
+        },
+        "handle_incomplete_tasks": "Provide partial solution and explain limitations",
+        "ask_for_clarification": true,
+        "communication_tone": "Professional and concise"
+    }
+}
 
 ---
 > Source: [djm81/log_analyzer_mcp](https://github.com/djm81/log_analyzer_mcp) — distributed by [TomeVault](https://tomevault.io).
