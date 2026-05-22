@@ -1,224 +1,81 @@
-## extism
+## react
 
-> When interact with extism please attach this rule
+> React best practices and patterns for modern web applications
 
-# Extism 1.10.0 Integration Guide
 
-This guide provides instructions for working with the Extism WebAssembly framework version 1.10.0.
+# React Best Practices
 
-## Key Concepts
+## Component Structure
+- Use functional components over class components
+- Keep components small and focused
+- Extract reusable logic into custom hooks
+- Use composition over inheritance
+- Implement proper prop types with TypeScript
+- Split large components into smaller, focused ones
 
-- **Plugin**: A WebAssembly module loaded through Extism.
-- **Manifest**: Configuration for the WebAssembly module (memory limits, allowed hosts, etc).
-- **PluginBuilder**: Used to construct plugins with detailed configuration.
-- **Host Functions**: Functions implemented in the host application but callable from WebAssembly.
+## Hooks
+- Follow the Rules of Hooks
+- Use custom hooks for reusable logic
+- Keep hooks focused and simple
+- Use appropriate dependency arrays in useEffect
+- Implement cleanup in useEffect when needed
+- Avoid nested hooks
 
-## Loading Plugins
+## State Management
+- Use useState for local component state
+- Implement useReducer for complex state logic
+- Use Context API for shared state
+- Keep state as close to where it's used as possible
+- Avoid prop drilling through proper state management
+- Use state management libraries only when necessary
 
-### Creating a Manifest
+## Performance
+- Implement proper memoization (useMemo, useCallback)
+- Use React.memo for expensive components
+- Avoid unnecessary re-renders
+- Implement proper lazy loading
+- Use proper key props in lists
+- Profile and optimize render performance
 
-```rust
-use extism::{Manifest, Wasm};
+## Forms
+- Use controlled components for form inputs
+- Implement proper form validation
+- Handle form submission states properly
+- Show appropriate loading and error states
+- Use form libraries for complex forms
+- Implement proper accessibility for forms
 
-// From file
-let wasm = Wasm::file("path/to/plugin.wasm");
-let manifest = Manifest::new([wasm]);
+## Error Handling
+- Implement Error Boundaries
+- Handle async errors properly
+- Show user-friendly error messages
+- Implement proper fallback UI
+- Log errors appropriately
+- Handle edge cases gracefully
 
-// From URL
-let wasm = Wasm::url("https://example.com/plugin.wasm");
-let manifest = Manifest::new([wasm]);
+## Testing
+- Write unit tests for components
+- Implement integration tests for complex flows
+- Use React Testing Library
+- Test user interactions
+- Test error scenarios
+- Implement proper mock data
 
-// From bytes
-let wasm_bytes: Vec<u8> = /* ... */;
-let wasm = Wasm::data(wasm_bytes);
-let manifest = Manifest::new([wasm]);
+## Accessibility
+- Use semantic HTML elements
+- Implement proper ARIA attributes
+- Ensure keyboard navigation
+- Test with screen readers
+- Handle focus management
+- Provide proper alt text for images
 
-// With configuration
-let manifest = manifest.with_config_key("key", "value");
-```
-
-### Initializing a Plugin
-
-```rust
-use extism::{Plugin, Function, ValType, UserData};
-
-// Basic initialization
-let plugin = Plugin::new(&manifest, [], true)?;
-
-// With PluginBuilder for advanced configuration
-let plugin = extism::PluginBuilder::new(manifest)
-    .with_wasi(true)
-    // Add plugin constraints
-    .build()?;
-```
-
-## Calling Plugin Functions
-
-```rust
-// Simple call with string input/output
-let result = plugin.call::<&str, &str>("function_name", "input data")?;
-
-// With JSON conversion
-use extism::convert::Json;
-
-#[derive(serde::Serialize)]
-struct Input { /* ... */ }
-
-#[derive(serde::Deserialize)]
-struct Output { /* ... */ }
-
-let input = Input { /* ... */ };
-let Json(output): Json<Output> = plugin.call("function_name", Json(input))?;
-```
-
-## Registering Host Functions
-
-```rust
-use extism::{Function, UserData, ValType, CurrentPlugin, Val, PTR};
-
-// Host function implementation
-fn my_host_function(
-    plugin: &mut CurrentPlugin,
-    inputs: &[Val],
-    outputs: &mut [Val],
-    user_data: UserData<()>
-) -> Result<(), extism::Error> {
-    // Handle memory, get inputs, set outputs
-    Ok(())
-}
-
-// Register the function with PluginBuilder
-let plugin = extism::PluginBuilder::new(manifest)
-    .with_wasi(true)
-    .with_function(
-        "my_function",        // Function name
-        [PTR],                // Parameter types (PTR for pointer parameters)
-        [PTR],                // Return types
-        UserData::default(),  // User data
-        my_host_function      // Function implementation
-    )
-    .build()?;
-```
-
-## Memory Management in Host Functions
-
-```rust
-fn host_function(
-    plugin: &mut CurrentPlugin,
-    inputs: &[Val],
-    outputs: &mut [Val],
-    user_data: UserData<()>
-) -> Result<(), extism::Error> {
-    // Get memory handle from pointer parameter
-    let handle = plugin.memory_from_val(&inputs[0])
-        .ok_or_else(|| anyhow::Error::msg("Invalid memory handle"))?;
-
-    // Read data from WebAssembly memory
-    let input_data: String = plugin.memory_get(handle)?;
-
-    // Process data
-    let output_data = process_input(input_data);
-
-    // Allocate memory and store result
-    let result_handle = plugin.memory_new(output_data)?;
-
-    // Set output parameter
-    outputs[0] = plugin.memory_to_val(result_handle);
-
-    Ok(())
-}
-```
-
-## Working with Plugin Interfaces
-
-The PluginInterface trait defines methods that plugins must implement. When implementing custom interfaces:
-
-```rust
-trait PluginInterface {
-    fn process_request(&self, request: &Request) -> Result<Response>;
-    // ...
-}
-
-impl PluginInterface for Plugin {
-    fn process_request(&self, request: &Request) -> Result<Response> {
-        // Transform request to a format the plugin can understand
-        let input = serde_json::to_vec(request)?;
-
-        // Call the plugin with type Vec<u8>
-        let output = self.instance.call("process_request", input)?;
-
-        // Parse the response
-        let response: Response = serde_json::from_slice(&output)?;
-
-        Ok(response)
-    }
-}
-```
-
-## Common Errors and Solutions
-
-### Error: No method named `with_config_value` found for struct `Manifest`
-
-The 1.10.0 API doesn't have this method. Use:
-
-```rust
-// Instead of:
-manifest.with_config_value(key, value);
-
-// Use:
-manifest.with_config_key(key, value.to_string());
-```
-
-### Error: No method named `has_function` found for struct `Arc<Plugin>`
-
-When working with Arc-wrapped plugins:
-
-```rust
-// Instead of:
-if !self.instance.has_function(function_name) { ... }
-
-// Use:
-if !self.instance.function_exists(function_name) { ... }
-```
-
-### Error: The trait bound `[u8]: FromBytes<'_>` is not satisfied
-
-When calling functions that return byte arrays:
-
-```rust
-// Instead of:
-let output = self.instance.call(function_name, input)?;
-
-// Use specific type annotations:
-let output: Vec<u8> = self.instance.call(function_name, input)?;
-```
-
-## Best Practices
-
-1. **Error Handling**: Always check for and handle errors from plugin operations.
-2. **Memory Management**: Free allocated memory when no longer needed to prevent leaks.
-3. **Plugin Reuse**: Reuse plugin instances when possible, as instantiation is expensive.
-4. **Type Safety**: Use strongly-typed interfaces with proper serialization/deserialization.
-5. **Security**: Be careful with the permissions granted to plugins (file access, network).
-
-## Upgrading from Older Versions
-
-When upgrading from pre-1.10.0 versions:
-
-1. Replace `wasm.timeout_ms` with `manifest.with_timeout(Duration::from_millis(timeout_ms))`.
-2. Replace `wasm.memory_options.max_pages` with memory configuration in the Manifest.
-3. Update function call syntax to use proper type parameters.
-
-## Environment Variables
-
-Debug and optimization can be controlled via environment variables:
-
-- `EXTISM_ENABLE_WASI_OUTPUT=1`: Show WASI stdout/stderr
-- `EXTISM_MEMDUMP=path.mem`: Dump Extism memory to a file
-- `EXTISM_COREDUMP=path.core`: Write coredump on WebAssembly trap
-- `EXTISM_DEBUG=1`: Generate debug information
-- `EXTISM_PROFILE=perf|jitdump|vtune`: Enable profiling
-- `EXTISM_CACHE_CONFIG=path/to/config.toml`: Enable cache configuration
+## Code Organization
+- Group related components together
+- Use proper file naming conventions
+- Implement proper directory structure
+- Keep styles close to components
+- Use proper imports/exports
+- Document complex component logic
 
 ---
 > Source: [tyrchen/simple-proxy](https://github.com/tyrchen/simple-proxy) — distributed by [TomeVault](https://tomevault.io).
