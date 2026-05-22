@@ -1,6 +1,8 @@
 # zauberstack
 
-> Tome by [Arcade1080](https://github.com/Arcade1080/zauberstack) — distributed by [TomeVault](https://tomevault.io/claim/Arcade1080)
+> Tome by [Arcade1080](https://github.com/Arcade1080/zauberstack) — distributed by [TomeVault](https://tomevault.io)
+
+A React.js/nest.js SaaS Starter Kit to build your MVP faster
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [Arcade1080/zauberstack](https://githu
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Arcade1080#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Arcade1080/zauberstack](https://github.com/Arcade1080/zauberstack)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install Arcade1080/zauberstack
 ```
-Or browse all formats at [https://tomevault.io/claim/Arcade1080](https://tomevault.io/claim/Arcade1080).
+Source: [github.com/Arcade1080/zauberstack](https://github.com/Arcade1080/zauberstack).
 
 <!-- genome:t-i-q -->
