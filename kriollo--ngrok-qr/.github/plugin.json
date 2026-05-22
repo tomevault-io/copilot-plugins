@@ -1,0 +1,9 @@
+{
+  "name": "kriollo--ngrok-qr",
+  "displayName": "ngrok-qr",
+  "description": "Inicializador de ngrok y generador de c\u00f3digo QR para abrir desde un m\u00f3vil",
+  "version": "1.0.0",
+  "author": "kriollo",
+  "homepage": "https://github.com/kriollo/ngrok-qr",
+  "skills": []
+}
