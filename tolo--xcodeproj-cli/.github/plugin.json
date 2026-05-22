@@ -1,0 +1,9 @@
+{
+  "name": "tolo--xcodeproj-cli",
+  "displayName": "xcodeproj-cli",
+  "description": "A powerful command-line utility for manipulating Xcode project files (.xcodeproj)",
+  "version": "1.0.0",
+  "author": "tolo",
+  "homepage": "https://github.com/tolo/xcodeproj-cli",
+  "skills": []
+}
