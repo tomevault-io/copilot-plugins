@@ -1,0 +1,44 @@
+{
+  "name": "versator",
+  "owner": "reliverse",
+  "repo": "versator",
+  "description": "\ud83c\udfea versator: next.js 15 react 19 ecommerce template \u25b2 i18n stripe shadcn ui tailwind drizzle orm zod typescript ts clerk radix, responsive server components, postgres neon, intl app router docs user actions kit, saas commerce ecommerce shop pricing payments dark mode full stack free \u2b50 more stars \ud83d\udc49 more features",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/reliverse/versator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T00:02:17Z"
+}
