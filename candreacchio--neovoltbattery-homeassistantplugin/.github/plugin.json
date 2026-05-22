@@ -1,0 +1,9 @@
+{
+  "name": "candreacchio--neovoltbattery-homeassistantplugin",
+  "displayName": "neovoltBattery_HomeAssistantPlugin",
+  "description": "Home Assistant integration for monitoring and controlling ByteWatt/Neovolt battery systems with real-time power flow data and battery control capabilities",
+  "version": "1.0.0",
+  "author": "candreacchio",
+  "homepage": "https://github.com/candreacchio/neovoltBattery_HomeAssistantPlugin",
+  "skills": []
+}
