@@ -1,0 +1,9 @@
+{
+  "name": "comerc--budva43",
+  "displayName": "budva43",
+  "description": "Telegram-Forwarder (UNIX-way) - forwards (or copies) messages from monitored channels and groups to target ones according to specified rules to obtain thematic digests",
+  "version": "1.0.0",
+  "author": "comerc",
+  "homepage": "https://github.com/comerc/budva43",
+  "skills": []
+}
