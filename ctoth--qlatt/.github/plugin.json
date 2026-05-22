@@ -1,0 +1,9 @@
+{
+  "name": "ctoth--qlatt",
+  "displayName": "Qlatt",
+  "description": "Explainable WebAudio Klatt formant synthesizer with declarative TTS frontend and WASM-backed AudioWorklet DSP",
+  "version": "1.0.0",
+  "author": "ctoth",
+  "homepage": "https://github.com/ctoth/Qlatt",
+  "skills": []
+}
