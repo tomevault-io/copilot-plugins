@@ -1,0 +1,9 @@
+{
+  "name": "neurawork-git--n8n-autopilot",
+  "displayName": "n8n-autopilot",
+  "description": "Claude Code plugin for building, validating, and deploying n8n workflows via n8nac CLI",
+  "version": "1.0.0",
+  "author": "neurawork-git",
+  "homepage": "https://github.com/neurawork-git/n8n-autopilot",
+  "skills": []
+}
