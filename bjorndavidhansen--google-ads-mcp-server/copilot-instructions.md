@@ -1,71 +1,282 @@
-## google-ads-mcp-dev-project
+## project-managment-rules
 
-> The **primary and non-negotiable purpose** of this project is to build a Model Context Protocol (MCP) server that integrates with the Google Ads API. This MCP server is the cornerstone of the entire project architecture and **cannot be replaced or bypassed** with alternative solutions.
+> C:\Users\bjorn.hansen\Documents\google-ads-mcp\
 
+# Google Ads MCP Server Project Organization Plan
 
-# MCP Server Purpose and Implementation Clarification
-**Date: 2025-03-18**
+## 1. Project Planning Structure
 
-## CRITICAL PROJECT DIRECTIVE
+### Directory Structure
+```
+C:\Users\bjorn.hansen\Documents\google-ads-mcp\
+├── PROJECT-MASTER.md           # Overarching project plan (constant)
+├── project-planning\
+│   ├── implementation-plans\    # Specific implementation plans
+│   │   ├── SAGE-Plan.md         # Structured Approach for Google-ads Enhancement
+│   │   ├── PRISM-Plan.md        # Powerful Rendering & Interactive Structural Manifestation
+│   │   ├── NOVA-Plan.md         # Nimble Operational Visualization Application
+│   │   └── QUANTUM-Plan.md      # Current active implementation plan
+│   ├── status-reports\          # Regular status updates
+│   │   ├── STATUS-2025-03-15.md
+│   │   └── STATUS-2025-03-28.md
+│   └── roadmap\                 # Long-term planning
+│       └── ROADMAP-2025-Q2.md
+├── logs\
+│   ├── error-logs\              # Specific error documentation
+│   │   ├── ERROR-GA001-2025-03-18-GoogleAdsAuthFailure.md
+│   │   └── ERROR-MCP002-2025-03-20-MCPVersionIncompatibility.md
+│   ├── solution-logs\           # Solutions to specific problems
+│   │   ├── SOLUTION-GA001-2025-03-19-GoogleAdsAuthFix.md
+│   │   └── SOLUTION-MCP002-2025-03-21-MCPVersionUpdate.md
+│   └── change-logs\             # Automatically generated change logs
+│       ├── changes-2025-03-15.md
+│       └── changes-2025-03-28.md
+└── scripts\                    # Project utility scripts
+    ├── generate-changelog.ps1   # PowerShell script for change logging
+    └── analyze-codebase.ps1     # Code analysis script
+```
 
-### Core Project Purpose
+### File Naming Conventions
 
-The **primary and non-negotiable purpose** of this project is to build a Model Context Protocol (MCP) server that integrates with the Google Ads API. This MCP server is the cornerstone of the entire project architecture and **cannot be replaced or bypassed** with alternative solutions.
+1. **Master Project Plan**: 
+   - `PROJECT-MASTER.md` - Capitalized to indicate its importance and permanent nature
 
-### Why MCP Server is Essential
+2. **Implementation Plans**:
+   - `[CODENAME]-Plan.md` - Each implementation plan gets a distinct codename
+   - Examples: SAGE, PRISM, NOVA, QUANTUM, etc.
 
-1. **Core Requirement**: As explicitly stated in all project documentation, the MCP server is the foundation of our solution architecture and the primary deliverable.
+3. **Status Reports**:
+   - `STATUS-YYYY-MM-DD.md` - Date-based status reports
 
-2. **Claude Desktop Integration**: The entire workflow depends on Claude Desktop being able to access Google Ads data through the MCP protocol. This integration pattern is fundamental and immutable.
+4. **Error Logs**:
+   - `ERROR-[PREFIX][NUM]-YYYY-MM-DD-[ShortDescription].md`
+   - Prefixes: GA (Google Ads), MCP (Model Context Protocol), DB (Database), etc.
 
-3. **Visualization Through Claude Artifacts**: We are specifically building this system to leverage Claude Artifacts for visualization capabilities, which requires proper MCP implementation.
+5. **Solution Logs**:
+   - `SOLUTION-[PREFIX][NUM]-YYYY-MM-DD-[ShortDescription].md`
+   - Should reference the corresponding error log
 
-4. **Technical Specifications**: All technical documents (Backend Schema, Tech Stack, Implementation Plan) are designed around MCP server implementation.
+6. **Change Logs**:
+   - `changes-YYYY-MM-DD.md` - Automatically generated logs
 
-### Prohibited Alternative Approaches
+## 2. Project Plan Hierarchy
 
-The following approaches **must not be pursued** as they fundamentally contradict our project objectives:
+### Master Project Plan (`PROJECT-MASTER.md`)
+- **Purpose**: Define the overall project goals, core requirements, and success criteria
+- **Characteristics**: 
+  - Remains stable throughout the project lifecycle
+  - High-level requirements and architecture
+  - Focus on "what" needs to be achieved, not "how"
+  - Major milestones and delivery dates
+  - Core technical constraints and dependencies
+  - Success criteria and acceptance conditions
 
-1. ❌ **Direct API Integration**: Do not attempt to have Claude directly access the Google Ads API without an MCP server.
+### Implementation Plans (`[CODENAME]-Plan.md`)
+- **Purpose**: Define specific phases of work with concrete tasks and timelines
+- **Characteristics**:
+  - Focused on a specific aspect or phase of the project
+  - Detailed task breakdowns
+  - Specific technical approaches
+  - Clear start and end criteria
+  - Resources required
+  - Dependencies on other implementation plans
 
-2. ❌ **Custom API Endpoints**: Do not create alternative API endpoints outside the MCP protocol.
+### Status Reports (`STATUS-YYYY-MM-DD.md`)
+- **Purpose**: Regular updates on project progress
+- **Characteristics**:
+  - Current implementation plan status
+  - Progress against the master plan
+  - Blockers and issues
+  - Next actions
+  - Changes to timeline or scope
 
-3. ❌ **Client-Side Processing**: Do not move server functionality to client-side processing.
+## 3. Logging Strategy
 
-4. ❌ **Static Data Solutions**: Do not substitute static data or canned responses in place of a proper MCP server.
+### Error Logs
+- **Path**: `C:\Users\bjorn.hansen\Documents\google-ads-mcp\logs\error-logs\`
+- **Format**: `ERROR-[PREFIX][NUM]-YYYY-MM-DD-[ShortDescription].md`
+- **Content Structure**:
+  ```markdown
+  # [ERROR-ID] - [Short Description]
+  **Date:** YYYY-MM-DD
 
-5. ❌ **Proxy/Middleware Layers**: Do not introduce proxy layers between Claude and the MCP server that change the fundamental architecture.
+  ## Context
+  [What we were doing when the error occurred]
 
-### Correct Implementation Approach
+  ## Problem
+  [Detailed error description]
 
-The correct implementation must adhere to:
+  ## Error Details
+  - **Error Type:** [Classification of error]
+  - **Location:** [File/Module where error occurred]
+  - **Error Message:** [Exact error message]
+  - **Stack Trace:** [If available]
 
-1. ✅ **MCP Protocol Standards**: Follow the Model Context Protocol specification completely.
+  ## Root Causes
+  [Identified causes of the error]
 
-2. ✅ **Server-Based Architecture**: Implement a proper server that processes requests from Claude Desktop.
+  ## References
+  - [Related documentation]
+  - [Similar past issues]
+  ```
 
-3. ✅ **Google Ads API Integration**: Connect to Google Ads API from the server side.
+### Solution Logs
+- **Path**: `C:\Users\bjorn.hansen\Documents\google-ads-mcp\logs\solution-logs\`
+- **Format**: `SOLUTION-[PREFIX][NUM]-YYYY-MM-DD-[ShortDescription].md`
+- **Content Structure**:
+  ```markdown
+  # [SOLUTION-ID] - [Short Description]
+  **Date:** YYYY-MM-DD
+  **Resolves:** [ERROR-ID]
 
-4. ✅ **Server-Side Processing**: Handle all data processing, caching, and formatting on the server.
+  ## Solution Implemented
+  [Detailed description of the solution]
 
-5. ✅ **Proper Resource Structuring**: Define MCP resources that map to Google Ads data structures.
+  ## Verification Steps
+  [How the solution was tested/verified]
 
-### Implementation Verification Checklist
+  ## Prevention Measures
+  [Steps taken to prevent similar issues]
 
-All implementation must satisfy these requirements:
+  ## References
+  - [Related documentation]
+  - [Similar past issues]
+  ```
 
-- [ ] Uses Python MCP SDK (version 0.4.0) for server implementation
-- [ ] Follows MCP protocol for all client-server communication
-- [ ] Provides proper resource and tool definitions per MCP protocol
-- [ ] Handles authentication with Google Ads API on the server side
-- [ ] Returns properly structured data for Claude Artifacts visualization
-- [ ] Implements caching mechanism as described in Backend Schema Document
+### Change Logs
+- **Path**: `C:\Users\bjorn.hansen\Documents\google-ads-mcp\logs\change-logs\`
+- **Format**: `changes-YYYY-MM-DD.md`
+- **Generated by**: `generate-changelog.ps1` PowerShell script
+- **Content Structure**:
+  ```markdown
+  # Changes for YYYY-MM-DD
 
-## Conclusion
+  ## Files Modified
+  - [Filename]: [Summary of changes]
 
-The MCP server implementation is not optional or substitutable. It is the core project requirement and the primary focus of our development efforts. All work must directly contribute to building, enhancing, and testing the MCP server that integrates with the Google Ads API.
+  ## Files Added
+  - [Filename]: [Description]
 
-The project's success is defined by delivering a functional MCP server that Claude Desktop can communicate with to retrieve Google Ads data.
+  ## Files Deleted
+  - [Filename]: [Reason]
+
+  ## Code Metrics
+  - Total lines added: [Number]
+  - Total lines removed: [Number]
+  - Files exceeding size threshold: [List]
+  ```
+
+## 4. Change Tracking Script Specification
+
+### PowerShell Script: `generate-changelog.ps1`
+
+**Purpose**: Automatically generate a change log by comparing the current state of the project with the previous state.
+
+**Functionality**:
+1. Compare current Git state with previous commit
+2. Identify modified, added, and deleted files
+3. Generate a summary of changes
+4. Check file sizes and flag files exceeding 300 lines
+5. Output a formatted change log
+
+**Usage**:
+```powershell
+.\scripts\generate-changelog.ps1 [-OutputPath <path>]
+```
+
+**Sample Implementation Guidance**:
+- Use `git diff` to identify changes
+- Use PowerShell's `Measure-Object` to count lines in files
+- Format output as Markdown
+- Save to specified location in logs\change-logs\
+
+## 5. Code Modularization Strategy
+
+### File Size Monitoring
+
+**Detection Mechanism**:
+- The `generate-changelog.ps1` script will identify files exceeding 300 lines
+- These files will be flagged in the change log output
+
+**Modularization Guidelines**:
+
+1. **Server Components**:
+   - Break down by functional area (authentication, caching, API integration)
+   - Use separate files for different API resources
+
+2. **Google Ads Client**:
+   - Separate core client from entity-specific implementations
+   - Create modules for different advertising entities (campaigns, ad groups, keywords)
+   - Move reporting functionality to dedicated modules
+
+3. **MCP Protocol Implementation**:
+   - Separate resource definitions from tool implementations
+   - Move request handlers to dedicated modules
+   - Create utility modules for common operations
+
+4. **Visualization Components**:
+   - Create separate modules for different visualization types
+   - Separate data processing from visualization formatting
+
+### Directory Structure for Modularization
+
+```
+src/
+├── google_ads/                 # Google Ads API client modules
+│   ├── client.py               # Core client functionality
+│   ├── campaigns.py            # Campaign-related functionality
+│   ├── ad_groups.py            # Ad group-related functionality
+│   └── reporting.py            # Reporting functionality
+├── mcp/                        # MCP server modules
+│   ├── resources.py            # Resource definitions
+│   ├── tools.py                # Tool implementations
+│   └── handlers.py             # Request handlers
+├── visualization/              # Visualization modules
+│   ├── time_series.py          # Time series visualization
+│   ├── comparison.py           # Comparison visualization
+│   └── dashboard.py            # Dashboard visualization
+└── utils/                      # Utility modules
+    ├── caching.py              # Caching utilities
+    ├── error_handling.py       # Error handling utilities
+    └── formatting.py           # Data formatting utilities
+```
+
+## 6. Windows Compatibility Guidelines
+
+### Command Execution
+- All scripts should use PowerShell or Command Prompt syntax
+- Avoid Unix/Linux specific commands (grep, awk, sed, etc.)
+- Use PowerShell equivalents (Select-String, ForEach-Object, etc.)
+
+### Path Conventions
+- Use Windows path separators (`\` instead of `/`)
+- Use full paths when necessary
+- Be mindful of path length limitations
+
+### PowerShell Script Headers
+- Include proper PowerShell version requirements
+- Set execution policy as needed
+- Use appropriate error handling
+
+## 7. Project Rules Enhancement
+
+The current project rules are strong but could benefit from these additions:
+
+1. **Versioning Policy**: Clear guidelines for versioning the MCP server and client components
+
+2. **Documentation Requirements**: Specific requirements for documenting new functionality
+
+3. **Testing Standards**: Clear guidelines for test coverage and types of tests required
+
+4. **Performance Criteria**: Specific performance targets for the MCP server
+
+5. **Security Guidelines**: Explicit security requirements for handling Google Ads API credentials
+
+6. **Code Style Guidelines**: Specific Python code style guidelines for consistency
+
+7. **Dependency Management**: Process for adding new dependencies to the project
+
+8. **Modularization Triggers**: Clear criteria for when to modularize code components
 
 ---
 > Source: [bjorndavidhansen/google-ads-mcp-server](https://github.com/bjorndavidhansen/google-ads-mcp-server) — distributed by [TomeVault](https://tomevault.io).
