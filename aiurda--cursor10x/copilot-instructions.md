@@ -1,55 +1,143 @@
-## 010-cursor-rules
+## 100-memory-system
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> Comprehensive Memory System architecture for autonomous Cursor operation
 
 
-- **Required Rule Structure:**
-  ```markdown
-  ---
-  description: Clear, one-line description of what the rule enforces
-  globs: path/to/files/*.ext, other/path/**/*
-  alwaysApply: boolean
-  ---
+# Memory System Architecture
 
-  - **Main Points in Bold**
-    - Sub-points with details
-    - Examples and explanations
-  ```
+The Cursor10x Memory System provides persistent context awareness across conversations using MCP tools for:
+- Short-term memory (recent messages, context)
+- Long-term memory (milestones, decisions, requirements)
+- Episodic memory (chronological actions and events)
 
-- **File References:**
-  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
+## TOOL EXECUTION PATTERN
 
-- **Code Examples:**
-  - Use language-specific code blocks
-  ```typescript
-  // ✅ DO: Show good examples
-  const goodExample = true;
-  
-  // ❌ DON'T: Show anti-patterns
-  const badExample = false;
-  ```
+The memory system follows a strict tool execution pattern:
 
-- **Rule Content Guidelines:**
-  - Start with high-level overview
-  - Include specific, actionable requirements
-  - Show examples of correct implementation
-  - Reference existing code when possible
-  - Keep rules DRY by referencing other rules
+```javascript
+// ✅ DO: Follow this execution pattern for ALL conversations
+// 1. BEGIN with initConversation - EXACTLY ONCE at the start
+// 2. USE appropriate tools throughout the conversation as needed
+// 3. END with endConversation - EXACTLY ONCE at the very end
 
-- **Rule Maintenance:**
-  - Update rules when new patterns emerge
-  - Add examples from actual codebase
-  - Remove outdated patterns
-  - Cross-reference related rules
+// ❌ DON'T: Call initConversation multiple times in one response
+// ❌ DON'T: Call endConversation in the middle of a conversation
+// ❌ DON'T: Skip storing important context or decisions
+```
 
-- **Best Practices:**
-  - Use bullet points for clarity
-  - Keep descriptions concise
-  - Include both DO and DON'T examples
-  - Reference actual code over theoretical examples
-  - Use consistent formatting across rules 
+## RULE 1: CONVERSATION INITIALIZATION
+The FIRST action in the BEGINNING of EVERY response MUST be to initialize the conversation with this single tool call and display the banner from the response immediately after. It MUST be called EXACTLY ONCE per conversation and ONLY at the very beginning after receiving user input:
+
+```javascript
+// ✅ DO: Call EXACTLY ONCE at the beginning of EVERY conversation
+mcp_cursor10x_initConversation({content: "[user message]", importance: "[low/medium/high/critical]"})
+
+// ❌ DON'T: Call multiple times within the same conversation
+// ❌ DON'T: Call in the middle or end of a conversation
+// ❌ DON'T: Skip calling this at the start
+```
+
+## RULE 2: ASSISTANT MESSAGE STORAGE
+EVERY assistant response containing important information MUST be stored. This can be called MULTIPLE times as needed during a conversation to store significant assistant responses:
+
+```javascript
+// ✅ DO: Call when storing important information
+mcp_cursor10x_storeAssistantMessage({content: "[assistant response]", importance: "[low/medium/high/critical]"})
+
+// ✅ DO: Store multiple distinct responses when appropriate
+```
+
+## RULE 3: ACTIVE FILE TRACKING
+EVERY file being worked on or modified MUST be tracked - not files being read. This should be called whenever starting work on a file:
+
+```javascript
+// ✅ DO: Track when editing or creating files
+mcp_cursor10x_trackActiveFile({filename: "[file path]", action: "[edit/create]"})
+
+// ❌ DON'T: Track files that are only being read
+```
+
+## RULE 4: MILESTONE RECORDING
+ALL completed tasks or achievements MUST be recorded as milestones. Use this to mark significant accomplishments:
+
+```javascript
+// ✅ DO: Record milestones when completing important tasks
+mcp_cursor10x_storeMilestone({title: "[milestone title]", description: "[milestone description]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 5: DECISION RECORDING
+ALL important project decisions MUST be recorded. Use this when making significant decisions:
+
+```javascript
+// ✅ DO: Record important decisions with reasoning
+mcp_cursor10x_storeDecision({title: "[decision title]", content: "[decision content]", reasoning: "[decision reasoning]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 6: REQUIREMENT RECORDING
+ALL project requirements MUST be documented. Use this when identifying or defining requirements:
+
+```javascript
+// ✅ DO: Document project requirements
+mcp_cursor10x_storeRequirement({title: "[requirement title]", content: "[requirement content]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 7: EPISODE RECORDING
+ALL significant events or actions MUST be recorded as episodes. Use this to track important interactions:
+
+```javascript
+// ✅ DO: Record significant events
+mcp_cursor10x_recordEpisode({actor: "[user/assistant/system]", action: "[action type]", content: "[action details]", importance: "[low/medium/high/critical]"})
+```
+
+## RULE 8: CONVERSATION END SEQUENCE
+This EXACT sequence MUST be executed at the VERY END of EVERY conversation and EXACTLY ONCE per conversation:
+
+```javascript
+// ✅ DO: Call EXACTLY ONCE at the very end of the conversation
+mcp_cursor10x_endConversation({content: "[Content of the assistant's final message]", milestone_title: "[Title for the completion milestone]", milestone_description: "[Description of what was accomplished]", importance: "[low/medium/high/critical]", metadata: "[Additional metadata for the operations]" })
+
+// ❌ DON'T: Call in the middle of a conversation
+// ❌ DON'T: Call multiple times
+// ❌ DON'T: Skip calling this at the end
+```
+
+## RULE 9: HEALTH MONITORING
+Memory system health MUST be checked when issues occur:
+
+```javascript
+// ✅ DO: Check health when troubleshooting problems
+mcp_cursor10x_checkHealth({})
+```
+
+## RULE 10: MEMORY STATISTICS
+Memory statistics MUST be gathered periodically:
+
+```javascript
+// ✅ DO: Get memory stats when useful for context
+mcp_cursor10x_getMemoryStats({})
+```
+
+## RULE 11: CONTEXT RETRIEVAL
+Use context retrieval tools as needed throughout the conversation:
+
+```javascript
+// ✅ DO: Get comprehensive context when needed
+mcp_cursor10x_getComprehensiveContext({})
+
+// ✅ DO: Get recent messages when relevant
+mcp_cursor10x_getRecentMessages({limit: 5, importance: "high"})
+
+// ✅ DO: Get active files when working on code
+mcp_cursor10x_getActiveFiles({limit: 5})
+```
+
+## Importance Levels
+
+When storing memory items, use appropriate importance levels:
+- **low**: General information, routine operations
+- **medium**: Useful context, standard work
+- **high**: Critical decisions, major features
+- **critical**: Core architecture, security, data-integrity
 
 ---
 > Source: [aiurda/cursor10x](https://github.com/aiurda/cursor10x) — distributed by [TomeVault](https://tomevault.io).
