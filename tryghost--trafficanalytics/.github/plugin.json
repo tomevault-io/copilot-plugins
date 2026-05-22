@@ -1,0 +1,9 @@
+{
+  "name": "tryghost--trafficanalytics",
+  "displayName": "TrafficAnalytics",
+  "description": "Analytics Service that sits between Ghost and Tinybird for Ghost's native web analytics.",
+  "version": "1.0.0",
+  "author": "TryGhost",
+  "homepage": "https://github.com/TryGhost/TrafficAnalytics",
+  "skills": []
+}
