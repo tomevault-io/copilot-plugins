@@ -1,0 +1,9 @@
+{
+  "name": "krenuds--earpiece",
+  "displayName": "earpiece",
+  "description": "High-performance TTS and STT services for Toji Discord bot",
+  "version": "1.0.0",
+  "author": "Krenuds",
+  "homepage": "https://github.com/Krenuds/earpiece",
+  "skills": []
+}
