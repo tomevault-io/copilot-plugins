@@ -1,47 +1,70 @@
-## code-style
+## coding-standards
 
-> - 간결하고 가독성 높은 TypeScript 코드 작성
+> - ESLint와 Prettier를 사용한 일관된 코드 스타일
 
-# 코드 스타일 및 구조 규칙
+# 코딩 표준 가이드
 
 ## 일반 원칙
-- 간결하고 가독성 높은 TypeScript 코드 작성
-- 함수형 및 선언적 프로그래밍 패턴 사용
-- DRY(Don't Repeat Yourself) 원칙 준수
-- 가독성 향상을 위한 조기 반환(early return) 구현
-- 컴포넌트 논리적 구조화: 내보내기, 하위 컴포넌트, 헬퍼, 타입
 
-## 명명 규칙
-- 보조 동사가 포함된 설명적 이름 사용 (isLoading, hasError)
-- 이벤트 핸들러에 "handle" 접두사 사용 (handleClick, handleSubmit)
-- 디렉토리는 소문자와 대시 사용 (components/todo-list)
-- 컴포넌트는 명명된 내보내기(named exports) 선호
+1. **코드 스타일**
+   - ESLint와 Prettier를 사용한 일관된 코드 스타일
+   - TypeScript의 타입 시스템 활용
+   - 명확한 변수명과 함수명 사용
 
-## TypeScript 사용
-- 모든 코드에 TypeScript 사용
-- 타입보다 인터페이스 선호
-- enum 대신 const 맵 사용
-- 적절한 타입 안전성 및 추론 구현
-- 타입 검증을 위한 `satisfies` 연산자 사용
+2. **아키텍처 원칙**
+   - [아키텍처 개요](mdc:docs/design/architecture.md)에 따른 구조 준수
+   - Clean Architecture 원칙 적용
+   - SOLID 원칙 준수
 
-## 개발 도구
-- ESLint: v8.x
-- Prettier: v3.x
-- Husky: v9.x
-- lint-staged: v15.x
-- GitHub Actions
+## 프론트엔드 표준
 
-## Git 사용 규칙
-- `--no-verify` 절대 사용 금지
-- 명확하고 일관된 커밋 메시지 작성
-- 적절한 크기로 커밋 유지
-- 브랜치 전략 준수
+1. **컴포넌트 구조**
+   - [프론트엔드 설계](mdc:docs/design/frontend.md)에 따른 컴포넌트 구현
+   - 재사용 가능한 컴포넌트 설계
+   - Props 타입 정의 필수
 
-## 코드 리뷰 프로세스
-- 코드 품질 및 표준 준수 확인
-- 테스트 커버리지 검증
-- 성능 및 보안 이슈 검토
-- 문서화 적절성 확인
+2. **상태 관리**
+   - React Context API 사용
+   - 커스텀 훅을 통한 로직 분리
+   - 불필요한 리렌더링 방지
+
+## 백엔드 표준
+
+1. **API 설계**
+   - [백엔드 설계](mdc:docs/design/backend.md)에 따른 API 구현
+   - RESTful API 원칙 준수
+   - 에러 처리 표준화
+
+2. **인프라 코드**
+   - [인프라 설계](mdc:docs/design/infrastructure.md)에 따른 리소스 구성
+   - CDK를 사용한 인프라 코드화
+   - 환경별 설정 분리
+
+## 보안 표준
+
+1. **인증/인가**
+   - [보안 설계](mdc:docs/design/security.md)에 따른 구현
+   - Cognito를 통한 사용자 인증
+   - API Gateway 권한 설정
+
+2. **데이터 보안**
+   - 민감 정보 암호화
+   - 최소 권한 원칙 적용
+   - 보안 모범 사례 준수
+
+## 모니터링 및 최적화
+
+1. **로깅**
+   - [모니터링 설계](mdc:docs/design/monitoring.md)에 따른 로깅 구현
+   - 구조화된 로그 포맷 사용
+   - 적절한 로그 레벨 설정
+
+2. **성능 최적화**
+   - [비용 최적화](mdc:docs/design/optimization.md)에 따른 리소스 최적화
+   - Lambda 함수 최적화
+   - DynamoDB 쿼리 최적화
+
+자세한 구현 가이드라인은 [구현 계획](mdc:docs/design/implementation.md)을 참조하세요.
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
