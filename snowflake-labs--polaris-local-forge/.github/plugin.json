@@ -1,0 +1,9 @@
+{
+  "name": "snowflake-labs--polaris-local-forge",
+  "displayName": "polaris-local-forge",
+  "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio",
+  "version": "1.0.0",
+  "author": "Snowflake-Labs",
+  "homepage": "https://github.com/Snowflake-Labs/polaris-local-forge",
+  "skills": []
+}
