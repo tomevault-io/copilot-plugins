@@ -1,75 +1,97 @@
-## self-improve
+## solidity-rules
 
-> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+> description: Guidelines and best practices for writing Solidity smart contracts in the ZK Mixer project.
 
+---
+description: Guidelines and best practices for writing Solidity smart contracts in the ZK Mixer project.
+globs: contracts/**/*.sol
+alwaysApply: true
+---
 
-- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
+- **General Principles**
+    - Follow the Checks-Effects-Interactions pattern to prevent reentrancy vulnerabilities.
+    - Use the latest stable Solidity version (currently `^0.8.20` as defined in contracts). Keep pragma version consistent across all contracts.
+    - Prioritize security and clarity over micro-optimizations, but be mindful of gas costs.
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Look for references to external documentation
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage
+- **Naming Conventions**
+    - `UpperCamelCase` for contracts, interfaces, libraries (e.g., `ZKMixer`, `IVerifier`, `PoseidonT3`).
+    - `mixedCase` for functions, state variables, local variables, and parameters (e.g., `deposit`, `merkleRoot`, `_commitment`).
+    - `ALL_CAPS_SNAKE_CASE` for constants (e.g., `DENOMINATION`, `MERKLE_TREE_HEIGHT`, `ZERO_VALUE`).
+    - `UpperCamelCase` for events (e.g., `Deposit`, `Withdrawal`).
+    - `UpperCamelCase` for custom errors (e.g., `InvalidProof`, `NullifierAlreadySpent`).
+    - Prepend parameters with an underscore (`_`) (e.g., `_commitment`, `_recipient`).
 
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
+- **Code Structure & Layout**
+    - Order within contracts: Interfaces/Libraries imports, Type declarations, State variables, Events, Modifiers, Constructor, receive/fallback functions, external functions, public functions, internal functions, private functions.
+    - Use consistent indentation (4 spaces).
 
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
+- **Security Best Practices**
+    - **Input Validation**: Use `require()` statements with descriptive messages or custom errors for validating inputs and state conditions at the beginning of functions.
+        ```solidity
+        // ✅ DO
+        require(_commitment != bytes32(0), "Commitment cannot be zero");
+        // OR
+        if (_commitment == bytes32(0)) revert InvalidCommitment();
+        ```
+    - **Access Control**: Implement access control where necessary (e.g., using OpenZeppelin's `Ownable`).
+    - **Reentrancy**: Adhere strictly to Checks-Effects-Interactions. Use OpenZeppelin's `ReentrancyGuard` if complex external calls are unavoidable.
+    - **Arithmetic**: Rely on Solidity >=0.8 default checked arithmetic. Be explicit with `unchecked` blocks only when overflow/underflow is impossible or intended and clearly documented.
 
-- **Example Pattern Recognition:**
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
-  
-  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
+- **Gas Optimization**
+    - Minimize state variable writes (`SSTORE` is expensive).
+    - Use `immutable` for variables set only in the constructor (like `verifier`, `poseidonHasherAddress` if used).
+    - Use `constant` for true compile-time constants.
+    - Prefer `calldata` over `memory` for external function parameters where possible (especially for large data like proofs).
+    - Cache state variables in local memory variables if read multiple times within a function.
 
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
+- **Error Handling**
+    - Prefer custom errors over `require` strings for better gas efficiency and clearer error identification off-chain.
+        ```solidity
+        // ✅ DO
+        error InvalidProof();
+        // ...
+        if (!verifier.verifyProof(...)) revert InvalidProof();
 
-- **Continuous Improvement:**
-  - Monitor code review comments
-  - Track common development questions
-  - Update rules after major refactors
-  - Add links to relevant documentation
-  - Cross-reference related rules
+        // ❌ DON'T (Less gas efficient)
+        // require(verifier.verifyProof(...), "Invalid ZK proof");
+        ```
 
-- **Rule Deprecation:**
-  - Mark outdated patterns as deprecated
-  - Remove rules that no longer apply
-  - Update references to deprecated rules
-  - Document migration paths for old patterns
+- **Documentation (NatSpec)**
+    - Use NatSpec comments (`///` or `/** ... */`) for all public/external contracts, interfaces, functions, events, and state variables.
+    - Include `@title`, `@notice`, `@dev`, `@param`, `@return`.
+    - Explain the purpose and logic clearly.
 
-- **Documentation Updates:**
-  - Keep examples synchronized with code
-  - Update references to external docs
-  - Maintain links between related rules
-  - Document breaking changes
+- **Testing**
+    - Aim for high test coverage using Hardhat (Mocha/Chai).
+    - Test edge cases, access control, failure conditions (reverts), and event emissions.
+    - **Hash Consistency Test:** Include tests specifically verifying that the hash function used in Solidity (e.g., `PoseidonT3.hash`) produces the **exact same output** as the hash function used in JavaScript tests (e.g., from `circomlibjs`) for known inputs (e.g., `H(0,0)`, `H(1,2)`). This catches crucial implementation discrepancies early.
+    - Use mocks for external dependencies (like `IVerifier`) *only* for isolated unit tests.
 
-Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
+- **Dependencies & Libraries**
+    - Use audited and well-maintained libraries like OpenZeppelin (`@openzeppelin/contracts`).
+    - Specify dependency versions clearly in `package.json`.
+    - **Crypto Libraries (e.g., Poseidon):**
+        - **Prefer Local Copy & Static Linking:** For critical cryptographic libraries needed by contracts (like Poseidon), **copy the library source code** (e.g., `PoseidonT3.sol`) into the local `contracts/libraries/` directory.
+        - **Import Locally:** Import the library using a relative path (e.g., `import "./libraries/PoseidonT3.sol";`).
+        - **Call Statically:** Call library functions statically (`PoseidonT3.hash(...)`) within the contract. Mark contract functions using them as `pure` or `view` accordingly.
+        - **Link in Deployment/Tests:** Use Hardhat's library linking mechand tests to link the contract with the deployed library address (e.g., `getContractFactory("ZKMixer", { libraries: { PoseidonT3: deployedPoseidonLibAddress } })`).
+        - This pattern avoids potential issues with calling external contracts via address and resolves linking ambiguities.
+
+- **ZK Mixer Specifics**
+    - **Merkle Trees**:
+        - Logic for calculating the root (`calculateMerkleRoot`) must be consistent with the off-chain library used (`@zk-kit/incremental-merkle-tree`) and the circuit verifier (`VerifyMerklePath`), especially regarding the `ZERO_VALUE` and padding.
+        - Ensure the tree height (`MERKLE_TREE_HEIGHT`) constant matches the circuit parameter.
+    - **Verifier & Proofs**:
+        - Use the generated `Verifier.sol` (implementing `IVerifier`) for on-chain verification.
+        - Define `IVerifier` in `contracts/interfaces/`.
+        - Ensure the public inputs array (`input`) in `ZKMixer.withdraw` matches *exactly* the order and format defined in the Circom circuit's `main {public [...]}` declaration. Document this mapping clearly.
+        - Pass proof data (`a`, `b`, `c`) as `calldata` for gas efficiency.
+    - **Commitments & Nullifiers**:
+        - Use `bytes32` consistently.
+        - **Hash Consistency:** CRITICAL: The Poseidon hash function used in Solidity (`PoseidonT3.sol` copied locally) MUST be consistent with the one used in JS tests (`circomlibjs`) and the one used in the Circom circuit (`circomlib/circuits/poseidon.circom`). Test this explicitly (see Testing section).
+        - Follow Checks-Effects-Interactions for nullifier spending.
+    - **Fixed Denomination**: Use `DENOMINATION` constant; check `msg.value`.
+    - **Relayer Logic**: Validate inputs; transfer to recipient first.
 
 ---
 > Source: [Zyra-V21/ZKUzumaki](https://github.com/Zyra-V21/ZKUzumaki) — distributed by [TomeVault](https://tomevault.io).
