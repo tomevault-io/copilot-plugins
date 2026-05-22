@@ -1,0 +1,9 @@
+{
+  "name": "sifakis--cs557s25-demos",
+  "displayName": "CS557S25_Demos",
+  "description": "Software artifacts and Demos for CS557 (Spring 2025) \"Parallel and Throughput-Optimized Programming\"",
+  "version": "1.0.0",
+  "author": "sifakis",
+  "homepage": "https://github.com/sifakis/CS557S25_Demos",
+  "skills": []
+}
