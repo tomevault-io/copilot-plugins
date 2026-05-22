@@ -1,427 +1,393 @@
-## api-design
+## api-development-patterns
 
-> This document outlines the API design patterns and standards for the OpenFrame project.
+> description: API development patterns and best practices for OpenFrame REST and GraphQL APIs
 
-# API Design
 
-This document outlines the API design patterns and standards for the OpenFrame project.
+---
+description: API development patterns and best practices for OpenFrame REST and GraphQL APIs
+globs:
+  - "openframe/services/*/src/main/java/**/controller/**"
+  - "openframe/services/*/src/main/java/**/service/**"
+  - "openframe/libs/api-library/**"
+alwaysApply: false
+---
 
-## RESTful API Design
+# API Development Patterns in OpenFrame
 
-### URL Structure
+OpenFrame follows a shared library approach to eliminate code duplication between GraphQL and REST APIs. Follow these patterns for consistent API development.
 
-- Use resource-based URLs
-- Use plural nouns for resource collections
-- Use hierarchical structure for nested resources
-- Use kebab-case for multi-word resource names
-- Include API version in the URL path
+## Shared Library Architecture
 
-Examples:
-```
-GET /api/v1/devices                  # Get all devices
-GET /api/v1/devices/{id}             # Get a specific device
-GET /api/v1/devices/{id}/scripts     # Get scripts for a device
-POST /api/v1/devices                 # Create a new device
-PUT /api/v1/devices/{id}             # Update a device
-DELETE /api/v1/devices/{id}          # Delete a device
-```
+### Business Logic in api-library
+- **DO**: Place all business logic in [api-library services](mdc:openframe/libs/api-library/src/main/java/com/openframe/api/service)
+- **DON'T**: Duplicate business logic between GraphQL and REST controllers
+- **Pattern**: Controllers are thin adapters that delegate to shared services
 
-### HTTP Methods
-
-- Use appropriate HTTP methods for operations:
-  - GET: Retrieve resources
-  - POST: Create resources
-  - PUT: Update resources (full update)
-  - PATCH: Partial update of resources
-  - DELETE: Remove resources
-
-### Status Codes
-
-- Use appropriate HTTP status codes:
-  - 200 OK: Successful request
-  - 201 Created: Resource created successfully
-  - 204 No Content: Successful request with no response body
-  - 400 Bad Request: Invalid request parameters
-  - 401 Unauthorized: Authentication required
-  - 403 Forbidden: Authenticated but not authorized
-  - 404 Not Found: Resource not found
-  - 409 Conflict: Request conflicts with current state
-  - 422 Unprocessable Entity: Validation errors
-  - 500 Internal Server Error: Server-side error
-
-### Request/Response Format
-
-- Use JSON for request and response bodies
-- Use consistent property naming (camelCase)
-- Include appropriate content-type headers
-- Provide meaningful error messages
-- Use pagination for large collections
-- Support filtering, sorting, and field selection
-
-Example response:
-```json
-{
-  "data": [
-    {
-      "id": "123",
-      "hostname": "device-1",
-      "operatingSystem": "Windows",
-      "status": "online",
-      "lastSeen": "2023-04-01T12:00:00Z"
-    }
-  ],
-  "pagination": {
-    "total": 100,
-    "page": 1,
-    "pageSize": 10,
-    "totalPages": 10
-  }
-}
-```
-
-Example error response:
-```json
-{
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Invalid request parameters",
-    "details": [
-      {
-        "field": "hostname",
-        "message": "Hostname is required"
-      }
-    ]
-  }
-}
-```
-
-## GraphQL API Design
-
-### Schema Design
-
-- Use descriptive type names
-- Follow naming conventions (PascalCase for types, camelCase for fields)
-- Define clear relationships between types
-- Use input types for mutations
-- Include appropriate descriptions for types and fields
-- Use enums for fixed sets of values
-
-Example schema:
-```graphql
-"""
-Represents a device in the system
-"""
-type Device {
-  "Unique identifier for the device"
-  id: ID!
-  "Hostname of the device"
-  hostname: String!
-  "Operating system of the device"
-  operatingSystem: String!
-  "Current status of the device"
-  status: DeviceStatus!
-  "When the device was last seen"
-  lastSeen: DateTime
-  "Scripts associated with this device"
-  scripts: [Script!]!
-}
-
-"""
-Status of a device
-"""
-enum DeviceStatus {
-  ONLINE
-  OFFLINE
-  MAINTENANCE
-}
-
-"""
-Input for creating a new device
-"""
-input CreateDeviceInput {
-  hostname: String!
-  operatingSystem: String!
-}
-```
-
-### Query Design
-
-- Design queries around specific use cases
-- Support pagination for collections
-- Allow filtering and sorting
-- Enable field selection
-- Use arguments for customization
-- Consider query complexity and depth
-
-Example query:
-```graphql
-query GetDevices($status: DeviceStatus, $page: Int, $pageSize: Int) {
-  devices(status: $status, page: $page, pageSize: $pageSize) {
-    nodes {
-      id
-      hostname
-      operatingSystem
-      status
-      lastSeen
-    }
-    pageInfo {
-      totalCount
-      hasNextPage
-      hasPreviousPage
-    }
-  }
-}
-```
-
-### Mutation Design
-
-- Use descriptive names (createDevice, updateDevice, etc.)
-- Accept input types for arguments
-- Return the modified resource
-- Include error information in the response
-- Use consistent naming patterns
-
-Example mutation:
-```graphql
-mutation CreateDevice($input: CreateDeviceInput!) {
-  createDevice(input: $input) {
-    device {
-      id
-      hostname
-      operatingSystem
-      status
-    }
-    errors {
-      field
-      message
-    }
-  }
-}
-```
-
-## API Gateway Patterns
-
-### Routing
-
-- Route requests based on path prefixes
-- Use consistent routing patterns
-- Support path rewriting for backend services
-- Handle versioning at the gateway level
-
-Example gateway configuration:
-```yaml
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: device-service
-          uri: lb://device-service
-          predicates:
-            - Path=/api/v1/devices/**
-          filters:
-            - RewritePath=/api/v1/devices/(?<path>.*), /devices/$\{path}
-```
-
-### Authentication and Authorization
-
-- Implement JWT authentication at the gateway
-- Validate tokens for each request
-- Include user information in request headers
-- Support role-based access control
-- Use consistent authorization patterns
-
-Example authentication filter:
 ```java
-@Component
-public class JwtAuthenticationFilter implements WebFilter {
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        ServerHttpRequest request = exchange.getRequest();
-        String token = extractToken(request);
-        
-        if (token != null && validateToken(token)) {
-            ServerHttpRequest modifiedRequest = request.mutate()
-                .header("X-User-Id", getUserIdFromToken(token))
-                .header("X-User-Roles", getRolesFromToken(token))
-                .build();
-            return chain.filter(exchange.mutate().request(modifiedRequest).build());
-        }
-        
-        return chain.filter(exchange);
+// ✅ GOOD - Service in api-library
+@Service
+public class DeviceService {
+    public DeviceQueryResult queryDevices(DeviceFilterCriteria criteria) {
+        // Business logic here
+    }
+}
+
+// ✅ GOOD - REST controller delegates to service
+@RestController
+public class DeviceController {
+    private final DeviceService deviceService;
+
+    @GetMapping("/devices")
+    public DeviceResponse getDevices(@AuthenticationPrincipal AuthPrincipal principal) {
+        return deviceService.queryDevices(criteria);
     }
 }
 ```
 
-### Rate Limiting
+## Controller Patterns
 
-- Implement rate limiting at the gateway
-- Use consistent rate limiting policies
-- Configure limits based on client ID or user
-- Return appropriate status codes (429 Too Many Requests)
-- Include rate limit headers in responses
+### Modern Spring Boot Style
+Use DTO + Exceptions approach instead of ResponseEntity everywhere:
 
-Example rate limiting configuration:
-```yaml
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: device-service
-          uri: lb://device-service
-          predicates:
-            - Path=/api/v1/devices/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
-```
-
-### Circuit Breaking
-
-- Implement circuit breakers for backend services
-- Configure appropriate thresholds
-- Provide fallback responses
-- Monitor circuit breaker status
-- Use consistent circuit breaker patterns
-
-Example circuit breaker configuration:
-```yaml
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: device-service
-          uri: lb://device-service
-          predicates:
-            - Path=/api/v1/devices/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: deviceServiceCircuitBreaker
-                fallbackUri: forward:/fallback/devices
-```
-
-## API Documentation
-
-### OpenAPI/Swagger
-
-- Document all APIs using OpenAPI/Swagger
-- Include detailed descriptions for endpoints
-- Document request/response schemas
-- Provide examples
-- Document error responses
-- Include authentication requirements
-
-Example OpenAPI configuration:
 ```java
-@Configuration
-public class OpenApiConfig {
-    @Bean
-    public OpenAPI openAPI() {
-        return new OpenAPI()
-            .info(new Info()
-                .title("OpenFrame API")
-                .version("v1")
-                .description("API for OpenFrame platform"))
-            .components(new Components()
-                .addSecuritySchemes("bearer-jwt", new SecurityScheme()
-                    .type(SecurityScheme.Type.HTTP)
-                    .scheme("bearer")
-                    .bearerFormat("JWT")))
-            .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"));
-    }
+// ✅ GOOD - Modern Spring Boot style
+@GetMapping("/{id}")
+@ResponseStatus(OK)
+public DeviceResponse getDevice(@PathVariable String id) {
+    Device device = deviceService.findById(id)
+        .orElseThrow(() -> new DeviceNotFoundException("Device not found: " + id));
+    return deviceMapper.toResponse(device);
+}
+
+// ❌ BAD - Old ResponseEntity style
+@GetMapping("/{id}")
+public ResponseEntity<DeviceResponse> getDevice(@PathVariable String id) {
+    return deviceService.findById(id)
+        .map(device -> ResponseEntity.ok(deviceMapper.toResponse(device)))
+        .orElse(ResponseEntity.notFound().build());
 }
 ```
 
-### API Versioning
+### Authentication Principal Pattern
+Always use `@AuthenticationPrincipal AuthPrincipal principal` for user context:
 
-- Use explicit versioning in URLs
-- Support multiple API versions simultaneously
-- Document version differences
-- Provide migration guides
-- Use semantic versioning
-
-## Integration Patterns
-
-### Tool Integration
-
-- Use consistent integration patterns for external tools
-- Implement proxy endpoints for tool APIs
-- Handle authentication and authorization
-- Transform request/response formats as needed
-- Implement error handling and retries
-
-Example integration controller:
 ```java
 @RestController
-@RequestMapping("/tools/{toolName}")
-public class IntegrationController {
-    private final ToolRegistry toolRegistry;
-    private final WebClient.Builder webClientBuilder;
-    
-    @GetMapping("/**")
-    public Mono<ResponseEntity<String>> proxyGetRequest(
-            @PathVariable String toolName,
-            ServerHttpRequest request) {
-        Tool tool = toolRegistry.getTool(toolName);
-        if (tool == null) {
-            return Mono.just(ResponseEntity.notFound().build());
-        }
-        
-        String path = extractPath(request);
-        return webClientBuilder.build()
-            .get()
-            .uri(tool.getBaseUrl() + path)
-            .headers(headers -> copyHeaders(request.getHeaders(), headers))
-            .retrieve()
-            .toEntity(String.class);
+@RequestMapping("/api-keys")
+public class ApiKeyController {
+    @GetMapping
+    public List<ApiKeyResponse> getApiKeys(@AuthenticationPrincipal AuthPrincipal principal) {
+        return apiKeyService.getApiKeysForUser(principal.getId());
     }
-    
-    // Additional methods for POST, PUT, DELETE, etc.
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public CreateApiKeyResponse createApiKey(
+            @Valid @RequestBody CreateApiKeyRequest request,
+            @AuthenticationPrincipal AuthPrincipal principal) {
+        return apiKeyService.createApiKey(principal.getId(), request);
+    }
 }
 ```
 
-### Event-Driven Integration
+**Reference**: [ApiKeyController.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/controller/ApiKeyController.java)
 
-- Use Kafka for event-driven integration
-- Define clear event schemas
-- Implement consistent event handling patterns
-- Use appropriate serialization formats
-- Handle event ordering and idempotency
+## Error Handling Patterns
 
-Example event producer:
+### Global Exception Handler
+Use global exception handlers with consistent error responses:
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(DeviceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleDeviceNotFound(DeviceNotFoundException ex) {
+        return ErrorResponse.builder()
+            .code("DEVICE_NOT_FOUND")
+            .message(ex.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
+    }
+}
+```
+
+### Custom Domain Exceptions
+Create specific exceptions for domain errors:
+
+```java
+public class ApiKeyNotFoundException extends RuntimeException {
+    public ApiKeyNotFoundException(String keyId) {
+        super("API key not found: " + keyId);
+    }
+}
+```
+
+**Reference**: [ErrorResponse.java](mdc:openframe/libs/openframe-core/src/main/java/com/openframe/core/dto/ErrorResponse.java)
+
+## DTO and Mapping Patterns
+
+### Record-based DTOs
+Use Java records for immutable DTOs:
+
+```java
+public record CreateApiKeyRequest(
+    @NotBlank String name,
+    String description,
+    @Future LocalDateTime expiresAt
+) {}
+
+public record ApiKeyResponse(
+    String id,
+    String name,
+    String description,
+    boolean enabled,
+    LocalDateTime createdAt,
+    LocalDateTime expiresAt
+) {}
+```
+
+### Service to DTO Conversion
+Convert between domain models and DTOs in dedicated mappers:
+
+```java
+@Component
+public class DeviceMapper {
+    public DeviceResponse toDeviceResponse(DeviceQueryResult result) {
+        return DeviceResponse.builder()
+            .id(result.getId())
+            .hostname(result.getHostname())
+            .status(result.getStatus())
+            .build();
+    }
+}
+```
+
+## Validation Patterns
+
+### Bean Validation
+Use Bean Validation annotations for request validation:
+
+```java
+public record DeviceRequest(
+    @NotBlank(message = "Hostname is required")
+    @Size(min = 3, max = 50, message = "Hostname must be between 3 and 50 characters")
+    String hostname,
+
+    @NotBlank(message = "Operating system is required")
+    String operatingSystem,
+
+    @Pattern(regexp = "^([0-9]{1,3}\\.){3}[0-9]{1,3}$", message = "Invalid IP address format")
+    String ipAddress
+) {}
+```
+
+### Controller Validation
+Use `@Valid` annotation in controller methods:
+
+```java
+@PostMapping
+@ResponseStatus(HttpStatus.CREATED)
+public DeviceResponse createDevice(@Valid @RequestBody DeviceRequest request) {
+    return deviceService.createDevice(request.toDevice());
+}
+```
+
+## Service Layer Patterns
+
+### Reactive Programming
+Use reactive patterns with Mono/Flux for non-blocking operations:
+
 ```java
 @Service
-public class DeviceEventProducer {
-    private final KafkaTemplate<String, DeviceEvent> kafkaTemplate;
-    
-    public void publishDeviceCreated(Device device) {
-        DeviceEvent event = new DeviceEvent(
-            UUID.randomUUID().toString(),
-            "DEVICE_CREATED",
-            LocalDateTime.now(),
-            device
-        );
-        
-        kafkaTemplate.send("device-events", device.getId(), event);
+public class DeviceService {
+    public Mono<Device> getDeviceById(String id) {
+        return deviceRepository.findById(id)
+            .switchIfEmpty(Mono.error(new DeviceNotFoundException("Device not found: " + id)));
+    }
+
+    public Flux<Device> getAllDevices() {
+        return deviceRepository.findAll();
     }
 }
 ```
 
-## Best Practices
+### Exception Handling in Services
+Handle exceptions at the service layer and let global handlers catch them:
 
-1. **Consistency**: Use consistent patterns across all APIs
-2. **Simplicity**: Keep APIs simple and focused
-3. **Documentation**: Document all APIs thoroughly
-4. **Versioning**: Version APIs to support evolution
-5. **Security**: Implement proper authentication and authorization
-6. **Performance**: Optimize for performance and scalability
-7. **Monitoring**: Monitor API usage and performance
-8. **Testing**: Test APIs thoroughly
-9. **Error Handling**: Provide clear error messages
-10. **Pagination**: Use pagination for large collections
+```java
+@Service
+public class ApiKeyService {
+    public ApiKeyResponse getApiKeyById(String id, String userId) {
+        return apiKeyRepository.findByIdAndUserId(id, userId)
+            .map(this::mapToResponse)
+            .orElseThrow(() -> new ApiKeyNotFoundException(id));
+    }
+}
+```
+
+## Repository Patterns
+
+### Spring Data Reactive
+Use reactive repositories for non-blocking data access:
+
+```java
+public interface DeviceRepository extends ReactiveMongoRepository<Device, String> {
+    Flux<Device> findByUserIdOrderByCreatedAtDesc(String userId);
+    Mono<Device> findByIdAndUserId(String id, String userId);
+    Flux<Device> findByStatus(String status);
+}
+```
+
+### Custom Repository Methods
+Use descriptive method names that reflect business intent:
+
+```java
+// ✅ GOOD - Descriptive method names
+Flux<Device> findByUserIdOrderByCreatedAtDesc(String userId);
+Mono<Long> countByUserIdAndStatus(String userId, String status);
+
+// ❌ BAD - Generic method names
+Flux<Device> findByUserId(String userId);
+Mono<Long> countByUserIdAndField(String userId, String field);
+```
+
+## API Documentation Patterns
+
+### OpenAPI Documentation
+Use OpenAPI annotations for comprehensive API documentation:
+
+```java
+@RestController
+@RequestMapping("/api/devices")
+@Tag(name = "Devices", description = "Device management operations")
+public class DeviceController {
+
+    @Operation(summary = "Get all devices", description = "Retrieve all devices for the authenticated user")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Devices retrieved successfully"),
+        @ApiResponse(responseCode = "401", description = "Unauthorized")
+    })
+    @GetMapping
+    public List<DeviceResponse> getDevices(@AuthenticationPrincipal AuthPrincipal principal) {
+        return deviceService.getDevicesForUser(principal.getId());
+    }
+}
+```
+
+## Security Patterns
+
+### Endpoint Security
+Configure endpoint security based on roles and permissions:
+
+```java
+// Public endpoints
+@GetMapping("/public/status")
+public StatusResponse getPublicStatus() { }
+
+// Authenticated endpoints
+@GetMapping("/devices")
+public List<DeviceResponse> getDevices(@AuthenticationPrincipal AuthPrincipal principal) { }
+
+// Admin-only endpoints
+@PreAuthorize("hasRole('ADMIN')")
+@DeleteMapping("/admin/devices/{id}")
+public void deleteDevice(@PathVariable String id) { }
+```
+
+### Input Sanitization
+Sanitize user input to prevent security vulnerabilities:
+
+```java
+@Component
+public class InputSanitizer {
+    public String sanitize(String input) {
+        if (input == null) return null;
+        return policy.sanitize(input);
+    }
+}
+```
+
+## Common Anti-Patterns
+
+### ❌ Avoid These Patterns
+
+```java
+// Don't use ResponseEntity everywhere
+public ResponseEntity<String> getData() { }
+
+// Don't duplicate business logic in controllers
+@GetMapping("/devices")
+public List<Device> getDevices() {
+    // Business logic here - WRONG!
+    return repository.findAll().stream()
+        .filter(device -> device.isActive())
+        .collect(Collectors.toList());
+}
+
+// Don't use raw JWT or manual headers
+public void doSomething(@RequestHeader("X-User-Id") String userId) { }
+
+// Don't ignore validation
+public void createDevice(DeviceRequest request) { // Missing @Valid
+}
+```
+
+### ✅ Follow These Patterns Instead
+
+```java
+// Use clean DTOs with proper status codes
+@ResponseStatus(HttpStatus.OK)
+public List<DeviceResponse> getDevices() { }
+
+// Delegate to service layer
+@GetMapping("/devices")
+public List<DeviceResponse> getDevices(@AuthenticationPrincipal AuthPrincipal principal) {
+    return deviceService.getActiveDevicesForUser(principal.getId());
+}
+
+// Use AuthPrincipal
+public void doSomething(@AuthenticationPrincipal AuthPrincipal principal) { }
+
+// Always validate input
+public void createDevice(@Valid @RequestBody DeviceRequest request) { }
+```
+
+## Performance Patterns
+
+### Pagination
+Implement proper pagination for large datasets:
+
+```java
+@GetMapping("/devices")
+public Page<DeviceResponse> getDevices(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "20") int size,
+        @AuthenticationPrincipal AuthPrincipal principal) {
+    Pageable pageable = PageRequest.of(page, size);
+    return deviceService.getDevicesForUser(principal.getId(), pageable);
+}
+```
+
+### Caching
+Use appropriate caching strategies:
+
+```java
+@Service
+public class DeviceService {
+    @Cacheable(value = "devices", key = "#userId")
+    public List<DeviceResponse> getDevicesForUser(String userId) {
+        return deviceRepository.findByUserId(userId);
+    }
+}
+```
+
+## References
+
+- **API Library Structure**: [api-library](mdc:openframe/libs/api-library)
+- **Core DTOs**: [openframe-core DTOs](mdc:openframe/libs/openframe-core/src/main/java/com/openframe/core/dto)
+- **Error Handling**: [ErrorResponse](mdc:openframe/libs/openframe-core/src/main/java/com/openframe/core/dto/ErrorResponse.java)
+- **Authentication Patterns**: [authentication-patterns.mdc](mdc:.cursor/rules/authentication-patterns.mdc)
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
