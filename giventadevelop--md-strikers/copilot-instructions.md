@@ -1,644 +1,518 @@
-## playwright-testing-middleware-fixes
+## portrait-image-card-layout-centering
 
-> Playwright testing setup, middleware fixes, and error handling patterns for public and admin tests
+> Standard patterns for displaying portrait and member images without cropping, with proper centering and aspect ratio preservation
 
 
-# Playwright Testing Setup and Middleware Fixes
+# Portrait Image Display Pattern
 
 ## **Overview**
-This rule documents the fixes applied to enable Playwright automated testing for both public pages and admin pages, including middleware configuration changes, error handling patterns, and authentication workarounds.
+This rule defines the correct patterns for displaying portrait and member images (people photos) that must be fully visible without cropping heads or other important parts. This pattern ensures images are properly centered, maintain their aspect ratio, and display consistently across all screen sizes.
 
 ## **Problem Solved**
-- **Public Page 401 Errors**: Playwright tests failing with 401 Unauthorized for public pages
-- **Admin Test Authentication**: Admin tests failing due to Clerk authentication and admin role checks
-- **Middleware Interference**: Clerk middleware blocking Playwright requests without session cookies
-- **Strict Error Detection**: Tests failing on false positives (401/403 text in HTML/JS, not actual errors)
+- **Head Cropping**: Prevents portrait images from cutting off people's heads or faces
+- **Improper Centering**: Ensures images are centered both horizontally and vertically
+- **Aspect Ratio Issues**: Maintains original image proportions without distortion
+- **Inconsistent Display**: Provides uniform display across different portrait orientations
+- **User Experience**: Shows complete portraits so viewers can see the full person
 
----
+## **When to Use This Pattern**
 
-## **Core Pattern: Middleware Wrapper for Playwright Compatibility**
+### **Use for:**
+- ✅ Team member profiles and portraits
+- ✅ Leadership/executive team displays
+- ✅ Clergy and religious leader portraits
+- ✅ Board member and staff photos
+- ✅ Speaker or guest profiles
+- ✅ Any people-centric imagery where the full person must be visible
 
-### **Custom Middleware Wrapper in `src/middleware.ts`**
+### **Don't Use for:**
+- ❌ Banner/hero images (use image_containment_prevention.mdc instead)
+- ❌ Background images where cropping is acceptable
+- ❌ Decorative images where partial visibility is fine
+- ❌ Product or object photos that can be cropped
 
-**CRITICAL**: We wrap Clerk's `authMiddleware` with a custom middleware function that intercepts 401/redirect responses for public routes. This allows Playwright tests to work while maintaining `auth()` functionality.
+## **Core Pattern: Portrait Grid Cards**
 
-**Pattern**:
-```typescript
-// Create Clerk middleware (still called for all routes)
-const clerkMiddleware = authMiddleware({
-  publicRoutes: [
-    '/',              // Homepage - needs auth() for admin lookup
-    '/events(.*)',    // Public pages
-    '/api/proxy(.*)', // API proxy routes
-    // ... other public routes
-  ],
-  ignoredRoutes: [
-    '/api/proxy/(.*)',  // Completely bypass Clerk for API proxy (mobile browser compatibility)
-    '/api/webhooks/(.*)',
-    // ... other ignored routes
-  ],
-});
+### **Container Setup**
+```tsx
+// ✅ DO: Use aspect ratio container with flexible height
+<div className="relative w-full h-auto aspect-[3/4] mx-auto mb-4 rounded-lg overflow-hidden sacred-shadow-sm group-hover:sacred-shadow reverent-transition bg-muted/20">
+  <div className="relative w-full h-full flex items-center justify-center p-2">
+    {/* Image goes here */}
+  </div>
+</div>
 
-// Custom wrapper that intercepts 401/redirects for public routes
-export default async function middleware(req: NextRequest) {
-  const pathname = req.nextUrl.pathname;
-  const isPublic = isPublicRoute(pathname);
-
-  // Always call Clerk middleware (even for public routes) so auth() works in layout.tsx
-  let response = clerkMiddleware(req);
-  if (response instanceof Promise) {
-    response = await response;
-  }
-
-  // CRITICAL: If Clerk returned 401 or redirected to sign-in for a public route, override it
-  if (isPublic && response instanceof NextResponse) {
-    const location = response.headers.get('location');
-    const isRedirectToSignIn = location && (location.includes('/sign-in') || location.includes('sign-in'));
-    const isUnauthorized = response.status === 401 || response.status === 307 || response.status === 308;
-
-    if (isUnauthorized || isRedirectToSignIn) {
-      // Override to 200 - allow access for Playwright tests
-      const publicResponse = NextResponse.next();
-      publicResponse.headers.set('x-pathname', pathname);
-      // Copy headers from Clerk's response (except location)
-      response.headers.forEach((value, key) => {
-        if ((key.startsWith('x-') || key === 'set-cookie') && key !== 'location') {
-          publicResponse.headers.set(key, value);
-        }
-      });
-      return publicResponse;
-    }
-  }
-
-  return response;
-}
+// ❌ DON'T: Use fixed height that crops images
+<div className="w-full h-48 mx-auto mb-4 rounded-lg overflow-hidden">
+  {/* This will crop images */}
+</div>
 ```
 
-### **Key Requirements**:
-1. ✅ **Call `clerkMiddleware` for all routes** - Ensures `auth()` works in `layout.tsx`
-2. ✅ **Intercept 401/redirects for public routes** - Allows Playwright tests without session cookies
-3. ✅ **Preserve Clerk headers** - Copy `x-*` and `set-cookie` headers from Clerk's response
-4. ✅ **Don't break Clerk detection** - Clerk detects `authMiddleware()` by checking file contents, not export
+### **Image Configuration**
+```tsx
+// ✅ DO: Use object-contain with fill and proper sizing
+<Image
+  src={member.image}
+  alt={member.name}
+  fill
+  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+  className="object-contain group-hover:scale-105 reverent-transition"
+  style={{
+    objectPosition: 'center center'
+  }}
+/>
 
----
-
-## **Public Routes Configuration**
-
-### **Routes That Call `auth()` MUST Be in `publicRoutes`**
-
-**CRITICAL**: Routes that call `auth()` or `currentUser()` in server components **MUST** be in `publicRoutes` (NOT `ignoredRoutes`) so Clerk middleware runs.
-
-**Example**:
-```typescript
-publicRoutes: [
-  '/',              // ✅ Homepage - layout.tsx calls auth() for admin lookup
-  '/polls(.*)',     // ✅ Poll pages call auth() to check user participation
-  '/pricing(.*)',   // ✅ Pricing page calls auth() to check subscription status
-  '/events(.*)',    // ✅ Public pages (may call auth() for user-specific content)
-  '/api/proxy(.*)', // ✅ API proxy routes (public access, backend handles auth)
-],
+// ❌ DON'T: Use object-cover which crops images
+<Image
+  src={member.image}
+  alt={member.name}
+  width={242}
+  height={156}
+  className="w-full h-full object-cover"
+/>
 ```
 
-### **Routes That DON'T Call `auth()` Can Be in `ignoredRoutes`**
+## **Pattern Variations**
 
-**Example**:
-```typescript
-ignoredRoutes: [
-  '/api/proxy/(.*)',  // ✅ API routes handle their own auth (JWT)
-  '/api/webhooks/(.*)', // ✅ Webhook routes use service JWT, not Clerk
-  // NOTE: Public page routes like /events, /gallery are NOT in ignoredRoutes
-  // because layout.tsx calls auth() to check admin status for header menu visibility
-],
+### **1. Grid Layout (Team Members, Synod Members)**
+
+**Use Case**: Multiple portraits in a responsive grid (3-4 columns)
+
+**Important**: Use **flexbox with `justify-content: center`** instead of CSS Grid to automatically center the last row when there are fewer cards than columns. This ensures cards expand from the center outward, and the last row is always centered.
+
+```tsx
+// ✅ DO: Use flexbox for automatic last-row centering
+<div className="flex flex-wrap gap-6 justify-center items-start max-w-7xl mx-auto">
+  {members.map((member) => (
+    <Link
+      key={member.id}
+      href={member.href}
+      className="bg-card rounded-lg sacred-shadow p-6 hover:sacred-shadow-lg reverent-transition group w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex-shrink-0"
+      style={{ maxWidth: '400px' }}
+    >
+      <div className="text-center">
+        {/* Image Container */}
+        <div className="relative w-full h-auto aspect-[3/4] mx-auto mb-4 rounded-lg overflow-hidden sacred-shadow-sm group-hover:sacred-shadow reverent-transition bg-muted/20">
+          <div className="relative w-full h-full flex items-center justify-center p-2">
+            <Image
+              src={member.image}
+              alt={member.name}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-contain group-hover:scale-105 reverent-transition"
+              style={{ objectPosition: 'center center' }}
+            />
+          </div>
+        </div>
+        
+        {/* Member Info */}
+        <h3 className="font-heading font-semibold text-lg text-foreground mb-2">
+          {member.name}
+        </h3>
+        <p className="font-body text-sm text-primary font-medium mb-3">
+          {member.title}
+        </p>
+      </div>
+    </Link>
+  ))}
+</div>
+
+// ❌ DON'T: Use CSS Grid - last row won't center with fewer items
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {/* Last row items will align left, not center */}
+</div>
 ```
 
----
+**Key Implementation Details**:
+- **Flexbox Container**: `flex flex-wrap justify-center` - automatically centers all rows, including the last row
+- **Card Widths**: `w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]` - responsive widths with gap compensation
+- **Prevent Shrinking**: `flex-shrink-0` - maintains card size, prevents compression
+- **Max Width**: `style={{ maxWidth: '400px' }}` - consistent card size limit across screen sizes
+- **Gap**: `gap-6` - consistent spacing between cards (1.5rem / 24px)
+- **Center Alignment**: `justify-center items-start` - centers cards horizontally, aligns tops
+- **Result**: Cards expand from center outward; last row automatically centers even with 1-2 cards
 
-## **Relaxed Error Detection Pattern**
+### **2. Featured Portrait - Detail Page Layout (Leaders, Individual Member Pages)**
 
-### **Problem: False Positives from 401/403 Text in HTML/JS**
+**Use Case**: Large portrait on individual detail pages with accompanying biographical content
 
-Playwright tests were failing when they found "401" or "403" text in HTML comments, JavaScript code, or hidden elements, even though the page loaded successfully.
+**Pattern A: Large Responsive Portrait (Holy Synod Member Detail Pages)**
+```tsx
+<div className="flex flex-col md:flex-row gap-8">
+  {/* Featured Portrait - Left Side - Large Display */}
+  <div className="flex-shrink-0 flex justify-center md:justify-start">
+    <div className="relative w-72 h-[28rem] md:w-80 md:h-[32rem] lg:w-96 lg:h-[36rem] rounded-lg overflow-hidden sacred-shadow-lg">
+      <Image
+        src={member.image}
+        alt={member.name}
+        fill
+        sizes="(max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
+        className="object-cover object-top"
+        style={{
+          objectPosition: 'center 15%'
+        }}
+        priority
+      />
+    </div>
+  </div>
 
-### **Solution: Only Check Visible Error Elements**
-
-**Pattern**:
-```javascript
-// ❌ DON'T: Check for any "401" or "403" text in page content
-const pageContent = await page.content();
-if (pageContent.includes('401') || pageContent.includes('403')) {
-  throw new Error('401/403 error detected');
-}
-
-// ✅ DO: Only check for visible error elements with specific selectors
-const errorSelectors = [
-  '[role="alert"]',
-  '[class*="error"][class*="message"]',
-  '[class*="alert"][class*="error"]',
-  'div[class*="cl-error"]',
-  'div[class*="cl-alert"]',
-  'p[class*="error"]',
-  'span[class*="error"]'
-];
-
-let hasVisibleAuthError = false;
-for (const selector of errorSelectors) {
-  const errorElement = await page.$(selector);
-  if (errorElement) {
-    const isVisible = await errorElement.isVisible().catch(() => false);
-    if (isVisible) {
-      const text = await errorElement.textContent().catch(() => '');
-      // Only treat as auth error if it contains authentication-related text
-      if (text && (
-        text.toLowerCase().includes('unauthorized') ||
-        text.toLowerCase().includes('401') ||
-        text.toLowerCase().includes('403') ||
-        text.toLowerCase().includes('forbidden') ||
-        text.toLowerCase().includes('access denied')
-      )) {
-        hasVisibleAuthError = true;
-        break;
-      }
-    }
-  }
-}
-
-if (hasVisibleAuthError) {
-  throw new Error('Authentication failed - visible 401/403 error detected');
-}
+  {/* Content - Right Side of Image */}
+  <div className="flex-1">
+    <h3 className="font-heading font-semibold text-2xl text-foreground mb-6">
+      {member.name}
+    </h3>
+    <div className="prose prose-lg max-w-none">
+      <p className="font-body text-muted-foreground leading-relaxed">
+        {member.biography}
+      </p>
+    </div>
+  </div>
+</div>
 ```
 
-### **Key Requirements**:
-1. ✅ **Check element visibility** - Use `isVisible()` to ensure error is actually shown to user
-2. ✅ **Use specific selectors** - Target error elements, not generic text search
-3. ✅ **Verify error text** - Only treat as error if text contains authentication-related keywords
-4. ✅ **Handle errors gracefully** - Don't fail test if error checking itself fails
+**Pattern B: Medium Featured Portrait (Smaller Layout)**
+```tsx
+<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+  {/* Image - Fixed dimensions with object-contain */}
+  <div className="flex justify-center md:justify-start">
+    <div className="relative w-48 h-64 md:w-56 md:h-80 rounded-lg overflow-hidden sacred-shadow bg-muted/20 flex items-center justify-center p-2">
+      <Image
+        src={member.image}
+        alt={member.name}
+        fill
+        sizes="(max-width: 768px) 192px, 224px"
+        className="object-contain"
+        style={{ objectPosition: 'center center' }}
+        priority
+      />
+    </div>
+  </div>
 
----
-
-## **Public Page Test Pattern**
-
-### **Test Structure** (`TestSprite/sanity-tests/run-public-pages-tests.js`)
-
-**Pattern**:
-```javascript
-async function executeTestWithPlaywright(test, testUrl, startTime) {
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    locale: 'en-US',
-    timezoneId: 'America/New_York',
-  });
-  const page = await context.newPage();
-
-  try {
-    // Navigate to page
-    const response = await page.goto(testUrl, {
-      waitUntil: 'domcontentloaded',
-      timeout: 45000, // Increased timeout for slow pages
-    });
-
-    // Wait for network idle (optional, may timeout)
-    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {
-      // Network idle timeout is OK - page may still be loading
-    });
-
-    // Check for redirects (relaxed - allow redirects for pricing page)
-    const finalUrl = page.url();
-    if (finalUrl.includes('/sign-in') && !testUrl.includes('/sign-in')) {
-      // Pricing page is expected to redirect to sign-in if not authenticated
-      if (testUrl.includes('/pricing')) {
-        // Don't fail - this is expected behavior
-        return { success: true, warnings: ['Redirected to sign-in (expected)'] };
-      } else {
-        throw new Error(`Page redirected to sign-in (401 Unauthorized)`);
-      }
-    }
-
-    // Check response status (relaxed - allow 200 even if response.ok() is false)
-    if (!response || (!response.ok() && response.status() !== 200)) {
-      // Only fail if status is actually an error (not 200)
-      if (response && response.status() >= 400) {
-        throw new Error(`Page returned status ${response.status()}`);
-      }
-    }
-
-    // Check for visible content (not just <main> element)
-    const hasContent = await page.evaluate(() => {
-      // Check for various content indicators
-      return !!(
-        document.querySelector('main') ||
-        document.querySelector('h1') ||
-        document.querySelector('.event-list') ||
-        document.querySelector('.gallery-grid') ||
-        document.querySelector('[class*="container"]')
-      );
-    });
-
-    if (!hasContent) {
-      throw new Error('Page appears to be empty or failed to load content');
-    }
-
-    return { success: true };
-  } catch (error) {
-    // Take screenshot on failure
-    await page.screenshot({ path: `screenshots/error-${Date.now()}.png` });
-    throw error;
-  } finally {
-    await browser.close();
-  }
-}
+  {/* Content */}
+  <div className="md:col-span-2">
+    <h3 className="font-heading font-semibold text-2xl text-foreground mb-2">
+      {member.name}
+    </h3>
+    <p className="font-body text-lg text-primary mb-4">
+      {member.title}
+    </p>
+    <p className="font-body text-muted-foreground leading-relaxed">
+      {member.description}
+    </p>
+  </div>
+</div>
 ```
 
-### **Key Requirements**:
-1. ✅ **Realistic browser context** - Use proper user agent, locale, timezone
-2. ✅ **Increased timeouts** - Public pages may take time to load
-3. ✅ **Relaxed redirect handling** - Allow redirects for pages that require auth (e.g., `/pricing`)
-4. ✅ **Flexible content detection** - Check for various content indicators, not just `<main>`
-5. ✅ **Graceful error handling** - Don't fail on network idle timeouts
+**Key Differences**:
+- **Pattern A (Large)**: Uses responsive sizing (`w-72 md:w-80 lg:w-96`), taller heights, `object-cover` for portraits
+- **Pattern B (Medium)**: Uses fixed small size (`w-48 md:w-56`), `object-contain` for complete visibility
 
----
+### **3. Tall Portrait Cards (Executive Team)**
 
-## **Admin Test Pattern**
+**Use Case**: Taller cards for full-body or formal portraits
 
-### **Authentication Flow** (`TestSprite/admin-tests/comprehensive-admin-test-suite.js`)
-
-**Pattern**:
-```javascript
-import { authenticatePage, loadAuthState, saveAuthState } from '../sanity-tests/authenticate-playwright.js';
-
-async function authenticateAndRunTests(config) {
-  const browser = await chromium.launch({ headless: config.headless !== false });
-  let context;
-
-  // Try to load saved auth state
-  const savedState = loadAuthState();
-  if (savedState) {
-    context = await browser.newContext({
-      storageState: savedState,
-      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    });
-
-    // Validate saved state by navigating to /admin
-    const page = await context.newPage();
-    await page.goto(`${config.baseUrl}/admin`, { waitUntil: 'networkidle' });
-    const currentUrl = page.url();
-    await page.close();
-
-    // If redirected to sign-in, state is invalid - re-authenticate
-    if (currentUrl.includes('/sign-in')) {
-      console.log('⚠️  Saved auth state is invalid, re-authenticating...');
-      await context.close();
-      savedState = null;
-    }
-  }
-
-  // Authenticate if no valid saved state
-  if (!savedState) {
-    context = await browser.newContext({
-      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    });
-    const page = await context.newPage();
-    await authenticatePage(page, config.baseUrl, {
-      email: config.email,
-      password: config.password,
-    });
-    await page.close();
-
-    // Save auth state for future runs
-    saveAuthState(await context.storageState());
-  }
-
-  return context;
-}
+```tsx
+<div className="relative h-[400px] lg:h-[450px] overflow-hidden p-4">
+  <div className="relative w-full h-full rounded-xl overflow-hidden bg-muted/20 flex items-center justify-center">
+    <Image
+      src={member.image}
+      alt={member.name}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      className="object-contain group-hover:scale-105 transition-transform duration-700"
+      style={{ objectPosition: 'center center' }}
+    />
+  </div>
+</div>
 ```
 
-### **Key Requirements**:
-1. ✅ **Save authentication state** - Use `context.storageState()` to save cookies/session
-2. ✅ **Validate saved state** - Check if state is still valid by navigating to `/admin`
-3. ✅ **Re-authenticate if needed** - If state is invalid, perform fresh authentication
-4. ✅ **Use realistic browser context** - Proper user agent for Clerk compatibility
+## **Key Implementation Details**
 
----
+### **Container Requirements**
+1. **Aspect Ratio**: Use `aspect-[3/4]` for standard portraits (or `aspect-[2/3]` for taller)
+2. **Flexible Height**: Use `h-auto` to let the container adapt to content
+3. **Background**: Add `bg-muted/20` or similar for visual polish when images have transparency
+4. **Padding**: Include `p-2` or `p-4` on inner container for breathing room
+5. **Flexbox Centering**: Use `flex items-center justify-center` for perfect centering
 
-## **Admin Authentication Helper Pattern**
+### **Image Requirements**
+1. **Fill Property**: Use `fill` instead of fixed width/height for responsive behavior
+2. **Object-Contain**: Always use `object-contain` (never `object-cover` for portraits)
+3. **Object Position**: Set to `center center` for proper centering
+4. **Sizes Attribute**: Provide appropriate sizes for responsive optimization
+5. **Hover Effects**: Optional `group-hover:scale-105` for interactivity
 
-### **Robust Authentication** (`TestSprite/sanity-tests/authenticate-playwright.js`)
+### **Responsive Sizing Pattern**
+```tsx
+// ✅ DO: Progressive sizing based on viewport
+sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
 
-**Pattern**:
-```javascript
-async function authenticatePage(page, baseUrl, credentials) {
-  // Navigate to sign-in page
-  await page.goto(`${baseUrl}/sign-in`, { waitUntil: 'networkidle' });
+// For fixed-width containers:
+sizes="(max-width: 768px) 192px, 224px"
 
-  // Try multiple selectors for email field (Clerk UI may vary)
-  const emailSelectors = [
-    'input[name="identifier"]',
-    'input[type="email"]',
-    'input[id*="email"]',
-    'input[placeholder*="email" i]',
-  ];
-
-  let emailField = null;
-  for (const selector of emailSelectors) {
-    emailField = await page.$(selector).catch(() => null);
-    if (emailField) break;
-  }
-
-  if (!emailField) {
-    throw new Error('Email field not found');
-  }
-
-  await emailField.fill(credentials.email);
-
-  // Try multiple selectors for password field
-  const passwordSelectors = [
-    'input[name="password"]',
-    'input[type="password"]',
-    'input[id*="password"]',
-  ];
-
-  let passwordField = null;
-  for (const selector of passwordSelectors) {
-    passwordField = await page.$(selector).catch(() => null);
-    if (passwordField) break;
-  }
-
-  if (!passwordField) {
-    throw new Error('Password field not found');
-  }
-
-  await passwordField.fill(credentials.password);
-
-  // Try pressing Enter first (may trigger form submission)
-  await passwordField.press('Enter');
-  await page.waitForTimeout(2000);
-
-  // If still on sign-in page, try clicking submit button
-  if (page.url().includes('/sign-in')) {
-    const submitSelectors = [
-      'button[type="submit"]',
-      'button:has-text("Sign in")',
-      'button:has-text("Continue")',
-      '[role="button"]:has-text("Sign")',
-    ];
-
-    let submitted = false;
-    for (const selector of submitSelectors) {
-      try {
-        const button = await page.$(selector);
-        if (button) {
-          const isVisible = await button.isVisible().catch(() => false);
-          const isEnabled = await button.isEnabled().catch(() => false);
-          if (isVisible && isEnabled) {
-            await button.click();
-            submitted = true;
-            break;
-          }
-        }
-      } catch (e) {
-        // Continue trying other selectors
-      }
-    }
-
-    if (!submitted) {
-      // Fallback: search all buttons by text content
-      const buttons = await page.$$('button');
-      for (const button of buttons) {
-        const text = await button.textContent().catch(() => '');
-        if (text && (text.includes('Sign') || text.includes('Continue'))) {
-          const isVisible = await button.isVisible().catch(() => false);
-          const isEnabled = await button.isEnabled().catch(() => false);
-          if (isVisible && isEnabled) {
-            await button.click();
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  // Poll for redirect (check every 2 seconds for up to 30 seconds)
-  let checkCount = 0;
-  const maxChecks = 15;
-  while (checkCount < maxChecks) {
-    await page.waitForTimeout(2000);
-    const currentUrl = page.url();
-    checkCount++;
-
-    // Success: Redirected away from sign-in page
-    if (!currentUrl.includes('/sign-in') && !currentUrl.includes('/sign-up')) {
-      // Check for OAuth redirects (should not happen for email/password auth)
-      if (currentUrl.includes('google') || currentUrl.includes('microsoft') ||
-          currentUrl.includes('github') || currentUrl.includes('facebook')) {
-        throw new Error('OAuth redirect detected - user account may be configured for social login. Use email/password-only account or disable OAuth in Clerk Dashboard.');
-      }
-      return; // Authentication successful
-    }
-
-    // Check for visible error messages (only if still on sign-in page)
-    if (currentUrl.includes('/sign-in')) {
-      const errorSelectors = [
-        '[class*="error"][class*="message"]',
-        '[class*="alert"][class*="error"]',
-        '[role="alert"]',
-        'div[class*="cl-error"]',
-      ];
-
-      for (const selector of errorSelectors) {
-        const errorElement = await page.$(selector);
-        if (errorElement) {
-          const isVisible = await errorElement.isVisible().catch(() => false);
-          if (isVisible) {
-            const text = await errorElement.textContent().catch(() => '');
-            if (text && (
-              text.toLowerCase().includes('invalid') ||
-              text.toLowerCase().includes('incorrect') ||
-              text.includes('401') ||
-              text.includes('403')
-            )) {
-              throw new Error(`Authentication error: ${text.trim()}`);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // Final check: Navigate to /admin to verify authentication
-  await page.goto(`${baseUrl}/admin`, { waitUntil: 'networkidle' });
-  const verificationUrl = page.url();
-  if (verificationUrl.includes('/sign-in')) {
-    throw new Error('Authentication failed - redirected to sign-in or 401 error');
-  }
-}
+// For large hero images:
+sizes="(max-width: 768px) 100vw, 50vw"
 ```
 
-### **Key Requirements**:
-1. ✅ **Multiple selector fallbacks** - Clerk UI may vary, try multiple selectors
-2. ✅ **Enter key submission** - Try pressing Enter on password field first
-3. ✅ **Button text search** - Fallback to searching buttons by text content
-4. ✅ **Polling for redirect** - Check every 2 seconds for up to 30 seconds
-5. ✅ **OAuth detection** - Fail with clear error if OAuth redirect detected
-6. ✅ **Final verification** - Navigate to `/admin` to confirm authentication
+## **Centered Grid Layout Pattern**
 
----
+### **Overview**
+For card grids where the **last row must be centered** (e.g., if you have 10 cards in a 3-column grid, the last row with 1 card should be centered, not left-aligned), use **flexbox with `justify-content: center`** instead of CSS Grid.
 
-## **Admin Role Check Pattern**
+### **Why Flexbox Over CSS Grid?**
+- **CSS Grid**: Last row items align to the start (left) when fewer than column count
+- **Flexbox**: Automatically centers all rows, including the last row with fewer items
+- **Result**: Cards expand from center outward, maintaining visual balance
 
-### **CRITICAL: Admin Role Must Be Set in Database**
+### **Implementation**
+```tsx
+// ✅ DO: Flexbox with centered alignment
+<div className="flex flex-wrap gap-6 justify-center items-start max-w-7xl mx-auto">
+  {members.map((member) => (
+    <div 
+      className="bg-card rounded-lg sacred-shadow p-6 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex-shrink-0"
+      style={{ maxWidth: '400px' }}
+    >
+      {/* Card content */}
+    </div>
+  ))}
+</div>
 
-**The `user_role` field in the `user_profile` table MUST be set to `'ADMIN'` for admin tests to work.**
-
-**How to Set Admin Role**:
-```sql
--- Update user_role to ADMIN for test user
-UPDATE user_profile
-SET
-  user_role = 'ADMIN',
-  updated_at = NOW()
-WHERE user_id = 'user_37EH4XTm1uPQSQ6hMBmrlqVR0Ma'  -- Replace with actual Clerk userId
-  AND tenant_id = 'tenant_demo_002';  -- Replace with actual tenantId
-
--- Verify the update
-SELECT id, user_id, email, user_role, user_status, tenant_id
-FROM user_profile
-WHERE user_id = 'user_37EH4XTm1uPQSQ6hMBmrlqVR0Ma'
-  AND tenant_id = 'tenant_demo_002';
+// ❌ DON'T: CSS Grid - last row items won't center
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {/* Last row items align left */}
+</div>
 ```
 
-**Important Notes**:
-- ⚠️ **Case-Sensitive**: The value must be exactly `'ADMIN'` (uppercase)
-- ⚠️ **Tenant-Scoped**: Each tenant can have different admins
-- ⚠️ **Requires Re-login**: After changing `user_role`, user must log out and log back in
+### **Key Classes Explained**
+- **`flex flex-wrap`**: Creates wrapping flexbox layout
+- **`justify-center`**: Centers cards horizontally (this is the magic!)
+- **`items-start`**: Aligns card tops (prevents stretching)
+- **`gap-6`**: Consistent spacing (1.5rem / 24px) between cards
+- **`w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]`**: Responsive widths
+  - Mobile: Full width (1 column)
+  - Tablet: 50% minus half gap (2 columns)
+  - Desktop: 33.333% minus gap compensation (3 columns)
+- **`flex-shrink-0`**: Prevents cards from shrinking below their width
+- **`maxWidth: '400px'`**: Limits card size for consistency
 
----
+### **Result**
+- **1 card in last row**: Centered
+- **2 cards in last row**: Centered together
+- **3 cards (full row)**: Normal row layout
+- **All rows**: Expand from center outward
 
-## **Common Anti-Patterns**
+## **Common Aspect Ratios**
 
-### **❌ DON'T: Put Routes That Call auth() in ignoredRoutes**
-```typescript
-// ❌ WRONG: Homepage calls auth() but is ignored
-ignoredRoutes: [
-  '/',  // This breaks auth() calls in layout.tsx
-],
+| Use Case | Aspect Ratio | Class | Description |
+|----------|--------------|-------|-------------|
+| Standard Portrait | 3:4 | `aspect-[3/4]` | Most common, headshots and bust portraits |
+| Tall Portrait | 2:3 | `aspect-[2/3]` | Full body or formal portraits |
+| Square | 1:1 | `aspect-square` | Profile pictures, avatars |
+| Wide Portrait | 4:5 | `aspect-[4/5]` | Landscape-oriented portraits |
+
+## **Error Handling & Fallbacks**
+
+```tsx
+// ✅ DO: Provide fallback and error handling
+<Image
+  src={member.image || '/images/placeholder-portrait.jpg'}
+  alt={member.name}
+  fill
+  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+  className="object-contain"
+  style={{ objectPosition: 'center center' }}
+  onError={(e) => {
+    const target = e.target as HTMLImageElement;
+    target.src = '/images/placeholder-portrait.jpg';
+  }}
+/>
+
+// ✅ DO: Show loading state
+{isLoading ? (
+  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse" />
+) : (
+  <Image {...imageProps} />
+)}
 ```
 
-**Problem**: Clerk middleware doesn't run, so `auth()` throws error: "Clerk can't detect usage of authMiddleware()"
+## **Accessibility Considerations**
 
-**Fix**: Remove from `ignoredRoutes`, keep in `publicRoutes`
+```tsx
+// ✅ DO: Provide meaningful alt text
+<Image
+  src={member.image}
+  alt={`Portrait of ${member.name}, ${member.title}`}
+  // ... other props
+/>
 
----
+// ✅ DO: Use proper heading hierarchy
+<h3 className="font-heading font-semibold text-lg">
+  {member.name}
+</h3>
+<p className="font-body text-sm text-primary">
+  {member.title}
+</p>
 
-### **❌ DON'T: Check for Any "401" or "403" Text in Page Content**
-```javascript
-// ❌ WRONG: Will fail on false positives
-const content = await page.content();
-if (content.includes('401') || content.includes('403')) {
-  throw new Error('401/403 error detected');
-}
+// ✅ DO: Make cards keyboard accessible
+<Link
+  href={member.href}
+  className="bg-card rounded-lg sacred-shadow p-6 hover:sacred-shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+  aria-label={`View profile of ${member.name}`}
+>
+  {/* Card content */}
+</Link>
 ```
 
-**Problem**: HTML comments, JavaScript code, or hidden elements may contain "401" or "403" text
+## **Performance Optimization**
 
-**Fix**: Only check visible error elements with specific selectors
+```tsx
+// ✅ DO: Use priority for above-the-fold images
+<Image
+  src={member.image}
+  alt={member.name}
+  fill
+  priority // For first 2-3 visible portraits
+  sizes="(max-width: 768px) 100vw, 50vw"
+  className="object-contain"
+/>
 
----
-
-### **❌ DON'T: Fail Test on Network Idle Timeout**
-```javascript
-// ❌ WRONG: Fails test if network idle timeout
-await page.waitForLoadState('networkidle', { timeout: 10000 });
+// ✅ DO: Use lazy loading for below-the-fold
+<Image
+  src={member.image}
+  alt={member.name}
+  fill
+  loading="lazy" // For portraits further down the page
+  sizes="(max-width: 768px) 100vw, 33vw"
+  className="object-contain"
+/>
 ```
 
-**Problem**: Some pages never reach network idle state (e.g., WebSocket connections, polling)
+## **Complete Example: Holy Synod Members**
 
-**Fix**: Catch timeout and continue (it's OK if network idle times out)
+Reference: `src/app/mosc/holy-synod/page.tsx` lines 302-340
 
----
-
-## **Best Practices**
-
-### **DO:**
-- ✅ Use middleware wrapper to intercept 401/redirects for public routes
-- ✅ Keep routes that call `auth()` in `publicRoutes` (not `ignoredRoutes`)
-- ✅ Only check visible error elements, not page content text
-- ✅ Use multiple selector fallbacks for Clerk UI elements
-- ✅ Save and validate authentication state for admin tests
-- ✅ Use realistic browser context (user agent, locale, timezone)
-- ✅ Increase timeouts for slow-loading pages
-- ✅ Allow redirects for pages that require auth (e.g., `/pricing`)
-
-### **DON'T:**
-- ❌ Put routes that call `auth()` in `ignoredRoutes`
-- ❌ Check for "401" or "403" text in page content
-- ❌ Fail tests on network idle timeouts
-- ❌ Use hardcoded selectors for Clerk UI elements
-- ❌ Skip authentication state validation
-- ❌ Use generic browser context (may break Clerk)
-
----
+```tsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {synodMembers.filter(member => !member.special).map((member) => (
+    <Link
+      key={member.name}
+      href={member.href}
+      className="bg-card rounded-lg sacred-shadow p-6 hover:sacred-shadow-lg reverent-transition group"
+    >
+      <div className="text-center">
+        {/* Image Container - Full image display without cropping */}
+        <div className="relative w-full h-auto aspect-[3/4] mx-auto mb-4 rounded-lg overflow-hidden sacred-shadow-sm group-hover:sacred-shadow reverent-transition bg-muted/20">
+          <div className="relative w-full h-full flex items-center justify-center p-2">
+            <Image
+              src={member.image || '/images/holy-synod/placeholder.jpg'}
+              alt={member.name}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-contain group-hover:scale-105 reverent-transition"
+              style={{
+                objectPosition: 'center center'
+              }}
+            />
+          </div>
+        </div>
+        <h3 className="font-heading font-semibold text-lg text-foreground mb-2 group-hover:text-primary reverent-transition">
+          {member.name}
+        </h3>
+        <p className="font-body text-sm text-primary font-medium mb-3">
+          {member.title}
+        </p>
+        <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-3">
+          {member.description}
+        </p>
+      </div>
+    </Link>
+  ))}
+</div>
+```
 
 ## **Troubleshooting**
 
-### **Public Tests Failing with 401 Errors**
+### **Image Still Getting Cropped?**
+1. ✅ Verify container uses `aspect-[3/4]` or `h-auto`, not fixed `h-48`
+2. ✅ Check image uses `object-contain`, not `object-cover`
+3. ✅ Ensure inner wrapper has `flex items-center justify-center`
+4. ✅ Confirm padding is present on inner container (`p-2` or `p-4`)
 
-**Checklist**:
-1. ✅ Is route in `publicRoutes` (not `ignoredRoutes`)?
-2. ✅ Is middleware wrapper intercepting 401 responses?
-3. ✅ Has dev server been restarted after middleware changes?
-4. ✅ Is Next.js cache cleared (`rm -rf .next`)?
+### **Image Not Centered?**
+1. ✅ Add `flex items-center justify-center` to inner container
+2. ✅ Set `objectPosition: 'center center'` in style prop
+3. ✅ Verify container has proper `relative` positioning
 
-**Fix**: Ensure route is in `publicRoutes` and middleware wrapper is intercepting 401 responses
+### **Image Too Small?**
+1. ✅ Check source image resolution (should be 600px+ wide)
+2. ✅ Adjust `sizes` attribute for larger display
+3. ✅ Increase container dimensions if needed
+4. ✅ Reduce padding if too much white space
+
+### **Image Distorted?**
+1. ✅ Ensure using `object-contain` (preserves aspect ratio)
+2. ✅ Remove any explicit `width` or `height` from image className
+3. ✅ Let container aspect ratio control dimensions
+
+## **Testing Checklist**
+
+Before deploying portrait image implementations:
+- [ ] Images display completely without cropping (check heads, feet, sides)
+- [ ] Images are centered horizontally and vertically
+- [ ] Aspect ratio is preserved (no stretching/squashing)
+- [ ] Layout is responsive across mobile, tablet, desktop
+- [ ] Hover effects work smoothly
+- [ ] Loading states are handled
+- [ ] Error states show fallback images
+- [ ] Alt text is meaningful and descriptive
+- [ ] Performance is optimized (lazy loading, sizes attribute)
+- [ ] Keyboard navigation works for linked portraits
+
+## **Quick Reference: Copy-Paste Ready**
+
+```tsx
+// Portrait Card Pattern (Copy-Paste Ready)
+<div className="bg-card rounded-lg sacred-shadow p-6 hover:sacred-shadow-lg reverent-transition group">
+  <div className="text-center">
+    {/* Image Container */}
+    <div className="relative w-full h-auto aspect-[3/4] mx-auto mb-4 rounded-lg overflow-hidden sacred-shadow-sm group-hover:sacred-shadow reverent-transition bg-muted/20">
+      <div className="relative w-full h-full flex items-center justify-center p-2">
+        <Image
+          src={imageUrl}
+          alt={name}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-contain group-hover:scale-105 reverent-transition"
+          style={{ objectPosition: 'center center' }}
+        />
+      </div>
+    </div>
+    
+    {/* Content */}
+    <h3 className="font-heading font-semibold text-lg text-foreground mb-2 group-hover:text-primary reverent-transition">
+      {name}
+    </h3>
+    <p className="font-body text-sm text-primary font-medium mb-3">
+      {title}
+    </p>
+    <p className="font-body text-xs text-muted-foreground leading-relaxed line-clamp-3">
+      {description}
+    </p>
+  </div>
+</div>
+```
+
+## **Related Patterns**
+
+- **Banner Images**: See `image_containment_prevention.mdc`
+- **MOSC Design System**: See `mosc_styling_standards.mdc`
+- **Team Section**: See `src/components/TeamSection.tsx`
 
 ---
 
-### **Admin Tests Failing with Authentication Errors**
-
-**Checklist**:
-1. ✅ Is `user_role = 'ADMIN'` in the `user_profile` table?
-2. ✅ Is user account configured for email/password (not OAuth)?
-3. ✅ Are credentials correct in `auth.json`?
-4. ✅ Is saved auth state valid (not expired)?
-
-**Fix**: Set `user_role = 'ADMIN'` in database and ensure email/password auth is enabled
-
----
-
-### **Tests Failing on False Positives (401/403 Text)**
-
-**Checklist**:
-1. ✅ Are you checking visible error elements (not page content)?
-2. ✅ Are you using specific error selectors?
-3. ✅ Are you verifying error text contains authentication keywords?
-
-**Fix**: Use visible error element detection pattern (see "Relaxed Error Detection Pattern" above)
-
----
-
-## **References**
-
-- **Middleware Config**: [`src/middleware.ts`](mdc:src/middleware.ts) - Lines 237-292
-- **Public Tests**: [`TestSprite/sanity-tests/run-public-pages-tests.js`](mdc:TestSprite/sanity-tests/run-public-pages-tests.js)
-- **Admin Tests**: [`TestSprite/admin-tests/comprehensive-admin-test-suite.js`](mdc:TestSprite/admin-tests/comprehensive-admin-test-suite.js)
-- **Auth Helper**: [`TestSprite/sanity-tests/authenticate-playwright.js`](mdc:TestSprite/sanity-tests/authenticate-playwright.js)
-- **Admin Role Lookup**: [`.cursor/rules/clerk_auth_admin_user_lookup.mdc`](mdc:.cursor/rules/clerk_auth_admin_user_lookup.mdc)
-
----
-
-## **Summary**
-
-**Key Patterns**:
-1. **Middleware Wrapper**: Intercepts 401/redirects for public routes while maintaining `auth()` functionality
-2. **Relaxed Error Detection**: Only checks visible error elements, not page content text
-3. **Robust Authentication**: Multiple selector fallbacks, polling, and state validation
-4. **Public Routes**: Routes calling `auth()` must be in `publicRoutes` (not `ignoredRoutes`)
-
-**Testing Flow**:
-1. Public tests: Use middleware wrapper to allow access without session cookies
-2. Admin tests: Authenticate once, save state, validate on subsequent runs
-3. Error detection: Only check visible errors, allow network idle timeouts
-
-This ensures Playwright tests work reliably while maintaining proper authentication and authorization flow.
+**Last Updated**: December 2024
+**Reference**: Holy Synod page implementation (`src/app/mosc/holy-synod/page.tsx`)
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
