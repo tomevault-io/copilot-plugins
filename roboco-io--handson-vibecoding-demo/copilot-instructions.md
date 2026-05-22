@@ -1,154 +1,52 @@
-## handson-vibecoding-demo
+## backend-rules
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> 백엔드 관련 작업시에 적용한다.
 
-# CLAUDE.md
+# 백엔드 개발 규칙
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## 참조 문서(docs/design)
+- [아키텍처 개요](mdc:docs/design/architecture.md)
+- [백엔드 설계](mdc:docs/design/backend.md)
+- [인프라 설계](mdc:docs/design/infrastructure.md)
+- [보안 설계](mdc:docs/design/security.md)
+- [모니터링 설계](mdc:docs/design/monitoring.md)
+- [비용 최적화](mdc:docs/design/optimization.md)
 
-## Project Overview
+## API 설계
+- RESTful API 원칙 준수
+- 명확하고 일관된 엔드포인트 명명
+- 적절한 HTTP 메서드 사용
+- 오류 처리 및 상태 코드 표준화
 
-This is a modern TODO app monorepo demonstrating best practices for web development and infrastructure automation. The project consists of:
+## 데이터 접근
+- DynamoDB 테이블 설계 최적화
+- 데이터 액세스 계층 추상화
+- 쿼리 성능 최적화
+- 트랜잭션 및 일관성 관리
 
-- **Frontend**: React + TypeScript + Vite + Mantine UI
-- **Backend**: Node.js + TypeScript with Clean Architecture and TDD
-- **Shared**: Common types, constants, and utilities
-- **Infrastructure**: AWS CDK for Infrastructure as Code
-- **Documentation**: Comprehensive design docs and task checklists
+## Clean Architecture
+- 엔티티: 핵심 비즈니스 규칙 및 데이터 구조
+- 유스케이스: 애플리케이션 특정 비즈니스 규칙
+- 인터페이스 어댑터: 컨트롤러, 프레젠터, 게이트웨이
+- 프레임워크 및 드라이버: 웹, UI, DB, 외부 서비스
 
-## Development Commands
+## 의존성 규칙
+- 내부 계층은 외부 계층에 의존하지 않음
+- 의존성 주입을 통한 결합도 감소
+- 인터페이스를 통한 추상화
+- 외부 프레임워크/라이브러리에 대한 의존성 최소화
 
-### Frontend
-```bash
-# Development
-npm run frontend:dev
+## 버전 정보
+- Node.js: v22.x
+- TypeScript: v5.x
+- AWS SDK: v3.x
+- Jest: v29.x
 
-# Build
-npm run frontend:build
-
-# Test
-npm run frontend:test
-
-# Lint (with auto-fix)
-npm run frontend:lint
-```
-
-### Backend
-```bash
-# Build
-npm run backend:build
-
-# Test
-npm run backend:test
-
-# Lint
-npm run backend:lint
-```
-
-### Shared Module
-```bash
-# Build
-npm run shared:build
-
-# Test
-npm run shared:test
-
-# Lint
-npm run shared:lint
-```
-
-### Infrastructure (AWS CDK)
-```bash
-# Synthesize CloudFormation
-npm run cdk:synth
-
-# Deploy to AWS
-npm run cdk:deploy
-
-# Destroy resources
-npm run cdk:destroy
-```
-
-## Architecture
-
-### Frontend Architecture
-- **State Management**: React Context API with custom hooks
-- **UI Framework**: Mantine UI components
-- **Storage**: LocalStorage adapter with interface pattern
-- **Testing**: Jest + React Testing Library, Playwright for E2E
-- **Key Directories**:
-  - `frontend/src/components/`: Reusable UI components
-  - `frontend/src/contexts/`: React Context providers
-  - `frontend/src/hooks/`: Custom hooks for business logic
-  - `frontend/src/models/`: Domain models and business logic
-  - `frontend/src/storage/`: Storage abstraction layer
-
-### Backend Architecture
-- **Pattern**: Clean Architecture with Domain-Driven Design
-- **Structure**: Entity → Repository → UseCase → Lambda handlers
-- **Infrastructure**: AWS CDK stacks (API, Auth, Database, Lambda)
-- **Key Directories**:
-  - `backend/src/domain/`: Core business entities and use cases
-  - `backend/src/lambda/`: AWS Lambda function handlers
-  - `backend/lib/`: CDK infrastructure stacks
-
-### Shared Module
-- **Purpose**: Common types, constants, and utilities shared between frontend/backend
-- **Exports**: TypeScript interfaces, validation utilities, constants
-
-## Development Rules
-
-### Implementation Principles
-- **TDD Required**: Write tests first for all business logic
-- **Clean Architecture**: Follow domain-driven design patterns
-- **SOLID Principles**: Apply object-oriented design principles
-- **Simplicity**: Always prefer simple solutions over complex ones
-
-### Code Quality Standards
-- **TypeScript**: Strict type checking enabled
-- **ESLint + Prettier**: Consistent code formatting
-- **Test Coverage**: Maintain 80%+ coverage for core logic
-- **No Mock Data**: Avoid mock data outside of tests
-
-### Git Workflow
-- **Pre-commit Hooks**: Automatic lint, build, and test on commit
-- **Hook Scope**: Only runs for changed frontend (.js/.ts/.tsx) and backend (.ts) files
-- **Never use `--no-verify`**: All commits must pass validation
-- **Commit Messages**: Use clear, consistent format
-
-## Testing Strategy
-
-### Frontend Testing
-- **Unit Tests**: Jest + React Testing Library for components and hooks
-- **E2E Tests**: Playwright with visual regression testing
-- **Test Location**: `frontend/src/__tests__/` and `frontend/e2e/`
-
-### Backend Testing
-- **Unit Tests**: Jest for domain entities and use cases
-- **Integration Tests**: CDK stack testing
-- **Test Location**: `backend/test/` and `backend/src/domain/*.test.ts`
-
-## Documentation Structure
-
-The `docs/` directory contains comprehensive project documentation:
-- **requirements.md**: Functional and non-functional requirements
-- **design/**: Architecture, frontend, backend, infrastructure, security, monitoring, optimization
-- **tasks/**: Step-by-step implementation checklists
-
-Always refer to and update relevant documentation when making architectural changes.
-
-## Key Files to Monitor
-
-- **Pre-commit Hook**: `.husky/pre-commit` - Controls validation pipeline
-- **Package Scripts**: `package.json` - Defines all available commands
-- **CDK Config**: `backend/cdk.json` - AWS CDK configuration
-- **TypeScript Configs**: Multiple `tsconfig.json` files per workspace
-
-## Notes
-
-- All communication and documentation should be in Korean except for technical terms and cloud resource descriptions
-- This project emphasizes comprehensive documentation and systematic development practices
-- Infrastructure code descriptions should be in English for AWS resources
+## AWS 서비스
+- AWS Lambda
+- Amazon DynamoDB
+- Amazon API Gateway
+- Amazon Cognito
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
