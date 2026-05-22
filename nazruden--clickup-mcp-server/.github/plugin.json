@@ -1,0 +1,9 @@
+{
+  "name": "nazruden--clickup-mcp-server",
+  "displayName": "clickup-mcp-server",
+  "description": "A Model Context Protocol server implementation for ClickUp integration, enabling AI assistants to interact with ClickUp workspaces.",
+  "version": "1.0.0",
+  "author": "Nazruden",
+  "homepage": "https://github.com/Nazruden/clickup-mcp-server",
+  "skills": []
+}
