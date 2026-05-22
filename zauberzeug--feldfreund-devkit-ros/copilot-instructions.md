@@ -1,21 +1,24 @@
-## coding
+## general
 
-> writing code
+> **Read these files before working:**
 
-# Coding Guidelines for AI Assistants
 
-**Primary Reference**: @CONTRIBUTING.md
+# Cursor AI Quick Reference
 
-## AI-Specific Notes
+**Read these files before working:**
 
-- Never overwrite .env files without explicit confirmation
-- When making changes, always check for existing similar functionality in the codebase to avoid duplication
-- Prefer editing existing files over creating new ones unless absolutely necessary
-- For files over 200-300 lines, suggest refactoring opportunities
-- When fixing bugs, exhaust existing implementation options before introducing new patterns
-- Don't repeat yourself:
-    - Do not add comments for obvious things. The code is the documentation. Only subtle or very complicated lines should have comments and start with "NOTE: "
-    - Test functions should not have docstrings; it's much better to find a descriptive function name.
+1. [README.md](../../README.md) - Project overview and setup
+2. [AGENTS.md](../../AGENTS.md) - AI agent guidelines and code review instructions
+3. [CONTRIBUTING.md](../../CONTRIBUTING.md) - Coding standards and workflow
+
+## Quick Reference
+
+- Use single quotes in Python
+- 120 character line length
+- Think from first principles
+- Discuss significant changes before implementing
+- Keep code simple and self-explanatory
+- Write tests for new features
 
 ---
 > Source: [zauberzeug/feldfreund_devkit_ros](https://github.com/zauberzeug/feldfreund_devkit_ros) — distributed by [TomeVault](https://tomevault.io).
