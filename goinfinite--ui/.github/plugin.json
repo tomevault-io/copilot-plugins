@@ -1,0 +1,9 @@
+{
+  "name": "goinfinite--ui",
+  "displayName": "ui",
+  "description": "Reusable UI components for Go with a-h/templ, Alpine.js and Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "goinfinite",
+  "homepage": "https://github.com/goinfinite/ui",
+  "skills": []
+}
