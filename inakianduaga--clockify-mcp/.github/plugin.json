@@ -1,0 +1,9 @@
+{
+  "name": "inakianduaga--clockify-mcp",
+  "displayName": "clockify-mcp",
+  "description": "Clockify Model Context Protocol (MCP) server ",
+  "version": "1.0.0",
+  "author": "inakianduaga",
+  "homepage": "https://github.com/inakianduaga/clockify-mcp",
+  "skills": []
+}
