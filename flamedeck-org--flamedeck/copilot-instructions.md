@@ -1,97 +1,14 @@
-## edge-function-error-handling
+## edge-functions
 
-> How to structure and manage errors in edge functions
+> * If you want to create a new edge function, run the command `yarn supabase functions new <function-name>`
 
-# Edge Function Error Handling
 
-## Overview
+# Supabase edge functions
 
-This rule documents the standardized approach for handling errors from Supabase edge functions, ensuring consistent error reporting and user-friendly messages throughout the application.
-
-## Error Handling Architecture
-
-### 1. Standardized Error Classes
-
-Use the `StandardApiError` class from [apps/client/src/lib/api/errors.ts](mdc:apps/client/src/lib/api/errors.ts) for all API errors:
-
-```typescript
-import { StandardApiError, parseEdgeFunctionError } from '@/lib/api/errors';
-
-// Throw standardized errors that React Query can catch
-throw new StandardApiError('User-friendly message', 'ERROR_CODE', 'details', 'hint');
-```
-
-### 2. Edge Function Error Parsing
-
-When calling edge functions, always use `parseEdgeFunctionError()` to extract structured error details:
-
-```typescript
-const { data, error } = await supabase.functions.invoke('function-name', {
-  body: formData,
-  headers: { Authorization: `Bearer ${session.access_token}` },
-});
-
-if (error) {
-  console.error('Edge function error:', error);
-  throw await parseEdgeFunctionError(error, 'Default error message');
-}
-```
-
-**Key insight**: Edge function error details are in `error.context.body` and must be parsed as JSON.
-
-### 3. Edge Function Response Format
-
-Edge functions should return structured JSON errors with proper HTTP status codes:
-
-```typescript
-// In edge function (Supabase/Deno)
-return new Response(JSON.stringify({
-  error: 'User-friendly error message',
-  code: 'ERROR_CODE', // e.g., 'P0002' for upload limits
-  details: 'Technical details',
-  hint: 'Helpful suggestion for user'
-}), {
-  status: 429, // Use appropriate HTTP status codes
-  headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-});
-```
-
-## Common Error Codes
-
-### Upload Limits
-- **P0002**: Monthly upload limit reached
-  - Status: 429 (Too Many Requests)
-  - User message: "Upload Limit Reached - Upgrade your plan or wait until the next cycle"
-
-- **P0003**: Storage limit reached
-  - Status: 429 (Too Many Requests) 
-  - User message: "Storage Limit Reached - Please delete older traces or upgrade your plan"
-
-### Error Code Mapping in UI
-
-```typescript
-// In React components
-if (apiError.code === 'P0002') {
-  toastTitle = 'Upload Limit Reached';
-  toastDescription = apiError.hint || 'You have reached your monthly upload limit. Upgrade your plan or wait until the next cycle.';
-} else if (apiError.code === 'P0003') {
-  toastTitle = 'Storage Limit Reached';
-  toastDescription = 'You have reached your storage limit. Please delete older traces or upgrade your plan.';
-}
-```
-
-## Best Practices
-
-1. **Always throw errors** instead of returning `{ data: null, error }` - This allows React Query to properly catch and handle errors
-2. **Use structured error responses** in edge functions with proper HTTP status codes
-3. **Extract error details** from `error.context.body` using `parseEdgeFunctionError()`
-4. **Provide user-friendly messages** based on error codes rather than showing technical details
-5. **Log detailed errors** to console for debugging while showing clean messages to users
-6. **Handle edge function cleanup** when database operations fail (e.g., remove uploaded files)
-
-## Example Implementation
-
-See [apps/client/src/lib/api/traces.ts](mdc:apps/client/src/lib/api/traces.ts) and [supabase/functions/upload-trace/index.ts](mdc:supabase/functions/upload-trace/index.ts) for complete implementation examples of this error handling pattern.
+* If you want to create a new edge function, run the command `yarn supabase functions new <function-name>`
+* There are shared helpers supabase/functions/_shared that you should read first, for example [cors.ts](mdc:supabase/functions/_shared/cors.ts)
+* Always make sure you are handling edge cases and properly returning descriptive errors
+* Always consider your security model
 
 ---
 > Source: [flamedeck-org/flamedeck](https://github.com/flamedeck-org/flamedeck) — distributed by [TomeVault](https://tomevault.io).
