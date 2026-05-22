@@ -1,0 +1,9 @@
+{
+  "name": "kingdomseed--structured-workflow",
+  "displayName": "structured-workflow",
+  "description": "An MCP server that tries to force an AI agent to follow structured problem solving steps to accomplish a goal.",
+  "version": "1.0.0",
+  "author": "kingdomseed",
+  "homepage": "https://github.com/kingdomseed/structured-workflow",
+  "skills": []
+}
