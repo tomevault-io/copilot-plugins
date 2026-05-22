@@ -1,0 +1,9 @@
+{
+  "name": "jonathanbossenger--wp-debug",
+  "displayName": "wp-debug",
+  "description": "Desktop app for reading your WP debug.log",
+  "version": "1.0.0",
+  "author": "jonathanbossenger",
+  "homepage": "https://github.com/jonathanbossenger/wp-debug",
+  "skills": []
+}
