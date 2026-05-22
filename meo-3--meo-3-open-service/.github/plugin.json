@@ -1,0 +1,9 @@
+{
+  "name": "meo-3--meo-3-open-service",
+  "displayName": "meo-3-open-service",
+  "description": "MEO 3 Open Service for deploy MEO on custom platform/hardware.",
+  "version": "1.0.0",
+  "author": "MEO-3",
+  "homepage": "https://github.com/MEO-3/meo-3-open-service",
+  "skills": []
+}
