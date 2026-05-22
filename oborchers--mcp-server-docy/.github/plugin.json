@@ -1,0 +1,9 @@
+{
+  "name": "oborchers--mcp-server-docy",
+  "displayName": "mcp-server-docy",
+  "description": "A Model Context Protocol server that provides documentation access capabilities. This server enables LLMs to search and retrieve content from documentation websites by scraping them with crawl4ai. Bui",
+  "version": "1.0.0",
+  "author": "oborchers",
+  "homepage": "https://github.com/oborchers/mcp-server-docy",
+  "skills": []
+}
