@@ -1,0 +1,9 @@
+{
+  "name": "redhat-ux--next-gen-ui-agent",
+  "displayName": "next-gen-ui-agent",
+  "description": "The goal of this AI agent is to generate personalised and rich UI components based on the user prompt, chat history and backend data provided by other agents in your AI assistant.",
+  "version": "1.0.0",
+  "author": "RedHat-UX",
+  "homepage": "https://github.com/RedHat-UX/next-gen-ui-agent",
+  "skills": []
+}
