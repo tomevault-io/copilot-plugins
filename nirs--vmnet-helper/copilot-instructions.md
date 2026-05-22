@@ -1,0 +1,91 @@
+## project
+
+> Core project rules for vmnet-helper
+
+
+# Project Rules
+
+## Before making code changes
+
+- Discuss the design with the user
+- Show example changes to make sure we are in the right direction
+- If the user request is not clear, ask for more details
+- List possible alternatives to make the change
+
+## Making code changes
+
+- Do the minimal change needed, no extra code that is not needed right now
+- Keep changes small to make human review easy and avoid mistakes
+- Update documentation if needed
+- Use proper punctuation in comments (end sentences with periods)
+- Avoid unrelated changes (spelling, whitespace, etc.)
+- Run `black` after modifying Python code to maintain consistent formatting
+
+## Building
+
+- Use `./build.sh build` to build a release tarball
+- Use `meson compile -C build/{arch}` for quick build for current architecture
+- Never use direct `clang` commands that would create `.o` or `.d` files in the source directory
+
+## Running tests
+
+- Run `pytest` to verify all tests pass
+- Running specific tests (e.g., `pytest -k test_name`) is fine for quick local verification
+
+## File organization
+
+- Keep files focused - separate files for different concerns
+- All files need SPDX license headers - check existing files for the format
+
+## Error handling
+
+- Check existing code for error handling conventions
+
+## Fact checking
+
+- Verify facts before commenting — do not suggest names, links, handles,
+  versions, APIs, or command line options without checking that they exist.
+
+## Git workflow
+
+- NEVER commit directly to main branch.
+- NEVER push to GitHub without user review.
+- Keep commits small and focused.
+- For unrelated changes, create a new branch from main.
+- Avoid complicated git operations. The user can rebase later.
+
+## Commit messages
+
+When the user wants to commit changes, suggest a commit message.
+
+The main purpose is to explain why the change was made - what are we trying to do.
+
+Content guidelines:
+- Explain how the change affects the user - what is the new or modified behavior
+- If the change affects performance, include measurements and description of how we measured
+- If the change modifies the output, include example output with and without the change
+- If the change introduces new logs, show example logs including the changed or new logs
+- If several alternatives were considered, explain why we chose the particular solution
+- Discuss the negative effects of the change if any
+- If the change includes new APIs, describe the new APIs and how they are used
+- Avoid describing details that are best seen in the diff
+
+Example formatting:
+- Use "Example:" header on its own line
+- Blank line after the header
+- Indent commands and output with 4 spaces
+- Use "%" for command prompt
+- Use backslash for command line continuation
+- Wrap long log lines instead of using backslash
+
+Example:
+
+    % ./example server -v --operation-mode shared \
+          --start-address 192.168.100.1
+    ...
+    DEBUG [main] starting interface mode 'shared' start-address '192.168.100.1'
+        end-address '192.168.100.15' subnet-mask '255.255.255.240'
+
+---
+> Source: [nirs/vmnet-helper](https://github.com/nirs/vmnet-helper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
