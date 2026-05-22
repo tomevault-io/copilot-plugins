@@ -1,0 +1,9 @@
+{
+  "name": "weaviate--query-agent-benchmarking",
+  "displayName": "query-agent-benchmarking",
+  "description": "Tools for various benchmarking scenarios of Weaviate's Query Agent.",
+  "version": "1.0.0",
+  "author": "weaviate",
+  "homepage": "https://github.com/weaviate/query-agent-benchmarking",
+  "skills": []
+}
