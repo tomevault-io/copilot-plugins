@@ -1,85 +1,77 @@
-## java-database-secure-no-railguard-available
+## java-database-secure-railguard-available
 
-> Enforces secure and auditable database access patterns in Java applications by preventing SQL injection, enforcing safe JDBC and ORM usage, protecting credentials, and guiding logging and configuration practices.
+> Enforces secure database access in Java applications with input validation and behavioral logic delegated to `.cursor/rules/railguard-input-validation.mdc`. Focuses on JDBC/ORM usage, secure configuration, and logging best practices.
 
 
-# R: Risk First
-The goal of this rule is to ensure safe, auditable, and robust database access in Java applications.
+## Overview
+This rule applies secure-by-default practices for database interactions in Java codebases, particularly when using:
+- JDBC (e.g., `PreparedStatement`, `Connection`)
+- Spring Data JPA (e.g., `@Entity`, repository interfaces)
 
-The following risks are mitigated:
-- SQL injection due to unsafe query construction
-- Leaking credentials in source code or logs
-- Poor ORM configuration leading to unintended DB writes or untracked queries
-- Unsafe exception handling that can crash critical database access logic
-- Lack of input validation before constructing dynamic queries
+It assumes `.cursor/rules/railguard-input-validation.mdc` is available and active to handle reasoning, redline constraints, and validation logic for all user input.
 
-This rule teaches the LLM to reason about these concerns even when prompts are vague (for example, “connect to DB” or “get user by name”).
+---
 
-# A: Attached Constraints
-- Never use string concatenation to build SQL queries.
-- Avoid direct use of `Statement`. Always use `PreparedStatement` or ORM-based parameterization.
-- Never log raw SQL queries or parameters with user input.
-- Never hardcode sensitive credentials (for example, DB password) into the codebase.
-- Avoid unguarded auto-commits or DB writes without transactional control.
+## JDBC + ORM Practices
+- Always use `PreparedStatement` and parameterized queries for manual SQL
+- Prefer Spring Data JPA repositories when using Spring Boot
+- Annotate entity classes with `@Entity`, `@Table`, and relevant JPA annotations
+- Use `@Transactional` for atomic operations
+- Sanitize and validate input before constructing dynamic queries (delegated)
 
-# I: Interpretative Framing
-- If the prompt asks for DB interaction, assume secure query logic and credential separation are expected.
-- If prompted to use JDBC, enforce `PreparedStatement` and parameter binding.
-- If using Spring Boot or Spring Data JPA, assume proper use of annotations and entity mapping.
-- Credentials must always be externalized via environment variables or secret vaults.
+---
 
-// Ambiguity Handling:
-- For prompts like “get user by name,” enforce input validation and parameter binding.
-- If the developer uses raw SQL with hardcoded values, suggest a secure, param-based version and note config guidelines.
-
-# L: Local Defaults
-- Assume the use of Spring Boot + Spring Data JPA as the ORM layer.
-- If JDBC is used, assume modern usage with `PreparedStatement`.
-- Assume the following environment variables are configured:
+## Secure Configuration
+- All credentials must be sourced from:
   - `SPRING_DATASOURCE_URL`
   - `SPRING_DATASOURCE_USERNAME`
   - `SPRING_DATASOURCE_PASSWORD`
-- Default log level is set to suppress SQL query printing or sanitize it via masking.
+- Use `.env`, `application.properties`, or vault integrations
+- Never include secrets in source code or version control
 
-# G: Generative Path Checks
-1. Determine if the code requires a DB interaction.
-2. If yes, ask:
-   - Is an ORM (for example, JPA) present?
-   - If no ORM: use `PreparedStatement`, and validate input before executing queries.
-3. Ensure no sensitive values are printed or leaked.
-4. Wrap all JDBC interactions in a try-with-resources block and catch `SQLException`.
-5. If applicable, encapsulate DB writes in a transactional method.
+---
 
-// SQL Injection Checklist:
-// - Avoid string concatenation in SQL queries
-// - Always use parameter binding
-// - Validate all user inputs
+## Logging Best Practices
+- Avoid logging SQL queries with injected user data
+- Sanitize exception messages before logging them
+- Use `SLF4J` or `Logback` for structured logging with sensitive field masking if possible
 
-# U: Uncertainty Disclosure
-- If unsure about ORM usage or correct JDBC syntax, add:
-  _"Confirm whether Spring Data JPA is configured for this application."_
-- If unsure whether a column requires escaping or transformation, suggest a review.
-- If hardcoded credentials are detected, recommend secure loading and point to Spring Boot docs.
+---
 
-# A: Auditability
-- Add comments such as:
-  - `// Using PreparedStatement to protect against SQL injection`
-  - `// Credentials loaded from environment configuration`
-  - `// Logging sanitized or omitted for sensitive operations`
-- Encourage use of annotations:
-  - `@Entity`, `@Table`, `@Column`, `@Transactional`
+## Secure Patterns
+Use inline comments to annotate secure behavior:
+- `// Using PreparedStatement with parameterized query`
+- `// Credentials loaded from external config`
+- `// ORM usage with @Transactional`
 
-# R+D: Revision + Dialogue
-- `/explain-db-security`: Describe the rationale behind using parameterized queries or JPA.
-- `/revise-for-db-safety`: Regenerate unsafe raw query examples using secure templates.
-- `/secure-connection-config`: Generate `.properties` or `application.yml` snippets to externalize DB credentials.
+---
 
-// Testing Guidance:
-- Run static analysis using SonarQube or SpotBugs
-- Validate DB behavior against injection payloads like `' OR 1=1 --`
-- Ensure no secrets are leaked in logs during runtime
+## Example
+```java
+String query = "SELECT * FROM users WHERE username = ?";
+try (PreparedStatement stmt = conn.prepareStatement(query)) {
+    stmt.setString(1, username);
+    try (ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            // Process result
+        }
+    }
+} catch (SQLException e) {
+    logger.warn("Query failed", e); // Avoid exposing sensitive values
+}
+```
 
-// Example Reference:
+---
+
+## Reference Rule
+Input validation, threat modeling, and secure reasoning are governed by:
+> `.cursor/rules/railguard-input-validation.mdc`
+
+This rule assumes that any dynamic values passed to queries or injected via APIs are filtered and validated per that rule.
+
+---
+
+## Java References
 - [JDBC PreparedStatement API](https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html)
 - [Spring Data JPA Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
 - [Hibernate ORM Documentation (Official)](https://hibernate.org/orm/documentation/)
@@ -88,6 +80,17 @@ This rule teaches the LLM to reason about these concerns even when prompts are v
 - [Spring Boot Environment Variables](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config)
 - [Logging in Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
 - [OWASP SQL Injection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+
+---
+
+## Dev Commands
+- `/revise-for-db-safety` — Refactor raw queries or unsafe JDBC patterns
+- `/secure-db-config` — Generate a secure Spring Boot DB configuration block
+- `/explain-db-security` — Provide reasoning for ORM vs JDBC choices
+
+---
+
+This rule is scoped to secure usage patterns — it assumes validation, context framing, and behavioral enforcement is provided globally.
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
