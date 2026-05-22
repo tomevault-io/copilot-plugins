@@ -1,0 +1,44 @@
+{
+  "name": "AI-Interview-Preparation-Platform",
+  "owner": "vasu840",
+  "repo": "AI-Interview-Preparation-Platform",
+  "description": "Full-stack AI-powered interview preparation platform built with Next.js, FastAPI, Tailwind CSS, and Gemini AI featuring AI interview simulation, voice interaction, resume analysis, and dashboard modules.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vasu840/AI-Interview-Preparation-Platform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T04:10:31Z"
+}
