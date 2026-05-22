@@ -1,316 +1,357 @@
-## ai-integration
+## chat-module
 
-> HeartChat作为一个AI情感陪伴应用，核心功能依赖于与多种大型语言模型(LLM)的无缝集成。应用通过云函数实现统一的API调用管理，支持多种AI服务，以提供高质量的对话体验和情感分析功能。
+> HeartChat的核心功能是用户与AI角色的聊天互动。聊天模块负责处理消息发送、接收、显示以及与云端AI服务的交互。通过高度个性化的对话体验，帮助用户表达情感、获取支持和建议。
 
-# AI服务集成
+# 聊天功能模块
 
 ## 功能概述
-HeartChat作为一个AI情感陪伴应用，核心功能依赖于与多种大型语言模型(LLM)的无缝集成。应用通过云函数实现统一的API调用管理，支持多种AI服务，以提供高质量的对话体验和情感分析功能。
+HeartChat的核心功能是用户与AI角色的聊天互动。聊天模块负责处理消息发送、接收、显示以及与云端AI服务的交互。通过高度个性化的对话体验，帮助用户表达情感、获取支持和建议。
 
 ## 相关文件结构
-- [cloudfunctions/httpRequest/](mdc:cloudfunctions/httpRequest/)：HTTP请求云函数，负责与外部AI API交互
-- [cloudfunctions/testBigmodel/](mdc:cloudfunctions/testBigmodel/)：AI大模型测试云函数
-- [cloudfunctions/chat/](mdc:cloudfunctions/chat/)：聊天相关云函数，包含对话逻辑
+- 前端部分：
+  - [miniprogram/packageChat/](mdc:miniprogram/packageChat/)：聊天功能分包
+    - [pages/chat/](mdc:miniprogram/packageChat/pages/chat/)：聊天主页面
+    - [components/chat-bubble/](mdc:miniprogram/packageChat/components/chat-bubble/)：聊天气泡组件
+    - [components/chat-input/](mdc:miniprogram/packageChat/components/chat-input/)：聊天输入组件
+  - [miniprogram/components/chat-bubble/](mdc:miniprogram/components/chat-bubble/)：全局聊天气泡组件
+  - [miniprogram/components/chat-input/](mdc:miniprogram/components/chat-input/)：全局聊天输入组件
 
-## 支持的AI服务
+- 后端部分：
+  - [cloudfunctions/chat/](mdc:cloudfunctions/chat/)：聊天相关云函数
+  - [cloudfunctions/testBigmodel/](mdc:cloudfunctions/testBigmodel/)：AI大模型接口测试
+  - [cloudfunctions/httpRequest/](mdc:cloudfunctions/httpRequest/)：处理HTTP请求的云函数
 
-### 智谱AI
-根据[智谱AI接口使用文档.md](mdc:docs/使用文档/智谱AI接口使用文档.md)，HeartChat集成了智谱AI提供的大型语言模型服务：
+## 核心组件
 
-1. **模型支持**
-   - ChatGLM系列模型
-   - 其他智谱自研模型
+### 聊天页面
+根据[聊天功能使用指南.md](mdc:docs/使用文档/聊天功能使用指南.md)，聊天页面是用户与AI角色进行对话的主要界面，包含以下主要元素：
 
-2. **特性支持**
-   - 流式输出（打字机效果）
-   - 长文本处理
-   - 多轮对话
-   - 知识问答
+1. 顶部导航栏：显示当前角色信息和操作按钮
+2. 聊天记录区域：展示历史消息和实时对话
+3. 底部输入区域：用户消息输入和发送
 
-3. **接口参数**
+### 聊天气泡组件
+聊天气泡组件(chat-bubble)负责消息的视觉呈现，主要特点包括：
+
+- 区分用户和AI消息的样式
+- 支持多种消息类型（文本、图片等）
+- 支持消息状态展示（发送中、已读、错误等）
+- 长按操作菜单（复制、删除等）
+- 消息时间展示
+
 ```javascript
-// 智谱AI请求参数示例
+// chat-bubble组件示例用法
+<chat-bubble
+  message="{{messageObj}}"
+  isUser="{{isUserMessage}}"
+  bind:longpress="handleLongPress"
+/>
+```
+
+### 聊天输入组件
+聊天输入组件(chat-input)负责用户消息的输入和发送，主要功能包括：
+
+- 文本输入和发送
+- 语音输入（可选）
+- 图片上传（可选）
+- 表情选择（可选）
+- 输入状态指示
+- 输入框自适应高度
+
+```javascript
+// chat-input组件示例用法
+<chat-input
+  bind:send="handleSendMessage"
+  bind:inputChange="handleInputChange"
+  focus="{{autoFocus}}"
+/>
+```
+
+## 数据流
+1. 用户在前端输入消息
+2. 消息通过云函数发送到AI服务
+3. AI服务生成回复
+4. 回复通过云函数返回给前端
+5. 前端显示AI回复
+
+## 消息格式
+根据[聊天功能使用指南.md](mdc:docs/使用文档/聊天功能使用指南.md)，聊天消息通常包含以下字段：
+```javascript
 {
-  "model": "chatglm_pro", // 模型名称
-  "prompt": [
-    {"role": "system", "content": "角色提示词"},
-    {"role": "user", "content": "用户消息"},
-    {"role": "assistant", "content": "历史回复"},
-    {"role": "user", "content": "当前问题"}
-  ],
-  "temperature": 0.7, // 温度参数，控制回答的随机性
-  "top_p": 0.9, // 核采样阈值
-  "max_tokens": 1024, // 最大生成长度
-  "stream": true // 是否使用流式输出
+  _id: "消息唯一标识",
+  chat_id: "所属会话ID",
+  content: "消息内容",
+  content_type: "text/image/voice", // 消息类型
+  role: "user/assistant", // 发送者角色
+  created_at: 1623456789, // 发送时间戳
+  status: "sending/sent/error", // 消息状态
+  emotion: { // 情感分析结果（可选）
+    primary: "joy",
+    scores: {
+      joy: 0.8,
+      sadness: 0.1,
+      // ...其他情绪分数
+    }
+  },
+  metadata: { // 额外数据（可选）
+    // 根据消息类型包含不同字段
+  }
 }
 ```
 
-4. **配置设置**
+## 会话管理
+根据[聊天记录本地缓存与下拉加载功能说明.md](mdc:docs/使用文档/聊天记录本地缓存与下拉加载功能说明.md)，会话管理功能包括：
+
+1. 创建新会话：用户选择角色后创建新的聊天会话
+2. 切换会话：用户可在不同会话间切换
+3. 会话列表：展示用户的历史会话记录
+4. 会话搜索：支持通过关键词搜索会话
+5. 删除会话：删除不需要的历史会话
+
+## 消息存储
+聊天消息的存储采用分层策略：
+
+1. 云端存储：消息永久保存在云数据库
+2. 本地缓存：最近消息缓存在本地storage
+3. 内存缓存：当前会话消息加载到memory
+
+本地缓存实现示例：
 ```javascript
-// 智谱AI配置
-const ZHIPUAI_CONFIG = {
-  baseUrl: 'https://open.bigmodel.cn/api/paas/v3/model-api',
-  apiKey: process.env.ZHIPUAI_API_KEY,
-  apiSecret: process.env.ZHIPUAI_API_SECRET,
-  defaultModel: 'chatglm_pro'
-};
-```
+// 保存消息到本地缓存
+function saveMessagesToLocalCache(chatId, messages) {
+  try {
+    const cacheKey = `chat_messages_${chatId}`;
+    wx.setStorageSync(cacheKey, messages);
+  } catch (error) {
+    console.error('保存消息到本地缓存失败:', error);
+  }
+}
 
-### 百度文心一言
-HeartChat集成了百度智能云提供的文心一言大语言模型：
-
-1. **模型支持**
-   - ERNIE-Bot系列模型
-   - ERNIE-Bot-turbo（高速版本）
-
-2. **特性支持**
-   - 流式对话
-   - 中文理解优化
-   - 上下文理解能力
-   - 内容创作
-
-3. **接口参数**
-```javascript
-// 文心一言请求参数示例
-{
-  "messages": [
-    {"role": "system", "content": "角色提示词"},
-    {"role": "user", "content": "用户消息"},
-    {"role": "assistant", "content": "历史回复"},
-    {"role": "user", "content": "当前问题"}
-  ],
-  "temperature": 0.7,
-  "top_p": 0.8,
-  "stream": true
+// 从本地缓存加载消息
+function loadMessagesFromLocalCache(chatId) {
+  try {
+    const cacheKey = `chat_messages_${chatId}`;
+    return wx.getStorageSync(cacheKey) || [];
+  } catch (error) {
+    console.error('从本地缓存加载消息失败:', error);
+    return [];
+  }
 }
 ```
 
-### 第三方AI服务
-HeartChat还支持其他第三方AI服务的集成，通过httpRequest云函数实现统一调用：
+## 历史消息加载
+根据[聊天记录本地缓存与下拉加载功能说明.md](mdc:docs/使用文档/聊天记录本地缓存与下拉加载功能说明.md)和[智能欢迎语与历史记录加载优化说明.md](mdc:docs/使用文档/智能欢迎语与历史记录加载优化说明.md)，历史消息加载策略包括：
 
-1. 通用LLM适配接口
-2. 标准化参数映射
-3. 统一的响应格式处理
+1. 首次加载：加载最近的20条消息
+2. 下拉加载更多：分页加载更早的消息
+3. 优先从本地缓存加载：提高加载速度
+4. 缓存未命中时从云端加载
+5. 增量更新本地缓存
+
+示例代码：
+```javascript
+// 下拉加载更多历史消息
+async function loadMoreMessages() {
+  if (isLoading || noMoreMessages) return;
+  
+  this.setData({ isLoading: true });
+  try {
+    // 获取当前最早消息的时间戳作为分页标记
+    const earliestMessage = this.data.messages[0];
+    const timestamp = earliestMessage ? earliestMessage.created_at : Date.now();
+    
+    // 从云函数获取更早的消息
+    const result = await wx.cloud.callFunction({
+      name: 'chat',
+      data: {
+        action: 'getHistoryMessages',
+        chatId: this.data.chatId,
+        pageSize: 20,
+        beforeTimestamp: timestamp
+      }
+    });
+    
+    const olderMessages = result.result.data;
+    if (olderMessages.length === 0) {
+      this.setData({ noMoreMessages: true });
+    } else {
+      // 将新加载的消息添加到列表前面
+      const updatedMessages = [...olderMessages, ...this.data.messages];
+      this.setData({ messages: updatedMessages });
+      
+      // 更新本地缓存
+      saveMessagesToLocalCache(this.data.chatId, updatedMessages);
+    }
+  } catch (error) {
+    console.error('加载历史消息失败:', error);
+  } finally {
+    this.setData({ isLoading: false });
+  }
+}
+```
+
+## 聊天分段输出
+根据[@聊天消息分段输出计划.md](mdc:@聊天消息分段输出计划.md)，HeartChat支持AI回复的流式输出，以增强用户体验和交互感。流式输出的实现包括：
+
+1. 前端发起聊天请求时指定使用流式输出模式
+2. 云函数与AI服务建立流式连接
+3. AI服务生成回复时，以分段方式返回内容
+4. 云函数通过WebSocket实时转发分段内容到前端
+5. 前端逐步更新UI显示，实现打字机效果
+
+```javascript
+// 流式输出使用示例
+async function sendMessageWithStreaming(message) {
+  // 创建临时消息（用于显示"正在输入"状态）
+  const tempAssistantMsg = {
+    _id: 'temp_' + Date.now(),
+    role: 'assistant',
+    content: '',
+    status: 'generating',
+    created_at: Date.now()
+  };
+  
+  // 添加到消息列表，显示输入状态
+  this.setData({
+    messages: [...this.data.messages, tempAssistantMsg]
+  });
+  
+  // 建立WebSocket连接接收流式回复
+  const socketTask = wx.connectSocket({
+    url: 'wss://your-domain.com/chat-stream',
+    header: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  
+  // 发送消息
+  socketTask.send({
+    data: JSON.stringify({
+      message,
+      chatId: this.data.chatId,
+      roleId: this.data.roleId
+    })
+  });
+  
+  // 接收流式回复
+  socketTask.onMessage(res => {
+    const data = JSON.parse(res.data);
+    
+    if (data.type === 'content') {
+      // 更新临时消息内容
+      const messages = this.data.messages;
+      const lastIndex = messages.length - 1;
+      messages[lastIndex].content += data.content;
+      
+      this.setData({ messages });
+    } else if (data.type === 'end') {
+      // 流式输出结束，更新最终消息
+      const messages = this.data.messages;
+      const lastIndex = messages.length - 1;
+      messages[lastIndex].status = 'sent';
+      messages[lastIndex]._id = data.messageId; // 使用服务端返回的真实ID
+      
+      this.setData({ messages });
+      
+      // 关闭WebSocket连接
+      socketTask.close();
+      
+      // 保存到本地缓存
+      saveMessagesToLocalCache(this.data.chatId, messages);
+    }
+  });
+}
+```
+
+## 聊天云函数
+聊天相关的云函数主要包括：
+
+1. 发送消息：`sendMessage`
+   - 接收用户消息
+   - 调用AI服务获取回复
+   - 保存对话记录到数据库
+   - 返回AI回复内容
+
+2. 获取历史消息：`getHistoryMessages`
+   - 按会话ID查询历史消息
+   - 支持分页和时间范围过滤
+   - 返回消息列表
+
+3. 创建新会话：`createChat`
+   - 创建用户与角色的新会话
+   - 生成会话初始信息
+   - 返回会话ID和基本信息
+
+4. 获取会话列表：`getChatList`
+   - 获取用户的所有会话
+   - 支持排序和筛选
+   - 返回会话列表和摘要信息
 
 ## HTTP请求云函数
-根据[httpRequest云函数使用文档.md](mdc:docs/使用文档/httpRequest云函数使用文档.md)，httpRequest云函数是HeartChat调用外部AI服务的统一入口：
+根据[httpRequest云函数使用文档.md](mdc:docs/使用文档/httpRequest云函数使用文档.md)，httpRequest云函数用于与外部AI服务进行通信：
 
-1. **功能特点**
-   - 统一的API调用接口
-   - 请求参数标准化
-   - 响应格式转换
-   - 错误处理和重试
-   - 请求超时控制
-   - 请求日志记录
+1. 支持调用多种AI模型API
+2. 统一处理鉴权和请求格式
+3. 支持智谱AI、百度文心一言等服务
+4. 处理请求超时和错误重试
+5. 日志记录和监控
 
-2. **调用方式**
+调用示例：
 ```javascript
-// 调用AI服务示例
 wx.cloud.callFunction({
   name: 'httpRequest',
   data: {
-    provider: 'zhipu', // AI提供商
-    action: 'chat', // 操作类型
+    url: 'https://api.example.com/chat',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer YOUR_TOKEN'
+    },
     data: {
-      model: 'chatglm_pro',
+      model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: systemPrompt },
-        ...contextMessages,
+        { role: 'system', content: rolePrompt },
         { role: 'user', content: userMessage }
-      ],
-      temperature: 0.7,
-      stream: true
-    }
+      ]
+    },
+    timeout: 30000
   }
 });
 ```
 
-3. **错误处理**
-```javascript
-try {
-  const result = await wx.cloud.callFunction({
-    name: 'httpRequest',
-    data: requestData
-  });
-  return handleResponse(result.result);
-} catch (error) {
-  console.error('AI服务调用失败', error);
-  
-  // 根据错误类型处理
-  if (error.errCode === 'ETIMEDOUT') {
-    // 超时处理
-    return { error: '请求超时，请稍后再试' };
-  } else if (error.errCode === 'ECONNREFUSED') {
-    // 连接拒绝处理
-    return { error: '服务暂时不可用，请稍后再试' };
-  } else {
-    // 其他错误处理
-    return { error: '请求失败，请重试' };
-  }
-}
-```
+## AI服务集成
+根据[智谱AI接口使用文档.md](mdc:docs/使用文档/智谱AI接口使用文档.md)，HeartChat支持多种AI服务，主要包括：
 
-## 提示词工程
-AI服务的有效使用依赖于精心设计的提示词：
+1. 智谱AI
+   - 支持ChatGLM等模型
+   - 支持流式输出
+   - 中文理解能力优秀
 
-1. **角色系统提示词**
-   - 基础角色定义
-   - 对话规则设定
-   - 禁止内容界定
-   - 风格语调指导
+2. 百度文心一言
+   - 支持ERNIE系列模型
+   - 特色功能包括内容生成和知识问答
 
-2. **对话上下文处理**
-   - 上下文窗口管理
-   - 重要信息摘要
-   - 信息压缩与传递
+3. 第三方智能对话服务
+   - 支持根据配置调用其他AI服务
+   - 统一接口格式，便于扩展
 
-3. **动态提示词调整**
-   - 根据对话进展调整提示词
-   - 特殊场景的提示词增强
-   - 提示词参数优化
+## 主要功能实现
+- 消息发送与接收：用户可发送消息并接收AI回复
+- 历史消息加载与分页：支持查看和加载历史对话
+- 消息状态管理：显示消息发送中、发送成功、发送失败等状态
+- 多种消息类型支持：支持文本、图片等消息类型
+- AI角色切换：在对话中可切换不同的AI角色
+- 上下文管理：保持对话的上下文连贯性
+- 消息搜索：支持在对话中搜索特定内容
+- 消息操作：支持复制、删除等消息操作
 
-4. **流式输出参数控制**
-   - 流式分块大小控制
-   - 流式输出速度调整
-   - 中间状态处理
-
-## AI响应处理
-服务器接收到AI响应后，需要进行适当处理：
-
-1. **非流式响应处理**
-```javascript
-async function handleAIResponse(response) {
-  // 检查响应格式
-  if (!response.data || !response.data.choices) {
-    throw new Error('非法响应格式');
-  }
-  
-  // 提取回复内容
-  const aiMessage = response.data.choices[0].message.content;
-  
-  // 对AI回复进行处理（如敏感内容过滤）
-  const processedMessage = await processMessage(aiMessage);
-  
-  // 存储到数据库
-  await saveMessageToDatabase({
-    role: 'assistant',
-    content: processedMessage,
-    chat_id: chatId,
-    created_at: Date.now()
-  });
-  
-  return processedMessage;
-}
-```
-
-2. **流式响应处理**
-```javascript
-function handleStreamResponse(readableStream, callback) {
-  let buffer = '';
-  let messageId = null;
-  
-  readableStream.on('data', (chunk) => {
-    const lines = chunk.toString().split('\n');
-    for (const line of lines) {
-      if (line.startsWith('data: ')) {
-        const data = JSON.parse(line.slice(6));
-        
-        if (data.choices && data.choices[0].delta.content) {
-          const contentChunk = data.choices[0].delta.content;
-          buffer += contentChunk;
-          
-          // 流式回调，将内容块发送到客户端
-          callback({
-            type: 'content',
-            content: contentChunk
-          });
-        }
-      }
-    }
-  });
-  
-  readableStream.on('end', async () => {
-    // 存储完整消息到数据库
-    messageId = await saveMessageToDatabase({
-      role: 'assistant',
-      content: buffer,
-      chat_id: chatId,
-      created_at: Date.now()
-    });
-    
-    // 结束流式传输
-    callback({
-      type: 'end',
-      messageId
-    });
-  });
-}
-```
-
-## 情感分析
-除了对话功能，HeartChat还使用AI服务进行情感分析：
-
-1. **文本情感分析**
-   - 识别主要情绪类型
-   - 计算情绪强度分数
-   - 提取情感关键词
-
-2. **情绪变化趋势**
-   - 跟踪情绪随时间变化
-   - 识别情绪波动模式
-   - 生成情绪历史报告
-
-```javascript
-// 情感分析请求示例
-const result = await wx.cloud.callFunction({
-  name: 'httpRequest',
-  data: {
-    provider: 'zhipu',
-    action: 'emotion_analysis',
-    data: {
-      text: userMessage,
-      user_id: userId,
-      timestamp: Date.now()
-    }
-  }
-});
-```
-
-## 安全与隐私保护
-在AI服务集成中，安全和隐私是重要考量：
-
-1. **数据安全**
-   - API密钥安全管理
-   - 用户数据传输加密
-   - 敏感信息过滤
-
-2. **内容审核**
-   - 敏感内容过滤
-   - 不当内容检测
-   - 响应内容安全检查
-
-3. **隐私保护**
-   - 用户数据匿名化
-   - 最小数据传输原则
-   - 数据使用透明说明
-
-## 性能优化
-AI服务调用的性能优化至关重要：
-
-1. **缓存策略**
-   - 相似问题的回复缓存
-   - 常见问题预生成
-   - 缓存失效管理
-
-2. **请求优化**
-   - 批量请求聚合
-   - 请求超时管理
-   - 连接池管理
-
-3. **流式输出优化**
-   - 块大小控制
-   - 传输速率调整
-   - 客户端渲染优化
+## 相关接口
+- 发送消息：通过云函数将用户消息发送给AI服务
+- 获取历史消息：从云数据库获取聊天历史记录
+- 角色管理：获取和切换可用的AI角色
+- 会话管理：创建、切换、删除会话
+- 消息操作：复制、删除消息等功能
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
