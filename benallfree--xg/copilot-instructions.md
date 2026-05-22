@@ -1,116 +1,185 @@
-## van-x
+## van
 
 > dealing with van, vanjs, van-x, or content.ts injection script
 
-# VanX: The 1.2kB Official VanJS Extension
+# VanJS: Core Concepts and API Reference
 
 ## Overview
 
-VanX is the official extension of VanJS, providing utility functions to make VanJS more ergonomic and developer-friendly. It's ultra-lightweight at just 1.2kB gzipped.
+VanJS is a lightweight framework that focuses on three core functionalities:
 
-## Installation
+- DOM composition/manipulation
+- State management
+- State binding
 
-### NPM
+> "The best solution is usually the one with the least unnecessary complexity" - Occam's Razor
 
-```bash
-npm install vanjs-ext
-```
+## DOM Composition
 
-### Import Methods
-
-```javascript
-// Full import
-import * as vanX from 'vanjs-ext'
-
-// Selective import
-import { specificFunctions } from 'vanjs-ext'
-```
-
-### CDN
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ext@0.6.2/dist/van-x.nomodule.min.js"></script>
-```
-
-## Core Features
-
-### 1. Reactive Objects (vanX.reactive)
-
-- Creates a single reactive object with multiple state fields
-- Supports deeply nested structures
-- Example:
+### Basic Usage
 
 ```javascript
-const obj = vanX.reactive({
-  a: 1,
-  b: {
-    c: 2,
-    d: 3,
-  },
+const { a, div, li, p, ul } = van.tags
+
+const Hello = () => div(p('👋Hello'), ul(li('🗺️World'), li(a({ href: 'https://vanjs.org/' }, '🍦VanJS'))))
+
+van.add(document.body, Hello())
+```
+
+Key differences from React:
+
+- Pure JavaScript without transpilation
+- No virtual DOM layer
+- Direct DOM object manipulation
+- Components are vanilla JavaScript functions
+
+### Tag Functions (van.tags)
+
+#### API Reference
+
+```typescript
+tagFunction([props], ...children) => HTMLElement
+```
+
+Parameters:
+
+- `props`: Optional object with HTML element properties
+- `children`: Zero or more child nodes (DOM nodes, primitives, State objects, or functions)
+
+Properties can be:
+
+- Primitive values (string, number, boolean, bigint)
+- null
+- State objects
+- Functions for derived properties
+
+## State Management
+
+### Basic State (van.state)
+
+```javascript
+const counter = van.state(0) // Create state
+counter.val // Get value
+counter.val = 1 // Set value
+```
+
+Key characteristics:
+
+- Immutable .val property
+- Triggers UI updates on value changes
+- Supports primitive values and objects
+
+### Derived State (van.derive)
+
+```javascript
+const doubled = van.derive(() => counter.val * 2)
+```
+
+Features:
+
+- Automatically updates when dependencies change
+- Read-only
+- Can depend on multiple states
+- Supports side effects
+
+## State Binding
+
+### Property Binding
+
+```javascript
+// State as property
+div({ class: myState })
+
+// Derived property
+div({ class: () => `status-${myState.val}` })
+```
+
+### Child Node Binding
+
+```javascript
+// State as child
+div(textState)
+
+// Derived child
+div(() => `Count: ${counter.val}`)
+```
+
+### Event Handler Binding
+
+```javascript
+// Direct handler
+button({ onclick: () => counter.val++ })
+
+// Derived handler
+button({ onclick: van.derive(() => (isEnabled.val ? () => counter.val++ : null)) })
+```
+
+## Advanced Features
+
+### Stateful Binding
+
+- Allows DOM mutation instead of regeneration
+- Optimizes performance for complex updates
+- Takes current DOM node as parameter
+
+```javascript
+div((dom) => {
+  if (shouldUpdate) return newNode
+  // Modify existing dom
+  return dom
 })
 ```
 
-### 2. Calculated Fields (vanX.calc)
+### Polymorphic Binding
 
-- Similar to derived states in VanJS
-- Avoid self-referencing in calculations
-- Example:
+Supports multiple value types:
+
+- Static values
+- State objects
+- Binding functions
 
 ```javascript
-const derived = vanX.reactive({
-  fullName: vanX.calc(() => `${data.name.first} ${data.name.last}`),
-})
+const val = (v) => {
+  const protoOfV = Object.getPrototypeOf(v ?? 0)
+  if (protoOfV === stateProto) return v.val
+  if (protoOfV === Function.prototype) return v()
+  return v
+}
 ```
-
-### 3. Reactive Lists (vanX.list)
-
-- Minimizes re-rendering on updates
-- Supports calculated fields as items
-- Handles array holes automatically
-
-### 4. Smart Updates (vanX.replace)
-
-- Performs efficient diff/update operations
-- Updates only changed leaf-level fields
-- Ideal for server-driven UI updates
-
-### 5. State Management
-
-- Supports global app state consolidation
-- Enables state serialization
-- Compatible with localStorage persistence
-
-## Key APIs
-
-1. `vanX.reactive(obj)` - Creates reactive objects
-2. `vanX.calc(f)` - Creates calculated fields
-3. `vanX.stateFields(obj)` - Gets underlying State objects
-4. `vanX.list(container, items, renderer)` - Creates reactive lists
-5. `vanX.replace(obj, replacement)` - Smart object updates
-6. `vanX.compact(obj)` - Eliminates array holes for serialization
 
 ## Best Practices
 
-1. Wrap sub-field access in binding functions
-2. Avoid aliasing sub-fields of reactive objects
-3. Store calculated fields separately
-4. Use `vanX.replace` instead of direct assignment for object updates
-5. Use `vanX.compact` before serialization
+1. Component Organization
 
-## Use Cases
+   - Capitalize component names
+   - Keep components pure when possible
+   - Use functional composition
 
-1. Form handling with nested state
-2. Real-time data updates
-3. Server-driven UI (SDUI)
-4. State persistence
-5. Complex list management
+2. State Management
+
+   - Keep states minimal
+   - Use derived states for computed values
+   - Avoid unnecessary state updates
+
+3. Performance
+   - Use stateful binding for complex updates
+   - Minimize DOM regeneration
+   - Keep binding functions simple
+
+## Core APIs
+
+1. `van.tags` - DOM element creation
+2. `van.add` - Add elements to DOM
+3. `van.state` - Create reactive state
+4. `van.derive` - Create derived state
+5. `van.hydrate` - SSR hydration
 
 ## Limitations
 
-1. No self-referencing in calculated fields
-2. Original objects shouldn't be accessed after reactive conversion
-3. No State fields in passed objects
-4. Sub-field access must be wrapped in binding functions
+1. State-derived child nodes cannot return arrays
+2. Removed nodes (null/undefined) cannot be restored
+3. DOM nodes must not be already connected
+4. State.val is immutable
 
 ---
 > Source: [benallfree/xg](https://github.com/benallfree/xg) — distributed by [TomeVault](https://tomevault.io).
