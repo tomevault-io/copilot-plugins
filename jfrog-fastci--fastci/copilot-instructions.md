@@ -1,83 +1,58 @@
-## github-mcp-rules
+## jfrog-design-system
 
-> Rules for how to use the GitHub cli and how to manage our tasks via GitHub Projects and Issues
-
-# FastCI Task Manager
-
-A task management system for the FastCI repository that helps with GitHub issues and projects integration.
-
-Use the gh cli in terminal for all of your commands!!!
+> JFrog brand design system - colors, fonts, and styling conventions for the FastCI website
 
 
-## Features
+# JFrog Design System for FastCI Website
 
-- Enforces branch naming conventions: `[feature/bugfix/refactor/other]/fast-000-task-title`
-- Lists tasks in current iteration at the start of a new session
-- Manages task assignment, including support for AI agent tasks
-- Automates branch creation from issues
-- Tracks task status across GitHub Projects
+FastCI is a JFrog product. The website must follow JFrog's brand design language.
 
-## Settings
-Project URL: https://github.com/orgs/jfrog-fastci/projects/1
-Project ID: 1
+## Typography
 
+- **Primary font**: `Open Sans` (weights: 300-800)
+- **Monospace font**: `JetBrains Mono` (for code snippets)
+- Tailwind classes: `font-sans` (Open Sans), `font-mono` (JetBrains Mono)
 
-## How to use the Github MCP tools
-1. Always get the full context of: 
-    a. Issues in TODO, In Progress
-2. Make sure every issues that you create have:
-    a. Repo that is related to.
-    b. Assignee: list the available user options or tag as "For AI Agent" if the task is marked as good for AI developement.
-    c. Effort estimation.
-    d. Priotiry
-    e. Labels 
-    f. Type: feature, bug, task
-    g. Relation ship: if the task is related to other issue/task make sure it is linked properly on task creation.
+## Brand Colors
 
-## Commands for Listing Tasks
-To list all tasks in the project:
-```
-gh project item-list <item-number> --owner jfrog-fastci --format json
-```
+### JFrog Green (Primary)
+| Token       | Hex       | Usage                          |
+|------------|-----------|--------------------------------|
+| brand-500  | `#40BE46` | Primary buttons, accents       |
+| brand-400  | `#49BB50` | Hover states, links            |
+| brand-300  | `#66CB6A` | Gradient highlights            |
+| brand-600  | `#36A13B` | Darker green accents           |
 
-To add assignee to task:
-```
-gh issue edit <item-number> --repo <repo_name> --add-assignee <assignee_name>
-```
+### Surface (Dark Navy Backgrounds)
+| Token        | Hex       | Usage                        |
+|-------------|-----------|------------------------------|
+| surface-950 | `#070E1A` | Page background (darkest)    |
+| surface-900 | `#0C1B32` | Card backgrounds, sections   |
+| surface-800 | `#122342` | Elevated surfaces            |
+| surface-700 | `#1C2A4A` | Borders, subtle accents      |
+| surface-600 | `#303A4A` | Secondary borders            |
 
-Scope is always!
-{
-  "owner": "jfrog-fastci",
-}
+### Text Colors
+- Headings: `text-white` (#FFFFFF)
+- Body text: `text-gray-400` (~#8C9FA4 range)
+- Muted text: `text-gray-500` (~#557085 range)
+- Labels/captions: `text-gray-600`
 
-## Creating Branches for Tasks
-To create a branch for a task and check it out:
+### Glow/Shadow
+- Brand glow: `rgba(64, 190, 70, 0.15)` (subtle)
+- Brand glow strong: `rgba(64, 190, 70, 0.3)` (buttons)
 
-1. Get the issue number from the project:
-```
-gh project item-list 1 --owner jfrog-fastci --format json | jq '.[] | select(.content.title=="Your Task Title")'
-```
+## Component Patterns
 
-2. Create a branch from the issue and check it out in one step:
-```
-gh issue develop <issue-number> --repo <repo-name> --branch-name "[feature/bugfix/refactor/other]/fast-<issue-number>-task-title" --checkout
-```
+- Cards: `rounded-2xl border border-white/[0.08] bg-surface-950` (clean, no glassmorphism)
+- Buttons (primary): `bg-brand-500 text-white hover:bg-brand-400 rounded-full`
+- Borders: Use `border-white/[0.06]` to `border-white/[0.08]` for subtle card borders
+- Gradient text: `gradient-text` class (green gradient for emphasis)
 
-This will automatically create the branch following the naming convention, pull it, and check it out locally.
-
-If you need to do it manually:
-```
-gh issue develop <issue-number> --repo <repo-name> --branch-name "[feature/bugfix/refactor/other]/fast-<issue-number>-task-title"
-git fetch
-git checkout <branch-name>
-```
-
-## Handeling Errors
-If you encounter any errors or issues, please notify me immediately with specific details. Don't attempt to work around them on your own.
-Please be explicit about:
-
-What exactly went wrong
-What I need to do to fix the problem
+## Do NOT
+- Use heavy glassmorphism or blur effects on cards
+- Use colors outside the JFrog palette for primary UI elements
+- Use Inter or any font other than Open Sans for body text
 
 ---
 > Source: [jfrog-fastci/fastci](https://github.com/jfrog-fastci/fastci) — distributed by [TomeVault](https://tomevault.io).
