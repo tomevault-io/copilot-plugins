@@ -1,0 +1,9 @@
+{
+  "name": "linkml--dm-bip",
+  "displayName": "dm-bip",
+  "description": "Data Model Based Ingestion Pipeline",
+  "version": "1.0.0",
+  "author": "linkml",
+  "homepage": "https://github.com/linkml/dm-bip",
+  "skills": []
+}
