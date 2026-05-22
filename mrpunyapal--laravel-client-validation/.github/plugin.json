@@ -1,0 +1,9 @@
+{
+  "name": "mrpunyapal--laravel-client-validation",
+  "displayName": "laravel-client-validation",
+  "description": "Laravel package providing client-side validation with Alpine.js integration and server-side rule synchronization",
+  "version": "1.0.0",
+  "author": "MrPunyapal",
+  "homepage": "https://github.com/MrPunyapal/laravel-client-validation",
+  "skills": []
+}
