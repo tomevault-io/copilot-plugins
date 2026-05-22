@@ -1,21 +1,53 @@
-## branch-rule
+## pr-creation-rule
 
-> 本リポジトリのブランチ運用ルールは [docs/BRANCH.md](mdc:docs/BRANCH.md) にまとめられています。
+> current_branch=$(git branch --show-current)
 
-# ブランチ運用ルールガイド
+# プルリクエスト作成ルール
 
-本リポジトリのブランチ運用ルールは [docs/BRANCH.md](mdc:docs/BRANCH.md) にまとめられています。
+## 1. プルリクエストに必要な情報の取得
 
-## 主なポイント
+```shell
+# 1. 作業ブランチの特定
+current_branch=$(git branch --show-current)
+echo "作業ブランチ: $current_branch"
 
-- `main` ブランチは常に最新の開発版。
-- 機能追加・修正は `main` から短期ブランチを切り、1週間以内のマージを目指す。
-- ブランチ名は種別・Issue番号・目的などを組み合わせて命名（例: `feat/GH-123/add-new-feature`）。
-- 種別例: feat, fix, docs, chore, ci, refactor, style, test, build, perf。
-- リリースはタグ（例: `app-1.2.3`）やリリースブランチ（例: `release/app-1.0.0`）で管理。
-- 例外時はチームで協議し柔軟に対応。
+# 2. Issue番号の特定（ブランチ名から抽出）
+issue=$(echo "$current_branch" | grep -oE 'GH-[0-9]+' | grep -oE '[0-9]+')
+if [ -z "$issue" ]; then
+  echo "Issue番号が特定できませんでした。Issue番号を教えてください。"
+  exit 1
+else
+  echo "Issue番号: $issue"
+fi
 
-詳細は [docs/BRANCH.md](mdc:docs/BRANCH.md) を参照してください。
+# 3. 派生元ブランチの特定（ローカル全ブランチから自動判定）
+candidates=($(git branch --format='%(refname:short)' | grep -v "^$current_branch$"))
+latest_base=""
+latest_commit=""
+for b in "${candidates[@]}"; do
+  commit=$(git merge-base $b $current_branch 2>/dev/null)
+  if [ -n "$commit" ]; then
+    if [ -z "$latest_commit" ] || [ "$(git log -1 --format=%ct $commit)" -gt "$(git log -1 --format=%ct $latest_commit)" ]; then
+      latest_commit=$commit
+      latest_base=$b
+    fi
+  fi
+done
+echo "派生元ブランチ: $latest_base"
+
+# 4. 差分の確認
+diff=$(git diff $latest_base...$current_branch)
+echo "差分: $diff"
+```
+
+## 2. プルリクエスト本文の作成
+
+- 手順1で取得した情報を元にして [`PULL_REQUEST_TEMPLATE.md`](mdc:.github/PULL_REQUEST_TEMPLATE.md) に従い、Issue番号・概要・詳細を記載。
+- 画像・その他は何も記述しない。
+
+## 3. MCPサーバー経由でプルリクエストを作成
+
+手順1で取得した「作業ブランチ名」「Issue番号」「派生元ブランチ」、手順2で取得した「プルリクエスト本文」をもとに、MCPサーバー経由でプルリクエストを作成してください。ただし `owner` は `FlutterKaigi`, `repo` は `2025` を指定すること。
 
 ---
 > Source: [FlutterKaigi/2025](https://github.com/FlutterKaigi/2025) — distributed by [TomeVault](https://tomevault.io).
