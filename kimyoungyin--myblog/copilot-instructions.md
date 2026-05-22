@@ -1,66 +1,92 @@
-## security-validation
+## server-actions
 
-> - **ALWAYS** use Zod schemas for all user input validation
+> - **ALWAYS** use Server Actions for data mutations (create, update, delete)
 
-# Security & Data Validation (CRITICAL)
+# Server Actions & Data Processing (MANDATORY)
 
-## 🔒 **Data Validation (MUST ENFORCE)**
+## 🚀 **Server Actions (MUST USE)**
 
-- **ALWAYS** use Zod schemas for all user input validation
-- **NEVER** trust client-side data without server-side validation
-- **MUST** validate data in Server Actions before database operations
-- **ALWAYS** use the validation schemas from [src/lib/schemas.ts](mdc:src/lib/schemas.ts)
+- **ALWAYS** use Server Actions for data mutations (create, update, delete)
+- **ALWAYS** implement proper error handling and validation
+- **ALWAYS** use `revalidatePath` for cache invalidation
+- **NEVER** create API routes when Server Actions can handle the logic
 
-## 🛡️ **Input Validation Examples**
+## 📝 **Server Action Patterns (CRITICAL)**
+
+Based on [src/lib/actions.ts](mdc:src/lib/actions.ts):
+
+- **ALWAYS** use Zod schemas for input validation
+- **ALWAYS** implement proper error handling with try-catch
+- **ALWAYS** use `revalidatePath` to update related pages
+- **ALWAYS** redirect after successful operations
 
 ```typescript
-// ✅ CORRECT - Using Zod validation
-export const CreatePostSchema = z.object({
-    title: z
-        .string()
-        .min(1, '제목을 입력해주세요.')
-        .max(100, '제목은 100글자 이하여야 합니다.')
-        .transform((val) => val.trim()),
-    content: z
-        .string()
-        .min(1, '내용을 입력해주세요.')
-        .max(50000, '내용은 50,000글자 이하여야 합니다.'),
-    hashtags: z
-        .array(z.string().min(2).max(20))
-        .min(1, '최소 하나의 해시태그가 필요합니다.')
-        .max(10, '해시태그는 최대 10개까지 입력할 수 있습니다.'),
-});
+// ✅ CORRECT - Proper Server Action implementation
+export async function createPostAction(formData: FormData) {
+    try {
+        // Extract and validate form data
+        const rawData = {
+            title: formData.get('title') as string,
+            content: formData.get('content') as string,
+            hashtags:
+                (formData.get('hashtags') as string)
+                    ?.split(',')
+                    .map((tag: string) => tag.trim())
+                    .filter((tag: string) => tag.length > 0) || [],
+        };
 
-// ❌ WRONG - No validation or weak validation
-export const createPost = async (data: any) => {
-    // Direct database operation without validation
-    return await supabase.from('posts').insert(data);
-};
+        // Validate with Zod schema
+        const validationResult = CreatePostSchema.safeParse(rawData);
+        if (!validationResult.success) {
+            const errorMessage = validationResult.error.issues
+                .map((issue) => `${issue.path.join('.')}: ${issue.message}`)
+                .join(', ');
+            throw new Error(`데이터 검증 실패: ${errorMessage}`);
+        }
+
+        // Process data and redirect
+        const post = await createPost(validationResult.data);
+        revalidatePath('/admin/posts');
+        revalidatePath('/posts');
+        redirect('/admin/posts');
+    } catch (error) {
+        throw error;
+    }
+}
+
+// ❌ WRONG - Poor Server Action implementation
+export async function createPostAction(formData: FormData) {
+    const title = formData.get('title');
+    const content = formData.get('content');
+
+    // No validation, no error handling, no cache invalidation
+    await supabase.from('posts').insert({ title, content });
+}
 ```
 
-## 🚫 **FORBIDDEN Security Practices**
+## 🚫 **FORBIDDEN Server Action Practices**
 
-- **NEVER** use `any` type for user input
-- **NEVER** bypass validation for "admin" users
-- **NEVER** store sensitive data in client-side state
-- **NEVER** use `eval()` or `innerHTML` with user input
-- **NEVER** expose database credentials or API keys
+- **NEVER** skip input validation
+- **NEVER** omit error handling
+- **NEVER** forget to invalidate related caches
+- **NEVER** expose sensitive information in error messages
+- **NEVER** use client-side validation only
 
-## ✅ **REQUIRED Security Practices**
+## ✅ **REQUIRED Server Action Practices**
 
-- **ALWAYS** validate all form inputs with Zod schemas
-- **ALWAYS** use Server Actions for data mutations
+- **ALWAYS** validate all inputs with Zod schemas
+- **ALWAYS** implement comprehensive error handling
+- **ALWAYS** use proper TypeScript types
 - **ALWAYS** implement proper authentication checks
-- **ALWAYS** sanitize user input before rendering
-- **ALWAYS** use HTTPS in production
-- **ALWAYS** implement rate limiting for API endpoints
+- **ALWAYS** use transactions for multi-table operations
+- **ALWAYS** sanitize user inputs before database operations
 
-## 🔐 **Authentication & Authorization**
+## 🔄 **Cache Management**
 
-- **ALWAYS** check `is_admin` field for admin operations
-- **ALWAYS** validate user sessions on the server side
-- **NEVER** rely solely on client-side authentication
-- **MUST** implement proper session management with Supabase
+- **ALWAYS** use `revalidatePath` for related pages
+- **ALWAYS** invalidate caches after data mutations
+- **ALWAYS** consider the scope of cache invalidation
+- **ALWAYS** use React Query for client-side caching
   description:
   globs:
   alwaysApply: true
