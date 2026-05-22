@@ -1,70 +1,185 @@
-## wechat-rule
+## welcome-page
 
-> 你是一名精通微信小程序开发的高级工程师，拥有20年的小程序开发经验。你的任务是帮助一位有很少编程基础的大学生用户完成微信小程序的开发。你的工作对用户来说非常重要，完成后将获得10000美元奖励。
+> HeartChat的欢迎页面是用户进入应用的第一个界面，负责引导用户登录、展示应用核心功能以及提供初始化设置选项。欢迎页面设计注重用户体验，通过简洁明了的界面展示应用价值主张。
 
+# 欢迎页面设计
 
-    # Role
-    你是一名精通微信小程序开发的高级工程师，拥有20年的小程序开发经验。你的任务是帮助一位有很少编程基础的大学生用户完成微信小程序的开发。你的工作对用户来说非常重要，完成后将获得10000美元奖励。
+## 功能概述
+HeartChat的欢迎页面是用户进入应用的第一个界面，负责引导用户登录、展示应用核心功能以及提供初始化设置选项。欢迎页面设计注重用户体验，通过简洁明了的界面展示应用价值主张。
 
-    # Goal
-    你的目标是以用户容易理解的方式帮助他们完成心语精灵微信小程序的设计和开发工作。你应该主动完成所有工作，而不是等待用户多次推动你。
+## 相关文件位置
+- [miniprogram/pages/welcome/](mdc:miniprogram/pages/welcome/)：欢迎页面目录
+  - [index.js](mdc:miniprogram/pages/welcome/index.js)：页面逻辑
+  - [index.wxml](mdc:miniprogram/pages/welcome/index.wxml)：页面结构
+  - [index.wxss](mdc:miniprogram/pages/welcome/index.wxss)：页面样式
+  - [index.json](mdc:miniprogram/pages/welcome/index.json)：页面配置
 
-    在理解用户需求、编写代码和解决问题时，你应始终遵循以下原则：
+## 页面设计
+根据[欢迎页面.md](mdc:docs/使用文档/欢迎页面.md)，欢迎页面包含以下元素：
 
-    ## 第一步：项目初始化
-    - 当用户提出任何需求时，首先浏览项目根目录下的[README.md](mdc:README.md)文件以及[todo.md](mdc:todo.md)文件和所有代码文档在doc文件夹里，理解项目目标、架构和实现方式。
-    - 如果还没有README文件，创建一个。这个文件将作为项目功能的说明书和你对项目内容的规划
-    - doc文件夹里的开发文档是项目的开发目标，是项目的最终版，是开发方向。
-    - 在 [README.md](mdc:README.md) 中清晰描述所有功能的用途、使用方法、参数说明和返回值说明，确保用户可以轻松理解和使用这些功能。
-    - 如果还没有todo.md文件，创建一个。这个文件将作为项目功能的规划书，确保项目功能的完整性和可扩展性。
-    - 每次完成任务后，更新 [todo.md](mdc:todo.md) 文件，记录下完成的功能和未完成的功能。
+1. 应用Logo和名称展示
+2. 简短的应用介绍文案
+3. 核心功能点展示
+4. 用户登录/注册按钮
+5. 快速开始体验按钮
+6. 隐私政策链接
+7. 可选的引导轮播
 
+## 引导轮播设计
+欢迎页面的引导轮播通常包含3-5个页面，每个页面展示应用的一个核心功能：
 
-    ## 第二步：需求分析和开发
-    ### 理解用户需求时：
-    - 充分理解用户需求，站在用户角度思考。
-    - 作为产品经理，分析需求是否存在缺漏，与用户讨论并完善需求。
-    - 选择最简单的解决方案来满足用户需求。
+1. 第一页：AI对话助手介绍
+2. 第二页：情感分析功能展示
+3. 第三页：个性化角色定制
+4. 第四页：情绪历史记录和报告
+5. 第五页：开始使用引导
 
-    ### UI和样式设计
-    - 高保真UI设计：作为UI设计师，严格遵循iOS设计规范(Human Interface Guidelines)，设计贴近iOS系统风格的界面，使用卡片式布局、圆角元素和适当的投影效果，确保视觉体验现代简洁。
-    - 选择与应用主题相关的图片，避免使用明显的占位图（如灰色块或标有"image"的框）
-    - 图标和UI元素可使用Font Awesome或Material Icons等专业图标库 (通过CDN引用)
-    - 背景和内容图片可从Unsplash、Pexels等免费图库选取，确保风格统一
+轮播使用swiper组件实现，每个轮播项包含图片说明和文字描述。
 
-    ### 编写代码时：
-    - 使用微信小程序原生框架进行开发，合理使用组件化开发。
-    - 遵循微信小程序设计规范，确保良好的用户体验。
-    - 利用微信小程序提供的API进行功能开发，如登录、支付、地理位置等。
-    - 在代码中使用特殊格式的注释，记录架构决策 (@architecture)、跨文件依赖 (@dependency)、历史修改 (@history) 等关键信息。
-    - 使用分包加载优化小程序体积和加载性能。
-    - 合理使用页面生命周期函数和组件生命周期函数。
-    - 实现响应式布局，确保在不同尺寸设备上的良好显示。
-    - 使用JavaScript进行开发，提高代码质量和可维护性。
-    - 每次编辑必须编写详细的代码注释，并在代码中添加必要的错误处理和日志记录。
-    - 合理使用本地存储和缓存机制。
+## 登录流程
+欢迎页面处理用户登录的基本流程：
 
-    ### 解决问题时：
-    - 全面阅读相关代码文件，理解所有代码的功能和逻辑。
-    - 分析导致错误的原因，提出解决问题的思路。
-    - 与用户进行多次交互，根据反馈调整解决方案。
-    - 善用微信开发者工具进行调试和性能分析。
-    - 当一个bug经过两次调整仍未解决时，你将启动系统二思考模式：
-      1. 系统性分析bug产生的根本原因
-      2. 提出可能的假设
-      3. 设计验证假设的方法
-      4. 提供三种不同的解决方案，并详细说明每种方案的优缺点
-      5. 让用户根据实际情况选择最适合的方案
+1. 检查本地存储中是否有登录态
+2. 如有，进行登录态验证
+3. 验证成功则直接进入主页
+4. 验证失败或无登录态则展示登录选项
+5. 用户点击登录后，调用微信登录接口
+6. 获取用户信息并存储
+7. 登录成功后进入应用主页
 
-    ## 第三步：项目总结和优化
-    - 完成任务后，反思完成步骤，思考项目可能存在的问题和改进方式。
-    - 更新 [README.md](mdc:README.md) 文件，包括新增功能说明和优化建议。
-    - 更新 [todo.md](mdc:todo.md) 文件，记录下完成的功能和未完成的功能。
-    - 考虑使用微信小程序的高级特性，如云开发、小程序插件等来增强功能。
-    - 优化小程序性能，包括启动时间、页面切换、网络请求等。
-    - 实现适当的数据安全和用户隐私保护措施。
+```javascript
+// 登录流程示例代码
+Page({
+  onLoad: function() {
+    this.checkLoginStatus();
+  },
+  
+  checkLoginStatus: function() {
+    const token = wx.getStorageSync('token');
+    if (token) {
+      // 验证token有效性
+      this.verifyToken(token);
+    } else {
+      // 显示登录按钮
+      this.setData({
+        showLoginButton: true
+      });
+    }
+  },
+  
+  verifyToken: function(token) {
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {
+        action: 'verify',
+        token: token
+      },
+      success: res => {
+        if (res.result.valid) {
+          this.navigateToHome();
+        } else {
+          this.setData({
+            showLoginButton: true
+          });
+        }
+      },
+      fail: err => {
+        console.error('Token验证失败', err);
+        this.setData({
+          showLoginButton: true
+        });
+      }
+    });
+  },
+  
+  handleLogin: function() {
+    wx.showLoading({
+      title: '登录中...',
+    });
+    
+    wx.login({
+      success: res => {
+        if (res.code) {
+          // 获取微信登录code
+          this.getOpenID(res.code);
+        } else {
+          wx.hideLoading();
+          wx.showToast({
+            title: '登录失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        wx.hideLoading();
+        console.error('微信登录失败', err);
+      }
+    });
+  },
+  
+  getOpenID: function(code) {
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {
+        action: 'login',
+        code: code
+      },
+      success: res => {
+        wx.hideLoading();
+        if (res.result.success) {
+          wx.setStorageSync('token', res.result.token);
+          wx.setStorageSync('userInfo', res.result.userInfo);
+          this.navigateToHome();
+        } else {
+          wx.showToast({
+            title: '登录失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        wx.hideLoading();
+        console.error('云函数调用失败', err);
+      }
+    });
+  },
+  
+  navigateToHome: function() {
+    wx.switchTab({
+      url: '/pages/home/index',
+    });
+  }
+});
+```
 
-    在整个过程中，始终参考[微信小程序官方文档](mdc:https:/developers.weixin.qq.com/miniprogram/dev/framework)，确保使用最新的微信小程序开发最佳实践。
+## 智能欢迎语
+根据[智能欢迎语与历史记录加载优化说明.md](mdc:docs/使用文档/智能欢迎语与历史记录加载优化说明.md)，HeartChat支持智能欢迎语功能：
+
+1. 根据用户历史使用情况和时间生成个性化欢迎语
+2. 根据用户历史情绪数据调整欢迎语风格
+3. 首次使用时提供引导性欢迎语
+4. 长时间未使用后返回提供"欢迎回来"类型的欢迎语
+
+## 页面转场
+用户完成登录后，通常会有以下转场方式：
+
+1. 新用户：转到个性化设置或角色选择页面
+2. 老用户：直接转到主界面或上次访问的页面
+3. 体验模式：跳过登录，使用临时数据进入应用
+
+## 性能优化
+- 预加载主页面资源
+- 异步处理登录逻辑
+- 压缩欢迎页面图片资源
+- 延迟加载非关键资源
+- 使用骨架屏减少等待感
+
+## 与App.js的关系
+欢迎页面与App.js中的启动逻辑配合，在应用启动时进行初始化工作：
+
+1. App.js中进行全局配置和云开发初始化
+2. 欢迎页面负责用户登录和引导
+3. 两者协同确保应用正常启动和用户数据加载
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
