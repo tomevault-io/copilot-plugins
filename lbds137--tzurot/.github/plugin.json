@@ -1,0 +1,38 @@
+{
+  "name": "lbds137--tzurot",
+  "displayName": "tzurot",
+  "description": "A Discord bot that uses webhooks to represent multiple AI characters.",
+  "version": "1.0.0",
+  "author": "lbds137",
+  "homepage": "https://github.com/lbds137/tzurot",
+  "skills": [
+    {
+      "name": "tzurot-arch-audit",
+      "description": ""
+    },
+    {
+      "name": "tzurot-council-mcp",
+      "description": ""
+    },
+    {
+      "name": "tzurot-db-vector",
+      "description": ""
+    },
+    {
+      "name": "tzurot-doc-audit",
+      "description": ""
+    },
+    {
+      "name": "tzurot-docs",
+      "description": ""
+    },
+    {
+      "name": "tzurot-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "tzurot-testing",
+      "description": ""
+    }
+  ]
+}
