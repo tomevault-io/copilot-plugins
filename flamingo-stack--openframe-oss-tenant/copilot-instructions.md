@@ -1,506 +1,431 @@
-## database-patterns
+## frontend-data-fetching
 
-> This document outlines the database usage patterns and best practices for the OpenFrame project.
+> This document outlines the frontend data fetching patterns and best practices for the OpenFrame project.
 
-# Database Patterns
+# Frontend Data Fetching
 
-This document outlines the database usage patterns and best practices for the OpenFrame project.
+This document outlines the frontend data fetching patterns and best practices for the OpenFrame project.
 
-## MongoDB Usage Patterns
+## Apollo Client
 
-### Document Design
+OpenFrame uses Apollo Client for GraphQL data fetching:
 
-- Design documents around specific use cases
-- Embed related data when it's always accessed together
-- Use references for large or frequently changing data
-- Avoid deeply nested documents (limit to 2-3 levels)
-- Use descriptive field names
-- Follow consistent naming conventions (camelCase)
+```typescript
+// src/apollo/apolloClient.ts
+import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client/core';
+import { onError } from '@apollo/client/link/error';
+import { logoutUser, refreshToken } from '@/services/AuthService';
 
-Example document:
-```json
-{
-  "_id": "device123",
-  "hostname": "server-01",
-  "operatingSystem": "Linux",
-  "status": "online",
-  "lastSeen": "2023-04-01T12:00:00Z",
-  "metadata": {
-    "location": "Data Center 1",
-    "rack": "A4",
-    "model": "Dell PowerEdge R740"
-  },
-  "tags": ["production", "database", "critical"],
-  "siteId": "site456"  // Reference to a site document
-}
-```
+// Error handling link
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.forEach(({ message, locations, path }) => {
+      console.error(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      );
+      
+      // Handle authentication errors
+      if (message.includes('not authenticated') || message.includes('jwt expired')) {
+        handleGraphQLAuthError();
+      }
+    });
+  }
+  
+  if (networkError) {
+    console.error(`[Network error]: ${networkError}`);
+  }
+});
 
-### Indexing Strategy
-
-- Create indexes for frequently queried fields
-- Use compound indexes for queries with multiple conditions
-- Add indexes for sorting operations
-- Consider partial indexes for filtered queries
-- Use text indexes for full-text search
-- Monitor and optimize index usage
-
-Example indexes:
-```java
-@Document(collection = "devices")
-public class Device {
-    @Id
-    private String id;
-    
-    @Indexed
-    private String hostname;
-    
-    @Indexed
-    private String status;
-    
-    @CompoundIndex(def = "{'siteId': 1, 'status': 1}")
-    private String siteId;
-    
-    // Other fields
-}
-```
-
-### Query Optimization
-
-- Use projection to limit returned fields
-- Filter documents as early as possible
-- Use appropriate operators ($in, $gt, $lt, etc.)
-- Leverage aggregation pipeline for complex queries
-- Avoid large skip values for pagination
-- Use cursor-based pagination for large collections
-
-Example optimized query:
-```java
-List<Device> findActiveDevicesBySite(String siteId, int limit, String lastId) {
-    Query query = new Query();
-    
-    if (lastId != null) {
-        query.addCriteria(Criteria.where("_id").gt(lastId));
+// Handle authentication errors
+async function handleGraphQLAuthError() {
+  try {
+    // Try to refresh the token
+    const success = await refreshToken();
+    if (!success) {
+      // If refresh fails, logout the user
+      logoutUser();
     }
-    
-    query.addCriteria(Criteria.where("siteId").is(siteId)
-        .and("status").is("online"));
-    
-    query.fields()
-        .include("hostname")
-        .include("status")
-        .include("lastSeen");
-    
-    query.limit(limit);
-    query.with(Sort.by(Sort.Direction.ASC, "_id"));
-    
-    return mongoTemplate.find(query, Device.class);
+  } catch (error) {
+    logoutUser();
+  }
+}
+
+// HTTP link
+const httpLink = new HttpLink({
+  uri: import.meta.env.VITE_API_URL + '/graphql',
+  credentials: 'include',
+});
+
+// Create Apollo Client
+export const apolloClient = new ApolloClient({
+  link: from([errorLink, httpLink]),
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+      errorPolicy: 'all',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
+    mutate: {
+      errorPolicy: 'all',
+    },
+  },
+});
+```
+
+## Vue Apollo Composables
+
+Use Vue Apollo composables for GraphQL operations:
+
+```typescript
+// src/composables/useDevices.ts
+import { useQuery, useMutation } from '@vue/apollo-composable';
+import { gql } from '@apollo/client/core';
+import { ref, computed } from 'vue';
+import type { Device } from '@/types';
+
+export function useDevices() {
+  const GET_DEVICES = gql`
+    query GetDevices {
+      devices {
+        id
+        hostname
+        operatingSystem
+        status
+        lastSeen
+      }
+    }
+  `;
+  
+  const CREATE_DEVICE = gql`
+    mutation CreateDevice($input: DeviceInput!) {
+      createDevice(input: $input) {
+        id
+        hostname
+        operatingSystem
+        status
+        lastSeen
+      }
+    }
+  `;
+  
+  // Query devices
+  const { result, loading, error, refetch } = useQuery(GET_DEVICES);
+  
+  // Create device mutation
+  const { mutate: createDevice, loading: createLoading } = useMutation(CREATE_DEVICE);
+  
+  // Computed property for devices
+  const devices = computed(() => result.value?.devices || []);
+  
+  // Create a new device
+  const addDevice = async (device: Omit<Device, 'id'>) => {
+    try {
+      const response = await createDevice({
+        input: device
+      });
+      
+      await refetch();
+      return response?.data?.createDevice;
+    } catch (error) {
+      console.error('Error creating device:', error);
+      throw error;
+    }
+  };
+  
+  return {
+    devices,
+    loading,
+    error,
+    refetch,
+    addDevice,
+    createLoading
+  };
 }
 ```
 
-### Aggregation Patterns
+## REST API Fetching
 
-- Use aggregation pipeline for complex data transformations
-- Break down complex pipelines into smaller stages
-- Use $lookup for joining collections
-- Leverage $group for data summarization
-- Use $project to reshape documents
-- Consider performance implications of each stage
+For REST API endpoints, use Axios:
 
-Example aggregation:
-```java
-AggregationResults<DeviceStatusSummary> getDeviceStatusSummaryBySite(String siteId) {
-    Aggregation aggregation = Aggregation.newAggregation(
-        Aggregation.match(Criteria.where("siteId").is(siteId)),
-        Aggregation.group("status").count().as("count"),
-        Aggregation.project("count").and("status").previousOperation(),
-        Aggregation.sort(Sort.Direction.DESC, "count")
+```typescript
+// src/services/ApiService.ts
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { refreshToken, logoutUser } from '@/services/AuthService';
+
+class ApiService {
+  private api: AxiosInstance;
+  private isRefreshing = false;
+  private failedQueue: any[] = [];
+  
+  constructor() {
+    this.api = axios.create({
+      baseURL: import.meta.env.VITE_API_URL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+    
+    this.setupInterceptors();
+  }
+  
+  private setupInterceptors() {
+    // Request interceptor
+    this.api.interceptors.request.use(
+      (config) => {
+        // Add auth token if available
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
     );
     
-    return mongoTemplate.aggregate(
-        aggregation, "devices", DeviceStatusSummary.class);
-}
-```
-
-## Cassandra Data Modeling
-
-### Table Design
-
-- Design tables based on query patterns
-- Denormalize data for efficient reads
-- Use wide rows for related data
-- Choose appropriate partition keys
-- Use clustering columns for sorting
-- Avoid large partitions
-
-Example table definition:
-```cql
-CREATE TABLE events (
-    device_id text,
-    event_time timestamp,
-    event_type text,
-    severity text,
-    message text,
-    details map<text, text>,
-    PRIMARY KEY (device_id, event_time)
-) WITH CLUSTERING ORDER BY (event_time DESC);
-```
-
-### Partition Strategy
-
-- Choose partition keys that distribute data evenly
-- Avoid hotspots by using composite partition keys if needed
-- Keep partition sizes manageable (< 100MB)
-- Consider time-based partitioning for time-series data
-- Use bucketing for high-cardinality partition keys
-
-Example composite partition key:
-```cql
-CREATE TABLE events_by_day (
-    device_id text,
-    day date,
-    event_time timestamp,
-    event_type text,
-    severity text,
-    message text,
-    PRIMARY KEY ((device_id, day), event_time)
-) WITH CLUSTERING ORDER BY (event_time DESC);
-```
-
-### Query Patterns
-
-- Design queries around specific use cases
-- Always include partition key in WHERE clause
-- Use clustering columns for range queries
-- Avoid using ALLOW FILTERING
-- Use secondary indexes sparingly
-- Consider materialized views for alternative access patterns
-
-Example query patterns:
-```java
-// Efficient query - includes partition key
-session.execute(
-    "SELECT * FROM events WHERE device_id = ? AND event_time > ? AND event_time < ?",
-    deviceId, startTime, endTime
-);
-
-// Materialized view for querying by event type
-session.execute(
-    "SELECT * FROM events_by_type WHERE event_type = ? AND severity = ?",
-    eventType, severity
-);
-```
-
-### Time Series Data
-
-- Use time-based partitioning
-- Consider TTL for automatic data expiration
-- Use compaction strategies optimized for time series
-- Implement data retention policies
-- Consider downsampling for historical data
-
-Example time series table:
-```cql
-CREATE TABLE metrics (
-    device_id text,
-    metric_name text,
-    day date,
-    timestamp timestamp,
-    value double,
-    PRIMARY KEY ((device_id, metric_name, day), timestamp)
-) WITH CLUSTERING ORDER BY (timestamp DESC)
-  AND default_time_to_live = 2592000; -- 30 days
-```
-
-## Redis Caching Strategies
-
-### Cache Design
-
-- Cache frequently accessed data
-- Use appropriate data structures (string, hash, list, set, sorted set)
-- Set reasonable TTL values
-- Implement cache invalidation strategies
-- Use namespaced keys
-- Consider memory usage
-
-Example cache implementation:
-```java
-@Service
-public class DeviceCacheService {
-    private final RedisTemplate<String, Device> redisTemplate;
-    private final DeviceRepository deviceRepository;
-    
-    private static final String KEY_PREFIX = "device:";
-    private static final Duration CACHE_TTL = Duration.ofMinutes(15);
-    
-    public Device getDevice(String deviceId) {
-        String key = KEY_PREFIX + deviceId;
-        Device device = redisTemplate.opsForValue().get(key);
+    // Response interceptor
+    this.api.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
         
-        if (device == null) {
-            device = deviceRepository.findById(deviceId).orElse(null);
-            if (device != null) {
-                redisTemplate.opsForValue().set(key, device, CACHE_TTL);
-            }
-        }
-        
-        return device;
-    }
-    
-    public void invalidateCache(String deviceId) {
-        redisTemplate.delete(KEY_PREFIX + deviceId);
-    }
-}
-```
-
-### Distributed Locking
-
-- Use Redis for distributed locking
-- Implement lock acquisition with timeout
-- Always release locks in finally blocks
-- Use unique lock names
-- Consider using Redisson for advanced locking
-
-Example distributed lock:
-```java
-@Service
-public class DistributedLockService {
-    private final StringRedisTemplate redisTemplate;
-    
-    public boolean acquireLock(String lockName, String lockValue, Duration timeout) {
-        return Boolean.TRUE.equals(redisTemplate.opsForValue()
-            .setIfAbsent(lockName, lockValue, timeout));
-    }
-    
-    public void releaseLock(String lockName, String lockValue) {
-        String currentValue = redisTemplate.opsForValue().get(lockName);
-        if (lockValue.equals(currentValue)) {
-            redisTemplate.delete(lockName);
-        }
-    }
-    
-    public <T> T executeWithLock(String lockName, Duration timeout, Supplier<T> task) {
-        String lockValue = UUID.randomUUID().toString();
-        try {
-            if (acquireLock(lockName, lockValue, timeout)) {
-                return task.get();
-            } else {
-                throw new LockAcquisitionException("Failed to acquire lock: " + lockName);
-            }
-        } finally {
-            releaseLock(lockName, lockValue);
-        }
-    }
-}
-```
-
-### Rate Limiting
-
-- Implement rate limiting using Redis
-- Use sliding window algorithm
-- Configure limits based on client ID or user
-- Return appropriate status codes when limits are exceeded
-- Consider using Redis Lua scripts for atomic operations
-
-Example rate limiter:
-```java
-@Service
-public class RateLimiterService {
-    private final StringRedisTemplate redisTemplate;
-    
-    public boolean allowRequest(String key, int maxRequests, Duration window) {
-        long now = System.currentTimeMillis();
-        long windowStart = now - window.toMillis();
-        
-        String redisKey = "ratelimit:" + key;
-        
-        // Remove expired timestamps
-        redisTemplate.opsForZSet().removeRangeByScore(redisKey, 0, windowStart);
-        
-        // Count current requests in window
-        Long currentCount = redisTemplate.opsForZSet().zCard(redisKey);
-        
-        if (currentCount != null && currentCount >= maxRequests) {
-            return false;
-        }
-        
-        // Add current timestamp
-        redisTemplate.opsForZSet().add(redisKey, String.valueOf(now), now);
-        redisTemplate.expire(redisKey, window.multipliedBy(2));
-        
-        return true;
-    }
-}
-```
-
-### Caching Patterns
-
-- **Cache-Aside**: Load data from cache first, then from database if not found
-- **Write-Through**: Update cache when writing to database
-- **Write-Behind**: Write to cache first, then asynchronously to database
-- **Cache Invalidation**: Remove or update cache entries when data changes
-- **Bulk Loading**: Load multiple cache entries in a single operation
-
-Example cache-aside pattern:
-```java
-@Service
-public class UserService {
-    private final UserRepository userRepository;
-    private final RedisTemplate<String, User> redisTemplate;
-    
-    public User getUserById(String userId) {
-        // Try to get from cache
-        User user = redisTemplate.opsForValue().get("user:" + userId);
-        
-        if (user == null) {
-            // Cache miss, get from database
-            user = userRepository.findById(userId).orElse(null);
+        // Handle 401 Unauthorized errors
+        if (error.response?.status === 401 && !originalRequest._retry) {
+          if (this.isRefreshing) {
+            // If token refresh is in progress, queue the request
+            return new Promise((resolve, reject) => {
+              this.failedQueue.push({ resolve, reject });
+            })
+              .then((token) => {
+                originalRequest.headers.Authorization = `Bearer ${token}`;
+                return this.api(originalRequest);
+              })
+              .catch((err) => Promise.reject(err));
+          }
+          
+          originalRequest._retry = true;
+          this.isRefreshing = true;
+          
+          try {
+            // Try to refresh the token
+            const success = await refreshToken();
             
-            if (user != null) {
-                // Store in cache
-                redisTemplate.opsForValue().set("user:" + userId, user, Duration.ofMinutes(30));
+            if (success) {
+              const newToken = localStorage.getItem('auth_token');
+              
+              // Process queued requests
+              this.processQueue(null, newToken);
+              
+              // Retry the original request
+              originalRequest.headers.Authorization = `Bearer ${newToken}`;
+              return this.api(originalRequest);
+            } else {
+              // If refresh fails, logout the user
+              this.processQueue(new Error('Refresh token failed'), null);
+              logoutUser();
+              return Promise.reject(error);
             }
+          } catch (refreshError) {
+            this.processQueue(refreshError, null);
+            logoutUser();
+            return Promise.reject(refreshError);
+          } finally {
+            this.isRefreshing = false;
+          }
         }
         
-        return user;
-    }
+        return Promise.reject(error);
+      }
+    );
+  }
+  
+  private processQueue(error: any, token: string | null) {
+    this.failedQueue.forEach((request) => {
+      if (error) {
+        request.reject(error);
+      } else {
+        request.resolve(token);
+      }
+    });
     
-    public User updateUser(User user) {
-        // Update database
-        User updatedUser = userRepository.save(user);
-        
-        // Update cache (write-through)
-        redisTemplate.opsForValue().set("user:" + user.getId(), updatedUser, Duration.ofMinutes(30));
-        
-        return updatedUser;
-    }
-    
-    public void deleteUser(String userId) {
-        // Delete from database
-        userRepository.deleteById(userId);
-        
-        // Invalidate cache
-        redisTemplate.delete("user:" + userId);
-    }
+    this.failedQueue = [];
+  }
+  
+  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.api.get<T>(url, config);
+    return response.data;
+  }
+  
+  public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.api.post<T>(url, data, config);
+    return response.data;
+  }
+  
+  public async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.api.put<T>(url, data, config);
+    return response.data;
+  }
+  
+  public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const response = await this.api.delete<T>(url, config);
+    return response.data;
+  }
 }
-```
 
-## Database Connection Management
-
-### Connection Pooling
-
-- Configure appropriate pool sizes
-- Set reasonable timeout values
-- Monitor connection usage
-- Implement health checks
-- Handle connection failures gracefully
-
-Example connection pool configuration:
-```yaml
-spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/openframe
-      connection-pool:
-        max-size: 100
-        min-size: 5
-        max-wait-time: 2000
-        max-connection-life-time: 30000
-        max-connection-idle-time: 60000
-    cassandra:
-      contact-points: localhost
-      port: 9042
-      keyspace-name: openframe
-      local-datacenter: datacenter1
-      pool:
-        max-queue-size: 256
-        pool-timeout: 5000
-        heartbeat-interval: 30
-        idle-timeout: 120
-    redis:
-      host: localhost
-      port: 6379
-      timeout: 2000
-      lettuce:
-        pool:
-          max-active: 8
-          max-idle: 8
-          min-idle: 2
-          max-wait: 1000
-```
-
-### Transaction Management
-
-- Use transactions for operations that must be atomic
-- Keep transactions short
-- Handle transaction failures gracefully
-- Consider distributed transactions for cross-database operations
-- Use appropriate isolation levels
-
-Example transaction management:
-```java
-@Service
-public class OrderService {
-    private final OrderRepository orderRepository;
-    private final PaymentRepository paymentRepository;
-    private final InventoryRepository inventoryRepository;
-    
-    @Transactional
-    public Order createOrder(Order order, Payment payment) {
-        // Save order
-        Order savedOrder = orderRepository.save(order);
-        
-        // Process payment
-        payment.setOrderId(savedOrder.getId());
-        Payment savedPayment = paymentRepository.save(payment);
-        
-        // Update inventory
-        for (OrderItem item : order.getItems()) {
-            inventoryRepository.decreaseStock(item.getProductId(), item.getQuantity());
-        }
-        
-        return savedOrder;
-    }
-}
-```
-
-### Sharding and Partitioning
-
-- Implement sharding for horizontal scaling
-- Choose appropriate shard keys
-- Handle cross-shard queries
-- Consider data locality
-- Implement proper routing
-
-Example sharding configuration:
-```java
-@Configuration
-public class ShardingConfig {
-    @Bean
-    public ShardingStrategy deviceShardingStrategy() {
-        return new HashShardingStrategy("deviceId", 4);
-    }
-    
-    @Bean
-    public ShardedMongoTemplate shardedMongoTemplate(
-            List<MongoTemplate> mongoTemplates,
-            ShardingStrategy shardingStrategy) {
-        return new ShardedMongoTemplate(mongoTemplates, shardingStrategy);
-    }
-}
+export const apiService = new ApiService();
 ```
 
 ## Best Practices
 
-1. **Data Modeling**: Design data models around query patterns
-2. **Indexing**: Create appropriate indexes for frequently queried fields
-3. **Query Optimization**: Optimize queries for performance
-4. **Connection Management**: Configure and monitor connection pools
-5. **Caching**: Implement caching for frequently accessed data
-6. **Security**: Implement proper authentication and authorization
-7. **Backup and Recovery**: Implement regular backups and recovery procedures
-8. **Monitoring**: Monitor database performance and usage
-9. **Schema Evolution**: Plan for schema changes and migrations
-10. **Data Validation**: Validate data before storing in the database
+1. **Error Handling**: Always handle API errors gracefully
+   ```typescript
+   try {
+     const data = await apiService.get('/api/devices');
+     // Process data
+   } catch (error) {
+     // Handle error
+     console.error('Error fetching devices:', error);
+     showToast('Failed to load devices', 'error');
+   }
+   ```
+
+2. **Loading States**: Show loading indicators during data fetching
+   ```vue
+   <template>
+     <div>
+       <LoadingSpinner v-if="loading" />
+       <ErrorMessage v-else-if="error" :message="error.message" />
+       <DataTable v-else :data="devices" />
+     </div>
+   </template>
+   ```
+
+3. **Caching**: Cache frequently accessed data
+   ```typescript
+   // Use Apollo cache for GraphQL queries
+   const { result } = useQuery(GET_DEVICES, null, {
+     fetchPolicy: 'cache-and-network'
+   });
+   ```
+
+4. **Pagination**: Handle pagination for large result sets
+   ```typescript
+   const fetchDevicesPage = async (page: number, limit: number) => {
+     return apiService.get<DevicesResponse>(`/api/devices?page=${page}&limit=${limit}`);
+   };
+   ```
+
+5. **Reactive Data**: Use reactive data stores
+   ```typescript
+   // Use Pinia for state management
+   const deviceStore = useDeviceStore();
+   
+   // Fetch and update store
+   await deviceStore.fetchDevices();
+   ```
+
+6. **Composables**: Create reusable composables for data fetching
+   ```typescript
+   // src/composables/useTacticalRmmAgents.ts
+   export function useTacticalRmmAgents() {
+     const agents = ref([]);
+     const loading = ref(false);
+     const error = ref(null);
+     
+     const fetchAgents = async () => {
+       loading.value = true;
+       try {
+         agents.value = await tacticalRmmService.getAgents();
+       } catch (err) {
+         error.value = err;
+       } finally {
+         loading.value = false;
+       }
+     };
+     
+     onMounted(() => {
+       fetchAgents();
+     });
+     
+     return {
+       agents,
+       loading,
+       error,
+       fetchAgents
+     };
+   }
+   ```
+
+7. **Optimistic Updates**: Implement optimistic UI updates
+   ```typescript
+   const addDevice = async (device) => {
+     // Optimistically add to local state
+     devices.value.push({ ...device, id: 'temp-id', status: 'pending' });
+     
+     try {
+       // Perform actual API call
+       const newDevice = await apiService.post('/api/devices', device);
+       
+       // Replace temporary device with real one
+       const index = devices.value.findIndex(d => d.id === 'temp-id');
+       if (index !== -1) {
+         devices.value[index] = newDevice;
+       }
+     } catch (error) {
+       // Remove temporary device on error
+       devices.value = devices.value.filter(d => d.id !== 'temp-id');
+       throw error;
+     }
+   };
+   ```
+
+8. **Debouncing**: Debounce frequent API calls
+   ```typescript
+   import { debounce } from 'lodash-es';
+   
+   const debouncedSearch = debounce(async (query) => {
+     try {
+       searchResults.value = await apiService.get(`/api/search?q=${query}`);
+     } catch (error) {
+       console.error('Search error:', error);
+     }
+   }, 300);
+   ```
+
+9. **Retry Logic**: Implement retry logic for transient failures
+   ```typescript
+   const fetchWithRetry = async (url, maxRetries = 3) => {
+     let retries = 0;
+     
+     while (retries < maxRetries) {
+       try {
+         return await apiService.get(url);
+       } catch (error) {
+         if (error.response?.status >= 500 && retries < maxRetries - 1) {
+           retries++;
+           await new Promise(resolve => setTimeout(resolve, 1000 * retries));
+         } else {
+           throw error;
+         }
+       }
+     }
+   };
+   ```
+
+10. **Prefetching**: Prefetch data when possible
+    ```typescript
+    // Prefetch data for routes that are likely to be visited
+    router.beforeResolve((to, from, next) => {
+      if (to.name === 'DeviceDetails' && to.params.id) {
+        deviceStore.prefetchDevice(to.params.id);
+      }
+      next();
+    });
+    ```
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
