@@ -1,90 +1,43 @@
-## jscommon
+## code-structure
 
-> [examples/](mdc:examples) 目录包含了不同前端框架的使用示例，展示如何在实际项目中使用 `@wolforest/jscommon`。
+> 核心包位于 [packages/core/src/](mdc:packages/core/src)，按功能模块组织：
 
-# 示例项目指南
+# 代码结构指南
 
-## 示例项目概览
-[examples/](mdc:examples) 目录包含了不同前端框架的使用示例，展示如何在实际项目中使用 `@wolforest/jscommon`。
+## 核心包结构
+核心包位于 [packages/core/src/](mdc:packages/core/src)，按功能模块组织：
 
-## 可用示例
-### React 示例
-- 位置：[react-demo/](mdc:examples/react-demo)
-- 启动命令：`pnpm dev:react`
-- 展示：React Hooks 的使用，如 `useRequest`、`useMount` 等
+### 模块分类
+- [storage/](mdc:packages/core/src/storage) - 存储相关工具
+- [debug/](mdc:packages/core/src/debug) - 调试工具
+- [style/](mdc:packages/core/src/style) - 样式处理工具
+- [lang/](mdc:packages/core/src/lang) - 语言处理工具
+- [net/](mdc:packages/core/src/net) - 网络请求工具
+- [index.ts](mdc:packages/core/src/index.ts) - 主入口文件
 
-### Vue 示例  
-- 位置：[vue-demo/](mdc:examples/vue-demo)
-- 启动命令：`pnpm dev:vue`
-- 展示：Vue Composables 的使用，如 `useLocalStorage`、`useMouse` 等
+## 示例项目结构
+[examples/](mdc:examples) 目录包含不同框架的使用示例：
+- [react-demo/](mdc:examples/react-demo) - React 框架示例
+- [vue-demo/](mdc:examples/vue-demo) - Vue 框架示例
+- [taro-demo/](mdc:examples/taro-demo) - Taro 多端框架示例
 
-### Taro 示例
-- 位置：[taro-demo/](mdc:examples/taro-demo)
-- H5 启动：`pnpm dev:taro:h5`
-- 微信小程序启动：`pnpm dev:taro:weapp`
-- 展示：多端开发中的工具函数使用
+## 代码组织原则
+1. **按功能模块分类** - 每个功能领域有独立的目录
+2. **统一导出** - 所有工具函数通过主入口文件统一导出
+3. **Tree-shaking 友好** - 支持按需导入，减少打包体积
+4. **TypeScript 优先** - 完整的类型定义和类型安全
 
-## 示例开发流程
-1. **构建核心包**：示例项目依赖核心包，需要先构建
-   ```bash
-   pnpm build
-   ```
+## 配置文件
+- [tsconfig.json](mdc:packages/core/tsconfig.json) - TypeScript 配置
+- [vite.config.ts](mdc:packages/core/vite.config.ts) - Vite 构建配置
+- [vitest.config.ts](mdc:packages/core/vitest.config.ts) - 测试配置
+- [vitest.config.ts](mdc:vitest.config.ts) - 根目录测试配置
 
-2. **启动示例**：选择对应的示例项目启动
-   ```bash
-   pnpm dev:react    # React 示例
-   pnpm dev:vue      # Vue 示例
-   pnpm dev:taro:h5  # Taro H5 示例
-   ```
-
-3. **监听开发**：如需同时开发核心包，可以使用监听模式
-   ```bash
-   pnpm build:watch  # 监听核心包变化并自动构建
-   ```
-
-## 示例内容
-每个示例项目都应该包含以下内容：
-
-### 基础工具函数演示
-```typescript
-// Lodash 工具函数
-import { isEmpty, get, merge } from '@wolforest/jscommon';
-
-// 日期处理
-import { format, year } from '@wolforest/jscommon';
-
-// 网络请求
-import { request } from '@wolforest/jscommon';
-
-// URL 参数处理
-import { qs, queryString } from '@wolforest/jscommon';
-
-// 中文拼音
-import { pinyin } from '@wolforest/jscommon';
-
-// 精确数学计算
-import { Big } from '@wolforest/jscommon';
-
-// CSS 类名处理
-import { classNames } from '@wolforest/jscommon';
-```
-
-### 框架特定功能
-- **React**：展示 ahooks 中的各种 Hooks
-- **Vue**：展示 @vueuse/core 中的 Composables
-- **Taro**：展示跨端开发中的工具函数使用
-
-## 添加新示例
-1. 在 [examples/](mdc:examples) 目录下创建新的示例项目
-2. 在根目录 [package.json](mdc:package.json) 中添加对应的启动脚本
-3. 确保示例项目正确引用 `@wolforest/jscommon`
-4. 添加详细的使用说明和注释
-
-## 注意事项
-- 示例项目主要用于演示和测试，不是生产环境代码
-- 每次修改核心包后，需要重新构建才能在示例中看到效果
-- 示例项目应该保持简洁，重点展示工具库的使用方法
+## 包管理
+- [package.json](mdc:packages/core/package.json) - 核心包配置
+- [pnpm-lock.yaml](mdc:pnpm-lock.yaml) - 依赖锁定文件
+- [.npmrc](mdc:.npmrc) - npm 配置
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/wolforest) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [wolforest/jscommon](https://github.com/wolforest/jscommon) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
