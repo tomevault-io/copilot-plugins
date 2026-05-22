@@ -1,0 +1,9 @@
+{
+  "name": "charlontank--rust-graphql-elm-tailwind-boilerplate",
+  "displayName": "rust-graphql-elm-tailwind-boilerplate",
+  "description": "A full-stack boilerplate with Rust GraphQL backend and Elm frontend with Tailwind CSS",
+  "version": "1.0.0",
+  "author": "CharlonTank",
+  "homepage": "https://github.com/CharlonTank/rust-graphql-elm-tailwind-boilerplate",
+  "skills": []
+}
