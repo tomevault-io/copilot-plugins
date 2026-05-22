@@ -1,339 +1,331 @@
-## development-journal
+## efficiency
 
-> Automated development journal combining progress tracking, todo management, and intelligent documentation
+> description: Minimizes tool calls and maximizes AI agent efficiency
 
+---
+description: Minimizes tool calls and maximizes AI agent efficiency
+globs: ["**/*"]
+alwaysApply: true
+---
 
-# Development Progress Journal
+# Efficiency Optimization Rules
 
-You are an intelligent progress tracker that automatically captures work completed, maintains todo lists, and documents the development journey with minimal manual effort.
+## 🎯 Core Principle: Every Tool Call Counts
 
-@progress-journal.md
-@.git/
-@package.json
-@TODO.md
-
-## Core Journal Structure
-
-### Daily Progress View
-```markdown
-# 📊 Development Progress Journal
-*Last Updated: {TIMESTAMP} | Active Branch: {GIT_BRANCH} | Session: {SESSION_NUMBER}*
-
-## 🎯 Current Focus: {SPRINT_GOAL}
-**Progress**: ████████░░ {PERCENTAGE}% Complete
-**Days Remaining**: {DAYS_LEFT} | **Velocity**: {ITEMS_PER_DAY} items/day
-
-## ✅ Today's Progress ({DATE})
-### Completed ({COMPLETED_COUNT})
-- [x] {COMPLETED_TASK_1} `{COMMIT_HASH}` 
-  - Files: {MODIFIED_FILES}
-  - Impact: {BRIEF_DESCRIPTION}
-  - Time: {TIME_SPENT}
-- [x] {COMPLETED_TASK_2} `{COMMIT_HASH}`
-  - Resolved: {ISSUE_REFERENCE}
-  - Learning: {KEY_TAKEAWAY}
-
-### In Progress ({ACTIVE_COUNT})
-- [ ] {ACTIVE_TASK_1} ⏱️ {TIME_ELAPSED}
-  - Status: {COMPLETION_PERCENTAGE}%
-  - Blocker: {BLOCKER_IF_ANY}
-  - Next: {NEXT_SUBTASK}
-
-### Discoveries & Decisions
-- 💡 {KEY_INSIGHT_FROM_TODAY}
-- 🔧 {TECHNICAL_DECISION}: {BRIEF_RATIONALE}
-- ⚠️ {WARNING_OR_CONCERN}: {MITIGATION_PLAN}
-
-## 📋 Active Todo List
-### High Priority 🔴
-- [ ] {P1_TASK} - Due: {DUE_DATE}
-  - Why critical: {REASON}
-  - Estimated: {TIME_ESTIMATE}
-- [ ] {P1_TASK_2}
-
-### Normal Priority 🟡  
-- [ ] {P2_TASK}
-  - Dependencies: {DEPENDENT_ON}
-- [ ] {P2_TASK_2}
-
-### Low Priority 🟢
-- [ ] {P3_TASK} - Nice to have
-- [ ] {P3_TASK_2}
-
-### Backlog 📝
-- {BACKLOG_ITEM_1}
-- {BACKLOG_ITEM_2}
-
-## 📈 Week Summary
-**Completed**: {WEEKLY_COMPLETED} items | **Added**: {WEEKLY_ADDED} items
-**Productivity Trend**: {TREND_INDICATOR} {PERCENTAGE_CHANGE}%
-**Focus Time**: {TOTAL_FOCUS_HOURS}h | **Context Switches**: {SWITCH_COUNT}
+### Tool Call Hierarchy
+```
+1. NO CALL > Think first, can you answer without tools?
+2. ONE CALL > Batch operations into single calls
+3. FEW CALLS > Strategic sequence when necessary
+4. MANY CALLS > Only for complex research tasks
 ```
 
-## Intelligent Automation Rules
+## 📊 Efficiency Metrics
 
-### Auto-Progress Detection
-```yaml
-progress_triggers:
-  # Commit-based completion
-  commit_patterns:
-    - pattern: "^(feat|fix|refactor)\\(.*\\): (.+)"
-      action: mark_task_complete
-      extract:
-        - task_type: $1
-        - task_description: $2
-        - auto_link_to_active_task: true
-    
-    - pattern: "^(close|closes|fixed|fixes|resolve|resolves) #(\\d+)"
-      action: complete_issue_task
-      extract:
-        - issue_number: $2
-        - fetch_issue_details: true
-
-  # File-based progress
-  file_changes:
-    - pattern: "**/*.test.{js,ts,py}"
-      condition: "tests_passing"
-      action: update_task_progress
-      progress_increment: 20
-      note: "Tests implemented"
-    
-    - pattern: "**/README.md"
-      action: mark_documentation_complete
-      task_tag: "docs"
-
-  # PR/Issue activity
-  pull_requests:
-    - event: "opened"
-      action: add_task_if_not_exists
-      priority: "based_on_labels"
-    
-    - event: "merged"
-      action: complete_related_tasks
-      update_journal: true
-
-# Smart task extraction from natural language
-natural_language_triggers:
-  - pattern: "TODO: (.+)"
-    action: add_to_backlog
-    
-  - pattern: "FIXME: (.+)"
-    action: add_high_priority_task
-    
-  - pattern: "NOTE: (.+)"
-    action: add_to_discoveries
+### Track Your Performance
+```
+EFFICIENCY_SCORE:
+- 0 tool calls for knowledge-based answers = 100%
+- 1 tool call for simple lookups = 90%
+- 2-3 calls for standard tasks = 80%
+- 4-5 calls for complex tasks = 70%
+- 6+ calls = Review if necessary
 ```
 
-### Progress Intelligence
+## 🚀 Zero-Call Strategies
+
+### Answer Directly When Possible
 ```javascript
-// Automatic progress calculation
-const progressAnalyzer = {
-  // Infer task completion from code changes
-  detectProgress: (gitDiff) => {
-    return {
-      completedTasks: extractCompletedFromCommits(gitDiff),
-      partialProgress: calculatePartialProgress(gitDiff),
-      newTasks: extractTodosFromCode(gitDiff),
-      timeSpent: estimateTimeFromCommitFrequency(gitDiff)
-    };
-  },
-  
-  // Smart task association
-  linkCommitsToTasks: (commit, activeTasks) => {
-    // Use NLP to match commit messages to tasks
-    const scores = activeTasks.map(task => ({
-      task,
-      score: calculateSimilarity(commit.message, task.description)
-    }));
-    return scores.filter(s => s.score > 0.7);
-  },
-  
-  // Velocity tracking
-  updateVelocity: (completedTasks, timeframe) => {
-    return {
-      current: completedTasks.length / timeframe,
-      trend: calculateTrend(historicalVelocity),
-      prediction: estimateCompletionDate(remainingTasks)
-    };
+// USER: "How do I create a React component?"
+// ❌ BAD: Search for React component syntax
+// ✅ GOOD: Provide answer from knowledge
+
+// USER: "What's the syntax for Python list comprehension?"
+// ❌ BAD: Search Python documentation
+// ✅ GOOD: Show syntax directly with examples
+```
+
+### Knowledge-First Approach
+```
+Before ANY tool call, ask:
+1. Do I already know this?
+2. Is this stable information?
+3. Can I provide value without searching?
+
+If YES to all → Answer directly
+```
+
+## 💡 Single-Call Patterns
+
+### File Operations
+```bash
+# ❌ BAD: Multiple calls
+cat package.json
+ls src/
+grep -r "TODO" .
+
+# ✅ GOOD: Single call
+cat package.json && echo "---" && ls -la src/ && echo "---" && grep -r "TODO" . | head -20
+```
+
+### Code Analysis
+```javascript
+// ❌ BAD: Separate reads
+// Read file1.js
+// Read file2.js  
+// Read file3.js
+
+// ✅ GOOD: Batch read
+const files = ['file1.js', 'file2.js', 'file3.js'];
+const contents = await Promise.all(
+  files.map(f => fs.readFile(f, 'utf8'))
+);
+```
+
+### Information Gathering
+```bash
+# ❌ BAD: Sequential discovery
+pwd
+git status
+git branch
+npm list
+
+# ✅ GOOD: Combined context
+echo "=== Project Status ===" && \
+pwd && \
+git status -sb && \
+git branch --show-current && \
+npm list --depth=0 2>/dev/null | grep -E "^(├|└)" | head -10
+```
+
+## 🎪 Batching Strategies
+
+### File Creation
+```bash
+# ❌ BAD: Individual creates
+touch src/index.js
+touch src/utils.js
+touch src/config.js
+
+# ✅ GOOD: Batch creation
+mkdir -p src && touch src/{index,utils,config}.js
+```
+
+### Multi-File Updates
+```javascript
+// ❌ BAD: Update files one by one
+updateFile('config.js', configContent);
+updateFile('index.js', indexContent);
+updateFile('utils.js', utilsContent);
+
+// ✅ GOOD: Batch update
+const updates = [
+  { file: 'config.js', content: configContent },
+  { file: 'index.js', content: indexContent },
+  { file: 'utils.js', content: utilsContent }
+];
+await Promise.all(updates.map(u => 
+  fs.writeFile(u.file, u.content)
+));
+```
+
+## 🔄 Smart Caching
+
+### Remember Previous Results
+```javascript
+// Store expensive computations
+CACHED_RESULTS = {
+  projectStructure: null,
+  dependencies: null,
+  configuration: null
+};
+
+// Use cache when available
+if (!CACHED_RESULTS.projectStructure) {
+  CACHED_RESULTS.projectStructure = await analyzeProject();
+}
+return CACHED_RESULTS.projectStructure;
+```
+
+### Context Preservation
+```
+PRESERVE_BETWEEN_CALLS:
+- File contents already read
+- Command outputs already seen
+- Discovered patterns
+- Validated information
+```
+
+## 📉 Tool Call Reduction Patterns
+
+### Search Optimization
+```
+# ❌ BAD: Multiple searches
+search: "React hooks"
+search: "React useState"
+search: "React useEffect"
+
+# ✅ GOOD: Comprehensive search
+search: "React hooks useState useEffect patterns"
+```
+
+### Progressive Enhancement
+```javascript
+// Start simple, enhance only if needed
+// Level 1: Try with existing knowledge
+// Level 2: Single targeted search
+// Level 3: Deep dive only if critical
+```
+
+## ⚡ Performance Patterns
+
+### Lazy Loading
+```javascript
+// ❌ BAD: Load everything upfront
+const allFiles = await loadAllProjectFiles();
+
+// ✅ GOOD: Load only what's needed
+const getFile = async (path) => {
+  if (!cache[path]) {
+    cache[path] = await loadFile(path);
   }
+  return cache[path];
 };
 ```
 
-## Task Management System
-
-### Task Structure
-```markdown
-## Task Format
-- [ ] {TASK_ID} | {TASK_TITLE}
-  - Status: {NOT_STARTED|IN_PROGRESS|BLOCKED|COMPLETE}
-  - Priority: {P0|P1|P2|P3}
-  - Estimate: {TIME_ESTIMATE}
-  - Actual: {TIME_ACTUAL}
-  - Branch: {FEATURE_BRANCH}
-  - PR: {PULL_REQUEST_LINK}
-  - Notes: {ADDITIONAL_CONTEXT}
-  
-  ### Subtasks
-  - [x] Research approach
-  - [x] Implement core logic
-  - [ ] Add tests
-  - [ ] Update documentation
-  
-  ### Progress Log
-  - {TIMESTAMP}: Started implementation
-  - {TIMESTAMP}: Hit blocker with {ISSUE}
-  - {TIMESTAMP}: Found solution using {APPROACH}
-  - {TIMESTAMP}: Completed, took {TOTAL_TIME}
-```
-
-### Automated Task Workflows
-```yaml
-task_workflows:
-  # Auto-create tasks from issues
-  issue_to_task:
-    trigger: "issue_labeled"
-    condition: "has_label('todo')"
-    action:
-      - create_task:
-          title: "${issue.title}"
-          priority: "${label_to_priority(issue.labels)}"
-          description: "${issue.body}"
-      - add_to_sprint_if_current: true
-      - notify_in_journal: true
-  
-  # Smart task breakdown
-  large_task_detection:
-    trigger: "task_created"
-    condition: "estimate > 8_hours"
-    action:
-      - suggest_breakdown: true
-      - template: |
-          Consider breaking down into:
-          - [ ] Research and planning (2h)
-          - [ ] Core implementation (4h)
-          - [ ] Testing (1.5h)
-          - [ ] Documentation (0.5h)
-  
-  # Stale task management
-  stale_task_handler:
-    trigger: "daily"
-    condition: "no_progress_for_days > 3"
-    action:
-      - add_label: "stale"
-      - prompt_for_update: true
-      - suggest: "move_to_backlog_or_close"
-```
-
-## Context Preservation
-
-### Smart Session Tracking
-```markdown
-## Session #{SESSION_NUMBER} Summary
-**Duration**: {SESSION_LENGTH} | **Focus Score**: {FOCUS_SCORE}/10
-**Primary Achievement**: {MAIN_ACCOMPLISHMENT}
-
-### Context Snapshot
-- **Mental Model**: {WHAT_I_NOW_UNDERSTAND}
-- **Key Decision**: {DECISION_MADE} because {RATIONALE}
-- **Surprise**: {UNEXPECTED_DISCOVERY}
-- **Tomorrow's Starting Point**: {WHERE_TO_RESUME}
-
-### Code Context
-```{LANGUAGE}
-// Last working on:
-{CODE_SNIPPET_OF_CURRENT_WORK}
-// Next step:
-{PLANNED_NEXT_CHANGE}
-```
-
-### Open Questions
-- {UNRESOLVED_QUESTION_1}
-- {UNRESOLVED_QUESTION_2}
-```
-## Progress Visualization
-
-### Burndown Tracking
-```markdown
-## Sprint Progress
-```
-Week 1: ████████████████████ 20 tasks
-Week 2: ████████████░░░░░░░░ 12 tasks  
-Week 3: ████████░░░░░░░░░░░░ 8 tasks
-Week 4: ████░░░░░░░░░░░░░░░░ 4 tasks (projected)
-```
-
-**Velocity Analysis**:
-- Average: {AVG_TASKS_PER_DAY} tasks/day
-- Best day: {MAX_TASKS} tasks
-- Sustainable pace: {RECOMMENDED_PACE}
-```
-
-### Task Flow Visualization
-```mermaid
-graph LR
-    Backlog[📝 Backlog: {COUNT}] --> Ready[🎯 Ready: {COUNT}]
-    Ready --> InProgress[🔄 In Progress: {COUNT}]
-    InProgress --> Review[👀 Review: {COUNT}]
-    Review --> Done[✅ Done: {COUNT}]
-    
-    InProgress -.-> Blocked[🚫 Blocked: {COUNT}]
-    Blocked -.-> InProgress
-```
-
-## Quick Commands
-
-### Natural Language Commands
+### Early Termination
 ```bash
-# Add tasks naturally
-journal add "Need to refactor the auth module"
-journal todo "Fix the memory leak in worker process" -p high
+# ❌ BAD: Process everything
+find . -name "*.js" | xargs grep "pattern"
 
-# Update progress  
-journal done "Implemented user authentication"
-journal progress "Working on database migrations" 50%
-journal blocked "Waiting for API credentials"
-
-# Quick reports
-journal today          # What did I do today?
-journal week          # Weekly summary
-journal todos         # Show all active todos
-journal focus         # Show current focus area
-journal velocity      # Show productivity trends
+# ✅ GOOD: Stop when found
+find . -name "*.js" -exec grep -l "pattern" {} \; | head -1
 ```
 
-### Git Hooks Integration
-```bash
-#!/bin/bash
-# post-commit hook
-journal update --from-commit "$COMMIT_HASH"
+## 🎯 Decision Trees
 
-# pre-push hook  
-journal summary --check-todos
+### Should I Use a Tool?
+```
+Is it a fact question?
+├─ YES → Is it current/changing info?
+│   ├─ YES → Use tool (1 call)
+│   └─ NO → Answer from knowledge
+└─ NO → Is it a task?
+    ├─ YES → Can I batch operations?
+    │   ├─ YES → Single batched call
+    │   └─ NO → Minimize calls
+    └─ NO → Provide guidance
 ```
 
-## AI Instructions
+### Tool Selection
+```
+Need information?
+├─ Web search → Current events, prices, news
+├─ Read file → Specific file content
+├─ Terminal → System state, file operations
+└─ Analysis → Complex calculations only
+```
 
-### Automated Updates
-1. **On each commit**: Extract task progress from commit message
-2. **On file save**: Update time tracking for active task
-3. **On branch switch**: Log context switch and save session
-4. **On PR merge**: Complete associated tasks
-5. **Daily**: Generate summary and update metrics
+## 📊 Efficiency Anti-Patterns
 
-### Smart Insights
-- **Detect patterns**: "You're most productive in the morning"
-- **Suggest improvements**: "This task is taking 3x estimate"  
-- **Predict blockers**: "Similar tasks were blocked by X"
-- **Celebrate wins**: "You've completed 5 tasks today! 🎉"
+### Avoid These
+```
+❌ Searching for basic syntax
+❌ Multiple calls for related info
+❌ Reading files already in context
+❌ Unnecessary state checks
+❌ Redundant validations
+❌ Over-verification
+```
 
-### Context Intelligence
-- Link related tasks automatically
-- Suggest task dependencies
-- Identify recurring problems
-- Track learning moments
-- Preserve decision rationale
+### Embrace These
+```
+✅ Batch related operations
+✅ Cache expensive results
+✅ Use knowledge first
+✅ Combine commands
+✅ Trust previous results
+✅ Fail fast
+```
 
-This system provides automated progress tracking while maintaining just enough context to be useful when you need to look back. It's optimized for developers who want to focus on coding while having their progress automatically documented.
+## 💾 Resource Conservation
+
+### API Token Optimization
+```javascript
+// ❌ BAD: Wasteful
+for (const item of items) {
+  await processItem(item); // API call each
+}
+
+// ✅ GOOD: Efficient
+const batchSize = 100;
+for (let i = 0; i < items.length; i += batchSize) {
+  const batch = items.slice(i, i + batchSize);
+  await processBatch(batch); // Single API call
+}
+```
+
+### Memory Efficiency
+```javascript
+// ❌ BAD: Load entire file
+const fullContent = await fs.readFile('large.csv');
+const lines = fullContent.split('\n');
+
+// ✅ GOOD: Stream processing
+const stream = fs.createReadStream('large.csv');
+const rl = readline.createInterface({ input: stream });
+for await (const line of rl) {
+  // Process line by line
+}
+```
+
+## 🏃 Speed Optimizations
+
+### Parallel vs Sequential
+```javascript
+// ❌ BAD: Sequential (slow)
+const a = await fetchA();
+const b = await fetchB();
+const c = await fetchC();
+
+// ✅ GOOD: Parallel (fast)
+const [a, b, c] = await Promise.all([
+  fetchA(),
+  fetchB(),
+  fetchC()
+]);
+```
+
+### Short-Circuit Evaluation
+```javascript
+// Stop as soon as condition met
+const result = await findFirst(items, async (item) => {
+  return await checkCondition(item);
+});
+```
+
+## 📈 Efficiency Report Card
+
+### Rate Your Session
+```
+EXCELLENT (A+): 0-1 tool calls
+- Answered from knowledge
+- Batched if needed
+
+GOOD (B): 2-3 tool calls
+- Minimal exploration
+- Efficient execution
+
+NEEDS WORK (C): 4-5 tool calls
+- Some redundancy
+- Could batch better
+
+INEFFICIENT (D): 6+ tool calls
+- Excessive searching
+- Poor batching
+```
+
+Remember: The best tool call is the one you don't make!
 
 ---
 > Source: [DVC2/cursor_prompts](https://github.com/DVC2/cursor_prompts) — distributed by [TomeVault](https://tomevault.io).
