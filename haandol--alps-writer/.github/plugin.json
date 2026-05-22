@@ -1,0 +1,9 @@
+{
+  "name": "haandol--alps-writer",
+  "displayName": "alps-writer",
+  "description": "Demo chatbot app that the user can easily write product requirement document for building MVP using Generative AI through Amazon Bedrock.",
+  "version": "1.0.0",
+  "author": "haandol",
+  "homepage": "https://github.com/haandol/alps-writer",
+  "skills": []
+}
