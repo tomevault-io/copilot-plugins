@@ -1,0 +1,9 @@
+{
+  "name": "government-communication-service--assist-service",
+  "displayName": "assist_service",
+  "description": "Assist Service",
+  "version": "1.0.0",
+  "author": "Government-Communication-Service",
+  "homepage": "https://github.com/Government-Communication-Service/assist_service",
+  "skills": []
+}
