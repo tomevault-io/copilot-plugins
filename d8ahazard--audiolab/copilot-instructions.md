@@ -1,52 +1,49 @@
-## focus-discipline
+## os-detection
 
-> Stay Focused - Avoid Scope Creep and Rabbit Holes
+> description: USE WHEN suggesting shell commands or system operations. Ensures proper OS detection and platform-appropriate command formatting.
 
 ﻿---
-description: 
+description: USE WHEN suggesting shell commands or system operations. Ensures proper OS detection and platform-appropriate command formatting.
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 **
-Stay Focused - Avoid Scope Creep and Rabbit Holes
+OS Detection and Shell Command Formatting Rule
 **
 
-// Primary Directive
-- Address ONLY the specific issue or request that was explicitly mentioned
-- Do not venture into "while we're here" optimizations or refactors
-- Resist the urge to fix unrelated code that looks imperfect
-- Complete the requested task fully before suggesting additional improvements
+// OS Detection Strategy
+- Always check the user's OS before suggesting shell commands
+- Use `os.name` or `platform.system()` in Python to detect the operating system
+- For script suggestions, provide platform-appropriate commands
 
-// Scope Boundaries
-- If the request is to fix a bug, fix ONLY that bug
-- If the request is to add a feature, implement ONLY that feature
-- If the request is to refactor something, refactor ONLY the specified component
-- If you notice other issues, mention them AFTER completing the primary task
+// Windows Commands (when os.name == 'nt' or platform.system() == 'Windows')
+- Use PowerShell syntax for complex operations
+- Use `cmd.exe` syntax for simple commands
+- Path separators: use `\` or `os.path.join()` for cross-platform compatibility
+- Example: `kubectl get pods --cluster=prod` (works on Windows)
+- For file paths: `C:\dev\project\file.txt` or use forward slashes in many contexts
 
-// Decision Making
-- When multiple approaches exist, choose the one that makes the smallest change to existing code
-- Prefer solutions that follow existing patterns in the codebase
-- Avoid introducing new dependencies unless absolutely necessary for the specific task
-- Don't redesign architecture unless that's specifically what was requested
+// Linux/macOS Commands (when platform.system() in ['Linux', 'Darwin'])
+- Use bash/shell syntax
+- Path separators: use `/`
+- Example: `./scripts/install.sh` or `chmod +x script.sh`
+- Use standard Unix conventions for file permissions and execution
 
-// Communication Style
-- Start by confirming your understanding of the specific request
-- If the scope is unclear, ask clarifying questions before proceeding
-- If you encounter related issues that should be addressed separately, note them at the end
-- Explain your focused approach: "I'm going to focus specifically on X as requested"
+// Cross-Platform Best Practices
+- When writing Python code, use `pathlib.Path` for file operations
+- Use `subprocess` with proper shell=True/False based on OS
+- For docker commands, they work the same across platforms
+- For kubectl commands, syntax is identical across platforms
 
-// Red Flags to Avoid
-- "While I'm here, I should also..."
-- "This would be a good opportunity to..."
-- "I noticed this other issue..."
-- "Let me also clean up..."
+// Script Recommendations
+- If suggesting shell scripts, provide both `.sh` (Linux/macOS) and `.ps1` (Windows) versions when relevant
+- For Python scripts, ensure they work cross-platform using appropriate libraries
+- Always test path operations with both forward and backward slashes in mind
 
-// Exception Cases
-- Only expand scope if the requested change CANNOT be implemented without addressing related issues
-- If dependencies require updates, address only what's necessary for the specific request
-- If security issues are discovered, mention them but don't fix unless that's the primary request
-
-Remember: A well-executed, focused solution is infinitely better than a perfect solution that addresses everything but takes forever to complete.
+// Environment Variables
+- Windows: use `%VARIABLE%` in cmd, `$env:VARIABLE` in PowerShell
+- Linux/macOS: use `$VARIABLE` or `${VARIABLE}`
+- Python: use `os.environ.get('VARIABLE')` for cross-platform access
 
 ---
 > Source: [d8ahazard/AudioLab](https://github.com/d8ahazard/AudioLab) — distributed by [TomeVault](https://tomevault.io).
