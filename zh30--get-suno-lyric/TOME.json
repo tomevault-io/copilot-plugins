@@ -4,7 +4,7 @@
   "repo": "get-suno-lyric",
   "description": "Get suno ai song lyrics",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zh30/get-suno-lyric",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T20:46:36Z"
+  "distributed_at": "2026-05-22T21:08:06Z"
 }
