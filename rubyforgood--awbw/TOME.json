@@ -4,7 +4,7 @@
   "repo": "awbw",
   "description": "This project is the Portal for the nonprofit A Windows Between Worlds. The Portal offers a place for workshop leaders to find information about Workshops and Resources, be informed of CommunityNews, Stories, and Events, and as the project evolves -- to connect with one another.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rubyforgood/awbw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T14:45:00Z"
+  "distributed_at": "2026-05-22T15:03:22Z"
 }
