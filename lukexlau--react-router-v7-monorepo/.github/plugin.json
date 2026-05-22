@@ -1,0 +1,9 @@
+{
+  "name": "lukexlau--react-router-v7-monorepo",
+  "displayName": "react-router-v7-monorepo",
+  "description": "\ud83d\udce6 React Router v7 (Remix) Monorepo with Cloudflare Workers, Drizzle ORM & D1, Shadcn/UI, and Tailwind CSS v4.",
+  "version": "1.0.0",
+  "author": "lukexlau",
+  "homepage": "https://github.com/lukexlau/react-router-v7-monorepo",
+  "skills": []
+}
