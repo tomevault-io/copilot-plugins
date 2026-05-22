@@ -1,42 +1,40 @@
-## data-layer-patterns
+## environment-management
 
-> The data source management follows a CRUD pattern implemented in [source_service.py](mdc:observer/cortex/cortex/core/data/db/source_service.py).
+> The project uses different environment files for configuration:
 
-# Data Layer Patterns
+# Environment Management
 
-## Data Source Management
-The data source management follows a CRUD pattern implemented in [source_service.py](mdc:observer/cortex/cortex/core/data/db/source_service.py).
+## Environment Files
+The project uses different environment files for configuration:
 
-### Key Components:
-- `DataSourceCRUD`: Main service class for data source operations
-- `DataSourceORM`: SQLAlchemy ORM model for data sources
-- `DataSource`: Pydantic model for data validation
+### File Structure
+- `local.env`: Development environment settings
+- `prod.env`: Production environment settings
+- `prod_bck.env`: Backup production settings
+
+### Environment Service
+The environment management is handled by `EnvironmentCRUD` service which is integrated with data source management.
 
 ### Best Practices:
-1. Always use session management with try/finally blocks:
-```python
-db_session = LocalSession().get_session()
-try:
-    # Database operations
-    db_session.commit()  # If writing data
-finally:
-    db_session.close()
-```
+1. Environment Validation:
+- Always validate environment existence before operations
+- Use UUID for environment identification
+- Check environment constraints before data source operations
 
-2. Handle transactions properly:
-- Use `db_session.commit()` after successful operations
-- Use `db_session.rollback()` in exception handlers
-- Always close sessions in finally blocks
+2. Environment-Specific Configuration:
+- Keep sensitive data in environment files
+- Use different configurations for development and production
+- Document all environment variables
 
-3. Error Handling:
-- `DataSourceAlreadyExistsError`: When creating duplicate sources
-- `DataSourceDoesNotExistError`: When accessing non-existent sources
-- Handle `IntegrityError` for database constraints
+3. Docker Integration:
+- Environment files are used in [docker-compose.yml](mdc:observer/docker-compose.yml)
+- Container configurations adapt based on environment
+- Use environment-specific volumes and networks
 
-4. Data Validation:
-- Use Pydantic models for input validation
-- Convert between ORM and Pydantic models using `model_validate`
-- Include proper type hints for all methods
+4. Security:
+- Never commit sensitive environment values
+- Use `.gitignore` to exclude sensitive files
+- Store credentials separately in `credentials/` directory
 
 ---
 > Source: [TelescopeAI/cortex](https://github.com/TelescopeAI/cortex) — distributed by [TomeVault](https://tomevault.io).
