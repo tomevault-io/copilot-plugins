@@ -1,0 +1,64 @@
+## project-structure
+
+> The React-router-v7-monorepo project follows the directory structure specification below to ensure clear code organization and defined responsibilities.
+
+# Project Structure Specification
+
+The React-router-v7-monorepo project follows the directory structure specification below to ensure clear code organization and defined responsibilities.
+
+## Top-level Directory Structure
+
+```
+react-router-v7-monorepo/
+├── apps/                  # Application directory
+├── packages/              # Shared packages directory
+├── .cursor/               # Cursor editor configuration
+├── .github/               # GitHub workflow configuration
+└── [Config files]         # Root directory configuration files
+```
+
+## Application Directory (apps/)
+
+All end-user accessible applications are placed in the `apps/` directory:
+
+```
+apps/
+└── web/                   # Main Web application
+    ├── app/               # Application source code
+    │   ├── components/    # Application-specific components
+    │   ├── routes/        # Route definitions
+    │   └── styles/        # Style files
+    ├── public/            # Static resources
+    ├── workers/           # Cloudflare workers
+    └── [Config files]     # Application configuration files
+```
+
+## Shared Packages Directory (packages/)
+
+All reusable libraries and tools are placed in the `packages/` directory:
+
+```
+packages/
+├── db/                    # Drizzle ORM + Cloudflare D1
+├── shared/                # Common utilities, hooks, and assets
+│   ├── src/               # Source code
+│   │   ├── assets/        # Shared static assets
+│   │   ├── config/        # Configuration files
+│   │   ├── constants/     # Constant values
+│   │   ├── hooks/         # React hooks
+│   │   ├── types/         # TypeScript type definitions
+│   │   └── utils/         # Utility functions
+│   ├── package.json       # Package configuration
+│   └── tsconfig.json      # TypeScript configuration
+├── ui/                    # shadcn/ui
+└── tsconfig/              # TS configuration presets
+```
+packages/
+├── db/                    # Drizzle ORM + Cloudflare D1
+├── ui/                    # shadcn/ui
+└── tsconfig/              # TS configuration presets
+```
+
+---
+> Source: [lukexlau/react-router-v7-monorepo](https://github.com/lukexlau/react-router-v7-monorepo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
