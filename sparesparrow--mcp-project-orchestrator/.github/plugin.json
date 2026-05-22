@@ -1,0 +1,9 @@
+{
+  "name": "sparesparrow--mcp-project-orchestrator",
+  "displayName": "mcp-project-orchestrator",
+  "description": "Analyze user input to identify suitable design patterns and project templates. Orchestrate the project, creating initial files from templates.",
+  "version": "1.0.0",
+  "author": "sparesparrow",
+  "homepage": "https://github.com/sparesparrow/mcp-project-orchestrator",
+  "skills": []
+}
