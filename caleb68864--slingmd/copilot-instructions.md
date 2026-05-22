@@ -1,92 +1,60 @@
-## dotnet-framework-exception-handling
+## dotnet-framework-interface-naming
 
-> description: Enforces .NET Framework exception handling best practices
+> description: Enforces .NET Framework interface naming conventions
 
 ---
-description: Enforces .NET Framework exception handling best practices
+description: Enforces .NET Framework interface naming conventions
 globs: "*.cs"
 ---
-# .NET Framework Exception Handling
+# .NET Framework Interface Naming
 
 <rule>
-name: dotnet_exception_handling
-description: Ensures proper exception handling patterns and practices in .NET Framework
+name: dotnet_interface_naming
+description: Ensures interfaces follow .NET Framework naming conventions and best practices
 filters:
   - type: file_extension
     pattern: "\\.cs$"
   - type: content
-    pattern: "(?:try|catch|throw|Exception)"
+    pattern: "\\binterface\\s+[\\w]+"
 
 actions:
   - type: reject
     conditions:
-      - pattern: "catch\\s*\\(\\s*Exception\\s*\\)"
-        message: "Avoid catching generic Exception - catch specific exceptions"
-      - pattern: "catch\\s*\\(\\s*\\)\\s*{"
-        message: "Empty catch blocks are not allowed"
-      - pattern: "throw\\s+ex\\s*;"
-        message: "Use 'throw' instead of 'throw ex' to preserve stack trace"
-      - pattern: "catch.*?{\\s*?return\\s*null\\s*?}"
-        message: "Don't swallow exceptions by returning null"
-      - pattern: "catch.*?{\\s*?//.*?\\s*?}"
-        message: "Don't use empty catch blocks with comments"
+      - pattern: "\\binterface\\s+(?!I)[A-Z]"
+        message: "Interface names must start with 'I'"
+      - pattern: "\\binterface\\s+[a-z]"
+        message: "Interface names must start with 'I' followed by an uppercase letter"
+      - pattern: "\\binterface\\s+I[a-z]"
+        message: "The character after 'I' must be uppercase"
+      - pattern: "\\binterface\\s+I(?:Interface|Impl)"
+        message: "Avoid using 'Interface' or 'Impl' in interface names"
 
   - type: suggest
     message: |
-      Exception handling guidelines:
-      1. Catch specific exceptions, not Exception
-      2. Preserve the stack trace
-      3. Don't swallow exceptions
-      4. Use try-finally for cleanup
-      5. Custom exceptions should:
-         - End with 'Exception'
-         - Inherit from Exception
-         - Be serializable
-      6. Include meaningful exception messages
-      7. Log exceptions appropriately
+      Interface naming guidelines:
+      1. Start with capital 'I' prefix
+      2. Use PascalCase after the 'I'
+      3. Use adjectives or noun phrases
+      4. Be descriptive of the behavior
+      5. Common patterns:
+         - IDisposable
+         - IComparable
+         - IEnumerable
+         - ICollection
+         - IList
+      6. Avoid redundant terms like 'Interface'
 
 examples:
   - input: |
-      try {
-          // Some code
-      }
-      catch (Exception ex) {
-          return null;
-      }
-
-      try {
-          // Some code
-      }
-      catch {
-          // Just ignore
-      }
-
-      catch (Exception ex) {
-          throw ex;
-      }
+      interface Service
+      interface iHandler
+      interface Interface1
+      interface IimplementationDetail
     output: |
-      try {
-          // Some code
-      }
-      catch (InvalidOperationException ex) {
-          Logger.LogError(ex);
-          throw;
-      }
-
-      try {
-          // Some code
-      }
-      catch (SqlException ex) {
-          Logger.LogError(ex);
-          throw new DatabaseException("Database operation failed", ex);
-      }
-
-      try {
-          // Some code
-      }
-      finally {
-          // Cleanup code
-      }
+      interface IService
+      interface IHandler
+      interface IProcessor
+      interface IImplementationDetail
 
 metadata:
   priority: high
