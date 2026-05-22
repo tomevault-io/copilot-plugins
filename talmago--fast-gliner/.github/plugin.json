@@ -1,0 +1,9 @@
+{
+  "name": "talmago--fast-gliner",
+  "displayName": "fast_gliner",
+  "description": "Python bindings to Inference engine for GLiNER models written in Rust",
+  "version": "1.0.0",
+  "author": "talmago",
+  "homepage": "https://github.com/talmago/fast_gliner",
+  "skills": []
+}
