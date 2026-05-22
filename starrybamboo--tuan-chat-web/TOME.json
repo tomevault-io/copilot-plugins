@@ -4,7 +4,7 @@
   "repo": "tuan-chat-web",
   "description": "\u56e2\u5267\u5171\u521b\u7684\u524d\u7aef\u9875\u9762\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/starrybamboo/tuan-chat-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T20:50:40Z"
+  "distributed_at": "2026-05-22T21:11:25Z"
 }
