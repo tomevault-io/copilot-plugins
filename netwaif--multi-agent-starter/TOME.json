@@ -1,0 +1,44 @@
+{
+  "name": "multi-agent-starter",
+  "owner": "netwaif",
+  "repo": "multi-agent-starter",
+  "description": "Claude \u00b7 Codex \u00b7 Gemini \uba40\ud2f0\uc5d0\uc774\uc804\ud2b8 \uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158 \uc2a4\ud0c0\ud130 (\ud30c\uc77c \uae30\ubc18)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/netwaif/multi-agent-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T00:01:35Z"
+}
