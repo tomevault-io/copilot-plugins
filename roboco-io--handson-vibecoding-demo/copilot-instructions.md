@@ -1,43 +1,69 @@
-## project-structure
+## prompt-history
 
-> 이 프로젝트는 모노레포 구조로 구성되어 있으며, 프론트엔드와 백엔드가 통합되어 있습니다.
+> 커밋하는 시점에 이 규칙을 실행해줘.
 
-# 프로젝트 구조 가이드
+# 프롬프트 히스토리 관리 규칙
 
-이 프로젝트는 모노레포 구조로 구성되어 있으며, 프론트엔드와 백엔드가 통합되어 있습니다.
+## 목적
+- 바이브 코딩 학습 과정에서의 프롬프트와 결과를 체계적으로 기록
+- 프롬프트 작성 패턴과 효과적인 프롬프트 작성법 학습
+- 프로젝트 진행 과정에서의 의사결정 과정 추적
 
-## 디렉토리 구조
+## 기록 위치
+- 모든 프롬프트 관련 기록은 [docs/prompt-history.md](mdc:docs/prompt-history.md) 파일에 저장
+- 파일은 날짜별로 구분하여 기록
+
+## 기록 형식
+```markdown
+## [날짜] - [주제]
+
+### 프롬프트
+```프롬프트 내용```
+
+### 프롬프트 의도
+- 프롬프트를 작성한 목적
+- 기대한 결과
+- 특별히 고려한 점
+
+### 결과 요약
+- 프롬프트 실행 결과
+- 주요 변경사항
+- 학습된 점
 
 ```
-root/
-├── frontend/       # 프론트엔드(React + Mantine)
-├── backend/        # 백엔드(Node.js + TypeScript)
-│   ├── src/       # Lambda 함수 소스 코드
-│   └── lib/       # CDK 스택 정의
-└── shared/        # 공통 타입, 유틸리티 등
-```
 
-자세한 디렉토리 구조는 [아키텍처 개요](mdc:docs/design/architecture.md)를 참조하세요.
+## 기록 시점
+- 새로운 기능 개발 시작 시
+- 중요한 의사결정이 필요한 시점
+- 문제 해결 과정에서
+- 학습한 내용을 정리할 때
 
-## 주요 파일
+## 기록 원칙
+- 명확하고 구체적인 프롬프트 기록
+- 프롬프트 작성 의도 명시
+- 결과에 대한 객관적인 평가
+- 학습 내용과 개선점 정리
+- 후속 조치 사항 명확히 기록
 
-- [프론트엔드 설계](mdc:docs/design/frontend.md)
-- [백엔드 설계](mdc:docs/design/backend.md)
-- [인프라 설계](mdc:docs/design/infrastructure.md)
-- [보안 설계](mdc:docs/design/security.md)
-- [모니터링 설계](mdc:docs/design/monitoring.md)
-- [비용 최적화](mdc:docs/design/optimization.md)
-- [구현 계획](mdc:docs/design/implementation.md)
+## 파일 구조
+- 최신 기록이 상단에 위치
+- 날짜별로 명확히 구분
+- 관련 기록은 함께 그룹화
+- 태그를 통한 카테고리 구분
 
-## 개발 가이드라인
+## 태그 시스템
+- #기능개발
+- #문제해결
+- #리팩토링
+- #학습
+- #설계
+- #최적화
 
-1. 모든 코드는 TypeScript로 작성합니다.
-2. 프론트엔드는 React와 Mantine UI Kit를 사용합니다.
-3. 백엔드는 AWS 서버리스 아키텍처를 사용합니다.
-4. 모든 변경사항은 테스트를 포함해야 합니다.
-5. 코드 스타일은 ESLint와 Prettier를 따릅니다.
-
-자세한 개발 가이드라인은 [구현 계획](mdc:docs/design/implementation.md)을 참조하세요.
+## 검토 및 관리
+- 주기적인 프롬프트 히스토리 검토
+- 효과적인 프롬프트 패턴 분석
+- 개선이 필요한 부분 식별
+- 학습 내용 공유 및 활용
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
