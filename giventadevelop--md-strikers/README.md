@@ -2,6 +2,8 @@
 
 > Sourced from [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+MD Strikers,Maryland . Soccer Sports Club Address: Germantown Rd, Germantown, MD 20874, United States Washington D.C., DC, United States, Washington, District of Columbia 20874
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
