@@ -1,0 +1,9 @@
+{
+  "name": "opengrep--opengrep-playground",
+  "displayName": "opengrep-playground",
+  "description": "Opengrep playground: a desktop app to craft Opengrep rules",
+  "version": "1.0.0",
+  "author": "opengrep",
+  "homepage": "https://github.com/opengrep/opengrep-playground",
+  "skills": []
+}
