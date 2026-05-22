@@ -1,31 +1,33 @@
-## 04-ai-integration
+## 05-session-model
 
-> The app provides an AI chat interface with support for several AI models through the AI SDK and LangChain integrations.
+> 1. User lands on [app/page.tsx](mdc:app/page.tsx) which either:
 
-# AI Integration
+# Chat Session Model
 
-## Overview
-The app provides an AI chat interface with support for several AI models through the AI SDK and LangChain integrations.
+## Session Flow
+1. User lands on [app/page.tsx](mdc:app/page.tsx) which either:
+   - Redirects to an existing session if one exists with messages
+   - Creates a new session if none exist
 
-## Key AI Files
-- [lib/ai.ts](mdc:lib/ai.ts) - Contains base AI configuration
-- [lib/ai/tools/](mdc:lib/ai/tools/) - Contains AI function tools for specific data retrieval
-- [app/api/chat/route.ts](mdc:app/api/chat/route.ts) - API route that processes chat messages and calls the AI
+2. Sessions are viewed at [app/[sessionId]/page.tsx](mdc:app/[sessionId]/page.tsx)
 
-## AI Features
-- Chat interface with message history
-- Special data visualizations for specific intents:
-  - Weather data
-  - Earthquake information
-  - Currency exchange rates
-  - Cryptocurrency data
-  - Stock market data
+## Session Data Model
+- Each session has a unique UUID and title
+- Sessions contain messages in a one-to-many relationship
+- Session titles are automatically generated from the first user message
 
-## Response Format
-The AI can return:
-- Plain text responses
-- Structured data for special visualizations
-- Tool calls and function executions
+## Messages
+- Messages have roles: 'user' or 'assistant'
+- Messages contain content that can be text or structured data
+- Messages are stored in both Zustand state and Supabase
+- Response messages track response time for performance monitoring
+
+## Session Management
+The sidebar ([components/chat/Sidebar.tsx](mdc:components/chat/Sidebar.tsx)) provides:
+- List of all sessions
+- Creation of new sessions
+- Deletion of sessions
+- Navigation between sessions
 
 ---
 > Source: [Deuz-AI/Deuz-Chat](https://github.com/Deuz-AI/Deuz-Chat) — distributed by [TomeVault](https://tomevault.io).
