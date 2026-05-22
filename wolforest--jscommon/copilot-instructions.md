@@ -1,42 +1,78 @@
-## code-structure
+## coding-standards
 
-> 核心包位于 [packages/core/src/](mdc:packages/core/src)，按功能模块组织：
+> 项目使用 TypeScript 作为主要开发语言，配置文件为 [tsconfig.json](mdc:packages/core/tsconfig.json)。
 
-# 代码结构指南
+# 编码规范指南
 
-## 核心包结构
-核心包位于 [packages/core/src/](mdc:packages/core/src)，按功能模块组织：
+## TypeScript 规范
+项目使用 TypeScript 作为主要开发语言，配置文件为 [tsconfig.json](mdc:packages/core/tsconfig.json)。
 
-### 模块分类
-- [storage/](mdc:packages/core/src/storage) - 存储相关工具
-- [debug/](mdc:packages/core/src/debug) - 调试工具
-- [style/](mdc:packages/core/src/style) - 样式处理工具
-- [lang/](mdc:packages/core/src/lang) - 语言处理工具
-- [net/](mdc:packages/core/src/net) - 网络请求工具
-- [index.ts](mdc:packages/core/src/index.ts) - 主入口文件
+### 类型定义
+- 所有导出的函数必须有完整的类型定义
+- 优先使用 TypeScript 内置类型
+- 复杂类型应该单独定义接口或类型别名
+- 避免使用 `any` 类型
 
-## 示例项目结构
-[examples/](mdc:examples) 目录包含不同框架的使用示例：
-- [react-demo/](mdc:examples/react-demo) - React 框架示例
-- [vue-demo/](mdc:examples/vue-demo) - Vue 框架示例
-- [taro-demo/](mdc:examples/taro-demo) - Taro 多端框架示例
+### 导入导出规范
+```typescript
+// 推荐：具名导出，支持 Tree-shaking
+export { isEmpty, get, merge } from 'lodash-es';
 
-## 代码组织原则
-1. **按功能模块分类** - 每个功能领域有独立的目录
-2. **统一导出** - 所有工具函数通过主入口文件统一导出
-3. **Tree-shaking 友好** - 支持按需导入，减少打包体积
-4. **TypeScript 优先** - 完整的类型定义和类型安全
+// 推荐：重新导出第三方库
+export { format, year } from 'dayjs';
 
-## 配置文件
-- [tsconfig.json](mdc:packages/core/tsconfig.json) - TypeScript 配置
-- [vite.config.ts](mdc:packages/core/vite.config.ts) - Vite 构建配置
-- [vitest.config.ts](mdc:packages/core/vitest.config.ts) - 测试配置
-- [vitest.config.ts](mdc:vitest.config.ts) - 根目录测试配置
+// 统一通过主入口文件导出
+// 参考 [index.ts](mdc:packages/core/src/index.ts)
+```
 
-## 包管理
-- [package.json](mdc:packages/core/package.json) - 核心包配置
-- [pnpm-lock.yaml](mdc:pnpm-lock.yaml) - 依赖锁定文件
-- [.npmrc](mdc:.npmrc) - npm 配置
+## 模块组织
+### 目录结构
+- 按功能领域划分模块目录
+- 每个模块目录包含相关的工具函数
+- 使用 `index.ts` 作为模块入口文件
+
+### 命名规范
+- 文件名使用 kebab-case (小写字母+连字符)
+- 函数名使用 camelCase
+- 类型名使用 PascalCase
+- 常量使用 UPPER_SNAKE_CASE
+
+## 依赖管理
+### 第三方库集成
+项目的核心理念是集成常用的第三方库，避免用户重复安装：
+
+```typescript
+// 集成的库列表 (参考 README.zh_CN.md)
+- lodash-es      // 通用工具函数
+- dayjs          // 日期处理
+- ahooks         // React Hooks
+- ramda          // 函数式编程
+- axios          // 网络请求
+- @vueuse/core   // Vue Composables
+- qs             // URL 查询字符串
+- query-string   // 现代 URL 处理
+- pinyin-pro     // 中文拼音转换
+- big.js         // 精确数学计算
+- classnames     // CSS 类名处理
+```
+
+### Tree-shaking 支持
+- 使用 ES6 模块语法
+- 避免副作用导入
+- 确保所有导出都是具名导出
+- 配置正确的 `sideEffects: false`
+
+## 测试规范
+- 测试文件位于 [test/](mdc:packages/core/test) 目录
+- 使用 Vitest 作为测试框架
+- 测试配置参考 [vitest.config.ts](mdc:packages/core/vitest.config.ts)
+- 每个模块都应该有对应的测试文件
+
+## 构建配置
+- 使用 Vite 作为构建工具
+- 构建配置位于 [vite.config.ts](mdc:packages/core/vite.config.ts)
+- 支持多种输出格式 (ESM, CJS, UMD)
+- 生成完整的类型声明文件
 
 ---
 > Source: [wolforest/jscommon](https://github.com/wolforest/jscommon) — distributed by [TomeVault](https://tomevault.io).
