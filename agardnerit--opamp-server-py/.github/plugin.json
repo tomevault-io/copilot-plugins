@@ -1,0 +1,9 @@
+{
+  "name": "agardnerit--opamp-server-py",
+  "displayName": "opamp-server-py",
+  "description": "An OpenTelemetry OpAMP server in Python",
+  "version": "1.0.0",
+  "author": "agardnerIT",
+  "homepage": "https://github.com/agardnerIT/opamp-server-py",
+  "skills": []
+}
