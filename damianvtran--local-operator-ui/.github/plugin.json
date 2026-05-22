@@ -1,0 +1,9 @@
+{
+  "name": "damianvtran--local-operator-ui",
+  "displayName": "local-operator-ui",
+  "description": "User interface for the Local Operator on-device agent environment.  Local Operator is an AI agents platform that gives you an integrated team of personal assistants that can work behind the scenes to ",
+  "version": "1.0.0",
+  "author": "damianvtran",
+  "homepage": "https://github.com/damianvtran/local-operator-ui",
+  "skills": []
+}
