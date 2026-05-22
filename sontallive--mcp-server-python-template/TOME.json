@@ -2,7 +2,7 @@
   "name": "mcp-server-python-template",
   "owner": "sontallive",
   "repo": "mcp-server-python-template",
-  "description": "",
+  "description": "This template provides a streamlined foundation for building Model Context Protocol (MCP) servers in Python. It's designed to make AI-assisted development of MCP tools easier and more efficient.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/sontallive",
+  "source_url": "https://github.com/sontallive/mcp-server-python-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T07:37:30Z"
+  "distributed_at": "2026-05-22T05:46:57Z"
 }
