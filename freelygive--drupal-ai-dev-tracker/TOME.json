@@ -2,9 +2,9 @@
   "name": "Drupal-AI-Dev-Tracker",
   "owner": "FreelyGive",
   "repo": "Drupal-AI-Dev-Tracker",
-  "description": "",
+  "description": "Website for tracking Drupal AI Issues from D.o",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/FreelyGive",
+  "source_url": "https://github.com/FreelyGive/Drupal-AI-Dev-Tracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T17:40:17Z"
+  "distributed_at": "2026-05-22T08:40:45Z"
 }
