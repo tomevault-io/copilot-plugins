@@ -4,7 +4,7 @@
   "repo": "Applog",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/youranreus/Applog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T05:05:45Z"
+  "distributed_at": "2026-05-22T07:54:21Z"
 }
