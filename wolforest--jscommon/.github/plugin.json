@@ -1,7 +1,7 @@
 {
   "name": "wolforest--jscommon",
   "displayName": "jscommon",
-  "description": "jscommon",
+  "description": "The simple utils facade for javascript/typescript\uff0cthe only utils you need for frontEnd application",
   "version": "1.0.0",
   "author": "wolforest",
   "homepage": "https://github.com/wolforest/jscommon",
