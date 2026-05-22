@@ -1,0 +1,9 @@
+{
+  "name": "skanehira--rust-cli-template",
+  "displayName": "rust-cli-template",
+  "description": "A ready-to-use template for creating Rust CLI applications.",
+  "version": "1.0.0",
+  "author": "skanehira",
+  "homepage": "https://github.com/skanehira/rust-cli-template",
+  "skills": []
+}
