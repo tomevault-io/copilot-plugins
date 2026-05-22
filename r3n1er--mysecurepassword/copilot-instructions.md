@@ -1,58 +1,62 @@
-## testing-guidelines-for-next-js-boilerplate
+## ui-ux-guidelines-nextjs-boilerplate
 
-> description: Guidelines for testing with Vitest
+> description: Guidelines for UI/UX development with Shadcn and Tailwind CSS
 
 
 
 ---
-description: Guidelines for testing with Vitest
-globs: ["tests/**", "components/**", "lib/**"]
+description: Guidelines for UI/UX development with Shadcn and Tailwind CSS
+globs: ["components/**", "app/**"]
 alwaysApply: true
 ---
 
-# Testing Guidelines for Next.js Boilerplate
+# UI/UX Guidelines for Next.js Boilerplate
 
 ## Overview
-Ensure robust testing with Vitest for all components, utilities, and Supabase Auth functionality, achieving >80% code coverage.
+Ensure consistent, accessible, and reusable UI components using Shadcn, Tailwind CSS, and Daisy UI, with a focus on WCAG 2.1 compliance and performance.
 
-## Unit Testing
-- Use **Vitest** with `@testing-library/react` for unit tests.
-- Place tests in `tests/` or alongside components (e.g., `components/button/button.test.tsx`).
-- Test all public APIs and edge cases:
+## Component Development
+- Use **Shadcn** for reusable, accessible components (e.g., Button, Form, Card).
+- Structure components as:
   ```typescript
-  import { render, screen } from '@testing-library/react'
-  import Button from './button'
-
-  describe('Button', () => {
-    it('renders with correct label', () => {
-      render(<Button label="Click me" />)
-      expect(screen.getByText('Click me')).toBeInTheDocument()
-    })
-  })
+  interface ComponentProps {
+    // Define props with TypeScript interfaces
+  }
+  export function ComponentName({ ...props }: ComponentProps) {
+    return <div className="...">{/* JSX */}</div>
+  }
   ```
+- Store components in `components/` with subfolders (e.g., `components/button/index.tsx`).
+- Use **camelCase** for variable/function names and **PascalCase** for components/interfaces.
+- Avoid inline styles; use Tailwind CSS classes in `className`.
 
-## Supabase Auth Testing
-- Test authentication flows (login, signup, session management).
-- Mock Supabase client:
-  ```typescript
-  jest.mock('@supabase/ssr', () => ({
-    createBrowserClient: () => ({
-      auth: {
-        signInWithOAuth: jest.fn().mockResolvedValue({}),
-        getUser: jest.fn().mockResolvedValue({ data: { user: null } })
-      }
-    })
-  }))
+## Styling
+- Use **Tailwind CSS** with **Daisy UI** for theming.
+- Define styles in `tailwind.config.js`:
+  ```javascript
+  module.exports = {
+    content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+    theme: { extend: {} },
+    plugins: [require('daisyui')]
+  }
   ```
+- Ensure responsive design with Tailwind utilities (e.g., `sm:`, `md:`).
+- Support light/dark themes via Daisy UI.
 
-## Coverage Requirements
-- Achieve >80% branch coverage.
-- Run `npm run test:coverage` to verify.
+## Accessibility (WCAG 2.1)
+- Use semantic HTML (e.g., `<button>`, `<nav>`, `<main>`).
+- Apply ARIA attributes where needed (e.g., `aria-label`, `aria-hidden`).
+- Ensure full keyboard navigation support.
+- Test with tools like `eslint-plugin-jsx-a11y` and `axe`.
 
-## Best Practices
-- Use descriptive test names (e.g., `renders with correct label`).
-- Test error states and edge cases.
-- Avoid testing implementation details; focus on behavior.
+## Performance
+- Use `React.memo` for pure components.
+- Implement `React.lazy` and `Suspense` for code splitting.
+- Optimize images with WebP format and lazy-loading.
+
+## Testing
+- Test components with **Storybook** for visual regression.
+- Write unit tests with **Vitest** for each component (coverage > 80%).
 
 ---
 > Source: [R3n1er/mysecurepassword](https://github.com/R3n1er/mysecurepassword) — distributed by [TomeVault](https://tomevault.io).
