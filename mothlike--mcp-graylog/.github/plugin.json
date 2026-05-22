@@ -1,9 +1,9 @@
 {
   "name": "mothlike--mcp-graylog",
-  "displayName": "mcp_graylog",
-  "description": "mcp_graylog",
+  "displayName": "mcp-graylog",
+  "description": "Model Context Protocol server for querying Graylog 6+ from AI assistants",
   "version": "1.0.0",
   "author": "mothlike",
-  "homepage": "https://github.com/mothlike/mcp_graylog",
+  "homepage": "https://github.com/mothlike/mcp-graylog",
   "skills": []
 }
