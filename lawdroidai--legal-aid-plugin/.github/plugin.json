@@ -1,0 +1,9 @@
+{
+  "name": "lawdroidai--legal-aid-plugin",
+  "displayName": "legal-aid-plugin",
+  "description": "Open-source Claude for Legal plugin for civil legal aid organizations",
+  "version": "1.0.0",
+  "author": "lawdroidAI",
+  "homepage": "https://github.com/lawdroidAI/legal-aid-plugin",
+  "skills": []
+}
