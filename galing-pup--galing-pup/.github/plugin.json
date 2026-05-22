@@ -1,0 +1,9 @@
+{
+  "name": "galing-pup--galing-pup",
+  "displayName": "Galing-PUP",
+  "description": "A modern university thesis repository system for academic paper discovery, research management, and AI-assisted summarization. Built with Next.js 16, React 19, and shadcn/ui.",
+  "version": "1.0.0",
+  "author": "Galing-PUP",
+  "homepage": "https://github.com/Galing-PUP/Galing-PUP",
+  "skills": []
+}
