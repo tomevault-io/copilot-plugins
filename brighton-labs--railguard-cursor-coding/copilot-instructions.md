@@ -1,80 +1,96 @@
-## fastapi-secure-no-railguard-available
+## fastapi-secure-railguard-available
 
-> Enforce secure-by-default development practices in FastAPI-based Python applications using the RAILGUARD framework for input handling, auth, route safety, and AI reasoning.
+> Secure development rule for FastAPI-based Python projects, focused on API structure, authentication, and context-aware server logic. Input validation is enforced globally via railguard-input-validation.mdc.
 
 
-# R: Risk First
-- The goal is to prevent common security vulnerabilities in FastAPI projects, especially those related to unvalidated input, improper auth handling, and inconsistent response logic.
-- FastAPI is often used for public APIs, and must treat all incoming data as untrusted.
-- The AI must generate code that is secure by design, explainable, and structured for auditability.
+## Overview
 
-# A: Attached Constraints
-- Never use `eval`, `exec`, or `pickle.load()` unless inside a secured, sandboxed environment.
-- Never handle password hashing or token validation inside route handlers directly.
-- Do not expose `.env` secrets, tokens, or credentials in responses, logs, or comments.
-- Do not use untyped route parameters or raw request parsing (`await req.json()`).
-- Do not log raw user input, passwords, or tokens.
+This rule provides secure-by-default coding conventions for FastAPI projects, including:
+- API design and route handling
+- Auth/session control
+- Secure handling of path/query/body input
+- Output formatting and response control
+- Logging, dependency injection, and context reasoning
 
-# I: Interpretative Framing
-- Treat all FastAPI `POST`, `PUT`, `DELETE`, or dynamic `GET` endpoints as externally-facing and potentially exposed to malicious input.
-- If a route is created, assume it must validate input via a Pydantic model or an equivalent schema.
-- If form or query data is parsed manually, assume that it requires validation and sanitation.
-- If no response model is provided, assume one should be added for typing and auditability.
-
-# L: Local Defaults
-- Use Pydantic models for request bodies, form data, and query parameters.
-- Use `Depends()` for injecting authenticated users, services, or DB sessions.
-- Apply `Response` or `JSONResponse` with structured output.
-- Secure all cookies (`HttpOnly`, `Secure`, `SameSite=Strict`) and apply CORS restrictions.
-- For links opened with `target="_blank"` in FastAPI template rendering (e.g., Jinja2), add `rel="noopener noreferrer"`.
-
-# G: Generative Path Checks
-1. When generating a route:
-   - Determine the expected request schema
-   - Validate the schema with a Pydantic model
-   - Parse using `payload: MyModel` in the handler signature
-   - Handle missing fields or validation errors explicitly
-2. If authentication is needed:
-   - Use `OAuth2PasswordBearer` or `Depends(current_user)`
-   - Hash passwords using `bcrypt` or `argon2`, never plaintext
-3. Always include status codes and structured return objects
-
-# U: Uncertainty Disclosure
-- If unsure whether a value comes from user input, assume it does and validate it.
-- If a token or password appears in code, flag with a comment:
-  _“This appears to be sensitive. Ensure it's securely handled server-side only.”_
-- If the LLM is unsure about a schema or handler, generate a comment:
-  _“// TODO: Validate input structure before use.”_
-
-# A: Auditability
-- All input validation logic should include a comment such as:
-  `# Input validated with Pydantic model`
-- Sensitive logic (auth, DB write, token generation) should be wrapped in functions, not inlined
-- Flag uses of `dangerously_open_func()` or risky patterns with comments like:
-  `# Dangerous operation: must be reviewed`
-- Include standard docstrings on all route handlers
-
-# R+D: Revision + Dialogue
-- Developer may enter `/why-secure` to receive LLM explanation of choices:
-  _“Validated input using Pydantic and ensured token logic stays server-side for security.”_
-- Allow `/revise-for-security` to regenerate insecure output
-- Encourage LLM to reject generating handlers without validation unless explicitly overridden
+Input validation (e.g. pydantic, zod-like schemas, sanitization, type safety) is enforced globally via:
+> `.cursor/rules/railguard-input-validation.mdc`  
+> (This rule uses the RAILGUARD Framework for reflective, behavioral AI reasoning.)
 
 ---
 
-## Example: Secure Route with Auth
+## API Route Design
+
+- Use explicit HTTP methods (`@app.post`, `@app.get`, etc.)
+- Always return structured responses using `JSONResponse`, `Response`, or typed Pydantic models
+- Avoid wildcard `@app.route("*")` routes
+
+---
+
+## Authentication & Tokens
+
+- Never handle JWT tokens, secrets, or password checks inside path-level routes
+- Delegate to service layers or secure utility functions
+- Use **OAuth2PasswordBearer**, not raw `Authorization` header parsing
+- Ensure password hashing uses `bcrypt` or `argon2`; never store plaintext
+
+---
+
+## Request Handling
+
+- Avoid using untyped `request: Request` as the only parameter — instead use structured Pydantic models
+- Do not parse `.form()`, `.json()` manually unless necessary — FastAPI handles this securely by default
+- Always use dependency injection for DB access, background jobs, and auth checks (e.g., `Depends(...)`)
+
+---
+
+## Response Handling
+
+- Avoid returning raw dictionaries or untyped JSON
+- Ensure all API responses are typed, even in `async def` routes
+- Use exception handlers (e.g. `@app.exception_handler(...)`) to manage untrusted input or auth failures
+
+---
+
+## Logging & Observability
+
+- Use the `logging` module, not `print()`
+- Mask sensitive fields in logs (passwords, tokens, API keys)
+- Do not log raw request bodies unless explicitly scrubbed
+
+---
+
+## Security Add-ons
+
+- Set security headers via middleware (e.g. `X-Frame-Options`, `X-Content-Type-Options`)
+- Apply rate limiting for public-facing endpoints
+- Use CORS properly — restrict allowed origins to production domains
+- Avoid `eval`, `exec`, `pickle.load()` unless required and sandboxed
+
+---
+
+## Cross-Reference: Validation Logic
+
+All input validation, sanitization, and reflective enforcement of secure behaviors is handled by:
+
+> `.cursor/rules/railguard-input-validation.mdc`
+
+This includes:
+- Type enforcement
+- Schema validation using Pydantic
+- AI reasoning paths for detecting insecure defaults
+- Auto-commenting to track sanitization
+
+---
+
+## Example Snippet
 
 ```python
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from models import LoginPayload
 from services.auth import verify_user
-from fastapi.responses import JSONResponse
+from starlette.responses import JSONResponse
 
 router = APIRouter()
-
-class LoginPayload(BaseModel):
-    username: str
-    password: str
 
 @router.post("/login")
 async def login(payload: LoginPayload):
@@ -82,7 +98,6 @@ async def login(payload: LoginPayload):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
     return JSONResponse({"access_token": user.token})
-# Input validated with Pydantic model
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
