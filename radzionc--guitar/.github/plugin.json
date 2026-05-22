@@ -1,0 +1,9 @@
+{
+  "name": "radzionc--guitar",
+  "displayName": "guitar",
+  "description": "Interactive guitar fretboard viewer for scales and pentatonics. Built with TypeScript and Next.js using static site generation. \ud83c\udfb8",
+  "version": "1.0.0",
+  "author": "radzionc",
+  "homepage": "https://github.com/radzionc/guitar",
+  "skills": []
+}
