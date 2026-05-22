@@ -4,7 +4,7 @@
   "repo": "modern-llm-notebook",
   "description": "A hands-on guide with 23 Jupyter Notebooks to master modern Large Language Models from the ground up, using PyTorch to implement core components like BPE Tokenizers, Multi-Head Attention, MoE, RLHF, and on-policy distillation\u2014no pre-built libraries required.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/walkinglabs/modern-llm-notebook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T03:46:30Z"
+  "distributed_at": "2026-05-22T03:51:02Z"
 }
