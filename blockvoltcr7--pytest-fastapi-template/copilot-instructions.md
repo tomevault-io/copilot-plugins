@@ -1,88 +1,182 @@
-## testing-rules
+## pytest-fastapi-template
 
-> This document outlines testing requirements for new feature implementations.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Testing Rules for GenAI Project
+# CLAUDE.md
 
-This document outlines testing requirements for new feature implementations.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Core Testing Requirements
+## Project Overview
 
-- All new features must have corresponding tests.
-- Tests must be written using pytest and include Allure reporting features.
-- API tests must be placed in the `tests/` directory with filename `test_*.py`.
-- Tests should include appropriate annotations for Allure reporting.
+This is a FastAPI-based GenAI API template designed for building AI-powered web services. It integrates multiple AI providers (OpenAI, Google Gemini, ElevenLabs) with comprehensive testing and deployment capabilities.
 
-## Allure Reporting Structure
+## Essential Commands
 
-- Each test module should use `@allure.epic()` to define the high-level area.
-- Test classes should use `@allure.feature()` to define the feature being tested.
-- Test methods should use `@allure.story()` to define the specific test scenario.
-- Use `@allure.severity()` to indicate test importance.
-- All tests should include descriptive steps using Allure's step annotations.
+### Development Server
+```bash
+# Start development server (recommended)
+uv run uvicorn app.main:app --reload
 
-## Example Structure
-
-```python
-import allure
-import pytest
-
-@allure.epic("Core Functionality")
-@allure.feature("Feature Name")
-class TestFeatureName:
-    
-    @allure.story("Basic Functionality")
-    @allure.severity(allure.severity_level.CRITICAL)
-    def test_basic_functionality(self):
-        """Test description here"""
-        with allure.step("First step description"):
-            # Code for first step
-            pass
-            
-        with allure.step("Verification step"):
-            # Assertion code
-            assert True
+# Alternative with activated venv
+source .venv/bin/activate && uvicorn app.main:app --reload
 ```
 
-## API Testing Requirements
+### Testing
+```bash
+# Run all tests with Allure reporting (Allure enabled by default in pytest.ini)
+uv run pytest -v
 
-- Use the session fixture for API requests.
-- Include appropriate response attachments.
-- Test both happy path and error conditions.
-- Include clear test descriptions.
+# Run specific test file
+uv run pytest tests/demo/test_hello.py -v
 
-## Test Categories
+# Run tests by marker
+uv run pytest -m api -v
+uv run pytest -m integration -v
+uv run pytest -m slow -v
 
-Use pytest markers to categorize tests:
+# Generate and serve Allure report
+allure serve allure-results
 
-```python
-@pytest.mark.api  # For API tests
-@pytest.mark.integration  # For integration tests
-@pytest.mark.slow  # For slow-running tests
+# Use convenience test runner (recommended)
+./test_runner.sh all                              # Run all tests
+./test_runner.sh file tests/demo/test_hello.py    # Run specific file
+./test_runner.sh group "API Tests"                # Run by feature group
+./test_runner.sh list-files                       # List available test files
+./test_runner.sh list-groups                      # List available test groups
 ```
 
-## Running Tests
+### Dependency Management
+Always use `uv` for package management, never `pip`:
+```bash
+# Install dependencies
+uv sync
 
-- Always run tests with Allure reporting enabled:
-  ```
-  pytest --alluredir=allure-results
-  ```
-- Generate the report with:
-  ```
-  allure serve allure-results
-  ```
+# Add new dependency
+uv add package-name
 
-## AI Assistant Guidelines
+# Add dev dependency
+uv add --dev package-name
 
-When implementing new features, AI assistants should:
+# Update dependencies
+uv sync --upgrade
+```
 
-1. Identify testable components in the new feature.
-2. Create corresponding test files with proper Allure annotations.
-3. Ensure tests cover both expected behavior and edge cases.
-4. Implement appropriate fixtures for test setup and teardown.
-5. Include detailed steps using `allure.step()`.
-6. Add test data attachments using `allure.attach()`.
-7. Document any test requirements in test docstrings.
+## Architecture
+
+### Core Structure
+- **app/api/v1/**: Versioned API endpoints with routers
+- **app/core/**: Configuration (Pydantic settings), security, and dependencies
+- **app/models/**: Pydantic data models for request/response validation
+- **app/services/**: Business logic and AI integrations (image, voice, TTS streaming)
+- **app/agents/**: CrewAI agent implementations for content creation
+- **app/tools/**: AI tools and utilities for agent workflows
+- **tests/**: Comprehensive test suite with Allure reporting and environment configs
+
+### Key Integrations
+- **OpenAI**: GPT models and image generation
+- **Google Gemini**: Text-to-speech and language models 
+- **CrewAI**: Multi-agent AI orchestration for content workflows
+- **ElevenLabs**: Voice synthesis and audio generation
+- **ChromaDB/LanceDB**: Vector storage for embeddings
+- **FastAPI**: Modern async web framework with automatic API docs
+
+### Configuration Management
+- Uses Pydantic settings with `.env` file support
+- Environment-specific test configurations (dev/uat/prod)
+- API keys managed through environment variables
+- Automatic directory creation for output files (images, audio)
+
+## Development Guidelines
+
+### Dependency Management
+- Always use `uv` commands, never `pip`
+- Update `pyproject.toml` when adding dependencies
+- Commit both `pyproject.toml` and `uv.lock`
+
+### Testing Requirements
+- All new features must have corresponding tests
+- Use pytest with Allure annotations (configured in pytest.ini):
+  ```python
+  @allure.epic("Core Functionality")
+  @allure.feature("Feature Name")
+  class TestFeatureName:
+      @allure.story("Test Scenario")
+      @allure.severity(allure.severity_level.CRITICAL)
+      def test_something(self):
+          with allure.step("Step description"):
+              # test code
+  ```
+- Use appropriate markers: `@pytest.mark.api`, `@pytest.mark.integration`, `@pytest.mark.slow`
+- Test organization: ai-tests/, demo/, endpoints/, with specialized test runners
+- Environment configs available for dev/uat/prod testing scenarios
+- Include response attachments and logging for debugging API responses
+
+### Pydantic V2 Best Practices
+- Use `Optional[bool]` instead of `bool` for API fields that might return null
+- Use `model_validate_json()` for JSON validation
+- Add logging with `allure.attach()` for debugging API responses
+- Use `Field(default_factory=list)` for default collections
+- Implement custom validation with `@field_validator` decorator
+
+### AI Service Integration
+- Store API keys in environment variables
+- Add proper error handling for external API calls
+- Include response logging for debugging
+- Test both success and error scenarios
+
+## API Endpoints
+
+Main endpoints:
+- `GET /` - Root endpoint 
+- `GET /health` - Health check
+- `GET /api/v1/hello` - Basic hello world endpoint
+- `POST /api/v1/crewai` - CrewAI agent execution
+- `POST /api/v1/content-crew` - Content creation crew workflows
+- `POST /api/v1/gemini/podcast` - Multi-speaker TTS generation
+- `POST /api/v1/auth` - Authentication
+- `GET /api/v1/users` - User management
+- Automatic API documentation available at `/docs` and `/redoc`
+
+## Environment Setup
+
+Required for AI features:
+```bash
+OPENAI_API_KEY=your_key_here
+GEMINI_API_KEY=your_key_here  
+ELEVENLABS_API_KEY=your_key_here
+```
+
+## Project-Specific Best Practices
+
+### Dependency Management
+- **ALWAYS** use `uv` commands, never `pip` directly
+- Use `uv sync` for installing dependencies from lock file
+- Use `uv add package-name` for adding new dependencies
+- Commit both `pyproject.toml` and `uv.lock` files
+
+### Pydantic V2 Guidelines  
+- Use `Optional[bool]` instead of `bool` for fields that might return null
+- Use `Field(default_factory=list)` for default collections
+- Add `allure.attach()` for debugging API responses during testing
+- Use `@field_validator` decorator for custom validation
+
+### Testing Standards
+- Use the convenience test runner: `./test_runner.sh`
+- Organize tests by category: ai-tests/, demo/, endpoints/
+- Include proper Allure annotations for reporting
+- Test both success and error scenarios for AI integrations
+
+## Deployment
+
+The project supports multiple deployment platforms:
+- **Render**: Uses `render.yaml` configuration
+- **Railway**: Uses `railway.json` configuration
+- **Docker**: Multi-stage builds with UV support
+
+Always run tests before deployment:
+```bash
+uv run pytest && uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
 
 ---
 > Source: [blockvoltcr7/pytest-fastapi-template](https://github.com/blockvoltcr7/pytest-fastapi-template) — distributed by [TomeVault](https://tomevault.io).
