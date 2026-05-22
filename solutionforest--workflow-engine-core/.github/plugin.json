@@ -1,0 +1,9 @@
+{
+  "name": "solutionforest--workflow-engine-core",
+  "displayName": "workflow-engine-core",
+  "description": "A powerful, framework-agnostic workflow engine for PHP applications. This core library provides comprehensive workflow definition, execution, and state management capabilities without any framework de",
+  "version": "1.0.0",
+  "author": "solutionforest",
+  "homepage": "https://github.com/solutionforest/workflow-engine-core",
+  "skills": []
+}
