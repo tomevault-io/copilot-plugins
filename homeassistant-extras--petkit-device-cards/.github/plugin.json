@@ -1,0 +1,9 @@
+{
+  "name": "homeassistant-extras--petkit-device-cards",
+  "displayName": "petkit-device-cards",
+  "description": "Device Cards for various PetKit devices supported by the PetKit Integration",
+  "version": "1.0.0",
+  "author": "homeassistant-extras",
+  "homepage": "https://github.com/homeassistant-extras/petkit-device-cards",
+  "skills": []
+}
