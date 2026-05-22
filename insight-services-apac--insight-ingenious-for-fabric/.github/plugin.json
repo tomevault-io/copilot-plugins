@@ -1,9 +1,9 @@
 {
   "name": "insight-services-apac--insight-ingenious-for-fabric",
   "displayName": "Insight_Ingenious_For_Fabric",
-  "description": "Insight_Ingenious_For_Fabric",
+  "description": "Framework for Accelerated Microsoft Fabric Development, Testing and Deployment",
   "version": "1.0.0",
   "author": "Insight-Services-APAC",
-  "homepage": "https://tomevault.io/claim/Insight-Services-APAC",
+  "homepage": "https://github.com/Insight-Services-APAC/Insight_Ingenious_For_Fabric",
   "skills": []
 }
