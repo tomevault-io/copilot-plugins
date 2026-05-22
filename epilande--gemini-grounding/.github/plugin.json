@@ -1,0 +1,9 @@
+{
+  "name": "epilande--gemini-grounding",
+  "displayName": "gemini-grounding",
+  "description": "An MCP server that provides real-time information using Google Gemini's grounding capabilities",
+  "version": "1.0.0",
+  "author": "epilande",
+  "homepage": "https://github.com/epilande/gemini-grounding",
+  "skills": []
+}
