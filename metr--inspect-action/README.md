@@ -7,13 +7,13 @@ Running UK AISI's Inspect in the Cloud
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [METR/inspect-action](https://github.com/METR/inspect-action).
+Original source: `.cursor/rules/*.mdc` in [METR/inspect-action](https://github.com/METR/inspect-action).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
