@@ -1,14 +1,27 @@
-## app-struct
+## cli-commands
 
-> - The [src/app.rs](mdc:src/app.rs) file defines the `App` struct, which represents an installed Android application.
+> - All CLI commands and their arguments are defined in [src/cli.rs](mdc:src/cli.rs) using the `clap` crate.
 
-# App Struct Reference
+# CLI Commands Reference
 
-- The [src/app.rs](mdc:src/app.rs) file defines the `App` struct, which represents an installed Android application.
-- Fields:
-  - `package_name`: The unique package identifier of the app
-  - `app_name`: The display name of the app
-- The `App` struct is used throughout [src/adb_client.rs](mdc:src/adb_client.rs) for listing, selecting, and operating on installed apps.
+- All CLI commands and their arguments are defined in [src/cli.rs](mdc:src/cli.rs) using the `clap` crate.
+- The main command parser is the `Cli` struct, with subcommands in the `Commands` enum.
+- Supported commands include:
+  - `open`: Open an app
+  - `uninstall`: Uninstall an app
+  - `clear`: Clear app data
+  - `force-kill`: Force kill an app
+  - `download [--output <path>]`: Download APK
+  - `app-info`: Show app info
+  - `device`: Show device info
+  - `screenshot [--output <path>]`: Take a screenshot
+  - `record [--output <path>]`: Record the screen
+  - `network`: Show network info
+  - `wifi`: Enable ADB over Wi-Fi
+  - `usb`: Switch ADB back to USB mode
+  - `health`: Device health check
+  - `launch <URL>`: Launch a URL or deep link
+- Command dispatch and execution logic is handled in [src/main.rs](mdc:src/main.rs), which calls methods on the `AdbClient` struct.
 
 ---
 > Source: [cesarferreira/dab](https://github.com/cesarferreira/dab) — distributed by [TomeVault](https://tomevault.io).
