@@ -2,6 +2,8 @@
 
 > Source: [manta-digital/manta-templates](https://github.com/manta-digital/manta-templates) — distributed by [TomeVault](https://tomevault.io)
 
+manta.digital public template monorepo
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
