@@ -1,0 +1,9 @@
+{
+  "name": "neudzulab--aunsorm-security-platform",
+  "displayName": "Aunsorm-Security-Platform",
+  "description": "Unified Post-Quantum Security Platform providing cryptography, identity, RNG and calibration services for modern distributed systems.",
+  "version": "1.0.0",
+  "author": "Neudzulab",
+  "homepage": "https://github.com/Neudzulab/Aunsorm-Security-Platform",
+  "skills": []
+}
