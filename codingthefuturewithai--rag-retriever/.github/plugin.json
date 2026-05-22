@@ -1,0 +1,9 @@
+{
+  "name": "codingthefuturewithai--rag-retriever",
+  "displayName": "rag-retriever",
+  "description": "A Python application that loads and processes both web pages and local documents, indexing their content using embeddings, and enabling semantic search queries.",
+  "version": "1.0.0",
+  "author": "codingthefuturewithai",
+  "homepage": "https://github.com/codingthefuturewithai/rag-retriever",
+  "skills": []
+}
