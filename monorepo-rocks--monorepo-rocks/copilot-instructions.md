@@ -1,35 +1,97 @@
-## monorepo-rocks
+## auto-commit
 
-> This is a Cloudflare Workers monorepo using pnpm workspaces, Turborepo, and Hono.
+> Read this when user asks you to auto commit as you go
 
-# AGENTS.md
+<git-commit-guidelines>
 
-This is a Cloudflare Workers monorepo using pnpm workspaces, Turborepo, and Hono.
+When making changes to code, commit your changes incrementally as you work. Follow these commit conventions:
 
-## Commands
-
-```bash
-# Main commands (via Just or pnpm)
-just test                    # Run all tests
-just test <worker-name>      # Run specific worker tests
-pnpm --filter <worker-name> test  # Alternative single worker test
-just build                   # Build all
-just check                   # Lint, types, format check
-just fix                     # Auto-fix lint/format
-just new-worker              # Generate new worker
-
-# For individual workers:
-cd apps/<worker-name> && pnpm test
+<commit-format>
 ```
+<type>: <subject>
 
-## Code Style
+<body>
+```
+</commit-format>
 
-- **Imports**: Workspace packages via `@repo/*`, sorted by prettier with type imports separated
-- **Formatting**: Prettier with tabs, no semicolons, single quotes, 100 char width
-- **Types**: TypeScript strict mode, prefer type imports, no explicit any allowed
-- **Zod**: Inferred types above schemas with same name: `export type Thing = z.infer<typeof Thing>`
-- **Naming**: Use underscore prefix for unused vars (`_unused`)
-- **Framework**: All workers use Hono with shared middleware from `@repo/hono-helpers`
+<types>
+- feat: New feature or functionality
+- fix: Bug fix
+- chore: Maintenance tasks, dependency updates, configuration changes
+- docs: Documentation only changes
+- style: Code style/formatting changes (no functional changes)
+- refactor: Code restructuring without changing functionality
+- test: Adding or modifying tests
+- perf: Performance improvements
+</types>
+
+<rules>
+
+<subject-line>
+- Maximum 90 characters
+- Start with lowercase
+- No period at the end
+- Use imperative mood ("add" not "adds" or "added")
+</subject-line>
+
+<body-rules>
+- Separate from subject with blank line
+- Wrap at 72 characters
+- Explain what and why, not how
+- Only include when the change requires context
+</body-rules>
+
+<commit-frequency>
+- Commit after each logical unit of change
+- Each commit should represent one coherent change
+- Don't bundle unrelated changes
+</commit-frequency>
+</rules>
+
+<examples>
+
+<example type="good">
+```
+feat: add user authentication middleware
+
+Implements JWT-based authentication for API routes.
+Includes token validation and refresh logic.
+```
+</example>
+
+<example type="good">
+```
+fix: resolve null pointer in user lookup
+```
+</example>
+
+<example type="good">
+```
+chore: update dependencies to latest versions
+```
+</example>
+
+<example type="bad">
+```
+feat: added new feature to the application that allows users to authenticate using JWT tokens and also fixed some bugs and updated dependencies
+```
+</example>
+
+<example type="bad">
+```
+fix: Fixed bug.
+```
+</example>
+</examples>
+
+<key-principles>
+- Be concise but descriptive
+- One commit = one logical change
+- Commit message should make sense without looking at the code
+- Skip the body if the subject line is self-explanatory
+</key-principles>
+
+</git-commit-guidelines>
 
 ---
 > Source: [monorepo-rocks/monorepo-rocks](https://github.com/monorepo-rocks/monorepo-rocks) — distributed by [TomeVault](https://tomevault.io).
