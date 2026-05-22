@@ -1,0 +1,9 @@
+{
+  "name": "wesleysimplicio--us4-v6-simplicio-apple",
+  "displayName": "us4-v6-simplicio-apple",
+  "description": "US4 V6 \u2014 Apple Edition. Universal State Runtime for local LLM inference on Apple Silicon (M1..M5+). C++17/20 + MLX + Metal + NEON + ANE.",
+  "version": "1.0.0",
+  "author": "wesleysimplicio",
+  "homepage": "https://github.com/wesleysimplicio/us4-v6-simplicio-apple",
+  "skills": []
+}
