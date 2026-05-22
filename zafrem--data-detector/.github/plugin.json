@@ -1,0 +1,9 @@
+{
+  "name": "zafrem--data-detector",
+  "displayName": "Data-detector",
+  "description": "Data-detector is a Python-based PII detection and protection framework featuring multi-language NLP support, RAG security, and data tokenization capabilities.",
+  "version": "1.0.0",
+  "author": "zafrem",
+  "homepage": "https://github.com/zafrem/Data-detector",
+  "skills": []
+}
