@@ -1,0 +1,44 @@
+{
+  "name": "rshogi",
+  "owner": "SH11235",
+  "repo": "rshogi",
+  "description": "Rust\u88fd\u5c06\u68cb\u30a8\u30f3\u30b8\u30f3 / \u958b\u767a\u8005\u30c4\u30fc\u30eb",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SH11235/rshogi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T11:32:06Z"
+}
