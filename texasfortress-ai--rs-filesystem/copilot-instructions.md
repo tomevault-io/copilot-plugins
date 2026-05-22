@@ -1,79 +1,59 @@
-## rs-filesystem
+## data-flow
 
-> - Only modify code directly relevant to the specific request. Avoid changing unrelated functionality.
+> - MUST: Handle JSON-RPC requests through stdin/stdout flow using tokio::io
 
+# Data-Flow
 
-START SPECIFICATION:
-# main-overview
+### Core Data Propagation
+- MUST: Handle JSON-RPC requests through stdin/stdout flow using tokio::io
+- AVOID: Direct file system access outside allowed directories
+- WHY: Ensures controlled data access and consistent request handling
+- EXAMPLE: `src/main.rs` - JSON-RPC router construction with tool registration
+**Importance: 95**
 
-## Development Guidelines
-
-- Only modify code directly relevant to the specific request. Avoid changing unrelated functionality.
-- Never replace code with placeholders like `# ... rest of the processing ...`. Always include complete code.
-- Break problems into smaller steps. Think through each step separately before implementing.
-- Always provide a complete PLAN with REASONING based on evidence from code and logs before making changes.
-- Explain your OBSERVATIONS clearly, then provide REASONING to identify the exact issue. Add console logs when needed to gather more information.
-
-
-### Core Business Architecture
-
-The project implements a Modular Command Protocol (MCP) server that provides file system operations and tools through a JSON-RPC interface. Key components:
-
-1. Tool Management System (`src/mcp/tools.rs`)
-- Central registry for system tools with Git integration
-- File editing capabilities with version control
-- Directory operations with commit tracking
-- Custom search functionality
-- Time-based operations for different cities
-
-2. Access Control Layer (`src/mcp/utilities.rs`)
-- Path validation system for allowed directories
-- Canonicalization of paths for security
-- Server capability declarations
-
-3. Resource Management (`src/mcp/resources.rs`)
-- Directory access control through allowed paths
-- Resource listing and retrieval system
-
-4. Prompt System (`src/mcp/prompts.rs`)
-- Dynamic prompt generation based on operations
-- Argument-based content customization
-- Operation-specific metadata handling
-
-### Code Conventions
-
-#### JSON-RPC Implementation
-- MUST: Use `rpc_router` crate for endpoint routing
-- AVOID: Direct JSON manipulation without RPC protocol
-- WHY: Ensures consistent MCP protocol compliance
-- EXAMPLE: `src/main.rs:build_rpc_router()`
-
-#### Git Integration
-- MUST: Include commit messages for all file operations
-- AVOID: Direct file system changes without version control
-- WHY: Maintains audit trail of system changes
-- EXAMPLE: `src/mcp/tools.rs:file_edit()`
-
-#### Path Validation
-- MUST: Use `validate_path_or_error` for all file operations
-- AVOID: Direct path manipulation without validation
-- WHY: Security and access control requirements
-- EXAMPLE: `src/mcp/utilities.rs:validate_path_or_error()`
-
-#### Tool Registration
-- MUST: Register tools through central registry
-- AVOID: Standalone tool implementations
-- WHY: Ensures discoverability and consistent interface
+### Tool Registration Flow
+- MUST: Register tools with input schemas via `register_tools` in `src/mcp/tools.rs`
+- AVOID: Global state for tool registration
+- WHY: Maintains single source of truth for available tool definitions
 - EXAMPLE: `src/mcp/tools.rs:register_tools()`
+**Importance: 85**
 
-Importance Scores:
-- Tool Management: 95 (Core business functionality)
-- Access Control: 90 (Critical security component)
-- Resource Management: 85 (Key infrastructure)
-- Prompt System: 80 (Essential user interaction)
+### Resource Management Pipeline
+- MUST: Flow resource requests through `resources_list` and `resource_read` in `src/mcp/resources.rs`
+- AVOID: Direct filesystem access bypassing resource controllers
+- WHY: Centralizes resource access control and validation
+- EXAMPLE: `src/mcp/resources.rs:resources_list()`
+**Importance: 80**
+
+### Prompt Processing Chain
+- MUST: Process prompts through `prompts_list` and `prompts_get` in `src/mcp/prompts.rs`
+- AVOID: Mixing prompt and tool data flows
+- WHY: Separates prompt handling from tool execution
+- EXAMPLE: `src/mcp/prompts.rs:prompts_get()`
+**Importance: 75**
+
+### Path Validation Flow
+- MUST: Route all path operations through validation in `src/mcp/utilities.rs`
+- AVOID: Direct path manipulation without validation
+- WHY: Ensures security by restricting operations to allowed directories
+- EXAMPLE: `src/mcp/utilities.rs:validate_path_or_error()`
+**Importance: 90**
+
+### Git Integration Pipeline
+- MUST: Handle Git operations through dedicated flows in file editing tools
+- AVOID: Direct Git commands without error handling
+- WHY: Maintains version control integration consistency
+- EXAMPLE: `src/mcp/tools.rs:file_edit()`
+**Importance: 70**
+
+### Directory Operations Flow
+- MUST: Route directory operations through validated tool handlers
+- AVOID: Direct filesystem manipulation
+- WHY: Ensures controlled access and proper error handling
+- EXAMPLE: `src/mcp/tools.rs:create_directory()`
+**Importance: 85**
 
 $END$
-END SPECIFICATION
 
 ---
 > Source: [TexasFortress-AI/rs_filesystem](https://github.com/TexasFortress-AI/rs_filesystem) — distributed by [TomeVault](https://tomevault.io).
