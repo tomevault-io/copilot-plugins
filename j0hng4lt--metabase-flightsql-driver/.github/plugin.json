@@ -1,0 +1,9 @@
+{
+  "name": "j0hng4lt--metabase-flightsql-driver",
+  "displayName": "metabase-flightsql-driver",
+  "description": "Arrow Flight SQL driver for Metabase",
+  "version": "1.0.0",
+  "author": "J0hnG4lt",
+  "homepage": "https://github.com/J0hnG4lt/metabase-flightsql-driver",
+  "skills": []
+}
