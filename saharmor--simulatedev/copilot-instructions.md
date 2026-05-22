@@ -1,58 +1,8 @@
-## running-backend
+## tmux-running
 
-> Every time Cursor is trying to run the backend or test it, i.e. needing port 8000
+> tmux_gemini_standalone.py should always be run from the ./scripts directory. Before it's being run, check if it's running, and don't run it again unless it's mandatory (e.g. change in configuration).
 
-# Cursor Rules for SimulateDev Project
-
-## Backend Server Rules
-
-### DO NOT start a new FastAPI backend server if one is already running
-- The FastAPI backend server runs on port 8000 by default
-- Before attempting to start the server, check if it's already running by testing http://localhost:8000/api/health
-- If the server is already running, use the existing instance instead of starting a new one
-- This prevents port conflicts and avoids multiple server instances
-
-### How to check if backend is running:
-```bash
-curl -s http://localhost:8000/api/health
-```
-If this returns a JSON response with "status": "healthy", the server is already running.
-
-### Starting the backend (only if not already running):
-```bash
-cd api
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-### Additional Notes:
-- The backend serves the frontend at the root URL (http://localhost:8000/)
-- API endpoints are available at http://localhost:8000/api/
-- WebSocket connections for real-time updates are at ws://localhost:8000/ws/tasks/{task_id} # Cursor Rules for SimulateDev Project
-
-## Backend Server Rules
-
-### DO NOT start a new FastAPI backend server if one is already running
-- The FastAPI backend server runs on port 8000 by default
-- Before attempting to start the server, check if it's already running by testing http://localhost:8000/api/health
-- If the server is already running, use the existing instance instead of starting a new one
-- This prevents port conflicts and avoids multiple server instances
-
-### How to check if backend is running:
-```bash
-curl -s http://localhost:8000/api/health
-```
-If this returns a JSON response with "status": "healthy", the server is already running.
-
-### Starting the backend (only if not already running):
-```bash
-cd api
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-### Additional Notes:
-- The backend serves the frontend at the root URL (http://localhost:8000/)
-- API endpoints are available at http://localhost:8000/api/
-- WebSocket connections for real-time updates are at ws://localhost:8000/ws/tasks/{task_id} 
+tmux_gemini_standalone.py should always be run from the ./scripts directory. Before it's being run, check if it's running, and don't run it again unless it's mandatory (e.g. change in configuration).
 
 ---
 > Source: [saharmor/simulatedev](https://github.com/saharmor/simulatedev) — distributed by [TomeVault](https://tomevault.io).
