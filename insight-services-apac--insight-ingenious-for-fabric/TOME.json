@@ -4,7 +4,7 @@
   "repo": "Insight_Ingenious_For_Fabric",
   "description": "Framework for Accelerated Microsoft Fabric Development, Testing and Deployment",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Insight-Services-APAC/Insight_Ingenious_For_Fabric",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T08:42:22Z"
+  "distributed_at": "2026-05-22T08:43:59Z"
 }
