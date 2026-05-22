@@ -1,0 +1,9 @@
+{
+  "name": "terilios--smartsheet-server",
+  "displayName": "smartsheet-server",
+  "description": "MCP server providing healthcare analytics capabilities for Smartsheet, including clinical note summarization, patient feedback analysis, and research impact assessment",
+  "version": "1.0.0",
+  "author": "terilios",
+  "homepage": "https://github.com/terilios/smartsheet-server",
+  "skills": []
+}
