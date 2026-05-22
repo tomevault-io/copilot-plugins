@@ -1,57 +1,120 @@
-## architectural-guidelines-for-next-js-boilerplate
+## next-js-supabase-auth-ssr-guidelines
 
-> description: Architectural guidelines for Next.js boilerplate
+> description: Guidelines for developing Next.js apps with Supabase Auth SSR
 
 
 
 ---
-description: Architectural guidelines for Next.js boilerplate
-globs: ["app/**", "lib/**", "components/**"]
+description: Guidelines for developing Next.js apps with Supabase Auth SSR
+globs: ["app/**", "lib/**", "middleware.ts"]
 alwaysApply: true
 ---
 
-# Architectural Guidelines for Next.js Boilerplate
+# Next.js with Supabase Auth SSR Guidelines
 
 ## Overview
-Maintain a modular, scalable, and maintainable codebase for the Next.js boilerplate, inspired by best practices from Shipfast and Next.js Boilerplate.
+These rules enforce best practices for implementing Supabase Auth SSR in a Next.js 15 project using the App Router, ensuring secure and reliable authentication.
 
-## File Structure
+## Critical Instructions
+- **MUST** use `@supabase/ssr` for all authentication-related code.
+- **MUST** use `getAll` and `setAll` for cookie handling.
+- **NEVER** use `get`, `set`, or `remove` cookie methods or import from `@supabase/auth-helpers-nextjs` (these are deprecated and will break the application).
+- **MUST** verify all generated code against these rules before completion.
+
+## Correct Browser Client Implementation
+```typescript
+import { createBrowserClient } from '@supabase/ssr'
+
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+}
 ```
-my-boilerplate/
-├── app/              # App Router routes
-│   ├── (main)/       # Main application
-│   ├── (landing)/    # Public landing page
-│   └── (docs)/       # Nextra documentation
-├── components/       # Reusable Shadcn components
-├── lib/              # Service configurations (Supabase, Mailgun, etc.)
-├── blog/             # Blog module
-├── tests/            # Unit and integration tests
-├── public/           # Static assets
-├── .cursor/rules/    # Cursor rules
-└── .env.example      # Environment variable template
+
+## Correct Server Client Implementation
+```typescript
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+
+export async function createClient() {
+  const cookieStore = await cookies()
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll()
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            )
+          } catch {
+            // Ignore errors in Server Components if middleware refreshes sessions
+          }
+        }
+      }
+    }
+  )
+}
 ```
 
-## Coding Standards
-- Use **TypeScript** with strict mode enabled (`tsconfig.json`).
-- Avoid `any`; use precise types/interfaces.
-- Use functional components with `React.FC`.
-- Name directories in **lowercase-with-dashes** (e.g., `user-profile`).
-- Use **camelCase** for variables/functions, **PascalCase** for components/interfaces.
+## Correct Middleware Implementation
+- Always include `supabase.auth.getUser()` to check user sessions.
+- Protect routes by redirecting unauthenticated users to `/login`.
+- Return `supabaseResponse` to maintain session integrity.
+```typescript
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
-## Modularity
-- Encapsulate service logic in `lib/` (e.g., `lib/supabaseBrowserClient.ts`).
-- Create reusable hooks for logic (e.g., `useAuth`, `useFormValidation`).
-- Use **Zustand** for global state management, avoiding excessive context.
+export async function middleware(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({ request })
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() { return request.cookies.getAll() },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({ request })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        }
+      }
+    }
+  )
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user && !request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/auth')) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
+  }
+  return supabaseResponse
+}
 
-## Error Handling
-- Use guard clauses for early returns.
-- Provide user-friendly error messages.
-- Log errors to console in development, integrate with Sentry in production.
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)']
+}
+```
 
-## Best Practices
-- Follow **DRY** principles; extract duplicate logic to helpers/hooks.
-- Ensure all changes are backward-compatible.
-- Document public APIs and components in `/docs`.
+## Verification Steps
+Before generating code:
+1. Ensure **ONLY** `getAll` and `setAll` are used for cookies.
+2. Confirm imports are from `@supabase/ssr`.
+3. Check for absence of `get`, `set`, or `remove` cookie methods.
+4. Verify no imports from `@supabase/auth-helpers-nextjs`.
+
+## Consequences of Incorrect Implementation
+Using deprecated patterns will:
+- Break session management in production.
+- Cause authentication loops.
+- Introduce security vulnerabilities.
 
 ---
 > Source: [R3n1er/mysecurepassword](https://github.com/R3n1er/mysecurepassword) — distributed by [TomeVault](https://tomevault.io).
