@@ -1,17 +1,165 @@
-## state-manager-prompts-vs-tool-docstrings
+## state-manager-roles
 
-> State Manager Interface Design (Base APIs, Prompts, and Tool Docstrings)
+> State Manager Roles and Boundaries (Routing Guide)
 
 
-# State Manager Interface Design
+Use this to decide which manager to call, what each owns, and where its jurisdiction ends. Keep manager docstrings implementation‑agnostic; this guide is only for high‑level routing and composition.
 
-## Base Class Public APIs
+### ConversationManager
+- **Role**: Live chat orchestrator. Routes user requests to `Actor` for code-first execution and wires steering (pause/resume/interject/stop) during conversations.
+- **Scope**: Conversation‑level control and message flow; returns/relays steerable handles from inner tools.
+- **Connections**:
+  - **Steered by**: Top-level UI/controller (outside managers).
+  - **Steers**: `Actor.act` (central intelligence); relays in‑flight handles from `Actor.act` and `TaskScheduler.execute`.
 
-The public API for all state managers (`ContactManager`, `TranscriptManager`, `TaskScheduler`, `WebSearcher` etc.) is fully contained in the docstrings of the abstract methods defined on the base class `Base{SomeManager}` in `base.py`. All high level usage instructions should be fully encapsulated in these docstrings. These docstrings are then attached to the public methods of any derived class via `@functools.wraps(Base{StateManager}.{public_method}, updated=())`. These docstrings should not make **any** reference to **other managers** (we don't want to lock in any brittle cross-references, as other managers may change) and should also not make any reference to their **internal implementation**, including the private tools used for any particular instantiation of this abstract base class, with a consistent implementation agnostic public API.
+### Actor
+- **Role**: Central intelligence that orchestrates all state managers through code-first plans. Generates and executes Python plans that call primitives directly.
+- **Scope**: Code-first execution via `act()` method. Generates Python plans that orchestrate `primitives.contacts.*`, `primitives.knowledge.*`, `primitives.tasks.*`, etc. Wires in‑flight handles to `ConversationManager` for real‑time steering.
+- **Connections**:
+  - **Steered by**: `ConversationManager` (primary caller of `act()`).
+  - **Steers**: All state manager primitives (`primitives.contacts.*`, `primitives.knowledge.*`, `primitives.tasks.*`, etc.), `TaskScheduler`, and the `ConversationManager` handle (`ask`/`interject`/`get_full_transcript`). Uses `FunctionManager` for function discovery and execution.
 
-## Prompts vs Tool Docstrings
+### Actor routing playbook
+- **Read‑only questions**
+  - Tasks → `primitives.tasks.ask` or `TaskScheduler.ask`
+  - Contacts → `primitives.contacts.ask`
+  - Transcripts → `primitives.transcripts.ask` (may call `primitives.contacts.ask` for participants)
+  - Knowledge → `primitives.knowledge.ask`
+  - Secrets (metadata/placeholders only) → `primitives.secrets.ask`
+  - Time‑sensitive/web ("today/latest/now") → `primitives.web.ask`
+  - About a specific received file (filename known) → `primitives.files.ask`
+- **Mutations (create/edit/delete/merge)**
+  - Tasks/queues/ordering → `primitives.tasks.update` or `TaskScheduler.update`
+  - Contacts → `primitives.contacts.update`
+  - Knowledge/schema changes or ingestion → `primitives.knowledge.update` / `primitives.knowledge.refactor`
+  - Guidance → `GuidanceManager_add_guidance` / `GuidanceManager_update_guidance` / `GuidanceManager_delete_guidance` (top-level JSON tool calls)
+  - Secrets → `primitives.secrets.update`
+- **Execution vs. interaction**
+  - Ephemeral live action (UI control/one‑off interaction) → `Actor.act` (called via ConversationManager)
+  - Durable, tracked work → `TaskScheduler.execute` (via `primitives.tasks.execute`)
+  - Never use `TaskScheduler.update` to start work; always use `execute`.
+- **File ingestion pipeline**
+  - `primitives.files.parse` → `primitives.knowledge.update` (to persist structured facts)
+- **Images**
+  - Images are referenced **by filesystem path** across the entire stack. Screenshot directories (`Screenshots/User/`, `Screenshots/Assistant/`) and other workspace paths serve as the universal cross‑manager pointer for visual content. Managers and plans reference images via their relative filepath — no special `images` parameter or structured ref types are needed at the public API boundary.
 
-The prompts in each prompt builder file should focus on the high level usage patterns, general guidance to the LLM, and specifically how to reason about the **composition** of tools, which tool to use in which scenario with contrastive explanations etc. However, in order to have a fully modular design and maximise our separation of concerns, it's very important that we do **not** bloat these prompts with any purely tool-specific information. This belongs exclusively in the tool's unique docstring (which the LLM gets access to). If the guidance is about deciding between two tools or using these tools together for complex composite behaviour, then it belongs in the prompt for the high-level public method in `prompt_builders.py`. If it's purely tool-specific, then it belongs in the tools own docstring.
+### ImageManager
+- **Role**: Persistent image store and metadata registry. Provides durable `image_id`‑keyed storage in the `Images` context, backing filesystem images with cloud persistence and queryable metadata.
+- **Data model & identity**:
+  - Every stored image has a unique numeric `image_id` (stable within the active assistant context).
+  - Image rows store base64 bytes or a cloud object URL, plus metadata (caption, timestamp, mime/type).
+  - Each image row carries an optional `filepath` field that records the local filesystem path the image was saved to. This is the bridge between the filesystem‑based reference convention and the persistent `Images` context.
+- **ImageHandle wrapper**:
+  - Internal code operates on an `ImageHandle` abstraction that wraps an image row and exposes:
+    - `image_id`, optional `caption`/metadata, `filepath`
+    - `raw()` → returns image bytes (resolves base64 vs signed URL transparently)
+    - `ask(question)` → sends the image to a vision‑capable model and returns a text answer
+- **Cross‑manager image convention**:
+  - **Filesystem paths are the universal image reference.** When images need to flow between managers (e.g., from `Actor` plans into `GuidanceManager.update`), they are referenced by their workspace‑relative filepath (e.g., `Screenshots/User/2026-02-16T14-30-45.jpg`). The receiving manager or its internal tools can resolve filepaths to `image_id`s via `ImageManager.filter_images(filter="filepath == '...'")` when persistent storage linkage is needed.
+  - Some managers accept an `images` parameter using `ImageRefs`/`AnnotatedImageRef` types for structured image attachment (e.g., `GuidanceManager.add_guidance` and `update_guidance` accept annotated image references to link visual content directly to guidance entries). This is the appropriate mechanism when a manager's data model has a first-class `images` field. The filesystem-path convention above applies at the *orchestration* boundary (Actor plans, cross-manager references); within a manager's own CRUD interface, structured image refs are the native format.
+- **Connections**:
+  - **Steered by**: managers that persist or query images (e.g., `GuidanceManager`, `TranscriptManager`).
+  - **Steers**: — (exposes image records/handles; managers decide when/how to query or persist images).
+
+### TaskScheduler
+- **Role**: Owner of durable tasks and their execution.
+- **Scope**: ask (read‑only about tasks), update (create/edit/delete/reorder tasks), execute (start tasks; returns live handle).
+- **Edge**: Never use `update` to "start" work; always start via `execute` (after any needed updates).
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.tasks.*`); `ConversationManager` (for direct task management).
+  - **Steers**: `Actor` (to run tasks via `execute`); exposes a live `ActiveTask` handle that is wired back through `ConversationManager` for steering.
+
+### KnowledgeManager
+- **Role**: Source of truth for domain knowledge.
+- **Scope**: ask (read‑only facts), update (create/change facts), refactor (schema restructuring across knowledge tables).
+- **Edge**: Parse with `FileManager`, then persist extracted facts with `KnowledgeManager.update`.
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.knowledge.*`).
+  - **Steers**: `FileManager` (for document parsing/ingestion in update/refactor flows); may read from the root `Contacts` table for joins (no direct `ContactManager` calls).
+
+### ContactManager
+- **Role**: Source of truth for people/contact records.
+- **Scope**: ask (read‑only), update (create/edit/delete/merge contacts).
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.contacts.*`); read‑only usage by `TranscriptManager.ask` (to resolve/compare contacts during transcript queries).
+  - **Steers**: —
+
+### TranscriptManager
+- **Role**: Store and retrieval surface for message transcripts.
+- **Scope**: ask (read‑only retrieval, filtering, analysis); may expose summarization in implementations.
+- **Edge**: Summarize conversations here; write long‑term distilled facts to `KnowledgeManager` if needed.
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.transcripts.*`).
+  - **Steers**: `ContactManager.ask` (for participant lookup/attributes in transcript answers).
+
+### FileManager
+- **Role**: Read‑only registry and parsing for received/downloaded files.
+- **Scope**: exists/list, parse, ask about a specific file (read‑only tool loop), describe (storage discovery).
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.files.*`).
+  - **Steers**: `DataManager` (internally delegates filter/search/reduce/join operations).
+
+### DataManager
+- **Role**: Low‑level data operations on any Unify context.
+- **Scope**: Canonical implementation of filter, search, reduce, join, insert, update, delete, vectorize, plot.
+- **Connections**:
+  - **Steered by**: `FileManager` (delegates data ops), `Actor` (via `primitives.data.*`).
+  - **Steers**: — (pure primitives module, no high‑level tool loops).
+
+### WebSearcher
+- **Role**: Lightweight, text-based retrieval engine for quick one-off internet queries (headlines, weather, definitions, current events).
+- **Scope**: ask only (search, extract, crawl, map against the public web); returns live handle. No gated-site access, no browser automation, no credentials. For authenticated or complex web workflows, use Tavily + SecretManager + ComputerPrimitives directly via code-first plans.
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.web.*`).
+  - **Steers**: — (results may subsequently be persisted via `KnowledgeManager.update` when requested).
+
+### SecretManager
+- **Role**: Owner of secrets.
+- **Scope**: ask (metadata/placeholder answers only), update (create/edit/delete secrets).
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.secrets.*`).
+  - **Steers**: —
+
+### BlacklistManager
+- **Role**: Catalogue of blocked contact details per communication medium (email, SMS, phone).
+- **Scope**: Primitive CRUD operations — filter/create/update/delete blacklist entries. No tool loops; purely programmatic.
+- **Connections**:
+  - **Steered by**: `Actor` (via `primitives.blacklist.*`); `ConversationManager` (for direct blacklist management).
+  - **Steers**: —
+
+### FunctionManager
+- **Role**: Catalogue of user‑supplied Python functions and metadata.
+- **Scope**: add/list/get_precondition/delete/filter/search over functions.
+- **Connections**:
+  - **Steered by**: `Actor` (loads/executes functions during actions). `GuidanceManager` reads function rows via the shared "Functions" context (no direct API calls).
+  - **Steers**: —
+
+
+### GuidanceManager
+- **Role**: Owner of procedural how-to information: step-by-step instructions, standard operating procedures, software usage walkthroughs, and strategies for composing functions together.
+- **Scope**: CRUD operations (search, filter, add_guidance, update_guidance, delete_guidance) exposed as first-class JSON tool calls on the CodeActActor — **not** as primitives. Read tools are gated by the discovery-first policy; write tools are available in the doing loop (for user-requested guidance storage) and the storage review loop (for compositional strategy extraction).
+- **Connections**:
+  - **Steered by**: `Actor` (via top-level `GuidanceManager_*` JSON tool calls, not primitives).
+  - **Steers**: reads functions from the shared "Functions" context to surface linked functions.
+
+### MemoryManager
+- **Role**: Offline memory maintenance (periodic, non‑interactive).
+- **Scope**: One‑shot methods that return strings (no live handles), e.g., updating contacts/knowledge from transcripts.
+- **Connections**:
+  - **Steered by**: Offline scheduler/controller (outside live chat orchestration).
+  - **Steers**: `ContactManager.update`, `KnowledgeManager.update` (to persist distilled facts from transcripts).
+
+### EventBus
+- **Role**: Cross‑cutting, in‑process publish/subscribe backbone and searchable event log used by all managers for telemetry and coordination.
+- **Scope**: Managers publish structured events (notably `ManagerMethod` for incoming/outgoing `ask`/`update`/`execute`) via a thin logging wrapper; the bus supports `publish`, `search` (filterable queries), `join_published`/`join_callbacks` for deterministic flushing, per‑type window sizing, auto‑pinning, and callback registration.
+- **Connections**:
+  - **Steered by**: All public manager methods (through the logging decorator) and other components that emit operational events.
+  - **Steers**: `MemoryManager` (registers callbacks to react to message and `ManagerMethod` events for maintenance workflows); tests and higher‑level orchestrators query the bus to observe recent activity.
+
+### Precedence and source of truth
+- **Code is canonical**: This guide is descriptive. If the implementation ever contradicts these descriptions or relationships, the current code takes precedence.
+- **Keep in sync**: As managers evolve, update this document alongside changes to cross‑manager wiring, public surfaces, or prompt composition so it remains accurate.
+- **Where to update**: Prefer updating manager base docstrings (public API contracts) and prompt builders for tool composition guidance, and reflect those changes here.
 
 ---
 > Source: [unifyai/unity](https://github.com/unifyai/unity) — distributed by [TomeVault](https://tomevault.io).
