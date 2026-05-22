@@ -1,0 +1,9 @@
+{
+  "name": "h3pei--trace-pr-nvim",
+  "displayName": "trace-pr.nvim",
+  "description": "Neovim plugin for effortless Pull Request tracing.",
+  "version": "1.0.0",
+  "author": "h3pei",
+  "homepage": "https://github.com/h3pei/trace-pr.nvim",
+  "skills": []
+}
