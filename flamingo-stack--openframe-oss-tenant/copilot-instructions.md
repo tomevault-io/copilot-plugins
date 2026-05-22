@@ -1,332 +1,427 @@
-## openframe-oss-tenant
+## api-design
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This document outlines the API design patterns and standards for the OpenFrame project.
 
-# CLAUDE.md
+# API Design
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This document outlines the API design patterns and standards for the OpenFrame project.
 
-## Essential Commands
+## RESTful API Design
 
-### Build Commands
-```bash
-mvn clean install                           # Build all Java services and libraries
-mvn clean install -DskipTests              # Build without running tests
-mvn test                                    # Run all tests
+### URL Structure
+
+- Use resource-based URLs
+- Use plural nouns for resource collections
+- Use hierarchical structure for nested resources
+- Use kebab-case for multi-word resource names
+- Include API version in the URL path
+
+Examples:
+```
+GET /api/v1/devices                  # Get all devices
+GET /api/v1/devices/{id}             # Get a specific device
+GET /api/v1/devices/{id}/scripts     # Get scripts for a device
+POST /api/v1/devices                 # Create a new device
+PUT /api/v1/devices/{id}             # Update a device
+DELETE /api/v1/devices/{id}          # Delete a device
 ```
 
-### Frontend (UI) Commands
-```bash
-cd openframe/services/openframe-frontend
-npm install                                 # Install dependencies
-npm run dev                                 # Start development server
-npm run build                               # Build for production
-npm run type-check                          # TypeScript type checking
+### HTTP Methods
+
+- Use appropriate HTTP methods for operations:
+  - GET: Retrieve resources
+  - POST: Create resources
+  - PUT: Update resources (full update)
+  - PATCH: Partial update of resources
+  - DELETE: Remove resources
+
+### Status Codes
+
+- Use appropriate HTTP status codes:
+  - 200 OK: Successful request
+  - 201 Created: Resource created successfully
+  - 204 No Content: Successful request with no response body
+  - 400 Bad Request: Invalid request parameters
+  - 401 Unauthorized: Authentication required
+  - 403 Forbidden: Authenticated but not authorized
+  - 404 Not Found: Resource not found
+  - 409 Conflict: Request conflicts with current state
+  - 422 Unprocessable Entity: Validation errors
+  - 500 Internal Server Error: Server-side error
+
+### Request/Response Format
+
+- Use JSON for request and response bodies
+- Use consistent property naming (camelCase)
+- Include appropriate content-type headers
+- Provide meaningful error messages
+- Use pagination for large collections
+- Support filtering, sorting, and field selection
+
+Example response:
+```json
+{
+  "data": [
+    {
+      "id": "123",
+      "hostname": "device-1",
+      "operatingSystem": "Windows",
+      "status": "online",
+      "lastSeen": "2023-04-01T12:00:00Z"
+    }
+  ],
+  "pagination": {
+    "total": 100,
+    "page": 1,
+    "pageSize": 10,
+    "totalPages": 10
+  }
+}
 ```
 
-### Rust Client Commands
-```bash
-cd client
-cargo build                                 # Build the Rust client
-cargo test                                  # Run Rust tests
-cargo run                                   # Run the client locally
+Example error response:
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid request parameters",
+    "details": [
+      {
+        "field": "hostname",
+        "message": "Hostname is required"
+      }
+    ]
+  }
+}
 ```
 
-### Local Development
-```bash
-# Platform-specific startup scripts:
-./scripts/run-mac.sh                        # macOS
-./scripts/run-linux.sh                      # Linux
-./scripts/run-windows.ps1                   # Windows PowerShell
+## GraphQL API Design
 
-# Silent mode (no prompts):
-./scripts/run-mac.sh --silent
+### Schema Design
+
+- Use descriptive type names
+- Follow naming conventions (PascalCase for types, camelCase for fields)
+- Define clear relationships between types
+- Use input types for mutations
+- Include appropriate descriptions for types and fields
+- Use enums for fixed sets of values
+
+Example schema:
+```graphql
+"""
+Represents a device in the system
+"""
+type Device {
+  "Unique identifier for the device"
+  id: ID!
+  "Hostname of the device"
+  hostname: String!
+  "Operating system of the device"
+  operatingSystem: String!
+  "Current status of the device"
+  status: DeviceStatus!
+  "When the device was last seen"
+  lastSeen: DateTime
+  "Scripts associated with this device"
+  scripts: [Script!]!
+}
+
+"""
+Status of a device
+"""
+enum DeviceStatus {
+  ONLINE
+  OFFLINE
+  MAINTENANCE
+}
+
+"""
+Input for creating a new device
+"""
+input CreateDeviceInput {
+  hostname: String!
+  operatingSystem: String!
+}
 ```
 
-### Docker Operations
-```bash
-# Note: Docker Compose files are located in integrated-tools/ directory
-# Individual service stacks can be found in their respective subdirectories:
-# - integrated-tools/tactical-rmm/
-# - integrated-tools/fleetmdm/
-# - integrated-tools/meshcentral/
-# - integrated-tools/authentik/
+### Query Design
+
+- Design queries around specific use cases
+- Support pagination for collections
+- Allow filtering and sorting
+- Enable field selection
+- Use arguments for customization
+- Consider query complexity and depth
+
+Example query:
+```graphql
+query GetDevices($status: DeviceStatus, $page: Int, $pageSize: Int) {
+  devices(status: $status, page: $page, pageSize: $pageSize) {
+    nodes {
+      id
+      hostname
+      operatingSystem
+      status
+      lastSeen
+    }
+    pageInfo {
+      totalCount
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
 ```
 
-## Architecture Overview
+### Mutation Design
 
-OpenFrame is a distributed microservices platform with the following core architecture:
+- Use descriptive names (createDevice, updateDevice, etc.)
+- Accept input types for arguments
+- Return the modified resource
+- Include error information in the response
+- Use consistent naming patterns
 
-### Service Layer
-- **openframe-gateway**: API Gateway with JWT authentication, WebSocket support, and tool proxy
-- **openframe-api**: GraphQL API service with OAuth2/OpenID Connect, user management
-- **openframe-management**: Administrative service with scheduled tasks and system management
-- **openframe-stream**: Stream processing service using Kafka for real-time data processing (NOT NiFi)
-- **openframe-config**: Spring Cloud Config Server for centralized configuration management
-- **openframe-client** (Java): Agent management and authentication service
-- **openframe-frontend**: Next.js 16 + React 19 + TypeScript frontend (consumes the external `@flamingo-stack/openframe-frontend-core` design system)
-
-### Client Agent
-- **client/** (Rust): Cross-platform system agent for monitoring and management
-
-### Shared Libraries
-- **openframe-data**: Data access layer (MongoDB, Cassandra, Redis, Kafka)
-- **openframe-jwt**: JWT security implementation with cookie support
-- **api-library**: Common API services and DTOs
-
-### Technology Stack
-
-#### Backend
-- **Runtime**: Java 21, Spring Boot 3.3.0, Spring Cloud 2023.0.3
-- **API**: GraphQL (Netflix DGS 7.0.0), RESTful services
-- **Security**: JWT with OAuth2, Spring Security, AES-256 encryption
-- **Data**: MongoDB 7.x, Cassandra 4.x, Apache Pinot 1.2.0, Redis
-- **Messaging**: Apache Kafka 3.6.0 for event streaming
-- **Processing**: OpenFrame Stream Service (custom data processing components)
-
-#### Frontend
-- **Framework**: Next.js 16 + React 19 with TypeScript 5.8 (App Router)
-- **UI Library**: `@flamingo-stack/openframe-frontend-core` — external shared design system. No custom UI primitives.
-- **Data Fetching**: `@tanstack/react-query` (no Apollo Client)
-- **State**: Zustand with immer
-- **Forms**: react-hook-form + zod
-- **Code Quality**: Biome (primary linter + formatter), Husky pre-commit
-- **Build**: Next.js (webpack or Turbopack)
-- See `openframe/services/openframe-frontend/CLAUDE.md` for the full conventions.
-
-#### Infrastructure
-- **Containerization**: Docker and Docker Compose
-- **Orchestration**: Kubernetes 1.28+ with Helm charts (manifests/)
-- **Monitoring**: Prometheus, Grafana, Loki for observability
-- **Service Mesh**: Istio 1.20 for traffic management
-
-## Key Development Patterns
-
-### Authentication Flow
-- Users authenticate through OAuth2/OpenID Connect via `openframe-api`
-- JWTs are stored in HTTP-only cookies for security (moved from Authorization headers)
-- Gateway converts cookies to Authorization headers for internal services
-- Agents use separate authentication flow with service accounts
-
-### Data Flow
-1. **Ingestion**: External tools → `openframe-stream` → Kafka topics
-2. **Processing**: Kafka → Stream Processing Service → enriched data → Cassandra/Pinot
-3. **API Layer**: GraphQL queries → MongoDB/Cassandra/Pinot → client responses
-4. **Real-time**: WebSocket connections through gateway for live updates
-
-### Service Communication
-- **External**: REST APIs through API Gateway
-- **Internal**: Direct service-to-service HTTP calls
-- **Async**: Kafka topics for event-driven communication
-- **Configuration**: Spring Cloud Config for centralized configuration
-
-## Project Structure
-
-```
-.
-├── openframe/                          # Java services and libraries
-│   ├── services/                       # Microservices
-│   │   ├── openframe-gateway/          # API Gateway (port routing)
-│   │   ├── openframe-api/              # GraphQL API and OAuth
-│   │   ├── openframe-management/       # Admin and scheduled tasks
-│   │   ├── openframe-stream/           # Kafka stream processing
-│   │   ├── openframe-config/           # Configuration server
-│   │   ├── openframe-client/           # Agent management service
-│   │   ├── openframe-external-api/     # External API integrations
-│   │   ├── openframe-authorization-server/ # Authorization server
-│   │   └── openframe-frontend/         # Next.js 16 + React 19 frontend
-│   └── libs/                           # Shared libraries
-│       ├── openframe-core/             # Core models and utilities
-│       ├── openframe-data/             # Data access layer
-│       ├── openframe-jwt/              # JWT security implementation
-│       └── api-library/                # Common API services
-├── client/                             # Rust system agent
-├── manifests/                          # Kubernetes Helm charts
-├── integrated-tools/                   # Docker configs for external tools
-├── scripts/                            # Development and deployment scripts
-└── docs/                               # Documentation (flattened structure)
-    ├── getting-started/                # Getting started guides
-    ├── development/                    # Development documentation
-    ├── api/                           # API documentation
-    ├── deployment/                    # Deployment guides
-    ├── operations/                    # Operations manual
-    ├── reference/                     # Technical reference
-    └── diagrams/                      # Architecture diagrams
+Example mutation:
+```graphql
+mutation CreateDevice($input: CreateDeviceInput!) {
+  createDevice(input: $input) {
+    device {
+      id
+      hostname
+      operatingSystem
+      status
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
 ```
 
-## Documentation Structure
+## API Gateway Patterns
 
-The documentation has been restructured into a comprehensive, flat hierarchy:
+### Routing
 
-### Main Sections
-- **getting-started/**: Introduction, prerequisites, quick start, first steps
-- **development/**: Complete development guide with architecture, setup, testing
-- **api/**: Authentication, GraphQL, REST, WebSocket documentation
-- **deployment/**: Local, Kubernetes, cloud deployment guides
-- **operations/**: Monitoring, logging, maintenance, troubleshooting
-- **reference/**: Technical reference for services, libraries, configuration
-- **diagrams/**: Visual architecture and system diagrams
+- Route requests based on path prefixes
+- Use consistent routing patterns
+- Support path rewriting for backend services
+- Handle versioning at the gateway level
 
-### Key Files
-- `docs/README.md`: Comprehensive master documentation index with navigation
-- `README.md`: Main project README with current architecture (no NiFi references)
-- Individual section READMEs provide detailed navigation within each area
-
-## Code Standards
-
-### Java/Spring Boot
-- Use Java 21 features (records, sealed classes, pattern matching)
-- Follow Spring Boot 3.x conventions and best practices
-- Constructor injection over field injection
-- Use `@ConfigurationProperties` for type-safe configuration
-- Implement proper exception handling with `@ControllerAdvice`
-- GraphQL DataFetchers in `openframe-api` for data access
-
-### React/TypeScript (openframe-frontend)
-- React 19 functional components; hooks at the top of the component, unconditionally (no hooks after early returns, no hooks inside try/catch)
-- TypeScript strict mode for all new code
-- Use components from `@flamingo-stack/openframe-frontend-core` — never create custom UI primitives
-- `@tanstack/react-query` for all server-state fetching; `useToast` (from core lib) is mandatory for API feedback
-- `react-hook-form` + `zod` for forms
-- Zustand stores for client state
-- ODS design tokens only — no hardcoded colors, hex values, or raw font sizes
-- See `openframe/services/openframe-frontend/CLAUDE.md` for the full set of conventions.
-
-### Rust
-- Use Tokio async runtime for I/O operations
-- Implement proper error handling with `anyhow` and `thiserror`
-- Follow Rust naming conventions (snake_case)
-- Use `serde` for serialization/deserialization
-
-## Testing Strategy
-
-### Java
-```bash
-mvn test                                # Run all tests
-mvn test -Dtest=ClassName               # Run specific test class
-mvn test -Dtest=ClassName#methodName    # Run specific test method
-```
-- Unit tests with JUnit 5 and Mockito
-- Integration tests with `@SpringBootTest`
-- Repository tests with `@DataMongoTest`
-- Web layer tests with `MockMvc`
-
-### Frontend
-```bash
-cd openframe/services/openframe-frontend
-npm run type-check                      # TypeScript validation
-npm run lint:biome                      # Biome lint + format check (pre-commit gate)
-npm run build                           # Production build verification
+Example gateway configuration:
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: device-service
+          uri: lb://device-service
+          predicates:
+            - Path=/api/v1/devices/**
+          filters:
+            - RewritePath=/api/v1/devices/(?<path>.*), /devices/$\{path}
 ```
 
-### Rust
-```bash
-cd client
-cargo test                              # Run all Rust tests
-cargo test test_name                    # Run specific test
+### Authentication and Authorization
+
+- Implement JWT authentication at the gateway
+- Validate tokens for each request
+- Include user information in request headers
+- Support role-based access control
+- Use consistent authorization patterns
+
+Example authentication filter:
+```java
+@Component
+public class JwtAuthenticationFilter implements WebFilter {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        ServerHttpRequest request = exchange.getRequest();
+        String token = extractToken(request);
+        
+        if (token != null && validateToken(token)) {
+            ServerHttpRequest modifiedRequest = request.mutate()
+                .header("X-User-Id", getUserIdFromToken(token))
+                .header("X-User-Roles", getRolesFromToken(token))
+                .build();
+            return chain.filter(exchange.mutate().request(modifiedRequest).build());
+        }
+        
+        return chain.filter(exchange);
+    }
+}
 ```
 
-## Security Considerations
+### Rate Limiting
 
-- All services use JWT authentication via HTTP-only cookies (NOT Authorization headers)
-- Agents authenticate with service account credentials
-- Database connections use encrypted credentials
-- External tool integrations proxy through gateway
-- CORS configured for frontend-backend communication
-- Rate limiting implemented at gateway level
+- Implement rate limiting at the gateway
+- Use consistent rate limiting policies
+- Configure limits based on client ID or user
+- Return appropriate status codes (429 Too Many Requests)
+- Include rate limit headers in responses
 
-## Local Development Setup
-
-1. **Prerequisites**: Java 21, Maven 3.9+, Docker 24.0+, Node.js 18+, Rust 1.70+ (for client)
-2. **GitHub Token**: Required for private repository access during setup
-3. **Run platform script**: `./scripts/run-mac.sh` (or equivalent for your OS)
-4. **Access URLs**:
-   - UI Dashboard: http://localhost:8080
-   - GraphQL API: http://localhost:8080/graphql
-   - Config Server: http://localhost:8888
-
-## Common Tasks
-
-### Adding New GraphQL Operations
-1. Add query/mutation to schema in `openframe-api`
-2. Implement DataFetcher class
-3. Register DataFetcher in DGS configuration
-4. Update frontend GraphQL queries
-
-### Adding New Microservice
-1. Create Maven module in `openframe/services/`
-2. Follow existing service structure (controller/service/repository)
-3. Add Docker configuration and Helm charts
-4. Register service routes in gateway configuration
-
-### Integrated Tool Connection
-1. Add tool configuration in `docker-compose.openframe-{tool}.yml`
-2. Implement connection logic in `openframe-client/ToolConnectionService`
-3. Add UI components for tool management
-4. Configure tool-specific data processing in `openframe-stream`
-
-### Documentation Updates
-1. Update relevant section in `docs/` hierarchy
-2. Update cross-references and navigation links
-3. Ensure consistency with master `docs/README.md`
-4. Verify all Mermaid diagrams render correctly
-
-## Architecture Notes (IMPORTANT)
-
-### What Changed
-- **Apache NiFi REMOVED**: Replaced with OpenFrame Stream Service throughout
-- **Authentication Method**: JWT moved from Authorization headers to HTTP-only cookies
-- **Documentation Structure**: Flattened from `docs/docs/` to `docs/`
-- **Apache Pinot**: Added to all relevant architecture diagrams and descriptions
-
-### Current Data Processing Pipeline
-```
-Data Sources → OpenFrame Stream Service → Kafka → [Cassandra/Pinot/MongoDB/Redis]
+Example rate limiting configuration:
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: device-service
+          uri: lb://device-service
+          predicates:
+            - Path=/api/v1/devices/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@userKeyResolver}"
 ```
 
-### DO NOT Reference
-- Apache NiFi (removed from project - NOTE: Some NiFi dependencies may still exist in pom.xml but should not be used)
-- Authorization header JWT (now uses cookies)
-- Nested `docs/docs/` structure (flattened)
+### Circuit Breaking
 
-### Performance Characteristics
-- **API Response Time**: < 200ms average
-- **Throughput**: 100,000 events/second
-- **Concurrent Users**: 10,000+ supported
-- **Availability**: 99.9% uptime SLA
+- Implement circuit breakers for backend services
+- Configure appropriate thresholds
+- Provide fallback responses
+- Monitor circuit breaker status
+- Use consistent circuit breaker patterns
 
-## Troubleshooting
-
-### Common Issues
-- **Service startup failures**: Check configuration and dependencies
-- **Database connection errors**: Verify connection strings and credentials
-- **Authentication issues**: Check JWT cookie configuration (not Authorization headers)
-- **Documentation links**: Use flat structure (`docs/section/` not `docs/docs/section/`)
-
-### Diagnostic Commands
-```bash
-# Service health
-curl http://localhost:8080/actuator/health
-
-# Service logs
-docker-compose logs -f service-name
-
-# Container status
-kubectl get pods --sort-by=memory
-
-# JWT token verification (cookies, not headers)
-curl -b cookies.txt http://localhost:8080/api/user/profile
+Example circuit breaker configuration:
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: device-service
+          uri: lb://device-service
+          predicates:
+            - Path=/api/v1/devices/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: deviceServiceCircuitBreaker
+                fallbackUri: forward:/fallback/devices
 ```
 
-## Integrated Tools
+## API Documentation
 
-Current integrations include:
-- **Tactical RMM**: IT management suite
-- **MeshCentral**: Remote management platform  
-- **Fleet MDM**: Mobile device management
-- **Authentik**: Identity provider
+### OpenAPI/Swagger
 
-Each tool has dedicated documentation in `docs/reference/tools/` and API documentation in `docs/api/tools/`.
+- Document all APIs using OpenAPI/Swagger
+- Include detailed descriptions for endpoints
+- Document request/response schemas
+- Provide examples
+- Document error responses
+- Include authentication requirements
+
+Example OpenAPI configuration:
+```java
+@Configuration
+public class OpenApiConfig {
+    @Bean
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+            .info(new Info()
+                .title("OpenFrame API")
+                .version("v1")
+                .description("API for OpenFrame platform"))
+            .components(new Components()
+                .addSecuritySchemes("bearer-jwt", new SecurityScheme()
+                    .type(SecurityScheme.Type.HTTP)
+                    .scheme("bearer")
+                    .bearerFormat("JWT")))
+            .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"));
+    }
+}
+```
+
+### API Versioning
+
+- Use explicit versioning in URLs
+- Support multiple API versions simultaneously
+- Document version differences
+- Provide migration guides
+- Use semantic versioning
+
+## Integration Patterns
+
+### Tool Integration
+
+- Use consistent integration patterns for external tools
+- Implement proxy endpoints for tool APIs
+- Handle authentication and authorization
+- Transform request/response formats as needed
+- Implement error handling and retries
+
+Example integration controller:
+```java
+@RestController
+@RequestMapping("/tools/{toolName}")
+public class IntegrationController {
+    private final ToolRegistry toolRegistry;
+    private final WebClient.Builder webClientBuilder;
+    
+    @GetMapping("/**")
+    public Mono<ResponseEntity<String>> proxyGetRequest(
+            @PathVariable String toolName,
+            ServerHttpRequest request) {
+        Tool tool = toolRegistry.getTool(toolName);
+        if (tool == null) {
+            return Mono.just(ResponseEntity.notFound().build());
+        }
+        
+        String path = extractPath(request);
+        return webClientBuilder.build()
+            .get()
+            .uri(tool.getBaseUrl() + path)
+            .headers(headers -> copyHeaders(request.getHeaders(), headers))
+            .retrieve()
+            .toEntity(String.class);
+    }
+    
+    // Additional methods for POST, PUT, DELETE, etc.
+}
+```
+
+### Event-Driven Integration
+
+- Use Kafka for event-driven integration
+- Define clear event schemas
+- Implement consistent event handling patterns
+- Use appropriate serialization formats
+- Handle event ordering and idempotency
+
+Example event producer:
+```java
+@Service
+public class DeviceEventProducer {
+    private final KafkaTemplate<String, DeviceEvent> kafkaTemplate;
+    
+    public void publishDeviceCreated(Device device) {
+        DeviceEvent event = new DeviceEvent(
+            UUID.randomUUID().toString(),
+            "DEVICE_CREATED",
+            LocalDateTime.now(),
+            device
+        );
+        
+        kafkaTemplate.send("device-events", device.getId(), event);
+    }
+}
+```
+
+## Best Practices
+
+1. **Consistency**: Use consistent patterns across all APIs
+2. **Simplicity**: Keep APIs simple and focused
+3. **Documentation**: Document all APIs thoroughly
+4. **Versioning**: Version APIs to support evolution
+5. **Security**: Implement proper authentication and authorization
+6. **Performance**: Optimize for performance and scalability
+7. **Monitoring**: Monitor API usage and performance
+8. **Testing**: Test APIs thoroughly
+9. **Error Handling**: Provide clear error messages
+10. **Pagination**: Use pagination for large collections
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
