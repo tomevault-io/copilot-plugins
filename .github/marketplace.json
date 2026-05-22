@@ -26299,6 +26299,11 @@
       "description": "search1api-mcp"
     },
     {
+      "name": "sepinetam--mcp-for-stata",
+      "source": "./sepinetam--mcp-for-stata",
+      "description": "Integrate Stata into your agent. "
+    },
+    {
       "name": "delbaoliveira--learn-claude-code",
       "source": "./delbaoliveira--learn-claude-code",
       "description": "learn-claude-code"
@@ -80649,6 +80654,11 @@
       "description": "Assist Service"
     },
     {
+      "name": "digitalocean--scale-with-simplicity",
+      "source": "./digitalocean--scale-with-simplicity",
+      "description": "Reference architectures to showcase how users can leverage DigitalOcean's robust cloud platform to build resilient, distributed systems at scale."
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -83927,6 +83937,16 @@
       "name": "just-understanding-data-ltd--supabase-tdd-boilerplate",
       "source": "./just-understanding-data-ltd--supabase-tdd-boilerplate",
       "description": "A repo showing how to do TDD with Supabase with orgs, teams, invitations with 3 layers of tests. Focusing on component/function (unit tests), integration tests for RLS + Supabase (RLS) and E2E tests w"
+    },
+    {
+      "name": "jbelew--nms-optimizer-web",
+      "source": "./jbelew--nms-optimizer-web",
+      "description": "Design the perfect starship layout or multitool build in No Man's Sky. Use smart optimization tools to maximize adjacency bonuses, supercharged slots, and overall performance."
+    },
+    {
+      "name": "jbelew--nms-optimizer-web",
+      "source": "./jbelew--nms-optimizer-web",
+      "description": "Design the perfect starship layout or multitool build in No Man's Sky. Use smart optimization tools to maximize adjacency bonuses, supercharged slots, and overall performance."
     },
     {
       "name": "khangbdd--phoenix",
@@ -87789,6 +87809,16 @@
       "description": "Opengrep playground: a desktop app to craft Opengrep rules"
     },
     {
+      "name": "blaxel-ai--sdk-python",
+      "source": "./blaxel-ai--sdk-python",
+      "description": "sdk-python"
+    },
+    {
+      "name": "blaxel-ai--sdk-python",
+      "source": "./blaxel-ai--sdk-python",
+      "description": "sdk-python"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -89847,6 +89877,11 @@
       "name": "it00021hot--heygem-api",
       "source": "./it00021hot--heygem-api",
       "description": "heygem-api"
+    },
+    {
+      "name": "sologuy--bookmarksummarizer",
+      "source": "./sologuy--bookmarksummarizer",
+      "description": "\ud83e\udde0 Turn Chrome bookmarks into a personal knowledge base with AI summaries. Supports OpenAI, Deepseek, Qwen, and Ollama."
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -91947,6 +91982,11 @@
       "name": "smorinlabs--py-launch-blueprint",
       "source": "./smorinlabs--py-launch-blueprint",
       "description": "A Production-Ready Python Project Template with Integrated Best Practices"
+    },
+    {
+      "name": "stephanj--mcpjavafilesystem",
+      "source": "./stephanj--mcpjavafilesystem",
+      "description": "MCPJavaFileSystem"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -94092,6 +94132,11 @@
       "name": "flutterkaigi--2025",
       "source": "./flutterkaigi--2025",
       "description": "FlutterKaigi 2025 Official Project"
+    },
+    {
+      "name": "jguimera--securitycopilotmcpserver",
+      "source": "./jguimera--securitycopilotmcpserver",
+      "description": "MCP Server that integrates with Security Copilot, Sentinel and other tools (in the future). It enhance the process of developing , testing and uploading Security Copilot artifacts. "
     },
     {
       "name": "lucianaib0318--geomind",
@@ -107064,6 +107109,11 @@
       "description": "JS TTS (Text to Speech) Wrapper Module enabling TTS for all TTS "
     },
     {
+      "name": "mit-han-lab--kernel-design-agents",
+      "source": "./mit-han-lab--kernel-design-agents",
+      "description": "kernel-design-agents"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -110252,6 +110302,16 @@
       "name": "tyrchen--patcher",
       "source": "./tyrchen--patcher",
       "description": "AI generated diff/patch algorithm"
+    },
+    {
+      "name": "atopile--packages",
+      "source": "./atopile--packages",
+      "description": "First-party packages \ud83d\udce6 from atopile"
+    },
+    {
+      "name": "atopile--packages",
+      "source": "./atopile--packages",
+      "description": "First-party packages \ud83d\udce6 from atopile"
     },
     {
       "name": "atopile--packages",
@@ -113459,6 +113519,16 @@
       "description": "Cogito: Computational framework employing a Syncretic Catalyst (synthesis) & rigorous Critique System (analysis) autonomously. Deeply accelerates your expert research on scientific literature via LLMs"
     },
     {
+      "name": "kdirectoryxo--kinkdirectory",
+      "source": "./kdirectoryxo--kinkdirectory",
+      "description": "Create personalized kink lists to explore your preferences and boundaries. Share them with partners or keep them private - you're in control."
+    },
+    {
+      "name": "push-based--cpu-prof",
+      "source": "./push-based--cpu-prof",
+      "description": "cpu-prof"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -116637,6 +116707,36 @@
       "name": "eduardocruz--phpx",
       "source": "./eduardocruz--phpx",
       "description": "PHPX is a PHP CLI that executes AI focused MCP servers writter in PHP and composer packages."
+    },
+    {
+      "name": "jenul-ferdinand--algorithms",
+      "source": "./jenul-ferdinand--algorithms",
+      "description": "FIT1008 + FIT2004 + FIT3155 from Computer Science at Monash University"
+    },
+    {
+      "name": "cogflows--promptcode-vscode",
+      "source": "./cogflows--promptcode-vscode",
+      "description": "PromptCode: The VS Code extension that saves the day when your AI code agent (Cursor, etc.) hits a wall. You're in control\u2014select files, craft precise prompts, and effortlessly apply fixes using your "
+    },
+    {
+      "name": "mariari--elixirgtbridge",
+      "source": "./mariari--elixirgtbridge",
+      "description": "ElixirGtBridge"
+    },
+    {
+      "name": "gonative-cc--sui-native",
+      "source": "./gonative-cc--sui-native",
+      "description": "Move packages for Native Bitcoin Chain Abstraction on Sui"
+    },
+    {
+      "name": "cogflows--promptcode-vscode",
+      "source": "./cogflows--promptcode-vscode",
+      "description": "PromptCode: The VS Code extension that saves the day when your AI code agent (Cursor, etc.) hits a wall. You're in control\u2014select files, craft precise prompts, and effortlessly apply fixes using your "
+    },
+    {
+      "name": "kajidog--mcp-tts-voicevox",
+      "source": "./kajidog--mcp-tts-voicevox",
+      "description": "VOICEVOX MCP Server (MCP Apps\u5bfe\u5fdc)"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -120097,6 +120197,41 @@
       "name": "freebsdgirl--kirishima",
       "source": "./freebsdgirl--kirishima",
       "description": "Kirishima AI"
+    },
+    {
+      "name": "nuri428--mcp-kipris",
+      "source": "./nuri428--mcp-kipris",
+      "description": "mcp server for kipris plus, for search patent in http://kipris.or.kr"
+    },
+    {
+      "name": "santiagocasas--clapp",
+      "source": "./santiagocasas--clapp",
+      "description": "CLAPP: CLASS LLM Agent for Pair Programming"
+    },
+    {
+      "name": "yournextstore--new-store",
+      "source": "./yournextstore--new-store",
+      "description": "Instant online stores from a single prompt."
+    },
+    {
+      "name": "yournextstore--new-store",
+      "source": "./yournextstore--new-store",
+      "description": "Instant online stores from a single prompt."
+    },
+    {
+      "name": "nuri428--mcp-kipris",
+      "source": "./nuri428--mcp-kipris",
+      "description": "mcp server for kipris plus, for search patent in http://kipris.or.kr"
+    },
+    {
+      "name": "yournextstore--new-store",
+      "source": "./yournextstore--new-store",
+      "description": "Instant online stores from a single prompt."
+    },
+    {
+      "name": "yournextstore--new-store",
+      "source": "./yournextstore--new-store",
+      "description": "Instant online stores from a single prompt."
     },
     {
       "name": "mohiwalla--memes",
@@ -124432,6 +124567,36 @@
       "name": "nathanbraun--nvim-ai",
       "source": "./nathanbraun--nvim-ai",
       "description": "nvim-ai"
+    },
+    {
+      "name": "zh30--get-suno-lyric",
+      "source": "./zh30--get-suno-lyric",
+      "description": "Get suno ai song lyrics"
+    },
+    {
+      "name": "tronbyt--tronberry",
+      "source": "./tronbyt--tronberry",
+      "description": "A daemon to fetch images from Tronbyt and display on a matrix LED display connected to a Raspberry Pi."
+    },
+    {
+      "name": "4kk11--rhinomcpserver",
+      "source": "./4kk11--rhinomcpserver",
+      "description": "RhinoMCPServer"
+    },
+    {
+      "name": "zh30--get-suno-lyric",
+      "source": "./zh30--get-suno-lyric",
+      "description": "Get suno ai song lyrics"
+    },
+    {
+      "name": "duckdb--ducklake-web",
+      "source": "./duckdb--ducklake-web",
+      "description": "\ud83c\udf0a DuckLake website and specification"
+    },
+    {
+      "name": "llm-implementation--practical-llm-implementation",
+      "source": "./llm-implementation--practical-llm-implementation",
+      "description": "Practical-LLM-Implementation"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -129122,6 +129287,46 @@
       "name": "lerianstudio--midaz-sdk-golang",
       "source": "./lerianstudio--midaz-sdk-golang",
       "description": "A Go client library for the Midaz financial ledger APIs. This SDK provides a flexible, and idiomatic way to interact with the Midaz platform, enabling developers to build robust financial applications"
+    },
+    {
+      "name": "hackclub--ships",
+      "source": "./hackclub--ships",
+      "description": "\ud83d\udea2 27,457 Ships, visualised"
+    },
+    {
+      "name": "starrybamboo--tuan-chat-web",
+      "source": "./starrybamboo--tuan-chat-web",
+      "description": "\u56e2\u5267\u5171\u521b\u7684\u524d\u7aef\u9875\u9762\u3002"
+    },
+    {
+      "name": "shapingthesilence--hexboard",
+      "source": "./shapingthesilence--hexboard",
+      "description": "HexBoard"
+    },
+    {
+      "name": "grcengineering--ocean",
+      "source": "./grcengineering--ocean",
+      "description": "OCEAN"
+    },
+    {
+      "name": "starrybamboo--tuan-chat-web",
+      "source": "./starrybamboo--tuan-chat-web",
+      "description": "\u56e2\u5267\u5171\u521b\u7684\u524d\u7aef\u9875\u9762\u3002"
+    },
+    {
+      "name": "devcobos--devcobos-setup",
+      "source": "./devcobos--devcobos-setup",
+      "description": "Interactive dev environment installer for WSL2 + Ubuntu \u2014 sets up Zsh, Starship, Docker, Node.js (fnm), Git, AWS, Terraform and make in one command. Includes Tokyo Night and SynthWave themes for Windo"
+    },
+    {
+      "name": "ballpointpenguin--artificial-u",
+      "source": "./ballpointpenguin--artificial-u",
+      "description": "Generate courses and lectures in an artificial university"
+    },
+    {
+      "name": "gojiplus--reporoulette",
+      "source": "./gojiplus--reporoulette",
+      "description": "Sample Random GitHub Repositories"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -134057,6 +134262,46 @@
       "name": "developersharif--php-gui",
       "source": "./developersharif--php-gui",
       "description": "Cross-platform GUI development package."
+    },
+    {
+      "name": "loonghao--dcc-mcp-maya",
+      "source": "./loonghao--dcc-mcp-maya",
+      "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem."
+    },
+    {
+      "name": "loonghao--dcc-mcp-maya",
+      "source": "./loonghao--dcc-mcp-maya",
+      "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem."
+    },
+    {
+      "name": "ronin15--voidlight-framework",
+      "source": "./ronin15--voidlight-framework",
+      "description": "SDL3 2D Game Framework implementing DOD, multi-threading and SIMD, with a focus on memory safety, efficiency, and speed."
+    },
+    {
+      "name": "loonghao--dcc-mcp-maya",
+      "source": "./loonghao--dcc-mcp-maya",
+      "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem."
+    },
+    {
+      "name": "stillya--vpet",
+      "source": "./stillya--vpet",
+      "description": "An IntelliJ IDEA plugin that brings cute pixel pet companions to your coding environment"
+    },
+    {
+      "name": "tkmfujise--redscribe",
+      "source": "./tkmfujise--redscribe",
+      "description": "Ruby-embedded DSL for Godot."
+    },
+    {
+      "name": "ronin15--voidlight-framework",
+      "source": "./ronin15--voidlight-framework",
+      "description": "SDL3 2D Game Framework implementing DOD, multi-threading and SIMD, with a focus on memory safety, efficiency, and speed."
+    },
+    {
+      "name": "obra--issue-cards",
+      "source": "./obra--issue-cards",
+      "description": "AI-optimized command line issue tracking tool"
     },
     {
       "name": "lightninglabs--lnget",
@@ -140547,6 +140792,51 @@
       "name": "orsenkucher--ra-tool",
       "source": "./orsenkucher--ra-tool",
       "description": "Claude Code integration with Rust Analyzer "
+    },
+    {
+      "name": "stevengonsalvez--agents-in-a-box",
+      "source": "./stevengonsalvez--agents-in-a-box",
+      "description": "context engineering for agentic coding"
+    },
+    {
+      "name": "linusaronsson--afa-benchmark",
+      "source": "./linusaronsson--afa-benchmark",
+      "description": "AFA-Benchmark"
+    },
+    {
+      "name": "indiesoftby--defold-page-visibility",
+      "source": "./indiesoftby--defold-page-visibility",
+      "description": "This extension for the Defold game engine provides a way to detect when the page is visible or hidden."
+    },
+    {
+      "name": "stoffel-labs--mpc-protocols",
+      "source": "./stoffel-labs--mpc-protocols",
+      "description": "MPC Protocols for the Stoffel framework"
+    },
+    {
+      "name": "quantumsos--nctssos-jl",
+      "source": "./quantumsos--nctssos-jl",
+      "description": "NCTSSoS.jl"
+    },
+    {
+      "name": "daveyburke--zaby",
+      "source": "./daveyburke--zaby",
+      "description": "Zaby Bear is an AI teddy bear powered by Gemini"
+    },
+    {
+      "name": "sharqiewicz--numora",
+      "source": "./sharqiewicz--numora",
+      "description": "Framework-agnostic numeric input library"
+    },
+    {
+      "name": "j0hng4lt--metabase-flightsql-driver",
+      "source": "./j0hng4lt--metabase-flightsql-driver",
+      "description": "Arrow Flight SQL driver for Metabase"
+    },
+    {
+      "name": "drdee--memory-mcp",
+      "source": "./drdee--memory-mcp",
+      "description": "An mcp server that you can use to store and retrieve ideas, prompt templates, personal preferences to use with you favourite AI tool that supports the modelcontextprovider protocol."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -160559,6 +160849,76 @@
       "description": "A German all day school supervision software"
     },
     {
+      "name": "thoughtpolice--a",
+      "source": "./thoughtpolice--a",
+      "description": "Fun playground and adventure game"
+    },
+    {
+      "name": "danmackinlay--openreview-finder",
+      "source": "./danmackinlay--openreview-finder",
+      "description": "Semantic search for openreviws conferences and journals"
+    },
+    {
+      "name": "wuujiawei--snail-todolist",
+      "source": "./wuujiawei--snail-todolist",
+      "description": "snail-todolist"
+    },
+    {
+      "name": "knowsuchagency--picocache",
+      "source": "./knowsuchagency--picocache",
+      "description": "Persistent memoization drop-in replacement for functools.lru_cache"
+    },
+    {
+      "name": "wuujiawei--snail-todolist",
+      "source": "./wuujiawei--snail-todolist",
+      "description": "snail-todolist"
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
+    },
+    {
+      "name": "wuujiawei--snail-todolist",
+      "source": "./wuujiawei--snail-todolist",
+      "description": "snail-todolist"
+    },
+    {
+      "name": "smolcars--react-native-nitro-ark",
+      "source": "./smolcars--react-native-nitro-ark",
+      "description": "Pure C++ NitroModule for Ark"
+    },
+    {
+      "name": "lijunchen--goml",
+      "source": "./lijunchen--goml",
+      "description": "goml"
+    },
+    {
+      "name": "aiddbot--aiddbot",
+      "source": "./aiddbot--aiddbot",
+      "description": "AI-Driven development helper bot"
+    },
+    {
+      "name": "imagewize--nynaeve",
+      "source": "./imagewize--nynaeve",
+      "description": "Modern WordPress theme with 25+ custom blocks, InnerBlocks architecture, Vite HMR, Tailwind CSS 4, and Laravel Blade. Built on Sage 11 + Acorn for professional developers."
+    },
+    {
+      "name": "torchfont--torchfont",
+      "source": "./torchfont--torchfont",
+      "description": "A Machine Learning Library for Vector Fonts"
+    },
+    {
+      "name": "ctoth--qlatt",
+      "source": "./ctoth--qlatt",
+      "description": "Explainable WebAudio Klatt formant synthesizer with declarative TTS frontend and WASM-backed AudioWorklet DSP"
+    },
+    {
+      "name": "icebreaker-template--uni-app-x-hbuilderx",
+      "source": "./icebreaker-template--uni-app-x-hbuilderx",
+      "description": "weapp-tailwindcss & uni-app x \u6a21\u677f "
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -170467,6 +170827,51 @@
       "name": "roboco-io--handson-vibecoding-demo",
       "source": "./roboco-io--handson-vibecoding-demo",
       "description": "handson-vibecoding-demo"
+    },
+    {
+      "name": "roboco-io--handson-vibecoding-demo",
+      "source": "./roboco-io--handson-vibecoding-demo",
+      "description": "handson-vibecoding-demo"
+    },
+    {
+      "name": "roboco-io--handson-vibecoding-demo",
+      "source": "./roboco-io--handson-vibecoding-demo",
+      "description": "handson-vibecoding-demo"
+    },
+    {
+      "name": "forcedotcom--datacloud-mcp-query",
+      "source": "./forcedotcom--datacloud-mcp-query",
+      "description": "datacloud-mcp-query"
+    },
+    {
+      "name": "educep--curso-chatbots",
+      "source": "./educep--curso-chatbots",
+      "description": "Para desarrolladores que desean profundizar en la implementaci\u00f3n de sistemas de Inteligencia Artificial basados en Modelos de Lenguaje de Gran Escala (LLMs)"
+    },
+    {
+      "name": "kriollo--ngrok-qr",
+      "source": "./kriollo--ngrok-qr",
+      "description": "Inicializador de ngrok y generador de c\u00f3digo QR para abrir desde un m\u00f3vil"
+    },
+    {
+      "name": "educep--curso-chatbots",
+      "source": "./educep--curso-chatbots",
+      "description": "Para desarrolladores que desean profundizar en la implementaci\u00f3n de sistemas de Inteligencia Artificial basados en Modelos de Lenguaje de Gran Escala (LLMs)"
+    },
+    {
+      "name": "timothe--ace-pace",
+      "source": "./timothe--ace-pace",
+      "description": "Keep up to date with One Pace releases"
+    },
+    {
+      "name": "sitar93--krono",
+      "source": "./sitar93--krono",
+      "description": "KRONO - Multi-modal Programmable Clock Generator"
+    },
+    {
+      "name": "jsell-rh--lockwire",
+      "source": "./jsell-rh--lockwire",
+      "description": "Encrypted Terminal Screen Sharing"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -275122,6 +275527,101 @@
       "name": "hobo1618--wsl-dotfiles",
       "source": "./hobo1618--wsl-dotfiles",
       "description": "config for wsl"
+    },
+    {
+      "name": "tier4--ota-image-libs",
+      "source": "./tier4--ota-image-libs",
+      "description": "OTA Image Version 1 Specification and reference Libraries and Tools Implementation. "
+    },
+    {
+      "name": "craigdallimore--taskchampion-jni",
+      "source": "./craigdallimore--taskchampion-jni",
+      "description": "JNI bindings to taskchampion"
+    },
+    {
+      "name": "lakarpusky--claude-epc-workflow",
+      "source": "./lakarpusky--claude-epc-workflow",
+      "description": "Multi-agent Claude Code setup for frontend dev. Orchestrator + specialists for JavaScript, React, testing, and Git. Tuned for Sonnet 4.6."
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "snowden-fu--mengmeng-pangpang",
+      "source": "./snowden-fu--mengmeng-pangpang",
+      "description": "mengmeng&pangpang"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "kimyoungyin--myblog",
+      "source": "./kimyoungyin--myblog",
+      "description": "\ub098\ub9cc\uc758 \uac1c\ubc1c \ube14\ub85c\uadf8 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "bigwhitewhite--next-template",
+      "source": "./bigwhitewhite--next-template",
+      "description": "next-template"
     }
   ]
 }
