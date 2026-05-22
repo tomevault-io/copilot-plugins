@@ -1,0 +1,44 @@
+{
+  "name": "promptcode-vscode",
+  "owner": "cogflows",
+  "repo": "promptcode-vscode",
+  "description": "PromptCode: The VS Code extension that saves the day when your AI code agent (Cursor, etc.) hits a wall. You're in control\u2014select files, craft precise prompts, and effortlessly apply fixes using your favorite LLM.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cogflows/promptcode-vscode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T21:00:46Z"
+}
