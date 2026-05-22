@@ -7,11 +7,11 @@ Generate courses and lectures in an artificial university
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ballPointPenguin/artificial-u](https://github.com/ballPointPenguin/artificial-u).
+Original source: `CLAUDE.md` in [ballPointPenguin/artificial-u](https://github.com/ballPointPenguin/artificial-u).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
