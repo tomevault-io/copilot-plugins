@@ -7,11 +7,11 @@ tattoo robot 🦾🖋️🎨
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hu-po/tatbot](https://github.com/hu-po/tatbot).
+Original source: `CLAUDE.md` in [hu-po/tatbot](https://github.com/hu-po/tatbot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
