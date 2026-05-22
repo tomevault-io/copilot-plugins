@@ -1,0 +1,19 @@
+## ui
+
+> Read `.agents/README.md`.
+
+# AGENTS.md
+
+Read `.agents/README.md`.
+
+# Custom Instructions
+
+- The demo of the project is a static HTML file. To generate it, run the command `templ generate && cd docs; go run ../demo/*.go; cd ..` from the root directory of the project.
+- You SHALL NOT use Go templates, stick to the a-h/templ engine;
+- You SHOULD attempt to use bg-neutral-50/5, 7.5 and 10 for the background color of the components;
+- You SHOULD separate component settings fields struct in required (above) and optional fields (below) with a comment line;
+- You SHOULD order component settings fields struct by importance first, then by alphabetical order;
+
+---
+> Source: [goinfinite/ui](https://github.com/goinfinite/ui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
