@@ -1,97 +1,59 @@
-## solidity-rules
+## ui-ux-rules
 
-> description: Guidelines and best practices for writing Solidity smart contracts in the ZK Mixer project.
+> description: Guidelines for UI/UX design, focusing on clarity, fluidity, and integrating the Uzumaki/Void aesthetic.
 
 ---
-description: Guidelines and best practices for writing Solidity smart contracts in the ZK Mixer project.
-globs: contracts/**/*.sol
+description: Guidelines for UI/UX design, focusing on clarity, fluidity, and integrating the Uzumaki/Void aesthetic.
+globs: ["frontend/src/**/*.js", "frontend/src/**/*.css"] # Apply to frontend components and styles
 alwaysApply: true
 ---
 
-- **General Principles**
-    - Follow the Checks-Effects-Interactions pattern to prevent reentrancy vulnerabilities.
-    - Use the latest stable Solidity version (currently `^0.8.20` as defined in contracts). Keep pragma version consistent across all contracts.
-    - Prioritize security and clarity over micro-optimizations, but be mindful of gas costs.
+- **Core Principle: Fluidity & Clarity First**
+    - **Goal**: Ensure deposit and withdrawal flows are intuitive, minimize steps, and reduce cognitive load.
+    - **Simplicity**: Present only necessary information and actions at each stage. Avoid clutter.
+    - **Guidance**: Lead the user clearly through multi-step processes (like withdrawal).
+    - **Clarity over Theme**: While the theme is important, user understanding and ease of use take precedence. If a thematic element confuses the flow, simplify it.
 
-- **Naming Conventions**
-    - `UpperCamelCase` for contracts, interfaces, libraries (e.g., `ZKMixer`, `IVerifier`, `PoseidonT3`).
-    - `mixedCase` for functions, state variables, local variables, and parameters (e.g., `deposit`, `merkleRoot`, `_commitment`).
-    - `ALL_CAPS_SNAKE_CASE` for constants (e.g., `DENOMINATION`, `MERKLE_TREE_HEIGHT`, `ZERO_VALUE`).
-    - `UpperCamelCase` for events (e.g., `Deposit`, `Withdrawal`).
-    - `UpperCamelCase` for custom errors (e.g., `InvalidProof`, `NullifierAlreadySpent`).
-    - Prepend parameters with an underscore (`_`) (e.g., `_commitment`, `_recipient`).
+- **Uzumaki/Void Aesthetic Integration**
+    - **Palette**:
+        - **Base**: Predominantly dark (e.g., deep blues, dark greys/charcoal, near-black).
+        - **Text**: High contrast (e.g., off-white, light grey) for readability.
+        - **Accents**: Use sparingly for key actions, highlights, or errors. Consider a specific "void blue/purple" for primary actions and a thematic red (like the reference image) for errors or destructive actions.
+    - **Motifs (Subtle)**:
+        - Incorporate spiral or abstract "void" elements subtly. Examples: faint background textures, loading spinners, section borders, hover effects.
+        - **Avoid**: Overuse that makes the UI busy or distracting. The theme should enhance, not dominate.
+    - **Typography**:
+        - Select a clean, highly readable sans-serif font for body text and UI elements.
+        - A slightly stylized, thematic font *may* be used for main headings (`h1`, `h2`) **only if** it remains easily legible and fits the overall aesthetic.
+    - **Animation & Transitions**:
+        - Use smooth, subtle transitions between states or views (e.g., fades).
+        - Loading animations (e.g., pulsing/spinning spirals) should be clean and not overly long or jarring.
 
-- **Code Structure & Layout**
-    - Order within contracts: Interfaces/Libraries imports, Type declarations, State variables, Events, Modifiers, Constructor, receive/fallback functions, external functions, public functions, internal functions, private functions.
-    - Use consistent indentation (4 spaces).
+- **Component & Flow Specifics**
+    - **Layout**: Maintain a consistent core layout (Header, Main Content, Footer). Use clear navigation (e.g., tabs in Header).
+    - **Buttons**: Clear, concise action labels. Consistent styling for primary, secondary, and disabled states. Ensure sufficient size for touch targets.
+    - **Inputs/Textareas**: Clear labels, placeholder text for guidance (e.g., note format). Provide immediate visual feedback for validation (e.g., border color change on note parse error).
+    - **Deposit Flow**: Straightforward denomination selection, clear "Deposit" button. Post-deposit flow must seamlessly transition to the Note Backup section.
+    - **Note Backup UI**:
+        - **Prominence**: Make this section visually distinct and unavoidable after deposit.
+        - **Warnings**: Use strong visual cues (e.g., icons 🚨, color) and concise text for security warnings.
+        - **Actions**: Clear "Copy" and "Download" buttons with feedback on success/failure (e.g., brief message "Copied!").
+    - **Withdrawal Flow**:
+        - Guide the user: 1. Input Note & Recipient -> 2. (Trigger Proof Generation - show loading) -> 3. Confirm Withdrawal Tx.
+        - Provide clear feedback during proof generation (this can take time).
+    - **Status Messages**:
+        - Use consistent placement (e.g., toasts, dedicated message area).
+        - Clear visual distinction between Info, Success, and Error states (color, icons).
+        - Messages should be concise and user-friendly. Avoid technical jargon where possible.
 
-- **Security Best Practices**
-    - **Input Validation**: Use `require()` statements with descriptive messages or custom errors for validating inputs and state conditions at the beginning of functions.
-        ```solidity
-        // ✅ DO
-        require(_commitment != bytes32(0), "Commitment cannot be zero");
-        // OR
-        if (_commitment == bytes32(0)) revert InvalidCommitment();
-        ```
-    - **Access Control**: Implement access control where necessary (e.g., using OpenZeppelin's `Ownable`).
-    - **Reentrancy**: Adhere strictly to Checks-Effects-Interactions. Use OpenZeppelin's `ReentrancyGuard` if complex external calls are unavoidable.
-    - **Arithmetic**: Rely on Solidity >=0.8 default checked arithmetic. Be explicit with `unchecked` blocks only when overflow/underflow is impossible or intended and clearly documented.
+- **Clarity & Help**
+    - **Tooltips**: Use for brief explanations of technical terms on hover (e.g., "Nullifier", "Commitment").
+    - **Help Text**: Place concise instructions or format examples near relevant inputs.
+    - **Info/Education Section**: Keep explanations simple and focused on user benefit (privacy) and core concepts (how the link is broken). Use visuals/diagrams if helpful.
 
-- **Gas Optimization**
-    - Minimize state variable writes (`SSTORE` is expensive).
-    - Use `immutable` for variables set only in the constructor (like `verifier`, `poseidonHasherAddress` if used).
-    - Use `constant` for true compile-time constants.
-    - Prefer `calldata` over `memory` for external function parameters where possible (especially for large data like proofs).
-    - Cache state variables in local memory variables if read multiple times within a function.
-
-- **Error Handling**
-    - Prefer custom errors over `require` strings for better gas efficiency and clearer error identification off-chain.
-        ```solidity
-        // ✅ DO
-        error InvalidProof();
-        // ...
-        if (!verifier.verifyProof(...)) revert InvalidProof();
-
-        // ❌ DON'T (Less gas efficient)
-        // require(verifier.verifyProof(...), "Invalid ZK proof");
-        ```
-
-- **Documentation (NatSpec)**
-    - Use NatSpec comments (`///` or `/** ... */`) for all public/external contracts, interfaces, functions, events, and state variables.
-    - Include `@title`, `@notice`, `@dev`, `@param`, `@return`.
-    - Explain the purpose and logic clearly.
-
-- **Testing**
-    - Aim for high test coverage using Hardhat (Mocha/Chai).
-    - Test edge cases, access control, failure conditions (reverts), and event emissions.
-    - **Hash Consistency Test:** Include tests specifically verifying that the hash function used in Solidity (e.g., `PoseidonT3.hash`) produces the **exact same output** as the hash function used in JavaScript tests (e.g., from `circomlibjs`) for known inputs (e.g., `H(0,0)`, `H(1,2)`). This catches crucial implementation discrepancies early.
-    - Use mocks for external dependencies (like `IVerifier`) *only* for isolated unit tests.
-
-- **Dependencies & Libraries**
-    - Use audited and well-maintained libraries like OpenZeppelin (`@openzeppelin/contracts`).
-    - Specify dependency versions clearly in `package.json`.
-    - **Crypto Libraries (e.g., Poseidon):**
-        - **Prefer Local Copy & Static Linking:** For critical cryptographic libraries needed by contracts (like Poseidon), **copy the library source code** (e.g., `PoseidonT3.sol`) into the local `contracts/libraries/` directory.
-        - **Import Locally:** Import the library using a relative path (e.g., `import "./libraries/PoseidonT3.sol";`).
-        - **Call Statically:** Call library functions statically (`PoseidonT3.hash(...)`) within the contract. Mark contract functions using them as `pure` or `view` accordingly.
-        - **Link in Deployment/Tests:** Use Hardhat's library linking mechand tests to link the contract with the deployed library address (e.g., `getContractFactory("ZKMixer", { libraries: { PoseidonT3: deployedPoseidonLibAddress } })`).
-        - This pattern avoids potential issues with calling external contracts via address and resolves linking ambiguities.
-
-- **ZK Mixer Specifics**
-    - **Merkle Trees**:
-        - Logic for calculating the root (`calculateMerkleRoot`) must be consistent with the off-chain library used (`@zk-kit/incremental-merkle-tree`) and the circuit verifier (`VerifyMerklePath`), especially regarding the `ZERO_VALUE` and padding.
-        - Ensure the tree height (`MERKLE_TREE_HEIGHT`) constant matches the circuit parameter.
-    - **Verifier & Proofs**:
-        - Use the generated `Verifier.sol` (implementing `IVerifier`) for on-chain verification.
-        - Define `IVerifier` in `contracts/interfaces/`.
-        - Ensure the public inputs array (`input`) in `ZKMixer.withdraw` matches *exactly* the order and format defined in the Circom circuit's `main {public [...]}` declaration. Document this mapping clearly.
-        - Pass proof data (`a`, `b`, `c`) as `calldata` for gas efficiency.
-    - **Commitments & Nullifiers**:
-        - Use `bytes32` consistently.
-        - **Hash Consistency:** CRITICAL: The Poseidon hash function used in Solidity (`PoseidonT3.sol` copied locally) MUST be consistent with the one used in JS tests (`circomlibjs`) and the one used in the Circom circuit (`circomlib/circuits/poseidon.circom`). Test this explicitly (see Testing section).
-        - Follow Checks-Effects-Interactions for nullifier spending.
-    - **Fixed Denomination**: Use `DENOMINATION` constant; check `msg.value`.
-    - **Relayer Logic**: Validate inputs; transfer to recipient first.
+- **Technical Considerations**
+    - **Responsiveness**: Ensure layout adapts cleanly to mobile, tablet, and desktop views using CSS media queries. Test on different screen sizes.
+    - **Accessibility (A11y)**: Maintain good color contrast ratios. Ensure keyboard navigability. Use semantic HTML elements. Provide ARIA attributes where necessary.
 
 ---
 > Source: [Zyra-V21/ZKUzumaki](https://github.com/Zyra-V21/ZKUzumaki) — distributed by [TomeVault](https://tomevault.io).
