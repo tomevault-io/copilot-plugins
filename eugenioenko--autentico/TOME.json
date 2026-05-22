@@ -1,0 +1,44 @@
+{
+  "name": "autentico",
+  "owner": "eugenioenko",
+  "repo": "autentico",
+  "description": "Autentico is a self-hosted OpenID Connect Identity Provider built with Go. It handles the full authentication lifecycle; login, MFA, passkeys, session management, token issuance, and administration. All in a single binary backed by SQLite.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eugenioenko/autentico",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T22:42:30Z"
+}
