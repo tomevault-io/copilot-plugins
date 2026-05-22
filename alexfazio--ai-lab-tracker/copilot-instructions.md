@@ -1,85 +1,280 @@
-## python
+## rich-library
 
-> Python Best Practices for Modern Python Development
+> This guide provides a standardized approach to using the Rich library for colored console output in Python projects, following the patterns established in the Claude Engineer project.
 
-Python Best Practices for Modern Python Development
+# Rich Console Styling Guide
 
-When generating code, finding bugs, or optimizing Python projects, follow these guidelines:
+## Overview
+This guide provides a standardized approach to using the Rich library for colored console output in Python projects, following the patterns established in the Claude Engineer project.
 
-General Guidelines
- - You are an expert AI (LLM) programming assistant focused on producing clear, readable Python code.
- - Always use Python 3.11.11 and be familiar with the latest features and best practices.
- - Provide accurate, factual, thoughtful answers, and excel at reasoning.
- - Follow the user’s requirements carefully & to the letter.
- - Think step-by-step. Describe your plan in detailed pseudocode before writing code.
- - Always confirm your understanding before writing code.
- - Write correct, up-to-date, bug-free, fully functional, secure, performant, and efficient code.
- - Prioritize readability over micro-optimizations.
- - Fully implement all requested functionality.
- - Minimize extraneous prose.
- - If you believe no correct answer exists, say so. If you do not know the answer, say so.
+## Core Components
 
-1. Version and Dependency Management
- - Use Python 3.11.11 as the default Python version.
- - Assume the use of `uv` for managing dependencies.
+### 1. Console Initialization
+```python
+from rich.console import Console
 
-2. Code Style and Typing
- - Adhere strictly to PEP 8 style guidelines.
- - Write strongly typed code using Python’s type hints wherever possible.
- - Provide concise docstrings (following PEP 257) for all functions, classes, and modules.
- - **When writing a new class, function, or module, always include a brief docstring that strictly follows PEP 8 guidelines.**
- - Keep an empty newline at the end of each Python module to avoid missing-final-newline linting errors.
- - Use a `@dataclass` when a function has many related arguments to avoid Pylint’s  
-   `Too many arguments (7/5)PylintR0913:too-many-arguments` and  
-   `Too many positional arguments (7/5)PylintR0917:too-many-positional-arguments` linter errors.
- - Use an f-string only when a variable or expression is inside of it.
- - **Never use an f-string that does not have any interpolated variables** to avoid `f-string-without-interpolationPylintW1309` linter errors.
- - When appropriate, use weak internal use indicator convention (underscore prefix, e.g., `_var_name`) to signify internal-only attributes and methods.
- - **Avoid redefining variables from an outer scope to prevent `Redefining name from outer scope` linter errors.**
+console = Console()
+```
 
-3. Concurrency
- - Prefer asynchronous (async/await) code over synchronous code where it makes sense.
- - Structure async code with clarity, ensuring tasks are well-defined and properly awaited.
+### 2. Color Scheme
+Use the following color scheme consistently:
 
-4. Code Organization
- - Prefer a functional approach over OOP if it results in cleaner, more maintainable code.
- - Write highly modular, testable Python modules.
- - Separate logical sections with:
-	```
-	# =================================================================================================
-	# SECTION
-	# =================================================================================================
-	```
-  to improve readability and organization.
+- **Red** (`[red]`): Errors, critical warnings, and failure states
+- **Green** (`[green]`): Success messages, positive indicators, and completed actions
+- **Yellow** (`[yellow]`): Warnings, medium-priority messages, and in-progress states
+- **Cyan** (`[cyan]`): Information, tool usage, and general output
+- **Blue** (`[blue]`): User input prompts and interactive elements
+- **Purple** (`[purple]`): Assistant responses and AI-generated content
+- **Bold** (`[bold]`): Emphasize important messages (can be combined with colors)
 
-5. Exception Handling
- - Never catch overly broad exceptions (e.g., Exception) unless absolutely necessary.
- - Always write specific exception handlers to avoid broad-exception-caught linting errors.
- - Use meaningful error messages and handle exceptions gracefully.
+### 3. Message Types and Styling
 
-6. Logging
- - Prefer logging statements over print for all console outputs.
- - Use lazy % formatting in logging calls to avoid logging-fstring-interpolation linting errors. For example:
-	```
-	import logging
+#### Error Messages
+```python
+# With variable interpolation
+error_message = "Failed to connect to database"
+console.print(f"[bold red]Error:[/bold red] {error_message}")
 
-	logging.info("User %s has logged in", username)
-	```
+# Without variable interpolation
+console.print("[red]Operation failed. Please try again.[/red]")
 
-7. Path and File Operations
- - Prefer pathlib over the os module for file and path operations because it is modern, object-oriented, and more readable.
+# With logging (using lazy formatting)
+import logging
+logging.error("Failed to connect to database: %s", error_message)
+```
 
-8. Testing
- - Write modular code with clear separation of concerns for easy unit testing.
- - Test critical paths thoroughly; integrate with a test runner (e.g., pytest) to ensure code reliability.
- - Provide fixtures and mocks as needed for async tests and functional components.
+#### Success Messages
+```python
+# With variable interpolation
+action = "installation"
+console.print(f"[bold green]Success![/bold green] {action} completed.")
 
-9. Final Notes
- - Always review and refactor code for maintainability, clarity, and performance.
- - If you see TODOs or placeholders, ignore them and leave them in their position, unless specifically requested by the user.
- - Aim for a clean, readable style that future developers (including your future self) can follow.
+# Without variable interpolation
+console.print("[green]Operation completed successfully.[/green]")
 
-By adhering to these best practices, you will produce Python code that is robust, maintainable, and efficient.
+# With logging
+logging.info("Operation completed successfully")
+```
+
+#### Warning Messages
+```python
+# With variable interpolation
+remaining_tokens = 1000
+console.print(f"[yellow]Warning:[/yellow] Only {remaining_tokens:,} tokens remaining")
+
+# Without variable interpolation
+console.print("[bold yellow]Attention:[/bold yellow] Please review the changes")
+
+# With logging
+logging.warning("Low token count: %d", remaining_tokens)
+```
+
+#### Information Messages
+```python
+# With variable interpolation
+input_data = "user input"
+console.print(f"[cyan]📥 Input:[/cyan] {input_data}")
+
+# Without variable interpolation
+console.print("[cyan]Processing request...[/cyan]")
+
+# With logging
+logging.info("Processing request")
+```
+
+#### Tool Usage
+```python
+# With variable interpolation
+tool_name = "code_editor"
+description = "Edits code files"
+console.print(f"[bold green]NEW[/bold green] 🔧 [cyan]{tool_name}[/cyan]: {description}")
+
+# Without variable interpolation
+console.print("[bold cyan]Available tools:[/bold cyan]")
+
+# With logging
+logging.info("New tool loaded: %s", tool_name)
+```
+
+#### Progress Indicators
+```python
+from rich.live import Live
+from rich.spinner import Spinner
+
+# Without variable interpolation
+console.print("[cyan]Processing...[/cyan]")
+
+# With Live display
+with Live(
+    Spinner('dots', text='Thinking...', style="cyan"),
+    refresh_per_second=10,
+    transient=True
+):
+    # Operation here
+    pass
+```
+
+### 4. Panels and Structured Output
+
+#### Basic Panel
+```python
+from rich.panel import Panel
+
+# With variable interpolation
+content = "Panel content"
+title = "Panel Title"
+console.print(
+    Panel(
+        content,
+        title=title,
+        title_align="left",
+        border_style="cyan",
+        padding=(1, 2)
+    )
+)
+
+# Without variable interpolation
+console.print(
+    Panel(
+        "Static content",
+        title="Static Title",
+        style="cyan"
+    )
+)
+```
+
+#### Status Panels
+```python
+# Success Panel with variable
+status = "completed"
+console.print(Panel(f"Operation {status} successfully", style="bold green"))
+
+# Warning Panel without variable
+console.print(Panel("Warning message", style="bold yellow"))
+
+# Error Panel with variable
+error_msg = "Connection failed"
+console.print(Panel(error_msg, title="Error", style="bold red"))
+```
+
+### 5. Progress Bars and Visual Indicators
+```python
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
+
+# With variable interpolation
+total_items = 100
+with Progress(
+    SpinnerColumn(),
+    TextColumn("[progress.description]{task.description}"),
+    BarColumn(),
+    TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    console=console
+) as progress:
+    task = progress.add_task("[cyan]Processing...", total=total_items)
+    # Update progress
+    progress.update(task, advance=1)
+```
+
+### 6. Tables
+```python
+from rich.table import Table
+from rich.box import ROUNDED
+
+# With variable interpolation
+data = [("Item 1", 100), ("Item 2", 200)]
+table = Table(box=ROUNDED)
+table.add_column("Name", style="cyan")
+table.add_column("Value", style="magenta")
+
+for name, value in data:
+    table.add_row(name, str(value))
+
+console.print(table)
+
+# With logging
+logging.debug("Table created with %d rows", len(data))
+```
+
+## Best Practices
+
+1. **PEP 8 Compliance**:
+   - Use 4 spaces for indentation
+   - Limit lines to 79 characters
+   - Use blank lines to separate functions and classes
+   - Use descriptive variable names in snake_case
+
+2. **F-string Usage**:
+   - Only use f-strings when interpolating variables
+   - Use regular strings for static content
+   - Format numbers with commas: `f"{number:,}"`
+
+3. **Logging Best Practices**:
+   - Use lazy formatting with `%s`, `%d`, etc.
+   - Include appropriate log levels
+   - Add context to log messages
+   - Use structured logging when possible
+
+4. **Color Usage**:
+   - Be consistent with color choices
+   - Use bold for emphasis
+   - Ensure sufficient contrast
+   - Consider color-blind users
+
+## Example Implementation
+
+```python
+import logging
+from rich.console import Console
+from rich.panel import Panel
+from rich.progress import Progress
+
+# Initialize components
+console = Console()
+logging.basicConfig(level=logging.INFO)
+
+def process_data(data_items):
+    """Process a list of data items with progress tracking."""
+    total_items = len(data_items)
+    
+    # Log start of operation
+    logging.info("Starting data processing for %d items", total_items)
+    
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+        console=console
+    ) as progress:
+        task = progress.add_task("[cyan]Processing...", total=total_items)
+        
+        for item in data_items:
+            try:
+                # Process item
+                result = process_single_item(item)
+                
+                # Update progress
+                progress.update(task, advance=1)
+                
+                # Log success
+                logging.debug("Processed item: %s", item)
+                
+            except Exception as e:
+                # Log error with context
+                logging.error("Failed to process item %s: %s", item, str(e))
+                console.print(f"[bold red]Error:[/bold red] {str(e)}")
+    
+    # Show completion message
+    console.print("[bold green]Processing completed successfully![/bold green]")
+```
+
+## Notes
+
+- All code examples follow PEP 8 style guidelines
+- F-strings are used only when variables are interpolated
+- Logging uses lazy formatting with `%s` placeholders
+- Color usage is consistent and follows accessibility guidelines
+- Examples include both simple and complex use cases
 
 ---
 > Source: [alexfazio/ai_lab_tracker](https://github.com/alexfazio/ai_lab_tracker) — distributed by [TomeVault](https://tomevault.io).
