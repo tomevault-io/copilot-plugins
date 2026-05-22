@@ -1,78 +1,55 @@
-## coding-standards
+## development-workflow
 
-> 项目使用 TypeScript 作为主要开发语言，配置文件为 [tsconfig.json](mdc:packages/core/tsconfig.json)。
+> 这是一个使用 pnpm 管理的 monorepo 项目，使用 [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) 配置工作区。
 
-# 编码规范指南
+# 开发工作流指南
 
-## TypeScript 规范
-项目使用 TypeScript 作为主要开发语言，配置文件为 [tsconfig.json](mdc:packages/core/tsconfig.json)。
+## 项目管理
+这是一个使用 pnpm 管理的 monorepo 项目，使用 [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) 配置工作区。
 
-### 类型定义
-- 所有导出的函数必须有完整的类型定义
-- 优先使用 TypeScript 内置类型
-- 复杂类型应该单独定义接口或类型别名
-- 避免使用 `any` 类型
+## 常用开发命令
+基于 [package.json](mdc:package.json) 中定义的脚本：
 
-### 导入导出规范
-```typescript
-// 推荐：具名导出，支持 Tree-shaking
-export { isEmpty, get, merge } from 'lodash-es';
-
-// 推荐：重新导出第三方库
-export { format, year } from 'dayjs';
-
-// 统一通过主入口文件导出
-// 参考 [index.ts](mdc:packages/core/src/index.ts)
+### 开发模式
+```bash
+pnpm dev              # 构建并启动开发模式
+pnpm build:watch      # 监听模式构建核心包
 ```
 
-## 模块组织
-### 目录结构
-- 按功能领域划分模块目录
-- 每个模块目录包含相关的工具函数
-- 使用 `index.ts` 作为模块入口文件
-
-### 命名规范
-- 文件名使用 kebab-case (小写字母+连字符)
-- 函数名使用 camelCase
-- 类型名使用 PascalCase
-- 常量使用 UPPER_SNAKE_CASE
-
-## 依赖管理
-### 第三方库集成
-项目的核心理念是集成常用的第三方库，避免用户重复安装：
-
-```typescript
-// 集成的库列表 (参考 README.zh_CN.md)
-- lodash-es      // 通用工具函数
-- dayjs          // 日期处理
-- ahooks         // React Hooks
-- ramda          // 函数式编程
-- axios          // 网络请求
-- @vueuse/core   // Vue Composables
-- qs             // URL 查询字符串
-- query-string   // 现代 URL 处理
-- pinyin-pro     // 中文拼音转换
-- big.js         // 精确数学计算
-- classnames     // CSS 类名处理
+### 示例项目开发
+```bash
+pnpm dev:react        # 启动 React 示例
+pnpm dev:vue          # 启动 Vue 示例  
+pnpm dev:taro:h5      # 启动 Taro H5 示例
+pnpm dev:taro:weapp   # 启动 Taro 微信小程序示例
 ```
 
-### Tree-shaking 支持
-- 使用 ES6 模块语法
-- 避免副作用导入
-- 确保所有导出都是具名导出
-- 配置正确的 `sideEffects: false`
+### 构建和测试
+```bash
+pnpm build            # 构建核心包
+pnpm test             # 运行所有测试
+pnpm clean            # 清理构建产物
+pnpm clean:all        # 清理所有依赖和构建产物
+```
 
-## 测试规范
-- 测试文件位于 [test/](mdc:packages/core/test) 目录
-- 使用 Vitest 作为测试框架
-- 测试配置参考 [vitest.config.ts](mdc:packages/core/vitest.config.ts)
-- 每个模块都应该有对应的测试文件
+### 发布
+```bash
+pnpm publish:jscommon      # 发布正式版本
+pnpm publish:jscommon:beta # 发布 beta 版本
+```
 
-## 构建配置
-- 使用 Vite 作为构建工具
-- 构建配置位于 [vite.config.ts](mdc:packages/core/vite.config.ts)
-- 支持多种输出格式 (ESM, CJS, UMD)
-- 生成完整的类型声明文件
+## 核心包开发
+核心包位于 [packages/core/](mdc:packages/core)，包含：
+- [src/](mdc:packages/core/src) - 源代码目录
+- [vite.config.ts](mdc:packages/core/vite.config.ts) - Vite 构建配置
+- [vitest.config.ts](mdc:packages/core/vitest.config.ts) - 测试配置
+- [test/](mdc:packages/core/test) - 测试文件
+
+## 技术栈
+- TypeScript - 主要开发语言
+- Vite - 构建工具
+- Vitest - 测试框架
+- pnpm - 包管理器
 
 ---
 > Source: [wolforest/jscommon](https://github.com/wolforest/jscommon) — distributed by [TomeVault](https://tomevault.io).
