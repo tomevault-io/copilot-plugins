@@ -1,0 +1,9 @@
+{
+  "name": "alexlmiller--cf-mail-relay",
+  "displayName": "cf-mail-relay",
+  "description": "Turnkey SMTP-to-Cloudflare-Email-Sending bridge: Docker SMTP relay + Cloudflare Worker + Pages admin UI. Pre-MVP.",
+  "version": "1.0.0",
+  "author": "alexlmiller",
+  "homepage": "https://github.com/alexlmiller/cf-mail-relay",
+  "skills": []
+}
