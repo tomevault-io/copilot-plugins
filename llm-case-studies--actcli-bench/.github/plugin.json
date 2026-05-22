@@ -1,0 +1,9 @@
+{
+  "name": "llm-case-studies--actcli-bench",
+  "displayName": "ActCLI-Bench",
+  "description": "Inter-AI facilitated sessions",
+  "version": "1.0.0",
+  "author": "llm-case-studies",
+  "homepage": "https://github.com/llm-case-studies/ActCLI-Bench",
+  "skills": []
+}
