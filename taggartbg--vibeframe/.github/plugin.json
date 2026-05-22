@@ -1,0 +1,9 @@
+{
+  "name": "taggartbg--vibeframe",
+  "displayName": "vibeframe",
+  "description": "VSCode Extension to enable UIs for MCP Servers (SSE)",
+  "version": "1.0.0",
+  "author": "taggartbg",
+  "homepage": "https://github.com/taggartbg/vibeframe",
+  "skills": []
+}
