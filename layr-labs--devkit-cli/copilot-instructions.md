@@ -1,150 +1,128 @@
-## devkit-cli
+## golang
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This document outlines coding standards, patterns, and best practices to be followed when developing Go applications and libraries for the `devkit-cli` project. These rules are based on general Go best practices and observed patterns within this
 
-# CLAUDE.md
+# Go Development Guidelines for devkit-cli
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This document outlines coding standards, patterns, and best practices to be followed when developing Go applications and libraries for the `devkit-cli` project. These rules are based on general Go best practices and observed patterns within this 
+codebase.
 
-## Project Overview
+## 0. Always..
 
-EigenLayer DevKit is a CLI toolkit for scaffolding, developing, and testing EigenLayer Autonomous Verifiable Services (AVS). It's built in Go and focuses on the Hourglass task-based architecture. The DevKit is currently in closed alpha and intended for local experimentation and development only.
+- Run `make tests` when completing a task to make sure the entire test suite passes
+- Run `make lint` to lint the code
 
-## Common Development Commands
+## 1. Code Formatting
 
-### Building and Testing
-```bash
-# Build the CLI binary
-make build
+- **`gofmt`/`goimports`**: All Go code **MUST** be formatted using `gofmt` or `goimports` before committing. This ensures consistent code style across the project. `goimports` is preferred as it also manages import statements.
+    - Configure your IDE to format on save.
+    - This is likely enforced by pre-commit hooks.
 
-# Run all tests (may be slow)
-make tests
+## 2. Naming Conventions
 
-# Run fast tests (skips slow integration tests) 
-make tests-fast
+- **Packages**:
+    - Package names **SHOULD** be short, concise, and all lowercase.
+    - Avoid overly generic names like `util` or `common` unless the package truly contains cross-cutting concerns. If so, sub-packages within `common` (e.g., `common/httputil`) are preferred.
+    - The project uses `pkg/common` for shared utilities (e.g., `logger`, context management), which is acceptable.
+- **Variables**:
+    - Local variables and function parameters **SHOULD** use `camelCase` (e.g., `myVariable`).
+    - Exported variables **MUST** use `PascalCase` (e.g., `ExportedVariable`).
+- **Functions and Methods**:
+    - Function and method names **SHOULD** use `camelCase` for unexported identifiers (e.g., `calculateValue`).
+    - Exported functions and methods **MUST** use `PascalCase` (e.g., `CalculateValue`).
+- **Interfaces**:
+    - Interfaces **SHOULD** be named with the `-er` suffix if they have only one method (e.g., `Reader`, `Writer`).
+    - For more complex interfaces, choose a name that describes its purpose (e.g., `DataStore`).
+- **Avoid Stutter**: Do not repeat package names in identifiers. For example, in package `logger`, prefer `logger.New()` over `logger.NewLogger()`.
+- **Acronyms**: Acronyms like HTTP, ID, URL **SHOULD** be consistently cased (e.g., `serveHTTP`, `userID`, `parseURL`). `PascalCase` for exported acronyms (e.g., `ServeHTTP`, `UserID`, `ParseURL`).
 
-# Install binary to ~/bin/ and set up shell completion
-make install
+## 3. Packages and Project Structure
 
-# Format code
-make fmt
+- **`cmd/`**: Main application(s). Each subdirectory in `cmd/` is a separate executable.
+- **`pkg/`**: Library code that can be used by other applications or projects. Code here should be designed to be reusable.
+    - CLI command logic is well-organized under `pkg/commands`.
+- **`internal/`**: Private application and library code. This is the ideal place for code that is specific to this project and should not be imported by other projects.
+    - The `internal/version` pattern for build-time variable injection is good.
+- **Clarity**: Package structure should clearly communicate the purpose and separation of concerns.
+- **Circular Dependencies**: Avoid circular dependencies between packages.
 
-# Run linter
-make lint
+## 4. Error Handling
 
-# Clean up build artifacts
-make clean
-```
+- **Explicit Handling**: Errors **MUST** be handled explicitly. Do not ignore errors using the blank identifier (`_`) unless there is a very specific and documented reason.
+- **Return Errors**: Functions that can fail **MUST** return an `error` as their last return value.
+- **Error Wrapping**: When an error is propagated up the call stack, it **SHOULD** be wrapped with additional context using `fmt.Errorf("operation X failed: %w", err)`. This preserves the original error and adds a stack of contextual information.
+    - Use `errors.Is()` and `errors.As()` from the standard `errors` package to inspect wrapped errors.
+- **Error Messages**: Error messages should be lowercase and not end with punctuation, as they are often combined with other context.
+- **Top-Level Handling**: In `main()` or top-level HTTP handlers, errors should be logged appropriately, and the program/request should terminate gracefully (e.g., `log.Fatal(err)` in `main.go` is acceptable for CLI startup).
 
-### Testing the CLI
-After building, test the CLI:
-```bash
-./bin/devkit --help
-./bin/devkit avs --help
-```
+## 5. Comments and Documentation
 
-### Cross-platform Builds
-```bash
-# Build for specific platforms
-make build/darwin-arm64
-make build/darwin-amd64  
-make build/linux-arm64
-make build/linux-amd64
+- **Godoc**: All exported identifiers (variables, constants, functions, types) **MUST** have Godoc comments.
+    - Comments should start with the name of the identifier they describe.
+    - Provide clear, concise explanations of what the identifier does, its parameters, and return values.
+- **Non-Obvious Code**: Add comments to explain complex, non-obvious, or surprising logic.
+- **TODOs**: Use `// TODO:` comments to mark areas that need future attention. Include context or a reference if possible.
 
-# Build all platforms
-make release
-```
+## 6. Logging
 
-## Architecture Overview
+- **Structured Logging**: Use a structured logging library like `zap` (as currently used in `pkg/common/logger/zap_logger.go`).
+- **Log Levels**: Use appropriate log levels (e.g., DEBUG, INFO, WARN, ERROR, FATAL).
+- **Contextual Information**: Include relevant contextual information in log messages (e.g., request IDs, user IDs) to aid debugging.
+- **Avoid Logging and Returning Errors**: Generally, a function should either log an error and handle it, or return the error to the caller to handle. Avoid doing both unless there's a specific reason. The caller is usually better positioned to decide if logging is appropriate.
 
-### CLI Command Structure
-The CLI is built with `urfave/cli/v2` and organized hierarchically:
-- **Main entry**: `cmd/devkit/main.go`
-- **Core commands**: All under `devkit avs` subcommand
-- **Command implementations**: `pkg/commands/` directory
+## 7. Concurrency
 
-Key commands:
-- `devkit avs create` - Scaffold new AVS projects from templates
-- `devkit avs build` - Compile contracts and binaries via template scripts
-- `devkit avs devnet` - Manage local Docker-based development networks
-- `devkit avs call` - Simulate task execution
-- `devkit avs config/context` - Configuration management
+- **Goroutines**: Use goroutines for concurrent operations. Ensure they are managed correctly (e.g., using `sync.WaitGroup` to wait for completion).
+- **Channels**: Prefer channels for communication between goroutines and for synchronization.
+- **`context.Context`**:
+    - Pass `context.Context` as the first argument to functions that perform I/O, long-running computations, or need to support cancellation or deadlines.
+    - The project correctly uses `context.Context` (e.g., `common.WithShutdown(context.Background())`).
+- **Race Conditions**: Be mindful of race conditions. Use the Go race detector (`go test -race`) during testing. Protect shared mutable state using mutexes (`sync.Mutex`, `sync.RWMutex`) or channels.
 
-### Configuration System
-Multi-layered configuration with migration support:
+## 8. Testing
 
-1. **Global Config** (`~/.config/devkit/config.yaml`): User preferences, telemetry settings
-2. **Project Config** (`config/config.yaml`): Project metadata, template info
-3. **Context Config** (`config/contexts/{context}.yaml`): Environment-specific settings (devnet, testnet, mainnet)
+- **File Naming**: Test files **MUST** be named `*_test.go`.
+- **Function Naming**: Test functions **MUST** be named `TestXxx` (where `Xxx` starts with an uppercase letter) and take `*testing.T` as a parameter.
+- **Coverage**: Strive for high test coverage. Use `go test -coverprofile=coverage.out && go tool cover -html=coverage.out` to inspect coverage.
+- **Table-Driven Tests**: Use table-driven tests for testing multiple scenarios of the same function with different inputs and expected outputs.
+- **Subtests**: Use `t.Run` to create subtests for better organization and output.
+- **Assertions**: Use standard library features or well-known assertion libraries if necessary. Avoid overly complex custom assertion logic.
+- **Mocks/Fakes**: Use fakes or mocks for dependencies, especially for external services or components that are hard to set up in a test environment.
 
-**Current Versions**: Config v0.0.2, Context v0.0.6
+## 9. API Design
 
-The system includes automatic migrations between versions via `pkg/migration/` that preserve user customizations.
+- **Interfaces**: Define interfaces on the consumer side where appropriate. This promotes loose coupling and makes code easier to test and mock.
+- **Simplicity**: Strive for simple and clear API designs. Avoid overly complex or numerous parameters.
+- **Return Values**: Be consistent with return value patterns (e.g., `(value, error)` or `(value, bool)`).
 
-### Template System Architecture
-Projects are scaffolded from versioned Git templates:
-- **Template registry**: `config/templates.yaml` defines available templates
-- **Template fetching**: `pkg/template/git_fetcher.go` handles Git operations
-- **Project initialization**: Templates provide `.devkit/scripts/init` for setup
-- **Build/run integration**: Templates provide `.devkit/scripts/build` and `.devkit/scripts/run`
+## 10. Dependency Management
 
-### Devnet System
-The devnet management system (`pkg/commands/devnet.go`) provides:
-- Local Docker-based Anvil chains with EigenLayer state forked from Holesky
-- Automated contract deployment (L1/L2)
-- Pre-funded test operators with BLS keystores
-- AVS registration and operator management
+- **Go Modules**: Use Go Modules (`go.mod`, `go.sum`) for dependency management.
+- **Tidy Modules**: Keep `go.mod` and `go.sum` tidy by running `go mod tidy` regularly.
+- **Dependency Updates**: Regularly review and update dependencies to incorporate security patches and bug fixes.
 
-### Package Organization
-- **`pkg/commands/`**: CLI command implementations
-- **`pkg/common/`**: Shared utilities, configuration, contracts, logging
-- **`pkg/template/`**: Git-based template management
-- **`pkg/telemetry/`**: PostHog analytics integration  
-- **`pkg/migration/`**: Configuration migration system
-- **`pkg/hooks/`**: Command lifecycle hooks
+## 11. Linters and Static Analysis
 
-## Key Dependencies
+- **`golangci-lint`**: Use `golangci-lint` or a similar comprehensive linter tool.
+    - A `.golangci.yml` configuration file should be present in the repository to define enabled linters and settings.
+    - Integrate linters into pre-commit hooks (as suggested by `.pre-commit-config.yaml`).
 
-- **Go 1.23.6+** required
-- **EigenLayer contracts**: `github.com/Layr-Labs/eigenlayer-contracts`
-- **Hourglass AVS**: `github.com/Layr-Labs/hourglass-monorepo/ponos`
-- **External tools**: Docker, Foundry, Zeus (npm package `@layr-labs/zeus@1.5.2`)
+## 12. CLI Specific (using `urfave/cli/v2`)
 
-## Development Environment Setup
+- **Command Structure**: Define commands and subcommands clearly, following the patterns in `pkg/commands/devnet.go`.
+- **Flags**: Use descriptive names and usage messages for flags. Provide sensible default values.
+- **Actions**: Command actions should encapsulate the logic for that command. Delegate complex logic to other packages/functions.
+- **Context Usage**: Utilize the `cli.Context` for accessing flags, arguments, and application-level values.
+- **Hooks**: Leverage hooks (e.g., `Before`, `After`) for common setup/teardown tasks, as seen with `hooks.LoadEnvFile` and `hooks.WithCommandMetricsContext`.
 
-1. Install prerequisites: Docker, Foundry, Go 1.23.6+, make, jq, yq
-2. Clone repository and run `make install`
-3. Zeus is automatically installed as npm global package during `make install`
+## 13. General Best Practices
 
-## Testing Patterns
-
-- Unit tests use standard Go testing
-- Integration tests may require Docker and external dependencies
-- Use `make tests-fast` for quick feedback during development
-- Integration tests in `test/integration/` directory
-
-## Configuration Migration
-
-When adding new configuration fields:
-1. Update config structs in `pkg/common/`
-2. Create migration in `config/configs/migrations/` or `config/contexts/migrations/`
-3. Update embedded config versions in `config/`
-4. Test migration with existing project configs
-
-## Template Development
-
-Templates must provide:
-- `.devkit/scripts/init` - Project initialization
-- `.devkit/scripts/build` - Build script for contracts/binaries
-- `.devkit/scripts/run` - Run script for AVS components
-- Standard Go project structure for task-based architecture
-
-## Telemetry System
-
-Optional PostHog-based telemetry with:
-- Global and project-level opt-in/opt-out
-- Privacy-conscious data collection
-- CI environment auto-detection (defaults to disabled)
+- **Keep it Simple (KISS)**: Prefer simple, readable code over overly clever or complex solutions.
+- **Don't Repeat Yourself (DRY)**: Avoid code duplication by abstracting common logic into functions or methods.
+- **Single Responsibility Principle (SRP)**: Functions and types should have a single, well-defined responsibility.
+- **Avoid `init()`**: Use `init()` functions sparingly. Explicit initialization in `main()` or via factory functions is often clearer.
+- **Avoid Global Variables**: Minimize the use of global variables. If used, ensure they are concurrency-safe. The version variables in `internal/version` are a common exception, typically set at build time.
+- **Resource Management**: Ensure resources like file handles, network connections, etc., are properly closed (e.g., using `defer`).
 
 ---
 > Source: [Layr-Labs/devkit-cli](https://github.com/Layr-Labs/devkit-cli) — distributed by [TomeVault](https://tomevault.io).
