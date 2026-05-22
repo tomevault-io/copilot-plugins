@@ -1,0 +1,9 @@
+{
+  "name": "gsinghjay--zodiac-engine",
+  "displayName": "zodiac-engine",
+  "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM.",
+  "version": "1.0.0",
+  "author": "gsinghjay",
+  "homepage": "https://github.com/gsinghjay/zodiac-engine",
+  "skills": []
+}
