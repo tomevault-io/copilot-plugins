@@ -4,7 +4,7 @@
   "repo": "monorepo-rocks",
   "description": "ARCHIVED: packages moved to https://github.com/jahands/workers-packages",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/monorepo-rocks/monorepo-rocks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T16:32:40Z"
+  "distributed_at": "2026-05-22T02:10:35Z"
 }
