@@ -1,10 +1,74 @@
-## inject-db-session-at-api-level
+## project-structure
 
-> When creating a new API endpoint, make sure to use dependency injection to create an asynchronous database session. Then inject the same session throughout the request lifecycle.
+> This rule contains instructions on how to structure the code. Note that the filenames in the existing structure is not fully correct; this will be fixed by refactoring.
 
-When creating a new API endpoint, make sure to use dependency injection to create an asynchronous database session. Then inject the same session throughout the request lifecycle.
+This rule contains instructions on how to structure the code. Note that the filenames in the existing structure is not fully correct; this will be fixed by refactoring.
 
-When creating functions in the service layer that require a database session, make sure to try to receive the database session from the API layer, and pass it between any service functions that require the session.
+Store all domain directories inside app folder
+app/ - highest level of an app, contains common models, configs, and constants, etc.
+app/main.py - root of the project, which inits the FastAPI app
+Each package has its own routes, schemas, models, etc.
+routes.py - is a core of each module with all the endpoints
+schemas.py - for pydantic models
+models.py - for db models
+service.py - module specific business logic
+dependencies.py - router dependencies
+constants.py - module specific constants and error codes
+config.py - e.g. env vars
+utils.py - non-business logic functions, e.g. response normalization, data enrichment, etc.
+exceptions.py - module specific exceptions, e.g. PostNotFound, InvalidUserData
+When package requires services or dependencies or constants from other packages - import them with an explicit module name
+<example-import-from-app>
+from app.auth import constants as auth_constants
+from app.notifications import service as notification_service
+from app.posts.constants import ErrorCode as PostsErrorCode  # in case we have Standard ErrorCode in constants module of each package
+</example-import-from-app>
+
+<example-structure>
+copilot-api
+├── app
+│   ├── alembic
+│   ├── auth
+│   │   ├── routes.py # FastAPI routes
+│   │   ├── schemas.py  # pydantic models
+│   │   ├── models.py  # db models
+│   │   ├── dependencies.py
+│   │   ├── config.py  # local configs
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   ├── service.py
+│   │   └── utils.py
+│   ├── bedrock
+│   │   ├── client.py  # client model for external service communication
+│   │   ├── schemas.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   └── utils.py
+│   └── chat
+│   │   ├── routes.py
+│   │   ├── schemas.py
+│   │   ├── models.py
+│   │   ├── dependencies.py
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   ├── service.py
+│   │   └── utils.py
+│   ├── config.py  # global configs
+│   ├── models.py  # global models
+│   ├── exceptions.py  # global exceptions
+│   ├── pagination.py  # global module e.g. pagination
+│   ├── database.py  # db connection related stuff
+│   └── main.py
+├── tests/
+│   ├── auth
+│   ├── bedrock
+│   └── posts
+├── .env
+├── .gitignore
+├── logging.ini
+└── alembic.ini
+</example-structure>
 
 ---
 > Source: [Government-Communication-Service/assist_service](https://github.com/Government-Communication-Service/assist_service) — distributed by [TomeVault](https://tomevault.io).
