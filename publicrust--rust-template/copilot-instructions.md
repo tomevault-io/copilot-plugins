@@ -1,21 +1,83 @@
-## tools
+## umod
 
-> | Tool                 | Purpose                                             | Key Usage Rules |
+> - Rust plugins for uMod use either `RustPlugin` (low-level) or `CovalencePlugin` (abstracted).
 
-# 🚀 Allowed Tools & Usage Policy
+# Plugin Architecture
 
-| Tool                 | Purpose                                             | Key Usage Rules |
-|----------------------|-----------------------------------------------------|-----------------|
-| **search_codebase**  | Vector RAG search across the project codebase (incl. `.knowlenge`). | • Ideal for “where is an example?” queries.<br>• Combine with `grepped_codebase` to narrow results. |
-| **grepped_codebase** | Keyword / RegExp search inside source files.        | • Fast exact‑string matching.<br>• Best used after `search_codebase` for precision. |
-| **search_web**       | Internet search (Google‑style).                     | • For external libs, docs, blog posts.<br>• May chain with `curl https://…` to fetch a page. |
-| **git clone <repo>** | Clone a third‑party repository.                      | • Clone **only** into `.knowlenge/`.<br>• Rename script files (`.cs`, etc.) to `.cstxt` to keep compilers silent. |
+- Rust plugins for uMod use either `RustPlugin` (low-level) or `CovalencePlugin` (abstracted).
+- Prefer `CovalencePlugin` unless you need direct access to `BasePlayer`, native hooks, or game internals.
+- `CovalencePlugin` provides cross-game compatibility and wraps players as `IPlayer`.
+- `RustPlugin` exposes full Rust-specific API: `BasePlayer`, `Item`, `Entity`, etc.
 
-## Global Restrictions
-1. All cloned repos and scratch files must live in `.knowlenge/`.
-2. After cloning, rename scriptable files to their `*.txt` equivalents so build tools ignore them.
-3. Recommended search flow:  
-   `search_codebase` → refine with `grepped_codebase` → fall back to `search_web` if needed.
+# Player Abstractions
+
+- Use `IPlayer` when working with Covalence API: it provides generic access to ID, name, permissions, etc.
+- Use `BasePlayer` when you need to:
+  - Access position, health, inventory, and direct Unity/GameObject data.
+  - Send custom messages, manipulate input/output, or work with Rust-specific state.
+
+Example:
+```csharp
+void TeleportPlayer(IPlayer player) {
+    var bp = player.Object as BasePlayer;
+    if (bp == null) return;
+    bp.Teleport(new Vector3(0, 100, 0));
+}
+```
+
+# Commands
+
+- Use `[Command("cmd")]` **only when inheriting from `CovalencePlugin`** and working with `IPlayer`.
+  - This is the unified Covalence command syntax for both chat and console.
+- Use `[ChatCommand("name")]` and `[ConsoleCommand("name")]` **only in `RustPlugin`**, with explicit player context via `BasePlayer` or `ConsoleSystem.Arg`.
+  - `[ChatCommand]`: triggered from in-game chat, like `/give`.
+  - `[ConsoleCommand]`: invoked from console (F1 or RCON), e.g., `global.god`.
+
+Examples:
+
+Using `RustPlugin`:
+```csharp
+[ChatCommand("hello")]
+void HelloCommand(BasePlayer player, string command, string[] args) {
+    player.ChatMessage("Hello world!");
+}
+
+[ConsoleCommand("myplugin.toggle")]
+void ToggleCmd(ConsoleSystem.Arg arg) {
+    Puts("Toggled from console");
+}
+```
+
+Using `CovalencePlugin`:
+```csharp
+[Command("version")]
+void CmdVersion(IPlayer player, string command, string[] args) {
+    player.Reply("Current version is 1.0");
+}
+```
+
+# Hooks and API
+
+- All plugin classes must inherit from `RustPlugin` or `CovalencePlugin`.
+- Use Rust-specific hooks (e.g. `OnEntityDeath`, `OnPlayerConnected`) only in `RustPlugin`.
+- `CovalencePlugin` supports generic hooks like `OnUserConnected`, `OnUserChat`.
+
+# Best Practices
+
+- Use `lang.RegisterMessages(...)` for multi-language support.
+- Use `permission.RegisterPermission(...)` for granular access.
+- Use `config` for persistent data and plugin options.
+- Use `Interface.Oxide.DataFileSystem` or `Interface.Oxide.Data` for storing plugin data.
+
+# Command Naming Convention
+
+- Use plugin-specific prefix for commands to avoid collisions, e.g., `/xf_fire`, `xf.toggle`.
+- Always check for player permissions before performing an action.
+
+# Safety
+
+- Always check null for `BasePlayer` and `IPlayer.Object`.
+- Never assume `player.Object` is valid in disconnected or delayed callbacks.
 
 ---
 > Source: [publicrust/rust-template](https://github.com/publicrust/rust-template) — distributed by [TomeVault](https://tomevault.io).
