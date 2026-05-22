@@ -1,17 +1,16 @@
-## security
+## testing
 
-> JoyWork backend security, input validation, and secret handling
+> JoyWork backend verification and testing expectations
 
 
-# JoyWork Backend Security
+# JoyWork Backend Testing
 
-- Never commit or expose secrets from `.env*`, JWT secrets, S3 credentials, SES credentials, cookies, or signed URLs.
-- Treat request bodies, query params, HTML, uploads, and third-party payloads as untrusted input and validate them before use.
-- Enforce authorization in backend routes and services, especially for company membership, ownership, and privileged downloads or writes.
-- Preserve upload restrictions for MIME type, file size, key prefix, and filename sanitization; avoid broad object deletion behavior.
-- Keep auth cookies and token-related responses aligned with the current security model; do not weaken `httpOnly`, env-based `secure`, or `sameSite` defaults casually.
-- Avoid leaking account existence or internal authorization details in user-facing error messages when a generic success or generic denial is safer.
-- Do not leak raw stack traces, Prisma internals, or sensitive operational details in API responses.
+- This repo has `vitest`, lint, and type-check scripts; for non-trivial backend changes, run the most relevant checks when practical.
+- At minimum, prefer `npm run lint` and `npm run type-check` for touched backend code, plus targeted tests if a related suite exists.
+- For endpoint changes, verify status codes, auth behavior, success envelope, and error envelope, not just the happy path.
+- For Prisma changes, confirm the migration is valid and the updated queries still match the selected fields and nullability assumptions.
+- Remember the current lint and type-check flow is centered on `src`; if a task touches scripts or non-covered paths, say clearly what was and was not validated.
+- Never report tests as passed unless they were actually run in this task.
 
 ---
 > Source: [vanchuong201/joywork-api](https://github.com/vanchuong201/joywork-api) — distributed by [TomeVault](https://tomevault.io).
