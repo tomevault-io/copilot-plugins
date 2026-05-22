@@ -1,0 +1,9 @@
+{
+  "name": "saharmor--simulatedev",
+  "displayName": "simulatedev",
+  "description": "Run AI coding agents like Cursor, Windsurf, and Claude Code via code and let them implement features all the way to a pull request",
+  "version": "1.0.0",
+  "author": "saharmor",
+  "homepage": "https://github.com/saharmor/simulatedev",
+  "skills": []
+}
