@@ -1,129 +1,63 @@
-## mcp-server-python-template
+## clean-code
 
-> description: Python best practices and patterns for modern software development with Flask and SQLite
+> description: Guidelines for writing clean, maintainable, and human-readable code. Apply these rules when writing or reviewing code to ensure consistency and quality.
 
 ---
-description: Python best practices and patterns for modern software development with Flask and SQLite
-globs: **/*.py, src/**/*.py, tests/**/*.py
+description: Guidelines for writing clean, maintainable, and human-readable code. Apply these rules when writing or reviewing code to ensure consistency and quality.
+globs: 
 ---
+# Clean Code Guidelines
 
-# Python Best Practices
+## Constants Over Magic Numbers
+- Replace hard-coded values with named constants
+- Use descriptive constant names that explain the value's purpose
+- Keep constants at the top of the file or in a dedicated constants file
 
-## Project Structure
-- Use src-layout with `src/your_package_name/`
-- Place tests in `tests/` directory parallel to `src/`
-- Keep configuration in `config/` or as environment variables
-- Store requirements in `requirements.txt` or `pyproject.toml`
-- Place static files in `static/` directory
-- Use `templates/` for Jinja2 templates
+## Meaningful Names
+- Variables, functions, and classes should reveal their purpose
+- Names should explain why something exists and how it's used
+- Avoid abbreviations unless they're universally understood
 
-## Code Style
-- Follow Black code formatting
-- Use isort for import sorting
-- Follow PEP 8 naming conventions:
-  - snake_case for functions and variables
-  - PascalCase for classes
-  - UPPER_CASE for constants
-- Maximum line length of 88 characters (Black default)
-- Use absolute imports over relative imports
+## Smart Comments
+- Don't comment on what the code does - make the code self-documenting
+- Use comments to explain why something is done a certain way
+- Document APIs, complex algorithms, and non-obvious side effects
 
-## Type Hints
-- Use type hints for all function parameters and returns
-- Import types from `typing` module
-- Use `Optional[Type]` instead of `Type | None`
-- Use `TypeVar` for generic types
-- Define custom types in `types.py`
-- Use `Protocol` for duck typing
+## Single Responsibility
+- Each function should do exactly one thing
+- Functions should be small and focused
+- If a function needs a comment to explain what it does, it should be split
 
-## Flask Structure
-- Use Flask factory pattern
-- Organize routes using Blueprints
-- Use Flask-SQLAlchemy for database
-- Implement proper error handlers
-- Use Flask-Login for authentication
-- Structure views with proper separation of concerns
+## DRY (Don't Repeat Yourself)
+- Extract repeated code into reusable functions
+- Share common logic through proper abstraction
+- Maintain single sources of truth
 
-## Database
-- Use SQLAlchemy ORM
-- Implement database migrations with Alembic
-- Use proper connection pooling
-- Define models in separate modules
-- Implement proper relationships
-- Use proper indexing strategies
+## Clean Structure
+- Keep related code together
+- Organize code in a logical hierarchy
+- Use consistent file and folder naming conventions
 
-## Authentication
-- Use Flask-Login for session management
-- Implement Google OAuth using Flask-OAuth
-- Hash passwords with bcrypt
-- Use proper session security
-- Implement CSRF protection
-- Use proper role-based access control
+## Encapsulation
+- Hide implementation details
+- Expose clear interfaces
+- Move nested conditionals into well-named functions
 
-## API Design
-- Use Flask-RESTful for REST APIs
-- Implement proper request validation
-- Use proper HTTP status codes
-- Handle errors consistently
-- Use proper response formats
-- Implement proper rate limiting
+## Code Quality Maintenance
+- Refactor continuously
+- Fix technical debt early
+- Leave code cleaner than you found it
 
 ## Testing
-- Use pytest for testing
-- Write tests for all routes
-- Use pytest-cov for coverage
-- Implement proper fixtures
-- Use proper mocking with pytest-mock
-- Test all error scenarios
+- Write tests before fixing bugs
+- Keep tests readable and maintainable
+- Test edge cases and error conditions
 
-## Security
-- Use HTTPS in production
-- Implement proper CORS
-- Sanitize all user inputs
-- Use proper session configuration
-- Implement proper logging
-- Follow OWASP guidelines
-
-## Performance
-- Use proper caching with Flask-Caching
-- Implement database query optimization
-- Use proper connection pooling
-- Implement proper pagination
-- Use background tasks for heavy operations
-- Monitor application performance
-
-## Error Handling
-- Create custom exception classes
-- Use proper try-except blocks
-- Implement proper logging
-- Return proper error responses
-- Handle edge cases properly
-- Use proper error messages
-
-## Documentation
-- Use Google-style docstrings
-- Document all public APIs
-- Keep README.md updated
-- Use proper inline comments
-- Generate API documentation
-- Document environment setup
-
-## Development Workflow
-- Use virtual environments (venv)
-- Implement pre-commit hooks
-- Use proper Git workflow
-- Follow semantic versioning
-- Use proper CI/CD practices
-- Implement proper logging
-
-## Dependencies
-- Pin dependency versions
-- Use requirements.txt for production
-- Separate dev dependencies
-- Use proper package versions
-- Regularly update dependencies
-- Check for security vulnerabilities
+## Version Control
+- Write clear commit messages
+- Make small, focused commits
+- Use meaningful branch names 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/sontallive)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/sontallive)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [sontallive/mcp-server-python-template](https://github.com/sontallive/mcp-server-python-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
