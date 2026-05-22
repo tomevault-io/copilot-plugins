@@ -1,0 +1,9 @@
+{
+  "name": "secondlook-hub--mfinder",
+  "displayName": "MFinder",
+  "description": "Native macOS file manager with Windows-Explorer-style layout (SwiftUI + AppKit)",
+  "version": "1.0.0",
+  "author": "secondlook-hub",
+  "homepage": "https://github.com/secondlook-hub/MFinder",
+  "skills": []
+}
