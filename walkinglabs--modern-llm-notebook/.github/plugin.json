@@ -1,0 +1,9 @@
+{
+  "name": "walkinglabs--modern-llm-notebook",
+  "displayName": "modern-llm-notebook",
+  "description": "A hands-on guide with 23 Jupyter Notebooks to master modern Large Language Models from the ground up, using PyTorch to implement core components like BPE Tokenizers, Multi-Head Attention, MoE, RLHF, a",
+  "version": "1.0.0",
+  "author": "walkinglabs",
+  "homepage": "https://github.com/walkinglabs/modern-llm-notebook",
+  "skills": []
+}
