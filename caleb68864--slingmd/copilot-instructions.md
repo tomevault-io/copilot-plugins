@@ -1,73 +1,64 @@
-## dotnet-framework-assembly-references
+## dotnet-framework-class-naming
 
-> description: Enforces .NET Framework assembly reference best practices
+> description: Enforces .NET Framework class naming conventions
 
 ---
-description: Enforces .NET Framework assembly reference best practices
-globs: ["*.cs", "*.csproj"]
+description: Enforces .NET Framework class naming conventions
+globs: "*.cs"
 ---
-# .NET Framework Assembly References
+# .NET Framework Class Naming
 
 <rule>
-name: dotnet_assembly_references
-description: Ensures proper assembly reference patterns and practices in .NET Framework
+name: dotnet_class_naming
+description: Ensures classes follow .NET Framework naming conventions and best practices
 filters:
   - type: file_extension
-    pattern: "\\.(cs|csproj)$"
+    pattern: "\\.cs$"
   - type: content
-    pattern: "(?:using|Reference Include|PackageReference)"
+    pattern: "\\bclass\\s+[\\w]+"
 
 actions:
   - type: reject
     conditions:
-      - pattern: "using\\s+[^\\s;]+\\s*=\\s*[^\\s;]+\\s*;"
-        message: "Avoid using aliases unless absolutely necessary for conflict resolution"
-      - pattern: "using\\s+static"
-        message: "Avoid using static directives unless absolutely necessary"
-      - pattern: "<Reference\\s+Include=\".*?\\.dll\""
-        message: "Use NuGet packages instead of direct DLL references when possible"
-      - pattern: "using\\s+System\\s*;\\s*using\\s+System\\..*;"
-        message: "Group System namespaces together"
+      - pattern: "\\bclass\\s+[a-z]"
+        message: "Class names must start with an uppercase letter"
+      - pattern: "\\bclass\\s+I[A-Z]"
+        message: "Class names should not start with 'I' (reserved for interfaces)"
+      - pattern: "\\bclass\\s+_"
+        message: "Class names should not start with an underscore"
+      - pattern: "\\bclass\\s+.*Base$"
+        message: "Avoid using 'Base' suffix for non-abstract classes"
 
   - type: suggest
     message: |
-      Assembly reference guidelines:
-      1. Organize using directives:
-         - System namespaces first
-         - Third-party namespaces next
-         - Project namespaces last
-         - Alphabetical order within groups
-      2. Remove unused using directives
-      3. Prefer NuGet packages over direct DLL references
-      4. Use specific namespaces over wildcards
-      5. Keep references minimal and necessary
-      6. Version consistency in package references
+      Class naming guidelines:
+      1. Use PascalCase
+      2. Start with an uppercase letter
+      3. Use nouns or noun phrases
+      4. Be descriptive and clear
+      5. Avoid prefixes
+      6. Consider using suffix patterns:
+         - Exception → for custom exceptions
+         - Collection → for collection classes
+         - Manager/Service → for service classes
+         - Factory → for factory pattern implementations
 
 examples:
   - input: |
-      using System.Collections;
-      using MyCompany.Project;
-      using System;
-      using static System.Math;
-      using Col = System.Collections;
+      class myClass
+      class _Helper
+      class IManager
+      class baseController
     output: |
-      using System;
-      using System.Collections;
-      
-      using MyCompany.Project;
-
-  - input: |
-      <Reference Include="ThirdParty.dll" />
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    output: |
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      class MyClass
+      class Helper
+      class Manager
+      class Controller
 
 metadata:
   priority: high
   version: 1.0
-</rule>
- 
+</rule> 
 
 ---
 > Source: [Caleb68864/SlingMD](https://github.com/Caleb68864/SlingMD) — distributed by [TomeVault](https://tomevault.io).
