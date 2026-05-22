@@ -1,0 +1,9 @@
+{
+  "name": "nibzard--labruno-agent",
+  "displayName": "labruno-agent",
+  "description": "Labruno is an agent coordinator that creates multiple AI solutions to your coding tasks using parallel sandboxes and evaluates them to find the best implementation.",
+  "version": "1.0.0",
+  "author": "nibzard",
+  "homepage": "https://github.com/nibzard/labruno-agent",
+  "skills": []
+}
