@@ -1,0 +1,9 @@
+{
+  "name": "benjisho--windows-mtr",
+  "displayName": "windows-mtr",
+  "description": "Windows\u2011native clone of Linux mtr! It's a cross\u2011platform Rust CLI that delivers ICMP/TCP/UDP traceroute & ping in a single portable executable (`mtr.exe`). | Built by Benji Shohet (benjisho).",
+  "version": "1.0.0",
+  "author": "benjisho",
+  "homepage": "https://github.com/benjisho/windows-mtr",
+  "skills": []
+}
