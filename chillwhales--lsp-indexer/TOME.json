@@ -4,7 +4,7 @@
   "repo": "lsp-indexer",
   "description": "The LSP Indexer is an open-source project designed to listen for important events on the LUKSO blockchain and extract valuable information from them.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chillwhales/lsp-indexer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T17:13:39Z"
+  "distributed_at": "2026-05-22T17:26:03Z"
 }
