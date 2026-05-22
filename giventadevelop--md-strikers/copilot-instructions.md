@@ -1,315 +1,360 @@
-## conditional-layout-separation
+## cursor-rules
 
-> Pattern for creating separate layouts for different sections/routes in Next.js App Router
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
-# Conditional Layout Separation Pattern
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-## **Overview**
-This pattern enables creating completely separate layouts for different sections of a Next.js application while maintaining a single root layout. Useful for creating public sections (like marketing sites, documentation, or church websites) that need different styling and navigation from the main authenticated application.
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
-## **Problem Solved**
-- **Layout Duplication**: Prevents main app header/footer from showing alongside section-specific headers/footers
-- **Authentication Separation**: Allows public sections to work without authentication requirements
-- **Styling Isolation**: Enables completely different design systems for different sections
-- **Hydration Issues**: Avoids Next.js App Router hydration errors from nested HTML tags
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
 
-## **Implementation Pattern**
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
-### **1. Create ConditionalLayout Component**
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-```typescript
-// src/components/ConditionalLayout.tsx
-'use client';
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
-import React from 'react';
-import { usePathname } from 'next/navigation';
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules
 
-interface ConditionalLayoutProps {
-  children: React.ReactNode;
-  header: React.ReactNode;
-  footer: React.ReactNode;
-}
+- **Environment Variable Loading (Production & Amplify/AWS Lambda Ready)**
+  - Lazily load environment variables inside functions, not at module top-level
+  - Use a helper function to check for multiple prefixes (e.g., `AMPLIFY_`, `AWS_AMPLIFY_`, and no prefix)
+  - Support both server and client contexts (Next.js config and `process.env`)
+  - Example: See `getStripeEnvVar` in [`src/lib/stripe/init.ts`](mdc:src/lib/stripe/init.ts)
 
-export default function ConditionalLayout({ children, header, footer }: ConditionalLayoutProps) {
-  const pathname = usePathname();
-
-  // Define which routes should use separate layout
-  const isSeparateLayoutRoute = pathname?.startsWith("/section-prefix") ?? false;
-
-  // For separate layout routes, just render children (section handles its own header/footer)
-  if (isSeparateLayoutRoute) {
-    return <>{children}</>;
+- **Next.js Environment Variables in Production (AWS Amplify)**
+  - **CRITICAL**: All environment variables must be declared in the `env` section of [`next.config.mjs`](mdc:next.config.mjs) to be available at runtime in production
+  - Environment variables set in AWS Amplify console are not automatically available unless explicitly declared in Next.js config
+  - **AWS Amplify Environment Variable Pattern**: AWS Amplify prefixes environment variables with `AMPLIFY_` in the runtime, even if you set them without the prefix in the console
+  - **NEXT_PUBLIC_ Variables in AWS Amplify**: `NEXT_PUBLIC_` prefixed variables may not be available in server-side contexts (API routes, server components) in AWS Amplify production environment
+  - ✅ DO: Use `AMPLIFY_` prefixed variables for AWS Amplify deployments with fallbacks for local development
+  ```javascript
+  // next.config.mjs
+  env: {
+    // API JWT credentials - prioritize AMPLIFY_ prefix for AWS Amplify
+    API_JWT_USER: process.env.AMPLIFY_API_JWT_USER || process.env.API_JWT_USER,
+    API_JWT_PASS: process.env.AMPLIFY_API_JWT_PASS || process.env.API_JWT_PASS,
+    AMPLIFY_API_JWT_USER: process.env.AMPLIFY_API_JWT_USER,
+    AMPLIFY_API_JWT_PASS: process.env.AMPLIFY_API_JWT_PASS,
+    // Keep fallbacks for local development
+    NEXT_PUBLIC_API_JWT_USER: process.env.NEXT_PUBLIC_API_JWT_USER,
+    NEXT_PUBLIC_API_JWT_PASS: process.env.NEXT_PUBLIC_API_JWT_PASS,
   }
-
-  // For main app routes, render the full layout with header and footer
-  return (
-    <>
-      {header}
-      <div className="flex-1 flex flex-col">
-        {children}
-      </div>
-      {footer}
-    </>
-  );
-}
-```
-
-### **2. Update Root Layout**
-
-```typescript
-// src/app/layout.tsx
-import ConditionalLayout from "../components/ConditionalLayout";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>
-        <ClerkProvider>
-          <TrpcProvider>
-            <ConditionalLayout
-              header={<Header hideMenuItems={false} />}
-              footer={<Footer />}
-            >
-              {children}
-            </ConditionalLayout>
-          </TrpcProvider>
-        </ClerkProvider>
-      </body>
-    </html>
-  );
-}
-```
-
-### **3. Create Section-Specific Layout**
-
-```typescript
-// src/app/section-prefix/layout.tsx
-import React from 'react';
-import { Metadata } from 'next';
-import SectionHeader from './components/SectionHeader';
-import SectionFooter from './components/SectionFooter';
-import './section-globals.css'; // Section-specific styles
-
-export const metadata: Metadata = {
-  title: {
-    template: '%s | Section Name',
-    default: 'Section Name',
-  },
-  description: 'Section-specific description',
-};
-
-interface SectionLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function SectionLayout({ children }: SectionLayoutProps) {
-  return (
-    <div className="section-layout min-h-screen bg-section-background flex flex-col">
-      <SectionHeader />
-
-      <main className="section-main flex-1">
-        {children}
-      </main>
-
-      <SectionFooter />
-    </div>
-  );
-}
-```
-
-### **4. Create Section-Specific Styling**
-
-```css
-/* src/app/section-prefix/section-globals.css */
-@import '../globals.css';
-
-/* Override main app styles for section */
-body {
-  background-color: var(--section-background) !important;
-  color: var(--section-foreground) !important;
-  font-family: 'SectionFont', sans-serif !important;
-}
-
-/* Section-specific CSS variables */
-:root {
-  --section-background: #F5F1E8;
-  --section-foreground: #2D2A26;
-  --section-primary: #8B7D6B;
-  /* ... other section-specific variables */
-}
-
-/* Section layout isolation */
-.section-layout {
-  background-color: var(--section-background) !important;
-  color: var(--section-foreground) !important;
-}
-
-/* Override any conflicting main app styles */
-.section-layout * {
-  box-sizing: border-box;
-}
-```
-
-### **5. Update Middleware for Public Routes**
-
-```typescript
-// src/middleware.ts
-export default authMiddleware({
-  publicRoutes: [
-    "/",
-    "/section-prefix",
-    "/section-prefix/(.*)",
-    // ... other public routes
-  ],
-  // ... rest of middleware config
-});
-```
-
-## **Key Implementation Details**
-
-### **Route Detection Logic**
-```typescript
-// Single section
-const isSeparateLayoutRoute = pathname?.startsWith("/mosc") ?? false;
-
-// Multiple sections
-const separateLayoutSections = ["/mosc", "/docs", "/marketing"];
-const isSeparateLayoutRoute = separateLayoutSections.some(section =>
-  pathname?.startsWith(section)
-) ?? false;
-
-// Regex pattern matching
-const isSeparateLayoutRoute = pathname?.match(/^\/(mosc|docs|marketing)/) !== null;
-```
-
-### **Null Safety**
-```typescript
-// Always handle potential null pathname
-const pathname = usePathname();
-const isSeparateLayoutRoute = pathname?.startsWith("/section") ?? false;
-```
-
-### **Conditional Provider Wrapping**
-```typescript
-// For sections that don't need authentication
-export default function ConditionalLayout({ children, header, footer }: ConditionalLayoutProps) {
-  const pathname = usePathname();
-  const isPublicSection = pathname?.startsWith("/public-section") ?? false;
-
-  if (isPublicSection) {
-    // Render without authentication providers
-    return <>{children}</>;
+  ```
+  ```typescript
+  // Helper functions should prioritize AMPLIFY_ prefix
+  export function getApiJwtUser() {
+    return (
+      process.env.AMPLIFY_API_JWT_USER ||
+      process.env.API_JWT_USER ||
+      process.env.NEXT_PUBLIC_API_JWT_USER
+    );
   }
+  ```
+  - ❌ DON'T: Rely only on `NEXT_PUBLIC_` prefixed variables for server-side authentication in AWS Amplify
+  - ❌ DON'T: Only set environment variables in AWS Amplify console without declaring them in Next.js config
+  - **Rationale**: AWS Amplify's runtime environment behavior differs from standard Next.js deployments. `AMPLIFY_` prefixed variables are reliable in production while `NEXT_PUBLIC_` variables may be unavailable in server contexts
+  - **Debugging**: Variables will show as `UNDEFINED` in production logs if not declared in config or using wrong prefix pattern
 
-  // Render with full app providers
-  return (
-    <AuthProvider>
-      {header}
-      <div className="flex-1 flex flex-col">
-        {children}
-      </div>
-      {footer}
-    </AuthProvider>
-  );
-}
-```
+- **DTO (Data Transfer Object) Setup and Usage**
+  - **Centralize DTO Definitions**
+    - Define all DTOs in `src/types/index.ts` (or submodules if the file grows large)
+    - Use TypeScript `interface` or `type` for DTOs, matching backend API schema
+    ```typescript
+    // ✅ DO: Centralize DTOs
+    export interface UserProfileDTO {
+      id: number | null;
+      userId: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      // ...other fields
+    }
+    ```
+  - **Keep DTOs Flat and Serializable**
+    - Avoid methods or computed properties; use only serializable types
+    ```typescript
+    // ✅ DO: Use only serializable fields
+    export interface SubscriptionDTO {
+      id: number | null;
+      userId: string;
+      plan: string;
+      status: 'active' | 'inactive' | 'canceled';
+      // ...other fields
+    }
+    ```
+  - **Match Backend Schema**
+    - Align DTO fields/types with backend API (OpenAPI/Swagger, Prisma, REST docs)
+    - Document intentional differences
+    ```typescript
+    // ✅ DO: Match backend schema
+    export interface EventDTO {
+      id: number;
+      name: string;
+      date: string; // ISO string
+      // ...other fields
+    }
+    ```
+  - **Use DTOs in All API Calls and Forms**
+    - Import DTOs wherever you handle API data (fetch, mutate, form state, validation)
+    - Type API responses and form state with DTOs
+    ```typescript
+    // ✅ DO: Use DTOs in API and forms
+    import type { UserProfileDTO } from "@/types";
+    const profile: UserProfileDTO = await fetchProfile();
+    const [formData, setFormData] = useState<Omit<UserProfileDTO, 'createdAt' | 'updatedAt'>>(defaultFormData);
+    ```
+  - **Extend or Compose DTOs for Feature-Specific Needs**
+    - Extend DTOs for feature-specific variants
+    - Use TypeScript utility types (`Pick`, `Omit`, `Partial`)
+    ```typescript
+    // ✅ DO: Compose DTOs for feature needs
+    export type UserProfileFormDTO = Omit<UserProfileDTO, 'createdAt' | 'updatedAt'>;
+    export interface UserProfileWithSubscriptionDTO extends UserProfileDTO {
+      subscription?: SubscriptionDTO;
+    }
+    ```
+  - **Document DTOs**
+    - Add JSDoc comments to each DTO for clarity
+    ```typescript
+    /**
+     * DTO for user profile data exchanged with the backend.
+     */
+    export interface UserProfileDTO {
+      // ...
+    }
+    ```
+  - **Update DTOs When Backend Changes**
+    - Review and update DTOs whenever the backend schema changes
+    - Refactor usages across the project to match updated DTOs
 
-## **Benefits**
+- **API Invocation & Data Processing Guidelines**
+  - Use server components or route handlers for initial data fetching (e.g., Crust APIs)
+  - Always `await` data before rendering the page/component
+    ```typescript
+    // In a server component
+    const data = await fetchCrustApi();
+    return <Page data={data} />;
+    ```
+  - Handle headers only in server context (server components, route handlers, middleware)
+  - Pass data to client components via props
+  - Gracefully handle API errors (show fallback UI or error message)
 
-- **✅ Complete Separation**: Sections can have entirely different designs and functionality
-- **✅ No Duplication**: Eliminates header/footer duplication issues
-- **✅ Authentication Control**: Public sections work without auth requirements
-- **✅ Performance**: No unnecessary components loaded for public sections
-- **✅ Maintainability**: Clear separation of concerns between app sections
-- **✅ SEO**: Each section can have its own metadata and styling
+- **Summary Table**
 
-## **Use Cases**
+| Guideline                      | Example/Note                                 |
+|-------------------------------|----------------------------------------------|
+| Centralize DTOs                | src/types/index.ts                           |
+| Keep DTOs flat/serializable    | No methods, only data fields                 |
+| Match backend schema           | Align field names/types                      |
+| Use DTOs in API/forms          | Type API responses, form state               |
+| Compose/extend for features    | Omit, Pick, extends                          |
+| Document DTOs                  | JSDoc comments                               |
+| Update on backend changes      | Refactor usages when backend changes         |
+| Lazy env var loading           | Use helper, see src/lib/stripe/init.ts       |
+| API fetch in server context    | Use server components/route handlers         |
+| Await data before rendering    | Always await before rendering                |
+| Handle headers in server only  | Never in client components                   |
+| Pass data via props            | Server → client via props                    |
+| Graceful API error handling    | Fallback UI, error message                   |
 
-- **Public Marketing Sites**: `/marketing` with different branding
-- **Documentation Sections**: `/docs` with documentation-specific navigation
-- **Church/Organization Sites**: `/mosc` with religious/org-specific styling
-- **Landing Pages**: `/landing` with conversion-focused design
-- **Public APIs**: `/api-docs` with API documentation layout
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
-## **Best Practices**
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules
 
-### **Naming Conventions**
-- Use descriptive section prefixes: `/mosc`, `/docs`, `/marketing`
-- Keep section layouts in their own directories: `src/app/section-name/`
-- Use consistent component naming: `SectionHeader`, `SectionFooter`
+- **All backend API calls from the frontend must use authenticated proxy endpoints**
+  - Never call backend API URLs (e.g., `/api/user-profiles/...`) directly from the frontend
+  - Always use the corresponding proxy route (e.g., `/api/proxy/user-profiles/...`)
+  - The proxy handler is responsible for obtaining and caching the JWT token (see [`src/lib/api/jwt.ts`](mdc:src/lib/api/jwt.ts))
+  - This ensures:
+    - All requests are authenticated with a valid JWT
+    - Token caching is handled centrally (no repeated authentication calls)
+    - Security and control flow are consistent across the app
 
-### **Styling Isolation**
-- Always use `!important` for section-specific overrides
-- Import base styles but override as needed
-- Use CSS custom properties for section-specific theming
-- Prefix section classes to avoid conflicts: `.section-layout`, `.section-header`
+- **Rationale**
+  - Prevents leaking secrets or tokens to the client
+  - Ensures all API requests are properly authenticated
+  - Reduces backend load by caching tokens
+  - Centralizes error handling and logging
 
-### **Route Organization**
-- Group related routes under section prefixes
-- Use middleware to handle authentication for different sections
-- Keep section-specific components in section directories
+- **Correct Implementation Example**
+  ```typescript
+  // ✅ DO: Use the proxy endpoint for user profile fetch
+  const response = await fetch(`/api/proxy/user-profiles/by-user/${userId}`, { ... });
+  // ✅ DO: Use the proxy endpoint for user subscriptions
+  const response = await fetch(`/api/proxy/user-subscriptions/by-profile/${profileId}`, { ... });
+  ```
 
-### **Error Handling**
-- Always handle null pathname in route detection
-- Provide fallback rendering for edge cases
-- Test navigation between sections thoroughly
+- **Anti-patterns**
+  ```typescript
+  // ❌ DON'T: Call backend API directly from the frontend
+  const response = await fetch(`${apiBaseUrl}/api/user-profiles/by-user/${userId}`, { ... });
+  ```
 
-## **Troubleshooting**
+- **References**
+  - See [`src/components/ProfileForm.tsx`](mdc:src/components/ProfileForm.tsx) for correct usage
+  - See [`src/app/pricing/page.tsx`](mdc:src/app/pricing/page.tsx) for correct usage
+  - Proxy handler: [`src/pages/api/proxy/user-profiles/[...slug].ts`](mdc:src/pages/api/proxy/user-profiles/[...slug].ts)
+  - JWT caching: [`src/lib/api/jwt.ts`](mdc:src/lib/api/jwt.ts)
 
-### **Common Issues**
-- **Hydration Errors**: Never use `<html>` or `<body>` tags in nested layouts
-- **Style Conflicts**: Use `!important` and specific selectors for overrides
-- **Route Detection**: Always handle null pathname with optional chaining
-- **Authentication Issues**: Ensure public routes are properly configured in middleware
+- **Always use absolute URLs for proxy API fetches in server components/pages**
+  - In server components/pages (e.g., `src/app/pricing/page.tsx`), use an absolute URL for all fetches to `/api/proxy/...` endpoints.
+  - Use `process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'` as the base URL.
+  - In client components, relative URLs (e.g., `/api/proxy/user-profiles/by-user/${userId}`) are fine.
 
-### **Debugging**
-```typescript
-// Add logging to debug route detection
-console.log('Current pathname:', pathname);
-console.log('Is separate layout route:', isSeparateLayoutRoute);
-```
+- **Rationale**
+  - Server-side fetch requires an absolute URL; relative URLs will throw a "Failed to parse URL" error.
+  - Ensures consistent, working API calls in all environments.
 
-## **Example: Complete MOSC Implementation**
+- **Correct Implementation Example (Server Component)**
+  ```typescript
+  // ✅ DO: Use absolute URL in server component
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const response = await fetch(`${baseUrl}/api/proxy/user-profiles/by-user/${userId}`, { ... });
+  ```
 
-```typescript
-// src/components/ConditionalLayout.tsx - MOSC Example
-'use client';
+- **Correct Implementation Example (Client Component)**
+  ```typescript
+  // ✅ DO: Use relative URL in client component
+  const response = await fetch(`/api/proxy/user-profiles/by-user/${userId}`, { ... });
+  ```
 
-import React from 'react';
-import { usePathname } from 'next/navigation';
+- **Anti-pattern**
+  ```typescript
+  // ❌ DON'T: Use relative URL in server component
+  const response = await fetch(`/api/proxy/user-profiles/by-user/${userId}`, { ... }); // Will fail on server
+  ```
 
-interface ConditionalLayoutProps {
-  children: React.ReactNode;
-  header: React.ReactNode;
-  footer: React.ReactNode;
-}
+- **References**
+  - See [`src/app/pricing/page.tsx`](mdc:src/app/pricing/page.tsx) for correct server usage
+  - See [`src/components/ProfileForm.tsx`](mdc:src/components/ProfileForm.tsx) for correct client usage
 
-export default function ConditionalLayout({ children, header, footer }: ConditionalLayoutProps) {
-  const pathname = usePathname();
+- **If a page/server component requires user authentication or session, do NOT include its route in publicPaths in middleware**
+  - Only include routes in `publicPaths` if they are truly public and do not need user session data.
+  - For pages like `/pricing` that need user profile or subscription info, remove them from `publicPaths` so Clerk's middleware enforces authentication.
+  - This ensures the session is available in server components/pages and prevents temporary sign-outs or missing session issues.
 
-  // MOSC routes use their own layout (no auth, different styling)
-  const isMOSCRoute = pathname?.startsWith("/mosc") ?? false;
+- **Rationale**
+  - Clerk's middleware only attaches the session to requests for protected routes.
+  - If a route is public, server components/pages will not have access to the user session, even if the user is logged in on the client.
+  - Ensures consistent authentication and session availability for all user-specific pages.
 
-  if (isMOSCRoute) {
-    return <>{children}</>;
-  }
+- **Correct Implementation Example**
+  ```typescript
+  // ✅ DO: Remove '/pricing(.*)' from publicPaths if pricing page needs user session
+  const publicPaths = [
+    '/',
+    '/sign-in(.*)',
+    '/sign-up(.*)',
+    '/event(.*)',
+    // '/pricing(.*)',   // REMOVED to require auth
+    '/api/webhooks(.*)',
+    '/api/stripe/event-checkout',
+  ];
+  ```
 
-  return (
-    <>
-      {header}
-      <div className="flex-1 flex flex-col">
-        {children}
-      </div>
-      {footer}
-    </>
-  );
-}
-```
+- **Anti-pattern**
+  ```typescript
+  // ❌ DON'T: Include user-specific pages in publicPaths
+  const publicPaths = [
+    '/',
+    '/sign-in(.*)',
+    '/sign-up(.*)',
+    '/event(.*)',
+    '/pricing(.*)',   // Will cause session to be unavailable in server components
+    '/api/webhooks(.*)',
+    '/api/stripe/event-checkout',
+  ];
+  ```
 
-This pattern provides a robust, scalable solution for creating separate layouts while maintaining Next.js App Router best practices.
+- **References**
+  - See [`src/middleware.ts`](mdc:src/middleware.ts) for correct usage
+  - See [`src/app/pricing/page.tsx`](mdc:src/app/pricing/page.tsx) for a page that requires authentication
+
+- **For every backend API resource accessed via proxy, a corresponding proxy handler (slug route) must exist in src/pages/api/proxy/**
+  - If you call `/api/proxy/resource/...` from the frontend, ensure `src/pages/api/proxy/resource/[...slug].ts` exists.
+  - The proxy handler is responsible for authentication, JWT caching, and forwarding requests to the backend.
+  - This ensures all API calls are authenticated, routed, and debuggable.
+
+- **Rationale**
+  - Prevents silent 404s and debugging confusion.
+  - Ensures all API calls are consistently authenticated and proxied.
+  - Centralizes error handling and logging for backend API calls.
+
+- **Correct Implementation Example**
+  ```typescript
+  // ✅ DO: If you call /api/proxy/user-subscriptions/by-profile/:id, ensure this exists:
+  // src/pages/api/proxy/user-subscriptions/[...slug].ts
+  export default async function handler(req, res) { /* ... */ }
+  ```
+
+- **Anti-pattern**
+  ```typescript
+  // ❌ DON'T: Call /api/proxy/resource/... without a corresponding proxy handler
+  // This will result in a 404 and no backend call
+  ```
+
+- **References**
+  - See [`src/pages/api/proxy/user-profiles/[...slug].ts`](mdc:src/pages/api/proxy/user-profiles/[...slug].ts) for a working example
+  - See [`src/pages/api/proxy/user-subscriptions/[...slug].ts`](mdc:src/pages/api/proxy/user-subscriptions/[...slug].ts) for a matching implementation
+
+- **Never make API calls with undefined or null parameters**
+  - Always guard effects and handlers to ensure required values (like userId) are present before making API calls.
+  - Prevents 404s, backend errors, and unnecessary requests.
+  - Example:
+    ```typescript
+    if (!userId) return; // Prevents bad API calls
+    ```
+  - See `ProfileBootstrapper.tsx` for correct usage.
+  - Review all API call sites for proper guards.
+
+- **Rationale**
+  - Avoids backend errors and noisy logs
+  - Prevents accidental creation of bad data or error states
+  - Ensures only valid, intentional requests are made
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
