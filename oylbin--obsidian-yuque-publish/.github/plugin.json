@@ -1,0 +1,9 @@
+{
+  "name": "oylbin--obsidian-yuque-publish",
+  "displayName": "obsidian-yuque-publish",
+  "description": "obsidian plugin to publish document to yuque",
+  "version": "1.0.0",
+  "author": "oylbin",
+  "homepage": "https://github.com/oylbin/obsidian-yuque-publish",
+  "skills": []
+}
