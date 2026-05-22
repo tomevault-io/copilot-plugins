@@ -1,0 +1,9 @@
+{
+  "name": "r266-tech--sub2cli",
+  "displayName": "sub2cli",
+  "description": "Sub2API gateway subscription \u2192 Codex CLI / Codex App injector. macOS-native, zero-deps Python single-file. Supports codex2api.com and any self-hosted Sub2API instance.",
+  "version": "1.0.0",
+  "author": "r266-tech",
+  "homepage": "https://github.com/r266-tech/sub2cli",
+  "skills": []
+}
