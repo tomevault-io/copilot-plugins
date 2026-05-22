@@ -1,0 +1,9 @@
+{
+  "name": "provlabs--nuva-evm-contracts",
+  "displayName": "nuva-evm-contracts",
+  "description": "NUVA Finance EVM Vault Contracts",
+  "version": "1.0.0",
+  "author": "ProvLabs",
+  "homepage": "https://github.com/ProvLabs/nuva-evm-contracts",
+  "skills": []
+}
