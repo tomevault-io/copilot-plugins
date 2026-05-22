@@ -1,0 +1,9 @@
+{
+  "name": "thecloudexplorers--release-engine-pattern-template",
+  "displayName": "release-engine-pattern-template",
+  "description": "This repository contains Azure DevOps YAML Pipelines Templates for Example Workloads",
+  "version": "1.0.0",
+  "author": "thecloudexplorers",
+  "homepage": "https://github.com/thecloudexplorers/release-engine-pattern-template",
+  "skills": []
+}
