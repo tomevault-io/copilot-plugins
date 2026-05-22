@@ -1,179 +1,372 @@
-## graceful-degradation
+## multi-zone-architecture
 
-> Shipkit implements graceful degradation to provide a seamless experience whether users have a database configured or not. When no `DATABASE_URL` is provided, the application automatically falls back to local storage for data persistence.
+> Multi-zone architecture allows Shipkit applications to be split into multiple Next.js applications while appearing as a single domain to users. This pattern is ideal for:
 
-# Shipkit Graceful Degradation
+# Multi-Zone Architecture Rules
 
 ## Overview
 
-Shipkit implements graceful degradation to provide a seamless experience whether users have a database configured or not. When no `DATABASE_URL` is provided, the application automatically falls back to local storage for data persistence.
+Multi-zone architecture allows Shipkit applications to be split into multiple Next.js applications while appearing as a single domain to users. This pattern is ideal for:
 
-## Architecture
+- **Scalability**: Different teams can work on different zones independently
+- **Performance**: Each zone can be optimized for its specific use case
+- **Deployment**: Zones can be deployed and updated independently
+- **Technology Freedom**: Each zone can use different technologies while maintaining consistency
 
-### Database Detection
+## Zone Configuration Patterns
 
-The system checks for database availability in multiple places:
+### Standard Zone Structure
+```
+domain.com/          → Main app (marketing, dashboard, auth)
+domain.com/docs/*    → Documentation zone
+domain.com/blog/*    → Blog zone
+domain.com/ui/*      → UI component library zone
+domain.com/tools/*   → Developer tools zone
+```
 
-1. **[src/server/db/index.ts](mdc:src/server/db/index.ts)** - Database connection with graceful degradation
-2. **[src/payload.config.ts](mdc:src/payload.config.ts)** - Payload CMS conditional initialization
-3. **[src/lib/payload/payload.ts](mdc:src/lib/payload/payload.ts)** - Payload client initialization with null fallback
-4. **Service layer** - All data operations check `db` availability before proceeding
+### Zone Types
 
-### Local Storage Fallbacks
+#### 1. Main Zone (Primary Application)
+- **Purpose**: Core application functionality
+- **Contains**: Authentication, dashboard, marketing pages, API routes
+- **Routing**: Handles all routes not claimed by other zones
+- **Configuration**: Standard Shipkit configuration with multi-zone rewrites
 
-When database is unavailable, the following local storage services are used:
+#### 2. Documentation Zone
+- **Purpose**: Product documentation, guides, API reference
+- **Features**: Search functionality, versioning, navigation tree
+- **Content**: MDX files, code examples, tutorials
+- **Optimization**: Static generation, fast search indexing
 
-- **[src/lib/local-storage/project-storage.ts](mdc:src/lib/local-storage/project-storage.ts)** - Project management
-- **[src/lib/local-storage/team-storage.ts](mdc:src/lib/local-storage/team-storage.ts)** - Team management
+#### 3. Blog Zone
+- **Purpose**: Blog posts, announcements, case studies
+- **Features**: CMS integration, commenting, social sharing
+- **Content**: Articles, author profiles, categories
+- **Optimization**: SEO optimization, RSS feeds
+
+#### 4. UI Component Library Zone
+- **Purpose**: Component showcase, design system documentation
+- **Features**: Interactive component playground, code examples
+- **Content**: Component demos, design tokens, usage guidelines
+- **Optimization**: Component isolation, visual regression testing
+
+#### 5. Developer Tools Zone
+- **Purpose**: Interactive utilities, API explorers, validators
+- **Features**: Real-time tools, code generators, testing utilities
+- **Content**: Interactive forms, API documentation, utilities
+- **Optimization**: Client-side interactivity, tool performance
 
 ## Implementation Patterns
 
-### Service Pattern
+### 1. Zone Setup
 
-All services follow this pattern for graceful degradation:
+#### Directory Structure
+```
+project-root/
+├── shipkit/              # Main application
+├── shipkit-docs/         # Documentation zone
+├── shipkit-blog/         # Blog zone
+├── shipkit-ui/           # UI library zone
+└── shipkit-tools/        # Tools zone
+```
 
+#### Zone Creation Commands
+```bash
+# Create zones by cloning Shipkit
+git clone https://github.com/lacymorrow/shipkit.git shipkit-docs
+git clone https://github.com/lacymorrow/shipkit.git shipkit-blog
+git clone https://github.com/lacymorrow/shipkit.git shipkit-ui
+git clone https://github.com/lacymorrow/shipkit.git shipkit-tools
+
+# Install dependencies for each zone
+cd shipkit-docs && bun install --frozen-lockfile
+cd shipkit-blog && bun install --frozen-lockfile
+cd shipkit-ui && bun install --frozen-lockfile
+cd shipkit-tools && bun install --frozen-lockfile
+```
+
+### 2. Configuration Patterns
+
+#### Main Zone Configuration (next.config.ts)
 ```typescript
-async someMethod(params: any) {
-  if (!db) {
-    // Use local storage fallback
-    return LocalStorageService.someMethod(params);
+async rewrites() {
+  const multiZoneRewrites = [];
+
+  // Documentation Zone
+  if (process.env.DOCS_DOMAIN) {
+    multiZoneRewrites.push(
+      { source: '/docs', destination: `${process.env.DOCS_DOMAIN}/docs` },
+      { source: '/docs/:path*', destination: `${process.env.DOCS_DOMAIN}/docs/:path*` }
+    );
   }
 
-  // Use database
-  return await this.database.someMethod(params);
+  // Add other zones similarly...
+
+  return multiZoneRewrites;
 }
 ```
 
-### Payload Client Pattern
-
-Always use `getPayloadClient()` function, never import singleton:
-
+#### Zone-Specific Configuration
 ```typescript
-// ✅ Correct
-import { getPayloadClient } from "@/lib/payload/payload";
+// Each zone's next.config.ts
+const nextConfig: NextConfig = {
+  basePath: '/docs', // or /blog, /ui, /tools
+  assetPrefix: '/docs-static', // or /blog-static, etc.
 
-const payload = await getPayloadClient();
-if (!payload) {
-  // Handle gracefully - CMS not available
-  return null;
-}
-
-// ❌ Wrong - Don't use singleton (causes crashes)
-import { payload } from "@/lib/payload/payload";
+  // Inherit all Shipkit configurations
+  ...existingShipkitConfig,
+};
 ```
 
-### Conditional Configuration
+### 3. Environment Variables
 
-Configuration files check for environment variables before initializing database-dependent features:
+#### Development Environment
+```bash
+# Main app .env.local
+DOCS_DOMAIN=http://localhost:3001
+BLOG_DOMAIN=http://localhost:3002
+UI_DOMAIN=http://localhost:3003
+TOOLS_DOMAIN=http://localhost:3004
+```
 
+#### Production Environment
+```bash
+# Main app production environment
+DOCS_DOMAIN=https://docs-shipkit.vercel.app
+BLOG_DOMAIN=https://blog-shipkit.vercel.app
+UI_DOMAIN=https://ui-shipkit.vercel.app
+TOOLS_DOMAIN=https://tools-shipkit.vercel.app
+```
+
+## Navigation Patterns
+
+### Inter-Zone Navigation
+```tsx
+// Use anchor tags for navigation between zones
+<a href="/docs/getting-started" className="nav-link">
+  Documentation
+</a>
+
+// NOT Next.js Link for cross-zone navigation
+// ❌ <Link href="/docs/getting-started">Documentation</Link>
+```
+
+### Intra-Zone Navigation
+```tsx
+// Use Next.js Link within the same zone
+import Link from 'next/link'
+
+<Link href="/docs/advanced-topics">
+  Advanced Topics
+</Link>
+```
+
+### Shared Navigation Components
+```tsx
+// Create zone-aware navigation components
+const NavLink = ({ href, children, ...props }) => {
+  const isExternal = href.startsWith('/docs') ||
+                    href.startsWith('/blog') ||
+                    href.startsWith('/ui') ||
+                    href.startsWith('/tools');
+
+  if (isExternal) {
+    return <a href={href} {...props}>{children}</a>;
+  }
+
+  return <Link href={href} {...props}>{children}</Link>;
+};
+```
+
+## Content Management
+
+### Content Organization
+```
+content/
+├── docs/
+│   ├── getting-started/
+│   ├── api-reference/
+│   └── tutorials/
+├── blog/
+│   ├── announcements/
+│   ├── technical/
+│   └── case-studies/
+├── ui/
+│   ├── components/
+│   ├── design-tokens/
+│   └── guidelines/
+└── tools/
+    ├── validators/
+    ├── generators/
+    └── utilities/
+```
+
+### Shared Content Strategy
+- Use consistent frontmatter across zones
+- Implement shared content validation schemas
+- Maintain consistent tagging and categorization
+- Use shared asset management
+
+## Authentication & State Management
+
+### Shared Authentication
 ```typescript
-const isFeatureEnabled = !!process.env.DATABASE_URL && process.env.FEATURE_FLAG === "true";
-
-if (isFeatureEnabled) {
-  // Initialize database-dependent features
-}
+// Configure NextAuth to work across zones
+export const authOptions: NextAuthOptions = {
+  // Ensure cookies work across subdomains/zones
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        domain: '.yourdomain.com', // Note the leading dot
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production'
+      }
+    }
+  }
+};
 ```
 
-## Key Files
+### Cross-Zone State
+- Use URL parameters for sharable state
+- Implement local storage for user preferences
+- Use session storage for temporary data
+- Avoid complex state synchronization between zones
 
-### Core Database Files
-- **[src/server/db/index.ts](mdc:src/server/db/index.ts)** - Main database connection with null fallback
-- **[src/payload.config.ts](mdc:src/payload.config.ts)** - Conditional Payload initialization
+## Performance Optimization
 
-### Local Storage Services
-- **[src/lib/local-storage/project-storage.ts](mdc:src/lib/local-storage/project-storage.ts)** - Project CRUD operations
-- **[src/lib/local-storage/team-storage.ts](mdc:src/lib/local-storage/team-storage.ts)** - Team CRUD operations
+### Zone-Specific Optimizations
 
-### Service Integration
-- **[src/server/services/project-service.ts](mdc:src/server/services/project-service.ts)** - Project service with fallbacks
-- **[src/server/services/team-service.ts](mdc:src/server/services/team-service.ts)** - Team service with fallbacks
+#### Documentation Zone
+- Static generation for all content
+- Search index optimization
+- Image optimization for diagrams
+- CDN caching for assets
 
-## Data Models
+#### Blog Zone
+- ISR for blog posts
+- Image optimization for featured images
+- Social media meta tags
+- RSS feed generation
 
-Local storage services mirror the database schema exactly:
+#### UI Zone
+- Component isolation
+- Visual regression testing
+- Performance monitoring for interactive demos
+- Lazy loading for component examples
 
-### Projects
+#### Tools Zone
+- Client-side rendering for interactive tools
+- WebAssembly for performance-critical operations
+- Service worker for offline functionality
+- Real-time updates where needed
+
+## Deployment Strategy
+
+### Vercel Deployment Pattern
+```bash
+# Deploy each zone to Vercel with descriptive names
+vercel --prod --name="main-shipkit"      # Main application
+vercel --prod --name="docs-shipkit"      # Documentation
+vercel --prod --name="blog-shipkit"      # Blog
+vercel --prod --name="ui-shipkit"        # UI Library
+vercel --prod --name="tools-shipkit"     # Tools
+```
+
+### Environment Configuration
+1. Deploy each zone as separate Vercel project
+2. Configure custom domains or use Vercel URLs
+3. Set environment variables in main app pointing to zone URLs
+4. Configure main domain to point to primary application
+5. Test cross-zone navigation and functionality
+
+## Testing Strategy
+
+### Zone-Specific Testing
+- Unit tests for each zone's components
+- Integration tests for zone functionality
+- E2E tests for cross-zone navigation
+- Performance tests for each zone
+- Accessibility tests across all zones
+
+### Cross-Zone Testing
 ```typescript
-interface LocalProject {
-  id: string;
-  name: string;
-  teamId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  members: LocalProjectMember[];
-}
+// Example E2E test for cross-zone navigation
+test('navigation from main to docs zone', async ({ page }) => {
+  await page.goto('/');
+  await page.click('a[href="/docs"]');
+  await expect(page.url()).toContain('/docs');
+  await expect(page.locator('h1')).toContainText('Documentation');
+});
 ```
 
-### Teams
-```typescript
-interface LocalTeam {
-  id: string;
-  name: string;
-  type: "personal" | "workspace";
-  createdAt: Date;
-  updatedAt: Date | null;
-  deletedAt: Date | null;
-}
-```
+## Monitoring & Analytics
 
-## Environment Variables
+### Zone-Specific Monitoring
+- Performance monitoring for each zone
+- Error tracking per zone
+- User analytics per zone
+- SEO monitoring for content zones
 
-### Required for Database Mode
-- `DATABASE_URL` - PostgreSQL connection string
-- `PAYLOAD_SECRET` - Secret key to enable Payload CMS (optional, can use `DISABLE_PAYLOAD=true` to disable)
-
-### Optional Feature Flags
-- `NEXT_PUBLIC_FEATURE_S3_ENABLED` - Enable S3 storage
-- `NEXT_PUBLIC_FEATURE_VERCEL_BLOB_ENABLED` - Enable Vercel Blob storage
-- `NEXT_PUBLIC_FEATURE_AUTH_RESEND_ENABLED` - Enable Resend email
-
-## Demo Data
-
-When no database is available and no local data exists, the system automatically initializes with demo data:
-
-- Demo user account
-- Sample personal team
-- Example projects
-- Realistic project members
+### Shared Monitoring
+- User journey tracking across zones
+- Conversion funnel analysis
+- Performance comparison between zones
+- Cross-zone search analytics
 
 ## Best Practices
 
-### 1. Always Check Database Availability
-```typescript
-if (!db) {
-  // Local storage fallback
-  return LocalStorage.method();
-}
-```
+### Do's
+✅ Use consistent design system across all zones
+✅ Implement shared authentication
+✅ Monitor performance of each zone independently
+✅ Use environment variables for zone configuration
+✅ Test cross-zone navigation thoroughly
+✅ Implement proper error boundaries per zone
+✅ Use consistent logging and monitoring
+✅ Document zone-specific configuration
 
-### 2. Mirror Database APIs
-Local storage services should exactly match database service method signatures.
+### Don'ts
+❌ Use Next.js Link for cross-zone navigation
+❌ Share complex state between zones
+❌ Ignore zone-specific performance optimization
+❌ Deploy zones with inconsistent naming
+❌ Skip testing cross-zone functionality
+❌ Use hard-coded URLs for zone references
+❌ Neglect SEO for content zones
+❌ Mix authentication systems between zones
 
-### 3. Handle User Sessions
-Demo mode creates a consistent user session that persists across browser sessions.
+## Troubleshooting
 
-### 4. Data Consistency
-Local storage maintains referential integrity similar to database constraints.
+### Common Issues
 
-### 5. Error Handling
-Graceful degradation should never throw errors - always provide fallbacks.
+#### Navigation Problems
+- **Issue**: Links between zones not working
+- **Solution**: Use anchor tags instead of Next.js Link for cross-zone navigation
 
-## Debugging
+#### Authentication Issues
+- **Issue**: User not authenticated in secondary zones
+- **Solution**: Configure cookie domain to work across zones
 
-### Check Database Status
-```typescript
-import { db } from "@/server/db";
-console.log("Database available:", !!db);
-```
+#### Asset Loading Problems
+- **Issue**: Assets not loading in zones
+- **Solution**: Configure assetPrefix correctly for each zone
 
-### Inspect Local Storage
-```typescript
-console.log("Projects:", LocalProjectStorage.getAllProjects());
-console.log("Teams:", LocalTeamStorage.getAllTeams());
-```
+#### Performance Issues
+- **Issue**: Slow loading between zones
+- **Solution**: Implement proper prefetching and caching strategies
 
-### Environment Validation
-Check that all required environment variables are set for the desired mode of operation.
+#### SEO Problems
+- **Issue**: Poor SEO for zone content
+- **Solution**: Configure proper meta tags and sitemaps for each zone
+
+### Debug Tools
+- Use browser dev tools to inspect network requests between zones
+- Monitor Vercel function logs for each zone
+- Use analytics to track user journeys across zones
+- Implement custom logging for cross-zone events
 
 ---
 > Source: [shipkit-io/bones](https://github.com/shipkit-io/bones) — distributed by [TomeVault](https://tomevault.io).
