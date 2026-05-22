@@ -1,0 +1,9 @@
+{
+  "name": "denya--sonos-lastfm",
+  "displayName": "sonos-lastfm",
+  "description": "Scrobble music playing on your Sonos speakers to Last.fm. Helps me with Spotify playing on Sonos!",
+  "version": "1.0.0",
+  "author": "denya",
+  "homepage": "https://github.com/denya/sonos-lastfm",
+  "skills": []
+}
