@@ -1,152 +1,230 @@
-## database-design
+## echarts-usage
 
-> HeartChat使用微信小程序云开发提供的云数据库（NoSQL数据库）存储应用数据。数据库设计遵循文档型数据库的最佳实践，合理设计集合结构和索引。
+> HeartChat使用ECharts作为数据可视化解决方案，通过图表直观展示用户情绪变化、分布等数据。ECharts组件被封装在ec-canvas中，提供了饼图、折线图、仪表盘等多种图表类型。
 
-# 数据库设计
+# ECharts组件使用指南
 
-## 概述
-HeartChat使用微信小程序云开发提供的云数据库（NoSQL数据库）存储应用数据。数据库设计遵循文档型数据库的最佳实践，合理设计集合结构和索引。
+## 功能概述
+HeartChat使用ECharts作为数据可视化解决方案，通过图表直观展示用户情绪变化、分布等数据。ECharts组件被封装在ec-canvas中，提供了饼图、折线图、仪表盘等多种图表类型。
 
-## 数据库设计原则
-根据[database_design.md](mdc:database_design.md)文件，HeartChat的数据库设计遵循以下原则：
-- 合理拆分集合，避免单一集合过大
-- 优先考虑查询场景，设计适合查询需求的数据结构
-- 适当冗余数据，减少多集合查询
-- 建立必要索引，提高查询性能
-- 考虑数据增长趋势，预留扩展空间
+## 组件位置
+- [miniprogram/components/ec-canvas/](mdc:miniprogram/components/ec-canvas/)：ECharts核心组件
 
-## 主要集合
-
-### users - 用户集合
-存储用户基本信息
+## ECharts引入方式
+根据[ECharts组件使用指南.md](mdc:docs/使用文档/ECharts组件使用指南.md)，HeartChat使用了微信小程序的npm支持引入ECharts：
 ```javascript
-{
-  _id: "用户ID",
-  openid: "微信OpenID",
-  nickname: "用户昵称",
-  avatar: "头像URL",
-  created_at: "创建时间",
-  last_active: "最后活跃时间",
-  settings: {
-    // 用户设置项
+// 项目使用npm构建后的路径
+import * as echarts from '../../miniprogram_npm/echarts/index';
+```
+
+## 基本使用流程
+1. 在页面或组件的wxml中引入ec-canvas组件
+```html
+<ec-canvas id="mychart-dom" canvas-id="mychart" ec="{{ ec }}"></ec-canvas>
+```
+
+2. 在页面或组件的js文件中初始化图表
+```javascript
+import * as echarts from '../../miniprogram_npm/echarts/index';
+
+Page({
+  data: {
+    ec: {
+      onInit: initChart
+    }
   }
+});
+
+function initChart(canvas, width, height, dpr) {
+  const chart = echarts.init(canvas, null, {
+    width: width,
+    height: height,
+    devicePixelRatio: dpr
+  });
+  canvas.setChart(chart);
+  
+  const option = {
+    // 图表配置项
+    title: {
+      text: '情绪分布'
+    },
+    // 其他配置...
+  };
+  
+  chart.setOption(option);
+  return chart;
 }
 ```
 
-### chats - 聊天集合
-存储聊天会话信息
-```javascript
-{
-  _id: "会话ID",
-  user_id: "用户ID",
-  role_id: "角色ID",
-  title: "会话标题",
-  created_at: "创建时间",
-  updated_at: "更新时间",
-  message_count: 消息数量
-}
-```
+## 常用图表类型
 
-### messages - 消息集合
-存储聊天消息内容
+### 饼图
+用于展示情绪分布占比等数据：
 ```javascript
-{
-  _id: "消息ID",
-  chat_id: "会话ID",
-  role: "user/assistant", // 消息角色
-  content: "消息内容",
-  created_at: "创建时间",
-  emotion: "情感标签",
-  emotion_score: 情感分数
-}
-```
-
-### roles - 角色集合
-存储AI角色信息
-```javascript
-{
-  _id: "角色ID",
-  name: "角色名称",
-  avatar: "头像URL",
-  description: "角色描述",
-  personality: "性格特点",
-  expertise: "专长领域",
-  is_system: true/false, // 是否为系统角色
-  created_by: "创建者ID", // 若为用户创建
-  prompt_template: "提示词模板",
-  created_at: "创建时间",
-  updated_at: "更新时间"
-}
-```
-
-### emotions - 情感记录集合
-存储用户情感分析记录
-```javascript
-{
-  _id: "记录ID",
-  user_id: "用户ID",
-  timestamp: "记录时间",
-  message_id: "关联消息ID",
-  primary_emotion: "主要情绪",
-  emotion_scores: {
-    // 各情绪类别的分数
-    "joy": 0.7,
-    "sadness": 0.1,
-    // ...其他情绪
+const option = {
+  title: {
+    text: '情绪分布',
+    left: 'center'
   },
-  tags: ["标签1", "标签2"], // 情绪标签
-  notes: "备注信息" // 用户添加的备注
-}
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b}: {c} ({d}%)'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: ['喜悦', '悲伤', '愤怒', '恐惧', '惊讶', '厌恶', '中性']
+  },
+  series: [
+    {
+      name: '情绪分布',
+      type: 'pie',
+      radius: '55%',
+      center: ['50%', '60%'],
+      data: [
+        {value: 335, name: '喜悦'},
+        {value: 310, name: '悲伤'},
+        {value: 234, name: '愤怒'},
+        {value: 135, name: '恐惧'},
+        {value: 154, name: '惊讶'},
+        {value: 120, name: '厌恶'},
+        {value: 200, name: '中性'}
+      ],
+      // 设置不同情绪对应的颜色
+      itemStyle: {
+        emphasis: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
 ```
 
-### daily_reports - 每日报告集合
-存储用户每日情绪报告
+### 折线图
+用于展示情绪随时间变化的趋势：
 ```javascript
-{
-  _id: "报告ID",
-  user_id: "用户ID",
-  date: "报告日期",
-  summary: "总结文字",
-  emotion_stats: {
-    // 情绪统计数据
+const option = {
+  title: {
+    text: '情绪变化趋势'
   },
-  highlights: [
-    // 当日情绪亮点
-  ],
-  suggestions: [
-    // 基于情绪的建议
-  ],
-  created_at: "创建时间"
-}
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    data: ['喜悦', '悲伤', '焦虑']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+  },
+  yAxis: {
+    type: 'value',
+    min: 0,
+    max: 1
+  },
+  series: [
+    {
+      name: '喜悦',
+      type: 'line',
+      data: [0.3, 0.4, 0.5, 0.8, 0.7, 0.6, 0.9]
+    },
+    {
+      name: '悲伤',
+      type: 'line',
+      data: [0.4, 0.2, 0.1, 0.1, 0.2, 0.3, 0.1]
+    },
+    {
+      name: '焦虑',
+      type: 'line',
+      data: [0.3, 0.4, 0.3, 0.1, 0.1, 0.1, 0.0]
+    }
+  ]
+};
 ```
 
-### user_preferences - 用户偏好集合
-存储用户个性化设置
+### 仪表盘
+用于展示情绪健康指数等数据：
 ```javascript
-{
-  _id: "用户ID",
-  theme: "主题设置",
-  notification_settings: {
-    // 通知设置
+const option = {
+  title: {
+    text: '情绪健康指数'
   },
-  privacy_settings: {
-    // 隐私设置
+  tooltip: {
+    formatter: '{a} <br/>{b} : {c}%'
   },
-  favorite_roles: ["角色ID1", "角色ID2"], // 收藏的角色
-  updated_at: "更新时间"
+  series: [
+    {
+      name: '健康指数',
+      type: 'gauge',
+      detail: {formatter: '{value}%'},
+      data: [{value: 75, name: '健康指数'}],
+      axisLine: {
+        lineStyle: {
+          color: [
+            [0.3, '#ff4500'],
+            [0.7, '#ffcc00'],
+            [1, '#5cb85c']
+          ],
+          width: 30
+        }
+      }
+    }
+  ]
+};
+```
+
+## 数据更新
+通过setOption方法实现图表数据的动态更新：
+```javascript
+// 假设chart是已初始化的图表实例
+function updateChart(newData) {
+  const option = {
+    series: [{
+      data: newData
+    }]
+  };
+  chart.setOption(option);
 }
 ```
 
-## 索引设计
-- users集合：openid字段创建唯一索引
-- messages集合：chat_id字段创建索引，加速会话消息查询
-- emotions集合：user_id和timestamp字段创建复合索引，加速用户情绪历史查询
-- daily_reports集合：user_id和date字段创建复合索引
+## 性能优化
+- 合理设置图表大小，避免过大造成渲染压力
+- 减少不必要的动画效果
+- 数据量大时考虑分页或者数据聚合
+- 避免频繁更新图表数据
+- 在不可见时释放图表资源
 
-## 数据备份策略
-- 定期导出关键数据（如用户数据、角色定义等）
-- 重要数据操作前进行备份
-- 利用云开发提供的自动备份能力
+## 在组件中使用
+在自定义组件中使用ECharts时，需要通过this.selectComponent获取ec-canvas实例：
+```javascript
+Component({
+  // ...其他配置
+  methods: {
+    init: function() {
+      const ecComponent = this.selectComponent('#mychart-dom');
+      ecComponent.init((canvas, width, height, dpr) => {
+        // 初始化图表逻辑
+      });
+    }
+  }
+});
+```
+
+## 常见问题
+- 图表不显示：检查容器是否设置了宽高，确保初始化成功
+- 数据更新不生效：确认setOption调用正确，数据结构符合要求
+- 图表尺寸异常：检查容器样式和自适应配置
+- 性能问题：减少数据量和特效，优化渲染配置
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
