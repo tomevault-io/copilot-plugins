@@ -1,0 +1,9 @@
+{
+  "name": "cajal-technologies--talos",
+  "displayName": "talos",
+  "description": "Wasm interpreter in lean, designed for reasoning",
+  "version": "1.0.0",
+  "author": "cajal-technologies",
+  "homepage": "https://github.com/cajal-technologies/talos",
+  "skills": []
+}
