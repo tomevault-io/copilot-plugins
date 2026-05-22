@@ -1,28 +1,28 @@
-## 01-project-overview
+## 02-components
 
-> This is a Next.js chat application that uses Supabase for backend data storage and OpenAI for chat functionality. The app allows users to create chat sessions and interact with an AI assistant.
+> The application components are organized into several categories:
 
-# Project Overview
+# Components Structure
 
-This is a Next.js chat application that uses Supabase for backend data storage and OpenAI for chat functionality. The app allows users to create chat sessions and interact with an AI assistant.
+The application components are organized into several categories:
 
-## Key Technology Stack
-- Next.js (React framework)
-- Supabase (Database and authentication)
-- OpenAI (AI integration)
-- Tailwind CSS (Styling)
-- Zustand (State management)
+## Chat Components
+Located in [components/chat/](mdc:components/chat/) and include:
+- [Chat.tsx](mdc:components/chat/Chat.tsx) - Main chat interface container
+- [ChatMessage.tsx](mdc:components/chat/ChatMessage.tsx) - Individual message display
+- [ChatInput.tsx](mdc:components/chat/ChatInput.tsx) - Message input and submission
+- [Sidebar.tsx](mdc:components/chat/Sidebar.tsx) - Chat sessions sidebar
 
-## Main Entry Points
-- [app/page.tsx](mdc:app/page.tsx) - Main page that redirects to an existing or new chat session
-- [app/[sessionId]/page.tsx](mdc:app/[sessionId]/page.tsx) - Dynamic page for individual chat sessions
-- [app/layout.tsx](mdc:app/layout.tsx) - Root layout component
+## UI Components
+Located in [components/ui/](mdc:components/ui/) and include reusable UI elements following the Shadcn UI pattern.
 
-## Project Structure
-- `/app` - Next.js app directory with pages and API routes
-- `/components` - React components organized by feature
-- `/lib` - Utility functions, store, and configuration
-- `/public` - Static assets
+## Data Visualization Components
+Special components for displaying structured data from API responses:
+- [WeatherComponent.tsx](mdc:components/WeatherComponent.tsx) - Weather data visualization
+- [EarthquakeComponent.tsx](mdc:components/EarthquakeComponent.tsx) - Earthquake data visualization
+- [ExchangeRateComponent.tsx](mdc:components/ExchangeRateComponent.tsx) - Currency exchange data
+- [StockComponent.tsx](mdc:components/StockComponent.tsx) - Stock market data
+- [CoinComponent.tsx](mdc:components/CoinComponent.tsx) - Cryptocurrency data
 
 ---
 > Source: [Deuz-AI/Deuz-Chat](https://github.com/Deuz-AI/Deuz-Chat) — distributed by [TomeVault](https://tomevault.io).
