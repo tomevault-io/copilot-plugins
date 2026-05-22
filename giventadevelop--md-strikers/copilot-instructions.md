@@ -1,511 +1,284 @@
-## admin-page-responsive-button-group
+## admin-toggle-switch-styling
 
-> This rule defines the standard pattern for responsive button groups displayed in a grid layout across admin pages. The pattern ensures consistent 2-column layout on mobile devices, proper spacing, and responsive sizing for icons, text, and containers.
+> Standard pattern for toggle switch components used in admin pages for filtering and state toggling
 
-# Admin Page Responsive Button Group Pattern
+
+# Admin Toggle Switch Styling Pattern
 
 ## **Overview**
-This rule defines the standard pattern for responsive button groups displayed in a grid layout across admin pages. The pattern ensures consistent 2-column layout on mobile devices, proper spacing, and responsive sizing for icons, text, and containers.
+This rule defines the standard pattern for toggle switch components used in admin pages for filtering and state toggling. The pattern provides consistent styling, smooth animations, and clear visual feedback for binary state changes.
 
 ## **Problem Solved**
-- **Mobile Layout**: Ensures 2 items per row on mobile instead of 1 (better space utilization)
-- **Responsive Alignment**: Proper spacing and padding across all screen sizes
-- **Icon & Text Scaling**: Icons and text scale appropriately for mobile, tablet, and desktop
-- **Consistent Spacing**: Standardized gaps and padding that work across breakpoints
-- **Touch-Friendly**: Adequate button sizes for mobile touch interactions
+- **Consistent Toggle UI**: Ensures all toggle switches use the same visual pattern across admin pages
+- **Smooth Animations**: Standardized transition effects and state changes
+- **Clear Visual Feedback**: Color-coded states and icons for immediate understanding
+- **Accessibility**: Proper ARIA labels and focus states
+- **Responsive Design**: Works consistently across different screen sizes
 
 ## **Core Pattern**
 
-### **Grid Container**
+### **Toggle Switch Container**
 ```tsx
-// ✅ DO: Use responsive grid layout with 2 columns on mobile
-<div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
-  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-    {/* Button cards */}
-  </div>
+// ✅ DO: Use the standard toggle switch container pattern
+<div className="flex justify-center items-center gap-4 mt-6">
+  {/* Left Label */}
+  {/* Toggle Switch Button */}
+  {/* Right Label */}
 </div>
 ```
 
-### **Button Card Structure**
+### **Toggle Switch Button Structure**
 ```tsx
-// ✅ DO: Use responsive button card pattern
-<Link
-  href="/admin/path/to/resource"
-  className={`flex flex-col items-center justify-center rounded-lg border-2 p-2.5 sm:p-3 lg:p-4 transition-all duration-300 hover:scale-105 hover:shadow-md group ${colorClasses}`}
-  title="Button Label"
-  aria-label="Button Label"
+// ✅ DO: Use the standard toggle switch button pattern
+<button
+  onClick={() => setState(!state)}
+  className={`relative inline-flex h-10 w-16 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 hover:scale-105 ${
+    state
+      ? 'bg-blue-500 focus:ring-blue-500'
+      : 'bg-purple-500 focus:ring-purple-500'
+    }`}
+  title={state ? 'Switch to Off State' : 'Switch to On State'}
+  aria-label={state ? 'Switch to Off State' : 'Switch to On State'}
 >
-  <div className={`flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${iconBgColor} flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform duration-300`}>
-    <IconComponent className={`w-6 h-6 sm:w-8 sm:h-8 ${iconTextColor}`} />
-  </div>
-  <span className="font-semibold text-center text-xs sm:text-sm lg:text-base leading-tight px-1">
-    Button Label
+  <span
+    className={`inline-flex items-center justify-center h-8 w-8 transform rounded-full bg-white transition-transform duration-300 shadow-md ${
+      state ? 'translate-x-7' : 'translate-x-1'
+    }`}
+  >
+    {/* Icon based on state */}
   </span>
-</Link>
+</button>
 ```
 
 ## **Key CSS Properties**
 
-### **Grid Container Requirements**
-- **`grid grid-cols-2`**: **CRITICAL**: 2 columns on mobile (not 1)
-- **`sm:grid-cols-2`**: 2 columns on small screens (640px+)
-- **`md:grid-cols-3`**: 3 columns on medium screens (768px+)
-- **`lg:grid-cols-4`**: 4 columns on large screens (1024px+)
-- **`gap-3 sm:gap-4 lg:gap-6`**: Responsive gaps
-  - Mobile: 12px (0.75rem)
-  - Small screens: 16px (1rem)
-  - Large screens: 24px (1.5rem)
+### **Container Requirements**
+- **`flex justify-center items-center`**: Centers toggle switch horizontally and vertically
+- **`gap-4`**: Spacing between labels and switch (16px)
+- **`mt-6`**: Top margin (24px) for spacing above toggle
 
-### **Card Container Requirements**
-- **`p-4 sm:p-6 lg:p-8`**: Responsive padding
-  - Mobile: 16px (1rem)
-  - Small screens: 24px (1.5rem)
-  - Large screens: 32px (2rem)
+### **Button Requirements**
+- **`relative`**: Enables absolute positioning of thumb
+- **`inline-flex`**: Inline flex layout
+- **`h-10`**: Fixed height (40px) for toggle track
+- **`w-16`**: Fixed width (64px) for toggle track
+- **`items-center`**: Centers thumb vertically
+- **`rounded-full`**: Fully rounded track (pill shape)
+- **`transition-all duration-300`**: Smooth transitions for all properties
+- **`focus:outline-none focus:ring-2 focus:ring-offset-2`**: Focus ring for accessibility
+- **`hover:scale-105`**: Subtle scale effect on hover (5% increase)
+- **State Colors**:
+  - **Active/On State**: `bg-blue-500 focus:ring-blue-500`
+  - **Inactive/Off State**: `bg-purple-500 focus:ring-purple-500`
 
-### **Button Card Requirements**
-- **`flex flex-col items-center justify-center`**: Centers content vertically and horizontally
-- **`rounded-lg`**: Medium border radius (8px) for card appearance
-- **`border-2`**: 2px border for definition
-- **`p-2.5 sm:p-3 lg:p-4`**: Responsive padding
-  - Mobile: 10px (0.625rem)
-  - Small screens: 12px (0.75rem)
-  - Large screens: 16px (1rem)
-- **`transition-all duration-300`**: Smooth transitions
-- **`hover:scale-105`**: 5% scale increase on hover
-- **`hover:shadow-md`**: Medium shadow on hover
-- **`group`**: Enables group hover effects on child elements
+### **Thumb (Slider) Requirements**
+- **`inline-flex items-center justify-center`**: Centers icon within thumb
+- **`h-8 w-8`**: Fixed thumb size (32px × 32px)
+- **`transform rounded-full`**: Fully rounded thumb
+- **`bg-white`**: White background for thumb
+- **`transition-transform duration-300`**: Smooth slide animation
+- **`shadow-md`**: Medium shadow for depth
+- **Position**:
+  - **Active/On State**: `translate-x-7` (moves to right, 28px)
+  - **Inactive/Off State**: `translate-x-1` (moves to left, 4px)
 
-### **Icon Container Requirements**
-- **`flex-shrink-0`**: Prevents icon container from shrinking
-- **`w-10 h-10 sm:w-11 sm:h-11`**: Responsive icon container size
-  - Mobile: 40px × 40px
-  - Small screens+: 44px × 44px
-- **`rounded-xl`**: Large border radius (12px) for icon container
-- **`flex items-center justify-center`**: Centers icon within container
-- **`mb-1.5 sm:mb-2`**: Responsive margin bottom
-  - Mobile: 6px (0.375rem)
-  - Small screens+: 8px (0.5rem)
-- **`group-hover:scale-110`**: Scales up 10% when parent card is hovered
-- **`transition-transform duration-300`**: Smooth scale animation
+### **Label Requirements**
+- **`text-lg font-semibold`**: Large, bold text
+- **`transition-colors duration-300`**: Smooth color transitions
+- **Active State**: `text-purple-600` or `text-blue-600` (vibrant color)
+- **Inactive State**: `text-purple-300` or `text-blue-300` (muted color)
 
 ### **Icon Requirements**
-- **`w-6 h-6 sm:w-8 sm:h-8`**: Responsive icon size
-  - Mobile: 24px × 24px
-  - Small screens+: 32px × 32px
-- **Color**: Use semantic color matching action type (e.g., `text-blue-600`)
-
-### **Text Requirements**
-- **`font-semibold`**: Bold text for emphasis
-- **`text-center`**: Centers text horizontally
-- **`text-xs sm:text-sm lg:text-base`**: Responsive text size
-  - Mobile: 12px (0.75rem)
-  - Small screens: 14px (0.875rem)
-  - Large screens: 16px (1rem)
-- **`leading-tight`**: Tighter line height for compact display
-- **`px-1`**: **CRITICAL**: Small horizontal padding prevents text overflow on mobile
+- **`w-5 h-5`**: Icon size (20px × 20px)
+- **Color**: Matches button state color (`text-blue-600` or `text-purple-600`)
+- **SVG**: Use Heroicons pattern with `fill="none" stroke="currentColor"`
 
 ## **Complete Example**
 
-### **Full Responsive Button Group**
+### **Future/Past Events Toggle**
 ```tsx
-export default function AdminPage() {
-  const adminButtons = [
-    {
-      href: '/admin',
-      icon: 'home',
-      label: 'Admin Home',
-      color: 'blue',
-      key: 'admin-home'
-    },
-    // ... more buttons
-  ];
-
-  const getColorClasses = (color: string) => {
-    const colorMap: Record<string, string> = {
-      blue: 'bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200',
-      green: 'bg-green-50 hover:bg-green-100 text-green-700 border-green-200',
-      // ... other colors
-    };
-    return colorMap[color] || colorMap.blue;
-  };
-
-  const getIconBgColor = (color: string) => {
-    const colorMap: Record<string, string> = {
-      blue: 'bg-blue-100',
-      green: 'bg-green-100',
-      // ... other colors
-    };
-    return colorMap[color] || colorMap.blue;
-  };
-
-  const getIconTextColor = (color: string) => {
-    const colorMap: Record<string, string> = {
-      blue: 'text-blue-500',
-      green: 'text-green-500',
-      // ... other colors
-    };
-    return colorMap[color] || colorMap.blue;
-  };
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8" style={{ paddingTop: '120px' }}>
-      <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-indigo-800 mb-4 sm:mb-8 flex flex-wrap items-center justify-center gap-2 text-center">
-        Page Title
-      </h1>
-
-      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-          {adminButtons.map((button) => {
-            const colorClasses = getColorClasses(button.color);
-            const iconBgColor = getIconBgColor(button.color);
-            const iconTextColor = getIconTextColor(button.color);
-
-            return (
-              <Link
-                key={button.key}
-                href={button.href}
-                className={`flex flex-col items-center justify-center rounded-lg border-2 p-2.5 sm:p-3 lg:p-4 transition-all duration-300 hover:scale-105 hover:shadow-md group ${colorClasses}`}
-                title={button.label}
-                aria-label={button.label}
-              >
-                <div className={`flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${iconBgColor} flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform duration-300`}>
-                  {renderIcon(button.icon, `w-6 h-6 sm:w-8 sm:h-8 ${iconTextColor}`)}
-                </div>
-                <span className="font-semibold text-center text-xs sm:text-sm lg:text-base leading-tight px-1">
-                  {button.label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-```
-
-## **Responsive Breakpoints**
-
-### **Grid Column Behavior**
-- **`grid-cols-2`** (mobile, default): **2 columns** - Better space utilization on mobile
-- **`sm:grid-cols-2`** (640px+): 2 columns, maintained for small tablets
-- **`md:grid-cols-3`** (768px+): 3 columns, better use of medium screens
-- **`lg:grid-cols-4`** (1024px+): 4 columns, optimal for desktop
-
-### **Spacing Scaling**
-- **Gaps**: `gap-3` (12px) → `sm:gap-4` (16px) → `lg:gap-6` (24px)
-- **Card Padding**: `p-4` (16px) → `sm:p-6` (24px) → `lg:p-8` (32px)
-- **Button Padding**: `p-2.5` (10px) → `sm:p-3` (12px) → `lg:p-4` (16px)
-- **Icon Margin**: `mb-1.5` (6px) → `sm:mb-2` (8px)
-
-### **Typography Scaling**
-- **Text Size**: `text-xs` (12px) → `sm:text-sm` (14px) → `lg:text-base` (16px)
-- **Icon Size**: `w-6 h-6` (24px) → `sm:w-8 sm:h-8` (32px)
-- **Icon Container**: `w-10 h-10` (40px) → `sm:w-11 sm:h-11` (44px)
-
-## **Header Responsiveness**
-
-### **Page Title Pattern**
-```tsx
-// ✅ DO: Use responsive header styling
-<h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-indigo-800 mb-4 sm:mb-8 flex flex-wrap items-center justify-center gap-2 text-center">
-  Page Title
-</h1>
-```
-
-### **Header Requirements**
-- **`text-xl sm:text-2xl lg:text-3xl`**: Responsive text size
-  - Mobile: 20px (1.25rem)
-  - Small screens: 24px (1.5rem)
-  - Large screens: 30px (1.875rem)
-- **`mb-4 sm:mb-8`**: Responsive margin bottom
-  - Mobile: 16px (1rem)
-  - Small screens+: 32px (2rem)
-- **`flex flex-wrap`**: Allows wrapping on mobile
-- **`items-center justify-center`**: Centers content
-- **`text-center`**: Centers text for mobile
-
-## **Container Responsiveness**
-
-### **Separated Container Pattern (Recommended for Pages with Navigation + Content)**
-
-**CRITICAL**: For pages that have both navigation buttons and data tables/content, use a **separated container pattern** to ensure navigation buttons are full-width with independent responsive padding, while main content remains constrained.
-
-```tsx
-// ✅ DO: Use separated container pattern for navigation + content pages
-<div className="w-full overflow-x-hidden box-border" style={{ paddingTop: '120px' }}>
-  {/* Navigation Section - Full Width, Separate Responsive Container */}
-  <div className="w-full px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 mb-6 sm:mb-8">
-    <AdminNavigation />
-  </div>
-  {/* Main Content Section - Constrained Width */}
-  <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-8">
-    {/* Main content (tables, forms, etc.) */}
-  </div>
+{/* Event Filter Toggle */}
+<div className="flex justify-center items-center gap-4 mt-6">
+  <span className={`text-lg font-semibold transition-colors duration-300 ${!showPastEvents ? 'text-purple-600' : 'text-purple-300'}`}>
+    Future Events
+  </span>
+  <button
+    onClick={() => setShowPastEvents(!showPastEvents)}
+    className={`relative inline-flex h-10 w-16 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 hover:scale-105 ${
+      showPastEvents
+        ? 'bg-blue-500 focus:ring-blue-500'
+        : 'bg-purple-500 focus:ring-purple-500'
+    }`}
+    title={showPastEvents ? 'Show Future Events' : 'Show Past Events'}
+    aria-label={showPastEvents ? 'Show Future Events' : 'Show Past Events'}
+  >
+    <span
+      className={`inline-flex items-center justify-center h-8 w-8 transform rounded-full bg-white transition-transform duration-300 shadow-md ${showPastEvents ? 'translate-x-7' : 'translate-x-1'}`}
+    >
+      {showPastEvents ? (
+        <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ) : (
+        <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      )}
+    </span>
+  </button>
+  <span className={`text-lg font-semibold transition-colors duration-300 ${showPastEvents ? 'text-blue-600' : 'text-blue-300'}`}>
+    Past Events
+  </span>
 </div>
 ```
 
-### **Separated Container Requirements**
-- **Outer Container**: `w-full overflow-x-hidden box-border` - Full width, prevents horizontal overflow
-- **Navigation Container**: 
-  - `w-full` - Full width
-  - `px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8` - Independent responsive padding (prevents cutoff on mobile)
-  - `mb-6 sm:mb-8` - Responsive margin bottom
-- **Main Content Container**: 
-  - `max-w-7xl mx-auto` - Constrained width, centered
-  - `px-3 sm:px-4 md:px-6 lg:px-8` - Responsive horizontal padding
-  - `py-4 sm:py-8` - Responsive vertical padding
+## **Color Coding System**
 
-### **Why Use Separated Containers?**
-- **Prevents Cutoff**: Navigation buttons get full width with proper edge padding
-- **Independent Responsiveness**: Navigation and content can have different padding strategies
-- **Better Mobile Experience**: Navigation buttons don't get constrained by content container max-width
-- **Flexibility**: Allows navigation to break out of content constraints
+### **Standard Color Pairs**
+- **Purple/Blue**: Future Events (purple) ↔ Past Events (blue)
+- **Green/Red**: Active (green) ↔ Inactive (red)
+- **Blue/Gray**: Enabled (blue) ↔ Disabled (gray)
+- **Teal/Orange**: On (teal) ↔ Off (orange)
 
-### **Simple Container Pattern (For Navigation-Only Pages)**
+### **Color Usage Pattern**
+- **Left Label (Off State)**: Uses primary color when inactive, muted when active
+- **Right Label (On State)**: Uses secondary color when active, muted when inactive
+- **Toggle Track**: Uses secondary color when active, primary color when inactive
+- **Thumb Icon**: Matches track color (blue-600 or purple-600)
 
+## **Common Icon Patterns**
+
+### **Clock Icon (Past/Time-based)**
 ```tsx
-// ✅ DO: Use simple container for navigation-only pages
-<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8" style={{ paddingTop: '120px' }}>
-  {/* Navigation buttons */}
-</div>
+<svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
 ```
 
-### **Container Requirements**
-- **`max-w-7xl mx-auto`**: Centers container with max width
-- **`px-4 sm:px-6 lg:px-8`**: Responsive horizontal padding
-  - Mobile: 16px (1rem)
-  - Small screens: 24px (1.5rem)
-  - Large screens: 32px (2rem)
-- **`py-4 sm:py-8`**: Responsive vertical padding
-  - Mobile: 16px (1rem)
-  - Small screens+: 32px (2rem)
-- **`paddingTop: '120px'`**: Reduced top padding for mobile (was 180px)
+### **Calendar Icon (Future/Scheduled)**
+```tsx
+<svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
+```
+
+### **Checkmark Icon (Active/Enabled)**
+```tsx
+<svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+</svg>
+```
+
+### **X Icon (Inactive/Disabled)**
+```tsx
+<svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+</svg>
+```
+
+## **State Management Pattern**
+
+### **React State Hook**
+```tsx
+const [toggleState, setToggleState] = useState(false);
+
+// Toggle handler
+const handleToggle = () => {
+  setToggleState(!toggleState);
+};
+```
+
+### **Usage in useEffect**
+```tsx
+useEffect(() => {
+  // Reload data when toggle state changes
+  loadData();
+}, [toggleState]);
+```
 
 ## **Accessibility Requirements**
 
 ### **Required Attributes**
-- **`title`**: Tooltip text for hover state
-- **`aria-label`**: Screen reader accessible label (should match button text)
-- **Semantic HTML**: Use `<Link>` for navigation
+- **`title`**: Tooltip text for hover state (should change based on current state)
+- **`aria-label`**: Screen reader accessible label (should change based on current state)
+- **`focus:ring-2 focus:ring-offset-2`**: Visible focus indicator
+- **Semantic HTML**: Use `<button>` element, not `<div>` or `<span>`
 
 ### **Example with Accessibility**
 ```tsx
-<Link
-  href="/admin/path"
-  className={`... ${colorClasses}`}
-  title="Button Label"
-  aria-label="Button Label"
+<button
+  onClick={() => setToggleState(!toggleState)}
+  className={`... ${toggleState ? 'bg-blue-500' : 'bg-purple-500'}`}
+  title={toggleState ? 'Switch to Off State' : 'Switch to On State'}
+  aria-label={toggleState ? 'Switch to Off State' : 'Switch to On State'}
+  aria-checked={toggleState}
 >
-  {/* Icon and text */}
-</Link>
+  {/* Toggle content */}
+</button>
 ```
 
 ## **Best Practices**
 
 ### **DO:**
-- ✅ Use `grid-cols-2` for mobile (not `grid-cols-1`)
-- ✅ Always include responsive breakpoints: `sm:`, `md:`, `lg:`
-- ✅ Use responsive padding: `p-2.5 sm:p-3 lg:p-4`
-- ✅ Use responsive text sizes: `text-xs sm:text-sm lg:text-base`
-- ✅ Use responsive icon sizes: `w-6 h-6 sm:w-8 sm:h-8`
-- ✅ Include `px-1` on text to prevent overflow
-- ✅ Use `flex-wrap` on headers for mobile
-- ✅ Reduce top padding on mobile (`120px` instead of `180px`)
+- ✅ Use consistent toggle dimensions: `h-10 w-16` for track, `h-8 w-8` for thumb
 - ✅ Always include `title` and `aria-label` attributes
-- ✅ Use consistent gap values: `gap-3 sm:gap-4 lg:gap-6`
+- ✅ Use smooth transitions: `transition-all duration-300`
+- ✅ Include hover effects: `hover:scale-105`
+- ✅ Use semantic color pairs (purple/blue, green/red, etc.)
+- ✅ Match thumb icon color to track color
+- ✅ Use `translate-x-7` for active state, `translate-x-1` for inactive state
+- ✅ Include focus ring for keyboard navigation
+- ✅ Use `rounded-full` for both track and thumb
 
 ### **DON'T:**
-- ❌ Use `grid-cols-1` on mobile (wastes space)
-- ❌ Skip responsive breakpoints
-- ❌ Use fixed sizes without responsive variants
-- ❌ Skip `px-1` on text (causes overflow on mobile)
-- ❌ Use large top padding on mobile
-- ❌ Mix different gap values inconsistently
+- ❌ Mix different toggle sizes or styles
 - ❌ Skip accessibility attributes (`title`, `aria-label`)
-- ❌ Use different padding values without responsive variants
+- ❌ Use arbitrary colors without semantic meaning
+- ❌ Omit hover effects or transitions
+- ❌ Use different transition durations
+- ❌ Skip focus states
+- ❌ Use `<div>` or `<span>` instead of `<button>` for toggle
+- ❌ Use different thumb sizes or positions
 
-## **Responsive Breakpoint Reference**
+## **Color Reference Table**
 
-| Breakpoint | Min Width | Grid Columns | Gap | Card Padding | Button Padding | Text Size | Icon Size |
-|----|----|----|----|----|----|----|----|
-| **Mobile** (default) | 0px | 2 | 12px | 16px | 10px | 12px | 24px |
-| **Small** (`sm:`) | 640px | 2 | 16px | 24px | 12px | 14px | 32px |
-| **Medium** (`md:`) | 768px | 3 | 16px | 24px | 12px | 14px | 32px |
-| **Large** (`lg:`) | 1024px | 4 | 24px | 32px | 16px | 16px | 32px |
+| State | Track Color | Thumb Icon Color | Left Label Color | Right Label Color |
+|----|----|----|----|----|
+| **Off/Inactive** | `bg-purple-500` | `text-purple-600` | `text-purple-600` (active) | `text-blue-300` (muted) |
+| **On/Active** | `bg-blue-500` | `text-blue-600` | `text-purple-300` (muted) | `text-blue-600` (active) |
 
 ## **Reference Implementation**
 
-- **Admin Home Page**: [`src/app/admin/page.tsx`](mdc:src/app/admin/page.tsx) - Lines 356-393
-  - **Grid Layout**: Lines 370-391
-  - **Button Cards**: Lines 377-388
-  - **Responsive Styling**: Throughout the component
-- **Manage Usage Page** (Separated Container Pattern): [`src/app/admin/manage-usage/ManageUsageClient.tsx`](mdc:src/app/admin/manage-usage/ManageUsageClient.tsx)
-  - **Separated Container Pattern**: Lines 546-552
-  - **Navigation Section** (full-width with independent padding): Lines 547-550
-  - **Main Content Section** (constrained width): Line 552
-  - **Table Scrollbar Implementation**: Line 642 (user-table-scroll-container)
-- **Scrollbar CSS**: [`src/app/globals.css`](mdc:src/app/globals.css) - Lines 130-150
-  - **Custom Scrollbar Styling**: `.user-table-scroll-container` class with WebKit and Firefox support
+- **Manage Events Page**: [`src/app/admin/manage-events/page.tsx`](mdc:src/app/admin/manage-events/page.tsx) - Lines 500-532
 
 ## **Troubleshooting**
 
-### **Buttons Not Aligned on Mobile?**
-- Check that `grid-cols-2` is used (not `grid-cols-1`)
-- Verify responsive padding: `p-2.5 sm:p-3 lg:p-4`
-- Ensure `px-1` is on text span to prevent overflow
-- Check container padding: `p-4 sm:p-6 lg:p-8`
+### **Toggle Not Sliding Smoothly?**
+- Check that `transition-transform duration-300` is on the thumb span
+- Verify `transform` class is included
+- Ensure `translate-x-7` (active) and `translate-x-1` (inactive) are correct
 
-### **Text Overflowing on Mobile?**
-- Add `px-1` to text span: `className="... px-1"`
-- Reduce text size: `text-xs sm:text-sm lg:text-base`
-- Check button padding: `p-2.5 sm:p-3 lg:p-4`
+### **Colors Not Changing?**
+- Verify state is being toggled correctly (`onClick` handler)
+- Check that conditional classes use template literals with `${state ? ... : ...}`
+- Ensure both track and label colors update based on state
 
-### **Icons Too Small/Large on Mobile?**
-- Verify responsive icon sizes: `w-6 h-6 sm:w-8 sm:h-8`
-- Check icon container: `w-10 h-10 sm:w-11 sm:h-11`
-- Ensure proper margin: `mb-1.5 sm:mb-2`
+### **Thumb Not Centered?**
+- Verify `items-center` is on the button
+- Check that thumb has `inline-flex items-center justify-center`
+- Ensure thumb size (`h-8 w-8`) matches container height (`h-10`)
 
-### **Spacing Issues?**
-- Verify responsive gaps: `gap-3 sm:gap-4 lg:gap-6`
-- Check responsive padding on cards: `p-4 sm:p-6 lg:p-8`
-- Ensure consistent spacing across breakpoints
-
-### **Navigation Buttons Cut Off on Right Side?**
-- Use **separated container pattern** instead of single container
-- Ensure navigation section has independent padding: `px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8`
-- Check that navigation container is `w-full` (not constrained by `max-w-7xl`)
-- Verify outer container has `overflow-x-hidden` to prevent horizontal scroll
-
-### **Table Not Scrolling on Mobile?**
-- Ensure table has `minWidth: '800px'` inline style
-- Verify container has `user-table-scroll-container` class
-- Check that CSS is added to `globals.css` for scrollbar styling
-- Test on actual mobile device (not just browser dev tools)
-- Ensure `-webkit-overflow-scrolling: touch` is included for smooth scrolling
+### **Focus Ring Not Visible?**
+- Check that `focus:ring-2 focus:ring-offset-2` is included
+- Verify `focus:ring-{color}-500` matches track color
+- Ensure button is focusable (not disabled)
 
 ## **Related Patterns**
 
-- See [Admin Home Button Groups Pattern](mdc:.cursor/rules/admin_home_button_groups.mdc) for button group styling
+- See [Admin Action Buttons](mdc:.cursor/rules/admin_action_buttons.mdc) for button styling patterns
 - See [Icon Standards](mdc:.cursor/rules/icon_standards.mdc) for icon sizing and styling
 - See [MOSC Styling Standards](mdc:.cursor/rules/mosc_styling_standards.mdc) for overall design system
-- See [`src/app/admin/page.tsx`](mdc:src/app/admin/page.tsx) for complete implementation
-
-## **Table Scrollbar Pattern (For Data Tables)**
-
-### **Horizontal Scrollbar for Data Tables**
-
-When pages have data tables that need horizontal scrolling on mobile, use the following pattern:
-
-```tsx
-// ✅ DO: Use scrollable table container with custom scrollbar styling
-<div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-  <div className="user-table-scroll-container">
-    <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-600 border border-gray-300 dark:border-gray-600" style={{ minWidth: '800px', width: '100%' }}>
-      {/* Table content */}
-    </table>
-  </div>
-</div>
-```
-
-### **Scrollbar CSS (Add to globals.css)**
-
-```css
-/* User Table Scrollbar Styling */
-.user-table-scroll-container {
-  overflow-x: auto;
-  overflow-y: visible;
-  scrollbar-width: auto;
-  scrollbar-color: #9CA3AF #F3F4F6;
-  -webkit-overflow-scrolling: touch;
-}
-
-.user-table-scroll-container::-webkit-scrollbar {
-  height: 12px;
-}
-
-.user-table-scroll-container::-webkit-scrollbar-track {
-  background: #F3F4F6;
-  border-radius: 6px;
-}
-
-.user-table-scroll-container::-webkit-scrollbar-thumb {
-  background: #9CA3AF;
-  border-radius: 6px;
-  border: 2px solid #F3F4F6;
-}
-
-.user-table-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: #6B7280;
-}
-```
-
-### **Table Scrollbar Requirements**
-- **Container Class**: `user-table-scroll-container` - Custom scrollbar styling
-- **Table Min Width**: `minWidth: '800px'` - Ensures scrolling on mobile
-- **Touch Scrolling**: `-webkit-overflow-scrolling: touch` - Smooth mobile scrolling
-- **Scrollbar Height**: `12px` - Visible but not intrusive
-- **Scrollbar Colors**: Gray track (#F3F4F6) with darker thumb (#9CA3AF)
-- **Hover Effect**: Darker thumb on hover (#6B7280)
-
-### **Why Use Custom Scrollbar?**
-- **Visibility**: Standard scrollbars can be hard to see on mobile
-- **Consistent Styling**: Matches design system colors
-- **Touch-Friendly**: Proper height for touch interactions
-- **Cross-Browser**: Works on both WebKit (Chrome, Safari) and Firefox
-
-## **Complete Example: Navigation + Table Page**
-
-```tsx
-export default function ManageUsagePage() {
-  return (
-    <div className="w-full overflow-x-hidden box-border" style={{ paddingTop: '120px' }}>
-      {/* Navigation Section - Full Width, Separate Responsive Container */}
-      <div className="w-full px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 mb-6 sm:mb-8">
-        <AdminNavigation />
-      </div>
-      
-      {/* Main Content Section - Constrained Width */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-8">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6">
-          Page Title
-        </h1>
-        
-        {/* Data Table with Scrollbar */}
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-          <div className="user-table-scroll-container">
-            <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-600 border border-gray-300 dark:border-gray-600" style={{ minWidth: '800px', width: '100%' }}>
-              <thead>
-                {/* Table headers */}
-              </thead>
-              <tbody>
-                {/* Table rows */}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-```
-
-## **Summary**
-
-**Key Pattern**: Responsive button groups should use:
-- **2 columns on mobile** (`grid-cols-2`) - not 1
-- **Responsive sizing** for all elements (icons, text, padding, gaps)
-- **Proper spacing** with responsive breakpoints
-- **Text overflow prevention** with `px-1` on text spans
-- **Reduced top padding** on mobile (`120px` instead of `180px`)
-- **Separated containers** for pages with navigation + content (prevents cutoff)
-- **Custom scrollbar** for data tables (visible and touch-friendly)
-
-**Container Strategy**:
-- **Navigation-only pages**: Use simple `max-w-7xl` container
-- **Navigation + content pages**: Use separated container pattern (navigation full-width, content constrained)
-
-This ensures optimal space utilization, proper alignment, touch-friendly interactions, and prevents cutoff issues across all device sizes.
+- See [`src/app/admin/manage-events/page.tsx`](mdc:src/app/admin/manage-events/page.tsx) for complete implementation
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
