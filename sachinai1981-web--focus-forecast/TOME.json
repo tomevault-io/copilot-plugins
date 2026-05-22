@@ -1,0 +1,44 @@
+{
+  "name": "focus-forecast",
+  "owner": "sachinai1981-web",
+  "repo": "focus-forecast",
+  "description": "Pomodoro tracker that forecasts how much you'll focus tomorrow \u2014 then dares you to beat the line. Pure-static PWA + local TimesFM deep mode.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sachinai1981-web/focus-forecast",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T04:12:39Z"
+}
