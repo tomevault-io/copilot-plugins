@@ -1,0 +1,9 @@
+{
+  "name": "oborchers--mcp-server-pacman",
+  "displayName": "mcp-server-pacman",
+  "description": "A Model Context Protocol server that provides package index querying capabilities.",
+  "version": "1.0.0",
+  "author": "oborchers",
+  "homepage": "https://github.com/oborchers/mcp-server-pacman",
+  "skills": []
+}
