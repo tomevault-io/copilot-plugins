@@ -1,247 +1,249 @@
-## dev-workflow
+## dialog-button-styling
 
-> Guide for using meta-development script (scripts/dev.js) to manage task-driven development workflows
+> Standard pattern for dialog buttons (AlertDialog Action/Cancel) matching admin action buttons styling
 
 
-- **Development Workflow Process**
-  - Start new projects by running `node scripts/dev.js parse-prd --input=<prd-file.txt>` to generate initial tasks.json
-  - Begin coding sessions with `node scripts/dev.js list` to see current tasks, status, and IDs
-  - Analyze task complexity with `node scripts/dev.js analyze-complexity --research` before breaking down tasks
-  - Select tasks based on dependencies (all marked 'done'), priority level, and ID order
-  - Clarify tasks by checking task files in tasks/ directory or asking for user input
-  - View specific task details using `node scripts/dev.js show --id=<id>` to understand implementation requirements
-  - Break down complex tasks using `node scripts/dev.js expand --id=<id>` with appropriate flags
-  - Clear existing subtasks if needed using `node scripts/dev.js clear-subtasks --id=<id>` before regenerating
-  - Implement code following task details, dependencies, and project standards
-  - Verify tasks according to test strategies before marking as complete
-  - Mark completed tasks with `node scripts/dev.js set-status --id=<id> --status=done`
-  - Update dependent tasks when implementation differs from original plan
-  - Generate task files with `node scripts/dev.js generate` after updating tasks.json
-  - Maintain valid dependency structure with `node scripts/dev.js fix-dependencies` when needed
-  - Respect dependency chains and task priorities when selecting work
-  - Report progress regularly using the list command
+# Dialog Button Styling Pattern
 
-- **Task Complexity Analysis**
-  - Run `node scripts/dev.js analyze-complexity --research` for comprehensive analysis
-  - Review complexity report in scripts/task-complexity-report.json
-  - Focus on tasks with highest complexity scores (8-10) for detailed breakdown
-  - Use analysis results to determine appropriate subtask allocation
-  - Note that reports are automatically used by the expand command
+## **Overview**
+This rule defines the standard pattern for dialog buttons (AlertDialog Action and Cancel buttons) that match the admin action buttons styling pattern. These buttons provide consistent styling, hover effects, and icon presentation across all dialogs in the application.
 
-- **Task Breakdown Process**
-  - For tasks with complexity analysis, use `node scripts/dev.js expand --id=<id>`
-  - Otherwise use `node scripts/dev.js expand --id=<id> --subtasks=<number>`
-  - Add `--research` flag to leverage Perplexity AI for research-backed expansion
-  - Use `--prompt="<context>"` to provide additional context when needed
-  - Review and adjust generated subtasks as necessary
-  - Use `--all` flag to expand multiple pending tasks at once
-  - If subtasks need regeneration, clear them first with `clear-subtasks` command
+## **Problem Solved**
+- **Consistent Dialog Button Styling**: Ensures all dialog buttons follow the same visual pattern as admin action buttons
+- **Icon Standardization**: Provides consistent icon container and sizing for dialog buttons
+- **Hover Effects**: Standardized hover states and transitions matching admin buttons
+- **Color Coding**: Semantic color usage for different action types (blue for cancel/keep, red for destructive actions)
+- **Accessibility**: Proper styling and visual feedback for user interactions
 
-- **Implementation Drift Handling**
-  - When implementation differs significantly from planned approach
-  - When future tasks need modification due to current implementation choices
-  - When new dependencies or requirements emerge
-  - Call `node scripts/dev.js update --from=<futureTaskId> --prompt="<explanation>"` to update tasks.json
+## **Core Pattern**
 
-- **Task Status Management**
-  - Use 'pending' for tasks ready to be worked on
-  - Use 'done' for completed and verified tasks
-  - Use 'deferred' for postponed tasks
-  - Add custom status values as needed for project-specific workflows
+### **Dialog Footer Structure**
+```tsx
+// ✅ DO: Use the standard dialog button pattern
+<AlertDialogFooter className="flex flex-row gap-3 sm:gap-4">
+  {/* Cancel/Secondary Button */}
+  <AlertDialogCancel
+    onClick={handleClose}
+    className="flex-1 flex-shrink-0 h-14 rounded-xl bg-blue-100 hover:bg-blue-200 flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
+  >
+    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-200 flex items-center justify-center">
+      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </div>
+    <span className="font-semibold text-blue-700">Cancel/Keep</span>
+  </AlertDialogCancel>
 
-- **Task File Format Reference**
-  ```
-  # Task ID: <id>
-  # Title: <title>
-  # Status: <status>
-  # Dependencies: <comma-separated list of dependency IDs>
-  # Priority: <priority>
-  # Description: <brief description>
-  # Details:
-  <detailed implementation notes>
-  
-  # Test Strategy:
-  <verification approach>
-  ```
+  {/* Confirm/Primary Button */}
+  <AlertDialogAction
+    onClick={handleConfirm}
+    disabled={isLoading}
+    className="flex-1 flex-shrink-0 h-14 rounded-xl bg-red-100 hover:bg-red-200 flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+  >
+    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-200 flex items-center justify-center">
+      {isLoading ? (
+        <svg className="animate-spin w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      ) : (
+        <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      )}
+    </div>
+    <span className="font-semibold text-red-700">{isLoading ? 'Processing...' : 'Confirm'}</span>
+  </AlertDialogAction>
+</AlertDialogFooter>
+```
 
-- **Command Reference: parse-prd**
-  - Syntax: `node scripts/dev.js parse-prd --input=<prd-file.txt>`
-  - Description: Parses a PRD document and generates a tasks.json file with structured tasks
-  - Parameters: 
-    - `--input=<file>`: Path to the PRD text file (default: sample-prd.txt)
-  - Example: `node scripts/dev.js parse-prd --input=requirements.txt`
-  - Notes: Will overwrite existing tasks.json file. Use with caution.
+## **Key CSS Properties**
 
-- **Command Reference: update**
-  - Syntax: `node scripts/dev.js update --from=<id> --prompt="<prompt>"`
-  - Description: Updates tasks with ID >= specified ID based on the provided prompt
-  - Parameters:
-    - `--from=<id>`: Task ID from which to start updating (required)
-    - `--prompt="<text>"`: Explanation of changes or new context (required)
-  - Example: `node scripts/dev.js update --from=4 --prompt="Now we are using Express instead of Fastify."`
-  - Notes: Only updates tasks not marked as 'done'. Completed tasks remain unchanged.
+### **Dialog Footer Requirements**
+- **`flex flex-row`**: Horizontal layout for buttons
+- **`gap-3 sm:gap-4`**: Spacing between buttons (12px on mobile, 16px on desktop)
 
-- **Command Reference: generate**
-  - Syntax: `node scripts/dev.js generate`
-  - Description: Generates individual task files in tasks/ directory based on tasks.json
-  - Parameters: None
-  - Example: `node scripts/dev.js generate`
-  - Notes: Overwrites existing task files. Creates tasks/ directory if needed.
+### **Button Container Requirements**
+- **`flex-1`**: Equal width buttons
+- **`flex-shrink-0`**: Prevents button from shrinking
+- **`h-14`**: Fixed height (56px) for consistent button size
+- **`rounded-xl`**: Large border radius (12px) for modern appearance
+- **`bg-{color}-100`**: Light background color matching action type
+- **`hover:bg-{color}-200`**: Darker background on hover
+- **`flex items-center justify-center`**: Centers content horizontally and vertically
+- **`gap-3`**: Spacing between icon and text (12px)
+- **`transition-all duration-300`**: Smooth transitions for all properties
+- **`hover:scale-105`**: Subtle scale effect on hover (5% increase)
+- **`disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`**: Disabled state styling
 
-- **Command Reference: set-status**
-  - Syntax: `node scripts/dev.js set-status --id=<id> --status=<status>`
-  - Description: Updates the status of a specific task in tasks.json
-  - Parameters:
-    - `--id=<id>`: ID of the task to update (required)
-    - `--status=<status>`: New status value (required)
-  - Example: `node scripts/dev.js set-status --id=3 --status=done`
-  - Notes: Common values are 'done', 'pending', and 'deferred', but any string is accepted.
+### **Icon Container Requirements**
+- **`flex-shrink-0`**: Prevents icon container from shrinking
+- **`w-10 h-10`**: Fixed icon container size (40px × 40px)
+- **`rounded-lg`**: Medium border radius (8px) for icon container
+- **`bg-{color}-200`**: Darker background than button (creates depth)
+- **`flex items-center justify-center`**: Centers icon within container
 
-- **Command Reference: list**
-  - Syntax: `node scripts/dev.js list`
-  - Description: Lists all tasks in tasks.json with IDs, titles, and status
-  - Parameters: None
-  - Example: `node scripts/dev.js list`
-  - Notes: Provides quick overview of project progress. Use at start of sessions.
+### **Icon Requirements**
+- **`w-6 h-6`**: Icon size (24px × 24px)
+- **`text-{color}-600`**: Icon color matching action type
+- **`fill="none" stroke="currentColor"`**: Standard SVG styling
+- **`viewBox="0 0 24 24"`**: Standard viewBox for Heroicons
+- **`strokeWidth={2}`**: Standard stroke width
+- **`animate-spin`**: For loading state icons
 
-- **Command Reference: expand**
-  - Syntax: `node scripts/dev.js expand --id=<id> [--num=<number>] [--research] [--prompt="<context>"]`
-  - Description: Expands a task with subtasks for detailed implementation
-  - Parameters:
-    - `--id=<id>`: ID of task to expand (required unless using --all)
-    - `--all`: Expand all pending tasks, prioritized by complexity
-    - `--num=<number>`: Number of subtasks to generate (default: from complexity report)
-    - `--research`: Use Perplexity AI for research-backed generation
-    - `--prompt="<text>"`: Additional context for subtask generation
-    - `--force`: Regenerate subtasks even for tasks that already have them
-  - Example: `node scripts/dev.js expand --id=3 --num=5 --research --prompt="Focus on security aspects"`
-  - Notes: Uses complexity report recommendations if available.
+### **Text Requirements**
+- **`font-semibold`**: Bold text for emphasis
+- **`text-{color}-700`**: Text color matching action type (darker than icon)
 
-- **Command Reference: analyze-complexity**
-  - Syntax: `node scripts/dev.js analyze-complexity [options]`
-  - Description: Analyzes task complexity and generates expansion recommendations
-  - Parameters:
-    - `--output=<file>, -o`: Output file path (default: scripts/task-complexity-report.json)
-    - `--model=<model>, -m`: Override LLM model to use
-    - `--threshold=<number>, -t`: Minimum score for expansion recommendation (default: 5)
-    - `--file=<path>, -f`: Use alternative tasks.json file
-    - `--research, -r`: Use Perplexity AI for research-backed analysis
-  - Example: `node scripts/dev.js analyze-complexity --research`
-  - Notes: Report includes complexity scores, recommended subtasks, and tailored prompts.
+## **Color Coding System**
 
-- **Command Reference: clear-subtasks**
-  - Syntax: `node scripts/dev.js clear-subtasks --id=<id>`
-  - Description: Removes subtasks from specified tasks to allow regeneration
-  - Parameters:
-    - `--id=<id>`: ID or comma-separated IDs of tasks to clear subtasks from
-    - `--all`: Clear subtasks from all tasks
-  - Examples:
-    - `node scripts/dev.js clear-subtasks --id=3`
-    - `node scripts/dev.js clear-subtasks --id=1,2,3`
-    - `node scripts/dev.js clear-subtasks --all`
-  - Notes: 
-    - Task files are automatically regenerated after clearing subtasks
-    - Can be combined with expand command to immediately generate new subtasks
-    - Works with both parent tasks and individual subtasks
+### **Semantic Colors for Dialog Actions**
+- **Blue** (`blue-100/200/600/700`): Cancel, Keep, Secondary actions
+- **Red** (`red-100/200/600/700`): Confirm Delete, Destructive actions
+- **Green** (`green-100/200/600/700`): Confirm Save, Positive actions
+- **Gray** (`gray-100/200/600/700`): Neutral actions
 
-- **Task Structure Fields**
-  - **id**: Unique identifier for the task (Example: `1`)
-  - **title**: Brief, descriptive title (Example: `"Initialize Repo"`)
-  - **description**: Concise summary of what the task involves (Example: `"Create a new repository, set up initial structure."`)
-  - **status**: Current state of the task (Example: `"pending"`, `"done"`, `"deferred"`)
-  - **dependencies**: IDs of prerequisite tasks (Example: `[1, 2]`)
-    - Dependencies are displayed with status indicators (✅ for completed, ⏱️ for pending)
-    - This helps quickly identify which prerequisite tasks are blocking work
-  - **priority**: Importance level (Example: `"high"`, `"medium"`, `"low"`)
-  - **details**: In-depth implementation instructions (Example: `"Use GitHub client ID/secret, handle callback, set session token."`)
-  - **testStrategy**: Verification approach (Example: `"Deploy and call endpoint to confirm 'Hello World' response."`)
-  - **subtasks**: List of smaller, more specific tasks (Example: `[{"id": 1, "title": "Configure OAuth", ...}]`)
+## **Complete Examples**
 
-- **Environment Variables Configuration**
-  - **ANTHROPIC_API_KEY** (Required): Your Anthropic API key for Claude (Example: `ANTHROPIC_API_KEY=sk-ant-api03-...`)
-  - **MODEL** (Default: `"claude-3-7-sonnet-20250219"`): Claude model to use (Example: `MODEL=claude-3-opus-20240229`)
-  - **MAX_TOKENS** (Default: `"4000"`): Maximum tokens for responses (Example: `MAX_TOKENS=8000`)
-  - **TEMPERATURE** (Default: `"0.7"`): Temperature for model responses (Example: `TEMPERATURE=0.5`)
-  - **DEBUG** (Default: `"false"`): Enable debug logging (Example: `DEBUG=true`)
-  - **LOG_LEVEL** (Default: `"info"`): Console output level (Example: `LOG_LEVEL=debug`)
-  - **DEFAULT_SUBTASKS** (Default: `"3"`): Default subtask count (Example: `DEFAULT_SUBTASKS=5`)
-  - **DEFAULT_PRIORITY** (Default: `"medium"`): Default priority (Example: `DEFAULT_PRIORITY=high`)
-  - **PROJECT_NAME** (Default: `"MCP SaaS MVP"`): Project name in metadata (Example: `PROJECT_NAME=My Awesome Project`)
-  - **PROJECT_VERSION** (Default: `"1.0.0"`): Version in metadata (Example: `PROJECT_VERSION=2.1.0`)
-  - **PERPLEXITY_API_KEY**: For research-backed features (Example: `PERPLEXITY_API_KEY=pplx-...`)
-  - **PERPLEXITY_MODEL** (Default: `"sonar-medium-online"`): Perplexity model (Example: `PERPLEXITY_MODEL=sonar-large-online`)
+### **Cancel Subscription Dialog**
+```tsx
+<AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Cancel Subscription</AlertDialogTitle>
+      <AlertDialogDescription>
+        Are you sure you want to cancel your subscription? Your subscription will remain active until the end of the current billing period, after which you will lose access to premium features.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter className="flex flex-row gap-3 sm:gap-4">
+      <AlertDialogCancel
+        onClick={handleCancelDialogClose}
+        className="flex-1 flex-shrink-0 h-14 rounded-xl bg-blue-100 hover:bg-blue-200 flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
+      >
+        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-200 flex items-center justify-center">
+          <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+        <span className="font-semibold text-blue-700">Keep Subscription</span>
+      </AlertDialogCancel>
+      <AlertDialogAction
+        onClick={handleCancelConfirm}
+        disabled={cancelingSubscriptionId !== null}
+        className="flex-1 flex-shrink-0 h-14 rounded-xl bg-red-100 hover:bg-red-200 flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+      >
+        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-200 flex items-center justify-center">
+          {cancelingSubscriptionId ? (
+            <svg className="animate-spin w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          ) : (
+            <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          )}
+        </div>
+        <span className="font-semibold text-red-700">{cancelingSubscriptionId ? 'Cancelling...' : 'Cancel Subscription'}</span>
+      </AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
 
-- **Determining the Next Task**
-  - Run `node scripts/dev.js next` to show the next task to work on
-  - The next command identifies tasks with all dependencies satisfied
-  - Tasks are prioritized by priority level, dependency count, and ID
-  - The command shows comprehensive task information including:
-    - Basic task details and description
-    - Implementation details
-    - Subtasks (if they exist)
-    - Contextual suggested actions
-  - Recommended before starting any new development work
-  - Respects your project's dependency structure
-  - Ensures tasks are completed in the appropriate sequence
-  - Provides ready-to-use commands for common task actions
+## **Common Icon SVGs for Dialog Buttons**
 
-- **Viewing Specific Task Details**
-  - Run `node scripts/dev.js show --id=<id>` or `node scripts/dev.js show <id>` to view a specific task
-  - Use dot notation for subtasks: `node scripts/dev.js show 1.2` (shows subtask 2 of task 1)
-  - Displays comprehensive information similar to the next command, but for a specific task
-  - For parent tasks, shows all subtasks and their current status
-  - For subtasks, shows parent task information and relationship
-  - Provides contextual suggested actions appropriate for the specific task
-  - Useful for examining task details before implementation or checking status
+### **Cancel/Close Icon (X)**
+```tsx
+<svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+</svg>
+```
 
-- **Managing Task Dependencies**
-  - Use `node scripts/dev.js add-dependency --id=<id> --depends-on=<id>` to add a dependency
-  - Use `node scripts/dev.js remove-dependency --id=<id> --depends-on=<id>` to remove a dependency
-  - The system prevents circular dependencies and duplicate dependency entries
-  - Dependencies are checked for existence before being added or removed
-  - Task files are automatically regenerated after dependency changes
-  - Dependencies are visualized with status indicators in task listings and files
+### **Delete/Trash Icon (Destructive Actions)**
+```tsx
+<svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+</svg>
+```
 
-- **Command Reference: add-dependency**
-  - Syntax: `node scripts/dev.js add-dependency --id=<id> --depends-on=<id>`
-  - Description: Adds a dependency relationship between two tasks
-  - Parameters:
-    - `--id=<id>`: ID of task that will depend on another task (required)
-    - `--depends-on=<id>`: ID of task that will become a dependency (required)
-  - Example: `node scripts/dev.js add-dependency --id=22 --depends-on=21`
-  - Notes: Prevents circular dependencies and duplicates; updates task files automatically
+### **Checkmark Icon (Confirm/Save Actions)**
+```tsx
+<svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+</svg>
+```
 
-- **Command Reference: remove-dependency**
-  - Syntax: `node scripts/dev.js remove-dependency --id=<id> --depends-on=<id>`
-  - Description: Removes a dependency relationship between two tasks
-  - Parameters:
-    - `--id=<id>`: ID of task to remove dependency from (required)
-    - `--depends-on=<id>`: ID of task to remove as a dependency (required)
-  - Example: `node scripts/dev.js remove-dependency --id=22 --depends-on=21`
-  - Notes: Checks if dependency actually exists; updates task files automatically
+### **Loading Spinner Icon**
+```tsx
+<svg className="animate-spin w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24">
+  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+</svg>
+```
 
-- **Command Reference: validate-dependencies**
-  - Syntax: `node scripts/dev.js validate-dependencies [options]`
-  - Description: Checks for and identifies invalid dependencies in tasks.json and task files
-  - Parameters:
-    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
-  - Example: `node scripts/dev.js validate-dependencies`
-  - Notes: 
-    - Reports all non-existent dependencies and self-dependencies without modifying files
-    - Provides detailed statistics on task dependency state
-    - Use before fix-dependencies to audit your task structure
+## **Best Practices**
 
-- **Command Reference: fix-dependencies**
-  - Syntax: `node scripts/dev.js fix-dependencies [options]`
-  - Description: Finds and fixes all invalid dependencies in tasks.json and task files
-  - Parameters:
-    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
-  - Example: `node scripts/dev.js fix-dependencies`
-  - Notes: 
-    - Removes references to non-existent tasks and subtasks
-    - Eliminates self-dependencies (tasks depending on themselves)
-    - Regenerates task files with corrected dependencies
-    - Provides detailed report of all fixes made
+### **DO:**
+- ✅ Use consistent button styling: `h-14 rounded-xl bg-{color}-100 hover:bg-{color}-200`
+- ✅ Always include icon containers with `w-10 h-10 rounded-lg bg-{color}-200`
+- ✅ Use semantic color choices (blue for cancel, red for destructive, green for confirm)
+- ✅ Include hover effects: `hover:scale-105 transition-all duration-300`
+- ✅ Use `flex-1` for equal-width buttons in footer
+- ✅ Include loading state with spinner icon
+- ✅ Use `gap-3 sm:gap-4` for footer spacing
+- ✅ Match icon container background to button hover state
+- ✅ Use `disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100` for disabled state
+
+### **DON'T:**
+- ❌ Use default button styling from buttonVariants (override with custom classes)
+- ❌ Skip icon containers (always include icon container div)
+- ❌ Mix different button styles in the same dialog
+- ❌ Use arbitrary colors without semantic meaning
+- ❌ Omit hover effects
+- ❌ Use different heights or border radius values
+- ❌ Skip loading state indicators
+- ❌ Use different icon sizes or container sizes
+
+## **Color Reference Table**
+
+| Action Type | Background | Hover | Icon Container | Icon Color | Text Color |
+|-------------|------------|-------|----------------|------------|------------|
+| Cancel/Keep | `bg-blue-100` | `hover:bg-blue-200` | `bg-blue-200` | `text-blue-600` | `text-blue-700` |
+| Delete/Destructive | `bg-red-100` | `hover:bg-red-200` | `bg-red-200` | `text-red-600` | `text-red-700` |
+| Confirm/Save | `bg-green-100` | `hover:bg-green-200` | `bg-green-200` | `text-green-600` | `text-green-700` |
+| Neutral | `bg-gray-100` | `hover:bg-gray-200` | `bg-gray-200` | `text-gray-600` | `text-gray-700` |
+
+## **Reference Implementations**
+
+- **Cancel Subscription Dialog**: [`src/app/membership/MembershipClient.tsx`](mdc:src/app/membership/MembershipClient.tsx) - Lines 672-690
+- **Cancel Subscription Dialog (Plans)**: [`src/app/membership/plans/MembershipPlansClient.tsx`](mdc:src/app/membership/plans/MembershipPlansClient.tsx) - Lines 691-709
+- **Admin Action Buttons**: See [Admin Action Buttons Pattern](mdc:.cursor/rules/admin_action_buttons_styling.mdc) for button styling reference
+
+## **Troubleshooting**
+
+### **Buttons Not Scaling on Hover?**
+- Check that `hover:scale-105` is included
+- Verify `transition-all duration-300` is present
+- Ensure parent container doesn't have `overflow-hidden` that clips the scale
+
+### **Icons Not Centered?**
+- Verify `flex items-center justify-center` on both button and icon container
+- Check that icon container has `flex-shrink-0` to prevent shrinking
+
+### **Colors Not Matching?**
+- Ensure color values follow the pattern: `{color}-100` for button, `{color}-200` for icon container, `{color}-600` for icon, `{color}-700` for text
+- Use the color reference table above for consistency
+
+### **Buttons Not Equal Width?**
+- Verify `flex-1` is included on both buttons
+- Check that footer has `flex flex-row` layout
+
+## **Related Patterns**
+
+- See [Admin Action Buttons](mdc:.cursor/rules/admin_action_buttons_styling.mdc) for button styling patterns
+- See [Icon Standards](mdc:.cursor/rules/icon_standards.mdc) for icon sizing and styling
+- See [MOSC Styling Standards](mdc:.cursor/rules/mosc_styling_standards.mdc) for overall design system
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
