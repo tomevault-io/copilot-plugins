@@ -1,43 +1,27 @@
-## agt-skill-pack
+## agt-skills
 
-> - **Triggers:** review, cross review, red team, stress test, second opinion, fact check
+> AGT Skill Pack — route to skills based on user intent
+
 
 # AGT Skill Pack
 
-## Available Skills
+When the user asks for a review, cross review, red team, stress test, second opinion, or fact check:
+→ Read `skills/factory-review/SKILL.md` and follow its workflow.
 
-### Factory Review
-- **Triggers:** review, cross review, red team, stress test, second opinion, fact check
-- **File:** `skills/factory-review/SKILL.md`
-- **Description:** Cross-model adversarial review. Use a different AI to critique what you produced.
+When the user asks about workflow setup, AI workflow, or says "จัด workflow":
+→ Read `skills/workflow-scout/SKILL.md` and follow its workflow.
 
-### Workflow Scout
-- **Triggers:** workflow, set up AI, จัด workflow
-- **File:** `skills/workflow-scout/SKILL.md`
-- **Description:** 8-question interview that builds your AI workflow from scratch.
+When the user asks "should we build", "is this worth building", "taste check", "what would you cut", "prioritize these", or "product review":
+→ Read `skills/product-taste/SKILL.md` and run the 5-filter evaluation.
 
-### Product Taste
-- **Triggers:** should we build, is this worth building, taste check, what would you cut, prioritize these, product review
-- **File:** `skills/product-taste/SKILL.md`
-- **Description:** 5-filter evaluation for product decisions. Runs features through who-suffers, replaces-what, core-loop, cost-of-being-right, and ship-without-it filters.
+When the user asks "is this still right", "revisit", "should we reconsider", "has anything changed", "decision review", or "decay check":
+→ Read `skills/decision-decay/SKILL.md` and run the decay review.
 
-### Decision Decay
-- **Triggers:** is this still right, revisit, should we reconsider, has anything changed, decision review, decay check
-- **File:** `skills/decision-decay/SKILL.md`
-- **Description:** Re-evaluate past decisions when assumptions change. Scores decay as Fresh, Aging, or Stale.
+When the user asks "nag me", "accountability", "commitment check", "did I do it", or "habit tracker":
+→ Read `skills/accountability-nag/SKILL.md` and deliver the accountability check.
 
-### Accountability Nag
-- **Triggers:** nag me, accountability, commitment check, did I do it, habit tracker
-- **File:** `skills/accountability-nag/SKILL.md`
-- **Description:** Personal commitment tracker with escalating confrontation. Three levels from firm reminder to no mercy.
-
-### AI Slop Detection
-- **Triggers:** does this look AI, slop check, UI review, design audit, AI tells
-- **File:** `skills/ai-slop-detection/SKILL.md`
-- **Description:** Checklist to identify AI-generated UI patterns. Scores 15 tells across color, layout, visuals, typography, and motion.
-
-## Instructions
-When the user's message matches a trigger, read the corresponding SKILL.md and follow its workflow.
+When the user asks "does this look AI", "slop check", "UI review", "design audit", or "AI tells":
+→ Read `skills/ai-slop-detection/SKILL.md` and run the audit checklist.
 
 ---
 > Source: [somnus0x/agt-skill-pack](https://github.com/somnus0x/agt-skill-pack) — distributed by [TomeVault](https://tomevault.io).
