@@ -1,58 +1,38 @@
-## jfrog-design-system
+## tech-icons
 
-> JFrog brand design system - colors, fonts, and styling conventions for the FastCI website
+> Use react-icons (Simple Icons) for technology/brand icons instead of inline SVGs
 
 
-# JFrog Design System for FastCI Website
+# Tech Icons Rule
 
-FastCI is a JFrog product. The website must follow JFrog's brand design language.
+When adding or modifying technology/brand icons in the website, use **react-icons** from the Simple Icons set (`react-icons/si`) instead of inline SVG paths.
 
-## Typography
+## Source
 
-- **Primary font**: `Open Sans` (weights: 300-800)
-- **Monospace font**: `JetBrains Mono` (for code snippets)
-- Tailwind classes: `font-sans` (Open Sans), `font-mono` (JetBrains Mono)
+- Browse icons: https://react-icons.github.io/react-icons/search/
+- Simple Icons (brand logos): https://react-icons.github.io/react-icons/icons/si/
 
-## Brand Colors
+## Usage
 
-### JFrog Green (Primary)
-| Token       | Hex       | Usage                          |
-|------------|-----------|--------------------------------|
-| brand-500  | `#40BE46` | Primary buttons, accents       |
-| brand-400  | `#49BB50` | Hover states, links            |
-| brand-300  | `#66CB6A` | Gradient highlights            |
-| brand-600  | `#36A13B` | Darker green accents           |
+```tsx
+import { SiDocker, SiPython, SiGo } from 'react-icons/si';
 
-### Surface (Dark Navy Backgrounds)
-| Token        | Hex       | Usage                        |
-|-------------|-----------|------------------------------|
-| surface-950 | `#070E1A` | Page background (darkest)    |
-| surface-900 | `#0C1B32` | Card backgrounds, sections   |
-| surface-800 | `#122342` | Elevated surfaces            |
-| surface-700 | `#1C2A4A` | Borders, subtle accents      |
-| surface-600 | `#303A4A` | Secondary borders            |
+// Use with className and color
+<SiDocker className="w-4 h-4" color="#2496ED" />
+```
 
-### Text Colors
-- Headings: `text-white` (#FFFFFF)
-- Body text: `text-gray-400` (~#8C9FA4 range)
-- Muted text: `text-gray-500` (~#557085 range)
-- Labels/captions: `text-gray-600`
+## Guidelines
 
-### Glow/Shadow
-- Brand glow: `rgba(64, 190, 70, 0.15)` (subtle)
-- Brand glow strong: `rgba(64, 190, 70, 0.3)` (buttons)
+1. **Prefer Simple Icons (si)** for technology, framework, and brand logos (Docker, Python, Go, npm, Git, etc.)
+2. **Search first**: Use the react-icons search to find the icon (e.g. search "golang" for Go)
+3. **Wrap in thin components** when you need consistent props (className, fill) across the app — see `website/src/lib/techIcons.tsx`
+4. **Do NOT** add inline SVG paths for brand icons — use react-icons instead
 
-## Component Patterns
+## Adding New Icons
 
-- Cards: `rounded-2xl border border-white/[0.08] bg-surface-950` (clean, no glassmorphism)
-- Buttons (primary): `bg-brand-500 text-white hover:bg-brand-400 rounded-full`
-- Borders: Use `border-white/[0.06]` to `border-white/[0.08]` for subtle card borders
-- Gradient text: `gradient-text` class (green gradient for emphasis)
-
-## Do NOT
-- Use heavy glassmorphism or blur effects on cards
-- Use colors outside the JFrog palette for primary UI elements
-- Use Inter or any font other than Open Sans for body text
+1. Search https://react-icons.github.io/react-icons/search/ for the icon
+2. Import from `react-icons/si` (or `react-icons/fa`, `react-icons/hi`, etc. if not a brand)
+3. Add a wrapper in `techIcons.tsx` if the icon is used in multiple places
 
 ---
 > Source: [jfrog-fastci/fastci](https://github.com/jfrog-fastci/fastci) — distributed by [TomeVault](https://tomevault.io).
