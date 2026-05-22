@@ -1,0 +1,9 @@
+{
+  "name": "fraken-baken--agent-memory",
+  "displayName": "agent-memory",
+  "description": "Agent Memory Server",
+  "version": "1.0.0",
+  "author": "fraken-baken",
+  "homepage": "https://github.com/fraken-baken/agent-memory",
+  "skills": []
+}
