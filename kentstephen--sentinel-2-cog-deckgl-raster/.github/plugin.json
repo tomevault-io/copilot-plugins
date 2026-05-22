@@ -1,0 +1,9 @@
+{
+  "name": "kentstephen--sentinel-2-cog-deckgl-raster",
+  "displayName": "sentinel-2-cog-deckgl-raster",
+  "description": "Browser-side rendering of Earth Genome's Sentinel-2 Temporal Mosaics with @developmentseed/deck.gl-geotiff. Built by prompting Claude.",
+  "version": "1.0.0",
+  "author": "kentstephen",
+  "homepage": "https://github.com/kentstephen/sentinel-2-cog-deckgl-raster",
+  "skills": []
+}
