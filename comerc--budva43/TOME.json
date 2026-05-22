@@ -1,0 +1,44 @@
+{
+  "name": "budva43",
+  "owner": "comerc",
+  "repo": "budva43",
+  "description": "Telegram-Forwarder (UNIX-way) - forwards (or copies) messages from monitored channels and groups to target ones according to specified rules to obtain thematic digests",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/comerc/budva43",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T05:23:52Z"
+}
