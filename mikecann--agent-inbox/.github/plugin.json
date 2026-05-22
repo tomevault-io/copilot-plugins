@@ -1,0 +1,9 @@
+{
+  "name": "mikecann--agent-inbox",
+  "displayName": "agent-inbox",
+  "description": "A multi-agent AI chat running on Convex",
+  "version": "1.0.0",
+  "author": "mikecann",
+  "homepage": "https://github.com/mikecann/agent-inbox",
+  "skills": []
+}
