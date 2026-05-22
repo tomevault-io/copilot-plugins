@@ -1,15 +1,15 @@
-## code-style
+## db
 
-> JoyWork API formatting, naming, imports, and typing style
+> JoyWork database and Prisma migration rules
 
 
-# JoyWork API Code Style
+# JoyWork Database Rules
 
-- Match existing backend formatting: `single quotes`, semicolons, and `@/` alias imports inside `src`.
-- Keep filenames aligned with the current backend pattern such as `<feature>.<part>.ts` and kebab-case sub-feature names like `user-profile.service.ts`.
-- Prefer named exports for new backend files; keep route files consistent with existing `export async function ...Routes(...)` style.
-- Use `PascalCase` for classes and interfaces, `camelCase` for functions and variables, and clear domain-oriented names over generic helpers.
-- Respect the current strict TypeScript posture; avoid adding unused locals, casual `any`, or broad type escapes unless there is a justified local reason.
+- Change data models through `prisma/schema.prisma` plus Prisma migrations; do not rely on manual database edits.
+- Preserve the current schema style: singular model names, `camelCase` fields, and explicit `@@map` or `@map` metadata when table naming must stay snake_case.
+- For destructive changes like rename, drop, or type narrowing, plan backward compatibility and data migration before removing old paths.
+- When schema changes, update affected Prisma queries, selected fields, derived DTOs, and seed logic in the same task.
+- Use transactions for multi-step writes that must succeed or fail together, especially when permissions and related records are involved.
 
 ---
 > Source: [vanchuong201/joywork-api](https://github.com/vanchuong201/joywork-api) — distributed by [TomeVault](https://tomevault.io).
