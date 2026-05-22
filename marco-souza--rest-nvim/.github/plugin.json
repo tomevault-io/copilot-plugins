@@ -1,0 +1,9 @@
+{
+  "name": "marco-souza--rest-nvim",
+  "displayName": "rest.nvim",
+  "description": "Postman-like nvim client",
+  "version": "1.0.0",
+  "author": "marco-souza",
+  "homepage": "https://github.com/marco-souza/rest.nvim",
+  "skills": []
+}
