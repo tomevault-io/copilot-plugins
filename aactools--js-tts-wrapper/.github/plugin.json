@@ -1,0 +1,9 @@
+{
+  "name": "aactools--js-tts-wrapper",
+  "displayName": "js-tts-wrapper",
+  "description": "JS TTS (Text to Speech) Wrapper Module enabling TTS for all TTS ",
+  "version": "1.0.0",
+  "author": "AACTools",
+  "homepage": "https://github.com/AACTools/js-tts-wrapper",
+  "skills": []
+}
