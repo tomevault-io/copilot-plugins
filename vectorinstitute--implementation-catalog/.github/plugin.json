@@ -1,0 +1,9 @@
+{
+  "name": "vectorinstitute--implementation-catalog",
+  "displayName": "implementation-catalog",
+  "description": "A catalog of implementations authored by the Vector Institute.",
+  "version": "1.0.0",
+  "author": "VectorInstitute",
+  "homepage": "https://github.com/VectorInstitute/implementation-catalog",
+  "skills": []
+}
