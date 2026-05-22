@@ -1,0 +1,9 @@
+{
+  "name": "teru01--swimmer",
+  "displayName": "swimmer",
+  "description": "A user-friendly Kubernetes GUI client built for the multi-cluster era.",
+  "version": "1.0.0",
+  "author": "teru01",
+  "homepage": "https://github.com/teru01/swimmer",
+  "skills": []
+}
