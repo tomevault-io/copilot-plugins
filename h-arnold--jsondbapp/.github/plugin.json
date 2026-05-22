@@ -1,0 +1,9 @@
+{
+  "name": "h-arnold--jsondbapp",
+  "displayName": "JsonDbApp",
+  "description": "A document database implemented in Google App Script using the Google Drive API. Recommended for masochists.",
+  "version": "1.0.0",
+  "author": "h-arnold",
+  "homepage": "https://github.com/h-arnold/JsonDbApp",
+  "skills": []
+}
