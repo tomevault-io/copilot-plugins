@@ -1,9 +1,25 @@
-## docs
+## monorepo
 
-> Where to add docs
+> Monorepo conventions and tooling
 
 
-- Whenever creating documentation, it should be in /docs/pages and in `.mdx` format. You should prefer adding to existing docs pages in that folder rather than making new ones. Keep docs succinct and to the point.
+# Monorepo Conventions
+
+## Package Manager
+
+- Always use `pnpm`, never `npm` or `yarn`.
+- Use `pnpm install` to install dependencies.
+- Use `pnpm turbo run <task>` to run tasks across packages.
+
+## Code Style
+
+- TypeScript is used throughout. Prefer `unknown` over `any` when possible. Try avoid using `any` types unless absolutely necessary.
+- Use ES module syntax (`import`/`export`), not CommonJS (`require`/`module.exports`).
+- Run `check-types`, `lint` tasks (see per package.json) afterward to ensure types and coding styles match the rule.
+
+### React
+
+- Prefer `PropsWithChildren` instead of manually specifying `children` type.
 
 ---
 > Source: [ecp-eth/comments-monorepo](https://github.com/ecp-eth/comments-monorepo) — distributed by [TomeVault](https://tomevault.io).
