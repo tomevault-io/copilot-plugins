@@ -1,0 +1,9 @@
+{
+  "name": "kubescape--headlamp-plugin",
+  "displayName": "headlamp-plugin",
+  "description": "Plugin that integrates Kubescape's security and compliance features into the Headlamp dashboard",
+  "version": "1.0.0",
+  "author": "kubescape",
+  "homepage": "https://github.com/kubescape/headlamp-plugin",
+  "skills": []
+}
