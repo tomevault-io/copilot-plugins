@@ -1,0 +1,9 @@
+{
+  "name": "openshift-online--async-routine",
+  "displayName": "async-routine",
+  "description": "async-routine",
+  "version": "1.0.0",
+  "author": "openshift-online",
+  "homepage": "https://github.com/openshift-online/async-routine",
+  "skills": []
+}
