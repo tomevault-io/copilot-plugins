@@ -133624,6 +133624,16 @@
       "description": "Sub2API gateway subscription \u2192 Codex CLI / Codex App injector. macOS-native, zero-deps Python single-file. Supports codex2api.com and any self-hosted Sub2API instance."
     },
     {
+      "name": "majiayu000--claude-skill-registry-core",
+      "source": "./majiayu000--claude-skill-registry-core",
+      "description": "claude-skill-registry-core"
+    },
+    {
+      "name": "majiayu000--claude-skill-registry-core",
+      "source": "./majiayu000--claude-skill-registry-core",
+      "description": "claude-skill-registry-core"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -159329,6 +159339,36 @@
       "description": "Framework for Accelerated Microsoft Fabric Development, Testing and Deployment"
     },
     {
+      "name": "alexlmiller--cf-mail-relay",
+      "source": "./alexlmiller--cf-mail-relay",
+      "description": "Turnkey SMTP-to-Cloudflare-Email-Sending bridge: Docker SMTP relay + Cloudflare Worker + Pages admin UI. Pre-MVP."
+    },
+    {
+      "name": "kangsive--mahjong",
+      "source": "./kangsive--mahjong",
+      "description": "\u9ebb\u5c06\u6e38\u620f\u5e26\u8bad\u7ec3\u6a21\u5f0f\u4e0e\u7ade\u6280\u6a21\u5f0f\uff08\u652f\u6301\u56db\u5ddd\u9ebb\u5c06\u548c\u56fd\u6807\u9ebb\u5c06\uff09"
+    },
+    {
+      "name": "mrpunyapal--laravel-client-validation",
+      "source": "./mrpunyapal--laravel-client-validation",
+      "description": "Laravel package providing client-side validation with Alpine.js integration and server-side rule synchronization"
+    },
+    {
+      "name": "ropnfop--usekit",
+      "source": "./ropnfop--usekit",
+      "description": "# how to usekit  **Position-aware data I/O toolkit**   Minimal input. Auto path tracking. No config needed.   Use safely and intuitively:   `use.read.json()`, `usf.read.json()`, `u.rj()`, `uf.rj()`  u"
+    },
+    {
+      "name": "ezhou89--medical-research-mcp-suite",
+      "source": "./ezhou89--medical-research-mcp-suite",
+      "description": "AI-Enhanced Medical Research API unifying ClinicalTrials.gov, PubMed, and FDA databases with intelligent cross-database analysis"
+    },
+    {
+      "name": "alamanda-projects--beescout",
+      "source": "./alamanda-projects--beescout",
+      "description": "beescout is an open-source data contract registry and validation tool."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -169024,6 +169064,11 @@
       "description": "GlobalScript \u662f\u4e00\u4efd\u9762\u5411 Clash Meta / Mihomo \u7684\u7cbe\u7b80\u5206\u6d41\u6a21\u677f\u3002\u5b83\u91c7\u7528\u201c\u56fd\u5185\u4e0e\u6e38\u620f\u76f4\u8fde\uff0c\u5176\u4ed6\u975e\u4e2d\u56fd\u5927\u9646\u6d41\u91cf\u7edf\u4e00\u8fdb\u5165\u4ee3\u7406\u51fa\u53e3\u201d\u7684\u8bbe\u8ba1\uff0c\u51cf\u5c11\u670d\u52a1\u7c7b\u7b56\u7565\u7ec4\u5e26\u6765\u7684\u9009\u62e9\u8d1f\u62c5\uff0c\u540c\u65f6\u4fdd\u7559\u9999\u6e2f\u3001\u7f8e\u56fd\u3001\u65e5\u672c\u3001\u65b0\u52a0\u5761\u7b49\u5730\u533a\u51fa\u53e3\uff0c\u65b9\u4fbf\u5728\u63a7\u5236\u9762\u677f\u4e2d\u5feb\u901f\u5207\u6362\u4ee3\u7406\u7ebf\u8def\u3002\u914d\u7f6e\u4e0d\u5305\u542b\u8282\u70b9\uff0c\u9700\u8981\u642d\u914d\u4e2a\u4eba\u8ba2\u9605\u6216\u914d\u7f6e\u5408\u5e76\u529f\u80fd\u4f7f\u7528\u3002"
     },
     {
+      "name": "neurawork-git--n8n-autopilot",
+      "source": "./neurawork-git--n8n-autopilot",
+      "description": "Claude Code plugin for building, validating, and deploying n8n workflows via n8nac CLI"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -171297,6 +171342,11 @@
       "name": "themattberman--shortform-idea-engine",
       "source": "./themattberman--shortform-idea-engine",
       "description": "shortform-idea-engine"
+    },
+    {
+      "name": "xinian-dada--nodelite",
+      "source": "./xinian-dada--nodelite",
+      "description": "Lightweight server monitoring panel with real-time metrics, agent management, and web dashboard"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -273092,6 +273142,116 @@
       "name": "hungtruongquoc--fast-api-beetrack",
       "source": "./hungtruongquoc--fast-api-beetrack",
       "description": "Fast API Prototype to connect with Beetrack"
+    },
+    {
+      "name": "donsteve777--trainhub",
+      "source": "./donsteve777--trainhub",
+      "description": "trainhub"
+    },
+    {
+      "name": "jrrome--extract-tiktok-recipe",
+      "source": "./jrrome--extract-tiktok-recipe",
+      "description": "extract-tiktok-recipe"
+    },
+    {
+      "name": "joorapp--joorappv2",
+      "source": "./joorapp--joorappv2",
+      "description": "React js"
+    },
+    {
+      "name": "tomgoren--dotfiles",
+      "source": "./tomgoren--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "allentown521--daily-email-scraping",
+      "source": "./allentown521--daily-email-scraping",
+      "description": "\u624b\u52a8\u6253\u5f00\u6bcf\u4e00\u4e2a\u9700\u8981\u6293\u53d6\u7684\u7f51\u7ad9\uff0c\u7ed3\u5408email scrap \u6d4f\u89c8\u5668\u6269\u5c55\u6293\u53d6\u7f51\u9875\u4e2d\u7684\u90ae\u4ef6\u5730\u5740"
+    },
+    {
+      "name": "adrenaline2389--x-bot",
+      "source": "./adrenaline2389--x-bot",
+      "description": "X_bot"
+    },
+    {
+      "name": "enzocatorano--tesis-habla-imaginada",
+      "source": "./enzocatorano--tesis-habla-imaginada",
+      "description": "Proyecto de tesis + primera vez haciendo un repositorio quasi-descente"
+    },
+    {
+      "name": "neudzulab--aunsorm-security-platform",
+      "source": "./neudzulab--aunsorm-security-platform",
+      "description": "Unified Post-Quantum Security Platform providing cryptography, identity, RNG and calibration services for modern distributed systems."
+    },
+    {
+      "name": "tomgoren--dotfiles",
+      "source": "./tomgoren--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "yunosukeyoshino--nanatau",
+      "source": "./yunosukeyoshino--nanatau",
+      "description": "nanatau"
+    },
+    {
+      "name": "nexiouscaliver--agenticos",
+      "source": "./nexiouscaliver--agenticos",
+      "description": "Production-ready multi-agent AI system with 8 specialized agents, coordinated research teams, and automated workflows \u2014 built on the Agno Framework"
+    },
+    {
+      "name": "sonwwall--cs61b-learning",
+      "source": "./sonwwall--cs61b-learning",
+      "description": "cs61b-learning"
+    },
+    {
+      "name": "binsarjr--svelte-shadcn-mcp",
+      "source": "./binsarjr--svelte-shadcn-mcp",
+      "description": "svelte-shadcn-mcp"
+    },
+    {
+      "name": "zackzhou-work--stickers",
+      "source": "./zackzhou-work--stickers",
+      "description": "stickers"
+    },
+    {
+      "name": "jagadeesh52423--confluencemcp",
+      "source": "./jagadeesh52423--confluencemcp",
+      "description": "MCP server with 84 tools for Jira, Confluence, and Bitbucket Cloud -- full CRUD, smart transitions, and snapshot safety for AI assistants"
+    },
+    {
+      "name": "jockesv--simball-simple",
+      "source": "./jockesv--simball-simple",
+      "description": "simball_simple"
+    },
+    {
+      "name": "purewhitevk--opengl-examples",
+      "source": "./purewhitevk--opengl-examples",
+      "description": "OpenGL recap. (again?!)"
+    },
+    {
+      "name": "just-another-muensterhack--aichhoernchen-backend",
+      "source": "./just-another-muensterhack--aichhoernchen-backend",
+      "description": "aichhoernchen-backend"
+    },
+    {
+      "name": "alan-ari-mahendra--elevare-saas",
+      "source": "./alan-ari-mahendra--elevare-saas",
+      "description": "Elevare-SaaS"
+    },
+    {
+      "name": "whaeuser--splitflap",
+      "source": "./whaeuser--splitflap",
+      "description": "Split-flap display simulator with 6-line support and HTTP API"
+    },
+    {
+      "name": "yunosukeyoshino--nanatau",
+      "source": "./yunosukeyoshino--nanatau",
+      "description": "nanatau"
+    },
+    {
+      "name": "omygodwin--seasons-study-app",
+      "source": "./omygodwin--seasons-study-app",
+      "description": "seasons-study-app"
     }
   ]
 }
