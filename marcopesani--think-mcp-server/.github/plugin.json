@@ -1,0 +1,9 @@
+{
+  "name": "marcopesani--think-mcp-server",
+  "displayName": "think-mcp-server",
+  "description": "A minimal MCP Server based on the Anthropic's \"think\" tool research",
+  "version": "1.0.0",
+  "author": "marcopesani",
+  "homepage": "https://github.com/marcopesani/think-mcp-server",
+  "skills": []
+}
