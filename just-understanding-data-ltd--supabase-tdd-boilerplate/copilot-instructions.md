@@ -1,124 +1,317 @@
-## tanstack-query-patterns
+## tdd-approach
 
-> How to use tanstack-query with our NextJS setup
+> When you are building new react components, or react pages.
 
-# Tanstack Query and Next.js Patterns
 
-## Hydration and Server/Client Data Flow
+# TDD Approach
 
-The data flow from server to client involves three key steps:
+## Available debug tools you can run:
+- `monitor-logs.sh` for seeing RLS or Postgres issues.
 
-1. **Server Prefetching**: Server components prefetch data using static query keys
-2. **Dehydration**: The query cache is serialized into the HTML/JSON response
-3. **Client Hydration**: The client rehydrates the prefetched data using matching query keys
+## Core Philosophy
 
-### Example Implementation:
+We follow an integration-first TDD approach that emphasizes testing React components, RLS policies, and database operations together. This approach ensures our tests reflect real-world usage patterns.
 
-```typescript
-// Server Component (page.tsx)
-export default async function Page() {
-  const queryClient = createQueryClient();
-  const supabase = await createClient();
+We have several files that are powering our RLS + integration tests.
+[setup.ts](mdc:apps/web/integration/setup.ts)
+[test-utils.ts](mdc:apps/web/integration/test-utils.ts)
 
-  // 1. Prefetch data on server
-  await queryClient.prefetchQuery({
-    queryKey: ["teams", "list"],
-    queryFn: () => getTeams({ supabase }),
-  });
+Database types:
+[database-functions.types.ts](mdc:packages/supabase/src/types/database-functions.types.ts)
 
-  // 2. Dehydrate the cache
-  const dehydratedState = dehydrate(queryClient);
+Always use tanstack query and never useEffect, you must use vittest and not jest.
 
-  // 3. Pass to client component
-  return (
-    <ClientComponent state={dehydratedState} />
-  );
-}
+If you are using tanstack queries, assume that the toast notification has already been included for that hook and don't add an extra onSuccess or onError toast message. You can still include custom logic that will be execued on them though (after the hook has run).
 
-// Client Component
-function ClientComponent({ state }: { state: DehydratedState }) {
-  return (
-    // 4. Hydrate the cache on client
-    <HydrationBoundary state={state}>
-      <YourComponent />
-    </HydrationBoundary>
-  );
-}
+We have factories that are in the [index.ts](mdc:packages/supabase/src/factories/index.ts), i.e. [member.factory.ts](mdc:packages/supabase/src/factories/member.factory.ts) or [role.factory.ts](mdc:packages/supabase/src/factories/role.factory.ts) or [user.factory.ts](mdc:packages/supabase/src/factories/user.factory.ts)
+You can create new factories, if they are missing.
+One recommendation is to try using the module folder first CRUD rather than replicating that CRUD, the only reason why we did this for organisations and org_members and team_members is because we had a custom sign up. But just assume you can re-use the CRUD.
 
-// Child component automatically gets access to prefetched data
-function YourComponent() {
-  // Uses the same data prefetched on server
-  const { data } = useQuery({
-    queryKey: teamKeys.lists(),
-    queryFn: () => getTeams({ supabase }),
-  });
+Core Philosophy
+- Ask if the code requires roles or not.
+- Handle all happy critical paths first.
+- Handle all edge cases.
+- Write CRUD tests for RLS (regardless of whether or not roles will be utilized)
+
+There are a couple of scenarios so far:
+- Client/Team
+- Admin/Member
+
+We always make react-query hooks for the module crud. I.e. [users.react.ts](mdc:packages/supabase/src/module/users.react.ts) or [teams.react.ts](mdc:packages/supabase/src/module/teams.react.ts)
+
+Always remember to render with renderWithProviders from `import { renderWithProviders } from "../test-utils";` as this wraps the app in our [ClientSideProviders.tsx](mdc:apps/web/components/providers/ClientSideProviders.tsx), we are using react hot toast. And you can find an example of a fail notification in the error:
+```export async function updateOrganizationMember({
+  supabase,
+  memberId,
+  member,
+}: {
+  supabase: SupabaseClient;
+  memberId: string;
+  member: OrganizationMemberUpdate;
+}): Promise<OrganizationMember> {
+  try {
+    const { data, error } = await supabase
+      .from("organization_members")
+      .update(member)
+      .eq("id", memberId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    if (!data) throw new Error("No data returned after update");
+    return data;
+  } catch (error) {
+    throw new OrganizationMemberOperationError(
+      "Update Organization Member",
+      `Failed to update organization member with ID: ${memberId}`,
+      "Unable to update organization member. Please try again.",
+      SupabaseErrorCode.UPDATE_FAILED,
+      error
+    );
+  }
 }
 ```
 
-### Best Practices:
+For the success toast notification, we will need to add those manually though.
 
-1. **Always wrap client components** with `HydrationBoundary` when using prefetched data
-2. **Match query keys** between server and client to ensure data is found
-3. **Handle loading states** while hydration is occurring
-4. **Use Suspense boundaries** around hydrated components for better loading UX
+It is also worth noting that we are working on the lowest level of granularity for our permissions, i.e 
+-- Create new team policies using helper functions
+CREATE POLICY "teams_view" ON public.teams
+    FOR SELECT TO authenticated
+    USING (
+      is_org_member(organization_id)  -- user must be in the org to see its teams
+    );
 
-## Why Static Query Keys for Server Components?
+CREATE POLICY "teams_insert" ON public.teams
+    FOR INSERT TO authenticated
+    WITH CHECK (
+      -- Must have manage_organization permission to create teams
+      has_org_permission(organization_id, 'manage_organization'::permission_action)
+    );
 
-Server components in Next.js cannot execute functions during rendering because:
+We use custom RLS helpers [20240124000015_fn_rls_helpers.sql](mdc:packages/supabase/supabase/migrations/20240124000015_fn_rls_helpers.sql) to keep everything tidy.
 
-1. Server components are rendered once on the server
-2. The output is static HTML/JSON
-3. Function calls could be unpredictable or have side effects
+The permissions are coming from [20240124000004_tbl_create_permissions.sql](mdc:packages/supabase/supabase/migrations/20240124000004_tbl_create_permissions.sql) and other sql files.
 
-This means we need two patterns for query keys:
+We are using this pattern in [README.md](mdc:apps/web/features/authorization/README.md), so basically higher order react components to hide or disable buttons given the different roles.
 
-```typescript
-// ❌ Won't work in server components (function call)
-queryKey: teamKeys.lists();
+Have a look at these files to understand it such as:
+[get-member-roles.ts](mdc:apps/web/features/authorization/actions/get-member-roles.ts)
+[withRoleCheck.tsx](mdc:apps/web/features/authorization/components/withRoleCheck.tsx)
+[use-member-roles.ts](mdc:apps/web/features/authorization/hooks/use-member-roles.ts)
+[useRoleCheck.ts](mdc:apps/web/features/authorization/hooks/useRoleCheck.ts)
+[roles.ts](mdc:apps/web/features/authorization/lib/roles.ts)
 
-// ✅ Works in server components (static value)
-queryKey: ["teams", "list"];
-// or
-queryKey: teamQueryKeys.lists;
-```
 
-### Example Implementation:
+The other thing to note is our react-query set up using react server pages, which looks like this:
+[page.tsx](mdc:apps/web/app/(application)/org/[orgId]/[teamId]/page.tsx)
+And this for the client side:
+[Dashboard.tsx](mdc:apps/web/components/dashboard/Dashboard.tsx)
 
-```typescript
-// Client-side: Functions for dynamic values
-export const teamKeys = {
-  lists: () => ["teams", "list"] as QueryKey, // Function for client components
-  list: (filters) => ["teams", "list", filters],
-};
+## Running tests
 
-// Server-side: Static arrays
-export const teamQueryKeys = {
-  lists: ["teams", "list"], // Static array for server components
-  list: (filters) => ["teams", "list", filters],
-};
+- `pnpm test:integration` for `.integration.ts` test suite.
+- `pnpm test` for smaller, light weight component tests.
+- `pnpm test:e2e` for end to end tests. (barely write this, we have already made most of them).
 
-// Usage in server component (page.tsx)
-await queryClient.prefetchQuery({
-  queryKey: teamQueryKeys.lists,
-  queryFn: () => getTeams({ supabase }),
-});
+## Workflow
 
-// Usage in client component
-const { data } = useQuery({
-  queryKey: teamKeys.lists(),
-  queryFn: () => getTeams({ supabase }),
-});
-```
+- Generate the failing tests, just as textual descriptions
+- Ask me whether we need to add more edge cases or whether that sufficies
+- Enter an endless loop of writing the tests + component and running the relevant test suite until all of the tests pass
 
-Both patterns generate the same array structure, allowing React Query to match prefetched data between server and client.
+## Key Principles
 
-We have CRUD layer and custom hooks like this:
-[teams.react.ts](mdc:packages/supabase/src/module/teams.react.ts)
-[teams.ts](mdc:packages/supabase/src/module/teams.ts)
+1. **Integration Over Unit Testing**
+   - Write `.integration.ts` tests first
+   - Test components with real database access
+   - Verify RLS policies in component context
+   - If there are tests that don't require RLS, i.e. there are 3x edge cases write them using `.test.ts` instead.
+   - Prefer `.integration.ts` where there is DB or RLS functionality to test though!
 
-Each postgres table has custom hooks within the packages/supabase/module folder.
+2. **Factory-Based Test Data**
+   - Use `@repo/supabase` factories for all test data
+   - Each test gets isolated data
+   - Follow data hierarchy (User → Organization → Members)
 
-You should avoid adding react-hot-toast for within React components as this should always be handled at the CRUD layer (albeit for the most part, unless otherwise told).
+3. **Authentication-First**
+   - Every test starts with authenticated users
+   - Test with appropriate user roles
+   - Verify access control at every level
+
+## Test Development Flow
+
+1. **Start with RLS Policy**
+   ```sql
+   -- 1. Write the RLS policy first
+   CREATE POLICY "organizations_view" ON public.organizations
+       FOR SELECT TO authenticated
+       USING (is_org_member(id));
+   ```
+
+2. **Create Integration Test**
+   ```typescript
+    import { renderWithProviders } from "../test-utils";
+
+   // 2. Write the integration test
+   describe("OrganizationPage", () => {
+     it("should display organization for members", async () => {
+       // Create test data
+       const { user, token } = await createTestUser({});
+       const { organization } = await createTestOrganization({
+         userId: user.id,
+       });
+
+       // Test component with real data
+       const client = createAuthenticatedClient(token);
+       vi.mock("@/utils/supabase/server", () => ({
+         createClient: vi.fn().mockResolvedValue(client),
+       }));
+
+       renderWithProviders(<OrganizationPage params={{ id: organization.id }} />);
+       
+       // Verify both UI and data access
+       expect(await screen.findByText(organization.name)).toBeInTheDocument();
+     });
+   });
+   ```
+
+3. **Implement Component**
+   ```typescript
+   // 3. Implement the component to pass the test
+   export default async function OrganizationPage({ params }) {
+     const supabase = createClient();
+     const { data } = await supabase
+       .from("organizations")
+       .select()
+       .eq("id", params.id)
+       .single();
+
+     return <h1>{data.name}</h1>;
+   }
+   ```
+
+## Testing Patterns
+
+1. **Role-Based Testing**
+   ```typescript
+   it.each([
+     ["admin", adminClient, true],
+     ["member", memberClient, true],
+     ["non-member", nonMemberClient, false],
+   ])("%s access", async (role, client, canAccess) => {
+     const { data } = await client.from("organizations").select();
+     expect(data?.length > 0).toBe(canAccess);
+   });
+   ```
+
+2. **Error States**
+   ```typescript
+   import { renderWithProviders } from "../test-utils";
+   it("should handle not found", async () => {
+     const { token } = await createTestUser({});
+     const client = createAuthenticatedClient(token);
+     
+     renderWithProviders(<OrganizationPage params={{ id: "invalid" }} />);
+     expect(await screen.findByText("Not Found")).toBeInTheDocument();
+   });
+   ```
+
+3. **Loading States**
+   ```typescript
+   import { renderWithProviders } from "../test-utils";
+   it("should show loading state", async () => {
+     renderWithProviders(<OrganizationPage params={{ id: "123" }} />);
+     expect(screen.getByText("Loading...")).toBeInTheDocument();
+     // Then verify loaded state
+   });
+   ```
+
+## Best Practices
+
+1. **Test Organization**
+   - Group tests by feature
+   - Use descriptive test names
+   - Follow the AAA pattern (Arrange, Act, Assert)
+
+2. **Data Management**
+   ```typescript
+   describe("Feature", () => {
+     let admin, member, org;
+
+     beforeAll(async () => {
+       // Setup base test data
+       ({ admin, organization: org } = await setupTestOrg());
+       member = await addTestMember(org.id);
+     });
+
+     it("test scenario", async () => {
+       // Test-specific data only
+     });
+   });
+   ```
+
+3. **Error Handling**
+   - Test both success and error paths
+   - Verify error messages
+   - Test boundary conditions
+
+4. **Component Testing**
+   - Test with real data
+   - Verify UI updates
+   - Check loading states
+
+## Common Scenarios
+
+1. **Protected Routes**
+   ```typescript
+   it("should redirect non-members", async () => {
+     const { token } = await createTestUser({});
+     const client = createAuthenticatedClient(token);
+     
+     try {
+       await ProtectedPage();
+       fail("Should have redirected");
+     } catch (error) {
+       expect(error.message).toContain("NEXT_REDIRECT:/login");
+     }
+   });
+   ```
+
+2. **Form Submissions**
+   ```typescript
+   import { renderWithProviders } from "../test-utils";
+   it("should create resource", async () => {
+     const { token } = await createTestUser({});
+     const client = createAuthenticatedClient(token);
+
+     renderWithProviders(<CreateForm />);
+     await userEvent.type(screen.getByRole("textbox"), "New Item");
+     await userEvent.click(screen.getByRole("button"));
+
+     // Verify both UI and database
+     expect(screen.getByText("Created!")).toBeInTheDocument();
+     const { data } = await client.from("items").select();
+     expect(data).toHaveLength(1);
+   });
+   ```
+
+3. **Real-time Updates**
+   ```typescript
+   import { renderWithProviders } from "../test-utils";
+   it("should update in real-time", async () => {
+     const { token } = await createTestUser({});
+     const client = createAuthenticatedClient(token);
+
+     renderWithProviders(<RealtimeList />);
+     
+     // Create item in different client
+     await adminClient.from("items").insert({ name: "New" });
+     
+     // Verify UI updates
+     expect(await screen.findByText("New")).toBeInTheDocument();
+   });
+   ```
 
 ---
 > Source: [Just-Understanding-Data-Ltd/supabase-tdd-boilerplate](https://github.com/Just-Understanding-Data-Ltd/supabase-tdd-boilerplate) — distributed by [TomeVault](https://tomevault.io).
