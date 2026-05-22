@@ -1,59 +1,96 @@
-## ui-ux-rules
+## web3-integration-rules
 
-> description: Guidelines for UI/UX design, focusing on clarity, fluidity, and integrating the Uzumaki/Void aesthetic.
+> description: Guidelines for Web3 integration, blockchain interactions, and smart contract communication in the ZK Mixer project.
 
 ---
-description: Guidelines for UI/UX design, focusing on clarity, fluidity, and integrating the Uzumaki/Void aesthetic.
-globs: ["frontend/src/**/*.js", "frontend/src/**/*.css"] # Apply to frontend components and styles
+description: Guidelines for Web3 integration, blockchain interactions, and smart contract communication in the ZK Mixer project.
+globs: ["frontend/src/contexts/Web3*.js", "frontend/src/contexts/Mixer*.js", "frontend/src/utils/*eth*.js", "frontend/src/utils/*web3*.js", "frontend/src/hooks/useNoteManagement.js"] # Added hook pattern
 alwaysApply: true
 ---
 
-- **Core Principle: Fluidity & Clarity First**
-    - **Goal**: Ensure deposit and withdrawal flows are intuitive, minimize steps, and reduce cognitive load.
-    - **Simplicity**: Present only necessary information and actions at each stage. Avoid clutter.
-    - **Guidance**: Lead the user clearly through multi-step processes (like withdrawal).
-    - **Clarity over Theme**: While the theme is important, user understanding and ease of use take precedence. If a thematic element confuses the flow, simplify it.
+- **Library Selection**
+    - **Ethereum Libraries**: Use ethers.js v6.x (align with Hardhat's version) for all Ethereum interactions.
+    - **Wallet Connection**: Use Web3Modal or similar abstraction for wallet connections.
+    - **Contract Interaction**: Use the ethers.js Contract class for type-safe interactions.
 
-- **Uzumaki/Void Aesthetic Integration**
-    - **Palette**:
-        - **Base**: Predominantly dark (e.g., deep blues, dark greys/charcoal, near-black).
-        - **Text**: High contrast (e.g., off-white, light grey) for readability.
-        - **Accents**: Use sparingly for key actions, highlights, or errors. Consider a specific "void blue/purple" for primary actions and a thematic red (like the reference image) for errors or destructive actions.
-    - **Motifs (Subtle)**:
-        - Incorporate spiral or abstract "void" elements subtly. Examples: faint background textures, loading spinners, section borders, hover effects.
-        - **Avoid**: Overuse that makes the UI busy or distracting. The theme should enhance, not dominate.
-    - **Typography**:
-        - Select a clean, highly readable sans-serif font for body text and UI elements.
-        - A slightly stylized, thematic font *may* be used for main headings (`h1`, `h2`) **only if** it remains easily legible and fits the overall aesthetic.
-    - **Animation & Transitions**:
-        - Use smooth, subtle transitions between states or views (e.g., fades).
-        - Loading animations (e.g., pulsing/spinning spirals) should be clean and not overly long or jarring.
+- **Provider Management**
+    - **Provider Initialization**: Initialize providers only when needed.
+    - **Provider Caching**: Implement caching.
+    - **Multi-Provider Support**: Handle different providers/networks.
+    - **Disconnect Handling**: Handle disconnections, network changes, account changes.
 
-- **Component & Flow Specifics**
-    - **Layout**: Maintain a consistent core layout (Header, Main Content, Footer). Use clear navigation (e.g., tabs in Header).
-    - **Buttons**: Clear, concise action labels. Consistent styling for primary, secondary, and disabled states. Ensure sufficient size for touch targets.
-    - **Inputs/Textareas**: Clear labels, placeholder text for guidance (e.g., note format). Provide immediate visual feedback for validation (e.g., border color change on note parse error).
-    - **Deposit Flow**: Straightforward denomination selection, clear "Deposit" button. Post-deposit flow must seamlessly transition to the Note Backup section.
-    - **Note Backup UI**:
-        - **Prominence**: Make this section visually distinct and unavoidable after deposit.
-        - **Warnings**: Use strong visual cues (e.g., icons 🚨, color) and concise text for security warnings.
-        - **Actions**: Clear "Copy" and "Download" buttons with feedback on success/failure (e.g., brief message "Copied!").
-    - **Withdrawal Flow**:
-        - Guide the user: 1. Input Note & Recipient -> 2. (Trigger Proof Generation - show loading) -> 3. Confirm Withdrawal Tx.
-        - Provide clear feedback during proof generation (this can take time).
-    - **Status Messages**:
-        - Use consistent placement (e.g., toasts, dedicated message area).
-        - Clear visual distinction between Info, Success, and Error states (color, icons).
-        - Messages should be concise and user-friendly. Avoid technical jargon where possible.
+- **Smart Contract Interaction**
+    - **ABI Management**:
+        - Store ABIs in separate JSON files (e.g., `/frontend/src/abis`).
+        - Import ABIs centrally.
+        - Keep ABIs consistent with deployed contracts (update after recompilation).
+    - **Contract Addresses**:
+        - Use environment variables (`.env`) or a configuration file for contract addresses per network (localhost, testnet, mainnet).
+        - Include mapping of chainId to addresses (ZKMixer, Verifier, potentially PoseidonT3 if called directly).
+    - **Type Safety**: Use strong types; consider TypeChain if using TypeScript.
 
-- **Clarity & Help**
-    - **Tooltips**: Use for brief explanations of technical terms on hover (e.g., "Nullifier", "Commitment").
-    - **Help Text**: Place concise instructions or format examples near relevant inputs.
-    - **Info/Education Section**: Keep explanations simple and focused on user benefit (privacy) and core concepts (how the link is broken). Use visuals/diagrams if helpful.
+- **Transaction Handling**
+    - **State Management**: Track transaction states (pending, confirmed, failed).
+    - **Error Handling**: Handle common errors; provide user-friendly messages.
+    - **Confirmation Blocks**: Wait for appropriate confirmations.
+    - **Gas Management**: Estimate gas; consider EIP-1559.
 
-- **Technical Considerations**
-    - **Responsiveness**: Ensure layout adapts cleanly to mobile, tablet, and desktop views using CSS media queries. Test on different screen sizes.
-    - **Accessibility (A11y)**: Maintain good color contrast ratios. Ensure keyboard navigability. Use semantic HTML elements. Provide ARIA attributes where necessary.
+- **Event Handling**
+    - **Event Listening**: Set up listeners for `Deposit`, `Withdrawal`. Clean up listeners.
+    - **Real-time Updates**: Update UI based on events (websockets if available).
+
+- **Network Management**
+    - **Multi-chain Support**: Check `chainId`; prompt users to switch.
+    - **Network Metadata**: Store network details.
+    - **Testnet Indicators**: Clearly show testnet usage.
+
+- **ZK-Specific Considerations**
+    - **Proof Generation (Client-Side)**:
+        - Use `snarkjs` (WASM version) for proof generation.
+        - **CRITICAL: Hash Consistency:** The JS library used for cryptographic operations (e.g., Poseidon from `circomlibjs`) **MUST** be consistent with the implementation used in the smart contracts (e.g., the local copy of `PoseidonT3.sol`). **Verify this consistency** with test vectors or known inputs (e.g., H(0,0), H(1,2)). Use the *exact same version* of JS libraries (e.g., `circomlibjs`) in the frontend as used in Hardhat tests.
+        - **Input Preparation:** Ensure all inputs passed to `snarkjs.groth16.fullProve` match the circuit's expected types and formats (e.g., decimal strings for BigInts).
+        - **Merkle Proof Generation:** Use a compatible JS Merkle tree library (e.g., `@zk-kit/incremental-merkle-tree`) that aligns with the circuit's verifier (`VerifyMerklePath`). Ensure correct handling of padding and zero values consistent with the verified setup.
+        - **Web Workers:** Perform proof generation in a Web Worker to avoid blocking the UI thread.
+        - **Loading States:** Display clear loading/progress indicators during proof generation.
+
+    - **Note (Nullifier/Secret) Management & Security**:
+        - **Secure Generation:**
+            - Generate `nullifier` and `secret` using cryptographically secure randomness via `window.crypto.getRandomValues()` poured into a `Uint8Array` or similar, ensuring sufficient entropy (e.g., 31 bytes each).
+            - Convert these byte arrays to the required format (e.g., BigInt or hex string) carefully.
+        - **NO Persistent Browser Storage:**
+            - **CRITICAL RULE:** **DO NOT store the user's note (`nullifier` and `secret`) persistently in the browser** (`localStorage`, `sessionStorage`, `IndexedDB`). This is highly vulnerable to XSS attacks.
+        - **Mandatory User Backup Flow:**
+            - After successful deposit and commitment calculation (`commitment = H(nullifier, secret)` using verified Poseidon JS), the user **MUST** be prompted to securely back up their note.
+            - Provide options to "Copy to Clipboard" and "Download as File".
+            - Display clear, prominent warnings emphasizing that this note is the **only way** to access their funds and **must be kept secret and safe**.
+        - **Manual Input for Withdrawal:**
+            - The withdrawal process **MUST** require the user to manually input their previously saved note (e.g., pasting into a text field or uploading the backup file).
+            - Validate the format of the provided note string before proceeding.
+        - **Standard Note Format:**
+            - Define and use a consistent, human-readable format for exported/imported notes. Include metadata for clarity.
+            - Example Format: `zkvoid-note-v1-eth-0.1-{chainId}-{base64(nullifier:secret)}` (Adapt chainId as needed, e.g., sepolia/11155111).
+        - **Ephemeral Memory Handling:**
+            - Keep the note (`nullifier`, `secret`) in component state or JS variables **only for the minimum time required** (e.g., during proof generation).
+            - Explicitly clear variables holding the note (e.g., set to `null`) once they are no longer needed within a function's scope. Avoid passing the raw note unnecessarily between components.
+        - **Clear UI Warnings & Education:**
+            - The UI **MUST** prominently display warnings about note security during deposit (backup) and withdrawal (input).
+            - Include text explaining the risk of loss if the note is mishandled or lost.
+            - Reinforce that the team/protocol cannot recover lost notes/funds.
+
+- **Security Best Practices**
+    - **Private Key Management**: Use wallet providers; never handle keys directly.
+    - **Input Validation**: Validate user inputs (addresses, amounts, **note format**) before use.
+    - **Replay Protection**: Ensure `chainId` is included in proofs/hashes where necessary.
+    - **XSS Prevention:** Adhere to standard frontend security best practices (e.g., sanitize inputs, use secure frameworks/libraries, set appropriate HTTP headers) to mitigate the risk of XSS, which would compromise any client-side secret handling.
+
+- **Privacy Considerations**
+    - **Data Minimization**: Collect only essential data.
+    - **Analytics Limitations**: Limit tracking.
+    - **User Awareness**: Clearly communicate privacy implications and security best practices (e.g., note backup).
+
+- **Error Handling and Debugging**
+    - **Detailed Logging (Dev)**: Log relevant inputs, hashes, proof steps during development. Disable in production.
+    - **User Feedback:** Provide clear messages for proof generation errors, transaction failures, etc.
 
 ---
 > Source: [Zyra-V21/ZKUzumaki](https://github.com/Zyra-V21/ZKUzumaki) — distributed by [TomeVault](https://tomevault.io).
