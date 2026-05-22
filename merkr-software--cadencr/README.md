@@ -7,11 +7,11 @@ The IDE for the era of agents — one local workspace to read, steer, and ship w
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [merkr-software/CadencR](https://github.com/merkr-software/CadencR).
+Original source: `CLAUDE.md` in [merkr-software/CadencR](https://github.com/merkr-software/CadencR).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
