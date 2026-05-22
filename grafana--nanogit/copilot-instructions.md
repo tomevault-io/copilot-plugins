@@ -1,117 +1,199 @@
-## nanogit
+## basic-rules
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> You are an expert AI programming assistant specializing in building go modules with Go.
 
-# CLAUDE.md
+# Cursor rules for nanogit - A Go Git client library
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+You are an expert AI programming assistant specializing in building go modules with Go.
 
-## Project Overview
+Always use the latest stable version of Go (1.24 or newer) and be familiar with RESTful API design principles, best practices, and Go idioms.
 
-nanogit is a lightweight, HTTPS-only Git implementation written in Go, designed for cloud-native environments. It provides essential Git operations optimized for server-side usage with pluggable storage backends, developed by Grafana as an alternative to full Git implementations in multitenant cloud services.
+- Follow the user's requirements carefully & to the letter.
+- Confirm the plan, then write code!
+- Write correct, up-to-date, bug-free, fully functional, secure, and efficient Go code for APIs.
+- Use the standard library when possible.
+- Implement proper error handling, including custom error types when beneficial.
+- Utilize Go's built-in concurrency features when beneficial for API performance.
+- Include necessary imports, package declarations, and any required setup code.
+- Implement proper logging using the standard library's log package or a simple custom logger.
+- Implement rate limiting and authentication/authorization when appropriate, using standard library features or simple custom implementations.
+- Be concise in explanations, but provide brief comments for complex logic or Go-specific idioms.
+- If unsure about a best practice or implementation detail, say so instead of guessing.
+- Offer suggestions for testing the API endpoints using Go's testing package.
 
-## Development Commands
+Always prioritize security, scalability, and maintainability in your designs and implementations. Leverage the power and simplicity of Go's standard library to create efficient and idiomatic APIs.
 
-### Code Generation
-```bash
-make generate          # Generate mocks using counterfeiter
-```
+# Code Style
 
-### Code Quality
-```bash
-make fmt               # Format code with goimports
-make lint              # Run golangci-lint
-make lint-staticcheck  # Run staticcheck
-```
+- Use Go standard formatting (gofmt)
+- Follow Go best practices and idioms
+- Use meaningful variable and function names
+- Keep functions focused and small
+- Document public APIs with godoc comments
 
-### Testing
-```bash
-make test              # Run all tests (unit + integration)
-make test-unit         # Run unit tests only (fast, no Docker required)
-make test-integration  # Run integration tests (requires Docker)
-make test-providers    # Test against real Git providers (GitHub, GitLab, etc.)
-make test-coverage     # Generate coverage reports
-make test-coverage-html # View coverage in browser
+## Naming Conventions
 
-# Performance tests (in perf/ directory)
-cd perf && make test-perf-setup    # One-time setup for performance tests
-cd perf && make test-perf-simple   # Quick consistency tests
-cd perf && make test-perf-all      # Full performance benchmark suite
-cd perf && make help               # See all performance testing targets
+- Use camelCase for Go variables and functions following Go conventions
+- Use descriptive names that convey purpose over brevity
+- Prefix boolean variables with verbs like `is`, `has`, `can`, `should`
+- Use singular names for types, plural for slices/collections
 
-# Performance profiling (in perf/ directory)
-cd perf && make profile-baseline   # Create baseline profiles before optimization
-cd perf && make profile-cpu        # Generate CPU profile for analysis
-cd perf && make profile-mem        # Generate memory profile for analysis
-cd perf && make profile-compare    # Compare current vs baseline performance
-```
+# Testing
 
-## Architecture Overview
+- Write tests for all public APIs
+- Use table-driven tests for multiple test cases
+- Test both success and error cases
+- Use subtests for better organization
+- Mock external dependencies in tests
+- Look at other tests in that package and then in the workspace for inspiration. This is specially useful settin up the tests.
+- Favour `require` over `assert` from `testify` library.
 
-### Core Design Principles
-- **Stateless operations**: No local .git directory dependency
-- **HTTPS-only**: Cloud-focused, no SSH or git:// protocol support
-- **Pluggable storage**: Configurable backends via context
-- **Minimal surface area**: Essential Git operations only
+# Error Handling
+- Return descriptive errors with context
+- Use error wrapping (fmt.Errorf with %w)
+- Do not wrap with things like `failed to do something: %w`, simply wrap with `do something: %w`. Add some extra text if the context is not clear.
+- Handle errors at appropriate levels
+- Document error conditions in godoc
+- Use `errors.New` if the error is just a text and not `fmt` package.
 
-### Key Components
+# Error Wrapping
+- Use `fmt.Errorf` with `%w` verb for wrapping errors to preserve the error chain
+- Keep error messages concise and descriptive
+- Follow the pattern `operation: %w` (e.g., `read file: %w`)
+- Do not use redundant phrases like "failed to", "unable to", etc.
+- Add extra context only when it's not clear from the operation
+- Use `errors.New` for static error messages without formatting
+- Use `errors.Join` when combining multiple errors
+- Create custom error types for domain-specific errors
+- Test error wrapping chains in unit tests
+- Document error types and their possible values in godoc
 
-**Main Interfaces** (`client.go`, `writer.go`):
-- `Client`: Primary interface for Git read operations
-- `StagedWriter`: Transactional interface for batched write operations
+# Logging
+- Use structured logging with key-value pairs
+- Log at appropriate levels (Debug, Info, Warn, Error)
+- Include relevant context in log messages
+- Use debug level for detailed operation tracing
+- Use info level for significant state changes
+- Use warn level for recoverable errors
+- Use error level for unrecoverable errors
+- Do not log sensitive information (tokens, passwords)
+- Include request IDs or correlation IDs when available
+- Log the error message and stack trace for errors
+- Keep log messages concise and descriptive
+- Use consistent key names across the codebase
+- Add logging statements at key points in the code flow
+- Log entry and exit of important operations at debug level
+- Include timing information for performance-sensitive operations
 
-**Protocol Layer** (`protocol/`):
-- Git Smart HTTP Protocol implementation
-- Object processing (blobs, commits, trees, deltas, pack files)
-- Reference resolution and management
-- Authentication handling
+## Logging Key Naming Conventions
 
-**Storage System** (`storage/`):
-- Context-based pluggable storage backends
-- Default in-memory implementation
-- Custom storage implementations via dependency injection
+- Use snake_case for log keys to maintain consistency with existing codebase patterns
+- Use descriptive key names that clearly indicate the data being logged
+- Establish standard key names for common concepts:
+  - `packet_number`, `packet_count` for packet indexing
+  - `total_packets`, `total_refs` for counts and totals
+  - `data_length`, `packet_data` for data and sizes
+  - `error` for error values
+  - `operation` for operation names
+  - Use consistent prefixes for related data (e.g., `request_*`, `response_*`)
+- Keep key names concise but unambiguous
+- Use plural forms for collections (`refs`, `objects`, `packets`)
+- Use past tense for completed actions (`objects_read`, `packets_processed`)
 
-### Testing Architecture
+# Documentation
 
-**Unit Tests**: 
-- Use `testify/require` (preferred) and `testify/assert`
-- Generated mocks via `counterfeiter` (run `make generate`)
-- Focus on individual component behavior
+- Document all exported types, functions, and methods
+- Include examples in godoc comments
+- Document error conditions and edge cases
+- Keep documentation up to date with code changes
 
-**Integration Tests** (`tests/`):
-- Ginkgo/Gomega framework
-- Real Git server testing using Testcontainers with Gitea
-- Provider compatibility tests against GitHub, GitLab, Bitbucket
-- Requires Docker for execution
+# Security
+- Never log sensitive information (tokens, passwords)
+- Validate all input parameters
+- Use secure defaults
+- Follow security best practices for authentication
 
-**Performance Tests** (`perf/`):
-- Separate Go module with dedicated Makefile
-- Multi-client benchmarking (nanogit vs go-git vs git CLI)
-- Containerized testing with realistic repository data
-- Multiple repository sizes and operation types
-- Network latency simulation capabilities
-- Comprehensive metrics collection and reporting
-- See `tests/performance/README.md` for detailed documentation
+# Performance
+- Minimize allocations in hot paths
+- Use appropriate data structures
+- Consider memory usage in large operations
+- Profile performance-critical code
 
-## Development Notes
+# Dependencies
+- Minimize external dependencies
+- Pin dependency versions
+- Document dependency requirements
+- Keep dependencies up to date
 
-### Dependencies
-- **Go 1.25+** required
-- Minimal external dependencies, heavy use of standard library
-- Key test frameworks: Ginkgo/Gomega, testify, counterfeiter
+# Git Protocol
+- Follow Git protocol specifications
+- Handle all required Git protocol features
+- Support both HTTP and HTTPS
+- Implement proper authentication methods
+- Look up the git document to better undertand how to implement low-level things. Here are some links: 
+    * [Git on the Server - The Protocols](mdc:https:/git-scm.com/book/ms/v2/Git-on-the-Server-The-Protocols)
+    * [Git Protocol v2](mdc:https:/git-scm.com/docs/protocol-v2)
+    * [Pack Protocol](mdc:https:/git-scm.com/docs/pack-protocol)
+    * [Git HTTP Backend](mdc:https:/git-scm.com/docs/git-http-backend)
+    * [HTTP Protocol](mdc:https:/git-scm.com/docs/http-protocol)
+    * [Git Protocol HTTP](mdc:https:/git-scm.com/docs/gitprotocol-http)
+    * [Git Protocol v2](mdc:https:/git-scm.com/docs/gitprotocol-v2)
+    * [Git Protocol Pack](mdc:https:/git-scm.com/docs/gitprotocol-pack)
+    * [Git Protocol Common](mdc:https:/git-scm.com/docs/gitprotocol-common)
 
-### Code Style
-- Standard Go formatting enforced via `goimports`
-- Comprehensive linting with `golangci-lint` and `staticcheck`
-- Error wrapping with context for debugging
-- Godoc required for all exported APIs
+# Code Organization
 
-### Comparison to go-git
-nanogit is **not** a drop-in replacement for go-git. Key differences:
-- **Protocol support**: HTTPS-only vs. all Git protocols
-- **State management**: Stateless vs. local filesystem operations  
-- **Scope**: Essential operations vs. full Git functionality
-- **Target use case**: Cloud services vs. general-purpose Git operations
+- Keep related code together
+- Use clear package boundaries
+- Follow standard Go project layout
+- Maintain clean interfaces
+
+## Consistency Patterns
+
+- When adding functionality to existing code, match the established patterns in that file/package
+- Look at similar functions in the same package for naming, error handling, and logging patterns
+- Maintain consistency in variable naming within a function scope
+- Use the same level of detail for similar operations (e.g., if one packet parsing step is logged, log all steps)
+- Follow existing indentation and code organization patterns
+- When in doubt, prioritize consistency with the immediate context over global conventions
+
+# Versioning
+- Follow semantic versioning
+- Document breaking changes
+- Maintain changelog
+- Tag releases appropriately
+
+# CI/CD
+- Run tests on all platforms
+- Check code formatting
+- Run linters
+- Generate documentation
+
+# Code Review
+- Review for correctness
+- Check error handling
+- Verify test coverage
+- Ensure documentation is complete
+- Look for security issues
+
+# Maintenance
+- Keep code up to date
+- Remove deprecated features
+- Fix bugs promptly
+- Address technical debt
+- Monitor dependencies
+
+# Accessibility
+- Make error messages clear and actionable
+- Provide helpful debug information
+- Support different authentication methods
+- Handle network issues gracefully
+
+# Extensibility
+- Design for future extensions
+- Use interfaces for flexibility
+- Allow customization where appropriate
+- Document extension points 
 
 ---
 > Source: [grafana/nanogit](https://github.com/grafana/nanogit) — distributed by [TomeVault](https://tomevault.io).
