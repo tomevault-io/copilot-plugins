@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--ai-memory",
+  "displayName": "ai-memory",
+  "description": "Solution for long term memory for agent coding CLIs and to facilitate hand off between different agent vendors",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/ai-memory",
+  "skills": []
+}
