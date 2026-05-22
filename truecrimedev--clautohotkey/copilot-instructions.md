@@ -1,34 +1,32 @@
-## playbook-gui
+## playbook-text
 
-> description: Playbook — AHK v2 GUI tasks (class-based, deterministic layout)
+> description: Playbook — AHK v2 text/regex/escaping tasks
 
 ---
-description: Playbook — AHK v2 GUI tasks (class-based, deterministic layout)
+description: Playbook — AHK v2 text/regex/escaping tasks
 alwaysApply: false
 ---
 
 When to use
-- Any GUI creation/refactor/debug task in this repo.
+- String building, escaping, sanitization, regex matching/replacing, validation.
 
 Playbook
-1) Search first
-   - Check existing patterns in `AHK_Notes/Classes/gui-class-best-practices.md`, `AHK_Notes/Concepts/GUI_Controls_and_Patterns.md`, `AHK_Notes/Concepts/GUI_State_Management.md`.
-   - Grep for similar classes before adding new ones.
-2) Plan
-   - Class-based only; instantiate without `new`. Store control refs in `Map()`.
-   - Bind handlers via `.OnEvent(..., .Bind(this))`. Avoid free-standing callbacks.
-3) Layout
-   - Apply deterministic layout computation; validate boundaries/overlaps; generate a layout report.
-4) Implement
-   - Group methods (init, interaction, mutation). Provide `__Delete` to clean timers/resources.
-   - Use hotkeys only if scoped; avoid global side-effects.
+1) Choose quote/escape strategy
+   - Prefer single vs double quotes to minimize escaping. Use backtick-only escapes.
+2) Use built-ins first
+   - `Trim/StrUpper/StrLower/StrReplace/StrSplit/InStr/SubStr`.
+3) Regex
+   - PCRE with `i/m/s/x`. Escape literals. Prefer named groups when helpful. Validate patterns.
+4) Builders and safety
+   - For multi-part strings use `.=`, `RTrim` joining, or a simple StringBuilder pattern.
+   - Validate untrusted input; sanitize for display/command contexts.
 5) Lint and finalize
-   - Review @Linter Errors and fix introduced issues. Re-run after edits.
-   - Cross-check `.cursor/rules/40-gui-layout.mdc`, `10-core-ahk-system.mdc`, `99-enforcement-checklist.mdc`.
+   - Review @Linter Errors and fix introduced issues; re-check after edits.
+   - Cross-check `.cursor/rules/30-text-processing.mdc`, `10-core-ahk-system.mdc`, `99-enforcement-checklist.mdc`.
 
 References
-- Rules: `.cursor/rules/40-gui-layout.mdc`, `.cursor/rules/10-core-ahk-system.mdc`, `.cursor/rules/99-enforcement-checklist.mdc`, `.cursor/rules/00-always-linter.mdc`
-- Notes: `AHK_Notes/Classes/gui-class-best-practices.md`, `AHK_Notes/Concepts/GUI_Controls_and_Patterns.md`, `AHK_Notes/Concepts/GUI_State_Management.md`
+- Rules: `.cursor/rules/30-text-processing.mdc`, `.cursor/rules/10-core-ahk-system.mdc`, `.cursor/rules/99-enforcement-checklist.mdc`, `.cursor/rules/00-always-linter.mdc`
+- Notes: `AHK_Notes/Concepts/string-handling-in-ahk-v2.md`
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
