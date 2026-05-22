@@ -7,11 +7,11 @@ Ruby implementation of Project Fluent localization system
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sakuro/foxtail](https://github.com/sakuro/foxtail).
+Original source: `CLAUDE.md` in [sakuro/foxtail](https://github.com/sakuro/foxtail).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
