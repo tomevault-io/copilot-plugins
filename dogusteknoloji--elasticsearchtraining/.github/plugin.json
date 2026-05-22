@@ -1,0 +1,9 @@
+{
+  "name": "dogusteknoloji--elasticsearchtraining",
+  "displayName": "ElasticsearchTraining",
+  "description": "This repository contains comprehensive Elasticsearch training materials designed for developers, including a practical .NET 9.0 log simulator application for hands-on learning.",
+  "version": "1.0.0",
+  "author": "DogusTeknoloji",
+  "homepage": "https://github.com/DogusTeknoloji/ElasticsearchTraining",
+  "skills": []
+}
