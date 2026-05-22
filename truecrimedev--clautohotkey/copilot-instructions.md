@@ -1,20 +1,19 @@
-## 40-gui-layout
+## 50-data-structures-and-arrays
 
-> description: Class-based GUI with deterministic layout and validation
+> description: Data structures (Map-first) and arrays (1-based)
 
 ---
-description: Class-based GUI with deterministic layout and validation
+description: Data structures (Map-first) and arrays (1-based)
 alwaysApply: false
 ---
 
-GUI rules
-- GUI code must be encapsulated in classes using `Gui()`; no legacy v1 syntax.
-- Store control refs in `Map()`; bind with `.OnEvent(..., .Bind(this))`.
-- Compute layout deterministically; validate overlaps and boundaries; generate report when debugging.
+Storage and arrays
+- Use `Map()` for key→value storage (no object-literal storage).
+- Arrays are 1-based; use built-ins for transforms/sorting; use `Map()` for set ops.
 
 References
-- Modules reference: `Modules/Module_GUI.md`
-- Additional examples: `AHK_Notes/Classes/gui-class-best-practices.md`, `AHK_Notes/Concepts/GUI_Controls_and_Patterns.md`
+- Modules reference: `Modules/Module_DataStructures.md`, `Modules/Module_Arrays.md`
+- Additional examples: `AHK_Notes/Concepts/data-structures-in-ahk-v2.md`, `AHK_Notes/Concepts/map-usage-best-practices.md`
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
