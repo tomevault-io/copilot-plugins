@@ -1,0 +1,93 @@
+{
+  "name": "a",
+  "owner": "thoughtpolice",
+  "repo": "a",
+  "description": "Fun playground and adventure game",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "buck2-build-troubleshoot",
+      "path": ".claude/skills/buck2-build-troubleshoot",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/buck2-build-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "buck2-local-resources",
+      "path": ".claude/skills/buck2-local-resources",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/buck2-local-resources",
+      "description": ""
+    },
+    {
+      "name": "buck2-new-project",
+      "path": ".claude/skills/buck2-new-project",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/buck2-new-project",
+      "description": ""
+    },
+    {
+      "name": "buck2-target-determination",
+      "path": ".claude/skills/buck2-target-determination",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/buck2-target-determination",
+      "description": ""
+    },
+    {
+      "name": "buck2-test-workflow",
+      "path": ".claude/skills/buck2-test-workflow",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/buck2-test-workflow",
+      "description": ""
+    },
+    {
+      "name": "jj-clone-third-party",
+      "path": ".claude/skills/jj-clone-third-party",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/jj-clone-third-party",
+      "description": ""
+    },
+    {
+      "name": "jj-graft-third-party",
+      "path": ".claude/skills/jj-graft-third-party",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/jj-graft-third-party",
+      "description": ""
+    },
+    {
+      "name": "jj-workspace-experiments",
+      "path": ".claude/skills/jj-workspace-experiments",
+      "github_url": "https://github.com/thoughtpolice/a/tree/main/.claude/skills/jj-workspace-experiments",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thoughtpolice/a",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T20:31:20Z"
+}
