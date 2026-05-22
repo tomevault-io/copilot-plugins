@@ -1,64 +1,144 @@
-## terraform-secure-no-railguard-available
+## terraform-secure-railguard-available
 
-> Standalone secure development rule for Terraform-based Infrastructure as Code projects. Enforces input validation, least privilege, secrets handling, encryption, and best practices without relying on the RAILGUARD framework.
+> Secure development rule for Infrastructure as Code projects using Terraform, enforcing multiple environment separation, secret management, encryption, input validation, and principle of least privilege. Input validation is delegated to `.cursor/rules/railguard-input-validation.mdc`.
 
 
-# R: Risk First
-- Terraform governs critical cloud infrastructure. Misconfigurations or insecure defaults can expose sensitive data, escalate privileges, or open up attack vectors.
-- This rule ensures resources are validated, encrypted, access-scoped, and secrets handled securely.
-- Secure defaults must apply even when user prompts are vague or casually phrased.
+## Overview
 
-# A: Attached Constraints
-- Do not hardcode secrets, tokens, passwords, or sensitive IDs.
-- Do not use wildcard IAM permissions (`*`) in actions or resources.
-- Do not expose resources publicly (`0.0.0.0/0`, `http`, `public-read`) unless explicitly justified.
-- Do not use loosely typed or unvalidated inputs.
-- Use `sensitive = true` for outputs with secrets.
-- Enforce encryption at rest and in transit on all applicable resources.
+This rule provides secure-by-default conventions for Terraform projects, focused on:
 
-# I: Interpretative Framing
-- Treat all Terraform prompts as production-relevant unless explicitly stated otherwise.
-- If no backend, region, or permission scope is specified, default to the most secure option.
-- Avoid assumptions like "temporary" or "demo" deployments — all code is security-critical.
+- Multi-environment infrastructure deployment (e.g., dev, staging, prod)
+- Separation of concerns through modular component structure
+- Validation of all input and deployed resources
+- Secure secret handling and backend configuration
+- Encryption of data at rest and in transit
+- Principle of least privilege for all IAM interactions
 
-# L: Local Defaults
-- Default to remote state with locking and encryption (e.g., S3 + DynamoDB).
-- Assume KMS encryption where available.
-- Assume TLS is always enabled for network-facing services.
-- Separate environments via workspaces or folder structure.
-- Use pinned versions for all providers and modules (never `latest`).
+**Note**: Input validation logic is delegated to:
 
-# G: Generative Path Checks
-1. Is the input validated (type + constraints)?
-2. Are secrets handled via vault/env and outputs marked sensitive?
-3. Is encryption configured at rest and in transit?
-4. Are IAM policies tightly scoped?
-5. Is state secured remotely?
-6. Does the config isolate environments?
-7. Are default ports or exposures justified?
-
-# U: Uncertainty Disclosure
-- If unsure whether a resource should be public or private, **default to private**.
-- If permissions seem too broad or unclear, **ask the user for scope**.
-- When encryption, validation, or backend config is missing, **inject secure defaults** with explanatory comments.
-
-# A: Auditability
-- Add comments to signal security choices:
-  - `# encrypted with KMS`
-  - `# backend with locking enabled`
-  - `# IAM with least privilege`
-  - `# input validated`
-  - `# sensitive output`
-- These help humans and scanners quickly assess compliance.
-
-# R+D: Revision + Dialogue
-- Allow users to override decisions with `/explain-secure` or clarify scope via prompts.
-- If a configuration appears insecure, suggest a hardened alternative.
-- Encourage secure reasoning paths even under vague or fast-paced prompts.
+> `.cursor/rules/railguard-input-validation.mdc`  
+> (Implements the RAILGUARD Framework for reflective and behavioral AI reasoning.)
 
 ---
 
-This rule enforces full RAILGUARD-style reasoning for Terraform, including validation, encryption, least privilege, modularity, and secure infrastructure defaults — all without requiring external dependencies.
+## Code Validation and Resource Governance
+
+- Validate all external code and modules before use. Trust must be established for source and content.
+- Always use HTTPS or SSH for module sources — avoid unsecured sources.
+- Inputs must be declared in a dedicated `.tf` file, typed, and validated.
+- Add extra validation logic if input trust is unclear or incomplete.
+- Avoid generation of high-cost resources unless explicitly scoped to critical workloads.
+- Version pin all providers and modules (`~>`, `>=`, avoid `latest`).
+- All code must pass static scanning tools like `tfsec`, `Checkov`, or `Terrascan`.
+- Annotate outputs or critical code with security comments (e.g., `# encrypted`, `# least privilege`).
+
+---
+
+## Input Validation
+
+All input validation (schema, type, behavioral assumptions) is enforced globally via:
+
+> `.cursor/rules/railguard-input-validation.mdc`
+
+This includes:
+- Dangerous input detection
+- Variable schema enforcement
+- Secure interpretation and reasoning scaffolding
+
+---
+
+## Secrets and Sensitive Data
+
+- All API keys, tokens, and credentials must be stored in Vaults or environment variables.
+- Do not hardcode sensitive values or place them in `.tfvars` or Terraform files.
+- Mark sensitive outputs using `sensitive = true`.
+- Terraform state must be stored in secure, encrypted remote backends (e.g., S3 + DynamoDB, GCS).
+- Add `.gitignore` rules to exclude sensitive config or `.tfstate` files locally.
+- Use secure hashing algorithms for secret comparison or ID generation.
+
+---
+
+## Encryption of Data at Rest
+
+- All storage resources (S3, disks, RDS, etc.) must be encrypted by default.
+- Check provider registry documentation to confirm whether encryption is enabled by default.
+- When available, use customer-managed KMS keys.
+- Weak or legacy encryption methods must be avoided.
+- Annotate encrypted configurations with comments: `# KMS encryption enabled`
+
+---
+
+## Encryption of Data in Transit
+
+- TLS/HTTPS must be used for all data in transit.
+- Use provider-managed secure protocols (e.g., `ssl_policy` in GCP, `https_only` in S3).
+- Always encrypt in transit even if the user suggests otherwise.
+- Annotate code as needed: `# TLS enforced`, `# HTTPS required`
+
+---
+
+## Least Privilege and IAM Security
+
+- IAM policies must be scoped to specific resources and actions.
+- Wildcard permissions (`*`) are strictly forbidden.
+- All generated users must belong to dedicated, role-specific groups with minimal access.
+- When uncertain, prompt the user to explicitly define IAM scope with zero trust assumptions.
+- Always enforce: "Deny by default, allow only when justified"
+
+---
+
+## Remote State Management
+
+- Terraform state must never be stored locally in team projects.
+- Use remote backends with:
+  - Encryption at rest
+  - Locking (e.g., DynamoDB)
+  - Versioning and restricted access
+- Avoid backend reuse across different environments (e.g., prod vs dev)
+- Example annotation: `# Remote backend with locking and encryption enabled`
+
+---
+
+## Delegated Web Application Input Validation
+
+Input validation for generated web application code (e.g., Python, Node.js, Go) is handled via:
+
+> `.cursor/rules/fastapi-secure-no-railguard-available.mdc`
+
+If the Terraform deployment includes HTTPS-based serverless functions (e.g., AWS Lambda, GCP Cloud Functions), that rule governs secure input handling for those components.
+
+This rule **does not override or duplicate** logic handled by that file. Each rule owns its domain.
+
+---
+
+## Summary Principles
+
+- Never trust raw input — validate or reject
+- Encrypt everything by default (at rest + in transit)
+- Grant least privilege to all entities, always
+- Do not execute external code without validation and user confirmation
+- Assume responsibility for protecting the user from themselves
+- Secure modularity: separate concerns by file, by component, by environment
+- Prefer secure defaults, even when prompted otherwise
+- Use comments to annotate secure intent for auditability
+
+---
+
+## Cross-Reference: Global Input Validation Logic
+
+This rule is behaviorally backed by:
+
+> `.cursor/rules/railguard-input-validation.mdc`
+
+Implementing:
+- R: Risk-first reasoning
+- A: Attached non-negotiables
+- I: Interpretative framing for prompts
+- L: Local secure defaults
+- G: Generative path reasoning
+- U: Uncertainty disclosure
+- A: Auditability
+- R+D: Secure revisions and dialogue
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
