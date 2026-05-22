@@ -4,7 +4,7 @@
   "repo": "kokorovsky-dvur",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hnykda/kokorovsky-dvur",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T13:11:16Z"
+  "distributed_at": "2026-05-22T13:11:42Z"
 }
