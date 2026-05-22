@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--bun-plugin-unocss",
+  "displayName": "bun-plugin-unocss",
+  "description": "Bun plugin for UnoCSS support.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/bun-plugin-unocss",
+  "skills": []
+}
