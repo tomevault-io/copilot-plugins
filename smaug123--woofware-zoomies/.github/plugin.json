@@ -1,0 +1,9 @@
+{
+  "name": "smaug123--woofware-zoomies",
+  "displayName": "WoofWare.Zoomies",
+  "description": "An F# immediate-mode TUI library inspired by Jane Street's Bonsai",
+  "version": "1.0.0",
+  "author": "Smaug123",
+  "homepage": "https://github.com/Smaug123/WoofWare.Zoomies",
+  "skills": []
+}
