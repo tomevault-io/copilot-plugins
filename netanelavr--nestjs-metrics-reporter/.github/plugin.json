@@ -1,0 +1,9 @@
+{
+  "name": "netanelavr--nestjs-metrics-reporter",
+  "displayName": "nestjs-metrics-reporter",
+  "description": "\ud83d\udcc8 A zero-dependency-injection Prometheus metrics reporter for NestJS",
+  "version": "1.0.0",
+  "author": "netanelavr",
+  "homepage": "https://github.com/netanelavr/nestjs-metrics-reporter",
+  "skills": []
+}
