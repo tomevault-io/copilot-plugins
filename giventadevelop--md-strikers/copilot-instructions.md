@@ -1,576 +1,597 @@
-## ui-style-guide
+## user-profile-operations
 
-> This guide provides standards for creating consistent and maintainable UI components across the application UI
+> Handles cases where existing user profiles (especially those created via mobile payments) need to be updated with current Clerk user data during sign-in and profile page load.
 
-# UI Component Style Guide
-
-This guide provides standards for creating consistent and maintainable UI components across the application UI
-.
 
 ---
-
-## 1. Page & Content Layout
-
-### Page Container
-
-- **Rule:** Use `max-w-5xl mx-auto px-8 py-8` for main page containers.
-- **Purpose:** Enforces a consistent 80% width and center alignment on desktop views.
-- **Example:**
-  ```tsx
-  // ✅ DO: Use consistent page layout
-  <div className="max-w-5xl mx-auto px-8 py-8">
-    {/* Page content goes here */}
-  </div>
-  ```
-
-### Content Card
-
-- **Rule:** Use `bg-white rounded-lg shadow-md p-6` for containers that wrap main content sections (tables, forms, etc.).
-- **Purpose:** Creates a consistent, elevated card-based layout for content.
-- **Example:**
-  ```tsx
-  // ✅ DO: Use a styled container for content sections
-  <div className="bg-white rounded-lg shadow-md p-6">
-    {/* Table, list, or form content */}
-  </div>
-  ```
-
-### Centered Card Grid Layout
-
-- **Rule:** Use CSS modules with flexbox for centered card grids (Featured Guests, Contact Information, Program Directors, Gallery thumbnails, Team members).
-- **Purpose:** Ensures cards are perfectly centered regardless of the number of items, preventing left-aligned layouts when items don't fill the full width.
-- **Pattern:** Create a CSS module file (e.g., `CenteredCardGrid.module.css`) with:
-  - Flexbox container with `justify-content: center`
-  - Responsive `max-width` calculations based on number of columns
-  - Fixed or calculated widths for card items
-- **Example:**
-  ```css
-  /* Centered Card Grid */
-  .centeredCardGrid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    width: 100%;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0 auto;
-  }
-
-  /* Desktop: 3 columns */
-  @media (min-width: 1024px) {
-    .centeredCardGrid {
-      max-width: calc(3 * 350px + 2 * 1rem);
-    }
-    .cardItem {
-      width: 350px;
-      max-width: 350px;
-    }
-  }
-
-  /* Tablet: 2 columns */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .centeredCardGrid {
-      max-width: calc(2 * 350px + 1 * 1rem);
-    }
-    .cardItem {
-      width: calc((100% - 1rem) / 2);
-      max-width: calc((100% - 1rem) / 2);
-    }
-  }
-
-  /* Mobile: 1 column */
-  @media (max-width: 767px) {
-    .centeredCardGrid {
-      max-width: 100%;
-    }
-    .cardItem {
-      width: 100%;
-      max-width: 100%;
-    }
-  }
-  ```
-- **Usage:**
-  ```tsx
-  // ✅ DO: Use CSS module for centered card grids
-  import cardGridStyles from './CenteredCardGrid.module.css';
-
-  <div className={cardGridStyles.centeredCardGrid}>
-    {items.map((item) => (
-      <div key={item.id} className={cardGridStyles.cardItem}>
-        {/* Card content */}
-      </div>
-    ))}
-  </div>
-
-  // ❌ DON'T: Use standard grid without centering
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {/* Cards will be left-aligned when not filling full width */}
-  </div>
-  ```
-- **References:**
-  - See `src/app/events/[id]/CenteredCardGrid.module.css` for implementation
-  - See `src/app/events/[id]/GalleryThumbnails.module.css` for gallery pattern
-  - See `src/components/TeamSection.module.css` for team member pattern
-
+description: Comprehensive rules for user profile operations including fetch, creation, and update patterns
+globs: src/app/profile/**/*.ts, src/pages/api/proxy/user-profiles/**/*.ts
+alwaysApply: true
 ---
 
-## 2. Forms
+### **User Profile Fetch Operations (4-Step Fallback)**
 
-### Input Fields
+- **Step 1: Primary Lookup by User ID**
+  - Always attempt to fetch profile using `/api/proxy/user-profiles/by-user/{userId}`
+  - Use Clerk `currentUser()` to get authenticated user context
+  - Return profile immediately if found
 
-- **Rule:** Use the following classes for consistent input field styling.
-- **Example:**
-  ```tsx
-  // ✅ DO: Use consistent input field styling
-  <input
-    type="text"
-    className="mt-1 block w-full border border-gray-400 rounded-xl focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-base"
-  />
-  ```
+- **Step 2: Email-Based Fallback Lookup with Reconciliation**
+  - If Step 1 fails (404), extract email from Clerk user object
+  - Query using `/api/proxy/user-profiles?email.equals={email}`
+  - **NEW: Profile Reconciliation Logic**
+    - If profile found by email but `userId` differs from Clerk user ID
+    - OR if `firstName`/`lastName` are empty/placeholder values
+    - Update profile with current Clerk user data
+    - This handles mobile payment profiles and incomplete profiles
+  - Validate profile exists and has valid ID before returning
+  - Log reconciliation attempts for debugging
 
-### Labels
+- **Step 3: Automatic Profile Creation**
+  - If no profile exists, create automatically using Clerk user data
+  - Use placeholder values for required fields (no null values)
+  - Include all required fields: `userId`, `email`, `firstName`, `lastName`, `tenantId`, `createdAt`, `updatedAt`
+  - Use proxy endpoint `/api/proxy/user-profiles` for creation
+  - Handle race conditions gracefully (profile might be created by another request)
 
-- **Rule:** Use the following classes for consistent label styling.
-- **Example:**
-  ```tsx
-  // ✅ DO: Use consistent label styling
-  <label className="block text-sm font-medium text-gray-700">
-    Field Label
-  </label>
-  ```
+- **Step 4: Final Fallback**
+  - Return `null` if all steps fail
+  - This triggers profile form display for manual creation
+  - Log comprehensive failure information for debugging
 
-### Checkboxes
+## Profile Reconciliation Logic (New Section)
 
-- **Rule:** Use the `custom-checkbox` implementation for a larger, more visible checkbox with a custom tick mark.
-- **Click Handling:** Always include `onClick={(e) => e.stopPropagation()}` on the `input` to prevent unintended event bubbling, especially inside clickable table rows or containers.
-- **Example:**
-  ```tsx
-  // ✅ DO: Use consistent checkbox styling with stopPropagation
-  <label className="flex flex-col items-center">
-    <span className="relative flex items-center justify-center">
-      <input
-        type="checkbox"
-        className="custom-checkbox"
-        checked={isChecked}
-        onChange={handleChange}
-        onClick={(e) => e.stopPropagation()}
-      />
-      <span className="custom-checkbox-tick">
-        {isChecked && (
-          <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" strokeWidth="4" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l5 5L19 7" />
-          </svg>
-        )}
-      </span>
-    </span>
-    <span className="mt-2 text-xs text-center select-none break-words max-w-[6rem]">Checkbox Label</span>
-  </label>
-  ```
+### Purpose
+Handles cases where existing user profiles (especially those created via mobile payments) need to be updated with current Clerk user data during sign-in and profile page load.
 
-- **Checkbox Group Layout:**
-  ```tsx
-  // ✅ DO: Use a CSS grid for checkbox group layout
-  <div className="custom-grid-table mt-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
-    {/* Checkbox items */}
-  </div>
-  ```
+### Trigger Points
+- **Clerk Sign-In**: Direct client-side reconciliation after successful sign-in (PRIMARY METHOD)
+- **Profile Page Load**: When user visits profile page after sign-in (FALLBACK METHOD)
+- ~~**Clerk Webhook**: `session.created` webhook (DEPRECATED - unreliable in development)~~
 
-- **Required CSS (`globals.css`):**
-  ```css
-  .custom-checkbox {
-    @apply h-6 w-6 border-2 border-gray-400 rounded-lg cursor-pointer appearance-none relative bg-white;
-  }
-  .custom-checkbox:checked {
-    @apply bg-blue-600 border-blue-600;
-  }
-  .custom-checkbox-tick {
-    @apply absolute inset-0 flex items-center justify-center pointer-events-none;
-  }
-  ```
+### Scenarios Covered
+1. **Mobile Payment Profiles**: Guest profiles with empty names get proper Clerk user data
+2. **Incomplete Profiles**: Profiles with placeholder names ('Pending', 'User') get real names
+3. **User ID Mismatches**: Profiles with old/guest user IDs get current Clerk user ID
 
----
+### Reconciliation Conditions
+Profile needs reconciliation if ANY of these are true:
+- `profile.userId !== currentClerkUserId` (different user ID)
+- `profile.firstName` is empty, null, or 'Pending'
+- `profile.lastName` is empty, null, or 'User'
 
-## 3. Buttons & Icons
+### Implementation Patterns
 
-### Button Styling
-
-- **Primary Action (Save/Submit):** Blue background.
-- **Secondary Action (Cancel):** Light teal background to be non-destructive.
-- **Example:**
-  ```tsx
-  // ✅ DO: Use consistent button styling with icons
-  <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md flex items-center gap-2">
-    <FaSave />
-    Save Changes
-  </button>
-
-  <button type="button" className="bg-teal-100 hover:bg-teal-200 text-teal-800 px-4 py-2 rounded-md flex items-center gap-2">
-    <FaBan />
-    Cancel
-  </button>
-  ```
-
-### Standard Action Icons
-
-- **Rule:** Use the following icons from `react-icons/fa` for all common actions to ensure a consistent visual language.
-- **Implementation:** Use `.icon-btn` with a modifier (e.g., `.icon-btn-delete`) for standalone icon buttons.
-
-| Action         | Icon           | Usage                                        |
-| -------------- | -------------- | -------------------------------------------- |
-| **Cancel/Abort**| `<FaBan />`      | Stop a current action (e.g., in a modal).    |
-| **Save**       | `<FaFolderOpen />`| Save or update data.                         |
-| **Delete**     | `<FaTrashAlt />` | **MANDATORY.** Never use `<FaTrash />`.        |
-| **Edit**       | `<FaEdit />`     | Edit an item.                                |
-| **Upload**     | `<FaUpload />`   | Upload a file.                               |
-
----
-
-## 4. Tooltips
-
-- **Rule:** Use the standardized `DetailsTooltip` component, which renders in a React Portal, for all mouse-over popovers that show detailed information. This prevents the tooltip from being clipped by parent containers with scrollbars.
-- **Trigger:** The tooltip should be triggered on hover of specific table cells. Use a debounced handler to prevent flickering.
-- **User Guidance:** Always place a descriptive note above the table to inform users about the hover behavior.
-
-### Tooltip Implementation
-
-The implementation involves three parts: a portal-based `DetailsTooltip` component, state management, and hover handlers in the parent component.
-
+#### Clerk Sign-In Flow (Client-Side Integration) - PRIMARY METHOD
 ```typescript
-// 1. The DetailsTooltip Component (renders with createPortal)
-function UserDetailsTooltip({ user, anchorRect, onClose }: { user: UserProfileDTO, anchorRect: DOMRect | null, onClose: () => void }) {
-  if (!anchorRect) return null;
+// src/components/SignInWithReconciliation.tsx - Custom sign-in wrapper
+'use client';
+import { SignIn } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 
-  // Always show tooltip to the right of the anchor cell, never above the columns
-  const spacing = 8;
-  const tooltipWidth = 320; // px, adjust as needed
-  let top = anchorRect.top;
-  let left = anchorRect.right + spacing;
+export function SignInWithReconciliation() {
+  const { isSignedIn, user } = useUser();
+  const [hasTriggeredReconciliation, setHasTriggeredReconciliation] = useState(false);
 
-  // Clamp position to stay within the viewport
-  const estimatedHeight = 300; // Heuristic average height
-  if (top + estimatedHeight > window.innerHeight) {
-    top = window.innerHeight - estimatedHeight - spacing;
-  }
-  if (top < spacing) {
-    top = spacing;
-  }
-  if (left + tooltipWidth > window.innerWidth) {
-    left = window.innerWidth - tooltipWidth - spacing;
-  }
+  useEffect(() => {
+    // Trigger profile reconciliation immediately after successful sign-in
+    if (isSignedIn && user && !hasTriggeredReconciliation) {
+      setHasTriggeredReconciliation(true);
 
-  const style: React.CSSProperties = {
-    position: 'fixed',
-    top,
-    left,
-    zIndex: 9999,
-    width: tooltipWidth,
-    // ... other styles: background, border, shadow, etc.
-  };
+      // Call existing profile reconciliation API endpoint
+      fetch('/api/auth/profile-reconciliation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ triggerSource: 'sign_in_flow' })
+      }).then(response => {
+        if (response.ok) {
+          console.log('Profile reconciliation completed after sign-in');
+          setTimeout(() => window.location.href = '/', 1000);
+        }
+      }).catch(error => {
+        console.error('Profile reconciliation failed:', error);
+      });
+    }
+  }, [isSignedIn, user, hasTriggeredReconciliation]);
 
-  return ReactDOM.createPortal(
-    <div style={style} tabIndex={-1} className="admin-tooltip">
-      {/* Sticky, always-visible close button */}
-      <div className="sticky top-0 right-0 z-10 bg-white flex justify-end">
-        <button
-          onClick={onClose}
-          className="w-10 h-10 text-2xl bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all"
-          aria-label="Close tooltip"
-        >
-          &times;
-        </button>
-      </div>
-      {/* ... Tooltip content ... */}
-    </div>,
-    document.body
-  );
+  return <SignIn redirectUrl="/" />;
 }
 ```
 
-#### Tooltip Close Button & Positioning Standards
-- All tooltips must include a close button (×) in the top-right corner, always visible and fixed above scrollable content using `sticky top-0 right-0 z-10 bg-white flex justify-end`.
-- The close button must be large and visually prominent: `w-10 h-10 text-2xl bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all`.
-- The tooltip must always appear to the right of the hovered cell for the first two columns, never above or covering them. Use `anchorRect.right + spacing` for left, and `anchorRect.top` for top, clamped to the viewport.
-- Remove any logic that places the tooltip to the left of the cell.
-- The tooltip should only close when the close button is clicked, not on mouse leave or blur.
-- This ensures accessibility, usability, and a consistent experience across all pages.
-
-- **References:**
-  - Manage usage page: [`/admin/manage-usage`](mdc:http:/localhost:3000/admin/manage-usage)
-  - Example file: `src/app/admin/manage-usage/ManageUsageClient.tsx`
-
----
-
-## 5. Pagination
-
-- **Rule:** Always fetch the true total count of items from the backend for paginated lists.
-  - The backend must return the total count in the `x-total-count` response header for paginated GET requests.
-  - The proxy handler (`src/lib/proxyHandler.ts`) must forward the `x-total-count` header from the backend to the frontend for all GET requests.
-    ```typescript
-    // In createProxyHandler, after fetching from the backend:
-    if (method === 'GET') {
-      const totalCount = apiRes.headers.get('x-total-count');
-      if (totalCount) {
-        res.setHeader('x-total-count', totalCount);
-      }
-      const data = await apiRes.json();
-      res.status(apiRes.status).json(data);
-      return;
-    }
-    ```
-- **Frontend pagination logic must use the value from the `x-total-count` header** to calculate:
-  - Total pages: `totalPages = Math.ceil(totalCount / pageSize)`
-  - Enable/disable Previous/Next buttons based on the current page and total pages.
-  - Display the correct range: "Showing X to Y of Z items".
-- **Do not fallback to `rows.length` for total count unless the header is truly missing.**
-- **Example of correct usage:**
-  See [`/admin/events/[id]/tickets/list`](http://localhost:3000/admin/events/1/tickets/list) for a working implementation that matches the admin dashboard.
-
-### UI/UX Consistency
-- **CRITICAL: Always show pagination controls** - Never conditionally hide pagination based on `totalPages > 1` or `totalCount > 0`
-- Pagination controls must be visible in ALL states: loading, empty results, with data
-- Pagination controls must use:
-  - Previous/Next buttons on the left/right.
-  - Page status in the center ("Page X of Y").
-  - Range and total count below ("Showing X to Y of Z items").
-- Use the same button and layout logic as in `src/components/EventList.tsx` and the admin dashboard.
-- **Always show grayed out buttons** when navigation is not possible (first page, last page, loading)
-
-### Example Implementation
-```tsx
-// ALWAYS show pagination controls - never conditionally hide
-const totalPages = Math.ceil(totalCount / pageSize);
-const isPrevDisabled = currentPage === 0 || loading;
-const isNextDisabled = currentPage >= totalPages - 1 || loading;
-const startItem = totalCount > 0 ? currentPage * pageSize + 1 : 0;
-const endItem = totalCount > 0 ? currentPage * pageSize + Math.min(pageSize, totalCount - currentPage * pageSize) : 0;
-
-// Always render pagination - show in ALL states (loading, empty, with data)
-<div className="mt-8">
-  <div className="flex justify-between items-center">
-    <button
-      disabled={isPrevDisabled}
-      onClick={handlePrevPage}
-      className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors"
-    >
-      <ChevronLeft className="h-5 w-5" />
-      Previous
-    </button>
-    <div className="text-sm font-semibold text-gray-700">
-      Page {currentPage + 1} of {totalPages}
-    </div>
-    <button
-      disabled={isNextDisabled}
-      onClick={handleNextPage}
-      className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors"
-    >
-      Next
-      <ChevronRight className="h-5 w-5" />
-    </button>
-  </div>
-  <div className="text-center text-sm text-gray-600 mt-2">
-    {totalCount > 0 ? (
-      <>Showing <span className="font-medium">{startItem}</span> to <span className="font-medium">{endItem}</span> of{' '}
-      <span className="font-medium">{totalCount}</span> items</>
-    ) : (
-      <div className="flex items-center justify-center gap-2">
-        <span>No items found</span>
-        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-sm font-medium">
-          [No items match your criteria]
-        </span>
-      </div>
-    )}
-  </div>
-</div>
+#### ~~Clerk Sign-In Flow (Webhook) - DEPRECATED~~
+```typescript
+// DEPRECATED: Webhook approach was unreliable in development environments
+// Use client-side integration instead (see above)
 ```
+
+#### Profile Page Load Flow (Server Action)
+```typescript
+// src/app/profile/ApiServerActions.ts - fetchUserProfileServer Step 2
+// Step 2: Fallback to email lookup with reconciliation
+const profile = await findProfileByEmail(email);
+if (profile && needsReconciliation(profile, userId, currentUser)) {
+  const reconciledProfile = await reconcileProfileWithClerkData(profile, userId, currentUser);
+  return reconciledProfile;
+}
+```
+
+### Profile Update Helper Function
+```typescript
+async function reconcileProfileWithClerkData(
+  profile: UserProfileDTO,
+  currentClerkUserId: string,
+  currentUser: any
+): Promise<UserProfileDTO> {
+  const updatePayload = {
+    id: profile.id,
+    userId: currentClerkUserId, // Always update to current Clerk user ID
+    updatedAt: new Date().toISOString()
+  };
+
+  // Update names if they're empty or different
+  if (currentUser?.firstName && (!profile.firstName || profile.firstName === 'Pending')) {
+    updatePayload.firstName = currentUser.firstName;
+  }
+  if (currentUser?.lastName && (!profile.lastName || profile.lastName === 'User')) {
+    updatePayload.lastName = currentUser.lastName;
+  }
+
+  return await updateUserProfileServer(profile.id, updatePayload);
+}
+```
+
+### Reconciliation Benefits
+1. **Seamless User Experience**: No manual profile completion needed
+2. **Data Consistency**: Ensures profiles match current Clerk users
+3. **Mobile Payment Integration**: Guest profiles get proper user data automatically
+4. **Automatic Cleanup**: Removes placeholder/guest data
+
+### Integration Points
+- **Sign-In Page**: Custom `SignInWithReconciliation` component handles post-sign-in reconciliation
+- **Profile Reconciliation API**: `/api/auth/profile-reconciliation` endpoint processes reconciliation requests
+- **Profile Page**: `fetchUserProfileServer` includes reconciliation in Step 2 fallback (secondary method)
+- **Mobile Payment Flow**: Profiles created during Stripe webhooks get reconciled on sign-in
 
 ### References
-- Proxy handler: [`src/lib/proxyHandler.ts`](mdc:src/lib/proxyHandler.ts)
-- Example page: [`/admin/events/[id]/tickets/list`](http://localhost:3000/admin/events/1/tickets/list)
-- Admin dashboard: [`/admin`](mdc:http:/localhost:3000/admin)
-- Gallery implementation: [`src/app/gallery/components/GalleryPagination.tsx`](mdc:src/app/gallery/components/GalleryPagination.tsx)
-- CSS: `src/styles/globals.css`
-- Example Components: `src/components/EventList.tsx`, `src/app/admin/events/[id]/media/list/page.tsx`, `src/app/admin/manage-usage/page.tsx`
+- **Primary Sign-In Flow**: `src/components/SignInWithReconciliation.tsx` for client-side reconciliation
+- **Sign-In Page Integration**: `src/app/(auth)/sign-in/[[...sign-in]]/page.tsx` uses custom component
+- **Reconciliation API**: `src/app/api/auth/profile-reconciliation/route.ts` for API endpoint
+- **Profile Page Fallback**: `src/app/profile/ApiServerActions.ts` for server-side reconciliation
+- ~~**Webhook Implementation**: `src/app/api/webhooks/clerk/route.ts` (deprecated due to reliability issues)~~
+- **Mobile Payment Integration**: `src/app/api/webhooks/stripe/route.ts` for mobile payment profile creation
 
----
+### **User Profile Update Operations (Direct Backend Pattern)**
 
-## 6. Responsive Button Group Grid
+- **Use Direct Backend Calls for PATCH Operations**
+  - Never use proxy endpoints for PATCH operations
+  - Follow cursor rules: `PATCH/PUT Server Actions: Direct Backend Update Pattern`
+  - Use service JWT authentication, not Clerk session
 
-- **Rule:** Use a responsive grid for button groups at the top of admin pages (e.g., event tickets, ticket types) to ensure all navigation/action buttons are always visible, accessible, and visually centered on all screen sizes.
+- **Required Implementation Pattern**
+  ```typescript
+  export async function updateUserProfileServer(profileId: number, payload: Partial<UserProfileDTO>): Promise<UserProfileDTO | null> {
+    try {
+      // Direct backend call with service JWT
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+      const url = `${API_BASE_URL}/api/user-profiles/${profileId}`;
 
-- **Mobile View (default):**
-  - The grid uses `grid-cols-1` and is centered  with `justify-items-center mx-auto`.
-  - Each button uses `w-48 max-w-xs mx-auto` to be compact and centered, not full width.
-  - Use `p-1` and `text-xs` for the button, and `text-base` for the icon.
-  - The button group appears as a perfectly centered, vertically stacked set of compact buttons.
+      // Get service JWT
+      let token = await getCachedApiJwt();
+      if (!token) token = await generateApiJwt();
 
-- **Tablet/Desktop (sm and up):**
-  - Use `sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6` for the grid.
-  - Button padding increases to `sm:p-2`, icon to `sm:text-lg`.
+      // Include ID field in payload (required by backend)
+      const finalPayload = { ...payload, id: profileId };
 
-- **General:**
-  - Wrap the grid in a `w-full overflow-x-auto` container to allow horizontal scrolling on very small screens.
-  - All buttons are always visible, never cut off, and the group is horizontally scrollable if needed.
-  - All buttons must be keyboard accessible and have clear focus/hover states.
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/merge-patch+json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(finalPayload),
+      });
 
-- **Example Implementation:**
-  ```tsx
-  <div className="w-full overflow-x-auto">
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-6 justify-items-center mx-auto">
-      <Link href="/admin/manage-usage" className="w-48 max-w-xs mx-auto flex flex-col items-center justify-center bg-blue-50 hover:bg-blue-100 text-blue-800 rounded-md shadow p-1 sm:p-2 text-xs sm:text-xs transition-all">
-        <FaUsers className="text-base sm:text-lg mb-1 mx-auto" />
-        <span className="font-semibold text-center leading-tight">Manage Usage<br />[Users]</span>
-      </Link>
-      {/* ...other buttons... */}
-    </div>
-  </div>
-  ```
-- **References:**
-  - Tickets list page: [`/admin/events/[id]/tickets/list`](http://localhost:3000/admin/events/1/tickets/list)
-  - Ticket-types list page: [`/admin/events/[id]/ticket-types/list`](http://localhost:3000/admin/events/1/ticket-types/list)
-  - Example file: `src/app/admin/events/[id]/tickets/list/page.tsx`
-  - Example file: `src/app/admin/events/[id]/ticket-types/list/page.tsx`
-
----
-
-## 7. Date & Timezone Formatting
-
-### Date Display Standards
-
-- **Rule:** Always display event dates and times using the event's intended timezone, not the user's local timezone.
-- **Purpose:** Prevents off-by-one-day errors and ensures all users see the correct event date as intended by organizers.
-
-#### Implementation
-
-- **Use `date-fns-tz` for formatting:**
-  - Install with:
-    ```bash
-    npm install date-fns date-fns-tz
-    ```
-  - Import and use in your component:
-    ```tsx
-    import { formatInTimeZone } from 'date-fns-tz';
-
-    // Example usage:
-    <span>
-      {formatInTimeZone(eventDetails.startDate, eventDetails.timezone, 'EEEE, MMMM d, yyyy (zzz)')}
-    </span>
-    ```
-    - `eventDetails.startDate` should be a string in `YYYY-MM-DD` format.
-    - `eventDetails.timezone` should be an IANA timezone string (e.g., `"America/New_York"`).
-    - The format string `'EEEE, MMMM d, yyyy (zzz)'` will display:
-      `Wednesday, August 7, 2025 (EDT)`
-
-- **Never use `new Date('YYYY-MM-DD')` for display.**
-  - This parses as UTC and can cause the date to appear as the previous day in US timezones.
-
-- **Always store and use the IANA timezone name in the DTO/database.**
-  - Example: `"America/New_York"`, not `"EST"` or `"PST"`.
-
-#### UI Example
-
-```tsx
-<div className="flex items-center gap-2">
-  <FaCalendarAlt />
-  <span>
-    {formatInTimeZone(eventDetails.startDate, eventDetails.timezone, 'EEEE, MMMM d, yyyy (zzz)')}
-  </span>
-</div>
-```
-
-#### References
-- See: `src/app/event/success/page.tsx` for a working implementation.
-- DTO: `EventDetailsDTO` in `src/types/index.ts` (must include a `timezone: string` field).
-
----
-
-## 8. Currency & Numerical Formatting
-
-### Currency Display Standards
-
-- **Rule:** Always display currency values with exactly 2 decimal places using `Intl.NumberFormat`.
-- **Purpose:** Ensures consistent currency display (e.g., `$0.80` instead of `$0.8`) and prevents confusion.
-- **Implementation:**
-  - Use `Intl.NumberFormat` with `minimumFractionDigits: 2` and `maximumFractionDigits: 2`.
-  - For input fields, format the display value to show 2 decimal places while allowing user input.
-  - Use the `formatCurrency` helper from `src/lib/payments/localization.ts` when available.
-
-#### Currency Formatting Function
-
-```tsx
-// ✅ DO: Use Intl.NumberFormat with 2 decimal places
-const formatCurrency = (amount: number, currency: string = 'USD') => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,  // Always show 2 decimal places
-    maximumFractionDigits: 2,  // Never show more than 2
-  }).format(amount);
-};
-
-// Example usage:
-formatCurrency(0.8, 'USD');   // Returns: "$0.80"
-formatCurrency(10, 'USD');     // Returns: "$10.00"
-formatCurrency(99.9, 'USD');   // Returns: "$99.90"
-```
-
-#### Price Input Field Formatting
-
-- **Rule:** For price input fields, format the display value to show 2 decimal places.
-- **Implementation:**
-  ```tsx
-  // ✅ DO: Format price input display value
-  const [displayPrice, setDisplayPrice] = useState<string>('');
-
-  useEffect(() => {
-    if (formData.price !== undefined && formData.price !== null) {
-      setDisplayPrice(formData.price.toFixed(2));
+      // Handle response...
+    } catch (error) {
+      // Handle errors...
     }
-  }, [formData.price]);
-
-  <input
-    type="number"
-    name="price"
-    value={displayPrice}
-    onChange={(e) => {
-      const numValue = parseFloat(e.target.value) || 0;
-      handleChange({ target: { name: 'price', value: numValue } });
-    }}
-    step="0.01"
-    placeholder="0.00"
-  />
+  }
   ```
 
-#### Display Price Values
+- **Required Fields for PATCH Operations**
+  - Always include `id: profileId` in the payload
+  - Use `Content-Type: application/merge-patch+json` for PATCH
+  - Include `Authorization: Bearer <token>` header
+  - Never send null values for required fields
 
-- **Rule:** Always format price values when displaying them in tables, cards, or text.
-- **Example:**
-  ```tsx
-  // ✅ DO: Format price for display
-  <td>
-    {new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: plan.currency,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(plan.price)}
-  </td>
+### **Profile Creation Data Requirements**
 
-  // ❌ DON'T: Display raw price value
-  <td>${plan.price}</td>  // May show "$0.8" instead of "$0.80"
-  ```
+- **Required Fields with Placeholders**
+  - `userId`: Clerk user ID (required)
+  - `email`: Clerk email or placeholder (no null)
+  - `firstName`: Clerk firstName or 'Pending' (no null)
+  - `lastName`: Clerk lastName or 'User' (no null)
+  - `tenantId`: From environment (required)
+  - `userRole`: 'ROLE_USER' (default)
+  - `userStatus`: 'ACTIVE' (default)
+  - `status`: 'PENDING' (default)
+  - `createdAt`: Current timestamp (required)
+  - `updatedAt`: Current timestamp (required)
 
-#### References
-- Currency formatting helper: [`src/lib/payments/localization.ts`](mdc:src/lib/payments/localization.ts)
-- Example usage: [`src/components/admin/membership/MembershipPlanList.tsx`](mdc:src/components/admin/membership/MembershipPlanList.tsx)
+- **Optional Fields**
+  - Set empty strings `''` for text fields (not null)
+  - Set `false` for boolean fields (not null)
+  - Set `null` only for explicitly nullable fields
 
----
+### **Error Handling and Logging**
 
-## References
-- **CSS:** `src/styles/globals.css`
-- **Example Pages:**
-  - `src/app/admin/events/[id]/media/list/page.tsx`
-  - `src/app/admin/manage-usage/page.tsx`
-  - `src/components/EventList.tsx`
+- **Comprehensive Logging**
+  - Log each step of the 4-step fallback process
+  - Include payload details for debugging
+  - Log race condition detection and resolution
+  - Track profile creation success/failure
+
+- **Graceful Error Handling**
+  - Never let profile operations crash the application
+  - Provide meaningful error messages
+  - Fall back to profile form when automatic creation fails
+  - Handle network errors and backend validation failures
+
+### **Race Condition Prevention**
+
+- **Duplicate Profile Creation**
+  - Handle backend constraint violations gracefully
+  - Implement retry logic for race conditions
+  - Use singleton patterns to prevent duplicate API calls
+  - Log race condition detection for monitoring
+
+### **Proxy vs Direct Backend Usage**
+
+- **Use Proxy For**
+  - Profile creation (POST operations)
+  - Profile lookup (GET operations)
+  - List operations with filtering
+
+- **Use Direct Backend For**
+  - Profile updates (PATCH operations)
+  - Profile deletions (DELETE operations)
+  - Any operation requiring service JWT
+
+### **References and Examples**
+
+- **Working Implementation**: See `fetchUserProfileServer` for 4-step fallback pattern
+- **PATCH Pattern**: Follow cursor rules for `PATCH/PUT Server Actions: Direct Backend Update Pattern`
+- **Error Handling**: See current implementation for comprehensive error logging
+- **Race Condition Handling**: See profile creation error handling for constraint violations
+
+## **SOLUTION: Client-Side Sign-In Profile Reconciliation (IMPLEMENTED)**
+
+### **Problem Solved**
+The original webhook-based approach (`session.created` event) was unreliable in development environments and required external webhook configuration. Users signing in with existing mobile payment profiles weren't getting their profiles updated with proper Clerk user data.
+
+### **Solution Implemented**
+Direct client-side profile reconciliation integrated into the Clerk sign-in flow using a custom wrapper component.
+
+### **Implementation Steps Taken**
+
+**1. Created Custom Sign-In Wrapper Component**
+- File: `src/components/SignInWithReconciliation.tsx`
+- Uses `useUser` hook to detect successful sign-in
+- Automatically triggers profile reconciliation API call
+- Shows user feedback and handles errors gracefully
+- Redirects to home page after completion
+
+**2. Updated Sign-In Page**
+- File: `src/app/(auth)/sign-in/[[...sign-in]]/page.tsx`
+- Replaced default `<SignIn>` component with `<SignInWithReconciliation>`
+- Maintains all existing Clerk sign-in functionality
+- Adds automatic profile reconciliation behavior
+
+**3. Leveraged Existing Infrastructure**
+- Reuses existing `/api/auth/profile-reconciliation` endpoint
+- Uses same reconciliation logic as profile page fallback
+- Maintains consistency with existing error handling and logging
+- No changes needed to backend reconciliation logic
+
+### **Flow Architecture**
+```
+User Sign-In → Clerk Authentication → useUser Hook Detects Success →
+API Call to /api/auth/profile-reconciliation → Profile Lookup by Email →
+Reconciliation Check → Profile Update with Clerk Data → Success Feedback →
+Redirect to Home Page
+```
+
+### **Advantages of This Approach**
+1. **No Webhook Dependencies**: Works without external webhook configuration
+2. **Immediate Execution**: Reconciliation happens immediately after sign-in
+3. **User Feedback**: Users see confirmation of the process
+4. **Reliable**: Client-side execution is more predictable than webhook timing
+5. **Reuses Existing Code**: Leverages proven reconciliation API endpoint
+6. **Development Friendly**: Works consistently in local development environments
+
+### **Key Components**
+- **`SignInWithReconciliation`**: Custom client component that wraps Clerk SignIn
+- **`useUser` Hook**: Detects successful authentication state changes
+- **`/api/auth/profile-reconciliation`**: Existing API endpoint for reconciliation logic
+- **Profile Reconciliation Logic**: Existing server-side functions in `ApiServerActions.ts`
+
+### **Testing Verification**
+1. Manually modify profile data to incorrect values in database
+2. Sign out and sign in again using the updated sign-in page
+3. Observe console logs for `[SignInWithReconciliation]` messages
+4. Verify profile gets updated with correct Clerk user data
+5. Confirm user is redirected to home page after success
+
+### **Logging Tags for Debugging**
+```typescript
+'[SignInWithReconciliation]' // Client-side sign-in reconciliation process
+'[PROFILE-RECONCILIATION-API]' // Server-side API endpoint processing
+'[Profile Reconciliation]' // Server-side reconciliation logic execution
+```
+
+### **Integration Status**
+✅ **COMPLETED**: Client-side sign-in profile reconciliation is fully integrated and tested
+✅ **VERIFIED**: Mobile payment profiles get updated with Clerk data on sign-in
+✅ **DOCUMENTED**: Cursor rules updated with implementation details
+⚠️ **DEPRECATED**: Webhook-based approach marked as unreliable for development
+
+### **Future Considerations**
+- Keep webhook implementation for production environments where webhooks are properly configured
+- Consider adding user notification/toast messages for better UX feedback
+- Monitor reconciliation success rates and add analytics if needed
+- Extend pattern to other authentication flows (sign-up, OAuth providers) if required
+
+### **Mobile Payment Flow Integration (Stripe Webhook Pattern)**
+
+- **Integration Point**: User profile creation/update happens in Stripe webhook `payment_intent.succeeded` event
+- **Timing**: Asynchronous execution after critical payment operations to avoid blocking webhook response
+- **Data Source**: Stripe Payment Intent metadata and customer information
+
+#### **Mobile Payment Profile Creation Flow**
+
+**1. Webhook Event Processing**
+```typescript
+// In Stripe webhook payment_intent.succeeded handler
+case 'payment_intent.succeeded':
+  // Extract user data from Stripe
+  const customerEmail = pi.receipt_email || md.customerEmail;
+  const customerName = await getStripeCustomerName(pi.customer);
+  const { firstName, lastName } = extractNameFromStripe(customerName);
+
+  // Schedule profile operation asynchronously
+  setTimeout(async () => {
+    await createOrUpdateUserProfileFromStripe(
+      customerEmail, firstName, lastName, phone, baseUrl
+    );
+  }, 1000);
+```
+
+**2. Stripe Data Extraction**
+```typescript
+function extractNameFromStripe(stripeName: string | null | undefined): {
+  firstName: string;
+  lastName: string
+} {
+  if (!stripeName || stripeName.trim().length === 0) {
+    return { firstName: '', lastName: '' };
+  }
+
+  const nameParts = stripeName.trim().split(' ');
+  if (nameParts.length === 1) {
+    return { firstName: nameParts[0], lastName: '' };
+  }
+
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(' ');
+  return { firstName, lastName };
+}
+```
+
+**3. Profile Creation/Update Logic**
+```typescript
+async function createOrUpdateUserProfileFromStripe(
+  email: string,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  baseUrl: string
+): Promise<void> {
+  // Step 1: Lookup existing profile by email
+  const existingProfile = await findProfileByEmail(email);
+
+  if (existingProfile) {
+    // Update existing profile with Stripe data
+    await updateProfileWithStripeData(existingProfile, firstName, lastName, phone);
+  } else {
+    // Create new profile with guest userId
+    const guestUserId = `guest_${email}_${Date.now()}`;
+    await createProfileWithStripeData(guestUserId, email, firstName, lastName, phone);
+  }
+}
+```
+
+#### **Mobile Payment Profile Data Requirements**
+
+- **Required Fields for Mobile Profiles**
+  - `userId`: Generated guest ID (`guest_{email}_{timestamp}`)
+  - `email`: From Stripe `receipt_email` or metadata
+  - `firstName`: From Stripe customer name (may be empty)
+  - `lastName`: From Stripe customer name (may be empty)
+  - `phone`: From Stripe customer phone (may be empty)
+  - `tenantId`: From environment variable
+  - `userStatus`: 'ACTIVE' (default)
+  - `userRole`: 'MEMBER' (default)
+  - `status`: 'PENDING_COMPLETION' (indicates incomplete profile)
+
+- **Data Limitations in Mobile Flow**
+  - **Stripe PRB provides minimal data**: Only payment method, amount, email
+  - **Names often empty**: Mobile wallets don't collect customer names
+  - **Phone often empty**: Mobile wallets don't collect phone numbers
+  - **Email is primary identifier**: Used for profile lookup and creation
+
+#### **Asynchronous Execution Pattern**
+
+**Why Asynchronous?**
+- Webhook must respond quickly to Stripe (prevents timeout)
+- Profile operations shouldn't block payment processing
+- Allows for comprehensive error handling and retry logic
+
+**Implementation Pattern**
+```typescript
+// Schedule profile operation after webhook response
+setTimeout(async () => {
+  try {
+    console.log('[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC] Starting profile operation');
+
+    // Validate required data
+    if (!customerEmail || customerEmail.trim().length === 0) {
+      console.warn('[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC] No valid email, skipping profile operation');
+      return;
+    }
+
+    // Execute profile creation/update
+    await createOrUpdateUserProfileFromStripe(
+      customerEmail, firstName, lastName, phone, baseUrl
+    );
+
+    console.log('[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC] Profile operation completed');
+  } catch (error) {
+    console.error('[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC] Profile operation failed:', error);
+  }
+}, 1000); // 1 second delay
+```
+
+#### **Mobile Profile Completion Strategy**
+
+**1. Accept Limited Initial Profiles**
+- Create profiles with available data (email + empty name/phone)
+- Mark as `PENDING_COMPLETION` status
+- Don't require immediate completion
+
+**2. Deferred Profile Completion**
+- Users can complete profiles when they visit the site
+- Provide profile completion forms on dashboard/profile pages
+- Use existing profile update patterns for completion
+
+**3. Profile Status Tracking**
+```typescript
+// Profile status values for mobile flow
+enum ProfileStatus {
+  PENDING_COMPLETION = 'PENDING_COMPLETION',  // Mobile payment profile
+  COMPLETED = 'COMPLETED',                    // Full profile data
+  VERIFIED = 'VERIFIED'                       // Verified user
+}
+```
+
+#### **Error Handling for Mobile Profiles**
+
+**1. Stripe Data Validation**
+```typescript
+// Validate extracted data before profile operations
+if (!customerEmail || customerEmail.trim().length === 0) {
+  console.warn('[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC] Invalid email data');
+  return; // Skip profile operation
+}
+
+// Accept empty names/phone (normal for mobile PRB)
+const hasValidData = customerEmail && customerEmail.trim().length > 0;
+if (!hasValidData) {
+  console.warn('[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC] No valid data for profile');
+  return;
+}
+```
+
+**2. Profile Operation Failures**
+```typescript
+try {
+  await createOrUpdateUserProfileFromStripe(email, firstName, lastName, phone, baseUrl);
+} catch (error) {
+  console.error('[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC] Profile operation failed:', {
+    error: String(error),
+    email,
+    firstName,
+    lastName,
+    phone,
+    timestamp: new Date().toISOString()
+  });
+
+  // Don't retry - let user complete profile manually later
+  // Payment was successful, profile is secondary
+}
+```
+
+#### **Logging and Debugging for Mobile Profiles**
+
+**Required Log Tags**
+```typescript
+// Use consistent log prefixes for easy filtering
+'[STRIPE-WEBHOOK] [USER-PROFILE-ASYNC]'     // Async operation start
+'[STRIPE-WEBHOOK] [USER-PROFILE]'           // Profile operation details
+'[STRIPE-WEBHOOK] [STRIPE-DATA-INSPECTION]' // Raw Stripe data analysis
+'[STRIPE-WEBHOOK] [USER-DATA-EXTRACTION]'   // Data extraction process
+'[STRIPE-WEBHOOK] [PROFILE-DATA-VALIDATION]' // Data validation results
+'[STRIPE-WEBHOOK] [MOBILE-PAYMENT-SUMMARY]' // Complete flow summary
+```
+
+**Debug Information to Log**
+- Stripe Payment Intent metadata and customer data
+- Extracted user information (email, name, phone)
+- Profile lookup results (existing vs. new)
+- Database operation results (create/update success/failure)
+- Timing information for async operations
+
+#### **Integration with Existing Profile Patterns**
+
+**1. Follow 4-Step Fallback for Lookups**
+- Use email-based lookup in mobile flow
+- Fall back to profile creation if none exists
+- Maintain consistency with authenticated profile patterns
+
+**2. Use Proxy Endpoints for Creation**
+- Use `/api/proxy/user-profiles` for profile creation
+- Follow existing DTO patterns and validation
+- Maintain tenant isolation and JWT authentication
+
+**3. Extend Profile Update Patterns**
+- Use existing PATCH patterns for profile completion
+- Maintain audit trail and change tracking
+- Follow security and validation requirements
+
+#### **Best Practices for Mobile Profile Integration**
+
+**1. Never Block Payment Processing**
+- Profile operations must be asynchronous
+- Payment success is primary, profile is secondary
+- Use timeouts and error boundaries
+
+**2. Accept Incomplete Data**
+- Mobile PRB limitations are normal
+- Empty names/phone are acceptable initial values
+- Focus on email-based identification
+
+**3. Provide Completion Paths**
+- Clear profile completion forms
+- Incentivize profile completion
+- Track completion rates and user engagement
+
+**4. Maintain Data Consistency**
+- Use consistent field names and types
+- Follow existing validation patterns
+- Maintain audit trails and change history
+
+#### **References for Mobile Profile Integration**
+
+- **Stripe Webhook Handler**: `src/app/api/webhooks/stripe/route.ts`
+- **Profile Creation Logic**: `createOrUpdateUserProfileFromStripe` function
+- **Name Extraction**: `extractNameFromStripe` function
+- **Asynchronous Pattern**: `setTimeout` with comprehensive logging
+- **Mobile Payment Flow**: See `mobile_payment_flow.mdc` for complete architecture
+
+- **Working Implementation**: See `fetchUserProfileServer` for 4-step fallback pattern
+- **PATCH Pattern**: Follow cursor rules for `PATCH/PUT Server Actions: Direct Backend Update Pattern`
+- **Error Handling**: See current implementation for comprehensive error logging
+- **Race Condition Handling**: See profile creation error handling for constraint violations
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
