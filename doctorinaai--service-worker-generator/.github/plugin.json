@@ -1,0 +1,9 @@
+{
+  "name": "doctorinaai--service-worker-generator",
+  "displayName": "service-worker-generator",
+  "description": "Service Worker Generator",
+  "version": "1.0.0",
+  "author": "DoctorinaAI",
+  "homepage": "https://github.com/DoctorinaAI/service-worker-generator",
+  "skills": []
+}
