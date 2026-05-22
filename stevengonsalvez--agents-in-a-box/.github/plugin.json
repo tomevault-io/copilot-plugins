@@ -1,0 +1,54 @@
+{
+  "name": "stevengonsalvez--agents-in-a-box",
+  "displayName": "agents-in-a-box",
+  "description": "context engineering for agentic coding",
+  "version": "1.0.0",
+  "author": "stevengonsalvez",
+  "homepage": "https://github.com/stevengonsalvez/agents-in-a-box",
+  "skills": [
+    {
+      "name": "compound-docs",
+      "description": ""
+    },
+    {
+      "name": "crypto-research",
+      "description": ""
+    },
+    {
+      "name": "debug-bridge",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "description": ""
+    },
+    {
+      "name": "retro-pdf",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "tmux-monitor",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    }
+  ]
+}
