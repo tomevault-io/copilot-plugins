@@ -1,0 +1,9 @@
+{
+  "name": "tumf--fastmcp-gsuite",
+  "displayName": "fastmcp-gsuite",
+  "description": "MCP server for Gmail, Google Calendar, and Google Drive integration using fastmcp. Supports multiple accounts, email management, calendar events, and file operations.",
+  "version": "1.0.0",
+  "author": "tumf",
+  "homepage": "https://github.com/tumf/fastmcp-gsuite",
+  "skills": []
+}
