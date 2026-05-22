@@ -139984,6 +139984,11 @@
       "description": "Model Context Protocol server for querying Graylog 6+ from AI assistants"
     },
     {
+      "name": "lwgray--marcus",
+      "source": "./lwgray--marcus",
+      "description": "marcus"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -159259,6 +159264,51 @@
       "description": "A modern, scalable, and type-safe monorepo template"
     },
     {
+      "name": "mikecann--video-to-markdown",
+      "source": "./mikecann--video-to-markdown",
+      "description": "Convex project to creates markdown friendly thumbs for youtube videos"
+    },
+    {
+      "name": "mikecann--video-to-markdown",
+      "source": "./mikecann--video-to-markdown",
+      "description": "Convex project to creates markdown friendly thumbs for youtube videos"
+    },
+    {
+      "name": "pchuri--jira-cli",
+      "source": "./pchuri--jira-cli",
+      "description": "A command-line interface for Atlassian JIRA with issue management and workflow capabilities"
+    },
+    {
+      "name": "pchuri--jira-cli",
+      "source": "./pchuri--jira-cli",
+      "description": "A command-line interface for Atlassian JIRA with issue management and workflow capabilities"
+    },
+    {
+      "name": "freelygive--drupal-ai-dev-tracker",
+      "source": "./freelygive--drupal-ai-dev-tracker",
+      "description": "Website for tracking Drupal AI Issues from D.o"
+    },
+    {
+      "name": "cyanheads--pubchem-mcp-server",
+      "source": "./cyanheads--pubchem-mcp-server",
+      "description": "MCP server for the PubChem chemical database. Search compounds, fetch properties, safety data, bioactivity, cross-references, and entity summaries. STDIO & Streamable HTTP"
+    },
+    {
+      "name": "insight-services-apac--insight-ingenious-for-fabric",
+      "source": "./insight-services-apac--insight-ingenious-for-fabric",
+      "description": "Framework for Accelerated Microsoft Fabric Development, Testing and Deployment"
+    },
+    {
+      "name": "freelygive--drupal-ai-dev-tracker",
+      "source": "./freelygive--drupal-ai-dev-tracker",
+      "description": "Website for tracking Drupal AI Issues from D.o"
+    },
+    {
+      "name": "insight-services-apac--insight-ingenious-for-fabric",
+      "source": "./insight-services-apac--insight-ingenious-for-fabric",
+      "description": "Framework for Accelerated Microsoft Fabric Development, Testing and Deployment"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -168939,6 +168989,21 @@
       "description": "markdown-to-code"
     },
     {
+      "name": "jzb1006--claude-vigil",
+      "source": "./jzb1006--claude-vigil",
+      "description": "A vigil is a watch kept while others rest. Vigil keeps your tasks moving forward while you sleep, eat, travel, or just step away from the keyboard. It picks tasks off your queue, isolates each one in "
+    },
+    {
+      "name": "gizmodata--quack-jdbc",
+      "source": "./gizmodata--quack-jdbc",
+      "description": "JDBC driver for DuckDB's Quack remote protocol (quack:// URI scheme). Lets any JVM tool query a remote DuckDB server over HTTP."
+    },
+    {
+      "name": "willliang713--globalscript",
+      "source": "./willliang713--globalscript",
+      "description": "GlobalScript \u662f\u4e00\u4efd\u9762\u5411 Clash Meta / Mihomo \u7684\u7cbe\u7b80\u5206\u6d41\u6a21\u677f\u3002\u5b83\u91c7\u7528\u201c\u56fd\u5185\u4e0e\u6e38\u620f\u76f4\u8fde\uff0c\u5176\u4ed6\u975e\u4e2d\u56fd\u5927\u9646\u6d41\u91cf\u7edf\u4e00\u8fdb\u5165\u4ee3\u7406\u51fa\u53e3\u201d\u7684\u8bbe\u8ba1\uff0c\u51cf\u5c11\u670d\u52a1\u7c7b\u7b56\u7565\u7ec4\u5e26\u6765\u7684\u9009\u62e9\u8d1f\u62c5\uff0c\u540c\u65f6\u4fdd\u7559\u9999\u6e2f\u3001\u7f8e\u56fd\u3001\u65e5\u672c\u3001\u65b0\u52a0\u5761\u7b49\u5730\u533a\u51fa\u53e3\uff0c\u65b9\u4fbf\u5728\u63a7\u5236\u9762\u677f\u4e2d\u5feb\u901f\u5207\u6362\u4ee3\u7406\u7ebf\u8def\u3002\u914d\u7f6e\u4e0d\u5305\u542b\u8282\u70b9\uff0c\u9700\u8981\u642d\u914d\u4e2a\u4eba\u8ba2\u9605\u6216\u914d\u7f6e\u5408\u5e76\u529f\u80fd\u4f7f\u7528\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -171202,6 +171267,16 @@
       "name": "tsmar--4dreamteam",
       "source": "./tsmar--4dreamteam",
       "description": "AI team workflow for Codex that turns ideas into product briefs, implementation tasks, quality reviews, documentation, and launch-ready product messaging"
+    },
+    {
+      "name": "standardagents--composer-api",
+      "source": "./standardagents--composer-api",
+      "description": "OpenAI-compatible API proxy for Cursor Composer"
+    },
+    {
+      "name": "themattberman--shortform-idea-engine",
+      "source": "./themattberman--shortform-idea-engine",
+      "description": "shortform-idea-engine"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -272897,6 +272972,106 @@
       "name": "ghostexe-cloud--nextjs-ai-chatbot",
       "source": "./ghostexe-cloud--nextjs-ai-chatbot",
       "description": "nextjs-ai-chatbot"
+    },
+    {
+      "name": "c-basso--volumeboosting",
+      "source": "./c-basso--volumeboosting",
+      "description": "volumeboosting"
+    },
+    {
+      "name": "zafrem--data-detector",
+      "source": "./zafrem--data-detector",
+      "description": "Data-detector is a Python-based PII detection and protection framework featuring multi-language NLP support, RAG security, and data tokenization capabilities."
+    },
+    {
+      "name": "neo4su--r-workspace",
+      "source": "./neo4su--r-workspace",
+      "description": "R-Workspace"
+    },
+    {
+      "name": "provlabs--nuva-evm-contracts",
+      "source": "./provlabs--nuva-evm-contracts",
+      "description": "NUVA Finance EVM Vault Contracts"
+    },
+    {
+      "name": "netanelhadad2009-bit--gymbro",
+      "source": "./netanelhadad2009-bit--gymbro",
+      "description": "gymbro"
+    },
+    {
+      "name": "zyeh0001--willup",
+      "source": "./zyeh0001--willup",
+      "description": "willup"
+    },
+    {
+      "name": "zyeh0001--willup",
+      "source": "./zyeh0001--willup",
+      "description": "willup"
+    },
+    {
+      "name": "gamustea--seq",
+      "source": "./gamustea--seq",
+      "description": "SeQ"
+    },
+    {
+      "name": "arthur-debert--treex",
+      "source": "./arthur-debert--treex",
+      "description": "treex"
+    },
+    {
+      "name": "c-basso--volumeboosting",
+      "source": "./c-basso--volumeboosting",
+      "description": "volumeboosting"
+    },
+    {
+      "name": "zafrem--data-detector",
+      "source": "./zafrem--data-detector",
+      "description": "Data-detector is a Python-based PII detection and protection framework featuring multi-language NLP support, RAG security, and data tokenization capabilities."
+    },
+    {
+      "name": "emiperez95--claude-agents",
+      "source": "./emiperez95--claude-agents",
+      "description": "Specialized Claude Code agents for automating information gathering from Jira, GitHub, and Notion"
+    },
+    {
+      "name": "dgarhdez--dbt-ie",
+      "source": "./dgarhdez--dbt-ie",
+      "description": "Repo containing the material for Analytics Engineering with dbt"
+    },
+    {
+      "name": "jsaenz03--cliniciq",
+      "source": "./jsaenz03--cliniciq",
+      "description": "cliniciq"
+    },
+    {
+      "name": "netanelhadad2009-bit--gymbro",
+      "source": "./netanelhadad2009-bit--gymbro",
+      "description": "gymbro"
+    },
+    {
+      "name": "bioatmosphere--ggap",
+      "source": "./bioatmosphere--ggap",
+      "description": "A scalable GPU-enabled agent-based forest model--Make Gap Model (GAPpy) Great Again"
+    },
+    {
+      "name": "emiperez95--claude-agents",
+      "source": "./emiperez95--claude-agents",
+      "description": "Specialized Claude Code agents for automating information gathering from Jira, GitHub, and Notion"
+    },
+    {
+      "name": "jsaenz03--cliniciq",
+      "source": "./jsaenz03--cliniciq",
+      "description": "cliniciq"
+    },
+    {
+      "name": "nmswainston--portfolio",
+      "source": "./nmswainston--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "hungtruongquoc--fast-api-beetrack",
+      "source": "./hungtruongquoc--fast-api-beetrack",
+      "description": "Fast API Prototype to connect with Beetrack"
     }
   ]
 }
