@@ -1,176 +1,252 @@
-## api-library-architecture
+## authentication-patterns
 
-> OpenFrame uses a shared library approach to eliminate code duplication between GraphQL and REST APIs. The [api-library](mdc:openframe/libs/api-library) contains all common business logic, DTOs, and services.
+> description: Authentication patterns and security practices for OpenFrame JWT cookie-based system
 
 
-# OpenFrame API Library Architecture
+---
+description: Authentication patterns and security practices for OpenFrame JWT cookie-based system
+globs:
+  - "openframe/services/*/src/main/java/**/security/**"
+  - "openframe/services/*/src/main/java/**/controller/**"
+  - "openframe/services/*/src/main/java/**/service/**"
+  - "openframe/libs/openframe-jwt/**"
+  - "openframe/services/openframe-frontend/src/stores/auth.ts"
+alwaysApply: false
+---
 
-## Overview
-OpenFrame uses a shared library approach to eliminate code duplication between GraphQL and REST APIs. The [api-library](mdc:openframe/libs/api-library) contains all common business logic, DTOs, and services.
+# Authentication Patterns in OpenFrame
 
-## Architecture Principles
+OpenFrame uses a secure, cookie-based JWT authentication system with Spring Security OAuth2 Resource Server. Follow these patterns for consistent authentication implementation.
 
-### Shared Business Logic
-- **DO**: Place all business logic in [api-library services](mdc:openframe/libs/api-library/src/main/java/com/openframe/api/service)
-- **DON'T**: Duplicate business logic between GraphQL and REST controllers
-- **Example**: [DeviceService](mdc:openframe/libs/api-library/src/main/java/com/openframe/api/service/DeviceService.java) handles device operations for both APIs
+## Core Architecture Components
 
-### API-Specific Adapters
-- **GraphQL API**: Uses [openframe-api](mdc:openframe/services/openframe-api) with GraphQL-specific DTOs and mappers
-- **REST API**: Uses [openframe-external-api](mdc:openframe/services/openframe-external-api) with REST-specific DTOs and mappers
-- **Common DTOs**: Shared through [api-library DTOs](mdc:openframe/libs/api-library/src/main/java/com/openframe/api/dto)
+### JWT + HttpOnly Cookies Pattern
+- **Access tokens**: Stored in `access_token` HttpOnly cookie with `Path=/`
+- **Refresh tokens**: Stored in `refresh_token` HttpOnly cookie with `Path=/api/oauth/token`
+- **Security**: Tokens are never exposed to client-side JavaScript
+- **Reference**: [CookieService.java](mdc:openframe/libs/openframe-jwt/src/main/java/com/openframe/security/cookie/CookieService.java)
 
-## Service Layer Pattern
-
-### Service Structure
-```
-api-library/
-├── service/           # Business logic services
-│   ├── DeviceService.java
-│   ├── DeviceFilterService.java
-│   └── TagService.java
-├── dto/              # Common DTOs
-│   ├── DeviceQueryResult.java
-│   ├── DeviceFilters.java
-│   └── PageInfo.java
-└── mapper/           # Internal mappings (if needed)
-```
-
-### Adding New Features
-1. **Create service in api-library** first with business logic
-2. **Add common DTOs** for data transfer
-3. **Create API-specific endpoints** that use the common service
-4. **Add mappers** to convert between common and API-specific DTOs
-
-## REST API Guidelines
-
-### Controller Pattern (Modern Spring Boot)
-- **DO**: Use DTO + Exceptions approach
-- **DON'T**: Use ResponseEntity everywhere
-- **Error Handling**: Use [ErrorResponse](mdc:openframe/libs/openframe-core/src/main/java/com/openframe/core/dto/ErrorResponse.java) from openframe-core
+### Spring Security Configuration
+Always use Spring Security OAuth2 Resource Server in API services:
 
 ```java
-// ✅ GOOD - Modern Spring Boot style
-@GetMapping("/{id}")
-@ResponseStatus(OK)
-public DeviceResponse getDevice(@PathVariable String id) {
-    Device device = deviceService.findById(id)
-        .orElseThrow(() -> new DeviceNotFoundException("Device not found: " + id));
-    return deviceMapper.toResponse(device);
-}
-
-// ❌ BAD - Old ResponseEntity style
-@GetMapping("/{id}")
-public ResponseEntity<DeviceResponse> getDevice(@PathVariable String id) {
-    return deviceService.findById(id)
-        .map(device -> ResponseEntity.ok(deviceMapper.toResponse(device)))
-        .orElse(ResponseEntity.notFound().build());
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtDecoder jwtDecoder) {
+        return http
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/oauth/token", "/oauth/register", "/.well-known/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .oauth2ResourceServer(oauth2 -> oauth2
+                .jwt(jwt -> jwt.decoder(jwtDecoder))
+            )
+            .build();
+    }
 }
 ```
 
-### Exception Handling
-- **Global Handler**: Use [GlobalExceptionHandler](mdc:openframe/services/openframe-external-api/src/main/java/com/openframe/external/exception/GlobalExceptionHandler.java)
-- **Consistent Errors**: All errors return [ErrorResponse](mdc:openframe/libs/openframe-core/src/main/java/com/openframe/core/dto/ErrorResponse.java)
-- **Proper Status Codes**: Use @ResponseStatus annotations
+**Reference**: [SecurityConfig.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/config/SecurityConfig.java)
 
-## GraphQL API Guidelines
+## Controller Patterns
 
-### DataFetcher Pattern
-- **Async Operations**: Keep CompletableFuture when there's real parallelism
-- **Batch Loading**: Use DataLoader for N+1 prevention
-- **Service Integration**: Call api-library services directly
+### Use AuthPrincipal Instead of Raw JWT
+Always use `@AuthenticationPrincipal AuthPrincipal principal` in controllers:
 
 ```java
-// ✅ GOOD - Async when beneficial
-@DgsQuery
-public CompletableFuture<DeviceFilters> deviceFilters(@InputArgument DeviceFilterInput filter) {
-    return deviceFilterService.getDeviceFilters(filter); // Parallel DB calls inside
-}
-
-// ✅ GOOD - Sync when appropriate
-@DgsQuery
-public Device device(@InputArgument String id) {
-    return deviceService.findById(id)
-        .orElseThrow(() -> new DeviceNotFoundException("Device not found: " + id));
+@RestController
+public class ApiController {
+    @GetMapping("/api-keys")
+    public List<ApiKeyResponse> getApiKeys(@AuthenticationPrincipal AuthPrincipal principal) {
+        return apiKeyService.getApiKeysForUser(principal.getId());
+    }
 }
 ```
 
-## Performance Patterns
+**Never use**:
+- `@RequestHeader("X-User-Id") String userId`
+- `@AuthenticationPrincipal Jwt jwt` directly
 
-### Parallel Processing
-- **Use CompletableFuture** for genuine parallel operations (like [DeviceFilterService](mdc:openframe/libs/api-library/src/main/java/com/openframe/api/service/DeviceFilterService.java))
-- **Batch Operations**: Use batch queries to reduce N+1 problems
-- **Caching**: Implement at service layer, not controller layer
+**Reference**: [AuthPrincipal.java](mdc:openframe/libs/openframe-jwt/src/main/java/com/openframe/security/authentication/AuthPrincipal.java)
 
-### Database Strategy
-- **MongoDB**: Primary storage for entities
-- **Apache Pinot**: Analytics and aggregations
-- **Redis**: Caching and session storage
+### OAuth Controller Pattern
+OAuth controllers should delegate cookie management to services:
 
-## Dependency Management
-
-### Module Dependencies
-```
-openframe-external-api → api-library → openframe-core
-openframe-api → api-library → openframe-core
-```
-
-### Maven Configuration
-- **Versions**: Managed in parent POM
-- **Shared Dependencies**: Include in api-library
-- **API-Specific Dependencies**: Keep in respective modules
-
-## Common Patterns
-
-### DTO Conversion
 ```java
-// Service returns common DTO
-DeviceQueryResult result = deviceService.queryDevices(criteria);
+@PostMapping("/token")
+public ResponseEntity<?> token(
+        @RequestParam String grant_type,
+        @RequestParam(required = false) String code,
+        @RequestHeader(value = X_REFRESH_TOKEN, required = false) String refreshToken,
+        HttpServletRequest httpRequest,
+        HttpServletResponse httpResponse) {
 
-// API-specific mapper converts to API DTO
-DeviceResponse response = deviceMapper.toDeviceResponse(result);
-```
+    TokenResponse response = oauthService.processTokenRequest(
+        grant_type, code, username, password, client_id, client_secret, refreshToken, httpRequest);
 
-### Error Handling
-```java
-// Service throws domain exception
-throw new DeviceNotFoundException("Device not found: " + id);
-
-// GlobalExceptionHandler converts to ErrorResponse
-@ExceptionHandler(DeviceNotFoundException.class)
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public ErrorResponse handleDeviceNotFound(DeviceNotFoundException ex) {
-    return new ErrorResponse("DEVICE_NOT_FOUND", ex.getMessage());
+    oauthService.setAuthenticationCookies(response, httpResponse);
+    return ResponseEntity.ok(response);
 }
 ```
 
-## Testing Strategy
+**Reference**: [OAuthController.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/controller/OAuthController.java)
 
-### Service Layer Tests
-- **Unit Tests**: Test business logic in api-library services
-- **Integration Tests**: Test database interactions
-- **Mock External Dependencies**: Use @MockBean for external services
+## Service Layer Patterns
 
-### API Layer Tests
-- **Controller Tests**: Test mapping and validation
-- **Integration Tests**: Test full request/response cycle
-- **Contract Tests**: Ensure API compatibility
+### Cookie Management
+Always delegate cookie operations to `CookieService`:
 
-## Migration Guidelines
+```java
+@Service
+public class OAuthService {
+    private final CookieService cookieService;
 
-### Adding New Endpoints
-1. **Identify Common Logic**: Extract to api-library service
-2. **Create Common DTOs**: For data transfer between layers
-3. **Add REST Endpoint**: In openframe-external-api with proper mapping
-4. **Add GraphQL Endpoint**: In openframe-api with same service
-5. **Update Documentation**: Both OpenAPI and GraphQL schema
+    public void setAuthenticationCookies(TokenResponse tokens, HttpServletResponse response) {
+        cookieService.setAccessTokenCookie(tokens.getAccess_token(), response);
+        cookieService.setRefreshTokenCookie(tokens.getRefresh_token(), response);
+    }
+}
+```
 
-### Refactoring Existing Code
-1. **Extract Business Logic**: Move from controllers to api-library services
-2. **Unify DTOs**: Replace duplicate DTOs with common ones
-3. **Update Mappers**: Convert between API-specific and common DTOs
-4. **Remove Duplication**: Delete old duplicate services/DTOs
-5. **Update Dependencies**: Ensure proper module structure
+**Reference**: [OAuthService.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/service/OAuthService.java)
+
+### Token Processing Pattern
+Separate refresh token handling from other grant types:
+
+```java
+public TokenResponse processTokenRequest(String grantType, String refreshToken, ...) {
+    if ("refresh_token".equals(grantType)) {
+        if (refreshToken == null) {
+            throw new IllegalArgumentException("Refresh token not found");
+        }
+        return handleRefreshToken(refreshToken, clientId, clientSecret);
+    }
+
+    return token(grantType, code, username, password, clientId, clientSecret);
+}
+```
+
+## Gateway Security Patterns
+
+### Cookie-to-Header Filter
+Use `CookieToHeaderFilter` to convert cookies to headers for Spring Security:
+
+```java
+@Component
+public class CookieToHeaderFilter implements WebFilter {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        String accessToken = cookieService.getAccessTokenFromCookies(exchange);
+        if (accessToken != null) {
+            ServerHttpRequest request = exchange.getRequest().mutate()
+                .header(AUTHORIZATION, "Bearer " + accessToken)
+                .build();
+            return chain.filter(exchange.mutate().request(request).build());
+        }
+        return chain.filter(exchange);
+    }
+}
+```
+
+**Reference**: [CookieToHeaderFilter.java](mdc:openframe/services/openframe-gateway/src/main/java/com/openframe/gateway/security/filter/CookieToHeaderFilter.java)
+
+## Frontend Patterns
+
+### Authentication Store Pattern
+Use reactive authentication status based on cookie presence:
+
+```typescript
+export const useAuthStore = defineStore('auth', () => {
+  const authStatusCache = ref<boolean | null>(null)
+  const isAuthenticated = ref(false)
+
+  function updateAuthStatus() {
+    const hasAccessTokenCookie = document.cookie
+      .split(';')
+      .some(cookie => cookie.trim().startsWith('access_token='))
+
+    if (!hasAccessTokenCookie) {
+      isAuthenticated.value = false
+      return
+    }
+
+    if (authStatusCache.value !== null) {
+      isAuthenticated.value = authStatusCache.value
+      return
+    }
+
+    isAuthenticated.value = true
+  }
+})
+```
+
+**Reference**: [auth.ts](mdc:openframe/services/openframe-frontend/src/stores/auth.ts)
+
+## Security Best Practices
+
+### Cookie Security
+- **Always use `HttpOnly`**: Prevents XSS attacks
+- **Use `Secure` flag**: Only over HTTPS in production
+- **Path restrictions**: Refresh tokens only sent to `/api/oauth/token`
+- **SameSite policy**: Configure appropriately for your domain setup
+
+### Token Management
+- **Access tokens**: Short-lived (15 minutes), stored with `Path=/`
+- **Refresh tokens**: Long-lived (7 days), stored with `Path=/api/oauth/token`
+- **Never expose tokens**: Client-side JavaScript cannot access HttpOnly cookies
+- **Automatic refresh**: Handle 401 errors by attempting token refresh
+
+### Authentication Flow
+1. **Login**: Server sets both tokens as HttpOnly cookies
+2. **API Request**: Gateway extracts access token from cookie → Authorization header
+3. **Token Refresh**: Gateway extracts refresh token only for `/api/oauth/token` endpoint
+4. **Logout**: Server clears both cookies
+
+## Common Anti-Patterns
+
+### ❌ Don't Do This
+```java
+// Don't use RequestHeader for user info
+@RequestHeader("X-User-Id") String userId
+
+// Don't manage cookies in controllers
+response.addCookie(new Cookie("access_token", token));
+
+// Don't use raw JWT in business logic
+public void doSomething(Jwt jwt) {
+    String userId = jwt.getSubject();
+}
+
+// Don't manually set authentication status in frontend
+isAuthenticated.value = true;
+```
+
+### ✅ Do This Instead
+```java
+// Use AuthPrincipal
+@AuthenticationPrincipal AuthPrincipal principal
+
+// Delegate to CookieService
+cookieService.setAccessTokenCookie(token, response);
+
+// Use AuthPrincipal wrapper
+public void doSomething(AuthPrincipal principal) {
+    String userId = principal.getId();
+}
+
+// Let status update automatically via cookies
+updateAuthStatus(); // Called after auth state changes
+```
+
+## References
+
+- **Architecture Documentation**: [authentication-architecture.md](mdc:docs/architecture/authentication-architecture.md)
+- **Core Cookie Service**: [CookieService.java](mdc:openframe/libs/openframe-jwt/src/main/java/com/openframe/security/cookie/CookieService.java)
+- **Gateway Security Config**: [GatewaySecurityConfig.java](mdc:openframe/services/openframe-gateway/src/main/java/com/openframe/gateway/security/GatewaySecurityConfig.java)
+- **API Security Config**: [SecurityConfig.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/config/SecurityConfig.java)
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
