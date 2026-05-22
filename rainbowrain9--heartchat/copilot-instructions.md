@@ -1,230 +1,61 @@
-## echarts-usage
+## emotion-analysis
 
-> HeartChat使用ECharts作为数据可视化解决方案，通过图表直观展示用户情绪变化、分布等数据。ECharts组件被封装在ec-canvas中，提供了饼图、折线图、仪表盘等多种图表类型。
+> 情感分析是HeartChat的特色功能，通过分析用户的聊天内容，识别其情绪状态，并提供可视化展示和情绪变化趋势分析。
 
-# ECharts组件使用指南
+# 情感分析模块
 
 ## 功能概述
-HeartChat使用ECharts作为数据可视化解决方案，通过图表直观展示用户情绪变化、分布等数据。ECharts组件被封装在ec-canvas中，提供了饼图、折线图、仪表盘等多种图表类型。
+情感分析是HeartChat的特色功能，通过分析用户的聊天内容，识别其情绪状态，并提供可视化展示和情绪变化趋势分析。
 
-## 组件位置
-- [miniprogram/components/ec-canvas/](mdc:miniprogram/components/ec-canvas/)：ECharts核心组件
+## 相关文件结构
+- 前端部分：
+  - [miniprogram/pages/emotionAnalysis/](mdc:miniprogram/pages/emotionAnalysis/)：情感分析页面
+  - [miniprogram/pages/emotionVault/](mdc:miniprogram/pages/emotionVault/)：情绪记录库页面
+  - [miniprogram/packageEmotion/](mdc:miniprogram/packageEmotion/)：情感分析相关分包
+    - [pages/emotion-history/](mdc:miniprogram/packageEmotion/pages/emotion-history/)：情绪历史页面
+    - [pages/daily-report/](mdc:miniprogram/packageEmotion/pages/daily-report/)：每日情绪报告
+  - [miniprogram/components/emotion-analysis/](mdc:miniprogram/components/emotion-analysis/)：情感分析组件
+  - [miniprogram/components/emotion-card/](mdc:miniprogram/components/emotion-card/)：情绪卡片组件
+  - [miniprogram/components/emotion-dashboard/](mdc:miniprogram/components/emotion-dashboard/)：情绪仪表盘组件
+  - [miniprogram/components/emotion-history/](mdc:miniprogram/components/emotion-history/)：情绪历史组件
+  - [miniprogram/components/emotion-panel/](mdc:miniprogram/components/emotion-panel/)：情绪面板组件
+  - [miniprogram/components/emotion-pie/](mdc:miniprogram/components/emotion-pie/)：情绪饼图组件
 
-## ECharts引入方式
-根据[ECharts组件使用指南.md](mdc:docs/使用文档/ECharts组件使用指南.md)，HeartChat使用了微信小程序的npm支持引入ECharts：
-```javascript
-// 项目使用npm构建后的路径
-import * as echarts from '../../miniprogram_npm/echarts/index';
-```
+- 后端部分：
+  - [cloudfunctions/emotion/](mdc:cloudfunctions/emotion/)：情感分析相关云函数
+  - [cloudfunctions/analysis/](mdc:cloudfunctions/analysis/)：数据分析相关云函数
+  - [cloudfunctions/generateDailyReports/](mdc:cloudfunctions/generateDailyReports/)：生成每日情绪报告的云函数
 
-## 基本使用流程
-1. 在页面或组件的wxml中引入ec-canvas组件
-```html
-<ec-canvas id="mychart-dom" canvas-id="mychart" ec="{{ ec }}"></ec-canvas>
-```
+## 主要功能实现
+- 实时情感分析：分析用户当前聊天内容的情绪倾向
+- 情绪记录：记录用户的情绪状态变化
+- 情绪可视化：通过图表直观展示情绪变化趋势
+- 情绪标签：对用户情绪进行标签化分类
+- 情绪建议：基于情绪分析结果提供相应的建议
+- 日常情绪报告：生成用户情绪状态的每日/周/月度分析报告
 
-2. 在页面或组件的js文件中初始化图表
-```javascript
-import * as echarts from '../../miniprogram_npm/echarts/index';
+## 情绪分类
+系统通常将情绪分为以下几类：
+- 喜悦（Joy）
+- 悲伤（Sadness）
+- 愤怒（Anger）
+- 恐惧（Fear）
+- 惊讶（Surprise）
+- 厌恶（Disgust）
+- 中性（Neutral）
 
-Page({
-  data: {
-    ec: {
-      onInit: initChart
-    }
-  }
-});
+## 数据流
+1. 用户聊天内容发送至情感分析云函数
+2. 云函数调用AI服务进行情感分析
+3. 分析结果存储到云数据库
+4. 前端从云数据库获取情感分析结果并展示
+5. 定时任务生成情绪分析报告
 
-function initChart(canvas, width, height, dpr) {
-  const chart = echarts.init(canvas, null, {
-    width: width,
-    height: height,
-    devicePixelRatio: dpr
-  });
-  canvas.setChart(chart);
-  
-  const option = {
-    // 图表配置项
-    title: {
-      text: '情绪分布'
-    },
-    // 其他配置...
-  };
-  
-  chart.setOption(option);
-  return chart;
-}
-```
-
-## 常用图表类型
-
-### 饼图
-用于展示情绪分布占比等数据：
-```javascript
-const option = {
-  title: {
-    text: '情绪分布',
-    left: 'center'
-  },
-  tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b}: {c} ({d}%)'
-  },
-  legend: {
-    orient: 'vertical',
-    left: 'left',
-    data: ['喜悦', '悲伤', '愤怒', '恐惧', '惊讶', '厌恶', '中性']
-  },
-  series: [
-    {
-      name: '情绪分布',
-      type: 'pie',
-      radius: '55%',
-      center: ['50%', '60%'],
-      data: [
-        {value: 335, name: '喜悦'},
-        {value: 310, name: '悲伤'},
-        {value: 234, name: '愤怒'},
-        {value: 135, name: '恐惧'},
-        {value: 154, name: '惊讶'},
-        {value: 120, name: '厌恶'},
-        {value: 200, name: '中性'}
-      ],
-      // 设置不同情绪对应的颜色
-      itemStyle: {
-        emphasis: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      }
-    }
-  ]
-};
-```
-
-### 折线图
-用于展示情绪随时间变化的趋势：
-```javascript
-const option = {
-  title: {
-    text: '情绪变化趋势'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data: ['喜悦', '悲伤', '焦虑']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-  },
-  yAxis: {
-    type: 'value',
-    min: 0,
-    max: 1
-  },
-  series: [
-    {
-      name: '喜悦',
-      type: 'line',
-      data: [0.3, 0.4, 0.5, 0.8, 0.7, 0.6, 0.9]
-    },
-    {
-      name: '悲伤',
-      type: 'line',
-      data: [0.4, 0.2, 0.1, 0.1, 0.2, 0.3, 0.1]
-    },
-    {
-      name: '焦虑',
-      type: 'line',
-      data: [0.3, 0.4, 0.3, 0.1, 0.1, 0.1, 0.0]
-    }
-  ]
-};
-```
-
-### 仪表盘
-用于展示情绪健康指数等数据：
-```javascript
-const option = {
-  title: {
-    text: '情绪健康指数'
-  },
-  tooltip: {
-    formatter: '{a} <br/>{b} : {c}%'
-  },
-  series: [
-    {
-      name: '健康指数',
-      type: 'gauge',
-      detail: {formatter: '{value}%'},
-      data: [{value: 75, name: '健康指数'}],
-      axisLine: {
-        lineStyle: {
-          color: [
-            [0.3, '#ff4500'],
-            [0.7, '#ffcc00'],
-            [1, '#5cb85c']
-          ],
-          width: 30
-        }
-      }
-    }
-  ]
-};
-```
-
-## 数据更新
-通过setOption方法实现图表数据的动态更新：
-```javascript
-// 假设chart是已初始化的图表实例
-function updateChart(newData) {
-  const option = {
-    series: [{
-      data: newData
-    }]
-  };
-  chart.setOption(option);
-}
-```
-
-## 性能优化
-- 合理设置图表大小，避免过大造成渲染压力
-- 减少不必要的动画效果
-- 数据量大时考虑分页或者数据聚合
-- 避免频繁更新图表数据
-- 在不可见时释放图表资源
-
-## 在组件中使用
-在自定义组件中使用ECharts时，需要通过this.selectComponent获取ec-canvas实例：
-```javascript
-Component({
-  // ...其他配置
-  methods: {
-    init: function() {
-      const ecComponent = this.selectComponent('#mychart-dom');
-      ecComponent.init((canvas, width, height, dpr) => {
-        // 初始化图表逻辑
-      });
-    }
-  }
-});
-```
-
-## 常见问题
-- 图表不显示：检查容器是否设置了宽高，确保初始化成功
-- 数据更新不生效：确认setOption调用正确，数据结构符合要求
-- 图表尺寸异常：检查容器样式和自适应配置
-- 性能问题：减少数据量和特效，优化渲染配置
+## 相关接口
+- 情感分析：分析文本内容的情绪倾向
+- 获取情绪历史：获取用户历史情绪记录
+- 情绪标签管理：添加、修改和删除情绪标签
+- 生成情绪报告：生成指定时间段的情绪分析报告
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
