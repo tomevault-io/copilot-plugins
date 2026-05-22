@@ -7,14 +7,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat).
+Original source: `CLAUDE.md` in [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — a repo with 12+ stars on GitHub.
