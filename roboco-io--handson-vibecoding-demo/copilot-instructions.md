@@ -1,52 +1,47 @@
-## backend-rules
+## code-style
 
-> 백엔드 관련 작업시에 적용한다.
+> - 간결하고 가독성 높은 TypeScript 코드 작성
 
-# 백엔드 개발 규칙
+# 코드 스타일 및 구조 규칙
 
-## 참조 문서(docs/design)
-- [아키텍처 개요](mdc:docs/design/architecture.md)
-- [백엔드 설계](mdc:docs/design/backend.md)
-- [인프라 설계](mdc:docs/design/infrastructure.md)
-- [보안 설계](mdc:docs/design/security.md)
-- [모니터링 설계](mdc:docs/design/monitoring.md)
-- [비용 최적화](mdc:docs/design/optimization.md)
+## 일반 원칙
+- 간결하고 가독성 높은 TypeScript 코드 작성
+- 함수형 및 선언적 프로그래밍 패턴 사용
+- DRY(Don't Repeat Yourself) 원칙 준수
+- 가독성 향상을 위한 조기 반환(early return) 구현
+- 컴포넌트 논리적 구조화: 내보내기, 하위 컴포넌트, 헬퍼, 타입
 
-## API 설계
-- RESTful API 원칙 준수
-- 명확하고 일관된 엔드포인트 명명
-- 적절한 HTTP 메서드 사용
-- 오류 처리 및 상태 코드 표준화
+## 명명 규칙
+- 보조 동사가 포함된 설명적 이름 사용 (isLoading, hasError)
+- 이벤트 핸들러에 "handle" 접두사 사용 (handleClick, handleSubmit)
+- 디렉토리는 소문자와 대시 사용 (components/todo-list)
+- 컴포넌트는 명명된 내보내기(named exports) 선호
 
-## 데이터 접근
-- DynamoDB 테이블 설계 최적화
-- 데이터 액세스 계층 추상화
-- 쿼리 성능 최적화
-- 트랜잭션 및 일관성 관리
+## TypeScript 사용
+- 모든 코드에 TypeScript 사용
+- 타입보다 인터페이스 선호
+- enum 대신 const 맵 사용
+- 적절한 타입 안전성 및 추론 구현
+- 타입 검증을 위한 `satisfies` 연산자 사용
 
-## Clean Architecture
-- 엔티티: 핵심 비즈니스 규칙 및 데이터 구조
-- 유스케이스: 애플리케이션 특정 비즈니스 규칙
-- 인터페이스 어댑터: 컨트롤러, 프레젠터, 게이트웨이
-- 프레임워크 및 드라이버: 웹, UI, DB, 외부 서비스
+## 개발 도구
+- ESLint: v8.x
+- Prettier: v3.x
+- Husky: v9.x
+- lint-staged: v15.x
+- GitHub Actions
 
-## 의존성 규칙
-- 내부 계층은 외부 계층에 의존하지 않음
-- 의존성 주입을 통한 결합도 감소
-- 인터페이스를 통한 추상화
-- 외부 프레임워크/라이브러리에 대한 의존성 최소화
+## Git 사용 규칙
+- `--no-verify` 절대 사용 금지
+- 명확하고 일관된 커밋 메시지 작성
+- 적절한 크기로 커밋 유지
+- 브랜치 전략 준수
 
-## 버전 정보
-- Node.js: v22.x
-- TypeScript: v5.x
-- AWS SDK: v3.x
-- Jest: v29.x
-
-## AWS 서비스
-- AWS Lambda
-- Amazon DynamoDB
-- Amazon API Gateway
-- Amazon Cognito
+## 코드 리뷰 프로세스
+- 코드 품질 및 표준 준수 확인
+- 테스트 커버리지 검증
+- 성능 및 보안 이슈 검토
+- 문서화 적절성 확인
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
