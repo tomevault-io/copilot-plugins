@@ -1,38 +1,33 @@
-## backend-architecture
+## conventional-commits
 
-> Backend architecture and clean code principles for Go fintech application
+> Enforce Conventional Commits and release note trailers
 
 
-# Backend Architecture Rules
+# Conventional Commits Rule
 
-## Clean Architecture Structure
-- Follow the established directory structure: `internal/entity`, `internal/usecase`, `internal/controller/http/v1`, `pkg/repository`
-- Entities in [internal/entity](mdc:internal/entity) define domain models
-- Use cases in [internal/usecase](mdc:internal/usecase) contain business logic
-- Controllers in [internal/controller/http/v1](mdc:internal/controller/http/v1) handle HTTP requests
-- Repositories in [pkg/repository](mdc:pkg/repository) implement data access
+Cuando el usuario pida crear un commit, usa formato Conventional Commits:
 
-## Error Handling
-- Use structured errors from [pkg/apperrors/errors.go](mdc:pkg/apperrors/errors.go)
-- Always use `AppError` struct instead of generic `errors.New()`
-- Include proper error codes and context with `WithDetails()` and `WithInternal()`
+`type(scope): resumen en imperativo`
 
-## API Standards
-- DTOs must be in [internal/controller/http/v1/dto](mdc:internal/controller/http/v1/dto)
-- Use proper HTTP status codes: 200 (OK), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 404 (Not Found), 500 (Internal Error)
-- Always validate request data using the validator from [pkg/validator](mdc:pkg/validator)
+Tipos permitidos:
+- `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `chore`, `build`, `ci`, `revert`
 
-## Database Operations
-- Use GORM for database operations
-- Always use transactions for complex operations
-- Preload related entities to avoid N+1 queries
-- Follow the repository pattern defined in [internal/usecase/repo](mdc:internal/usecase/repo)
+Reglas:
+- Mensaje corto en minúsculas (excepto nombres propios).
+- Máximo 72 caracteres en la primera línea.
+- Explicar el "por qué" en el cuerpo si hace falta.
+- No usar mensajes genéricos como "update", "changes", "wip".
 
-## Security
-- JWT authentication is handled in [pkg/auth/jwt.go](mdc:pkg/auth/jwt.go)
-- Always validate user permissions before operations
-- Extract user ID from authenticated context: `userID, exists := c.Get("user_id")`
-- Never expose sensitive information in logs or responses
+Para release notes automáticas en Codemagic, agregar trailers cuando aplique:
+- `RN-es: texto de notas para Play Console en español`
+- `RN-en: text for Play Console release notes in English`
+
+Ejemplo válido:
+
+`feat(reports): agrega exportación csv y pdf`
+
+`RN-es: Exportación de transacciones en CSV y PDF desde Reportes.`
+`RN-en: Added CSV and PDF transaction export from Reports.`
 
 ---
 > Source: [nick130920/fintech-backend](https://github.com/nick130920/fintech-backend) — distributed by [TomeVault](https://tomevault.io).
