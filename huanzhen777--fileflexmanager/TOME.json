@@ -2,9 +2,9 @@
   "name": "FileFlexManager",
   "owner": "huanzhen777",
   "repo": "FileFlexManager",
-  "description": "",
+  "description": "\u5f3a\u5927\u7075\u6d3b\u7684\u79fb\u52a8\u7aefweb nas\u6587\u4ef6\u7ba1\u7406",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/huanzhen777",
+  "source_url": "https://github.com/huanzhen777/FileFlexManager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T01:45:11Z"
+  "distributed_at": "2026-05-22T00:55:54Z"
 }
