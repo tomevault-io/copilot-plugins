@@ -1,0 +1,44 @@
+{
+  "name": "VoidLight-Framework",
+  "owner": "Ronin15",
+  "repo": "VoidLight-Framework",
+  "description": "SDL3 2D Game Framework implementing DOD, multi-threading and SIMD, with a focus on memory safety, efficiency, and speed.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ronin15/VoidLight-Framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T20:54:41Z"
+}
