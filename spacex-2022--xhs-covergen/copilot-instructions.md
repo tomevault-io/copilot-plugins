@@ -1,0 +1,15 @@
+## my-custom-rule
+
+> - 项目使用 nextjs-saas-starter 初始化
+
+
+# Your rule content
+
+- 项目使用 nextjs-saas-starter 初始化
+- 技术栈参考 package.json
+- 这个项目主要功能是实现根据用户输入的一段话，生成小红书风格的封面图片
+- 大概实现流程初步计划是先定义好 prompt，然后调用 deepSeek 的 api 生成小红书风格的 html 文件，然后在服务器调用 puppeteer 渲染 HTML，最后截图生成图片，返回到前端展示给用户。 
+
+---
+> Source: [SPACEX-2022/XHS-CoverGen](https://github.com/SPACEX-2022/XHS-CoverGen) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
