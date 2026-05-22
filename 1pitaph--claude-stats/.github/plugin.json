@@ -1,0 +1,9 @@
+{
+  "name": "1pitaph--claude-stats",
+  "displayName": "claude-stats",
+  "description": "Native macOS menu-bar stats, terminal, Notch Island, and network debugging for AI coding work.",
+  "version": "1.0.0",
+  "author": "1pitaph",
+  "homepage": "https://github.com/1pitaph/claude-stats",
+  "skills": []
+}
