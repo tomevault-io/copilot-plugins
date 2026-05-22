@@ -1,77 +1,75 @@
-## frontend-rules
+## self-improve
 
-> description: Guidelines and best practices for developing the ZK Mixer frontend application.
+> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
 
- ---
-description: Guidelines and best practices for developing the ZK Mixer frontend application.
-globs: ["frontend/**/*.js", "frontend/**/*.jsx", "frontend/**/*.css"]
-alwaysApply: true
----
 
-- **General Architecture**
-    - **Component Structure**: Organize components in a logical, hierarchical manner. Use the following directory structure:
-        - `/components`: For reusable UI components
-        - `/contexts`: For React contexts and providers
-        - `/utils`: For utility functions
-        - `/abis`: For contract ABIs
-    - **Component Size**: Keep components focused on a single responsibility. Components exceeding 250 lines should be considered for splitting.
-    - **State Management**: Use React Context API for global state management. Avoid prop drilling beyond 2 levels.
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
 
-- **React Best Practices**
-    - **Functional Components**: Use functional components with hooks for all new components.
-    - **Hook Organization**: Ensure custom hooks follow the "use-" naming convention. Keep hooks focused on a specific piece of functionality.
-    - **useEffect Usage**: Be explicit about dependencies in useEffect. Avoid unnecessary re-renders by properly memoizing functions and values with useCallback and useMemo.
-    - **Error Handling**: Implement proper error boundaries and error states for API calls and blockchain interactions.
-    - **Code Splitting**: Use React.lazy() and Suspense for code splitting in larger applications to optimize load times.
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage
 
-- **User Experience (UX) Guidelines**
-    - **Loading States**: Always provide loading indicators during blockchain interactions.
-    - **Error Messages**: Display clear, user-friendly error messages. Translate technical errors into understandable language.
-    - **Confirmation Steps**: Implement confirmation steps for actions with permanent consequences (e.g., deposits, withdrawals).
-    - **Mobile Responsiveness**: Ensure all components work on mobile devices. Use responsive design principles.
-    - **Accessibility**: Follow WCAG guidelines. Include proper alt text, aria labels, and ensure keyboard navigation.
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used in 3+ files
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security or performance patterns emerge
 
-- **Web3/Ethereum Integration**
-    - **Wallet Connection**: Use a consistent pattern for wallet connections. Implement proper error handling for common wallet issues.
-    - **Transaction Flow**: Follow this pattern for blockchain transactions:
-        1. Show loading state
-        2. Execute transaction
-        3. Wait for confirmation
-        4. Update UI
-        5. Handle errors gracefully
-    - **Gas Estimation**: Provide gas estimates before transactions when possible.
-    - **Network Detection**: Check for correct network and guide users to switch if needed.
-    - **Chain ID Handling**: Always verify chain ID before transactions to prevent incorrect network submissions.
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases are discovered
+    - Related rules have been updated
+    - Implementation details have changed
 
-- **Privacy and Security**
-    - **Information Disclosure**: Be careful about what data is logged or stored. Never log or store user's private notes or keys.
-    - **Local Storage**: Use local storage only for non-sensitive data. Encrypt any sensitive data that needs to be stored.
-    - **Input Validation**: Validate all inputs, especially addresses and amounts.
-    - **Link Protection**: Use rel="noopener noreferrer" for external links.
+- **Example Pattern Recognition:**
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
+  
+  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
 
-- **ZK Mixer Specific**
-    - **Note Management**: Provide clear instructions about the importance of storing notes safely.
-    - **Educational Content**: Include educational elements to help users understand the privacy features.
-    - **Denomination Handling**: Clearly display denomination options and current selection.
-    - **Nullifier/Commitment Display**: Use truncated displays for lengthy cryptographic values with options to view/copy full values.
-    - **Withdrawal Flow**: Implement a clear, step-by-step flow for withdrawals to ensure users understand the process.
+- **Rule Quality Checks:**
+  - Rules should be actionable and specific
+  - Examples should come from actual code
+  - References should be up to date
+  - Patterns should be consistently enforced
 
-- **CSS Guidelines**
-    - **CSS Organization**: Use CSS modules or styled-components for component-specific styling.
-    - **Variable Usage**: Use CSS variables for colors, spacing, and typography to maintain consistency.
-    - **Mobile-First**: Follow mobile-first approach for responsive design.
-    - **Dark Mode Support**: Consider supporting dark mode for better user experience.
+- **Continuous Improvement:**
+  - Monitor code review comments
+  - Track common development questions
+  - Update rules after major refactors
+  - Add links to relevant documentation
+  - Cross-reference related rules
 
-- **Testing**
-    - **Component Testing**: Write tests for all critical components.
-    - **Integration Testing**: Test critical user flows like connecting wallet, depositing, and withdrawing.
-    - **Mocking**: Mock blockchain interactions for faster and more reliable tests.
-    - **Test Coverage**: Aim for at least 70% test coverage for critical components.
+- **Rule Deprecation:**
+  - Mark outdated patterns as deprecated
+  - Remove rules that no longer apply
+  - Update references to deprecated rules
+  - Document migration paths for old patterns
 
-- **Documentation**
-    - **Component Documentation**: Document component props and behavior.
-    - **Code Comments**: Add meaningful comments for complex logic.
-    - **README**: Maintain an up-to-date README with setup instructions and architecture overview.
+- **Documentation Updates:**
+  - Keep examples synchronized with code
+  - Update references to external docs
+  - Maintain links between related rules
+  - Document breaking changes
+
+Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [Zyra-V21/ZKUzumaki](https://github.com/Zyra-V21/ZKUzumaki) — distributed by [TomeVault](https://tomevault.io).
