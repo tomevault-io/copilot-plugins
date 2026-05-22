@@ -1,70 +1,113 @@
-## content-builder-instructions
+## markdown
 
-> These rules describe **how to build practical educational course** ("project") and its learning steps ("stages").
+> Strictly follow ALL formatting rules below when generating responses.
 
-# Educational Course & Stage Authoring Rules
+# Markdown Formatting Rules for AI Assistants
 
-These rules describe **how to build practical educational course** ("project") and its learning steps ("stages").
-Follow them whenever you generate or update course content.
+Strictly follow ALL formatting rules below when generating responses.
 
----
+## General HTML Markdown Rules
 
-## 1. Repository Layout
+1. All headers must be implemented with <h5> tag (Example: `<h5>Header Title</h5>`)
+2. All text blocks must be wrapped with <p> tag (Example: `<p>This is a paragraph of text.</p>`)
+3. All images must be centered using this exact format: 
+   ```html
+   <img style="margin: auto; display: block;" src="https://example.com" alt="alt text" title="title text">
+   ```
+4. Never use <body> or <head> tags.
+5. All lists must be implemented with <ul>, <ol> and <li> tags.
 
-| Item | Pattern | Example |
-|------|---------|---------|
-| Course directory | `project_<PROJECT_ID>_<project_name_snake>` | `project_42_realtime_chat` |
-| Stage file | `<order_num>_<STAGE_ID>_<stage_title_snake>.html` | `3_256_set_up_backend.html` |
+## Special Interactive Elements
 
-1. `<order_num>` starts at **1** and matches the logical learning flow.  
-2. mock id with 'ID' if you don't know real ID
-3. Use **snake_case** — lower-case and underscores only — for names.
+### Callout Blocks for User Actions
 
----
+Use <callout> tags to create interactive blocks that users can click to insert content into chat or composer.
 
-## 2. Mandatory File Content Structure (HTML-based Markdown)
+Basic callout syntax:
+```html
+<callout>CONTENT TO PASTE TO CHAT</callout>
+```
 
-Use [markdown.mdc](mdc:.cursor/rules/markdown.mdc) rules to structure content.
+Callout with custom label:
+```html
+<callout label="Custom label instead of paste to chat">CONTENT TO PASTE TO CHAT</callout>
+```
 
----
+Sequential callouts (only one visible at a time until previous is executed):
+```html
+<callout-group>
+  <callout type="chat">CONTENT TO PASTE TO CHAT</callout>
+  <callout type="composer">CONTENT TO PASTE TO COMPOSER</callout>
+</callout-group>
+```
 
-## 3. Updating Existing courses
+### Alert Blocks for Important Information
 
-1. Respect existing IDs & filenames.  
-2. If you **add** or **remove** a stage, adjust the `order_num` sequence and rename files accordingly.  
-3. When editing content, keep the HTML wrapper tags intact.
+Use <alert> tags to highlight important information with accent borders and different background:
+```html
+<alert>Windows users should use different command to run the script</alert>
+```
 
----
+### Precode Blocks for File Generation
 
-## 4. Content structure
+Use <precode> tags to create files from the specified path:
+```html
+<precode path=".cursor/rules/my-project-rules.mdc">
+CONTENT WILL BE IN my-project-rules.mdc file
+</precode>
+```
 
-1. The entire repository is a collection of independent courses; you are building one such course.
-2. The course is broken into 5-15 stages (ideally ≈ 8).
-3. Each stage must take ≤ 20 minutes to complete and contain ≤ 400 lines of content.
+### Loadfile Blocks for File Generation
 
----
+Use <loadfile> tags to create files from the specified url:
+```html
+<loadfile path="docs/uv.md" url="https://raw.githubusercontent.com/hyperskill/enlighter-content/refs/heads/main/microcontexts/astral-sh/uv.md"/>
+```
 
-## 5. Methodology
+### Checkable Items for User Tasks
 
-1. Course is practical - the user programs with the help of AI assistant while going through the course
-2. Educational course runs inside the development environment (in-IDE learning)
-3. Learners complete every task directly in the programming environment.
-4. User interracts with programming environment with <callout> blocks. Find more about <callout> markdown in [markdown.mdc](mdc:.cursor/rules/markdown.mdc)
-5. <callout> blocks are instructions for AI
-6. Embed at least one <callout> block per stage; use additional <callout> blocks whenever helpful.
-7. A <callout> block is text the learner will copy-paste to the AI assistant they are coding with.
-8. Use <callout> blocks for code generation, environment setup (e.g., creating virtual envs, installing packages), troubleshooting, or asking the assistant clarifying questions.
+Create interactive TO-DO items for users:
+```html
+<checkable-item title="Run this prompt in chat">
+Additional instructions that will be displayed after the block
+</checkable-item>
+```
 
----
+Interactive lists with the same functionality:
+```html
+<ul interactive>
+  <li title="Run this prompt in chat">
+    First item instructions
+  </li>
+  <li title="Second item">
+    Second item instructions
+  </li>
+</ul>
+```
 
-## 6. Education quality
+### Warning Blocks for Critical Information
 
-1. Apply best practices in instructional design (clear objectives, incremental difficulty, active recall, feedback loops).
-2. Ensure each stage culminates in a tangible coding outcome the learner can run or observe.
+Use <warning> tags to highlight exceptionally important or critical details:
+```html
+<warning>This action cannot be undone!</warning>
+```
 
----
+### Templates for Reusable Content
 
-**Follow these rules strictly** whenever you generate, review, or modify course content.  Consistency ensures every learner enjoys a predictable, high-quality experience inside Cursor IDE.
+Use templates to include content from the /templates folder:
+- Templates typically contain instructions for setting up IDE or environment
+- Always check if there are templates that solve your specific task
+- Reference templates by name WITHOUT the .html extension
+
+Correct template usage:
+```html
+<content-template name="junie_attach_files"/>
+```
+
+Incorrect template usage:
+```html
+<content-template name="junie_attach_files.html"/>
+```
 
 ---
 > Source: [hyperskill/enlighter-content](https://github.com/hyperskill/enlighter-content) — distributed by [TomeVault](https://tomevault.io).
