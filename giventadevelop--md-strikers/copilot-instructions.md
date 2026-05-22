@@ -1,290 +1,321 @@
-## numerical-value-display
+## pagination-footer-styling
 
-> Standards for displaying numerical and currency values with consistent decimal places
+> Standard pagination footer styling pattern with Previous/Next buttons and page information display
 
 
-# Numerical & Currency Value Display Standards
+# Pagination Footer Styling Pattern
 
 ## **Overview**
-This rule defines the standard pattern for displaying numerical and currency values across the application, ensuring consistent decimal place formatting (e.g., `$0.80` instead of `$0.8`, `$10.00` instead of `$10`).
+This rule defines the standard pattern for pagination footer controls used across admin pages and list components. The pattern includes Previous/Next navigation buttons, page information display, and item count text, all styled consistently with the admin interface design system.
 
 ## **Problem Solved**
-- **Consistent Currency Display**: Ensures all currency values display with exactly 2 decimal places
-- **Professional Presentation**: Prevents confusion from inconsistent decimal formatting
-- **User Experience**: Users see consistent, professional monetary values throughout the application
+- **Consistent Pagination UI**: Ensures all pagination footers use the same visual pattern
+- **Button Styling**: Standardized Previous/Next button appearance with hover effects
+- **Page Information Display**: Consistent page number and item count presentation
+- **Accessibility**: Proper ARIA labels and disabled states
+- **Responsive Design**: Works across different screen sizes
 
-## **Core Rule**
+## **Core Pattern**
 
-### **Currency Display Standard**
-- **Rule:** Always display currency values with exactly 2 decimal places.
-- **Purpose:** Ensures consistent and professional presentation of monetary values.
-- **Implementation:** Use `Intl.NumberFormat` with `minimumFractionDigits: 2` and `maximumFractionDigits: 2`.
-
-## **Currency Formatting Function**
-
-### **Standard Implementation**
-```typescript
-// ✅ DO: Format currency to 2 decimal places
-const formatCurrency = (amount: number, currency: string = 'USD') => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,  // Always show 2 decimal places
-    maximumFractionDigits: 2,  // Never show more than 2
-  }).format(amount);
-};
-
-// Examples:
-formatCurrency(0.8, 'USD');   // Returns: "$0.80"
-formatCurrency(10, 'USD');     // Returns: "$10.00"
-formatCurrency(99.9, 'USD');   // Returns: "$99.90"
-formatCurrency(100.5, 'USD');  // Returns: "$100.50"
-```
-
-### **Common Usage Patterns**
-
-#### **Display Price in Cards/Tables**
+### **Pagination Container**
 ```tsx
-// ✅ DO: Use formatCurrency for all price displays
-<span className="text-4xl font-bold">
-  {formatCurrency(plan.price, plan.currency)}
-</span>
-
-// ❌ DON'T: Display raw price value
-<span className="text-4xl font-bold">
-  ${plan.price}  // May show "$0.8" instead of "$0.80"
-</span>
+// ✅ DO: Use the standard pagination footer container
+<div className="mt-8">
+  <div className="flex justify-between items-center">
+    {/* Previous Button */}
+    {/* Page Info */}
+    {/* Next Button */}
+  </div>
+  <div className="text-center mt-3">
+    {/* Item Count Text */}
+  </div>
+</div>
 ```
 
-#### **Price Input Field Formatting**
+### **Previous/Next Button Structure**
 ```tsx
-// ✅ DO: Format price input display value
-const [displayPrice, setDisplayPrice] = useState<string>('');
-
-useEffect(() => {
-  if (formData.price !== undefined && formData.price !== null) {
-    setDisplayPrice(formData.price.toFixed(2));
-  }
-}, [formData.price]);
-
-<input
-  type="number"
-  name="price"
-  value={displayPrice}
-  onChange={(e) => {
-    const numValue = parseFloat(e.target.value) || 0;
-    handleChange({ target: { name: 'price', value: numValue } });
-  }}
-  onBlur={(e) => {
-    const numValue = parseFloat(e.target.value) || 0;
-    setDisplayPrice(numValue.toFixed(2)); // Format to 2 decimal places on blur
-  }}
-  step="0.01"
-  placeholder="0.00"
-/>
+// ✅ DO: Use the standard pagination button pattern
+<button
+  onClick={onPrevPage}
+  disabled={isPrevDisabled}
+  className="px-5 py-2.5 bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold rounded-lg shadow-sm border-2 border-blue-400 hover:border-blue-500 disabled:bg-blue-100 disabled:border-blue-300 disabled:text-blue-500 disabled:cursor-not-allowed flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-md"
+  title="Previous Page"
+  aria-label="Previous Page"
+  type="button"
+>
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+  </svg>
+  <span>Previous</span>
+</button>
 ```
 
-#### **Display Price Values in Tables**
+## **Key CSS Properties**
+
+### **Pagination Container Requirements**
+- **`mt-8`**: Top margin (32px) for spacing above pagination
+- **`flex justify-between items-center`**: Horizontal layout with buttons on sides, page info in center
+- **`text-center mt-3`**: Centered item count text with spacing (12px)
+
+### **Button Requirements**
+- **`px-5 py-2.5`**: Padding (20px horizontal, 10px vertical)
+- **`bg-blue-100`**: Light blue background
+- **`hover:bg-blue-200`**: Darker blue on hover
+- **`text-blue-700`**: Dark blue text color
+- **`font-semibold`**: Bold text weight
+- **`rounded-lg`**: Large border radius (8px)
+- **`shadow-sm`**: Small shadow for depth
+- **`border-2 border-blue-400`**: 2px border with medium blue color
+- **`hover:border-blue-500`**: Darker border on hover
+- **`disabled:bg-blue-100 disabled:border-blue-300 disabled:text-blue-500 disabled:cursor-not-allowed`**: Disabled state styling
+- **`flex items-center gap-2`**: Flex layout with icon and text, 8px gap
+- **`transition-all duration-300`**: Smooth transitions
+- **`hover:scale-105`**: 5% scale increase on hover
+- **`hover:shadow-md`**: Medium shadow on hover
+
+### **Page Info Display Requirements**
+- **`px-4 py-2`**: Padding (16px horizontal, 8px vertical)
+- **`bg-blue-50`**: Very light blue background
+- **`border-2 border-blue-300`**: 2px border with light blue color
+- **`rounded-lg`**: Large border radius (8px)
+- **`shadow-sm`**: Small shadow
+- **`text-sm font-bold text-blue-700`**: Small, bold, dark blue text
+- **`text-blue-600`**: Medium blue for page numbers
+
+### **Item Count Text Requirements**
+- **`inline-flex items-center`**: Inline flex layout
+- **`px-4 py-2`**: Padding (16px horizontal, 8px vertical)
+- **`bg-blue-50`**: Very light blue background
+- **`border-2 border-blue-300`**: 2px border with light blue color
+- **`rounded-lg`**: Large border radius (8px)
+- **`shadow-sm`**: Small shadow
+- **`text-sm text-gray-700`**: Small, gray text
+- **`font-bold text-blue-600`**: Bold, medium blue for numbers
+
+## **Icon Specifications**
+
+### **Previous Button Icon (Left Arrow)**
 ```tsx
-// ✅ DO: Format price for display in tables
-<td>
-  {new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: plan.currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(plan.price)}
-</td>
-
-// ❌ DON'T: Display raw price value
-<td>${plan.price}</td>  // May show "$0.8" instead of "$0.80"
+<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+</svg>
 ```
+- **Size**: `w-5 h-5` (20px × 20px)
+- **Stroke Width**: `2.5` (thicker for visibility)
+- **Color**: Inherits from button text color (`text-blue-700`)
 
-## **Non-Currency Numerical Values**
-
-### **Decimal Numbers (Percentages, Rates, etc.)**
-For non-currency numerical values that require decimal precision:
-
-```typescript
-// ✅ DO: Use appropriate decimal places for context
-const formatPercentage = (value: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'percent',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(value / 100);
-};
-
-// Examples:
-formatPercentage(85.5);  // Returns: "85.50%"
-formatPercentage(100);   // Returns: "100.00%"
-```
-
-### **Whole Numbers (Counts, Quantities)**
-For whole numbers that don't require decimal places:
-
-```typescript
-// ✅ DO: Use no decimal places for counts
-const formatCount = (count: number) => {
-  return new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(count);
-};
-
-// Examples:
-formatCount(10);   // Returns: "10"
-formatCount(1000); // Returns: "1,000"
-```
-
-## **Input Field Best Practices**
-
-### **Price Input Fields**
-- **Display Value**: Use string state to allow free typing (e.g., `displayPrice: "0.80"`)
-- **Numeric Value**: Store actual numeric value separately (e.g., `formData.price: 0.8`)
-- **On Blur Formatting**: Format to 2 decimal places when user leaves the field
-- **Step Attribute**: Use `step="0.01"` for price inputs
-- **Zero Prefix Validation**: Automatically prefix decimal values starting with `.` with `0` (e.g., `.70` becomes `0.70`)
-
+### **Next Button Icon (Right Arrow)**
 ```tsx
-// ✅ DO: Format price input with 2 decimal places and zero prefix validation
-const [displayPrice, setDisplayPrice] = useState<string>('');
+<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+</svg>
+```
+- **Size**: `w-5 h-5` (20px × 20px)
+- **Stroke Width**: `2.5` (thicker for visibility)
+- **Color**: Inherits from button text color (`text-blue-700`)
 
-useEffect(() => {
-  if (editingItem) {
-    setDisplayPrice(editingItem.price ? editingItem.price.toFixed(2) : '0.00');
-  } else {
-    setDisplayPrice('');
-  }
-}, [editingItem]);
+## **Complete Example**
 
-<input
-  type="text"
-  name="price"
-  inputMode="decimal"
-  value={displayPrice}
-  onChange={(e) => {
-    const inputValue = e.target.value;
+### **Full Pagination Footer**
+```tsx
+{/* Pagination Controls - Always visible, matching admin page style */}
+<div className="mt-8">
+  <div className="flex justify-between items-center">
+    {/* Previous Button */}
+    <button
+      onClick={onPrevPage}
+      disabled={isPrevDisabled}
+      className="px-5 py-2.5 bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold rounded-lg shadow-sm border-2 border-blue-400 hover:border-blue-500 disabled:bg-blue-100 disabled:border-blue-300 disabled:text-blue-500 disabled:cursor-not-allowed flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-md"
+      title="Previous Page"
+      aria-label="Previous Page"
+      type="button"
+    >
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+      </svg>
+      <span>Previous</span>
+    </button>
 
-    // Update display value immediately to allow free typing
-    setDisplayPrice(inputValue);
+    {/* Page Info */}
+    <div className="px-4 py-2 bg-blue-50 border-2 border-blue-300 rounded-lg shadow-sm">
+      <span className="text-sm font-bold text-blue-700">
+        Page <span className="text-blue-600">{displayPage}</span> of <span className="text-blue-600">{totalPages}</span>
+      </span>
+    </div>
 
-    // CRITICAL: If value starts with a decimal point (e.g., ".70"), prefix with "0"
-    let processedValue = inputValue;
-    if (inputValue.startsWith('.')) {
-      processedValue = '0' + inputValue;
-      setDisplayPrice(processedValue);
-    }
+    {/* Next Button */}
+    <button
+      onClick={onNextPage}
+      disabled={isNextDisabled}
+      className="px-5 py-2.5 bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold rounded-lg shadow-sm border-2 border-blue-400 hover:border-blue-500 disabled:bg-blue-100 disabled:border-blue-300 disabled:text-blue-500 disabled:cursor-not-allowed flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:shadow-md"
+      title="Next Page"
+      aria-label="Next Page"
+      type="button"
+    >
+      <span>Next</span>
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
 
-    // Parse and update formData with numeric value
-    if (inputValue === '' || inputValue === '.') {
-      setFormData(prev => ({ ...prev, price: 0 }));
-    } else {
-      const numValue = parseFloat(processedValue);
-      if (!isNaN(numValue)) {
-        setFormData(prev => ({ ...prev, price: numValue }));
-      } else {
-        setFormData(prev => ({ ...prev, price: 0 }));
-      }
-    }
-  }}
-  onBlur={(e) => {
-    // Ensure decimal values are properly formatted on blur
-    const value = e.target.value;
-    let finalValue = value;
-
-    if (value && value.startsWith('.')) {
-      finalValue = '0' + value;
-    }
-
-    const numValue = parseFloat(finalValue) || 0;
-    setFormData(prev => ({ ...prev, price: numValue }));
-    setDisplayPrice(numValue.toFixed(2));
-  }}
-  className="mt-1 block w-full border border-gray-400 rounded-xl focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-base"
-  pattern="[0-9]*\.?[0-9]*"
-  placeholder="0.00"
-  required
-/>
+  {/* Item Count Text */}
+  <div className="text-center mt-3">
+    {totalCount > 0 ? (
+      <div className="inline-flex items-center px-4 py-2 bg-blue-50 border-2 border-blue-300 rounded-lg shadow-sm">
+        <span className="text-sm text-gray-700">
+          Showing <span className="font-bold text-blue-600">{startItem}</span> to <span className="font-bold text-blue-600">{endItem}</span> of <span className="font-bold text-blue-600">{totalCount}</span> events
+        </span>
+      </div>
+    ) : (
+      <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border-2 border-orange-300 rounded-lg shadow-sm">
+        <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span className="text-sm font-medium text-orange-700">No events found</span>
+        <span className="text-sm text-orange-600">[No events match your criteria]</span>
+      </div>
+    )}
+  </div>
+</div>
 ```
 
-### **Zero Prefix Validation Rule**
-- **Requirement**: When a user types a decimal value starting with `.` (e.g., `.70`), automatically prefix it with `0` to become `0.70`
-- **Purpose**: Prevents invalid decimal input and ensures consistent formatting
-- **Implementation**: Check `inputValue.startsWith('.')` in the `onChange` handler and prefix with `'0'`
-- **User Experience**: Provides immediate visual feedback by updating the display value as the user types
+## **Disabled State Handling**
 
-**Example Behavior**:
-- User types `.70` → Automatically becomes `0.70` ✅
-- User types `.5` → Automatically becomes `0.5` ✅
-- User types `10.50` → Remains `10.50` ✅
-- User types `0.70` → Remains `0.70` ✅
+### **Button Disabled Logic**
+```tsx
+// Calculate disabled states
+const totalPages = Math.ceil(totalCount / pageSize) || 1;
+const isPrevDisabled = currentPageZeroBased === 0 || loading;
+const isNextDisabled = currentPageZeroBased >= totalPages - 1 || loading;
+```
 
-## **Common Anti-Patterns**
+### **Disabled State Styling**
+- **Background**: `disabled:bg-blue-100` (same as normal, no hover change)
+- **Border**: `disabled:border-blue-300` (lighter border)
+- **Text**: `disabled:text-blue-500` (lighter text)
+- **Cursor**: `disabled:cursor-not-allowed` (not-allowed cursor)
+- **Hover Effects**: Disabled automatically by browser (no scale, no shadow change)
 
-```typescript
-// ❌ DON'T: Use minimumFractionDigits: 0 for currency
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,  // WRONG: Will show "$0.8" instead of "$0.80"
-    maximumFractionDigits: 2,
-  }).format(price);
-};
+## **Page Number Calculation**
 
-// ❌ DON'T: Display raw price values
-<span>${plan.price}</span>  // May show "$0.8" instead of "$0.80"
+### **Zero-Based vs One-Based Indexing**
+```tsx
+// EventList uses 1-based page indexing by default, but manage-events uses 0-based
+// Convert to 0-based for calculations if page is 0 (indicating 0-based indexing)
+const isZeroBased = page === 0;
+const currentPageZeroBased = isZeroBased ? page : page - 1;
+const displayPage = isZeroBased ? page + 1 : page; // Display as 1-based
 
-// ❌ DON'T: Use toFixed() without Intl.NumberFormat for currency
-<span>${plan.price.toFixed(2)}</span>  // Works but doesn't handle currency symbols/locale
+const totalPages = Math.ceil(totalCount / pageSize) || 1;
+const startItem = totalCount > 0 ? currentPageZeroBased * pageSize + 1 : 0;
+const endItem = totalCount > 0 ? currentPageZeroBased * pageSize + Math.min(pageSize, totalCount - currentPageZeroBased * pageSize) : 0;
+```
+
+## **Empty State Pattern**
+
+### **No Items Found Display**
+```tsx
+<div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border-2 border-orange-300 rounded-lg shadow-sm">
+  <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span className="text-sm font-medium text-orange-700">No events found</span>
+  <span className="text-sm text-orange-600">[No events match your criteria]</span>
+</div>
+```
+
+- **Background**: `bg-orange-50` (light orange for warning/empty state)
+- **Border**: `border-2 border-orange-300` (orange border)
+- **Icon**: Info icon in orange (`text-orange-500`)
+- **Text**: Orange text colors (`text-orange-700`, `text-orange-600`)
+
+## **Accessibility Requirements**
+
+### **Required Attributes**
+- **`title`**: Tooltip text for hover state
+- **`aria-label`**: Screen reader accessible label (should match button text)
+- **`type="button"`**: Explicit button type
+- **`disabled`**: Proper disabled state handling
+
+### **Example with Accessibility**
+```tsx
+<button
+  onClick={onPrevPage}
+  disabled={isPrevDisabled}
+  className="..."
+  title="Previous Page"
+  aria-label="Previous Page"
+  type="button"
+>
+  {/* Button content */}
+</button>
 ```
 
 ## **Best Practices**
 
 ### **DO:**
-- ✅ Always use `minimumFractionDigits: 2` and `maximumFractionDigits: 2` for currency
-- ✅ Use `Intl.NumberFormat` for all currency displays
-- ✅ Format price inputs to 2 decimal places on blur
-- ✅ Use `step="0.01"` for price input fields (or `type="text"` with `inputMode="decimal"`)
-- ✅ Store display value as string, numeric value as number
-- ✅ Use `toFixed(2)` for initializing display values from numeric data
-- ✅ **Automatically prefix decimal values starting with `.` with `0`** (e.g., `.70` → `0.70`)
-- ✅ Check `inputValue.startsWith('.')` in `onChange` handler and prefix with `'0'`
+- ✅ Use consistent button styling: `px-5 py-2.5 bg-blue-100 hover:bg-blue-200 text-blue-700`
+- ✅ Always include `title` and `aria-label` attributes
+- ✅ Use `border-2` for visible borders
+- ✅ Include hover effects: `hover:scale-105 hover:shadow-md`
+- ✅ Use `disabled:` variants for disabled states
+- ✅ Display page numbers in medium blue (`text-blue-600`)
+- ✅ Use `inline-flex` for item count text container
+- ✅ Include empty state with orange styling when no items
 
 ### **DON'T:**
-- ❌ Use `minimumFractionDigits: 0` for currency values
-- ❌ Display raw price values without formatting
-- ❌ Mix different decimal place standards across the application
-- ❌ Use `toFixed()` alone for currency (use `Intl.NumberFormat` instead)
-- ❌ Skip formatting for "whole dollar" amounts (always show 2 decimal places)
-- ❌ **Allow decimal values starting with `.` without zero prefix** (e.g., `.70` ❌ should be `0.70` ✅)
+- ❌ Mix different button styles on the same page
+- ❌ Skip accessibility attributes (`title`, `aria-label`)
+- ❌ Use different border widths (always use `border-2`)
+- ❌ Omit hover effects
+- ❌ Use different color schemes for pagination
+- ❌ Skip disabled state styling
+- ❌ Use different spacing values
 
-## **Reference Implementations**
+## **Color Reference Table**
 
-- **Membership Page**: [`src/app/membership/MembershipClient.tsx`](mdc:src/app/membership/MembershipClient.tsx) - `formatPrice` function
-- **Membership Plan Form**: [`src/components/admin/membership/MembershipPlanForm.tsx`](mdc:src/components/admin/membership/MembershipPlanForm.tsx) - Price input formatting with zero prefix validation
-- **Ticket Type List**: [`src/app/admin/events/[id]/ticket-types/list/TicketTypeListClient.tsx`](mdc:src/app/admin/events/[id]/ticket-types/list/TicketTypeListClient.tsx) - Price input with zero prefix validation
-- **Membership Plan List**: [`src/components/admin/membership/MembershipPlanList.tsx`](mdc:src/components/admin/membership/MembershipPlanList.tsx) - Price display in table
-- **Currency Formatting Helper**: [`src/lib/payments/localization.ts`](mdc:src/lib/payments/localization.ts) - `formatCurrency` utility (if available)
+| Element | Background | Border | Text | Hover Background | Hover Border |
+|----|----|----|----|----|----|
+| Button (Normal) | `bg-blue-100` | `border-blue-400` | `text-blue-700` | `hover:bg-blue-200` | `hover:border-blue-500` |
+| Button (Disabled) | `bg-blue-100` | `border-blue-300` | `text-blue-500` | — | — |
+| Page Info | `bg-blue-50` | `border-blue-300` | `text-blue-700` | — | — |
+| Item Count | `bg-blue-50` | `border-blue-300` | `text-gray-700` | — | — |
+| Empty State | `bg-orange-50` | `border-orange-300` | `text-orange-700` | — | — |
 
-## **Summary**
+## **Reference Implementation**
 
-**Key Rules**:
-1. **Currency Display**: Always display currency values with exactly 2 decimal places using `Intl.NumberFormat` with `minimumFractionDigits: 2` and `maximumFractionDigits: 2`.
-2. **Zero Prefix Validation**: Automatically prefix decimal values starting with `.` with `0` in input fields (e.g., `.70` → `0.70`).
+- **EventList Component**: [`src/components/EventList.tsx`](mdc:src/components/EventList.tsx) - Lines 601-653
+- **Manage Events Page**: [`src/app/admin/manage-events/page.tsx`](mdc:src/app/admin/manage-events/page.tsx) - Uses EventList with pagination
 
-**Display Examples**:
-- `$0.80` ✅ (not `$0.8` ❌)
-- `$10.00` ✅ (not `$10` ❌)
-- `$99.90` ✅ (not `$99.9` ❌)
+## **Troubleshooting**
 
-**Input Validation Examples**:
-- User types `.70` → Automatically becomes `0.70` ✅
-- User types `.5` → Automatically becomes `0.5` ✅
-- User types `10.50` → Remains `10.50` ✅
+### **Buttons Not Scaling on Hover?**
+- Check that `hover:scale-105` is included
+- Verify `transition-all duration-300` is present
+- Ensure parent container doesn't have `overflow-hidden` that clips the scale
 
-This ensures consistent, professional presentation of monetary values throughout the application and prevents invalid decimal input.
+### **Disabled State Not Working?**
+- Verify `disabled` prop is set correctly
+- Check that `disabled:` variants are included in className
+- Ensure disabled state logic calculates correctly
+
+### **Page Numbers Not Displaying?**
+- Verify page calculation logic (zero-based vs one-based)
+- Check that `displayPage` and `totalPages` are calculated correctly
+- Ensure `totalCount` and `pageSize` are provided
+
+### **Item Count Text Not Centered?**
+- Verify `text-center` is on the container div
+- Check that `inline-flex` is used for the item count box
+- Ensure parent container has proper width
+
+## **Related Patterns**
+
+- See [Admin Action Buttons](mdc:.cursor/rules/admin_action_buttons.mdc) for button styling patterns
+- See [Icon Standards](mdc:.cursor/rules/icon_standards.mdc) for icon sizing and styling
+- See [MOSC Styling Standards](mdc:.cursor/rules/mosc_styling_standards.mdc) for overall design system
+- See [`src/components/EventList.tsx`](mdc:src/components/EventList.tsx) for complete implementation
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
