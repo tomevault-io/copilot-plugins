@@ -1,64 +1,198 @@
-## zenmark-editor
+## avoid-over-abstraction
 
-> 1. 假设你是ceo+cto(架构师)+产品经理的综合体，从这个角度来思考所有问题
-
-1. 假设你是ceo+cto(架构师)+产品经理的综合体，从这个角度来思考所有问题
-2. 不要管开发代价，永远只考虑最终最佳方案，反正都是你来开发
-3. 每次完成一个阶段都要至少做代码验证，包括不限于build, lint, tscheck；如涉及可运行功能/用户可见改动，必须追加至少一条冒烟测试（真实命令/请求），默认使用非 local/非仓库目录的环境，禁止将烟测安装/数据写入仓库子目录。
-4. 涉及后端或数据库变更的发布必须执行远程 migration，并对关键 API 做线上冒烟验证后才算阶段完成
-5. 任何“发布/上线”必须形成闭环：migrations apply -> deploy -> 线上冒烟验证；缺一不可，否则视为未完成
-6. 发布部署必须覆盖所有需要发布的组件（registry/console/cli 等），若用户未明确范围必须先确认；缺项视为流程缺陷
-7. 若用户明确要求“直接发布/不做选择”，默认执行全量发布闭环（覆盖所有本次变更涉及的组件），不得再次要求用户决策
-8. NPM 包发布流程详见 `docs/workflows/npm-release-process.md`，必须遵循
-9. 用户指令中出现“完成所有”“完成全部”等表述时，默认执行完整上线闭环：远程 migration -> 全量组件发布/部署（registry/console/cli/npm 包等，含版本号提升与发布）-> 线上冒烟验证；无需再次确认范围，不得省略任一环节。
-
----
-负面清单
-- 同一个功能，逻辑不应该多次实现。唯一性。
-- UI 组件禁止依赖业务逻辑
-
----
-不急，接下来我们采取一种面向未来的逆天超级快节奏的开发方式。
+> Avoid Over-Abstraction - Keep Things Simple and Practical
 
 
-## 迭代制度（docs/logs）
+# 避免过度抽象原则
 
-- 每个迭代在 `docs/logs` 下新增一个目录
-- 目录内按版本号建立子目录，命名为 `v0.0.1-版本的slug`（语义化）
-- 每个版本目录至少包含：
-  - 迭代完成说明（改了什么）
-  - 测试/验证/验收方式
-  - 发布/部署方式
-- 可选文档：PRD、讨论记录等
+## 核心思想
 
-## 指令/Command 机制
+**简单的东西不需要抽象，复杂的东西才需要抽象。**
 
-- 新增指令统一记录在 `commands/commands.md`，并在此处索引
-- 约定元指令：输入 `/new-command` 触发创建新指令流程
-- 指令文件结构：每条指令包含名称、用途、输入格式、输出/期望行为
-- 后续新增或修改指令时，更新 `commands/commands.md` 并保持此处索引最新
-- 已有指令：
-  - `/new-command`：创建新指令
-  - `/config-meta`：调整或更新本文件（AGENTS.md）的机制/元信息
-  - `/commit`：进行提交操作（提交信息需使用英文）
-  - `/validate`：运行项目验证，至少包含 `build`、`lint`、`tsc`，必要时冒烟测试
+过度抽象会带来：
+- 增加认知负担
+- 降低代码可读性
+- 增加维护成本
+- 降低开发效率
+- 过度工程化
 
-## 规则/Rule 机制
+## 抽象决策原则
 
-- 规则直接维护在本文件末尾的 **Rulebook** 区域
-- 约定元指令：输入 `/new-rule` 触发创建新规则流程
-- 规则条目包含：名称（英文 kebab-case）、约束/适用范围、示例/反例、执行方式（工具/流程）、维护责任人
-- 后续新增或修改规则时，直接在本文件的 **Rulebook** 区域追加/更新
-- 默认所有规则必须严格遵守（无额外声明即视为强制）；如需例外必须在规则中明确说明
+### ✅ **需要抽象的情况**
+1. **重复次数 ≥ 3**: 同样的模式出现3次以上
+2. **复杂度高**: 逻辑复杂，值得封装
+3. **变化频繁**: 经常需要修改和扩展
+4. **业务价值**: 抽象后能带来明显的业务价值
+5. **团队协作**: 多人使用，需要统一接口
 
-## Rulebook
+### ❌ **不需要抽象的情况**
+1. **简单重复**: 只是简单的样式或结构重复
+2. **一次性使用**: 只在特定场景使用
+3. **过度设计**: 为了抽象而抽象
+4. **灵活性差**: 抽象后反而限制了使用场景
+5. **认知负担**: 抽象后更难理解
 
-- **post-dev-stage-validation**：每个开发阶段结束必须做验证，至少运行 `build`、`lint`、`tsc`（如确认为无关可有理由地省略），如条件允许应做基础冒烟测试。
-- **no-self-commit-without-request**：除非用户明确要求，否则禁止擅自提交/推送代码。
-- **use-chinese-when-communicating**：与用户交流时使用中文。
-- **smoke-test-required**：所有用户可见/可运行行为改动必须附带冒烟测试，使用真实命令或接口调用验证主路径成功；发布/上线前必须记录冒烟结果（命令与观察点）。执行方式：按组件选择对应 CLI/API/UI 最小可行流程；责任人：当次交付 owner。
-- **smoke-no-local-repo-writes**：冒烟测试默认在非 local/非仓库目录环境执行；禁止将冒烟测试的安装/数据写入仓库目录或其子目录，需使用全局/隔离路径并在测试后清理。执行方式：优先 global scope 或临时目录；责任人：当次交付 owner。
-- **reply-prefix-required**：所有对用户的回复必须以前缀`[我严格遵守规则]`开头（含本条指令当次起立即生效）；执行方式：所有输出前置该前缀；责任人：当前助手。
+## 抽象层次控制
+
+### 🎯 **抽象层次原则**
+1. **最多2层抽象**: 避免过深的抽象层次
+2. **单一职责**: 每个抽象只做一件事
+3. **简单接口**: 接口要简单明了
+4. **灵活配置**: 提供合理的配置选项
+5. **易于理解**: 新同事能快速理解
+
+### 📊 **抽象复杂度评估**
+```typescript
+// ❌ 过度抽象 - 为了抽象而抽象
+interface ButtonConfig {
+  variant: 'primary' | 'secondary' | 'tertiary';
+  size: 'sm' | 'md' | 'lg';
+  state: 'normal' | 'loading' | 'disabled';
+  icon?: ReactNode;
+  onClick?: () => void;
+  className?: string;
+  style?: CSSProperties;
+  // ... 20+ 个配置项
+}
+
+// ✅ 适度抽象 - 只抽象必要的部分
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  onClick?: () => void;
+  children: ReactNode;
+}
+```
+
+## 具体判断标准
+
+### 🔍 **重复模式判断**
+```typescript
+// ❌ 不需要抽象 - 只是简单的样式重复
+<div className="flex items-center gap-2">
+  <Icon />
+  <Text />
+</div>
+
+// ✅ 需要抽象 - 复杂的逻辑重复
+const handleFormSubmit = (data) => {
+  validate(data);
+  transform(data);
+  submit(data);
+  showSuccess();
+};
+```
+
+### 🎨 **UI组件抽象判断**
+```typescript
+// ❌ 过度抽象 - 简单的布局不需要抽象
+<FlexGroup direction="row" align="center" gap="2">
+  <Button>Save</Button>
+  <Button>Cancel</Button>
+</FlexGroup>
+
+// ✅ 简单直接 - 保持原有的简单性
+<div className="flex items-center gap-2">
+  <Button>Save</Button>
+  <Button>Cancel</Button>
+</div>
+```
+
+### 🔧 **工具函数抽象判断**
+```typescript
+// ❌ 过度抽象 - 简单的工具函数
+const formatDate = (date: Date) => date.toISOString().split('T')[0];
+
+// ✅ 适度抽象 - 复杂的工具函数
+const formatDate = (date: Date, format: 'short' | 'long' | 'relative') => {
+  // 复杂的格式化逻辑
+};
+```
+
+## 重构指导
+
+### 1. **识别过度抽象**
+- 组件使用率低（< 3次）
+- 配置项过多（> 5个）
+- 抽象层次过深（> 2层）
+- 理解成本高
+- 维护成本高
+
+### 2. **简化抽象**
+- 减少配置项
+- 降低抽象层次
+- 简化接口设计
+- 提高可读性
+
+### 3. **移除抽象**
+- 直接内联简单逻辑
+- 删除未使用的抽象
+- 恢复原始实现
+- 保持代码简单
+
+## 最佳实践
+
+### ✅ **好的抽象**
+```typescript
+// 简单、清晰、实用
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+}
+
+// 复杂逻辑的合理抽象
+const useApi = <T>(url: string) => {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  // 复杂的API逻辑
+  return { data, loading, error, refetch };
+};
+```
+
+### ❌ **坏的抽象**
+```typescript
+// 过度复杂，难以理解
+interface UniversalComponentProps {
+  type: 'button' | 'input' | 'select' | 'textarea';
+  variant: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'outline';
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  state: 'normal' | 'loading' | 'disabled' | 'error' | 'success';
+  // ... 50+ 个配置项
+}
+
+// 为了抽象而抽象
+const createWrapper = (Component: any) => (props: any) => (
+  <div className="wrapper">
+    <Component {...props} />
+  </div>
+);
+```
+
+## 代码审查检查点
+
+### 🤔 **审查问题**
+1. **这个抽象真的必要吗？**
+2. **使用频率是否足够高？**
+3. **抽象层次是否过深？**
+4. **配置项是否过多？**
+5. **新同事能快速理解吗？**
+6. **维护成本是否合理？**
+
+### 📝 **重构建议**
+- 如果使用频率 < 3次，考虑内联
+- 如果配置项 > 5个，考虑拆分
+- 如果抽象层次 > 2层，考虑简化
+- 如果理解成本高，考虑重写
+- 如果维护成本高，考虑删除
+
+## 总结
+
+**记住**: 好的代码是简单、清晰、实用的。不要为了抽象而抽象，要为了解决问题而抽象。简单的东西保持简单，复杂的东西才需要抽象。
+
+**原则**: 能简单就简单，能直接就直接，能内联就内联。抽象是为了解决问题，不是为了展示技术。
 
 ---
 > Source: [Peiiii/zenmark-editor](https://github.com/Peiiii/zenmark-editor) — distributed by [TomeVault](https://tomevault.io).
