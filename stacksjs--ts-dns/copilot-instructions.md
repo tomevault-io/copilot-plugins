@@ -1,0 +1,35 @@
+## ts-dns
+
+> A dependency-free, minimal DNS client for TypeScript, usable both as a CLI and a library. It supports querying any DNS record type (A, AAAA, MX, TXT, NS, etc.) over multiple transport protocols (UDP, TCP, DNS-over-TLS, DNS-over-HTTPS). The CLI provides colorized output with optional JSON format, short output mode, and EDNS support. The library exposes a `DnsClient` class that accepts domain, record type, nameserver, and transport configuration.
+
+# Claude Code Guidelines
+
+## About
+
+A dependency-free, minimal DNS client for TypeScript, usable both as a CLI and a library. It supports querying any DNS record type (A, AAAA, MX, TXT, NS, etc.) over multiple transport protocols (UDP, TCP, DNS-over-TLS, DNS-over-HTTPS). The CLI provides colorized output with optional JSON format, short output mode, and EDNS support. The library exposes a `DnsClient` class that accepts domain, record type, nameserver, and transport configuration.
+
+## Linting
+
+- Use **pickier** for linting — never use eslint directly
+- Run `bunx --bun pickier .` to lint, `bunx --bun pickier . --fix` to auto-fix
+- When fixing unused variable warnings, prefer `// eslint-disable-next-line` comments over prefixing with `_`
+
+## Frontend
+
+- Use **stx** for templating — never write vanilla JS (`var`, `document.*`, `window.*`) in stx templates
+- Use **crosswind** as the default CSS framework which enables standard Tailwind-like utility classes
+- stx `<script>` tags should only contain stx-compatible code (signals, composables, directives)
+
+## Dependencies
+
+- **buddy-bot** handles dependency updates — not renovatebot
+- **better-dx** provides shared dev tooling as peer dependencies — do not install its peers (e.g., `typescript`, `pickier`, `bun-plugin-dtsx`) separately if `better-dx` is already in `package.json`
+- If `better-dx` is in `package.json`, ensure `bunfig.toml` includes `linker = "hoisted"`
+
+## Commits
+
+- Use conventional commit messages (e.g., `fix:`, `feat:`, `chore:`)
+
+---
+> Source: [stacksjs/ts-dns](https://github.com/stacksjs/ts-dns) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
