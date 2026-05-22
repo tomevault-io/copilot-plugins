@@ -1,0 +1,9 @@
+{
+  "name": "eduardocruz--phpx",
+  "displayName": "phpx",
+  "description": "PHPX is a PHP CLI that executes AI focused MCP servers writter in PHP and composer packages.",
+  "version": "1.0.0",
+  "author": "eduardocruz",
+  "homepage": "https://github.com/eduardocruz/phpx",
+  "skills": []
+}
