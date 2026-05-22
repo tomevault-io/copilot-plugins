@@ -1,162 +1,231 @@
-## react-hooks-infinite-loop-prevention
+## react-patterns
 
-> // ❌ WRONG - Object/Function in dependency array
+> - **ALWAYS** use functional components with hooks
 
-# React Hooks Infinite Loop Prevention Rules
+# React Patterns & Functional Programming (MANDATORY)
 
-## 🚨 Critical Anti-Patterns to Avoid
+## ⚛️ **Component Structure (MUST FOLLOW)**
 
-### 1. **Dependency Array Issues**
+- **ALWAYS** use functional components with hooks
+- **NEVER** use class components
+- **MUST** use `React.FC<Props>` type annotation for components
+- **ALWAYS** destructure props in function parameters
 
 ```typescript
-// ❌ WRONG - Object/Function in dependency array
-useEffect(() => {
-    // effect logic
-}, [someObject, someFunction, { key: 'value' }]);
+// ✅ CORRECT - Functional component with proper typing
+export const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
+    initialTitle = '',
+    initialContent = '',
+    action,
+    ...props
+}) => {
+    // Component logic
+};
 
-// ✅ CORRECT - Primitive values only
-useEffect(() => {
-    // effect logic
-}, [primitiveValue, stableReference]);
+// ❌ WRONG - Class component or improper typing
+export class MarkdownEditor extends React.Component { ... }
 ```
 
-### 2. **State Updates in useEffect**
+## 🎯 **State Management (CRITICAL)**
+
+- **ALWAYS** use `useState` for local component state
+- **ALWAYS** use `useCallback` for functions passed as props
+- **ALWAYS** use `useMemo` for expensive calculations
+- **NEVER** mutate state directly - always use setter functions
 
 ```typescript
-// ❌ WRONG - setState in useEffect with state dependency
-const [user, setUser] = useState(null);
-useEffect(() => {
-    if (profile) {
-        setUser(profile); // This can cause infinite loops
-    }
-}, [profile, setUser]); // setUser changes trigger re-renders
-
-// ✅ CORRECT - Use useCallback or move logic outside
-const setUserStable = useCallback((user) => {
-    setUser(user);
+// ✅ CORRECT - Proper state management
+const [title, setTitle] = useState(initialTitle);
+const handleTitleChange = useCallback((value: string) => {
+    setTitle(value);
 }, []);
 
-useEffect(() => {
-    if (profile) {
-        setUserStable(profile);
-    }
-}, [profile, setUserStable]);
+// ❌ WRONG - Direct mutation or missing dependencies
+const handleTitleChange = (value: string) => {
+    title = value; // Direct mutation
+};
 ```
 
-### 3. **Object References in Dependencies**
+## 🚫 **FORBIDDEN React Practices**
+
+- **NEVER** use class components
+- **NEVER** mutate state or props directly
+- **NEVER** create functions inside render without useCallback
+- **NEVER** use useEffect without proper dependency arrays
+- **NEVER** use refs for imperative DOM manipulation unless absolutely necessary
+
+## ✅ **REQUIRED Functional Programming Practices**
+
+- **ALWAYS** use pure functions when possible
+- **ALWAYS** prefer `map`, `filter`, `reduce` over loops
+- **ALWAYS** use immutable data patterns
+- **ALWAYS** handle side effects in useEffect or event handlers only
+
+## 🖥️ **Server/Client Component Patterns (CRITICAL)**
+
+- **ALWAYS** prefer server components by default
+- **ONLY** use client components when absolutely necessary (interactivity, browser APIs, state management)
+- **ALWAYS** isolate client-side logic to the smallest possible component
+- **NEVER** make entire pages client components unless required
+
+### **Server Component Best Practices**
 
 ```typescript
-// ❌ WRONG - New object created on every render
-useEffect(() => {
-    // effect logic
-}, [{ id: 1, name: 'test' }]); // New object every time
-
-// ✅ CORRECT - Use useMemo or extract values
-const stableObject = useMemo(() => ({ id: 1, name: 'test' }), []);
-useEffect(() => {
-    // effect logic
-}, [stableObject]);
-
-// OR extract specific values
-useEffect(() => {
-    // effect logic
-}, [object.id, object.name]);
-```
-
-## 🔧 Best Practices for State Management
-
-### 1. **Separate Data Fetching from State Updates**
-
-```typescript
-// ✅ GOOD - React Query for data, Zustand for state
-export function useAuth() {
-    // Data fetching with React Query
-    const { data: profile } = useQuery({
-        queryKey: ['auth', 'profile', session?.user?.id],
-        queryFn: fetchProfile,
-    });
-
-    // Return data directly, don't sync with local state
-    return {
-        user: profile, // Direct data return
-        isLoading,
-        // ... other values
-    };
+// ✅ CORRECT - Server component with async data fetching
+export default async function PostPage({ params }: PostPageProps) {
+    const post = await getPostAction(postId);
+    
+    return (
+        <div>
+            <h1>{post.title}</h1>
+            <MarkdownRenderer content={post.content} />
+            <ToEditButton postId={postId} /> {/* Client component */}
+        </div>
+    );
 }
 ```
 
-### 2. **Use Stable References**
+### **Client Component Isolation**
 
 ```typescript
-// ✅ GOOD - Stable function references
-const handleSignOut = useCallback(async () => {
-    await signOut();
-}, [signOut]);
+// ✅ CORRECT - Minimal client component for interactive features only
+'use client';
 
-// ✅ GOOD - Memoized objects
-const config = useMemo(
-    () => ({
-        staleTime: 60 * 1000,
-        gcTime: 10 * 60 * 1000,
-    }),
-    []
-);
-```
-
-### 3. **Avoid Circular Dependencies**
-
-```typescript
-// ❌ WRONG - Circular dependency
-// useAuth -> useAuthStore -> useAuth
-
-// ✅ CORRECT - Clear data flow
-// auth/callback -> useAuthStore.setUser
-// components -> useAuth (read-only)
-```
-
-## 🎯 Specific Patterns for Authentication
-
-### 1. **Auth Hook Structure**
-
-```typescript
-export function useAuth() {
-    // 1. React Query for server state
-    const { data: profile } = useQuery({...});
-
-    // 2. Zustand for client state (loading, etc.)
-    const { isLoading, setLoading } = useAuthStore();
-
-    // 3. Computed values
-    const isAdmin = profile?.is_admin ?? false;
-
-    // 4. Return data directly, not synced state
-    return {
-        user: profile,        // Direct from React Query
-        isLoading,            // From Zustand
-        isAdmin,             // Computed
-        signIn,              // Stable function
-        signOut,             // Stable function
-    };
+export default function ToEditButton({ postId }: { postId: number }) {
+    const { user } = useAuthStore(); // Client-side state only
+    
+    if (!user?.is_admin) return null;
+    
+    return (
+        <Button asChild>
+            <Link href={`/admin/posts/${postId}/edit`}>
+                <Edit className="h-4 w-4" />
+                수정
+            </Link>
+        </Button>
+    );
 }
 ```
 
-### 2. **Callback Pattern for State Updates**
+### **When to Use Client Components**
+
+- **✅ USE** for interactive elements (buttons, forms, dropdowns)
+- **✅ USE** for browser APIs (localStorage, window, document)
+- **✅ USE** for state management (useState, useReducer)
+- **✅ USE** for event handlers (onClick, onChange)
+- **❌ DON'T USE** for static content rendering
+- **❌ DON'T USE** for data fetching (use server actions instead)
+
+### **Component Composition Pattern**
 
 ```typescript
-// ✅ GOOD - Callback pattern in auth callback
-export default function AuthCallbackPage() {
-    const { setUser } = useAuthStore(); // Direct store access
-
-    const handleAuth = async () => {
-        const profile = await fetchProfile();
-        setUser(profile); // Direct state update
-    };
+// ✅ CORRECT - Server component with embedded client components
+export default function PostPage() {
+    return (
+        <div>
+            {/* Server-rendered content */}
+            <PostContent post={post} />
+            
+            {/* Client-side interactivity only */}
+            <LikeButton postId={post.id} />
+            <CommentSection postId={post.id} />
+        </div>
+    );
 }
 ```
 
-## 🚀 Performance Optimization Tips
+## 🏗️ **HTML Structure & Hydration Prevention (CRITICAL)**
 
-### 1. **Query Configuration**
+### **1. Block vs Inline Element Rules**
+
+- **NEVER** put block-level elements inside inline elements
+- **NEVER** put `<div>`, `<section>`, `<article>` inside `<p>`, `<span>`, `<a>`
+- **ALWAYS** ensure proper HTML nesting hierarchy
+
+```typescript
+// ✅ CORRECT - Proper HTML structure
+<span className="block">
+  <div className="relative">
+    <Image src={src} alt={alt} />
+  </div>
+</span>
+
+// ❌ WRONG - Block element inside inline element
+<p>
+  <div>  {/* This causes hydration error */}
+    <Image src={src} alt={alt} />
+  </div>
+</p>
+```
+
+### **2. Markdown Rendering Safety**
+
+- **ALWAYS** override default markdown component behavior
+- **ALWAYS** prevent invalid HTML nesting
+- **ALWAYS** use custom components for images
+
+```typescript
+// ✅ CORRECT - Safe markdown rendering
+export const SafeMarkdownRenderer = ({ content }: { content: string }) => {
+  return (
+    <ReactMarkdown
+      components={{
+        // Prevent p tag wrapping for images
+        img: ({ src, alt }) => (
+          <span className="block my-4">
+            <Image src={src} alt={alt} width={800} height={600} />
+          </span>
+        ),
+        // Override p tag for image-only content
+        p: ({ children, ...props }) => {
+          const hasImage = React.Children.toArray(children).some(
+            child => React.isValidElement(child) && child.type === 'img'
+          );
+          return hasImage ? <div {...props}>{children}</div> : <p {...props}>{children}</p>;
+        }
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  );
+};
+```
+
+### **3. Hydration Error Prevention**
+
+- **ALWAYS** ensure server and client render identical HTML
+- **NEVER** use browser-only APIs in server components
+- **ALWAYS** handle dynamic content with proper client boundaries
+
+```typescript
+// ✅ CORRECT - Proper client boundary for dynamic content
+'use client';
+
+export const DynamicImage = ({ src, alt }: { src: string; alt: string }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  return (
+    <div className="image-container">
+      <Image 
+        src={src} 
+        alt={alt}
+        onLoad={() => setIsLoaded(true)}
+      />
+      {!isLoaded && <div className="loading-placeholder" />}
+    </div>
+  );
+};
+
+// ❌ WRONG - Browser API in server component
+export const ServerComponent = () => {
+  const [windowSize, setWindowSize] = useState({}); // Hydration error!
+  return <div>{windowSize.width}</div>;
+};
+```
+
+## 🚀 **Performance Optimization Tips**
+
+### **1. Query Configuration**
 
 ```typescript
 const { data: session } = useQuery({
@@ -169,7 +238,7 @@ const { data: session } = useQuery({
 });
 ```
 
-### 2. **Conditional Queries**
+### **2. Conditional Queries**
 
 ```typescript
 const { data: profile } = useQuery({
@@ -180,7 +249,7 @@ const { data: profile } = useQuery({
 });
 ```
 
-## 🔍 Debugging Checklist
+## 🔍 **Debugging Checklist**
 
 When encountering infinite loops, check:
 
@@ -190,8 +259,10 @@ When encountering infinite loops, check:
 4. **Circular Dependencies**: Are hooks calling each other in a loop?
 5. **React Query**: Are query keys changing on every render?
 6. **Zustand**: Are store updates triggering component re-renders?
+7. **HTML Structure**: Are block elements nested inside inline elements?
+8. **Hydration**: Does server render match client render?
 
-## 📝 Code Review Checklist
+## 📝 **Code Review Checklist**
 
 - [ ] All useEffect dependencies are stable references
 - [ ] No setState calls in useEffect with state dependencies
@@ -200,8 +271,12 @@ When encountering infinite loops, check:
 - [ ] React Query keys are stable
 - [ ] Zustand selectors are optimized
 - [ ] useCallback/useMemo used for expensive operations
+- [ ] No block elements inside inline elements
+- [ ] Markdown components properly override defaults
+- [ ] Server and client render identical HTML
+- [ ] No hydration mismatches in development
 
-## 🎯 Key Takeaways
+## 🎯 **Key Takeaways**
 
 1. **React Query for server state, Zustand for client state**
 2. **Never put setState in useEffect dependency arrays**
@@ -209,11 +284,13 @@ When encountering infinite loops, check:
 4. **Avoid circular dependencies between hooks**
 5. **Return data directly from React Query, don't sync with local state**
 6. **Keep data flow unidirectional and predictable**
-   description:
-   globs:
-   alwaysApply: false
+7. **HTML nesting rules are critical - never put `<div>` inside `<p>`**
+8. **Markdown rendering needs custom overrides to prevent invalid HTML**
+9. **Server/client consistency is mandatory for hydration**
 
----
+description: React 패턴과 함수형 프로그래밍, HTML 구조 및 hydration 에러 방지를 위한 필수 규칙
+globs: ["**/*.tsx", "**/*.ts", "**/*.jsx", "**/*.js"]
+alwaysApply: true
 
 ---
 > Source: [kimyoungyin/myblog](https://github.com/kimyoungyin/myblog) — distributed by [TomeVault](https://tomevault.io).
