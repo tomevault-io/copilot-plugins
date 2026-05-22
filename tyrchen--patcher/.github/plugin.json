@@ -1,0 +1,9 @@
+{
+  "name": "tyrchen--patcher",
+  "displayName": "patcher",
+  "description": "AI generated diff/patch algorithm",
+  "version": "1.0.0",
+  "author": "tyrchen",
+  "homepage": "https://github.com/tyrchen/patcher",
+  "skills": []
+}
