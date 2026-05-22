@@ -1,59 +1,48 @@
-## development-workflow
+## frontend-rules
 
-> - [프론트엔드 설계](mdc:docs/design/frontend.md)에 따라 컴포넌트 구현
+> 프론트엔드 관련 작업시에 적용한다.
 
-# 개발 워크플로우 가이드
+# 프론트엔드 개발 규칙
 
-## 개발 단계
+## 참조 문서(docs/design)
+- [아키텍처 개요](mdc:docs/design/architecture.md)
+- [프론트엔드 설계](mdc:docs/design/frontend.md)
+- [백엔드 설계](mdc:docs/design/backend.md) (API 통신 참조)
+- [보안 설계](mdc:docs/design/security.md) (인증/인가 참조)
 
-1. **프론트엔드 개발**
-   - [프론트엔드 설계](mdc:docs/design/frontend.md)에 따라 컴포넌트 구현
-   - Mantine UI Kit를 사용한 UI 구현
-   - 로컬 스토리지를 활용한 데이터 관리
+## 컴포넌트 아키텍처
+- 컴포넌트는 단일 책임 원칙을 따라야 함
+- 컴포넌트는 재사용 가능하고 테스트 가능해야 함
+- 프레젠테이션 컴포넌트와 컨테이너 컴포넌트 분리
+- 컴포넌트 크기는 작고 집중적으로 유지
 
-2. **백엔드 개발**
-   - [백엔드 설계](mdc:docs/design/backend.md)에 따라 API 구현
-   - [인프라 설계](mdc:docs/design/infrastructure.md)에 따라 AWS 리소스 구성
-   - [보안 설계](mdc:docs/design/security.md)에 따라 인증/인가 구현
+## 상태 관리
+- React Context API와 useReducer를 사용한 상태 관리
+- 로컬 상태는 useState 사용
+- 전역 상태는 Context API 사용
+- 상태 업데이트는 불변성 유지
 
-3. **모니터링 및 최적화**
-   - [모니터링 설계](mdc:docs/design/monitoring.md)에 따라 모니터링 구성
-   - [비용 최적화](mdc:docs/design/optimization.md)에 따라 리소스 최적화
+## UI 라이브러리
+- Mantine UI 컴포넌트 라이브러리 활용
+- 일관된 디자인 시스템 유지
+- 접근성(WCAG 2.1 AA) 준수
+- 반응형 디자인 구현
 
-## 개발 원칙
+## 테스트 방법
+- 프론트엔드 UI 구현 시 실행 코드 먼저 작성
+- 코어 비즈니스 로직 구현 시에만 TDD 방식 적용
+- Jest와 React Testing Library를 사용한 컴포넌트 테스트
+- 사용자 상호작용 시나리오 테스트
+- 스냅샷 테스트 활용
 
-1. **TDD 접근**
-   - 코어 비즈니스 로직은 TDD로 구현
-   - 테스트 커버리지 80% 이상 유지
-
-2. **코드 품질**
-   - ESLint와 Prettier를 사용한 코드 스타일 통일
-   - TypeScript의 타입 시스템 활용
-   - 코드 리뷰 필수
-
-3. **문서화**
-   - 주요 컴포넌트 개발 후 문서화
-   - API 문서 자동 생성
-   - 아키텍처 변경 시 관련 문서 업데이트
-
-## 배포 프로세스
-
-1. **개발 환경**
-   - 로컬 개발 환경 설정
-   - DynamoDB Local 사용
-   - LocalStack을 통한 AWS 서비스 에뮬레이션
-
-2. **테스트 환경**
-   - 자동화된 테스트 실행
-   - 통합 테스트 수행
-   - E2E 테스트 실행
-
-3. **운영 환경**
-   - [구현 계획](mdc:docs/design/implementation.md)에 따른 배포
-   - 모니터링 및 알림 설정
-   - 롤백 전략 준비
-
-자세한 구현 계획은 [구현 계획](mdc:docs/design/implementation.md)을 참조하세요.
+## 버전 정보
+- Node.js: v22.x
+- React: v18.x
+- TypeScript: v5.x
+- Mantine: v7.x
+- Jest: v29.x
+- React Testing Library: v14.x
+- Vite: v5.x
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
