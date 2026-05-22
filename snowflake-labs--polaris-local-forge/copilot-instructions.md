@@ -1,90 +1,31 @@
-## cli-patterns
+## cortex-skills
 
-> CLI development patterns with Click, Taskfile, and uv
+> Cortex Code skill development - quick reference (detailed patterns in skill-development.mdc)
 
 
-# CLI Development Patterns
+# Cortex Code Skills - Quick Reference
 
-**Reference:** `~/git/kameshsampath/snow-utils`
+**Full Best Practices:** `~/snow-works/coco/skills/BEST_PRACTICES.local.md`
 
-## Click CLI Structure
+**Reference Repos:**
+- `~/git/kameshsampath/snow-utils` - CLI scripts (PAT, Networks, Volumes) + Taskfile patterns
+- `~/git/kameshsampath/snow-utils-skills` - Cortex Code skills consuming snow-utils
+- `~/git/kameshsampath/kamesh-demo-skills` - Demo skills (hirc-duckdb, smart-crowd-counter)
 
-```python
-import click
-from dotenv import load_dotenv
+## Core Principles
 
-@click.group()
-@click.option('--verbose', '-v', is_flag=True)
-@click.option('--debug', '-d', is_flag=True)
-@click.pass_context
-def cli(ctx, verbose, debug):
-    ctx.ensure_object(dict)
-    ctx.obj['verbose'] = verbose
+1. **SHOW/DO/SUMMARIZE** - Preview → Execute with approval → Explain result
+2. **Manifest-Driven** - Track in `.snow-utils/snow-utils-manifest.md`
+3. **CLI Thin Wrapper** - CLI does ONE thing; SKILL.md orchestrates
+4. **Plan First** - For questions/WDYT, plan before executing
 
-@cli.command()
-@click.option('--name', '-n', envvar='RESOURCE_NAME', required=True)
-@click.option('--yes', '-y', is_flag=True, help='Skip confirmation')
-def create(name, yes):
-    """Create a resource."""
-    pass
-```
+## Quick Don'ts
 
-## Taskfile.yml Patterns
+- NEVER sed/awk for .env edits — use Edit/StrReplace
+- NEVER skip user confirmation for destructive ops
+- NEVER guess CLI options — run `--help` first
 
-```yaml
-version: "3"
-dir: "{{.TASKFILE_DIR}}"  # Run from project dir (enables symlink usage)
-dotenv: [".env"]
-
-vars:
-  PYTHON: uv run --project {{.TASKFILE_DIR}}
-  CLI: "{{.PYTHON}} my-cli"
-
-tasks:
-  create:
-    desc: Create resource
-    deps: [check]  # Run prerequisite first
-    cmds:
-      - "{{.CLI}} create {{.CLI_ARGS}}"
-    env:
-      RESOURCE_NAME: "{{.RESOURCE_NAME}}"
-    vars:
-      RESOURCE_NAME: '{{.RESOURCE_NAME | default ""}}'
-```
-
-## pyproject.toml Entry Points
-
-```toml
-[project.scripts]
-my-cli = "my_package.main:cli"
-
-[tool.uv.sources]
-common-lib = { path = "common", editable = true }
-```
-
-## Naming Conventions
-
-| Style | Pattern | Use Case |
-|-------|---------|----------|
-| `snowflake` | `UPPER_SNAKE_CASE` | Snowflake objects |
-| `aws` | `lower-kebab-case` | S3 buckets, IAM roles |
-
-**User-prefixed naming** (avoid conflicts in shared accounts):
-- AWS: `{username}-{bucket}`, `{username}-{bucket}-snowflake-role`
-- Snowflake: `{USERNAME}_{BUCKET}_EXTERNAL_VOLUME`
-
-## Environment-Driven Config
-
-- Use `envvar=` in Click options for env var fallbacks
-- Load `.env` with `load_dotenv(override=True)`
-- Taskfile: `dotenv: [".env"]` auto-loads environment
-
-## Key Patterns from snow-utils
-
-- **Global options before subcommand:** `cli --verbose create --name foo`
-- **Confirmation flags:** `--yes` for non-interactive, `--dry-run` for preview
-- **Output formats:** `--output text|json`
-- **Task dependencies:** Use `deps:` for prerequisite checks
+*Detailed patterns activate when editing SKILL.md files.*
 
 ---
 > Source: [Snowflake-Labs/polaris-local-forge](https://github.com/Snowflake-Labs/polaris-local-forge) — distributed by [TomeVault](https://tomevault.io).
