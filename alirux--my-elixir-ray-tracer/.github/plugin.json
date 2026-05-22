@@ -1,0 +1,9 @@
+{
+  "name": "alirux--my-elixir-ray-tracer",
+  "displayName": "my-elixir-ray-tracer",
+  "description": "A ray tracer implementation written in Elixir",
+  "version": "1.0.0",
+  "author": "alirux",
+  "homepage": "https://github.com/alirux/my-elixir-ray-tracer",
+  "skills": []
+}
