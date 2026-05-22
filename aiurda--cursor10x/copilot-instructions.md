@@ -1,143 +1,103 @@
-## 100-memory-system
+## 200-tasks-workflow
 
-> Comprehensive Memory System architecture for autonomous Cursor operation
+> Task Workflow System for project implementation
 
 
-# Memory System Architecture
+# Task Workflow System
 
-The Cursor10x Memory System provides persistent context awareness across conversations using MCP tools for:
-- Short-term memory (recent messages, context)
-- Long-term memory (milestones, decisions, requirements)
-- Episodic memory (chronological actions and events)
+- **Purpose:** Standardize task implementation with proper tracking and status updates
+- **Implementation:** Tasks stored in `tasks/tasks.json`
 
-## TOOL EXECUTION PATTERN
+## Task Management Workflow
 
-The memory system follows a strict tool execution pattern:
+- **Task Structure**
+  - Tasks are defined in `tasks/tasks.json` with:
+    - `id`: Unique identifier for the task
+    - `title`: Short description of the task
+    - `file`: Main file to be created or modified
+    - `status`: Current status (pending, in-progress, complete, skipped)
+    - `prompt`: Detailed instructions for implementation
 
-```javascript
-// ✅ DO: Follow this execution pattern for ALL conversations
-// 1. BEGIN with initConversation - EXACTLY ONCE at the start
-// 2. USE appropriate tools throughout the conversation as needed
-// 3. END with endConversation - EXACTLY ONCE at the very end
+- **Task Status Management**
+  ```javascript
+  // ✅ DO: Update task status when starting implementation
+  // Change status from "pending" to "in-progress"
+  // Update the relevant metadata counts and lastUpdated
 
-// ❌ DON'T: Call initConversation multiple times in one response
-// ❌ DON'T: Call endConversation in the middle of a conversation
-// ❌ DON'T: Skip storing important context or decisions
-```
+  // ✅ DO: Update task status when completing implementation
+  // Change status from "in-progress" to "complete"
+  // Update the relevant metadata counts and lastUpdated
+  
+  // ✅ DO: Update task status when skipping a task
+  // Change status from "pending" to "skipped"
+  // Update the relevant metadata counts and lastUpdated
+  ```
 
-## RULE 1: CONVERSATION INITIALIZATION
-The FIRST action in the BEGINNING of EVERY response MUST be to initialize the conversation with this single tool call and display the banner from the response immediately after. It MUST be called EXACTLY ONCE per conversation and ONLY at the very beginning after receiving user input:
+## Task Implementation Guidelines
 
-```javascript
-// ✅ DO: Call EXACTLY ONCE at the beginning of EVERY conversation
-mcp_cursor10x_initConversation({content: "[user message]", importance: "[low/medium/high/critical]"})
+- **Always review the project blueprint before implementing tasks**
+  ```javascript
+  // ✅ DO: Read the blueprint.md file in the docs directory
+  // This provides essential context about the overall project architecture
+  ```
 
-// ❌ DON'T: Call multiple times within the same conversation
-// ❌ DON'T: Call in the middle or end of a conversation
-// ❌ DON'T: Skip calling this at the start
-```
+- **Only modify task status and metadata in tasks.json**
+  ```javascript
+  // ✅ DO: Only update the "status" field of tasks
+  // ✅ DO: Update metadata counts (totalTasks, pendingCount, completeCount, skippedCount)
+  // ✅ DO: Update the lastUpdated timestamp
+  
+  // ❌ DON'T: Modify task ids, titles, or prompts unless specifically requested
+  ```
 
-## RULE 2: ASSISTANT MESSAGE STORAGE
-EVERY assistant response containing important information MUST be stored. This can be called MULTIPLE times as needed during a conversation to store significant assistant responses:
+- **Implement each task according to its prompt and specified file**
+  ```javascript
+  // ✅ DO: Focus implementation on the file specified in the task
+  // ✅ DO: Follow the detailed instructions in the prompt
+  ```
 
-```javascript
-// ✅ DO: Call when storing important information
-mcp_cursor10x_storeAssistantMessage({content: "[assistant response]", importance: "[low/medium/high/critical]"})
+- **Always process tasks in their defined order unless specified**
+  ```javascript
+  // ✅ DO: Find the first task with status "pending" when asked for "next task"
+  // ✅ DO: If a specific task ID is provided, implement that task
+  ```
 
-// ✅ DO: Store multiple distinct responses when appropriate
-```
+## Task Workflow Process
 
-## RULE 3: ACTIVE FILE TRACKING
-EVERY file being worked on or modified MUST be tracked - not files being read. This should be called whenever starting work on a file:
+1. **Find the task to implement**
+   - When user requests "next task", select first pending task from `tasks/tasks.json`
+   - When user specifies task ID, locate that specific task
+   
+2. **Update task status to "in-progress"**
+   - Change status field to "in-progress"
+   - Update metadata (pendingCount, lastUpdated)
+   - Save changes to tasks.json
+   
+3. **Review project context**
+   - Read docs/blueprint.md to understand project architecture
+   - Review any related files mentioned in the task
+   
+4. **Implement the task**
+   - Follow instructions in the task prompt
+   - Focus on the file specified in the task
+   
+5. **Update task status to "complete"**
+   - Change status field to "complete"
+   - Update metadata (pendingCount, completeCount, lastUpdated)
+   - Save changes to tasks.json
+   
+6. **Notify completion**
+   - Inform user of successful task completion
+   - Provide summary of changes made
 
-```javascript
-// ✅ DO: Track when editing or creating files
-mcp_cursor10x_trackActiveFile({filename: "[file path]", action: "[edit/create]"})
+## Task Skipping Process
 
-// ❌ DON'T: Track files that are only being read
-```
-
-## RULE 4: MILESTONE RECORDING
-ALL completed tasks or achievements MUST be recorded as milestones. Use this to mark significant accomplishments:
-
-```javascript
-// ✅ DO: Record milestones when completing important tasks
-mcp_cursor10x_storeMilestone({title: "[milestone title]", description: "[milestone description]", importance: "[low/medium/high/critical]"})
-```
-
-## RULE 5: DECISION RECORDING
-ALL important project decisions MUST be recorded. Use this when making significant decisions:
-
-```javascript
-// ✅ DO: Record important decisions with reasoning
-mcp_cursor10x_storeDecision({title: "[decision title]", content: "[decision content]", reasoning: "[decision reasoning]", importance: "[low/medium/high/critical]"})
-```
-
-## RULE 6: REQUIREMENT RECORDING
-ALL project requirements MUST be documented. Use this when identifying or defining requirements:
-
-```javascript
-// ✅ DO: Document project requirements
-mcp_cursor10x_storeRequirement({title: "[requirement title]", content: "[requirement content]", importance: "[low/medium/high/critical]"})
-```
-
-## RULE 7: EPISODE RECORDING
-ALL significant events or actions MUST be recorded as episodes. Use this to track important interactions:
-
-```javascript
-// ✅ DO: Record significant events
-mcp_cursor10x_recordEpisode({actor: "[user/assistant/system]", action: "[action type]", content: "[action details]", importance: "[low/medium/high/critical]"})
-```
-
-## RULE 8: CONVERSATION END SEQUENCE
-This EXACT sequence MUST be executed at the VERY END of EVERY conversation and EXACTLY ONCE per conversation:
-
-```javascript
-// ✅ DO: Call EXACTLY ONCE at the very end of the conversation
-mcp_cursor10x_endConversation({content: "[Content of the assistant's final message]", milestone_title: "[Title for the completion milestone]", milestone_description: "[Description of what was accomplished]", importance: "[low/medium/high/critical]", metadata: "[Additional metadata for the operations]" })
-
-// ❌ DON'T: Call in the middle of a conversation
-// ❌ DON'T: Call multiple times
-// ❌ DON'T: Skip calling this at the end
-```
-
-## RULE 9: HEALTH MONITORING
-Memory system health MUST be checked when issues occur:
-
-```javascript
-// ✅ DO: Check health when troubleshooting problems
-mcp_cursor10x_checkHealth({})
-```
-
-## RULE 10: MEMORY STATISTICS
-Memory statistics MUST be gathered periodically:
-
-```javascript
-// ✅ DO: Get memory stats when useful for context
-mcp_cursor10x_getMemoryStats({})
-```
-
-## RULE 11: CONTEXT RETRIEVAL
-Use context retrieval tools as needed throughout the conversation:
-
-```javascript
-// ✅ DO: Get comprehensive context when needed
-mcp_cursor10x_getComprehensiveContext({})
-
-// ✅ DO: Get recent messages when relevant
-mcp_cursor10x_getRecentMessages({limit: 5, importance: "high"})
-
-// ✅ DO: Get active files when working on code
-mcp_cursor10x_getActiveFiles({limit: 5})
-```
-
-## Importance Levels
-
-When storing memory items, use appropriate importance levels:
-- **low**: General information, routine operations
-- **medium**: Useful context, standard work
-- **high**: Critical decisions, major features
-- **critical**: Core architecture, security, data-integrity
+1. **Update task status to "skipped"**
+   - Change status field to "skipped"
+   - Update metadata (pendingCount, skippedCount, lastUpdated)
+   - Save changes to tasks.json
+   
+2. **Proceed to next pending task if requested**
 
 ---
 > Source: [aiurda/cursor10x](https://github.com/aiurda/cursor10x) — distributed by [TomeVault](https://tomevault.io).
