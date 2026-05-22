@@ -1,0 +1,9 @@
+{
+  "name": "get-foundation--gcell",
+  "displayName": "gcell",
+  "description": "Python playground for cell-type-specific biology",
+  "version": "1.0.0",
+  "author": "GET-Foundation",
+  "homepage": "https://github.com/GET-Foundation/gcell",
+  "skills": []
+}
