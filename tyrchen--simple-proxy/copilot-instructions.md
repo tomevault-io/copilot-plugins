@@ -1,81 +1,160 @@
-## react
+## rust
 
-> React best practices and patterns for modern web applications
+> - Use English for all code and documentation.
 
+# Rust Programming Guidelines
 
-# React Best Practices
+## Basic Principles
 
-## Component Structure
-- Use functional components over class components
-- Keep components small and focused
-- Extract reusable logic into custom hooks
-- Use composition over inheritance
-- Implement proper prop types with TypeScript
-- Split large components into smaller, focused ones
+- Use English for all code and documentation.
+- Leverage Rust's strong type system and compile-time checks.
+- Create appropriate types and structs/enums.
+- Use rustdoc style comments to document public items.
+- Don't leave blank lines within a function.
+- Follow Rust's ownership and borrowing rules.
 
-## Hooks
-- Follow the Rules of Hooks
-- Use custom hooks for reusable logic
-- Keep hooks focused and simple
-- Use appropriate dependency arrays in useEffect
-- Implement cleanup in useEffect when needed
-- Avoid nested hooks
+## Nomenclature
 
-## State Management
-- Use useState for local component state
-- Implement useReducer for complex state logic
-- Use Context API for shared state
-- Keep state as close to where it's used as possible
-- Avoid prop drilling through proper state management
-- Use state management libraries only when necessary
+- Use `snake_case` for functions, methods, variables, modules, and packages.
+- Use `UpperCamelCase` (PascalCase) for types, traits, and enum variants.
+- Use `SCREAMING_SNAKE_CASE` for constants and static variables.
+- Use `snake_case` for file and directory names.
+- Use `UPPERCASE` for environment variables.
+- Avoid magic numbers and define constants.
+- Start each function with a verb.
+- Use verbs for boolean variables. Example: `is_loading`, `has_error`, `can_delete`, etc.
+- Use complete words instead of abbreviations and ensure correct spelling.
+  - Except for standard abbreviations like API, URL, etc.
+  - Except for well-known abbreviations:
+    - `i`, `j`, `k` for loops
+    - `err` for errors
+    - `ctx` for contexts
+    - `req`, `res` for request/response parameters
 
-## Performance
-- Implement proper memoization (useMemo, useCallback)
-- Use React.memo for expensive components
-- Avoid unnecessary re-renders
-- Implement proper lazy loading
-- Use proper key props in lists
-- Profile and optimize render performance
+## Functions
 
-## Forms
-- Use controlled components for form inputs
-- Implement proper form validation
-- Handle form submission states properly
-- Show appropriate loading and error states
-- Use form libraries for complex forms
-- Implement proper accessibility for forms
+- Write short functions with a single purpose. Less than 20 lines.
+- Name functions with a verb and something else.
+- If it returns a boolean, use `is_x` or `has_x`, `can_x`, etc.
+- Avoid nesting blocks by:
+  - Early returns with pattern matching.
+  - Guard clauses.
+  - Extraction to helper functions.
+- Use iterator methods (`map`, `filter`, `fold`, etc.) instead of explicit loops when appropriate.
+- Use closures for simple operations.
+- Use named functions for non-simple operations.
+- Use Option's default parameters with `unwrap_or`, `unwrap_or_else`, or `unwrap_or_default`.
+- Reduce function parameters using structs
+  - Use a struct to pass multiple parameters.
+  - Use a struct or tuple to return multiple results.
+  - Consider using the builder pattern for complex object construction.
+- Use a single level of abstraction.
+
+## Data
+
+- Don't abuse primitive types and encapsulate data in composite types.
+- Use structs and enums to model your domain.
+- Prefer immutability with `let` over `let mut`.
+- Use `const` for compile-time constants.
+- Use `static` sparingly and prefer `const` when possible.
+- Use `Option<T>` for possibly null values.
+- Use `Result<T, E>` for operations that might fail.
+- Leverage the type system to make impossible states unrepresentable.
+
+## Structs and Traits
+
+- Follow SOLID principles.
+- Prefer composition over inheritance (via traits).
+- Define behavior with traits.
+- Write small structs with a single purpose.
+  - Less than 200 lines.
+  - Less than 10 public methods.
+  - Less than 10 fields.
+- Implement the appropriate traits for your types (`Debug`, `Clone`, `PartialEq`, `Display` etc.).
+- If need to convert this struct from/to another, implement `From`, `TryFrom` whenenver possible.
+- Prefer private fields with public accessor methods when appropriate.
+- Use associated functions for constructors (`new`, `from_*`, etc.).
 
 ## Error Handling
-- Implement Error Boundaries
-- Handle async errors properly
-- Show user-friendly error messages
-- Implement proper fallback UI
-- Log errors appropriately
-- Handle edge cases gracefully
+
+- Use `Result<T, E>` for functions that can fail.
+- Define custom error types for complex error handling.
+- Use `?` operator for propagating errors.
+- Consider using error handling crates like `anyhow` or `thiserror`.
+- Provide context when converting between error types.
+- Use meaningful error messages.
+
+## Memory Management
+
+- Leverage Rust's ownership system and borrowing rules.
+- Use references (`&T` and `&mut T`) rather than taking ownership when possible.
+- use `AtomicXXX` if the shared data has an equivalent `AtomicXXX`.
+- Use `Rc<T>` or `Arc<T>` for shared ownership.
+- Use `RefCell<T>` or `Mutex<T>` for interior mutability.
+- For shared hash map, use papaya (read heavy) or dashmap.
+- Avoid using `unsafe` code unless absolutely necessary.
+- When using `unsafe`, document why it's necessary and how safety is maintained.
 
 ## Testing
-- Write unit tests for components
-- Implement integration tests for complex flows
-- Use React Testing Library
-- Test user interactions
-- Test error scenarios
-- Implement proper mock data
 
-## Accessibility
-- Use semantic HTML elements
-- Implement proper ARIA attributes
-- Ensure keyboard navigation
-- Test with screen readers
-- Handle focus management
-- Provide proper alt text for images
+- Follow the Arrange-Act-Assert convention for tests.
+- Name test variables clearly.
+- Follow the convention: `input_x`, `mock_x`, `actual_x`, `expected_x`, etc.
+- Write unit tests for each public function.
+- Use test doubles to simulate dependencies.
+- Write integration tests in the `tests/` directory.
+- Use property-based testing when appropriate.
+- Use the `#[test]` attribute for test functions.
+- Use the `#[cfg(test)]` attribute for test modules.
 
-## Code Organization
-- Group related components together
-- Use proper file naming conventions
-- Implement proper directory structure
-- Keep styles close to components
-- Use proper imports/exports
-- Document complex component logic
+## Project Structure
+
+- Use modular architecture
+- Organize code into logical modules:
+  - `src/lib.rs` for library crates
+  - `src/main.rs` for single binary crates
+  - `src/bin/` for multiple binaries
+  - `tests/` for integration tests
+  - `examples/` for example code
+  - `benches/` for benchmarks
+- Use the Cargo build system.
+- Use workspaces for multi-crate projects.
+- Split code into modules and sub-modules.
+- Create a `core` module for foundational components.
+- Create a `utils` module for utility functions.
+
+## Standard Library
+
+- Use the Rust Standard Library whenever possible.
+- Use `String` and `&str` appropriately.
+- Use `Vec<T>`, `HashMap<K, V>`, `HashSet<T>`, etc. for collections.
+- Use `Option<T>` for optional values.
+- Use `Result<T, E>` for fallible operations.
+- Use `std::path` and `std::fs` for file operations.
+- Use `std::time` for time-related operations.
+
+## Concurrency
+
+- Use `std::thread` for thread-based concurrency.
+- Use channels (`std::sync::mpsc`) for message passing.
+- Use `Arc<T>` for sharing data between threads.
+- Use `Mutex<T>` or `RwLock<T>` for shared mutable state.
+- Use `rayon` for parallel computations.
+- Avoid data races by proper synchronization.
+
+## Asynchronous
+
+- Use multithreaded `tokio` for future based concurrency.
+- use tokio channels for message passing.
+
+## Dependencies
+
+- Be conservative with dependencies.
+- Evaluate a crate before adding it as a dependency.
+- Consider maintenance status, documentation, and community support.
+- Use semantic versioning in Cargo.toml.
+- Regularly update dependencies for security and bug fixes.
+- Consider using workspace-level dependency management.
 
 ---
 > Source: [tyrchen/simple-proxy](https://github.com/tyrchen/simple-proxy) — distributed by [TomeVault](https://tomevault.io).
