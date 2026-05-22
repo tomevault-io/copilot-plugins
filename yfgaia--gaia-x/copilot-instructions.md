@@ -1,36 +1,16 @@
-## project-folder-structure
+## server
 
-> Project folder structure
+> AI instruction file for gaia-x by YFGaia
 
+# 启动后端命令
+cd apps/admin/server
+go mod tidy
+go run main.go
 
-# Project Folder Structure
-
-```
-.
-├── .cursor/  # Cursor 提示词配置
-├── .git/     # Git版本控制
-├── .github/  # GitHub配置和工作流
-├── .husky/   # Git Hooks配置
-├── .vscode/  # VSCode配置
-├── apps/     # 应用程序
-│   ├── admin/   # 管理后台应用
-│   └── client/  # 客户端应用，通过 Project folder structure (client) 查询细节
-├── packages/                # monorepo 目录
-│   ├── key-mouse-listener/  # 键鼠监听包
-│   └── selected-text/       # 文本选择包
-├── scripts/                 # 脚本目录
-└── node_modules/            # 依赖包目录
-
-主要配置文件：
-- package.json          # 项目配置和依赖管理
-- pnpm-workspace.yaml   # pnpm工作空间配置
-- vite.config.ts        # Vite构建配置
-- vitest.config.ts      # Vitest测试配置
-- postcss.config.cjs    # PostCSS配置
-- .npmrc                # npm配置
-- .prettierrc           # Prettier代码格式化配置
-- commitlint.config.js  # Git提交信息规范配置
-```
+# 启动前端命令
+cd apps/admin/web
+npm install
+npm run serve
 
 ---
 > Source: [YFGaia/gaia-x](https://github.com/YFGaia/gaia-x) — distributed by [TomeVault](https://tomevault.io).
