@@ -1,0 +1,9 @@
+{
+  "name": "whaeuser--splitflap",
+  "displayName": "splitflap",
+  "description": "Split-flap display simulator with 6-line support and HTTP API",
+  "version": "1.0.0",
+  "author": "whaeuser",
+  "homepage": "https://github.com/whaeuser/splitflap",
+  "skills": []
+}
