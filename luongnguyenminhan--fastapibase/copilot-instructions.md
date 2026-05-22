@@ -1,0 +1,42 @@
+## my-python-rule
+
+> - Follow SOLID principles and clean code practices.
+
+
+# Your rule content
+
+- Follow SOLID principles and clean code practices.  
+- Prioritize readability, maintainability, and performance in all code.  
+- Use type hintS for Python functions.
+- Use type hints when declare new variable in python or set a variable in python.  
+- Use environment variables for sensitive configurations.  
+- Log errors and exceptions properly; add logging to new code to make sure it run.  
+- Follow project architecture; do not introduce unnecessary dependencies.  
+- Ensure API endpoints have proper request validation and response models.  
+- Maintain consistent naming conventions (snake_case for Python, camelCase for JavaScript).  
+- Comment only when necessary; prefer self-explanatory code. 
+
+- Follow the 3-layer architecture (Repository, Service, Controller).  
+- Use Unit of Work (UoW) pattern for transaction management.  
+- Keep business logic in the Service layer, not in Controllers or Repositories.  
+- Repositories handle data access and should not contain business logic.  
+- Controllers should be lightweight, only handling request validation and response formatting.  
+
+- Must follow OOP, DRY rule do not create any standalone function in python.
+- In API controller, write proper response and request model and model validation using pydantic model.
+
+- always use interface before using class in python.
+- in interface, always use abstractmethod decorator.
+- in interface, always use @property decorator for getter and setter.
+- in interface, always use @abstractmethod decorator for method.
+- in interface do not need to use __init__ method and docstring.
+
+-if code are repetitive, create a new common class and use it in all classes.
+- if code are repetitive, create a new common function and use it in all functions.
+- if code are repetitive, create a new common method and use it in all methods.
+
+- make sure code are low coupled and high cohesive.
+
+---
+> Source: [luongnguyenminhan/FastAPIBase](https://github.com/luongnguyenminhan/FastAPIBase) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-21 -->
