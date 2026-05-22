@@ -1,0 +1,9 @@
+{
+  "name": "alex-feel--st-copy",
+  "displayName": "st-copy",
+  "description": "A tiny, theme\u2011aware Streamlit component that adds a one\u2011click \"copy-to-clipboard\" button to your app \u2014 perfect for the chat UI, URLs or any other text the user might need to copy.",
+  "version": "1.0.0",
+  "author": "alex-feel",
+  "homepage": "https://github.com/alex-feel/st-copy",
+  "skills": []
+}
