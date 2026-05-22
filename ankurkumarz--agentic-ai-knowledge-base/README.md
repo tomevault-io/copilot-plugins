@@ -7,11 +7,11 @@ Agentic AI is the fast evolving technology landscape and this repository is an e
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ankurkumarz/agentic-ai-knowledge-base](https://github.com/ankurkumarz/agentic-ai-knowledge-base).
+Original source: `CLAUDE.md` in [ankurkumarz/agentic-ai-knowledge-base](https://github.com/ankurkumarz/agentic-ai-knowledge-base).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
