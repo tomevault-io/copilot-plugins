@@ -1,0 +1,9 @@
+{
+  "name": "kiseki-technologies--kiseki-labs-readwise-mcp",
+  "displayName": "kiseki-labs-readwise-mcp",
+  "description": "A simple MCP server for Readwise",
+  "version": "1.0.0",
+  "author": "kiseki-technologies",
+  "homepage": "https://github.com/kiseki-technologies/kiseki-labs-readwise-mcp",
+  "skills": []
+}
