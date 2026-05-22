@@ -7,11 +7,11 @@ Open-source async report generation service in Go — define templates (Pongo2/D
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LerianStudio/reporter](https://github.com/LerianStudio/reporter).
+Original source: `CLAUDE.md` in [LerianStudio/reporter](https://github.com/LerianStudio/reporter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
