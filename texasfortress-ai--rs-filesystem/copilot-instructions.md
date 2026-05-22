@@ -1,72 +1,69 @@
-## rpc-routing
+## tools-implementation
 
-> - MUST: Register RPC methods using `build_rpc_router` in `src/main.rs`
+> - MUST: Register tools using `register_tools` function in `src/mcp/tools.rs`
 
-# rpc-routing
+# tools-implementation
 
-### JSON-RPC Router Registration
-- MUST: Register RPC methods using `build_rpc_router` in `src/main.rs`
-- AVOID: Direct handler function calls without router registration
-- WHY: Ensures consistent routing and method discovery
-- EXAMPLE:
-```rust
-// src/main.rs
-router.append_route("tools/list", tools_list);
-```
-Importance: 95
-
-### Method Registration Pattern
-- MUST: Use the `tools_list` function in `src/mcp/tools.rs` to expose available tools
-- AVOID: Hardcoding tool lists or bypassing registration
-- WHY: Enables dynamic tool discovery and consistent schema validation
+### Tool Registration Pattern
+- MUST: Register tools using `register_tools` function in `src/mcp/tools.rs`
+- MUST: Include schema and description for each tool
+- AVOID: Direct function calls without registration
+- WHY: Enables dynamic tool discovery and validation
 - EXAMPLE: 
 ```rust
 // src/mcp/tools.rs
-register_tools(router);
+register_tools(router, vec![
+    ("file_edit", file_edit_schema(), "Edit file content"),
+    ("grep_search", grep_search_schema(), "Search files")
+])
 ```
-Importance: 90
+Importance: 95
 
-### Handler Implementation
-- MUST: Implement handlers returning proper JSON-RPC response types
-- AVOID: Raw JSON returns or non-standard response formats
-- WHY: Maintains protocol compliance and consistent error handling
-- EXAMPLE:
-```rust
-// src/mcp/tools.rs
-fn tools_list() -> JsonRpcResponse {
-    // Handler implementation
-}
-```
+### Git Integration Flow
+- MUST: Use optional Git commits in file operations via `file_edit`, `create_directory`, `move_or_rename`
+- MUST: Include commit message for each Git operation
+- AVOID: Direct Git commands without validation
+- WHY: Maintains version control integration with file operations
+- EXAMPLE: `src/mcp/tools.rs:file_edit` handling Git commits
 Importance: 85
 
-### Notification Processing 
-- MUST: Process notifications using dedicated handlers in `src/main.rs`
-- AVOID: Treating notifications as regular RPC calls
-- WHY: Notifications require different handling than standard requests
-- EXAMPLE:
+### Path Validation
+- MUST: Validate all paths using `validate_path_or_error` from `src/mcp/tools.rs`
+- MUST: Check against allowed directories list
+- AVOID: Direct file system access without validation
+- WHY: Ensures security by restricting operations to allowed paths
+- EXAMPLE: `validate_paths_or_error` for move operations
+Importance: 90
+
+### Tool Implementation Structure
+- MUST: Implement each tool with standardized error handling
+- MUST: Return structured responses with status and data
+- AVOID: Mixed responsibility tools combining multiple operations
+- WHY: Maintains consistent tool behavior and error handling
+- EXAMPLE: 
 ```rust
-// src/main.rs
-notifications_initialized();
+// src/mcp/tools.rs
+fn grep_search(args: Value) -> Result<Value, Error> {
+    // Standardized implementation
+}
 ```
 Importance: 80
 
-### Resource Access Control
-- MUST: Validate paths using `validate_path_or_error` in `src/mcp/utilities.rs`
-- AVOID: Direct file system access without validation
-- WHY: Enforces security boundaries for file operations
-- EXAMPLE:
-```rust
-// src/mcp/utilities.rs
-validate_path_or_error(path)?;
-```
-Importance: 85
-
-### Tool Registration Workflow
-- MUST: Register tools through the centralized registration system
-- AVOID: Ad-hoc tool additions or direct router manipulation
-- WHY: Maintains consistent tool discovery and documentation
-- EXAMPLE: See `register_tools` in `src/mcp/tools.rs`
+### Grep Tool Configuration
+- MUST: Support recursive and case-sensitive options in `grep_search`
+- MUST: Validate search paths before execution
+- AVOID: Hardcoded grep options
+- WHY: Provides flexible search capabilities with validation
+- EXAMPLE: `src/mcp/tools.rs:grep_search` implementation
 Importance: 75
+
+### Time Tools Implementation
+- MUST: Use `current_time` and `get_local_time` for time operations
+- MUST: Support city-specific time queries
+- AVOID: Direct system time access
+- WHY: Standardizes time-related operations across the system
+- EXAMPLE: `src/mcp/tools.rs:current_time` implementation
+Importance: 70
 
 $END$
 
