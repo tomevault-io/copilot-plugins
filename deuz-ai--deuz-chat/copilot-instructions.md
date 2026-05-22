@@ -1,28 +1,31 @@
-## 02-components
+## 03-data-flow
 
-> The application components are organized into several categories:
+> The application uses Zustand for state management located in [lib/store.ts](mdc:lib/store.ts). This store manages:
 
-# Components Structure
+# Data Flow and State Management
 
-The application components are organized into several categories:
+## Store
+The application uses Zustand for state management located in [lib/store.ts](mdc:lib/store.ts). This store manages:
+- Chat sessions (create, delete, rename)
+- Messages (add, update)
+- Current session state
+- Loading states
 
-## Chat Components
-Located in [components/chat/](mdc:components/chat/) and include:
-- [Chat.tsx](mdc:components/chat/Chat.tsx) - Main chat interface container
-- [ChatMessage.tsx](mdc:components/chat/ChatMessage.tsx) - Individual message display
-- [ChatInput.tsx](mdc:components/chat/ChatInput.tsx) - Message input and submission
-- [Sidebar.tsx](mdc:components/chat/Sidebar.tsx) - Chat sessions sidebar
+## Supabase Integration
+Database interactions are managed through the Supabase client at [lib/supabase/client.ts](mdc:lib/supabase/client.ts). The database has:
+- `sessions` table - Stores chat sessions
+- `messages` table - Stores chat messages with session relationships
 
-## UI Components
-Located in [components/ui/](mdc:components/ui/) and include reusable UI elements following the Shadcn UI pattern.
-
-## Data Visualization Components
-Special components for displaying structured data from API responses:
-- [WeatherComponent.tsx](mdc:components/WeatherComponent.tsx) - Weather data visualization
-- [EarthquakeComponent.tsx](mdc:components/EarthquakeComponent.tsx) - Earthquake data visualization
-- [ExchangeRateComponent.tsx](mdc:components/ExchangeRateComponent.tsx) - Currency exchange data
-- [StockComponent.tsx](mdc:components/StockComponent.tsx) - Stock market data
-- [CoinComponent.tsx](mdc:components/CoinComponent.tsx) - Cryptocurrency data
+## API Routes
+API endpoints are organized in the [app/api/](mdc:app/api/) directory:
+- `/api/chat` - Handles chat completions and interactions with AI models
+- `/api/messages` - CRUD operations for messages
+ 
+## Data Flow
+1. User interactions trigger store actions
+2. Store actions update local state and Supabase
+3. Components react to state changes via store hooks
+4. API calls for AI interactions happen via fetch calls
 
 ---
 > Source: [Deuz-AI/Deuz-Chat](https://github.com/Deuz-AI/Deuz-Chat) — distributed by [TomeVault](https://tomevault.io).
