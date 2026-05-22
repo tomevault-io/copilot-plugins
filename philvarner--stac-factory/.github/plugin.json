@@ -1,0 +1,9 @@
+{
+  "name": "philvarner--stac-factory",
+  "displayName": "stac-factory",
+  "description": "Refined Pydantic models for constructing STAC Items",
+  "version": "1.0.0",
+  "author": "philvarner",
+  "homepage": "https://github.com/philvarner/stac-factory",
+  "skills": []
+}
