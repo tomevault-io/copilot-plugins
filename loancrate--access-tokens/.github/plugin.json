@@ -1,0 +1,9 @@
+{
+  "name": "loancrate--access-tokens",
+  "displayName": "access-tokens",
+  "description": "Personal access token library and tools",
+  "version": "1.0.0",
+  "author": "loancrate",
+  "homepage": "https://github.com/loancrate/access-tokens",
+  "skills": []
+}
