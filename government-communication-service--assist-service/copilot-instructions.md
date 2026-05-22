@@ -1,14 +1,10 @@
-## how-to-perform-auth-in-endpoints
+## inject-db-session-at-api-level
 
-> When creating a new endpoint, think carefully about which authentication method is required.
+> When creating a new API endpoint, make sure to use dependency injection to create an asynchronous database session. Then inject the same session throughout the request lifecycle.
 
-When creating a new endpoint, think carefully about which authentication method is required.
+When creating a new API endpoint, make sure to use dependency injection to create an asynchronous database session. Then inject the same session throughout the request lifecycle.
 
-If the endpoint is meant to be used by users of Assist, then the full authentication is required (i.e. provide `**endpoint_defaults` in the endpoint decorator).
-
-If instead, the endpoint is not meant to be used by users, and should only be used for administrative reasons (e.g. synchronising the Central Guidance, or cleaning up old chats) then instead the only authentication required should be the auth token, rather than any user-based authentication (user-based authentication requires a valid session and a User UUID). E.g. `dependencies=[Depends(auth_token_validator_no_user)]`.
-
-The reason for this rule is to make it easy to use the administrative functions, without needing a user session and user UUID.
+When creating functions in the service layer that require a database session, make sure to try to receive the database session from the API layer, and pass it between any service functions that require the session.
 
 ---
 > Source: [Government-Communication-Service/assist_service](https://github.com/Government-Communication-Service/assist_service) — distributed by [TomeVault](https://tomevault.io).
