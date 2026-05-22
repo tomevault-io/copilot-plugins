@@ -4,7 +4,7 @@
   "repo": "medharness",
   "description": "Harness Engineering for Medical AI Coding \u00b7 HIPAA + PIPL compliant \u00b7 12-step SOP + 5-step micro + 23 Skills + 8 MCP servers \u00b7 Apache 2.0",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/charliehzm/medharness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T19:07:35Z"
+  "distributed_at": "2026-05-22T19:17:58Z"
 }
