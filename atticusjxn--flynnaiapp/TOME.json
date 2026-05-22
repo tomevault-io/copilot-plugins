@@ -4,7 +4,7 @@
   "repo": "FlynnAIapp",
   "description": "Flynn AI - Mobile app for service providers to automatically capture job details from screenshots and phone calls",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atticusjxn/FlynnAIapp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T12:50:58Z"
+  "distributed_at": "2026-05-22T13:08:11Z"
 }
