@@ -1,49 +1,56 @@
-## os-detection
+## test-permission
 
-> description: USE WHEN suggesting shell commands or system operations. Ensures proper OS detection and platform-appropriate command formatting.
+> description: USE WHEN considering running tests or test-related commands. Ensures permission is requested before executing any tests.
 
 ﻿---
-description: USE WHEN suggesting shell commands or system operations. Ensures proper OS detection and platform-appropriate command formatting.
+description: USE WHEN considering running tests or test-related commands. Ensures permission is requested before executing any tests.
 globs: 
 alwaysApply: false
 ---
 **
-OS Detection and Shell Command Formatting Rule
+Test Execution Permission Protocol
 **
 
-// OS Detection Strategy
-- Always check the user's OS before suggesting shell commands
-- Use `os.name` or `platform.system()` in Python to detect the operating system
-- For script suggestions, provide platform-appropriate commands
+// Default Behavior
+- NEVER run tests automatically unless explicitly instructed to do so
+- Always ask for permission before executing any test suite or test command
+- This includes unit tests, integration tests, end-to-end tests, and any form of automated testing
 
-// Windows Commands (when os.name == 'nt' or platform.system() == 'Windows')
-- Use PowerShell syntax for complex operations
-- Use `cmd.exe` syntax for simple commands
-- Path separators: use `\` or `os.path.join()` for cross-platform compatibility
-- Example: `kubectl get pods --cluster=prod` (works on Windows)
-- For file paths: `C:\dev\project\file.txt` or use forward slashes in many contexts
+// When to Ask Permission
+- Before running `pytest`, `npm test`, `python -m unittest`, or any testing command
+- Before executing test scripts or test-related make commands
+- Before running any command that might trigger CI/CD pipelines
+- Before executing any command that might affect remote services or databases
 
-// Linux/macOS Commands (when platform.system() in ['Linux', 'Darwin'])
-- Use bash/shell syntax
-- Path separators: use `/`
-- Example: `./scripts/install.sh` or `chmod +x script.sh`
-- Use standard Unix conventions for file permissions and execution
+// Permission Request Format
+- Clearly state what tests you want to run and why
+- Explain the expected duration and any potential side effects
+- Ask: "Should I run [specific test command] to verify this change?"
+- Wait for explicit confirmation before proceeding
 
-// Cross-Platform Best Practices
-- When writing Python code, use `pathlib.Path` for file operations
-- Use `subprocess` with proper shell=True/False based on OS
-- For docker commands, they work the same across platforms
-- For kubectl commands, syntax is identical across platforms
+// Exceptions - Auto-run Only When
+- The user explicitly says "run the tests" or "test this"
+- The user includes test commands in their request
+- The user specifically asks you to "verify by testing"
+- The conversation is explicitly about debugging test failures
 
-// Script Recommendations
-- If suggesting shell scripts, provide both `.sh` (Linux/macOS) and `.ps1` (Windows) versions when relevant
-- For Python scripts, ensure they work cross-platform using appropriate libraries
-- Always test path operations with both forward and backward slashes in mind
+// Test Analysis Without Execution
+- You CAN analyze test files, test configurations, and test code without running them
+- You CAN suggest what tests should be run and how to run them
+- You CAN review test results that are provided to you
+- You CAN help write or modify test code without executing it
 
-// Environment Variables
-- Windows: use `%VARIABLE%` in cmd, `$env:VARIABLE` in PowerShell
-- Linux/macOS: use `$VARIABLE` or `${VARIABLE}`
-- Python: use `os.environ.get('VARIABLE')` for cross-platform access
+// Safety Considerations
+- Some tests might be expensive to run (long duration, resource intensive)
+- Some tests might have side effects (database changes, API calls, file system modifications)
+- Some tests might require specific environment setup or credentials
+- Some tests might trigger alerts or notifications in production monitoring systems
+
+// Best Practices
+- If you need to verify functionality, suggest the specific test command but ask before running
+- When helping debug test failures, work with provided test output rather than re-running
+- If writing new tests, explain how to run them but don't execute automatically
+- Always consider the impact of test execution on the development environment
 
 ---
 > Source: [d8ahazard/AudioLab](https://github.com/d8ahazard/AudioLab) — distributed by [TomeVault](https://tomevault.io).
