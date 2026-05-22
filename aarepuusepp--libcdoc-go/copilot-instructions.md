@@ -1,147 +1,135 @@
-## go-api-development
+## go-sonar-cleanliness
 
-> Apply when creating, editing, reviewing, or refactoring Go API code. Enforce project Go versions, API architecture conventions, idiomatic HTTP design, and production-ready implementation practices.
+> Apply when creating, editing, reviewing, or refactoring Go code. Enforce Sonar-aligned clean code, security, reliability, testability, and maintainability practices.
 
 
-# Go API Development Rule
+# Go Sonar Cleanliness Rule
 
-You are an expert AI programming assistant specializing in Go API development.
+Use this rule whenever you create, modify, review, or refactor Go code.
 
-## Project Go versions
+## Primary objective
 
-Always use the appropriate Go version for each project:
+Produce Go code that is clean, maintainable, secure, testable, and unlikely to trigger avoidable SonarQube issues.
 
-- `openapi-generator` and `test-backend`: Go `1.24.4`
-- `uaa-auth`: Go `1.24.2` to match KrakenD requirements
+Align with the active SonarQube Go Quality Profile when known.
+When uncertain, prefer conservative choices that reduce Bugs, Vulnerabilities, Security Hotspots, and Code Smells.
 
-Do not introduce language features, dependencies, or code patterns that require a newer Go version than the target project supports.
-
-## Routing and framework guidance
-
-Prefer idiomatic Go with the standard library `net/http`.
-
-Use `chi` as the default router for production APIs unless:
-
-- the project already standardizes on `http.ServeMux`, or
-- the requested change is small and fits naturally into an existing `ServeMux` setup
-
-If using `http.ServeMux`, use Go 1.22+ route patterns correctly.
-If using `chi`, keep routing lightweight, idiomatic, and easy to maintain.
-
-## Core behavior
-
-- Follow the user's requirements carefully and exactly.
-- First think step-by-step and describe the implementation plan in detailed pseudocode, including endpoints, request flow, validation, error handling, persistence, and response structures.
-- Then proceed to code unless the user explicitly asks to review the plan first.
-- Write correct, current, secure, efficient, production-ready Go code.
-- Leave no TODOs, placeholders, stubs, or missing pieces.
-- Prefer standard library solutions unless an existing project dependency or a clear technical reason justifies another library.
-
-## API design expectations
-
-- Follow RESTful API design principles when appropriate.
-- Use correct HTTP methods such as `GET`, `POST`, `PUT`, `PATCH`, and `DELETE`.
-- Use correct and consistent HTTP status codes.
-- Return JSON responses with stable and predictable structure.
-- Handle content types explicitly.
-- Keep handlers focused and readable.
-- Separate routing, transport, business logic, and persistence concerns when useful.
-
-## Request validation
-
-- Validate request bodies, path parameters, query parameters, headers, and pagination/filtering inputs.
-- Reject malformed, incomplete, or invalid input early.
-- Return clear error responses for invalid requests.
-- Do not assume external input is safe or well-formed.
-
-## Error handling
-
-- Implement proper error handling everywhere.
-- Never silently ignore errors unless explicitly justified in a short comment.
-- Use wrapped errors with context where appropriate.
-- Do not use panic for normal control flow.
-- Keep error responses safe for clients and useful for operators.
-
-## Middleware and cross-cutting concerns
-
-Use middleware where appropriate for concerns such as:
-
-- request logging
-- authentication and authorization
-- panic recovery
-- tracing
-- rate limiting
-- CORS
-- request ID propagation
-
-Keep middleware small, composable, and easy to reason about.
-
-## Security expectations
-
-- Prioritize security, scalability, and maintainability.
-- Implement authentication and authorization where appropriate.
-- Validate and sanitize external input.
-- Never hardcode secrets, API keys, tokens, passwords, or private keys.
-- Avoid insecure defaults.
-- Prefer parameterized database access and safe file handling.
-- Flag risky behavior clearly and provide a safer implementation.
-
-## Logging and observability
-
-- Implement proper logging using the standard library `log` package or a simple project-appropriate logger.
-- Do not log secrets or sensitive personal data.
-- Log operationally useful events consistently.
-- Keep logs readable and maintainable.
-
-## Concurrency guidance
-
-- Use goroutines only when they provide clear benefit.
-- Respect `context.Context` for request-scoped work and cancellation.
-- Avoid goroutine leaks, unsafe shared state, and race-prone patterns.
-- Keep concurrency simple and explicit.
-
-## Code quality expectations
+## Required coding standards
 
 - Write idiomatic Go.
+- Prefer simple packages, explicit control flow, and standard library solutions where practical.
 - Keep functions focused and reasonably small.
-- Prefer early returns to reduce nesting.
-- Use clear and meaningful names.
+- Split complex logic into helpers with clear names when it improves readability.
+- Avoid unnecessary abstraction or Java/C#-style patterns that do not fit Go well.
+- Use meaningful names for packages, files, functions, methods, variables, constants, interfaces, and tests.
 - Keep interfaces small and behavior-oriented.
+- Do not introduce interfaces prematurely.
+- Remove dead code, unreachable branches, stale comments, unused imports, unused parameters, and unused variables.
 - Avoid duplication when extraction improves clarity.
-- Remove dead code, unreachable branches, unused variables, and stale comments.
+- Prefer early returns to reduce nesting.
+
+## Error handling rules
+
+- Never silently ignore returned errors unless there is a clear and justified reason.
+- If an error is intentionally ignored, add a short comment explaining why it is safe.
+- Wrap errors with useful operational context when returning upward.
+- Do not lose root-cause information.
+- Do not use panic for normal error handling.
+- Validate inputs early and return explicit errors for invalid state.
+
+## Nil and bounds safety
+
+- Defend against nil pointer dereferences.
+- Check pointers, maps, slices, interfaces, channels, and returned values before unsafe use when nil is possible.
+- Do not assume decoded payloads, config values, env vars, database values, or HTTP input are valid.
+- Guard slice and array indexing carefully.
+
+## Resource handling
+
+- Close files, response bodies, rows, and other resources correctly.
+- Check relevant errors from reads, writes, flushes, closes, and deferred cleanup.
+- Avoid leaks caused by incomplete cleanup paths.
+
+## Concurrency rules
+
+- Avoid goroutine leaks.
+- Ensure goroutines can finish, return, or be cancelled.
+- Respect `context.Context` for cancellable work.
+- Protect shared mutable state with proper synchronization.
+- Avoid data races and ambiguous ownership.
+- Be careful with loop variables captured by goroutines or closures.
+- Close channels only from the sending side and only when ownership is clear.
+
+## Security rules
+
+- Never hardcode secrets, passwords, API keys, tokens, private keys, or connection strings.
+- Do not log secrets or sensitive personal data.
+- Validate and sanitize all external input.
+- Use secure file and directory permissions.
+- Use safe temporary file handling.
+- Avoid command injection, path traversal, SQL injection, unsafe deserialization, insecure randomness, and weak cryptography.
+- Prefer parameterized database queries.
+- Use `crypto/rand` for security-sensitive randomness, never `math/rand`.
+- Prefer approved standard-library crypto or well-established libraries.
+- Flag risky behavior clearly if the requested change would introduce a security hotspot.
+
+## HTTP, API, and I/O safety
+
+- Validate request payloads and query/path parameters.
+- Set timeouts for network operations where appropriate.
+- Close response bodies and opened files.
+- Avoid unbounded reads into memory when payload size can be large.
+- Return consistent status codes and safe error structures.
+
+## Maintainability rules
+
+- Keep comments useful and accurate.
+- Do not restate obvious code.
+- Prefer self-explanatory code over excessive comments.
+- Keep public APIs stable and clearly documented unless breaking changes are explicitly requested.
+- Add doc comments for exported types and functions when appropriate.
 
 ## Testing expectations
 
 - Add or update tests for behavior changes.
-- Prefer integration tests first for API behavior, then focused unit tests where useful.
-- Use modern, idiomatic Go testing practices.
-- Cover success paths, edge cases, and failure paths.
-- Keep tests deterministic and avoid flaky timing-based behavior.
+- Cover happy paths, edge cases, and failure paths.
+- Prefer table-driven tests when they improve clarity.
+- Keep tests deterministic and isolated.
+- Avoid flaky timing-based tests unless unavoidable.
+- Verify error behavior, nil handling, and boundary conditions.
+
+## Sonar-oriented review pass
+
+Before finalizing code, check for likely Sonar findings in these categories:
+
+- Bugs: ignored errors, nil dereference risk, broken conditions, resource leaks, misuse of defer, incorrect loop logic, bad concurrency patterns
+- Vulnerabilities: injection risk, weak crypto, insecure randomness, unsafe temp files, secret exposure
+- Security Hotspots: sensitive operations that need explicit justification or safer alternatives
+- Code Smells: overly complex functions, deep nesting, duplication, dead code, poor naming, stale comments, unnecessary indirection
 
 ## Output behavior for the AI
 
-When proposing code:
+When proposing code changes:
 
-- provide complete, runnable code when feasible
-- keep explanations concise
-- add brief comments only where logic is non-obvious
-- state uncertainty clearly instead of guessing
-- mention tradeoffs briefly when relevant
+- prefer production-ready code over pseudocode
+- keep examples minimal but complete enough to compile when feasible
+- explain non-obvious tradeoffs briefly
+- explicitly call out risky patterns and provide a safer implementation
+- clearly state project constraints when they require keeping a noisy or less-ideal pattern
 
-## Final verification checklist
+## Pre-submit checklist
 
 Before final output, verify:
 
-- the implementation matches the user's requirements
-- the selected router approach fits the project
-- handlers use correct HTTP methods and status codes
-- request inputs are validated
 - errors are handled correctly
-- responses are consistent
-- resources are closed
-- security concerns were considered
+- nil safety was considered
+- inputs are validated
+- resources are closed or released
+- concurrency is safe
+- no secrets are introduced
 - tests were added or updated where behavior changed
-- the code is idiomatic and production-ready
+- the code remains idiomatic Go
+- the change is unlikely to produce avoidable SonarQube findings
 
 ---
 > Source: [aarepuusepp/libcdoc-go](https://github.com/aarepuusepp/libcdoc-go) — distributed by [TomeVault](https://tomevault.io).
