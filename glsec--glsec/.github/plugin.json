@@ -1,0 +1,9 @@
+{
+  "name": "glsec--glsec",
+  "displayName": "glsec",
+  "description": "GitLab CI security linter \u2014 find misconfigurations and vulnerabilities in .gitlab-ci.yml files",
+  "version": "1.0.0",
+  "author": "glsec",
+  "homepage": "https://github.com/glsec/glsec",
+  "skills": []
+}
