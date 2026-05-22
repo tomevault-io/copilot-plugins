@@ -1,0 +1,9 @@
+{
+  "name": "crzykidd--docker-api-notifier",
+  "displayName": "docker-api-notifier",
+  "description": "watch docker notifications and updates different notifiers on events.",
+  "version": "1.0.0",
+  "author": "crzykidd",
+  "homepage": "https://github.com/crzykidd/docker-api-notifier",
+  "skills": []
+}
