@@ -1,0 +1,9 @@
+{
+  "name": "obra--issue-cards",
+  "displayName": "issue-cards",
+  "description": "AI-optimized command line issue tracking tool",
+  "version": "1.0.0",
+  "author": "obra",
+  "homepage": "https://github.com/obra/issue-cards",
+  "skills": []
+}
