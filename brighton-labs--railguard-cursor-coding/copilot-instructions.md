@@ -1,96 +1,86 @@
-## java-database-secure-railguard-available
+## ml-secure-no-railguard-available
 
-> Enforces secure database access in Java applications with input validation and behavioral logic delegated to `.cursor/rules/railguard-input-validation.mdc`. Focuses on JDBC/ORM usage, secure configuration, and logging best practices.
+> Enforce security-aware development practices in Python-based ML workflows (training, inference, data loading, checkpointing) using the RAILGUARD reasoning framework.
 
 
-## Overview
-This rule applies secure-by-default practices for database interactions in Java codebases, particularly when using:
-- JDBC (e.g., `PreparedStatement`, `Connection`)
-- Spring Data JPA (e.g., `@Entity`, repository interfaces)
+# R: Risk First
+- The goal is to reduce risk exposure in machine learning pipelines by securing data ingestion, model checkpoint loading, dependency handling, and inference logic.
+- AI-generated ML code should not trust unknown data sources or model files without validation.
+- The LLM must ensure safety against insecure serialization, poisoning, and unsafe dynamic behavior.
 
-It assumes `.cursor/rules/railguard-input-validation.mdc` is available and active to handle reasoning, redline constraints, and validation logic for all user input.
+# A: Attached Constraints
+- Never use `pickle.load()` or `torch.load()` on files from untrusted sources.
+- Never use `eval()` or `exec()` to dynamically interpret model code, formulas, or input.
+- Never suppress exceptions silently (`try/except: pass`).
+- Avoid using untyped data transformations or outputs.
+- Do not log raw inputs from end users (can include PII).
 
----
+# I: Interpretative Framing
+- Treat all input data (CSV, JSON, NumPy, HuggingFace datasets) as potentially malformed or poisoned unless explicitly validated.
+- If loading a model checkpoint, assume the file may have been tampered with.
+- When generating inference code, assume it may be deployed in production with untrusted input.
 
-## JDBC + ORM Practices
-- Always use `PreparedStatement` and parameterized queries for manual SQL
-- Prefer Spring Data JPA repositories when using Spring Boot
-- Annotate entity classes with `@Entity`, `@Table`, and relevant JPA annotations
-- Use `@Transactional` for atomic operations
-- Sanitize and validate input before constructing dynamic queries (delegated)
+# L: Local Defaults
+- Use `joblib` or `torch.load()` **only on trusted, versioned model paths**
+- Prefer `torch.save(model.state_dict())` for safe model export; avoid full object serialization
+- Use Pydantic or Marshmallow schemas for preprocessing configs and inference input validation
+- Use `logging` for monitoring; avoid `print()` and never log raw `request.body`
+- Default to strict file permissions (`r`, no `rb+`)
 
----
+# G: Generative Path Checks
+1. When generating model loading logic:
+   - Confirm source is trusted or version-controlled
+   - Avoid deserializing entire objects unless safe
+   - Use checksum or hash verification if relevant
+2. When preprocessing data:
+   - Validate data structure (rows, types, shape)
+   - Use `try/except` with logging for failed transforms
+3. When handling input for inference:
+   - Validate schema
+   - Normalize securely
+   - Avoid leaking model internals in output
 
-## Secure Configuration
-- All credentials must be sourced from:
-  - `SPRING_DATASOURCE_URL`
-  - `SPRING_DATASOURCE_USERNAME`
-  - `SPRING_DATASOURCE_PASSWORD`
-- Use `.env`, `application.properties`, or vault integrations
-- Never include secrets in source code or version control
+# U: Uncertainty Disclosure
+- If unsure about input format, file source, or serialization method, generate a comment:
+  _“Verify this file path is trusted before deserializing model.”_
+- If unsure about preprocessing correctness, generate:
+  _“Review schema/shape assumptions before transforming user input.”_
 
----
+# A: Auditability
+- All model loading should include a comment like:
+  `# Model loaded from trusted path with versioned file`
+- Inference pipelines should include:
+  `# Input validated with schema`
+- File operations should include:
+  `# File access scoped to read-only mode`
+- If HuggingFace `from_pretrained()` is used, document:
+  `# Loaded from official source (e.g., "bert-base-uncased")`
 
-## Logging Best Practices
-- Avoid logging SQL queries with injected user data
-- Sanitize exception messages before logging them
-- Use `SLF4J` or `Logback` for structured logging with sensitive field masking if possible
-
----
-
-## Secure Patterns
-Use inline comments to annotate secure behavior:
-- `// Using PreparedStatement with parameterized query`
-- `// Credentials loaded from external config`
-- `// ORM usage with @Transactional`
-
----
-
-## Example
-```java
-String query = "SELECT * FROM users WHERE username = ?";
-try (PreparedStatement stmt = conn.prepareStatement(query)) {
-    stmt.setString(1, username);
-    try (ResultSet rs = stmt.executeQuery()) {
-        while (rs.next()) {
-            // Process result
-        }
-    }
-} catch (SQLException e) {
-    logger.warn("Query failed", e); // Avoid exposing sensitive values
-}
-```
-
----
-
-## Reference Rule
-Input validation, threat modeling, and secure reasoning are governed by:
-> `.cursor/rules/railguard-input-validation.mdc`
-
-This rule assumes that any dynamic values passed to queries or injected via APIs are filtered and validated per that rule.
+# R+D: Revision + Dialogue
+- Support `/why-secure` for LLM to explain:
+  _“Avoided full object deserialization and validated data structure before inference.”_
+- Support `/revise-for-security` to recheck model-loading or data-ingestion logic
+- Recommend `/check-input-shape` if AI is unsure about data expectations
 
 ---
 
-## Java References
-- [JDBC PreparedStatement API](https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html)
-- [Spring Data JPA Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
-- [Hibernate ORM Documentation (Official)](https://hibernate.org/orm/documentation/)
-- [Hibernate @Entity and Annotation Reference](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#chapters-annotations)
-- [Spring Boot Security](https://docs.spring.io/spring-boot/how-to/security.html#page-title)
-- [Spring Boot Environment Variables](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config)
-- [Logging in Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging)
-- [OWASP SQL Injection Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+## Example: Secure Model Load + Inference
 
----
+```python
+import torch
+from transformers import BertTokenizer, BertForSequenceClassification
 
-## Dev Commands
-- `/revise-for-db-safety` — Refactor raw queries or unsafe JDBC patterns
-- `/secure-db-config` — Generate a secure Spring Boot DB configuration block
-- `/explain-db-security` — Provide reasoning for ORM vs JDBC choices
+# Always verify model sources before loading
+model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
----
+# Validate input before tokenizing
+text = "Some user input"
+inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
 
-This rule is scoped to secure usage patterns — it assumes validation, context framing, and behavioral enforcement is provided globally.
+with torch.no_grad():
+    outputs = model(**inputs)
+    probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
