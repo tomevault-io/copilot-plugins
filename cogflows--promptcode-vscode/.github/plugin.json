@@ -1,0 +1,9 @@
+{
+  "name": "cogflows--promptcode-vscode",
+  "displayName": "promptcode-vscode",
+  "description": "PromptCode: The VS Code extension that saves the day when your AI code agent (Cursor, etc.) hits a wall. You're in control\u2014select files, craft precise prompts, and effortlessly apply fixes using your ",
+  "version": "1.0.0",
+  "author": "cogflows",
+  "homepage": "https://github.com/cogflows/promptcode-vscode",
+  "skills": []
+}
