@@ -1,52 +1,29 @@
-## 10-core-ahk-system
+## 15-modules-primary-context
 
-> AHK v2 Agent Mode — Core Rules (ClautoHotkey)
+> description: Module-first context routing (consult Modules/ before AHK_Notes/)
 
 ---
-alwaysApply: true
----
-AHK v2 Agent Mode — Core Rules (ClautoHotkey)
-
-- Treat this workspace as AHK v2 only. There is no server/backend to run. Do not search for or start Node.js, Python, MCP servers, or web services.
-- When the user types "init" or opens this repo, immediately operate as an AHK v2 coding agent. Avoid broad discovery scans; only inspect files directly relevant to the user’s request.
-- Preferred execution: use the official AHK v2 interpreter with UTF‑8 error output.
-  - Example: `& "c:\\Program Files\\AutoHotkey\\v2\\AutoHotkey64.exe" /ErrorStdOut=utf-8 "<script_path>"`
-- Default entry/test targets if user asks to run something quickly:
-  - `Tests\Test_Basic.ahk` (smoke)
-  - `Tests\Other_TestingSystem.ahk` (GUI test runner)
-  - `Scripts\Clip_SearchCode.ahk`, `_Lists.ahk`, `_UltiLog.ahk` as user-facing tools
-- Search discipline:
-  - Do not read specs/docs unless the user asks.
-  - Use targeted semantic search only when needed to answer a specific “where/how” question.
-  - Prefer direct file reads over scanning multiple directories.
-- Coding constraints (strict AHK v2):
-  - Pure OOP; instantiate classes without `new`.
-  - Use `Map()` for key→value storage; arrays are 1‑based.
-  - Bind all callbacks with `.Bind(this)`; clean up in `__Delete`.
-  - GUI must be class‑based with deterministic layout and validation.
-  - PCRE flags `i/m/s/x`; backtick escaping only; strict commas/colons.
-  - Fat arrows for single‑line only.
-- Terminal usage:
-  - Only run AHK scripts as above. Do not run package managers or unrelated CLIs.
-- Interaction:
-  - Provide brief status updates and a concise summary.
-  - Ask one clarifying question only when blocked; otherwise proceed.
----
-description: Core strict AHK v2 system for ClautoHotkey (OOP, syntax, storage, GUI)
+description: Module-first context routing (consult Modules/ before AHK_Notes/)
 alwaysApply: true
 ---
 
-Core constraints
-- Pure AHK v2 OOP; instantiate classes without `new`.
-- Strict commas/colons; backtick-only escaping; PCRE `i/m/s/x`.
-- Use `Map()` for key→value storage; arrays are 1-based.
-- Fat arrows are single-line only; use traditional functions for multi-line logic.
-- Bind all callbacks with `.Bind(this)`; cleanup in `__Delete`.
-- GUI must be class-based; deterministic layout calculation, validation, and reporting.
+Context lookup order (when more detail is needed)
+1) Modules (authoritative, concise rules and examples)
+   - Modules/Module_Instructions.md (core)
+   - Modules/Module_Objects.md
+   - Modules/Module_TextProcessing.md
+   - Modules/Module_GUI.md
+   - Modules/Module_Escapes.md
+   - Modules/Module_DynamicProperties.md
+   - Modules/Module_DataStructures.md
+   - Modules/Module_Classes.md
+   - Modules/Module_Arrays.md
+2) AHK_Notes (expanded patterns, deep dives, and grep-able examples)
+   - AHK_Notes/Classes/, AHK_Notes/Concepts/, AHK_Notes/Methods/, AHK_Notes/Patterns/, AHK_Notes/Snippets/
 
-References
-- Modules first: `Modules/Module_Instructions.md`, `Modules/Module_Objects.md`, `Modules/Module_DataStructures.md`, `Modules/Module_Classes.md`
-- Then examples/patterns: `AHK_Notes/`
+Guidance
+- Prefer Modules for canonical guidance; only pull AHK_Notes for additional examples or edge cases.
+- When citing context in replies or decisions, mention the specific Module file first, then any AHK_Notes used.
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
