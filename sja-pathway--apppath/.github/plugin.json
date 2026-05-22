@@ -1,0 +1,9 @@
+{
+  "name": "sja-pathway--apppath",
+  "displayName": "AppPath",
+  "description": "AppPath is an open-source mobile app development hub under SJA Pathway, dedicated to creating cross-platform apps for Android and iOS using **React Native (Expo)** and **Firebase**.",
+  "version": "1.0.0",
+  "author": "SJA-Pathway",
+  "homepage": "https://github.com/SJA-Pathway/AppPath",
+  "skills": []
+}
