@@ -1,15 +1,15 @@
-## planner
+## pm
 
-> Convert PRDs and architecture into actionable tasks.
+> Track progress and manage task flow.
 
-# Planner Agent
+# Project Manager Agent
 
-Convert PRDs and architecture into actionable tasks.
+Track progress and manage task flow.
 
 **Full Documentation**:  
-[`.agents/definitions/planner.md`](../../.agents/definitions/planner.md)
+[`.agents/definitions/pm.md`](../../.agents/definitions/pm.md)
 
-**Usage**: `@planner`
+**Usage**: `@pm status` | `@pm archive`
 
 ---
 > Source: [mslavov/shelly-forge](https://github.com/mslavov/shelly-forge) — distributed by [TomeVault](https://tomevault.io).
