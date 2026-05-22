@@ -1,42 +1,30 @@
-## python
+## sql
 
-> This rule applies to all Python files in the project.
+> This rule applies to all SQL files in the project.
 
-# Python Rules
+# SQL Rules
 
-This rule applies to all Python files in the project.
+This rule applies to all SQL files in the project.
 
 ## File Pattern
-*.py
+*.sql
 
 ## Description
-When working with Python files, we use `uv` as our package manager and runtime. Python files should be executed using the command `uv run {file}`.
+When working with SQL files, we use DuckDB as our database engine. SQL files should be executed using the command `duckdb local.db -f {file}`.
 
 ## Formatting
 - Use 4 spaces for indentation
-- Follow PEP 8 style guide
-- Use Ruff for code formatting and linting
+- Use SQLFluff for formatting with DuckDB dialect
 - Format on save
-- Use Ruff's recommended settings:
-  - Line length: 88
-  - Quote style: double quotes
-  - Import sorting: isort style
 
 ## Commands
-- Run Python file: `uv run {file}`
-- Install dependencies: `uv pip install -r requirements.txt`
-- Format code: `ruff format {file}`
-- Lint code: `ruff check {file}`
-- Fix linting issues: `ruff check --fix {file}`
+- Run SQL file: `duckdb local.db -f {file}`
 
 ## Best Practices
-- Use type hints where appropriate
-- Include docstrings for functions and classes
-- Use virtual environments for dependency management
-- Follow PEP 8 naming conventions
-- Use meaningful variable and function names
-- Keep functions focused and single-purpose
-- Use Ruff's auto-fix capabilities to maintain code quality 
+- Use consistent naming conventions
+- Include comments for complex queries
+- Use proper indentation for readability
+- Follow DuckDB's SQL dialect specifications 
 
 ---
 > Source: [matsonj/cursor_eda](https://github.com/matsonj/cursor_eda) — distributed by [TomeVault](https://tomevault.io).
