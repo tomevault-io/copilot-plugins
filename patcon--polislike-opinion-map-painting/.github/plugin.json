@@ -1,0 +1,9 @@
+{
+  "name": "patcon--polislike-opinion-map-painting",
+  "displayName": "polislike-opinion-map-painting",
+  "description": "Experimental data-painting interface for exploring opinion landscapes created from Polis-like wikisurvey data.",
+  "version": "1.0.0",
+  "author": "patcon",
+  "homepage": "https://github.com/patcon/polislike-opinion-map-painting",
+  "skills": []
+}
