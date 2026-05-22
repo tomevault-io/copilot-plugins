@@ -1,0 +1,9 @@
+{
+  "name": "cloudquant--alphalens",
+  "displayName": "alphalens",
+  "description": "Performance analysis of predictive (alpha) factors",
+  "version": "1.0.0",
+  "author": "cloudQuant",
+  "homepage": "https://github.com/cloudQuant/alphalens",
+  "skills": []
+}
