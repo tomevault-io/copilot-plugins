@@ -1,40 +1,40 @@
-## environment-management
+## project-structure
 
-> The project uses different environment files for configuration:
+> This project follows a modular architecture with several key components:
 
-# Environment Management
+# Project Structure
 
-## Environment Files
-The project uses different environment files for configuration:
+This project follows a modular architecture with several key components:
 
-### File Structure
-- `local.env`: Development environment settings
-- `prod.env`: Production environment settings
-- `prod_bck.env`: Backup production settings
+## Core Components
+The `core/` directory contains the fundamental business logic and data models:
+- `core/database/`: Database models and services
+- `core/users/`: User management functionality
+- `core/chat/`: Chat-related features
+- `core/assistants/`: Assistant implementations
+- `core/vectors/`: Vector operations and storage
+- `core/models/`: Core data models
+- `core/events/`: Event handling system
+- `core/config/`: Configuration management
 
-### Environment Service
-The environment management is handled by `EnvironmentCRUD` service which is integrated with data source management.
+## API Layer
+The `api/` directory implements the service endpoints:
+- `api/routers/`: API route definitions
+- `api/schemas/`: Request/response schemas
+- `api/utils/`: API utilities
+- `api/docs/`: API documentation
+- `api/monitoring/`: Monitoring and observability
 
-### Best Practices:
-1. Environment Validation:
-- Always validate environment existence before operations
-- Use UUID for environment identification
-- Check environment constraints before data source operations
+## Key Files
+- [main.py](mdc:observer/main.py): Application entry point
+- [setup.py](mdc:observer/setup.py): Project setup and dependencies
+- [pyproject.toml](mdc:observer/pyproject.toml): Project metadata and dependencies
+- [docker-compose.yml](mdc:observer/docker-compose.yml): Container orchestration
 
-2. Environment-Specific Configuration:
-- Keep sensitive data in environment files
-- Use different configurations for development and production
-- Document all environment variables
-
-3. Docker Integration:
-- Environment files are used in [docker-compose.yml](mdc:observer/docker-compose.yml)
-- Container configurations adapt based on environment
-- Use environment-specific volumes and networks
-
-4. Security:
-- Never commit sensitive environment values
-- Use `.gitignore` to exclude sensitive files
-- Store credentials separately in `credentials/` directory
+## Environment Configuration
+The project uses different environment files for various deployments:
+- `local.env`: Local development settings
+- `prod.env`: Production settings
 
 ---
 > Source: [TelescopeAI/cortex](https://github.com/TelescopeAI/cortex) — distributed by [TomeVault](https://tomevault.io).
