@@ -1,0 +1,9 @@
+{
+  "name": "just-understanding-data-ltd--supabase-tdd-boilerplate",
+  "displayName": "supabase-tdd-boilerplate",
+  "description": "A repo showing how to do TDD with Supabase with orgs, teams, invitations with 3 layers of tests. Focusing on component/function (unit tests), integration tests for RLS + Supabase (RLS) and E2E tests w",
+  "version": "1.0.0",
+  "author": "Just-Understanding-Data-Ltd",
+  "homepage": "https://github.com/Just-Understanding-Data-Ltd/supabase-tdd-boilerplate",
+  "skills": []
+}
