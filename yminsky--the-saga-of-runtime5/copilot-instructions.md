@@ -1,0 +1,43 @@
+## the-saga-of-runtime5
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+This repository contains materials for "The Saga of Multicore OCaml" presentation by Yaron Minsky. It documents the transition from OCaml Runtime 4 to Runtime 5 (multicore support) and the performance challenges encountered during this migration at Jane Street.
+
+## Architecture and Structure
+
+### Core Content
+- `talk.md` - Main presentation slides in markdown format using a slide deck framework (tokyonight-storm theme)
+- `notes.org` - Detailed notes and outline covering the technical challenges, timeline, and lessons learned
+- Performance analysis images (`space_overhead_*.png`, `gc-pacing-graph.png`) - Visualizations showing GC performance comparisons
+- `workflow.png` - XKCD comic about backwards compatibility challenges
+
+### Key Technical Topics Covered
+- OCaml Runtime 4 vs Runtime 5 architectural differences
+- Garbage collection pacing algorithms (open-loop vs closed-loop)
+- Transparent Huge Pages (THP) allocation issues
+- Memory management and performance regression analysis
+- Multicore GC design trade-offs and synchronization points
+
+## File Structure Context
+
+This is a presentation repository focused on documenting the technical journey of migrating from single-threaded to multicore OCaml runtime. The materials serve as both a talk presentation and technical documentation of the performance engineering challenges encountered during this major language runtime transition.
+
+The repository represents a case study in large-scale systems migration, highlighting the complexities of garbage collector design, performance debugging methodologies, and the challenges of maintaining backwards compatibility in production systems.
+
+## Development Guidelines
+
+- When working on visualizations, don't just run raw bash commands to invoke python or whatever to build the output. Create a makefile in the directory for the visualization, so you can just run "make" there.
+
+## Workflow Guidance
+- Please use eog to show me any new png you create as soon as you've created it and are ready for feedback.
+
+---
+> Source: [yminsky/the-saga-of-runtime5](https://github.com/yminsky/the-saga-of-runtime5) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
