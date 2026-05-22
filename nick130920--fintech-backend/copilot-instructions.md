@@ -1,33 +1,50 @@
-## conventional-commits
+## database-entities
 
-> Enforce Conventional Commits and release note trailers
+> Database entity and repository patterns for GORM
 
 
-# Conventional Commits Rule
+# Database Entity and Repository Rules
 
-Cuando el usuario pida crear un commit, usa formato Conventional Commits:
+## Entity Definitions
+- Define entities in [internal/entity](mdc:internal/entity) directory
+- Use GORM tags for database mapping
+- Include `CreatedAt`, `UpdatedAt`, `DeletedAt` for soft deletes
+- Use proper foreign key relationships
 
-`type(scope): resumen en imperativo`
+## Repository Pattern
+- Interface definitions in [internal/usecase/repo](mdc:internal/usecase/repo)
+- Implementations in [pkg/repository](mdc:pkg/repository)
+- Use GORM for database operations
+- Handle errors properly with structured `AppError`
 
-Tipos permitidos:
-- `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `chore`, `build`, `ci`, `revert`
+## Bank Account Entity
+- Reference [BankAccount](mdc:internal/entity/bank_account.go) for structure
+- Include user association: `UserID uint`
+- Support notification settings and balance tracking
 
-Reglas:
-- Mensaje corto en minúsculas (excepto nombres propios).
-- Máximo 72 caracteres en la primera línea.
-- Explicar el "por qué" en el cuerpo si hace falta.
-- No usar mensajes genéricos como "update", "changes", "wip".
+## Transaction Entity
+- Reference [Transaction](mdc:internal/entity/transaction.go) for extended fields
+- Include bank account association: `BankAccountID *uint`
+- Support validation status and AI confidence
 
-Para release notes automáticas en Codemagic, agregar trailers cuando aplique:
-- `RN-es: texto de notas para Play Console en español`
-- `RN-en: text for Play Console release notes in English`
+## Migration Handling
+- Use GORM AutoMigrate in [database.go](mdc:pkg/database/database.go)
+- Add new entities to `runMigrations()` function
+- Include in `DropTables()` for cleanup (reverse dependency order)
 
-Ejemplo válido:
+## Query Patterns
+```go
+// Preload relationships
+db.Preload("Category").Where("user_id = ?", userID).Find(&expenses)
 
-`feat(reports): agrega exportación csv y pdf`
-
-`RN-es: Exportación de transacciones en CSV y PDF desde Reportes.`
-`RN-en: Added CSV and PDF transaction export from Reports.`
+// Use transactions for complex operations
+tx := r.db.Begin()
+defer func() {
+    if r := recover(); r != nil {
+        tx.Rollback()
+    }
+}()
+```
 
 ---
 > Source: [nick130920/fintech-backend](https://github.com/nick130920/fintech-backend) — distributed by [TomeVault](https://tomevault.io).
