@@ -1,0 +1,9 @@
+{
+  "name": "goplasmatic--dataflow-rs",
+  "displayName": "dataflow-rs",
+  "description": "A high-performance rules engine for IFTTT-style automation in Rust with zero-overhead JSONLogic evaluation",
+  "version": "1.0.0",
+  "author": "GoPlasmatic",
+  "homepage": "https://github.com/GoPlasmatic/dataflow-rs",
+  "skills": []
+}
