@@ -4,7 +4,7 @@
   "repo": "xcodeproj-cli",
   "description": "A powerful command-line utility for manipulating Xcode project files (.xcodeproj)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tolo/xcodeproj-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T03:58:30Z"
+  "distributed_at": "2026-05-22T04:07:52Z"
 }
