@@ -1,104 +1,51 @@
-## ml-secure-railguard-available
+## nextjs-typescript-secure-no-railguard-available
 
-> Guide AI to generate secure machine learning workflows in Python with safe model loading, inference pipelines, and data handling. Core input validation is delegated to `.cursor/rules/railguard-input-validation.mdc`.
+> Best practices for writing secure, performant, and consistent TypeScript + Next.js code with React Server Components, Tailwind, and Shadcn UI
 
 
-## Overview
+# R: Risk First
+- The goal of this rule is to ensure that all TypeScript and Next.js code is not only performant, but also secure, particularly across input handling, data fetching, rendering contexts, and client/server boundaries.
 
-This rule supports secure-by-default machine learning code generation, covering:
+# A: Anchored Constraints
+- Never expose secrets or tokens in the client bundle.
+- Never process authentication logic or sensitive tokens on the client side.
+- Never trust user input without validation and sanitization.
+- Avoid use of `dangerouslySetInnerHTML` unless explicitly sanitized.
+- Avoid the use of `any` and `unknown` in type declarations unless absolutely necessary and justified with a comment.
 
-- Model checkpoint handling
-- Trusted use of HuggingFace, PyTorch, or scikit-learn
-- Inference-time protections
-- Logging and resource handling
+# I: Interpretive Framing
+- If generating an API handler, assume it may be hit by a malicious actor — include schema validation (for example, with `zod`) and return standardized error responses.
+- If generating form components, treat all input as untrusted and encode output accordingly.
+- If building routes, assume URL parameters may be altered with anything insecure. Apply `z.string().safeParse(...)` or equivalent validation.
 
-Note: All input validation, sanitization, schema enforcement, and LLM reasoning scaffolding is provided by:
+# L: Local Defaults
+- Use `zod` or `valibot` for runtime validation of all inputs (form values, API payloads, URL params).
+- Use environment variables via `process.env` only inside server components or server actions.
+- Apply HTTPS and secure cookies (`HttpOnly`, `Secure`, `SameSite=Strict`) in all auth flows.
+- Use `Content-Security-Policy` headers for enhanced front-end protection.
+- Always set `rel="noopener noreferrer"` for links with `target="_blank"`.
 
-> `.cursor/rules/railguard-input-validation.mdc`  
-> _(Based on the RAILGUARD Framework for secure behavior enforcement across languages)_
+# G: Generative Path Checks
+1. If working with input (forms, URL params, body): validate with a runtime schema before processing.
+2. If handling authentication or secrets: ensure logic remains on the server side.
+3. If displaying user-generated content: escape or sanitize output.
+4. If using 3rd-party packages: prefer well-maintained libraries with no known CVEs.
+5. Always explain in comments where secure handling occurs (for example, `// Validated input with zod`).
 
----
+# U: Uncertainty Disclosure
+- If unsure whether a component is server-safe or contains sensitive logic, generate a comment for the developer:  
+  _“// This component uses potential client-side logic. Please confirm this does not handle secrets or tokens.”
 
-## Model Loading & Deserialization
+# A: Auditability
+- Add comments like:
+  - `// Validated with zod before usage`
+  - `// Handled in server component for secure access to env vars`
+  - `// Avoided client exposure of sensitive props`
+- Mark risky sections (for example, `dangerouslySetInnerHTML`) with `// Requires explicit sanitization`.
 
-- Use `torch.load()` or `pickle.load()` only on trusted, versioned, local files.
-- Avoid deserializing full Python objects unless necessary. Prefer `state_dict` loading (e.g., `model.load_state_dict(...)`)
-- If using `from_pretrained()`, ensure the model name is official or internally versioned.
-- When downloading models, validate integrity using checksums if possible.
-
----
-
-## Data Handling & Preprocessing
-
-- Avoid using raw `eval()` or `exec()` to interpret formulas or hyperparameters.
-- Prefer explicit schema-based checks for:
-  - Number of features
-  - Tensor dimensions
-  - String encoding assumptions
-- Do not transform user input without validating structure first.
-
-For validation and sanitation of CSVs, JSONs, NumPy arrays, and request inputs — refer to `.cursor/rules/input-validation.mdc`.
-
----
-
-## Inference Logic & Output Handling
-
-- Do not log input text, tokens, or raw payloads directly (especially for NLP or PII-sensitive data).
-- Use `with torch.no_grad():` or equivalent when performing inference.
-- Ensure inference outputs are typed, validated, and never expose model internals (e.g., logits, hidden states) unless required.
-
----
-
-## File & Resource Access
-
-- Always open files using `with open(...)` syntax.
-- Set read-only access unless modification is required.
-- Avoid writing cache or checkpoint data to shared or user-supplied paths.
-
----
-
-## Logging & Monitoring
-
-- Use Python’s `logging` module — not `print()`.
-- Mask or exclude sensitive input/output data in logs.
-- Log model version, inference success/failure, and prediction metadata — not raw data.
-
----
-
-## Cross-Reference: Global Input Validation
-
-All low-level data validation, reasoning scaffolding, and reflection-based secure behavior enforcement is handled by:
-
-> `.cursor/rules/railguard-input-validation.mdc`
-
-Including:
-- Schema and shape enforcement
-- Input source validation
-- Dangerous pattern detection (e.g., `eval`, insecure deserialization)
-- AI reflection paths (`R`, `G`, `U` pillars)
-
-This ML rule **inherits and complements** the RAILGUARD logic.
-
----
-
-## Example Snippet: Safe Model + Inference
-
-```python
-from transformers import BertTokenizer, BertForSequenceClassification
-import torch
-
-# Load model and tokenizer from trusted source
-model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
-tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-
-# Preprocess input
-text = "User input to classify"
-inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
-
-# Inference with no gradient tracking
-with torch.no_grad():
-    logits = model(**inputs).logits
-    probabilities = torch.nn.functional.softmax(logits, dim=-1)
+# R+D: Revision + Dialogue Hooks
+- Provide devs with `/why-secure` to explain how the generated code meets RAILGUARD constraints.
+- Support `/revise-for-security` to re-generate if the AI suspects risky logic.
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
