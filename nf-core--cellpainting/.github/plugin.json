@@ -1,0 +1,9 @@
+{
+  "name": "nf-core--cellpainting",
+  "displayName": "cellpainting",
+  "description": "cellpainting",
+  "version": "1.0.0",
+  "author": "nf-core",
+  "homepage": "https://github.com/nf-core/cellpainting",
+  "skills": []
+}
