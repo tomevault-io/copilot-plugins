@@ -1,0 +1,9 @@
+{
+  "name": "echelon-ai-labs--zoom-mcp",
+  "displayName": "zoom-mcp",
+  "description": "MCP server for Zoom",
+  "version": "1.0.0",
+  "author": "echelon-ai-labs",
+  "homepage": "https://github.com/echelon-ai-labs/zoom-mcp",
+  "skills": []
+}
