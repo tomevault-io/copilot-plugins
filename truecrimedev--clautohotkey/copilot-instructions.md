@@ -1,29 +1,19 @@
-## 15-modules-primary-context
+## 20-objects-and-descriptors
 
-> description: Module-first context routing (consult Modules/ before AHK_Notes/)
+> description: Objects, descriptors, and method binding
 
 ---
-description: Module-first context routing (consult Modules/ before AHK_Notes/)
-alwaysApply: true
+description: Objects, descriptors, and method binding
+alwaysApply: false
 ---
 
-Context lookup order (when more detail is needed)
-1) Modules (authoritative, concise rules and examples)
-   - Modules/Module_Instructions.md (core)
-   - Modules/Module_Objects.md
-   - Modules/Module_TextProcessing.md
-   - Modules/Module_GUI.md
-   - Modules/Module_Escapes.md
-   - Modules/Module_DynamicProperties.md
-   - Modules/Module_DataStructures.md
-   - Modules/Module_Classes.md
-   - Modules/Module_Arrays.md
-2) AHK_Notes (expanded patterns, deep dives, and grep-able examples)
-   - AHK_Notes/Classes/, AHK_Notes/Concepts/, AHK_Notes/Methods/, AHK_Notes/Patterns/, AHK_Notes/Snippets/
-
-Guidance
-- Prefer Modules for canonical guidance; only pull AHK_Notes for additional examples or edge cases.
-- When citing context in replies or decisions, mention the specific Module file first, then any AHK_Notes used.
+When manipulating objects
+- Modules reference: `Modules/Module_Objects.md`, `Modules/Module_Instructions.md`
+- Additional examples: `AHK_Notes/Concepts/property-descriptors.md`, `AHK_Notes/Methods/objbindmethod.md`
+- Everything is an object; inheritance leads back to `Any`. Use `HasProp/HasMethod/HasBase`.
+- Descriptors: value `{value: x}`, call `{call: f}`, get `{get: f(this)}`, set `{set: f(this, v)}`.
+- Define methods/properties via `DefineProp`. Methods are callable properties.
+- Use `ObjBindMethod`/`Bind` for timers and GUI events to preserve `this`.
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
