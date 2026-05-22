@@ -7,13 +7,13 @@ FlutterKaigi 2025 Official Project
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [FlutterKaigi/2025](https://github.com/FlutterKaigi/2025).
+Original source: `.cursor/rules/*.mdc` in [FlutterKaigi/2025](https://github.com/FlutterKaigi/2025).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
