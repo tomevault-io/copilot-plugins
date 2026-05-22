@@ -1,308 +1,260 @@
-## html-structure-hydration
+## learning-summary-documentation
 
-> - **NEVER** put block-level elements inside inline elements
+> Guidelines for writing comprehensive learning summary markdown files for project phases
 
-# HTML Structure & Hydration Error Prevention (MANDATORY)
 
-## 🚨 **Critical HTML Structure Rules (MUST FOLLOW)**
+# Learning Summary Documentation Standards (MANDATORY)
 
-### **1. Block vs Inline Element Rules**
+## 📚 **Document Structure (MUST FOLLOW)**
 
-- **NEVER** put block-level elements inside inline elements
-- **NEVER** put `<div>`, `<section>`, `<article>` inside `<p>`, `<span>`, `<a>`
-- **ALWAYS** ensure proper HTML nesting hierarchy
+### **1. Header and Overview**
 
-```typescript
-// ✅ CORRECT - Proper HTML structure
-<span className="block">
-  <div className="relative">
-    <Image src={src} alt={alt} />
-  </div>
-</span>
+```markdown
+# Phase X 학습정리: [Feature Name] 구현
 
-// ❌ WRONG - Block element inside inline element
-<p>
-  <div>  {/* This causes hydration error */}
-    <Image src={src} alt={alt} />
-  </div>
-</p>
+## 개요
+
+[Brief description of what was implemented in this phase, including main features and capabilities]
 ```
 
-### **2. Markdown Rendering HTML Structure**
+### **2. Core Learning Content Structure**
 
-- **ALWAYS** handle images as block-level elements in markdown
-- **NEVER** let markdown parser wrap images in `<p>` tags
-- **ALWAYS** use custom components to override default markdown behavior
+````markdown
+## 핵심 학습 내용
 
-```typescript
-// ✅ CORRECT - Custom image rendering that prevents p tag wrapping
-components={{
-  img: ({ src, alt, ...props }) => {
-    return (
-      <span className="block my-4">
-        <Image src={src} alt={alt} {...props} />
-      </span>
-    );
-  },
-  // Override p tag rendering for images
-  p: ({ children, ...props }) => {
-    const hasOnlyImage = React.Children.count(children) === 1 && 
-      React.isValidElement(children) && 
-      children.type === 'img';
-    
-    if (hasOnlyImage) {
-      return <div {...props}>{children}</div>; // Use div instead of p
-    }
-    return <p {...props}>{children}</p>;
-  }
-}}
+### 1. [Technical Area 1]
+
+#### [Specific Topic]
+
+```sql/typescript/javascript
+[Code examples with proper syntax highlighting]
+```
+````
+
+**학습 포인트:**
+
+- **[Concept]**: [Detailed explanation]
+- **[Pattern]**: [Implementation details]
+- **[Best Practice]**: [Why this approach was chosen]
+
+````
+
+## 🎯 **Content Requirements (CRITICAL)**
+
+### **Technical Deep Dive Sections**
+- **ALWAYS** include code examples with syntax highlighting
+- **ALWAYS** explain the "why" behind technical decisions
+- **ALWAYS** document problems encountered and solutions
+- **NEVER** just list what was done - explain the learning value
+
+### **Decision-Making Documentation**
+```markdown
+**고민했던 부분과 해결책:**
+
+**문제**: [Clear problem statement]
+**해결책**: [Solution with code example]
+**학습한 내용:**
+- [Key insight 1]
+- [Key insight 2]
+````
+
+### **Architecture and Design Patterns**
+
+- Document component hierarchies with tree structures
+- Explain state management decisions with comparisons
+- Include performance considerations and trade-offs
+
+## 🔄 **Integration with Previous Phases (MANDATORY)**
+
+### **Always Include This Section**
+
+```markdown
+## 기존 Phase에서 활용한 기술
+
+### Phase 1-3: 기본 인프라
+
+- **[Technology]**: [How it was used in current phase]
+
+### Phase 4: [Previous Phase Name]
+
+- **[Feature]**: [Integration details]
 ```
 
-## 🔧 **Hydration Error Prevention (CRITICAL)**
+## 🤔 **Decision Analysis Framework (REQUIRED)**
 
-### **1. Server/Client Component Consistency**
+### **Document Major Decisions**
 
-- **ALWAYS** ensure server and client render identical HTML
-- **NEVER** use browser-only APIs in server components
-- **ALWAYS** handle dynamic content with proper client boundaries
+```markdown
+## 핵심 의사결정과 그 이유
 
-```typescript
-// ✅ CORRECT - Proper client boundary for dynamic content
-'use client';
+### 1. [Decision Topic]
 
-export const DynamicImage = ({ src, alt }: { src: string; alt: string }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  
-  return (
-    <div className="relative">
-      <Image 
-        src={src} 
-        alt={alt}
-        onLoad={() => setIsLoaded(true)}
-      />
-      {!isLoaded && <div className="loading-placeholder" />}
-    </div>
-  );
-};
+**결정**: [What was decided]
+**이유**:
 
-// ❌ WRONG - Browser API in server component
-export const ServerComponent = () => {
-  const [windowSize, setWindowSize] = useState({}); // Hydration error!
-  return <div>{windowSize.width}</div>;
-};
+- [Reason 1 with technical justification]
+- [Reason 2 with user experience consideration]
+- [Reason 3 with maintainability aspect]
 ```
 
-### **2. Conditional Rendering Best Practices**
+### **Alternative Approaches**
 
-- **ALWAYS** use consistent conditional rendering patterns
-- **NEVER** mix server and client conditional logic
-- **ALWAYS** handle loading states properly
+- **ALWAYS** document what alternatives were considered
+- **ALWAYS** explain why they were rejected
+- **NEVER** present decisions as obvious without justification
 
-```typescript
-// ✅ CORRECT - Consistent conditional rendering
-export const PostCard = ({ post, showThumbnail = true }) => {
-  return (
-    <Card>
-      {showThumbnail && post.thumbnail_url ? (
-        <div className="thumbnail-container">
-          <Image src={post.thumbnail_url} alt={post.title} />
-        </div>
-      ) : showThumbnail && !post.thumbnail_url ? (
-        <div className="placeholder-container">
-          <div className="placeholder-image" />
-        </div>
-      ) : null}
-    </Card>
-  );
-};
+## 📊 **Code Examples Standards (CRITICAL)**
 
-// ❌ WRONG - Inconsistent conditional rendering
-export const BadPostCard = ({ post }) => {
-  return (
-    <Card>
-      {post.thumbnail_url && (
-        <div className="thumbnail">
-          <Image src={post.thumbnail_url} alt={post.title} />
-        </div>
-      )}
-      {/* Missing else case - can cause hydration mismatch */}
-    </Card>
-  );
-};
-```
+### **Before/After Comparisons**
 
-## 🎯 **Component Structure Guidelines**
-
-### **1. Image Component Best Practices**
-
-- **ALWAYS** use Next.js Image component for optimization
-- **ALWAYS** provide proper width and height props
-- **NEVER** use onError/onLoad with Next.js Image (not supported)
-- **ALWAYS** handle image loading states with CSS or state
+````markdown
+**Before (문제점):**
 
 ```typescript
-// ✅ CORRECT - Next.js Image with proper structure
-export const OptimizedImage = ({ src, alt, className }: ImageProps) => {
-  return (
-    <div className="image-container">
-      <Image
-        src={src}
-        alt={alt}
-        width={800}
-        height={600}
-        className={className}
-        style={{
-          display: 'block',
-          maxWidth: '100%',
-          height: 'auto',
-        }}
-      />
-    </div>
-  );
-};
-
-// ❌ WRONG - Unsupported events with Next.js Image
-<Image
-  src={src}
-  alt={alt}
-  onError={handleError}  // Not supported!
-  onLoad={handleLoad}    // Not supported!
-/>
+// ❌ 문제가 있던 방식
+const problematicCode = 'example';
 ```
+````
 
-### **2. Markdown Component Structure**
-
-- **ALWAYS** override default markdown component behavior
-- **ALWAYS** prevent invalid HTML nesting
-- **ALWAYS** use semantic HTML elements appropriately
+**After (해결):**
 
 ```typescript
-// ✅ CORRECT - Safe markdown rendering
-export const SafeMarkdownRenderer = ({ content }: { content: string }) => {
-  return (
-    <ReactMarkdown
-      components={{
-        // Prevent p tag wrapping for images
-        img: ({ src, alt }) => (
-          <span className="block my-4">
-            <Image src={src} alt={alt} width={800} height={600} />
-          </span>
-        ),
-        // Override p tag for image-only content
-        p: ({ children, ...props }) => {
-          const hasImage = React.Children.toArray(children).some(
-            child => React.isValidElement(child) && child.type === 'img'
-          );
-          return hasImage ? <div {...props}>{children}</div> : <p {...props}>{children}</p>;
-        }
-      }}
-    >
-      {content}
-    </ReactMarkdown>
-  );
-};
+// ✅ 개선된 방식
+const improvedCode = 'example';
 ```
 
-## 🚫 **Forbidden HTML Patterns**
+````
 
-### **1. Invalid Nesting (NEVER DO)**
+### **Problem-Solution Pattern**
+```markdown
+**시도한 방식들:**
+
+1. **[Approach 1] (문제 발생)**
+```typescript
+// Code example showing the problem
+````
+
+2. **[Approach 2] (개선)**
 
 ```typescript
-// ❌ NEVER - Block inside inline
-<p><div>Content</div></p>
-<span><section>Content</section></span>
-<a><article>Content</article></a>
-
-// ❌ NEVER - Complex nesting in simple elements
-<p>
-  <div>
-    <span>
-      <div>Content</div>  {/* Multiple block levels */}
-    </span>
-  </div>
-</p>
+// Code example showing improvement
 ```
 
-### **2. Hydration Mismatch Patterns (NEVER DO)**
+3. **[Final Approach] (최종 선택)**
 
 ```typescript
-// ❌ NEVER - Different server/client rendering
-export const BadComponent = () => {
-  const [isClient, setIsClient] = useState(false);
-  
-  useEffect(() => setIsClient(true), []);
-  
-  return (
-    <div>
-      {isClient ? <ClientOnlyContent /> : <ServerContent />} {/* Hydration mismatch! */}
-    </div>
-  );
-};
-
-// ❌ NEVER - Conditional rendering based on environment
-export const EnvironmentComponent = () => {
-  if (typeof window !== 'undefined') {
-    return <ClientContent />; // Different from server render
-  }
-  return <ServerContent />;
-};
+// Final solution with explanation
 ```
 
-## ✅ **Required HTML Structure Practices**
+````
 
-### **1. Always Use Semantic HTML**
+## 🚀 **Performance and Optimization (REQUIRED)**
 
-- **ALWAYS** use `<article>` for blog posts
-- **ALWAYS** use `<section>` for content sections
-- **ALWAYS** use `<header>`, `<footer>` appropriately
-- **ALWAYS** use proper heading hierarchy (`<h1>` to `<h6>`)
+### **Document Performance Considerations**
+- State management efficiency
+- Rendering optimization techniques
+- Caching strategies
+- Network request optimization
+- Bundle size impact
 
-### **2. Always Handle Dynamic Content Safely**
+### **Security Considerations**
+- Authentication and authorization
+- Input validation and sanitization
+- XSS prevention
+- SQL injection prevention
 
-- **ALWAYS** use `useEffect` for client-side only logic
-- **ALWAYS** provide fallback content for loading states
-- **ALWAYS** ensure consistent initial render between server and client
+## 🎨 **User Experience Analysis (MANDATORY)**
 
-### **3. Always Validate HTML Structure**
+### **UX Improvements Documented**
+```markdown
+### [UX Aspect] 개선
 
-- **ALWAYS** check HTML nesting in custom components
-- **ALWAYS** test markdown rendering with various content types
-- **ALWAYS** verify hydration consistency in development
+#### **Before**: [Previous state]
+#### **After**: [Improved state]
+#### **Impact**: [Measurable improvement]
+````
 
-## 🔍 **Debugging Checklist**
+### **Accessibility Considerations**
 
-When encountering hydration errors, check:
+- Semantic HTML usage
+- ARIA attributes
+- Keyboard navigation
+- Screen reader compatibility
 
-1. **HTML Structure**: Are block elements nested inside inline elements?
-2. **Server/Client Consistency**: Does server render match client render?
-3. **Conditional Rendering**: Are conditional patterns consistent?
-4. **Dynamic Content**: Is client-side logic properly isolated?
-5. **Markdown Rendering**: Are custom components overriding defaults correctly?
-6. **Image Components**: Are Next.js Image components used properly?
+## 🔮 **Future Improvements Section (REQUIRED)**
 
-## 📝 **Code Review Checklist**
+```markdown
+## 향후 개선 방향
 
-- [ ] No block elements inside inline elements
-- [ ] Markdown components properly override defaults
-- [ ] Server and client render identical HTML
-- [ ] Dynamic content uses proper client boundaries
-- [ ] Image components follow Next.js best practices
-- [ ] Conditional rendering is consistent
-- [ ] HTML structure is semantically correct
-- [ ] No hydration mismatches in development
+### 1. [Improvement Area]
 
-## 🎯 **Key Takeaways**
+- [Specific enhancement 1]
+- [Specific enhancement 2]
 
-1. **HTML nesting rules are critical** - never put `<div>` inside `<p>`
-2. **Markdown rendering needs custom overrides** - prevent default p tag wrapping
-3. **Server/client consistency is mandatory** - ensure identical initial render
-4. **Next.js Image has limitations** - don't use unsupported events
-5. **Semantic HTML improves accessibility** - use appropriate elements
-6. **Conditional rendering must be consistent** - avoid hydration mismatches
+### 2. [Technical Debt]
 
-description: HTML 구조와 hydration 에러 방지를 위한 필수 규칙
-globs: ["**/*.tsx", "**/*.ts", "**/*.jsx", "**/*.js"]
-alwaysApply: true
+- [Identified issue and proposed solution]
+```
+
+## 📝 **Writing Style Guidelines (MANDATORY)**
+
+### **Language and Tone**
+
+- **ALWAYS** write in Korean for main content
+- **ALWAYS** use technical English terms in code and concepts
+- **ALWAYS** explain complex concepts in simple terms
+- **NEVER** assume prior knowledge without explanation
+
+### **Code Documentation**
+
+- **ALWAYS** include comments in code examples
+- **ALWAYS** use meaningful variable names
+- **ALWAYS** show both the problem and solution
+- **NEVER** show code without context
+
+### **Structure and Flow**
+
+- **ALWAYS** use numbered sections for major topics
+- **ALWAYS** use bullet points for learning points
+- **ALWAYS** include visual separators (---) between major sections
+- **NEVER** create walls of text without breaking them up
+
+## 🎯 **Conclusion Requirements (CRITICAL)**
+
+### **Must Include Summary**
+
+```markdown
+## 결론
+
+[Phase X] [기능명] 구현을 통해 [핵심 학습 내용 요약].
+
+특히 [가장 중요한 기술적 성과]를 통해 [구체적인 개선 사항]을 구현할 수 있었고, [상태 관리/아키텍처 패턴]을 활용한 [결과]로 [복잡한 기능]을 [품질 수준]으로 처리할 수 있게 되었습니다.
+
+이러한 경험은 향후 [미래 적용 가능성]에서도 활용할 수 있는 견고한 기반이 될 것입니다.
+```
+
+## 🚫 **FORBIDDEN Practices**
+
+- **NEVER** create learning summaries without code examples
+- **NEVER** document features without explaining the learning value
+- **NEVER** skip the decision-making rationale
+- **NEVER** ignore integration with previous phases
+- **NEVER** write generic conclusions without specific insights
+- **NEVER** use only English when Korean explanation would be clearer
+- **NEVER** create documentation that reads like a changelog
+
+## ✅ **Quality Checklist**
+
+Before finalizing any learning summary, verify:
+
+- [ ] All major technical concepts are explained with examples
+- [ ] Decision-making process is documented with alternatives
+- [ ] Integration with previous phases is clearly shown
+- [ ] Code examples include both problems and solutions
+- [ ] Performance and security considerations are addressed
+- [ ] Future improvements are identified
+- [ ] Conclusion summarizes key learnings and their broader impact
+- [ ] Document follows the established structure and formatting
 
 ---
 > Source: [kimyoungyin/myblog](https://github.com/kimyoungyin/myblog) — distributed by [TomeVault](https://tomevault.io).
