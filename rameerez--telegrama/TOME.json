@@ -4,7 +4,7 @@
   "repo": "telegrama",
   "description": "\ud83d\udcac Send Telegram admin notifications in your Rails app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rameerez/telegrama",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T17:57:31Z"
+  "distributed_at": "2026-05-22T00:23:14Z"
 }
