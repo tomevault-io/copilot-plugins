@@ -1,0 +1,9 @@
+{
+  "name": "tier4--ota-image-libs",
+  "displayName": "ota-image-libs",
+  "description": "OTA Image Version 1 Specification and reference Libraries and Tools Implementation. ",
+  "version": "1.0.0",
+  "author": "tier4",
+  "homepage": "https://github.com/tier4/ota-image-libs",
+  "skills": []
+}
