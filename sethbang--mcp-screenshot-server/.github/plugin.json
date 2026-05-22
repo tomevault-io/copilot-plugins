@@ -1,0 +1,9 @@
+{
+  "name": "sethbang--mcp-screenshot-server",
+  "displayName": "mcp-screenshot-server",
+  "description": "An MCP server that provides AI assistants with screenshot capabilities \u2014 both web page capture via Puppeteer and cross-platform system screenshots using native OS tools.",
+  "version": "1.0.0",
+  "author": "sethbang",
+  "homepage": "https://github.com/sethbang/mcp-screenshot-server",
+  "skills": []
+}
