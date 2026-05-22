@@ -4,7 +4,7 @@
   "repo": "supervaizer",
   "description": "SUPERVAIZER is a toolkit built for the age of AI interoperability. At its core, it implements Google's Agent-to-Agent (A2A) protocol, enabling seamless discovery and interaction between agents across different systems and platforms.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/supervaize/supervaizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T16:35:52Z"
+  "distributed_at": "2026-05-22T16:36:51Z"
 }
