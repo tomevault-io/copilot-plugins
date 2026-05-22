@@ -4,7 +4,7 @@
   "repo": "midaz-sdk-golang",
   "description": "A Go client library for the Midaz financial ledger APIs. This SDK provides a flexible, and idiomatic way to interact with the Midaz platform, enabling developers to build robust financial applications with ease. Features include complete API coverage, observability integration, concurrency support, robust error handling, etc.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LerianStudio/midaz-sdk-golang",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T18:57:15Z"
+  "distributed_at": "2026-05-22T19:06:30Z"
 }
