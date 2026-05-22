@@ -1,141 +1,118 @@
-## vanilla-extract
+## vike-routing
 
-> any time dealing with css
+> anything having to do with ./packages/site or vike or routing frontend
 
 
-# Vanilla Extract
+# Vike Routing Guide
 
-Zero-runtime CSS-in-TypeScript solution that generates static CSS files at build time.
+## Filesystem Routing
 
-## Installation
+URLs are determined by file location in the filesystem:
 
-```bash
-npm install @vanilla-extract/css
+```
+FILESYSTEM                     URL
+====================          ======
+pages/index/+Page.js          /
+pages/about/+Page.js          /about
+pages/jobs/+Page.js           /jobs
 ```
 
-## Key Features
+> Note: `pages/` and `index/` directories are always skipped in URL generation
 
-- **Zero Runtime** - All styles are generated at build time
-- **Type-safe** - Full TypeScript support
-- **Framework Agnostic** - Works with webpack, esbuild, Vite, Next.js
-- **First-class Theming** - Create single or multiple themes with type-safe token contracts
-- **Real CSS Output** - Generates actual CSS files, no runtime CSS-in-JS overhead
+### Parameterized Routes
 
-## Core APIs
-
-### Basic Styling
-
-```typescript
-import { style } from '@vanilla-extract/css'
-
-export const className = style({
-  display: 'flex',
-  flexDirection: 'column',
-  // Supports nested selectors
-  selectors: {
-    '&:nth-child(2n)': {
-      background: 'aliceblue',
-    },
-  },
-  // Media queries
-  '@media': {
-    'screen and (min-width: 768px)': {
-      flexDirection: 'row',
-    },
-  },
-})
+```
+FILESYSTEM                     URL
+========================      =======================
+pages/movie/@id/+Page.js      /movie/1, /movie/2, ...
 ```
 
-### Theming
+Parameters are available via `pageContext.routeParams.id`
 
-```typescript
-import { createTheme } from '@vanilla-extract/css'
+### Route Groups
 
-export const [themeClass, vars] = createTheme({
-  color: {
-    brand: 'blue',
-    white: '#fff',
-  },
-  space: {
-    small: '4px',
-    medium: '8px',
-  },
-})
+Group pages using parentheses - ignored in routing:
+
+```
+FILESYSTEM                             URL
+================================      ==================
+pages/(marketing)/index/+Page.js       /
+pages/(marketing)/about/+Page.js       /about
+pages/admin-panel/index/+Page.js       /admin-panel
+pages/admin-panel/users/+Page.js       /admin-panel/users
 ```
 
-### CSS Variables
+### Source Directory
 
-```typescript
-import { createVar, style } from '@vanilla-extract/css'
+Files can be placed in `src/`:
 
-const shadowColor = createVar()
-
-export const shadow = style({
-  boxShadow: `0 0 10px ${shadowColor}`,
-  selectors: {
-    '.light &': {
-      vars: { [shadowColor]: 'black' },
-    },
-    '.dark &': {
-      vars: { [shadowColor]: 'white' },
-    },
-  },
-})
+```
+FILESYSTEM                     URL
+========================      ======
+src/pages/index/+Page.js      /
+src/pages/about/+Page.js      /about
 ```
 
-### Style Variants
+## Route String
 
-```typescript
-import { styleVariants } from '@vanilla-extract/css'
+Define custom routes using Route String:
 
-export const background = styleVariants({
-  primary: { background: 'navy' },
-  secondary: { background: 'blue' },
-  tertiary: { background: 'aqua' },
-})
+```js
+// /pages/product/+route.js
+export default '/product/@id'
 ```
 
-## Output
+## Route Function
 
-Generates standard CSS files with unique class names and CSS variables:
+For advanced routing logic:
 
-```css
-:root {
-  --space-none__ya5b7b0: 0;
-  --space-small__ya5b7b1: 4px;
-  --space-medium__ya5b7b2: 8px;
-  --space-large__ya5b7b3: 12px;
-}
-
-.Hero_container__1ldw6lo0 {
-  padding: var(--space-medium__ya5b7b2);
+```js
+// /pages/product/edit/+route.js
+export function route(pageContext) {
+  const match = pageContext.urlPathname.match(/\/product\/([0-9]+)\/edit/)
+  if (!match) return false
+  const [, id] = match
+  return { routeParams: { id } }
 }
 ```
 
-## Official Integrations
+## Route Guards
 
-- Astro
-- esbuild
-- Gatsby
-- Next.js
-- Parcel
-- Remix
-- Rollup
-- Vite
-- Webpack
+Protect pages with guard hooks:
 
-## Additional Packages
+```js
+// /pages/admin/+guard.js
+import { render } from 'vike/abort'
 
-- Sprinkles
-- Recipes
-- Dynamic
-- CSS Utils
+export async function guard(pageContext) {
+  if (!pageContext.user.isAdmin) {
+    throw render(401, "You aren't allowed to access this page.")
+  }
+}
+```
 
-## Resources
+## Domain-Driven Structure
 
-- [Official Documentation](mdc:https:/vanilla-extract.style)
-- [GitHub Discussions](mdc:https:/github.com/vanilla-extract-css/vanilla-extract/discussions)
-- [Discord Community](mdc:https:/discord.gg/vanilla-extract)
+Recommended for advanced apps:
+
+```
+# Marketing Domain
+(marketing)/pages/+Layout.js
+(marketing)/pages/index/+Page.js
+(marketing)/components/ContactUs.js
+
+# Admin Domain
+admin-panel/pages/+Layout.js
+admin-panel/pages/index/+Page.js
+admin-panel/components/Charts.js
+```
+
+## Router Integration
+
+- Compatible with React Router and Vue Router (though not recommended)
+- TypeScript support for typesafe routes is in progress (#698)
+
+Source: [Vike Routing Documentation](mdc:https:/vike.dev/routing)
 
 ---
 > Source: [benallfree/xg](https://github.com/benallfree/xg) — distributed by [TomeVault](https://tomevault.io).
