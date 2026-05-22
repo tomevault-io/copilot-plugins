@@ -1,0 +1,9 @@
+{
+  "name": "makeplane--plane-python-sdk",
+  "displayName": "plane-python-sdk",
+  "description": "Python SDK for plane.so",
+  "version": "1.0.0",
+  "author": "makeplane",
+  "homepage": "https://github.com/makeplane/plane-python-sdk",
+  "skills": []
+}
