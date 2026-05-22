@@ -1,0 +1,9 @@
+{
+  "name": "gbrlcustodio--pipefy-mcp-server",
+  "displayName": "pipefy-mcp-server",
+  "description": "MCP server, CLI, and agent skills for Pipefy.",
+  "version": "1.0.0",
+  "author": "gbrlcustodio",
+  "homepage": "https://github.com/gbrlcustodio/pipefy-mcp-server",
+  "skills": []
+}
