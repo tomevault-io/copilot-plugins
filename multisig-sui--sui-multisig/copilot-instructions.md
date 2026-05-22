@@ -1,94 +1,159 @@
-## sui-multisig
+## sui-multisig-cli
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - The `scripts/` directory contains Bash scripts for managing Sui multisig wallets and transactions.
 
-# CLAUDE.md
+# Sui Multisig CLI Scripts & Helpers
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Overview
 
-## Project Overview
+- The `scripts/` directory contains Bash scripts for managing Sui multisig wallets and transactions.
+- These scripts are **for Sui**, not IOTA, and are the authoritative source for Sui multisig CLI operations.
+- The web client in `multisig-web-client/` is currently IOTA-specific and **not for Sui**.
 
-This is a Sui blockchain multisig wallet toolkit consisting of a Next.js web application (main focus in `/sui-multisig-wallet`), a CLI tool (`/cli`), and legacy UI components. The project emphasizes security through a local-first approach with optional cloud features via Supabase.
+---
 
-## Development Commands
+## Main Workflow Scripts
 
-### Web Application (sui-multisig-wallet)
+- **[0_setup_multisig.sh](mdc:scripts/0_setup_multisig.sh)**  
+  Interactive script to create a new Sui multisig wallet.  
+  - Lets you select addresses, assign weights, set a threshold.
+  - Uses `sui keytool multi-sig-address` to generate the multisig address.
+  - Saves config as JSON in `multisigs/`.
+  - Optionally funds the new address from the faucet.
+
+- **[1_create_tx.sh](mdc:scripts/1_create_tx.sh)**  
+  Entry point for creating a new unsigned transaction for a multisig wallet.  
+  - Lets you pick the transaction type: `publish`, `upgrade`, `call`, or `transfer`.
+  - Delegates to the corresponding script in `scripts/types/`.
+
+- **[2_approve_tx.sh](mdc:scripts/2_approve_tx.sh)**  
+  Used by signers to approve/sign a pending transaction.  
+  - Lets you pick a transaction, select a signer address, and signs the transaction bytes.
+  - Stores signatures in the transaction directory.
+
+- **[3_execute_tx.sh](mdc:scripts/3_execute_tx.sh)**  
+  Combines collected signatures and submits the transaction to the Sui network.  
+  - Checks if the signature threshold is met.
+  - Uses `sui keytool multi-sig-combine-partial-sig` and `sui client execute-signed-tx`.
+
+---
+
+## Transaction Type Scripts
+
+Located in `scripts/types/`:
+
+- **[transfer.sh](mdc:scripts/types/transfer.sh)**  
+  Prepares a transfer transaction (object transfer) for a multisig wallet.
+
+- **[call.sh](mdc:scripts/types/call.sh)**  
+  Prepares a Move contract call transaction for a multisig wallet.
+
+- **[publish.sh](mdc:scripts/types/publish.sh)**  
+  Prepares a package publish transaction for a multisig wallet.
+
+- **[upgrade.sh](mdc:scripts/types/upgrade.sh)**  
+  Prepares a package upgrade transaction for a multisig wallet.
+
+---
+
+## Utility Scripts
+
+- **[util/transaction_helpers.sh](mdc:scripts/util/transaction_helpers.sh)**  
+  Common Bash functions for address selection, validation, transaction decoding, and more.  
+  Used by all main scripts.
+
+- **[util/a_create_keys.sh](mdc:scripts/util/a_create_keys.sh)**  
+  Simple script to generate new Sui addresses for all supported key schemes.
+
+---
+
+## Directory Structure
+
+- `multisigs/` — Stores multisig wallet config JSON files.
+- `transactions/` — Stores unsigned transaction bytes and collected signatures.
+
+---
+
+## Usage Flow
+
+1. **Create multisig wallet:**  
+   Run `scripts/0_setup_multisig.sh` and follow prompts.
+
+2. **Create transaction:**  
+   Run `scripts/1_create_tx.sh` and select the type.
+
+3. **Approve transaction:**  
+   Each signer runs `scripts/2_approve_tx.sh` to sign.
+
+4. **Execute transaction:**  
+   Run `scripts/3_execute_tx.sh` to combine signatures and submit.
+
+---
+
+## Note
+
+- The web client (`multisig-web-client/`) is currently for IOTA and **not compatible with Sui**.  
+  All Sui multisig operations should use the CLI scripts above.
+
+# Sui Keytool CLI
+
+The Sui CLI `keytool` command provides several command-level access for the management and generation of addresses, as well as working with private keys, signatures, or zkLogin. For example, a user could export a private key from the Sui Wallet and import it into the local Sui CLI wallet using the `sui keytool import [...]` command.
+
+## Check Sui CLI installation
+
+Before you can use the Sui CLI, you must install it. To check if the CLI exists on your system, open a terminal or console and type the following command:
+
 ```bash
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Run production server
-npm run start
-
-# Run linter
-npm run lint
+$ sui --version
 ```
 
-### CLI Tool
-```bash
-cd cli
-npm run dev    # Development with TypeScript
-npm run build  # Compile to JavaScript
-```
+If the terminal or console responds with a version number, you already have the Sui CLI installed.
 
-## Architecture
+If the command is not found, follow the instructions in Install Sui to get the Sui CLI on your system.
 
-### Technology Stack
-- **Framework**: Next.js 15.2.4 with App Router
-- **Language**: TypeScript with strict mode
-- **UI**: Radix UI primitives + shadcn/ui components
-- **Styling**: Tailwind CSS with SuiMultisig brand colors (orchid, mint, dark-slate)
-- **Blockchain**: @mysten/dapp-kit for wallet integration, @mysten/sui SDK
-- **Backend**: Supabase for real-time features and storage
-- **State**: React Query for server state management
+## Commands
 
-### Key Architectural Patterns
+Usage: `sui keytool [OPTIONS] <COMMAND>`
 
-1. **Component Organization**
-   - UI primitives in `/components/ui/` (shadcn/ui pattern)
-   - Feature components organized by function (e.g., `connect-wallet.tsx`, `vault-sidebar.tsx`)
-   - Extensive use of Radix UI for accessibility
+Commands:
+*   `convert`: Convert private key from legacy formats (e.g. Hex or Base64) to Bech32 encoded 33 byte `flag || private key` begins with `suiprivkey`
+*   `decode-or-verify-tx`: Given a Base64 encoded transaction bytes, decode its components. If a signature is provided, verify the signature against the transaction and output the result.
+*   `decode-multi-sig`: Given a Base64 encoded MultiSig signature, decode its components. If tx_bytes is passed in, verify the multisig
+*   `generate`: Generate a new keypair with key scheme flag {ed25519 | secp256k1 | secp256r1} with optional derivation path, default to m/44'/784'/0'/0'/0' for ed25519 or m/54'/784'/0'/0/0 for secp256k1 or m/74'/784'/0'/0/0 for secp256r1. Word length can be { word12 | word15 | word18 | word21 | word24} default to word12 if not specified
+*   `import`: Add a new key to sui.keystore using either the input mnemonic phrase or a private key (from the Wallet), the key scheme flag {ed25519 | secp256k1 | secp256r1} and an optional derivation path, default to m/44'/784'/0'/0'/0' for ed25519 or m/54'/784'/0'/0/0 for secp256k1 or m/74'/784'/0'/0/0 for secp256r1. Supports mnemonic phrase of word length 12, 15, 18, 21, 24
+*   `list`: List all keys by its Sui address, Base64 encoded public key, key scheme name in sui.keystore
+*   `load-keypair`: This reads the content at the provided file path. The accepted format can be [enum SuiKeyPair] (Base64 encoded of 33-byte `flag || privkey`) or `type AuthorityKeyPair` (Base64 encoded `privkey`). This prints out the account keypair as Base64 encoded `flag || privkey`, the network keypair, worker keypair, protocol keypair as Base64 encoded `privkey`
+*   `multi-sig-address`: To MultiSig Sui Address. Pass in a list of all public keys `flag || pk` in Base64. See `keytool list` for example public keys
+*   `multi-sig-combine-partial-sig`: Provides a list of participating signatures (`flag || sig || pk` encoded in Base64), threshold, a list of all public keys and a list of their weights that define the MultiSig address. Returns a valid MultiSig signature and its sender address. The result can be used as signature field for `sui client execute-signed-tx`. The sum of weights of all signatures must be >= the threshold
+*   `multi-sig-combine-partial-sig-legacy`
+*   `show`: Read the content at the provided file path. The accepted format can be [enum SuiKeyPair] (Base64 encoded of 33-byte `flag || privkey`) or `type AuthorityKeyPair` (Base64 encoded `privkey`). It prints its Base64 encoded public key and the key scheme flag
+*   `sign`: Create signature using the private key for the given address in sui keystore. Any signature commits to a [struct IntentMessage] consisting of the Base64 encoded of the BCS serialized transaction bytes itself and its intent. If intent is absent, default will be used
+*   `sign-kms`: Creates a signature by leveraging AWS KMS. Pass in a key-id to leverage Amazon KMS to sign a message and the base64 pubkey. Generate PubKey from pem using MystenLabs/base64pemkey Any signature commits to a [struct IntentMessage] consisting of the Base64 encoded of the BCS serialized transaction bytes itself and its intent. If intent is absent, default will be used
+*   `unpack`: This takes [enum SuiKeyPair] of Base64 encoded of 33-byte `flag || privkey`). It outputs the keypair into a file at the current directory where the address is the filename, and prints out its Sui address, Base64 encoded public key, the key scheme, and the key scheme flag
+*   `zk-login-sign-and-execute-tx`: Given the max_epoch, generate an OAuth url, ask user to paste the redirect with id_token, call salt server, then call the prover server, create a test transaction, use the ephemeral key to sign and execute it by assembling to a serialized zkLogin signature
+*   `zk-login-enter-token`: A workaround to the above command because sometimes token pasting does not work. All the inputs required here are printed from the command above
+*   `zk-login-sig-verify`: Given a zkLogin signature, parse it if valid. If tx_bytes provided, it verifies the zkLogin signature based on provider and its latest JWK fetched. Example request: sui keytool zk-login-sig-verify --sig $SERIALIZED_ZKLOGIN_SIG --tx-bytes $TX_BYTES --provider Google --curr-epoch 10
+*   `help`: Print this message or the help of the given subcommand(s)
 
-2. **Routing Structure**
-   - `/create` - Multisig wallet creation flow
-   - `/wallet/[id]` - Individual wallet dashboard
-   - Dynamic routes using Next.js App Router
+Options:
+*   `--keystore-path <KEYSTORE_PATH>`
+*   `--json`: Return command outputs in json format
+*   `-h, --help`: Print help
 
-3. **State Management**
-   - React Query for async data fetching and caching
-   - Custom hooks in `/hooks/` for business logic
-   - Supabase subscriptions for real-time updates
+## JSON output
 
-4. **Database Integration**
-   - Supabase tables for wallet metadata, proposals, and signatures
-   - Real-time collaboration features
-   - Database policies in `supabase-policies.sql`
+Append the `--json` flag to commands to format responses in JSON instead of the more human friendly default Sui CLI output.
 
-### Path Aliases
-- `@/*` resolves to the root directory
+## Examples
 
-## Important Notes
+*   **List key pairs**: `sui keytool list`
+*   **Generate a new key pair**: `sui keytool generate ed25519`
+*   **Show key pair data from a file**: `sui keytool show <FILENAME>.key`
+*   **Sign a transaction**: `sui keytool sign --data <TX_DATA_BASE64> --address <SUI_ADDRESS>`
+*   **Create Multisig Address**: `sui keytool multi-sig-address --threshold <THRESHOLD> --pks <PK1_BASE64> <PK2_BASE64> ... --weights <W1> <W2> ...`
+*   **Combine Partial Signatures for Multisig**: `sui keytool multi-sig-combine-partial-sig --threshold <THRESHOLD> --pks <PK1_BASE64> ... --weights <W1> ... --sigs <SIG1_BASE64> ...`
 
-1. **Security Focus**: The project prioritizes local-first operation with no mandatory external dependencies. Cloud features via Supabase are optional.
-
-2. **Custom Sui CLI**: Users need a custom fork of the Sui CLI for proper multisig support (see main README).
-
-3. **Brand Colors**: Use SuiMultisig colors (orchid, mint, dark-slate) defined in Tailwind config for consistency.
-
-4. **Component Patterns**: Follow existing patterns using Radix UI primitives wrapped with custom styling via shadcn/ui approach.
-
-5. **Form Handling**: Use react-hook-form with zod validation for all forms.
-
-## Environment Configuration
-
-Create `.env.local` with Supabase credentials if using cloud features:
-```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-```
+(For more detailed examples, refer to the official Sui documentation or use `sui keytool <COMMAND> --help`.)
 
 ---
 > Source: [multisig-sui/sui-multisig](https://github.com/multisig-sui/sui-multisig) — distributed by [TomeVault](https://tomevault.io).
