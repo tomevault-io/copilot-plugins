@@ -1,0 +1,44 @@
+{
+  "name": "TrenchClaw",
+  "owner": "henryoman",
+  "repo": "TrenchClaw",
+  "description": "The high quality agentic ai Solana harness \u2728 like openclaw \ud83e\udd9e but specialized for Solana \ud83d\udc7d make trading bots, launch bots, build strategies, trade prediction markets and do research. Made with bun, solana/kit 6, Svelte, Helius, and more. Very gud tek \ud83e\udd0c\ud83c\udffc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/henryoman/TrenchClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T18:40:44Z"
+}
