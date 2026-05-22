@@ -1,8 +1,12 @@
-## use-pnpm
+## use-shadcn-components
 
-> when you want to use npm, install dependency or run an application
+> Frontend: use shadcn components and learn how to install them
 
-- always use `pnpm` instead of `npm`
+This project makes an extensive use of shadcn components for the frontend development. Check existing code for examples how we use shadcn. If you need to add a new component (cause it's missing), use this command:
+
+```
+pnpm dlx shadcn@latest add <component_name>
+```
 
 ---
 > Source: [yournextstore/new.store](https://github.com/yournextstore/new.store) — distributed by [TomeVault](https://tomevault.io).
