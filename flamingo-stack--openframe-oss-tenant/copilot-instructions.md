@@ -1,252 +1,564 @@
-## authentication-patterns
+## ci-cd-pipeline
 
-> description: Authentication patterns and security practices for OpenFrame JWT cookie-based system
+> This document outlines the CI/CD pipeline configuration and best practices for the OpenFrame project.
 
+# CI/CD Pipeline
+
+This document outlines the CI/CD pipeline configuration and best practices for the OpenFrame project.
+
+## Pipeline Overview
+
+OpenFrame uses GitHub Actions for continuous integration and deployment, following these stages:
+
+1. **Build**: Compile code and build artifacts
+2. **Test**: Run unit and integration tests
+3. **Analyze**: Perform static code analysis and security scanning
+4. **Package**: Create Docker images
+5. **Deploy**: Deploy to staging and production environments
+
+```
+┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐
+│         │     │         │     │         │     │         │     │         │
+│  Build  │────▶│  Test   │────▶│ Analyze │────▶│ Package │────▶│ Deploy  │
+│         │     │         │     │         │     │         │     │         │
+└─────────┘     └─────────┘     └─────────┘     └─────────┘     └─────────┘
+```
+
+## GitHub Actions Workflow
+
+The main workflow is defined in `.github/workflows/deploy.yml`:
+
+```yaml
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+        
+    - name: Build with Maven
+      run: mvn -B clean package -DskipTests
+      
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: |
+          **/target/*.jar
+          !**/target/classes
+          !**/target/test-classes
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+        
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        
+    - name: Run Tests
+      run: mvn -B test
+      
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: |
+          **/target/surefire-reports
+          **/target/site/jacoco
+
+  analyze:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+        
+    - name: SonarQube Scan
+      run: mvn -B sonar:sonar
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        
+    - name: OWASP Dependency Check
+      run: mvn -B org.owasp:dependency-check-maven:check
+      
+    - name: Upload analysis results
+      uses: actions/upload-artifact@v3
+      with:
+        name: analysis-results
+        path: |
+          **/target/dependency-check-report.html
+          **/target/sonar
+
+  package:
+    needs: [test, analyze]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+      
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        
+    - name: Build and push API image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./services/openframe-api
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: openframe/api:latest,openframe/api:${{ github.sha }}
+        
+    - name: Build and push Gateway image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./services/openframe-gateway
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: openframe/gateway:latest,openframe/gateway:${{ github.sha }}
+        
+    # Additional services...
+
+  deploy-staging:
+    if: github.event_name != 'pull_request'
+    needs: package
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set Kubernetes context
+      uses: azure/k8s-set-context@v3
+      with:
+        kubeconfig: ${{ secrets.KUBE_CONFIG_STAGING }}
+        
+    - name: Deploy to Kubernetes
+      run: |
+        # Update image tags
+        sed -i "s|image: openframe/api:.*|image: openframe/api:${{ github.sha }}|g" kubernetes/staging/*.yaml
+        sed -i "s|image: openframe/gateway:.*|image: openframe/gateway:${{ github.sha }}|g" kubernetes/staging/*.yaml
+        
+        # Apply Kubernetes manifests
+        kubectl apply -f kubernetes/staging/
+        
+    - name: Verify deployment
+      run: |
+        kubectl rollout status deployment/openframe-api -n openframe
+        kubectl rollout status deployment/openframe-gateway -n openframe
+
+  deploy-production:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set Kubernetes context
+      uses: azure/k8s-set-context@v3
+      with:
+        kubeconfig: ${{ secrets.KUBE_CONFIG_PRODUCTION }}
+        
+    - name: Deploy to Kubernetes
+      run: |
+        # Update image tags
+        sed -i "s|image: openframe/api:.*|image: openframe/api:${{ github.sha }}|g" kubernetes/production/*.yaml
+        sed -i "s|image: openframe/gateway:.*|image: openframe/gateway:${{ github.sha }}|g" kubernetes/production/*.yaml
+        
+        # Apply Kubernetes manifests
+        kubectl apply -f kubernetes/production/
+        
+    - name: Verify deployment
+      run: |
+        kubectl rollout status deployment/openframe-api -n openframe
+        kubectl rollout status deployment/openframe-gateway -n openframe
+```
+
+## Branch Strategy
+
+OpenFrame follows a GitFlow-inspired branching strategy:
+
+- `main`: Production-ready code
+- `develop`: Integration branch for features
+- `feature/*`: Feature branches
+- `release/*`: Release preparation branches
+- `hotfix/*`: Hotfix branches for production issues
+
+```
+    ┌─── feature/a ───┐
+    │                 │
+    │     ┌─── feature/b ───┐
+    │     │                 │
+    │     │     ┌─── feature/c ───┐
+    │     │     │                 │
+    ▼     ▼     ▼                 │
+────────────────────────────────  │
+develop                         │  │
+                                │  │
+                                │  │
+                                ▼  ▼
+────────────────────────────────────
+main
+    │                 │
+    └─── hotfix/x ────┘
+```
+
+## Environment Configuration
+
+OpenFrame uses environment-specific configuration:
+
+- **Development**: Local development environment
+- **Staging**: Pre-production environment for testing
+- **Production**: Live environment
+
+Environment-specific configuration is stored in:
+- `config/application-{env}.yml` for Spring Boot services
+- `.env.{env}` for frontend applications
+
+Example environment configuration:
+```yaml
+# application-staging.yml
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS}
+    
+logging:
+  level:
+    root: INFO
+    com.openframe: DEBUG
+    
+openframe:
+  security:
+    jwt:
+      secret: ${JWT_SECRET}
+      expiration: 86400
+```
+
+## Secrets Management
+
+Secrets are managed using GitHub Secrets and environment variables:
+
+1. Secrets are stored in GitHub Secrets
+2. Secrets are passed to workflows as environment variables
+3. Kubernetes secrets are created from GitHub Secrets
+4. Applications access secrets through environment variables
+
+Example Kubernetes secret creation:
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: openframe-secrets
+  namespace: openframe
+type: Opaque
+data:
+  MONGO_URI: ${{ secrets.MONGO_URI_BASE64 }}
+  KAFKA_SERVERS: ${{ secrets.KAFKA_SERVERS_BASE64 }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET_BASE64 }}
+```
+
+## Deployment Strategy
+
+OpenFrame uses a blue-green deployment strategy:
+
+1. Deploy new version alongside the existing version
+2. Run smoke tests on the new version
+3. Switch traffic to the new version
+4. Monitor for issues
+5. If issues occur, switch back to the previous version
+
+Example blue-green deployment:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: openframe-api
+  namespace: openframe
+spec:
+  selector:
+    app: openframe-api
+    version: blue  # Switch between blue and green
+  ports:
+  - port: 80
+    targetPort: 8080
 
 ---
-description: Authentication patterns and security practices for OpenFrame JWT cookie-based system
-globs:
-  - "openframe/services/*/src/main/java/**/security/**"
-  - "openframe/services/*/src/main/java/**/controller/**"
-  - "openframe/services/*/src/main/java/**/service/**"
-  - "openframe/libs/openframe-jwt/**"
-  - "openframe/services/openframe-frontend/src/stores/auth.ts"
-alwaysApply: false
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openframe-api-blue
+  namespace: openframe
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: openframe-api
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: openframe-api
+        version: blue
+    spec:
+      containers:
+      - name: api
+        image: openframe/api:${VERSION}
+        # Container spec
+
 ---
-
-# Authentication Patterns in OpenFrame
-
-OpenFrame uses a secure, cookie-based JWT authentication system with Spring Security OAuth2 Resource Server. Follow these patterns for consistent authentication implementation.
-
-## Core Architecture Components
-
-### JWT + HttpOnly Cookies Pattern
-- **Access tokens**: Stored in `access_token` HttpOnly cookie with `Path=/`
-- **Refresh tokens**: Stored in `refresh_token` HttpOnly cookie with `Path=/api/oauth/token`
-- **Security**: Tokens are never exposed to client-side JavaScript
-- **Reference**: [CookieService.java](mdc:openframe/libs/openframe-jwt/src/main/java/com/openframe/security/cookie/CookieService.java)
-
-### Spring Security Configuration
-Always use Spring Security OAuth2 Resource Server in API services:
-
-```java
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtDecoder jwtDecoder) {
-        return http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/oauth/token", "/oauth/register", "/.well-known/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .oauth2ResourceServer(oauth2 -> oauth2
-                .jwt(jwt -> jwt.decoder(jwtDecoder))
-            )
-            .build();
-    }
-}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openframe-api-green
+  namespace: openframe
+spec:
+  replicas: 0  # Scale up during deployment
+  selector:
+    matchLabels:
+      app: openframe-api
+      version: green
+  template:
+    metadata:
+      labels:
+        app: openframe-api
+        version: green
+    spec:
+      containers:
+      - name: api
+        image: openframe/api:${NEW_VERSION}
+        # Container spec
 ```
 
-**Reference**: [SecurityConfig.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/config/SecurityConfig.java)
+## Monitoring and Alerting
 
-## Controller Patterns
+The CI/CD pipeline includes monitoring and alerting:
 
-### Use AuthPrincipal Instead of Raw JWT
-Always use `@AuthenticationPrincipal AuthPrincipal principal` in controllers:
+1. Monitor deployment status
+2. Check application health
+3. Verify metrics
+4. Send alerts for failures
 
-```java
-@RestController
-public class ApiController {
-    @GetMapping("/api-keys")
-    public List<ApiKeyResponse> getApiKeys(@AuthenticationPrincipal AuthPrincipal principal) {
-        return apiKeyService.getApiKeysForUser(principal.getId());
-    }
-}
+Example monitoring implementation:
+```yaml
+- name: Monitor deployment
+  run: |
+    # Check deployment status
+    kubectl rollout status deployment/openframe-api -n openframe
+    
+    # Check application health
+    for i in {1..10}; do
+      STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.openframe.com/actuator/health)
+      if [ $STATUS -eq 200 ]; then
+        echo "Application is healthy"
+        exit 0
+      fi
+      sleep 10
+    done
+    
+    echo "Application failed to become healthy"
+    exit 1
 ```
 
-**Never use**:
-- `@RequestHeader("X-User-Id") String userId`
-- `@AuthenticationPrincipal Jwt jwt` directly
+## Artifact Management
 
-**Reference**: [AuthPrincipal.java](mdc:openframe/libs/openframe-jwt/src/main/java/com/openframe/security/authentication/AuthPrincipal.java)
+Artifacts are managed throughout the pipeline:
 
-### OAuth Controller Pattern
-OAuth controllers should delegate cookie management to services:
+1. Build artifacts are stored as GitHub Actions artifacts
+2. Docker images are stored in DockerHub
+3. Helm charts are stored in a Helm repository
+4. Kubernetes manifests are stored in the Git repository
 
-```java
-@PostMapping("/token")
-public ResponseEntity<?> token(
-        @RequestParam String grant_type,
-        @RequestParam(required = false) String code,
-        @RequestHeader(value = X_REFRESH_TOKEN, required = false) String refreshToken,
-        HttpServletRequest httpRequest,
-        HttpServletResponse httpResponse) {
-
-    TokenResponse response = oauthService.processTokenRequest(
-        grant_type, code, username, password, client_id, client_secret, refreshToken, httpRequest);
-
-    oauthService.setAuthenticationCookies(response, httpResponse);
-    return ResponseEntity.ok(response);
-}
+Example artifact management:
+```yaml
+- name: Upload build artifacts
+  uses: actions/upload-artifact@v3
+  with:
+    name: build-artifacts
+    path: |
+      **/target/*.jar
+      !**/target/classes
+      !**/target/test-classes
 ```
 
-**Reference**: [OAuthController.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/controller/OAuthController.java)
+## Testing in the Pipeline
 
-## Service Layer Patterns
+The pipeline includes multiple testing stages:
 
-### Cookie Management
-Always delegate cookie operations to `CookieService`:
+1. Unit tests during the build stage
+2. Integration tests in the test stage
+3. End-to-end tests in the staging environment
+4. Smoke tests in the production environment
 
-```java
-@Service
-public class OAuthService {
-    private final CookieService cookieService;
-
-    public void setAuthenticationCookies(TokenResponse tokens, HttpServletResponse response) {
-        cookieService.setAccessTokenCookie(tokens.getAccess_token(), response);
-        cookieService.setRefreshTokenCookie(tokens.getRefresh_token(), response);
-    }
-}
+Example testing implementation:
+```yaml
+- name: Run Unit Tests
+  run: mvn -B test
+  
+- name: Run Integration Tests
+  run: mvn -B verify -P integration-tests
+  
+- name: Run E2E Tests
+  run: |
+    cd e2e-tests
+    npm install
+    npm run test:staging
+  
+- name: Run Smoke Tests
+  run: |
+    cd smoke-tests
+    npm install
+    npm run test:production
 ```
 
-**Reference**: [OAuthService.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/service/OAuthService.java)
+## Best Practices
 
-### Token Processing Pattern
-Separate refresh token handling from other grant types:
+1. **Fail Fast**: Detect issues early in the pipeline
+   ```yaml
+   - name: Verify build
+     run: |
+       if [ ! -f services/openframe-api/target/openframe-api.jar ]; then
+         echo "Build failed: JAR file not found"
+         exit 1
+       fi
+   ```
 
-```java
-public TokenResponse processTokenRequest(String grantType, String refreshToken, ...) {
-    if ("refresh_token".equals(grantType)) {
-        if (refreshToken == null) {
-            throw new IllegalArgumentException("Refresh token not found");
-        }
-        return handleRefreshToken(refreshToken, clientId, clientSecret);
-    }
+2. **Parallel Execution**: Run independent jobs in parallel
+   ```yaml
+   jobs:
+     test:
+       strategy:
+         matrix:
+           service: [api, gateway, management, stream]
+       steps:
+         - name: Run Tests
+           run: cd services/openframe-${{ matrix.service }} && mvn test
+   ```
 
-    return token(grantType, code, username, password, clientId, clientSecret);
-}
-```
+3. **Caching**: Cache dependencies to speed up builds
+   ```yaml
+   - name: Cache Maven packages
+     uses: actions/cache@v3
+     with:
+       path: ~/.m2
+       key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+       restore-keys: ${{ runner.os }}-m2
+   ```
 
-## Gateway Security Patterns
+4. **Versioning**: Use semantic versioning for releases
+   ```yaml
+   - name: Set version
+     run: |
+       VERSION=$(echo ${{ github.ref }} | sed 's/refs\/tags\/v//')
+       echo "VERSION=$VERSION" >> $GITHUB_ENV
+   ```
 
-### Cookie-to-Header Filter
-Use `CookieToHeaderFilter` to convert cookies to headers for Spring Security:
+5. **Rollback Plan**: Always have a rollback strategy
+   ```yaml
+   - name: Rollback on failure
+     if: failure()
+     run: |
+       kubectl rollout undo deployment/openframe-api -n openframe
+       kubectl rollout undo deployment/openframe-gateway -n openframe
+   ```
 
-```java
-@Component
-public class CookieToHeaderFilter implements WebFilter {
-    @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        String accessToken = cookieService.getAccessTokenFromCookies(exchange);
-        if (accessToken != null) {
-            ServerHttpRequest request = exchange.getRequest().mutate()
-                .header(AUTHORIZATION, "Bearer " + accessToken)
-                .build();
-            return chain.filter(exchange.mutate().request(request).build());
-        }
-        return chain.filter(exchange);
-    }
-}
-```
+6. **Security Scanning**: Include security scans in the pipeline
+   ```yaml
+   - name: Run security scan
+     run: |
+       trivy image openframe/api:${{ github.sha }}
+       trivy image openframe/gateway:${{ github.sha }}
+   ```
 
-**Reference**: [CookieToHeaderFilter.java](mdc:openframe/services/openframe-gateway/src/main/java/com/openframe/gateway/security/filter/CookieToHeaderFilter.java)
+7. **Documentation**: Update documentation as part of the pipeline
+   ```yaml
+   - name: Update API documentation
+     run: |
+       cd services/openframe-api
+       mvn springdoc:generate
+       aws s3 sync target/generated-docs s3://docs.openframe.com/api/
+   ```
 
-## Frontend Patterns
+8. **Approval Gates**: Require approvals for production deployments
+   ```yaml
+   deploy-production:
+     needs: deploy-staging
+     environment:
+       name: production
+       url: https://openframe.com
+     # This creates an approval gate before deployment
+   ```
 
-### Authentication Store Pattern
-Use reactive authentication status based on cookie presence:
+9. **Notifications**: Send notifications for pipeline events
+   ```yaml
+   - name: Send deployment notification
+     if: success()
+     uses: rtCamp/action-slack-notify@v2
+     env:
+       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+       SLACK_TITLE: "Deployment Successful"
+       SLACK_MESSAGE: "OpenFrame has been deployed to production"
+   ```
 
-```typescript
-export const useAuthStore = defineStore('auth', () => {
-  const authStatusCache = ref<boolean | null>(null)
-  const isAuthenticated = ref(false)
-
-  function updateAuthStatus() {
-    const hasAccessTokenCookie = document.cookie
-      .split(';')
-      .some(cookie => cookie.trim().startsWith('access_token='))
-
-    if (!hasAccessTokenCookie) {
-      isAuthenticated.value = false
-      return
-    }
-
-    if (authStatusCache.value !== null) {
-      isAuthenticated.value = authStatusCache.value
-      return
-    }
-
-    isAuthenticated.value = true
-  }
-})
-```
-
-**Reference**: [auth.ts](mdc:openframe/services/openframe-frontend/src/stores/auth.ts)
-
-## Security Best Practices
-
-### Cookie Security
-- **Always use `HttpOnly`**: Prevents XSS attacks
-- **Use `Secure` flag**: Only over HTTPS in production
-- **Path restrictions**: Refresh tokens only sent to `/api/oauth/token`
-- **SameSite policy**: Configure appropriately for your domain setup
-
-### Token Management
-- **Access tokens**: Short-lived (15 minutes), stored with `Path=/`
-- **Refresh tokens**: Long-lived (7 days), stored with `Path=/api/oauth/token`
-- **Never expose tokens**: Client-side JavaScript cannot access HttpOnly cookies
-- **Automatic refresh**: Handle 401 errors by attempting token refresh
-
-### Authentication Flow
-1. **Login**: Server sets both tokens as HttpOnly cookies
-2. **API Request**: Gateway extracts access token from cookie → Authorization header
-3. **Token Refresh**: Gateway extracts refresh token only for `/api/oauth/token` endpoint
-4. **Logout**: Server clears both cookies
-
-## Common Anti-Patterns
-
-### ❌ Don't Do This
-```java
-// Don't use RequestHeader for user info
-@RequestHeader("X-User-Id") String userId
-
-// Don't manage cookies in controllers
-response.addCookie(new Cookie("access_token", token));
-
-// Don't use raw JWT in business logic
-public void doSomething(Jwt jwt) {
-    String userId = jwt.getSubject();
-}
-
-// Don't manually set authentication status in frontend
-isAuthenticated.value = true;
-```
-
-### ✅ Do This Instead
-```java
-// Use AuthPrincipal
-@AuthenticationPrincipal AuthPrincipal principal
-
-// Delegate to CookieService
-cookieService.setAccessTokenCookie(token, response);
-
-// Use AuthPrincipal wrapper
-public void doSomething(AuthPrincipal principal) {
-    String userId = principal.getId();
-}
-
-// Let status update automatically via cookies
-updateAuthStatus(); // Called after auth state changes
-```
-
-## References
-
-- **Architecture Documentation**: [authentication-architecture.md](mdc:docs/architecture/authentication-architecture.md)
-- **Core Cookie Service**: [CookieService.java](mdc:openframe/libs/openframe-jwt/src/main/java/com/openframe/security/cookie/CookieService.java)
-- **Gateway Security Config**: [GatewaySecurityConfig.java](mdc:openframe/services/openframe-gateway/src/main/java/com/openframe/gateway/security/GatewaySecurityConfig.java)
-- **API Security Config**: [SecurityConfig.java](mdc:openframe/services/openframe-api/src/main/java/com/openframe/api/config/SecurityConfig.java)
+10. **Metrics**: Collect and analyze pipeline metrics
+    ```yaml
+    - name: Record deployment metrics
+      run: |
+        START_TIME=$(cat start_time.txt)
+        END_TIME=$(date +%s)
+        DURATION=$((END_TIME - START_TIME))
+        echo "Deployment duration: $DURATION seconds"
+        curl -X POST "https://metrics.openframe.com/api/deployment" \
+          -H "Content-Type: application/json" \
+          -d "{\"duration\": $DURATION, \"commit\": \"${{ github.sha }}\", \"status\": \"success\"}"
+    ```
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
