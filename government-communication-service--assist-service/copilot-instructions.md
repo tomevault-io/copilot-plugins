@@ -1,12 +1,8 @@
-## responses-in-the-service-layer-and-api-layer
+## run-tests-with-make
 
-> When creating a new function in the service layer, try to return simple data structures, rather than Pydantic models.
+> When running tests, use 'make' commands. Look at [Makefile](mdc:Makefile) for relevant test commands. When writing tests for a new section of code, it is best to create a new 'make' command for those tests only, so that it is easy to iterate quickly.
 
-When creating a new function in the service layer, try to return simple data structures, rather than Pydantic models.
-
-When creating a new API endpoint, the endpoint should receive simple data structures from the service layer, and then perform the tasks required to put the simple data into a Pydantic model for the response.
-
-The reason for this is to keep the service layer functions simple, and to make it the sole responsibility of the API layer to make sure API responses are formatted correctly.
+When running tests, use 'make' commands. Look at [Makefile](mdc:Makefile) for relevant test commands. When writing tests for a new section of code, it is best to create a new 'make' command for those tests only, so that it is easy to iterate quickly.
 
 ---
 > Source: [Government-Communication-Service/assist_service](https://github.com/Government-Communication-Service/assist_service) — distributed by [TomeVault](https://tomevault.io).
