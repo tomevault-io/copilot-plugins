@@ -1,202 +1,445 @@
-## architecture
+## modelcontextprotocol
 
-> At the start of every response, say "APPLIED ARCHITECTURE RULE".
+> At the start of every response, say "APPLIED MODELCONTEXTPROTOCOL RULE".
 
-At the start of every response, say "APPLIED ARCHITECTURE RULE".
+At the start of every response, say "APPLIED MODELCONTEXTPROTOCOL RULE".
 
-Code Architecture of /src
+# Model Context Protocol (MCP) Server Development Rules and Guidelines
 
-The /src directory implements a Model Context Protocol (MCP) server for OpenMetadata, providing programmatic access to OpenMetadata's REST API through a standardized interface. The architecture follows a modular, layered design that enables comprehensive data catalog and metadata management operations.
+## Overview
 
-## Core Entry Points
+This document provides comprehensive rules, guidelines, and best practices for developing Model Context Protocol (MCP) servers, based on the official MCP specification and the Apache Airflow MCP server implementation.
 
-**__main__.py**: Simple entry point that delegates to main()
+## Core MCP Concepts
 
-**main.py**: Central orchestration module that:
-- Configures CLI interface with Click for transport selection (stdio/sse)
-- Dynamically loads and registers API modules based on user selection
-- Maps API types to their respective function collections
-- Initializes OpenMetadata client with environment-based authentication
-- Manages server lifecycle with chosen transport protocol
+### 1. MCP Server Capabilities
 
-**server.py**: MCP server definition and configuration providing:
-- FastMCP server instance creation
-- Transport abstraction layer (stdio/sse)
-- Server lifecycle management
+MCP servers can provide three main types of capabilities:
 
-## Configuration Layer
+1. **Resources**: File-like data that can be read by clients (like API responses or file contents)
+2. **Tools**: Functions that can be called by the LLM (with user approval)
+3. **Prompts**: Pre-written templates that help users accomplish specific tasks
 
-**enums.py**: Defines APIType enum with OpenMetadata API categories:
-- **Core Entities**: TABLE, DATABASE, SCHEMA, COLUMN
-- **Data Assets**: DASHBOARD, CHART, PIPELINE, TOPIC
-- **Data Quality**: DATAQUALITYTESTS, TESTCASES, METRICS, PROFILER
-- **Governance**: CLASSIFICATION, TAG, GLOSSARY, POLICY
-- **Lineage & Usage**: LINEAGE, USAGE, COST
-- **System Management**: SERVICES, INGESTION, WEBHOOKS, BOTS
+### 2. Architecture Principles
 
-Environment variable management for OpenMetadata connection:
-- `OPENMETADATA_HOST`: OpenMetadata server URL
-- `OPENMETADATA_JWT_TOKEN`: JWT token for API authentication
-- `OPENMETADATA_USERNAME`: Username for basic authentication
-- `OPENMETADATA_PASSWORD`: Password for basic authentication
+- **Stateless Design**: Servers should be stateless and handle each request independently
+- **Standard Transport**: Use stdio or SSE transport protocols as defined in the MCP specification
+- **Type Safety**: Leverage Python type hints for automatic tool definition generation
+- **Async First**: Use asynchronous programming patterns for better performance
 
-## OpenMetadata Integration Layer (/openmetadata/)
+## Development Guidelines
 
-The architecture uses a consistent modular pattern across specialized API modules:
+### 1. Project Structure
 
-### Common Module Structure
-Each module follows this standardized pattern:
-- **API Client Setup**: Imports and configures specific OpenMetadata API client
-- **Function Registry**: `get_all_functions()` returns list of (function, name, description) tuples
-- **Async API Functions**: Transform OpenMetadata API calls into MCP-compatible responses
-- **Tool Definitions**: MCP Tool objects with JSON schema validation
+Follow this recommended project structure:
 
-### Core Client Module
+```
+project-root/
+├── src/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── main.py              # CLI entry point
+│   ├── server.py            # FastMCP server instance
+│   ├── enums.py             # Project enums
+│   ├── envs.py              # Environment configuration
+│   └── [domain]/            # Domain-specific modules
+│       ├── __init__.py
+│       ├── client.py        # External API client setup
+│       └── [feature].py     # Feature-specific tool implementations
+├── pyproject.toml
+├── README.md
+├── Makefile
+└── @modelcontextprotocol.mdc  # This file
+```
 
-**openmetadata_client.py**: Centralized OpenMetadata REST API client configuration
-- Authentication handling (JWT token or basic auth)
-- HTTP session management with proper headers
-- Error handling and response validation
-- Base methods for CRUD operations on metadata entities
-- Custom OpenMetadataError exception hierarchy
+### 2. Tool Implementation Standards
 
-### API Group Modules
+#### Tool Function Signature
 
-**table.py**: Comprehensive table management
-- CRUD operations for table entities
-- Field filtering and pagination support
-- Fully qualified name (FQN) based lookups
-- Soft and hard delete operations
-- UI URL generation for web interface integration
+All tool functions must follow this pattern:
 
-**database.py**: Database container management
-- Database lifecycle operations
-- Service connection management
-- Schema relationship handling
+```python
+from typing import Any, List, Optional, Union
+import mcp.types as types
 
-**schema.py**: Schema-level metadata management
-- Schema CRUD operations
-- Table relationship management
-- Namespace organization
+async def tool_name(
+    required_param: str,
+    optional_param: Optional[str] = None
+) -> List[Union[types.TextContent, types.ImageContent, types.EmbeddedResource]]:
+    """
+    Brief description of what the tool does.
+    
+    Args:
+        required_param: Description of required parameter
+        optional_param: Description of optional parameter
+    
+    Returns:
+        List of MCP content types
+    """
+    # Implementation here
+    return [types.TextContent(type="text", text=str(result))]
+```
 
-**dashboard.py**: Business intelligence dashboard operations
-- Dashboard metadata management
-- Chart relationship tracking
-- Visualization configuration
+#### Tool Registration Pattern
 
-**pipeline.py**: Data pipeline workflow management
-- Pipeline definition and execution
-- Task dependency tracking
-- Workflow state management
+Use this pattern in each feature module:
 
-**classification.py**: Data classification and sensitivity management
-- Classification rule definitions
-- Data sensitivity labeling
-- Compliance tracking
+```python
+def get_all_functions() -> list[tuple[Callable, str, str]]:
+    """Return list of (function, name, description) tuples for registration."""
+    return [
+        (function_name, "tool_name", "Tool description"),
+        # Add more tools here
+    ]
+```
 
-**tag.py**: Tagging system operations
-- Tag hierarchy management
-- Entity tagging operations
-- Tag-based search and filtering
+### 3. Configuration Management
 
-**glossary.py**: Business glossary management
-- Term definitions and relationships
-- Business context documentation
-- Terminology standardization
+#### Environment Variables
 
-**lineage.py**: Data lineage tracking and visualization
-- Upstream/downstream relationship mapping
-- Impact analysis operations
-- Lineage graph construction
+- Use descriptive environment variable names with consistent prefixes
+- Provide sensible defaults where appropriate
+- Document all required environment variables in README
+- Validate environment variables at startup
 
-**usage.py**: Data usage analytics and access patterns
-- Usage metrics collection
-- Access pattern analysis
-- Performance monitoring
+```python
+import os
+from urllib.parse import urlparse
 
-**services.py**: Data service configurations
-- Service registration and management
-- Connection testing and validation
-- Service health monitoring
+# Example from envs.py
+SERVICE_HOST = urlparse(os.getenv("SERVICE_HOST"))._replace(path="").geturl().rstrip("/")
+SERVICE_USERNAME = os.getenv("SERVICE_USERNAME")
+SERVICE_PASSWORD = os.getenv("SERVICE_PASSWORD")
+SERVICE_API_VERSION = os.getenv("SERVICE_API_VERSION", "v1")
+```
 
-**ingestion.py**: Metadata ingestion pipeline management
-- Ingestion workflow configuration
-- Pipeline execution monitoring
-- Error handling and retry logic
+#### Client Configuration
 
-## Architecture Patterns
+- Centralize external API client configuration
+- Use configuration objects for complex setups
+- Handle authentication securely
 
-### Plugin Architecture
-- Modular design allows selective API loading via CLI flags
-- Each module is self-contained with clear interfaces
-- Dynamic function registration enables extensibility
-- Component-based structure supports incremental development
+```python
+from external_client import ApiClient, Configuration
 
-### Abstraction Layer
-- Wraps OpenMetadata's REST API with async Python functions
-- Standardizes response format using MCP TextContent types
-- Handles parameter validation and API client configuration
-- Provides consistent error handling across all operations
+configuration = Configuration(
+    host=urljoin(SERVICE_HOST, f"/api/{SERVICE_API_VERSION}"),
+    username=SERVICE_USERNAME,
+    password=SERVICE_PASSWORD,
+)
+api_client = ApiClient(configuration)
+```
 
-### Configuration Management
-- Environment-based configuration for different OpenMetadata instances
-- Multiple authentication methods (JWT tokens, basic auth)
-- Host URL parsing and validation
-- API versioning support
-- Flexible authentication strategy selection
+### 4. Error Handling
 
-### Error Handling
-- Custom OpenMetadataError exception hierarchy
-- HTTP status code mapping to meaningful errors
-- Graceful degradation when optional parameters are missing
-- NotImplementedError handling for incomplete modules
-- Comprehensive logging and debugging support
+#### Graceful Degradation
 
-## Current Implementation Status
+- Handle API failures gracefully
+- Provide meaningful error messages
+- Use try-catch blocks for external API calls
+- Return informative error responses
 
-**Implemented Features**:
-- Modular API group architecture
-- Multiple authentication methods
-- Transport flexibility (stdio/sse)
-- Comprehensive error handling
-- MCP standard compliance
-- Dynamic module loading
+```python
+async def resilient_tool():
+    try:
+        response = await external_api.call()
+        return [types.TextContent(type="text", text=str(response))]
+    except ExternalAPIError as e:
+        error_msg = f"Failed to fetch data: {str(e)}"
+        return [types.TextContent(type="text", text=error_msg)]
+```
 
-**Architecture Benefits**:
-- **Extensibility**: Easy addition of new OpenMetadata entity types
-- **Maintainability**: Clear separation of concerns and modular design
-- **Testability**: Isolated components with clear interfaces
-- **Performance**: Efficient HTTP session management and connection pooling
-- **Standards Compliance**: Full MCP protocol implementation
-- **Selective Deployment**: Enable only required API groups for specific use cases
+#### Validation
 
-## Future Architecture Enhancements
+- Validate input parameters
+- Check required environment variables at startup
+- Provide clear validation error messages
 
-The modular design supports natural expansion to cover OpenMetadata's full API surface:
+### 5. Response Format Standards
 
-1. **Complete API Coverage**: Implement all 12+ planned API group modules
-2. **Batch Operations**: Support for bulk operations and batch processing
-3. **Real-time Updates**: WebSocket or SSE support for live metadata updates
-4. **Advanced Search**: Integration with OpenMetadata's search and discovery capabilities
-5. **Workflow Integration**: Support for complex metadata workflows and approvals
-6. **Performance Optimization**: Caching layers and connection pooling
-7. **Event-Driven Architecture**: WebHook integration for real-time notifications
+#### Consistent Response Structure
 
-## Module Implementation Priority
+- Always return List[Union[types.TextContent, types.ImageContent, types.EmbeddedResource]]
+- Convert API responses to dictionaries for easier manipulation
+- Add metadata when helpful (e.g., UI URLs, timestamps)
 
-**Phase 1 (Core Operations)**:
-- table.py, database.py, schema.py
+```python
+async def get_resource(resource_id: str):
+    response = api.get_resource(resource_id)
+    response_dict = response.to_dict()
+    
+    # Add helpful metadata
+    response_dict["ui_url"] = get_resource_url(resource_id)
+    response_dict["fetched_at"] = datetime.utcnow().isoformat()
+    
+    return [types.TextContent(type="text", text=str(response_dict))]
+```
 
-**Phase 2 (Data Assets)**:
-- dashboard.py, pipeline.py, services.py
+### 6. CLI Interface Standards
 
-**Phase 3 (Governance & Quality)**:
-- classification.py, tag.py, glossary.py
+#### Click Integration
 
-**Phase 4 (Analytics & Monitoring)**:
-- lineage.py, usage.py, ingestion.py
+Use Click for command-line interfaces:
 
-This architecture provides a clean, extensible interface to OpenMetadata's comprehensive data catalog capabilities while maintaining separation of concerns and enabling selective functionality deployment based on user needs.
+```python
+import click
+
+@click.command()
+@click.option(
+    "--transport",
+    type=click.Choice(["stdio", "sse"]),
+    default="stdio",
+    help="Transport type",
+)
+@click.option(
+    "--apis",
+    type=click.Choice([api.value for api in APIType]),
+    default=[api.value for api in APIType],
+    multiple=True,
+    help="APIs to run, default is all",
+)
+def main(transport: str, apis: list[str]) -> None:
+    # Implementation
+```
+
+#### Modular API Selection
+
+Allow users to select which API groups to enable:
+
+```python
+# Define API types
+class APIType(str, Enum):
+    FEATURE_A = "feature_a"
+    FEATURE_B = "feature_b"
+
+# Map types to functions
+APITYPE_TO_FUNCTIONS = {
+    APIType.FEATURE_A: get_feature_a_functions,
+    APIType.FEATURE_B: get_feature_b_functions,
+}
+
+# Register selected APIs
+for api in selected_apis:
+    get_function = APITYPE_TO_FUNCTIONS[APIType(api)]
+    functions = get_function()
+    for fn, name, description in functions:
+        app.add_tool(fn, name=name, description=description)
+```
+
+## Code Quality Standards
+
+### 1. Type Hints
+
+- Use type hints for all function parameters and return values
+- Import typing components explicitly
+- Use Optional[] for nullable parameters
+
+### 2. Documentation
+
+- Document all functions with clear docstrings
+- Use the Args/Returns format
+- Document all tool functions for auto-generation
+- Update README.md after code changes
+- Maintain feature implementation status tables
+
+### 3. Async Programming
+
+- Use async/await for all I/O operations
+- Handle concurrent operations appropriately
+- Use async context managers for resource management
+
+```python
+async with httpx.AsyncClient() as client:
+    response = await client.get(url)
+```
+
+## Testing Guidelines
+
+### 1. Tool Testing
+
+- Test tool functions with various input combinations
+- Mock external API calls
+- Test error conditions
+- Verify response format compliance
+
+### 2. Integration Testing
+
+- Test server startup and shutdown
+- Verify tool registration
+- Test with actual MCP clients when possible
+
+## Documentation Requirements
+
+### 1. README.md Structure
+
+Include these sections:
+- Project description and purpose
+- Feature implementation status table
+- Setup and configuration instructions
+- Usage examples
+- Environment variables documentation
+- Contributing guidelines
+
+### 2. Code Comments
+
+- Comment complex logic
+- Document non-obvious design decisions
+- Explain external API integrations
+- Document error handling strategies
+
+## Security Guidelines
+
+### 1. Credential Management
+
+- Never hardcode credentials
+- Use environment variables for sensitive data
+- Validate credentials at startup
+- Provide clear error messages for missing credentials
+
+### 2. Input Validation
+
+- Validate all user inputs
+- Sanitize data before external API calls
+- Handle malicious or malformed inputs gracefully
+
+## Performance Guidelines
+
+### 1. Async Operations
+
+- Use async/await for all I/O operations
+- Implement connection pooling for external APIs
+- Handle timeouts appropriately
+
+### 2. Resource Management
+
+- Use context managers for resource cleanup
+- Implement proper connection management
+- Monitor memory usage for large responses
+
+## Deployment Guidelines
+
+### 1. Packaging
+
+- Use modern Python packaging (pyproject.toml)
+- Include all necessary dependencies
+- Provide clear installation instructions
+- Support both pip and uv package managers
+
+### 2. Container Support
+
+- Provide Dockerfile when appropriate
+- Document container usage
+- Include health checks
+
+### 3. Claude Desktop Integration
+
+Provide clear configuration examples:
+
+```json
+{
+  "mcpServers": {
+    "server-name": {
+      "command": "uvx",
+      "args": ["package-name"],
+      "env": {
+        "REQUIRED_ENV_VAR": "value"
+      }
+    }
+  }
+}
+```
+
+## Version Management
+
+### 1. Semantic Versioning
+
+- Follow semantic versioning (MAJOR.MINOR.PATCH)
+- Document breaking changes clearly
+- Maintain backward compatibility when possible
+
+### 2. Changelog
+
+- Maintain a changelog
+- Document new features, bug fixes, and breaking changes
+- Include migration instructions for breaking changes
+
+## Contributing Guidelines
+
+### 1. Code Standards
+
+- Follow the project's code style
+- Run linting and formatting tools
+- Include tests for new features
+- Update documentation
+
+### 2. Pull Request Process
+
+- Provide clear PR descriptions
+- Include test coverage for new features
+- Update relevant documentation
+- Ensure CI passes
+
+## MCP Client Compatibility
+
+### 1. Transport Support
+
+- Support both stdio and SSE transports
+- Handle transport errors gracefully
+- Document transport-specific requirements
+
+### 2. Content Types
+
+- Use appropriate MCP content types
+- Handle different client capabilities
+- Provide fallbacks for unsupported features
+
+## Monitoring and Logging
+
+### 1. Error Logging
+
+- Log errors with appropriate levels
+- Include contextual information
+- Avoid logging sensitive data
+
+### 2. Performance Monitoring
+
+- Monitor response times
+- Track API call success rates
+- Log resource usage patterns
+
+## Compliance and Standards
+
+### 1. MCP Specification
+
+- Follow the official MCP specification
+- Test against reference implementations
+- Stay updated with specification changes
+
+### 2. Python Standards
+
+- Follow PEP 8 style guidelines
+- Use modern Python features appropriately
+- Maintain compatibility with supported Python versions
+
+## Best Practices Summary
+
+1. **Keep it Simple**: Start with basic functionality and expand gradually
+2. **Document Everything**: Code should be self-documenting with clear comments
+3. **Test Thoroughly**: Include comprehensive tests for all functionality
+4. **Handle Errors Gracefully**: Provide meaningful error messages and recovery options
+5. **Follow Standards**: Adhere to MCP specification and Python conventions
+6. **Think About Users**: Make configuration and usage as simple as possible
+7. **Plan for Scale**: Design with performance and maintainability in mind
+8. **Stay Updated**: Keep dependencies and MCP specification compliance current
+
+## Conclusion
+
+Following these guidelines will help ensure your MCP server is robust, maintainable, and provides a great experience for users. Remember that the goal is to create a bridge between external services and MCP clients that is both powerful and easy to use.
+
+For the latest MCP specification and examples, refer to:
+- @MCP Official Documentation
+- @MCP Python SDK
+- @MCP Quickstart Guide
 
 ---
 > Source: [yangkyeongmo/mcp-server-openmetadata](https://github.com/yangkyeongmo/mcp-server-openmetadata) — distributed by [TomeVault](https://tomevault.io).
