@@ -1,0 +1,9 @@
+{
+  "name": "origogi--flutter-pokemon-3d-card",
+  "displayName": "flutter-pokemon-3d-card",
+  "description": "A Flutter app for 3D Pok\u00e9mon cards using PokeAPI and Riverpod.",
+  "version": "1.0.0",
+  "author": "Origogi",
+  "homepage": "https://github.com/Origogi/flutter-pokemon-3d-card",
+  "skills": []
+}
