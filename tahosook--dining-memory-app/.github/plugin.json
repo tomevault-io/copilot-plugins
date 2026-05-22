@@ -1,0 +1,9 @@
+{
+  "name": "tahosook--dining-memory-app",
+  "displayName": "dining-memory-app",
+  "description": "AI-powered dining memory app that analyzes food & drink photos with semantic search",
+  "version": "1.0.0",
+  "author": "tahosook",
+  "homepage": "https://github.com/tahosook/dining-memory-app",
+  "skills": []
+}
