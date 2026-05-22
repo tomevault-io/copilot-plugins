@@ -4,7 +4,7 @@
   "repo": "claude-agents",
   "description": "Specialized Claude Code agents for automating information gathering from Jira, GitHub, and Notion",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/emiperez95/claude-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T08:47:42Z"
+  "distributed_at": "2026-05-22T08:50:22Z"
 }
