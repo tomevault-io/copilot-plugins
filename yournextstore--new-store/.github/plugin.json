@@ -1,0 +1,9 @@
+{
+  "name": "yournextstore--new-store",
+  "displayName": "new.store",
+  "description": "Instant online stores from a single prompt.",
+  "version": "1.0.0",
+  "author": "yournextstore",
+  "homepage": "https://github.com/yournextstore/new.store",
+  "skills": []
+}
