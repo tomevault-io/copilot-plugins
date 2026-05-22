@@ -1,73 +1,181 @@
-## use-todo-list
+## zod-v4
 
-> Use this rule when I ask you to use TODOs for a task.
+> Zod v4 Coding Guidelines. ALWAYS read this when using Zod
 
-<todo-list-management-rule>
+<zod-v4-guidelines>
 
-<description>Maintain a TODO.md file to track all pending tasks, improvements, and known issues in the codebase</description>
+<critical-import-rule>
+<requirement>Always import from 'zod/v4', never 'zod'</requirement>
+</critical-import-rule>
 
-<file-location>
-<requirement>The file should go in the package directory we're working on. E.g. apps/some-app/TODO.md</requirement>
-</file-location>
+<core-rules>
 
-<file-format>
-<requirements>
-- Use standard markdown with `- [ ]` for incomplete tasks and `- [x]` for completed tasks
-- Organize tasks under clear section headers (e.g., ## Features, ## Bug Fixes, ## Refactoring)
-- Include brief descriptions and priority levels (High/Medium/Low) in parentheses
-</requirements>
-</file-format>
-
-<update-triggers>
-<rules>
-- Add items when you identify new tasks, bugs, or improvements needed
-- Mark complete when you finish implementing a task
-- Update descriptions when task scope changes
-- Remove obsolete items that are no longer relevant
-</rules>
-</update-triggers>
-
-<tracking-scope>
-<items>
-- Features to implement
-- Bugs to fix
-- Code refactoring needs
-- Documentation updates
-- Performance optimizations
-- Security improvements
-- Testing requirements
-</items>
-</tracking-scope>
-
-<format-example>
-```markdown
-# TODO
-
-## High Priority
-
-- [ ] Fix authentication bug in login flow (High)
-- [ ] Add error handling for API calls (High)
-
-## Features
-
-- [ ] Implement user profile page (Medium)
-- [x] Add search functionality (Medium)
-
-## Technical Debt
-
-- [ ] Refactor database queries for better performance (Low)
+<rule>
+<name>Type Inference</name>
+<requirement>Every schema MUST have inferred type above it</requirement>
+<example type="good">
+```typescript
+export type User = z.infer<typeof User>
+export const User = z.object({...})
 ```
-</format-example>
+</example>
+<requirements>
+- ALWAYS place type above schema
+- ALWAYS same name for type & schema
+- NEVER use "Schema" suffix
+- ALWAYS use JSDoc (/** */), never //
+- NO EXCEPTIONS - even for internal/helper schemas
+</requirements>
+</rule>
 
-<update-requirement>
-<rule>Always show me the updated TODO.md content after making changes to code or when I ask for project status</rule>
-</update-requirement>
+<rule>
+<name>String Validation</name>
+<requirement>String validations are standalone functions</requirement>
+<example type="comparison">
+```typescript
+// WRONG: z.string().email()
+// RIGHT: z.email(), z.url(), z.uuid(), z.ip()
+```
+</example>
+</rule>
 
-<purpose>
-<description>This rule ensures the LLM consistently tracks work while providing you with clear visibility into project progress and outstanding tasks</description>
-</purpose>
+<rule>
+<name>Error Messages</name>
+<requirement>Use `error` param sparingly - Zod's defaults are excellent</requirement>
+<example type="comparison">
+```typescript
+// WRONG: z.email({error: "Invalid email"}) // Redundant!
+// RIGHT: z.email() // Zod says "Invalid email"
+// RIGHT: Only for business logic:
+z.string().check((val) => /[A-Z]/.test(val), {
+	error: 'Must contain uppercase',
+})
+```
+</example>
+</rule>
 
-</todo-list-management-rule>
+<rule>
+<name>Number Types</name>
+<requirements>
+- Use z.number() for general numbers
+- z.int() for integers only (not z.number().int())
+- z.int32(), z.float64() for specific types
+- Numbers finite by default
+</requirements>
+</rule>
+
+<rule>
+<name>Object Types</name>
+<types>
+- `z.object()` - strips unknowns (default)
+- `z.strictObject()` - rejects extras
+- `z.looseObject()` - allows extras
+</types>
+</rule>
+
+<rule>
+<name>Custom Validation</name>
+<requirement>Use .check() not .superRefine()</requirement>
+<migration-steps>
+- `val` → `ctx.value`
+- `ctx.addIssue()` → `ctx.issues.push()`
+- `z.ZodIssueCode.custom` → `'custom'`
+- Add `input: ctx.value` to issue object
+- Use .check() for detailed errors, .refine() for simple validation
+</migration-steps>
+</rule>
+
+<rule>
+<name>Error Formatting</name>
+<methods>
+- `z.prettifyError()` - Human-readable format
+- `z.treeifyError()` - Tree structure format
+</methods>
+</rule>
+
+<rule>
+<name>Functions</name>
+<requirement>Define function schemas with input/output types</requirement>
+<example type="good">
+```typescript
+z.function({
+	input: [z.string()],
+	output: z.number(),
+})
+```
+</example>
+</rule>
+
+<rule>
+<name>Records</name>
+<syntax>`z.record(keyType, valueType)`</syntax>
+</rule>
+
+<rule>
+<name>ISO Formats</name>
+<formats>
+- `z.iso.datetime()` - ISO 8601 datetime
+- `z.iso.date()` - ISO 8601 date
+</formats>
+</rule>
+
+<rule>
+<name>Additional Features</name>
+<features>
+- Default: `.default()` applies to output; use `.prefault()` for v3 behavior
+- File validation: `z.file().min(1024).max(5*1024*1024).mime(['image/jpeg'])`
+- Pipe: `z.pipe(z.string(), z.number())` for transformations
+- Async: Use `.check(async (val) => {...})` for async validation
+- Arrays: `z.array(z.email())` or `z.email().array()`
+- Optional: `.optional()`, `.nullable()`, `.nullish()`
+</features>
+</rule>
+
+</core-rules>
+
+<quick-reference>
+
+| v3                      | v4                          |
+| ----------------------- | --------------------------- |
+| z.string().email()      | z.email()                   |
+| {message: "err"}        | {error: "err"}              |
+| .strict()               | z.strictObject()            |
+| .format()               | z.treeifyError()            |
+| z.string().datetime()   | z.iso.datetime()            |
+| .args().returns()       | {input:[...], output:...}   |
+| .superRefine()          | .check()                    |
+| ctx.addIssue()          | ctx.issues.push()           |
+| z.ZodIssueCode.custom   | 'custom'                    |
+</quick-reference>
+
+<complete-example>
+```typescript
+import { z } from 'zod/v4'
+
+/** User registration */
+export type UserReg = z.infer<typeof UserReg>
+export const UserReg = z.object({
+	email: z.email(),
+	password: z
+		.string()
+		.min(8)
+		.check((pwd) => /[A-Z]/.test(pwd) && /\d/.test(pwd), { error: 'Need uppercase & number' }),
+	age: z.number().min(18),
+})
+
+/** Function with input/output types */
+export type ProcessUser = z.infer<typeof ProcessUser>
+export const ProcessUser = z.function({
+	input: [UserReg],
+	output: z.object({
+		id: z.string(),
+		createdAt: z.iso.datetime(),
+	}),
+})
+```
+</complete-example>
+
+</zod-v4-guidelines>
 
 ---
 > Source: [monorepo-rocks/monorepo-rocks](https://github.com/monorepo-rocks/monorepo-rocks) — distributed by [TomeVault](https://tomevault.io).
