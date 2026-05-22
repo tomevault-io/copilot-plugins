@@ -1,88 +1,137 @@
-## cloud-functions
+## component-design
 
-> HeartChat使用微信小程序云开发提供的云函数作为后端服务，处理数据操作、第三方API调用和业务逻辑。
+> HeartChat使用组件化开发方式，将界面拆分为可复用的组件，提高代码复用率和可维护性。组件设计遵循微信小程序自定义组件的规范和最佳实践。
 
-# 云函数开发规范
+# 组件设计规范
 
-## 功能概述
-HeartChat使用微信小程序云开发提供的云函数作为后端服务，处理数据操作、第三方API调用和业务逻辑。
+## 概述
+HeartChat使用组件化开发方式，将界面拆分为可复用的组件，提高代码复用率和可维护性。组件设计遵循微信小程序自定义组件的规范和最佳实践。
 
-## 云函数目录结构
-- [cloudfunctions/](mdc:cloudfunctions/)：云函数根目录
-  - [chat/](mdc:cloudfunctions/chat/)：聊天相关云函数
-  - [emotion/](mdc:cloudfunctions/emotion/)：情感分析相关云函数
-  - [user/](mdc:cloudfunctions/user/)：用户管理相关云函数
-  - [roles/](mdc:cloudfunctions/roles/)：角色管理相关云函数
-  - [analysis/](mdc:cloudfunctions/analysis/)：数据分析相关云函数
-  - [generateDailyReports/](mdc:cloudfunctions/generateDailyReports/)：生成每日报告云函数
-  - [httpRequest/](mdc:cloudfunctions/httpRequest/)：HTTP请求相关云函数
-  - [testBigmodel/](mdc:cloudfunctions/testBigmodel/)：大模型测试云函数
-  - [login/](mdc:cloudfunctions/login/)：用户登录云函数
-  - [clearDatabase/](mdc:cloudfunctions/clearDatabase/)：清理数据库云函数
-  - [initReportCollections/](mdc:cloudfunctions/initReportCollections/)：初始化报告集合云函数
+## 组件设计原则
+- 单一职责：每个组件只负责一个功能点
+- 高内聚低耦合：组件内部逻辑紧密相关，与外部的依赖最小化
+- 接口明确：组件对外暴露清晰的属性和事件接口
+- 状态管理：合理管理组件内部状态，避免状态混乱
+- 样式隔离：使用组件样式隔离特性，避免样式冲突
+- 性能优化：避免不必要的渲染和计算
 
-## 代码规范
-- 使用 JavaScript 作为开发语言
-- 使用async/await处理异步操作
-- 使用try-catch处理异常
-- 函数入口统一为index.js中的main函数
-- 遵循单一职责原则，每个云函数只负责一个功能领域
-- 合理使用模块化，将复杂逻辑拆分为多个文件
-- 对敏感操作进行权限验证
+## 组件目录结构
+- [miniprogram/components/](mdc:miniprogram/components)：全局组件
+  - [chat-bubble/](mdc:miniprogram/components/chat-bubble)：聊天气泡组件
+  - [chat-input/](mdc:miniprogram/components/chat-input)：聊天输入组件
+  - [emotion-analysis/](mdc:miniprogram/components/emotion-analysis)：情感分析组件
+  - [emotion-card/](mdc:miniprogram/components/emotion-card)：情绪卡片组件
+  - [emotion-dashboard/](mdc:miniprogram/components/emotion-dashboard)：情绪仪表盘组件
+  - [emotion-history/](mdc:miniprogram/components/emotion-history)：情绪历史组件
+  - [emotion-panel/](mdc:miniprogram/components/emotion-panel)：情绪面板组件
+  - [emotion-pie/](mdc:miniprogram/components/emotion-pie)：情绪饼图组件
+  - [interest-analysis/](mdc:miniprogram/components/interest-analysis)：兴趣分析组件
+  - [login/](mdc:miniprogram/components/login)：登录组件
+  - [practice-card/](mdc:miniprogram/components/practice-card)：练习卡片组件
+  - [role-card/](mdc:miniprogram/components/role-card)：角色卡片组件
+  - [topic-analysis/](mdc:miniprogram/components/topic-analysis)：话题分析组件
 
-## 常用云开发资源
-- 云数据库：存储应用数据
-- 云存储：存储文件（如用户头像、语音消息等）
-- 云调用：调用微信开放能力
-- 定时触发器：定时执行云函数（如生成每日报告）
+## 分包组件
+- [miniprogram/packageChat/components/](mdc:miniprogram/packageChat/components)：聊天功能分包组件
+- [miniprogram/packageEmotion/components/](mdc:miniprogram/packageEmotion/components)：情感分析分包组件
 
-## 错误处理规范
-云函数应当返回统一格式的响应：
+## 外部组件库
+- [miniprogram_npm/@vant/weapp/](mdc:miniprogram/miniprogram_npm/@vant/weapp)：Vant组件库
+
+## 常用组件示例
+
+### 聊天气泡组件
 ```javascript
-// 成功响应
-return {
-  success: true,
-  data: result,
-  message: "操作成功"
-}
-
-// 错误响应
-return {
-  success: false,
-  error: error.message,
-  code: errorCode
-}
+// chat-bubble.js
+Component({
+  properties: {
+    message: Object, // 消息对象
+    isUser: Boolean, // 是否为用户消息
+  },
+  
+  data: {
+    // 组件内部数据
+  },
+  
+  methods: {
+    // 组件方法
+  }
+})
 ```
 
-## 主要云函数功能
+### 情绪卡片组件
+```javascript
+// emotion-card.js
+Component({
+  properties: {
+    emotion: Object, // 情绪对象
+    showDetails: Boolean, // 是否显示详情
+  },
+  
+  data: {
+    // 组件内部数据
+  },
+  
+  methods: {
+    onTap() {
+      // 点击事件处理
+      this.triggerEvent('tap', { id: this.data.emotion._id });
+    }
+  }
+})
+```
 
-### 聊天相关
-- 发送消息：将用户消息发送到AI服务并返回回复
-- 获取历史记录：查询和返回聊天历史记录
-- 消息管理：删除、标记等操作
+## 组件通信方式
+- 属性传值（properties）：父组件向子组件传递数据
+- 事件通信（triggerEvent）：子组件向父组件通信
+- 获取组件实例：父组件通过selectComponent获取子组件实例
+- 全局状态：使用全局状态管理跨组件通信
 
-### 情感分析相关
-- 文本情感分析：分析文本的情感倾向
-- 情绪历史记录：记录和查询用户的情绪变化
-- 情绪报告生成：生成情绪分析报告
+## 组件样式隔离
+组件样式默认采用隔离模式，在Component构造器中设置：
+```javascript
+Component({
+  options: {
+    styleIsolation: 'isolated' // 样式隔离
+  }
+})
+```
 
-### 用户管理相关
-- 用户注册：创建新用户记录
-- 用户信息管理：更新、查询用户信息
-- 用户行为统计：统计用户使用情况
+## 组件生命周期
+合理使用组件生命周期函数：
+- created：组件实例创建时
+- attached：组件添加到页面时
+- ready：组件布局完成时
+- moved：组件位置移动时
+- detached：组件从页面移除时
 
-### 角色管理相关
-- 角色列表：获取可用的AI角色列表
-- 角色创建：创建自定义AI角色
-- 角色更新：更新AI角色设置
+## 组件复用与继承
+对于相似组件，可以使用behaviors实现代码复用：
+```javascript
+// common-behavior.js
+export default Behavior({
+  properties: {
+    // 公共属性
+  },
+  methods: {
+    // 公共方法
+  }
+})
 
-## 安全与性能
-- 敏感操作需进行身份验证
-- 避免在云函数中存储敏感信息（如API密钥）
-- 合理设置云函数超时时间
-- 优化数据库查询性能
-- 使用缓存减少重复计算
-- 对大量数据进行分页处理
+// 在组件中使用
+import commonBehavior from '../behaviors/common-behavior';
+
+Component({
+  behaviors: [commonBehavior],
+  // 组件特有配置
+})
+```
+
+## 组件性能优化
+- 避免频繁setData，合并数据更新
+- 使用pure-data-pattern提高性能
+- 懒加载不可见组件
+- 适当使用wx:if和wx:for的性能优化技巧
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
