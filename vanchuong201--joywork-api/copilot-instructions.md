@@ -1,15 +1,17 @@
-## db
+## security
 
-> JoyWork database and Prisma migration rules
+> JoyWork backend security, input validation, and secret handling
 
 
-# JoyWork Database Rules
+# JoyWork Backend Security
 
-- Change data models through `prisma/schema.prisma` plus Prisma migrations; do not rely on manual database edits.
-- Preserve the current schema style: singular model names, `camelCase` fields, and explicit `@@map` or `@map` metadata when table naming must stay snake_case.
-- For destructive changes like rename, drop, or type narrowing, plan backward compatibility and data migration before removing old paths.
-- When schema changes, update affected Prisma queries, selected fields, derived DTOs, and seed logic in the same task.
-- Use transactions for multi-step writes that must succeed or fail together, especially when permissions and related records are involved.
+- Never commit or expose secrets from `.env*`, JWT secrets, S3 credentials, SES credentials, cookies, or signed URLs.
+- Treat request bodies, query params, HTML, uploads, and third-party payloads as untrusted input and validate them before use.
+- Enforce authorization in backend routes and services, especially for company membership, ownership, and privileged downloads or writes.
+- Preserve upload restrictions for MIME type, file size, key prefix, and filename sanitization; avoid broad object deletion behavior.
+- Keep auth cookies and token-related responses aligned with the current security model; do not weaken `httpOnly`, env-based `secure`, or `sameSite` defaults casually.
+- Avoid leaking account existence or internal authorization details in user-facing error messages when a generic success or generic denial is safer.
+- Do not leak raw stack traces, Prisma internals, or sensitive operational details in API responses.
 
 ---
 > Source: [vanchuong201/joywork-api](https://github.com/vanchuong201/joywork-api) — distributed by [TomeVault](https://tomevault.io).
