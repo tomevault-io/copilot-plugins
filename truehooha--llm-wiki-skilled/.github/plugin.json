@@ -1,0 +1,9 @@
+{
+  "name": "truehooha--llm-wiki-skilled",
+  "displayName": "LLM-Wiki-Skilled",
+  "description": "This is my implementation of Karpathy's LLM Wiki. A key highlight is the use of agent skills to enforce workflow rigidity and mitigate agent behavioral deviation.",
+  "version": "1.0.0",
+  "author": "TrueHOOHA",
+  "homepage": "https://github.com/TrueHOOHA/LLM-Wiki-Skilled",
+  "skills": []
+}
