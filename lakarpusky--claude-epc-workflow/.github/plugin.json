@@ -1,0 +1,9 @@
+{
+  "name": "lakarpusky--claude-epc-workflow",
+  "displayName": "claude-epc-workflow",
+  "description": "Multi-agent Claude Code setup for frontend dev. Orchestrator + specialists for JavaScript, React, testing, and Git. Tuned for Sonnet 4.6.",
+  "version": "1.0.0",
+  "author": "lakarpusky",
+  "homepage": "https://github.com/lakarpusky/claude-epc-workflow",
+  "skills": []
+}
