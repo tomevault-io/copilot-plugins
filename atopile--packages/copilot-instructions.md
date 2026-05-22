@@ -1,715 +1,343 @@
-## packages
+## how-to-build-packages
 
-> ato is a declarative DSL to design electronics (PCBs) with.
-
-# CLAUDE.md
-
-ato is a declarative DSL to design electronics (PCBs) with.
-It is part of the atopile project.
-Atopile is run by the vscode/cursor/windsurf extension.
-The CLI (which is invoked by the extension) actually builds the project.
-
-# Not available in ato
-
-- if statements
-- while loops
-- functions (calls or definitions)
-- classes
-- objects
-- exceptions
-- generators
+> A package is a special atopile project that is intended to be shared and reused in other designs. A package is denoted by a `package` section in the ato.yaml file. A package aims to design a basic implementation of a given integrated circuit component. The requirement is for this package to include all the necessary components to get the core device working, such as decoupling capacitors, pullup/pulldown resistors, and more. Most importantly, since this package will be reused in a different design, it is critical to correctly create, expose, and connect all the external interfaces properly. External interfaces should be created using the proper object type (ElectricPower/ElectricLogic/etc.) and clearly defined with docstrings.
 
 
-# Ato Syntax
+# 0 Context
+A package is a special atopile project that is intended to be shared and reused in other designs. A package is denoted by a `package` section in the ato.yaml file. A package aims to design a basic implementation of a given integrated circuit component. The requirement is for this package to include all the necessary components to get the core device working, such as decoupling capacitors, pullup/pulldown resistors, and more. Most importantly, since this package will be reused in a different design, it is critical to correctly create, expose, and connect all the external interfaces properly. External interfaces should be created using the proper object type (ElectricPower/ElectricLogic/etc.) and clearly defined with docstrings.
+Some examples of critical interfaces to expose for users include but are not limited to:
+  - ElectricPower for the power rails - `add electricpower.required = true` for required power rails
+  - SPI/I2C/I2S/etc. - communication interfaces should be defined and connected to the pins of the physical package
+  - EnablePins - `enable_pin.line.required = true` so users don't ignore or forget to connect the enable line somewhere
 
-ato sytax is heavily inspired by Python, but fully declarative.
-ato thus has no procedural code, and no side effects.
+The purpose of the usage build is to show users how to use the package. This means this example should show the preferred method of use, and is most helpful if it shows the user how to use many of the interfaces.
 
-## Examples of syntax
+# 1 Building a new package
 
-```ato
-#pragma text
-#pragma func("X")
-# enable for loop syntax feature:
-#pragma experiment("FOR_LOOP)
-
-# --- Imports ---
-# Standard import (newline terminated)
-import ModuleName
-
-# Import with multiple modules (newline terminated)
-import Module1, Module2.Submodule
-
-# Import from a specific file/source (newline terminated)
-from "path/to/source.ato" import SpecificModule
-
-# Multiple imports on one line (semicolon separated)
-import AnotherModule; from "another/source.ato" import AnotherSpecific
-
-# Deprecated import form (newline terminated)
-# TODO: remove when unsupported
-import DeprecatedModule from "other/source.ato"
-
-# --- Top-level Definitions and Statements ---
-
-pass
-pass;
-
-"docstring-like statement"
-"docstring-like statement";
-
-top_level_var = 123
-
-# Compound statement
-pass; another_var = 456; "another docstring"
-
-# Block definitions
-component MyComponent:
-    # Simple statement inside block (newline terminated)
-    pass
-
-    # Multiple simple statements on one line (semicolon separated)
-    pass; internal_flag = True
-
-module AnotherBaseModule:
-    pin base_pin
-    base_param = 10
-
-interface MyInterface:
-    pin io
-
-module DemoModule from AnotherBaseModule:
-    # --- Declarations ---
-    pin p1              # Pin declaration with name
-    pin 1               # Pin declaration with number
-    pin "GND"           # Pin declaration with string
-    signal my_signal    # Signal definition
-    a_field: AnotherBaseModule      # Field declaration with type hint
-
-    # --- Assignments ---
-    # Newline terminated:
-    internal_variable = 123
-
-    # Semicolon separated on one line:
-    var_a = 1; var_b = "string"
-
-    # Cumulative assignment (+=, -=) - Newline terminated
-    value = 1
-    value += 1; value -= 1
-
-    # Set assignment (|=, &=) - Newline terminated
-    flags |= 1; flags &= 2
-
-    # --- Connections ---
-    p1 ~ base_pin
-    mif ~> bridge
-    mif ~> bridge ~> bridge
-    mif ~> bridge ~> bridge ~> mif
-    bridge ~> mif
-    mif <~ bridge
-    mif <~ bridge <~ bridge
-    mif <~ bridge <~ bridge <~ mif
-    bridge <~ mif
-
-    # Semicolon separated on one line:
-    p_multi1 ~ my_signal; p_multi2 ~ sig_multi1
-
-    # --- Retyping ---
-    instance.x -> AnotherBaseModule
-
-    # --- Instantiation ---
-    instance = new MyComponent
-    container = new MyComponent[10]
-    templated_instance_a = new MyComponent
-    templated_instance_b = new MyComponent<int_=1>
-    templated_instance_c = new MyComponent<float_=2.5>
-    templated_instance_d = new MyComponent<string_="hello">
-    templated_instance_e = new MyComponent<int_=1, float_=2.5, string_="hello">
-    templated_instance_f = new MyComponent<int_=1, float_=2.5, string_="hello", bool_=True>
-
-    # Semicolon separated instantiations (via assignment):
-    inst_a = new MyComponent; inst_b = new AnotherBaseModule
-
-    # --- Traits ---
-    trait trait_name
-    trait trait_name<int_=1>
-    trait trait_name<float_=2.5>
-    trait trait_name<string_="hello">
-    trait trait_name<bool_=True>
-    trait trait_name::constructor
-    trait trait_name::constructor<int_=1>
-
-    # Semicolon separated on one line:
-    trait TraitA; trait TraitB::constructor; trait TraitC<arg_=1>
-
-    # --- Assertions ---
-    assert x > 5V
-    assert x < 10V
-    assert 5V < x < 10V
-    assert x >= 5V
-    assert x <= 10V
-    assert current within 1A +/- 10mA
-    assert voltage within 1V +/- 10%
-    assert resistance is 1kohm to 1.1kohm
-
-    # Semicolon separated on one line:
-    assert x is 1V; assert another_param is 2V
-
-    # --- Loops ---
-    for item in container:
-        item ~ p1
-
-    # For loop iterating over a slice
-    for item in container[0:4]:
-        pass
-        item.value = 1; pass
-
-    # For loop iterating over a list literal of field references
-    for ref in [p1, x.1, x.GND]:
-        pass
-
-    # --- References and Indexing ---
-    # Reference with array index assignment
-    array_element = container[3]
-
-    # --- Literals and Expressions ---
-    # Integer
-    int_val = 100
-    neg_int_val = -50
-    hex_val = 0xF1
-    bin_val = 0b10
-    oct_val = 0o10
-    # Float
-    float_val = 3.14
-    # Physical quantities
-    voltage: V = 5V
-    resistance: ohm = 10kohm
-    capacitance: F = 100nF
-    # Bilateral tolerance
-    tolerance_val = 1kohm +/- 10%
-    tolerance_abs = 5V +/- 500mV
-    tolerance_explicit_unit = 10A +/- 1A
-    # Bounded quantity (range)
-    voltage_range = 3V to 3.6V
-    # Boolean
-    is_enabled = True
-    is_active = False
-    # String
-    message = "Hello inside module"
-
-    # Arithmetic expressions
-    sum_val = 1 + 2
-    diff_val = 10 - 3ohm
-    prod_val = 5 * 2mA
-    div_val = 10V / 2kohm # Results in current
-    power_val = 2**3
-    complex_expr = (5 + 3) * 2 - 1
-    flag_check = state | MASK_VALUE
-
-    # Comparisons
-    assert voltage within voltage_range
-    assert length <= 5mm
-    assert height >= 2mm
-
-
-
-# --- Multi-line variations ---
-pass; nested_var=1; another=2
-
-complex_assignment = (
-    voltage + resistance
-    * capacitance
-)
-
+## 1.1 File Structure
 
 ```
-
-## G4 Grammar
-
-```g4
-parser grammar AtoParser;
-
-options {
-	superClass = AtoParserBase;
-	tokenVocab = AtoLexer;
-}
-
-file_input: (NEWLINE | stmt)* EOF;
-
-pragma_stmt: PRAGMA;
-
-stmt: simple_stmts | compound_stmt | pragma_stmt;
-simple_stmts:
-	simple_stmt (SEMI_COLON simple_stmt)* SEMI_COLON? NEWLINE;
-simple_stmt:
-	import_stmt
-	| dep_import_stmt
-	| assign_stmt
-	| cum_assign_stmt
-	| set_assign_stmt
-	| connect_stmt
-	| directed_connect_stmt
-	| retype_stmt
-	| pin_declaration
-	| signaldef_stmt
-	| assert_stmt
-	| declaration_stmt
-	| string_stmt
-	| pass_stmt
-	| trait_stmt;
-
-compound_stmt: blockdef | for_stmt;
-
-blockdef: blocktype name blockdef_super? COLON block;
-// TODO @v0.4 consider ()
-blockdef_super: FROM type_reference;
-// TODO @v0.4 consider removing component (or more explicit code-as-data)
-blocktype: (COMPONENT | MODULE | INTERFACE);
-block: simple_stmts | NEWLINE INDENT stmt+ DEDENT;
-
-// TODO: @v0.4 remove the deprecated import form
-dep_import_stmt: IMPORT type_reference FROM string;
-import_stmt: (FROM string)? IMPORT type_reference (
-		COMMA type_reference
-	)*;
-
-declaration_stmt: field_reference type_info;
-field_reference_or_declaration:
-	field_reference
-	| declaration_stmt;
-assign_stmt: field_reference_or_declaration '=' assignable;
-cum_assign_stmt:
-	field_reference_or_declaration cum_operator cum_assignable;
-// TODO: consider sets cum operator
-set_assign_stmt:
-	field_reference_or_declaration (OR_ASSIGN | AND_ASSIGN) cum_assignable;
-cum_operator: ADD_ASSIGN | SUB_ASSIGN;
-cum_assignable: literal_physical | arithmetic_expression;
-
-assignable:
-	string
-	| new_stmt
-	| literal_physical
-	| arithmetic_expression
-	| boolean_;
-
-retype_stmt: field_reference ARROW type_reference;
-
-directed_connect_stmt
-	: bridgeable ((SPERM | LSPERM) bridgeable)+; // only one type of SPERM per stmt allowed. both here for better error messages
-connect_stmt: mif WIRE mif;
-bridgeable: connectable;
-mif: connectable;
-connectable: field_reference | signaldef_stmt | pindef_stmt;
-
-signaldef_stmt: SIGNAL name;
-pindef_stmt: pin_stmt;
-pin_declaration: pin_stmt;
-pin_stmt: PIN (name | number_hint_natural | string);
-
-new_stmt: NEW type_reference ('[' new_count ']')? template?;
-new_count: number_hint_natural;
-
-string_stmt:
-	string; // the unbound string is a statement used to add doc-strings
-
-pass_stmt:
-	PASS; // the unbound string is a statement used to add doc-strings
-
-list_literal_of_field_references:
-	'[' (field_reference (COMMA field_reference)* COMMA?)? ']';
-
-iterable_references:
-	field_reference slice?
-	| list_literal_of_field_references;
-
-for_stmt: FOR name IN iterable_references COLON block;
-
-assert_stmt: ASSERT comparison;
-
-trait_stmt
-	: TRAIT type_reference (DOUBLE_COLON constructor)? template?; // TODO: move namespacing to type_reference
-constructor: name;
-template: '<' (template_arg (COMMA template_arg)* COMMA?)? '>';
-template_arg: name ASSIGN literal;
-
-// Comparison operators --------------------
-comparison: arithmetic_expression compare_op_pair+;
-
-compare_op_pair:
-	lt_arithmetic_or
-	| gt_arithmetic_or
-	| lt_eq_arithmetic_or
-	| gt_eq_arithmetic_or
-	| in_arithmetic_or
-	| is_arithmetic_or;
-
-lt_arithmetic_or: LESS_THAN arithmetic_expression;
-gt_arithmetic_or: GREATER_THAN arithmetic_expression;
-lt_eq_arithmetic_or: LT_EQ arithmetic_expression;
-gt_eq_arithmetic_or: GT_EQ arithmetic_expression;
-in_arithmetic_or: WITHIN arithmetic_expression;
-is_arithmetic_or: IS arithmetic_expression;
-
-// Arithmetic operators --------------------
-
-arithmetic_expression:
-	arithmetic_expression (OR_OP | AND_OP) sum
-	| sum;
-
-sum: sum (PLUS | MINUS) term | term;
-
-term: term (STAR | DIV) power | power;
-
-power: functional (POWER functional)?;
-
-functional: bound | name '(' bound+ ')';
-
-bound: atom;
-
-// Primary elements ----------------
-
-slice:
-	'[' (slice_start? COLON slice_stop? (COLON slice_step?)?)? ']'
-	// else [::step] wouldn't match
-	| '[' ( DOUBLE_COLON slice_step?) ']';
-slice_start: number_hint_integer;
-slice_stop: number_hint_integer;
-slice_step: number_hint_integer;
-
-atom: field_reference | literal_physical | arithmetic_group;
-
-arithmetic_group: '(' arithmetic_expression ')';
-
-literal_physical:
-	bound_quantity
-	| bilateral_quantity
-	| quantity;
-
-bound_quantity: quantity TO quantity;
-bilateral_quantity: quantity PLUS_OR_MINUS bilateral_tolerance;
-quantity: number name?;
-bilateral_tolerance: number_signless (PERCENT | name)?;
-
-key: number_hint_integer;
-array_index: '[' key ']';
-
-// backwards compatibility for A.1
-pin_reference_end: DOT number_hint_natural;
-field_reference_part: name array_index?;
-field_reference:
-	field_reference_part (DOT field_reference_part)* pin_reference_end?;
-type_reference: name (DOT name)*;
-// TODO better unit
-unit: name;
-type_info: COLON unit;
-name: NAME;
-
-// Literals
-literal: string | boolean_ | number;
-
-string: STRING;
-boolean_: TRUE | FALSE;
-number_hint_natural: number_signless;
-number_hint_integer: number;
-number: (PLUS | MINUS)? number_signless;
-number_signless: NUMBER;
+packages/
+  packages/
+    <package_name>/
+        layouts/
+        parts/
+        ato.yaml
+        <package_name>.ato
+        README.md
+        usage.ato
 ```
 
-# Most used library modules/interfaces (api of them)
+## 1.2 Steps to create a new package
 
-```ato
-interface Electrical:
-    pass
-
-interface ElectricPower:
-    hv = new Electrical
-    lv = new Electrical
-
-module Resistor:
-    resistance: ohm
-    max_power: W
-    max_voltage: V
-    unnamed = new Electrical[2]
-
-module Capacitor:
-    capacitance: F
-    max_voltage: V
-    unnamed = new Electrical[2]
-
-interface I2C:
-    scl = new ElectricLogic
-    sda = new ElectricLogic
-    frequency: Hz
-    address: dimensionless
-
-interface ElectricLogic:
-    line = new Electrical
-    reference = new ElectricPower
-```
-
-For the rest use the atopile MCP server
-- `get_library_interfaces` to list interfaces
-- `get_library_modules` to list modules
-- `inspect_library_module_or_interface` to inspect the code
-
-# Ato language features
-
-## experimental features
-
-Enable with `#pragma experiment("BRIDGE_CONNECT")`
-BRIDGE_CONNECT: enables `p1 ~> resistor ~> p2` syntax
-FOR_LOOP: enables `for item in container: pass` syntax
-TRAITS: enables `trait trait_name` syntax
-MODULE_TEMPLATING: enables `new MyComponent<param=literal>` syntax
-
-## modules, interfaces, parameters, traits
-
-A block is either a module, interface or component.
-Components are just modules for code-as-data.
-Interfaces describe a connectable interface (e.g Electrical, ElectricPower, I2C, etc).
-A module is a block that can be instantiated.
-Think of it as the ato equivalent of a class.
-Parameters are variables for numbers and they work with constraints.
-E.g `resistance: ohm` is a parameter.
-Constrain with `assert resistance within 10kohm +/- 10%`.
-It's very important to use toleranced values for parameters.
-If you constrain a resistor.resistance to 10kohm there won't be a single part found because that's a tolerance of 0%.
-
-Traits mark a module to have some kind of functionality that can be used in other modules.
-E.g `trait has_designator_prefix` is the way to mark a module to have a specific designator prefix that will be used in the designator field in the footprint.
-
-## connecting
-
-You can only connect interfaces of the same type.
-`resistor0.unnamed[0] ~ resistor0.unnamed[0]` is the way to connect two resistors in series.
-If a module has the `can_bridge` trait you can use the sperm operator `~>` to bridge the module.
-`led.anode ~> resistor ~> power.hv` connects the anode in series with the resistor and then the resistor in series with the high voltage power supply.
-
-## for loop syntax
-
-`for item in container: pass` is the way to iterate over a container.
-
-# Ato CLI
-
-## How to run
-
-You run ato commands through the MCP tool.
-
-## Packages
-
-Packages can be found on the ato registry.
-To install a package you need to run `ato add <PACKAGE_NAME>`.
-e.g `ato install atopile/addressable-leds`
-And then can be imported with `from "atopile/addressable-leds/sk6805-ec20.ato" import SK6805_EC20_driver`.
-And used like this:
-
-```ato
-module MyModule:
-    led = new SK6805_EC20_driver
-```
-
-## Footprints & Part picking
-
-Footprint selection is done through the part choice (`ato create part` auto-generates ato code for the part).
-The `pin` keyword is used to build footprint pinmaps so avoid using it outside of `component` blocks.
-Preferrably use `Electrical` interface for electrical interfaces.
-A lot of times it's actually `ElectricLogic` for things like GPIOs etc or `ElectricPower` for power supplies.
-
-Passive modules (Resistors, Capacitors) are picked automatically by the constraints on their parameters.
-To constrain the package do e.g `package = "0402"`.
-To explictly pick a part for a module use `lcsc = "<LCSC_PART_NUMBER>"`.
-
-
-# Creating a package
-
-Package generation process:
-
-Review structure of other pacakges.
-
-1. Create new Directory in 'packages/packages' with naming convention '<vendor>-<device>' eg 'adi-adau145x'
-2. create an ato.yaml file in the new directory with the following content:
-
-```yaml
-requires-atopile: '^0.9.0'
-
-paths:
-    src: '.'
-    layout: ./layouts
-
-builds:
-    default:
-        entry: <device>.ato:<device>_driver
-    example:
-        entry: <device>.ato:Example
-```
-
-3. Create part using tool call 'search_and_install_jlcpcb_part'
-4. Import the part into the <device>.ato file
-5. Read the datasheet for the device
-6. Find common interfaces in the part eg I2C, I2S, SPI, Power
-
-7. Create interfaces and connect them
-
-power interfaces:
-power*<name> = new ElectricPower
-power*<name>.required = True # If critical to the device
-assert power\*<name>.voltage within <minimum*operating_voltage>V to <maximum_operating_voltage>V
-power*<name>.vcc ~ <device>.<vcc pin>
-power\_<name>.gnd ~ <device>.<gnd pin>
-
-i2c interfaces:
-i2c = new I2C
-i2c.scl.line ~ <device>.<i2c scl pin>
-i2c.sda.line ~ <device>.<i2c sda pin>
-
-spi interfaces:
-spi = new SPI
-spi.sclk.line ~ <device>.<spi sclk pin>
-spi.mosi.line ~ <device>.<spi mosi pin>
-spi.miso.line ~ <device>.<spi miso pin>
-
-8. Add decoupling capacitors
-
-looking at the datasheet, determine the required decoupling capacitors
-
-eg: 2x 100nF 0402:
-
-power_3v3 = new ElectricPower
-
-# Decoupling power_3v3
-
-power_3v3_caps = new Capacitor[2]
-for capacitor in power_3v3_caps:
-capacitor.capacitance = 100nF +/- 20%
-capacitor.package = "0402"
-power_3v3.hv ~> capacitor ~> power_3v3.lv
-
-9. If device has pin configurable i2c addresses
-
-If format is: <n x fixed address bits><m x pin configured address bits>
-use addressor module:
+1. Create a new directory `<package_name>` as stated in the file structure.
+2. Create ato.yaml, `<package_name>.ato`, README.md, usage.ato
+3. Look through other packages for inspiration
+4. Create part using tool call 'search_and_install_jlcpcb_part'
+   4.1 Inspect the part ato file in the parts/ directory
+5. Import the part into the main ato file
+6. Read the datasheet for the device
+7. Populate the files with the correct information (see below)
+   7.1 Create interfaces and connect them
+   7.2 Add decoupling caps where needed
+   7.3 Add i2c addressor if device has configurable address
+   If format is: <n x fixed address bits><m x pin configured address bits>
+   use addressor module:
 
 - Use `Addressor<address_bits=N>` where **N = number of address pins**.
 - Connect each `address_lines[i].line` to the corresponding pin, and its `.reference` to a local power rail.
 - Set `addressor.base` to the lowest possible address and `assert addressor.address is i2c.address`.
 
-10. Create a README.md
+  7.4 Other configuration etc
 
-# <Manufacturer> <Manufacturer part number> <Short description>
+8. Review the content wholistically again
+9. Build the main build target using CLI `ato build`
+10. Make sure to make use of the LSP and build errors
+
+## 1.3 Additional Notes & Gotchas (generic)
+
+- Multi-rail devices (VDD / VDDIO, AVDD / DVDD, etc.)
+
+  - Model separate `ElectricPower` interfaces for each rail (e.g. `power_core`, `power_io`).
+  - Mark each `.required = True` if the device cannot function without it, and add voltage assertions per datasheet.
+
+- Using the right type of signal: Eletrical, ElectricLogic, ElectricSignal, DifferentialPair, I2C, SPI, ...
+
+  - Electrical: Represents a basic electrical object, does not have a voltage reference.
+  - ElectricSignal: Represents an electric signal with a voltage domain reference (electricsignla.reference) which should be connected to the appropriate ElectricPower object. The electricsignal.line can represent any voltage between the hv and lv of the reference. Useful for things like analog signals, voltage divider outputs, etc.
+  - ElectricLogic: Represents an electric logic, which is a special type of electric signal that should only take the discrete values of reference.hv and reference.lv. electriclogic.line  will often be soft pulled up or down to its reference rails.
+  - DifferentialPair: Represents a pair of ElectricLogics that share a reference ground (still need to connect the reference ElectricPower to something) and carry a signal differentially between the p.line and n.line
+  - I2C, SPI, etc: Represent interfaces of common communication protocols. Investigate the files in the standard library to find which signals are available for each interface. Interfaces should be used wherever possible as a layer of abstraction. Instead of connecting sensor.sda_pin~micro.sda_pin and sensor.scl_pin~micro.scl_pin, I2C interfaces should be described in the definition of the sensor and the micro such that at application level they can be connected via sensor.i2c ~ micro.i2c
+
+- Use arrays for multiple channels or repetitve signals/modules
+  e.g `vouts = new ElectricLogic[4]` and access them with for-loops
+  e.g `gpios = new ElectricLogic[10]` and access them with a for-loop such as
+      for gpio in gpios:
+          gpio.reference ~ power_3v3
+
+- Optional interfaces (SPI vs I²C)
+
+  - If the device supports multiple buses, pick one for the initial driver. Leave unused bus pins as `ElectricLogic` lines or expose a second interface module later.
+
+- Decoupling guidance
+
+  - If the datasheet shows multiple caps, model the **minimum required** set so the build passes; you can refine values/packages later.
+
+- File / directory layout recap
+  - `<vendor>-<device>/` – package root
+  - `ato.yaml` – build manifest (include `default` **and** `example` targets)
+  - `<vendor>-<device>.ato` – driver implementation in module called `<module_name>`
+  - `parts/<MANUFACTURER_PARTNO>/` – atomic part + footprint/symbol/step files. Do not edit any files in the parts/ directory. These are autogenerated and should only be added with `ato create part` CLI command
+
+These tips should prevent common "footprint not found", "pin X missing", and build-time path errors when you add new devices.
+
+## 1.4 Legend
+
+`<lowest_atopile_version>`: lowest version of ato compiler package has run with (`ato --version`)
+
+`<manufacturer>`: lower-case, <10 chars
+
+- adi
+- ti
+- nordic
+- bosch
+- sensirion
+- st
+- onsemi
+- microchip
+- invensense
+- nxp
+- ublox
+- mps
+
+`<part_number>`: non-package related, lower-case
+
+- mcp23017
+- bme280
+- adxl345
+- stm32f767
+
+`<Manufacturer>`: upper-case of `<manufacturer>`
+
+- ADI
+- TI
+- Nordic
+- Bosch
+
+`<Part_Number>`: upper-case of `<part_number>`
+
+- MCP23017
+- BME280
+- ADXL345
+- STM32F767
+
+`<package_name>`: `<manufacturer>`-`<part_number>`
+
+`<module_name>`: `<Manufacturer>`\_`<Part_Number>`
+
+## 1.5 <package_name>.ato
+
+`````ato
+<pragmas>
+<stl imports>
+
+<part imports>
+
+module <module_name>:
+    """
+        <Description of the module>
+    """
+
+    # --- External interfaces ---
+    example:
+    power = new ElectricPower
+    """
+    Central power supply for the module feeding the power rails
+    """
+
+    power.required = True
+    i2c = new I2C
+    """
+    I²C bus interface (7-bit addr 0x76 / 0x77)
+    """
+    i2c.required = True
+    i2c.reference_shim ~ power
+
+
+    # --- Internal power rails ---
+    example:
+    power_core = new ElectricPower  # Connects to VDD (sensor core)
+    power_core.vcc ~ package.VDD
+    power_core.gnd ~ package.GND
+    only define new rails here if there are multiple power rails, else just the one in external interfaces
+    assert power_core.voltage within 1.71V to 3.6V
+
+    # --- Power supply ---
+
+    # --- I²C bus ---
+    <addressor>
+    e.g
+    addressor = new Addressor<address_bits=2>
+    addressor.base = 0x40
+    assert i2c.address is addressor.address
+    (no need to constrain i2c.address, done automatically via addressor)
+    # using soft pullups, just in case
+    # I2C pull-up resistors
+    i2c_pullups = new Resistor[2]
+    for r in i2c_pullups:
+        r.resistance = 10kohm +/- 1%
+        r.package = "0402"
+    i2c.scl.line ~> i2c_pullups[0] ~> i2c.scl.reference.hv
+    i2c.sda.line ~> i2c_pullups[1] ~> i2c.sda.reference.hv
+    ...
+
+    # --- Decoupling capacitors ---
+
+
+    # --- <Other configuration> ---
+    eg: int line pullups
+
+
+
+    # --- Package ---
+    package = new <package_name>
+    <package_connections> (package always on the left)
+    e.g
+    package.VDD ~ power.hv
+    package.VDDH ~ power.hv
+    package.GND ~ power.lv
+    package.SCL ~ i2c.scl.line
+    package.SDA ~ i2c.sda.line
+
+    dont make any connections to the package above, only here
+
+```
+
+Remove empty sections.
+
+
+## ato.yaml
+
+```yaml
+requires-atopile: "^`<latest_atopile_version>`"
+
+paths:
+  src: ./
+  layout: ./layouts
+
+# Ensure the project has at least a default build and a usage build
+builds:
+  default:
+    entry: <package_name>.ato:<module_name>
+    hide_designators: true
+    exclude_checks: ["PCB.requires_drc_check"]
+  usage:
+    entry: usage.ato:Usage
+    hide_designators: true
+    exclude_checks: ["PCB.requires_drc_check"]
+
+package:
+  identifier: atopile/<package_Name>
+  repository: https://github.com/atopile/packages
+  homepage: https://github.com/atopile/packages/blob/main/packages/<package_name>/README.md
+  version: "0.1.0"
+  authors:
+    - name: atopile
+      email: hi@atopile.io
+  summary: `<package_summary>`
+  license: MIT
+```
+
+`<package_summary>`: Bunch of tags to find the package on the web.
+e.g
+Tags: Bosch; BME280; Temperature; Humidity; Pressure; Sensor; IC; I2C; Adafruit; <adafruit_product_id>; QWIIC, STEMMA
+
+`<adafruit_product_id>`: Adafruit product ID, e.g `3660` for BME680 (if available)
+
+## usage.ato
+
+```ato
+<pragmas>
+<stl imports>
+
+<module imports>
+
+
+module Usage:
+    """
+    Minimal usage example for `<package_name>`.
+    <short description of the example>
+    """
+
+    <instance_name> = new <module_name>
+
+    <example usage of module>
+    <connect all required interfaces>
+    e.g power supply
+    e.g i2c bus
+
+    <set required parameters>
+    e.g i2c.address = 0x76
+```
+
+## README.md
+
+````markdown
+# `<verbose_package_name>` e.g Bosch BME280 Temperature, Humidity & Pressure Sensor
+
+`<longer description of the package and main component>`
 
 ## Usage
 
 ```ato
-<copy in example>
-
+<copy-paste exactly the latest of usage.ato>
 ```
 
 ## Contributing
 
-Contributions to this package are welcome via pull requests on the GitHub repository.
+Contributions are welcome! Feel free to open issues or pull requests.
 
 ## License
 
-This atopile package is provided under the [MIT License](https://opensource.org/license/mit/).
-
-11. Connect high level interfaces directly in example:
-
-eg:
-
-i2c = new I2C
-power = new ElectricPower
-sensor = new Sensor
-
-i2c ~ sensor.i2c
-power ~ sensor.power_3v3
-
-# Additional Notes & Gotchas (generic)
-
-- Multi-rail devices (VDD / VDDIO, AVDD / DVDD, etc.)
-
-    - Model separate `ElectricPower` interfaces for each rail (e.g. `power_core`, `power_io`).
-    - Mark each `.required = True` if the device cannot function without it, and add voltage assertions per datasheet.
-
-- Optional interfaces (SPI vs I²C)
-
-    - If the device supports multiple buses, pick one for the initial driver. Leave unused bus pins as `ElectricLogic` lines or expose a second interface module later.
-
-- Decoupling guidance
-
-    - If the datasheet shows multiple caps, model the **minimum required** set so the build passes; you can refine values/packages later.
-
-- File / directory layout recap
-    - `<vendor>-<device>/` – package root
-    - `ato.yaml` – build manifest (include `default` **and** `example` targets)
-    - `<device>.ato` – driver + optional example module
-    - `parts/<MANUFACTURER_PARTNO>/` – atomic part + footprint/symbol/step files
-
-These tips should prevent common "footprint not found", "pin X missing", and build-time path errors when you add new devices.
+This package is provided under the [MIT License](mdc:packages/packages/packages/https:/opensource.org/license/mit).
+`````
+# 2 Updating an existing package
+The package should follow the structure that is described in detail. To update a package, review each section to ensure that it complies with the latest syntax and structure. The following steps are a guideline to effectively review packages:
 
 
-# Vibe coding a project
+## 2.1 Review Procedure
+1) Inspect file structure. Ensure that it complies with section 1.1 of this document.
+2) Inpect ato.yaml file. Esnure that it complies with section 1.2 of this document. Ensure that there is at least a default and usage build target - it is valid to have extra build targets. Check what version of atopile is being used by running "ato --version", set the requires-atopile field to be greater than the current version being used.
+3) Run "ato build" from CLI. Resolve any errors or warnings with the build. Try not to add or delete compoents, as it will change the layout and require manual relayout.
+4) Run "ato build --frozen" from CLI. Resolve any errors or warnings.
+5) If all the build targets are successfully building, update the README.md to have the exact same text as the usage.ato file. Also enure that the existing information in the readme is accurate - if not, search for the part number and update the readme with information about the part. Try not to stray far from the instructions, and don't add too much information from the datasheet, only what would be helpful for a user browsing the package directory and evaluating using this package.
+6) Run "ato package verify" with CLI. Ensure that this passes as the final check that the package is ready to be published.
 
-If the user gives you high level description of the project, use the following guide:
+## 2.2 Additional Notes
+* Be careful when deleting and readding parts, as this will require manual layout work to fix
+* If the name of a build target is wrong, and you change it (for example to default), then you should try to copy the contents of the pre-existing /layout/* directory to the new build target so the layout gets carried over as well. If you dont do this, the layout will be lost.
+* After updating a package, use the MCP tool to inspect the current version that is available on the package registry and be sure to minor rev from the current latest version on the package resistry -> x.y.z and update it to exactly x.y.z+1
+* If a build is failing the frozen build, saying there have been changes to the layout, try running a regular build first, then running a frozen build to see if the issue is resolved.
+* If package verifications is failing because there are warnings in the logs, try running a new build, as sometimes there are one time warnings when a component changes that will go away on the next build.
+* Try to build the package using 'ato build' command or MCP ato build command 1a. If the package builds, then DO NOT update the requires-atopile
+ version in the ato.yaml. Any changes will be considered a minor change, so increment the package version number by adding the following mask to the version: new_version = old_version + 0.0.1 1b.
+ * If the package fails to build, then update the requires-atopile version in the ato.yaml to the version of atopile used to run the build. This is now considered a major revision, so update the package version number according to: new_version = old_version + 0.1.0
 
-# How LLMs can design electronics:
+* In order for the package to be published, it must pass an "ato build --frozen", which checks that nothing changed since the last build. If this fails, you may need to run a normal build immediately before the frozen build.
+* After build and build --frozen, use the ato package verify command (or MCP tool) to verify that the package passes all the automated tests and is ready to be published. You may need to reiterate through steps 3-5 until the package verification is successful. Use the descriptive errors returned by the package verify command to guide your changes.
+* Open a PR with the changes, name the PR "package-name: LLM Update with 0.11.5", but replace package-name with the name of the package and replace 0.11.5 with the version of the compiler used. Be sure to leave a comment in the description about what was done to update the package. Specifically include information about whether the package build initially with the
 
-#1 Rule: USE THE TOOLS. If the tools dont work, dont freak out, you are probably using them wrong. Ask for help if you get stuck.
-
-Top level design
-
-1. Research available packages relevant to the user requests using 'find_packages'
-2. Inspect promising packages using 'inspect_package'
-3. Propose packages to use for project and architucture to user, revise if needed
-4. Install needed packages using 'install_package'
-5. Import packages into main file
-6. Create instances of packages in main module
-
-## Power
-
-1. Review for each package the required voltage and current (current may not be provided, use judement if nessesary)
-2. Determine the power rails that need to be generated and a suitable tollerance (typically ~3-5% is acceptable)
-3. Determine the input power source, typically a battery, USB connector or other power connector (eg XT30) and install relevant package
-4. Find suitable regulators:
-   a) if input voltage > required voltage and current is low, use an LDO package
-   b) if input voltage > required voltage and current is high, use buck converter
-   c) if input votlage < required voltage, use a boost converter
-   d) if input voltage can be both less than or greater than input voltage, use buck boost (eg battery powered device that needs 3v3)
-5. If battery powered, add charger package
-
-Typical power architucture example with LDO:
-
-- USB input power
-- Low current output (eg microcontroller)
-
-from "atopile/ti-tlv75901/ti-tlv75901.ato" import TLV75901_driver
-from "atopile/usb-connectors/usb-connectors.ato" import USBCConn
-
-module App:
-
-    # Rails
-    power_5v = new Power
-    power_3v3 = new Power
-
-    # Components
-    ldo = new TLV75901_driver
-    usb_connector = new USBCConn
-
-    # Connections
-    usb_connector.power ~ power_vbus
-    power_vbus ~> ldo ~> power_3v3
-
-## Communicaions
-
-1. Review packages required interfaces, typically i2c, spi or ElectricLogics
-2. Find suitable pins on the controller, typically a microcontroller or Linux SOC
-3. Connect interfaces eg micro.i2c[0] ~ sensor.i2c
-
-## Development process notes
-
-- After making changes, be sure to use 'build_project' to update the PCB
-- Builds will often generate errors/warnings, these should be reviewed and fixed
-- Prioritize pacakges from 'atopile' over other packages
+## 2.3 Advice & Pointers
+* Try not to make major changes to the packages, we are looking for minor changes if something in the new version of the compiler breaks the existing packages.
+* We care a lot about package stability, this means we care that the pacakges build and pass the package verification check. Be sure that when you open a PR, the code changes still pass the ato build and ato package verify commands.
+* Keep PRs short and to the point. Explain briefly what you saw when you started working on the package, what you fixed in the package (version update from to, dependency upgrades from to, etc), and the current state of the package. PRs should only pertain to one package at a time, and should not have changes for any other packages in the changed files.
+* If the package specified to be update is in the /packages/packages/archive directory, then the first step will be moving it up to the packages/packages directory if there are no naming conflicts. If there are naming conflicts with this operation, please raise a flag and do not proceed.
+* Almost all physical values specified in ato should have a tolerance specified. Resistance, capacitance, inductance, voltage, etc. should almost always have a default tolerance.
+* Do not include imports or #pragmas that are not necessary
+* PRs that work on changes should be named `<package_name>`: Updating `<reason_for_updating>` or `<package_name>`: Create .  or similar
+## 2.4 Forbidden actions
+* Some changes may necessetate this, but try not to change anything in the /layout directory, as this will then require manual intervention to check that the layout is working properly and slow down the process.
+* Do not make changes to any other packages while updating one package
 
 ---
 > Source: [atopile/packages](https://github.com/atopile/packages) — distributed by [TomeVault](https://tomevault.io).
