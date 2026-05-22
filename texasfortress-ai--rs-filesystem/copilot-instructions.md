@@ -1,57 +1,69 @@
-## data-flow
+## path-validation
 
-> - MUST: Handle JSON-RPC requests through stdin/stdout flow using tokio::io
+> - MUST: Use `validate_path_or_error` from `src/mcp/utilities.rs` for all file operations
 
-# Data-Flow
+# path-validation
 
-### Core Data Propagation
-- MUST: Handle JSON-RPC requests through stdin/stdout flow using tokio::io
-- AVOID: Direct file system access outside allowed directories
-- WHY: Ensures controlled data access and consistent request handling
-- EXAMPLE: `src/main.rs` - JSON-RPC router construction with tool registration
-**Importance: 95**
+### Secure Path Validation
+- MUST: Use `validate_path_or_error` from `src/mcp/utilities.rs` for all file operations
+- MUST: Implement path canonicalization before validation using `std::fs::canonicalize`
+- AVOID: Manual string concatenation or direct path comparison
+- WHY: Prevents directory traversal attacks and ensures operations stay within allowed boundaries
+- EXAMPLE: 
+```rust
+// src/mcp/tools.rs
+validate_path_or_error(&file_path)?;
+```
 
-### Tool Registration Flow
-- MUST: Register tools with input schemas via `register_tools` in `src/mcp/tools.rs`
-- AVOID: Global state for tool registration
-- WHY: Maintains single source of truth for available tool definitions
-- EXAMPLE: `src/mcp/tools.rs:register_tools()`
-**Importance: 85**
+### Multi-Path Operations
+- MUST: Use `validate_paths_or_error` from `src/mcp/utilities.rs` for move/rename operations
+- MUST: Validate both source and target paths before any file operation
+- AVOID: Performing operations without checking both paths
+- WHY: Ensures atomic validation for operations involving multiple paths
+- EXAMPLE:
+```rust
+// src/mcp/tools.rs
+validate_paths_or_error(&source_path, &target_path)?;
+```
 
-### Resource Management Pipeline
-- MUST: Flow resource requests through `resources_list` and `resource_read` in `src/mcp/resources.rs`
-- AVOID: Direct filesystem access bypassing resource controllers
-- WHY: Centralizes resource access control and validation
-- EXAMPLE: `src/mcp/resources.rs:resources_list()`
-**Importance: 80**
+### Allowed Directories Registry
+- MUST: Use `is_path_allowed` from `src/mcp/utilities.rs` to check against allowed directories
+- MUST: Retrieve allowed directories through `resources/allowed_directories` endpoint
+- AVOID: Hardcoding directory paths or bypass validation
+- WHY: Centralizes directory access control and maintains security boundary
+- EXAMPLE:
+```rust
+// src/mcp/resources.rs
+resource_read("Allowed Directories")
+```
 
-### Prompt Processing Chain
-- MUST: Process prompts through `prompts_list` and `prompts_get` in `src/mcp/prompts.rs`
-- AVOID: Mixing prompt and tool data flows
-- WHY: Separates prompt handling from tool execution
-- EXAMPLE: `src/mcp/prompts.rs:prompts_get()`
-**Importance: 75**
+### Path Validation Testing
+- MUST: Test path validation using `src/mcp/tools_test.rs`
+- MUST: Include test cases for:
+  - Valid paths within allowed directories
+  - Invalid paths outside allowed directories
+  - Path canonicalization edge cases
+- AVOID: Testing without canonicalized paths
+- WHY: Ensures robust validation across different path formats and scenarios
 
-### Path Validation Flow
-- MUST: Route all path operations through validation in `src/mcp/utilities.rs`
-- AVOID: Direct path manipulation without validation
-- WHY: Ensures security by restricting operations to allowed directories
-- EXAMPLE: `src/mcp/utilities.rs:validate_path_or_error()`
-**Importance: 90**
+### Git Integration Security
+- MUST: Validate paths before Git operations in `file_edit` function
+- MUST: Check paths before creating Git commits
+- AVOID: Direct Git operations without path validation
+- WHY: Maintains security boundary for version-controlled files
+- EXAMPLE:
+```rust
+// src/mcp/tools.rs
+validate_path_or_error(&file_path)?;
+// Only then proceed with Git commit
+```
 
-### Git Integration Pipeline
-- MUST: Handle Git operations through dedicated flows in file editing tools
-- AVOID: Direct Git commands without error handling
-- WHY: Maintains version control integration consistency
-- EXAMPLE: `src/mcp/tools.rs:file_edit()`
-**Importance: 70**
-
-### Directory Operations Flow
-- MUST: Route directory operations through validated tool handlers
-- AVOID: Direct filesystem manipulation
-- WHY: Ensures controlled access and proper error handling
-- EXAMPLE: `src/mcp/tools.rs:create_directory()`
-**Importance: 85**
+Importance Scores:
+- Secure Path Validation: 95 (core security mechanism)
+- Multi-Path Operations: 90 (critical for file operations)
+- Allowed Directories Registry: 85 (key security boundary)
+- Path Validation Testing: 80 (ensures security compliance)
+- Git Integration Security: 75 (maintains version control security)
 
 $END$
 
