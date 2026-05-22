@@ -1,44 +1,59 @@
-## python-standards
+## testing-patterns
 
-> Based on the Google Python Style Guide with project-specific additions.
+> - Use pytest-asyncio for testing async code
 
-# Python Development Standards
+# Testing Standards
 
-Based on the Google Python Style Guide with project-specific additions.
+## pytest Conventions
+- Use pytest-asyncio for testing async code
+- Always use `pytest-mock` with `autospec=True`:
+  ```python
+  mocker.patch('module.Class', autospec=True)
+  ```
 
-## Imports
-- Use `import x` for packages and modules only, not for individual classes or functions
-- Import modules: `import pathlib` and reference `pathlib.Path` instead of `from pathlib import Path`
-- Importing with alias is acceptable: `import a.b.c as c`
-- Use full package names to avoid conflicts: `from sound.effects import echo`
-- Exceptions: typing, collections.abc, and typing_extensions symbols can be imported directly
+## Parameterization
+- Use `@pytest.mark.parametrize` instead of multiple similar tests
+- Use `pytest.param` with `id` parameter for descriptive test names
+- For error cases:
+  ```python
+  @pytest.mark.parametrize(
+      ("input", "expected_error"),
+      [
+          ("valid", None),
+          ("invalid", pytest.raises(ValueError)),
+      ]
+  )
+  def test_function(input, expected_error):
+      with expected_error or contextlib.nullcontext():
+          function(input)
+  ```
+- Avoid putting too much conditional logic in the test itself.
+  ```python
+  # Bad
+  if input1 == "abc":
+    assert result == "def"
+  else:
+    assert result == "ghi"
 
-## Type Annotations
-- Use Pydantic models for all data structures that need validation
+  # Good
+  # Add an expected_result parameter to the test's pytest.params, then:
+  assert result == expected_result
+  ```
 
-## Comments and Docstrings
-- Keep comments minimal - explain WHY not WHAT
-- Use comments only when the reasoning behind code isn't obvious
-  - And, prefer to rewrite the code to be clearer instead of leaving such comments
-- Write docstrings when it isn't clear what a function does from its name and arguments, or for functions that are part of the public interface of some component of the system
+## AWS Mocking
+- Use moto for mocking AWS services wherever possible:
+  ```python
+  @mock_s3
+  async def test_s3_operation():
+      # moto automatically mocks aioboto3 calls
+  ```
 
-## Naming Conventions
-- Avoid single character names except for counters or iterators
-- Use descriptive names: `employee_ids` not `e_ids`
+## Assertions
+- If it's unclear at a glance what an assertion is testing, add a message, like `assert False, "Message here"`
 
-## Language Features
-- Use list/dict/set comprehensions for simple cases
-- Use generators for large data processing
-- Properties: use `@property` for simple attribute access
-- Lambda functions: only for one-liners, otherwise use regular functions
-- Conditional expressions: use sparingly for simple cases
-- Avoid global state except for module-level constants
-
-## Error Handling
-- Document exceptions raised by a method using a "Raises" section in the docstring
-
-## Best Practices
-- Use parentheses for line continuation, not backslashes
+## Test Organization
+- Mirror the source code structure in tests/
+- Name test files as `test_<module>.py`
 
 ---
 > Source: [METR/inspect-action](https://github.com/METR/inspect-action) — distributed by [TomeVault](https://tomevault.io).
