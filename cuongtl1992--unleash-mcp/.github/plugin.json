@@ -1,0 +1,9 @@
+{
+  "name": "cuongtl1992--unleash-mcp",
+  "displayName": "unleash-mcp",
+  "description": "A Model Context Protocol (MCP) server implementation that integrates with Unleash Feature Toggle system.",
+  "version": "1.0.0",
+  "author": "cuongtl1992",
+  "homepage": "https://github.com/cuongtl1992/unleash-mcp",
+  "skills": []
+}
