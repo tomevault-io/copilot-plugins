@@ -1,0 +1,9 @@
+{
+  "name": "dingent--dingent",
+  "displayName": "Dingent",
+  "description": "A lightweight, user-friendly LLM Agent framework focused on simplifying data retrieval application development.",
+  "version": "1.0.0",
+  "author": "Dingent",
+  "homepage": "https://github.com/Dingent/Dingent",
+  "skills": []
+}
