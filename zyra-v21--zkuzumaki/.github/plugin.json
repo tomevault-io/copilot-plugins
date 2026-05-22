@@ -1,0 +1,9 @@
+{
+  "name": "zyra-v21--zkuzumaki",
+  "displayName": "ZKUzumaki",
+  "description": "A privacy-focused Ethereum/SOL mixer using zero-knowledge proofs (ZK-SNARKs Groth16, SMT) for confidential transactions. Non Kyc, Non Signup.",
+  "version": "1.0.0",
+  "author": "Zyra-V21",
+  "homepage": "https://github.com/Zyra-V21/ZKUzumaki",
+  "skills": []
+}
