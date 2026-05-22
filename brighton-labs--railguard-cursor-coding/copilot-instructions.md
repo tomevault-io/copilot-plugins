@@ -1,96 +1,88 @@
-## data-science-python-railguard-available
+## fastapi-secure-no-railguard-available
 
-> description: Guide the LLM to generate secure, privacy-conscious data science code in notebooks and Python scripts. Defers input validation to `.cursor/rules/input-validation.mdc` while enforcing safe loading, export, and transformation of data.
+> Enforce secure-by-default development practices in FastAPI-based Python applications using the RAILGUARD framework for input handling, auth, route safety, and AI reasoning.
 
+
+# R: Risk First
+- The goal is to prevent common security vulnerabilities in FastAPI projects, especially those related to unvalidated input, improper auth handling, and inconsistent response logic.
+- FastAPI is often used for public APIs, and must treat all incoming data as untrusted.
+- The AI must generate code that is secure by design, explainable, and structured for auditability.
+
+# A: Attached Constraints
+- Never use `eval`, `exec`, or `pickle.load()` unless inside a secured, sandboxed environment.
+- Never handle password hashing or token validation inside route handlers directly.
+- Do not expose `.env` secrets, tokens, or credentials in responses, logs, or comments.
+- Do not use untyped route parameters or raw request parsing (`await req.json()`).
+- Do not log raw user input, passwords, or tokens.
+
+# I: Interpretative Framing
+- Treat all FastAPI `POST`, `PUT`, `DELETE`, or dynamic `GET` endpoints as externally-facing and potentially exposed to malicious input.
+- If a route is created, assume it must validate input via a Pydantic model or an equivalent schema.
+- If form or query data is parsed manually, assume that it requires validation and sanitation.
+- If no response model is provided, assume one should be added for typing and auditability.
+
+# L: Local Defaults
+- Use Pydantic models for request bodies, form data, and query parameters.
+- Use `Depends()` for injecting authenticated users, services, or DB sessions.
+- Apply `Response` or `JSONResponse` with structured output.
+- Secure all cookies (`HttpOnly`, `Secure`, `SameSite=Strict`) and apply CORS restrictions.
+- For links opened with `target="_blank"` in FastAPI template rendering (e.g., Jinja2), add `rel="noopener noreferrer"`.
+
+# G: Generative Path Checks
+1. When generating a route:
+   - Determine the expected request schema
+   - Validate the schema with a Pydantic model
+   - Parse using `payload: MyModel` in the handler signature
+   - Handle missing fields or validation errors explicitly
+2. If authentication is needed:
+   - Use `OAuth2PasswordBearer` or `Depends(current_user)`
+   - Hash passwords using `bcrypt` or `argon2`, never plaintext
+3. Always include status codes and structured return objects
+
+# U: Uncertainty Disclosure
+- If unsure whether a value comes from user input, assume it does and validate it.
+- If a token or password appears in code, flag with a comment:
+  _“This appears to be sensitive. Ensure it's securely handled server-side only.”_
+- If the LLM is unsure about a schema or handler, generate a comment:
+  _“// TODO: Validate input structure before use.”_
+
+# A: Auditability
+- All input validation logic should include a comment such as:
+  `# Input validated with Pydantic model`
+- Sensitive logic (auth, DB write, token generation) should be wrapped in functions, not inlined
+- Flag uses of `dangerously_open_func()` or risky patterns with comments like:
+  `# Dangerous operation: must be reviewed`
+- Include standard docstrings on all route handlers
+
+# R+D: Revision + Dialogue
+- Developer may enter `/why-secure` to receive LLM explanation of choices:
+  _“Validated input using Pydantic and ensured token logic stays server-side for security.”_
+- Allow `/revise-for-security` to regenerate insecure output
+- Encourage LLM to reject generating handlers without validation unless explicitly overridden
 
 ---
-description: Guide the LLM to generate secure, privacy-conscious data science code in notebooks and Python scripts. Defers input validation to `.cursor/rules/input-validation.mdc` while enforcing safe loading, export, and transformation of data.
-globs: ["**/*.ipynb", "**/*.py"]
-alwaysApply: true
----
 
-## Overview
-This rule supports data analysts and scientists working in Python (e.g., Jupyter, Colab, VSCode notebooks) by:
-- Enforcing safe data previews and exports
-- Preventing accidental leakage of personally identifiable information (PII)
-- Deferring all structured input validation logic to:
-  > `.cursor/rules/railguard-input-validation.mdc`  
-  > _(which uses the RAILGUARD Framework for secure reasoning and enforcement)_
+## Example: Secure Route with Auth
 
----
-
-## Safe Data Handling
-- Use `pandas.read_csv()` and `read_excel()` with `dtype=...` to enforce schema.
-- Always drop or mask sensitive fields before using `.head()`, `.sample()`, or `.plot()`.
-- Never use `eval()`, `exec()`, `pd.eval()` or `query()` on raw data or unvalidated user inputs.
-- When exporting data, verify and exclude all PII fields.
-
-### Default PII fields to remove:
 ```python
-PII_FIELDS = ["email", "full_name", "ssn", "ip", "dob", "phone", "address"]
-```
+from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
+from services.auth import verify_user
+from fastapi.responses import JSONResponse
 
-- Always log sanitized export filenames using `logging`, not `print()`.
-- Prefer versioned, structured export paths (e.g., `exports/cleaned_data_v1.csv`).
+router = APIRouter()
 
----
+class LoginPayload(BaseModel):
+    username: str
+    password: str
 
-## Cross-Reference: Validation Logic
-Input validation, schema enforcement, sanitization, and secure reasoning are handled globally in:
-
-> `.cursor/rules/railguard-input-validation.mdc`
-
-This ensures:
-- Protection against malformed files, unexpected schema, or poisoned input
-- Step-by-step generation reasoning (RAILGUARD pillars)
-- Enforcement of redlines (e.g., avoiding `eval`, ensuring schema is present)
-- Behaviorally aware, explainable code generation across file types
-
----
-
-## Example: Secure Data Load + Export
-```python
-import pandas as pd
-import logging
-
-PII_FIELDS = ["email", "ssn", "address", "full_name"]
-
-# Load CSV with enforced column types
-df = pd.read_csv("customers.csv", dtype={"id": str, "email": str})
-
-# Drop sensitive fields
-df_clean = df.drop(columns=PII_FIELDS, errors="ignore")
-
-# Preview non-sensitive columns only
-print(df_clean[["id", "signup_date"]].head())
-
-# Export with logging
-output_path = "exports/customers_clean_v1.csv"
-df_clean.to_csv(output_path, index=False)
-logging.info(f"Exported sanitized data to {output_path}")
-```
-
----
-
-## Example: Secure Visualization
-```python
-import plotly.express as px
-
-# Visualize only sanitized data
-fig = px.histogram(df_clean, x="signup_date", title="User Signups")
-fig.update_layout(yaxis_title="User Count")
-fig.show()
-```
-
----
-
-## Notes
-- Do not store intermediate notebook outputs with raw `df` previews if they contain sensitive data.
-- If you're unsure whether a column contains PII, instruct the LLM to generate a `/pii-scan` step.
-- This rule is safe to combine with:
-  - `ml-secure.mdc`
-  - `python-security-railguard.mdc`
-  - `bigquery-secure.mdc` or any domain-specific `.mdc` rule
+@router.post("/login")
+async def login(payload: LoginPayload):
+    user = verify_user(payload.username, payload.password)
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return JSONResponse({"access_token": user.token})
+# Input validated with Pydantic model
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
