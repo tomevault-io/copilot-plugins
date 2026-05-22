@@ -1,0 +1,9 @@
+{
+  "name": "full-metal-bagel--unity-stable-reference",
+  "displayName": "unity-stable-reference",
+  "description": "Unity package providing stable `SerializeReference` support through source generation. Maintains polymorphic serialized references across refactoring, namespace changes, and type modifications using G",
+  "version": "1.0.0",
+  "author": "Full-Metal-Bagel",
+  "homepage": "https://github.com/Full-Metal-Bagel/unity-stable-reference",
+  "skills": []
+}
