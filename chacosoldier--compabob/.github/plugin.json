@@ -1,0 +1,9 @@
+{
+  "name": "chacosoldier--compabob",
+  "displayName": "compabob",
+  "description": "A customizable Claude Code setup for knowledge workers: agents, safety hooks, skills, memory, and an Obsidian knowledge base. Clone, run setup, make it yours.",
+  "version": "1.0.0",
+  "author": "chacosoldier",
+  "homepage": "https://github.com/chacosoldier/compabob",
+  "skills": []
+}
