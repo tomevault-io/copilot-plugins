@@ -1,97 +1,110 @@
-## csharp-database-secure-railguard-available
+## data-science-python-no-railguard-available
 
-> Guides AI to generate secure and auditable C# database logic using ADO.NET or Entity Framework Core. Delegates input validation and behavioral reasoning to `.cursor/rules/railguard-input-validation.mdc`.
+> Enforce security-conscious data analysis in Jupyter notebooks and Python-based workflows using the RAILGUARD framework. Prevents risks such as PII leakage, unsafe data previews, insecure evaluation, and improper export logic.
 
 
-## Overview
-This rule enforces safe conventions when generating database access logic in C# applications, including:
-- Use of parameterized queries (for example, `SqlCommand.Parameters.Add()`)
-- Secure Entity Framework Core practices
-- Secrets management and config hygiene
-- Logging discipline and output sanitization
+# R: Risk First
+- The objective is to generate privacy-preserving, auditable data science code that treats all datasets as potentially untrusted.
+- AI-generated workflows should prevent PII leakage, unsafe previews, over-permissive exports, or the use of risky dynamic evaluation functions.
+- Output code must consider that notebooks may be shared publicly or reviewed externally.
 
-Deep reasoning, input handling, and security redlines are defined globally in:
-> `.cursor/rules/railguard-input-validation.mdc`
+# A: Attached Constraints
+- Do not use `eval()`, `exec()`, `pd.eval()`, or `pandas.query()` with raw or user-controlled data.
+- Do not preview (`.head()`, `.sample()`) or visualize data before dropping or masking PII.
+- Never export datasets (CSV, Excel) without reviewing and excluding sensitive fields.
+- Avoid printing or logging raw values containing names, emails, phone numbers, IPs, or other PII.
+- Do not embed secrets (API keys, tokens, credentials) in notebooks or data transformation code.
+
+# I: Interpretative Framing
+- Treat CSV, Excel, JSON, or Parquet files as potentially malformed, misencoded, or manipulated.
+- If a chart or `.head()` preview is created, assume the data must be pre-sanitized.
+- All exports must be assumed auditable or shared — apply field-level filtering and file versioning.
+- Markdown or notebook outputs must avoid embedding unescaped HTML or unfiltered user data.
+
+# L: Local Defaults
+- Use `pandas.read_csv(..., dtype=...)` and `read_excel(..., engine="openpyxl", dtype=...)` for structured, validated loads.
+- Define default sensitive columns:
+  ```python
+  PII_FIELDS = ["email", "full_name", "ssn", "ip", "dob", "phone", "address"]
+  ```
+- Use `errors="ignore"` when dropping columns with `df.drop(...)`.
+- Preview data only after dropping or masking sensitive fields.
+- Use `with open(..., "r")` for safe, explicit file access.
+- Use the `logging` module for observability, not `print()`.
+
+# G: Generative Path Checks
+1. Dataset Loading
+   - Apply column type enforcement and encoding
+   - Normalize column headers to lowercase + snake_case
+   - Validate expected columns, dimensions, and content assumptions
+2. Preprocessing
+   - Drop PII fields prior to calling `.head()`, `.to_csv()`, `.plot()`
+   - Apply clear inline comments to describe transformations
+   - Avoid implicit or silent `inplace=True` modifications
+3. Exporting
+   - Confirm sensitive fields are excluded
+   - Add audit-friendly comments and logging entries
+   - Use versioned file naming (e.g., `customers_clean_v1.csv`)
+
+# U: Uncertainty Disclosure
+- If unsure about schema safety:
+  _“Schema enforcement missing — validate column types.”_
+- If unsure about PII exposure:
+  _“Column 'email' may contain sensitive data — exclude from preview/export.”_
+- If unsure about transformation safety:
+  _“Verify output of transformation does not reintroduce PII.”_
+
+# A: Auditability
+- Insert comments like:
+  - `# Loaded CSV with schema and type constraints`
+  - `# Removed PII columns before preview/export`
+  - `# Logged sanitized export to external audit location`
+- Use `logging.info(...)` to trace sanitization and export events
+- Write output to `exports/` or `sanitized_exports/` folders with timestamped or versioned names
+  - Example: `export/customers_clean_2024-04-16_v1.csv`
+
+# R+D: Revision + Dialogue
+- `/why-secure`: Explain logic such as _“Dropped PII before calling .head() and ensured export file omits personal data.”_
+- `/revise-for-security`: Rerun export logic or previews to remove sensitive fields
+- `/pii-scan`: Trigger column-level scan to detect `email`, `ssn`, `ip`, etc.
+- `/summarize-cleanroom`: Output a trace of cleaning, filtering, and export steps for notebook reviews
 
 ---
 
-## Best Practices for ADO.NET
-- Use `SqlCommand` with parameters — never build queries with string concatenation or interpolation
-- Use `using` blocks or `try/catch/finally` for resource cleanup
-- Never log raw SQL with user input
-- Wrap sensitive query sections in comments (for example, `// Parameterized query for login validation`)
+## Example: Secure Data Load, Transform, and Export
 
-## Best Practices for Entity Framework Core
-- Use `DbContext` and LINQ to query models
-- Annotate entities with `[Key]`, `[Table]`, `[Column]`, etc.
-- Use `@Transactional` or `.SaveChanges()` batching for state updates
-- Avoid dynamic LINQ or raw SQL strings unless absolutely necessary
+```python
+import pandas as pd
+import logging
 
----
+PII_FIELDS = ["email", "ssn", "address", "full_name"]
 
-## Configuration Hygiene
-- Load connection strings from `appsettings.json`, environment variables, or vaults
-- Never hardcode passwords or secrets
+# Load CSV with schema enforcement
+df = pd.read_csv("datasets/customers.csv", dtype={"id": str, "email": str})
 
-```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=...;Database=...;User Id=...;Password=...;"
-}
+# Remove sensitive fields
+df_clean = df.drop(columns=PII_FIELDS, errors="ignore")
+
+# Preview safe sample only
+print(df_clean[["id", "signup_date"]].head())
+
+# Export with versioned filename and log the operation
+output_path = "exports/customers_clean_2024-04-16_v1.csv"
+df_clean.to_csv(output_path, index=False)
+logging.info(f"Exported sanitized dataset to {output_path}")
 ```
 
 ---
 
-## Logging Guidelines
-- Use `ILogger` or `Serilog` with structured output
-- Do not log parameter values or user-generated query inputs
-- Mask fields such as email, token, or user identifiers in logs
+## Example: Secure Visualization
 
----
+```python
+import plotly.express as px
 
-## Code Example
-```csharp
-string query = "SELECT * FROM Users WHERE Username = @Username";
-using (SqlCommand cmd = new SqlCommand(query, connection)) {
-    cmd.Parameters.AddWithValue("@Username", username);
-    using (SqlDataReader reader = cmd.ExecuteReader()) {
-        while (reader.Read()) {
-            // Process user info
-        }
-    }
-}
-```
-
----
-
-## Inline Security Cues
-- `// Prevents SQL injection via parameterized query`
-- `// Connection string loaded from environment`
-- `// ORM method avoids raw SQL`
-
----
-
-## Related Rule
-Input reasoning, schema enforcement, and unsafe input detection:
-> `.cursor/rules/railguard-input-validation.mdc`
-
----
-
-## Suggested Commands
-- `/revise-for-db-safety` — Refactor raw string SQL into secure query form
-- `/explain-db-security` — Explain why EF Core or parameterization was used
-- `/secure-config-example` — Output a secure `appsettings.json` structure
-
----
-
-## References
-- [SqlCommand.Parameters (Microsoft Docs)](https://learn.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlcommand.parameters)
-- [Entity Framework Core Documentation](https://learn.microsoft.com/en-us/ef/core/)
-- [ASP.NET Core Configuration](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/)
-- [ASP.NET Core User Secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets)
-- [Logging in .NET with Serilog](https://serilog.net/)
-- [EF Core Transactions](https://learn.microsoft.com/en-us/ef/core/saving/transactions)
-- [Secure Coding Guidelines (OWASP)](https://cheatsheetseries.owasp.org/)
-  
+# Only visualize sanitized columns
+fig = px.histogram(df_clean, x="signup_date", title="User Signups by Date")
+fig.update_layout(yaxis_title="Count")
+fig.show()
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
