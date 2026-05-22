@@ -7,11 +7,11 @@ The LSP Indexer is an open-source project designed to listen for important event
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chillwhales/lsp-indexer](https://github.com/chillwhales/lsp-indexer).
+Original source: `CLAUDE.md` in [chillwhales/lsp-indexer](https://github.com/chillwhales/lsp-indexer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
