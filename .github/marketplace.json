@@ -32014,6 +32014,11 @@
       "description": "The SAP Architecture Center provides solution reference architectures, helping businesses adopt SAP solutions to turn data into valuable business insights."
     },
     {
+      "name": "moonshotai--kimi-code",
+      "source": "./moonshotai--kimi-code",
+      "description": "The Starting Point for Next-Gen Agents"
+    },
+    {
       "name": "currycan--hatickets",
       "source": "./currycan--hatickets",
       "description": "\u5927\u9ea6\u7f51\u62a2\u7968\u81ea\u52a8\u5316 \u2014 Mobile(U2) / Desktop(Tauri+Rust) \u65b9\u6848"
@@ -140017,6 +140022,26 @@
       "name": "savasp--graphmodel-dotnet",
       "source": "./savasp--graphmodel-dotnet",
       "description": "An abstraction for a Graph that supports LINQ expressions."
+    },
+    {
+      "name": "1pitaph--claude-stats",
+      "source": "./1pitaph--claude-stats",
+      "description": "Native macOS menu-bar stats, terminal, Notch Island, and network debugging for AI coding work."
+    },
+    {
+      "name": "1pitaph--claude-stats",
+      "source": "./1pitaph--claude-stats",
+      "description": "Native macOS menu-bar stats, terminal, Notch Island, and network debugging for AI coding work."
+    },
+    {
+      "name": "sh11235--rshogi",
+      "source": "./sh11235--rshogi",
+      "description": "Rust\u88fd\u5c06\u68cb\u30a8\u30f3\u30b8\u30f3 / \u958b\u767a\u8005\u30c4\u30fc\u30eb"
+    },
+    {
+      "name": "sh11235--rshogi",
+      "source": "./sh11235--rshogi",
+      "description": "Rust\u88fd\u5c06\u68cb\u30a8\u30f3\u30b8\u30f3 / \u958b\u767a\u8005\u30c4\u30fc\u30eb"
     },
     {
       "name": "yschimke--compose-ai-tools",
