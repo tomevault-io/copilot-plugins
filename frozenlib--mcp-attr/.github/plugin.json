@@ -1,0 +1,9 @@
+{
+  "name": "frozenlib--mcp-attr",
+  "displayName": "mcp-attr",
+  "description": "A library for declaratively building Model Context Protocol servers.",
+  "version": "1.0.0",
+  "author": "frozenlib",
+  "homepage": "https://github.com/frozenlib/mcp-attr",
+  "skills": []
+}
