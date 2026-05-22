@@ -1,0 +1,9 @@
+{
+  "name": "n8nui--examples",
+  "displayName": "examples",
+  "description": "This is a collection of the most basic example implementations of n8nui using several server and client frameworks for demonstration purposes.",
+  "version": "1.0.0",
+  "author": "n8nui",
+  "homepage": "https://github.com/n8nui/examples",
+  "skills": []
+}
