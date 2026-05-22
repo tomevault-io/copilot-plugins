@@ -1,65 +1,131 @@
-## zauberstack
+## general-development-workflow
 
-> Always add new packages from the project root using the workspace syntax. This ensures proper monorepo dependency management and keeps the yarn.lock file consistent.
+> This document outlines the development workflow for Zauberstack.
 
-# Yarn Package Management in Monorepo
+# Development Workflow
 
-## Adding New Packages
+This document outlines the development workflow for Zauberstack.
 
-Always add new packages from the project root using the workspace syntax. This ensures proper monorepo dependency management and keeps the yarn.lock file consistent.
+## Prerequisites
 
-### Correct Way:
+Ensure you have the following tools installed:
 
-```bash
-# Adding a package to a specific workspace
-yarn workspace api add package-name
-yarn workspace client add package-name
-yarn workspace website add package-name
+- Node.js (LTS version recommended)
+- Yarn (v3.x)
+- Docker and Docker Compose (for database and service integration)
+- Git
 
-# Adding a dev dependency to a specific workspace
-yarn workspace api add -D package-name
+## Initial Setup
 
-# Adding a package to all workspaces
-yarn workspaces foreach add package-name
-```
-
-### Incorrect:
-
-```bash
-# DON'T navigate to the package directory and add dependencies directly
-cd packages/api && yarn add package-name  # Wrong approach
-
-# DON'T use npm in this project
-npm install package-name  # Wrong approach
-```
-
-## Dependency Management Best Practices
-
-1. **Consistent Versions**: Use the same version of shared dependencies across workspaces when possible.
-
-2. **Root Dependencies**: Only add development tools and monorepo management utilities to the root package.json. All other dependencies should be in the appropriate workspace.
-
-3. **Peer Dependencies**: For libraries shared between packages, consider using peer dependencies.
-
-4. **Updating Dependencies**: Update dependencies using:
+1. Clone the repository:
    ```bash
-   yarn upgrade-interactive
+   git clone <repository-url>
+   cd zauberstack
    ```
 
-5. **Resolving Conflicts**: Use the `resolutions` field in the root package.json for forcing specific versions.
+2. Install dependencies:
+   ```bash
+   yarn install
+   ```
 
-## Example from this Project
+3. Set up environment files:
+   Copy the example environment files for each package and customize as needed:
+   ```bash
+   cp packages/api/env-example-improved.txt packages/api/.env
+   cp packages/client/env.example.txt packages/client/.env
+   ```
 
-In the root package.json, we have workspace definitions:
+4. Initialize the database (requires Docker):
+   ```bash
+   yarn init-db
+   ```
 
-```json
-"workspaces": [
-  "packages/*"
-]
+## Development Server
+
+Start the complete development environment:
+
+```bash
+yarn start
 ```
 
-This configuration allows Yarn to manage dependencies across all packages in the monorepo.
+This will concurrently run:
+- API server (NestJS) on port 4000
+- Client app (React) on port 5173
+- Website on port 3000
+
+Alternatively, run individual services:
+- API only: `yarn api`
+- Client only: `yarn client`
+- Website only: `yarn website`
+
+## Code Quality Tools
+
+### Linting
+
+Run linting on specific packages:
+```bash
+yarn lint-api
+yarn lint-client
+yarn lint-website
+```
+
+### Formatting
+
+Format code with Prettier:
+```bash
+yarn prettier-api
+yarn prettier-client
+```
+
+## Database Management
+
+The API package uses Prisma for database ORM. Key commands:
+
+- Run migrations: `yarn workspace api migrate:dev`
+- Reset database: `yarn workspace api migrate:reset`
+- Generate Prisma client: `yarn workspace api prisma generate`
+- Seed database: `yarn workspace api seed`
+
+## Testing
+
+- Run API E2E tests: `yarn e2e-test-api`
+- Run API unit tests: `yarn workspace api test`
+- Run Client tests: `yarn workspace client test`
+
+## Environment Variables
+
+Important environment variables are documented in:
+- [packages/api/ENV_DOCUMENTATION.md](mdc:packages/api/ENV_DOCUMENTATION.md)
+- [packages/api/SUPABASE_SETUP.md](mdc:packages/api/SUPABASE_SETUP.md)
+
+## Containerization
+
+Build Docker images:
+```bash
+# API container
+docker build -f packages/api/Dockerfile.api -t zauberstack-api .
+
+# Client container
+docker build -f packages/client/Dockerfile.client -t zauberstack-client .
+```
+
+## Common Development Tasks
+
+1. **Creating a new feature**:
+   - Create a feature branch: `git checkout -b feature/feature-name`
+   - Implement changes
+   - Test changes
+   - Submit a pull request
+
+2. **Updating dependencies**:
+   - Run `yarn upgrade-interactive` to update dependencies interactively
+   - Test thoroughly after dependency updates
+
+3. **Troubleshooting**:
+   - Check logs in the terminal where services are running
+   - Reset dependencies: `yarn reinstall`
+   - Reset database: `yarn workspace api migrate:reset`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Arcade1080) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [Arcade1080/zauberstack](https://github.com/Arcade1080/zauberstack) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
