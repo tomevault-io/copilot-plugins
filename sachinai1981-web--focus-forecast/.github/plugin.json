@@ -1,0 +1,9 @@
+{
+  "name": "sachinai1981-web--focus-forecast",
+  "displayName": "focus-forecast",
+  "description": "Pomodoro tracker that forecasts how much you'll focus tomorrow \u2014 then dares you to beat the line. Pure-static PWA + local TimesFM deep mode.",
+  "version": "1.0.0",
+  "author": "sachinai1981-web",
+  "homepage": "https://github.com/sachinai1981-web/focus-forecast",
+  "skills": []
+}
