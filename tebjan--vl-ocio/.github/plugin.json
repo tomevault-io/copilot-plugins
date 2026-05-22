@@ -1,0 +1,9 @@
+{
+  "name": "tebjan--vl-ocio",
+  "displayName": "VL.OCIO",
+  "description": "OpenColorIO wrapper for vvvv gamma",
+  "version": "1.0.0",
+  "author": "tebjan",
+  "homepage": "https://github.com/tebjan/VL.OCIO",
+  "skills": []
+}
