@@ -1,69 +1,72 @@
-## path-validation
+## rpc-routing
 
-> - MUST: Use `validate_path_or_error` from `src/mcp/utilities.rs` for all file operations
+> - MUST: Register RPC methods using `build_rpc_router` in `src/main.rs`
 
-# path-validation
+# rpc-routing
 
-### Secure Path Validation
-- MUST: Use `validate_path_or_error` from `src/mcp/utilities.rs` for all file operations
-- MUST: Implement path canonicalization before validation using `std::fs::canonicalize`
-- AVOID: Manual string concatenation or direct path comparison
-- WHY: Prevents directory traversal attacks and ensures operations stay within allowed boundaries
+### JSON-RPC Router Registration
+- MUST: Register RPC methods using `build_rpc_router` in `src/main.rs`
+- AVOID: Direct handler function calls without router registration
+- WHY: Ensures consistent routing and method discovery
+- EXAMPLE:
+```rust
+// src/main.rs
+router.append_route("tools/list", tools_list);
+```
+Importance: 95
+
+### Method Registration Pattern
+- MUST: Use the `tools_list` function in `src/mcp/tools.rs` to expose available tools
+- AVOID: Hardcoding tool lists or bypassing registration
+- WHY: Enables dynamic tool discovery and consistent schema validation
 - EXAMPLE: 
 ```rust
 // src/mcp/tools.rs
-validate_path_or_error(&file_path)?;
+register_tools(router);
 ```
+Importance: 90
 
-### Multi-Path Operations
-- MUST: Use `validate_paths_or_error` from `src/mcp/utilities.rs` for move/rename operations
-- MUST: Validate both source and target paths before any file operation
-- AVOID: Performing operations without checking both paths
-- WHY: Ensures atomic validation for operations involving multiple paths
+### Handler Implementation
+- MUST: Implement handlers returning proper JSON-RPC response types
+- AVOID: Raw JSON returns or non-standard response formats
+- WHY: Maintains protocol compliance and consistent error handling
 - EXAMPLE:
 ```rust
 // src/mcp/tools.rs
-validate_paths_or_error(&source_path, &target_path)?;
+fn tools_list() -> JsonRpcResponse {
+    // Handler implementation
+}
 ```
+Importance: 85
 
-### Allowed Directories Registry
-- MUST: Use `is_path_allowed` from `src/mcp/utilities.rs` to check against allowed directories
-- MUST: Retrieve allowed directories through `resources/allowed_directories` endpoint
-- AVOID: Hardcoding directory paths or bypass validation
-- WHY: Centralizes directory access control and maintains security boundary
+### Notification Processing 
+- MUST: Process notifications using dedicated handlers in `src/main.rs`
+- AVOID: Treating notifications as regular RPC calls
+- WHY: Notifications require different handling than standard requests
 - EXAMPLE:
 ```rust
-// src/mcp/resources.rs
-resource_read("Allowed Directories")
+// src/main.rs
+notifications_initialized();
 ```
+Importance: 80
 
-### Path Validation Testing
-- MUST: Test path validation using `src/mcp/tools_test.rs`
-- MUST: Include test cases for:
-  - Valid paths within allowed directories
-  - Invalid paths outside allowed directories
-  - Path canonicalization edge cases
-- AVOID: Testing without canonicalized paths
-- WHY: Ensures robust validation across different path formats and scenarios
-
-### Git Integration Security
-- MUST: Validate paths before Git operations in `file_edit` function
-- MUST: Check paths before creating Git commits
-- AVOID: Direct Git operations without path validation
-- WHY: Maintains security boundary for version-controlled files
+### Resource Access Control
+- MUST: Validate paths using `validate_path_or_error` in `src/mcp/utilities.rs`
+- AVOID: Direct file system access without validation
+- WHY: Enforces security boundaries for file operations
 - EXAMPLE:
 ```rust
-// src/mcp/tools.rs
-validate_path_or_error(&file_path)?;
-// Only then proceed with Git commit
+// src/mcp/utilities.rs
+validate_path_or_error(path)?;
 ```
+Importance: 85
 
-Importance Scores:
-- Secure Path Validation: 95 (core security mechanism)
-- Multi-Path Operations: 90 (critical for file operations)
-- Allowed Directories Registry: 85 (key security boundary)
-- Path Validation Testing: 80 (ensures security compliance)
-- Git Integration Security: 75 (maintains version control security)
+### Tool Registration Workflow
+- MUST: Register tools through the centralized registration system
+- AVOID: Ad-hoc tool additions or direct router manipulation
+- WHY: Maintains consistent tool discovery and documentation
+- EXAMPLE: See `register_tools` in `src/mcp/tools.rs`
+Importance: 75
 
 $END$
 
