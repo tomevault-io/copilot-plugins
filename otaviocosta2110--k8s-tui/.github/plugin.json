@@ -1,0 +1,9 @@
+{
+  "name": "otaviocosta2110--k8s-tui",
+  "displayName": "k8s-tui",
+  "description": "Terminal-based Kubernetes resource manager with multi-cluster support",
+  "version": "1.0.0",
+  "author": "otavioCosta2110",
+  "homepage": "https://github.com/otavioCosta2110/k8s-tui",
+  "skills": []
+}
