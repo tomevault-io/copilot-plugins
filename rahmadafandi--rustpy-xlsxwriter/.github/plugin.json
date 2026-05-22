@@ -1,0 +1,9 @@
+{
+  "name": "rahmadafandi--rustpy-xlsxwriter",
+  "displayName": "rustpy-xlsxwriter",
+  "description": "High-performance Excel and CSV file generation powered by Rust (~7-9x faster)",
+  "version": "1.0.0",
+  "author": "rahmadafandi",
+  "homepage": "https://github.com/rahmadafandi/rustpy-xlsxwriter",
+  "skills": []
+}
