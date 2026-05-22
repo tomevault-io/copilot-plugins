@@ -1,0 +1,9 @@
+{
+  "name": "texasfortress-ai--rs-filesystem",
+  "displayName": "rs_filesystem",
+  "description": "MCP Filesystem tools written in Rust",
+  "version": "1.0.0",
+  "author": "TexasFortress-AI",
+  "homepage": "https://github.com/TexasFortress-AI/rs_filesystem",
+  "skills": []
+}
