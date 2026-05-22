@@ -1,57 +1,150 @@
-## void
+## composable-architecture-overview
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> How to use the Swift Composable ArchitectureView
 
-# CLAUDE.md
+Below is a concise guide outlining how features are organized in our codebase. This guide explains the structure of our reducers, state, actions, and how we use dependency injection and asynchronous effects. Use these guidelines as a blueprint when adding or refactoring features.
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+---
 
-## Project Overview
+## 1. Feature Structure
 
-Void is a minimalist meditation timer iOS app built with SwiftUI and The Composable Architecture (TCA). The app focuses on simplicity, allowing users to meditate with ambient sounds, interval bells, and HealthKit integration.
+- **Self-Contained Folders:**  
+  Each feature lives in its own folder (e.g.`Study/`, `NewCard/`, `Profile/`). Inside each folder you typically have:
+  - A reducer file (e.g. `CardListFeature.swift`) that defines the feature’s **State**, **Action**, and **Reducer**.
+  - A view file (e.g. `CardListView.swift`) that displays the UI and binds to the feature’s state via its TCA store.
+  - Additional files for sub-features or supporting views as needed.
 
-## Architecture
+---
 
-The app follows TCA (The Composable Architecture) patterns:
-- Each feature has its own folder containing a Reducer and View
-- Dependencies are injected through TCA's dependency system
-- State is managed through TCA's @Shared mechanism for persistence
-- Features communicate through parent-child reducer composition
+## 2. Reducer Organization
 
-Key architectural components:
-- **VoidApp.swift**: Main app entry point with root store
-- **Features/**: Each major screen has its own feature module (Home, Timer, Stats, Settings, Onboarding)
-- **Clients/**: External service wrappers (HealthKit, SoundManager, StatsClient)
-- **Models/**: Shared data models used across features
+- **@Reducer and @ObservableState:**  
+  Use the `@Reducer` attribute to declare a feature reducer. Inside the reducer, define your state as a struct marked with `@ObservableState` so that SwiftUI can bind directly to its properties.  
+  ```swift
+  @Reducer
+  public struct MyFeature {
+    @ObservableState
+    public struct State: Equatable {
+      var text: String = ""
+      // Other state properties…
+    }
+    public enum Action: BindableAction {
+      case binding(BindingAction<State>)
+      case buttonTapped
+      // Other actions…
+    }
+    public var body: some ReducerOf<Self> {
+      BindingReducer()
+      Reduce { state, action in
+        switch action {
+        case .binding:
+          return .none
+        case .buttonTapped:
+          state.text = "Button was tapped"
+          return .none
+        }
+      }
+    }
+  }
+  ```
 
-## Development Commands
+- **Handling Bindings:**  
+  Include a `BindingReducer()` at the start of your reducer’s `body` to automatically handle any `.binding` actions that update your `@ObservableState` properties.
 
-Since this is an Xcode project, standard Xcode commands apply:
-- Build: `⌘+B` in Xcode or `xcodebuild build`
-- Run: `⌘+R` in Xcode
-- Clean: `⌘+⇧+K` in Xcode or `xcodebuild clean`
+- **Child Reducers:**  
+  For sub-features (for example, a modal deck selector), use property wrappers like `@Presents` in your parent state. Then, embed the child reducer using `.ifLet(\.$childFeature, action: \.childAction) { ChildFeature() }`.
 
-## Key Dependencies
+---
 
-- **swift-composable-architecture** (1.17.1): Main architecture framework
-- **Pow**: Animation effects library
-- **swift-dependencies**: Dependency injection
-- **swift-shared-state**: State persistence
+## 3. Actions
 
-## Important Implementation Details
+- **Defining Actions:**  
+  Create an `enum` (e.g. `MyFeature.Action`) for all events that affect your feature. This includes:
+  - **User Actions:** Button taps, text input, etc.
+  - **Binding Actions:** Use a case like `.binding(BindingAction<State>)` for two-way bindings.
+  - **Delegate or Navigation Actions:** For signaling to parent features or triggering navigation.
 
-1. **Timer Implementation**: Uses TCA's clock for accurate timing with background support
-2. **Sound Management**: Custom SoundManager and AmbientManager handle audio playback
-3. **HealthKit Integration**: Saves meditation sessions to Apple Health
-4. **State Persistence**: Settings and stats stored using TCA's @Shared with AppStorage
-5. **Background Audio**: Configured with proper audio session categories for background playback
+- **Conformance:**  
+  Conform your action enum to `BindableAction` when using state bindings.
 
-## Code Conventions
+---
 
-- Feature modules follow the pattern: `[Feature]Feature.swift` for reducers
-- Views are either embedded in feature files or separate `[Feature]View.swift` files
-- Dependencies use TCA's `@Dependency` property wrapper
-- State changes happen only through reducer actions
+## 4. Asynchronous Effects
+
+- **Using `.run` Effects:**  
+  When an action requires asynchronous work (such as fetching data, recording audio, etc.), use an effect with `.run { send in … }`. For example, to start a recording:
+  ```swift
+  case .startRecording:
+    state.isRecording = true
+    return .run { send in
+      for await volume in await fileRecorderClient.record() {
+        await send(.volumeUpdated(volume))
+      }
+    }
+    .cancellable(id: CancelID.recording)
+  ```
+
+- **Cancellation:**  
+  Tag long-running effects with `.cancellable(id: …)` so that they can be cancelled if the user dismisses the view or triggers a stop action.
+
+---
+
+## 5. Dependency Injection and Clients
+
+- **Defining Clients:**  
+  External resources (network, audio, file I/O, etc.) are encapsulated as “clients.” Create a client by:
+  - Defining a struct with `@DependencyClient` that exposes functions as closures.
+  - Conforming it to `DependencyKey` and providing a `liveValue` for production as well as a `testValue` for testing.
+  - Adding a property in `DependencyValues` to easily access the client:
+    ```swift
+    extension DependencyValues {
+      var fileRecorderClient: FileRecorderClient {
+        get { self[FileRecorderClient.self] }
+        set { self[FileRecorderClient.self] = newValue }
+      }
+    }
+    ```
+
+- **Using Clients in Reducers:**  
+  In your reducer, declare:
+  ```swift
+  @Dependency(\.fileRecorderClient) var fileRecorderClient
+  ```
+  Then call its methods within your asynchronous effects.
+
+- **Testability:**  
+  This pattern makes it straightforward to override dependencies in tests, so you can provide mocks or stub responses without changing your feature logic.
+
+---
+
+## 6. View Binding
+
+- **Store Injection:**  
+  Each SwiftUI view for a feature should accept a `StoreOf<FeatureName>` in its initializer. This allows the view to subscribe to state changes and send actions.
+  There is no ViewStore, you can access state properties directly on the store.
+
+  ```swift
+  public struct MyFeatureView: View {
+    @Bindable var store: StoreOf<MyFeature>
+
+    public var body: some View {
+			VStack {
+				TextField("Enter text", text: $store.text)
+				Button("Tap me") { store.send(.buttonTapped, animation: .spring) }
+			}
+    }
+  }
+  ```
+
+---
+
+## 7. General Guidelines
+
+- **Keep It Modular:**  
+  Each feature should have a clear boundary with its own state, actions, and side effects. If a feature is too large, break it into child features.
+
+- **Follow Established Patterns:**  
+  Always mirror the structure and naming conventions of existing features. This helps ensure that future developers can easily navigate the codebase and write consistent, maintainable code.
 
 ---
 > Source: [kitlangton/Void](https://github.com/kitlangton/Void) — distributed by [TomeVault](https://tomevault.io).
