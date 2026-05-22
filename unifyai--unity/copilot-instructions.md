@@ -1,114 +1,49 @@
-## log-directory-navigation
+## parallelize-test-analysis
 
-> How to navigate and read log files (logs/pytest/, logs/unity/, logs/unillm/, logs/unify/, logs/orchestra/, logs/all/)
+> Run tests in background and analyze failures while they run
 
 
-# Log Directory Navigation
+# Parallelize Test Analysis
 
-## Tool Behavior for Logs
+Tests run in tmux sessions and stream results inline. For long test runs, you can start them in the background and analyze early failures while remaining tests complete.
 
-The `logs/` directory is gitignored, which affects tool availability:
+## The Mental Model
 
-| Tool | Works? | Notes |
-|------|--------|-------|
-| **Read** | ✅ Yes | Preferred for reading log file contents |
-| **Shell** | ✅ Yes | Use `ls` to explore directory structure |
-| **LS** | ⚠️ Unreliable | May work with direct paths |
-| **Glob** | ❌ No | Git-aware index excludes gitignored paths |
-| **Grep** | ❌ No | Git-aware index excludes gitignored paths |
+When you run `parallel_run.sh`, each test spawns in its own tmux session. The script blocks until all tests complete, streaming pass/fail results inline as tests finish. Log files are written to `logs/pytest/` as each test completes.
 
-## Log Directories
+For long-running test suites, you can run in the background and analyze failures incrementally:
+1. Start tests with `block_until_ms: 0` in the Shell tool call
+2. Read log files as they appear in `logs/pytest/`
+3. Analyze failures immediately
+4. Check back later for final results
 
-| Directory | Purpose |
-|-----------|---------|
-| `logs/pytest/` | Test output logs (datetime-prefixed subdirs per run) |
-| `logs/unity/` | Unity LOGGER output (async tool loop, managers) |
-| `logs/unillm/` | Raw LLM request/response traces |
-| `logs/unify/` | Unify SDK HTTP traces |
-| `logs/orchestra/` | Orchestra session logs with per-request API traces |
-| `logs/all/` | Cross-repo OTEL traces |
-
-## Practical Workflow
-
-**Step 1: Explore with Shell**
-```bash
-# List log directories (sorted by time, newest last)
-ls logs/pytest/
-
-# List contents of a specific run
-ls logs/pytest/2025-12-05T14-30-45_unity_dev_ttys042/
-```
-
-**Step 2: Read with Read tool**
-```
-Read: logs/pytest/2025-12-05T14-30-45_unity_dev_ttys042/contact_manager-test_ask.txt
-```
-
-## Orchestra Trace Files
-
-Orchestra logs are organized by session with granular per-request traces:
-
-```
-logs/orchestra/
-└── 2025-12-30T18-27-43/              # Session (one per orchestra start)
-    └── requests/                      # Per-request API traces
-        ├── 2025-12-30T18-28-03.852_DELETE_project-name_81ms_5cc61e5f.json
-        ├── 2025-12-30T18-28-03.934_GET_projects_20ms_8e6fb277.json
-        └── 2025-12-30T18-46-55.980_GET_projects_43ms_7be454fc.json
-```
-
-**Filename format:** `{datetime}_{METHOD}_{route}_{duration}_{trace_id_short}.json`
-- `trace_id_short` = last 8 chars of the OpenTelemetry trace_id
-
-**Trace correlation:** Each pytest run logs `TRACE_ID=<32-char-hex>` to stdout. Match the last 8 chars to Orchestra filenames:
-```
-# In pytest output:
-[TRACE] TRACE_ID=099b207f89222185695d25977be454fc test=test_foo
-
-# Corresponding Orchestra file:
-logs/orchestra/<session>/requests/*_7be454fc.json
-```
-
-## Worktree Symlinks
-
-In worktrees, log directories contain a `_root` symlink pointing to the main repository's logs. Use this when looking for logs from tests run in the main repo.
+## Workflow (Background Mode)
 
 ```bash
-# List main repo's logs from a worktree
-ls logs/pytest/_root/
+# 1. Start tests in background (use block_until_ms: 0 in Shell tool call)
+tests/parallel_run.sh tests/some_module/
+
+# 2. Check what logs exist (tests write here as they complete)
+ls logs/pytest/<latest-run-dir>/
+
+# 3. Read and analyze any failures that have appeared
+# (Use the Read tool on specific log files)
+
+# 4. Continue reasoning about the failure while tests run
+# 5. Check back later for more results if needed
 ```
 
-## Example: Debugging a Test Failure
+## The Principle: Time-to-Solution Over Turns
 
-```bash
-# 1. Find recent log directories
-ls logs/pytest/
+Prioritize **minimizing time to find a solution** rather than minimizing turns or waiting for "complete" information. Early failures often provide enough signal to begin investigation. You can always check for additional failures later.
 
-# 2. List logs in the most recent run
-ls logs/pytest/2025-12-21T16-00-00_unity_dev_ttys042/
-```
+This doesn't mean being hasty or sacrificing thoroughness. It means: **don't wait for information you don't need yet**.
 
-Then use the Read tool:
-```
-Read: logs/pytest/2025-12-21T16-00-00_unity_dev_ttys042/contact_manager-test_ask.txt
-```
+## Relationship to Other Rules
 
-## Example: Correlating Test ↔ Orchestra Traces
-
-When debugging why a test's API call failed:
-
-```bash
-# 1. Find the trace_id from pytest output (or grep the log file)
-# Look for: [TRACE] TRACE_ID=099b207f89222185695d25977be454fc test=test_foo
-
-# 2. Find the Orchestra session (most recent)
-ls logs/orchestra/
-
-# 3. Find the matching trace file (last 8 chars of trace_id)
-ls logs/orchestra/2025-12-30T18-27-43/requests/*7be454fc*
-```
-
-Then read the trace file to see the full request/response with all spans.
+- **`surgical-verification-before-tests.mdc`**: Covers *pre-test* optimization (quick verification scripts)
+- **This rule**: Covers *mid-test* optimization (incremental analysis)
+- **`log-directory-navigation.mdc`**: Explains how to read from `logs/pytest/` (use Shell for `ls`, Read tool for file contents)
 
 ---
 > Source: [unifyai/unity](https://github.com/unifyai/unity) — distributed by [TomeVault](https://tomevault.io).
