@@ -1,86 +1,104 @@
-## ml-secure-no-railguard-available
+## ml-secure-railguard-available
 
-> Enforce security-aware development practices in Python-based ML workflows (training, inference, data loading, checkpointing) using the RAILGUARD reasoning framework.
+> Guide AI to generate secure machine learning workflows in Python with safe model loading, inference pipelines, and data handling. Core input validation is delegated to `.cursor/rules/railguard-input-validation.mdc`.
 
 
-# R: Risk First
-- The goal is to reduce risk exposure in machine learning pipelines by securing data ingestion, model checkpoint loading, dependency handling, and inference logic.
-- AI-generated ML code should not trust unknown data sources or model files without validation.
-- The LLM must ensure safety against insecure serialization, poisoning, and unsafe dynamic behavior.
+## Overview
 
-# A: Attached Constraints
-- Never use `pickle.load()` or `torch.load()` on files from untrusted sources.
-- Never use `eval()` or `exec()` to dynamically interpret model code, formulas, or input.
-- Never suppress exceptions silently (`try/except: pass`).
-- Avoid using untyped data transformations or outputs.
-- Do not log raw inputs from end users (can include PII).
+This rule supports secure-by-default machine learning code generation, covering:
 
-# I: Interpretative Framing
-- Treat all input data (CSV, JSON, NumPy, HuggingFace datasets) as potentially malformed or poisoned unless explicitly validated.
-- If loading a model checkpoint, assume the file may have been tampered with.
-- When generating inference code, assume it may be deployed in production with untrusted input.
+- Model checkpoint handling
+- Trusted use of HuggingFace, PyTorch, or scikit-learn
+- Inference-time protections
+- Logging and resource handling
 
-# L: Local Defaults
-- Use `joblib` or `torch.load()` **only on trusted, versioned model paths**
-- Prefer `torch.save(model.state_dict())` for safe model export; avoid full object serialization
-- Use Pydantic or Marshmallow schemas for preprocessing configs and inference input validation
-- Use `logging` for monitoring; avoid `print()` and never log raw `request.body`
-- Default to strict file permissions (`r`, no `rb+`)
+Note: All input validation, sanitization, schema enforcement, and LLM reasoning scaffolding is provided by:
 
-# G: Generative Path Checks
-1. When generating model loading logic:
-   - Confirm source is trusted or version-controlled
-   - Avoid deserializing entire objects unless safe
-   - Use checksum or hash verification if relevant
-2. When preprocessing data:
-   - Validate data structure (rows, types, shape)
-   - Use `try/except` with logging for failed transforms
-3. When handling input for inference:
-   - Validate schema
-   - Normalize securely
-   - Avoid leaking model internals in output
-
-# U: Uncertainty Disclosure
-- If unsure about input format, file source, or serialization method, generate a comment:
-  _“Verify this file path is trusted before deserializing model.”_
-- If unsure about preprocessing correctness, generate:
-  _“Review schema/shape assumptions before transforming user input.”_
-
-# A: Auditability
-- All model loading should include a comment like:
-  `# Model loaded from trusted path with versioned file`
-- Inference pipelines should include:
-  `# Input validated with schema`
-- File operations should include:
-  `# File access scoped to read-only mode`
-- If HuggingFace `from_pretrained()` is used, document:
-  `# Loaded from official source (e.g., "bert-base-uncased")`
-
-# R+D: Revision + Dialogue
-- Support `/why-secure` for LLM to explain:
-  _“Avoided full object deserialization and validated data structure before inference.”_
-- Support `/revise-for-security` to recheck model-loading or data-ingestion logic
-- Recommend `/check-input-shape` if AI is unsure about data expectations
+> `.cursor/rules/railguard-input-validation.mdc`  
+> _(Based on the RAILGUARD Framework for secure behavior enforcement across languages)_
 
 ---
 
-## Example: Secure Model Load + Inference
+## Model Loading & Deserialization
+
+- Use `torch.load()` or `pickle.load()` only on trusted, versioned, local files.
+- Avoid deserializing full Python objects unless necessary. Prefer `state_dict` loading (e.g., `model.load_state_dict(...)`)
+- If using `from_pretrained()`, ensure the model name is official or internally versioned.
+- When downloading models, validate integrity using checksums if possible.
+
+---
+
+## Data Handling & Preprocessing
+
+- Avoid using raw `eval()` or `exec()` to interpret formulas or hyperparameters.
+- Prefer explicit schema-based checks for:
+  - Number of features
+  - Tensor dimensions
+  - String encoding assumptions
+- Do not transform user input without validating structure first.
+
+For validation and sanitation of CSVs, JSONs, NumPy arrays, and request inputs — refer to `.cursor/rules/input-validation.mdc`.
+
+---
+
+## Inference Logic & Output Handling
+
+- Do not log input text, tokens, or raw payloads directly (especially for NLP or PII-sensitive data).
+- Use `with torch.no_grad():` or equivalent when performing inference.
+- Ensure inference outputs are typed, validated, and never expose model internals (e.g., logits, hidden states) unless required.
+
+---
+
+## File & Resource Access
+
+- Always open files using `with open(...)` syntax.
+- Set read-only access unless modification is required.
+- Avoid writing cache or checkpoint data to shared or user-supplied paths.
+
+---
+
+## Logging & Monitoring
+
+- Use Python’s `logging` module — not `print()`.
+- Mask or exclude sensitive input/output data in logs.
+- Log model version, inference success/failure, and prediction metadata — not raw data.
+
+---
+
+## Cross-Reference: Global Input Validation
+
+All low-level data validation, reasoning scaffolding, and reflection-based secure behavior enforcement is handled by:
+
+> `.cursor/rules/railguard-input-validation.mdc`
+
+Including:
+- Schema and shape enforcement
+- Input source validation
+- Dangerous pattern detection (e.g., `eval`, insecure deserialization)
+- AI reflection paths (`R`, `G`, `U` pillars)
+
+This ML rule **inherits and complements** the RAILGUARD logic.
+
+---
+
+## Example Snippet: Safe Model + Inference
 
 ```python
-import torch
 from transformers import BertTokenizer, BertForSequenceClassification
+import torch
 
-# Always verify model sources before loading
+# Load model and tokenizer from trusted source
 model = BertForSequenceClassification.from_pretrained("bert-base-uncased")
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
-# Validate input before tokenizing
-text = "Some user input"
+# Preprocess input
+text = "User input to classify"
 inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
 
+# Inference with no gradient tracking
 with torch.no_grad():
-    outputs = model(**inputs)
-    probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
+    logits = model(**inputs).logits
+    probabilities = torch.nn.functional.softmax(logits, dim=-1)
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
