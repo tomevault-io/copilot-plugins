@@ -4,7 +4,7 @@
   "repo": "promptcode-vscode",
   "description": "PromptCode: The VS Code extension that saves the day when your AI code agent (Cursor, etc.) hits a wall. You're in control\u2014select files, craft precise prompts, and effortlessly apply fixes using your favorite LLM.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cogflows/promptcode-vscode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T21:00:46Z"
+  "distributed_at": "2026-05-22T21:27:40Z"
 }
