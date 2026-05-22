@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--vibe-kit",
+  "displayName": "vibe_kit",
+  "description": "Igniter installer for Elixir Vibe project conventions",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/vibe_kit",
+  "skills": []
+}
