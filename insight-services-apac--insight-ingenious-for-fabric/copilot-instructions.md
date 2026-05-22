@@ -1,87 +1,59 @@
 ## insight-ingenious-for-fabric
 
-> This document provides context for the Gemini Code Assistant to understand the `ingenious-fabric` project.
+> - Activate and export env vars before working:
 
-# Gemini Code Assistant Context
+# Repository Guidelines
 
-This document provides context for the Gemini Code Assistant to understand the `ingenious-fabric` project.
+## Environment Activation
+- Activate and export env vars before working:
+  `source .venv/bin/activate && export FABRIC_ENVIRONMENT=local && export FABRIC_WORKSPACE_REPO_DIR=sample_project`.
+- For deploys, also set `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`.
 
-## Project Overview
+## Project Structure & Module Organization
+- `ingen_fab/`: CLI entry (`cli.py`) and modules: `cli_utils/`, `ddl_scripts/`, `notebook_utils/`, `packages/`, `python_libs/`, `templates/`, `config_utils/`.
+- `sample_project/`: Example Fabric workspace layout.
+- `tests/` and root `test_*.py`: Unit tests and integration helpers.
+- `docs/` + `mkdocs.yml`: Documentation site source.
+- Key metadata: `pyproject.toml` (scripts, deps), `pytest.ini`, `.flake8`.
 
-`ingenious-fabric` is a command-line interface (CLI) tool for managing and automating development workflows for Microsoft Fabric. It is built with Python and the Typer library.
+## Build, Test, and Development Commands
+- Install (recommended): `uv sync` (uses groups in `pyproject.toml`).
+- Install (pip): `python -m venv .venv && source .venv/bin/activate && pip install -e .[dev]`.
+- Run CLI: `ingen_fab --help` (console script entry).
+- Test: `pytest -q` or `pytest -q --cov=ingen_fab` (if `pytest-cov` synced).
+- Lint/format: `ruff check .` and `ruff format` (auto-fix: `ruff check --fix .`).
+- Hooks (if configured): `pre-commit run --all-files`.
+- Docs: `uv sync --group docs && mkdocs serve` (or `./serve-docs.sh`).
 
-The project helps users to:
+## Coding Style & Naming Conventions
+- Python 3.12+. Max line length 120 (`.flake8`).
+- Use type hints and docstrings for public functions.
+- Naming: `snake_case` for functions/modules, `PascalCase` for classes, `CONSTANT_CASE` for constants.
+- CLI commands use Typer; keep command functions small, validated, and side‑effect free where possible.
+- Prefer `pathlib`, `logging`, and explicit exceptions over prints and bare excepts.
 
-*   Initialize new Fabric projects.
-*   Generate Data Definition Language (DDL) notebooks from templates.
-*   Deploy and manage artifacts across different environments.
-*   Create and run orchestrator notebooks.
-*   Scan and analyze notebook code.
-*   Test notebooks locally and on the Fabric platform.
-*   Manage and reuse Python and PySpark libraries.
-*   Use extension packages for common workloads like flat file ingestion and Synapse synchronization.
+## Architecture & Patterns
+- CLI: Typer entry at `ingen_fab/cli.py`; command implementations in `ingen_fab/cli_utils/`.
+- Templates: Jinja2 in `ingen_fab/ddl_scripts/_templates/` and `ingen_fab/notebook_utils/templates/`.
+- Libraries: interfaces in `python_libs/interfaces/`; implementations in `python_libs/python/` and `python_libs/pyspark/`; shared in `python_libs/common/`.
+- Abstractions: do not use raw Spark or filesystem ops; use helpers in `python_libs/*`. In `python_libs/`, use absolute imports (never relative).
 
-The project is structured as a Python package with a CLI entry point. It uses `pyproject.toml` for dependency management and `pytest` for testing.
+## Testing Guidelines
+- Framework: `pytest` (see `pytest.ini`). Place tests under `tests/` or as `test_*.py` at repo root.
+- Use markers (e.g., `@pytest.mark.e2e`) for network/platform tests; these are skipped unless required env vars are set.
+- Tests run offline by default. Aim for meaningful coverage of `ingen_fab/*`; add fixtures under `tests/conftest.py` when shared.
+- Run locally: `pytest -q`; quick loop with `-k <keyword>`; generate coverage with `--cov` when available.
 
-## Building and Running
+## Commit & Pull Request Guidelines
+- Commits: imperative mood, concise subject (≤72 chars), details in body when needed. Example: `Refactor variable library utils`.
+- Before PR: run `ruff check .` and `pytest` locally; include description, rationale, and any breaking changes.
+- Link related issues, add screenshots or CLI output when useful, and update docs/templates when behavior changes.
+- Keep PRs focused and small; prefer follow‑ups over unrelated changes.
 
-### Installation
-
-The recommended way to install the project and its dependencies is using `uv`:
-
-```bash
-uv sync
-```
-
-Alternatively, you can use `pip`:
-
-```bash
-pip install -e .[dev]
-```
-
-### Running the CLI
-
-The main entry point for the CLI is the `ingen_fab` command. You can see all available commands by running:
-
-```bash
-ingen_fab --help
-```
-
-### Running Tests
-
-The project uses `pytest` for testing. To run the test suite, use the following command:
-
-```bash
-pytest
-```
-
-## Development Conventions
-
-### Project Structure
-
-The project follows a standard Python project structure:
-
-*   `ingen_fab/`: The main source code for the CLI tool.
-    *   `cli.py`: The main entry point for the CLI, using Typer.
-    *   `cli_utils/`: Implementation of the CLI commands.
-    *   `ddl_scripts/`: Jinja templates for DDL notebook generation.
-    *   `notebook_utils/`: Helper functions for working with notebooks.
-    *   `packages/`: Reusable extension packages.
-    *   `python_libs/`: Shared Python and PySpark libraries.
-*   `tests/`: Unit tests for the project.
-*   `docs/`: Documentation for the project.
-*   `pyproject.toml`: Defines project metadata and dependencies.
-*   `README.md`: Provides a high-level overview of the project.
-
-### Coding Style
-
-The project uses `ruff` for linting and code formatting. The configuration for `ruff` can be found in the `pyproject.toml` file.
-
-### Commits and Versioning
-
-The project does not have explicit conventions for commit messages or versioning in the provided files. It is recommended to follow standard practices for both.
+## Key Configuration Files
+- `pyproject.toml`, `pytest.ini`, `mkdocs.yml`.
+- `sample_project/platform_manifest_*.yml` and `sample_project/fabric_workspace_items/config/var_lib.VariableLibrary/` for env/variable configuration.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Insight-Services-APAC)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Insight-Services-APAC)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [Insight-Services-APAC/Insight_Ingenious_For_Fabric](https://github.com/Insight-Services-APAC/Insight_Ingenious_For_Fabric) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
