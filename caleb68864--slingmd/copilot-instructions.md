@@ -1,58 +1,55 @@
-## dotnet-framework-property-naming
+## exception-handling
 
-> description: Enforces .NET Framework property naming conventions
+> Enforces using System.Exception instead of just Exception in catch blocks
 
----
-description: Enforces .NET Framework property naming conventions
-globs: "*.cs"
----
-# .NET Framework Property Naming
+
+# Exception Handling Standards
+
+Enforces using fully qualified `System.Exception` instead of just `Exception` in catch blocks to avoid ambiguity.
 
 <rule>
-name: dotnet_property_naming
-description: Ensures properties follow .NET Framework naming conventions and best practices
+name: exception_handling_standards
+description: Enforces using System.Exception instead of just Exception in catch blocks
+
 filters:
   - type: file_extension
     pattern: "\\.cs$"
   - type: content
-    pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+[\\w]+\\s*\\{\\s*(?:get|set)"
+    pattern: "catch\\s*\\(\\s*Exception\\s*\\)"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+[a-z]\\w*\\s*\\{"
-        message: "Property names must start with an uppercase letter"
-      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+_\\w+\\s*\\{"
-        message: "Property names should not start with an underscore"
-      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:virtual\\s+)?[\\w<>\\[\\]]+\\s+m_\\w+\\s*\\{"
-        message: "Avoid Hungarian notation in property names"
-
   - type: suggest
-    message: |
-      Property naming guidelines:
-      1. Use PascalCase
-      2. Start with an uppercase letter
-      3. Use nouns or noun phrases
-      4. Boolean properties should:
-         - Start with Is, Has, Can, or Should
-         - Express a condition
-      5. Consider using:
-         - Id (not ID) for identifiers
-         - Url (not URL) for URLs
-      6. Collection properties should be plural
-      7. Avoid prefixes or Hungarian notation
+    conditions:
+      - pattern: "catch\\s*\\(\\s*Exception\\s*\\)"
+        message: |
+          Use fully qualified System.Exception instead of just Exception to avoid ambiguity:
+          ```csharp
+          // Instead of:
+          catch (Exception)
+          
+          // Use:
+          catch (System.Exception)
+          ```
 
 examples:
   - input: |
-      public string userName { get; set; }
-      private bool _isActive { get; set; }
-      protected List<string> m_Items { get; set; }
-      public string URL { get; set; }
+      try
+      {
+          // Some code
+      }
+      catch (Exception)
+      {
+          // Handle error
+      }
     output: |
-      public string UserName { get; set; }
-      private bool IsActive { get; set; }
-      protected List<string> Items { get; set; }
-      public string Url { get; set; }
+      try
+      {
+          // Some code
+      }
+      catch (System.Exception)
+      {
+          // Handle error
+      }
 
 metadata:
   priority: high
