@@ -1,0 +1,9 @@
+{
+  "name": "qqiao--apollo-rust-client",
+  "displayName": "apollo-rust-client",
+  "description": "A Rust client for Apollo Configuration Centre.",
+  "version": "1.0.0",
+  "author": "qqiao",
+  "homepage": "https://github.com/qqiao/apollo-rust-client",
+  "skills": []
+}
