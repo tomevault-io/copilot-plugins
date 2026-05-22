@@ -1,0 +1,9 @@
+{
+  "name": "tinyproxy-org--tinyproxy-zig",
+  "displayName": "tinyproxy-zig",
+  "description": "Rewrite TinyProxy in Zig",
+  "version": "1.0.0",
+  "author": "tinyproxy-org",
+  "homepage": "https://github.com/tinyproxy-org/tinyproxy-zig",
+  "skills": []
+}
