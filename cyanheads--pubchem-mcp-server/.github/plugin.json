@@ -1,0 +1,9 @@
+{
+  "name": "cyanheads--pubchem-mcp-server",
+  "displayName": "pubchem-mcp-server",
+  "description": "MCP server for the PubChem chemical database. Search compounds, fetch properties, safety data, bioactivity, cross-references, and entity summaries. STDIO & Streamable HTTP",
+  "version": "1.0.0",
+  "author": "cyanheads",
+  "homepage": "https://github.com/cyanheads/pubchem-mcp-server",
+  "skills": []
+}
