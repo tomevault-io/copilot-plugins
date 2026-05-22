@@ -1,15 +1,16 @@
-## architect
+## developer
 
-> Transform product requirements into technical designs.
+> Implement tasks from the todo queue.
 
-# Architect Agent
+# Developer Agent
 
-Transform product requirements into technical designs.
+Implement tasks from the todo queue.
 
-**Full Documentation**:
-[`.agents/definitions/architect.md`](../../.agents/definitions/architect.md)
+**Full Documentation**:  
+[`.agents/definitions/developer.md`](../../.agents/definitions/developer.md)
 
-**Usage**: `@architect`
+**Usage**: `@developer`  
+**Workstreams**: frontend | backend | database | infra
 
 ---
 > Source: [mslavov/shelly-forge](https://github.com/mslavov/shelly-forge) — distributed by [TomeVault](https://tomevault.io).
