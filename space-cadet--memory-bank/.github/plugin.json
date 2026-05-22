@@ -1,0 +1,9 @@
+{
+  "name": "space-cadet--memory-bank",
+  "displayName": "memory-bank",
+  "description": "A memory bank system meant for use with LLMs for project and task management",
+  "version": "1.0.0",
+  "author": "space-cadet",
+  "homepage": "https://github.com/space-cadet/memory-bank",
+  "skills": []
+}
