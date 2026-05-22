@@ -4,7 +4,7 @@
   "repo": "capacitor-camera-view",
   "description": "\ud83c\udf9e\ufe0f A Capacitor plugin for embedding a live camera feed directly into your app.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/michaelwolz/capacitor-camera-view",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T22:43:57Z"
+  "distributed_at": "2026-05-22T22:58:12Z"
 }
