@@ -1,0 +1,9 @@
+{
+  "name": "layr-labs--studio",
+  "displayName": "studio",
+  "description": "AI first web app for creating EigenLayer reference architectures and asking questions about building on EigenLayer.",
+  "version": "1.0.0",
+  "author": "Layr-Labs",
+  "homepage": "https://github.com/Layr-Labs/studio",
+  "skills": []
+}
