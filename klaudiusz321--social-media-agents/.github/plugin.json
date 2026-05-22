@@ -1,0 +1,9 @@
+{
+  "name": "klaudiusz321--social-media-agents",
+  "displayName": "social-media-agents",
+  "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe",
+  "version": "1.0.0",
+  "author": "Klaudiusz321",
+  "homepage": "https://github.com/Klaudiusz321/social-media-agents",
+  "skills": []
+}
