@@ -1,0 +1,44 @@
+{
+  "name": "remote-venezuela-hiring",
+  "owner": "asdrubalivan",
+  "repo": "remote-venezuela-hiring",
+  "description": "Community-curated list of companies and how they handle applications from candidates based in Venezuela.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/asdrubalivan/remote-venezuela-hiring",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T03:59:00Z"
+}
