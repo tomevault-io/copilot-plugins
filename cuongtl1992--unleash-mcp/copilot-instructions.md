@@ -1,98 +1,74 @@
-## mcp-tool-implementation
+## unleash-api-integration
 
-> When implementing new MCP tools, follow these consistent patterns to maintain code quality and readability:
+> When implementing new Unleash API integrations, follow these consistent patterns to maintain code quality and readability:
 
-# MCP Tool Implementation Guidelines
+# Unleash API Integration Guidelines
 
-When implementing new MCP tools, follow these consistent patterns to maintain code quality and readability:
+When implementing new Unleash API integrations, follow these consistent patterns to maintain code quality and readability:
 
 ## File Structure
-- Place all MCP tool implementations in the `src/tools/` directory
-- Use kebab-case for filenames (e.g., `get-projects.ts`, `update-flag.ts`)
+- Place all Unleash API integrations in the `src/unleash/` directory
+- Use kebab-case for filenames (e.g., `get-all-projects.ts`, `update-feature-toggle.ts`)
 - Name files according to their primary function
 
 ## Implementation Pattern
-1. Import any necessary Unleash API integration functions:
+1. Import the Unleash client:
 ```typescript
-import { requiredFunction } from '../unleash/required-function.js';
+import { client } from "./unleash-client.js";
 ```
 
-2. Create a handler function with the naming convention `handle[ToolName]`:
+2. Create and export an async function with descriptive name:
 ```typescript
-async function handle[ToolName](mdc:parameters?: any) {
+export async function functionName(parameters): Promise<ReturnType | null> {
   try {
-    const result = await requiredFunction(parameters);
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(result, null, 2),
-        },
-      ],
-    };
-  } catch (error: any) {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: JSON.stringify(
-            {
-              success: false,
-              error: error.message,
-            },
-            null,
-            2
-          ),
-        },
-      ],
-      isError: true,
-    };
+    const response = await client.METHOD('/api/admin/endpoint');
+    return response.data.specificProperty || response.data;
+  } catch (error) {
+    console.error('Error message:', error);
+    return null;
   }
 }
 ```
 
-3. Export the tool using a consistent structure:
+3. Use proper JSDoc comments:
 ```typescript
-export const toolName = {
-  name: 'toolName',
-  description: 'toolDescription',
-  handler: handle[ToolName],
-};
+/**
+ * Brief description of what this function does
+ * @param paramName Description of parameter
+ * @returns Description of return value or null if unavailable
+ */
 ```
+
+4. When making requests:
+   - Use HTTP methods (get, post, put, delete) directly from the client
+   - Follow Unleash API endpoints from documentation at https://docs.getunleash.io/reference/api/unleash/unleash-api
+   - Handle response data properly, accounting for possible response structures
+   - Implement proper error handling with descriptive error messages
+
+5. For POST/PUT requests, follow this pattern:
+```typescript
+const response = await client.post('/api/admin/endpoint', {
+  property1: value1,
+  property2: value2
+});
+```
+
+6. Use proper TypeScript types:
+   - Define interfaces for request/response data
+   - Use specific return types rather than `any` when possible
+   - Consider using Zod for runtime validation when necessary
+
+## Testing
+- Write unit tests for each API integration
+- Mock the Axios client responses in tests
+- Test both success and error scenarios
 
 ## Error Handling
 - Always wrap API calls in try/catch blocks
-- Return a standardized error response object when errors occur:
-  - Include `isError: true` flag
-  - Include meaningful error messages
-  - Maintain the consistent content structure
+- Log informative error messages
+- Return null on error to allow graceful degradation
 
-## Response Format
-- Always return responses in the following format:
-```typescript
-{
-  content: [
-    {
-      type: 'text',
-      text: string,
-    },
-    // More content items if needed
-  ],
-  isError?: boolean, // Include only for error responses
-}
-```
-
-## Parameter Handling
-- Define clear parameter types when needed
-- Validate parameters before using them in API calls
-- Handle missing parameters gracefully
-
-## Testing
-- Write unit tests for each tool implementation
-- Test both success and error scenarios
-- Mock any API calls to Unleash in tests
-
-By following these guidelines, you'll maintain consistency across all MCP tool implementations in the project.
+By following these guidelines, you'll maintain consistency across all Unleash API integrations in the project.
 
 ---
 > Source: [cuongtl1992/unleash-mcp](https://github.com/cuongtl1992/unleash-mcp) — distributed by [TomeVault](https://tomevault.io).
