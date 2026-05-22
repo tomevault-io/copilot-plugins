@@ -1,7 +1,7 @@
 {
   "name": "imagewize--nynaeve",
   "displayName": "nynaeve",
-  "description": "nynaeve",
+  "description": "Modern WordPress theme with 25+ custom blocks, InnerBlocks architecture, Vite HMR, Tailwind CSS 4, and Laravel Blade. Built on Sage 11 + Acorn for professional developers.",
   "version": "1.0.0",
   "author": "imagewize",
   "homepage": "https://github.com/imagewize/nynaeve",
