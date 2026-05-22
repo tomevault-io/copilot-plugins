@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-vision-skill",
+  "owner": "xiincs",
+  "repo": "claude-code-vision-skill",
+  "description": "\u4e3a Claude Code \u8d4b\u80fd\u591a\u6a21\u6001\u89c6\u89c9\u80fd\u529b\uff0c\u652f\u6301\u8c46\u5305\u3001\u901a\u4e49\u5343\u95ee\u3001GPT-4o \u7b49\u6a21\u578b\uff0c\u7528\u4e8e\u622a\u56fe / UI / \u56fe\u8868\u5206\u6790\uff1b\u9002\u914d DeepSeek \u7b49\u65e0\u89c6\u89c9\u5e95\u5ea7\uff0c\u642d\u914d browser-harness \u53ef\u505a\u524d\u7aef\u5e03\u5c40\u81ea\u52a8\u5316\u68c0\u67e5\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiincs/claude-code-vision-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T14:36:41Z"
+}
