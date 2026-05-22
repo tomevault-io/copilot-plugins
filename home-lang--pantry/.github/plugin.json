@@ -1,0 +1,9 @@
+{
+  "name": "home-lang--pantry",
+  "displayName": "pantry",
+  "description": "An extremely performant & universal dependency manager that just works.",
+  "version": "1.0.0",
+  "author": "home-lang",
+  "homepage": "https://github.com/home-lang/pantry",
+  "skills": []
+}
