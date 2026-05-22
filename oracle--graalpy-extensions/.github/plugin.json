@@ -1,0 +1,9 @@
+{
+  "name": "oracle--graalpy-extensions",
+  "displayName": "graalpy-extensions",
+  "description": "graalpy-extensions",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/graalpy-extensions",
+  "skills": []
+}
