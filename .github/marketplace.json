@@ -133619,6 +133619,11 @@
       "description": "Collection of useful algorithms in Rust"
     },
     {
+      "name": "r266-tech--sub2cli",
+      "source": "./r266-tech--sub2cli",
+      "description": "Sub2API gateway subscription \u2192 Codex CLI / Codex App injector. macOS-native, zero-deps Python single-file. Supports codex2api.com and any self-hosted Sub2API instance."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -139987,6 +139992,21 @@
       "name": "lwgray--marcus",
       "source": "./lwgray--marcus",
       "description": "marcus"
+    },
+    {
+      "name": "savasp--graphmodel-dotnet",
+      "source": "./savasp--graphmodel-dotnet",
+      "description": "An abstraction for a Graph that supports LINQ expressions."
+    },
+    {
+      "name": "savasp--graphmodel-dotnet",
+      "source": "./savasp--graphmodel-dotnet",
+      "description": "An abstraction for a Graph that supports LINQ expressions."
+    },
+    {
+      "name": "savasp--graphmodel-dotnet",
+      "source": "./savasp--graphmodel-dotnet",
+      "description": "An abstraction for a Graph that supports LINQ expressions."
     },
     {
       "name": "yschimke--compose-ai-tools",
