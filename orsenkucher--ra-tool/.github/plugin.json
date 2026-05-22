@@ -1,0 +1,9 @@
+{
+  "name": "orsenkucher--ra-tool",
+  "displayName": "ra-tool",
+  "description": "Claude Code integration with Rust Analyzer ",
+  "version": "1.0.0",
+  "author": "orsenkucher",
+  "homepage": "https://github.com/orsenkucher/ra-tool",
+  "skills": []
+}
