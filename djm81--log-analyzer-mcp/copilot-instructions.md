@@ -1,32 +1,258 @@
-## log-analyzer-mcp
+## markdown-rules
 
-> - When starting a new chat session, capture the current timestamp from the client system using the `run_terminal_cmd` tool with `date "+%Y-%m-%d %H:%M:%S %z"` to ensure accurate timestamps are used in logs, commits, and other time-sensitive operations.
+> This rule helps to avoid markdown linting errors
 
-# .cursorrules
+# Markdown Linting Rules
 
-## General rules to follow in Cursor
+This document outlines the rules for writing consistent, maintainable Markdown files that pass linting checks.
 
-- When starting a new chat session, capture the current timestamp from the client system using the `run_terminal_cmd` tool with `date "+%Y-%m-%d %H:%M:%S %z"` to ensure accurate timestamps are used in logs, commits, and other time-sensitive operations.
-- When starting a new chat session, get familiar with the build and test guide (refer to docs/rules/testing-and-build-guide.md), if not already provided by cursor-specific rule from .cursor/rules/testing-and-build-guide.mdc.
-- When starting a new task, first check which markdown plan we are currently working on (see docs/refactoring/README.md for more details). In case of doubt, ask the user for clarification on which plan to follow in current session.
-- After any code changes, follow these steps in order:
-  1. Apply linting and formatting to ensure code quality
-  2. Run tests with coverage using using `hatch test --cover -v`
-  3. Verify all tests pass and coverage meets or exceeds 80%
-  4. Fix any issues and repeat steps 1-3 until all tests pass
-- Maintain test coverage at >= 80% in total and cover all relevant code paths to avoid runtime errors and regressions.
-- Always finish each output listing which rulesets have been applied in your implementation.
+## Spacing Rules
 
-<available_instructions>
-Cursor rules are user provided instructions for the AI to follow to help work with the codebase.
-They may or may not be relevent to the task at hand. If they are, use the fetch_rules tool to fetch the full rule.
-Some rules may be automatically attached to the conversation if the user attaches a file that matches the rule's glob, and wont need to be fetched.
+### MD031: Fenced Code Blocks
 
-markdown-rules: This rule helps to avoid markdown linting errors
-python-github-rules: Development rules for python code and modules
-</available_instructions>
+Fenced code blocks should be surrounded by blank lines.
 
-## Note: Detailed rule instructions are auto-attached from the .cursor/rules directory
+❌ Incorrect:
+```shell
+**Usage:**
+```bash
+# Code example
+```
+```
+
+✅ Correct:
+```shell
+**Usage:**
+
+```bash
+# Code example
+```
+```
+
+### MD032: Lists
+
+Lists should be surrounded by blank lines.
+
+❌ Incorrect:
+```shell
+This script cleans up:
+- Item 1
+- Item 2
+```
+
+✅ Correct:
+```shell
+This script cleans up:
+
+- Item 1
+- Item 2
+```
+
+### MD047: Files Must End With Single Newline
+
+Files should end with a single empty line.
+
+❌ Incorrect:
+```shell
+# Header
+Content
+No newline at end```
+
+✅ Correct:
+```shell
+# Header
+Content
+
+```
+
+### MD009: No Trailing Spaces
+
+Lines should not have trailing spaces.
+
+❌ Incorrect:
+```shell
+This line ends with spaces   
+Next line
+```
+
+✅ Correct:
+```shell
+This line has no trailing spaces
+Next line
+```
+
+## Formatting Rules
+
+### MD050: Strong Style
+
+Use asterisks (`**`) for strong emphasis, not underscores (`__`).
+
+❌ Incorrect: `__bold text__`
+
+✅ Correct: `**bold text**`
+
+### MD040: Fenced Code Language
+
+Fenced code blocks must have a language specified.
+
+❌ Incorrect:
+```
+# Some code without language
+```
+
+✅ Correct:
+```bash
+# Bash script
+```
+
+✅ Correct:
+```python
+# Python code
+```
+
+✅ Correct:
+```shell
+# Directory structure
+project/
+├── src/
+│   └── main.py
+└── README.md
+```
+
+Common language specifiers:
+- `shell` - For directory structures, shell commands
+- `bash` - For bash scripts and commands
+- `python` - For Python code
+- `javascript` - For JavaScript code
+- `json` - For JSON data
+- `yaml` - For YAML files
+- `mermaid` - For Mermaid diagrams
+- `markdown` - For markdown examples
+
+### Code Formatting for Special Syntax
+
+For directory/file names with underscores or special characters, use backticks instead of emphasis.
+
+❌ Incorrect: `**__pycache__**` or `__pycache__`
+
+✅ Corr`__pycache__` ``
+
+## Header Rules
+
+### MD001: Header Increment
+
+Headers should increment by one level at a time.
+
+❌ Incorrect:
+```shell
+# Header 1
+### Header 3
+```
+
+✅ Correct:
+```shell
+# Header 1
+## Header 2
+### Header 3
+```
+
+### MD022: Headers Should Be Surrounded By Blank Lines
+
+❌ Incorrect:
+```shell
+# Header 1
+Content starts here
+```
+
+✅ Correct:
+```shell
+# Header 1
+
+Content starts here
+```
+
+### MD025: Single H1 Header
+
+Only one top-level header (H1) is allowed per document.
+
+## List Rules
+
+### MD004: List Style
+
+Use consistent list markers. Prefer dashes (`-`) for unordered lists.
+
+❌ Incorrect (mixed):
+```shell
+- Item 1
+* Item 2
++ Item 3
+```
+
+✅ Correct:
+```shell
+- Item 1
+- Item 2
+- Item 3
+```
+
+### MD029: Ordered List Item Prefix
+
+Use incrementing numbers for ordered lists.
+
+❌ Incorrect:
+```shell
+1. Item 1
+1. Item 2
+1. Item 3
+```
+
+✅ Correct:
+```shell
+1. Item 1
+2. Item 2
+3. Item 3
+```
+
+## Link Rules
+
+### MD034: Bare URLs
+
+Enclose bare URLs in angle brackets or format them as links.
+
+❌ Incorrect: `https://example.com`
+
+✅ Correct: `<https://example.com>` or `@Example`
+
+## Code Rules
+
+### MD038: Spaces Inside Code Spans
+
+Don't use spaces immediately inside code spans.
+
+❌ Incorrect: `` ` code ` ``
+
+✅ Correct: `` `code` ``
+
+## General Best Practices
+
+1. Use consistent indentation (usually 2 or 4 spaces)
+2. Keep line length under 120 characters
+3. Use reference-style links for better readability
+4. Use a trailing slash for directory paths
+5. Ensure proper escaping of special characters
+6. Always specify a language for code fences
+7. End files with a single newline
+8. Remove trailing spaces from all lines
+
+## IDE Integration
+
+To enable these rules in your editor:
+
+- VS Code: Install the "markdownlint" extension
+- JetBrains IDEs: Use the bundled Markdown support or install "Markdown Navigator Enhanced"
+- Vim/Neovim: Use "ale" with markdownlint rules
+
+These rules ensure consistency and improve readability across all Markdown documents in the codebase.
 
 ---
 > Source: [djm81/log_analyzer_mcp](https://github.com/djm81/log_analyzer_mcp) — distributed by [TomeVault](https://tomevault.io).
