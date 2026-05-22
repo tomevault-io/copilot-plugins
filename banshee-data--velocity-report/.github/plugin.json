@@ -1,0 +1,9 @@
+{
+  "name": "banshee-data--velocity-report",
+  "displayName": "velocity.report",
+  "description": "citizen radar for slow streets \ud83d\udedc tracking velocity, not identity",
+  "version": "1.0.0",
+  "author": "banshee-data",
+  "homepage": "https://github.com/banshee-data/velocity.report",
+  "skills": []
+}
