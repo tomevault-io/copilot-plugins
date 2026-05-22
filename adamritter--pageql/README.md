@@ -7,13 +7,13 @@ Embed SQL directly into HTML
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [adamritter/pageql](https://github.com/adamritter/pageql).
+Original source: `.cursor/rules/*.mdc` in [adamritter/pageql](https://github.com/adamritter/pageql).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
