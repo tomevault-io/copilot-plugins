@@ -1,0 +1,9 @@
+{
+  "name": "juliaastro--solarposition-jl",
+  "displayName": "SolarPosition.jl",
+  "description": "Solar positioning algorithms for Julia.",
+  "version": "1.0.0",
+  "author": "JuliaAstro",
+  "homepage": "https://github.com/JuliaAstro/SolarPosition.jl",
+  "skills": []
+}
