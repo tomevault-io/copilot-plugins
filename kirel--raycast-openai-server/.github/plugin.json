@@ -1,0 +1,9 @@
+{
+  "name": "kirel--raycast-openai-server",
+  "displayName": "raycast-openai-server",
+  "description": "Extension that thats local openai server which passes requests to Raycast AI.",
+  "version": "1.0.0",
+  "author": "kirel",
+  "homepage": "https://github.com/kirel/raycast-openai-server",
+  "skills": []
+}
