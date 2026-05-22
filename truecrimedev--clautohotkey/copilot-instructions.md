@@ -1,36 +1,52 @@
-## 00-always-linter
+## 10-core-ahk-system
 
-> Always-On Linter Policy
+> AHK v2 Agent Mode — Core Rules (ClautoHotkey)
 
 ---
 alwaysApply: true
 ---
-Always-On Linter Policy
+AHK v2 Agent Mode — Core Rules (ClautoHotkey)
 
-- Before completing any task, check @Linter Errors for the active file and all files you edited.
-- Fix all violations relevant to your edits. Do not proceed with unresolved errors unless explicitly acknowledged with rationale.
-- If a lint cannot be fixed immediately, surface the exact messages and file paths and propose a minimal, compliant fix.
-- Prioritize strict AHK v2 syntax and patterns:
-  - `Map()` for key→value storage; arrays are 1‑based
-  - `.Bind(this)` for callbacks; `__Delete` cleanup
-  - Deterministic GUI layout and validation
-  - Backtick escaping; PCRE `i/m/s/x`; strict commas/colons
-  - Fat arrows single‑line only
+- Treat this workspace as AHK v2 only. There is no server/backend to run. Do not search for or start Node.js, Python, MCP servers, or web services.
+- When the user types "init" or opens this repo, immediately operate as an AHK v2 coding agent. Avoid broad discovery scans; only inspect files directly relevant to the user’s request.
+- Preferred execution: use the official AHK v2 interpreter with UTF‑8 error output.
+  - Example: `& "c:\\Program Files\\AutoHotkey\\v2\\AutoHotkey64.exe" /ErrorStdOut=utf-8 "<script_path>"`
+- Default entry/test targets if user asks to run something quickly:
+  - `Tests\Test_Basic.ahk` (smoke)
+  - `Tests\Other_TestingSystem.ahk` (GUI test runner)
+  - `Scripts\Clip_SearchCode.ahk`, `_Lists.ahk`, `_UltiLog.ahk` as user-facing tools
+- Search discipline:
+  - Do not read specs/docs unless the user asks.
+  - Use targeted semantic search only when needed to answer a specific “where/how” question.
+  - Prefer direct file reads over scanning multiple directories.
+- Coding constraints (strict AHK v2):
+  - Pure OOP; instantiate classes without `new`.
+  - Use `Map()` for key→value storage; arrays are 1‑based.
+  - Bind all callbacks with `.Bind(this)`; clean up in `__Delete`.
+  - GUI must be class‑based with deterministic layout and validation.
+  - PCRE flags `i/m/s/x`; backtick escaping only; strict commas/colons.
+  - Fat arrows for single‑line only.
+- Terminal usage:
+  - Only run AHK scripts as above. Do not run package managers or unrelated CLIs.
+- Interaction:
+  - Provide brief status updates and a concise summary.
+  - Ask one clarifying question only when blocked; otherwise proceed.
 ---
-description: Always enforce AHK v2 LSP linter review via @Linter Errors
+description: Core strict AHK v2 system for ClautoHotkey (OOP, syntax, storage, GUI)
 alwaysApply: true
 ---
 
-Linter policy (always on)
-- Before finalizing any change, review @Linter Errors for the active file and all recently edited files.
-- Fix all violations relevant to your edits. Do not proceed with unresolved errors unless explicitly acknowledged with rationale.
-- If a lint cannot be fixed immediately, surface the exact messages and file paths, and propose a minimal, compliant fix.
-- Prioritize strict AHK v2 syntax (commas/colons, backtick escapes), class-based design, `.Bind(this)`, `Map()` for storage, and `__Delete` cleanup to avoid lints.
+Core constraints
+- Pure AHK v2 OOP; instantiate classes without `new`.
+- Strict commas/colons; backtick-only escaping; PCRE `i/m/s/x`.
+- Use `Map()` for key→value storage; arrays are 1-based.
+- Fat arrows are single-line only; use traditional functions for multi-line logic.
+- Bind all callbacks with `.Bind(this)`; cleanup in `__Delete`.
+- GUI must be class-based; deterministic layout calculation, validation, and reporting.
 
-Checklist
-- Open Problems pane or reference @Linter Errors.
-- Address errors first, then warnings that impact correctness/style.
-- Re-check @Linter Errors after edits.
+References
+- Modules first: `Modules/Module_Instructions.md`, `Modules/Module_Objects.md`, `Modules/Module_DataStructures.md`, `Modules/Module_Classes.md`
+- Then examples/patterns: `AHK_Notes/`
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
