@@ -1,21 +1,31 @@
-## case-study
+## part-chapter
 
-> Rules about adding case study
+> Rules about created a new chapter
 
-# Rules for Adding New Case Studies
+# Rules for Adding New Chapters
 
 ## File Structure
-- Location: `docs/case-studies/case-study-name.md`
-- Naming: Use kebab-case for filenames (e.g., `captions-gpt-launching.md`)
+- Location: `docs/part{number}/chapter-name.md`
+- Naming: Use kebab-case for filenames (e.g., `identifying-problems.md`)
 
 ## Frontmatter
 ```yaml
 ---
-title: "📱{Product Name} ({Action})🌟"
-description: "{One-line description of the case study}"
-keywords: "{comma-separated, relevant, keywords}"
-author: "Product Builders"
-type: case-study
+title: "Chapter {number} - {Title} | Product Builders"
+description: "{One-line description of the chapter content}"
+head:
+  - - meta
+    - name: keywords
+      content: "{comma-separated, relevant, keywords}"
+  - - meta
+    - name: author
+      content: "Product Builders Team"
+  - - meta
+    - property: og:title
+      content: "Chapter {number} - {Title} | Product Builders"
+  - - meta
+    - property: og:description
+      content: "{One-line description of the chapter content}"
 ---
 ```
 
@@ -23,17 +33,13 @@ type: case-study
 
 ### 1. Title & Introduction
 ```markdown
-# {Product Name}: {Subtitle}
+# Chapter {number}: {Title} 🔍
 
 > "{Relevant quote}" - [(link)
 
-<div class="content-box">
-
-**{Product Name}** is a {product type} that {main functionality}. This case study shows how the {product type} was built from initial concept to deployment using **{Development Approach}** - {brief description of approach}.
-
-**GitHub Repositoy-name](link)
-
-</div>
+::: tip Key Takeaway
+{One-sentence summary of the chapter's main point}
+:::
 ```
 
 ### 2. Main Content Sections
@@ -42,15 +48,7 @@ type: case-study
 - Include emojis for visual hierarchy
 - Use content boxes for important information
 
-### 3. Required Sections
-1. AI Tools Used
-2. Ideation & Problem Discovery
-3. Building Your Product
-4. Product Development — Iterative Releases
-5. Key Lessons
-6. Next Steps
-
-### 4. Content Boxes
+### 3. Content Boxes
 ```markdown
 <div class="content-box">
 
@@ -59,14 +57,14 @@ Content goes here...
 </div>
 ```
 
-### 5. UI Elements
+### 4. UI Elements
+- Use `::: tip` for important notes
+- Use `::: warning` for cautions
 - Use tables for comparisons
 - Use checklists for steps
 - Use example boxes for demonstrations
-- Use warning boxes for important notes
-- Use tip boxes for best practices
 
-### 6. Styling
+### 5. Styling
 ```css
 <style scoped>
 .content-box {
@@ -77,34 +75,13 @@ Content goes here...
   color: var(--vp-c-text-1);
 }
 
-h1 {
+h1, h2, h3 {
   color: var(--vp-c-text-1);
-  margin-bottom: 2rem;
 }
 
-h2 {
+p, li {
   color: var(--vp-c-text-1);
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-p {
   line-height: 1.6;
-  margin-bottom: 1rem;
-  color: var(--vp-c-text-1);
-}
-
-ul {
-  margin-bottom: 1rem;
-}
-
-li {
-  margin-bottom: 0.5rem;
-  color: var(--vp-c-text-1);
-}
-
-strong {
-  color: var(--vp-c-text-1);
 }
 
 a {
@@ -118,13 +95,18 @@ a:hover {
 </style>
 ```
 
+### 6. Navigation
+- Include "Ready to Move Forward?" tip at the end
+- Link to the next chapter
+- Link to related case studies if applicable
+
 ## Site Structure & Common Elements
 
 ### 1. Navigation
 - Top navigation bar with links to Home, Build, Contribute, Contributors, and API
-- Sidebar navigation showing case study list
+- Sidebar navigation showing chapter hierarchy
 - Breadcrumb navigation at the top of each page
-- Related case studies section at the bottom
+- "Previous/Next" navigation at the bottom of each page
 
 ### 2. Comments System
 ```markdown
@@ -177,6 +159,14 @@ import BaseSEO from '../.vitepress/theme/components/BaseSEO.vue'
 5. Include internal links to related content
 6. Add schema markup for better search visibility
 
+## Required Sections
+1. Introduction with key takeaway
+2. Main content with clear sections
+3. Examples or case studies
+4. Summary or TL;DR
+5. Resources & Tools
+6. Next steps or call to action
+
 ## Best Practices
 1. Keep paragraphs short and scannable
 2. Use bullet points and numbered lists
@@ -186,82 +176,6 @@ import BaseSEO from '../.vitepress/theme/components/BaseSEO.vue'
 6. Include code snippets where relevant
 7. Add links to external resources
 8. Include practical exercises or checklists
-
-## Case Study Specific Elements
-
-### 1. AI Tools Section
-```markdown
-## AI Tools Used in This Project
-
-<div class="content-box">
-
-| AI Tool | Role in Development | Key Contributions |
-|---------|---------------------|-------------------|
-| **{Tool Name}** | {Role} | {Contributions} |
-| **{Tool Name}** | {Role} | {Contributions} |
-
-</div>
-```
-
-### 2. Development Journey
-```markdown
-### 🟢 Release {number} — {Release Name}
-
-#### Prompt to {AI Tool}:
-
-```
-{Actual prompt used}
-```
-
-#### Development Journey:
-
-**Initial challenges:**
-- {Challenge 1}
-- {Challenge 2}
-
-✅ **Outcome**: {Result}
-```
-
-### 3. Key Lessons
-```markdown
-## Key Lessons from {Development Approach}
-
-<div class="content-box">
-
-### 🌟 What Worked Well
-
-1. **{Point 1}**: {Description}
-2. **{Point 2}**: {Description}
-
-### 🚧 Challenges & Limitations
-
-1. **{Challenge 1}**: {Description}
-2. **{Challenge 2}**: {Description}
-
-### 💡 Key Takeaways
-
-1. **{Takeaway 1}**: {Description}
-2. **{Takeaway 2}**: {Description}
-
-</div>
-```
-
-### 4. Next Steps
-```markdown
-## Next Steps
-
-<div class="content-box">
-
-::: warning Next I will cover:
-- {Next step 1}
-- {Next step 2}
-- {Next step 3}
-:::
-
-Stay tuned for updates on the full launch story!
-
-</div>
-```
 
 ---
 > Source: [ProductBuilders/productbuilders](https://github.com/ProductBuilders/productbuilders) — distributed by [TomeVault](https://tomevault.io).
