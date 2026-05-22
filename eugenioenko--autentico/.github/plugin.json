@@ -1,0 +1,9 @@
+{
+  "name": "eugenioenko--autentico",
+  "displayName": "autentico",
+  "description": "Autentico is a self-hosted OpenID Connect Identity Provider built with Go. It handles the full authentication lifecycle; login, MFA, passkeys, session management, token issuance, and administration. A",
+  "version": "1.0.0",
+  "author": "eugenioenko",
+  "homepage": "https://github.com/eugenioenko/autentico",
+  "skills": []
+}
