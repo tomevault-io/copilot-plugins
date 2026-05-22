@@ -1,0 +1,9 @@
+{
+  "name": "foxzool--bevy-fog-of-war",
+  "displayName": "bevy_fog_of_war",
+  "description": "A Bevy Plugin for Fog of War.",
+  "version": "1.0.0",
+  "author": "foxzool",
+  "homepage": "https://github.com/foxzool/bevy_fog_of_war",
+  "skills": []
+}
