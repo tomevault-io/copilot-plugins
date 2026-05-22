@@ -1,48 +1,77 @@
-## playwright-rules
+## ts-rules
 
-> See `.claude/skills/playwright-e2e/` for full skill with references.
+> Language server, Apex parser, and VS Code extension host notes; general TS via skills
 
 
-# Playwright E2E Test Rules
+# LSP positioning and VS Code web extension rules
 
-See `.claude/skills/playwright-e2e/` for full skill with references.
+Apex-language-support-specific TypeScript notes. Pulled from the previous `.cursor/rules/ts-rules.mdc`.
 
-## Waiting and Timing
+## Related
 
-- **Never** `waitForTimeout` — wait for specific page elements
-- `page.waitForSelector()` — elements appear
-- `expect(locator).toBeVisible()` — visibility
-- `page.waitForLoadState()` — page state changes
-- **Don't** use `page.waitForResponse()` — doesn't work in desktop/electron
-- **Don't** use `networkidle` — not available on desktop/electron
-- Use `test.step` to organize sequential tests
+- General TS: `.claude/skills/typescript/SKILL.md`
+- Effect: `.claude/skills/effect-best-practices/SKILL.md` (+ `references/effect-llm.md`)
+- Extension/services consumption: `.claude/skills/services-extension-consumption/SKILL.md`
+- Apex parser: `.claude/skills/apex-language/SKILL.md` (+ `references/language-rules.md`)
+- Monorepo builds use Wireit (not turbo): `.claude/skills/wireit/SKILL.md`
 
-## Selectors and Assertions
+## Language Server Protocol (LSP)
 
-- Prefer `aria` (`getByRole`) over CSS selectors
-- `expect` assertions need clear error messages. Import `expect` from playwright
-- Fail early, avoid fallbacks/retries
-- Reusable locators belong in `e2e-tests/shared/utils/locators.ts`
+- Positions (line:column) from the client side are both 0-based indexes
+- This includes ranges (start-position and end-position)
+- The `lsp-compliant-services` layer transforms position data to parser-ast values and back
 
-## Commands and Shortcuts
+## Apex parser/ast
 
-- Use `f1` for commands, not meta-shift-P
-- Use `Control` for all. **No** `ControlOrMeta`
+- Positions in package `apex-parser-ast` follow the form defined by the ANTLR4 base parser
+- Positions in parser-ast use a 1-based index for line numbers and 0-based index for column numbers
+- Code in `apex-parser-ast` should never use a different indexing scheme
 
-## Reuse
+## Apex class semantics
 
-- Check `e2e-tests/shared/` before creating new utilities or PageObjects
-- Check `e2e-tests/pages/` for existing page objects
+- For a class that defines Apex source, never use method `testMethod`, as it is a reserved word
 
-## Debugging
+## VS Code web extension development
 
-- Use `locator.innerHTML()` on a known-good locator to get accurate inner locators
-- Take screenshots — review in `test-results` folder
-- Use emojis infrequently
+### Web extension runtime environment
 
-## References
+Web extensions run in a Browser WebWorker environment within the VS Code extension host, subject to browser worker sandbox restrictions. This environment has significant limitations compared to Node.js-based extensions.
 
-- https://playwright.dev/docs
+### Module loading and bundling
+
+- Web extensions do not support ES module imports, `require()` for external modules, or `importScripts()`. The ONLY exception is `require('vscode')`, which works via a special shim.
+- All web extension code MUST be bundled into a single file before deployment. Use esbuild (preferred) or webpack to produce a single-file output.
+- Never attempt to dynamically load additional extension files or node modules at runtime in web extensions.
+
+### Node.js APIs and globals
+
+- Node.js globals and built-in modules (`process`, `os`, `setImmediate`, `path`, `util`, `url`, `fs`, `crypto`, etc.) are NOT available at runtime in web extensions.
+- These APIs can be polyfilled at build time using webpack or similar bundlers with appropriate configuration, but the runtime will never have native Node.js support.
+- Always verify that any dependencies used in web extensions are browser-compatible or have browser builds available.
+
+### File system access
+
+- Workspace files and folders are on a virtual file system in web extensions.
+- ALL file system operations MUST use the VS Code file system API: `vscode.workspace.fs` (methods: `readFile`, `writeFile`, `readDirectory`, `createDirectory`, `delete`, `rename`, `copy`, `stat`).
+- Never use Node.js `fs` module methods directly in web extension code, even if polyfilled.
+- Extension context locations (`ExtensionContext.extensionUri`) and storage locations (`ExtensionContext.storageUri`, `ExtensionContext.globalStorageUri`) are also on virtual file systems and require `vscode.workspace.fs`.
+
+### Network and web resources
+
+- Use the Fetch API (`fetch()`) for all HTTP/HTTPS requests to web resources in web extensions.
+- All accessed external resources MUST support Cross-Origin Resource Sharing (CORS). Resources without proper CORS headers will fail to load.
+- Never use Node.js-specific HTTP libraries like `http`, `https`, or `axios` (unless they have browser-compatible builds).
+
+### Process and worker management
+
+- Creating child processes or running executables is NOT possible in web extensions.
+- To run background work or language servers, use the Web Worker API (`new Worker()`) instead.
+- Language servers in web extensions must be packaged as browser-compatible workers and communicate via the Language Server Protocol over Web Worker messaging.
+
+### Extension activation
+
+- Web extensions must export their lifecycle functions using CommonJS-style exports: `exports.activate = ...` and `exports.deactivate = ...`.
+- Do not use ES module `export` syntax for the main activation functions in web extension entry points.
 
 ---
 > Source: [forcedotcom/apex-language-support](https://github.com/forcedotcom/apex-language-support) — distributed by [TomeVault](https://tomevault.io).
