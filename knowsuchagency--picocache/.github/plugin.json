@@ -1,0 +1,9 @@
+{
+  "name": "knowsuchagency--picocache",
+  "displayName": "picocache",
+  "description": "Persistent memoization drop-in replacement for functools.lru_cache",
+  "version": "1.0.0",
+  "author": "knowsuchagency",
+  "homepage": "https://github.com/knowsuchagency/picocache",
+  "skills": []
+}
