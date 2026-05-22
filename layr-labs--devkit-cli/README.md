@@ -7,13 +7,13 @@ A CLI toolkit for scaffolding, developing, and testing EigenLayer Autonomous Ver
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Layr-Labs/devkit-cli](https://github.com/Layr-Labs/devkit-cli).
+Original source: `.cursor/rules/*.mdc` in [Layr-Labs/devkit-cli](https://github.com/Layr-Labs/devkit-cli).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
