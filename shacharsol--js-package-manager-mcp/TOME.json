@@ -4,7 +4,7 @@
   "repo": "js-package-manager-mcp",
   "description": "Free MCP server for AI-powered JavaScript package management - Works with Claude, Windsurf, Cursor",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shacharsol/js-package-manager-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T03:35:29Z"
+  "distributed_at": "2026-05-22T04:04:41Z"
 }
