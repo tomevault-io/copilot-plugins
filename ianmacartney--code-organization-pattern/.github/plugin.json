@@ -1,0 +1,9 @@
+{
+  "name": "ianmacartney--code-organization-pattern",
+  "displayName": "code-organization-pattern",
+  "description": "A way to separate code definition from public api organization",
+  "version": "1.0.0",
+  "author": "ianmacartney",
+  "homepage": "https://github.com/ianmacartney/code-organization-pattern",
+  "skills": []
+}
