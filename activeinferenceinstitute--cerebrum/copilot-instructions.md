@@ -1,0 +1,93 @@
+## cerebrum
+
+> - Always use meaningful, descriptive variable and function names
+
+# CEREBRUM Project Rules
+# Overview: CEREBRUM (Case-Enabled Reasoning Engine with Bayesian Representations for Unified Modeling)
+# is a cognitive modeling framework integrating case-based reasoning and Bayesian representations.
+# The project includes Python source code, documentation, a scientific paper, and associated tooling.
+
+## Code Quality
+- Always use meaningful, descriptive variable and function names
+- Follow PEP 8 style guidelines for Python code
+- Format Python code using `black`
+- Lint Python code using `flake8`
+- Sort imports using `isort`
+- Perform static type checking using `mypy`
+- Consider using `pre-commit` hooks to automate checks (see `requirements_dev.txt`)
+- Add comprehensive docstrings to all functions and classes following a standard format (e.g., Google style, NumPy style)
+- Maintain consistent indentation and formatting (enforced by `black`)
+- Include proper error handling with descriptive error messages
+- Log operations at appropriate verbosity levels (configure via `pytest.ini` for tests)
+
+## Content Creation
+- Never use placeholder text or methods in production code or documentation
+- Always use real, descriptive content in all text, captions, and labels within code, documentation (`docs/`), and the paper (`paper/`)
+- Ensure figure captions are complete and descriptive, especially for figures in `paper/components/figures/`
+- Maintain consistent terminology (refer to CEREBRUM framework terms) throughout the codebase and documentation
+- Format figure references consistently as "Figure X: Caption"
+- Ensure proper cross-referencing between `docs/`, `paper/`, and code examples (`src/examples`)
+
+## Documentation
+- Document all major components (Core Engine, Models, Transformations, Visualization) with clear explanations in the `docs/` directory
+- Keep documentation (`docs/`) and the paper source (`paper/`) up-to-date with code changes in `src/`
+- Include executable examples in `src/examples` and reference them in `docs/`
+- Ensure `README.md` provides a comprehensive project overview and entry points
+- Ensure `CONTRIBUTING.md` clearly outlines the contribution process
+- Maintain standardized heading levels (# for titles, ## for sections) in all Markdown files (`docs/`, `paper/`, `README.md`, etc.)
+- Document tool usage (e.g., `paper/assemble_paper.py`) with command-line options and examples in relevant READMEs or `docs/`
+
+## Project Structure
+- Organize Python source code by functionality within the `src/` directory (e.g., `core/`, `models/`, `utils/`, `visualization/`, `transformations/`, `cases/`, `examples/`)
+- Place all tests within the `src/tests/` directory (as specified in `pytest.ini`)
+- Store general project documentation in the `docs/` directory
+- Store scientific paper source files (Markdown components, figures) in the `paper/` directory (e.g., `paper/components/`)
+- Store helper scripts and development tools in the `tools/` directory
+- Use clear directory structures within each major component directory
+- Separate configuration (e.g., `pytest.ini`, `.coveragerc`) from implementation
+- Follow consistent file naming conventions (e.g., `test_*.py` for tests, as specified in `pytest.ini`)
+- Maintain canonical ordering of paper components if applicable (managed by `paper/assemble_paper.py`)
+- Store primary generated artifacts (e.g., final paper PDF) in `paper/output/`
+- Store other generated outputs and intermediate results in the `output/` directory
+
+## Rendering and Output
+- Validate all outputs (e.g., paper PDF, model results) for accuracy and completeness
+- Ensure the generated paper PDF (`paper/output/assembled_paper.pdf`) maintains consistent formatting using `pandoc` and `XeLaTeX`
+- Include proper citations and references, managed within the paper source (`paper/`)
+- Verify that all images and figures in `paper/components/figures/` render correctly with complete captions in the final PDF
+- Ensure Mermaid diagrams in `paper/components/` are processed correctly into images (e.g., PNG) by the build script (`paper/assemble_paper.py`) before inclusion
+- Insert appropriate page breaks between major sections in the paper, if manually controlled
+- Implement proper table of contents and document structure in the generated paper PDF
+- Use the `paper/assemble_paper.py` script for reliable paper generation
+
+## Version Control
+- Write clear, descriptive commit messages linking to issues where applicable
+- Group related changes (e.g., feature implementation + tests + docs) in single commits
+- Keep pull requests focused on single features or fixes
+- Review code (including documentation and tests) before merging
+- Track generated artifacts in `paper/output/` and `output/` separately from source documents (ensure they are in `.gitignore`)
+- Document version history and significant changes in release notes or a changelog
+
+## Testing
+- Write tests using `pytest` and `hypothesis` for all new functionality in `src/`
+- Place tests in the `src/tests/` directory, mirroring the `src/` structure where appropriate
+- Follow test naming conventions specified in `pytest.ini`: `test_*.py` for files, `Test*` for classes, `test_*` for functions
+- Use descriptive `pytest` markers (e.g., `@pytest.mark.unit`, `@pytest.mark.integration`, defined in `pytest.ini`) to categorize tests
+- Maintain high test coverage for critical components (Core Engine, Transformations) - track coverage using `pytest-cov` (configured via `.coveragerc`)
+- Automate testing using Continuous Integration (CI) if set up
+- Test edge cases and error conditions thoroughly
+- Validate document rendering (`paper/assemble_paper.py`) with different input configurations if applicable
+- Verify generated output (e.g., data files, model states) matches expected format and content
+- Review test logs (`src/tests/pytest_run.log`) for detailed information
+
+## Tool Integration
+- Integrate with standard document generation tools: `pandoc`, `XeLaTeX`, and Mermaid CLI (`@mermaid-js/mermaid-cli`) via the `paper/assemble_paper.py` script
+- Support command-line arguments for customizing document generation or model runs where applicable
+- Provide verbose logging options for troubleshooting model execution and the paper build process
+- Implement cleanup procedures for temporary files generated during builds or runs
+- Handle external dependencies (`pandoc`, `XeLaTeX`, `mermaid-cli`) gracefully with clear error messages in scripts (e.g., `paper/assemble_paper.py`)
+- Utilize `pre-commit` framework for automated code quality checks before commits (requires `pre-commit install`) 
+
+---
+> Source: [ActiveInferenceInstitute/CEREBRUM](https://github.com/ActiveInferenceInstitute/CEREBRUM) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
