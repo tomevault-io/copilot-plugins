@@ -1,0 +1,9 @@
+{
+  "name": "basuruk--omniinspect",
+  "displayName": "OmniInspect",
+  "description": "Oracle Event Queues based application to observe database events and custom messages",
+  "version": "1.0.0",
+  "author": "BasuruK",
+  "homepage": "https://github.com/BasuruK/OmniInspect",
+  "skills": []
+}
