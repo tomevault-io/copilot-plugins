@@ -1,19 +1,36 @@
-## 50-data-structures-and-arrays
+## 99-enforcement-checklist
 
-> description: Data structures (Map-first) and arrays (1-based)
+> Final Enforcement Checklist (ClautoHotkey)
 
 ---
-description: Data structures (Map-first) and arrays (1-based)
+alwaysApply: true
+---
+Final Enforcement Checklist (ClautoHotkey)
+
+- AHK-only: No server/backend assumed; only AHK v2 scripts executed
+- Scope: Touched only files required for the task; avoided unnecessary scans
+- OOP: Classes instantiated without `new`; callbacks bound via `.Bind(this)`; `__Delete` where needed
+- Data: Used `Map()` for key→value; arrays are 1‑based
+- GUI: Class-based; deterministic layout; validation present where inputs exist
+- Strings/Regex: Backtick-only escaping; PCRE `i/m/s/x` used appropriately
+- Arrows: Fat arrows used only for single-line expressions
+- Lint: Checked @Linter Errors for edited files; fixed or documented rationale/minimal fix
+- Tests: Ran or provided steps to run relevant `Tests\*.ahk` where applicable
+- Output: Brief status + concise summary; no extraneous logs/specs included
+---
+description: Final enforcement checklist (apply before completing tasks)
 alwaysApply: false
 ---
 
-Storage and arrays
-- Use `Map()` for key→value storage (no object-literal storage).
-- Arrays are 1-based; use built-ins for transforms/sorting; use `Map()` for set ops.
+Checklist
+- Syntax: commas/colons; backtick escapes; no v1 syntax; fat arrows single-line only.
+- OOP: instantiate without `new`; `.Bind(this)`; `__Delete` cleans resources.
+- Storage: `Map()` for key→value; arrays are 1-based.
+- GUI: class-based; deterministic layout; validation/report.
+- Lint: re-check @Linter Errors after edits; fix introduced errors.
 
 References
-- Modules reference: `Modules/Module_DataStructures.md`, `Modules/Module_Arrays.md`
-- Additional examples: `AHK_Notes/Concepts/data-structures-in-ahk-v2.md`, `AHK_Notes/Concepts/map-usage-best-practices.md`
+- Modules reference: `Modules/Module_Instructions.md` (diagnostic checklist), `Modules/Module_Classes.md`, `Modules/Module_GUI.md`
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
