@@ -1,0 +1,9 @@
+{
+  "name": "semiotic-ai--cctp-rs",
+  "displayName": "cctp-rs",
+  "description": "Rust implementation of Circle CCTP",
+  "version": "1.0.0",
+  "author": "semiotic-ai",
+  "homepage": "https://github.com/semiotic-ai/cctp-rs",
+  "skills": []
+}
