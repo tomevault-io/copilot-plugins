@@ -1,0 +1,9 @@
+{
+  "name": "docusphere--video-analyzer",
+  "displayName": "video-analyzer",
+  "description": "Analyze any video and produce an .avt (Agentic Video Transcript) file \u2014 structured visual descriptions, timestamped transcripts, scene tags, and frame references for AI agent consumption.",
+  "version": "1.0.0",
+  "author": "docusphere",
+  "homepage": "https://github.com/docusphere/video-analyzer",
+  "skills": []
+}
