@@ -1,38 +1,40 @@
-## workflow
+## yaml-schemas
 
-> Workflow conventions - commits, branching, planning
+> Files that are Taskfile YAML format (NOT Kubernetes/RKE configs):
 
+# YAML File Types in This Project
 
-# Workflow Conventions
+## Taskfiles (go-task)
 
-## Conventional Commits
+Files that are Taskfile YAML format (NOT Kubernetes/RKE configs):
 
-Use semantic commit messages:
+- `Taskfile.yml` - Main taskfile
+- `taskfiles/*.yml` - Included taskfiles (cluster.yml, catalog.yml, etc.)
 
-- `feat:` new feature
-- `fix:` bug fix
-- `docs:` documentation
-- `refactor:` code refactoring
-- `test:` tests
-- `chore:` maintenance
+**Valid properties:** `version`, `silent`, `vars`, `env`, `includes`, `tasks`
 
-## Issue Fixing Workflow
+## Ansible Playbooks
 
-1. Create branch: `issues/<issue-context>` (e.g., `issues/k3d-cluster-timeout`)
-2. Use **Workspace Tree** in Cursor to understand structure before fixing
-3. Make focused, atomic commits
-4. Reference issue in commit message when applicable
+Files that are Ansible playbooks (NOT Snowflake manifests):
 
-## Planning First
+- `polaris-forge-setup/*.yml` - Ansible playbooks
+- `polaris-forge-setup/defaults/*.yml` - Ansible defaults
+- `polaris-forge-setup/templates/*.j2` - Jinja2 templates
 
-**CRITICAL:** When you see questions, "WDYT", or ambiguous requests:
+**Valid structure:** `hosts`, `tasks`, `vars`, `vars_files`, `handlers`
 
-1. **Switch to Plan mode** - Don't run agent mode directly
-2. **Understand scope** - Read relevant code, check dependencies
-3. **Propose approach** - Outline steps before executing
-4. **Get approval** - Wait for user confirmation
+## Kubernetes Manifests
 
-Plan → Execute pattern ensures better outcomes than diving straight into changes.
+- `k8s/**/*.yaml` - Kubernetes resources (generated)
+- `polaris-forge-setup/files/*.yaml` - K8s template sources
+
+## IDE Schema Warnings
+
+If you see lint errors like:
+- "Property tasks is not allowed" on Taskfiles
+- "Expected Snowflake Application Package Manifest" on Ansible files
+
+These are **false positives** from incorrect schema auto-detection. The files are valid.
 
 ---
 > Source: [Snowflake-Labs/polaris-local-forge](https://github.com/Snowflake-Labs/polaris-local-forge) — distributed by [TomeVault](https://tomevault.io).
