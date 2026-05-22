@@ -1,0 +1,9 @@
+{
+  "name": "justin21523--anime-adventure-lab",
+  "displayName": "anime-adventure-lab",
+  "description": "An open lab for anime-style interactive stories: LLM story engine, Chinese RAG, SDXL image generation, and LoRA fine-tuning. Upload your own characters & lore, play in the browser, export scenes, and ",
+  "version": "1.0.0",
+  "author": "Justin21523",
+  "homepage": "https://github.com/Justin21523/anime-adventure-lab",
+  "skills": []
+}
