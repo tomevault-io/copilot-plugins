@@ -1,60 +1,59 @@
-## dotnet-framework-interface-naming
+## dotnet-framework-method-naming
 
-> description: Enforces .NET Framework interface naming conventions
+> description: Enforces .NET Framework method naming conventions
 
 ---
-description: Enforces .NET Framework interface naming conventions
+description: Enforces .NET Framework method naming conventions
 globs: "*.cs"
 ---
-# .NET Framework Interface Naming
+# .NET Framework Method Naming
 
 <rule>
-name: dotnet_interface_naming
-description: Ensures interfaces follow .NET Framework naming conventions and best practices
+name: dotnet_method_naming
+description: Ensures methods follow .NET Framework naming conventions and best practices
 filters:
   - type: file_extension
     pattern: "\\.cs$"
   - type: content
-    pattern: "\\binterface\\s+[\\w]+"
+    pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+[\\w]+\\s*\\("
 
 actions:
   - type: reject
     conditions:
-      - pattern: "\\binterface\\s+(?!I)[A-Z]"
-        message: "Interface names must start with 'I'"
-      - pattern: "\\binterface\\s+[a-z]"
-        message: "Interface names must start with 'I' followed by an uppercase letter"
-      - pattern: "\\binterface\\s+I[a-z]"
-        message: "The character after 'I' must be uppercase"
-      - pattern: "\\binterface\\s+I(?:Interface|Impl)"
-        message: "Avoid using 'Interface' or 'Impl' in interface names"
+      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+[a-z]\\w*\\s*\\("
+        message: "Method names must start with an uppercase letter"
+      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+_\\w+\\s*\\("
+        message: "Method names should not start with an underscore"
+      - pattern: "\\b(?:public|private|protected|internal)\\s+(?:static\\s+)?[\\w<>\\[\\]]+\\s+Get_\\w+\\s*\\("
+        message: "Avoid using underscores in method names"
 
   - type: suggest
     message: |
-      Interface naming guidelines:
-      1. Start with capital 'I' prefix
-      2. Use PascalCase after the 'I'
-      3. Use adjectives or noun phrases
-      4. Be descriptive of the behavior
-      5. Common patterns:
-         - IDisposable
-         - IComparable
-         - IEnumerable
-         - ICollection
-         - IList
-      6. Avoid redundant terms like 'Interface'
+      Method naming guidelines:
+      1. Use PascalCase
+      2. Start with an uppercase letter
+      3. Use verbs or verb phrases
+      4. Common prefixes:
+         - Get - for retrieving data
+         - Set - for setting data
+         - Is/Has/Can - for boolean returns
+         - Calculate/Compute - for computations
+         - Initialize/Init - for initialization
+         - Validate - for validation
+      5. Be descriptive about the operation
+      6. Avoid Hungarian notation
 
 examples:
   - input: |
-      interface Service
-      interface iHandler
-      interface Interface1
-      interface IimplementationDetail
+      public void getData()
+      private string get_UserName()
+      protected bool isValid()
+      internal void _initialize()
     output: |
-      interface IService
-      interface IHandler
-      interface IProcessor
-      interface IImplementationDetail
+      public void GetData()
+      private string GetUserName()
+      protected bool IsValid()
+      internal void Initialize()
 
 metadata:
   priority: high
