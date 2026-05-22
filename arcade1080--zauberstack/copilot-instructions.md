@@ -1,130 +1,87 @@
-## general-development-workflow
+## general-project-structure
 
-> This document outlines the development workflow for Zauberstack.
+> Zauberstack is a monorepo organized using Yarn workspaces. The project is structured into multiple packages, each with a specific responsibility.
 
-# Development Workflow
+# Project Structure
 
-This document outlines the development workflow for Zauberstack.
+Zauberstack is a monorepo organized using Yarn workspaces. The project is structured into multiple packages, each with a specific responsibility.
 
-## Prerequisites
+## Package Organization
 
-Ensure you have the following tools installed:
+- `packages/api/`: NestJS backend with GraphQL API
+- `packages/client/`: React frontend application
+- `packages/website/`: Website for the project (landing pages, marketing)
 
-- Node.js (LTS version recommended)
-- Yarn (v3.x)
-- Docker and Docker Compose (for database and service integration)
-- Git
+## Root Configuration
 
-## Initial Setup
+The project contains several root-level configuration files:
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd zauberstack
-   ```
+- [package.json](mdc:package.json): Project metadata, scripts, and workspace configuration
+- [.env](mdc:.env): Environment variables (gitignored)
+- [.gitignore](mdc:.gitignore): Git ignore patterns
+- [.prettierrc](mdc:.prettierrc): Prettier configuration for code formatting
+- [.eslintrc.js](mdc:.eslintrc.js): ESLint configuration for linting
 
-2. Install dependencies:
-   ```bash
-   yarn install
-   ```
+## Key Scripts
 
-3. Set up environment files:
-   Copy the example environment files for each package and customize as needed:
-   ```bash
-   cp packages/api/env-example-improved.txt packages/api/.env
-   cp packages/client/env.example.txt packages/client/.env
-   ```
+The root `package.json` provides several scripts to manage the project:
 
-4. Initialize the database (requires Docker):
-   ```bash
-   yarn init-db
-   ```
-
-## Development Server
-
-Start the complete development environment:
-
-```bash
-yarn start
+```json
+"scripts": {
+  "client": "yarn workspace client dev",
+  "api": "yarn workspace api start:dev",
+  "website": "yarn workspace website dev",
+  "init-db": "yarn workspace api migrate:dev && yarn workspace api seed",
+  "start": "concurrently --kill-others-on-fail \"yarn api\" \"yarn client\" \"yarn website\"",
+  "lint-client": "yarn workspace client lint",
+  "lint-api": "yarn workspace api lint",
+  "lint-website": "yarn workspace website lint",
+  "prettier-api": "yarn workspace api format",
+  "prettier-client": "yarn workspace client format",
+  "e2e-test-api": "yarn workspace api test:e2e",
+  "clean": "rimraf packages/*/node_modules && rimraf node_modules",
+  "reinstall": "yarn clean && yarn install",
+  "email:dev": "yarn workspace api email dev -p 3001 --dir src/mail/email_templates"
+}
 ```
 
-This will concurrently run:
-- API server (NestJS) on port 4000
-- Client app (React) on port 5173
-- Website on port 3000
+## Dependency Management
 
-Alternatively, run individual services:
-- API only: `yarn api`
-- Client only: `yarn client`
-- Website only: `yarn website`
+Dependencies are managed at two levels:
 
-## Code Quality Tools
+1. **Root Dependencies**: Tools and utilities used across the project
+2. **Package Dependencies**: Specific to each package
 
-### Linting
+The root `package.json` also includes `resolutions` to enforce consistent versions of shared libraries.
 
-Run linting on specific packages:
-```bash
-yarn lint-api
-yarn lint-client
-yarn lint-website
-```
+## Development Workflow
 
-### Formatting
+1. Install dependencies: `yarn install`
+2. Initialize database: `yarn init-db`
+3. Start all services: `yarn start`
 
-Format code with Prettier:
-```bash
-yarn prettier-api
-yarn prettier-client
-```
+Alternatively, you can start individual services:
+- API: `yarn api`
+- Client: `yarn client`
+- Website: `yarn website`
 
-## Database Management
+## Environment Setup
 
-The API package uses Prisma for database ORM. Key commands:
+Each package has its own environment configuration:
 
-- Run migrations: `yarn workspace api migrate:dev`
-- Reset database: `yarn workspace api migrate:reset`
-- Generate Prisma client: `yarn workspace api prisma generate`
-- Seed database: `yarn workspace api seed`
+- `packages/api/.env`: Backend environment variables
+- `packages/client/.env`: Frontend environment variables
+- `packages/website/.env`: Website environment variables
 
-## Testing
+Sample env files are provided (e.g., `env.example.txt`) as templates.
 
-- Run API E2E tests: `yarn e2e-test-api`
-- Run API unit tests: `yarn workspace api test`
-- Run Client tests: `yarn workspace client test`
+## Docker Support
 
-## Environment Variables
+The project includes Docker configuration for containerized deployment:
 
-Important environment variables are documented in:
-- [packages/api/ENV_DOCUMENTATION.md](mdc:packages/api/ENV_DOCUMENTATION.md)
-- [packages/api/SUPABASE_SETUP.md](mdc:packages/api/SUPABASE_SETUP.md)
-
-## Containerization
-
-Build Docker images:
-```bash
-# API container
-docker build -f packages/api/Dockerfile.api -t zauberstack-api .
-
-# Client container
-docker build -f packages/client/Dockerfile.client -t zauberstack-client .
-```
-
-## Common Development Tasks
-
-1. **Creating a new feature**:
-   - Create a feature branch: `git checkout -b feature/feature-name`
-   - Implement changes
-   - Test changes
-   - Submit a pull request
-
-2. **Updating dependencies**:
-   - Run `yarn upgrade-interactive` to update dependencies interactively
-   - Test thoroughly after dependency updates
-
-3. **Troubleshooting**:
-   - Check logs in the terminal where services are running
-   - Reset dependencies: `yarn reinstall`
-   - Reset database: `yarn workspace api migrate:reset`
+- `packages/api/Dockerfile.api`: API container configuration
+- `packages/client/Dockerfile.client`: Client container configuration
+- `docker-compose.yml`: Compose configuration for local development
 
 ---
 > Source: [Arcade1080/zauberstack](https://github.com/Arcade1080/zauberstack) — distributed by [TomeVault](https://tomevault.io).
