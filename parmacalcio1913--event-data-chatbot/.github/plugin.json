@@ -1,0 +1,9 @@
+{
+  "name": "parmacalcio1913--event-data-chatbot",
+  "displayName": "event-data-chatbot",
+  "description": "A CLI chatbot powered by StatsBomb open data that can be used to query event data using natural language.",
+  "version": "1.0.0",
+  "author": "parmacalcio1913",
+  "homepage": "https://github.com/parmacalcio1913/event-data-chatbot",
+  "skills": []
+}
