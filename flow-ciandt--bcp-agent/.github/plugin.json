@@ -1,0 +1,9 @@
+{
+  "name": "flow-ciandt--bcp-agent",
+  "displayName": "bcp-agent",
+  "description": "bcp-agent",
+  "version": "1.0.0",
+  "author": "flow-ciandt",
+  "homepage": "https://github.com/flow-ciandt/bcp-agent",
+  "skills": []
+}
