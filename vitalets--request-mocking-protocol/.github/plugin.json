@@ -1,0 +1,9 @@
+{
+  "name": "vitalets--request-mocking-protocol",
+  "displayName": "request-mocking-protocol",
+  "description": "A protocol for declarative mocking of HTTP requests.",
+  "version": "1.0.0",
+  "author": "vitalets",
+  "homepage": "https://github.com/vitalets/request-mocking-protocol",
+  "skills": []
+}
