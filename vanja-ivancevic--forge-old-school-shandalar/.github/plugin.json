@@ -1,0 +1,9 @@
+{
+  "name": "vanja-ivancevic--forge-old-school-shandalar",
+  "displayName": "forge-old-school-shandalar",
+  "description": "A Forge TCG fork providing an Old-School Shandalar adventure mode experience using only old-border cards (1993-2003).",
+  "version": "1.0.0",
+  "author": "vanja-ivancevic",
+  "homepage": "https://github.com/vanja-ivancevic/forge-old-school-shandalar",
+  "skills": []
+}
