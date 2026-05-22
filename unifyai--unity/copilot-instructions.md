@@ -1,63 +1,115 @@
-## surgical-verification-before-tests
+## test-philosophy-symbolic-vs-eval
 
-> Write quick verification scripts before running slow tests
+> Test Philosophy – Symbolic vs Eval Spectrum
 
 
-# Surgical Verification Before Running Tests
+# Test Philosophy
 
-When fixing infrastructure issues (especially concurrency, race conditions, or fixture problems), consider writing a quick verification script before running the full test suite.
+## Real LLMs, Never Mocked
 
-## Why This Matters
+We *never* stub the LLM client. Tests always use a real LLM via `unillm.AsyncUnify`. Responses are cached per unique input, so repeated runs are fast on CI. The LLM responses become "locked in" after the first successful run.
 
-Tests in this repo have significant overhead:
-- LLM calls (cached: milliseconds, uncached: seconds to minutes)
-- Backend API connections and context setup
-- Fixture initialization and scenario seeding
+## Trigger-Based Synchronization, Not Sleeps
 
-A targeted verification script can validate a fix in **seconds** rather than waiting minutes for tests that may not even reliably reproduce the issue.
+Never rely on sleeps to align events in tests. Always use the trigger helpers in `tests/async_helpers.py` to ensure each event occurs in the necessary order. This makes tests robust to significant timing differences between cached responses (milliseconds) and live LLM calls (up to a minute).
 
-## When to Use This Pattern
+## Symbolic ↔ Eval Spectrum
 
-✅ **Good candidates:**
-- Race conditions and concurrency fixes (can simulate parallel execution directly)
-- Fixture/conftest changes (test the seeding logic in isolation)
-- Infrastructure plumbing (context management, caching, file locking)
-- Non-deterministic failures that are hard to reproduce reliably in tests
+Tests fall on a **spectrum** between two paradigms. Understanding where a test sits on this spectrum is essential for writing, debugging, and interpreting test results.
 
-❌ **Skip this for:**
-- Simple bug fixes where one test runs quickly enough
-- LLM behavior changes (need real eval tests with actual prompts)
-- Cases where the verification script would be more complex than the test itself
+### Symbolic Tests (Infrastructure-Focused)
 
-## How to Write a Verification Script
+At one end, **symbolic tests** use the LLM purely as a stub. The LLM receives minimal "dummy" instructions designed to trigger specific code paths.
 
-1. **Name it clearly**: Use `tests/_verify_*.py` (underscore prefix signals temporary/debug)
-2. **Keep it self-contained**: Minimal dependencies, no pytest fixtures
-3. **Simulate the failure condition directly**: e.g., spawn threads to test race conditions
-4. **Run fast**: Should complete in seconds, not minutes
-5. **Print clear pass/fail output**: Make success/failure obvious
+**Characteristics:**
+- LLM behavior is deterministic and predictable
+- Focus is on testing *infrastructure*: async tool loops, steering (pause/resume/interject/stop), state mutations
+- The LLM's "intelligence" is irrelevant—we just need it to call the right tools in the right order
+- **Failures indicate regressions in symbolic/programmatic logic**
 
-## Example Workflow
+### Eval Tests (Capability-Focused)
 
-```bash
-# 1. Implement the fix
+At the other end, **eval tests** exercise the system end-to-end. We ask a high-level question or give a directive, then verify the outcome—regardless of internal tool calls.
 
-# 2. Write quick verification script
-#    tests/_verify_race_fix.py - spawns 5 threads, verifies no duplicates
+**Characteristics:**
+- Focus is on *capability*: "Did the assistant correctly answer the question?" or "Did it complete the task?"
+- Internal implementation details (tool call order, number of steps) don't matter
+- Tests LLM reasoning and decision-making in realistic scenarios
+- **Failures may indicate prompt issues, tool design problems, or capability gaps**
 
-# 3. Run verification (seconds)
-.venv/bin/python tests/_verify_race_fix.py
+### The Spectrum (Not Binary)
 
-# 4. If verification passes, run actual test(s)
-tests/parallel_run.sh tests/path/to/relevant_test.py
+Most tests sit **somewhere between** these extremes:
+- Realistic prompts but only verify specific tool calls were made
+- End-to-end behavior but with constrained, predictable inputs
+- Combine symbolic infrastructure checks with high-level outcome assertions
 
-# 5. Delete verification script (it served its purpose)
-rm tests/_verify_race_fix.py
+Think of each test as having a "slider" between symbolic and eval—not a binary classification.
+
+## Caching and Determinism (`UNILLM_CACHE`)
+
+When `UNILLM_CACHE="true"` (the default), all LLM responses are cached:
+
+1. **First run**: LLM executes normally; responses stored in cache
+2. **Subsequent runs**: Cached responses replayed—no actual LLM calls
+
+**Implications:**
+- Both symbolic and eval tests become deterministic once the cache is populated
+- After caching, both test types effectively verify that *symbolic logic has not regressed*
+- Tests run fast on CI (milliseconds vs seconds/minutes for real LLM calls)
+- To re-evaluate LLM behavior: delete `.cache.ndjson`, set `UNILLM_CACHE="false"`, or use `--no-cache`
+
+### The Cache Is Never the Problem
+
+"We just need to update the cache" is **never** a valid conclusion when debugging test failures. The cache is a faithful replay mechanism, not a source of bugs.
+
+Cache keys are the exact LLM input. A cache hit means the code is sending **byte-for-byte identical** input to a previous run. If you modify prompts, tool docstrings, or system messages, the cache key changes automatically and you get fresh inference.
+
+If a cached response causes a failure, an LLM **actually made that decision** given that exact input. This is a prompt issue, not a stale cache issue. Clearing the cache just re-runs inference on the same input—likely producing the same flawed output.
+
+Only clear the cache to **re-evaluate** LLM behavior after prompt changes (`--no-cache`), not as a fix for failing tests.
+
+## Tagging Tests as Eval
+
+Mark a test file as eval with a module-level marker:
+
+```python
+import pytest
+
+pytestmark = pytest.mark.eval  # All tests in this file are eval tests
 ```
 
-## Key Principle
+For mixed files, use test-level markers:
 
-This pattern **complements** running actual tests—it doesn't replace them. The goal is faster feedback during development, not skipping proper test validation.
+```python
+@pytest.mark.eval
+@pytest.mark.asyncio
+async def test_natural_language_query():
+    ...
+```
+
+## Running Test Categories
+
+```bash
+# Run only eval tests
+tests/parallel_run.sh --eval-only tests
+
+# Run only symbolic tests
+tests/parallel_run.sh --symbolic-only tests
+
+# Re-evaluate LLM behavior (fresh calls, no cache)
+tests/parallel_run.sh --no-cache tests
+
+# Statistical sampling for eval reliability
+tests/parallel_run.sh --no-cache --repeat 10 --eval-only tests/contact_manager
+```
+
+## When Debugging Failing Tests
+
+1. **Determine test type**: Is it symbolic (infrastructure) or eval (capability)?
+2. **For symbolic failures**: Logic bug or regression in programmatic code—debug the infrastructure
+3. **For eval failures (cached)**: The cached LLM path broke—likely a code change affected tool behavior
+4. **For eval failures (uncached)**: LLM reasoning changed—may need prompt tuning, tool docstring improvements, or acceptance of variance
 
 ---
 > Source: [unifyai/unity](https://github.com/unifyai/unity) — distributed by [TomeVault](https://tomevault.io).
