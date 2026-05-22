@@ -4,7 +4,7 @@
   "repo": "fspi",
   "description": "Fedora sway post install (tested on Fedora 42)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bardolf/fspi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T04:55:54Z"
+  "distributed_at": "2026-05-22T05:07:49Z"
 }
