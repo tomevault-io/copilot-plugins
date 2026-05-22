@@ -1,258 +1,97 @@
-## general
+## mcp-prompt-implementation
 
-> You are an expert software engineer and have strong skills with typescript and using Model Context Protocol (MCP) to develop MCP Server. You have strong knowledge Unleash API in
+> When implementing new Model Context Protocol (MCP) prompts for the Unleash MCP Server, follow these patterns:
 
-# General
+# MCP Prompt Implementation Guidelines
 
-You are an expert software engineer and have strong skills with typescript and using Model Context Protocol (MCP) to develop MCP Server. You have strong knowledge Unleash API in
-https://docs.getunleash.io/reference/api/unleash/unleash-api
+When implementing new Model Context Protocol (MCP) prompts for the Unleash MCP Server, follow these patterns:
 
-Your tasks is develop A Model Context Protocol (MCP) server implementation that integrates with Unleash Feature Toggle system.
-You need follow all rules below:
+## Structure
 
-- Follow all documents in directory ./docs
-- Follow the user's requirements carefully & to the letter.
-- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
-- Confirm, then write code!
-- Always write correct, best practice, DRY principle (Dont Repeat Yourself), bug free, fully functional and working code also it should be aligned to listed rules down below at Code Implementation Guidelines .
-- Focus on easy and readability code, over being performant.
-- Fully implement all requested functionality.
-- Leave NO todo's, placeholders or missing pieces.
-- Ensure code is complete! Verify thoroughly finalised.
-- Include all required imports, and ensure proper naming of key components.
-- Be concise Minimize any other prose.
-- If you think there might not be a correct answer, you say so.
-- If you do not know the answer, say so, instead of guessing.
-- You don't need generate example
-- Do not use z.object for create tool params
+Each MCP prompt file should contain:
 
-## Project Structure
+1. A parameter schema using Zod for validation
+2. A handler function that processes inputs and returns formatted messages
+3. An exported prompt definition object
 
-```
-unleash-mcp-server/
-├── src/
-│   ├── index.ts              # Main entry point
-│   ├── config.ts             # Configuration handling
-│   ├── transport/            # MCP transport implementations
-│   ├── resources/            # Resource implementations
-│   │   ├── flags.ts
-│   │   ├── strategies.ts
-│   │   └── metrics.ts
-│   ├── tools/                # Tool implementations
-│   │   ├── is-enabled.ts
-│   │   ├── update-flag.ts
-│   │   └── create-flag.ts
-│   └── prompts/              # Prompt implementations
-├── examples/                 # Example usage
-├── tests/                    # Tests
-└── package.json
-```
+## Naming Convention
 
-## Always include .js extension
+- File name: `feature-name.ts` (kebab-case)
+- Schema: `FeatureNameParamsSchema` (PascalCase + ParamsSchema suffix)
+- Handler: `handleFeatureNamePrompt` (handle + PascalCase + Prompt suffix)
+- Export: `featureNamePrompt` (camelCase + Prompt suffix)
 
-When importing local files, always include the `.js` extension in the import path.
+## Implementation Template
 
 ```typescript
-// ✅ Good
-import { Database } from './interfaces/database.js';
+/**
+ * Brief description of the prompt purpose
+ */
 
-// ❌ Bad
-import { Database } from './interfaces/database';
-```
+import { z } from 'zod';
 
-## Handling CommonJS modules
+/**
+ * Define any needed schemas for validation
+ */
+const RequiredDataSchema = z.object({
+  // Add properties with appropriate Zod validators
+  property: z.string(),
+  optionalProperty: z.number().optional()
+}).passthrough();
 
-Some dependencies are CommonJS modules. When importing them, use this pattern:
+/**
+ * Parameters schema for this prompt
+ */
+export const FeatureNameParamsSchema = {
+  requiredParam: z.string(),
+  optionalData: RequiredDataSchema.optional()
+};
 
-```typescript
-// ✅ Good
-import pkg from 'pg';
-const { Pool } = pkg;
+/**
+ * Handler for this prompt
+ */
+export function handleFeatureNamePrompt({ 
+  requiredParam, 
+  optionalData = {} 
+}: { 
+  requiredParam: string; 
+  optionalData?: any 
+}) {
+  return {
+    messages: [{
+      role: "user",
+      content: {
+        type: "text",
+        text: `Prompt text that uses ${requiredParam} and:
+${JSON.stringify(optionalData, null, 2)}
 
-// ❌ Bad
-import { Pool } from 'pg';
-```
-
-## Import ordering
-
-Follow this order for imports:
-1. Node.js built-in modules
-2. External dependencies
-3. Local imports
-
-```typescript
-// ✅ Good
-import fs from 'fs';
-import path from 'path';
-
-import express from 'express';
-import pkg from 'pg';
-const { Pool } = pkg;
-
-import { Database } from './interfaces/database.js';
-import { SQLiteConfig } from './databases/sqlite.js';
-
-// ❌ Bad (mixed order)
-import express from 'express';
-import { Database } from './interfaces/database.js';
-import fs from 'fs';
-import pkg from 'pg';
-const { Pool } = pkg;
-```
-
-## Named exports
-
-Prefer named exports over default exports for better IDE auto-import support:
-
-```typescript
-// ✅ Good
-export class PostgresDatabase implements Database {
-  // ...
+Instructions for the AI on how to respond, including which tools to use.`
+      }
+    }]
+  };
 }
 
-// ❌ Bad
-class PostgresDatabase implements Database {
-  // ...
-}
-export default PostgresDatabase;
+/**
+ * Prompt definition export
+ */
+export const featureNamePrompt = {
+  name: "descriptiveName",
+  paramsSchema: FeatureNameParamsSchema,
+  handler: handleFeatureNamePrompt
+};
 ```
 
-## Logging
+## Best Practices
 
-Always use the logger from `./src/logger.ts` instead of directly using console methods. The logger provides consistent formatting, timestamps, and log levels.
-
-```typescript
-// ✅ Good
-import { logger } from './logger.js';
-
-logger.info('Processing request', { requestId });
-logger.error('Error occurred', error);
-
-// ❌ Bad
-console.log('Processing request', { requestId });
-console.error('Error occurred', error);
-```
-
-Available logger methods:
-- `logger.log()`: For general logging
-- `logger.info()`: For informational messages
-- `logger.warn()`: For warnings
-- `logger.error()`: For errors
-
-## Testing
-
-Always use Jest for testing. Follow these guidelines for writing tests:
-
-### Test Organization
-
-Organize tests using describe blocks for logical grouping and test blocks for individual test cases:
-
-```typescript
-// ✅ Good
-describe('Create Feature Flag API', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('createFeatureFlag should create a feature flag', async () => {
-    // Test implementation
-  });
-
-  test('createFeatureFlag should handle errors', async () => {
-    // Error handling test
-  });
-});
-```
-
-### Mocking Dependencies
-
-Mock external dependencies to isolate the unit being tested:
-
-```typescript
-// ✅ Good
-// Mock axios
-jest.mock('axios');
-const mockAxios = axios as jest.Mocked<typeof axios>;
-
-// Mock internal modules
-jest.mock('../src/unleash/unleash-client.js', () => ({
-  client: {
-    post: jest.fn()
-  }
-}));
-
-// Mock logger
-jest.mock('../src/logger.js', () => ({
-  logger: {
-    log: jest.fn(),
-    info: jest.fn(),
-    error: jest.fn()
-  }
-}));
-```
-
-### Clean State Between Tests
-
-Reset mocks and clear state between tests:
-
-```typescript
-// ✅ Good
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-```
-
-### Test Both Success and Error Cases
-
-Always test both happy path and error handling:
-
-```typescript
-// ✅ Good
-test('createFeatureFlag should create a feature flag', async () => {
-  // Setup mock response for success case
-  const mockResponse = { /* success data */ };
-  client.post.mockResolvedValue(mockResponse);
-  
-  // Test success case
-});
-
-test('createFeatureFlag should handle errors', async () => {
-  // Setup mock for error case
-  client.post.mockRejectedValue(new Error('API error'));
-  
-  // Test error handling
-});
-```
-
-### Testing Tool Handlers
-
-For MCP tool handlers, verify both the response structure and content:
-
-```typescript
-// ✅ Good
-test('handleCreateFlag should return success response', async () => {
-  // Mock implementation function
-  jest.spyOn(require('../src/unleash/create-feature-flag.js'), 'createFeatureFlag')
-    .mockResolvedValue({
-      name: 'test-flag',
-      project: 'default',
-      enabled: false
-    });
-
-  // Call the handler
-  const response = await handleCreateFlag({
-    name: 'test-flag',
-    project: 'default',
-    description: 'Test flag description'
-  });
-
-  // Verify response structure and content
-  expect(response.content[0].type).toBe('text');
-  const content = JSON.parse(response.content[0].text);
-  expect(content.success).toBe(true);
-  expect(content.message).toContain('Successfully created');
-});
-```
+1. Use Zod for all parameter validation
+2. Include clear JSDoc comments
+3. Format multi-line strings with template literals
+4. Provide default values for optional parameters
+5. Use proper TypeScript typing for handler parameters
+6. Format JSON with indentation for readability
+7. Include instructions for tool usage in the prompt text
+8. Export only the final prompt definition object
+9. Follow the project structure for importing dependencies
 
 ---
 > Source: [cuongtl1992/unleash-mcp](https://github.com/cuongtl1992/unleash-mcp) — distributed by [TomeVault](https://tomevault.io).
