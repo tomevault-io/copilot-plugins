@@ -1,0 +1,9 @@
+{
+  "name": "clintcan--macrdp",
+  "displayName": "macrdp",
+  "description": "A native RDP server for macOS, written in Rust on top of IronRDP. ",
+  "version": "1.0.0",
+  "author": "clintcan",
+  "homepage": "https://github.com/clintcan/macrdp",
+  "skills": []
+}
