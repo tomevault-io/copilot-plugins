@@ -1,38 +1,15 @@
-## react-development
+## tech-stack
 
-> Developing React components in Astro application
+> Always use libraries and frameworks available in [package.json](mdc:package.json)
 
-Developing React components in Astro application
-## Frontend
+## Tech Stack
 
-### Guidelines for React
+- React 19
+- Tailwind 4
+- Vite
+- shadcn/ui
 
-#### React Coding Standards
-
-- Use functional components with hooks instead of class components
-- Implement React.memo() for expensive components that render often with the same props
-- Utilize React.lazy() and Suspense for code-splitting and performance optimization
-- Use the useCallback hook for event handlers passed to child components to prevent unnecessary re-renders
-- Prefer useMemo for expensive calculations to avoid recomputation on every render
-- Prefer relying on Tailwind media queries instead of manual style recalculations
-- Use Tailwind responsive variants (sm:, md:, lg:, etc.) for adaptive designs - under no circumstances calculate this manually
-- When addining shadcn/ui components, always use new cli syntax: `npx shadcn@latest add hover-card`
-
-#### Component Type Definitions
-
-- All reusable component types should be defined in `src/components/tools/tools.types.ts`
-- Each type definition must include:
-  - Interface for component props
-  - JSDoc comments with description and usage examples
-  - Clear naming conventions (e.g., `ComponentNameProps`)
-
-#### shadcn/ui Components
-
-- All shadcn components are stored in `src/components/ui/`
-- Each component should:
-  - Use relative imports for utilities (e.g., `../../lib/utils`)
-  - Include proper data-slot attributes for styling
-  - Maintain the standard shadcn structure with Root/Trigger/Content pattern where applicable
+Always use libraries and frameworks available in [package.json](mdc:package.json)
 
 ---
 > Source: [przeprogramowani/10x-magic-docs](https://github.com/przeprogramowani/10x-magic-docs) — distributed by [TomeVault](https://tomevault.io).
