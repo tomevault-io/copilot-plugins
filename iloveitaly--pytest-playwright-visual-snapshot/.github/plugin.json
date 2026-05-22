@@ -1,0 +1,9 @@
+{
+  "name": "iloveitaly--pytest-playwright-visual-snapshot",
+  "displayName": "pytest-playwright-visual-snapshot",
+  "description": "Easy pytest visual regression testing using playwright",
+  "version": "1.0.0",
+  "author": "iloveitaly",
+  "homepage": "https://github.com/iloveitaly/pytest-playwright-visual-snapshot",
+  "skills": []
+}
