@@ -1,0 +1,43 @@
+## toc
+
+> grep -n "^##\\+ " your-file.md
+
+## Update ToC -> `grep`-Sync Markdown TOC
+
+**1. Get Headings:**
+
+```bash
+grep -n "^##\\+ " your-file.md
+```
+
+(`-n`=line numbers; `^##\\+ `=headings H2-H6).
+
+**2. Analyze & Rebuild TOC:**
+Compare `grep` output to your TOC in `your-file.md`. Edit TOC to match `grep` data:
+
+- **Hierarchy Mapping (from `grep` `^##\\+ ` to TOC indent):**
+  - `##`: `**[Text](#link)**` (0 spaces indent)
+  - `###`: `- [Text](#link)` (2 spaces indent)
+  - `####`: `- [Text](#link)` (4 spaces indent)
+  - (etc., +2 spaces/level, no `**`)
+- **Anchor Links (`#link`):** Lowercase heading, spaces to hyphens.
+
+**Example Fix (`cpu-profiling.md` "Data Structure" section):**
+`grep` showed `### Dimensions and Time` under `## Data Structure`.
+TOC changed from:
+
+```markdown
+- **[Data Structure](#data-structure)**
+- **[Dimensions and Time](#dimensions-and-time)**
+```
+
+To (correctly nested):
+
+```markdown
+- **[Data Structure](#data-structure)**
+  - [Dimensions and Time](#dimensions-and-time)
+```
+
+---
+> Source: [push-based/cpu-prof](https://github.com/push-based/cpu-prof) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
