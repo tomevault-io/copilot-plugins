@@ -1,0 +1,9 @@
+{
+  "name": "darkinno--gb32960-go-sdk",
+  "displayName": "gb32960-go-sdk",
+  "description": "GB/T 32960 \u7535\u52a8\u6c7d\u8f66\u8fdc\u7a0b\u670d\u52a1\u4e0e\u7ba1\u7406\u7cfb\u7edf\u901a\u4fe1\u534f\u8bae Go SDK ",
+  "version": "1.0.0",
+  "author": "DarkInno",
+  "homepage": "https://github.com/DarkInno/gb32960-go-sdk",
+  "skills": []
+}
