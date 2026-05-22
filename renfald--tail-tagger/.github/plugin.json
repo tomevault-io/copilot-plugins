@@ -1,0 +1,9 @@
+{
+  "name": "renfald--tail-tagger",
+  "displayName": "tail-tagger",
+  "description": "An application to make manual e621 tag curation for datasets easier to perform, through an efficient workflow and with image classifier assistance ",
+  "version": "1.0.0",
+  "author": "renfald",
+  "homepage": "https://github.com/renfald/tail-tagger",
+  "skills": []
+}
