@@ -1,0 +1,133 @@
+## modern-llm-notebook
+
+> 这是一套**从零实现大模型核心组件**的 Jupyter Notebook 教程。
+
+# AGENTS.md — Modern LLM Notebook 项目规范
+
+## 项目定位
+
+这是一套**从零实现大模型核心组件**的 Jupyter Notebook 教程。
+目标读者是有 Python 基础、想深入理解 LLM 内部原理的工程师。
+写作时默认把读者当成“有耐心、愿意思考的高中生”：不要假设他已经懂术语，
+每个新概念都要用一句清楚定义 + 一个具体例子带进去。
+教学风格：**直觉理解 → 手算验证 → 代码实现 → 实验观察**。
+
+## 写作规范
+
+### 核心原则
+
+1. **先讲为什么，再讲怎么做** — 每个概念出现前，先解释它解决了什么问题
+2. **先给直观理解，再给数学公式** — 用比喻和具体例子建立直觉，公式在后
+3. **手算 > 调包** — 每个核心算法先用具体数字手动计算一遍，再写代码
+4. **代码自解释** — 在 print 里告诉读者「关键观察」是什么
+5. **循序渐进** — 每一步只引入一个新概念，不堆砌
+6. **先定义，再展开** — 像 Token、Tokenizer、Embedding 这类核心词，第一次出现时必须先给明确中文定义，再解释它为什么重要
+
+### 语言风格
+
+- Markdown 用中文写，口语化、对话感，用「你」称呼读者
+- 多用反问句引发思考，然后自问自答
+- 代码注释用中文
+- 不要翻译专有名词（Self-Attention、Embedding、Token 等保持英文）
+- 每个 Part 结尾有小结 checklist，确认读者懂了
+- 开头要像高中生教程：先告诉读者“今天要解决什么困惑”，再说会怎么一步步解决
+- 不要一上来用抽象判断压读者；先给定义，再给例子，再给反例或注意事项
+
+### Notebook 结构模版
+
+```
+# 🧱 Part N：中文标题
+
+> **前情回顾**：[一句话回顾上一个 Part 学了什么]
+> **本 Part 目标**：[一句话说清本 Part 要达成什么]
+
+## 0. 先建立直觉（可选，复杂概念必须有）
+## 1. 第一个问题/方案一（最朴素的想法）
+## 2. 方案一的缺点 → 引出方案二
+## 3. 手算验证核心算法
+## 4. 代码实现
+## 5. 可视化/实验
+## 6. 和工业界的区别（可选）
+## N. 特殊话题（如 special tokens）
+## 小结（checklist）
+```
+
+### 代码规范
+
+- 每行 ≤ 100 字符
+- 类和函数有中文 docstring，解释参数和返回
+- 不用 type hints（教学代码，保持简洁）
+- 小步快跑：每个 cell 只做一个操作，输出立即可见
+- 用 `print()` 在输出里标注「关键观察」「解释」等
+- 实验性代码用 `np.random.seed(42)` 或 `torch.manual_seed(42)` 保证可复现
+- import 放在 notebook 的第一个 code cell
+- 代码要尽量高中生可读：直白、短小、变量名清楚，不追求工程抽象
+- 不要写太多复杂封装；除非这个类/函数本身就是教学对象，否则优先用平铺代码展示过程
+- 不要过度防御编程；教学代码优先展示主路径，少写与核心概念无关的异常处理、配置分支和通用框架
+- 注释要写好：解释“这一步为什么做”和“shape/数值代表什么”，不要写空泛注释
+- 复杂逻辑前用 1-2 行中文注释铺垫，让读者知道接下来要观察什么
+
+### 作业规范
+
+- 每个阶段性章节可以加入 3 个小作业，形式是“填空 + `assert` 检查”
+- 每道作业必须有一个“小提示”，提示思路但不直接给答案
+- 作业代码运行后应该用 `assert` 给出明确反馈，通过后用 `print()` 告诉读者学会了什么
+- 作业区要提醒：可以用 AI 询问思路、拆步骤、检查方向，但不建议直接让 AI “做完这道题”
+
+### 表格规范
+
+对比表格用 markdown 原生格式，不用 pandas DataFrame：
+
+| 方案 | 优点 | 缺点 |
+|:---|:---|:---|
+| 字符级 | 简单 | 序列太长 |
+
+### 数学公式
+
+用 LaTeX inline (`$...$`) 或 block。简单公式直接用代码块 + 注释。
+
+### 命名约定
+
+- Notebook 文件：`XX-topic-name.ipynb`（XX 为两位数字编号）
+- 类名：英文 PascalCase（`MultiHeadAttention`）
+- 函数/变量：英文 snake_case（`encode`, `token_lists`）
+- Part 编号：中文「第 X 部分」或「Part X」
+
+### 禁止事项
+
+- 不要用 `from transformers import ...` 来替代手写实现
+- 不要跳过直觉建立直接给公式
+- 不要在一个 cell 里塞太多逻辑
+- 不要在 markdown 里贴大段代码
+- 不要用英文写 markdown（本教程中文受众）
+- 不要引入不必要的依赖（所有实现只用 torch + numpy + matplotlib + 标准库）
+
+## 目录结构
+
+```
+notebooks/
+├── part1-foundation/    # 01-04: Tokenizer → Embedding → Mini-GPT
+├── part2-training/      # 05-12: 架构优化 → MoE → BERT → 训练 → 缩放 → 数据 → LoRA → RLHF
+├── part3-inference/     # 13-15: 生成 → 推理加速 → 投机解码
+├── part4-frontiers/     # 16-18: 长上下文 → CoT → VLM
+└── part5-production/    # 19-21: 评测 → 蒸馏 → OPD
+```
+
+## Notebook 间引用规范
+
+- 前情回顾只引用上一 Part 的核心概念，不给具体代码行号
+- 预告下一 Part 时只用一句话激发兴趣
+- 每个 Notebook 自包含，不依赖其他 Notebook 的运行时状态
+
+## 网页端运行与构建
+
+在根目录下支持以下命令：
+- 安装网页端依赖：`npm install`
+- 转换 Notebook 并启动网页端开发服务器：`npm run dev`
+- 转换 Notebook 并构建静态网页：`npm run build`
+- 预览构建的静态网页：`npm run preview`
+- 仅执行 Notebook 转换：`npm run convert`
+
+---
+> Source: [walkinglabs/modern-llm-notebook](https://github.com/walkinglabs/modern-llm-notebook) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
