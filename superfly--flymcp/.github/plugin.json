@@ -1,0 +1,9 @@
+{
+  "name": "superfly--flymcp",
+  "displayName": "flymcp",
+  "description": "MCP server for Fly.io CLI integration with Claude Desktop",
+  "version": "1.0.0",
+  "author": "superfly",
+  "homepage": "https://github.com/superfly/flymcp",
+  "skills": []
+}
