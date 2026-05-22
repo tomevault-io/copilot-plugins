@@ -1,0 +1,9 @@
+{
+  "name": "jazzychad--ios-code-audit",
+  "displayName": "ios-code-audit",
+  "description": "Agent skill for comprehensive ios codebase audit",
+  "version": "1.0.0",
+  "author": "jazzychad",
+  "homepage": "https://github.com/jazzychad/ios-code-audit",
+  "skills": []
+}
