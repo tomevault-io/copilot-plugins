@@ -4,7 +4,7 @@
   "repo": "flamedeck",
   "description": "Monorepo for FlameDeck",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flamedeck-org/flamedeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T17:14:14Z"
+  "distributed_at": "2026-05-22T18:42:23Z"
 }
