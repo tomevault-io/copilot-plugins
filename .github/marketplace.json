@@ -63489,6 +63489,61 @@
       "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
     },
     {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
+      "name": "gracefullight--krds",
+      "source": "./gracefullight--krds",
+      "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -65347,6 +65402,21 @@
       "name": "reliverse--versator",
       "source": "./reliverse--versator",
       "description": "\ud83c\udfea versator: next.js 15 react 19 ecommerce template \u25b2 i18n stripe shadcn ui tailwind drizzle orm zod typescript ts clerk radix, responsive server components, postgres neon, intl app router docs user ac"
+    },
+    {
+      "name": "saharmor--simulatedev",
+      "source": "./saharmor--simulatedev",
+      "description": "Run AI coding agents like Cursor, Windsurf, and Claude Code via code and let them implement features all the way to a pull request"
+    },
+    {
+      "name": "saharmor--simulatedev",
+      "source": "./saharmor--simulatedev",
+      "description": "Run AI coding agents like Cursor, Windsurf, and Claude Code via code and let them implement features all the way to a pull request"
+    },
+    {
+      "name": "saharmor--simulatedev",
+      "source": "./saharmor--simulatedev",
+      "description": "Run AI coding agents like Cursor, Windsurf, and Claude Code via code and let them implement features all the way to a pull request"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -68222,6 +68292,11 @@
       "name": "martin-papy--qdrant-loader",
       "source": "./martin-papy--qdrant-loader",
       "description": "Enterprise-ready vector database toolkit for building searchable knowledge bases from multiple data sources. Supports multi-project management, automatic ingestion from Confluence/JIRA/Git, intelligen"
+    },
+    {
+      "name": "opensyte--opensyte",
+      "source": "./opensyte--opensyte",
+      "description": "An open source all-in-one business management software."
     },
     {
       "name": "yoloshii--mcp-code-execution-enhanced",
@@ -74182,6 +74257,11 @@
       "name": "tyrchen--simple-proxy",
       "source": "./tyrchen--simple-proxy",
       "description": "Simple http reverse proxy using pingora"
+    },
+    {
+      "name": "fradser--mcp-server-to-markdown",
+      "source": "./fradser--mcp-server-to-markdown",
+      "description": "mcp-server-to-markdown"
     },
     {
       "name": "r44vc0rp--itui",
@@ -80479,6 +80559,41 @@
       "description": "Telegram-Forwarder (UNIX-way) - forwards (or copies) messages from monitored channels and groups to target ones according to specified rules to obtain thematic digests"
     },
     {
+      "name": "mwolf1989--tanstack-starter",
+      "source": "./mwolf1989--tanstack-starter",
+      "description": "TanStack Start Supabase and Shadcn Starter"
+    },
+    {
+      "name": "government-communication-service--assist-service",
+      "source": "./government-communication-service--assist-service",
+      "description": "Assist Service"
+    },
+    {
+      "name": "government-communication-service--assist-service",
+      "source": "./government-communication-service--assist-service",
+      "description": "Assist Service"
+    },
+    {
+      "name": "government-communication-service--assist-service",
+      "source": "./government-communication-service--assist-service",
+      "description": "Assist Service"
+    },
+    {
+      "name": "government-communication-service--assist-service",
+      "source": "./government-communication-service--assist-service",
+      "description": "Assist Service"
+    },
+    {
+      "name": "government-communication-service--assist-service",
+      "source": "./government-communication-service--assist-service",
+      "description": "Assist Service"
+    },
+    {
+      "name": "government-communication-service--assist-service",
+      "source": "./government-communication-service--assist-service",
+      "description": "Assist Service"
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -83709,6 +83824,46 @@
       "description": "Generate docs with Agentic AI"
     },
     {
+      "name": "przeprogramowani--10x-magic-docs",
+      "source": "./przeprogramowani--10x-magic-docs",
+      "description": "Generate docs with Agentic AI"
+    },
+    {
+      "name": "przeprogramowani--10x-magic-docs",
+      "source": "./przeprogramowani--10x-magic-docs",
+      "description": "Generate docs with Agentic AI"
+    },
+    {
+      "name": "surendranb--cardash",
+      "source": "./surendranb--cardash",
+      "description": "CarDash"
+    },
+    {
+      "name": "kawasima--validation-modeling",
+      "source": "./kawasima--validation-modeling",
+      "description": "validation-modeling"
+    },
+    {
+      "name": "kawasima--validation-modeling",
+      "source": "./kawasima--validation-modeling",
+      "description": "validation-modeling"
+    },
+    {
+      "name": "just-understanding-data-ltd--supabase-tdd-boilerplate",
+      "source": "./just-understanding-data-ltd--supabase-tdd-boilerplate",
+      "description": "A repo showing how to do TDD with Supabase with orgs, teams, invitations with 3 layers of tests. Focusing on component/function (unit tests), integration tests for RLS + Supabase (RLS) and E2E tests w"
+    },
+    {
+      "name": "just-understanding-data-ltd--supabase-tdd-boilerplate",
+      "source": "./just-understanding-data-ltd--supabase-tdd-boilerplate",
+      "description": "A repo showing how to do TDD with Supabase with orgs, teams, invitations with 3 layers of tests. Focusing on component/function (unit tests), integration tests for RLS + Supabase (RLS) and E2E tests w"
+    },
+    {
+      "name": "just-understanding-data-ltd--supabase-tdd-boilerplate",
+      "source": "./just-understanding-data-ltd--supabase-tdd-boilerplate",
+      "description": "A repo showing how to do TDD with Supabase with orgs, teams, invitations with 3 layers of tests. Focusing on component/function (unit tests), integration tests for RLS + Supabase (RLS) and E2E tests w"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -85552,6 +85707,46 @@
       "name": "layr-labs--devkit-cli",
       "source": "./layr-labs--devkit-cli",
       "description": "A CLI toolkit for scaffolding, developing, and testing EigenLayer Autonomous Verifiable Services (AVS)."
+    },
+    {
+      "name": "thesethrose--devrules",
+      "source": "./thesethrose--devrules",
+      "description": "A comprehensive collection of AI prompt engineering rules designed to enhance AI-assisted development workflows."
+    },
+    {
+      "name": "thesethrose--devrules",
+      "source": "./thesethrose--devrules",
+      "description": "A comprehensive collection of AI prompt engineering rules designed to enhance AI-assisted development workflows."
+    },
+    {
+      "name": "thesethrose--devrules",
+      "source": "./thesethrose--devrules",
+      "description": "A comprehensive collection of AI prompt engineering rules designed to enhance AI-assisted development workflows."
+    },
+    {
+      "name": "thesethrose--devrules",
+      "source": "./thesethrose--devrules",
+      "description": "A comprehensive collection of AI prompt engineering rules designed to enhance AI-assisted development workflows."
+    },
+    {
+      "name": "yfgaia--gaia-x",
+      "source": "./yfgaia--gaia-x",
+      "description": "Gaia-X \u57fa\u4e8eAI\u65b0\u8303\u5f0f\u7684\u4e0b\u4e00\u4ee3\u4f01\u4e1a\u7ea7AI\u5e94\u7528\u5e73\u53f0\u3002Gaia-X\u65e8\u5728\u5b9e\u73b0\u7c7b\u4eba\u8111\u7684\u3001\u9488\u5bf9\u4f01\u4e1a\u529e\u516c\u4e1a\u52a1\u573a\u666f\u7684AI\u5316\u8d4b\u80fd\uff0c\u5305\u62ec\u4e00\u7cfb\u5217\u65b0\u9896\u800c\u7a33\u5b9a\u7684\u4f01\u4e1a\u7ea7AI\u529f\u80fd\uff0c\u5305\u62ec\u4e0d\u9650\u4e8e\uff1a\u4f01\u4e1a\u7ea7\u7ba1\u7406\u529f\u80fd\u3001MCP Server\u652f\u6301\uff08\u4e14\u652f\u6301\u5c06\u4f01\u4e1a\u5185\u90e8\u7cfb\u7edfAPI\u8f6c\u6362\u4e3aMCP Server\u63d0\u4f9b\u670d\u52a1\uff09\u3001\u652f\u6301\u81ea\u7136\u8bed\u8a00\u9a71\u52a8\u7684RPA\uff08\u5927\u6a21\u578b\u64cd\u4f5c\u7535\u8111\uff09\u3001\u5212\u8bcd\u5206\u6790\u548c\u60ac\u6d6e\u7403\u7b49\u3002"
+    },
+    {
+      "name": "yfgaia--gaia-x",
+      "source": "./yfgaia--gaia-x",
+      "description": "Gaia-X \u57fa\u4e8eAI\u65b0\u8303\u5f0f\u7684\u4e0b\u4e00\u4ee3\u4f01\u4e1a\u7ea7AI\u5e94\u7528\u5e73\u53f0\u3002Gaia-X\u65e8\u5728\u5b9e\u73b0\u7c7b\u4eba\u8111\u7684\u3001\u9488\u5bf9\u4f01\u4e1a\u529e\u516c\u4e1a\u52a1\u573a\u666f\u7684AI\u5316\u8d4b\u80fd\uff0c\u5305\u62ec\u4e00\u7cfb\u5217\u65b0\u9896\u800c\u7a33\u5b9a\u7684\u4f01\u4e1a\u7ea7AI\u529f\u80fd\uff0c\u5305\u62ec\u4e0d\u9650\u4e8e\uff1a\u4f01\u4e1a\u7ea7\u7ba1\u7406\u529f\u80fd\u3001MCP Server\u652f\u6301\uff08\u4e14\u652f\u6301\u5c06\u4f01\u4e1a\u5185\u90e8\u7cfb\u7edfAPI\u8f6c\u6362\u4e3aMCP Server\u63d0\u4f9b\u670d\u52a1\uff09\u3001\u652f\u6301\u81ea\u7136\u8bed\u8a00\u9a71\u52a8\u7684RPA\uff08\u5927\u6a21\u578b\u64cd\u4f5c\u7535\u8111\uff09\u3001\u5212\u8bcd\u5206\u6790\u548c\u60ac\u6d6e\u7403\u7b49\u3002"
+    },
+    {
+      "name": "yfgaia--gaia-x",
+      "source": "./yfgaia--gaia-x",
+      "description": "Gaia-X \u57fa\u4e8eAI\u65b0\u8303\u5f0f\u7684\u4e0b\u4e00\u4ee3\u4f01\u4e1a\u7ea7AI\u5e94\u7528\u5e73\u53f0\u3002Gaia-X\u65e8\u5728\u5b9e\u73b0\u7c7b\u4eba\u8111\u7684\u3001\u9488\u5bf9\u4f01\u4e1a\u529e\u516c\u4e1a\u52a1\u573a\u666f\u7684AI\u5316\u8d4b\u80fd\uff0c\u5305\u62ec\u4e00\u7cfb\u5217\u65b0\u9896\u800c\u7a33\u5b9a\u7684\u4f01\u4e1a\u7ea7AI\u529f\u80fd\uff0c\u5305\u62ec\u4e0d\u9650\u4e8e\uff1a\u4f01\u4e1a\u7ea7\u7ba1\u7406\u529f\u80fd\u3001MCP Server\u652f\u6301\uff08\u4e14\u652f\u6301\u5c06\u4f01\u4e1a\u5185\u90e8\u7cfb\u7edfAPI\u8f6c\u6362\u4e3aMCP Server\u63d0\u4f9b\u670d\u52a1\uff09\u3001\u652f\u6301\u81ea\u7136\u8bed\u8a00\u9a71\u52a8\u7684RPA\uff08\u5927\u6a21\u578b\u64cd\u4f5c\u7535\u8111\uff09\u3001\u5212\u8bcd\u5206\u6790\u548c\u60ac\u6d6e\u7403\u7b49\u3002"
+    },
+    {
+      "name": "yfgaia--gaia-x",
+      "source": "./yfgaia--gaia-x",
+      "description": "Gaia-X \u57fa\u4e8eAI\u65b0\u8303\u5f0f\u7684\u4e0b\u4e00\u4ee3\u4f01\u4e1a\u7ea7AI\u5e94\u7528\u5e73\u53f0\u3002Gaia-X\u65e8\u5728\u5b9e\u73b0\u7c7b\u4eba\u8111\u7684\u3001\u9488\u5bf9\u4f01\u4e1a\u529e\u516c\u4e1a\u52a1\u573a\u666f\u7684AI\u5316\u8d4b\u80fd\uff0c\u5305\u62ec\u4e00\u7cfb\u5217\u65b0\u9896\u800c\u7a33\u5b9a\u7684\u4f01\u4e1a\u7ea7AI\u529f\u80fd\uff0c\u5305\u62ec\u4e0d\u9650\u4e8e\uff1a\u4f01\u4e1a\u7ea7\u7ba1\u7406\u529f\u80fd\u3001MCP Server\u652f\u6301\uff08\u4e14\u652f\u6301\u5c06\u4f01\u4e1a\u5185\u90e8\u7cfb\u7edfAPI\u8f6c\u6362\u4e3aMCP Server\u63d0\u4f9b\u670d\u52a1\uff09\u3001\u652f\u6301\u81ea\u7136\u8bed\u8a00\u9a71\u52a8\u7684RPA\uff08\u5927\u6a21\u578b\u64cd\u4f5c\u7535\u8111\uff09\u3001\u5212\u8bcd\u5206\u6790\u548c\u60ac\u6d6e\u7403\u7b49\u3002"
     },
     {
       "name": "10xchengtu--mux0",
@@ -87522,6 +87717,11 @@
       "name": "codingthefuturewithai--rag-retriever",
       "source": "./codingthefuturewithai--rag-retriever",
       "description": "A Python application that loads and processes both web pages and local documents, indexing their content using embeddings, and enabling semantic search queries."
+    },
+    {
+      "name": "opengrep--opengrep-playground",
+      "source": "./opengrep--opengrep-playground",
+      "description": "Opengrep playground: a desktop app to craft Opengrep rules"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -89542,6 +89742,46 @@
       "name": "aiurda--cursor10x",
       "source": "./aiurda--cursor10x",
       "description": "Cursor10x is a comprehensive suite of tools that enhances the A.I. agent's capabilities within the Cursor IDE, providing persistent memory across sessions, standardized task management, and enforced b"
+    },
+    {
+      "name": "klaudiusz321--social-media-agents",
+      "source": "./klaudiusz321--social-media-agents",
+      "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe"
+    },
+    {
+      "name": "klaudiusz321--social-media-agents",
+      "source": "./klaudiusz321--social-media-agents",
+      "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe"
+    },
+    {
+      "name": "klaudiusz321--social-media-agents",
+      "source": "./klaudiusz321--social-media-agents",
+      "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe"
+    },
+    {
+      "name": "klaudiusz321--social-media-agents",
+      "source": "./klaudiusz321--social-media-agents",
+      "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe"
+    },
+    {
+      "name": "klaudiusz321--social-media-agents",
+      "source": "./klaudiusz321--social-media-agents",
+      "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe"
+    },
+    {
+      "name": "klaudiusz321--social-media-agents",
+      "source": "./klaudiusz321--social-media-agents",
+      "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe"
+    },
+    {
+      "name": "klaudiusz321--social-media-agents",
+      "source": "./klaudiusz321--social-media-agents",
+      "description": "This project implements a modular, multi-agent AI system where a primary agent coordinates with specialized agents (Ad Campaign Manager, Analytics, Content Creator, and Engagement) to provide comprehe"
+    },
+    {
+      "name": "it00021hot--heygem-api",
+      "source": "./it00021hot--heygem-api",
+      "description": "heygem-api"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -91572,6 +91812,66 @@
       "name": "iplayground--iplayground-app",
       "source": "./iplayground--iplayground-app",
       "description": "iPlayground 2025 App"
+    },
+    {
+      "name": "marcusyuan--langgraph-learn",
+      "source": "./marcusyuan--langgraph-learn",
+      "description": "langgraph-learn"
+    },
+    {
+      "name": "marcopesani--think-mcp-server",
+      "source": "./marcopesani--think-mcp-server",
+      "description": "A minimal MCP Server based on the Anthropic's \"think\" tool research"
+    },
+    {
+      "name": "yangkyeongmo--mcp-server-openmetadata",
+      "source": "./yangkyeongmo--mcp-server-openmetadata",
+      "description": "mcp-server-openmetadata"
+    },
+    {
+      "name": "yangkyeongmo--mcp-server-openmetadata",
+      "source": "./yangkyeongmo--mcp-server-openmetadata",
+      "description": "mcp-server-openmetadata"
+    },
+    {
+      "name": "yangkyeongmo--mcp-server-openmetadata",
+      "source": "./yangkyeongmo--mcp-server-openmetadata",
+      "description": "mcp-server-openmetadata"
+    },
+    {
+      "name": "metr--inspect-action",
+      "source": "./metr--inspect-action",
+      "description": "Running UK AISI's Inspect in the Cloud"
+    },
+    {
+      "name": "metr--inspect-action",
+      "source": "./metr--inspect-action",
+      "description": "Running UK AISI's Inspect in the Cloud"
+    },
+    {
+      "name": "metr--inspect-action",
+      "source": "./metr--inspect-action",
+      "description": "Running UK AISI's Inspect in the Cloud"
+    },
+    {
+      "name": "metr--inspect-action",
+      "source": "./metr--inspect-action",
+      "description": "Running UK AISI's Inspect in the Cloud"
+    },
+    {
+      "name": "metr--inspect-action",
+      "source": "./metr--inspect-action",
+      "description": "Running UK AISI's Inspect in the Cloud"
+    },
+    {
+      "name": "metr--inspect-action",
+      "source": "./metr--inspect-action",
+      "description": "Running UK AISI's Inspect in the Cloud"
+    },
+    {
+      "name": "metr--inspect-action",
+      "source": "./metr--inspect-action",
+      "description": "Running UK AISI's Inspect in the Cloud"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -93697,6 +93997,16 @@
       "name": "rahmadafandi--rustpy-xlsxwriter",
       "source": "./rahmadafandi--rustpy-xlsxwriter",
       "description": "High-performance Excel and CSV file generation powered by Rust (~7-9x faster)"
+    },
+    {
+      "name": "ecp-eth--comments-monorepo",
+      "source": "./ecp-eth--comments-monorepo",
+      "description": "comments-monorepo"
+    },
+    {
+      "name": "ecp-eth--comments-monorepo",
+      "source": "./ecp-eth--comments-monorepo",
+      "description": "comments-monorepo"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -96509,6 +96819,36 @@
       "description": "Display a supernote .note file"
     },
     {
+      "name": "perflab-io--perfagent",
+      "source": "./perflab-io--perfagent",
+      "description": "A performance insights and knowledge assistant agent built on top of Chrome DevTools internals, Mastra, AI SDK and NextJS"
+    },
+    {
+      "name": "perflab-io--perfagent",
+      "source": "./perflab-io--perfagent",
+      "description": "A performance insights and knowledge assistant agent built on top of Chrome DevTools internals, Mastra, AI SDK and NextJS"
+    },
+    {
+      "name": "perflab-io--perfagent",
+      "source": "./perflab-io--perfagent",
+      "description": "A performance insights and knowledge assistant agent built on top of Chrome DevTools internals, Mastra, AI SDK and NextJS"
+    },
+    {
+      "name": "perflab-io--perfagent",
+      "source": "./perflab-io--perfagent",
+      "description": "A performance insights and knowledge assistant agent built on top of Chrome DevTools internals, Mastra, AI SDK and NextJS"
+    },
+    {
+      "name": "nazruden--clickup-mcp-server",
+      "source": "./nazruden--clickup-mcp-server",
+      "description": "A Model Context Protocol server implementation for ClickUp integration, enabling AI assistants to interact with ClickUp workspaces."
+    },
+    {
+      "name": "redhat-ux--next-gen-ui-agent",
+      "source": "./redhat-ux--next-gen-ui-agent",
+      "description": "The goal of this AI agent is to generate personalised and rich UI components based on the user prompt, chat history and backend data provided by other agents in your AI assistant."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -98899,6 +99239,16 @@
       "description": "Tools for Use with ObsidianMD"
     },
     {
+      "name": "telescopeai--cortex",
+      "source": "./telescopeai--cortex",
+      "description": "Lightweight Modular Semantic Engine"
+    },
+    {
+      "name": "telescopeai--cortex",
+      "source": "./telescopeai--cortex",
+      "description": "Lightweight Modular Semantic Engine"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -101137,6 +101487,11 @@
       "name": "r-huijts--opentk-mcp",
       "source": "./r-huijts--opentk-mcp",
       "description": "A Model Context Protocol (MCP) server providing access to Dutch parliamentary data (Tweede Kamer) through OpenTK . This server enables AI assistants to search, retrieve, and analyze parliamentary docu"
+    },
+    {
+      "name": "artreimus--notes-aws-machine-learning",
+      "source": "./artreimus--notes-aws-machine-learning",
+      "description": "Exam Notes for AWS Certified Machine Learning Engineer Associate (MLA-C01)"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -103587,6 +103942,16 @@
       "name": "embedthis--appweb",
       "source": "./embedthis--appweb",
       "description": "EmbedThis Appweb Embedded Web Server"
+    },
+    {
+      "name": "bjorndavidhansen--google-ads-mcp-server",
+      "source": "./bjorndavidhansen--google-ads-mcp-server",
+      "description": "google-ads-mcp-server"
+    },
+    {
+      "name": "bjorndavidhansen--google-ads-mcp-server",
+      "source": "./bjorndavidhansen--google-ads-mcp-server",
+      "description": "google-ads-mcp-server"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -109449,6 +109814,31 @@
       "description": "clsswjz-gui"
     },
     {
+      "name": "sontallive--mcp-server-python-template",
+      "source": "./sontallive--mcp-server-python-template",
+      "description": "This template provides a streamlined foundation for building Model Context Protocol (MCP) servers in Python. It's designed to make AI-assisted development of MCP tools easier and more efficient."
+    },
+    {
+      "name": "sontallive--mcp-server-python-template",
+      "source": "./sontallive--mcp-server-python-template",
+      "description": "This template provides a streamlined foundation for building Model Context Protocol (MCP) servers in Python. It's designed to make AI-assisted development of MCP tools easier and more efficient."
+    },
+    {
+      "name": "mikecann--agent-inbox",
+      "source": "./mikecann--agent-inbox",
+      "description": "A multi-agent AI chat running on Convex"
+    },
+    {
+      "name": "mikecann--agent-inbox",
+      "source": "./mikecann--agent-inbox",
+      "description": "A multi-agent AI chat running on Convex"
+    },
+    {
+      "name": "mikecann--agent-inbox",
+      "source": "./mikecann--agent-inbox",
+      "description": "A multi-agent AI chat running on Convex"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -112574,6 +112964,41 @@
       "description": "Semantic Art Search \u2013 Explore art through meaning-driven search"
     },
     {
+      "name": "snowflake-labs--polaris-local-forge",
+      "source": "./snowflake-labs--polaris-local-forge",
+      "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
+    },
+    {
+      "name": "snowflake-labs--polaris-local-forge",
+      "source": "./snowflake-labs--polaris-local-forge",
+      "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
+    },
+    {
+      "name": "snowflake-labs--polaris-local-forge",
+      "source": "./snowflake-labs--polaris-local-forge",
+      "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
+    },
+    {
+      "name": "snowflake-labs--polaris-local-forge",
+      "source": "./snowflake-labs--polaris-local-forge",
+      "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
+    },
+    {
+      "name": "snowflake-labs--polaris-local-forge",
+      "source": "./snowflake-labs--polaris-local-forge",
+      "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
+    },
+    {
+      "name": "snowflake-labs--polaris-local-forge",
+      "source": "./snowflake-labs--polaris-local-forge",
+      "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
+    },
+    {
+      "name": "snowflake-labs--polaris-local-forge",
+      "source": "./snowflake-labs--polaris-local-forge",
+      "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -115672,6 +116097,56 @@
       "name": "benallfree--xg",
       "source": "./benallfree--xg",
       "description": "Play games right in your X feed"
+    },
+    {
+      "name": "cameronapak--cultivate",
+      "source": "./cameronapak--cultivate",
+      "description": "If Notion + Basecamp had a baby and kept it simple. Self-hostable."
+    },
+    {
+      "name": "webdevcody--convex-title-generator",
+      "source": "./webdevcody--convex-title-generator",
+      "description": "convex-title-generator"
+    },
+    {
+      "name": "sorrycc--mdcopilot",
+      "source": "./sorrycc--mdcopilot",
+      "description": "Markdown Copilot CLI."
+    },
+    {
+      "name": "sorrycc--mdcopilot",
+      "source": "./sorrycc--mdcopilot",
+      "description": "Markdown Copilot CLI."
+    },
+    {
+      "name": "sorrycc--mdcopilot",
+      "source": "./sorrycc--mdcopilot",
+      "description": "Markdown Copilot CLI."
+    },
+    {
+      "name": "sorrycc--mdcopilot",
+      "source": "./sorrycc--mdcopilot",
+      "description": "Markdown Copilot CLI."
+    },
+    {
+      "name": "dhkts1--sequentialstory",
+      "source": "./dhkts1--sequentialstory",
+      "description": "story based implementation for sequential thinking"
+    },
+    {
+      "name": "lightdash--python-sdk",
+      "source": "./lightdash--python-sdk",
+      "description": "python-sdk"
+    },
+    {
+      "name": "codeguide-dev--codeguide-expo-firebase",
+      "source": "./codeguide-dev--codeguide-expo-firebase",
+      "description": "codeguide-expo-firebase"
+    },
+    {
+      "name": "codeguide-dev--codeguide-expo-firebase",
+      "source": "./codeguide-dev--codeguide-expo-firebase",
+      "description": "codeguide-expo-firebase"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -119102,6 +119577,11 @@
       "name": "kidiatoliny--hunter",
       "source": "./kidiatoliny--hunter",
       "description": "The Cape Verdean Network for Creators, Thinkers, and Builders. Hunter is more than a platform \u2014 it\u2019s a movement. Built by Cape Verdeans for Cape Verdeans, Hunter is where ideas take shape, projects fi"
+    },
+    {
+      "name": "amoslee2026--babel",
+      "source": "./amoslee2026--babel",
+      "description": "AI-native Chiplet design flow based on open-source EDA toolchain"
     },
     {
       "name": "mohiwalla--memes",
@@ -132744,6 +133224,11 @@
       "description": "ContextCraft"
     },
     {
+      "name": "alezander9--wiiwork",
+      "source": "./alezander9--wiiwork",
+      "description": "For Treehacks 2025"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -139022,6 +139507,76 @@
       "name": "nesevis--exhaust",
       "source": "./nesevis--exhaust",
       "description": "Property-based testing library based on Reflective Generators"
+    },
+    {
+      "name": "forcedotcom--apex-language-support",
+      "source": "./forcedotcom--apex-language-support",
+      "description": "experimental, do not use"
+    },
+    {
+      "name": "forcedotcom--apex-language-support",
+      "source": "./forcedotcom--apex-language-support",
+      "description": "experimental, do not use"
+    },
+    {
+      "name": "forcedotcom--apex-language-support",
+      "source": "./forcedotcom--apex-language-support",
+      "description": "experimental, do not use"
+    },
+    {
+      "name": "forcedotcom--apex-language-support",
+      "source": "./forcedotcom--apex-language-support",
+      "description": "experimental, do not use"
+    },
+    {
+      "name": "forcedotcom--apex-language-support",
+      "source": "./forcedotcom--apex-language-support",
+      "description": "experimental, do not use"
+    },
+    {
+      "name": "forcedotcom--apex-language-support",
+      "source": "./forcedotcom--apex-language-support",
+      "description": "experimental, do not use"
+    },
+    {
+      "name": "forcedotcom--apex-language-support",
+      "source": "./forcedotcom--apex-language-support",
+      "description": "experimental, do not use"
+    },
+    {
+      "name": "zauberzeug--feldfreund-devkit-ros",
+      "source": "./zauberzeug--feldfreund-devkit-ros",
+      "description": "Control your Feldfreund autonomous weeding platform with ROS2"
+    },
+    {
+      "name": "zauberzeug--feldfreund-devkit-ros",
+      "source": "./zauberzeug--feldfreund-devkit-ros",
+      "description": "Control your Feldfreund autonomous weeding platform with ROS2"
+    },
+    {
+      "name": "yiin--reactive-proxy-state",
+      "source": "./yiin--reactive-proxy-state",
+      "description": "A simple, standalone reactivity library inspired by Vue 3's reactivity system, designed for use outside of Vue, particularly in server-side contexts or for data synchronization tasks."
+    },
+    {
+      "name": "oorzc--vscode-sync-tool",
+      "source": "./oorzc--vscode-sync-tool",
+      "description": "vscode FTP/SFTP/SSH Sync Tool"
+    },
+    {
+      "name": "productbuilders--productbuilders",
+      "source": "./productbuilders--productbuilders",
+      "description": "Product Builders is a collaborative, open-source community that empowers founders to build digital products using AI tools. "
+    },
+    {
+      "name": "productbuilders--productbuilders",
+      "source": "./productbuilders--productbuilders",
+      "description": "Product Builders is a collaborative, open-source community that empowers founders to build digital products using AI tools. "
+    },
+    {
+      "name": "productbuilders--productbuilders",
+      "source": "./productbuilders--productbuilders",
+      "description": "Product Builders is a collaborative, open-source community that empowers founders to build digital products using AI tools. "
     },
     {
       "name": "yschimke--compose-ai-tools",
