@@ -1,0 +1,9 @@
+{
+  "name": "loonghao--dcc-mcp-maya",
+  "displayName": "dcc-mcp-maya",
+  "description": "Maya-specific implementation of Model Context Protocol (MCP) for Autodesk Maya, enabling remote control and integration with MCP ecosystem.",
+  "version": "1.0.0",
+  "author": "loonghao",
+  "homepage": "https://github.com/loonghao/dcc-mcp-maya",
+  "skills": []
+}
