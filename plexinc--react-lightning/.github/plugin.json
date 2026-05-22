@@ -1,0 +1,9 @@
+{
+  "name": "plexinc--react-lightning",
+  "displayName": "react-lightning",
+  "description": "React reconciler for rendering React apps with Lightning.js",
+  "version": "1.0.0",
+  "author": "plexinc",
+  "homepage": "https://github.com/plexinc/react-lightning",
+  "skills": []
+}
