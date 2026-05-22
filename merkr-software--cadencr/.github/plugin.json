@@ -1,0 +1,9 @@
+{
+  "name": "merkr-software--cadencr",
+  "displayName": "CadencR",
+  "description": "The IDE for the era of agents \u2014 one local workspace to read, steer, and ship with Claude Code, OpenCode, and Codex.",
+  "version": "1.0.0",
+  "author": "merkr-software",
+  "homepage": "https://github.com/merkr-software/CadencR",
+  "skills": []
+}
