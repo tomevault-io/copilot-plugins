@@ -1,222 +1,248 @@
-## memory-management
+## session-coordinator
 
-> description: Intelligent context management and memory optimization strategies
+> description: Maintains continuity and context across multiple work sessions
 
 ---
-description: Intelligent context management and memory optimization strategies
+description: Maintains continuity and context across multiple work sessions
 globs: ["**/*"]
 alwaysApply: false
 ---
 
-# Memory Management & Context Optimization
+# Session Coordination & Continuity
 
-## 🧠 Context Priority Levels
+## 🔄 Session State Tracking
 
-### Level 1: CRITICAL (Always Retain)
-```
-- Current task definition
-- Active file being edited
-- Recent error messages
-- Explicit user requirements
-- Security/authentication context
-```
-
-### Level 2: IMPORTANT (Retain if Relevant)
-```
-- Related file imports/exports
-- Function signatures being used
-- Recent code modifications
-- Database schema if querying
-- API contracts if integrating
-```
-
-### Level 3: HELPFUL (Include if Space)
-```
-- Project conventions discovered
-- Similar patterns in codebase
-- Previous solutions to similar problems
-- Performance considerations
+### Active Session Format
+```yaml
+SESSION_STATE:
+  id: "2024-03-14-auth-implementation"
+  feature: "User Authentication"
+  branch: "feature/auth-jwt"
+  status: "IN_PROGRESS"
+  
+PROGRESS:
+  completed:
+    - JWT token generation
+    - User login endpoint
+    - Password hashing
+  in_progress:
+    - Refresh token logic
+  blocked:
+    - Need decision on token expiry
+  next:
+    - Implement logout
+    - Add rate limiting
 ```
 
-### Level 4: ARCHIVE (Prune First)
-```
-- Successful operations from >10 messages ago
-- Resolved errors
-- Exploratory dead ends
-- Duplicate information
-```
+## 📍 Checkpoint System
 
-## 📊 Context Pruning Strategy
+### Create Checkpoint Before:
+- Major refactoring
+- Switching to different feature
+- End of work session
+- Complex debugging starts
 
-### When Context Gets Full:
-```
-1. Remove Level 4 items first
-2. Summarize Level 3 items
-3. Compress Level 2 (keep signatures only)
-4. NEVER remove Level 1
-```
-
-### Smart Compression Examples:
+### Checkpoint Format:
 ```javascript
-// BEFORE: Full context
-"User implemented a UserController with methods: 
-- getUsers(): returns all users with pagination
-- getUser(id): returns single user by ID  
-- createUser(data): creates new user with validation
-- updateUser(id, data): updates existing user
-- deleteUser(id): soft deletes user"
-
-// AFTER: Compressed
-"UserController implemented with CRUD operations (get/create/update/delete)"
-```
-
-## 🎯 Focus Maintenance
-
-### Track Current Objective
-```
-CURRENT_TASK: [Implementation of user authentication]
-SUBTASK: [Adding JWT validation middleware]
-BLOCKED_BY: [Need database schema]
-NEXT_STEP: [Test the middleware]
-```
-
-### Context Switching
-```
-When switching tasks:
-1. Summarize completed work
-2. Clear Level 3-4 context
-3. Load new task context
-4. Preserve learned patterns
-```
-
-## 💡 Pattern Recognition & Storage
-
-### Store Reusable Patterns
-```javascript
-// PATTERN DETECTED: Error handling in this project
-try {
-  // operation
-} catch (error) {
-  logger.error(`${context}: ${error.message}`, { error, metadata });
-  throw new CustomError(error.message, ERROR_CODES.OPERATION_FAILED);
+CHECKPOINT: "Before refactoring auth service"
+STATE: {
+  working_files: ["auth.service.ts", "user.controller.ts"],
+  last_test_status: "PASSING",
+  git_status: "2 files modified, 0 staged",
+  key_decisions: ["Using JWT", "15min token expiry"],
+  rollback_point: "commit:a3f4b5c"
 }
-// STORE: Project uses custom error wrapper with logging
 ```
 
-### Project Conventions
-```
-DISCOVERED PATTERNS:
-- File naming: kebab-case.ts
-- Exports: Named exports preferred
-- Testing: *.test.ts files
-- API routes: /api/v1/resource
-```
+## 🎯 Context Handoff
 
-## 🔍 Information Retrieval
+### End of Session Protocol
+```markdown
+## Session Summary [Date/Time]
 
-### Quick Reference Format
-```
-FILE_STRUCTURE:
-src/
-  controllers/ (business logic)
-  services/ (external integrations)
-  utils/ (shared helpers)
-  types/ (TypeScript interfaces)
+### Completed ✓
+- Implemented user registration with validation
+- Added password hashing with bcrypt
+- Created JWT token generation
 
-KEY_FUNCTIONS:
-- authenticate() in auth.service.ts
-- validateRequest() in middleware/
-- handleError() in utils/error.ts
-```
+### In Progress 🔄
+- Working on refresh token endpoint
+- File: `auth.controller.ts` line 47
 
-### Relationship Mapping
-```
-UserController -> UserService -> UserRepository
-     |                |               |
-     v                v               v
-validation.ts    external-api.ts   database.ts
+### Blocked ⚠️
+- Waiting for: Decision on refresh token storage
+- Options considered: Redis vs Database
+
+### Next Session 📋
+1. Complete refresh token implementation
+2. Add logout functionality
+3. Test edge cases
+
+### Key Context
+- Using @nestjs/jwt package
+- Tokens expire in 15 minutes
+- Refresh tokens last 7 days
 ```
 
-## 📈 Context Quality Metrics
+## 🔗 Dependency Tracking
 
-### Good Context Indicators:
-- Can answer "what was I doing?" instantly
-- Know which files are affected
-- Understand dependencies
-- Remember key decisions
-
-### Bad Context Indicators:
-- Repeating same questions
-- Lost track of requirements
-- Forgetting recent changes
-- Circular discussions
-
-## 🚀 Optimization Techniques
-
-### Batch Related Information
+### Track What Affects What
 ```
-// Instead of scattered context:
-"User model has email field"
-"User model has password field"  
-"User model has createdAt field"
-
-// Batch together:
-"User model: { email, password, createdAt, updatedAt, role }"
+DEPENDENCY_MAP:
+  auth.service.ts:
+    imports: ["jwt.service", "user.service"]
+    affects: ["auth.controller", "auth.guard"]
+    tests: ["auth.service.test.ts"]
+    
+  user.model.ts:
+    affects: ["*user*", "auth.service"]
+    migration: "20240314_add_user_table.sql"
 ```
 
-### Use References
+### Change Impact Analysis
 ```
-// Instead of repeating:
-"The validateEmail function checks format and domain"
-"The validateEmail function returns boolean"
-
-// Reference once:
-validateEmail(): boolean - checks format and domain
-// Then refer as: "use validateEmail() defined above"
-```
-
-## 💾 Session Continuity
-
-### End of Session Summary
-```
-SESSION SUMMARY:
-- Implemented: User authentication with JWT
-- Modified: auth.service.ts, user.controller.ts
-- Decisions: Used refresh tokens, 7-day expiry
-- TODO: Add rate limiting, implement logout
-- Gotchas: Remember to handle token refresh edge case
+CHANGE: Modified User model email validation
+IMPACTS:
+  - user.service.ts: Update createUser validation
+  - auth.service.ts: Check login email handling
+  - user.test.ts: Update test cases
+  - API docs: Reflect new validation rules
 ```
 
-### Session Startup
-```
-RESUMING FROM:
-- Working on: [Feature name]
-- Last action: [What was completed]
-- Next step: [What needs doing]
-- Context: @previous-session-summary
+## 💭 Decision Memory
+
+### Record Key Decisions
+```markdown
+DECISION_LOG:
+  
+2024-03-14 14:30
+- DECISION: Use JWT instead of sessions
+- REASON: Stateless, scalable, mobile-friendly
+- TRADEOFFS: Can't revoke easily, need refresh strategy
+- ALTERNATIVE: Considered Redis sessions
+
+2024-03-14 15:45  
+- DECISION: 15-minute access token expiry
+- REASON: Balance security vs UX
+- REFERENCE: OWASP recommends 5-30 minutes
 ```
 
-## 🎪 Memory Management Commands
-
-### Mental Commands to Use:
+### Pattern Recognition
 ```
-COMPRESS: Summarize current context
-PRUNE: Remove outdated information
-FOCUS: Narrow to current task only
-SNAPSHOT: Save current state
-RESTORE: Load previous context
+LEARNED_PATTERNS:
+- This project prefers async/await over promises
+- Error handling uses custom AppError class
+- All endpoints return { success, data, error } format
+- Testing uses jest with supertest for endpoints
 ```
 
-### Context Health Check:
-```
-Every 10 interactions:
-1. Is context still relevant?
-2. Any duplicate information?
-3. Missing critical context?
-4. Can I answer user's original request?
+## 🚦 Work State Indicators
+
+### Current Focus
+```javascript
+// WORKING_ON: Adding validation to refresh token endpoint
+// CONTEXT: User reported tokens not refreshing properly
+// HYPOTHESIS: Race condition when token expires during refresh
+// TESTING: Adding concurrent request tests
 ```
 
-Remember: Quality > Quantity. Better to have 5 relevant facts than 50 irrelevant ones.
+### Mental Stack
+```
+STACK:
+1. [CURRENT] Fixing refresh token race condition
+2. [PAUSED] Implement logout endpoint
+3. [TODO] Add rate limiting
+4. [BACKLOG] OAuth integration
+```
+
+## 📊 Progress Tracking
+
+### Feature Progress
+```
+Authentication Module: ████████░░ 80%
+  ├─ Login: ██████████ 100% ✓
+  ├─ Register: ██████████ 100% ✓
+  ├─ JWT Generation: ██████████ 100% ✓
+  ├─ Refresh Token: ████████░░ 80% 
+  ├─ Logout: ░░░░░░░░░░ 0%
+  └─ Rate Limiting: ░░░░░░░░░░ 0%
+```
+
+### Time Investment
+```
+FEATURE_TIME:
+  research: 2h (JWT best practices)
+  implementation: 6h
+  debugging: 1.5h
+  testing: 2h
+  refactoring: 1h
+  
+BLOCKERS_TIME:
+  waiting_for_decisions: 1h
+  environment_issues: 0.5h
+```
+
+## 🔍 Quick Context Recovery
+
+### Session Resume Commands
+```
+"Continue from last session" →
+  1. Load last checkpoint
+  2. Show progress summary
+  3. Display current task
+  4. List immediate next steps
+
+"What was I working on?" →
+  - Feature: [Name]
+  - File: [Current file + line]
+  - Task: [Specific task]
+  - Context: [Why doing this]
+```
+
+## 🎪 Collaboration Context
+
+### Team Handoff Format
+```markdown
+HANDOFF TO: @teammate
+
+CONTEXT:
+- Working on: JWT refresh token implementation
+- Branch: feature/auth-jwt
+- PR: #123 (draft)
+
+CURRENT STATE:
+- Login works perfectly
+- Refresh endpoint 80% done
+- Need to handle concurrent refresh
+
+WATCH OUT:
+- Token expiry edge case at exactly 15 min
+- Database connection pool gets exhausted under load
+
+NEXT STEPS:
+1. Complete refresh token error handling
+2. Add integration tests
+3. Update API documentation
+```
+
+## 💾 Session Persistence
+
+### Auto-Save Triggers
+- Every significant completion
+- Before major changes
+- On error occurrence
+- At regular intervals (30 min)
+
+### Recovery Protocol
+```
+IF session_crashed:
+  1. Load last checkpoint
+  2. Check git status
+  3. Verify test status
+  4. Resume from safe state
+```
+
+Remember: Good coordination means never losing context or repeating work!
 
 ---
 > Source: [DVC2/cursor_prompts](https://github.com/DVC2/cursor_prompts) — distributed by [TomeVault](https://tomevault.io).
