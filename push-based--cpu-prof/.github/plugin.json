@@ -1,0 +1,9 @@
+{
+  "name": "push-based--cpu-prof",
+  "displayName": "cpu-prof",
+  "description": "cpu-prof",
+  "version": "1.0.0",
+  "author": "push-based",
+  "homepage": "https://github.com/push-based/cpu-prof",
+  "skills": []
+}
