@@ -1,19 +1,20 @@
-## 20-objects-and-descriptors
+## 30-text-processing
 
-> description: Objects, descriptors, and method binding
+> description: Text processing, escapes, and regex (PCRE)
 
 ---
-description: Objects, descriptors, and method binding
+description: Text processing, escapes, and regex (PCRE)
 alwaysApply: false
 ---
 
-When manipulating objects
-- Modules reference: `Modules/Module_Objects.md`, `Modules/Module_Instructions.md`
-- Additional examples: `AHK_Notes/Concepts/property-descriptors.md`, `AHK_Notes/Methods/objbindmethod.md`
-- Everything is an object; inheritance leads back to `Any`. Use `HasProp/HasMethod/HasBase`.
-- Descriptors: value `{value: x}`, call `{call: f}`, get `{get: f(this)}`, set `{set: f(this, v)}`.
-- Define methods/properties via `DefineProp`. Methods are callable properties.
-- Use `ObjBindMethod`/`Bind` for timers and GUI events to preserve `this`.
+Rules
+- Backtick-only escapes; canonical sequences: `` `, `", `', `n, `r, `t, `s, `b, `v, `a, `f, `:, `;.
+- Built-ins: `Trim/StrUpper/StrLower/StrReplace/StrSplit/InStr/SubStr`.
+- Regex PCRE options: `i/m/s/x`; escape literals; prefer named groups when helpful.
+
+References
+- Modules reference: `Modules/Module_TextProcessing.md`, `Modules/Module_Escapes.md`
+- Additional examples: `AHK_Notes/Concepts/string-handling-in-ahk-v2.md`
 
 ---
 > Source: [TrueCrimeDev/ClautoHotkey](https://github.com/TrueCrimeDev/ClautoHotkey) — distributed by [TomeVault](https://tomevault.io).
