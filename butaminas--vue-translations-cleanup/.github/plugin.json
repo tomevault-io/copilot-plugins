@@ -1,0 +1,9 @@
+{
+  "name": "butaminas--vue-translations-cleanup",
+  "displayName": "vue-translations-cleanup",
+  "description": "Scans for used translations, compares with your translations file and removes the ones that are not in use.",
+  "version": "1.0.0",
+  "author": "butaminas",
+  "homepage": "https://github.com/butaminas/vue-translations-cleanup",
+  "skills": []
+}
