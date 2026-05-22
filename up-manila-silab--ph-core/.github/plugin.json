@@ -1,0 +1,9 @@
+{
+  "name": "up-manila-silab--ph-core",
+  "displayName": "ph-core",
+  "description": "PH Core FHIR Implementation Guide",
+  "version": "1.0.0",
+  "author": "UP-Manila-SILab",
+  "homepage": "https://github.com/UP-Manila-SILab/ph-core",
+  "skills": []
+}
