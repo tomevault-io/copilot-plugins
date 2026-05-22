@@ -1,0 +1,9 @@
+{
+  "name": "devcobos--devcobos-setup",
+  "displayName": "DevCobos-setup",
+  "description": "Interactive dev environment installer for WSL2 + Ubuntu \u2014 sets up Zsh, Starship, Docker, Node.js (fnm), Git, AWS, Terraform and make in one command. Includes Tokyo Night and SynthWave themes for Windo",
+  "version": "1.0.0",
+  "author": "devcobos",
+  "homepage": "https://github.com/devcobos/DevCobos-setup",
+  "skills": []
+}
