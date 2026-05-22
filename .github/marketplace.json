@@ -133639,6 +133639,11 @@
       "description": "claude-skill-registry-core"
     },
     {
+      "name": "xiincs--claude-code-vision-skill",
+      "source": "./xiincs--claude-code-vision-skill",
+      "description": "\u4e3a Claude Code \u8d4b\u80fd\u591a\u6a21\u6001\u89c6\u89c9\u80fd\u529b\uff0c\u652f\u6301\u8c46\u5305\u3001\u901a\u4e49\u5343\u95ee\u3001GPT-4o \u7b49\u6a21\u578b\uff0c\u7528\u4e8e\u622a\u56fe / UI / \u56fe\u8868\u5206\u6790\uff1b\u9002\u914d DeepSeek \u7b49\u65e0\u89c6\u89c9\u5e95\u5ea7\uff0c\u642d\u914d browser-harness \u53ef\u505a\u524d\u7aef\u5e03\u5c40\u81ea\u52a8\u5316\u68c0\u67e5\u3002"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -140042,6 +140047,21 @@
       "name": "sh11235--rshogi",
       "source": "./sh11235--rshogi",
       "description": "Rust\u88fd\u5c06\u68cb\u30a8\u30f3\u30b8\u30f3 / \u958b\u767a\u8005\u30c4\u30fc\u30eb"
+    },
+    {
+      "name": "swyaoguai--shanhaiyunyan",
+      "source": "./swyaoguai--shanhaiyunyan",
+      "description": "AI \u5c0f\u8bf4\u521b\u4f5c\u5de5\u4f5c\u53f0\uff0c\u7eaf\u672c\u5730\u6570\u636e\u50a8\u5b58\uff0c\u652f\u6301\u9879\u76ee\u7ea7\u8d44\u6599\u5e93\u3001\u3001\u591a Agent \u521b\u4f5c\u3001\u65e0\u9650\u7eed\u5199\u3001\u77ed\u7bc7\u521b\u4f5c\u3001\u5c0f\u8bf4\u8f6c\u5267\u672c\u3001\u77e5\u8bc6\u5e93\u4e0e Wiki\u3002\u6e90\u7801\u53ef\u89c1\uff0c\u975e\u5546\u4e1a\u4f7f\u7528\uff0c\u5546\u4e1a\u9700\u6388\u6743\u3002"
+    },
+    {
+      "name": "swyaoguai--shanhaiyunyan",
+      "source": "./swyaoguai--shanhaiyunyan",
+      "description": "AI \u5c0f\u8bf4\u521b\u4f5c\u5de5\u4f5c\u53f0\uff0c\u7eaf\u672c\u5730\u6570\u636e\u50a8\u5b58\uff0c\u652f\u6301\u9879\u76ee\u7ea7\u8d44\u6599\u5e93\u3001\u3001\u591a Agent \u521b\u4f5c\u3001\u65e0\u9650\u7eed\u5199\u3001\u77ed\u7bc7\u521b\u4f5c\u3001\u5c0f\u8bf4\u8f6c\u5267\u672c\u3001\u77e5\u8bc6\u5e93\u4e0e Wiki\u3002\u6e90\u7801\u53ef\u89c1\uff0c\u975e\u5546\u4e1a\u4f7f\u7528\uff0c\u5546\u4e1a\u9700\u6388\u6743\u3002"
+    },
+    {
+      "name": "lightningdevkit--orange-sdk",
+      "source": "./lightningdevkit--orange-sdk",
+      "description": "orange-sdk"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -159554,6 +159574,196 @@
       "description": "chorus"
     },
     {
+      "name": "opsmill--infrahub-mcp",
+      "source": "./opsmill--infrahub-mcp",
+      "description": "MCP server for Infrahub"
+    },
+    {
+      "name": "rocketseat-education--ai-task-manager",
+      "source": "./rocketseat-education--ai-task-manager",
+      "description": "Projeto pr\u00e1tico do curso de React Router 7 + IA do educador F\u00e1bio Vedovelli"
+    },
+    {
+      "name": "manta-digital--manta-templates",
+      "source": "./manta-digital--manta-templates",
+      "description": "manta.digital public template monorepo"
+    },
+    {
+      "name": "zitongbai--legged-ros2",
+      "source": "./zitongbai--legged-ros2",
+      "description": "ROS2 packages for legged robot's control, simulation and deployment. "
+    },
+    {
+      "name": "blockvoltcr7--pytest-fastapi-template",
+      "source": "./blockvoltcr7--pytest-fastapi-template",
+      "description": "pytest-fastapi-template"
+    },
+    {
+      "name": "manta-digital--manta-templates",
+      "source": "./manta-digital--manta-templates",
+      "description": "manta.digital public template monorepo"
+    },
+    {
+      "name": "basuruk--omniinspect",
+      "source": "./basuruk--omniinspect",
+      "description": "Oracle Event Queues based application to observe database events and custom messages"
+    },
+    {
+      "name": "blockvoltcr7--pytest-fastapi-template",
+      "source": "./blockvoltcr7--pytest-fastapi-template",
+      "description": "pytest-fastapi-template"
+    },
+    {
+      "name": "manta-digital--manta-templates",
+      "source": "./manta-digital--manta-templates",
+      "description": "manta.digital public template monorepo"
+    },
+    {
+      "name": "chrismo80--is",
+      "source": "./chrismo80--is",
+      "description": "Simple .NET Code Validation. Powerful Diagnostics."
+    },
+    {
+      "name": "elbelicojackson-hue--haking-code",
+      "source": "./elbelicojackson-hue--haking-code",
+      "description": "haking-code-"
+    },
+    {
+      "name": "blockvoltcr7--pytest-fastapi-template",
+      "source": "./blockvoltcr7--pytest-fastapi-template",
+      "description": "pytest-fastapi-template"
+    },
+    {
+      "name": "rubyforgood--awbw",
+      "source": "./rubyforgood--awbw",
+      "description": "This project is the Portal for the nonprofit A Windows Between Worlds. The Portal offers a place for workshop leaders to find information about Workshops and Resources, be informed of CommunityNews, S"
+    },
+    {
+      "name": "blockvoltcr7--pytest-fastapi-template",
+      "source": "./blockvoltcr7--pytest-fastapi-template",
+      "description": "pytest-fastapi-template"
+    },
+    {
+      "name": "shodaimomiyama--formix",
+      "source": "./shodaimomiyama--formix",
+      "description": "FORMIX"
+    },
+    {
+      "name": "blockvoltcr7--pytest-fastapi-template",
+      "source": "./blockvoltcr7--pytest-fastapi-template",
+      "description": "pytest-fastapi-template"
+    },
+    {
+      "name": "sh1nj1--plan42",
+      "source": "./sh1nj1--plan42",
+      "description": "A tracker of your creatives.  Your creativeness is coming!"
+    },
+    {
+      "name": "gorums--music-mcp-server",
+      "source": "./gorums--music-mcp-server",
+      "description": "A powerful Model Context Protocol (MCP) server that provides intelligent access to your local music collection through advanced metadata management, album type classification, and comprehensive analyt"
+    },
+    {
+      "name": "oracle--graalpy-extensions",
+      "source": "./oracle--graalpy-extensions",
+      "description": "graalpy-extensions"
+    },
+    {
+      "name": "manta-digital--manta-templates",
+      "source": "./manta-digital--manta-templates",
+      "description": "manta.digital public template monorepo"
+    },
+    {
+      "name": "spaceuy--react-registry",
+      "source": "./spaceuy--react-registry",
+      "description": "react-registry"
+    },
+    {
+      "name": "horizonrobotics--roboorchardcore",
+      "source": "./horizonrobotics--roboorchardcore",
+      "description": "RoboOrchardCore"
+    },
+    {
+      "name": "blockvoltcr7--pytest-fastapi-template",
+      "source": "./blockvoltcr7--pytest-fastapi-template",
+      "description": "pytest-fastapi-template"
+    },
+    {
+      "name": "h-arnold--jsondbapp",
+      "source": "./h-arnold--jsondbapp",
+      "description": "A document database implemented in Google App Script using the Google Drive API. Recommended for masochists."
+    },
+    {
+      "name": "akaere-networks--whois",
+      "source": "./akaere-networks--whois",
+      "description": "Simple Whois Tools"
+    },
+    {
+      "name": "home-lang--pantry",
+      "source": "./home-lang--pantry",
+      "description": "An extremely performant & universal dependency manager that just works."
+    },
+    {
+      "name": "cyranob--web-forager",
+      "source": "./cyranob--web-forager",
+      "description": "A search-and-fetch toolkit for AI agents, available as an MCP server and as standalone Agent Skills"
+    },
+    {
+      "name": "andotherstuff--cashu-wallet",
+      "source": "./andotherstuff--cashu-wallet",
+      "description": "cashu-wallet"
+    },
+    {
+      "name": "layr-labs--studio",
+      "source": "./layr-labs--studio",
+      "description": "AI first web app for creating EigenLayer reference architectures and asking questions about building on EigenLayer."
+    },
+    {
+      "name": "rubyforgood--awbw",
+      "source": "./rubyforgood--awbw",
+      "description": "This project is the Portal for the nonprofit A Windows Between Worlds. The Portal offers a place for workshop leaders to find information about Workshops and Resources, be informed of CommunityNews, S"
+    },
+    {
+      "name": "shodaimomiyama--formix",
+      "source": "./shodaimomiyama--formix",
+      "description": "FORMIX"
+    },
+    {
+      "name": "kingston--outline-sync",
+      "source": "./kingston--outline-sync",
+      "description": "Enable 2-way sync between an Outline workspace and file system + MCP support"
+    },
+    {
+      "name": "banshee-data--velocity-report",
+      "source": "./banshee-data--velocity-report",
+      "description": "citizen radar for slow streets \ud83d\udedc tracking velocity, not identity"
+    },
+    {
+      "name": "alexw00--pomodoro-plaza",
+      "source": "./alexw00--pomodoro-plaza",
+      "description": "Pomodoro App that supports multiple timers!"
+    },
+    {
+      "name": "whyhardt--spice",
+      "source": "./whyhardt--spice",
+      "description": "SPICE"
+    },
+    {
+      "name": "rodrigopex--lua-zephyr",
+      "source": "./rodrigopex--lua-zephyr",
+      "description": "A module to enable developers to use Lua on Zephyr RTOS"
+    },
+    {
+      "name": "full-metal-bagel--unity-stable-reference",
+      "source": "./full-metal-bagel--unity-stable-reference",
+      "description": "Unity package providing stable `SerializeReference` support through source generation. Maintains polymorphic serialized references across refactoring, namespace changes, and type modifications using G"
+    },
+    {
+      "name": "icebreakeraudio--the-grimlock-strategies",
+      "source": "./icebreakeraudio--the-grimlock-strategies",
+      "description": "Words of inspiration from everybody's favourite Dinobot leader."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -169279,6 +169489,56 @@
       "description": "Python SDK for plane.so"
     },
     {
+      "name": "lbds137--tzurot",
+      "source": "./lbds137--tzurot",
+      "description": "A Discord bot that uses webhooks to represent multiple AI characters."
+    },
+    {
+      "name": "chrismelba--solar-control",
+      "source": "./chrismelba--solar-control",
+      "description": "solar-control"
+    },
+    {
+      "name": "kaili-yang--comfyui-workflow-debugger",
+      "source": "./kaili-yang--comfyui-workflow-debugger",
+      "description": "ComfyUI-Workflow-Debugger"
+    },
+    {
+      "name": "catchnip--mcp-selenium-grid",
+      "source": "./catchnip--mcp-selenium-grid",
+      "description": "[pre-release, testing usage] A Model Context Protocol (MCP) server that enables AI Agents to request and manage Selenium browser instances through a secure API. Perfect for your automated browser test"
+    },
+    {
+      "name": "mrgoonie--vidcap-mcp-server",
+      "source": "./mrgoonie--vidcap-mcp-server",
+      "description": "An MCP server to extract Youtube captions and summarize videos"
+    },
+    {
+      "name": "semiotic-ai--cctp-rs",
+      "source": "./semiotic-ai--cctp-rs",
+      "description": "Rust implementation of Circle CCTP"
+    },
+    {
+      "name": "mrgoonie--vidcap-mcp-server",
+      "source": "./mrgoonie--vidcap-mcp-server",
+      "description": "An MCP server to extract Youtube captions and summarize videos"
+    },
+    {
+      "name": "semiotic-ai--cctp-rs",
+      "source": "./semiotic-ai--cctp-rs",
+      "description": "Rust implementation of Circle CCTP"
+    },
+    {
+      "name": "evepupil--bosszp-outsourcing-marker",
+      "source": "./evepupil--bosszp-outsourcing-marker",
+      "description": "\u8fd9\u662f\u4e00\u4e2aChrome/Edge\u6d4f\u89c8\u5668\u63d2\u4ef6\uff0c\u7528\u6237\u5728\u6d4f\u89c8\u201cBoss\u76f4\u8058\u201d\u7f51\u7ad9\u65f6\uff0c\u81ea\u52a8\u8bc6\u522b\u5e76\u6807\u8bb0\u51fa\u5df2\u77e5\u7684\u5916\u5305\u516c\u53f8\u3002"
+    },
+    {
+      "name": "thejchap--magic-markers",
+      "source": "./thejchap--magic-markers",
+      "description": "control an led smart bulb using a set of crayola markers!"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -171572,6 +171832,16 @@
       "name": "jaswalmohit8-collab--weasel",
       "source": "./jaswalmohit8-collab--weasel",
       "description": "A tiny CLAUDE.md for keeping long-running AI coding agents useful."
+    },
+    {
+      "name": "kentstephen--sentinel-2-cog-deckgl-raster",
+      "source": "./kentstephen--sentinel-2-cog-deckgl-raster",
+      "description": "Browser-side rendering of Earth Genome's Sentinel-2 Temporal Mosaics with @developmentseed/deck.gl-geotiff. Built by prompting Claude."
+    },
+    {
+      "name": "secondlook-hub--mfinder",
+      "source": "./secondlook-hub--mfinder",
+      "description": "Native macOS file manager with Windows-Explorer-style layout (SwiftUI + AppKit)"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -273737,6 +274007,106 @@
       "name": "umbalaconmeogia--chatwork-thread",
       "source": "./umbalaconmeogia--chatwork-thread",
       "description": "A tool that help display relative chats of Chatworks in group."
+    },
+    {
+      "name": "lepinkainen--cdon-watcher",
+      "source": "./lepinkainen--cdon-watcher",
+      "description": "cdon-watcher"
+    },
+    {
+      "name": "bloodyteeths--shopifyscript",
+      "source": "./bloodyteeths--shopifyscript",
+      "description": "shopifyscript"
+    },
+    {
+      "name": "zoebbogner--algo-trading",
+      "source": "./zoebbogner--algo-trading",
+      "description": "Algo-Trading"
+    },
+    {
+      "name": "jmgb--nieves-web",
+      "source": "./jmgb--nieves-web",
+      "description": "Portfolio website for Nieves Calvo - Architect, Interior Designer, Artist, Creative, and Explorer"
+    },
+    {
+      "name": "thesammykins--flixbridge",
+      "source": "./thesammykins--flixbridge",
+      "description": "Flix-Bridge is a Model Context Protocol (MCP) server that bridges AI assistants with media management services. It provides a unified interface for monitoring downloads, managing libraries, and automa"
+    },
+    {
+      "name": "tpai--fluentd-integrations",
+      "source": "./tpai--fluentd-integrations",
+      "description": "This repository contains Docker Compose examples demonstrating how to use Fluentd to collect and forward logs to different log aggregation systems."
+    },
+    {
+      "name": "justin21523--anime-adventure-lab",
+      "source": "./justin21523--anime-adventure-lab",
+      "description": "An open lab for anime-style interactive stories: LLM story engine, Chinese RAG, SDXL image generation, and LoRA fine-tuning. Upload your own characters & lore, play in the browser, export scenes, and "
+    },
+    {
+      "name": "zrainbow1275--lawsaw",
+      "source": "./zrainbow1275--lawsaw",
+      "description": "\u7b80\u4fbf\u3001\u8f7b\u91cf\u7684\u672c\u5730\u6cd5\u6761\u67e5\u770b\u5de5\u5177"
+    },
+    {
+      "name": "tahosook--dining-memory-app",
+      "source": "./tahosook--dining-memory-app",
+      "description": "AI-powered dining memory app that analyzes food & drink photos with semantic search"
+    },
+    {
+      "name": "ethpandaops--xatu-cbt",
+      "source": "./ethpandaops--xatu-cbt",
+      "description": "xatu-cbt"
+    },
+    {
+      "name": "meo-3--meo-3-open-service",
+      "source": "./meo-3--meo-3-open-service",
+      "description": "MEO 3 Open Service for deploy MEO on custom platform/hardware."
+    },
+    {
+      "name": "kazu-apps--dnsweeper-ver2",
+      "source": "./kazu-apps--dnsweeper-ver2",
+      "description": "dnsweeper.ver2"
+    },
+    {
+      "name": "lepinkainen--cdon-watcher",
+      "source": "./lepinkainen--cdon-watcher",
+      "description": "cdon-watcher"
+    },
+    {
+      "name": "jmgb--nieves-web",
+      "source": "./jmgb--nieves-web",
+      "description": "Portfolio website for Nieves Calvo - Architect, Interior Designer, Artist, Creative, and Explorer"
+    },
+    {
+      "name": "zrainbow1275--lawsaw",
+      "source": "./zrainbow1275--lawsaw",
+      "description": "\u7b80\u4fbf\u3001\u8f7b\u91cf\u7684\u672c\u5730\u6cd5\u6761\u67e5\u770b\u5de5\u5177"
+    },
+    {
+      "name": "ethpandaops--xatu-cbt",
+      "source": "./ethpandaops--xatu-cbt",
+      "description": "xatu-cbt"
+    },
+    {
+      "name": "ben-nifer--legislative-tracker",
+      "source": "./ben-nifer--legislative-tracker",
+      "description": "A basic web tool to search and track legislation"
+    },
+    {
+      "name": "cafc-ds--cafc-recruitment-platform",
+      "source": "./cafc-ds--cafc-recruitment-platform",
+      "description": "cafc-recruitment-platform"
+    },
+    {
+      "name": "chinsanchung--roadmap-workout-tracker",
+      "source": "./chinsanchung--roadmap-workout-tracker",
+      "description": "Workout Tracker from roadmap.sh projects"
+    },
+    {
+      "name": "fhhd11--airflow-llm-backend",
+      "source": "./fhhd11--airflow-llm-backend",
+      "description": "Production-ready FastAPI backend for LLM chat with Supabase and LiteLLM integration"
     }
   ]
 }
