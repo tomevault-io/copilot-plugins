@@ -1,0 +1,9 @@
+{
+  "name": "thesammykins--flixbridge",
+  "displayName": "FlixBridge",
+  "description": "Flix-Bridge is a Model Context Protocol (MCP) server that bridges AI assistants with media management services. It provides a unified interface for monitoring downloads, managing libraries, and automa",
+  "version": "1.0.0",
+  "author": "thesammykins",
+  "homepage": "https://github.com/thesammykins/FlixBridge",
+  "skills": []
+}
