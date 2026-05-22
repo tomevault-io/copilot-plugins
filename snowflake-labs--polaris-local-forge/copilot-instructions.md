@@ -1,49 +1,90 @@
-## cli-interaction-patterns
+## cli-patterns
 
-> CLI dual-mode patterns for Power CLI + Cortex Code interactions
+> CLI development patterns with Click, Taskfile, and uv
 
 
-# CLI Dual-Mode: Power CLI + Cortex Code
+# CLI Development Patterns
 
-Every interactive CLI function MUST support both modes:
+**Reference:** `~/git/kameshsampath/snow-utils`
 
-## Pattern
-
-- **Power CLI (interactive):** Prompt the user, show menus, wait for input.
-- **Cortex Code (non-interactive):** Accept explicit parameters to skip prompts. Never hang waiting for stdin.
-
-## Rules
-
-1. **Every `click.prompt()` / `click.confirm()` must have a bypass parameter.**
-   - Confirmations: `--yes / -y` flag skips `click.confirm()`.
-   - Selection prompts: Accept the value as a function parameter; only prompt when `None`.
-
-2. **Connection discovery** (`discover_snowflake_connection`):
-   - `connection_name=None` → interactive (list + prompt)
-   - `connection_name="my-conn"` → non-interactive (test directly)
-   - Cortex Code MUST always pass `connection_name` explicitly.
-
-3. **Env var fallback chain** for non-interactive context:
-   - CLI flag → env var (e.g., `SNOWFLAKE_DEFAULT_CONNECTION_NAME`) → interactive prompt
-   - If both flag and env var are missing, only then prompt.
-
-4. **SKILL.md must pass all required values explicitly** — never rely on interactive prompts.
-
-## Example
+## Click CLI Structure
 
 ```python
-# GOOD: supports both modes
-def ensure_snowflake_connection(work_dir, connection_name=None):
-    if sf_user_in_env:
-        return sf_user
-    conn = connection_name or env_var_fallback
-    info = discover_snowflake_connection(connection_name=conn)  # None = interactive
-    ...
+import click
+from dotenv import load_dotenv
 
-# BAD: always prompts, hangs in Cortex Code
-def ensure_snowflake_connection(work_dir):
-    choice = click.prompt("Select connection")  # ← blocks agent
+@click.group()
+@click.option('--verbose', '-v', is_flag=True)
+@click.option('--debug', '-d', is_flag=True)
+@click.pass_context
+def cli(ctx, verbose, debug):
+    ctx.ensure_object(dict)
+    ctx.obj['verbose'] = verbose
+
+@cli.command()
+@click.option('--name', '-n', envvar='RESOURCE_NAME', required=True)
+@click.option('--yes', '-y', is_flag=True, help='Skip confirmation')
+def create(name, yes):
+    """Create a resource."""
+    pass
 ```
+
+## Taskfile.yml Patterns
+
+```yaml
+version: "3"
+dir: "{{.TASKFILE_DIR}}"  # Run from project dir (enables symlink usage)
+dotenv: [".env"]
+
+vars:
+  PYTHON: uv run --project {{.TASKFILE_DIR}}
+  CLI: "{{.PYTHON}} my-cli"
+
+tasks:
+  create:
+    desc: Create resource
+    deps: [check]  # Run prerequisite first
+    cmds:
+      - "{{.CLI}} create {{.CLI_ARGS}}"
+    env:
+      RESOURCE_NAME: "{{.RESOURCE_NAME}}"
+    vars:
+      RESOURCE_NAME: '{{.RESOURCE_NAME | default ""}}'
+```
+
+## pyproject.toml Entry Points
+
+```toml
+[project.scripts]
+my-cli = "my_package.main:cli"
+
+[tool.uv.sources]
+common-lib = { path = "common", editable = true }
+```
+
+## Naming Conventions
+
+| Style | Pattern | Use Case |
+|-------|---------|----------|
+| `snowflake` | `UPPER_SNAKE_CASE` | Snowflake objects |
+| `aws` | `lower-kebab-case` | S3 buckets, IAM roles |
+
+**User-prefixed naming** (avoid conflicts in shared accounts):
+- AWS: `{username}-{bucket}`, `{username}-{bucket}-snowflake-role`
+- Snowflake: `{USERNAME}_{BUCKET}_EXTERNAL_VOLUME`
+
+## Environment-Driven Config
+
+- Use `envvar=` in Click options for env var fallbacks
+- Load `.env` with `load_dotenv(override=True)`
+- Taskfile: `dotenv: [".env"]` auto-loads environment
+
+## Key Patterns from snow-utils
+
+- **Global options before subcommand:** `cli --verbose create --name foo`
+- **Confirmation flags:** `--yes` for non-interactive, `--dry-run` for preview
+- **Output formats:** `--output text|json`
+- **Task dependencies:** Use `deps:` for prerequisite checks
 
 ---
 > Source: [Snowflake-Labs/polaris-local-forge](https://github.com/Snowflake-Labs/polaris-local-forge) — distributed by [TomeVault](https://tomevault.io).
