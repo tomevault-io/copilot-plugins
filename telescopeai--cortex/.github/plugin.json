@@ -1,0 +1,9 @@
+{
+  "name": "telescopeai--cortex",
+  "displayName": "cortex",
+  "description": "Lightweight Modular Semantic Engine",
+  "version": "1.0.0",
+  "author": "TelescopeAI",
+  "homepage": "https://github.com/TelescopeAI/cortex",
+  "skills": []
+}
