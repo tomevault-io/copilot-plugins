@@ -1,1102 +1,419 @@
-## html-documentation-styling-guide
+## icons-buttons-styles
 
-> HTML documentation styling guide — design system, code highlighting, command blocks, section containers, and accessibility for project HTML docs.
+> Icon styling standards and patterns for consistent iconography across the application
 
 
-# HTML Documentation Styling Guide and Design System
+# Icon Standards and Styling Guide
 
-## Overview
-This rule defines the standard styling patterns, design system, and best practices for creating HTML documentation files in the project. It ensures consistency, accessibility, and user-friendly presentation across all documentation.
+This guide defines the standard patterns for displaying icons across the application, ensuring visual consistency and proper sizing.
 
-## Problem Solved
-- **Consistent Documentation Styling**: Ensures all HTML documentation follows the same visual patterns
-- **Code Highlighting**: Standardizes code syntax highlighting with light blue background and dark blue text
-- **Copy Button Functionality**: Provides consistent copy-to-clipboard functionality for commands **and for copy-paste prompts** (see [Copyable prompt blocks](#copyable-prompt-blocks))
-- **Windows Compatibility**: Ensures commands are provided in single-line format for Windows users
-- **Visual Hierarchy**: Creates clear visual distinction between different types of content
-- **Accessibility**: Ensures proper contrast and readable text
+---
 
-## Core Design Principles
+## **Icon Library**
 
-### Color Scheme
-- **Code/Command Blocks**: Light blue background (`#e8f4f8`) with dark blue text (`#0d3b66`) and border (`#b8d4e3`)
-- **Info Boxes**: Light blue background (`#d1ecf1`) with dark blue border (`#0c5460`)
-- **Warning Boxes**: Light yellow background (`#fff3cd`) with yellow border (`#ffc107`)
-- **Success Boxes**: Light green background (`#d4edda`) with green border (`#28a745`)
-- **Error Boxes**: Light red background (`#f8d7da`) with red border (`#dc3545`)
-- **Command Blocks**: Color-coded gradients based on script type (setup=blue, expedite=purple, etc.)
+- **Primary Library:** Inline SVG icons using Heroicons pattern (Tailwind CSS compatible)
+- **ViewBox:** Always use `viewBox="0 0 24 24"` for consistent scaling
+- **Stroke Style:** Use `fill="none" stroke="currentColor"` with `strokeWidth={2}` for outline icons
+- **Fill Style:** Use `fill="currentColor"` for solid icons when needed
 
-### Code Highlighting in Boxes
-- **All code references** within info/warning/success/error boxes must use light blue background (`#e8f4f8`) with dark blue text (`#0d3b66`) and border (`#b8d4e3`)
-- Use `<code class="code-highlight">` for inline code that needs highlighting
-- Standard `<code>` tags inherit box background (use `code-highlight` class for light blue/dark blue styling)
+---
 
-### Script Name Highlighting
-- **All script file names** (e.g., `setup-test-clock.js`, `expedite-stripe-renewal-test-clock.js`) must use the `script-name` class
-- Script names should be visually distinct with purple gradient background
-- Use `<code class="script-name">script-name.js</code>` for all script file references
+## **Standard Icon Sizes**
 
-### Section Introduction Containers
-- **Major section introductions** (like "Using the Setup Test Clock Script") should use `section-intro` class
-- Provides light blue gradient background with blue left border
-- Wraps introductory paragraphs that explain what a script or section does
+### **Large Feature Icons (Event Cards, Feature Sections)**
+- **Container:** `w-14 h-14` (56px × 56px)
+- **Icon:** `w-10 h-10` (40px × 40px)
+- **Container Style:** `rounded-xl` (12px border radius)
+- **Background:** Colored backgrounds (e.g., `bg-blue-100`, `bg-green-100`, `bg-purple-100`)
+- **Icon Color:** Matching colored text (e.g., `text-blue-500`, `text-green-500`, `text-purple-500`)
+- **Hover Effect:** `group-hover:scale-110 transition-transform duration-300`
 
-### Parameters List Styling
-- **Parameters sections** must use `parameters-list` class
-- Orange gradient background with orange left border
-- All parameter names in code tags should use light blue background (`#e8f4f8`) with dark blue text (`#0d3b66`)
-
-## Command Block Styling
-
-### Color-Coded Command Blocks
-Each script type has a distinct color scheme:
-
-```css
-/* Setup Scripts - Blue Gradient */
-.command-block.setup {
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-    border-color: #2196f3;
-}
-
-/* Expedite Scripts - Purple Gradient */
-.command-block.expedite {
-    background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-    border-color: #9c27b0;
-}
-
-/* Advance Scripts - Orange Gradient */
-.command-block.advance {
-    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-    border-color: #ff9800;
-}
-
-/* Verify Scripts - Green Gradient */
-.command-block.verify {
-    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-    border-color: #4caf50;
-}
-```
-
-### Command Block Structure with Parameter Customization
-```html
-<div class="command-block setup"
-     data-command-type="setup"
-     data-command-base="node scripts/path/to/script.js"
-     data-template-command="node scripts/path/to/script.js --param1=value1 --param2=&quot;value2&quot;">
-    <div class="command-header">
-        <span class="command-type">Setup Script</span>
-        <div class="command-header-buttons">
-            <button class="copy-button-template" onclick="copyTemplateCommand(this, 'command-id')" title="Copy template command">📄 Template</button>
-            <button class="copy-button" onclick="copyCommand(this, 'command-id')" title="Copy customized command">📋 Copy</button>
-        </div>
-    </div>
-    <div class="command-parameters">
-        <h5>🔧 Customize Parameters:</h5>
-        <div class="parameter-group">
-            <div class="parameter-input">
-                <label for="command-id-param1">Parameter 1:</label>
-                <input type="text" id="command-id-param1" placeholder="value1" value="default1" oninput="updateCommand('command-id', 'param1', this.value)">
-            </div>
-            <div class="parameter-input">
-                <label for="command-id-param2">Parameter 2:</label>
-                <input type="text" id="command-id-param2" placeholder="value2" value="default2" oninput="updateCommand('command-id', 'param2', this.value)">
-            </div>
-        </div>
-        <div class="parameter-group single">
-            <div class="parameter-input">
-                <label for="command-id-param3">Parameter 3:</label>
-                <input type="text" id="command-id-param3" placeholder="value3" oninput="updateCommand('command-id', 'param3', this.value)">
-            </div>
-        </div>
-    </div>
-    <div class="command-content" id="command-id">node scripts/path/to/script.js --param1=default1 --param2=default2</div>
-    <div class="command-single-line" id="command-id-single">
-        <div class="command-single-line-label">Windows Single-Line:</div>
-        <code id="command-id-single-code">node scripts/path/to/script.js --param1=default1 --param2=default2</code>
-    </div>
+**Example:**
+```tsx
+// ✅ DO: Use large feature icon pattern
+<div className="flex-shrink-0 w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+  <svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+  </svg>
 </div>
 ```
 
-### Required Attributes
-- **`data-command-base`**: Base command without parameters (e.g., `node scripts/path/to/script.js`)
-- **`data-template-command`**: **REQUIRED** - Original template/sample command with example values (e.g., `node scripts/path/to/script.js --param1=value1 --param2=&quot;value2&quot;`)
-  - Use `&quot;` for quotes in HTML attributes
-  - This is what the Template button copies
-- **`data-command-type`**: Script type for color coding (setup, expedite, advance, verify, default)
-- **`id` on command-content**: Unique ID for the command (used by `updateCommand` and `copyCommand`)
-- **`id="{command-id}-single-code"`**: ID for single-line code element (must include `-single-code` suffix)
+### **Medium Action Icons (Buttons, Action Items)**
+- **Container:** `w-10 h-10` (40px × 40px)
+- **Icon:** `w-6 h-6` (24px × 24px) - **CRITICAL: Always use inline SVG, never react-icons**
+- **Container Style:** `rounded-lg` (8px border radius)
+- **Background:** Colored backgrounds with hover states
+- **Icon Color:** Matching colored text (e.g., `text-blue-600` for edit, `text-red-600` for delete)
+- **SVG Attributes:** `fill="none" stroke="currentColor" viewBox="0 0 24 24"` with `strokeWidth={2}`
+- **Hover Effect:** `hover:scale-110 transition-all duration-300`
 
-### Required Copy Buttons
-- **Template Button**: `copy-button-template` class, calls `copyTemplateCommand(this, 'command-id')`
-- **Customized Button**: `copy-button` class, calls `copyCommand(this, 'command-id')`
-- Both buttons must be wrapped in `command-header-buttons` div
-
-### Windows Single-Line Sections
-- **Background**: Light blue (`#e8f4f8`)
-- **Text**: Dark blue (`#0d3b66`)
-- **Border**: `#b8d4e3`
-- **Label**: Light gray (`#cccccc`)
-- **Padding**: `12px 15px`
-- **Border Radius**: `4px`
-- **Always provide single-line version** (no backslashes) for Windows compatibility
-
-## Parameter Customization Feature
-
-### Overview
-All command blocks should include interactive parameter input fields that allow users to customize command parameters before copying. The command updates dynamically as users type, and the copy button copies the customized command.
-
-### Parameter Input Styling
-```css
-.command-parameters {
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.command-parameters h5 {
-    margin: 0 0 12px 0;
-    font-size: 0.9em;
-    color: #333;
-    font-weight: bold;
-}
-
-.parameter-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.parameter-group.single {
-    grid-template-columns: 1fr;
-}
-
-.parameter-input {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.parameter-input label {
-    font-size: 0.8em;
-    color: #555;
-    font-weight: 600;
-}
-
-.parameter-input input {
-    padding: 8px 12px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em;
-    transition: border-color 0.2s ease;
-}
-
-.parameter-input input:focus {
-    outline: none;
-    border-color: #0066cc;
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-}
-
-.parameter-input input::placeholder {
-    color: #999;
-    font-style: italic;
-}
-
-@media (max-width: 768px) {
-    .parameter-group {
-        grid-template-columns: 1fr;
-    }
-}
+**Example:**
+```tsx
+// ✅ DO: Use medium action icon pattern with inline SVG
+<button
+  className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+  title="Edit Item"
+  aria-label="Edit Item"
+  type="button"
+>
+  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+  </svg>
+</button>
 ```
 
-### JavaScript Functions Required
-
-#### updateCommand Function
-```javascript
-// Store parameter values for each command block
-const commandParams = {};
-
-// Update command dynamically as user types
-function updateCommand(commandId, paramName, paramValue) {
-    // Store the parameter value
-    if (!commandParams[commandId]) {
-        commandParams[commandId] = {};
-    }
-    commandParams[commandId][paramName] = paramValue;
-
-    // Get the command element
-    const commandElement = document.getElementById(commandId);
-    if (!commandElement) return;
-
-    // Get the command block
-    const commandBlock = commandElement.closest('.command-block');
-    if (!commandBlock) return;
-
-    // Get base command from data attribute
-    let baseCommand = commandBlock.getAttribute('data-command-base');
-    if (!baseCommand) {
-        // Fallback: extract from current command
-        const currentCommand = commandElement.textContent.trim();
-        const firstParamIndex = currentCommand.indexOf('--');
-        baseCommand = firstParamIndex > 0 ? currentCommand.substring(0, firstParamIndex).trim() : currentCommand.split(' ').slice(0, 2).join(' ');
-    }
-
-    // Build the command with all parameters
-    let command = baseCommand;
-    const params = commandParams[commandId] || {};
-
-    // Add parameters based on command type
-    // Example for setup script:
-    if (commandId.startsWith('setup-1') || commandId.startsWith('setup-3')) {
-        if (params['customer-id'] && params['customer-id'].trim()) {
-            command += ` --customer-id=${params['customer-id'].trim()}`;
-        }
-        if (params['test-clock-name'] && params['test-clock-name'].trim()) {
-            command += ` --test-clock-name="${params['test-clock-name'].trim()}"`;
-        }
-    } else if (commandId.startsWith('setup-2')) {
-        if (params['customer-email'] && params['customer-email'].trim()) {
-            command += ` --customer-email=${params['customer-email'].trim()}`;
-        }
-        if (params['customer-name'] && params['customer-name'].trim()) {
-            command += ` --customer-name="${params['customer-name'].trim()}"`;
-        }
-        if (params['test-clock-name'] && params['test-clock-name'].trim()) {
-            command += ` --test-clock-name="${params['test-clock-name'].trim()}"`;
-        }
-    }
-    // Add more command types as needed...
-
-    // Update the command display
-    if (commandElement) {
-        commandElement.textContent = command;
-    }
-
-    // Update the single-line version
-    const singleLineCode = document.getElementById(commandId + '-single-code');
-    if (singleLineCode) {
-        singleLineCode.textContent = command;
-    }
-}
-```
-
-#### Two Copy Buttons: Template and Customized
-
-Each command block must have **TWO copy buttons**:
-1. **Template Button** (`copy-button-template`): Copies the original template/sample command
-2. **Customized Button** (`copy-button`): Copies the command with user-entered parameters
-
-```html
-<div class="command-header-buttons">
-    <button class="copy-button-template" onclick="copyTemplateCommand(this, 'command-id')" title="Copy template command">📄 Template</button>
-    <button class="copy-button" onclick="copyCommand(this, 'command-id')" title="Copy customized command">📋 Copy</button>
+**Media Gallery Grid Buttons (Medium Action Icons):**
+```tsx
+// ✅ DO: Use inline SVG icons in media gallery grid tiles
+<div className="p-4 pt-0 flex justify-end gap-2">
+  {/* Edit Button */}
+  <button
+    onClick={() => handleEditClick(item)}
+    className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+    title="Edit Media"
+    aria-label="Edit Media"
+    type="button"
+  >
+    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+    </svg>
+  </button>
+  {/* Delete Button */}
+  <button
+    onClick={() => handleDelete(item)}
+    className="flex-shrink-0 w-10 h-10 rounded-lg bg-red-100 hover:bg-red-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+    title="Delete Media"
+    aria-label="Delete Media"
+    type="button"
+  >
+    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+    </svg>
+  </button>
 </div>
 ```
 
-#### Template Copy Button Styling
-```css
-.copy-button-template {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85em;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
+### **Small Inline Icons (Text, Lists)**
+- **Icon:** `w-4 h-4` (16px × 16px) or `w-5 h-5` (20px × 20px)
+- **No container needed** - inline with text
+- **Color:** Inherit text color or use semantic colors
 
-.copy-button-template:hover {
-    background-color: #5a6268;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.copy-button-template.copied {
-    background-color: #28a745;
-}
+**Example:**
+```tsx
+// ✅ DO: Use small inline icon pattern
+<button className="flex items-center gap-2">
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+  </svg>
+  <span>Read More</span>
+</button>
 ```
 
-#### Template Command Storage
-Store the template command in the `data-template-command` attribute:
+---
 
-```html
-<div class="command-block setup"
-     data-command-base="node scripts/path/to/script.js"
-     data-template-command="node scripts/path/to/script.js --param1=value1 --param2=&quot;value2&quot;">
-```
+## **Color Palette for Icons**
 
-**Note**: Use `&quot;` for quotes in HTML attributes, which will be converted to `"` when copying.
+### **Semantic Colors**
+- **Date/Calendar:** `bg-blue-100` / `text-blue-500`
+- **Time/Clock:** `bg-green-100` / `text-green-500`
+- **Location/Map:** `bg-purple-100` / `text-purple-500`
+- **Calendar/Add to Calendar:** `bg-orange-100` / `text-orange-500`
+- **View/Details:** `bg-green-100` / `text-green-700` (table buttons) or `bg-white/20` / `text-white` (on colored backgrounds)
+- **Copy:** `bg-blue-100` / `text-blue-700`
+- **Navigate/External Link:** `bg-green-100` / `text-green-700`
+- **Edit:** `bg-blue-100` / `text-blue-500` (table buttons) or `bg-blue-100` / `text-blue-600` (full-width buttons)
+- **Delete:** `bg-red-100` / `text-red-500`
+- **Create/Add:** `bg-blue-100` / `text-blue-600` (icon) / `text-blue-700` (text)
+- **Toggle Active:** `bg-green-100` / `text-green-500` (active) or `bg-gray-100` / `text-gray-500` (inactive)
 
-#### copyTemplateCommand Function
-```javascript
-function copyTemplateCommand(button, commandId) {
-    // Find the command block from the button
-    const commandBlock = button.closest('.command-block');
-    if (!commandBlock) return;
+---
 
-    // Get template command from data attribute
-    let templateCommand = commandBlock.getAttribute('data-template-command');
-    if (!templateCommand) {
-        // Fallback: use the initial command content
-        const commandElement = document.getElementById(commandId);
-        if (!commandElement) return;
-        templateCommand = commandElement.textContent.trim();
-    }
+## **Icon Patterns by Context**
 
-    // Replace HTML entities
-    templateCommand = templateCommand.replace(/&quot;/g, '"');
+### **Event Card Icons**
+```tsx
+// Date icon
+<div className="flex-shrink-0 w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+  <svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+  </svg>
+</div>
 
-    // Copy to clipboard
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(templateCommand).then(() => {
-            button.classList.add('copied');
-            button.textContent = '✓ Copied!';
-            setTimeout(() => {
-                button.classList.remove('copied');
-                button.textContent = '📄 Template';
-            }, 2000);
-        }).catch(err => {
-            console.error('Failed to copy template:', err);
-            fallbackCopy(templateCommand, button);
-        });
-    } else {
-        fallbackCopy(templateCommand, button);
-    }
-}
-```
+// Time icon
+<div className="flex-shrink-0 w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+  <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+</div>
 
-#### Updated copyCommand Function
-The `copyCommand` function automatically uses the customized command from the `command-content` element, which is updated by `updateCommand`:
-
-```javascript
-function copyCommand(button, commandId) {
-    const commandElement = document.getElementById(commandId);
-    if (!commandElement) return;
-
-    // Get the command text (already customized by updateCommand)
-    const commandText = commandElement.textContent.trim();
-
-    // Copy to clipboard (existing implementation)
-    // ...
-}
-```
-
-#### Command Initialization
-Commands must be initialized on page load to read initial input values:
-
-```javascript
-// Initialize commands from input values on page load
-function initializeCommands() {
-    document.querySelectorAll('.command-block[data-command-base]').forEach(block => {
-        const commandContent = block.querySelector('.command-content');
-        if (!commandContent) return;
-
-        const commandId = commandContent.id;
-        if (!commandId) return;
-
-        // Initialize parameters from input values
-        block.querySelectorAll('.parameter-input input').forEach(input => {
-            const inputId = input.id;
-            if (!inputId || !inputId.startsWith(commandId + '-')) return;
-
-            const paramName = inputId.substring(commandId.length + 1);
-            const paramValue = input.value || '';
-
-            if (!commandParams[commandId]) {
-                commandParams[commandId] = {};
-            }
-            commandParams[commandId][paramName] = paramValue;
-        });
-
-        // Update command with initial values
-        updateCommandFromParams(commandId);
-    });
-}
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-    initializeCommands();
-});
-```
-
-### Parameter Input Best Practices
-- ✅ **Use appropriate input types**: `text`, `email`, `number` based on parameter type
-- ✅ **Provide placeholders**: Show example values in placeholder text
-- ✅ **Set default values**: Pre-fill common/default values
-- ✅ **Use descriptive labels**: Clear labels indicating parameter name and format
-- ✅ **Group related parameters**: Use `parameter-group` for 2-column layout, `single` for full-width
-- ✅ **Handle quotes**: Automatically add quotes around values that may contain spaces
-- ✅ **Validate input**: Use HTML5 validation (e.g., `type="email"` for email fields)
-
-### Parameter Naming Convention
-- Use kebab-case for parameter names: `customer-id`, `test-clock-name`, `days-to-advance`
-- Match the actual command-line parameter names
-- Use consistent naming across all command blocks
-
-## Copy Button Implementation
-
-### Copy Button Styling
-```css
-.copy-button {
-    background-color: #0066cc;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85em;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.copy-button:hover {
-    background-color: #0052a3;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.copy-button.copied {
-    background-color: #28a745;
-}
-
-.copy-button.copied::after {
-    content: " ✓ Copied!";
-}
-```
-
-### Copy Button JavaScript
-```javascript
-function copyCommand(button, commandId) {
-    const commandElement = document.getElementById(commandId);
-    if (!commandElement) return;
-
-    // Get the command text (already single-line for Windows)
-    const commandText = commandElement.textContent.trim();
-
-    // Copy to clipboard
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(commandText).then(() => {
-            // Show success feedback
-            button.classList.add('copied');
-            button.textContent = '✓ Copied!';
-
-            // Reset after 2 seconds
-            setTimeout(() => {
-                button.classList.remove('copied');
-                button.textContent = '📋 Copy';
-            }, 2000);
-        }).catch(err => {
-            console.error('Failed to copy:', err);
-            fallbackCopy(commandText, button);
-        });
-    } else {
-        // Fallback for older browsers
-        fallbackCopy(commandText, button);
-    }
-
-    // Show single-line version for Windows
-    const singleLineElement = document.getElementById(commandId + '-single');
-    if (singleLineElement) {
-        singleLineElement.classList.add('show');
-    }
-}
-```
-
-### Copy Button Requirements
-- ✅ **Always provide single-line commands** (no backslashes) for Windows compatibility
-- ✅ **Show visual feedback** when copied (green background, "✓ Copied!" text)
-- ✅ **Include fallback** for older browsers that don't support Clipboard API
-- ✅ **Auto-detect Windows** and show single-line hints automatically
-
-## Copyable prompt blocks
-
-### Scope
-This applies whenever documentation includes **multi-line text meant to be copied as a single unit**—for example **prompts for AI image editors** (e.g. Nano Banana), **AI video tools** (e.g. Kling Omni), or **LLM instructions**—**not** shell/CLI commands (those use [Command Block Styling](#command-block-styling) above).
-
-### Default rule: copy control is required
-- **Yes — add a copy button by default** for every standalone prompt block. Readers should **not** have to manually select text in a `<pre>` or long paragraph.
-- **One prompt block → one copy control** (e.g. **Copy** or **Copy prompt**) that copies the **entire** prompt string, preserving line breaks.
-
-### Implementation pattern
-- Wrap the block in a container (e.g. `prompt-block` or reuse `command-block` styling without fake CLI semantics) with:
-  - A **header row**: short label (e.g. “Prompt”, “Full prompt”, “Kling”) + **`<button type="button" class="copy-button" ...>`** using the same [Copy Button Styling](#copy-button-styling) / feedback behavior as command copy buttons.
-  - The prompt body in **one element** with a **unique `id`** (e.g. `id="prompt-encoding-kling-01"`) so `copyCommand(button, 'prompt-encoding-kling-01')` or a small `copyPromptText(button, id)` wrapper can reuse the existing `navigator.clipboard.writeText` pattern.
-- Use **`white-space: pre-wrap`** (on a `<div>` or `<pre>`) so multi-line prompts display and copy correctly.
-- **Accessibility:** `title` / `aria-label` on the button, e.g. `aria-label="Copy prompt to clipboard"`.
-
-### What not to do
-- ❌ **Do not** add prompts only inside a plain `<pre>` or `<div>` **without** a copy control when the intent is copy-paste.
-- ❌ **Do not** rely on “users can select all” as a substitute for a button on long prompts.
-
-### Relationship to command blocks
-- **Command blocks** = executable `node ...` / script lines → **Template + Copy** + parameters as already specified.
-- **Prompt blocks** = natural-language prompts → **at minimum one Copy** (no Template/customization unless you add optional fields).
-
-## Code Highlighting in Content Boxes
-
-### Info/Warning/Success/Error Boxes
-All code references within these boxes must use light blue background with dark blue text:
-
-```css
-.info code,
-.info .code-highlight,
-.warning code,
-.warning .code-highlight,
-.success code,
-.success .code-highlight,
-.error code,
-.error .code-highlight {
-    background-color: #e8f4f8;
-    color: #0d3b66;
-    padding: 2px 6px;
-    border-radius: 3px;
-    border: 1px solid #b8d4e3;
-    font-family: 'Courier New', monospace;
-}
-```
-
-### Usage Pattern
-```html
-<div class="info">
-    <strong>💡 Next Steps:</strong>
-    <ol>
-        <li>Verify the subscription has <code class="code-highlight">test_clock</code> set to your test clock ID</li>
-        <li>Use <code class="code-highlight">expedite-stripe-renewal-test-clock.js</code> to advance time</li>
-    </ol>
+// Location icon
+<div className="flex-shrink-0 w-14 h-14 rounded-xl bg-purple-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+  <svg className="w-10 h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
 </div>
 ```
 
-## Content Box Styling
+### **Action Button Icons (Admin Tables)**
+```tsx
+// Edit icon (Table Action Button)
+<Link
+  href={`/admin/tenant-management/settings/${id}/edit`}
+  className="flex-shrink-0 w-14 h-14 rounded-xl bg-blue-100 hover:bg-blue-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+  title="Edit settings"
+  aria-label="Edit settings"
+>
+  <svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+  </svg>
+</Link>
 
-### Info Boxes
-- **Background**: `#d1ecf1` (light blue)
-- **Border**: `4px solid #0c5460` (dark blue, left side)
-- **Use for**: Informational content, tips, next steps
+// View icon (Table Action Button)
+<Link
+  href={`/admin/tenant-management/settings/${id}`}
+  className="flex-shrink-0 w-14 h-14 rounded-xl bg-green-100 hover:bg-green-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+  title="View details"
+  aria-label="View details"
+>
+  <svg className="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  </svg>
+</Link>
 
-### Warning Boxes
-- **Background**: `#fff3cd` (light yellow)
-- **Border**: `4px solid #ffc107` (yellow, left side)
-- **Use for**: Warnings, important notes, limitations
+// Delete icon (Table Action Button)
+<button
+  onClick={() => handleDelete(id)}
+  className="flex-shrink-0 w-14 h-14 rounded-xl bg-red-100 hover:bg-red-200 flex items-center justify-center transition-all duration-300 hover:scale-110"
+  title="Delete settings"
+  aria-label="Delete settings"
+>
+  <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  </svg>
+</button>
 
-### Success Boxes
-- **Background**: `#d4edda` (light green)
-- **Border**: `4px solid #28a745` (green, left side)
-- **Use for**: Success messages, confirmations, completed steps
-
-### Error Boxes
-- **Background**: `#f8d7da` (light red)
-- **Border**: `4px solid #dc3545` (red, left side)
-- **Use for**: Error messages, failures, critical issues
-
-## Standard Code Block Styling
-
-### Regular Code Blocks
-```css
-.code-block,
-pre, pre code {
-    background-color: #e8f4f8;
-    color: #0d3b66;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #b8d4e3;
-    overflow-x: auto;
-    margin: 15px 0;
-}
-
-.code-block code,
-pre code {
-    background-color: transparent;
-    color: #0d3b66;
-    padding: 0;
-}
+// Toggle active icon
+<button className={`flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+  isActive ? 'bg-green-100 hover:bg-green-200' : 'bg-gray-100 hover:bg-gray-200'
+}`}>
+  {isActive ? (
+    <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+    </svg>
+  ) : (
+    <svg className="w-10 h-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  )}
+</button>
 ```
 
-### Inline Code
-```css
-code {
-    background-color: #e8f4f8;
-    color: #0d3b66;
-    padding: 2px 6px;
-    border-radius: 3px;
-    border: 1px solid #b8d4e3;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em;
-}
+### **Full-Width Admin Action Buttons (With Icon + Text)**
+```tsx
+// ✅ DO: Use full-width button with icon container and text label
+<Link
+  href="/admin/tenant-management/settings/new"
+  className="flex-shrink-0 h-14 rounded-xl bg-blue-100 hover:bg-blue-200 flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 px-6"
+  title="Create New Settings"
+  aria-label="Create New Settings"
+>
+  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-200 flex items-center justify-center">
+    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+    </svg>
+  </div>
+  <span className="font-semibold text-blue-700">Create New Settings</span>
+</Link>
 ```
 
-## Command Format Standards
+**Full-Width Button Requirements:**
+- **`flex-shrink-0`**: Prevents button from shrinking
+- **`h-14`**: Fixed height (56px) for consistent button size
+- **`rounded-xl`**: Large border radius (12px) for modern appearance
+- **`bg-{color}-100 hover:bg-{color}-200`**: Light background with darker hover state
+- **`flex items-center justify-center`**: Centers content horizontally and vertically
+- **`gap-3`**: Spacing between icon container and text (12px)
+- **`transition-all duration-300`**: Smooth transitions for all properties
+- **`hover:scale-105`**: Subtle scale effect on hover (5% increase)
+- **`px-6`**: Horizontal padding (24px) for button content
+- **Icon Container**: `w-10 h-10 rounded-lg bg-{color}-200` (40px × 40px, darker than button background)
+- **Icon**: `w-6 h-6 text-{color}-600` (24px × 24px)
+- **Text**: `font-semibold text-{color}-700` (bold, darker than icon)
 
-### Windows Compatibility
-- ✅ **Always provide single-line commands** (no backslashes `\`)
-- ✅ **Remove line continuations** for Windows PowerShell/CMD
-- ✅ **Use quotes properly** for Windows (double quotes)
-- ✅ **Show Windows single-line version** in dedicated section
+---
 
-### Command Examples
+## **Common Icon SVGs**
 
-**❌ DON'T (Unix-style with backslashes):**
-```bash
-node scripts/test-subscription-renewal/setup-test-clock.js \
-  --customer-id=cus_xxx \
-  --test-clock-name="My Test Clock"
+### **Calendar/Date**
+```tsx
+<svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+</svg>
 ```
 
-**✅ DO (Windows-compatible single-line):**
-```bash
-node scripts/test-subscription-renewal/setup-test-clock.js --customer-id=cus_xxx --test-clock-name="My Test Clock"
+### **Clock/Time**
+```tsx
+<svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
 ```
 
-## Section Container Styling
-
-### Colored Section Containers
-All major sections (Script Usage, Script Parameters, What the Script Does, Script Output, etc.) must be wrapped in colored section containers for better visibility and visual hierarchy.
-
-```css
-/* Default Section Container - Blue */
-.section-container {
-    background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%);
-    border-left: 4px solid #0066cc;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
-}
-
-/* Parameters Section - Orange */
-.section-container.parameters {
-    background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
-    border-left-color: #ff9800;
-}
-
-/* Output Section - Green */
-.section-container.output {
-    background: linear-gradient(135deg, #e6ffe6 0%, #ccffcc 100%);
-    border-left-color: #28a745;
-}
-
-/* Usage Section - Purple */
-.section-container.usage {
-    background: linear-gradient(135deg, #f0e6ff 0%, #e6ccff 100%);
-    border-left-color: #9c27b0;
-}
+### **Location/Map Pin**
+```tsx
+<svg className="w-10 h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
 ```
 
-### Section Headers
-Each section container must have a colored header with icon and title:
+### **Edit/Pencil**
+```tsx
+// Large icon (Table Action Buttons - w-14 h-14 container)
+<svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+</svg>
 
-```css
-.section-header {
-    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
-    color: white;
-    padding: 12px 20px;
-    margin: -20px -20px 20px -20px;
-    border-radius: 8px 8px 0 0;
-    font-size: 1.2em;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-header.parameters {
-    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-}
-
-.section-header.output {
-    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
-}
-
-.section-header.usage {
-    background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
-}
+// Medium icon (Media Gallery Grid - w-10 h-10 container)
+<svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+</svg>
 ```
 
-### Section Container Structure
-```html
-<div class="section-container usage">
-    <div class="section-header usage">📋 Script Usage</div>
-    <!-- Section content -->
-</div>
+### **Delete/Trash**
+```tsx
+// Large icon (Table Action Buttons - w-14 h-14 container)
+<svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+</svg>
 
-<div class="section-container parameters">
-    <div class="section-header parameters">⚙️ Script Parameters</div>
-    <!-- Table or content -->
-</div>
-
-<div class="section-container output">
-    <div class="section-header output">📊 Script Output</div>
-    <!-- Output description -->
-</div>
+// Medium icon (Media Gallery Grid - w-10 h-10 container)
+<svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+</svg>
 ```
 
-### Section Type Guidelines
-- **Script Usage**: Use `usage` class (purple gradient)
-- **Script Parameters**: Use `parameters` class (orange gradient)
-- **What the Script Does**: Use default (blue gradient)
-- **Why This Script is Important**: Use default (blue gradient)
-- **Script Output**: Use `output` class (green gradient)
-- **Example Script Output**: Use `output` class (green gradient)
-
-## Script Name Highlighting
-
-### Script Name Styling
-All script file names must be highlighted with a distinctive purple gradient:
-
-```css
-.script-name {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 5px;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    display: inline-block;
-    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
-}
+### **Checkmark/Active**
+```tsx
+<svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+</svg>
 ```
 
-### Usage
-```html
-<!-- ✅ DO: Use script-name class for all script file references -->
-<p>The <code class="script-name">setup-test-clock.js</code> script is a dedicated tool...</p>
-<p>Use <code class="script-name">expedite-stripe-renewal-test-clock.js</code> to advance time</p>
-
-<!-- ❌ DON'T: Use plain code tags for script names -->
-<p>The <code>setup-test-clock.js</code> script...</p>
+### **X/Close/Inactive**
+```tsx
+<svg className="w-10 h-10 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+</svg>
 ```
 
-## Section Introduction Containers
-
-### Section Intro Styling
-Major section introductions should use a light blue gradient container:
-
-```css
-.section-intro {
-    background: linear-gradient(135deg, #e8f4f8 0%, #d1e7f0 100%);
-    border-left: 4px solid #0066cc;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
-}
-
-.section-intro code {
-    background-color: #e8f4f8;
-    color: #0d3b66;
-    padding: 3px 8px;
-    border-radius: 3px;
-    border: 1px solid #b8d4e3;
-}
+### **View/Eye (Details)**
+```tsx
+<svg className="w-10 h-10 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+</svg>
 ```
 
-### Usage
-```html
-<!-- ✅ DO: Wrap section introductions in section-intro container -->
-<div class="section-intro">
-    <p>The <code class="script-name">setup-test-clock.js</code> script is a dedicated tool...</p>
-</div>
+### **Add/Plus (Create)**
+```tsx
+<svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+</svg>
 ```
 
-## Parameters List Styling
-
-### Parameters List Container
-Parameters sections should use an orange gradient container:
-
-```css
-.parameters-list {
-    background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
-    border-left: 4px solid #ff9800;
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin: 15px 0;
-}
-
-.parameters-list strong {
-    color: #ff9800;
-    font-weight: bold;
-}
-
-.parameters-list code {
-    background-color: #e8f4f8;
-    color: #0d3b66;
-    padding: 3px 8px;
-    border-radius: 3px;
-    border: 1px solid #b8d4e3;
-}
+### **Copy**
+```tsx
+<svg className="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+</svg>
 ```
 
-### Usage
-```html
-<!-- ✅ DO: Wrap parameters lists in parameters-list container -->
-<div class="parameters-list">
-    <p><strong>Parameters:</strong></p>
-    <ul>
-        <li><code>name</code> - A descriptive name for the test clock</li>
-        <li><code>frozen_time</code> - Unix timestamp for the initial time</li>
-    </ul>
-</div>
+### **External Link/Navigate**
+```tsx
+<svg className="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+</svg>
 ```
 
-## Table Styling
+---
 
-### Enhanced Table Styling
-Tables must have colored headers and hover effects for better visibility:
+## **Best Practices**
 
-```css
-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 15px 0;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+### **DO:**
+- ✅ Use consistent container sizes (`w-14 h-14` for large square buttons, `h-14` for full-width buttons, `w-10 h-10` for medium)
+- ✅ Use matching icon sizes (`w-10 h-10` for large square buttons, `w-6 h-6` for full-width buttons and medium buttons)
+- ✅ **Always use inline SVG icons** - Never use react-icons or other icon libraries for Medium Action Icons
+- ✅ Apply semantic colors consistently (blue for date/edit/create, green for time/view, purple for location, red for delete)
+- ✅ Include hover effects (`hover:scale-110` for square buttons, `hover:scale-105` for full-width buttons)
+- ✅ Use `rounded-xl` for large containers and buttons, `rounded-lg` for icon containers within buttons
+- ✅ Always include `viewBox="0 0 24 24"` for proper scaling
+- ✅ Use `strokeWidth={2}` for consistent stroke thickness
+- ✅ Include `title` and `aria-label` attributes on all interactive buttons/links
+- ✅ Use `transition-all duration-300` for smooth animations
+- ✅ Use `fill="none" stroke="currentColor"` for outline icons
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
+### **DON'T:**
+- ❌ **Never use react-icons for Medium Action Icons** - Always use inline SVG
+- ❌ Mix icon libraries (don't use react-icons alongside inline SVGs)
+- ❌ Use inconsistent sizes (don't mix `w-8 h-8` with `w-10 h-10`)
+- ❌ Skip hover effects on interactive icons
+- ❌ Use different border radius values inconsistently
+- ❌ Forget to include `onClick={(e) => e.stopPropagation()}` on checkboxes/inputs inside clickable containers
 
-th {
-    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.9em;
-    letter-spacing: 0.5px;
-}
+---
 
-tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
+## **Responsive Considerations**
 
-tr:hover {
-    background-color: #e3f2fd;
-    transition: background-color 0.2s ease;
-}
+- Icons maintain their size across breakpoints
+- Container sizes remain consistent (`w-14 h-14`, `w-10 h-10`)
+- Hover effects work on both desktop and touch devices
+- Icons scale proportionally with their containers
 
-td code {
-    background-color: #e8f4f8;
-    color: #0d3b66;
-    padding: 3px 8px;
-    border-radius: 3px;
-    border: 1px solid #b8d4e3;
-    font-family: 'Courier New', monospace;
-}
-```
+---
 
-### Table Requirements
-- ✅ **Colored headers**: Blue gradient background with white text
-- ✅ **Hover effects**: Light blue background on row hover
-- ✅ **Code in cells**: Light blue background with dark blue text
-- ✅ **Alternating rows**: Light gray background for even rows
-- ✅ **Shadow**: Subtle shadow for depth
+## **Accessibility**
 
-## Typography Standards
+- Always include `aria-label` or `title` attributes on icon-only buttons
+- Ensure sufficient color contrast (WCAG AA minimum)
+- Icons should have visible focus states when keyboard navigable
+- Use semantic HTML (buttons, links) rather than divs for interactive icons
 
-### Headings
-- **H1**: `2.5em`, border-bottom `3px solid #0066cc`
-- **H2**: `1.8em`, border-left `4px solid #0066cc`, padding-left `15px`
-- **H3**: `1.4em`, color `#333`
-- **H4**: `1.2em`, color `#555`
+---
 
-### Body Text
-- **Font Family**: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif`
-- **Line Height**: `1.6`
-- **Color**: `#333`
-- **Font Size**: `1em` (base)
+## **Admin Page Button Patterns**
 
-### Code Font
-- **Font Family**: `'Courier New', monospace`
-- **Font Size**: `0.9em` (inline), `0.95em` (blocks)
+### **Table Action Buttons (Square Icon-Only)**
+- **Container**: `w-14 h-14` (56px × 56px) - Square button
+- **Border Radius**: `rounded-xl` (12px)
+- **Background**: `bg-{color}-100 hover:bg-{color}-200`
+- **Icon Size**: `w-10 h-10` (40px × 40px)
+- **Icon Color**: `text-{color}-500` or `text-{color}-700` (depending on action)
+- **Hover Effect**: `hover:scale-110 transition-all duration-300`
+- **Use Cases**: Edit, View, Delete actions in admin tables
 
-## Responsive Design
+### **Full-Width Action Buttons (Icon + Text)**
+- **Height**: `h-14` (56px) - Fixed height
+- **Border Radius**: `rounded-xl` (12px)
+- **Background**: `bg-{color}-100 hover:bg-{color}-200`
+- **Layout**: `flex items-center justify-center gap-3`
+- **Padding**: `px-6` (horizontal padding)
+- **Icon Container**: `w-10 h-10 rounded-lg bg-{color}-200` (darker than button background)
+- **Icon Size**: `w-6 h-6` (24px × 24px)
+- **Icon Color**: `text-{color}-600`
+- **Text**: `font-semibold text-{color}-700`
+- **Hover Effect**: `hover:scale-105 transition-all duration-300`
+- **Use Cases**: "Create New", "Add", primary actions in page headers
 
-### Container
-```css
-body {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+## **References**
 
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .command-block {
-        font-size: 0.85em;
-    }
-}
-```
-
-## Accessibility Requirements
-
-### Color Contrast
-- ✅ **Text on white**: Minimum `#333` (WCAG AA compliant)
-- ✅ **Text on light blue code blocks**: Dark blue (`#0d3b66`) for good contrast
-- ✅ **Interactive elements**: Clear hover states and focus indicators
-
-### Keyboard Navigation
-- ✅ All buttons must be keyboard accessible
-- ✅ Focus states visible (outline or ring)
-- ✅ Tab order logical
-
-### Screen Readers
-- ✅ Semantic HTML (`<button>`, `<nav>`, `<main>`, etc.)
-- ✅ ARIA labels where needed
-- ✅ Alt text for images
-- ✅ Descriptive link text
-
-## Color Contrast and Visibility Standards
-
-### CRITICAL: Avoid Gray Backgrounds
-- ❌ **NEVER use gray backgrounds** (`#f2f2f2`, `#f9f9f9`, `#f4f4f4`, etc.) for important sections
-- ✅ **ALWAYS use colored section containers** for Script Usage, Script Parameters, Script Output, etc.
-- ✅ **Use gradient backgrounds** with clear color distinction
-- ✅ **Ensure high contrast** between text and background (WCAG AA minimum)
-
-### Section Visibility Requirements
-All major sections must use colored containers:
-- **Script Usage**: Purple gradient container (`usage` class)
-- **Script Parameters**: Orange gradient container (`parameters` class)
-- **What the Script Does**: Blue gradient container (default)
-- **Why This Script is Important**: Blue gradient container (default)
-- **Script Output**: Green gradient container (`output` class)
-- **Example Script Output**: Green gradient container (`output` class)
-
-### Table Visibility Requirements
-- ❌ **NEVER use gray table headers** (`#f2f2f2`)
-- ✅ **ALWAYS use colored gradient headers** (blue gradient with white text)
-- ✅ **Include hover effects** for better interactivity
-- ✅ **Code in table cells** must use light blue background (`#e8f4f8`) with dark blue text (`#0d3b66`)
-
-### Code Visibility Requirements
-- ❌ **NEVER use gray backgrounds** for code (`#f4f4f4`, `#f2f2f2`)
-- ❌ **NEVER use charcoal/black backgrounds** (`#1a1a1a`, `#2d2d2d`) for code
-- ✅ **ALWAYS use light blue background** (`#e8f4f8`) with dark blue text (`#0d3b66`) and border (`#b8d4e3`) for code
-- ✅ **Apply to all code** in content boxes, tables, and command blocks
-- ✅ **Use `code-highlight` class** for inline code that needs highlighting
-
-## Best Practices
-
-### DO
-- ✅ Use color-coded command blocks for different script types
-- ✅ Always provide Windows single-line commands
-- ✅ Use light blue background (`#e8f4f8`) with dark blue text (`#0d3b66`) for code in content boxes
-- ✅ Include copy buttons for all commands
-- ✅ **Include a copy button for every copy-paste AI/video/editor prompt block** (see [Copyable prompt blocks](#copyable-prompt-blocks))
-- ✅ Show visual feedback when copying
-- ✅ Use semantic HTML elements
-- ✅ Maintain consistent spacing and padding
-- ✅ Use descriptive class names
-- ✅ Include fallback for older browsers
-- ✅ **Wrap all major sections in colored containers** (no plain gray sections)
-- ✅ **Use colored table headers** (blue gradient, not gray)
-- ✅ **Ensure all code has light blue background (`#e8f4f8`) with dark blue text (`#0d3b66`)**
-
-### DON'T
-- ❌ Use gray backgrounds for code highlighting (use light blue/dark blue)
-- ❌ Use gray backgrounds for section containers (use colored gradients)
-- ❌ Use gray table headers (use colored gradient headers)
-- ❌ Use backslashes in commands (provide single-line versions)
-- ❌ Skip copy buttons for commands
-- ❌ **Ship long prompts without a copy button** (prompt blocks must include copy control by default)
-- ❌ Use inline styles (use CSS classes)
-- ❌ Mix different styling patterns
-- ❌ Skip Windows compatibility
-- ❌ Use low contrast colors
-- ❌ Forget accessibility features
-- ❌ **Leave sections in plain gray** (always use colored containers)
-- ❌ **Use plain code tags for script names** (always use `script-name` class)
-- ❌ **Leave section introductions without containers** (use `section-intro` class)
-- ❌ **Leave parameters sections without highlighting** (use `parameters-list` class)
-- ❌ **Skip parameter customization inputs** (always include `command-parameters` section)
-- ❌ **Forget `data-command-base` attribute** (required for dynamic command updates)
-- ❌ **Forget `data-template-command` attribute** (required for Template copy button)
-- ❌ **Use only one copy button** (must have both Template and Customized buttons)
-- ❌ **Use static command text only** (commands should update as users type)
-- ❌ **Skip command initialization** (must call `initializeCommands()` on page load)
-- ❌ **Skip single-line code element ID** (must have `-single-code` suffix for updates)
-
-## File Structure Template
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="...">
-    <title>Documentation Title</title>
-    <style>
-        /* Include all standard styles */
-    </style>
-</head>
-<body>
-    <h1>Documentation Title</h1>
-
-    <div class="toc">
-        <h2>Table of Contents</h2>
-        <!-- TOC links -->
-    </div>
-
-    <!-- Content sections -->
-
-    <script>
-        // Copy button functionality
-        // Windows detection
-    </script>
-</body>
-</html>
-```
-
-## Reference Implementations
-
-- **Test Clocks Guide**: [`documentation/domain_agnostic_payment/membership_susbscription/STRIPE_TEST_CLOCKS_GUIDE.html`](mdc:documentation/domain_agnostic_payment/membership_susbscription/STRIPE_TEST_CLOCKS_GUIDE.html)
-  - Complete example with parameter customization for `setup-test-clock.js` and `expedite-stripe-renewal-test-clock.js`
-  - Shows all styling patterns: section containers, script name highlighting, parameters lists, interactive command blocks
-- **Testing Scripts Guide**: [`documentation/domain_agnostic_payment/membership_susbscription/SUBSCRIPTION_RENEWAL_TESTING_SCRIPTS_GUIDE.html`](mdc:documentation/domain_agnostic_payment/membership_susbscription/SUBSCRIPTION_RENEWAL_TESTING_SCRIPTS_GUIDE.html)
-
-## Summary Checklist
-
-Before submitting HTML documentation:
-
-- [ ] All code references in info/warning/success boxes use light blue background (`#e8f4f8`) with dark blue text (`#0d3b66`)
-- [ ] All commands have copy buttons
-- [ ] **All copy-paste prompt blocks** (AI/video/editor prompts) **have a copy button** — not prompt-only `<pre>` without a control
-- [ ] All commands are provided in Windows-compatible single-line format
-- [ ] Command blocks are color-coded by script type
-- [ ] Windows single-line sections have light blue background with dark blue text
-- [ ] Copy buttons show visual feedback when clicked
-- [ ] **All major sections (Script Usage, Parameters, Output, etc.) are wrapped in colored section containers**
-- [ ] **Section headers have colored gradient backgrounds with white text**
-- [ ] **Section introductions use `section-intro` class with light blue gradient**
-- [ ] **All script file names use `script-name` class with purple gradient**
-- [ ] **Parameters sections use `parameters-list` class with orange gradient**
-- [ ] **Table headers use blue gradient background with white text (not gray)**
-- [ ] **Code in table cells uses light blue background with dark blue text**
-- [ ] **No gray backgrounds for important sections** (use colored gradients)
-- [ ] **Command blocks include parameter customization inputs** (use `command-parameters` section)
-- [ ] **All command blocks have `data-command-base` attribute** (base command without parameters)
-- [ ] **All command blocks have `data-template-command` attribute** (template/sample command for Template button)
-- [ ] **Two copy buttons are present** (Template button and Customized button)
-- [ ] **Template button copies original template command** (uses `data-template-command` attribute)
-- [ ] **Customized button copies command with user parameters** (uses updated `command-content`)
-- [ ] **Parameter inputs update command dynamically** (use `updateCommand` function)
-- [ ] **Commands are initialized on page load** (read initial input values)
-- [ ] **Single-line code element has `-single-code` suffix ID** (for dynamic updates)
-- [ ] Table of contents is included with anchor links
-- [ ] Responsive design works on mobile devices
-- [ ] Accessibility features are included (ARIA labels, keyboard navigation)
-- [ ] Color contrast meets WCAG AA standards
-- [ ] All styling uses CSS classes (no inline styles)
-- [ ] Consistent spacing and padding throughout
-- [ ] **Hover effects on table rows for better interactivity**
+- Events page: [`src/app/events/page.tsx`](mdc:src/app/events/page.tsx) - Lines 979-1044 for event card icons
+- Membership plans: [`src/components/admin/membership/MembershipPlanList.tsx`](mdc:src/components/admin/membership/MembershipPlanList.tsx) - Action button icons
+- Tenant Settings Page: [`src/app/admin/tenant-management/settings/page.tsx`](mdc:src/app/admin/tenant-management/settings/page.tsx) - Lines 94-106 for full-width button, Lines 278-308 for table action buttons
+- Tenant Settings List: [`src/app/admin/tenant-management/components/TenantSettingsList.tsx`](mdc:src/app/admin/tenant-management/components/TenantSettingsList.tsx) - Lines 278-308 for table action buttons
+- Admin Media Page: [`src/app/admin/media/page.tsx`](mdc:src/app/admin/media/page.tsx) - Lines 810-832 for media gallery grid buttons with inline SVG icons
+- Heroicons: https://heroicons.com/ (source for SVG paths)
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
