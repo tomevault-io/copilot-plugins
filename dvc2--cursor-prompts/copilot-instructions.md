@@ -1,248 +1,771 @@
-## session-coordinator
+## typescript
 
-> description: Maintains continuity and context across multiple work sessions
+> TypeScript best practices, patterns, and type system mastery for modern applications
 
----
-description: Maintains continuity and context across multiple work sessions
-globs: ["**/*"]
-alwaysApply: false
----
+# TypeScript Best Practices
 
-# Session Coordination & Continuity
+Comprehensive guide for TypeScript development with focus on type safety, performance, and maintainability.
 
-## 🔄 Session State Tracking
+## 1. Type System Mastery
 
-### Active Session Format
-```yaml
-SESSION_STATE:
-  id: "2024-03-14-auth-implementation"
-  feature: "User Authentication"
-  branch: "feature/auth-jwt"
-  status: "IN_PROGRESS"
-  
-PROGRESS:
-  completed:
-    - JWT token generation
-    - User login endpoint
-    - Password hashing
-  in_progress:
-    - Refresh token logic
-  blocked:
-    - Need decision on token expiry
-  next:
-    - Implement logout
-    - Add rate limiting
+### 1.1 Type Inference and Annotations
+
+```typescript
+// Let TypeScript infer when obvious
+const numbers = [1, 2, 3]; // number[]
+const config = { host: 'localhost', port: 3000 }; // inferred shape
+
+// Annotate when inference isn't sufficient
+const processValue = <T extends { id: string }>(value: T): T & { processed: true } => {
+  return { ...value, processed: true };
+};
+
+// Use satisfies for type checking without widening
+const routes = {
+  home: '/',
+  users: '/users',
+  profile: '/users/:id'
+} satisfies Record<string, string>;
 ```
 
-## 📍 Checkpoint System
+### 1.2 Discriminated Unions and Type Narrowing
 
-### Create Checkpoint Before:
-- Major refactoring
-- Switching to different feature
-- End of work session
-- Complex debugging starts
+```typescript
+// Discriminated unions for state management
+type AsyncState<T> = 
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: Error };
 
-### Checkpoint Format:
-```javascript
-CHECKPOINT: "Before refactoring auth service"
-STATE: {
-  working_files: ["auth.service.ts", "user.controller.ts"],
-  last_test_status: "PASSING",
-  git_status: "2 files modified, 0 staged",
-  key_decisions: ["Using JWT", "15min token expiry"],
-  rollback_point: "commit:a3f4b5c"
+// Type guards for narrowing
+function isSuccess<T>(state: AsyncState<T>): state is Extract<AsyncState<T>, { status: 'success' }> {
+  return state.status === 'success';
+}
+
+// Pattern matching with exhaustive checks
+function handleState<T>(state: AsyncState<T>): string {
+  switch (state.status) {
+    case 'idle': return 'Ready';
+    case 'loading': return 'Loading...';
+    case 'success': return `Data: ${JSON.stringify(state.data)}`;
+    case 'error': return `Error: ${state.error.message}`;
+    default: {
+      const _exhaustive: never = state;
+      return _exhaustive;
+    }
+  }
 }
 ```
 
-## 🎯 Context Handoff
+### 1.3 Advanced Type Patterns
 
-### End of Session Protocol
-```markdown
-## Session Summary [Date/Time]
+```typescript
+// Conditional types
+type IsArray<T> = T extends readonly any[] ? true : false;
+type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 
-### Completed ✓
-- Implemented user registration with validation
-- Added password hashing with bcrypt
-- Created JWT token generation
+// Mapped types with modifiers
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
+};
 
-### In Progress 🔄
-- Working on refresh token endpoint
-- File: `auth.controller.ts` line 47
+// Template literal types
+type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type APIEndpoint<M extends HTTPMethod> = `/api/${Lowercase<M>}/${string}`;
 
-### Blocked ⚠️
-- Waiting for: Decision on refresh token storage
-- Options considered: Redis vs Database
+// Branded types for nominal typing
+type UserId = string & { __brand: 'UserId' };
+type PostId = string & { __brand: 'PostId' };
 
-### Next Session 📋
-1. Complete refresh token implementation
-2. Add logout functionality
-3. Test edge cases
-
-### Key Context
-- Using @nestjs/jwt package
-- Tokens expire in 15 minutes
-- Refresh tokens last 7 days
+const createUserId = (id: string): UserId => id as UserId;
 ```
 
-## 🔗 Dependency Tracking
+### 1.4 Utility Type Cookbook
 
-### Track What Affects What
+```typescript
+// Deep partial with arrays
+type DeepPartial<T> = T extends readonly any[] ? T : {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+// Type-safe object paths
+type Path<T> = T extends object ? {
+  [K in keyof T]: K extends string 
+    ? T[K] extends object 
+      ? K | `${K}.${Path<T[K]>}`
+      : K
+    : never;
+}[keyof T] : never;
+
+// Type-safe event emitter
+type EventMap = Record<string, any>;
+type EventKey<T extends EventMap> = string & keyof T;
+type EventReceiver<T> = (params: T) => void;
+
+interface Emitter<T extends EventMap> {
+  on<K extends EventKey<T>>(eventName: K, fn: EventReceiver<T[K]>): void;
+  emit<K extends EventKey<T>>(eventName: K, params: T[K]): void;
+}
 ```
-DEPENDENCY_MAP:
-  auth.service.ts:
-    imports: ["jwt.service", "user.service"]
-    affects: ["auth.controller", "auth.guard"]
-    tests: ["auth.service.test.ts"]
+
+## 2. Strict Mode Best Practices
+
+### 2.1 Null Safety
+
+```typescript
+// Handle null/undefined explicitly
+interface User {
+  id: string;
+  name: string;
+  email?: string; // Optional
+  metadata: Record<string, unknown> | null; // Nullable
+}
+
+// Non-null assertion when you're certain
+function processUser(user: User | null) {
+  if (!user) throw new Error('User required');
+  
+  // TypeScript knows user is non-null here
+  console.log(user.name.toUpperCase());
+  
+  // Optional chaining for safety
+  const domain = user.email?.split('@')[1];
+}
+
+// Nullish coalescing
+const getDisplayName = (user: User) => {
+  return user.name ?? user.email ?? 'Anonymous';
+};
+```
+
+### 2.2 Type Assertions and Guards
+
+```typescript
+// Avoid type assertions, prefer type guards
+function isUser(value: unknown): value is User {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'id' in value &&
+    'name' in value &&
+    typeof value.id === 'string' &&
+    typeof value.name === 'string'
+  );
+}
+
+// When assertions are necessary, be explicit
+const config = JSON.parse(configString) as unknown;
+if (!isValidConfig(config)) {
+  throw new Error('Invalid configuration');
+}
+```
+
+## 3. Architecture Patterns
+
+### 3.1 Dependency Injection
+
+```typescript
+// Token-based DI
+const TOKENS = {
+  Logger: Symbol('Logger'),
+  Database: Symbol('Database'),
+  Cache: Symbol('Cache'),
+} as const;
+
+interface Logger {
+  log(message: string): void;
+}
+
+interface Container {
+  get<T>(token: symbol): T;
+  bind<T>(token: symbol, factory: () => T): void;
+}
+
+// Usage with decorators
+class UserService {
+  constructor(
+    @inject(TOKENS.Logger) private logger: Logger,
+    @inject(TOKENS.Database) private db: Database
+  ) {}
+}
+```
+
+### 3.2 Repository Pattern
+
+```typescript
+// Generic repository interface
+interface Repository<T, ID = string> {
+  findById(id: ID): Promise<T | null>;
+  findAll(filter?: Partial<T>): Promise<T[]>;
+  save(entity: T): Promise<T>;
+  delete(id: ID): Promise<void>;
+}
+
+// Type-safe implementation
+class UserRepository implements Repository<User, string> {
+  async findById(id: string): Promise<User | null> {
+    const result = await db.query<User>('SELECT * FROM users WHERE id = ?', [id]);
+    return result[0] || null;
+  }
+  
+  async findAll(filter?: Partial<User>): Promise<User[]> {
+    // Implementation with type-safe query building
+  }
+}
+```
+
+## 4. Error Handling
+
+### 4.1 Result Type Pattern
+
+```typescript
+// Result monad for explicit error handling
+type Result<T, E = Error> = 
+  | { ok: true; value: T }
+  | { ok: false; error: E };
+
+class ResultWrapper<T, E = Error> {
+  constructor(private result: Result<T, E>) {}
+  
+  static ok<T>(value: T): ResultWrapper<T, never> {
+    return new ResultWrapper({ ok: true, value });
+  }
+  
+  static err<E>(error: E): ResultWrapper<never, E> {
+    return new ResultWrapper({ ok: false, error });
+  }
+  
+  map<U>(fn: (value: T) => U): ResultWrapper<U, E> {
+    if (this.result.ok) {
+      return ResultWrapper.ok(fn(this.result.value));
+    }
+    return this as any;
+  }
+  
+  flatMap<U>(fn: (value: T) => ResultWrapper<U, E>): ResultWrapper<U, E> {
+    if (this.result.ok) {
+      return fn(this.result.value);
+    }
+    return this as any;
+  }
+  
+  unwrapOr(defaultValue: T): T {
+    return this.result.ok ? this.result.value : defaultValue;
+  }
+}
+```
+
+### 4.2 Custom Error Types
+
+```typescript
+// Error hierarchy with discriminated unions
+type AppError =
+  | { type: 'ValidationError'; field: string; message: string }
+  | { type: 'NotFoundError'; resource: string; id: string }
+  | { type: 'UnauthorizedError'; reason: string }
+  | { type: 'NetworkError'; code: string; retryable: boolean };
+
+// Type-safe error handling
+function handleError(error: AppError): number {
+  switch (error.type) {
+    case 'ValidationError': return 400;
+    case 'NotFoundError': return 404;
+    case 'UnauthorizedError': return 401;
+    case 'NetworkError': return error.retryable ? 503 : 500;
+  }
+}
+```
+
+## 5. Performance and Optimization
+
+### 5.1 Type-Level Performance
+
+```typescript
+// Avoid deep type computations
+type SimpleUnion = 'a' | 'b' | 'c'; // Good
+type ComplexUnion = DeepPartial<DeepReadonly<HugeType>>; // Avoid in hot paths
+
+// Use interface extension for better performance
+interface Base {
+  id: string;
+  createdAt: Date;
+}
+
+interface User extends Base { // Better performance than intersection
+  name: string;
+  email: string;
+}
+
+// Lazy type evaluation
+type LazyType<T> = T extends unknown ? ActualComplexType<T> : never;
+```
+
+### 5.2 Const Contexts and Literal Types
+
+```typescript
+// Use const assertions for literal types
+const config = {
+  api: 'https://api.example.com',
+  retries: 3,
+  timeout: 5000,
+} as const;
+
+// Tuple types with const
+const tuple = [1, 'hello', true] as const; // readonly [1, "hello", true]
+
+// Enum alternatives with const
+const Status = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+} as const;
+
+type Status = typeof Status[keyof typeof Status];
+```
+
+## 6. Testing Strategies
+
+### 6.1 Type Testing
+
+```typescript
+// Type-level unit tests
+type Assert<T extends true> = T;
+type IsTrue<T extends true> = T;
+type IsFalse<T extends false> = T;
+type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends (<T>() => T extends Y ? 1 : 2) ? true : false;
+
+// Test your types
+type test_user_keys = Assert<Equal<keyof User, 'id' | 'name' | 'email'>>;
+type test_async_state = Assert<Equal<AsyncState<string>, { status: 'idle' } | { status: 'loading' } | { status: 'success'; data: string } | { status: 'error'; error: Error }>>;
+```
+
+### 6.2 Mock Types
+
+```typescript
+// Type-safe mocking
+type DeepMockProxy<T> = {
+  [K in keyof T]: T[K] extends (...args: any[]) => infer R
+    ? jest.MockedFunction<T[K]>
+    : T[K] extends object
+    ? DeepMockProxy<T[K]>
+    : T[K];
+};
+
+function createMock<T>(): DeepMockProxy<T> {
+  return new Proxy({} as DeepMockProxy<T>, {
+    get: (target, prop) => {
+      if (!target[prop]) {
+        target[prop] = jest.fn();
+      }
+      return target[prop];
+    },
+  });
+}
+```
+
+## 7. Module System and Declarations
+
+### 7.1 Declaration Files
+
+```typescript
+// ambient-modules.d.ts
+declare module '*.css' {
+  const content: Record<string, string>;
+  export default content;
+}
+
+declare module 'legacy-library' {
+  export function legacyFunction(input: string): number;
+  export interface LegacyOptions {
+    timeout?: number;
+    retries?: number;
+  }
+}
+
+// global augmentation
+declare global {
+  interface Window {
+    __APP_CONFIG__: {
+      apiUrl: string;
+      version: string;
+    };
+  }
+}
+```
+
+### 7.2 Module Augmentation
+
+```typescript
+// Extend existing modules
+declare module 'express' {
+  interface Request {
+    user?: AuthenticatedUser;
+    session?: SessionData;
+  }
+}
+
+// Extend built-in types
+interface Array<T> {
+  groupBy<K extends keyof T>(key: K): Record<string, T[]>;
+}
+```
+
+## 8. React/JSX Patterns
+
+### 8.1 Component Patterns
+
+```typescript
+// Polymorphic components
+type PolymorphicRef<C extends React.ElementType> = React.ComponentPropsWithRef<C>['ref'];
+
+type PolymorphicProps<C extends React.ElementType, Props = {}> = Props &
+  Omit<React.ComponentPropsWithoutRef<C>, keyof Props> & {
+    as?: C;
+    ref?: PolymorphicRef<C>;
+  };
+
+const Button = <C extends React.ElementType = 'button'>({
+  as,
+  ...props
+}: PolymorphicProps<C, { variant?: 'primary' | 'secondary' }>) => {
+  const Component = as || 'button';
+  return <Component {...props} />;
+};
+```
+
+### 8.2 Hook Patterns
+
+```typescript
+// Type-safe context
+function createContext<T extends {} | null>() {
+  const Context = React.createContext<T | undefined>(undefined);
+  
+  function useContext() {
+    const context = React.useContext(Context);
+    if (context === undefined) {
+      throw new Error('useContext must be used within Provider');
+    }
+    return context;
+  }
+  
+  return [Context.Provider, useContext] as const;
+}
+
+// Generic hooks
+function useAsync<T>(
+  asyncFn: () => Promise<T>,
+  deps: React.DependencyList = []
+): AsyncState<T> {
+  const [state, setState] = useState<AsyncState<T>>({ status: 'idle' });
+  
+  useEffect(() => {
+    setState({ status: 'loading' });
     
-  user.model.ts:
-    affects: ["*user*", "auth.service"]
-    migration: "20240314_add_user_table.sql"
-```
-
-### Change Impact Analysis
-```
-CHANGE: Modified User model email validation
-IMPACTS:
-  - user.service.ts: Update createUser validation
-  - auth.service.ts: Check login email handling
-  - user.test.ts: Update test cases
-  - API docs: Reflect new validation rules
-```
-
-## 💭 Decision Memory
-
-### Record Key Decisions
-```markdown
-DECISION_LOG:
+    asyncFn()
+      .then(data => setState({ status: 'success', data }))
+      .catch(error => setState({ status: 'error', error }));
+  }, deps);
   
-2024-03-14 14:30
-- DECISION: Use JWT instead of sessions
-- REASON: Stateless, scalable, mobile-friendly
-- TRADEOFFS: Can't revoke easily, need refresh strategy
-- ALTERNATIVE: Considered Redis sessions
-
-2024-03-14 15:45  
-- DECISION: 15-minute access token expiry
-- REASON: Balance security vs UX
-- REFERENCE: OWASP recommends 5-30 minutes
+  return state;
+}
 ```
 
-### Pattern Recognition
-```
-LEARNED_PATTERNS:
-- This project prefers async/await over promises
-- Error handling uses custom AppError class
-- All endpoints return { success, data, error } format
-- Testing uses jest with supertest for endpoints
+## 9. Configuration and Build
+
+### 9.1 TSConfig Best Practices
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    
+    // Strict settings
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": true,
+    
+    // Code quality
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    
+    // Emit
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false,
+    
+    // Paths
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  }
+}
 ```
 
-## 🚦 Work State Indicators
+### 9.2 Type-Safe Environment
 
-### Current Focus
-```javascript
-// WORKING_ON: Adding validation to refresh token endpoint
-// CONTEXT: User reported tokens not refreshing properly
-// HYPOTHESIS: Race condition when token expires during refresh
-// TESTING: Adding concurrent request tests
-```
+```typescript
+// env.ts
+import { z } from 'zod';
 
-### Mental Stack
-```
-STACK:
-1. [CURRENT] Fixing refresh token race condition
-2. [PAUSED] Implement logout endpoint
-3. [TODO] Add rate limiting
-4. [BACKLOG] OAuth integration
-```
+const envSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']),
+  API_URL: z.string().url(),
+  API_KEY: z.string().min(1),
+  PORT: z.string().transform(Number).pipe(z.number().positive()),
+  ENABLE_ANALYTICS: z.string().transform(v => v === 'true'),
+});
 
-## 📊 Progress Tracking
+export const env = envSchema.parse(process.env);
 
-### Feature Progress
-```
-Authentication Module: ████████░░ 80%
-  ├─ Login: ██████████ 100% ✓
-  ├─ Register: ██████████ 100% ✓
-  ├─ JWT Generation: ██████████ 100% ✓
-  ├─ Refresh Token: ████████░░ 80% 
-  ├─ Logout: ░░░░░░░░░░ 0%
-  └─ Rate Limiting: ░░░░░░░░░░ 0%
+// Type declaration for process.env
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv extends z.infer<typeof envSchema> {}
+  }
+}
 ```
 
-### Time Investment
-```
-FEATURE_TIME:
-  research: 2h (JWT best practices)
-  implementation: 6h
-  debugging: 1.5h
-  testing: 2h
-  refactoring: 1h
+## 10. Documentation and Code Quality
+
+### 10.1 TSDoc Standards
+
+```typescript
+/**
+ * Processes user data and returns a normalized result.
+ * 
+ * @param data - Raw user data from the API
+ * @param options - Processing options
+ * @returns Normalized user object
+ * 
+ * @example
+ * ```ts
+ * const user = await processUser(rawData, { validate: true });
+ * ```
+ * 
+ * @throws {ValidationError} When data validation fails
+ * @throws {NetworkError} When API request fails
+ * 
+ * @see {@link https://example.com/docs/user-processing}
+ * @since 2.0.0
+ * @deprecated Use `processUserV2` instead - will be removed in 3.0.0
+ */
+export async function processUser(
+  data: unknown,
+  options?: ProcessOptions
+): Promise<User> {
+  // Implementation
+}
+
+// Type documentation
+/**
+ * Represents a user in the system.
+ * @interface
+ */
+export interface User {
+  /** Unique identifier */
+  id: string;
   
-BLOCKERS_TIME:
-  waiting_for_decisions: 1h
-  environment_issues: 0.5h
+  /** User's display name */
+  name: string;
+  
+  /** 
+   * Email address
+   * @pattern ^[^\s@]+@[^\s@]+\.[^\s@]+$
+   */
+  email: string;
+  
+  /** Account creation timestamp */
+  createdAt: Date;
+}
 ```
 
-## 🔍 Quick Context Recovery
+### 10.2 Code Review Checklist
 
-### Session Resume Commands
-```
-"Continue from last session" →
-  1. Load last checkpoint
-  2. Show progress summary
-  3. Display current task
-  4. List immediate next steps
-
-"What was I working on?" →
-  - Feature: [Name]
-  - File: [Current file + line]
-  - Task: [Specific task]
-  - Context: [Why doing this]
-```
-
-## 🎪 Collaboration Context
-
-### Team Handoff Format
-```markdown
-HANDOFF TO: @teammate
-
-CONTEXT:
-- Working on: JWT refresh token implementation
-- Branch: feature/auth-jwt
-- PR: #123 (draft)
-
-CURRENT STATE:
-- Login works perfectly
-- Refresh endpoint 80% done
-- Need to handle concurrent refresh
-
-WATCH OUT:
-- Token expiry edge case at exactly 15 min
-- Database connection pool gets exhausted under load
-
-NEXT STEPS:
-1. Complete refresh token error handling
-2. Add integration tests
-3. Update API documentation
+```typescript
+// Pre-commit checklist enforced via hooks
+export const codeReviewChecklist = {
+  types: [
+    'No any types without justification comment',
+    'All functions have explicit return types',
+    'Interfaces preferred over type aliases for objects',
+    'Proper null/undefined handling',
+    'No type assertions without validation'
+  ],
+  
+  errorHandling: [
+    'All promises have error handling',
+    'Custom errors extend base Error class',
+    'Error messages are descriptive',
+    'No silent failures'
+  ],
+  
+  performance: [
+    'No unnecessary type computations',
+    'Const assertions used for literals',
+    'No circular dependencies',
+    'Bundle size impact considered'
+  ],
+  
+  security: [
+    'User input validated',
+    'No any in external data handling',
+    'Sensitive data not logged',
+    'Type-safe environment variables'
+  ]
+};
 ```
 
-## 💾 Session Persistence
+## 11. Migration and Adoption
 
-### Auto-Save Triggers
-- Every significant completion
-- Before major changes
-- On error occurrence
-- At regular intervals (30 min)
+### 11.1 JavaScript to TypeScript Migration
 
-### Recovery Protocol
+```typescript
+// Incremental migration with JSDoc
+/** @type {import('./types').User} */
+const user = {
+  id: '123',
+  name: 'John',
+  email: 'john@example.com'
+};
+
+// Allow JS with checkJs
+// @ts-check
+/** @param {string} name */
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+// Progressive typing
+type TODO = any; // Mark for future typing
+interface PartiallyTypedAPI {
+  getUser(id: string): Promise<TODO>;
+  updateUser(id: string, data: TODO): Promise<void>;
+}
 ```
-IF session_crashed:
-  1. Load last checkpoint
-  2. Check git status
-  3. Verify test status
-  4. Resume from safe state
+
+### 11.2 Common Pitfalls and Solutions
+
+```typescript
+// Pitfall: Index signature with specific properties
+interface BadConfig {
+  port: number;
+  [key: string]: string; // Error: port is number
+}
+
+// Solution: Use union types or separate interfaces
+interface GoodConfig {
+  port: number;
+  [key: string]: string | number;
+}
+
+// Pitfall: Forgetting to handle undefined in strict mode
+const users = [{ id: 1, name: 'John' }];
+const user = users.find(u => u.id === 2);
+console.log(user.name); // Error: Object is possibly 'undefined'
+
+// Solution: Proper guards
+if (user) {
+  console.log(user.name);
+}
+
+// Pitfall: Mutating readonly arrays
+const readonlyArray: readonly number[] = [1, 2, 3];
+readonlyArray.push(4); // Error
+
+// Solution: Create new array
+const newArray = [...readonlyArray, 4];
+
+// Pitfall: Incorrect type narrowing
+function processValue(value: string | number) {
+  if (typeof value === 'string' || typeof value === 'number') {
+    // TypeScript still sees value as string | number
+    return value.toFixed(2); // Error
+  }
+}
+
+// Solution: Proper type guards
+function processValueCorrect(value: string | number) {
+  if (typeof value === 'number') {
+    return value.toFixed(2);
+  }
+  return parseFloat(value).toFixed(2);
+}
 ```
 
-Remember: Good coordination means never losing context or repeating work!
+### 11.3 Performance Monitoring
+
+```typescript
+// Type-safe performance markers
+enum PerformanceMark {
+  FetchStart = 'fetch-start',
+  FetchEnd = 'fetch-end',
+  RenderStart = 'render-start',
+  RenderEnd = 'render-end'
+}
+
+class PerformanceMonitor {
+  private marks = new Map<PerformanceMark, number>();
+  
+  mark(name: PerformanceMark): void {
+    this.marks.set(name, performance.now());
+  }
+  
+  measure(name: string, start: PerformanceMark, end: PerformanceMark): number {
+    const startTime = this.marks.get(start);
+    const endTime = this.marks.get(end);
+    
+    if (!startTime || !endTime) {
+      throw new Error(`Missing marks for measurement: ${name}`);
+    }
+    
+    const duration = endTime - startTime;
+    performance.measure(name, start, end);
+    
+    return duration;
+  }
+}
+```
+
+### Do's ✅
+- Use `unknown` instead of `any`
+- Enable all strict compiler options
+- Write type guards for runtime validation
+- Use discriminated unions for state
+- Leverage const assertions
+- Test your types with type-level tests
+- Use branded types for domain modeling
+
+### Don'ts ❌
+- Don't use `any` without comment justification
+- Don't use `!` non-null assertion without checks
+- Don't overuse type assertions
+- Don't create overly complex generic types
+- Don't ignore compiler errors
+- Don't mix `null` and `undefined` unnecessarily
+
+### Type Utilities Cheatsheet
+```typescript
+// Common patterns
+type Nullable<T> = T | null;
+type Optional<T> = T | undefined;
+type Maybe<T> = T | null | undefined;
+type ValueOf<T> = T[keyof T];
+type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (...args: any) => Promise<infer R> ? R : never;
+type UnpackArray<T> = T extends (infer U)[] ? U : T;
+type Flatten<T> = T extends object ? { [K in keyof T]: T[K] } : T;
+```
 
 ---
 > Source: [DVC2/cursor_prompts](https://github.com/DVC2/cursor_prompts) — distributed by [TomeVault](https://tomevault.io).
