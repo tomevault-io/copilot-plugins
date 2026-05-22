@@ -1,0 +1,44 @@
+{
+  "name": "fastci",
+  "owner": "jfrog-fastci",
+  "repo": "fastci",
+  "description": "A drop-in agent for GitHub Actions that automatically identifies CI bottlenecks and generates fixes. FastCI analyzes your workflows in real-time, flags performance issues as GitHub Issues, and can automatically create pull requests to resolve them.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jfrog-fastci/fastci",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T02:41:43Z"
+}
