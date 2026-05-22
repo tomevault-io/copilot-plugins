@@ -1,0 +1,9 @@
+{
+  "name": "bkuri-org--vfab",
+  "displayName": "vfab",
+  "description": "vfab: headless-first FSM plotter manager with vpype + per-session recording",
+  "version": "1.0.0",
+  "author": "bkuri-org",
+  "homepage": "https://github.com/bkuri-org/vfab",
+  "skills": []
+}
