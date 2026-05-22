@@ -1,137 +1,107 @@
-## component-design
+## daily-report
 
-> HeartChat使用组件化开发方式，将界面拆分为可复用的组件，提高代码复用率和可维护性。组件设计遵循微信小程序自定义组件的规范和最佳实践。
+> HeartChat的每日心情报告功能是情感分析模块的重要组成部分，通过对用户一天内的情绪数据进行汇总和分析，生成直观的可视化报告，帮助用户了解自己的情绪变化趋势和规律。
 
-# 组件设计规范
+# 每日心情报告功能
 
-## 概述
-HeartChat使用组件化开发方式，将界面拆分为可复用的组件，提高代码复用率和可维护性。组件设计遵循微信小程序自定义组件的规范和最佳实践。
+## 功能概述
+HeartChat的每日心情报告功能是情感分析模块的重要组成部分，通过对用户一天内的情绪数据进行汇总和分析，生成直观的可视化报告，帮助用户了解自己的情绪变化趋势和规律。
 
-## 组件设计原则
-- 单一职责：每个组件只负责一个功能点
-- 高内聚低耦合：组件内部逻辑紧密相关，与外部的依赖最小化
-- 接口明确：组件对外暴露清晰的属性和事件接口
-- 状态管理：合理管理组件内部状态，避免状态混乱
-- 样式隔离：使用组件样式隔离特性，避免样式冲突
-- 性能优化：避免不必要的渲染和计算
+## 相关文件结构
+- 前端部分：
+  - [miniprogram/packageEmotion/pages/daily-report/](mdc:miniprogram/packageEmotion/pages/daily-report/)：每日报告页面
+  - [miniprogram/components/emotion-dashboard/](mdc:miniprogram/components/emotion-dashboard/)：情绪仪表盘组件
+  - [miniprogram/components/emotion-pie/](mdc:miniprogram/components/emotion-pie/)：情绪饼图组件
 
-## 组件目录结构
-- [miniprogram/components/](mdc:miniprogram/components)：全局组件
-  - [chat-bubble/](mdc:miniprogram/components/chat-bubble)：聊天气泡组件
-  - [chat-input/](mdc:miniprogram/components/chat-input)：聊天输入组件
-  - [emotion-analysis/](mdc:miniprogram/components/emotion-analysis)：情感分析组件
-  - [emotion-card/](mdc:miniprogram/components/emotion-card)：情绪卡片组件
-  - [emotion-dashboard/](mdc:miniprogram/components/emotion-dashboard)：情绪仪表盘组件
-  - [emotion-history/](mdc:miniprogram/components/emotion-history)：情绪历史组件
-  - [emotion-panel/](mdc:miniprogram/components/emotion-panel)：情绪面板组件
-  - [emotion-pie/](mdc:miniprogram/components/emotion-pie)：情绪饼图组件
-  - [interest-analysis/](mdc:miniprogram/components/interest-analysis)：兴趣分析组件
-  - [login/](mdc:miniprogram/components/login)：登录组件
-  - [practice-card/](mdc:miniprogram/components/practice-card)：练习卡片组件
-  - [role-card/](mdc:miniprogram/components/role-card)：角色卡片组件
-  - [topic-analysis/](mdc:miniprogram/components/topic-analysis)：话题分析组件
+- 后端部分：
+  - [cloudfunctions/generateDailyReports/](mdc:cloudfunctions/generateDailyReports/)：生成每日报告的云函数
+  - [cloudfunctions/analysis/](mdc:cloudfunctions/analysis/)：数据分析相关云函数
 
-## 分包组件
-- [miniprogram/packageChat/components/](mdc:miniprogram/packageChat/components)：聊天功能分包组件
-- [miniprogram/packageEmotion/components/](mdc:miniprogram/packageEmotion/components)：情感分析分包组件
+## 报告生成流程
+根据[每日心情报告系统使用文档.md](mdc:docs/使用文档/每日心情报告系统使用文档.md)，报告生成流程如下：
 
-## 外部组件库
-- [miniprogram_npm/@vant/weapp/](mdc:miniprogram/miniprogram_npm/@vant/weapp)：Vant组件库
+1. 定时触发：系统每天凌晨通过云函数定时触发器自动执行报告生成
+2. 数据收集：从情绪记录集合中获取用户当天的情绪数据
+3. 数据分析：计算各类情绪的占比、情绪变化曲线、高峰值等指标
+4. 内容生成：根据分析结果生成文字总结和建议
+5. 报告存储：将生成的报告保存到daily_reports集合
+6. 通知用户：向用户发送报告已生成的通知
 
-## 常用组件示例
-
-### 聊天气泡组件
+## 报告数据结构
 ```javascript
-// chat-bubble.js
-Component({
-  properties: {
-    message: Object, // 消息对象
-    isUser: Boolean, // 是否为用户消息
+{
+  _id: "报告ID",
+  user_id: "用户ID",
+  date: "报告日期", // YYYY-MM-DD格式
+  summary: "总结文字", // AI生成的情绪总结
+  emotion_stats: {
+    // 情绪统计数据
+    joy: 0.35, // 各情绪类别占比
+    sadness: 0.15,
+    anger: 0.05,
+    fear: 0.1,
+    surprise: 0.2,
+    disgust: 0.05,
+    neutral: 0.1
   },
-  
-  data: {
-    // 组件内部数据
-  },
-  
-  methods: {
-    // 组件方法
-  }
-})
-```
-
-### 情绪卡片组件
-```javascript
-// emotion-card.js
-Component({
-  properties: {
-    emotion: Object, // 情绪对象
-    showDetails: Boolean, // 是否显示详情
-  },
-  
-  data: {
-    // 组件内部数据
-  },
-  
-  methods: {
-    onTap() {
-      // 点击事件处理
-      this.triggerEvent('tap', { id: this.data.emotion._id });
+  emotion_trend: [
+    // 情绪变化趋势数据，按时间排序
+    {time: "08:30", primary_emotion: "joy", score: 0.8},
+    {time: "12:15", primary_emotion: "surprise", score: 0.6},
+    // ...更多时间点数据
+  ],
+  highlights: [
+    // 情绪亮点，如情绪高峰或低谷
+    {
+      time: "15:20",
+      emotion: "joy",
+      score: 0.9,
+      message: "今天最开心的时刻",
+      related_message_id: "消息ID"
     }
-  }
-})
+    // ...其他亮点
+  ],
+  suggestions: [
+    // 基于情绪数据的建议
+    "今天你的积极情绪占比较高，建议继续保持这种状态",
+    "下午出现了一些焦虑情绪，可以尝试进行5分钟的深呼吸练习"
+    // ...更多建议
+  ],
+  tags: ["积极", "波动", "进步"], // 情绪标签
+  created_at: "创建时间"
+}
 ```
 
-## 组件通信方式
-- 属性传值（properties）：父组件向子组件传递数据
-- 事件通信（triggerEvent）：子组件向父组件通信
-- 获取组件实例：父组件通过selectComponent获取子组件实例
-- 全局状态：使用全局状态管理跨组件通信
+## 报告页面设计
+根据[每日心情报告功能使用指南.md](mdc:docs/使用文档/每日心情报告功能使用指南.md)，报告页面包含以下部分：
 
-## 组件样式隔离
-组件样式默认采用隔离模式，在Component构造器中设置：
-```javascript
-Component({
-  options: {
-    styleIsolation: 'isolated' // 样式隔离
-  }
-})
-```
+1. 日期选择器：允许用户查看历史报告
+2. 情绪概览：展示当天主要情绪占比的饼图
+3. 情绪变化趋势：展示情绪随时间变化的折线图
+4. 情绪亮点：展示情绪的高峰和低谷时刻
+5. 文字总结：AI生成的对当天情绪的总结
+6. 建议部分：基于情绪数据提供的改善建议
+7. 详细记录：可查看详细的情绪记录列表
 
-## 组件生命周期
-合理使用组件生命周期函数：
-- created：组件实例创建时
-- attached：组件添加到页面时
-- ready：组件布局完成时
-- moved：组件位置移动时
-- detached：组件从页面移除时
+## 数据可视化
+- 饼图：使用ECharts组件展示各类情绪的占比
+- 折线图：使用ECharts组件展示情绪随时间的变化趋势
+- 仪表盘：展示当天情绪健康指数
+- 色彩编码：使用不同颜色代表不同类型的情绪
 
-## 组件复用与继承
-对于相似组件，可以使用behaviors实现代码复用：
-```javascript
-// common-behavior.js
-export default Behavior({
-  properties: {
-    // 公共属性
-  },
-  methods: {
-    // 公共方法
-  }
-})
+## 主要功能实现
+- 自动生成：系统自动生成每日报告
+- 历史查询：用户可查看历史报告
+- 数据可视化：直观展示情绪数据
+- 情绪分析：提供情绪变化趋势分析
+- 建议生成：基于情绪数据提供个性化建议
+- 分享功能：允许用户分享报告（可选）
 
-// 在组件中使用
-import commonBehavior from '../behaviors/common-behavior';
-
-Component({
-  behaviors: [commonBehavior],
-  // 组件特有配置
-})
-```
-
-## 组件性能优化
-- 避免频繁setData，合并数据更新
-- 使用pure-data-pattern提高性能
-- 懒加载不可见组件
-- 适当使用wx:if和wx:for的性能优化技巧
+## 相关接口
+- 获取报告列表：获取用户的报告列表
+- 获取报告详情：获取指定日期的报告详情
+- 手动生成报告：手动触发报告生成（管理功能）
+- 报告反馈：用户对报告内容的反馈
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
