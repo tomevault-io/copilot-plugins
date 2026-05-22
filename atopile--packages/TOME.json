@@ -2,9 +2,9 @@
   "name": "packages",
   "owner": "atopile",
   "repo": "packages",
-  "description": "",
+  "description": "First-party packages \ud83d\udce6 from atopile",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atopile/packages",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T08:34:19Z"
+  "distributed_at": "2026-05-22T18:47:23Z"
 }
