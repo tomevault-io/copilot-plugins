@@ -4,7 +4,7 @@
   "repo": "bolt-to-github",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mamertofabian/bolt-to-github",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T12:29:51Z"
+  "distributed_at": "2026-05-22T00:23:49Z"
 }
