@@ -1,0 +1,9 @@
+{
+  "name": "duckdb--ducklake-web",
+  "displayName": "ducklake-web",
+  "description": "\ud83c\udf0a DuckLake website and specification",
+  "version": "1.0.0",
+  "author": "duckdb",
+  "homepage": "https://github.com/duckdb/ducklake-web",
+  "skills": []
+}
