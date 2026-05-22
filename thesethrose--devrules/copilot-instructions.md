@@ -1,34 +1,53 @@
-## 02-common-errors
+## 03-mcp-configuration
 
-> TEMPLATE: Documents common mistakes, anti-patterns, or outdated syntax specific to this project to help the AI avoid them. Needs user customization.
+> Defines the available Model Context Protocol (MCP) servers and their capabilities based on the user's mcp.json. Use when interacting with any MCP Server command.
 
+# MCP Server Configuration
 
-# Common Mistakes & Anti-Patterns for This Project
+This file documents the Model Context Protocol (MCP) servers available in your environment. It helps the AI understand which tools it can use for tasks involving memory, filesystem operations, web interaction, etc.
 
-This file lists patterns the AI should actively avoid when working on this specific codebase.
+## How to Provide Your MCP Configuration
 
-## Format Guide:
-Use the following structure for each entry:
+1. Open Cursor Settings (Cmd+, or Ctrl+,)
+2. Go to the 'MCP' section
+3. Click 'Add new global MCP server' (opens `mcp.json`)
+4. With `mcp.json` open, return to chat and provide context using @
 
+## Available MCP Servers
+
+### Example Server Format
 ```
-### MISTAKE: [Short Description of the Mistake]
-- [PATTERN]: Describe when or how the mistake typically occurs.
-- [BAD_EXAMPLE]: (Optional) Show a concise code snippet of the incorrect way.
-- [GOOD_EXAMPLE]: Show a concise code snippet of the correct way.
-- [SOLUTION/RULE]: Clearly state the rule or the correct approach to follow.
-- [CONTEXT/REASON]: (Optional) Explain why the correct way is preferred (e.g., performance, maintainability, project standard).
-- [REFERENCE]: (Optional) Link to relevant documentation, style guide section, or issue tracker.
+### MCP Server Name
+Purpose: Provides file system access for reading/writing files
+When to Use: For file operations (read, write, check existence)
+Key Commands: `read_file`, `write_file`, `file_exists`, `list_directory`
+Usage Instructions: Always use absolute file paths
 ```
 
-## Project-Specific Mistakes (User: Add your entries below)
+### Server Template
+```
+### MCP Server
+Purpose: 
+When to Use: 
+Key Commands: 
+Usage Instructions: 
+Access Scope: 
+Authentication: 
+Rate Limits: 
+Error Handling: 
+```
 
-### MISTAKE:
-- [PATTERN]:
-- [BAD_EXAMPLE]:
-- [GOOD_EXAMPLE]:
-- [SOLUTION/RULE]:
-- [CONTEXT/REASON]:
-- [REFERENCE]:
+## Important Notes
+- Always use absolute paths for filesystem operations
+- Tool descriptions are derived from available tool descriptions in your configuration
+
+---
+NOTE TO AI: 
+- Populate this file based on user's `.cursor/mcp.json`
+- For each server, list name and brief description of purpose/commands
+- Include relevant configuration details (paths, environment variables, etc.)
+- Remove example section when populating with actual MCP servers
+---
 
 ---
 > Source: [TheSethRose/DevRules](https://github.com/TheSethRose/DevRules) — distributed by [TomeVault](https://tomevault.io).
