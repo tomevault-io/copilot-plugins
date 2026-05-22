@@ -1,162 +1,133 @@
-## python-github-rules
+## testing-and-build-guide
 
-> Development rules for python code and modules
+> **Description:** This rule provides essential instructions for testing and building the project correctly, avoiding common pitfalls with test environment management.
 
-{
-    "general": {
-        "coding_style": {
-            "language": "Python",
-            "use_strict": true,
-            "indentation": "4 spaces",
-            "max_line_length": 120,
-            "comments": {
-                "style": "# for single-line, ''' for multi-line",
-                "require_comments": true
-            }
-        },
-        
-        "naming_conventions": {
-            "variables": "snake_case",
-            "functions": "snake_case",
-            "classes": "PascalCase",
-            "interfaces": "PascalCase",
-            "files": "snake_case"
-        },
-        
-        "error_handling": {
-            "prefer_try_catch": true,
-            "log_errors": true
-        },
-        
-        "testing": {
-            "require_tests": true,
-            "test_coverage": "80%",
-            "test_types": ["unit", "integration"]
-        },
-        
-        "documentation": {
-            "require_docs": true,
-            "doc_tool": "docstrings",
-            "style_guide": "Google Python Style Guide"
-        },
-        
-        "security": {
-            "require_https": true,
-            "sanitize_inputs": true,
-            "validate_inputs": true,
-            "use_env_vars": true
-        },
-        
-        "configuration_management": {
-            "config_files": [".env"],
-            "env_management": "python-dotenv",
-            "secrets_management": "environment variables"
-        },
-        
-        "code_review": {
-            "require_reviews": true,
-            "review_tool": "GitHub Pull Requests",
-            "review_criteria": ["functionality", "code quality", "security"]
-        },
-        
-        "version_control": {
-            "system": "Git",
-            "branching_strategy": "GitHub Flow",
-            "commit_message_format": "Conventional Commits"
-        },
-        
-        "logging": {
-            "logging_tool": "Python logging module",
-            "log_levels": ["debug", "info", "warn", "error"],
-            "log_retention_policy": "7 days"
-        },
-        
-        "monitoring": {
-            "monitoring_tool": "Not specified",
-            "metrics": ["file processing time", "classification accuracy", "error rate"]
-        },
-        
-        "dependency_management": {
-            "package_manager": "pip",
-            "versioning_strategy": "Semantic Versioning"
-        },
-        
-        "accessibility": {
-            "standards": ["Not applicable"],
-            "testing_tools": ["Not applicable"]
-        },
-        
-        "internationalization": {
-            "i18n_tool": "Not applicable",
-            "supported_languages": ["English"],
-            "default_language": "English"
-        },
-        
-        "ci_cd": {
-            "ci_tool": "GitHub Actions",
-            "cd_tool": "Not specified",
-            "pipeline_configuration": ".github/workflows/main.yml"
-        },
-        
-        "code_formatting": {
-            "formatter": "Black",
-            "linting_tool": "Pylint",
-            "rules": ["PEP 8", "project-specific rules"]
-        },
-        
-        "architecture": {
-            "patterns": ["Modular design"],
-            "principles": ["Single Responsibility", "DRY"]
-        }
-    },
-    
-    "project_specific": {
-        "use_framework": "None",
-        "styling": "Not applicable",
-        "testing_framework": "pytest",
-        "build_tool": "setuptools",
-        
-        "deployment": {
-            "environment": "Local machine",
-            "automation": "Not specified",
-            "strategy": "Manual deployment"
-        },
-        
-        "performance": {
-            "benchmarking_tool": "Not specified",
-            "performance_goals": {
-                "response_time": "< 5 seconds per file",
-                "throughput": "Not specified",
-                "error_rate": "< 1%"
-            }
-        }
-    },
-    
-    "context": {
-        "codebase_overview": "Python-based file organization tool using AI for content analysis and classification",
-        "libraries": [
-            "watchdog", "spacy", "PyPDF2", "python-docx", "pandas", "beautifulsoup4", 
-            "transformers", "scikit-learn", "joblib", "python-dotenv", "torch", "pytest", 
-            "shutil", "logging", "pytest-mock"
-        ],
-        
-        "coding_practices": {
-            "modularity": true,
-            "DRY_principle": true,
-            "performance_optimization": true
-        }
-    },
-    
-    "behavior": {
-        "verbosity": {
-            "level": 2,
-            "range": [0, 3]
-        },
-        "handle_incomplete_tasks": "Provide partial solution and explain limitations",
-        "ask_for_clarification": true,
-        "communication_tone": "Professional and concise"
-    }
-}
+# Rule: Testing and Build Guidelines
+
+**Description:** This rule provides essential instructions for testing and building the project correctly, avoiding common pitfalls with test environment management.
+
+## Testing Guidelines
+
+### Always Use Hatch Test Command
+
+Standard tests should **always** be run via the built-in Hatch `test` command, not directly with pytest or custom wrappers:
+
+```bash
+# Run all tests (default matrix, quiet)
+hatch test
+
+# Run tests with coverage report (via run-cov alias)
+# Select a specific Python version (e.g., Python 3.10):
+hatch -e hatch-test.py3.10 run run-cov
+
+# Generate HTML coverage report (via run-html alias)
+# Select a specific Python version (e.g., Python 3.10):
+hatch -e hatch-test.py3.10 run run-html
+
+# Run tests for a specific Python version only
+hatch test --python 3.10
+
+# Combine options and target specific paths
+hatch test --cover --python 3.12 tests/tools/
+```
+
+### Avoid Direct pytest Usage
+
+❌ **Incorrect:**
+
+```bash
+python -m pytest tests/
+```
+
+✅ **Correct:**
+
+```bash
+hatch test
+```
+
+Using Hatch ensures:
+
+- The proper Python matrix is used
+- Dependencies are correctly resolved
+- Environment variables are properly set
+- Coverage reports are correctly generated
+
+### Check for `chroma_mcp` is available
+
+If the chroma-mcp / chroma_mcp MCP server is available, **always** add `--auto-capture-workflow` to the `hatch test` commands as **additional argument** to ensure we capture failed tests, their fixes and promote learning from errors.
+
+Example for full tests:
+
+```bash
+hatch test --cover -v --auto-capture-workflow
+```
+
+Example for specific tests of a sub-level directory:
+
+```bash
+hatch test --cover -v --auto-capture-workflow tests/log_analyzer_mcp/
+```
+
+## Build Guidelines
+
+Build the package using either:
+
+```bash
+# Using the provided script (recommended as it is the only way to ensure the correct version is built, calls hatch build internally)
+./scripts/build.sh
+```
+
+This generates the distributable files in the `dist/` directory.
+
+## Installing for IDE and CLI Usage
+
+After modifying and testing the MCP server package, you need to rebuild and install it in the Hatch environment for the changes to take effect in Cursor (or any other IDE) or when using the `loganalyzer` CLI:
+
+### Default package
+
+```bash
+# Replace <version> with the actual version built (e.g., 0.2.7)
+hatch build && hatch run pip uninstall log-analyzer-mcp -y && hatch run pip install 'dist/log_analyzer_mcp-<version>-py3-none-any.whl'
+```
+
+Please note, that for the MCP to be updated within the IDE, ask the user to manually reload the MCP server as there is no automated way available as of now, before continuing to try to talk to the updated MCP via tools call.
+
+## Development Environment
+
+Remember to activate the Hatch environment before making changes:
+
+```bash
+hatch shell
+```
+
+## Release Guidelines
+
+When preparing a new release or updating the version:
+
+1. **Update CHANGELOG.md** with the new version information:
+   - Add a new section at the top after the `# Changelog` header with the next block of lines, but before the first `## [version] - TIMESTAMP` entry with the new version number and date
+   - Document all significant changes under "Added", "Fixed", "Changed", or "Removed" sections
+   - Use clear, concise language to describe each change
+
+    ```markdown
+    ## [0.1.x] - YYYY-MM-DD
+
+    **Added:**
+    - New feature description
+
+    **Fixed:**
+    - Bug fix description
+
+    **Changed:**
+    - Change description
+    ```
+
+2. Ensure the version number is updated in `pyproject.toml`
+3. Build the package and verify the correct version appears in the build artifacts
+4. Test the new version to ensure all changes work
+5. Complete Documentation
+
+For comprehensive instructions, refer to the [Developer Guide](mdc:../../docs/developer_guide.md).
 
 ---
 > Source: [djm81/log_analyzer_mcp](https://github.com/djm81/log_analyzer_mcp) — distributed by [TomeVault](https://tomevault.io).
