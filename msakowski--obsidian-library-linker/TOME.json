@@ -4,7 +4,7 @@
   "repo": "obsidian-library-linker",
   "description": "This Obsidian plugin enhances your note-taking experience by providing seamless integration with JW Library links and Bible references.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/msakowski/obsidian-library-linker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T19:43:53Z"
+  "distributed_at": "2026-05-22T00:50:19Z"
 }
