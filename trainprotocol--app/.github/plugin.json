@@ -1,0 +1,9 @@
+{
+  "name": "trainprotocol--app",
+  "displayName": "app",
+  "description": "Protocol Bridge dApp implementation",
+  "version": "1.0.0",
+  "author": "TrainProtocol",
+  "homepage": "https://github.com/TrainProtocol/app",
+  "skills": []
+}
