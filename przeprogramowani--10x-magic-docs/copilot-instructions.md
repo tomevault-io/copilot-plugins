@@ -1,43 +1,61 @@
-## github-action
+## new-docs
 
-> Conduct these steps to ensure reliability and high quality of GitHub Actions workflow.
+> You are expert in creating interactive learning materials about web technologies, using [tech-stack.mdc](mdc:.cursor/rules/tech-stack.mdc)
 
-## Github Action Rules
+## Creating new entry in Magic Docs app
 
-Conduct these steps to ensure reliability and high quality of GitHub Actions workflow.
+You are expert in creating interactive learning materials about web technologies, using [tech-stack.mdc](mdc:.cursor/rules/tech-stack.mdc)
 
-### Version Verification
+Your goal is to create end-to-end solution for <TECHNOLOGY> mentioned by the user.
 
-In Agent Mode:
+Execute the following:
 
-1. Scan the file that user mentions and look for the public actions used within the workflow. Be explicit.
-2. For each action always trigger "Run Terminal" tool to see what is the most up-to-date version with the following command:
+1) Make sure that subdirectory `src/components/docs` exists
+2) Create subdirectory `src/components/docs/<TECHNOLOGY>` (kebab-case)
+3) In `src/components/docs/<TECHNOLOGY>/{Technology}Page.tsx` create a new React page component that acts as a skeleton for new page.
 
-```bash
-curl -s https://api.github.com/repos/{owner}/{repo}/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([0-9]+).*/\1/'
+Use h1 header as a starting point:
+
+```
+<h1 className='text-4xl font-bold mb-8 text-white'>
+  <TECHNOLOGY>: One sentence description
+</h1>
 ```
 
-3. Make sure you executed this command. Update Github Actions Script only by applying MAJOR version number.
+4) Now, your task is to create an interactive and engaging single-page documentation for regular developer eager to learn more about <TECHNOLOGY>. The documentation should always cover these three elements:
 
-### Installing dependencies
+- Highlight the **problem space** the technology addresses
+- Illustrate the **conceptual architecture** of the technology
+- Demonstrate a **practical implementation path**
 
-In Agent Mode:
+You have five tools (React Components) that you can mix and in any way you want:
 
-1. Always prefer `npm ci` over `npm install` to ensure sync with lockfile.
+- Text block
+- Code snippet
+- Mermaid diagram
+- Quiz
+- Resources
+
+The documentation should contain at least:
+- 3 text blocks
+- 2 code snippets
+- 2 quizzes
+- 1 mermaid diagram
+- 1 resources
+
+For text blocks, use professional technical terminology and industry-standard explanations. Aimed at working developers. Include specific technical details and implementation considerations.
+
+Interfaces and documentation of these tools is available below:
+- [tools.types.ts](mdc:src/components/tools/tools.types.ts)
 
 
-### Setup Node
+6) Extend `{Technology}Page.tsx` with gathered knowledge to create interactive Wikipedia-like page in Dark Mode, inspired by Fluent 2.0 and [Layout.tsx](mdc:src/components/Layout.tsx), incorporating all the tools and creative ideas that you can imagine.
 
-In Agent Mode:
-
-1. Search for `.nvmrc` in project root.
-2. If it exists, update CI/CD workflow by applying `node-version-file: '.nvmrc'` to setup-node action.
-
-### Workflow Triggers
-
-In Agent Mode:
-
-1. Ensure proper `default branch` (main or master) by checking current `git` configuration.
+General recommendations:
+- When developing code, always follow and [react-development.mdc](mdc:.cursor/rules/react-development.mdc)
+- Integrate new page with [App.tsx](mdc:src/App.tsx) and embed it as new route, always wrapping it with `<Layout>`
+- Make sure there's a new tile added on [HomePage.tsx](mdc:src/pages/HomePage.tsx)
+- When building pages and instructions, be specific - as an example, instead of "Read the docs" use suggestions such as "Get familiar with the docs at angular.dev"
 
 ---
 > Source: [przeprogramowani/10x-magic-docs](https://github.com/przeprogramowani/10x-magic-docs) — distributed by [TomeVault](https://tomevault.io).
