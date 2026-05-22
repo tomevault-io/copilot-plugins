@@ -7,11 +7,11 @@ An MCP server to extract Youtube captions and summarize videos
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mrgoonie/vidcap-mcp-server](https://github.com/mrgoonie/vidcap-mcp-server).
+Original source: `CLAUDE.md` in [mrgoonie/vidcap-mcp-server](https://github.com/mrgoonie/vidcap-mcp-server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
