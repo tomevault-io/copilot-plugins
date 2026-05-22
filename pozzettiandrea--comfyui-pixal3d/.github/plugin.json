@@ -1,0 +1,9 @@
+{
+  "name": "pozzettiandrea--comfyui-pixal3d",
+  "displayName": "ComfyUI-Pixal3D",
+  "description": "ComfyUI nodes for Pixal3D (SIGGRAPH 2026, TencentARC) - pixel-aligned image-to-3D. Academic-only model license.",
+  "version": "1.0.0",
+  "author": "PozzettiAndrea",
+  "homepage": "https://github.com/PozzettiAndrea/ComfyUI-Pixal3D",
+  "skills": []
+}
