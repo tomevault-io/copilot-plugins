@@ -1,0 +1,9 @@
+{
+  "name": "thejchap--magic-markers",
+  "displayName": "magic-markers",
+  "description": "control an led smart bulb using a set of crayola markers!",
+  "version": "1.0.0",
+  "author": "thejchap",
+  "homepage": "https://github.com/thejchap/magic-markers",
+  "skills": []
+}
