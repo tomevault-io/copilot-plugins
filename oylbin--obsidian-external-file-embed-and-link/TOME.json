@@ -4,7 +4,7 @@
   "repo": "obsidian-external-file-embed-and-link",
   "description": "Embed and link local files outside your obsidian vault with relative paths for cross-device and multi-platform compatibility.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oylbin/obsidian-external-file-embed-and-link",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T10:06:09Z"
+  "distributed_at": "2026-05-22T00:01:10Z"
 }
