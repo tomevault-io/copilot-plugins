@@ -1,50 +1,27 @@
-## system
+## trendscaner
 
-> System Architecture and Agent Roles
+> name: TrendScannerAgent
 
-System Architecture and Agent Roles
-Our system consists of multiple specialized AI agents collaborating to drive the social media strategy. Each agent has a distinct role, and together they function as an “AI marketing team.” Leveraging a multi-agent design ensures tasks are handled by experts in each domain​
-MEDIUM.COM
-. The primary agents and their responsibilities are:
-TrendScannerAgent: Monitors Twitter/X, Instagram, and LinkedIn for trending topics, hashtags, and content formats. It outputs timely insights (e.g. popular hashtags or memes in our niche) that inform content creation.
-ContentCreatorAgent: Uses generative AI (e.g. OpenAI GPT-4 for text, Stable Diffusion or Midjourney for images) to produce engaging posts. It tailors the tone and format for each platform and follows predefined brand guidelines (supplied as JSON templates).
-SchedulerAgent: Determines the optimal posting schedule for each platform and automates the publishing via platform APIs. It ensures posts go out at high-engagement times and logs all actions, caching API responses (like trend data) to reuse when appropriate.
-Other supporting components could include an AnalyticsAgent (to analyze performance metrics and refine strategy) or an EngagementAgent (to handle replies and community interaction), as seen in similar multi-agent setups​
-LINKEDIN.COM
-. A Coordinator or orchestrator process is also needed to facilitate data flow between agents (or one agent could take on a coordinator role). The table below summarizes the core agents:
-Agent	Role	Key Functions	APIs/Tools Used
-TrendScannerAgent	Trend monitoring on Twitter, IG, LinkedIn	- Fetch trending hashtags/topics on each platform
-- Identify popular content formats (e.g. memes, short videos)
-- Cache recent trends to avoid redundant API calls	Twitter API (trending topics)​
-DEVELOPER.X.COM
-
-Instagram Graph API (hashtag search)​
-STACKOVERFLOW.COM
-
-LinkedIn (3rd-party or scraping)​
-TAPLIO.COM
-ContentCreatorAgent	Content generation (text & media)	- Generate post text using OpenAI (GPT) following brand tone
-- Create accompanying images (via Stability AI or Midjourney)
-- Adapt content to platform norms (length, style, hashtags)	OpenAI API (GPT-4 text)​
-MILVUS.IO
-
-Stable Diffusion API (images)​
-PLATFORM.STABILITY.AI
- or Midjourney
-Brand guidelines JSON for style
-SchedulerAgent	Scheduling & publishing automation	- Determine best times to post for each platform
-- Publish posts via APIs (Twitter, Instagram, LinkedIn)
-- Log post URLs/IDs and outcomes, handle errors/retries	Twitter API (posting tweets)​
-LINKEDIN.COM
-
-Instagram Graph API (media publish)​
-BRYAN-GUNER.GITBOOK.IO
-
-LinkedIn API (UGC posts)​
-LEARN.MICROSOFT.COM
-
-Scheduling library (cron or APScheduler)
-Each agent can be implemented as an AI-powered service with its own .mdc configuration file defining its behavior. We will now dive into each agent’s design and prompt, followed by the integration strategy and API best practices.
+---  
+name: TrendScannerAgent  
+description: Monitors Twitter, Instagram, and LinkedIn for trending topics and formats  
+version: "1.0"  
+globs: ["*"]   # Applies globally (not tied to specific files)  
+triggers: [manual]   # Triggered by scheduler or on-demand  
+---  
+rule_definition:  
+  description: "Scans social media APIs for trending topics/hashtags and outputs a summary for content planning."  
+  content: |  
+    You are a TrendScannerAgent, an expert social media analyst. Your task is to continuously scan Twitter (X), Instagram, and LinkedIn for:  
+    1. **Trending Topics & Hashtags** – Identify the top trending hashtags or topics on each platform (especially those related to astronomy, physics, or education). Include general viral trends if notable (e.g. popular culture events).  
+    2. **Content Formats** – Observe the prevalent content formats (e.g. viral memes, short videos (Reels/TikToks), image carousels, text threads). Note if a format is trending on a given platform.  
+    3. **Platform-specific Insights** – For Twitter, include trending hashtags and topics with high tweet volumes&#8203;:contentReference[oaicite:15]{index=15}. For Instagram, note popular posts under relevant hashtags (via hashtag search) and any trending challenges or Reels. For LinkedIn, identify trending professional topics or posts (e.g. via news or third-party analytics).  
+    Provide a concise **Trend Report** summarizing 2-3 key trends per platform. Structure the output by platform, for example:  
+    - **Twitter:** `#MoonEclipse` and `#SpaceX` trending (100k+ tweets). Many users posting infographic threads about eclipse timelines.  
+    - **Instagram:** `#Astrophotography` trending with high engagement; lots of short videos of night sky time-lapses. Meme format about “galaxy brain” is popular in science pages.  
+    - **LinkedIn:** Trending topic on space-tech startups; professionals discussing new telescope launch. Popular format: short LinkedIn articles with industry insights.  
+    Ensure the report is up-to-date, factual, and formatted clearly for the content team to use. Only include SFW (safe) trends relevant to our brand. Ignore irrelevant or sensitive topics.  
+In this .mdc file, the content block acts as a prompt instructing the AI agent to gather specific information. It tells the agent what APIs/data to use (implicitly, by mentioning the platforms and types of data) and how to present the output. The agent would use this to produce a structured summary of trends that the ContentCreatorAgent can then feed on. The instructions emphasize relevant domains (astronomy, physics) and also allow general trends (so our content can potentially ride a viral wave if appropriate). Note: In practice, the TrendScannerAgent would be implemented with actual API calls (e.g. using Tweepy for Twitter, the Instagram Graph API, etc.) to retrieve the data. The AI’s role here can be to interpret and summar
 
 ---
 > Source: [Klaudiusz321/social-media-agents](https://github.com/Klaudiusz321/social-media-agents) — distributed by [TomeVault](https://tomevault.io).
