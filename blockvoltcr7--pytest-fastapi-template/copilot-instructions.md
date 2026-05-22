@@ -1,116 +1,63 @@
-## dependency-mgmt
+## docker-rules
 
-> This document outlines requirements for managing Python dependencies in this project using the uv package manager.
+> - Always use the existing Docker setup files (Dockerfile, docker-compose.yml) as foundation
 
-# Dependency Management Rules Project
 
-This document outlines requirements for managing Python dependencies in this project using the uv package manager.
+# Docker Rules for GenAI Project
 
-## Core Requirements
+## Core Principles
+- Always use the existing Docker setup files (Dockerfile, docker-compose.yml) as foundation
+- Maintain separation between development, testing, and production environments
+- Follow UV package management workflows for Python dependencies
+- Preserve volume mounts for test results and reporting
 
-- Always use `uv` for package management operations, never use `pip` directly.
-- Virtual environments should be managed using uv's built-in capabilities.
-- Requirements files should be maintained in a clear, organized structure.
+## Container Structure
+- Use python:3.11-slim as the base image
+- Keep the /app working directory pattern
+- Maintain the allure-results volume mounting
+- Do not change service names without updating all references
 
-## Package Installation
+## Dependency Management
+- Always use `uv` for package management, never direct pip commands
+- Any new package should be added to requirements.in first
+- After modifying requirements.in, run `uv pip compile requirements.in`
+- Rebuild images after dependency changes with `docker-compose build --no-cache`
 
-- Use `uv pip add <package>` for installing individual packages.
-- Always update requirements.in after adding new dependencies.
-- Use `uv pip compile requirements.in` to generate/update requirements.txt.
-- Use `uv sync` to synchronize the environment with `requirements.txt`.
+## Testing Workflow
+- Preserve the pytest and Allure reporting integration
+- Maintain volume mapping between containers for test results
+- Always include the `--alluredir=allure-results` flag with pytest commands
+- Keep environment variable `PYTHONUNBUFFERED=1` to ensure logs are visible
 
-```bash
-# CORRECT
-uv pip add allure-pytest
+## Dockerfile Modifications
+- Maintain the build stages sequence (working dir, dependencies, code copy)
+- Keep image size minimal - don't install unnecessary packages
+- Always use multi-stage builds for production deployments
+- Use specific version tags for base images, not 'latest'
 
-# INCORRECT
-pip install allure-pytest
-```
+## Security Rules
+- Never hardcode credentials in Docker files
+- Use environment variables or secrets management for sensitive data
+- Validate no credentials are leaked in the Docker build context
+- Scan images for vulnerabilities before deployment
 
-## Virtual Environment Management
+## Google Cloud Integration
+- Preserve the Cloud Run configuration in cloudbuild.yaml
+- Always specify container regions and resource constraints
+- Maintain proper image tagging with `$COMMIT_SHA` for versioning
+- Follow least-privilege principle for service accounts
 
-- Use `uv venv` to create and manage virtual environments.
-- Ensure virtual environments are properly activated before installing or updating packages.
+## Performance Optimization
+- Keep the .dockerignore file updated to minimize build context
+- Use layer caching efficiently (order dependencies before code)
+- Optimize container resource allocation for Cloud Run
+- Consider using Alpine-based images when appropriate
 
-```bash
-# Create a virtual environment
-uv venv
-
-# Activate the environment
-source .venv/bin/activate  # On Unix/macOS
-.venv\Scripts\activate     # On Windows
-```
-
-## Dependency Organization
-
-- `pyproject.toml` is used as the primary source for project metadata and dependencies.
-- Add direct dependencies to requirements.in
-- Never manually edit requirements.txt
-- Group dependencies logically in requirements.in with comments
-- Separate dev dependencies when appropriate
-
-## Dependency Structure
-
-```
-# Core dependencies
-package1
-package2
-
-# Development dependencies
-pytest
-allure-pytest
-
-# Feature-specific dependencies
-feature-package
-```
-
-## Version Pinning
-
-- Pin specific versions for critical dependencies in requirements.in
-- Otherwise, rely on uv's version resolution
-
-```
-# Pinned version example
-openai==1.0.0
-
-# Unpinned example
-requests
-```
-
-## AI Assistant Guidelines
-
-When managing dependencies, AI assistants should:
-
-1. Always recommend and use uv commands, never pip commands.
-2. Update requirements.in when suggesting new dependencies.
-3. Run `uv pip compile requirements.in` after requirements.in changes.
-4. When installing packages for testing only, suggest adding to dev dependencies.
-5. Use `uv pip freeze` for diagnostic purposes only, not for updating requirements.txt.
-6. Check for dependency conflicts before recommending new packages.
-7. Ensure the virtual environment is active when running uv commands.
-
-## Common Commands Reference
-
-```bash
-# Installing packages
-uv pip add <package>
-
-# Installing all packages from requirements.txt
-uv pip add -r requirements.txt
-
-# Adding a package to requirements.in and updating requirements.txt
-uv pip add <package>
-# Then manually add to requirements.in
-uv pip compile requirements.in
-# Updating all dependencies
-uv pip compile --upgrade-package "*" requirements.in
-
-# Synchronizing the environment with requirements.txt
-uv sync
-
-# Ensuring environment exactly matches requirements.txt (installing, updating, and removing packages as needed)
-uv pip sync requirements.txt
-```
+## Development Workflow
+- Use docker-compose for local development and testing
+- Run tests inside containers to ensure environment consistency
+- Use named volumes for persistent data when appropriate
+- Document all environment variables needed for container operation
 
 ---
 > Source: [blockvoltcr7/pytest-fastapi-template](https://github.com/blockvoltcr7/pytest-fastapi-template) — distributed by [TomeVault](https://tomevault.io).
