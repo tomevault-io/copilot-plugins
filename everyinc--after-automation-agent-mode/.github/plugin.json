@@ -1,0 +1,9 @@
+{
+  "name": "everyinc--after-automation-agent-mode",
+  "displayName": "after-automation-agent-mode",
+  "description": "Agent Mode companion kit for After Automation",
+  "version": "1.0.0",
+  "author": "EveryInc",
+  "homepage": "https://github.com/EveryInc/after-automation-agent-mode",
+  "skills": []
+}
