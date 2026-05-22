@@ -1,64 +1,154 @@
-## project-structure
+## python-specific
 
-> Django项目结构和架构指南
+> Python语言特定规则和最佳实践
 
 
-# Django项目结构和架构指南
+# Python语言特定规则
 
-这是一个复杂的Django项目，名为"modeshift_django"，包含多个应用模块和完整的CI/CD部署流程。
+基于awesome-cursorrules的Python最佳实践，专门针对Django项目优化。
 
-## 项目根目录结构
+## 核心原则
 
-- **主入口**: [manage.py](mdc:manage.py) - Django管理命令入口
-- **配置目录**: [config/](mdc:config/) - 包含不同环境的Django设置
-- **应用目录**: [apps/](mdc:apps/) - 包含所有Django应用
-- **模板目录**: [templates/](mdc:templates/) - HTML模板文件
-- **静态文件**: [static/](mdc:static/) 和 [src/static/](mdc:src/static/) - CSS、JS、图片等静态资源
-- **媒体文件**: [media/](mdc:media/) - 用户上传的文件
-- **测试目录**: [tests/](mdc:tests/) - 单元测试和集成测试
+- **类型注解**: 为所有函数和类添加类型注解，包括明确的返回类型
+- **文档字符串**: 遵循PEP 257规范，为所有函数和类添加详细文档字符串
+- **模块化设计**: 清晰的目录结构，分离模型、服务、控制器和工具函数
+- **错误处理**: 健壮的错误处理和日志记录，包括上下文捕获
+- **测试覆盖**: 使用pytest进行综合测试
+- **代码风格**: 使用Ruff保持代码风格一致性
 
-## 核心应用模块
+## 类型注解要求
 
-### 1. 工具应用 (apps/tools/)
-- **模型**: [apps/tools/models/](mdc:apps/tools/models/) - 包含多个模型文件，按功能分类
-- **视图**: [apps/tools/views/](mdc:apps/tools/views/) - 各种工具功能的视图
-- **服务**: [apps/tools/services/](mdc:apps/tools/services/) - 业务逻辑服务层
-- **管理命令**: [apps/tools/management/commands/](mdc:apps/tools/management/commands/) - Django管理命令
+```python
+from typing import List, Dict, Optional, Union, Any
+from django.db.models import QuerySet
+from django.http import HttpRequest, HttpResponse
 
-### 2. 用户应用 (apps/users/)
-- **用户管理**: 用户认证、权限管理
-- **个人资料**: 用户信息、头像等
+def example_function(
+    param1: str, 
+    param2: Optional[int] = None
+) -> Dict[str, Any]:
+    """
+    示例函数的文档字符串。
+    
+    Args:
+        param1: 字符串参数描述
+        param2: 可选的整数参数描述
+        
+    Returns:
+        包含结果的字典
+        
+    Raises:
+        ValueError: 当参数无效时
+    """
+    pass
+```
 
-### 3. 内容应用 (apps/content/)
-- **内容管理**: 文章、页面等内容管理
+## 测试要求
 
-### 4. 分享应用 (apps/share/, apps/sharing/, apps/social_sharing/)
-- **社交分享**: 各种分享功能
+- 使用pytest或pytest插件（不使用unittest）
+- 所有测试必须有类型注解
+- 测试文件放在`./tests`目录下
+- 测试函数必须包含文档字符串
 
-## 配置管理
+```python
+from typing import TYPE_CHECKING
+import pytest
+from django.test import TestCase
 
-- **开发环境**: [config/settings/development.py](mdc:config/settings/development.py)
-- **生产环境**: [config/settings/production.py](mdc:config/settings/production.py)
-- **基础配置**: [config/settings/base.py](mdc:config/settings/base.py)
+if TYPE_CHECKING:
+    from _pytest.capture import CaptureFixture
+    from _pytest.fixtures import FixtureRequest
+    from _pytest.logging import LogCaptureFixture
+    from _pytest.monkeypatch import MonkeyPatch
+    from pytest_mock.plugin import MockerFixture
 
-## 部署和CI/CD
+def test_example_function() -> None:
+    """测试示例函数的功能。"""
+    pass
+```
 
-- **Docker配置**: [docker-compose.yml](mdc:docker-compose.yml), [Dockerfile](mdc:Dockerfile)
-- **CI/CD工作流**: [.github/workflows/ci-cd.yml](mdc:.github/workflows/ci-cd.yml)
-- **部署脚本**: [deploy.sh](mdc:deploy.sh), [deploy-ci.sh](mdc:deploy-ci.sh)
-- **环境变量**: [env.production](mdc:env.production), [env.example](mdc:env.example)
+## Django特定规则
 
-## 数据库
+- 使用Django的最新稳定版本
+- 遵循Django的最佳实践和约定
+- 使用Django的ORM进行数据库操作
+- 实现适当的权限检查和认证
+- 使用Django的中间件和信号系统
 
-项目使用PostgreSQL作为主数据库，配置在Django设置中。开发和生产环境都使用PostgreSQL，确保一致性。
+## 代码组织
 
-## 重要注意事项
+```
+apps/
+  tools/
+    models/
+      __init__.py
+      base_models.py
+      chat_models.py
+      # ... 其他模型文件
+    views/
+      __init__.py
+      # ... 视图文件
+    services/
+      __init__.py
+      # ... 服务文件
+    utils/
+      __init__.py
+      # ... 工具文件
+tests/
+  unit/
+  integration/
+  e2e/
+```
 
-1. **API密钥管理**: 所有第三方API密钥都通过环境变量管理，不得硬编码
-2. **代码质量**: 项目有完整的代码质量检查工具链（flake8, black, isort, mypy, bandit, safety）
-3. **测试覆盖**: 包含单元测试、集成测试和端到端测试
-4. **安全扫描**: 使用bandit和safety进行安全漏洞扫描
-5. **部署流程**: 有完整的Docker化部署流程和CI/CD自动化
+## 环境变量管理
+
+```python
+import os
+from typing import Optional
+
+def get_env_variable(key: str, default: Optional[str] = None) -> Optional[str]:
+    """安全获取环境变量。"""
+    value = os.getenv(key, default)
+    if not value and default is None:
+        raise ValueError(f"环境变量 {key} 未设置")
+    return value
+```
+
+## 错误处理模式
+
+```python
+import logging
+from typing import Optional
+
+logger = logging.getLogger(__name__)
+
+def safe_operation() -> Optional[Dict[str, Any]]:
+    """安全执行操作的示例。"""
+    try:
+        # 执行操作
+        result = perform_operation()
+        return result
+    except SpecificException as e:
+        logger.error(f"操作失败: {e}", exc_info=True)
+        return None
+    except Exception as e:
+        logger.critical(f"意外错误: {e}", exc_info=True)
+        raise
+```
+
+## 性能优化
+
+- 使用`select_related`和`prefetch_related`优化数据库查询
+- 实现适当的缓存策略
+- 使用异步操作处理长时间运行的任务
+- 监控和记录性能指标
+
+## 安全最佳实践
+
+- 使用环境变量管理敏感信息
+- 实现适当的输入验证和清理
+- 使用Django的安全中间件
+- 定期更新依赖包
 
 ---
 > Source: [shinytsing/modeshift_django](https://github.com/shinytsing/modeshift_django) — distributed by [TomeVault](https://tomevault.io).
