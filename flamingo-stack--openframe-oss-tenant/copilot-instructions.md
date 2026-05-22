@@ -1,431 +1,82 @@
-## frontend-data-fetching
+## java-spring-cursor-rules
 
-> This document outlines the frontend data fetching patterns and best practices for the OpenFrame project.
+> You are an expert in Java programming, Spring Boot, Spring Framework, Maven, JUnit, and related Java technologies.
 
-# Frontend Data Fetching
+You are an expert in Java programming, Spring Boot, Spring Framework, Maven, JUnit, and related Java technologies.
 
-This document outlines the frontend data fetching patterns and best practices for the OpenFrame project.
+Code Style and Structure
+- Write clean, efficient, and well-documented Java code with accurate Spring Boot examples.
+- Use Spring Boot best practices and conventions throughout your code.
+- Implement RESTful API design patterns when creating web services.
+- Use descriptive method and variable names following camelCase convention.
+- Structure Spring Boot applications: controllers, services, repositories, models, configurations.
 
-## Apollo Client
+Spring Boot Specifics
+- Use Spring Boot starters for quick project setup and dependency management.
+- Implement proper use of annotations (e.g., @SpringBootApplication, @RestController, @Service).
+- Utilize Spring Boot's auto-configuration features effectively.
+- Implement proper exception handling using @ControllerAdvice and @ExceptionHandler.
 
-OpenFrame uses Apollo Client for GraphQL data fetching:
+Naming Conventions
+- Use PascalCase for class names (e.g., UserController, OrderService).
+- Use camelCase for method and variable names (e.g., findUserById, isOrderValid).
+- Use ALL_CAPS for constants (e.g., MAX_RETRY_ATTEMPTS, DEFAULT_PAGE_SIZE).
 
-```typescript
-// src/apollo/apolloClient.ts
-import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client/core';
-import { onError } from '@apollo/client/link/error';
-import { logoutUser, refreshToken } from '@/services/AuthService';
+Java and Spring Boot Usage
+- Use Java 17 or later features when applicable (e.g., records, sealed classes, pattern matching).
+- Leverage Spring Boot 3.x features and best practices.
+- Use Spring Data JPA for database operations when applicable.
+- Implement proper validation using Bean Validation (e.g., @Valid, custom validators).
 
-// Error handling link
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({ message, locations, path }) => {
-      console.error(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      );
-      
-      // Handle authentication errors
-      if (message.includes('not authenticated') || message.includes('jwt expired')) {
-        handleGraphQLAuthError();
-      }
-    });
-  }
-  
-  if (networkError) {
-    console.error(`[Network error]: ${networkError}`);
-  }
-});
+Configuration and Properties
+- Use application.properties or application.yml for configuration.
+- Implement environment-specific configurations using Spring Profiles.
+- Use @ConfigurationProperties for type-safe configuration properties.
 
-// Handle authentication errors
-async function handleGraphQLAuthError() {
-  try {
-    // Try to refresh the token
-    const success = await refreshToken();
-    if (!success) {
-      // If refresh fails, logout the user
-      logoutUser();
-    }
-  } catch (error) {
-    logoutUser();
-  }
-}
+Dependency Injection and IoC
+- Use constructor injection over field injection for better testability.
+- Leverage Spring's IoC container for managing bean lifecycles.
 
-// HTTP link
-const httpLink = new HttpLink({
-  uri: import.meta.env.VITE_API_URL + '/graphql',
-  credentials: 'include',
-});
+Testing
+- Write unit tests using JUnit 5 and Spring Boot Test.
+- Use MockMvc for testing web layers.
+- Implement integration tests using @SpringBootTest.
+- Use @DataJpaTest for repository layer tests.
 
-// Create Apollo Client
-export const apolloClient = new ApolloClient({
-  link: from([errorLink, httpLink]),
-  cache: new InMemoryCache(),
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: 'cache-and-network',
-      errorPolicy: 'all',
-    },
-    query: {
-      fetchPolicy: 'network-only',
-      errorPolicy: 'all',
-    },
-    mutate: {
-      errorPolicy: 'all',
-    },
-  },
-});
-```
+Performance and Scalability
+- Implement caching strategies using Spring Cache abstraction.
+- Use async processing with @Async for non-blocking operations.
+- Implement proper database indexing and query optimization.
 
-## Vue Apollo Composables
+Security
+- Implement Spring Security for authentication and authorization.
+- Use proper password encoding (e.g., BCrypt).
+- Implement CORS configuration when necessary.
 
-Use Vue Apollo composables for GraphQL operations:
+Logging and Monitoring
+- Use SLF4J with Logback for logging.
+- Implement proper log levels (ERROR, WARN, INFO, DEBUG).
+- Use Spring Boot Actuator for application monitoring and metrics.
 
-```typescript
-// src/composables/useDevices.ts
-import { useQuery, useMutation } from '@vue/apollo-composable';
-import { gql } from '@apollo/client/core';
-import { ref, computed } from 'vue';
-import type { Device } from '@/types';
+API Documentation
+- Use Springdoc OpenAPI (formerly Swagger) for API documentation.
 
-export function useDevices() {
-  const GET_DEVICES = gql`
-    query GetDevices {
-      devices {
-        id
-        hostname
-        operatingSystem
-        status
-        lastSeen
-      }
-    }
-  `;
-  
-  const CREATE_DEVICE = gql`
-    mutation CreateDevice($input: DeviceInput!) {
-      createDevice(input: $input) {
-        id
-        hostname
-        operatingSystem
-        status
-        lastSeen
-      }
-    }
-  `;
-  
-  // Query devices
-  const { result, loading, error, refetch } = useQuery(GET_DEVICES);
-  
-  // Create device mutation
-  const { mutate: createDevice, loading: createLoading } = useMutation(CREATE_DEVICE);
-  
-  // Computed property for devices
-  const devices = computed(() => result.value?.devices || []);
-  
-  // Create a new device
-  const addDevice = async (device: Omit<Device, 'id'>) => {
-    try {
-      const response = await createDevice({
-        input: device
-      });
-      
-      await refetch();
-      return response?.data?.createDevice;
-    } catch (error) {
-      console.error('Error creating device:', error);
-      throw error;
-    }
-  };
-  
-  return {
-    devices,
-    loading,
-    error,
-    refetch,
-    addDevice,
-    createLoading
-  };
-}
-```
+Data Access and ORM
+- Use Spring Data JPA for database operations.
+- Implement proper entity relationships and cascading.
+- Use database migrations with tools like Flyway or Liquibase.
 
-## REST API Fetching
+Build and Deployment
+- Use Maven for dependency management and build processes.
+- Implement proper profiles for different environments (dev, test, prod).
+- Use Docker for containerization if applicable.
 
-For REST API endpoints, use Axios:
+Follow best practices for:
+- RESTful API design (proper use of HTTP methods, status codes, etc.).
+- Microservices architecture (if applicable).
+- Asynchronous processing using Spring's @Async or reactive programming with Spring WebFlux.
 
-```typescript
-// src/services/ApiService.ts
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { refreshToken, logoutUser } from '@/services/AuthService';
-
-class ApiService {
-  private api: AxiosInstance;
-  private isRefreshing = false;
-  private failedQueue: any[] = [];
-  
-  constructor() {
-    this.api = axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-    });
-    
-    this.setupInterceptors();
-  }
-  
-  private setupInterceptors() {
-    // Request interceptor
-    this.api.interceptors.request.use(
-      (config) => {
-        // Add auth token if available
-        const token = localStorage.getItem('auth_token');
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-      },
-      (error) => Promise.reject(error)
-    );
-    
-    // Response interceptor
-    this.api.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        const originalRequest = error.config;
-        
-        // Handle 401 Unauthorized errors
-        if (error.response?.status === 401 && !originalRequest._retry) {
-          if (this.isRefreshing) {
-            // If token refresh is in progress, queue the request
-            return new Promise((resolve, reject) => {
-              this.failedQueue.push({ resolve, reject });
-            })
-              .then((token) => {
-                originalRequest.headers.Authorization = `Bearer ${token}`;
-                return this.api(originalRequest);
-              })
-              .catch((err) => Promise.reject(err));
-          }
-          
-          originalRequest._retry = true;
-          this.isRefreshing = true;
-          
-          try {
-            // Try to refresh the token
-            const success = await refreshToken();
-            
-            if (success) {
-              const newToken = localStorage.getItem('auth_token');
-              
-              // Process queued requests
-              this.processQueue(null, newToken);
-              
-              // Retry the original request
-              originalRequest.headers.Authorization = `Bearer ${newToken}`;
-              return this.api(originalRequest);
-            } else {
-              // If refresh fails, logout the user
-              this.processQueue(new Error('Refresh token failed'), null);
-              logoutUser();
-              return Promise.reject(error);
-            }
-          } catch (refreshError) {
-            this.processQueue(refreshError, null);
-            logoutUser();
-            return Promise.reject(refreshError);
-          } finally {
-            this.isRefreshing = false;
-          }
-        }
-        
-        return Promise.reject(error);
-      }
-    );
-  }
-  
-  private processQueue(error: any, token: string | null) {
-    this.failedQueue.forEach((request) => {
-      if (error) {
-        request.reject(error);
-      } else {
-        request.resolve(token);
-      }
-    });
-    
-    this.failedQueue = [];
-  }
-  
-  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.api.get<T>(url, config);
-    return response.data;
-  }
-  
-  public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.api.post<T>(url, data, config);
-    return response.data;
-  }
-  
-  public async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.api.put<T>(url, data, config);
-    return response.data;
-  }
-  
-  public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this.api.delete<T>(url, config);
-    return response.data;
-  }
-}
-
-export const apiService = new ApiService();
-```
-
-## Best Practices
-
-1. **Error Handling**: Always handle API errors gracefully
-   ```typescript
-   try {
-     const data = await apiService.get('/api/devices');
-     // Process data
-   } catch (error) {
-     // Handle error
-     console.error('Error fetching devices:', error);
-     showToast('Failed to load devices', 'error');
-   }
-   ```
-
-2. **Loading States**: Show loading indicators during data fetching
-   ```vue
-   <template>
-     <div>
-       <LoadingSpinner v-if="loading" />
-       <ErrorMessage v-else-if="error" :message="error.message" />
-       <DataTable v-else :data="devices" />
-     </div>
-   </template>
-   ```
-
-3. **Caching**: Cache frequently accessed data
-   ```typescript
-   // Use Apollo cache for GraphQL queries
-   const { result } = useQuery(GET_DEVICES, null, {
-     fetchPolicy: 'cache-and-network'
-   });
-   ```
-
-4. **Pagination**: Handle pagination for large result sets
-   ```typescript
-   const fetchDevicesPage = async (page: number, limit: number) => {
-     return apiService.get<DevicesResponse>(`/api/devices?page=${page}&limit=${limit}`);
-   };
-   ```
-
-5. **Reactive Data**: Use reactive data stores
-   ```typescript
-   // Use Pinia for state management
-   const deviceStore = useDeviceStore();
-   
-   // Fetch and update store
-   await deviceStore.fetchDevices();
-   ```
-
-6. **Composables**: Create reusable composables for data fetching
-   ```typescript
-   // src/composables/useTacticalRmmAgents.ts
-   export function useTacticalRmmAgents() {
-     const agents = ref([]);
-     const loading = ref(false);
-     const error = ref(null);
-     
-     const fetchAgents = async () => {
-       loading.value = true;
-       try {
-         agents.value = await tacticalRmmService.getAgents();
-       } catch (err) {
-         error.value = err;
-       } finally {
-         loading.value = false;
-       }
-     };
-     
-     onMounted(() => {
-       fetchAgents();
-     });
-     
-     return {
-       agents,
-       loading,
-       error,
-       fetchAgents
-     };
-   }
-   ```
-
-7. **Optimistic Updates**: Implement optimistic UI updates
-   ```typescript
-   const addDevice = async (device) => {
-     // Optimistically add to local state
-     devices.value.push({ ...device, id: 'temp-id', status: 'pending' });
-     
-     try {
-       // Perform actual API call
-       const newDevice = await apiService.post('/api/devices', device);
-       
-       // Replace temporary device with real one
-       const index = devices.value.findIndex(d => d.id === 'temp-id');
-       if (index !== -1) {
-         devices.value[index] = newDevice;
-       }
-     } catch (error) {
-       // Remove temporary device on error
-       devices.value = devices.value.filter(d => d.id !== 'temp-id');
-       throw error;
-     }
-   };
-   ```
-
-8. **Debouncing**: Debounce frequent API calls
-   ```typescript
-   import { debounce } from 'lodash-es';
-   
-   const debouncedSearch = debounce(async (query) => {
-     try {
-       searchResults.value = await apiService.get(`/api/search?q=${query}`);
-     } catch (error) {
-       console.error('Search error:', error);
-     }
-   }, 300);
-   ```
-
-9. **Retry Logic**: Implement retry logic for transient failures
-   ```typescript
-   const fetchWithRetry = async (url, maxRetries = 3) => {
-     let retries = 0;
-     
-     while (retries < maxRetries) {
-       try {
-         return await apiService.get(url);
-       } catch (error) {
-         if (error.response?.status >= 500 && retries < maxRetries - 1) {
-           retries++;
-           await new Promise(resolve => setTimeout(resolve, 1000 * retries));
-         } else {
-           throw error;
-         }
-       }
-     }
-   };
-   ```
-
-10. **Prefetching**: Prefetch data when possible
-    ```typescript
-    // Prefetch data for routes that are likely to be visited
-    router.beforeResolve((to, from, next) => {
-      if (to.name === 'DeviceDetails' && to.params.id) {
-        deviceStore.prefetchDevice(to.params.id);
-      }
-      next();
-    });
-    ```
+Adhere to SOLID principles and maintain high cohesion and low coupling in your Spring Boot application design.
 
 ---
 > Source: [flamingo-stack/openframe-oss-tenant](https://github.com/flamingo-stack/openframe-oss-tenant) — distributed by [TomeVault](https://tomevault.io).
