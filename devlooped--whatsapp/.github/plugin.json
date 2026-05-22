@@ -1,0 +1,9 @@
+{
+  "name": "devlooped--whatsapp",
+  "displayName": "WhatsApp",
+  "description": "WhatsApp agents for .NET",
+  "version": "1.0.0",
+  "author": "devlooped",
+  "homepage": "https://github.com/devlooped/WhatsApp",
+  "skills": []
+}
