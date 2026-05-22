@@ -1,0 +1,9 @@
+{
+  "name": "appian-design--aurora-mcp",
+  "displayName": "aurora-mcp",
+  "description": "This is a Model Context Protocol (MCP) server that provides access to Appian's design system documentation through GitHub repositories. It supports both public and internal documentation sources, allo",
+  "version": "1.0.0",
+  "author": "appian-design",
+  "homepage": "https://github.com/appian-design/aurora-mcp",
+  "skills": []
+}
