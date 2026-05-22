@@ -74264,6 +74264,41 @@
       "description": "mcp-server-to-markdown"
     },
     {
+      "name": "terryso--todo-cli",
+      "source": "./terryso--todo-cli",
+      "description": "todo-cli"
+    },
+    {
+      "name": "terryso--todo-cli",
+      "source": "./terryso--todo-cli",
+      "description": "todo-cli"
+    },
+    {
+      "name": "peiiii--zenmark-editor",
+      "source": "./peiiii--zenmark-editor",
+      "description": "Zenmark: An open-source, Typora-like WYSIWYG Markdown editor."
+    },
+    {
+      "name": "peiiii--zenmark-editor",
+      "source": "./peiiii--zenmark-editor",
+      "description": "Zenmark: An open-source, Typora-like WYSIWYG Markdown editor."
+    },
+    {
+      "name": "peiiii--zenmark-editor",
+      "source": "./peiiii--zenmark-editor",
+      "description": "Zenmark: An open-source, Typora-like WYSIWYG Markdown editor."
+    },
+    {
+      "name": "peiiii--zenmark-editor",
+      "source": "./peiiii--zenmark-editor",
+      "description": "Zenmark: An open-source, Typora-like WYSIWYG Markdown editor."
+    },
+    {
+      "name": "peiiii--zenmark-editor",
+      "source": "./peiiii--zenmark-editor",
+      "description": "Zenmark: An open-source, Typora-like WYSIWYG Markdown editor."
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -75352,6 +75387,11 @@
       "name": "waynesutton--nextjsaichatconvextemplate",
       "source": "./waynesutton--nextjsaichatconvextemplate",
       "description": "A real-time AI chat application built with Next.js, Convex, Tailwind CSS, and OpenAI."
+    },
+    {
+      "name": "nirs--vmnet-helper",
+      "source": "./nirs--vmnet-helper",
+      "description": "High-performance network proxy connecting VMs to macOS vmnet"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -82012,6 +82052,16 @@
       "name": "jeprecated--immich-cat",
       "source": "./jeprecated--immich-cat",
       "description": "Immich Cat[egoriser]. Quickly assign your assets to albums."
+    },
+    {
+      "name": "johnlindquist--file-forge",
+      "source": "./johnlindquist--file-forge",
+      "description": "GitHub and local directory ingestion CLI tool"
+    },
+    {
+      "name": "johnlindquist--file-forge",
+      "source": "./johnlindquist--file-forge",
+      "description": "GitHub and local directory ingestion CLI tool"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -91874,6 +91924,16 @@
       "description": "Running UK AISI's Inspect in the Cloud"
     },
     {
+      "name": "smorinlabs--py-launch-blueprint",
+      "source": "./smorinlabs--py-launch-blueprint",
+      "description": "A Production-Ready Python Project Template with Integrated Best Practices"
+    },
+    {
+      "name": "smorinlabs--py-launch-blueprint",
+      "source": "./smorinlabs--py-launch-blueprint",
+      "description": "A Production-Ready Python Project Template with Integrated Best Practices"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -94007,6 +94067,16 @@
       "name": "ecp-eth--comments-monorepo",
       "source": "./ecp-eth--comments-monorepo",
       "description": "comments-monorepo"
+    },
+    {
+      "name": "flutterkaigi--2025",
+      "source": "./flutterkaigi--2025",
+      "description": "FlutterKaigi 2025 Official Project"
+    },
+    {
+      "name": "flutterkaigi--2025",
+      "source": "./flutterkaigi--2025",
+      "description": "FlutterKaigi 2025 Official Project"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -96849,6 +96919,26 @@
       "description": "The goal of this AI agent is to generate personalised and rich UI components based on the user prompt, chat history and backend data provided by other agents in your AI assistant."
     },
     {
+      "name": "texasfortress-ai--rs-filesystem",
+      "source": "./texasfortress-ai--rs-filesystem",
+      "description": "MCP Filesystem tools written in Rust"
+    },
+    {
+      "name": "texasfortress-ai--rs-filesystem",
+      "source": "./texasfortress-ai--rs-filesystem",
+      "description": "MCP Filesystem tools written in Rust"
+    },
+    {
+      "name": "texasfortress-ai--rs-filesystem",
+      "source": "./texasfortress-ai--rs-filesystem",
+      "description": "MCP Filesystem tools written in Rust"
+    },
+    {
+      "name": "texasfortress-ai--rs-filesystem",
+      "source": "./texasfortress-ai--rs-filesystem",
+      "description": "MCP Filesystem tools written in Rust"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -99249,6 +99339,11 @@
       "description": "Lightweight Modular Semantic Engine"
     },
     {
+      "name": "telescopeai--cortex",
+      "source": "./telescopeai--cortex",
+      "description": "Lightweight Modular Semantic Engine"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -101492,6 +101587,186 @@
       "name": "artreimus--notes-aws-machine-learning",
       "source": "./artreimus--notes-aws-machine-learning",
       "description": "Exam Notes for AWS Certified Machine Learning Engineer Associate (MLA-C01)"
+    },
+    {
+      "name": "yumemi-inc--accessibility-guidelines",
+      "source": "./yumemi-inc--accessibility-guidelines",
+      "description": "\u3086\u3081\u307f\u306e\u30a2\u30af\u30bb\u30b7\u30d3\u30ea\u30c6\u30a3\u30ac\u30a4\u30c9\u30e9\u30a4\u30f3"
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
+    },
+    {
+      "name": "shipkit-io--bones",
+      "source": "./shipkit-io--bones",
+      "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast."
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -103952,6 +104227,46 @@
       "name": "bjorndavidhansen--google-ads-mcp-server",
       "source": "./bjorndavidhansen--google-ads-mcp-server",
       "description": "google-ads-mcp-server"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "mslavov--shelly-forge",
+      "source": "./mslavov--shelly-forge",
+      "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -109839,6 +110154,16 @@
       "description": "A multi-agent AI chat running on Convex"
     },
     {
+      "name": "clssw1004--clsswjz-gui",
+      "source": "./clssw1004--clsswjz-gui",
+      "description": "clsswjz-gui"
+    },
+    {
+      "name": "clssw1004--clsswjz-gui",
+      "source": "./clssw1004--clsswjz-gui",
+      "description": "clsswjz-gui"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -112999,6 +113324,36 @@
       "description": "A comprehensive development environment for Apache Polaris featuring RustFS integration on k3s. This kit automates the setup of a complete Polaris environment with S3-compatible storage, authenticatio"
     },
     {
+      "name": "wolforest--jscommon",
+      "source": "./wolforest--jscommon",
+      "description": "The simple utils facade for javascript/typescript\uff0cthe only utils you need for frontEnd application"
+    },
+    {
+      "name": "wolforest--jscommon",
+      "source": "./wolforest--jscommon",
+      "description": "The simple utils facade for javascript/typescript\uff0cthe only utils you need for frontEnd application"
+    },
+    {
+      "name": "wolforest--jscommon",
+      "source": "./wolforest--jscommon",
+      "description": "The simple utils facade for javascript/typescript\uff0cthe only utils you need for frontEnd application"
+    },
+    {
+      "name": "wolforest--jscommon",
+      "source": "./wolforest--jscommon",
+      "description": "The simple utils facade for javascript/typescript\uff0cthe only utils you need for frontEnd application"
+    },
+    {
+      "name": "wolforest--jscommon",
+      "source": "./wolforest--jscommon",
+      "description": "The simple utils facade for javascript/typescript\uff0cthe only utils you need for frontEnd application"
+    },
+    {
+      "name": "wolforest--jscommon",
+      "source": "./wolforest--jscommon",
+      "description": "The simple utils facade for javascript/typescript\uff0cthe only utils you need for frontEnd application"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -116147,6 +116502,21 @@
       "name": "codeguide-dev--codeguide-expo-firebase",
       "source": "./codeguide-dev--codeguide-expo-firebase",
       "description": "codeguide-expo-firebase"
+    },
+    {
+      "name": "d8ahazard--audiolab",
+      "source": "./d8ahazard--audiolab",
+      "description": "Audio...lab"
+    },
+    {
+      "name": "d8ahazard--audiolab",
+      "source": "./d8ahazard--audiolab",
+      "description": "Audio...lab"
+    },
+    {
+      "name": "d8ahazard--audiolab",
+      "source": "./d8ahazard--audiolab",
+      "description": "Audio...lab"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -128374,6 +128744,11 @@
       "description": "Spec-Driven-Development"
     },
     {
+      "name": "espressif--idf-ci",
+      "source": "./espressif--idf-ci",
+      "description": "A tool designed to streamline the CI/CD of ESP-IDF projects, with support for both GitLab CI/CD and GitHub Actions."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -133227,6 +133602,21 @@
       "name": "alezander9--wiiwork",
       "source": "./alezander9--wiiwork",
       "description": "For Treehacks 2025"
+    },
+    {
+      "name": "kingdomseed--structured-workflow",
+      "source": "./kingdomseed--structured-workflow",
+      "description": "An MCP server that tries to force an AI agent to follow structured problem solving steps to accomplish a goal."
+    },
+    {
+      "name": "kingdomseed--structured-workflow",
+      "source": "./kingdomseed--structured-workflow",
+      "description": "An MCP server that tries to force an AI agent to follow structured problem solving steps to accomplish a goal."
+    },
+    {
+      "name": "brad-edwards--algos",
+      "source": "./brad-edwards--algos",
+      "description": "Collection of useful algorithms in Rust"
     },
     {
       "name": "lightninglabs--lnget",
@@ -139577,6 +139967,21 @@
       "name": "productbuilders--productbuilders",
       "source": "./productbuilders--productbuilders",
       "description": "Product Builders is a collaborative, open-source community that empowers founders to build digital products using AI tools. "
+    },
+    {
+      "name": "luongnguyenminhan--fastapibase",
+      "source": "./luongnguyenminhan--fastapibase",
+      "description": "FastAPIBase"
+    },
+    {
+      "name": "mothlike--mcp-graylog",
+      "source": "./mothlike--mcp-graylog",
+      "description": "Model Context Protocol server for querying Graylog 6+ from AI assistants"
+    },
+    {
+      "name": "mothlike--mcp-graylog",
+      "source": "./mothlike--mcp-graylog",
+      "description": "Model Context Protocol server for querying Graylog 6+ from AI assistants"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -158834,6 +159239,26 @@
       "description": "Node.js process manager with zero external dependencies, built entirely with Node.js built-in modules."
     },
     {
+      "name": "joodascode--slopwatch",
+      "source": "./joodascode--slopwatch",
+      "description": "SlopWatch is a Model Context Protocol (MCP) server that provides AI accountability tools. "
+    },
+    {
+      "name": "kitsunekode--template-nextjs-express-trpc-better-auth-monorepo",
+      "source": "./kitsunekode--template-nextjs-express-trpc-better-auth-monorepo",
+      "description": "A modern, scalable, and type-safe monorepo template"
+    },
+    {
+      "name": "smaug123--woofware-zoomies",
+      "source": "./smaug123--woofware-zoomies",
+      "description": "An F# immediate-mode TUI library inspired by Jane Street's Bonsai"
+    },
+    {
+      "name": "kitsunekode--template-nextjs-express-trpc-better-auth-monorepo",
+      "source": "./kitsunekode--template-nextjs-express-trpc-better-auth-monorepo",
+      "description": "A modern, scalable, and type-safe monorepo template"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -168497,6 +168922,21 @@
       "name": "pavi2410--vector",
       "source": "./pavi2410--vector",
       "description": "vector is a SVG editor [ALPHA]"
+    },
+    {
+      "name": "manycoretech--aholo-viewer",
+      "source": "./manycoretech--aholo-viewer",
+      "description": "A high performance 3DGS renderer"
+    },
+    {
+      "name": "chacosoldier--compabob",
+      "source": "./chacosoldier--compabob",
+      "description": "A customizable Claude Code setup for knowledge workers: agents, safety hooks, skills, memory, and an Obsidian knowledge base. Clone, run setup, make it yours."
+    },
+    {
+      "name": "vtemian--blueprints-md",
+      "source": "./vtemian--blueprints-md",
+      "description": "markdown-to-code"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -272067,6 +272507,106 @@
       "name": "timwfitnum--worfin-strategies",
       "source": "./timwfitnum--worfin-strategies",
       "description": "worfin_strategies"
+    },
+    {
+      "name": "sar-1311--text-technoligies-for-data-science",
+      "source": "./sar-1311--text-technoligies-for-data-science",
+      "description": "This repository is for both assingment and coursework of TTD"
+    },
+    {
+      "name": "priyanshu73--contrac-slayer",
+      "source": "./priyanshu73--contrac-slayer",
+      "description": "contrac-slayer"
+    },
+    {
+      "name": "besongsamuel--rawbank-signup",
+      "source": "./besongsamuel--rawbank-signup",
+      "description": "rawbank-signup"
+    },
+    {
+      "name": "kamui00002--parkpedia",
+      "source": "./kamui00002--parkpedia",
+      "description": "\u3042\u306a\u305f\u306e\u77e5\u308a\u305f\u3044\u516c\u5712\u306e\u60c5\u5831\u3092\u3053\u3053\u306b"
+    },
+    {
+      "name": "gdziedzic--exports",
+      "source": "./gdziedzic--exports",
+      "description": "exports"
+    },
+    {
+      "name": "xinbaojian--advertising",
+      "source": "./xinbaojian--advertising",
+      "description": "advertising"
+    },
+    {
+      "name": "matthewengineering--postershack",
+      "source": "./matthewengineering--postershack",
+      "description": "postershack"
+    },
+    {
+      "name": "wehkingdiane--ratsi-melle",
+      "source": "./wehkingdiane--ratsi-melle",
+      "description": "ratsi_melle"
+    },
+    {
+      "name": "llm-case-studies--actcli-bench",
+      "source": "./llm-case-studies--actcli-bench",
+      "description": "Inter-AI facilitated sessions"
+    },
+    {
+      "name": "damiankaplon--structify",
+      "source": "./damiankaplon--structify",
+      "description": "structify"
+    },
+    {
+      "name": "kamui00002--parkpedia",
+      "source": "./kamui00002--parkpedia",
+      "description": "\u3042\u306a\u305f\u306e\u77e5\u308a\u305f\u3044\u516c\u5712\u306e\u60c5\u5831\u3092\u3053\u3053\u306b"
+    },
+    {
+      "name": "thecloudexplorers--release-engine-pattern-template",
+      "source": "./thecloudexplorers--release-engine-pattern-template",
+      "description": "This repository contains Azure DevOps YAML Pipelines Templates for Example Workloads"
+    },
+    {
+      "name": "bhavnindersingh--recipemanager",
+      "source": "./bhavnindersingh--recipemanager",
+      "description": "RecipeManager"
+    },
+    {
+      "name": "ziaul888--bazardhor",
+      "source": "./ziaul888--bazardhor",
+      "description": "bazarDhor"
+    },
+    {
+      "name": "alexey72882--upworktonotion",
+      "source": "./alexey72882--upworktonotion",
+      "description": "UpworkToNotion"
+    },
+    {
+      "name": "saaspasse--saaspasse-catalogue",
+      "source": "./saaspasse--saaspasse-catalogue",
+      "description": "Catalogue public SaaSpasse 2026"
+    },
+    {
+      "name": "sar-1311--text-technoligies-for-data-science",
+      "source": "./sar-1311--text-technoligies-for-data-science",
+      "description": "This repository is for both assingment and coursework of TTD"
+    },
+    {
+      "name": "naserfer--lomiteria1-0",
+      "source": "./naserfer--lomiteria1-0",
+      "description": "Lomiteria1.0"
+    },
+    {
+      "name": "vanchuong201--joywork-api",
+      "source": "./vanchuong201--joywork-api",
+      "description": "joywork-api"
+    },
+    {
+      "name": "vanchuong201--joywork-api",
+      "source": "./vanchuong201--joywork-api",
+      "description": "joywork-api"
     }
   ]
 }
