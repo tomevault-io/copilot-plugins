@@ -1,0 +1,9 @@
+{
+  "name": "gnosispay--ui",
+  "displayName": "ui",
+  "description": "React components and screens to kickstart your integration to the Gnosis Pay API. ",
+  "version": "1.0.0",
+  "author": "gnosispay",
+  "homepage": "https://github.com/gnosispay/ui",
+  "skills": []
+}
