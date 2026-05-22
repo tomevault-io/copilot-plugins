@@ -1,0 +1,9 @@
+{
+  "name": "smyan1909--somatic",
+  "displayName": "SoMatic",
+  "description": "Agent-first CLI for native UI automation with Set-of-Marks screenshots. MCP server + headless Xvfb support included.",
+  "version": "1.0.0",
+  "author": "Smyan1909",
+  "homepage": "https://github.com/Smyan1909/SoMatic",
+  "skills": []
+}
