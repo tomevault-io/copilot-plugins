@@ -1,0 +1,9 @@
+{
+  "name": "philngt--contextd",
+  "displayName": "contextd",
+  "description": "Workspace-isolated knowledge engine and workflow toolkit for Claude Code",
+  "version": "1.0.0",
+  "author": "philngt",
+  "homepage": "https://github.com/philngt/contextd",
+  "skills": []
+}
