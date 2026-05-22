@@ -1,0 +1,9 @@
+{
+  "name": "digitalocean--scale-with-simplicity",
+  "displayName": "scale-with-simplicity",
+  "description": "Reference architectures to showcase how users can leverage DigitalOcean's robust cloud platform to build resilient, distributed systems at scale.",
+  "version": "1.0.0",
+  "author": "digitalocean",
+  "homepage": "https://github.com/digitalocean/scale-with-simplicity",
+  "skills": []
+}
