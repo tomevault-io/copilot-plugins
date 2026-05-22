@@ -1,331 +1,1254 @@
-## efficiency
+## javascript
 
-> description: Minimizes tool calls and maximizes AI agent efficiency
+> JavaScript best practices, ES2022+ features, and modern patterns for scalable applications
 
----
-description: Minimizes tool calls and maximizes AI agent efficiency
-globs: ["**/*"]
-alwaysApply: true
----
+# JavaScript Best Practices
 
-# Efficiency Optimization Rules
+Modern JavaScript development guide focusing on ES2022+ features, performance, and clean code patterns.
 
-## 🎯 Core Principle: Every Tool Call Counts
+## 1. Modern JavaScript Fundamentals
 
-### Tool Call Hierarchy
-```
-1. NO CALL > Think first, can you answer without tools?
-2. ONE CALL > Batch operations into single calls
-3. FEW CALLS > Strategic sequence when necessary
-4. MANY CALLS > Only for complex research tasks
-```
+### 1.1 Variable Declarations and Scope
 
-## 📊 Efficiency Metrics
-
-### Track Your Performance
-```
-EFFICIENCY_SCORE:
-- 0 tool calls for knowledge-based answers = 100%
-- 1 tool call for simple lookups = 90%
-- 2-3 calls for standard tasks = 80%
-- 4-5 calls for complex tasks = 70%
-- 6+ calls = Review if necessary
-```
-
-## 🚀 Zero-Call Strategies
-
-### Answer Directly When Possible
 ```javascript
-// USER: "How do I create a React component?"
-// ❌ BAD: Search for React component syntax
-// ✅ GOOD: Provide answer from knowledge
+// Use const for immutable bindings
+const API_KEY = process.env.API_KEY;
+const config = Object.freeze({
+  timeout: 5000,
+  retries: 3
+});
 
-// USER: "What's the syntax for Python list comprehension?"
-// ❌ BAD: Search Python documentation
-// ✅ GOOD: Show syntax directly with examples
-```
-
-### Knowledge-First Approach
-```
-Before ANY tool call, ask:
-1. Do I already know this?
-2. Is this stable information?
-3. Can I provide value without searching?
-
-If YES to all → Answer directly
-```
-
-## 💡 Single-Call Patterns
-
-### File Operations
-```bash
-# ❌ BAD: Multiple calls
-cat package.json
-ls src/
-grep -r "TODO" .
-
-# ✅ GOOD: Single call
-cat package.json && echo "---" && ls -la src/ && echo "---" && grep -r "TODO" . | head -20
-```
-
-### Code Analysis
-```javascript
-// ❌ BAD: Separate reads
-// Read file1.js
-// Read file2.js  
-// Read file3.js
-
-// ✅ GOOD: Batch read
-const files = ['file1.js', 'file2.js', 'file3.js'];
-const contents = await Promise.all(
-  files.map(f => fs.readFile(f, 'utf8'))
-);
-```
-
-### Information Gathering
-```bash
-# ❌ BAD: Sequential discovery
-pwd
-git status
-git branch
-npm list
-
-# ✅ GOOD: Combined context
-echo "=== Project Status ===" && \
-pwd && \
-git status -sb && \
-git branch --show-current && \
-npm list --depth=0 2>/dev/null | grep -E "^(├|└)" | head -10
-```
-
-## 🎪 Batching Strategies
-
-### File Creation
-```bash
-# ❌ BAD: Individual creates
-touch src/index.js
-touch src/utils.js
-touch src/config.js
-
-# ✅ GOOD: Batch creation
-mkdir -p src && touch src/{index,utils,config}.js
-```
-
-### Multi-File Updates
-```javascript
-// ❌ BAD: Update files one by one
-updateFile('config.js', configContent);
-updateFile('index.js', indexContent);
-updateFile('utils.js', utilsContent);
-
-// ✅ GOOD: Batch update
-const updates = [
-  { file: 'config.js', content: configContent },
-  { file: 'index.js', content: indexContent },
-  { file: 'utils.js', content: utilsContent }
-];
-await Promise.all(updates.map(u => 
-  fs.writeFile(u.file, u.content)
-));
-```
-
-## 🔄 Smart Caching
-
-### Remember Previous Results
-```javascript
-// Store expensive computations
-CACHED_RESULTS = {
-  projectStructure: null,
-  dependencies: null,
-  configuration: null
-};
-
-// Use cache when available
-if (!CACHED_RESULTS.projectStructure) {
-  CACHED_RESULTS.projectStructure = await analyzeProject();
+// Use let only when reassignment is needed
+let retryCount = 0;
+while (retryCount < MAX_RETRIES) {
+  retryCount++;
 }
-return CACHED_RESULTS.projectStructure;
+
+// Block scope with const/let
+{
+  const temp = calculateTemp();
+  // temp is only available in this block
+}
 ```
 
-### Context Preservation
-```
-PRESERVE_BETWEEN_CALLS:
-- File contents already read
-- Command outputs already seen
-- Discovered patterns
-- Validated information
-```
+### 1.2 Destructuring Patterns
 
-## 📉 Tool Call Reduction Patterns
-
-### Search Optimization
-```
-# ❌ BAD: Multiple searches
-search: "React hooks"
-search: "React useState"
-search: "React useEffect"
-
-# ✅ GOOD: Comprehensive search
-search: "React hooks useState useEffect patterns"
-```
-
-### Progressive Enhancement
 ```javascript
-// Start simple, enhance only if needed
-// Level 1: Try with existing knowledge
-// Level 2: Single targeted search
-// Level 3: Deep dive only if critical
+// Advanced destructuring with defaults and renaming
+const { 
+  data: users = [], 
+  meta: { total = 0, page = 1 } = {},
+  ...rest 
+} = response;
+
+// Array destructuring with rest
+const [first, second, ...remaining] = items;
+
+// Destructuring in function parameters
+function createUser({ 
+  name, 
+  email, 
+  role = 'user',
+  metadata: { source = 'web' } = {}
+} = {}) {
+  return { id: generateId(), name, email, role, source };
+}
+
+// Dynamic property destructuring
+const key = 'name';
+const { [key]: value } = object;
 ```
 
-## ⚡ Performance Patterns
+### 1.3 Object and Array Operations
 
-### Lazy Loading
 ```javascript
-// ❌ BAD: Load everything upfront
-const allFiles = await loadAllProjectFiles();
-
-// ✅ GOOD: Load only what's needed
-const getFile = async (path) => {
-  if (!cache[path]) {
-    cache[path] = await loadFile(path);
+// Object property shorthand and computed properties
+const name = 'John';
+const age = 30;
+const user = {
+  name,
+  age,
+  [`is${age}YearsOld`]: true,
+  // Method shorthand
+  greet() {
+    return `Hello, I'm ${this.name}`;
   }
-  return cache[path];
+};
+
+// Array methods for immutability
+const doubled = numbers.map(n => n * 2);
+const filtered = users.filter(u => u.active);
+const sum = numbers.reduce((acc, n) => acc + n, 0);
+const found = users.find(u => u.id === targetId);
+const hasAdmin = users.some(u => u.role === 'admin');
+const allActive = users.every(u => u.active);
+
+// Object transformation
+const transformed = Object.entries(data)
+  .filter(([key, value]) => value != null)
+  .reduce((acc, [key, value]) => ({ ...acc, [key]: transform(value) }), {});
+```
+
+## 2. Advanced Functions and Closures
+
+### 2.1 Function Patterns
+
+```javascript
+// Default parameters with destructuring
+function fetchData(url, { 
+  method = 'GET', 
+  headers = {}, 
+  timeout = 5000 
+} = {}) {
+  return fetch(url, { method, headers, signal: AbortSignal.timeout(timeout) });
+}
+
+// Rest parameters and spread
+function combine(separator, ...parts) {
+  return parts.filter(Boolean).join(separator);
+}
+
+// Immediately Invoked Function Expression (IIFE)
+const module = (() => {
+  let privateVar = 0;
+  
+  return {
+    increment() { privateVar++; },
+    getCount() { return privateVar; }
+  };
+})();
+
+// Function composition
+const compose = (...fns) => x => fns.reduceRight((acc, fn) => fn(acc), x);
+const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x);
+
+// Currying
+const curry = (fn) => {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    }
+    return (...nextArgs) => curried(...args, ...nextArgs);
+  };
 };
 ```
 
-### Early Termination
-```bash
-# ❌ BAD: Process everything
-find . -name "*.js" | xargs grep "pattern"
+### 2.2 Closures and Private State
 
-# ✅ GOOD: Stop when found
-find . -name "*.js" -exec grep -l "pattern" {} \; | head -1
-```
-
-## 🎯 Decision Trees
-
-### Should I Use a Tool?
-```
-Is it a fact question?
-├─ YES → Is it current/changing info?
-│   ├─ YES → Use tool (1 call)
-│   └─ NO → Answer from knowledge
-└─ NO → Is it a task?
-    ├─ YES → Can I batch operations?
-    │   ├─ YES → Single batched call
-    │   └─ NO → Minimize calls
-    └─ NO → Provide guidance
-```
-
-### Tool Selection
-```
-Need information?
-├─ Web search → Current events, prices, news
-├─ Read file → Specific file content
-├─ Terminal → System state, file operations
-└─ Analysis → Complex calculations only
-```
-
-## 📊 Efficiency Anti-Patterns
-
-### Avoid These
-```
-❌ Searching for basic syntax
-❌ Multiple calls for related info
-❌ Reading files already in context
-❌ Unnecessary state checks
-❌ Redundant validations
-❌ Over-verification
-```
-
-### Embrace These
-```
-✅ Batch related operations
-✅ Cache expensive results
-✅ Use knowledge first
-✅ Combine commands
-✅ Trust previous results
-✅ Fail fast
-```
-
-## 💾 Resource Conservation
-
-### API Token Optimization
 ```javascript
-// ❌ BAD: Wasteful
-for (const item of items) {
-  await processItem(item); // API call each
+// Module pattern with private state
+function createCounter(initial = 0) {
+  let count = initial;
+  
+  return {
+    increment() { return ++count; },
+    decrement() { return --count; },
+    reset() { count = initial; return count; },
+    valueOf() { return count; }
+  };
 }
 
-// ✅ GOOD: Efficient
-const batchSize = 100;
-for (let i = 0; i < items.length; i += batchSize) {
-  const batch = items.slice(i, i + batchSize);
-  await processBatch(batch); // Single API call
+// Memoization with closure
+function memoize(fn, keyFn = JSON.stringify) {
+  const cache = new Map();
+  
+  return function memoized(...args) {
+    const key = keyFn(args);
+    
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    
+    const result = fn.apply(this, args);
+    cache.set(key, result);
+    return result;
+  };
 }
 ```
 
-### Memory Efficiency
-```javascript
-// ❌ BAD: Load entire file
-const fullContent = await fs.readFile('large.csv');
-const lines = fullContent.split('\n');
+## 3. Asynchronous JavaScript
 
-// ✅ GOOD: Stream processing
-const stream = fs.createReadStream('large.csv');
-const rl = readline.createInterface({ input: stream });
-for await (const line of rl) {
-  // Process line by line
+### 3.1 Promises and Async Patterns
+
+```javascript
+// Promise creation and chaining
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Promise combinators
+async function fetchAllData(urls) {
+  // Parallel execution
+  const results = await Promise.all(urls.map(url => fetch(url)));
+  
+  // Handle partial failures
+  const settledResults = await Promise.allSettled(urls.map(url => fetch(url)));
+  
+  // Race condition
+  const fastest = await Promise.race([
+    fetch('/api/primary'),
+    fetch('/api/backup')
+  ]);
+  
+  // First successful result
+  const firstSuccess = await Promise.any([
+    fetch('/api/server1'),
+    fetch('/api/server2'),
+    fetch('/api/server3')
+  ]);
+}
+
+// Async iteration
+async function* fetchPages(baseUrl) {
+  let page = 1;
+  let hasMore = true;
+  
+  while (hasMore) {
+    const response = await fetch(`${baseUrl}?page=${page}`);
+    const data = await response.json();
+    yield data.items;
+    hasMore = data.hasNextPage;
+    page++;
+  }
+}
+
+// Using async generators
+for await (const items of fetchPages('/api/users')) {
+  processItems(items);
 }
 ```
 
-## 🏃 Speed Optimizations
+### 3.2 Advanced Error Handling
 
-### Parallel vs Sequential
 ```javascript
-// ❌ BAD: Sequential (slow)
-const a = await fetchA();
-const b = await fetchB();
-const c = await fetchC();
+// Retry mechanism with exponential backoff
+async function retryWithBackoff(fn, maxRetries = 3, baseDelay = 1000) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+      
+      const delay = baseDelay * Math.pow(2, i);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+}
 
-// ✅ GOOD: Parallel (fast)
-const [a, b, c] = await Promise.all([
-  fetchA(),
-  fetchB(),
-  fetchC()
-]);
+// Circuit breaker pattern
+class CircuitBreaker {
+  constructor(fn, threshold = 5, timeout = 60000) {
+    this.fn = fn;
+    this.threshold = threshold;
+    this.timeout = timeout;
+    this.failures = 0;
+    this.nextAttempt = Date.now();
+  }
+  
+  async call(...args) {
+    if (this.failures >= this.threshold) {
+      if (Date.now() < this.nextAttempt) {
+        throw new Error('Circuit breaker is OPEN');
+      }
+      this.failures = 0;
+    }
+    
+    try {
+      const result = await this.fn(...args);
+      this.failures = 0;
+      return result;
+    } catch (error) {
+      this.failures++;
+      if (this.failures >= this.threshold) {
+        this.nextAttempt = Date.now() + this.timeout;
+      }
+      throw error;
+    }
+  }
+}
 ```
 
-### Short-Circuit Evaluation
+## 4. Advanced Object-Oriented Patterns
+
+### 4.1 Classes and Inheritance
+
 ```javascript
-// Stop as soon as condition met
-const result = await findFirst(items, async (item) => {
-  return await checkCondition(item);
+// Private fields and methods
+class BankAccount {
+  #balance = 0;
+  #transactions = [];
+  
+  constructor(initialBalance = 0) {
+    this.#balance = initialBalance;
+  }
+  
+  get balance() {
+    return this.#balance;
+  }
+  
+  deposit(amount) {
+    this.#validateAmount(amount);
+    this.#balance += amount;
+    this.#addTransaction('deposit', amount);
+  }
+  
+  #validateAmount(amount) {
+    if (amount <= 0) {
+      throw new Error('Amount must be positive');
+    }
+  }
+  
+  #addTransaction(type, amount) {
+    this.#transactions.push({
+      type,
+      amount,
+      balance: this.#balance,
+      timestamp: new Date()
+    });
+  }
+  
+  // Static factory method
+  static fromJSON(json) {
+    const data = JSON.parse(json);
+    return new BankAccount(data.balance);
+  }
+}
+
+// Mixins
+const Timestamped = {
+  touch() {
+    this.updatedAt = new Date();
+  },
+  
+  getAge() {
+    return Date.now() - this.createdAt.getTime();
+  }
+};
+
+const Serializable = {
+  toJSON() {
+    return JSON.stringify(this);
+  },
+  
+  fromJSON(json) {
+    Object.assign(this, JSON.parse(json));
+  }
+};
+
+// Apply mixins
+class Model {
+  constructor() {
+    this.createdAt = new Date();
+  }
+}
+
+Object.assign(Model.prototype, Timestamped, Serializable);
+```
+
+### 4.2 Prototypal Patterns
+
+```javascript
+// Object.create for prototypal inheritance
+const vehicleProto = {
+  init(make, model) {
+    this.make = make;
+    this.model = model;
+    return this;
+  },
+  
+  start() {
+    return `${this.make} ${this.model} is starting`;
+  }
+};
+
+const carProto = Object.create(vehicleProto);
+carProto.init = function(make, model, doors) {
+  vehicleProto.init.call(this, make, model);
+  this.doors = doors;
+  return this;
+};
+
+// Factory with prototype
+function createCar(make, model, doors) {
+  return Object.create(carProto).init(make, model, doors);
+}
+```
+
+## 5. Advanced Data Structures
+
+### 5.1 WeakMap and WeakSet
+
+```javascript
+// Private data with WeakMap
+const privateData = new WeakMap();
+
+class User {
+  constructor(name, email) {
+    privateData.set(this, { 
+      password: null,
+      loginAttempts: 0 
+    });
+    this.name = name;
+    this.email = email;
+  }
+  
+  setPassword(password) {
+    const data = privateData.get(this);
+    data.password = hashPassword(password);
+  }
+  
+  authenticate(password) {
+    const data = privateData.get(this);
+    return verifyPassword(password, data.password);
+  }
+}
+
+// Metadata with WeakMap
+const metadata = new WeakMap();
+
+function attachMetadata(object, meta) {
+  metadata.set(object, meta);
+}
+
+function getMetadata(object) {
+  return metadata.get(object);
+}
+
+// WeakSet for tracking
+const activeConnections = new WeakSet();
+
+class Connection {
+  constructor() {
+    activeConnections.add(this);
+  }
+  
+  close() {
+    activeConnections.delete(this);
+  }
+  
+  static isActive(connection) {
+    return activeConnections.has(connection);
+  }
+}
+```
+
+### 5.2 Symbols and Metaprogramming
+
+```javascript
+// Symbols for private properties
+const _id = Symbol('id');
+const _validate = Symbol('validate');
+
+class Entity {
+  constructor(id) {
+    this[_id] = id;
+  }
+  
+  [_validate]() {
+    if (!this[_id]) {
+      throw new Error('Invalid entity');
+    }
+  }
+  
+  // Well-known symbols
+  [Symbol.toStringTag]() {
+    return 'Entity';
+  }
+  
+  *[Symbol.iterator]() {
+    yield* Object.values(this);
+  }
+}
+
+// Symbol registry
+const sym1 = Symbol.for('app.user');
+const sym2 = Symbol.for('app.user');
+console.log(sym1 === sym2); // true
+```
+
+## 6. Proxy and Reflect
+
+### 6.1 Proxy Patterns
+
+```javascript
+// Validation proxy
+function createValidatedObject(target, validators) {
+  return new Proxy(target, {
+    set(obj, prop, value) {
+      const validator = validators[prop];
+      if (validator && !validator(value)) {
+        throw new Error(`Invalid value for ${prop}`);
+      }
+      return Reflect.set(obj, prop, value);
+    }
+  });
+}
+
+const user = createValidatedObject({}, {
+  age: (v) => typeof v === 'number' && v >= 0 && v <= 150,
+  email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+});
+
+// Observable proxy
+function observable(target, onChange) {
+  return new Proxy(target, {
+    set(obj, prop, value) {
+      const oldValue = obj[prop];
+      const result = Reflect.set(obj, prop, value);
+      if (oldValue !== value) {
+        onChange(prop, value, oldValue);
+      }
+      return result;
+    },
+    
+    deleteProperty(obj, prop) {
+      const oldValue = obj[prop];
+      const result = Reflect.deleteProperty(obj, prop);
+      onChange(prop, undefined, oldValue);
+      return result;
+    }
+  });
+}
+
+// Auto-memoizing proxy
+const memoizeProxy = (fn) => new Proxy(fn, {
+  cache: new Map(),
+  
+  apply(target, thisArg, args) {
+    const key = JSON.stringify(args);
+    if (this.cache.has(key)) {
+      return this.cache.get(key);
+    }
+    const result = Reflect.apply(target, thisArg, args);
+    this.cache.set(key, result);
+    return result;
+  }
 });
 ```
 
-## 📈 Efficiency Report Card
+## 7. Iterators and Generators
 
-### Rate Your Session
+### 7.1 Custom Iterators
+
+```javascript
+// Range iterator
+class Range {
+  constructor(start, end, step = 1) {
+    this.start = start;
+    this.end = end;
+    this.step = step;
+  }
+  
+  *[Symbol.iterator]() {
+    for (let i = this.start; i <= this.end; i += this.step) {
+      yield i;
+    }
+  }
+  
+  // Make it work with array methods
+  map(fn) {
+    return Array.from(this).map(fn);
+  }
+  
+  filter(fn) {
+    return Array.from(this).filter(fn);
+  }
+}
+
+// Tree traversal iterator
+class TreeNode {
+  constructor(value, children = []) {
+    this.value = value;
+    this.children = children;
+  }
+  
+  *[Symbol.iterator]() {
+    yield this.value;
+    for (const child of this.children) {
+      yield* child;
+    }
+  }
+  
+  *breadthFirst() {
+    const queue = [this];
+    while (queue.length > 0) {
+      const node = queue.shift();
+      yield node.value;
+      queue.push(...node.children);
+    }
+  }
+}
 ```
-EXCELLENT (A+): 0-1 tool calls
-- Answered from knowledge
-- Batched if needed
 
-GOOD (B): 2-3 tool calls
-- Minimal exploration
-- Efficient execution
+### 7.2 Generator Patterns
 
-NEEDS WORK (C): 4-5 tool calls
-- Some redundancy
-- Could batch better
+```javascript
+// Infinite sequences
+function* fibonacci() {
+  let [a, b] = [0, 1];
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
 
-INEFFICIENT (D): 6+ tool calls
-- Excessive searching
-- Poor batching
+// Take first n elements
+function* take(n, iterable) {
+  let count = 0;
+  for (const item of iterable) {
+    if (count++ >= n) return;
+    yield item;
+  }
+}
+
+// Generator for async flow control
+function* asyncFlow() {
+  const user = yield fetchUser();
+  const posts = yield fetchPosts(user.id);
+  const comments = yield fetchComments(posts[0].id);
+  return { user, posts, comments };
+}
+
+// Running async generator
+function runGenerator(gen) {
+  const iterator = gen();
+  
+  function handle(result) {
+    if (!result.done) {
+      return Promise.resolve(result.value)
+        .then(res => handle(iterator.next(res)))
+        .catch(err => handle(iterator.throw(err)));
+    }
+    return result.value;
+  }
+  
+  return handle(iterator.next());
+}
 ```
 
-Remember: The best tool call is the one you don't make!
+## 8. Memory Management
+
+### 8.1 Memory Optimization
+
+```javascript
+// Object pooling
+class ObjectPool {
+  constructor(createFn, resetFn, maxSize = 100) {
+    this.createFn = createFn;
+    this.resetFn = resetFn;
+    this.pool = [];
+    this.maxSize = maxSize;
+  }
+  
+  acquire() {
+    return this.pool.pop() || this.createFn();
+  }
+  
+  release(obj) {
+    if (this.pool.length < this.maxSize) {
+      this.resetFn(obj);
+      this.pool.push(obj);
+    }
+  }
+}
+
+// Usage
+const particlePool = new ObjectPool(
+  () => ({ x: 0, y: 0, vx: 0, vy: 0, life: 1 }),
+  (p) => { p.x = 0; p.y = 0; p.vx = 0; p.vy = 0; p.life = 1; }
+);
+
+// Avoiding memory leaks
+class EventBus {
+  constructor() {
+    this.events = new Map();
+    this.onceEvents = new WeakMap();
+  }
+  
+  on(event, handler, context = null) {
+    if (!this.events.has(event)) {
+      this.events.set(event, new Set());
+    }
+    
+    const boundHandler = context ? handler.bind(context) : handler;
+    this.events.get(event).add(boundHandler);
+    
+    return () => this.off(event, boundHandler);
+  }
+  
+  off(event, handler) {
+    const handlers = this.events.get(event);
+    if (handlers) {
+      handlers.delete(handler);
+      if (handlers.size === 0) {
+        this.events.delete(event);
+      }
+    }
+  }
+}
+```
+
+## 9. Web APIs and Browser
+
+### 9.1 Modern DOM Patterns
+
+```javascript
+// Intersection Observer for lazy loading
+const lazyImageObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src;
+      img.classList.add('loaded');
+      lazyImageObserver.unobserve(img);
+    }
+  });
+}, {
+  rootMargin: '50px 0px',
+  threshold: 0.01
+});
+
+document.querySelectorAll('img[data-src]').forEach(img => {
+  lazyImageObserver.observe(img);
+});
+
+// Mutation Observer for DOM changes
+const domObserver = new MutationObserver((mutations) => {
+  mutations.forEach(mutation => {
+    if (mutation.type === 'childList') {
+      mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1 && node.matches('[data-tooltip]')) {
+          initializeTooltip(node);
+        }
+      });
+    }
+  });
+});
+
+domObserver.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+// Resize Observer
+const resizeObserver = new ResizeObserver((entries) => {
+  entries.forEach(entry => {
+    const { width, height } = entry.contentRect;
+    entry.target.textContent = `${Math.round(width)}×${Math.round(height)}`;
+  });
+});
+```
+
+### 9.2 Web Workers
+
+```javascript
+// Main thread
+const worker = new Worker('worker.js');
+
+// Transferable objects for performance
+const buffer = new ArrayBuffer(1024 * 1024);
+worker.postMessage({ cmd: 'process', data: buffer }, [buffer]);
+
+// Promise-based worker communication
+class PromiseWorker {
+  constructor(workerPath) {
+    this.worker = new Worker(workerPath);
+    this.promises = new Map();
+    this.messageId = 0;
+    
+    this.worker.onmessage = (e) => {
+      const { id, result, error } = e.data;
+      const { resolve, reject } = this.promises.get(id);
+      this.promises.delete(id);
+      
+      if (error) reject(new Error(error));
+      else resolve(result);
+    };
+  }
+  
+  send(data) {
+    return new Promise((resolve, reject) => {
+      const id = this.messageId++;
+      this.promises.set(id, { resolve, reject });
+      this.worker.postMessage({ id, data });
+    });
+  }
+  
+  terminate() {
+    this.worker.terminate();
+  }
+}
+
+// Worker file (worker.js)
+self.onmessage = async (e) => {
+  const { id, data } = e.data;
+  
+  try {
+    const result = await processData(data);
+    self.postMessage({ id, result });
+  } catch (error) {
+    self.postMessage({ id, error: error.message });
+  }
+};
+```
+
+## 10. Performance Patterns
+
+### 10.1 Optimization Techniques
+
+```javascript
+// Debounce with leading and trailing options
+function debounce(func, wait, options = {}) {
+  let timeout, lastArgs, lastThis, result;
+  let lastCallTime = 0;
+  
+  const { leading = false, trailing = true } = options;
+  
+  function invokeFunc(time) {
+    const args = lastArgs;
+    const thisArg = lastThis;
+    
+    lastArgs = lastThis = undefined;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+  
+  function debounced(...args) {
+    const time = Date.now();
+    const isInvoking = leading && !timeout;
+    
+    lastArgs = args;
+    lastThis = this;
+    lastCallTime = time;
+    
+    if (isInvoking) {
+      timeout = setTimeout(() => {
+        timeout = undefined;
+        if (trailing) invokeFunc(time);
+      }, wait);
+      return invokeFunc(time);
+    }
+    
+    if (!timeout && trailing) {
+      timeout = setTimeout(() => {
+        timeout = undefined;
+        invokeFunc(Date.now());
+      }, wait);
+    }
+    
+    return result;
+  }
+  
+  debounced.cancel = () => {
+    clearTimeout(timeout);
+    timeout = lastArgs = lastThis = undefined;
+  };
+  
+  return debounced;
+}
+
+// Virtual scrolling for large lists
+class VirtualScroller {
+  constructor(container, items, rowHeight, renderItem) {
+    this.container = container;
+    this.items = items;
+    this.rowHeight = rowHeight;
+    this.renderItem = renderItem;
+    
+    this.setup();
+  }
+  
+  setup() {
+    this.container.style.position = 'relative';
+    this.container.style.overflow = 'auto';
+    
+    // Create spacer for total height
+    this.spacer = document.createElement('div');
+    this.spacer.style.height = `${this.items.length * this.rowHeight}px`;
+    this.container.appendChild(this.spacer);
+    
+    // Create viewport for visible items
+    this.viewport = document.createElement('div');
+    this.viewport.style.position = 'absolute';
+    this.viewport.style.top = '0';
+    this.viewport.style.left = '0';
+    this.viewport.style.right = '0';
+    this.container.appendChild(this.viewport);
+    
+    this.container.addEventListener('scroll', () => this.render());
+    this.render();
+  }
+  
+  render() {
+    const scrollTop = this.container.scrollTop;
+    const containerHeight = this.container.clientHeight;
+    
+    const startIndex = Math.floor(scrollTop / this.rowHeight);
+    const endIndex = Math.ceil((scrollTop + containerHeight) / this.rowHeight);
+    
+    const visibleItems = this.items.slice(startIndex, endIndex);
+    
+    this.viewport.innerHTML = '';
+    this.viewport.style.transform = `translateY(${startIndex * this.rowHeight}px)`;
+    
+    visibleItems.forEach((item, i) => {
+      const element = this.renderItem(item, startIndex + i);
+      element.style.height = `${this.rowHeight}px`;
+      this.viewport.appendChild(element);
+    });
+  }
+}
+```
+
+## 11. Regular Expressions
+
+### 11.1 Advanced RegExp Patterns
+
+```javascript
+// Named capture groups
+const dateRegex = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+const match = '2024-03-15'.match(dateRegex);
+console.log(match.groups); // { year: '2024', month: '03', day: '15' }
+
+// Lookahead and lookbehind
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+// Replace with function
+const template = 'Hello {{name}}, your order {{orderId}} is ready';
+const data = { name: 'John', orderId: '12345' };
+
+const result = template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
+  return data[key] || match;
+});
+
+// Unicode property escapes
+const emojiRegex = /\p{Emoji}/gu;
+const hasEmoji = (text) => emojiRegex.test(text);
+
+// Sticky flag for parsing
+const tokenizer = /(\d+)|(\w+)|(\s+)/y;
+let lastIndex = 0;
+
+function tokenize(input) {
+  const tokens = [];
+  tokenizer.lastIndex = 0;
+  
+  let match;
+  while (match = tokenizer.exec(input)) {
+    tokens.push({
+      type: match[1] ? 'number' : match[2] ? 'word' : 'space',
+      value: match[0]
+    });
+  }
+  
+  return tokens;
+}
+```
+
+## 12. Module Patterns and Build
+
+### 12.1 Module Organization
+
+```javascript
+// Barrel exports with re-exports
+// utils/index.js
+export { default as debounce } from './debounce.js';
+export { default as throttle } from './throttle.js';
+export * from './array-helpers.js';
+export * as dom from './dom-utils.js';
+
+// Conditional exports
+export const logger = process.env.NODE_ENV === 'production'
+  ? { log: () => {}, error: console.error }
+  : console;
+
+// Dynamic imports with loading states
+async function loadComponent(name) {
+  const module = await import(`./components/${name}.js`);
+  return module.default;
+}
+
+// Module initialization pattern
+let initialized = false;
+let initPromise = null;
+
+export async function initialize() {
+  if (initialized) return;
+  if (initPromise) return initPromise;
+  
+  initPromise = (async () => {
+    await loadConfig();
+    await connectDatabase();
+    initialized = true;
+  })();
+  
+  return initPromise;
+}
+```
+
+## 13. Documentation and Code Quality
+
+### 13.1 JSDoc Standards
+
+```javascript
+/**
+ * Processes user data and returns normalized result.
+ * 
+ * @param {Object} data - Raw user data from API
+ * @param {Object} [options={}] - Processing options
+ * @param {boolean} [options.validate=true] - Whether to validate data
+ * @param {boolean} [options.transform=true] - Whether to transform data
+ * @returns {Promise<User>} Normalized user object
+ * 
+ * @example
+ * const user = await processUser(rawData, { validate: true });
+ * 
+ * @throws {ValidationError} When data validation fails
+ * @throws {NetworkError} When API request fails
+ * 
+ * @see {@link https://example.com/docs/user-processing}
+ * @since 2.0.0
+ */
+async function processUser(data, options = {}) {
+  const { validate = true, transform = true } = options;
+  // Implementation
+}
+
+/**
+ * @typedef {Object} User
+ * @property {string} id - Unique identifier
+ * @property {string} name - User's display name
+ * @property {string} email - Email address
+ * @property {Date} createdAt - Account creation timestamp
+ * @property {UserRole} role - User's role
+ */
+
+/**
+ * @typedef {'admin' | 'user' | 'guest'} UserRole
+ */
+
+// Type imports for better IDE support
+/** @type {import('./types').Config} */
+const config = loadConfig();
+```
+
+### 13.2 Debugging Techniques
+
+```javascript
+// Enhanced console logging
+const debug = {
+  log(...args) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(new Date().toISOString(), ...args);
+    }
+  },
+  
+  table(data, columns) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.table(data, columns);
+    }
+  },
+  
+  time(label) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.time(label);
+      return () => console.timeEnd(label);
+    }
+    return () => {};
+  },
+  
+  trace(message) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.trace(message);
+    }
+  }
+};
+
+// Debug proxy for object inspection
+function debugProxy(obj, name) {
+  return new Proxy(obj, {
+    get(target, prop, receiver) {
+      const value = Reflect.get(target, prop, receiver);
+      console.log(`${name}.${String(prop)} accessed:`, value);
+      return value;
+    },
+    
+    set(target, prop, value, receiver) {
+      console.log(`${name}.${String(prop)} set to:`, value);
+      return Reflect.set(target, prop, value, receiver);
+    }
+  });
+}
+
+// Performance profiling
+class Profiler {
+  constructor(name) {
+    this.name = name;
+    this.measurements = [];
+  }
+  
+  start(label) {
+    const startTime = performance.now();
+    return () => {
+      const duration = performance.now() - startTime;
+      this.measurements.push({ label, duration });
+      return duration;
+    };
+  }
+  
+  report() {
+    console.group(`Profile: ${this.name}`);
+    this.measurements.forEach(({ label, duration }) => {
+      console.log(`${label}: ${duration.toFixed(2)}ms`);
+    });
+    console.groupEnd();
+  }
+}
+```
+
+## 14. Build and Deployment
+
+### 14.1 Environment Configuration
+
+```javascript
+// Environment-specific configuration
+const environments = {
+  development: {
+    apiUrl: 'http://localhost:3000',
+    debug: true,
+    cache: false
+  },
+  staging: {
+    apiUrl: 'https://staging-api.example.com',
+    debug: false,
+    cache: true
+  },
+  production: {
+    apiUrl: 'https://api.example.com',
+    debug: false,
+    cache: true
+  }
+};
+
+const env = process.env.NODE_ENV || 'development';
+export const config = environments[env];
+
+// Feature flags
+const features = {
+  newDashboard: process.env.FEATURE_NEW_DASHBOARD === 'true',
+  betaFeatures: process.env.FEATURE_BETA === 'true',
+  analytics: process.env.FEATURE_ANALYTICS !== 'false'
+};
+
+export function isFeatureEnabled(feature) {
+  return features[feature] || false;
+}
+```
+
+### 14.2 Error Tracking
+
+```javascript
+// Centralized error handling
+class ErrorTracker {
+  constructor() {
+    this.handlers = new Set();
+    this.setupGlobalHandlers();
+  }
+  
+  setupGlobalHandlers() {
+    // Browser environment
+    if (typeof window !== 'undefined') {
+      window.addEventListener('error', (event) => {
+        this.captureError(event.error, {
+          message: event.message,
+          filename: event.filename,
+          lineno: event.lineno,
+          colno: event.colno
+        });
+      });
+      
+      window.addEventListener('unhandledrejection', (event) => {
+        this.captureError(event.reason, {
+          type: 'unhandledRejection',
+          promise: event.promise
+        });
+      });
+    }
+    
+    // Node.js environment
+    if (typeof process !== 'undefined') {
+      process.on('uncaughtException', (error) => {
+        this.captureError(error, { type: 'uncaughtException' });
+        process.exit(1);
+      });
+      
+      process.on('unhandledRejection', (reason, promise) => {
+        this.captureError(reason, { type: 'unhandledRejection', promise });
+      });
+    }
+  }
+  
+  captureError(error, context = {}) {
+    const errorInfo = {
+      message: error?.message || String(error),
+      stack: error?.stack,
+      timestamp: new Date().toISOString(),
+      context,
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
+      url: typeof window !== 'undefined' ? window.location.href : null
+    };
+    
+    this.handlers.forEach(handler => {
+      try {
+        handler(errorInfo);
+      } catch (handlerError) {
+        console.error('Error in error handler:', handlerError);
+      }
+    });
+  }
+  
+  addHandler(handler) {
+    this.handlers.add(handler);
+    return () => this.handlers.delete(handler);
+  }
+}
+
+export const errorTracker = new ErrorTracker();
+```
+
+### Do's ✅
+- Use `const` by default, `let` when needed
+- Prefer `async/await` over promise chains
+- Use destructuring for cleaner code
+- Leverage array methods for immutability
+- Handle errors explicitly
+- Use modern APIs (Observers, Workers)
+- Write pure functions when possible
+- Memoize expensive operations
+- Use WeakMap/WeakSet for metadata
+- Profile and optimize bottlenecks
+
+### Don'ts ❌
+- Don't use `var` in modern code
+- Don't mutate objects/arrays unnecessarily
+- Don't ignore error handling
+- Don't create memory leaks
+- Don't block the main thread
+- Don't use `eval()` or `new Function()`
+- Don't modify prototypes of built-ins
+- Don't use synchronous operations in async code
+- Don't over-optimize prematurely
+- Don't ignore security best practices
+
+### Performance Checklist
+- [ ] Debounce/throttle expensive operations
+- [ ] Use virtual scrolling for large lists
+- [ ] Lazy load images and components
+- [ ] Minimize DOM manipulations
+- [ ] Use Web Workers for CPU-intensive tasks
+- [ ] Cache computed values
+- [ ] Use efficient data structures
+- [ ] Batch updates when possible
+- [ ] Profile before optimizing
+- [ ] Consider memory usage
 
 ---
 > Source: [DVC2/cursor_prompts](https://github.com/DVC2/cursor_prompts) — distributed by [TomeVault](https://tomevault.io).
