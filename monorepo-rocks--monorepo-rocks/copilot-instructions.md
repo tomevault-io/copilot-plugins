@@ -1,33 +1,73 @@
-## python-inline-scripts
+## use-todo-list
 
-> ALWAYS read this guide when running inline python scripts. This should be used when the user says "use inline python" or "run inline python
+> Use this rule when I ask you to use TODOs for a task.
 
-<python-inline-scripts>
+<todo-list-management-rule>
 
-<title>Python Inline Scripts with uv</title>
+<description>Maintain a TODO.md file to track all pending tasks, improvements, and known issues in the codebase</description>
 
-<IMPORTANT>
-- NEVER add stdlib modules like json, os, re, etc. to dependencies OR THE SCRIPT WILL FAIL
-- ALWAYS assume Python 3.12+
-</IMPORTANT>
+<file-location>
+<requirement>The file should go in the package directory we're working on. E.g. apps/some-app/TODO.md</requirement>
+</file-location>
 
-<example>
-uv run --no-project -q --script - < <(cat <<'EOF'
-# /// script
-# # ONLY add dependencies array if you need PyPi packages
-# dependencies = [
-#   "httpx"
-# ]
-# requires-python = ">=3.12"
-# ///
+<file-format>
+<requirements>
+- Use standard markdown with `- [ ]` for incomplete tasks and `- [x]` for completed tasks
+- Organize tasks under clear section headers (e.g., ## Features, ## Bug Fixes, ## Refactoring)
+- Include brief descriptions and priority levels (High/Medium/Low) in parentheses
+</requirements>
+</file-format>
 
-import httpx
-print(httpx.get("https://api.github.com/zen").text)
-EOF
-)
-</example>
+<update-triggers>
+<rules>
+- Add items when you identify new tasks, bugs, or improvements needed
+- Mark complete when you finish implementing a task
+- Update descriptions when task scope changes
+- Remove obsolete items that are no longer relevant
+</rules>
+</update-triggers>
 
-</python-inline-scripts>
+<tracking-scope>
+<items>
+- Features to implement
+- Bugs to fix
+- Code refactoring needs
+- Documentation updates
+- Performance optimizations
+- Security improvements
+- Testing requirements
+</items>
+</tracking-scope>
+
+<format-example>
+```markdown
+# TODO
+
+## High Priority
+
+- [ ] Fix authentication bug in login flow (High)
+- [ ] Add error handling for API calls (High)
+
+## Features
+
+- [ ] Implement user profile page (Medium)
+- [x] Add search functionality (Medium)
+
+## Technical Debt
+
+- [ ] Refactor database queries for better performance (Low)
+```
+</format-example>
+
+<update-requirement>
+<rule>Always show me the updated TODO.md content after making changes to code or when I ask for project status</rule>
+</update-requirement>
+
+<purpose>
+<description>This rule ensures the LLM consistently tracks work while providing you with clear visibility into project progress and outstanding tasks</description>
+</purpose>
+
+</todo-list-management-rule>
 
 ---
 > Source: [monorepo-rocks/monorepo-rocks](https://github.com/monorepo-rocks/monorepo-rocks) — distributed by [TomeVault](https://tomevault.io).
