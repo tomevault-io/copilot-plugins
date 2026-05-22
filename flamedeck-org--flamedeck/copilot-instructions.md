@@ -1,32 +1,83 @@
-## coding-conventions
+## creating-settings-page
 
-> - Always memoize by default (use `useMemo` and `useCallback` to ensure stable dependencies)
+> This rule outlines the standard procedure for adding a new settings page to the FlameDeck client application.
 
+# Rule: Creating a New Settings Page
 
-# Coding Conventions
+This rule outlines the standard procedure for adding a new settings page to the FlameDeck client application.
 
-- Always memoize by default (use `useMemo` and `useCallback` to ensure stable dependencies)
-  - Also wrap exported components in `memo`
-- Always memoize context values so they don't trigger unnecessary rerenders
-- Abstract large new pieces of functionality into separate hooks / components - component files should not be huge
-- Always use named function declarations for components. E.g. `function MyComponent() {` not `const MyComponent: React.FC = () => {`
+## 1. File Creation and Location
 
-## Creating components
+*   New settings page components should be created within the `apps/client/src/pages/settings/` directory.
+*   The filename should be descriptive and use PascalCase, e.g., `NewFeatureSettingsPage.tsx`.
 
-- We want to avoid very large files - try to think about how to extract things in to reasonably sized components or hooks or utility functions. Generally we want one function per file
-- You should logically structure components around where they are used. For example if `components/TraceList.tsx` needs to render a `TraceListItem` component, you should create a folder called `components/TraceList` which looks like:
+## 2. Component Structure and Formatting
 
-```
-components/
-  TraceList/
-    TraceList.tsx
-    index.ts // exports TraceList and anything else needed
-    TraceListItem.tsx
-    hooks/
-      useTraces.ts // any hooks related to the component
-```
+*   Import necessary components and hooks. Standard imports often include:
+    *   `memo`, `useCallback`, `useState`, `useMemo` from `react`.
+    *   UI components from `@/components/ui/...` (e.g., `Button`, `Card`, `Input`).
+    *   Relevant custom hooks (e.g., `useUserSubscription` from `@/hooks/useUserSubscription`).
+    *   API interaction functions from `@/lib/api/...`.
+    *   `toast` from `sonner` for notifications.
+    *   The [PageHeader component](mdc:apps/client/src/components/PageHeader.tsx) for the page title.
+*   The main page component should be a named function (e.g., `function NewFeatureSettingsPage() { ... }`).
+*   Wrap the exported component with `React.memo` for performance: `export default memo(NewFeatureSettingsPage);`
+*   **Layout:**
+    *   The top-level JSX should typically be a React Fragment (`<>...</>`).
+    *   Start with the `<PageHeader title="Your Page Title" />` component.
+    *   Structure the main content within one or more `<Card>` components from `@/components/ui/card`. Each card should usually have:
+        *   `<CardHeader>` with `<CardTitle>` and optionally `<CardDescription>`.
+        *   `<CardContent>` for the main interactive elements or information display.
+        *   Optionally `<CardFooter>` for action buttons related to the card.
+*   Refer to existing settings pages like [ApiKeysPage.tsx](mdc:apps/client/src/pages/settings/ApiKeysPage.tsx) or [BillingPage.tsx](mdc:apps/client/src/pages/settings/BillingPage.tsx) for examples of structure and styling.
 
-Keeping a clean and organized file heirarchy is critical to the application being maintainable in the long run
+## 3. Routing
+
+*   Open [App.tsx](mdc:apps/client/src/App.tsx).
+*   Import the newly created settings page component.
+*   Add a new `<Route>` within the `SettingsLayout` route group. For example:
+    ```tsx
+    // ... other imports ...
+    import NewFeatureSettingsPage from './pages/settings/NewFeatureSettingsPage';
+
+    // ... inside the <Routes> component ...
+    <Route path="/settings" element={<SettingsLayout />}>
+      <Route index element={<Navigate to="/settings/general" replace />} />
+      <Route path="general" element={<SettingsPage />} />
+      <Route path="api-keys" element={<ApiKeysPage />} />
+      <Route path="billing" element={<BillingPage />} />
+      {/* Add new route here */}
+      <Route path="new-feature" element={<NewFeatureSettingsPage />} />
+    </Route>
+    ```
+
+## 4. Sidebar Navigation
+
+*   Open [SettingsSidebar.tsx](mdc:apps/client/src/components/settings/SettingsSidebar.tsx).
+*   Ensure the `SettingsNavLink` component is defined or imported. This component standardizes the appearance of navigation links in the settings sidebar.
+*   Import an appropriate icon from `lucide-react` for the new settings page if not already available.
+*   Add a new instance of the `<SettingsNavLink>` component. Provide the `to` path (matching the route defined in `App.tsx`), a `label` for the link text, an `ariaLabel` for accessibility, and the `Icon` component. Example:
+    ```tsx
+    // ... ensure SettingsNavLink is defined or imported ...
+    // ... ensure appropriate icon is imported from lucide-react ...
+    import { ..., NewIcon } from 'lucide-react';
+
+    // ... inside the <nav> element where other SettingsNavLinks are ...
+    <SettingsNavLink
+      to="/settings/new-feature"
+      label="New Feature"
+      ariaLabel="New Feature Settings"
+      Icon={NewIcon}
+    />
+    ```
+
+## 5. State Management and Logic
+
+*   Use React hooks (`useState`, `useCallback`, `useMemo`) for component state and memoization.
+*   For data fetching or mutations, prefer custom hooks (e.g., built with `@tanstack/react-query`) as seen in `useUserApiKeys` or `useUserSubscription`.
+*   Handle loading states and error feedback gracefully, often using `toast` notifications for actions.
+
+By following these steps, new settings pages will maintain consistency with the existing application structure and user experience.
 
 ---
 > Source: [flamedeck-org/flamedeck](https://github.com/flamedeck-org/flamedeck) — distributed by [TomeVault](https://tomevault.io).
