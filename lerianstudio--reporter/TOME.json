@@ -4,7 +4,7 @@
   "repo": "reporter",
   "description": "Open-source async report generation service in Go \u2014 define templates (Pongo2/Django-like), connect PostgreSQL & MongoDB datasources, and generate reports in PDF, HTML, CSV, XML, and TXT. Features RabbitMQ-backed processing, S3 storage, circuit breakers, and KEDA auto-scaling.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LerianStudio/reporter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T23:00:42Z"
+  "distributed_at": "2026-05-22T23:26:52Z"
 }
