@@ -4,7 +4,7 @@
   "repo": "AI-Gov-Content-Curator",
   "description": "\ud83d\udca1An end-to-end solution for aggregating, summarizing, and displaying news articles using an AI-powered backend, an automated CRON crawler & newsletter emailer, and a responsive Next.js frontend. It integrates technologies like Express.js, MongoDB, Puppeteer, and GenAI/LLMs to deliver up-to-date, curated content to government staff and other users.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/AI-Gov-Content-Curator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T22:54:46Z"
+  "distributed_at": "2026-05-22T23:20:18Z"
 }
