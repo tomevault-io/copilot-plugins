@@ -1,0 +1,9 @@
+{
+  "name": "jaff-chemistry--jaff",
+  "displayName": "jaff",
+  "description": "An astrochemical network parser that supports multiple reaction network formats including KIDA, UDFA, PRIZMO, KROME, and UCLCHEM.",
+  "version": "1.0.0",
+  "author": "jaff-chemistry",
+  "homepage": "https://github.com/jaff-chemistry/jaff",
+  "skills": []
+}
