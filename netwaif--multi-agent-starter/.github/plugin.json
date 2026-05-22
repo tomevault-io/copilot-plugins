@@ -1,0 +1,9 @@
+{
+  "name": "netwaif--multi-agent-starter",
+  "displayName": "multi-agent-starter",
+  "description": "Claude \u00b7 Codex \u00b7 Gemini \uba40\ud2f0\uc5d0\uc774\uc804\ud2b8 \uc624\ucf00\uc2a4\ud2b8\ub808\uc774\uc158 \uc2a4\ud0c0\ud130 (\ud30c\uc77c \uae30\ubc18)",
+  "version": "1.0.0",
+  "author": "netwaif",
+  "homepage": "https://github.com/netwaif/multi-agent-starter",
+  "skills": []
+}
