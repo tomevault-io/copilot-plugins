@@ -1,0 +1,9 @@
+{
+  "name": "vasu840--ai-interview-preparation-platform",
+  "displayName": "AI-Interview-Preparation-Platform",
+  "description": "Full-stack AI-powered interview preparation platform built with Next.js, FastAPI, Tailwind CSS, and Gemini AI featuring AI interview simulation, voice interaction, resume analysis, and dashboard modul",
+  "version": "1.0.0",
+  "author": "vasu840",
+  "homepage": "https://github.com/vasu840/AI-Interview-Preparation-Platform",
+  "skills": []
+}
