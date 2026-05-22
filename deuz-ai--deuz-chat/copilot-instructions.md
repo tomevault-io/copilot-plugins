@@ -1,0 +1,29 @@
+## 01-project-overview
+
+> This is a Next.js chat application that uses Supabase for backend data storage and OpenAI for chat functionality. The app allows users to create chat sessions and interact with an AI assistant.
+
+# Project Overview
+
+This is a Next.js chat application that uses Supabase for backend data storage and OpenAI for chat functionality. The app allows users to create chat sessions and interact with an AI assistant.
+
+## Key Technology Stack
+- Next.js (React framework)
+- Supabase (Database and authentication)
+- OpenAI (AI integration)
+- Tailwind CSS (Styling)
+- Zustand (State management)
+
+## Main Entry Points
+- [app/page.tsx](mdc:app/page.tsx) - Main page that redirects to an existing or new chat session
+- [app/[sessionId]/page.tsx](mdc:app/[sessionId]/page.tsx) - Dynamic page for individual chat sessions
+- [app/layout.tsx](mdc:app/layout.tsx) - Root layout component
+
+## Project Structure
+- `/app` - Next.js app directory with pages and API routes
+- `/components` - React components organized by feature
+- `/lib` - Utility functions, store, and configuration
+- `/public` - Static assets
+
+---
+> Source: [Deuz-AI/Deuz-Chat](https://github.com/Deuz-AI/Deuz-Chat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
