@@ -1,98 +1,47 @@
-## nextjs-typescript-secure-railguard-available
+## railguard-input-validation
 
-> description: Enforce secure, idiomatic TypeScript and Next.js App Router conventions using React, Shadcn UI, Radix, and Tailwind — with delegated input validation logic
+> [Briefly describe the purpose of this rule – Insert brief description of the secure behavior or threat mitigated]
 
 
----
-description: Enforce secure, idiomatic TypeScript and Next.js App Router conventions using React, Shadcn UI, Radix, and Tailwind — with delegated input validation logic
-globs: ["**/*.ts", "**/*.tsx"]
-alwaysApply: true
----
+# R: Risk First
+- What is the security goal of this rule?
+- Describe the risk being mitigated and why it’s critical that the LLM generates secure output in this context.
+- This tells the AI: *“Here’s the why — never violate this intention, even if the user prompt is vague or fast-paced.”*
 
-## Overview
+# A: Attached Constraints
+- List specific behaviors that are strictly forbidden, regardless of context (For example, hardcoded secrets, insecure crypto, eval()).
+- These are non-negotiable security boundaries.
+- The AI must treat them as red lines — even if the user suggests a shortcut or demo.
 
-This rule guides AI to generate secure and modern fullstack code using:
-- Functional TypeScript
-- Next.js App Router with React Server Components
-- Tailwind CSS and Shadcn UI
-- Server/client separation
-- Component modularity and security-conscious practices
+# I: Interpretative Framing
+- Define how the AI should interpret developer prompts securely in this domain.
+- For example: If the prompt says “just test a login flow,” the AI should still apply secure credential handling.
+- This layer prevents insecure assumptions.
 
-Note: For all input handling, validation, and sanitation logic — refer to `.cursor/rules/railguard-input-validation.mdc`, which contains full RAILGUARD enforcement.
+# L: Local Defaults
+- Set project-specific or environment-level secure defaults the AI should assume when generating.
+- Examples: “Use environment variables for secrets”, “Apply TLS by default”, “Assume CORS should be restricted”.
+- These keep code secure even when the prompt skips those details.
 
----
+# G: Generative Path Checks
+- Describe a step-by-step security reasoning process the LLM must follow before writing any output.
+- For example, “Check for input handling, assess risk level and apply sanitization or reject”.
+- This makes the generation traceable and auditable, not reactive.
 
-## TypeScript & Code Style
+# U: Uncertainty Disclosure
+- Instruct the AI on what to do if it’s unsure about a security decision.
+- Should it ask a follow-up? Decline to respond? Warn the user?
+- This prevents false confidence leading to insecure code.
 
-- Use concise, technical TypeScript with accurate, real-world examples.
-- Follow functional, declarative programming; avoid class-based components.
-- Prefer interfaces over types; avoid enums in favor of object maps.
-- Favor composition, short reusable functions, and named exports.
+# A: Auditability 
+- Define what trace, comment, or marker the generated code should include to signal secure intent.
+- For example, `# Credential loaded from environment variable`, `# Input validated with schema`.
+- Helps humans verify compliance at a glance.
 
-## Structure & Naming
-
-- Directory structure: `lowercase-dash-separated` (for example, `components/auth-form`)
-- Files should follow: main component → subcomponents → helpers → static content → types.
-- Use `function` keyword for pure functions and utility logic.
-- Descriptive variable names with auxiliary verbs: `isLoading`, `hasPermission`, `hasError`.
-
----
-
-## UI / Styling (Tailwind + Shadcn)
-
-- Use Shadcn UI + Radix primitives for accessible, customizable components.
-- Implement responsive design via Tailwind's mobile-first grid system.
-- Use semantic HTML when rendering UI components.
-
----
-
-## Performance Optimization
-
-- Limit `use client`; prioritize React Server Components and server-only logic.
-- Use `dynamic()` for deferring non-critical components.
-- Wrap interactive components in `<Suspense fallback={...}>`.
-- Optimize images: use `next/image`, enable lazy loading, and define dimensions to avoid CLS.
-
----
-
-## Security Best Practices
-
-- Never expose secrets, tokens, or `.env` values in client components.
-- Use environment variables only in server-side code (for example, `app/`, server actions).
-- If handling sensitive tokens or session data, place logic in server actions or middleware.
-- Avoid `any`, `unknown`, or loosely typed input/output boundaries.
-- Avoid use of `dangerouslySetInnerHTML`. If needed, explicitly sanitize content and flag with a comment.
-- When creating `<a target="_blank">` links, always include `rel="noopener noreferrer"`.
-
----
-
-## Cross-Reference: Global Validation Logic
-
-All runtime input validation, including:
-- API body parsing
-- Form field validation
-- Query parameter validation
-- Schema-based inference and sanitation
-
-...should be handled by the global rule:
-
-> `.cursor/rules/railguard-input-validation.mdc`  
-> _(based on the RAILGUARD security reasoning framework)_
-
-This file ensures secure parsing with `zod`, structured reasoning steps, and auditability for all user-facing input.
-
----
-
-## Example Behavior in Code
-
-Example: Secure server-side validation (recommended):
-
-```tsx
-// Input validated with zod inside a server action
-export async function LoginFormAction(formData: FormData) {
-  const result = schema.safeParse({ email: formData.get('email') })
-  if (!result.success) return { error: 'Invalid email' }
-}
+# R+D: Revision + Dialogue 
+- Describe how the developer or system should revise, override, or question the output if security decisions are unclear or seem incorrect.
+- Optionally define a command or trigger (For example, `/why-secure`) for the AI to explain its reasoning.
+- This supports human-AI collaboration on security.
 
 ---
 > Source: [brighton-labs/railguard-cursor-coding](https://github.com/brighton-labs/railguard-cursor-coding) — distributed by [TomeVault](https://tomevault.io).
