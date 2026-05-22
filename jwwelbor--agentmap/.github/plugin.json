@@ -1,0 +1,9 @@
+{
+  "name": "jwwelbor--agentmap",
+  "displayName": "AgentMap",
+  "description": "AgentMap: Build and deploy LangGraph workflows from CSV files. Create complex LLM agent graphs without coding, convert simple spreadsheets into powerful AI agents, and orchestrate multi-agent systems ",
+  "version": "1.0.0",
+  "author": "jwwelbor",
+  "homepage": "https://github.com/jwwelbor/AgentMap",
+  "skills": []
+}
