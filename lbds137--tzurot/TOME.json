@@ -1,0 +1,87 @@
+{
+  "name": "tzurot",
+  "owner": "lbds137",
+  "repo": "tzurot",
+  "description": "A Discord bot that uses webhooks to represent multiple AI characters.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "tzurot-arch-audit",
+      "path": ".claude/skills/tzurot-arch-audit",
+      "github_url": "https://github.com/lbds137/tzurot/tree/main/.claude/skills/tzurot-arch-audit",
+      "description": ""
+    },
+    {
+      "name": "tzurot-council-mcp",
+      "path": ".claude/skills/tzurot-council-mcp",
+      "github_url": "https://github.com/lbds137/tzurot/tree/main/.claude/skills/tzurot-council-mcp",
+      "description": ""
+    },
+    {
+      "name": "tzurot-db-vector",
+      "path": ".claude/skills/tzurot-db-vector",
+      "github_url": "https://github.com/lbds137/tzurot/tree/main/.claude/skills/tzurot-db-vector",
+      "description": ""
+    },
+    {
+      "name": "tzurot-doc-audit",
+      "path": ".claude/skills/tzurot-doc-audit",
+      "github_url": "https://github.com/lbds137/tzurot/tree/main/.claude/skills/tzurot-doc-audit",
+      "description": ""
+    },
+    {
+      "name": "tzurot-docs",
+      "path": ".claude/skills/tzurot-docs",
+      "github_url": "https://github.com/lbds137/tzurot/tree/main/.claude/skills/tzurot-docs",
+      "description": ""
+    },
+    {
+      "name": "tzurot-git-workflow",
+      "path": ".claude/skills/tzurot-git-workflow",
+      "github_url": "https://github.com/lbds137/tzurot/tree/main/.claude/skills/tzurot-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "tzurot-testing",
+      "path": ".claude/skills/tzurot-testing",
+      "github_url": "https://github.com/lbds137/tzurot/tree/main/.claude/skills/tzurot-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lbds137/tzurot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T14:30:26Z"
+}
