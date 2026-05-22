@@ -1,0 +1,9 @@
+{
+  "name": "espressif--idf-ci",
+  "displayName": "idf-ci",
+  "description": "A tool designed to streamline the CI/CD of ESP-IDF projects, with support for both GitLab CI/CD and GitHub Actions.",
+  "version": "1.0.0",
+  "author": "espressif",
+  "homepage": "https://github.com/espressif/idf-ci",
+  "skills": []
+}
