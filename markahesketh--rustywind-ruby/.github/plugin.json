@@ -1,0 +1,9 @@
+{
+  "name": "markahesketh--rustywind-ruby",
+  "displayName": "rustywind-ruby",
+  "description": "A Ruby wrapper for rustywind, a CLI utility for sorting Tailwind CSS classes",
+  "version": "1.0.0",
+  "author": "markahesketh",
+  "homepage": "https://github.com/markahesketh/rustywind-ruby",
+  "skills": []
+}
