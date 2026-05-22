@@ -1,0 +1,9 @@
+{
+  "name": "shacharsol--js-package-manager-mcp",
+  "displayName": "js-package-manager-mcp",
+  "description": "Free MCP server for AI-powered JavaScript package management - Works with Claude, Windsurf, Cursor",
+  "version": "1.0.0",
+  "author": "shacharsol",
+  "homepage": "https://github.com/shacharsol/js-package-manager-mcp",
+  "skills": []
+}
