@@ -1,0 +1,9 @@
+{
+  "name": "kleneway--forq-cli",
+  "displayName": "forq-cli",
+  "description": "simple terminal-based AI coding agent. This is for learning purposes more than a final working app.",
+  "version": "1.0.0",
+  "author": "kleneway",
+  "homepage": "https://github.com/kleneway/forq-cli",
+  "skills": []
+}
