@@ -389,5 +389,5 @@ This command will typecheck the code and attempt to build it.
 Your task is not considered finished until this test passes without errors.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/andotherstuff) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-14 -->
+> Source: [andotherstuff/cashu-wallet](https://github.com/andotherstuff/cashu-wallet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
