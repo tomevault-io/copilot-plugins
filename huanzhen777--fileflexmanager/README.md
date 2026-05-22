@@ -1,21 +1,23 @@
 # FileFlexManager
 
-> Tome by [huanzhen777](https://github.com/huanzhen777/FileFlexManager) — distributed by [TomeVault](https://tomevault.io/claim/huanzhen777)
+> Tome by [huanzhen777](https://github.com/huanzhen777/FileFlexManager) — distributed by [TomeVault](https://tomevault.io)
+
+强大灵活的移动端web nas文件管理
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [huanzhen777/FileFlexManager](https://github.com/huanzhen777/FileFlexManager).
+Original source: `CLAUDE.md` in [huanzhen777/FileFlexManager](https://github.com/huanzhen777/FileFlexManager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/huanzhen777)
+From [huanzhen777/FileFlexManager](https://github.com/huanzhen777/FileFlexManager) — a repo with 17+ stars on GitHub.
 
 ---
 
