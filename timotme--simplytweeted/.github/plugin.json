@@ -1,0 +1,9 @@
+{
+  "name": "timotme--simplytweeted",
+  "displayName": "SimplyTweeted",
+  "description": "A self-hosted tweet scheduling platform that makes scheduling your X (Twitter) content effortless.",
+  "version": "1.0.0",
+  "author": "timotme",
+  "homepage": "https://github.com/timotme/SimplyTweeted",
+  "skills": []
+}
