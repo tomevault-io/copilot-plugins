@@ -1,61 +1,41 @@
-## emotion-analysis
+## project-overview
 
-> 情感分析是HeartChat的特色功能，通过分析用户的聊天内容，识别其情绪状态，并提供可视化展示和情绪变化趋势分析。
+> HeartChat 是一款基于微信小程序云开发的AI情感陪伴与情商提升应用。通过与可定制的AI角色进行对话，用户可以在安全私密的环境中倾诉心事、整理思绪，并通过实时情感分析获得反馈，逐步提升自我认知和人际交往能力。
 
-# 情感分析模块
+# HeartChat 项目概述
 
-## 功能概述
-情感分析是HeartChat的特色功能，通过分析用户的聊天内容，识别其情绪状态，并提供可视化展示和情绪变化趋势分析。
+## 项目简介
+HeartChat 是一款基于微信小程序云开发的AI情感陪伴与情商提升应用。通过与可定制的AI角色进行对话，用户可以在安全私密的环境中倾诉心事、整理思绪，并通过实时情感分析获得反馈，逐步提升自我认知和人际交往能力。
 
-## 相关文件结构
-- 前端部分：
-  - [miniprogram/pages/emotionAnalysis/](mdc:miniprogram/pages/emotionAnalysis/)：情感分析页面
-  - [miniprogram/pages/emotionVault/](mdc:miniprogram/pages/emotionVault/)：情绪记录库页面
-  - [miniprogram/packageEmotion/](mdc:miniprogram/packageEmotion/)：情感分析相关分包
-    - [pages/emotion-history/](mdc:miniprogram/packageEmotion/pages/emotion-history/)：情绪历史页面
-    - [pages/daily-report/](mdc:miniprogram/packageEmotion/pages/daily-report/)：每日情绪报告
-  - [miniprogram/components/emotion-analysis/](mdc:miniprogram/components/emotion-analysis/)：情感分析组件
-  - [miniprogram/components/emotion-card/](mdc:miniprogram/components/emotion-card/)：情绪卡片组件
-  - [miniprogram/components/emotion-dashboard/](mdc:miniprogram/components/emotion-dashboard/)：情绪仪表盘组件
-  - [miniprogram/components/emotion-history/](mdc:miniprogram/components/emotion-history/)：情绪历史组件
-  - [miniprogram/components/emotion-panel/](mdc:miniprogram/components/emotion-panel/)：情绪面板组件
-  - [miniprogram/components/emotion-pie/](mdc:miniprogram/components/emotion-pie/)：情绪饼图组件
+## 核心功能
+- AI角色聊天：用户可与不同性格和专长的AI角色对话
+- 情感分析：实时分析对话中的情绪变化
+- 情绪记录：记录和可视化用户的情绪状态变化
+- 日常报告：生成用户情绪状态的分析报告
 
-- 后端部分：
-  - [cloudfunctions/emotion/](mdc:cloudfunctions/emotion/)：情感分析相关云函数
-  - [cloudfunctions/analysis/](mdc:cloudfunctions/analysis/)：数据分析相关云函数
-  - [cloudfunctions/generateDailyReports/](mdc:cloudfunctions/generateDailyReports/)：生成每日情绪报告的云函数
+## 项目架构
+- 前端：微信小程序（pages、components等）
+- 后端：云函数（cloudfunctions目录）
+- 数据存储：云数据库
+- AI能力：云调用第三方AI服务
 
-## 主要功能实现
-- 实时情感分析：分析用户当前聊天内容的情绪倾向
-- 情绪记录：记录用户的情绪状态变化
-- 情绪可视化：通过图表直观展示情绪变化趋势
-- 情绪标签：对用户情绪进行标签化分类
-- 情绪建议：基于情绪分析结果提供相应的建议
-- 日常情绪报告：生成用户情绪状态的每日/周/月度分析报告
+## 主要目录结构
+- [miniprogram/](mdc:miniprogram/)：小程序前端代码
+  - [pages/](mdc:miniprogram/pages/)：小程序页面
+  - [components/](mdc:miniprogram/components/)：公共组件
+  - [packageChat/](mdc:miniprogram/packageChat/)：聊天相关功能（分包）
+  - [packageEmotion/](mdc:miniprogram/packageEmotion/)：情感分析相关功能（分包）
+- [cloudfunctions/](mdc:cloudfunctions/)：云函数后端代码
+  - [chat/](mdc:cloudfunctions/chat/)：聊天相关云函数
+  - [emotion/](mdc:cloudfunctions/emotion/)：情感分析相关云函数
+  - [user/](mdc:cloudfunctions/user/)：用户管理相关云函数
 
-## 情绪分类
-系统通常将情绪分为以下几类：
-- 喜悦（Joy）
-- 悲伤（Sadness）
-- 愤怒（Anger）
-- 恐惧（Fear）
-- 惊讶（Surprise）
-- 厌恶（Disgust）
-- 中性（Neutral）
-
-## 数据流
-1. 用户聊天内容发送至情感分析云函数
-2. 云函数调用AI服务进行情感分析
-3. 分析结果存储到云数据库
-4. 前端从云数据库获取情感分析结果并展示
-5. 定时任务生成情绪分析报告
-
-## 相关接口
-- 情感分析：分析文本内容的情绪倾向
-- 获取情绪历史：获取用户历史情绪记录
-- 情绪标签管理：添加、修改和删除情绪标签
-- 生成情绪报告：生成指定时间段的情绪分析报告
+## 技术栈
+- 微信小程序原生框架
+- JavaScript/TypeScript
+- 微信云开发（云函数、云数据库、云存储）
+- Vant Weapp UI组件库
+- ECharts图表库（用于情绪可视化）
 
 ---
 > Source: [RainbowRain9/HeartChat](https://github.com/RainbowRain9/HeartChat) — distributed by [TomeVault](https://tomevault.io).
