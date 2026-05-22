@@ -1,246 +1,189 @@
-## coding-style
+## new-app-maker
 
-> **Teskooano (N-Body Sim):**
+> You are an agent tasked with helping the user build a new application.
 
----
-# Teskooano Coding Style Guide
 
-## Project Overview
+# User Coding and Style preferences
 
-**Teskooano (N-Body Sim):**
-*   **Core:** N-Body simulation with real physics & orbital mechanics using ThreeJS
-*   **Architecture:** Modular monorepo with clear separation between core packages, renderers, and applications
-*   **UI:** DockView for modular UI with plugin system. Web Components for custom elements
-*   **3D Engine:** ThreeJS (Vanilla TypeScript) with custom renderer packages
-*   **Workflow:** Follow established patterns, commit frequently with conventional commits
+You are an agent tasked with helping the user build a new application.
 
-## Key Development Rules & Tools
+## 📏 Tools and Rules
 
-**Monorepo Management:**
-*   **`proto` (Dependency Management):** Use for local copies of system dependencies
-*   **`moon` (Repository Management):** Use for overall monorepo structure and tasks
-*   **Package Management:** Use `npm` exclusively with `file:` dependencies for inter-package references
-*   **Running TypeScript:** Use `tsx` (e.g., `npx tsx src/index.ts`)
+This is a set of rules and conventions you should always follow - check to see if you are already working with these set up (e.g. in a monorepo)
 
-**TypeScript Standards:**
-*   **Strict Mode:** Always use strict TypeScript configuration
-*   **Type Safety:** Prefer explicit types over inference when clarity is needed
-*   **Interfaces:** Define dedicated TypeScript interfaces for constructor options instead of inline object types
-*   **JSDoc:** Include documentation but omit explicit type annotations (types are in TypeScript code)
-
-**Code Style & Structure:**
-*   **Indentation:** Use 2-space indentation
-*   **Cleanliness:** Remove dead code and large comment blocks
-*   **Modularity:** Prefer small, composable files (target max 300-400 lines)
-*   **File Organization:** Follow established patterns for each package type
-
-## Package Architecture Patterns
-
-### Core Packages (`@teskooano/core-*`)
-*   **Purpose:** Application-agnostic business logic and data structures
-*   **Dependencies:** No UI-specific dependencies (no DockView, ThreeJS, etc.)
-*   **Examples:** `core-math`, `core-physics`, `core-state`, `core-debug`
-*   **Pattern:** Pure functions, state management, mathematical operations
-
-### Data Packages (`@teskooano/data-*`)
-*   **Purpose:** Shared data types and interfaces used across packages
-*   **Dependencies:** Minimal, only core types
-*   **Examples:** `data-types` (RenderableCelestialObject, CelestialType, etc.)
-*   **Pattern:** Type definitions, enums, interfaces
-
-### Renderer Packages (`@teskooano/renderer-*`)
-*   **Purpose:** ThreeJS-specific rendering implementations
-*   **Dependencies:** ThreeJS, core packages, data packages
-*   **Examples:** `renderer-threejs-celestial`, `renderer-threejs-labels`, `renderer-threejs-orbits`
-*   **Pattern:** Renderer classes, shader materials, GPU optimizations
-
-### Celestial Packages (`@teskooano/celestials-*`)
-*   **Purpose:** Celestial object definitions and factories
-*   **Dependencies:** Data packages, core packages
-*   **Examples:** `celestials-stars-main-sequence`, `celestials-terrestrial`
-*   **Pattern:** Factory functions, celestial object classes
-
-### System Packages (`@teskooano/systems-*`)
-*   **Purpose:** Complex system implementations (procedural generation, solar system)
-*   **Dependencies:** Core packages, data packages
-*   **Examples:** `systems-procedural-generation`, `systems-solar-system`
-*   **Pattern:** System managers, generators, complex business logic
-
-### App Packages (`@teskooano/app-*`)
-*   **Purpose:** Application-specific functionality
-*   **Dependencies:** All other package types
-*   **Examples:** `app-simulation`, `app-ui-plugin`, `app-design-system`
-*   **Pattern:** Application logic, UI components, design system
-
-## Frontend Development Patterns
-
-### MVC Architecture
-*   **View:** Custom elements (Web Components) responsible only for rendering
-*   **Controller:** Dedicated classes that handle business logic and state management
-*   **Model:** Data structures and state management (often RxJS Observables)
-
-### Component Structure
+- Prefered languages and tools:
+    - `proto` and `moon` for monorepo dependency management
+    - TypeScript for all Frontend and Backend applications
+    - Vanilla CSS - no frameworks or additional tooling is needed for styling
+    - Node, JavaScript React apps with ESM Module style code
+    - Clean and portable bash code for shell scripts and other utilities (especially where installing a lot of dependencies via npm would not make sense )
+    - For Frontend, unless asked use React as the frontend framework - set up with vite and vitest.  Here are the versions you should use:
 ```
-component-name/
-├── view/
-│   ├── component-name.component.ts    # Custom element class
-│   └── component-name.template.ts     # HTML template and CSS
-├── controller/
-│   ├── component-name.controller.ts    # Main controller
-│   ├── component-name.streams.ts       # RxJS streams
-│   ├── component-name.effects.ts       # Side effects
-│   └── component-name.utils.ts         # Utility functions
-└── services/                          # (if applicable)
-    └── service-name.ts                # Reusable services
+     "dependencies": {
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-router-dom": "7.1.5"
+     }
+     "devDependencies": {
+            "@testing-library/jest-dom": "6.6.3",
+            "@testing-library/react": "16.2.0",
+            "@testing-library/user-event": "14.6.1",
+            "@types/react": "18.3.18",
+            "@types/react-dom": "18.3.5",
+            "@vitejs/plugin-react": "4.3.4",
+            "happy-dom": "16.8.1",
+            "typescript": "5.7.3",
+            "vite": "6.0.11",
+            "vitest": "3.0.5"
+     }
+```
+    - For Backend, unless asked used expressjs. Here are the versions you should use:
+```
+    "dependencies": {
+        "body-parser": "1.20.3",
+        "cors": "2.8.5",
+        "express": "4.21.2",
+        "express-rate-limit": "7.5.0"
+    }
+     "devDependencies": {
+        "@types/body-parser": "1.19.5",
+        "@types/cors": "2.8.17"
+        "@types/express": "4.17.21",
+        "@types/node": "22.13.10",
+     }
 ```
 
-### Plugin System
-*   **Plugin Registration:** Use `TeskooanoPlugin` interface with components, functions, panels
-*   **Dynamic Loading:** Plugins loaded via `PluginManager` with HMR support
-*   **Dependency Injection:** Pass `PluginExecutionContext` to plugin constructors
-*   **Custom Elements:** Register via `ComponentConfig` in plugin definition, not manually
+## ✋ Your Behaviour
 
-### State Management
-*   **RxJS:** Use for reactive state management and data pipelines
-*   **Observables:** Prefer `Observable<T>` over direct state access
-*   **Context Pattern:** Pass dependencies down through constructor injection
-*   **Global State:** Use `@teskooano/core-state` for shared application state
+These are things you should do at all times to meet the users needs
 
-## 3D Rendering Patterns
+- Do not hallucinate
+- Do not ruminate or overexplain a feature - when building someting, keep it concise and neat and keep to a small number of features, do not keep adding more
+- Loop no more than 3 times on a problem before asking for the users help, explain the problem and show them your suggested changes
+- Avoid changing settings values like urls or names. For example if you set a port number, and the user changes it - assume the user knows what they are doing
+- Be sure a dependency exists like library on npm exists - don't dream one up
+- Where possible, when you do something complex you should create a markdown file to explain it
+- Use mermaid diagrams to visualise the concept with a complete description
 
-### Renderer Architecture
-*   **Compositional Pattern:** Use layers, composite renderers, and component systems
-*   **LOD System:** Implement Level of Detail with distance-based switching
-*   **Material Separation:** Separate material logic into `material.ts` files
-*   **Shader Organization:** External `.glsl` files for complex shaders
 
-### Performance Optimization
-*   **Instanced Rendering:** Use `THREE.InstancedMesh` for large numbers of similar objects
-*   **GPU-Driven Culling:** Implement Hi-Z buffers and compute shaders for occlusion
-*   **Spatial Partitioning:** Use Octrees for broad-phase culling
-*   **Memory Management:** Proper disposal of ThreeJS resources
+## 👍 Code preferences
 
-### Coordinate Systems
-*   **Right-Handed:** Use right-handed coordinate system for 3D axes
-*   **Scene Units:** 1 scene unit = 1 AU of distance
-*   **Scaling:** Use `AU_METERS` constant across entire codebase
-*   **Vector Math:** Use `OSVector3` for physics, convert to `THREE.Vector3` for rendering
+- Always use 2 spaces for intentation of any code format
+- Avoid rewriting configuration values, especially if a user has changed them 
+- Always prefer smaller composable files over larger ones, but try keep the files logical and tidy.  If you see existing code not following these conventions feel free to refactor it. When writing and modularising code:
 
-## Testing Strategy
+    - Keep files to a maximum of 300-400 lines of code - If you do end up writing a large file, immediatly split it down.
+    - Focus on moving functions that can easily be put in a utility or library file (for example long handler functions in React components, or complex processing of data)
+    - Break down large pieces of HTML or JSX into smaller leaf components that have boundaries of only taking data or return data via props (these components can have functionality but should be isolated and testable)
+    - Take a Model-View-Controller approach to frontend components, breaking down routes and views into smaller parts with a controller, and connecting with a datasource model
 
-### Test Organization
-*   **File Convention:** Test files (`<filename>.spec.ts`) adjacent to source files
-*   **Unit Tests:** Use Vitest for both backend and frontend
-*   **Integration Tests:** Use Playwright for complex UI features
-*   **Test Data:** Use fixed random values for deterministic tests
+## 🧪 Testing
 
-### Test Patterns
-*   **MVC Testing:** Test controllers independently of views
-*   **State Testing:** Test state management with RxJS operators
-*   **Renderer Testing:** Test renderer logic without ThreeJS context
-*   **Plugin Testing:** Test plugin registration and lifecycle
+- When writing a file, it should be accompanied by a test file in the same folder:  For example where a code file is <filename>.ts the unit test should always be <filename>.spec.ts
 
-## Documentation Standards
+    - Write unit tests for vitest, both for backend and frontend code.
+    - For frontend apps:
+        - Use Playwrite for user story and integration testing
+        - Tests should be practical UI tests or complex features of the app
+        - Avoid testing DOM or library features
+        - If a unit test requires JSDOM, instead write it to run in Playwrite
+    - For backend apps:
+        - Use Playwrite for automated testing for API test cases
+        - Tests should be practical 
 
-### Package Documentation
-*   **README.md:** What, Why, Where, When, How for each package
-*   **ARCHITECTURE.md:** Detailed technical architecture with Mermaid diagrams
-*   **CHANGELOG.md:** Follow "Keep a Changelog" format
-*   **API Documentation:** Export interfaces and provide JSDoc comments
+## 🎁 Monorepo Approach
 
-### Code Documentation
-*   **JSDoc:** Include functionality descriptions but omit type annotations
-*   **Architecture Comments:** Explain complex algorithms and design decisions
-*   **Performance Notes:** Document performance-critical sections
-*   **TODO Comments:** Use for future enhancements and known issues
+- Check to see if you are already working in a monorepo
 
-## Performance Guidelines
+## `proto`
 
-### Rendering Performance
-*   **Draw Call Reduction:** Use instancing and batching
-*   **GPU Utilization:** Offload work to GPU with compute shaders
-*   **Memory Efficiency:** Reuse objects and minimize allocations
-*   **Caching:** Cache expensive calculations and results
+- Use `proto` for any repository that is set up, this sets up a local copy of system dependencies like `node` and `npm` for this repo only, giving consistancy.  Here is a starter `.protofile`:
 
-### JavaScript Performance
-*   **Object Reuse:** Pre-allocate vectors and matrices
-*   **Garbage Collection:** Minimize object creation in hot paths
-*   **Algorithm Efficiency:** Use appropriate data structures (Octrees, spatial hashing)
-*   **Async Processing:** Use Web Workers for heavy computations
+```
+jq = "1.7.1"
+moon = "1.31.2"
+node = "22.13.0"
+npm = "11.0.0"
 
-## Error Handling
+[plugins]
+jq = "https://raw.githubusercontent.com/appthrust/proto-toml-plugins/main/jq/plugin.toml"
+moon = "https://raw.githubusercontent.com/moonrepo/moon/master/proto-plugin.toml"
+```
 
-### Error Patterns
-*   **Graceful Degradation:** Provide fallbacks for missing features
-*   **User Feedback:** Show meaningful error messages
-*   **Logging:** Use structured logging for debugging
-*   **Recovery:** Implement automatic recovery where possible
+- Once created, run `proto use`
 
-### Validation
-*   **Input Validation:** Validate all external inputs
-*   **Type Safety:** Use TypeScript for compile-time validation
-*   **Runtime Checks:** Add runtime checks for critical paths
-*   **Error Boundaries:** Implement error boundaries for UI components
+## `moon`
 
-## Security Considerations
+- Use `moon` for repo management and ensure you add a `moon.yml` file to each project, the stucture should be:
 
-### Web Security
-*   **Content Security Policy:** Implement CSP for XSS prevention
-*   **Input Sanitization:** Sanitize all user inputs
-*   **CORS:** Configure CORS properly for API calls
-*   **HTTPS:** Use HTTPS in production
+    - apps: Applications that have a frontend component
+    - packages: libraries and other features
+    - services: backend services that can be containerised
 
-### Data Security
-*   **API Keys:** Never hardcode API keys in source code
-*   **Environment Variables:** Use environment variables for secrets
-*   **Data Validation:** Validate all data at boundaries
-*   **Access Control:** Implement proper access controls
+```
+- monorepo-root
+    - README.md
+    - package.json # monorepo package json - use workspaces here
+    - tsconfig.json # monorepo compatible typescript setup with paths
+    - apps
+        - app1
+            - src
+            - package.json
+            - moon.yml
+            - tsconfig.json
+            - vite.config.ts
+        - app2
+    - packages
+        - library1
+            - src
+            - package.json
+            - moon.yml
+            - tsconfig.json
+            - vite.config.ts
+        - library2
+    - services
+        - rest-service-1
+            - src
+            - package.json
+            - moon.yml
+            - tsconfig.json
+        - graphql-service-1
+```
 
-## Deployment & DevOps
+- Only use `npm` for node dependencies, do not use any alternative package manager
+- Use `tsx` to run typescript scripts directly (e.g. `npx tsx src/index.ts`)
 
-### Build Process
-*   **Vite:** Use Vite for frontend builds
-*   **TypeScript:** Compile with strict settings
-*   **Bundle Optimization:** Minimize bundle size
-*   **Asset Optimization:** Optimize textures and models
+## 🌈 Frontend Apps and Libraries
 
-### Environment Management
-*   **Environment Variables:** Use for configuration
-*   **Feature Flags:** Implement feature flags for gradual rollouts
-*   **Monitoring:** Add performance monitoring and error tracking
-*   **Logging:** Implement structured logging
+### Applications
 
-## Code Review Guidelines
+- Put the frontend application in the `apps` folder, and run on port 3000
+- When starting a project, use React with React Router
+- When writing a complex component, break it down into the smallest code possible, that make sense to unit test - avoid large files, especially over 400 lines.
+    - When writing JSX or HTML - If there is a loop or logic, put this into it's own component
+    - When writing functional code - put complex loops or logic into their own component
+- Use React Router to define the controller components for that particular view, and build up views from smaller (ideally reusable) components
+- Write unit test with vitest. Always create spec tests next to files - as an example where a code file is <filename>.ts the test should always be <filename>.spec.ts.
+- DO NOT use tailwind css - if you encounter tailwind css you should offer to provide a vanilla css implementation instead and create the file, you are free to to use sass if it help, but keep the syntax vanilla
+- Create a general set of design system tokens for a project so that it has some consistant design, offer to provide design system components if appropriate
 
-### Review Checklist
-*   **Type Safety:** All code properly typed
-*   **Performance:** No obvious performance issues
-*   **Security:** No security vulnerabilities
-*   **Documentation:** Code is self-documenting
-*   **Testing:** Adequate test coverage
-*   **Architecture:** Follows established patterns
+### Libraries
 
-### Review Process
-*   **Small Changes:** Prefer small, focused changes
-*   **Clear Purpose:** Each change has a clear purpose
-*   **Backward Compatibility:** Maintain API compatibility
-*   **Migration Path:** Provide migration path for breaking changes
+- When writing libraries, put these in the `packages` folder - libraries should be exportable and the correct typescript and vite setup in place to load these libraries
+- Use typescript to build libraries
 
-## Common Patterns & Anti-Patterns
+## 🚢 Backend Services and Features
 
-### Recommended Patterns
-*   **Dependency Injection:** Pass dependencies through constructors
-*   **Factory Functions:** Use factories for complex object creation
-*   **Composition over Inheritance:** Prefer composition
-*   **Immutable Data:** Use immutable data structures where possible
-*   **Reactive Programming:** Use RxJS for data flow
+### Applications
 
-### Anti-Patterns to Avoid
-*   **Global State:** Avoid global variables and singletons
-*   **Tight Coupling:** Don't create tight dependencies between packages
-*   **Premature Optimization:** Don't optimize before measuring
-*   **Magic Numbers:** Use named constants instead of magic numbers
-*   **Deep Nesting:** Avoid deeply nested conditionals and loops
+- Put the backend app in `services`, and run on port 3001
+- Use expressjs as a base for all backend projects - set up with cors and body-parser and a basic route
+- When writing a complex component, break it down into the code components possible, that make sense to unit test - avoid large files.  Use 
+- Write unit test with vitest. Always create spec tests next to files - as an example where a code file is <filename>.ts the test should always be <filename>.spec.ts.
+
+### Libraries
+
+- You can also put backend libaries in packages, but here only extract them if it makes sense to make them reusable, otherwise leave them in the application
 
 ---
 > Source: [tanepiper/teskooano](https://github.com/tanepiper/teskooano) — distributed by [TomeVault](https://tomevault.io).
