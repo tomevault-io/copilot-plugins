@@ -1,12 +1,14 @@
-## app-version-upgrade
+## gui-rule
 
-> - 修改 [pubspec.yaml](mdc:pubspec.yaml)文件版本到指定版本
+> 美化、优化样式规则
 
-
-# Your rule content
-
-- 修改 [pubspec.yaml](mdc:pubspec.yaml)文件版本到指定版本
-- 更新 [CHANGELOG.md](mdc:CHANGELOG.md)文件、[CHANGELOG_CN.md](mdc:CHANGELOG_CN.md) ，添加版本注记，且注意日期要为当前日期（注意生成的版本说明需要精炼，突出重点，不要添加无关的废话）
+1. 所有样式布局设计需要遵循material design 3规范，添加新的组件或页面时需要适配当前主题（颜色、边距、圆角等要从主题中获取或使用全局统一配置的）
+2. 除非要求，不得修改数据层的数据结构
+3. 不要使用过时的API，每次修改后需要检查lint信息，若存在lint问题要解决lint问题（注意：解决lint问题时不能删除当前功能代码或修改影响布局样式）
+4. 要注意兼容多种系统平台（Android、IOS、WEB、Windows、MacOS、Linux），兼容多种屏幕尺寸
+5. 所有新添加的界面UI文字需要支持国际化设置（中文、英文、繁体中文），国际化设置添加新的词组时需要检查已有国际化文件是否已存在该词组，或是否可通过参数化的方式提供以便于后面复用，在使用国际化文本变量时，使用L10nManager.l10n实例，不要再从context中获取
+6. 除非明确要求，不得随意修改通用组件
+7. 不要使用过时的API（尤其是不要使用withOpacity这个过时的API，与surfaceVariant过时的颜色值）
 
 ---
 > Source: [clssw1004/clsswjz-gui](https://github.com/clssw1004/clsswjz-gui) — distributed by [TomeVault](https://tomevault.io).
