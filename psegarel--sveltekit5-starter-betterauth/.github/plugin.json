@@ -1,0 +1,9 @@
+{
+  "name": "psegarel--sveltekit5-starter-betterauth",
+  "displayName": "sveltekit5-starter-betterAuth",
+  "description": "A SvelteKit5 starter template with Better Auth & Shadcn",
+  "version": "1.0.0",
+  "author": "psegarel",
+  "homepage": "https://github.com/psegarel/sveltekit5-starter-betterAuth",
+  "skills": []
+}
