@@ -1,0 +1,9 @@
+{
+  "name": "reearth--draco-oxide",
+  "displayName": "draco-oxide",
+  "description": "Rust crate for the Google Draco mesh compression library (WIP)",
+  "version": "1.0.0",
+  "author": "reearth",
+  "homepage": "https://github.com/reearth/draco-oxide",
+  "skills": []
+}
