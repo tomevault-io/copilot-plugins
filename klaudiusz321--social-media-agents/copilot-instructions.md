@@ -1,37 +1,26 @@
-## content
+## data
 
-> name: ContentCreatorAgent
+> Orchestration: Combining Data Analysis, Generation, and Publishing
 
----  
-name: ContentCreatorAgent  
-description: Generates platform-specific post content (text + media) using AI  
-version: "1.0"  
-globs: ["*"]  
-triggers: [manual]  # triggered after trend scanning or on request  
----  
-rule_definition:  
-  description: "Produces engaging social media posts (text and image) tailored to Twitter, Instagram, and LinkedIn, following brand guidelines."  
-  content: |  
-    You are a ContentCreatorAgent for a science/education brand. You create **engaging, human-like social media posts** based on input about current trends and the brand’s product features. Follow these instructions:  
-    - **Input:** You will be given a Trend Report (latest trends/hashtags per platform) and relevant product info. Combine these to inspire the content. For example, if the trend is a solar eclipse, relate it to our astronomy calculator’s ability to simulate eclipses.  
-    - **Tone & Style:** Friendly, informative, and enthusiastic. Use an **educational tone** that excites the audience about physics and astronomy. Avoid being too salesy; rather, inspire curiosity. Adhere to all brand guidelines provided (e.g. maintain voice, include “AstroCalc Pro” if appropriate, no controversial statements).  
-    - **Generate Text & Hashtags:** Craft a post message for each platform: **Twitter, Instagram, LinkedIn**. Tailor the wording and format as needed:  
-      *For Twitter:* 1-2 short sentences or a brief thread, include 1-3 trending or relevant **hashtags**, and maybe an emoji. Max ~250 chars if possible. Hook the reader with something timely (e.g. “🔭 Tonight’s lunar eclipse is here…”).  
-      *For Instagram:* 2-3 sentence caption. More expressive and emotive. Use line breaks or emojis for readability. Include a set of **hashtags** (5-10, mix trending and niche) at the end. E.g. “The universe is calling! 🌌 Here’s a simulation of tonight’s eclipse… #astronomy #PhysicsFacts #MoonMagic …”.  
-      *For LinkedIn:* A longer, structured comment or mini-article (perhaps 2 short paragraphs). Lead with a headline-like sentence to grab attention, then add details. Professional tone (no slang, minimal emojis). Possibly pose a question to invite engagement (e.g. “How will advanced simulations change astrophysics research? Let’s explore.”). Include a couple of relevant hashtags like #STEM or #Education.  
-    - **Image Prompt/Description:** Based on the content, also suggest an image or media idea. If an image will be AI-generated, provide a clear prompt. For example, “Image Idea: A vivid photo-realistic graphic of a solar eclipse over a city skyline, with the moon shadowing the sun.” This helps the image generator produce a relevant visual.  
-    - **Output Format:** Clearly separate the content for each platform, for example:  
-      **Twitter Post:** `<text for tweet>`  
-      **Instagram Post:** `<caption>\n<hashtags>`  
-      **LinkedIn Post:** `<text for LinkedIn post>`  
-      **Image:** `<short description of image to create or attach>`  
-    Ensure all content is original (avoid verbatim copying any trend source material), factual&#8203;:contentReference[oaicite:18]{index=18}, and free of any disallowed content. Double-check that the tone aligns with the brand’s voice and the post meets the platform guidelines (e.g. length limits).  
-    If multiple post ideas come to mind, you can provide 2 variations per platform for A/B testing. Otherwise, one solid post per platform is sufficient.  
+Orchestration: Combining Data Analysis, Generation, and Publishing
 
-
-In this configuration, the prompt is quite detailed to cover various requirements. It instructs the AI in a step-by-step manner on how to generate content for each platform. We explicitly mention the differences for Twitter, Instagram, and LinkedIn so the agent will output three tailored versions of the post. We also include a step for an image idea, acknowledging that a separate image generator will use that idea. The content guidelines and tone are woven in (educational, enthusiastic, mention product). By structuring the output sections (“Twitter Post: ...”), we make it easier for the consuming application or the SchedulerAgent to parse and handle each piece. For example, the system could take the “Twitter Post” text and call the Twitter API to publish it, take the “Image” description to generate an image file, etc. Best Practices applied: The ContentCreatorAgent uses the trend context (from TrendScannerAgent) ensuring the posts are timely. It uses OpenAI for text – we would utilize the Chat Completion API with a system message that could include this .mdc content, plus a user message containing the specific trend report and any product details to highlight. We also plan to run the generated text through OpenAI’s Moderation API and possibly a custom profanity or sensitivity filter (especially since social media can be sensitive about certain topics). This is aligned with OpenAI’s recommendations to filter outputs in social media use cases​
-MILVUS.IO
-. If the moderation flags something, the agent could revise the content or a human could be alerted, depending on how autonomous we allow it to be. Finally, for efficiency, if certain content (text or images) are generated that could be reused (say we generate a beautiful starry background image for an Instagram post, we might reuse it for a similar post next week), the system should allow caching those results or saving them in a content library.
+Communication between agents: In our setup, agents don’t directly “chat” with each other; instead the orchestrator script acts as the go-between, passing outputs as inputs to the next. In a more advanced implementation, one might use an event-driven architecture or message queue (RabbitMQ, Redis pub/sub, etc.). For instance, TrendScannerAgent could emit an event “TrendsUpdated” with data payload; ContentCreatorAgent listens for “TrendsUpdated” events and then runs. Given the complexity, a simpler chronological chain triggered by a scheduler is easier to start with. Another approach is leveraging frameworks for multi-agent orchestration like LangChain or Microsoft’s AutoGen​
+MEDIUM.COM
+, which allow multiple AI agents to communicate and coordinate. For example, you could have a “Manager” agent that asks TrendScanner for data, then passes it to ContentCreator, etc., in a conversational loop. This is cutting-edge and can be overkill for our scenario, but it’s worth noting that such patterns exist if we wanted the agents themselves to discuss (“TrendAgent, what’s hot today?” -> “ContentAgent, create posts for these topics.” -> “SchedulerAgent, when should we post them?”). In most cases, though, a deterministic script with API calls suffices. The workflow can be visualized in a timeline table:
+Time (Daily Workflow)	Action	Agent/Process
+08:00 AM	Fetch latest trends (hashtags, etc.)	TrendScannerAgent (API calls)
+08:05 AM	Generate draft posts for Twitter, IG, LinkedIn based on trends and brand guidelines	ContentCreatorAgent (OpenAI GPT)
+08:06 AM	Generate image for post (if needed)	Image Generator (Stable Diffusion API)
+08:10 AM	Review or lightly edit content (optional human step)	–
+08:15 AM	Schedule Twitter post for 10:00 AM, Instagram post for 10:30 AM, LinkedIn post for 12:00 PM (for example)	SchedulerAgent (scheduling)
+10:00 AM	Post Twitter content via API	SchedulerAgent -> Twitter API
+10:30 AM	Post Instagram content via API	SchedulerAgent -> IG API
+12:00 PM	Post LinkedIn content via API	SchedulerAgent -> LinkedIn API
+12:05 PM	Log all posted content details	SchedulerAgent (logging)
+6:00 PM	(Maybe a second Twitter post if content available) Post via API	SchedulerAgent
+Throughout day	Monitor for any @mentions or messages (could be EngagementAgent’s job if implemented)	–
+Next day	Collect engagement stats (likes, comments) for yesterday’s posts (future improvement)	AnalyticsAgent (if implemented)
+This table illustrates one cycle. The times can be adjusted based on actual optimal times found. Initially, we might start with 1 cycle per day; later, we could have multiple cycles (morning and afternoon content). Caching and Reuse: If TrendScannerAgent didn’t find anything new since the last run, the system might decide to reuse the previous Trend Report or simply not generate new content (to avoid redundancy). Similarly, ContentCreatorAgent might have generated a pool of posts (say 3 variations); SchedulerAgent could queue one for today, another for tomorrow, etc. Designing a content repository where generated ideas live until used can make the system more robust (so it’s not catastrophic if one day’s trend fetch fails – you still have content ideas from earlier). Concurrency considerations: If this system scales up (say posting 10 times a day), ensure that the API usage is within limits. The orchestrator could throttle calls or prioritize tasks. It’s wise to include slight random delays in posting to avoid a detectable pattern (platform algorithms sometimes demote overly mechanical posting patterns). In summary, the orchestration ties everything together: TrendScannerAgent informs ContentCreatorAgent, which produces content for SchedulerAgent, which in turn publishes and closes the loop with logging. This separation of concerns (analysis vs creation vs execution) follows best practices for multi-agent systems and ensures each component can be improved or debugged in isolation.
 
 ---
 > Source: [Klaudiusz321/social-media-agents](https://github.com/Klaudiusz321/social-media-agents) — distributed by [TomeVault](https://tomevault.io).
