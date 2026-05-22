@@ -1,0 +1,9 @@
+{
+  "name": "pchuri--jira-cli",
+  "displayName": "jira-cli",
+  "description": "A command-line interface for Atlassian JIRA with issue management and workflow capabilities",
+  "version": "1.0.0",
+  "author": "pchuri",
+  "homepage": "https://github.com/pchuri/jira-cli",
+  "skills": []
+}
