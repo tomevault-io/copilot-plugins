@@ -1,0 +1,9 @@
+{
+  "name": "atomicstrata--atomicmemory",
+  "displayName": "atomicmemory",
+  "description": "Portable semantic memory for AI agents: core engine, TypeScript SDK, framework adapters, MCP server, CLI, and host plugins.",
+  "version": "1.0.0",
+  "author": "atomicstrata",
+  "homepage": "https://github.com/atomicstrata/atomicmemory",
+  "skills": []
+}
