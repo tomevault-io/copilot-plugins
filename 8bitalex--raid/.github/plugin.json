@@ -1,0 +1,9 @@
+{
+  "name": "8bitalex--raid",
+  "displayName": "raid",
+  "description": "Declarative development workflow orchestrator \u2014 a cross-platform Go CLI that runs team commands, environments, and workflows from version-controlled YAML. Works on macOS, Linux, and Windows.",
+  "version": "1.0.0",
+  "author": "8bitAlex",
+  "homepage": "https://github.com/8bitAlex/raid",
+  "skills": []
+}
