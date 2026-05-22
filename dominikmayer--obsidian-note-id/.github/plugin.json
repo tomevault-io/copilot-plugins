@@ -1,0 +1,9 @@
+{
+  "name": "dominikmayer--obsidian-note-id",
+  "displayName": "obsidian-note-id",
+  "description": "Displays notes by their ID, enabling structured sequences for manuscripts or a Zettelkasten (\"Folgezettel\")",
+  "version": "1.0.0",
+  "author": "dominikmayer",
+  "homepage": "https://github.com/dominikmayer/obsidian-note-id",
+  "skills": []
+}
