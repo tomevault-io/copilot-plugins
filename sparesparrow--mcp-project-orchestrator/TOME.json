@@ -1,0 +1,44 @@
+{
+  "name": "mcp-project-orchestrator",
+  "owner": "sparesparrow",
+  "repo": "mcp-project-orchestrator",
+  "description": "Analyze user input to identify suitable design patterns and project templates. Orchestrate the project, creating initial files from templates.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sparesparrow/mcp-project-orchestrator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T22:39:41Z"
+}
