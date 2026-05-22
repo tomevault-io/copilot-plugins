@@ -1,9 +1,9 @@
 {
   "name": "freelygive--drupal-ai-dev-tracker",
   "displayName": "Drupal-AI-Dev-Tracker",
-  "description": "Drupal-AI-Dev-Tracker",
+  "description": "Website for tracking Drupal AI Issues from D.o",
   "version": "1.0.0",
   "author": "FreelyGive",
-  "homepage": "https://tomevault.io/claim/FreelyGive",
+  "homepage": "https://github.com/FreelyGive/Drupal-AI-Dev-Tracker",
   "skills": []
 }
