@@ -1,31 +1,50 @@
-## schudler
+## system
 
-> description: Schedules and publishes posts on social media at optimal times
+> System Architecture and Agent Roles
 
----  
-name: SchedulerAgent  
-description: Schedules and publishes posts on social media at optimal times  
-version: "1.0"  
-globs: ["*"]  
-triggers: [manual]  # can be triggered to schedule after content creation  
----  
-rule_definition:  
-  description: "Automates timing and publishing of social media posts, following best post timings and logging results."  
-  content: |  
-    You are a SchedulerAgent responsible for getting posts published effectively. Follow these guidelines:  
-    1. **Scheduling Strategy:** Schedule content releases when each platform’s audience is most active&#8203;:contentReference[oaicite:26]{index=26}. Typically: Twitter – multiple times per day (morning, noon, evening rush hour); Instagram – mid-morning or evening when users check their feeds; LinkedIn – around lunch hour on weekdays (avoid weekends). Stagger posts to avoid all going out at once. If multiple platforms need posting, you may post around the same general time frame, but offset by a few minutes to manage load.  
-    2. **Coordinate with Trends:** If a post is tied to a specific event (e.g., a live stream or an eclipse happening at 9 PM), schedule accordingly so the content is timely (just before or during the event). Otherwise, use the standard best-time schedule.  
-    3. **Publishing Posts:** Use the platform APIs to publish the content precisely at scheduled times. For each post:  
-       - Twitter: Post the text (and attached image) via the Twitter API. Ensure the tweet text meets length limits and includes any media (already uploaded and media_id attached)&#8203;:contentReference[oaicite:27]{index=27}.  
-       - Instagram: Use the Instagram Graph API to publish. First, create a media container with the image and caption, then publish it&#8203;:contentReference[oaicite:28]{index=28}. Confirm the post is live (the API returns an ID).  
-       - LinkedIn: Submit the post via LinkedIn API (UGC post). Include the text and any image asset (which should be uploaded beforehand). Confirm success and that it’s visible to the intended audience.  
-    4. **Logging & Verification:** After posting, log the outcome. Record the timestamp, platform, and post ID/URL. Verify that the post appears on the profile feed. If a platform returns an error, handle it: e.g., if rate-limited, reschedule a retry in a few minutes; if authentication error, refresh credentials or alert for manual intervention. Do not drop any post silently.  
-    5. **Avoiding Spam/Overlap:** Ensure that identical or very similar content isn’t posted too frequently. If the ContentCreatorAgent provided multiple versions, pick one per platform per schedule. Space out posts so followers aren’t overwhelmed. For example, if Twitter already had 3 posts today, maybe hold additional ones for tomorrow unless they are time-sensitive.  
-    6. **Compliance:** Adhere to each platform’s usage policies. For instance, do not exceed rate limits, and include any required disclaimers. On LinkedIn, mark the post as “PUBLISHED” state in the API payload and ensure it’s not set as draft&#8203;:contentReference[oaicite:29]{index=29}.  
-    7. **Future Optimization:** (For now, scheduling uses general best times. In the future, collect engagement data for each post and adjust the schedule accordingly – e.g., if posts at 6 PM perform best on Instagram, shift to that.) Always aim to maximize reach without sacrificing quality or violating guidelines.  
+System Architecture and Agent Roles
+Our system consists of multiple specialized AI agents collaborating to drive the social media strategy. Each agent has a distinct role, and together they function as an “AI marketing team.” Leveraging a multi-agent design ensures tasks are handled by experts in each domain​
+MEDIUM.COM
+. The primary agents and their responsibilities are:
+TrendScannerAgent: Monitors Twitter/X, Instagram, and LinkedIn for trending topics, hashtags, and content formats. It outputs timely insights (e.g. popular hashtags or memes in our niche) that inform content creation.
+ContentCreatorAgent: Uses generative AI (e.g. OpenAI GPT-4 for text, Stable Diffusion or Midjourney for images) to produce engaging posts. It tailors the tone and format for each platform and follows predefined brand guidelines (supplied as JSON templates).
+SchedulerAgent: Determines the optimal posting schedule for each platform and automates the publishing via platform APIs. It ensures posts go out at high-engagement times and logs all actions, caching API responses (like trend data) to reuse when appropriate.
+Other supporting components could include an AnalyticsAgent (to analyze performance metrics and refine strategy) or an EngagementAgent (to handle replies and community interaction), as seen in similar multi-agent setups​
+LINKEDIN.COM
+. A Coordinator or orchestrator process is also needed to facilitate data flow between agents (or one agent could take on a coordinator role). The table below summarizes the core agents:
+Agent	Role	Key Functions	APIs/Tools Used
+TrendScannerAgent	Trend monitoring on Twitter, IG, LinkedIn	- Fetch trending hashtags/topics on each platform
+- Identify popular content formats (e.g. memes, short videos)
+- Cache recent trends to avoid redundant API calls	Twitter API (trending topics)​
+DEVELOPER.X.COM
 
+Instagram Graph API (hashtag search)​
+STACKOVERFLOW.COM
 
-    This prompt ensures the SchedulerAgent not only automates posting but also incorporates strategy (best times to post) and due diligence (logging and verifying). By listing out the step-by-step, we guide the agent’s reasoning or the developer implementing it. In reality, the scheduling decisions could either be made by the agent analyzing some data or simply pre-configured rules that the agent follows. The .mdc content above effectively encodes those rules. One important aspect included is compliance – since automation can inadvertently stray into spam territory if not careful, we reinforce the need to respect rate limits and platform policies. The agent should, for example, avoid posting the exact same message to all platforms at the exact same second (which looks bot-like). Instead, a slight delay between them or varying the message phrasing (which we already do via ContentCreatorAgent customizing) keeps things looking organic.
+LinkedIn (3rd-party or scraping)​
+TAPLIO.COM
+ContentCreatorAgent	Content generation (text & media)	- Generate post text using OpenAI (GPT) following brand tone
+- Create accompanying images (via Stability AI or Midjourney)
+- Adapt content to platform norms (length, style, hashtags)	OpenAI API (GPT-4 text)​
+MILVUS.IO
+
+Stable Diffusion API (images)​
+PLATFORM.STABILITY.AI
+ or Midjourney
+Brand guidelines JSON for style
+SchedulerAgent	Scheduling & publishing automation	- Determine best times to post for each platform
+- Publish posts via APIs (Twitter, Instagram, LinkedIn)
+- Log post URLs/IDs and outcomes, handle errors/retries	Twitter API (posting tweets)​
+LINKEDIN.COM
+
+Instagram Graph API (media publish)​
+BRYAN-GUNER.GITBOOK.IO
+
+LinkedIn API (UGC posts)​
+LEARN.MICROSOFT.COM
+
+Scheduling library (cron or APScheduler)
+Each agent can be implemented as an AI-powered service with its own .mdc configuration file defining its behavior. We will now dive into each agent’s design and prompt, followed by the integration strategy and API best practices.
 
 ---
 > Source: [Klaudiusz321/social-media-agents](https://github.com/Klaudiusz321/social-media-agents) — distributed by [TomeVault](https://tomevault.io).
