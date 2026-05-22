@@ -1,181 +1,171 @@
-## part-chapter
+## seo-llmo-integration
 
-> Rules about created a new chapter
+> SEO and LLMO Rules
 
-# Rules for Adding New Chapters
+ # Cursor Rule: Universal SEO and LLMO (OpenAI/ChatGPT) Integration
 
-## File Structure
-- Location: `docs/part{number}/chapter-name.md`
-- Naming: Use kebab-case for filenames (e.g., `identifying-problems.md`)
+## 1. SEO Requirements
 
-## Frontmatter
-```yaml
+### a. Sitemap
+- Add or update `public/sitemap.xml` to include all main pages, project detail pages, and important URLs.
+- Each `<url>` should have `<loc>`, `<lastmod>`, `<changefreq>`, and `<priority>`.
+- Example:
+  ```xml
+  <url>
+    <loc>https://yourdomain.com/page</loc>
+    <lastmod>2025-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  ```
+
+### b. Robots.txt
+- Ensure `public/robots.txt` references the sitemap and allows major crawlers.
+- Example:
+  ```
+  User-agent: *
+  Allow: /
+  Sitemap: https://yourdomain.com/sitemap.xml
+  ```
+
+### c. Meta Tags
+- Use dynamic meta tags for each page (title, description, canonical, Open Graph, Twitter Card).
+- Implement with a reusable component (e.g., `MetaTags.tsx`).
+- Example:
+  ```html
+  <title>Page Title | Site Name</title>
+  <meta name="description" content="Page summary." />
+  <link rel="canonical" href="https://yourdomain.com/page" />
+  <meta property="og:title" content="Page Title" />
+  <meta property="og:description" content="Page summary." />
+  <meta property="og:url" content="https://yourdomain.com/page" />
+  <meta name="twitter:card" content="summary_large_image" />
+  ```
+
+### d. Structured Data (JSON-LD)
+- Add or update `public/structured-data.js` to inject JSON-LD schemas for key entities (e.g., Person, Project, Article, SoftwareApplication).
+- Example:
+  ```js
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "Project Title",
+    "description": "Short description of project"
+  }
+  ```
+
+### e. Accessibility & Best Practices
+- Ensure all images have `alt` attributes.
+- Use semantic HTML and ARIA labels where appropriate.
+- Ensure good heading structure and color contrast.
+
 ---
-title: "Chapter {number} - {Title} | Product Builders"
-description: "{One-line description of the chapter content}"
-head:
-  - - meta
-    - name: keywords
-      content: "{comma-separated, relevant, keywords}"
-  - - meta
-    - name: author
-      content: "Product Builders Team"
-  - - meta
-    - property: og:title
-      content: "Chapter {number} - {Title} | Product Builders"
-  - - meta
-    - property: og:description
-      content: "{One-line description of the chapter content}"
+
+## 2. LLMO/AI (OpenAI, ChatGPT Plugin) Integration
+
+### a. API Endpoints
+- Expose relevant data (projects, articles, etc.) via RESTful endpoints (e.g., `/api/projects.json`).
+- Responses should be structured, machine-readable, and include all relevant fields.
+- Example:
+  ```json
+  [
+    {
+      "id": "project-id",
+      "title": "Project Title",
+      "description": "Summary...",
+      ...
+    }
+  ]
+  ```
+
+### b. OpenAPI Specification
+- Provide an `openapi.json` file describing all public API endpoints, request/response schemas, and authentication (if any).
+- Example:
+  ```json
+  {
+    "openapi": "3.0.0",
+    "info": { "title": "Site API", "version": "1.0.0" },
+    "paths": { "/api/projects.json": { "get": { ... } } }
+  }
+  ```
+
+### c. ChatGPT Plugin Manifest
+- Add an `ai-plugin.json` manifest in the public root with plugin name, description, auth, API URL, and OpenAPI spec URL.
+- Example:
+  ```json
+  {
+    "schema_version": "v1",
+    "name_for_human": "Portfolio Plugin",
+    "name_for_model": "portfolio",
+    "description_for_human": "Query portfolio projects and experience.",
+    "description_for_model": "Get project, experience, and game data.",
+    "auth": { "type": "none" },
+    "api": { "type": "openapi", "url": "https://yourdomain.com/openapi.json" },
+    "logo_url": "https://yourdomain.com/logo.png",
+    "contact_email": "you@yourdomain.com",
+    "legal_info_url": "https://yourdomain.com/terms.html"
+  }
+  ```
+
+### d. Discoverability
+- Ensure the plugin manifest and OpenAPI spec are accessible at their URLs.
+- Add documentation or a README section describing how to use the plugin with ChatGPT or other LLMs.
+
+### e. Search Endpoint
+- Provide a `/api/search.json` endpoint for keyword-based search over your content.
+- Example:
+  ```json
+  [
+    { "id": "project-id", "title": "Project Title", "keywords": ["AI", "NLP"] }
+  ]
+  ```
+
 ---
+
+## 3. Required File Updates & Locations
+- `public/sitemap.xml` — Sitemap for SEO
+- `public/robots.txt` — Crawler directives
+- `public/structured-data.js` — JSON-LD schema injection
+- `public/api/*.json` — API endpoints for LLMO
+- `public/ai-plugin.json` — ChatGPT plugin manifest
+- `public/openapi.json` — OpenAPI spec
+- `README.md` — Document SEO and LLMO features
+
+---
+
+## 4. Validation Checklist
+- [ ] All main URLs are in `sitemap.xml`
+- [ ] `robots.txt` references the sitemap
+- [ ] Meta tags are dynamic and correct per page
+- [ ] Structured data covers all key entities
+- [ ] API endpoints return correct, structured data
+- [ ] OpenAPI spec is up to date
+- [ ] Plugin manifest is accessible and correct
+- [ ] Search endpoint is available and returns relevant results
+- [ ] Documentation is present in README
+
+---
+
+## 5. Example Directory Structure
+```
+/public
+  /api
+    projects.json
+    search.json
+    index.json
+  ai-plugin.json
+  openapi.json
+  robots.txt
+  sitemap.xml
+  structured-data.js
+README.md
+/src
+  components/MetaTags.tsx
 ```
 
-## Content Structure
+---
 
-### 1. Title & Introduction
-```markdown
-# Chapter {number}: {Title} 🔍
-
-> "{Relevant quote}" - [(link)
-
-::: tip Key Takeaway
-{One-sentence summary of the chapter's main point}
-:::
-```
-
-### 2. Main Content Sections
-- Use `##` for main sections
-- Use `###` for subsections
-- Include emojis for visual hierarchy
-- Use content boxes for important information
-
-### 3. Content Boxes
-```markdown
-<div class="content-box">
-
-Content goes here...
-
-</div>
-```
-
-### 4. UI Elements
-- Use `::: tip` for important notes
-- Use `::: warning` for cautions
-- Use tables for comparisons
-- Use checklists for steps
-- Use example boxes for demonstrations
-
-### 5. Styling
-```css
-<style scoped>
-.content-box {
-  background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin: 1rem 0;
-  color: var(--vp-c-text-1);
-}
-
-h1, h2, h3 {
-  color: var(--vp-c-text-1);
-}
-
-p, li {
-  color: var(--vp-c-text-1);
-  line-height: 1.6;
-}
-
-a {
-  color: var(--vp-c-brand);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-</style>
-```
-
-### 6. Navigation
-- Include "Ready to Move Forward?" tip at the end
-- Link to the next chapter
-- Link to related case studies if applicable
-
-## Site Structure & Common Elements
-
-### 1. Navigation
-- Top navigation bar with links to Home, Build, Contribute, Contributors, and API
-- Sidebar navigation showing chapter hierarchy
-- Breadcrumb navigation at the top of each page
-- "Previous/Next" navigation at the bottom of each page
-
-### 2. Comments System
-```markdown
-<script setup>
-import Comments from '../.vitepress/theme/components/Comments.vue'
-</script>
-
-<Comments />
-```
-- Uses Utterances for GitHub-based comments
-- Appears at the bottom of each page
-- Requires GitHub authentication to comment
-
-### 3. SEO Components
-```markdown
-<script setup>
-import BaseSEO from '../.vitepress/theme/components/BaseSEO.vue'
-</script>
-
-<BaseSEO />
-```
-- Automatically manages meta tags
-- Generates JSON-LD schema
-- Handles Open Graph and Twitter cards
-
-### 4. Analytics Integration
-- Google Analytics (GA4) tracking
-- Event tracking for:
-  - Page views
-  - Button clicks
-  - User engagement
-  - Session duration
-
-### 5. Mobile Responsiveness
-- Content boxes adapt to screen size
-- Images are responsive
-- Tables become scrollable on mobile
-- Navigation collapses into hamburger menu
-
-### 6. Dark/Light Mode
-- Automatically adapts to system preference
-- Manual toggle in navigation
-- Maintains consistent contrast in both modes
-
-## SEO Guidelines
-1. Use descriptive headings (H1, H2, H3)
-2. Include relevant keywords naturally in content
-3. Add meta tags in frontmatter
-4. Use descriptive alt text for images
-5. Include internal links to related content
-6. Add schema markup for better search visibility
-
-## Required Sections
-1. Introduction with key takeaway
-2. Main content with clear sections
-3. Examples or case studies
-4. Summary or TL;DR
-5. Resources & Tools
-6. Next steps or call to action
-
-## Best Practices
-1. Keep paragraphs short and scannable
-2. Use bullet points and numbered lists
-3. Include real-world examples
-4. Add relevant emojis for visual hierarchy
-5. Use content boxes for important information
-6. Include code snippets where relevant
-7. Add links to external resources
-8. Include practical exercises or checklists
+**This rule is universal and can be adapted for any web project to ensure robust SEO and LLMO (OpenAI/ChatGPT) integration.**
 
 ---
 > Source: [ProductBuilders/productbuilders](https://github.com/ProductBuilders/productbuilders) — distributed by [TomeVault](https://tomevault.io).
