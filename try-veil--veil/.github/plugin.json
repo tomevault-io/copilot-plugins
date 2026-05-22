@@ -1,0 +1,9 @@
+{
+  "name": "try-veil--veil",
+  "displayName": "veil",
+  "description": "Caddy Module to put your APIs behind a paywall and observabality stack.",
+  "version": "1.0.0",
+  "author": "try-veil",
+  "homepage": "https://github.com/try-veil/veil",
+  "skills": []
+}
