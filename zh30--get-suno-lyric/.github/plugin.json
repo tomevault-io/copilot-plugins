@@ -1,0 +1,9 @@
+{
+  "name": "zh30--get-suno-lyric",
+  "displayName": "get-suno-lyric",
+  "description": "Get suno ai song lyrics",
+  "version": "1.0.0",
+  "author": "zh30",
+  "homepage": "https://github.com/zh30/get-suno-lyric",
+  "skills": []
+}
