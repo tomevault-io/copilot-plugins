@@ -1,54 +1,43 @@
-## implementation-rules
+## project-structure
 
-> - 비즈니스 로직 구현 작업은 반드시 테스트를 먼저 작성하고 구현하세요.
+> 이 프로젝트는 모노레포 구조로 구성되어 있으며, 프론트엔드와 백엔드가 통합되어 있습니다.
 
----
-description: 
-globs: 
-alwaysApply: true
----
-# 1️⃣ 구현 작업 원칙
+# 프로젝트 구조 가이드
 
-- 비즈니스 로직 구현 작업은 반드시 테스트를 먼저 작성하고 구현하세요.
-- SOLID 원칙을 사용해서 구현하세요.
-- Clean Architecture를 사용해서 구현하세요.
-- 가능한한 최신 버전의 라이브러리를 사용하세요. 
+이 프로젝트는 모노레포 구조로 구성되어 있으며, 프론트엔드와 백엔드가 통합되어 있습니다.
 
-# 2️⃣ 코드 품질 원칙
+## 디렉토리 구조
 
-- 단순성: 언제나 복잡한 솔루션보다 가장 단순한 솔루션을 우선시하세요.
-- 중복 방지: 코드 중복을 피하고, 가능한 기존 기능을 재사용하세요 (DRY 원칙).
-- 가드레일: 테스트 외에는 개발이나 프로덕션 환경에서 모의 데이터를 사용하지 마세요.
-- 효율성: 명확성을 희생하지 않으면서 토큰 사용을 최소화하도록 출력을 최적화하세요.
+```
+root/
+├── frontend/       # 프론트엔드(React + Mantine)
+├── backend/        # 백엔드(Node.js + TypeScript)
+│   ├── src/       # Lambda 함수 소스 코드
+│   └── lib/       # CDK 스택 정의
+└── shared/        # 공통 타입, 유틸리티 등
+```
 
-# 3️⃣ 리팩토링
+자세한 디렉토리 구조는 [아키텍처 개요](mdc:docs/design/architecture.md)를 참조하세요.
 
-- 리팩토링이 필요한 경우 계획을 설명하고 허락을 받은 다음 진행하세요.
-- 코드 구조를 개선하는 것이 목표이며, 기능 변경은 아닙니다.
-- 리팩토링 후에는 모든 테스트가 통과하는지 확인하세요.
+## 주요 파일
 
-# 4️⃣ 디버깅
+- [프론트엔드 설계](mdc:docs/design/frontend.md)
+- [백엔드 설계](mdc:docs/design/backend.md)
+- [인프라 설계](mdc:docs/design/infrastructure.md)
+- [보안 설계](mdc:docs/design/security.md)
+- [모니터링 설계](mdc:docs/design/monitoring.md)
+- [비용 최적화](mdc:docs/design/optimization.md)
+- [구현 계획](mdc:docs/design/implementation.md)
 
-- 디버깅 시에는 원인 및 해결책을 설명하고 허락을 받은 다음 진행하세요.
-- 원인이 명확하지 않을 경우엔 디버깅용 로그를 추가하세요.
-- 원인이나 해결방법에 확신이 없을경우 Perplexity MCP를 사용해서 조사를 수행한 다음 진행하세요.
-- 에러 해결이 중요한 것이 아니라 제대로 동작하는 것이 중요합니다.
-- 원인이 불분명할 경우 분석을 위해 상세 로그를 추가하세요.
+## 개발 가이드라인
 
-# 5️⃣ 언어
-- IaC 코드에서 클라우드 리소스에 설정하는 Description은 영문으로 작성하세요.
-- 기술적인 용어나 라이브러리 이름 등은 원문을 유지합니다.
+1. 모든 코드는 TypeScript로 작성합니다.
+2. 프론트엔드는 React와 Mantine UI Kit를 사용합니다.
+3. 백엔드는 AWS 서버리스 아키텍처를 사용합니다.
+4. 모든 변경사항은 테스트를 포함해야 합니다.
+5. 코드 스타일은 ESLint와 Prettier를 따릅니다.
 
-# 6️⃣ Git 커밋
-
-- `--no-verify`를 절대 사용하지 마세요. 반드시 precommit hook을 거쳐 커밋이 되어야 합니다.
-- 명확하고 일관된 커밋 메시지를 작성하세요.
-- 적절한 크기로 커밋을 유지하세요.
-
-# 7️⃣ 문서화
-
-- 문서는 코드와 함께 업데이트하세요.
-- 복잡한 로직이나 알고리즘은 주석으로 설명하세요.
+자세한 개발 가이드라인은 [구현 계획](mdc:docs/design/implementation.md)을 참조하세요.
 
 ---
 > Source: [roboco-io/handson-vibecoding-demo](https://github.com/roboco-io/handson-vibecoding-demo) — distributed by [TomeVault](https://tomevault.io).
