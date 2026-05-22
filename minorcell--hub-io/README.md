@@ -7,11 +7,11 @@ Hub-IO is a headless application for generating stable contributor SVG links for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [minorcell/hub-io](https://github.com/minorcell/hub-io).
+Original source: `CLAUDE.md` in [minorcell/hub-io](https://github.com/minorcell/hub-io).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
