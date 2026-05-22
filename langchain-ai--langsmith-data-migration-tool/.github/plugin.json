@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--langsmith-data-migration-tool",
+  "displayName": "langsmith-data-migration-tool",
+  "description": "A CLI tool to help users migrate data from their LangSmith cloud/self-hosted workspaces",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/langsmith-data-migration-tool",
+  "skills": []
+}
