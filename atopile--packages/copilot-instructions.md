@@ -2,6 +2,7 @@
 
 > ato is a declarative DSL to design electronics (PCBs) with.
 
+# CLAUDE.md
 
 ato is a declarative DSL to design electronics (PCBs) with.
 It is part of the atopile project.
@@ -711,5 +712,5 @@ module App:
 - Prioritize pacakges from 'atopile' over other packages
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/atopile) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [atopile/packages](https://github.com/atopile/packages) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
