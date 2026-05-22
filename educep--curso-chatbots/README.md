@@ -2,6 +2,8 @@
 
 > Tome by [educep](https://github.com/educep/curso-chatbots) — distributed by [TomeVault](https://tomevault.io)
 
+Para desarrolladores que desean profundizar en la implementación de sistemas de Inteligencia Artificial basados en Modelos de Lenguaje de Gran Escala (LLMs)
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [educep/curso-chatbots](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [educep/curso-chatbots](https://github.com/educep/curso-chatbots) — a repo with 0+ stars on GitHub.
+From [educep/curso-chatbots](https://github.com/educep/curso-chatbots) — a repo with 8+ stars on GitHub.
 
 ---
 
