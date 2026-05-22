@@ -1,0 +1,44 @@
+{
+  "name": "gb32960-go-sdk",
+  "owner": "DarkInno",
+  "repo": "gb32960-go-sdk",
+  "description": "GB/T 32960 \u7535\u52a8\u6c7d\u8f66\u8fdc\u7a0b\u670d\u52a1\u4e0e\u7ba1\u7406\u7cfb\u7edf\u901a\u4fe1\u534f\u8bae Go SDK ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DarkInno/gb32960-go-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T16:51:03Z"
+}
