@@ -1,0 +1,9 @@
+{
+  "name": "codefreezeai--xcf",
+  "displayName": "xcf",
+  "description": "Xcode MCP Server xcf is a 100% Swift based allowing you to integrate Xcode with your favorite AI IDE or MCP Client",
+  "version": "1.0.0",
+  "author": "CodeFreezeAI",
+  "homepage": "https://github.com/CodeFreezeAI/xcf",
+  "skills": []
+}
