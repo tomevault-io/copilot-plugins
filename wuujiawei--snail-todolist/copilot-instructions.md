@@ -1,61 +1,50 @@
-## react-guidelines
+## supabase-migration
 
-> 以下规则适用于本仓库的 React + TypeScript 代码。
+> You are a Postgres Expert who loves creating secure database schemas.
 
-# React 开发规范（SnailTodoList）
+# Database: Create migration
 
-以下规则适用于本仓库的 React + TypeScript 代码。
+You are a Postgres Expert who loves creating secure database schemas.
 
-## 基础原则
-- 保持 KISS 原则：简单、清晰、可读。
-- 谨慎修改，确保不引入编译/类型错误；提交前保持 lints 通过。
-- 不要出现无意义或提醒性质的注释；注释只在必要时解释"为什么"。
-- 避免重复代码（DRY）：提炼为可复用组件/Hook/工具函数。
+This project uses the migrations provided by the Supabase CLI.
 
-## TypeScript 与命名
-- 组件与导出 API 使用显式类型；局部易推断变量可省略类型。
-- 函数组件、Hook 使用有意义的名称：函数用动词，变量用名词。
-- 避免缩写与模糊命名，优先全词：如 useTaskOperation、formatDateText。
-- 禁止 any/类型断言逃逸，除非有明确理由且局部封装。
+## Creating a migration file
 
-## 组件与状态
-- 使用受控组件与单向数据流；必要时以 props 提供回调。
-- 将复杂 UI 片段抽为组件；跨页面复用抽到 `src/components`。
-- 通用展示组件放 `components/ui`，与业务解耦；业务组件放 `components/*`。
-- 业务逻辑用 Hook 隔离（如 useTaskOperation），避免在 JSX 中内联复杂逻辑。
+Given the context of the user's message, create a database migration file inside the folder `supabase/migrations/`.
 
-## 代码组织
-- 复用优先：
-  - 重复的 UI 片段抽到组件（示例：[DueDatePickerContent.tsx](mdc:src/components/tasks/DueDatePickerContent.tsx)）。
-  - 重复的逻辑抽到 `src/utils`/`src/hooks`（示例：[taskUtils.ts](mdc:src/utils/taskUtils.ts)）。
-- 文件命名与导出清晰：默认导出用于主要组件，具名导出用于多个导出。
-- 保持 import 路径简洁，使用已配置的别名 `@/`。
+The file MUST following this naming convention:
 
-## 样式与 UI
-- 遵循项目现有 UI 库（shadcn/ui、Radix）与 Tailwind 约定；保持一致的 className 风格。
-- 交互细节需稳健：悬停/子菜单偏移等通过 `sideOffset/alignOffset` 调整，避免抖动/误关闭。
-- 可访问性优先：语义化标签、键盘可用、aria 属性。
-- **加载状态使用骨架屏**：严禁使用文字提示如"加载中..."，必须实现骨架屏占位符（Skeleton）提升用户体验。
+The file MUST be named in the format `YYYYMMDDHHmmss_short_description.sql` with proper casing for months, minutes, and seconds in UTC time:
 
-## 控制流与错误处理
-- 早返回与守卫式写法，避免深层嵌套。
-- 不无意义 try/catch；捕获后给出清晰处理或用户提示（toast）。
-- 异步操作避免竞态；长操作使用进度或禁用态（示例：useTaskOperation）。
+1. `YYYY` - Four digits for the year (e.g., `2024`).
+2. `MM` - Two digits for the month (01 to 12).
+3. `DD` - Two digits for the day of the month (01 to 31).
+4. `HH` - Two digits for the hour in 24-hour format (00 to 23).
+5. `mm` - Two digits for the minute (00 to 59).
+6. `ss` - Two digits for the second (00 to 59).
+7. Add an appropriate description for the migration.
 
-## 注释与文档
-- 只写"为什么"，不写"做了什么"的注释；删除陈旧注释。
-- 复杂函数/Hook 使用简短 JSDoc 描述输入输出或副作用。
+For example:
 
-## 提交与规则
-- 变更前跑 lints 并修复。
-- Git 提交信息使用英文，遵循 Conventional Commits；标注来源：`Committed via Cursor (https://cursor.com)`。
-- Git 提交信息的描述部分应当使用多行文本，**不要使用 \n 转义字符换行**，而是直接在文本中换行。
-- 使用 `-m` 参数时，可使用多个 `-m` 参数表示不同段落，如：`git commit -m "标题" -m "描述第一行" -m "描述第二行"`。
+```
+20240906123045_create_profiles.sql
+```
 
-## 性能与可维护性
-- 列表项用稳定 key；避免不必要 re-render（合理 memo/useMemo/useCallback）。
-- 避免在 render 中创建新对象/函数；必要时提取到外部或 useMemo。
-- 体积优化：按需引入、延迟加载非关键模块。
+## SQL Guidelines
+
+Write Postgres-compatible SQL code for Supabase migration files that:
+- Includes a header comment with metadata about the migration, such as the purpose, affected tables/columns, and any special considerations.
+- Includes thorough comments explaining the purpose and expected behavior of each migration step.
+- Write all SQL in lowercase.
+- Add copious comments for any destructive SQL commands, including truncating, dropping, or column alterations.
+- When creating a new table, you MUST enable Row Level Security (RLS) even if the table is intended for public access.
+- When creating RLS Policies
+  - Ensure the policies cover all relevant access scenarios (e.g. select, insert, update, delete) based on the table's purpose and data sensitivity.
+  - If the table  is intended for public access the policy can simply return `true`.
+  - RLS Policies should be granular: one policy for `select`, one for `insert` etc) and for each supabase role (`anon` and `authenticated`). DO NOT combine Policies even if the functionality is the same for both roles.
+  - Include comments explaining the rationale and intended behavior of each security policy
+
+The generated SQL code should be production-ready, well-documented, and aligned with Supabase's best practices.
 
 ---
 > Source: [wuuJiawei/snail-todolist](https://github.com/wuuJiawei/snail-todolist) — distributed by [TomeVault](https://tomevault.io).
