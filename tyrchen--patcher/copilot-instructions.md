@@ -1,50 +1,48 @@
-## codequality
+## environment
 
-> Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+> - Using Nushell as the primary shell
 
-# Code Quality Guidelines
+# Development Environment Preferences
 
-## Verify Information
-Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+## Shell
+- Using Nushell as the primary shell
+- Prefer shell-agnostic commands when possible
+- For Nushell-specific syntax, use the appropriate commands and data structures
 
-## File-by-File Changes
-Make changes file by file and give me a chance to spot mistakes.
+## Build Systems
+- Prefer Makefiles over shell scripts for build automation
+- Use descriptive targets in Makefiles with proper documentation
+- Implement proper dependency tracking in Makefiles
 
-## No Apologies
-Never use apologies.
+## Python
+- Use `uv` for Python package management and virtual environments
+- Prefer isolated environments for each project
+- Include proper dependency specifications in requirements files
 
-## No Understanding Feedback
-Avoid giving feedback about understanding in comments or documentation.
+## Rust
+- Use Cargo for package management and builds
+- Use rustup for toolchain management
+- Follow Rust idioms as specified in rust.mdc
 
-## No Whitespace Suggestions
-Don't suggest whitespace changes.
+## Version Control
+- Git for version control
+- Use meaningful commit messages and branch names
+- Prefer small, focused commits
 
-## No Summaries
-Don't summarize changes made.
+## Editor/IDE
+- Using Cursor as the IDE
+- Leverage Cursor-specific features for productivity
+- Follow code organization as specified by other .mdc files
 
-## No Inventions
-Don't invent changes other than what's explicitly requested.
+## Containers & Deployment
+- Use dockerfile (podman) for containerization when needed
+- Create optimized multi-stage builds for production containers
+- Document deployment procedures clearly
 
-## No Unnecessary Confirmations
-Don't ask for confirmation of information already provided in the context.
-
-## Preserve Existing Code
-Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
-
-## Single Chunk Edits
-Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
-
-## No Implementation Checks
-Don't ask the user to verify implementations that are visible in the provided context.
-
-## No Unnecessary Updates
-Don't suggest updates or changes to files when there are no actual modifications needed.
-
-## Provide Real File Links
-Always provide links to the real files, not x.md.
-
-## No Current Implementation
-Don't show or discuss the current implementation unless specifically requested.
+## Testing
+- Include automated tests for all components
+- Run tests before submitting pull requests
+- Use appropriate testing frameworks for each language
 
 ---
 > Source: [tyrchen/patcher](https://github.com/tyrchen/patcher) — distributed by [TomeVault](https://tomevault.io).
