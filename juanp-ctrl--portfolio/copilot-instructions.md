@@ -1,0 +1,716 @@
+## general
+
+> You are an expert in React, Next.js App Router, TypeScript, CSS Modules, Tailwind CSS, Framer Motion, and GSAP.
+
+
+# Juan Pablo Portfolio Website - Comprehensive Development Guide
+
+## Role & Approach
+You are an expert in React, Next.js App Router, TypeScript, CSS Modules, Tailwind CSS, Framer Motion, and GSAP.
+
+**Workflow Protocol:**
+1. **Plan First**: Analyze the task and create a detailed implementation plan
+2. **Review**: Critically evaluate the plan for potential issues
+3. **Iterate**: Refine the plan if needed before implementation
+4. **Execute**: Apply changes only after plan approval
+5. **Verify**: Check for linting errors and test the implementation
+
+**Communication:**
+- Always ask the user to test the dev environment after significant changes
+- Never implement untested or speculative solutions
+- Use pnpm exclusively for package management
+
+---
+
+## Project Architecture
+
+### Tech Stack
+- **Framework**: Next.js 16.0.1+ (App Router)
+- **Runtime**: React 19.2.0+
+- **Language**: TypeScript 5.8.3 (strict mode enabled)
+- **Package Manager**: pnpm (required)
+- **Build Tool**: Turbopack (dev mode)
+- **Rendering Strategy**: Client-side rendering with 'use client' directive
+
+### Key Dependencies
+- **Animation**: Framer Motion 12.0.0-alpha.1, GSAP 3.13.0
+- **Styling**: Tailwind CSS 3.4.17 + CSS Modules
+- **UI Components**: Radix UI primitives (shadcn/ui pattern)
+- **Internationalization**: next-intl 4.0.0 (cookie-based, en/es)
+- **Icons**: Lucide React
+- **Utilities**: clsx, tailwind-merge, class-variance-authority
+
+### Project Structure
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── layout.tsx          # Root layout (NextIntlClientProvider)
+│   ├── page.tsx            # Home page
+│   ├── about/
+│   │   ├── page.tsx
+│   │   └── styles.module.css
+│   ├── projects/
+│   │   ├── page.tsx
+│   │   └── styles.module.css
+│   ├── contact/
+│   │   └── page.tsx
+│   └── not-found.tsx
+├── components/             # Feature components with CSS Modules
+│   ├── [Component]/
+│   │   ├── index.tsx
+│   │   └── styles.module.css
+│   ├── ui/                 # Reusable UI primitives (shadcn/ui)
+│   └── LanguageSwitcher/   # Cookie-based language switcher
+├── context/                # React Context providers
+│   └── TransitionContext.tsx  # GSAP page transitions
+├── hooks/                  # Custom React hooks
+├── constants/              # Constants and routes
+├── i18n/                   # i18n configuration
+│   └── request.ts          # next-intl config
+├── lib/                    # Utilities (utils.ts)
+└── styles/                 # Global styles
+messages/                   # i18n translations (next-intl)
+├── en.json                 # English translations (all namespaces)
+└── es.json                 # Spanish translations (all namespaces)
+public/
+├── images/                 # Optimized images (WebP preferred)
+├── fonts/                  # Custom fonts
+└── cv/                     # Downloadable files
+```
+
+---
+
+## Code Quality Standards
+
+### TypeScript Guidelines
+- **Strict Mode**: Always enabled
+- **Type Safety**: No `any` without explicit comment justification
+- **Imports**: Use `@/*` path aliases (configured in tsconfig)
+- **Interface vs Type**: Prefer interfaces for objects, types for unions/intersections
+- **Null Safety**: Handle null/undefined explicitly
+
+### Component Patterns
+
+#### Client Components (Most Common)
+```typescript
+'use client'  // Required for interactive components
+import styles from './styles.module.css'
+import { useTranslations } from 'next-intl'
+import { motion } from 'framer-motion'
+
+interface ComponentProps {
+  // Props definition
+}
+
+export default function Component({ prop }: ComponentProps) {
+  const t = useTranslations('namespace')  // next-intl hook
+  
+  return (
+    <div className={styles.container}>
+      <h1>{t('title')}</h1>
+      {/* Component JSX */}
+    </div>
+  )
+}
+```
+
+#### Page Components
+```typescript
+'use client'  // All pages use client-side rendering
+import Header from '@/components/Header'
+import PageTransition from '@/components/PageTransition'
+import { useTranslations } from 'next-intl'
+
+export default function AboutPage() {
+  const t = useTranslations('about')
+  
+  return (
+    <PageTransition>
+      <main className="relative w-full overflow-hidden bg-white">
+        <Header />
+        <h1>{t('title')}</h1>
+        {/* Page content */}
+      </main>
+    </PageTransition>
+  )
+}
+```
+
+### File Naming Conventions
+- **Pages**: `page.tsx` in app router directories
+- **Components**: PascalCase folders with `index.tsx` + `styles.module.css`
+- **Hooks**: camelCase files prefixed with `use` (e.g., `useMedia.tsx`)
+- **Types**: PascalCase interfaces/types
+- **Constants**: UPPER_SNAKE_CASE for constants, camelCase for files
+
+---
+
+## Styling Standards
+
+### CSS Architecture
+**Hybrid Approach**: Tailwind CSS + CSS Modules
+- **Tailwind**: Utility classes for layout, spacing, responsive design
+- **CSS Modules**: Component-specific styles, animations, complex selectors
+- **No Inline Styles**: Avoid unless necessary for dynamic values
+
+### Color System
+```css
+/* CSS Variables (globals.css) */
+:root {
+  --black_alternative: #1e1e1e;
+  --white_alternative: #fafafa;
+  --yellow-alternative: #f2df6b;
+  --black: #292826;
+  --white: #f0f0f0;
+  --yellow: #f8d78f;
+}
+
+/* Tailwind Classes */
+.black-primary    /* #292826 */
+.white-primary    /* #f0f0f0 */
+.yellow-primary   /* #f8d78f */
+.black-secondary  /* #1e1e1e */
+.white-secondary  /* #fafafa */
+.yellow-secondary /* #f2df6b */
+```
+
+### Typography
+- **Headings**: Libre Baskerville (italic, 2.25rem)
+- **Body**: Josefin Sans (light, 1.2rem)
+- **Font Variables**: `--font-libre-baskerville`, `--font-josefin-sans`
+- **Tailwind Classes**: `font-libre`, `font-josefin`
+
+### Responsive Design
+- **Mobile-First**: Always start with mobile layout
+- **Breakpoints**: Use Tailwind defaults (sm, md, lg, xl, 2xl)
+- **Testing**: Test on multiple screen sizes
+
+### CSS Module Naming
+```css
+/* styles.module.css - Use BEM-like naming */
+.container { }
+.container__element { }
+.container--modifier { }
+```
+
+---
+
+## Animation Guidelines
+
+### Framer Motion
+- **Component Animations**: Use motion components for interactive elements
+- **Variants Pattern**: Define animation variants for reusability
+- **Performance**: Use `layoutId` for shared element transitions
+- **Hardware Acceleration**: Animate transform and opacity only when possible
+
+```typescript
+// ✅ Preferred animation pattern
+'use client'
+import { motion, Variants } from 'framer-motion'
+
+const variants: Variants = {
+  initial: { opacity: 0, y: 20 },
+  enter: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: [0.45, 0, 0.55, 1] } 
+  },
+  exit: { 
+    opacity: 0, 
+    transition: { duration: 0.3 } 
+  }
+}
+
+export default function AnimatedComponent() {
+  return (
+    <motion.div
+      initial="initial"
+      animate="enter"
+      exit="exit"
+      variants={variants}
+    >
+      {/* Content */}
+    </motion.div>
+  )
+}
+```
+
+### GSAP for Page Transitions
+- **TransitionContext**: Custom context managing GSAP-powered page transitions
+- **Timeline Animations**: Used for coordinated multi-element animations
+- **Performance**: GSAP for performance-critical animations
+- **Cleanup**: Always clear animations on component unmount
+
+```typescript
+// Using TransitionContext for navigation
+'use client'
+import { useTransition } from '@/context/TransitionContext'
+
+export default function NavigationLink({ href, children }) {
+  const { startTransition } = useTransition()
+  
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    startTransition(href)
+  }
+  
+  return <a href={href} onClick={handleClick}>{children}</a>
+}
+```
+
+---
+
+## Internationalization (i18n)
+
+### Architecture
+- **Library**: next-intl 4.0.0
+- **Strategy**: Cookie-based locale detection (not URL routing)
+- **Cookie Name**: `NEXT_LOCALE`
+- **Supported Locales**: English (en - default), Spanish (es)
+- **Messages Location**: `/messages/{locale}.json`
+
+### Configuration Files
+
+#### `src/i18n/request.ts`
+```typescript
+import { getRequestConfig } from 'next-intl/server'
+import { cookies } from 'next/headers'
+
+export default getRequestConfig(async () => {
+  const cookieStore = await cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+
+  return {
+    locale,
+    messages: (await import(`../../messages/${locale}.json`)).default,
+  }
+})
+```
+
+#### `next.config.ts`
+```typescript
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin()
+
+const nextConfig: NextConfig = {
+  // Your config
+}
+
+export default withNextIntl(nextConfig)
+```
+
+### Message File Structure
+```json
+// messages/en.json
+{
+  "common": {
+    "home": "Home",
+    "about": "About me",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "home": {
+    "welcome_hi": "Hi, I'm",
+    "welcome_name": "Juan Pablo Jiménez!"
+  },
+  "about": {
+    "developer": "DEVELOPER",
+    "engineer": "ENGINEER"
+  }
+}
+```
+
+### Implementation Patterns
+
+#### Using Translations in Components
+```typescript
+'use client'
+import { useTranslations } from 'next-intl'
+
+export default function Component() {
+  const t = useTranslations('namespace')
+  
+  return <h1>{t('key')}</h1>
+}
+```
+
+#### Language Switcher
+```typescript
+'use client'
+import { useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+
+export default function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+
+  const changeLanguage = (newLocale: string) => {
+    startTransition(() => {
+      // Set cookie
+      document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`
+      
+      // Refresh to apply new locale
+      router.refresh()
+    })
+  }
+
+  return (
+    <button onClick={() => changeLanguage(currentLocale === 'en' ? 'es' : 'en')}>
+      {isPending ? '...' : 'Change Language'}
+    </button>
+  )
+}
+```
+
+### Translation Keys Best Practices
+- **Naming**: Use snake_case (e.g., `home_title`, `about_description`)
+- **Organization**: Group by feature/page namespace
+- **Flat Structure**: Keep one level deep within namespaces
+- **Consistency**: Maintain same key structure across locales
+
+---
+
+## Performance Optimization
+
+### Image Optimization
+- **Format**: WebP preferred, fallback to PNG/JPG
+- **Next Image**: Always use `next/image` component
+- **Priority**: Add `priority` prop to above-the-fold images
+- **Sizing**: Provide width and height props
+
+```typescript
+import Image from 'next/image'
+
+<Image
+  src="/images/photo.webp"
+  alt="Description"
+  width={400}
+  height={300}
+  priority  // For above-the-fold images
+/>
+```
+
+### Code Splitting
+- **Dynamic Imports**: Use for heavy components not immediately visible
+```typescript
+import dynamic from 'next/dynamic'
+
+const HeavyComponent = dynamic(() => import('@/components/HeavyComponent'), {
+  loading: () => <div className="h-24" />,  // Maintain layout
+  ssr: false  // Skip server-side rendering if needed
+})
+```
+
+### Client-Side State
+- **Session Storage**: Used to skip intro animation on subsequent visits
+- **Local Storage**: For persistent user preferences
+- **Context API**: Used for TransitionContext (GSAP animations)
+
+### Bundle Size
+- **Tree Shaking**: Import only needed functions
+- **Analyze**: Run `pnpm build` and check bundle size
+- **Lazy Load**: Defer non-critical components
+
+---
+
+## SEO Best Practices
+
+### Meta Tags in Root Layout
+```typescript
+// src/app/layout.tsx
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://www.juanpablojimenez.dev'),
+  title: {
+    default: 'Juan Pablo Jiménez - Frontend Developer & Creative Engineer',
+    template: '%s | Juan Pablo Jiménez',
+  },
+  description: 'Frontend Developer from Medellín, Colombia, specializing in React, Next.js, and TypeScript',
+  keywords: ['frontend developer', 'react developer', 'nextjs developer', 'typescript'],
+  authors: [{ name: 'Juan Pablo Jiménez' }],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: 'es_ES',
+    url: 'https://www.juanpablojimenez.dev',
+    siteName: 'Juan Pablo Jiménez Portfolio',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@JuanPabloJim_',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
+```
+
+### SEO Checklist
+- ✅ Unique title and description per page
+- ✅ Alt text for all images
+- ✅ Semantic HTML (h1, h2, nav, main, footer)
+- ✅ Canonical URLs
+- ✅ robots.txt and sitemap.xml in public/
+- ✅ Structured data (JSON-LD) when applicable
+- ✅ Mobile-friendly and responsive
+- ✅ Fast loading (Web Vitals)
+
+---
+
+## Development Workflow
+
+### Commands
+```bash
+pnpm dev          # Start dev server with Turbopack
+pnpm build        # Production build
+pnpm start        # Start production server
+pnpm lint         # Run ESLint directly (next lint removed in Next.js 16)
+```
+
+### Git Workflow
+- **Husky**: Pre-commit and pre-push hooks configured
+- **Commits**: Write clear, descriptive commit messages
+- **Branches**: Feature branches for new features
+
+### Code Review Checklist
+- [ ] TypeScript: No type errors
+- [ ] Linting: No ESLint warnings/errors
+- [ ] Styling: Follows Tailwind + CSS Modules pattern
+- [ ] i18n: All text uses useTranslations hook
+- [ ] SEO: Metadata properly configured
+- [ ] Performance: Images optimized, components lazy-loaded
+- [ ] Accessibility: Semantic HTML, ARIA labels
+- [ ] Animations: Smooth, performant (60fps)
+- [ ] Responsive: Works on mobile, tablet, desktop
+- [ ] Testing: Manual testing completed
+
+---
+
+## Component Development Best Practices
+
+### Component Checklist
+1. **'use client' Directive**: Add at top if component uses hooks, state, or events
+2. **Structure**: Create folder with `index.tsx` + `styles.module.css`
+3. **Types**: Define props interface
+4. **i18n**: Use `useTranslations` for text content
+5. **Styling**: Tailwind for layout, CSS Modules for custom styles
+6. **Animation**: Use Framer Motion or GSAP consistently
+7. **Performance**: Consider dynamic import if heavy
+8. **Accessibility**: Add ARIA labels, keyboard navigation
+9. **Responsiveness**: Test on multiple breakpoints
+
+### State Management
+- **Local State**: useState for component-specific state
+- **Context API**: Used for TransitionContext (page transitions)
+- **URL State**: Use Next.js router for shareable state
+- **Cookies**: Used for locale persistence (NEXT_LOCALE)
+
+### Error Handling
+- **Try-Catch**: Wrap async operations
+- **Error Boundaries**: Provide for critical components
+- **Logging**: Console errors in development only
+- **User Feedback**: Show user-friendly error messages
+
+---
+
+## Special Features
+
+### Custom Cursor
+- Implemented in `src/components/Cursor`
+- Global: `cursor: none` in body
+- Replaces default cursor with custom component
+
+### Page Transitions (TransitionContext)
+- Custom GSAP-powered page transition system
+- Provides smooth scale/fade animations between routes
+- Maintains state during transitions
+- Usage via `useTransition()` hook
+
+```typescript
+const { startTransition, isTransitioning } = useTransition()
+
+// Trigger transition on navigation
+startTransition('/about')
+```
+
+### Service Worker
+- PWA capabilities via `serviceWorkerRegistration.ts`
+- Caching strategy for offline support
+
+### Google Analytics
+- Implemented via `GoogleAnalytics.tsx` component
+- Cookie consent integration
+
+### Cookie Consent
+- GDPR-compliant cookie banner
+- Required before tracking activation
+- Implemented in `src/components/CookieConsent`
+
+---
+
+## Testing Strategy
+
+### Manual Testing Workflow
+1. **Visual**: Check all components render correctly
+2. **Responsive**: Test on mobile, tablet, desktop
+3. **i18n**: Switch languages via language switcher, verify translations
+4. **Performance**: Check Lighthouse scores
+5. **SEO**: Validate meta tags, structured data
+6. **Animations**: Verify smooth 60fps animations
+7. **Accessibility**: Test with screen reader, keyboard navigation
+8. **Cross-browser**: Test on Chrome, Firefox, Safari
+
+### Performance Targets
+- **Lighthouse Score**: >90 for all metrics
+- **FCP**: <1.8s (First Contentful Paint)
+- **LCP**: <2.5s (Largest Contentful Paint)
+- **CLS**: <0.1 (Cumulative Layout Shift)
+- **INP**: <200ms (Interaction to Next Paint)
+
+---
+
+## Common Pitfalls to Avoid
+
+❌ **Don't:**
+- Use Pages Router patterns (this is App Router)
+- Forget 'use client' directive for interactive components
+- Use `any` type without justification
+- Inline large CSS in JSX
+- Use getStaticProps/getServerSideProps (Pages Router only)
+- Forget alt text on images
+- Import entire libraries (e.g., `import _ from 'lodash'`)
+- Use `console.log` in production
+- Forget to cleanup animations/subscriptions
+- Skip responsive design testing
+- Use npm or yarn (use pnpm only)
+- Mix next-i18next with next-intl patterns
+
+✅ **Do:**
+- Use 'use client' for components with hooks/state/events
+- Use TypeScript strictly
+- Follow component folder structure
+- Leverage Tailwind utilities first
+- Use useTranslations hook for all text
+- Store translations in `/messages/` directory
+- Optimize images with WebP
+- Use semantic HTML
+- Write accessible components
+- Test on multiple devices
+- Keep bundle size small
+- Document complex logic
+- Use router.refresh() after changing locale cookie
+
+---
+
+## Emergency Debugging
+
+### Common Issues
+
+1. **Hydration Errors**: 
+   - Check for SSR/client mismatches
+   - Verify 'use client' directive is present
+   - Check for browser-only APIs used without checks
+
+2. **Type Errors**: 
+   - Run `pnpm build` to catch all TypeScript errors
+   - Check tsconfig.json for path aliases
+
+3. **Linting**: 
+   - Run `pnpm lint` and fix all warnings
+   - Check for unused imports
+
+4. **i18n Not Working**:
+   - Verify cookie is set: `NEXT_LOCALE`
+   - Check `src/i18n/request.ts` configuration
+   - Ensure messages exist in `/messages/{locale}.json`
+   - Verify useTranslations hook has correct namespace
+
+5. **Language Not Switching**:
+   - Ensure `router.refresh()` is called after setting cookie
+   - Check that cookie path is set to `/`
+   - Verify `startTransition` wrapper is used
+
+6. **Build Failures**: 
+   - Check Next.js version compatibility (Next.js 16+ requires React 19+)
+   - Verify all 'use client' directives are at top of file
+   - Check for server-only code in client components
+   - Ensure ESLint Flat Config is properly configured (eslint.config.mjs)
+
+### Debug Mode
+```bash
+NODE_OPTIONS='--inspect' pnpm dev  # Node debugger
+pnpm build                          # Check for build errors
+```
+
+---
+
+## Architecture Decision Records
+
+### Why App Router?
+- Modern Next.js architecture (13+)
+- Better performance with React Server Components
+- Improved routing and layouts
+- Built-in loading and error states
+
+### Why next-intl over next-i18next?
+- Better App Router support
+- Cookie-based routing (no URL changes)
+- Simpler API for client components
+- Better TypeScript support
+
+### Why Cookie-Based i18n?
+- Cleaner URLs (no /en/ or /es/ prefix)
+- Persistent across navigation
+- Better UX (no URL changes on language switch)
+- SEO-friendly with proper hreflang tags
+
+### Why 'use client' for All Pages?
+- Heavy use of animations (Framer Motion, GSAP)
+- Interactive components throughout
+- Language switcher requires client state
+- Page transitions managed client-side
+
+---
+
+## Future Considerations
+
+### Potential Upgrades
+- Consider React Server Components for static content
+- Add E2E testing (Playwright/Cypress)
+- Implement unit tests (Vitest/Jest)
+- Add Storybook for component documentation
+- Consider parallel routes for advanced layouts
+- Explore Cache Components API for advanced caching strategies
+
+### Maintenance
+- Keep dependencies updated (monthly check)
+- Monitor Web Vitals in production
+- Review Google Analytics data
+- Update SEO content regularly
+- Optimize based on Lighthouse reports
+
+---
+
+## Questions to Ask Before Implementation
+
+1. Does this component need interactivity? → Add 'use client'
+2. Does this change affect SEO? → Update metadata in layout.tsx
+3. Is new text added? → Add to messages/en.json and messages/es.json
+4. Is it a heavy component? → Consider dynamic import
+5. Does it need animation? → Use Framer Motion or GSAP patterns
+6. Is it responsive? → Test all breakpoints
+7. Is it accessible? → Add ARIA labels
+8. Does it impact performance? → Check bundle size
+9. Is TypeScript happy? → No type errors
+10. Does it use browser APIs? → Ensure 'use client' and proper checks
+
+---
+
+**Remember**: Always plan, review, iterate, then execute. Quality over speed. Ask user to test after significant changes.
+
+---
+> Source: [juanp-ctrl/Portfolio](https://github.com/juanp-ctrl/Portfolio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-20 -->
