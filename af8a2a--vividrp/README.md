@@ -7,11 +7,11 @@ Scriptable Render Pipeline (SRP) featuring modern high fidelity rendering techni
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [af8a2a/VividRP](https://github.com/af8a2a/VividRP).
+Original source: `CLAUDE.md` in [af8a2a/VividRP](https://github.com/af8a2a/VividRP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
