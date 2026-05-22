@@ -1,0 +1,44 @@
+{
+  "name": "pocket-gpt",
+  "owner": "Raghuboi",
+  "repo": "pocket-gpt",
+  "description": "Faithful reproduction of 'Attention Is All You Need' (Vaswani et al. 2017) in pure PyTorch. ~700 lines. Paper-faithful baseline + systematic modernization swaps.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Raghuboi/pocket-gpt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-22T04:57:25Z"
+}
