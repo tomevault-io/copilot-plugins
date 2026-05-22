@@ -1,79 +1,73 @@
-## cursor-rules-location
+## dotnet-framework-assembly-references
 
-> Cursor Rules Location
+> description: Enforces .NET Framework assembly reference best practices
 
-
-# Cursor Rules Location
-
-Rules for placing and organizing Cursor rule files in the repository.
+---
+description: Enforces .NET Framework assembly reference best practices
+globs: ["*.cs", "*.csproj"]
+---
+# .NET Framework Assembly References
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: dotnet_assembly_references
+description: Ensures proper assembly reference patterns and practices in .NET Framework
 filters:
-  # Match any .mdc files
   - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
+    pattern: "\\.(cs|csproj)$"
   - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+    pattern: "(?:using|Reference Include|PackageReference)"
 
 actions:
   - type: reject
     conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+      - pattern: "using\\s+[^\\s;]+\\s*=\\s*[^\\s;]+\\s*;"
+        message: "Avoid using aliases unless absolutely necessary for conflict resolution"
+      - pattern: "using\\s+static"
+        message: "Avoid using static directives unless absolutely necessary"
+      - pattern: "<Reference\\s+Include=\".*?\\.dll\""
+        message: "Use NuGet packages instead of direct DLL references when possible"
+      - pattern: "using\\s+System\\s*;\\s*using\\s+System\\..*;"
+        message: "Group System namespaces together"
 
   - type: suggest
     message: |
-      When creating Cursor rules:
-
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
-
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
-
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      Assembly reference guidelines:
+      1. Organize using directives:
+         - System namespaces first
+         - Third-party namespaces next
+         - Project namespaces last
+         - Alphabetical order within groups
+      2. Remove unused using directives
+      3. Prefer NuGet packages over direct DLL references
+      4. Use specific namespaces over wildcards
+      5. Keep references minimal and necessary
+      6. Version consistency in package references
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
+      using System.Collections;
+      using MyCompany.Project;
+      using System;
+      using static System.Math;
+      using Col = System.Collections;
+    output: |
+      using System;
+      using System.Collections;
+      
+      using MyCompany.Project;
 
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+  - input: |
+      <Reference Include="ThirdParty.dll" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    output: |
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 
 metadata:
   priority: high
   version: 1.0
 </rule>
+ 
 
 ---
 > Source: [Caleb68864/SlingMD](https://github.com/Caleb68864/SlingMD) — distributed by [TomeVault](https://tomevault.io).
