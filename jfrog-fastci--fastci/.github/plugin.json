@@ -1,0 +1,9 @@
+{
+  "name": "jfrog-fastci--fastci",
+  "displayName": "fastci",
+  "description": "A drop-in agent for GitHub Actions that automatically identifies CI bottlenecks and generates fixes. FastCI analyzes your workflows in real-time, flags performance issues as GitHub Issues, and can aut",
+  "version": "1.0.0",
+  "author": "jfrog-fastci",
+  "homepage": "https://github.com/jfrog-fastci/fastci",
+  "skills": []
+}
