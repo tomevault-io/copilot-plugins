@@ -1,0 +1,9 @@
+{
+  "name": "yiin--reactive-proxy-state",
+  "displayName": "reactive-proxy-state",
+  "description": "A simple, standalone reactivity library inspired by Vue 3's reactivity system, designed for use outside of Vue, particularly in server-side contexts or for data synchronization tasks.",
+  "version": "1.0.0",
+  "author": "Yiin",
+  "homepage": "https://github.com/Yiin/reactive-proxy-state",
+  "skills": []
+}
