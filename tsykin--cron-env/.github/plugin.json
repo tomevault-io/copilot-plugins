@@ -1,0 +1,9 @@
+{
+  "name": "tsykin--cron-env",
+  "displayName": "cron-env",
+  "description": "Simple Cron Jobs Scheduler using environment variables + Bun + TypeScript",
+  "version": "1.0.0",
+  "author": "tsykin",
+  "homepage": "https://github.com/tsykin/cron-env",
+  "skills": []
+}
