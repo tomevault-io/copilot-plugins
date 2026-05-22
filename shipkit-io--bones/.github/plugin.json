@@ -1,7 +1,7 @@
 {
   "name": "shipkit-io--bones",
   "displayName": "bones",
-  "description": "bones",
+  "description": "Shipkit (bones), a starter kit for building React/Next.js sites fast.",
   "version": "1.0.0",
   "author": "shipkit-io",
   "homepage": "https://github.com/shipkit-io/bones",
