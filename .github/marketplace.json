@@ -159394,6 +159394,166 @@
       "description": "beescout is an open-source data contract registry and validation tool."
     },
     {
+      "name": "anipotts--chained-chat",
+      "source": "./anipotts--chained-chat",
+      "description": "durably chain your chats"
+    },
+    {
+      "name": "djm81--log-analyzer-mcp",
+      "source": "./djm81--log-analyzer-mcp",
+      "description": "Log Analyzer MCP is a powerful Python-based toolkit designed to streamline the way you interact with log files."
+    },
+    {
+      "name": "djm81--log-analyzer-mcp",
+      "source": "./djm81--log-analyzer-mcp",
+      "description": "Log Analyzer MCP is a powerful Python-based toolkit designed to streamline the way you interact with log files."
+    },
+    {
+      "name": "ton-ai-core--ton-api-indexing",
+      "source": "./ton-ai-core--ton-api-indexing",
+      "description": "ton-api-indexing"
+    },
+    {
+      "name": "helehanprivate--pbtwithcodegen",
+      "source": "./helehanprivate--pbtwithcodegen",
+      "description": "PBTwithCodeGen"
+    },
+    {
+      "name": "djm81--log-analyzer-mcp",
+      "source": "./djm81--log-analyzer-mcp",
+      "description": "Log Analyzer MCP is a powerful Python-based toolkit designed to streamline the way you interact with log files."
+    },
+    {
+      "name": "chauhan17nitin--tnt",
+      "source": "./chauhan17nitin--tnt",
+      "description": "team-new-tab"
+    },
+    {
+      "name": "friendsofredaxo--multinewsletter",
+      "source": "./friendsofredaxo--multinewsletter",
+      "description": "multinewsletter"
+    },
+    {
+      "name": "teomastro--next-launch-kit",
+      "source": "./teomastro--next-launch-kit",
+      "description": "An open source NextJs+PostgreSQL boilerplate with various integrations needed for a Saas."
+    },
+    {
+      "name": "djm81--log-analyzer-mcp",
+      "source": "./djm81--log-analyzer-mcp",
+      "description": "Log Analyzer MCP is a powerful Python-based toolkit designed to streamline the way you interact with log files."
+    },
+    {
+      "name": "appian-design--aurora-mcp",
+      "source": "./appian-design--aurora-mcp",
+      "description": "This is a Model Context Protocol (MCP) server that provides access to Appian's design system documentation through GitHub repositories. It supports both public and internal documentation sources, allo"
+    },
+    {
+      "name": "tommyyau--wispr-flow-lite",
+      "source": "./tommyyau--wispr-flow-lite",
+      "description": "A powerful voice-to-text transcription app that works system-wide. Simply hold down the Option/Alt key while speaking, and release it to have your words transcribed directly where your cursor is posit"
+    },
+    {
+      "name": "guilhermemigliano--doutor-agenda",
+      "source": "./guilhermemigliano--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "tinyproxy-org--tinyproxy-zig",
+      "source": "./tinyproxy-org--tinyproxy-zig",
+      "description": "Rewrite TinyProxy in Zig"
+    },
+    {
+      "name": "mstampfer--anki-duolingo-scraper",
+      "source": "./mstampfer--anki-duolingo-scraper",
+      "description": "Scrape duolingo vocabulary from duome.eu create Anki decks for multiple languages"
+    },
+    {
+      "name": "deuz-ai--deuz-chat",
+      "source": "./deuz-ai--deuz-chat",
+      "description": "Deuz-Chat"
+    },
+    {
+      "name": "solutionforest--workflow-engine-core",
+      "source": "./solutionforest--workflow-engine-core",
+      "description": "A powerful, framework-agnostic workflow engine for PHP applications. This core library provides comprehensive workflow definition, execution, and state management capabilities without any framework de"
+    },
+    {
+      "name": "doctorinaai--service-worker-generator",
+      "source": "./doctorinaai--service-worker-generator",
+      "description": "Service Worker Generator"
+    },
+    {
+      "name": "deuz-ai--deuz-chat",
+      "source": "./deuz-ai--deuz-chat",
+      "description": "Deuz-Chat"
+    },
+    {
+      "name": "niracler--bokushi",
+      "source": "./niracler--bokushi",
+      "description": "Personal blog documenting tech & life | \u535a\u7269\u5fd7\uff1a\u8bb0\u5f55\u6280\u672f\u4e0e\u751f\u6d3b\u7684\u8bdd\u5520\u535a\u5ba2"
+    },
+    {
+      "name": "markov-root--atlas",
+      "source": "./markov-root--atlas",
+      "description": "atlas"
+    },
+    {
+      "name": "deuz-ai--deuz-chat",
+      "source": "./deuz-ai--deuz-chat",
+      "description": "Deuz-Chat"
+    },
+    {
+      "name": "crzykidd--docker-api-notifier",
+      "source": "./crzykidd--docker-api-notifier",
+      "description": "watch docker notifications and updates different notifiers on events."
+    },
+    {
+      "name": "deuz-ai--deuz-chat",
+      "source": "./deuz-ai--deuz-chat",
+      "description": "Deuz-Chat"
+    },
+    {
+      "name": "angrysky56--emotion-ai",
+      "source": "./angrysky56--emotion-ai",
+      "description": "The Aura Emotion AI system has chroma with a local embedding model, memvid qr code mp4 infinite memory, brainwave and neurochemical simulations, sociobiological reasoning, autonomous subsystem process"
+    },
+    {
+      "name": "deuz-ai--deuz-chat",
+      "source": "./deuz-ai--deuz-chat",
+      "description": "Deuz-Chat"
+    },
+    {
+      "name": "dogusteknoloji--elasticsearchtraining",
+      "source": "./dogusteknoloji--elasticsearchtraining",
+      "description": "This repository contains comprehensive Elasticsearch training materials designed for developers, including a practical .NET 9.0 log simulator application for hands-on learning."
+    },
+    {
+      "name": "ben-spoonradio--raycast-scripts",
+      "source": "./ben-spoonradio--raycast-scripts",
+      "description": "raycast_scripts"
+    },
+    {
+      "name": "solutionforest--workflow-engine-core",
+      "source": "./solutionforest--workflow-engine-core",
+      "description": "A powerful, framework-agnostic workflow engine for PHP applications. This core library provides comprehensive workflow definition, execution, and state management capabilities without any framework de"
+    },
+    {
+      "name": "renfald--tail-tagger",
+      "source": "./renfald--tail-tagger",
+      "description": "An application to make manual e621 tag curation for datasets easier to perform, through an efficient workflow and with image classifier assistance "
+    },
+    {
+      "name": "niracler--bokushi",
+      "source": "./niracler--bokushi",
+      "description": "Personal blog documenting tech & life | \u535a\u7269\u5fd7\uff1a\u8bb0\u5f55\u6280\u672f\u4e0e\u751f\u6d3b\u7684\u8bdd\u5520\u535a\u5ba2"
+    },
+    {
+      "name": "pinellolab--chorus",
+      "source": "./pinellolab--chorus",
+      "description": "chorus"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -169094,6 +169254,31 @@
       "description": "Claude Code plugin for building, validating, and deploying n8n workflows via n8nac CLI"
     },
     {
+      "name": "infiniumtek--terraform-review-agent",
+      "source": "./infiniumtek--terraform-review-agent",
+      "description": "Reusable GitHub Action that reviews Terraform PRs for security, cost, and style using a LangGraph multi-agent system, posting a single severity-ranked comment."
+    },
+    {
+      "name": "infiniumtek--terraform-review-agent",
+      "source": "./infiniumtek--terraform-review-agent",
+      "description": "Reusable GitHub Action that reviews Terraform PRs for security, cost, and style using a LangGraph multi-agent system, posting a single severity-ranked comment."
+    },
+    {
+      "name": "davimalor3--saas-clinic-appointments",
+      "source": "./davimalor3--saas-clinic-appointments",
+      "description": "saas_clinic_appointments"
+    },
+    {
+      "name": "ianmacartney--code-organization-pattern",
+      "source": "./ianmacartney--code-organization-pattern",
+      "description": "A way to separate code definition from public api organization"
+    },
+    {
+      "name": "makeplane--plane-python-sdk",
+      "source": "./makeplane--plane-python-sdk",
+      "description": "Python SDK for plane.so"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -171372,6 +171557,21 @@
       "name": "xinian-dada--nodelite",
       "source": "./xinian-dada--nodelite",
       "description": "Lightweight server monitoring panel with real-time metrics, agent management, and web dashboard"
+    },
+    {
+      "name": "jaswalmohit8-collab--weasel",
+      "source": "./jaswalmohit8-collab--weasel",
+      "description": "A tiny CLAUDE.md for keeping long-running AI coding agents useful."
+    },
+    {
+      "name": "lwinmoepaing--idea-starter",
+      "source": "./lwinmoepaing--idea-starter",
+      "description": "idea-starter"
+    },
+    {
+      "name": "jaswalmohit8-collab--weasel",
+      "source": "./jaswalmohit8-collab--weasel",
+      "description": "A tiny CLAUDE.md for keeping long-running AI coding agents useful."
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -273277,6 +273477,266 @@
       "name": "omygodwin--seasons-study-app",
       "source": "./omygodwin--seasons-study-app",
       "description": "seasons-study-app"
+    },
+    {
+      "name": "cristhopersocalayr--restaurant",
+      "source": "./cristhopersocalayr--restaurant",
+      "description": "restaurant"
+    },
+    {
+      "name": "sanjibnarzary--indictranslator",
+      "source": "./sanjibnarzary--indictranslator",
+      "description": "indictranslator"
+    },
+    {
+      "name": "victormeireles--valepan-interno",
+      "source": "./victormeireles--valepan-interno",
+      "description": "valepan-interno"
+    },
+    {
+      "name": "ty-hayes-82--crm-assistant",
+      "source": "./ty-hayes-82--crm-assistant",
+      "description": "crm-assistant"
+    },
+    {
+      "name": "blogas190--one-sweep",
+      "source": "./blogas190--one-sweep",
+      "description": "Graduation game project"
+    },
+    {
+      "name": "atticusjxn--flynnaiapp",
+      "source": "./atticusjxn--flynnaiapp",
+      "description": "Flynn AI - Mobile app for service providers to automatically capture job details from screenshots and phone calls"
+    },
+    {
+      "name": "sonorousduck--foodtracker",
+      "source": "./sonorousduck--foodtracker",
+      "description": "Started August 30th, 2025"
+    },
+    {
+      "name": "sakuro--foxtail",
+      "source": "./sakuro--foxtail",
+      "description": "Ruby implementation of Project Fluent localization system"
+    },
+    {
+      "name": "stritti--nak-tut-bezirksfest-2025",
+      "source": "./stritti--nak-tut-bezirksfest-2025",
+      "description": "nak-tut-bezirksfest-2025"
+    },
+    {
+      "name": "c3ny--users-service",
+      "source": "./c3ny--users-service",
+      "description": "Microsservi\u00e7o de usu\u00e1rio do projeto Sangue Solid\u00e1rio."
+    },
+    {
+      "name": "vkeslarek--pixors",
+      "source": "./vkeslarek--pixors",
+      "description": "Open Source image editos"
+    },
+    {
+      "name": "c3ny--users-service",
+      "source": "./c3ny--users-service",
+      "description": "Microsservi\u00e7o de usu\u00e1rio do projeto Sangue Solid\u00e1rio."
+    },
+    {
+      "name": "esnya--resobotgw",
+      "source": "./esnya--resobotgw",
+      "description": "WIP"
+    },
+    {
+      "name": "c3ny--users-service",
+      "source": "./c3ny--users-service",
+      "description": "Microsservi\u00e7o de usu\u00e1rio do projeto Sangue Solid\u00e1rio."
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "raphael-kr--dgkmaweb",
+      "source": "./raphael-kr--dgkmaweb",
+      "description": "\ub3d9\uad6d\ub300\ud559\uad50 \ud55c\uc758\uacfc\ub300\ud559 \uc6f9 \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "bartoszm--sample-generator",
+      "source": "./bartoszm--sample-generator",
+      "description": "Generates realistic JSON samples from json schemas or OAS models. Allows for definition of scenarios that drive shape of generated data"
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "balintsoos--m4sport",
+      "source": "./balintsoos--m4sport",
+      "description": "Containerized M4 Sport Stream"
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "schofield-lab--schofield-lab-github-io",
+      "source": "./schofield-lab--schofield-lab-github-io",
+      "description": "UCL Schofield Research Group website (quantum nanoscience, STM)"
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "atticusjxn--flynnaiapp",
+      "source": "./atticusjxn--flynnaiapp",
+      "description": "Flynn AI - Mobile app for service providers to automatically capture job details from screenshots and phone calls"
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "roberto-muricy--astroquiz",
+      "source": "./roberto-muricy--astroquiz",
+      "description": "Astronomy Quiz - Strapi"
+    },
+    {
+      "name": "nick130920--fintech-backend",
+      "source": "./nick130920--fintech-backend",
+      "description": "fintech-backend"
+    },
+    {
+      "name": "lhak1341--script-portfolio",
+      "source": "./lhak1341--script-portfolio",
+      "description": "script-portfolio"
+    },
+    {
+      "name": "hnykda--kokorovsky-dvur",
+      "source": "./hnykda--kokorovsky-dvur",
+      "description": "kokorovsky-dvur"
+    },
+    {
+      "name": "hnykda--kokorovsky-dvur",
+      "source": "./hnykda--kokorovsky-dvur",
+      "description": "kokorovsky-dvur"
+    },
+    {
+      "name": "ty-hayes-82--crm-assistant",
+      "source": "./ty-hayes-82--crm-assistant",
+      "description": "crm-assistant"
+    },
+    {
+      "name": "sakuro--foxtail",
+      "source": "./sakuro--foxtail",
+      "description": "Ruby implementation of Project Fluent localization system"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "sscba--sscba-github-io",
+      "source": "./sscba--sscba-github-io",
+      "description": "sscba.github.io"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "krenuds--earpiece",
+      "source": "./krenuds--earpiece",
+      "description": "High-performance TTS and STT services for Toji Discord bot"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "encryptabit--ams",
+      "source": "./encryptabit--ams",
+      "description": "AudioBook Mastering Suite using Zig + AvaloniaUI"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "vkeslarek--pixors",
+      "source": "./vkeslarek--pixors",
+      "description": "Open Source image editos"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "ponywen0819--ienf-q",
+      "source": "./ponywen0819--ienf-q",
+      "description": "ienf_q"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "omidrahmati2000--tug",
+      "source": "./omidrahmati2000--tug",
+      "description": "TUG"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "ba912--discord-boss-bot-v3",
+      "source": "./ba912--discord-boss-bot-v3",
+      "description": "discord-boss-bot-v3"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "cateiru--sesami-2-mackerel",
+      "source": "./cateiru--sesami-2-mackerel",
+      "description": "SESAMI \u306e\u30c7\u30d0\u30a4\u30b9\u3092 Mackerel \u3067\u76e3\u8996\u3059\u308b\u305f\u3081\u306e\u30c4\u30fc\u30eb\u3067\u3059\u3002"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "shinytsing--modeshift-django",
+      "source": "./shinytsing--modeshift-django",
+      "description": "A Django-based project for mode shifting functionality"
+    },
+    {
+      "name": "umbalaconmeogia--chatwork-thread",
+      "source": "./umbalaconmeogia--chatwork-thread",
+      "description": "A tool that help display relative chats of Chatworks in group."
     }
   ]
 }
