@@ -1,0 +1,9 @@
+{
+  "name": "teomastro--next-launch-kit",
+  "displayName": "next-launch-kit",
+  "description": "An open source NextJs+PostgreSQL boilerplate with various integrations needed for a Saas.",
+  "version": "1.0.0",
+  "author": "TeoMastro",
+  "homepage": "https://github.com/TeoMastro/next-launch-kit",
+  "skills": []
+}
