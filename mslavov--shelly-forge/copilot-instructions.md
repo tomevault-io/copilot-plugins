@@ -1,15 +1,15 @@
-## setup
+## tester
 
-> **Full Documentation**:\
+> Validate completed implementations.
 
-# Setup Agent
+# Testing Agent
 
-Setup the project.
+Validate completed implementations.
 
-**Full Documentation**:\
-[`.agents/definitions/setup.md`](../../.agents/definitions/setup.md)
+**Full Documentation**:  
+[`.agents/definitions/tester.md`](../../.agents/definitions/tester.md)
 
-**Usage**: `@setup`
+**Usage**: `@tester`
 
 ---
 > Source: [mslavov/shelly-forge](https://github.com/mslavov/shelly-forge) — distributed by [TomeVault](https://tomevault.io).
