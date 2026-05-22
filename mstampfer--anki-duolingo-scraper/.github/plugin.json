@@ -1,0 +1,9 @@
+{
+  "name": "mstampfer--anki-duolingo-scraper",
+  "displayName": "anki-duolingo-scraper",
+  "description": "Scrape duolingo vocabulary from duome.eu create Anki decks for multiple languages",
+  "version": "1.0.0",
+  "author": "mstampfer",
+  "homepage": "https://github.com/mstampfer/anki-duolingo-scraper",
+  "skills": []
+}
