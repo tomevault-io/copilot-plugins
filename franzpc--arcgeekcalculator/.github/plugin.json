@@ -1,0 +1,9 @@
+{
+  "name": "franzpc--arcgeekcalculator",
+  "displayName": "ArcGeekCalculator",
+  "description": "Plugin ArcGeek Calculator for QGIS",
+  "version": "1.0.0",
+  "author": "franzpc",
+  "homepage": "https://github.com/franzpc/ArcGeekCalculator",
+  "skills": []
+}
