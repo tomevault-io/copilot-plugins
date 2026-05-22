@@ -1,0 +1,9 @@
+{
+  "name": "santiagocasas--clapp",
+  "displayName": "clapp",
+  "description": "CLAPP: CLASS LLM Agent for Pair Programming",
+  "version": "1.0.0",
+  "author": "santiagocasas",
+  "homepage": "https://github.com/santiagocasas/clapp",
+  "skills": []
+}
