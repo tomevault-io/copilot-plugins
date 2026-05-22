@@ -1,41 +1,151 @@
-## bolt-to-github
+## general-rules
 
-> This is a Chrome Manifest V3 extension built with Svelte, TypeScript, TailwindCSS, Vite, and CRXJS. Source code lives in `src/`: `background/` is the service worker, `content/` integrates with bolt.new, `popup/` contains the extension UI, `pages/` contains standalone extension pages, `services/` handles GitHub/auth/sync logic, and `lib/` contains shared utilities, stores, constants, and components. Tests are colocated in `__tests__/` folders or named `*.test.ts` / `*.spec.ts`. Shared test setup is in `src/test/setup/`; e2e tests are in `e2e/`, assets in `assets/`, and reference docs in `docs/`.
+> - This uses mamertofabian/bolt-to-github GitHub repository
 
-# Repository Guidelines
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Development
 
-## Project Structure & Module Organization
+## Repository
 
-This is a Chrome Manifest V3 extension built with Svelte, TypeScript, TailwindCSS, Vite, and CRXJS. Source code lives in `src/`: `background/` is the service worker, `content/` integrates with bolt.new, `popup/` contains the extension UI, `pages/` contains standalone extension pages, `services/` handles GitHub/auth/sync logic, and `lib/` contains shared utilities, stores, constants, and components. Tests are colocated in `__tests__/` folders or named `*.test.ts` / `*.spec.ts`. Shared test setup is in `src/test/setup/`; e2e tests are in `e2e/`, assets in `assets/`, and reference docs in `docs/`.
+- This uses mamertofabian/bolt-to-github GitHub repository
 
-## Build, Test, and Development Commands
+## Environment
 
-Use `pnpm`; do not switch package managers.
+ - This project is being developed in a Windows environment and thus using Powershell. So start using powershell commands instead of bash commands right from the first attempt when running commands.
+ - Use pnpm as package manager
 
-- `pnpm install` installs dependencies from `pnpm-lock.yaml`.
-- `pnpm dev` starts the Vite dev server for UI iteration.
-- `pnpm watch` builds the extension to `dist/` and watches for changes; load `dist/` in Chrome developer mode.
-- `pnpm build` creates a production extension build.
-- `pnpm lint` runs ESLint over `src/**/*.{js,ts,svelte}`.
-- `pnpm check` runs `svelte-check` with TypeScript validation.
-- `pnpm test:ci` runs Vitest once without coverage; `pnpm test` runs Vitest with coverage.
-- `pnpm test:e2e` runs Playwright tests.
+### Available pnpm commands
 
-## Coding Style & Naming Conventions
+Since this is a Chrome extension project, running `dev` won't work during testing. The developer already loaded the `dist` folder in Chrome Extension developer mode so the extension is already loaded. Running `build` or `watch` is enough for manual testing.
 
-Use strict TypeScript and ESM imports. Svelte components must use `<script lang="ts">`. Prefer `$lib/*` for imports from `src/lib`. Prettier uses 2 spaces, single quotes, 100-character lines, and ES5 trailing commas. Use TailwindCSS for UI styling and `lucide-svelte` for icons. Avoid `any`; use concrete types or `unknown` with narrowing. Test files should use names such as `FileChanges.component.test.ts`, `ServiceName.test.ts`, or `Feature.logic.test.ts`.
+- pnpm run build
+- pnpm run lint
+- pnpm run check
+- pnpm run test
+- Check the package.json for other commands
 
-## Testing Guidelines
+# Security
 
-Vitest uses `jsdom`, globals, and setup from `src/test/setup/vitest-setup.ts`; coverage uses V8 and writes to `coverage/`. Follow `docs/unit-testing-rules.md` for classes, services, and utilities, and `docs/component-testing-rules.md` for Svelte UI tests. Prefer TDD for behavior changes: add a focused failing test, implement the fix, then run the relevant tests plus `pnpm lint` and `pnpm check`.
+## Security Practices
 
-## Commit & Pull Request Guidelines
+- Never commit sensitive files
+- Use environment variables for secrets
+- Keep credentials out of logs and output
 
-History follows Conventional Commits, for example `feat: mint independent Supabase session` and `fix: address PR review issues`. Branch from the active `dev-vX.Y.Z` branch; reserve `main` for releases. PRs should target the active dev branch, describe behavior changes, list validation commands, link issues when applicable, and include screenshots or recordings for visible UI changes.
+# Tech Stack Rules
 
-## Security & Configuration Tips
+## Framework & Core Technologies
 
-Never commit GitHub tokens, Supabase secrets, API keys, or generated credential files. Keep Chrome extension permissions minimal and update `manifest.json` deliberately. Make degraded auth, sync, and network states visible in UI or logs.
+- Use Svelte v4.2.x for components
+- Use TypeScript v5.6.x for all .ts and .svelte files
+- Use Vite v4.5.x as build tool
+- Chrome Extension manifest v3 standards must be followed
+- ESM modules only (type: "module" in package.json)
+- Vitest v1.6.x for testing
+
+## TypeScript Standards
+
+- Strict mode is required
+- No implicit any types
+- Strict null checks enabled
+- Use type annotations for function parameters and returns
+- Follow the path aliases:
+  - Use $lib/\* for imports from src/lib
+- Chrome types must be included
+
+## Component Standards
+
+- All Svelte components must use TypeScript
+- Follow Svelte best practices for reactivity
+- Keep components focused and single-responsibility
+- Create modular components:
+  - Break down complex UIs into smaller, reusable components
+  - Extract repeated patterns into shared components
+  - Keep component dependencies minimal and explicit
+  - Use composition over inheritance
+  - Maintain clear component interfaces with proper prop types
+- Use Svelte's built-in state management
+- Props must be properly typed
+
+## Styling Standards
+
+- Use TailwindCSS for styling
+- Follow the custom theme system defined in tailwind.config.js
+- Use CSS variables for theme colors
+- Maintain dark mode compatibility
+- Use container queries appropriately
+- Follow the defined border radius system
+
+## Code Quality
+
+- ESLint rules must be followed:
+  - No unused variables (except prefixed with \_)
+  - Warn on any usage
+  - No console.log (only console.warn/error allowed)
+  - Follow svelte-eslint-parser rules with @typescript-eslint/parser
+- Prettier formatting is required:
+  - 2 space indentation
+  - Single quotes
+  - 100 character line length
+  - ES5 trailing commas
+  - Svelte-specific formatting with prettier-plugin-svelte
+
+## Build & Structure
+
+- Follow the defined Vite build configuration
+- Maintain separate background/content scripts
+- Use proper chunk splitting
+- Keep source maps in development
+- Assets must be in the assets directory
+- Follow the defined output structure
+
+## Dependencies
+
+- No conflicting Svelte versions
+- Keep dependencies up to date but pin versions
+- Prefer official Svelte integrations
+- Use bits-ui v0.21.x for UI components
+- Use lucide-svelte v0.460.x for icons
+- Maintain compatibility with @crxjs/vite-plugin v2.0.0-beta.x
+- Use fflate v0.8.x for compression
+- Use tailwind-merge v2.5.x and tailwind-variants v0.3.x for styling utilities
+
+## Performance
+
+- Minimize bundle sizes
+- Use proper code splitting
+- Optimize asset loading
+- Follow Chrome extension best practices for performance
+
+## Testing & Quality Assurance
+
+- Run svelte-check before commits
+- Ensure type checking passes
+- Fix all ESLint warnings
+- Format code before committing
+- Test in both light and dark modes
+- Use Vitest for unit testing
+- Ensure test coverage is collected
+- Follow the test naming convention: (/**tests**/.\*|(\\.|/)(test|spec))\\.tsx?$
+
+## Version Control
+
+- Follow semantic versioning
+- Keep pnpm-lock.yaml up to date (project uses pnpm)
+- Document breaking changes
+- Maintain a clean git history
+- Use Husky for git hooks
+- Use lint-staged for pre-commit linting and formatting
+
+## AI Agent Development
+
+- Do not stop until all type issues and unit tests are passing.
+
+- 
 
 ---
 > Source: [mamertofabian/bolt-to-github](https://github.com/mamertofabian/bolt-to-github) — distributed by [TomeVault](https://tomevault.io).
