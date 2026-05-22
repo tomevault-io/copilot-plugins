@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--mcp-flux-studio",
+  "displayName": "mcp-flux-studio",
+  "description": "A Model Context Protocol server for Flux image generation, providing tools for image generation, manipulation, and control",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/mcp-flux-studio",
+  "skills": []
+}
