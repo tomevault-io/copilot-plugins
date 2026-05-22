@@ -1,0 +1,9 @@
+{
+  "name": "mrgoonie--vidcap-mcp-server",
+  "displayName": "vidcap-mcp-server",
+  "description": "An MCP server to extract Youtube captions and summarize videos",
+  "version": "1.0.0",
+  "author": "mrgoonie",
+  "homepage": "https://github.com/mrgoonie/vidcap-mcp-server",
+  "skills": []
+}
