@@ -1,0 +1,42 @@
+{
+  "name": "thoughtpolice--a",
+  "displayName": "a",
+  "description": "Fun playground and adventure game",
+  "version": "1.0.0",
+  "author": "thoughtpolice",
+  "homepage": "https://github.com/thoughtpolice/a",
+  "skills": [
+    {
+      "name": "buck2-build-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "buck2-local-resources",
+      "description": ""
+    },
+    {
+      "name": "buck2-new-project",
+      "description": ""
+    },
+    {
+      "name": "buck2-target-determination",
+      "description": ""
+    },
+    {
+      "name": "buck2-test-workflow",
+      "description": ""
+    },
+    {
+      "name": "jj-clone-third-party",
+      "description": ""
+    },
+    {
+      "name": "jj-graft-third-party",
+      "description": ""
+    },
+    {
+      "name": "jj-workspace-experiments",
+      "description": ""
+    }
+  ]
+}
