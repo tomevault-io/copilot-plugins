@@ -1,343 +1,797 @@
-## events-page-filtering-display-rules
+## form-validation-styling
 
-> This rule defines the filtering logic, display rules, and "Buy Tickets" button/image display logic for the events listing page (`/events`). It ensures consistent event filtering, recurring event handling, and proper routing for ticket purchases.
+> Standard pattern for form validation styling, error display, and scroll-to-error functionality across all forms (ProfileForm, EventForm, etc.)
 
-# Events Page Filtering and Display Rules
+
+# Form Validation Styling Pattern
 
 ## **Overview**
-This rule defines the filtering logic, display rules, and "Buy Tickets" button/image display logic for the events listing page (`/events`). It ensures consistent event filtering, recurring event handling, and proper routing for ticket purchases.
+This rule defines the standard pattern for form validation styling, error display, and scroll-to-error functionality used across all forms in the application (ProfileForm, EventForm, etc.). This ensures consistent validation UX, error styling, and user feedback patterns.
 
 ## **Problem Solved**
-- **Consistent Event Filtering**: Ensures all events displayed meet specific criteria (active, date-based, recurring event handling)
-- **Buy Tickets Display Logic**: Determines when and how to show the "Buy Tickets" image/button
-- **Payment Flow Routing**: Routes users to the correct checkout page based on event payment configuration
-- **Recurring Event Handling**: Properly filters and displays recurring events showing only the next occurrence
+- **Consistent Validation UX**: Ensures all forms use the same validation styling and error display patterns
+- **Error Visibility**: Red borders, inline error messages, and error summary boxes provide clear feedback
+- **Scroll-to-Error**: Automatically navigates users to the first error field on validation failure
+- **Real-time Error Clearing**: Errors clear as users type, providing immediate feedback
+- **Immediate Field Validation**: Required fields validate on blur (when user clicks outside), showing errors immediately without waiting for form submission
+- **Professional Presentation**: Consistent error styling (red borders, red text, error icons) across all forms
 
----
+## **Core Pattern**
 
-## **Event Filtering Rules**
+### **1. State Management**
 
-### **1. Active Events Only**
-- **Rule**: Only events with `isActive === true` are displayed
-- **Backend Query**: `isActive.equals=true`
-- **Rationale**: Inactive events should not appear in public listings
+```tsx
+// ✅ DO: Add validation state and field refs
+import { useState, useRef } from "react";
+import { flushSync } from "react-dom";
 
-### **2. Date-Based Filtering**
+export default function FormComponent() {
+  // Error state management
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showErrors, setShowErrors] = useState(false);
 
-#### **Future Events (Default View)**
-- **Rule**: Show events where `startDate >= today` (including today)
-- **Backend Query**: `startDate.greaterThanOrEqual=today` (YYYY-MM-DD format)
-- **Sort Order**: `sort=startDate,asc` (earliest first)
-- **Display Logic**: Events happening today or in the future
+  // Refs for form fields to enable scroll-to-error functionality
+  const fieldRefs = useRef<Record<string, HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>>({});
 
-#### **Past Events (Toggle View)**
-- **Rule**: Show events where `endDate < today`
-- **Backend Query**: `endDate.lessThan=today` (YYYY-MM-DD format)
-- **Sort Order**: `sort=startDate,desc` (most recent first)
-- **Display Logic**: Events that have already ended
+  // ... rest of component
+}
+```
 
-#### **Date Range Search (Overrides Toggle)**
-- **Rule**: If user specifies date range, it overrides Future/Past toggle
-- **Backend Query**:
-  - `startDate.greaterThanOrEqual=searchDateFrom` (if provided)
-  - `startDate.lessThanOrEqual=searchDateTo` (if provided)
-- **Priority**: Date range search takes precedence over Future/Past toggle
+### **2. Scroll-to-Error Function**
 
-### **3. Title Search Filter**
-- **Rule**: Filter events by title containing search term (case-insensitive)
-- **Backend Query**: `title.contains=searchTitle` (trimmed, case-insensitive)
-- **Combines With**: Date filtering (both filters apply simultaneously)
-
-### **4. Recurring Event Handling**
-
-#### **Recurring Event Detection**
-- **Rule**: Event is considered recurring if `isRecurring === true`
-- **Series Identification**: Uses `recurrenceSeriesId` or `parentEventId` or `event.id` as series identifier
-
-#### **Next Occurrence Calculation**
-- **Rule**: Calculate next occurrence date using `getNextOccurrenceDate(event, todayDate)`
-- **Time Window**: Only show next occurrence if it's within 1 year from today
-- **Date Update**: Update event's `startDate` to next occurrence date for display purposes
-
-#### **Series Deduplication**
-- **Rule**: Only show one event per recurring series (the one with earliest next occurrence)
-- **Logic**:
-  - First event from series: Add to map
-  - Subsequent events from same series: Compare dates, keep earlier occurrence
-- **Skip Child Events**: Skip events with `parentEventId` or `recurrenceSeriesId` but `isRecurring === false`
-
-#### **Recurring Event Filtering Flow**
-```typescript
-// Process events and filter recurring events to show only next occurrence
-eventList.forEach((event) => {
-  if (isRecurringEvent(event)) {
-    const seriesId = event.recurrenceSeriesId || event.parentEventId || event.id;
-    const nextOccurrence = getNextOccurrenceDate(event, todayDate);
-
-    if (!nextOccurrence || nextOccurrence > oneYearFromNow) {
-      return; // Skip if no next occurrence or beyond 1 year
-    }
-
-    // Update event startDate to next occurrence
-    const eventWithNextOccurrence = { ...event, startDate: nextOccurrenceStr };
-
-    // Keep only earliest occurrence per series
-    const existingSeriesEvent = recurringSeriesMap.get(seriesId);
-    if (!existingSeriesEvent || nextOccurrence < new Date(existingSeriesEvent.startDate!)) {
-      recurringSeriesMap.set(seriesId, eventWithNextOccurrence);
-    }
-  } else {
-    // Skip child events (have parentEventId/recurrenceSeriesId but not recurring)
-    const seriesId = event.recurrenceSeriesId || event.parentEventId;
-    if (seriesId) {
-      return; // Skip child event
-    }
-    // Non-recurring event - add directly
-    processedEvents.push(event);
+```tsx
+// ✅ DO: Add scroll-to-first-error function
+const scrollToFirstError = (errorObj?: Record<string, string>) => {
+  // Use provided errors or fall back to state
+  const errorsToUse = errorObj || errors;
+  const firstErrorField = Object.keys(errorsToUse)[0];
+  if (firstErrorField && fieldRefs.current[firstErrorField]) {
+    const field = fieldRefs.current[firstErrorField];
+    // Scroll to field but DON'T focus it immediately
+    // This allows all fields to show red borders before focusing
+    field.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest'
+    });
+    // Delay focus slightly to ensure all fields have rendered with red borders
+    setTimeout(() => {
+      if (fieldRefs.current[firstErrorField]) {
+        fieldRefs.current[firstErrorField]?.focus();
+      }
+    }, 100);
   }
-});
+};
 ```
 
-### **5. Pagination**
-- **Backend Fetch Size**: `BACKEND_FETCH_SIZE = 50` (fetch more to account for filtering)
-- **Display Size**: `EVENTS_PAGE_SIZE = 20` (display 20 events per page after filtering)
-- **Rationale**: Fetch more events than displayed because recurring event filtering reduces count
+### **3. Error Count Helper**
 
----
-
-## **Buy Tickets Image/Button Display Rules**
-
-### **Display Conditions**
-
-#### **1. Event Must Be Ticketed**
-- **Rule**: `event.admissionType?.toUpperCase() === 'TICKETED'`
-- **Case Handling**: Case-insensitive check (handles 'TICKETED', 'ticketed', etc.)
-- **Rationale**: Only ticketed events should show Buy Tickets option
-
-#### **2. Event Must Be Upcoming**
-- **Rule**: Event date must be today or in the future
-- **Date Calculation**:
-  ```typescript
-  const today = new Date();
-  const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-  const eventDateStr = event.startDate?.split('T')[0]; // YYYY-MM-DD
-  const isToday = eventDateStr === todayStr;
-  const isFuture = eventDateStr > todayStr;
-  const isUpcomingLocal = isToday || isFuture;
-  ```
-- **Rationale**: Past events should not show Buy Tickets option
-
-#### **3. Combined Display Rule**
-```typescript
-const showBuyTicketsButton =
-  event.admissionType?.toUpperCase() === 'TICKETED' &&
-  isUpcomingLocal;
+```tsx
+// ✅ DO: Add helper function to get error count
+const getErrorCount = () => Object.keys(errors).length;
 ```
 
-### **Routing Logic**
+### **4. Validation Function**
 
-#### **Manual Payment Checkout Route**
-- **Condition**: Route to manual checkout if:
-  - `event.manualPaymentEnabled === true` AND
-  - (`event.paymentFlowMode === 'MANUAL_ONLY'` OR `event.paymentFlowMode === 'HYBRID'`)
-- **Route**: `/events/${eventId}/manual-checkout`
-- **Use Case**: Events configured for fee-free manual payments (Zelle, Venmo, etc.)
+```tsx
+// ✅ DO: Add validate() function with flushSync for immediate state updates
+function validate(): boolean {
+  const errs: Record<string, string> = {};
 
-#### **Stripe Checkout Route (Default)**
-- **Condition**: All other ticketed events
-- **Route**: `/events/${eventId}/checkout`
-- **Use Case**: Standard Stripe payment flow
+  // Required field validations
+  if (!formData.firstName || formData.firstName.trim() === '') {
+    errs.firstName = 'First name is required';
+  }
+  if (!formData.lastName || formData.lastName.trim() === '') {
+    errs.lastName = 'Last name is required';
+  }
+  if (!formData.email || formData.email.trim() === '') {
+    errs.email = 'Email is required';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+    errs.email = 'Please enter a valid email address';
+  }
 
-#### **Routing Implementation**
-```typescript
-const checkoutRoute =
-  event.manualPaymentEnabled === true &&
-  (event.paymentFlowMode === 'MANUAL_ONLY' || event.paymentFlowMode === 'HYBRID')
-    ? `/events/${eventId}/manual-checkout`
-    : `/events/${eventId}/checkout`;
+  // Additional validations (length, format, etc.)
+  if (formData.title && formData.title.length > 250) {
+    errs.title = 'Title must not exceed 250 characters';
+  }
+
+  // CRITICAL: Use flushSync to force immediate state update so red borders appear instantly
+  const hasErrors = Object.keys(errs).length > 0;
+
+  if (hasErrors) {
+    // Force synchronous state updates so fields show red borders immediately
+    flushSync(() => {
+      setErrors(errs);
+      setShowErrors(true);
+    });
+
+    // Scroll to first error field
+    scrollToFirstError(errs);
+  } else {
+    setErrors({});
+    setShowErrors(false);
+  }
+
+  return !hasErrors;
+}
 ```
 
-### **Image Specifications**
-- **Source**: `/images/buy_tickets_click_here_red.webp`
-- **Sizing**:
-  - Mobile: `w-[150px] h-[52px]`
-  - Desktop: `sm:w-[200px] sm:h-[70px]`
-- **Styling**: `object-contain` (maintains aspect ratio, no cropping)
-- **Hover Effect**: `hover:scale-105 transition-transform`
-- **Accessibility**: `title="Buy Tickets"` and `aria-label="Buy Tickets"`
+### **5. HandleChange Pattern (Error Clearing)**
 
-### **Display Locations**
+```tsx
+// ✅ DO: Clear errors when user starts typing
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const { name, value, type } = e.target;
+  const checked = (e.target as HTMLInputElement).checked;
 
-#### **1. Top Right Corner (Overlay on Event Image)**
-- **Position**: `absolute top-4 right-4 lg:top-6 lg:right-6 z-10`
-- **Layout**: Vertical stack if both Register and Buy Tickets buttons shown
-- **Condition**: Only shown if event is ticketed and upcoming
+  // Clear error for this field when user starts typing
+  if (errors[name]) {
+    setErrors(prev => {
+      const newErrors = { ...prev };
+      delete newErrors[name];
+      return newErrors;
+    });
+  }
 
-#### **2. Action Buttons Section (Bottom of Event Card)**
-- **Position**: After "See Event Details" button in action buttons flex container
-- **Layout**: Horizontal flex layout with other action buttons
-- **Condition**: Same as top-right (ticketed and upcoming)
-
----
-
-## **Complete Display Logic Flow**
-
-### **Step 1: Fetch Events**
-```typescript
-// Backend query parameters
-const queryParams = new URLSearchParams({
-  sort: showPastEvents ? 'startDate,desc' : 'startDate,asc',
-  page: page.toString(),
-  size: BACKEND_FETCH_SIZE.toString(), // 50
-  'isActive.equals': 'true',
-  // Date filter based on toggle or search
-  // Title filter if searchTitle provided
-});
+  // Update form data
+  setFormData((prev) => ({
+    ...prev,
+    [name]: type === 'checkbox' ? checked : (value || ''),
+  }));
+};
 ```
 
-### **Step 2: Process Recurring Events**
-```typescript
-// Filter recurring events to show only next occurrence
-// Group by series, keep earliest next occurrence
-// Skip child events
+### **6. Individual Field Validation (onBlur Pattern)**
+
+```tsx
+// ✅ DO: Create validateField function for individual field validation on blur
+const validateField = (fieldName: keyof ValidationErrors) => {
+  const newErrors: ValidationErrors = { ...errors };
+
+  switch (fieldName) {
+    case 'fieldName': {
+      if (!formData.fieldName?.trim()) {
+        newErrors.fieldName = 'Field name is required.';
+      } else {
+        delete newErrors.fieldName;
+      }
+      break;
+    }
+
+    case 'description': {
+      if (!formData.description?.trim()) {
+        newErrors.description = 'Description is required.';
+      } else {
+        delete newErrors.description;
+      }
+      break;
+    }
+
+    case 'price': {
+      if (Number(formData.price) <= 0) {
+        newErrors.price = 'Price must be greater than zero.';
+      } else {
+        delete newErrors.price;
+      }
+      break;
+    }
+
+    // Add more field validations as needed
+  }
+
+  setErrors(newErrors);
+};
 ```
 
-### **Step 3: Limit Display**
-```typescript
-// Limit to EVENTS_PAGE_SIZE (20) events after filtering
-const limitedProcessedEvents = processedEvents.slice(0, EVENTS_PAGE_SIZE);
+**Key Points:**
+- Use block scope (`{}`) for each case to prevent variable name conflicts
+- Validate required fields by checking if value is empty or whitespace
+- Clear errors when field becomes valid
+- Update errors state immediately for visual feedback
+
+### **7. HandleSubmit Pattern (Validation Before Submission)**
+
+```tsx
+// ✅ DO: Validate before submission and prevent default behavior
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  e.stopPropagation(); // Prevent browser default validation and scrolling
+
+  // CRITICAL: Always validate before submission
+  const isValid = validate();
+  if (!isValid) {
+    console.log('[FormComponent handleSubmit] Validation failed - preventing submission');
+    return; // Validation failed - prevent submission
+  }
+
+  console.log('[FormComponent handleSubmit] Validation passed - proceeding with submission');
+
+  // Clear any previous errors and hide error display
+  setErrors({});
+  setShowErrors(false);
+
+  // Proceed with form submission
+  // ... rest of submit logic
+};
 ```
 
-### **Step 4: Render Buy Tickets Button/Image**
-```typescript
-// For each event:
-// 1. Check if ticketed: event.admissionType?.toUpperCase() === 'TICKETED'
-// 2. Check if upcoming: isUpcomingLocal (today or future)
-// 3. Determine route: manual checkout or Stripe checkout
-// 4. Render image with appropriate route
+## **Field Styling Pattern**
+
+### **Input Fields with Error Styling**
+
+```tsx
+// ✅ DO: Use conditional error styling with refs and onBlur validation
+<input
+  ref={(el) => { if (el) fieldRefs.current.fieldName = el; }}
+  type="text"
+  id="fieldName"
+  name="fieldName"
+  value={formData.fieldName}
+  onChange={handleChange}
+  onBlur={() => validateField('fieldName')}
+  className={`mt-1 block w-full border rounded-xl focus:ring-blue-500 px-4 py-3 text-base ${
+    errors.fieldName
+      ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+      : 'border-gray-400 focus:border-blue-500'
+  }`}
+/>
+{errors.fieldName && (
+  <div className="text-red-500 text-sm mt-1">{errors.fieldName}</div>
+)}
 ```
 
----
+**Key Points:**
+- Add `onBlur={() => validateField('fieldName')}` to all required input fields
+- This provides immediate validation feedback when user clicks outside without entering a value
+- Red border appears immediately, not waiting for form submission
 
-## **EventDetailsDTO Fields Used**
+### **Textarea Fields with Error Styling**
 
-### **Filtering Fields**
-- `isActive?: boolean` - Must be `true` for event to display
-- `startDate: string` - Used for date filtering (YYYY-MM-DD format)
-- `endDate: string` - Used for past event filtering
-- `title: string` - Used for title search filtering
-- `isRecurring?: boolean` - Determines if event is recurring
-- `recurrenceSeriesId?: number` - Groups recurring events into series
-- `parentEventId?: number` - Identifies child events in recurring series
+```tsx
+// ✅ DO: Apply same error styling pattern to textareas with onBlur validation
+<textarea
+  ref={(el) => { if (el) fieldRefs.current.description = el; }}
+  name="description"
+  value={formData.description ?? ""}
+  onChange={handleChange}
+  onBlur={() => validateField('description')}
+  className={`w-full border rounded-xl focus:ring-blue-500 px-4 py-3 text-base ${
+    errors.description
+      ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+      : 'border-gray-400 focus:border-blue-500'
+  }`}
+  rows={3}
+/>
+{errors.description && (
+  <div className="text-red-500 text-sm mt-1">{errors.description}</div>
+)}
+```
 
-### **Buy Tickets Display Fields**
-- `admissionType?: string` - Must be 'TICKETED' (case-insensitive)
-- `startDate: string` - Used to determine if event is upcoming
-- `manualPaymentEnabled?: boolean` - Determines if manual payment is enabled
-- `paymentFlowMode?: 'STRIPE_ONLY' | 'MANUAL_ONLY' | 'HYBRID'` - Determines payment flow type
+**Key Points:**
+- Add `onBlur={() => validateField('fieldName')}` to all required fields
+- This provides immediate validation feedback when user clicks outside without entering a value
+- Red border appears immediately, not waiting for form submission
 
----
+### **Select Fields with Error Styling**
 
-## **Backend Query Parameters Reference**
+```tsx
+// ✅ DO: Apply same error styling pattern to selects
+<select
+  ref={(el) => { if (el) fieldRefs.current.eventType = el; }}
+  name="eventType"
+  value={formData.eventType?.id ?? ''}
+  onChange={handleChange}
+  className={`w-full border rounded p-2 ${
+    errors.eventType
+      ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+      : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+  }`}
+>
+  <option value="">Select option</option>
+  {/* options */}
+</select>
+{errors.eventType && (
+  <div className="text-red-500 text-sm mt-1">{errors.eventType}</div>
+)}
+```
 
-### **Standard Filters**
-- `isActive.equals=true` - Only active events
-- `startDate.greaterThanOrEqual=YYYY-MM-DD` - Future events (including today)
-- `endDate.lessThan=YYYY-MM-DD` - Past events
-- `startDate.lessThanOrEqual=YYYY-MM-DD` - Date range end
-- `title.contains=searchTerm` - Title search (case-insensitive)
+## **Error Display Patterns**
 
-### **Sorting**
-- `sort=startDate,asc` - Future events (earliest first)
-- `sort=startDate,desc` - Past events (most recent first)
+### **Inline Error Messages**
 
-### **Pagination**
-- `page=0` - Page number (0-based)
-- `size=50` - Backend fetch size (fetch more than displayed)
+```tsx
+// ✅ DO: Display inline error messages below fields
+{errors.fieldName && (
+  <div className="text-red-500 text-sm mt-1">{errors.fieldName}</div>
+)}
+```
 
----
+### **Field-Level Error Box (For Complex Validation)**
 
-## **Auto-Switch Logic**
+```tsx
+// ✅ DO: Use error box for complex validation messages (optional)
+{errors.fieldName && (
+  <div className="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg">
+    <div className="flex items-start">
+      <svg className="w-5 h-5 text-red-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <p className="text-sm font-medium text-red-700">{errors.fieldName}</p>
+    </div>
+  </div>
+)}
+```
 
-### **Initial Load Behavior**
-- **Rule**: On initial load, check both future and past event counts
-- **Auto-Switch**: If `futureEventCount === 0` and `pastEventCount > 0`, automatically switch to past events view
-- **Rationale**: Better UX - show available events instead of empty future events list
+### **Error Summary Box (Above Submit Button)**
 
----
+```tsx
+// ✅ DO: Display error summary box above submit button
+{showErrors && getErrorCount() > 0 && (
+  <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+    <div className="flex items-start">
+      <div className="flex-shrink-0">
+        <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+        </svg>
+      </div>
+      <div className="ml-3">
+        <h3 className="text-sm font-medium text-red-800">
+          Please fix the following {getErrorCount()} error{getErrorCount() !== 1 ? 's' : ''}:
+        </h3>
+        <div className="mt-2 text-sm text-red-700">
+          <ul className="list-disc pl-5 space-y-1">
+            {Object.entries(errors).map(([fieldName, errorMessage]) => (
+              <li key={fieldName}>
+                <span className="font-medium capitalize">{fieldName.replace(/([A-Z])/g, ' $1').trim()}:</span> {errorMessage}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+```
+
+## **Tailwind CSS Classes Reference**
+
+### **Error State Classes**
+
+| Element | Normal State | Error State |
+|---------|-------------|-------------|
+| **Input Border** | `border-gray-400` | `border-red-500` |
+| **Input Focus Border** | `focus:border-blue-500` | `focus:border-red-500` |
+| **Input Focus Ring** | `focus:ring-blue-500` | `focus:ring-red-500` |
+| **Error Message Text** | — | `text-red-500 text-sm mt-1` |
+| **Error Box Background** | — | `bg-red-50` |
+| **Error Box Border** | — | `border border-red-200` or `border-red-300` |
+| **Error Box Text** | — | `text-red-700` or `text-red-800` |
+| **Error Icon** | — | `text-red-400` or `text-red-600` |
+
+### **Complete Class Sets**
+
+**Input Field (Normal):**
+```tsx
+className="mt-1 block w-full border border-gray-400 rounded-xl focus:border-blue-500 focus:ring-blue-500 px-4 py-3 text-base"
+```
+
+**Input Field (Error):**
+```tsx
+className="mt-1 block w-full border border-red-500 rounded-xl focus:border-red-500 focus:ring-red-500 px-4 py-3 text-base"
+```
+
+**Textarea Field (Normal):**
+```tsx
+className="w-full border border-gray-300 rounded p-2 focus:border-blue-500 focus:ring-blue-500"
+```
+
+**Textarea Field (Error):**
+```tsx
+className="w-full border border-red-500 rounded p-2 focus:border-red-500 focus:ring-red-500"
+```
+
+**Select Field (Normal):**
+```tsx
+className="w-full border border-gray-300 rounded p-2 focus:border-blue-500 focus:ring-blue-500"
+```
+
+**Select Field (Error):**
+```tsx
+className="w-full border border-red-500 rounded p-2 focus:border-red-500 focus:ring-red-500"
+```
+
+**Error Summary Box:**
+```tsx
+className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4"
+```
+
+**Inline Error Message:**
+```tsx
+className="text-red-500 text-sm mt-1"
+```
+
+**Error Box with Icon:**
+```tsx
+className="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg"
+```
+
+## **Key CSS Properties**
+
+### **Error State Border Colors**
+- **Normal**: `border-gray-400` or `border-gray-300`
+- **Error**: `border-red-500` (darker red for visibility)
+- **Focus Normal**: `focus:border-blue-500`
+- **Focus Error**: `focus:border-red-500`
+
+### **Error State Ring Colors**
+- **Normal**: `focus:ring-blue-500`
+- **Error**: `focus:ring-red-500`
+
+### **Error Message Styling**
+- **Text Color**: `text-red-500` (inline) or `text-red-700` (error box)
+- **Text Size**: `text-sm` (small, non-intrusive)
+- **Margin**: `mt-1` (spacing above message)
+
+### **Error Summary Box Styling**
+- **Background**: `bg-red-50` (light red background)
+- **Border**: `border border-red-200` (subtle red border)
+- **Padding**: `p-4` (comfortable spacing)
+- **Margin**: `mb-4` (spacing before submit button)
+- **Border Radius**: `rounded-lg` (rounded corners)
+
+### **Error Icon Styling**
+- **Size**: `w-5 h-5` (20px × 20px)
+- **Color**: `text-red-400` (summary box) or `text-red-600` (field-level error box)
+- **Position**: `flex-shrink-0` (prevents icon from shrinking)
+
+## **Complete Example**
+
+### **Full Form Component with Validation**
+
+```tsx
+"use client";
+
+import { useState, useRef } from "react";
+import { flushSync } from "react-dom";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export default function FormComponent() {
+  // State management
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showErrors, setShowErrors] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Refs for scroll-to-error
+  const fieldRefs = useRef<Record<string, HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>>({});
+
+  // Scroll to first error
+  const scrollToFirstError = (errorObj?: Record<string, string>) => {
+    const errorsToUse = errorObj || errors;
+    const firstErrorField = Object.keys(errorsToUse)[0];
+    if (firstErrorField && fieldRefs.current[firstErrorField]) {
+      const field = fieldRefs.current[firstErrorField];
+      field.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest'
+      });
+      setTimeout(() => {
+        if (fieldRefs.current[firstErrorField]) {
+          fieldRefs.current[firstErrorField]?.focus();
+        }
+      }, 100);
+    }
+  };
+
+  // Error count helper
+  const getErrorCount = () => Object.keys(errors).length;
+
+  // Validation function
+  function validate(): boolean {
+    const errs: Record<string, string> = {};
+
+    if (!formData.firstName || formData.firstName.trim() === '') {
+      errs.firstName = 'First name is required';
+    }
+    if (!formData.lastName || formData.lastName.trim() === '') {
+      errs.lastName = 'Last name is required';
+    }
+    if (!formData.email || formData.email.trim() === '') {
+      errs.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      errs.email = 'Please enter a valid email address';
+    }
+
+    const hasErrors = Object.keys(errs).length > 0;
+
+    if (hasErrors) {
+      flushSync(() => {
+        setErrors(errs);
+        setShowErrors(true);
+      });
+      scrollToFirstError(errs);
+    } else {
+      setErrors({});
+      setShowErrors(false);
+    }
+
+    return !hasErrors;
+  }
+
+  // Handle change (clear errors)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Handle submit (validate first)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const isValid = validate();
+    if (!isValid) {
+      return;
+    }
+
+    setErrors({});
+    setShowErrors(false);
+
+    setLoading(true);
+    // ... submit logic
+    setLoading(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl mx-auto p-4">
+      {/* First Name Field */}
+      <div>
+        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+          First Name *
+        </label>
+        <input
+          ref={(el) => { if (el) fieldRefs.current.firstName = el; }}
+          type="text"
+          id="firstName"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          className={`mt-1 block w-full border rounded-xl focus:ring-blue-500 px-4 py-3 text-base ${
+            errors.firstName
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-400 focus:border-blue-500'
+          }`}
+        />
+        {errors.firstName && (
+          <div className="text-red-500 text-sm mt-1">{errors.firstName}</div>
+        )}
+      </div>
+
+      {/* Last Name Field */}
+      <div>
+        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+          Last Name *
+        </label>
+        <input
+          ref={(el) => { if (el) fieldRefs.current.lastName = el; }}
+          type="text"
+          id="lastName"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          className={`mt-1 block w-full border rounded-xl focus:ring-blue-500 px-4 py-3 text-base ${
+            errors.lastName
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-400 focus:border-blue-500'
+          }`}
+        />
+        {errors.lastName && (
+          <div className="text-red-500 text-sm mt-1">{errors.lastName}</div>
+        )}
+      </div>
+
+      {/* Email Field */}
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          Email *
+        </label>
+        <input
+          ref={(el) => { if (el) fieldRefs.current.email = el; }}
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className={`mt-1 block w-full border rounded-xl focus:ring-blue-500 px-4 py-3 text-base ${
+            errors.email
+              ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+              : 'border-gray-400 focus:border-blue-500'
+          }`}
+        />
+        {errors.email && (
+          <div className="text-red-500 text-sm mt-1">{errors.email}</div>
+        )}
+      </div>
+
+      {/* Error Summary Box */}
+      {showErrors && getErrorCount() > 0 && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+          <div className="flex items-start">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-red-800">
+                Please fix the following {getErrorCount()} error{getErrorCount() !== 1 ? 's' : ''}:
+              </h3>
+              <div className="mt-2 text-sm text-red-700">
+                <ul className="list-disc pl-5 space-y-1">
+                  {Object.entries(errors).map(([fieldName, errorMessage]) => (
+                    <li key={fieldName}>
+                      <span className="font-medium capitalize">{fieldName.replace(/([A-Z])/g, ' $1').trim()}:</span> {errorMessage}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Submit Button */}
+      <div className="flex justify-end pt-4">
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? "Saving..." : "Save"}
+        </button>
+      </div>
+    </form>
+  );
+}
+```
 
 ## **Best Practices**
 
 ### **DO:**
-- ✅ Always check `isActive === true` before displaying events
-- ✅ Use case-insensitive check for `admissionType` (`toUpperCase()`)
-- ✅ Compare dates as strings (YYYY-MM-DD) to avoid timezone issues
-- ✅ Handle recurring events by showing only next occurrence
-- ✅ Route to manual checkout when `manualPaymentEnabled === true` AND (`MANUAL_ONLY` or `HYBRID`)
-- ✅ Fetch more events from backend (`BACKEND_FETCH_SIZE = 50`) than displayed (`EVENTS_PAGE_SIZE = 20`) to account for filtering
-- ✅ Use `getNextOccurrenceDate()` utility for recurring event date calculation
-- ✅ Skip child events (have `parentEventId`/`recurrenceSeriesId` but `isRecurring === false`)
+- ✅ Always use `flushSync` in `validate()` for immediate state updates
+- ✅ Always call `scrollToFirstError()` after setting errors
+- ✅ Always clear errors in `handleChange` when user starts typing
+- ✅ Always validate before submission in `handleSubmit`
+- ✅ **Always add `onBlur={() => validateField('fieldName')}` to required fields** for immediate validation feedback
+- ✅ **Create `validateField()` function** to validate individual fields on blur
+- ✅ Always add refs to form fields for scroll-to-error
+- ✅ Always display inline error messages below fields
+- ✅ Always show error summary box when `showErrors && getErrorCount() > 0`
+- ✅ Use consistent error styling: `border-red-500`, `text-red-500`
+- ✅ Use `e.preventDefault()` and `e.stopPropagation()` in `handleSubmit`
+- ✅ Remove `required` attributes (use custom validation instead)
+- ✅ Use block scope (`{}`) in switch cases to prevent variable name conflicts
 
 ### **DON'T:**
-- ❌ Don't display inactive events (`isActive === false`)
-- ❌ Don't show Buy Tickets for non-ticketed events
-- ❌ Don't show Buy Tickets for past events
-- ❌ Don't parse dates with `new Date()` for comparison (use string comparison)
-- ❌ Don't show multiple events from the same recurring series
-- ❌ Don't show child events in recurring series
-- ❌ Don't route to manual checkout if `paymentFlowMode === 'STRIPE_ONLY'`
-- ❌ Don't route to manual checkout if `manualPaymentEnabled === false`
+- ❌ Don't use browser default validation (`required` attribute)
+- ❌ Don't skip `flushSync` in validation (causes delayed error display)
+- ❌ Don't skip `scrollToFirstError` after validation failure
+- ❌ **Don't skip `onBlur` validation** on required fields (users should see errors immediately when clicking outside)
+- ❌ Don't forget to add refs to form fields
+- ❌ Don't use inconsistent error colors (always use `red-500` for borders, `red-500` for text)
+- ❌ Don't skip error clearing in `handleChange`
+- ❌ Don't skip validation in `handleSubmit`
+- ❌ Don't use different error summary box styling
+- ❌ Don't declare variables with the same name in different switch cases without block scope (`{}`)
 
----
+## **Common Validation Patterns**
+
+### **Required Field Validation**
+```tsx
+if (!formData.fieldName || formData.fieldName.trim() === '') {
+  errs.fieldName = 'Field name is required';
+}
+```
+
+### **Email Format Validation**
+```tsx
+if (!formData.email || formData.email.trim() === '') {
+  errs.email = 'Email is required';
+} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+  errs.email = 'Please enter a valid email address';
+}
+```
+
+### **Length Validation**
+```tsx
+if (formData.title && formData.title.length > 250) {
+  errs.title = 'Title must not exceed 250 characters';
+}
+```
+
+### **Date Validation (Future Date)**
+```tsx
+const today = new Date();
+const todayStr = today.getFullYear() + '-' +
+  String(today.getMonth() + 1).padStart(2, '0') + '-' +
+  String(today.getDate()).padStart(2, '0');
+
+if (formData.startDate && formData.startDate < todayStr) {
+  errs.startDate = 'Start date must be today or in the future';
+}
+```
 
 ## **Reference Implementations**
 
-- **Events Listing Page**: [`src/app/events/page.tsx`](mdc:src/app/events/page.tsx) - Lines 88-327 (fetching/filtering), Lines 1049-1116 (top-right Buy Tickets), Lines 1352-1396 (action buttons Buy Tickets)
-- **Event Details Page**: [`src/app/events/[id]/page.tsx`](mdc:src/app/events/[id]/page.tsx) - Lines 513-577 (Buy Tickets display logic)
-- **Recurring Event Utilities**: [`src/lib/eventUtils.ts`](mdc:src/lib/eventUtils.ts) - `isRecurringEvent()` and `getNextOccurrenceDate()` functions
-- **EventDetailsDTO**: [`src/types/index.ts`](mdc:src/types/index.ts) - EventDetailsDTO interface definition
-
----
+- **ProfileForm**: [`src/components/ProfileForm.tsx`](mdc:src/components/ProfileForm.tsx) - Lines 120-234 (validation pattern), Lines 490-550 (field styling), Lines 789-810 (error summary box)
+- **EventForm**: [`src/components/EventForm.tsx`](mdc:src/components/EventForm.tsx) - Lines 80-236 (validation pattern), Lines 994-1200 (field styling), Lines 1786-1810 (error summary box)
+- **TicketTypeListClient**: [`src/app/admin/events/[id]/ticket-types/list/TicketTypeListClient.tsx`](mdc:src/app/admin/events/[id]/ticket-types/list/TicketTypeListClient.tsx) - Lines 314-391 (validateField function with onBlur validation), Lines 715-725 (textarea with onBlur), Lines 810-867 (input fields with onBlur)
 
 ## **Troubleshooting**
 
-### **Events Not Showing?**
-- Check `isActive` field - must be `true`
-- Check date filtering - verify `startDate`/`endDate` values
-- Check recurring event logic - ensure next occurrence is calculated correctly
-- Verify backend query parameters match filtering rules
+### **Errors Not Showing Red Borders?**
+- Check that `flushSync` is used in `validate()`
+- Verify `errors[fieldName]` is being checked in className
+- Ensure error state is set before render
 
-### **Buy Tickets Not Showing?**
-- Verify `admissionType === 'TICKETED'` (case-insensitive)
-- Check event date - must be today or future (`isUpcomingLocal === true`)
-- Verify `startDate` is present and valid
+### **Scroll-to-Error Not Working?**
+- Verify refs are added to all form fields
+- Check that `scrollToFirstError()` is called after `flushSync`
+- Ensure field names match between `fieldRefs` and error keys
 
-### **Wrong Checkout Route?**
-- Check `manualPaymentEnabled` - must be `true` for manual checkout
-- Check `paymentFlowMode` - must be `'MANUAL_ONLY'` or `'HYBRID'` for manual checkout
-- Verify routing logic matches the rules above
+### **Errors Not Clearing on Type?**
+- Verify `handleChange` clears errors when user types
+- Check that field `name` matches error key
 
-### **Recurring Events Showing Multiple Times?**
-- Check `recurrenceSeriesId` or `parentEventId` grouping logic
-- Verify `getNextOccurrenceDate()` is calculating correctly
-- Ensure child events are being skipped
+### **Error Summary Box Not Showing?**
+- Verify `showErrors` is set to `true` in `validate()`
+- Check that `getErrorCount() > 0` condition is met
+- Ensure error summary box is placed above submit button
 
----
+## **Related Patterns**
+
+- See [Dialog Button Styling](mdc:.cursor/rules/dialog_button_styling.mdc) for button styling patterns
+- See [Icon Standards](mdc:.cursor/rules/icon_standards.mdc) for error icon patterns
+- See [MOSC Styling Standards](mdc:.cursor/rules/mosc_styling_standards.mdc) for overall design system
 
 ## **Summary**
 
-**Key Rules**:
-1. **Active Events Only**: `isActive === true`
-2. **Date Filtering**: Future (`startDate >= today`) or Past (`endDate < today`)
-3. **Recurring Events**: Show only next occurrence within 1 year, one per series
-4. **Buy Tickets Display**: `admissionType === 'TICKETED'` AND event is upcoming (today or future)
-5. **Buy Tickets Routing**: Manual checkout if `manualPaymentEnabled === true` AND (`MANUAL_ONLY` or `HYBRID`), otherwise Stripe checkout
+**Key Pattern**: Forms should always:
+1. Use `errors`, `showErrors`, and `fieldRefs` state
+2. Validate before submission with `validate()` function
+3. **Create `validateField()` function** for individual field validation on blur
+4. **Add `onBlur={() => validateField('fieldName')}` to all required fields** for immediate feedback
+5. Use `flushSync` for immediate error state updates
+6. Scroll to first error with `scrollToFirstError()`
+7. Display inline errors below fields (`text-red-500 text-sm mt-1`)
+8. Show error summary box above submit button
+9. Clear errors in `handleChange` when user types
+10. Use consistent error styling: `border-red-500`, `text-red-500`, `bg-red-50`
+11. Use block scope (`{}`) in switch cases to prevent variable name conflicts
 
-**Display Locations**:
-- Top-right corner overlay on event image
-- Action buttons section at bottom of event card
+**onBlur Validation Pattern**: When a user clicks on a required field and then clicks outside without entering a value, the validation error should be shown immediately with a red border and error message. This provides instant feedback without waiting for form submission.
 
-This ensures consistent, predictable event filtering and Buy Tickets functionality across the application.
+This ensures consistent, professional validation UX across all forms in the application.
 
 ---
 > Source: [giventadevelop/md-strikers](https://github.com/giventadevelop/md-strikers) — distributed by [TomeVault](https://tomevault.io).
