@@ -1,345 +1,260 @@
-## html-css
+## javascript-typescript
 
-> HTML和CSS语言特定规则
+> JavaScript和TypeScript语言特定规则
 
 
-# HTML和CSS语言特定规则
+# JavaScript和TypeScript语言特定规则
 
-基于awesome-cursorrules的HTML/CSS最佳实践。
+基于awesome-cursorrules的JavaScript/TypeScript最佳实践。
 
-## HTML最佳实践
+## TypeScript最佳实践
 
-### 语义化HTML
-```html
-<!-- 使用语义化标签 -->
-<header>
-  <nav>
-    <ul>
-      <li><a href="/">首页</a></li>
-      <li><a href="/about">关于</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <article>
-    <header>
-      <h1>文章标题</h1>
-      <time datetime="2024-01-01">2024年1月1日</time>
-    </header>
-    <section>
-      <p>文章内容...</p>
-    </section>
-  </article>
-</main>
-
-<footer>
-  <p>&copy; 2024 公司名称</p>
-</footer>
-```
-
-### 可访问性
-```html
-<!-- 添加适当的ARIA标签 -->
-<button aria-label="关闭对话框" aria-expanded="false">
-  <span aria-hidden="true">&times;</span>
-</button>
-
-<!-- 表单标签关联 -->
-<label for="email">邮箱地址</label>
-<input type="email" id="email" name="email" required>
-
-<!-- 图片alt属性 -->
-<img src="hero.jpg" alt="产品展示图" loading="lazy">
-```
-
-### 性能优化
-```html
-<!-- 预加载关键资源 -->
-<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin>
-
-<!-- 延迟加载非关键资源 -->
-<script src="analytics.js" defer></script>
-
-<!-- 响应式图片 -->
-<picture>
-  <source media="(min-width: 768px)" srcset="large.jpg">
-  <source media="(min-width: 480px)" srcset="medium.jpg">
-  <img src="small.jpg" alt="响应式图片">
-</picture>
-```
-
-## CSS最佳实践
-
-### 现代CSS特性
-```css
-/* 使用CSS自定义属性 */
-:root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --font-family: 'Inter', sans-serif;
-  --border-radius: 8px;
-  --spacing-unit: 1rem;
+### 类型注解
+```typescript
+// 函数类型注解
+function processData(data: string[]): Promise<ProcessedData> {
+  // 实现
 }
 
-/* 使用Grid布局 */
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-unit);
+// 接口定义
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  isActive?: boolean;
 }
 
-/* 使用Flexbox */
-.flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+// 泛型使用
+function createApiResponse<T>(data: T, success: boolean): ApiResponse<T> {
+  return { data, success, timestamp: Date.now() };
 }
 ```
 
-### 响应式设计
-```css
-/* 移动优先的响应式设计 */
-.card {
-  padding: 1rem;
-  margin-bottom: 1rem;
+### React组件规范
+```typescript
+import React, { FC, useState, useEffect } from 'react';
+
+interface ComponentProps {
+  title: string;
+  onAction: (value: string) => void;
+  children?: React.ReactNode;
 }
 
-/* 平板设备 */
-@media (min-width: 768px) {
-  .card {
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-}
-
-/* 桌面设备 */
-@media (min-width: 1024px) {
-  .card {
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
-}
-```
-
-### CSS架构
-```css
-/* 使用BEM命名规范 */
-.button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.button--primary {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.button--primary:hover {
-  background-color: color-mix(in srgb, var(--primary-color) 80%, black);
-}
-
-.button--large {
-  padding: 0.75rem 1.5rem;
-  font-size: 1.125rem;
-}
-
-.button__icon {
-  margin-right: 0.5rem;
-}
-```
-
-### 性能优化
-```css
-/* 使用transform和opacity进行动画 */
-.animate {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.animate:hover {
-  transform: translateY(-2px);
-  opacity: 0.8;
-}
-
-/* 避免重排和重绘 */
-.optimized {
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-/* 使用contain属性优化渲染 */
-.isolated {
-  contain: layout style paint;
-}
-```
-
-## SCSS/Sass最佳实践
-
-### 变量和混入
-```scss
-// 变量定义
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$breakpoints: (
-  mobile: 480px,
-  tablet: 768px,
-  desktop: 1024px
-);
-
-// 混入定义
-@mixin button-style($bg-color, $text-color: white) {
-  background-color: $bg-color;
-  color: $text-color;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+const MyComponent: FC<ComponentProps> = ({ title, onAction, children }) => {
+  const [state, setState] = useState<string>('');
   
-  &:hover {
-    background-color: darken($bg-color, 10%);
+  useEffect(() => {
+    // 副作用处理
+  }, []);
+  
+  return (
+    <div>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+## 代码组织
+
+### 目录结构
+```
+src/
+  components/
+    ui/
+      Button.tsx
+      Input.tsx
+    forms/
+      LoginForm.tsx
+  hooks/
+    useApi.ts
+    useLocalStorage.ts
+  services/
+    api.ts
+    auth.ts
+  types/
+    index.ts
+    api.ts
+  utils/
+    helpers.ts
+    constants.ts
+  pages/
+    Home.tsx
+    Profile.tsx
+```
+
+### 导入/导出规范
+```typescript
+// 优先使用命名导出
+export const utilityFunction = () => {};
+export const CONSTANT_VALUE = 'value';
+
+// 默认导出用于主要组件
+export default MyComponent;
+
+// 导入顺序：第三方库 -> 内部模块 -> 相对路径
+import React from 'react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/Button';
+import { apiService } from '@/services/api';
+import './styles.css';
+```
+
+## 错误处理
+
+```typescript
+// 异步函数错误处理
+async function fetchUserData(id: string): Promise<User | null> {
+  try {
+    const response = await api.get(`/users/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('获取用户数据失败:', error);
+    return null;
   }
 }
 
-// 使用混入
-.primary-button {
-  @include button-style($primary-color);
-}
+// 类型安全的错误处理
+type ApiError = {
+  message: string;
+  code: number;
+};
 
-.secondary-button {
-  @include button-style($secondary-color);
+function handleApiError(error: unknown): ApiError {
+  if (error instanceof Error) {
+    return { message: error.message, code: 500 };
+  }
+  return { message: '未知错误', code: 500 };
 }
 ```
 
-### 嵌套和模块化
-```scss
-// 组件样式
-.card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+## 性能优化
+
+### React性能优化
+```typescript
+// 使用React.memo优化重渲染
+const ExpensiveComponent = React.memo<Props>(({ data }) => {
+  return <div>{/* 渲染逻辑 */}</div>;
+});
+
+// 使用useMemo缓存计算结果
+const expensiveValue = useMemo(() => {
+  return computeExpensiveValue(data);
+}, [data]);
+
+// 使用useCallback缓存函数
+const handleClick = useCallback((id: string) => {
+  onItemClick(id);
+}, [onItemClick]);
+```
+
+### 代码分割
+```typescript
+// 懒加载组件
+const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
+// 使用Suspense包装
+<Suspense fallback={<Loading />}>
+  <LazyComponent />
+</Suspense>
+```
+
+## 测试规范
+
+```typescript
+// 使用Jest和React Testing Library
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MyComponent } from './MyComponent';
+
+describe('MyComponent', () => {
+  it('应该正确渲染标题', () => {
+    render(<MyComponent title="测试标题" onAction={jest.fn()} />);
+    expect(screen.getByText('测试标题')).toBeInTheDocument();
+  });
   
-  &__header {
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
+  it('应该处理点击事件', () => {
+    const mockOnAction = jest.fn();
+    render(<MyComponent title="测试" onAction={mockOnAction} />);
     
-    &-title {
-      margin: 0;
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-  }
-  
-  &__body {
-    padding: 1rem;
-  }
-  
-  &__footer {
-    padding: 1rem;
-    background: #f8f9fa;
-    border-top: 1px solid #eee;
-  }
-  
-  // 响应式设计
-  @media (min-width: map-get($breakpoints, tablet)) {
-    &__header,
-    &__body,
-    &__footer {
-      padding: 1.5rem;
-    }
+    fireEvent.click(screen.getByRole('button'));
+    expect(mockOnAction).toHaveBeenCalledWith('expected-value');
+  });
+});
+```
+
+## 代码质量
+
+### ESLint配置
+```json
+{
+  "extends": [
+    "@typescript-eslint/recommended",
+    "react-hooks/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
 ```
 
-## 工具类CSS
+### 命名规范
+- 组件：PascalCase (`MyComponent`)
+- 函数/变量：camelCase (`handleClick`)
+- 常量：UPPER_SNAKE_CASE (`API_BASE_URL`)
+- 接口：PascalCase，前缀I (`IUserData`)
+- 类型：PascalCase (`UserData`)
 
-```css
-/* 实用工具类 */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+## 现代JavaScript特性
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
+```typescript
+// 使用可选链和空值合并
+const userName = user?.profile?.name ?? '未知用户';
 
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
+// 使用解构赋值
+const { id, name, email } = user;
 
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
+// 使用模板字符串
+const message = `欢迎 ${name}，您的ID是 ${id}`;
 
-.d-flex { display: flex; }
-.d-grid { display: grid; }
-.d-none { display: none; }
-
-@media (min-width: 768px) {
-  .d-md-block { display: block; }
-  .d-md-flex { display: flex; }
-}
+// 使用箭头函数
+const users = data.map(user => ({
+  ...user,
+  displayName: `${user.firstName} ${user.lastName}`
+}));
 ```
 
-## 现代CSS特性
+## 异步处理
 
-```css
-/* CSS Grid高级用法 */
-.grid-layout {
-  display: grid;
-  grid-template-areas: 
-    "header header"
-    "sidebar main"
-    "footer footer";
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-}
-
-.header { grid-area: header; }
-.sidebar { grid-area: sidebar; }
-.main { grid-area: main; }
-.footer { grid-area: footer; }
-
-/* CSS自定义属性动画 */
-@property --progress {
-  syntax: '<percentage>';
-  initial-value: 0%;
-  inherits: false;
-}
-
-.progress-bar {
-  --progress: 0%;
-  background: linear-gradient(90deg, #007bff var(--progress), #eee var(--progress));
-  transition: --progress 0.3s ease;
-}
-
-/* 容器查询 */
-.card {
-  container-type: inline-size;
-}
-
-@container (min-width: 300px) {
-  .card__content {
-    display: flex;
-    flex-direction: row;
+```typescript
+// 使用async/await
+async function loadData() {
+  try {
+    const [users, posts] = await Promise.all([
+      fetchUsers(),
+      fetchPosts()
+    ]);
+    return { users, posts };
+  } catch (error) {
+    console.error('加载数据失败:', error);
+    throw error;
   }
 }
+
+// 使用Promise.allSettled处理多个异步操作
+const results = await Promise.allSettled([
+  fetchUsers(),
+  fetchPosts(),
+  fetchComments()
+]);
+
+const successfulResults = results
+  .filter(result => result.status === 'fulfilled')
+  .map(result => result.value);
 ```
 
 ---
