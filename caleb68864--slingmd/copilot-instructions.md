@@ -1,60 +1,82 @@
-## exception-handling
+## markdown-elements
 
-> Enforces using System.Exception instead of just Exception in catch blocks
+> description: Cursor positioning rules for Markdown elements
 
-
-# Exception Handling Standards
-
-Enforces using fully qualified `System.Exception` instead of just `Exception` in catch blocks to avoid ambiguity.
+---
+description: Cursor positioning rules for Markdown elements
+globs: *.md
+---
+# Markdown Element Rules
 
 <rule>
-name: exception_handling_standards
-description: Enforces using System.Exception instead of just Exception in catch blocks
-
+name: markdown_cursor_rules
+description: Specific rules for cursor positioning with Markdown elements
 filters:
   - type: file_extension
-    pattern: "\\.cs$"
+    pattern: "\\.md$"
   - type: content
-    pattern: "catch\\s*\\(\\s*Exception\\s*\\)"
+    pattern: "(#|\\*|\\-|>|```|\\[|\\!\\[)"
 
 actions:
   - type: suggest
-    conditions:
-      - pattern: "catch\\s*\\(\\s*Exception\\s*\\)"
-        message: |
-          Use fully qualified System.Exception instead of just Exception to avoid ambiguity:
-          ```csharp
-          // Instead of:
-          catch (Exception)
-          
-          // Use:
-          catch (System.Exception)
-          ```
+    message: |
+      When working with Markdown elements:
+
+      1. Headers:
+         - Place cursor after header creation
+         - Leave one blank line after headers
+         - Use consistent header levels
+
+      2. Lists:
+         - Position cursor at list end for continuation
+         - Maintain consistent indentation
+         - Leave blank line before and after lists
+         - Use same list marker style
+
+      3. Links and References:
+         - Place cursor after link completion
+         - Use descriptive link text
+         - Group related links together
+
+      4. Code Blocks:
+         - Leave blank lines around code blocks
+         - Include language specification
+         - Maintain consistent indentation
+         - Position cursor at code block end
+
+      5. Emphasis and Formatting:
+         - Use consistent emphasis style
+         - Place cursor after formatting completion
+         - Keep formatting markers close to text
+
+      6. Tables:
+         - Align table columns consistently
+         - Position cursor at logical next cell
+
+      7. Quotes:
+         - Leave blank lines around blockquotes
+         - Maintain quote marker alignment
+         - Position cursor after quote completion
+
+      8. Images:
+         - Include alt text for accessibility
+         - Group related images together
+         - Place cursor after image insertion
 
 examples:
   - input: |
-      try
-      {
-          // Some code
-      }
-      catch (Exception)
-      {
-          // Handle error
-      }
-    output: |
-      try
-      {
-          // Some code
-      }
-      catch (System.Exception)
-      {
-          // Handle error
-      }
+      # Header|
+      Content  # Bad - no blank line after header
+      
+      # Header
+      |
+      Content  # Good - proper spacing and cursor position
+    output: "Properly formatted Markdown with correct cursor positioning"
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [Caleb68864/SlingMD](https://github.com/Caleb68864/SlingMD) — distributed by [TomeVault](https://tomevault.io).
