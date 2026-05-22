@@ -1,8 +1,45 @@
-## tmux-running
+## virtualenv-guidelines
 
-> tmux_gemini_standalone.py should always be run from the ./scripts directory. Before it's being run, check if it's running, and don't run it again unless it's mandatory (e.g. change in configuration).
+> Every time Cursor needs to run a script from our project
 
-tmux_gemini_standalone.py should always be run from the ./scripts directory. Before it's being run, check if it's running, and don't run it again unless it's mandatory (e.g. change in configuration).
+# Python Virtual Environment Guidelines
+
+## Running Backend Scripts
+
+All scripts for the backend should be run using the local virtual environment located at:
+- [luma-automator/backend/venv](mdc:luma-automator/backend/venv)
+
+### Usage Examples
+
+For running Python scripts:
+```bash
+./venv/bin/python script.py
+```
+
+For running Alembic database migrations:
+```bash
+./venv/bin/alembic upgrade head
+```
+
+For running other Python-based tools:
+```bash
+./venv/bin/pytest
+./venv/bin/mypy
+```
+
+Never run Python commands directly with system Python (`python` or `python3`). Always use the virtual environment to ensure consistent dependencies and avoid version conflicts.
+
+## Migration Guidelines
+
+When creating database migrations with Alembic:
+1. Create the migration using the virtual environment: `./venv/bin/alembic revision -m "migration_name"`
+2. Implement the migration logic in the generated file
+3. Apply the migration using the virtual environment: `./venv/bin/alembic upgrade head`
+
+## Model File References
+- [app/models.py](mdc:luma-automator/backend/app/models.py): Database models
+- [app/schemas.py](mdc:luma-automator/backend/app/schemas.py): Pydantic schemas
+- [alembic/env.py](mdc:luma-automator/backend/alembic/env.py): Alembic configuration
 
 ---
 > Source: [saharmor/simulatedev](https://github.com/saharmor/simulatedev) — distributed by [TomeVault](https://tomevault.io).
