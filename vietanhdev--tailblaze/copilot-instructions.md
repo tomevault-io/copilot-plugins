@@ -1,0 +1,21 @@
+## tailblaze
+
+> - Use NextJS + Pages layout.
+
+- Use NextJS + Pages layout.
+- This site is built as a static page.
+- Tailwind for styling.
+- Use pnpm as package manager.
+- The 'shadcn-ui' package is deprecated. Please use the 'shadcn' package instead:
+  npx shadcn@latest init
+- Add components like:
+```
+pnpm dlx shadcn@latest add card button dialog
+```
+- Think step by step. Create components then use them in the page.
+- Define and reuse types. Put all types in `./types`.
+- When you found a type defined in a component page, try to move it or reuse a type in `./types`. You can extend types to reuse as much as possible.
+
+---
+> Source: [vietanhdev/tailblaze](https://github.com/vietanhdev/tailblaze) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
