@@ -1,0 +1,9 @@
+{
+  "name": "pwittchen--spotify-cli-macos",
+  "displayName": "spotify-cli-macos",
+  "description": "A command line interface to Spotify on macOS",
+  "version": "1.0.0",
+  "author": "pwittchen",
+  "homepage": "https://github.com/pwittchen/spotify-cli-macos",
+  "skills": []
+}
