@@ -1,57 +1,136 @@
-## general
+## review
 
-> - If the first item in a list or sublist is `enabled: false`, ignore that section.
+> Rule applies to any Code Review tasks or goals
 
+```
 
-# General Coding Rules
+### Step 2: Conduct Review
+Analyze the file systematically using the code review questionnaire. Group findings by category for clarity:
+1. **Critical Issues**: Bugs, security vulnerabilities, performance problems
+2. **Code Quality**: Hard-coded values, duplication, structure issues
+3. **Best Practices**: Pattern improvements, TypeScript usage, NextJS conventions
+4. **Accessibility & UX**: User experience and accessibility improvements
+5. **Testing**: Missing or inadequate test coverage
 
-## Project Structure
+### Step 3: Create Tasks from Review Findings
+Transform review findings into actionable tasks in a separate file named `tasks.code-review.{filename}.MMDD.md` in the `project-documents/code-reviews` directory.  Create one such task file per reviewed file.  Add the file to the appropriate list in the review.{project}.{YYYYMMDD-nn}.md file, based on whether or not code review issues were present in the file.
 
-- If the first item in a list or sublist is `enabled: false`, ignore that section.
-- Always refer to `guide.ai-project.process` and follow links as appropriate.
-- For UI/UX tasks, always refer to `guide.ui-development.ai`.
-- General Project guidance is in `/project-documents/project-guides/`.
-- Relevant 3rd party tool and tech information is in `project-document/tool-guides`.
-- Information and tasks specific to a running project instance belong in `project-documents/our-project` within that instance.
-- **Canonical template development docs live in `project-artifacts/{template-name}-template/`**. Do not place source-of-truth feature/design docs under `templates/{template-name}/examples/our-project/`.
-- `templates/{template-name}/examples/our-project/` may be used for demo/example content only; it is deprecated for canonical documentation.
+### Step 4: Task Processing
+Process the task list according to Phase 3 and Phase 4 of the `guide.ai-project.process`:
 
-## MCP (Model Context Protocol)
+1. **Phase 3: Granularity and Clarity**
+   - Convert each review finding into clear, actionable tasks
+   - Ensure task scope is precise and narrow
+   - Include acceptance criteria
 
-- Always use context7 (if available) to locate current relevant documentation for specific technologies or tools in use.
-- Do not use smithery Toolbox (toolbox) for general tasks. Project manager will guide its use.
+2. **Phase 4: Expansion and Detailing**
+   - Add implementation details and subtasks
+   - Reference specific code locations
+   - Provide concrete examples where helpful
 
-## Code Structure
+Example task structure:
 
-- Keep source files to max 300 lines (excluding whitespace) when possible.
-- Keep functions & methods to max 50 lines (excluding whitespace) when possible.
-- Avoid hard-coded constants - declare a constant.
-- Avoid hard-coded and duplicated values -- factor them into common object(s).
-- Provide meaningful but concise comments in _relevant_ places.
+```markdown
+## Code Review Tasks: {Component}
+- [ ] **Task 1: Remove Hard-coded Date Range**
+  - Replace hard-coded 2024 date range with configurable values from settings
+  - Add to chartSettings.ts with appropriate defaults
+  - Update initialization code to use these settings
+  - **Success:** Chart date constraints are configurable without code changes
+```
 
-## Code Style
+### Step 5: Prioritization and Implementation
+The Project Manager will prioritize tasks for implementation based on:
+- **P0**: Critical bugs, security issues, performance blockers
+- **P1**: Code quality issues that impact maintainability
+- **P2**: Best practice improvements and technical debt
+- **P3**: Nice-to-have optimizations and enhancements
 
-- Use `eslint` unless directed otherwise.
-- Use `prettier` if working in languages it supports.
+## Approval Criteria
+Before approving a code review, ensure:
+- [ ] All automated checks pass (linting, type checking, build verification)
+- [ ] No critical bugs or security vulnerabilities identified
+- [ ] Code follows established patterns and conventions
+- [ ] TypeScript strict mode compliance (no `any` types)
+- [ ] NextJS best practices are followed
+- [ ] Performance impact is acceptable
+- [ ] Accessibility requirements are met
+- [ ] Documentation is updated where necessary
+- [ ] Tests are included for new functionality
+- [ ] Hard-coded values are eliminated or justified
 
-## File & Folder Names
+## Review Documentation Templates
 
-- Next.js routes in kebab-case (e.g. `app/dashboard/page.tsx`).
-- Shared types in `src/lib/types.ts`.
-- Sort imports (external → internal → sibling → styles).
-- Filenames for project documents may use ` ` or `-` separators. Ignore case in all filenames, titles, and non-code content.
+### Code Review Template
 
-## Additional Logic Rules
-- Keep code short; commits semantic.
-- Reusable logic in `src/lib/utils/shared.ts` or `src/lib/utils/server.ts`.
-- Use `tsx` scripts for migrations.
+```markdown
+# Code Review: {Filename}
 
-## Builds
-- Always run typescript check to ensure no typescript errors.
-- Log warnings to `/project-documents/our-project/maintenance/maintenance-tasks.md`. Write in raw markdown format, with each warning as a list item, using a checkbox in place of standard bullet point. 
+## Critical Issues
+- [ ] **Bug/Security**: [Description]
+- [ ] **Performance**: [Description]
 
-## Automated Builds and Maintenance
-- If you are authorized to continue through steps, then after all changes are made, ALWAYS build the project with `pnpm build`.  Allow warnings, fix errors.
+## Code Quality Improvements
+- [ ] **Hard-coded Elements**: [List hard-coded values that should be configurable]
+- [ ] **Code Duplication**: [List repeated patterns to refactor]
+- [ ] **Component Structure**: [Structure improvements]
+
+## Best Practices & Patterns
+- [ ] **TypeScript**: [Type safety improvements]
+- [ ] **NextJS**: [Platform-specific improvements]
+- [ ] **React Patterns**: [Pattern improvements]
+
+## Accessibility & UX
+- [ ] **Accessibility**: [ARIA, keyboard navigation, screen reader issues]
+- [ ] **User Experience**: [UX improvements]
+
+## Testing & Documentation
+- [ ] **Testing**: [Missing test coverage]
+- [ ] **Documentation**: [Documentation needs]
+
+## Summary
+[Overall assessment and priority level]
+```
+
+### Task List Template
+
+```markdown
+# Code Review Tasks: {Filename}
+
+## P0: Critical Issues
+- [ ] **Task: [Bug Fix Name]**
+  - [Detailed description]
+  - [Implementation guidance]
+  - **Success:** [Success criteria]
+
+## P1: Code Quality
+- [ ] **Task: [Quality Improvement]**
+  - [Description and implementation details]
+  - **Success:** [Success criteria]
+
+## P2: Best Practices
+- [ ] **Task: [Pattern Improvement]**
+  - [Description and implementation details]
+  - **Success:** [Success criteria]
+
+## P3: Enhancements
+- [ ] **Task: [Enhancement Name]**
+  - [Description and implementation details]
+  - **Success:** [Success criteria]
+```
+
+---
+
+## Quality Assessment
+These guidelines facilitate comprehensive code reviews by:
+1. **Systematic Approach**: The questionnaire ensures no critical areas are missed
+2. **Actionable Outcomes**: Direct translation from findings to prioritized tasks
+3. **Platform-Specific**: NextJS and React best practices are explicitly covered
+4. **Comprehensive Coverage**: From bugs to accessibility to performance
+5. **Documentation Standards**: Clear templates and naming conventions
+6. **Priority Framework**: P0-P3 system for effective task management
+
+The structured process transforms code reviews from subjective assessments into systematic quality assurance with measurable outcomes. 
 
 ---
 > Source: [manta-digital/manta-templates](https://github.com/manta-digital/manta-templates) — distributed by [TomeVault](https://tomevault.io).
