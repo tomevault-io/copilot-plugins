@@ -1,37 +1,32 @@
-## justfile-rules
+## py-launch-blueprint
 
-> Ensure that there's proper spacing between recipes, a new line.
+> - Setup: `just setup` or `uv pip install --editable ".[dev]"`
 
+# CLAUDE.md - Agent Guidelines for Py Launch Blueprint
 
-Ensure that there's proper spacing between recipes, a new line.
+## Project Commands
+- Setup: `just setup` or `uv pip install --editable ".[dev]"`
+- Format: `just format` or `uvx ruff format py_launch_blueprint/`
+- Lint: `just lint` or `uvx ruff check py_launch_blueprint/`
+- Type check: `just typecheck` or `uvx --with-editable . mypy py_launch_blueprint/`
+- Test all: `just test` or `uvx --with-editable . pytest`
+- Test single: `uvx --with-editable . pytest tests/test_file.py::test_name`
+- All checks: `just check`
+- Pre-commit: `just pre-commit-run`
 
-Every recipe is part of a group that already exists in the Just file, and that there is documentation which should be a comment right before the recipe.
+## Code Style Guidelines
+- Line length: 88 characters (Black standard)
+- Types: Strict typing required for all functions
+- Imports: Sorted with relative imports preferred
+- Naming: PEP 8 conventions enforced via Ruff
+- Errors: Prefer explicit error handling over assertions
+- Tests: Type annotations optional for test files
+- Security: No hardcoded credentials, follow bandit rules
 
-
-
-```Justfile
-# Install Taplo in editable mode with dev dependencies
-[group('install')]
-@install-taplo:
-	if ! command -v taplo >/dev/null 2>&1; then \
-		cargo install taplo-cli && echo "{{GREEN}} Taplo installed successfully{{NC}}" || \
-		(echo "{{RED}}Failed to install taplo-cli.{{NC}} Try running '{{BLUE}}rustup update{{NC}}' to update your Rust toolchain." && exit 1); \
-	else \
-		echo "{{YELLOW}}Taplo is already installed{{NC}}"; \
-	fi
-
-# Format code
-[group('dev')]
-@format:
-    echo "Running formatters..."
-    echo "  ruff format"
-    uvx --with-editable . ruff format {{py_package_name}}/
-    echo "  ruff isort"
-    uvx --with-editable . ruff check --select I --fix {{py_package_name}}/
-
-alias f := format
-
-```
+## Developer Environment
+- Python: 3.10+ required
+- Package manager: `uv` recommended, pip supported
+- IDE: VS Code with Ruff, MyPy and Pylance extensions
 
 ---
 > Source: [smorinlabs/py-launch-blueprint](https://github.com/smorinlabs/py-launch-blueprint) — distributed by [TomeVault](https://tomevault.io).
