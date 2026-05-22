@@ -1,11 +1,13 @@
-# mcp_graylog
+# AI instruction files for mcp-graylog
 
-> Source: [mothlike/mcp_graylog](https://github.com/mothlike/mcp_graylog) — distributed by [TomeVault](https://tomevault.io)
+> Sourced from [mothlike/mcp-graylog](https://github.com/mothlike/mcp-graylog) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Model Context Protocol server for querying Graylog 6+ from AI assistants
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [mothlike/mcp_graylog](https://github.com/mothlike/mcp_graylog).
+Original source: `.cursor/rules/*.mdc` in [mothlike/mcp-graylog](https://github.com/mothlike/mcp-graylog).
 
 ## Also available for
 
@@ -15,14 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [mothlike/mcp_graylog](https://github.
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/mothlike/mcp_graylog](https://github.com/mothlike/mcp_graylog)
+From [mothlike/mcp-graylog](https://github.com/mothlike/mcp-graylog) — a repo with 10+ stars on GitHub.
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install mothlike/mcp_graylog
-```
-Source: [github.com/mothlike/mcp_graylog](https://github.com/mothlike/mcp_graylog).
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
-<!-- genome:d-i-q -->
+<!-- genome:a-c-s -->
