@@ -7,11 +7,11 @@ The opinionated high performance professional-grade AI package for Go
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [maruel/genai](https://github.com/maruel/genai).
+Original source: `CLAUDE.md` in [maruel/genai](https://github.com/maruel/genai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
