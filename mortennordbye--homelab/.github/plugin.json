@@ -1,0 +1,9 @@
+{
+  "name": "mortennordbye--homelab",
+  "displayName": "homelab",
+  "description": "GitOps-managed homelab using Kubernetes (Talos), ArgoCD, and Terraform for infrastructure as code.",
+  "version": "1.0.0",
+  "author": "mortennordbye",
+  "homepage": "https://github.com/mortennordbye/homelab",
+  "skills": []
+}
