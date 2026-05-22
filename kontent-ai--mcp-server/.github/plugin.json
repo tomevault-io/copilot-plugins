@@ -1,0 +1,9 @@
+{
+  "name": "kontent-ai--mcp-server",
+  "displayName": "mcp-server",
+  "description": "The Official Kontent.ai MCP server. Connect your AI with Kontent.ai.",
+  "version": "1.0.0",
+  "author": "kontent-ai",
+  "homepage": "https://github.com/kontent-ai/mcp-server",
+  "skills": []
+}
