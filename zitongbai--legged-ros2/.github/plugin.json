@@ -1,0 +1,9 @@
+{
+  "name": "zitongbai--legged-ros2",
+  "displayName": "legged_ros2",
+  "description": "ROS2 packages for legged robot's control, simulation and deployment. ",
+  "version": "1.0.0",
+  "author": "zitongbai",
+  "homepage": "https://github.com/zitongbai/legged_ros2",
+  "skills": []
+}
