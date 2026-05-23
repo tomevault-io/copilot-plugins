@@ -1,0 +1,9 @@
+{
+  "name": "jharting--home-assistant-muli",
+  "displayName": "home-assistant-muli",
+  "description": "Home Assistant integration for Muli electric cargo bikes",
+  "version": "1.0.0",
+  "author": "jharting",
+  "homepage": "https://github.com/jharting/home-assistant-muli",
+  "skills": []
+}
