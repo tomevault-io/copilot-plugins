@@ -1,7 +1,7 @@
 {
-  "name": "Octocode",
+  "name": "octocode",
   "owner": "bgauryy",
-  "repo": "Octocode",
+  "repo": "octocode",
   "description": "MCP server for semantic code research and context generation on real-time using LLM patterns | Search naturally across public & private repos based on your permissions | Transform any accessible codebase/s into AI-optimized knowledge on simple and complex flows | Find real implementations and live docs from anywhere",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/bgauryy/Octocode",
+  "source_url": "https://github.com/bgauryy/octocode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T09:29:23Z"
+  "distributed_at": "2026-05-23T23:30:23Z"
 }
