@@ -1,0 +1,9 @@
+{
+  "name": "yttrium400--reducethemtokens",
+  "displayName": "reducethemtokens",
+  "description": "Compress any code repo into a compact skeleton to reduce LLM token usage. 90%+ reduction with full structural retention.",
+  "version": "1.0.0",
+  "author": "yttrium400",
+  "homepage": "https://github.com/yttrium400/reducethemtokens",
+  "skills": []
+}
