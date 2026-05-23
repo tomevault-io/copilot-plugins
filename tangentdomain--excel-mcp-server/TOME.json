@@ -1,0 +1,44 @@
+{
+  "name": "excel-mcp-server",
+  "owner": "TangentDomain",
+  "repo": "excel-mcp-server",
+  "description": "\ud83c\udfae \u6e38\u620f\u5f00\u53d1\u4e13\u7528Excel\u914d\u7f6e\u8868MCP\u670d\u52a1\u5668 | 42\u4e2a\u4e13\u4e1a\u5de5\u5177 | uvx excel-mcp-server-fastmcp \u4e00\u952e\u542f\u52a8 | calamine\u5f15\u64ce 2300x\u8bfb\u53d6\u52a0\u901f | PyPI: pypi.org/project/excel-mcp-server-fastmcp",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/TangentDomain/excel-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T12:39:14Z"
+}
