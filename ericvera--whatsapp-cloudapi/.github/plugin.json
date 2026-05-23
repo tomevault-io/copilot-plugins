@@ -1,0 +1,9 @@
+{
+  "name": "ericvera--whatsapp-cloudapi",
+  "displayName": "whatsapp-cloudapi",
+  "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation.",
+  "version": "1.0.0",
+  "author": "ericvera",
+  "homepage": "https://github.com/ericvera/whatsapp-cloudapi",
+  "skills": []
+}
