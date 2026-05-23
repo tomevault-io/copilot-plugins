@@ -1,0 +1,9 @@
+{
+  "name": "bethington--ghidra-mcp",
+  "displayName": "ghidra-mcp",
+  "description": "Ghidra MCP Server \u2014 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch operations, Ghidra Server integration, and Docker ",
+  "version": "1.0.0",
+  "author": "bethington",
+  "homepage": "https://github.com/bethington/ghidra-mcp",
+  "skills": []
+}
