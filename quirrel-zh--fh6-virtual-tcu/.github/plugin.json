@@ -1,0 +1,9 @@
+{
+  "name": "quirrel-zh--fh6-virtual-tcu",
+  "displayName": "fh6-virtual_tcu",
+  "description": "An external adaptive transmission controller that reads FH6 telemetry and automatically shifts gears based on driving style, throttle input, RPM, speed and brake pressure.",
+  "version": "1.0.0",
+  "author": "Quirrel-zh",
+  "homepage": "https://github.com/Quirrel-zh/fh6-virtual_tcu",
+  "skills": []
+}
