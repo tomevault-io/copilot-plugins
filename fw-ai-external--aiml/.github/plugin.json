@@ -1,0 +1,9 @@
+{
+  "name": "fw-ai-external--aiml",
+  "displayName": "aiml",
+  "description": "Prompt based agentic developer primitives",
+  "version": "1.0.0",
+  "author": "fw-ai-external",
+  "homepage": "https://github.com/fw-ai-external/aiml",
+  "skills": []
+}
