@@ -1,14 +1,23 @@
-## css
+## electron
 
-> CSS rules
+> Electron app rules
 
 
-# CSS rules
+# Electron app rules
 
-- Keep consistency with existing styling
-- Write minimal CSS to achieve the desired effect
-- Use existing variables/styles from the global app.css whenever possible/appropriate
-- Use modern CSS features and practices
+## Frontend
+
+**IMPORTANT: This project uses Svelte 5 with runes syntax. Always use runes ($state, $derived, $effect, etc.) instead of the legacy reactive statements (like `let count = 0` with `$:` statements) and stores.**
+
+When making any edits to any frontend files, refer to the /docs/svelte-documentation-medium.txt file for:
+
+- Svelte 5 syntax and best practices
+- SvelteKit conventions and patterns
+- Component structure and lifecycle
+- State management approaches
+- Routing and navigation
+
+You can also take advantage of the Svelte MCP Server if you need more help.
 
 ---
 > Source: [refact0r/dubflow](https://github.com/refact0r/dubflow) — distributed by [TomeVault](https://tomevault.io).
