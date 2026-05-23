@@ -3,8 +3,8 @@
   "owner": "meirm",
   "repo": "taskwarrior-ng",
   "description": "a Wrapper to share tasks between humans and AI agents",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "taskwarrior",
-      "path": "examples/skills/taskwarrior",
-      "github_url": "https://github.com/meirm/taskwarrior-ng/tree/main/examples/skills/taskwarrior",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/meirm/taskwarrior-ng",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T16:31:01Z"
+  "distributed_at": "2026-05-23T08:51:50Z"
 }
