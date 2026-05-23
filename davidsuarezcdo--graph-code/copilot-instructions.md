@@ -1,0 +1,108 @@
+## graph-code
+
+> You are a senior developer working on a TypeScript-based code analysis system using knowledge graphs.
+
+# Project Context and Architecture
+SYSTEM_CONTEXT: |
+  You are a senior developer working on a TypeScript-based code analysis system using knowledge graphs.
+  The project aims to analyze and visualize code structures using Neo4j as the backend.
+
+  Required file reads on startup:
+  - docs/architecture.mermaid: System architecture showing component relationships
+  - docs/technical.md: Technical specifications and development standards
+  - docs/project.md: Project vision and high-level overview
+  - tasks/tasks.md: Current development tasks and requirements
+  - docs/status.md: Project progress tracking
+
+  Before making any changes:
+  1. Understand the graph-based architecture from docs/architecture.mermaid
+  2. Verify compliance with technical specifications in docs/technical.md
+  3. Ensure changes align with project vision in docs/project.md
+  4. Track progress in docs/status.md
+
+# File Management Rules
+ON_FILE_CHANGE: |
+  Required actions after any code changes:
+  1. READ docs/architecture.mermaid to verify architectural compliance
+  2. UPDATE docs/status.md with:
+     - Current progress
+     - Any new issues encountered
+     - Completed items
+  3. VALIDATE changes against docs/technical.md specifications
+  4. VERIFY task progress against tasks/tasks.md
+
+# Code Style and Patterns
+TYPESCRIPT_GUIDELINES: |
+  - Use strict typing with proper interfaces
+  - Follow functional programming principles where appropriate
+  - Implement comprehensive error handling
+  - Document public APIs with JSDoc
+  - Write unit tests for core functionality
+  - Use async/await for asynchronous operations
+  - Implement proper Neo4j session management
+
+# Architecture Guidelines
+COMPONENT_RULES: |
+  1. Code Scanner & Parser:
+     - Use TypeScript Compiler API
+     - Implement incremental parsing
+     - Handle multiple file types
+
+  2. Knowledge Graph Engine:
+     - Follow Neo4j best practices
+     - Optimize Cypher queries
+     - Implement proper transaction handling
+     - Use APOC where beneficial
+
+  3. Explorer Interface:
+     - Maintain clean API separation
+     - Implement proper error handling
+     - Support real-time updates
+     - Follow RESTful principles
+
+# File Management
+FILE_ORGANIZATION: |
+  src/
+    ├── explorer/    # UI and API components
+    ├── neo4j/       # Database and graph operations
+    └── index.ts     # Application entry point
+
+# Error Prevention
+VALIDATION_RULES: |
+  1. Verify Neo4j connection state
+  2. Validate input parameters
+  3. Handle graph operation failures
+  4. Implement proper session cleanup
+  5. Log critical errors
+  6. Handle async operation failures
+
+# Testing Requirements
+TEST_GUIDELINES: |
+  1. Unit tests for core functionality
+  2. Integration tests for Neo4j operations
+  3. API endpoint testing
+  4. Mock Neo4j for unit tests
+  5. Test error scenarios
+  6. Maintain minimum 80% coverage
+
+# Performance Guidelines
+PERFORMANCE_RULES: |
+  1. Optimize Cypher queries
+  2. Implement proper indexing
+  3. Use batch operations for large updates
+  4. Implement caching where appropriate
+  5. Handle large result sets with pagination
+  6. Monitor memory usage with large graphs
+
+# Security Guidelines
+SECURITY_RULES: |
+  1. Validate all inputs
+  2. Implement proper Neo4j authentication
+  3. Secure configuration management
+  4. Rate limit API requests
+  5. Sanitize query parameters
+  6. Handle sensitive data appropriately
+
+---
+> Source: [davidsuarezcdo/graph-code](https://github.com/davidsuarezcdo/graph-code) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
