@@ -1,0 +1,9 @@
+{
+  "name": "silo-server--silo-server",
+  "displayName": "silo-server",
+  "description": "Self-hosted media streaming server with a Go backend, React web UI, Docker deployment, transcoding, and Jellyfin-compatible APIs.",
+  "version": "1.0.0",
+  "author": "Silo-Server",
+  "homepage": "https://github.com/Silo-Server/silo-server",
+  "skills": []
+}
