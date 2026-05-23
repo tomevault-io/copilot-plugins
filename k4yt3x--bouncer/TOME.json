@@ -4,7 +4,7 @@
   "repo": "bouncer",
   "description": "LLM-powered Telegram bot that verifies and approves group chat join requests by generating and validating topic-based questions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/k4yt3x/bouncer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T00:54:30Z"
+  "distributed_at": "2026-05-23T01:02:21Z"
 }
