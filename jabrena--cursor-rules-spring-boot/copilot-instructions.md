@@ -1,196 +1,147 @@
-## 313-frameworks-spring-boot-local-testing
+## 321-frameworks-spring-boot-native-compilation
 
-> Best practices for local testing in Spring Boot applications using `spring-boot-docker-compose` for seamless integration with external services like databases, message queues, and caches.
+> Guidelines for building Spring Boot applications as GraalVM native images for improved startup time, reduced memory footprint, and enhanced performance characteristics.
 
-# Spring Boot Local Testing with Docker Compose
+# Spring Boot Native Compilation
 
-Best practices for local testing in Spring Boot applications using `spring-boot-docker-compose` for seamless integration with external services like databases, message queues, and caches.
+Guidelines for building Spring Boot applications as GraalVM native images for improved startup time, reduced memory footprint, and enhanced performance characteristics.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-- **Seamless Integration**: Use spring-boot-docker-compose to automatically manage external service dependencies
-- **Environment Parity**: Maintain consistency between local development and production environments
-- **Test Isolation**: Ensure tests are independent and can run in any order without side effects
-- **Performance Optimization**: Minimize container startup time and resource usage for faster development cycles
-- **Configuration Management**: Use profiles and dynamic properties for flexible environment-specific configurations
+- **Compile-time analysis**: All code paths must be discoverable at compile time
+- **Minimal reflection usage**: Avoid runtime reflection and dynamic class loading
+- **Explicit configuration**: Configure native hints for reflection, resources, and proxies
+- **Profile-guided optimization**: Use AOT processing and build-time optimizations
+- **Resource efficiency**: Optimize for reduced memory usage and faster startup
 
 ## Table of contents
 
-- Rule 1: Dependency Configuration
-- Rule 2: Docker Compose Service Definition
-- Rule 3: Application Profile Configuration
-- Rule 4: Integration Test Setup
-- Rule 5: Service Connection Management
-- Rule 6: Health Check Implementation
-- Rule 7: Test Data Management
-- Rule 8: Performance Optimization
+- Rule 1: Configure Native Build Tools and Dependencies
+- Rule 2: Manage Reflection and Dynamic Features
+- Rule 3: Handle Resources and Configuration Files
+- Rule 4: Optimize Application Profiles for Native
+- Rule 5: Test Native Image Compatibility
+- Rule 6: Use AOT Processing and Build-time Hints
 
-## Rule 1: Dependency Configuration
+## Rule 1: Configure Native Build Tools and Dependencies
 
-Title: Proper Spring Boot Docker Compose Dependency Setup
-Description: Configure the spring-boot-docker-compose dependency correctly for runtime-only usage to automatically manage Docker services during application startup.
+**Title**: Proper Native Build Configuration
+**Description**: Configure Maven or Gradle with the Spring Boot Native plugin and GraalVM dependencies. Ensure all necessary build tools are properly set up for native compilation.
 
 **Good example:**
 
 ```xml
-<!-- Maven -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-docker-compose</artifactId>
-    <scope>runtime</scope>
-</dependency>
+<!-- pom.xml -->
+<properties>
+    <native.maven.plugin.version>0.9.28</native.maven.plugin.version>
+    <spring-boot.version>3.5.0</spring-boot.version>
+</properties>
 
-<!-- Testcontainers for integration tests -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-testcontainers</artifactId>
-    <scope>test</scope>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+</dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+
+<profiles>
+    <profile>
+        <id>native</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>process-aot</id>
+                            <goals>
+                                <goal>process-aot</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.graalvm.buildtools</groupId>
+                    <artifactId>native-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>add-reachability-metadata</id>
+                            <goals>
+                                <goal>add-reachability-metadata</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
 ```
 
 **Bad Example:**
 
 ```xml
-<!-- Don't include as compile dependency -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-docker-compose</artifactId>
-    <scope>compile</scope>
-</dependency>
-
-<!-- Missing testcontainers dependency -->
+<!-- Missing native plugin configuration -->
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <!-- No native image configuration -->
+        </plugin>
+    </plugins>
+</build>
 ```
 
-## Rule 2: Docker Compose Service Definition
+## Rule 2: Manage Reflection and Dynamic Features
 
-Title: Well-structured Docker Compose Configuration
-Description: Define services with proper health checks, environment variables, and port mappings for reliable local testing.
-
-**Good example:**
-
-```yaml
-# compose.yaml
-services:
-  postgres:
-    image: 'postgres:15'
-    environment:
-      POSTGRES_DB: testdb
-      POSTGRES_USER: testuser
-      POSTGRES_PASSWORD: testpass
-    ports:
-      - '5432:5432'
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U testuser -d testdb"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
-```
-
-**Bad Example:**
-
-```yaml
-# compose.yaml
-services:
-  postgres:
-    image: 'postgres'  # No version specified
-    environment:
-      - POSTGRES_PASSWORD=password  # Hardcoded, no DB/USER
-    # Missing health checks
-    # Missing volume persistence
-    # Missing proper port mapping
-```
-
-## Rule 3: Application Profile Configuration
-
-Title: Environment-specific Configuration Management
-Description: Use Spring profiles to manage different configurations for local development, testing, and production environments.
-
-**Good example:**
-
-```yaml
-# application-local.yml
-spring:
-  docker:
-    compose:
-      enabled: true
-      file: compose.yaml
-      lifecycle-management: start_and_stop
-      readiness:
-        wait: HEALTHY
-        timeout: 2m
-  
-  datasource:
-    url: jdbc:postgresql://localhost:5432/testdb
-    username: testuser
-    password: testpass
-    
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-
-logging:
-  level:
-    org.springframework.boot.docker: DEBUG
-```
-
-**Bad Example:**
-
-```yaml
-# application.yml
-spring:
-  docker:
-    compose:
-      enabled: true  # Always enabled, no profile separation
-      lifecycle-management: none  # No lifecycle management
-  
-  datasource:
-    url: jdbc:postgresql://localhost:5432/proddb  # Production DB in local config
-    username: root  # Unsafe credentials
-    password: admin
-```
-
-## Rule 4: Integration Test Setup
-
-Title: Testcontainers Integration with Service Connections
-Description: Use @ServiceConnection and @Testcontainers for clean integration test setup with automatic container management.
+**Title**: Minimize and Configure Reflection Usage
+**Description**: Avoid runtime reflection and dynamic class loading. When reflection is necessary, provide explicit native hints or use Spring's AOT processing to register classes at build time.
 
 **Good example:**
 
 ```java
-@SpringBootTest
-@Testcontainers
-@ActiveProfiles("test")
-class UserRepositoryIntegrationTest {
+// Use @RegisterReflectionForBinding for data classes
+@RegisterReflectionForBinding({Person.class, Address.class})
+@RestController
+public class PersonController {
     
-    @Container
-    @ServiceConnection
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
-            .withDatabaseName("testdb")
-            .withUsername("test")
-            .withPassword("test");
+    @GetMapping("/person")
+    public Person getPerson() {
+        return new Person("John", "Doe");
+    }
+}
+
+// For explicit reflection hints
+@Component
+public class ReflectionHints implements RuntimeHintsRegistrar {
     
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Test
-    void shouldSaveAndRetrieveUser() {
-        User user = new User("john.doe@example.com", "John Doe");
-        User saved = userRepository.save(user);
-        
-        assertThat(saved.getId()).isNotNull();
-        assertThat(userRepository.findByEmail("john.doe@example.com"))
-                .isPresent()
-                .get()
-                .extracting(User::getName)
-                .isEqualTo("John Doe");
+    @Override
+    public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+        hints.reflection()
+            .registerType(MyClass.class, MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)
+            .registerType(AnotherClass.class, MemberCategory.DECLARED_FIELDS);
+    }
+}
+
+// Use @ImportRuntimeHints to register hints
+@ImportRuntimeHints(ReflectionHints.class)
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
     }
 }
 ```
@@ -198,282 +149,250 @@ class UserRepositoryIntegrationTest {
 **Bad Example:**
 
 ```java
-@SpringBootTest
-class UserRepositoryIntegrationTest {
+// Avoid runtime class loading and reflection
+@RestController
+public class BadController {
     
-    // No container management
-    // No profile specification
-    // Assumes external database is running
-    
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Test
-    void shouldSaveAndRetrieveUser() {
-        // Test may fail if database is not available
-        // No cleanup between tests
-        User user = new User("john.doe@example.com", "John Doe");
-        userRepository.save(user);
-        // No proper assertions
+    @GetMapping("/dynamic")
+    public Object getDynamic() throws Exception {
+        // This will fail in native image
+        Class<?> clazz = Class.forName("com.example.DynamicClass");
+        return clazz.getDeclaredConstructor().newInstance();
     }
 }
 ```
 
-## Rule 5: Service Connection Management
+## Rule 3: Handle Resources and Configuration Files
 
-Title: Dynamic Service Configuration
-Description: Use @DynamicPropertySource and @ServiceConnection for flexible service configuration in tests.
+**Title**: Explicit Resource Configuration
+**Description**: Register all resources (properties files, templates, static content) that need to be included in the native image. Use resource hints for files accessed at runtime.
 
 **Good example:**
 
 ```java
-@TestConfiguration
-public class TestContainersConfiguration {
+@Component
+public class ResourceHints implements RuntimeHintsRegistrar {
     
-    @Bean
-    @ServiceConnection
-    PostgreSQLContainer<?> postgresContainer() {
-        return new PostgreSQLContainer<>("postgres:15")
-                .withDatabaseName("testdb")
-                .withUsername("test")
-                .withPassword("test")
-                .withReuse(true);  // Reuse container across tests
-    }
-    
-    @Bean
-    @ServiceConnection
-    RedisContainer redisContainer() {
-        return new RedisContainer("redis:7-alpine")
-                .withReuse(true);
+    @Override
+    public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+        hints.resources()
+            .registerPattern("templates/*.html")
+            .registerPattern("static/**")
+            .registerPattern("config/*.properties")
+            .registerPattern("META-INF/spring.factories");
     }
 }
 
-// Alternative approach with @DynamicPropertySource
-@DynamicPropertySource
-static void configureProperties(DynamicPropertyRegistry registry) {
-    registry.add("spring.datasource.url", postgres::getJdbcUrl);
-    registry.add("spring.datasource.username", postgres::getUsername);
-    registry.add("spring.datasource.password", postgres::getPassword);
+// For simple cases, use @RegisterReflectionForBinding
+@RegisterReflectionForBinding(MyConfigProperties.class)
+@ConfigurationProperties(prefix = "app")
+public class MyConfigProperties {
+    private String name;
+    private int timeout;
+    // getters and setters
 }
 ```
 
 **Bad Example:**
 
 ```java
-@TestConfiguration
-public class TestConfiguration {
+// Avoid dynamic resource loading without hints
+@Service
+public class BadResourceService {
     
-    // Hardcoded connection properties
-    @Bean
-    public DataSource dataSource() {
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/testdb");
-        dataSource.setUsername("test");
-        dataSource.setPassword("test");
-        return dataSource;
-    }
-    
-    // No container lifecycle management
-    // No dynamic property configuration
-}
-```
-
-## Rule 6: Health Check Implementation
-
-Title: Robust Service Health Monitoring
-Description: Implement proper health checks for all external services to ensure they are ready before running tests.
-
-**Good example:**
-
-```yaml
-# compose.yaml
-services:
-  postgres:
-    image: postgres:15
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U testuser -d testdb"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-      
-  redis:
-    image: redis:7-alpine
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-```
-
-**Bad Example:**
-
-```yaml
-# compose.yaml
-services:
-  postgres:
-    image: postgres:15
-    # No health check - application may start before DB is ready
-    
-  redis:
-    image: redis:7-alpine
-    # No readiness verification
-    
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    # May cause intermittent test failures
-```
-
-## Rule 7: Test Data Management
-
-Title: Clean Test Data Handling
-Description: Ensure proper test data setup and cleanup for reliable and isolated tests.
-
-**Good example:**
-
-```java
-@SpringBootTest
-@Testcontainers
-@Transactional
-@Rollback
-class OrderServiceIntegrationTest {
-    
-    @Container
-    @ServiceConnection
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15");
-    
-    @Autowired
-    private OrderService orderService;
-    
-    @Autowired
-    private TestEntityManager entityManager;
-    
-    @Test
-    @Sql(scripts = "/test-data/orders.sql", executionPhase = BEFORE_TEST_METHOD)
-    @Sql(scripts = "/test-data/cleanup.sql", executionPhase = AFTER_TEST_METHOD)
-    void shouldProcessOrderCorrectly() {
-        Order order = orderService.createOrder(createOrderRequest());
-        
-        entityManager.flush();
-        entityManager.clear();
-        
-        Order retrieved = orderService.findById(order.getId());
-        assertThat(retrieved.getStatus()).isEqualTo(OrderStatus.PENDING);
-    }
-    
-    private OrderRequest createOrderRequest() {
-        return OrderRequest.builder()
-                .customerId(1L)
-                .items(List.of(new OrderItem("product-1", 2)))
-                .build();
+    public String loadTemplate(String templateName) {
+        // This might fail if template is not registered
+        return Files.readString(Paths.get("templates/" + templateName + ".html"));
     }
 }
 ```
 
-**Bad Example:**
+## Rule 4: Optimize Application Profiles for Native
 
-```java
-@SpringBootTest
-class OrderServiceIntegrationTest {
-    
-    @Autowired
-    private OrderService orderService;
-    
-    @Test
-    void shouldProcessOrderCorrectly() {
-        // No data cleanup - may affect other tests
-        // No transaction management
-        // Hardcoded data that may conflict
-        Order order = new Order();
-        order.setId(1L);  // Hardcoded ID
-        order.setCustomerId(999L);  // May not exist
-        
-        orderService.save(order);
-        // No proper verification
-    }
-}
-```
-
-## Rule 8: Performance Optimization
-
-Title: Optimized Container and Test Execution
-Description: Configure container reuse and optimize resource usage for faster development cycles.
+**Title**: Native-Specific Configuration
+**Description**: Create native-specific application profiles and configurations that optimize for native image characteristics like reduced memory usage and faster startup.
 
 **Good example:**
 
 ```properties
-# application-test.properties
-spring.docker.compose.lifecycle-management=start_only
-testcontainers.reuse.enable=true
+# application-native.properties
+spring.jpa.defer-datasource-initialization=false
+spring.sql.init.mode=never
+spring.jpa.hibernate.ddl-auto=none
 
-# Resource optimization
+# Reduce logging overhead
+logging.level.root=WARN
+logging.level.org.springframework=INFO
+
+# Optimize connection pools for native
+spring.datasource.hikari.maximum-pool-size=5
+spring.datasource.hikari.minimum-idle=1
+
+# Disable features that don't work well with native
+spring.devtools.enabled=false
+management.endpoint.beans.enabled=false
+```
+
+```java
+@Profile("native")
+@Configuration
+public class NativeConfiguration {
+    
+    @Bean
+    @ConditionalOnProperty(name = "spring.profiles.active", havingValue = "native")
+    public DataSource nativeDataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setMaximumPoolSize(5);
+        config.setMinimumIdle(1);
+        config.setConnectionTimeout(10000);
+        return new HikariDataSource(config);
+    }
+}
+```
+
+**Bad Example:**
+
+```properties
+# Don't use development-oriented settings in native
+spring.devtools.enabled=true
+spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto=create-drop
-spring.jpa.show-sql=false
-logging.level.org.hibernate.SQL=WARN
+logging.level.root=DEBUG
 ```
 
+## Rule 5: Test Native Image Compatibility
+
+**Title**: Comprehensive Native Testing Strategy
+**Description**: Implement testing strategies that verify native image compatibility, including integration tests that run against the native executable.
+
+**Good example:**
+
 ```java
-@TestMethodOrder(OrderAnnotation.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserServicePerformanceTest {
+@ActiveProfiles("native")
+@SpringBootTest
+class NativeImageIntegrationTest {
     
-    @Container
-    @ServiceConnection
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
-            .withReuse(true)
-            .withTmpFs(Map.of("/var/lib/postgresql/data", "rw"));
-    
-    @BeforeAll
-    void setupTestData() {
-        // Setup once for all tests
+    @Test
+    void contextLoads() {
+        // Test that application context loads successfully
     }
     
-    @AfterAll
-    void cleanup() {
-        // Cleanup once after all tests
+    @Test
+    void serializationWorks() {
+        // Test JSON serialization/deserialization
+        ObjectMapper mapper = new ObjectMapper();
+        Person person = new Person("John", "Doe");
+        
+        assertDoesNotThrow(() -> {
+            String json = mapper.writeValueAsString(person);
+            Person deserialized = mapper.readValue(json, Person.class);
+            assertEquals(person.getName(), deserialized.getName());
+        });
     }
+}
+
+// Maven configuration for native tests
+```
+
+```xml
+<plugin>
+    <groupId>org.graalvm.buildtools</groupId>
+    <artifactId>native-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>test-native</id>
+            <goals>
+                <goal>test</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+```
+
+**Bad Example:**
+
+```java
+// Don't assume JVM tests will work in native
+@SpringBootTest
+class OnlyJvmTest {
+    
+    @Test
+    void testReflection() {
+        // This might pass on JVM but fail in native
+        Class.forName("some.dynamic.Class");
+    }
+}
+```
+
+## Rule 6: Use AOT Processing and Build-time Hints
+
+**Title**: Leverage Ahead-of-Time Processing
+**Description**: Use Spring's AOT processing capabilities to generate optimized code and configuration at build time, reducing runtime overhead and improving native image compatibility.
+
+**Good example:**
+
+```java
+@Component
+public class AotHints implements BeanFactoryInitializationAotProcessor {
+    
+    @Override
+    public BeanRegistrationAotContribution processAheadOfTime(
+            ConfigurableListableBeanFactory beanFactory) {
+        
+        return (generationContext, beanRegistrationCode) -> {
+            // Generate AOT-optimized bean registration code
+            RuntimeHints runtimeHints = generationContext.getRuntimeHints();
+            runtimeHints.reflection().registerType(MyService.class);
+        };
+    }
+}
+
+// Use @Conditional annotations that work at build time
+@ConditionalOnProperty(name = "feature.enabled", havingValue = "true")
+@Component
+public class ConditionalService {
+    // Implementation
 }
 ```
 
 **Bad Example:**
 
-```properties
-# application-test.properties
-spring.docker.compose.lifecycle-management=start_and_stop
-# No container reuse - slow test execution
-
-spring.jpa.show-sql=true  # Verbose logging slows down tests
-logging.level.org.hibernate=DEBUG
-```
-
 ```java
-class UserServiceTest {
+// Avoid runtime conditional logic that can't be determined at build time
+@Component
+public class BadConditionalService {
     
-    @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15");
-    // No reuse configuration
-    // No memory optimization
-    
-    @BeforeEach
-    void setup() {
-        // Expensive setup for each test
-        populateDatabase();
-    }
-    
-    @AfterEach
-    void cleanup() {
-        // Expensive cleanup for each test
-        clearDatabase();
+    @PostConstruct
+    public void init() {
+        if (System.getProperty("runtime.feature") != null) {
+            // This kind of runtime decision making doesn't work well with AOT
+            loadDynamicConfiguration();
+        }
     }
 }
+```
+
+### Build Commands for Native Compilation
+
+**Maven Commands:**
+```bash
+# Build native image
+./mvnw -Pnative native:compile
+
+# Build and test native image
+./mvnw -Pnative clean native:test
+
+# Build container image with native binary
+./mvnw spring-boot:build-image -Pnative
+```
+
+### Performance Considerations
+
+- **Startup Time**: Native images typically start 10-100x faster than JVM
+- **Memory Usage**: Reduced memory footprint, especially for smaller applications
+- **Build Time**: Native compilation takes longer than regular JAR builds
+- **Image Size**: Native executables are typically larger than JAR files but smaller when considering JVM overhead
+- **Runtime Performance**: May have slightly different performance characteristics compared to JVM with JIT compilation
 
 ---
 > Source: [jabrena/cursor-rules-spring-boot](https://github.com/jabrena/cursor-rules-spring-boot) — distributed by [TomeVault](https://tomevault.io).
