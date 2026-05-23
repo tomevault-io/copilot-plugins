@@ -4,7 +4,7 @@
   "repo": "mcp-project-orchestrator",
   "description": "Analyze user input to identify suitable design patterns and project templates. Orchestrate the project, creating initial files from templates.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sparesparrow/mcp-project-orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T22:39:41Z"
+  "distributed_at": "2026-05-23T00:30:56Z"
 }
