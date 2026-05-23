@@ -4,7 +4,7 @@
   "repo": "agentic-ai-system-course",
   "description": "Use agent to learn agent - A skeleton course on how to design, build, and operate production AI agents ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bryanyzhu/agentic-ai-system-course",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T07:30:23Z"
+  "distributed_at": "2026-05-23T07:30:52Z"
 }
