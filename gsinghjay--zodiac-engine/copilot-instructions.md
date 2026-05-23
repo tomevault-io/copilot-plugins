@@ -1,55 +1,46 @@
-## route-structure
+## service-layer
 
-> This rule documents the API route structure and endpoints of the Zodiac Engine. Call this rule when working with API endpoints, understanding route hierarchies, or implementing new routes. Use it when users need information about available endpoints, want to modify existing routes, or need to understand how routes are organized in the application.
+> This rule explains the service layer implementation in the Zodiac Engine. Call this rule when working with business logic, analyzing service methods, or implementing new services. Use it when users need to understand how core functionality is abstracted, how to interact with the Kerykeion library, or how to modify existing service components.
 
-# Zodiac Engine API Routes Structure
+# Zodiac Engine Service Layer
 
-This rule documents the API route structure of the Zodiac Engine application, which follows a clean, hierarchical organization.
+This rule documents the service layer implementation in the Zodiac Engine. The service layer contains the core business logic and abstracts complex operations from the API endpoints.
 
-## Route Hierarchy
+## Service Components
 
-- Main router is included in [app/main.py](mdc:app/main.py)
-- API routes are organized in [app/api](mdc:app/api)
-- API versions are separated in directories (currently v1)
-- Each router group has its own module in [app/api/v1/routers](mdc:app/api/v1/routers)
+The service layer is located in [app/services](mdc:app/services) and consists of:
 
-## Key API Endpoints
+### Astrology Service
 
-### Chart Routers
+The [app/services/astrology.py](mdc:app/services/astrology.py) file contains:
+- `AstrologyService` - Handles calculations for astrological charts
+- Uses the Kerykeion library for core astrology computations
+- Provides methods for:
+  - Calculating natal charts
+  - Processing planetary positions
+  - Computing house positions
+  - Generating aspects between planets
 
-The primary endpoints for astrological charts are located in [app/api/v1/routers/charts](mdc:app/api/v1/routers/charts):
+### Chart Visualization Service
 
-- **Natal Charts**: [app/api/v1/routers/charts/natal.py](mdc:app/api/v1/routers/charts/natal.py)
-  - Calculates complete natal charts based on birth data
-  - Endpoint: `POST /api/v1/charts/natal/`
+The [app/services/chart_visualization.py](mdc:app/services/chart_visualization.py) file contains:
+- `ChartVisualizationService` - Generates visual representations of charts
+- Creates SVG images of astrological charts using Kerykeion
+- Provides methods for:
+  - Generating natal chart SVGs
+  - Generating synastry chart SVGs
+  - Customizing chart appearance (themes, languages)
+  - Managing SVG file storage
 
-- **Chart Visualization**: [app/api/v1/routers/charts/visualization.py](mdc:app/api/v1/routers/charts/visualization.py)
-  - Generates SVG visualizations of charts
-  - Endpoints: 
-    - `POST /api/v1/charts/visualization/natal`
-    - `POST /api/v1/charts/visualization/synastry`
+## Service Layer Design 
 
-- **Synastry**: [app/api/v1/routers/charts/synastry.py](mdc:app/api/v1/routers/charts/synastry.py)
-  - Analyzes relationships between two charts
-  - Endpoint: `POST /api/v1/charts/synastry/`
-
-- **Composite**: [app/api/v1/routers/charts/composite.py](mdc:app/api/v1/routers/charts/composite.py)
-  - Generates and analyzes composite charts
-  - Endpoint: `POST /api/v1/charts/composite/`
-
-### Health Endpoint
-
-- Root health check implemented in [app/main.py](mdc:app/main.py)
-  - Endpoint: `GET /`
-  - Returns API status and version
-
-## Route Configuration
-
-All routes use:
-- Proper response models
-- Detailed documentation
-- Appropriate tagging
-- Standardized error responses
+The service layer follows modern FastAPI best practices:
+- Services are implemented as classes with instance methods.
+- Dependency injection is used via factory functions in [app/core/dependencies.py](mdc:app/core/dependencies.py) to provide service instances to API routes.
+- Settings and other dependencies are injected into service constructors (`__init__`).
+- `@lru_cache` is used on methods like `AstrologyService.calculate_natal_chart` for performance.
+- Async methods are used where appropriate (e.g., if database interactions were added).
+- Background tasks are leveraged for long-running processes like SVG generation, orchestrated by the API layer calling service methods.
 
 ---
 > Source: [gsinghjay/zodiac-engine](https://github.com/gsinghjay/zodiac-engine) — distributed by [TomeVault](https://tomevault.io).
