@@ -1,0 +1,9 @@
+{
+  "name": "postmanlabs--postman-gemini-cli-extension",
+  "displayName": "postman-gemini-cli-extension",
+  "description": "This repository hosts a GEMINI CLI extension that enables seamless interaction with Postman from the command line. It includes the extension manifest for straightforward installation and usage.",
+  "version": "1.0.0",
+  "author": "postmanlabs",
+  "homepage": "https://github.com/postmanlabs/postman-gemini-cli-extension",
+  "skills": []
+}
