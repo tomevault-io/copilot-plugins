@@ -1,0 +1,9 @@
+{
+  "name": "altafino--email-extractor",
+  "displayName": "email-extractor",
+  "description": "A service that automatically downloads emails and extracts attachments using POP3/IMAP protocols, with support for multiple accounts and extensive configuration options.",
+  "version": "1.0.0",
+  "author": "altafino",
+  "homepage": "https://github.com/altafino/email-extractor",
+  "skills": []
+}
