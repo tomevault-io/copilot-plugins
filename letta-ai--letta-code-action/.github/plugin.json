@@ -1,0 +1,9 @@
+{
+  "name": "letta-ai--letta-code-action",
+  "displayName": "letta-code-action",
+  "description": "Integrate Letta Code into your GitHub repo to review issues, code, and more",
+  "version": "1.0.0",
+  "author": "letta-ai",
+  "homepage": "https://github.com/letta-ai/letta-code-action",
+  "skills": []
+}
