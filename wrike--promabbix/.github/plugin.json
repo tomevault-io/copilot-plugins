@@ -1,0 +1,9 @@
+{
+  "name": "wrike--promabbix",
+  "displayName": "promabbix",
+  "description": "A real magic of Prometheus and Zabbix being together",
+  "version": "1.0.0",
+  "author": "wrike",
+  "homepage": "https://github.com/wrike/promabbix",
+  "skills": []
+}
