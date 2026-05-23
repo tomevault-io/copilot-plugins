@@ -1,0 +1,9 @@
+{
+  "name": "tangentdomain--excel-mcp-server",
+  "displayName": "excel-mcp-server",
+  "description": "\ud83c\udfae \u6e38\u620f\u5f00\u53d1\u4e13\u7528Excel\u914d\u7f6e\u8868MCP\u670d\u52a1\u5668 | 42\u4e2a\u4e13\u4e1a\u5de5\u5177 | uvx excel-mcp-server-fastmcp \u4e00\u952e\u542f\u52a8 | calamine\u5f15\u64ce 2300x\u8bfb\u53d6\u52a0\u901f | PyPI: pypi.org/project/excel-mcp-server-fastmcp",
+  "version": "1.0.0",
+  "author": "TangentDomain",
+  "homepage": "https://github.com/TangentDomain/excel-mcp-server",
+  "skills": []
+}
