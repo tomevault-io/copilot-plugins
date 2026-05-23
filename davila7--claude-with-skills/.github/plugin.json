@@ -1,0 +1,14 @@
+{
+  "name": "davila7--claude-with-skills",
+  "displayName": "claude-with-skills",
+  "description": "Claude With Skills Course",
+  "version": "1.0.0",
+  "author": "davila7",
+  "homepage": "https://github.com/davila7/claude-with-skills",
+  "skills": [
+    {
+      "name": "python-deploy",
+      "description": ""
+    }
+  ]
+}
