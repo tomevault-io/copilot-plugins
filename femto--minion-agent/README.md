@@ -1,4 +1,4 @@
-# minion
+# minion-agent
 
 > Source: [femto/minion-agent](https://github.com/femto/minion-agent) — distributed by [TomeVault](https://tomevault.io)
 
@@ -16,10 +16,6 @@ Original source: `.cursor/rules/*.mdc` in [femto/minion-agent](https://github.co
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-## Bundled Skills (1)
-
-- [code-review](https://github.com/femto/minion-agent/tree/main/examples/skills/code-review)
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/femto/minion-agent](https://github.com/femto/minion-agent)
 
