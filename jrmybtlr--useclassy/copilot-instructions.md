@@ -1,44 +1,59 @@
-## file-processing
+## useclassy-plugin
 
-> The UseClassy plugin carefully manages which files it processes through the `shouldProcessFile` function in [src/useClassy.ts](mdc:src/useClassy.ts).
+> The UseClassy Vite plugin transforms class modifier attributes into Tailwind JIT-compatible class names. The main implementation is in [src/useClassy.ts](mdc:src/useClassy.ts).
 
-# File Processing Logic
+# UseClassy Vite Plugin Guide
 
-The UseClassy plugin carefully manages which files it processes through the `shouldProcessFile` function in [src/useClassy.ts](mdc:src/useClassy.ts).
+The UseClassy Vite plugin transforms class modifier attributes into Tailwind JIT-compatible class names. The main implementation is in [src/useClassy.ts](mdc:src/useClassy.ts).
 
-## File Filtering Rules
+## Core Functionality
 
-1. **Supported Extensions**
-   - Only processes: `.vue`, `.ts`, `.tsx`, `.js`, `.jsx`, `.html`, `.blade.php`
-   - Defined in `SUPPORTED_FILES` constant
-
-2. **Ignored Paths**
-   - Skips files in directories listed in `.gitignore`
-   - Skips `node_modules` directory
-   - Ignores virtual files (containing `virtual:`)
-   - Ignores runtime files (containing `runtime`)
-   - Skips files containing null bytes (`\0`)
-
-## Processing Flow
-
-1. First checks if file is in ignored directories
-2. Then validates file extension against supported list
-3. Finally applies special case exclusions (node_modules, virtual files, etc.)
-
-## Example
-
-```typescript
-// Will process:
-src/components/Button.vue
-src/pages/Home.tsx
-
-// Will skip:
-node_modules/react/index.js
-.vite/deps/virtual:react.js
-src/styles.css
+The plugin watches for attributes like:
+```html
+<div class:hover="text-blue-500" class:sm:hover="text-blue-500">
 ```
 
-The plugin maintains a cache of processed files to improve performance during development.
+And transforms them into:
+```html
+<div class="hover:text-blue-500 sm:hover:text-blue-500">
+```
+
+This works with both Vue (`class`) and React (`className`) syntax.
+
+## Key Components
+
+1. **File Processing**
+   - Processes `.vue`, `.ts`, `.tsx`, `.js`, `.jsx`, `.html`, and `.blade.php` files
+   - Skips `node_modules`, virtual files, and runtime files
+   - Respects `.gitignore` patterns
+
+2. **Class Transformations**
+   - Handles state modifiers (hover, focus, active, etc.)
+   - Supports responsive modifiers (sm, md, lg, xl, 2xl)
+   - Combines multiple class attributes
+   - Works with nested modifiers (e.g., `sm:hover`, `lg:focus`)
+
+3. **Framework Support**
+   - Vue: Uses `class` attribute
+   - React: Uses `className` attribute
+   - Automatically detects framework based on file extension
+
+## Usage Example
+
+```html
+<!-- Input -->
+<div 
+  class="base-styles"
+  class:hover="text-blue-500"
+  class:sm="text-lg"
+  class:sm:hover="font-bold"
+>
+
+<!-- Output -->
+<div class="base-styles hover:text-blue-500 sm:text-lg sm:hover:font-bold">
+```
+
+The plugin integrates with Tailwind's JIT compiler, allowing for dynamic class generation based on your modifiers.
 
 ---
 > Source: [jrmybtlr/useclassy](https://github.com/jrmybtlr/useclassy) — distributed by [TomeVault](https://tomevault.io).
