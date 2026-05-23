@@ -1,0 +1,9 @@
+{
+  "name": "open-paws--documentation",
+  "displayName": "documentation",
+  "description": "Documentation, examples and demos for Open Paws tools, n8n workflows, AI models and datasets",
+  "version": "1.0.0",
+  "author": "Open-Paws",
+  "homepage": "https://github.com/Open-Paws/documentation",
+  "skills": []
+}
