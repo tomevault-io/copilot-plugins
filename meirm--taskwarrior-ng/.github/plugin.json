@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "meirm",
   "homepage": "https://github.com/meirm/taskwarrior-ng",
-  "skills": [
-    {
-      "name": "taskwarrior",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
