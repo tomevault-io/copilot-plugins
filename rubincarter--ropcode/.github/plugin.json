@@ -1,0 +1,9 @@
+{
+  "name": "rubincarter--ropcode",
+  "displayName": "ropcode",
+  "description": "A powerful GUI app for running AI coding agents in parallel - built with Electron and Go",
+  "version": "1.0.0",
+  "author": "RubinCarter",
+  "homepage": "https://github.com/RubinCarter/ropcode",
+  "skills": []
+}
