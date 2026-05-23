@@ -1,83 +1,123 @@
-## lunar-claude
+## github-content
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with
+> When accessing content from GitHub repositories, **ALWAYS use GitHub MCP tools** instead of web scraping,
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with
-code in this repository.
+# GitHub Content Access Rules
 
-## Project Overview
+## Always Use GitHub MCP Tools for GitHub Content
 
-**lunar-claude** is a personal Claude Code plugin marketplace for homelab and
-infrastructure automation. It provides reusable AI-powered tools organized into
-a structured plugin ecosystem.
+When accessing content from GitHub repositories, **ALWAYS use GitHub MCP tools** instead of web scraping,
+Firecrawl, or other methods.
 
-**Plugin Categories:**
+## Why Use GitHub MCP Tools
 
-- `meta/` - Tools for creating Claude Code components
-- `infrastructure/` - Infrastructure as Code tools (Terraform, Ansible, Proxmox)
-- `devops/` - Container orchestration and DevOps tools (Kubernetes, Docker)
-- `homelab/` - Homelab-specific utilities (NetBox, PowerDNS)
+1. **Purpose-built**: Designed specifically for GitHub API access
+2. **More reliable**: Uses official GitHub API with proper authentication
+3. **Better performance**: Handles rate limits and caching automatically
+4. **Structured data**: Returns metadata (SHA, file size, URLs) along with content
+5. **Version control**: Can access specific commits, branches, or tags
 
-## Commands
+## Available GitHub MCP Tools
 
-```bash
-# Environment setup
-mise install                          # Install all tools (Python, ruff, uv, etc.)
-uv sync --group dev                   # Install Python dependencies
-mise run hooks-install                # Install pre-commit + infisical hooks
+### File and Directory Access
 
-# Code quality
-ruff check .                          # Lint Python
-ruff format .                         # Format Python
-pyright                               # Type check (strict mode)
-mise run pre-commit-run               # Run all pre-commit hooks
+- `mcp_github_get_file_contents` - Get file or directory contents
+  - Use for: Reading files, listing directories, accessing specific commits/branches
+  - Example: `mcp_github_get_file_contents(owner="anthropics", repo="skills", path="mcp-builder/SKILL.md")`
 
-# Testing
-pytest tests/                         # Run all tests
-pytest tests/test_verify_structure.py # Run single test file
+### Repository Information
 
-# Validation
-./scripts/verify-structure.py         # Validate plugin/marketplace structure
-mise run markdown-lint                # Lint markdown (rumdl)
-mise run link-check                   # Check links in markdown (lychee)
+- `mcp_github_get_commit` - Get commit details
+- `mcp_github_list_commits` - List commits in a branch
+- `mcp_github_list_branches` - List repository branches
+- `mcp_github_list_tags` - List repository tags
 
-# Changelog
-mise run changelog                    # Update CHANGELOG.md
-mise run changelog-bump <version>     # Release with version bump
+### Code Search
+
+- `mcp_github_search_code` - Search code across repositories
+- `mcp_github_search_repositories` - Search for repositories
+
+### Pull Requests and Issues
+
+- `mcp_github_get_pull_request` - Get PR details
+- `mcp_github_get_pull_request_files` - Get files changed in PR
+- `mcp_github_get_pull_request_diff` - Get PR diff
+- `mcp_github_list_issues` - List repository issues
+- `mcp_github_get_issue` - Get issue details
+
+## When to Use GitHub MCP vs Other Tools
+
+### Use GitHub MCP For
+
+- Reading files from GitHub repositories
+- Listing directory contents
+- Accessing specific commits, branches, or tags
+- Searching code within GitHub
+- Getting PR/issue information
+- Any GitHub content access
+
+### Do NOT Use GitHub MCP For
+
+- Non-GitHub websites (use Firecrawl/web_search)
+- GitHub pages/docs sites (use Firecrawl if GitHub MCP doesn't work)
+- General web content
+
+## Common Patterns
+
+### Reading a File
+
+```python
+# ✅ CORRECT - Use GitHub MCP
+mcp_github_get_file_contents(
+    owner="anthropics",
+    repo="skills",
+    path="mcp-builder/SKILL.md"
+)
+
+# ❌ WRONG - Don't use Firecrawl for GitHub files
+mcp_firecrawl-mcp_firecrawl_scrape(
+    url="https://raw.githubusercontent.com/anthropics/skills/main/mcp-builder/SKILL.md"
+)
 ```
 
-## Code Quality
+### Accessing Specific Commit
 
-- **Python >=3.13** managed via mise + uv
-- **Formatter/Linter**: ruff (config in `ruff.toml`)
-- **Type checker**: pyright strict mode (`pyrightconfig.json`)
-- **Standalone scripts**: Use PEP 723 inline metadata with `#!/usr/bin/env -S uv run`
+```python
+# ✅ CORRECT - Use GitHub MCP with ref parameter
+mcp_github_get_file_contents(
+    owner="anthropics",
+    repo="skills",
+    path="mcp-builder/SKILL.md",
+    ref="main"  # or specific commit SHA, branch, or tag
+)
+```
 
-## Claude Tools
+### Listing Directory Contents
 
-Use the `Skill` tool to load pre-built agent skills (can load multiple at once).
-Use `SlashCommand` to execute custom slash commands programmatically.
+```python
+# ✅ CORRECT - Use GitHub MCP
+mcp_github_get_file_contents(
+    owner="anthropics",
+    repo="skills",
+    path="mcp-builder/"  # Trailing slash for directories
+)
+```
 
-## Key Files
+## Error Handling
 
-| File | Purpose |
-|------|---------|
-| `.claude-plugin/marketplace.json` | Central plugin registry |
-| `plugins/<cat>/<name>/.claude-plugin/plugin.json` | Plugin manifests |
-| `mise.toml` | Developer tools and task automation |
-| `./scripts/verify-structure.py` | Validate marketplace structure |
+If GitHub MCP fails:
 
-## Modular Rules
+1. First verify the repository, path, and ref are correct
+2. Check if authentication is required (private repos)
+3. Only then consider alternatives (Firecrawl) as a last resort
+4. Document why GitHub MCP couldn't be used
 
-Path-specific rules are in `.claude/rules/`:
+## Remember
 
-- `audit-protocol.md` - Audit agent invocation standards
-- `python-scripts.md` - Python/uv script conventions
-- `skill-development.md` - SKILL.md authoring standards
-- `plugin-structure.md` - Plugin directory conventions
-- `documentation.md` - Markdown and docs standards
+- **Never use Firecrawl or web scraping for GitHub repository content**
+- **Always prefer GitHub MCP tools first**
+- **GitHub MCP provides better data quality and reliability**
 
 ---
 > Source: [basher83/lunar-claude](https://github.com/basher83/lunar-claude) — distributed by [TomeVault](https://tomevault.io).
