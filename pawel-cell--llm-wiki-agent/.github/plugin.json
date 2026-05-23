@@ -1,0 +1,9 @@
+{
+  "name": "pawel-cell--llm-wiki-agent",
+  "displayName": "llm-wiki-agent",
+  "description": "Markdown wiki agent instructions and starter workspace.",
+  "version": "1.0.0",
+  "author": "pawel-cell",
+  "homepage": "https://github.com/pawel-cell/llm-wiki-agent",
+  "skills": []
+}
