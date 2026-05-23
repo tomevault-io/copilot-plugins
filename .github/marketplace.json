@@ -26644,6 +26644,11 @@
       "description": "A Slack bot and MCP client acts as a bridge between Slack and Model Context Protocol (MCP) servers. Using Slack as the interface, it enables large language models (LLMs) to connect and interact with v"
     },
     {
+      "name": "nvidia--infra-controller",
+      "source": "./nvidia--infra-controller",
+      "description": "NVIDIA Infra Controller - Hardware Lifecycle Management and multitenant networking"
+    },
+    {
       "name": "azure-samples--python-mcp-demos",
       "source": "./azure-samples--python-mcp-demos",
       "description": "python-mcp-demos"
@@ -67324,6 +67329,11 @@
       "description": "runtime environment to manage and execute agentic services at scale"
     },
     {
+      "name": "jmurth1234--claudeplayer",
+      "source": "./jmurth1234--claudeplayer",
+      "description": "An AI-powered game playing agent using Claude and PyBoy"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -70902,6 +70912,46 @@
       "name": "hatamiarash7--duckdb-netquack",
       "source": "./hatamiarash7--duckdb-netquack",
       "description": "DuckDB extension for parsing, extracting, and analyzing domains, URIs, and paths with ease."
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "openzeppelin--ui-builder",
+      "source": "./openzeppelin--ui-builder",
+      "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
     },
     {
       "name": "openzeppelin--ui-builder",
@@ -82194,6 +82244,16 @@
       "description": "PID Controller written in Rust"
     },
     {
+      "name": "ntgussoni--clashofapps",
+      "source": "./ntgussoni--clashofapps",
+      "description": "Track & Analyze Your App Competitors. ASO, Competitive Analysis, Google Play, App Store"
+    },
+    {
+      "name": "otokonoizumi--adskip",
+      "source": "./otokonoizumi--adskip",
+      "description": "AI\u667a\u80fd\u8bc6\u522b\u5e76\u81ea\u52a8\u8df3\u8fc7B\u7ad9\u89c6\u9891\u4e2d\u7684\u5207\u7247\u5e7f\u544a"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -84087,6 +84147,31 @@
       "name": "propeller-heads--fynd",
       "source": "./propeller-heads--fynd",
       "description": "fynd"
+    },
+    {
+      "name": "frozenlib--mcp-attr",
+      "source": "./frozenlib--mcp-attr",
+      "description": "A library for declaratively building Model Context Protocol servers."
+    },
+    {
+      "name": "frozenlib--mcp-attr",
+      "source": "./frozenlib--mcp-attr",
+      "description": "A library for declaratively building Model Context Protocol servers."
+    },
+    {
+      "name": "frozenlib--mcp-attr",
+      "source": "./frozenlib--mcp-attr",
+      "description": "A library for declaratively building Model Context Protocol servers."
+    },
+    {
+      "name": "frozenlib--mcp-attr",
+      "source": "./frozenlib--mcp-attr",
+      "description": "A library for declaratively building Model Context Protocol servers."
+    },
+    {
+      "name": "frozenlib--mcp-attr",
+      "source": "./frozenlib--mcp-attr",
+      "description": "A library for declaratively building Model Context Protocol servers."
     },
     {
       "name": "khangbdd--phoenix",
@@ -85992,6 +86077,36 @@
       "name": "lecheenax--wordflow-tracker",
       "source": "./lecheenax--wordflow-tracker",
       "description": "Track the changes and stats of your edited note files automatically in Obsidian. Record the modified notes and statistics to your daily note with various customizations! "
+    },
+    {
+      "name": "meeting-baas--meeting-mcp",
+      "source": "./meeting-baas--meeting-mcp",
+      "description": "Model Context Protocol server for AI assistants to create meeting bots, search transcripts, and manage meeting recordings."
+    },
+    {
+      "name": "meeting-baas--meeting-mcp",
+      "source": "./meeting-baas--meeting-mcp",
+      "description": "Model Context Protocol server for AI assistants to create meeting bots, search transcripts, and manage meeting recordings."
+    },
+    {
+      "name": "meeting-baas--meeting-mcp",
+      "source": "./meeting-baas--meeting-mcp",
+      "description": "Model Context Protocol server for AI assistants to create meeting bots, search transcripts, and manage meeting recordings."
+    },
+    {
+      "name": "jrmybtlr--useclassy",
+      "source": "./jrmybtlr--useclassy",
+      "description": "Write classier Tailwind \ud83c\udfa9"
+    },
+    {
+      "name": "jrmybtlr--useclassy",
+      "source": "./jrmybtlr--useclassy",
+      "description": "Write classier Tailwind \ud83c\udfa9"
+    },
+    {
+      "name": "jrmybtlr--useclassy",
+      "source": "./jrmybtlr--useclassy",
+      "description": "Write classier Tailwind \ud83c\udfa9"
     },
     {
       "name": "10xchengtu--mux0",
@@ -90134,6 +90249,31 @@
       "description": "Nibelung Theme \u2014 Minimalist Gray & Blue Emacs Color Scheme  "
     },
     {
+      "name": "summer198971--vscode-svn",
+      "source": "./summer198971--vscode-svn",
+      "description": "\u57fa\u4e8e\u5168\u5e73\u53f0\u7684 AI SVN \u8f85\u52a9\u63d2\u4ef6"
+    },
+    {
+      "name": "summer198971--vscode-svn",
+      "source": "./summer198971--vscode-svn",
+      "description": "\u57fa\u4e8e\u5168\u5e73\u53f0\u7684 AI SVN \u8f85\u52a9\u63d2\u4ef6"
+    },
+    {
+      "name": "summer198971--vscode-svn",
+      "source": "./summer198971--vscode-svn",
+      "description": "\u57fa\u4e8e\u5168\u5e73\u53f0\u7684 AI SVN \u8f85\u52a9\u63d2\u4ef6"
+    },
+    {
+      "name": "summer198971--vscode-svn",
+      "source": "./summer198971--vscode-svn",
+      "description": "\u57fa\u4e8e\u5168\u5e73\u53f0\u7684 AI SVN \u8f85\u52a9\u63d2\u4ef6"
+    },
+    {
+      "name": "summer198971--vscode-svn",
+      "source": "./summer198971--vscode-svn",
+      "description": "\u57fa\u4e8e\u5168\u5e73\u53f0\u7684 AI SVN \u8f85\u52a9\u63d2\u4ef6"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -92242,6 +92382,46 @@
       "name": "blueberry-team--blueberry-template",
       "source": "./blueberry-team--blueberry-template",
       "description": "\ud504\ub85c\uc81d\ud2b8 \uc0dd\uc131\uc6a9 \ud15c\ud50c\ub9bf"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
+    },
+    {
+      "name": "ml-gde--jaxgarden",
+      "source": "./ml-gde--jaxgarden",
+      "description": "A collection of reusable, high-performance, well-documented, thorough-tested layers and models in Jax"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -97287,6 +97467,21 @@
       "name": "lerianstudio--reporter",
       "source": "./lerianstudio--reporter",
       "description": "Open-source async report generation service in Go \u2014 define templates (Pongo2/Django-like), connect PostgreSQL & MongoDB datasources, and generate reports in PDF, HTML, CSV, XML, and TXT. Features Rabb"
+    },
+    {
+      "name": "dqnamo--llm-poker",
+      "source": "./dqnamo--llm-poker",
+      "description": "llm-poker"
+    },
+    {
+      "name": "dqnamo--llm-poker",
+      "source": "./dqnamo--llm-poker",
+      "description": "llm-poker"
+    },
+    {
+      "name": "sanjeed5--new-mac-setup",
+      "source": "./sanjeed5--new-mac-setup",
+      "description": "Easily backup and install your setup on your new mac in minutes"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -104657,6 +104852,11 @@
       "name": "mslavov--shelly-forge",
       "source": "./mslavov--shelly-forge",
       "description": "Shelly Forge is a TypeScript framework and CLI tool for developing, testing, and deploying scripts to Shelly smart home devices. It provides a modern development experience with type safety, live relo"
+    },
+    {
+      "name": "handewo--rustion",
+      "source": "./handewo--rustion",
+      "description": "Rustion is a lightweight, high-performance SSH bastion/jump host server with a TUI management interface, written in Rust"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -113904,6 +114104,56 @@
       "description": "Hinbox is a flexible, domain-configurable entity extraction system designed for historians and researchers."
     },
     {
+      "name": "tuist--schlussel",
+      "source": "./tuist--schlussel",
+      "description": "Cross-platform OAuth 2.0 runtime and library for command-line applications and agent workflows."
+    },
+    {
+      "name": "dstotijn--go-mcp",
+      "source": "./dstotijn--go-mcp",
+      "description": "Go library for implementing the Model Context Protocol (MCP)."
+    },
+    {
+      "name": "dstotijn--go-mcp",
+      "source": "./dstotijn--go-mcp",
+      "description": "Go library for implementing the Model Context Protocol (MCP)."
+    },
+    {
+      "name": "dstotijn--go-mcp",
+      "source": "./dstotijn--go-mcp",
+      "description": "Go library for implementing the Model Context Protocol (MCP)."
+    },
+    {
+      "name": "dstotijn--go-mcp",
+      "source": "./dstotijn--go-mcp",
+      "description": "Go library for implementing the Model Context Protocol (MCP)."
+    },
+    {
+      "name": "materialize-labs--ai-optimized-starter-app",
+      "source": "./materialize-labs--ai-optimized-starter-app",
+      "description": "A production-ready full-stack web application template optimized for AI-assisted development. Built with Next.js, Tailwind CSS, Clerk Auth, Supabase, and Drizzle ORM, it provides enterprise-grade arch"
+    },
+    {
+      "name": "materialize-labs--ai-optimized-starter-app",
+      "source": "./materialize-labs--ai-optimized-starter-app",
+      "description": "A production-ready full-stack web application template optimized for AI-assisted development. Built with Next.js, Tailwind CSS, Clerk Auth, Supabase, and Drizzle ORM, it provides enterprise-grade arch"
+    },
+    {
+      "name": "materialize-labs--ai-optimized-starter-app",
+      "source": "./materialize-labs--ai-optimized-starter-app",
+      "description": "A production-ready full-stack web application template optimized for AI-assisted development. Built with Next.js, Tailwind CSS, Clerk Auth, Supabase, and Drizzle ORM, it provides enterprise-grade arch"
+    },
+    {
+      "name": "materialize-labs--ai-optimized-starter-app",
+      "source": "./materialize-labs--ai-optimized-starter-app",
+      "description": "A production-ready full-stack web application template optimized for AI-assisted development. Built with Next.js, Tailwind CSS, Clerk Auth, Supabase, and Drizzle ORM, it provides enterprise-grade arch"
+    },
+    {
+      "name": "materialize-labs--ai-optimized-starter-app",
+      "source": "./materialize-labs--ai-optimized-starter-app",
+      "description": "A production-ready full-stack web application template optimized for AI-assisted development. Built with Next.js, Tailwind CSS, Clerk Auth, Supabase, and Drizzle ORM, it provides enterprise-grade arch"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -117122,6 +117372,21 @@
       "name": "dialexity--dialectical-framework",
       "source": "./dialexity--dialectical-framework",
       "description": "Turn stories, strategies, or systems into insight. Auto-generate Dialectical Wheels (DWs) from any text to reveal blind spots, surface polarities, and trace dynamic paths toward synthesis. DWs are sem"
+    },
+    {
+      "name": "vibecode--mobile-template-1",
+      "source": "./vibecode--mobile-template-1",
+      "description": "mobile-template-1"
+    },
+    {
+      "name": "vibecode--mobile-template-1",
+      "source": "./vibecode--mobile-template-1",
+      "description": "mobile-template-1"
+    },
+    {
+      "name": "dodopayments--dodo-customer-portal",
+      "source": "./dodopayments--dodo-customer-portal",
+      "description": "Customer Portal for Dodo Payments Merchants"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -120697,6 +120962,11 @@
       "name": "davidsuarezcdo--graph-code",
       "source": "./davidsuarezcdo--graph-code",
       "description": "A powerful TypeScript-based code analysis system that leverages knowledge graphs to analyze and visualize code structures using Neo4j. Graph-Code transforms your codebase into a navigable graph databa"
+    },
+    {
+      "name": "drexed--cmdx",
+      "source": "./drexed--cmdx",
+      "description": "Framework for building maintainable business processes"
     },
     {
       "name": "mohiwalla--memes",
@@ -125122,6 +125392,16 @@
       "name": "sap--terraform-provider-scc",
       "source": "./sap--terraform-provider-scc",
       "description": "Terraform provider for SAP Cloud Connector"
+    },
+    {
+      "name": "weather-mcp--weather-mcp",
+      "source": "./weather-mcp--weather-mcp",
+      "description": "MCP server providing 12 weather tools to AI assistants. Features: forecasts, current conditions, historical data (1940-present), weather alerts, air quality, marine conditions, lightning detection, we"
+    },
+    {
+      "name": "kstrikis--mcpmonkey",
+      "source": "./kstrikis--mcpmonkey",
+      "description": "MCPMonkey is an MCP server and Firefox extension so your AI agent can access your browser"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -129892,6 +130172,16 @@
       "name": "brewmarsh--meraki-homeassistant",
       "source": "./brewmarsh--meraki-homeassistant",
       "description": "Integration for Meraki features in Home Assistant"
+    },
+    {
+      "name": "suntory-n-water--honox-url-app",
+      "source": "./suntory-n-water--honox-url-app",
+      "description": "honox\u3067\u4f5c\u6210\u3057\u305f\u77ed\u7e2eURL\u751f\u6210\u30b5\u30fc\u30d3\u30b9"
+    },
+    {
+      "name": "hu-po--tatbot",
+      "source": "./hu-po--tatbot",
+      "description": "tattoo robot \ud83e\uddbe\ud83d\udd8b\ufe0f\ud83c\udfa8"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -134947,6 +135237,56 @@
       "name": "ericvera--whatsapp-cloudapi",
       "source": "./ericvera--whatsapp-cloudapi",
       "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "transitive-bullshit--severance-wellness-memes",
+      "source": "./transitive-bullshit--severance-wellness-memes",
+      "description": "Roast your Twitter profile with AI-generated Severance wellness memes."
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
     },
     {
       "name": "lightninglabs--lnget",
@@ -141567,6 +141907,21 @@
       "name": "kinothe-kafkaesque--ssh-mcp-server",
       "source": "./kinothe-kafkaesque--ssh-mcp-server",
       "description": "this is a collection of tools that allows your agent to execute commands on your remote servers"
+    },
+    {
+      "name": "luizomf--sannux",
+      "source": "./luizomf--sannux",
+      "description": "sannux"
+    },
+    {
+      "name": "luizomf--sannux",
+      "source": "./luizomf--sannux",
+      "description": "sannux"
+    },
+    {
+      "name": "sonicdmg--codebeasts",
+      "source": "./sonicdmg--codebeasts",
+      "description": "codebeasts"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -161899,6 +162254,51 @@
       "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
     },
     {
+      "name": "josephanson--nuxt-ai",
+      "source": "./josephanson--nuxt-ai",
+      "description": "A collection of tools for adding AI capabilities to your Nuxt app."
+    },
+    {
+      "name": "josephanson--nuxt-ai",
+      "source": "./josephanson--nuxt-ai",
+      "description": "A collection of tools for adding AI capabilities to your Nuxt app."
+    },
+    {
+      "name": "josephanson--nuxt-ai",
+      "source": "./josephanson--nuxt-ai",
+      "description": "A collection of tools for adding AI capabilities to your Nuxt app."
+    },
+    {
+      "name": "nabilaziz99--fennec",
+      "source": "./nabilaziz99--fennec",
+      "description": "Open-source, AI-driven penetration testing framework. Multi-agent loop (recon \u2192 analyst \u2192 pentester \u2192 coder) on LangGraph, with tool execution in an isolated Kali container. Hosted version at fennecla"
+    },
+    {
+      "name": "josephanson--nuxt-ai",
+      "source": "./josephanson--nuxt-ai",
+      "description": "A collection of tools for adding AI capabilities to your Nuxt app."
+    },
+    {
+      "name": "quirrel-zh--fh6-virtual-tcu",
+      "source": "./quirrel-zh--fh6-virtual-tcu",
+      "description": "An external adaptive transmission controller that reads FH6 telemetry and automatically shifts gears based on driving style, throttle input, RPM, speed and brake pressure."
+    },
+    {
+      "name": "ohdsi--ariadne",
+      "source": "./ohdsi--ariadne",
+      "description": "A Python toolkit for mapping source terminologies to standard concepts in the OHDSI Vocabulary."
+    },
+    {
+      "name": "wordpress--php-mcp-schema",
+      "source": "./wordpress--php-mcp-schema",
+      "description": "php-mcp-schema"
+    },
+    {
+      "name": "marcindudekdev--nginx-optimizer",
+      "source": "./marcindudekdev--nginx-optimizer",
+      "description": "nginx-optimizer"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -171859,6 +172259,26 @@
       "description": "XHS-CoverGen - \u5c0f\u7ea2\u4e66\u5c01\u9762\u751f\u6210\u5668"
     },
     {
+      "name": "sgasser--claude-skill-podcast",
+      "source": "./sgasser--claude-skill-podcast",
+      "description": "Generate audio podcasts from text using Claude and browser TTS - Zero cost, no API keys"
+    },
+    {
+      "name": "zeke--agents-md",
+      "source": "./zeke--agents-md",
+      "description": "My global instructions for AI agents like OpenCode"
+    },
+    {
+      "name": "wesleysimplicio--hermes-turbo-agent",
+      "source": "./wesleysimplicio--hermes-turbo-agent",
+      "description": "Hermes Agent 100x Fast performance branch: runtime benchmarks, visual comparisons, and safe hot-path optimizations"
+    },
+    {
+      "name": "wesleysimplicio--hermes-turbo-agent",
+      "source": "./wesleysimplicio--hermes-turbo-agent",
+      "description": "Hermes Agent 100x Fast performance branch: runtime benchmarks, visual comparisons, and safe hot-path optimizations"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -174167,6 +174587,16 @@
       "name": "cajal-technologies--talos",
       "source": "./cajal-technologies--talos",
       "description": "Wasm interpreter in lean, designed for reasoning"
+    },
+    {
+      "name": "lakr233--sshkit",
+      "source": "./lakr233--sshkit",
+      "description": "SSHKit"
+    },
+    {
+      "name": "lakr233--sshkit",
+      "source": "./lakr233--sshkit",
+      "description": "SSHKit"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -276632,6 +277062,131 @@
       "name": "r3n1er--mysecurepassword",
       "source": "./r3n1er--mysecurepassword",
       "description": "Free Password generator for maximum Google Workspace compatibility"
+    },
+    {
+      "name": "oyakhilo7--spark--010",
+      "source": "./oyakhilo7--spark--010",
+      "description": "spark--010"
+    },
+    {
+      "name": "ciward--sub2api-tokenlab-task7-mn2-axwai",
+      "source": "./ciward--sub2api-tokenlab-task7-mn2-axwai",
+      "description": "Runnable TokenLab evaluation snapshot for candidate mn2 (AXWAI) with minimal secret sanitization"
+    },
+    {
+      "name": "jjangbbang--jjang-stock-db",
+      "source": "./jjangbbang--jjang-stock-db",
+      "description": "jjang-stock-db"
+    },
+    {
+      "name": "gkm563--upmap",
+      "source": "./gkm563--upmap",
+      "description": "UPMap"
+    },
+    {
+      "name": "erhwenkuo--skil-creator",
+      "source": "./erhwenkuo--skil-creator",
+      "description": "A skill for creating new skills and iteratively improving them \u2014 compatible with both **Claude Code** and **LangChain deepagent-cli**."
+    },
+    {
+      "name": "shubhampatel3503-lang--shubh-school-erp",
+      "source": "./shubhampatel3503-lang--shubh-school-erp",
+      "description": "Exported from Caffeine project: Shubh School ERP"
+    },
+    {
+      "name": "sandrei--facebook-leads-asterisk",
+      "source": "./sandrei--facebook-leads-asterisk",
+      "description": "facebook-leads-asterisk"
+    },
+    {
+      "name": "planew94--scheduly",
+      "source": "./planew94--scheduly",
+      "description": "Scheduly"
+    },
+    {
+      "name": "azizajamjoom--ai-dev-workshop",
+      "source": "./azizajamjoom--ai-dev-workshop",
+      "description": "ai-dev-workshop"
+    },
+    {
+      "name": "katchenin-13--ifir-tech",
+      "source": "./katchenin-13--ifir-tech",
+      "description": "ifir-tech"
+    },
+    {
+      "name": "tjdals--my-profile-site",
+      "source": "./tjdals--my-profile-site",
+      "description": "\ub098\ub9cc\uc758 \ud504\ub85c\ud544 \uc6f9\uc0ac\uc774\ud2b8"
+    },
+    {
+      "name": "marce1in--manga-dataset-parser",
+      "source": "./marce1in--manga-dataset-parser",
+      "description": "manga-dataset-parser"
+    },
+    {
+      "name": "dhanashree23112003--spendly",
+      "source": "./dhanashree23112003--spendly",
+      "description": "spendly"
+    },
+    {
+      "name": "tjr1974--llm-wiki-base-model",
+      "source": "./tjr1974--llm-wiki-base-model",
+      "description": "Machine-first LLM wiki toolchain and corpus scaffold."
+    },
+    {
+      "name": "oyakhilo7--spark--010",
+      "source": "./oyakhilo7--spark--010",
+      "description": "spark--010"
+    },
+    {
+      "name": "janhavi1405--nlpay-expense-tracker",
+      "source": "./janhavi1405--nlpay-expense-tracker",
+      "description": "NLPAY_Expense-Tracker"
+    },
+    {
+      "name": "miyatake51--oz-calculator",
+      "source": "./miyatake51--oz-calculator",
+      "description": "oz\u304b\u3089\u30b0\u30e9\u30e0\u306b\u5909\u63db\u3059\u308b\u8a08\u7b97\u30a2\u30d7\u30ea"
+    },
+    {
+      "name": "oyakhilo7--spark--010",
+      "source": "./oyakhilo7--spark--010",
+      "description": "spark--010"
+    },
+    {
+      "name": "skalyandev--devops-ai-playbook",
+      "source": "./skalyandev--devops-ai-playbook",
+      "description": "devops-ai-playbook"
+    },
+    {
+      "name": "mudassir7323--ride-flow",
+      "source": "./mudassir7323--ride-flow",
+      "description": "This Project demostrates The Concepts of DataBase(SQL), by implementing them into a fully functional Web Application"
+    },
+    {
+      "name": "abdullahzeb11--bayt-al-mandi",
+      "source": "./abdullahzeb11--bayt-al-mandi",
+      "description": "bayt-al-mandi"
+    },
+    {
+      "name": "io-oi-ai--mintlify-docs",
+      "source": "./io-oi-ai--mintlify-docs",
+      "description": "mintlify-docs"
+    },
+    {
+      "name": "xasanof17--quickmanage",
+      "source": "./xasanof17--quickmanage",
+      "description": "quickmanage"
+    },
+    {
+      "name": "overrkill--habitool",
+      "source": "./overrkill--habitool",
+      "description": "a habit tracker "
+    },
+    {
+      "name": "gwara106--atomic",
+      "source": "./gwara106--atomic",
+      "description": "Created with Builder.io"
     }
   ]
 }
