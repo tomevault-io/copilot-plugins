@@ -1,0 +1,9 @@
+{
+  "name": "letta-ai--letta-obsidian",
+  "displayName": "letta-obsidian",
+  "description": "A powerful Obsidian plugin that integrates with Letta to provide a stateful AI agent that knows your vault contents and remembers your conversations",
+  "version": "1.0.0",
+  "author": "letta-ai",
+  "homepage": "https://github.com/letta-ai/letta-obsidian",
+  "skills": []
+}
