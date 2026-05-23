@@ -4,7 +4,7 @@
   "repo": "FoundationModelsTranslator",
   "description": "A macOS translation app using Apple's Foundation Models framework with custom adapter for English to Chinese translation",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FradSer/FoundationModelsTranslator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T12:36:17Z"
+  "distributed_at": "2026-05-23T12:38:46Z"
 }
