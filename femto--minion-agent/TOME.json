@@ -1,9 +1,9 @@
 {
-  "name": "minion",
+  "name": "minion-agent",
   "owner": "femto",
   "repo": "minion-agent",
   "description": "A simple agent framework that's capable of browser use + mcp + auto instrument + plan + deep  research + more",
-  "type": "tome",
+  "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "code-review",
-      "path": "examples/skills/code-review",
-      "github_url": "https://github.com/femto/minion-agent/tree/main/examples/skills/code-review",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/femto/minion-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T00:33:33Z"
+  "distributed_at": "2026-05-23T09:14:20Z"
 }
