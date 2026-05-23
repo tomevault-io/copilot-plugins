@@ -1,68 +1,44 @@
-## development-principles
+## file-processing
 
-> The UseClassy plugin follows strict development principles to maintain high performance, type safety, and minimal complexity. The core implementation in [src/useClassy.ts](mdc:src/useClassy.ts) demonstrates these principles.
+> The UseClassy plugin carefully manages which files it processes through the `shouldProcessFile` function in [src/useClassy.ts](mdc:src/useClassy.ts).
 
-# Development Principles
+# File Processing Logic
 
-The UseClassy plugin follows strict development principles to maintain high performance, type safety, and minimal complexity. The core implementation in [src/useClassy.ts](mdc:src/useClassy.ts) demonstrates these principles.
+The UseClassy plugin carefully manages which files it processes through the `shouldProcessFile` function in [src/useClassy.ts](mdc:src/useClassy.ts).
 
-## Performance First
+## File Filtering Rules
 
-1. **Vite Integration**
-   - Direct integration with Vite's plugin system
-   - Uses Vite's built-in file watching and caching
-   - Avoids redundant file processing
-   - Maintains minimal memory footprint
+1. **Supported Extensions**
+   - Only processes: `.vue`, `.ts`, `.tsx`, `.js`, `.jsx`, `.html`, `.blade.php`
+   - Defined in `SUPPORTED_FILES` constant
 
-2. **Efficient Processing**
-   - Uses regex-based transformations for speed
-   - Implements caching to avoid reprocessing unchanged files
-   - Skips unnecessary file reads and transformations
-   - Processes files only when needed during development
+2. **Ignored Paths**
+   - Skips files in directories listed in `.gitignore`
+   - Skips `node_modules` directory
+   - Ignores virtual files (containing `virtual:`)
+   - Ignores runtime files (containing `runtime`)
+   - Skips files containing null bytes (`\0`)
 
-## TypeScript Best Practices
+## Processing Flow
 
-1. **Strong Typing**
-   - All functions and interfaces are fully typed
-   - No `any` types unless absolutely necessary
-   - Extensive use of TypeScript interfaces for plugin options
-   - Type guards for safe runtime checks
+1. First checks if file is in ignored directories
+2. Then validates file extension against supported list
+3. Finally applies special case exclusions (node_modules, virtual files, etc.)
 
-2. **Type Safety**
-   - Strict null checks enabled
-   - Explicit return types on public functions
-   - Proper error handling with type checking
-   - No type assertions unless unavoidable
-
-## Minimal Surface Area
-
-1. **Code Organization**
-   - Single primary file for core logic
-   - Functions are small and focused
-   - Clear separation of concerns
-   - Minimal internal state
-
-2. **Zero Dependencies**
-   - Only uses Node.js built-in modules (fs, path, crypto)
-   - No external runtime dependencies
-   - Vite as only peer dependency
-   - Reduces security and maintenance burden
-
-## Example of Principles
+## Example
 
 ```typescript
-// Bad: Multiple dependencies, complex logic
-import _ from 'lodash';
-import globby from 'globby';
-function processFiles(pattern: any) { ... }
+// Will process:
+src/components/Button.vue
+src/pages/Home.tsx
 
-// Good: Built-in modules, clear types, focused logic
-import { readFileSync } from 'fs';
-import { join } from 'path';
-function processFile(filePath: string): string { ... }
+// Will skip:
+node_modules/react/index.js
+.vite/deps/virtual:react.js
+src/styles.css
 ```
 
-These principles ensure the plugin remains fast, reliable, and maintainable while keeping the codebase small and focused.
+The plugin maintains a cache of processed files to improve performance during development.
 
 ---
 > Source: [jrmybtlr/useclassy](https://github.com/jrmybtlr/useclassy) — distributed by [TomeVault](https://tomevault.io).
