@@ -1,0 +1,9 @@
+{
+  "name": "migueltvms--tplink-omada-mcp",
+  "displayName": "tplink-omada-mcp",
+  "description": "MCP server for TP-Link Omada Controller. Use your prefered AI agent to see all the information on your TP-Link Omada Controller.",
+  "version": "1.0.0",
+  "author": "MiguelTVMS",
+  "homepage": "https://github.com/MiguelTVMS/tplink-omada-mcp",
+  "skills": []
+}
