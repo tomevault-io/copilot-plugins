@@ -1,326 +1,205 @@
-## laravel
+## tailwindcss4
 
-> Project rules for PHP, Laravel, Inertia, Vite, Npm, React, Typescript, and Tailwind
+> Tailwind CSS 4 Information
 
 
-# Context
+# TailwindCSS 4
 
-This is a Laravel app using PHP 8+, with strict types `declare(strict_types=1);`, Composer, Laravel 12, InertiaJS 2, Vite, npm, React 19 with TypeScript, Tailwind 4, and radix-ui.
+- `tailwind.config.js` must never exist
+- Use CSS-first configuration with `@theme` directive instead of JavaScript config `tailwind.config.js`:
 
-No other libraries or packages should be added unless the user approves.
-The developer has the option of using Sail, Herd, or artisan serve to run their app.
-Make use of `config('app.url)` or the URL helper to generate URLs to provide to the user.
+```css
+@import 'tailwindcss';
 
-# How to behave
-
-- Think through and create a step by step plan before acting so you have a todo list to work through
-    - The first step is always to evaluate the existing codebase to gather existing conventions to use in future steps
-    - The final step is always to validate the modified code using `composer lint` and `composer test`
-- Work through the plan step by step - creating failing tests, then the functionality to ensure the tests pass
-- Follow all rules and Laravel 11+ conventions closely
-- New code MUST strictly follow the same style as existing code and Laravel conventions - naming, structure, patterns, formatting, architecture
-  **Directory structure adherence**: Always follow Laravel's standard directory structure (`app/Models/`, `app/Http/Controllers/`, `app/Http/Middleware/`, etc.) without creating non-standard directories unless explicitly approved.
-  **Naming conventions**: Use Laravel's established naming patterns - `PascalCase` for controllers and models, `snake_case` for database tables and columns, `kebab-case` for URLs, and descriptive migration names with `artisan make:migration`.
-
-# PHP Standards
-
-- Use PHP 8+ features if they match the current code conventions: match(), union types, nullsafe operators, named arguments, attributes/annotations, constructor property promotion,
-- Always enforce strict typing with declare(strict_types=1), scalar type hinting, return types, parameter types, and property types
-- Use backed enums for fixed values
-- Use short, focused, well-name, and testable methods
-- Follow PSR-12 and PSR-4 coding standards.
-- Prefer value objects over raw arrays when appropriate.
-- Avoid over-engineering — keep things simple and pragmatic.
-- Never leave TODOs or FIXMEs without clear context or a linked issue.
-- Never leave comments within code blocks, only on methods.
-
-# PHPDoc
-
-- Write PHPDocs when needed based on this guide
-
-Below is an example of a valid Laravel documentation block. Note that the @param attribute is followed by two spaces, the argument type, two more spaces, and finally the variable name:
-
-```php
-/**
- * Register a binding with the container.
- *
- * @param  string|array  $abstract
- * @param  \Closure|string|null  $concrete
- * @param  bool  $shared
- * @return void
- *
- * @throws \Exception
- */
-
-public function bind($abstract, $concrete = null, $shared = false)
-{
-    // ...
+@theme {
+    --font-display: 'Satoshi', 'sans-serif';
+    --breakpoint-3xl: 1920px;
+    --color-avocado-500: oklch(0.84 0.18 117.33);
+    --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
 }
 ```
 
-When the `@param` or `@return` attributes are redundant due to the use of native types, they can be removed:
+## Theme Configuration
 
-```php
-/*
-* Execute the job.
-*/
-public function handle(AudioProcessor $processor): void
-{
-    //
+- Never use a dynamic utility value. Only use Tailwind's built in values.
+- Use CSS variables for all design tokens:
+
+```css
+/* In CSS */
+.custom-element {
+    background-color: var(--color-blue-500);
+    font-family: var(--font-sans);
 }
 ```
 
-However, when the native type is generic, please specify the generic type through the use of the @param or @return attributes:
+- Available CSS variable namespaces:
 
-```php
-/**
- * Get the attachments for the message.
- *
- * @return array<int, \Illuminate\Mail\Mailables\Attachment>
- */
-public function attachments(): array
-{
-    return [
-        Attachment::fromStorage('/path/to/file'),
-    ];
+    - `--color-*`: Colors (e.g., `--color-blue-500`)
+    - `--font-*`: Font families (e.g., `--font-sans`)
+    - `--text-*`: Font sizes (e.g., `--text-xl`)
+    - `--font-weight-*`: Font weights (e.g., `--font-weight-bold`)
+    - `--spacing-*`: Spacing values (e.g., `--spacing-4`)
+    - `--radius-*`: Border radius (e.g., `--radius-md`)
+    - `--shadow-*`: Box shadows (e.g., `--shadow-lg`)
+
+- Override entire namespaces or the whole theme:
+
+```css
+@theme {
+    /* Override all font variables */
+    --font-*: initial;
+
+    /* Override the entire theme */
+    --*: initial;
 }
 ```
 
-# Creating new Laravel files
+## 3D Transforms
 
-- Always use artisan commands to generate Laravel files: `artisan make:xyz`
+- Example: Use 3D transforms with new utilities:
 
-# Laravel tests
+```html
+<!-- Enable 3D transforms -->
+<div class="translate-z-4 rotate-x-12 rotate-y-6 perspective-distant transform-3d">3D transformed element</div>
 
-- Always write Pest tests for new or updated functionality
-- Tests must be written using Pest functions and assertions
-- You MUST NOT write PHPUnit tests
-- When asserting status codes on a response, use the specific method like `assertOk`, `assertForbidden`, `assertNotFound` etc, instead of using `assertStatus(403)` or similar
-- When creating models for tests, you **MUST** use the factories for the models. Make use of custom states available
-- Run the tests with `composer test` after finalizing functionality
-- Run `composer lint` after changes
-
-<example-pest-test path="tests/Unit/ExampleTest.php">
-```php
-<?php
-test('that true is true', function () {
-    expect(true)->toBeTrue();
-});
-```
-</example-pest-test>
-
-<example-pest-test path="tests/Feature/ExampleTest.php">
-
-```php
-<?php
-
-it('returns a successful response', function () {
-    $response = $this->get('/');
-    $response->assertOk();
-});
+<!-- Control backface visibility -->
+<div class="rotate-y-180 backface-hidden transform-3d">Card back (hidden when flipped)</div>
 ```
 
-</example-pest-test>
+## Enhanced Gradients
 
----
+- Example: Use new gradient syntax and features:
 
-# Laravel Coding Guidelines
+```html
+<!-- Linear gradient with specific angle -->
+<div class="bg-linear-45 from-blue-500 to-purple-500">45-degree gradient</div>
 
-## Backend Architecture & Laravel Patterns
+<!-- Gradient with specific color space interpolation -->
+<div class="bg-linear-to-r/oklch from-blue-500 to-red-500">Linear gradient with OKLCH interpolation</div>
 
-### Laravel Framework Standards
+<!-- Conic and radial gradients -->
+<div class="bg-conic from-red-500 via-yellow-500 to-green-500">Conic gradient</div>
 
-- Implement proper type hints for all method parameters and return types (`Response`, `RedirectResponse`, etc.)
-- Use Laravel's built-in validation, authentication, and authorization systems
-- Commands created in `app\Console\Commands\` are automatically registered and available to use
-- Never use `env()` directly in code, use `config('app.name')` for example
-    - Use new environment variables for any new sensitive or configurable options, then add to a config file for use with `config('')`
-- Implement proper error handling with custom exception classes when needed
-- Listeners auto-listen for the events if they are type-hinted correctly
-- Scheduled commands live in `routes/console.php`
-- Use `DB::transaction()` in actions with multiple database operations
-- Use `list<string>` for indexed arrays and detailed array shapes in docblocks:
-
-```php
-/**
- * @var list<string>
- */
-protected $fillable = ['name', 'email'];
-
-/**
- * @return array{
- *     status: 'App\Enums\DatabaseStatus',
- *     metadata: 'array',
- *     created_at: 'datetime',
- * }
- */
-protected function casts(): array
-{
-    return [
-        'status' => DatabaseStatus::class,
-        'metadata' => 'array',
-        'created_at' => 'datetime',
-    ];
-}
+<div class="bg-radial-[at_25%_25%] from-amber-500 to-transparent">Radial gradient with custom position</div>
 ```
 
-- Use dedicated classes for complex data structures rather than arrays:
+## New Variants
 
-```php
-class DnsResult
-{
-    public function __construct(
-        public readonly string $type,
-        public readonly string $domain,
-        public readonly string $ip
-    ) {}
+- Example: Use composable variants by chaining them:
 
-    public static function fromEnvironment(Environment $environment): self
-    {
-        return new self(
-            type: $environment->type,
-            domain: $environment->domain,
-            ip: $environment->ip
-        );
-    }
-}
+```html
+<div class="group">
+    <!-- Only visible when parent has data-active attribute and is hovered -->
+    <span class="opacity-0 group-has-data-active:group-hover:opacity-100"> Conditionally visible </span>
+</div>
 ```
 
-### Controller Structure
+- Example: Use new variants:
 
-- Keep controllers thin and focused on HTTP concerns only. Almost always return `Inertia` responses. Delegate to `Services` when needed.
-- Use Form Request classes for complex validation logic (`ProfileUpdateRequest`)
-- Return proper response types (`Inertia\Response` for renders, `RedirectResponse` for redirects)
-- Group related functionality in subdirectories (`Settings/`, `Auth/`) within `App/Http/Controllers`
-- Use resource controllers and route model binding where appropriate
-- Delegate to a queued job for long-running tasks
+```html
+<!-- Styles applied during CSS transitions -->
+<div class="opacity-0 transition starting:opacity-100">Fade in on initial render</div>
 
-### Model Best Practices
+<!-- Target elements that are not in a specific state -->
+<div class="not-first:mt-4">Margin top on all but first item</div>
 
-- Use modern Laravel model patterns with proper docblocks (`@use HasFactory<\Database\Factories\UserFactory>`)
-- Implement proper `$fillable` and `$hidden` arrays for mass assignment protection
-- Begin queries from a Model or QueryBuilder, not `DB::`
-- Use the modern `casts()` method for attribute casting
-- Use Eloquent relationships properly with correct type hints. Prefer relationship methods over raw queries or manual joins.
-- Each Model must have a {Model}Factory
-- Use eager loading to prevent N+1 queries
+<!-- Target specific nth-child positions -->
+<ul>
+    <li class="nth-3:bg-gray-100">Every third item has gray background</li>
+</ul>
 
-### Database & Migrations
+<!-- Target all descendants -->
+<div class="**:text-gray-800">All text inside is gray-800</div>
+```
 
-- Create new migrations with `artisan make:migration` using a descriptive migration name that indicates the change
-- Implement proper foreign key constraints and indexes
-    - Use `->constrained()->cascadeOnDelete()` or `->nullOnDelete()` patterns for foreign key relationships
-- Keep migrations atomic and reversible
-- Omit `down()` in new migrations
-- Use database factories for testing data
-- Use eager loading to prevent N+1 queries
+## Custom Extensions
 
-### Inertia.js Integration
+- Example: Create custom utilities with `@utility` directive:
 
-- Implement proper data sharing through `HandleInertiaRequests` middleware
-- Enable and configure Server-Side Rendering (SSR) for better SEO and performance
-- Make use of Inertia's new deferred props, polling, prefetching, load when visible, and props merging, available in Inertia JS v2
-
-### React/TypeScript Standards
-
-- Use TypeScript for all frontend code with proper type definitions
-- Use `export default function Something(){...}`
-- When importing local components, use `import SomeComponent from '@/Components/SomeComponent'` instead of relative paths and always leave off the file extension
-- Implement component composition patterns with Radix UI primitives
-- Use modern React patterns (hooks, function components, proper state management)
-- Follow accessibility best practices with ARIA attributes
-- Implement proper error boundaries and loading states
-
-### Styling & UI Components
-
-- Use Tailwind CSS v4 syntax and properties
-- Implement design system with reusable components using shadcn/ui patterns
-- Implement proper responsive design with mobile-first approach
-
-### Testing Requirements
-
-- You must use Pest PHP for expressive testing syntax. PHPUnit tests have been banned
-- Implement feature tests for all user-facing functionality
-- Write unit tests for complex business logic
-- Always use factories for test data generation. Make use of 'factory states' when possible.
-    - Use `fake()` helper instead of `$this->faker`.
-- If xdebug or pcov is installed (`php -m | grep -i xdebug`) you must maintain high test coverage with meaningful assertions. You can test the code and validate coverage percentage above 85% using this command `XDEBUG_MODE=coverage vendor/bin/pest --coverage --min=85`
-
-### Code Quality & Formatting
-
-- Use `npm run format:check` to verify prettier formatting
-- Use `npm run lint` to fix eslint issues
-- Use proper import organization with `prettier-plugin-organize-imports`
-- Implement proper error handling and logging
-
-### Security & Best Practices
-
-- Use Laravel's built-in authentication with proper middleware
-- Implement CSRF protection on all forms
-- Use rate limiting for sensitive endpoints
-
-### Data Validation & Sanitization
-
-- Always add FormRequest classes extending `Illuminate\Foundation\Http\FormRequest` in `app/Http/Requests/` with Laravel's validation rules in an array, like this example:
-  <form-request-validation-array-example>
-
-    ```php
-    /**
-    * Get the validation rules that apply to the request.
-    *
-    * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-    */
-    public function rules(): array
-    {
-      return [
-          'email' => ['required', 'string', 'email'],
-          'password' => ['required', 'string'],
-      ];
-    }
-    ```
-
-</form-request-validation-array-example>
-
-## Service Providuers Class Structure
-
-- Do not create new service providers unless approved by the user to be created and added to `bootstrap/providers.php`
-
-## HTTP Requests
-
-Use Laravel's HTTP client with retry logic, connection exception handling, and custom exception throwing:
-
-```php
-protected function client(): PendingRequest
-{
-    return Http::withToken($this->apiKey)
-        ->baseUrl("{$this->host}/api")
-        ->asJson()
-        ->acceptJson()
-        ->retry($this->maxAttempts, when: fn (Throwable $e) => $this->retryWhen($e))
-        ->throw(fn (Response $response) => throw new CustomRequestException($response));
+```css
+@utility tab-4 {
+  tab-size: 4;
 }
 
-protected function retryWhen(Throwable $exception): bool
-{
-    return $exception instanceof ConnectionException;
-}
+/* Usage */
+<pre class="tab-4">
+  Indented with tabs
+</pre>
 ```
 
-### Service Method Patterns
+- Example: Create custom variants with `@variant` directive:
 
-Keep service methods focused and use descriptive names:
+```css
+@variant pointer-coarse (@media (pointer: coarse));
+@variant theme-midnight (&:where([data-theme="midnight"] *));
 
-```php
-public function createCustomer(Organization $organization): array
-{
-    $response = $this->client()
-        ->post('/customers', [
-            'external_id' => $organization->identifier,
-            'name' => $organization->name,
-            'email' => $organization->billing_email,
-        ]);
+/* Usage */
+<button class="pointer-coarse:p-4">
+  Larger padding on touch devices
+</button>
+```
 
-    return $response->json();
+- Example: Use plugins with `@plugin` directive:
+
+```css
+@plugin "@tailwindcss/typography";
+```
+
+## Breaking Changes
+
+- Example: Use new syntax for CSS variables in arbitrary values:
+
+```html
+<!-- Old way -->
+<div class="bg-[--brand-color]">Using CSS variable</div>
+
+<!-- New way -->
+<div class="bg-(--brand-color)">Using CSS variable</div>
+```
+
+- Example: Use renamed utilities:
+
+```html
+<!-- Old way -->
+<div class="rounded-sm shadow-sm blur-sm"></div>
+
+<!-- New way -->
+<div class="rounded-xs shadow-xs blur-xs"></div>
+```
+
+## Advanced Configuration
+
+- Example: Add a prefix to all Tailwind classes:
+
+```css
+@import "tailwindcss" prefix(tw);
+
+/* Results in classes like: */
+<div class="tw:flex tw:bg-blue-500 tw:hover:bg-blue-600">
+  Prefixed classes
+</div>
+```
+
+- Example: Configure dark mode:
+
+```css
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+
+/* Usage */
+<div class="dark">
+  <p class="text-gray-900 dark:text-white">
+    Dark mode text
+  </p>
+</div>
+```
+
+- Example: Customize container:
+
+```css
+@utility container {
+    margin-inline: auto;
+    padding-inline: 2rem;
 }
 ```
 
