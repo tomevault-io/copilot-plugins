@@ -1,0 +1,9 @@
+{
+  "name": "hyperremix--d2r-arcane-tracker",
+  "displayName": "d2r-arcane-tracker",
+  "description": "Diablo 2 Resurrected Holy Grail Tracker - Automatic item tracking for D2R Holy Grail progress, unique items, sets, and runes",
+  "version": "1.0.0",
+  "author": "hyperremix",
+  "homepage": "https://github.com/hyperremix/d2r-arcane-tracker",
+  "skills": []
+}
