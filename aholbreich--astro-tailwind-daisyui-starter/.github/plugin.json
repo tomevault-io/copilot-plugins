@@ -1,0 +1,9 @@
+{
+  "name": "aholbreich--astro-tailwind-daisyui-starter",
+  "displayName": "astro-tailwind-daisyui-starter",
+  "description": "Minimal Astro 5 starter with Tailwind CSS 4, DaisyUI 5, Alpine JS, SEO, sitemap support.",
+  "version": "1.0.0",
+  "author": "aholbreich",
+  "homepage": "https://github.com/aholbreich/astro-tailwind-daisyui-starter",
+  "skills": []
+}
