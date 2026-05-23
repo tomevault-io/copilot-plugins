@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jido-shell",
+  "displayName": "jido_shell",
+  "description": "Virtual shell runtime for Jido agents with session state and command execution.",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido_shell",
+  "skills": []
+}
