@@ -7,11 +7,11 @@ LLM-powered Telegram bot that verifies and approves group chat join requests by 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [k4yt3x/bouncer](https://github.com/k4yt3x/bouncer).
+Original source: `CLAUDE.md` in [k4yt3x/bouncer](https://github.com/k4yt3x/bouncer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
