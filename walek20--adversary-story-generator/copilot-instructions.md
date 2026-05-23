@@ -1,52 +1,39 @@
-## db-supabase-migrations
+## frontend
 
-> You are a Postgres Expert who loves creating secure database schemas.
+> - Use Astro components (.astro) for static content and layout
 
-# Database: Create migration
+## Frontend
 
-You are a Postgres Expert who loves creating secure database schemas.
+### General Guidelines
 
-This project uses the migrations provided by the Supabase CLI.
+- Use Astro components (.astro) for static content and layout
+- Implement framework components in React only when interactivity is needed
 
-## Creating a migration file
+### Guidelines for Styling
 
-Given the context of the user's message, create a database migration file inside the folder `supabase/migrations/`.
+#### Tailwind
 
-The file MUST following this naming convention:
+- Use the @layer directive to organize styles into components, utilities, and base layers
+- Use arbitrary values with square brackets (e.g., w-[123px]) for precise one-off designs
+- Implement the Tailwind configuration file for customizing theme, plugins, and variants
+- Leverage the theme() function in CSS for accessing Tailwind theme values
+- Implement dark mode with the dark: variant
+- Use responsive variants (sm:, md:, lg:, etc.) for adaptive designs
+- Leverage state variants (hover:, focus-visible:, active:, etc.) for interactive elements
 
-The file MUST be named in the format `YYYYMMDDHHmmss_short_description.sql` with proper casing for months, minutes, and seconds in UTC time:
+### Guidelines for Accessibility
 
-1. `YYYY` - Four digits for the year (e.g., `2024`).
-2. `MM` - Two digits for the month (01 to 12).
-3. `DD` - Two digits for the day of the month (01 to 31).
-4. `HH` - Two digits for the hour in 24-hour format (00 to 23).
-5. `mm` - Two digits for the minute (00 to 59).
-6. `ss` - Two digits for the second (00 to 59).
-7. Add an appropriate description for the migration.
+#### ARIA Best Practices
 
-For example:
-
-```
-20240906123045_create_profiles.sql
-```
-
-
-## SQL Guidelines
-
-Write Postgres-compatible SQL code for Supabase migration files that:
-
-- Includes a header comment with metadata about the migration, such as the purpose, affected tables/columns, and any special considerations.
-- Includes thorough comments explaining the purpose and expected behavior of each migration step.
-- Write all SQL in lowercase.
-- Add copious comments for any destructive SQL commands, including truncating, dropping, or column alterations.
-- When creating a new table, you MUST enable Row Level Security (RLS) even if the table is intended for public access.
-- When creating RLS Policies
-  - Ensure the policies cover all relevant access scenarios (e.g. select, insert, update, delete) based on the table's purpose and data sensitivity.
-  - If the table  is intended for public access the policy can simply return `true`.
-  - RLS Policies should be granular: one policy for `select`, one for `insert` etc) and for each supabase role (`anon` and `authenticated`). DO NOT combine Policies even if the functionality is the same for both roles.
-  - Include comments explaining the rationale and intended behavior of each security policy
-
-The generated SQL code should be production-ready, well-documented, and aligned with Supabase's best practices.
+- Use ARIA landmarks to identify regions of the page (main, navigation, search, etc.)
+- Apply appropriate ARIA roles to custom interface elements that lack semantic HTML equivalents
+- Set aria-expanded and aria-controls for expandable content like accordions and dropdowns
+- Use aria-live regions with appropriate politeness settings for dynamic content updates
+- Implement aria-hidden to hide decorative or duplicative content from screen readers
+- Apply aria-label or aria-labelledby for elements without visible text labels
+- Use aria-describedby to associate descriptive text with form inputs or complex elements
+- Implement aria-current for indicating the current item in a set, navigation, or process
+- Avoid redundant ARIA that duplicates the semantics of native HTML elements
 
 ---
 > Source: [walek20/adversary-story-generator](https://github.com/walek20/adversary-story-generator) — distributed by [TomeVault](https://tomevault.io).
