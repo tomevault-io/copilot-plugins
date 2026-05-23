@@ -1,110 +1,193 @@
-## fastapi-testing
+## frontend
 
-> This rule documents best practices for writing FastAPI tests in the Zodiac Engine. Call this rule when reviewing or creating tests, implementing test fixtures, or working with async testing. Use it when users need guidance on test structure, mocking dependencies, handling async operations, or optimizing test performance.
+> This document outlines the frontend architecture, patterns and best practices for the Zodiac Engine web interface. The frontend uses a server-rendered approach with progressive enhancement via HTMX, styled with Bootstrap and minimal custom CSS.
 
-# FastAPI Testing Best Practices
+# Frontend Rules: Zodiac Engine
 
-This document outlines the recommended testing practices for the Zodiac Engine application.
+## Core Technologies
 
-## Test Structure
+- **Template Engine**: Jinja2 for server-side rendering
+- **CSS Framework**: Bootstrap 5.3+ for responsive layout and components
+- **Progressive Enhancement**: HTMX for dynamic interactions without heavy JavaScript
+- **Custom Styling**: Minimal CSS overrides in styles.css
+- **Icons**: Bootstrap Icons
+- **Chart Rendering**: SVG-based visualizations served from backend
 
-- **Test Organization**: Organize tests by API resources/endpoints (e.g., `test_chart_configuration.py`, `test_natal_chart_variations.py`).
-- **Test Files**: Name test files with `test_` prefix.
-- **Test Directory**: Keep all tests in the `tests/` directory at the project root.
+## Architecture Principles
 
-## TestClient Usage
+1. **Progressive Enhancement**
+   - All core functionality works without JavaScript
+   - HTMX enhances user experience but isn't required
+   - Fallback to traditional form submissions when needed
 
-The primary way to test FastAPI endpoints is with the synchronous `TestClient` from `fastapi.testclient`. Most tests use this client directly.
+2. **Server-Rendered Templates**
+   - Primary rendering happens on the server via Jinja2
+   - FastAPI routes serve both full pages and partial fragments
+   - Templates follow a hierarchical structure with extension
 
-```python
-from fastapi.testclient import TestClient
-from app.main import app
+3. **Component Organization**
+   - Base layout template provides page structure
+   - Page templates extend the base layout
+   - Fragment templates for HTMX partial updates
 
-client = TestClient(app)
+4. **Frontend-Backend Integration**
+   - HTMX requests detected via `hx_request` header
+   - Different response strategies for HTMX vs traditional requests
+   - Fragment templates correspond to specific backend endpoints
 
-def test_read_endpoint():
-    response = client.get("/some-endpoint")
-    assert response.status_code == 200
-    assert response.json() == {"expected": "response"}
-```
+## Template Structure
 
-## Asynchronous Testing Considerations
+- **Layout Template**: `layout.html` (base template with common structure)
+- **Page Templates**: Full pages that extend layout (e.g., `home.html`, `chart_details.html`)
+- **Fragment Templates**: Partial updates for HTMX (`fragments/location_results.html`, etc.)
 
-- The `pytest-asyncio` plugin is installed.
-- Test functions themselves should *not* use `async def` unless they directly `await` something *other* than client calls (which are synchronous with `TestClient`).
-- For testing true async operations or if switching to `httpx.AsyncClient`, use `@pytest.mark.anyio` and `async def`.
+## HTMX Patterns
 
-```python
-# Example IF using AsyncClient (not current practice)
-# import pytest
-# from httpx import AsyncClient
-#
-# @pytest.mark.anyio
-# async def test_async_endpoint():
-#     async with AsyncClient(app=app, base_url="http://test") as ac:
-#         response = await ac.get("/endpoint")
-#     assert response.status_code == 200
-```
+1. **Real-time Search**
+   ```html
+   <input type="text" 
+          hx-post="/search-endpoint" 
+          hx-trigger="keyup changed delay:500ms" 
+          hx-target="#results-container">
+   ```
 
-## Using Fixtures
+2. **Form Validation**
+   ```html
+   <input type="text" 
+          hx-post="/validate-endpoint" 
+          hx-trigger="change" 
+          hx-target="#validation-results">
+   ```
 
-- Fixtures can be defined in individual test files or in `tests/conftest.py` for reuse.
-- Currently, fixtures like `valid_natal_visualization_request` are defined within specific test files (e.g., [tests/test_static_images.py](mdc:tests/test_static_images.py)).
-- The `TestClient` is instantiated directly in each test file rather than using a shared fixture.
+3. **Loading Indicators**
+   ```html
+   <div hx-indicator="#loader">
+     <div id="loader" class="htmx-indicator">Loading...</div>
+   </div>
+   ```
 
-```python
-# Example fixture in a test file
-@pytest.fixture
-def test_data():
-    return {
-        "name": "Test Person",
-        "birth_date": "1990-01-01T12:00:00",
-        # other test data
-    }
+4. **Fragment Replacement**
+   ```html
+   <button hx-post="/endpoint" 
+           hx-target="#container" 
+           hx-swap="innerHTML">
+     Click Me
+   </button>
+   ```
 
-def test_using_fixture(test_data):
-    response = client.post("/some-endpoint", json=test_data)
-    # ... assertions ...
-```
+5. **HTMX Redirects**
+   - Backend sends `HX-Redirect` header for navigation
+   ```python
+   return HTMLResponse(
+       headers={"HX-Redirect": "/destination"},
+       content=""
+   )
+   ```
 
-## Dependency Overrides
+## CSS Guidelines
 
-- FastAPI supports overriding dependencies for isolated testing, which is useful for mocking external services or databases.
-- This is typically done using `app.dependency_overrides`.
-- **Note**: This pattern is not currently used for service mocking (e.g., `AstrologyService`, `ChartVisualizationService`) in the existing test suite, but can be implemented if needed.
+1. **Bootstrap First**
+   - Use Bootstrap classes for layout and components when possible
+   - Customize via CSS variables in `:root` to maintain theme consistency
+   - Override only when necessary
 
-```python
-# Example of overriding a dependency (conceptual)
-# from app.main import app
-# from app.core.dependencies import get_astrology_service
-#
-# def get_mock_astrology_service():
-#     # Return a mock or test implementation
-#     return MockAstrologyService()
-#
-# app.dependency_overrides[get_astrology_service] = get_mock_astrology_service
-#
-# # Run tests that use the overridden dependency
-#
-# # Clean up overrides after tests
-# app.dependency_overrides = {}
-```
+2. **Custom CSS Structure**
+   - Variables: Define in `:root` to establish theme colors and values
+   - Component overrides: Target specific Bootstrap components for customization
+   - Custom components: Create styles for components not provided by Bootstrap
+   - HTMX-specific styles: Handle transitions, loading states
 
-## Best Practices
+3. **Responsive Design**
+   - Use Bootstrap's grid system and responsive utilities
+   - Test on multiple device sizes
+   - Implement mobile-specific adaptations when needed
 
-1.  **Test Both Success and Error Cases**: Verify correct behavior for both valid and invalid inputs.
-2.  **Use Status Constants**: Use `fastapi.status` constants (e.g., `status.HTTP_200_OK`) instead of raw numbers.
-3.  **Parameterized Testing**: Use `@pytest.mark.parametrize` for testing variations efficiently.
-4.  **Mocking External Services**: If external dependencies (beyond Kerykeion, which is implicitly tested) are added, use `unittest.mock` or pytest's monkeypatch.
-5.  **Testing File Operations**: For file generation (like SVGs), assert file existence and optionally check content. Consider mocking file system interactions for pure unit tests.
-6.  **Test Coverage**: Aim for high test coverage using `pytest-cov`.
+## JavaScript Usage
 
-## Project-Specific Guidelines
+1. **Minimal JavaScript**
+   - Only use custom JS for functionality that HTMX cannot handle
+   - Keep scripts in `{% block scripts %}` section of templates
+   - Avoid jQuery or other large libraries unless absolutely necessary
 
-- Test all chart generation endpoints with various valid and invalid configurations.
-- Verify SVG generation includes expected elements or text content.
-- Ensure tests clean up generated files or use a dedicated test directory (currently handled by `setup_static_dir` fixture in `test_static_images.py`).
-- Tests currently rely on the actual Kerykeion library execution. Mocking Kerykeion is an option for faster, more isolated unit tests in the future.
+2. **Event Handling**
+   - Prefer HTMX triggers over JavaScript event listeners when possible
+   - For custom scripts, use modern JavaScript (ES6+)
+   - Handle errors gracefully with fallbacks
+
+## Form Handling
+
+1. **Validation**
+   - Use both client-side validation via HTMX and server-side validation
+   - Provide clear, user-friendly error messages
+   - Use identical validation logic on client and server when possible
+
+2. **Submission**
+   - HTMX for asynchronous submissions with feedback
+   - Fallback to traditional submission
+   - Handle both success and error states gracefully
+
+## Error Handling
+
+1. **Validation Errors**
+   - Display inline errors near relevant form fields
+   - Use consistent styling (Bootstrap alerts)
+   - Provide clear suggestions for correction
+
+2. **Server Errors**
+   - Render appropriate error templates
+   - Log errors on server with sufficient context
+   - Provide user-friendly messages without technical details
+
+## Accessibility Guidelines
+
+1. **Semantic HTML**
+   - Use appropriate heading levels (`h1-h6`)
+   - Employ semantic elements (`nav`, `main`, `section`, etc.)
+   - Ensure forms have proper labels and ARIA attributes
+
+2. **Keyboard Navigation**
+   - All interactive elements must be keyboard accessible
+   - Maintain logical tab order
+   - Provide visible focus indicators
+
+3. **Screen Reader Support**
+   - Add ARIA labels where needed
+   - Ensure dynamic content updates are announced
+   - Test with screen readers
+
+## Future Enhancements
+
+1. **HTMX Extensions**
+   - Websocket support via SSE
+   - More complex interaction patterns
+   - Advanced animation effects
+
+2. **Component Development**
+   - Create reusable component templates
+   - Standardize patterns for common UI elements
+   - Document component usage
+
+3. **User Experience Improvements**
+   - Enhanced form validation with clear guidance
+   - Interactive chart elements
+   - More sophisticated loading states and transitions
+
+## Testing Guidelines
+
+1. **Visual Testing**
+   - Test on multiple browsers and devices
+   - Verify responsive design breakpoints
+   - Ensure visual consistency across themes
+
+2. **Functional Testing**
+   - Test with JavaScript disabled to verify progressive enhancement
+   - Test form submission flows
+   - Verify all HTMX interactions
+
+3. **Accessibility Testing**
+   - Run automated accessibility checks
+   - Perform manual keyboard navigation testing
+   - Test with screen readers
 
 ---
 > Source: [gsinghjay/zodiac-engine](https://github.com/gsinghjay/zodiac-engine) — distributed by [TomeVault](https://tomevault.io).
