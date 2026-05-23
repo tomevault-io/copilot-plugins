@@ -1,0 +1,9 @@
+{
+  "name": "chajus1--proxmox-mcp-enhanced",
+  "displayName": "proxmox-mcp-enhanced",
+  "description": "Enhanced Proxmox MCP server with 70+ tools for comprehensive infrastructure management, security automation, and lab orchestration",
+  "version": "1.0.0",
+  "author": "chajus1",
+  "homepage": "https://github.com/chajus1/proxmox-mcp-enhanced",
+  "skills": []
+}
