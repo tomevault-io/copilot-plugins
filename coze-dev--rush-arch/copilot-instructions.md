@@ -1,41 +1,125 @@
-## 001-emoji-communication
+## 400-en-readme
 
-> Use emojis strategically in AI responses to enhance communication and user experience
+> Create standard English README documentation, ensure complete project information and correct formatting
 
 
-# Emoji Communication Guidelines
+# English Project README Documentation Specification
 
 ## Context
-- When responding to user queries in conversations
-- When emphasizing important points or status updates
-- When making technical communication more engaging and human-friendly
+- When creating README.md documents for new projects
+- When updating README.md documents for existing projects
+- When converting English README documents to English versions
 
 ## Requirements
-- Use emojis purposefully to enhance meaning, but feel free to be creative and fun
-- Place emojis at the end of statements or sections
-- Maintain professional tone while surprising users with clever choices
-- Limit emoji usage to 1-2 per major section
+- README must be written entirely in English, with no mixed use of English
+- Must include standardized structure, including project introduction, quick start, usage instructions, roadmap, contribution guidelines, license, and acknowledgments
+- Documentation must be clear and concise, while providing sufficiently detailed information
+- Use appropriate Markdown formatting to enhance readability
+- Must include proper heading hierarchy structure
 
 ## Examples
 <example>
-✅ "I've optimized your database queries 🏃‍♂️💨"
-✅ "Your bug has been squashed 🥾🐛"
-✅ "I've cleaned up the legacy code 🧹✨"
-✅ "Fixed the performance issue 🐌➡️🐆"
+# Project Name
+
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
+
+## About The Project
+
+Brief description of the project, explaining its main functions and purpose. Include a screenshot or logo if available.
+
+### Tech Stack
+
+* Frontend Framework - React.js
+* Backend Framework - Node.js
+* Database - MongoDB
+* Other important dependencies
+
+## Getting Started
+
+### Prerequisites
+
+* Node.js 14.0+
+* MongoDB 4.4+
+
+### Installation
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/username/project-name.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+3. Start the development server
+   ```sh
+   npm run dev
+   ```
+
+## Usage
+
+Detailed explanation of how to use the main features of the project. Include code examples and screenshots.
+
+## Roadmap
+
+- [x] Basic functionality implemented
+- [x] User authentication added
+- [ ] Internationalization support
+- [ ] Mobile responsiveness
+
+## Contributing
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
+3. Commit your Changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the Branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the MIT License. See `LICENSE` file for more information.
+
+## Acknowledgments
+
+* [Example Library 1](https://github.com/example/repo1)
+* [Example Documentation 2](https://example.com/docs)
 </example>
 
 <example type="invalid">
-❌ "Multiple 🎉 emojis 🎊 in 🌟 one message"
-❌ "Using irrelevant emojis 🥑"
-❌ "Placing the emoji in the middle ⭐️ of a sentence"
+# Project Name
+
+![许可证](https://img.shields.io/badge/许可证-MIT-blue.svg)
+![版本](https://img.shields.io/badge/版本-1.0.0-brightgreen.svg)
+
+## About The Project
+
+This README is invalid because it mixes English and English languages.
+
+### Built With
+
+* React.js
+* Node.js
+* MongoDB
+
+## Getting Started
+
+### Prerequisites
+
+* Node.js 14.0+
+* MongoDB 4.4+
+
+The README is incomplete and inconsistently uses mixed languages
 </example>
 
 ## Critical Rules
-  - Never use more than one emoji per statement
-  - Choose emojis that are both fun and contextually appropriate
-  - Place emojis at the end of statements, not at the beginning or middle
-  - Skip emoji usage when discussing serious issues or errors
-  - Don't be afraid to tell a mini-story with your emoji choice 
+  - README documents must be written entirely in English, with no use of English
+  - Must include the following seven core sections: About The Project, Getting Started, Usage, Roadmap, Contributing, License, and Acknowledgments
+  - The project introduction must clearly describe the purpose and main features of the project
+  - The Getting Started section must include prerequisites and detailed installation steps
+  - Code examples must use Markdown code block format with specified language
+  - Use emojis moderately, with a maximum of one per major section
+  - Documentation requires appropriate heading hierarchy, with main sections using level two headings (##) and subsections using level three headings (###)
 
 ---
 > Source: [coze-dev/rush-arch](https://github.com/coze-dev/rush-arch) — distributed by [TomeVault](https://tomevault.io).
