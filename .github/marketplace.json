@@ -125909,6 +125909,11 @@
       "description": "An adversarial neural network that restores the high fideliity audio lost during lossy compression"
     },
     {
+      "name": "ivngineer--sword",
+      "source": "./ivngineer--sword",
+      "description": "A feature-rich GUI software store for Linux"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
