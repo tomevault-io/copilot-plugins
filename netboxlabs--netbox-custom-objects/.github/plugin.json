@@ -1,0 +1,9 @@
+{
+  "name": "netboxlabs--netbox-custom-objects",
+  "displayName": "netbox-custom-objects",
+  "description": "NetBox Custom Objects plugin",
+  "version": "1.0.0",
+  "author": "netboxlabs",
+  "homepage": "https://github.com/netboxlabs/netbox-custom-objects",
+  "skills": []
+}
