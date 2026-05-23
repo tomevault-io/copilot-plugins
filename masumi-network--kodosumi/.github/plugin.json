@@ -1,0 +1,9 @@
+{
+  "name": "masumi-network--kodosumi",
+  "displayName": "kodosumi",
+  "description": "runtime environment to manage and execute agentic services at scale",
+  "version": "1.0.0",
+  "author": "masumi-network",
+  "homepage": "https://github.com/masumi-network/kodosumi",
+  "skills": []
+}
