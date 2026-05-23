@@ -1,0 +1,18 @@
+{
+  "name": "codemie-ai--codemie-ui",
+  "displayName": "codemie-ui",
+  "description": "codemie-ui",
+  "version": "1.0.0",
+  "author": "codemie-ai",
+  "homepage": "https://github.com/codemie-ai/codemie-ui",
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "codemie-mr",
+      "description": ""
+    }
+  ]
+}
