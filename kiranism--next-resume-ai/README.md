@@ -1,4 +1,4 @@
-# next
+# next-resume-ai
 
 > Source: [Kiranism/next-resume-ai](https://github.com/Kiranism/next-resume-ai) — distributed by [TomeVault](https://tomevault.io)
 
@@ -16,13 +16,6 @@ Original source: `.cursor/rules/*.mdc` in [Kiranism/next-resume-ai](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-## Bundled Skills (4)
-
-- [tanstack-form](https://github.com/Kiranism/next-resume-ai/tree/main/.agents/skills/tanstack-form)
-- [kiranism-shadcn-dashboard](https://github.com/Kiranism/next-resume-ai/tree/main/.agents/skills/kiranism-shadcn-dashboard)
-- [next-best-practices](https://github.com/Kiranism/next-resume-ai/tree/main/.agents/skills/next-best-practices)
-- [kiranism-shadcn-dashboard](https://github.com/Kiranism/next-resume-ai/tree/main/.claude/skills/kiranism-shadcn-dashboard)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Kiranism/next-resume-ai](https://github.com/Kiranism/next-resume-ai)
 
