@@ -1,55 +1,36 @@
-## code-spacing
+## context-design-process
 
-> Enforces consistent spacing throughout the codebase
+> Ensures thorough design discussion before implementation
 
 # Rules
 
-## Use consistent spacing
-The following patterns are required:
-- Empty line between code blocks
-- Maximum 1 consecutive empty line
-- Empty line after imports
-- Empty line before/after functions
-- Empty line before exports
-- Empty line after class members
-- Empty line before return statements
+## Design First
+Ask clarifying questions, explore requirements and constraints, consider alternative approaches, validate assumptions, and get agreement on approach before implementation.
+
+## Implementation Prerequisites
+Before showing any code, ensure core requirements are clear, key decisions are made, approach is agreed upon, and edge cases are considered.
+
+## Progressive Refinement
+Follow this sequence: start with high-level concepts, drill down into specifics, validate each level, and confirm before proceeding.
 
 # Examples
 
 ## Valid
-```typescript
-import { ref, watch } from 'vue'
-import { TextInputBare } from 'vue-bare'
+```
+"Before we implement this, could you clarify the expected user workflow?"
 
-const props = defineProps<Props>()
-const emit = defineEmits(['update:modelValue'])
+"Should we explore alternative approaches to this problem?"
 
-const handleInput = (event: Event) => {
-  const input = event.target as HTMLInputElement
-  const value = input.value
-
-  return value
-}
-
-export const exportedFunction = (param: string) => {
-  return param.toUpperCase()
-}
+"Let me confirm my understanding of the requirements..."
 ```
 
 ## Invalid
-```typescript
-import { ref, watch } from 'vue'
-import { TextInputBare } from 'vue-bare'
-const props = defineProps<Props>()
-const emit = defineEmits(['update:modelValue'])
-const handleInput = (event: Event) => {
-  const input = event.target as HTMLInputElement
-  const value = input.value
-  return value
-}
-export const exportedFunction = (param: string) => {
-  return param.toUpperCase()
-}
+```
+"Here's the code for what I think you want..."
+
+"This is the best way to do it..."
+
+"I'll start coding this now..."
 ```
 
 ---
