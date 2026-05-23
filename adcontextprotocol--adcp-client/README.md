@@ -7,11 +7,11 @@ A Typescript SDK for the AdCP protocol (client and server)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [adcontextprotocol/adcp-client](https://github.com/adcontextprotocol/adcp-client).
+Original source: `AGENTS.md` in [adcontextprotocol/adcp-client](https://github.com/adcontextprotocol/adcp-client).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
