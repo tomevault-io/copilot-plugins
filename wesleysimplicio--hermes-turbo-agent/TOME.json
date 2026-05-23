@@ -4,7 +4,7 @@
   "repo": "hermes-turbo-agent",
   "description": "Hermes Agent 100x Fast performance branch: runtime benchmarks, visual comparisons, and safe hot-path optimizations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wesleysimplicio/hermes-turbo-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T02:38:09Z"
+  "distributed_at": "2026-05-23T02:40:10Z"
 }
