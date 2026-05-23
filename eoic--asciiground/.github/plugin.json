@@ -1,0 +1,9 @@
+{
+  "name": "eoic--asciiground",
+  "displayName": "ASCIIGround",
+  "description": "A JavaScript library for creating animated ASCII backgrounds.",
+  "version": "1.0.0",
+  "author": "Eoic",
+  "homepage": "https://github.com/Eoic/ASCIIGround",
+  "skills": []
+}
