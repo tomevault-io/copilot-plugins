@@ -1,26 +1,9 @@
 {
   "name": "kiranism--next-resume-ai",
-  "displayName": "next",
+  "displayName": "next-resume-ai",
   "description": "A resume generator with Nextjs and React Pdf",
   "version": "1.0.0",
   "author": "Kiranism",
   "homepage": "https://github.com/Kiranism/next-resume-ai",
-  "skills": [
-    {
-      "name": "tanstack-form",
-      "description": ""
-    },
-    {
-      "name": "kiranism-shadcn-dashboard",
-      "description": ""
-    },
-    {
-      "name": "next-best-practices",
-      "description": ""
-    },
-    {
-      "name": "kiranism-shadcn-dashboard",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
