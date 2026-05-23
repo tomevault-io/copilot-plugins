@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jido-browser",
+  "displayName": "jido_browser",
+  "description": "Browser automation actions for Jido AI agents",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido_browser",
+  "skills": []
+}
