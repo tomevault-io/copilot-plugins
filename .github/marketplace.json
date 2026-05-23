@@ -163099,6 +163099,11 @@
       "description": "A real magic of Prometheus and Zabbix being together"
     },
     {
+      "name": "cap-go--capacitor-persistent-account",
+      "source": "./cap-go--capacitor-persistent-account",
+      "description": "Capacitor plugin to persist account data between app install"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173324,6 +173329,31 @@
       "description": "blog-agent"
     },
     {
+      "name": "heoblitz--loupe",
+      "source": "./heoblitz--loupe",
+      "description": "Loupe"
+    },
+    {
+      "name": "burn-sours--tomb-raider-remastered-multiplayer",
+      "source": "./burn-sours--tomb-raider-remastered-multiplayer",
+      "description": "Tomb Raider Remastered I-V mod that implements Multiplayer, Super Jump, No Fall Damage, Perma Damage, and much more..."
+    },
+    {
+      "name": "rms80--video-vision",
+      "source": "./rms80--video-vision",
+      "description": "a front-end for running (local) Vision models on videos"
+    },
+    {
+      "name": "burn-sours--tomb-raider-remastered-multiplayer",
+      "source": "./burn-sours--tomb-raider-remastered-multiplayer",
+      "description": "Tomb Raider Remastered I-V mod that implements Multiplayer, Super Jump, No Fall Damage, Perma Damage, and much more..."
+    },
+    {
+      "name": "omar-dulaimi--prisma-valibot-generator",
+      "source": "./omar-dulaimi--prisma-valibot-generator",
+      "description": "Auto-generate type-safe, tree-shakeable Valibot validators from your Prisma schema"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -175697,6 +175727,11 @@
       "name": "ha7ch--job-pro",
       "source": "./ha7ch--job-pro",
       "description": "Query Chinese big-tech campus recruiting from your terminal. Tencent live, more coming."
+    },
+    {
+      "name": "jeffgreen311--eve-agent-v2-unleashed",
+      "source": "./jeffgreen311--eve-agent-v2-unleashed",
+      "description": "Eve Agent V2 Unleashed \u2014 local-first autonomous AI coding agent powered by Ollama"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -278412,6 +278447,46 @@
       "name": "keef75--sefas-gpt5",
       "source": "./keef75--sefas-gpt5",
       "description": "Self-Evolving Federated Agent System with GPT5"
+    },
+    {
+      "name": "ustinian-wang--ai-prompt-adm",
+      "source": "./ustinian-wang--ai-prompt-adm",
+      "description": "ai-prompt-adm"
+    },
+    {
+      "name": "ustinian-wang--ai-prompt-adm",
+      "source": "./ustinian-wang--ai-prompt-adm",
+      "description": "ai-prompt-adm"
+    },
+    {
+      "name": "ahmadusmannnn2--cuaca",
+      "source": "./ahmadusmannnn2--cuaca",
+      "description": "cuaca"
+    },
+    {
+      "name": "bvnk--oss-ai-slack-thread-summarizer",
+      "source": "./bvnk--oss-ai-slack-thread-summarizer",
+      "description": "oss-ai-slack-thread-summarizer"
+    },
+    {
+      "name": "robinfai--gen-cli-for-deepseek",
+      "source": "./robinfai--gen-cli-for-deepseek",
+      "description": "gen-cli-for-deepseek"
+    },
+    {
+      "name": "xuelun999-hue--branchhelios-game",
+      "source": "./xuelun999-hue--branchhelios-game",
+      "description": "branchhelios-game"
+    },
+    {
+      "name": "kieransaunders--familyforagingv3",
+      "source": "./kieransaunders--familyforagingv3",
+      "description": "familyforagingv3"
+    },
+    {
+      "name": "kieransaunders--familyforagingv3",
+      "source": "./kieransaunders--familyforagingv3",
+      "description": "familyforagingv3"
     }
   ]
 }
