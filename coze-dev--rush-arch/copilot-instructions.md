@@ -1,125 +1,70 @@
-## 400-en-readme
+## 400-md-docs
 
-> Create standard English README documentation, ensure complete project information and correct formatting
+> ALWAYS use when writing or updating Markdown files to ensure consistent formatting and readability
 
 
-# English Project README Documentation Specification
+# Markdown Documentation Standards
 
 ## Context
-- When creating README.md documents for new projects
-- When updating README.md documents for existing projects
-- When converting English README documents to English versions
+- When creating or modifying any Markdown documentation
+- When establishing documentation structure and style
+- When including diagrams, code blocks, or special elements in documentation
 
 ## Requirements
-- README must be written entirely in English, with no mixed use of English
-- Must include standardized structure, including project introduction, quick start, usage instructions, roadmap, contribution guidelines, license, and acknowledgments
-- Documentation must be clear and concise, while providing sufficiently detailed information
-- Use appropriate Markdown formatting to enhance readability
-- Must include proper heading hierarchy structure
+- Follow the official Markdown Guide for all basic and extended syntax
+- Maintain clear document structure with proper heading hierarchy
+- Include appropriate YAML front matter for metadata when required
+- Use Mermaid diagrams for visual documentation where appropriate
+- Properly format code blocks, tables, and special elements
+- Maximum heading depth: 4 levels
+- Indent content within XML tags by 2 spaces
+- Keep tables simple and readable with proper alignment
 
 ## Examples
 <example>
-# Project Name
+# Document Title
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
+## Section Heading
 
-## About The Project
+Content with **bold text** and *italics*.
 
-Brief description of the project, explaining its main functions and purpose. Include a screenshot or logo if available.
+```typescript
+function example(): void {
+  console.log('Hello, Universe!');
+}
+```
 
-### Tech Stack
+| Name  | Type   | Description  |
+|:------|:------:|-------------:|
+| id    | number | Primary key  |
+| name  | string | User's name  |
 
-* Frontend Framework - React.js
-* Backend Framework - Node.js
-* Database - MongoDB
-* Other important dependencies
-
-## Getting Started
-
-### Prerequisites
-
-* Node.js 14.0+
-* MongoDB 4.4+
-
-### Installation
-
-1. Clone the repository
-   ```sh
-   git clone https://github.com/username/project-name.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Start the development server
-   ```sh
-   npm run dev
-   ```
-
-## Usage
-
-Detailed explanation of how to use the main features of the project. Include code examples and screenshots.
-
-## Roadmap
-
-- [x] Basic functionality implemented
-- [x] User authentication added
-- [ ] Internationalization support
-- [ ] Mobile responsiveness
-
-## Contributing
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
-3. Commit your Changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the Branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-Distributed under the MIT License. See `LICENSE` file for more information.
-
-## Acknowledgments
-
-* [Example Library 1](https://github.com/example/repo1)
-* [Example Documentation 2](https://example.com/docs)
+> 💡 **Tip:** Helpful suggestion.
 </example>
 
 <example type="invalid">
-# Project Name
+#Incorrect Heading
+content without proper spacing
 
-![许可证](https://img.shields.io/badge/许可证-MIT-blue.svg)
-![版本](https://img.shields.io/badge/版本-1.0.0-brightgreen.svg)
+```
+function withoutLanguageSpecified() {
+}
+```
 
-## About The Project
-
-This README is invalid because it mixes English and English languages.
-
-### Built With
-
-* React.js
-* Node.js
-* MongoDB
-
-## Getting Started
-
-### Prerequisites
-
-* Node.js 14.0+
-* MongoDB 4.4+
-
-The README is incomplete and inconsistently uses mixed languages
+| No | alignment | markers |
+| or | proper | formatting |
 </example>
 
 ## Critical Rules
-  - README documents must be written entirely in English, with no use of English
-  - Must include the following seven core sections: About The Project, Getting Started, Usage, Roadmap, Contributing, License, and Acknowledgments
-  - The project introduction must clearly describe the purpose and main features of the project
-  - The Getting Started section must include prerequisites and detailed installation steps
-  - Code examples must use Markdown code block format with specified language
-  - Use emojis moderately, with a maximum of one per major section
-  - Documentation requires appropriate heading hierarchy, with main sections using level two headings (##) and subsections using level three headings (###)
+  - Use ATX-style headings with space after hash: `# Heading`
+  - Maintain proper heading hierarchy (don't skip levels)
+  - Add blank line before and after headings and blocks
+  - Specify language in code blocks using triple backticks
+  - Use blockquotes with emoji for different types of callouts
+  - Include clear titles for Mermaid diagrams using the `---` syntax
+  - Keep table structure clean with proper alignment indicators
+  - Format Mermaid diagrams with descriptive node labels and comments
+  - Close XML tags on their own line at the parent indentation level 
 
 ---
 > Source: [coze-dev/rush-arch](https://github.com/coze-dev/rush-arch) — distributed by [TomeVault](https://tomevault.io).
