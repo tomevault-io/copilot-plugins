@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--php-mcp-schema",
+  "displayName": "php-mcp-schema",
+  "description": "php-mcp-schema",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/php-mcp-schema",
+  "skills": []
+}
