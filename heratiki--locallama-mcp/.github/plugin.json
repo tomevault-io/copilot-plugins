@@ -1,0 +1,9 @@
+{
+  "name": "heratiki--locallama-mcp",
+  "displayName": "locallama-mcp",
+  "description": "An MCP Server that works with Roo Code/Cline.Bot/Claude Desktop to optimize costs by intelligently routing coding tasks between local LLMs free APIs and paid APIs.",
+  "version": "1.0.0",
+  "author": "Heratiki",
+  "homepage": "https://github.com/Heratiki/locallama-mcp",
+  "skills": []
+}
