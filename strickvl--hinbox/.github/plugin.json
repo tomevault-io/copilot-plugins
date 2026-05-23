@@ -1,0 +1,9 @@
+{
+  "name": "strickvl--hinbox",
+  "displayName": "hinbox",
+  "description": "Hinbox is a flexible, domain-configurable entity extraction system designed for historians and researchers.",
+  "version": "1.0.0",
+  "author": "strickvl",
+  "homepage": "https://github.com/strickvl/hinbox",
+  "skills": []
+}
