@@ -1,0 +1,9 @@
+{
+  "name": "0x1abin--matter-controller-mcp",
+  "displayName": "matter-controller-mcp",
+  "description": "An MCP server for Matter Controller, enabling AI agents to control and interact with Matter devices.",
+  "version": "1.0.0",
+  "author": "0x1abin",
+  "homepage": "https://github.com/0x1abin/matter-controller-mcp",
+  "skills": []
+}
