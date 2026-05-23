@@ -4,7 +4,7 @@
   "repo": "wiki_llm",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LeoBR84p/wiki_llm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T20:32:19Z"
+  "distributed_at": "2026-05-23T20:33:16Z"
 }
