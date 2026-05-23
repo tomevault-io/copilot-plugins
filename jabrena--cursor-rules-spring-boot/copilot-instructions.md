@@ -1,398 +1,417 @@
-## 304-frameworks-spring-boot-hikari
+## 311-frameworks-spring-boot-slice-testing
 
-> HikariCP is the default connection pool for Spring Boot and is known for being the fastest, most reliable connection pool available for Java applications. This guide will help you configure HikariCP optimally for your Spring Boot applications.
+> Spring Boot slice testing allows you to test specific layers or "slices" of your application in isolation, providing faster and more focused tests than full integration tests. This approach helps maintain test clarity, reduces test execution time, and improves maintainability.
 
-# Spring Boot HikariCP Connection Pool Configuration
+# Spring Boot Slice Testing
 
-HikariCP is the default connection pool for Spring Boot and is known for being the fastest, most reliable connection pool available for Java applications. This guide will help you configure HikariCP optimally for your Spring Boot applications.
+Spring Boot slice testing allows you to test specific layers or "slices" of your application in isolation, providing faster and more focused tests than full integration tests. This approach helps maintain test clarity, reduces test execution time, and improves maintainability.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-- **Performance First**: Configure pool sizes based on your application's actual database concurrency needs
-- **Resource Efficiency**: Balance connection availability with memory and database server resources
-- **Monitoring & Observability**: Enable metrics and logging to understand pool behavior
-- **Environment-Specific**: Adjust configurations based on development, testing, and production environments
-- **Fail-Fast**: Configure appropriate timeouts to detect issues quickly
+- **Layer Isolation**: Test each application layer independently without loading the entire Spring context
+- **Focused Testing**: Use appropriate slice annotations to load only the components needed for specific functionality
+- **Mock Dependencies**: Mock external dependencies and other layers to achieve true unit testing at the slice level
+- **Fast Execution**: Minimize Spring context loading to achieve rapid test feedback cycles
 
 ## Table of contents
 
-- Rule 1: Essential Pool Sizing Configuration
-- Rule 2: Connection Timeout and Lifecycle Management
-- Rule 3: Health Check and Validation Configuration
-- Rule 4: Performance Monitoring and Metrics
-- Rule 5: Environment-Specific Configuration Strategies
+- Rule 1: Use @WebMvcTest for Web Layer Testing
+- Rule 2: Use @JdbcTest for Repository Layer Testing
+- Rule 3: Use @JsonTest for JSON Serialization Testing
+- Rule 4: Use @MockBean for Mocking Dependencies
+- Rule 5: Configure Test Profiles Appropriately
+- Rule 6: Use @TestConfiguration for Custom Test Setup
 
-## Rule 1: Essential Pool Sizing Configuration
+## Rule 1: Use @WebMvcTest for Web Layer Testing
 
-**Title**: Right-size your connection pool based on application needs
-
-**Description**: The most critical aspect of HikariCP configuration is determining the optimal pool size. Ask yourself: "How many concurrent database operations does my application actually need?" Most applications need far fewer connections than developers initially think.
-
-**Key Questions to Ask:**
-- How many concurrent users will access my application?
-- How many database operations happen per user request?
-- What's my database server's connection limit?
-- Am I running multiple application instances?
+Title: Test Controllers in Isolation with @WebMvcTest
+Description: Use @WebMvcTest to test only the web layer (controllers) without loading the full application context. This annotation configures Spring MVC infrastructure and auto-configures MockMvc for testing HTTP requests and responses.
 
 **Good example:**
 
-```yaml
-# application.yml
-spring:
-  datasource:
-    hikari:
-      # Start with this formula: connections = ((core_count * 2) + effective_spindle_count)
-      # For most web apps: 10-15 connections is often sufficient
-      maximum-pool-size: 10
-      minimum-idle: 5
-      # Allow pool to shrink during low activity
-      idle-timeout: 300000  # 5 minutes
-```
-
 ```java
-// For programmatic configuration
-@Configuration
-public class DatabaseConfig {
+@WebMvcTest(UserController.class)
+class UserControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
     
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari")
-    public HikariConfig hikariConfig() {
-        HikariConfig config = new HikariConfig();
-        // Conservative pool sizing for most applications
-        config.setMaximumPoolSize(10);
-        config.setMinimumIdle(5);
-        config.setIdleTimeout(300_000);
-        return config;
+    @MockBean
+    private UserService userService;
+    
+    @Test
+    void shouldReturnUserWhenValidId() throws Exception {
+        // Given
+        User user = new User(1L, "John Doe", "john@example.com");
+        when(userService.findById(1L)).thenReturn(user);
+        
+        // When & Then
+        mockMvc.perform(get("/api/users/1"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.name").value("John Doe"))
+            .andExpect(jsonPath("$.email").value("john@example.com"));
     }
 }
 ```
 
 **Bad Example:**
 
-```yaml
-# application.yml - DON'T DO THIS
-spring:
-  datasource:
-    hikari:
-      # Too many connections - wastes resources and can overwhelm DB
-      maximum-pool-size: 100
-      minimum-idle: 50
-      # Never let connections be idle - keeps unnecessary connections
-      idle-timeout: 0
+```java
+@SpringBootTest
+@AutoConfigureTestDatabase
+class UserControllerTest {
+    
+    @Autowired
+    private TestRestTemplate restTemplate;
+    
+    @Test
+    void shouldReturnUser() {
+        // This loads the entire application context unnecessarily
+        // and requires database setup for a simple controller test
+        ResponseEntity<User> response = restTemplate.getForEntity("/api/users/1", User.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+}
 ```
 
-## Rule 2: Connection Timeout and Lifecycle Management
+## Rule 2: Use @JdbcTest for Repository Layer Testing
 
-**Title**: Configure appropriate timeouts for reliable connection handling
-
-**Description**: Proper timeout configuration ensures your application fails fast when database issues occur and doesn't hold onto stale connections. Ask yourself: "How long should my application wait for a database connection before giving up?"
-
-**Key Questions to Ask:**
-- What's an acceptable wait time for users when the database is under load?
-- How quickly should I detect database connectivity issues?
-- What's my application's typical query execution time?
+Title: Test JDBC Repositories with @JdbcTest
+Description: Use @JdbcTest to test Spring Data JDBC repositories in isolation. This annotation configures an in-memory database, auto-configures JdbcTemplate and NamedParameterJdbcTemplate, and loads Spring Data JDBC repositories without loading the full application context.
 
 **Good example:**
 
-```yaml
-# application.yml
-spring:
-  datasource:
-    hikari:
-      # Fast failure for connection acquisition
-      connection-timeout: 20000      # 20 seconds - adjust based on your needs
-      # Detect stale connections quickly
-      max-lifetime: 1800000         # 30 minutes - less than DB connection timeout
-      # Quick validation of connections
-      validation-timeout: 5000       # 5 seconds
-      # Test connections when borrowed from pool
-      connection-test-query: SELECT 1
-```
-
 ```java
-// Programmatic configuration with monitoring
-@Configuration
-public class DatabaseConfig {
+@JdbcTest
+class UserRepositoryTest {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari")
-    public HikariConfig hikariConfig() {
-        HikariConfig config = new HikariConfig();
-        config.setConnectionTimeout(20_000);
-        config.setMaxLifetime(1_800_000);
-        config.setValidationTimeout(5_000);
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Test
+    void shouldFindUserByEmail() {
+        // Given
+        User user = new User(null, "John Doe", "john@example.com");
+        User saved = userRepository.save(user);
         
-        // Enable connection testing
-        config.setConnectionTestQuery("SELECT 1");
-        return config;
+        // When
+        Optional<User> found = userRepository.findByEmail("john@example.com");
+        
+        // Then
+        assertThat(found).isPresent();
+        assertThat(found.get().getName()).isEqualTo("John Doe");
+        assertThat(found.get().getEmail()).isEqualTo("john@example.com");
+    }
+    
+    @Test
+    void shouldReturnEmptyWhenUserNotFound() {
+        // When
+        Optional<User> found = userRepository.findByEmail("nonexistent@example.com");
+        
+        // Then
+        assertThat(found).isEmpty();
+    }
+    
+    @Test
+    void shouldUseJdbcTemplateForCustomQueries() {
+        // Given
+        jdbcTemplate.update(
+            "INSERT INTO users (name, email) VALUES (?, ?)", 
+            "Jane Smith", "jane@example.com"
+        );
+        
+        // When
+        Long count = jdbcTemplate.queryForObject(
+            "SELECT COUNT(*) FROM users WHERE email LIKE '%@example.com'", 
+            Long.class
+        );
+        
+        // Then
+        assertThat(count).isEqualTo(1L);
     }
 }
 ```
 
 **Bad Example:**
 
-```yaml
-# application.yml - DON'T DO THIS
-spring:
-  datasource:
-    hikari:
-      # Too long - users will think app is frozen
-      connection-timeout: 120000
-      # Too long - may exceed DB server timeout
-      max-lifetime: 7200000
-      # No validation - stale connections may be used
-      # connection-test-query: # missing
+```java
+@SpringBootTest
+class UserRepositoryTest {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Test
+    void shouldFindUserByEmail() {
+        // This loads the entire application context and all beans
+        // unnecessarily for a simple repository test
+        User user = new User(null, "John Doe", "john@example.com");
+        userRepository.save(user);
+        
+        Optional<User> found = userRepository.findByEmail("john@example.com");
+        assertThat(found).isPresent();
+    }
+}
 ```
 
-## Rule 3: Health Check and Validation Configuration
+## Rule 3: Use @JsonTest for JSON Serialization Testing
 
-**Title**: Implement robust connection health checking
-
-**Description**: Configure HikariCP to validate connections and maintain pool health. Ask yourself: "How can I ensure my application always gets working database connections?"
-
-**Key Questions to Ask:**
-- Does my database server have connection timeouts?
-- How can I detect network issues between app and database?
-- Should I validate connections proactively or reactively?
+Title: Test JSON Serialization/Deserialization with @JsonTest
+Description: Use @JsonTest to test JSON serialization and deserialization logic in isolation. This annotation auto-configures Jackson ObjectMapper and provides JacksonTester helper for testing JSON operations.
 
 **Good example:**
 
-```yaml
-# application.yml
-spring:
-  datasource:
-    hikari:
-      # Lightweight validation query for most databases
-      connection-test-query: SELECT 1
-      # Validate connections when borrowed (recommended for production)
-      validation-timeout: 5000
-      # Remove connections that fail validation
-      leak-detection-threshold: 60000  # 60 seconds - helps find connection leaks
-```
-
 ```java
-// Database-specific configuration
-@Configuration
-@Profile("production")
-public class ProductionDatabaseConfig {
+@JsonTest
+class UserJsonTest {
+
+    @Autowired
+    private JacksonTester<User> json;
     
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari")
-    public HikariConfig hikariConfig() {
-        HikariConfig config = new HikariConfig();
+    @Test
+    void shouldSerializeUser() throws Exception {
+        // Given
+        User user = new User(1L, "John Doe", "john@example.com");
         
-        // PostgreSQL-specific validation
-        config.setConnectionTestQuery("SELECT 1");
-        config.setValidationTimeout(5_000);
-        config.setLeakDetectionThreshold(60_000);
+        // When & Then
+        assertThat(json.write(user))
+            .hasJsonPathNumberValue("$.id", 1)
+            .hasJsonPathStringValue("$.name", "John Doe")
+            .hasJsonPathStringValue("$.email", "john@example.com");
+    }
+    
+    @Test
+    void shouldDeserializeUser() throws Exception {
+        // Given
+        String content = """
+            {
+                "id": 1,
+                "name": "John Doe", 
+                "email": "john@example.com"
+            }
+            """;
         
-        // Additional PostgreSQL optimizations
-        config.addDataSourceProperty("socketTimeout", "30");
-        config.addDataSourceProperty("loginTimeout", "10");
-        
-        return config;
+        // When & Then
+        assertThat(json.parse(content))
+            .usingRecursiveComparison()
+            .isEqualTo(new User(1L, "John Doe", "john@example.com"));
     }
 }
 ```
 
 **Bad Example:**
 
-```yaml
-# application.yml - DON'T DO THIS
-spring:
-  datasource:
-    hikari:
-      # Heavy validation query that impacts performance
-      connection-test-query: "SELECT COUNT(*) FROM large_table WHERE complex_condition = 'value'"
-      # No leak detection - memory leaks may go unnoticed
-      # leak-detection-threshold: # missing
+```java
+@SpringBootTest
+class UserJsonTest {
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    @Test
+    void shouldSerializeUser() throws Exception {
+        // Loading full application context just for JSON testing
+        // is overkill and slow
+        User user = new User(1L, "John Doe", "john@example.com");
+        String json = objectMapper.writeValueAsString(user);
+        
+        assertThat(json).contains("John Doe");
+    }
+}
 ```
 
-## Rule 4: Performance Monitoring and Metrics
+## Rule 4: Use @MockBean for Mocking Dependencies
 
-**Title**: Enable comprehensive monitoring and metrics collection
-
-**Description**: Configure HikariCP to provide visibility into connection pool behavior. Ask yourself: "How will I know if my connection pool is properly sized and performing well?"
-
-**Key Questions to Ask:**
-- How can I monitor pool utilization in production?
-- What metrics indicate pool sizing issues?
-- How do I correlate application performance with database connection patterns?
+Title: Mock External Dependencies with @MockBean
+Description: Use @MockBean to mock Spring beans that are dependencies of the component under test. This replaces the bean in the Spring context with a Mockito mock, allowing you to control its behavior during tests.
 
 **Good example:**
 
-```yaml
-# application.yml
-spring:
-  datasource:
-    hikari:
-      # Enable detailed metrics
-      register-mbeans: true
-      pool-name: "HikariPool-${spring.application.name}"
-      
-# Enable JMX metrics for monitoring tools
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,metrics,hikari
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-```
-
 ```java
-// Comprehensive monitoring setup
-@Configuration
-@ConditionalOnProperty(name = "management.metrics.enabled", matchIfMissing = true)
-public class DatabaseMonitoringConfig {
+@WebMvcTest(OrderController.class)
+class OrderControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
     
-    @Bean
-    @ConfigurationProperties("spring.datasource.hikari")
-    public HikariConfig hikariConfig(MeterRegistry meterRegistry) {
-        HikariConfig config = new HikariConfig();
-        
-        // Enable metrics collection
-        config.setRegisterMbeans(true);
-        config.setPoolName("HikariPool-" + getApplicationName());
-        config.setMetricRegistry(meterRegistry);
-        
-        // Configure alerts for pool exhaustion
-        config.setConnectionTimeout(20_000);
-        config.setLeakDetectionThreshold(60_000);
-        
-        return config;
-    }
+    @MockBean
+    private OrderService orderService;
     
-    private String getApplicationName() {
-        return System.getProperty("spring.application.name", "app");
+    @MockBean 
+    private PaymentService paymentService;
+    
+    @Test
+    void shouldCreateOrder() throws Exception {
+        // Given
+        CreateOrderRequest request = new CreateOrderRequest("Product A", 2);
+        Order order = new Order(1L, "Product A", 2, BigDecimal.valueOf(100.00));
+        
+        when(orderService.createOrder(any(CreateOrderRequest.class))).thenReturn(order);
+        
+        // When & Then
+        mockMvc.perform(post("/api/orders")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                        "productName": "Product A",
+                        "quantity": 2
+                    }
+                    """))
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.id").value(1))
+            .andExpect(jsonPath("$.productName").value("Product A"));
     }
 }
 ```
 
 **Bad Example:**
 
-```yaml
-# application.yml - DON'T DO THIS
-spring:
-  datasource:
-    hikari:
-      # No monitoring enabled - flying blind in production
-      register-mbeans: false
-      # Generic pool name - hard to identify in monitoring tools
-      pool-name: "pool"
+```java
+@WebMvcTest(OrderController.class)
+class OrderControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+    
+    // Missing @MockBean - this will cause the test to fail
+    // because OrderService is not available in the context
+    
+    @Test
+    void shouldCreateOrder() throws Exception {
+        mockMvc.perform(post("/api/orders")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}"))
+            .andExpect(status().isCreated());
+        // This test will fail due to missing dependencies
+    }
+}
 ```
 
-## Rule 5: Environment-Specific Configuration Strategies
+## Rule 5: Configure Test Profiles Appropriately
 
-**Title**: Adapt HikariCP configuration for different environments
-
-**Description**: Configure HikariCP differently for development, testing, and production environments. Ask yourself: "What are the different requirements for each environment where my application runs?"
-
-**Key Questions to Ask:**
-- How do my development and production database loads differ?
-- Should I use different pool sizes for testing vs production?
-- How can I make troubleshooting easier in development?
+Title: Use Test Profiles for Environment-Specific Configuration
+Description: Configure specific test profiles to override application properties for testing scenarios. Use @ActiveProfiles to activate test-specific configurations that differ from production settings.
 
 **Good example:**
 
-```yaml
-# application-dev.yml - Development environment
-spring:
-  datasource:
-    hikari:
-      maximum-pool-size: 5          # Smaller pool for dev
-      minimum-idle: 2
-      connection-timeout: 30000     # Longer timeout for debugging
-      leak-detection-threshold: 30000  # Faster leak detection for dev
-      register-mbeans: true         # Enable for local monitoring
-
-# application-prod.yml - Production environment  
-spring:
-  datasource:
-    hikari:
-      maximum-pool-size: 20         # Larger pool for production load
-      minimum-idle: 10
-      connection-timeout: 20000     # Fast failure in production
-      idle-timeout: 300000          # Allow shrinking during low load
-      max-lifetime: 1800000         # Refresh connections regularly
-      leak-detection-threshold: 60000
-      register-mbeans: true
-      pool-name: "${spring.application.name}-prod"
-```
-
 ```java
-// Environment-specific configuration
-@Configuration
-public class EnvironmentSpecificDatabaseConfig {
+@JdbcTest
+@ActiveProfiles("test")
+class UserRepositoryIntegrationTest {
+
+    @Autowired
+    private UserRepository userRepository;
     
-    @Bean
-    @Profile("development")
-    @ConfigurationProperties("spring.datasource.hikari")
-    public HikariConfig devHikariConfig() {
-        HikariConfig config = new HikariConfig();
-        // Development: Favor debugging over performance
-        config.setMaximumPoolSize(5);
-        config.setConnectionTimeout(30_000);
-        config.setLeakDetectionThreshold(30_000);
-        config.setRegisterMbeans(true);
-        return config;
-    }
-    
-    @Bean
-    @Profile("production")
-    @ConfigurationProperties("spring.datasource.hikari")
-    public HikariConfig prodHikariConfig() {
-        HikariConfig config = new HikariConfig();
-        // Production: Favor performance and reliability
-        config.setMaximumPoolSize(20);
-        config.setMinimumIdle(10);
-        config.setConnectionTimeout(20_000);
-        config.setIdleTimeout(300_000);
-        config.setMaxLifetime(1_800_000);
-        config.setLeakDetectionThreshold(60_000);
-        config.setRegisterMbeans(true);
-        config.setPoolName(getApplicationName() + "-prod");
-        return config;
-    }
-    
-    private String getApplicationName() {
-        return System.getProperty("spring.application.name", "app");
+    @Test
+    void shouldUseTestDatabaseConfiguration() {
+        // Test will use application-test.yml configuration
+        // which might specify H2 in-memory database
+        User user = new User(null, "Test User", "test@example.com");
+        User saved = userRepository.save(user);
+        
+        assertThat(saved.getId()).isNotNull();
     }
 }
 ```
 
 **Bad Example:**
 
-```yaml
-# Same configuration for all environments - DON'T DO THIS
-spring:
-  datasource:
-    hikari:
-      maximum-pool-size: 50        # Too many for dev, maybe wrong for prod
-      minimum-idle: 25             # Wastes resources in all environments
-      connection-timeout: 60000    # Too slow for production
-      # No environment-specific tuning
+```java
+@JdbcTest
+class UserRepositoryIntegrationTest {
+
+    // No @ActiveProfiles annotation
+    // This might use production database configuration
+    // leading to unreliable or slow tests
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Test
+    void shouldSaveUser() {
+        User user = new User(null, "Test User", "test@example.com");
+        userRepository.save(user);
+    }
+}
 ```
 
----
+## Rule 6: Use @TestConfiguration for Custom Test Setup
 
-## Quick Configuration Checklist
+Title: Create Custom Test Configuration with @TestConfiguration
+Description: Use @TestConfiguration to define test-specific bean configurations that override or supplement the main application configuration during testing.
 
-Before deploying your HikariCP configuration, ask yourself these questions:
+**Good example:**
 
-1. **Pool Sizing**: Have I calculated the right pool size based on my application's concurrency needs?
-2. **Timeouts**: Are my timeouts appropriate for fast failure detection without being too aggressive?
-3. **Monitoring**: Can I see pool utilization and performance metrics in my monitoring system?
-4. **Environment Differences**: Do I have different configurations for dev, test, and production?
-5. **Database Specifics**: Have I configured database-specific optimizations?
-6. **Connection Health**: Am I validating connections appropriately without impacting performance?
-7. **Resource Limits**: Are my pool settings within my database server's connection limits?
+```java
+@WebMvcTest(UserController.class)
+class UserControllerTest {
 
-Remember: Start with conservative settings and adjust based on monitoring data from your actual production load!
+    @TestConfiguration
+    static class TestConfig {
+        
+        @Bean
+        @Primary
+        public Clock testClock() {
+            return Clock.fixed(
+                Instant.parse("2023-12-01T10:00:00Z"), 
+                ZoneOffset.UTC
+            );
+        }
+    }
+    
+    @Autowired
+    private MockMvc mockMvc;
+    
+    @MockBean
+    private UserService userService;
+    
+    @Test
+    void shouldUseFixedTimeForTesting() throws Exception {
+        // Test with predictable time for consistent results
+        mockMvc.perform(get("/api/users/current-time"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("2023-12-01T10:00:00Z"));
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+@WebMvcTest(UserController.class)
+class UserControllerTest {
+
+    // No test configuration for time-dependent tests
+    // This makes tests unreliable and hard to reproduce
+    
+    @Autowired
+    private MockMvc mockMvc;
+    
+    @MockBean
+    private UserService userService;
+    
+    @Test
+    void shouldReturnCurrentTime() throws Exception {
+        mockMvc.perform(get("/api/users/current-time"))
+            .andExpect(status().isOk());
+        // Cannot assert exact time value due to system clock dependency
+    }
+}
+```
+
+### Additional Slice Testing Annotations
+
+**@WebFluxTest**: For testing Spring WebFlux reactive web applications
+**@RestClientTest**: For testing REST clients and @RestTemplate configurations  
+**@AutoConfigureTestDatabase**: For configuring test databases in slice tests
+**@TestPropertySource**: For overriding specific properties in test scenarios
+**@DataJdbcTest**: Alternative to @JdbcTest that focuses specifically on Spring Data JDBC repositories
+**@Sql**: For executing SQL scripts before test execution in JDBC tests
 
 ---
 > Source: [jabrena/cursor-rules-spring-boot](https://github.com/jabrena/cursor-rules-spring-boot) — distributed by [TomeVault](https://tomevault.io).
