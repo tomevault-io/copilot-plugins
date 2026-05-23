@@ -7,13 +7,13 @@ runtime environment to manage and execute agentic services at scale
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [masumi-network/kodosumi](https://github.com/masumi-network/kodosumi).
+Original source: `CLAUDE.md` in [masumi-network/kodosumi](https://github.com/masumi-network/kodosumi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
