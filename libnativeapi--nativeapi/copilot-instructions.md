@@ -1,187 +1,407 @@
-## project-architecture
+## singleton-managers
 
-> Project structure, organization, and architectural patterns
+> Singleton manager pattern for system-wide resource management
 
 
-# Project Architecture Rules
+# Singleton Manager Pattern Rules
 
-This document describes the overall architecture and organization of the nativeapi project.
+System-wide resources (windows, displays, tray icons, keyboard monitoring) are managed by singleton manager classes. This ensures consistent state management and centralized event emission across the application.
 
-## Project Overview
+## Manager Classes
 
-**nativeapi** is a modern cross-platform C++ library providing unified access to native system APIs across Windows, macOS, and Linux. The library abstracts platform-specific details behind a clean, type-safe C++ interface and provides optional C bindings for FFI compatibility.
+The following managers use the singleton pattern:
 
-## Directory Structure
+- **[WindowManager](mdc:src/window_manager.h)** - Manages all application windows
+- **[DisplayManager](mdc:src/display_manager.h)** - Manages display/monitor information
+- **[TrayManager](mdc:src/tray_manager.h)** - Manages system tray icons
+- **[AccessibilityManager](mdc:src/accessibility_manager.h)** - Manages accessibility permissions
 
-```
-nativeapi/
-├── include/              # Public API headers
-│   └── nativeapi.h      # Single include file for all functionality
-├── src/                  # Source code
-│   ├── foundation/      # Core utilities (events, geometry, ID allocation)
-│   ├── capi/           # C API bindings (FFI-friendly)
-│   ├── platform/       # Platform-specific implementations
-│   │   ├── windows/   # Windows implementations (*.cpp)
-│   │   ├── macos/     # macOS implementations (*.mm)
-│   │   └── linux/     # Linux implementations (*.cpp with GTK)
-│   └── *.h, *.cpp     # Cross-platform interface definitions
-├── examples/            # Example applications
-└── docs/               # Documentation
-```
+## Singleton Pattern Structure
 
-## Core Architectural Layers
+### Meyer's Singleton Pattern
 
-### 1. Foundation Layer ([src/foundation/](mdc:src/foundation))
-
-Provides fundamental utilities used throughout the library:
-
-- **[event.h](mdc:src/foundation/event.h)** - Base event class with timestamps
-- **[event_emitter.h](mdc:src/foundation/event_emitter.h)** - Generic event system with listeners
-- **[geometry.h](mdc:src/foundation/geometry.h)** - Cross-platform geometry types (Point, Size, Rectangle)
-- **[id_allocator.h](mdc:src/foundation/id_allocator.h)** - Thread-safe ID generation
-- **[native_object_provider.h](mdc:src/foundation/native_object_provider.h)** - Base class for exposing native handles
-
-### 2. Cross-Platform Interface Layer ([src/](mdc:src))
-
-Defines platform-agnostic APIs that all platforms must implement:
-
-- **Window Management** - [window.h](mdc:src/window.h), [window_manager.h](mdc:src/window_manager.h)
-- **Display Management** - [display.h](mdc:src/display.h), [display_manager.h](mdc:src/display_manager.h)
-- **Tray Icons** - [tray_icon.h](mdc:src/tray_icon.h), [tray_manager.h](mdc:src/tray_manager.h)
-- **Menus** - [menu.h](mdc:src/menu.h)
-- **Keyboard Monitoring** - [keyboard_monitor.h](mdc:src/keyboard_monitor.h)
-- **Accessibility** - [accessibility_manager.h](mdc:src/accessibility_manager.h)
-- **Events** - [window_event.h](mdc:src/window_event.h), [display_event.h](mdc:src/display_event.h), etc.
-
-### 3. Platform-Specific Implementation Layer
-
-Each platform implements the cross-platform interfaces using native APIs:
-
-- **Windows** - Uses Win32 API (HWND, HMENU, GDI+)
-- **macOS** - Uses Cocoa/AppKit (NSWindow, NSMenu, Objective-C++)
-- **Linux** - Uses GTK 3.0 (GtkWindow, GtkMenu)
-
-### 4. C API Layer ([src/capi/](mdc:src/capi))
-
-Provides C-compatible bindings for all C++ APIs to enable FFI from other languages:
-
-- Each C++ API has a corresponding `_c.h` and `_c.cpp` file
-- Uses opaque pointers and plain C types
-- Memory management follows C conventions (explicit free functions)
-
-## Key Design Patterns
-
-### Singleton Pattern
-
-Managers use Meyer's singleton pattern for global access:
-
-```cpp
-class WindowManager {
-public:
-    static WindowManager& GetInstance();
-private:
-    WindowManager();  // Private constructor
-};
-```
-
-Examples: [WindowManager](mdc:src/window_manager.h), [DisplayManager](mdc:src/display_manager.h), [TrayManager](mdc:src/tray_manager.h)
-
-### PIMPL (Pointer to Implementation)
-
-All cross-platform classes use PIMPL to hide platform-specific details:
-
-```cpp
-class Window {
-private:
-    class Impl;  // Forward declaration
-    std::unique_ptr<Impl> pimpl_;  // Platform-specific implementation
-};
-```
-
-See [PIMPL Pattern Rules](mdc:.cursor/rules/pimpl-pattern.mdc) for details.
-
-### Event-Driven Architecture
-
-All managers and many objects inherit from `EventEmitter` to provide event notifications:
+All managers use Meyer's singleton (thread-safe in C++11+):
 
 ```cpp
 class WindowManager : public EventEmitter<WindowEvent> {
-    // Can emit WindowCreatedEvent, WindowClosedEvent, etc.
+public:
+    // Get singleton instance
+    static WindowManager& GetInstance() {
+        static WindowManager instance;  // Created on first call
+        return instance;
+    }
+
+    virtual ~WindowManager();
+
+    // Prevent copying and moving
+    WindowManager(const WindowManager&) = delete;
+    WindowManager& operator=(const WindowManager&) = delete;
+    WindowManager(WindowManager&&) = delete;
+    WindowManager& operator=(WindowManager&&) = delete;
+
+private:
+    // Private constructor
+    WindowManager();
 };
 ```
 
-See [Event System Rules](mdc:.cursor/rules/event-system.mdc) for details.
+**Key Points:**
+- Static local variable ensures single instance
+- Thread-safe initialization (C++11 guarantee)
+- Private constructor prevents direct instantiation
+- Deleted copy/move prevents duplication
+- Returns reference (not pointer) to prevent deletion
 
-### Native Object Provider
+## Complete Manager Template
 
-Classes that wrap platform-specific objects inherit from `NativeObjectProvider` to expose native handles:
+### Header File Pattern ([window_manager.h](mdc:src/window_manager.h))
 
 ```cpp
-class Window : public NativeObjectProvider {
-protected:
-    void* GetNativeObjectInternal() const override;  // Returns HWND, NSWindow*, or GtkWidget*
+#pragma once
+#include <memory>
+#include <vector>
+#include <unordered_map>
+#include "foundation/event_emitter.h"
+#include "window.h"
+#include "window_event.h"
+
+namespace nativeapi {
+
+class WindowManager : public EventEmitter<WindowEvent> {
+public:
+    // Singleton access
+    static WindowManager& GetInstance();
+
+    virtual ~WindowManager();
+
+    // Public API
+    std::shared_ptr<Window> Create(const WindowOptions& options);
+    std::shared_ptr<Window> Get(WindowId id);
+    std::vector<std::shared_ptr<Window>> GetAll();
+    bool Destroy(WindowId id);
+
+    // Prevent copying and moving
+    WindowManager(const WindowManager&) = delete;
+    WindowManager& operator=(const WindowManager&) = delete;
+    WindowManager(WindowManager&&) = delete;
+    WindowManager& operator=(WindowManager&&) = delete;
+
+private:
+    // Private constructor
+    WindowManager();
+
+    // PIMPL for platform-specific details
+    class Impl;
+    std::unique_ptr<Impl> pimpl_;
+
+    // Shared state (not platform-specific)
+    std::unordered_map<WindowId, std::shared_ptr<Window>> windows_;
+
+    // Platform event monitoring
+    void SetupEventMonitoring();
+    void CleanupEventMonitoring();
+    void DispatchWindowEvent(const WindowEvent& event);
+};
+
+}  // namespace nativeapi
+```
+
+### Implementation Pattern ([window_manager.cpp](mdc:src/window_manager.cpp))
+
+```cpp
+#include "window_manager.h"
+
+namespace nativeapi {
+
+WindowManager& WindowManager::GetInstance() {
+    static WindowManager instance;
+    return instance;
+}
+
+WindowManager::WindowManager() : pimpl_(std::make_unique<Impl>(this)) {
+    SetupEventMonitoring();
+}
+
+WindowManager::~WindowManager() {
+    CleanupEventMonitoring();
+}
+
+std::shared_ptr<Window> WindowManager::Create(const WindowOptions& options) {
+    // Platform-specific creation
+    auto window = pimpl_->CreatePlatformWindow(options);
+
+    if (window) {
+        // Store in registry
+        windows_[window->GetId()] = window;
+
+        // Emit event
+        Emit<WindowCreatedEvent>(window->GetId());
+    }
+
+    return window;
+}
+
+std::shared_ptr<Window> WindowManager::Get(WindowId id) {
+    auto it = windows_.find(id);
+    return (it != windows_.end()) ? it->second : nullptr;
+}
+
+std::vector<std::shared_ptr<Window>> WindowManager::GetAll() {
+    std::vector<std::shared_ptr<Window>> result;
+    result.reserve(windows_.size());
+
+    for (const auto& [id, window] : windows_) {
+        result.push_back(window);
+    }
+
+    return result;
+}
+
+bool WindowManager::Destroy(WindowId id) {
+    auto it = windows_.find(id);
+    if (it == windows_.end()) {
+        return false;
+    }
+
+    // Platform-specific cleanup happens in Window destructor
+    windows_.erase(it);
+
+    // Emit event
+    Emit<WindowClosedEvent>(id);
+
+    return true;
+}
+
+}  // namespace nativeapi
+```
+
+## Usage Patterns
+
+### Pattern 1: Accessing the Singleton
+
+```cpp
+// Get reference to manager
+auto& manager = WindowManager::GetInstance();
+
+// Use manager
+auto window = manager.Create(options);
+```
+
+**Never:**
+```cpp
+// Don't create pointers to singleton
+WindowManager* manager = &WindowManager::GetInstance();  // Unnecessary
+
+// Don't try to create instances
+WindowManager manager;  // Won't compile - private constructor
+```
+
+### Pattern 2: Registering Event Listeners
+
+Managers inherit from `EventEmitter`, so you can add listeners:
+
+```cpp
+auto& manager = WindowManager::GetInstance();
+
+// Register listener for specific event
+auto listener_id = manager.AddListener<WindowCreatedEvent>(
+    [](const WindowCreatedEvent& event) {
+        std::cout << "Window created: " << event.GetWindowId() << std::endl;
+    }
+);
+
+// Register listener for all window events
+auto all_listener_id = manager.AddListener<WindowEvent>(
+    [](const WindowEvent& event) {
+        std::cout << "Window event: " << event.GetTypeName() << std::endl;
+    }
+);
+
+// Cleanup when done
+manager.RemoveListener(listener_id);
+```
+
+### Pattern 3: Resource Creation and Management
+
+Managers create and track resources:
+
+```cpp
+auto& manager = WindowManager::GetInstance();
+
+// Create resource - manager tracks it
+auto window1 = manager.Create(options1);
+auto window2 = manager.Create(options2);
+
+// Retrieve by ID
+auto window = manager.Get(window_id);
+
+// Get all resources
+auto all_windows = manager.GetAll();
+
+// Destroy resource - manager removes tracking
+manager.Destroy(window_id);
+```
+
+### Pattern 4: Platform Event Forwarding
+
+Managers set up platform-specific event monitoring:
+
+```cpp
+// In platform-specific implementation
+class WindowManager::Impl {
+public:
+    void SetupEventMonitoring() {
+        // Windows: Set up message hooks
+        // macOS: Register for NSNotifications
+        // Linux: Connect to GTK signals
+    }
+
+    void CleanupEventMonitoring() {
+        // Remove hooks/observers/signal handlers
+    }
+
+    void OnPlatformEvent(PlatformEventData data) {
+        // Convert to generic event
+        WindowMovedEvent event(data.window_id);
+
+        // Dispatch through manager
+        manager_->DispatchWindowEvent(event);
+    }
+
+private:
+    WindowManager* manager_;  // Back-pointer to manager
 };
 ```
 
-## Build System
+## Manager Lifecycle
 
-The project uses CMake ([CMakeLists.txt](mdc:CMakeLists.txt)) with platform detection:
+### Initialization
 
-- **C++17 Standard** required
-- **Conditional Compilation** - Platform sources selected based on `CMAKE_SYSTEM_NAME`
-- **Platform Dependencies**:
-  - Windows: user32, shell32, dwmapi, gdiplus
-  - macOS: Cocoa framework, Objective-C++ enabled
-  - Linux: GTK 3.0, X11, ayatana-appindicator
+1. First call to `GetInstance()` creates the singleton
+2. Constructor calls `SetupEventMonitoring()` to register platform callbacks
+3. Manager is now ready to create and track resources
 
-## Naming Conventions
+### Operation
 
-### C++ API
+1. Resources created through manager are tracked internally
+2. Platform events forwarded to generic event system
+3. Listeners notified of state changes
 
-- **Classes**: PascalCase (e.g., `WindowManager`, `MenuItem`)
-- **Methods**: PascalCase (e.g., `GetSize()`, `SetVisible()`)
-- **Member Variables**: snake_case with trailing underscore (e.g., `window_id_`, `pimpl_`)
-- **Enums**: PascalCase for type, PascalCase for values (e.g., `MenuItemType::Checkbox`)
-- **Files**: snake_case (e.g., `window_manager.h`, `display_event.h`)
+### Cleanup
 
-### C API
-
-- **Types**: snake_case with `_t` suffix (e.g., `native_window_t`, `native_size_t`)
-- **Functions**: snake_case with module prefix (e.g., `native_window_manager_create`)
-- **Enums**: SCREAMING_SNAKE_CASE with prefix (e.g., `NATIVE_WINDOW_EVENT_CREATED`)
-- **Files**: snake_case with `_c` suffix (e.g., `window_manager_c.h`)
+1. When program exits, static singleton destructor runs
+2. `CleanupEventMonitoring()` removes platform callbacks
+3. Tracked resources cleaned up (if still alive)
 
 ## Thread Safety
 
-- **Singleton Access**: Thread-safe using Meyer's singleton
-- **Event System**: Thread-safe listener management and emission
-- **Platform Operations**: Most operations assume single-threaded UI context
-- **Global Registry**: Thread-safe with mutex protection
+### Thread-Safe Operations
 
-## Memory Management
+- **Singleton access** - `GetInstance()` is thread-safe (C++11 guarantee)
+- **Event emission** - `Emit()` and listener management are thread-safe
+- **Platform monitoring** - Setup/cleanup thread-safe
 
-- **C++ API**: Uses `std::shared_ptr` for shared ownership (windows, menus)
-- **C API**: Caller manages lifetime, explicit free functions provided
-- **RAII**: All classes properly clean up resources in destructors
+### Single-Threaded Assumptions
 
-## Testing
+- **Resource operations** - `Create()`, `Get()`, `Destroy()` assume single UI thread
+- **Platform APIs** - Most platform UI APIs are not thread-safe
 
-Examples serve as integration tests:
-- [examples/window_example/](mdc:examples/window_example) - C++ window API
-- [examples/window_c_example/](mdc:examples/window_c_example) - C window API
-- [examples/menu_example/](mdc:examples/menu_example) - C++ menu API
-- [examples/tray_icon_example/](mdc:examples/tray_icon_example) - C++ tray icon API
+### Thread Safety Best Practices
 
-## Best Practices
+```cpp
+// Safe - GetInstance() is thread-safe
+auto& manager = WindowManager::GetInstance();
 
-1. **Always use PIMPL** for classes with platform-specific state
-2. **Inherit from EventEmitter** for classes that emit events
-3. **Inherit from NativeObjectProvider** for classes wrapping native objects
-4. **Use singleton pattern** for manager classes
-5. **Provide both C++ and C APIs** for all public functionality
-6. **Document all public APIs** with Doxygen-style comments
-7. **Test on all three platforms** before merging
-8. **Follow existing naming conventions** strictly
+// Safe - Event listeners can be added from any thread
+manager.AddListener<WindowEvent>([](const WindowEvent& e) { ... });
+
+// UNSAFE - Window creation should happen on UI thread
+// Use platform-specific message queue to marshal to UI thread
+std::thread t([&]() {
+    auto window = manager.Create(options);  // Potentially unsafe
+});
+```
+
+## Testing and Debugging
+
+### Singleton Lifetime Issues
+
+```cpp
+// Be aware of static destruction order
+class MyApp {
+    ~MyApp() {
+        // WindowManager might be destroyed already if MyApp is static
+        auto& manager = WindowManager::GetInstance();  // Use with caution
+    }
+};
+
+// Better: Clean up resources explicitly before static destruction
+void MyApp::Cleanup() {
+    auto& manager = WindowManager::GetInstance();
+    manager.Destroy(window_id_);
+}
+```
+
+### Mocking for Tests
+
+To enable testing, consider factory pattern:
+
+```cpp
+// For testability, create virtual interface
+class IWindowManager {
+public:
+    virtual ~IWindowManager() = default;
+    virtual std::shared_ptr<Window> Create(const WindowOptions&) = 0;
+    // ... other methods
+};
+
+// Real implementation
+class WindowManager : public IWindowManager { ... };
+
+// Test mock
+class MockWindowManager : public IWindowManager { ... };
+```
+
+## Common Pitfalls
+
+### ❌ Don't Take Ownership of Singleton
+
+```cpp
+// Bad - trying to delete singleton
+WindowManager* mgr = &WindowManager::GetInstance();
+delete mgr;  // Undefined behavior!
+```
+
+### ❌ Don't Store Singleton Pointer Across Boundaries
+
+```cpp
+// Bad - storing pointer to singleton in global
+WindowManager* g_manager = &WindowManager::GetInstance();
+
+// Better - get reference when needed
+auto& GetManager() {
+    return WindowManager::GetInstance();
+}
+```
+
+### ❌ Don't Assume Initialization Order
+
+```cpp
+// Bad - using singleton in static initialization
+static auto window = WindowManager::GetInstance().Create(options);
+
+// Better - lazy initialization
+std::shared_ptr<Window> GetMainWindow() {
+    static auto window = WindowManager::GetInstance().Create(options);
+    return window;
+}
+```
+
+## Related Patterns
+
+- See [PIMPL Pattern Rules](mdc:.cursor/rules/pimpl-pattern.mdc) for implementation hiding
+- See [Event System Rules](mdc:.cursor/rules/event-system.mdc) for event handling
+- See [Platform Implementation Rules](mdc:.cursor/rules/platform-implementation.mdc) for platform-specific code
 
 ---
 > Source: [libnativeapi/nativeapi](https://github.com/libnativeapi/nativeapi) — distributed by [TomeVault](https://tomevault.io).
