@@ -1,189 +1,293 @@
-## baseconfig
+## basemodel
 
-> description: JAXgarden tutorial chapter detailing BaseConfig, the base dataclass for managing model hyperparameters and configurations.
+> description: JAXgarden tutorial chapter detailing BaseModel, the abstract base class for models, covering config, state management, I/O, and Hugging Face integration.
 
 ---
-description: JAXgarden tutorial chapter detailing BaseConfig, the base dataclass for managing model hyperparameters and configurations.
+description: JAXgarden tutorial chapter detailing BaseModel, the abstract base class for models, covering config, state management, I/O, and Hugging Face integration.
 globs: 
 alwaysApply: false
 ---
-# Chapter 3: BaseConfig
+# Chapter 2: BaseModel
 
-In the [previous chapter](basemodel.mdc), we explored `BaseModel`, the foundational class for models in `jaxgarden`. We saw that each `BaseModel` instance is initialized with a configuration object. This chapter dives into the base class for those configuration objects: `BaseConfig`.
+In the [previous chapter](tokenizer.mdc), we learned how the `jaxgarden.Tokenizer` prepares text data into JAX arrays suitable for neural network processing. Now, we turn our attention to the core building block for the models themselves: `BaseModel`.
 
-**Motivation:** Neural models are complex systems with numerous hyperparameters (like hidden size, number of layers, dropout rates) and settings (like data types, precision). Managing these configurations consistently across different models is crucial for reproducibility, maintainability, and ease of use. Using simple dictionaries or ad-hoc parameter passing can quickly become messy and error-prone. `BaseConfig` provides a standardized, structured way to define, manage, and serialize these configurations.
+**Motivation:** Building diverse neural network models (like Llama, BERT, etc.) requires a consistent structure. Without a common base, each model implementation might handle configuration, parameter management (state), saving/loading checkpoints, and interacting with external resources (like the Hugging Face Hub) differently. This leads to code duplication, inconsistencies, and makes it harder to develop, maintain, and reuse components. `BaseModel` addresses this by providing an abstract base class that defines a standard interface and implements shared functionalities.
 
-**Central Use Case:** Defining the set of hyperparameters for a new model implementation (e.g., creating a `MyTransformerConfig` that inherits from `BaseConfig`) or inspecting and modifying the configuration of an existing `jaxgarden` model like [LlamaForCausalLM](llamaforcausallm.mdc), which uses its own `LlamaConfig` subclass derived from `BaseConfig`.
+**Central Use Case:** Defining a new neural network model within the `jaxgarden` ecosystem. For example, when implementing a model like [LlamaForCausalLM](llamaforcausallm.mdc), subclassing `BaseModel` ensures it correctly handles its configuration ([BaseConfig](baseconfig.mdc)), manages its learnable parameters and mutable states using Flax NNX conventions, can be saved and loaded consistently using Orbax, and provides a standardized way to import weights from equivalent Hugging Face models.
 
 ## Key Concepts
 
-`BaseConfig` leverages Python's `dataclasses` to provide a simple yet powerful configuration system:
+`BaseModel` establishes several core responsibilities and provides associated features:
 
-1.  **Dataclass Structure:** It's defined using the `@dataclass` decorator, offering type hints, default values, and automatic `__init__` generation.
-2.  **Inheritance:** Model-specific configurations (e.g., `LlamaConfig`, `ModernBERTConfig`) inherit from `BaseConfig`, adding their unique parameters while retaining the common base attributes.
-3.  **Common Attributes:** Provides essential base attributes applicable to most models, such as `seed` for reproducibility and `log_level` for controlling verbosity.
-4.  **Extensibility:** An `extra` dictionary allows storing arbitrary additional parameters not explicitly defined in the dataclass fields, offering flexibility.
-5.  **Serialization:** The `to_dict()` method converts the configuration object into a standard Python dictionary, useful for logging, saving, or inspection.
-6.  **Programmatic Updates:** The `update()` method allows modifying configuration attributes after instantiation using keyword arguments.
+1.  **Configuration Management:** Each `BaseModel` instance holds a configuration object, typically a subclass of [BaseConfig](baseconfig.mdc), which stores hyperparameters and architectural details (e.g., number of layers, hidden size).
+2.  **Flax NNX Foundation:** It inherits from `flax.nnx.Module`, making every `jaxgarden` model an NNX module. This enables the powerful state management capabilities of NNX.
+3.  **State Handling:**
+    *   `state` property: Provides easy access to the model's `nnx.State` (learnable parameters and mutable states), separated from the static graph definition.
+    *   `state_dict` property: Returns the state as a nested dictionary of JAX arrays, suitable for serialization frameworks like Orbax.
+4.  **Checkpointing (Save/Load):** Offers `save` and `load` methods that use `orbax-checkpoint` (`ocp`) to serialize and deserialize the model's `state_dict` to/from disk, ensuring consistent checkpointing across all models.
+5.  **Hugging Face (HF) Integration Interface:** Defines a standard workflow for interacting with the Hugging Face Hub:
+    *   `download_from_hf`: Static method to download model artifacts (like config and weights) from a repository.
+    *   `iter_safetensors`: Static method to efficiently iterate over tensors stored in `.safetensors` files.
+    *   `convert_weights_from_hf`: An *abstract* method that subclasses *must* implement to translate HF weights into the `jaxgarden` model's state structure.
+    *   `from_hf`: Orchestrates the download, iteration, and conversion process to initialize a `jaxgarden` model instance with weights from the Hub.
 
-## Using `BaseConfig`
+## Using `BaseModel`
 
-You typically interact with subclasses of `BaseConfig` tailored to specific models.
+`BaseModel` is an abstract class, so you typically interact with its *subclasses* (like `LlamaForCausalLM`). However, understanding its interface is crucial for both using and implementing models.
 
-### Defining a Custom Configuration
+### Initialization (Subclass Implementation)
 
-To define a configuration for a new model, create a class inheriting from `BaseConfig` and use the `@dataclass` decorator. Add fields for your model's specific hyperparameters.
+When creating a new model (e.g., `MyCustomModel`), you must subclass `BaseModel` and call its `__init__` method using `super().__init__(...)`.
 
 ```python
-from dataclasses import dataclass, field
-from jaxgarden.models.base import BaseConfig
-from typing import Any
+import jax
+import jax.numpy as jnp
+from flax import nnx
+from jaxgarden.models.base import BaseModel, BaseConfig
+from dataclasses import dataclass
 
 @dataclass
-class MyModelConfig(BaseConfig):
-    """Configuration for MyCustomModel."""
-    hidden_size: int = 256
-    num_layers: int = 4
-    dropout_rate: float = 0.1
-    activation_fn: str = "relu"
-    # Override a base attribute default if needed
-    seed: int = 123
+class MyConfig(BaseConfig):
+    hidden_size: int = 128
+    # ... other params
 
-# Instantiate the configuration
-my_config = MyModelConfig(hidden_size=512) # Override default hidden_size
+class MyCustomModel(BaseModel):
+    def __init__(self, config: MyConfig, *, rngs: nnx.Rngs):
+        # Call the parent BaseModel constructor FIRST
+        super().__init__(config, rngs=rngs, dtype=jnp.float32) # Specify dtype, etc.
 
-print(f"MyModelConfig instance: {my_config}")
-# Output: MyModelConfig instance: MyModelConfig(seed=123, log_level='info', extra={}, hidden_size=512, num_layers=4, dropout_rate=0.1, activation_fn='relu')
+        # Initialize model layers (e.g., using nnx.Linear)
+        self.dense = nnx.Linear(config.hidden_size, config.hidden_size, rngs=rngs)
+        # ... other layers
 
-print(f"Hidden size: {my_config.hidden_size}")
-# Output: Hidden size: 512
-print(f"Seed (overridden): {my_config.seed}")
-# Output: Seed (overridden): 123
-print(f"Log Level (from base): {my_config.log_level}")
-# Output: Log Level (from base): info
+    def __call__(self, x: jnp.ndarray) -> jnp.ndarray:
+        # Define the forward pass
+        return self.dense(x)
+
+# --- Usage ---
+config = MyConfig()
+rngs = nnx.Rngs(0) # Or more sophisticated key splitting
+model = MyCustomModel(config=config, rngs=rngs)
+print("Model initialized.")
+```
+
+**Explanation:** The subclass `__init__` first calls `BaseModel.__init__`, passing the configuration object (`config`) and NNX random number generators (`rngs`). It also specifies other base parameters like `dtype`. Then, it proceeds to define its own layers (like `self.dense`).
+
+### Accessing State
+
+You can easily access the model's parameters and mutable states.
+
+```python
+# Assuming 'model' is an instance of a BaseModel subclass
+# Get the nnx.State object
+model_state = model.state
+print(f"Type of model.state: {type(model_state)}")
+# Output: Type of model.state: <class 'flax.experimental.nnx.graph_utils.State'>
+
+# Get the state as a pure dictionary (for saving/inspection)
+model_state_dict = model.state_dict
+print(f"Type of model.state_dict: {type(model_state_dict)}")
+# Output: Type of model.state_dict: <class 'dict'>
+print(f"Keys in state_dict: {list(model_state_dict.keys())}")
+# Example Output: Keys in state_dict: ['dense']
+# (Actual keys depend on the layers defined in MyCustomModel)
 ```
 
 **Explanation:**
-- We define `MyModelConfig` inheriting from `BaseConfig`.
-- `@dataclass` automatically generates methods like `__init__`.
-- We add model-specific fields like `hidden_size` and `num_layers` with type hints and default values.
-- We can override defaults during instantiation (`hidden_size=512`).
-- Base attributes like `seed` and `log_level` are inherited.
+*   `.state` uses `nnx.split(self, nnx.Param, ...)[1]` internally to separate the mutable `nnx.State` from the static graph definition.
+*   `.state_dict` takes the `.state` and converts it into a standard Python dictionary using `nnx.to_pure_dict()`, making it easy to serialize.
 
-### Serialization (`to_dict`)
+### Saving and Loading Checkpoints
 
-Convert the configuration object to a dictionary for easy inspection or storage.
+`BaseModel` provides convenient methods for checkpointing using Orbax.
 
 ```python
-config_dict = my_config.to_dict()
-print(f"Configuration as dictionary: {config_dict}")
-# Output: Configuration as dictionary: {'seed': 123, 'log_level': 'info', 'extra': {}, 'hidden_size': 512, 'num_layers': 4, 'dropout_rate': 0.1, 'activation_fn': 'relu'}
+import os
+import tempfile
 
-import json
-print(f"Configuration as JSON: {json.dumps(config_dict, indent=2)}")
-# Output:
-# Configuration as JSON: {
-#  "seed": 123,
-#  "log_level": "info",
-#  "extra": {},
-#  "hidden_size": 512,
-#  "num_layers": 4,
-#  "dropout_rate": 0.1,
-#  "activation_fn": "relu"
-# }
+# Create a temporary directory for saving
+save_dir = tempfile.mkdtemp()
+save_path = os.path.join(save_dir, "my_model_checkpoint")
+
+# Save the model's state_dict
+print(f"Saving model state to: {save_path}")
+model.save(save_path)
+# Output: Saving model state to: /tmp/tmpxxxxxxx/my_model_checkpoint
+print(f"Files in save dir: {os.listdir(save_path)}")
+# Output: Files in save dir: ['jaxgarden_state'] (Orbax checkpoint structure)
+
+
+# Create a new 'empty' model instance (shapes must match)
+rngs_load = nnx.Rngs(1) # Use a different seed for demonstration
+new_model = MyCustomModel(config=config, rngs=rngs_load)
+
+# Load the saved state into the new model instance
+print(f"Loading model state from: {save_path}")
+loaded_model = new_model.load(save_path)
+print("Model loaded successfully.")
+
+# Clean up the temporary directory
+import shutil
+shutil.rmtree(save_dir)
 ```
 
-**Explanation:** The `to_dict()` method simply returns the internal `__dict__` of the dataclass instance, making it compatible with standard serialization libraries like `json`.
+**Explanation:**
+*   `model.save(path)` saves the dictionary returned by `model.state_dict` to the specified `path` using `ocp.StandardCheckpointer`. The actual checkpoint data is typically stored in a subdirectory named `jaxgarden_state` (defined by `DEFAULT_PARAMS_FILE`).
+*   `new_model.load(path)` uses `ocp.StandardCheckpointer` to restore the saved state dictionary. It requires an existing model instance (`new_model`) with the *same structure* (graph definition) to load the state into. It returns a *new* model instance (`loaded_model`) with the graph and the loaded state merged.
 
-### Programmatic Updates (`update`)
+### Hugging Face Integration (Usage & Implementation)
 
-Modify configuration values after the object has been created.
+`BaseModel` defines the *interface* for loading weights from Hugging Face. The actual conversion logic resides in the subclass's implementation of `convert_weights_from_hf`.
+
+**1. Using `from_hf` (User Perspective):**
+
+A user wanting to load HF weights into a compatible `jaxgarden` model (e.g., `LlamaForCausalLM`) would call `from_hf` on an *initialized* instance.
 
 ```python
-print(f"Original dropout rate: {my_config.dropout_rate}")
-# Output: Original dropout rate: 0.1
-print(f"Original extra dict: {my_config.extra}")
-# Output: Original extra dict: {}
+# Example using LlamaForCausalLM (Conceptual - requires Llama code)
+# from jaxgarden.models.llama import LlamaConfig, LlamaForCausalLM
 
+# hf_model_id = "meta-llama/Llama-2-7b-hf" # Example HF model ID
+# config = LlamaConfig(...) # Configure based on the HF model
+# rngs_hf = nnx.Rngs(42)
+# llama_model = LlamaForCausalLM(config, rngs=rngs_hf)
 
-# Update existing attributes and add new ones to 'extra'
-update_params = {
-    "dropout_rate": 0.15,
-    "new_experimental_param": True,
-    "learning_rate": 1e-4
-}
-my_config.update(**update_params)
-
-print(f"Updated dropout rate: {my_config.dropout_rate}")
-# Output: Updated dropout rate: 0.15
-print(f"Updated extra dict: {my_config.extra}")
-# Output: Updated extra dict: {'new_experimental_param': True, 'learning_rate': 0.0001}
+# print(f"Initializing Llama model from Hugging Face: {hf_model_id}")
+# try:
+#    # This call triggers download, iteration, and conversion via convert_weights_from_hf
+#    llama_model.from_hf(
+#        hf_model_id,
+#        # token="hf_...", # Optional Hugging Face token
+#        force_download=False, # Set to True to re-download
+#        save_in_orbax=True, # Save converted weights locally
+#        remove_hf_after_conversion=True # Clean up original HF download
+#    )
+#    print("Model successfully initialized from Hugging Face.")
+# except NotImplementedError:
+#    print(f"NOTE: {type(llama_model).__name__} does not implement HF conversion.")
+# except Exception as e:
+#    print(f"Error during HF conversion: {e}")
+print("Skipping actual HF conversion example execution.") # Avoid actual download/conversion
 ```
 
-**Explanation:** The `update()` method iterates through the provided keyword arguments. If an argument name matches an existing attribute of the config object, it updates that attribute. If the name doesn't match any defined attribute, it's added to the `extra` dictionary.
+**Explanation:** Calling `model.from_hf(hf_model_id, ...)` orchestrates the entire process. It downloads the specified model, iterates through its weights, calls the model's specific `convert_weights_from_hf` method, updates the model's state, and optionally saves the converted weights and cleans up the downloaded HF files.
+
+**2. Implementing `convert_weights_from_hf` (Model Developer Perspective):**
+
+If you are implementing a new `jaxgarden` model that should support HF weight conversion, you *must* override `convert_weights_from_hf`.
+
+```python
+from typing import Any
+from collections.abc import Iterator
+
+class MyCustomModelWithHF(MyCustomModel): # Inherits from MyCustomModel above
+    # ... (potentially different __init__ if layers map to HF names)
+
+    def convert_weights_from_hf(
+        self, state: nnx.State, hf_weights: Iterator[tuple[str, jnp.ndarray]]
+    ) -> None:
+        """Converts HF weights to this model's state format."""
+        print("Starting HF weight conversion for MyCustomModelWithHF...")
+        for hf_key, hf_tensor in hf_weights:
+            print(f"Processing HF key: {hf_key}, shape: {hf_tensor.shape}")
+            # --- Conversion Logic ---
+            # Map the hf_key to the corresponding key in the jaxgarden model's state
+            # This is highly model-specific.
+            if hf_key == "transformer.layer.0.dense.weight":
+                # Example: Assign HF weight to 'dense.kernel' in our model's state
+                # May require transposition (T) or reshaping
+                if hasattr(state.dense, "kernel"):
+                   state.dense.kernel.value = hf_tensor.T # Example: Transpose needed
+                   print(f"  -> Mapped to state['dense']['kernel']")
+                else:
+                   print(f"  -> Key 'dense.kernel' not found in state.")
+
+            # elif hf_key == "...":
+                # Handle other keys...
+            else:
+                print(f"  -> Key not mapped.")
+        print("HF weight conversion finished.")
+
+# --- Conceptual Usage ---
+# config_hf = MyConfig(...)
+# rngs_hf = nnx.Rngs(0)
+# my_hf_model = MyCustomModelWithHF(config_hf, rngs=rngs_hf)
+# my_hf_model.from_hf("some-hf-repo/my-custom-model") # Would call the implemented method
+```
+
+**Explanation:**
+*   The method receives the model's current `state` (an `nnx.State` object, allowing direct modification via `.value = ...`) and an `iterator` (`hf_weights`) yielded by `BaseModel.iter_safetensors`.
+*   The core task is to loop through `hf_weights`, and for each `(hf_key, hf_tensor)`, determine the corresponding parameter in the `jaxgarden` model's `state` and assign the `hf_tensor` (potentially after transformations like transpose `.T`).
+*   This mapping logic (`if hf_key == ...`) is the most critical and model-specific part. `BaseModel` itself provides the framework but not the specific conversion rules.
 
 ## Internal Implementation
 
-`BaseConfig` is fundamentally a Python `dataclass` with a couple of added helper methods.
+Let's look under the hood at how `BaseModel` implements its core functionalities (referencing `jaxgarden/models/base.py`).
 
-*   **Location:** `jaxgarden/models/base.py`
+1.  **Initialization (`__init__`)**: Stores the `config`, `dtype`, `param_dtype`, `precision`, and `rngs` passed by the subclass. It doesn't initialize any layers itself, relying on the subclass for that.
 
-*   **Definition:**
-    ```python
-    # From jaxgarden/models/base.py
-    from dataclasses import dataclass, field
-    from typing import Any
+2.  **State Properties (`state`, `state_dict`)**:
+    *   `state`: Directly calls `nnx.split(self, nnx.Param, ...)[1]` to get the `nnx.State` object containing parameters (`nnx.Param`) and other mutable variables.
+    *   `state_dict`: Calls `self.state` to get the `nnx.State` and then passes it to `nnx.to_pure_dict(state)` to obtain the serializable dictionary format.
 
-    @dataclass
-    class BaseConfig:
-        """Base configuration for models."""
-        seed: int = 42
-        log_level: str = "info"
-        extra: dict[str, Any] = field(default_factory=dict)
-        # ... (Subclasses add more fields here)
+3.  **Saving/Loading (`save`, `load`)**:
+    *   `save(path)`: Gets the `state_dict`, creates an `ocp.StandardCheckpointer()`, and calls `checkpointer.save(os.path.join(path, DEFAULT_PARAMS_FILE), state_dict)`. It waits for the save to complete.
+    *   `load(path)`: Creates an `ocp.StandardCheckpointer()`, calls `checkpointer.restore(...)` to get the saved dictionary. It then uses `nnx.eval_shape` to get an abstract version of the current model instance, splits it into abstract graphdef and state, uses `nnx.replace_by_pure_dict` to populate the abstract state with the restored dictionary values, and finally merges the original graphdef with the populated state using `nnx.merge` to return the loaded model.
 
-        def to_dict(self) -> dict[str, Any]:
-            # Simply returns the instance's dictionary
-            return self.__dict__
+4.  **Hugging Face Integration (`download_from_hf`, `iter_safetensors`, `from_hf`)**:
 
-        def update(self, **kwargs: dict) -> None:
-            # Iterates through provided keyword arguments
-            for k, v in kwargs.items():
-                if hasattr(self, k):
-                    # If attribute exists, set its value
-                    setattr(self, k, v)
-                else:
-                    # Otherwise, add it to the 'extra' dictionary
-                    self.extra[k] = v
+    *   `download_from_hf(repo_id, ...)`: A static method that simply calls `huggingface_hub.snapshot_download` to fetch all necessary files from the specified HF repository to a local directory.
+    *   `iter_safetensors(path)`: A static method that finds all `.safetensors` files in the given directory path. It iterates through each file, opens it using `safetensors.safe_open(..., framework='jax')`, and yields `(key, tensor)` pairs for all tensors within that file. This allows lazy loading of weights.
+    *   `from_hf(...)`: This instance method orchestrates the conversion:
+        *   Determines local download (`local_dir`) and save (`save_dir`) paths.
+        *   Calls `BaseModel.download_from_hf` to get the HF model files.
+        *   Calls `BaseModel.iter_safetensors` to get the weight iterator.
+        *   Gets the current model's `state`.
+        *   Calls `self.convert_weights_from_hf(state, weights)` -> **This is the call to the subclass's implementation.**
+        *   Calls `nnx.update(self, state)` to apply the modifications made within `convert_weights_from_hf` back to the model instance.
+        *   Optionally removes the downloaded HF directory (`shutil.rmtree`).
+        *   Optionally calls `self.save(save_dir)` to save the converted weights in Orbax format.
+
+    ```mermaid
+    sequenceDiagram
+        participant User
+        participant Model as JaxGarden Model (Subclass)
+        participant BaseModel as BaseModel Logic
+        participant HFHub as huggingface_hub
+        participant SafeTensors as safetensors Lib
+        participant Orbax as ocp
+
+        User->>+Model: model.from_hf(repo_id, save_orbax=True, ...)
+        Model->>+BaseModel: from_hf(repo_id, ...)
+        BaseModel->>+HFHub: snapshot_download(repo_id, local_dir)
+        HFHub-->>-BaseModel: Files downloaded
+        BaseModel->>+SafeTensors: iter_safetensors(local_dir)
+        SafeTensors-->>-BaseModel: weights_iterator
+        BaseModel->>Model: state = model.state # Get current state structure
+        BaseModel->>Model: convert_weights_from_hf(state, weights_iterator) # Calls Subclass Impl
+        Note over Model: Subclass iterates weights,\nmodifies 'state' object directly
+        Model-->>-BaseModel: Returns (implicitly via state mutation)
+        BaseModel->>Model: nnx.update(self, state) # Apply changes
+        alt save_orbax is True
+            BaseModel->>Model: state_dict = model.state_dict
+            BaseModel->>+Orbax: checkpointer.save(save_dir, state_dict)
+            Orbax-->>-BaseModel: Save complete
+        end
+        alt remove_hf is True
+            BaseModel->>BaseModel: Remove local_dir
+        end
+        BaseModel-->>-User: Returns None (model state is updated)
+
     ```
-*   **Mechanism:**
-    1.  `@dataclass`: Handles the `__init__`, `__repr__`, `__eq__`, etc., automatically based on the defined fields and type hints.
-    2.  `field(default_factory=dict)`: Ensures that each instance gets its own empty `extra` dictionary by default, preventing accidental sharing between instances.
-    3.  `to_dict()`: Leverages the standard Python object attribute `__dict__` for a direct conversion to a dictionary.
-    4.  `update()`: Uses Python's reflection capabilities (`hasattr`, `setattr`) to dynamically update attributes or populate the `extra` dictionary.
-
-## Relationship with `BaseModel`
-
-As discussed in [Chapter 2: BaseModel](basemodel.mdc), every `BaseModel` instance requires a configuration object (a subclass of `BaseConfig`) during initialization. This `config` object is stored as an attribute (`self.config`) within the model instance, making the model's hyperparameters readily accessible.
-
-```python
-# Conceptual reminder from BaseModel chapter
-# class MyModel(BaseModel):
-#     def __init__(self, config: MyModelConfig, *, rngs):
-#         super().__init__(config, rngs=rngs) # Pass config to BaseModel
-#         # Access config later: self.config.hidden_size
-#         self.layer = nnx.Linear(config.hidden_size, ...)
-
-# my_config = MyModelConfig()
-# model = MyModel(config=my_config, ...)
-# print(model.config.num_layers) # Accessing config via the model
-```
+*   `convert_weights_from_hf(...)`: This method within `BaseModel` itself simply raises `NotImplementedError`. Subclasses *must* provide their own version.
 
 ## Conclusion
 
-`BaseConfig` provides a clean, structured, and extensible foundation for managing model configurations in `jaxgarden`. By using Python dataclasses and offering simple methods for serialization (`to_dict`) and updates (`update`), it promotes consistency and simplifies the process of defining and working with model hyperparameters. All specific model configurations, like the one we'll see next for Llama, build upon this base.
+`BaseModel` serves as the cornerstone for all neural network models in `jaxgarden`. By inheriting from `flax.nnx.Module` and providing standardized methods for configuration handling, state management (`state`, `state_dict`), checkpointing (`save`, `load` via Orbax), and a clear interface for Hugging Face model conversion (`from_hf`, `convert_weights_from_hf`), it promotes consistency, reduces boilerplate code, and simplifies model development and usage within the JAX ecosystem. Every specific model architecture built in `jaxgarden` leverages this foundation.
 
-**Next:** [LlamaForCausalLM](llamaforcausallm.mdc)
+Understanding `BaseModel` is essential before diving into specific model implementations. The next chapter will look closer at the configuration aspect managed by its partner class.
+
+**Next:** [BaseConfig](baseconfig.mdc)
 
 
 ---
