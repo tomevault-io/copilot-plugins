@@ -1,44 +1,99 @@
-## ui-builder
+## core-package
 
-> OpenZeppelin UI Builder — a pnpm monorepo (Node ≥20.19.0, pnpm 10.28.2) containing a client-side React/Vite SPA that generates front-end UIs for smart contract interactions across multiple blockchain ecosystems (EVM, Stellar, Polkadot, Midnight, Solana). No backend, database, or external infrastructure is required.
+> Use this rules set if you are working directly on the app package functionality or need to learn more about the builder app package.
 
-# AGENTS.md
 
-## Cursor Cloud specific instructions
+# UI Builder: App Package Rules (@app)
 
-### Project overview
+## 1. Overview
 
-OpenZeppelin UI Builder — a pnpm monorepo (Node ≥20.19.0, pnpm 10.28.2) containing a client-side React/Vite SPA that generates front-end UIs for smart contract interactions across multiple blockchain ecosystems (EVM, Stellar, Polkadot, Midnight, Solana). No backend, database, or external infrastructure is required.
+**Purpose:** The `packages/builder` package (`@openzeppelin/ui-builder-app`) is the main application hub for the UI Builder. It encompasses the primary user interface for constructing forms, the central **chain‑agnostic** logic, and the export system that generates standalone, runnable web application projects.
 
-Adapter packages (`@openzeppelin/adapter-*`) have been extracted to a separate repo: [openzeppelin-adapters](https://github.com/OpenZeppelin/openzeppelin-adapters). This repo consumes them as published npm packages. For local adapter development, clone the sibling repo and use `pnpm dev:adapters:local` (see `docs/LOCAL_DEVELOPMENT.md`).
+**Key Role:** Acts as the orchestrator, integrating functionalities from `@openzeppelin/ui-builder-renderer`, `@openzeppelin/ui-builder-styles`, `@openzeppelin/ui-builder-react-core`, and the various adapter packages (e.g., `@openzeppelin/ui-builder-adapter-evm`). It manages the application state (e.g., the multi‑step builder wizard) and delivers the primary user‑facing experience and export capabilities.
 
-### Services
+## 2. Core Functionality
 
-| Service | Command | Port | Notes |
-|---|---|---|---|
-| Vite dev server | `pnpm dev` | 5173 | Main app; requires `pnpm build` first |
+- **Form Builder UI:** (`src/components/UIBuilder/`) Contains the multi‑step wizard and components allowing users to select a blockchain/contract/function, customize generated form fields (labels, validation, visibility), and preview the form in real time using the renderer package.
+- **Chain‑Agnostic Core:** (`src/core/`) Houses foundational logic independent of specific blockchains. This includes:
+  - Shared TypeScript types live in `@openzeppelin/ui-builder-types` (single source of truth). The `ContractAdapter` interface is defined at `packages/types/src/adapters/base.ts` and implemented by adapter packages.
+  - Utility functions: Prefer `@openzeppelin/ui-builder-utils` (e.g., `logger`, `AppConfigService`, `cn`) over ad‑hoc implementations.
+  - Reusable React providers/hooks are in `@openzeppelin/ui-builder-react-core`; component‑specific hooks reside with their components.
+- **Export System:** (`src/export/`) Generates a complete, standalone React + Vite project from the user's configuration. Includes:
+  - `AdapterConfigLoader`: Loads adapter‑specific configuration for export.
+  - `TemplateManager`: Manages base project templates (e.g., `typescript-react-vite`) under `src/export/templates/`.
+  - `FormCodeGenerator` & `TemplateProcessor`: Use templates in `src/export/codeTemplates/` and the render schema to create app code.
+  - `PackageManager`: Resolves runtime/dev dependencies for the exported project based on template, adapter, and fields.
+  - `StyleManager`: Ensures required styling and theme files are included.
+  - `ZipGenerator`: Produces a downloadable `.zip` using `jszip`, entirely in the browser.
+  - `cli/`: Export CLI at `src/export/cli/export-app.cjs`; use via `pnpm export-app export`.
 
-### Key commands
+## 3. Architecture
 
-Refer to the `scripts` section of the root `package.json` and the README for the full list. Highlights:
+- **Monorepo Context:** Situated within the `ui-builder` pnpm monorepo. It is governed by root configurations (ESLint, Prettier, TypeScript, Vitest).
+- **Package Dependencies:**
+  - Consumes `@openzeppelin/ui-builder-renderer` for displaying form previews and as a core dependency in exported projects.
+  - Consumes `@openzeppelin/ui-builder-styles` for the base theme and styles.
+  - Consumes various `@openzeppelin/ui-builder-adapter-*` packages for blockchain‑specific functionality.
+  - Consumes `@openzeppelin/ui-builder-react-core` for shared providers/hooks and context.
+- **Adapter Pattern:** This is a foundational design principle. The `ContractAdapter` interface is defined in `packages/types/src/adapters/base.ts`, but the concrete implementations reside in separate packages (e.g., `@openzeppelin/ui-builder-adapter-evm`). These external adapters _must_ strictly adhere to the `ContractAdapter` interface contract. Compliance is verified by the `lint:adapters` script and CI pipeline.
+- **Styling:**
+  - Imports base styles and CSS variables from `@styles/global.css`.
+  - Leverages Tailwind utility classes extensively for component styling.
+  - Consumes centralized root configs (`tailwind.config.cjs`, `postcss.config.cjs`, `components.json`) via lightweight JS proxy files. **Does not** define its own theme; it inherits the centralized theme.
+- **State Management:** Primarily relies on standard React Hooks (`useState`, `useReducer`, `useContext`). The Context API is used for managing state across the multi-step form builder wizard.
+  - **State Management:** Uses modular React hooks and providers (see `@openzeppelin/ui-builder-react-core` for adapter/wallet context) and focused builder hooks under `src/components/UIBuilder/hooks` for the multi-step wizard.
+  - **Export System Flow:** User Interaction -> UI State (`BuilderFormConfig`) -> `FormSchemaFactory` (using an external Adapter) -> Render schema -> `AppExportSystem` (orchestrates `AppCodeGenerator`, `TemplateManager`, `PackageManager`, `StyleManager`) -> `ZipGenerator` -> Download.
+  - **Vite Build & Plugins:** Uses Vite for the development server and production builds (`vite.config.ts`). The builder defines virtual modules to reliably load cross‑package assets/config and uses `import.meta.glob` for template discovery.
 
-- **Install**: `pnpm install`
-- **Build**: `pnpm build` (must run before `pnpm dev`)
-- **Dev server**: `pnpm dev` (opens at http://localhost:5173)
-- **Lint**: `pnpm lint`
-- **Test**: `pnpm test` (runs Vitest for the builder app + script tests)
-- **Format + lint fix**: `pnpm fix-all`
-- **Local adapter dev**: `pnpm dev:adapters:local` (requires sibling `../openzeppelin-adapters` clone)
-- **Local UI kit dev**: `pnpm dev:uikit:local` (requires sibling `../openzeppelin-ui` clone)
+## 4. Coding Guidelines & Conventions
 
-### Non-obvious caveats
+- **General:** Strictly adhere to all root-level project guidelines: Conventional Commits (`pnpm commit`), ESLint/Prettier (`pnpm fix-all`), and TypeScript best practices. Consult the root `README.md` and `tech-stack-rule.mdc`.
+- **TypeScript:**
+  - Utilize shared types from `@openzeppelin/ui-builder-types` and local builder types under `packages/builder/src/**` where applicable.
+  - Use project path aliases (e.g., `@/` for `packages/builder/src`) and package namespaces like `@openzeppelin/ui-builder-renderer` and `@styles/`.
+- **React:**
+  - Use functional components and hooks. Extract complex, reusable logic into providers/hooks within `@openzeppelin/ui-builder-react-core` or local utilities.
+- **Adapter Development:**
+  - Adapter development occurs in separate `packages/adapter-*` directories.
+  - Adapters must rigorously implement every method and property from the `ContractAdapter` interface (from `packages/types`). All blockchain‑specific logic (API calls, type mapping, validation) must reside within its dedicated adapter package.
+- **Export System (`src/export/`):**
+  - Maintain clear boundaries between the different managers and generators.
+  - Use `.template.tsx` files in `src/export/codeTemplates/` for code generation. Avoid hardcoding large code blocks as strings.
+- **Styling:**
+  - Apply styles primarily using Tailwind utility classes.
+  - Use `shadcn/ui` components from `@/components/ui`.
+  - Do not create standalone `.css` files for components. Rely on utilities and the central theme. Use the `cn` utility for conditional classes.
+- **Testing (`src/test/`, `__tests__`):**
+  - Write comprehensive tests using Vitest. Utilize React Testing Library for component testing.
+  - Thoroughly test core utilities, factories (`FormSchemaFactory`), and the entire export system flow.
+  - Use mocks to isolate units and simulate external adapter behavior.
 
-- **Build before dev**: You must run `pnpm build` at least once before `pnpm dev` so the Vite dev server can resolve built outputs.
-- **Ignored build scripts warning**: `pnpm install` may show a warning about ignored build scripts (esbuild, protobufjs, etc.). This is expected and does not affect functionality.
-- **Husky hooks**: Pre-commit runs `pnpm fix-all` on staged files. Pre-push runs `pnpm fix-all` and `pnpm update-export-versions`. Set `CI=true` to skip the commit-msg hook if needed.
-- **API keys are optional**: The app runs fully without Etherscan, Routescan, or WalletConnect API keys. Block explorer ABI auto-fetch won't work without them, but manual ABI paste works fine.
-- **Contract ABI can be fetched from Sourcify**: Even without Etherscan API keys, the app can fetch ABIs from Sourcify for verified contracts.
-- **Adapter packages are external**: `packages/adapter-*` directories are excluded from the pnpm workspace (`pnpm-workspace.yaml`). Any leftover `packages/adapter-*` paths on disk are build artifacts, not workspace packages.
+## 5. Key Files & Directories (within `packages/builder`)
+
+- `src/App.tsx`: Main application component, handles routing and layout for the builder wizard.
+- `src/main.tsx`: Root application entry point.
+- `src/index.css`: Imports base styles to apply the centralized theme.
+- ContractAdapter interface (reference): `packages/types/src/adapters/base.ts`.
+- `src/core/ecosystems/*`: Ecosystem/adapter registry and dynamic loading.
+- `src/core/**`: Core logic for configuration, schema utilities, and orchestration.
+- `src/export/`: Parent directory for all export-related logic.
+  - `FormExportSystem.ts`: Orchestrates the entire project export flow.
+  - `FormCodeGenerator.ts`: Generates the form component code.
+  - `TemplateManager.ts`: Manages the base project templates.
+  - `PackageManager.ts`: Manages dependencies for the exported project.
+  - `StyleManager.ts`: Manages styles for the exported project.
+  - `ZipGenerator.ts`: Creates the final ZIP file.
+  - `AdapterConfigLoader.ts`: Loads adapter-specific configurations.
+- `vite.config.ts`: Primary Vite configuration.
+- `vitest.config.ts`: Primary Vitest configuration.
+
+## 6. Dependencies & Build
+
+- **Key Runtime Dependencies:** `react`, `react-dom`, `react-hook-form`, `jszip`, `@openzeppelin/ui-builder-renderer`, `@openzeppelin/ui-builder-styles`, `@openzeppelin/ui-builder-react-core`, and various `@openzeppelin/ui-builder-adapter-*` packages.
+- **Key Dev Dependencies:** `vite`, `typescript`, `@vitejs/plugin-react`, `tailwindcss`, `vitest`, `@testing-library/react`, `eslint`.
+- **Build Process:** `pnpm --filter @openzeppelin/ui-builder-app build` executes `vite build`.
+- **Development Server:** `pnpm --filter @openzeppelin/ui-builder-app dev` executes `vite`.
+- **Testing:** `pnpm --filter @openzeppelin/ui-builder-app test` executes `vitest run`.
 
 ---
 > Source: [OpenZeppelin/ui-builder](https://github.com/OpenZeppelin/ui-builder) — distributed by [TomeVault](https://tomevault.io).
