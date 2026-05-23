@@ -7,14 +7,14 @@ Tomb Raider Remastered I-V mod that implements Multiplayer, Super Jump, No Fall 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [burn-sours/tomb-raider-remastered-multiplayer](https://github.com/burn-sours/tomb-raider-remastered-multiplayer).
+Original source: `CLAUDE.md` in [burn-sours/tomb-raider-remastered-multiplayer](https://github.com/burn-sours/tomb-raider-remastered-multiplayer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [burn-sours/tomb-raider-remastered-multiplayer](https://github.com/burn-sours/tomb-raider-remastered-multiplayer) — a repo with 8+ stars on GitHub.
