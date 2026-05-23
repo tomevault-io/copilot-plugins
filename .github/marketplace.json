@@ -38839,6 +38839,16 @@
       "description": "An autonomous research agent that turns a topic into a peer-reviewed technical report"
     },
     {
+      "name": "paker-kk--flovart-cc",
+      "source": "./paker-kk--flovart-cc",
+      "description": "Fuck-lovart-cc is dedicated to bridging the gap in canvas automation. It empowers Claude Code to orchestrate custom visual workflows using your own 3rd-party API keys, all while delivering a premium, "
+    },
+    {
+      "name": "paker-kk--flovart-cc",
+      "source": "./paker-kk--flovart-cc",
+      "description": "Fuck-lovart-cc is dedicated to bridging the gap in canvas automation. It empowers Claude Code to orchestrate custom visual workflows using your own 3rd-party API keys, all while delivering a premium, "
+    },
+    {
       "name": "espennilsen--pi",
       "source": "./espennilsen--pi",
       "description": "pi"
@@ -68344,6 +68354,16 @@
       "description": "An MCP Server that works with Roo Code/Cline.Bot/Claude Desktop to optimize costs by intelligently routing coding tasks between local LLMs free APIs and paid APIs."
     },
     {
+      "name": "msfeldstein--mcp-test-servers",
+      "source": "./msfeldstein--mcp-test-servers",
+      "description": "mcp-test-servers"
+    },
+    {
+      "name": "msfeldstein--mcp-test-servers",
+      "source": "./msfeldstein--mcp-test-servers",
+      "description": "mcp-test-servers"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -74439,6 +74459,56 @@
       "description": "Zenmark: An open-source, Typora-like WYSIWYG Markdown editor."
     },
     {
+      "name": "martvaha--code-interpreter",
+      "source": "./martvaha--code-interpreter",
+      "description": "LibreChat compatible code interpreter"
+    },
+    {
+      "name": "martvaha--code-interpreter",
+      "source": "./martvaha--code-interpreter",
+      "description": "LibreChat compatible code interpreter"
+    },
+    {
+      "name": "martvaha--code-interpreter",
+      "source": "./martvaha--code-interpreter",
+      "description": "LibreChat compatible code interpreter"
+    },
+    {
+      "name": "martvaha--code-interpreter",
+      "source": "./martvaha--code-interpreter",
+      "description": "LibreChat compatible code interpreter"
+    },
+    {
+      "name": "martvaha--code-interpreter",
+      "source": "./martvaha--code-interpreter",
+      "description": "LibreChat compatible code interpreter"
+    },
+    {
+      "name": "martvaha--code-interpreter",
+      "source": "./martvaha--code-interpreter",
+      "description": "LibreChat compatible code interpreter"
+    },
+    {
+      "name": "fw-ai-external--aiml",
+      "source": "./fw-ai-external--aiml",
+      "description": "Prompt based agentic developer primitives"
+    },
+    {
+      "name": "fw-ai-external--aiml",
+      "source": "./fw-ai-external--aiml",
+      "description": "Prompt based agentic developer primitives"
+    },
+    {
+      "name": "fw-ai-external--aiml",
+      "source": "./fw-ai-external--aiml",
+      "description": "Prompt based agentic developer primitives"
+    },
+    {
+      "name": "fw-ai-external--aiml",
+      "source": "./fw-ai-external--aiml",
+      "description": "Prompt based agentic developer primitives"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -75552,6 +75622,11 @@
       "name": "answerdotai--fastmigrate",
       "source": "./answerdotai--fastmigrate",
       "description": "Simple database migrations for SQLite"
+    },
+    {
+      "name": "ericyuegu--hal",
+      "source": "./ericyuegu--hal",
+      "description": "Training AI for Super Smash Bros. Melee"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -141924,6 +141999,11 @@
       "description": "codebeasts"
     },
     {
+      "name": "liuhongtao1981--hiscrm-im-portal",
+      "source": "./liuhongtao1981--hiscrm-im-portal",
+      "description": "HISCRM-IM-Portal"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -162299,6 +162379,11 @@
       "description": "nginx-optimizer"
     },
     {
+      "name": "b2kdaman--imaginegodmode",
+      "source": "./b2kdaman--imaginegodmode",
+      "description": "Gooners Choice"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -172279,6 +172364,16 @@
       "description": "Hermes Agent 100x Fast performance branch: runtime benchmarks, visual comparisons, and safe hot-path optimizations"
     },
     {
+      "name": "msiccdev--arc42-toolkit",
+      "source": "./msiccdev--arc42-toolkit",
+      "description": "A collection of instructions and prompts to utilize LLMs for creating  documentation that follow the arc42 standard."
+    },
+    {
+      "name": "f-fraysse--go2kin",
+      "source": "./f-fraysse--go2kin",
+      "description": "Markerless motion capture with GoPro"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -174597,6 +174692,26 @@
       "name": "lakr233--sshkit",
       "source": "./lakr233--sshkit",
       "description": "SSHKit"
+    },
+    {
+      "name": "beowulf11--pi-paster",
+      "source": "./beowulf11--pi-paster",
+      "description": "pi-paster"
+    },
+    {
+      "name": "vibemafiaclub--vooster",
+      "source": "./vibemafiaclub--vooster",
+      "description": "vooster"
+    },
+    {
+      "name": "amazingsyp--pokemon-ontology",
+      "source": "./amazingsyp--pokemon-ontology",
+      "description": "Interactive single-HTML learning program teaching Ontology from scratch using all 1,025 Pok\u00e9mon in Korean. \ud3ec\ucf13\ubaac\uc73c\ub85c \ubc30\uc6b0\ub294 \uc628\ud1a8\ub85c\uc9c0."
+    },
+    {
+      "name": "yttrium400--reducethemtokens",
+      "source": "./yttrium400--reducethemtokens",
+      "description": "Compress any code repo into a compact skeleton to reduce LLM token usage. 90%+ reduction with full structural retention."
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -277187,6 +277302,61 @@
       "name": "gwara106--atomic",
       "source": "./gwara106--atomic",
       "description": "Created with Builder.io"
+    },
+    {
+      "name": "tjr1974--llm-wiki-base-model",
+      "source": "./tjr1974--llm-wiki-base-model",
+      "description": "Machine-first LLM wiki toolchain and corpus scaffold."
+    },
+    {
+      "name": "tjr1974--llm-wiki-base-model",
+      "source": "./tjr1974--llm-wiki-base-model",
+      "description": "Machine-first LLM wiki toolchain and corpus scaffold."
+    },
+    {
+      "name": "nguyendaiphong--doctorrice-main",
+      "source": "./nguyendaiphong--doctorrice-main",
+      "description": "DoctorRice-main"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
+    },
+    {
+      "name": "walek20--adversary-story-generator",
+      "source": "./walek20--adversary-story-generator",
+      "description": "adversary-story-generator"
     }
   ]
 }
