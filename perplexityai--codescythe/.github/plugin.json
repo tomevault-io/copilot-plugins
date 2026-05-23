@@ -1,0 +1,9 @@
+{
+  "name": "perplexityai--codescythe",
+  "displayName": "codescythe",
+  "description": "Codescythe is a focused TypeScript dead-code analyzer and remover",
+  "version": "1.0.0",
+  "author": "perplexityai",
+  "homepage": "https://github.com/perplexityai/codescythe",
+  "skills": []
+}
