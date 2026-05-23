@@ -1,0 +1,9 @@
+{
+  "name": "dreed47--iptv-manager",
+  "displayName": "iptv-manager",
+  "description": "A web-based tool for managing, filtering, and serving IPTV playlists and EPG data, with HDHomeRun emulation for seamless Plex, Jellyfin, and Emby Live TV integration.",
+  "version": "1.0.0",
+  "author": "dreed47",
+  "homepage": "https://github.com/dreed47/iptv-manager",
+  "skills": []
+}
