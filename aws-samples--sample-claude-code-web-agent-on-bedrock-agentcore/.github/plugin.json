@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--sample-claude-code-web-agent-on-bedrock-agentcore",
+  "displayName": "sample-claude-code-web-agent-on-bedrock-agentcore",
+  "description": "sample-claude-code-web-agent-on-bedrock-agentcore",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-claude-code-web-agent-on-bedrock-agentcore",
+  "skills": []
+}
