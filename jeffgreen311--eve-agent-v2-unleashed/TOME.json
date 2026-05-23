@@ -1,0 +1,44 @@
+{
+  "name": "eve-agent-v2-unleashed",
+  "owner": "JeffGreen311",
+  "repo": "eve-agent-v2-unleashed",
+  "description": "Eve Agent V2 Unleashed \u2014 local-first autonomous AI coding agent powered by Ollama",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JeffGreen311/eve-agent-v2-unleashed",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T18:30:56Z"
+}
