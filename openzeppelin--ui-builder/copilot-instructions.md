@@ -1,39 +1,38 @@
-## research-guidelines
+## specify-rules
 
-> Exa/Ref research guidelines (prioritize Exa; minimal Ref usage)
+> Project Development Guidelines
 
 
-# Research Guidelines (Exa + Ref MCP)
+# ui-builder Development Guidelines
 
-This rule outlines how to use Exa and Ref for research. It emphasizes starting with Exa for code-context and only moving to Ref for documentation verification when needed.
+Auto-generated from all feature plans. Last updated: 2026-03-19
 
-## Priority Order
+## Active Technologies
 
-1. Prefer Exa overall. Within Exa, call `get_code_context_exa` first for code-aware context.
-2. Use `web_search_exa` only if `get_code_context_exa` does not surface useful results.
-3. Use Ref only when explicitly requested by the user, results from Exa contradict each other, or after two unsuccessful attempts to fix an external API/library where documentation changes are suspected due to model cut-off.
+- TypeScript 5.x (strict mode), Node.js >= 20.19.0 + pnpm 10.x, tsdown, Vitest, React 19, Vite 7, GitHub Actions, npm dist-tags (012-adapter-monorepo-extraction)
+- N/A for application data; npm registry, git, and generated export metadata files are the operational persistence layer (012-adapter-monorepo-extraction)
 
-## Ref Usage Rules
+## Project Structure
 
-- Use only `ref_search_documentation` for Ref lookups.
-- Never use `search_docs` or `my_docs`.
-- Use `ref_read_url` to read primary docs pages (documentation sites, quickstarts, or specific API pages) when:
-  - The user requests specific docs/quickstart pages, or
-  - They would materially clarify/validate details found via Exa.
+```text
+src/
+tests/
+```
 
-## Operational Flow
+## Commands
 
-1. Start with Exa → `get_code_context_exa` using a precise, code-oriented query.
-2. If insufficient, try Exa → `web_search_exa` for targeted top sources.
-3. If integration still fails, asks for official docs:
-   - Switch to Ref → `ref_search_documentation` with specific library/framework and version when known.
-   - Open selected sources with Ref → `ref_read_url` to extract authoritative details.
-4. When code changes depend on docs, annotate critical links and versions in comments.
+npm test && npm run lint
 
-## Notes
+## Code Style
 
-- Keep queries specific and focused; prefer several small, targeted queries over one broad query
-- Use Ref sparingly; it is for authoritative verification or when documentation drift is suspected
+TypeScript 5.x (strict mode), Node.js >= 20.19.0: Follow standard conventions
+
+## Recent Changes
+
+- 012-adapter-monorepo-extraction: Added TypeScript 5.x (strict mode), Node.js >= 20.19.0 + pnpm 10.x, tsdown, Vitest, React 19, Vite 7, GitHub Actions, npm dist-tags
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
 
 ---
 > Source: [OpenZeppelin/ui-builder](https://github.com/OpenZeppelin/ui-builder) — distributed by [TomeVault](https://tomevault.io).
