@@ -1,0 +1,9 @@
+{
+  "name": "tjr1974--llm-wiki-base-model",
+  "displayName": "LLM-Wiki-Base-Model",
+  "description": "Machine-first LLM wiki toolchain and corpus scaffold.",
+  "version": "1.0.0",
+  "author": "tjr1974",
+  "homepage": "https://github.com/tjr1974/LLM-Wiki-Base-Model",
+  "skills": []
+}
