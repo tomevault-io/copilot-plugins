@@ -1,458 +1,910 @@
-## trigger-advanced-tasks
+## upstash
 
-> Comprehensive rules to help you write advanced Trigger.dev tasks
+> Manages failed workflow runs with options to resume, restart, or retry failure callbacks.
 
-# Trigger.dev Advanced Tasks (v4)
 
-**Advanced patterns and features for writing tasks**
+# Upstash Workflow
 
-## Tags & Organization
+Upstash Workflow is a serverless orchestration framework that enables durable, reliable, and performant long-running functions without infrastructure management. Built on QStash, it transforms serverless functions into resilient workflows by breaking complex logic into individual steps, each with automatic retries, state persistence, and independent execution timeouts. This step-based architecture eliminates traditional serverless limitations like function timeouts and transient failures.
 
-```ts
-import { task, tags } from "@trigger.dev/sdk";
+The framework provides delivery guarantees with at-least-once execution semantics, automatic failure recovery through a Dead Letter Queue, and real-time observability. Workflows can sleep for days or months, wait for external events, make HTTP calls lasting up to 2 hours without consuming function execution time, run steps in parallel, and handle scheduled recurring tasks. Available for Next.js, Cloudflare Workers, FastAPI, and other platforms in both TypeScript and Python.
 
-export const processUser = task({
-  id: "process-user",
-  run: async (payload: { userId: string; orgId: string }, { ctx }) => {
-    // Add tags during execution
-    await tags.add(`user_${payload.userId}`);
-    await tags.add(`org_${payload.orgId}`);
+## Core Workflow Methods
 
-    return { processed: true };
+### Define a workflow endpoint with serve
+
+Creates a workflow endpoint that orchestrates multi-step serverless functions with automatic state management and retry logic.
+
+```typescript
+// api/workflow/route.ts
+import { serve } from "@upstash/workflow/nextjs";
+
+interface UserData {
+  userId: string;
+  email: string;
+  name: string;
+}
+
+export const { POST } = serve<UserData>(
+  async (context) => {
+    const { userId, email, name } = context.requestPayload;
+
+    const user = await context.run("register-user", async () => {
+      const newUser = await db.users.create({ userId, email, name });
+      console.log(`Registered user: ${userId}`);
+      return newUser;
+    });
+
+    await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3);
+
+    const message = await context.call("generate-welcome-message", {
+      url: "https://api.openai.com/v1/chat/completions",
+      method: "POST",
+      headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+      body: {
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: "Generate personalized welcome messages.",
+          },
+          { role: "user", content: `Welcome message for ${name}` },
+        ],
+      },
+      retries: 3,
+    });
+
+    await context.run("send-welcome-email", async () => {
+      await sendEmail(email, message.body.choices[0].message.content);
+    });
+
+    return { success: true, userId: user.id };
   },
-});
-
-// Trigger with tags
-await processUser.trigger(
-  { userId: "123", orgId: "abc" },
-  { tags: ["priority", "user_123", "org_abc"] } // Max 10 tags per run
+  {
+    failureFunction: async ({ context, failStatus, failResponse }) => {
+      console.error(`Workflow ${context.workflowRunId} failed:`, failResponse);
+      await notifyAdmin(
+        `User onboarding failed for ${context.requestPayload.email}`
+      );
+      return `Failed with status ${failStatus}`;
+    },
+  }
 );
-
-// Subscribe to tagged runs
-for await (const run of runs.subscribeToRunsWithTag("user_123")) {
-  console.log(`User task ${run.id}: ${run.status}`);
-}
 ```
 
-**Tag Best Practices:**
+```python
+# main.py
+from fastapi import FastAPI
+from upstash_workflow.fastapi import Serve
+from upstash_workflow import AsyncWorkflowContext
+from typing import TypedDict
 
-- Use prefixes: `user_123`, `org_abc`, `video:456`
-- Max 10 tags per run, 1-64 characters each
-- Tags don't propagate to child tasks automatically
+app = FastAPI()
+serve = Serve(app)
 
-## Concurrency & Queues
+class UserData(TypedDict):
+    user_id: str
+    email: str
+    name: str
 
-```ts
-import { task, queue } from "@trigger.dev/sdk";
+async def failure_handler(context, fail_status, fail_response, fail_headers):
+    print(f"Workflow {context.workflow_run_id} failed: {fail_response}")
+    await notify_admin(f"Onboarding failed for {context.request_payload['email']}")
 
-// Shared queue for related tasks
-const emailQueue = queue({
-  name: "email-processing",
-  concurrencyLimit: 5, // Max 5 emails processing simultaneously
-});
+@serve.post("/api/onboarding", failure_function=failure_handler)
+async def onboarding_workflow(context: AsyncWorkflowContext[UserData]) -> dict:
+    data = context.request_payload
 
-// Task-level concurrency
-export const oneAtATime = task({
-  id: "sequential-task",
-  queue: { concurrencyLimit: 1 }, // Process one at a time
-  run: async (payload) => {
-    // Critical section - only one instance runs
-  },
-});
+    async def _register_user():
+        user = await db.users.create(data)
+        print(f"Registered user: {data['user_id']}")
+        return user
 
-// Per-user concurrency
-export const processUserData = task({
-  id: "process-user-data",
-  run: async (payload: { userId: string }) => {
-    // Override queue with user-specific concurrency
-    await childTask.trigger(payload, {
-      queue: {
-        name: `user-${payload.userId}`,
-        concurrencyLimit: 2,
-      },
-    });
-  },
-});
+    user = await context.run("register-user", _register_user)
 
-export const emailTask = task({
-  id: "send-email",
-  queue: emailQueue, // Use shared queue
-  run: async (payload: { to: string }) => {
-    // Send email logic
-  },
-});
-```
+    await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3)
 
-## Error Handling & Retries
-
-```ts
-import { task, retry, AbortTaskRunError } from "@trigger.dev/sdk";
-
-export const resilientTask = task({
-  id: "resilient-task",
-  retry: {
-    maxAttempts: 10,
-    factor: 1.8, // Exponential backoff multiplier
-    minTimeoutInMs: 500,
-    maxTimeoutInMs: 30_000,
-    randomize: false,
-  },
-  catchError: async ({ error, ctx }) => {
-    // Custom error handling
-    if (error.code === "FATAL_ERROR") {
-      throw new AbortTaskRunError("Cannot retry this error");
-    }
-
-    // Log error details
-    console.error(`Task ${ctx.task.id} failed:`, error);
-
-    // Allow retry by returning nothing
-    return { retryAt: new Date(Date.now() + 60000) }; // Retry in 1 minute
-  },
-  run: async (payload) => {
-    // Retry specific operations
-    const result = await retry.onThrow(
-      async () => {
-        return await unstableApiCall(payload);
-      },
-      { maxAttempts: 3 }
-    );
-
-    // Conditional HTTP retries
-    const response = await retry.fetch("https://api.example.com", {
-      retry: {
-        maxAttempts: 5,
-        condition: (response, error) => {
-          return response?.status === 429 || response?.status >= 500;
+    message = await context.call(
+        "generate-welcome-message",
+        url="https://api.openai.com/v1/chat/completions",
+        method="POST",
+        headers={"authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"},
+        body={
+            "model": "gpt-4o",
+            "messages": [
+                {"role": "system", "content": "Generate personalized welcome messages."},
+                {"role": "user", "content": f"Welcome message for {data['name']}"}
+            ]
         },
-      },
-    });
+        retries=3
+    )
 
+    async def _send_email():
+        await send_email(data["email"], message.body["choices"][0]["message"]["content"])
+
+    await context.run("send-welcome-email", _send_email)
+
+    return {"success": True, "user_id": user["id"]}
+```
+
+### Execute workflow steps with context.run
+
+Executes a function as an independent workflow step with automatic retries and state persistence.
+
+```typescript
+import { serve } from "@upstash/workflow/nextjs";
+
+export const { POST } = serve<{ orderId: string }>(async (context) => {
+  const { orderId } = context.requestPayload;
+
+  // Serial execution
+  const inventory = await context.run("check-inventory", async () => {
+    const stock = await db.inventory.findOne({ orderId });
+    if (!stock.available) throw new Error("Out of stock");
+    return stock;
+  });
+
+  const payment = await context.run("process-payment", async () => {
+    const result = await stripe.charges.create({
+      amount: inventory.price,
+      currency: "usd",
+      source: "tok_visa",
+    });
     return result;
-  },
+  });
+
+  // Parallel execution
+  const [emailSent, invoiceGenerated, shipmentScheduled] = await Promise.all([
+    context.run("send-confirmation-email", async () => {
+      return await sendEmail(orderId, "Order confirmed!");
+    }),
+    context.run("generate-invoice", async () => {
+      return await createInvoice(orderId, payment.id);
+    }),
+    context.run("schedule-shipment", async () => {
+      return await logistics.schedule(orderId, inventory.warehouseId);
+    }),
+  ]);
+
+  return { orderId, paymentId: payment.id, shipmentId: shipmentScheduled.id };
 });
 ```
 
-## Machines & Performance
+### Pause execution with context.sleep and context.sleepUntil
 
-```ts
-export const heavyTask = task({
-  id: "heavy-computation",
-  machine: { preset: "large-2x" }, // 8 vCPU, 16 GB RAM
-  maxDuration: 1800, // 30 minutes timeout
-  run: async (payload, { ctx }) => {
-    // Resource-intensive computation
-    if (ctx.machine.preset === "large-2x") {
-      // Use all available cores
-      return await parallelProcessing(payload);
-    }
+Pauses workflow execution for a specified duration or until a timestamp without consuming function execution time.
 
-    return await standardProcessing(payload);
-  },
-});
+```typescript
+import { serve } from "@upstash/workflow/nextjs";
 
-// Override machine when triggering
-await heavyTask.trigger(payload, {
-  machine: { preset: "medium-1x" }, // Override for this run
-});
-```
+export const { POST } = serve<{ userId: string; subscriptionEnd: number }>(
+  async (context) => {
+    const { userId, subscriptionEnd } = context.requestPayload;
 
-**Machine Presets:**
+    // Sleep for 7 days
+    await context.sleep("trial-period", "7d");
 
-- `micro`: 0.25 vCPU, 0.25 GB RAM
-- `small-1x`: 0.5 vCPU, 0.5 GB RAM (default)
-- `small-2x`: 1 vCPU, 1 GB RAM
-- `medium-1x`: 1 vCPU, 2 GB RAM
-- `medium-2x`: 2 vCPU, 4 GB RAM
-- `large-1x`: 4 vCPU, 8 GB RAM
-- `large-2x`: 8 vCPU, 16 GB RAM
-
-## Idempotency
-
-```ts
-import { task, idempotencyKeys } from "@trigger.dev/sdk";
-
-export const paymentTask = task({
-  id: "process-payment",
-  retry: {
-    maxAttempts: 3,
-  },
-  run: async (payload: { orderId: string; amount: number }) => {
-    // Automatically scoped to this task run, so if the task is retried, the idempotency key will be the same
-    const idempotencyKey = await idempotencyKeys.create(`payment-${payload.orderId}`);
-
-    // Ensure payment is processed only once
-    await chargeCustomer.trigger(payload, {
-      idempotencyKey,
-      idempotencyKeyTTL: "24h", // Key expires in 24 hours
-    });
-  },
-});
-
-// Payload-based idempotency
-import { createHash } from "node:crypto";
-
-function createPayloadHash(payload: any): string {
-  const hash = createHash("sha256");
-  hash.update(JSON.stringify(payload));
-  return hash.digest("hex");
-}
-
-export const deduplicatedTask = task({
-  id: "deduplicated-task",
-  run: async (payload) => {
-    const payloadHash = createPayloadHash(payload);
-    const idempotencyKey = await idempotencyKeys.create(payloadHash);
-
-    await processData.trigger(payload, { idempotencyKey });
-  },
-});
-```
-
-## Metadata & Progress Tracking
-
-```ts
-import { task, metadata } from "@trigger.dev/sdk";
-
-export const batchProcessor = task({
-  id: "batch-processor",
-  run: async (payload: { items: any[] }, { ctx }) => {
-    const totalItems = payload.items.length;
-
-    // Initialize progress metadata
-    metadata
-      .set("progress", 0)
-      .set("totalItems", totalItems)
-      .set("processedItems", 0)
-      .set("status", "starting");
-
-    const results = [];
-
-    for (let i = 0; i < payload.items.length; i++) {
-      const item = payload.items[i];
-
-      // Process item
-      const result = await processItem(item);
-      results.push(result);
-
-      // Update progress
-      const progress = ((i + 1) / totalItems) * 100;
-      metadata
-        .set("progress", progress)
-        .increment("processedItems", 1)
-        .append("logs", `Processed item ${i + 1}/${totalItems}`)
-        .set("currentItem", item.id);
-    }
-
-    // Final status
-    metadata.set("status", "completed");
-
-    return { results, totalProcessed: results.length };
-  },
-});
-
-// Update parent metadata from child task
-export const childTask = task({
-  id: "child-task",
-  run: async (payload, { ctx }) => {
-    // Update parent task metadata
-    metadata.parent.set("childStatus", "processing");
-    metadata.root.increment("childrenCompleted", 1);
-
-    return { processed: true };
-  },
-});
-```
-
-## Advanced Triggering
-
-### Frontend Triggering (React)
-
-```tsx
-"use client";
-import { useTaskTrigger } from "@trigger.dev/react-hooks";
-import type { myTask } from "../trigger/tasks";
-
-function TriggerButton({ accessToken }: { accessToken: string }) {
-  const { submit, handle, isLoading } = useTaskTrigger<typeof myTask>("my-task", { accessToken });
-
-  return (
-    <button onClick={() => submit({ data: "from frontend" })} disabled={isLoading}>
-      Trigger Task
-    </button>
-  );
-}
-```
-
-### Large Payloads
-
-```ts
-// For payloads > 512KB (max 10MB)
-export const largeDataTask = task({
-  id: "large-data-task",
-  run: async (payload: { dataUrl: string }) => {
-    // Trigger.dev automatically handles large payloads
-    // For > 10MB, use external storage
-    const response = await fetch(payload.dataUrl);
-    const largeData = await response.json();
-
-    return { processed: largeData.length };
-  },
-});
-
-// Best practice: Use presigned URLs for very large files
-await largeDataTask.trigger({
-  dataUrl: "https://s3.amazonaws.com/bucket/large-file.json?presigned=true",
-});
-```
-
-### Advanced Options
-
-```ts
-await myTask.trigger(payload, {
-  delay: "2h30m", // Delay execution
-  ttl: "24h", // Expire if not started within 24 hours
-  priority: 100, // Higher priority (time offset in seconds)
-  tags: ["urgent", "user_123"],
-  metadata: { source: "api", version: "v2" },
-  queue: {
-    name: "priority-queue",
-    concurrencyLimit: 10,
-  },
-  idempotencyKey: "unique-operation-id",
-  idempotencyKeyTTL: "1h",
-  machine: { preset: "large-1x" },
-  maxAttempts: 5,
-});
-```
-
-## Hidden Tasks
-
-```ts
-// Hidden task - not exported, only used internally
-const internalProcessor = task({
-  id: "internal-processor",
-  run: async (payload: { data: string }) => {
-    return { processed: payload.data.toUpperCase() };
-  },
-});
-
-// Public task that uses hidden task
-export const publicWorkflow = task({
-  id: "public-workflow",
-  run: async (payload: { input: string }) => {
-    // Use hidden task internally
-    const result = await internalProcessor.triggerAndWait({
-      data: payload.input,
+    await context.run("send-trial-ending-reminder", async () => {
+      await sendEmail(userId, "Your trial ends in 1 day");
     });
 
-    if (result.ok) {
-      return { output: result.output.processed };
-    }
+    // Sleep until specific timestamp
+    const endDate = new Date(subscriptionEnd);
+    await context.sleepUntil("wait-until-subscription-ends", endDate);
 
-    throw new Error("Internal processing failed");
-  },
+    const isActive = await context.run("check-payment-status", async () => {
+      return await db.payments.hasActive(userId);
+    });
+
+    if (!isActive) {
+      await context.run("suspend-account", async () => {
+        await db.users.update(userId, { status: "suspended" });
+        await sendEmail(userId, "Account suspended - payment required");
+      });
+    }
+  }
+);
+```
+
+### Make timeout-resistant HTTP calls with context.call
+
+Performs HTTP requests as workflow steps that can run for up to 2 hours without consuming serverless function execution time.
+
+```typescript
+import { serve } from "@upstash/workflow/nextjs";
+
+export const { POST } = serve<{ videoUrl: string }>(async (context) => {
+  const { videoUrl } = context.requestPayload;
+
+  // Long-running AI video processing (can take up to 2 hours)
+  const processed = await context.call("process-video", {
+    url: "https://api.videoprocessing.ai/v1/process",
+    method: "POST",
+    body: {
+      video_url: videoUrl,
+      operations: ["transcribe", "summarize", "extract-highlights"],
+    },
+    headers: {
+      authorization: `Bearer ${process.env.VIDEO_API_KEY}`,
+      "content-type": "application/json",
+    },
+    retries: 3,
+    retryDelay: "pow(2, retried) * 1000",
+    timeout: 7200,
+    flowControl: {
+      key: "video-processing",
+      rate: 10,
+      period: "60s",
+    },
+  });
+
+  if (processed.status !== 200) {
+    throw new Error(`Processing failed: ${processed.body.error}`);
+  }
+
+  const { transcript, summary, highlights } = processed.body;
+
+  await context.run("store-results", async () => {
+    await db.videos.update(videoUrl, {
+      transcript,
+      summary,
+      highlights,
+      processed: true,
+    });
+  });
+
+  return {
+    videoUrl,
+    transcriptLength: transcript.length,
+    highlightsCount: highlights.length,
+  };
 });
 ```
 
-## Logging & Tracing
+### Integrate AI APIs with context.api
 
-```ts
-import { task, logger } from "@trigger.dev/sdk";
+Calls AI services with type-safe methods that don't count towards function execution time.
 
-export const tracedTask = task({
-  id: "traced-task",
-  run: async (payload, { ctx }) => {
-    logger.info("Task started", { userId: payload.userId });
+```typescript
+import { serve } from "@upstash/workflow/nextjs";
 
-    // Custom trace with attributes
-    const user = await logger.trace(
-      "fetch-user",
-      async (span) => {
-        span.setAttribute("user.id", payload.userId);
-        span.setAttribute("operation", "database-fetch");
+export const { POST } = serve<{ topic: string; userEmail: string }>(
+  async (context) => {
+    const { topic, userEmail } = context.requestPayload;
 
-        const userData = await database.findUser(payload.userId);
-        span.setAttribute("user.found", !!userData);
-
-        return userData;
-      },
-      { userId: payload.userId }
+    // OpenAI integration
+    const { body: openaiResponse } = await context.api.openai.call(
+      "generate-content",
+      {
+        token: process.env.OPENAI_API_KEY!,
+        operation: "chat.completions.create",
+        body: {
+          model: "gpt-4o",
+          messages: [
+            {
+              role: "system",
+              content: "You write engaging newsletter content.",
+            },
+            { role: "user", content: `Write a newsletter about: ${topic}` },
+          ],
+          temperature: 0.7,
+        },
+      }
     );
 
-    logger.debug("User fetched", { user: user.id });
+    const newsletterContent = openaiResponse.choices[0].message.content;
 
-    try {
-      const result = await processUser(user);
-      logger.info("Processing completed", { result });
-      return result;
-    } catch (error) {
-      logger.error("Processing failed", {
-        error: error.message,
-        userId: payload.userId,
-      });
-      throw error;
+    // Anthropic integration for content moderation
+    const { body: moderationResponse } = await context.api.anthropic.call(
+      "moderate-content",
+      {
+        token: process.env.ANTHROPIC_API_KEY!,
+        operation: "messages.create",
+        body: {
+          model: "claude-3-5-sonnet-20241022",
+          max_tokens: 1024,
+          messages: [
+            {
+              role: "user",
+              content: `Review this content for appropriateness: ${newsletterContent}`,
+            },
+          ],
+        },
+      }
+    );
+
+    const isApproved =
+      moderationResponse.content[0].text.includes("appropriate");
+
+    if (isApproved) {
+      // Resend integration for email delivery
+      const { body: emailResponse } = await context.api.resend.call(
+        "send-newsletter",
+        {
+          token: process.env.RESEND_API_KEY!,
+          body: {
+            from: "Newsletter <newsletter@company.com>",
+            to: [userEmail],
+            subject: `Latest insights on ${topic}`,
+            html: `<div>${newsletterContent}</div>`,
+          },
+        }
+      );
+
+      return { sent: true, emailId: emailResponse.id };
     }
+
+    return { sent: false, reason: "Content moderation failed" };
+  }
+);
+```
+
+## Event-Driven Workflows
+
+### Wait for external events with context.waitForEvent
+
+Pauses workflow execution until an external event occurs or timeout is reached.
+
+```typescript
+import { serve } from "@upstash/workflow/nextjs";
+
+export const { POST } = serve<{ userId: string; orderId: string }>(
+  async (context) => {
+    const { userId, orderId } = context.requestPayload;
+
+    await context.run("initiate-payment", async () => {
+      await paymentGateway.createIntent(orderId);
+      await sendEmail(userId, "Please confirm your payment");
+    });
+
+    // Wait up to 24 hours for payment confirmation
+    const { eventData, timeout } = await context.waitForEvent(
+      "wait-for-payment-confirmation",
+      `payment-${orderId}`,
+      { timeout: "24h" }
+    );
+
+    if (timeout) {
+      await context.run("handle-timeout", async () => {
+        await db.orders.update(orderId, { status: "payment_timeout" });
+        await sendEmail(userId, "Payment timeout - order cancelled");
+      });
+      return { success: false, reason: "timeout" };
+    }
+
+    await context.run("process-confirmed-payment", async () => {
+      await db.orders.update(orderId, {
+        status: "paid",
+        transactionId: eventData.transactionId,
+      });
+      await sendEmail(userId, "Payment confirmed - order processing");
+    });
+
+    return { success: true, transactionId: eventData.transactionId };
+  }
+);
+```
+
+### Notify waiting workflows with context.notify and client.notify
+
+Sends events to resume workflows waiting for specific event IDs.
+
+```typescript
+// Workflow that notifies other workflows
+import { serve } from "@upstash/workflow/nextjs";
+
+export const { POST } = serve<{ orderId: string; status: string }>(
+  async (context) => {
+    const { orderId, status } = context.requestPayload;
+
+    const { notifyResponse } = await context.notify(
+      "notify-payment-received",
+      `payment-${orderId}`,
+      { transactionId: "txn_12345", amount: 99.99, timestamp: Date.now() }
+    );
+
+    console.log(`Notified ${notifyResponse.length} waiting workflows`);
+    notifyResponse.forEach((response) => {
+      console.log(
+        `Workflow ${response.workflowRunId} notified: ${response.messageId}`
+      );
+    });
+  }
+);
+```
+
+```typescript
+// External service notifying via client
+import { Client } from "@upstash/workflow";
+
+const client = new Client({ token: process.env.QSTASH_TOKEN! });
+
+// Notify all workflows waiting for this event
+await client.notify({
+  eventId: "payment-ord_abc123",
+  eventData: {
+    transactionId: "txn_xyz789",
+    amount: 99.99,
+    paymentMethod: "credit_card",
+    timestamp: Date.now(),
   },
+});
+
+// Get workflows waiting for an event
+const waiters = await client.getWaiters({ eventId: "payment-ord_abc123" });
+console.log(`${waiters.length} workflows waiting for payment confirmation`);
+```
+
+## Workflow Client Operations
+
+### Trigger workflows programmatically
+
+Starts workflow runs with custom configuration and retrieves run IDs for tracking.
+
+```typescript
+import { Client } from "@upstash/workflow";
+
+const client = new Client({ token: process.env.QSTASH_TOKEN! });
+
+// Trigger single workflow
+const { workflowRunId } = await client.trigger({
+  url: "https://myapp.com/api/workflow/onboarding",
+  body: {
+    userId: "user_123",
+    email: "user@example.com",
+    name: "John Doe",
+  },
+  headers: { "x-api-key": "secret" },
+  workflowRunId: "onboarding-user-123",
+  retries: 3,
+  retryDelay: "1000 * (1 + retried)",
+  delay: "10s",
+  failureUrl: "https://myapp.com/api/workflow-failure",
+  flowControl: {
+    key: "user-onboarding",
+    rate: 100,
+    period: "60s",
+    parallelism: 10,
+  },
+});
+
+console.log(`Started workflow: ${workflowRunId}`);
+
+// Trigger multiple workflows in batch
+const results = await client.trigger([
+  {
+    url: "https://myapp.com/api/workflow/notification",
+    body: { userId: "user_1", message: "Hello" },
+  },
+  {
+    url: "https://myapp.com/api/workflow/notification",
+    body: { userId: "user_2", message: "Hello" },
+  },
+]);
+
+results.forEach((result) =>
+  console.log(`Workflow started: ${result.workflowRunId}`)
+);
+```
+
+```bash
+# Trigger via REST API
+curl -X POST https://myapp.com/api/workflow/process \
+  -H "Content-Type: application/json" \
+  -d '{"orderId": "ord_123", "amount": 99.99}'
+```
+
+### Monitor and retrieve workflow logs
+
+Queries workflow execution history with filtering and pagination for observability.
+
+```typescript
+import { Client } from "@upstash/workflow";
+
+const client = new Client({ token: process.env.QSTASH_TOKEN! });
+
+// Get specific workflow run
+const { runs, cursor } = await client.logs({
+  workflowRunId: "wfr_onboarding-user-123",
+});
+
+const run = runs[0];
+console.log(`Workflow: ${run.workflowRunId}`);
+console.log(`State: ${run.workflowState}`);
+console.log(`URL: ${run.workflowUrl}`);
+console.log(`Started: ${new Date(run.workflowRunCreatedAt)}`);
+
+if (run.workflowRunCompletedAt) {
+  console.log(`Completed: ${new Date(run.workflowRunCompletedAt)}`);
+}
+
+if (run.workflowRunResponse) {
+  console.log(`Response:`, run.workflowRunResponse);
+}
+
+// List all failed workflows for debugging
+const { runs: failedRuns } = await client.logs({
+  state: "RUN_FAILED",
+  count: 50,
+});
+
+failedRuns.forEach((run) => {
+  console.log(`Failed: ${run.workflowRunId} at ${run.workflowUrl}`);
+  if (run.dlqId) {
+    console.log(`  DLQ ID: ${run.dlqId}`);
+  }
+  run.steps.forEach((step) => {
+    if (step.type === "single" && step.steps[0].state === "STEP_FAILED") {
+      console.log(`  Failed step: ${step.steps[0].messageId}`);
+    }
+  });
+});
+
+// Search workflows by URL
+const { runs: onboardingRuns } = await client.logs({
+  workflowUrl: "https://myapp.com/api/workflow/onboarding",
+  count: 100,
+});
+
+// Paginate through results
+let allRuns = [];
+let nextCursor = undefined;
+
+do {
+  const response = await client.logs({
+    state: "RUN_SUCCESS",
+    count: 100,
+    cursor: nextCursor,
+  });
+  allRuns.push(...response.runs);
+  nextCursor = response.cursor;
+} while (nextCursor);
+
+console.log(`Total successful runs: ${allRuns.length}`);
+```
+
+### Cancel running workflows
+
+Stops active workflow runs to prevent further execution and resource consumption.
+
+```typescript
+import { Client } from "@upstash/workflow";
+
+const client = new Client({ token: process.env.QSTASH_TOKEN! });
+
+// Cancel single workflow
+await client.cancel({ ids: "wfr_onboarding-user-123" });
+
+// Cancel multiple workflows
+await client.cancel({
+  ids: ["wfr_batch-1", "wfr_batch-2", "wfr_batch-3"],
+});
+
+// Cancel all workflows for a specific URL
+await client.cancel({
+  urlStartingWith: "https://myapp.com/api/workflow/batch-processing",
+});
+
+// Cancel all pending and running workflows (use with caution)
+await client.cancel({ all: true });
+```
+
+```bash
+# Cancel via REST API
+curl -X DELETE https://qstash.upstash.io/v2/workflows/runs/wfr_abc123 \
+  -H "Authorization: Bearer <QSTASH_TOKEN>"
+```
+
+### Handle failed workflows with Dead Letter Queue
+
+Manages failed workflow runs with options to resume, restart, or retry failure callbacks.
+
+```typescript
+import { Client } from "@upstash/workflow";
+
+const client = new Client({ token: process.env.QSTASH_TOKEN! });
+
+// List failed workflows
+const { messages, cursor } = await client.dlq.list({
+  filter: {
+    fromDate: Date.now() - 86400000, // Last 24 hours
+    url: "https://myapp.com/api/workflow/payment",
+    responseStatus: 500,
+  },
+  count: 50,
+});
+
+messages.forEach((msg) => {
+  console.log(`Failed: ${msg.workflowRunId}`);
+  console.log(`  DLQ ID: ${msg.dlqId}`);
+  console.log(`  Error: ${msg.responseBody}`);
+  console.log(`  Failed at: ${new Date(msg.timestamp)}`);
+});
+
+// Resume workflow from where it failed (preserves successful steps)
+const resumeResponse = await client.dlq.resume({
+  dlqId: messages[0].dlqId,
+  retries: 5,
+  flowControl: {
+    key: "payment-retry",
+    rate: 5,
+    period: "60s",
+  },
+});
+
+console.log(`Resumed: ${resumeResponse.messageId}`);
+
+// Restart workflow from beginning (discards all step results)
+const restartResponse = await client.dlq.restart({
+  dlqId: messages[1].dlqId,
+  retries: 3,
+});
+
+// Bulk resume multiple failed workflows
+const bulkResumeResponses = await client.dlq.resume({
+  dlqId: ["dlq_123", "dlq_456", "dlq_789"],
+  retries: 3,
+});
+
+bulkResumeResponses.forEach((response) => {
+  console.log(`Bulk resumed: ${response.messageId}`);
+});
+
+// Retry failed failure function callback
+await client.dlq.retryFailureFunction({
+  dlqId: "dlq_callback_failed_123",
+});
+
+// Paginate through DLQ
+let allDlqMessages = [];
+let dlqCursor = undefined;
+
+do {
+  const response = await client.dlq.list({
+    cursor: dlqCursor,
+    count: 100,
+  });
+  allDlqMessages.push(...response.messages);
+  dlqCursor = response.cursor;
+} while (dlqCursor);
+
+console.log(`Total DLQ messages: ${allDlqMessages.length}`);
+```
+
+## Scheduled and Recurring Workflows
+
+### Schedule workflows with cron expressions
+
+Creates recurring workflow runs at specified intervals using QStash schedules.
+
+```typescript
+import { Client } from "@upstash/qstash";
+
+const client = new Client({ token: process.env.QSTASH_TOKEN! });
+
+// Schedule daily backup at 2:00 AM
+await client.schedules.create({
+  scheduleId: "daily-backup",
+  destination: "https://myapp.com/api/workflow/backup",
+  cron: "0 2 * * *",
+  body: { backupType: "full", retention: 30 },
+});
+
+// Schedule weekly report every Monday at 9:00 AM
+await client.schedules.create({
+  scheduleId: "weekly-report",
+  destination: "https://myapp.com/api/workflow/generate-report",
+  cron: "0 9 * * 1",
+  body: { reportType: "weekly_summary" },
+});
+
+// Per-user schedule: weekly summary starting 7 days after signup
+const user = await signUpUser({ email: "user@example.com", name: "Jane" });
+const firstSummaryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+const userCron = `${firstSummaryDate.getMinutes()} ${firstSummaryDate.getHours()} * * ${firstSummaryDate.getDay()}`;
+
+await client.schedules.create({
+  scheduleId: `user-summary-${user.email}`,
+  destination: "https://myapp.com/api/workflow/user-summary",
+  body: { userId: user.id, email: user.email },
+  cron: userCron,
 });
 ```
 
-## Usage Monitoring
+```typescript
+// Scheduled workflow endpoint
+import { serve } from "@upstash/workflow/nextjs";
 
-```ts
-import { task, usage } from "@trigger.dev/sdk";
+export const { POST } = serve<{ userId: string }>(
+  async (context) => {
+    const { userId } = context.requestPayload;
 
-export const monitoredTask = task({
-  id: "monitored-task",
-  run: async (payload) => {
-    // Get current run cost
-    const currentUsage = await usage.getCurrent();
-    logger.info("Current cost", {
-      costInCents: currentUsage.costInCents,
-      durationMs: currentUsage.durationMs,
+    const data = await context.run("fetch-user-data", async () => {
+      return await db.getUserActivity(userId, { days: 7 });
     });
 
-    // Measure specific operation
-    const { result, compute } = await usage.measure(async () => {
-      return await expensiveOperation(payload);
+    const summary = await context.run("generate-summary", async () => {
+      return await generateWeeklySummary(data);
     });
 
-    logger.info("Operation cost", {
-      costInCents: compute.costInCents,
-      durationMs: compute.durationMs,
+    await context.run("send-summary-email", async () => {
+      await sendEmail(data.userEmail, "Your Weekly Summary", summary);
     });
-
-    return result;
   },
-});
+  {
+    failureFunction: async ({ context, failResponse }) => {
+      await alertOps(
+        `Weekly summary failed for user ${context.requestPayload.userId}`
+      );
+    },
+  }
+);
 ```
 
-## Run Management
+```python
+# Schedule in Python
+from qstash import AsyncQStash
+from datetime import datetime, timedelta
 
-```ts
-// Cancel runs
-await runs.cancel("run_123");
+client = AsyncQStash(os.environ["QSTASH_TOKEN"])
 
-// Replay runs with same payload
-await runs.replay("run_123");
+# Schedule daily data sync at midnight
+await client.schedule.create_json(
+    schedule_id="daily-sync",
+    destination="https://myapp.com/api/workflow/sync",
+    cron="0 0 * * *",
+    body={"sync_type": "incremental"}
+)
 
-// Retrieve run with cost details
-const run = await runs.retrieve("run_123");
-console.log(`Cost: ${run.costInCents} cents, Duration: ${run.durationMs}ms`);
+# Per-user schedule
+user = await register_user(email="user@example.com")
+first_check_date = datetime.now() + timedelta(days=7)
+user_cron = f"{first_check_date.minute} {first_check_date.hour} * * {first_check_date.day}"
+
+await client.schedule.create_json(
+    schedule_id=f"user-check-{user['email']}",
+    destination="https://myapp.com/api/workflow/user-check",
+    body={"user_id": user["id"]},
+    cron=user_cron
+)
 ```
 
-## Best Practices
+## Advanced Patterns
 
-- **Concurrency**: Use queues to prevent overwhelming external services
-- **Retries**: Configure exponential backoff for transient failures
-- **Idempotency**: Always use for payment/critical operations
-- **Metadata**: Track progress for long-running tasks
-- **Machines**: Match machine size to computational requirements
-- **Tags**: Use consistent naming patterns for filtering
-- **Large Payloads**: Use external storage for files > 10MB
-- **Error Handling**: Distinguish between retryable and fatal errors
+### Long-running customer lifecycle workflow
 
-Design tasks to be stateless, idempotent, and resilient to failures. Use metadata for state tracking and queues for resource management.
+Demonstrates infinite loops, state-based branching, and long delays for user engagement.
+
+```typescript
+import { serve } from "@upstash/workflow/nextjs";
+
+type UserState = "non-active" | "active" | "premium";
+
+export const { POST } = serve<{ email: string; userId: string }>(
+  async (context) => {
+    const { email, userId } = context.requestPayload;
+
+    await context.run("send-welcome-email", async () => {
+      await sendEmail(email, "Welcome! Get started with these tips.");
+    });
+
+    await context.sleep("initial-wait", 60 * 60 * 24 * 3); // 3 days
+
+    while (true) {
+      const state = await context.run("check-user-state", async () => {
+        const activity = await db.getUserActivity(userId, { days: 30 });
+        if (activity.isPremium) return "premium";
+        if (activity.loginCount > 10) return "active";
+        return "non-active";
+      });
+
+      if (state === "non-active") {
+        await context.run("send-reengagement-email", async () => {
+          await sendEmail(email, "We miss you! Here's 20% off to come back.");
+        });
+      } else if (state === "active") {
+        await context.run("send-newsletter", async () => {
+          await sendEmail(email, "Check out these new features!");
+        });
+      } else if (state === "premium") {
+        await context.run("send-premium-content", async () => {
+          await sendEmail(email, "Exclusive content for premium members.");
+        });
+      }
+
+      await context.sleep("monthly-check", 60 * 60 * 24 * 30); // 30 days
+    }
+  }
+);
+```
+
+### E-commerce order fulfillment with parallel processing
+
+Combines serial and parallel execution for complex multi-step order processing.
+
+```typescript
+import { serve } from "@upstash/workflow/nextjs";
+
+export const { POST } = serve<{ orderId: string; items: any[] }>(
+  async (context) => {
+    const { orderId, items } = context.requestPayload;
+
+    const [inventory, customer] = await Promise.all([
+      context.run("verify-inventory", async () => {
+        const available = await db.inventory.checkAvailability(items);
+        if (!available) throw new Error("Insufficient inventory");
+        return available;
+      }),
+      context.run("fetch-customer-data", async () => {
+        return await db.customers.findByOrderId(orderId);
+      }),
+    ]);
+
+    const payment = await context.run("process-payment", async () => {
+      const charge = await stripe.charges.create({
+        amount: customer.orderTotal,
+        currency: "usd",
+        customer: customer.stripeId,
+      });
+      if (charge.status !== "succeeded") throw new Error("Payment failed");
+      return charge;
+    });
+
+    await context.run("reserve-inventory", async () => {
+      await db.inventory.reserve(items, orderId);
+    });
+
+    const [shipment, invoice, notification] = await Promise.all([
+      context.run("schedule-shipment", async () => {
+        return await logistics.createShipment({
+          orderId,
+          items,
+          address: customer.shippingAddress,
+          priority: customer.isPremium ? "express" : "standard",
+        });
+      }),
+      context.run("generate-invoice", async () => {
+        return await invoiceService.create({
+          orderId,
+          customerId: customer.id,
+          paymentId: payment.id,
+          items,
+        });
+      }),
+      context.run("send-confirmation-email", async () => {
+        await sendEmail(customer.email, "Order confirmed!", {
+          orderId,
+          trackingNumber: "pending",
+          estimatedDelivery: Date.now() + 5 * 24 * 60 * 60 * 1000,
+        });
+      }),
+    ]);
+
+    await context.sleep("wait-for-shipment", 60 * 60 * 2); // 2 hours
+
+    await context.run("update-tracking", async () => {
+      const tracking = await logistics.getTracking(shipment.id);
+      await sendEmail(
+        customer.email,
+        `Your order is on the way! Track: ${tracking.number}`
+      );
+    });
+
+    return {
+      orderId,
+      paymentId: payment.id,
+      shipmentId: shipment.id,
+      invoiceId: invoice.id,
+    };
+  }
+);
+```
+
+## Summary
+
+Upstash Workflow transforms serverless functions into durable, production-grade workflows by providing step-based execution, automatic retries, and state persistence without infrastructure management. Its core methods—`context.run`, `context.sleep`, `context.call`, and event-based coordination—enable developers to build complex long-running processes that survive function timeouts, platform outages, and transient failures.
+
+The framework excels in scenarios requiring reliability and durability: customer lifecycle automation with months-long delays, e-commerce order fulfillment with parallel payment and inventory operations, AI-powered content pipelines with multi-hour processing, payment retry systems with exponential backoff, and approval workflows waiting for external events. Integration patterns include QStash schedules for recurring tasks, Dead Letter Queue management for failure recovery, and client-based workflow orchestration across multiple services. With native support for Next.js, Cloudflare Workers, FastAPI, and other platforms, Upstash Workflow delivers enterprise-grade workflow orchestration for serverless applications.
 
 ---
 > Source: [dqnamo/llm-poker](https://github.com/dqnamo/llm-poker) — distributed by [TomeVault](https://tomevault.io).
