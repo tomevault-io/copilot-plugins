@@ -1,0 +1,18 @@
+{
+  "name": "wordflowlab--novelweave",
+  "displayName": "novelweave",
+  "description": "\u661f\u5c18\u7ec7\u68a6-\u5c0f\u8bf4\u7f16\u8f91\u5668",
+  "version": "1.0.0",
+  "author": "wordflowlab",
+  "homepage": "https://github.com/wordflowlab/novelweave",
+  "skills": [
+    {
+      "name": "getting-started",
+      "description": ""
+    },
+    {
+      "name": "workflow-guide",
+      "description": ""
+    }
+  ]
+}
