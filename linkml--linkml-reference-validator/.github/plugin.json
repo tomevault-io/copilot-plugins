@@ -1,14 +1,9 @@
 {
   "name": "linkml--linkml-reference-validator",
-  "displayName": "linkml",
+  "displayName": "linkml-reference-validator",
   "description": "Validate that supporting text quotes in your data actually appear in their cited references",
   "version": "1.0.0",
   "author": "linkml",
   "homepage": "https://github.com/linkml/linkml-reference-validator",
-  "skills": [
-    {
-      "name": "codecov-coverage",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
