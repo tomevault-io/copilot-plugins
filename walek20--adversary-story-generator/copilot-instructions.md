@@ -1,51 +1,101 @@
-## shared
+## ui-shadcn-helper
 
-> {project-description}
+> Ten projekt wykorzystuje @shadcn/ui dla komponentów interfejsu użytkownika. Są to pięknie zaprojektowane, dostępne komponenty, które można dostosować do swojej aplikacji.
 
-# AI Rules for {app-name}
+# Shadcn UI Components
 
-{project-description}
+Ten projekt wykorzystuje @shadcn/ui dla komponentów interfejsu użytkownika. Są to pięknie zaprojektowane, dostępne komponenty, które można dostosować do swojej aplikacji.
 
-## Tech Stack
+## Odszukiwanie zainstalowanych komponentów
 
-- Astro 5
-- TypeScript 5
-- React 19
-- Tailwind 4
-- Shadcn/ui
+Komponenty są dostępne w folderze `src/components/ui`, zgodnie z aliasami z pliku `components.json`
 
-## Project Structure
+## Wykorzystanie komponentu
 
-When introducing changes to the project, always follow the directory structure below:
+Zaimportuj komponent zgodnie ze skonfigurowanym aliasem `@/`
 
-- `./src` - source code
-- `./src/layouts` - Astro layouts
-- `./src/pages` - Astro pages
-- `./src/pages/api` - API endpoints
-- `./src/middleware/index.ts` - Astro middleware
-- `./src/db` - Supabase clients and types
-- `./src/types.ts` - Shared types for backend and frontend (Entities, DTOs)
-- `./src/components` - Client-side components written in Astro (static) and React (dynamic)
-- `./src/components/ui` - Client-side components from Shadcn/ui
-- `./src/lib` - Services and helpers 
-- `./src/assets` - static internal assets
-- `./public` - public assets
+```tsx
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+```
 
-When modifying the directory structure, always update this section.
+Przykładowe wykorzsytanie komponnetów:
 
-## Coding practices
+```tsx
+<Button variant="outline">Click me</Button>
 
-### Guidelines for clean code
+<Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Card Content</p>
+  </CardContent>
+  <CardFooter>
+    <p>Card Footer</p>
+  </CardFooter>
+</Card>
+```
 
-- Use feedback from linters to improve the code when making changes.
-- Prioritize error handling and edge cases.
-- Handle errors and edge cases at the beginning of functions.
-- Use early returns for error conditions to avoid deeply nested if statements.
-- Place the happy path last in the function for improved readability.
-- Avoid unnecessary else statements; use if-return pattern instead.
-- Use guard clauses to handle preconditions and invalid states early.
-- Implement proper error logging and user-friendly error messages.
-- Consider using custom error types or error factories for consistent error handling.
+## Instalowanie dodatkowych komponentów
+
+Wiele innych komponentów jest dostępnych, ale nie są one obecnie zainstalowane. Pełną listę można znaleźć na stronie https://ui.shadcn.com/r
+
+Aby zainstalować nowy komponent, wykorzystaj shadcn CLI
+
+
+```bash
+npx shadcn@latest add [component-name]
+```
+
+Przykładowo, aby dodać komponent accordion
+
+```bash
+npx shadcn@latest add accordion
+```
+
+Ważne: `npx shadcn-ui@latest` zostało wycofane, korzystaj z `npx shadcn@latest`
+
+Niektóre popularne komponenty to:
+
+- Accordion
+- Alert
+- AlertDialog
+- AspectRatio
+- Avatar
+- Calendar
+- Checkbox
+- Collapsible
+- Command
+- ContextMenu
+- DataTable
+- DatePicker
+- Dropdown Menu
+- Form
+- Hover Card
+- Menubar
+- Navigation Menu
+- Popover
+- Progress
+- Radio Group
+- ScrollArea
+- Select
+- Separator
+- Sheet
+- Skeleton
+- Slider
+- Switch
+- Table
+- Textarea
+- Sonner (previously Toast)
+- Toggle
+- Tooltip
+
+## Component Styling
+
+Ten projekt wykorzystuje wariant stylu „new-york” z kolorem bazowym "neutral" i zmiennymi CSS do tworzenia motywów, zgodnie z konfiguracją w sekcji `components.json`.
 
 ---
 > Source: [walek20/adversary-story-generator](https://github.com/walek20/adversary-story-generator) — distributed by [TomeVault](https://tomevault.io).
