@@ -1,16 +1,37 @@
-## ai-helpers
+## idiomatic-go
 
-> This extension provides commands and skills for various development tasks.
+> When writing Go code, always follow the guidelines from [Effective Go](https://go.dev/doc/effective_go).
 
-# AI Helpers - Gemini CLI Extension
+# Idiomatic Go Code
 
-This extension provides commands and skills for various development tasks.
-Commands are organized by topic using directory-based namespacing
-(e.g. `/ci:analyze-payload`, `/git:commit-suggest`, `/jira:create`).
+When writing Go code, always follow the guidelines from [Effective Go](https://go.dev/doc/effective_go).
 
-## Available command groups
+## Required Actions
 
-- **hello-world**: A hello world plugin
+1. **Before writing any Go code**, reference https://go.dev/doc/effective_go and apply its principles
+2. **Run `gofmt -w .`** on all Go files before committing
+3. **Run `go vet`** to catch common mistakes
+4. **Follow naming conventions**: MixedCaps for exported, mixedCaps for unexported
+5. **Handle all errors explicitly** - never ignore error return values
+6. **Use idiomatic patterns**:
+   - Prefer small interfaces
+   - Share memory by communicating (use channels)
+   - Return errors, don't panic
+   - Use defer for cleanup
+   - Accept interfaces, return concrete types
+
+## Common Anti-Patterns to Avoid
+
+- Using `panic` for normal error handling
+- Ignoring errors with `_`
+- Communicating by sharing memory instead of using channels
+- Large, unfocused interfaces
+- Package names with underscores or mixedCaps
+- Storing `context.Context` in structs
+
+## Reference
+
+See [Effective Go](https://go.dev/doc/effective_go) for comprehensive guidelines and [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments) for additional best practices.
 
 ---
 > Source: [openshift-eng/ai-helpers](https://github.com/openshift-eng/ai-helpers) — distributed by [TomeVault](https://tomevault.io).
