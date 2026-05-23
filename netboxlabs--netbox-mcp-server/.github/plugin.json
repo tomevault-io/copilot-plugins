@@ -1,0 +1,14 @@
+{
+  "name": "netboxlabs--netbox-mcp-server",
+  "displayName": "netbox-mcp-server",
+  "description": "Model Context Protocol (MCP) server for read-only interaction with NetBox data in LLMs",
+  "version": "1.0.0",
+  "author": "netboxlabs",
+  "homepage": "https://github.com/netboxlabs/netbox-mcp-server",
+  "skills": [
+    {
+      "name": "netbox-mcp-testing",
+      "description": ""
+    }
+  ]
+}
