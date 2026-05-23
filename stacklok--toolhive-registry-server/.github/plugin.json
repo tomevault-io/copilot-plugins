@@ -1,0 +1,26 @@
+{
+  "name": "stacklok--toolhive-registry-server",
+  "displayName": "toolhive-registry-server",
+  "description": "Discover, govern and control access to MCP servers and agent skills across your organization",
+  "version": "1.0.0",
+  "author": "stacklok",
+  "homepage": "https://github.com/stacklok/toolhive-registry-server",
+  "skills": [
+    {
+      "name": "deploy-otel",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-cnpg",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-otel",
+      "description": ""
+    },
+    {
+      "name": "smoke-test",
+      "description": ""
+    }
+  ]
+}
