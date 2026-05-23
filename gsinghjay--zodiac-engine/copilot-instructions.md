@@ -1,48 +1,55 @@
-## project-structure
+## route-structure
 
-> This rule outlines the recommended FastAPI best practices for the Zodiac Engine application. Call this rule when evaluating existing code, planning improvements, or implementing new features according to modern FastAPI standards. Use it when users ask about code quality, want to follow best practices, or need guidance on specific FastAPI features implementation.
+> This rule documents the API route structure and endpoints of the Zodiac Engine. Call this rule when working with API endpoints, understanding route hierarchies, or implementing new routes. Use it when users need information about available endpoints, want to modify existing routes, or need to understand how routes are organized in the application.
 
-# Zodiac Engine Project Structure
+# Zodiac Engine API Routes Structure
 
-The Zodiac Engine is a FastAPI application for astrological calculations and chart visualization.
+This rule documents the API route structure of the Zodiac Engine application, which follows a clean, hierarchical organization.
 
-## Main Application Structure
+## Route Hierarchy
 
-The main entry point is [app/main.py](mdc:app/main.py), which creates the FastAPI application and configures it.
+- Main router is included in [app/main.py](mdc:app/main.py)
+- API routes are organized in [app/api](mdc:app/api)
+- API versions are separated in directories (currently v1)
+- Each router group has its own module in [app/api/v1/routers](mdc:app/api/v1/routers)
 
-## Key Components:
+## Key API Endpoints
 
-- **API Routes**: Located in [app/api](mdc:app/api) with versioning (v1)
-  - Routers: [app/api/v1/routers](mdc:app/api/v1/routers)
-  - Chart Routers: [app/api/v1/routers/charts](mdc:app/api/v1/routers/charts)
-  - Natal charts: [app/api/v1/routers/charts/natal.py](mdc:app/api/v1/routers/charts/natal.py)
-  - Visualizations: [app/api/v1/routers/charts/visualization.py](mdc:app/api/v1/routers/charts/visualization.py)
+### Chart Routers
 
-- **Core Components**: Located in [app/core](mdc:app/core)
-  - Configuration: [app/core/config.py](mdc:app/core/config.py)
-  - Dependencies: [app/core/dependencies.py](mdc:app/core/dependencies.py)
-  - Error Handling: [app/core/error_handlers.py](mdc:app/core/error_handlers.py)
-  - Custom Exceptions: [app/core/exceptions.py](mdc:app/core/exceptions.py)
+The primary endpoints for astrological charts are located in [app/api/v1/routers/charts](mdc:app/api/v1/routers/charts):
 
-- **Data Models**: Located in [app/schemas](mdc:app/schemas)
-  - Natal Chart: [app/schemas/natal_chart.py](mdc:app/schemas/natal_chart.py)
-  - Chart Visualization: [app/schemas/chart_visualization.py](mdc:app/schemas/chart_visualization.py)
+- **Natal Charts**: [app/api/v1/routers/charts/natal.py](mdc:app/api/v1/routers/charts/natal.py)
+  - Calculates complete natal charts based on birth data
+  - Endpoint: `POST /api/v1/charts/natal/`
 
-- **Business Logic**: Located in [app/services](mdc:app/services)
-  - Astrology Service: [app/services/astrology.py](mdc:app/services/astrology.py)
-  - Chart Visualization: [app/services/chart_visualization.py](mdc:app/services/chart_visualization.py)
+- **Chart Visualization**: [app/api/v1/routers/charts/visualization.py](mdc:app/api/v1/routers/charts/visualization.py)
+  - Generates SVG visualizations of charts
+  - Endpoints: 
+    - `POST /api/v1/charts/visualization/natal`
+    - `POST /api/v1/charts/visualization/synastry`
 
-- **Static Files**: Located in [app/static](mdc:app/static)
+- **Synastry**: [app/api/v1/routers/charts/synastry.py](mdc:app/api/v1/routers/charts/synastry.py)
+  - Analyzes relationships between two charts
+  - Endpoint: `POST /api/v1/charts/synastry/`
 
-## Testing
+- **Composite**: [app/api/v1/routers/charts/composite.py](mdc:app/api/v1/routers/charts/composite.py)
+  - Generates and analyzes composite charts
+  - Endpoint: `POST /api/v1/charts/composite/`
 
-Tests are located in the [tests](mdc:tests) directory:
-- Natal Chart Tests: [tests/test_natal_chart_variations.py](mdc:tests/test_natal_chart_variations.py)
-- Chart Configuration Tests: [tests/test_chart_configuration.py](mdc:tests/test_chart_configuration.py)
+### Health Endpoint
 
-## Dependencies
+- Root health check implemented in [app/main.py](mdc:app/main.py)
+  - Endpoint: `GET /`
+  - Returns API status and version
 
-Dependencies are listed in [requirements.txt](mdc:requirements.txt)
+## Route Configuration
+
+All routes use:
+- Proper response models
+- Detailed documentation
+- Appropriate tagging
+- Standardized error responses
 
 ---
 > Source: [gsinghjay/zodiac-engine](https://github.com/gsinghjay/zodiac-engine) — distributed by [TomeVault](https://tomevault.io).
