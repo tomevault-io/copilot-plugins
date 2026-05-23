@@ -1,0 +1,9 @@
+{
+  "name": "answerdotai--fastmigrate",
+  "displayName": "fastmigrate",
+  "description": "Simple database migrations for SQLite",
+  "version": "1.0.0",
+  "author": "AnswerDotAI",
+  "homepage": "https://github.com/AnswerDotAI/fastmigrate",
+  "skills": []
+}
