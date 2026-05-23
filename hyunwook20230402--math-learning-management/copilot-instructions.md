@@ -1,265 +1,164 @@
-## development
+## styling
 
-> - **Node.js**: Version 18 or higher
+> - **Primary**: Use shadcn/ui components from `src/components/ui/`
 
-# 🛠️ Development Workflow & Tooling
+# 🎨 Styling & UI Guidelines
 
-## Development Environment
+## Design System
 
-### Required Tools
-- **Node.js**: Version 18 or higher
-- **npm**: Package manager
-- **Supabase CLI**: For database management
-- **Git**: Version control
+### Component Library
+- **Primary**: Use shadcn/ui components from `src/components/ui/`
+- **Icons**: Use Lucide React icons (`lucide-react`)
+- **Styling**: Tailwind CSS utility classes
+- **Theme**: Support both light and dark modes
 
-### Project Setup
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Run linting
-npm run lint
+### Color System
+Use CSS custom properties for consistent theming:
+```css
+--primary: hsl(var(--primary))
+--secondary: hsl(var(--secondary))
+--destructive: hsl(var(--destructive))
+--muted: hsl(var(--muted))
 ```
 
-## Code Quality Tools
+### Component Styling Rules
 
-### ESLint Configuration
-- **TypeScript Support**: Full TypeScript integration
-- **React Hooks**: Enforces rules of hooks
-- **React Refresh**: Hot reload optimization
-- **Custom Rules**: Disabled unused vars for development flexibility
-
-### TypeScript Configuration
-```json
-{
-  "strictNullChecks": false,    // Relaxed for development
-  "noImplicitAny": false,       // Allow implicit any
-  "allowJs": true,              // Allow JavaScript files
-  "skipLibCheck": true,         // Skip library type checking
-  "noUnusedLocals": false,      // Allow unused locals
-  "noUnusedParameters": false   // Allow unused parameters
-}
-```
-
-## Build System
-
-### Vite Configuration
-- **Development Server**: Runs on port 8080
-- **Hot Module Replacement**: Fast development experience
-- **Path Aliases**: `@/` maps to `src/`
-- **SWC Compilation**: Fast TypeScript compilation
-
-### Build Optimization
+#### Button Variants
 ```typescript
-// Vite config optimizations
-export default defineConfig({
-  server: {
-    host: "::",    // Allow external connections
-    port: 8080,    // Consistent port
-  },
-  plugins: [
-    react(),       // React support
-    componentTagger() // Development tooling
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src") // Path aliases
-    }
-  }
-});
+<Button variant="default">Primary Action</Button>
+<Button variant="secondary">Secondary Action</Button>
+<Button variant="destructive">Delete Action</Button>
+<Button variant="outline">Cancel Action</Button>
+<Button variant="ghost">Subtle Action</Button>
 ```
 
-## Version Control
-
-### Git Workflow
-```bash
-# Version management scripts
-npm run version:patch    # Patch version (1.0.0 → 1.0.1)
-npm run version:minor    # Minor version (1.0.0 → 1.1.0)
-npm run version:major    # Major version (1.0.0 → 2.0.0)
-npm run release         # Build and patch version
-```
-
-### Commit Guidelines
-- **Conventional Commits**: Use standard commit message format
-- **Descriptive Messages**: Clear description of changes
-- **Atomic Commits**: One logical change per commit
-
-## Database Management
-
-### Supabase Integration
-```bash
-# Supabase CLI commands
-supabase login                    # Login to Supabase
-supabase link --project-ref <ref> # Link to project
-supabase db push                  # Apply migrations
-supabase gen types typescript     # Generate TypeScript types
-```
-
-### Migration Management
-- **Migration Files**: Located in `supabase/migrations/`
-- **Naming Convention**: `YYYYMMDDHHMMSS_description.sql`
-- **Version Control**: All migrations tracked in Git
-
-## Development Best Practices
-
-### Hot Reload Optimization
+#### Card Components
 ```typescript
-// Use React.memo for expensive components
-const ExpensiveComponent = React.memo(() => {
-  // Component logic
-});
-
-// Use useCallback for stable references
-const handleClick = useCallback(() => {
-  // Handler logic
-}, [dependencies]);
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+    <CardDescription>Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    {/* Content */}
+  </CardContent>
+</Card>
 ```
 
-### Development Debugging
+#### Form Components
 ```typescript
-// Consistent logging format
-console.log('Component mounted:', componentName);
-console.log('API call:', { endpoint, params });
-console.error('Error occurred:', { error, context });
-
-// Development-only code
-if (process.env.NODE_ENV === 'development') {
-  console.log('Debug info:', debugData);
-}
+<div className="space-y-4">
+  <div>
+    <Label htmlFor="field">Field Label</Label>
+    <Input id="field" placeholder="Placeholder" />
+  </div>
+</div>
 ```
 
-## Environment Configuration
+## Layout Guidelines
 
-### Environment Variables
+### Page Structure
 ```typescript
-// Supabase configuration
-const SUPABASE_URL = "https://grukqugorspbwsxqdhru.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
-
-// Development vs Production
-const isDevelopment = process.env.NODE_ENV === 'development';
-const isProduction = process.env.NODE_ENV === 'production';
+<div className="min-h-screen bg-background">
+  {profile && <Header />}
+  <main className="container mx-auto px-4 py-8">
+    {/* Page content */}
+  </main>
+</div>
 ```
 
-### Build Modes
-```bash
-# Development build
-npm run build:dev
+### Responsive Design
+- **Mobile First**: Design for mobile, then enhance for larger screens
+- **Breakpoints**: 
+  - Mobile: `< 768px`
+  - Tablet: `768px - 1024px`
+  - Desktop: `> 1024px`
 
-# Production build
-npm run build
-
-# Preview build
-npm run preview
-```
-
-## Testing Strategy
-
-### Component Testing
-- **Unit Tests**: Test individual components
-- **Integration Tests**: Test component interactions
-- **E2E Tests**: Test complete user workflows
-
-### API Testing
+### Grid Systems
 ```typescript
-// Test API functions
-const testApiCall = async () => {
-  try {
-    const result = await api.getData();
-    expect(result).toBeDefined();
-  } catch (error) {
-    fail('API call should not throw error');
-  }
-};
+// 2-column grid on desktop, 1-column on mobile
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+// 3-column grid with responsive breakpoints
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 ```
 
-## Performance Monitoring
+## Spacing & Typography
 
-### Bundle Analysis
-```bash
-# Analyze bundle size
-npm run build
-npx vite-bundle-analyzer dist
-```
+### Spacing Scale
+- Use Tailwind's spacing scale: `space-y-4`, `gap-6`, `p-4`, `m-2`
+- Consistent spacing: `space-y-4` for vertical, `gap-4` for grid/flex
 
-### Performance Metrics
-- **First Contentful Paint**: Measure initial load time
-- **Largest Contentful Paint**: Measure main content load
-- **Cumulative Layout Shift**: Measure visual stability
-
-## Deployment
-
-### Production Build
-```bash
-# Create optimized production build
-npm run build
-
-# Preview production build locally
-npm run preview
-```
-
-### Deployment Checklist
-- [ ] All tests passing
-- [ ] Build successful
-- [ ] Environment variables configured
-- [ ] Database migrations applied
-- [ ] Performance metrics acceptable
-
-## Troubleshooting
-
-### Common Issues
-1. **Build Failures**: Check TypeScript errors and dependencies
-2. **Hot Reload Issues**: Restart development server
-3. **Database Connection**: Verify Supabase credentials
-4. **Import Errors**: Check path aliases and file extensions
-
-### Debug Tools
+### Typography
 ```typescript
-// React Developer Tools
-// Supabase Dashboard
-// Browser DevTools
-// Network tab for API debugging
+<h1 className="text-3xl font-bold">Page Title</h1>
+<h2 className="text-2xl font-semibold">Section Title</h2>
+<h3 className="text-xl font-medium">Subsection Title</h3>
+<p className="text-muted-foreground">Description text</p>
 ```
 
-## Code Organization
+## Interactive Elements
 
-### File Structure Standards
-```
-src/
-├── components/     # Reusable components
-├── hooks/         # Custom hooks
-├── lib/           # Utilities and API
-├── pages/         # Page components
-├── types/         # TypeScript definitions
-└── integrations/  # External services
-```
-
-### Import Organization
+### Loading States
 ```typescript
-// 1. React and external libraries
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-// 2. Internal components and hooks
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
-
-// 3. API services and utilities
-import { problemApi } from '@/lib/api';
-
-// 4. Type definitions
-import type { Problem } from '@/types/database';
+{loading ? (
+  <div className="flex items-center justify-center p-8">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  </div>
+) : (
+  // Content
+)}
 ```
+
+### Empty States
+```typescript
+<div className="text-center py-8 text-muted-foreground">
+  <FileText className="h-12 w-12 mx-auto mb-4" />
+  <p>No items found</p>
+  <p className="text-sm mt-2">Try adjusting your search criteria</p>
+</div>
+```
+
+### Error States
+```typescript
+<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
+  <p className="text-destructive font-medium">Error occurred</p>
+  <p className="text-destructive/80 text-sm mt-1">Error details</p>
+</div>
+```
+
+## Animation & Transitions
+
+### Hover Effects
+```typescript
+className="hover:bg-muted/50 transition-colors"
+className="hover:scale-105 transition-transform"
+```
+
+### Loading Animations
+```typescript
+className="animate-spin" // For spinners
+className="animate-pulse" // For skeleton loading
+```
+
+## Accessibility
+
+### Focus Management
+- Ensure all interactive elements are keyboard accessible
+- Use proper focus indicators
+- Implement skip links for navigation
+
+### ARIA Labels
+```typescript
+<Button aria-label="Delete item">
+  <Trash className="h-4 w-4" />
+</Button>
+```
+
+### Color Contrast
+- Ensure sufficient contrast ratios
+- Don't rely solely on color to convey information
+- Test with color blindness simulators
 
 ---
 > Source: [hyunwook20230402/math-learning-management](https://github.com/hyunwook20230402/math-learning-management) — distributed by [TomeVault](https://tomevault.io).
