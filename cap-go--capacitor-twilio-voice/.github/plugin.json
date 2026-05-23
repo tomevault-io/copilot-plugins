@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-twilio-voice",
+  "displayName": "capacitor-twilio-voice",
+  "description": "Capacitor plugin to create and answer calls with twill voice SDK",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-twilio-voice",
+  "skills": []
+}
