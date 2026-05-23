@@ -1,9 +1,9 @@
 {
   "name": "meeting-baas--meeting-mcp",
   "displayName": "meeting-mcp",
-  "description": "meeting-mcp",
+  "description": "Model Context Protocol server for AI assistants to create meeting bots, search transcripts, and manage meeting recordings.",
   "version": "1.0.0",
   "author": "Meeting-BaaS",
-  "homepage": "https://tomevault.io/claim/Meeting-BaaS",
+  "homepage": "https://github.com/Meeting-BaaS/meeting-mcp",
   "skills": []
 }
