@@ -1,6 +1,8 @@
 # meeting-mcp
 
-> Tome by [Meeting-BaaS](https://github.com/Meeting-BaaS/meeting-mcp) — distributed by [TomeVault](https://tomevault.io/claim/Meeting-BaaS)
+> Tome by [Meeting-BaaS](https://github.com/Meeting-BaaS/meeting-mcp) — distributed by [TomeVault](https://tomevault.io)
+
+Model Context Protocol server for AI assistants to create meeting bots, search transcripts, and manage meeting recordings.
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [Meeting-BaaS/meeting-mcp](https://git
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Meeting-BaaS)
+From [Meeting-BaaS/meeting-mcp](https://github.com/Meeting-BaaS/meeting-mcp) — a repo with 27+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Meeting-BaaS) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
