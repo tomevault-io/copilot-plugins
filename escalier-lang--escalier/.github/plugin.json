@@ -1,0 +1,9 @@
+{
+  "name": "escalier-lang--escalier",
+  "displayName": "escalier",
+  "description": "Next version of the Escalier compiler written in Go",
+  "version": "1.0.0",
+  "author": "escalier-lang",
+  "homepage": "https://github.com/escalier-lang/escalier",
+  "skills": []
+}
