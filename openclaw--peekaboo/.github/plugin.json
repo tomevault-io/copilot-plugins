@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "openclaw",
   "homepage": "https://github.com/openclaw/Peekaboo",
-  "skills": [
-    {
-      "name": "peekaboo",
-      "description": ""
-    },
-    {
-      "name": "peekaboo",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
