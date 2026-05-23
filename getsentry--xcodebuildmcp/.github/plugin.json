@@ -5,14 +5,5 @@
   "version": "1.0.0",
   "author": "getsentry",
   "homepage": "https://github.com/getsentry/XcodeBuildMCP",
-  "skills": [
-    {
-      "name": "xcodebuildmcp",
-      "description": ""
-    },
-    {
-      "name": "xcodebuildmcp-cli",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
