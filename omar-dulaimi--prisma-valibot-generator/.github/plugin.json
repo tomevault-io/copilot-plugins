@@ -1,0 +1,9 @@
+{
+  "name": "omar-dulaimi--prisma-valibot-generator",
+  "displayName": "prisma-valibot-generator",
+  "description": "Auto-generate type-safe, tree-shakeable Valibot validators from your Prisma schema",
+  "version": "1.0.0",
+  "author": "omar-dulaimi",
+  "homepage": "https://github.com/omar-dulaimi/prisma-valibot-generator",
+  "skills": []
+}
