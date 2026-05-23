@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-sim",
+  "displayName": "capacitor-sim",
+  "description": "Capacitor plugin to get information from device's sim cards",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-sim",
+  "skills": []
+}
