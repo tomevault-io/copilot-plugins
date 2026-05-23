@@ -1,0 +1,9 @@
+{
+  "name": "andotherstuff--otherstuff-relay",
+  "displayName": "otherstuff-relay",
+  "description": "Redis/OpenSearch relay designed for scalability and advanced search",
+  "version": "1.0.0",
+  "author": "andotherstuff",
+  "homepage": "https://github.com/andotherstuff/otherstuff-relay",
+  "skills": []
+}
