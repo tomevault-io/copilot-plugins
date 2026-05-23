@@ -1,64 +1,62 @@
-## python
+## svelte-5
 
-> 1. The main entry point for the backend app is in [app.py](mdc:backend/app.py)
+> - We make use of Svelte 5 runes: $state, $derived, and $effect
 
 
-# Python Backend Best Practices
+# We are writing Svelte 5 code
 
-## Project Structure
-1. The main entry point for the backend app is in [app.py](mdc:backend/app.py)
-2. The remaining python code is in backend/planaieditor/
-3. Tests are in the tests/ directory
+- We make use of Svelte 5 runes: $state, $derived, and $effect
+- We employ universal reactivity with .svelte.js files rather than using stores
+- We use typescript instead of javascript
+- We use Svelte 5 snippets instead of Svelte 5 slots
+- createEventDispatcher() is obsolete; use $props() instead
+- We use phosphor ui for icons
+- We are using tailwindcss v4 for styles
+  - background opacity is now specified as follows: bg-gray-900/50 because bg-opacity-50 has been deprecated.
+- SvelteComponent, the base class from Svelte 4, is deprecated in favour of the new Component type which defines the function shape of a Svelte component.
 
-## Python Practices
-1. Use type hints for everything
-2. Use pytest for writing tests
-3. All dependencies are managed by Poetry which is setup in the backend/ directory
-4. Create flake8 and black compliant code - can we run with ```poetry run flake8``` or ```poetry run black .``` in the backend/ directory
+# UI Component Library
+- We are using the headless bits UI component library
+- When using a CSS framework like [TailwindCSS](mdc:planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/planaieditor/https:/tailwindcss.com), simply pass the classes to the component:
 
-## Flask Configuration
-1. Store configurations in separate files for different environments (dev, test, prod)
-2. Never hardcode sensitive values - use environment variables
-3. Disable debug mode in production environments
+```svelte
+<script lang="ts">
+ import { Accordion } from "bits-ui";
+</script>
+<Accordion.Trigger class="h-12 w-full bg-blue-500 hover:bg-blue-600">Click me</Accordion.Trigger>
+```
 
-## Pydantic Integration
-1. Create Pydantic models for all API request/response schemas
-2. Validate incoming request data before processing:
-   ```python
-   data = UserModel.model_validate(request.json)
-   ```
-3. Use Pydantic for configuration management where appropriate
-4. Leverage Pydantic's Field constraints to enforce validation rules (min_length, regex, etc.)
+# Svelte Flow Reactivity
+ - Node data changes do not lead to reactivity, e.g.
 
-## RESTful API Design
-1. Use appropriate HTTP methods (GET, POST, PUT, DELETE)
-2. Return proper HTTP status codes (200, 201, 400, 404, 500, etc.)
-3. Design consistent URL patterns following REST principles
+```svelte
+let someData: number = $state(1);
 
-## Flask-SocketIO Implementation
-1. Organize WebSocket events using namespaces
-2. Validate all incoming socket data with Pydantic models
-3. Implement proper error handling for socket events
-4. Use background tasks for long-running operations to avoid blocking the event loop
-5. Set appropriate ping/pong intervals to maintain connections
+$effect(() => {
+  number = data.nodeNumber;
+})
+```
 
-## Error Handling
-1. Create centralized error handlers for consistent error responses
-2. Log errors with sufficient context for debugging
-3. Return user-friendly error messages without exposing internal details
+The effect above will never be executed. However, node data can be successfully synced the other way:
 
-## Testing
-1. Write unit tests for individual functions and classes
-2. Use pytest and its fixtures for test organization
-3. Mock external services during testing
+```svelte
+let someData: number = $state(1);
 
-## Performance
-1. Implement caching strategies using Flask-Caching
-2. Set up proper WSGI server (Gunicorn) with appropriate worker configuration
-3. Consider asynchronous processing for CPU-intensive tasks
+$effect(() => {
+  data.nodeNumber = number;
+})
+```
 
-## Documentation
-1. Include docstrings for all functions, classes, and methods
+ - Effects should be avoided if they are not strictly necessary. Instead use callbacks or $derived or $derived.by()
+
+# Dealing with Monaco Editor and Monaco Language Client
+We are using Svelte 5, Vite and Sveltekit which make extensive use of SSR. That means that any imports related to monaco need to be done dynamically, e.g.
+
+```svelte
+console.log('Initializing VSCode services...');
+const { initServices } = await import('monaco-languageclient/vscode/services');
+await initServices({});
+```
 
 ---
 > Source: [provos/planaieditor](https://github.com/provos/planaieditor) — distributed by [TomeVault](https://tomevault.io).
