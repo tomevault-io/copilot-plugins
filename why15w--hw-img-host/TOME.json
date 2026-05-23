@@ -1,0 +1,44 @@
+{
+  "name": "hw-img-host",
+  "owner": "WhY15w",
+  "repo": "hw-img-host",
+  "description": "HW\u56fe\u5e8a | \u8f7b\u91cf\u65e0\u670d\u52a1\u5668\u56fe\u5e8a\uff0c\u91c7\u7528 EdgeOne Pages Functions + cnb.cool API \u5b9e\u73b0\u96f6\u6210\u672c\u90e8\u7f72",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WhY15w/hw-img-host",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T10:36:27Z"
+}
