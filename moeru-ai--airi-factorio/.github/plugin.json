@@ -1,0 +1,9 @@
+{
+  "name": "moeru-ai--airi-factorio",
+  "displayName": "airi-factorio",
+  "description": "\ud83c\udfae\ud83c\udfed AI plays the game Factorio with CV & LLM combined. Powered by YOLO / LLM.",
+  "version": "1.0.0",
+  "author": "moeru-ai",
+  "homepage": "https://github.com/moeru-ai/airi-factorio",
+  "skills": []
+}
