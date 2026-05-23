@@ -1,14 +1,9 @@
 {
   "name": "opsmill--infrahub-mcp",
-  "displayName": "infrahub",
+  "displayName": "infrahub-mcp",
   "description": "MCP server for Infrahub",
   "version": "1.0.0",
   "author": "opsmill",
   "homepage": "https://github.com/opsmill/infrahub-mcp",
-  "skills": [
-    {
-      "name": "neo4j-cypher-guide",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
