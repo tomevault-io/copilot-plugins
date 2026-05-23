@@ -3,8 +3,8 @@
   "owner": "bgauryy",
   "repo": "Octocode",
   "description": "MCP server for semantic code research and context generation on real-time using LLM patterns | Search naturally across public & private repos based on your permissions | Transform any accessible codebase/s into AI-optimized knowledge on simple and complex flows | Find real implementations and live docs from anywhere",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,39 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "octocode-documentation-writer",
-      "path": "skills/octocode-documentation-writer",
-      "github_url": "https://github.com/bgauryy/Octocode/tree/main/skills/octocode-documentation-writer",
-      "description": ""
-    },
-    {
-      "name": "octocode-plan",
-      "path": "skills/octocode-plan",
-      "github_url": "https://github.com/bgauryy/Octocode/tree/main/skills/octocode-plan",
-      "description": ""
-    },
-    {
-      "name": "octocode-prompt-optimizer",
-      "path": "skills/octocode-prompt-optimizer",
-      "github_url": "https://github.com/bgauryy/Octocode/tree/main/skills/octocode-prompt-optimizer",
-      "description": ""
-    },
-    {
-      "name": "octocode-pull-request-reviewer",
-      "path": "skills/octocode-pull-request-reviewer",
-      "github_url": "https://github.com/bgauryy/Octocode/tree/main/skills/octocode-pull-request-reviewer",
-      "description": ""
-    },
-    {
-      "name": "octocode-research",
-      "path": "skills/octocode-research",
-      "github_url": "https://github.com/bgauryy/Octocode/tree/main/skills/octocode-research",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/bgauryy/Octocode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T01:30:21Z"
+  "distributed_at": "2026-05-23T09:29:23Z"
 }
