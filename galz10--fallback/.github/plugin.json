@@ -1,0 +1,9 @@
+{
+  "name": "galz10--fallback",
+  "displayName": "Fallback",
+  "description": "Fallback keeps the GitHub context your repo work depends on available locally, even when GitHub is down or you have no internet.",
+  "version": "1.0.0",
+  "author": "galz10",
+  "homepage": "https://github.com/galz10/Fallback",
+  "skills": []
+}
