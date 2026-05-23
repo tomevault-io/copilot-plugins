@@ -1,0 +1,9 @@
+{
+  "name": "geoffdavis--omnifocus-claude-extension",
+  "displayName": "omnifocus-claude-extension",
+  "description": "Omnifocus integration in Desktop Extension Format suitable for Claude Desktop on Mac",
+  "version": "1.0.0",
+  "author": "geoffdavis",
+  "homepage": "https://github.com/geoffdavis/omnifocus-claude-extension",
+  "skills": []
+}
