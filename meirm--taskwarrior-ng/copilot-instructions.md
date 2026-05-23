@@ -1,14 +1,14 @@
-## execute-tasks
+## plan-product
 
-> Execute the next task.
+> Plan a new product and install Agent OS in its codebase.
 
 
-# Execute Task
+# Plan Product
 
-Execute the next task.
+Plan a new product and install Agent OS in its codebase.
 
 Refer to the instructions located in this file:
-@.agent-os/instructions/core/execute-tasks.md
+@.agent-os/instructions/core/plan-product.md
 
 ---
 > Source: [meirm/taskwarrior-ng](https://github.com/meirm/taskwarrior-ng) — distributed by [TomeVault](https://tomevault.io).
