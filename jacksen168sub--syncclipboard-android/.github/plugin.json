@@ -1,0 +1,9 @@
+{
+  "name": "jacksen168sub--syncclipboard-android",
+  "displayName": "SyncClipboard-Android",
+  "description": "Jeric-X/SyncClipboard \u7684 Android \u5ba2\u6237\u7aef\uff0c\u652f\u6301\u4f7f\u7528 Xposed \u5728\u540e\u53f0\u81ea\u52a8\u540c\u6b65\u526a\u8d34\u677f | Android client for Jeric-X/SyncClipboard, supports using Xposed to automatically sync the clipboard in the background",
+  "version": "1.0.0",
+  "author": "jacksen168sub",
+  "homepage": "https://github.com/jacksen168sub/SyncClipboard-Android",
+  "skills": []
+}
