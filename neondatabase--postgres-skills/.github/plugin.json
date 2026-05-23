@@ -1,0 +1,14 @@
+{
+  "name": "neondatabase--postgres-skills",
+  "displayName": "postgres-skills",
+  "description": "postgres-skills",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/postgres-skills",
+  "skills": [
+    {
+      "name": "postgres-best-practices",
+      "description": ""
+    }
+  ]
+}
