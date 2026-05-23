@@ -1,0 +1,9 @@
+{
+  "name": "mizuka-wu--y-mxgraph",
+  "displayName": "y-mxgraph",
+  "description": "A tool library for bidirectional binding and conversion between draw.io (mxGraph) XML and Yjs CRDT, accompanied by a runnable demo that supports collaborative cursor and selection rendering",
+  "version": "1.0.0",
+  "author": "mizuka-wu",
+  "homepage": "https://github.com/mizuka-wu/y-mxgraph",
+  "skills": []
+}
