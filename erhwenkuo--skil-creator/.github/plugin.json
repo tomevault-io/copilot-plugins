@@ -1,0 +1,9 @@
+{
+  "name": "erhwenkuo--skil-creator",
+  "displayName": "skil-creator",
+  "description": "A skill for creating new skills and iteratively improving them \u2014 compatible with both **Claude Code** and **LangChain deepagent-cli**.",
+  "version": "1.0.0",
+  "author": "erhwenkuo",
+  "homepage": "https://github.com/erhwenkuo/skil-creator",
+  "skills": []
+}
