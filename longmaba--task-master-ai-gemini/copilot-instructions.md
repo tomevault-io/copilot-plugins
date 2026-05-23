@@ -1,226 +1,335 @@
-## dependencies
+## dev-workflow
 
-> Guidelines for managing task dependencies and relationships
+> Guide for using meta-development script (scripts/dev.js) to manage task-driven development workflows
 
 
-# Dependency Management Guidelines
+- **Global CLI Commands**
+  - Task Master now provides a global CLI through the `task-master` command
+  - All functionality from `scripts/dev.js` is available through this interface
+  - Install globally with `npm install -g claude-task-master` or use locally via `npx`
+  - Use `task-master <command>` instead of `node scripts/dev.js <command>`
+  - Examples:
+    - `task-master list` instead of `node scripts/dev.js list`
+    - `task-master next` instead of `node scripts/dev.js next`
+    - `task-master expand --id=3` instead of `node scripts/dev.js expand --id=3`
+  - All commands accept the same options as their script equivalents
+  - The CLI provides additional commands like `task-master init` for project setup
 
-## Dependency Structure Principles
+- **Development Workflow Process**
+  - Start new projects by running `task-master init` or `node scripts/dev.js parse-prd --input=<prd-file.txt>` to generate initial tasks.json
+  - Begin coding sessions with `task-master list` to see current tasks, status, and IDs
+  - Analyze task complexity with `task-master analyze-complexity --research` before breaking down tasks
+  - Select tasks based on dependencies (all marked 'done'), priority level, and ID order
+  - Clarify tasks by checking task files in tasks/ directory or asking for user input
+  - View specific task details using `task-master show <id>` to understand implementation requirements
+  - Break down complex tasks using `task-master expand --id=<id>` with appropriate flags
+  - Clear existing subtasks if needed using `task-master clear-subtasks --id=<id>` before regenerating
+  - Implement code following task details, dependencies, and project standards
+  - Verify tasks according to test strategies before marking as complete
+  - Mark completed tasks with `task-master set-status --id=<id> --status=done`
+  - Update dependent tasks when implementation differs from original plan
+  - Generate task files with `task-master generate` after updating tasks.json
+  - Maintain valid dependency structure with `task-master fix-dependencies` when needed
+  - Respect dependency chains and task priorities when selecting work
+  - Report progress regularly using the list command
 
-- **Dependency References**:
-  - ✅ DO: Represent task dependencies as arrays of task IDs
-  - ✅ DO: Use numeric IDs for direct task references
-  - ✅ DO: Use string IDs with dot notation (e.g., "1.2") for subtask references
-  - ❌ DON'T: Mix reference types without proper conversion
+- **Task Complexity Analysis**
+  - Run `node scripts/dev.js analyze-complexity --research` for comprehensive analysis
+  - Review complexity report in scripts/task-complexity-report.json
+  - Or use `node scripts/dev.js complexity-report` for a formatted, readable version of the report
+  - Focus on tasks with highest complexity scores (8-10) for detailed breakdown
+  - Use analysis results to determine appropriate subtask allocation
+  - Note that reports are automatically used by the expand command
 
-  ```javascript
-  // ✅ DO: Use consistent dependency formats
-  // For main tasks
-  task.dependencies = [1, 2, 3]; // Dependencies on other main tasks
+- **Task Breakdown Process**
+  - For tasks with complexity analysis, use `node scripts/dev.js expand --id=<id>`
+  - Otherwise use `node scripts/dev.js expand --id=<id> --subtasks=<number>`
+  - Add `--research` flag to leverage Perplexity AI for research-backed expansion
+  - Use `--prompt="<context>"` to provide additional context when needed
+  - Review and adjust generated subtasks as necessary
+  - Use `--all` flag to expand multiple pending tasks at once
+  - If subtasks need regeneration, clear them first with `clear-subtasks` command
+
+- **Implementation Drift Handling**
+  - When implementation differs significantly from planned approach
+  - When future tasks need modification due to current implementation choices
+  - When new dependencies or requirements emerge
+  - Call `node scripts/dev.js update --from=<futureTaskId> --prompt="<explanation>"` to update tasks.json
+
+- **Task Status Management**
+  - Use 'pending' for tasks ready to be worked on
+  - Use 'done' for completed and verified tasks
+  - Use 'deferred' for postponed tasks
+  - Add custom status values as needed for project-specific workflows
+
+- **Task File Format Reference**
+  ```
+  # Task ID: <id>
+  # Title: <title>
+  # Status: <status>
+  # Dependencies: <comma-separated list of dependency IDs>
+  # Priority: <priority>
+  # Description: <brief description>
+  # Details:
+  <detailed implementation notes>
   
-  // For subtasks
-  subtask.dependencies = [1, "3.2"]; // Dependency on main task 1 and subtask 2 of task 3
+  # Test Strategy:
+  <verification approach>
   ```
 
-- **Subtask Dependencies**:
-  - ✅ DO: Allow numeric subtask IDs to reference other subtasks within the same parent
-  - ✅ DO: Convert between formats appropriately when needed
-  - ❌ DON'T: Create circular dependencies between subtasks
+- **Command Reference: parse-prd**
+  - Legacy Syntax: `node scripts/dev.js parse-prd --input=<prd-file.txt>`
+  - CLI Syntax: `task-master parse-prd --input=<prd-file.txt>`
+  - Description: Parses a PRD document and generates a tasks.json file with structured tasks
+  - Parameters: 
+    - `--input=<file>`: Path to the PRD text file (default: sample-prd.txt)
+  - Example: `task-master parse-prd --input=requirements.txt`
+  - Notes: Will overwrite existing tasks.json file. Use with caution.
 
-  ```javascript
-  // ✅ DO: Properly normalize subtask dependencies
-  // When a subtask refers to another subtask in the same parent
-  if (typeof depId === 'number' && depId < 100) {
-    // It's likely a reference to another subtask in the same parent task
-    const fullSubtaskId = `${parentId}.${depId}`;
-    // Now use fullSubtaskId for validation
-  }
-  ```
+- **Command Reference: update**
+  - Legacy Syntax: `node scripts/dev.js update --from=<id> --prompt="<prompt>"`
+  - CLI Syntax: `task-master update --from=<id> --prompt="<prompt>"`
+  - Description: Updates tasks with ID >= specified ID based on the provided prompt
+  - Parameters:
+    - `--from=<id>`: Task ID from which to start updating (required)
+    - `--prompt="<text>"`: Explanation of changes or new context (required)
+  - Example: `task-master update --from=4 --prompt="Now we are using Express instead of Fastify."`
+  - Notes: Only updates tasks not marked as 'done'. Completed tasks remain unchanged.
 
-## Dependency Validation
+- **Command Reference: generate**
+  - Legacy Syntax: `node scripts/dev.js generate`
+  - CLI Syntax: `task-master generate`
+  - Description: Generates individual task files in tasks/ directory based on tasks.json
+  - Parameters: 
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+    - `--output=<dir>, -o`: Output directory (default: 'tasks')
+  - Example: `task-master generate`
+  - Notes: Overwrites existing task files. Creates tasks/ directory if needed.
 
-- **Existence Checking**:
-  - ✅ DO: Validate that referenced tasks exist before adding dependencies
-  - ✅ DO: Provide clear error messages for non-existent dependencies
-  - ✅ DO: Remove references to non-existent tasks during validation
+- **Command Reference: set-status**
+  - Legacy Syntax: `node scripts/dev.js set-status --id=<id> --status=<status>`
+  - CLI Syntax: `task-master set-status --id=<id> --status=<status>`
+  - Description: Updates the status of a specific task in tasks.json
+  - Parameters:
+    - `--id=<id>`: ID of the task to update (required)
+    - `--status=<status>`: New status value (required)
+  - Example: `task-master set-status --id=3 --status=done`
+  - Notes: Common values are 'done', 'pending', and 'deferred', but any string is accepted.
 
-  ```javascript
-  // ✅ DO: Check if the dependency exists before adding
-  if (!taskExists(data.tasks, formattedDependencyId)) {
-    log('error', `Dependency target ${formattedDependencyId} does not exist in tasks.json`);
-    process.exit(1);
-  }
-  ```
+- **Command Reference: list**
+  - Legacy Syntax: `node scripts/dev.js list`
+  - CLI Syntax: `task-master list`
+  - Description: Lists all tasks in tasks.json with IDs, titles, and status
+  - Parameters: 
+    - `--status=<status>, -s`: Filter by status
+    - `--with-subtasks`: Show subtasks for each task
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+  - Example: `task-master list`
+  - Notes: Provides quick overview of project progress. Use at start of sessions.
 
-- **Circular Dependency Prevention**:
-  - ✅ DO: Check for circular dependencies before adding new relationships
-  - ✅ DO: Use graph traversal algorithms (DFS) to detect cycles
-  - ✅ DO: Provide clear error messages explaining the circular chain
+- **Command Reference: expand**
+  - Legacy Syntax: `node scripts/dev.js expand --id=<id> [--num=<number>] [--research] [--prompt="<context>"]`
+  - CLI Syntax: `task-master expand --id=<id> [--num=<number>] [--research] [--prompt="<context>"]`
+  - Description: Expands a task with subtasks for detailed implementation
+  - Parameters:
+    - `--id=<id>`: ID of task to expand (required unless using --all)
+    - `--all`: Expand all pending tasks, prioritized by complexity
+    - `--num=<number>`: Number of subtasks to generate (default: from complexity report)
+    - `--research`: Use Perplexity AI for research-backed generation
+    - `--prompt="<text>"`: Additional context for subtask generation
+    - `--force`: Regenerate subtasks even for tasks that already have them
+  - Example: `task-master expand --id=3 --num=5 --research --prompt="Focus on security aspects"`
+  - Notes: Uses complexity report recommendations if available.
 
-  ```javascript
-  // ✅ DO: Check for circular dependencies before adding
-  const dependencyChain = [formattedTaskId];
-  if (isCircularDependency(data.tasks, formattedDependencyId, dependencyChain)) {
-    log('error', `Cannot add dependency ${formattedDependencyId} to task ${formattedTaskId} as it would create a circular dependency.`);
-    process.exit(1);
-  }
-  ```
+- **Command Reference: analyze-complexity**
+  - Legacy Syntax: `node scripts/dev.js analyze-complexity [options]`
+  - CLI Syntax: `task-master analyze-complexity [options]`
+  - Description: Analyzes task complexity and generates expansion recommendations
+  - Parameters:
+    - `--output=<file>, -o`: Output file path (default: scripts/task-complexity-report.json)
+    - `--model=<model>, -m`: Override LLM model to use
+    - `--threshold=<number>, -t`: Minimum score for expansion recommendation (default: 5)
+    - `--file=<path>, -f`: Use alternative tasks.json file
+    - `--research, -r`: Use Perplexity AI for research-backed analysis
+  - Example: `task-master analyze-complexity --research`
+  - Notes: Report includes complexity scores, recommended subtasks, and tailored prompts.
 
-- **Self-Dependency Prevention**:
-  - ✅ DO: Prevent tasks from depending on themselves
-  - ✅ DO: Handle both direct and indirect self-dependencies
+- **Command Reference: clear-subtasks**
+  - Legacy Syntax: `node scripts/dev.js clear-subtasks --id=<id>`
+  - CLI Syntax: `task-master clear-subtasks --id=<id>`
+  - Description: Removes subtasks from specified tasks to allow regeneration
+  - Parameters:
+    - `--id=<id>`: ID or comma-separated IDs of tasks to clear subtasks from
+    - `--all`: Clear subtasks from all tasks
+  - Examples:
+    - `task-master clear-subtasks --id=3`
+    - `task-master clear-subtasks --id=1,2,3`
+    - `task-master clear-subtasks --all`
+  - Notes: 
+    - Task files are automatically regenerated after clearing subtasks
+    - Can be combined with expand command to immediately generate new subtasks
+    - Works with both parent tasks and individual subtasks
 
-  ```javascript
-  // ✅ DO: Prevent self-dependencies
-  if (String(formattedTaskId) === String(formattedDependencyId)) {
-    log('error', `Task ${formattedTaskId} cannot depend on itself.`);
-    process.exit(1);
-  }
-  ```
+- **Task Structure Fields**
+  - **id**: Unique identifier for the task (Example: `1`)
+  - **title**: Brief, descriptive title (Example: `"Initialize Repo"`)
+  - **description**: Concise summary of what the task involves (Example: `"Create a new repository, set up initial structure."`)
+  - **status**: Current state of the task (Example: `"pending"`, `"done"`, `"deferred"`)
+  - **dependencies**: IDs of prerequisite tasks (Example: `[1, 2]`)
+    - Dependencies are displayed with status indicators (✅ for completed, ⏱️ for pending)
+    - This helps quickly identify which prerequisite tasks are blocking work
+  - **priority**: Importance level (Example: `"high"`, `"medium"`, `"low"`)
+  - **details**: In-depth implementation instructions (Example: `"Use GitHub client ID/secret, handle callback, set session token."`)
+  - **testStrategy**: Verification approach (Example: `"Deploy and call endpoint to confirm 'Hello World' response."`)
+  - **subtasks**: List of smaller, more specific tasks (Example: `[{"id": 1, "title": "Configure OAuth", ...}]`)
 
-## Dependency Modification
+- **Environment Variables Configuration**
+  - **ANTHROPIC_API_KEY** (Required): Your Anthropic API key for Claude (Example: `ANTHROPIC_API_KEY=sk-ant-api03-...`)
+  - **MODEL** (Default: `"claude-3-7-sonnet-20250219"`): Claude model to use (Example: `MODEL=claude-3-opus-20240229`)
+  - **MAX_TOKENS** (Default: `"4000"`): Maximum tokens for responses (Example: `MAX_TOKENS=8000`)
+  - **TEMPERATURE** (Default: `"0.7"`): Temperature for model responses (Example: `TEMPERATURE=0.5`)
+  - **DEBUG** (Default: `"false"`): Enable debug logging (Example: `DEBUG=true`)
+  - **LOG_LEVEL** (Default: `"info"`): Console output level (Example: `LOG_LEVEL=debug`)
+  - **DEFAULT_SUBTASKS** (Default: `"3"`): Default subtask count (Example: `DEFAULT_SUBTASKS=5`)
+  - **DEFAULT_PRIORITY** (Default: `"medium"`): Default priority (Example: `DEFAULT_PRIORITY=high`)
+  - **PROJECT_NAME** (Default: `"MCP SaaS MVP"`): Project name in metadata (Example: `PROJECT_NAME=My Awesome Project`)
+  - **PROJECT_VERSION** (Default: `"1.0.0"`): Version in metadata (Example: `PROJECT_VERSION=2.1.0`)
+  - **PERPLEXITY_API_KEY**: For research-backed features (Example: `PERPLEXITY_API_KEY=pplx-...`)
+  - **PERPLEXITY_MODEL** (Default: `"sonar-medium-online"`): Perplexity model (Example: `PERPLEXITY_MODEL=sonar-large-online`)
 
-- **Adding Dependencies**:
-  - ✅ DO: Format task and dependency IDs consistently
-  - ✅ DO: Check for existing dependencies to prevent duplicates
-  - ✅ DO: Sort dependencies for better readability
+- **Determining the Next Task**
+  - Run `task-master next` to show the next task to work on
+  - The next command identifies tasks with all dependencies satisfied
+  - Tasks are prioritized by priority level, dependency count, and ID
+  - The command shows comprehensive task information including:
+    - Basic task details and description
+    - Implementation details
+    - Subtasks (if they exist)
+    - Contextual suggested actions
+  - Recommended before starting any new development work
+  - Respects your project's dependency structure
+  - Ensures tasks are completed in the appropriate sequence
+  - Provides ready-to-use commands for common task actions
 
-  ```javascript
-  // ✅ DO: Format IDs consistently when adding dependencies
-  const formattedTaskId = typeof taskId === 'string' && taskId.includes('.') 
-    ? taskId : parseInt(taskId, 10);
-  
-  const formattedDependencyId = formatTaskId(dependencyId);
-  ```
+- **Viewing Specific Task Details**
+  - Run `task-master show <id>` or `task-master show --id=<id>` to view a specific task
+  - Use dot notation for subtasks: `task-master show 1.2` (shows subtask 2 of task 1)
+  - Displays comprehensive information similar to the next command, but for a specific task
+  - For parent tasks, shows all subtasks and their current status
+  - For subtasks, shows parent task information and relationship
+  - Provides contextual suggested actions appropriate for the specific task
+  - Useful for examining task details before implementation or checking status
 
-- **Removing Dependencies**:
-  - ✅ DO: Check if the dependency exists before removing
-  - ✅ DO: Handle different ID formats consistently
-  - ✅ DO: Provide feedback about the removal result
+- **Managing Task Dependencies**
+  - Use `task-master add-dependency --id=<id> --depends-on=<id>` to add a dependency
+  - Use `task-master remove-dependency --id=<id> --depends-on=<id>` to remove a dependency
+  - The system prevents circular dependencies and duplicate dependency entries
+  - Dependencies are checked for existence before being added or removed
+  - Task files are automatically regenerated after dependency changes
+  - Dependencies are visualized with status indicators in task listings and files
 
-  ```javascript
-  // ✅ DO: Properly handle dependency removal
-  const dependencyIndex = targetTask.dependencies.findIndex(dep => {
-    // Convert both to strings for comparison
-    let depStr = String(dep);
-    
-    // Handle relative subtask references
-    if (typeof dep === 'number' && dep < 100 && isSubtask) {
-      const [parentId] = formattedTaskId.split('.');
-      depStr = `${parentId}.${dep}`;
-    }
-    
-    return depStr === normalizedDependencyId;
-  });
-  
-  if (dependencyIndex === -1) {
-    log('info', `Task ${formattedTaskId} does not depend on ${formattedDependencyId}, no changes made.`);
-    return;
-  }
-  
-  // Remove the dependency
-  targetTask.dependencies.splice(dependencyIndex, 1);
-  ```
+- **Command Reference: add-dependency**
+  - Legacy Syntax: `node scripts/dev.js add-dependency --id=<id> --depends-on=<id>`
+  - CLI Syntax: `task-master add-dependency --id=<id> --depends-on=<id>`
+  - Description: Adds a dependency relationship between two tasks
+  - Parameters:
+    - `--id=<id>`: ID of task that will depend on another task (required)
+    - `--depends-on=<id>`: ID of task that will become a dependency (required)
+  - Example: `task-master add-dependency --id=22 --depends-on=21`
+  - Notes: Prevents circular dependencies and duplicates; updates task files automatically
 
-## Dependency Cleanup
+- **Command Reference: remove-dependency**
+  - Legacy Syntax: `node scripts/dev.js remove-dependency --id=<id> --depends-on=<id>`
+  - CLI Syntax: `task-master remove-dependency --id=<id> --depends-on=<id>`
+  - Description: Removes a dependency relationship between two tasks
+  - Parameters:
+    - `--id=<id>`: ID of task to remove dependency from (required)
+    - `--depends-on=<id>`: ID of task to remove as a dependency (required)
+  - Example: `task-master remove-dependency --id=22 --depends-on=21`
+  - Notes: Checks if dependency actually exists; updates task files automatically
 
-- **Duplicate Removal**:
-  - ✅ DO: Use Set objects to identify and remove duplicates
-  - ✅ DO: Handle both numeric and string ID formats
+- **Command Reference: validate-dependencies**
+  - Legacy Syntax: `node scripts/dev.js validate-dependencies [options]`
+  - CLI Syntax: `task-master validate-dependencies [options]`
+  - Description: Checks for and identifies invalid dependencies in tasks.json and task files
+  - Parameters:
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+  - Example: `task-master validate-dependencies`
+  - Notes: 
+    - Reports all non-existent dependencies and self-dependencies without modifying files
+    - Provides detailed statistics on task dependency state
+    - Use before fix-dependencies to audit your task structure
 
-  ```javascript
-  // ✅ DO: Remove duplicate dependencies
-  const uniqueDeps = new Set();
-  const uniqueDependencies = task.dependencies.filter(depId => {
-    // Convert to string for comparison to handle both numeric and string IDs
-    const depIdStr = String(depId);
-    if (uniqueDeps.has(depIdStr)) {
-      log('warn', `Removing duplicate dependency from task ${task.id}: ${depId}`);
-      return false;
-    }
-    uniqueDeps.add(depIdStr);
-    return true;
-  });
-  ```
+- **Command Reference: fix-dependencies**
+  - Legacy Syntax: `node scripts/dev.js fix-dependencies [options]`
+  - CLI Syntax: `task-master fix-dependencies [options]`
+  - Description: Finds and fixes all invalid dependencies in tasks.json and task files
+  - Parameters:
+    - `--file=<path>, -f`: Use alternative tasks.json file (default: 'tasks/tasks.json')
+  - Example: `task-master fix-dependencies`
+  - Notes: 
+    - Removes references to non-existent tasks and subtasks
+    - Eliminates self-dependencies (tasks depending on themselves)
+    - Regenerates task files with corrected dependencies
+    - Provides detailed report of all fixes made
 
-- **Invalid Reference Cleanup**:
-  - ✅ DO: Check for and remove references to non-existent tasks
-  - ✅ DO: Check for and remove self-references
-  - ✅ DO: Track and report changes made during cleanup
+- **Command Reference: complexity-report**
+  - Legacy Syntax: `node scripts/dev.js complexity-report [options]`
+  - CLI Syntax: `task-master complexity-report [options]`
+  - Description: Displays the task complexity analysis report in a formatted, easy-to-read way
+  - Parameters:
+    - `--file=<path>, -f`: Path to the complexity report file (default: 'scripts/task-complexity-report.json')
+  - Example: `task-master complexity-report`
+  - Notes: 
+    - Shows tasks organized by complexity score with recommended actions
+    - Provides complexity distribution statistics
+    - Displays ready-to-use expansion commands for complex tasks
+    - If no report exists, offers to generate one interactively
 
-  ```javascript
-  // ✅ DO: Filter invalid task dependencies
-  task.dependencies = task.dependencies.filter(depId => {
-    const numericId = typeof depId === 'string' ? parseInt(depId, 10) : depId;
-    if (!validTaskIds.has(numericId)) {
-      log('warn', `Removing invalid task dependency from task ${task.id}: ${depId} (task does not exist)`);
-      return false;
-    }
-    return true;
-  });
-  ```
+- **Command Reference: add-task**
+  - CLI Syntax: `task-master add-task [options]`
+  - Description: Add a new task to tasks.json using AI
+  - Parameters:
+    - `--file=<path>, -f`: Path to the tasks file (default: 'tasks/tasks.json')
+    - `--prompt=<text>, -p`: Description of the task to add (required)
+    - `--dependencies=<ids>, -d`: Comma-separated list of task IDs this task depends on
+    - `--priority=<priority>`: Task priority (high, medium, low) (default: 'medium')
+  - Example: `task-master add-task --prompt="Create user authentication using Auth0"`
+  - Notes: Uses AI to convert description into structured task with appropriate details
 
-## Dependency Visualization
+- **Command Reference: init**
+  - CLI Syntax: `task-master init`
+  - Description: Initialize a new project with Task Master structure
+  - Parameters: None
+  - Example: `task-master init`
+  - Notes: 
+    - Creates initial project structure with required files
+    - Prompts for project settings if not provided
+    - Merges with existing files when appropriate
+    - Can be used to bootstrap a new Task Master project quickly
 
-- **Status Indicators**:
-  - ✅ DO: Use visual indicators to show dependency status (✅/⏱️)
-  - ✅ DO: Format dependency lists consistently
-
-  ```javascript
-  // ✅ DO: Format dependencies with status indicators
-  function formatDependenciesWithStatus(dependencies, allTasks) {
-    if (!dependencies || dependencies.length === 0) {
-      return 'None';
-    }
-    
-    return dependencies.map(depId => {
-      const depTask = findTaskById(allTasks, depId);
-      if (!depTask) return `${depId} (Not found)`;
-      
-      const isDone = depTask.status === 'done' || depTask.status === 'completed';
-      const statusIcon = isDone ? '✅' : '⏱️';
-      
-      return `${statusIcon} ${depId} (${depTask.status})`;
-    }).join(', ');
-  }
-  ```
-
-## Cycle Detection
-
-- **Graph Traversal**:
-  - ✅ DO: Use depth-first search (DFS) for cycle detection
-  - ✅ DO: Track visited nodes and recursion stack
-  - ✅ DO: Support both task and subtask dependencies
-
-  ```javascript
-  // ✅ DO: Use proper cycle detection algorithms
-  function findCycles(subtaskId, dependencyMap, visited = new Set(), recursionStack = new Set()) {
-    // Mark the current node as visited and part of recursion stack
-    visited.add(subtaskId);
-    recursionStack.add(subtaskId);
-    
-    const cyclesToBreak = [];
-    const dependencies = dependencyMap.get(subtaskId) || [];
-    
-    for (const depId of dependencies) {
-      if (!visited.has(depId)) {
-        const cycles = findCycles(depId, dependencyMap, visited, recursionStack);
-        cyclesToBreak.push(...cycles);
-      } 
-      else if (recursionStack.has(depId)) {
-        // Found a cycle, add the edge to break
-        cyclesToBreak.push(depId);
-      }
-    }
-    
-    // Remove the node from recursion stack before returning
-    recursionStack.delete(subtaskId);
-    
-    return cyclesToBreak;
-  }
-  ```
-
-Refer to [`dependency-manager.js`](mdc:scripts/modules/dependency-manager.js) for implementation examples and [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for integration guidelines. 
+- **Code Analysis & Refactoring Techniques**
+  - **Top-Level Function Search**
+    - Use grep pattern matching to find all exported functions across the codebase
+    - Command: `grep -E "export (function|const) \w+|function \w+\(|const \w+ = \(|module\.exports" --include="*.js" -r ./`
+    - Benefits:
+      - Quickly identify all public API functions without reading implementation details
+      - Compare functions between files during refactoring (e.g., monolithic to modular structure)
+      - Verify all expected functions exist in refactored modules
+      - Identify duplicate functionality or naming conflicts
+    - Usage examples:
+      - When migrating from `scripts/dev.js` to modular structure: `grep -E "function \w+\(" scripts/dev.js`
+      - Check function exports in a directory: `grep -E "export (function|const)" scripts/modules/`
+      - Find potential naming conflicts: `grep -E "function (get|set|create|update)\w+\(" -r ./`
+    - Variations:
+      - Add `-n` flag to include line numbers
+      - Add `--include="*.ts"` to filter by file extension
+      - Use with `| sort` to alphabetize results
+    - Integration with refactoring workflow:
+      - Start by mapping all functions in the source file
+      - Create target module files based on function grouping
+      - Verify all functions were properly migrated
+      - Check for any unintentional duplications or omissions
 
 ---
 > Source: [longmaba/task-master-ai-gemini](https://github.com/longmaba/task-master-ai-gemini) — distributed by [TomeVault](https://tomevault.io).
