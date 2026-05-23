@@ -1,0 +1,9 @@
+{
+  "name": "distrihub--distri",
+  "displayName": "distri",
+  "description": "Distri is A2A compatible OpenClaw like agent framework built in Rust. ",
+  "version": "1.0.0",
+  "author": "distrihub",
+  "homepage": "https://github.com/distrihub/distri",
+  "skills": []
+}
