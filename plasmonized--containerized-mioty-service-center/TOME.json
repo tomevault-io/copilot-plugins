@@ -1,0 +1,44 @@
+{
+  "name": "containerized-mioty-service-center",
+  "owner": "plasmonized",
+  "repo": "containerized-mioty-service-center",
+  "description": "This is a basic implementation of the mioty BSSCI protocol into an open source servicecenter with GUI. The serviccenter connects automatically to basestations over BSSCI and aggregates the data onto a MQTT Broker you have to provide.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/plasmonized/containerized-mioty-service-center",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T10:35:26Z"
+}
