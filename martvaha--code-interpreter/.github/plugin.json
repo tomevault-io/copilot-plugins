@@ -1,0 +1,9 @@
+{
+  "name": "martvaha--code-interpreter",
+  "displayName": "code-interpreter",
+  "description": "LibreChat compatible code interpreter",
+  "version": "1.0.0",
+  "author": "martvaha",
+  "homepage": "https://github.com/martvaha/code-interpreter",
+  "skills": []
+}
