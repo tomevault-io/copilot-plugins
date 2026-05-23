@@ -1,0 +1,9 @@
+{
+  "name": "tuist--schlussel",
+  "displayName": "schlussel",
+  "description": "Cross-platform OAuth 2.0 runtime and library for command-line applications and agent workflows.",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/schlussel",
+  "skills": []
+}
