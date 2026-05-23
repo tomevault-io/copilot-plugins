@@ -1,0 +1,38 @@
+{
+  "name": "openai--openai-agents-python",
+  "displayName": "openai-agents-python",
+  "description": "A lightweight, powerful framework for multi-agent workflows",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-agents-python",
+  "skills": [
+    {
+      "name": "code-change-verification",
+      "description": ""
+    },
+    {
+      "name": "docs-sync",
+      "description": ""
+    },
+    {
+      "name": "examples-auto-run",
+      "description": ""
+    },
+    {
+      "name": "final-release-review",
+      "description": ""
+    },
+    {
+      "name": "openai-knowledge",
+      "description": ""
+    },
+    {
+      "name": "pr-draft-summary",
+      "description": ""
+    },
+    {
+      "name": "test-coverage-improver",
+      "description": ""
+    }
+  ]
+}
