@@ -1,0 +1,87 @@
+{
+  "name": "openai-agents-python",
+  "owner": "openai",
+  "repo": "openai-agents-python",
+  "description": "A lightweight, powerful framework for multi-agent workflows",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-change-verification",
+      "path": ".agents/skills/code-change-verification",
+      "github_url": "https://github.com/openai/openai-agents-python/tree/main/.agents/skills/code-change-verification",
+      "description": ""
+    },
+    {
+      "name": "docs-sync",
+      "path": ".agents/skills/docs-sync",
+      "github_url": "https://github.com/openai/openai-agents-python/tree/main/.agents/skills/docs-sync",
+      "description": ""
+    },
+    {
+      "name": "examples-auto-run",
+      "path": ".agents/skills/examples-auto-run",
+      "github_url": "https://github.com/openai/openai-agents-python/tree/main/.agents/skills/examples-auto-run",
+      "description": ""
+    },
+    {
+      "name": "final-release-review",
+      "path": ".agents/skills/final-release-review",
+      "github_url": "https://github.com/openai/openai-agents-python/tree/main/.agents/skills/final-release-review",
+      "description": ""
+    },
+    {
+      "name": "openai-knowledge",
+      "path": ".agents/skills/openai-knowledge",
+      "github_url": "https://github.com/openai/openai-agents-python/tree/main/.agents/skills/openai-knowledge",
+      "description": ""
+    },
+    {
+      "name": "pr-draft-summary",
+      "path": ".agents/skills/pr-draft-summary",
+      "github_url": "https://github.com/openai/openai-agents-python/tree/main/.agents/skills/pr-draft-summary",
+      "description": ""
+    },
+    {
+      "name": "test-coverage-improver",
+      "path": ".agents/skills/test-coverage-improver",
+      "github_url": "https://github.com/openai/openai-agents-python/tree/main/.agents/skills/test-coverage-improver",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openai/openai-agents-python",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T08:31:59Z"
+}
