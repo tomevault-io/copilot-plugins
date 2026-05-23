@@ -4,7 +4,7 @@
   "repo": "hinbox",
   "description": "Hinbox is a flexible, domain-configurable entity extraction system designed for historians and researchers.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/strickvl/hinbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T00:40:11Z"
+  "distributed_at": "2026-05-23T00:56:24Z"
 }
