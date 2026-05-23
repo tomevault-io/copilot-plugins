@@ -1,0 +1,9 @@
+{
+  "name": "beverm2391--chain-of-thought-mcp-server",
+  "displayName": "chain-of-thought-mcp-server",
+  "description": "An mcp server to inject raw chain of thought tokens from a reasoning model.",
+  "version": "1.0.0",
+  "author": "beverm2391",
+  "homepage": "https://github.com/beverm2391/chain-of-thought-mcp-server",
+  "skills": []
+}
