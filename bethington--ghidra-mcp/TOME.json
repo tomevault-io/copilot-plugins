@@ -4,7 +4,7 @@
   "repo": "ghidra-mcp",
   "description": "Ghidra MCP Server \u2014 200+ MCP tools for AI-powered reverse engineering. GUI plugin + headless server, lazy tool loading, convention enforcement, batch operations, Ghidra Server integration, and Docker deployment.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bethington/ghidra-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T11:30:23Z"
+  "distributed_at": "2026-05-23T11:30:52Z"
 }
