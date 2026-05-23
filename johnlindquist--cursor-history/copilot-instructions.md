@@ -1,48 +1,54 @@
-## project-overview
+## project
 
-> description: Overview of the Cursor History (chi) CLI tool, its structure, and key logic.
+> project-wide rules
 
----
-description: Overview of the Cursor History (chi) CLI tool, its structure, and key logic.
-globs: []
-alwaysApply: true
----
-# Cursor History (chi) CLI Tool Overview
 
-This CLI tool extracts and manages conversation history from the Cursor AI editor's SQLite databases.
+# Cursor History (chi) CLI Tool
 
-## Key Functionality
-- Extracts conversations to markdown files.
-- Filters conversations by the current workspace directory name.
-- Searches conversations interactively.
-- Exports the latest conversation.
+## Project Overview
+This CLI tool extracts and manages conversation history from the Cursor AI editor. It allows users to:
+- Extract all conversations to markdown files
+- Search through conversations interactively
+- Export the latest conversation to a file and clipboard
 
 ## Project Structure
-- **Entry Point:** [`src/index.ts`](mdc:src/index.ts) (Uses oclif for command handling)
-- **Core Logic:** [`src/db/extract-conversations.ts`](mdc:src/db/extract-conversations.ts)
-- **Build Output:** `dist/` (Compiled JavaScript)
-- **Executable Script:** [`bin/run.js`](mdc:bin/run.js) (Imports from `dist/` and executes oclif)
-- **Configuration:** [`package.json`](mdc:package.json), [`tsconfig.json`](mdc:tsconfig.json)
+- `src/index.ts` - Main entry point and command handler
+- `src/db/extract-conversations.ts` - Core functionality for extracting conversations from the Cursor database
+- `src/utils/` - Helper utilities for formatting and configuration
+- `src/types.ts` - TypeScript type definitions for conversations and messages
 
-## Database Locations (macOS Example)
-- **Global DB:** `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb` (Contains global conversations and workspace metadata links)
-- **Workspace DBs:** `~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/state.vscdb` (Contains workspace-specific settings and conversation composer IDs)
-- **Workspace Metadata:** `~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/workspace.json` (Links workspace hash to folder path)
+## Key Features
+- **Workspace-aware conversations**: The tool can filter conversations by workspace name
+- **Conversation extraction**: Exports conversations to markdown files with proper formatting
+- **Interactive search**: Allows searching through conversation history
+- **Clipboard integration**: Automatically copies exported conversations to clipboard
 
-## Core Logic Flow (Workspace Filtering)
-1.  Get the current directory name (e.g., "my-project").
-2.  The function `getWorkspaceComposerIds` in [`src/db/extract-conversations.ts`](mdc:src/db/extract-conversations.ts) searches `workspaceStorage` by:
-    - Reading each `<hash>/workspace.json`.
-    - Parsing the `folder` URI (e.g., `file:///path/to/my-project`).
-    - Comparing the folder name/path with the current directory name.
-3.  If a match is found, it extracts composer IDs from the corresponding workspace database (`workspaceStorage/<hash>/state.vscdb`).
-4.  **Identified Bug:** The `getConversationsForWorkspace` function *currently* takes these IDs but incorrectly tries to fetch the full conversation data from the **global** DB (`globalStorage/state.vscdb`) instead of the specific **workspace** DB (`workspaceStorage/<hash>/state.vscdb`).
-5.  If no workspace conversations are found (due to the bug or no match), it falls back to the latest conversation in the global DB.
+## Database Structure
+- Uses SQLite databases located in platform-specific paths:
+  - macOS: `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb`
+  - Linux: `~/.config/Cursor/User/globalStorage/state.vscdb`
+  - Windows: `%APPDATA%/Cursor/User/globalStorage/state.vscdb`
+- Workspace-specific data is stored in `workspaceStorage` subdirectories
 
 ## Commands
-- `chi` (default): Tries to export the latest conversation for the current workspace, falls back to global latest.
-- `chi --extract`: Extracts all conversations (currently likely only global due to the bug).
-- `chi --search`: Interactively search conversations.
+- `chi` (default) - Export the latest conversation (filtered by current directory name if matching)
+- `chi --extract` - Extract all conversations to markdown files
+- `chi --search` - Interactively search through conversations
+- `chi --version` - Show CLI version
+
+## Development Workflow
+- Build: `pnpm build`
+- Run default command: `pnpm default`
+- Run search: `pnpm search`
+- Run extract: `pnpm extract`
+- Lint with autofix: `pnpm lint`
+
+## Recent Changes
+- Added workspace filtering by current directory name
+- When running the default command, the tool now:
+  1. Gets the current directory name
+  2. Searches for conversations from that workspace
+  3. Falls back to global latest conversation if no matching workspace found
 
 ---
 > Source: [johnlindquist/cursor-history](https://github.com/johnlindquist/cursor-history) — distributed by [TomeVault](https://tomevault.io).
