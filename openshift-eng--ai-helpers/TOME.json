@@ -4,7 +4,7 @@
   "repo": "ai-helpers",
   "description": "Developer productivity tools for Claude Code & other AI assistants",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openshift-eng/ai-helpers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T08:47:31Z"
+  "distributed_at": "2026-05-23T08:49:27Z"
 }
