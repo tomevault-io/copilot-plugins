@@ -117834,6 +117834,11 @@
       "description": "This is a basic implementation of the mioty BSSCI protocol into an open source servicecenter with GUI. The serviccenter connects automatically to basestations over BSSCI and aggregates the data onto a"
     },
     {
+      "name": "ionic-team--capacitor-local-llm",
+      "source": "./ionic-team--capacitor-local-llm",
+      "description": "A Capacitor plugin for running on-device LLMs, with support for text generation, image generation, and session management on iOS and Android."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -121417,6 +121422,11 @@
       "name": "linkml--linkml-reference-validator",
       "source": "./linkml--linkml-reference-validator",
       "description": "Validate that supporting text quotes in your data actually appear in their cited references"
+    },
+    {
+      "name": "jacksen168sub--syncclipboard-android",
+      "source": "./jacksen168sub--syncclipboard-android",
+      "description": "Jeric-X/SyncClipboard \u7684 Android \u5ba2\u6237\u7aef\uff0c\u652f\u6301\u4f7f\u7528 Xposed \u5728\u540e\u53f0\u81ea\u52a8\u540c\u6b65\u526a\u8d34\u677f | Android client for Jeric-X/SyncClipboard, supports using Xposed to automatically sync the clipboard in the background"
     },
     {
       "name": "mohiwalla--memes",
@@ -162964,6 +162974,46 @@
       "description": "HW\u56fe\u5e8a | \u8f7b\u91cf\u65e0\u670d\u52a1\u5668\u56fe\u5e8a\uff0c\u91c7\u7528 EdgeOne Pages Functions + cnb.cool API \u5b9e\u73b0\u96f6\u6210\u672c\u90e8\u7f72"
     },
     {
+      "name": "chajus1--proxmox-mcp-enhanced",
+      "source": "./chajus1--proxmox-mcp-enhanced",
+      "description": "Enhanced Proxmox MCP server with 70+ tools for comprehensive infrastructure management, security automation, and lab orchestration"
+    },
+    {
+      "name": "waylaidwanderer--background-process-mcp",
+      "source": "./waylaidwanderer--background-process-mcp",
+      "description": "background-process-mcp"
+    },
+    {
+      "name": "theapo--compile",
+      "source": "./theapo--compile",
+      "description": "Solo AI adaptation of the cyberpunk card game Compile: Main 1 & 2 by Michael Yang."
+    },
+    {
+      "name": "postmanlabs--postman-gemini-cli-extension",
+      "source": "./postmanlabs--postman-gemini-cli-extension",
+      "description": "This repository hosts a GEMINI CLI extension that enables seamless interaction with Postman from the command line. It includes the extension manifest for straightforward installation and usage."
+    },
+    {
+      "name": "gayathri070706--clapt",
+      "source": "./gayathri070706--clapt",
+      "description": "CLAPT"
+    },
+    {
+      "name": "ghelleks--email-agent",
+      "source": "./ghelleks--email-agent",
+      "description": "A simple Google Apps Script that labels Gmail threads. You can guide it with a rules document in Google Drive, and trigger additional actions with a plug-in agent framework."
+    },
+    {
+      "name": "hypercerts-org--hypercerts-lexicon",
+      "source": "./hypercerts-org--hypercerts-lexicon",
+      "description": "Lexicon definitions for Hypercerts v0.2"
+    },
+    {
+      "name": "waylaidwanderer--background-process-mcp",
+      "source": "./waylaidwanderer--background-process-mcp",
+      "description": "background-process-mcp"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173069,6 +173119,56 @@
       "description": "Declarative HTTP API testing framework: handling verification, orchestration, and reporting in YAML."
     },
     {
+      "name": "allofmeng--streamline-project",
+      "source": "./allofmeng--streamline-project",
+      "description": "streamline_project"
+    },
+    {
+      "name": "fradser--foundationmodelstranslator",
+      "source": "./fradser--foundationmodelstranslator",
+      "description": "A macOS translation app using Apple's Foundation Models framework with custom adapter for English to Chinese translation"
+    },
+    {
+      "name": "doeixd--gpui-ts",
+      "source": "./doeixd--gpui-ts",
+      "description": "A JavaScript library inspired by gpui and solid-events"
+    },
+    {
+      "name": "thieso2--moremaid",
+      "source": "./thieso2--moremaid",
+      "description": "A powerful Markdown viewer with full Mermaid diagram support"
+    },
+    {
+      "name": "fradser--foundationmodelstranslator",
+      "source": "./fradser--foundationmodelstranslator",
+      "description": "A macOS translation app using Apple's Foundation Models framework with custom adapter for English to Chinese translation"
+    },
+    {
+      "name": "tangentdomain--excel-mcp-server",
+      "source": "./tangentdomain--excel-mcp-server",
+      "description": "\ud83c\udfae \u6e38\u620f\u5f00\u53d1\u4e13\u7528Excel\u914d\u7f6e\u8868MCP\u670d\u52a1\u5668 | 42\u4e2a\u4e13\u4e1a\u5de5\u5177 | uvx excel-mcp-server-fastmcp \u4e00\u952e\u542f\u52a8 | calamine\u5f15\u64ce 2300x\u8bfb\u53d6\u52a0\u901f | PyPI: pypi.org/project/excel-mcp-server-fastmcp"
+    },
+    {
+      "name": "doeixd--gpui-ts",
+      "source": "./doeixd--gpui-ts",
+      "description": "A JavaScript library inspired by gpui and solid-events"
+    },
+    {
+      "name": "allofmeng--streamline-project",
+      "source": "./allofmeng--streamline-project",
+      "description": "streamline_project"
+    },
+    {
+      "name": "mrgig7--multi-agent-enterprise-crm",
+      "source": "./mrgig7--multi-agent-enterprise-crm",
+      "description": "\ud83e\udd16 AI-Native Enterprise CRM with autonomous agents for sales, support, and compliance. Built with LangGraph, Kafka, Next.js, and Ollama. Features event-driven architecture, multi-tenant security, and h"
+    },
+    {
+      "name": "cap-go--capacitor-launch-navigator",
+      "source": "./cap-go--capacitor-launch-navigator",
+      "description": "Capacitor plugin which launches native route navigation apps for Android, iOS"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -175432,6 +175532,11 @@
       "name": "bentossell--pi-droid-sdk",
       "source": "./bentossell--pi-droid-sdk",
       "description": "pi provider extension for Factory Droid models via @factory/droid-sdk"
+    },
+    {
+      "name": "galz10--fallback",
+      "source": "./galz10--fallback",
+      "description": "Fallback keeps the GitHub context your repo work depends on available locally, even when GitHub is down or you have no internet."
     },
     {
       "name": "keshavxa--keshav-portfolio",
