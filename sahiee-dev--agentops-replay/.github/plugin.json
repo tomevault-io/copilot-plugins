@@ -1,0 +1,9 @@
+{
+  "name": "sahiee-dev--agentops-replay",
+  "displayName": "Agentops-Replay",
+  "description": "Cryptographically verifiable audit infrastructure for AI agents. AgentOps Replay produces tamper-evident, hash-chained event logs that prove what an agent did, in what order, with no possibility of po",
+  "version": "1.0.0",
+  "author": "sahiee-dev",
+  "homepage": "https://github.com/sahiee-dev/Agentops-Replay",
+  "skills": []
+}
