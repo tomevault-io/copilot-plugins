@@ -1,25 +1,202 @@
-## workspace-retrieval
+## wrangler
 
-> When the `chi` command is run without flags (or potentially with other commands needing workspace context), it attempts to find conversations specific to the current working directory.
+> Use wrangler
 
-# Workspace Conversation Retrieval Logic
+# Wrangler CLI Documentation (Generated from Actual CLI Output)
 
-When the `chi` command is run without flags (or potentially with other commands needing workspace context), it attempts to find conversations specific to the current working directory.
+## Top-Level Commands
 
-## Logic Flow
+- `wrangler docs [search..]` — Open Wrangler's command documentation in your browser
+- `wrangler init [name]` — Initialize a basic Worker
+- `wrangler dev [script]` — Start a local server for developing your Worker
+- `wrangler deploy [script]` — Deploy a Worker to Cloudflare
+- `wrangler deployments` — List and view current and past deployments
+- `wrangler rollback [version-id]` — Rollback a deployment
+- `wrangler versions` — List, view, upload, and deploy Worker versions
+- `wrangler triggers` — Update deployment triggers [experimental]
+- `wrangler delete [script]` — Delete a Worker from Cloudflare
+- `wrangler tail [worker]` — Start a log tailing session for a Worker
+- `wrangler secret` — Generate a secret for a Worker
+- `wrangler types [path]` — Generate types from Worker configuration
 
-1.  **Get Current Directory Name:** The base name of the current working directory is determined (e.g., `workshop-demos` from `/Users/johnlindquist/workshop-demos`).
-2.  **Search Workspace Metadata:** The function `getWorkspaceComposerIds` in [`src/db/extract-conversations.ts`](mdc:src/db/extract-conversations.ts) iterates through subdirectories in `~/Library/Application Support/Cursor/User/workspaceStorage/` (on macOS).
-3.  **Match Folder Path:** For each subdirectory `<hash>`, it reads [`workspaceStorage/<hash>/workspace.json`](mdc:~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/workspace.json).
-    - It parses the `folder` field (a URI like `file:///path/to/folder`).
-    - It compares the decoded folder path/name against the current directory name.
-4.  **Extract Composer IDs:** If a match is found, it opens the corresponding workspace database [`workspaceStorage/<hash>/state.vscdb`](mdc:~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/state.vscdb) and extracts `composerId` values associated with the key `composer.composerData`.
-5.  **Fetch Conversation Data (BUG):** The `getConversationsForWorkspace` function receives these IDs but **incorrectly** tries to fetch the full conversation data using these IDs from the **global** database (`~/Library/Application Support/Cursor/User/globalStorage/state.vscdb`).
-6.  **Result:** Because the composer data format in the global DB doesn't match what's expected or the IDs aren't found there with conversation arrays, it fails to retrieve workspace-specific conversations and falls back to global search.
+### Resource Management
 
-## Required Fix
+- `wrangler kv` — Manage Workers KV Namespaces
+- `wrangler queues` — Manage Workers Queues
+- `wrangler r2` — Manage R2 buckets & objects
+- `wrangler d1` — Manage Workers D1 databases
+- `wrangler vectorize` — Manage Vectorize indexes
+- `wrangler hyperdrive` — Manage Hyperdrive databases
+- `wrangler cert` — Manage client mTLS certificates and CA certificate chains [open-beta]
+- `wrangler pages` — Configure Cloudflare Pages
+- `wrangler mtls-certificate` — Manage certificates for mTLS connections
+- `wrangler pubsub` — Manage Pub/Sub brokers [private beta]
+- `wrangler dispatch-namespace` — Manage dispatch namespaces
+- `wrangler ai` — Manage AI models
+- `wrangler workflows` — Manage Workflows
+- `wrangler pipelines` — Manage Cloudflare Pipelines [open-beta]
+- `wrangler login` — Login to Cloudflare
+- `wrangler logout` — Logout from Cloudflare
+- `wrangler whoami` — Retrieve user information
+- `wrangler secrets-store` — Manage the Secrets Store [alpha]
 
-The `getConversationsForWorkspace` function needs to be modified to accept the path to the specific **workspace** `state.vscdb` (found in step 4) and use that database connection to query for conversation details using the extracted composer IDs.
+---
+
+## Global Flags
+
+- `-c, --config <file>` — Path to Wrangler configuration file
+- `--cwd <dir>` — Run as if Wrangler was started in the specified directory
+- `-e, --env <env>` — Environment to use for operations and for selecting .env/.dev.vars files
+- `-h, --help` — Show help
+- `-v, --version` — Show version number
+
+---
+
+## Example Subcommand Trees
+
+### wrangler kv
+
+- `namespace`
+  - `create <namespace>`
+  - `list`
+  - `delete`
+- `key`
+  - `put <key> [value]`
+  - `list`
+  - `get <key>`
+  - `delete <key>`
+- `bulk`
+  - `get <filename>`
+  - `put <filename>`
+  - `delete <filename>`
+
+### wrangler queues
+
+- `list`
+- `create <name>`
+- `update <name>`
+- `delete <name>`
+- `info <name>`
+- `consumer`
+- `pause-delivery <name>`
+- `resume-delivery <name>`
+- `purge <name>`
+
+### wrangler r2
+
+- `object`
+  - `get <objectPath>`
+  - `put <objectPath>`
+  - `delete <objectPath>`
+- `bucket`
+  - `create <name>`
+  - `update`
+  - `list`
+  - `info <bucket>`
+  - `delete <bucket>`
+  - `sippy`
+  - `catalog`
+  - `notification`
+  - `domain`
+  - `dev-url`
+  - `lifecycle`
+  - `cors`
+  - `lock`
+
+### wrangler d1
+
+- `list`
+- `info <name>`
+- `insights <name>`
+- `create <name>`
+- `delete <name>`
+- `execute <database>`
+- `export <name>`
+- `time-travel`
+- `migrations`
+
+### wrangler vectorize
+
+- `create <name>`
+- `delete <name>`
+- `get <name>`
+- `list`
+- `query <name>`
+- `insert <name>`
+- `upsert <name>`
+- `get-vectors <name>`
+- `delete-vectors <name>`
+- `info <name>`
+- `create-metadata-index <name>`
+- `list-metadata-index <name>`
+- `delete-metadata-index <name>`
+
+### wrangler hyperdrive
+
+- `create <name>`
+- `delete <id>`
+- `get <id>`
+- `list`
+- `update <id>`
+
+### wrangler cert
+
+- `upload`
+- `list`
+- `delete`
+
+### wrangler pages
+
+- `dev [directory] [command]`
+- `functions`
+- `project`
+- `deployment`
+- `deploy [directory]`
+- `secret`
+- `download`
+
+### wrangler mtls-certificate
+
+- `upload`
+- `list`
+- `delete`
+
+### wrangler pubsub
+
+- `namespace`
+- `broker`
+
+### wrangler dispatch-namespace
+
+- `list`
+- `get <name>`
+- `create <name>`
+- `delete <name>`
+- `rename <oldName> <newName>`
+
+### wrangler ai
+
+- `models`
+- `finetune`
+
+### wrangler workflows
+
+- `list`
+- `describe <name>`
+- `trigger <name> [params]`
+- `instances`
+
+### wrangler pipelines
+
+- `create <pipeline>`
+- `list`
+- `get <pipeline>`
+- `update <pipeline>`
+- `delete <pipeline>`
+
+---
+
+This documentation is generated from actual Wrangler CLI output and is up-to-date as of the time of generation. For more details on any subcommand, run `wrangler <subcommand> --help`.
 
 ---
 > Source: [johnlindquist/cursor-history](https://github.com/johnlindquist/cursor-history) — distributed by [TomeVault](https://tomevault.io).
