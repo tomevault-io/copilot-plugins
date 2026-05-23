@@ -1,87 +1,292 @@
-## architecture
+## conventions
 
-> Architecture and project structure guidelines for Math Mistake Master
+> - Use strict TypeScript configuration
 
+# 📝 Coding Conventions & Best Practices
 
-# 🏗️ Architecture & Project Structure
+## TypeScript Guidelines
 
-## Core Architecture Principles
+### Type Safety
+- Use strict TypeScript configuration
+- Define interfaces for all data structures
+- Use type assertions sparingly and with proper validation
+- Prefer `interface` over `type` for object shapes
 
-### Component Organization
-- **Page Components**: Located in `src/pages/` organized by user role (`teacher/`, `student/`, `cms/`)
-- **Reusable Components**: Located in `src/components/` with subdirectories for different types
-- **UI Components**: Use shadcn/ui components from `src/components/ui/`
-- **Custom Hooks**: Place in `src/hooks/` for reusable logic
-
-### File Structure Rules
-```
-src/
-├── components/          # Reusable UI components
-│   ├── auth/           # Authentication components
-│   ├── layout/         # Layout components (Header, etc.)
-│   └── ui/             # shadcn/ui component library
-├── hooks/              # Custom React hooks
-├── integrations/       # External service integrations
-├── lib/                # Utility libraries and API services
-├── pages/              # Page components by user role
-└── types/              # TypeScript type definitions
-```
-
-### Import Organization
-Always organize imports in this order:
-1. React and external libraries
-2. Internal components (using `@/` alias)
-3. API services and utilities
-4. Type definitions
-
+### Function Declarations
 ```typescript
-// External libraries
-import React from 'react';
+// Prefer arrow functions for components
+const MyComponent: React.FC = () => {
+  return <div>Content</div>;
+};
+
+// Use async/await for asynchronous operations
+const fetchData = async (): Promise<DataType> => {
+  const response = await api.getData();
+  return response.data;
+};
+```
+
+### Error Handling
+```typescript
+try {
+  const result = await apiCall();
+  // Handle success
+} catch (error) {
+  console.error('Operation failed:', error);
+  toast({
+    title: "Error",
+    description: "Operation failed. Please try again.",
+    variant: "destructive"
+  });
+}
+```
+
+## React Patterns
+
+### Component Structure
+```typescript
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Internal components
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
+interface ComponentProps {
+  // Define props interface
+}
 
-// API services
-import { problemApi } from '@/lib/api';
+const Component: React.FC<ComponentProps> = ({ prop1, prop2 }) => {
+  // State declarations
+  const [state, setState] = useState<StateType>(initialValue);
+  
+  // Effect hooks
+  useEffect(() => {
+    // Side effects
+  }, [dependencies]);
+  
+  // Event handlers
+  const handleAction = () => {
+    // Handler logic
+  };
+  
+  // Render
+  return (
+    <div>
+      {/* JSX content */}
+    </div>
+  );
+};
+
+export default Component;
 ```
 
-## Database Architecture
+### Custom Hooks
+```typescript
+// Custom hook naming: use + descriptive name
+const useProblemData = (problemId: string) => {
+  const [data, setData] = useState<Problem | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    // Fetch logic
+  }, [problemId]);
+  
+  return { data, loading };
+};
+```
 
-### ID Usage Rules
-- **Supabase Auth user.id**: Only for authentication, never as foreign key
-- **profiles.id**: Use for all foreign key references
-- **profiles.user_id**: Links to Supabase Auth user.id
+## API Integration
 
-### API Layer Structure
-- All database operations go through `src/lib/api.ts`
-- Organize APIs by domain: `profileApi`, `problemApi`, `problemSetApi`, etc.
-- Always include proper error handling and logging
+### API Service Structure
+```typescript
+export const problemApi = {
+  // CRUD operations
+  getProblems: async (teacherId: string): Promise<Problem[]> => {
+    const { data, error } = await supabase
+      .from('problems')
+      .select('*')
+      .eq('teacher_id', teacherId);
+    
+    if (error) throw error;
+    return data || [];
+  },
+  
+  createProblem: async (problemData: CreateProblemData): Promise<Problem> => {
+    const { data, error } = await supabase
+      .from('problems')
+      .insert(problemData)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  }
+};
+```
+
+### Database Operations
+- Always use proper error handling
+- Include logging for debugging
+- Use transactions for related operations
+- Validate data before database operations
 
 ## State Management
 
-### Global State
-- Use `AuthContext` for authentication state
-- Use React Query for server state management
-- Keep component state local when possible
-
-### Data Flow
-```
-User Action → API Call → Supabase → React Query Cache → Component Update
+### Local State
+```typescript
+// Use descriptive state names
+const [isLoading, setIsLoading] = useState(false);
+const [selectedProblems, setSelectedProblems] = useState<Set<string>>(new Set());
+const [formData, setFormData] = useState<FormData>(initialFormData);
 ```
 
-## Security Architecture
+### Form Handling
+```typescript
+// Use React Hook Form for complex forms
+const form = useForm<FormData>({
+  resolver: zodResolver(formSchema),
+  defaultValues: initialValues
+});
 
-### Authentication
-- Always check authentication state before rendering protected routes
-- Use role-based access control (teacher/student)
-- Implement proper route guards
+// Handle form submission
+const onSubmit = async (data: FormData) => {
+  try {
+    await api.createItem(data);
+    toast({ title: "Success", description: "Item created successfully" });
+  } catch (error) {
+    toast({ 
+      title: "Error", 
+      description: "Failed to create item",
+      variant: "destructive" 
+    });
+  }
+};
+```
 
-### Data Security
-- Leverage Supabase Row Level Security (RLS)
-- Validate all inputs with Zod schemas
-- Never expose sensitive data in client-side code
+## File Naming Conventions
+
+### Components
+- **PascalCase**: `TeacherDashboard.tsx`, `ProblemManagement.tsx`
+- **Descriptive names**: Clearly indicate component purpose
+- **Suffixes**: Use appropriate suffixes (`Dashboard`, `Management`, `Form`)
+
+### Hooks
+- **camelCase with 'use' prefix**: `useAuth.tsx`, `useProblemData.tsx`
+- **Descriptive names**: Indicate hook functionality
+
+### Utilities
+- **camelCase**: `api.ts`, `utils.ts`, `constants.ts`
+- **Domain-specific**: Group related utilities
+
+## Code Organization
+
+### Import Statements
+```typescript
+// 1. React and external libraries
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// 2. Internal components (using @/ alias)
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+
+// 3. Custom hooks and utilities
+import { useAuth } from '@/hooks/useAuth';
+import { problemApi } from '@/lib/api';
+
+// 4. Type definitions
+import type { Problem, User } from '@/types/database';
+```
+
+### Component Props
+```typescript
+// Define clear prop interfaces
+interface ProblemCardProps {
+  problem: Problem;
+  onEdit?: (problem: Problem) => void;
+  onDelete?: (problemId: string) => void;
+  showActions?: boolean;
+}
+
+// Use destructuring with default values
+const ProblemCard: React.FC<ProblemCardProps> = ({ 
+  problem, 
+  onEdit, 
+  onDelete, 
+  showActions = true 
+}) => {
+  // Component logic
+};
+```
+
+## Performance Best Practices
+
+### Memoization
+```typescript
+// Use React.memo for expensive components
+const ExpensiveComponent = React.memo<Props>(({ data }) => {
+  // Component logic
+});
+
+// Use useMemo for expensive calculations
+const expensiveValue = useMemo(() => {
+  return heavyCalculation(data);
+}, [data]);
+
+// Use useCallback for event handlers passed to children
+const handleClick = useCallback(() => {
+  // Handler logic
+}, [dependencies]);
+```
+
+### Lazy Loading
+```typescript
+// Lazy load heavy components
+const HeavyComponent = lazy(() => import('./HeavyComponent'));
+
+// Use Suspense for loading states
+<Suspense fallback={<LoadingSpinner />}>
+  <HeavyComponent />
+</Suspense>
+```
+
+## Error Boundaries & Logging
+
+### Error Handling
+```typescript
+// Always handle errors gracefully
+const handleApiCall = async () => {
+  try {
+    setLoading(true);
+    const result = await api.call();
+    setData(result);
+  } catch (error) {
+    console.error('API call failed:', error);
+    setError('Failed to load data');
+  } finally {
+    setLoading(false);
+  }
+};
+```
+
+### Logging
+```typescript
+// Use consistent logging format
+console.log('Component mounted:', componentName);
+console.error('Operation failed:', { error, context });
+console.warn('Deprecated API used:', apiName);
+```
+
+## Testing Considerations
+
+### Testable Code
+- Write pure functions when possible
+- Separate business logic from UI components
+- Use dependency injection for external services
+- Keep components focused and single-purpose
+
+### Accessibility
+- Use semantic HTML elements
+- Include proper ARIA labels
+- Ensure keyboard navigation works
+- Test with screen readers
 
 ---
 > Source: [hyunwook20230402/math-learning-management](https://github.com/hyunwook20230402/math-learning-management) — distributed by [TomeVault](https://tomevault.io).
