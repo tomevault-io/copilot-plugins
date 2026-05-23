@@ -162389,6 +162389,21 @@
       "description": "Gooners Choice"
     },
     {
+      "name": "vonrobak--fedora-homelab-containers",
+      "source": "./vonrobak--fedora-homelab-containers",
+      "description": "Self-hosted services on Fedora with Podman quadlets - a learning journey"
+    },
+    {
+      "name": "andotherstuff--otherstuff-relay",
+      "source": "./andotherstuff--otherstuff-relay",
+      "description": "Redis/OpenSearch relay designed for scalability and advanced search"
+    },
+    {
+      "name": "hereliesaz--ideaz",
+      "source": "./hereliesaz--ideaz",
+      "description": "Mobile development that feels like it's just you and your IDEaz -- The Post-Code IDE for Android."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -172379,6 +172394,56 @@
       "description": "Markerless motion capture with GoPro"
     },
     {
+      "name": "pawel-cell--llm-wiki-agent",
+      "source": "./pawel-cell--llm-wiki-agent",
+      "description": "Markdown wiki agent instructions and starter workspace."
+    },
+    {
+      "name": "plucky923--criticalresearch",
+      "source": "./plucky923--criticalresearch",
+      "description": "CriticalResearch"
+    },
+    {
+      "name": "freelawproject--litigant-portal",
+      "source": "./freelawproject--litigant-portal",
+      "description": "Access to Justice portal"
+    },
+    {
+      "name": "distrihub--distri",
+      "source": "./distrihub--distri",
+      "description": "Distri is A2A compatible OpenClaw like agent framework built in Rust. "
+    },
+    {
+      "name": "distrihub--distri",
+      "source": "./distrihub--distri",
+      "description": "Distri is A2A compatible OpenClaw like agent framework built in Rust. "
+    },
+    {
+      "name": "migueltvms--tplink-omada-mcp",
+      "source": "./migueltvms--tplink-omada-mcp",
+      "description": "MCP server for TP-Link Omada Controller. Use your prefered AI agent to see all the information on your TP-Link Omada Controller."
+    },
+    {
+      "name": "kjdotio--innex1-rover",
+      "source": "./kjdotio--innex1-rover",
+      "description": "The University of Leicesters rover for the 2026 UK Lunabotics competition."
+    },
+    {
+      "name": "leondev1024--opentcs-plus-web",
+      "source": "./leondev1024--opentcs-plus-web",
+      "description": "OpenTCS Plus Web\u57fa\u4e8e Vue 3\u3001TypeScript \u548c Element Plus \u6784\u5efa\uff0c\u96c6\u6210\u4e86\u5f3a\u5927\u7684\u5730\u56fe\u7f16\u8f91\u5668\u548c\u5b9e\u65f6\u76d1\u63a7\u529f\u80fd\u3002"
+    },
+    {
+      "name": "migueltvms--tplink-omada-mcp",
+      "source": "./migueltvms--tplink-omada-mcp",
+      "description": "MCP server for TP-Link Omada Controller. Use your prefered AI agent to see all the information on your TP-Link Omada Controller."
+    },
+    {
+      "name": "jharting--home-assistant-muli",
+      "source": "./jharting--home-assistant-muli",
+      "description": "Home Assistant integration for Muli electric cargo bikes"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -174717,6 +174782,11 @@
       "name": "yttrium400--reducethemtokens",
       "source": "./yttrium400--reducethemtokens",
       "description": "Compress any code repo into a compact skeleton to reduce LLM token usage. 90%+ reduction with full structural retention."
+    },
+    {
+      "name": "perplexityai--codescythe",
+      "source": "./perplexityai--codescythe",
+      "description": "Codescythe is a focused TypeScript dead-code analyzer and remover"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -277362,6 +277432,16 @@
       "name": "walek20--adversary-story-generator",
       "source": "./walek20--adversary-story-generator",
       "description": "adversary-story-generator"
+    },
+    {
+      "name": "the400milliondollarcorp--mcpay",
+      "source": "./the400milliondollarcorp--mcpay",
+      "description": "mcpay"
+    },
+    {
+      "name": "sotoplatero--tv",
+      "source": "./sotoplatero--tv",
+      "description": "tv"
     }
   ]
 }
