@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-gtm",
+  "displayName": "capacitor-gtm",
+  "description": "Capacitor plugin to use google tag manager (GMT) natively",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-gtm",
+  "skills": []
+}
