@@ -1,436 +1,496 @@
-## backend
+## frontend
 
-> Follow these rules when working on the backend.
+> Follow these rules when working on the frontend.
 
-# Backend Architecture Guidelines
+# Frontend Architecture Guidelines
 
-This document outlines our backend architecture and coding standards. Our backend stack includes:
+## Technology Stack
 
-- **Database**: PostgreSQL via Supabase
-- **ORM**: Drizzle for type-safe database access
-- **API Layer**: Next.js Server Actions
-- **Infrastructure**: Serverless via Vercel
+Our frontend leverages a modern stack designed for performance, developer experience, and maintainability:
+
+- **Framework**: Next.js 15+ with App Router
+- **Styling**: Tailwind CSS for utility-first styling
+- **UI Components**: Shadcn UI as a component foundation
+- **Animations**: Framer Motion for fluid animations
+- **Icons**: Lucide React for consistent iconography
 
 ## Core Principles
 
-1. **Type Safety**: Maintain full type safety between database and application code
-2. **Scalability**: Design for scale from the beginning
-3. **Maintainability**: Follow consistent patterns across the codebase
-4. **Security**: Validate all inputs and handle user permissions properly
-5. **Performance**: Optimize database queries and API responses
+1. **Type Safety**: Leverage TypeScript for robust, maintainable code
+2. **Component-Driven Development**: Build reusable, composable components 
+3. **Performance-First**: Optimize for core web vitals and user experience
+4. **Accessibility**: Ensure WCAG compliance in all UIs
+5. **Progressive Enhancement**: Build resilient interfaces that work across devices
 
-## Database Schema Design
+## Component Architecture
 
-### Directory Structure
+### Component Types
+
+Our application uses both **Server Components** and **Client Components** following Next.js paradigms:
+
+| Component Type | Use Case | Key Considerations |
+|---------------|----------|-------------------|
+| **Server Components** | Data fetching, SEO-critical content | No `useState`, no event handlers |
+| **Client Components** | Interactive UIs, forms, animations | Add `"use client"` directive at top of file |
+
+### Component Organization
 
 ```
-db/
-├── db.ts                # Main database configuration
-├── index.ts             # Public exports
-├── migrations/          # Database migrations
-└── schema/              # Database schema definitions
-    ├── [entity].ts  # Individual entity schemas
+app/
+├── [route]/              # Route directories
+│   ├── _components/      # Route-specific components
+│   ├── page.tsx          # Route page component
+│   └── layout.tsx        # Route layout component
+components/
+├── ui/                   # Shared UI components
+└── [feature]/            # Feature-specific shared components
 ```
-
-### Schema Definition Standards
 
 #### Naming Conventions
 
-- Use kebab-case for files: `contacts.ts`
-- Use camelCase for table and column names in code
-- Use snake_case for the actual database column names
-- Export types with standardized prefixes: `Select[Entity]` and `Insert[Entity]`
+- Use kebab-case for all component files: `data-table.tsx` 
+- Use PascalCase for component names: `DataTable`
+- Group related components in feature-specific directories
+- Suffix context providers with `Provider`: `AuthProvider`
 
-#### Required Fields
+### Component Guidelines
 
-All tables should include these standard fields:
+#### Server vs Client Components
 
-```typescript
-{
-  // Always use UUID for primary keys
-  id: uuid("id").defaultRandom().primaryKey(),
+- Always add the appropriate directive at the top of your file:
+  - `"use server"` for server components
+  - `"use client"` for client components
+
+- Server components should:
+  - Perform data fetching
+  - Pass data to client components via props
+  - Minimize client-side JavaScript
   
-  // User association (when applicable)
-  userId: text("user_id").notNull(),
-  
-  // Timestamps
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date())
+- Client components should:
+  - Handle user interactions
+  - Manage local state
+  - Implement animations and effects
+
+#### Code Structure
+
+- Import ordering:
+  1. React and Next.js imports
+  2. Third-party libraries
+  3. Internal components and utilities
+  4. Types and styles
+
+- Export components as named exports for components meant to be used within a directory, and as default exports for page components or major feature components
+
+## Server Component Patterns
+
+### Data Fetching
+
+- Fetch data directly in server components using appropriate patterns:
+
+```tsx
+// Good: Fetch in server components
+async function ProductList() {
+  const products = await getProductsAction()
+
+  return <ProductGrid products={products.data} />
 }
 ```
 
-#### Using Enums
+- Use Suspense boundaries for asynchronous content:
 
-For fields with a fixed set of values, use PostgreSQL enums:
+```tsx
+// page.tsx
+export default function Page() {
+  return (
+    <div>
+      <Header />
+      <Suspense fallback={<ProductsSkeleton />}>
+        <ProductsContent />
+      </Suspense>
+    </div>
+  )
+}
 
-```typescript
-import { pgEnum } from "drizzle-orm/pg-core"
+// Async component in same file or imported
+async function ProductsContent() {
+  const products = await getProducts()
 
-// Define the enum
-export const statusEnum = pgEnum("status", ["active", "pending", "archived"])
-
-// Use it in your schema
-status: statusEnum("status").notNull().default("pending")
+  return <ProductList products={products.data} />
+}
 ```
 
-#### Relationships
+### Detailed Examples
 
-Always define explicit relationships between tables and include appropriate cascade behavior:
+#### Server Layout Example
 
-```typescript
-// One-to-many relationship example
-projectId: uuid("project_id")
-  .references(() => projectsTable.id, { onDelete: "cascade" })
-  .notNull()
+```tsx
+// app/dashboard/layout.tsx
+import { SidebarNav } from "./_components/sidebar-nav"
+import { DashboardHeader } from "./_components/dashboard-header"
+import { getProfile } from "@/actions/profile"
+import { redirect } from "next/navigation"
+
+export default async function DashboardLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
+  const profile = await getProfile()
+  
+  if (!profile.isSuccess) {
+    return redirect("/login")
+  }
+  
+  return (
+    <div className="flex min-h-screen flex-col">
+      <DashboardHeader user={profile.data} />
+      
+      <div className="flex flex-1">
+        <SidebarNav />
+        <main className="flex-1 p-6">
+          {children}
+        </main>
+      </div>
+    </div>
+  )
+}
 ```
 
-### Schema Example
+#### Server Page with Suspense
 
-```typescript
-// db/schema/contacts.ts
-import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+```tsx
+// app/dashboard/page.tsx
+import { Suspense } from "react"
+import { DashboardSkeleton } from "./_components/dashboard-skeleton"
+import { DashboardMetrics } from "./_components/dashboard-metrics"
+import { DashboardCharts } from "./_components/dashboard-charts"
 
-export const contactsTable = pgTable("contacts", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  userId: text("user_id").notNull(),
-  name: text("name").notNull(),
-  email: text("email"),
-  phone: text("phone"),
-  notes: text("notes"),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date())
+export default function DashboardPage() {
+  return (
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Dashboard</h1>
+      
+      <Suspense fallback={<DashboardSkeleton type="metrics" />}>
+        <DashboardMetricsContent />
+      </Suspense>
+      
+      <Suspense fallback={<DashboardSkeleton type="charts" />}>
+        <DashboardChartsContent />
+      </Suspense>
+    </div>
+  )
+}
+
+async function DashboardMetricsContent() {
+  const metrics = await getMetrics()
+
+  return <DashboardMetrics data={metrics.data} />
+}
+
+async function DashboardChartsContent() {
+  const chartData = await getChartData()
+
+  return <DashboardCharts data={chartData.data} />
+}
+```
+
+## Client Component Patterns
+
+### State Management
+
+- Use React's built-in state management for component-level state
+- For more complex state, consider React Context or state management libraries
+- Pass initial data from server components to hydrate client components
+
+```tsx
+// _components/data-table.tsx
+"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import type { Product } from "@/types"
+
+interface DataTableProps {
+  initialData: Product[]
+}
+
+export function DataTable({ initialData }: DataTableProps) {
+  const [data, setData] = useState(initialData)
+  const [sortBy, setSortBy] = useState<keyof Product | null>(null)
+  
+  // Component logic...
+  
+  return (
+    <div>
+      {/* Table implementation */}
+    </div>
+  )
+}
+```
+
+### Form Handling
+
+- Use controlled components for forms
+- Implement proper form validation
+- Use server actions for form submissions
+
+```tsx
+"use client"
+
+import { useState } from "react"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { createContact } from "@/actions/db/contacts"
+
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email format").optional().nullable()
 })
 
-export type InsertContact = typeof contactsTable.$inferInsert
-export type SelectContact = typeof contactsTable.$inferSelect
-```
-
-Make sure to export your schema from the index file:
-
-```typescript
-// db/schema/index.ts
-export * from "./contacts"
-// ... other schema exports
-```
-
-And register it in your database configuration:
-
-```typescript
-// db/db.ts
-import { contactsTable } from "@/db/schema"
-
-export const schema = {
-  contacts: contactsTable,
-  // ... other tables
-}
-```
-
-## Server Actions
-
-Server Actions are our primary method for exposing backend functionality. They provide type-safe, secure APIs for frontend components.
-
-### Organization Pattern
-
-```
-actions/
-├── auth/                # Authentication-related actions
-├── db/                  # Database operations
-│   ├── [entity].ts
-└── utils/               # Utility actions
-```
-
-### Action Implementation Guidelines
-
-1. **Standardized Return Type**: Use the `ActionState<T>` pattern for consistency
-
-```typescript
-export type ActionState<T> =
-  | { isSuccess: true; message: string; data: T }
-  | { isSuccess: false; message: string; data?: never }
-```
-
-2. **Naming Convention**: All action functions should end with `Action` suffix
-
-3. **Input Validation**: Validate inputs before database operations
-
-4. **Error Handling**: Use try/catch blocks and provide meaningful error messages
-
-5. **Organization**: Group actions by entity and order methods by CRUD operations
-
-### Server Action Example
-
-```typescript
-// actions/db/contacts.ts
-'use server'
-
-import { eq } from 'drizzle-orm'
-
-import { db } from '@/db/db'
-import { contactsTable, InsertContact, SelectContact } from '@/db/schema/contacts'
-import { ActionState } from '@/types/server-action'
-
-export async function createContact(contact: InsertContact): Promise<ActionState<SelectContact>> {
-  try {
-    const [newContact] = await db.insert(contactsTable).values(contact).returning()
-
-    return {
-      isSuccess: true,
-      message: 'Contact created successfully',
-      data: newContact,
-    }
-  } catch (error) {
-    console.error('Error creating contact:', error)
-
-    return { isSuccess: false, message: 'Failed to create contact' }
-  }
-}
-
-export async function getContacts(userId: string): Promise<ActionState<SelectContact[]>> {
-  try {
-    const contacts = await db.query.contacts.findMany({
-      where: eq(contactsTable.userId, userId),
-    })
-
-    return {
-      isSuccess: true,
-      message: 'Contacts retrieved successfully',
-      data: contacts,
-    }
-  } catch (error) {
-    console.error('Error getting contacts:', error)
-
-    return { isSuccess: false, message: 'Failed to get contacts' }
-  }
-}
-
-export async function updateContact(
-  id: string,
-  data: Partial<InsertContact>,
-): Promise<ActionState<SelectContact>> {
-  try {
-    const [updatedContact] = await db
-      .update(contactsTable)
-      .set(data)
-      .where(eq(contactsTable.id, id))
-      .returning()
-
-    return {
-      isSuccess: true,
-      message: 'Contact updated successfully',
-      data: updatedContact,
-    }
-  } catch (error) {
-    console.error('Error updating contact:', error)
-
-    return { isSuccess: false, message: 'Failed to update contact' }
-  }
-}
-
-export async function deleteContact(id: string): Promise<ActionState<void>> {
-  try {
-    await db.delete(contactsTable).where(eq(contactsTable.id, id))
-
-    return {
-      isSuccess: true,
-      message: 'Contact deleted successfully',
-      data: undefined,
-    }
-  } catch (error) {
-    console.error('Error deleting contact:', error)
-
-    return { isSuccess: false, message: 'Failed to delete contact' }
-  }
-}
-
-
-// Additional action methods would follow...
-```
-
-## Advanced Patterns
-
-### Pagination
-
-For lists that may contain many items, implement pagination:
-
-```typescript
-export async function getPaginatedContacts(
-  userId: string,
-  page = 1,
-  pageSize = 10
-): Promise<ActionState<{ contacts: SelectContact[], totalCount: number }>> {
-  try {
-    const offset = (page - 1) * pageSize
+export function ContactForm() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     
-    const contacts = await db.query.contacts.findMany({
-      where: eq(contactsTable.userId, userId),
-      limit: pageSize,
-      offset,
-      orderBy: [desc(contactsTable.updatedAt)]
-    })
-    
-    const [{ count }] = await db
-      .select({ count: count() })
-      .from(contactsTable)
-      .where(eq(contactsTable.userId, userId))
-    
-    return {
-      isSuccess: true,
-      message: "Contacts retrieved successfully",
-      data: {
-        contacts,
-        totalCount: Number(count)
+    try {
+      // Validate form
+      formSchema.parse({ name, email })
+      
+      // Submit form using server action
+      await createContact({ name, email })
+      
+      // Reset form
+      setName("")
+      setEmail("")
+      setErrors({})
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Transform Zod errors into a usable format
+        const newErrors: Record<string, string> = {}
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0] as string] = err.message
+          }
+        })
+        setErrors(newErrors)
       }
     }
-  } catch (error) {
-    console.error("Error fetching paginated contacts:", error)
-
-    return { isSuccess: false, message: "Failed to retrieve contacts" }
   }
-}
-```
-
-### Soft Deletes
-
-Consider implementing soft deletes for data that shouldn't be permanently removed:
-
-```typescript
-// In schema
-deletedAt: timestamp("deleted_at", { withTimezone: true }),
-
-// In queries
-const nonDeletedFilter = isNull(contactsTable.deletedAt)
-
-// Soft delete action
-export async function softDeleteContact(
-  id: string
-): Promise<ActionState<void>> {
-  try {
-    await db
-      .update(contactsTable)
-      .set({ 
-        deletedAt: new Date().toISOString(),
-        // Optionally anonymize data
-        email: null,
-        phone: null 
-      })
-      .where(eq(contactsTable.id, id))
+  
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <Input 
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+        />
+        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+      </div>
       
-    return {
-      isSuccess: true,
-      message: "Contact deleted successfully",
-      data: undefined
-    }
-  } catch (error) {
-    console.error("Error soft-deleting contact:", error)
-
-    return { isSuccess: false, message: "Failed to delete contact" }
-  }
+      <div>
+        <Input 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+      </div>
+      
+      <Button type="submit">Submit</Button>
+    </form>
+  )
 }
 ```
 
-### Optimistic Updates
+## Styling Guidelines
 
-Pair your server actions with frontend optimistic updates for better UX:
+### Tailwind CSS Usage
 
-```typescript
-// Client component example
-const handleDeleteContact = async (id: string) => {
-  // Optimistically update UI
-  setContacts(prev => prev.filter(contact => contact.id !== id))
-  
-  // Call server action
-  const result = await deleteContactAction(id)
-  
-  // Roll back on failure
-  if (!result.isSuccess) {
-    toast.error(result.message)
-    // Reload the contacts
-    const refreshedData = await getContactsAction(userId)
-    if (refreshedData.isSuccess) {
-      setContacts(refreshedData.data)
-    }
-  }
+- Use Tailwind utility classes for styling
+- Follow a consistent order of utility classes:
+  1. Layout (display, position)
+  2. Box model (width, height, margin, padding)
+  3. Typography
+  4. Visual (colors, background, etc.)
+  5. Miscellaneous
+
+```tsx
+// Recommended class ordering
+<div className="
+  flex justify-between items-center 
+  w-full h-16 px-4 
+  text-sm font-medium 
+  bg-white dark:bg-gray-900 border-b
+  transition-colors duration-200
+">
+```
+
+- Extract common patterns into component classes with `cn` utility:
+
+```tsx
+import { cn } from "@/lib/utils"
+
+export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div 
+      className={cn(
+        "rounded-lg border bg-card p-4 shadow-sm", 
+        className
+      )} 
+      {...props} 
+    />
+  )
 }
 ```
 
-### Working with Dates
+### Theme Consistency
 
-When handling dates:
+- Use design tokens from your theme for spacing, color, etc. instead of arbitrary values
+- For colors, use semantic color names from your theme (primary, secondary, etc.)
+- Maintain consistent spacing using Tailwind's spacing scale
 
-1. Store timestamps with timezone information
-2. Convert JavaScript Date objects to ISO strings before database operations
-3. Use comparison operators that respect time zones
+## Animation Guidelines
 
-```typescript
-// Example of date filtering
-const today = new Date()
-today.setHours(0, 0, 0, 0)
+### Framer Motion Best Practices
 
-const todayContacts = await db.query.contacts.findMany({
-  where: gte(contactsTable.createdAt, today.toISOString())
-})
+- Keep animations subtle and purposeful
+- Use motion variants for coordinated animations
+- Implement animations that respond to user interaction
+- Consider reduced motion preferences
+
+```tsx
+"use client"
+
+import { motion } from "framer-motion"
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 24
+    }
+  }
+}
+
+export function AnimatedList({ items }) {
+  return (
+    <motion.ul
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="space-y-4"
+    >
+      {items.map((item) => (
+        <motion.li
+          key={item.id}
+          variants={itemVariants}
+          className="rounded-md border p-4"
+        >
+          {item.content}
+        </motion.li>
+      ))}
+    </motion.ul>
+  )
+}
 ```
 
-## Database Migrations
+## Performance Optimization
 
-### Managing Schema Changes
+### Image Optimization
 
-We use Supabase migrations for database changes:
+- Use Next.js Image component for all images
+- Specify proper width and height attributes
+- Use responsive sizes for different viewports
+- Implement lazy loading for below-the-fold images
 
-1. Generate a timestamp for the migration:
-   ```ts
-   const timestamp = new Date().toISOString().replace(/[-:]/g, "").split(".")[0]
-   ```
+```tsx
+import Image from "next/image"
 
-2. Create migration files in the supabase/migrations directory
-   
-3. Use Supabase CLI to apply migrations:
-   - Development: `supabase db reset`
-   - Production: `supabase db push`
+export function ProfileCard({ user }) {
+  return (
+    <div className="flex items-center space-x-4">
+      <Image
+        src={user.avatarUrl}
+        alt={`${user.name}'s profile picture`}
+        width={64}
+        height={64}
+        className="rounded-full"
+        priority={false}
+      />
+      <div>
+        <h3 className="font-medium">{user.name}</h3>
+        <p className="text-sm text-gray-500">{user.title}</p>
+      </div>
+    </div>
+  )
+}
+```
 
-4. Always test migrations in a development environment first
+### Component Memoization
 
-5. Include both "up" and "down" migrations where possible
+- Memoize expensive computations and renders with `useMemo` and `memo`
+- Use callback references with `useCallback` for event handlers passed to child components
+- Implement proper dependency arrays in hooks
 
-## Performance Considerations
+## Accessibility Guidelines
 
-1. **Indexing**: Add indexes for fields frequently used in WHERE clauses
-   ```typescript
-   email: text("email").notNull().$unique()
-   ```
+- Use semantic HTML elements when possible
+- Include proper ARIA attributes when needed
+- Ensure sufficient color contrast
+- Implement keyboard navigation
+- Test with screen readers
 
-2. **Select Only What You Need**: Use projections to limit returned data
-   ```typescript
-   const userEmails = await db
-     .select({ id: usersTable.id, email: usersTable.email })
-     .from(usersTable)
-   ```
+```tsx
+"use client"
 
-3. **Batch Operations**: Use batch inserts/updates when possible
-   ```typescript
-   await db.insert(contactsTable).values(multipleContacts)
-   ```
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 
-4. **Transaction Support**: Use transactions for multi-step operations
-   ```typescript
-   await db.transaction(async (tx) => {
-     // Multiple operations that succeed or fail together
-   })
-   ```
-
-## Security Best Practices
-
-1. **Never Trust Client Data**: Always validate all inputs
-2. **Row-Level Security**: Enforce user ownership at the database level
-3. **Parameterized Queries**: Never use string interpolation in SQL
-4. **Rate Limiting**: Implement rate limiting for public-facing endpoints
-5. **Audit Trails**: Consider logging sensitive operations
+export function Disclosure({ title, children }) {
+  const [isOpen, setIsOpen] = useState(false)
+  
+  return (
+    <div className="border rounded-md">
+      <Button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        className="flex w-full items-center justify-between p-4"
+      >
+        <span>{title}</span>
+        <span className="text-xs" aria-hidden="true">
+          {isOpen ? "−" : "+"}
+        </span>
+      </Button>
+      
+      {isOpen && (
+        <div className="p-4 pt-0">
+          {children}
+        </div>
+      )}
+    </div>
+  )
+}
+```
 
 ---
 > Source: [materialize-labs/ai-optimized-starter-app](https://github.com/materialize-labs/ai-optimized-starter-app) — distributed by [TomeVault](https://tomevault.io).
