@@ -1,0 +1,9 @@
+{
+  "name": "openai--openai-guardrails-python",
+  "displayName": "openai-guardrails-python",
+  "description": "OpenAI Guardrails - Python",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-guardrails-python",
+  "skills": []
+}
