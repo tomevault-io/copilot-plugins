@@ -1,0 +1,44 @@
+{
+  "name": "ai-optimized-starter-app",
+  "owner": "materialize-labs",
+  "repo": "ai-optimized-starter-app",
+  "description": "A production-ready full-stack web application template optimized for AI-assisted development. Built with Next.js, Tailwind CSS, Clerk Auth, Supabase, and Drizzle ORM, it provides enterprise-grade architecture, type-safe database operations, and modern UI components.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/materialize-labs/ai-optimized-starter-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T03:14:12Z"
+}
