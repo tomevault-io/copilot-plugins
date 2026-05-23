@@ -1,9 +1,9 @@
 {
-  "name": "next",
+  "name": "next-resume-ai",
   "owner": "Kiranism",
   "repo": "next-resume-ai",
   "description": "A resume generator with Nextjs and React Pdf",
-  "type": "tome",
+  "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,33 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "tanstack-form",
-      "path": ".agents/skills/tanstack-form",
-      "github_url": "https://github.com/Kiranism/next-resume-ai/tree/main/.agents/skills/tanstack-form",
-      "description": ""
-    },
-    {
-      "name": "kiranism-shadcn-dashboard",
-      "path": ".agents/skills/kiranism-shadcn-dashboard",
-      "github_url": "https://github.com/Kiranism/next-resume-ai/tree/main/.agents/skills/kiranism-shadcn-dashboard",
-      "description": ""
-    },
-    {
-      "name": "next-best-practices",
-      "path": ".agents/skills/next-best-practices",
-      "github_url": "https://github.com/Kiranism/next-resume-ai/tree/main/.agents/skills/next-best-practices",
-      "description": ""
-    },
-    {
-      "name": "kiranism-shadcn-dashboard",
-      "path": ".claude/skills/kiranism-shadcn-dashboard",
-      "github_url": "https://github.com/Kiranism/next-resume-ai/tree/main/.claude/skills/kiranism-shadcn-dashboard",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Kiranism/next-resume-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-20T14:31:27Z"
+  "distributed_at": "2026-05-23T09:18:46Z"
 }
