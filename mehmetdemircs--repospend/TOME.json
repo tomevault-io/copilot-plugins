@@ -4,7 +4,7 @@
   "repo": "RepoSpend",
   "description": "Local-first dashboard for tracking Codex / AI coding token usage and repo-level cost.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mehmetdemircs/RepoSpend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T22:30:22Z"
+  "distributed_at": "2026-05-23T22:30:54Z"
 }
