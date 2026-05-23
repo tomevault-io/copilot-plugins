@@ -1,14 +1,14 @@
-## create-spec
+## create-tasks
 
-> Create a detailed spec for a new feature with technical specifications and task breakdown
+> Create a tasks list with sub-tasks to execute a feature based on its spec.
 
 
-# Create Spec
+# Create Tasks
 
-Create a detailed spec for a new feature with technical specifications and task breakdown
+Create a tasks list with sub-tasks to execute a feature based on its spec.
 
 Refer to the instructions located in this file:
-@.agent-os/instructions/core/create-spec.md
+@.agent-os/instructions/core/create-tasks.md
 
 ---
 > Source: [meirm/taskwarrior-ng](https://github.com/meirm/taskwarrior-ng) — distributed by [TomeVault](https://tomevault.io).
