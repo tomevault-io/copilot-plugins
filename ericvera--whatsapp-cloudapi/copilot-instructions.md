@@ -1,70 +1,40 @@
-## code-comments
+## code-curly-braces
 
-> Applies to any file that contains code comments, including all test files
+> Enforces curly braces around all if statement blocks
 
 # Rules
 
-## No inline comments
-Comments should be on their own line above code, not at the end of code lines.
-
-## Only explain complex segments of code
-Do not add comments explaining the reasoning. Only add it for non-trivial sections of code.
-
-## Document all exported entities
-All exported entities must have documentation comments. All interface properties must have documentation comments.
+## Use curly braces for all if statements
+All if statements must use curly braces, even for single-line statements.
 
 # Examples
 
 ## Valid
 ```typescript
-/** 
- * Represents a business entity that can have multiple locations
- */
-export interface Business {
-  id: ID
-
-  /** Customer facing name of the business */
-  name: string
-
-  /** Timestamp of when the business was last updated */
-  updated: Date
+if (value > 0) {
+  return value
 }
-```
 
-```typescript
-// Test file example with proper comments
-import { it, expect } from 'vitest'
+if (isValid) {
+  doSomething()
+}
 
-// Authentication failure tests
-it('throws when not authenticated', async () => {
-  // Test implementation
-})
-
-// Authorization failure tests
-it('throws when user does not have access', async () => {
-  // Test implementation
-})
+if (hasError) {
+  handleError()
+} else {
+  sendSuccess()
+}
 ```
 
 ## Invalid
 ```typescript
-export interface Business { // Represents a business
-  id: ID // Unique identifier
-  name: string // Business name
-  updated: Date // Last update time
-}
-```
+if (value > 0) return value
 
-```typescript
-export interface Business {
-  id: ID
-  name: string  // Missing doc comment
-  updated: Date
-}
-```
+if (isValid)
+  doSomething()
 
-```typescript
-expect(diff).toMatchInlineSnapshot() // Will be populated with the actual diff on first run
+if (hasError) handleError()
+else sendSuccess()
 ```
 
 ---
