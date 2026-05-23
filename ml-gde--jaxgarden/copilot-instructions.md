@@ -1,293 +1,203 @@
-## basemodel
+## generationmixin
 
-> description: JAXgarden tutorial chapter detailing BaseModel, the abstract base class for models, covering config, state management, I/O, and Hugging Face integration.
+> description: jaxgarden tutorial on GenerationMixin, providing autoregressive text generation with sampling for JAX models.
 
 ---
-description: JAXgarden tutorial chapter detailing BaseModel, the abstract base class for models, covering config, state management, I/O, and Hugging Face integration.
-globs: 
+description: jaxgarden tutorial on GenerationMixin, providing autoregressive text generation with sampling for JAX models.
+globs: jaxgarden/models/generation_utils.py
 alwaysApply: false
 ---
-# Chapter 2: BaseModel
+# Chapter 5: GenerationMixin
 
-In the [previous chapter](tokenizer.mdc), we learned how the `jaxgarden.Tokenizer` prepares text data into JAX arrays suitable for neural network processing. Now, we turn our attention to the core building block for the models themselves: `BaseModel`.
+In the [previous chapter](llamaforcausallm.mdc), we explored `LlamaForCausalLM`, a causal language model built using `jaxgarden` components. We saw that it inherits text generation capabilities. This chapter focuses on the `GenerationMixin` class, the source of that functionality.
 
-**Motivation:** Building diverse neural network models (like Llama, BERT, etc.) requires a consistent structure. Without a common base, each model implementation might handle configuration, parameter management (state), saving/loading checkpoints, and interacting with external resources (like the Hugging Face Hub) differently. This leads to code duplication, inconsistencies, and makes it harder to develop, maintain, and reuse components. `BaseModel` addresses this by providing an abstract base class that defines a standard interface and implements shared functionalities.
+**Motivation:** Implementing autoregressive text generation involves complex logic: managing the token-by-token loop efficiently, handling various sampling strategies (temperature, top-k, top-p, min-p), managing padding and end-of-sequence tokens, and dealing with JAX's PRNG key management and JIT compilation nuances. Encapsulating this logic in a reusable mixin avoids code duplication across different causal language models and provides a standardized generation interface. `GenerationMixin` solves this by providing a robust `generate` method that can be easily added to any compatible causal LM inheriting from [BaseModel](basemodel.mdc).
 
-**Central Use Case:** Defining a new neural network model within the `jaxgarden` ecosystem. For example, when implementing a model like [LlamaForCausalLM](llamaforcausallm.mdc), subclassing `BaseModel` ensures it correctly handles its configuration ([BaseConfig](baseconfig.mdc)), manages its learnable parameters and mutable states using Flax NNX conventions, can be saved and loaded consistently using Orbax, and provides a standardized way to import weights from equivalent Hugging Face models.
+**Central Use Case:** Adding the `generate` method to a custom causal language model (or using it via an existing model like `LlamaForCausalLM`). This allows the model instance to perform text generation based on a prompt, controlling the output's creativity and coherence through sampling parameters, and leveraging JAX optimizations like `lax.scan` and JIT compilation for performance on accelerators.
 
 ## Key Concepts
 
-`BaseModel` establishes several core responsibilities and provides associated features:
+1.  **Mixin Pattern:** `GenerationMixin` is not meant to be used standalone. It's designed to be inherited *alongside* a primary base class (like `BaseModel` or a specific model class like `LlamaForCausalLM`). It "mixes in" the `generate` method and its helpers into the inheriting class.
+2.  **Autoregressive Loop (`jax.lax.scan`):** Text generation is sequential. The model predicts the next token based on the previously generated tokens. `GenerationMixin` implements this loop using `jax.lax.scan`, which is highly efficient for iterative computations on JAX accelerators (GPU/TPU) as it unrolls the loop within the compiled computation graph.
+3.  **Sampling Strategies:** Controls how the next token is chosen from the model's output probability distribution (logits).
+    *   `temperature`: Scales logits before sampling. Higher values -> more randomness; lower values -> more determinism.
+    *   `top_k`: Restricts sampling to the `k` most likely tokens.
+    *   `top_p` (Nucleus Sampling): Restricts sampling to the smallest set of tokens whose cumulative probability exceeds `p`.
+    *   `min_p`: Restricts sampling to tokens with probability `p * max_probability` or higher.
+    *   `do_sample`: Boolean flag to enable/disable sampling (if `False`, uses greedy decoding - picks the most likely token).
+4.  **Helper Functions:** Sampling strategies are implemented via standalone helper functions (`temperature_scale`, `top_k_logits`, `top_p_logits`, `min_p_logits`, `sample_logits`) for clarity and testability.
+5.  **State Management:** The generation loop manages the sequence length, detects the End-of-Sequence (EOS) token to stop generation for specific sequences in a batch, handles padding (`pad_token_id`), and correctly splits and passes the JAX PRNG key (`rng`) at each step if sampling is enabled.
+6.  **JIT Compilation (`use_jit`):** The `generate` method offers a `use_jit` flag. If `True`, it calls a pre-compiled version of the core generation loop (`_generate_compiled`). This requires specifying `static_argnames` (like `max_length`, `temperature`, `top_k`, etc., and crucially `self`) to `jax.jit`, as these values influence the computation graph structure and cannot be dynamic JAX tracers during compilation.
 
-1.  **Configuration Management:** Each `BaseModel` instance holds a configuration object, typically a subclass of [BaseConfig](baseconfig.mdc), which stores hyperparameters and architectural details (e.g., number of layers, hidden size).
-2.  **Flax NNX Foundation:** It inherits from `flax.nnx.Module`, making every `jaxgarden` model an NNX module. This enables the powerful state management capabilities of NNX.
-3.  **State Handling:**
-    *   `state` property: Provides easy access to the model's `nnx.State` (learnable parameters and mutable states), separated from the static graph definition.
-    *   `state_dict` property: Returns the state as a nested dictionary of JAX arrays, suitable for serialization frameworks like Orbax.
-4.  **Checkpointing (Save/Load):** Offers `save` and `load` methods that use `orbax-checkpoint` (`ocp`) to serialize and deserialize the model's `state_dict` to/from disk, ensuring consistent checkpointing across all models.
-5.  **Hugging Face (HF) Integration Interface:** Defines a standard workflow for interacting with the Hugging Face Hub:
-    *   `download_from_hf`: Static method to download model artifacts (like config and weights) from a repository.
-    *   `iter_safetensors`: Static method to efficiently iterate over tensors stored in `.safetensors` files.
-    *   `convert_weights_from_hf`: An *abstract* method that subclasses *must* implement to translate HF weights into the `jaxgarden` model's state structure.
-    *   `from_hf`: Orchestrates the download, iteration, and conversion process to initialize a `jaxgarden` model instance with weights from the Hub.
+## Using `GenerationMixin`
 
-## Using `BaseModel`
-
-`BaseModel` is an abstract class, so you typically interact with its *subclasses* (like `LlamaForCausalLM`). However, understanding its interface is crucial for both using and implementing models.
-
-### Initialization (Subclass Implementation)
-
-When creating a new model (e.g., `MyCustomModel`), you must subclass `BaseModel` and call its `__init__` method using `super().__init__(...)`.
+You typically don't interact with `GenerationMixin` directly. Instead, you call the `generate` method on a model class that inherits from it, like `LlamaForCausalLM`.
 
 ```python
 import jax
 import jax.numpy as jnp
 from flax import nnx
-from jaxgarden.models.base import BaseModel, BaseConfig
-from dataclasses import dataclass
-
-@dataclass
-class MyConfig(BaseConfig):
-    hidden_size: int = 128
-    # ... other params
-
-class MyCustomModel(BaseModel):
-    def __init__(self, config: MyConfig, *, rngs: nnx.Rngs):
-        # Call the parent BaseModel constructor FIRST
-        super().__init__(config, rngs=rngs, dtype=jnp.float32) # Specify dtype, etc.
-
-        # Initialize model layers (e.g., using nnx.Linear)
-        self.dense = nnx.Linear(config.hidden_size, config.hidden_size, rngs=rngs)
-        # ... other layers
-
-    def __call__(self, x: jnp.ndarray) -> jnp.ndarray:
-        # Define the forward pass
-        return self.dense(x)
-
-# --- Usage ---
-config = MyConfig()
-rngs = nnx.Rngs(0) # Or more sophisticated key splitting
-model = MyCustomModel(config=config, rngs=rngs)
-print("Model initialized.")
-```
-
-**Explanation:** The subclass `__init__` first calls `BaseModel.__init__`, passing the configuration object (`config`) and NNX random number generators (`rngs`). It also specifies other base parameters like `dtype`. Then, it proceeds to define its own layers (like `self.dense`).
-
-### Accessing State
-
-You can easily access the model's parameters and mutable states.
-
-```python
-# Assuming 'model' is an instance of a BaseModel subclass
-# Get the nnx.State object
-model_state = model.state
-print(f"Type of model.state: {type(model_state)}")
-# Output: Type of model.state: <class 'flax.experimental.nnx.graph_utils.State'>
-
-# Get the state as a pure dictionary (for saving/inspection)
-model_state_dict = model.state_dict
-print(f"Type of model.state_dict: {type(model_state_dict)}")
-# Output: Type of model.state_dict: <class 'dict'>
-print(f"Keys in state_dict: {list(model_state_dict.keys())}")
-# Example Output: Keys in state_dict: ['dense']
-# (Actual keys depend on the layers defined in MyCustomModel)
-```
-
-**Explanation:**
-*   `.state` uses `nnx.split(self, nnx.Param, ...)[1]` internally to separate the mutable `nnx.State` from the static graph definition.
-*   `.state_dict` takes the `.state` and converts it into a standard Python dictionary using `nnx.to_pure_dict()`, making it easy to serialize.
-
-### Saving and Loading Checkpoints
-
-`BaseModel` provides convenient methods for checkpointing using Orbax.
-
-```python
-import os
-import tempfile
-
-# Create a temporary directory for saving
-save_dir = tempfile.mkdtemp()
-save_path = os.path.join(save_dir, "my_model_checkpoint")
-
-# Save the model's state_dict
-print(f"Saving model state to: {save_path}")
-model.save(save_path)
-# Output: Saving model state to: /tmp/tmpxxxxxxx/my_model_checkpoint
-print(f"Files in save dir: {os.listdir(save_path)}")
-# Output: Files in save dir: ['jaxgarden_state'] (Orbax checkpoint structure)
-
-
-# Create a new 'empty' model instance (shapes must match)
-rngs_load = nnx.Rngs(1) # Use a different seed for demonstration
-new_model = MyCustomModel(config=config, rngs=rngs_load)
-
-# Load the saved state into the new model instance
-print(f"Loading model state from: {save_path}")
-loaded_model = new_model.load(save_path)
-print("Model loaded successfully.")
-
-# Clean up the temporary directory
-import shutil
-shutil.rmtree(save_dir)
-```
-
-**Explanation:**
-*   `model.save(path)` saves the dictionary returned by `model.state_dict` to the specified `path` using `ocp.StandardCheckpointer`. The actual checkpoint data is typically stored in a subdirectory named `jaxgarden_state` (defined by `DEFAULT_PARAMS_FILE`).
-*   `new_model.load(path)` uses `ocp.StandardCheckpointer` to restore the saved state dictionary. It requires an existing model instance (`new_model`) with the *same structure* (graph definition) to load the state into. It returns a *new* model instance (`loaded_model`) with the graph and the loaded state merged.
-
-### Hugging Face Integration (Usage & Implementation)
-
-`BaseModel` defines the *interface* for loading weights from Hugging Face. The actual conversion logic resides in the subclass's implementation of `convert_weights_from_hf`.
-
-**1. Using `from_hf` (User Perspective):**
-
-A user wanting to load HF weights into a compatible `jaxgarden` model (e.g., `LlamaForCausalLM`) would call `from_hf` on an *initialized* instance.
-
-```python
-# Example using LlamaForCausalLM (Conceptual - requires Llama code)
+# Assume LlamaForCausalLM and Tokenizer are imported and initialized
 # from jaxgarden.models.llama import LlamaConfig, LlamaForCausalLM
+# from jaxgarden.tokenization import Tokenizer
 
-# hf_model_id = "meta-llama/Llama-2-7b-hf" # Example HF model ID
-# config = LlamaConfig(...) # Configure based on the HF model
-# rngs_hf = nnx.Rngs(42)
-# llama_model = LlamaForCausalLM(config, rngs=rngs_hf)
+# --- Setup (Conceptual) ---
+# model_config = LlamaConfig(...) # Load appropriate config
+# tokenizer = Tokenizer.from_pretrained(...) # Load matching tokenizer
+# rngs = nnx.Rngs(0)
+# model = LlamaForCausalLM(model_config, rngs=rngs)
+# model.from_hf(...) # Optional: Load pretrained weights
 
-# print(f"Initializing Llama model from Hugging Face: {hf_model_id}")
-# try:
-#    # This call triggers download, iteration, and conversion via convert_weights_from_hf
-#    llama_model.from_hf(
-#        hf_model_id,
-#        # token="hf_...", # Optional Hugging Face token
-#        force_download=False, # Set to True to re-download
-#        save_in_orbax=True, # Save converted weights locally
-#        remove_hf_after_conversion=True # Clean up original HF download
-#    )
-#    print("Model successfully initialized from Hugging Face.")
-# except NotImplementedError:
-#    print(f"NOTE: {type(llama_model).__name__} does not implement HF conversion.")
-# except Exception as e:
-#    print(f"Error during HF conversion: {e}")
-print("Skipping actual HF conversion example execution.") # Avoid actual download/conversion
-```
+# --- Generation Call ---
+# prompt = "The definition of JAX is"
+# inputs = tokenizer.encode(prompt, return_tensors="jax")
+# input_ids = inputs['input_ids']
+# attention_mask = inputs['attention_mask'] # Important for initial prompt
 
-**Explanation:** Calling `model.from_hf(hf_model_id, ...)` orchestrates the entire process. It downloads the specified model, iterates through its weights, calls the model's specific `convert_weights_from_hf` method, updates the model's state, and optionally saves the converted weights and cleans up the downloaded HF files.
+# Set generation parameters
+# max_new_tokens = 50
+# target_max_length = input_ids.shape[1] + max_new_tokens
+# generation_rng = jax.random.PRNGKey(42)
+# pad_token_id = tokenizer.pad_token_id
+# eos_token_id = tokenizer.eos_token_id
 
-**2. Implementing `convert_weights_from_hf` (Model Developer Perspective):**
+# print(f"Generating text with max_length={target_max_length}, temperature=0.8, top_k=50")
 
-If you are implementing a new `jaxgarden` model that should support HF weight conversion, you *must* override `convert_weights_from_hf`.
+# --- The core call to the generate method ---
+# output_ids = model.generate(
+#     input_ids=input_ids,
+#     attention_mask=attention_mask, # Use mask from prompt encoding
+#     max_length=target_max_length,
+#     temperature=0.8,
+#     top_k=50,
+#     top_p=0.9,
+#     min_p=None, # Example: min_p not used
+#     do_sample=True, # Enable sampling
+#     pad_token_id=pad_token_id,
+#     eos_token_id=eos_token_id,
+#     rng=generation_rng,
+#     use_jit=True # Use the compiled version for speed
+# )
 
-```python
-from typing import Any
-from collections.abc import Iterator
+# --- Decoding ---
+# generated_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+# print(f"\nPrompt: {prompt}")
+# print(f"Generated: {generated_text}")
 
-class MyCustomModelWithHF(MyCustomModel): # Inherits from MyCustomModel above
-    # ... (potentially different __init__ if layers map to HF names)
-
-    def convert_weights_from_hf(
-        self, state: nnx.State, hf_weights: Iterator[tuple[str, jnp.ndarray]]
-    ) -> None:
-        """Converts HF weights to this model's state format."""
-        print("Starting HF weight conversion for MyCustomModelWithHF...")
-        for hf_key, hf_tensor in hf_weights:
-            print(f"Processing HF key: {hf_key}, shape: {hf_tensor.shape}")
-            # --- Conversion Logic ---
-            # Map the hf_key to the corresponding key in the jaxgarden model's state
-            # This is highly model-specific.
-            if hf_key == "transformer.layer.0.dense.weight":
-                # Example: Assign HF weight to 'dense.kernel' in our model's state
-                # May require transposition (T) or reshaping
-                if hasattr(state.dense, "kernel"):
-                   state.dense.kernel.value = hf_tensor.T # Example: Transpose needed
-                   print(f"  -> Mapped to state['dense']['kernel']")
-                else:
-                   print(f"  -> Key 'dense.kernel' not found in state.")
-
-            # elif hf_key == "...":
-                # Handle other keys...
-            else:
-                print(f"  -> Key not mapped.")
-        print("HF weight conversion finished.")
-
-# --- Conceptual Usage ---
-# config_hf = MyConfig(...)
-# rngs_hf = nnx.Rngs(0)
-# my_hf_model = MyCustomModelWithHF(config_hf, rngs=rngs_hf)
-# my_hf_model.from_hf("some-hf-repo/my-custom-model") # Would call the implemented method
+# Example Output (Conceptual - depends heavily on model and sampling):
+# Generating text with max_length=58, temperature=0.8, top_k=50
+#
+# Prompt: The definition of JAX is
+# Generated: The definition of JAX is a high-performance numerical computation library
+#            focused on machine learning research. It combines automatic differentiation
+#            (autograd) and XLA compilation for speed on accelerators like GPUs and TPUs...
+print("Skipping actual generation execution.")
 ```
 
 **Explanation:**
-*   The method receives the model's current `state` (an `nnx.State` object, allowing direct modification via `.value = ...`) and an `iterator` (`hf_weights`) yielded by `BaseModel.iter_safetensors`.
-*   The core task is to loop through `hf_weights`, and for each `(hf_key, hf_tensor)`, determine the corresponding parameter in the `jaxgarden` model's `state` and assign the `hf_tensor` (potentially after transformations like transpose `.T`).
-*   This mapping logic (`if hf_key == ...`) is the most critical and model-specific part. `BaseModel` itself provides the framework but not the specific conversion rules.
+- `input_ids`: The starting token sequence (prompt) as a JAX array `[batch_size, seq_len]`.
+- `attention_mask`: A mask indicating which input tokens are real (1) vs padding (0), shape `[batch_size, seq_len]`. Important for the model to ignore padding in the prompt.
+- `max_length`: The *total* maximum length of the output sequence (prompt + generated tokens).
+- `temperature`, `top_k`, `top_p`, `min_p`: Control the sampling process. Setting `top_k=1` or `do_sample=False` results in greedy decoding.
+- `do_sample`: If `True`, performs sampling according to the other parameters; if `False`, performs greedy decoding.
+- `pad_token_id`: The ID used for padding shorter sequences in the batch *after* they finish generating (e.g., hit EOS). If not provided, it tries to infer from `model.config.pad_token_id` or defaults to 0.
+- `eos_token_id`: The ID that signals the end of a sequence. Generation stops for a sequence once this token is sampled. If not provided, generation continues until `max_length`.
+- `rng`: A `jax.random.PRNGKey` required if `do_sample=True`.
+- `use_jit`: If `True`, calls the JIT-compiled version of the generation loop. Highly recommended for performance.
+- **Output:** The method returns a JAX array `output_ids` of shape `[batch_size, max_length]` containing the prompt and the generated tokens, padded up to `max_length`.
 
 ## Internal Implementation
 
-Let's look under the hood at how `BaseModel` implements its core functionalities (referencing `jaxgarden/models/base.py`).
+The `generate` method orchestrates the process, while the core token-by-token logic resides in `_generate_scan_logic`, which is wrapped by `jax.lax.scan`.
 
-1.  **Initialization (`__init__`)**: Stores the `config`, `dtype`, `param_dtype`, `precision`, and `rngs` passed by the subclass. It doesn't initialize any layers itself, relying on the subclass for that.
+1.  **`generate` Method:**
+    *   Performs input validation (shapes, parameter ranges).
+    *   Handles default values for `pad_token_id`, `eos_token_id`, and `rng`.
+    *   Determines the initial sequence length (`initial_seq_len`) and batch size.
+    *   Initializes the `finished_sequences` boolean array based on whether the *last* token of the input is already EOS.
+    *   **Conditional Dispatch:** Based on the `use_jit` flag, it calls either:
+        *   `self._generate_compiled(...)`: A pre-compiled version of `_generate_scan_logic` created using `partial(jax.jit, static_argnames=...)`.
+        *   `self._generate_scan_logic(...)`: The raw Python function (slower, useful for debugging).
 
-2.  **State Properties (`state`, `state_dict`)**:
-    *   `state`: Directly calls `nnx.split(self, nnx.Param, ...)[1]` to get the `nnx.State` object containing parameters (`nnx.Param`) and other mutable variables.
-    *   `state_dict`: Calls `self.state` to get the `nnx.State` and then passes it to `nnx.to_pure_dict(state)` to obtain the serializable dictionary format.
+2.  **`_generate_scan_logic` Method (Core Loop Logic):**
+    *   Initializes the output tensor `output_ids` of shape `[batch_size, max_length]` filled with `pad_token_id`, and copies the `initial_input_ids` into the beginning.
+    *   Sets up the initial `carry` dictionary for `lax.scan`, containing `output_ids`, `current_length`, `rng`, and `finished` status.
+    *   Defines the `scan_step` function, which performs one step of generation:
+        *   Takes the current `carry` state and a loop counter (`_`) as input.
+        *   Splits the PRNG key (`rng`) if `do_sample` is true.
+        *   Creates the `attention_mask` for the *current* sequence length within the `max_length` buffer. Note: Causal masking is typically handled *inside* the model's attention mechanism, but this mask handles padding.
+        *   **Model Call:** Calls `self(input_ids=current_output_ids, attention_mask=attention_mask, deterministic=True)`. This executes the forward pass of the model (e.g., `LlamaForCausalLM.__call__`). `deterministic=True` ensures dropout etc. are disabled.
+        *   Extracts the logits for the *next* token prediction (logits at the `current_length - 1` position).
+        *   **Sampling:** Calls `sample_logits` with the extracted logits and sampling parameters (`temperature`, `top_k`, etc.) to get the `next_token`.
+        *   **EOS/Padding:** Checks if the `next_token` is the `eos_token_id`. Updates the `finished` status for the sequence. Determines the token to actually write: `pad_token_id` if already finished, otherwise the sampled `next_token`.
+        *   Updates the `output_ids` tensor at the `current_length` position with the chosen token.
+        *   Updates the `carry` dictionary for the next step (`current_length` incremented, `rng` updated, `finished` status updated).
+        *   Returns the updated `carry` and `None` (as `lax.scan` expects `(carry, scan_output)`).
+    *   Calls `jax.lax.scan(scan_step, initial_carry, None, length=num_steps_to_generate)`.
+    *   Returns the final `output_ids` from the resulting `carry`.
 
-3.  **Saving/Loading (`save`, `load`)**:
-    *   `save(path)`: Gets the `state_dict`, creates an `ocp.StandardCheckpointer()`, and calls `checkpointer.save(os.path.join(path, DEFAULT_PARAMS_FILE), state_dict)`. It waits for the save to complete.
-    *   `load(path)`: Creates an `ocp.StandardCheckpointer()`, calls `checkpointer.restore(...)` to get the saved dictionary. It then uses `nnx.eval_shape` to get an abstract version of the current model instance, splits it into abstract graphdef and state, uses `nnx.replace_by_pure_dict` to populate the abstract state with the restored dictionary values, and finally merges the original graphdef with the populated state using `nnx.merge` to return the loaded model.
+3.  **`sample_logits` Function:**
+    *   Takes raw logits, RNG key, and all sampling parameters.
+    *   If `do_sample=False`, returns `jnp.argmax(logits)`.
+    *   Applies `temperature_scale`.
+    *   Sequentially applies filtering functions (`min_p_logits`, `top_k_logits`, `top_p_logits`) if the corresponding parameters are set. These functions mask invalid logits by setting them to `-jnp.inf`.
+    *   **Edge Case Handling:** If *all* logits become `-jnp.inf` after filtering (can happen with very restrictive filtering), it falls back to sampling from the *pre-filtered* (but temperature-scaled) logits to prevent errors.
+    *   Uses `jax.random.categorical` to sample from the final filtered (or fallback) logit distribution.
 
-4.  **Hugging Face Integration (`download_from_hf`, `iter_safetensors`, `from_hf`)**:
+```mermaid
+sequenceDiagram
+    participant User
+    participant Model as Model (e.g., LlamaForCausalLM)
+    participant GenMixin as GenerationMixin Logic
+    participant JitCompiled as _generate_compiled (JIT)
+    participant ScanLogic as _generate_scan_logic
+    participant LaxScan as jax.lax.scan
+    participant ScanStep as scan_step (Inner Function)
+    participant Sampler as sample_logits
 
-    *   `download_from_hf(repo_id, ...)`: A static method that simply calls `huggingface_hub.snapshot_download` to fetch all necessary files from the specified HF repository to a local directory.
-    *   `iter_safetensors(path)`: A static method that finds all `.safetensors` files in the given directory path. It iterates through each file, opens it using `safetensors.safe_open(..., framework='jax')`, and yields `(key, tensor)` pairs for all tensors within that file. This allows lazy loading of weights.
-    *   `from_hf(...)`: This instance method orchestrates the conversion:
-        *   Determines local download (`local_dir`) and save (`save_dir`) paths.
-        *   Calls `BaseModel.download_from_hf` to get the HF model files.
-        *   Calls `BaseModel.iter_safetensors` to get the weight iterator.
-        *   Gets the current model's `state`.
-        *   Calls `self.convert_weights_from_hf(state, weights)` -> **This is the call to the subclass's implementation.**
-        *   Calls `nnx.update(self, state)` to apply the modifications made within `convert_weights_from_hf` back to the model instance.
-        *   Optionally removes the downloaded HF directory (`shutil.rmtree`).
-        *   Optionally calls `self.save(save_dir)` to save the converted weights in Orbax format.
+    User->>+Model: generate(input_ids, ..., use_jit=True, rng=key)
+    Model->>+GenMixin: generate(...)
+    GenMixin->>+JitCompiled: _generate_compiled(input_ids, finished, rng, ..., static_args...)
+    Note over JitCompiled: Pre-compiled version of ScanLogic
+    JitCompiled->>+ScanLogic: _generate_scan_logic(...) # Compiled call
+    ScanLogic->>ScanLogic: Initialize output_ids, initial_carry
+    ScanLogic->>+LaxScan: scan(scan_step, initial_carry, length=N)
+    loop N times (Number of tokens to generate)
+        LaxScan->>+ScanStep: scan_step(current_carry, _)
+        ScanStep->>Model: self(current_output_ids, mask, deterministic=True)
+        Model-->>ScanStep: next_token_logits
+        ScanStep->>+Sampler: sample_logits(logits, rng_step, temp, k, p, ...)
+        Sampler-->>-ScanStep: next_token
+        ScanStep->>ScanStep: Update finished status (EOS check)
+        ScanStep->>ScanStep: Determine output_token (handle padding)
+        ScanStep->>ScanStep: Update output_ids tensor
+        ScanStep->>ScanStep: Prepare next_carry (update length, rng, finished)
+        ScanStep-->>-LaxScan: next_carry, None
+    end
+    LaxScan-->>-ScanLogic: final_carry, _
+    ScanLogic->>ScanLogic: Extract final_output_ids from final_carry
+    ScanLogic-->>-JitCompiled: final_output_ids
+    JitCompiled-->>-GenMixin: final_output_ids
+    GenMixin-->>-User: final_output_ids (Generated Sequence)
+```
 
-    ```mermaid
-    sequenceDiagram
-        participant User
-        participant Model as JaxGarden Model (Subclass)
-        participant BaseModel as BaseModel Logic
-        participant HFHub as huggingface_hub
-        participant SafeTensors as safetensors Lib
-        participant Orbax as ocp
+4.  **JIT Compilation (`_generate_compiled`)**:
+    *   Defined using `partial(jax.jit, static_argnames=...)`.
+    *   `static_argnames` must include parameters that affect the *structure* of the computation or are needed as Python values inside the loop logic (not JAX tracers). This includes:
+        *   `self`: Needed to call the model's forward pass (`self.__call__`) inside `scan_step`. `self` contains the model's graph definition.
+        *   `max_length`: Determines the size of the output tensor and loop length.
+        *   `temperature`, `top_k`, `top_p`, `min_p`, `do_sample`: Control conditional logic within `sample_logits` and `scan_step`.
+        *   `pad_token_id`, `eos_token_id`: Used in conditional logic (`jnp.where`).
+        *   `initial_seq_len`: Affects the number of scan steps.
+    *   Arguments *not* listed as static (`initial_input_ids`, `initial_finished_sequences`, `initial_rng`) are treated as dynamic JAX arrays (tracers) during compilation.
 
-        User->>+Model: model.from_hf(repo_id, save_orbax=True, ...)
-        Model->>+BaseModel: from_hf(repo_id, ...)
-        BaseModel->>+HFHub: snapshot_download(repo_id, local_dir)
-        HFHub-->>-BaseModel: Files downloaded
-        BaseModel->>+SafeTensors: iter_safetensors(local_dir)
-        SafeTensors-->>-BaseModel: weights_iterator
-        BaseModel->>Model: state = model.state # Get current state structure
-        BaseModel->>Model: convert_weights_from_hf(state, weights_iterator) # Calls Subclass Impl
-        Note over Model: Subclass iterates weights,\nmodifies 'state' object directly
-        Model-->>-BaseModel: Returns (implicitly via state mutation)
-        BaseModel->>Model: nnx.update(self, state) # Apply changes
-        alt save_orbax is True
-            BaseModel->>Model: state_dict = model.state_dict
-            BaseModel->>+Orbax: checkpointer.save(save_dir, state_dict)
-            Orbax-->>-BaseModel: Save complete
-        end
-        alt remove_hf is True
-            BaseModel->>BaseModel: Remove local_dir
-        end
-        BaseModel-->>-User: Returns None (model state is updated)
-
-    ```
-*   `convert_weights_from_hf(...)`: This method within `BaseModel` itself simply raises `NotImplementedError`. Subclasses *must* provide their own version.
+*   **Code Location:** `jaxgarden/models/generation_utils.py`
 
 ## Conclusion
 
-`BaseModel` serves as the cornerstone for all neural network models in `jaxgarden`. By inheriting from `flax.nnx.Module` and providing standardized methods for configuration handling, state management (`state`, `state_dict`), checkpointing (`save`, `load` via Orbax), and a clear interface for Hugging Face model conversion (`from_hf`, `convert_weights_from_hf`), it promotes consistency, reduces boilerplate code, and simplifies model development and usage within the JAX ecosystem. Every specific model architecture built in `jaxgarden` leverages this foundation.
+`GenerationMixin` provides a powerful and reusable mechanism for adding sophisticated autoregressive text generation capabilities to causal language models in `jaxgarden`. By leveraging `jax.lax.scan` for efficiency, offering flexible sampling strategies, and integrating seamlessly with JAX's JIT compilation, it allows developers to easily enable text generation in their models while benefiting from high performance on accelerators. Understanding its parameters and internal workings is key to effectively controlling the generation process.
 
-Understanding `BaseModel` is essential before diving into specific model implementations. The next chapter will look closer at the configuration aspect managed by its partner class.
-
-**Next:** [BaseConfig](baseconfig.mdc)
+**Next:** [ModernBERTForMaskedLM](modernbertformaskedlm.mdc)
 
 
 ---
