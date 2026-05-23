@@ -1,147 +1,106 @@
 ## cursor-history
 
-> Diagram Creator. Load when the user wants to create a diagram.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-Create all diagrams in .cursor/diagrams/<diagram>.md
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Overview
 
-Here are the essential rules for creating Mermaid diagrams that render well in GitHub Markdown:
+cursor-history is a CLI tool (`chi`) for managing and searching Cursor conversation history. It extracts conversations from Cursor's SQLite databases and exports them to markdown files.
 
+## Essential Commands
 
-1.  **Use the Correct Fenced Code Block:**
+### Development
+```bash
+# Build the project
+pnpm build
 
-    *   Always start the block with ```mermaid and end it with ```.
+# Run tests
+pnpm test
 
-    *   ```markdown
+# Run a single test file
+pnpm mocha test/commands/default.test.ts
 
-        ```mermaid
+# Lint and format code (uses Biome)
+pnpm lint
 
-          graph TD
+# Verify the --select command works
+pnpm verify-select
+pnpm smoke-test
+```
 
-            A[Start] --> B{Decision};
+### CLI Testing During Development
+```bash
+# Test default command (export latest conversation)
+pnpm default
 
-            B -- Yes --> C[Action 1];
+# Test extract all conversations
+pnpm extract
 
-            B -- No --> D[Action 2];
+# Test interactive search
+pnpm search
 
-        ```
+# Test workspace/conversation selection
+pnpm select
 
-        ```
+# Test file management
+pnpm manage
+```
 
+## Architecture
 
-2.  **Stick to Well-Supported Diagram Types:**
+### Core Components
 
-    *   GitHub generally has good support for the most common types:
+1. **Database Extraction** (`src/db/extract-conversations.ts`)
+   - Handles SQLite database queries from Cursor's internal databases
+   - Supports multiple database formats and schemas
+   - Robust error handling for various conversation data formats
 
-        *   `graph` (Flowcharts - `TD` is often best for readability)
+2. **Command Structure** (`src/commands/`)
+   - Single command implementation in `src/index.ts` using oclif
+   - Flags control different modes: `--extract`, `--search`, `--select`, `--browse`, `--manage`
+   - Each mode has distinct behavior for handling conversations
 
-        *   `sequenceDiagram`
+3. **Type System** (`src/types.ts`)
+   - Defines `Conversation`, `Message`, and database query result types
+   - Handles both legacy and current Cursor database schemas
 
-        *   `classDiagram`
+4. **Utilities** (`src/utils/`)
+   - `config.ts`: User configuration management
+   - `format-conversation.ts`: Markdown formatting for conversations
 
-        *   `stateDiagram-v2` (Prefer v2 for better features/rendering)
+### Key Implementation Details
 
-        *   `erDiagram` (Entity Relationship)
+- **ESM Modules**: Project uses `"type": "module"` with `.js` extensions in imports
+- **Native Dependencies**: `better-sqlite3` requires special handling in pnpm (see README)
+- **Code Style**: 
+  - Biome for formatting (tabs, double quotes)
+  - TypeScript with strict mode
+  - No console.log allowed (use ora spinners or proper error handling)
 
-        *   `pie` (Pie charts)
+### Database Locations
+- macOS: `~/Library/Application Support/Cursor/User/workspaceStorage/`
+- Global conversations: `~/Library/Application Support/Cursor/User/globalStorage/`
+- Each workspace has its own `state.vscdb` SQLite database
 
-        *   `gantt` (Gantt charts)
+### Error Handling Patterns
+- Always check if databases exist before querying
+- Handle both old and new Cursor database schemas
+- Provide helpful error messages for common issues (missing workspace, no conversations)
 
-        *   `mindmap` (Mind Maps - Basic structure only. *See syntax notes below*)
+## Testing Strategy
 
-    *   Avoid extremely new or less common diagram types, as GitHub's Mermaid version might lag slightly behind the latest release.
+- Unit tests for commands using Mocha + Chai
+- Smoke tests for CLI functionality verification
+- Test utilities in `test/utils/` for database operations
+- Mock database responses using Sinon when needed
 
+## Release Process
 
-3.  **Keep Syntax Simple and Standard:**
-
-    *   **Node IDs:** Use simple alphanumeric IDs (e.g., `node1`, `processA`, `userAuth`). Avoid spaces or special characters in IDs.
-
-    *   **Node/Actor/State Labels:** **Use quotes (`"..."`)** for labels, especially if they contain spaces, punctuation, special characters, or Mermaid keywords. This is the most common source of rendering errors.
-
-        *   *Good:* `A["User Input"] --> B["Validate Data"];`
-
-        *   *Bad (potential error):* `A[User Input] --> B[Validate Data];`
-
-    *   **Arrows:** Use standard arrow types (`-->`, `---`, `==>`, `->>`, etc.).
-
-    *   **Comments:** Use `%%` for comments if needed.
-
-
-4.  **Mindmap Specifics for GitHub:**
-
-    *   GitHub **supports the basic `mindmap` structure**, using indentation to define hierarchy (parent/child relationships).
-
-    *   Ensure each node/item is on its **own line** with correct indentation relative to its parent.
-
-    *   GitHub **DOES NOT support** experimental or advanced `mindmap` features like `::icon()` syntax. Using icons **will cause rendering errors**.
-
-    *   Stick to plain text nodes for mind maps intended for GitHub Markdown.
-
-    *   *Correct Example (GitHub compatible):*
-
-        ```mermaid
-
-        mindmap
-
-          Root
-
-            Parent
-
-              Child 1
-
-              Child 2
-
-        ```
-
-    *   *Incorrect Example (GitHub incompatible due to icons):*
-
-        ```mermaid
-
-        mindmap
-
-          Root
-
-            Parent
-
-              ::icon(fa fa-one) Child 1
-
-              ::icon(fa fa-two) Child 2
-
-        ```
-
-
-5.  **Prefer Vertical Layouts (`graph TD`):**
-
-    *   For flowcharts (`graph`), `TD` (Top Down) or `TB` (Top Bottom) usually renders more readably within the flow of a Markdown document than `LR` (Left Right). GitHub often gives diagrams ample width, but vertical flows are easier to follow on typical screens.
-
-
-6.  **Let GitHub Handle the Styling:**
-
-    *   **DO NOT** try to set themes (e.g., `%%{init: {'theme': 'dark'}}%%`) or apply custom styling using `classDef` or `style` *within the Mermaid code*.
-
-    *   GitHub **ignores** these theme directives and applies its own styling based on whether the user is viewing GitHub in light, dark, or dimmed mode. Your diagram will automatically adapt. Trying to force colors or themes will likely just be ignored or look out of place.
-
-
-7.  **Keep Diagrams Focused:**
-
-    *   Avoid overly complex diagrams with excessive nodes, edges, or nesting in a single block. While GitHub *can* render complex ones, they might become hard to read or hit rendering limits. Break down very complex ideas into multiple simpler diagrams if possible.
-
-
-8.  **Test in GitHub Preview:**
-
-    *   Always use GitHub's preview tab when editing your Markdown file to see exactly how the diagram will render. This is the best way to catch syntax errors or unexpected layout issues.
-
-
-9.  **Tooling & Edit Verification Note:**
-
-    *   Automated code editing tools may sometimes struggle to apply changes correctly within Mermaid blocks, especially with complex syntax involving indentation or specific formatting (like the mindmap example above).
-
-    *   **Always carefully review edits** made to Mermaid blocks by automated tools. If errors persist or the diagram doesn't render as expected, manual correction might be necessary.
-
-
-**In short:** Write standard, clearly quoted Mermaid syntax using common diagram types. For mindmaps in GitHub, use only the basic indentation structure (no icons). Prefer `graph TD`. Avoid trying to control the theme/colors yourself. Use the GitHub preview, and double-check automated edits to Mermaid blocks.
+Uses semantic-release for automated versioning and npm publishing. Commits should follow conventional commit format for proper version bumping.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/johnlindquist) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [johnlindquist/cursor-history](https://github.com/johnlindquist/cursor-history) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
