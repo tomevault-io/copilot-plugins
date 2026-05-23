@@ -4,7 +4,7 @@
   "repo": "streamline_project",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/allofmeng/streamline_project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T12:35:22Z"
+  "distributed_at": "2026-05-23T12:40:14Z"
 }
