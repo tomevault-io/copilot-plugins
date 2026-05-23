@@ -17,10 +17,6 @@ Original source: `.cursor/rules/*.mdc` in [neondatabase/neon-auth-nextjs-templat
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [neon-auth](https://github.com/neondatabase/neon-auth-nextjs-template/tree/main/neon-plugin/skills/neon-auth)
-
 From [neondatabase/neon-auth-nextjs-template](https://github.com/neondatabase/neon-auth-nextjs-template) — a repo with 37+ stars on GitHub.
 
 ---
