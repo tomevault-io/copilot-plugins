@@ -163134,6 +163134,11 @@
       "description": "Capacitor plugin to use google tag manager (GMT) natively"
     },
     {
+      "name": "eoic--asciiground",
+      "source": "./eoic--asciiground",
+      "description": "A JavaScript library for creating animated ASCII backgrounds."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173392,6 +173397,36 @@
       "name": "cap-go--capacitor-twilio-voice",
       "source": "./cap-go--capacitor-twilio-voice",
       "description": "Capacitor plugin to create and answer calls with twill voice SDK"
+    },
+    {
+      "name": "mehmetdemircs--repospend",
+      "source": "./mehmetdemircs--repospend",
+      "description": "Local-first dashboard for tracking Codex / AI coding token usage and repo-level cost."
+    },
+    {
+      "name": "mehmetdemircs--repospend",
+      "source": "./mehmetdemircs--repospend",
+      "description": "Local-first dashboard for tracking Codex / AI coding token usage and repo-level cost."
+    },
+    {
+      "name": "malpern--keypath",
+      "source": "./malpern--keypath",
+      "description": "KeyPath"
+    },
+    {
+      "name": "near--near-jsonrpc-client-ts",
+      "source": "./near--near-jsonrpc-client-ts",
+      "description": "near-jsonrpc-client-ts"
+    },
+    {
+      "name": "0x1abin--matter-controller-mcp",
+      "source": "./0x1abin--matter-controller-mcp",
+      "description": "An MCP server for Matter Controller, enabling AI agents to control and interact with Matter devices."
+    },
+    {
+      "name": "malpern--keypath",
+      "source": "./malpern--keypath",
+      "description": "KeyPath"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -278557,6 +278592,56 @@
       "name": "rivarjaol--dcbball",
       "source": "./rivarjaol--dcbball",
       "description": "DCBBALL"
+    },
+    {
+      "name": "bluepapa70--blue-code",
+      "source": "./bluepapa70--blue-code",
+      "description": "blue_code"
+    },
+    {
+      "name": "silvermarcs--swiftx",
+      "source": "./silvermarcs--swiftx",
+      "description": "SwiftX"
+    },
+    {
+      "name": "ajay16bharadwaj--pro-visualize-2-0",
+      "source": "./ajay16bharadwaj--pro-visualize-2-0",
+      "description": "A streamlit based application for Proteomics Visualization - Supports QC, Quantification, Comparative analysis, Pathway analysis, Dilution Series and PTM based visualizations"
+    },
+    {
+      "name": "frlundsten--village-vandals",
+      "source": "./frlundsten--village-vandals",
+      "description": "village-vandals"
+    },
+    {
+      "name": "yoshikouki--jjj",
+      "source": "./yoshikouki--jjj",
+      "description": "jjj"
+    },
+    {
+      "name": "takumiokayasu--takumiokayasu-github-io",
+      "source": "./takumiokayasu--takumiokayasu-github-io",
+      "description": "takumiokayasu.github.io"
+    },
+    {
+      "name": "dralejandroc--mindhub",
+      "source": "./dralejandroc--mindhub",
+      "description": "Mindhub progression built with help of taskmaster-ai "
+    },
+    {
+      "name": "hugoherreracoach--transavic",
+      "source": "./hugoherreracoach--transavic",
+      "description": "transavic"
+    },
+    {
+      "name": "hey738--seoulhiim-dashboard",
+      "source": "./hey738--seoulhiim-dashboard",
+      "description": "seoulhiim-dashboard"
+    },
+    {
+      "name": "lgemc--eliseofoundation-website",
+      "source": "./lgemc--eliseofoundation-website",
+      "description": "Website of a psychology foundation based in Bogot\u00e1."
     }
   ]
 }
