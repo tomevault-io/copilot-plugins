@@ -1,0 +1,9 @@
+{
+  "name": "k4yt3x--bouncer",
+  "displayName": "bouncer",
+  "description": "LLM-powered Telegram bot that verifies and approves group chat join requests by generating and validating topic-based questions",
+  "version": "1.0.0",
+  "author": "k4yt3x",
+  "homepage": "https://github.com/k4yt3x/bouncer",
+  "skills": []
+}
