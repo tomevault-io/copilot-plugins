@@ -1,44 +1,48 @@
-## prd
+## project-overview
 
-> PRD Creator. Use whenever a user wants to create a PRD.
+> description: Overview of the Cursor History (chi) CLI tool, its structure, and key logic.
 
+---
+description: Overview of the Cursor History (chi) CLI tool, its structure, and key logic.
+globs: []
+alwaysApply: true
+---
+# Cursor History (chi) CLI Tool Overview
 
-Create a prd.md file in .cursor/project/prd.md. As the user answers these questions, update the file.
+This CLI tool extracts and manages conversation history from the Cursor AI editor's SQLite databases.
 
-Alright, let's start outlining the technical plan for this project. I'll guide you by asking questions one at a time. Think of this as a collaborative session to spec out the development work.
+## Key Functionality
+- Extracts conversations to markdown files.
+- Filters conversations by the current workspace directory name.
+- Searches conversations interactively.
+- Exports the latest conversation.
 
-Let's begin.
+## Project Structure
+- **Entry Point:** [`src/index.ts`](mdc:src/index.ts) (Uses oclif for command handling)
+- **Core Logic:** [`src/db/extract-conversations.ts`](mdc:src/db/extract-conversations.ts)
+- **Build Output:** `dist/` (Compiled JavaScript)
+- **Executable Script:** [`bin/run.js`](mdc:bin/run.js) (Imports from `dist/` and executes oclif)
+- **Configuration:** [`package.json`](mdc:package.json), [`tsconfig.json`](mdc:tsconfig.json)
 
-**1. Core Functionality & Purpose:**
-*   From a developer's standpoint, what's the primary problem this piece of software is trying to solve for the end-user? And what is the core functionality we need to build to address that?
+## Database Locations (macOS Example)
+- **Global DB:** `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb` (Contains global conversations and workspace metadata links)
+- **Workspace DBs:** `~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/state.vscdb` (Contains workspace-specific settings and conversation composer IDs)
+- **Workspace Metadata:** `~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/workspace.json` (Links workspace hash to folder path)
 
-**2. Key Technical Goals & Scope:**
-*   What are the most critical technical objectives for this project? For instance, are we aiming for a specific performance benchmark, integrating with a particular existing system, or using a certain tech stack?
-*   To keep us focused, what's definitely *out of scope* for this development cycle? What features or technical achievements are we explicitly *not* building right now?
+## Core Logic Flow (Workspace Filtering)
+1.  Get the current directory name (e.g., "my-project").
+2.  The function `getWorkspaceComposerIds` in [`src/db/extract-conversations.ts`](mdc:src/db/extract-conversations.ts) searches `workspaceStorage` by:
+    - Reading each `<hash>/workspace.json`.
+    - Parsing the `folder` URI (e.g., `file:///path/to/my-project`).
+    - Comparing the folder name/path with the current directory name.
+3.  If a match is found, it extracts composer IDs from the corresponding workspace database (`workspaceStorage/<hash>/state.vscdb`).
+4.  **Identified Bug:** The `getConversationsForWorkspace` function *currently* takes these IDs but incorrectly tries to fetch the full conversation data from the **global** DB (`globalStorage/state.vscdb`) instead of the specific **workspace** DB (`workspaceStorage/<hash>/state.vscdb`).
+5.  If no workspace conversations are found (due to the bug or no match), it falls back to the latest conversation in the global DB.
 
-**3. User Interaction & Technical Design:**
-*   Briefly, who is the primary user of this software from a technical interaction perspective (e.g., API consumer, web app user, internal tool user)?
-*   How will users interact with the core features we're building? Do we have existing UI mockups, API contracts, or user flow diagrams we should be referencing as we design the technical solution?
-
-**4. Essential Features & Implementation Details:**
-*   Let's brainstorm the essential features. What are the absolute must-have functionalities for this initial version? We can break these down further. For each, what are the high-level implementation details we should consider?
-
-**5. Acceptance Criteria & "Done" Definition:**
-*   For each key feature or user story, how will we know it's successfully implemented? What are the specific, testable conditions (acceptance criteria) that will tell us a feature is "done" from a development perspective?
-
-**6. Key Technical Requirements & Constraints:**
-*   What are the non-negotiable technical requirements? This could include the target platform (e.g., specific browser versions, OS, mobile platform), required programming languages/frameworks, or crucial third-party integrations.
-*   What about non-functional requirements? What are our targets for performance (e.g., response time), scalability, security, and reliability? Any specific constraints here (e.g., existing infrastructure, budget for services)?
-
-**7. Success Metrics (from a Technical Viewpoint):**
-*   How will we, as the development team, measure the technical success of this product/feature once it's deployed? Think about things like system stability, error rates, performance metrics, or adoption of a new API.
-
-**8. Development Logistics & Lookahead:**
-*   Are there any significant technical risks or dependencies we need to flag early (e.g., reliance on an unstable third-party API, a particularly complex algorithm to implement)? Any initial thoughts on mitigation?
-*   Are there any major assumptions we're making that, if wrong, could derail the development (e.g., availability of a certain dataset, performance of a chosen library)?
-*   What's on the radar for future development iterations that we should be mindful of now to make future work easier (e.g., designing for extensibility in a certain area)?
-
-This structure allows us to tackle one main point at a time. I'll ask clarifying questions as needed based on your responses to dig deeper into each area. Ready to start with the first point?
+## Commands
+- `chi` (default): Tries to export the latest conversation for the current workspace, falls back to global latest.
+- `chi --extract`: Extracts all conversations (currently likely only global due to the bug).
+- `chi --search`: Interactively search conversations.
 
 ---
 > Source: [johnlindquist/cursor-history](https://github.com/johnlindquist/cursor-history) — distributed by [TomeVault](https://tomevault.io).
