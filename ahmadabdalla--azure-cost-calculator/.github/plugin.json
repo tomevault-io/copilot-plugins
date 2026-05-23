@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "ahmadabdalla",
   "homepage": "https://github.com/ahmadabdalla/azure-cost-calculator",
-  "skills": [
-    {
-      "name": "azure-cost-calculator",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
