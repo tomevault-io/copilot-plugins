@@ -3,8 +3,8 @@
   "owner": "getsentry",
   "repo": "XcodeBuildMCP",
   "description": "A Model Context Protocol (MCP) server and CLI that provides tools for agent use when working on iOS and macOS projects.",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,21 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "xcodebuildmcp",
-      "path": "skills/xcodebuildmcp",
-      "github_url": "https://github.com/getsentry/XcodeBuildMCP/tree/main/skills/xcodebuildmcp",
-      "description": ""
-    },
-    {
-      "name": "xcodebuildmcp-cli",
-      "path": "skills/xcodebuildmcp-cli",
-      "github_url": "https://github.com/getsentry/XcodeBuildMCP/tree/main/skills/xcodebuildmcp-cli",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/getsentry/XcodeBuildMCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:32:47Z"
+  "distributed_at": "2026-05-23T09:23:29Z"
 }
