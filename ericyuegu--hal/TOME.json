@@ -4,7 +4,7 @@
   "repo": "hal",
   "description": "Training AI for Super Smash Bros. Melee",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ericyuegu/hal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T01:09:58Z"
+  "distributed_at": "2026-05-23T04:42:05Z"
 }
