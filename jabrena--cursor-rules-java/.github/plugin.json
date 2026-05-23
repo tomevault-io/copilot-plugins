@@ -1,0 +1,26 @@
+{
+  "name": "jabrena--cursor-rules-java",
+  "displayName": "cursor-rules-java",
+  "description": "A curated and opinionated collection of Skills and Agents to be used in modern SDLC workflows for Java Enterprise development with your favorite AI Agent harness.",
+  "version": "1.0.0",
+  "author": "jabrena",
+  "homepage": "https://github.com/jabrena/cursor-rules-java",
+  "skills": [
+    {
+      "name": "200-agents-md",
+      "description": ""
+    },
+    {
+      "name": "003-agents-installation",
+      "description": ""
+    },
+    {
+      "name": "041-planning-plan-mode",
+      "description": ""
+    },
+    {
+      "name": "504-frameworks-micronaut-security",
+      "description": ""
+    }
+  ]
+}
