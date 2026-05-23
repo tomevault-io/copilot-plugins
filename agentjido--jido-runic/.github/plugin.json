@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jido-runic",
+  "displayName": "jido_runic",
+  "description": "Runic workflow integration layer for Jido signal-driven agents.",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido_runic",
+  "skills": []
+}
