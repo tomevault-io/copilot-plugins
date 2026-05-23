@@ -1,10 +1,10 @@
 {
-  "name": "infrahub",
+  "name": "infrahub-mcp",
   "owner": "opsmill",
   "repo": "infrahub-mcp",
   "description": "MCP server for Infrahub",
-  "type": "tome",
-  "source_format": "AGENTS.md",
+  "type": "config",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "neo4j-cypher-guide",
-      "path": "dev/skills/neo4j-cypher-guide",
-      "github_url": "https://github.com/opsmill/infrahub-mcp/tree/main/dev/skills/neo4j-cypher-guide",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/opsmill/infrahub-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T14:31:21Z"
+  "distributed_at": "2026-05-23T08:49:54Z"
 }
