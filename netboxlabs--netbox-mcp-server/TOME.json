@@ -1,0 +1,51 @@
+{
+  "name": "netbox-mcp-server",
+  "owner": "netboxlabs",
+  "repo": "netbox-mcp-server",
+  "description": "Model Context Protocol (MCP) server for read-only interaction with NetBox data in LLMs",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "netbox-mcp-testing",
+      "path": ".claude/skills/netbox-mcp-testing",
+      "github_url": "https://github.com/netboxlabs/netbox-mcp-server/tree/main/.claude/skills/netbox-mcp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/netboxlabs/netbox-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T08:38:54Z"
+}
