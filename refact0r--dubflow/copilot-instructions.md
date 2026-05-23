@@ -1,23 +1,13 @@
-## electron
+## general
 
-> Electron app rules
+> Refer to the /docs/PROJECT.md file for the project context and structure.
 
 
-# Electron app rules
+# General rules
 
-## Frontend
+Refer to the /docs/PROJECT.md file for the project context and structure.
 
-**IMPORTANT: This project uses Svelte 5 with runes syntax. Always use runes ($state, $derived, $effect, etc.) instead of the legacy reactive statements (like `let count = 0` with `$:` statements) and stores.**
-
-When making any edits to any frontend files, refer to the /docs/svelte-documentation-medium.txt file for:
-
-- Svelte 5 syntax and best practices
-- SvelteKit conventions and patterns
-- Component structure and lifecycle
-- State management approaches
-- Routing and navigation
-
-You can also take advantage of the Svelte MCP Server if you need more help.
+Write clean, minimal, modular code.
 
 ---
 > Source: [refact0r/dubflow](https://github.com/refact0r/dubflow) — distributed by [TomeVault](https://tomevault.io).
