@@ -4,7 +4,7 @@
   "repo": "samuel-v1",
   "description": "Minimalist yet powerful AI-assisted development framework. Production-ready CLAUDE.md & AGENTS.md system with 35+ guardrails, 4D methodology, and auto-loading language guides for TypeScript, Python, Go, and Rust.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ar4mirez/samuel-v1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T09:04:44Z"
+  "distributed_at": "2026-05-23T09:14:44Z"
 }
