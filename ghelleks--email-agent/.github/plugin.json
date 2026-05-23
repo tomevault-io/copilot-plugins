@@ -1,0 +1,9 @@
+{
+  "name": "ghelleks--email-agent",
+  "displayName": "email-agent",
+  "description": "A simple Google Apps Script that labels Gmail threads. You can guide it with a rules document in Google Drive, and trigger additional actions with a plug-in agent framework.",
+  "version": "1.0.0",
+  "author": "ghelleks",
+  "homepage": "https://github.com/ghelleks/email-agent",
+  "skills": []
+}
