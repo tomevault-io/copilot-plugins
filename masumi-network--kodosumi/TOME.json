@@ -4,7 +4,7 @@
   "repo": "kodosumi",
   "description": "runtime environment to manage and execute agentic services at scale",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/masumi-network/kodosumi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T00:42:11Z"
+  "distributed_at": "2026-05-23T01:05:11Z"
 }
