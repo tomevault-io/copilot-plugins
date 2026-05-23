@@ -1,0 +1,9 @@
+{
+  "name": "aws-samples--sample-multi-agent-orchestration-chat-on-agentcore",
+  "displayName": "sample-multi-agent-orchestration-chat-on-agentcore",
+  "description": "Build & Share AI agents with your team. Full AgentCore, Full Serverless, Full TypeScript Sample",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-multi-agent-orchestration-chat-on-agentcore",
+  "skills": []
+}
