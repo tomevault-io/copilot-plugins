@@ -1,26 +1,44 @@
-## cli-execution
+## command-execution
 
-> To run the Cursor History (chi) CLI or any of its commands, **ALWAYS USE** the provided scripts in [package.json](mdc:package.json) via `pnpm`:
+> It is crucial to run the **local** version of the `chi` command to test changes made in the workspace, as simply running `pnpm chi` may incorrectly execute a globally installed version if one exists.
 
-# CLI Execution Rule
+# Building and Running the Local `chi` CLI
 
-To run the Cursor History (chi) CLI or any of its commands, **ALWAYS USE** the provided scripts in [package.json](mdc:package.json) via `pnpm`:
+It is crucial to run the **local** version of the `chi` command to test changes made in the workspace, as simply running `pnpm chi` may incorrectly execute a globally installed version if one exists.
 
-- Use `pnpm default` to run the default command
-- Use `pnpm extract` to extract all conversations
-- Use `pnpm search` to search conversations
-- Use any other scripts defined in [package.json](mdc:package.json)
+## Correct Execution Method
 
-**Do NOT run** `node ./bin/run.js` directly. This can cause native module version mismatches with sqlite/better-sqlite3 and break the CLI.
+1.  **Build the Project:** Compile the TypeScript source code into JavaScript.
+    ```bash
+    pnpm build
+    ```
+2.  **Run the Built Script Directly:** Execute the entry point script using `node`. This bypasses any PATH resolution issues.
+    ```bash
+    # From the project root directory
+    node ./bin/run.js [command] [flags]
+    ```
+    *Example:* To run the default command in a specific directory:
+    ```bash
+    cd /path/to/target/directory && node /path/to/cursor-history/bin/run.js
+    ```
 
-> Example:
-> ```sh
-> pnpm default
-> pnpm extract
-> pnpm search
-> ```
+## Alternative (Using npm Scripts)
 
-**Reference:** [package.json](mdc:package.json) for all available scripts.
+The scripts defined in [`package.json`](mdc:package.json) (like `pnpm default`, `pnpm extract`, `pnpm search`) are generally configured to run the local version correctly after a build.
+
+```bash
+pnpm default # Runs the default command using the local build
+```
+
+## Why Avoid `pnpm chi`?
+
+Running `pnpm chi` directly can be unreliable because:
+- Your shell's `PATH` environment variable might find a *globally* installed `chi` (e.g., in `~/Library/pnpm/`) before the one linked by pnpm in the local `node_modules/.bin`.
+- This means you might unknowingly execute an older or different version of the tool, leading to confusing results when testing local changes.
+
+## What about `pnpm exec chi`?
+
+While `pnpm exec chi` *should* explicitly target the local binary in `node_modules/.bin`, direct execution via `node ./bin/run.js` after building is the most guaranteed way to run the exact code from your workspace.
 
 ---
 > Source: [johnlindquist/cursor-history](https://github.com/johnlindquist/cursor-history) — distributed by [TomeVault](https://tomevault.io).
