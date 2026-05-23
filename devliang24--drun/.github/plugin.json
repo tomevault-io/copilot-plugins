@@ -1,0 +1,9 @@
+{
+  "name": "devliang24--drun",
+  "displayName": "drun",
+  "description": "Declarative HTTP API testing framework: handling verification, orchestration, and reporting in YAML.",
+  "version": "1.0.0",
+  "author": "Devliang24",
+  "homepage": "https://github.com/Devliang24/drun",
+  "skills": []
+}
