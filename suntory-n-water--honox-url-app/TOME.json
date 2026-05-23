@@ -1,0 +1,44 @@
+{
+  "name": "honox-url-app",
+  "owner": "Suntory-N-Water",
+  "repo": "honox-url-app",
+  "description": "honox\u3067\u4f5c\u6210\u3057\u305f\u77ed\u7e2eURL\u751f\u6210\u30b5\u30fc\u30d3\u30b9",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Suntory-N-Water/honox-url-app",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T03:06:39Z"
+}
