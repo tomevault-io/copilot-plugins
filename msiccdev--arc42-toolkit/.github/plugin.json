@@ -1,0 +1,9 @@
+{
+  "name": "msiccdev--arc42-toolkit",
+  "displayName": "arc42-toolkit",
+  "description": "A collection of instructions and prompts to utilize LLMs for creating  documentation that follow the arc42 standard.",
+  "version": "1.0.0",
+  "author": "MSiccDev",
+  "homepage": "https://github.com/MSiccDev/arc42-toolkit",
+  "skills": []
+}
