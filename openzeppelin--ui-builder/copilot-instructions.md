@@ -1,99 +1,118 @@
-## core-package
+## form-styling-standards
 
-> Use this rules set if you are working directly on the app package functionality or need to learn more about the builder app package.
+> Use this rule when you are building any form UI.
 
 
-# UI Builder: App Package Rules (@app)
+# Form Styling Standards
 
-## 1. Overview
+This document outlines the essential styling patterns for forms in the UI Builder application.
 
-**Purpose:** The `packages/builder` package (`@openzeppelin/ui-builder-app`) is the main application hub for the UI Builder. It encompasses the primary user interface for constructing forms, the central **chain‑agnostic** logic, and the export system that generates standalone, runnable web application projects.
+## Core Principles
 
-**Key Role:** Acts as the orchestrator, integrating functionalities from `@openzeppelin/ui-builder-renderer`, `@openzeppelin/ui-builder-styles`, `@openzeppelin/ui-builder-react-core`, and the various adapter packages (e.g., `@openzeppelin/ui-builder-adapter-evm`). It manages the application state (e.g., the multi‑step builder wizard) and delivers the primary user‑facing experience and export capabilities.
+- Use shadcn/ui components for all form elements
+- Maintain consistent spacing: `gap-2` between label and input, `space-y-4` between fields, `space-y-6` between sections
+- Always use the shadcn/ui `Label` component for labels
 
-## 2. Core Functionality
+```tsx
+// ✅ Correct
+<Label htmlFor="field-id">Field Label</Label>
 
-- **Form Builder UI:** (`src/components/UIBuilder/`) Contains the multi‑step wizard and components allowing users to select a blockchain/contract/function, customize generated form fields (labels, validation, visibility), and preview the form in real time using the renderer package.
-- **Chain‑Agnostic Core:** (`src/core/`) Houses foundational logic independent of specific blockchains. This includes:
-  - Shared TypeScript types live in `@openzeppelin/ui-builder-types` (single source of truth). The `ContractAdapter` interface is defined at `packages/types/src/adapters/base.ts` and implemented by adapter packages.
-  - Utility functions: Prefer `@openzeppelin/ui-builder-utils` (e.g., `logger`, `AppConfigService`, `cn`) over ad‑hoc implementations.
-  - Reusable React providers/hooks are in `@openzeppelin/ui-builder-react-core`; component‑specific hooks reside with their components.
-- **Export System:** (`src/export/`) Generates a complete, standalone React + Vite project from the user's configuration. Includes:
-  - `AdapterConfigLoader`: Loads adapter‑specific configuration for export.
-  - `TemplateManager`: Manages base project templates (e.g., `typescript-react-vite`) under `src/export/templates/`.
-  - `FormCodeGenerator` & `TemplateProcessor`: Use templates in `src/export/codeTemplates/` and the render schema to create app code.
-  - `PackageManager`: Resolves runtime/dev dependencies for the exported project based on template, adapter, and fields.
-  - `StyleManager`: Ensures required styling and theme files are included.
-  - `ZipGenerator`: Produces a downloadable `.zip` using `jszip`, entirely in the browser.
-  - `cli/`: Export CLI at `src/export/cli/export-app.cjs`; use via `pnpm export-app export`.
+// ❌ Incorrect
+<label htmlFor="field-id">Field Label</label>
+```
 
-## 3. Architecture
+## Standard Patterns
 
-- **Monorepo Context:** Situated within the `ui-builder` pnpm monorepo. It is governed by root configurations (ESLint, Prettier, TypeScript, Vitest).
-- **Package Dependencies:**
-  - Consumes `@openzeppelin/ui-builder-renderer` for displaying form previews and as a core dependency in exported projects.
-  - Consumes `@openzeppelin/ui-builder-styles` for the base theme and styles.
-  - Consumes various `@openzeppelin/ui-builder-adapter-*` packages for blockchain‑specific functionality.
-  - Consumes `@openzeppelin/ui-builder-react-core` for shared providers/hooks and context.
-- **Adapter Pattern:** This is a foundational design principle. The `ContractAdapter` interface is defined in `packages/types/src/adapters/base.ts`, but the concrete implementations reside in separate packages (e.g., `@openzeppelin/ui-builder-adapter-evm`). These external adapters _must_ strictly adhere to the `ContractAdapter` interface contract. Compliance is verified by the `lint:adapters` script and CI pipeline.
-- **Styling:**
-  - Imports base styles and CSS variables from `@styles/global.css`.
-  - Leverages Tailwind utility classes extensively for component styling.
-  - Consumes centralized root configs (`tailwind.config.cjs`, `postcss.config.cjs`, `components.json`) via lightweight JS proxy files. **Does not** define its own theme; it inherits the centralized theme.
-- **State Management:** Primarily relies on standard React Hooks (`useState`, `useReducer`, `useContext`). The Context API is used for managing state across the multi-step form builder wizard.
-  - **State Management:** Uses modular React hooks and providers (see `@openzeppelin/ui-builder-react-core` for adapter/wallet context) and focused builder hooks under `src/components/UIBuilder/hooks` for the multi-step wizard.
-  - **Export System Flow:** User Interaction -> UI State (`BuilderFormConfig`) -> `FormSchemaFactory` (using an external Adapter) -> Render schema -> `AppExportSystem` (orchestrates `AppCodeGenerator`, `TemplateManager`, `PackageManager`, `StyleManager`) -> `ZipGenerator` -> Download.
-  - **Vite Build & Plugins:** Uses Vite for the development server and production builds (`vite.config.ts`). The builder defines virtual modules to reliably load cross‑package assets/config and uses `import.meta.glob` for template discovery.
+### Standard Form Fields
 
-## 4. Coding Guidelines & Conventions
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="field-id">Field Label</Label>
+  <Input id="field-id" />
+</div>
+```
 
-- **General:** Strictly adhere to all root-level project guidelines: Conventional Commits (`pnpm commit`), ESLint/Prettier (`pnpm fix-all`), and TypeScript best practices. Consult the root `README.md` and `tech-stack-rule.mdc`.
-- **TypeScript:**
-  - Utilize shared types from `@openzeppelin/ui-builder-types` and local builder types under `packages/builder/src/**` where applicable.
-  - Use project path aliases (e.g., `@/` for `packages/builder/src`) and package namespaces like `@openzeppelin/ui-builder-renderer` and `@styles/`.
-- **React:**
-  - Use functional components and hooks. Extract complex, reusable logic into providers/hooks within `@openzeppelin/ui-builder-react-core` or local utilities.
-- **Adapter Development:**
-  - Adapter development occurs in separate `packages/adapter-*` directories.
-  - Adapters must rigorously implement every method and property from the `ContractAdapter` interface (from `packages/types`). All blockchain‑specific logic (API calls, type mapping, validation) must reside within its dedicated adapter package.
-- **Export System (`src/export/`):**
-  - Maintain clear boundaries between the different managers and generators.
-  - Use `.template.tsx` files in `src/export/codeTemplates/` for code generation. Avoid hardcoding large code blocks as strings.
-- **Styling:**
-  - Apply styles primarily using Tailwind utility classes.
-  - Use `shadcn/ui` components from `@/components/ui`.
-  - Do not create standalone `.css` files for components. Rely on utilities and the central theme. Use the `cn` utility for conditional classes.
-- **Testing (`src/test/`, `__tests__`):**
-  - Write comprehensive tests using Vitest. Utilize React Testing Library for component testing.
-  - Thoroughly test core utilities, factories (`FormSchemaFactory`), and the entire export system flow.
-  - Use mocks to isolate units and simulate external adapter behavior.
+### Checkbox Fields
 
-## 5. Key Files & Directories (within `packages/builder`)
+```tsx
+<div className="flex items-center space-x-2">
+  <Checkbox id="checkbox-id" />
+  <Label htmlFor="checkbox-id">Checkbox Label</Label>
+</div>
+```
 
-- `src/App.tsx`: Main application component, handles routing and layout for the builder wizard.
-- `src/main.tsx`: Root application entry point.
-- `src/index.css`: Imports base styles to apply the centralized theme.
-- ContractAdapter interface (reference): `packages/types/src/adapters/base.ts`.
-- `src/core/ecosystems/*`: Ecosystem/adapter registry and dynamic loading.
-- `src/core/**`: Core logic for configuration, schema utilities, and orchestration.
-- `src/export/`: Parent directory for all export-related logic.
-  - `FormExportSystem.ts`: Orchestrates the entire project export flow.
-  - `FormCodeGenerator.ts`: Generates the form component code.
-  - `TemplateManager.ts`: Manages the base project templates.
-  - `PackageManager.ts`: Manages dependencies for the exported project.
-  - `StyleManager.ts`: Manages styles for the exported project.
-  - `ZipGenerator.ts`: Creates the final ZIP file.
-  - `AdapterConfigLoader.ts`: Loads adapter-specific configurations.
-- `vite.config.ts`: Primary Vite configuration.
-- `vitest.config.ts`: Primary Vitest configuration.
+### Field Groups
 
-## 6. Dependencies & Build
+```tsx
+<div className="space-y-4">{/* Individual form fields go here */}</div>
+```
 
-- **Key Runtime Dependencies:** `react`, `react-dom`, `react-hook-form`, `jszip`, `@openzeppelin/ui-builder-renderer`, `@openzeppelin/ui-builder-styles`, `@openzeppelin/ui-builder-react-core`, and various `@openzeppelin/ui-builder-adapter-*` packages.
-- **Key Dev Dependencies:** `vite`, `typescript`, `@vitejs/plugin-react`, `tailwindcss`, `vitest`, `@testing-library/react`, `eslint`.
-- **Build Process:** `pnpm --filter @openzeppelin/ui-builder-app build` executes `vite build`.
-- **Development Server:** `pnpm --filter @openzeppelin/ui-builder-app dev` executes `vite`.
-- **Testing:** `pnpm --filter @openzeppelin/ui-builder-app test` executes `vitest run`.
+### Form Actions
+
+```tsx
+<div className="flex justify-end gap-2">
+  <Button variant="outline">Cancel</Button>
+  <Button type="submit">Submit</Button>
+</div>
+```
+
+## Required Field Marking
+
+```tsx
+<Label htmlFor="email">
+  Email <span className="text-red-500">*</span>
+</Label>
+```
+
+## Form Layouts
+
+### Standard Vertical Layout
+
+```tsx
+<form className="space-y-6">
+  <div className="space-y-4">{/* Form fields */}</div>
+  <div className="flex justify-end">
+    <Button type="submit">Submit</Button>
+  </div>
+</form>
+```
+
+### Multi-Column Layout
+
+```tsx
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2">{/* Form fields in columns */}</div>
+```
+
+## Error Handling
+
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="email">Email</Label>
+  <Input id="email" aria-invalid={errors.email ? 'true' : 'false'} />
+  {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
+</div>
+```
+
+## CSS Classes Quick Reference
+
+| Class                         | Purpose                                                        |
+| ----------------------------- | -------------------------------------------------------------- |
+| `flex flex-col gap-2`         | Container for label + input pairs with vertical spacing        |
+| `space-y-4`                   | Spacing between form fields                                    |
+| `space-y-6`                   | Spacing between form sections                                  |
+| `flex items-center space-x-2` | Container for checkbox/radio + label with horizontal alignment |
+| `flex justify-end gap-2`      | Standard form actions container                                |
+
+## Key Implementation Guidelines
+
+1. **Use Label Component** - Always use the shadcn/ui `Label` component
+2. **Consistent Spacing** - Use `gap-2` between label and input, `space-y-4` between fields
+3. **Logical Grouping** - Group related fields with `space-y-4` containers
+4. **Accessibility First** - Include proper `htmlFor`, `aria-invalid`, and other accessibility attributes
+5. **Error States** - Display errors directly below the relevant field
+6. **Required Fields** - Mark required fields with red asterisk (\*) and `aria-required="true"`
+7. **Button Alignment** - Align form action buttons based on context (right-aligned for standard forms)
+8. **Responsive Design** - Use responsive utilities like `md:grid-cols-2` for different screen sizes
 
 ---
 > Source: [OpenZeppelin/ui-builder](https://github.com/OpenZeppelin/ui-builder) — distributed by [TomeVault](https://tomevault.io).
