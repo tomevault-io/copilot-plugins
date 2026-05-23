@@ -1,0 +1,9 @@
+{
+  "name": "rms80--video-vision",
+  "displayName": "video_vision",
+  "description": "a front-end for running (local) Vision models on videos",
+  "version": "1.0.0",
+  "author": "rms80",
+  "homepage": "https://github.com/rms80/video_vision",
+  "skills": []
+}
