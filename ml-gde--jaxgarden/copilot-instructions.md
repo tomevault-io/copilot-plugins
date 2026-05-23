@@ -1,271 +1,272 @@
-## jaxgarden
+## attention-mechanism-multiheadattention-dot-product-attention
 
-> description: Details the jaxgarden LlamaForCausalLM model for causal language modeling, covering architecture, components, and HF weight conversion.
+> description: jaxgarden tutorial chapter on Attention Mechanism MultiHeadAttention module using customizable dot_product_attention backend (XLA/cuDNN Flash).
 
 ---
-description: Details the jaxgarden LlamaForCausalLM model for causal language modeling, covering architecture, components, and HF weight conversion.
-globs: jaxgarden/models/llama.py
+description: jaxgarden tutorial chapter on Attention Mechanism MultiHeadAttention module using customizable dot_product_attention backend (XLA/cuDNN Flash).
+globs: 
 alwaysApply: false
 ---
-# Chapter 4: LlamaForCausalLM
+# Chapter 7: Attention Mechanism (MultiHeadAttention / dot_product_attention)
 
-In the [previous chapter](baseconfig.mdc), we examined `BaseConfig`, the foundation for configuring models in `jaxgarden`. We saw how model-specific configurations like `LlamaConfig` inherit from it to define hyperparameters. Now, we dive into the complete model implementation that uses this configuration: `LlamaForCausalLM`.
+In the previous chapters, we explored end-to-end models like [LlamaForCausalLM](llamaforcausallm.mdc) and [ModernBERTForMaskedLM](modernbertformaskedlm.mdc). We saw that a key component within their transformer layers is the attention mechanism (e.g., `LlamaAttention`, `ModernBertAttention`). This chapter delves into the core implementation of attention within `jaxgarden`, specifically the `MultiHeadAttention` module and the underlying `dot_product_attention` function.
 
-**Motivation:** Large language models like Meta's Llama have demonstrated remarkable capabilities in natural language understanding and generation. Implementing such complex architectures efficiently within the JAX ecosystem requires careful integration of various components (attention mechanisms, normalization layers, embeddings) and adherence to best practices for performance and state management. `LlamaForCausalLM` provides a faithful and optimized implementation of the Llama architecture, ready for training and inference using JAX and Flax NNX.
+**Motivation:** Attention mechanisms, particularly scaled dot-product attention and its multi-head variant, are the computational heart of transformer models. Implementing this efficiently is critical for performance. Furthermore, modern hardware and libraries offer highly optimized kernels like Flash Attention (accessible via cuDNN in JAX) that can significantly speed up computation and reduce memory usage, especially for long sequences. `jaxgarden` aims to provide a flexible attention implementation that leverages these optimizations while integrating smoothly with the Flax NNX framework.
 
-**Central Use Case:** Loading pretrained Llama weights (e.g., from Hugging Face Hub) into a `jaxgarden.LlamaForCausalLM` instance and using it for autoregressive text generation. This involves initializing the model with the correct `LlamaConfig`, leveraging the `from_hf` method inherited from [BaseModel](basemodel.mdc) for weight conversion, and then using the `generate` method from the [GenerationMixin](generationmixin.mdc) for text synthesis.
+**Central Use Case:** Building or utilizing a transformer layer within `jaxgarden` that requires efficient multi-head self-attention. This involves instantiating `jaxgarden.attention.MultiHeadAttention` (often within a higher-level layer like `LlamaAttention`) and potentially configuring it to use an optimized backend like `"cudnn"` to enable Flash Attention on compatible hardware, thereby accelerating model training and inference.
 
 ## Key Concepts
 
-`LlamaForCausalLM` integrates several advanced transformer components into a cohesive causal language model:
+1.  **Scaled Dot-Product Attention:** The fundamental operation defined as `Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V`. It calculates attention scores by taking the dot product between queries (Q) and keys (K), scaling them, applying a softmax function to get probabilities, and then using these probabilities to compute a weighted sum of the values (V).
+2.  **Multi-Head Attention (MHA):** Instead of performing a single attention calculation, MHA projects the Q, K, and V inputs into multiple lower-dimensional "heads", performs scaled dot-product attention independently for each head in parallel, and then concatenates the results and projects them back to the original dimension. This allows the model to jointly attend to information from different representation subspaces at different positions.
+3.  **`dot_product_attention` (Functional Interface):** Located in `jaxgarden.functional.attention`, this function provides the low-level implementation of scaled dot-product attention. It's a wrapper around `jax.nn.dot_product_attention`.
+    *   **Core Logic:** Handles the matrix multiplications, scaling, and softmax.
+    *   **Masking/Bias:** Accepts an optional `mask` or `bias` argument. It automatically converts a boolean mask (where `True` means keep) into an additive bias (0.0 for keep, -inf for mask out) suitable for the underlying JAX function.
+    *   **Backend Selection:** Crucially, it accepts an `implementation` argument (`"xla"`, `"cudnn"`, `"flash"` or `None`). This allows specifying which JAX backend implementation to use for the attention computation. `"cudnn"` (aliased as `"flash"`) attempts to use optimized kernels like Flash Attention if supported by the hardware (NVIDIA GPU) and cuDNN version. `None` lets JAX choose the best available option.
+4.  **`MultiHeadAttention` (NNX Module):** Located in `jaxgarden.attention.multi_head_attention`, this module provides a standard Flax NNX interface for multi-head attention.
+    *   **Inheritance:** It subclasses the standard `flax.nnx.MultiHeadAttention`.
+    *   **Integration:** It overrides the default `attention_fn` used by the parent Flax MHA. Instead of using Flax's default attention, it uses a customized function that internally calls `jaxgarden.functional.dot_product_attention`, passing along the desired `implementation` backend specified during the `jaxgarden.MultiHeadAttention` initialization.
+    *   **Responsibilities:** Manages the multiple heads, input/output linear projections (for Q, K, V and the final output), dropout, and precision settings, encapsulating the full MHA logic.
 
-1.  **Core Structure:** It inherits from [BaseModel](basemodel.mdc) for configuration, state management, and HF integration capabilities, and from [GenerationMixin](generationmixin.mdc) for text generation methods.
-2.  **Token Embeddings (`nnx.Embed`):** Maps input token IDs from a vocabulary to dense vector representations (hidden states).
-3.  **`LlamaTransformerBlock`:** The main building block, repeated multiple times (`n_layers` specified in `LlamaConfig`). Each block contains:
-    *   **`LlamaRMSNorm` (Pre-Normalization):** Applied before the attention and MLP layers for improved training stability. RMSNorm is a simpler and often faster alternative to LayerNorm.
-    *   **`LlamaAttention`:** Implements multi-head self-attention. It incorporates [Rotary Position Embeddings (RoPE)](rotary_position_embeddings__rope_.mdc) via `LlamaRotaryEmbedding` to inject positional information dynamically. It also supports Grouped Query Attention (GQA) where the number of key/value heads (`n_kv_heads`) can be smaller than the number of query heads (`n_heads`) for reduced computational cost and memory footprint, particularly during inference.
-    *   **`LlamaMLP`:** A feed-forward network using the SwiGLU activation function (`silu(gate(x)) * up(x)`), which has shown strong performance in recent models.
-4.  **Final Normalization & LM Head:** After the last `LlamaTransformerBlock`, a final `LlamaRMSNorm` is applied. The output is then passed through a linear layer (`lm_head`) that projects the final hidden state back to the vocabulary size, producing logits for the next token prediction.
-5.  **Weight Tying:** The weights of the `lm_head` are typically tied to the weights of the `token_embed` layer. This reduces the total number of parameters and can improve performance. This tying is handled during weight initialization and conversion.
-6.  **HF Weight Conversion (`convert_weights_from_hf`):** Implements the logic to map parameter names and shapes from Hugging Face Llama checkpoints (stored in Safetensors format) to the specific structure and naming convention of the `jaxgarden` `LlamaForCausalLM` state.
-7.  **Text Generation:** Inherits the `generate` method from [GenerationMixin](generationmixin.mdc), enabling autoregressive text generation with sampling strategies like temperature, top-k, and top-p.
+## Using the Attention Mechanism
 
-## Using `LlamaForCausalLM`
+While `dot_product_attention` is a functional component usually called internally, `MultiHeadAttention` is the module you would typically interact with if building custom transformer layers. Higher-level models like `LlamaForCausalLM` use specialized attention modules (`LlamaAttention`) which themselves *might* use `jaxgarden.MultiHeadAttention` or implement similar logic incorporating `dot_product_attention`.
 
-Let's see how to initialize, load weights, and use the model.
-
-### Initialization
-
-First, define the configuration (`LlamaConfig`) and instantiate the model using `nnx.Rngs`.
+Here's how you could instantiate and use `jaxgarden.MultiHeadAttention`:
 
 ```python
 import jax
 import jax.numpy as jnp
-from flax import nnx
-from jaxgarden.models.llama import LlamaConfig, LlamaForCausalLM
+import flax.nnx as nnx
+from jaxgarden.attention import MultiHeadAttention # This is jaxgarden's MHA
 
-# Example: Configuration for a small Llama model
-config = LlamaConfig(
-    dim=512,
-    n_layers=4,
-    n_heads=8,
-    n_kv_heads=4, # GQA enabled (n_kv_heads < n_heads)
-    head_dim=64,
-    intermediate_size=1024,
-    vocab_size=10000, # Example vocabulary size
-    norm_eps=1e-5,
-    rope_theta=10000.0
+# --- Configuration ---
+batch_size = 2
+seq_len = 128
+hidden_dim = 256 # Also in_features
+num_heads = 8
+dropout_rate = 0.1
+# Choose the backend: "xla", "cudnn" (Flash), or None (auto)
+attention_implementation = "cudnn" # Try to use Flash Attention
+
+# --- Initialization ---
+rngs = nnx.Rngs(0)
+mha_layer = MultiHeadAttention(
+    num_heads=num_heads,
+    in_features=hidden_dim,
+    dropout_rate=dropout_rate,
+    implementation=attention_implementation, # Key argument!
+    deterministic=False, # Apply dropout during training
+    rngs=rngs,
+    param_dtype=jnp.float32 # Specify parameter dtype
 )
 
-# Initialize PRNG keys
-rngs = nnx.Rngs(params=0) # Or use more sophisticated key management
+# --- Dummy Input ---
+key = jax.random.PRNGKey(1)
+# query, key, value can be the same for self-attention
+x = jax.random.normal(key, (batch_size, seq_len, hidden_dim))
 
-# Instantiate the model
-model = LlamaForCausalLM(config, rngs=rngs, param_dtype=jnp.bfloat16)
+# Optional: Create a causal mask (for autoregressive models)
+# Mask shape: [batch_size, num_heads, q_len, kv_len] or broadcastable
+causal_mask_bool = jnp.tril(jnp.ones((1, 1, seq_len, seq_len), dtype=bool))
 
-print(f"Initialized LlamaForCausalLM with {config.n_layers} layers.")
-# Output: Initialized LlamaForCausalLM with 4 layers.
-```
-**Explanation:** We create a `LlamaConfig` dataclass instance, specifying the architecture details. We then pass this config and an `nnx.Rngs` object to the `LlamaForCausalLM` constructor. `param_dtype=jnp.bfloat16` is often used for large models to save memory.
-
-### Loading Pretrained Weights
-
-To load weights from a Hugging Face checkpoint (assuming you have one compatible, e.g., `"meta-llama/Llama-2-7b-hf"`), use the `from_hf` method.
-
-```python
-# hf_model_id = "meta-llama/Llama-2-7b-hf" # Example HF model ID
-# print(f"Attempting to load weights from {hf_model_id}...")
-# try:
-#     # Ensure config matches the HF model being loaded
-#     # config_hf = LlamaConfig(...) # Load/define config matching the HF model
-#     # model_hf = LlamaForCausalLM(config_hf, rngs=nnx.Rngs(1), param_dtype=jnp.bfloat16)
-#     # model_hf.from_hf(hf_model_id, save_in_orbax=False, remove_hf_after_conversion=True)
-#     # print("Weights loaded successfully.")
-# except Exception as e:
-#     # print(f"Skipping HF weight loading example due to error: {e}")
-#     pass
-print("Skipping actual HF weight loading execution.")
-```
-**Explanation:** Calling `model.from_hf(hf_model_id)` triggers the download (via `BaseModel.download_from_hf`), weight iteration (`BaseModel.iter_safetensors`), and crucially, the conversion logic defined in `LlamaForCausalLM.convert_weights_from_hf`. The model's state is updated in place with the loaded weights. Ensure the `LlamaConfig` used to initialize the model matches the architecture of the Hugging Face checkpoint.
-
-### Forward Pass (`__call__`)
-
-The `__call__` method performs a standard forward pass, taking token IDs and an optional attention mask, and returning logits.
-
-```python
-# Prepare dummy input (Batch size 1, sequence length 10)
-batch_size = 1
-seq_len = 10
-dummy_input_ids = jnp.ones((batch_size, seq_len), dtype=jnp.int32)
-dummy_attention_mask = jnp.ones((batch_size, seq_len), dtype=jnp.int32) # 1s indicate valid tokens
-
-# Perform forward pass
-# Note: Actual model execution requires JIT compilation or running on device
+# --- Forward Pass ---
+# JIT compilation is recommended for performance
 @jax.jit
-def forward_pass(model_state, input_ids, attention_mask):
-    # Need to split model for JIT
-    graphdef, params = nnx.split(model, nnx.Param, ...)
-    logits = graphdef(input_ids=input_ids, attention_mask=attention_mask)
-    return logits
+def apply_mha(layer_state, input_tensor, mask_tensor):
+    graphdef, params = nnx.split(mha_layer, nnx.Param, ...) # Simplified split
+    output = graphdef(input_tensor, mask=mask_tensor) # Pass mask here
+    return output
 
-# We won't execute the JITted function here, just show the structure
-# logits = forward_pass(model.state, dummy_input_ids, dummy_attention_mask)
-# print(f"Output logits shape: (batch_size, seq_len, vocab_size) = {logits.shape}")
-# Expected output shape if run: (1, 10, 10000)
-print(f"Expected output logits shape: ({batch_size}, {seq_len}, {config.vocab_size})")
-# Output: Expected output logits shape: (1, 10, 10000)
+# output = apply_mha(mha_layer.state, x, causal_mask_bool)
+# print(f"Output shape: {output.shape}")
+# Expected output shape if run: (2, 128, 256) [batch, seq_len, hidden_dim]
+print(f"Expected output shape: ({batch_size}, {seq_len}, {hidden_dim})")
 ```
-**Explanation:** The `__call__` method expects `input_ids` (shape `[batch_size, seq_len]`) and an optional `attention_mask` (same shape, 1 for real tokens, 0 for padding). It returns logits (shape `[batch_size, seq_len, vocab_size]`). For performance, the forward pass is typically JIT-compiled. Note that the current implementation asserts `batch_size == 1`.
 
-### Text Generation (`generate`)
+**Explanation:**
+- We import `jaxgarden.attention.MultiHeadAttention`.
+- During initialization, we provide standard MHA parameters (`num_heads`, `in_features`) and crucially, the `implementation` argument set to `"cudnn"` to request Flash Attention. We also set `deterministic=False` to enable dropout (useful during training).
+- We create dummy input `x`. For self-attention, the same `x` is used implicitly for query, key, and value by the underlying Flax MHA logic.
+- We create an optional `causal_mask_bool` (a lower triangular matrix for autoregressive tasks). This boolean mask will be automatically converted to an additive bias by `dot_product_attention`.
+- The forward pass applies the layer to the input `x` and the `mask`.
+- The output shape matches the input shape `[batch_size, seq_len, hidden_dim]`.
 
-Use the inherited `generate` method for autoregressive text generation.
-
-```python
-from jaxgarden.tokenization import Tokenizer # Assuming Tokenizer is available
-
-# Assume 'model' is initialized and potentially loaded with weights
-# Assume 'tokenizer' is loaded, e.g., Tokenizer.from_pretrained("meta-llama/Llama-2-7b-hf")
-
-prompt = "The capital of France is"
-# encoded_prompt = tokenizer.encode(prompt, return_tensors="jax")
-# input_ids = encoded_prompt['input_ids']
-# attention_mask = encoded_prompt['attention_mask']
-
-# # Set generation parameters
-# max_new_tokens = 10
-# target_max_length = input_ids.shape[1] + max_new_tokens
-
-# # Generate text (requires JIT or device execution)
-# generation_rng = jax.random.PRNGKey(42)
-# # output_ids = model.generate(
-# #     input_ids,
-# #     attention_mask=attention_mask,
-# #     max_length=target_max_length,
-# #     temperature=0.7,
-# #     top_k=50,
-# #     do_sample=True,
-# #     pad_token_id=tokenizer.pad_token_id,
-# #     eos_token_id=tokenizer.eos_token_id,
-# #     rng=generation_rng,
-# #     use_jit=True # Recommended for performance
-# # )
-
-# # Decode the output
-# # decoded_output = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-# # print(f"Prompt: {prompt}")
-# # print(f"Generated Text: {decoded_output}")
-# Expected Output (conceptual):
-# Prompt: The capital of France is
-# Generated Text: The capital of France is Paris. It is known for...
-print("Skipping actual text generation execution.")
-```
-**Explanation:** We encode a prompt using the [Tokenizer](tokenizer.mdc). The resulting `input_ids` and `attention_mask` are passed to `model.generate`, along with generation parameters (`max_length`, `temperature`, `top_k`, `do_sample`, etc.) and token IDs for padding and end-of-sequence. The `generate` method (detailed in [GenerationMixin](generationmixin.mdc)) handles the autoregressive sampling loop. The output token IDs are then decoded back into text. Using `use_jit=True` is highly recommended for efficient generation.
+**Note:** You typically wouldn't use `jaxgarden.functional.dot_product_attention` directly unless you are building a completely custom attention mechanism from scratch. It's designed to be the workhorse *inside* modules like `jaxgarden.MultiHeadAttention`.
 
 ## Internal Implementation
 
-Understanding the internal structure helps in debugging and potential extensions.
+Let's look at how these two components work together.
 
-*   **File:** `jaxgarden/models/llama.py`
+### 1. `dot_product_attention` (Functional)
 
+*   **File:** `jaxgarden/functional/attention.py`
+
+**Walkthrough:**
+1.  Receives query, key, value tensors, and optional `bias`, `mask`, `dropout_rng`, `deterministic`, `implementation` parameters.
+2.  Maps `"flash"` implementation alias to `"cudnn"`.
+3.  Checks if a boolean `mask` is provided. If yes, it converts the mask into an additive `bias` (0.0 where mask is True, -1e10 where mask is False). If a `bias` was *also* provided, it combines them. This ensures compatibility with `jax.nn.dot_product_attention` which primarily uses additive bias.
+4.  Calls `jax.nn.dot_product_attention`, passing through the Q, K, V, prepared bias, and importantly, the `implementation` string (`"xla"` or `"cudnn"`). It uses default JAX scaling and lets the JAX function handle dropout internally if `dropout_rng` and `dropout_rate` are passed.
+5.  Returns the resulting attention output tensor.
+
+```python
+# Simplified from jaxgarden/functional/attention.py
+from typing import Literal
+import jax
+import jax.numpy as jnp
+
+def dot_product_attention(
+    query: jnp.ndarray,
+    key: jnp.ndarray,
+    value: jnp.ndarray,
+    bias: jnp.ndarray | None = None,
+    mask: jnp.ndarray | None = None, # Boolean mask
+    # ... other args: dropout_rng, dropout_rate, deterministic, dtype, precision ...
+    implementation: Literal["xla", "cudnn", "flash"] | None = None,
+    # ... module arg (unused in JAX implementation) ...
+) -> jnp.ndarray:
+
+    if implementation == "flash":
+        implementation = "cudnn"
+
+    # Convert boolean mask to additive bias if needed
+    if mask is not None:
+        if bias is None:
+            # Where mask is True (keep), bias is 0.0. Where False (mask out), bias is -inf.
+            bias = jnp.where(mask, 0.0, -1e10)
+        else:
+            # Combine existing bias with mask
+            bias = jnp.where(mask, bias, -1e10)
+
+    # *** Core Call ***
+    # Pass arguments to the underlying JAX implementation
+    # Note: JAX handles dropout internally based on rng/rate/deterministic
+    output = jax.nn.dot_product_attention(
+        query=query,
+        key=key,
+        value=value,
+        bias=bias, # Pass the processed additive bias
+        # dropout_rng=dropout_rng, # Pass through dropout args
+        # dropout_rate=dropout_rate,
+        # deterministic=deterministic,
+        scale=None,  # Use default sqrt(dk) scaling
+        is_causal=False, # We handle causal masking via bias/mask arg
+        implementation=implementation # Specify backend
+    )
+    return output
+```
+
+### 2. `MultiHeadAttention` (Module)
+
+*   **File:** `jaxgarden/attention/multi_head_attention.py`
+
+**Walkthrough:**
 1.  **Initialization (`__init__`)**:
-    *   Calls `super().__init__` from [BaseModel](basemodel.mdc).
-    *   Initializes `self.token_embed` as an `nnx.Embed` layer.
-    *   Creates a list of `LlamaTransformerBlock` instances (`self.layers`), passing the configuration and layer index to each.
-    *   Initializes the final `self.norm` as a `LlamaRMSNorm` layer.
-    *   Initializes `self.lm_head` as an `nnx.Linear` layer. Weight tying with `self.token_embed` happens implicitly during weight loading/conversion (in `convert_weights_from_hf`) or potentially during custom initialization logic not shown here.
-
+    *   Takes standard MHA parameters (`num_heads`, `in_features`, etc.) plus the `implementation` argument.
+    *   Defines a *nested helper function* `custom_attention_fn`. This function captures the `implementation` parameter from the outer scope.
+    *   Inside `custom_attention_fn`, it simply calls `jaxgarden.functional.dot_product_attention`, passing through the query, key, value, bias/mask, and the captured `implementation`.
+    *   It then calls the **parent class constructor** (`super().__init__` for `flax.nnx.MultiHeadAttention`). Crucially, it passes `attention_fn=custom_attention_fn`. This tells the parent Flax MHA to use our custom wrapper instead of its default attention logic.
 2.  **Forward Pass (`__call__`)**:
+    *   The call is handled by the parent `flax.nnx.MultiHeadAttention`'s `__call__` method.
+    *   The parent method performs the Q, K, V linear projections using `nnx.Linear`.
+    *   It splits the projections into multiple heads.
+    *   It **calls the `attention_fn`** that was provided during `__init__` (which is our `custom_attention_fn`).
+    *   Our `custom_attention_fn` executes, calling `jaxgarden.functional.dot_product_attention` with the specified `implementation`.
+    *   The result from `dot_product_attention` is returned to the parent Flax MHA method.
+    *   The parent method concatenates the head outputs and applies the final output projection.
+    *   The final result is returned.
 
-    ```mermaid
-    sequenceDiagram
-        participant Input
-        participant LlamaForCausalLM
-        participant Embed as nnx.Embed
-        participant Blocks as LlamaTransformerBlock (Loop)
-        participant Norm as LlamaRMSNorm
-        participant Head as nnx.Linear (lm_head)
-        participant Output
+```mermaid
+sequenceDiagram
+    participant User
+    participant JaxGardenMHA as jaxgarden.MultiHeadAttention
+    participant FlaxMHA as flax.nnx.MultiHeadAttention (Parent Logic)
+    participant CustomAttnFn as custom_attention_fn (Wrapper)
+    participant JG_DPA as jaxgarden.dot_product_attention
+    participant JaxDPA as jax.nn.dot_product_attention
 
-        Input->>+LlamaForCausalLM: __call__(input_ids, attention_mask)
-        LlamaForCausalLM->>LlamaForCausalLM: Calculate position_ids
-        LlamaForCausalLM->>LlamaForCausalLM: Convert attention_mask to additive mask
-        LlamaForCausalLM->>+Embed: token_embed(input_ids)
-        Embed-->>-LlamaForCausalLM: hidden_states (x)
-        loop N Layers
-            LlamaForCausalLM->>+Blocks: layer(x, position_ids, additive_mask)
-            Blocks-->>-LlamaForCausalLM: updated hidden_states (x)
-        end
-        LlamaForCausalLM->>+Norm: norm(x)
-        Norm-->>-LlamaForCausalLM: normalized_states
-        LlamaForCausalLM->>+Head: lm_head(normalized_states)
-        Head-->>-LlamaForCausalLM: logits
-        LlamaForCausalLM-->>-Output: logits
-    ```
-    *   Calculates `position_ids` based on the sequence length.
-    *   Converts the boolean `attention_mask` into an additive mask (0.0 for valid, -inf for masked) suitable for softmax normalization in attention.
-    *   Passes `input_ids` through `self.token_embed`.
-    *   Iteratively passes the hidden states `x` through each `LlamaTransformerBlock` in `self.layers`, along with `position_ids` and the `attention_mask`.
-    *   Applies the final `self.norm`.
-    *   Applies `self.lm_head` to get the final logits.
+    User->>+JaxGardenMHA: __init__(..., implementation="cudnn", ...)
+    JaxGardenMHA->>JaxGardenMHA: Define custom_attention_fn (captures "cudnn")
+    JaxGardenMHA->>+FlaxMHA: super().__init__(..., attention_fn=custom_attention_fn)
+    FlaxMHA-->>-JaxGardenMHA: Initialized
 
-3.  **Hugging Face Weight Conversion (`convert_weights_from_hf`)**:
-    *   This method receives the model's `state` (an `nnx.State` object or dict) and an iterator yielding `(hf_key, hf_tensor)` tuples from the Safetensors files.
-    *   It iterates through the HF weights and maps the HF key names to the corresponding `jaxgarden` state keys.
-    *   Key transformations include:
-        *   Renaming: e.g., `model.layers.<i>.self_attn...` -> `state["layers"][<i>]["attention"]...`
-        *   Transposition: Weights from `nn.Linear` layers in HF PyTorch often need to be transposed (`.T`) for Flax `nnx.Linear` kernel shape `[in_features, out_features]`.
-        *   Direct Assignment: Normalization weights (`model.layers.<i>.input_layernorm.weight`) are directly assigned (`state["layers"][<i>]["input_layernorm"]["norm_weights"].value = tensor`).
-        *   Weight Tying: The embedding weights (`model.embed_tokens.weight`) are assigned to both `state["token_embed"].embedding` and (after transposition) `state["lm_head"].kernel`.
+    User->>+JaxGardenMHA: __call__(x, mask)
+    JaxGardenMHA->>+FlaxMHA: Delegate __call__ to parent
+    FlaxMHA->>FlaxMHA: Project Q, K, V (Linear layers)
+    FlaxMHA->>FlaxMHA: Split heads
+    FlaxMHA->>+CustomAttnFn: attention_fn(query_h, key_h, value_h, bias, ...) # Call the wrapped function
+    CustomAttnFn->>+JG_DPA: dot_product_attention(..., implementation="cudnn", ...)
+    JG_DPA->>JG_DPA: Convert mask to bias if needed
+    JG_DPA->>+JaxDPA: jax.nn.dot_product_attention(..., implementation="cudnn")
+    JaxDPA-->>-JG_DPA: attended_value_h (computed via cuDNN/Flash)
+    JG_DPA-->>-CustomAttnFn: attended_value_h
+    CustomAttnFn-->>-FlaxMHA: attended_value_h
+    FlaxMHA->>FlaxMHA: Concatenate heads
+    FlaxMHA->>FlaxMHA: Project Output (Linear layer)
+    FlaxMHA-->>-JaxGardenMHA: final_output
+    JaxGardenMHA-->>-User: final_output
+```
 
-    ```python
-    # Snippet from LlamaForCausalLM.convert_weights_from_hf
-    def convert_weights_from_hf(
-        self, state: nnx.State | dict[str, jnp.ndarray], weights: Iterator[tuple[Any, Any]]
-    ) -> None:
-        for wholekey, tensor in weights:
-            keys = wholekey.split(".")
-            if keys[0] == "model": # Strip 'model.' prefix often found in HF checkpoints
-                keys = keys[1:]
+```python
+# Simplified from jaxgarden/attention/multi_head_attention.py
+from flax.nnx.nn.linear import default_kernel_init
+from jaxgarden.functional.attention import dot_product_attention
 
-            if keys[0] == "layers":
-                layer_idx = int(keys[1])
-                component = keys[2]
-                param_name = keys[3]
-                target_state = state["layers"][layer_idx]
+class MultiHeadAttention(nnx.MultiHeadAttention):
+    def __init__(
+        self,
+        # ... standard MHA args: num_heads, in_features, etc. ...
+        attention_fn: Callable | None = None, # Will be overridden
+        implementation: Literal["xla", "cudnn", "flash"] | None = None, # Added arg
+        rngs: nnx.Rngs,
+    ):
+        # Create a custom attention function that uses our dot_product_attention
+        # with the specified implementation
+        if attention_fn is None: # Ensure we override if not explicitly given
+            def custom_attention_fn(
+                query: jnp.ndarray,
+                key: jnp.ndarray,
+                value: jnp.ndarray,
+                bias: jnp.ndarray | None = None,
+                mask: jnp.ndarray | None = None,
+                **kwargs: Any,
+            ) -> jnp.ndarray:
+                # Calls the jaxgarden functional implementation
+                return dot_product_attention(
+                    query=query,
+                    key=key,
+                    value=value,
+                    bias=bias,
+                    mask=mask,
+                    implementation=implementation, # Use captured implementation
+                    **kwargs,
+                )
+            # Set the attention_fn to our custom one for the parent class
+            attention_fn_to_use = custom_attention_fn
+        else:
+            # If user explicitly provided an attention_fn, use that
+            # (though typical use relies on the implementation arg)
+            attention_fn_to_use = attention_fn
 
-                if component == "self_attn": component = "attention" # Rename
-
-                if component in ["attention", "mlp"]:
-                    # Linear layer weights need transpose
-                    target_state[component][param_name]["kernel"].value = tensor.T
-                elif component in ["input_layernorm", "post_attention_layernorm"]:
-                    # RMSNorm weights
-                    target_state[component]["norm_weights"].value = tensor
-            elif keys[0] == "embed_tokens":
-                state["token_embed"].embedding.value = tensor
-                # Tie weights with lm_head (transpose required)
-                state["lm_head"].kernel.value = tensor.T
-            elif keys[0] == "norm":
-                state["norm"].norm_weights.value = tensor
-            elif keys[0] == "lm_head":
-                 # This case might occur if weights aren't tied in HF checkpoint
-                 # If already tied via embed_tokens, this might overwrite or be redundant
-                 if not jnp.array_equal(state["lm_head"].kernel.value, tensor.T):
-                     print(f"Warning: Overwriting lm_head from separate checkpoint tensor: {wholekey}")
-                     state["lm_head"].kernel.value = tensor.T
-            # else: # Handle potential unexpected keys
-            #    print(f"Warning: Unhandled HF key: {wholekey}")
-
-    ```
+        # *** Initialize the parent Flax NNX MultiHeadAttention ***
+        # Pass our custom function wrapper as the attention_fn
+        super().__init__(
+            # ... pass all standard MHA args ...
+            attention_fn=attention_fn_to_use, # <<< Key Integration Point
+            # ... pass remaining args ...
+            rngs=rngs,
+        )
+        # Note: The 'implementation' arg itself is not stored directly
+        # by the parent class, its effect is embedded in the custom_attention_fn.
+```
 
 ## Conclusion
 
-`LlamaForCausalLM` provides a comprehensive and efficient implementation of the Llama architecture within the `jaxgarden` framework. By leveraging `BaseModel` for structure and `GenerationMixin` for functionality, and integrating key components like `LlamaRMSNorm`, `LlamaAttention` with RoPE and GQA, and `LlamaMLP` with SwiGLU, it offers a powerful tool for causal language modeling tasks. Its ability to load pretrained weights via `convert_weights_from_hf` makes it easy to utilize existing Llama models directly in JAX.
+The `jaxgarden` attention mechanism provides a flexible and performant implementation crucial for transformer models. The low-level `dot_product_attention` function wraps JAX's core attention logic, enabling backend selection for potential hardware acceleration (like Flash Attention via `"cudnn"`). The `MultiHeadAttention` module integrates this functional core into a standard Flax NNX layer, handling projections and head management while allowing users to easily specify the desired backend implementation. This design facilitates building efficient transformer layers within `jaxgarden`.
 
-The next chapter will delve deeper into the text generation capabilities provided by the mixin class used by this model.
+Attention mechanisms often incorporate positional information to understand sequence order. The next chapter explores a popular technique for injecting this information directly into the query and key vectors *before* the attention calculation.
 
-**Next:** [GenerationMixin](generationmixin.mdc)
+**Next:** [Rotary Position Embeddings (RoPE)](rotary_position_embeddings__rope_.mdc)
 
 
 ---
@@ -273,5 +274,5 @@ The next chapter will delve deeper into the text generation capabilities provide
 Generated by [Rules for AI](https://github.com/altaidevorg/rules-for-ai)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ml-gde) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [ml-gde/jaxgarden](https://github.com/ml-gde/jaxgarden) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
