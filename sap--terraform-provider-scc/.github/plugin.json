@@ -1,0 +1,9 @@
+{
+  "name": "sap--terraform-provider-scc",
+  "displayName": "terraform-provider-scc",
+  "description": "Terraform provider for SAP Cloud Connector",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/terraform-provider-scc",
+  "skills": []
+}
