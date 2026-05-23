@@ -1,106 +1,42 @@
-## rush-arch
+## 001-emoji-communication
 
-> Use ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
+> Use emojis strategically in AI responses to enhance communication and user experience
 
-# Cursor Rules Format
-## Template Structure for Rules Files
 
-```mdc
----
-description: ACTION when TRIGGER to OUTCOME
-globs: .cursor/rules/**/*.mdc
-alwaysApply: {true or false}
----
-
-# Rule Title
+# Emoji Communication Guidelines
 
 ## Context
-- When to apply this rule
-- Prerequisites or conditions
+- When responding to user queries in conversations
+- When emphasizing important points or status updates
+- When making technical communication more engaging and human-friendly
 
 ## Requirements
-- Concise, actionable items
-- Each requirement must be testable
+- Use emojis purposefully to enhance meaning, but feel free to be creative and fun
+- Place emojis at the end of statements or sections
+- Maintain professional tone while surprising users with clever choices
+- Limit emoji usage to 1-2 per major section
 
 ## Examples
 <example>
-Good concise example with explanation
+✅ "I've optimized your database queries 🏃‍♂️💨"
+✅ "Your bug has been squashed 🥾🐛"
+✅ "I've cleaned up the legacy code 🧹✨"
+✅ "Fixed the performance issue 🐌➡️🐆"
 </example>
 
 <example type="invalid">
-Invalid concise example with explanation
+❌ "Multiple 🎉 emojis 🎊 in 🌟 one message"
+❌ "Using irrelevant emojis 🥑"
+❌ "Placing the emoji in the middle ⭐️ of a sentence"
 </example>
 
 ## Critical Rules
-  - Always do X
-  - NEVER do Y
-```
-
-## File Organization
-
-### Location
-- Path: `.cursor/rules/`
-- Extension: `.mdc`
-
-### Naming Convention
-PREFIX-name.mdc where PREFIX is:
-- 0XX: Core standards
-- 1XX: Tool configs
-- 3XX: Testing standards
-- 1XXX: Language rules
-- 2XXX: Framework rules
-- 8XX: Workflows
-- 9XX: Templates
-- _name.mdc: Private rules
-
-### Glob Pattern Examples
-Common glob patterns for different rule types:
-- Core standards: .cursor/rules/*.mdc
-- Language rules: src/**/*.{js,ts}
-- Testing standards: **/*.test.{js,ts}
-- React components: src/components/**/*.tsx
-- Documentation: docs/**/*.md
-- Configuration files: *.config.{js,json}
-- Build artifacts: dist/**/*
-- Multiple extensions: src/**/*.{js,jsx,ts,tsx}
-- Multiple files: dist/**/*, docs/**/*.md
-
-## Required Fields
-
-### Frontmatter
-- description: ACTION TRIGGER OUTCOME format
-- globs: `glob pattern for files and folders`
-- alwaysApply: {true or false} - when true will be attached to every conversation (but front matter still is important for it to be used!)
-
-### Body
-- context: Usage conditions
-- requirements: Actionable items
-- examples: Both valid and invalid
-- critical-rules: summary of short rule bullets that are the most critical to abide by
-
-## Formatting Guidelines
-
-- Use Concise Markdown primarily
-- Use some XML tags limited to:
-  - <example>
-  - <danger>
-  - <required>
-- Always indent content within XML or nested XML tags by 2 spaces
-- Emojies and Mermaid diagrams are allowed if it is not redundant and better explains the rule for the AI comprehension.
-
-
-## Critical Rules
-  - Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI Agent
-  - Keep the rule DRY - do not repeate or be redundant or overly explanetory.
-  - Use susinct markdown the agent can easily understand.
-  - the front matter MUST ALWAYS have description, globs, and alwaysApply, even if the value is null
-  - Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
-  - TRY to keep the total rule line count under 50, better under 25, lines (unless there are diagrams or longer required examples, as that will increase the overall line count)
-  - Always include a valid and invalid example
-  - Quotes are not needed around glob patterns
-  - ALWAYS write rules in English only - never use other languages when creating or updating rules
-  - When users use the `/rules` command, read this file and generate new development standard documentation based on the rules
+  - Never use more than one emoji per statement
+  - Choose emojis that are both fun and contextually appropriate
+  - Place emojis at the end of statements, not at the beginning or middle
+  - Skip emoji usage when discussing serious issues or errors
+  - Don't be afraid to tell a mini-story with your emoji choice 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/coze-dev) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [coze-dev/rush-arch](https://github.com/coze-dev/rush-arch) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-22 -->
