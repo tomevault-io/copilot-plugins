@@ -1,0 +1,9 @@
+{
+  "name": "longcipher--typstify",
+  "displayName": "typstify",
+  "description": "Leptos + Tantivy + Typst + Markdown + Tailwind CSS + SSG",
+  "version": "1.0.0",
+  "author": "longcipher",
+  "homepage": "https://github.com/longcipher/typstify",
+  "skills": []
+}
