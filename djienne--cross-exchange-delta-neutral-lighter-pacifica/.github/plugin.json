@@ -1,0 +1,9 @@
+{
+  "name": "djienne--cross-exchange-delta-neutral-lighter-pacifica",
+  "displayName": "CROSS_EXCHANGE_DELTA_NEUTRAL_LIGHTER_PACIFICA",
+  "description": "Delta-neutral strategy across Lighter and Pacifica cryptocurrency perpetual futures exchanges. Captures funding rate while maintaining market-neutral exposure and generating volume with forced positio",
+  "version": "1.0.0",
+  "author": "djienne",
+  "homepage": "https://github.com/djienne/CROSS_EXCHANGE_DELTA_NEUTRAL_LIGHTER_PACIFICA",
+  "skills": []
+}
