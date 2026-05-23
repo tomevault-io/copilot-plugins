@@ -1,0 +1,9 @@
+{
+  "name": "rohan-prasen--audioreconstruction",
+  "displayName": "audioreconstruction",
+  "description": "An adversarial neural network that restores the high fideliity audio lost during lossy compression",
+  "version": "1.0.0",
+  "author": "rohan-prasen",
+  "homepage": "https://github.com/rohan-prasen/audioreconstruction",
+  "skills": []
+}
