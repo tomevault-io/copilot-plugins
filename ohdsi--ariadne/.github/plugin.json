@@ -1,0 +1,9 @@
+{
+  "name": "ohdsi--ariadne",
+  "displayName": "Ariadne",
+  "description": "A Python toolkit for mapping source terminologies to standard concepts in the OHDSI Vocabulary.",
+  "version": "1.0.0",
+  "author": "OHDSI",
+  "homepage": "https://github.com/OHDSI/Ariadne",
+  "skills": []
+}
