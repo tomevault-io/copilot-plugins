@@ -1,0 +1,9 @@
+{
+  "name": "fradser--foundationmodelstranslator",
+  "displayName": "FoundationModelsTranslator",
+  "description": "A macOS translation app using Apple's Foundation Models framework with custom adapter for English to Chinese translation",
+  "version": "1.0.0",
+  "author": "FradSer",
+  "homepage": "https://github.com/FradSer/FoundationModelsTranslator",
+  "skills": []
+}
