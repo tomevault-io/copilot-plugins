@@ -1,0 +1,9 @@
+{
+  "name": "akeeba--plg-captcha-altcha",
+  "displayName": "plg_captcha_altcha",
+  "description": "Joomla! plugin to implement ALTCHA, the Open Source, proof-of-work, self-hosted CAPTCHA alternative",
+  "version": "1.0.0",
+  "author": "akeeba",
+  "homepage": "https://github.com/akeeba/plg_captcha_altcha",
+  "skills": []
+}
