@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jido-codex",
+  "displayName": "jido_codex",
+  "description": "OpenAI Codex CLI adapter for Jido.Harness.",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido_codex",
+  "skills": []
+}
