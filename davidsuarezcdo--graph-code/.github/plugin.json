@@ -1,0 +1,9 @@
+{
+  "name": "davidsuarezcdo--graph-code",
+  "displayName": "graph-code",
+  "description": "A powerful TypeScript-based code analysis system that leverages knowledge graphs to analyze and visualize code structures using Neo4j. Graph-Code transforms your codebase into a navigable graph databa",
+  "version": "1.0.0",
+  "author": "davidsuarezcdo",
+  "homepage": "https://github.com/davidsuarezcdo/graph-code",
+  "skills": []
+}
