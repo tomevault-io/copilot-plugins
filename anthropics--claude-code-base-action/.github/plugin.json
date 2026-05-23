@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--claude-code-base-action",
+  "displayName": "claude-code-base-action",
+  "description": "This repo is a mirror of the contents of base-action in https://github.com/anthropics/claude-code-action.",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/claude-code-base-action",
+  "skills": []
+}
