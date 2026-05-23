@@ -1,87 +1,21 @@
-## api-supabase-astro-init
+## astro
 
-> This document provides a reproducible guide to create the necessary file structure for integrating Supabase with your Astro project.
+> - Leverage View Transitions API for smooth page transitions (use ClientRouter)
 
-# Supabase Astro Initialization
+### Guidelines for Astro
 
-This document provides a reproducible guide to create the necessary file structure for integrating Supabase with your Astro project.
-
-## Prerequisites
-
-- Your project should use Astro 5, TypeScript 5, React 19, and Tailwind 4.
-- Install the `@supabase/supabase-js` package.
-- Ensure that `/supabase/config.toml` exists
-- Ensure that a file `/src/db/database.types.ts` exists and contains the correct type definitions for your database.
-
-IMPORTANT: Check prerequisites before perfoming actions below. If they're not met, stop and ask a user for the fix.
-
-## File Structure and Setup
-
-### 1. Supabase Client Initialization
-
-Create the file `/src/db/supabase.client.ts` with the following content:
-
-```ts
-import { createClient } from '@supabase/supabase-js';
-
-import type { Database } from '../db/database.types.ts';
-
-const supabaseUrl = import.meta.env.SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.SUPABASE_KEY;
-
-export const supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey);
-```
-
-This file initializes the Supabase client using the environment variables `SUPABASE_URL` and `SUPABASE_KEY`.
-
-
-### 2. Middleware Setup
-
-Create the file `/src/middleware/index.ts` with the following content:
-
-```ts
-import { defineMiddleware } from 'astro:middleware';
-
-import { supabaseClient } from '../db/supabase.client.ts';
-
-export const onRequest = defineMiddleware((context, next) => {
-  context.locals.supabase = supabaseClient;
-  return next();
-});
-```
-
-This middleware adds the Supabase client to the Astro context locals, making it available throughout your application.
-
-
-### 3. TypeScript Environment Definitions
-
-Create the file `src/env.d.ts` with the following content:
-
-```ts
-/// <reference types="astro/client" />
-
-import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from './db/database.types.ts';
-
-declare global {
-  namespace App {
-    interface Locals {
-      supabase: SupabaseClient<Database>;
-    }
-  }
-}
-
-interface ImportMetaEnv {
-  readonly SUPABASE_URL: string;
-  readonly SUPABASE_KEY: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-```
-
-This file augments the global types to include the Supabase client on the Astro `App.Locals` object, ensuring proper typing throughout your application.
+- Leverage View Transitions API for smooth page transitions (use ClientRouter)
+- Use content collections with type safety for blog posts, documentation, etc.
+- Leverage Server Endpoints for API routes
+- Use POST, GET  - uppercase format for endpoint handlers
+- Use `export const prerender = false` for API routes
+- Use zod for input validation in API routes
+- Extract logic into services in `src/lib/services`
+- Implement middleware for request/response modification
+- Use image optimization with the Astro Image integration
+- Implement hybrid rendering with server-side rendering where needed
+- Use Astro.cookies for server-side cookie management
+- Leverage import.meta.env for environment variables
 
 ---
 > Source: [walek20/adversary-story-generator](https://github.com/walek20/adversary-story-generator) — distributed by [TomeVault](https://tomevault.io).
