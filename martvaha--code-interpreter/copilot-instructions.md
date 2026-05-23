@@ -1,13 +1,12 @@
-## fastapi
+## global
 
-> Guidelines for FastAPI development and API design
+> Global project rules
 
-- Use Pydantic models for request/response validation
-- Implement proper error handling and status codes
-- Keep route handlers clean and delegate business logic to services
-- Use dependency injection for services and database connections
-- Document API endpoints with OpenAPI/Swagger comments
-- API endpoints use a global prefix of '/v1'
+- Project uses uv and pyproject.toml for deps management
+- Install deps with uv sync --all-extras
+- After making changes, run `pytest tests -v` or for specific test `pytest tests/{test} -v`
+- Check test logs from `logs/test.log`
+- After making changes, verify that [endpoints.py](mdc:app/api/endpoints.py) still follows [librechat-code-interpreter-openapi.json](mdc:project/librechat-code-interpreter-openapi.json)
 
 ---
 > Source: [martvaha/code-interpreter](https://github.com/martvaha/code-interpreter) — distributed by [TomeVault](https://tomevault.io).
