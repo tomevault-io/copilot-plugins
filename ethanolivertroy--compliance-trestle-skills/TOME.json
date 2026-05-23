@@ -4,7 +4,7 @@
   "repo": "compliance-trestle-skills",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ethanolivertroy/compliance-trestle-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T08:42:42Z"
+  "distributed_at": "2026-05-23T08:45:05Z"
 }
