@@ -1,6 +1,6 @@
 {
   "name": "redis--agent-memory-server",
-  "displayName": "agent",
+  "displayName": "agent-memory-server",
   "description": "Fast and flexible memory for agents and AI applications using Redis",
   "version": "1.0.0",
   "author": "redis",
