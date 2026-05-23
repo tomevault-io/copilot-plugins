@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--claude-code-action",
+  "displayName": "claude-code-action",
+  "description": "claude-code-action",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/claude-code-action",
+  "skills": []
+}
