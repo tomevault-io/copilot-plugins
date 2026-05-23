@@ -1,0 +1,44 @@
+{
+  "name": "Agentops-Replay",
+  "owner": "sahiee-dev",
+  "repo": "Agentops-Replay",
+  "description": "Cryptographically verifiable audit infrastructure for AI agents. AgentOps Replay produces tamper-evident, hash-chained event logs that prove what an agent did, in what order, with no possibility of post-hoc modification. Built for multi-agent safety research, forensic audit, and regulatory accountability where observability alone is not enough.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sahiee-dev/Agentops-Replay",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T14:30:53Z"
+}
