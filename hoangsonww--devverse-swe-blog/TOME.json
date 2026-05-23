@@ -1,0 +1,44 @@
+{
+  "name": "DevVerse-SWE-Blog",
+  "owner": "hoangsonww",
+  "repo": "DevVerse-SWE-Blog",
+  "description": "\ud83e\ude90 DevVerse CS Blog \u2013 A modern, high-performance blog app built with Next.js, Vercel, Supabase, TypeScript, MDX, and Framer Motion, featuring real-time search, dynamic routing, and optimized SEO for deep dives into computer science and software engineering topics. \u00a9 Son Nguyen 2026.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hoangsonww/DevVerse-SWE-Blog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T00:42:34Z"
+}
