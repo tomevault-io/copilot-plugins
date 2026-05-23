@@ -1,0 +1,50 @@
+{
+  "name": "langchain-ai--deepagents",
+  "displayName": "deepagents",
+  "description": "Python & TypeScript agent harness built with LangChain and LangGraph. Equipped with a planning tool, a filesystem backend, and the ability to spawn subagents - well-equipped to handle complex agentic ",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/deepagents",
+  "skills": [
+    {
+      "name": "arxiv-search",
+      "description": ""
+    },
+    {
+      "name": "blog-post",
+      "description": ""
+    },
+    {
+      "name": "langgraph-docs",
+      "description": ""
+    },
+    {
+      "name": "query-writing",
+      "description": ""
+    },
+    {
+      "name": "schema-exploration",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "social-media",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "description": ""
+    },
+    {
+      "name": "cuml-machine-learning",
+      "description": ""
+    }
+  ]
+}
