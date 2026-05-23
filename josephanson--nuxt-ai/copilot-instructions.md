@@ -1,54 +1,77 @@
-## 000-project-purpose
+## 100-mcp-capabilities
 
-> APPLY when DEVELOPING to understand the goal of creating a Nuxt module for easy Vercel AI SDK integration.
+> APPLY when INTEGRATING to understand available MCP server capabilities and configurations
 
 
-# Nuxt AI - Project Purpose
+# MCP Integration Capabilities
 
 ## Context
-This project aims to create Nuxt modules that simplifies the integration of AI capabilities into Nuxt applications, primarily leveraging the AI editor rules, Vercel AI SDK (`@ai-sdk/vue`) and MCP (Model Context Protocol). 
-Its core goals are:
-- Providing a seamless installation and setup experience for developers.
-- Offering auto-imports for Vercel AI SDK composables and utilities.
-- Bundling development assistance tools, including:
-    - Pre-defined rules compatible with .cursor/rules/* (`.mdc`), Claude (`.md`) and other AI clients.
-    - A built-in MCP (Model Context Protocol) server with tools specifically designed to aid Nuxt AI development.
-- Implementing an extensible MCP plugin system, allowing other mcp servers to be integrated to nuxt-ai (e.g., a separate documentation generation module).
+MCP (Model Context Protocol) servers extend Cursor's capabilities by:
+- Providing external data access
+- Enabling tool integrations
+- Supporting both local and remote contexts
 
 ## Requirements
-- Develop the project as a standard Nuxt module following Nuxt Kit conventions. [@https://nuxt.com/docs/api/kit/modules]
-- Integrate `@ai-sdk/vue` and its dependencies effectively. [@https://sdk.vercel.ai/docs/getting-started/nuxt]
-- Implement robust auto-import functionality for key Vercel AI SDK features.
-- Create helpful and well-documented rules for both Cursor, Claude and other AI assistants. [@https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/tutorials]
-- Build a versatile MCP server with useful development tools.
-- Design and implement a clear API for the MCP plugin system.
-- Ensure secure handling of API keys (like `OPENAI_API_KEY`) required by the Vercel AI SDK.
+- Configure MCP servers in `.cursor/mcp.json` or `~/.cursor/mcp.json`
+- Choose appropriate transport type (stdio or SSE)
+- Set required environment variables for authentication
+- Implement proper error handling
+- Monitor MCP server health
 
 ## Examples
 <example>
-// Example: Nuxt configuration enabling the module and an MCP plugin
-export default defineNuxtConfig({
-  modules: [
-    'nuxt-ai',
-  ],
-  ai: {
-    // Module options (e.g., Vercel AI provider config)
-    dev: {
-      rules: true, // Default is true
-    },
+// Local stdio MCP server configuration
+{
+  "mcpServers": {
+    "nuxt-db": {
+      "command": "npx",
+      "args": ["-y", "nuxt-mcp-db"],
+      "env": {
+        "DB_URL": "postgresql://localhost:5432/mydb"
+      }
+    }
   }
-})
+}
 
-// Example: Using auto-imported composable
-const { messages, input, handleSubmit } = useChat();
+// Remote SSE MCP server
+{
+  "mcpServers": {
+    "team-api": {
+      "url": "https://api.example.com/mcp/sse",
+      "env": {
+        "API_KEY": "${MCP_API_KEY}"
+      }
+    }
+  }
+}
+</example>
+
+<example type="invalid">
+// Missing required env variables
+{
+  "mcpServers": {
+    "nuxt-db": {
+      "command": "npx",
+      "args": ["-y", "nuxt-mcp-db"]
+    }
+  }
+}
+
+// Invalid transport configuration
+{
+  "mcpServers": {
+    "api": {
+      "command": "http://api.example.com"
+    }
+  }
+}
 </example>
 
 ## Critical Rules
-- ALWAYS structure the project as a Nuxt module using Nuxt Kit.
-- ALWAYS prioritize ease of use and setup for the end-developer.
-- NEVER hardcode sensitive API keys; rely on environment variables and Nuxt runtime config.
-- MUST provide clear documentation for module configuration, rules, and MCP tools/plugins.
-- ENSURE compatibility between rules/MCP features and both Cursor and potentially other AI assistants like Claude. 
+- ALWAYS use environment variables for sensitive data
+- NEVER commit API keys or credentials to version control
+- Choose stdio for local development, SSE for team sharing
+- Limit MCP servers to 40 tools maximum for optimal performance 
 
 ---
 > Source: [JosephAnson/nuxt-ai](https://github.com/JosephAnson/nuxt-ai) — distributed by [TomeVault](https://tomevault.io).
