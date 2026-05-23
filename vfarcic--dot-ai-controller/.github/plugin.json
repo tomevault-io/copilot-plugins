@@ -1,0 +1,9 @@
+{
+  "name": "vfarcic--dot-ai-controller",
+  "displayName": "dot-ai-controller",
+  "description": "Kubernetes controller for watching events and triggering AI-powered remediation via dot-ai MCP",
+  "version": "1.0.0",
+  "author": "vfarcic",
+  "homepage": "https://github.com/vfarcic/dot-ai-controller",
+  "skills": []
+}
