@@ -1,0 +1,9 @@
+{
+  "name": "davidvkimball--obsidian-property-over-file-name",
+  "displayName": "obsidian-property-over-file-name",
+  "description": "Search, display, and insert notes using a specified note property instead of the file name.",
+  "version": "1.0.0",
+  "author": "davidvkimball",
+  "homepage": "https://github.com/davidvkimball/obsidian-property-over-file-name",
+  "skills": []
+}
