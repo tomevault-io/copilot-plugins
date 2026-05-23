@@ -5,14 +5,14 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [waylaidwanderer/background-process-mcp](https://github.com/waylaidwanderer/background-process-mcp).
+Original source: `AGENTS.md` in [waylaidwanderer/background-process-mcp](https://github.com/waylaidwanderer/background-process-mcp).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [waylaidwanderer/background-process-mcp](https://github.com/waylaidwanderer/background-process-mcp) — a repo with 9+ stars on GitHub.
