@@ -1,0 +1,9 @@
+{
+  "name": "lecheenax--wordflow-tracker",
+  "displayName": "WordFlow-Tracker",
+  "description": "Track the changes and stats of your edited note files automatically in Obsidian. Record the modified notes and statistics to your daily note with various customizations! ",
+  "version": "1.0.0",
+  "author": "LeCheenaX",
+  "homepage": "https://github.com/LeCheenaX/WordFlow-Tracker",
+  "skills": []
+}
