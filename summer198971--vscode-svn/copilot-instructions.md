@@ -1,36 +1,133 @@
-## mysetting
+## technical-specs
 
-> 你是一个VSCode插件开发专家，专门负责开发一款嵌入VSCode的SVN操作插件。
+> - [src/svnService.ts](mdc:src/svnService.ts) - SVN命令执行和状态管理
 
-# VSCode SVN 插件开发专家设置
+# VSCode SVN 插件技术规范
 
-## 角色定义
-你是一个VSCode插件开发专家，专门负责开发一款嵌入VSCode的SVN操作插件。
+## 代码架构
 
-## 项目核心文件
-- [README.md](mdc:README.md) - 记录插件的功能和修改记录，是项目的核心文档
-- [package.json](mdc:package.json) - 插件配置，包含命令定义、菜单配置、版本信息
-- [src/extension.ts](mdc:src/extension.ts) - 插件主入口，注册所有命令和功能
-- [src/svnService.ts](mdc:src/svnService.ts) - SVN操作核心服务类
-- [src/svnLogPanel.ts](mdc:src/svnLogPanel.ts) - SVN日志查看面板，支持版本对比
+### 核心服务层
+- [src/svnService.ts](mdc:src/svnService.ts) - SVN命令执行和状态管理
+- [src/aiService.ts](mdc:src/aiService.ts) - AI服务集成（OpenAI/通义千问）
+- [src/commitLogStorage.ts](mdc:src/commitLogStorage.ts) - 提交日志存储管理
 
-## 开发原则
-1. 所有代码注释和用户界面必须使用中文
-2. 确保所有SVN操作命令都出现在右键上下文菜单中
-3. 优先考虑视觉表现和用户友好体验
-4. 严格按照需求开发，避免过度创新
-5. 每次修改都要仔细执行，避免破坏相关逻辑
-6. 所有功能添加和修改必须记录在README.md中
+### 用户界面层
+- [src/commitPanel.ts](mdc:src/commitPanel.ts) - 单文件提交和差异对比
+- [src/folderCommitPanel.ts](mdc:src/folderCommitPanel.ts) - 文件夹批量提交
+- [src/svnLogPanel.ts](mdc:src/svnLogPanel.ts) - SVN历史日志查看
+- [src/updatePanel.ts](mdc:src/updatePanel.ts) - 文件更新进度显示
+- [src/diffProvider.ts](mdc:src/diffProvider.ts) - 差异对比提供器
 
-## 当前版本特性 (v4.3.0)
-- 本地修订版本号显示功能
-- SVN日志中标记未更新到本地的版本
-- 优化的日志界面布局
-- AI提交日志生成功能
+## 开发标准
 
-# Your rule content
-- You can @ files here
-- You can use markdown but dont have to
+### TypeScript 规范
+```typescript
+// 接口定义示例
+interface SvnLogEntry {
+    revision: string;
+    author: string;
+    date: string;
+    message: string;
+    isNewerThanLocal?: boolean; // 可选属性用?标记
+}
+
+// 类定义示例
+export class SvnService {
+    private _workingCopyPath: string | undefined;
+    
+    // 私有方法用_前缀
+    private async _executeCommand(command: string): Promise<string> {
+        // 实现
+    }
+    
+    // 公共方法
+    public async getStatus(filePath: string): Promise<SvnStatus> {
+        // 实现
+    }
+}
+```
+
+### WebView 开发规范
+- 使用CSP安全策略
+- 消息传递使用类型化接口
+- HTML模板内嵌在TypeScript文件中
+- CSS样式使用内联方式，确保安全性
+
+### 错误处理标准
+```typescript
+try {
+    const result = await svnService.executeCommand(command);
+    return result;
+} catch (error) {
+    vscode.window.showErrorMessage(`SVN操作失败: ${error.message}`);
+    throw error;
+}
+```
+
+### 配置管理
+- 使用 `vscode.workspace.getConfiguration('vscode-svn')` 获取配置
+- 配置项命名使用驼峰式：`aiModel`, `customSvnRoot`
+- 敏感信息（API密钥）使用VSCode的安全存储
+
+### 命令注册模式
+```typescript
+// 在extension.ts中注册命令
+const disposable = vscode.commands.registerCommand('vscode-svn.commandName', async (uri: vscode.Uri) => {
+    try {
+        // 命令实现
+    } catch (error) {
+        vscode.window.showErrorMessage(`操作失败: ${error.message}`);
+    }
+});
+context.subscriptions.push(disposable);
+```
+
+### 菜单配置规范
+- 使用 `2_svn` 组确保菜单项可见性
+- `when` 条件使用 `resourceScheme == file`
+- 文件和文件夹操作分别配置
+- 优先级使用 `@1`, `@2` 等数字后缀
+
+## 性能优化
+
+### SVN命令优化
+- 使用 `--xml` 参数获取结构化输出
+- 设置环境变量确保UTF-8编码
+- 大文件操作使用流式处理
+- 缓存SVN状态信息避免重复查询
+
+### WebView优化
+- 延迟加载大量数据
+- 使用虚拟滚动处理长列表
+- 最小化DOM操作
+- 合理使用防抖和节流
+
+## 测试策略
+
+### 单元测试
+- 测试SVN命令解析逻辑
+- 测试配置管理功能
+- 测试错误处理机制
+
+### 集成测试
+- 测试完整的提交流程
+- 测试AI服务集成
+- 测试WebView交互
+
+### 用户测试
+- 验证右键菜单显示
+- 验证中文界面显示
+- 验证跨平台兼容性
+
+## 发布流程
+
+1. 更新版本号在 [package.json](mdc:package.json)
+2. 更新功能说明在 [README.md](mdc:README.md)
+3. 记录变更在 [CHANGELOG.md](mdc:CHANGELOG.md)
+4. 编译: `npm run compile`
+5. 打包: `vsce package`
+6. 测试: 安装.vsix文件验证功能
+7. 发布: `vsce publish`
 
 ---
 > Source: [summer198971/vscode-svn](https://github.com/summer198971/vscode-svn) — distributed by [TomeVault](https://tomevault.io).
