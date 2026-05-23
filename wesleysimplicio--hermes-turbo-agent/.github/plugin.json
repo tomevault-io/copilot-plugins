@@ -1,0 +1,9 @@
+{
+  "name": "wesleysimplicio--hermes-turbo-agent",
+  "displayName": "hermes-turbo-agent",
+  "description": "Hermes Agent 100x Fast performance branch: runtime benchmarks, visual comparisons, and safe hot-path optimizations",
+  "version": "1.0.0",
+  "author": "wesleysimplicio",
+  "homepage": "https://github.com/wesleysimplicio/hermes-turbo-agent",
+  "skills": []
+}
