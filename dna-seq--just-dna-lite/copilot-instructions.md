@@ -1,6 +1,6 @@
-## main
+## structure
 
-> Always use typehints, do not use relative pathes, always use pathlib for files and typer for CLI. By default use uv as package manager and run through uv run. When you run some code in bash do not generate print out with "!
+> the project is uv-based, please use uv to run stuff!
 
 ---
 > Source: [dna-seq/just-dna-lite](https://github.com/dna-seq/just-dna-lite) — distributed by [TomeVault](https://tomevault.io).
