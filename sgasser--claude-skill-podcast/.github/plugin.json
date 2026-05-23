@@ -1,0 +1,14 @@
+{
+  "name": "sgasser--claude-skill-podcast",
+  "displayName": "claude-skill-podcast",
+  "description": "Generate audio podcasts from text using Claude and browser TTS - Zero cost, no API keys",
+  "version": "1.0.0",
+  "author": "sgasser",
+  "homepage": "https://github.com/sgasser/claude-skill-podcast",
+  "skills": [
+    {
+      "name": "podcast",
+      "description": ""
+    }
+  ]
+}
