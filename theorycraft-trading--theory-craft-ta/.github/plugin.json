@@ -1,0 +1,9 @@
+{
+  "name": "theorycraft-trading--theory-craft-ta",
+  "displayName": "theory_craft_ta",
+  "description": "Elixir wrapper for TA-Lib (http://ta-lib.org/)",
+  "version": "1.0.0",
+  "author": "theorycraft-trading",
+  "homepage": "https://github.com/theorycraft-trading/theory_craft_ta",
+  "skills": []
+}
