@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-nemo--nemo-platform",
+  "displayName": "nemo-platform",
+  "description": "Make the agents you ship faster, more accurate, and safer.",
+  "version": "1.0.0",
+  "author": "NVIDIA-NeMo",
+  "homepage": "https://github.com/NVIDIA-NeMo/nemo-platform",
+  "skills": []
+}
