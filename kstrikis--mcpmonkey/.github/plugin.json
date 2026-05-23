@@ -1,0 +1,9 @@
+{
+  "name": "kstrikis--mcpmonkey",
+  "displayName": "MCPMonkey",
+  "description": "MCPMonkey is an MCP server and Firefox extension so your AI agent can access your browser",
+  "version": "1.0.0",
+  "author": "kstrikis",
+  "homepage": "https://github.com/kstrikis/MCPMonkey",
+  "skills": []
+}
