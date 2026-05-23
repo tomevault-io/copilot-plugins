@@ -1,87 +1,134 @@
-## go-project-structure
+## go-testing-practices
 
-> Go Project Structure Rules
+> Go Testing Best Practices
 
 ## Description
-This rule ensures that Go projects follow a consistent and idiomatic structure, making the codebase easier to navigate, maintain, and scale.
+This rule ensures that Go tests follow best practices for effective, maintainable, and idiomatic testing in Go projects.
 
 ## Rule
-When organizing a Go project:
+When writing tests in Go:
 
-### Package Organization
-1. Organize packages by functionality, not by type
-2. Keep package names short, clear, and descriptive
-3. Avoid package name collisions with standard library
-4. Use singular form for package names (e.g., `store`, not `stores`)
-5. Avoid deeply nested package hierarchies
+### Test Organization
+1. Use table-driven tests for testing multiple scenarios
+2. Name test functions as `Test<FunctionName>` or `Test<FunctionName>_<Scenario>`
+3. Use subtests with `t.Run()` to organize related test cases
+4. Group tests logically by functionality
+5. Keep test files in the same package as the code they test
 
-### Dependency Management
-1. Use Go modules for dependency management
-2. Pin dependencies to specific versions in go.mod
-3. Regularly update and audit dependencies
-4. Minimize the number of external dependencies
-5. Prefer standard library solutions when available
+### Test Structure
+1. Follow the Arrange-Act-Assert (AAA) pattern:
+   - Arrange: Set up test data and preconditions
+   - Act: Call the function/method being tested
+   - Assert: Verify the results
+2. Use clear separation between these sections
+3. Minimize test setup code; use helper functions for common setup
+4. Make test failures descriptive and actionable
 
-### Configuration
-1. Use environment variables for configuration
-2. Support configuration files as an alternative
-3. Provide sensible defaults for all configuration options
-4. Validate configuration at startup
+### Assertions
+1. Use `t.Errorf()` or `t.Fatalf()` with descriptive messages
+2. Include expected vs. actual values in failure messages
+3. Avoid `testify` or similar packages, but do use `go-cmp`.
+4. Prefer `t.Fatalf()` only when continuing the test is impossible
 
-### Testing
-1. Place tests in the same package as the code they test
-2. Use `_test.go` suffix for test files
-3. Place integration tests in a separate `integration` package
-4. Store test fixtures in `testdata` directories
+### Mocking and Test Doubles
+1. Use interfaces to enable mocking of dependencies
+2. Create simple, focused test doubles (mocks, stubs, fakes)
+3. Consider using the standard library's `httptest` for HTTP testing
+4. Avoid `sqlmock` or similar tools for database testing, stick to the stdlib
+
+### Test Coverage
+1. High test coverage is not a goal in and of itself, focus on critical code paths
+2. Test edge cases and error conditions
+3. Use `go test -cover` to measure coverage
+4. Use `go test -race` to detect race conditions
 
 ## Implementation
 - The Cursor IDE will enforce this rule by:
-  - Suggesting appropriate locations for new files
-  - Highlighting structural issues
-  - Providing refactoring options to improve project organization
+  - Suggesting test improvements
+  - Highlighting testing anti-patterns
+  - Providing templates for common testing patterns
 
 ## Benefits
-- Consistent, navigable project structure
-- Clear separation of concerns
-- Better code reusability
-- Easier onboarding for new team members
-- Alignment with Go community standards
+- More reliable and maintainable tests
+- Better test coverage
+- Faster test execution
+- Clearer test failures
+- Consistent testing approach across the project
 
 ## Examples
 
-### ✅ Correct Project Structure:
+### ✅ Correct Table-Driven Test:
 
-```
-myproject/
-├── cmd/
-│   └── myapp/
-│       └── main.go
-├── internal/
-│   ├── auth/
-│   │   └── auth.go
-│   └── database/
-│       └── database.go
-├── pkg/
-│   └── validator/
-│       └── validator.go
-├── api/
-│   └── openapi.yaml
-├── configs/
-│   └── config.yaml
-├── scripts/
-│   └── setup.sh
-└── go.mod
+```go
+func TestCalculate(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    int
+		expected int
+		wantErr  bool
+	}{
+		{
+			name:     "positive number",
+			input:    5,
+			expected: 10,
+			wantErr:  false,
+		},
+		{
+			name:     "zero",
+			input:    0,
+			expected: 0,
+			wantErr:  false,
+		},
+		{
+			name:     "negative number",
+			input:    -5,
+			expected: 0,
+			wantErr:  true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Arrange is done in the table
+
+			// Act
+			result, err := Calculate(tt.input)
+
+			// Assert
+			if tt.wantErr {
+				if err == nil {
+					t.Errorf("Calculate(%d) expected error but got none", tt.input)
+				}
+				return
+			}
+			if err != nil {
+				t.Errorf("Calculate(%d) unexpected error: %v", tt.input, err)
+			}
+			if result != tt.expected {
+				t.Errorf("Calculate(%d) = %d, want %d", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
 ```
 
-### ❌ Incorrect Project Structure:
+### ❌ Incorrect Test:
 
-```
-myproject/
-├── main.go
-├── auth.go
-├── database.go
-├── validator.go
-└── go.mod
+```go
+func TestCalculate(t *testing.T) {
+	// No clear structure, no descriptive test names
+	result, _ := Calculate(5)
+	if result != 10 {
+		t.Error("failed")
+	}
+	
+	result, _ = Calculate(0)
+	if result != 0 {
+		t.Error("failed")
+	}
+	
+	// Error case not tested
+}
 ``` 
 
 ---
