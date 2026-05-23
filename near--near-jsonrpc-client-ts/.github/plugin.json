@@ -1,0 +1,9 @@
+{
+  "name": "near--near-jsonrpc-client-ts",
+  "displayName": "near-jsonrpc-client-ts",
+  "description": "near-jsonrpc-client-ts",
+  "version": "1.0.0",
+  "author": "near",
+  "homepage": "https://github.com/near/near-jsonrpc-client-ts",
+  "skills": []
+}
