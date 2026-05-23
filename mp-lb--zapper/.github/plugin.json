@@ -1,0 +1,9 @@
+{
+  "name": "mp-lb--zapper",
+  "displayName": "zapper",
+  "description": "Run your projects without the need to think. For busy devs.",
+  "version": "1.0.0",
+  "author": "mp-lb",
+  "homepage": "https://github.com/mp-lb/zapper",
+  "skills": []
+}
