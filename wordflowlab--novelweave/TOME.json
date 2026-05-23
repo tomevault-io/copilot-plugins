@@ -1,0 +1,57 @@
+{
+  "name": "novelweave",
+  "owner": "wordflowlab",
+  "repo": "novelweave",
+  "description": "\u661f\u5c18\u7ec7\u68a6-\u5c0f\u8bf4\u7f16\u8f91\u5668",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "getting-started",
+      "path": "src/templates/skills/quality-assurance/getting-started",
+      "github_url": "https://github.com/wordflowlab/novelweave/tree/main/src/templates/skills/quality-assurance/getting-started",
+      "description": ""
+    },
+    {
+      "name": "workflow-guide",
+      "path": "src/templates/skills/quality-assurance/workflow-guide",
+      "github_url": "https://github.com/wordflowlab/novelweave/tree/main/src/templates/skills/quality-assurance/workflow-guide",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wordflowlab/novelweave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T08:32:45Z"
+}
