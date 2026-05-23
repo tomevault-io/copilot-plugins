@@ -1,0 +1,9 @@
+{
+  "name": "bobmatnyc--claude-multiagent-pm",
+  "displayName": "claude-multiagent-pm",
+  "description": "Claude Multi-Agent Project Management Framework - AI-driven orchestration with LangGraph and OpenAI integration",
+  "version": "1.0.0",
+  "author": "bobmatnyc",
+  "homepage": "https://github.com/bobmatnyc/claude-multiagent-pm",
+  "skills": []
+}
