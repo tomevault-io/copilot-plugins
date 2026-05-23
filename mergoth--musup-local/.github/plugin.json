@@ -1,0 +1,9 @@
+{
+  "name": "mergoth--musup-local",
+  "displayName": "musup-local",
+  "description": "WhatsApp \u2192 Telegram digest on local NAS via Docker Compose",
+  "version": "1.0.0",
+  "author": "Mergoth",
+  "homepage": "https://github.com/Mergoth/musup-local",
+  "skills": []
+}
