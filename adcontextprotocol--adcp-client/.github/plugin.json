@@ -1,0 +1,9 @@
+{
+  "name": "adcontextprotocol--adcp-client",
+  "displayName": "adcp-client",
+  "description": "A Typescript SDK for the AdCP protocol (client and server)",
+  "version": "1.0.0",
+  "author": "adcontextprotocol",
+  "homepage": "https://github.com/adcontextprotocol/adcp-client",
+  "skills": []
+}
