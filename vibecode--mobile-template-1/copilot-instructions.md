@@ -1,13 +1,16 @@
-## first-time-setup
+## project
 
-> MUST USE THIS when the user is setting up the project for the first time or running the repo for the first time
+> Rules for the whole project
 
-Ask the user for the project name. It must be lowercase, no spaces. Use that in [app.json](mdc:app.json) and [package.json](mdc:package.json). Make up the slug yourself. Ask the user if they have a domain. If they do, use that in [app.json](mdc:app.json) for the bundleIdentifier and package ID. If not, make something up.
+This is an Expo/React Native project with TypeScript.
 
-Then, based on the info so far, update [README.md](mdc:README.md)
-
-
-Finally, delete this file [first-time-setup.mdc](mdc:.cursor/rules/first-time-setup.mdc) (`.cursor/rules/first-time-setup.mdc`)
+- Use `bun` instead of `npm` and `bunx` instead of `npx`
+- Use TailwindCSS (used as Nativewind) `className` prop for styling
+- Use file-based routing with Expo Router. The root layout is [_layout.tsx](mdc:src/app/_layout.tsx)
+- Screens are defined in `./src/app/**`
+- Components are defined in `./src/components/**`
+- Other TypeScript files like hooks, constants, config, etc. are in `./src/lib/**`
+- Use Drizzle + Drizzle Kit for a local SQLite DB. You can find the relavent files in `./drizzle/**` and `./src/lib/db/**`
 
 ---
 > Source: [vibecode/mobile-template-1](https://github.com/vibecode/mobile-template-1) — distributed by [TomeVault](https://tomevault.io).
