@@ -1,0 +1,9 @@
+{
+  "name": "pinecone-io--pinecone-mcp",
+  "displayName": "pinecone-mcp",
+  "description": "Connect your Pinecone projects to Cursor, Claude, and other AI assistants",
+  "version": "1.0.0",
+  "author": "pinecone-io",
+  "homepage": "https://github.com/pinecone-io/pinecone-mcp",
+  "skills": []
+}
