@@ -1,0 +1,9 @@
+{
+  "name": "gleanwork--mcp-config",
+  "displayName": "mcp-config",
+  "description": "Type-safe schemas and builders for MCP client configurations",
+  "version": "1.0.0",
+  "author": "gleanwork",
+  "homepage": "https://github.com/gleanwork/mcp-config",
+  "skills": []
+}
