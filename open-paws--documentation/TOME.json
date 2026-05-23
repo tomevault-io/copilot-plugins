@@ -4,7 +4,7 @@
   "repo": "documentation",
   "description": "Documentation, examples and demos for Open Paws tools, n8n workflows, AI models and datasets",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Open-Paws/documentation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T00:44:55Z"
+  "distributed_at": "2026-05-23T00:59:13Z"
 }
