@@ -4,7 +4,7 @@
   "repo": "spark--010",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oyakhilo7/spark--010",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T02:53:18Z"
+  "distributed_at": "2026-05-23T02:55:40Z"
 }
