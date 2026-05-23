@@ -1,9 +1,9 @@
 {
-  "name": "neon",
+  "name": "neon-auth-nextjs-template",
   "owner": "neondatabase",
   "repo": "neon-auth-nextjs-template",
   "description": "A template to get started with Neon Auth",
-  "type": "tome",
+  "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "neon-auth",
-      "path": "neon-plugin/skills/neon-auth",
-      "github_url": "https://github.com/neondatabase/neon-auth-nextjs-template/tree/main/neon-plugin/skills/neon-auth",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/neondatabase/neon-auth-nextjs-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-21T21:30:29Z"
+  "distributed_at": "2026-05-23T09:20:12Z"
 }
