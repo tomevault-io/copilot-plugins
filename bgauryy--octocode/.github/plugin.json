@@ -5,26 +5,5 @@
   "version": "1.0.0",
   "author": "bgauryy",
   "homepage": "https://github.com/bgauryy/Octocode",
-  "skills": [
-    {
-      "name": "octocode-documentation-writer",
-      "description": ""
-    },
-    {
-      "name": "octocode-plan",
-      "description": ""
-    },
-    {
-      "name": "octocode-prompt-optimizer",
-      "description": ""
-    },
-    {
-      "name": "octocode-pull-request-reviewer",
-      "description": ""
-    },
-    {
-      "name": "octocode-research",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
