@@ -1,0 +1,44 @@
+{
+  "name": "dialectical-framework",
+  "owner": "dialexity",
+  "repo": "dialectical-framework",
+  "description": "Turn stories, strategies, or systems into insight. Auto-generate Dialectical Wheels (DWs) from any text to reveal blind spots, surface polarities, and trace dynamic paths toward synthesis. DWs are semantic maps that expose tension, transformation, and coherence within a system\u2014whether narrative, ethical, organizational, or technological.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dialexity/dialectical-framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-23T00:38:17Z"
+}
