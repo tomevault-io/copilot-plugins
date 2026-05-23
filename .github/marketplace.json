@@ -163059,6 +163059,46 @@
       "description": "A Tiktok parser and saver for Obsidian"
     },
     {
+      "name": "mizuka-wu--y-mxgraph",
+      "source": "./mizuka-wu--y-mxgraph",
+      "description": "A tool library for bidirectional binding and conversion between draw.io (mxGraph) XML and Yjs CRDT, accompanied by a runnable demo that supports collaborative cursor and selection rendering"
+    },
+    {
+      "name": "redoop--riscv-ai-accelerator",
+      "source": "./redoop--riscv-ai-accelerator",
+      "description": "RISC-V AI Accelerator SoC with innovative BitNet multiplier-free architecture. Features PicoRV32 CPU, dual AI accelerators (6.4 GOPS), and supports open-source EDA toolchains. Designed for edge AI inf"
+    },
+    {
+      "name": "kapernikov--headscale-helm",
+      "source": "./kapernikov--headscale-helm",
+      "description": "a helm chart for headscale"
+    },
+    {
+      "name": "strahe--bwh",
+      "source": "./strahe--bwh",
+      "description": "Go SDK, CLI, and MCP server for managing BandwagonHost/bwg/\u642c\u74e6\u5de5 (KiwiVM) VPS, with command-line and programmatic access to most features."
+    },
+    {
+      "name": "gleanwork--mcp-config",
+      "source": "./gleanwork--mcp-config",
+      "description": "Type-safe schemas and builders for MCP client configurations"
+    },
+    {
+      "name": "viktorfa--finn-mcp",
+      "source": "./viktorfa--finn-mcp",
+      "description": "Unofficial MCP for the Norwegian secondhand marketplace FINN.no"
+    },
+    {
+      "name": "drasi-project--drasi-server",
+      "source": "./drasi-project--drasi-server",
+      "description": "drasi-server"
+    },
+    {
+      "name": "wrike--promabbix",
+      "source": "./wrike--promabbix",
+      "description": "A real magic of Prometheus and Zabbix being together"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173244,6 +173284,46 @@
       "description": "A powerful GUI app for running AI coding agents in parallel - built with Electron and Go"
     },
     {
+      "name": "pony-maggie--computer-use-for-deepseek",
+      "source": "./pony-maggie--computer-use-for-deepseek",
+      "description": "computer-use-for-deepseek"
+    },
+    {
+      "name": "dongzhang84--sea2-demo",
+      "source": "./dongzhang84--sea2-demo",
+      "description": "\u9006\u5411\u300a\u5927\u822a\u6d77\u6642\u4ee3II\u300b(KOEI, 1993, PC-9801) \u8d44\u6e90\u6587\u4ef6"
+    },
+    {
+      "name": "saroircommunity--spiderbrain-v3",
+      "source": "./saroircommunity--spiderbrain-v3",
+      "description": "SpiderBrain v3 is a multi-platform skill/framework to reduce token usage and AI hallucinations across Claude, Cursor, and other AI tools."
+    },
+    {
+      "name": "andrealbuquerque--claude-config",
+      "source": "./andrealbuquerque--claude-config",
+      "description": "claude-config"
+    },
+    {
+      "name": "csvance--luximm-jl",
+      "source": "./csvance--luximm-jl",
+      "description": "Julia Image Models"
+    },
+    {
+      "name": "longcipher--typstify",
+      "source": "./longcipher--typstify",
+      "description": "Leptos + Tantivy + Typst + Markdown + Tailwind CSS + SSG"
+    },
+    {
+      "name": "dzivenu--aquakit",
+      "source": "./dzivenu--aquakit",
+      "description": "AI SaaS Starter Kit - Next.js, Convex, Trigger.dev, Better Auth, Polar.sh (Stripe)"
+    },
+    {
+      "name": "withmodulabs--blog-agent",
+      "source": "./withmodulabs--blog-agent",
+      "description": "blog-agent"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -175612,6 +175692,11 @@
       "name": "galz10--fallback",
       "source": "./galz10--fallback",
       "description": "Fallback keeps the GitHub context your repo work depends on available locally, even when GitHub is down or you have no internet."
+    },
+    {
+      "name": "ha7ch--job-pro",
+      "source": "./ha7ch--job-pro",
+      "description": "Query Chinese big-tech campus recruiting from your terminal. Tencent live, more coming."
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -278272,6 +278357,61 @@
       "name": "ferymad--claudecodetest",
       "source": "./ferymad--claudecodetest",
       "description": "claudecodetest"
+    },
+    {
+      "name": "angelo-manalo--portfolio-082025",
+      "source": "./angelo-manalo--portfolio-082025",
+      "description": "Fast, accessible, and production-ready Next.js portfolio for developers and designers."
+    },
+    {
+      "name": "hyunwook20230402--math-learning-management",
+      "source": "./hyunwook20230402--math-learning-management",
+      "description": "math-learning-management"
+    },
+    {
+      "name": "hyunwook20230402--math-learning-management",
+      "source": "./hyunwook20230402--math-learning-management",
+      "description": "math-learning-management"
+    },
+    {
+      "name": "hyunwook20230402--math-learning-management",
+      "source": "./hyunwook20230402--math-learning-management",
+      "description": "math-learning-management"
+    },
+    {
+      "name": "hyunwook20230402--math-learning-management",
+      "source": "./hyunwook20230402--math-learning-management",
+      "description": "math-learning-management"
+    },
+    {
+      "name": "hyunwook20230402--math-learning-management",
+      "source": "./hyunwook20230402--math-learning-management",
+      "description": "math-learning-management"
+    },
+    {
+      "name": "imarfanc--test-25-8-16",
+      "source": "./imarfanc--test-25-8-16",
+      "description": "test-25.8.16"
+    },
+    {
+      "name": "appdotbuilder--damkar-morowali-utara",
+      "source": "./appdotbuilder--damkar-morowali-utara",
+      "description": "Created by App.build"
+    },
+    {
+      "name": "bharathraj73--pro1",
+      "source": "./bharathraj73--pro1",
+      "description": "pro1"
+    },
+    {
+      "name": "appdotbuilder--damkar-morowali-utara",
+      "source": "./appdotbuilder--damkar-morowali-utara",
+      "description": "Created by App.build"
+    },
+    {
+      "name": "keef75--sefas-gpt5",
+      "source": "./keef75--sefas-gpt5",
+      "description": "Self-Evolving Federated Agent System with GPT5"
     }
   ]
 }
