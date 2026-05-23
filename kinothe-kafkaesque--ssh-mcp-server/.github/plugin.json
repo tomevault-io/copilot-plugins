@@ -1,0 +1,9 @@
+{
+  "name": "kinothe-kafkaesque--ssh-mcp-server",
+  "displayName": "ssh-mcp-server",
+  "description": "this is a collection of tools that allows your agent to execute commands on your remote servers",
+  "version": "1.0.0",
+  "author": "KinoThe-Kafkaesque",
+  "homepage": "https://github.com/KinoThe-Kafkaesque/ssh-mcp-server",
+  "skills": []
+}
