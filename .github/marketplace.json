@@ -163104,6 +163104,36 @@
       "description": "Capacitor plugin to persist account data between app install"
     },
     {
+      "name": "silo-server--silo-server",
+      "source": "./silo-server--silo-server",
+      "description": "Self-hosted media streaming server with a Go backend, React web UI, Docker deployment, transcoding, and Jellyfin-compatible APIs."
+    },
+    {
+      "name": "silo-server--silo-server",
+      "source": "./silo-server--silo-server",
+      "description": "Self-hosted media streaming server with a Go backend, React web UI, Docker deployment, transcoding, and Jellyfin-compatible APIs."
+    },
+    {
+      "name": "dna-seq--just-dna-lite",
+      "source": "./dna-seq--just-dna-lite",
+      "description": "lite and fast version of just-dna-seq personalized genomic platform"
+    },
+    {
+      "name": "dna-seq--just-dna-lite",
+      "source": "./dna-seq--just-dna-lite",
+      "description": "lite and fast version of just-dna-seq personalized genomic platform"
+    },
+    {
+      "name": "dna-seq--just-dna-lite",
+      "source": "./dna-seq--just-dna-lite",
+      "description": "lite and fast version of just-dna-seq personalized genomic platform"
+    },
+    {
+      "name": "cap-go--capacitor-gtm",
+      "source": "./cap-go--capacitor-gtm",
+      "description": "Capacitor plugin to use google tag manager (GMT) natively"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173354,6 +173384,16 @@
       "description": "Auto-generate type-safe, tree-shakeable Valibot validators from your Prisma schema"
     },
     {
+      "name": "sooraj-sky--improving-everyday",
+      "source": "./sooraj-sky--improving-everyday",
+      "description": "Zero to Hero self-paced learning platform for DevOps engineers."
+    },
+    {
+      "name": "cap-go--capacitor-twilio-voice",
+      "source": "./cap-go--capacitor-twilio-voice",
+      "description": "Capacitor plugin to create and answer calls with twill voice SDK"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -175732,6 +175772,16 @@
       "name": "jeffgreen311--eve-agent-v2-unleashed",
       "source": "./jeffgreen311--eve-agent-v2-unleashed",
       "description": "Eve Agent V2 Unleashed \u2014 local-first autonomous AI coding agent powered by Ollama"
+    },
+    {
+      "name": "leobr84p--wiki-llm",
+      "source": "./leobr84p--wiki-llm",
+      "description": "wiki_llm"
+    },
+    {
+      "name": "leobr84p--wiki-llm",
+      "source": "./leobr84p--wiki-llm",
+      "description": "wiki_llm"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -278487,6 +278537,26 @@
       "name": "kieransaunders--familyforagingv3",
       "source": "./kieransaunders--familyforagingv3",
       "description": "familyforagingv3"
+    },
+    {
+      "name": "chkim15--epigram",
+      "source": "./chkim15--epigram",
+      "description": "Math learning platform"
+    },
+    {
+      "name": "rivarjaol--dcbball",
+      "source": "./rivarjaol--dcbball",
+      "description": "DCBBALL"
+    },
+    {
+      "name": "vibec0re--w3bsite",
+      "source": "./vibec0re--w3bsite",
+      "description": "w3bsite"
+    },
+    {
+      "name": "rivarjaol--dcbball",
+      "source": "./rivarjaol--dcbball",
+      "description": "DCBBALL"
     }
   ]
 }
