@@ -4,7 +4,7 @@
   "repo": "Flovart-cc",
   "description": "Fuck-lovart-cc is dedicated to bridging the gap in canvas automation. It empowers Claude Code to orchestrate custom visual workflows using your own 3rd-party API keys, all while delivering a premium, lovart-like UI that makes advanced AI orchestration incredibly intuitive for designers.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Paker-kk/Flovart-cc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T04:30:23Z"
+  "distributed_at": "2026-05-23T04:30:52Z"
 }
