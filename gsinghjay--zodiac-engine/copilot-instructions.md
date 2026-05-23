@@ -1,45 +1,110 @@
-## fastapi-best-practices
+## fastapi-testing
 
-> Documents the established FastAPI best practices for the Zodiac Engine, covering dependencies, Pydantic v2, DI, async/sync, error handling, responses, and performance. Fetch this rule when implementing/refactoring FastAPI code, evaluating quality, or answering user questions about project standards.
+> This rule documents best practices for writing FastAPI tests in the Zodiac Engine. Call this rule when reviewing or creating tests, implementing test fixtures, or working with async testing. Use it when users need guidance on test structure, mocking dependencies, handling async operations, or optimizing test performance.
 
-# FastAPI Best Practices Guide
+# FastAPI Testing Best Practices
 
-This rule outlines FastAPI best practices for the Zodiac Engine application based on our analysis. These practices align with the latest recommendations from FastAPI's documentation and community standards.
+This document outlines the recommended testing practices for the Zodiac Engine application.
 
-## Key Best Practices
+## Test Structure
 
-### Dependencies Management
-- Avoid using `fastapi[all]` in [requirements.txt](mdc:requirements.txt)
-- Use explicit version constraints for all dependencies
+- **Test Organization**: Organize tests by API resources/endpoints (e.g., `test_chart_configuration.py`, `test_natal_chart_variations.py`).
+- **Test Files**: Name test files with `test_` prefix.
+- **Test Directory**: Keep all tests in the `tests/` directory at the project root.
 
-### Pydantic Usage
-- Use latest Pydantic v2 syntax: `str | None` instead of `Optional[str]`
-- Use updated Pydantic configuration: `model_config = {...}` instead of `class Config`
-- Define clear schemas in [app/schemas](mdc:app/schemas) directory
+## TestClient Usage
 
-### Dependency Injection
-- Use `Annotated[Type, Depends()]` syntax in endpoint parameters
-- Inject services as dependencies rather than using static methods
-- Apply `@lru_cache` to expensive dependencies as seen in [app/core/dependencies.py](mdc:app/core/dependencies.py)
+The primary way to test FastAPI endpoints is with the synchronous `TestClient` from `fastapi.testclient`. Most tests use this client directly.
 
-### Async/Sync Consistency
-- Use `async def` only for endpoints that perform async I/O operations
-- Keep service methods synchronous if they don't perform I/O
-- Maintain consistent async/sync patterns throughout the codebase
+```python
+from fastapi.testclient import TestClient
+from app.main import app
 
-### Error Handling
-- Import from `fastapi import status` when setting status codes
-- Use custom exception classes as defined in [app/core/exceptions.py](mdc:app/core/exceptions.py)
-- Implement global exception handlers as in [app/core/error_handlers.py](mdc:app/core/error_handlers.py)
+client = TestClient(app)
 
-### API Response Options
-- Use `response_model_exclude_unset=True` where appropriate
-- Set proper status codes for different operations
-- Document response schemas in API routes
+def test_read_endpoint():
+    response = client.get("/some-endpoint")
+    assert response.status_code == 200
+    assert response.json() == {"expected": "response"}
+```
 
-### Performance 
-- Use FastAPI's background tasks for long-running operations
-- Implement caching for expensive calculations
+## Asynchronous Testing Considerations
+
+- The `pytest-asyncio` plugin is installed.
+- Test functions themselves should *not* use `async def` unless they directly `await` something *other* than client calls (which are synchronous with `TestClient`).
+- For testing true async operations or if switching to `httpx.AsyncClient`, use `@pytest.mark.anyio` and `async def`.
+
+```python
+# Example IF using AsyncClient (not current practice)
+# import pytest
+# from httpx import AsyncClient
+#
+# @pytest.mark.anyio
+# async def test_async_endpoint():
+#     async with AsyncClient(app=app, base_url="http://test") as ac:
+#         response = await ac.get("/endpoint")
+#     assert response.status_code == 200
+```
+
+## Using Fixtures
+
+- Fixtures can be defined in individual test files or in `tests/conftest.py` for reuse.
+- Currently, fixtures like `valid_natal_visualization_request` are defined within specific test files (e.g., [tests/test_static_images.py](mdc:tests/test_static_images.py)).
+- The `TestClient` is instantiated directly in each test file rather than using a shared fixture.
+
+```python
+# Example fixture in a test file
+@pytest.fixture
+def test_data():
+    return {
+        "name": "Test Person",
+        "birth_date": "1990-01-01T12:00:00",
+        # other test data
+    }
+
+def test_using_fixture(test_data):
+    response = client.post("/some-endpoint", json=test_data)
+    # ... assertions ...
+```
+
+## Dependency Overrides
+
+- FastAPI supports overriding dependencies for isolated testing, which is useful for mocking external services or databases.
+- This is typically done using `app.dependency_overrides`.
+- **Note**: This pattern is not currently used for service mocking (e.g., `AstrologyService`, `ChartVisualizationService`) in the existing test suite, but can be implemented if needed.
+
+```python
+# Example of overriding a dependency (conceptual)
+# from app.main import app
+# from app.core.dependencies import get_astrology_service
+#
+# def get_mock_astrology_service():
+#     # Return a mock or test implementation
+#     return MockAstrologyService()
+#
+# app.dependency_overrides[get_astrology_service] = get_mock_astrology_service
+#
+# # Run tests that use the overridden dependency
+#
+# # Clean up overrides after tests
+# app.dependency_overrides = {}
+```
+
+## Best Practices
+
+1.  **Test Both Success and Error Cases**: Verify correct behavior for both valid and invalid inputs.
+2.  **Use Status Constants**: Use `fastapi.status` constants (e.g., `status.HTTP_200_OK`) instead of raw numbers.
+3.  **Parameterized Testing**: Use `@pytest.mark.parametrize` for testing variations efficiently.
+4.  **Mocking External Services**: If external dependencies (beyond Kerykeion, which is implicitly tested) are added, use `unittest.mock` or pytest's monkeypatch.
+5.  **Testing File Operations**: For file generation (like SVGs), assert file existence and optionally check content. Consider mocking file system interactions for pure unit tests.
+6.  **Test Coverage**: Aim for high test coverage using `pytest-cov`.
+
+## Project-Specific Guidelines
+
+- Test all chart generation endpoints with various valid and invalid configurations.
+- Verify SVG generation includes expected elements or text content.
+- Ensure tests clean up generated files or use a dedicated test directory (currently handled by `setup_static_dir` fixture in `test_static_images.py`).
+- Tests currently rely on the actual Kerykeion library execution. Mocking Kerykeion is an option for faster, more isolated unit tests in the future.
 
 ---
 > Source: [gsinghjay/zodiac-engine](https://github.com/gsinghjay/zodiac-engine) — distributed by [TomeVault](https://tomevault.io).
