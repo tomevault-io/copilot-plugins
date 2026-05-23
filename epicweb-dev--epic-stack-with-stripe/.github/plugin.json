@@ -1,0 +1,9 @@
+{
+  "name": "epicweb-dev--epic-stack-with-stripe",
+  "displayName": "epic-stack-with-stripe",
+  "description": "Intentionally minimal Stripe subscriptions integration with payment links",
+  "version": "1.0.0",
+  "author": "epicweb-dev",
+  "homepage": "https://github.com/epicweb-dev/epic-stack-with-stripe",
+  "skills": []
+}
