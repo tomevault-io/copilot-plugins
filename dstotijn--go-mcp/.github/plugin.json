@@ -1,0 +1,9 @@
+{
+  "name": "dstotijn--go-mcp",
+  "displayName": "go-mcp",
+  "description": "Go library for implementing the Model Context Protocol (MCP).",
+  "version": "1.0.0",
+  "author": "dstotijn",
+  "homepage": "https://github.com/dstotijn/go-mcp",
+  "skills": []
+}
