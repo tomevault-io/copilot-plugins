@@ -1,149 +1,44 @@
-## plan
+## prd
 
-> Plan creator. Load when the user wants to make plans.
+> PRD Creator. Use whenever a user wants to create a PRD.
 
 
-<goal>
-1. Create a .cursor/plans/<YYYY-MM-DD-HH-MM>-<plan-name>.md file with the contents of the plan.
-2. Write the contents of the <instructions/> based the user's request
-</goal>
+Create a prd.md file in .cursor/project/prd.md. As the user answers these questions, update the file.
 
-<instructions>
-# Guide:  ()
+Alright, let's start outlining the technical plan for this project. I'll guide you by asking questions one at a time. Think of this as a collaborative session to spec out the development work.
 
-**Summary:** Mandatory steps for "". Follow precisely. Iterate quickly, verify constantly.
+Let's begin.
 
-**Principles:**
+**1. Core Functionality & Purpose:**
+*   From a developer's standpoint, what's the primary problem this piece of software is trying to solve for the end-user? And what is the core functionality we need to build to address that?
 
-- **Strict Order:** Follow steps exactly.
-- **Attempt Limit (Code/Test Steps):** Max 3 attempts. Announce attempt #. If verify fails on Attempt 3, STOP & report failure. Don't proceed.
-- **Mandatory Verify:** Verify _as instructed_ at each stage. DON'T proceed if verification fails (respect 3 attempts). Success = progress.
-- **Commit Discipline:** Commit _only_ when instructed, post-success, using specified format.
-- **Complete All:** Finish the entire sequence.
+**2. Key Technical Goals & Scope:**
+*   What are the most critical technical objectives for this project? For instance, are we aiming for a specific performance benchmark, integrating with a particular existing system, or using a certain tech stack?
+*   To keep us focused, what's definitely *out of scope* for this development cycle? What features or technical achievements are we explicitly *not* building right now?
 
-**Goal:** Execute plan efficiently, proving progress via verification. Strict adherence is key.
+**3. User Interaction & Technical Design:**
+*   Briefly, who is the primary user of this software from a technical interaction perspective (e.g., API consumer, web app user, internal tool user)?
+*   How will users interact with the core features we're building? Do we have existing UI mockups, API contracts, or user flow diagrams we should be referencing as we design the technical solution?
 
-## _(Note: Adapt `pnpm`/`npm`/`yarn` commands to project.)_
+**4. Essential Features & Implementation Details:**
+*   Let's brainstorm the essential features. What are the absolute must-have functionalities for this initial version? We can break these down further. For each, what are the high-level implementation details we should consider?
 
-**Step 0: Verify Current Branch**
+**5. Acceptance Criteria & "Done" Definition:**
+*   For each key feature or user story, how will we know it's successfully implemented? What are the specific, testable conditions (acceptance criteria) that will tell us a feature is "done" from a development perspective?
 
-- **Goal:** Confirm correct branch for "".
-- **Action:** Check current branch.
-  ```bash
-  git branch --show-current
-  ```
-- **Note:** If wrong branch, switch (`git checkout name`) or create (`git checkout -b name`).
+**6. Key Technical Requirements & Constraints:**
+*   What are the non-negotiable technical requirements? This could include the target platform (e.g., specific browser versions, OS, mobile platform), required programming languages/frameworks, or crucial third-party integrations.
+*   What about non-functional requirements? What are our targets for performance (e.g., response time), scalability, security, and reliability? Any specific constraints here (e.g., existing infrastructure, budget for services)?
 
----
+**7. Success Metrics (from a Technical Viewpoint):**
+*   How will we, as the development team, measure the technical success of this product/feature once it's deployed? Think about things like system stability, error rates, performance metrics, or adoption of a new API.
 
-**Step 1: Implement Core Code**
+**8. Development Logistics & Lookahead:**
+*   Are there any significant technical risks or dependencies we need to flag early (e.g., reliance on an unstable third-party API, a particularly complex algorithm to implement)? Any initial thoughts on mitigation?
+*   Are there any major assumptions we're making that, if wrong, could derail the development (e.g., availability of a certain dataset, performance of a chosen library)?
+*   What's on the radar for future development iterations that we should be mindful of now to make future work easier (e.g., designing for extensibility in a certain area)?
 
-- **Goal:** Modify code file(s) for core logic of "".
-- **Action & Attempt Cycle (Max 3 Attempts):**
-
-  1.  **Attempt 1:** Edit relevant file(s) (e.g., `src/feature.ts`). **Show complete changed code blocks (before/after).**
-
-      ```typescript
-      // Example: Show minimal BEFORE/AFTER blocks for code file(s)
-      // === BEFORE in src/file.ts ===
-      // export function X(...) { ... }
-
-      // === AFTER in src/file.ts (Attempt 1) ===
-      // import changes...
-      // export function X(...) { ... // Updated logic }
-      ```
-
-      _Self-Correction: Does this affect test mocks (e.g., network, `process.exit`)? Prep for test updates._
-
-  2.  **Verify (Mandatory):** Run checks below.
-  3.  **If Verify Fails:** Analyze errors. Announce **Attempt 2**.
-      - Modify code again. Show changes. Re-Verify.
-  4.  **If Verify Fails Again:** Analyze errors. Announce **Attempt 3**.
-      - Make final modifications. Show changes. Re-Verify.
-  5.  **If Verify Fails on Attempt 3:** **STOP.** Report: "Code verification failed after 3 attempts (Step 1). Plan revision needed." Do not commit.
-
-- **Impact Analysis (Mandatory Pre-Commit):** How changes affect other parts (tests, components, types, docs)?
-
-  - **Files Potentially Impacted:** `[File Path]` - Reason: [Why]
-  - Acknowledge in commit message.
-
-- **Verification (Mandatory - After EACH attempt. DO NOT COMMIT until passed):**
-
-  1.  **Lint & Type Check:** Fix _all_ issues.
-      ```bash
-      # Adapt command
-      pnpm lint && pnpm build:check
-      ```
-  2.  **Run Relevant Tests:** Analyze failures. Fix unexpected ones. (Ok if tests fail due to _intended_ change - fix in Step 2).
-      - **If verification fails:** Return to Action Cycle. Use debuggers/logs. Check Impact Analysis.
-      ```bash
-      # Adapt command (run specific tests or full suite)
-      pnpm test
-      ```
-  3.  **(Optional) Manual Check:** Briefly check behavior.
-  4.  **Progress:** If passed, state: "Verification OK for Step 1 on Attempt X."
-
-- **Commit (Only After Success on Attempt 1, 2, or 3):**
-  ```bash
-  # 1. Add only files modified THIS STEP
-  git add <path/to/modified/code/files>
-  # 2. Commit (Use ONE type: feat/fix/refactor...)
-  git commit -m "<type>: Core logic for  (Step 1)" -m "Desc: [Specific changes]" -m "Verify: Passed lint, types, tests on Attempt [1/2/3]." -m "Impact: Acknowledged potential impact."
-  ```
-
-**Step 2: Add/Update Tests**
-
-- **Goal:** Cover Step 1 changes with tests.
-- **Action & Attempt Cycle (Max 3 Attempts):**
-
-  1.  **Attempt 1:** Add/update tests in relevant files (e.g., `test/feature.test.ts`). **Show complete changed test blocks (`describe`/`it`), setup/mocks.**
-
-      ```typescript
-      // Example: Show minimal BEFORE/AFTER blocks for test file(s)
-      // === BEFORE in test/file.test.ts ===
-      // it(...) { ... }
-
-      // === AFTER in test/file.test.ts (Attempt 1) ===
-      // import/mock changes...
-      // describe(...) { it(...) { ... } // Updated/New test
-      // }
-      ```
-
-  2.  **Verify (Mandatory):** Run checks below.
-  3.  **If Verify Fails:** Analyze errors. Announce **Attempt 2**.
-      - Fix test logic _and/or_ amend Step 1 code (`git add <file>; git commit --amend --no-edit`). Show changes. Re-Verify.
-  4.  **If Verify Fails Again:** Analyze errors. Announce **Attempt 3**.
-      - Make final fixes (tests/code). Show changes. Re-Verify.
-  5.  **If Verify Fails on Attempt 3:** **STOP.** Report: "Test verification failed after 3 attempts (Step 2). Plan revision needed." Do not commit.
-
-- **Context & Impact:** Note any test setup/util files affected.
-
-  - **Files Potentially Impacted:** `[File Path]` - Reason: [Why]
-
-- **Verification (Mandatory - After EACH attempt. DO NOT COMMIT until passed):**
-
-  1.  **Lint & Type Check:** Fix all issues in changed test/code files.
-      ```bash
-      # Adapt command
-      pnpm lint <test/files> [<amended/code/files>] && pnpm build:check
-      ```
-  2.  **Run Full Test Suite:** All tests must pass (new & existing).
-      - **If fails:** Return to Action Cycle. Analyze output. Fix.
-      - **Do not proceed if tests fail.**
-      ```bash
-      # Adapt command
-      pnpm test
-      ```
-  3.  **Progress:** If passed, state: "Verification OK for Step 2 on Attempt X."
-
-- **Commit (Only After Success on Attempt 1, 2, or 3):**
-  ```bash
-  # 1. Add test files & any amended code files
-  git add <path/to/test/files> [<path/to/amended/code/files>]
-  # 2. Commit
-  git commit -m "test: Add/update tests for  (Step 2)" -m "Desc: [Specific tests added/updated, mention code fixes]" -m "Verify: Passed lint, types, full test suite on Attempt [1/2/3]."
-  ```
-</instructions>
+This structure allows us to tackle one main point at a time. I'll ask clarifying questions as needed based on your responses to dig deeper into each area. Ready to start with the first point?
 
 ---
 > Source: [johnlindquist/cursor-history](https://github.com/johnlindquist/cursor-history) — distributed by [TomeVault](https://tomevault.io).
