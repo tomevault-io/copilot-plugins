@@ -1,767 +1,724 @@
-## 302-frameworks-spring-boot-rest
+## 303-frameworks-spring-data-jdbc
 
-> This comprehensive guide provides essential principles for designing robust, maintainable, and secure REST APIs using Spring Boot. These rules ensure your APIs follow industry best practices, maintain consistency, and provide excellent developer experience for API consumers.
+> Spring Data JDBC provides a simpler alternative to JPA, offering direct SQL control while maintaining Spring's repository abstractions. When combined with Java records, it creates clean, immutable data models perfect for modern Java applications.
 
-# Java REST API Design Principles
+# Spring Data JDBC with Records
 
-This comprehensive guide provides essential principles for designing robust, maintainable, and secure REST APIs using Spring Boot. These rules ensure your APIs follow industry best practices, maintain consistency, and provide excellent developer experience for API consumers.
+Spring Data JDBC provides a simpler alternative to JPA, offering direct SQL control while maintaining Spring's repository abstractions. When combined with Java records, it creates clean, immutable data models perfect for modern Java applications.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-- **Semantic Consistency**: Use HTTP methods, status codes, and URI patterns according to their intended semantics
-- **Clear Communication**: Provide unambiguous API contracts through proper DTOs, error handling, and documentation
-- **Security by Design**: Implement authentication, authorization, and input validation from the start
-- **Evolutionary Design**: Version APIs and structure them to support future changes without breaking existing clients
+- **Immutability**: Use records for immutable entities that are thread-safe and predictable
+- **Simplicity**: Leverage Spring Data JDBC's straightforward approach over complex ORM mapping
+- **Constructor Injection**: Always use constructor-based dependency injection for better testability
+- **Transaction Boundaries**: Keep transactions at the service layer, not repository layer
+- **SQL Control**: Use custom queries when needed for optimal performance
 
 ## Table of contents
 
-- Rule 1: Use HTTP Methods Correctly
-- Rule 2: Design Clear and Consistent Resource URIs
-- Rule 3: Use HTTP Status Codes Appropriately
-- Rule 4: Implement Effective Request and Response Payloads (DTOs)
-- Rule 5: Version Your APIs
-- Rule 6: Handle Errors Gracefully
-- Rule 7: Secure Your APIs
-- Rule 8: Document Your APIs
-- Rule 9: Use Controller Advice for Global Exception Handling
-- Rule 10: Implement Problem Details for Error Responses
+- Rule 1: Use Records for Entity Classes
+- Rule 2: Implement Repository Pattern Correctly
+- Rule 3: Handle Updates with Immutable Records
+- Rule 4: Design Aggregate Relationships Properly
+- Rule 5: Use Custom Queries for Complex Operations
+- Rule 6: Implement Proper Transaction Management
+- Rule 7: Embrace Single Query Loading to Eliminate N+1 Problems
 
-## Rule 1: Use HTTP Methods Correctly
+## Rule 1: Use Records for Entity Classes
 
-Title: Employ HTTP Methods Semantically
-Description: Use HTTP methods according to their defined semantics to ensure predictability and compliance with web standards. `GET` for retrieval, `POST` for creation, `PUT` for update/replace, `PATCH` for partial update, and `DELETE` for removal.
+Title: Prefer Records Over Classes for Entity Definitions
+Description: Records provide immutability, automatic equals/hashCode, and clean constructor-based mapping that works perfectly with Spring Data JDBC. They eliminate boilerplate code and ensure thread safety. Use @PersistenceCreator when you have multiple constructors to specify which one Spring Data JDBC should use. Use @Column to explicitly map record fields to database columns, especially when field names differ from column names.
 
 **Good example:**
 
 ```java
-// Using Spring MVC annotations for illustration
-@RestController
-@RequestMapping("/users")
-public class UserController {
-
-    @GetMapping("/{id}") // GET for retrieving a user
-    public ResponseEntity<UserDTO> getUser(@PathVariable String id) {
-        // ... logic to fetch user ...
-        return ResponseEntity.ok(new UserDTO());
-    }
-
-    @PostMapping // POST for creating a new user
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserCreateDTO userCreateDTO) {
-        // ... logic to create user ...
-        UserDTO newUser = new UserDTO(); // Assume it gets an ID after creation
-        return ResponseEntity.created(URI.create("/users/" + newUser.getId())).body(newUser);
-    }
-
-    @PutMapping("/{id}") // PUT for replacing/updating a user
-    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserUpdateDTO userUpdateDTO) {
-        // ... logic to update user ...
-        return ResponseEntity.ok(new UserDTO());
-    }
-
-    @DeleteMapping("/{id}") // DELETE for removing a user
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
-        // ... logic to delete user ...
-        return ResponseEntity.noContent().build();
+public record Customer(
+    @Id 
+    @Column("customer_id") 
+    Long id,
+    
+    @Column("first_name") 
+    String firstName,
+    
+    @Column("last_name") 
+    String lastName,
+    
+    @Column("email_address") 
+    String email,
+    
+    @Column("created_at") 
+    LocalDateTime createdAt
+) {
+    // Constructor for Spring Data JDBC (explicit annotation when multiple constructors exist)
+    @PersistenceCreator
+    public Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdAt) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.createdAt = createdAt;
     }
     
-    @PatchMapping("/{id}") // PATCH for partial updates
-    public ResponseEntity<UserDTO> partiallyUpdateUser(@PathVariable String id, @RequestBody Map<String, Object> updates) {
-        // ... logic to partially update user ...
-        return ResponseEntity.ok(new UserDTO());
+    // Factory method for new entities
+    public static Customer of(String firstName, String lastName, String email) {
+        return new Customer(null, firstName, lastName, email, LocalDateTime.now());
     }
 }
-// Dummy DTO classes
-class UserDTO { private String id; public String getId() { return id; } /* ... other fields, getters, setters ... */ }
-class UserCreateDTO { /* ... fields ... */ }
-class UserUpdateDTO { /* ... fields ... */ }
 ```
 
 **Bad Example:**
 
 ```java
-@RestController
-@RequestMapping("/api")
-public class BadUserController {
-
-    // Bad: Using GET to perform a state change (e.g., delete)
-    @GetMapping("/deleteUser")
-    public ResponseEntity<String> deleteUserViaGet(@RequestParam String id) {
-        System.out.println("Deleting user: " + id + " (Bad: GET used for delete)");
-        // ... delete logic ...
-        return ResponseEntity.ok("User deleted (but GET was used!)");
+// Missing @PersistenceCreator annotation with multiple constructors
+public record Customer(
+    @Id Long id,
+    String firstName,
+    String lastName,
+    String email,
+    LocalDateTime createdAt
+) {
+    // Multiple constructors without @PersistenceCreator - Spring Data JDBC won't know which to use
+    public Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdAt) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.createdAt = createdAt;
     }
-
-    // Bad: Using POST for all operations, including retrieval
-    @PostMapping("/getUser")
-    public ResponseEntity<UserDTO> getUserViaPost(@RequestBody String idPayload) {
-        System.out.println("Fetching user: " + idPayload + " (Bad: POST used for GET)");
-        // ... fetch logic ...
-        return ResponseEntity.ok(new UserDTO());
-    }
-}
-```
-
-## Rule 2: Design Clear and Consistent Resource URIs
-
-Title: Use Nouns for Resources and Maintain URI Consistency
-Description: Design URIs that are intuitive and clearly represent resources. Use nouns (e.g., `/users`, `/orders`) instead of verbs. Keep URIs consistent in style (e.g., lowercase, hyphenated or camelCase for path segments).
-
-**Good example:**
-
-```
-GET /users                           // Get all users
-GET /users/{userId}                  // Get a specific user
-GET /users/{userId}/orders           // Get all orders for a specific user
-GET /users/{userId}/orders/{orderId} // Get a specific order for a user
-POST /users                          // Create a new user
-```
-
-**Bad Example:**
-
-```
-GET /getAllUsers
-GET /fetchUserById?id={userId}
-POST /createNewUser
-GET /userOrders?userId={userId}  // Mixing query params and path styles inconsistently
-POST /processUserOrderCreation   // URI contains verbs and is overly complex
-```
-
-## Rule 3: Use HTTP Status Codes Appropriately
-
-Title: Return Meaningful HTTP Status Codes
-Description: Utilize standard HTTP status codes to accurately reflect the outcome of API requests. This helps clients understand the result without needing to parse the response body for basic success/failure information.
-- `200 OK`: General success.
-- `201 Created`: Resource successfully created (often with a `Location` header pointing to the new resource).
-- `204 No Content`: Success, but no content to return (e.g., after a successful `DELETE`).
-- `400 Bad Request`: Client error (e.g., invalid syntax, missing parameters).
-- `401 Unauthorized`: Authentication is required and has failed or has not yet been provided.
-- `403 Forbidden`: Authenticated client does not have permission to access the resource.
-- `404 Not Found`: Resource not found.
-- `500 Internal Server Error`: A generic error message for unexpected server-side errors.
-
-**Good example:**
-
-```java
-// (Inside a Spring @RestController method)
-if (resourceNotFound) {
-    return ResponseEntity.notFound().build(); // 404
-}
-if (!userHasPermission) {
-    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied"); // 403
-}
-if (validationFailed) {
-    return ResponseEntity.badRequest().body("Invalid input data"); // 400
-}
-// For creation:
-// return ResponseEntity.created(newResourceUri).body(newResource); // 201
-// For successful deletion:
-// return ResponseEntity.noContent().build(); // 204
-```
-
-**Bad Example:**
-
-```java
-import java.util.Objects;
-
-public ResponseEntity<String> processSomething(String input) {
-    try {
-        if (Objects.isNull(input)) {
-            // Client should receive a 400 Bad Request, not 200 with an error message in body.
-            return ResponseEntity.ok("{\"error\":\"Input cannot be null\"}"); 
-        }
-        // ... process ...
-        return ResponseEntity.ok("{\"data\":\"Success!\"}");
-    } catch (Exception e) {
-        // Client should receive a 500 Internal Server Error, not 200.
-        return ResponseEntity.ok("{\"error\":\"Something went wrong on the server\"}");
+    
+    public Customer(String firstName, String lastName, String email) {
+        this(null, firstName, lastName, email, LocalDateTime.now());
     }
 }
-```
 
-## Rule 4: Implement Effective Request and Response Payloads (DTOs)
-
-Title: Use Data Transfer Objects (DTOs) for Payloads and Keep Them Lean
-Description: Use dedicated DTO classes for request and response bodies instead of exposing internal domain/entity objects directly. This decouples your API contract from your internal data model. Keep DTOs focused on the data needed for the specific API operation. Use consistent naming conventions (e.g., JSON with camelCase keys).
-
-**Good example:**
-
-```java
-// Domain Entity (internal)
-class User {
+// Or using mutable entity class with boilerplate
+public class Customer {
+    @Id
     private Long id;
-    private String username;
-    private String passwordHash; // Internal field, should not be in API responses
+    private String firstName;
+    private String lastName;
     private String email;
-    private java.time.LocalDateTime createdAt;
-    // getters, setters
+    private LocalDateTime createdAt;
+    
+    // Constructors, getters, setters, equals, hashCode...
+    // 50+ lines of boilerplate code
+}
+```
+
+## Rule 2: Implement Repository Pattern Correctly
+
+Title: Extend Appropriate Repository Interfaces
+Description: Use CrudRepository or PagingAndSortingRepository as base interfaces. Leverage method query derivation for simple queries and @Query for complex ones. Always annotate with @Repository.
+
+**Good example:**
+
+```java
+@Repository
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
+    
+    // Method query derivation
+    List<Customer> findByLastName(String lastName);
+    Optional<Customer> findByEmail(String email);
+    
+    // Custom query for complex operations
+    @Query("SELECT * FROM customer WHERE email LIKE :pattern")
+    List<Customer> findByEmailPattern(@Param("pattern") String pattern);
+}
+```
+
+**Bad Example:**
+
+```java
+// Missing @Repository annotation and poor method naming
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
+    
+    // Unclear method names that don't follow Spring Data conventions
+    List<Customer> getCustomersWithLastName(String lastName);
+    
+    // Raw SQL without parameters
+    @Query("SELECT * FROM customer WHERE email LIKE '%@gmail.com%'")
+    List<Customer> findGmailUsers();
+}
+```
+
+## Rule 3: Handle Updates with Immutable Records
+
+Title: Create New Record Instances for Updates
+Description: Since records are immutable, create update methods that return new instances with modified values. This ensures data integrity and prevents accidental mutations.
+
+**Good example:**
+
+```java
+public record Customer(
+    @Id 
+    @Column("customer_id")
+    Long id,
+    
+    @Column("first_name")
+    String firstName,
+    
+    @Column("last_name")
+    String lastName,
+    
+    @Column("email_address")
+    String email,
+    
+    @Column("created_at")
+    LocalDateTime createdAt
+) {
+    // Update method returns new instance
+    public Customer withEmail(String newEmail) {
+        return new Customer(id, firstName, lastName, newEmail, createdAt);
+    }
+    
+    public Customer withName(String firstName, String lastName) {
+        return new Customer(id, firstName, lastName, email, createdAt);
+    }
 }
 
-// DTO for API responses (exposes only necessary fields)
-class UserResponseDTO {
+// Service layer update
+@Transactional
+public Customer updateCustomerEmail(Long customerId, String newEmail) {
+    return customerRepository.findById(customerId)
+        .map(customer -> customer.withEmail(newEmail))
+        .map(customerRepository::save)
+        .orElseThrow(() -> new CustomerNotFoundException(customerId));
+}
+```
+
+**Bad Example:**
+
+```java
+// Trying to use setters with records (won't compile)
+public record Customer(@Id Long id, String email) {
+    public void setEmail(String email) {  // This won't work!
+        this.email = email;
+    }
+}
+
+// Or using mutable wrapper approach
+@Transactional
+public Customer updateCustomerEmail(Long customerId, String newEmail) {
+    Customer customer = customerRepository.findById(customerId).orElseThrow();
+    // Creating entirely new record instead of using update methods
+    Customer updated = new Customer(customer.id(), newEmail);
+    return customerRepository.save(updated);
+}
+```
+
+## Rule 4: Design Aggregate Relationships Properly
+
+Title: Model Aggregates with Records and Sets
+Description: Spring Data JDBC supports limited relationship types compared to JPA. Use records for aggregate roots and contained entities. Model one-to-many relationships with Set collections, use foreign key references for many-to-one, and avoid bidirectional references to maintain aggregate boundaries. For unsupported relationships like many-to-many, use junction tables or denormalization.
+
+**Good example:**
+
+```java
+// ✅ One-to-Many: Primary supported relationship
+public record Order(
+    @Id 
+    @Column("order_id")
+    Long id,
+    
+    @Column("customer_id")
+    Long customerId,  // Foreign key reference (Many-to-One)
+    
+    @Column("order_date")
+    LocalDateTime orderDate,
+    
+    @Column("order_status")
+    OrderStatus status,
+    
+    Set<OrderItem> items  // One-to-Many aggregate collection
+) {}
+
+public record OrderItem(
+    @Id 
+    @Column("item_id")
+    Long id,
+    
+    @Column("product_name")
+    String productName,
+    
+    @Column("price")
+    BigDecimal price,
+    
+    @Column("quantity")
+    int quantity
+) {}
+
+// ✅ One-to-One: Using embedded objects
+public record Customer(
+    @Id 
+    @Column("customer_id")
+    Long id,
+    
+    @Column("customer_name")
+    String name,
+    
+    @Embedded.OnEmpty(USE_NULL) Address address  // One-to-One embedded
+) {}
+
+public record Address(
+    @Column("street_address")
+    String street,
+    
+    @Column("city")
+    String city,
+    
+    @Column("postal_code")
+    String postalCode,
+    
+    @Column("country")
+    String country
+) {}
+
+// ✅ Many-to-Many workaround: Junction table with explicit entity
+public record Student(
+    @Id 
+    @Column("student_id")
+    Long id,
+    
+    @Column("student_name")
+    String name,
+    
+    Set<StudentCourse> enrollments  // Access courses through junction
+) {}
+
+public record StudentCourse(
+    @Id 
+    @Column("enrollment_id")
+    Long id,
+    
+    @Column("student_id")
+    Long studentId,
+    
+    @Column("course_id")
+    Long courseId,
+    
+    @Column("enrolled_at")
+    LocalDateTime enrolledAt,
+    
+    @Column("grade")
+    String grade
+) {}
+
+// ✅ Many-to-Many alternative: Store as delimited string or JSON
+public record User(
+    @Id 
+    @Column("user_id")
+    Long id,
+    
+    @Column("username")
+    String username,
+    
+    @Column("role_ids")
+    String roleIds  // Store as "1,2,3" - simple cases only
+) {
+    public List<Long> getRoleIdsList() {
+        return Arrays.stream(roleIds.split(","))
+            .map(Long::parseLong)
+            .toList();
+    }
+}
+
+// Repository focuses on aggregate root only
+@Repository
+public interface OrderRepository extends CrudRepository<Order, Long> {
+    List<Order> findByCustomerId(Long customerId);
+    List<Order> findByStatus(OrderStatus status);
+}
+```
+
+**Bad Example:**
+
+```java
+// ❌ Bidirectional references break aggregate boundaries
+public record Order(
+    @Id 
+    @Column("order_id")
+    Long id,
+    
+    Customer customer,  // Don't embed full objects - use foreign keys
+    Set<OrderItem> items
+) {}
+
+public record OrderItem(
+    @Id 
+    @Column("item_id")
+    Long id,
+    
+    @Column("product_name")
+    String productName,
+    
+    Order order  // Don't include parent reference in aggregate
+) {}
+
+// ❌ Attempting unsupported Many-to-Many directly
+public record Student(
+    @Id 
+    @Column("student_id")
+    Long id,
+    
+    @Column("student_name")
+    String name,
+    
+    Set<Course> courses  // Spring Data JDBC doesn't support this
+) {}
+
+public record Course(
+    @Id 
+    @Column("course_id")
+    Long id,
+    
+    @Column("course_title")
+    String title,
+    
+    Set<Student> students  // Bidirectional Many-to-Many not supported
+) {}
+
+// ❌ Repository that violates aggregate boundaries
+@Repository
+public interface OrderItemRepository extends CrudRepository<OrderItem, Long> {
+    List<OrderItem> findByOrderId(Long orderId);  // Should go through Order aggregate
+}
+
+// ❌ Overly large aggregates
+public record Customer(
+    @Id 
+    @Column("customer_id")
+    Long id,
+    
+    @Column("customer_name")
+    String name,
+    
+    Set<Order> orders,           // Too large - creates performance issues
+    Set<Address> addresses,
+    Set<PaymentMethod> paymentMethods,
+    Set<Preference> preferences
+) {}
+```
+
+### Relationship Modeling Guidelines
+
+**Supported Relationships:**
+- **One-to-Many**: Use `Set<ChildEntity>` in aggregate root (primary pattern)
+- **One-to-One**: Use `@Embedded` for value objects or foreign key references
+- **Many-to-One**: Use foreign key fields (`Long parentId`)
+
+**Unsupported Relationships:**
+- **Many-to-Many**: Use junction tables or denormalization workarounds
+- **Bidirectional**: Always model relationships unidirectionally
+
+**Best Practices:**
+- Keep aggregates small and focused
+- Use foreign key references between aggregates
+- Load related data separately when needed
+- Consider eventual consistency for cross-aggregate operations
+
+### Summary of Relationship Capabilities:
+
+| Relationship Type | Support Level | Approach |
+|------------------|---------------|----------|
+| **One-to-Many** | ✅ Full | Collections in aggregate root |
+| **One-to-One** | ✅ Good | Embedded objects |
+| **Many-to-One** | ⚠️ Limited | Foreign key references |
+| **Many-to-Many** | ❌ None | Junction tables or denormalization |
+
+## Rule 5: Use Custom Queries for Complex Operations
+
+Title: Leverage @Query for Complex SQL Operations
+Description: Use @Query annotation for complex queries that can't be expressed through method naming. Use proper parameter binding and consider performance implications.
+
+**Good example:**
+
+```java
+@Repository
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
+    
+    @Query("""
+        SELECT c.* FROM customer c 
+        JOIN orders o ON c.id = o.customer_id 
+        WHERE o.order_date BETWEEN :startDate AND :endDate
+        GROUP BY c.id 
+        HAVING COUNT(o.id) >= :minOrders
+        """)
+    List<Customer> findActiveCustomers(
+        @Param("startDate") LocalDateTime startDate,
+        @Param("endDate") LocalDateTime endDate,
+        @Param("minOrders") int minOrders
+    );
+    
+    @Modifying
+    @Query("UPDATE customer SET email = :email WHERE id = :id")
+    void updateCustomerEmail(@Param("id") Long id, @Param("email") String email);
+}
+```
+
+**Bad Example:**
+
+```java
+@Repository
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
+    
+    // SQL injection risk - not using parameters
+    @Query("SELECT * FROM customer WHERE email = '" + "email" + "'")
+    Customer findByEmailUnsafe(String email);
+    
+    // Overly complex query that should be broken down
+    @Query("""
+        SELECT c.*, o.*, oi.*, p.* FROM customer c
+        LEFT JOIN orders o ON c.id = o.customer_id
+        LEFT JOIN order_item oi ON o.id = oi.order_id
+        LEFT JOIN product p ON oi.product_id = p.id
+        WHERE c.created_at > ?1 AND o.status = ?2
+        """)
+    List<Object[]> findComplexCustomerData(LocalDateTime date, String status);
+}
+```
+
+## Rule 6: Implement Proper Transaction Management
+
+Title: Use @Transactional at Service Layer
+Description: Apply transaction boundaries at the service layer, not repository layer. Use readOnly=true for read operations and ensure proper transaction propagation.
+
+**Good example:**
+
+```java
+@Service
+@Transactional(readOnly = true)
+public class CustomerService {
+    
+    private final CustomerRepository customerRepository;
+    
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+    
+    public Optional<Customer> findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+    
+    @Transactional
+    public Customer createCustomer(String firstName, String lastName, String email) {
+        var customer = Customer.of(firstName, lastName, email);
+        return customerRepository.save(customer);
+    }
+    
+    @Transactional
+    public Customer updateCustomerEmail(Long customerId, String newEmail) {
+        return customerRepository.findById(customerId)
+            .map(customer -> customer.withEmail(newEmail))
+            .map(customerRepository::save)
+            .orElseThrow(() -> new CustomerNotFoundException(customerId));
+    }
+}
+```
+
+**Bad Example:**
+
+```java
+// No transaction management
+public class CustomerService {
+    
+    private final CustomerRepository customerRepository;
+    
+    // Auto-commit for each operation - no transaction control
+    public Customer createCustomer(String firstName, String lastName, String email) {
+        var customer = Customer.of(firstName, lastName, email);
+        return customerRepository.save(customer);  // Each call is separate transaction
+    }
+    
+    // Read operation without readOnly optimization
+    @Transactional
+    public Optional<Customer> findByEmail(String email) {
+        return customerRepository.findByEmail(email);  // Should be readOnly=true
+    }
+}
+```
+
+## Rule 7: Embrace Single Query Loading to Eliminate N+1 Problems
+
+Title: Leverage Spring Data JDBC's Eager Loading to Avoid N+1 Query Issues
+Description: Spring Data JDBC loads entire aggregates in single queries, automatically eliminating the N+1 problem that plagues JPA/Hibernate applications. Unlike JPA's lazy loading approach, Spring Data JDBC eagerly loads all aggregate data in one query, ensuring predictable performance and eliminating the need for complex fetch strategies.
+
+**Good example:**
+
+```java
+// ✅ Spring Data JDBC loads entire aggregate in single query
+public record Order(
+    @Id 
+    @Column("order_id")
+    Long id,
+    
+    @Column("customer_id")
+    Long customerId,
+    
+    @Column("order_date")
+    LocalDateTime orderDate,
+    
+    @Column("total_amount")
+    BigDecimal totalAmount,
+    
+    Set<OrderItem> items  // All items loaded in single query
+) {}
+
+public record OrderItem(
+    @Id 
+    @Column("item_id")
+    Long id,
+    
+    @Column("product_name")
+    String productName,
+    
+    @Column("unit_price")
+    BigDecimal unitPrice,
+    
+    @Column("quantity")
+    int quantity
+) {}
+
+@Repository
+public interface OrderRepository extends CrudRepository<Order, Long> {
+    List<Order> findByCustomerId(Long customerId);
+}
+
+// ✅ Service that benefits from single query loading
+@Service
+@Transactional(readOnly = true)
+public class OrderService {
+    
+    private final OrderRepository orderRepository;
+    
+    public List<OrderSummary> getCustomerOrderSummaries(Long customerId) {
+        // Single query loads all orders with their items
+        return orderRepository.findByCustomerId(customerId)
+            .stream()
+            .map(order -> new OrderSummary(
+                order.id(),
+                order.orderDate(),
+                order.totalAmount(),
+                order.items().size(),  // No additional query needed
+                order.items().stream()
+                    .mapToDouble(item -> item.unitPrice().doubleValue() * item.quantity())
+                    .sum()
+            ))
+            .toList();
+    }
+}
+
+public record OrderSummary(
+    Long orderId,
+    LocalDateTime orderDate,
+    BigDecimal totalAmount,
+    int itemCount,
+    double calculatedTotal
+) {}
+
+// Generated SQL - Single query with JOIN:
+// SELECT o.order_id, o.customer_id, o.order_date, o.total_amount,
+//        oi.item_id, oi.product_name, oi.unit_price, oi.quantity
+// FROM orders o 
+// LEFT JOIN order_item oi ON o.order_id = oi.order_id
+// WHERE o.customer_id = ?
+```
+
+**Bad Example:**
+
+```java
+// ❌ JPA-style thinking that would cause N+1 problems
+@Entity  // Wrong - this is JPA, not Spring Data JDBC
+public class Order {
+    @Id
     private Long id;
-    private String username;
-    private String email;
-    // getters, setters
-}
-
-// DTO for creating a user
-class UserCreateRequestDTO {
-    private String username;
-    private String password; // Received in request, then hashed internally
-    private String email;
-    // getters, setters
-}
-
-// In controller:
-// public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) { ... }
-// public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserCreateRequestDTO createDto) { ... }
-```
-
-**Bad Example:**
-
-```java
-// Bad: Exposing internal User entity directly in API, including sensitive fields like passwordHash.
-@RestController
-public class AnotherUserController {
-    @GetMapping("/rawusers/{id}")
-    public ResponseEntity<User> getRawUser(@PathVariable String id) {
-        // Assume User class has passwordHash and other internal fields
-        User internalUser = findUserById(id); // Method that returns the internal User entity
-        return ResponseEntity.ok(internalUser); // Exposes passwordHash, createdAt, etc.
-    }
-    private User findUserById(String id) { return new User(); /* ... */}
-}
-```
-
-## Rule 5: Version Your APIs
-
-Title: Implement a Clear API Versioning Strategy
-Description: Introduce API versioning from the beginning to manage changes and evolution without breaking existing clients. Common strategies include URI versioning (e.g., `/v1/users`), custom request header versioning (e.g., `X-API-Version: 1`), or media type versioning (e.g., `Accept: application/vnd.example.v1+json`). Choose a strategy and apply it consistently.
-
-**Good example (URI Versioning):**
-
-```java
-@RestController
-@RequestMapping("/api/v1/products") // Version in URI
-public class ProductControllerV1 {
-    // ... v1 endpoints ...
-}
-
-@RestController
-@RequestMapping("/api/v2/products") // New version in URI
-public class ProductControllerV2 {
-    // ... v2 endpoints with potential breaking changes or new features ...
-}
-```
-
-**Bad Example (No Versioning):**
-
-```java
-@RestController
-@RequestMapping("/products") // No version information
-public class UnversionedProductController {
-    // If a breaking change is made here (e.g., field removed from response),
-    // all existing clients might break.
-    @GetMapping("/{id}")
-    public ProductDTO getProduct(@PathVariable String id) {
-        // ... logic ...
-        return new ProductDTO();
-    }
-}
-class ProductDTO {}
-```
-
-## Rule 6: Handle Errors Gracefully
-
-Title: Provide Clear and Consistent Error Responses
-Description: When an error occurs, return a standardized, machine-readable error response format (e.g., JSON). Include a unique error code or type, a human-readable message, and optionally, details about specific fields that caused validation errors. Do not expose sensitive internal details like stack traces in production error responses.
-
-**Good example (Error DTO and @ControllerAdvice for Spring):**
-
-```java
-// Error Response DTO
-class ErrorResponse {
-    private String errorCode;
-    private String message;
-    private List<String> details; // Optional: for field-specific validation errors
-    // Constructor, getters
-    public ErrorResponse(String errorCode, String message) { this.errorCode = errorCode; this.message = message; }
-    public ErrorResponse(String errorCode, String message, List<String> details) { /* ... */ }
-}
-
-@ControllerAdvice
-class GlobalExceptionHandler {
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleResourceNotFound(ResourceNotFoundException ex) {
-        return new ErrorResponse("RESOURCE_NOT_FOUND", ex.getMessage());
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class) // Example for bean validation errors
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidationErrors(MethodArgumentNotValidException ex) {
-        List<String> errors = ex.getBindingResult().getFieldErrors().stream()
-                                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
-                                .collect(Collectors.toList());
-        return new ErrorResponse("VALIDATION_ERROR", "Input validation failed", errors);
-    }
     
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleGenericError(Exception ex) {
-        // Log the full exception internally
-        // logger.error("Unhandled exception:", ex);
-        return new ErrorResponse("INTERNAL_ERROR", "An unexpected error occurred.");
-    }
-}
-// Custom exception
-class ResourceNotFoundException extends RuntimeException { public ResourceNotFoundException(String msg){ super(msg);}}
-```
-
-**Bad Example:**
-
-```java
-@RestController
-public class BadErrorHandlingController {
-    @GetMapping("/items/{id}")
-    public ResponseEntity<String> getItem(@PathVariable String id) {
-        if (id.equals("unknown")) {
-            // Bad: Returning plain text error, or HTML, or inconsistent format.
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found!"); 
-        }
-        try {
-            // ... some logic that might throw an exception ...
-            if(id.equals("fail")) throw new NullPointerException("Simulated internal error");
-            return ResponseEntity.ok("Item data");
-        } catch (Exception e) {
-            // Bad: Exposing stack trace to the client in production.
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
-        }
-    }
-}
-```
-
-## Rule 7: Secure Your APIs
-
-Title: Implement Robust Security Measures
-Description: Protect your APIs from common threats. Use HTTPS for all communication. Implement proper authentication (e.g., OAuth 2.0, JWT) and authorization (e.g., role-based access control). Validate all input data to prevent injection attacks (SQLi, XSS). Apply rate limiting and throttling to prevent abuse.
-
-**Good example (Conceptual - actual implementation involves security frameworks like Spring Security):**
-
-```java
-// In a Spring Security configuration:
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable() // Consider CSRF protection needs
-            .authorizeRequests()
-                .antMatchers("/public/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN") // Role-based authorization
-                .anyRequest().authenticated()       // All other requests need authentication
-            .and()
-            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt); // Example: JWT authentication
-            // .httpBasic(); // Or basic auth for simplicity in some cases
-    }
-    // ... user details service, password encoder, etc. ...
-}
-
-// In a controller method:
-// @PreAuthorize("hasAuthority('SCOPE_read:users')") // Example: OAuth2 scope-based authorization
-// @GetMapping("/users/{id}")
-// public UserDTO getUser(@PathVariable String id) { ... }
-```
-
-**Bad Example:**
-
-```java
-@RestController
-public class InsecureController {
-    // Bad: No authentication or authorization for sensitive operations.
-    @PostMapping("/admin/deleteAllData")
-    public String deleteAllData() {
-        System.out.println("All data deleted! (INSECURE - NO AUTH)");
-        return "All data wiped.";
-    }
-
-    // Bad: Trusting user input directly in a query (conceptual SQLi vulnerability).
-    @GetMapping("/products")
-    public List<ProductDTO> searchProducts(@RequestParam String category) {
-        // String query = "SELECT * FROM products WHERE category = '" + category + "'"; // SQL Injection risk!
-        // Use PreparedStatement or an ORM to prevent SQLi.
-        System.out.println("Searching for category (raw input): " + category);
-        return List.of();
-    }
-}
-```
-
-## Rule 8: Document Your APIs
-
-Title: Provide Clear and Comprehensive API Documentation
-Description: Maintain up-to-date documentation for your API. Tools like Swagger/OpenAPI can be used to generate interactive documentation from code annotations. Documentation should cover resource URIs, HTTP methods, request/response formats (including DTO schemas), expected status codes, authentication methods, and error responses.
-
-**Good example (Using Springdoc OpenAPI / Swagger annotations):**
-
-```java
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-// Assume other necessary imports like Spring MVC, DTOs etc.
-
-@RestController
-@RequestMapping("/api/v1/widgets")
-@Tag(name = "Widget API", description = "APIs for managing widgets")
-public class WidgetController {
-
-    @Operation(summary = "Get a widget by its ID",
-               description = "Returns a single widget based on the provided ID.",
-               responses = {
-                   @ApiResponse(responseCode = "200", description = "Successfully retrieved widget",
-                                content = @Content(mediaType = "application/json", schema = @Schema(implementation = WidgetDTO.class))),
-                   @ApiResponse(responseCode = "404", description = "Widget not found",
-                                content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-               })
-    @GetMapping("/{widgetId}")
-    public ResponseEntity<WidgetDTO> getWidgetById(
-            @Parameter(description = "ID of the widget to retrieve", required = true) 
-            @PathVariable String widgetId) {
-        // ... logic ...
-        // return ResponseEntity.ok(new WidgetDTO(widgetId, "Sample Widget"));
-        // For example, if not found:
-        if ("unknown".equals(widgetId)) { 
-            throw new ResourceNotFoundException("Widget with ID " + widgetId + " not found.");
-        }
-        return ResponseEntity.ok(new WidgetDTO()); // Placeholder
-    }
-}
-class WidgetDTO { /* fields, getters, setters */ }
-// ErrorResponse and ResourceNotFoundException as defined in Rule 6
-```
-
-**Bad Example (No Documentation or Incomplete):**
-
-```java
-// No API documentation tool usage, comments are sparse or missing.
-@RestController
-@RequestMapping("/legacy/things")
-public class LegacyThingController {
-    // What does this do? What are parameters? What are responses?
-    @GetMapping("/{id}")
-    public Object getAThing(@PathVariable String id, @RequestParam(required = false) String type) {
-        // ... complex logic ...
-        return new Object(); // Unclear what this object structure is.
-    }
-}
-// Clients have to guess or read source code to understand how to use the API.
-```
-
-## Rule 9: Use Controller Advice for Global Exception Handling
-
-Title: Implement Centralized Exception Handling with @ControllerAdvice
-Description: Use `@ControllerAdvice` to create a centralized exception handling mechanism that can catch and handle both checked `Exception` and unchecked `RuntimeException` across all controllers. Use Spring Boot's built-in `ProblemDetail` class for consistent, standardized error responses that follow RFC 7807. This approach promotes DRY principles, ensures consistent error responses, and separates error handling logic from business logic.
-
-**Good example:**
-
-```java
-@ControllerAdvice
-public class GlobalExceptionHandler {
+    @OneToMany(fetch = FetchType.LAZY)  // Lazy loading causes N+1
+    private Set<OrderItem> items;
     
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    // getters/setters...
+}
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ProblemDetail> handleIllegalArgument(
-            IllegalArgumentException ex, HttpServletRequest request) {
-        logger.warn("Invalid argument: {}", ex.getMessage());
+// ❌ Code that would trigger N+1 in JPA (but works fine in Spring Data JDBC)
+@Service
+public class OrderService {
+    
+    public List<OrderSummary> getCustomerOrderSummaries(Long customerId) {
+        List<Order> orders = orderRepository.findByCustomerId(customerId);
         
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.BAD_REQUEST, ex.getMessage()
-        );
-        problemDetail.setType(URI.create("https://example.com/problems/invalid-argument"));
-        problemDetail.setTitle("Invalid Argument");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        
-        return ResponseEntity.badRequest().body(problemDetail);
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ProblemDetail> handleEntityNotFound(
-            EntityNotFoundException ex, HttpServletRequest request) {
-        logger.warn("Entity not found: {}", ex.getMessage());
-        
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.NOT_FOUND, ex.getMessage()
-        );
-        problemDetail.setType(URI.create("https://example.com/problems/entity-not-found"));
-        problemDetail.setTitle("Entity Not Found");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ProblemDetail> handleRuntimeException(
-            RuntimeException ex, HttpServletRequest request) {
-        String errorId = UUID.randomUUID().toString();
-        logger.error("Unexpected runtime exception with ID: {}", errorId, ex);
-        
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.INTERNAL_SERVER_ERROR, 
-            "An unexpected error occurred while processing the request"
-        );
-        problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
-        problemDetail.setTitle("Internal Server Error");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        problemDetail.setProperty("errorId", errorId);
-        
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ProblemDetail> handleGenericException(
-            Exception ex, HttpServletRequest request) {
-        String errorId = UUID.randomUUID().toString();
-        logger.error("Unexpected exception with ID: {}", errorId, ex);
-        
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.INTERNAL_SERVER_ERROR, 
-            "An unexpected error occurred while processing the request"
-        );
-        problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
-        problemDetail.setTitle("Internal Server Error");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        problemDetail.setProperty("errorId", errorId);
-        
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ProblemDetail> handleValidationException(
-            MethodArgumentNotValidException ex, HttpServletRequest request) {
-        List<String> errors = ex.getBindingResult().getFieldErrors().stream()
-            .map(error -> error.getField() + ": " + error.getDefaultMessage())
-            .collect(Collectors.toList());
-        
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.BAD_REQUEST, "Validation failed for the provided input"
-        );
-        problemDetail.setType(URI.create("https://example.com/problems/validation-error"));
-        problemDetail.setTitle("Validation Error");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        problemDetail.setProperty("violations", errors);
-        
-        return ResponseEntity.badRequest().body(problemDetail);
+        return orders.stream()
+            .map(order -> new OrderSummary(
+                order.getId(),
+                order.getOrderDate(),
+                order.getTotalAmount(),
+                order.getItems().size(),  // In JPA: N+1 query here!
+                order.getItems().stream()  // In JPA: Additional queries!
+                    .mapToDouble(item -> item.getUnitPrice() * item.getQuantity())
+                    .sum()
+            ))
+            .toList();
     }
 }
 
-// Custom exceptions
-class EntityNotFoundException extends RuntimeException {
-    public EntityNotFoundException(String message) { super(message); }
+// JPA would generate N+1 queries:
+// 1. SELECT * FROM orders WHERE customer_id = ?
+// 2. SELECT * FROM order_item WHERE order_id = 1  -- For each order
+// 3. SELECT * FROM order_item WHERE order_id = 2
+// 4. SELECT * FROM order_item WHERE order_id = 3
+// ... N additional queries for N orders
+
+// ❌ Trying to manually optimize with separate queries
+@Service
+public class OrderService {
+    
+    public List<OrderSummary> getCustomerOrderSummaries(Long customerId) {
+        // Manually loading in separate steps - unnecessary complexity
+        List<Order> orders = orderRepository.findByCustomerId(customerId);
+        
+        List<Long> orderIds = orders.stream()
+            .map(Order::id)
+            .toList();
+            
+        // Additional repository method needed
+        List<OrderItem> allItems = orderItemRepository.findByOrderIdIn(orderIds);
+        
+        // Complex manual mapping required
+        Map<Long, List<OrderItem>> itemsByOrder = allItems.stream()
+            .collect(Collectors.groupingBy(OrderItem::orderId));
+            
+        // Error-prone manual association
+        return orders.stream()
+            .map(order -> {
+                List<OrderItem> orderItems = itemsByOrder.getOrDefault(order.id(), List.of());
+                return new OrderSummary(/* complex mapping */);
+            })
+            .toList();
+    }
 }
 ```
 
-**Bad Example:**
+### Key Benefits of Spring Data JDBC's Approach
 
-```java
-@RestController
-public class BadUserController {
-    
-    // Bad: Exception handling scattered across multiple controllers
-    @GetMapping("/users/{id}")
-    public ResponseEntity<?> getUser(@PathVariable String id) {
-        try {
-            if (id.equals("invalid")) {
-                throw new IllegalArgumentException("Invalid user ID");
-            }
-            if (id.equals("notfound")) {
-                throw new EntityNotFoundException("User not found");
-            }
-            // ... business logic ...
-            return ResponseEntity.ok(new UserDTO());
-        } catch (IllegalArgumentException e) {
-            // Bad: Inconsistent error format, not using ProblemDetail
-            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
-        } catch (EntityNotFoundException e) {
-            // Bad: Different error format, no error details
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            // Bad: Exposing stack trace and inconsistent format
-            return ResponseEntity.status(500).body("Server error: " + e.toString());
-        }
-    }
+**Eliminates N+1 Problems:**
+- Entire aggregates loaded in single query with JOINs
+- No lazy loading means no surprise additional queries
+- Predictable query patterns and performance
 
-    // Bad: Different controller with different exception handling approach
-    @PostMapping("/users")
-    public ResponseEntity<?> createUser(@RequestBody UserCreateDTO user) {
-        try {
-            // ... business logic ...
-            return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            // Bad: Yet another inconsistent error format, not using ProblemDetail
-            Map<String, String> error = Map.of("error", e.getMessage());
-            return ResponseEntity.status(500).body(error);
-        }
-    }
+**Simplified Development:**
+- No need for `@EntityGraph` or fetch strategies
+- No need to worry about Hibernate session management
+- No proxy objects or lazy initialization exceptions
 
-    // Bad: Using custom error response instead of standard ProblemDetail
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable String id) {
-        try {
-            // ... business logic ...
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            // Bad: Custom error format instead of ProblemDetail
-            CustomErrorResponse error = new CustomErrorResponse(
-                "DELETE_ERROR", e.getMessage(), new Date()
-            );
-            return ResponseEntity.status(500).body(error);
-        }
-    }
-}
+**Performance Transparency:**
+- What you see is what you get - one query per repository call
+- Easy to predict and optimize database access patterns
+- No hidden queries triggered by accessing collections
 
-// Bad: Custom error response class instead of using ProblemDetail
-class CustomErrorResponse {
-    private String code;
-    private String message;
-    private Date timestamp;
-    // constructors, getters, setters...
-}
-```
-
-## Rule 10: Implement Problem Details for Error Responses
-
-Title: Use RFC 7807 Problem Details for HTTP APIs
-Description: Implement standardized error responses using RFC 7807 Problem Details format for HTTP 500 (Internal Server Error) and other error responses. This provides machine-readable error information that includes a type, title, status, detail, and instance to help clients understand and handle errors consistently.
-
-**Good example:**
-
-```java
-@ControllerAdvice
-public class ProblemDetailsExceptionHandler {
-    
-    private static final Logger logger = LoggerFactory.getLogger(ProblemDetailsExceptionHandler.class);
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ProblemDetail> handleRuntimeException(
-            RuntimeException ex, HttpServletRequest request) {
-        
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.INTERNAL_SERVER_ERROR, 
-            "An unexpected error occurred while processing the request"
-        );
-        
-        problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
-        problemDetail.setTitle("Internal Server Error");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        problemDetail.setProperty("errorId", UUID.randomUUID().toString());
-        
-        // Log the actual exception for debugging (don't expose to client)
-        logger.error("Internal server error with ID: {}", 
-            problemDetail.getProperties().get("errorId"), ex);
-        
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ProblemDetail> handleEntityNotFound(
-            EntityNotFoundException ex, HttpServletRequest request) {
-        
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.NOT_FOUND, ex.getMessage()
-        );
-        
-        problemDetail.setType(URI.create("https://example.com/problems/entity-not-found"));
-        problemDetail.setTitle("Entity Not Found");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
-    }
-
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<ProblemDetail> handleValidation(
-            ValidationException ex, HttpServletRequest request) {
-        
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-            HttpStatus.BAD_REQUEST, "Validation failed for the provided input"
-        );
-        
-        problemDetail.setType(URI.create("https://example.com/problems/validation-error"));
-        problemDetail.setTitle("Validation Error");
-        problemDetail.setInstance(URI.create(request.getRequestURI()));
-        problemDetail.setProperty("timestamp", Instant.now());
-        problemDetail.setProperty("violations", ex.getViolations());
-        
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
-    }
-}
-
-// Custom validation exception
-class ValidationException extends RuntimeException {
-    private final List<String> violations;
-    
-    public ValidationException(String message, List<String> violations) {
-        super(message);
-        this.violations = violations;
-    }
-    
-    public List<String> getViolations() { return violations; }
-}
-```
-
-**Bad Example:**
-
-```java
-@ControllerAdvice
-public class BadExceptionHandler {
-
-    @ExceptionHandler(RuntimeException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Map<String, Object> handleRuntimeException(RuntimeException ex) {
-        // Bad: Non-standard error format, inconsistent fields
-        Map<String, Object> error = new HashMap<>();
-        error.put("error", true);
-        error.put("msg", "Something went wrong");
-        error.put("exception_type", ex.getClass().getSimpleName());
-        error.put("time", new Date());
-        
-        // Bad: Exposing sensitive stack trace information
-        error.put("stack_trace", Arrays.toString(ex.getStackTrace()));
-        
-        return error;
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<String> handleNotFound(EntityNotFoundException ex) {
-        // Bad: Inconsistent response format (string vs JSON vs problem details)
-        return ResponseEntity.status(404).body("Not found: " + ex.getMessage());
-    }
-
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<Object> handleValidation(ValidationException ex) {
-        // Bad: Yet another inconsistent format
-        return ResponseEntity.badRequest().body(
-            Map.of("validationErrors", ex.getViolations())
-        );
-    }
-
-    // Bad: Missing proper error ID, timestamps, and structured format
-    // Bad: No type URIs or standard problem details structure
-    // Bad: Inconsistent error formats across different exception types
-}
-```
+**Trade-offs to Consider:**
+- Larger initial queries (but often more efficient overall)
+- Cannot selectively load parts of aggregates
+- May load more data than needed in some scenarios (design aggregates carefully)
 
 ---
 > Source: [jabrena/cursor-rules-spring-boot](https://github.com/jabrena/cursor-rules-spring-boot) — distributed by [TomeVault](https://tomevault.io).
