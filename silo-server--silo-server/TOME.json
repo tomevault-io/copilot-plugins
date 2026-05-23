@@ -4,7 +4,7 @@
   "repo": "silo-server",
   "description": "Self-hosted media streaming server with a Go backend, React web UI, Docker deployment, transcoding, and Jellyfin-compatible APIs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Silo-Server/silo-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T20:30:23Z"
+  "distributed_at": "2026-05-23T20:30:52Z"
 }
