@@ -1,0 +1,14 @@
+{
+  "name": "agentjido--jido-signal",
+  "displayName": "jido_signal",
+  "description": "Agent Communication Envelope and Utilities",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido_signal",
+  "skills": [
+    {
+      "name": "pr-review",
+      "description": ""
+    }
+  ]
+}
