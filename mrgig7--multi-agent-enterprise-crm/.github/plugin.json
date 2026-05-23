@@ -1,0 +1,9 @@
+{
+  "name": "mrgig7--multi-agent-enterprise-crm",
+  "displayName": "Multi-Agent-Enterprise-CRM",
+  "description": "\ud83e\udd16 AI-Native Enterprise CRM with autonomous agents for sales, support, and compliance. Built with LangGraph, Kafka, Next.js, and Ollama. Features event-driven architecture, multi-tenant security, and h",
+  "version": "1.0.0",
+  "author": "Mrgig7",
+  "homepage": "https://github.com/Mrgig7/Multi-Agent-Enterprise-CRM",
+  "skills": []
+}
