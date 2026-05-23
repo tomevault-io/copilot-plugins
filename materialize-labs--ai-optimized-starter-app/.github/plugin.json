@@ -1,0 +1,9 @@
+{
+  "name": "materialize-labs--ai-optimized-starter-app",
+  "displayName": "ai-optimized-starter-app",
+  "description": "A production-ready full-stack web application template optimized for AI-assisted development. Built with Next.js, Tailwind CSS, Clerk Auth, Supabase, and Drizzle ORM, it provides enterprise-grade arch",
+  "version": "1.0.0",
+  "author": "materialize-labs",
+  "homepage": "https://github.com/materialize-labs/ai-optimized-starter-app",
+  "skills": []
+}
