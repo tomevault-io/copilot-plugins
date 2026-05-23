@@ -1,0 +1,9 @@
+{
+  "name": "vonrobak--fedora-homelab-containers",
+  "displayName": "fedora-homelab-containers",
+  "description": "Self-hosted services on Fedora with Podman quadlets - a learning journey",
+  "version": "1.0.0",
+  "author": "vonrobak",
+  "homepage": "https://github.com/vonrobak/fedora-homelab-containers",
+  "skills": []
+}
