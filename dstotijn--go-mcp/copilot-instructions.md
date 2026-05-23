@@ -1,109 +1,87 @@
-## go-idiomatic-code
+## go-project-structure
 
-> Idiomatic Go Code Rules
+> Go Project Structure Rules
 
 ## Description
-This rule ensures that all Go code follows idiomatic Go practices, adhering to the official Go style guide and common best practices in the Go community.
+This rule ensures that Go projects follow a consistent and idiomatic structure, making the codebase easier to navigate, maintain, and scale.
 
 ## Rule
-When writing Go code:
+When organizing a Go project:
 
-### Naming Conventions
-1. Use `camelCase` for variable and function names (not `snake_case`)
-2. Use `PascalCase` for exported names (public functions, types, variables, constants)
-3. Use `camelCase` for unexported names (private functions, types, variables, constants)
-4. Use acronyms in all caps (e.g., `HTTP`, `URL`, `ID`) when they appear at the beginning of a name, otherwise all lowercase
-5. Keep names short and descriptive; the larger the scope, the more descriptive the name should be
+### Package Organization
+1. Organize packages by functionality, not by type
+2. Keep package names short, clear, and descriptive
+3. Avoid package name collisions with standard library
+4. Use singular form for package names (e.g., `store`, not `stores`)
+5. Avoid deeply nested package hierarchies
 
-### Code Organization
-1. Group related declarations (imports, constants, types, variables, functions)
-2. Order imports in groups: standard library, third-party packages, local packages
-3. Use blank lines to separate logical sections of code
-4. Keep functions small and focused on a single responsibility
-5. Place methods on receiver types in a logical order, with the most important methods first
+### Dependency Management
+1. Use Go modules for dependency management
+2. Pin dependencies to specific versions in go.mod
+3. Regularly update and audit dependencies
+4. Minimize the number of external dependencies
+5. Prefer standard library solutions when available
 
-### Error Handling
-1. Always check errors and handle them appropriately
-2. Use the `errors` package for simple errors and `fmt.Errorf` with `%w` for wrapping errors
-3. Return errors rather than using panic (except for truly unrecoverable situations)
-4. Use meaningful error messages that help diagnose the problem
-
-### Comments and Documentation
-1. Write comments as complete sentences with proper punctuation (ending with a period)
-2. Use godoc-style comments for exported functions, types, and variables
-3. Focus on explaining "why" rather than "what" in comments
-4. Document non-obvious behavior and edge cases
-
-### Code Style
-1. Use gofmt/goimports to format code
-2. Avoid unnecessary else blocks after return statements
-3. Prefer early returns to reduce nesting
-4. Use named return values only when they improve readability
-5. Limit line length to 100-120 characters
-6. Use blank interfaces (`any`) sparingly
-7. Use `any` instead of `interface{}`
-
-### Concurrency
-1. Use goroutines and channels appropriately
-2. Always ensure goroutines can exit properly (avoid leaks)
-3. Use context for cancellation and timeouts
-4. Use sync primitives (Mutex, RWMutex, WaitGroup) correctly
-5. Be careful with shared memory; prefer message passing when appropriate
+### Configuration
+1. Use environment variables for configuration
+2. Support configuration files as an alternative
+3. Provide sensible defaults for all configuration options
+4. Validate configuration at startup
 
 ### Testing
-1. Write table-driven tests when testing multiple cases
-2. Use meaningful test names that describe what is being tested
-3. Structure tests as "Arrange-Act-Assert"
-4. Use subtests for organizing related test cases
-5. Avoid global state in tests
+1. Place tests in the same package as the code they test
+2. Use `_test.go` suffix for test files
+3. Place integration tests in a separate `integration` package
+4. Store test fixtures in `testdata` directories
 
 ## Implementation
 - The Cursor IDE will enforce this rule by:
-  - Providing suggestions for idiomatic Go code
-  - Highlighting non-idiomatic patterns
-  - Offering refactoring options to improve code quality
+  - Suggesting appropriate locations for new files
+  - Highlighting structural issues
+  - Providing refactoring options to improve project organization
 
 ## Benefits
-- Consistent, readable code across the project
-- Easier maintenance and collaboration
-- Better performance and fewer bugs
-- Code that follows community standards and best practices
+- Consistent, navigable project structure
+- Clear separation of concerns
+- Better code reusability
+- Easier onboarding for new team members
+- Alignment with Go community standards
 
 ## Examples
 
-### ✅ Correct:
+### ✅ Correct Project Structure:
 
-```go
-// UserService provides user management functionality.
-type UserService struct {
-	repo Repository
-	log  Logger
-}
-
-// FindByID returns a user by their ID or an error if not found.
-func (s *UserService) FindByID(ctx context.Context, id string) (*User, error) {
-	user, err := s.repo.GetUser(ctx, id)
-	if err != nil {
-		return nil, fmt.Errorf("finding user %s: %w", id, err)
-	}
-	return user, nil
-}
+```
+myproject/
+├── cmd/
+│   └── myapp/
+│       └── main.go
+├── internal/
+│   ├── auth/
+│   │   └── auth.go
+│   └── database/
+│       └── database.go
+├── pkg/
+│   └── validator/
+│       └── validator.go
+├── api/
+│   └── openapi.yaml
+├── configs/
+│   └── config.yaml
+├── scripts/
+│   └── setup.sh
+└── go.mod
 ```
 
-### ❌ Incorrect:
+### ❌ Incorrect Project Structure:
 
-```go
-// bad naming, poor error handling, inconsistent formatting
-type user_service struct {
-	Repo Repository
-	Log Logger
-}
-
-func (s *user_service) find_by_id(ctx context.Context, id string) (*User, error) {
-	user, err := s.Repo.GetUser(ctx, id)
-	if err != nil { return nil, err }
-	return user, nil
-}
+```
+myproject/
+├── main.go
+├── auth.go
+├── database.go
+├── validator.go
+└── go.mod
 ``` 
 
 ---
