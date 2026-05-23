@@ -1,0 +1,9 @@
+{
+  "name": "brewmarsh--meraki-homeassistant",
+  "displayName": "meraki-homeassistant",
+  "description": "Integration for Meraki features in Home Assistant",
+  "version": "1.0.0",
+  "author": "brewmarsh",
+  "homepage": "https://github.com/brewmarsh/meraki-homeassistant",
+  "skills": []
+}
