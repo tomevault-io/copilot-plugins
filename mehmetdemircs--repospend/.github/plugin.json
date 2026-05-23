@@ -1,0 +1,9 @@
+{
+  "name": "mehmetdemircs--repospend",
+  "displayName": "RepoSpend",
+  "description": "Local-first dashboard for tracking Codex / AI coding token usage and repo-level cost.",
+  "version": "1.0.0",
+  "author": "mehmetdemircs",
+  "homepage": "https://github.com/mehmetdemircs/RepoSpend",
+  "skills": []
+}
