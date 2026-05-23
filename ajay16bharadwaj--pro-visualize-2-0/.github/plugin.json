@@ -1,0 +1,9 @@
+{
+  "name": "ajay16bharadwaj--pro-visualize-2-0",
+  "displayName": "Pro-Visualize-2.0",
+  "description": "A streamlit based application for Proteomics Visualization - Supports QC, Quantification, Comparative analysis, Pathway analysis, Dilution Series and PTM based visualizations",
+  "version": "1.0.0",
+  "author": "ajay16bharadwaj",
+  "homepage": "https://github.com/ajay16bharadwaj/Pro-Visualize-2.0",
+  "skills": []
+}
