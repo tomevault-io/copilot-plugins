@@ -1,0 +1,9 @@
+{
+  "name": "plasmonized--containerized-mioty-service-center",
+  "displayName": "containerized-mioty-service-center",
+  "description": "This is a basic implementation of the mioty BSSCI protocol into an open source servicecenter with GUI. The serviccenter connects automatically to basestations over BSSCI and aggregates the data onto a",
+  "version": "1.0.0",
+  "author": "plasmonized",
+  "homepage": "https://github.com/plasmonized/containerized-mioty-service-center",
+  "skills": []
+}
