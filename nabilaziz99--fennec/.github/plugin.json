@@ -1,0 +1,9 @@
+{
+  "name": "nabilaziz99--fennec",
+  "displayName": "Fennec",
+  "description": "Open-source, AI-driven penetration testing framework. Multi-agent loop (recon \u2192 analyst \u2192 pentester \u2192 coder) on LangGraph, with tool execution in an isolated Kali container. Hosted version at fennecla",
+  "version": "1.0.0",
+  "author": "NabilAziz99",
+  "homepage": "https://github.com/NabilAziz99/Fennec",
+  "skills": []
+}
