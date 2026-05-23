@@ -1,0 +1,9 @@
+{
+  "name": "vercel--workflow-builder-starter",
+  "displayName": "workflow-builder-starter",
+  "description": "workflow-builder-starter",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/workflow-builder-starter",
+  "skills": []
+}
