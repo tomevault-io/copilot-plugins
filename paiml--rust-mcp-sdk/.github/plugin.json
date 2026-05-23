@@ -1,0 +1,9 @@
+{
+  "name": "paiml--rust-mcp-sdk",
+  "displayName": "rust-mcp-sdk",
+  "description": "Pragmatic AI Labs MCP SDK ",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/rust-mcp-sdk",
+  "skills": []
+}
