@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-launch-navigator",
+  "displayName": "capacitor-launch-navigator",
+  "description": "Capacitor plugin which launches native route navigation apps for Android, iOS",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-launch-navigator",
+  "skills": []
+}
