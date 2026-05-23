@@ -1,0 +1,9 @@
+{
+  "name": "michaldudak--typescript-api-extractor",
+  "displayName": "typescript-api-extractor",
+  "description": "Extracts API description from Typescript programs",
+  "version": "1.0.0",
+  "author": "michaldudak",
+  "homepage": "https://github.com/michaldudak/typescript-api-extractor",
+  "skills": []
+}
