@@ -1,10 +1,10 @@
 {
-  "name": "agent",
+  "name": "agent-memory-server",
   "owner": "redis",
   "repo": "agent-memory-server",
   "description": "Fast and flexible memory for agents and AI applications using Redis",
-  "type": "tome",
-  "source_format": "CLAUDE.md",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/redis/agent-memory-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T07:34:21Z"
+  "distributed_at": "2026-05-23T09:22:02Z"
 }
