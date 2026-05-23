@@ -1,724 +1,398 @@
-## 303-frameworks-spring-data-jdbc
+## 304-frameworks-spring-boot-hikari
 
-> Spring Data JDBC provides a simpler alternative to JPA, offering direct SQL control while maintaining Spring's repository abstractions. When combined with Java records, it creates clean, immutable data models perfect for modern Java applications.
+> HikariCP is the default connection pool for Spring Boot and is known for being the fastest, most reliable connection pool available for Java applications. This guide will help you configure HikariCP optimally for your Spring Boot applications.
 
-# Spring Data JDBC with Records
+# Spring Boot HikariCP Connection Pool Configuration
 
-Spring Data JDBC provides a simpler alternative to JPA, offering direct SQL control while maintaining Spring's repository abstractions. When combined with Java records, it creates clean, immutable data models perfect for modern Java applications.
+HikariCP is the default connection pool for Spring Boot and is known for being the fastest, most reliable connection pool available for Java applications. This guide will help you configure HikariCP optimally for your Spring Boot applications.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-- **Immutability**: Use records for immutable entities that are thread-safe and predictable
-- **Simplicity**: Leverage Spring Data JDBC's straightforward approach over complex ORM mapping
-- **Constructor Injection**: Always use constructor-based dependency injection for better testability
-- **Transaction Boundaries**: Keep transactions at the service layer, not repository layer
-- **SQL Control**: Use custom queries when needed for optimal performance
+- **Performance First**: Configure pool sizes based on your application's actual database concurrency needs
+- **Resource Efficiency**: Balance connection availability with memory and database server resources
+- **Monitoring & Observability**: Enable metrics and logging to understand pool behavior
+- **Environment-Specific**: Adjust configurations based on development, testing, and production environments
+- **Fail-Fast**: Configure appropriate timeouts to detect issues quickly
 
 ## Table of contents
 
-- Rule 1: Use Records for Entity Classes
-- Rule 2: Implement Repository Pattern Correctly
-- Rule 3: Handle Updates with Immutable Records
-- Rule 4: Design Aggregate Relationships Properly
-- Rule 5: Use Custom Queries for Complex Operations
-- Rule 6: Implement Proper Transaction Management
-- Rule 7: Embrace Single Query Loading to Eliminate N+1 Problems
+- Rule 1: Essential Pool Sizing Configuration
+- Rule 2: Connection Timeout and Lifecycle Management
+- Rule 3: Health Check and Validation Configuration
+- Rule 4: Performance Monitoring and Metrics
+- Rule 5: Environment-Specific Configuration Strategies
 
-## Rule 1: Use Records for Entity Classes
+## Rule 1: Essential Pool Sizing Configuration
 
-Title: Prefer Records Over Classes for Entity Definitions
-Description: Records provide immutability, automatic equals/hashCode, and clean constructor-based mapping that works perfectly with Spring Data JDBC. They eliminate boilerplate code and ensure thread safety. Use @PersistenceCreator when you have multiple constructors to specify which one Spring Data JDBC should use. Use @Column to explicitly map record fields to database columns, especially when field names differ from column names.
+**Title**: Right-size your connection pool based on application needs
+
+**Description**: The most critical aspect of HikariCP configuration is determining the optimal pool size. Ask yourself: "How many concurrent database operations does my application actually need?" Most applications need far fewer connections than developers initially think.
+
+**Key Questions to Ask:**
+- How many concurrent users will access my application?
+- How many database operations happen per user request?
+- What's my database server's connection limit?
+- Am I running multiple application instances?
 
 **Good example:**
 
+```yaml
+# application.yml
+spring:
+  datasource:
+    hikari:
+      # Start with this formula: connections = ((core_count * 2) + effective_spindle_count)
+      # For most web apps: 10-15 connections is often sufficient
+      maximum-pool-size: 10
+      minimum-idle: 5
+      # Allow pool to shrink during low activity
+      idle-timeout: 300000  # 5 minutes
+```
+
 ```java
-public record Customer(
-    @Id 
-    @Column("customer_id") 
-    Long id,
+// For programmatic configuration
+@Configuration
+public class DatabaseConfig {
     
-    @Column("first_name") 
-    String firstName,
-    
-    @Column("last_name") 
-    String lastName,
-    
-    @Column("email_address") 
-    String email,
-    
-    @Column("created_at") 
-    LocalDateTime createdAt
-) {
-    // Constructor for Spring Data JDBC (explicit annotation when multiple constructors exist)
-    @PersistenceCreator
-    public Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdAt) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.createdAt = createdAt;
-    }
-    
-    // Factory method for new entities
-    public static Customer of(String firstName, String lastName, String email) {
-        return new Customer(null, firstName, lastName, email, LocalDateTime.now());
+    @Bean
+    @ConfigurationProperties("spring.datasource.hikari")
+    public HikariConfig hikariConfig() {
+        HikariConfig config = new HikariConfig();
+        // Conservative pool sizing for most applications
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(5);
+        config.setIdleTimeout(300_000);
+        return config;
     }
 }
 ```
 
 **Bad Example:**
 
-```java
-// Missing @PersistenceCreator annotation with multiple constructors
-public record Customer(
-    @Id Long id,
-    String firstName,
-    String lastName,
-    String email,
-    LocalDateTime createdAt
-) {
-    // Multiple constructors without @PersistenceCreator - Spring Data JDBC won't know which to use
-    public Customer(Long id, String firstName, String lastName, String email, LocalDateTime createdAt) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.createdAt = createdAt;
-    }
-    
-    public Customer(String firstName, String lastName, String email) {
-        this(null, firstName, lastName, email, LocalDateTime.now());
-    }
-}
-
-// Or using mutable entity class with boilerplate
-public class Customer {
-    @Id
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private LocalDateTime createdAt;
-    
-    // Constructors, getters, setters, equals, hashCode...
-    // 50+ lines of boilerplate code
-}
+```yaml
+# application.yml - DON'T DO THIS
+spring:
+  datasource:
+    hikari:
+      # Too many connections - wastes resources and can overwhelm DB
+      maximum-pool-size: 100
+      minimum-idle: 50
+      # Never let connections be idle - keeps unnecessary connections
+      idle-timeout: 0
 ```
 
-## Rule 2: Implement Repository Pattern Correctly
+## Rule 2: Connection Timeout and Lifecycle Management
 
-Title: Extend Appropriate Repository Interfaces
-Description: Use CrudRepository or PagingAndSortingRepository as base interfaces. Leverage method query derivation for simple queries and @Query for complex ones. Always annotate with @Repository.
+**Title**: Configure appropriate timeouts for reliable connection handling
+
+**Description**: Proper timeout configuration ensures your application fails fast when database issues occur and doesn't hold onto stale connections. Ask yourself: "How long should my application wait for a database connection before giving up?"
+
+**Key Questions to Ask:**
+- What's an acceptable wait time for users when the database is under load?
+- How quickly should I detect database connectivity issues?
+- What's my application's typical query execution time?
 
 **Good example:**
 
-```java
-@Repository
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    
-    // Method query derivation
-    List<Customer> findByLastName(String lastName);
-    Optional<Customer> findByEmail(String email);
-    
-    // Custom query for complex operations
-    @Query("SELECT * FROM customer WHERE email LIKE :pattern")
-    List<Customer> findByEmailPattern(@Param("pattern") String pattern);
-}
+```yaml
+# application.yml
+spring:
+  datasource:
+    hikari:
+      # Fast failure for connection acquisition
+      connection-timeout: 20000      # 20 seconds - adjust based on your needs
+      # Detect stale connections quickly
+      max-lifetime: 1800000         # 30 minutes - less than DB connection timeout
+      # Quick validation of connections
+      validation-timeout: 5000       # 5 seconds
+      # Test connections when borrowed from pool
+      connection-test-query: SELECT 1
 ```
 
-**Bad Example:**
-
 ```java
-// Missing @Repository annotation and poor method naming
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
+// Programmatic configuration with monitoring
+@Configuration
+public class DatabaseConfig {
     
-    // Unclear method names that don't follow Spring Data conventions
-    List<Customer> getCustomersWithLastName(String lastName);
-    
-    // Raw SQL without parameters
-    @Query("SELECT * FROM customer WHERE email LIKE '%@gmail.com%'")
-    List<Customer> findGmailUsers();
-}
-```
-
-## Rule 3: Handle Updates with Immutable Records
-
-Title: Create New Record Instances for Updates
-Description: Since records are immutable, create update methods that return new instances with modified values. This ensures data integrity and prevents accidental mutations.
-
-**Good example:**
-
-```java
-public record Customer(
-    @Id 
-    @Column("customer_id")
-    Long id,
-    
-    @Column("first_name")
-    String firstName,
-    
-    @Column("last_name")
-    String lastName,
-    
-    @Column("email_address")
-    String email,
-    
-    @Column("created_at")
-    LocalDateTime createdAt
-) {
-    // Update method returns new instance
-    public Customer withEmail(String newEmail) {
-        return new Customer(id, firstName, lastName, newEmail, createdAt);
-    }
-    
-    public Customer withName(String firstName, String lastName) {
-        return new Customer(id, firstName, lastName, email, createdAt);
-    }
-}
-
-// Service layer update
-@Transactional
-public Customer updateCustomerEmail(Long customerId, String newEmail) {
-    return customerRepository.findById(customerId)
-        .map(customer -> customer.withEmail(newEmail))
-        .map(customerRepository::save)
-        .orElseThrow(() -> new CustomerNotFoundException(customerId));
-}
-```
-
-**Bad Example:**
-
-```java
-// Trying to use setters with records (won't compile)
-public record Customer(@Id Long id, String email) {
-    public void setEmail(String email) {  // This won't work!
-        this.email = email;
-    }
-}
-
-// Or using mutable wrapper approach
-@Transactional
-public Customer updateCustomerEmail(Long customerId, String newEmail) {
-    Customer customer = customerRepository.findById(customerId).orElseThrow();
-    // Creating entirely new record instead of using update methods
-    Customer updated = new Customer(customer.id(), newEmail);
-    return customerRepository.save(updated);
-}
-```
-
-## Rule 4: Design Aggregate Relationships Properly
-
-Title: Model Aggregates with Records and Sets
-Description: Spring Data JDBC supports limited relationship types compared to JPA. Use records for aggregate roots and contained entities. Model one-to-many relationships with Set collections, use foreign key references for many-to-one, and avoid bidirectional references to maintain aggregate boundaries. For unsupported relationships like many-to-many, use junction tables or denormalization.
-
-**Good example:**
-
-```java
-// ✅ One-to-Many: Primary supported relationship
-public record Order(
-    @Id 
-    @Column("order_id")
-    Long id,
-    
-    @Column("customer_id")
-    Long customerId,  // Foreign key reference (Many-to-One)
-    
-    @Column("order_date")
-    LocalDateTime orderDate,
-    
-    @Column("order_status")
-    OrderStatus status,
-    
-    Set<OrderItem> items  // One-to-Many aggregate collection
-) {}
-
-public record OrderItem(
-    @Id 
-    @Column("item_id")
-    Long id,
-    
-    @Column("product_name")
-    String productName,
-    
-    @Column("price")
-    BigDecimal price,
-    
-    @Column("quantity")
-    int quantity
-) {}
-
-// ✅ One-to-One: Using embedded objects
-public record Customer(
-    @Id 
-    @Column("customer_id")
-    Long id,
-    
-    @Column("customer_name")
-    String name,
-    
-    @Embedded.OnEmpty(USE_NULL) Address address  // One-to-One embedded
-) {}
-
-public record Address(
-    @Column("street_address")
-    String street,
-    
-    @Column("city")
-    String city,
-    
-    @Column("postal_code")
-    String postalCode,
-    
-    @Column("country")
-    String country
-) {}
-
-// ✅ Many-to-Many workaround: Junction table with explicit entity
-public record Student(
-    @Id 
-    @Column("student_id")
-    Long id,
-    
-    @Column("student_name")
-    String name,
-    
-    Set<StudentCourse> enrollments  // Access courses through junction
-) {}
-
-public record StudentCourse(
-    @Id 
-    @Column("enrollment_id")
-    Long id,
-    
-    @Column("student_id")
-    Long studentId,
-    
-    @Column("course_id")
-    Long courseId,
-    
-    @Column("enrolled_at")
-    LocalDateTime enrolledAt,
-    
-    @Column("grade")
-    String grade
-) {}
-
-// ✅ Many-to-Many alternative: Store as delimited string or JSON
-public record User(
-    @Id 
-    @Column("user_id")
-    Long id,
-    
-    @Column("username")
-    String username,
-    
-    @Column("role_ids")
-    String roleIds  // Store as "1,2,3" - simple cases only
-) {
-    public List<Long> getRoleIdsList() {
-        return Arrays.stream(roleIds.split(","))
-            .map(Long::parseLong)
-            .toList();
-    }
-}
-
-// Repository focuses on aggregate root only
-@Repository
-public interface OrderRepository extends CrudRepository<Order, Long> {
-    List<Order> findByCustomerId(Long customerId);
-    List<Order> findByStatus(OrderStatus status);
-}
-```
-
-**Bad Example:**
-
-```java
-// ❌ Bidirectional references break aggregate boundaries
-public record Order(
-    @Id 
-    @Column("order_id")
-    Long id,
-    
-    Customer customer,  // Don't embed full objects - use foreign keys
-    Set<OrderItem> items
-) {}
-
-public record OrderItem(
-    @Id 
-    @Column("item_id")
-    Long id,
-    
-    @Column("product_name")
-    String productName,
-    
-    Order order  // Don't include parent reference in aggregate
-) {}
-
-// ❌ Attempting unsupported Many-to-Many directly
-public record Student(
-    @Id 
-    @Column("student_id")
-    Long id,
-    
-    @Column("student_name")
-    String name,
-    
-    Set<Course> courses  // Spring Data JDBC doesn't support this
-) {}
-
-public record Course(
-    @Id 
-    @Column("course_id")
-    Long id,
-    
-    @Column("course_title")
-    String title,
-    
-    Set<Student> students  // Bidirectional Many-to-Many not supported
-) {}
-
-// ❌ Repository that violates aggregate boundaries
-@Repository
-public interface OrderItemRepository extends CrudRepository<OrderItem, Long> {
-    List<OrderItem> findByOrderId(Long orderId);  // Should go through Order aggregate
-}
-
-// ❌ Overly large aggregates
-public record Customer(
-    @Id 
-    @Column("customer_id")
-    Long id,
-    
-    @Column("customer_name")
-    String name,
-    
-    Set<Order> orders,           // Too large - creates performance issues
-    Set<Address> addresses,
-    Set<PaymentMethod> paymentMethods,
-    Set<Preference> preferences
-) {}
-```
-
-### Relationship Modeling Guidelines
-
-**Supported Relationships:**
-- **One-to-Many**: Use `Set<ChildEntity>` in aggregate root (primary pattern)
-- **One-to-One**: Use `@Embedded` for value objects or foreign key references
-- **Many-to-One**: Use foreign key fields (`Long parentId`)
-
-**Unsupported Relationships:**
-- **Many-to-Many**: Use junction tables or denormalization workarounds
-- **Bidirectional**: Always model relationships unidirectionally
-
-**Best Practices:**
-- Keep aggregates small and focused
-- Use foreign key references between aggregates
-- Load related data separately when needed
-- Consider eventual consistency for cross-aggregate operations
-
-### Summary of Relationship Capabilities:
-
-| Relationship Type | Support Level | Approach |
-|------------------|---------------|----------|
-| **One-to-Many** | ✅ Full | Collections in aggregate root |
-| **One-to-One** | ✅ Good | Embedded objects |
-| **Many-to-One** | ⚠️ Limited | Foreign key references |
-| **Many-to-Many** | ❌ None | Junction tables or denormalization |
-
-## Rule 5: Use Custom Queries for Complex Operations
-
-Title: Leverage @Query for Complex SQL Operations
-Description: Use @Query annotation for complex queries that can't be expressed through method naming. Use proper parameter binding and consider performance implications.
-
-**Good example:**
-
-```java
-@Repository
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    
-    @Query("""
-        SELECT c.* FROM customer c 
-        JOIN orders o ON c.id = o.customer_id 
-        WHERE o.order_date BETWEEN :startDate AND :endDate
-        GROUP BY c.id 
-        HAVING COUNT(o.id) >= :minOrders
-        """)
-    List<Customer> findActiveCustomers(
-        @Param("startDate") LocalDateTime startDate,
-        @Param("endDate") LocalDateTime endDate,
-        @Param("minOrders") int minOrders
-    );
-    
-    @Modifying
-    @Query("UPDATE customer SET email = :email WHERE id = :id")
-    void updateCustomerEmail(@Param("id") Long id, @Param("email") String email);
-}
-```
-
-**Bad Example:**
-
-```java
-@Repository
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    
-    // SQL injection risk - not using parameters
-    @Query("SELECT * FROM customer WHERE email = '" + "email" + "'")
-    Customer findByEmailUnsafe(String email);
-    
-    // Overly complex query that should be broken down
-    @Query("""
-        SELECT c.*, o.*, oi.*, p.* FROM customer c
-        LEFT JOIN orders o ON c.id = o.customer_id
-        LEFT JOIN order_item oi ON o.id = oi.order_id
-        LEFT JOIN product p ON oi.product_id = p.id
-        WHERE c.created_at > ?1 AND o.status = ?2
-        """)
-    List<Object[]> findComplexCustomerData(LocalDateTime date, String status);
-}
-```
-
-## Rule 6: Implement Proper Transaction Management
-
-Title: Use @Transactional at Service Layer
-Description: Apply transaction boundaries at the service layer, not repository layer. Use readOnly=true for read operations and ensure proper transaction propagation.
-
-**Good example:**
-
-```java
-@Service
-@Transactional(readOnly = true)
-public class CustomerService {
-    
-    private final CustomerRepository customerRepository;
-    
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
-    
-    public Optional<Customer> findByEmail(String email) {
-        return customerRepository.findByEmail(email);
-    }
-    
-    @Transactional
-    public Customer createCustomer(String firstName, String lastName, String email) {
-        var customer = Customer.of(firstName, lastName, email);
-        return customerRepository.save(customer);
-    }
-    
-    @Transactional
-    public Customer updateCustomerEmail(Long customerId, String newEmail) {
-        return customerRepository.findById(customerId)
-            .map(customer -> customer.withEmail(newEmail))
-            .map(customerRepository::save)
-            .orElseThrow(() -> new CustomerNotFoundException(customerId));
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// No transaction management
-public class CustomerService {
-    
-    private final CustomerRepository customerRepository;
-    
-    // Auto-commit for each operation - no transaction control
-    public Customer createCustomer(String firstName, String lastName, String email) {
-        var customer = Customer.of(firstName, lastName, email);
-        return customerRepository.save(customer);  // Each call is separate transaction
-    }
-    
-    // Read operation without readOnly optimization
-    @Transactional
-    public Optional<Customer> findByEmail(String email) {
-        return customerRepository.findByEmail(email);  // Should be readOnly=true
-    }
-}
-```
-
-## Rule 7: Embrace Single Query Loading to Eliminate N+1 Problems
-
-Title: Leverage Spring Data JDBC's Eager Loading to Avoid N+1 Query Issues
-Description: Spring Data JDBC loads entire aggregates in single queries, automatically eliminating the N+1 problem that plagues JPA/Hibernate applications. Unlike JPA's lazy loading approach, Spring Data JDBC eagerly loads all aggregate data in one query, ensuring predictable performance and eliminating the need for complex fetch strategies.
-
-**Good example:**
-
-```java
-// ✅ Spring Data JDBC loads entire aggregate in single query
-public record Order(
-    @Id 
-    @Column("order_id")
-    Long id,
-    
-    @Column("customer_id")
-    Long customerId,
-    
-    @Column("order_date")
-    LocalDateTime orderDate,
-    
-    @Column("total_amount")
-    BigDecimal totalAmount,
-    
-    Set<OrderItem> items  // All items loaded in single query
-) {}
-
-public record OrderItem(
-    @Id 
-    @Column("item_id")
-    Long id,
-    
-    @Column("product_name")
-    String productName,
-    
-    @Column("unit_price")
-    BigDecimal unitPrice,
-    
-    @Column("quantity")
-    int quantity
-) {}
-
-@Repository
-public interface OrderRepository extends CrudRepository<Order, Long> {
-    List<Order> findByCustomerId(Long customerId);
-}
-
-// ✅ Service that benefits from single query loading
-@Service
-@Transactional(readOnly = true)
-public class OrderService {
-    
-    private final OrderRepository orderRepository;
-    
-    public List<OrderSummary> getCustomerOrderSummaries(Long customerId) {
-        // Single query loads all orders with their items
-        return orderRepository.findByCustomerId(customerId)
-            .stream()
-            .map(order -> new OrderSummary(
-                order.id(),
-                order.orderDate(),
-                order.totalAmount(),
-                order.items().size(),  // No additional query needed
-                order.items().stream()
-                    .mapToDouble(item -> item.unitPrice().doubleValue() * item.quantity())
-                    .sum()
-            ))
-            .toList();
-    }
-}
-
-public record OrderSummary(
-    Long orderId,
-    LocalDateTime orderDate,
-    BigDecimal totalAmount,
-    int itemCount,
-    double calculatedTotal
-) {}
-
-// Generated SQL - Single query with JOIN:
-// SELECT o.order_id, o.customer_id, o.order_date, o.total_amount,
-//        oi.item_id, oi.product_name, oi.unit_price, oi.quantity
-// FROM orders o 
-// LEFT JOIN order_item oi ON o.order_id = oi.order_id
-// WHERE o.customer_id = ?
-```
-
-**Bad Example:**
-
-```java
-// ❌ JPA-style thinking that would cause N+1 problems
-@Entity  // Wrong - this is JPA, not Spring Data JDBC
-public class Order {
-    @Id
-    private Long id;
-    
-    @OneToMany(fetch = FetchType.LAZY)  // Lazy loading causes N+1
-    private Set<OrderItem> items;
-    
-    // getters/setters...
-}
-
-// ❌ Code that would trigger N+1 in JPA (but works fine in Spring Data JDBC)
-@Service
-public class OrderService {
-    
-    public List<OrderSummary> getCustomerOrderSummaries(Long customerId) {
-        List<Order> orders = orderRepository.findByCustomerId(customerId);
+    @Bean
+    @ConfigurationProperties("spring.datasource.hikari")
+    public HikariConfig hikariConfig() {
+        HikariConfig config = new HikariConfig();
+        config.setConnectionTimeout(20_000);
+        config.setMaxLifetime(1_800_000);
+        config.setValidationTimeout(5_000);
         
-        return orders.stream()
-            .map(order -> new OrderSummary(
-                order.getId(),
-                order.getOrderDate(),
-                order.getTotalAmount(),
-                order.getItems().size(),  // In JPA: N+1 query here!
-                order.getItems().stream()  // In JPA: Additional queries!
-                    .mapToDouble(item -> item.getUnitPrice() * item.getQuantity())
-                    .sum()
-            ))
-            .toList();
-    }
-}
-
-// JPA would generate N+1 queries:
-// 1. SELECT * FROM orders WHERE customer_id = ?
-// 2. SELECT * FROM order_item WHERE order_id = 1  -- For each order
-// 3. SELECT * FROM order_item WHERE order_id = 2
-// 4. SELECT * FROM order_item WHERE order_id = 3
-// ... N additional queries for N orders
-
-// ❌ Trying to manually optimize with separate queries
-@Service
-public class OrderService {
-    
-    public List<OrderSummary> getCustomerOrderSummaries(Long customerId) {
-        // Manually loading in separate steps - unnecessary complexity
-        List<Order> orders = orderRepository.findByCustomerId(customerId);
-        
-        List<Long> orderIds = orders.stream()
-            .map(Order::id)
-            .toList();
-            
-        // Additional repository method needed
-        List<OrderItem> allItems = orderItemRepository.findByOrderIdIn(orderIds);
-        
-        // Complex manual mapping required
-        Map<Long, List<OrderItem>> itemsByOrder = allItems.stream()
-            .collect(Collectors.groupingBy(OrderItem::orderId));
-            
-        // Error-prone manual association
-        return orders.stream()
-            .map(order -> {
-                List<OrderItem> orderItems = itemsByOrder.getOrDefault(order.id(), List.of());
-                return new OrderSummary(/* complex mapping */);
-            })
-            .toList();
+        // Enable connection testing
+        config.setConnectionTestQuery("SELECT 1");
+        return config;
     }
 }
 ```
 
-### Key Benefits of Spring Data JDBC's Approach
+**Bad Example:**
 
-**Eliminates N+1 Problems:**
-- Entire aggregates loaded in single query with JOINs
-- No lazy loading means no surprise additional queries
-- Predictable query patterns and performance
+```yaml
+# application.yml - DON'T DO THIS
+spring:
+  datasource:
+    hikari:
+      # Too long - users will think app is frozen
+      connection-timeout: 120000
+      # Too long - may exceed DB server timeout
+      max-lifetime: 7200000
+      # No validation - stale connections may be used
+      # connection-test-query: # missing
+```
 
-**Simplified Development:**
-- No need for `@EntityGraph` or fetch strategies
-- No need to worry about Hibernate session management
-- No proxy objects or lazy initialization exceptions
+## Rule 3: Health Check and Validation Configuration
 
-**Performance Transparency:**
-- What you see is what you get - one query per repository call
-- Easy to predict and optimize database access patterns
-- No hidden queries triggered by accessing collections
+**Title**: Implement robust connection health checking
 
-**Trade-offs to Consider:**
-- Larger initial queries (but often more efficient overall)
-- Cannot selectively load parts of aggregates
-- May load more data than needed in some scenarios (design aggregates carefully)
+**Description**: Configure HikariCP to validate connections and maintain pool health. Ask yourself: "How can I ensure my application always gets working database connections?"
+
+**Key Questions to Ask:**
+- Does my database server have connection timeouts?
+- How can I detect network issues between app and database?
+- Should I validate connections proactively or reactively?
+
+**Good example:**
+
+```yaml
+# application.yml
+spring:
+  datasource:
+    hikari:
+      # Lightweight validation query for most databases
+      connection-test-query: SELECT 1
+      # Validate connections when borrowed (recommended for production)
+      validation-timeout: 5000
+      # Remove connections that fail validation
+      leak-detection-threshold: 60000  # 60 seconds - helps find connection leaks
+```
+
+```java
+// Database-specific configuration
+@Configuration
+@Profile("production")
+public class ProductionDatabaseConfig {
+    
+    @Bean
+    @ConfigurationProperties("spring.datasource.hikari")
+    public HikariConfig hikariConfig() {
+        HikariConfig config = new HikariConfig();
+        
+        // PostgreSQL-specific validation
+        config.setConnectionTestQuery("SELECT 1");
+        config.setValidationTimeout(5_000);
+        config.setLeakDetectionThreshold(60_000);
+        
+        // Additional PostgreSQL optimizations
+        config.addDataSourceProperty("socketTimeout", "30");
+        config.addDataSourceProperty("loginTimeout", "10");
+        
+        return config;
+    }
+}
+```
+
+**Bad Example:**
+
+```yaml
+# application.yml - DON'T DO THIS
+spring:
+  datasource:
+    hikari:
+      # Heavy validation query that impacts performance
+      connection-test-query: "SELECT COUNT(*) FROM large_table WHERE complex_condition = 'value'"
+      # No leak detection - memory leaks may go unnoticed
+      # leak-detection-threshold: # missing
+```
+
+## Rule 4: Performance Monitoring and Metrics
+
+**Title**: Enable comprehensive monitoring and metrics collection
+
+**Description**: Configure HikariCP to provide visibility into connection pool behavior. Ask yourself: "How will I know if my connection pool is properly sized and performing well?"
+
+**Key Questions to Ask:**
+- How can I monitor pool utilization in production?
+- What metrics indicate pool sizing issues?
+- How do I correlate application performance with database connection patterns?
+
+**Good example:**
+
+```yaml
+# application.yml
+spring:
+  datasource:
+    hikari:
+      # Enable detailed metrics
+      register-mbeans: true
+      pool-name: "HikariPool-${spring.application.name}"
+      
+# Enable JMX metrics for monitoring tools
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,hikari
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+```
+
+```java
+// Comprehensive monitoring setup
+@Configuration
+@ConditionalOnProperty(name = "management.metrics.enabled", matchIfMissing = true)
+public class DatabaseMonitoringConfig {
+    
+    @Bean
+    @ConfigurationProperties("spring.datasource.hikari")
+    public HikariConfig hikariConfig(MeterRegistry meterRegistry) {
+        HikariConfig config = new HikariConfig();
+        
+        // Enable metrics collection
+        config.setRegisterMbeans(true);
+        config.setPoolName("HikariPool-" + getApplicationName());
+        config.setMetricRegistry(meterRegistry);
+        
+        // Configure alerts for pool exhaustion
+        config.setConnectionTimeout(20_000);
+        config.setLeakDetectionThreshold(60_000);
+        
+        return config;
+    }
+    
+    private String getApplicationName() {
+        return System.getProperty("spring.application.name", "app");
+    }
+}
+```
+
+**Bad Example:**
+
+```yaml
+# application.yml - DON'T DO THIS
+spring:
+  datasource:
+    hikari:
+      # No monitoring enabled - flying blind in production
+      register-mbeans: false
+      # Generic pool name - hard to identify in monitoring tools
+      pool-name: "pool"
+```
+
+## Rule 5: Environment-Specific Configuration Strategies
+
+**Title**: Adapt HikariCP configuration for different environments
+
+**Description**: Configure HikariCP differently for development, testing, and production environments. Ask yourself: "What are the different requirements for each environment where my application runs?"
+
+**Key Questions to Ask:**
+- How do my development and production database loads differ?
+- Should I use different pool sizes for testing vs production?
+- How can I make troubleshooting easier in development?
+
+**Good example:**
+
+```yaml
+# application-dev.yml - Development environment
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 5          # Smaller pool for dev
+      minimum-idle: 2
+      connection-timeout: 30000     # Longer timeout for debugging
+      leak-detection-threshold: 30000  # Faster leak detection for dev
+      register-mbeans: true         # Enable for local monitoring
+
+# application-prod.yml - Production environment  
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 20         # Larger pool for production load
+      minimum-idle: 10
+      connection-timeout: 20000     # Fast failure in production
+      idle-timeout: 300000          # Allow shrinking during low load
+      max-lifetime: 1800000         # Refresh connections regularly
+      leak-detection-threshold: 60000
+      register-mbeans: true
+      pool-name: "${spring.application.name}-prod"
+```
+
+```java
+// Environment-specific configuration
+@Configuration
+public class EnvironmentSpecificDatabaseConfig {
+    
+    @Bean
+    @Profile("development")
+    @ConfigurationProperties("spring.datasource.hikari")
+    public HikariConfig devHikariConfig() {
+        HikariConfig config = new HikariConfig();
+        // Development: Favor debugging over performance
+        config.setMaximumPoolSize(5);
+        config.setConnectionTimeout(30_000);
+        config.setLeakDetectionThreshold(30_000);
+        config.setRegisterMbeans(true);
+        return config;
+    }
+    
+    @Bean
+    @Profile("production")
+    @ConfigurationProperties("spring.datasource.hikari")
+    public HikariConfig prodHikariConfig() {
+        HikariConfig config = new HikariConfig();
+        // Production: Favor performance and reliability
+        config.setMaximumPoolSize(20);
+        config.setMinimumIdle(10);
+        config.setConnectionTimeout(20_000);
+        config.setIdleTimeout(300_000);
+        config.setMaxLifetime(1_800_000);
+        config.setLeakDetectionThreshold(60_000);
+        config.setRegisterMbeans(true);
+        config.setPoolName(getApplicationName() + "-prod");
+        return config;
+    }
+    
+    private String getApplicationName() {
+        return System.getProperty("spring.application.name", "app");
+    }
+}
+```
+
+**Bad Example:**
+
+```yaml
+# Same configuration for all environments - DON'T DO THIS
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 50        # Too many for dev, maybe wrong for prod
+      minimum-idle: 25             # Wastes resources in all environments
+      connection-timeout: 60000    # Too slow for production
+      # No environment-specific tuning
+```
+
+---
+
+## Quick Configuration Checklist
+
+Before deploying your HikariCP configuration, ask yourself these questions:
+
+1. **Pool Sizing**: Have I calculated the right pool size based on my application's concurrency needs?
+2. **Timeouts**: Are my timeouts appropriate for fast failure detection without being too aggressive?
+3. **Monitoring**: Can I see pool utilization and performance metrics in my monitoring system?
+4. **Environment Differences**: Do I have different configurations for dev, test, and production?
+5. **Database Specifics**: Have I configured database-specific optimizations?
+6. **Connection Health**: Am I validating connections appropriately without impacting performance?
+7. **Resource Limits**: Are my pool settings within my database server's connection limits?
+
+Remember: Start with conservative settings and adjust based on monitoring data from your actual production load!
 
 ---
 > Source: [jabrena/cursor-rules-spring-boot](https://github.com/jabrena/cursor-rules-spring-boot) — distributed by [TomeVault](https://tomevault.io).
