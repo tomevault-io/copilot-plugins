@@ -1,0 +1,22 @@
+{
+  "name": "aws-samples--sample-amazon-bedrock-agentcore-onboarding",
+  "displayName": "sample-amazon-bedrock-agentcore-onboarding",
+  "description": "sample-amazon-bedrock-agentcore-onboarding",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/sample-amazon-bedrock-agentcore-onboarding",
+  "skills": [
+    {
+      "name": "clean-workshop",
+      "description": ""
+    },
+    {
+      "name": "run-workshop",
+      "description": ""
+    },
+    {
+      "name": "scaffold-workshop",
+      "description": ""
+    }
+  ]
+}
