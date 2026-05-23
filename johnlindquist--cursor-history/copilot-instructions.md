@@ -1,54 +1,25 @@
-## project
+## workspace-retrieval
 
-> project-wide rules
+> When the `chi` command is run without flags (or potentially with other commands needing workspace context), it attempts to find conversations specific to the current working directory.
 
+# Workspace Conversation Retrieval Logic
 
-# Cursor History (chi) CLI Tool
+When the `chi` command is run without flags (or potentially with other commands needing workspace context), it attempts to find conversations specific to the current working directory.
 
-## Project Overview
-This CLI tool extracts and manages conversation history from the Cursor AI editor. It allows users to:
-- Extract all conversations to markdown files
-- Search through conversations interactively
-- Export the latest conversation to a file and clipboard
+## Logic Flow
 
-## Project Structure
-- `src/index.ts` - Main entry point and command handler
-- `src/db/extract-conversations.ts` - Core functionality for extracting conversations from the Cursor database
-- `src/utils/` - Helper utilities for formatting and configuration
-- `src/types.ts` - TypeScript type definitions for conversations and messages
+1.  **Get Current Directory Name:** The base name of the current working directory is determined (e.g., `workshop-demos` from `/Users/johnlindquist/workshop-demos`).
+2.  **Search Workspace Metadata:** The function `getWorkspaceComposerIds` in [`src/db/extract-conversations.ts`](mdc:src/db/extract-conversations.ts) iterates through subdirectories in `~/Library/Application Support/Cursor/User/workspaceStorage/` (on macOS).
+3.  **Match Folder Path:** For each subdirectory `<hash>`, it reads [`workspaceStorage/<hash>/workspace.json`](mdc:~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/workspace.json).
+    - It parses the `folder` field (a URI like `file:///path/to/folder`).
+    - It compares the decoded folder path/name against the current directory name.
+4.  **Extract Composer IDs:** If a match is found, it opens the corresponding workspace database [`workspaceStorage/<hash>/state.vscdb`](mdc:~/Library/Application Support/Cursor/User/workspaceStorage/<hash>/state.vscdb) and extracts `composerId` values associated with the key `composer.composerData`.
+5.  **Fetch Conversation Data (BUG):** The `getConversationsForWorkspace` function receives these IDs but **incorrectly** tries to fetch the full conversation data using these IDs from the **global** database (`~/Library/Application Support/Cursor/User/globalStorage/state.vscdb`).
+6.  **Result:** Because the composer data format in the global DB doesn't match what's expected or the IDs aren't found there with conversation arrays, it fails to retrieve workspace-specific conversations and falls back to global search.
 
-## Key Features
-- **Workspace-aware conversations**: The tool can filter conversations by workspace name
-- **Conversation extraction**: Exports conversations to markdown files with proper formatting
-- **Interactive search**: Allows searching through conversation history
-- **Clipboard integration**: Automatically copies exported conversations to clipboard
+## Required Fix
 
-## Database Structure
-- Uses SQLite databases located in platform-specific paths:
-  - macOS: `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb`
-  - Linux: `~/.config/Cursor/User/globalStorage/state.vscdb`
-  - Windows: `%APPDATA%/Cursor/User/globalStorage/state.vscdb`
-- Workspace-specific data is stored in `workspaceStorage` subdirectories
-
-## Commands
-- `chi` (default) - Export the latest conversation (filtered by current directory name if matching)
-- `chi --extract` - Extract all conversations to markdown files
-- `chi --search` - Interactively search through conversations
-- `chi --version` - Show CLI version
-
-## Development Workflow
-- Build: `pnpm build`
-- Run default command: `pnpm default`
-- Run search: `pnpm search`
-- Run extract: `pnpm extract`
-- Lint with autofix: `pnpm lint`
-
-## Recent Changes
-- Added workspace filtering by current directory name
-- When running the default command, the tool now:
-  1. Gets the current directory name
-  2. Searches for conversations from that workspace
-  3. Falls back to global latest conversation if no matching workspace found
+The `getConversationsForWorkspace` function needs to be modified to accept the path to the specific **workspace** `state.vscdb` (found in step 4) and use that database connection to query for conversation details using the extracted composer IDs.
 
 ---
 > Source: [johnlindquist/cursor-history](https://github.com/johnlindquist/cursor-history) — distributed by [TomeVault](https://tomevault.io).
