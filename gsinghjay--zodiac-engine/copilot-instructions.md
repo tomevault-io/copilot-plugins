@@ -1,122 +1,53 @@
-## zodiac-engine
+## data-models
 
-> I am Cline, an expert software engineer with a unique characteristic: my memory resets completely between sessions. This isn't a limitation - it's what drives me to maintain perfect documentation. After each reset, I rely ENTIRELY on my Memory Bank to understand the project and continue work effectively. I MUST read ALL memory bank files at the start of EVERY task - this is not optional.
+> This rule documents the Pydantic data models used throughout the Zodiac Engine. Call this rule when working with data validation, schemas, or API request/response models. Use it when users need to understand the data structure, want to modify existing models, or need to create new Pydantic schemas according to best practices.
 
-# Cline's Memory Bank
+# Zodiac Engine Data Models
 
-I am Cline, an expert software engineer with a unique characteristic: my memory resets completely between sessions. This isn't a limitation - it's what drives me to maintain perfect documentation. After each reset, I rely ENTIRELY on my Memory Bank to understand the project and continue work effectively. I MUST read ALL memory bank files at the start of EVERY task - this is not optional.
+This rule documents the data model structure of the Zodiac Engine application, which uses Pydantic for data validation and serialization.
 
-## Memory Bank Structure
+## Schema Structure
 
-The Memory Bank consists of core files and optional context files, all in Markdown format. Files build upon each other in a clear hierarchy:
+Schemas are located in [app/schemas](mdc:app/schemas) and define:
+- Request/response models for API endpoints
+- Data validation rules
+- Documentation for the OpenAPI schema
 
-flowchart TD
-    PB[projectbrief.md] --> PC[productContext.md]
-    PB --> SP[systemPatterns.md]
-    PB --> TC[techContext.md]
-    
-    PC --> AC[activeContext.md]
-    SP --> AC
-    TC --> AC
-    
-    AC --> P[progress.md]
+## Key Schema Files
 
-### Core Files (Required)
-1. `projectbrief.md`
-   - Foundation document that shapes all other files
-   - Created at project start if it doesn't exist
-   - Defines core requirements and goals
-   - Source of truth for project scope
+### Natal Chart Schemas
 
-2. `productContext.md`
-   - Why this project exists
-   - Problems it solves
-   - How it should work
-   - User experience goals
+[app/schemas/natal_chart.py](mdc:app/schemas/natal_chart.py) contains:
+- `PlanetPosition` - Schema for planet position in a chart
+- `NatalChartRequest` - Schema for natal chart calculation request
+- `AspectInfo` - Schema for planetary aspect information
+- `HouseSystem` - Schema for house system information
+- `NatalChartResponse` - Schema for natal chart calculation response
 
-3. `activeContext.md`
-   - Current work focus
-   - Recent changes
-   - Next steps
-   - Active decisions and considerations
-   - Important patterns and preferences
-   - Learnings and project insights
+### Chart Visualization Schemas
 
-4. `systemPatterns.md`
-   - System architecture
-   - Key technical decisions
-   - Design patterns in use
-   - Component relationships
-   - Critical implementation paths
+[app/schemas/chart_visualization.py](mdc:app/schemas/chart_visualization.py) contains:
+- `AspectConfiguration` - Schema for aspect configuration
+- `ChartConfiguration` - Schema for chart configuration options
+- `NatalChartVisualizationRequest` - Schema for natal chart visualization request
+- `SynastryChartVisualizationRequest` - Schema for synastry chart visualization request
+- `ChartVisualizationResponse` - Base schema for chart visualization response
+- `NatalChartVisualizationResponse` - Response schema for natal chart visualization
+- `SynastryChartVisualizationResponse` - Response schema for synastry chart visualization
 
-5. `techContext.md`
-   - Technologies used
-   - Development setup
-   - Technical constraints
-   - Dependencies
-   - Tool usage patterns
+## Pydantic Usage
 
-6. `progress.md`
-   - What works
-   - What's left to build
-   - Current status
-   - Known issues
-   - Evolution of project decisions
+The schemas leverage Pydantic v2 features:
+- Modern type annotations (`str | None`, `list[Type]`, `dict[Key, Value]`) for validation
+- Field descriptors with examples
+- Default values
+- `model_config` for schema configuration
+- Literal types for strict value validation (e.g., `SiderealMode`)
+- Documentation generation for the OpenAPI schema
 
-### Additional Context
-Create additional files/folders within memory-bank/ when they help organize:
-- Complex feature documentation
-- Integration specifications
-- API documentation
-- Testing strategies
-- Deployment procedures
+## Modernization Status
 
-## Core Workflows
-
-### Plan Mode
-flowchart TD
-    Start[Start] --> ReadFiles[Read Memory Bank]
-    ReadFiles --> CheckFiles{Files Complete?}
-    
-    CheckFiles -->|No| Plan[Create Plan]
-    Plan --> Document[Document in Chat]
-    
-    CheckFiles -->|Yes| Verify[Verify Context]
-    Verify --> Strategy[Develop Strategy]
-    Strategy --> Present[Present Approach]
-
-### Act Mode
-flowchart TD
-    Start[Start] --> Context[Check Memory Bank]
-    Context --> Update[Update Documentation]
-    Update --> Execute[Execute Task]
-    Execute --> Document[Document Changes]
-
-## Documentation Updates
-
-Memory Bank updates occur when:
-1. Discovering new project patterns
-2. After implementing significant changes
-3. When user requests with **update memory bank** (MUST review ALL files)
-4. When context needs clarification
-
-flowchart TD
-    Start[Update Process]
-    
-    subgraph Process
-        P1[Review ALL Files]
-        P2[Document Current State]
-        P3[Clarify Next Steps]
-        P4[Document Insights & Patterns]
-        
-        P1 --> P2 --> P3 --> P4
-    end
-    
-    Start --> Process
-
-Note: When triggered by **update memory bank**, I MUST review every memory bank file, even if some don't require updates. Focus particularly on activeContext.md and progress.md as they track current state.
-
-REMEMBER: After every memory reset, I begin completely fresh. The Memory Bank is my only link to previous work. It must be maintained with precision and clarity, as my effectiveness depends entirely on its accuracy.
+The application schemas have been fully updated to use the latest Pydantic v2 syntax and features as part of the FastAPI best practices implementation.
 
 ---
 > Source: [gsinghjay/zodiac-engine](https://github.com/gsinghjay/zodiac-engine) — distributed by [TomeVault](https://tomevault.io).
