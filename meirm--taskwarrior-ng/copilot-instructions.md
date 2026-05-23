@@ -1,14 +1,14 @@
-## create-tasks
+## execute-tasks
 
-> Create a tasks list with sub-tasks to execute a feature based on its spec.
+> Execute the next task.
 
 
-# Create Tasks
+# Execute Task
 
-Create a tasks list with sub-tasks to execute a feature based on its spec.
+Execute the next task.
 
 Refer to the instructions located in this file:
-@.agent-os/instructions/core/create-tasks.md
+@.agent-os/instructions/core/execute-tasks.md
 
 ---
 > Source: [meirm/taskwarrior-ng](https://github.com/meirm/taskwarrior-ng) — distributed by [TomeVault](https://tomevault.io).
