@@ -1,0 +1,9 @@
+{
+  "name": "jellydn--tiny-nvim",
+  "displayName": "tiny-nvim",
+  "description": "Slim Neovim config for 0.11+ with minimal plugins.",
+  "version": "1.0.0",
+  "author": "jellydn",
+  "homepage": "https://github.com/jellydn/tiny-nvim",
+  "skills": []
+}
