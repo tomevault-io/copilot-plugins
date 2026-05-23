@@ -1,0 +1,9 @@
+{
+  "name": "dna-seq--just-dna-lite",
+  "displayName": "just-dna-lite",
+  "description": "lite and fast version of just-dna-seq personalized genomic platform",
+  "version": "1.0.0",
+  "author": "dna-seq",
+  "homepage": "https://github.com/dna-seq/just-dna-lite",
+  "skills": []
+}
