@@ -1,0 +1,9 @@
+{
+  "name": "bjern--jw-org-mcp",
+  "displayName": "jw-org-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides controlled, verifiable access to content from jw.org for AI applications and LLM integrations.",
+  "version": "1.0.0",
+  "author": "Bjern",
+  "homepage": "https://github.com/Bjern/jw-org-mcp",
+  "skills": []
+}
