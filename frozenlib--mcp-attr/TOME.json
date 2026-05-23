@@ -4,7 +4,7 @@
   "repo": "mcp-attr",
   "description": "A library for declaratively building Model Context Protocol servers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/frozenlib/mcp-attr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T23:18:22Z"
+  "distributed_at": "2026-05-23T03:09:02Z"
 }
