@@ -1,0 +1,9 @@
+{
+  "name": "ai-action--setup-ollama",
+  "displayName": "setup-ollama",
+  "description": "\ud83e\udd99 Set up GitHub Actions with Ollama CLI.",
+  "version": "1.0.0",
+  "author": "ai-action",
+  "homepage": "https://github.com/ai-action/setup-ollama",
+  "skills": []
+}
