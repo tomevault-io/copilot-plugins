@@ -1,77 +1,70 @@
-## 100-mcp-capabilities
+## 400-md-docs
 
-> APPLY when INTEGRATING to understand available MCP server capabilities and configurations
+> ALWAYS use when writing or updating Markdown files to ensure consistent formatting and readability
 
 
-# MCP Integration Capabilities
+# Markdown Documentation Standards
 
 ## Context
-MCP (Model Context Protocol) servers extend Cursor's capabilities by:
-- Providing external data access
-- Enabling tool integrations
-- Supporting both local and remote contexts
+- When creating or modifying any Markdown documentation
+- When establishing documentation structure and style
+- When including diagrams, code blocks, or special elements in documentation
 
 ## Requirements
-- Configure MCP servers in `.cursor/mcp.json` or `~/.cursor/mcp.json`
-- Choose appropriate transport type (stdio or SSE)
-- Set required environment variables for authentication
-- Implement proper error handling
-- Monitor MCP server health
+- Follow the official Markdown Guide for all basic and extended syntax
+- Maintain clear document structure with proper heading hierarchy
+- Include appropriate YAML front matter for metadata when required
+- Use Mermaid diagrams for visual documentation where appropriate
+- Properly format code blocks, tables, and special elements
+- Maximum heading depth: 4 levels
+- Indent content within XML tags by 2 spaces
+- Keep tables simple and readable with proper alignment
 
 ## Examples
 <example>
-// Local stdio MCP server configuration
-{
-  "mcpServers": {
-    "nuxt-db": {
-      "command": "npx",
-      "args": ["-y", "nuxt-mcp-db"],
-      "env": {
-        "DB_URL": "postgresql://localhost:5432/mydb"
-      }
-    }
-  }
-}
+# Document Title
 
-// Remote SSE MCP server
-{
-  "mcpServers": {
-    "team-api": {
-      "url": "https://api.example.com/mcp/sse",
-      "env": {
-        "API_KEY": "${MCP_API_KEY}"
-      }
-    }
-  }
+## Section Heading
+
+Content with **bold text** and *italics*.
+
+```typescript
+function example(): void {
+  console.log('Hello, Universe!');
 }
+```
+
+| Name  | Type   | Description  |
+|:------|:------:|-------------:|
+| id    | number | Primary key  |
+| name  | string | User's name  |
+
+> 💡 **Tip:** Helpful suggestion.
 </example>
 
 <example type="invalid">
-// Missing required env variables
-{
-  "mcpServers": {
-    "nuxt-db": {
-      "command": "npx",
-      "args": ["-y", "nuxt-mcp-db"]
-    }
-  }
-}
+#Incorrect Heading
+content without proper spacing
 
-// Invalid transport configuration
-{
-  "mcpServers": {
-    "api": {
-      "command": "http://api.example.com"
-    }
-  }
+```
+function withoutLanguageSpecified() {
 }
+```
+
+| No | alignment | markers |
+| or | proper | formatting |
 </example>
 
 ## Critical Rules
-- ALWAYS use environment variables for sensitive data
-- NEVER commit API keys or credentials to version control
-- Choose stdio for local development, SSE for team sharing
-- Limit MCP servers to 40 tools maximum for optimal performance 
+  - Use ATX-style headings with space after hash: `# Heading`
+  - Maintain proper heading hierarchy (don't skip levels)
+  - Add blank line before and after headings and blocks
+  - Specify language in code blocks using triple backticks
+  - Use blockquotes with emoji for different types of callouts
+  - Include clear titles for Mermaid diagrams using the `---` syntax
+  - Keep table structure clean with proper alignment indicators
+  - Format Mermaid diagrams with descriptive node labels and comments
+  - Close XML tags on their own line at the parent indentation level 
 
 ---
 > Source: [JosephAnson/nuxt-ai](https://github.com/JosephAnson/nuxt-ai) — distributed by [TomeVault](https://tomevault.io).
