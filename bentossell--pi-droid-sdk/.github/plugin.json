@@ -1,0 +1,9 @@
+{
+  "name": "bentossell--pi-droid-sdk",
+  "displayName": "pi-droid-sdk",
+  "description": "pi provider extension for Factory Droid models via @factory/droid-sdk",
+  "version": "1.0.0",
+  "author": "bentossell",
+  "homepage": "https://github.com/bentossell/pi-droid-sdk",
+  "skills": []
+}
