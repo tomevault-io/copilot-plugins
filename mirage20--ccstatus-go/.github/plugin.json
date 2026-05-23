@@ -1,0 +1,9 @@
+{
+  "name": "mirage20--ccstatus-go",
+  "displayName": "ccstatus-go",
+  "description": "\ud83c\udfad Over-engineered statusline for Claude Code with provider-component architecture, TTL-based caching, parallel goroutines, and YAML configs. Because printf is for quitters.",
+  "version": "1.0.0",
+  "author": "Mirage20",
+  "homepage": "https://github.com/Mirage20/ccstatus-go",
+  "skills": []
+}
