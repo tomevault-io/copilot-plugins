@@ -1,0 +1,9 @@
+{
+  "name": "sstraus--settingssentry",
+  "displayName": "SettingsSentry",
+  "description": "Securely archive and reinstate your macOS application configurations, simplifying system recovery processes.",
+  "version": "1.0.0",
+  "author": "sstraus",
+  "homepage": "https://github.com/sstraus/SettingsSentry",
+  "skills": []
+}
