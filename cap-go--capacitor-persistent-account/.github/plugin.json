@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-persistent-account",
+  "displayName": "capacitor-persistent-account",
+  "description": "Capacitor plugin to persist account data between app install",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-persistent-account",
+  "skills": []
+}
