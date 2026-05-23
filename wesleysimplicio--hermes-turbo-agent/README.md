@@ -7,11 +7,11 @@ Hermes Agent 100x Fast performance branch: runtime benchmarks, visual comparison
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wesleysimplicio/hermes-turbo-agent](https://github.com/wesleysimplicio/hermes-turbo-agent).
+Original source: `CLAUDE.md` in [wesleysimplicio/hermes-turbo-agent](https://github.com/wesleysimplicio/hermes-turbo-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
