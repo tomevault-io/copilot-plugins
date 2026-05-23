@@ -1,6 +1,6 @@
-# rush-arch — distributed by TomeVault
+# rush-arch
 
-> Originally from [coze-dev/rush-arch](https://github.com/coze-dev/rush-arch). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [coze-dev/rush-arch](https://github.com/coze-dev/rush-arch) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [coze-dev/rush-arch](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/coze-dev)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/coze-dev/rush-arch](https://github.com/coze-dev/rush-arch)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install coze-dev/rush-arch
 ```
-Or browse all formats at [https://tomevault.io/claim/coze-dev](https://tomevault.io/claim/coze-dev).
+Source: [github.com/coze-dev/rush-arch](https://github.com/coze-dev/rush-arch).
 
 <!-- genome:d-i-p -->
