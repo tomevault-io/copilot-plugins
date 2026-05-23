@@ -67314,6 +67314,16 @@
       "description": "ai_lab_tracker"
     },
     {
+      "name": "masumi-network--kodosumi",
+      "source": "./masumi-network--kodosumi",
+      "description": "runtime environment to manage and execute agentic services at scale"
+    },
+    {
+      "name": "masumi-network--kodosumi",
+      "source": "./masumi-network--kodosumi",
+      "description": "runtime environment to manage and execute agentic services at scale"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -68314,6 +68324,16 @@
       "description": "An open source all-in-one business management software."
     },
     {
+      "name": "heratiki--locallama-mcp",
+      "source": "./heratiki--locallama-mcp",
+      "description": "An MCP Server that works with Roo Code/Cline.Bot/Claude Desktop to optimize costs by intelligently routing coding tasks between local LLMs free APIs and paid APIs."
+    },
+    {
+      "name": "heratiki--locallama-mcp",
+      "source": "./heratiki--locallama-mcp",
+      "description": "An MCP Server that works with Roo Code/Cline.Bot/Claude Desktop to optimize costs by intelligently routing coding tasks between local LLMs free APIs and paid APIs."
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -69237,6 +69257,11 @@
       "name": "goplasmatic--dataflow-rs",
       "source": "./goplasmatic--dataflow-rs",
       "description": "A high-performance rules engine for IFTTT-style automation in Rust with zero-overhead JSONLogic evaluation"
+    },
+    {
+      "name": "zzdylan--dev-tools",
+      "source": "./zzdylan--dev-tools",
+      "description": "\u7a0b\u5e8f\u5458\u5de5\u5177\u7bb1"
     },
     {
       "name": "w3cj--ruta",
@@ -71989,6 +72014,26 @@
       "description": "KGet is a modern, lightweight download manager written in Rust for fast and reliable file downloads from the command line and native app for windows, linux and mac."
     },
     {
+      "name": "rungalileo--gcache",
+      "source": "./rungalileo--gcache",
+      "description": "Fine-grained caching framework"
+    },
+    {
+      "name": "ody-z--trading-game-simulator",
+      "source": "./ody-z--trading-game-simulator",
+      "description": "For anyone who wants to prepare for trading interview or just to have fun. "
+    },
+    {
+      "name": "redixhumayun--simpledb",
+      "source": "./redixhumayun--simpledb",
+      "description": "simpledb"
+    },
+    {
+      "name": "nayshins--ummon",
+      "source": "./nayshins--ummon",
+      "description": "The semantic layer for software engineering: Connect   code to meaning, build on understanding"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -73122,6 +73167,16 @@
       "name": "rawveg--trader-magic",
       "source": "./rawveg--trader-magic",
       "description": "A local AI-powered automated trading system built with Python. The system uses Ollama for AI decision-making, TAAPI.io for technical indicators, and Alpaca for trade execution."
+    },
+    {
+      "name": "playtazuo--tazuo",
+      "source": "./playtazuo--tazuo",
+      "description": "TazUO - Custom client for Ultima Online"
+    },
+    {
+      "name": "dtinth--thaiexamjs",
+      "source": "./dtinth--thaiexamjs",
+      "description": "Compare how different AI models perform on Thailand\u2019s standardized exams"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -75432,6 +75487,21 @@
       "name": "gsd-redux--get-shit-done-redux",
       "source": "./gsd-redux--get-shit-done-redux",
       "description": "Getting Shit Done, the Aftermath"
+    },
+    {
+      "name": "timbal-ai--timbal",
+      "source": "./timbal-ai--timbal",
+      "description": "Simple, performant, battle-tested framework for building reliable AI applications."
+    },
+    {
+      "name": "ericyuegu--hal",
+      "source": "./ericyuegu--hal",
+      "description": "Training AI for Super Smash Bros. Melee"
+    },
+    {
+      "name": "answerdotai--fastmigrate",
+      "source": "./answerdotai--fastmigrate",
+      "description": "Simple database migrations for SQLite"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -85919,6 +85989,11 @@
       "description": "The opinionated high performance professional-grade AI package for Go"
     },
     {
+      "name": "lecheenax--wordflow-tracker",
+      "source": "./lecheenax--wordflow-tracker",
+      "description": "Track the changes and stats of your edited note files automatically in Obsidian. Record the modified notes and statistics to your daily note with various customizations! "
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -87922,6 +87997,51 @@
       "name": "kirel--raycast-openai-server",
       "source": "./kirel--raycast-openai-server",
       "description": "Extension that thats local openai server which passes requests to Raycast AI."
+    },
+    {
+      "name": "mrabdussalam--zakat-calculator",
+      "source": "./mrabdussalam--zakat-calculator",
+      "description": "Zakat Calculator"
+    },
+    {
+      "name": "libnativeapi--nativeapi",
+      "source": "./libnativeapi--nativeapi",
+      "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms."
+    },
+    {
+      "name": "libnativeapi--nativeapi",
+      "source": "./libnativeapi--nativeapi",
+      "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms."
+    },
+    {
+      "name": "libnativeapi--nativeapi",
+      "source": "./libnativeapi--nativeapi",
+      "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms."
+    },
+    {
+      "name": "mrabdussalam--zakat-calculator",
+      "source": "./mrabdussalam--zakat-calculator",
+      "description": "Zakat Calculator"
+    },
+    {
+      "name": "libnativeapi--nativeapi",
+      "source": "./libnativeapi--nativeapi",
+      "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms."
+    },
+    {
+      "name": "libnativeapi--nativeapi",
+      "source": "./libnativeapi--nativeapi",
+      "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms."
+    },
+    {
+      "name": "libnativeapi--nativeapi",
+      "source": "./libnativeapi--nativeapi",
+      "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms."
+    },
+    {
+      "name": "libnativeapi--nativeapi",
+      "source": "./libnativeapi--nativeapi",
+      "description": "A modern cross-platform C++ library providing seamless, unified access to native system APIs across multiple platforms."
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -99594,6 +99714,16 @@
       "description": "rwsdk.com"
     },
     {
+      "name": "redwoodjs--rwsdk-com",
+      "source": "./redwoodjs--rwsdk-com",
+      "description": "rwsdk.com"
+    },
+    {
+      "name": "redwoodjs--rwsdk-com",
+      "source": "./redwoodjs--rwsdk-com",
+      "description": "rwsdk.com"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -110534,6 +110664,11 @@
       "description": "Django Boilerplate for REST API/SPA with Vue.js built on top of Django Cookie Cutter. "
     },
     {
+      "name": "letehaha--budget-tracker",
+      "source": "./letehaha--budget-tracker",
+      "description": "A personal budget tracking application. Track your balances and transactions with bank connections or manual entry, categorize and analyze expenses and income, and many more."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -113749,6 +113884,26 @@
       "description": "Analyze user input to identify suitable design patterns and project templates. Orchestrate the project, creating initial files from templates."
     },
     {
+      "name": "sparesparrow--mcp-project-orchestrator",
+      "source": "./sparesparrow--mcp-project-orchestrator",
+      "description": "Analyze user input to identify suitable design patterns and project templates. Orchestrate the project, creating initial files from templates."
+    },
+    {
+      "name": "akeeba--plg-captcha-altcha",
+      "source": "./akeeba--plg-captcha-altcha",
+      "description": "Joomla! plugin to implement ALTCHA, the Open Source, proof-of-work, self-hosted CAPTCHA alternative"
+    },
+    {
+      "name": "strickvl--hinbox",
+      "source": "./strickvl--hinbox",
+      "description": "Hinbox is a flexible, domain-configurable entity extraction system designed for historians and researchers."
+    },
+    {
+      "name": "strickvl--hinbox",
+      "source": "./strickvl--hinbox",
+      "description": "Hinbox is a flexible, domain-configurable entity extraction system designed for historians and researchers."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -116957,6 +117112,16 @@
       "name": "kajidog--mcp-tts-voicevox",
       "source": "./kajidog--mcp-tts-voicevox",
       "description": "VOICEVOX MCP Server (MCP Apps\u5bfe\u5fdc)"
+    },
+    {
+      "name": "die-manufaktur--ai-seo-copilot-for-webflow",
+      "source": "./die-manufaktur--ai-seo-copilot-for-webflow",
+      "description": "AI SEO Copilot is a Free Webflow SEO app to help you with your SEO.  Our ambition is to build the Yoast SEO for Webflow."
+    },
+    {
+      "name": "dialexity--dialectical-framework",
+      "source": "./dialexity--dialectical-framework",
+      "description": "Turn stories, strategies, or systems into insight. Auto-generate Dialectical Wheels (DWs) from any text to reveal blind spots, surface polarities, and trace dynamic paths toward synthesis. DWs are sem"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -120527,6 +120692,11 @@
       "name": "henriqueartur--cano-ts",
       "source": "./henriqueartur--cano-ts",
       "description": "\ud83d\udd17 | A lightweight utility, inspired by Elixir\u2019s pipe operator |>, for composing sync and async functions in a clean, readable pipeline."
+    },
+    {
+      "name": "davidsuarezcdo--graph-code",
+      "source": "./davidsuarezcdo--graph-code",
+      "description": "A powerful TypeScript-based code analysis system that leverages knowledge graphs to analyze and visualize code structures using Neo4j. Graph-Code transforms your codebase into a navigable graph databa"
     },
     {
       "name": "mohiwalla--memes",
@@ -124902,6 +125072,56 @@
       "name": "skanehira--rust-cli-template",
       "source": "./skanehira--rust-cli-template",
       "description": "A ready-to-use template for creating Rust CLI applications."
+    },
+    {
+      "name": "coze-dev--rush-arch",
+      "source": "./coze-dev--rush-arch",
+      "description": "rush-arch"
+    },
+    {
+      "name": "coze-dev--rush-arch",
+      "source": "./coze-dev--rush-arch",
+      "description": "rush-arch"
+    },
+    {
+      "name": "hoangsonww--devverse-swe-blog",
+      "source": "./hoangsonww--devverse-swe-blog",
+      "description": "\ud83e\ude90 DevVerse CS Blog \u2013 A modern, high-performance blog app built with Next.js, Vercel, Supabase, TypeScript, MDX, and Framer Motion, featuring real-time search, dynamic routing, and optimized SEO for de"
+    },
+    {
+      "name": "coze-dev--rush-arch",
+      "source": "./coze-dev--rush-arch",
+      "description": "rush-arch"
+    },
+    {
+      "name": "open-paws--documentation",
+      "source": "./open-paws--documentation",
+      "description": "Documentation, examples and demos for Open Paws tools, n8n workflows, AI models and datasets"
+    },
+    {
+      "name": "ai-action--setup-ollama",
+      "source": "./ai-action--setup-ollama",
+      "description": "\ud83e\udd99 Set up GitHub Actions with Ollama CLI."
+    },
+    {
+      "name": "jiha-kim--jiha-kim-github-io",
+      "source": "./jiha-kim--jiha-kim-github-io",
+      "description": "jiha-kim.github.io"
+    },
+    {
+      "name": "hoangsonww--devverse-swe-blog",
+      "source": "./hoangsonww--devverse-swe-blog",
+      "description": "\ud83e\ude90 DevVerse CS Blog \u2013 A modern, high-performance blog app built with Next.js, Vercel, Supabase, TypeScript, MDX, and Framer Motion, featuring real-time search, dynamic routing, and optimized SEO for de"
+    },
+    {
+      "name": "open-paws--documentation",
+      "source": "./open-paws--documentation",
+      "description": "Documentation, examples and demos for Open Paws tools, n8n workflows, AI models and datasets"
+    },
+    {
+      "name": "sap--terraform-provider-scc",
+      "source": "./sap--terraform-provider-scc",
+      "description": "Terraform provider for SAP Cloud Connector"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -129652,6 +129872,26 @@
       "name": "iloveitaly--pytest-playwright-visual-snapshot",
       "source": "./iloveitaly--pytest-playwright-visual-snapshot",
       "description": "Easy pytest visual regression testing using playwright"
+    },
+    {
+      "name": "beverm2391--chain-of-thought-mcp-server",
+      "source": "./beverm2391--chain-of-thought-mcp-server",
+      "description": "An mcp server to inject raw chain of thought tokens from a reasoning model."
+    },
+    {
+      "name": "aduarterengifo--ts-monkey",
+      "source": "./aduarterengifo--ts-monkey",
+      "description": "effect monkey lang interpreter"
+    },
+    {
+      "name": "michaldudak--typescript-api-extractor",
+      "source": "./michaldudak--typescript-api-extractor",
+      "description": "Extracts API description from Typescript programs"
+    },
+    {
+      "name": "brewmarsh--meraki-homeassistant",
+      "source": "./brewmarsh--meraki-homeassistant",
+      "description": "Integration for Meraki features in Home Assistant"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -134627,6 +134867,86 @@
       "name": "obra--issue-cards",
       "source": "./obra--issue-cards",
       "description": "AI-optimized command line issue tracking tool"
+    },
+    {
+      "name": "kingbootoshi--prompt-xml-manager",
+      "source": "./kingbootoshi--prompt-xml-manager",
+      "description": "prompt-xml-manager"
+    },
+    {
+      "name": "arnogevorkyan--screeny",
+      "source": "./arnogevorkyan--screeny",
+      "description": "Windows 11 Screen Time Tracker"
+    },
+    {
+      "name": "dosugamea--voicevox-mcp-server",
+      "source": "./dosugamea--voicevox-mcp-server",
+      "description": "voicevox-mcp-server"
+    },
+    {
+      "name": "sstraus--settingssentry",
+      "source": "./sstraus--settingssentry",
+      "description": "Securely archive and reinstate your macOS application configurations, simplifying system recovery processes."
+    },
+    {
+      "name": "k4yt3x--bouncer",
+      "source": "./k4yt3x--bouncer",
+      "description": "LLM-powered Telegram bot that verifies and approves group chat join requests by generating and validating topic-based questions"
+    },
+    {
+      "name": "mhayes853--swift-operation",
+      "source": "./mhayes853--swift-operation",
+      "description": "Flexible asynchronous operation and state management for SwiftUI, Linux, WASM, and more."
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "k4yt3x--bouncer",
+      "source": "./k4yt3x--bouncer",
+      "description": "LLM-powered Telegram bot that verifies and approves group chat join requests by generating and validating topic-based questions"
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "johnlindquist--cursor-history",
+      "source": "./johnlindquist--cursor-history",
+      "description": "cursor-history"
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
+    },
+    {
+      "name": "ericvera--whatsapp-cloudapi",
+      "source": "./ericvera--whatsapp-cloudapi",
+      "description": "All-in-one toolkit for WhatsApp Cloud API with types, client library, CLI tools, and local emulation."
     },
     {
       "name": "lightninglabs--lnget",
@@ -141212,6 +141532,41 @@
       "name": "vaneui--vaneui",
       "source": "./vaneui--vaneui",
       "description": "VaneUI is a React component library powered by Tailwind CSS. Designed for building beautiful and responsive user interfaces."
+    },
+    {
+      "name": "khrnchn--resign-je",
+      "source": "./khrnchn--resign-je",
+      "description": "resign-je"
+    },
+    {
+      "name": "altafino--email-extractor",
+      "source": "./altafino--email-extractor",
+      "description": "A service that automatically downloads emails and extracts attachments using POP3/IMAP protocols, with support for multiple accounts and extensive configuration options."
+    },
+    {
+      "name": "khrnchn--resign-je",
+      "source": "./khrnchn--resign-je",
+      "description": "resign-je"
+    },
+    {
+      "name": "escalier-lang--escalier",
+      "source": "./escalier-lang--escalier",
+      "description": "Next version of the Escalier compiler written in Go"
+    },
+    {
+      "name": "kinothe-kafkaesque--ssh-mcp-server",
+      "source": "./kinothe-kafkaesque--ssh-mcp-server",
+      "description": "this is a collection of tools that allows your agent to execute commands on your remote servers"
+    },
+    {
+      "name": "aholbreich--astro-tailwind-daisyui-starter",
+      "source": "./aholbreich--astro-tailwind-daisyui-starter",
+      "description": "Minimal Astro 5 starter with Tailwind CSS 4, DaisyUI 5, Alpine JS, SEO, sitemap support."
+    },
+    {
+      "name": "kinothe-kafkaesque--ssh-mcp-server",
+      "source": "./kinothe-kafkaesque--ssh-mcp-server",
+      "description": "this is a collection of tools that allows your agent to execute commands on your remote servers"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -161392,6 +161747,156 @@
       "name": "kontent-ai--mcp-server",
       "source": "./kontent-ai--mcp-server",
       "description": "The Official Kontent.ai MCP server. Connect your AI with Kontent.ai."
+    },
+    {
+      "name": "nvidia-nemo--nemo-platform",
+      "source": "./nvidia-nemo--nemo-platform",
+      "description": "Make the agents you ship faster, more accurate, and safer."
+    },
+    {
+      "name": "nvidia-nemo--nemo-platform",
+      "source": "./nvidia-nemo--nemo-platform",
+      "description": "Make the agents you ship faster, more accurate, and safer."
+    },
+    {
+      "name": "nvidia-nemo--nemo-platform",
+      "source": "./nvidia-nemo--nemo-platform",
+      "description": "Make the agents you ship faster, more accurate, and safer."
+    },
+    {
+      "name": "nvidia-nemo--nemo-platform",
+      "source": "./nvidia-nemo--nemo-platform",
+      "description": "Make the agents you ship faster, more accurate, and safer."
+    },
+    {
+      "name": "provos--planaieditor",
+      "source": "./provos--planaieditor",
+      "description": "planaieditor"
+    },
+    {
+      "name": "provos--planaieditor",
+      "source": "./provos--planaieditor",
+      "description": "planaieditor"
+    },
+    {
+      "name": "provos--planaieditor",
+      "source": "./provos--planaieditor",
+      "description": "planaieditor"
+    },
+    {
+      "name": "provos--planaieditor",
+      "source": "./provos--planaieditor",
+      "description": "planaieditor"
+    },
+    {
+      "name": "wuujiawei--snail-todolist",
+      "source": "./wuujiawei--snail-todolist",
+      "description": "snail-todolist"
+    },
+    {
+      "name": "wuujiawei--snail-todolist",
+      "source": "./wuujiawei--snail-todolist",
+      "description": "snail-todolist"
+    },
+    {
+      "name": "wuujiawei--snail-todolist",
+      "source": "./wuujiawei--snail-todolist",
+      "description": "snail-todolist"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "longmaba--task-master-ai-gemini",
+      "source": "./longmaba--task-master-ai-gemini",
+      "description": "task-master-ai-gemini"
+    },
+    {
+      "name": "gulsher7--rn-boilerplate",
+      "source": "./gulsher7--rn-boilerplate",
+      "description": "rn_boilerplate"
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
+    },
+    {
+      "name": "gsinghjay--zodiac-engine",
+      "source": "./gsinghjay--zodiac-engine",
+      "description": "A modern astrological calculation API powered by Kerykeion. Interpretations by an LLM."
     },
     {
       "name": "ocrbase-hq--ocrbase",
