@@ -4,7 +4,7 @@
   "repo": "neon_local_vs_code_extension",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neondatabase/neon_local_vs_code_extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T09:12:15Z"
+  "distributed_at": "2026-05-23T09:30:23Z"
 }
