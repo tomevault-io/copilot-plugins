@@ -1,0 +1,9 @@
+{
+  "name": "handewo--rustion",
+  "displayName": "rustion",
+  "description": "Rustion is a lightweight, high-performance SSH bastion/jump host server with a TUI management interface, written in Rust",
+  "version": "1.0.0",
+  "author": "handewo",
+  "homepage": "https://github.com/handewo/rustion",
+  "skills": []
+}
