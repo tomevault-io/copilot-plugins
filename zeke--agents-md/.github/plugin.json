@@ -1,0 +1,9 @@
+{
+  "name": "zeke--agents-md",
+  "displayName": "agents.md",
+  "description": "My global instructions for AI agents like OpenCode",
+  "version": "1.0.0",
+  "author": "zeke",
+  "homepage": "https://github.com/zeke/agents.md",
+  "skills": []
+}
