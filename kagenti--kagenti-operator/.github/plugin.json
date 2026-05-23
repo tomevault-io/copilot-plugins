@@ -1,0 +1,9 @@
+{
+  "name": "kagenti--kagenti-operator",
+  "displayName": "kagenti-operator",
+  "description": "Kubernetes operator for deploying and lifecycle management of Agents and Tools",
+  "version": "1.0.0",
+  "author": "kagenti",
+  "homepage": "https://github.com/kagenti/kagenti-operator",
+  "skills": []
+}
