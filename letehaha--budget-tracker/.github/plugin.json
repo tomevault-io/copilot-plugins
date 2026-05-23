@@ -1,0 +1,9 @@
+{
+  "name": "letehaha--budget-tracker",
+  "displayName": "budget-tracker",
+  "description": "A personal budget tracking application. Track your balances and transactions with bank connections or manual entry, categorize and analyze expenses and income, and many more.",
+  "version": "1.0.0",
+  "author": "letehaha",
+  "homepage": "https://github.com/letehaha/budget-tracker",
+  "skills": []
+}
