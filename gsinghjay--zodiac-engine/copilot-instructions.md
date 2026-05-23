@@ -1,53 +1,45 @@
-## data-models
+## fastapi-best-practices
 
-> This rule documents the Pydantic data models used throughout the Zodiac Engine. Call this rule when working with data validation, schemas, or API request/response models. Use it when users need to understand the data structure, want to modify existing models, or need to create new Pydantic schemas according to best practices.
+> Documents the established FastAPI best practices for the Zodiac Engine, covering dependencies, Pydantic v2, DI, async/sync, error handling, responses, and performance. Fetch this rule when implementing/refactoring FastAPI code, evaluating quality, or answering user questions about project standards.
 
-# Zodiac Engine Data Models
+# FastAPI Best Practices Guide
 
-This rule documents the data model structure of the Zodiac Engine application, which uses Pydantic for data validation and serialization.
+This rule outlines FastAPI best practices for the Zodiac Engine application based on our analysis. These practices align with the latest recommendations from FastAPI's documentation and community standards.
 
-## Schema Structure
+## Key Best Practices
 
-Schemas are located in [app/schemas](mdc:app/schemas) and define:
-- Request/response models for API endpoints
-- Data validation rules
-- Documentation for the OpenAPI schema
+### Dependencies Management
+- Avoid using `fastapi[all]` in [requirements.txt](mdc:requirements.txt)
+- Use explicit version constraints for all dependencies
 
-## Key Schema Files
+### Pydantic Usage
+- Use latest Pydantic v2 syntax: `str | None` instead of `Optional[str]`
+- Use updated Pydantic configuration: `model_config = {...}` instead of `class Config`
+- Define clear schemas in [app/schemas](mdc:app/schemas) directory
 
-### Natal Chart Schemas
+### Dependency Injection
+- Use `Annotated[Type, Depends()]` syntax in endpoint parameters
+- Inject services as dependencies rather than using static methods
+- Apply `@lru_cache` to expensive dependencies as seen in [app/core/dependencies.py](mdc:app/core/dependencies.py)
 
-[app/schemas/natal_chart.py](mdc:app/schemas/natal_chart.py) contains:
-- `PlanetPosition` - Schema for planet position in a chart
-- `NatalChartRequest` - Schema for natal chart calculation request
-- `AspectInfo` - Schema for planetary aspect information
-- `HouseSystem` - Schema for house system information
-- `NatalChartResponse` - Schema for natal chart calculation response
+### Async/Sync Consistency
+- Use `async def` only for endpoints that perform async I/O operations
+- Keep service methods synchronous if they don't perform I/O
+- Maintain consistent async/sync patterns throughout the codebase
 
-### Chart Visualization Schemas
+### Error Handling
+- Import from `fastapi import status` when setting status codes
+- Use custom exception classes as defined in [app/core/exceptions.py](mdc:app/core/exceptions.py)
+- Implement global exception handlers as in [app/core/error_handlers.py](mdc:app/core/error_handlers.py)
 
-[app/schemas/chart_visualization.py](mdc:app/schemas/chart_visualization.py) contains:
-- `AspectConfiguration` - Schema for aspect configuration
-- `ChartConfiguration` - Schema for chart configuration options
-- `NatalChartVisualizationRequest` - Schema for natal chart visualization request
-- `SynastryChartVisualizationRequest` - Schema for synastry chart visualization request
-- `ChartVisualizationResponse` - Base schema for chart visualization response
-- `NatalChartVisualizationResponse` - Response schema for natal chart visualization
-- `SynastryChartVisualizationResponse` - Response schema for synastry chart visualization
+### API Response Options
+- Use `response_model_exclude_unset=True` where appropriate
+- Set proper status codes for different operations
+- Document response schemas in API routes
 
-## Pydantic Usage
-
-The schemas leverage Pydantic v2 features:
-- Modern type annotations (`str | None`, `list[Type]`, `dict[Key, Value]`) for validation
-- Field descriptors with examples
-- Default values
-- `model_config` for schema configuration
-- Literal types for strict value validation (e.g., `SiderealMode`)
-- Documentation generation for the OpenAPI schema
-
-## Modernization Status
-
-The application schemas have been fully updated to use the latest Pydantic v2 syntax and features as part of the FastAPI best practices implementation.
+### Performance 
+- Use FastAPI's background tasks for long-running operations
+- Implement caching for expensive calculations
 
 ---
 > Source: [gsinghjay/zodiac-engine](https://github.com/gsinghjay/zodiac-engine) — distributed by [TomeVault](https://tomevault.io).
