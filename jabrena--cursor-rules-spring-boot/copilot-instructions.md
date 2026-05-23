@@ -1,1208 +1,767 @@
-## 301-frameworks-spring-boot-core
+## 302-frameworks-spring-boot-rest
 
-> generateSystemHealthReport();
+> This comprehensive guide provides essential principles for designing robust, maintainable, and secure REST APIs using Spring Boot. These rules ensure your APIs follow industry best practices, maintain consistency, and provide excellent developer experience for API consumers.
 
-# Spring Boot Core
+# Java REST API Design Principles
 
-Spring Boot Core guidelines focus on proper usage of main annotations, bean management, and configuration best practices to build maintainable and efficient Spring Boot applications.
+This comprehensive guide provides essential principles for designing robust, maintainable, and secure REST APIs using Spring Boot. These rules ensure your APIs follow industry best practices, maintain consistency, and provide excellent developer experience for API consumers.
 
 ## Implementing These Principles
 
 These guidelines are built upon the following core principles:
 
-- Principle 1: Use appropriate Spring annotations to clearly express component responsibilities
-- Principle 2: Leverage Spring's dependency injection and IoC container effectively
-- Principle 3: Follow configuration best practices for maintainable and testable applications
-- Principle 4: Apply proper bean lifecycle management and scoping
+- **Semantic Consistency**: Use HTTP methods, status codes, and URI patterns according to their intended semantics
+- **Clear Communication**: Provide unambiguous API contracts through proper DTOs, error handling, and documentation
+- **Security by Design**: Implement authentication, authorization, and input validation from the start
+- **Evolutionary Design**: Version APIs and structure them to support future changes without breaking existing clients
 
 ## Table of contents
 
-- Rule 0: Spring Boot Main Application Class
-- Rule 1: Main Spring Boot Annotations Usage
-- Rule 2: Bean Definition and Management
-- Rule 3: Configuration Classes and Properties
-- Rule 4: Component Scanning and Package Organization
-- Rule 5: Conditional Configuration and Profiles
-- Rule 6: Constructor Dependency Injection Best Practices
-- Rule 7: Bean Minimization and Composition
-- Rule 8: Scheduled Tasks and Background Processing
+- Rule 1: Use HTTP Methods Correctly
+- Rule 2: Design Clear and Consistent Resource URIs
+- Rule 3: Use HTTP Status Codes Appropriately
+- Rule 4: Implement Effective Request and Response Payloads (DTOs)
+- Rule 5: Version Your APIs
+- Rule 6: Handle Errors Gracefully
+- Rule 7: Secure Your APIs
+- Rule 8: Document Your APIs
+- Rule 9: Use Controller Advice for Global Exception Handling
+- Rule 10: Implement Problem Details for Error Responses
 
-## Rule 0: Spring Boot Main Application Class
+## Rule 1: Use HTTP Methods Correctly
 
-Title: Create a Proper Spring Boot Main Application Class
-Description: Every Spring Boot application should have a main application class annotated with @SpringBootApplication. This class serves as the entry point and configuration root, combining @Configuration, @EnableAutoConfiguration, and @ComponentScan annotations.
+Title: Employ HTTP Methods Semantically
+Description: Use HTTP methods according to their defined semantics to ensure predictability and compliance with web standards. `GET` for retrieval, `POST` for creation, `PUT` for update/replace, `PATCH` for partial update, and `DELETE` for removal.
 
 **Good example:**
 
 ```java
-@SpringBootApplication
-public class MainApplication {
+// Using Spring MVC annotations for illustration
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @GetMapping("/{id}") // GET for retrieving a user
+    public ResponseEntity<UserDTO> getUser(@PathVariable String id) {
+        // ... logic to fetch user ...
+        return ResponseEntity.ok(new UserDTO());
+    }
+
+    @PostMapping // POST for creating a new user
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserCreateDTO userCreateDTO) {
+        // ... logic to create user ...
+        UserDTO newUser = new UserDTO(); // Assume it gets an ID after creation
+        return ResponseEntity.created(URI.create("/users/" + newUser.getId())).body(newUser);
+    }
+
+    @PutMapping("/{id}") // PUT for replacing/updating a user
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserUpdateDTO userUpdateDTO) {
+        // ... logic to update user ...
+        return ResponseEntity.ok(new UserDTO());
+    }
+
+    @DeleteMapping("/{id}") // DELETE for removing a user
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        // ... logic to delete user ...
+        return ResponseEntity.noContent().build();
+    }
     
-    public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+    @PatchMapping("/{id}") // PATCH for partial updates
+    public ResponseEntity<UserDTO> partiallyUpdateUser(@PathVariable String id, @RequestBody Map<String, Object> updates) {
+        // ... logic to partially update user ...
+        return ResponseEntity.ok(new UserDTO());
     }
 }
-
-// For more complex scenarios with custom configuration
-@SpringBootApplication(
-    scanBasePackages = {
-        "com.company.app.controller",
-        "com.company.app.service", 
-        "com.company.app.repository",
-        "com.company.app.config"
-    },
-    exclude = {
-        DataSourceAutoConfiguration.class,
-        SecurityAutoConfiguration.class
-    }
-)
+// Dummy DTO classes
+class UserDTO { private String id; public String getId() { return id; } /* ... other fields, getters, setters ... */ }
+class UserCreateDTO { /* ... fields ... */ }
+class UserUpdateDTO { /* ... fields ... */ }
 ```
 
 **Bad Example:**
-
-```java
-// Missing @SpringBootApplication annotation
-public class MainApplication {
-    public static void main(String[] args) {
-        // Manual Spring context setup instead of SpringApplication.run()
-        ApplicationContext context = new AnnotationConfigApplicationContext();
-        // Manual configuration - loses Spring Boot benefits
-    }
-}
-
-// Using individual annotations instead of @SpringBootApplication
-@Configuration
-@EnableAutoConfiguration  
-@ComponentScan
-public class MainApplication { // Verbose and error-prone
-    public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
-    }
-}
-
-// Poor naming and structure
-@SpringBootApplication
-public class App { // Non-descriptive name
-    
-    @Autowired
-    private UserService userService; // Business logic in main class
-    
-    public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
-        
-        // Business logic in main method - should be in separate components
-        System.out.println("Processing users...");
-    }
-}
-```
-
-## Rule 1: Main Spring Boot Annotations Usage
-
-Title: Use Appropriate Spring Boot Annotations for Component Definition
-Description: Use the correct Spring Boot annotations to define components, controllers, services, and repositories. Each annotation has specific semantics and should be used according to the layer's responsibility.
-
-**Good example:**
 
 ```java
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
-    
-    @Autowired
-    private UserService userService;
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.findById(id));
+@RequestMapping("/api")
+public class BadUserController {
+
+    // Bad: Using GET to perform a state change (e.g., delete)
+    @GetMapping("/deleteUser")
+    public ResponseEntity<String> deleteUserViaGet(@RequestParam String id) {
+        System.out.println("Deleting user: " + id + " (Bad: GET used for delete)");
+        // ... delete logic ...
+        return ResponseEntity.ok("User deleted (but GET was used!)");
+    }
+
+    // Bad: Using POST for all operations, including retrieval
+    @PostMapping("/getUser")
+    public ResponseEntity<UserDTO> getUserViaPost(@RequestBody String idPayload) {
+        System.out.println("Fetching user: " + idPayload + " (Bad: POST used for GET)");
+        // ... fetch logic ...
+        return ResponseEntity.ok(new UserDTO());
     }
 }
+```
 
-@Service
-@Transactional
-public class UserService {
-    
-    @Autowired
-    private UserRepository userRepository;
-    
-    public User findById(Long id) {
-        return userRepository.findById(id)
-            .orElseThrow(() -> new UserNotFoundException(id));
+## Rule 2: Design Clear and Consistent Resource URIs
+
+Title: Use Nouns for Resources and Maintain URI Consistency
+Description: Design URIs that are intuitive and clearly represent resources. Use nouns (e.g., `/users`, `/orders`) instead of verbs. Keep URIs consistent in style (e.g., lowercase, hyphenated or camelCase for path segments).
+
+**Good example:**
+
+```
+GET /users                           // Get all users
+GET /users/{userId}                  // Get a specific user
+GET /users/{userId}/orders           // Get all orders for a specific user
+GET /users/{userId}/orders/{orderId} // Get a specific order for a user
+POST /users                          // Create a new user
+```
+
+**Bad Example:**
+
+```
+GET /getAllUsers
+GET /fetchUserById?id={userId}
+POST /createNewUser
+GET /userOrders?userId={userId}  // Mixing query params and path styles inconsistently
+POST /processUserOrderCreation   // URI contains verbs and is overly complex
+```
+
+## Rule 3: Use HTTP Status Codes Appropriately
+
+Title: Return Meaningful HTTP Status Codes
+Description: Utilize standard HTTP status codes to accurately reflect the outcome of API requests. This helps clients understand the result without needing to parse the response body for basic success/failure information.
+- `200 OK`: General success.
+- `201 Created`: Resource successfully created (often with a `Location` header pointing to the new resource).
+- `204 No Content`: Success, but no content to return (e.g., after a successful `DELETE`).
+- `400 Bad Request`: Client error (e.g., invalid syntax, missing parameters).
+- `401 Unauthorized`: Authentication is required and has failed or has not yet been provided.
+- `403 Forbidden`: Authenticated client does not have permission to access the resource.
+- `404 Not Found`: Resource not found.
+- `500 Internal Server Error`: A generic error message for unexpected server-side errors.
+
+**Good example:**
+
+```java
+// (Inside a Spring @RestController method)
+if (resourceNotFound) {
+    return ResponseEntity.notFound().build(); // 404
+}
+if (!userHasPermission) {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied"); // 403
+}
+if (validationFailed) {
+    return ResponseEntity.badRequest().body("Invalid input data"); // 400
+}
+// For creation:
+// return ResponseEntity.created(newResourceUri).body(newResource); // 201
+// For successful deletion:
+// return ResponseEntity.noContent().build(); // 204
+```
+
+**Bad Example:**
+
+```java
+import java.util.Objects;
+
+public ResponseEntity<String> processSomething(String input) {
+    try {
+        if (Objects.isNull(input)) {
+            // Client should receive a 400 Bad Request, not 200 with an error message in body.
+            return ResponseEntity.ok("{\"error\":\"Input cannot be null\"}"); 
+        }
+        // ... process ...
+        return ResponseEntity.ok("{\"data\":\"Success!\"}");
+    } catch (Exception e) {
+        // Client should receive a 500 Internal Server Error, not 200.
+        return ResponseEntity.ok("{\"error\":\"Something went wrong on the server\"}");
     }
 }
+```
 
-@Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-    
-    @Query("SELECT * FROM users WHERE email = :email")
-    Optional<User> findByEmail(@Param("email") String email);
-    
-    @Modifying
-    @Query("UPDATE users SET last_login = :lastLogin WHERE id = :id")
-    void updateLastLogin(@Param("id") Long id, @Param("lastLogin") LocalDateTime lastLogin);
-}
+## Rule 4: Implement Effective Request and Response Payloads (DTOs)
 
-@Table("users")
-public class User {
-    
-    @Id
+Title: Use Data Transfer Objects (DTOs) for Payloads and Keep Them Lean
+Description: Use dedicated DTO classes for request and response bodies instead of exposing internal domain/entity objects directly. This decouples your API contract from your internal data model. Keep DTOs focused on the data needed for the specific API operation. Use consistent naming conventions (e.g., JSON with camelCase keys).
+
+**Good example:**
+
+```java
+// Domain Entity (internal)
+class User {
     private Long id;
-    
-    @Column("email")
+    private String username;
+    private String passwordHash; // Internal field, should not be in API responses
     private String email;
-    
-    @Column("first_name")
-    private String firstName;
-    
-    @Column("last_name") 
-    private String lastName;
-    
-    @Column("last_login")
-    private LocalDateTime lastLogin;
-    
-    // Constructors, getters, and setters
-}
-```
-
-**Bad Example:**
-
-```java
-@Component // Should be @RestController
-public class UserController {
-    
-    @Inject // Use @Autowired for Spring Boot
-    private UserService userService;
+    private java.time.LocalDateTime createdAt;
+    // getters, setters
 }
 
-@Component // Should be @Service
-public class UserService {
-    // Missing @Transactional for data operations
-}
-
-@Component // Should be @Repository
-public class UserRepository {
-    // Manual JDBC instead of using Spring Data JDBC
-}
-```
-
-## Rule 2: Bean Definition and Management
-
-Title: Proper Bean Definition, Scoping, and Lifecycle Management
-Description: Define beans with appropriate scope, use constructor injection, and manage bean lifecycle properly. Prefer constructor injection over field injection for better testability and immutability.
-
-**Good example:**
-
-```java
-@Configuration
-public class AppConfig {
-    
-    @Bean
-    @Scope("singleton") // Default, but explicit for clarity
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    
-    @Bean
-    @Scope("prototype")
-    public AuditLogger auditLogger() {
-        return new AuditLogger();
-    }
-}
-
-@Service
-public class UserService {
-    
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    
-    // Constructor injection - preferred approach
-    public UserService(UserRepository userRepository, 
-                      PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-}
-
-@Component
-public class DatabaseMigration {
-    
-    @EventListener
-    public void onApplicationReady(ApplicationReadyEvent event) {
-        // Perform initialization after Spring context is ready
-        performMigration();
-    }
-    
-    @PreDestroy
-    public void cleanup() {
-        // Cleanup resources before bean destruction
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-@Configuration
-public class AppConfig {
-    
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Creates new instance every time
-    }
-}
-
-@Service
-public class UserService {
-    
-    @Autowired // Field injection - harder to test
-    private UserRepository userRepository;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    // No constructor, relies on reflection
-}
-
-@Component
-public class DatabaseMigration {
-    
-    @PostConstruct
-    public void init() {
-        // Heavy operations in PostConstruct can block application startup
-        performHeavyMigration();
-    }
-}
-```
-
-## Rule 3: Configuration Classes and Properties
-
-Title: Organize Configuration Using @Configuration Classes and External Properties
-Description: Use @Configuration classes to organize beans logically, leverage @ConfigurationProperties for type-safe configuration, and externalize configuration values properly.
-
-**Good example:**
-
-```java
-@Configuration
-@EnableConfigurationProperties({DatabaseProperties.class, SecurityProperties.class})
-public class AppConfig {
-    
-    @Bean
-    @ConditionalOnProperty(name = "app.cache.enabled", havingValue = "true")
-    public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("users", "products");
-    }
-}
-
-@ConfigurationProperties(prefix = "app.database")
-@ConstructorBinding
-public class DatabaseProperties {
-    
-    private final String url;
-    private final String username;
-    private final int maxConnections;
-    private final Duration connectionTimeout;
-    
-    public DatabaseProperties(String url, String username, 
-                            int maxConnections, Duration connectionTimeout) {
-        this.url = url;
-        this.username = username;
-        this.maxConnections = maxConnections;
-        this.connectionTimeout = connectionTimeout;
-    }
-    
-    // Getters only - immutable
-}
-
-@Configuration
-@Profile("!test")
-public class ProductionConfig {
-    
-    @Bean
-    public DataSource dataSource(DatabaseProperties properties) {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(properties.getUrl());
-        config.setUsername(properties.getUsername());
-        config.setMaximumPoolSize(properties.getMaxConnections());
-        return new HikariDataSource(config);
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-@Configuration
-public class AppConfig {
-    
-    @Value("${database.url}") // Scattered @Value annotations
-    private String databaseUrl;
-    
-    @Value("${database.username}")
+// DTO for API responses (exposes only necessary fields)
+class UserResponseDTO {
+    private Long id;
     private String username;
-    
-    @Bean
-    public DataSource dataSource() {
-        // Hardcoded values mixed with properties
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(databaseUrl);
-        config.setUsername(username);
-        config.setPassword("hardcoded-password"); // Security risk
-        config.setMaximumPoolSize(10); // Magic number
-        return new HikariDataSource(config);
-    }
+    private String email;
+    // getters, setters
 }
 
-// No type safety, no validation
-public class DatabaseConfig {
-    @Value("${app.database.max-connections:#{null}}")
-    private Integer maxConnections; // Can be null, no validation
-}
-```
-
-## Rule 4: Component Scanning and Package Organization
-
-Title: Organize Components with Proper Package Structure and Component Scanning
-Description: Use logical package organization and configure component scanning appropriately. Avoid over-broad scanning and organize code by feature or layer consistently.
-
-**Good example:**
-
-```java
-@SpringBootApplication
-@ComponentScan(basePackages = {
-    "com.company.app.controller",
-    "com.company.app.service", 
-    "com.company.app.repository",
-    "com.company.app.config"
-})
-@EnableJdbcRepositories("com.company.app.repository")
-public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-}
-
-// Package structure:
-// com.company.app
-//   ├── controller/
-//   │   ├── UserController.java
-//   │   └── ProductController.java
-//   ├── service/
-//   │   ├── UserService.java
-//   │   └── ProductService.java
-//   ├── repository/
-//   │   ├── UserRepository.java
-//   │   └── ProductRepository.java
-//   ├── config/
-//   │   ├── DatabaseConfig.java
-//   │   └── SecurityConfig.java
-//   └── model/
-//       ├── User.java
-//       └── Product.java
-
-@Component("userService") // Explicit bean name when needed
-public class UserService {
-    // Implementation
-}
-```
-
-**Bad Example:**
-
-```java
-@SpringBootApplication
-@ComponentScan("com") // Too broad - scans entire classpath
-public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-}
-
-// Poor package structure:
-// com.company.app
-//   ├── UserController.java      // Mixed responsibilities
-//   ├── UserService.java         // in same package
-//   ├── UserRepository.java
-//   ├── ProductStuff.java        // Unclear naming
-//   └── Utils.java               // Generic naming
-
-@Component
-public class UserService { // No explicit naming strategy
-    // Multiple unrelated responsibilities in one class
-    public void handleUser() { }
-    public void sendEmail() { }
-    public void generateReport() { }
-}
-```
-
-## Rule 5: Conditional Configuration and Profiles
-
-Title: Use Conditional Configuration and Profiles for Environment-Specific Setup
-Description: Leverage Spring's conditional annotations and profiles to create flexible, environment-aware configurations that adapt to different deployment scenarios.
-
-**Good example:**
-
-```java
-@Configuration
-@Profile("development")
-public class DevConfig {
-    
-    @Bean
-    @ConditionalOnMissingBean
-    public Clock clock() {
-        return Clock.systemDefaultZone();
-    }
-    
-    @Bean
-    public DataSource devDataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/devdb");
-        config.setUsername("dev_user");
-        config.setPassword("dev_password");
-        config.setMaximumPoolSize(5);
-        return new HikariDataSource(config);
-    }
-}
-
-@Configuration
-@Profile("production")
-public class ProdConfig {
-    
-    @Bean
-    @ConditionalOnProperty(
-        name = "app.monitoring.enabled", 
-        havingValue = "true", 
-        matchIfMissing = true
-    )
-    public MeterRegistry meterRegistry() {
-        return new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
-    }
-    
-    @Bean
-    @ConditionalOnClass(name = "redis.clients.jedis.Jedis")
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(jedisConnectionFactory());
-        return template;
-    }
-}
-
-@Service
-@ConditionalOnProperty(name = "features.advanced-analytics", havingValue = "true")
-public class AdvancedAnalyticsService {
-    // Only available when feature flag is enabled
-}
-
-// application-dev.yml
-// spring:
-//   profiles:
-//     active: development
-//   datasource:
-//     url: jdbc:postgresql://localhost:5432/devdb
-//     username: dev_user
-//     password: dev_password
-
-// application-prod.yml  
-// spring:
-//   profiles:
-//     active: production
-//   datasource:
-//     url: ${DATABASE_URL}
-//     username: ${DATABASE_USERNAME}
-//     password: ${DATABASE_PASSWORD}
-```
-
-**Bad Example:**
-
-```java
-@Configuration
-public class AppConfig {
-    
-    @Value("${spring.profiles.active:}")
-    private String activeProfile;
-    
-    @Bean
-    public DataSource dataSource() {
-        if ("development".equals(activeProfile)) {
-            // Manual profile checking instead of @Profile
-            return createDevDataSource();
-        } else if ("production".equals(activeProfile)) {
-            return createProdDataSource();
-        }
-        return createDefaultDataSource();
-    }
-    
-    @Bean
-    public FeatureService featureService() {
-        // No conditional logic - always creates bean
-        return new ExpensiveFeatureService();
-    }
-}
-
-@Service
-public class NotificationService {
-    
-    @Value("${app.env}")
-    private String environment;
-    
-    public void sendNotification(String message) {
-        if ("prod".equals(environment)) {
-            // Environment logic scattered in business code
-            sendRealNotification(message);
-        } else {
-            // Development behavior mixed with production code
-            System.out.println("DEV: " + message);
-        }
-    }
-}
-```
-
-## Rule 6: Constructor Dependency Injection Best Practices
-
-Title: Favor Constructor Injection for Immutable and Testable Components
-Description: Use constructor injection as the primary dependency injection mechanism. It promotes immutability, makes dependencies explicit, enables easier testing, and prevents circular dependencies.
-
-**Good example:**
-
-```java
-@Service
-public class UserService {
-    
-    private final UserRepository userRepository;
-    private final EmailService emailService;
-    private final AuditService auditService;
-    
-    // Single constructor - @Autowired is optional since Spring 4.3
-    public UserService(UserRepository userRepository, 
-                      EmailService emailService,
-                      AuditService auditService) {
-        this.userRepository = Objects.requireNonNull(userRepository, "userRepository cannot be null");
-        this.emailService = Objects.requireNonNull(emailService, "emailService cannot be null");
-        this.auditService = Objects.requireNonNull(auditService, "auditService cannot be null");
-    }
-    
-    public User createUser(CreateUserRequest request) {
-        User user = new User(request.getEmail(), request.getName());
-        User savedUser = userRepository.save(user);
-        emailService.sendWelcomeEmail(savedUser);
-        auditService.logUserCreation(savedUser);
-        return savedUser;
-    }
-}
-
-@Configuration
-public class ServiceConfig {
-    
-    // Constructor injection for configuration classes
-    private final DatabaseProperties databaseProperties;
-    
-    public ServiceConfig(DatabaseProperties databaseProperties) {
-        this.databaseProperties = databaseProperties;
-    }
-    
-    @Bean
-    public DataSource dataSource() {
-        return DataSourceBuilder.create()
-            .url(databaseProperties.getUrl())
-            .username(databaseProperties.getUsername())
-            .password(databaseProperties.getPassword())
-            .build();
-    }
-}
-
-// Optional dependencies using constructor with default values
-@Service
-public class NotificationService {
-    
-    private final EmailService emailService;
-    private final SmsService smsService;
-    
-    // Primary constructor for all dependencies
-    public NotificationService(EmailService emailService, SmsService smsService) {
-        this.emailService = emailService;
-        this.smsService = smsService;
-    }
-    
-    // Secondary constructor for partial dependencies
-    public NotificationService(EmailService emailService) {
-        this(emailService, new NoOpSmsService());
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-@Service
-public class UserService {
-    
-    @Autowired // Field injection - harder to test and debug
-    private UserRepository userRepository;
-    
-    @Autowired
-    private EmailService emailService;
-    
-    @Autowired
-    private AuditService auditService;
-    
-    // No constructor - dependencies can be null
-    // Cannot create immutable fields
-    // Harder to unit test
-}
-
-@Service
-public class OrderService {
-    
-    private UserService userService;
-    private PaymentService paymentService;
-    
-    @Autowired // Setter injection - allows partial initialization
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-    
-    @Autowired
-    public void setPaymentService(PaymentService paymentService) {
-        this.paymentService = paymentService;
-    }
-    
-    // Service can be in invalid state if setters not called
-    public void processOrder(Order order) {
-        // NullPointerException risk if dependencies not injected
-        userService.validateUser(order.getUserId());
-        paymentService.processPayment(order.getPayment());
-    }
-}
-
-@Configuration
-public class BadConfig {
-    
-    @Autowired // Field injection in configuration
-    private Environment environment;
-    
-    @Bean
-    public ApiClient apiClient() {
-        // Configuration depends on field injection
-        return new ApiClient(environment.getProperty("api.url"));
-    }
-}
-```
-
-## Rule 7: Bean Minimization and Composition
-
-Title: Minimize Bean Count Through Composition and Logical Grouping
-Description: Reduce the number of Spring beans by composing related functionality, using factory methods, and avoiding over-decomposition. Prefer composition over excessive bean granularity.
-
-**Good example:**
-
-```java
-// Compose related services into cohesive units
-@Service
-public class UserManagementService {
-    
-    private final UserRepository userRepository;
-    private final UserValidator userValidator;
-    private final UserNotificationService notificationService;
-    
-    public UserManagementService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-        this.userValidator = new UserValidator(); // Simple composition
-        this.notificationService = new UserNotificationService(new EmailClient(), new SmsClient());
-    }
-    
-    public User createUser(CreateUserRequest request) {
-        userValidator.validate(request);
-        User user = userRepository.save(new User(request));
-        notificationService.sendWelcomeNotification(user);
-        return user;
-    }
-}
-
-// Use factory methods for related beans
-@Configuration
-public class CommunicationConfig {
-    
-    @Bean
-    public CommunicationService communicationService(
-            @Value("${app.email.enabled:true}") boolean emailEnabled,
-            @Value("${app.sms.enabled:false}") boolean smsEnabled) {
-        
-        List<NotificationChannel> channels = new ArrayList<>();
-        
-        if (emailEnabled) {
-            channels.add(createEmailChannel());
-        }
-        if (smsEnabled) {
-            channels.add(createSmsChannel());
-        }
-        
-        return new CommunicationService(channels);
-    }
-    
-    // Private factory methods instead of separate beans
-    private EmailChannel createEmailChannel() {
-        return new EmailChannel(new SmtpClient());
-    }
-    
-    private SmsChannel createSmsChannel() {
-        return new SmsChannel(new TwilioClient());
-    }
-}
-
-// Compose utilities and helpers as inner classes or packages
-@Service
-public class ReportService {
-    
-    private final ReportRepository reportRepository;
-    private final ReportFormatter formatter;
-    private final ReportExporter exporter;
-    
-    public ReportService(ReportRepository reportRepository) {
-        this.reportRepository = reportRepository;
-        this.formatter = new ReportFormatter();
-        this.exporter = new ReportExporter();
-    }
-    
-    // Inner class for related functionality
-    private static class ReportFormatter {
-        public String formatAsJson(Report report) { return "..."; }
-        public String formatAsXml(Report report) { return "..."; }
-    }
-    
-    private static class ReportExporter {
-        public void exportToPdf(String content) { /* implementation */ }
-        public void exportToExcel(String content) { /* implementation */ }
-    }
-}
-
-// Use configuration properties instead of multiple property beans
-@ConfigurationProperties(prefix = "app")
-public class ApplicationProperties {
-    
-    private final Database database = new Database();
-    private final Security security = new Security();
-    private final Cache cache = new Cache();
-    
-    // Nested static classes for logical grouping
-    public static class Database {
-        private String url;
-        private String username;
-        private int maxConnections = 10;
-        // getters and setters
-    }
-    
-    public static class Security {
-        private boolean enabled = true;
-        private String algorithm = "SHA-256";
-        // getters and setters
-    }
-    
-    public static class Cache {
-        private boolean enabled = false;
-        private Duration ttl = Duration.ofMinutes(30);
-        // getters and setters
-    }
-}
-```
-
-**Bad Example:**
-
-```java
-// Over-decomposition - too many beans for simple functionality
-@Component
-public class EmailValidator {
-    public boolean isValid(String email) { return email.contains("@"); }
-}
-
-@Component
-public class PasswordValidator {
-    public boolean isValid(String password) { return password.length() >= 8; }
-}
-
-@Component
-public class PhoneValidator {
-    public boolean isValid(String phone) { return phone.matches("\\d{10}"); }
-}
-
-@Component
-public class UserValidator {
-    @Autowired private EmailValidator emailValidator;
-    @Autowired private PasswordValidator passwordValidator;
-    @Autowired private PhoneValidator phoneValidator;
-    
-    // Three beans for simple validation logic
-}
-
-// Separate beans for configuration values
-@Component
-public class DatabaseUrlProvider {
-    @Value("${database.url}")
-    private String url;
-    public String getUrl() { return url; }
-}
-
-@Component
-public class DatabaseUsernameProvider {
-    @Value("${database.username}")
+// DTO for creating a user
+class UserCreateRequestDTO {
     private String username;
-    public String getUsername() { return username; }
+    private String password; // Received in request, then hashed internally
+    private String email;
+    // getters, setters
 }
 
-@Component
-public class DatabasePasswordProvider {
-    @Value("${database.password}")
-    private String password;
-    public String getPassword() { return password; }
-}
+// In controller:
+// public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) { ... }
+// public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserCreateRequestDTO createDto) { ... }
+```
 
-// Multiple similar beans instead of composition
-@Component
-public class EmailSender {
-    public void send(String to, String message) { /* implementation */ }
-}
+**Bad Example:**
 
-@Component
-public class SmsSender {
-    public void send(String phone, String message) { /* implementation */ }
-}
-
-@Component
-public class PushNotificationSender {
-    public void send(String deviceId, String message) { /* implementation */ }
-}
-
-@Service
-public class NotificationService {
-    @Autowired private EmailSender emailSender;
-    @Autowired private SmsSender smsSender;
-    @Autowired private PushNotificationSender pushSender;
-    
-    // Managing multiple beans instead of composed solution
-}
-
-// Utility classes as beans
-@Component
-public class StringUtils {
-    public boolean isEmpty(String str) { return str == null || str.trim().isEmpty(); }
-}
-
-@Component
-public class DateUtils {
-    public String format(LocalDate date) { return date.toString(); }
+```java
+// Bad: Exposing internal User entity directly in API, including sensitive fields like passwordHash.
+@RestController
+public class AnotherUserController {
+    @GetMapping("/rawusers/{id}")
+    public ResponseEntity<User> getRawUser(@PathVariable String id) {
+        // Assume User class has passwordHash and other internal fields
+        User internalUser = findUserById(id); // Method that returns the internal User entity
+        return ResponseEntity.ok(internalUser); // Exposes passwordHash, createdAt, etc.
+    }
+    private User findUserById(String id) { return new User(); /* ... */}
 }
 ```
 
-## Rule 8: Scheduled Tasks and Background Processing
+## Rule 5: Version Your APIs
 
-Title: Implement Robust Scheduled Tasks with Proper Configuration and Error Handling
-Description: Use Spring's scheduling capabilities effectively with appropriate configuration, error handling, and monitoring. Ensure scheduled tasks are resilient, maintainable, and don't impact application performance.
+Title: Implement a Clear API Versioning Strategy
+Description: Introduce API versioning from the beginning to manage changes and evolution without breaking existing clients. Common strategies include URI versioning (e.g., `/v1/users`), custom request header versioning (e.g., `X-API-Version: 1`), or media type versioning (e.g., `Accept: application/vnd.example.v1+json`). Choose a strategy and apply it consistently.
 
-**Good example:**
+**Good example (URI Versioning):**
 
 ```java
+@RestController
+@RequestMapping("/api/v1/products") // Version in URI
+public class ProductControllerV1 {
+    // ... v1 endpoints ...
+}
+
+@RestController
+@RequestMapping("/api/v2/products") // New version in URI
+public class ProductControllerV2 {
+    // ... v2 endpoints with potential breaking changes or new features ...
+}
+```
+
+**Bad Example (No Versioning):**
+
+```java
+@RestController
+@RequestMapping("/products") // No version information
+public class UnversionedProductController {
+    // If a breaking change is made here (e.g., field removed from response),
+    // all existing clients might break.
+    @GetMapping("/{id}")
+    public ProductDTO getProduct(@PathVariable String id) {
+        // ... logic ...
+        return new ProductDTO();
+    }
+}
+class ProductDTO {}
+```
+
+## Rule 6: Handle Errors Gracefully
+
+Title: Provide Clear and Consistent Error Responses
+Description: When an error occurs, return a standardized, machine-readable error response format (e.g., JSON). Include a unique error code or type, a human-readable message, and optionally, details about specific fields that caused validation errors. Do not expose sensitive internal details like stack traces in production error responses.
+
+**Good example (Error DTO and @ControllerAdvice for Spring):**
+
+```java
+// Error Response DTO
+class ErrorResponse {
+    private String errorCode;
+    private String message;
+    private List<String> details; // Optional: for field-specific validation errors
+    // Constructor, getters
+    public ErrorResponse(String errorCode, String message) { this.errorCode = errorCode; this.message = message; }
+    public ErrorResponse(String errorCode, String message, List<String> details) { /* ... */ }
+}
+
+@ControllerAdvice
+class GlobalExceptionHandler {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleResourceNotFound(ResourceNotFoundException ex) {
+        return new ErrorResponse("RESOURCE_NOT_FOUND", ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class) // Example for bean validation errors
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidationErrors(MethodArgumentNotValidException ex) {
+        List<String> errors = ex.getBindingResult().getFieldErrors().stream()
+                                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+                                .collect(Collectors.toList());
+        return new ErrorResponse("VALIDATION_ERROR", "Input validation failed", errors);
+    }
+    
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleGenericError(Exception ex) {
+        // Log the full exception internally
+        // logger.error("Unhandled exception:", ex);
+        return new ErrorResponse("INTERNAL_ERROR", "An unexpected error occurred.");
+    }
+}
+// Custom exception
+class ResourceNotFoundException extends RuntimeException { public ResourceNotFoundException(String msg){ super(msg);}}
+```
+
+**Bad Example:**
+
+```java
+@RestController
+public class BadErrorHandlingController {
+    @GetMapping("/items/{id}")
+    public ResponseEntity<String> getItem(@PathVariable String id) {
+        if (id.equals("unknown")) {
+            // Bad: Returning plain text error, or HTML, or inconsistent format.
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found!"); 
+        }
+        try {
+            // ... some logic that might throw an exception ...
+            if(id.equals("fail")) throw new NullPointerException("Simulated internal error");
+            return ResponseEntity.ok("Item data");
+        } catch (Exception e) {
+            // Bad: Exposing stack trace to the client in production.
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.toString());
+        }
+    }
+}
+```
+
+## Rule 7: Secure Your APIs
+
+Title: Implement Robust Security Measures
+Description: Protect your APIs from common threats. Use HTTPS for all communication. Implement proper authentication (e.g., OAuth 2.0, JWT) and authorization (e.g., role-based access control). Validate all input data to prevent injection attacks (SQLi, XSS). Apply rate limiting and throttling to prevent abuse.
+
+**Good example (Conceptual - actual implementation involves security frameworks like Spring Security):**
+
+```java
+// In a Spring Security configuration:
 @Configuration
-@EnableScheduling
-@EnableAsync
-public class SchedulingConfig {
-    
-    @Bean
-    @Primary
-    public TaskScheduler taskScheduler() {
-        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setPoolSize(5);
-        scheduler.setThreadNamePrefix("scheduled-task-");
-        scheduler.setAwaitTerminationSeconds(30);
-        scheduler.setWaitForTasksToCompleteOnShutdown(true);
-        scheduler.setErrorHandler(new CustomErrorHandler());
-        return scheduler;
-    }
-    
-    @Bean
-    public TaskExecutor asyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(3);
-        executor.setMaxPoolSize(10);
-        executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("async-task-");
-        executor.setWaitForTasksToCompleteOnShutdown(true);
-        return executor;
-    }
-}
-
-@Component
-public class DataMaintenanceScheduler {
-    
-    private static final Logger logger = LoggerFactory.getLogger(DataMaintenanceScheduler.class);
-    
-    private final UserRepository userRepository;
-    private final AuditLogRepository auditLogRepository;
-    private final MeterRegistry meterRegistry;
-    
-    public DataMaintenanceScheduler(UserRepository userRepository,
-                                  AuditLogRepository auditLogRepository,
-                                  MeterRegistry meterRegistry) {
-        this.userRepository = userRepository;
-        this.auditLogRepository = auditLogRepository;
-        this.meterRegistry = meterRegistry;
-    }
-    
-    // Fixed rate - executes every 30 minutes regardless of previous execution time
-    @Scheduled(fixedRateString = "${app.cleanup.rate:1800000}") // 30 minutes default
-    public void cleanupExpiredSessions() {
-        Timer.Sample sample = Timer.start(meterRegistry);
-        try {
-            logger.info("Starting session cleanup task");
-            
-            int deletedCount = userRepository.deleteExpiredSessions(
-                LocalDateTime.now().minusHours(24)
-            );
-            
-            logger.info("Cleaned up {} expired sessions", deletedCount);
-            meterRegistry.counter("scheduled.cleanup.sessions", "status", "success")
-                        .increment(deletedCount);
-                        
-        } catch (Exception e) {
-            logger.error("Failed to cleanup expired sessions", e);
-            meterRegistry.counter("scheduled.cleanup.sessions", "status", "error")
-                        .increment();
-        } finally {
-            sample.stop(Timer.builder("scheduled.cleanup.duration")
-                            .tag("task", "sessions")
-                            .register(meterRegistry));
-        }
-    }
-    
-    // Fixed delay - waits specified time after previous execution completes
-    @Scheduled(fixedDelayString = "${app.audit.cleanup.delay:3600000}") // 1 hour default
-    public void cleanupOldAuditLogs() {
-        try {
-            logger.debug("Starting audit log cleanup");
-            
-            LocalDateTime cutoffDate = LocalDateTime.now().minusDays(90);
-            int deletedCount = auditLogRepository.deleteLogsOlderThan(cutoffDate);
-            
-            if (deletedCount > 0) {
-                logger.info("Cleaned up {} old audit logs", deletedCount);
-            }
-            
-        } catch (Exception e) {
-            logger.error("Failed to cleanup old audit logs", e);
-            // Don't rethrow - let other scheduled tasks continue
-        }
-    }
-    
-    // Cron expression - runs at 2 AM every day
-    @Scheduled(cron = "${app.reports.schedule:0 0 2 * * *}")
-    @Async("asyncExecutor")
-    public CompletableFuture<Void> generateDailyReports() {
-        return CompletableFuture.runAsync(() -> {
-            try {
-                logger.info("Starting daily report generation");
-                
-                // Long-running task executed asynchronously
-                generateUserActivityReport();
-                generateSystemHealthReport();
-                
-                logger.info("Daily reports generated successfully");
-                
-            } catch (Exception e) {
-                logger.error("Failed to generate daily reports", e);
-                // Could send alert or notification here
-            }
-        });
-    }
-    
-    // Conditional scheduling based on profiles
-    @Scheduled(fixedRate = 300000) // 5 minutes
-    @ConditionalOnProperty(name = "app.monitoring.enabled", havingValue = "true")
-    public void healthCheck() {
-        logger.debug("Performing health check");
-        // Implementation
-    }
-    
-    private void generateUserActivityReport() {
-        // Heavy computation that should run async
-    }
-    
-    private void generateSystemHealthReport() {
-        // Another heavy computation
-    }
-}
-
-@Component
-public class CustomErrorHandler implements ErrorHandler {
-    
-    private static final Logger logger = LoggerFactory.getLogger(CustomErrorHandler.class);
-    
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
-    public void handleError(Throwable t) {
-        logger.error("Scheduled task failed with error", t);
-        
-        // Could implement alerting, metrics, or other error handling logic
-        if (t instanceof DataAccessException) {
-            // Handle database-related errors
-            logger.warn("Database error in scheduled task, will retry on next execution");
-        } else {
-            // Handle other types of errors
-            logger.error("Unexpected error in scheduled task", t);
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable() // Consider CSRF protection needs
+            .authorizeRequests()
+                .antMatchers("/public/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN") // Role-based authorization
+                .anyRequest().authenticated()       // All other requests need authentication
+            .and()
+            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt); // Example: JWT authentication
+            // .httpBasic(); // Or basic auth for simplicity in some cases
+    }
+    // ... user details service, password encoder, etc. ...
+}
+
+// In a controller method:
+// @PreAuthorize("hasAuthority('SCOPE_read:users')") // Example: OAuth2 scope-based authorization
+// @GetMapping("/users/{id}")
+// public UserDTO getUser(@PathVariable String id) { ... }
+```
+
+**Bad Example:**
+
+```java
+@RestController
+public class InsecureController {
+    // Bad: No authentication or authorization for sensitive operations.
+    @PostMapping("/admin/deleteAllData")
+    public String deleteAllData() {
+        System.out.println("All data deleted! (INSECURE - NO AUTH)");
+        return "All data wiped.";
+    }
+
+    // Bad: Trusting user input directly in a query (conceptual SQLi vulnerability).
+    @GetMapping("/products")
+    public List<ProductDTO> searchProducts(@RequestParam String category) {
+        // String query = "SELECT * FROM products WHERE category = '" + category + "'"; // SQL Injection risk!
+        // Use PreparedStatement or an ORM to prevent SQLi.
+        System.out.println("Searching for category (raw input): " + category);
+        return List.of();
+    }
+}
+```
+
+## Rule 8: Document Your APIs
+
+Title: Provide Clear and Comprehensive API Documentation
+Description: Maintain up-to-date documentation for your API. Tools like Swagger/OpenAPI can be used to generate interactive documentation from code annotations. Documentation should cover resource URIs, HTTP methods, request/response formats (including DTO schemas), expected status codes, authentication methods, and error responses.
+
+**Good example (Using Springdoc OpenAPI / Swagger annotations):**
+
+```java
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+// Assume other necessary imports like Spring MVC, DTOs etc.
+
+@RestController
+@RequestMapping("/api/v1/widgets")
+@Tag(name = "Widget API", description = "APIs for managing widgets")
+public class WidgetController {
+
+    @Operation(summary = "Get a widget by its ID",
+               description = "Returns a single widget based on the provided ID.",
+               responses = {
+                   @ApiResponse(responseCode = "200", description = "Successfully retrieved widget",
+                                content = @Content(mediaType = "application/json", schema = @Schema(implementation = WidgetDTO.class))),
+                   @ApiResponse(responseCode = "404", description = "Widget not found",
+                                content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+               })
+    @GetMapping("/{widgetId}")
+    public ResponseEntity<WidgetDTO> getWidgetById(
+            @Parameter(description = "ID of the widget to retrieve", required = true) 
+            @PathVariable String widgetId) {
+        // ... logic ...
+        // return ResponseEntity.ok(new WidgetDTO(widgetId, "Sample Widget"));
+        // For example, if not found:
+        if ("unknown".equals(widgetId)) { 
+            throw new ResourceNotFoundException("Widget with ID " + widgetId + " not found.");
         }
+        return ResponseEntity.ok(new WidgetDTO()); // Placeholder
+    }
+}
+class WidgetDTO { /* fields, getters, setters */ }
+// ErrorResponse and ResourceNotFoundException as defined in Rule 6
+```
+
+**Bad Example (No Documentation or Incomplete):**
+
+```java
+// No API documentation tool usage, comments are sparse or missing.
+@RestController
+@RequestMapping("/legacy/things")
+public class LegacyThingController {
+    // What does this do? What are parameters? What are responses?
+    @GetMapping("/{id}")
+    public Object getAThing(@PathVariable String id, @RequestParam(required = false) String type) {
+        // ... complex logic ...
+        return new Object(); // Unclear what this object structure is.
+    }
+}
+// Clients have to guess or read source code to understand how to use the API.
+```
+
+## Rule 9: Use Controller Advice for Global Exception Handling
+
+Title: Implement Centralized Exception Handling with @ControllerAdvice
+Description: Use `@ControllerAdvice` to create a centralized exception handling mechanism that can catch and handle both checked `Exception` and unchecked `RuntimeException` across all controllers. Use Spring Boot's built-in `ProblemDetail` class for consistent, standardized error responses that follow RFC 7807. This approach promotes DRY principles, ensures consistent error responses, and separates error handling logic from business logic.
+
+**Good example:**
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ProblemDetail> handleIllegalArgument(
+            IllegalArgumentException ex, HttpServletRequest request) {
+        logger.warn("Invalid argument: {}", ex.getMessage());
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.BAD_REQUEST, ex.getMessage()
+        );
+        problemDetail.setType(URI.create("https://example.com/problems/invalid-argument"));
+        problemDetail.setTitle("Invalid Argument");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        
+        return ResponseEntity.badRequest().body(problemDetail);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleEntityNotFound(
+            EntityNotFoundException ex, HttpServletRequest request) {
+        logger.warn("Entity not found: {}", ex.getMessage());
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.NOT_FOUND, ex.getMessage()
+        );
+        problemDetail.setType(URI.create("https://example.com/problems/entity-not-found"));
+        problemDetail.setTitle("Entity Not Found");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ProblemDetail> handleRuntimeException(
+            RuntimeException ex, HttpServletRequest request) {
+        String errorId = UUID.randomUUID().toString();
+        logger.error("Unexpected runtime exception with ID: {}", errorId, ex);
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.INTERNAL_SERVER_ERROR, 
+            "An unexpected error occurred while processing the request"
+        );
+        problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
+        problemDetail.setTitle("Internal Server Error");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("errorId", errorId);
+        
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ProblemDetail> handleGenericException(
+            Exception ex, HttpServletRequest request) {
+        String errorId = UUID.randomUUID().toString();
+        logger.error("Unexpected exception with ID: {}", errorId, ex);
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.INTERNAL_SERVER_ERROR, 
+            "An unexpected error occurred while processing the request"
+        );
+        problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
+        problemDetail.setTitle("Internal Server Error");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("errorId", errorId);
+        
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ProblemDetail> handleValidationException(
+            MethodArgumentNotValidException ex, HttpServletRequest request) {
+        List<String> errors = ex.getBindingResult().getFieldErrors().stream()
+            .map(error -> error.getField() + ": " + error.getDefaultMessage())
+            .collect(Collectors.toList());
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.BAD_REQUEST, "Validation failed for the provided input"
+        );
+        problemDetail.setType(URI.create("https://example.com/problems/validation-error"));
+        problemDetail.setTitle("Validation Error");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("violations", errors);
+        
+        return ResponseEntity.badRequest().body(problemDetail);
     }
 }
 
-// Configuration properties for scheduling
-@ConfigurationProperties(prefix = "app.scheduling")
-public class SchedulingProperties {
-    
-    private boolean enabled = true;
-    private int poolSize = 5;
-    private Duration shutdownTimeout = Duration.ofSeconds(30);
-    
-    // getters and setters
+// Custom exceptions
+class EntityNotFoundException extends RuntimeException {
+    public EntityNotFoundException(String message) { super(message); }
 }
 ```
 
 **Bad Example:**
 
 ```java
-@Component
-@EnableScheduling // Should be in @Configuration class
-public class BadScheduler {
+@RestController
+public class BadUserController {
     
-    @Autowired // Field injection
-    private UserRepository userRepository;
-    
-    // Hardcoded timing, no error handling
-    @Scheduled(fixedRate = 30000) // 30 seconds - too frequent for cleanup
-    public void cleanupUsers() {
-        // No logging, no error handling
-        userRepository.deleteInactiveUsers();
-        
-        // Blocking operation in scheduled thread
-        sendEmailNotifications(); // Should be async
-    }
-    
-    @Scheduled(cron = "0 0 2 * * *") // Hardcoded, not configurable
-    public void heavyProcessing() {
-        // Long-running synchronous operation blocks scheduler
-        for (int i = 0; i < 1000000; i++) {
-            performComplexCalculation();
-            // No progress tracking, no way to monitor or stop
-        }
-        
-        // No error handling - exception will break scheduling
-        riskyOperation();
-    }
-    
-    @Scheduled(fixedDelay = 1000) // Too frequent, will impact performance
-    public void constantPolling() {
-        // Polling database every second
-        checkForNewMessages(); // Should use messaging or webhooks instead
-    }
-    
-    // Multiple methods with same timing - inefficient
-    @Scheduled(fixedRate = 60000)
-    public void task1() { /* implementation */ }
-    
-    @Scheduled(fixedRate = 60000)
-    public void task2() { /* implementation */ }
-    
-    @Scheduled(fixedRate = 60000)  
-    public void task3() { /* implementation */ }
-    
-    private void sendEmailNotifications() {
-        // Synchronous email sending blocks the scheduler
-        for (User user : getAllUsers()) {
-            emailService.sendEmail(user.getEmail(), "notification");
-            // No timeout, no retry logic, no error handling
-        }
-    }
-    
-    private void riskyOperation() {
-        // Operation that might throw uncaught exception
-        throw new RuntimeException("This will break all scheduling");
-    }
-}
-
-// No thread pool configuration
-@Configuration
-public class BadSchedulingConfig {
-    // Using default single-threaded scheduler
-    // No error handling configuration
-    // No monitoring or metrics
-}
-
-@Service
-public class BlockingScheduledService {
-    
-    @Scheduled(fixedRate = 5000)
-    public void blockingTask() {
+    // Bad: Exception handling scattered across multiple controllers
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> getUser(@PathVariable String id) {
         try {
-            // Blocking I/O operation
-            Thread.sleep(30000); // 30 second sleep blocks scheduler
-            
-            // Synchronous HTTP calls
-            restTemplate.getForObject("http://slow-service/api", String.class);
-            
-        } catch (InterruptedException e) {
-            // Poor exception handling
-            e.printStackTrace(); // Never use printStackTrace in production
+            if (id.equals("invalid")) {
+                throw new IllegalArgumentException("Invalid user ID");
+            }
+            if (id.equals("notfound")) {
+                throw new EntityNotFoundException("User not found");
+            }
+            // ... business logic ...
+            return ResponseEntity.ok(new UserDTO());
+        } catch (IllegalArgumentException e) {
+            // Bad: Inconsistent error format, not using ProblemDetail
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        } catch (EntityNotFoundException e) {
+            // Bad: Different error format, no error details
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            // Bad: Exposing stack trace and inconsistent format
+            return ResponseEntity.status(500).body("Server error: " + e.toString());
+        }
+    }
+
+    // Bad: Different controller with different exception handling approach
+    @PostMapping("/users")
+    public ResponseEntity<?> createUser(@RequestBody UserCreateDTO user) {
+        try {
+            // ... business logic ...
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            // Bad: Yet another inconsistent error format, not using ProblemDetail
+            Map<String, String> error = Map.of("error", e.getMessage());
+            return ResponseEntity.status(500).body(error);
+        }
+    }
+
+    // Bad: Using custom error response instead of standard ProblemDetail
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
+        try {
+            // ... business logic ...
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            // Bad: Custom error format instead of ProblemDetail
+            CustomErrorResponse error = new CustomErrorResponse(
+                "DELETE_ERROR", e.getMessage(), new Date()
+            );
+            return ResponseEntity.status(500).body(error);
         }
     }
 }
+
+// Bad: Custom error response class instead of using ProblemDetail
+class CustomErrorResponse {
+    private String code;
+    private String message;
+    private Date timestamp;
+    // constructors, getters, setters...
+}
 ```
 
-### Scheduling Best Practices
+## Rule 10: Implement Problem Details for Error Responses
 
-**Configuration Guidelines:**
-- Always use `@EnableScheduling` in a `@Configuration` class
-- Configure custom `TaskScheduler` with appropriate thread pool size
-- Set up proper error handling with `ErrorHandler`
-- Use externalized configuration for timing and scheduling parameters
+Title: Use RFC 7807 Problem Details for HTTP APIs
+Description: Implement standardized error responses using RFC 7807 Problem Details format for HTTP 500 (Internal Server Error) and other error responses. This provides machine-readable error information that includes a type, title, status, detail, and instance to help clients understand and handle errors consistently.
 
-**Error Handling:**
-- Implement comprehensive logging for all scheduled tasks
-- Use try-catch blocks to prevent one task failure from affecting others
-- Consider implementing retry logic for transient failures
-- Add metrics and monitoring for scheduled task execution
+**Good example:**
 
-**Performance Considerations:**
-- Use `@Async` for long-running tasks to avoid blocking the scheduler
-- Choose appropriate scheduling intervals based on business requirements
-- Monitor thread pool usage and adjust pool sizes accordingly
-- Avoid frequent polling - consider event-driven alternatives
-
-**Testing:**
 ```java
-@TestConfiguration
-public class TestSchedulingConfig {
+@ControllerAdvice
+public class ProblemDetailsExceptionHandler {
     
-    @Bean
-    @Primary
-    public TaskScheduler testTaskScheduler() {
-        // Use synchronous scheduler for testing
-        return new SyncTaskExecutor();
+    private static final Logger logger = LoggerFactory.getLogger(ProblemDetailsExceptionHandler.class);
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ProblemDetail> handleRuntimeException(
+            RuntimeException ex, HttpServletRequest request) {
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.INTERNAL_SERVER_ERROR, 
+            "An unexpected error occurred while processing the request"
+        );
+        
+        problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
+        problemDetail.setTitle("Internal Server Error");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("errorId", UUID.randomUUID().toString());
+        
+        // Log the actual exception for debugging (don't expose to client)
+        logger.error("Internal server error with ID: {}", 
+            problemDetail.getProperties().get("errorId"), ex);
+        
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(problemDetail);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleEntityNotFound(
+            EntityNotFoundException ex, HttpServletRequest request) {
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.NOT_FOUND, ex.getMessage()
+        );
+        
+        problemDetail.setType(URI.create("https://example.com/problems/entity-not-found"));
+        problemDetail.setTitle("Entity Not Found");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ProblemDetail> handleValidation(
+            ValidationException ex, HttpServletRequest request) {
+        
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+            HttpStatus.BAD_REQUEST, "Validation failed for the provided input"
+        );
+        
+        problemDetail.setType(URI.create("https://example.com/problems/validation-error"));
+        problemDetail.setTitle("Validation Error");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("violations", ex.getViolations());
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
     }
 }
 
-@SpringBootTest
-class ScheduledTaskTest {
+// Custom validation exception
+class ValidationException extends RuntimeException {
+    private final List<String> violations;
     
-    @Test
-    @DirtiesContext
-    void shouldExecuteScheduledTask() {
-        // Test scheduled task logic without actual scheduling
-        scheduler.cleanupExpiredSessions();
-        // Verify expected behavior
+    public ValidationException(String message, List<String> violations) {
+        super(message);
+        this.violations = violations;
     }
+    
+    public List<String> getViolations() { return violations; }
 }
 ```
 
-### Advanced Configuration Patterns
+**Bad Example:**
 
-For complex applications, consider these additional patterns:
+```java
+@ControllerAdvice
+public class BadExceptionHandler {
 
-- **@ConfigurationPropertiesBinding**: Create custom property converters
-- **@ConditionalOnBean/@ConditionalOnMissingBean**: Fine-grained bean creation control  
-- **@Import**: Compose configuration classes
-- **@EnableAutoConfiguration(exclude = {...})**: Disable specific auto-configurations
-- **ApplicationContextInitializer**: For programmatic context customization
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, Object> handleRuntimeException(RuntimeException ex) {
+        // Bad: Non-standard error format, inconsistent fields
+        Map<String, Object> error = new HashMap<>();
+        error.put("error", true);
+        error.put("msg", "Something went wrong");
+        error.put("exception_type", ex.getClass().getSimpleName());
+        error.put("time", new Date());
+        
+        // Bad: Exposing sensitive stack trace information
+        error.put("stack_trace", Arrays.toString(ex.getStackTrace()));
+        
+        return error;
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleNotFound(EntityNotFoundException ex) {
+        // Bad: Inconsistent response format (string vs JSON vs problem details)
+        return ResponseEntity.status(404).body("Not found: " + ex.getMessage());
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Object> handleValidation(ValidationException ex) {
+        // Bad: Yet another inconsistent format
+        return ResponseEntity.badRequest().body(
+            Map.of("validationErrors", ex.getViolations())
+        );
+    }
+
+    // Bad: Missing proper error ID, timestamps, and structured format
+    // Bad: No type URIs or standard problem details structure
+    // Bad: Inconsistent error formats across different exception types
+}
+```
 
 ---
 > Source: [jabrena/cursor-rules-spring-boot](https://github.com/jabrena/cursor-rules-spring-boot) — distributed by [TomeVault](https://tomevault.io).
