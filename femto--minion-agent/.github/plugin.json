@@ -1,14 +1,9 @@
 {
   "name": "femto--minion-agent",
-  "displayName": "minion",
+  "displayName": "minion-agent",
   "description": "A simple agent framework that's capable of browser use + mcp + auto instrument + plan + deep  research + more",
   "version": "1.0.0",
   "author": "femto",
   "homepage": "https://github.com/femto/minion-agent",
-  "skills": [
-    {
-      "name": "code-review",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
