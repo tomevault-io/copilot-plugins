@@ -4,7 +4,7 @@
   "repo": "LLM-Wiki-Base-Model",
   "description": "Machine-first LLM wiki toolchain and corpus scaffold.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tjr1974/LLM-Wiki-Base-Model",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T02:52:49Z"
+  "distributed_at": "2026-05-23T04:42:32Z"
 }
