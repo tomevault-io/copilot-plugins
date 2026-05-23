@@ -1,0 +1,9 @@
+{
+  "name": "ningzimu--image-to-editable-ppt-skill",
+  "displayName": "image-to-editable-ppt-skill",
+  "description": "Codex skill for converting slide images, PDFs, and image-based PPTX files into editable PowerPoint decks.",
+  "version": "1.0.0",
+  "author": "ningzimu",
+  "homepage": "https://github.com/ningzimu/image-to-editable-ppt-skill",
+  "skills": []
+}
