@@ -1,26 +1,36 @@
-## tests-commands
+## tests
 
-> Use yarn instead of npm for all test commands
+> Enforces flat test structure without unnecessary describe blocks
 
 # Rules
 
-## Use yarn for test commands
-When running test commands, always use `yarn` instead of `npm`.
+## Use flat test structure
+Tests should be written in a flat structure using only `it` blocks. `describe` blocks should only be used when explicitly requested in the test requirements.
 
 # Examples
 
 ## Valid
-```bash
-yarn test
-cd functions && yarn test
-yarn test src/utils/usage/updateDailyUsage.test.ts
+```typescript
+it('should render user name', () => {
+  // test code
+})
+
+it('should show edit button', () => {
+  // test code
+})
 ```
 
 ## Invalid
-```bash
-npm test
-cd functions && npm test
-npm test src/utils/usage/updateDailyUsage.test.ts
+```typescript
+describe('UserComponent', () => {
+  it('should render user name', () => {
+    // test code
+  })
+
+  it('should show edit button', () => {
+    // test code
+  })
+})
 ```
 
 ---
