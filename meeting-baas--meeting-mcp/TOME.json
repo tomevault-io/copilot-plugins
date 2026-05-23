@@ -2,7 +2,7 @@
   "name": "meeting-mcp",
   "owner": "Meeting-BaaS",
   "repo": "meeting-mcp",
-  "description": "",
+  "description": "Model Context Protocol server for AI assistants to create meeting bots, search transcripts, and manage meeting recordings.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Meeting-BaaS",
+  "source_url": "https://github.com/Meeting-BaaS/meeting-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T03:55:30Z"
+  "distributed_at": "2026-05-23T03:11:21Z"
 }
