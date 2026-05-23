@@ -4,7 +4,7 @@
   "repo": "DevVerse-SWE-Blog",
   "description": "\ud83e\ude90 DevVerse CS Blog \u2013 A modern, high-performance blog app built with Next.js, Vercel, Supabase, TypeScript, MDX, and Framer Motion, featuring real-time search, dynamic routing, and optimized SEO for deep dives into computer science and software engineering topics. \u00a9 Son Nguyen 2026.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/DevVerse-SWE-Blog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-23T00:42:34Z"
+  "distributed_at": "2026-05-23T00:57:48Z"
 }
