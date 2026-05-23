@@ -1,492 +1,234 @@
-## tailwind-styling-standards
+## tech-stack-rule
+
+> Use this rule when you are building any UI.
+
+
+# Tech Stack Overview
+
+This project uses a modern React + TypeScript frontend stack with Vite as the build tool, organized as a multi‑package monorepo. Key packages include:
+
+- **@openzeppelin/ui-builder-app (packages/builder)**: Main builder application with the UI and export system
+- **@openzeppelin/ui-builder-renderer (packages/renderer)**: Shared rendering library
+- **@openzeppelin/ui-builder-ui (packages/ui)**: Shared UI component library
+- **@openzeppelin/ui-builder-types (packages/types)**: Shared type system (single source of truth, includes ContractAdapter)
+- **@openzeppelin/ui-builder-styles (packages/styles)**: Centralized styling system
+- **@openzeppelin/ui-builder-utils (packages/utils)**: Shared utilities (logger, AppConfigService, cn, etc.)
+- **@openzeppelin/ui-builder-react-core (packages/react-core)**: Shared React providers/hooks (adapter and wallet state)
+- **@openzeppelin/ui-builder-storage (packages/storage)**: Dexie/IndexedDB persistence for builder history
+- **@openzeppelin/ui-builder-adapter-_ (packages/adapter-_)**: Chain‑specific adapters (EVM, Solana, Stellar, Midnight, ...)
+
+Key technologies include:
+
+- React 19 - UI library with modern hooks API and concurrent features
+- TypeScript 5.8+ - Static typing with enhanced type inference
+- Vite 6/7 - Fast build tool and dev server with HMR
+- pnpm workspaces - Monorepo package management
+- Tailwind CSS v4 - Utility-first CSS framework with new HSL theme syntax
+- shadcn/ui - Unstyled, accessible component system built on Radix UI
+- Vitest - Testing framework integrated with Vite
+- pnpm - Fast, disk-efficient package manager
+- ESLint 9 + Prettier - Code quality and formatting tools
+- Husky + lint-staged - Git hooks for quality assurance
+- Conventional Commits - Structured commit message format
+
+# Framework-Specific Rules
+
+When working with React components:
+
+- Use functional components with hooks
+- Prefer destructuring props
+- Keep components focused on a single responsibility
+- Extract reusable logic into custom hooks
+- Use memoization (useMemo, useCallback) for expensive operations
+- Use React.ComponentRef instead of React.ElementRef
+
+# Monorepo Architecture
+
+Workspace structure (selected):
+
+- **packages/builder** - Main application with builder UI and export system
+- **packages/renderer** - Shared rendering library
+- **packages/ui** - Shared UI components
+- **packages/types** - Shared types
+- **packages/styles** - Centralized styles
+- **packages/utils** - Utilities
+- **packages/react-core** - React providers/hooks
+- **packages/storage** - IndexedDB storage
+- **packages/adapter-\*** - Chain‑specific adapters
+
+Guidelines for monorepo development:
+
+- Keep core rendering logic in the renderer package
+- The builder app imports shared libraries by published package names (no cross‑package source imports outside configured aliases/virtual modules)
+- Each package has its own tsconfig.json extending from the root tsconfig.base.json
+- Run commands with package filtering: `pnpm --filter=@openzeppelin/ui-builder-app <command>`
+- Use workspace-level commands when applicable: `pnpm -r <command>` (runs in all packages)
+- Keep package.json scripts synchronized between packages for consistency
+
+# Frontend Architecture
+
+Architecture patterns:
+
+- Component-driven development with composition patterns
+- Separation of UI components from business logic
+- Headless UI pattern (shadcn/ui + Radix) for accessibility and customization
+- Atomic design principles for component organization
+- Custom hooks for shared stateful logic
+- Utility functions for shared stateless logic
+- Shared form rendering logic in the form-renderer package
+
+# TypeScript
+
+[tsconfig.json](mdc:packages/builder/tsconfig.json)
+[tsconfig.json](mdc:packages/renderer/tsconfig.json)
+[tsconfig.base.json](mdc:tsconfig.base.json)
+[tsconfig.json](mdc:tsconfig.json)
+
+When writing TypeScript:
+
+- Use explicit return types for functions and React components
+- Prefer interfaces for public APIs and types for internal usage
+- Use proper type narrowing instead of type assertions (avoid `as` casts)
+- Leverage TypeScript's utility types (Partial, Pick, Omit, etc.)
+- Prefer readonly arrays and properties when data shouldn't change
+- Use discriminated unions for state management
+- Ensure strict null checks by avoiding `!` assertions
+- Use path aliases for imports between packages:
+  - Within builder: `@/` for src directory
+  - Use published package imports (e.g., `@openzeppelin/ui-builder-renderer`) and configured aliases
+
+# Tailwind CSS v4
+
+[tailwind.config.cjs](mdc:packages/builder/tailwind.config.cjs)
+[postcss.config.cjs](mdc:postcss.config.cjs)
+[index.css](mdc:packages/builder/src/index.css)
 
-> Use this rule when you are building any form UI.
+When using Tailwind CSS v4:
 
-
-# Tailwind CSS Styling Standards for UI Builder
-
-## Overview
-
-This document outlines the Tailwind CSS styling standards and patterns used throughout the OpenZeppelin UI Builder codebase. These rules ensure consistency, maintainability, and adherence to the established design system.
-
-## Design System Foundation
-
-### Semantic Color Tokens
-
-**ALWAYS use semantic design tokens instead of hard-coded colors:**
-
-**PREFERRED:**
-
-```tsx
-// Semantic tokens that adapt to themes
-className = 'bg-primary text-primary-foreground';
-className = 'text-muted-foreground';
-className = 'border-input bg-background';
-className = 'text-destructive bg-destructive/10';
-```
-
-**AVOID:**
-
-```tsx
-// Hard-coded colors
-className = 'bg-blue-500 text-white';
-className = 'text-gray-600';
-className = 'border-gray-300';
-```
-
-**Core Semantic Tokens:**
-
-- **Backgrounds**: `bg-background`, `bg-card`, `bg-muted`, `bg-primary`, `bg-secondary`, `bg-destructive`
-- **Text**: `text-foreground`, `text-muted-foreground`, `text-primary-foreground`, `text-destructive`
-- **Borders**: `border-input`, `border-destructive`
-- **Interactive**: `hover:bg-accent`, `hover:text-accent-foreground`
-
-### CSS Variable Integration
-
-Leverage CSS variables for consistent theming:
-
-```tsx
-className = 'ring-offset-background focus-visible:ring-ring';
-```
-
-## Layout Patterns
-
-### Responsive Grid Systems
-
-Use responsive grid layouts with proper breakpoints:
-
-```tsx
-// Form field grids
-className = 'grid grid-cols-1 gap-4 md:grid-cols-2';
-
-// Option selector layouts
-className = 'grid-cols-3 gap-4'; // Desktop
-className = 'grid-cols-[auto_1fr]'; // Collapsed mode
-```
-
-### Flexbox Patterns
-
-Standard flex patterns for common layouts:
-
-```tsx
-// Standard flex container
-className = 'flex items-center gap-2';
-
-// Full height layouts
-className = 'flex min-h-screen flex-col';
-
-// Space between items
-className = 'flex justify-between items-center';
-
-// Centered content
-className = 'flex items-center justify-center';
-```
-
-### Spacing System
-
-Consistent spacing using Tailwind's scale:
-
-```tsx
-// Container spacing
-className = 'space-y-4'; // Vertical spacing between children
-className = 'space-y-6'; // Larger sections
-className = 'space-y-2'; // Tight spacing
-
-// Padding patterns
-className = 'p-6'; // Standard container padding
-className = 'px-3 py-2.5'; // Button/input padding
-className = 'px-4 py-3'; // Card content padding
-```
-
-## Component-Specific Patterns
-
-### Button Styling
-
-Follow the established button variant system:
-
-```tsx
-// Use predefined variants from class-variance-authority
-className={cn(buttonVariants({ variant, size, className }))}
-
-// Common button patterns
-className="flex items-center gap-2 pl-6 pr-3 py-2.5 h-11" // Action buttons
-className="h-full w-5 p-0 transition-opacity" // Icon buttons
-```
-
-### Input Field Styling
-
-Standard input field patterns:
-
-```tsx
-// Base input styling
-className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground h-10 w-full rounded-md border px-3 py-2 text-sm"
-
-// Field container
-className="flex flex-col gap-2 w-full"
-
-// Width variants
-className={`${width === 'full' ? 'w-full' : width === 'half' ? 'w-1/2' : 'w-1/3'}`}
-```
-
-### Card and Container Styling
-
-Consistent card and container patterns:
-
-```tsx
-// Card backgrounds
-className = 'bg-card';
-
-// Section containers
-className = 'rounded-md border overflow-hidden';
-
-// Content padding
-className = 'px-4 py-3 border-b last:border-0';
-```
-
-## State Management with Classes
-
-### Interactive States
-
-Implement consistent hover and focus states:
-
-```tsx
-// Hover effects
-className = 'hover:bg-muted/50 cursor-pointer transition-colors';
-className =
-  "hover:before:content-[''] hover:before:absolute hover:before:inset-x-0 hover:before:top-1 hover:before:bottom-1 hover:before:bg-muted/80 hover:before:rounded-lg hover:before:-z-10";
-
-// Focus states
-className = 'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none';
-```
-
-### Conditional State Classes
-
-Use conditional classes for component states:
-
-```tsx
-// Selected/active states
-className={cn(
-  'base-classes',
-  isSelected ? 'bg-primary text-primary-foreground' : 'text-muted-foreground',
-  disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-)}
-```
-
-### Validation States
-
-Consistent validation and error styling:
-
-```tsx
-// Error states
-className = 'border-destructive bg-destructive/10';
-className = 'text-destructive text-sm font-medium';
-
-// Helper text
-className = 'text-muted-foreground text-sm';
-```
-
-## Animation and Transitions
-
-### Standard Transitions
-
-Use consistent transition patterns:
-
-```tsx
-// Standard transition
-className = 'transition-colors duration-300 ease-in-out';
-
-// For layout changes
-className = 'transition-all duration-300 ease-in-out';
-
-// Opacity transitions
-className = 'transition-opacity';
-```
-
-### Loading States
-
-Standard loading and animation patterns:
-
-```tsx
-// Pulse animation
-className = 'animate-pulse [animation-duration:1200ms]';
-
-// Loading opacity
-className = 'opacity-30';
-```
-
-## Responsive Design Rules
-
-### Mobile-First Approach
-
-Always use mobile-first responsive design:
-
-```tsx
-// Mobile hidden, desktop visible
-className = 'hidden sm:block';
-
-// Responsive grid changes
-className = 'grid-cols-1 md:grid-cols-2';
-
-// Responsive spacing
-className = 'px-4 sm:px-6';
-```
-
-### Breakpoint Usage
-
-Standard breakpoint patterns:
-
-```tsx
-// sm: 640px and up
-className = 'sm:hidden mb-4'; // Mobile only
-
-// md: 768px and up
-className = 'md:col-span-2 md:grid-cols-2'; // Tablet and up
-```
-
-## Typography Patterns
-
-### Text Sizing and Hierarchy
-
-Consistent text sizing across components:
-
-```tsx
-// Headings
-className = 'text-lg font-medium'; // Section headings
-className = 'text-base font-medium'; // Subsection headings
-className = 'text-sm font-medium'; // Labels and buttons
-
-// Body text
-className = 'text-sm'; // Standard body text
-className = 'text-xs'; // Small text, captions
-
-// Semantic text
-className = 'text-muted-foreground text-sm'; // Helper text
-className = 'text-destructive text-sm'; // Error messages
-```
-
-## Form-Specific Patterns
-
-### Field Layout
-
-Standard form field structure:
-
-```tsx
-// Field container
-<div className="flex flex-col gap-2 w-full">
-
-// Label with required indicator
-<Label htmlFor={id}>
-  {label} {isRequired && <span className="text-destructive">*</span>}
-</Label>
-
-// Helper text
-<div className="text-muted-foreground text-sm">{helperText}</div>
-```
-
-### Field Grouping
-
-Group related fields properly:
-
-```tsx
-// Field groups
-className = 'grid grid-cols-1 gap-4 md:grid-cols-2';
-
-// Section separators
-className = 'border-t pt-4 md:col-span-2';
-```
-
-## Icon and Visual Element Patterns
-
-### Icon Sizing
-
-Consistent icon sizing:
-
-```tsx
-className = 'h-4 w-4'; // Standard icons
-className = 'size-4'; // Square icons (preferred shorthand)
-className = 'h-3 w-3'; // Small icons
-className = 'size-10'; // Large icons/buttons
-```
-
-### Visual Feedback
-
-Standard visual feedback patterns:
-
-```tsx
-// Badge styling
-className = 'text-xs px-2 py-1 bg-muted text-muted-foreground rounded-full font-medium';
-
-// Progress indicators
-className = 'h-px flex-1 transition-all duration-300 ease-in-out';
-```
-
-## Accessibility Requirements
-
-### Focus Management
-
-Ensure proper focus states:
-
-```tsx
-className = 'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none';
-```
-
-### Screen Reader Support
-
-Include proper ARIA support:
-
-```tsx
-aria-label="Descriptive label"
-aria-describedby="helper-text-id error-id"
-```
-
-## Advanced Patterns
-
-### Complex Conditional Classes
-
-For complex state management:
-
-```tsx
-className={cn(
-  // Base classes
-  'relative flex items-center justify-between h-11 px-3 py-2.5 cursor-pointer w-[225px] rounded-lg transition-all duration-300 ease-in-out',
-
-  // Conditional states
-  showLoadingAnimation && 'bg-muted animate-pulse [animation-duration:1200ms] opacity-30',
-
-  // Selection state
-  isCurrentlyLoaded
-    ? 'bg-neutral-100'
-    : 'hover:before:content-[""] hover:before:absolute hover:before:inset-x-0 hover:before:top-1 hover:before:bottom-1 hover:before:bg-muted/80 hover:before:rounded-lg hover:before:-z-10'
-)}
-```
-
-### CSS Grid with Complex Layouts
-
-Advanced grid patterns:
-
-```tsx
-// Dynamic column spanning
-className={`col-span-${isCollapsed ? 1 : columns - 1}`}
-
-// Grid with auto-fit
-className="grid grid-cols-[auto_1fr] gap-4"
-```
-
-## Utility Usage
-
-### Class Name Utilities
-
-Always use the `cn` utility for combining classes:
-
-```tsx
-import { cn } from '@openzeppelin/ui-builder-utils';
-
-className={cn(
-  'base-classes',
-  conditionalClass && 'conditional-classes',
-  variant === 'primary' && 'primary-classes'
-)}
-```
-
-### Width and Sizing
-
-Standard sizing patterns:
-
-```tsx
-// Width patterns
-className = 'w-full'; // Full width
-className = 'w-80'; // Fixed width (320px)
-className = 'w-[225px]'; // Custom width
-className = 'max-w-2xl'; // Constrained max width
-
-// Height patterns
-className = 'h-10'; // Standard input height
-className = 'h-11'; // Button height
-className = 'min-h-screen'; // Full viewport height
-```
-
-## Performance Considerations
-
-### Class Optimization
-
-- Avoid unnecessary class combinations
-- Use Tailwind's built-in optimization features
-- Prefer semantic tokens over custom values when possible
-
-### Responsive Optimization
-
-- Use mobile-first approach to minimize CSS
-- Only add responsive classes when necessary
-- Combine responsive classes efficiently
-
-## Common Anti-Patterns to Avoid
-
-### DON'T
-
-```tsx
-// Hard-coded colors
-className="bg-blue-500 text-white"
-
-// Inline styles with Tailwind
-style={{ backgroundColor: '#3B82F6' }}
-
-// Overly complex class strings without cn utility
-className={`base-class ${condition ? 'conditional-class' : ''} ${otherCondition ? 'other-class' : ''}`}
-
-// Non-semantic spacing
-className="mt-4 mb-6 ml-2 mr-3"
-```
-
-### DO
-
-```tsx
-// Semantic colors
-className="bg-primary text-primary-foreground"
-
-// Use Tailwind classes
-className="bg-primary"
-
-// Use cn utility
-className={cn('base-class', condition && 'conditional-class', otherCondition && 'other-class')}
-
-// Semantic spacing
-className="space-y-4 px-4"
-```
-
-## Theme Integration
-
-### CSS Variables
-
-The design system uses CSS variables for theming. Always prefer semantic tokens that map to these variables rather than hard-coded values.
-
-### Dark Mode Support
-
-All semantic tokens automatically support dark mode through CSS variables. Avoid manual dark mode classes unless absolutely necessary.
-
-## Code Quality
-
-### JSDoc Comments
-
-Include JSDoc comments for complex styling logic:
-
-```tsx
-/**
- * Dynamic grid layout that adapts based on collapsed state
- * - Collapsed: auto-width + remaining space
- * - Expanded: equal columns based on `columns` prop
- */
-className={`${gridClass} ${isCollapsed ? 'grid-cols-[auto_1fr]' : `grid-cols-${columns}`}`}
-```
-
-### Component Organization
-
-- Keep styling logic close to the component definition
-- Extract complex class combinations into variables when reused
-- Use TypeScript for style variants when applicable
-
----
-
-These standards ensure consistency across the entire UI Builder ecosystem while maintaining flexibility for component-specific needs. Always prioritize semantic tokens and established patterns over custom solutions.
+- Use centralized `@styles/global.css` and semantic classes (`bg-primary`, etc.)
+- Use simplified class names like `bg-primary` instead of verbose `bg-[hsl(var(--color))]` syntax
+- Define colors using OKLCH format for better color reproduction (e.g., `--color-primary: oklch(0.5 0.2 120)`)
+- Use Tailwind's built-in dark mode with the 'class' strategy
+- Use component composition rather than extending with apply when possible
+- For complex UI patterns, create reusable components instead of utility classes
+- Follow the container pattern for responsive layouts
+- Use responsive variants (sm:, md:, lg:) consistently
+- Import Tailwind with `@import "tailwindcss";` instead of the older directive syntax
+
+# Component Variants
+
+[button-variants.ts](mdc:packages/builder/src/core/utils/button-variants.ts)
+
+When working with component variants:
+
+- Use the `cva` function from class-variance-authority for defining variant styles
+- Organize variants in dedicated files (e.g., `button-variants.ts`)
+- Follow a consistent pattern for variant definitions:
+  - Define a base style that applies to all variants
+  - Group related variants (e.g., size, color, shape)
+  - Include default variants where appropriate
+- Compose variants from other variants when possible for consistency
+- Use the shadcn/ui configuration in components.json for style customization
+- Update the Tailwind theme when adding new design tokens
+- Use variant props with TypeScript's template literal types for type safety
+
+# Vite
+
+[vite.config.ts](mdc:packages/builder/vite.config.ts)
+
+When configuring Vite:
+
+- Use path aliases for cleaner imports (e.g., '@/' for src directory)
+- Configure cross-package imports with proper aliases
+- Leverage Vite plugins for additional functionality
+- Configure build optimization settings for production builds
+- Use environment variables with import.meta.env
+- Consider chunk splitting strategies for larger applications
+- Use the correct file extensions (.js for ESM, .cjs for CommonJS)
+
+# Testing
+
+[vitest.config.ts](mdc:packages/builder/vitest.config.ts)
+[setup.ts](mdc:packages/builder/test/setup.ts)
+
+Testing strategy:
+
+- Use Vitest for unit and integration testing
+- Follow the Arrange-Act-Assert pattern
+- Mock external dependencies using vi.mock()
+- Use Testing Library's user-event for simulating interactions
+- Test component behavior, not implementation details
+- Use test coverage reporting to identify untested code
+- Create test fixtures for reusable test data
+- For complex UI, prefer focused component tests with Testing Library
+- Test cross-package integration points
+
+# Quality & Standards
+
+[eslint.config.cjs](mdc:packages/builder/eslint.config.cjs)
+[commitlint.config.js](mdc:commitlint.config.js)
+
+Coding standards:
+
+- Follow ESLint configuration rules for consistent code style
+- Use simple-import-sort plugin to organize imports in a standard order
+- Follow Conventional Commits format: type(scope): subject
+- Valid scopes include: ui, api, auth, builder, export, deps, config, ci, renderer, react-core, types, transaction, utils, docs, tests, release, adapter, adapter-evm, adapter-solana, adapter-stellar, adapter-midnight, styles, storage, common
+- Run 'pnpm fix-all' before pushing to fix linting and formatting issues
+- Keep components focused with single responsibility principle
+- Limit component complexity (max ~150 lines, extract as needed)
+
+# Build & Deploy
+
+[ci.yml](mdc:.github/workflows/ci.yml)
+[publish.yml](mdc:.github/workflows/publish.yml)
+
+CI/CD configuration:
+
+- GitHub Actions for CI/CD pipelines
+- Changesets for versioning and release PRs
+- Coverage reports and badges generated via Vitest
+- ESM syntax is used throughout the codebase
+- Use 'type: module' in package.json with .cjs extension for CommonJS files
+- PR checks ensure code quality before merging
+- Husky bypassed in CI environment to avoid conflicts
+- Monorepo builds are orchestrated with proper dependencies
+
+# Package Management
+
+[package.json](mdc:package.json)
+[pnpm-workspace.yaml](mdc:pnpm-workspace.yaml)
+[package.json](mdc:packages/builder/package.json)
+[package.json](mdc:packages/renderer/package.json)
+
+Dependencies management:
+
+- Use pnpm for package management (9.x+)
+- Use pnpm workspaces for monorepo management
+- Run 'pnpm outdated' to check for outdated dependencies
+- Use scripts in package.json for common development tasks
+- Follow semantic versioning for dependencies
+- Use script aliases for complex commands
+- Prefer devDependencies for build-time dependencies
+- Keep dependencies lean to minimize bundle size
+- Ensure proper cross-package dependencies in workspace packages
+
+# Git Workflow
+
+[pre-commit](mdc:.husky/pre-commit)
+[commit-msg](mdc:.husky/commit-msg)
+[pre-push](mdc:.husky/pre-push)
+
+Development workflow:
+
+- Husky hooks ensure code quality before commits and pushes
+- Commit messages must follow Conventional Commits standard
+- Commit message scope must be one of [ui, api, auth, builder, export, deps, config, ci, renderer, react-core, types, transaction, utils, docs, tests, release, adapter, adapter-evm, adapter-solana, adapter-stellar, adapter-midnight, styles, storage, common]
+- Pre-push runs linting, formatting, and tests
+- Use 'pnpm commit' for guided commit message creation with commitizen
+- Create feature branches for new work
+- Keep commits focused and atomic
+- Document breaking changes in commit messages
 
 ---
 > Source: [OpenZeppelin/ui-builder](https://github.com/OpenZeppelin/ui-builder) — distributed by [TomeVault](https://tomevault.io).
