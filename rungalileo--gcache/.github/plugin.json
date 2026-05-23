@@ -1,0 +1,9 @@
+{
+  "name": "rungalileo--gcache",
+  "displayName": "gcache",
+  "description": "Fine-grained caching framework",
+  "version": "1.0.0",
+  "author": "rungalileo",
+  "homepage": "https://github.com/rungalileo/gcache",
+  "skills": []
+}
