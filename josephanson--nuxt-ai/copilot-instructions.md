@@ -1,92 +1,54 @@
-## 000-cursor-rules
+## 000-project-purpose
 
-> Use ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
+> APPLY when DEVELOPING to understand the goal of creating a Nuxt module for easy Vercel AI SDK integration.
 
-# Cursor Rules Format
-## Template Structure for Rules Files
 
-```mdc
----
-description: ACTION when TRIGGER to OUTCOME
-globs: .cursor/rules/**/*.mdc
-alwaysApply: {true or false}
----
-
-# Rule Title
+# Nuxt AI - Project Purpose
 
 ## Context
-- When to apply this rule
-- Prerequisites or conditions
+This project aims to create Nuxt modules that simplifies the integration of AI capabilities into Nuxt applications, primarily leveraging the AI editor rules, Vercel AI SDK (`@ai-sdk/vue`) and MCP (Model Context Protocol). 
+Its core goals are:
+- Providing a seamless installation and setup experience for developers.
+- Offering auto-imports for Vercel AI SDK composables and utilities.
+- Bundling development assistance tools, including:
+    - Pre-defined rules compatible with .cursor/rules/* (`.mdc`), Claude (`.md`) and other AI clients.
+    - A built-in MCP (Model Context Protocol) server with tools specifically designed to aid Nuxt AI development.
+- Implementing an extensible MCP plugin system, allowing other mcp servers to be integrated to nuxt-ai (e.g., a separate documentation generation module).
 
 ## Requirements
-- Concise, actionable items
-- Each requirement must be testable
+- Develop the project as a standard Nuxt module following Nuxt Kit conventions. [@https://nuxt.com/docs/api/kit/modules]
+- Integrate `@ai-sdk/vue` and its dependencies effectively. [@https://sdk.vercel.ai/docs/getting-started/nuxt]
+- Implement robust auto-import functionality for key Vercel AI SDK features.
+- Create helpful and well-documented rules for both Cursor, Claude and other AI assistants. [@https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/tutorials]
+- Build a versatile MCP server with useful development tools.
+- Design and implement a clear API for the MCP plugin system.
+- Ensure secure handling of API keys (like `OPENAI_API_KEY`) required by the Vercel AI SDK.
 
 ## Examples
 <example>
-Good concise example with explanation
-</example>
+// Example: Nuxt configuration enabling the module and an MCP plugin
+export default defineNuxtConfig({
+  modules: [
+    'nuxt-ai',
+  ],
+  ai: {
+    // Module options (e.g., Vercel AI provider config)
+    dev: {
+      rules: true, // Default is true
+    },
+  }
+})
 
-<example type="invalid">
-Invalid concise example with explanation
+// Example: Using auto-imported composable
+const { messages, input, handleSubmit } = useChat();
 </example>
 
 ## Critical Rules
-  - Always do X
-  - NEVER do Y
-```
-
-## File Organization
-
-### Location
-- Path: `.cursor/rules/`
-- Extension: `.mdc`
-
-### Glob Pattern Examples
-Common glob patterns for different rule types:
-- Core standards: .cursor/rules/*.mdc
-- Language rules: src/**/*.{js,ts}
-- Testing standards: **/*.test.{js,ts}
-- Vue components: app/components/**/*.vue
-- Documentation: docs/**/*.md
-- Configuration files: *.config.{js,json}
-- Build artifacts: dist/**/*
-- Multiple extensions: src/**/*.{js,jsx,ts,tsx}
-- Multiple files: dist/**/*, docs/**/*.md
-
-## Required Fields
-
-### Frontmatter
-- description: ACTION TRIGGER OUTCOME format
-- globs: `glob pattern for files and folders`
-- alwaysApply: {true or false} - when true will be attached to every conversation (but front matter still is important for it to be used!)
-
-### Body
-- context: Usage conditions
-- requirements: Actionable items
-- examples: Both valid and invalid
-- critical-rules: summary of short rule bullets that are the most critical to abide by
-
-## Formatting Guidelines
-
-- Use Concise Markdown primarily
-- Use some XML tags limited to:
-  - <example>
-  - <danger>
-  - <required>
-- Always indent content within XML or nested XML tags by 2 spaces
-- Emojies and Mermaid diagrams are allowed if it is not redundant and better explains the rule for the AI comprehension.
-
-
-## Critical Rules
-  - Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI Agent
-  - Keep the rule DRY - do not repeate or be redundant or overly explanetory.
-  - Use susinct markdown the agent can easily understand.
-  - the front matter MUST ALWAYS have description, globs, and alwaysApply, even if the value is null
-  - Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
-  - TRY to keep the total rule line count under 50, better under 25, lines (unless there are diagrams or longer required examples, as that will increase the overall line count)
-  - Always include a valid and invalid example
-  - Quotes are not needed around glob patterns
+- ALWAYS structure the project as a Nuxt module using Nuxt Kit.
+- ALWAYS prioritize ease of use and setup for the end-developer.
+- NEVER hardcode sensitive API keys; rely on environment variables and Nuxt runtime config.
+- MUST provide clear documentation for module configuration, rules, and MCP tools/plugins.
+- ENSURE compatibility between rules/MCP features and both Cursor and potentially other AI assistants like Claude. 
 
 ---
 > Source: [JosephAnson/nuxt-ai](https://github.com/JosephAnson/nuxt-ai) — distributed by [TomeVault](https://tomevault.io).
