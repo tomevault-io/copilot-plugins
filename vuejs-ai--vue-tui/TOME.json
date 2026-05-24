@@ -4,7 +4,7 @@
   "repo": "vue-tui",
   "description": "Terminal UI framework built on Vue and Vite. Components, layout, focus, HMR, and testing out of the box.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vuejs-ai/vue-tui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T23:30:22Z"
+  "distributed_at": "2026-05-24T23:30:51Z"
 }
