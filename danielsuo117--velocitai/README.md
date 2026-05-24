@@ -7,14 +7,14 @@ Next-generation UI automation harness powered by Python & Playwright. Chat with 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [DanielSuo117/velocitai](https://github.com/DanielSuo117/velocitai).
+Original source: `AGENTS.md` in [DanielSuo117/velocitai](https://github.com/DanielSuo117/velocitai).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/DanielSuo117/velocitai](https://github.com/DanielSuo117/velocitai)
