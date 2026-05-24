@@ -173439,6 +173439,26 @@
       "description": "KeyPath"
     },
     {
+      "name": "matiadev--svelte-sandbox",
+      "source": "./matiadev--svelte-sandbox",
+      "description": "\ud83e\uddea Interactive Svelte code sandbox "
+    },
+    {
+      "name": "botrops1--constraintslens",
+      "source": "./botrops1--constraintslens",
+      "description": "A Fusion 360 add-in that docks a panel listing every sketch constraint and dimension \u2014 with click-to-select, delete, filter, and full diagnosis of over/under-constrained sketches."
+    },
+    {
+      "name": "willliang713--sift",
+      "source": "./willliang713--sift",
+      "description": "Sift \u662f\u4e00\u7ec4\u9762\u5411 Mihomo \u7684\u8282\u70b9\u65e0\u5173\u5206\u6d41\u6a21\u677f\uff1a\u56fd\u5185\u76f4\u8fde\uff0c\u6d77\u5916\u9ed8\u8ba4\u4ee3\u7406\uff0c\u5e76\u4fdd\u7559 AI\u3001\u6d41\u5a92\u4f53\u548c\u515c\u5e95\u51fa\u53e3\u3002"
+    },
+    {
+      "name": "tchajed--sys-verif-fa25",
+      "source": "./tchajed--sys-verif-fa25",
+      "description": "Course website for Systems Verification Fall 2025"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -278652,6 +278672,111 @@
       "name": "lgemc--eliseofoundation-website",
       "source": "./lgemc--eliseofoundation-website",
       "description": "Website of a psychology foundation based in Bogot\u00e1."
+    },
+    {
+      "name": "wewingames1--site-wewingames",
+      "source": "./wewingames1--site-wewingames",
+      "description": "SITE-WeWinGames"
+    },
+    {
+      "name": "amar585--task-manager",
+      "source": "./amar585--task-manager",
+      "description": "Iive on: https://taskmanager-mztm.onrender.com"
+    },
+    {
+      "name": "11ange--agendanova",
+      "source": "./11ange--agendanova",
+      "description": "AgendaNova"
+    },
+    {
+      "name": "jozer-rami--trato-hecho",
+      "source": "./jozer-rami--trato-hecho",
+      "description": "Trustless p2p platform"
+    },
+    {
+      "name": "devmhimran--taskbit",
+      "source": "./devmhimran--taskbit",
+      "description": "Taskbit is a comprehensive task and operations management system built for Insight EDU, developed using Next.js with modern tooling and scalable architecture. The platform centralizes task management,"
+    },
+    {
+      "name": "sam-designmaze--catnmouse",
+      "source": "./sam-designmaze--catnmouse",
+      "description": "catnmouse"
+    },
+    {
+      "name": "miaodi2002--payer-setup",
+      "source": "./miaodi2002--payer-setup",
+      "description": "payer-setup"
+    },
+    {
+      "name": "ivanvanic--designa-jules",
+      "source": "./ivanvanic--designa-jules",
+      "description": "designa-jules"
+    },
+    {
+      "name": "nathichuma--conception-calculator",
+      "source": "./nathichuma--conception-calculator",
+      "description": "conception-calculator"
+    },
+    {
+      "name": "vibezcitizens--vcsm",
+      "source": "./vibezcitizens--vcsm",
+      "description": "VCSM"
+    },
+    {
+      "name": "symmetry7--algogym",
+      "source": "./symmetry7--algogym",
+      "description": "AlgoGym"
+    },
+    {
+      "name": "jormund123--portfolio-2",
+      "source": "./jormund123--portfolio-2",
+      "description": "portfolio-2"
+    },
+    {
+      "name": "netcracker--qubership-redis",
+      "source": "./netcracker--qubership-redis",
+      "description": "Qubership Redis"
+    },
+    {
+      "name": "khaitruong922--moemeter-api",
+      "source": "./khaitruong922--moemeter-api",
+      "description": "Moemeter API"
+    },
+    {
+      "name": "moria-ai-labs--westmarch-matching-fast",
+      "source": "./moria-ai-labs--westmarch-matching-fast",
+      "description": "westmarch_matching_fast"
+    },
+    {
+      "name": "wewingames1--site-wewingames",
+      "source": "./wewingames1--site-wewingames",
+      "description": "SITE-WeWinGames"
+    },
+    {
+      "name": "nisaeff--dotfiles",
+      "source": "./nisaeff--dotfiles",
+      "description": "dotfiles"
+    },
+    {
+      "name": "yueh-ai--catboost-webassemb",
+      "source": "./yueh-ai--catboost-webassemb",
+      "description": "catboost-webassemb"
+    },
+    {
+      "name": "rimshadpcs--gym-tuna-ios",
+      "source": "./rimshadpcs--gym-tuna-ios",
+      "description": "Gym-Tuna-ios"
+    },
+    {
+      "name": "isomoes--zed-conf",
+      "source": "./isomoes--zed-conf",
+      "description": "Zed editor configuration files"
+    },
+    {
+      "name": "fvasquezl--filament",
+      "source": "./fvasquezl--filament",
+      "description": "filament"
     }
   ]
 }
