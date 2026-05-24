@@ -92854,6 +92854,16 @@
       "description": "Datastar attributes and helpers for gomponents."
     },
     {
+      "name": "implicit-invocation--tuvi-neo",
+      "source": "./implicit-invocation--tuvi-neo",
+      "description": "tuvi-neo"
+    },
+    {
+      "name": "implicit-invocation--tuvi-neo",
+      "source": "./implicit-invocation--tuvi-neo",
+      "description": "tuvi-neo"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -163189,6 +163199,16 @@
       "description": "Capacitor plugin to use Cloudflare realtime kit"
     },
     {
+      "name": "mathruffian-dot--opencode-lazy-packs",
+      "source": "./mathruffian-dot--opencode-lazy-packs",
+      "description": "opencode-lazy-packs"
+    },
+    {
+      "name": "aleksakarac--obsidian-mcp",
+      "source": "./aleksakarac--obsidian-mcp",
+      "description": "Enhanced Obsidian MCP server with hybrid plugin control - filesystem-native and API-based tools for Tasks, Dataview, Kanban, Canvas, and more"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173504,6 +173524,21 @@
       "description": "Eight Claude Code SEO skills built from real 2026 Core Update recovery cases: free-tier audit, Authority-First Core-Update recovery, decision-maker PDF outreach, channel economics, competitor gap anal"
     },
     {
+      "name": "excitedjs--claudemux",
+      "source": "./excitedjs--claudemux",
+      "description": "Multi-repo Claude Code orchestrator: one dispatcher, many tmux teammates across sibling repos."
+    },
+    {
+      "name": "excitedjs--claudemux",
+      "source": "./excitedjs--claudemux",
+      "description": "Multi-repo Claude Code orchestrator: one dispatcher, many tmux teammates across sibling repos."
+    },
+    {
+      "name": "sabir-gbs--the-polyglot-protocol",
+      "source": "./sabir-gbs--the-polyglot-protocol",
+      "description": "A senior-engineer protocol for polyglot code generation, architecture, testing, security, performance, and agent validation."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -175912,6 +175947,21 @@
       "name": "pasunboneleve--oiticica-style",
       "source": "./pasunboneleve--oiticica-style",
       "description": "A century-old style manual, converted into a taxonomy of Codex writing skills."
+    },
+    {
+      "name": "franlol--hyprscreen",
+      "source": "./franlol--hyprscreen",
+      "description": "A first-class screenshot and screen-recording app built for Hyprland."
+    },
+    {
+      "name": "franlol--hyprscreen",
+      "source": "./franlol--hyprscreen",
+      "description": "A first-class screenshot and screen-recording app built for Hyprland."
+    },
+    {
+      "name": "laotree--verify-networking-plugin",
+      "source": "./laotree--verify-networking-plugin",
+      "description": "Network check before Claude Code starts \u2014 DNS, exit IP region, and TCP connectivity with \ud83d\udfe2\ud83d\udfe1\ud83d\udd34 status"
     },
     {
       "name": "keshavxa--keshav-portfolio",
