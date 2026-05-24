@@ -163294,6 +163294,11 @@
       "description": "hypergraph programming"
     },
     {
+      "name": "jvpalma--dotrun",
+      "source": "./jvpalma--dotrun",
+      "description": "DotRun transforms scattered scripts, complex command sequences, and tribal knowledge into a unified, searchable, and shareable toolkit that works across all your projects."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -176152,6 +176157,11 @@
       "name": "aegiswizard--smavg",
       "source": "./aegiswizard--smavg",
       "description": "Smavg \ud83d\udc32 reduces up to x1364 times your disk space, saves tokens and restores exact files."
+    },
+    {
+      "name": "hyper-git--claude-code-sa-workflow",
+      "source": "./hyper-git--claude-code-sa-workflow",
+      "description": "Claude Code multi-agent workflow for Solution Architects \u2014 9 specialized AI agents covering discovery, architecture design, IaC, and validation"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -279202,6 +279212,56 @@
       "name": "cherie05--reynox",
       "source": "./cherie05--reynox",
       "description": "reynox"
+    },
+    {
+      "name": "cepro--simt-flows-db",
+      "source": "./cepro--simt-flows-db",
+      "description": "simt-flows-db"
+    },
+    {
+      "name": "tmanimus--nft-vibe-test-restart",
+      "source": "./tmanimus--nft-vibe-test-restart",
+      "description": "NFT-Vibe-test-restart"
+    },
+    {
+      "name": "kaleeswarans-cyber00--kaleeswarans-cyber00",
+      "source": "./kaleeswarans-cyber00--kaleeswarans-cyber00",
+      "description": "KALEESWARANS-CYBER00"
+    },
+    {
+      "name": "joshslade--upwork-analysis-project",
+      "source": "./joshslade--upwork-analysis-project",
+      "description": "upwork-analysis-project"
+    },
+    {
+      "name": "alexanderpico--icv",
+      "source": "./alexanderpico--icv",
+      "description": "Interactive curriculum vitae, or resum\u00e9"
+    },
+    {
+      "name": "neu-able-lab--able-workflow-copier",
+      "source": "./neu-able-lab--able-workflow-copier",
+      "description": "Copier template for the ABLE workflow"
+    },
+    {
+      "name": "caangogi--consciousness-class",
+      "source": "./caangogi--consciousness-class",
+      "description": "Plataforma e-learning"
+    },
+    {
+      "name": "co6tter--codex-v1",
+      "source": "./co6tter--codex-v1",
+      "description": "codex-v1"
+    },
+    {
+      "name": "ddebenedittis--differentiable-motion-planning",
+      "source": "./ddebenedittis--differentiable-motion-planning",
+      "description": "differentiable_motion_planning"
+    },
+    {
+      "name": "nimblelabs--rails-ai-starter",
+      "source": "./nimblelabs--rails-ai-starter",
+      "description": "rails-ai-starter"
     }
   ]
 }
