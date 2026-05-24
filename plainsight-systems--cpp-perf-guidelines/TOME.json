@@ -4,7 +4,7 @@
   "repo": "cpp-perf-guidelines",
   "description": "Low-level C++ performance guidelines for game-engine and embedded systems \u2014 the technique layer below the ISO C++ Core Guidelines",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/plainsight-systems/cpp-perf-guidelines",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T14:30:51Z"
+  "distributed_at": "2026-05-24T14:31:23Z"
 }
