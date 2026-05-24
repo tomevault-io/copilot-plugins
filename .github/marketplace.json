@@ -117904,6 +117904,11 @@
       "description": "Phistory automatically archives versioned system prompt snapshots from agent CLIs like Claude Code, Codex, OpenClaw, and Hermes."
     },
     {
+      "name": "aestheticsuraj234--chai-aur-nextjs",
+      "source": "./aestheticsuraj234--chai-aur-nextjs",
+      "description": "chai-aur-nextjs"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
