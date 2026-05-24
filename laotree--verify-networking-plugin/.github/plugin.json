@@ -1,0 +1,9 @@
+{
+  "name": "laotree--verify-networking-plugin",
+  "displayName": "verify-networking-plugin",
+  "description": "Network check before Claude Code starts \u2014 DNS, exit IP region, and TCP connectivity with \ud83d\udfe2\ud83d\udfe1\ud83d\udd34 status",
+  "version": "1.0.0",
+  "author": "Laotree",
+  "homepage": "https://github.com/Laotree/verify-networking-plugin",
+  "skills": []
+}
