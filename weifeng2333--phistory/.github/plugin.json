@@ -1,0 +1,9 @@
+{
+  "name": "weifeng2333--phistory",
+  "displayName": "phistory",
+  "description": "Phistory automatically archives versioned system prompt snapshots from agent CLIs like Claude Code, Codex, OpenClaw, and Hermes.",
+  "version": "1.0.0",
+  "author": "WEIFENG2333",
+  "homepage": "https://github.com/WEIFENG2333/phistory",
+  "skills": []
+}
