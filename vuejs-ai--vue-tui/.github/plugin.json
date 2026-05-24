@@ -1,0 +1,9 @@
+{
+  "name": "vuejs-ai--vue-tui",
+  "displayName": "vue-tui",
+  "description": "Terminal UI framework built on Vue and Vite. Components, layout, focus, HMR, and testing out of the box.",
+  "version": "1.0.0",
+  "author": "vuejs-ai",
+  "homepage": "https://github.com/vuejs-ai/vue-tui",
+  "skills": []
+}
