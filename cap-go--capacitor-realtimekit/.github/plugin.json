@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-realtimekit",
+  "displayName": "capacitor-realtimekit",
+  "description": "Capacitor plugin to use Cloudflare realtime kit",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-realtimekit",
+  "skills": []
+}
