@@ -4,7 +4,7 @@
   "repo": "velocitai",
   "description": "Next-generation UI automation harness powered by Python & Playwright. Chat with AI Agents to seamlessly generate, architect, and execute enterprise-grade UI test code.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DanielSuo117/velocitai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T08:31:54Z"
+  "distributed_at": "2026-05-24T08:32:20Z"
 }
