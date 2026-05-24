@@ -1,0 +1,9 @@
+{
+  "name": "philolabs--agentic-vbench",
+  "displayName": "agentic-vbench",
+  "description": "AgenticVBench: Can AI Agents Complete Real-World Post-Production Tasks?",
+  "version": "1.0.0",
+  "author": "PhiloLabs",
+  "homepage": "https://github.com/PhiloLabs/agentic-vbench",
+  "skills": []
+}
