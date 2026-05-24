@@ -28844,6 +28844,11 @@
       "description": "A unified agent orchestration hub that lets you configure and manage multiple AI agents (native, ACP, AGUI, Claude Code) via YAML, and exposes them through standardized protocols (ACP/OpenCode Server)"
     },
     {
+      "name": "phil65--agentpool",
+      "source": "./phil65--agentpool",
+      "description": "A unified agent orchestration hub that lets you configure and manage multiple AI agents (native, ACP, AGUI, Claude Code) via YAML, and exposes them through standardized protocols (ACP/OpenCode Server)"
+    },
+    {
       "name": "jayminwest--agentic-engineering-book",
       "source": "./jayminwest--agentic-engineering-book",
       "description": "Agentic Engineering: A comprehensive, growing guide to building agentic systems"
@@ -163267,6 +163272,11 @@
       "name": "agentic-layer--agent-runtime-operator",
       "source": "./agentic-layer--agent-runtime-operator",
       "description": "A Kubernetes operator for the agentic layer agent runtime component."
+    },
+    {
+      "name": "hunkwu--book",
+      "source": "./hunkwu--book",
+      "description": "Codex\u5b9e\u6218\u84dd\u76ae\u4e66"
     },
     {
       "name": "ocrbase-hq--ocrbase",
