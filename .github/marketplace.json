@@ -173624,6 +173624,16 @@
       "description": "Live Unusual Whales options scanner"
     },
     {
+      "name": "philolabs--agentic-vbench",
+      "source": "./philolabs--agentic-vbench",
+      "description": "AgenticVBench: Can AI Agents Complete Real-World Post-Production Tasks?"
+    },
+    {
+      "name": "philolabs--agentic-vbench",
+      "source": "./philolabs--agentic-vbench",
+      "description": "AgenticVBench: Can AI Agents Complete Real-World Post-Production Tasks?"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176062,6 +176072,11 @@
       "name": "dodolalorc--astro-navfolio",
       "source": "./dodolalorc--astro-navfolio",
       "description": "A soft and modern personal dashboard template for developers, featuring cards, widgets, navigation, and digital identity.\uff08\u4e00\u4e2a\u67d4\u548c\u73b0\u4ee3\u7684\u5f00\u53d1\u8005\u4e2a\u4eba\u4e3b\u9875\u4eea\u8868\u76d8\u6a21\u677f\uff0c\u96c6\u6210\u5361\u7247\u5e03\u5c40\u3001\u5c0f\u7ec4\u4ef6\u3001\u5bfc\u822a\u4e0e\u6570\u5b57\u8eab\u4efd\u5c55\u793a\u3002\uff09\u60f3\u8981\u66f4\u591a\u4e0b\u4e00\u7248\u672c\u7684\u80fd\u529b\u53ef\u4ee5\u5728discussions/26\u7559\u8a00"
+    },
+    {
+      "name": "aegiswizard--smavg",
+      "source": "./aegiswizard--smavg",
+      "description": "Smavg \ud83d\udc32 reduces up to x1364 times your disk space, saves tokens and restores exact files."
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -279102,6 +279117,16 @@
       "name": "arnold-liza--next-js",
       "source": "./arnold-liza--next-js",
       "description": "task for next.js"
+    },
+    {
+      "name": "dianavins--rl-robotics-simulation",
+      "source": "./dianavins--rl-robotics-simulation",
+      "description": "Library for using Gazebo robotics simulation with PyTorch"
+    },
+    {
+      "name": "cherie05--reynox",
+      "source": "./cherie05--reynox",
+      "description": "reynox"
     }
   ]
 }
