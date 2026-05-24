@@ -1,0 +1,9 @@
+{
+  "name": "jaykimproject--ai-engineering-workflow",
+  "displayName": "ai-engineering-workflow",
+  "description": "Spec-first AI engineering pipeline: PR skill (8 steps), Deploy skill (GitHub Actions + Device Farm + Maestro QA), Figma skill (screenshot \u2192 code)",
+  "version": "1.0.0",
+  "author": "JayKimProject",
+  "homepage": "https://github.com/JayKimProject/ai-engineering-workflow",
+  "skills": []
+}
