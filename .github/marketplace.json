@@ -31109,6 +31109,11 @@
       "description": "Make CommonMark more friendly for Japanese/Chinese/Korean (CommonMark next specification draft)\u2014plugins & patched packages"
     },
     {
+      "name": "dancinlab--sidecar",
+      "source": "./dancinlab--sidecar",
+      "description": "sidecar"
+    },
+    {
       "name": "modem-dev--baudbot",
       "source": "./modem-dev--baudbot",
       "description": "Multiplayer, always-on AI dev assistant - like OpenClaw but for your whole team on Slack \ud83e\udd16 "
