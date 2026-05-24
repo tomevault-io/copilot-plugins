@@ -1,0 +1,44 @@
+{
+  "name": "astro-navfolio",
+  "owner": "dodolalorc",
+  "repo": "astro-navfolio",
+  "description": "A soft and modern personal dashboard template for developers, featuring cards, widgets, navigation, and digital identity.\uff08\u4e00\u4e2a\u67d4\u548c\u73b0\u4ee3\u7684\u5f00\u53d1\u8005\u4e2a\u4eba\u4e3b\u9875\u4eea\u8868\u76d8\u6a21\u677f\uff0c\u96c6\u6210\u5361\u7247\u5e03\u5c40\u3001\u5c0f\u7ec4\u4ef6\u3001\u5bfc\u822a\u4e0e\u6570\u5b57\u8eab\u4efd\u5c55\u793a\u3002\uff09\u60f3\u8981\u66f4\u591a\u4e0b\u4e00\u7248\u672c\u7684\u80fd\u529b\u53ef\u4ee5\u5728discussions/26\u7559\u8a00",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dodolalorc/astro-navfolio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-24T10:31:23Z"
+}
