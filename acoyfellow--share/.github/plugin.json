@@ -1,0 +1,9 @@
+{
+  "name": "acoyfellow--share",
+  "displayName": "share",
+  "description": "Temporary, resumable file transfers on your own Cloudflare account.",
+  "version": "1.0.0",
+  "author": "acoyfellow",
+  "homepage": "https://github.com/acoyfellow/share",
+  "skills": []
+}
