@@ -1,0 +1,44 @@
+{
+  "name": "api-ai",
+  "owner": "MericDegirmencioglu",
+  "repo": "api-ai",
+  "description": "api.ai \u2014 fal.ai-inspired generative AI platform with Reels-style community feed (Next.js 16 + Tailwind v4)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MericDegirmencioglu/api-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-24T02:34:46Z"
+}
