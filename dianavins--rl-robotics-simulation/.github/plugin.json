@@ -1,0 +1,9 @@
+{
+  "name": "dianavins--rl-robotics-simulation",
+  "displayName": "rl_robotics_simulation",
+  "description": "Library for using Gazebo robotics simulation with PyTorch",
+  "version": "1.0.0",
+  "author": "dianavins",
+  "homepage": "https://github.com/dianavins/rl_robotics_simulation",
+  "skills": []
+}
