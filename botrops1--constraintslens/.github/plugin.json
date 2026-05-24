@@ -1,0 +1,9 @@
+{
+  "name": "botrops1--constraintslens",
+  "displayName": "ConstraintsLens",
+  "description": "A Fusion 360 add-in that docks a panel listing every sketch constraint and dimension \u2014 with click-to-select, delete, filter, and full diagnosis of over/under-constrained sketches.",
+  "version": "1.0.0",
+  "author": "Botrops1",
+  "homepage": "https://github.com/Botrops1/ConstraintsLens",
+  "skills": []
+}
