@@ -7,11 +7,11 @@ Tara — voice-first astrology counselling, Hinglish, real-time.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ayush-that/rumik-hack](https://github.com/ayush-that/rumik-hack).
+Original source: `CLAUDE.md` in [ayush-that/rumik-hack](https://github.com/ayush-that/rumik-hack).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
