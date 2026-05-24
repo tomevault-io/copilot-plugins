@@ -1,0 +1,9 @@
+{
+  "name": "hoangsonww--aegisvision-computer-vision-system",
+  "displayName": "AegisVision-Computer-Vision-System",
+  "description": "\ud83d\udef0\ufe0f A distributed, GPU-native visual-intelligence OS. Ingests any video, runs detection and reasoning on partitioned GPUs, and drives bounded-autonomy agents over the result. Built on the scars of runn",
+  "version": "1.0.0",
+  "author": "hoangsonww",
+  "homepage": "https://github.com/hoangsonww/AegisVision-Computer-Vision-System",
+  "skills": []
+}
