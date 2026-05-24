@@ -163244,6 +163244,11 @@
       "description": "Real-time AI security. Protect your apps from prompt injection, leaks, and attacks in just a few lines of code. Compatible with OpenAI, Claude, and all major LLM APIs."
     },
     {
+      "name": "acoyfellow--share",
+      "source": "./acoyfellow--share",
+      "description": "Temporary, resumable file transfers on your own Cloudflare account."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173632,6 +173637,16 @@
       "name": "philolabs--agentic-vbench",
       "source": "./philolabs--agentic-vbench",
       "description": "AgenticVBench: Can AI Agents Complete Real-World Post-Production Tasks?"
+    },
+    {
+      "name": "plainsight-systems--cpp-perf-guidelines",
+      "source": "./plainsight-systems--cpp-perf-guidelines",
+      "description": "Low-level C++ performance guidelines for game-engine and embedded systems \u2014 the technique layer below the ISO C++ Core Guidelines"
+    },
+    {
+      "name": "plainsight-systems--cpp-perf-guidelines",
+      "source": "./plainsight-systems--cpp-perf-guidelines",
+      "description": "Low-level C++ performance guidelines for game-engine and embedded systems \u2014 the technique layer below the ISO C++ Core Guidelines"
     },
     {
       "name": "cheerhuan--save-your-token",
