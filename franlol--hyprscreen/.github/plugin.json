@@ -1,0 +1,9 @@
+{
+  "name": "franlol--hyprscreen",
+  "displayName": "hyprscreen",
+  "description": "A first-class screenshot and screen-recording app built for Hyprland.",
+  "version": "1.0.0",
+  "author": "franlol",
+  "homepage": "https://github.com/franlol/hyprscreen",
+  "skills": []
+}
