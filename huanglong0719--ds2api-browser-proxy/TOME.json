@@ -1,0 +1,44 @@
+{
+  "name": "ds2api-browser-proxy",
+  "owner": "huanglong0719",
+  "repo": "ds2api-browser-proxy",
+  "description": "DS2API Browser Proxy - Safe DeepSeek API with browser automation, deep thinking, and smart search",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huanglong0719/ds2api-browser-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-24T10:30:22Z"
+}
