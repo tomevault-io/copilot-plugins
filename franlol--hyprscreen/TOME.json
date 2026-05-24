@@ -4,7 +4,7 @@
   "repo": "hyprscreen",
   "description": "A first-class screenshot and screen-recording app built for Hyprland.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/franlol/hyprscreen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T04:33:22Z"
+  "distributed_at": "2026-05-24T04:33:52Z"
 }
