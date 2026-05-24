@@ -4,7 +4,7 @@
   "repo": "agentic-vbench",
   "description": "AgenticVBench: Can AI Agents Complete Real-World Post-Production Tasks?",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PhiloLabs/agentic-vbench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T12:30:23Z"
+  "distributed_at": "2026-05-24T12:30:51Z"
 }
