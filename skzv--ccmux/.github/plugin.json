@@ -1,0 +1,9 @@
+{
+  "name": "skzv--ccmux",
+  "displayName": "ccmux",
+  "description": "One TUI for every AI coding session \u2014 Claude Code, Codex, Gemini CLI, in sync across every device.",
+  "version": "1.0.0",
+  "author": "skzv",
+  "homepage": "https://github.com/skzv/ccmux",
+  "skills": []
+}
