@@ -1,0 +1,9 @@
+{
+  "name": "agentic-layer--agent-runtime-operator",
+  "displayName": "agent-runtime-operator",
+  "description": "A Kubernetes operator for the agentic layer agent runtime component.",
+  "version": "1.0.0",
+  "author": "agentic-layer",
+  "homepage": "https://github.com/agentic-layer/agent-runtime-operator",
+  "skills": []
+}
