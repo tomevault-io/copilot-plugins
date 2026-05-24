@@ -1,0 +1,161 @@
+## ascii-agents
+
+> Instructions for Claude Code (or any AI coding agent) working in this repo.
+
+# CLAUDE.md
+
+Instructions for Claude Code (or any AI coding agent) working in this repo.
+
+## What this is
+
+Terminal-native, multi-agent pixel-art visualizer for AI coding agents. Each running CC (Claude Code) session shows up as an animated half-block sprite in an ASCII office. Built in Rust as a Cargo workspace of three crates.
+
+User-facing overview: [`README.md`](README.md).
+v1 spec: [`docs/superpowers/specs/2026-05-20-ascii-agents-design.md`](docs/superpowers/specs/2026-05-20-ascii-agents-design.md).
+v1 plan (28 TDD-shaped tasks): [`docs/superpowers/plans/2026-05-20-ascii-agents-v1.md`](docs/superpowers/plans/2026-05-20-ascii-agents-v1.md).
+
+## Layout
+
+```
+crates/
+├── ascii-agents-core/      headless lib — no terminal deps (ratatui/crossterm forbidden here)
+│   ├── source/             Source trait, hook+jsonl decoders, listeners, SourceManager
+│   ├── state/              SceneState + Reducer (with Transport-tagged dedup + Active→Idle debounce)
+│   ├── sprite/             .sprite parser, pack.toml loader, half-block blitter, animator
+│   ├── render/             Renderer trait + TestRenderer (feature = "test-renderer")
+│   ├── layout/             zone-based office geometry (terminal-agnostic):
+│   │                       mod.rs (SceneLayout::compute, Bounds, Point, constants),
+│   │                       decor.rs (WaypointKind, WallDecor, PlantKind, PodDecor),
+│   │                       mask.rs (build_walkable_mask — obstacle stamping for A*)
+│   ├── pose.rs             pure state→pose derivation + wander state machine (no terminal deps)
+│   ├── walkable.rs         WalkableMask (static bool grid) + OccupancyOverlay (dynamic per-frame)
+│   └── tests/              one integration test per concern
+├── ascii-agents/           binary — ratatui + crossterm + tokio + clap
+│   ├── cli.rs              clap subcommands (run / install-hooks / uninstall-hooks)
+│   ├── runtime.rs          tokio task wiring (source ── (Transport, AgentEvent) ──► reducer ──► renderer)
+│   ├── install/            settings.json merge, atomic write, advisory lock, stow-symlink safe
+│   └── tui/                ratatui App + TuiRenderer (Renderer trait impl)
+│       ├── renderer.rs     draw_scene orchestrator, half-block flush, label/tooltip widgets, footer, TickerQueue, neon wall display
+│       ├── tui_renderer.rs Renderer trait impl — owns cross-frame state (RgbBuffer, FrameCache, Router, PoseHistory, TickerQueue, Theme)
+│       ├── theme/          color theme system — one file per theme, Theme struct in mod.rs
+│       │                   mod.rs (struct defs + ALL_THEMES registry), normal.rs, cyberpunk.rs,
+│       │                   dracula.rs, tokyo_night.rs, catppuccin.rs, gruvbox.rs
+│       ├── pose.rs         routed pose layer (PoseHistory, derive_with_routing, snap-back) — re-exports core::pose
+│       ├── pathfind.rs     Router trait + AStarRouter with selective cache invalidation
+│       └── pixel_painter/  pure-pixel pass — split into focused child modules:
+│                           mod.rs (orchestrator), background.rs, drawable.rs
+│                           (y-sort), effects.rs, palette.rs (tool_glow_tint), anchors.rs
+└── ascii-agents-hook/      tiny shim CC invokes — stdin JSON → Unix socket, 200ms write timeout
+│   └── sprites/default/    coworking-lounge pack (embedded via include_str!): seated, typing ×2,
+│                           standing, walking ×2, walking_back ×2, working_couch ×2,
+│                           working_floor ×2, sitting_couch, back_couch, seated_floor,
+│                           sleeping variants, desk, plant ×4, cat (walk/sit/sleep),
+│                           pantry, door ×3, meeting_sofa, bookshelf, whiteboard, tv_stand, etc.
+scripts/                    preflight.sh (CI mirror), crop-snapshot.py (visual verification)
+```
+
+## Build & test
+
+```
+cargo build --workspace                                              # debug build
+cargo build --release --workspace                                    # release build
+cargo test --workspace --features ascii-agents-core/test-renderer    # all tests (147+)
+cargo run --release --example snapshot -- /tmp/snap.png              # render TUI to PNG
+./target/release/ascii-agents run --headless --projects-root ~/.claude/projects   # live test against real CC
+```
+
+The `test-renderer` feature is needed for the `e2e.rs` integration test. The dev workspace test alias is just `cargo test`.
+
+### Visual verification (Python venv)
+
+```
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt
+cargo build --release --example snapshot
+./target/release/examples/snapshot --cols 192 --rows 64 /tmp/snap.png
+.venv/bin/python3 scripts/crop-snapshot.py /tmp/snap.png --scale 3
+```
+
+See `.claude/skills/beautify-decoration/SKILL.md` for the full iteration loop, self-critique checklist, and sprite-format pitfalls.
+
+### Pre-push preflight
+
+`scripts/preflight.sh` mirrors `.github/workflows/ci.yml` (rustfmt + clippy with
+`-D warnings` + workspace tests). Run it locally to avoid the round-trip of
+"push → wait for CI → red → fix → push again."
+
+`.githooks/pre-push` calls it automatically. Activate the hook **once per
+clone**:
+
+```
+git config core.hooksPath .githooks
+```
+
+Bypass in an emergency with `git push --no-verify` or `SKIP_PREFLIGHT=1 git push`.
+
+## Conventions
+
+- **TDD first.** Plan and existing tests are TDD-shaped — failing test → minimal impl → commit. Don't add code without a test that exercises it.
+- **DRY, YAGNI.** No features beyond what v1 specifies. v2 items are deferred — adding them in v1 code is a regression.
+- **No comments unless WHY.** Don't write comments that restate what the code does. Comment only when a future reader can't tell from the code why something is the way it is (a workaround, a non-obvious constraint, a surprising invariant).
+- **Errors propagate via `anyhow::Result` in app code, `thiserror` in core if a typed error becomes load-bearing.** The hook listener and JSONL watcher log + continue on malformed input — they never panic.
+- **No `unwrap()` in non-test code.** Tests can unwrap freely.
+- **Match the surrounding shell:** scripts in this repo target zsh (interactive) or POSIX sh. `shellcheck` any `.sh` you touch.
+- **macOS first.** BSD-flavored CLI, brew, launchd for daemons. The hook shim is Unix-socket specific (`std::os::unix::net::UnixStream`).
+- **Keep docs current.** When a change alters module structure, architecture, developer workflow, or the public API surface, update CLAUDE.md and README.md in the same commit. Stale docs cost more than the 5 minutes to update them.
+- **Sprite changes require visual verification.** After editing any `.sprite` file: (1) rebuild the snapshot example, (2) render at `--cols 192 --rows 64`, (3) crop the relevant quadrant with `scripts/crop-snapshot.py --scale 3`, (4) read the cropped PNG and self-critique — does a stranger recognize the intended pose/object? Iterate until it reads at half-block scale. Then rebuild the release binary (`cargo build --release --workspace`). Commit messages should include iteration history (which designs were tried and why they were rejected). See `.claude/skills/beautify-decoration/SKILL.md` for the full checklist.
+
+## Architecture invariants
+
+These are load-bearing; don't break them without updating the spec.
+
+1. **`ascii-agents-core` has no terminal dependencies.** No `ratatui`, no `crossterm`, no `stdout` writes. If you need one, the abstraction belongs behind the `Renderer` trait.
+2. **Events flow through ONE channel** typed `mpsc::Sender<(Transport, AgentEvent)>`. The `Transport` tag is load-bearing — the reducer uses it for hook-wins dedup. Do not hardcode `Transport::Hook` on the consumer side; the producer (each Source impl) tags its own events.
+3. **`Source` trait is the only seam for adding agent CLIs** (Codex / Cursor / Gemini / Copilot). Don't bypass it.
+4. **`install-hooks` writes through symlinks.** `resolve_symlink` in `install/io.rs` is critical for stow-managed `~/.claude/settings.json`. Don't replace it with `fs::rename` on the symlink path.
+5. **The hook shim must never block CC.** Always exit 0 silently on any error. The 200ms write timeout is non-negotiable.
+
+## Known sharp edges (don't be surprised by these)
+
+- **CC hook payloads DO include `tool_use_id`** in `PreToolUse` and `PostToolUse` (verified by sniffing live payloads). The decoder reads it; the reducer's hook-wins dedup actually fires.
+- **CC hook `transcript_path` always points to the PARENT'S transcript**, even when a subagent is the actor — so subagent hook events hash to the parent's `AgentId`. The reducer's `active_tasks: HashMap<AgentId, HashSet<String>>` suppresses hook `ActivityStart`/`End` for any agent currently inside a `Task` tool; JSONL has correct subagent attribution via the per-subagent transcript file at `<parent_uuid>/subagents/agent-<id>.jsonl`. The Task signal travels as `ToolDetail::Task` (a typed enum variant on `AgentEvent::ActivityStart.detail`, set by `decoder::make_tool_detail` whenever `tool_name == "Task"`); the reducer pattern-matches on `d.is_task()` rather than scanning a free-form string.
+- **JSONL watcher skips historical transcripts on startup.** `initial_seed_root` in `source/jsonl.rs` only emits `SessionStart` for `.jsonl` files with mtime within `DEFAULT_INITIAL_WINDOW` (currently 1 hour; configurable via `JsonlWatcher::with_initial_window`); older files have their cursor seeded at end-of-file. Without this, ~hundreds of stale sessions saturate the desk allocator (default `--max-desks=16`). Long-idle live sessions only re-appear after they next write. The window was bumped from 10 min after users hit "I had a CC session open but it had been idle a while; nothing showed up until I made a new tool call."
+- **Subagent display names come from `attributionAgent` in JSONL.** The decoder strips the plugin prefix (`feature-dev:code-explorer` → `code-explorer`) and emits `AgentEvent::Rename` so labels read meaningfully. Parents get their `cwd` basename instead.
+- **`AgentSlot.state_started_at` is `std::time::SystemTime`** — process-local in practice (no wall-clock anchoring), but the type is already serializable, so the v2 daemon split won't need a type swap. The pose system computes elapsed time relative to it for animation timing.
+- **`ActivityState::Active` ≠ "tool is currently executing".** CC fires PreToolUse → PostToolUse around every individual tool call, so without debouncing the slot flickers Active/Idle on every tool. The reducer treats `ActivityEnd` as "arm pending idle" (`AgentSlot.pending_idle_at`) instead of an immediate flip; the actual transition to `Idle` is realized by `reducer::tick` after `ACTIVE_GRACE_WINDOW = 1500 ms`. Any `ActivityStart` inside the window cancels the pending idle. Net: the slot reads as continuously Active for chained tool work, and visible Idle lags real Idle by up to 1.5 s + the 1 s sweep interval (≈ 2.5 s worst case). Don't add code that depends on `Active → Idle` being instant.
+- **`draw_scene` is called through `TuiRenderer`** (the `Renderer` trait impl), which owns the cross-frame state (`RgbBuffer`, `FrameCache`, `AStarRouter`, `OccupancyOverlay`, `PoseHistory`). The trait signature is `render(&mut self, scene, pack, now)` — no `layout` param; the TUI recomputes layout per frame from terminal size.
+- **`recolor_frame` substitutes by RGB equality.** Works because each palette key in the default pack maps to a unique RGB. If you add a sprite pack where two keys share a color, swap to a palette-key-indexed approach instead.
+- **Terminal cell aspect drives sprite design.** The half-block ▀ technique assumes ~1:2 cell aspect. Sprites larger than ~16×16 px break on terminals with taller cells (Ghostty default, large Fira Code). The bundled 12×14 pack is the safe ceiling. A PNG-loader experiment hit this wall and was deleted in favor of hand-drawn `.sprite` art.
+
+## Things NOT to do
+
+- Don't add `ratatui` / `crossterm` / terminal anything to `ascii-agents-core`.
+- Don't write to `~/.claude/settings.json` directly. Always go through `install/io.rs::write_settings_atomic` (advisory lock + atomic rename + symlink resolution).
+- Don't add `println!` / `eprintln!` to any production path other than the headless summary and explicit user-facing CLI output. Use `tracing::{info, warn, error}` instead.
+- Don't relax the hook shim's "always exit 0" contract. Blocking CC = breaking the user's primary workflow.
+- Don't add `--no-verify` / hook-skipping flags to any git operations performed in this repo.
+- Don't generate a README / CLAUDE.md / CHANGELOG / docs in PRs unless explicitly asked.
+- Don't `git push` without explicit user confirmation, even after committing.
+
+## Where to look
+
+- "How does a CC tool call become a moving sprite?" → trace `runtime::run_async` → `SourceManager::spawn` → `ClaudeCodeSource::run` → `HookSocketListener::run` → `decoder::decode_hook_payload` → `reducer::Reducer::apply` → `TuiRenderer::render` → `draw_scene` (top-down, cubicle grid).
+- "How is the office laid out?" → `core::layout::SceneLayout::compute` for zone math (cubicle band / walkway / meeting / pantry) + home-desk + waypoint placement (re-exported as `tui::layout::Layout`); `core::pose::derive` for pure state→pose mapping including the Idle wander state machine (`WANDER_CYCLE_BASE_MS=7000` + per-agent jitter); `tui::pose::derive_with_routing` for the routed variant (A*-routed polylines + snap-back walks); `tui::renderer::draw_scene` for the terminal-flush pass (half-block + widgets + status footer) → `tui::pixel_painter::render_to_rgb_buffer` for the pure-pixel pass. The pixel pass is split: `pixel_painter/background.rs` (floor/walls/windows/clock/corridor/entry mat/lighting/shadow), `pixel_painter/drawable.rs` (y-sort `Drawable` enum + dispatch), `pixel_painter/effects.rs` (chair-behind/screen glow/sleep z/steam/dust/bubble), `pixel_painter/palette.rs` (agent palette + recolor + `tool_glow_tint` for per-tool monitor color), `pixel_painter/anchors.rs` (per-pose sprite anchors + breath + walking_position).
+- "How do overflow agents (past max home desks) get rendered?" → `pixel_painter/mod.rs` overflow branch: first 2 → meeting_sofas (`working_couch` if Active, `sitting_couch_sleeping` if Idle, `back_couch` for mirrored second sofa), remaining → `floor_seats` (`working_floor` if Active, `seated_floor_sleeping` if Idle). 400 ms screen-pulse animation via wallclock-derived `pulse_frame`.
+- "Why is the subagent's sprite the right one and not the parent?" → `reducer::Reducer::apply` does subagent-leak suppression via `active_tasks` before applying. `decoder::decode_jsonl_line` emits `AgentEvent::Rename` from `attributionAgent`.
+- "Why don't old idle sessions show on startup?" → `source::jsonl::initial_seed_root`. mtime > `DEFAULT_INITIAL_WINDOW` (1 hour) → cursor seeded at EOF, no `SessionStart`.
+- "How does the default character pack get into the binary?" → `tui::embedded_pack` does the `include_str!` at compile time; `sprite::format::load_pack_from_strings` parses it.
+- "How do hooks get installed?" → `install::merge::merge_install` for the JSON merge logic, `install::io::write_settings_atomic` for the safe filesystem write.
+- "How does the neon wall display work?" → `pixel_painter/background.rs::paint_neon_panel` paints the dark panel with pulsing cyan border in the pixel buffer; `renderer.rs::paint_wall_display` overlays ratatui text (branding, state dots, scrolling ticker); `renderer.rs::TickerQueue` manages the persistent scrolling message buffer.
+- "How does the cat behave?" → `pixel_painter/drawable.rs::cat_position` — 40s cycle, picks a destination from all spots (desks, pantry, sofas, couch, corridor), walks there (35%), sits/sleeps (65%). Sleeps with z's near idle agents. Sprites: `cat_walk` (8×6 side view), `cat_sit` (6×6 front), `cat_sleep` (6×4 curled).
+- "How does desk personalization work?" → `drawable.rs::paint_desk_personalization` — procedural pixel items appear on desks based on `session_age_secs`: coffee cup (10min), plant (30min), photo frame (1hr).
+- "How does the crash log work?" → `main.rs::install_crash_hook` sets a panic hook that restores the terminal, writes a timestamped backtrace to `~/.cache/ascii-agents/crash.log`.
+- "How does the theme system work?" → `tui/theme/mod.rs` defines the `Theme` struct (~100 color roles in 7 groups). Each theme is a `pub static Theme` in its own file (e.g. `theme/cyberpunk.rs`). `ALL_THEMES` is the registry slice. `--theme` CLI flag resolves via `theme_by_name()`. The `&'static Theme` threads through `TuiRenderer` → `draw_scene` → `render_to_rgb_buffer` → all paint functions. Press `[t]` in the TUI for a live preview picker. `set_theme()` flushes the `FrameCache` so character recolors update immediately. 6 themes: normal, cyberpunk, dracula, tokyo-night, catppuccin, gruvbox.
+
+## When refactoring
+
+If you change anything in the channel type, `Source` trait, `AgentEvent` enum, or reducer signature, update **all four** test files that exercise them: `tests/reducer.rs`, `tests/e2e.rs`, `tests/hook_socket.rs`, `tests/jsonl_watcher.rs`, plus `runtime.rs` on the binary side. The `AgentEvent::agent_id()` method in `source/mod.rs` needs a new arm too if you add a variant.
+
+---
+> Source: [IvanWng97/ascii-agents](https://github.com/IvanWng97/ascii-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-24 -->
