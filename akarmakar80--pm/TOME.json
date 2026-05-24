@@ -4,7 +4,7 @@
   "repo": "pm",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/akarmakar80/pm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T02:34:16Z"
+  "distributed_at": "2026-05-24T02:38:42Z"
 }
