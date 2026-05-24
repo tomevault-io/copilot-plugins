@@ -1,0 +1,9 @@
+{
+  "name": "zeikar--charivo",
+  "displayName": "charivo",
+  "description": "Charivo \u2014 Modular TypeScript framework for Live2D characters with LLM, TTS, STT, and realtime voice.",
+  "version": "1.0.0",
+  "author": "zeikar",
+  "homepage": "https://github.com/zeikar/charivo",
+  "skills": []
+}
