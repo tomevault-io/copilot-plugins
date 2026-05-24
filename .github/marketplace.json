@@ -163254,6 +163254,16 @@
       "description": "Temporary, resumable file transfers on your own Cloudflare account."
     },
     {
+      "name": "haskaomni--serenity",
+      "source": "./haskaomni--serenity",
+      "description": "serenity"
+    },
+    {
+      "name": "agentic-layer--agent-runtime-operator",
+      "source": "./agentic-layer--agent-runtime-operator",
+      "description": "A Kubernetes operator for the agentic layer agent runtime component."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173652,6 +173662,11 @@
       "name": "plainsight-systems--cpp-perf-guidelines",
       "source": "./plainsight-systems--cpp-perf-guidelines",
       "description": "Low-level C++ performance guidelines for game-engine and embedded systems \u2014 the technique layer below the ISO C++ Core Guidelines"
+    },
+    {
+      "name": "codeprakhar25--inspect",
+      "source": "./codeprakhar25--inspect",
+      "description": "Get to know about commands before you execute them"
     },
     {
       "name": "cheerhuan--save-your-token",
