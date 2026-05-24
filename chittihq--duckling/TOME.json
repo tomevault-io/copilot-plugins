@@ -4,7 +4,7 @@
   "repo": "duckling",
   "description": "DuckDB server that replicates your MySQL data. Columnar storage makes analytical queries 100-13,000x faster",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chittihq/duckling",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T01:31:21Z"
+  "distributed_at": "2026-05-24T01:31:50Z"
 }
