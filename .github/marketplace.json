@@ -163209,6 +163209,11 @@
       "description": "Enhanced Obsidian MCP server with hybrid plugin control - filesystem-native and API-based tools for Tasks, Dataview, Kanban, Canvas, and more"
     },
     {
+      "name": "broadinstitute--qprimer-designer",
+      "source": "./broadinstitute--qprimer-designer",
+      "description": "Design tool for highly performant qPCR diagnostics."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173539,6 +173544,16 @@
       "description": "A senior-engineer protocol for polyglot code generation, architecture, testing, security, performance, and agent validation."
     },
     {
+      "name": "code-yeongyu--codex-ultrawork",
+      "source": "./code-yeongyu--codex-ultrawork",
+      "description": "Codex plugin that injects the ultrawork orchestration directive when the user prompt contains 'ultrawork' or 'ulw'."
+    },
+    {
+      "name": "akitaonrails--ai-usagebar",
+      "source": "./akitaonrails--ai-usagebar",
+      "description": "Rust-based waybar widget to monitor status of Claude, GPT, GLM, OpenRouter plans/credits - inspired by claudebar/codexbar"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -175962,6 +175977,11 @@
       "name": "laotree--verify-networking-plugin",
       "source": "./laotree--verify-networking-plugin",
       "description": "Network check before Claude Code starts \u2014 DNS, exit IP region, and TCP connectivity with \ud83d\udfe2\ud83d\udfe1\ud83d\udd34 status"
+    },
+    {
+      "name": "liu5540--reasonix-skill-powers",
+      "source": "./liu5540--reasonix-skill-powers",
+      "description": "superpowers for reasonix"
     },
     {
       "name": "keshavxa--keshav-portfolio",
