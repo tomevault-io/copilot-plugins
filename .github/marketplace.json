@@ -63814,6 +63814,11 @@
       "description": "Theme & components for the Korea Design System (krds.go.kr) \u2014 MUI v7 + Tailwind v4 / Base UI"
     },
     {
+      "name": "cliftonc--drizzle-cube",
+      "source": "./cliftonc--drizzle-cube",
+      "description": "An embeddable multi-dimensional semantic layer and self-service analytics module (built on Drizzle) - broadly compliant with cube-js concepts and semantic definitions."
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -163279,6 +163284,11 @@
       "description": "Codex\u5b9e\u6218\u84dd\u76ae\u4e66"
     },
     {
+      "name": "hale-lang--hale",
+      "source": "./hale-lang--hale",
+      "description": "hypergraph programming"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173682,6 +173692,16 @@
       "name": "codeprakhar25--inspect",
       "source": "./codeprakhar25--inspect",
       "description": "Get to know about commands before you execute them"
+    },
+    {
+      "name": "ayush-that--rumik-hack",
+      "source": "./ayush-that--rumik-hack",
+      "description": "Tara \u2014 voice-first astrology counselling, Hinglish, real-time."
+    },
+    {
+      "name": "ayush-that--rumik-hack",
+      "source": "./ayush-that--rumik-hack",
+      "description": "Tara \u2014 voice-first astrology counselling, Hinglish, real-time."
     },
     {
       "name": "cheerhuan--save-your-token",
