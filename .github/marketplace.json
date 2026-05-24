@@ -163214,6 +163214,21 @@
       "description": "Design tool for highly performant qPCR diagnostics."
     },
     {
+      "name": "hoangsonww--aegisvision-computer-vision-system",
+      "source": "./hoangsonww--aegisvision-computer-vision-system",
+      "description": "\ud83d\udef0\ufe0f A distributed, GPU-native visual-intelligence OS. Ingests any video, runs detection and reasoning on partitioned GPUs, and drives bounded-autonomy agents over the result. Built on the scars of runn"
+    },
+    {
+      "name": "zeikar--charivo",
+      "source": "./zeikar--charivo",
+      "description": "Charivo \u2014 Modular TypeScript framework for Live2D characters with LLM, TTS, STT, and realtime voice."
+    },
+    {
+      "name": "zeikar--charivo",
+      "source": "./zeikar--charivo",
+      "description": "Charivo \u2014 Modular TypeScript framework for Live2D characters with LLM, TTS, STT, and realtime voice."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173552,6 +173567,46 @@
       "name": "akitaonrails--ai-usagebar",
       "source": "./akitaonrails--ai-usagebar",
       "description": "Rust-based waybar widget to monitor status of Claude, GPT, GLM, OpenRouter plans/credits - inspired by claudebar/codexbar"
+    },
+    {
+      "name": "millionco--openstory",
+      "source": "./millionco--openstory",
+      "description": "Storybook for Agents"
+    },
+    {
+      "name": "danielsuo117--velocitai",
+      "source": "./danielsuo117--velocitai",
+      "description": "Next-generation UI automation harness powered by Python & Playwright. Chat with AI Agents to seamlessly generate, architect, and execute enterprise-grade UI test code."
+    },
+    {
+      "name": "danielsuo117--velocitai",
+      "source": "./danielsuo117--velocitai",
+      "description": "Next-generation UI automation harness powered by Python & Playwright. Chat with AI Agents to seamlessly generate, architect, and execute enterprise-grade UI test code."
+    },
+    {
+      "name": "skzv--ccmux",
+      "source": "./skzv--ccmux",
+      "description": "One TUI for every AI coding session \u2014 Claude Code, Codex, Gemini CLI, in sync across every device."
+    },
+    {
+      "name": "moremeds--unusual-whales",
+      "source": "./moremeds--unusual-whales",
+      "description": "Live Unusual Whales options scanner"
+    },
+    {
+      "name": "ciniml--stackchan-idf",
+      "source": "./ciniml--stackchan-idf",
+      "description": "An ESP-IDF based Stack-chan firmware."
+    },
+    {
+      "name": "danielsuo117--velocitai",
+      "source": "./danielsuo117--velocitai",
+      "description": "Next-generation UI automation harness powered by Python & Playwright. Chat with AI Agents to seamlessly generate, architect, and execute enterprise-grade UI test code."
+    },
+    {
+      "name": "moremeds--unusual-whales",
+      "source": "./moremeds--unusual-whales",
+      "description": "Live Unusual Whales options scanner"
     },
     {
       "name": "cheerhuan--save-your-token",
