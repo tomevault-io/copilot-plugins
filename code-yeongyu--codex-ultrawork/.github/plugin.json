@@ -1,0 +1,9 @@
+{
+  "name": "code-yeongyu--codex-ultrawork",
+  "displayName": "codex-ultrawork",
+  "description": "Codex plugin that injects the ultrawork orchestration directive when the user prompt contains 'ultrawork' or 'ulw'.",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/codex-ultrawork",
+  "skills": []
+}
