@@ -1,0 +1,9 @@
+{
+  "name": "aleksakarac--obsidian-mcp",
+  "displayName": "obsidian-mcp",
+  "description": "Enhanced Obsidian MCP server with hybrid plugin control - filesystem-native and API-based tools for Tasks, Dataview, Kanban, Canvas, and more",
+  "version": "1.0.0",
+  "author": "aleksakarac",
+  "homepage": "https://github.com/aleksakarac/obsidian-mcp",
+  "skills": []
+}
