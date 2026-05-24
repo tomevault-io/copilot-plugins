@@ -1,0 +1,9 @@
+{
+  "name": "netcracker--qubership-redis",
+  "displayName": "qubership-redis",
+  "description": "Qubership Redis",
+  "version": "1.0.0",
+  "author": "Netcracker",
+  "homepage": "https://github.com/Netcracker/qubership-redis",
+  "skills": []
+}
