@@ -100364,6 +100364,11 @@
       "description": "rwsdk.com"
     },
     {
+      "name": "hanzalahwaheed--portfolio",
+      "source": "./hanzalahwaheed--portfolio",
+      "description": "My Portfolio Project - Inspired by Hollow Knight"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
