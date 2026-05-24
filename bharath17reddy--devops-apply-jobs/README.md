@@ -1,0 +1,28 @@
+# devops_apply_jobs
+
+> Tome by [bharath17reddy](https://github.com/bharath17reddy/devops_apply_jobs) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [bharath17reddy/devops_apply_jobs](https://github.com/bharath17reddy/devops_apply_jobs).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+From [bharath17reddy/devops_apply_jobs](https://github.com/bharath17reddy/devops_apply_jobs) — a repo with 0+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install bharath17reddy/devops_apply_jobs
+```
+Source: [github.com/bharath17reddy/devops_apply_jobs](https://github.com/bharath17reddy/devops_apply_jobs).
+
+<!-- genome:t-i-s -->
