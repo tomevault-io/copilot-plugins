@@ -1,0 +1,9 @@
+{
+  "name": "ciniml--stackchan-idf",
+  "displayName": "stackchan-idf",
+  "description": "An ESP-IDF based Stack-chan firmware.",
+  "version": "1.0.0",
+  "author": "ciniml",
+  "homepage": "https://github.com/ciniml/stackchan-idf",
+  "skills": []
+}
