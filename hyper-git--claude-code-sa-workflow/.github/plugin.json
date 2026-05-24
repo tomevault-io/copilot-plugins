@@ -1,0 +1,9 @@
+{
+  "name": "hyper-git--claude-code-sa-workflow",
+  "displayName": "claude-code-sa-workflow",
+  "description": "Claude Code multi-agent workflow for Solution Architects \u2014 9 specialized AI agents covering discovery, architecture design, IaC, and validation",
+  "version": "1.0.0",
+  "author": "Hyper-Git",
+  "homepage": "https://github.com/Hyper-Git/claude-code-sa-workflow",
+  "skills": []
+}
