@@ -4,7 +4,7 @@
   "repo": "claudemux",
   "description": "Multi-repo Claude Code orchestrator: one dispatcher, many tmux teammates across sibling repos.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/excitedjs/claudemux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T04:31:50Z"
+  "distributed_at": "2026-05-24T04:32:20Z"
 }
