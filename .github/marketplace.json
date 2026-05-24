@@ -163169,6 +163169,11 @@
       "description": "A JavaScript library for creating animated ASCII backgrounds."
     },
     {
+      "name": "cap-go--capacitor-realtimekit",
+      "source": "./cap-go--capacitor-realtimekit",
+      "description": "Capacitor plugin to use Cloudflare realtime kit"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173479,6 +173484,11 @@
       "description": "Course website for Systems Verification Fall 2025"
     },
     {
+      "name": "maxschottke-spec--seo-survival-kit",
+      "source": "./maxschottke-spec--seo-survival-kit",
+      "description": "Eight Claude Code SEO skills built from real 2026 Core Update recovery cases: free-tier audit, Authority-First Core-Update recovery, decision-maker PDF outreach, channel economics, competitor gap anal"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -175867,6 +175877,26 @@
       "name": "leobr84p--wiki-llm",
       "source": "./leobr84p--wiki-llm",
       "description": "wiki_llm"
+    },
+    {
+      "name": "yaffalhakim1--nowplaying-windows",
+      "source": "./yaffalhakim1--nowplaying-windows",
+      "description": "Show what's playing from YouTube, Spotify, or any media app \u2014 directly on your Windows taskbar. Text floats on the taskbar surface with no background, no browser extension, no config."
+    },
+    {
+      "name": "mizchi--pkl-mbt",
+      "source": "./mizchi--pkl-mbt",
+      "description": "pkl-mbt"
+    },
+    {
+      "name": "pasunboneleve--oiticica-style",
+      "source": "./pasunboneleve--oiticica-style",
+      "description": "A century-old style manual, converted into a taxonomy of Codex writing skills."
+    },
+    {
+      "name": "pasunboneleve--oiticica-style",
+      "source": "./pasunboneleve--oiticica-style",
+      "description": "A century-old style manual, converted into a taxonomy of Codex writing skills."
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -278797,6 +278827,116 @@
       "name": "fvasquezl--filament",
       "source": "./fvasquezl--filament",
       "description": "filament"
+    },
+    {
+      "name": "bharath17reddy--devops-apply-jobs",
+      "source": "./bharath17reddy--devops-apply-jobs",
+      "description": "devops_apply_jobs"
+    },
+    {
+      "name": "sjit123--jitdemo",
+      "source": "./sjit123--jitdemo",
+      "description": "Demo of JIT access"
+    },
+    {
+      "name": "akarmakar80--pm",
+      "source": "./akarmakar80--pm",
+      "description": "pm"
+    },
+    {
+      "name": "mericdegirmencioglu--api-ai",
+      "source": "./mericdegirmencioglu--api-ai",
+      "description": "api.ai \u2014 fal.ai-inspired generative AI platform with Reels-style community feed (Next.js 16 + Tailwind v4)"
+    },
+    {
+      "name": "bharath17reddy--devops-apply-jobs",
+      "source": "./bharath17reddy--devops-apply-jobs",
+      "description": "devops_apply_jobs"
+    },
+    {
+      "name": "huzaifawaleed--nexus-studio",
+      "source": "./huzaifawaleed--nexus-studio",
+      "description": "nexus-studio"
+    },
+    {
+      "name": "shayaqhmetov--blogger",
+      "source": "./shayaqhmetov--blogger",
+      "description": "blogger"
+    },
+    {
+      "name": "dolordprince--nextjs",
+      "source": "./dolordprince--nextjs",
+      "description": "nextjs"
+    },
+    {
+      "name": "getarobo--unreal-ai-dev",
+      "source": "./getarobo--unreal-ai-dev",
+      "description": "unreal-ai-dev"
+    },
+    {
+      "name": "jaykimproject--ai-engineering-workflow",
+      "source": "./jaykimproject--ai-engineering-workflow",
+      "description": "Spec-first AI engineering pipeline: PR skill (8 steps), Deploy skill (GitHub Actions + Device Farm + Maestro QA), Figma skill (screenshot \u2192 code)"
+    },
+    {
+      "name": "habrillancheros-lang--ai-agents-for-beginners",
+      "source": "./habrillancheros-lang--ai-agents-for-beginners",
+      "description": "ai-agents-for-beginners"
+    },
+    {
+      "name": "akarmakar80--pm",
+      "source": "./akarmakar80--pm",
+      "description": "pm"
+    },
+    {
+      "name": "mdarafatyeasin--result-app",
+      "source": "./mdarafatyeasin--result-app",
+      "description": "result-app"
+    },
+    {
+      "name": "ochimasato0186--p-p-front",
+      "source": "./ochimasato0186--p-p-front",
+      "description": "P.P_front"
+    },
+    {
+      "name": "bharath17reddy--devops-apply-jobs",
+      "source": "./bharath17reddy--devops-apply-jobs",
+      "description": "devops_apply_jobs"
+    },
+    {
+      "name": "yuzh2001--oh-my-cs-ai-research",
+      "source": "./yuzh2001--oh-my-cs-ai-research",
+      "description": "oh-my-cs-ai-research"
+    },
+    {
+      "name": "intruderpy--pyq",
+      "source": "./intruderpy--pyq",
+      "description": "pyq"
+    },
+    {
+      "name": "prabhu-jha--cafe-de-flora",
+      "source": "./prabhu-jha--cafe-de-flora",
+      "description": "Website for Cafe De Flora, New Delhi. Built As A Student Project "
+    },
+    {
+      "name": "krish05s--fintech-frontend",
+      "source": "./krish05s--fintech-frontend",
+      "description": "fintech-frontend"
+    },
+    {
+      "name": "jonsonpanson114--quote",
+      "source": "./jonsonpanson114--quote",
+      "description": "quote"
+    },
+    {
+      "name": "nutchanon28--group-schedule-helper",
+      "source": "./nutchanon28--group-schedule-helper",
+      "description": "group-schedule-helper"
+    },
+    {
+      "name": "arnold-liza--next-js",
+      "source": "./arnold-liza--next-js",
+      "description": "task for next.js"
     }
   ]
 }
