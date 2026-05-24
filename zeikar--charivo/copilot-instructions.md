@@ -1,0 +1,40 @@
+## charivo
+
+> Read [README.md](./README.md) first for the current architecture, package map, and release flow.
+
+# AGENTS
+
+Read [README.md](./README.md) first for the current architecture, package map, and release flow.
+
+## Core Rules
+
+- Preserve the current layering: `@charivo/core` -> modality packages -> browser clients/players/transcribers/renderers -> server providers.
+- Do not collapse package boundaries or redesign the architecture unless explicitly requested.
+- Keep the event split intentional: `RenderManager` uses `setEventBus(...)`, while TTS/STT/Realtime managers use `setEventEmitter(...)`. Do not normalize them into one contract unless explicitly requested.
+- Default publishable packages to dual-format output (`cjs + esm + .d.ts`).
+- Allow ESM-oriented output only for browser-only packages or when there is a clear technical reason.
+- Use `.d.mts` only for ESM-only packages, and keep `.d.ts` for dual-format packages.
+- Do not normalize package outputs (`.mjs`, `.d.mts`, dual-format manifests) unless explicitly requested.
+- Keep docs aligned with actual behavior. If code changes public behavior or package usage, update the relevant README and any affected files under `docs/guide/` or demo docs such as `examples/web/README.md`.
+
+## Validation
+
+- Run `pnpm verify` for repo-wide validation.
+- Run `pnpm pack:check` before release-related changes.
+- Run `pnpm build:web` when the demo app or bundling behavior changes.
+- If you change a workspace package manifest, the workspace graph, or the lockfile, verify with `pnpm install --frozen-lockfile` before finishing.
+- Before handing off changes that should match CI behavior, run the same validation steps locally in CI order, such as `pnpm verify:ci`, `pnpm test:coverage`, and `pnpm pack:check`, executing them sequentially.
+- Do not run repo-wide validation commands in parallel. Execute `pnpm verify`, `pnpm build:web`, `pnpm pack:check`, and similar full-repo build/test commands sequentially because they share build outputs and can conflict with each other.
+- Never read the full output of long-running commands (`pnpm verify`, `pnpm build`, `pnpm build:web`, `pnpm pack:check`, `pnpm test`, etc.) — it wastes context. Default to discarding output and checking the exit code only, e.g. `pnpm verify > /dev/null 2>&1; echo $?`. When you need the run summary (test counts, coverage totals), use `tail -n 40`. On failure, re-run and pipe through `grep` for the error context, or expand to ~100 lines when needed.
+
+## Versioning
+
+- If a publishable package changes in a way that should reach npm, add a changeset with `pnpm changeset`.
+- Do not add a changeset for docs-only or demo-only changes.
+- Use `minor` for public API or contract changes.
+- Use `patch` for fixes, packaging corrections, and non-breaking updates.
+- Do not manually edit published package versions.
+
+---
+> Source: [zeikar/charivo](https://github.com/zeikar/charivo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-24 -->
