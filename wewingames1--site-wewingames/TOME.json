@@ -4,7 +4,7 @@
   "repo": "SITE-WeWinGames",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WeWinGames1/SITE-WeWinGames",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T00:31:55Z"
+  "distributed_at": "2026-05-24T00:41:05Z"
 }
