@@ -1,0 +1,9 @@
+{
+  "name": "excitedjs--claudemux",
+  "displayName": "claudemux",
+  "description": "Multi-repo Claude Code orchestrator: one dispatcher, many tmux teammates across sibling repos.",
+  "version": "1.0.0",
+  "author": "excitedjs",
+  "homepage": "https://github.com/excitedjs/claudemux",
+  "skills": []
+}
