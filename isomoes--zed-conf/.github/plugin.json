@@ -1,0 +1,9 @@
+{
+  "name": "isomoes--zed-conf",
+  "displayName": "zed-conf",
+  "description": "Zed editor configuration files",
+  "version": "1.0.0",
+  "author": "isomoes",
+  "homepage": "https://github.com/isomoes/zed-conf",
+  "skills": []
+}
