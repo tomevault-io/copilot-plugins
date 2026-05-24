@@ -4,7 +4,7 @@
   "repo": "unusual-whales",
   "description": "Live Unusual Whales options scanner",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moremeds/unusual-whales",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T08:33:19Z"
+  "distributed_at": "2026-05-24T08:35:17Z"
 }
