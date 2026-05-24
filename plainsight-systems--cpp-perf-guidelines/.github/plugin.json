@@ -1,0 +1,9 @@
+{
+  "name": "plainsight-systems--cpp-perf-guidelines",
+  "displayName": "cpp-perf-guidelines",
+  "description": "Low-level C++ performance guidelines for game-engine and embedded systems \u2014 the technique layer below the ISO C++ Core Guidelines",
+  "version": "1.0.0",
+  "author": "plainsight-systems",
+  "homepage": "https://github.com/plainsight-systems/cpp-perf-guidelines",
+  "skills": []
+}
