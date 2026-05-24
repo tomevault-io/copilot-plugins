@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--ai-usagebar",
+  "displayName": "ai-usagebar",
+  "description": "Rust-based waybar widget to monitor status of Claude, GPT, GLM, OpenRouter plans/credits - inspired by claudebar/codexbar",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/ai-usagebar",
+  "skills": []
+}
