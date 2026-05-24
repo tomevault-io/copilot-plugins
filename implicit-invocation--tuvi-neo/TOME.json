@@ -4,7 +4,7 @@
   "repo": "tuvi-neo",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/implicit-invocation/tuvi-neo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-24T04:30:51Z"
+  "distributed_at": "2026-05-24T04:31:25Z"
 }
