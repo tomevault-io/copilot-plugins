@@ -1,0 +1,9 @@
+{
+  "name": "secure-vector--securevector-ai-threat-monitor",
+  "displayName": "securevector-ai-threat-monitor",
+  "description": "Real-time AI security. Protect your apps from prompt injection, leaks, and attacks in just a few lines of code. Compatible with OpenAI, Claude, and all major LLM APIs.",
+  "version": "1.0.0",
+  "author": "Secure-Vector",
+  "homepage": "https://github.com/Secure-Vector/securevector-ai-threat-monitor",
+  "skills": []
+}
