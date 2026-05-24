@@ -7,11 +7,11 @@ Terminal UI framework built on Vue and Vite. Components, layout, focus, HMR, and
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vuejs-ai/vue-tui](https://github.com/vuejs-ai/vue-tui).
+Original source: `CLAUDE.md` in [vuejs-ai/vue-tui](https://github.com/vuejs-ai/vue-tui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
