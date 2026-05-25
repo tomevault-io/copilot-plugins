@@ -1,0 +1,9 @@
+{
+  "name": "adambien--zsmith",
+  "displayName": "zsmith",
+  "description": "Plain Java Agent with Claude LLM",
+  "version": "1.0.0",
+  "author": "AdamBien",
+  "homepage": "https://github.com/AdamBien/zsmith",
+  "skills": []
+}
