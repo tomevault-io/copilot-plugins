@@ -1,92 +1,98 @@
-## calendly-widget-integration
+## check-platform-features-first
 
-> Calendly widget integration patterns for Next.js
+> Always verify platform features before building custom solutions
 
 
-# Calendly Widget Integration (Next.js)
+# Check Platform Features FIRST
 
-## Script Loading
+**Before building ANY integration, API wrapper, or automation:**
 
-Load Calendly script **once globally** in root layout using `strategy="afterInteractive"`:
+## Step 1: Research What Exists
 
-```tsx
-// app/layout.tsx
-<Script
-  src="https://assets.calendly.com/assets/external/widget.js"
-  strategy="afterInteractive"
-/>
+```bash
+# ALWAYS search documentation first:
+# - "RealScout features 2026"
+# - "Follow Up Boss API capabilities"
+# - "Calendly integrations"
 ```
 
-**Important**: Use `afterInteractive` (not `beforeInteractive`) because the widget needs DOM to be ready.
+## Step 2: Ask These Questions
 
-## Widget Component Pattern
+1. **Does the platform already do this?**
+   - Check official docs
+   - Search for native integrations
+   - Look for recent updates (2025-2026)
 
-Use `useEffect` with `Calendly.initInlineWidget()` API:
+2. **Is there a native integration?**
+   - RealScout ↔ Follow Up Boss: ✅ NATIVE
+   - Calendly ↔ Most CRMs: ✅ NATIVE
+   - Always use native over custom
 
-```tsx
-// ✅ CORRECT - Use initInlineWidget API
-"use client";
-import { useEffect, useRef } from "react";
+3. **Am I adding real value?**
+   - Rate limiting: ✅ Useful
+   - Caching: ✅ Useful
+   - Wrapper around working API: ❌ Not useful
 
-export default function CalendlyWidget({ url = "https://calendly.com/drjanduffy/showing" }) {
-  const widgetRef = useRef<HTMLDivElement>(null);
+## Step 3: State What You Found
 
-  useEffect(() => {
-    const initWidget = () => {
-      if ((window as any).Calendly && widgetRef.current) {
-        widgetRef.current.innerHTML = "";
-        const widgetDiv = document.createElement("div");
-        widgetDiv.className = "calendly-inline-widget";
-        widgetDiv.setAttribute("data-url", url);
-        widgetDiv.style.height = "700px";
-        widgetRef.current.appendChild(widgetDiv);
-        
-        (window as any).Calendly.initInlineWidget({
-          url: url,
-          parentElement: widgetDiv,
-        });
-      }
-    };
+**Before building, say:**
 
-    if ((window as any).Calendly) {
-      initWidget();
-    } else {
-      const check = setInterval(() => {
-        if ((window as any).Calendly) {
-          clearInterval(check);
-          initWidget();
-        }
-      }, 100);
-      setTimeout(() => clearInterval(check), 10000);
-    }
-  }, [url]);
+> "I researched [Platform] and found:
+> - Native integration with [Other Platform]: YES/NO
+> - Built-in [feature]: YES/NO
+> - My proposed solution: [enhancement/duplicate]
+> 
+> Should I proceed?"
 
-  return <div ref={widgetRef} style={{ height: "700px", width: "100%" }} />;
-}
+## Real Examples
+
+### ❌ BAD: Building Without Research
+```typescript
+// User: "Integrate RealScout with Follow Up Boss"
+// AI: [Builds custom webhook handlers immediately]
+// Result: Duplicates native integration
 ```
 
-```tsx
-// ❌ WRONG - dangerouslySetInnerHTML doesn't initialize widget
-<div dangerouslySetInnerHTML={{
-  __html: `<div class="calendly-inline-widget" data-url="${url}"></div>`
-}} />
+### ✅ GOOD: Research First
+```typescript
+// User: "Integrate RealScout with Follow Up Boss"
+// AI: "RealScout has native FUB integration (Admin → Integrations).
+//      Should I help configure the native integration instead?"
+// Result: Uses what already exists
 ```
 
-## CSP Headers Required
+## Platforms to Always Check
 
-Add these domains to `next.config.js` CSP:
+**Real Estate:**
+- RealScout (has AI search, FUB integration)
+- Follow Up Boss (has webhooks, automation, integrations)
+- Zillow Premier Agent
+- Realtor.com
+- MLS systems
 
-```js
-"script-src": "https://assets.calendly.com",
-"style-src": "https://assets.calendly.com", 
-"font-src": "https://assets.calendly.com",
-"connect-src": "https://calendly.com",
-"frame-src": "https://calendly.com https://assets.calendly.com"
-```
+**Marketing/CRM:**
+- Calendly (scheduling)
+- Mailchimp (email)
+- HubSpot (CRM)
 
-## Current Calendly URL
+**Infrastructure:**
+- Vercel (deployment)
+- Cloudflare (CDN/security)
+- GitHub (CI/CD)
 
-Dr. Jan Duffy's scheduling link: `https://calendly.com/drjanduffy/showing`
+## When to Build Custom
+
+✅ Build custom solutions ONLY when:
+- Platform doesn't have the feature
+- You need specific optimization (caching, rate limiting)
+- Native integration doesn't meet requirements
+- Adding genuine intelligence (AI analysis)
+
+❌ Don't build when:
+- Platform already does it
+- Native integration exists
+- You're just wrapping their API
+- It's "nice to have" convenience
 
 ---
 > Source: [LetMeHelpYouREALTY/opportunityzonespecialists.com](https://github.com/LetMeHelpYouREALTY/opportunityzonespecialists.com) — distributed by [TomeVault](https://tomevault.io).
