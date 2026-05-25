@@ -1,37 +1,88 @@
-## banking-preset
+## developer-ux
 
-> TCMB/bankacılık referans preset — embed, IndexedDB, çevrimiçi güncelleme
+> Geliştirici mimarisi ve UI/UX yaklaşımı (Wiki §9)
 
 
-# Bankacılık Referans Preset
+# Geliştirici ve UI/UX Yaklaşımı
 
-## Katmanlar
+Kaynak: `docs/WIKI.md` §9. Bu kural tüm geliştirme oturumlarında geçerlidir.
 
-1. **Embed** — build ile `src/data/banking-presets/tr-*.json` gömülür
-2. **IndexedDB** — `bankingPreset` store; aktif kayıt
-3. **Okuma önceliği** — DB varsa DB, yoksa embed
+## Mimari ve kod
 
-## Çevrimiçi güncelleme
+- **Modüler** yapı; özellikler `src/features/`, paylaşılan UI `src/components/`
+- **Kütüphane odaklı**; tekrar kullanılabilir composable ve bileşenler
+- Kod tekrarını **en aza indir**; üç kez tekrar → extract
+- Finans hesabı `src/finance/` içinde **saf TS**; Vue bileşenlerinde iş mantığı yok
+- Minimal diff; mevcut convention'a uy
 
-- Yalnızca kullanıcı "Güncelle" dediğinde ve `navigator.onLine`
-- `fetch(feedUrl)` → JSON → `BankingPresetSchema` (Zod)
-- Başarı: `put` ile DB kaydını **ez**; `source: 'remote'`, `fetchedAt` ISO
-- Hata: embed/DB korunur; kullanıcıya toast
+## Kullanılabilirlik
 
-## Manuel import
+- Sezgisel, esnek, **kolay** arayüz
+- Karmaşık ve **dağınık olmayan** yerleşim; bir ekranda tek ana görev
+- Finansal kullanım odaklı: tutarlar belirgin, hata mesajları anlaşılır
 
-- Dosya seçici → aynı Zod şema → DB ezme (`source: 'import'`)
+## Görünüm ve cihaz
 
-## Form kullanımı
+- **Mobile-first**; responsive kırılımlar
+- **Açık / karanlık** tema; sistem tercihi + manuel geçiş
+- Ant Design Vue token sistemi; **Tailwind yok**
+- On-demand import; tek HTML bundle boyutunu gözet
+- **Sayfa genişliği:** AppShell `router-view` → `.kp-page`. Varsayılan dar sütun (`--kp-page-max-width: 800px`). **Liste sayfaları** route `meta.pageLayout: 'wide'` ile tam yatay genişlik (`.kp-page--wide`); tablo/liste ekranlarında zorunlu
+- **Kaydırma çubukları:** `body` dışında yalnızca hover'da görünür (`app.css` global kural)
+- **Tooltip (mobil):** `KpTooltip`; `≤768px` tooltip yok (ui-patterns.mdc)
+- **Drawer (mobil):** `FormDrawer` tam ekran; stack sola kaydırma yok (ui-patterns.mdc)
+- **Modal:** kullanılabilir alanın dikey ortasında; JSON blokları `JsonCodeBlock` ile renklendirilmiş + satır kırılımı
+- **Sekmeli sayfalar:** seçili sekme URL'de (`?tab=`); yenilemede aynı sekme — `useRoutedTabs`
 
-- Düğme metni daima **"Referansla doldur"** (kullanıcıya `preset` terimini gösterme); örn. `LoanFormDrawer` KKDF+BSMV alanı
-- Yalnızca preset okur; kullanıcı alanları sonra düzenler
-- Hesap motoru kullanıcı/sözleşme oranını kullanır, preset'i değil
+## İkonlar
 
-## Şema
+- **Emoji kullanma.** Her durumda ya `@ant-design/icons-vue` ya da `src/components/icons/*` SVG bileşenleri
+- Renk `currentColor`, boyut `1em` (yazı tipi büyüklüğüne ölçeklensin)
+- AntDV'de karşılığı olmayanlar için küçük inline SVG → ortak `icons/` klasörüne ekle
+- `aria-label` veya `role="img"` ile erişilebilir tut
 
-- `id`, `label`, `effectiveFrom`, `schemaVersion`, ürün blokları (`creditCard`, …)
-- Uzak feed ile embed **aynı şema**
+## Kabuk (AppShell)
+
+| Bileşen | Gereksinim |
+|---------|------------|
+| Sol menü | Collapsible; **pin** ile sabitlenebilir (tercih localStorage) |
+| Navbar | **Global arama** — banka, hesap, borç, gelir, gider indeksi |
+| Formlar | **Drawer**; modal yerine tercih et |
+
+## Drawer + combobox
+
+- Form drawer: **`FormDrawer`** + `stackId`; `useDrawerStack` — z-index artar; masaüstünde **alttaki drawer sola kayar** (44px/katman); **mobilde tam ekran, kaydırma yok**
+- Açılışta ilk form alanına otomatik focus
+- Liste/combobox **「Yeni Kayıt」** → drawer mevcut drawer **üstüne**; üst kapanınca alttaki kalır
+
+## Liste öncelikli UI
+
+- Her veri türü için **liste sayfası** önce; detay/düzenleme drawer veya yan panel
+- **`EntityListPage`:** tablo dikeyde kalan alanı doldurur (`scroll.y`); sütunlar `prepareListTableColumns` ile `minWidth` alır — **%100'e sıkışmaz**; gerekince yatay kaydırma (`scroll.x`). Sekme içi başlık yok; masaüstü araç çubuğu tek satır (arama + filtre ikonu · ortada arşiv · yeni kayıt); mobilde arşiv segmenti üstte ortada, liste **kart** görünümü
+- **Filtreler arama kutusunun sağındaki popover'da** (`FilterOutlined` + aktif rozet); banka built-in (`bank-filter` + `:banks`), diğerleri **declarative** `:filters="ListFilter<T>[]"` (`select` / `numberRange` / `dateRange`). Inline filter yerleştirme yapma
+- Tüm listelerde: **sıralama**, **sayfalama**, **arama**, **filtreleme** (client-side Dexie); **liste sütunlarında tooltip yok** (`Table` `:show-sorter-tooltip="false"`; ellipsis `{ showTitle: false }`)
+- **URL durumu kalıcı:** arama, arşiv, banka, sıralama, sayfa, sayfa boyutu + tüm declarative filtreler `useListQuery({ key })` ile URL query'de; `EntityListPage` `state-key` prop ile prefiks (sekmeli ve çoklu listeli sayfalarda zorunlu)
+- **Masaüstü:** tablo satırına tıklayınca düzenleme drawer (`EntityListPage` → `@edit`)
+- Boş durum ve yükleme skeleton'ları
+
+## Grafik ve rapor
+
+- Önemli metrikler **ECharts** ile dashboard'da
+- Ayrı **analiz / rapor** sayfaları; ileride Excel/PDF yalnızca görünür tablo/grafikten
+
+## Bölgesel biçim
+
+- Varsayılan Türkiye; profil `localeSettings` ile override
+- Tutar/tarih: `Intl` + profil ayarı; timezone **Europe/Istanbul** varsayılan
+- **Para birimi** yalnızca Ayarlar → Bölgesel; formlarda seçilemez (`LocaleInputNumber` + kayıtta profil `currency`)
+- Form tutar/yüzde: `LocaleInputNumber`; ondalık hane ve ayırıcılar locale'e göre
+- Asla ham ISO tarihini kullanıcıya gösterme
+
+## Çalışma disiplini
+
+- Milestone sırasına uy (TODO.md)
+- Tamamlanan iş → `CHANGELOG.md`; planlanan → `TODO.md`
+- Belirsiz iş kuralı → Wiki / ARCHITECTURE'a sor veya not düş
 
 ---
 > Source: [kemalersin/kurtarma-plani](https://github.com/kemalersin/kurtarma-plani) — distributed by [TomeVault](https://tomevault.io).
