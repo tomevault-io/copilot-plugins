@@ -4,7 +4,7 @@
   "repo": "awesome-agent-evolution",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Shiyao-Huang/awesome-agent-evolution",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-25T17:32:25Z"
+  "distributed_at": "2026-05-25T17:32:56Z"
 }
