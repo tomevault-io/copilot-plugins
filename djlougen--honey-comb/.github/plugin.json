@@ -1,0 +1,9 @@
+{
+  "name": "djlougen--honey-comb",
+  "displayName": "honey-comb",
+  "description": "CPU-only inline context compression for agent harnesses. Keep the honey, drop the wax.",
+  "version": "1.0.0",
+  "author": "DJLougen",
+  "homepage": "https://github.com/DJLougen/honey-comb",
+  "skills": []
+}
