@@ -1,103 +1,21 @@
-## pm-brain-for-cursor
+## product-sense
 
-> You are a product management coach helping navigate and use the PM Brain repository — a PM knowledge system.
+> >-
 
-# PM Brain Coach
 
-You are a product management coach helping navigate and use the PM Brain repository — a PM knowledge system.
+# Product sense (coaching layer)
 
-## Your Role
+Before generating a **product brief** or **PRD** in this repo, follow **[`PRODUCT-RULES.md`](../../PRODUCT-RULES.md)**.
 
-Help PMs create better product artifacts: brainstorm, write PRDs, briefs, IFAs, support articles, and research outputs.
+1. Read `PRODUCT-RULES.md` when the user asks for a brief, PRD, one-pager, feature pitch, or similar — including ad-hoc prompts (not only slash commands).
+2. Apply the **"When the gate applies"** table in that file:
+   - **Product brief** → run the braindump gate (3–5 product-sense questions + sufficiency checklist) **before** opening templates or the `create-product-brief` skill's research step.
+   - **PRD** → run the gate **only if** no brief exists (`01-product-brief.md` in the feature hub **or** an explicit brief path from the user). Otherwise proceed with the doc skill.
+   - **IFA, support article, competitive landscape, interview-frameworks** → no braindump gate.
+3. Do **not** open `02-templates/` or write structured outlines until the sufficiency checklist passes or the user says **"skip braindump"** (log the override per `PRODUCT-RULES.md`).
+4. When a doc skill is invoked (`create-product-brief`, `create-prd`), follow that skill's Step 0.5 if present — it implements this gate in detail.
 
-## Coaching layer
-
-Before structured doc output (briefs, PRDs without an existing brief), follow **[`PRODUCT-RULES.md`](PRODUCT-RULES.md)** — braindump before structure. The agent asks product-sense questions and runs a sufficiency checklist before opening templates. Cursor enforces this via [`.cursor/rules/product-sense.mdc`](.cursor/rules/product-sense.mdc).
-
-## PM-Brain Repository Structure
-
-```
-pm-brain/
-├── 01-context/                 # Filled company context (ships empty; see 01-context/README.md)
-│   ├── 01-about-company.md     # Who we are, positioning, ICP
-│   ├── 02-products.md          # Modules, tiers, packaging
-│   ├── 03-product-vision.md    # Product direction and strategic themes
-│   ├── 04-competition.md       # Competitive landscape
-│   └── 05-glossary.md          # Canonical terms (optional)
-├── 02-templates/               # Doc templates; workflow in 02-templates/README.md
-│   ├── README.md
-│   ├── context/                # Context pack (01..04, optional 05) → copy into 01-context/
-│   │   ├── 01-about-company.md
-│   │   ├── 02-products.md
-│   │   ├── 03-product-vision.md
-│   │   ├── 04-competition.md
-│   │   └── 05-glossary.md      # Optional
-│   └── product/                # Product doc pack (01..05) → projects/ hubs
-│       ├── 01-product-brief.md
-│       ├── 02-product-requirements.md
-│       ├── 03-success-metrics.md
-│       ├── 04-internal-feature-announcement.md
-│       └── 05-support-article.md
-├── projects/                   # Feature hubs: PROJECT-{id}-{slug}/ with 01–05 files
-│   └── EXAMPLE-0001-sample-feature/   # Compact fictional sample hub
-├── scripts/
-│   └── check_doc_skills.sh     # Skill structure check
-├── .cursor/
-│   ├── skills/                 # Cursor skills (create-product-brief, create-prd, ...)
-│   ├── agents/                 # Subagent definitions (company-context-researcher, prd-critic, ...)
-│   ├── commands/               # Slash commands (/start, /setup, /critique-prd, /critique-agent)
-│   ├── rules/                  # Always-on rules (pm-brain-doc-workflow, product-sense)
-│   └── mcp.json.example        # Optional MCP config template
-├── .vscode/
-│   └── settings.json           # Auto-activates .venv in new Cursor terminals (Python ext.)
-├── requirements.txt            # Optional Python scripting helpers; provisioned by /setup
-├── AGENTS.md                   # This file — agent coach prompt
-├── PRODUCT-RULES.md            # Braindump-before-structure golden rule
-├── CONTRIBUTING.md             # Skill conventions + check script
-├── SECURITY.md                 # Do-not-commit list
-└── LICENSE                     # MIT
-```
-
-**01-context** — Filled company context (`01`–`04`, optionally `05`). Skills read this folder at runtime. Ships **empty** — only `README.md` is here until you bootstrap. Run **`/start`** (skill `start`) with company name + URL to research the public web and populate this folder automatically; or copy blank templates from `02-templates/context/` manually.
-
-**02-templates** — Template packs: `context/` (company facts → `01-context/`) and `product/` (doc pack → `projects/`). Workflow, naming conventions, and skill mapping live in [02-templates/README.md](02-templates/README.md).
-
-**projects/** — One folder per initiative: `projects/PROJECT-{id}-{slug}/` (see [Feature hub convention](02-templates/README.md#feature-hub-convention)). Example: [`projects/EXAMPLE-0001-sample-feature/`](projects/EXAMPLE-0001-sample-feature/).
-
-## Recommended flow
-
-| Step | Output (templates) | Cursor skill (under `.cursor/skills/`) |
-|------|--------------------|------------------------------------------|
-| 0 | `01-product-brief.md` | `create-product-brief` |
-| 1 | `02-product-requirements.md` + `03-success-metrics.md` | `create-prd` |
-| 2 | `04-internal-feature-announcement.md` | `create-internal-feature-announcement` |
-| 3 | `05-support-article.md` | `create-support-article` |
-
-Run steps in order when starting from scratch: **brief → PRD pack → IFA → support article**. Skip steps only when the task is scoped (for example, refreshing an IFA or drafting a support article from an existing PRD); see [Skipping steps](02-templates/README.md#skipping-steps-minimal-pack).
-
-Skill entrypoints: [create-product-brief/SKILL.md](.cursor/skills/create-product-brief/SKILL.md), [create-prd/SKILL.md](.cursor/skills/create-prd/SKILL.md), [create-internal-feature-announcement/SKILL.md](.cursor/skills/create-internal-feature-announcement/SKILL.md), [create-support-article/SKILL.md](.cursor/skills/create-support-article/SKILL.md).
-
-### Onboarding
-
-| Workflow | Cursor skill / command |
-|----------|------------------------|
-| Bootstrap company context from website | `start` / **`/start`** |
-| Provision local Python venv for scripting helpers | **`/setup`** |
-
-Subagent: [`company-context-researcher`](.cursor/agents/company-context-researcher.md) — web research only; writes a scratch brief to `.cache/start/brief.md` (gitignored), and the orchestrator maps it into `01-context/`.
-
-`/setup` is a self-contained slash command (procedure inline in [`.cursor/commands/setup.md`](.cursor/commands/setup.md), no skill). It creates `.venv/` at the repo root and installs [`requirements.txt`](requirements.txt). [`.vscode/settings.json`](.vscode/settings.json) auto-activates the venv in every new Cursor terminal when the Python extension is active (look for `(.venv)` in the prompt).
-
-### Other repo skills (same `SKILL.md` tree)
-
-| Workflow | Cursor skill |
-|----------|--------------|
-| Competitive landscape analysis | `competitive-landscape` |
-| User interviews and qualitative research | `interview-frameworks` |
-| Critique an existing brief or PRD pack (red-team / pre-mortem) | `critique-agent` |
-| Rubric-scored PRD critique with 4-persona panel | `critique-prd` |
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for skill authoring conventions.
+Doc pack workflow (order, feature hubs) remains in **[`AGENTS.md`](../../AGENTS.md)** and **[`pm-brain-doc-workflow.mdc`](pm-brain-doc-workflow.mdc)**.
 
 ---
 > Source: [ertra/pm-brain-for-cursor](https://github.com/ertra/pm-brain-for-cursor) — distributed by [TomeVault](https://tomevault.io).
