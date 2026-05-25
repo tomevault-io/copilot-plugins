@@ -1,0 +1,9 @@
+{
+  "name": "cortesi--clonetree",
+  "displayName": "clonetree",
+  "description": "Fast copy-on-write directory duplication for Rust",
+  "version": "1.0.0",
+  "author": "cortesi",
+  "homepage": "https://github.com/cortesi/clonetree",
+  "skills": []
+}
