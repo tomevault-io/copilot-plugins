@@ -1,0 +1,44 @@
+{
+  "name": "zk-creative-process-skill",
+  "owner": "ZK-JackUltra",
+  "repo": "zk-creative-process-skill",
+  "description": "\u4e70\u91cf\u7d20\u6750\u5904\u7406\u6d41\u7a0b",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ZK-JackUltra/zk-creative-process-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-25T03:31:22Z"
+}
