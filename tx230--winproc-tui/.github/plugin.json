@@ -1,0 +1,9 @@
+{
+  "name": "tx230--winproc-tui",
+  "displayName": "winproc-tui",
+  "description": "Rust/Ratatui TUI for Windows 11 process investigation with live metrics, time-series graphs, A/B comparison, recording.",
+  "version": "1.0.0",
+  "author": "TX230",
+  "homepage": "https://github.com/TX230/winproc-tui",
+  "skills": []
+}
