@@ -1,0 +1,9 @@
+{
+  "name": "romanticamaj--cppsystemdesignnotes",
+  "displayName": "CppSystemDesignNotes",
+  "description": "A collection of notes, deep dives, and examples covering Modern C++ (C++11\u2013C++23), real-time audio programming techniques, and embedded Linux system design.",
+  "version": "1.0.0",
+  "author": "romanticamaj",
+  "homepage": "https://github.com/romanticamaj/CppSystemDesignNotes",
+  "skills": []
+}
