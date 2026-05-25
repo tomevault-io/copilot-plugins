@@ -4,7 +4,7 @@
   "repo": "custom-spark",
   "description": "Apache Spark source code study repository focused on big data processing and distributed computing.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nhnammldlnlpcvrs/custom-spark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-25T02:36:40Z"
+  "distributed_at": "2026-05-25T02:40:35Z"
 }
