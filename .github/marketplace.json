@@ -163414,6 +163414,11 @@
       "description": "Plain Java Agent with Claude LLM"
     },
     {
+      "name": "ca-srg--ragent",
+      "source": "./ca-srg--ragent",
+      "description": "CLI tool for building production RAG systems from Markdown, CSV, and PDF documents using hybrid search (BM25 + vector) with OpenSearch. Features MCP server, Slack bot, Web UI, multi-source ingestion ("
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173929,6 +173934,16 @@
       "description": "Fancy AI is a sleek chatbot and generative sandbox right on your device. Chat with advanced AI models via OpenRouter and deploy a mini-A1111 playground for instant text-to-image creation. Inspired by "
     },
     {
+      "name": "acatovic--ai-game-studio",
+      "source": "./acatovic--ai-game-studio",
+      "description": "AI generation of 2d game assets such as spritesheets"
+    },
+    {
+      "name": "jayhome137--deepseekmonitor",
+      "source": "./jayhome137--deepseekmonitor",
+      "description": "DeepSeekMonitor"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176467,6 +176482,11 @@
       "name": "zoujingli--smartadmin",
       "source": "./zoujingli--smartadmin",
       "description": "SmartAdmin open-source Hyperf administration framework"
+    },
+    {
+      "name": "oines--astralops",
+      "source": "./oines--astralops",
+      "description": "AstralOps"
     },
     {
       "name": "keshavxa--keshav-portfolio",
