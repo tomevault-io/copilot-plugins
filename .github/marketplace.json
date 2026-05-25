@@ -16169,6 +16169,16 @@
       "description": "Implement a modern note-taking app style in Org-mode."
     },
     {
+      "name": "openguardrails--openguardrails",
+      "source": "./openguardrails--openguardrails",
+      "description": "AI Agent Firewall"
+    },
+    {
+      "name": "openguardrails--openguardrails",
+      "source": "./openguardrails--openguardrails",
+      "description": "AI Agent Firewall"
+    },
+    {
       "name": "kkokosa--dotllm",
       "source": "./kkokosa--dotllm",
       "description": "LLM inference engine written in .NET"
@@ -102819,6 +102829,11 @@
       "description": "Demo chatbot app that the user can easily write product requirement document for building MVP using Generative AI through Amazon Bedrock."
     },
     {
+      "name": "realrossmanngroup--no-ai-slop-writing-rules",
+      "source": "./realrossmanngroup--no-ai-slop-writing-rules",
+      "description": "Claude Code reference: write in Louis Rossmann's voice, never like AI slop. Portable CLAUDE.md plus skills."
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -142592,6 +142607,11 @@
       "name": "vuejs-ai--vue-tui",
       "source": "./vuejs-ai--vue-tui",
       "description": "Terminal UI framework built on Vue and Vite. Components, layout, focus, HMR, and testing out of the box."
+    },
+    {
+      "name": "zk-jackultra--zk-creative-process-skill",
+      "source": "./zk-jackultra--zk-creative-process-skill",
+      "description": "\u4e70\u91cf\u7d20\u6750\u5904\u7406\u6d41\u7a0b"
     },
     {
       "name": "yschimke--compose-ai-tools",
