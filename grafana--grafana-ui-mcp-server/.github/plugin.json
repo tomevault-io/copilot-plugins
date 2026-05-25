@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-ui-mcp-server",
+  "displayName": "grafana-ui-mcp-server",
+  "description": " An mcp server to allow LLMS gain context about grafana-ui component structure, usage and installation ",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-ui-mcp-server",
+  "skills": []
+}
