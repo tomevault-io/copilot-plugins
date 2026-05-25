@@ -1,0 +1,9 @@
+{
+  "name": "ca-srg--ragent",
+  "displayName": "ragent",
+  "description": "CLI tool for building production RAG systems from Markdown, CSV, and PDF documents using hybrid search (BM25 + vector) with OpenSearch. Features MCP server, Slack bot, Web UI, multi-source ingestion (",
+  "version": "1.0.0",
+  "author": "ca-srg",
+  "homepage": "https://github.com/ca-srg/ragent",
+  "skills": []
+}
