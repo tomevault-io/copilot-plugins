@@ -1,0 +1,9 @@
+{
+  "name": "2winter-dev--ihermes",
+  "displayName": "iHermes",
+  "description": "A mobile-first Hermes client built with Expo. Connect to your own Hermes agent directly from Android / iOS / Web(PWA), with no mandatory backend service.",
+  "version": "1.0.0",
+  "author": "2winter-dev",
+  "homepage": "https://github.com/2winter-dev/iHermes",
+  "skills": []
+}
