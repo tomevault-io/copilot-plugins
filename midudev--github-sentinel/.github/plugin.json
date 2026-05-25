@@ -1,0 +1,9 @@
+{
+  "name": "midudev--github-sentinel",
+  "displayName": "github-sentinel",
+  "description": "Crea un centinela para tu GitHub que te avise de cositas",
+  "version": "1.0.0",
+  "author": "midudev",
+  "homepage": "https://github.com/midudev/github-sentinel",
+  "skills": []
+}
