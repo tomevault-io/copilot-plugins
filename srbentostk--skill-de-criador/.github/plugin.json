@@ -1,0 +1,9 @@
+{
+  "name": "srbentostk--skill-de-criador",
+  "displayName": "skill-de-criador",
+  "description": "Plugin multiagente para escrever roteiros de v\u00eddeo curto em PT-BR",
+  "version": "1.0.0",
+  "author": "srbentostk",
+  "homepage": "https://github.com/srbentostk/skill-de-criador",
+  "skills": []
+}
