@@ -4,7 +4,7 @@
   "repo": "github-sentinel",
   "description": "Crea un centinela para tu GitHub que te avise de cositas",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/midudev/github-sentinel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-25T20:31:59Z"
+  "distributed_at": "2026-05-25T20:33:50Z"
 }
