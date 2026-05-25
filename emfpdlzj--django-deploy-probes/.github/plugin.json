@@ -1,0 +1,9 @@
+{
+  "name": "emfpdlzj--django-deploy-probes",
+  "displayName": "django-deploy-probes",
+  "description": "HTTP deployment probes for Django applications.",
+  "version": "1.0.0",
+  "author": "emfpdlzj",
+  "homepage": "https://github.com/emfpdlzj/django-deploy-probes",
+  "skills": []
+}
