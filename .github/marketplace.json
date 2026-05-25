@@ -142729,6 +142729,16 @@
       "description": "Skills that get AI assistants to stop agreeing with bad product ideas by default \u2014 pressure-test premises, separate hobbies from businesses, and refuse validation theater."
     },
     {
+      "name": "hangyu8123--harnessflow",
+      "source": "./hangyu8123--harnessflow",
+      "description": "Harness coding workflow for codex, claude, github copilot"
+    },
+    {
+      "name": "hangyu8123--harnessflow",
+      "source": "./hangyu8123--harnessflow",
+      "description": "Harness coding workflow for codex, claude, github copilot"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
