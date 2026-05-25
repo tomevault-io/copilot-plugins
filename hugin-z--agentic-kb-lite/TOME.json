@@ -1,0 +1,44 @@
+{
+  "name": "agentic-kb-lite",
+  "owner": "Hugin-Z",
+  "repo": "agentic-kb-lite",
+  "description": "\u57fa\u4e8e ripgrep + LLM \u7684\u8f7b\u91cf\u4e2a\u4eba/\u90e8\u95e8\u77e5\u8bc6\u5e93\uff1bLightweight local knowledge base using ripgrep + LLM (agent loop, multi-modal, no vectors, no external API)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Hugin-Z/agentic-kb-lite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-25T02:33:18Z"
+}
