@@ -7,11 +7,11 @@ Plugin multiagente para escrever roteiros de vídeo curto em PT-BR
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [srbentostk/skill-de-criador](https://github.com/srbentostk/skill-de-criador).
+Original source: `AGENTS.md` in [srbentostk/skill-de-criador](https://github.com/srbentostk/skill-de-criador).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
