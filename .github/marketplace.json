@@ -174054,6 +174054,41 @@
       "description": " An mcp server to allow LLMS gain context about grafana-ui component structure, usage and installation "
     },
     {
+      "name": "ayush-that--tara-app",
+      "source": "./ayush-that--tara-app",
+      "description": "Tara \u2014 voice-first astrology counselling, Hinglish, real-time."
+    },
+    {
+      "name": "ayush-that--tara-app",
+      "source": "./ayush-that--tara-app",
+      "description": "Tara \u2014 voice-first astrology counselling, Hinglish, real-time."
+    },
+    {
+      "name": "midudev--github-sentinel",
+      "source": "./midudev--github-sentinel",
+      "description": "Crea un centinela para tu GitHub que te avise de cositas"
+    },
+    {
+      "name": "crowdsecurity--crowdsec-skill",
+      "source": "./crowdsecurity--crowdsec-skill",
+      "description": "CrowdSec Skill : Install, configure, debug and operate crowdsec"
+    },
+    {
+      "name": "midudev--github-sentinel",
+      "source": "./midudev--github-sentinel",
+      "description": "Crea un centinela para tu GitHub que te avise de cositas"
+    },
+    {
+      "name": "yowmamasita--usa-tv-next",
+      "source": "./yowmamasita--usa-tv-next",
+      "description": "USA TV Next - Stremio addon - live TV channels"
+    },
+    {
+      "name": "ic3b3rg--learn-skills",
+      "source": "./ic3b3rg--learn-skills",
+      "description": "learn-skills"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176597,6 +176632,11 @@
       "name": "oines--astralops",
       "source": "./oines--astralops",
       "description": "AstralOps"
+    },
+    {
+      "name": "r6z7ysn7yh-droid--spark-ai-copilot",
+      "source": "./r6z7ysn7yh-droid--spark-ai-copilot",
+      "description": "spark-ai-copilot"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -279937,6 +279977,31 @@
       "name": "619135593--car-soa",
       "source": "./619135593--car-soa",
       "description": "car-soa"
+    },
+    {
+      "name": "franciscolgm--simple-swap-dapp",
+      "source": "./franciscolgm--simple-swap-dapp",
+      "description": "simple-swap-dapp"
+    },
+    {
+      "name": "airrnot1106--bkm-old",
+      "source": "./airrnot1106--bkm-old",
+      "description": "bkm-old"
+    },
+    {
+      "name": "ylabo0717--infinity-emb-server",
+      "source": "./ylabo0717--infinity-emb-server",
+      "description": "infinity-emb-server"
+    },
+    {
+      "name": "joshuapsteele--st-matthews-toledo",
+      "source": "./joshuapsteele--st-matthews-toledo",
+      "description": "St. Matthew's Episcopal Church website - Toledo, OH"
+    },
+    {
+      "name": "romanticamaj--cppsystemdesignnotes",
+      "source": "./romanticamaj--cppsystemdesignnotes",
+      "description": "A collection of notes, deep dives, and examples covering Modern C++ (C++11\u2013C++23), real-time audio programming techniques, and embedded Linux system design."
     }
   ]
 }
