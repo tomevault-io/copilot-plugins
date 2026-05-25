@@ -1,0 +1,9 @@
+{
+  "name": "ianm199--lua-rs",
+  "displayName": "lua-rs",
+  "description": "A Lua 5.4.7 interpreter written in Rust. Passes the upstream test suite (44/44); runs LuaRocks.",
+  "version": "1.0.0",
+  "author": "ianm199",
+  "homepage": "https://github.com/ianm199/lua-rs",
+  "skills": []
+}
