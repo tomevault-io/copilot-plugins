@@ -136024,6 +136024,11 @@
       "description": "Team Context Engine"
     },
     {
+      "name": "mitkox--skillopt",
+      "source": "./mitkox--skillopt",
+      "description": "SkillOpt with local AI is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -142707,6 +142712,16 @@
       "name": "zk-jackultra--zk-creative-process-skill",
       "source": "./zk-jackultra--zk-creative-process-skill",
       "description": "\u4e70\u91cf\u7d20\u6750\u5904\u7406\u6d41\u7a0b"
+    },
+    {
+      "name": "machinesoul11--anti-sycophant-ai-agent-skills",
+      "source": "./machinesoul11--anti-sycophant-ai-agent-skills",
+      "description": "Skills that get AI assistants to stop agreeing with bad product ideas by default \u2014 pressure-test premises, separate hobbies from businesses, and refuse validation theater."
+    },
+    {
+      "name": "machinesoul11--anti-sycophant-ai-agent-skills",
+      "source": "./machinesoul11--anti-sycophant-ai-agent-skills",
+      "description": "Skills that get AI assistants to stop agreeing with bad product ideas by default \u2014 pressure-test premises, separate hobbies from businesses, and refuse validation theater."
     },
     {
       "name": "yschimke--compose-ai-tools",
