@@ -1,0 +1,9 @@
+{
+  "name": "eamonxg--luci-theme-shadcn",
+  "displayName": "luci-theme-shadcn",
+  "description": "A modern LuCI theme for OpenWrt, built with shadcn/ui design language",
+  "version": "1.0.0",
+  "author": "eamonxg",
+  "homepage": "https://github.com/eamonxg/luci-theme-shadcn",
+  "skills": []
+}
