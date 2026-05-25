@@ -1,0 +1,9 @@
+{
+  "name": "crowdsecurity--crowdsec-skill",
+  "displayName": "crowdsec-skill",
+  "description": "CrowdSec Skill : Install, configure, debug and operate crowdsec",
+  "version": "1.0.0",
+  "author": "crowdsecurity",
+  "homepage": "https://github.com/crowdsecurity/crowdsec-skill",
+  "skills": []
+}
