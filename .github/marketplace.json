@@ -8889,6 +8889,11 @@
       "description": "MCP server for semantic code research and context generation on real-time using LLM patterns | Search naturally across public & private repos based on your permissions | Transform any accessible codeb"
     },
     {
+      "name": "bgauryy--octocode-mcp",
+      "source": "./bgauryy--octocode-mcp",
+      "description": "MCP server for semantic code research and context generation on real-time using LLM patterns | Search naturally across public & private repos based on your permissions | Transform any accessible codeb"
+    },
+    {
       "name": "anthropics--claude-code-base-action",
       "source": "./anthropics--claude-code-base-action",
       "description": "This repo is a mirror of the contents of base-action in https://github.com/anthropics/claude-code-action."
@@ -130817,6 +130822,11 @@
       "name": "tx230--winproc-tui",
       "source": "./tx230--winproc-tui",
       "description": "Rust/Ratatui TUI for Windows 11 process investigation with live metrics, time-series graphs, A/B comparison, recording."
+    },
+    {
+      "name": "kishormorol--skillsallyouneed",
+      "source": "./kishormorol--skillsallyouneed",
+      "description": "A curated directory of every first-party skill, capability, and tool across Claude, ChatGPT, Gemini, Codex & DeepSeek \u2014 searchable, filterable, deep-linkable."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
