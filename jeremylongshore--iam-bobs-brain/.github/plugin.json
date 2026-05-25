@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--iam-bobs-brain",
+  "displayName": "iam-bobs-brain",
+  "description": "General-purpose enterprise orchestrator on Google ADK + Vertex AI Agent Engine. Multi-agent system with risk tiers (R0-R4), policy gates, evidence bundles, and Mission Spec v1 workflows.",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/iam-bobs-brain",
+  "skills": []
+}
