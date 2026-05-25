@@ -1,0 +1,44 @@
+{
+  "name": "MKT-GUS",
+  "owner": "JoaoPires3642",
+  "repo": "MKT-GUS",
+  "description": "MKT GUS \u00e9 um sistema de autoatendimento de mercado, desenvolvido com foco em agilidade, experi\u00eancia do usu\u00e1rio e automa\u00e7\u00e3o de processos no ponto de venda.  A aplica\u00e7\u00e3o foi constru\u00edda utilizando Java (Spring Boot) no backend e React no frontend,",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JoaoPires3642/MKT-GUS",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-25T00:38:47Z"
+}
