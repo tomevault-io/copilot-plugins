@@ -1,4 +1,4 @@
-## agents-md
+## claude-md
 
 > AGENTS.md is the single source of truth for this repo's agent guidance.
 
