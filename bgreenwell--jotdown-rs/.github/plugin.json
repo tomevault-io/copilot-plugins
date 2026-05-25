@@ -1,0 +1,9 @@
+{
+  "name": "bgreenwell--jotdown-rs",
+  "displayName": "jotdown-rs",
+  "description": "A minimalist, command-line jotting utility that's fast, private, git-friendly, and written in Rust.",
+  "version": "1.0.0",
+  "author": "bgreenwell",
+  "homepage": "https://github.com/bgreenwell/jotdown-rs",
+  "skills": []
+}
