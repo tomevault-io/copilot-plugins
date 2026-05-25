@@ -1,0 +1,9 @@
+{
+  "name": "ddsyasas--llm-wiki",
+  "displayName": "llm-wiki",
+  "description": "Open source local-first knowledge base maintained by an LLM agent. Implements Andrej Karpathy's LLM Wiki pattern.",
+  "version": "1.0.0",
+  "author": "ddsyasas",
+  "homepage": "https://github.com/ddsyasas/llm-wiki",
+  "skills": []
+}
