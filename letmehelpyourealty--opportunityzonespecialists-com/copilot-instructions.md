@@ -1,123 +1,92 @@
-## api-optimization-patterns
+## calendly-widget-integration
 
-> API optimization patterns - caching, rate limiting, error handling
+> Calendly widget integration patterns for Next.js
 
 
-# API Optimization Patterns (2026)
+# Calendly Widget Integration (Next.js)
 
-## Claude AI - Always Use Prompt Caching
+## Script Loading
 
-```typescript
-// ✅ GOOD: Prompt caching enabled (90% cost savings)
-const response = await claude.sendMessage({
-  messages: [{ role: 'user', content: userQuery }],
-  systemPrompt: reusableTemplate.system, // This gets cached!
-  enableCache: true, // Default: true
-});
+Load Calendly script **once globally** in root layout using `strategy="afterInteractive"`:
 
-// Cost: First request $0.001, subsequent $0.0001 (cached)
-
-// ❌ BAD: Disabling cache or dynamic prompts
-const response = await claude.sendMessage({
-  messages: [{ role: 'user', content: userQuery }],
-  systemPrompt: `You are ${dynamicAgent}...`, // Changes every time = no cache!
-  enableCache: false,
-});
-
-// Cost: Every request $0.001 (10x more expensive)
+```tsx
+// app/layout.tsx
+<Script
+  src="https://assets.calendly.com/assets/external/widget.js"
+  strategy="afterInteractive"
+/>
 ```
 
-## Rate Limiting Pattern
+**Important**: Use `afterInteractive` (not `beforeInteractive`) because the widget needs DOM to be ready.
 
-```typescript
-// ✅ GOOD: Token bucket algorithm
-class RateLimiter {
-  private tokens: number;
-  private lastRefill: number;
+## Widget Component Pattern
 
-  async checkLimit(): Promise<void> {
-    this.refillTokens();
-    if (this.tokens < 1) {
-      await this.sleep(this.getWaitTime());
-    }
-    this.tokens -= 1;
-  }
-}
+Use `useEffect` with `Calendly.initInlineWidget()` API:
 
-// ❌ BAD: No rate limiting (causes 429 errors)
-```
+```tsx
+// ✅ CORRECT - Use initInlineWidget API
+"use client";
+import { useEffect, useRef } from "react";
 
-## Response Caching
+export default function CalendlyWidget({ url = "https://calendly.com/drjanduffy/showing" }) {
+  const widgetRef = useRef<HTMLDivElement>(null);
 
-```typescript
-// ✅ GOOD: Cache identical queries
-const cacheKey = hashQuery(query);
-const cached = await cache.get(cacheKey);
-if (cached) return cached;
-
-const result = await apiCall(query);
-await cache.set(cacheKey, result, ttl);
-
-// ❌ BAD: No caching (duplicate API calls)
-const result = await apiCall(query); // Same query? Full API call!
-```
-
-## Error Handling
-
-```typescript
-// ✅ GOOD: Exponential backoff
-let delay = 1000;
-for (let attempt = 0; attempt < 3; attempt++) {
-  try {
-    return await apiCall();
-  } catch (error) {
-    if (error.status === 429) {
-      await sleep(delay);
-      delay *= 2;
-    } else {
-      throw error;
-    }
-  }
-}
-
-// ❌ BAD: Immediate retry
-try {
-  return await apiCall();
-} catch {
-  return await apiCall(); // Hammers API on failure
-}
-```
-
-## Cost Tracking
-
-```typescript
-// ✅ GOOD: Track every API call
-class CostTracker {
-  addRequest(cost: number) {
-    this.requests.push({ cost, timestamp: Date.now() });
-  }
-  
-  getStats() {
-    return {
-      last24h: this.requests.filter(r => isLast24h(r)),
-      total: this.requests.reduce((sum, r) => sum + r.cost, 0),
+  useEffect(() => {
+    const initWidget = () => {
+      if ((window as any).Calendly && widgetRef.current) {
+        widgetRef.current.innerHTML = "";
+        const widgetDiv = document.createElement("div");
+        widgetDiv.className = "calendly-inline-widget";
+        widgetDiv.setAttribute("data-url", url);
+        widgetDiv.style.height = "700px";
+        widgetRef.current.appendChild(widgetDiv);
+        
+        (window as any).Calendly.initInlineWidget({
+          url: url,
+          parentElement: widgetDiv,
+        });
+      }
     };
-  }
-}
 
-// ❌ BAD: No cost tracking (surprise bills!)
+    if ((window as any).Calendly) {
+      initWidget();
+    } else {
+      const check = setInterval(() => {
+        if ((window as any).Calendly) {
+          clearInterval(check);
+          initWidget();
+        }
+      }, 100);
+      setTimeout(() => clearInterval(check), 10000);
+    }
+  }, [url]);
+
+  return <div ref={widgetRef} style={{ height: "700px", width: "100%" }} />;
+}
 ```
 
-## API Best Practices Checklist
+```tsx
+// ❌ WRONG - dangerouslySetInnerHTML doesn't initialize widget
+<div dangerouslySetInnerHTML={{
+  __html: `<div class="calendly-inline-widget" data-url="${url}"></div>`
+}} />
+```
 
-- [ ] Prompt caching enabled (Claude)
-- [ ] Response caching implemented
-- [ ] Rate limiting active
-- [ ] Exponential backoff on errors
-- [ ] Cost tracking enabled
-- [ ] TypeScript types defined
-- [ ] Error messages are helpful
-- [ ] Logs include context
+## CSP Headers Required
+
+Add these domains to `next.config.js` CSP:
+
+```js
+"script-src": "https://assets.calendly.com",
+"style-src": "https://assets.calendly.com", 
+"font-src": "https://assets.calendly.com",
+"connect-src": "https://calendly.com",
+"frame-src": "https://calendly.com https://assets.calendly.com"
+```
+
+## Current Calendly URL
+
+Dr. Jan Duffy's scheduling link: `https://calendly.com/drjanduffy/showing`
 
 ---
 > Source: [LetMeHelpYouREALTY/opportunityzonespecialists.com](https://github.com/LetMeHelpYouREALTY/opportunityzonespecialists.com) — distributed by [TomeVault](https://tomevault.io).
