@@ -7,11 +7,11 @@ Apache Spark source code study repository focused on big data processing and dis
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [nhnammldlnlpcvrs/custom-spark](https://github.com/nhnammldlnlpcvrs/custom-spark).
+Original source: `AGENTS.md` in [nhnammldlnlpcvrs/custom-spark](https://github.com/nhnammldlnlpcvrs/custom-spark).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
