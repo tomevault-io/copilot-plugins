@@ -1,0 +1,9 @@
+{
+  "name": "kishormorol--skillsallyouneed",
+  "displayName": "SkillsAllYouNeed",
+  "description": "A curated directory of every first-party skill, capability, and tool across Claude, ChatGPT, Gemini, Codex & DeepSeek \u2014 searchable, filterable, deep-linkable.",
+  "version": "1.0.0",
+  "author": "kishormorol",
+  "homepage": "https://github.com/kishormorol/SkillsAllYouNeed",
+  "skills": []
+}
