@@ -1,0 +1,9 @@
+{
+  "name": "hugin-z--agentic-kb-lite",
+  "displayName": "agentic-kb-lite",
+  "description": "\u57fa\u4e8e ripgrep + LLM \u7684\u8f7b\u91cf\u4e2a\u4eba/\u90e8\u95e8\u77e5\u8bc6\u5e93\uff1bLightweight local knowledge base using ripgrep + LLM (agent loop, multi-modal, no vectors, no external API)",
+  "version": "1.0.0",
+  "author": "Hugin-Z",
+  "homepage": "https://github.com/Hugin-Z/agentic-kb-lite",
+  "skills": []
+}
