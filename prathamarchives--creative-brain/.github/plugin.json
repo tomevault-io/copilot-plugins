@@ -1,0 +1,9 @@
+{
+  "name": "prathamarchives--creative-brain",
+  "displayName": "creative-brain",
+  "description": "A simple agent-runnable repo that interviews you, learns your taste/voice/references, and builds a personalized Creative Brain in markdown \u2014 so Claude Code, Hermes, Cursor, or any agent can create wit",
+  "version": "1.0.0",
+  "author": "prathamarchives",
+  "homepage": "https://github.com/prathamarchives/creative-brain",
+  "skills": []
+}
