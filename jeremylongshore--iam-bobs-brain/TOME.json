@@ -4,7 +4,7 @@
   "repo": "iam-bobs-brain",
   "description": "General-purpose enterprise orchestrator on Google ADK + Vertex AI Agent Engine. Multi-agent system with risk tiers (R0-R4), policy gates, evidence bundles, and Mission Spec v1 workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jeremylongshore/iam-bobs-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-25T13:30:27Z"
+  "distributed_at": "2026-05-25T13:31:00Z"
 }
