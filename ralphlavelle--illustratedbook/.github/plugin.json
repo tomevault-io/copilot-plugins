@@ -1,0 +1,9 @@
+{
+  "name": "ralphlavelle--illustratedbook",
+  "displayName": "IllustratedBook",
+  "description": "ASP.NET Core Blazor version of old Illustrated Book",
+  "version": "1.0.0",
+  "author": "RalphLavelle",
+  "homepage": "https://github.com/RalphLavelle/IllustratedBook",
+  "skills": []
+}
