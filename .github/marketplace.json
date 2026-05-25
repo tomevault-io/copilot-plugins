@@ -130854,6 +130854,11 @@
       "description": "A curated directory of every first-party skill, capability, and tool across Claude, ChatGPT, Gemini, Codex & DeepSeek \u2014 searchable, filterable, deep-linkable."
     },
     {
+      "name": "leostera--riot",
+      "source": "./leostera--riot",
+      "description": "There are many OCaml stacks, this one is mine."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -163424,6 +163429,11 @@
       "description": "CLI tool for building production RAG systems from Markdown, CSV, and PDF documents using hybrid search (BM25 + vector) with OpenSearch. Features MCP server, Slack bot, Web UI, multi-source ingestion ("
     },
     {
+      "name": "aman245002--eduflowfrontend",
+      "source": "./aman245002--eduflowfrontend",
+      "description": "eduflowfrontend"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173947,6 +173957,41 @@
       "name": "jayhome137--deepseekmonitor",
       "source": "./jayhome137--deepseekmonitor",
       "description": "DeepSeekMonitor"
+    },
+    {
+      "name": "2234839--llm-gateway",
+      "source": "./2234839--llm-gateway",
+      "description": "llm_gateway"
+    },
+    {
+      "name": "ertra--pm-brain-for-cursor",
+      "source": "./ertra--pm-brain-for-cursor",
+      "description": "AI for Product Managers"
+    },
+    {
+      "name": "ertra--pm-brain-for-cursor",
+      "source": "./ertra--pm-brain-for-cursor",
+      "description": "AI for Product Managers"
+    },
+    {
+      "name": "itaober--atst",
+      "source": "./itaober--atst",
+      "description": "a(i)-text-select-translate \u2014 a tiny menu-bar translator for macOS."
+    },
+    {
+      "name": "ertra--pm-brain-for-cursor",
+      "source": "./ertra--pm-brain-for-cursor",
+      "description": "AI for Product Managers"
+    },
+    {
+      "name": "partment--opencode-cloak-fetch",
+      "source": "./partment--opencode-cloak-fetch",
+      "description": "OpenCode plugin that replaces webfetch with CloakBrowser-backed fetching."
+    },
+    {
+      "name": "jackg825--claude-code-agents",
+      "source": "./jackg825--claude-code-agents",
+      "description": "claude-code-agents"
     },
     {
       "name": "cheerhuan--save-your-token",
