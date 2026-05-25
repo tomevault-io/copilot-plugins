@@ -1,118 +1,50 @@
-## cost-optimization-2026
+## current-best-practices
 
-> Cost optimization strategies for APIs and infrastructure (2026)
+> Always use latest docs/news, current-year best practices, and optimize for the current stack
 
 
-# Cost Optimization Strategies (2026)
+# Stay Current and Optimized
 
-## Claude AI - Prompt Caching (Critical)
+**Answer and implement with the goal of staying current and optimized.** Use the latest official docs and updates, adopt current-year best practices and trends for this stack, and optimize outcomes (performance, SEO, security, maintainability).
 
-**Impact:** 90% cost reduction, 85% latency improvement
+## Check recency
 
-```typescript
-// ✅ GOOD: Cacheable system prompt (90% savings)
-const systemPrompt = realEstateAgentTemplate.system; // Consistent
+Before implementing or recommending:
 
-const response = await claude.sendMessage({
-  messages: [{ role: 'user', content: userQuery }],
-  systemPrompt, // Cached automatically
-  enableCache: true,
-});
+- Search for the **latest** docs and updates (e.g., "Next.js 15 2026", "Vercel 2026", "Anthropic API 2026").
+- Treat the **current date** (e.g., February 26, 2026) as the reference for "current" (e.g., 2026 best practices).
+- Prefer patterns and procedures that match the **current** stack and any pinned versions.
 
-// First request: $0.001
-// Cached requests: $0.0001 (10x cheaper!)
+## Current stack reference
 
-// ❌ BAD: Dynamic prompt (no cache)
-const systemPrompt = `You are ${agent} from ${company}...`; // Changes = no cache
-// Every request: $0.001 (10x more expensive)
-```
+Use and cite current docs for:
 
-## Response Caching
+- **Next.js** (App Router, React 19) — nextjs.org/docs
+- **TypeScript** — typescriptlang.org/docs
+- **Vercel** — vercel.com/docs
+- **Tailwind CSS** — tailwindcss.com/docs
+- **RealScout** — platform docs and native FUB integration
+- **Follow Up Boss** — API and integrations
+- **Anthropic / Claude API** — docs.anthropic.com (when integrating Claude)
 
-```typescript
-// ✅ GOOD: Cache frequent queries
-const cacheKey = hashQuery(query);
-const cached = await cache.get(cacheKey);
-if (cached) return cached; // $0 cost!
+## Optimize by default
 
-const result = await apiCall(query);
-await cache.set(cacheKey, result, 3600); // 1 hour TTL
+- **Performance**: Core Web Vitals, lazy loading, minimal JS.
+- **SEO**: E-E-A-T, JSON-LD, sitemaps, NAP/GBP alignment.
+- **Security**: CSP, headers, no secrets in client code.
+- **Code**: Type safety, minimal dependencies, existing project patterns.
 
-// ❌ BAD: No caching
-await apiCall(sameQuery); // Full API cost every time
-```
+## Cite when it matters
 
-## Model Selection
+When a recommendation depends on "latest" info, briefly cite what was checked (e.g., "Per Next.js 15 docs as of 2026…") so it can be verified or revisited later.
 
-```typescript
-// ✅ GOOD: Use cheapest model that works
-const model = isSimpleQuery 
-  ? 'claude-3-5-haiku-20241022'    // $0.80/1M input (75% cheaper)
-  : 'claude-3-5-sonnet-20241022';  // $3.00/1M input
+## Alignment with other rules
 
-// ❌ BAD: Always use most expensive model
-const model = 'claude-3-opus-20240229'; // $15/1M input (5x more!)
-```
+This rule **reinforces** the RESEARCH-FIRST PROTOCOL by adding:
 
-## Token Optimization
-
-```typescript
-// ✅ GOOD: Appropriate max tokens
-const response = await claude.sendMessage({
-  maxTokens: 500, // Short answer expected
-});
-
-// ❌ BAD: Over-requesting tokens
-const response = await claude.sendMessage({
-  maxTokens: 4096, // Way more than needed
-});
-// Costs more + slower responses
-```
-
-## Rate Limiting (Prevent Overages)
-
-```typescript
-// ✅ GOOD: Enforce limits before API calls
-await rateLimiter.checkLimit();
-const response = await apiCall();
-
-// ❌ BAD: No rate limiting
-for (let i = 0; i < 1000; i++) {
-  await apiCall(); // 429 errors guaranteed!
-}
-```
-
-## Cost Monitoring
-
-```typescript
-// ✅ GOOD: Track every request
-costTracker.addRequest({
-  cost: response.cost.total,
-  tokens: response.usage.inputTokens + response.usage.outputTokens,
-  cached: response.usage.cacheReadInputTokens > 0,
-});
-
-// ❌ BAD: No tracking (surprise bills)
-```
-
-## Monthly Cost Targets
-
-| Service | Free Tier | Reasonable Cost | Excessive |
-|---------|-----------|-----------------|-----------|
-| Claude AI (1K req/day) | N/A | $12/mo (cached) | $120+/mo (no cache) |
-| Cloudflare Workers | 100K req/day | Free | $5+/mo |
-| Vercel | Hobby | Pro $20/mo | Enterprise $100+/mo |
-
-## Cost Optimization Checklist
-
-- [ ] Claude prompt caching enabled
-- [ ] Response caching for duplicate queries
-- [ ] Appropriate model selection (Haiku vs Sonnet)
-- [ ] Reasonable max_tokens settings
-- [ ] Rate limiting active
-- [ ] Cost tracking dashboard
-- [ ] Monthly budget alerts set
-- [ ] Regular cost review (weekly)
+- Explicit "latest news and updates" and "current trends."
+- "Current stack" and "current year" (e.g., 2026) as the default frame.
+- "Answer with the goal of staying current and optimized" as the default stance.
 
 ---
 > Source: [LetMeHelpYouREALTY/opportunityzonespecialists.com](https://github.com/LetMeHelpYouREALTY/opportunityzonespecialists.com) — distributed by [TomeVault](https://tomevault.io).
