@@ -1,0 +1,9 @@
+{
+  "name": "souravroy-etl--duckle",
+  "displayName": "duckle",
+  "description": "Local-first ETL/ELT studio: a drag-and-drop visual pipeline designer that compiles to SQL and runs on DuckDB. Tiny desktop app, no servers, git-friendly workspaces.",
+  "version": "1.0.0",
+  "author": "SouravRoy-ETL",
+  "homepage": "https://github.com/SouravRoy-ETL/duckle",
+  "skills": []
+}
