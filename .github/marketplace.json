@@ -43559,6 +43559,21 @@
       "description": "\ud83d\udcdc A performant virtual list/scrolling component for Svelte applications - efficiently render large scrollable lists with minimal memory usage"
     },
     {
+      "name": "playhyperia--hyperforge",
+      "source": "./playhyperia--hyperforge",
+      "description": "MMORPG for humans and agents. In development. Powered by ElizaOS"
+    },
+    {
+      "name": "playhyperia--hyperforge",
+      "source": "./playhyperia--hyperforge",
+      "description": "MMORPG for humans and agents. In development. Powered by ElizaOS"
+    },
+    {
+      "name": "playhyperia--hyperforge",
+      "source": "./playhyperia--hyperforge",
+      "description": "MMORPG for humans and agents. In development. Powered by ElizaOS"
+    },
+    {
       "name": "dotnet--maui-labs",
       "source": "./dotnet--maui-labs",
       "description": "Experimental and pre-release tools for .NET MAUI"
@@ -51097,6 +51112,11 @@
       "name": "masrurimz--tanstack-start-elysia-better-auth-bun",
       "source": "./masrurimz--tanstack-start-elysia-better-auth-bun",
       "description": "Full-stack monorepo template with TanStack Start, Elysia.js, and Better Auth. Features end-to-end type safety, blazing performance, and seamless authentication. Perfect starting point for modern web  "
+    },
+    {
+      "name": "appledog-xyz--formcmsportal",
+      "source": "./appledog-xyz--formcmsportal",
+      "description": "FormCmsPortal"
     },
     {
       "name": "jdiegosierra--contributor-report",
@@ -60292,6 +60312,11 @@
       "name": "rejot-dev--rejot",
       "source": "./rejot-dev--rejot",
       "description": "Supercharged Replication for Developers"
+    },
+    {
+      "name": "saleem-shaik-git--penny-black-stamp-ai",
+      "source": "./saleem-shaik-git--penny-black-stamp-ai",
+      "description": "AI-based image recognition system for identifying Penny Black stamp plate numbers"
     },
     {
       "name": "timoncool--ace-step-studio",
@@ -108169,6 +108194,16 @@
       "description": "Virtual shell runtime for Jido agents with session state and command execution."
     },
     {
+      "name": "shiyao-huang--awesome-agent-evolution",
+      "source": "./shiyao-huang--awesome-agent-evolution",
+      "description": "awesome-agent-evolution"
+    },
+    {
+      "name": "shiyao-huang--awesome-agent-evolution",
+      "source": "./shiyao-huang--awesome-agent-evolution",
+      "description": "awesome-agent-evolution"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -121577,6 +121612,16 @@
       "name": "jaytel0--taste",
       "source": "./jaytel0--taste",
       "description": "Taste skill creation pipeline"
+    },
+    {
+      "name": "brotzky--performance-skills",
+      "source": "./brotzky--performance-skills",
+      "description": "performance-skills"
+    },
+    {
+      "name": "brotzky--performance-skills",
+      "source": "./brotzky--performance-skills",
+      "description": "performance-skills"
     },
     {
       "name": "mohiwalla--memes",
