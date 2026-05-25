@@ -1,0 +1,9 @@
+{
+  "name": "tmchow--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Cross-platform AI agent skills (SKILL.md) installable via npx skills / gh skills",
+  "version": "1.0.0",
+  "author": "tmchow",
+  "homepage": "https://github.com/tmchow/agent-skills",
+  "skills": []
+}
