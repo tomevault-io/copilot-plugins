@@ -1,0 +1,9 @@
+{
+  "name": "officecli--officedex",
+  "displayName": "officedex",
+  "description": "OfficeDex is the AI desktop workspace for documents, slides, and spreadsheets \u2014 Wails v2 + React 19 client for OfficeCLI",
+  "version": "1.0.0",
+  "author": "officecli",
+  "homepage": "https://github.com/officecli/officedex",
+  "skills": []
+}
