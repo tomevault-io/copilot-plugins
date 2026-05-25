@@ -1,0 +1,9 @@
+{
+  "name": "mrcatnapper--fps",
+  "displayName": "fps",
+  "description": "Experimental L3 VPN/tunnel framework working above a real, already-running TLS traffic",
+  "version": "1.0.0",
+  "author": "mrcatnapper",
+  "homepage": "https://github.com/mrcatnapper/fps",
+  "skills": []
+}
