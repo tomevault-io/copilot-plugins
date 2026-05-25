@@ -173844,6 +173844,21 @@
       "description": "Open source local-first knowledge base maintained by an LLM agent. Implements Andrej Karpathy's LLM Wiki pattern."
     },
     {
+      "name": "tmchow--agent-skills",
+      "source": "./tmchow--agent-skills",
+      "description": "Cross-platform AI agent skills (SKILL.md) installable via npx skills / gh skills"
+    },
+    {
+      "name": "theeastkoi--celest",
+      "source": "./theeastkoi--celest",
+      "description": "DeepSeek TUI VS Code extension"
+    },
+    {
+      "name": "leonvanzyl--portfolio-website-tutorial",
+      "source": "./leonvanzyl--portfolio-website-tutorial",
+      "description": "portfolio-website-tutorial"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176367,6 +176382,11 @@
       "name": "sanjeev23oct--zap",
       "source": "./sanjeev23oct--zap",
       "description": "1. Skill-First Approach \u2014 Context That Earns Its Place Most AI coding agents front-load a massive system prompt every request \u2014 language conventions, architecture notes, team rules, API patterns, all "
+    },
+    {
+      "name": "dqnamo--factoryplane",
+      "source": "./dqnamo--factoryplane",
+      "description": "factoryplane"
     },
     {
       "name": "keshavxa--keshav-portfolio",
