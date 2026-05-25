@@ -1,0 +1,9 @@
+{
+  "name": "mitkox--skillopt",
+  "displayName": "SkillOpt",
+  "description": "SkillOpt with local AI is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill",
+  "version": "1.0.0",
+  "author": "mitkox",
+  "homepage": "https://github.com/mitkox/SkillOpt",
+  "skills": []
+}
