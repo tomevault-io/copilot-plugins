@@ -1,0 +1,9 @@
+{
+  "name": "smcllns--obsidian-plugin-html-docs",
+  "displayName": "obsidian-plugin-html-docs",
+  "description": "A minimalist plugin for obsidian to enable viewing docs as md or html",
+  "version": "1.0.0",
+  "author": "smcllns",
+  "homepage": "https://github.com/smcllns/obsidian-plugin-html-docs",
+  "skills": []
+}
