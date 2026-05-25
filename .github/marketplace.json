@@ -130794,6 +130794,11 @@
       "description": "DuckDB server that replicates your MySQL data. Columnar storage makes analytical queries 100-13,000x faster"
     },
     {
+      "name": "tx230--winproc-tui",
+      "source": "./tx230--winproc-tui",
+      "description": "Rust/Ratatui TUI for Windows 11 process investigation with live metrics, time-series graphs, A/B comparison, recording."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
