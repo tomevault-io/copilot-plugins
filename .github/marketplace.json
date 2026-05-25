@@ -117924,6 +117924,11 @@
       "description": "chai-aur-nextjs"
     },
     {
+      "name": "bgreenwell--jotdown-rs",
+      "source": "./bgreenwell--jotdown-rs",
+      "description": "A minimalist, command-line jotting utility that's fast, private, git-friendly, and written in Rust."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -163309,6 +163314,21 @@
       "description": "DotRun transforms scattered scripts, complex command sequences, and tribal knowledge into a unified, searchable, and shareable toolkit that works across all your projects."
     },
     {
+      "name": "syedsaif666--designrift",
+      "source": "./syedsaif666--designrift",
+      "description": "designrift"
+    },
+    {
+      "name": "syedsaif666--designrift",
+      "source": "./syedsaif666--designrift",
+      "description": "designrift"
+    },
+    {
+      "name": "cortesi--clonetree",
+      "source": "./cortesi--clonetree",
+      "description": "Fast copy-on-write directory duplication for Rust"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -173724,6 +173744,26 @@
       "description": "Tara \u2014 voice-first astrology counselling, Hinglish, real-time."
     },
     {
+      "name": "eamonxg--luci-theme-shadcn",
+      "source": "./eamonxg--luci-theme-shadcn",
+      "description": "A modern LuCI theme for OpenWrt, built with shadcn/ui design language"
+    },
+    {
+      "name": "kawasima--ai-in-the-human-loop",
+      "source": "./kawasima--ai-in-the-human-loop",
+      "description": "ai-in-the-human-loop"
+    },
+    {
+      "name": "sidarora28--build-with-claude-code",
+      "source": "./sidarora28--build-with-claude-code",
+      "description": "build-with-claude-code"
+    },
+    {
+      "name": "handley-lab--workshop-blackjax-nested-sampling",
+      "source": "./handley-lab--workshop-blackjax-nested-sampling",
+      "description": "workshop-blackjax-nested-sampling"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176172,6 +176212,21 @@
       "name": "hyper-git--claude-code-sa-workflow",
       "source": "./hyper-git--claude-code-sa-workflow",
       "description": "Claude Code multi-agent workflow for Solution Architects \u2014 9 specialized AI agents covering discovery, architecture design, IaC, and validation"
+    },
+    {
+      "name": "sonnysangha--papamart",
+      "source": "./sonnysangha--papamart",
+      "description": "papamart"
+    },
+    {
+      "name": "sonnysangha--papamart",
+      "source": "./sonnysangha--papamart",
+      "description": "papamart"
+    },
+    {
+      "name": "sonnysangha--papamart",
+      "source": "./sonnysangha--papamart",
+      "description": "papamart"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -279272,6 +279327,31 @@
       "name": "nimblelabs--rails-ai-starter",
       "source": "./nimblelabs--rails-ai-starter",
       "description": "rails-ai-starter"
+    },
+    {
+      "name": "the-real-orca--pool-sensor-ble-yc01",
+      "source": "./the-real-orca--pool-sensor-ble-yc01",
+      "description": "Pool-Sensor-BLE-YC01"
+    },
+    {
+      "name": "ralphlavelle--illustratedbook",
+      "source": "./ralphlavelle--illustratedbook",
+      "description": "ASP.NET Core Blazor version of old Illustrated Book"
+    },
+    {
+      "name": "mou2xie--speakingpass-v3",
+      "source": "./mou2xie--speakingpass-v3",
+      "description": "SpeakingPass_v3"
+    },
+    {
+      "name": "alexkeycodes--portfolio",
+      "source": "./alexkeycodes--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "joaopires3642--mkt-gus",
+      "source": "./joaopires3642--mkt-gus",
+      "description": "MKT GUS \u00e9 um sistema de autoatendimento de mercado, desenvolvido com foco em agilidade, experi\u00eancia do usu\u00e1rio e automa\u00e7\u00e3o de processos no ponto de venda.  A aplica\u00e7\u00e3o foi constru\u00edda utilizando Java ("
     }
   ]
 }
