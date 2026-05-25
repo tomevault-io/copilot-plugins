@@ -1,98 +1,118 @@
-## check-platform-features-first
+## cost-optimization-2026
 
-> Always verify platform features before building custom solutions
+> Cost optimization strategies for APIs and infrastructure (2026)
 
 
-# Check Platform Features FIRST
+# Cost Optimization Strategies (2026)
 
-**Before building ANY integration, API wrapper, or automation:**
+## Claude AI - Prompt Caching (Critical)
 
-## Step 1: Research What Exists
+**Impact:** 90% cost reduction, 85% latency improvement
 
-```bash
-# ALWAYS search documentation first:
-# - "RealScout features 2026"
-# - "Follow Up Boss API capabilities"
-# - "Calendly integrations"
-```
-
-## Step 2: Ask These Questions
-
-1. **Does the platform already do this?**
-   - Check official docs
-   - Search for native integrations
-   - Look for recent updates (2025-2026)
-
-2. **Is there a native integration?**
-   - RealScout ↔ Follow Up Boss: ✅ NATIVE
-   - Calendly ↔ Most CRMs: ✅ NATIVE
-   - Always use native over custom
-
-3. **Am I adding real value?**
-   - Rate limiting: ✅ Useful
-   - Caching: ✅ Useful
-   - Wrapper around working API: ❌ Not useful
-
-## Step 3: State What You Found
-
-**Before building, say:**
-
-> "I researched [Platform] and found:
-> - Native integration with [Other Platform]: YES/NO
-> - Built-in [feature]: YES/NO
-> - My proposed solution: [enhancement/duplicate]
-> 
-> Should I proceed?"
-
-## Real Examples
-
-### ❌ BAD: Building Without Research
 ```typescript
-// User: "Integrate RealScout with Follow Up Boss"
-// AI: [Builds custom webhook handlers immediately]
-// Result: Duplicates native integration
+// ✅ GOOD: Cacheable system prompt (90% savings)
+const systemPrompt = realEstateAgentTemplate.system; // Consistent
+
+const response = await claude.sendMessage({
+  messages: [{ role: 'user', content: userQuery }],
+  systemPrompt, // Cached automatically
+  enableCache: true,
+});
+
+// First request: $0.001
+// Cached requests: $0.0001 (10x cheaper!)
+
+// ❌ BAD: Dynamic prompt (no cache)
+const systemPrompt = `You are ${agent} from ${company}...`; // Changes = no cache
+// Every request: $0.001 (10x more expensive)
 ```
 
-### ✅ GOOD: Research First
+## Response Caching
+
 ```typescript
-// User: "Integrate RealScout with Follow Up Boss"
-// AI: "RealScout has native FUB integration (Admin → Integrations).
-//      Should I help configure the native integration instead?"
-// Result: Uses what already exists
+// ✅ GOOD: Cache frequent queries
+const cacheKey = hashQuery(query);
+const cached = await cache.get(cacheKey);
+if (cached) return cached; // $0 cost!
+
+const result = await apiCall(query);
+await cache.set(cacheKey, result, 3600); // 1 hour TTL
+
+// ❌ BAD: No caching
+await apiCall(sameQuery); // Full API cost every time
 ```
 
-## Platforms to Always Check
+## Model Selection
 
-**Real Estate:**
-- RealScout (has AI search, FUB integration)
-- Follow Up Boss (has webhooks, automation, integrations)
-- Zillow Premier Agent
-- Realtor.com
-- MLS systems
+```typescript
+// ✅ GOOD: Use cheapest model that works
+const model = isSimpleQuery 
+  ? 'claude-3-5-haiku-20241022'    // $0.80/1M input (75% cheaper)
+  : 'claude-3-5-sonnet-20241022';  // $3.00/1M input
 
-**Marketing/CRM:**
-- Calendly (scheduling)
-- Mailchimp (email)
-- HubSpot (CRM)
+// ❌ BAD: Always use most expensive model
+const model = 'claude-3-opus-20240229'; // $15/1M input (5x more!)
+```
 
-**Infrastructure:**
-- Vercel (deployment)
-- Cloudflare (CDN/security)
-- GitHub (CI/CD)
+## Token Optimization
 
-## When to Build Custom
+```typescript
+// ✅ GOOD: Appropriate max tokens
+const response = await claude.sendMessage({
+  maxTokens: 500, // Short answer expected
+});
 
-✅ Build custom solutions ONLY when:
-- Platform doesn't have the feature
-- You need specific optimization (caching, rate limiting)
-- Native integration doesn't meet requirements
-- Adding genuine intelligence (AI analysis)
+// ❌ BAD: Over-requesting tokens
+const response = await claude.sendMessage({
+  maxTokens: 4096, // Way more than needed
+});
+// Costs more + slower responses
+```
 
-❌ Don't build when:
-- Platform already does it
-- Native integration exists
-- You're just wrapping their API
-- It's "nice to have" convenience
+## Rate Limiting (Prevent Overages)
+
+```typescript
+// ✅ GOOD: Enforce limits before API calls
+await rateLimiter.checkLimit();
+const response = await apiCall();
+
+// ❌ BAD: No rate limiting
+for (let i = 0; i < 1000; i++) {
+  await apiCall(); // 429 errors guaranteed!
+}
+```
+
+## Cost Monitoring
+
+```typescript
+// ✅ GOOD: Track every request
+costTracker.addRequest({
+  cost: response.cost.total,
+  tokens: response.usage.inputTokens + response.usage.outputTokens,
+  cached: response.usage.cacheReadInputTokens > 0,
+});
+
+// ❌ BAD: No tracking (surprise bills)
+```
+
+## Monthly Cost Targets
+
+| Service | Free Tier | Reasonable Cost | Excessive |
+|---------|-----------|-----------------|-----------|
+| Claude AI (1K req/day) | N/A | $12/mo (cached) | $120+/mo (no cache) |
+| Cloudflare Workers | 100K req/day | Free | $5+/mo |
+| Vercel | Hobby | Pro $20/mo | Enterprise $100+/mo |
+
+## Cost Optimization Checklist
+
+- [ ] Claude prompt caching enabled
+- [ ] Response caching for duplicate queries
+- [ ] Appropriate model selection (Haiku vs Sonnet)
+- [ ] Reasonable max_tokens settings
+- [ ] Rate limiting active
+- [ ] Cost tracking dashboard
+- [ ] Monthly budget alerts set
+- [ ] Regular cost review (weekly)
 
 ---
 > Source: [LetMeHelpYouREALTY/opportunityzonespecialists.com](https://github.com/LetMeHelpYouREALTY/opportunityzonespecialists.com) — distributed by [TomeVault](https://tomevault.io).
