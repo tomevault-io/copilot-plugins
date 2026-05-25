@@ -111394,6 +111394,11 @@
       "description": "A personal budget tracking application. Track your balances and transactions with bank connections or manual entry, categorize and analyze expenses and income, and many more."
     },
     {
+      "name": "officecli--officedex",
+      "source": "./officecli--officedex",
+      "description": "OfficeDex is the AI desktop workspace for documents, slides, and spreadsheets \u2014 Wails v2 + React 19 client for OfficeCLI"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -176487,6 +176492,21 @@
       "name": "oines--astralops",
       "source": "./oines--astralops",
       "description": "AstralOps"
+    },
+    {
+      "name": "ancplua--ancplua-claude-plugins",
+      "source": "./ancplua--ancplua-claude-plugins",
+      "description": "ancplua-claude-plugins"
+    },
+    {
+      "name": "ancplua--ancplua-claude-plugins",
+      "source": "./ancplua--ancplua-claude-plugins",
+      "description": "ancplua-claude-plugins"
+    },
+    {
+      "name": "ancplua--ancplua-claude-plugins",
+      "source": "./ancplua--ancplua-claude-plugins",
+      "description": "ancplua-claude-plugins"
     },
     {
       "name": "keshavxa--keshav-portfolio",
