@@ -34274,6 +34274,11 @@
       "description": "AGENTS.md/CLAUDE.md generator and ExecPlan harness for Codex, Claude Code, Cursor, Antigravity, OpenCode, Pi and other coding agents. Use api keys or authenticate with Codex"
     },
     {
+      "name": "oaustegard--claude-skills",
+      "source": "./oaustegard--claude-skills",
+      "description": "My collection of Claude skills"
+    },
+    {
       "name": "hainrixz--open-carrusel",
       "source": "./hainrixz--open-carrusel",
       "description": "AI-powered Instagram carousel builder. Chat with Claude to design slides; export as PNGs at exact Instagram dimensions. Type /start in Claude Code to bootstrap."
@@ -174104,6 +174109,26 @@
       "description": "learn-skills"
     },
     {
+      "name": "cuteyuchen--codex-auth-manager",
+      "source": "./cuteyuchen--codex-auth-manager",
+      "description": "\u672c\u5730\u5316\u5168\u81ea\u52a8\u6ce8\u518cChatGPT / Codex \u8d26\u53f7\u6388\u6743\u4e0e\u51ed\u636e\u8fd0\u8425\u7ba1\u7406\u53f0\uff0c\u652f\u6301\u90ae\u7bb1\u6c60\u3001hero-sms\u63a5\u7801\u3001\u72b6\u6001\u5237\u65b0\u3001\u989d\u5ea6\u76d1\u63a7\u548c CPA/Sub2API \u63a8\u9001\u3002"
+    },
+    {
+      "name": "ianm199--lua-rs",
+      "source": "./ianm199--lua-rs",
+      "description": "A Lua 5.4.7 interpreter written in Rust. Passes the upstream test suite (44/44); runs LuaRocks."
+    },
+    {
+      "name": "alpinearchitecture--programmarr",
+      "source": "./alpinearchitecture--programmarr",
+      "description": "programmarr"
+    },
+    {
+      "name": "cuteyuchen--codex-auth-manager",
+      "source": "./cuteyuchen--codex-auth-manager",
+      "description": "\u672c\u5730\u5316\u5168\u81ea\u52a8\u6ce8\u518cChatGPT / Codex \u8d26\u53f7\u6388\u6743\u4e0e\u51ed\u636e\u8fd0\u8425\u7ba1\u7406\u53f0\uff0c\u652f\u6301\u90ae\u7bb1\u6c60\u3001hero-sms\u63a5\u7801\u3001\u72b6\u6001\u5237\u65b0\u3001\u989d\u5ea6\u76d1\u63a7\u548c CPA/Sub2API \u63a8\u9001\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -280017,6 +280042,11 @@
       "name": "romanticamaj--cppsystemdesignnotes",
       "source": "./romanticamaj--cppsystemdesignnotes",
       "description": "A collection of notes, deep dives, and examples covering Modern C++ (C++11\u2013C++23), real-time audio programming techniques, and embedded Linux system design."
+    },
+    {
+      "name": "phonbopit--snake-game-html-with-claude",
+      "source": "./phonbopit--snake-game-html-with-claude",
+      "description": "\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e40\u0e01\u0e21\u0e07\u0e39 (Snake) \u0e14\u0e49\u0e27\u0e22 Claude Code"
     }
   ]
 }
