@@ -1,0 +1,9 @@
+{
+  "name": "vanclief--agent-composer",
+  "displayName": "agent-composer",
+  "description": "Vendor agnostic framework for building LLM agents",
+  "version": "1.0.0",
+  "author": "Vanclief",
+  "homepage": "https://github.com/Vanclief/agent-composer",
+  "skills": []
+}
