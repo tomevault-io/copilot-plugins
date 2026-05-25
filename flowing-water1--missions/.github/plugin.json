@@ -1,0 +1,9 @@
+{
+  "name": "flowing-water1--missions",
+  "displayName": "Missions",
+  "description": "\u628a\u4e00\u4e2a\u9700\u6c42\u6254\u7ed9 agent\uff0c\u5b83\u4f1a\u81ea\u5df1\u62c6\u6210 CSV\u3001\u6309\u56db\u72b6\u6001\u95ed\u73af\u8dd1\u3001\u8dd1\u5b8c\u518d sub-agent review\uff0c\u53d1\u73b0\u5dee\u8ddd\u5c31\u8ffd\u52a0 follow-up\uff0c\u6700\u540e\u6574\u6279\u95ed\u73af\u518d\u4ea4\u8fd8\u7ed9\u4f60\u3002\u914d\u5408 codex \u7684 `/goal` \u7528\uff0c\u65ad\u8054\u4e0d\u505c\u3001\u53ef resume\u3002",
+  "version": "1.0.0",
+  "author": "flowing-water1",
+  "homepage": "https://github.com/flowing-water1/Missions",
+  "skills": []
+}
