@@ -163479,6 +163479,11 @@
       "description": "eduflowfrontend"
     },
     {
+      "name": "souravroy-etl--duckle",
+      "source": "./souravroy-etl--duckle",
+      "description": "Local-first ETL/ELT studio: a drag-and-drop visual pipeline designer that compiles to SQL and runs on DuckDB. Tiny desktop app, no servers, git-friendly workspaces."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174037,6 +174042,16 @@
       "name": "jackg825--claude-code-agents",
       "source": "./jackg825--claude-code-agents",
       "description": "claude-code-agents"
+    },
+    {
+      "name": "kingbootoshi--rgr",
+      "source": "./kingbootoshi--rgr",
+      "description": "Strict Red-Green-Refactor CLI gate for coding agents"
+    },
+    {
+      "name": "grafana--grafana-ui-mcp-server",
+      "source": "./grafana--grafana-ui-mcp-server",
+      "description": " An mcp server to allow LLMS gain context about grafana-ui component structure, usage and installation "
     },
     {
       "name": "cheerhuan--save-your-token",
