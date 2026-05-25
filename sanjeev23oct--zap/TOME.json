@@ -1,0 +1,44 @@
+{
+  "name": "zap",
+  "owner": "sanjeev23oct",
+  "repo": "zap",
+  "description": "1. Skill-First Approach \u2014 Context That Earns Its Place Most AI coding agents front-load a massive system prompt every request \u2014 language conventions, architecture notes, team rules, API patterns, all of it, whether it's relevant or not. zap replaces that wall with a skill system: markdown files that are injected surgically, only when needed",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sanjeev23oct/zap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-25T06:31:25Z"
+}
