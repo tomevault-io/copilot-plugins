@@ -173834,6 +173834,16 @@
       "description": "iOS substance dose tracker with pharmacokinetic timelines and interaction warnings"
     },
     {
+      "name": "halfsweet--rusbview",
+      "source": "./halfsweet--rusbview",
+      "description": "rusbview is a desktop application for inspecting USB enum"
+    },
+    {
+      "name": "ddsyasas--llm-wiki",
+      "source": "./ddsyasas--llm-wiki",
+      "description": "Open source local-first knowledge base maintained by an LLM agent. Implements Andrej Karpathy's LLM Wiki pattern."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176352,6 +176362,11 @@
       "name": "ruoyu123123--ruoyuai",
       "source": "./ruoyu123123--ruoyuai",
       "description": "ruoyuai"
+    },
+    {
+      "name": "sanjeev23oct--zap",
+      "source": "./sanjeev23oct--zap",
+      "description": "1. Skill-First Approach \u2014 Context That Earns Its Place Most AI coding agents front-load a massive system prompt every request \u2014 language conventions, architecture notes, team rules, API patterns, all "
     },
     {
       "name": "keshavxa--keshav-portfolio",
