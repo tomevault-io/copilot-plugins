@@ -1,0 +1,15 @@
+## critical
+
+> This app is made with three.js and WebGPU, using three shader language (TSL). DO NOT USE WEBGL. DO NOT BE LAZY AND FALL BACK. Always focus on making working WebGL solutions with TSL. Thoroughly research instead of guessing.
+
+
+This app is made with three.js and WebGPU, using three shader language (TSL). DO NOT USE WEBGL. DO NOT BE LAZY AND FALL BACK. Always focus on making working WebGL solutions with TSL. Thoroughly research instead of guessing.
+
+Always use node shader materials with TSL unless it otherwise doesn't make sense. When implementing something, focus on WebGPU, parallelizaiton, simd, performance, AAA quality but something that scales from mobile to a gaming PC. Don't simplify, skimp, offer a simpler version than what the best possible version would be. Always implement the best possible version -- best being a tradeoff of performance to quality erring toward performance, with optimizations wherever possible.
+
+**CRITICAL LINUX NOTE**: It is important on Linux to use **Chrome Canary** and the **ANGLE** backend, **NOT** Vulkan. Using the native Vulkan backend with WebGPU will crash.
+**CRITICAL MAC NOTE**: It is important on macOS to use **Google Chrome** with the **Metal** backend for ANGLE (`--use-angle=metal`).
+
+---
+> Source: [PlayHyperia/hyperforge](https://github.com/PlayHyperia/hyperforge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-25 -->
