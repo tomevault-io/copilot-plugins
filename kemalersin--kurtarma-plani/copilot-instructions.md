@@ -1,88 +1,19 @@
-## developer-ux
+## finance-engine
 
-> Geliştirici mimarisi ve UI/UX yaklaşımı (Wiki §9)
+> Finans motoru ve bankacılık hesaplama kuralları
 
 
-# Geliştirici ve UI/UX Yaklaşımı
+# Finans Motoru
 
-Kaynak: `docs/WIKI.md` §9. Bu kural tüm geliştirme oturumlarında geçerlidir.
-
-## Mimari ve kod
-
-- **Modüler** yapı; özellikler `src/features/`, paylaşılan UI `src/components/`
-- **Kütüphane odaklı**; tekrar kullanılabilir composable ve bileşenler
-- Kod tekrarını **en aza indir**; üç kez tekrar → extract
-- Finans hesabı `src/finance/` içinde **saf TS**; Vue bileşenlerinde iş mantığı yok
-- Minimal diff; mevcut convention'a uy
-
-## Kullanılabilirlik
-
-- Sezgisel, esnek, **kolay** arayüz
-- Karmaşık ve **dağınık olmayan** yerleşim; bir ekranda tek ana görev
-- Finansal kullanım odaklı: tutarlar belirgin, hata mesajları anlaşılır
-
-## Görünüm ve cihaz
-
-- **Mobile-first**; responsive kırılımlar
-- **Açık / karanlık** tema; sistem tercihi + manuel geçiş
-- Ant Design Vue token sistemi; **Tailwind yok**
-- On-demand import; tek HTML bundle boyutunu gözet
-- **Sayfa genişliği:** AppShell `router-view` → `.kp-page`. Varsayılan dar sütun (`--kp-page-max-width: 800px`). **Liste sayfaları** route `meta.pageLayout: 'wide'` ile tam yatay genişlik (`.kp-page--wide`); tablo/liste ekranlarında zorunlu
-- **Kaydırma çubukları:** `body` dışında yalnızca hover'da görünür (`app.css` global kural)
-- **Tooltip (mobil):** `KpTooltip`; `≤768px` tooltip yok (ui-patterns.mdc)
-- **Drawer (mobil):** `FormDrawer` tam ekran; stack sola kaydırma yok (ui-patterns.mdc)
-- **Modal:** kullanılabilir alanın dikey ortasında; JSON blokları `JsonCodeBlock` ile renklendirilmiş + satır kırılımı
-- **Sekmeli sayfalar:** seçili sekme URL'de (`?tab=`); yenilemede aynı sekme — `useRoutedTabs`
-
-## İkonlar
-
-- **Emoji kullanma.** Her durumda ya `@ant-design/icons-vue` ya da `src/components/icons/*` SVG bileşenleri
-- Renk `currentColor`, boyut `1em` (yazı tipi büyüklüğüne ölçeklensin)
-- AntDV'de karşılığı olmayanlar için küçük inline SVG → ortak `icons/` klasörüne ekle
-- `aria-label` veya `role="img"` ile erişilebilir tut
-
-## Kabuk (AppShell)
-
-| Bileşen | Gereksinim |
-|---------|------------|
-| Sol menü | Collapsible; **pin** ile sabitlenebilir (tercih localStorage) |
-| Navbar | **Global arama** — banka, hesap, borç, gelir, gider indeksi |
-| Formlar | **Drawer**; modal yerine tercih et |
-
-## Drawer + combobox
-
-- Form drawer: **`FormDrawer`** + `stackId`; `useDrawerStack` — z-index artar; masaüstünde **alttaki drawer sola kayar** (44px/katman); **mobilde tam ekran, kaydırma yok**
-- Açılışta ilk form alanına otomatik focus
-- Liste/combobox **「Yeni Kayıt」** → drawer mevcut drawer **üstüne**; üst kapanınca alttaki kalır
-
-## Liste öncelikli UI
-
-- Her veri türü için **liste sayfası** önce; detay/düzenleme drawer veya yan panel
-- **`EntityListPage`:** tablo dikeyde kalan alanı doldurur (`scroll.y`); sütunlar `prepareListTableColumns` ile `minWidth` alır — **%100'e sıkışmaz**; gerekince yatay kaydırma (`scroll.x`). Sekme içi başlık yok; masaüstü araç çubuğu tek satır (arama + filtre ikonu · ortada arşiv · yeni kayıt); mobilde arşiv segmenti üstte ortada, liste **kart** görünümü
-- **Filtreler arama kutusunun sağındaki popover'da** (`FilterOutlined` + aktif rozet); banka built-in (`bank-filter` + `:banks`), diğerleri **declarative** `:filters="ListFilter<T>[]"` (`select` / `numberRange` / `dateRange`). Inline filter yerleştirme yapma
-- Tüm listelerde: **sıralama**, **sayfalama**, **arama**, **filtreleme** (client-side Dexie); **liste sütunlarında tooltip yok** (`Table` `:show-sorter-tooltip="false"`; ellipsis `{ showTitle: false }`)
-- **URL durumu kalıcı:** arama, arşiv, banka, sıralama, sayfa, sayfa boyutu + tüm declarative filtreler `useListQuery({ key })` ile URL query'de; `EntityListPage` `state-key` prop ile prefiks (sekmeli ve çoklu listeli sayfalarda zorunlu)
-- **Masaüstü:** tablo satırına tıklayınca düzenleme drawer (`EntityListPage` → `@edit`)
-- Boş durum ve yükleme skeleton'ları
-
-## Grafik ve rapor
-
-- Önemli metrikler **ECharts** ile dashboard'da
-- Ayrı **analiz / rapor** sayfaları; ileride Excel/PDF yalnızca görünür tablo/grafikten
-
-## Bölgesel biçim
-
-- Varsayılan Türkiye; profil `localeSettings` ile override
-- Tutar/tarih: `Intl` + profil ayarı; timezone **Europe/Istanbul** varsayılan
-- **Para birimi** yalnızca Ayarlar → Bölgesel; formlarda seçilemez (`LocaleInputNumber` + kayıtta profil `currency`)
-- Form tutar/yüzde: `LocaleInputNumber`; ondalık hane ve ayırıcılar locale'e göre
-- Asla ham ISO tarihini kullanıcıya gösterme
-
-## Çalışma disiplini
-
-- Milestone sırasına uy (TODO.md)
-- Tamamlanan iş → `CHANGELOG.md`; planlanan → `TODO.md`
-- Belirsiz iş kuralı → Wiki / ARCHITECTURE'a sor veya not düş
+- Saf fonksiyonlar; yan etki yok; Vitest ile test et
+- Kullanıcı sözleşme oranı her zaman öncelikli
+- Preset: build embed + IndexedDB; çevrimiçi feed ile DB güncellenir (Zod, ezme); motor sözleşme oranını kullanır
+- Kredi: anüite; KK opsiyonel vergi katmanı
+- KK: dönem borcu, asgari %, tam/kısmi ödeme tarihleri
+- Nakit avans: kısmi ödeme sonrası faiz kalan anapara üzerinden
+- Taksitli avans: taksit durumu + erken faizsiz kapama bayrağı
+- Gecikme ve kapama tutarı tarih bazlı projeksiyon
+- Yuvarlama: TRY 2 hane, half-up
 
 ---
 > Source: [kemalersin/kurtarma-plani](https://github.com/kemalersin/kurtarma-plani) — distributed by [TomeVault](https://tomevault.io).
