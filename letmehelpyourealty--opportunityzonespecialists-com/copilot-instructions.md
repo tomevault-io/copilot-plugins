@@ -1,50 +1,118 @@
-## current-best-practices
+## no-duplicate-features
 
-> Always use latest docs/news, current-year best practices, and optimize for the current stack
+> Prevent duplicating features that platforms already provide natively
 
 
-# Stay Current and Optimized
+# Don't Duplicate Platform Features
 
-**Answer and implement with the goal of staying current and optimized.** Use the latest official docs and updates, adopt current-year best practices and trends for this stack, and optimize outcomes (performance, SEO, security, maintainability).
+**ALWAYS check what platforms already provide before building.**
 
-## Check recency
+## Platform Feature Matrix
 
-Before implementing or recommending:
+### Follow Up Boss
+✅ **Already Has:**
+- Full REST API with webhooks
+- Native RealScout integration (2-way sync)
+- Built-in automation (action plans, drip campaigns)
+- Lead deduplication
+- Stage management
+- Tag management
+- Bulk operations
+- Reporting dashboards
 
-- Search for the **latest** docs and updates (e.g., "Next.js 15 2026", "Vercel 2026", "Anthropic API 2026").
-- Treat the **current date** (e.g., February 26, 2026) as the reference for "current" (e.g., 2026 best practices).
-- Prefer patterns and procedures that match the **current** stack and any pinned versions.
+❌ **Don't Build:**
+- Custom webhook handlers for RealScout sync (use native integration)
+- Lead deduplication logic (FUB does this)
+- Bulk tag/stage operations (use FUB UI or API directly)
 
-## Current stack reference
+✅ **DO Build (Enhancements):**
+- Rate limiting wrapper (FUB API doesn't provide this)
+- Response caching (reduce duplicate API calls)
+- TypeScript type safety
 
-Use and cite current docs for:
+### RealScout
+✅ **Already Has:**
+- AI-powered property matching (2025 release)
+- Natural language search (December 2025)
+- Native Follow Up Boss integration
+- Behavioral learning from user activity
+- Adaptive property alerts
+- Client activity tracking
+- Property recommendations
 
-- **Next.js** (App Router, React 19) — nextjs.org/docs
-- **TypeScript** — typescriptlang.org/docs
-- **Vercel** — vercel.com/docs
-- **Tailwind CSS** — tailwindcss.com/docs
-- **RealScout** — platform docs and native FUB integration
-- **Follow Up Boss** — API and integrations
-- **Anthropic / Claude API** — docs.anthropic.com (when integrating Claude)
+❌ **Don't Build:**
+- Property recommendation engine (RealScout AI does this)
+- Activity tracking (built-in)
+- Search optimization (they just added AI search)
+- Lead sync to FUB (native integration)
 
-## Optimize by default
+✅ **DO Build (Enhancements):**
+- Custom widget styling
+- Analytics tracking beyond RealScout's
 
-- **Performance**: Core Web Vitals, lazy loading, minimal JS.
-- **SEO**: E-E-A-T, JSON-LD, sitemaps, NAP/GBP alignment.
-- **Security**: CSP, headers, no secrets in client code.
-- **Code**: Type safety, minimal dependencies, existing project patterns.
+### Calendly
+✅ **Already Has:**
+- Scheduling widget
+- Email notifications
+- Calendar sync
+- Integrations
 
-## Cite when it matters
+❌ **Don't Build:**
+- Custom scheduling logic
+- Notification system
 
-When a recommendation depends on "latest" info, briefly cite what was checked (e.g., "Per Next.js 15 docs as of 2026…") so it can be verified or revisited later.
+✅ **DO Build:**
+- React component wrappers (convenience only)
 
-## Alignment with other rules
+### Cloudflare
+✅ **Already Has:**
+- Global CDN
+- Basic caching
+- DDoS protection
 
-This rule **reinforces** the RESEARCH-FIRST PROTOCOL by adding:
+❌ **Don't Build:**
+- Redundant CDN layer
 
-- Explicit "latest news and updates" and "current trends."
-- "Current stack" and "current year" (e.g., 2026) as the default frame.
-- "Answer with the goal of staying current and optimized" as the default stance.
+✅ **DO Build:**
+- Custom Workers for specific logic
+- Advanced caching rules
+- Edge functions
+
+### Vercel
+✅ **Already Has:**
+- Auto-deployments
+- Preview URLs
+- Analytics
+
+❌ **Don't Build:**
+- Custom deployment system
+
+✅ **DO Build:**
+- Custom GitHub Actions (beyond Vercel's automation)
+- Lighthouse CI
+- Bundle analysis
+
+## Rule: Always Ask First
+
+**Before building any integration, ask:**
+
+1. Does this platform already have this feature?
+2. Is there a native integration I should use instead?
+3. Am I adding real value or just wrapping their API?
+
+## Examples
+
+❌ **BAD: Duplicate**
+```typescript
+// Building custom RealScout → FUB sync
+// when native integration exists
+```
+
+✅ **GOOD: Enhancement**
+```typescript
+// Adding rate limiting to FUB API calls
+// (FUB API doesn't provide this)
+```
 
 ---
 > Source: [LetMeHelpYouREALTY/opportunityzonespecialists.com](https://github.com/LetMeHelpYouREALTY/opportunityzonespecialists.com) — distributed by [TomeVault](https://tomevault.io).
