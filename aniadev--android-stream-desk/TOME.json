@@ -4,7 +4,7 @@
   "repo": "android-stream-desk",
   "description": "The repository for Android Stream Desk project",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aniadev/android-stream-desk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-26T05:30:53Z"
+  "distributed_at": "2026-05-26T05:31:58Z"
 }
