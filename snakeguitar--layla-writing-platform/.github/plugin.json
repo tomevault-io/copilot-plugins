@@ -1,0 +1,9 @@
+{
+  "name": "snakeguitar--layla-writing-platform",
+  "displayName": "layla-writing-platform",
+  "description": "Real-time collaborative creative-writing and worldbuilding platform. Multiple authors can co-write novels, manage wiki entries, visualize narrative graphs, and communicate through voice chat.",
+  "version": "1.0.0",
+  "author": "SnakeGuitar",
+  "homepage": "https://github.com/SnakeGuitar/layla-writing-platform",
+  "skills": []
+}
