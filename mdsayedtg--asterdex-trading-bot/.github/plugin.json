@@ -1,0 +1,9 @@
+{
+  "name": "mdsayedtg--asterdex-trading-bot",
+  "displayName": "asterdex-trading-bot",
+  "description": "Aster DEX and Hyperliquid trading bot. Bun-powered trend, maker, and offset-maker engines with Ink UI for Aster, GRVT, and Hyperliquid perpetual futures.",
+  "version": "1.0.0",
+  "author": "mdsayedtg",
+  "homepage": "https://github.com/mdsayedtg/asterdex-trading-bot",
+  "skills": []
+}
