@@ -1,24 +1,18 @@
-## general
+## feldfreund-devkit
 
 > **Read these files before working:**
 
-
-# Cursor AI Quick Reference
+# GitHub Copilot Instructions
 
 **Read these files before working:**
 
-1. [README.md](../../README.md) - Project overview and setup
-2. [AGENTS.md](../../AGENTS.md) - AI agent guidelines and code review instructions
-3. [CONTRIBUTING.md](../../CONTRIBUTING.md) - Coding standards and workflow
+1. [README.md](../README.md) - Project overview and setup
+2. [AGENTS.md](../AGENTS.md) - AI agent guidelines and code review instructions
+3. [CONTRIBUTING.md](../CONTRIBUTING.md) - Coding standards and workflow
 
-## Quick Reference
+---
 
-- Use single quotes in Python
-- 120 character line length
-- Think from first principles
-- Discuss significant changes before implementing
-- Keep code simple and self-explanatory
-- Write tests for new features
+> For detailed guidelines, review practices, and coding principles, see [AGENTS.md](../AGENTS.md).
 
 ---
 > Source: [zauberzeug/feldfreund_devkit](https://github.com/zauberzeug/feldfreund_devkit) — distributed by [TomeVault](https://tomevault.io).
