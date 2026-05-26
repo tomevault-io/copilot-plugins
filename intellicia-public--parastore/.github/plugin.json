@@ -1,0 +1,9 @@
+{
+  "name": "intellicia-public--parastore",
+  "displayName": "parastore",
+  "description": "Draw a store, generate LLM personas, and watch them shop \u2014 an isometric 3D sandbox for synthetic-consumer experiments.",
+  "version": "1.0.0",
+  "author": "intellicia-public",
+  "homepage": "https://github.com/intellicia-public/parastore",
+  "skills": []
+}
