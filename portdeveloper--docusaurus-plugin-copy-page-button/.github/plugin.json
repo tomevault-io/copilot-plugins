@@ -1,0 +1,9 @@
+{
+  "name": "portdeveloper--docusaurus-plugin-copy-page-button",
+  "displayName": "docusaurus-plugin-copy-page-button",
+  "description": "Docusaurus plugin that adds a copy page button to extract documentation content as markdown for AI tools like ChatGPT, Claude, and Gemini",
+  "version": "1.0.0",
+  "author": "portdeveloper",
+  "homepage": "https://github.com/portdeveloper/docusaurus-plugin-copy-page-button",
+  "skills": []
+}
