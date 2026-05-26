@@ -1,0 +1,9 @@
+{
+  "name": "masterix21--laravel-entitlements",
+  "displayName": "laravel-entitlements",
+  "description": "Simple and flexible entitlement management for Laravel applications, with support for plans, features, limits, and usage tracking.",
+  "version": "1.0.0",
+  "author": "masterix21",
+  "homepage": "https://github.com/masterix21/laravel-entitlements",
+  "skills": []
+}
