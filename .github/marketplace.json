@@ -142769,6 +142769,11 @@
       "description": "Harness coding workflow for codex, claude, github copilot"
     },
     {
+      "name": "madeye--silicon-civilization-stock-trade",
+      "source": "./madeye--silicon-civilization-stock-trade",
+      "description": "\u7845\u57fa\u6587\u660e\u6d88\u8d39\u80a1\u4ea4\u6613\u7b56\u7565\u7cfb\u7edf \u00b7 DeepSeek v4-pro \u00b7 akshare \u00b7 \u56de\u6d4b \u00b7 Next.js"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
