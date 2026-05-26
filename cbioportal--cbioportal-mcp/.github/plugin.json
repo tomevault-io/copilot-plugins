@@ -1,0 +1,9 @@
+{
+  "name": "cbioportal--cbioportal-mcp",
+  "displayName": "cbioportal-mcp",
+  "description": "cbioportal-mcp",
+  "version": "1.0.0",
+  "author": "cBioPortal",
+  "homepage": "https://github.com/cBioPortal/cbioportal-mcp",
+  "skills": []
+}
