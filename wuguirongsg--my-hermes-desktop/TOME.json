@@ -1,0 +1,44 @@
+{
+  "name": "My-Hermes-Desktop",
+  "owner": "wuguirongsg",
+  "repo": "My-Hermes-Desktop",
+  "description": "A desktop UI crafted for Hermes Agent, built on Tauri 2 and React. Positioning: A native companion application for macOS, featuring zero-terminal operation and Apple-style intuitive interaction.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wuguirongsg/My-Hermes-Desktop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-26T06:32:07Z"
+}
