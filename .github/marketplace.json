@@ -105404,6 +105404,21 @@
       "description": "An external adaptive transmission controller that reads FH6 telemetry and automatically shifts gears based on driving style, throttle input, RPM, speed and brake pressure."
     },
     {
+      "name": "aniadev--android-stream-desk",
+      "source": "./aniadev--android-stream-desk",
+      "description": "The repository for Android Stream Desk project"
+    },
+    {
+      "name": "aniadev--android-stream-desk",
+      "source": "./aniadev--android-stream-desk",
+      "description": "The repository for Android Stream Desk project"
+    },
+    {
+      "name": "aniadev--android-stream-desk",
+      "source": "./aniadev--android-stream-desk",
+      "description": "The repository for Android Stream Desk project"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
