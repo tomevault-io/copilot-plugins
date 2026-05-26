@@ -1,0 +1,9 @@
+{
+  "name": "clockworknet--codex-status",
+  "displayName": "codex-status",
+  "description": "Keep an eye on capacity for your codex-cli using this CLI",
+  "version": "1.0.0",
+  "author": "ClockworkNet",
+  "homepage": "https://github.com/ClockworkNet/codex-status",
+  "skills": []
+}
