@@ -54354,6 +54354,16 @@
       "description": "\u661f\u5c18\u7ec7\u68a6-\u5c0f\u8bf4\u7f16\u8f91\u5668"
     },
     {
+      "name": "novaquant-labs--hyperliquid-trading-bot",
+      "source": "./novaquant-labs--hyperliquid-trading-bot",
+      "description": "hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot,"
+    },
+    {
+      "name": "novaquant-labs--hyperliquid-trading-bot",
+      "source": "./novaquant-labs--hyperliquid-trading-bot",
+      "description": "hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot, hyperliquid profitable trading bot, hyperliquid trading bot, perp trading bot,"
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
