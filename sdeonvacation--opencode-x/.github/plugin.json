@@ -1,0 +1,9 @@
+{
+  "name": "sdeonvacation--opencode-x",
+  "displayName": "opencode-x",
+  "description": "Open-source Claude Code alternative. Provider-agnostic, MIT licensed. Native Claude Code hook/plugin compatibility.",
+  "version": "1.0.0",
+  "author": "sdeonvacation",
+  "homepage": "https://github.com/sdeonvacation/opencode-x",
+  "skills": []
+}
