@@ -163569,6 +163569,26 @@
       "description": "Chinese-first DeepSeek-powered terminal coding agent"
     },
     {
+      "name": "intellicia-public--parastore",
+      "source": "./intellicia-public--parastore",
+      "description": "Draw a store, generate LLM personas, and watch them shop \u2014 an isometric 3D sandbox for synthetic-consumer experiments."
+    },
+    {
+      "name": "alexbbt--ha-moen-smart-water",
+      "source": "./alexbbt--ha-moen-smart-water",
+      "description": "\ud83c\udfe0 Home Assistant integration for Moen Smart Water Network faucets. Control faucets with preset volumes, custom dispensing, and automation support."
+    },
+    {
+      "name": "animegolem--rmpc-auto-theme",
+      "source": "./animegolem--rmpc-auto-theme",
+      "description": "generates RMPC themes based on the most common colors in a tracks a album art. Leans on the \"Execute on song change\" functionality."
+    },
+    {
+      "name": "clockworknet--codex-status",
+      "source": "./clockworknet--codex-status",
+      "description": "Keep an eye on capacity for your codex-cli using this CLI"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174234,6 +174254,26 @@
       "description": "Self-hosted music manager. Search, watch, and download your music library via Deezer/MusicBrainz + slskd."
     },
     {
+      "name": "zjuhechao--exam-porridge-assistant",
+      "source": "./zjuhechao--exam-porridge-assistant",
+      "description": "\u8003\u8bd5\u7ca5\u52a9\u624b - AI\u9a71\u52a8\u7684\u5b66\u4e60\u4e0e\u8003\u8bd5\u8f85\u52a9\u5de5\u5177\uff08\u8c03\u7528API\uff09"
+    },
+    {
+      "name": "hacklyc--cameo",
+      "source": "./hacklyc--cameo",
+      "description": "An image-first canvas for your local Codex agent."
+    },
+    {
+      "name": "hacklyc--cameo",
+      "source": "./hacklyc--cameo",
+      "description": "An image-first canvas for your local Codex agent."
+    },
+    {
+      "name": "dannemanfan1--asterdex-trading-bot",
+      "source": "./dannemanfan1--asterdex-trading-bot",
+      "description": "Automated Crypto Trading Bot on Aster DEX"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176832,6 +176872,21 @@
       "name": "wuguirongsg--my-hermes-desktop",
       "source": "./wuguirongsg--my-hermes-desktop",
       "description": "A desktop UI crafted for Hermes Agent, built on Tauri 2 and React. Positioning: A native companion application for macOS, featuring zero-terminal operation and Apple-style intuitive interaction."
+    },
+    {
+      "name": "zxpmail--reqforge",
+      "source": "./zxpmail--reqforge",
+      "description": "ReqForge \u2014 From requirements to shippable products. Open-source Agent Harness for Claude Code, Cursor & OpenCode. Spec\u2192Plan\u2192Build, hooks, review. /change-manager for brownfield."
+    },
+    {
+      "name": "fg-static--small-dlio",
+      "source": "./fg-static--small-dlio",
+      "description": "test"
+    },
+    {
+      "name": "pzzzzz5142--fh-radio-studio",
+      "source": "./pzzzzz5142--fh-radio-studio",
+      "description": "FH Radio Studio CLI and desktop tooling"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
