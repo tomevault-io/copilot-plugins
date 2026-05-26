@@ -108259,6 +108259,11 @@
       "description": "A Paperclip adapter that lets you run Hermes Agent as a managed employee in a Paperclip company."
     },
     {
+      "name": "llm-mart--paperclip-adapter",
+      "source": "./llm-mart--paperclip-adapter",
+      "description": "A Paperclip adapter that lets you run Hermes Agent as a managed employee in a Paperclip company."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
