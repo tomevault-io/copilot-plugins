@@ -1,0 +1,9 @@
+{
+  "name": "starling-browser--starling",
+  "displayName": "starling",
+  "description": "Managed-first .NET web browser engine, built from primitives",
+  "version": "1.0.0",
+  "author": "starling-browser",
+  "homepage": "https://github.com/starling-browser/starling",
+  "skills": []
+}
