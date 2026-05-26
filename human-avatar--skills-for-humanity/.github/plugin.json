@@ -1,0 +1,9 @@
+{
+  "name": "human-avatar--skills-for-humanity",
+  "displayName": "skills-for-humanity",
+  "description": "Structured reasoning methodologies from history's most rigorous thinkers, packaged as Claude Code skills.",
+  "version": "1.0.0",
+  "author": "human-avatar",
+  "homepage": "https://github.com/human-avatar/skills-for-humanity",
+  "skills": []
+}
