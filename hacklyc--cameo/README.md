@@ -7,11 +7,11 @@ An image-first canvas for your local Codex agent.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hAcKlyc/cameo](https://github.com/hAcKlyc/cameo).
+Original source: `CLAUDE.md` in [hAcKlyc/cameo](https://github.com/hAcKlyc/cameo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
