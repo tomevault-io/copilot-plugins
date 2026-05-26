@@ -163519,6 +163519,21 @@
       "description": "Local-first ETL/ELT studio: a drag-and-drop visual pipeline designer that compiles to SQL and runs on DuckDB. Tiny desktop app, no servers, git-friendly workspaces."
     },
     {
+      "name": "purewhiter--mobilegym",
+      "source": "./purewhiter--mobilegym",
+      "description": "MobileGym: A Verifiable and Scalable Simulation Environment for Mobile GUI Agent Research"
+    },
+    {
+      "name": "zauberzeug--feldfreund-devkit",
+      "source": "./zauberzeug--feldfreund-devkit",
+      "description": "A sturdy development platform for autonomous outdoor robotics made by Zauberzeug"
+    },
+    {
+      "name": "zauberzeug--feldfreund-devkit",
+      "source": "./zauberzeug--feldfreund-devkit",
+      "description": "A sturdy development platform for autonomous outdoor robotics made by Zauberzeug"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174154,6 +174169,31 @@
       "description": "Quarto extension to support inline comments that are shown on rendered documents."
     },
     {
+      "name": "evanbacon--agent-rsvp",
+      "source": "./evanbacon--agent-rsvp",
+      "description": "Speed-reading skill for agents"
+    },
+    {
+      "name": "evanbacon--agent-rsvp",
+      "source": "./evanbacon--agent-rsvp",
+      "description": "Speed-reading skill for agents"
+    },
+    {
+      "name": "antonbabenko--claude-delegator",
+      "source": "./antonbabenko--claude-delegator",
+      "description": "Ask Codex, Gemini/Antigravity, and Grok (x.AI) for independent opinions and consensus directly inside Claude Code."
+    },
+    {
+      "name": "sunls24--scenemint",
+      "source": "./sunls24--scenemint",
+      "description": "scenemint"
+    },
+    {
+      "name": "iochair--sql-manything",
+      "source": "./iochair--sql-manything",
+      "description": "Turn any source tree into a local SQLite database. FTS5 trigram search across 89K files in seconds. One file. No server. No network."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176722,6 +176762,11 @@
       "name": "q974491089--filter-manage",
       "source": "./q974491089--filter-manage",
       "description": "ICC\u8272\u5f69\u914d\u7f6e\u6587\u4ef6\u7ba1\u7406\u5668 & NVIDIA\u663e\u5361\u989c\u8272\u8bbe\u7f6e\u5de5\u5177 | Windows\u684c\u9762\u5e94\u7528 (Tauri 2 + React)"
+    },
+    {
+      "name": "powerycy--bosshunter",
+      "source": "./powerycy--bosshunter",
+      "description": "Smart job hunting Agent - AI-powered automation from scraping to delivery"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -280237,6 +280282,36 @@
       "name": "star618848--roleplay-chat",
       "source": "./star618848--roleplay-chat",
       "description": "roleplay-chat"
+    },
+    {
+      "name": "vuvunt072169--vietnamese-notes-app",
+      "source": "./vuvunt072169--vietnamese-notes-app",
+      "description": "\u1ee8ng d\u1ee5ng ghi ch\u00fa cho ng\u01b0\u1eddi Vi\u1ec7t"
+    },
+    {
+      "name": "vuvunt072169--vietnamese-notes-app",
+      "source": "./vuvunt072169--vietnamese-notes-app",
+      "description": "\u1ee8ng d\u1ee5ng ghi ch\u00fa cho ng\u01b0\u1eddi Vi\u1ec7t"
+    },
+    {
+      "name": "hunking21--study2",
+      "source": "./hunking21--study2",
+      "description": "study2"
+    },
+    {
+      "name": "jacky20000326--scheduling",
+      "source": "./jacky20000326--scheduling",
+      "description": "scheduling"
+    },
+    {
+      "name": "jacky20000326--scheduling",
+      "source": "./jacky20000326--scheduling",
+      "description": "scheduling"
+    },
+    {
+      "name": "mthomason--evergit",
+      "source": "./mthomason--evergit",
+      "description": "Backup your Github repositories.  This is a simple script that clones and updates local backups of GitHub repositories on a scheduled basis."
     }
   ]
 }
