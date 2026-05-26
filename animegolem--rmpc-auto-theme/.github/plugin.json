@@ -1,0 +1,9 @@
+{
+  "name": "animegolem--rmpc-auto-theme",
+  "displayName": "RMPC-Auto-Theme",
+  "description": "generates RMPC themes based on the most common colors in a tracks a album art. Leans on the \"Execute on song change\" functionality.",
+  "version": "1.0.0",
+  "author": "animegolem",
+  "homepage": "https://github.com/animegolem/RMPC-Auto-Theme",
+  "skills": []
+}
