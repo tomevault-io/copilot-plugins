@@ -106,5 +106,5 @@ fun updateStudent(@PathVariable id: Long, @Valid @RequestBody reqDto: UpdateStud
 - Module names only for cross-cutting: global, ci/cd
 
 ---
-> Source: [themoment-team/datagsm-server](https://github.com/themoment-team/datagsm-server) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
+> Source: [themoment-team/DataGSM-server](https://github.com/themoment-team/DataGSM-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-26 -->
