@@ -176689,6 +176689,16 @@
       "description": "spark-ai-copilot"
     },
     {
+      "name": "smellouk--shellify",
+      "source": "./smellouk--shellify",
+      "description": "An android app that wraps any website into an isolated WebView with per-app ad blocking, biometric lock, and encrypted backup \u2014 local-first, no cloud, no analytics."
+    },
+    {
+      "name": "snakeguitar--layla-writing-platform",
+      "source": "./snakeguitar--layla-writing-platform",
+      "description": "Real-time collaborative creative-writing and worldbuilding platform. Multiple authors can co-write novels, manage wiki entries, visualize narrative graphs, and communicate through voice chat."
+    },
+    {
       "name": "ancplua--ancplua-claude-plugins",
       "source": "./ancplua--ancplua-claude-plugins",
       "description": "ancplua-claude-plugins"
