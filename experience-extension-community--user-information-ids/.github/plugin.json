@@ -1,0 +1,9 @@
+{
+  "name": "experience-extension-community--user-information-ids",
+  "displayName": "user-information-ids",
+  "description": "Display student/employee identification credentials from Ethos Data Connect. Parameterizable community sample.",
+  "version": "1.0.0",
+  "author": "experience-extension-community",
+  "homepage": "https://github.com/experience-extension-community/user-information-ids",
+  "skills": []
+}
