@@ -1,0 +1,9 @@
+{
+  "name": "callmarcus--dji-drone-metadata-embedder",
+  "displayName": "dji-drone-metadata-embedder",
+  "description": "Python CLI for embedding DJI drone telemetry from SRT logs into MP4 videos. Batch processes folders, preserves subtitles, and exports flight data to JSON, GPX, or CSV.",
+  "version": "1.0.0",
+  "author": "CallMarcus",
+  "homepage": "https://github.com/CallMarcus/dji-drone-metadata-embedder",
+  "skills": []
+}
