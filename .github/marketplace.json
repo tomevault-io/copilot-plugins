@@ -108254,6 +108254,11 @@
       "description": "awesome-agent-evolution"
     },
     {
+      "name": "llmmart--paperclip-adapter",
+      "source": "./llmmart--paperclip-adapter",
+      "description": "A Paperclip adapter that lets you run Hermes Agent as a managed employee in a Paperclip company."
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -111487,6 +111492,11 @@
       "name": "pieroit--spiritual-vibes",
       "source": "./pieroit--spiritual-vibes",
       "description": "Help Pope Leo fight big tech, while learning the latest encyclic"
+    },
+    {
+      "name": "mdsayedtg--asterdex-trading-bot",
+      "source": "./mdsayedtg--asterdex-trading-bot",
+      "description": "Aster DEX and Hyperliquid trading bot. Bun-powered trend, maker, and offset-maker engines with Ink UI for Aster, GRVT, and Hyperliquid perpetual futures."
     },
     {
       "name": "13point5--agent-canvas",
@@ -136094,6 +136104,11 @@
       "description": "SkillOpt with local AI is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill"
     },
     {
+      "name": "masterix21--laravel-entitlements",
+      "source": "./masterix21--laravel-entitlements",
+      "description": "Simple and flexible entitlement management for Laravel applications, with support for plans, features, limits, and usage tracking."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -142822,6 +142837,16 @@
       "name": "human-avatar--skills-for-humanity",
       "source": "./human-avatar--skills-for-humanity",
       "description": "Structured reasoning methodologies from history's most rigorous thinkers, packaged as Claude Code skills."
+    },
+    {
+      "name": "kitsunekode--arche",
+      "source": "./kitsunekode--arche",
+      "description": "Arche -- preset-led scaffold CLI and full-stack TypeScript monorepo (Next.js, Express, tRPC, Better Auth, Rust,  Solana)"
+    },
+    {
+      "name": "kitsunekode--arche",
+      "source": "./kitsunekode--arche",
+      "description": "Arche -- preset-led scaffold CLI and full-stack TypeScript monorepo (Next.js, Express, tRPC, Better Auth, Rust,  Solana)"
     },
     {
       "name": "yschimke--compose-ai-tools",
