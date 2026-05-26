@@ -1,0 +1,9 @@
+{
+  "name": "evanbacon--agent-rsvp",
+  "displayName": "agent-rsvp",
+  "description": "Speed-reading skill for agents",
+  "version": "1.0.0",
+  "author": "EvanBacon",
+  "homepage": "https://github.com/EvanBacon/agent-rsvp",
+  "skills": []
+}
