@@ -1,0 +1,9 @@
+{
+  "name": "zxpmail--reqforge",
+  "displayName": "ReqForge",
+  "description": "ReqForge \u2014 From requirements to shippable products. Open-source Agent Harness for Claude Code, Cursor & OpenCode. Spec\u2192Plan\u2192Build, hooks, review. /change-manager for brownfield.",
+  "version": "1.0.0",
+  "author": "zxpmail",
+  "homepage": "https://github.com/zxpmail/ReqForge",
+  "skills": []
+}
