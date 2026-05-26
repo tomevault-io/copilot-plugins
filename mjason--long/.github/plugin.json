@@ -1,0 +1,9 @@
+{
+  "name": "mjason--long",
+  "displayName": "long",
+  "description": "Single-binary LLM agent runtime built on Elixir/OTP: chat UI, 4-tier memory, Anthropic-compatible Skills, scheduled tasks, multi-provider LLM routing, and platform bots.",
+  "version": "1.0.0",
+  "author": "mjason",
+  "homepage": "https://github.com/mjason/long",
+  "skills": []
+}
