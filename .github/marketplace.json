@@ -102914,6 +102914,11 @@
       "description": "Claude Code reference: write in Louis Rossmann's voice, never like AI slop. Portable CLAUDE.md plus skills."
     },
     {
+      "name": "starling-browser--starling",
+      "source": "./starling-browser--starling",
+      "description": "Managed-first .NET web browser engine, built from primitives"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -111477,6 +111482,11 @@
       "name": "officecli--officedex",
       "source": "./officecli--officedex",
       "description": "OfficeDex is the AI desktop workspace for documents, slides, and spreadsheets \u2014 Wails v2 + React 19 client for OfficeCLI"
+    },
+    {
+      "name": "pieroit--spiritual-vibes",
+      "source": "./pieroit--spiritual-vibes",
+      "description": "Help Pope Leo fight big tech, while learning the latest encyclic"
     },
     {
       "name": "13point5--agent-canvas",
