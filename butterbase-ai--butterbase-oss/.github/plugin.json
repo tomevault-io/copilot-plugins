@@ -1,0 +1,9 @@
+{
+  "name": "butterbase-ai--butterbase-oss",
+  "displayName": "butterbase-oss",
+  "description": "Open-source backend-as-a-service. Postgres, auth, storage, functions, AI gateway, MCP.",
+  "version": "1.0.0",
+  "author": "butterbase-ai",
+  "homepage": "https://github.com/butterbase-ai/butterbase-oss",
+  "skills": []
+}
