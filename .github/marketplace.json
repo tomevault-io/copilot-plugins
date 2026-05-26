@@ -47699,6 +47699,11 @@
       "description": "bolt-to-github"
     },
     {
+      "name": "butterbase-ai--butterbase-oss",
+      "source": "./butterbase-ai--butterbase-oss",
+      "description": "Open-source backend-as-a-service. Postgres, auth, storage, functions, AI gateway, MCP."
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -82742,6 +82747,11 @@
       "name": "otokonoizumi--adskip",
       "source": "./otokonoizumi--adskip",
       "description": "AI\u667a\u80fd\u8bc6\u522b\u5e76\u81ea\u52a8\u8df3\u8fc7B\u7ad9\u89c6\u9891\u4e2d\u7684\u5207\u7247\u5e7f\u544a"
+    },
+    {
+      "name": "rm-rfd--rm-sni-spoofer",
+      "source": "./rm-rfd--rm-sni-spoofer",
+      "description": "rm-sni-spoofer"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -118049,6 +118059,11 @@
       "description": "Cryptographically verifiable audit infrastructure for AI agents. AgentOps Replay produces tamper-evident, hash-chained event logs that prove what an agent did, in what order, with no possibility of po"
     },
     {
+      "name": "zhaojingru-ai--multimodal-interview-system",
+      "source": "./zhaojingru-ai--multimodal-interview-system",
+      "description": "Multimodal interview system with Coze workflow exports"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -142787,6 +142802,11 @@
       "name": "themoment-team--datagsm-server",
       "source": "./themoment-team--datagsm-server",
       "description": "\uad11\uc8fc\uc18c\ud504\ud2b8\uc6e8\uc5b4\ub9c8\uc774\uc2a4\ud130\uace0\ub4f1\ud559\uad50 OpenAPI & OAuth \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "human-avatar--skills-for-humanity",
+      "source": "./human-avatar--skills-for-humanity",
+      "description": "Structured reasoning methodologies from history's most rigorous thinkers, packaged as Claude Code skills."
     },
     {
       "name": "yschimke--compose-ai-tools",
