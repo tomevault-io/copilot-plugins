@@ -1,0 +1,9 @@
+{
+  "name": "vgreg--quarto-comments",
+  "displayName": "quarto-comments",
+  "description": "Quarto extension to support inline comments that are shown on rendered documents.",
+  "version": "1.0.0",
+  "author": "vgreg",
+  "homepage": "https://github.com/vgreg/quarto-comments",
+  "skills": []
+}
