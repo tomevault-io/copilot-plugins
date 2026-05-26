@@ -1,0 +1,9 @@
+{
+  "name": "tlejay--joymail",
+  "displayName": "JoyMail",
+  "description": "Concept demo: control a Gmail-style inbox with a PS5 DualSense controller, as a PWA on iPad. Mock mode, no real email needed \u2014 see joymail-dosx.vercel.app.",
+  "version": "1.0.0",
+  "author": "tlejay",
+  "homepage": "https://github.com/tlejay/JoyMail",
+  "skills": []
+}
