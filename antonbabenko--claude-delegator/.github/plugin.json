@@ -1,0 +1,9 @@
+{
+  "name": "antonbabenko--claude-delegator",
+  "displayName": "claude-delegator",
+  "description": "Ask Codex, Gemini/Antigravity, and Grok (x.AI) for independent opinions and consensus directly inside Claude Code.",
+  "version": "1.0.0",
+  "author": "antonbabenko",
+  "homepage": "https://github.com/antonbabenko/claude-delegator",
+  "skills": []
+}
