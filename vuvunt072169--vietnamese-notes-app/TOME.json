@@ -4,7 +4,7 @@
   "repo": "vietnamese-notes-app",
   "description": "\u1ee8ng d\u1ee5ng ghi ch\u00fa cho ng\u01b0\u1eddi Vi\u1ec7t",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vuvunt072169/vietnamese-notes-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-26T04:32:28Z"
+  "distributed_at": "2026-05-26T04:34:28Z"
 }
