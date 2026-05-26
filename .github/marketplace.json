@@ -79729,6 +79729,11 @@
       "description": "MCP server for Fly.io CLI integration with Claude Desktop"
     },
     {
+      "name": "tantara--openbrief",
+      "source": "./tantara--openbrief",
+      "description": "openbrief"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
