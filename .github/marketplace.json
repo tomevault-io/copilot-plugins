@@ -114789,6 +114789,11 @@
       "description": "Azure Cost Calculator AI capability (Plugin) to provide deterministic and accurate estimations of Azure services costs"
     },
     {
+      "name": "tensorcast-ai--tensorcast",
+      "source": "./tensorcast-ai--tensorcast",
+      "description": "The high-performance distributed tensor layer \u2014 load once, share everywhere."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -163654,6 +163659,26 @@
       "description": "WIP Official page of COSCUP 2026"
     },
     {
+      "name": "live-ctf--livectf-defcon34",
+      "source": "./live-ctf--livectf-defcon34",
+      "description": "LiveCTF-DEFCON34"
+    },
+    {
+      "name": "devagrawal09--specter",
+      "source": "./devagrawal09--specter",
+      "description": "specter"
+    },
+    {
+      "name": "devagrawal09--specter",
+      "source": "./devagrawal09--specter",
+      "description": "specter"
+    },
+    {
+      "name": "portdeveloper--docusaurus-plugin-copy-page-button",
+      "source": "./portdeveloper--docusaurus-plugin-copy-page-button",
+      "description": "Docusaurus plugin that adds a copy page button to extract documentation content as markdown for AI tools like ChatGPT, Claude, and Gemini"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174399,6 +174424,26 @@
       "description": "Blogapp-next.js-"
     },
     {
+      "name": "ofux--lauren",
+      "source": "./ofux--lauren",
+      "description": "Autonomous AI agent loop that keeps working through your project while you keep planning what comes next."
+    },
+    {
+      "name": "pcmantz--vtermux",
+      "source": "./pcmantz--vtermux",
+      "description": "Embed and manage multiple named instances of the same terminal application in Emacs."
+    },
+    {
+      "name": "elberrd--cc-harness-iai",
+      "source": "./elberrd--cc-harness-iai",
+      "description": "cc-harness-iai"
+    },
+    {
+      "name": "yadokari1130--enderlink-lite",
+      "source": "./yadokari1130--enderlink-lite",
+      "description": "EnderLink-Lite"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -177022,6 +177067,16 @@
       "name": "luolangaga--tubatool",
       "source": "./luolangaga--tubatool",
       "description": "tubatool"
+    },
+    {
+      "name": "lihan3238--speckit-superpowers-bridge",
+      "source": "./lihan3238--speckit-superpowers-bridge",
+      "description": "Hands Spec Kit tasks to Superpowers for implementation without running speckit.implement"
+    },
+    {
+      "name": "lihan3238--speckit-superpowers-bridge",
+      "source": "./lihan3238--speckit-superpowers-bridge",
+      "description": "Hands Spec Kit tasks to Superpowers for implementation without running speckit.implement"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
