@@ -1,308 +1,146 @@
-## backend
+## frontend
 
-> - Use Python 3.11+ features and type hints consistently
+> - Use TypeScript strictly - no `any` types unless absolutely necessary
 
 
-# Backend Development Guidelines
+# Frontend Development Guidelines
 
-## Python Standards & Best Practices
+## TypeScript Standards
 
-### Language Features
+- Use TypeScript strictly - no `any` types unless absolutely necessary
+- Define proper interfaces and types for all components and functions
+- Use type imports: `import type { ComponentProps } from 'react'`
+- Leverage TypeScript 5+ features like `satisfies` operator
 
-- Use Python 3.11+ features and type hints consistently
-- Follow PEP 8 style guidelines with black formatting
-- Use async/await for all I/O operations
-- Leverage dataclasses and Pydantic models for structure
-- Use context managers for resource management
+## Next.js App Router
 
-### Type Safety
+- Use App Router with `app/` directory structure
+- Follow file naming: kebab-case for files, PascalCase for components
+- Organize components in feature-based folders
+- Keep reusable components in `src/components/`
 
-- Comprehensive type hints for all functions and classes
-- Use `typing` module for complex types (Union, Optional, List, Dict)
-- Define custom types for domain concepts
-- Use `typing.Protocol` for interface definitions
+## UI Framework - shadcn/ui Default
 
-## FastAPI Architecture Patterns
+### Setup
 
-### API Design
-
-- Use dependency injection for database connections and services
-- Implement proper request/response models with Pydantic v2
-- Follow RESTful API design principles
-- Use FastAPI's automatic OpenAPI documentation
-- Implement proper HTTP status codes and error responses
-
-### Route Organization
-
-- Group related routes in separate modules
-- Use APIRouter for modular route organization
-- Implement consistent error handling middleware
-- Use dependencies for authentication and authorization
-
-### Example Patterns
-
-```python
-# Route with proper dependency injection
-@router.post("/agents", response_model=AgentResponse)
-async def create_agent(
-    agent_data: AgentCreateRequest,
-    db: DBConnection = Depends(get_db),
-    user: UserClaims = Depends(get_current_user)
-) -> AgentResponse:
-    try:
-        agent = await agent_service.create_agent(agent_data, user.id)
-        return AgentResponse.from_orm(agent)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+```bash
+npx shadcn-ui@latest init
+npx shadcn-ui@latest add button input form card dropdown-menu dialog
 ```
 
-## Database Integration
+### Usage
 
-### Supabase Patterns
+```typescript
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-- Use proper SQL migrations in `backend/supabase/migrations/`
-- Follow established schema patterns with UUID primary keys
-- Implement row-level security (RLS) for all user-accessible tables
-- Use proper indexing for performance optimization
-
-### Migration Best Practices
-
-```sql
--- Idempotent migration pattern
-BEGIN;
-
--- Create table with proper constraints
-CREATE TABLE IF NOT EXISTS example_table (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-    name VARCHAR(255) NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW(),
-
-    CONSTRAINT example_table_name_not_empty CHECK (LENGTH(TRIM(name)) > 0)
+// Use shadcn/ui components directly
+const AgentCard = ({ agent }: { agent: Agent }) => (
+  <Card>
+    <CardHeader>
+      <CardTitle>{agent.name}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <p>{agent.description}</p>
+      <Button>Run Agent</Button>
+    </CardContent>
+  </Card>
 );
-
--- Create indexes for performance
-CREATE INDEX IF NOT EXISTS idx_example_table_user_id ON example_table(user_id);
-CREATE INDEX IF NOT EXISTS idx_example_table_created_at ON example_table(created_at);
-
--- Enable RLS
-ALTER TABLE example_table ENABLE ROW LEVEL SECURITY;
-
--- Create RLS policies
-CREATE POLICY "Users can manage their own records" ON example_table
-    FOR ALL USING (auth.uid() = user_id);
-
--- Create trigger for updated_at
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = NOW();
-    RETURN NEW;
-END;
-$$ language 'plpgsql';
-
-DROP TRIGGER IF EXISTS update_example_table_updated_at ON example_table;
-CREATE TRIGGER update_example_table_updated_at
-    BEFORE UPDATE ON example_table
-    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
-COMMIT;
 ```
 
-## Tool Development Framework
+## State Management
 
-### Tool Base Classes
+- **Server State**: `@tanstack/react-query` for data fetching
+- **Local State**: React hooks (`useState`, `useReducer`)
+- **Forms**: React Hook Form with Zod validation
 
-- Extend `AgentBuilderBaseTool` for agent builder tools
-- Extend `Tool` for general agent tools
-- Use proper inheritance patterns and method overrides
+```typescript
+// Query pattern
+function useAgents() {
+  return useQuery({
+    queryKey: ["agents"],
+    queryFn: () => agentService.getAgents(),
+  });
+}
 
-### Tool Schema Implementation
+// Form pattern with shadcn/ui
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+} from "@/components/ui/form";
 
-```python
-class ExampleTool(AgentBuilderBaseTool):
-    @openapi_schema({
-        "type": "function",
-        "function": {
-            "name": "example_action",
-            "description": "Perform an example action with detailed description",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "param1": {
-                        "type": "string",
-                        "description": "First parameter with clear explanation"
-                    },
-                    "param2": {
-                        "type": "integer",
-                        "description": "Second parameter with default value",
-                        "default": 0
-                    }
-                },
-                "required": ["param1"]
-            }
-        }
-    })
-    async def example_action(self, param1: str, param2: int = 0) -> ToolResult:
-        try:
-            logger.debug(f"Executing example_action with params: {param1}, {param2}")
-
-            # Implementation logic here
-            result = await self.perform_action(param1, param2)
-
-            return self.success_response(
-                result=result,
-                message=f"Successfully completed action for {param1}"
-            )
-        except Exception as e:
-            logger.error(f"Tool execution failed: {e}", exc_info=True)
-            return self.fail_response(f"Failed to perform action: {str(e)}")
+const form = useForm({
+  resolver: zodResolver(schema),
+});
 ```
 
-### Tool Registration
+## Supabase Integration
 
-- Use `AgentBuilderToolRegistry` pattern for registering tools
-- Follow `MCPToolWrapper` patterns for external tool integration
-- Use `DynamicToolBuilder` for runtime tool creation
-- Implement proper tool discovery and validation
+```typescript
+// Auth hook
+function useAuth() {
+  const [user, setUser] = useState<User | null>(null);
 
-## LLM Integration & Agent System
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) =>
+      setUser(session?.user ?? null)
+    );
+    return () => subscription.unsubscribe();
+  }, []);
 
-### LiteLLM Usage
-
-- Use LiteLLM for multi-provider support (Anthropic, OpenAI, etc.)
-- Implement proper prompt templates and formatting
-- Handle rate limits and retries gracefully
-- Use structured outputs when available
-
-### Agent Threading
-
-- Use ThreadManager for conversation management
-- Implement proper message threading and context
-- Handle tool execution timeouts gracefully
-- Use narrative communication style for user updates
-
-### Background Jobs
-
-- Use Dramatiq for async processing
-- Implement proper task queuing and retries
-- Use QStash for scheduled tasks
-- Handle job failures and monitoring
-
-## Security & Authentication
-
-### JWT Validation
-
-- Validate JWT tokens without signature verification for Supabase
-- Extract user claims properly from tokens
-- Implement proper role-based access control
-- Handle token expiration and refresh
-
-### Credential Management
-
-- Use environment variables for all API keys
-- Encrypt sensitive data like MCP credentials using Fernet
-- Implement secure credential storage in database
-- Rotate credentials regularly
-
-### Input Validation
-
-- Validate all inputs using Pydantic models
-- Sanitize user inputs to prevent injection attacks
-- Implement rate limiting for API endpoints
-- Use CORS policies appropriately
-
-## Error Handling & Logging
-
-### Structured Logging
-
-```python
-from utils.logger import logger
-
-# Example usage
-logger.debug(
-    "Agent execution started",
-    agent_id=agent_id,
-    user_id=user_id,
-    trace_id=trace_id
-)
+  return { user };
+}
 ```
 
-### Error Handling Patterns
+## Performance
 
-- Use custom exception classes for domain errors
-- Implement proper error boundaries and recovery
-- Log errors with appropriate context
-- Return user-friendly error messages
+- Use `lazy()` and `Suspense` for code splitting
+- Use `memo()` and `useMemo()` for expensive computations
+- Use `useCallback()` for stable function references
 
-### Monitoring & Observability
-
-- Use Langfuse for LLM call tracing
-- Integrate Sentry for error tracking
-- Implement health checks for services
-- Use Prometheus metrics for monitoring
-
-## Performance Optimization
-
-### Async Patterns
-
-- Use async/await consistently for I/O operations
-- Implement proper connection pooling
-- Use Redis for caching frequently accessed data
-- Optimize database queries with proper indexing
-
-### Resource Management
-
-- Use context managers for database connections
-- Implement proper timeout handling
-- Use connection pooling for external APIs
-- Monitor memory usage and clean up resources
-
-## Testing Strategies
-
-### Unit Testing
-
-- Use pytest with async support
-- Mock external dependencies properly
-- Test error conditions and edge cases
-- Maintain high test coverage for critical paths
-
-### Integration Testing
-
-- Test API endpoints with real database
-- Use test fixtures for consistent data
-- Test authentication and authorization flows
-- Validate tool execution and responses
-
-## Key Dependencies & Versions
+## Key Dependencies
 
 ### Core Framework
 
-- FastAPI 0.115+ for API framework
-- Python 3.11+ with latest type hints
-- Pydantic 2.x for data validation
-- Uvicorn for ASGI server
+- Next.js 15+ with App Router and Turbopack
+- React 18+ with TypeScript 5+
 
-### Database & Storage
+### UI & Styling
 
-- Supabase 2.17+ for database and auth
-- Redis 5.2+ for caching and sessions
-- PostgreSQL via Supabase with RLS
+- shadcn/ui for components
+- Tailwind CSS for styling
+- Lucide React for icons
 
-### Agent & LLM
+### State & Data
 
-- LiteLLM 1.72+ for LLM integration
-- Dramatiq 1.18+ for background jobs
-- Langfuse for observability
-- Sentry for error tracking
+- @tanstack/react-query for server state
+- @supabase/supabase-js for database
+- react-hook-form + zod for forms
 
-### Security & Utilities
+## Essential shadcn/ui Components
 
-- PyJWT for token validation
-- Cryptography for encryption
-- APScheduler for task scheduling
-- Structlog for structured logging
+Add these commonly used components:
+
+```bash
+npx shadcn-ui@latest add button input textarea select checkbox form card dialog dropdown-menu badge table tabs toast
+```
+
+## Best Practices
+
+- Use shadcn/ui components as the default choice
+- Follow shadcn/ui patterns for consistent styling
+- Use the `cn` utility for conditional classes
+- Implement proper loading and error states
+- Use semantic HTML elements
+- Ensure keyboard navigation works
 
 ---
 > Source: [elhayatferdos67-ux/mytask.v2](https://github.com/elhayatferdos67-ux/mytask.v2) — distributed by [TomeVault](https://tomevault.io).
