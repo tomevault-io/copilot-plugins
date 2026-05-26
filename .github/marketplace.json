@@ -174339,6 +174339,36 @@
       "description": "Practical guardrails for Codex, Claude Code, Cursor and GenAI coding agents."
     },
     {
+      "name": "robisson--build-like-amazon-agent-skills",
+      "source": "./robisson--build-like-amazon-agent-skills",
+      "description": "Production-grade engineering skills for AI coding agents, built on Amazon Way of building services"
+    },
+    {
+      "name": "robisson--build-like-amazon-agent-skills",
+      "source": "./robisson--build-like-amazon-agent-skills",
+      "description": "Production-grade engineering skills for AI coding agents, built on Amazon Way of building services"
+    },
+    {
+      "name": "120318--aethera",
+      "source": "./120318--aethera",
+      "description": "Self-hosted media resource management service for BT users."
+    },
+    {
+      "name": "chen-rong-zi--nju-power-watch",
+      "source": "./chen-rong-zi--nju-power-watch",
+      "description": "\u5357\u4eac\u5927\u5b66\u5bbf\u820d\u7535\u8d39\u81ea\u52a8\u76d1\u63a7\u7cfb\u7edf"
+    },
+    {
+      "name": "millionco--deslop-js",
+      "source": "./millionco--deslop-js",
+      "description": "Deslop JavaScript code"
+    },
+    {
+      "name": "chen-rong-zi--nju-power-watch",
+      "source": "./chen-rong-zi--nju-power-watch",
+      "description": "\u5357\u4eac\u5927\u5b66\u5bbf\u820d\u7535\u8d39\u81ea\u52a8\u76d1\u63a7\u7cfb\u7edf"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -280502,6 +280532,66 @@
       "name": "mthomason--evergit",
       "source": "./mthomason--evergit",
       "description": "Backup your Github repositories.  This is a simple script that clones and updates local backups of GitHub repositories on a scheduled basis."
+    },
+    {
+      "name": "kangsworkspace--nestjs-netflix",
+      "source": "./kangsworkspace--nestjs-netflix",
+      "description": "NestJS-Netflix"
+    },
+    {
+      "name": "nguyennhat4--chatbot-keyword-generator",
+      "source": "./nguyennhat4--chatbot-keyword-generator",
+      "description": "chatbot-keyword-generator"
+    },
+    {
+      "name": "nguyennhat4--chatbot-keyword-generator",
+      "source": "./nguyennhat4--chatbot-keyword-generator",
+      "description": "chatbot-keyword-generator"
+    },
+    {
+      "name": "natanhermes--nfse-natal",
+      "source": "./natanhermes--nfse-natal",
+      "description": "nfse-natal"
+    },
+    {
+      "name": "yg177680-dot--rd",
+      "source": "./yg177680-dot--rd",
+      "description": "rd"
+    },
+    {
+      "name": "elhayatferdos67-ux--mytask-v2",
+      "source": "./elhayatferdos67-ux--mytask-v2",
+      "description": "mytask.v2"
+    },
+    {
+      "name": "nguyennhat4--chatbot-keyword-generator",
+      "source": "./nguyennhat4--chatbot-keyword-generator",
+      "description": "chatbot-keyword-generator"
+    },
+    {
+      "name": "elhayatferdos67-ux--mytask-v2",
+      "source": "./elhayatferdos67-ux--mytask-v2",
+      "description": "mytask.v2"
+    },
+    {
+      "name": "jerrychan0623--hicalendar",
+      "source": "./jerrychan0623--hicalendar",
+      "description": "\ud83d\uddd3\ufe0f Cute Calendar AI - \u4e00\u4e2a\u5177\u6709\u4e2a\u6027\u7684Neobrutalism\u98ce\u683c\u65e5\u5386\u5e94\u7528"
+    },
+    {
+      "name": "mayankchrs--llama-rag",
+      "source": "./mayankchrs--llama-rag",
+      "description": "Assignment for Highlevel coding round "
+    },
+    {
+      "name": "elhayatferdos67-ux--mytask-v2",
+      "source": "./elhayatferdos67-ux--mytask-v2",
+      "description": "mytask.v2"
+    },
+    {
+      "name": "elhayatferdos67-ux--mytask-v2",
+      "source": "./elhayatferdos67-ux--mytask-v2",
+      "description": "mytask.v2"
     }
   ]
 }
