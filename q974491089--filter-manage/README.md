@@ -7,11 +7,11 @@ ICC色彩配置文件管理器 & NVIDIA显卡颜色设置工具 | Windows桌面�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [q974491089/filter-manage](https://github.com/q974491089/filter-manage).
+Original source: `CLAUDE.md` in [q974491089/filter-manage](https://github.com/q974491089/filter-manage).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
