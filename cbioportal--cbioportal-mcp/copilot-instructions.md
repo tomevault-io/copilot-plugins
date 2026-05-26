@@ -1,0 +1,181 @@
+## cbioportal-mcp
+
+> When an LLM agent produces incorrect results, fix the issue at the **root cause level**. The hierarchy is:
+
+# AGENTS.md - cBioPortal MCP Development Guide
+
+## Fix Hierarchy
+
+When an LLM agent produces incorrect results, fix the issue at the **root cause level**. The hierarchy is:
+
+### 1. Fix in the Data (Highest Priority)
+If the database schema itself causes confusion, modify the schema:
+- **Remove confusing columns** that agents misuse
+- **Add column comments** to clarify semantics
+- **Rename ambiguous columns** if possible
+
+SQL scripts in `sql/` directory (numeric prefix = apply order; see `sql/README.md`):
+- `0-cleanup-for-llm.sql` - Removes confusing columns/tables
+- `1-add-column-comments.sql` - Adds helpful column comments
+- `2-add-oncotree-fields.sql` - Denormalizes OncoTree onto `type_of_cancer`
+- `3-add-cancer-study-query-preferences.sql` - Creates the cohort-lookup table
+- `4-mutation-frequency-views.sql` - WES-aware views for mutation-frequency denominators + parameterized `gene_mutation_frequency_by_cancer_type(preference, gene)` recipe view + `top_mutated_genes_in_cohort`
+- `5-gene-expression-views.sql` - Expression / copy-number-value / methylation views (`gene_pair_coexpression`); backed by `genetic_alteration_derived`
+- `portal-specific/<portal-name>/*.sql` - Deployment-specific cohorts (e.g. `portal-specific/public-portal/0-preferences.sql`). Existence-gated so they're no-ops on other deployments.
+
+**Example**: The `sample.sample_type` column contained "Primary Solid Tumor" for ALL samples, causing agents to report wrong counts for "primary samples". Solution: Remove the column entirely.
+
+### 2. Fix in the System Prompt (Medium Priority)
+If data can't be changed, add explicit guidance to the agent's system prompt:
+- Add warnings about specific columns to avoid
+- Include example queries for common patterns
+- Reference exact expected values
+
+**Example**: Added explicit warning to prompts.py about not using `sample.sample_type` and showing correct query using `clinical_data_derived`.
+
+### 3. Fix in MCP Resources/Guides (Lower Priority)
+Add documentation in study guides and pitfall guides:
+- Update `common-pitfalls.md` with new error patterns
+- Update study guides with study-specific caveats
+- Add example queries that demonstrate correct approach
+
+**Example**: Added pitfall 5b to `common-pitfalls.md` documenting the sample type filtering error.
+
+### Why This Order?
+
+| Level | Pros | Cons |
+|-------|------|------|
+| Data | Eliminates error source entirely | Requires DB access, affects all users |
+| Prompt | Always available to agent | Uses context tokens, must be maintained |
+| Guide | Detailed documentation | Agent must read it, may be ignored |
+
+**Rule**: If you can prevent an error by removing the confusing element, that's better than documenting how to avoid it.
+
+---
+
+## Context Efficiency
+
+MCP interactions should minimize token usage. Every tool call and resource read consumes context.
+
+### Design Principles
+
+1. **Tools should return minimal, structured data**
+   - Return only what's needed to answer the question
+   - Use LIMIT in queries
+   - Avoid returning large text blobs
+
+2. **Resources are for reference, not bulk data**
+   - Study guides explain *what data means*, not *what the data is*
+   - General guides explain *how to query*, not query results
+   - Never put dynamic data (counts, frequencies) in static resources
+
+3. **Let the agent query, don't prefetch**
+   - Don't include "top 10 genes" in study guides — agent can query
+   - Don't include sample counts — agent can query
+   - Include *how to interpret* results, not the results themselves
+
+### Tool Design
+
+**Good tool:**
+```python
+def get_study_info(study_id: str) -> dict:
+    """Returns basic study metadata (name, cancer type, description)."""
+    # Small, focused response
+```
+
+**Bad tool:**
+```python
+def get_study_everything(study_id: str) -> dict:
+    """Returns all study data including samples, mutations, clinical data..."""
+    # Too much data, wastes context
+```
+
+### Resource Design
+
+**Good resource content:**
+```markdown
+## MSI_STATUS Attribute
+- **MSI-H**: Microsatellite instability high (>30% unstable loci)
+- **MSI-L**: Low instability
+- **MSS**: Microsatellite stable
+
+Use MSI status to predict immunotherapy response.
+```
+
+**Bad resource content:**
+```markdown
+## MSI Status Distribution
+- MSI-H: 1,234 samples (15%)
+- MSI-L: 456 samples (6%)
+- MSS: 6,789 samples (79%)
+```
+(Numbers change; agent should query for current counts)
+
+### When to Use What
+
+| Need | Use |
+|------|-----|
+| How to calculate mutation frequency | General guide (mutation-frequency-guide.md) |
+| What clinical attributes mean in a study | Study guide (study-guides/xxx.md) |
+| Actual mutation counts | Tool: clickhouse_run_select_query |
+| List of studies | Tool: list_studies |
+| Study-specific attribute semantics | Tool: get_study_guide → loads resource |
+
+### Caching Strategy
+
+- Study guides are static files → can be cached
+- Query results are dynamic → don't cache in resources
+- General guides rarely change → good to preload in agent instructions
+
+## File Structure
+
+```
+sql/
+├── README.md                                    # Apply order, defensive-INSERT rules, extension model
+├── 0-cleanup-for-llm.sql                        # Remove confusing columns/tables
+├── 1-add-column-comments.sql                    # Add helpful column comments
+├── 2-add-oncotree-fields.sql                    # Denormalize OncoTree onto type_of_cancer
+├── 3-add-cancer-study-query-preferences.sql     # cancer_study_query_preferences table + portable preferences
+├── 4-mutation-frequency-views.sql                # Mutation-frequency parameterized views + coverage building blocks
+├── 5-gene-expression-views.sql                   # Expression / CN / methylation correlation views
+└── portal-specific/                             # Deployment-specific preferences (iterated after portable files)
+    └── public-portal/
+        └── 0-preferences.sql                    # cbioportal.org cohort rows (gated, no-op elsewhere)
+
+scripts/
+└── apply_sql.sh                                 # Apply all sql/*.sql in order against admin creds
+
+resources/
+├── mutation-frequency-guide.md    # How to calculate frequencies
+├── clinical-data-guide.md         # How to query clinical data
+├── sample-filtering-guide.md      # How to filter samples
+├── common-pitfalls.md             # Common mistakes
+├── treatment-guide.md             # How to query treatment data
+└── study-guides/
+    ├── _tcga_pancan_template.md   # Shared TCGA semantics
+    ├── msk_chord_2024.md          # MSK-CHORD specifics
+    └── ...                        # Per-study semantics
+```
+
+## Adding New Study Guides
+
+1. Create `resources/study-guides/{study_id}.md`
+2. Focus on:
+   - What non-harmonized attributes mean
+   - Molecular subtypes and their clinical relevance
+   - Study-specific caveats
+3. Do NOT include:
+   - Sample/patient counts
+   - Gene frequencies
+   - Any data that should be queried
+
+## Testing
+
+Use benchmark questions from cbioportal-mcp-qa to validate:
+- Guides help agent construct correct queries
+- Agent doesn't hallucinate unavailable attributes
+- Context usage is reasonable (not loading entire guides unnecessarily)
+
+---
+> Source: [cBioPortal/cbioportal-mcp](https://github.com/cBioPortal/cbioportal-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-26 -->
