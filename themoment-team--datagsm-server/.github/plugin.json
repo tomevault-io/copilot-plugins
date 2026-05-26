@@ -1,9 +1,9 @@
 {
   "name": "themoment-team--datagsm-server",
-  "displayName": "datagsm-server",
+  "displayName": "DataGSM-server",
   "description": "\uad11\uc8fc\uc18c\ud504\ud2b8\uc6e8\uc5b4\ub9c8\uc774\uc2a4\ud130\uace0\ub4f1\ud559\uad50 OpenAPI & OAuth \ud50c\ub7ab\ud3fc",
   "version": "1.0.0",
   "author": "themoment-team",
-  "homepage": "https://github.com/themoment-team/datagsm-server",
+  "homepage": "https://github.com/themoment-team/DataGSM-server",
   "skills": []
 }
