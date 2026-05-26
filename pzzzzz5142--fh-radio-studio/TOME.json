@@ -1,0 +1,44 @@
+{
+  "name": "FH-Radio-Studio",
+  "owner": "Pzzzzz5142",
+  "repo": "FH-Radio-Studio",
+  "description": "FH Radio Studio CLI and desktop tooling",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Pzzzzz5142/FH-Radio-Studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-26T08:35:10Z"
+}
