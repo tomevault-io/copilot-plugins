@@ -4,7 +4,7 @@
   "repo": "arche",
   "description": "Arche -- preset-led scaffold CLI and full-stack TypeScript monorepo (Next.js, Express, tRPC, Better Auth, Rust,  Solana)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KitsuneKode/arche",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-26T17:32:12Z"
+  "distributed_at": "2026-05-26T17:32:49Z"
 }
