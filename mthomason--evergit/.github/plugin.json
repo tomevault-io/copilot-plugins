@@ -1,0 +1,9 @@
+{
+  "name": "mthomason--evergit",
+  "displayName": "evergit",
+  "description": "Backup your Github repositories.  This is a simple script that clones and updates local backups of GitHub repositories on a scheduled basis.",
+  "version": "1.0.0",
+  "author": "mthomason",
+  "homepage": "https://github.com/mthomason/evergit",
+  "skills": []
+}
