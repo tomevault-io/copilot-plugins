@@ -163549,6 +163549,16 @@
       "description": "A sturdy development platform for autonomous outdoor robotics made by Zauberzeug"
     },
     {
+      "name": "baskduf--harness-starter-kit",
+      "source": "./baskduf--harness-starter-kit",
+      "description": "Repo-native harness engineering starter kit for coding agents."
+    },
+    {
+      "name": "yapie0--carboncode",
+      "source": "./yapie0--carboncode",
+      "description": "Chinese-first DeepSeek-powered terminal coding agent"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174209,6 +174219,11 @@
       "description": "Turn any source tree into a local SQLite database. FTS5 trigram search across 89K files in seconds. One file. No server. No network."
     },
     {
+      "name": "theoutdoorprogrammer--crate",
+      "source": "./theoutdoorprogrammer--crate",
+      "description": "Self-hosted music manager. Search, watch, and download your music library via Deezer/MusicBrainz + slskd."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176782,6 +176797,31 @@
       "name": "powerycy--bosshunter",
       "source": "./powerycy--bosshunter",
       "description": "Smart job hunting Agent - AI-powered automation from scraping to delivery"
+    },
+    {
+      "name": "wuguirongsg--my-hermes-desktop",
+      "source": "./wuguirongsg--my-hermes-desktop",
+      "description": "A desktop UI crafted for Hermes Agent, built on Tauri 2 and React. Positioning: A native companion application for macOS, featuring zero-terminal operation and Apple-style intuitive interaction."
+    },
+    {
+      "name": "wuguirongsg--my-hermes-desktop",
+      "source": "./wuguirongsg--my-hermes-desktop",
+      "description": "A desktop UI crafted for Hermes Agent, built on Tauri 2 and React. Positioning: A native companion application for macOS, featuring zero-terminal operation and Apple-style intuitive interaction."
+    },
+    {
+      "name": "wuguirongsg--my-hermes-desktop",
+      "source": "./wuguirongsg--my-hermes-desktop",
+      "description": "A desktop UI crafted for Hermes Agent, built on Tauri 2 and React. Positioning: A native companion application for macOS, featuring zero-terminal operation and Apple-style intuitive interaction."
+    },
+    {
+      "name": "anggaprytn--forge-core",
+      "source": "./anggaprytn--forge-core",
+      "description": "Single-node control plane for safely deploying, inspecting, recovering, and configuring AI-generated apps."
+    },
+    {
+      "name": "wuguirongsg--my-hermes-desktop",
+      "source": "./wuguirongsg--my-hermes-desktop",
+      "description": "A desktop UI crafted for Hermes Agent, built on Tauri 2 and React. Positioning: A native companion application for macOS, featuring zero-terminal operation and Apple-style intuitive interaction."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
