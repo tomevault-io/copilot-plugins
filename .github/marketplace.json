@@ -174504,6 +174504,16 @@
       "description": ":book: a fast, reproducible, flexible multi-language linter for the ai age"
     },
     {
+      "name": "brianlovin--github-stars-notion-sync",
+      "source": "./brianlovin--github-stars-notion-sync",
+      "description": "Sync your GitHub starred repos into Notion"
+    },
+    {
+      "name": "brianlovin--github-stars-notion-sync",
+      "source": "./brianlovin--github-stars-notion-sync",
+      "description": "Sync your GitHub starred repos into Notion"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -280742,6 +280752,46 @@
       "name": "elhayatferdos67-ux--mytask-v2",
       "source": "./elhayatferdos67-ux--mytask-v2",
       "description": "mytask.v2"
+    },
+    {
+      "name": "ozzyonfire--rwsdk-hydration-example",
+      "source": "./ozzyonfire--rwsdk-hydration-example",
+      "description": "Example project"
+    },
+    {
+      "name": "wojtyniak--secret-agi",
+      "source": "./wojtyniak--secret-agi",
+      "description": "Multi-agent system research platform for studying AI coordination and deception through automated social deduction gameplay and behavioral analysis."
+    },
+    {
+      "name": "ozzyonfire--rwsdk-hydration-example",
+      "source": "./ozzyonfire--rwsdk-hydration-example",
+      "description": "Example project"
+    },
+    {
+      "name": "felipedsvit--nmvp",
+      "source": "./felipedsvit--nmvp",
+      "description": "nMVP"
+    },
+    {
+      "name": "ozzyonfire--rwsdk-hydration-example",
+      "source": "./ozzyonfire--rwsdk-hydration-example",
+      "description": "Example project"
+    },
+    {
+      "name": "suntory-n-water--mercari-todolist-extension",
+      "source": "./suntory-n-water--mercari-todolist-extension",
+      "description": "mercari-todolist-extension"
+    },
+    {
+      "name": "ozzyonfire--rwsdk-hydration-example",
+      "source": "./ozzyonfire--rwsdk-hydration-example",
+      "description": "Example project"
+    },
+    {
+      "name": "zootella--fuji",
+      "source": "./zootella--fuji",
+      "description": "Intentionally simple multimedia file manager"
     }
   ]
 }
