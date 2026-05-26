@@ -1,0 +1,9 @@
+{
+  "name": "smellouk--shellify",
+  "displayName": "shellify",
+  "description": "An android app that wraps any website into an isolated WebView with per-app ad blocking, biometric lock, and encrypted backup \u2014 local-first, no cloud, no analytics.",
+  "version": "1.0.0",
+  "author": "smellouk",
+  "homepage": "https://github.com/smellouk/shellify",
+  "skills": []
+}
