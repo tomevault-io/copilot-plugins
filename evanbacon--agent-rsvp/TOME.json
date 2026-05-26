@@ -4,7 +4,7 @@
   "repo": "agent-rsvp",
   "description": "Speed-reading skill for agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EvanBacon/agent-rsvp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-26T04:30:54Z"
+  "distributed_at": "2026-05-26T04:32:54Z"
 }
