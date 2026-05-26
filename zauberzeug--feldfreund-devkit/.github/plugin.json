@@ -1,0 +1,9 @@
+{
+  "name": "zauberzeug--feldfreund-devkit",
+  "displayName": "feldfreund_devkit",
+  "description": "A sturdy development platform for autonomous outdoor robotics made by Zauberzeug",
+  "version": "1.0.0",
+  "author": "zauberzeug",
+  "homepage": "https://github.com/zauberzeug/feldfreund_devkit",
+  "skills": []
+}
