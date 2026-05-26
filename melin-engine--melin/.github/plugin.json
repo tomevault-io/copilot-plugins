@@ -1,0 +1,9 @@
+{
+  "name": "melin-engine--melin",
+  "displayName": "melin",
+  "description": "Deterministic, replicated sequencer for latency-critical applications. Rust, io_uring, LMAX-inspired. Ships with an exchange core.",
+  "version": "1.0.0",
+  "author": "melin-engine",
+  "homepage": "https://github.com/melin-engine/melin",
+  "skills": []
+}
