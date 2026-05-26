@@ -1,0 +1,9 @@
+{
+  "name": "yapie0--carboncode",
+  "displayName": "carboncode",
+  "description": "Chinese-first DeepSeek-powered terminal coding agent",
+  "version": "1.0.0",
+  "author": "Yapie0",
+  "homepage": "https://github.com/Yapie0/carboncode",
+  "skills": []
+}
