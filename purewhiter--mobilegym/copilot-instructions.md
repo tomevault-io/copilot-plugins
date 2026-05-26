@@ -1,0 +1,337 @@
+## mobilegym
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. You should response in Chinese.
+
+# AGENTS.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. You should response in Chinese.
+
+## Project Overview
+
+mobile-gym is a **simulated Mobile environment (Android-like)** built with React + Vite + TypeScript + Tailwind CSS v4. It serves as a training and benchmarking platform for mobile GUI Agents. The simulator runs in a browser and exposes JavaScript APIs (`__SIM__`, `__OS__`, `__SIM_INPUT__`, `__SIM_QUERY__`, `__SIM_TIME__`, `__SIM_LOCATION__`, `__SIM_FS__`) for **task management, trajectory data synthesis, and benchmark orchestration**. The Agent only sees screenshots.
+
+User-facing documentation under `docs/` and `bench_env/docs/` is in **English**. App code, UI labels, and inline comments inside `apps/` / `system/` follow existing project conventions — that's mostly **Chinese** for the consumer-app modules (WeChat, Alipay, etc.) and English for the OS layer and benchmark framework.
+
+### 类型检查策略
+
+- **小修改**（改几个文件、改样式、加数据等）— **不需要**跑 `tsc --noEmit`，依赖 IDE 实时检查即可
+- **大修改**— 完成后跑一次 `npx tsc --noEmit` 确认无类型错误
+
+### ESLint
+
+```bash
+npm run lint          # 检查 os/ 和 apps/ 下的运行时代码
+```
+
+当前规则：禁止裸 `Date.now()` 和任何形式的 `new Date(...)`（含带参形式，必须通过 `TimeService`）。配置见 `eslint.config.js`。
+
+### Navigation Artifact Generation (run after modifying navigation declarations)
+
+```bash
+# One-shot: consistency check + schema nav graph + action tasks
+node scripts/build_nav_artifacts.mjs <AppName>
+
+# With data graph generation
+node scripts/build_nav_artifacts.mjs <AppName> --data data/index.ts
+
+# Skip tasks, only update graphs
+node scripts/build_nav_artifacts.mjs <AppName> --skip-tasks
+```
+
+### Consistency Checking
+
+```bash
+node scripts/check_navigation_declaration_consistency.mjs <AppName> --actions
+```
+
+### Benchmark Environment (Python)
+
+如果要运行 python，优先使用 conda 环境，本机理应安装过。
+
+```bash
+pip install playwright aiohttp
+playwright install chromium
+
+python -m bench_env.run --list                    # List all tasks
+python -m bench_env.run --list --suite wechat      # Filter by suite
+python -m bench_env.run --task-id <id> --env-url http://localhost:3000 --agent <type>
+```
+
+Supported agent types: `autoglm`, `gelab`, `generic`, `generic_v2`, `human`, `venus`, `gui_owl`, `uitars`.
+
+## Architecture
+
+The project has three main layers plus dev tooling. It is a single Vite project (not a monorepo). Path alias: `@/*` maps to the project root.
+
+### OS Layer (`os/`)
+
+The simulated Android system:
+
+- **`OSContext.tsx`** — Thin React Context Provider; delegates to TaskManager, BackDispatcher, IntentResolver; exposes `window.__OS__` and `window.__SIM__` global APIs
+- **`TaskManager.ts`** — Task/Activity栈管理（volatile，刷新=重启；状态可通过 `__SIM__.getState()`读取）。每个Task有 `stack: ActivityInstance[]`支持多Activity。`finishActivity()`：stack>1时弹顶部Activity；stack=1时**永不销毁Task**——有 `launchedByTaskId`就激活caller并consume，否则 `goHome()`，Task仍留在Recents（销毁需显式 `__OS__.closeApp` / Recents swipe）。`wasExternallyRouted`标志当前仅影响 `LAUNCH_APP`从桌面重激活时是否清除 `launchedByTaskId`（详见 `docs/platform/os/task-lifecycle.md`）
+- **`BackDispatcher.ts`** — Priority-based back key handler. Components register with priority (e.g., PermissionDialog:1000, Shade:800, Keyboard:700, App:100). Includes frame-level deduplication to prevent double-back when edge-swipe gesture and backdrop click fire in the same frame
+- **`IntentResolver.ts`** — Intent matching, chooser state management, startActivityForResult
+- **`AppNavigatorRegistry.ts`** — Event-driven app/activity navigator registration. Uses CustomEvent + Promise pattern (replaces polling). Navigator `navigate(path, options?)` accepts optional `{ replace?: boolean }` — OS uses this to control push (existing tasks) vs replace (new tasks) when routing via `openApp`
+- **`SystemShell.tsx`** — Desktop, status bar, gesture handling, app rendering container. Apps stay mounted when backgrounded (hidden via `display:none`), preserving React state. Implements **adjustResize**: wraps each Activity in a `data-adjust-resize` div that shrinks by keyboard height when keyboard is visible, so App flex layouts auto-adapt. When keyboard is active, the container gets `data-keyboard-active` attribute — elements with `data-hide-on-keyboard` are automatically hidden via global CSS
+- **`AppStateRegistry.ts`** — Dual-layer state: runtime registry (from mounted apps) + persistent readers (localStorage fallback). External access via `getAllAppStates()`
+- **`types.ts`** — Core type definitions (`AppId = string`). `AppId` is a plain string alias — apps are auto-discovered, no manual type union needed
+- **`types/manifest.ts`** — `AppManifest` type definition (id, packageName, displayName, displayNameEn, aliases, version, icon, theme, etc.)
+- **`data/appRegistry.tsx`** — App registry: auto-discovers manifests (`apps/*/manifest.ts`, `system/*/manifest.ts`) and entry components (`apps/*/*App.tsx`, `system/*/*App.tsx`) via `import.meta.glob`. **New apps do NOT need to register here**
+- **`hooks/useTriggerGestures.ts`** — Unified gesture hook producing `data-trigger-*` / `data-action-*` DOM attributes for task definition, trajectory synthesis, and navigation graph generation (NOT for Agent observation — Agent is pure-vision, screenshot only). **Globally intercepts `system.back`** triggers and routes them to `window.__OS__?.handleBack()` — individual app gesture hooks must NOT handle `system.back` themselves
+- **`hooks/useAppNavigationHandler.ts`** — 统一App导航注册hook。向 `AppNavigatorRegistry`/`BackDispatcher`/`AppLifecycle`注册；同步影子 `HistoryTracker`支持 `popTo`。`openApp`：新Task传 `replace=true`，已有Task传 `replace=false`（MemoryRouter push）。`startActivity({newTask:true})`在OS层push新Activity（独立 `activityId`，可独立 `finishActivity()`）。**外来Task隔离**：`task.rootAppId !== appId`时跳过app级注册，仅用activity级navigator
+- **`utils/memoryHistory{Tracker,PopTo}.ts`** — 影子history栈（react-router-dom@7 MemoryHistory不暴露entries）。`HistoryTracker`同步MemoryRouter location变化；`findPopToDelta()`返回 `go(-delta)`步数；`popTo()`调用 `navigator.go(-delta)`回退，调用方再 `navigate(url)`完成push/replace（对应Android `popUpTo`）
+- **`createOsStore.ts`** — OS 层 Zustand store 工厂。提供 `createOsStore`（持久化）和 `createVolatileOsStore`（非持久化）两个工厂函数，内置 store registry（`resetAllOsStores()` / `snapshotOsStores()`），供 `__SIM__.reset()` 和 `__SIM__.getState()` 使用。通过 `registerToServiceRegistry: false` 可选退出注册（如 OsStateStore、Providers）
+- **`OsStateStore.ts`** — 统一的 Android 数据模型 store，持有 `settings`（global/system/secure/app-specific）、`hardware`（battery/wifi/cellular/sensors）、`permissions`、`preferences`。持久化到 `os_state` localStorage key。`build` 和 `telephony` 信息通过 `managers/registry.ts` 的 override 机制管理（支持 bench_env 场景注入）
+- **Managers (`os/managers/`)** — `ConnectivityManager`、`BatteryManager`、`AudioManager`、`DisplayManager` 是 OsStateStore 特定域的写入 facade，封装约束逻辑（如飞行模式级联关闭 WiFi/BT/蜂窝、音量 clamp、亮度范围）和副作用（broadcast 通知）。`managers/registry.ts` 管理 preference key → Manager 路由、build/telephony overrides
+- **System Services** — **持久化原则：数据持久化，UI/运行态不持久化（刷新=重启）**。App必须用OS服务替代原生API：`Date.now()`→`TimeService`；`navigator.geolocation`→`LocationService`；`fetch`→`NetworkService`（`netJson`/`netFetch`）。服务通过 `window.__OS__`子属性访问（如 `__OS__.notifications`、`__OS__.keyboard`）。`ClipboardService`持久化；`NotificationService`/`KeyboardService`/`PermissionService`等volatile
+- **System Providers** — 联系人/短信/媒体等共享数据位于 `os/providers/*Provider.ts`，使用 `createOsStore` 独立持久化（`registerToServiceRegistry: false`，不进入 `os.services` 快照）；App 通过 `ContentResolver.query/insert/update/delete` 访问。`__SIM__.getState()` 在 `os.providers.*` 显式暴露 Provider 快照
+
+### Apps Layer (`apps/<AppName>/`, `system/<AppName>/`)
+
+Each app follows a standard structure:
+
+- **`manifest.ts`** — App identity (AndroidManifest-like): id, displayName, displayNameEn, aliases, icon, theme Tier-1 colors, `intentFilters` (deep links). **This is the only file needed to register an app with the OS**
+- **`<AppName>App.tsx`** — Entry point with `MemoryRouter`, `useAppNavigationHandler` hook (registers navigator, back handler, and lifecycle events with the OS via `AppNavigatorRegistry` + `BackDispatcher` + `AppLifecycle`), and the "main tabs persistent + subpages exclusive" layout. **Must have `export default` — the OS discovers it via `import.meta.glob(['apps/*/*App.tsx', 'system/*/*App.tsx'])`**
+- **`navigation.declaration.ts`** — Declarative navigation: all routes, transitions, actions, UI states. **Source of truth** for static analysis, graph generation, and task generation
+- **`navigation.ts`** — Navigation hook (`useAppNavigate` with `go`/`back`). Supports `go(id, params, { mode, popTo, popToInclusive, state })`. **Business pages must NOT use `useNavigate()` directly**
+- **`hooks/use<AppName>Gestures.ts`** — App-specific gesture hook wrapping `useTriggerGestures`
+- **`context/<AppName>Context.tsx`** — State management via React Context; registers with `AppStateRegistry` on mount
+- **`res/`** — App resources aligned with Android `res/values/*`:
+  - `colors.ts`, `strings.ts`, `dimens.ts` (and optional `colors.states.ts`, `icons.tsx`)
+- **`assets/`** — App-owned binary assets (images/icons/raw/fonts, etc.) loaded via Vite `import` (avoid `public/<appName>/...` URLs)
+- **`types.ts`** — App-level types (standard location)
+- **`constants.ts`** — Structural constants only (tabs, service grids, config flags). Resource-like constants should live in `res/`
+- **`data/index.ts`** — Data entry point: merges constants + `defaults.json`, exports `<APPNAME>_CONFIG`
+- **`data/defaults.json`** — Default data (users, content, history) as replaceable JSON
+- **`pages/`** — Page components
+
+### Benchmark Layer (`bench_env/`)
+
+Python-based evaluation framework using Playwright. Tasks are defined per-app with state-based judging, VLM evaluation, parameter sampling, and Pass@k statistics.
+
+**编写或修改任务前,必须先阅读 `bench_env/docs/task/TASK_AUTHORING_GUIDE.md`(任务编写流程)、`bench_env/docs/task/TASK_CODE_SPEC.md`(硬性代码规范 / CRUD 判题规则)、`bench_env/docs/task/TASK_TESTING_GUIDE.md`(离线测试规范)、`bench_env/docs/task/GROUNDED_MODE.md`(grounded 模式 answer sheet)和 `bench_env/README.md`。`bench_env/docs/REFERENCE.md` 提供 CLI 标志位和 `JudgeInput`/`JudgeResult` 字段的正式查找表。**
+
+### Scripts (`scripts/`)
+
+- **`build_nav_artifacts.mjs`** — One-shot: consistency check + nav graph + action tasks
+- **`check_navigation_declaration_consistency.mjs`** — Validates declaration-to-source-code consistency
+- **`navigation_declaration_analyzer.mjs`** — Generates nav graph JSON (schema and data modes)
+- **`generate_action_tasks_from_nav_graph.mjs`** — Enumerates action trajectories from nav graphs
+- **`nav_path_finder.py`** — Shortest path search on nav graphs for verification
+- **`ime/build_pinyin_dict.mjs`** — Generates IME pinyin dictionary from Rime dict sources
+- **`lint_store_getters.mjs`** — Detects query getter functions in store actions and consumer subscriptions to them (违反 `docs/platform/state/model.md` 的 "Query-style getters in actions" 规则). Usage: `node scripts/lint_store_getters.mjs [AppName...]`
+
+## Key Development Rules
+
+**The authoritative platform references live under `docs/platform/`** (`app/module-contract.md`, `state/model.md`, `navigation/declaration.md`, `os/overview.md`, `os/intent-system.md`, `os/cross-app-launch.md`, `os/services/README.md`, `android-mapping.md`). When conflicts arise, flag them rather than silently overriding. Before navigation/actions/condition changes, review `docs/platform/navigation/declaration.md`.
+
+### Navigation
+
+- Every app maintains `navigation.declaration.ts` with routes (including `uiStates`, `queryParams`, `scrollContainers`) and transitions
+- All discrete UI state changes (tabs, modals, menus) must go through `go()` + URL update — never purely via React setState
+- Main TabBar tabs use separate pathname routes (`/`, `/contacts`, `/me`), not query params
+- Tab/subtab switching uses `mode: 'replace'`; modals/drawers use `mode: 'push'` (closed via `back()`)
+- **弹窗/Dialog 默认通过 URL 驱动**（对应 Android 的 DialogFragment / Navigation dialog destination），除非用户明确指定其他方式：
+  - 用 `searchParams` push 进 history stack（如 `setSearchParams(p => { p.set('myDialog', 'open'); return p; })`），弹窗可见性由 `searchParams.get('myDialog') === 'open'` 派生
+  - 关闭弹窗统一用 `navigate(-1)` 回退 history entry；系统返回键自动 pop 栈顶关闭弹窗，无需额外处理
+  - **禁止用 `useState` 控制弹窗显隐** — 返回键无法感知 React local state，会穿透弹窗直接返回上一页
+  - **禁止在 App 层直接导入 `BackDispatcher`** — 那是 OS 内部模块，App 通过 URL + navigation stack 间接获得返回键支持
+- Business pages must never use `useNavigate()`/`navigate()` directly — only the app's `go()`/`back()`
+- New route paths must be registered in the app's `<Routes>` in `<AppName>App.tsx`
+
+### Adding a New App
+
+新增 App **不需要修改 OS 层任何文件**。OS 通过 `import.meta.glob` 自动发现。普通第三方 App 放 `apps/`，系统应用放 `system/`。只需：
+
+1. **`apps/<AppDir>/manifest.ts`** 或 **`system/<AppDir>/manifest.ts`** — 必须 `export const manifest: AppManifest`，声明 `id`、`displayName`、`displayNameEn`、图标、主题等
+2. **`apps/<AppDir>/<Name>App.tsx`** 或 **`system/<AppDir>/<Name>App.tsx`** — 入口组件，文件名必须匹配 `*App.tsx`，**必须 `export default`**
+3. **`apps/<AppDir>/state.ts`** / **`system/<AppDir>/state.ts`**（可选）— Zustand store，通过 `import.meta.glob(['./apps/*/state.ts', './system/*/state.ts'])` 自动注册
+
+约定细节：
+
+- `manifest.id` 即为 `appId`（如 `'wechat'`），同时也是 localStorage key
+- `displayNameEn` 自动注入 OS i18n 字典（`patchAppNames`），无需编辑 `os/i18n/en.ts`
+- `aliases` 数组自动注入系统应用别名映射（如 `['通讯录', '联系人']`），无需编辑 OS 层文件
+- 目录名（如 `Wechat`）与 `appId`（如 `'wechat'`）不必相同 — OS 通过 manifest 路径自动建立映射
+
+### DOM Tagging
+
+- All navigation triggers must produce `data-trigger` + `data-trigger-type` attributes via gesture hooks
+- All action triggers must produce `data-action` + `data-action-type` attributes
+- Transition/Action IDs must be **string literals** at bind sites (no dynamic concatenation/variables)
+- Return/close buttons must use `bindBack()` (`system.back`), not custom transitions
+- Only tag controls that actually do something — no tags on unimplemented placeholders
+- Scrollable containers need `data-scroll-container` + `data-scroll-direction` attributes matching `scrollContainers` declarations
+
+### State and Data
+
+> **完整状态与数据层规范见 [`docs/platform/state/model.md`](docs/platform/state/model.md)**(settings 命名、嵌套结构、数据分层判断标准、Store action 模式、bench_env 路径约定均在其中)。
+
+- Config-first: constants in `constants.ts`, default data in `data/defaults.json`, unified export via `data/index.ts` as `<APPNAME>_CONFIG`
+- localStorage key must exactly match `manifest.id`（即 `appId`）
+- **禁止任何形式的 `new Date(...)` 和裸 `Date.now()`**，必须通过 `TimeService` 调用：
+  - `TimeService.now()` / `TimeService.getDate()` — **模拟时间**：显示时钟、数据时间戳、benchmark 状态判定
+  - `TimeService.realNow()` — **真实挂钟时间**：防抖、动画、手势检测、缓存 TTL 等测量真实物理时间间隔的场景
+  - `TimeService.fromTimestamp(ts)` — 替代 `new Date(timestamp)`
+  - `TimeService.fromLocalParts(year, month, day, ...)` — 替代 `new Date(year, month, day, ...)`
+  - `TimeService.parseToTimestamp(str)` — 解析日期字符串为时间戳（配合 `fromTimestamp` 替代 `new Date(dateString)`）
+- Use `LocationService` instead of `navigator.geolocation`
+- Use `NetworkService` (`netJson`/`netFetch`) for HTTP requests to avoid CORS
+- **禁止在store actions中定义查询型getter**（`isLiked`、`isFollowing`、`getXxxById`等），**禁止组件订阅store函数引用**——Zustand函数引用创建后不变，`Object.is`恒true，组件不会重渲染。正确做法：**组件直接订阅数据**（`s.likedPostIds`），在组件内 `.includes()`/`Set.has()`派生布尔值；或用 `memoSelector`创建派生selector（如 `selectLikedSongIds`返回 `Set`）。`useShallow`选getter再包 `useMemo`同样无效
+
+### UI
+
+- Every page must reserve status bar space at top with `pt-10`
+- Pages should explicitly declare `data-status-bar-foreground="dark|light"` on the outermost page container when the chrome foreground is not the default dark text; the OS no longer does DOM-based auto-detection fallback
+- When bottom gesture bar foreground differs from the status bar, explicitly declare `data-navigation-bar-foreground="dark|light"`; GestureBar reads declarative/manifest signals only
+- Keyboard-attached UI (chat input bars, send buttons) needs `data-keep-keyboard="true"`
+- OS implements `adjustResize`: keyboard shrinks the Activity container automatically. Form pages need no extra handling
+- **拖拽/滑动/slider/跟手拖动等连续交互必须统一使用 `PointerEvent`**（`onPointerDown / onPointerMove / onPointerUp / onPointerCancel`，必要时配合 `setPointerCapture`）；**禁止**并行维护 `touch*` 与 `mouse*` 两套逻辑，也**禁止**用 `touchmove + click` 兜底鼠标拖拽
+- **聊天页/底部操作栏禁止 `position: fixed`**：必须使用 flex 布局（`flex-shrink-0`），让 adjustResize 自动处理。`position: fixed + bottom: keyboardHeight` 在有 `designViewportWidth`（CSS zoom）的 App 中会导致键盘遮挡输入框（zoom 缩放 CSS 像素导致 fixed 定位偏移）
+- **键盘弹出时隐藏元素**：在元素上加 `data-hide-on-keyboard` 属性，键盘弹出时 OS 自动隐藏（通过 `data-adjust-resize` 容器上的 `data-keyboard-active` + 全局 CSS `display:none`）。典型场景：底部 TabBar 不应在键盘弹出时被顶起，加此属性即可自动隐藏
+
+### Validation
+
+After modifying navigation declarations or adding pages, always run:
+
+```bash
+node scripts/build_nav_artifacts.mjs <AppName>
+```
+
+If the output has `ERROR` or `WARN`, include the specific IDs and file locations — not just summary counts.
+
+---
+
+## App File Architecture — Strict Boundaries
+
+每个文件只有一个职责。违反边界会导致维护困难，且会越来越混乱。以下规则**强制执行**。
+
+### `constants.ts` — 静态结构配置
+
+如果需要以下类型的常量，应放在此文件：
+
+- Tab 定义（id, route, label, icon component ref）
+- 服务/功能目录（id, name, icon, color）—— 应用固有结构，用户不可修改
+- 布局参数（grid columns count, visible item count）
+- Feature flags
+
+**禁止包含：**
+
+- 用户数据（账号信息、消息、账单记录）→ `data/defaults.json`
+- **原始 Lucide 图标名**（如 `"CreditCard"`、`"Bus"`）→ 必须使用 `Ic*` 别名（`"IcCard"`、`"IcBus"`）
+
+### `data/defaults.json` — 可替换的初始状态
+
+**必须包含：**
+
+- 用户信息（name, avatar, phone, balance）
+- 内容数据（聊天记录、账单流水、帖子、历史）
+- 用户可配置的布局（主页显示的服务 ID 列表、排序）
+- 用户设置值（language, theme, notification prefs）
+
+**禁止包含：**
+
+- 服务/功能的静态属性（icon, color, label）→ 这些是固定的，属于 `constants.ts`
+- 图标字符串名 —— 若必须出现（数据驱动渲染），必须使用 `Ic*` 前缀
+
+### `res/colors.ts` — 特殊颜色（可选）
+
+只有以下情况才需要 `colors.ts`：
+
+- 特殊颜色无法用 Tailwind 表达（品牌色、渐变色等）
+- 需要响应深色模式的组件颜色
+
+**不需要抽取**：
+
+- 标准 Tailwind 颜色 → 直接用 `text-gray-800 bg-white`
+- 一次性使用的颜色 → 直接写 `bg-[#FF7D00]`
+
+### `res/dimens.ts` — 关键尺寸（可选）
+
+**只有多处复用的重要尺寸**才需要抽取到 `dimens.ts`（如列表项高度、头像尺寸）。
+
+**不需要抽取**：
+
+- 一次性使用的尺寸 → 直接写 Tailwind 类或 style
+- 图标 size → 直接硬编码 `size={22}`
+- 间距/圆角/字体大小 → 用 Tailwind 类 `p-4 rounded-lg text-sm`
+
+#### ⚠️ JS 像素计算必须用 CSS var，禁用 Tailwind rem 类
+
+当 JS 做 `scrollTop = index * itemHeight` 等基于元素高度的像素运算时，该元素高度**必须**使用 CSS var（`h-(--app-xxx)`）或任意值像素（`h-[Npx]`），**禁止**使用 `h-10 / h-14` 等 rem 类（因浏览器默认字体大小非 16px，rem 与 JS 硬编码像素值会产生累积偏移）。
+
+### `res/icons.tsx` — 图标定义
+
+**规则：**
+
+1. 所有图标别名以 `Ic` 前缀开头（`IcCard`、`IcBus`、`IcNavBack`）
+2. `ICON_REGISTRY` 的 key 必须与导出名完全一致（全部以 `Ic` 开头）
+3. **禁止**将原始 Lucide 名加入 `ICON_REGISTRY` 作为 workaround —— 应修复数据层（改 `constants.ts`/`defaults.json` 中的字符串）
+4. 只导入应用实际使用的图标
+
+### 图标使用规则
+
+| 场景                      | 正确写法                                        |
+| ------------------------- | ----------------------------------------------- |
+| JSX 中固定图标            | `<IcCard size={22} />`                        |
+| 数据驱动（来自 map/JSON） | `<IconRenderer name={item.icon} size={22} />` |
+| 数据文件中的图标名        | `"IcCard"`（必须 Ic* 前缀）                   |
+
+> **完整 App 模块契约(包括资源规范、图标、主题、cross-cutting 规则)见 [`docs/platform/app/module-contract.md`](docs/platform/app/module-contract.md)**。
+
+---
+
+## 截图驱动开发工作流
+
+**仅当用户给出截图、要求复刻或新建一个 App 页面时启用本节**——例如 "按这张截图实现这个页面"、"复刻 XX App 的某页"、用户直接贴出截图加一句 "实现一下"。其他场景请按上文的通用规范操作，不要套用本节流程。
+
+### 0. 缺信息处理（必须先做）
+
+如果截图/需求不足以推断以下任一项，**先提问再写代码**，不要脑补扩需求：
+
+- 目标 `AppName`、目标 `routePath`（pathname 模板）
+- 是否存在 tab / modal / menu / select 等**离散 UI 状态**（需要落到 `uiStates`）
+- 需要参数区分的入口（Tab 目标值、列表项 id 等；决定 `data-trigger-params` / `data-action-params`）
+- 这个入口到底是 **transition（会改 URL）** 还是 **action（不改 URL）**
+- pathname 命名要对齐仓库既有约定（"我"统一用 `/me`，"探索"用 `/explore` 等）；截图里只有中文文案时，必须先和用户对齐英文 token 再写
+
+### 1. 截图理解（动手前）
+
+收到截图后，第一步是**用文字详细描述截图内容**，确认理解正确，再开始实现：
+
+- 描述布局结构（顶部栏 / 主体区 / 底部 TabBar / FAB 等）
+- 描述每个区块的功能（这是列表、表单、聊天、还是设置项）
+- 描述可交互控件（按钮 / 输入框 / 开关 / 列表项）以及它们的预期行为（跳转、打开 modal、改 state）
+- 标识需要参数化的元素（每个列表项的 id、每个 tab 的目标）
+
+多张截图时，先描述它们之间的关系（同一页面不同状态？相邻页面？弹窗？），再决定 `uiStates` / 子路由的划分。
+
+实现页面应与截图一致（布局、样式、视觉层级）；业务数据（联系人、消息内容、订单）不必逐字复刻，但**展示逻辑要一致**。
+
+### 2. 实现顺序
+
+按这个顺序落代码，避免 navigation declaration 和源码漂移：
+
+1. `navigation.declaration.ts` — 声明新路由、`uiStates`、transitions、actions
+2. `<AppName>App.tsx` 的 `<Routes>` — 注册路由组件
+3. `data/defaults.json` / `state.ts` — 准备所需的可替换默认数据 / 运行时状态
+4. `pages/` — 实现 UI；使用 app 自己的 `go()` / `back()` 与手势 Hook 绑定
+5. 跑一次 `node scripts/build_nav_artifacts.mjs <AppName>`，确认无 ERROR / WARN
+6. 如果是已有 App 改动，确认 `bench_env` 引用的 state 路径没被破坏
+
+具体语法规则（`uiStates` 必选、`transitions[].to` 必填、`from:'*'` 限制、`.switch` + `cases`、ID 字面量绑定、共享组件 `{ id: '...' }` 配置约束、`data-trigger-params` 何时必填等）见 [`docs/platform/navigation/declaration.md`](docs/platform/navigation/declaration.md) 和 [`docs/platform/navigation/actions.md`](docs/platform/navigation/actions.md)。
+
+### 3. 交付输出格式
+
+回复用户时必须包含：
+
+- **改动摘要**：实现了截图中的哪些元素与交互
+- **涉及文件列表**：每个文件改了什么（1 句话）
+- **新增 / 修改的 IDs**：transitionId / actionId 列表
+- **自检结论**：`build_nav_artifacts.mjs` 输出是否通过；若有 WARN/ERROR，列出具体 ID + file:line（前 5–10 条即可）并解释如何修复
+
+不要只贴 summary 计数；ERROR / WARN 必须带明细。
+
+---
+> Source: [Purewhiter/mobilegym](https://github.com/Purewhiter/mobilegym) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-26 -->
