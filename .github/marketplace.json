@@ -163704,6 +163704,21 @@
       "description": "Docusaurus plugin that adds a copy page button to extract documentation content as markdown for AI tools like ChatGPT, Claude, and Gemini"
     },
     {
+      "name": "melin-engine--melin",
+      "source": "./melin-engine--melin",
+      "description": "Deterministic, replicated sequencer for latency-critical applications. Rust, io_uring, LMAX-inspired. Ships with an exchange core."
+    },
+    {
+      "name": "cbioportal--cbioportal-mcp",
+      "source": "./cbioportal--cbioportal-mcp",
+      "description": "cbioportal-mcp"
+    },
+    {
+      "name": "callmarcus--dji-drone-metadata-embedder",
+      "source": "./callmarcus--dji-drone-metadata-embedder",
+      "description": "Python CLI for embedding DJI drone telemetry from SRT logs into MP4 videos. Batch processes folders, preserves subtitles, and exports flight data to JSON, GPX, or CSV."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174467,6 +174482,21 @@
       "name": "yadokari1130--enderlink-lite",
       "source": "./yadokari1130--enderlink-lite",
       "description": "EnderLink-Lite"
+    },
+    {
+      "name": "sdeonvacation--opencode-x",
+      "source": "./sdeonvacation--opencode-x",
+      "description": "Open-source Claude Code alternative. Provider-agnostic, MIT licensed. Native Claude Code hook/plugin compatibility."
+    },
+    {
+      "name": "phonenumberkit--phonenumberkit",
+      "source": "./phonenumberkit--phonenumberkit",
+      "description": "Swift framework for parsing, formatting and validating international phone numbers."
+    },
+    {
+      "name": "leostera--lintbook",
+      "source": "./leostera--lintbook",
+      "description": ":book: a fast, reproducible, flexible multi-language linter for the ai age"
     },
     {
       "name": "cheerhuan--save-your-token",
