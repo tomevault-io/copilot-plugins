@@ -1,7 +1,7 @@
 {
-  "name": "datagsm-server",
+  "name": "DataGSM-server",
   "owner": "themoment-team",
-  "repo": "datagsm-server",
+  "repo": "DataGSM-server",
   "description": "\uad11\uc8fc\uc18c\ud504\ud2b8\uc6e8\uc5b4\ub9c8\uc774\uc2a4\ud130\uace0\ub4f1\ud559\uad50 OpenAPI & OAuth \ud50c\ub7ab\ud3fc",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/themoment-team/datagsm-server",
+  "source_url": "https://github.com/themoment-team/DataGSM-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:20:57Z"
+  "distributed_at": "2026-05-26T10:30:27Z"
 }
