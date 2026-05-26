@@ -163639,6 +163639,11 @@
       "description": "GenAI Intelligent Document Processing (IDP) Accelerator for AWS CDK is designed to transform unstructured documents into structured data at scale using AWS's latest AI/ML services"
     },
     {
+      "name": "coscup--2026",
+      "source": "./coscup--2026",
+      "description": "WIP Official page of COSCUP 2026"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174369,6 +174374,21 @@
       "description": "\u5357\u4eac\u5927\u5b66\u5bbf\u820d\u7535\u8d39\u81ea\u52a8\u76d1\u63a7\u7cfb\u7edf"
     },
     {
+      "name": "nerovix--kouhai-bot",
+      "source": "./nerovix--kouhai-bot",
+      "description": "mar-mar-mar-marble soda~~^^duweduweaeo-o-duweduweduweaeo*OOO*"
+    },
+    {
+      "name": "sametkum--klustr",
+      "source": "./sametkum--klustr",
+      "description": "A native Kubernetes desktop client \u2014 nothing in your cluster, Helm + Argo CD + Gateway API built in. Free and MIT."
+    },
+    {
+      "name": "alibekshomurotov--blogapp-next-js",
+      "source": "./alibekshomurotov--blogapp-next-js",
+      "description": "Blogapp-next.js-"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176987,6 +177007,11 @@
       "name": "ytygxfmgzx--class2data",
       "source": "./ytygxfmgzx--class2data",
       "description": "class comes data"
+    },
+    {
+      "name": "luolangaga--tubatool",
+      "source": "./luolangaga--tubatool",
+      "description": "tubatool"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
