@@ -1,0 +1,9 @@
+{
+  "name": "vadimche--ai-agent-rails-pack",
+  "displayName": "ai-agent-rails-pack",
+  "description": "Practical guardrails for Codex, Claude Code, Cursor and GenAI coding agents.",
+  "version": "1.0.0",
+  "author": "vadimche",
+  "homepage": "https://github.com/vadimche/ai-agent-rails-pack",
+  "skills": []
+}
