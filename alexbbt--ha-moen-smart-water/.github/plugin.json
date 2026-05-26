@@ -1,0 +1,9 @@
+{
+  "name": "alexbbt--ha-moen-smart-water",
+  "displayName": "ha-moen-smart-water",
+  "description": "\ud83c\udfe0 Home Assistant integration for Moen Smart Water Network faucets. Control faucets with preset volumes, custom dispensing, and automation support.",
+  "version": "1.0.0",
+  "author": "alexbbt",
+  "homepage": "https://github.com/alexbbt/ha-moen-smart-water",
+  "skills": []
+}
