@@ -142774,6 +142774,21 @@
       "description": "\u7845\u57fa\u6587\u660e\u6d88\u8d39\u80a1\u4ea4\u6613\u7b56\u7565\u7cfb\u7edf \u00b7 DeepSeek v4-pro \u00b7 akshare \u00b7 \u56de\u6d4b \u00b7 Next.js"
     },
     {
+      "name": "boogy--iam-policy-validator",
+      "source": "./boogy--iam-policy-validator",
+      "description": "\u26a1 Stop IAM misconfigurations before they become breaches \u2014 Catch overprivileged permissions, dangerous wildcards, and policy errors before deployment."
+    },
+    {
+      "name": "themoment-team--datagsm-server",
+      "source": "./themoment-team--datagsm-server",
+      "description": "\uad11\uc8fc\uc18c\ud504\ud2b8\uc6e8\uc5b4\ub9c8\uc774\uc2a4\ud130\uace0\ub4f1\ud559\uad50 OpenAPI & OAuth \ud50c\ub7ab\ud3fc"
+    },
+    {
+      "name": "themoment-team--datagsm-server",
+      "source": "./themoment-team--datagsm-server",
+      "description": "\uad11\uc8fc\uc18c\ud504\ud2b8\uc6e8\uc5b4\ub9c8\uc774\uc2a4\ud130\uace0\ub4f1\ud559\uad50 OpenAPI & OAuth \ud50c\ub7ab\ud3fc"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -163594,6 +163609,16 @@
       "description": "Keep an eye on capacity for your codex-cli using this CLI"
     },
     {
+      "name": "athaxv--saulm",
+      "source": "./athaxv--saulm",
+      "description": "SauLM - AI powered persona based Legal Assistant"
+    },
+    {
+      "name": "cdklabs--genai-idp",
+      "source": "./cdklabs--genai-idp",
+      "description": "GenAI Intelligent Document Processing (IDP) Accelerator for AWS CDK is designed to transform unstructured documents into structured data at scale using AWS's latest AI/ML services"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174279,6 +174304,21 @@
       "description": "Automated Crypto Trading Bot on Aster DEX"
     },
     {
+      "name": "yoyooyooo--goal-diffusion",
+      "source": "./yoyooyooo--goal-diffusion",
+      "description": "AI Coding Project OS for long-running AI coding: Goal Diffusion Goal Packs, receipt-backed execution, docs governance, and headless product harnesses."
+    },
+    {
+      "name": "mjason--long",
+      "source": "./mjason--long",
+      "description": "Single-binary LLM agent runtime built on Elixir/OTP: chat UI, 4-tier memory, Anthropic-compatible Skills, scheduled tasks, multi-provider LLM routing, and platform bots."
+    },
+    {
+      "name": "vadimche--ai-agent-rails-pack",
+      "source": "./vadimche--ai-agent-rails-pack",
+      "description": "Practical guardrails for Codex, Claude Code, Cursor and GenAI coding agents."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -176892,6 +176932,11 @@
       "name": "pzzzzz5142--fh-radio-studio",
       "source": "./pzzzzz5142--fh-radio-studio",
       "description": "FH Radio Studio CLI and desktop tooling"
+    },
+    {
+      "name": "ytygxfmgzx--class2data",
+      "source": "./ytygxfmgzx--class2data",
+      "description": "class comes data"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
