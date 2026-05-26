@@ -1,0 +1,9 @@
+{
+  "name": "tensorcast-ai--tensorcast",
+  "displayName": "tensorcast",
+  "description": "The high-performance distributed tensor layer \u2014 load once, share everywhere.",
+  "version": "1.0.0",
+  "author": "tensorcast-ai",
+  "homepage": "https://github.com/tensorcast-ai/tensorcast",
+  "skills": []
+}
