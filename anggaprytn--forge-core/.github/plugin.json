@@ -1,0 +1,9 @@
+{
+  "name": "anggaprytn--forge-core",
+  "displayName": "forge-core",
+  "description": "Single-node control plane for safely deploying, inspecting, recovering, and configuring AI-generated apps.",
+  "version": "1.0.0",
+  "author": "anggaprytn",
+  "homepage": "https://github.com/anggaprytn/forge-core",
+  "skills": []
+}
