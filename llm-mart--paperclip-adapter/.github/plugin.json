@@ -1,0 +1,9 @@
+{
+  "name": "llm-mart--paperclip-adapter",
+  "displayName": "Paperclip-Adapter",
+  "description": "A Paperclip adapter that lets you run Hermes Agent as a managed employee in a Paperclip company.",
+  "version": "1.0.0",
+  "author": "LLM-Mart",
+  "homepage": "https://github.com/LLM-Mart/Paperclip-Adapter",
+  "skills": []
+}
