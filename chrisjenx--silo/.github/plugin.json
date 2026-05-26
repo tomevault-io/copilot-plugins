@@ -1,0 +1,9 @@
+{
+  "name": "chrisjenx--silo",
+  "displayName": "silo",
+  "description": "Free Open Source Gradle Remote Build Cache Node",
+  "version": "1.0.0",
+  "author": "chrisjenx",
+  "homepage": "https://github.com/chrisjenx/silo",
+  "skills": []
+}
