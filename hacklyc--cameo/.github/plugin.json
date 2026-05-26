@@ -1,0 +1,9 @@
+{
+  "name": "hacklyc--cameo",
+  "displayName": "cameo",
+  "description": "An image-first canvas for your local Codex agent.",
+  "version": "1.0.0",
+  "author": "hAcKlyc",
+  "homepage": "https://github.com/hAcKlyc/cameo",
+  "skills": []
+}
