@@ -1,4 +1,4 @@
-## vietnamese-notes-app
+## convex-rules
 
 > Guidelines and best practices for building Convex projects, including database schema design, queries, mutations, and real-world examples
 
