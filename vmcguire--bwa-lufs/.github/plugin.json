@@ -1,0 +1,9 @@
+{
+  "name": "vmcguire--bwa-lufs",
+  "displayName": "BWA-LUFS",
+  "description": "BS.1770 LUFS meter (display-only). Short/mid/integrated. Streaming target overlays + group aggregate.",
+  "version": "1.0.0",
+  "author": "vmcguire",
+  "homepage": "https://github.com/vmcguire/BWA-LUFS",
+  "skills": []
+}
