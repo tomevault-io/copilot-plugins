@@ -1,622 +1,149 @@
-## infrastructure
+## suna-project
 
-> docker, infrastructure
+> Suna is an open-source generalist AI Worker with a full-stack architecture:
 
 
-# Infrastructure & DevOps Guidelines
+# Suna AI Worker Project - Cursor Rules
 
-## Docker & Containerization
+## Project Overview
 
-### Dockerfile Best Practices
+Suna is an open-source generalist AI Worker with a full-stack architecture:
 
-```dockerfile
-# Multi-stage build pattern for production optimization
-FROM node:18-alpine AS frontend-builder
-WORKDIR /app
-COPY frontend/package*.json ./
-RUN npm ci --only=production
-COPY frontend/ ./
-RUN npm run build
+- **Frontend**: Next.js 15+ with TypeScript, Tailwind CSS, Radix UI, React Query
+- **Backend**: Python 3.11+ with FastAPI, Supabase, Redis, LiteLLM, Dramatiq
+- **Agent System**: Isolated Docker environments with comprehensive tool execution
+- **Database**: Supabase for persistence, authentication, real-time features, and RLS
 
-FROM python:3.11-slim AS backend-base
-WORKDIR /app
-COPY backend/pyproject.toml ./
-RUN pip install -e .
+## Architecture Components
 
-FROM backend-base AS backend-production
-COPY backend/ ./
-EXPOSE 8000
-CMD ["gunicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+### Core Stack
 
-# Security best practices
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-USER nextjs
+- **Frontend**: Next.js App Router + TypeScript + Tailwind + Radix UI
+- **Backend**: FastAPI + Supabase + Redis + LiteLLM + Dramatiq workers
+- **Database**: PostgreSQL via Supabase with Row Level Security
+- **Agent Runtime**: Docker containers with browser automation, code interpreter
+- **Authentication**: Supabase Auth with JWT validation
+- **Monitoring**: Langfuse tracing, Sentry error tracking, Prometheus metrics
 
-# Health check implementation
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8000/health || exit 1
+### File Organization
+
+```txt
+project/
+├── frontend/               # Next.js application
+│   └── src/
+│       ├── app/           # Next.js app router pages
+│       ├── components/    # Reusable React components
+│       ├── hooks/         # Custom React hooks
+│       ├── lib/          # Utilities and configurations
+│       ├── providers/    # Context providers
+│       └── contexts/     # React contexts
+├── backend/               # Python FastAPI backend
+│   ├── agent/            # AI Worker core implementation
+│   ├── services/         # Business logic services
+│   ├── utils/           # Shared utilities
+│   ├── supabase/        # Database migrations & config
+│   ├── tools/           # Agent tool implementations
+│   ├── auth/            # Authentication logic
+│   ├── triggers/        # Event-driven triggers
+│   └── api.py           # Main FastAPI application
+└── docs/                 # Documentation
 ```
 
-### Docker Compose Patterns
+## Development Principles
 
-```yaml
-# Production-ready docker-compose.yml
-version: "3.8"
+### Code Quality Standards
 
-services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      target: production
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_SUPABASE_URL=${SUPABASE_URL}
-    depends_on:
-      - backend
-    restart: unless-stopped
-    networks:
-      - app-network
+- **Type Safety**: Strict TypeScript frontend, comprehensive Python type hints
+- **Error Handling**: Structured error responses, proper exception handling
+- **Logging**: Structured logging with context throughout the stack
+- **Testing**: Unit tests for core logic, integration tests for APIs
+- **Security**: Input validation, authentication, encryption for sensitive data
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - REDIS_URL=${REDIS_URL}
-    volumes:
-      - ./backend/logs:/app/logs
-    depends_on:
-      redis:
-        condition: service_healthy
-    restart: unless-stopped
-    networks:
-      - app-network
+### Performance Guidelines
 
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-    restart: unless-stopped
-    networks:
-      - app-network
+- **Frontend**: Code splitting, lazy loading, optimized bundle size
+- **Backend**: Async/await patterns, connection pooling, Redis caching
+- **Database**: Proper indexing, query optimization, RLS policies
+- **Agent**: Timeout handling, resource limits, sandbox isolation
 
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl:/etc/nginx/ssl:ro
-    depends_on:
-      - frontend
-      - backend
-    restart: unless-stopped
-    networks:
-      - app-network
+### Integration Patterns
 
-volumes:
-  redis-data:
+- **LLM Integration**: LiteLLM for multi-provider support, structured prompts
+- **Tool System**: Dual schema decorators (OpenAPI + XML), consistent ToolResult
+- **Real-time**: Supabase subscriptions for live updates
 
-networks:
-  app-network:
-    driver: bridge
-```
+## Key Technologies
 
-## Environment Management
+### Frontend Dependencies
 
-### Environment Configuration
+- Next.js 15+, React 18+, TypeScript 5+
+- @tanstack/react-query, @supabase/supabase-js
+- @radix-ui components, @tailwindcss/typography
+- @hookform/resolvers, react-hook-form
 
-```bash
-# .env.local (development)
-NODE_ENV=development
-NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-DATABASE_URL=postgresql://user:pass@localhost:5432/suna_dev
-REDIS_URL=redis://localhost:6379
-LOG_LEVEL=debug
+### Backend Dependencies
 
-# .env.production
-NODE_ENV=production
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-DATABASE_URL=postgresql://user:pass@prod-db:5432/suna_prod
-REDIS_URL=redis://prod-redis:6379
-LOG_LEVEL=info
-SENTRY_DSN=your_sentry_dsn
-```
+- FastAPI 0.115+, Python 3.11+
+- Supabase 2.17+, Redis 5.2+, LiteLLM 1.72+
+- Dramatiq 1.18+, Pydantic for validation
+- Sentry, Langfuse, Prometheus for observability
 
-### Tool Version Management (mise.toml)
+## Advanced Patterns
 
-```toml
-[tools]
-node = "18.17.0"
-python = "3.11.5"
-docker = "24.0.0"
-docker-compose = "2.20.0"
+### Agent System Architecture
 
-[env]
-UV_VENV = ".venv"
-PYTHON_KEYRING_BACKEND = "keyring.backends.null.Keyring"
-```
+- **Versioning**: Multiple agent versions with `agent_versions` table
+- **Configuration**: JSONB config storage with validation
+- **Workflows**: Step-by-step execution with `agent_workflows`
+- **Triggers**: Scheduled and event-based automation
+- **Builder Tools**: Dynamic agent creation and management
 
-### Environment-Specific Scripts
+### Security & Authentication
 
-```bash
-#!/bin/bash
-# scripts/start-dev.sh
-set -e
+- **JWT Validation**: Supabase token verification without signature check
+- **Row Level Security**: Database-level access control
+- **Credential Encryption**: Secure storage of sensitive API keys
+- **Input Validation**: Pydantic models for all user inputs
 
-echo "Starting development environment..."
+### Database Patterns
 
-# Check if required tools are installed
-command -v docker >/dev/null 2>&1 || { echo "Docker is required but not installed. Aborting." >&2; exit 1; }
-command -v docker-compose >/dev/null 2>&1 || { echo "Docker Compose is required but not installed. Aborting." >&2; exit 1; }
+- **Migrations**: Idempotent SQL with proper error handling
+- **Indexing**: Foreign keys and query optimization
+- **Triggers**: Automated timestamp management
+- **Enums**: Safe enum creation with duplicate handling
 
-# Start services
-docker-compose -f docker-compose.dev.yml up -d
-echo "✅ Development services started"
+## Development Workflow
 
-# Wait for services to be healthy
-echo "Waiting for services to be ready..."
-sleep 10
+### Environment Setup
 
-# Run database migrations
-docker-compose -f docker-compose.dev.yml exec backend python -m alembic upgrade head
-echo "✅ Database migrations completed"
+- Use `mise.toml` for tool version management
+- Docker Compose for local development stack
+- Environment-specific configurations (LOCAL/STAGING/PRODUCTION)
 
-echo "🚀 Development environment is ready!"
-echo "Frontend: http://localhost:3000"
-echo "Backend: http://localhost:8000"
-echo "Redis: localhost:6379"
-```
+### Code Standards
 
-## Deployment Strategies
+- Follow established naming conventions
+- Implement proper error boundaries
+- Use consistent logging patterns
+- Handle loading and error states
 
-### GitHub Actions CI/CD
+### Testing Strategy
 
-```yaml
-# .github/workflows/deploy.yml
-name: Deploy to Production
+- Unit tests for business logic
+- Integration tests for API endpoints
+- E2E tests for critical user flows
+- Performance testing for agent execution
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+## When in Doubt
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
-
-      - name: Install backend dependencies
-        run: |
-          cd backend
-          pip install -e .
-
-      - name: Install frontend dependencies
-        run: |
-          cd frontend
-          npm ci
-
-      - name: Run backend tests
-        run: |
-          cd backend
-          pytest
-
-      - name: Run frontend tests
-        run: |
-          cd frontend
-          npm run test
-
-      - name: Lint code
-        run: |
-          cd backend && python -m black --check .
-          cd frontend && npm run lint
-
-  build-and-push:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Log in to Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Deploy to production
-        run: |
-          # Add your deployment commands here
-          # e.g., kubectl apply, docker-compose up, etc.
-          echo "Deploying to production..."
-```
-
-### Database Migration Management
-
-```bash
-#!/bin/bash
-# scripts/migrate.sh
-set -e
-
-ENVIRONMENT=${1:-development}
-
-echo "Running migrations for $ENVIRONMENT environment..."
-
-case $ENVIRONMENT in
-  development)
-    docker-compose exec backend python -m alembic upgrade head
-    ;;
-  production)
-    # Production migration with backup
-    kubectl exec -it backend-pod -- python -m alembic upgrade head
-    ;;
-  *)
-    echo "Unknown environment: $ENVIRONMENT"
-    exit 1
-    ;;
-esac
-
-echo "✅ Migrations completed for $ENVIRONMENT"
-```
-
-## Monitoring & Observability
-
-### Health Check Endpoints
-
-```python
-# backend/health.py
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-from redis import Redis
-import time
-
-router = APIRouter()
-
-@router.get("/health")
-async def health_check():
-    """Comprehensive health check endpoint"""
-    start_time = time.time()
-
-    checks = {
-        "status": "healthy",
-        "timestamp": start_time,
-        "version": "1.0.0",
-        "environment": os.getenv("NODE_ENV", "development"),
-        "checks": {}
-    }
-
-    # Database health check
-    try:
-        db.execute("SELECT 1")
-        checks["checks"]["database"] = {"status": "healthy", "latency_ms": 0}
-    except Exception as e:
-        checks["status"] = "unhealthy"
-        checks["checks"]["database"] = {"status": "unhealthy", "error": str(e)}
-
-    # Redis health check
-    try:
-        redis_client.ping()
-        checks["checks"]["redis"] = {"status": "healthy"}
-    except Exception as e:
-        checks["status"] = "unhealthy"
-        checks["checks"]["redis"] = {"status": "unhealthy", "error": str(e)}
-
-    checks["response_time_ms"] = (time.time() - start_time) * 1000
-    return checks
-
-@router.get("/metrics")
-async def metrics():
-    """Prometheus-style metrics endpoint"""
-    return {
-        "active_connections": get_active_connections(),
-        "memory_usage_mb": get_memory_usage(),
-        "cpu_usage_percent": get_cpu_usage(),
-        "request_count": get_request_count(),
-    }
-```
-
-### Logging Configuration
-
-```python
-# backend/utils/logging.py
-import structlog
-import logging.config
-
-def setup_logging(environment: str = "development"):
-    """Configure structured logging"""
-
-    processors = [
-        structlog.stdlib.filter_by_level,
-        structlog.stdlib.add_logger_name,
-        structlog.stdlib.add_log_level,
-        structlog.stdlib.PositionalArgumentsFormatter(),
-        structlog.processors.TimeStamper(fmt="iso"),
-        structlog.processors.StackInfoRenderer(),
-        structlog.processors.format_exc_info,
-    ]
-
-    if environment == "production":
-        processors.append(structlog.processors.JSONRenderer())
-    else:
-        processors.append(structlog.dev.ConsoleRenderer())
-
-    structlog.configure(
-        processors=processors,
-        wrapper_class=structlog.stdlib.BoundLogger,
-        logger_factory=structlog.stdlib.LoggerFactory(),
-        cache_logger_on_first_use=True,
-    )
-```
-
-## Security & Compliance
-
-### Security Headers (Nginx)
-
-```nginx
-# nginx.conf security configuration
-server {
-    listen 443 ssl http2;
-    server_name your-domain.com;
-
-    # SSL configuration
-    ssl_certificate /etc/nginx/ssl/cert.pem;
-    ssl_certificate_key /etc/nginx/ssl/key.pem;
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
-
-    # Security headers
-    add_header X-Frame-Options DENY always;
-    add_header X-Content-Type-Options nosniff always;
-    add_header X-XSS-Protection "1; mode=block" always;
-    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';" always;
-    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-
-    # Rate limiting
-    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
-
-    location /api/ {
-        limit_req zone=api burst=20 nodelay;
-        proxy_pass http://backend:8000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-### Secrets Management
-
-```bash
-#!/bin/bash
-# scripts/setup-secrets.sh
-set -e
-
-echo "Setting up secrets for production..."
-
-# Create Kubernetes secrets
-kubectl create secret generic suna-secrets \
-  --from-literal=database-url=$DATABASE_URL \
-  --from-literal=redis-url=$REDIS_URL \
-  --from-literal=supabase-key=$SUPABASE_SERVICE_KEY \
-  --from-literal=openai-api-key=$OPENAI_API_KEY \
-  --dry-run=client -o yaml | kubectl apply -f -
-
-echo "✅ Secrets configured"
-```
-
-## Performance & Scaling
-
-### Load Balancing Configuration
-
-```yaml
-# kubernetes/ingress.yml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: suna-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rate-limit: "100"
-    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
-spec:
-  tls:
-    - hosts:
-        - suna.example.com
-      secretName: suna-tls
-  rules:
-    - host: suna.example.com
-      http:
-        paths:
-          - path: /api/
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-service
-                port:
-                  number: 8000
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend-service
-                port:
-                  number: 3000
-```
-
-### Auto-scaling Configuration
-
-```yaml
-# kubernetes/hpa.yml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: backend-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: backend-deployment
-  minReplicas: 2
-  maxReplicas: 10
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 70
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 80
-```
-
-## Backup & Recovery
-
-### Database Backup Strategy
-
-```bash
-#!/bin/bash
-# scripts/backup-database.sh
-set -e
-
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/backups"
-DATABASE_URL=${DATABASE_URL}
-
-echo "Creating database backup..."
-
-# Create backup with compression
-pg_dump "$DATABASE_URL" | gzip > "$BACKUP_DIR/suna_backup_$TIMESTAMP.sql.gz"
-
-# Upload to cloud storage (adjust for your provider)
-aws s3 cp "$BACKUP_DIR/suna_backup_$TIMESTAMP.sql.gz" "s3://suna-backups/"
-
-# Clean up local backups older than 7 days
-find "$BACKUP_DIR" -name "suna_backup_*.sql.gz" -mtime +7 -delete
-
-echo "✅ Database backup completed: suna_backup_$TIMESTAMP.sql.gz"
-```
-
-### Disaster Recovery Plan
-
-```bash
-#!/bin/bash
-# scripts/restore-database.sh
-set -e
-
-BACKUP_FILE=${1}
-
-if [ -z "$BACKUP_FILE" ]; then
-    echo "Usage: $0 <backup-file>"
-    exit 1
-fi
-
-echo "Restoring database from $BACKUP_FILE..."
-
-# Download backup from cloud storage
-aws s3 cp "s3://suna-backups/$BACKUP_FILE" "/tmp/$BACKUP_FILE"
-
-# Restore database
-gunzip -c "/tmp/$BACKUP_FILE" | psql "$DATABASE_URL"
-
-echo "✅ Database restored from $BACKUP_FILE"
-```
-
-## Key Infrastructure Tools
-
-### Container & Orchestration
-
-- Docker 24+ for containerization
-- Docker Compose for local development
-- Kubernetes for production orchestration
-- Helm for package management
-
-### CI/CD & Automation
-
-- GitHub Actions for CI/CD pipelines
-- Terraform for infrastructure as code
-- Ansible for configuration management
-- ArgoCD for GitOps deployments
-
-### Monitoring & Observability
-
-- Prometheus for metrics collection
-- Grafana for dashboards and visualization
-- Jaeger for distributed tracing
-- ELK stack for log aggregation
-
-### Security & Compliance
-
-- Vault for secrets management
-- OWASP ZAP for security testing
-- Trivy for container vulnerability scanning
-- Falco for runtime security monitoring
+- Follow existing patterns in the codebase
+- Check similar implementations for guidance
+- Use established error handling and logging
+- Prioritize type safety and security
+- Consult domain-specific rule files for detailed guidance
+- Check similar implementations for guidance
+- Use the established error handling patterns
+- Follow the logging conventions with structured logging
 
 ---
 > Source: [elhayatferdos67-ux/mytask.v2](https://github.com/elhayatferdos67-ux/mytask.v2) — distributed by [TomeVault](https://tomevault.io).
