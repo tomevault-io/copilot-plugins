@@ -4,7 +4,7 @@
   "repo": "My-Hermes-Desktop",
   "description": "A desktop UI crafted for Hermes Agent, built on Tauri 2 and React. Positioning: A native companion application for macOS, featuring zero-terminal operation and Apple-style intuitive interaction.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wuguirongsg/My-Hermes-Desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-26T06:32:37Z"
+  "distributed_at": "2026-05-26T06:33:35Z"
 }
