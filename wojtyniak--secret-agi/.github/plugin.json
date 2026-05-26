@@ -1,0 +1,9 @@
+{
+  "name": "wojtyniak--secret-agi",
+  "displayName": "secret-agi",
+  "description": "Multi-agent system research platform for studying AI coordination and deception through automated social deduction gameplay and behavioral analysis.",
+  "version": "1.0.0",
+  "author": "wojtyniak",
+  "homepage": "https://github.com/wojtyniak/secret-agi",
+  "skills": []
+}
