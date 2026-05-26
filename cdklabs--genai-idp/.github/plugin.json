@@ -1,0 +1,9 @@
+{
+  "name": "cdklabs--genai-idp",
+  "displayName": "genai-idp",
+  "description": "GenAI Intelligent Document Processing (IDP) Accelerator for AWS CDK is designed to transform unstructured documents into structured data at scale using AWS's latest AI/ML services",
+  "version": "1.0.0",
+  "author": "cdklabs",
+  "homepage": "https://github.com/cdklabs/genai-idp",
+  "skills": []
+}
