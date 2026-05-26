@@ -1,0 +1,9 @@
+{
+  "name": "vmcguire--bwa-click",
+  "displayName": "BWA-Click",
+  "description": "VST3 instrument: plays the user's captured groove as a click. Replaces the host metronome in practice.",
+  "version": "1.0.0",
+  "author": "vmcguire",
+  "homepage": "https://github.com/vmcguire/BWA-Click",
+  "skills": []
+}
