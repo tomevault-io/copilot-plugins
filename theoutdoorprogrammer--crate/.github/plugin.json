@@ -1,0 +1,9 @@
+{
+  "name": "theoutdoorprogrammer--crate",
+  "displayName": "crate",
+  "description": "Self-hosted music manager. Search, watch, and download your music library via Deezer/MusicBrainz + slskd.",
+  "version": "1.0.0",
+  "author": "TheOutdoorProgrammer",
+  "homepage": "https://github.com/TheOutdoorProgrammer/crate",
+  "skills": []
+}
