@@ -1,0 +1,26 @@
+# nju-power-watch
+
+> Source: [Chen-Rong-Zi/nju-power-watch](https://github.com/Chen-Rong-Zi/nju-power-watch) — distributed by [TomeVault](https://tomevault.io)
+
+南京大学宿舍电费自动监控系统
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [Chen-Rong-Zi/nju-power-watch](https://github.com/Chen-Rong-Zi/nju-power-watch).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Chen-Rong-Zi/nju-power-watch](https://github.com/Chen-Rong-Zi/nju-power-watch)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
