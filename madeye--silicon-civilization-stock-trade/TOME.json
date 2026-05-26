@@ -1,0 +1,44 @@
+{
+  "name": "silicon-civilization-stock-trade",
+  "owner": "madeye",
+  "repo": "silicon-civilization-stock-trade",
+  "description": "\u7845\u57fa\u6587\u660e\u6d88\u8d39\u80a1\u4ea4\u6613\u7b56\u7565\u7cfb\u7edf \u00b7 DeepSeek v4-pro \u00b7 akshare \u00b7 \u56de\u6d4b \u00b7 Next.js",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/madeye/silicon-civilization-stock-trade",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-26T09:30:28Z"
+}
