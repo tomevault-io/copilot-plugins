@@ -1,0 +1,9 @@
+{
+  "name": "robisson--build-like-amazon-agent-skills",
+  "displayName": "build-like-amazon-agent-skills",
+  "description": "Production-grade engineering skills for AI coding agents, built on Amazon Way of building services",
+  "version": "1.0.0",
+  "author": "robisson",
+  "homepage": "https://github.com/robisson/build-like-amazon-agent-skills",
+  "skills": []
+}
