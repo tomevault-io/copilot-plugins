@@ -59304,6 +59304,11 @@
       "description": "Vite plugin for React Server Components (RSC)"
     },
     {
+      "name": "demonixis--oxrsys",
+      "source": "./demonixis--oxrsys",
+      "description": "OXRSys"
+    },
+    {
       "name": "hyhmrright--brooks-lint",
       "source": "./hyhmrright--brooks-lint",
       "description": "AI code reviews grounded in 12 classic engineering books \u2014 decay risk diagnostics with book citations, severity labels, and 6 analysis modes including full-sweep auto-fix"
@@ -85412,11 +85417,6 @@
       "name": "amd-agi--maxtext-slurm",
       "source": "./amd-agi--maxtext-slurm",
       "description": "Toolkit for launching and observing MaxText training on Slurm-managed GPU clusters"
-    },
-    {
-      "name": "xg-gh-25--swarmai",
-      "source": "./xg-gh-25--swarmai",
-      "description": "SwarmAI - Your Agentic OS - Remembers everything. Learns every session. Gets better every time."
     },
     {
       "name": "nirholas--bnbchain-mcp",
