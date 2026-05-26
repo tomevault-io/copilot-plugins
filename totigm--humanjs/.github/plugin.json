@@ -1,0 +1,9 @@
+{
+  "name": "totigm--humanjs",
+  "displayName": "humanjs",
+  "description": "Humanize browser automation for AI agents, QA tests, and demos. Playwright-first",
+  "version": "1.0.0",
+  "author": "totigm",
+  "homepage": "https://github.com/totigm/humanjs",
+  "skills": []
+}
