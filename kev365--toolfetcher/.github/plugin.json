@@ -1,0 +1,9 @@
+{
+  "name": "kev365--toolfetcher",
+  "displayName": "ToolFetcher",
+  "description": "A tool for fetching DFIR and other GitHub tools.",
+  "version": "1.0.0",
+  "author": "kev365",
+  "homepage": "https://github.com/kev365/ToolFetcher",
+  "skills": []
+}
