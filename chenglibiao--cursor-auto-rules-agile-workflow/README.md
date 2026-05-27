@@ -1,6 +1,6 @@
-# cursor-auto-rules-agile-workflow — distributed by TomeVault
+# cursor-auto-rules-agile-workflow
 
-> Originally from [chenglibiao/cursor-auto-rules-agile-workflow](https://github.com/chenglibiao/cursor-auto-rules-agile-workflow). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [chenglibiao/cursor-auto-rules-agile-workflow](https://github.com/chenglibiao/cursor-auto-rules-agile-workflow) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [chenglibiao/cursor-auto-rules-agile-w
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/chenglibiao#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/chenglibiao/cursor-auto-rules-agile-workflow](https://github.com/chenglibiao/cursor-auto-rules-agile-workflow)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install chenglibiao/cursor-auto-rules-agile-workflow
 ```
-Or browse all formats at [https://tomevault.io/claim/chenglibiao](https://tomevault.io/claim/chenglibiao).
+Source: [github.com/chenglibiao/cursor-auto-rules-agile-workflow](https://github.com/chenglibiao/cursor-auto-rules-agile-workflow).
 
 <!-- genome:d-i-q -->
