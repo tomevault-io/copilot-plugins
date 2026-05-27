@@ -1,0 +1,9 @@
+{
+  "name": "moonblade--audiobookbay-downloader",
+  "displayName": "Audiobookbay-Downloader",
+  "description": "A modern web application for searching and downloading audiobooks from AudiobookBay. Supports Transmission, qBittorrent, Decypharr, Beets integration, and Goodreads sync.",
+  "version": "1.0.0",
+  "author": "moonblade",
+  "homepage": "https://github.com/moonblade/Audiobookbay-Downloader",
+  "skills": []
+}
