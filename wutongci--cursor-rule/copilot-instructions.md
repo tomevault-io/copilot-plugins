@@ -1,97 +1,111 @@
-## general
+## requirements
 
-> 通用标准
+> 需求管理规则
+
 
 ## 描述
 
-这些规则适用于所有文件，定义了通用的 AI 行为和项目级规范。这些规则是项目知识和最佳实践的积累。
+适用于用户故事和需求文档，定义需求管理相关的AI行为。
 
 ## 规则
 
-1.  **Memory Bank 强制阅读:**
-    *   每次任务开始前 (包括切换任务)，必须完整阅读以下 Memory Bank 核心文件：
-        *   `projectbrief.md`
-        *   `productContext.md`
-        *   `systemPatterns.md`
-        *   `techContext.md`
-        *   `testingStrategies.md`
-        *   `progress.md`
-        *   以及当前任务目录下的 `activeContext.md` (`memory-bank/open/{task-id}/activeContext.md`)。
-    *   **AI 辅助:** 在每次任务开始前，自动打开上述文件，并提示用户阅读。
+1.  **用户故事结构:**
+    *   当创建新的用户故事文件时，自动生成以下模板：
 
-    ```mermaid
-    flowchart TD
-        Start[开始任务] --> PB[阅读 projectbrief.md]
-        PB --> PC[阅读 productContext.md]
-        PC --> SP[阅读 systemPatterns.md]
-        SP --> TC[阅读 techContext.md]
-        TC --> TS[阅读 testingStrategies.md]
-        TS --> PR[阅读 progress.md]
-        PR --> AC[阅读 activeContext.md (当前任务)]
-        AC --> Continue[继续任务]
+    ```markdown
+    # [故事标题]
+
+    ## 作为 (As a)
+    [角色]
+
+    ## 我想要 (I want)
+    [期望实现的功能]
+
+    ## 以便于 (So that)
+    [实现的业务价值]
+
+    ## 验收标准 (Acceptance Criteria)
+    - [ ] [验收项1]
+    - [ ] [验收项2]
+
+    ## 补充信息
+    - 业务规则：
+      * [规则1]
+      * [规则2]
+    - 技术要求：
+      * [要求1]
+      * [要求2]
+
+    ## 关联文件
+    - Feature：[路径]
+    - API文档：[路径]
+    - 原型设计：[路径]
     ```
 
-2.  **文档更新:**
-    *   在发现新模式、实现重大变更、用户请求“更新 Memory Bank”或需要澄清上下文时，更新 Memory Bank。
-    *   特别注意：`activeContext.md`、`progress.md` 和 `testingStrategies.md` 需要经常更新。
-    *   **AI辅助**: 当用户执行上述操作时，提醒用户更新Memory Bank.
-    ```mermaid
-     flowchart TD
-        Start[触发更新] --> Review[审查Memory Bank相关文件]
-        Review --> UpdateContext[更新activeContext.md]
-        UpdateContext --> UpdateProgress[更新progress.md]
-        UpdateProgress --> UpdateTesting[更新testingStrategies.md]
-        UpdateTesting --> Finish[完成更新]
-        
-        Start --> |发现新模式| Review
-        Start --> |实现重大变更| Review
-        Start --> |用户请求| Review
-        Start --> |澄清上下文| Review
-    ```
+2.  **文件组织:**
+    *   用户故事文件必须存放在 `stories/` 目录下。
+    *   文件名必须遵循 `[模块]-[功能].story.md` 格式。
+    *   鼓励按业务模块组织子目录。
 
-3.  **优先参考 Memory Bank:** 在进行代码生成、修改、重构或测试时，优先参考 Memory Bank 中的文档。
+3.  **故事开发流程:**
+    *   **严格遵循顺序：**
+        1.  创建用户故事文档。
+        2.  等待用户故事和验收标准的确认。
+        3.  仅在用户明确要求时才开始编写 Feature 文件。
+        4.  继续后续开发步骤。
+    *   **禁止抢跑：**
+        *   禁止在用户故事未确认前编写 Feature 文件。
+        *   禁止在用户未明确要求前开始编写 Feature 文件。
+        *   Feature 文件创建需要等待用户的明确指示。
 
-4.  **任务管理:**
-    *   开始新任务前，必须在 `memory-bank/open/` 目录下创建一个以 `{task-id}` 命名的目录，并在其中创建 `activeContext.md` 文件。
-    *   任务完成后，必须将 `memory-bank/open/{task-id}/` 目录移动到 `memory-bank/done/` 目录。
-    *   开始工作时, 优先查看`memory-bank/open/`目录下的任务。
-    *   每个任务的详细信息记录在 `memory-bank/open/{task-id}/activeContext.md` 或 `memory-bank/done/{task-id}/activeContext.md`.
-    *   **AI 辅助:**
-        *   当用户创建新任务时，自动创建目录和 `activeContext.md` 文件。
-        *   当用户完成任务时，提示用户移动目录。
-        *   当用户切换任务时, 自动打开对应的`activeContext.md`
-     ```mermaid
-      flowchart TD
-        Start[开始新任务] --> CreateDir[创建memory-bank/open/{task-id}/目录]
-        CreateDir --> CreateContext[创建activeContext.md]
-        CreateContext --> Work[进行任务]
-        Work --> Finish[完成任务]
-        Finish --> MoveDir[移动目录到memory-bank/done/]
-    ```
+4.  **需求与 Feature 关联:**
+    *   每个需求文档对应一个或多个 feature 文件。
+    *   在需求文档中记录关联的 feature 文件路径。
+    *   在 feature 文件头部注释关联的需求文档。
+    *   提醒用户及时更新需求文档和 feature 文件中的关联信息。
 
-5.  **项目特定知识:**
-    *   **关键实现路径:**
-        *   [根据项目实际情况填写，例如：用户认证流程需要特别注意安全性。]
-    *   **用户偏好和工作流程:**
-        *   [根据项目实际情况填写，例如：喜欢使用 Given-When-Then 风格编写测试用例。]
-    *   **项目特定模式:**
-        *   [根据项目实际情况填写，例如：错误处理统一使用 try...catch 块，并记录错误日志。]
-    *   **已知挑战:**
-        *   [根据项目实际情况填写，例如：第三方 API 不稳定，需要增加重试机制。]
-      * **工具使用模式:**
-        *  [根据项目实际情况填写, 例如: 使用 `Alt+Enter`快捷键在Cursor中直接运行测试.]
-    *   **(以上内容应根据项目实际情况持续更新)**
-    * **AI辅助**:
-        * 定期提示用户回顾和更新项目特定知识
-        * 当用户在进行相关操作时, 根据项目特定知识提供提示或建议
-    ```mermaid
-    flowchart TD
-        Start[开始] --> Identify[识别新模式/知识]
-        Identify --> Validate[与用户验证]
-        Validate --> |确认| Document[记录到general.md]
-        Document --> Apply[在后续工作中应用]
-        Apply --> Improve[改进工作流程]
-    ```
+5.  **版本管理:**
+    *   版本文件命名：`[原文件名].v[版本号].story.md`。
+    *   每个版本文件需要包含：
+        *   变更说明
+        *   变更原因
+        *   影响范围
+        *   关联文件更新
+     * 当创建版本文件时, 提示用户填写上述信息.
+
+6.  **用户故事编写最佳实践:**
+    *   当用户要求生成用户故事时, 提示用户:
+        *   一个故事专注于一个完整的业务价值
+        *   故事要足够小，能在一个迭代内完成
+        *   验收标准要具体且可测试
+        *   避免技术实现细节
+
+7.  **用户故事评审:**
+    *   提示用户在用户故事编写完成后进行评审, 评审参与者包括业务人员和开发人员。
+    *   评审检查点：
+        *   故事描述清晰完整
+        *   验证验收标准的合理性
+        *   评估技术可行性
+        *   必须在故事评审通过后才能进入下一步骤
+
+8.  **关联管理:**
+    *   提示用户及时更新关联文件。
+    *   保持文档间的一致性。
+    *   定期检查关联有效性。
+    *   在修改用户故事或 feature 文件时, 提示用户检查关联文档是否需要同步更新。
+
+9.  **AI 辅助:**
+    *   当用户要求生成用户故事时，可以提供一些示例或模板，帮助用户更快地编写。
+    *   当用户要求编写验收标准时，可以根据用户故事内容提供一些建议。
+    *   当用户要求创建 Feature 文件时，可以根据用户故事内容生成 Feature 文件的基本结构。
+    *   当用户故事发生变更时, 提示用户是否需要创建版本文件.
+## 需求开发流程
+```mermaid
+flowchart TD
+    Start[开始] --> CreateStory[创建用户故事]
+    CreateStory --> ConfirmStory[确认故事和验收标准]
+    ConfirmStory --> |用户明确要求| WriteFeature[编写Feature文件]
+    WriteFeature --> Develop[继续开发]
 
 ---
 > Source: [wutongci/cursor_rule](https://github.com/wutongci/cursor_rule) — distributed by [TomeVault](https://tomevault.io).
