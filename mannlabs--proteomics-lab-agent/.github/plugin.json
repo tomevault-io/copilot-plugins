@@ -1,0 +1,9 @@
+{
+  "name": "mannlabs--proteomics-lab-agent",
+  "displayName": "proteomics_lab_agent",
+  "description": "A multimodal, agentic AI framework that captures and shares practical expertise by linking written instructions to real-world laboratory work.\u00a0It uses video analysis to automate documentation and prov",
+  "version": "1.0.0",
+  "author": "MannLabs",
+  "homepage": "https://github.com/MannLabs/proteomics_lab_agent",
+  "skills": []
+}
