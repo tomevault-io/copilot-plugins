@@ -1,6 +1,6 @@
 # pr-agent
 
-> Config by [qodo-ai](https://github.com/qodo-ai/pr-agent) — distributed by [TomeVault](https://tomevault.io/claim/qodo-ai)
+> Source: [qodo-ai/pr-agent](https://github.com/qodo-ai/pr-agent) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `AGENTS.md` in [qodo-ai/pr-agent](https://github.com/qodo-ai/pr
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/qodo-ai](https://tomevault.io/claim/qodo-ai)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/qodo-ai/pr-agent](https://github.com/qodo-ai/pr-agent)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/qodo-ai) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
