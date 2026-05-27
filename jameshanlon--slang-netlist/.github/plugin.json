@@ -1,0 +1,9 @@
+{
+  "name": "jameshanlon--slang-netlist",
+  "displayName": "slang-netlist",
+  "description": "A tool for analysing the source-level static connectivity of a SystemVerilog design",
+  "version": "1.0.0",
+  "author": "jameshanlon",
+  "homepage": "https://github.com/jameshanlon/slang-netlist",
+  "skills": []
+}
