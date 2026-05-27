@@ -17,7 +17,7 @@ Original source: `AGENTS.md` in [agneym/pi-honcho-memory](https://github.com/agn
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [agneym/pi-honcho-memory](https://github.com/agneym/pi-honcho-memory) — a repo with 11+ stars on GitHub.
+From [agneym/pi-honcho-memory](https://github.com/agneym/pi-honcho-memory) — a repo with 16+ stars on GitHub.
 
 ---
 
