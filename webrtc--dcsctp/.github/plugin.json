@@ -1,0 +1,9 @@
+{
+  "name": "webrtc--dcsctp",
+  "displayName": "dcsctp",
+  "description": "An SCTP implementation for WebRTC Data Channels",
+  "version": "1.0.0",
+  "author": "webrtc",
+  "homepage": "https://github.com/webrtc/dcsctp",
+  "skills": []
+}
