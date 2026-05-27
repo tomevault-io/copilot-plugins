@@ -1,38 +1,66 @@
-## architecture-doc-triggers
+## code-doc-lockstep
 
-> Read the listed architecture doc BEFORE editing any subsystem
+> Binding — code changes must update matching docs (architecture / feature / API / runbook / SDD) in the same diff
 
 
-# Architecture doc triggers — binding
+# Code / Doc Lockstep (BINDING)
 
-Before editing code in any of the areas listed in `docs/developers/architecture/README.md`, you **MUST** first read the listed architecture doc(s).
+> Docs are **the single source of truth**. If code drifts from a doc, the **code is wrong** — fix the doc to match reality if needed, but never ship code that contradicts its doc.
 
-This rule is one of the **three required reads** before any code change (see `pre-edit-reading.mdc` for the full requirement: architecture + feature + conventions). It operationalises Step 1 of the Mandatory Development Workflow in `CLAUDE.md` ("Architecture") with per-module precision.
+## The rule
 
-## How to apply
+When a PR touches code in a region covered by a doc, every matching doc MUST be updated in the **same commit**. The doc isn't a follow-up; it's part of the change. This applies to **every** doc tree:
 
-When the user asks you to edit code, before writing any change:
+| Doc tree | What changes here trigger an update |
+|---|---|
+| `docs/developers/architecture/**` | internal mechanics, data flow, contracts between services |
+| `docs/users/features/**` | user-visible UI surface, admin features, agent UX |
+| `docs/users/api/openapi/**` | request/response schemas, new/renamed/removed endpoints |
+| `docs/operators/ops/runbooks/**` | deployment steps, recompute scripts, operational procedures |
+| `docs/developers/specs/**` | Epic / Story acceptance criteria as scope evolves |
 
-1. Open `docs/developers/architecture/README.md`.
-2. Find the row whose "Editing area / file glob" matches.
-3. Open and read the listed doc(s).
-4. If your edit area is **not** covered by any row, that itself is a signal — either the architecture is undocumented (raise it with the user before continuing) or this is a new subsystem that needs its own doc + row.
+A single code change typically touches **multiple doc trees**. Examples:
 
-## What to do if you're refactoring
+- New admin endpoint → OpenAPI spec + architecture doc + feature doc (if UI surface) + runbook (if ops procedure).
+- Cost-stamping change → `cost-estimation-architecture.md` + `prod-deploy-data-changes.md` (if historical recompute) + feature doc for the Traffic drawer (if visible breakdown changes).
+- Provider adapter codec change → `provider-adapter-architecture.md` + feature doc if visible to admins.
+- Schema migration → `cost-estimation-architecture.md` (if cost columns) OR `thing-config-sync-architecture.md` (if shadow) + runbook if any historical data fix is part of the PR.
 
-If your PR introduces a new architectural subsystem:
+## How it's enforced
 
-1. Write the new `docs/developers/architecture/<service>/<name>-architecture.md` first (or in the same PR, ordered before code).
-2. Append the new row to `docs/developers/architecture/README.md` in the same PR.
-3. CI lockstep (`npm run check:arch-doc-triggers`) will fail if either side is missing.
+`scripts/check-doc-lockstep.mjs` runs on the PR diff against `origin/main`. If any code file matches a configured glob and **none** of the mapped docs are in the diff, the check fails with the file list + which docs were expected.
 
-## What this rule is NOT
+The mapping lives at `scripts/doc-lockstep.config.mjs`. Each entry is one or more code globs plus one or more required docs. Adding a new entry is easy — edit the config and open the PR.
 
-- It is **not** a substitute for the Plan / Todo discipline in CLAUDE.md.
-- It is **not** asking you to read every doc — just the ones for the area you are touching.
-- It does **not** require updating the doc unless the architecture itself is changing.
+Run locally:
 
-Skipping this rule requires **explicit user approval** in chat.
+```bash
+npm run check:doc-lockstep            # vs origin/main (CI mode)
+node scripts/check-doc-lockstep.mjs --staged   # only against staged files
+```
+
+## What is NOT a substitute
+
+- A passing `tsc -b` / `go build` / unit tests do **not** mean docs are aligned. Code can compile and the doc can still claim something the code no longer does.
+- Touching `updated:` in the front-matter without changing the body is a **red flag in review** — the doc should reflect what the code now does, not just a fresh date.
+- Adding a `TODO: update doc` comment in code is **explicitly forbidden** under the "real implementation only" rule. Update the doc now, or carve out the change.
+
+## Waiver
+
+Skipping the lockstep requires explicit user approval recorded in the PR description or commit message. Acceptable waivers:
+
+- Trivial mechanical change (a typo fix, a comment-only commit, a dependency bump that doesn't change behavior).
+- Cherry-pick / revert where the original commit already covered the docs.
+- Migration timestamp rename where the migration is functionally unchanged.
+
+Not acceptable:
+
+- "Will update doc in follow-up PR." Doc PRs that ship after the code is the bug this rule prevents.
+- "It's only a small refactor." If small refactors drift the doc, the doc says one thing and the code does another by inches.
+
+## Memory anchor
+
+[[feedback_code_doc_lockstep]]
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
