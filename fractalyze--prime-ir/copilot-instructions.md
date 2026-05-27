@@ -1,12 +1,112 @@
-## bazel-style-guide
+## coding-style-guide
 
-> Bazel Style Rules
+> C++ Style Rules
 
 
-# Bazel Style Rules
+# C++ Style Rules
 
-- Every header included in a Bazel target must also be declared as a Bazel dependency.
-- When working with local LLVM clones for development, follow the process documented in `CONTRIBUTING.md` for updating patches.
+The following are project-specific deviations and clarifications from the [LLVM Coding Standard].
+
+## Naming guide
+
+- **Type names** (including classes, structs, enums, typedefs, etc) should be
+  nouns and start with an upper-case letter (e.g. `TextFileReader`).
+
+- **Variable names** should be nouns (as they represent state). The name should
+  be camel case, and start with a lower-case letter (e.g. `leader` or `boats`).
+  (This is different from the reference.)
+
+- **Function names** should be verb phrases (as they represent actions), and
+  command-like function should be imperative. The name should be camel case, and
+  start with a lowercase letter (e.g. `openFile()` or `isFoo()`).
+
+- **Enum declarations** (e.g. `enum Foo {...}`) are types, so they should follow
+  the naming conventions for types. A common use for enums is as a discriminator
+  for a union, or an indicator of a subclass. When an enum is used for something
+  like this, it should have a Kind suffix (e.g. `ValueKind`).
+
+## Static Methods
+
+- For **static methods** implemented in `.cpp` files, explicitly annotate with `// static`.
+
+  ```c++
+  // static
+  uint64_t EnvTime::nowNanos() {
+    // ...
+  }
+  ```
+
+## File-Scoped Symbols
+
+- Wrap **file-scoped functions, constants, and variables** inside an **anonymous namespace**.
+
+  ```c++
+  namespace {
+
+  constexpr int kBufferSize = 1024;
+
+  void helperFunction() {
+    // ...
+  }
+
+  }  // namespace
+  ```
+
+## Header Inclusion
+
+- **Avoid redundant includes**: Do not repeat headers in `.cc` files that are already included in the corresponding `.h`.
+
+  ```c++
+  // in a.h
+  #include <stdint.h>
+
+  // in a.cc
+  #include "a.h"
+  // #include <stdint.h>  // ❌ redundant
+  ```
+
+- **Include only required headers**. Remove unused includes.
+
+## Raw Pointer Ownership
+
+- When using a **raw pointer** (`T*`) in **class or struct members**, explicitly document ownership by adding an inline comment `// not owned` or `// owned`.
+- Prefer `std::unique_ptr` or `std::shared_ptr` for owned resources.
+
+Example:
+
+```c++
+class Prover {
+ public:
+  explicit Prover(Context* ctx) : ctx(ctx) {}
+
+ private:
+  Context* ctx; // not owned
+  std::unique_ptr<Engine> engine;
+};
+```
+
+## Container Initialization
+
+- Use **range constructors** instead of loops when populating containers from iterators.
+
+  ```c++
+  // ✅ Good: Use range constructor
+  SmallVector<APInt> getNativeInput(DenseIntElementsAttr attr) const {
+    auto values = attr.getValues<APInt>();
+    return {values.begin(), values.end()};
+  }
+
+  // ❌ Bad: Loop to populate
+  SmallVector<APInt> getNativeInput(DenseIntElementsAttr attr) const {
+    SmallVector<APInt> result;
+    for (const APInt &v : attr.getValues<APInt>()) {
+      result.push_back(v);
+    }
+    return result;
+  }
+  ```
+
+[LLVM Coding Standard]: https://llvm.org/docs/CodingStandards.html
 
 ---
 > Source: [fractalyze/prime-ir](https://github.com/fractalyze/prime-ir) — distributed by [TomeVault](https://tomevault.io).
