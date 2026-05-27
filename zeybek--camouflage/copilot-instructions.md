@@ -1,608 +1,194 @@
-## testing
+## camouflage
 
-> Testing guidelines, test structure, coverage requirements, mocking patterns, and VS Code extension testing
+> Camouflage is a VS Code extension that visually masks sensitive values in configuration files
 
+# AGENTS.md
 
-# Testing Guidelines
+Camouflage is a VS Code extension that visually masks sensitive values in configuration files
+(.env, .json, .yaml, .toml, .properties, .sh) using text decorations. It **never modifies file
+content** -- masking is purely visual via CSS tricks (letterSpacing, opacity, pseudo-elements).
 
-## Test Philosophy
-
-### Core Principles
-
-1. **Tests are documentation**: Test names should explain behavior
-2. **Fast feedback**: Unit tests should run in milliseconds
-3. **Reliable**: Tests should not be flaky
-4. **Maintainable**: Tests should be easy to update when requirements change
-5. **Coverage**: Minimum 80% code coverage, aim for 90%+
-
-## Test Structure
-
-### AAA Pattern (Arrange, Act, Assert)
-
-```typescript
-describe('generateHiddenText', () => {
-  it('should mask text with stars style', () => {
-    // Arrange
-    const input = 'secret123';
-    const style: HiddenTextStyle = 'stars';
-
-    // Act
-    const result = generateHiddenText(input, style);
-
-    // Assert
-    expect(result).toBe('*********');
-  });
-});
-```
-
-### Test File Organization
-
-```typescript
-// Top-level describe: Module or class name
-describe('Camouflage', () => {
-  // Setup and teardown
-  beforeEach(() => {
-    // Reset state before each test
-  });
-
-  afterEach(() => {
-    // Cleanup after each test
-  });
-
-  // Nested describe: Method or feature
-  describe('updateDecorations', () => {
-    // Individual test cases
-    it('should apply decorations to .env file', () => {});
-    it('should skip non-.env files', () => {});
-    it('should handle empty files', () => {});
-  });
-
-  describe('toggle', () => {
-    it('should disable when enabled', () => {});
-    it('should enable when disabled', () => {});
-  });
-});
-```
-
-## Test Coverage Requirements
-
-### Required Coverage
-
-- **Statements**: 80%+
-- **Branches**: 75%+
-- **Functions**: 80%+
-- **Lines**: 80%+
-
-### What to Test
-
-✅ **Must Test**:
-
-- All public methods and functions
-- Edge cases (empty input, null, undefined)
-- Error conditions
-- Configuration changes
-- State transitions
-
-✅ **Should Test**:
-
-- Private methods with complex logic
-- Integration between modules
-- Performance-critical paths
-
-❌ **Don't Test**:
-
-- Third-party library code
-- Generated code
-- Simple getters/setters without logic
-- VS Code API itself
-
-## Unit Testing Patterns
-
-### Pure Functions (Easiest)
-
-```typescript
-// Function to test
-export function matchPattern(key: string, pattern: string): boolean {
-  return new RegExp(pattern, 'i').test(key);
-}
-
-// Test
-describe('matchPattern', () => {
-  it('should match case-insensitively', () => {
-    expect(matchPattern('API_KEY', 'api')).toBe(true);
-    expect(matchPattern('api_key', 'API')).toBe(true);
-  });
-
-  it('should support wildcard patterns', () => {
-    expect(matchPattern('MY_API_KEY', '*API*')).toBe(true);
-    expect(matchPattern('SECRET_TOKEN', '*TOKEN')).toBe(true);
-  });
-
-  it('should return false for non-matches', () => {
-    expect(matchPattern('DATABASE_URL', 'api')).toBe(false);
-  });
-});
-```
-
-### Functions with Dependencies (Use Mocks)
-
-```typescript
-// Function to test
-export function readEnvFile(filePath: string): string {
-  return fs.readFileSync(filePath, 'utf8');
-}
-
-// Test with mock
-jest.mock('fs');
-
-describe('readEnvFile', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should read file content', () => {
-    const mockContent = 'API_KEY=secret';
-    (fs.readFileSync as jest.Mock).mockReturnValue(mockContent);
-
-    const result = readEnvFile('/path/.env');
-
-    expect(result).toBe(mockContent);
-    expect(fs.readFileSync).toHaveBeenCalledWith('/path/.env', 'utf8');
-  });
-
-  it('should throw on file not found', () => {
-    (fs.readFileSync as jest.Mock).mockImplementation(() => {
-      throw new Error('ENOENT');
-    });
-
-    expect(() => readEnvFile('/path/.env')).toThrow('ENOENT');
-  });
-});
-```
-
-### Class Testing
-
-```typescript
-describe('Camouflage', () => {
-  let camouflage: Camouflage;
-  let mockEditor: vscode.TextEditor;
-
-  beforeEach(() => {
-    camouflage = new Camouflage();
-    mockEditor = createMockEditor(); // Helper function
-  });
-
-  afterEach(() => {
-    camouflage.dispose();
-  });
-
-  describe('initialization', () => {
-    it('should create status bar item', () => {
-      expect(camouflage['statusBarItem']).toBeDefined();
-    });
-
-    it('should apply decorations if .env file is open', () => {
-      mockEditor.document.fileName = '/path/.env';
-      vscode.window.activeTextEditor = mockEditor;
-
-      camouflage = new Camouflage();
-
-      expect(mockEditor.setDecorations).toHaveBeenCalled();
-    });
-  });
-
-  describe('toggle', () => {
-    it('should disable extension when enabled', async () => {
-      await camouflage.toggle();
-
-      expect(config.isEnabled()).toBe(false);
-    });
-  });
-});
-```
-
-## Mocking VS Code API
-
-### Mock Structure
-
-```typescript
-// __mocks__/vscode.ts
-export const window = {
-  activeTextEditor: undefined,
-  createStatusBarItem: jest.fn(() => ({
-    text: '',
-    tooltip: '',
-    show: jest.fn(),
-    hide: jest.fn(),
-    dispose: jest.fn(),
-  })),
-  showInformationMessage: jest.fn(),
-  showErrorMessage: jest.fn(),
-};
-
-export const workspace = {
-  getConfiguration: jest.fn(() => ({
-    get: jest.fn(),
-    update: jest.fn(),
-  })),
-  onDidChangeConfiguration: jest.fn(),
-  onDidChangeTextDocument: jest.fn(),
-};
-
-export const commands = {
-  registerCommand: jest.fn(),
-  executeCommand: jest.fn(),
-};
-
-export class Range {
-  constructor(
-    public start: { line: number; character: number },
-    public end: { line: number; character: number }
-  ) {}
-}
-
-export enum StatusBarAlignment {
-  Left = 1,
-  Right = 2,
-}
-```
-
-### Using VS Code Mocks
-
-```typescript
-import * as vscode from 'vscode';
-
-describe('Feature with VS Code API', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should show status bar', () => {
-    const mockStatusBar = {
-      text: '',
-      show: jest.fn(),
-      dispose: jest.fn(),
-    };
-
-    (vscode.window.createStatusBarItem as jest.Mock).mockReturnValue(mockStatusBar);
-
-    // Test code that creates status bar
-    const statusBar = vscode.window.createStatusBarItem();
-    statusBar.show();
-
-    expect(mockStatusBar.show).toHaveBeenCalled();
-  });
-});
-```
-
-## Integration Testing
-
-### Testing Module Interactions
-
-```typescript
-describe('Camouflage Integration', () => {
-  it('should apply correct decoration style from config', () => {
-    // Setup config
-    const mockConfig = {
-      get: jest.fn((key: string) => {
-        if (key === 'hiddenTextStyle') return 'stars';
-        if (key === 'enabled') return true;
-        return undefined;
-      }),
-    };
-
-    (vscode.workspace.getConfiguration as jest.Mock).mockReturnValue(mockConfig);
-
-    // Create instance
-    const camouflage = new Camouflage();
-
-    // Verify it reads config and applies correct style
-    expect(mockConfig.get).toHaveBeenCalledWith('hiddenTextStyle');
-    expect(camouflage['decorationType']).toBeDefined();
-  });
-});
-```
-
-## Test Data and Fixtures
-
-### Creating Test Data
-
-```typescript
-// test/fixtures/env-samples.ts
-export const SIMPLE_ENV = `
-API_KEY=secret123
-DATABASE_URL=postgresql://localhost
-DEBUG=true
-`.trim();
-
-export const MULTILINE_ENV = `
-API_KEY=secret123
-DESCRIPTION="This is a
-multiline value"
-TOKEN=abc123
-`.trim();
-
-export const EMPTY_ENV = '';
-
-// Usage in tests
-import { SIMPLE_ENV } from '../fixtures/env-samples';
-
-describe('parseEnvFile', () => {
-  it('should parse simple env file', () => {
-    const result = parseEnvFile(SIMPLE_ENV);
-    expect(result).toEqual({
-      API_KEY: 'secret123',
-      DATABASE_URL: 'postgresql://localhost',
-      DEBUG: 'true',
-    });
-  });
-});
-```
-
-### Helper Functions
-
-```typescript
-// test/helpers/editor-helpers.ts
-export function createMockEditor(options: Partial<vscode.TextEditor> = {}): vscode.TextEditor {
-  return {
-    document: {
-      fileName: '/test/.env',
-      getText: jest.fn(() => 'API_KEY=secret'),
-      lineAt: jest.fn(),
-      ...options.document,
-    },
-    setDecorations: jest.fn(),
-    selection: new vscode.Selection(0, 0, 0, 0),
-    ...options,
-  } as unknown as vscode.TextEditor;
-}
-
-// Usage
-const editor = createMockEditor({
-  document: { fileName: '/custom/.env' },
-});
-```
-
-## Testing Decorators
-
-```typescript
-describe('Decorators', () => {
-  describe('@Log', () => {
-    it('should log method calls', () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-
-      class TestClass {
-        @Log('Test method')
-        testMethod(): void {}
-      }
-
-      const instance = new TestClass();
-      instance.testMethod();
-
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('Test method'));
-      consoleSpy.mockRestore();
-    });
-  });
-
-  describe('@Debounce', () => {
-    jest.useFakeTimers();
-
-    it('should debounce method calls', () => {
-      const mockFn = jest.fn();
-
-      class TestClass {
-        @Debounce(100)
-        debouncedMethod(): void {
-          mockFn();
-        }
-      }
-
-      const instance = new TestClass();
-
-      // Call multiple times rapidly
-      instance.debouncedMethod();
-      instance.debouncedMethod();
-      instance.debouncedMethod();
-
-      expect(mockFn).not.toHaveBeenCalled();
-
-      // Fast-forward time
-      jest.advanceTimersByTime(100);
-
-      expect(mockFn).toHaveBeenCalledTimes(1);
-    });
-  });
-});
-```
-
-## Performance Testing
-
-```typescript
-describe('Performance', () => {
-  it('should process large files quickly', () => {
-    const largeEnvContent = Array(1000)
-      .fill(0)
-      .map((_, i) => `KEY_${i}=value_${i}`)
-      .join('\n');
-
-    const start = Date.now();
-    const result = parseEnvFile(largeEnvContent);
-    const duration = Date.now() - start;
-
-    expect(duration).toBeLessThan(100); // Should be under 100ms
-    expect(Object.keys(result)).toHaveLength(1000);
-  });
-});
-```
-
-## Testing Best Practices
-
-### Do's
-
-✅ **Test behavior, not implementation**
-
-```typescript
-// ✅ GOOD: Test behavior
-it('should mask sensitive values', () => {
-  const result = maskValue('secret123');
-  expect(result).not.toContain('secret123');
-});
-
-// ❌ BAD: Test implementation
-it('should call generateHiddenText with stars', () => {
-  const spy = jest.spyOn(generator, 'generateHiddenText');
-  maskValue('secret123');
-  expect(spy).toHaveBeenCalledWith('secret123', 'stars');
-});
-```
-
-✅ **Use descriptive test names**
-
-```typescript
-// ✅ GOOD
-it('should return false when patterns array is empty', () => {});
-
-// ❌ BAD
-it('test patterns', () => {});
-```
-
-✅ **One assertion per test (when possible)**
-
-```typescript
-// ✅ GOOD: Focused test
-it('should mask values with stars style', () => {
-  expect(generateHiddenText('secret', 'stars')).toBe('******');
-});
-
-// ❌ BAD: Multiple unrelated assertions
-it('should work correctly', () => {
-  expect(generateHiddenText('secret', 'stars')).toBe('******');
-  expect(isEnvFile('.env')).toBe(true);
-  expect(config.isEnabled()).toBe(true);
-});
-```
-
-✅ **Test edge cases**
-
-```typescript
-describe('matchPattern', () => {
-  it('should handle empty string', () => {
-    expect(matchPattern('', '*')).toBe(true);
-  });
-
-  it('should handle empty pattern', () => {
-    expect(matchPattern('API_KEY', '')).toBe(false);
-  });
-
-  it('should handle special regex characters', () => {
-    expect(matchPattern('API.KEY', 'API.KEY')).toBe(true);
-  });
-});
-```
-
-### Don'ts
-
-❌ **Don't test implementation details**
-
-```typescript
-// ❌ BAD
-it('should call updateDecorationType before updateDecorations', () => {
-  const spy1 = jest.spyOn(camouflage, 'updateDecorationType');
-  const spy2 = jest.spyOn(camouflage, 'updateDecorations');
-  // Testing internal call order is brittle
-});
-```
-
-❌ **Don't use setTimeout in tests**
-
-```typescript
-// ❌ BAD
-it('should update after delay', (done) => {
-  triggerUpdate();
-  setTimeout(() => {
-    expect(isUpdated()).toBe(true);
-    done();
-  }, 100);
-});
-
-// ✅ GOOD: Use fake timers
-jest.useFakeTimers();
-it('should update after delay', () => {
-  triggerUpdate();
-  jest.advanceTimersByTime(100);
-  expect(isUpdated()).toBe(true);
-});
-```
-
-❌ **Don't have tests depend on each other**
-
-```typescript
-// ❌ BAD
-describe('Counter', () => {
-  let counter = 0;
-
-  it('should increment', () => {
-    counter++;
-    expect(counter).toBe(1);
-  });
-
-  it('should increment again', () => {
-    counter++; // Depends on previous test!
-    expect(counter).toBe(2);
-  });
-});
-
-// ✅ GOOD: Independent tests
-describe('Counter', () => {
-  let counter: Counter;
-
-  beforeEach(() => {
-    counter = new Counter();
-  });
-
-  it('should increment from zero', () => {
-    counter.increment();
-    expect(counter.value).toBe(1);
-  });
-
-  it('should increment from zero again', () => {
-    counter.increment();
-    expect(counter.value).toBe(1);
-  });
-});
-```
-
-## Running Tests
+## Build / Lint / Test / Package Commands
 
 ```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm test -- --watch
-
-# Run tests with coverage
-npm test -- --coverage
-
-# Run specific test file
-npm test -- camouflage.test.ts
-
-# Run tests matching pattern
-npm test -- --testNamePattern="should mask"
-
-# Clear Jest cache
-npm test -- --clearCache
+npm install                          # Install dependencies
+npm run compile                      # Compile TypeScript (tsc -p ./) → out/
+npm run watch                        # Watch mode compilation
+npm run lint                         # ESLint (src/)
+npm run format                       # Prettier (write)
+npm test                             # Run all tests (Jest)
+npm test -- --watch                  # Watch mode
+npm test -- --coverage               # With coverage report
+npm test -- path/to/file.test.ts     # Run a single test file
+npm test -- --testNamePattern="name" # Run tests matching a name pattern
+npm test -- --clearCache             # Clear Jest cache if tests are stale
+npm run package                      # vsce package → produces .vsix file
 ```
 
-## Coverage Reports
+Coverage threshold is 80% (branches, functions, lines, statements).
 
-Check coverage report at `coverage/lcov-report/index.html` after running tests with coverage flag.
+## CI/CD Pipeline
 
-Focus on:
+Four GitHub Actions workflows on `main`:
 
-- Files with < 80% coverage
-- Uncovered branches (edge cases)
-- Uncovered error paths
+| Workflow                    | Trigger                       | What it does                                                                                        |
+| --------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------- |
+| **CI** (`ci.yml`)           | PR → main                     | `npm ci` → prettier --check → lint → test --coverage → Codecov                                      |
+| **Publish** (`publish.yml`) | push/merge to main            | CI steps → compile → semantic-release → `vsce package` → `vsce publish` → GitHub Release with .vsix |
+| **CodeQL** (`codeql.yml`)   | push/PR to main + weekly cron | Security & quality analysis (TypeScript)                                                            |
+| **Stale** (`stale.yml`)     | daily cron                    | Marks issues stale after 60 days, closes after 14 more                                              |
+
+**Release flow**: semantic-release reads conventional commits → bumps version in `package.json`
+→ generates `CHANGELOG.md` → commits with `chore(release): x.y.z [skip ci]` → creates GitHub
+release → workflow then runs `vsce package` + `vsce publish` to VS Code Marketplace.
+
+Secrets required: `VSCE_PAT` (Marketplace token), `CODECOV_TOKEN`, `GITHUB_TOKEN` (auto).
+
+## Git Hooks (Husky)
+
+- **pre-commit**: `npx lint-staged` → runs `eslint --fix` + `prettier --write` on staged
+  `.ts`/`.js` files, `prettier --write` on `.json`/`.md`/`.yml`/`.yaml`
+- **commit-msg**: `npx commitlint` → enforces Conventional Commits format
+
+## Project Structure
+
+```
+src/
+  extension.ts              # Entry point: activate(), deactivate(), command registration
+  core/camouflage.ts        # Main engine: decorations, events, status bar
+  core/types.ts             # HiddenTextStyle enum
+  parsers/                  # Strategy pattern: one parser per format
+    types.ts                # ParsedVariable, Parser interface
+    base-parser.ts          # Abstract base class
+    env-parser.ts           # .env, .envrc, .sh
+    json-parser.ts          # .json (nested keys)
+    yaml-parser.ts          # .yaml, .yml (nested keys)
+    toml-parser.ts          # .toml
+    properties-parser.ts    # .properties, .ini, .conf
+    index.ts                # ParserRegistry singleton
+  lib/text-generator.ts     # Pure: generateHiddenText(), scrambleText()
+  decorators/               # @HandleErrors, @Log, @ValidateConfig, @Debounce, @MeasurePerformance
+  utils/config.ts           # Configuration facade (all getters for camouflage.* settings)
+  utils/file.ts             # isSupportedFile(), parseFileContent()
+  utils/pattern-matcher.ts  # Wildcard pattern matching (*, KEY*, *KEY)
+  __mocks__/vscode.ts       # Full VS Code API mock for Jest
+```
+
+Tests live in `__tests__/` dirs co-located with each module (e.g., `parsers/__tests__/`).
+
+## Dependency Rules
+
+```
+extension.ts -> core/ -> parsers/ + lib/ + utils/
+```
+
+- `lib/` must be pure functions -- no VS Code API, no side effects
+- `parsers/` must not import from `core/` or `utils/`
+- `utils/` must not import from `core/`
+- No circular dependencies
+
+## Code Style
+
+### TypeScript
+
+- **Strict mode** enabled (`strict: true`, `experimentalDecorators: true`)
+- Target: ES2022, Module: NodeNext
+- Explicit types on function signatures; avoid `any` (eslint warns)
+- Use `interface` for object shapes, `type` for unions/computed types
+- Prefer `const` over `let`; use `===` always (`eqeqeq: error`)
+- Always use curly braces, even for single-line blocks (`curly: error`)
+- Prefix unused params with `_` (`argsIgnorePattern: "^_"`)
+
+### Formatting (Prettier)
+
+- Single quotes, 2-space indent, 100 char print width
+- Trailing commas (ES5), semicolons always
+
+### Naming
+
+- `camelCase` for variables/functions, `PascalCase` for classes/interfaces/enums
+- `UPPER_SNAKE_CASE` for true constants
+- Booleans: prefix with `is`, `has`, `should`, `can`
+- Files: `kebab-case.ts`, tests: `*.test.ts`
+- No `I` prefix on interfaces
+
+### Imports (order)
+
+1. Node.js built-ins (`import * as fs from 'fs'`)
+2. External packages (`import * as vscode from 'vscode'`)
+3. Internal modules grouped by directory
+4. Type-only imports (`import type { ... }`)
+
+Use `import * as config from '../utils/config'` (namespace import) for the config facade.
+Named exports preferred; no default exports.
+
+### Comments
+
+- JSDoc on public functions
+- Inline comments explain **why**, not what
+- TODO format: `// TODO(#issue): description`
+
+## Error Handling
+
+- `core/` methods use `@HandleErrors` decorator (catches + shows vscode error message)
+- Parsers return empty array on parse failure (never throw)
+- `lib/` is pure -- caller handles errors
+- Security: fail closed (hide on error, never expose values)
+- Never log secret values; never include file paths in user-facing errors
+
+## Testing
+
+- Framework: Jest with ts-jest, VS Code API mocked in `src/__mocks__/vscode.ts`
+- Pattern: AAA (Arrange, Act, Assert) in `describe`/`it` blocks
+- Import from `@jest/globals` (`import { describe, it, expect, jest } from '@jest/globals'`)
+- Mock vscode with `jest.mock('vscode', () => ({ ... }), { virtual: true })`
+- Use `jest.clearAllMocks()` in `beforeEach`
+- Descriptive test names: `'should return false when patterns array is empty'`
+- Test edge cases: empty input, null, special characters, large files
+- Use fake timers for debounce tests (`jest.useFakeTimers()`)
+
+## Commits
+
+Conventional Commits enforced by commitlint + husky:
+
+```
+feat(scope): add feature        # minor bump
+fix(scope): fix bug             # patch bump
+BREAKING CHANGE: ...            # major bump
+docs|style|refactor|test|chore  # no version bump
+```
+
+Scopes: `core`, `parsers`, `config`, `decorators`, `patterns`, `tests`, `docs`
+
+## Security Rules (Critical)
+
+- **Never modify file content** -- decorations only
+- **All processing is local** -- no network requests with user data
+- **No telemetry of sensitive data** -- no key names, values, or file paths
+- Sanitize user-provided patterns before regex compilation (prevent ReDoS)
+- Never use `eval()` or `Function()`
+- Always dispose resources (`context.subscriptions.push(...)`)
+
+## Adding a New Parser
+
+1. Create `src/parsers/new-parser.ts` extending `BaseParser`
+2. Implement `parse()` returning `ParsedVariable[]` (with correct startIndex/endIndex)
+3. Register in `src/parsers/index.ts` ParserRegistry
+4. Add to `package.json` parsers.enabled enum
+5. Add tests in `src/parsers/__tests__/new-parser.test.ts`
+
+## Adding a New Configuration Setting
+
+1. Define in `package.json` under `contributes.configuration.properties`
+2. Add getter in `src/utils/config.ts`
+3. Use via `import * as config from '../utils/config'`
+
+## Adding a New Command
+
+1. Define in `package.json` under `contributes.commands`
+2. Register in `src/extension.ts` `activate()` with `vscode.commands.registerCommand()`
+3. Add keybinding and menu entry in `package.json` if needed
+4. Push disposable to `context.subscriptions`
 
 ---
 > Source: [zeybek/camouflage](https://github.com/zeybek/camouflage) — distributed by [TomeVault](https://tomevault.io).
