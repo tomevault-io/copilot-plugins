@@ -163729,6 +163729,16 @@
       "description": "Free Open Source Gradle Remote Build Cache Node"
     },
     {
+      "name": "anthropics--defending-code-reference-harness",
+      "source": "./anthropics--defending-code-reference-harness",
+      "description": "A reference implementation for autonomous vulnerability discovery and human-reviewed remediation with Claude"
+    },
+    {
+      "name": "glekner--il-bank-mcp",
+      "source": "./glekner--il-bank-mcp",
+      "description": "A Model Context Protocol (MCP) server that provides financial data access through automated Israeli bank and credit card data scraping. Supports all major Israeli financial institutions dynamically ba"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174534,6 +174544,36 @@
       "description": "Humanize browser automation for AI agents, QA tests, and demos. Playwright-first"
     },
     {
+      "name": "charlie12345--rocmfp4-llama",
+      "source": "./charlie12345--rocmfp4-llama",
+      "description": "NEW ROCmfp4 format for llama.cpp"
+    },
+    {
+      "name": "wesleysimplicio--simplicio-cli",
+      "source": "./wesleysimplicio--simplicio-cli",
+      "description": "Your tasks with 99% accuracy using any LLM (Claude, DeepSeek, Codex, Gemini, Hermes, OpenClaw, Cursor)."
+    },
+    {
+      "name": "charlie12345--rocmfp4-llama",
+      "source": "./charlie12345--rocmfp4-llama",
+      "description": "NEW ROCmfp4 format for llama.cpp"
+    },
+    {
+      "name": "waynechou-bot--llm-wiki-agent-workflow-demo",
+      "source": "./waynechou-bot--llm-wiki-agent-workflow-demo",
+      "description": "LLM-Wiki-Agent-Workflow-Demo"
+    },
+    {
+      "name": "wesleysimplicio--simplicio-cli",
+      "source": "./wesleysimplicio--simplicio-cli",
+      "description": "Your tasks with 99% accuracy using any LLM (Claude, DeepSeek, Codex, Gemini, Hermes, OpenClaw, Cursor)."
+    },
+    {
+      "name": "inventoros--inventoros",
+      "source": "./inventoros--inventoros",
+      "description": "Open source PHP based Inventory / WMS management for the rest of us"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -177172,6 +177212,11 @@
       "name": "etrebels--claude-code-growth-os",
       "source": "./etrebels--claude-code-growth-os",
       "description": "Claude Code Growth Operating System (OS): Sales, Marketing, Product and Retention as one Revenue system"
+    },
+    {
+      "name": "ralsina--esposito",
+      "source": "./ralsina--esposito",
+      "description": "esposito"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
