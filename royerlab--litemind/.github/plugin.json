@@ -1,0 +1,9 @@
+{
+  "name": "royerlab--litemind",
+  "displayName": "litemind",
+  "description": "litemind is a Python library designed to empower developers to build sophisticated conversational agents and tools. It provides a flexible and elegant API for interacting with Large Language Models (L",
+  "version": "1.0.0",
+  "author": "royerlab",
+  "homepage": "https://github.com/royerlab/litemind",
+  "skills": []
+}
