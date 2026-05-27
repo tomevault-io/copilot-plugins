@@ -1,0 +1,9 @@
+{
+  "name": "leadfarmer-ai--mcp-host",
+  "displayName": "mcp-host",
+  "description": "Example MCP Host",
+  "version": "1.0.0",
+  "author": "LeadFarmer-ai",
+  "homepage": "https://github.com/LeadFarmer-ai/mcp-host",
+  "skills": []
+}
