@@ -1,0 +1,44 @@
+{
+  "name": "hass-panel",
+  "owner": "ha-china",
+  "repo": "hass-panel",
+  "description": "\u53f2\u4e0a\u6700\u7b80\u5355\u7684 Home Assistant \u63a7\u5236\u9762\u677f\uff0c\u57fa\u4e8e React \u5f00\u53d1 | \u4e00\u952e\u90e8\u7f72\u5230 HAOS | \u6709\u624b\u5c31\u80fd\u7528 | \u65e0\u9700\u7f16\u7a0b\u7ecf\u9a8c | \u5f00\u7bb1\u5373\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ha-china/hass-panel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T21:34:05Z"
+}
