@@ -1,4 +1,4 @@
-## epub2audio
+## project
 
 > The goal of this project is to take in ebooks and output audio books with as much of the same metadata as the original.
 
