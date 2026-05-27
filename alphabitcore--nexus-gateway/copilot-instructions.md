@@ -1,25 +1,49 @@
-## no-backward-compatibility
+## nrn-builder-canonical
 
-> Pre-GA — no backward compatibility, no defer, no parallel legacy paths
+> Always use iam.BuildRequestNRNForAction — never hardcode resourceType strings in iamMW
 
 
-# Development-phase policy: no backward compatibility, no defer (binding)
+# NRN builder is canonical (binding)
 
-Pre-GA, no installed users. Treat all refactoring as greenfield.
+`iamMW(action)` builds the request NRN as `nrn := iam.BuildRequestNRNForAction(action, c)`. The builder owns the action → resourceType derivation. **Never hardcode the resourceType string** in handler glue — hardcoded strings drift from the IAM catalog and produce silent 403s.
 
-## Rules
+Memory anchor: [[project_iam_resource_nrn_bug]].
 
-1. **Delete obsolete code / tables / endpoints / configs outright** when replacing them — no parallel "legacy" paths.
-2. **No phased compatibility rollouts** — specs / plans must not contain "Phase 1 keeps old behavior, Phase 2 migrates".
-3. **No `@deprecated` markers kept alive**, no "cleanup later" TODOs, no "will remove after X ships".
-4. **No data-migration code for dev-only records** — fresh schema + seed is acceptable.
-5. **No feature flags for rollback** — rollback is `git revert`.
+## Required
 
-"Phase" in plans means **order of work**, not **compatibility layer**.
+```go
+e.GET("/api/admin/providers/:id", h.GetProvider, iamMW("admin:provider.read"))
+// inside iamMW:
+nrn := iam.BuildRequestNRNForAction(action, c)   // <- canonical builder
+```
 
-## Why
+## Forbidden
 
-Pre-GA means we don't owe migration paths to anyone. Every parallel-old-and-new branch is a fork that has to be reconciled, tested, and eventually torn out. Pay that cost only after GA, never before.
+```go
+// ❌ hardcoded resource-type
+nrn := fmt.Sprintf("nrn:nexus:provider:%s:%s", orgID, id)
+
+// ❌ ad-hoc string concat
+nrn := "nrn:nexus:" + getResourceType(action) + ":" + scope + ":*"
+```
+
+Even when the hardcoded version "looks right", it skips the catalog lookup in `packages/shared/identity/iam/catalog_data.go`. When the catalog updates (new resource, renamed verb), the canonical builder picks it up; hardcoded strings rot.
+
+## When the action is new
+
+1. Add the action to `packages/shared/identity/iam/catalog_data.go`.
+2. Build via `iam.BuildRequestNRNForAction(action, c)`.
+3. Verify with the `simulator` IAM page in the dashboard.
+
+## When the action signature changes
+
+`BuildRequestNRNForAction` is the single seam. Update the catalog; every handler that uses the builder picks up the change automatically.
+
+## Related
+
+- IAM impact review (5-step audit) → `iam-impact-review.mdc`.
+- Architecture: `docs/developers/architecture/services/control-plane/iam-identity-architecture.md`.
+- Skill: `.claude/skills/iam-impact-review/`.
 
 Skipping this rule requires **explicit user approval** in chat.
 
