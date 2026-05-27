@@ -1,0 +1,9 @@
+{
+  "name": "autoarchive--webnr",
+  "displayName": "webNR",
+  "description": "A modern, feature-rich reading web app for txt novels built with Next.js and TypeScript. https://app.webnovel.win",
+  "version": "1.0.0",
+  "author": "AutoArchive",
+  "homepage": "https://github.com/AutoArchive/webNR",
+  "skills": []
+}
