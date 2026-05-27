@@ -1,0 +1,9 @@
+{
+  "name": "vechain--vechain-kit",
+  "displayName": "vechain-kit",
+  "description": "An all-in-one library for building VeChain applications.",
+  "version": "1.0.0",
+  "author": "vechain",
+  "homepage": "https://github.com/vechain/vechain-kit",
+  "skills": []
+}
