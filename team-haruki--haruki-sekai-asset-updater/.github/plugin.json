@@ -1,0 +1,9 @@
+{
+  "name": "team-haruki--haruki-sekai-asset-updater",
+  "displayName": "Haruki-Sekai-Asset-Updater",
+  "description": "A high-performance game asset extractor & exporter with HTTP API for Project Sekai",
+  "version": "1.0.0",
+  "author": "Team-Haruki",
+  "homepage": "https://github.com/Team-Haruki/Haruki-Sekai-Asset-Updater",
+  "skills": []
+}
