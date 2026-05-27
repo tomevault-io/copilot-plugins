@@ -1,0 +1,9 @@
+{
+  "name": "ctrl-cheeb-del--playwright-extension",
+  "displayName": "playwright-extension",
+  "description": "Chrome extension to record, import, and run playwright scripts directly in your browser",
+  "version": "1.0.0",
+  "author": "ctrl-cheeb-del",
+  "homepage": "https://github.com/ctrl-cheeb-del/playwright-extension",
+  "skills": []
+}
