@@ -1,0 +1,9 @@
+{
+  "name": "genideas-labs--supalite",
+  "displayName": "supalite",
+  "description": "typescript supabase client replacement in the small",
+  "version": "1.0.0",
+  "author": "genideas-labs",
+  "homepage": "https://github.com/genideas-labs/supalite",
+  "skills": []
+}
