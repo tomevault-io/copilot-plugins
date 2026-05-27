@@ -1,0 +1,9 @@
+{
+  "name": "zhnt--loushang",
+  "displayName": "loushang",
+  "description": "AI-native coding orchestration platform: unified multi-model agent runtime with stateful sessions, tool governance, and traceable delivery. ",
+  "version": "1.0.0",
+  "author": "zhnt",
+  "homepage": "https://github.com/zhnt/loushang",
+  "skills": []
+}
