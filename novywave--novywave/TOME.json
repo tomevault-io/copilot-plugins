@@ -4,7 +4,7 @@
   "repo": "NovyWave",
   "description": "Modern GTKWave alternative",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NovyWave/NovyWave",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T13:46:31Z"
+  "distributed_at": "2026-05-27T13:59:28Z"
 }
