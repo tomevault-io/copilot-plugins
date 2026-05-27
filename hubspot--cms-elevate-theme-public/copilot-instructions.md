@@ -1,491 +1,596 @@
-## hs-configure-template-ai-scaffolding
+## hs-create-react-module-fields
 
-> Configure template AI scaffolding
+> Create module fields
 
-# Configure Template AI Scaffolding
+# HubSpot Module Fields Guide
 
-After scaffolding a new template and setting up translations for it, follow these guidelines to set up a scaffolding schema file and pass in values from that schema file into the template. This should be focused on setting up the a scaffolding schema file and swapping the schema field values into the template file.
+This guide helps you create properly structured `fields.tsx` files for HubSpot CMS modules. Follow these patterns and examples to ensure consistency and best practices.
 
-## Core Concepts
+## Field Library Components
 
-Scaffolding schema files allow us to provide context about certain pieces of content within a template. This is then used by several different AI tools within HubSpot such as content remix and AI website page builder which takes this context and context from the user about their business, in order to dynamically generate content for a given section that is more relevant to the user.
+Use these pre-built components from `src/components/fieldLibrary/` whenever possible:
 
-### Creating a scaffolding schema file
+```typescript
+import {
+  ButtonContent,    // Button fields with text, link, and icon options
+  ButtonStyle,      // Button styling (primary/secondary/tertiary/accent)
+  CardStyle,        // Card styling variants
+  HeadingAndText,   // Heading text with level selection
+  HeadingStyle,     // Heading style variants
+  RichTextContent,  // Rich text editing with different feature sets
+  SectionStyle,     // Section styling variants
+  LinkStyle,        // Link styling (primary/secondary)
+} from '../../fieldLibrary/index.js';
 ```
-src/unified-theme/templates/schemas/[template-name].scaffold_schema.json
+
+## Core Field Patterns
+
+### Basic Module Structure
+```typescript
+import { ModuleFields, FieldGroup } from '@hubspot/cms-components/fields';
+
+export const fields = (
+  <ModuleFields>
+    {/* Content fields at top level */}
+    <TextField
+      name="title"
+      label="Title"
+      default="Default Title"
+    />
+
+    {/* Style fields in STYLE tab */}
+    <FieldGroup name="groupStyle" label="Styles" tab="STYLE">
+      <SectionStyle sectionStyleDefault="section_variant_1" />
+      <HeadingStyle headingStyleDefault="h2" />
+    </FieldGroup>
+  </ModuleFields>
+);
 ```
 
-### Filling out the scaffolding schema file with fields
-
-A scaffolding schema file is a JSON file that is comprised of fields and groups. Below is a brief description of each of the supported fields:
-
-#### Groups
-A group makes it easier to organize schema files in logical groups. Given templates can have a lot of content, we try to group relevant pieces of content. E.g. for a template that has a section with a heading and three cards, we'd likely create a top level group for the section that contains a heading field and three different card groups that then have a set of fields related to the card's content.
-
+### Repeated Content Pattern
+```typescript
+<RepeatedFieldGroup
+  name="items"
+  label="Items"
+  occurrence={{
+    min: 1,
+    max: 4,
+    default: 2
+  }}
+  default={[
+    { title: 'Item 1' },
+    { title: 'Item 2' }
+  ]}
+>
+  <TextField
+    name="title"
+    label="Item Title"
+    default="New Item"
+  />
+</RepeatedFieldGroup>
 ```
-{
-  "name": "group_card_one",
-  "type": "group",
-  "children": [
-  ]
+
+### Common Field Library Usage
+
+#### HeadingAndText
+```typescript
+<HeadingAndText
+  headingLevelDefault="h2"
+  textDefault="Default Heading"
+  headingTextLabel="Section Heading" // optional
+/>
+```
+
+#### ButtonContent
+```typescript
+<ButtonContent
+  textDefault="Learn More"
+  linkDefault={{
+    open_in_new_tab: true,
+    url: { href: '#' }
+  }}
+  iconPositionDefault="right"
+/>
+```
+
+#### RichTextContent
+```typescript
+<RichTextContent
+  label="Description"
+  featureSet="text" // or "extended"
+  richTextDefault="<p>Default content</p>"
+/>
+```
+
+## Available Field Types
+
+### Basic Fields
+```typescript
+import {
+  TextField,         // Simple text input
+  RichTextField,     // Formatted text
+  ImageField,        // Image uploads
+  LinkField,         // URL/page links
+  BooleanField,      // Toggles
+  ChoiceField,       // Dropdowns/radio/checkboxes
+  ColorField,        // Color selection
+  NumberField,       // Numeric input
+} from '@hubspot/cms-components/fields';
+```
+
+### Specialized Fields
+```typescript
+import {
+  MenuField,          // Menu selection
+  IconField,          // Icon selection
+  BlogField,          // Blog selection
+  LogoField,          // Logo uploads
+  TextAlignmentField, // Text alignment
+  AlignmentField,     // General alignment
+  DateField,          // Date input
+} from '@hubspot/cms-components/fields';
+```
+
+## Field Visibility
+
+Use for conditional field display:
+```typescript
+<TextField
+  name="conditionalField"
+  label="Conditional Field"
+  visibility={{
+    controlling_field_path: 'someToggle',
+    controlling_value_regex: 'true',
+    operator: 'EQUAL'
+  }}
+/>
+```
+
+## Best Practices
+
+1. **Structure**
+   - Keep content fields at top level
+   - Group style fields under `FieldGroup` with `tab="STYLE"`
+   - Use descriptive `name` and `label` properties
+
+2. **Defaults**
+   - Always set default values
+   - Use sensible defaults that work out of the box
+   - Set appropriate min/max for repeated fields
+
+3. **Required Fields**
+    - Do not require fields.
+    - Do not use the 'required' property.
+
+3. **Grouping**
+   - Only group related fields
+   - Use consistent naming (`group` prefix for groups)
+   - Keep style-related fields in STYLE tab
+
+4. **Validation**
+   - Set appropriate validation rules
+   - Include help text for complex fields
+   - Use visibility rules when needed
+
+Remember: The goal is to create intuitive, well-structured fields that provide a good editing experience in the HubSpot CMS.
+
+## Examples
+
+### Menu Fields.tsx
+
+```typescript
+import {
+  ModuleFields,
+  MenuField,
+  FieldGroup,
+  ChoiceField,
+  NumberField,
+  AlignmentField,
+  TextField,
+} from '@hubspot/cms-components/fields';
+import { SizeChoice } from '../../MenuComponent/types.js';
+import LinkStyle from '../../fieldLibrary/LinkStyle/index.js';
+
+const sizeOptions: SizeChoice[] = [
+  ['none', 'None'],
+  ['small', 'Small'],
+  ['medium', 'Medium'],
+  ['large', 'Large'],
+];
+
+export const fields = (
+  <ModuleFields>
+    <MenuField
+      label='Menu'
+      name='menu'
+      default='default'
+    />
+    <NumberField
+      label='Max menu depth'
+      name='maxDepth'
+      display='slider'
+      min={1}
+      max={3}
+      helpText='Set the maximum number of menu levels to include. Must always include at least 1 level or else no menu would populate.'
+      default={3}
+    />
+    <TextField
+      label='Accessible menu name'
+      name='menuName'
+      helpText='Set the aria-label on the nav element surrounding the menu. This provides additional context to those using screen readers to better understand the purpose of your menu. <a href="https://www.w3.org/WAI/tutorials/menus/structure/#label-menus">Learn more here</a>'
+      default=''
+    />
+    <FieldGroup
+      label='Styles'
+      name='styles'
+      tab='STYLE'
+    >
+      <FieldGroup
+        label='Menu'
+        name='groupMenu'
+        display='inline'
+      >
+        <AlignmentField
+          label='Menu alignment'
+          name='menuAlignment'
+          required={true}
+          alignmentDirection='HORIZONTAL'
+          default={{ horizontal_align: 'LEFT' }}
+        />
+        <ChoiceField
+          label='Column gap'
+          name='menuColumnGap'
+          display='select'
+          helpText='Changes the amount of space between top level menu items. You can also think as the space between each column in the horizontal menu.'
+          choices={sizeOptions}
+          default='none'
+          required={true}
+        />
+      </FieldGroup>
+      <FieldGroup
+        label='Menu items'
+        name='groupMenuItems'
+        display='inline'
+      >
+        <ChoiceField
+          label='Vertical gap'
+          name='menuItemVerticalGap'
+          display='select'
+          helpText='Changes the amount of space between menu items. Increasing this value will create unclickable space/gaps between each menu item link.'
+          choices={sizeOptions}
+          required={true}
+          default='none'
+        />
+        <ChoiceField
+          label='Padding'
+          name='menuItemPadding'
+          display='select'
+          helpText='Changes the amount of padding surrounding the text of each menu item. Increasing this value will increase the clickable area of each menu item link.'
+          choices={sizeOptions}
+          required={true}
+          default='none'
+        />
+      </FieldGroup>
+      <FieldGroup
+        label='Links'
+        name='groupLink'
+        display='inline'
+      >
+        <LinkStyle
+          linkStyleDefault='primary_links'
+        />
+      </FieldGroup>
+    </FieldGroup>
+  </ModuleFields>
+);
+```
+
+### PricingCard Fields.tsx
+
+```typescript
+import { ModuleFields, RepeatedFieldGroup, TextField, FieldGroup, BooleanField, AdvancedVisibility, } from '@hubspot/cms-components/fields';
+import { ButtonContent, HeadingAndText } from '../../fieldLibrary/index.js';
+import StyleFields from './styleFields.js';
+
+const buttonFieldVisibility: AdvancedVisibility = {
+  boolean_operator: 'OR',
+  criteria: [{
+    controlling_field_path: 'groupPricingCards.groupButton.showButton',
+    controlling_value_regex: 'true',
+    operator: 'EQUAL',
+  }]
 }
-```
 
-#### Text
-The text field allows us to pass relevant context about what a piece of text should be about within the context of the template.
-
-```
-{
-  "name": "card_heading",
-  "type": "text",
-  "description": "A heading that would be at the top of the first card in this section within the template."
-}
-```
-
-#### Images
-The image field allows us to pass relevant context about what an image should be about within the context of the template. The width:height ratio must be 1:1, 1:1.75, or 1.75:1.
-
-```
-{
-  "name": "card_image",
-  "type": "image",
-  "description": "An image that visually captures an element or aspect of the quote.",
-  "width": "300",
-  "height": "300"
-}
-```
-
-#### Forms
-The form field does not allow for an AI generated form. Instead it serves as a placeholder for the team that owns the AI landing page flow to create a form using an API and pass in its values using this field.
-
-```
-{
-  "name": "form",
-  "type": "form",
-  "description": "A form that a user would fill out to get access to an e-Book"
-}
-```
-
-#### Meetings
-The meeting field does not allow for an AI generated meeting link. Instead it serves as a placeholder for the team that owns the AI landing page flow to pass in a meeting link.
-
-```
-{
-  "name": "meeting",
-  "type": "meeting",
-  "description": "A meeting link that will go in the banner of the page where someone can schedule a meeting with someone from the company."
-}
-```
-
-### Adding a reference to the schema file in the template
-
-To reference values from the newly created scaffolding schema file we would include a reference to the scaffolding schema file path in the template's template annotations via `scaffoldingSchemaPath`.
-
-```
-<!--
-  templateType: page
-  label: Landing page - signup
-  isAvailableForNewContent: true
-  scaffoldSchemaPath: ./schemas/lp-signup.scaffold_schema.json
-  screenshotPath: ../images/template-previews/lp-signup.png
--->
-```
-
-### Passing in the value from the scaffolding schema file into the template
-
-After setting up a path to the `scaffoldingSchemaPath`, we can now reference values from our schema file in our template file. Please note that these schema values will not always be populated so we'd want to set a fallback. You may notice that a template has a template_translations value passed in. The schema value should be passed first and then it shoudl fall back to content which we pull from template_translations. Below is an example:
-
-```
-{% dnd_row %}
-  {% dnd_module
-    path="../components/modules/Heading",
-    headingAndTextHeadingLevel="h1",
-    headingAndTextHeading={{ scaffold_content.heading or template_translations.lp_signup_hero_heading.message }},
-    groupStyle={
-      "alignment": {
-        "text_align": "LEFT"
-      },
-      "headingStyleVariant": "display_2"
-    }
-  %}
-  {% end_dnd_module %}
-{% end_dnd_row %}
-{% dnd_row %}
-  {% dnd_module
-    path="@hubspot/linked_image",
-    img={
-      "alt": scaffold_content.image.alt or "",
-      "loading": "eager",
-      "max_height": scaffold_content.image.height or 600,
-      "max_width": scaffold_content.image.width or 1000,
-      "size_type": "auto_custom_max",
-      "src": scaffold_content.image.src or get_asset_url("../images/hero-banner.png")
-    }
-  %}
-  {% end_dnd_module %}
-{% end_dnd_row %}
-```
-
-## Reference Documentation
-This is the [main Hubspot developer documentation](mdc:https:/developers.hubspot.com/docs/cms/building-blocks/content-scaffolding?hs_preview=XjcizpKB-164164808242#configure-scaffolding-schema)for setting up a scaffolding schema file.
-
-## Implementation Steps
-
-1. **Analyze Template Content to See Where Scaffolding Schema Should Be Added**
-  - Look through the applicable template to see if there is any text, images, forms, or meetings that we should add a scaffolding schema field for.
-
-2. **Create a New Scaffolding Schema File and Add Fields for the Pieces of Content Identified in Step 1**
-   - Create new scaffolding schema file that includes fields for the content in step 1 and group the fields in a logical way that breaks up the content. You can reference other schema files in `src/unified-theme/templates/schemas` as a helpful reference.
-
-3. **Add a `scaffoldingSchemaPath` In the Template Annotations of the Template File**
-   - Add a `scaffoldingSchemaPath` to the template's template annotations that references the new scaffolding schema file that was created.
-
-4. **Add Scaffolding Schema Values in the Template**
-   - Add the scaffolding schema values into the template where appropriate.
-
-## Example Scenario
-
-Let's walk through an example where we want to configure AI scaffolding schema for a template.
-
-Note that you shouldn't use this in your final output. But this example provides details on the process you should follow and what expectations are.
-
-The example prompt would be: `Can you set up scaffolding schema for this "Landing page - events" template?`
-
-This would be the example code for the template:
-```
-<!--
-  templateType: page
-  label: Landing page - signup
-  isAvailableForNewContent: true
-  screenshotPath: ../images/template-previews/lp-signup.png
--->
-
-{% block header %}
-  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
-{% endblock %}
-
-{% block body %}
-  {% dnd_area "dnd_area"
-    label="Main section"
-  %}
-
-    {# Hero banner section #}
-
-    {% include_dnd_partial
-      path="../sections/hero-banner.hubl.html",
-      context={
-        "background_color": light_section_2_background_color,
-        "heading": {
-          "text": template_translations.lp_events_banner_heading.message
+export const fields = (
+  <ModuleFields>
+    <RepeatedFieldGroup
+      label='Pricing cards'
+      name='groupPricingCards'
+      occurrence={{
+        min: 1,
+        max: 4,
+        default: 1,
+      }}
+      default={[
+        {
+          groupSummary: {
+            headingAndTextHeadingLevel: 'h2',
+            headingAndTextHeading: 'Starter',
+            description: 'Perfect for small businesses or startups looking to kickstart their digital marketing efforts',
+            price: '$79',
+            timePeriod: '/month',
+          },
+          groupPlanFeatures: {
+            headingAndTextHeadingLevel: 'h3',
+            headingAndTextHeading: 'Starter plan includes',
+            groupFeatures: [
+              {
+                feature: 'Social media management',
+              },
+              {
+                feature: 'Email marketing campaigns',
+              },
+              {
+                feature: 'Basic SEO optimization',
+              },
+              {
+                feature: 'Monthly performance reports',
+              },
+            ],
+          },
+          groupButton: {
+            showButton: true,
+            buttonContentText: 'Get started',
+            buttonContentLink: {
+              open_in_new_tab: true,
+            },
+            buttonContentShowIcon: false,
+            buttonContentIcon: {
+              name: 'dollar-sign',
+            },
+            buttonContentIconPosition: 'right',
+          },
         },
-        "content": template_translations.lp_events_banner_subheading.message,
-        "buttons": [
-          {
-            "text": template_translations.lp_events_banner_button_one_text.message,
-            "href": ""
+        {
+          groupSummary: {
+            headingAndTextHeadingLevel: 'h2',
+            headingAndTextHeading: 'Pro',
+            description: 'Ideal for growing businesses that want to expand their online presence and reach a larger audience',
+            price: '$129',
+            timePeriod: '/month',
           },
-          {
-            "text": template_translations.lp_events_banner_button_two_text.message,
-            "href": ""
-          }
-        ]
-      }
-    %}
-
-    {# Two column form section #}
-
-    {% dnd_section %}
-      {% dnd_column
-        width=6
-      %}
-        {% dnd_row %}
-          {% dnd_module path="../components/modules/RichText" %}
-            {% module_attribute "richTextContentHTML" %}
-              <p>{{ template_translations.lp_events_form_description.message }}</p>
-            {% end_module_attribute %}
-          {% end_dnd_module %}
-        {% end_dnd_row %}
-      {% end_dnd_column %}
-      {% dnd_column
-        offset=6
-        width=6
-      %}
-        {% dnd_row %}
-          {% dnd_module path="@hubspot/form" %}
-          {% end_dnd_module %}
-        {% end_dnd_row %}
-      {% end_dnd_column %}
-    {% end_dnd_section %}
-
-  {% end_dnd_area %}
-{% endblock %}
-
-{% block footer %}
-  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER" %}
-{% endblock %}
-```
-
-1. **Analyze Template Content to See Where Scaffolding Schema Should Be Added**
-  - Identifies there are five pieces of text content and one form where we can pass in scaffolding schema values
-
-2. **Create a New Scaffolding Schema File and Add Fields for the Pieces of Content Identified in Step 1**
-   - Creates a new scaffolding schema file and adds those six new fields into that file with appropriate descriptions based on context that can be picked up from the section.
-
-3. **Add a `scaffoldingSchemaPath` In the Template Annotations of the Template File**
-   - Adds `scaffoldingSchemaPath` in the template annotations of the template file that references back to the new scaffolding schema file that was created in step 2.
-
-4. **Add Scaffolding Schema Values in the Template**
-   - Passes in the two new field values from the scaffolding schema file into the template file.
-
-## Step 1: Analyze Template Content to See Where Scaffolding Schema Should Be Added
-
-### Identifies there are five pieces of content that we can add scaffolding schema values for:
-- `template_translations.lp_events_banner_heading.message` in the hero banner section
-- `template_translations.lp_events_banner_subheading.message` in the hero banner section
-- `template_translations.lp_events_banner_button_one_text.message` in the hero banner section
-- `template_translations.lp_events_banner_button_two_text.message` in the hero banner section
-- `template_translations.lp_events_form_description.message` in the two column form section
-
-### Identifies there is one form that we can add scaffolding schema values for:
-- `path="@hubspot/form"` is used in the two column form section
-
-## Step 2: Create a New Scaffolding Schema File and Add Fields for the Pieces of Content Identified in Step 1
-
-### Creates a new scaffolding schema file at this path:
-```
-src/unified-theme/templates/schemas/lp-signup.scaffold_schema.json
-```
-
-### Adds fields for the pieces of content identified in step 1
-```
-[
-  {
-    "name": "group_hero_banner",
-    "type": "group",
-    "children": [
-      {
-        "name": "heading",
-        "type": "text",
-        "description": "A heading that shows at the top of the hero banner and describes the page."
-      },
-      {
-        "name": "description",
-        "type": "text",
-        "description": "A couple of sentences that provide more information about the heading."
-      },
-      {
-        "name": "group_button_one",
-        "type": "group",
-        "children": [
-          {
-            "name": "button_text",
-            "type": "text",
-            "description": "The button text that describes the call to action the user should take."
+          groupPlanFeatures: {
+            headingAndTextHeadingLevel: 'h3',
+            headingAndTextHeading: 'Pro plan includes',
+            groupFeatures: [
+              {
+                feature: 'Everything in Starter plan',
+              },
+              {
+                feature: 'Advanced social media management',
+              },
+              {
+                feature: 'Email marketing automation',
+              },
+              {
+                feature: 'Basic SEO optimization',
+              },
+              {
+                feature: 'Comprehensive SEO analysis and recommendations',
+              },
+            ],
           },
-          {
-            "name": "button_link",
-            "type": "link",
-            "description": "The URL that a user should be taken to when they click the button."
-          }
-        ]
-      },
-      {
-        "name": "group_button_two",
-        "type": "group",
-        "children": [
-          {
-            "name": "button_text",
-            "type": "text",
-            "description": "The button text that describes the call to action the user should take."
+          groupButton: {
+            showButton: true,
+            buttonContentText: 'Get started',
+            buttonContentLink: {
+              open_in_new_tab: true,
+            },
+            buttonContentShowIcon: false,
+            buttonContentIcon: {
+              name: 'dollar-sign',
+            },
+            buttonContentIconPosition: 'right',
           },
-          {
-            "name": "button_link",
-            "type": "link",
-            "description": "The URL that a user should be taken to when they click the button."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "group_two_column_form",
-    "type": "group",
-    "children": [
-      {
-        "name": "description",
-        "type": "text",
-        "description": "A couple of sentences that provide more information about the signup form."
-      },
-      {
-        "name": "form",
-        "type": "form",
-        "description": "A signup form."
-      }
-    ]
-  }
-]
-```
-
-## Step 3: Add a `scaffoldingSchemaPath` In the Template Annotations of the Template File
-In the template annotation of the template file, the following is added:
-```
-scaffoldSchemaPath: ./schemas/lp-signup.scaffold_schema.json
-```
-
-## Step 4: Add Scaffolding Schema Values in the Template
-We will add in the scaffolding schema values into the template. We'll keep the references to template_translations in case a schema value is not passed as part of the page build. We'll set the schema value first and template_translations will be set as a fallback.
-
-The final output of all of the steps would be:
-src/unified-theme/templates/schemas/lp-signup.scaffold_schema.json
-```
-[
-  {
-    "name": "group_hero_banner",
-    "type": "group",
-    "children": [
-      {
-        "name": "heading",
-        "type": "text",
-        "description": "A heading that shows at the top of the hero banner and describes the page."
-      },
-      {
-        "name": "description",
-        "type": "text",
-        "description": "A couple of sentences that provide more information about the heading."
-      },
-      {
-        "name": "group_button_one",
-        "type": "group",
-        "children": [
-          {
-            "name": "button_text",
-            "type": "text",
-            "description": "The button text that describes the call to action the user should take."
-          },
-          {
-            "name": "button_link",
-            "type": "link",
-            "description": "The URL that a user should be taken to when they click the button."
-          }
-        ]
-      },
-      {
-        "name": "group_button_two",
-        "type": "group",
-        "children": [
-          {
-            "name": "button_text",
-            "type": "text",
-            "description": "The button text that describes the call to action the user should take."
-          },
-          {
-            "name": "button_link",
-            "type": "link",
-            "description": "The URL that a user should be taken to when they click the button."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "group_two_column_form",
-    "type": "group",
-    "children": [
-      {
-        "name": "description",
-        "type": "text",
-        "description": "A couple of sentences that provide more information about the signup form."
-      },
-      {
-        "name": "form",
-        "type": "form",
-        "description": "A signup form."
-      }
-    ]
-  }
-]
-```
-
-```
-<!--
-  templateType: page
-  label: Landing page - signup
-  isAvailableForNewContent: true
-  screenshotPath: ../images/template-previews/lp-signup.png
-  scaffoldSchemaPath: ./schemas/lp-signup.scaffold_schema.json
--->
-
-{% block header %}
-  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
-{% endblock %}
-
-{% block body %}
-  {% dnd_area "dnd_area"
-    label="Main section"
-  %}
-
-    {# Hero banner section #}
-
-    {% include_dnd_partial
-      path="../sections/hero-banner.hubl.html",
-      context={
-        "background_color": light_section_2_background_color,
-        "heading": {
-          "text": scaffold_content.group_hero_banner.heading or template_translations.lp_events_banner_heading.message
         },
-        "content": scaffold_content.group_hero_banner.description or template_translations.lp_events_banner_subheading.message,
-        "buttons": [
-          {
-            "text": scaffold_content.group_hero_banner.group_button_one.button_text or template_translations.lp_events_banner_button_one_text.message,
-            "href": scaffold_content.group_hero_banner.group_button_one.button_link.url.href or ""
+        {
+          groupSummary: {
+            headingAndTextHeadingLevel: 'h2',
+            headingAndTextHeading: 'Enterprise',
+            description: 'Tailored for established businesses seeking a holistic digital marketing solution to boost brand visibility and engagement',
+            price: '$599',
+            timePeriod: '/month',
           },
-          {
-            "text": scaffold_content.group_hero_banner.group_button_two.button_text or template_translations.lp_events_banner_button_one_text.message,
-            "href": scaffold_content.group_hero_banner.group_button_two.button_link.url.href or ""
-          }
-        ]
-      }
-    %}
+          groupPlanFeatures: {
+            headingAndTextHeadingLevel: 'h3',
+            headingAndTextHeading: 'Enterprise plan includes',
+            groupFeatures: [
+              {
+                feature: 'Everything in Pro plan',
+              },
+              {
+                feature: 'Customized social media strategies',
+              },
+              {
+                feature: 'Personalized email marketing campaigns',
+              },
+              {
+                feature: 'Advanced SEO implementation and monitoring',
+              },
+              {
+                feature: 'Bi-weekly performance reports and strategy consultations',
+              },
+            ],
+          },
+          groupButton: {
+            showButton: true,
+            buttonContentText: 'Contact sales',
+            buttonContentLink: {
+              open_in_new_tab: true,
+            },
+            buttonContentShowIcon: false,
+            buttonContentIcon: {
+              name: 'dollar-sign',
+            },
+            buttonContentIconPosition: 'right',
+          },
+        },
+      ]}
+    >
+      <FieldGroup
+        label='Pricing summary'
+        name='groupSummary'
+        display='inline'
+      >
+        <HeadingAndText
+          headingTextLabel='Pricing plan title'
+          headingLevelDefault='h2'
+          textDefault='Starter'
+        />
+        <TextField
+          label='Description'
+          name='description'
+          default='Perfect for small businesses or startups looking to kickstart their digital marketing efforts'
+        />
+        <TextField
+          label='Price'
+          name='price'
+          required={true}
+          default='$79'
+        />
+        <TextField
+          label='Time period'
+          name='timePeriod'
+          required={true}
+          default='/month'
+        />
+      </FieldGroup>
+      <FieldGroup
+        label='Pricing plan features'
+        name='groupPlanFeatures'
+        display='inline'
+      >
+        <HeadingAndText
+          headingTextLabel='Features title'
+          headingLevelDefault='h3'
+          textDefault='Starter plan includes'
+        />
+        <RepeatedFieldGroup
+          label='Features'
+          name='groupFeatures'
+          occurrence={{
+            min: 1,
+            max: 20,
+            default: 5,
+          }}
+          default={[
+            {
+              feature: 'Social media management',
+            },
+            {
+              feature: 'Email marketing campaigns',
+            },
+            {
+              feature: 'Basic SEO optimization',
+            },
+            {
+              feature: 'Monthly performance reports',
+            },
+          ]}
+        >
+          <TextField
+            label='Feature'
+            name='feature'
+            default='Social media management'
+          />
+        </RepeatedFieldGroup>
+      </FieldGroup>
+      <FieldGroup
+        label='Button'
+        name='groupButton'
+        display='inline'
+      >
+        <BooleanField
+          label='Show button'
+          name='showButton'
+          display='toggle'
+          default={true}
+        />
+        <ButtonContent
+          textDefault='Get started'
+          linkDefault={{
+            open_in_new_tab: true,
+          }}
+          textVisibility={buttonFieldVisibility}
+          linkVisibility={buttonFieldVisibility}
+        />
+      </FieldGroup>
+    </RepeatedFieldGroup>
+    <StyleFields />
+  </ModuleFields>
+);
 
-    {# Two column form section #}
+```
 
-    {% dnd_section %}
-      {% dnd_column
-        width=6
-      %}
-        {% dnd_row %}
-          {% dnd_module path="../components/modules/RichText" %}
-            {% module_attribute "richTextContentHTML" %}
-              <p>{{ scaffold_content.group_two_column_form.description or template_translations.lp_events_form_description.message }}</p>
-            {% end_module_attribute %}
-          {% end_dnd_module %}
-        {% end_dnd_row %}
-      {% end_dnd_column %}
-      {% dnd_column
-        offset=6
-        width=6
-      %}
-        {% dnd_row %}
-          {% dnd_module
-            path="@hubspot/form",
-            form={
-              "form_id": scaffold_content.group_two_column_form.form.form_id or "",
-              "response_type": scaffold_content.group_two_column_form.form.response_type or "redirect",
-              "redirect_id": scaffold_content.group_two_column_form.form.redirect_id or null,
-              "message": scaffold_content.group_two_column_form.form.message or ""
-            }
-          %}
-          {% end_dnd_module %}
-        {% end_dnd_row %}
-      {% end_dnd_column %}
-    {% end_dnd_section %}
+## Important Rules for Field Library and Repeater Groups
 
-  {% end_dnd_area %}
-{% endblock %}
+### Field Library Component Usage
+1. **CRITICAL**: Before using any field library component, you MUST read its implementation first to understand its field names
+2. **Field Names Must Match**: When referencing fields from a field library component (e.g., in default values), the property names MUST exactly match the internal field names of the component
+3. **Example of Proper Usage**:
+```typescript
+// First, read ButtonContent component to know its field names are:
+// - buttonContentText
+// - buttonContentLink
+// - buttonContentIcon
+// - buttonContentIconPosition
 
-{% block footer %}
-  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER" %}
-{% endblock %}
+// Then use those exact names in your implementation:
+<ButtonContent
+  textDefault="Learn More"      // Sets default for buttonContentText
+  linkDefault={{               // Sets default for buttonContentLink
+    open_in_new_tab: true,
+    url: { href: '#' }
+  }}
+  iconPositionDefault="right"  // Sets default for buttonContentIconPosition
+/>
+```
+
+### Repeater Group Default Values
+1. **CRITICAL**: In repeater group defaults, object keys MUST match the exact field names defined within the group
+2. **NO Arbitrary Keys**: Never use arbitrary key-value pairs in default objects
+3. **Example of Proper Usage**:
+```typescript
+<RepeatedFieldGroup
+  name="items"
+  default={[
+    {
+      // These keys MUST match the field names defined in the group
+      title: "Item 1",    // Matches <TextField name="title" />
+      description: "...", // Matches <TextField name="description" />
+    }
+  ]}
+>
+  <TextField name="title" />
+  <TextField name="description" />
+</RepeatedFieldGroup>
+```
+
+4. **Example of INCORRECT Usage**:
+```typescript
+// ❌ WRONG - arbitrary keys that don't match field names
+<RepeatedFieldGroup
+  name="items"
+  default={[
+    {
+      itemTitle: "Item 1",      // Wrong - should be "title"
+      itemDescription: "..."    // Wrong - should be "description"
+    }
+  ]}
+>
+  <TextField name="title" />
+  <TextField name="description" />
+</RepeatedFieldGroup>
 ```
 
 ---
