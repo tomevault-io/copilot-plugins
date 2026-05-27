@@ -1,54 +1,41 @@
-## unit-test-coverage-95
+## useapi-querykey
 
-> Unit test coverage ≥95% per Go package (binding rule)
+> useApi queryKey must start with at least 2 string literals (domain + resource)
 
 
-# Unit test coverage ≥95% (binding)
+# `useApi` queryKey requires a domain prefix (binding)
 
-> Canonical text lives in **`CLAUDE.md`**. This rule is the IDE-side surfacing; when this file disagrees with `CLAUDE.md`, `CLAUDE.md` wins.
+Every `useApi(fetcher, queryKey)` call must start `queryKey` with **at least two string literals** that uniquely identify the endpoint, followed by any state variables that affect the fetcher.
 
-## The rule
+## Required shape
 
-Every Go package in `packages/**` must hit **≥95% statement coverage** under `go test -cover -count=1 ./...`, OR be listed in `scripts/.coverage-allowlist` with a concrete category and rationale.
+```tsx
+['admin' | 'my' | 'user' | 'proxy', '<resource>', '<variant?>', ...stateVars]
+```
 
-## Enforcement
+## Forbidden
 
-- **Pre-commit hook** runs `scripts/check-go-coverage.sh --staged` on the Go packages with staged changes. Blocks the commit if any non-exempt package falls below 95%.
-- **Full sweep** runs `npm run check:coverage` (also covered by `npm run check:all`). CI is wired to fail on threshold misses.
-- **Strict-allowlist mode**: `scripts/check-go-coverage.sh --strict-allowlist` flags allowlisted packages that have since reached the threshold and can be removed from the file.
+```tsx
+useApi(fetcher, [])                                          // ❌ empty
+useApi(fetcher, [debouncedSearch, offset, pageLimit])        // ❌ no domain prefix
+useApi(fetcher, [id])                                        // ❌ single var
+```
 
-## Allowlist policy
+## Correct
 
-Adding a package to `scripts/.coverage-allowlist` requires:
+```tsx
+useApi(fetcher, ['admin', 'routing-rules', 'list', search, enabled, offset, limit])
+useApi(fetcher, ['admin', 'policies', 'detail', id])
+useApi(fetcher, ['admin', 'providers', 'list', 'model-list-picker'])   // usage-suffix disambiguates
+```
 
-1. **Explicit user approval** in chat (echo the reason before committing).
-2. **One of these categories** in the trailing comment:
-   - **(A)** `cmd/*` entry point — only `main()` wiring, no logic.
-   - **(B)** Test helper (e.g. `bufconn`, `testutil`, `idptest`, `storetest`).
-   - **(C)** DB-bound — tests require live PostgreSQL.
-   - **(D)** OS-bound — tests need kernel APIs / system keychain / packet capture.
-   - **(E)** Network-infra-bound — tests need real S3 / NATS / Redis Sentinel.
-   - **(F)** Integration-only — existing tests live behind build tags.
+## Why
 
-Packages that are *currently below threshold but on the open-source readiness roadmap* may be allowlisted under the "Open-source readiness backlog" section, with a follow-up reference. The long-term goal is an empty allowlist.
+React Query stores under `['api', ...queryKey]`. Pages with the same state shape (e.g. `['', '', 0, 20]`) collide in the cache. Navigating from one list to another shows the previous page's `data` with the new page's `columns` — a confusing class of UI bug.
 
-## Writing tests that count
+When the same API is fetched from multiple call sites intentionally (e.g., providers list used by `ModelList` and `CredentialList`), add a usage-site suffix to each call so the two callers dedupe only within themselves and do not leak stale data into unrelated pages.
 
-Tests must assert **observable business behavior** and **named failure modes** — not just exercise code paths. Coverage padding (calling a function only to bump the percentage without assertions, or asserting only `err == nil`) defeats the rule's purpose.
-
-The full **5-step audit methodology**, allowlist categories with examples, and the worked sweep example live in [`docs/developers/workflow/coverage-allowlist-methodology.md`](../../docs/developers/workflow/coverage-allowlist-methodology.md). Read it before writing a new test pass or proposing an allowlist entry.
-
-## Carve-outs that are NOT allowed
-
-- "Test would be slow." — slow tests still count. Move to `_integration_test.go` with build tag if needed; allowlist under category (F).
-- "We'll add tests later." — adding to allowlist requires the category + a tracking reference. "Later" is not a category.
-- "The code is too coupled." — refactor for testability. Tight coupling that prevents tests is itself a defect.
-
-## Related rules
-
-- **CLAUDE.md → Mandatory rules → Unit test coverage ≥95%** (canonical).
-- **`completion-time-self-audit.mdc`** Q3: "every changed code path is exercised by a real test OR explicitly acknowledged as untested with a reason".
-- **`sdd-workflow.mdc`** Step 6: unit tests required before reporting work done.
+Skipping this rule requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
