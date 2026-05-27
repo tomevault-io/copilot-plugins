@@ -4,7 +4,7 @@
   "repo": "camouflage",
   "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zeybek/camouflage",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T13:54:55Z"
+  "distributed_at": "2026-05-27T13:55:26Z"
 }
