@@ -1,0 +1,9 @@
+{
+  "name": "leapward-koex--namida-ocr",
+  "displayName": "Namida-OCR",
+  "description": "A purely browser based OCR tool designed recognizing, copying, and pronouncing Japanese text",
+  "version": "1.0.0",
+  "author": "Leapward-Koex",
+  "homepage": "https://github.com/Leapward-Koex/Namida-OCR",
+  "skills": []
+}
