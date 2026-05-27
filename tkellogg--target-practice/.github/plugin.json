@@ -1,0 +1,9 @@
+{
+  "name": "tkellogg--target-practice",
+  "displayName": "target-practice",
+  "description": "An AI-driven resume manager that takes a human-written verbose resume and crafts it to fit a specific job role",
+  "version": "1.0.0",
+  "author": "tkellogg",
+  "homepage": "https://github.com/tkellogg/target-practice",
+  "skills": []
+}
