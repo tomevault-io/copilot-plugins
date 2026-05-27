@@ -4,7 +4,7 @@
   "repo": "nuggetizer",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/castorini/nuggetizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T19:30:25Z"
+  "distributed_at": "2026-05-27T19:33:43Z"
 }
