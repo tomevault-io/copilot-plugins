@@ -4,7 +4,7 @@
   "repo": "utc-website",
   "description": "Website for Urban Tech Creative",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/urban-tech-creative/utc-website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T12:35:41Z"
+  "distributed_at": "2026-05-27T12:39:53Z"
 }
