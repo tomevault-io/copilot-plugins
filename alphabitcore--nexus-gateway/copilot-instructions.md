@@ -1,58 +1,26 @@
-## vk-org-resolution
+## worktree-per-session
 
-> VirtualKey org resolution has TWO join chains (Project for application VKs, Owner for personal VKs); vkSelectSQL must COALESCE both or personal VKs silently return NULL org
+> Each parallel Claude Code / Cursor session runs in its own git worktree under ./worktrees/
 
 
-# VK org resolution — two join chains (binding)
+# Worktree per session (binding)
 
-`packages/ai-gateway/internal/store/virtualkey.go:vkSelectSQL` resolves `VirtualKey → Organization` through TWO independent chains:
+Each parallel Claude Code / Cursor session runs in its own `git worktree` so working tree, index, and `.git/index.lock` are private to that session.
 
-| VK type | Chain |
-|---|---|
-| `application` | `VirtualKey.projectId` → `Project` → `Organization` |
-| `personal` | `VirtualKey.ownerId` → `NexusUser` → `Organization` |
+## Conventions
 
-The SQL JOINs both and `COALESCE`s the application chain first.
+1. **Spawn**: `git worktree add ./worktrees/<topic> [-b feature/<new-branch>] [<base>]`. `./worktrees/` is gitignored.
+2. **Clean up after merge**: `git worktree remove ./worktrees/<topic>`; if the branch is fully merged, also `git branch -d feature/<topic>`.
+3. **One branch per worktree** — git enforces this. For a second session on the same logical work, create a sibling branch.
+4. **Shared module coordination** — worktrees isolate the working tree, not the module graph. Two worktrees editing the same `packages/shared/<subpkg>/` file at once will conflict at merge. Coordinate at the subpackage level; pick disjoint shared sub-packages per worktree.
+5. **Commit hygiene**: `git status --short` before commit; `git log -1 --stat` after — confirms you committed what you intended.
+6. **`.git/index.lock` in your worktree** = your own prior git invocation crashed mid-flight. Investigate freely.
 
-## Required SQL pattern
+## Inside a worktree, all git operations are private
 
-```sql
-LEFT JOIN "Project"      p     ON vk."projectId" = p.id
-LEFT JOIN "Organization" org   ON p."organizationId" = org.id
-LEFT JOIN "NexusUser"    u     ON vk."ownerId" = u.id
-LEFT JOIN "Organization" u_org ON u."organizationId" = u_org.id
+`git stash`, `git add -A`, `git restore`, removing `.git/index.lock` — all safe inside your own worktree because the working tree is not shared with any other session.
 
-COALESCE(p."organizationId", u."organizationId") AS organization_id
-COALESCE(org.name,           u_org.name)         AS organization_name
-COALESCE(org.timezone,       u_org.timezone)     AS organization_timezone
-```
-
-## When to apply
-
-Touching any of:
-- `vkSelectSQL` itself (or any sibling SELECT that joins through Project/Org/NexusUser)
-- A new column on `traffic_event` that depends on the VK's parent (timezone, billing account, primary AccountManager, parent org id)
-- A new VK type beyond `application` / `personal`
-- The audit pipeline's `identity` JSONB stamping
-
-## Why this matters
-
-Latent bugs in the personal-VK code path hide indefinitely when traffic is dominated by application VKs — a missing join surfaces only on the first personal-VK request. Touching personal-VK-adjacent code without testing both VK types = silent NULL columns in prod. Memory anchor: [[feedback_vk_org_dual_join_chain]].
-
-## Forbidden
-
-- "Simplifying" the SQL by dropping the second `LEFT JOIN` or the `COALESCE`. The two `Organization` joins via different aliases (`org`, `u_org`) are load-bearing.
-- Adding a Go-side fallback in caller code (e.g. "if `meta.OrganizationID == ""` then look up `meta.OwnerID` and read `nexus_user.organizationId`"). The fallback belongs in SQL — caller code reads the resolved value, not raw chains.
-- Adding a new VK-derived column without verifying it has both chains' coverage.
-
-## Tests
-
-String-level pins in `packages/ai-gateway/internal/store/virtualkey_sql_test.go` lock the COALESCE shape + both LEFT JOINs. Refactors that "simplify" the SQL trip these tests in CI.
-
-## Sources
-
-- Architecture doc: `docs/developers/architecture/services/control-plane/vk-org-resolution.md`
-- Pre-edit triggers: `docs/developers/architecture/README.md`
+Memory anchor: [[project_parallel_worktree_sessions]].
 
 Skipping this rule requires **explicit user approval** in chat.
 
