@@ -1,0 +1,9 @@
+{
+  "name": "gfazioli--next-app-nextra-template",
+  "displayName": "next-app-nextra-template",
+  "description": "Template for Next.js 16 app router + Mantine 9 UI + Nextra 4",
+  "version": "1.0.0",
+  "author": "gfazioli",
+  "homepage": "https://github.com/gfazioli/next-app-nextra-template",
+  "skills": []
+}
