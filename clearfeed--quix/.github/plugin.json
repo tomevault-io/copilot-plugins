@@ -1,0 +1,9 @@
+{
+  "name": "clearfeed--quix",
+  "displayName": "quix",
+  "description": "Query your business tools from Slack",
+  "version": "1.0.0",
+  "author": "clearfeed",
+  "homepage": "https://github.com/clearfeed/quix",
+  "skills": []
+}
