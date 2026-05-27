@@ -1,10 +1,10 @@
 ## my-racing-planner
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Commands
 
@@ -12,7 +12,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev          # Start Vite dev server (http://localhost:5173)
 npm run build        # TypeScript check + production build
 npm run lint         # Run ESLint
-npm run test         # Run Jest tests
 npm run preview      # Preview production build
 
 # iRacing data management
@@ -68,8 +67,8 @@ Static iRacing data lives in `src/ir-data/` (cars, tracks, series as JSON). The 
 
 ### TypeScript Config
 
-Three tsconfig files: `tsconfig.app.json` (app, strict), `tsconfig.node.json` (Vite tooling), `tsconfig.test.json` (Jest). Referenced from the root `tsconfig.json`.
+Two tsconfig files: `tsconfig.app.json` (app, strict) and `tsconfig.node.json` (Vite tooling). Referenced from the root `tsconfig.json`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/adrianulima) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [adrianulima/my-racing-planner](https://github.com/adrianulima/my-racing-planner) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
