@@ -1,0 +1,9 @@
+{
+  "name": "eth-cscs--cscs-docs",
+  "displayName": "cscs-docs",
+  "description": "CSCS public documentation",
+  "version": "1.0.0",
+  "author": "eth-cscs",
+  "homepage": "https://github.com/eth-cscs/cscs-docs",
+  "skills": []
+}
