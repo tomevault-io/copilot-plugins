@@ -1,29 +1,11 @@
-## file-structure
+## jsdoc
 
-> - Group related functionality into modules
+> - Use JSDoc comments for functions, classes, and complex types
 
-- Group related functionality into modules
-- Use index files to simplify imports
-- Separate concerns: keep business logic, UI components, and utilities in different directories
+- Use JSDoc comments for functions, classes, and complex types
+- Include examples in documentation where appropriate
 
-### Folder Structure
-- .github           # Github actions
-- docs              # Docusaurus documentation, here md files are created for all features of the framework
--- docs             # Md files
---- api-reference   # Definition files for all classes and methods in the framework
---- learn           # Tutorials how to use the framework features
--- src              # Docusaurus react files
-- src               # Framework source code
--- a2a              # Code for the A2A feature 
--- config           # Code for the config feature
--- core             # Code for the core features of the framework, like agents, workflow execution, etc
--- examples         # Fully working examples for all features of the framework, used for testing the framework and give usage examples to users
--- llm              # LLM integrations
--- plugins          # Code for the plugin feature.
--- rag              # Code for the RAG features.
--- tools            # Code for the tools and MCP feature
--- types            # All typescript types
--- utils            # Code utils used throughout the framework
+- Keep README files up-to-date with setup instructions, usage examples, and contribution guidelines
 
 ---
 > Source: [frostlogic-ab/agent-forge](https://github.com/frostlogic-ab/agent-forge) — distributed by [TomeVault](https://tomevault.io).
