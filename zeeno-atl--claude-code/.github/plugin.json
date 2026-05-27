@@ -1,0 +1,9 @@
+{
+  "name": "zeeno-atl--claude-code",
+  "displayName": "claude-code",
+  "description": "Claude-code containerized to isolate it, written by Claude-code",
+  "version": "1.0.0",
+  "author": "Zeeno-atl",
+  "homepage": "https://github.com/Zeeno-atl/claude-code",
+  "skills": []
+}
