@@ -1,361 +1,397 @@
-## hs-scaffold-react-module
+## hs-scaffold-section
 
-> Scaffold a new module
+> Scaffold a new section
 
-# Scaffold a React Module
+# Scaffold a Section
 
-When scaffolding a new React module, follow these guidelines to create a consistent, well-structured foundation. Focus on creating the basic structure and necessary files without implementing the full functionality.
+When scaffolding a new section, follow these guidelines to create a consistent, well-structured foundation. Focus on creating the basic structure and necessary content without worrying about translations, scaffolding, or context values.
 
 ## Key Principles
 - Create minimal, well-organized file structure
 - Add TODOs and comments for future implementation
-- Focus on scaffolding, not full implementation
-- Include type definitions and prop interfaces
-- Set up proper module metadata and configuration
+- Focus on building out the section using DND tags with hardcoded content
+- Set up proper section template annotations
+- Never hardcode colors or unnecessary styles
+- Use existing theme modules over default modules
+- Always check the codebase for existing modules before assuming default modules exist
+- Always check existing sections to see what fields they're passing into modules
 
-## Required Files Structure
+## Core Concepts
+
+### Template Annotations
+At the top of a section is the file's [template annotations](mdc:https:/developers.hubspot.com/docs/guides/cms/content/templates/drag-and-drop/sections#section-template-files) which includes meta information about the section that is then used to display the section in the page editor when a user is editing a page. Below is an example of a template annotation for a section.
+
 ```
-src/unified-theme/components/modules/[ModuleName]/
-├── index.tsx           # Main module component
-├── fields.tsx          # Module field definitions
-├── types.ts           # Type definitions
-└── islands/           # (If needed) Client-side interactive components
-    └── [Name]Island.tsx
-```
-
-## File Templates
-
-### index.tsx
-```tsx
-import { ModuleMeta } from '../../types/modules.js';
-import { createComponent } from '../../utils/create-component.js';
-import { CSSPropertiesMap } from '../../types/components.js';
-import styles from './[module-name].module.css';
-import cx, { staticWithModule } from '../../utils/classnames.js';
-import { ModuleProps } from './types.js';
-
-const swm = staticWithModule(styles);
-
-// Components
-const ModuleContainer = createComponent('div');
-
-export const Component = (props: ModuleProps) => {
-  // Generate CSS variables if needed
-  const cssVarsMap: CSSPropertiesMap = {
-    // Add CSS custom properties here
-  };
-
-  return (
-    <ModuleContainer
-      className={swm('hs-elevate-[module-name]')}
-      style={cssVarsMap}
-    >
-      {/* TODO: Implement module content */}
-    </ModuleContainer>
-  );
-};
-
-export { fields } from './fields.js';
-
-export const meta: ModuleMeta = {
-  label: '[Module Label]',
-  content_types: ['SITE_PAGE', 'LANDING_PAGE'],
-  categories: ['design', 'body_content'],
-};
-
-export const defaultModuleConfig = {
-  moduleName: 'elevate/components/modules/[module_name]',
-  version: 0,
-  themeModule: true,
-};
+<!--
+  templateType: section
+  label: Name of the section
+  isAvailableForNewContent: true
+  screenshotPath: ../images/section-previews/screenshot-of-the-section.png
+  description: "Description of the section"
+-->
 ```
 
-### fields.tsx
-```tsx
-import { ModuleFields } from '@hubspot/cms-components/fields';
+### DND Area Tags
+A section is made up of [drag and drop HubL tags](mdc:https:/developers.hubspot.com/docs/reference/cms/hubl/tags/dnd-areas). A `dnd_section` is made up of `dnd_row`s, `dnd_column`s, and `dnd_module`s. You can read more about the HubL tags, their available parameters, and their nesting rules [here](mdc:https:/developers.hubspot.com/docs/reference/cms/hubl/tags/dnd-areas). Below is a very basic example of a section.
 
+```
+{% dnd_section %}
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_column %}
+        {% dnd_module
+          path="../path/to/module.html"
+          fieldName="fieldValue"
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_column %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+```
+
+### Modules Available to Be Used in a Section
+A section can be built with theme and/or default modules.
+
+#### Theme Modules (Preferred)
+A theme module is a module that exists within a website theme and can only be used in that particular website theme. These files live in the same folder as the theme. You can learn more about theme modules [here](mdc:https:/developers.hubspot.com/docs/guides/cms/content/themes/overview).
+
+Theme modules are located inside the components/modules directory and should be referenced with the path `../components/modules/ModuleName`. These modules:
+- Are specific to the website theme
+- Should be used before considering default modules
+- May be new and not used in other sections yet - check the components/modules directory
+- Are referenced with `../` in the path
+
+
+#### Default Modules
+Default modules are modules that can be used in any themes. These files live separately from themes. You can learn more about default modules and what their different fields are [here](mdc:https:/developers.hubspot.com/docs/reference/cms/modules/default-modules).
+
+Default modules (prefixed with @hubspot/) should only be used when a suitable theme module doesn't exist. Always check the theme modules directory first.
+
+When using default HubSpot modules, make sure to use the exact module names as they appear in existing code:
+
+- For images, use `@hubspot/linked_image` (NOT `@hubspot/image` because that doesn't exist)
+- For image galleries, use `@hubspot/image_grid`
+- For forms, use `@hubspot/form`
+
+Always check existing sections first to see how modules are implemented before adding new ones. Grep for "@hubspot/" to find examples of default modules in use.
+
+
+### How to Reference Module Fields From a Section
+Each module is made up of fields. Fields are what are used by a user to edit the module's contents. You can learn more about the fields available for HubL modules [here](mdc:https:/developers.hubspot.com/docs/reference/cms/fields/module-theme-fields) and the fields available for React modules [here](https://developers.hubspot.com/docs/guides/cms/react/modules#module-fields). When adding a module to a section, you can reference the module's fields to change the module field values for that particular section. Below is an example of a module's fields.json for a HubL module, equivalent fields.tsx file for a React module, and how that module is referenced in the section.
+
+**Fields.json:**
+```
+[
+  {
+    "label": "Icon",
+    "name": "icon",
+    "type": "icon",
+    "icon_set": "fontawesome-6.4.2",
+    "default": {
+      "name": "arrow-alt-circle-up",
+      "type": "SOLID",
+      "unicode": "f35b"
+    }
+  }
+]
+```
+
+**Fields.tsx:**
+```
+import {
+  IconField,
+} from '@hubspot/cms-components/fields';
 export const fields = (
   <ModuleFields>
-    {/*
-    TODO: Define module fields
-    Common field types:
-    - text
-    - image
-    - choice
-    - group
-    - boolean
-    */}
+    <IconField
+      label='Icon'
+      name='icon'
+      iconSet='fontawesome-6.4.2'
+      default={{
+        name: 'arrow-alt-circle-up',
+        type: 'SOLID',
+        unicode: 'f35b'
+      }}
+    />
   </ModuleFields>
 );
 ```
 
-### types.ts
-```typescript
-export interface ModuleProps {
-  // TODO: Define module props based on fields
-}
-
-// TODO: Add additional type definitions as needed
+**Reference in section:**
+```
+{% dnd_section %}
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_column %}
+        {% dnd_module
+          path="../path/to/module.html"
+          icon={
+            name: 'arrow-alt-circle-up',
+            type: 'SOLID',
+            unicode: 'f35b'
+          }
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_column %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
 ```
 
-### [Name]Island.tsx (if needed)
-```tsx
-import { createComponent } from '../../../utils/create-component.js';
-import { CSSPropertiesMap } from '../../../types/components.js';
-import styles from './[island-name].module.css';
-import cx, { staticWithModule } from '../../../utils/classnames.js';
+## Reference Documentation
+This is the [main Hubspot developer documentation](mdc:https:/developers.hubspot.com/docs). Here are other key pieces of this documentation to consider for section developement:
 
-const swm = staticWithModule(styles);
+### Key Documentation Sections That Are Most Relevant
+- [Available HubL module fields](mdc:https:/developers.hubspot.com/docs/reference/cms/fields/module-theme-fields)
+- [Available React module fields](mdc:https:/github.hubspot.com/cms-react/field-types)
+- [Available default modules](mdc:https:/developers.hubspot.com/docs/reference/cms/modules/default-modules)
+- [Section documentation](mdc:https:/developers.hubspot.com/docs/reference/cms/templates/sections)
+- [HubL DND area tags](mdc:https:/developers.hubspot.com/docs/reference/cms/hubl/tags/dnd-areas)
 
-interface IslandProps {
-  // TODO: Define island props
-}
+## Required Files Structure
+```
+src/unified-theme/sections/[section-name].hubl.html
+```
 
-// Components
-const IslandContainer = createComponent('div');
+## File Template
+```
+<!--
+  templateType: section
+  label: Section name
+  isAvailableForNewContent: true
+  description: "Description of the section and its contents."
+-->
 
-const [Name]Island = (props: IslandProps) => {
-  // Generate CSS variables if needed
-  const cssVarsMap: CSSPropertiesMap = {
-    // Add CSS custom properties here
-  };
+{# Section #}
 
-  return (
-    <IslandContainer
-      className={swm('hs-elevate-[island-name]')}
-      style={cssVarsMap}
-    >
-      {/* TODO: Implement island content */}
-    </IslandContainer>
-  );
-};
-
-export default [Name]Island;
+{% dnd_section %}
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        headingAndTextHeading="Hello world"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
 ```
 
 ## Implementation Steps
 
 1. **Analyze Requirements**
-   - Identify if client-side interactivity is needed (islands)
-   - Determine required field types
-   - Plan component structure
+  - Identify what modules may be needed to build the section
+  - Determine if there is a theme module or default module for the required modules
+  - Plan section structure
 
 2. **Create File Structure**
-   - Create module directory
-   - Add all required files
-   - Set up proper imports
+   - Create a section file in the `section` directory with a file name that describes the contents of the section
 
-3. **Define Types**
-   - Create interfaces for props
-   - Add type definitions for any complex data structures
+3. **Build Section Contents**
+   - Update the template annotations at the top of the section file to include the section label and description
+   - Build out the DND tag structure and for modules add paths to theme modules or default modules
+   - Pass in content to module fields as needed
+   - Stop and think
 
-4. **Configure Module**
-   - Set proper module metadata
-   - Configure content types and categories
-   - Set up module name and version
+4. **Compare Mockup (if any)**
+   - If any details, like images or smaller headings were left out of Step 3's code, add those in now
+   - Stop and think
 
-5. **Add TODOs and Comments**
+5. **Compare To Existing Sections**
+   - Find other existing sections in the sections directory and try to follow their pattern
+   - Follow the module fields that existing sections (found in src/unified-theme/sections/*.hubl.html) use for module usage
+   - If a module exists but isn't used in any of the sections yet, it is a new module and can still be utilized
+   - Stop and think
+
+6. **Add TODOs and Comments**
    - Document required implementations
-   - Note any complex logic that will be needed
-   - Mark areas for future styling
+   - Mark any places that a developer may need to spend extra time reviewing or adjusting
+   - If images are linked that may not match the mockup (if any), comment that for developer follow-up
+
+
+## Verification Checklist
+Before finalizing any section implementation, complete these specific verification steps:
+
+1. **Module Verification**
+   - Run `grep -r "@hubspot/" src/unified-theme/sections/` to find all default HubSpot modules in use
+   - Run `grep -r "path=\"\.\./" src/unified-theme/sections/` to find theme modules in use
+   - For each module you plan to use, verify its exact name and parameter structure from existing sections
+   - Document the verified module names/paths in your implementation notes
+
+2. **Parameter Structure Verification**
+   - For each module, examine at least 2 different existing implementations to confirm parameter structure
+   - Copy the exact parameter structure from existing implementations when possible
+   - Verify boolean values use proper format (lowercase true/false)
+   - Verify object properties use proper quoting and format
+
+3. **Final Pre-implementation Checks**
+   - Compare your section structure side-by-side with a similar existing section
+   - Confirm DND structure matches existing patterns (section → column → row → module)
+   - Verify all fields are referencing context variables consistently
+   - Double-check default values against existing sections
 
 ## Best Practices
-- Use TypeScript for all files
-- Use createComponent utility for semantic component creation
-- Follow HubSpot module naming conventions
-- Add clear TODOs for future implementation
-- Keep initial implementation minimal
-- Document expected props and field usage
+When building sections, we follow a set of best practices to ensure that the sections are of the best quality.
 
-Remember: The goal is to create a solid foundation that can be built upon, not to implement the full functionality in the scaffolding phase.
+### Code Formatting
+- Use double quotation marks for HubL.
+- Add space between brackets and HubL variable name (e.g. `{% dnd_section %}` instead of `{%dnd_section %}`).
+- HubL filters should be added directly following a statement or expression (e.g. `{{ "Hello World" | title }}` instead of `{{ "Hello World"|title }}`).
+- Use snake case with names, variables, and macros (e.g. `my_variable` instead of `myVariable`).
+- Use or, and, and not rather than ||, &&, and !
+- Don't use commas between parameters on HubL tags and modules.
+- Opening and closing HubL tags should be on their own line to increase legibility.
+- For modules with more parameters than `name` or `path`, the parameters should be written on their own line to increase legibility.
+- Use double quotes around object keys when referencing module fields in HubL.
+- When using a boolean value use `true` and `false` vs. `True` and `False`.
+- For margin and padding parameters, the values should be ordered: top, right, bottom, left to match CSS shorthand for those properties.
+- Follow existing sections in the codebase
+
+### Styling Best Practices
+- Don't hardcode colors
+- Don't add unnecessary background colors or styling
+- Let theme handle basic styling
+- Only add styles that are specific to the section's layout
+- Use appropriate column widths and offsets
+- Use consistent margin/padding values
+- Structure complex layouts with nested rows and columns
+
+### Module Usage
+- Use the most specific module for the job (e.g., List module for lists instead of RichText)
+- Check existing sections in the codebase for module usage patterns
+- Reference module fields correctly based on the module's fields.tsx definition
+- If using an image module, use "lazy" for loading if the section is going to be below the fold; otherwise, use "eager"
+
+### Naming Conventions
+- The label for the section should be sentence case (e.g. "Hero section").
+- The file name for the section should be kebab case (e.g. "hero-section.hubl.html") and should have the extension `.hubl.html`.
+
+### Documentation
+- Add HubL comments if needed to indicate what the different parts of the code do (e.g. `{# This is a comment #}`)
+- The description for the section in the template annotation should be a short sentence that describes what the section is.
+
+
+### Common Pitfalls to Avoid
+1. Hardcoding colors or unnecessary styles
+2. Using RichText for structured content that has a dedicated module
+3. Assuming default modules exist without checking documentation
+4. Not checking the components/modules directory for available theme modules
+
 
 ## Example Scenario
 
-Let's walk through creating a "Featured Products" module with the following requirements:
+Let's walk through creating a "Call to action" section with the following requirements:
 
 Note that you shouldn't use this in your final output. But this example provides details on the process you should follow and what expectations are.
 
-1. Display a grid of product cards
-2. Each product card has:
-   - Product image
-   - Title
-   - Description
-   - Price
-   - "Learn More" button
-3. Interactive features:
-   - Hover effects on cards
-   - Click to expand product details
-4. Styling options:
-   - Card layout (grid/list)
-   - Color scheme
-   - Spacing between cards
+1. Create a section that would prompt a user to make a call to action
+2. The section should include:
+   - A full width heading at the top of the section and the heading level should be an h2
+   - A full width paragraph underneath the heading that provides some complementary text to support the heading above it
+   - A centered button below the paragraph that prompts the user to take an action
 
-## Step 1: Module Analysis
 
-### Module Purpose
-- Primary function: Display featured products in a grid/list layout
-- Content type: Product information with images
-- User interactions: Hover effects and expandable details
+1. **Analyze Requirements**
+  - Identify what modules may be needed to build the section
+  - Determine if there is a theme module or default module for the required modules
+  - Plan section structure
 
-### Component Architecture
-- Main module component
-- Product card component (reusable)
-- Product details expansion island (for client-side interactivity)
+2. **Create File Structure**
+   - Create a section file in the `section` directory with a file name that describes the contents of the section
 
-### Island Requirements
-✅ Islands needed:
-- ProductDetailsIsland (for expanding/collapsing product details)
-- Hydration trigger: visible
+3. **Build Section Contents**
+   - Update the template annotations at the top of the section file to include the section label and description
+   - Build out the DND tag structure and for modules add paths to theme modules or default modules
+   - Pass in content to module fields as needed
 
-## Step 2: File Structure
+4. **Compare Mockup (if any)**
+   - If any details, like images or smaller headings were left out of Step 3's code, add those in now
+
+5. **Compare To Existing Sections**
+   - Find other existing sections in the sections directory and try to follow their pattern
+   - If a module exists but isn't used in any of the sections yet, it is a new module and can still be utilized
+
+6. **Add TODOs and Comments**
+   - Document required implementations
+   - Mark any places that a developer may need to spend extra time reviewing or adjusting
+   - If images are linked that may not match the mockup (if any), comment that for developer follow-up
+
+
+## Step 1: Analyze Requirements
+
+### Identify what modules may be needed to build the section
+- Module list: heading for the heading, rich text for the paragraph, and button for the button
+- Are there theme modules for these?: Yes, there is a theme heading module, a theme rich text module, and a theme button module
+
+### Determine if there is a theme module or default module for the required modules
+- Yes, there is a theme heading module, a theme rich text module, and a theme button module
+
+### Plan section structure
+- Given everything is full width, we would include a column within the section, include three rows in the column, and include the respective modules in each of those rows.
+
+## Step 2: Create File Structure
 
 ```
-src/unified-theme/components/modules/FeaturedProducts/
-├── index.tsx                    # Main module component
-├── fields.tsx                   # Module field definitions
-├── types.ts                     # Type definitions
-├── assets/
-│   └── module-icon.svg         # Module icon
-└── islands/
-    └── ProductDetailsIsland.tsx # Interactive product details
+src/unified-theme/sections/call-to-action.hubl.html
 ```
 
-## Step 3: Initial File Scaffolding
+## Step 3: Build Section Contents
+```
+<!--
+  templateType: section
+  label: Call to action
+  isAvailableForNewContent: true
+  description: "Section with a centered heading, description, and button"
+-->
 
-### index.tsx
-```tsx
-import { ModuleMeta } from '../../types/modules.js';
-import { Island } from '@hubspot/cms-components';
-import { createComponent } from '../../utils/create-component.js';
-import { CSSPropertiesMap } from '../../types/components.js';
-import styles from './featured-products.module.css';
-import cx, { staticWithModule } from '../../utils/classnames.js';
-import moduleIconSvg from './assets/module-icon.svg';
-import ProductDetailsIsland from './islands/ProductDetailsIsland.js?island';
+{# Section #}
 
-const swm = staticWithModule(styles);
-
-// Types
-type ModuleProps = {
-  // Define module props here based on fields.tsx
-};
-
-// Components
-const ModuleContainer = createComponent('div');
-
-// Utility Functions
-const handleProductExpand = () => {
-  // Handle expanding/collapsing product details
-};
-
-const formatProductPrice = () => {
-  // Format product price for display
-};
-
-// Main Component
-export const Component = (props: ModuleProps) => {
-  const cssVarsMap: CSSPropertiesMap = {
-    // Add CSS custom properties here
-  };
-
-  return (
-    <ModuleContainer
-      className={swm('hs-elevate-featured-products')}
-      style={cssVarsMap}
-    >
-      {/*TODO: Module content will be implemented here */}
-    </ModuleContainer>
-  );
-};
-
-export { fields } from './fields.js';
-
-export const meta: ModuleMeta = {
-  label: 'Featured Products',
-  content_types: ['SITE_PAGE', 'LANDING_PAGE'],
-  icon: moduleIconSvg,
-  categories: ['design', 'body_content'],
-};
-
-export const defaultModuleConfig = {
-  moduleName: 'elevate/components/modules/featured_products',
-  version: 0,
-  themeModule: true,
-};
+{% dnd_section %}
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        headingAndTextHeading="Section heading would go here"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText"
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <div style="text-align: center;">
+            <p>Paragraph content would go here</p>
+          </div>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Button",
+        groupButtons=[
+          {
+            "buttonContentText": "Button text would go here"
+            "buttonContentLink": {
+              "url": {
+                "href": "https://www.hubspot.com"
+              }
+            }
+          }
+        ]
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
 ```
 
-### fields.tsx
-```tsx
-import {
-  // Import the fields
-} from '@hubspot/cms-components/fields';
-import {
- // Import the fields you need from the fieldLibrary
-} from '../../fieldLibrary/index.js';
+## Step 4: Compare Mockup (if any)
+- None provided.
 
-export const fields = (
-  <ModuleFields>
-    {/*
-      Fields will be defined here
-      Don't actually add fields -- you are not trained on that.
-      Instead just add todos for what fields you think should be added.
-    */}
-  </ModuleFields>
-);
-```
-
-### islands/ProductDetailsIsland.tsx
-```tsx
-import { useState } from 'react';
-import { createComponent } from '../../../utils/create-component.js';
-import { CSSPropertiesMap } from '../../../types/components.js';
-import styles from './product-details-island.module.css';
-import cx, { staticWithModule } from '../../../utils/classnames.js';
-
-const swm = staticWithModule(styles);
-
-type ProductDetailsProps = {
-  // Define island props here
-};
-
-// Components
-const IslandContainer = createComponent('div');
-
-const ProductDetailsIsland = (props: ProductDetailsProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const toggleExpand = () => {
-    // Handle expand/collapse state
-  };
-
-  const cssVarsMap: CSSPropertiesMap = {
-    // Add CSS custom properties here
-  };
-
-  return (
-    <IslandContainer
-      className={swm('hs-elevate-product-details')}
-      style={cssVarsMap}
-    >
-      {/* Island content will be implemented here */}
-    </IslandContainer>
-  );
-};
-
-export default ProductDetailsIsland;
-```
-
-### types.ts
-```typescript
-// Common types used across the module
-export type Product = {
-  // Define product type
-};
-
-export type StyleOptions = {
-  // Define style option types
-};
-```
+## Step 5: Compare To Existing Sections
+- Compare context variable usage (if any), styling, module usage, comments, and other patterns to existing sections located inside the sections directory
 
 ---
 > Source: [HubSpot/cms-elevate-theme-public](https://github.com/HubSpot/cms-elevate-theme-public) — distributed by [TomeVault](https://tomevault.io).
