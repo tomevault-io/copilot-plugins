@@ -1,0 +1,9 @@
+{
+  "name": "stat-guy--retrieval-augmented-thinking",
+  "displayName": "retrieval-augmented-thinking",
+  "description": "MCP server for retrieval augmented thinking and problem solving",
+  "version": "1.0.0",
+  "author": "stat-guy",
+  "homepage": "https://github.com/stat-guy/retrieval-augmented-thinking",
+  "skills": []
+}
