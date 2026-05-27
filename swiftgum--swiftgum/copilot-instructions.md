@@ -1,32 +1,36 @@
-## database
+## logic
 
-> Database migration rules
+> High-level overview of the system
 
-## Provider
+# What is KnowledgeX
 
-We use Supabase with Postgres.
+KnowledgeX provides a data connection layer between end-user data and third party apps.
 
-### Schemas
+Third party apps such as Dust or OpenAI use KnowledgeX to easily connect their end-users data for use in their pipelines.
 
-We have two app managed schemas:
+## How it works?
 
-- `public`: in this schema, tables are accessible to the anonymous users. They should always have RLS in place (if it makes sense) to secure them.
-- `private`: in this schema, access is denied to everyone except for the superuser. This is already set up.
+KnowledgeX is a developer tool. It must be integrated by a developer (let's call it external developer) into another codebase, similarly to Stripe.
 
-In general, functions, views etc. should go to the private table. End user information (as defined in [logic.mdc](mdc:.cursor/rules/logic.mdc)) is to be stored in the private schema, as they are never logged in, making it insuitable for RLS.
+The external developer can then present their end users with options to manage their connected data (eg. Google Drive, Notion, Mails, etc.). When the users want to manage this data, they click on a button and are redirected to the KnowledgeX platform.
 
-Always qualify the extensions and functions (except postgres native).
+KnowledgeX manages on its own the integrations, tokens, etc. of the end-users. Once the end-users have connected their accounts or made changes, KnowledgeX will process their data (indexing, processing) and export this data to a webhook, database table, or anything as specified by the external developer.
 
-There also is a few non-managed schemas:
+## Example flow
 
-- `extensions`: pgcrypto is installed in this schema.
-- `pgmq`: pgmq is installed in this schema.
-- `auth`: supabase managed
-- ... other supabase managed schemas.
+Here is an example flow for how it works.
 
-### Guides
+1. External developer integrates KnowledgeX SDK in their project, creating a page/route that creates a session for a given foreign user id.
+2. The end user is presented with a link that takes them to the KnowledgeX portal (with their given session). This happens in /apps/studio
+3. The end user manages knowledge, integrations, etc.
+4. In the background, KnowledgeX starts indexing (in /apps/studio). This pushes task to a shared PGMQ task queue. Then, the engine (in /apps/engine) starts processing with the token. It indexes files, processes them to markdown, and pushes them to the export queue.
+5. The export queue is processed by the engine and notifies the destination initially parameterized by the external developer.
 
-When working with cryptography, always create the appropriate functions for encryption and decryption. Workspaces, as defined in [20250130131824_create_workspace_table.sql](mdc:supabase/migrations/20250130131824_create_workspace_table.sql) have an encryption key associated. When asked by the user for encryption in a table, try to join to the workspace and use this key.
+## What does the external developer need to do?
+
+1. The external developer needs to implement the KnowledgeX SDK.
+2. The external developer needs to register his own Oauth/Integrations to each possible provider and enter the corresponding tokens and secrets on his admin page.
+3. The external developer needs to specify the destination for the traffic flow.
 
 ---
 > Source: [Swiftgum/swiftgum](https://github.com/Swiftgum/swiftgum) — distributed by [TomeVault](https://tomevault.io).
