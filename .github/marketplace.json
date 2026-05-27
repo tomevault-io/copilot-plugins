@@ -281222,6 +281222,16 @@
       "name": "maorshapiro--thebestapp",
       "source": "./maorshapiro--thebestapp",
       "description": "THEBESTAPP"
+    },
+    {
+      "name": "blakehaddad--github-pr-widget",
+      "source": "./blakehaddad--github-pr-widget",
+      "description": "Widget to display your in progress Github PRs"
+    },
+    {
+      "name": "heyfarai--tryouts-next",
+      "source": "./heyfarai--tryouts-next",
+      "description": "tryouts-next"
     }
   ]
 }
