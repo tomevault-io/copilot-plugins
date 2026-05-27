@@ -1,0 +1,9 @@
+{
+  "name": "matthansen0--azure-ai-security-sandbox",
+  "displayName": "azure-ai-security-sandbox",
+  "description": "Built on Bicep and AZD CLI, fully automated RAG chat app - AFD, APIM, ACA, AI Search, Azure Storage, Cosmos, and Azure Open AI with optional Defender Plans, and a full \"How it Works\" user learning gui",
+  "version": "1.0.0",
+  "author": "matthansen0",
+  "homepage": "https://github.com/matthansen0/azure-ai-security-sandbox",
+  "skills": []
+}
