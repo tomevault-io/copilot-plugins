@@ -4,7 +4,7 @@
   "repo": "cscs-docs",
   "description": "CSCS public documentation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eth-cscs/cscs-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T18:46:41Z"
+  "distributed_at": "2026-05-27T18:49:34Z"
 }
