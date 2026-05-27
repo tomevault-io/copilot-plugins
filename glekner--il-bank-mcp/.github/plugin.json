@@ -1,0 +1,9 @@
+{
+  "name": "glekner--il-bank-mcp",
+  "displayName": "il-bank-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides financial data access through automated Israeli bank and credit card data scraping. Supports all major Israeli financial institutions dynamically ba",
+  "version": "1.0.0",
+  "author": "glekner",
+  "homepage": "https://github.com/glekner/il-bank-mcp",
+  "skills": []
+}
