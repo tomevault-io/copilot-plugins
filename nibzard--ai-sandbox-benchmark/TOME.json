@@ -4,7 +4,7 @@
   "repo": "ai-sandbox-benchmark",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nibzard/ai-sandbox-benchmark",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T22:43:06Z"
+  "distributed_at": "2026-05-27T22:44:44Z"
 }
