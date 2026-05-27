@@ -1,9 +1,9 @@
 {
   "name": "datagrok-ai--mol-track",
   "displayName": "mol-track",
-  "description": "mol-track",
+  "description": "Chemical compound registration system: lightweight, flexible, hackable",
   "version": "1.0.0",
   "author": "datagrok-ai",
-  "homepage": "https://tomevault.io/claim/datagrok-ai",
+  "homepage": "https://github.com/datagrok-ai/mol-track",
   "skills": []
 }
