@@ -1,0 +1,9 @@
+{
+  "name": "ctxs-ai--ctxs-ai",
+  "displayName": "ctxs.ai",
+  "description": "an open-source, community-curated directory of contexts for use with LLMs",
+  "version": "1.0.0",
+  "author": "ctxs-ai",
+  "homepage": "https://github.com/ctxs-ai/ctxs.ai",
+  "skills": []
+}
