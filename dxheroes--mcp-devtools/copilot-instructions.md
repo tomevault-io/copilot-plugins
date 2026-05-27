@@ -1,86 +1,103 @@
-## repository-structure
+## rules-for-cursor
 
-> Repository Structure Guidelines
+> Rules for Writing Cursor Rules
 
 
-# Repository Structure Guidelines
+# Rules for Writing Cursor Rules
 
-The MCP DevTools repository follows a monorepo structure with clear organization of packages and shared resources.
+This document provides guidelines for creating and maintaining Cursor IDE rules for the MCP DevTools repository.
 
-@file package.json
-@file packages/jira/package.json
-@file .cursor/rules/core-libraries-usage.mdc
+@url https://docs.cursor.com/context/rules-for-ai
+@file .cursor/rules/repository-structure.mdc
+@file .cursor/rules/ai-assisted-development.mdc
 
-## Top-Level Directory Structure
+## Rule Structure
+
+Each rule file should follow this structure:
+
+````markdown
+---
+description: Brief description of what the rule enforces
+globs: pattern/to/match/files.ts
+alwaysApply: true|false
+---
+
+# Rule Title
+
+Brief introduction to the rule and its purpose.
+
+@file path/to/example/file.ts
+@file path/to/related/rule.mdc
+@url https://relevant-docs-url.com/
+
+## Sections
+
+Content organized into clear sections with examples.
+
+## Examples
+
+```typescript
+// Code examples demonstrating the rule
+```
+````
+
+## Guidelines
+
+1. **First Guideline**
+
+   - Explanation point 1
+   - Explanation point 2
+
+2. **Second Guideline**
+   - Explanation point 1
+   - Explanation point 2
 
 ```
-mcp-devtools/
-├── .github/            # GitHub workflows and templates
-├── .cursor/            # Cursor IDE configuration
-│   └── rules/          # Project coding rules and guidelines
-├── packages/           # Individual MCP packages
-│   ├── core/           # Core shared libraries
-│   ├── jira/           # Jira integration package
-│   ├── github/         # GitHub integration package
-│   └── ...             # Other integration packages
-├── examples/           # Example usage of MCP DevTools
-├── scripts/            # Build and maintenance scripts
-├── docs/               # Documentation files
-├── package.json        # Root package.json
-└── README.md           # Root README
+
+## Frontmatter Requirements
+
+Every rule must include these frontmatter fields:
+
+1. **description**: A concise one-line description of the rule
+2. **globs**: File pattern(s) the rule applies to
+3. **alwaysApply**: Whether the rule should automatically apply
+
+## File References
+
+Rules should reference:
+
+1. **Example Files**: Include `@file` references to real examples in the codebase
+2. **Related Rules**: Link to related rules with `@file` references
+3. **External Documentation**: Link to relevant external documentation with `@url`
+
+## Guidelines for Writing Effective Rules
+
+1. **Be Specific**
+   - Rules should provide clear, actionable guidance
+   - Include real examples from the codebase when possible
+   - Explain both what to do and what to avoid
+
+2. **Organize Content**
+   - Use clear headings and subheadings
+   - Group related information together
+   - Use numbered lists for sequential steps
+   - Use bullet points for related items
+
+3. **Include Code Examples**
+   - Provide complete, working examples
+   - Comment code examples to explain important points
+   - Show both correct and incorrect patterns
+
+4. **Connect with Other Rules**
+   - Reference related rules
+   - Avoid duplicating content across rules
+   - Ensure consistent guidance across all rules
+
+5. **Keep Updated**
+   - Review and update rules when project standards change
+   - Ensure examples remain valid as the codebase evolves
+   - Add new rules as needed for new patterns or technologies
 ```
-
-## Package Structure
-
-Each package in the `packages/` directory should follow this structure:
-
-```
-packages/[package-name]/
-├── src/                # Source code
-│   ├── index.ts        # Package entry point
-│   ├── tools/          # MCP tool implementations
-│   │   ├── tool1.ts    # Individual tool implementation
-│   │   └── index.ts    # Tools export file
-│   ├── api/            # API client code
-│   └── types/          # TypeScript type definitions
-├── test/               # Test files
-├── dist/               # Compiled output (not in git)
-├── package.json        # Package manifest
-├── tsconfig.json       # TypeScript configuration
-└── README.md           # Package documentation
-```
-
-## Package Naming Conventions
-
-- All packages should be named with the `@mcp-devtools/` prefix
-- Package names should be simple and descriptive (e.g., `@mcp-devtools/jira`)
-- Use kebab-case for package names (e.g., `@mcp-devtools/github-actions`)
-
-## Dependency Management
-
-- Core dependencies should be defined in the root `package.json`
-- Package-specific dependencies should be in each package's `package.json`
-- Use exact versions for dependencies to ensure consistency
-- Use peerDependencies for framework dependencies
-
-## Build Configuration
-
-- TypeScript configuration should extend from a base configuration when possible
-- Package-specific build settings should be in each package's configuration files
-- Build outputs should be consistent across packages
-
-## Documentation Structure
-
-- Each package should have its own comprehensive README.md
-- Root README.md should provide an overview of all packages
-- Use relative links between documentation files when appropriate
-
-## Version Control
-
-- Use feature branches for development
-- Keep commits focused and atomic
-- Reference issue numbers in commit messages when applicable
-- Use pull requests for code review before merging
 
 ---
 > Source: [DXHeroes/mcp-devtools](https://github.com/DXHeroes/mcp-devtools) — distributed by [TomeVault](https://tomevault.io).
