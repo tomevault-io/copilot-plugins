@@ -1,10 +1,11 @@
 ## ultrathink-oss
 
-> > Persistent memory, 4-layer skill mesh, privacy hooks, and observability dashboard.
+> > 4-layer skill mesh, persistent memory, identity graph, decision engine,
 
 # UltraThink — Claude Workflow OS
 
-> Persistent memory, 4-layer skill mesh, privacy hooks, and observability dashboard.
+> 4-layer skill mesh, persistent memory, identity graph, decision engine,
+> code intelligence, privacy hooks, observability dashboard.
 
 ## Identity
 
@@ -13,12 +14,12 @@ and a layered architecture for complex engineering tasks.
 
 ## Tech Stack
 
-- **Runtime**: Claude Code CLI | **Dashboard**: Next.js 15 + Tailwind v4 (port 3333)
+- **Runtime**: Claude Code CLI / Codex CLI | **Dashboard**: Next.js 15 + Tailwind v4 (port 3333)
 - **Database**: Neon Postgres + pgvector + pg_trgm
-- **Skills**: 394 across 4 layers (orchestrator, hub, utility, domain)
-- **Memory**: Postgres-backed fuzzy search (tsvector + trigram + ILIKE)
-- **Hooks**: Pre/post tool hooks + auto-trigger
-- **Tools**: VFS (AST signatures) via MCP
+- **Skills**: 230+ across 4 layers (orchestrator, hub, utility, domain)
+- **Memory**: Postgres-backed fuzzy search (tsvector + trigram + ILIKE) with identity graph
+- **Hooks**: Pre/post tool hooks + auto-trigger + decision engine
+- **Tools**: VFS (AST signatures), Code-Intel (5 MCP tools), Stitch (design)
 
 ## Skill Mesh
 
@@ -28,27 +29,41 @@ When a task matches a skill's triggers, load its `SKILL.md`.
 **Auto-trigger**: UserPromptSubmit hook scores skills, injects top 5 via `additionalContext`.
 **Intent detection**: build/debug/refactor/explore/deploy/test/design/plan → category boosting.
 
-## Memory (Second Brain)
+## Install a skill pack
 
-- **4-wing structure**: agent (core/rules/skills) | user (profile/preferences/projects) | knowledge (decisions/patterns/insights/reference) | experience (sessions/outcomes/errors)
-- **4-layer recall**: L0 identity (~100tok) → L1 essential (~300tok) → L2 project (~500tok) → L3 on-demand
-- Read before write | Selective writes | Confidence 0-1 | Importance 1-10 | Scoped by project
-- Storage: `memory/src/memory.ts` → Neon Postgres
-- **Search**: 3-tier hybrid — tsvector + pg_trgm + ILIKE with synonym expansion (`memory/src/enrich.ts`)
-- **Enrichment**: Write-time synonym expansion stored in `search_enrichment` column; query-time expansion for broader recall
-- **Ranking**: Two-pass with tsvector boost, temporal stopword recall, frequency decay cap
+```sh
+./scripts/install-pack.sh <git-repo-url>
+```
+
+Clones any repo that ships a `.claude/skills/` tree, symlinks each skill into
+`~/.claude/skills/`, and merges its registry into yours. Your next prompt sees
+the new skills automatically.
+
+## Memory + Identity Graph
+
+- Storage: `packages/memory/src/memory.ts` → Neon Postgres
 - Auto-memory: `/tmp/ultrathink-memories/<ts>-<slug>.json` → flushed at session end
 - SessionStart recalls memories; Stop flushes + closes session
-- CLI: `npx tsx memory/scripts/memory-runner.ts <command>` (session-start|save|flush|search)
-- **AAAK**: Lossless shorthand dialect for context injection — ~1.5x compression on recall output (`memory/src/aaak.ts`). Use `aaak-context` CLI command or `recall(scope, { aaak: true })`.
-- **Benchmark**: LongMemEval 50/50 (100%) — validated across 5 ability categories
+- **Identity graph**: `packages/memory/scripts/identity.ts` builds a graph of
+  user identity / preferences / projects. CLI: `memory-runner.ts identity`.
+- **Search**: Hybrid tsvector + pg_trgm + ILIKE with synonym expansion
 
-### Obsidian Vault
+## Decision Engine
 
-- Vault path: `~/.ultrathink/vault/` — mirrors MemPalace structure (`{wing}/{hall}/{slug}.md`)
-- User edits vault (Obsidian) → `vault-to-db` syncs to DB on session start
-- AI creates memories → `db-to-vault` exports to vault on session end
-- CLI: `npx tsx scripts/vault-sync.ts <vault-to-db|db-to-vault|init|status|full-sync>`
+`.claude/hooks/decision-engine.ts` injects 12 reasoning frameworks (MECE,
+Issue Tree, Pre-Mortem, Weighted Matrix, etc.) when a prompt looks like a
+non-trivial decision. Triggered automatically — no manual invocation.
+
+## Code-Intel — Cross-file dependency graph
+
+5 MCP tools:
+- `code-symbols` — search symbol definitions
+- `code-deps` — what does X import / call?
+- `code-dependents` — what calls / imports X?
+- `code-impact` — transitive blast radius for a change
+- `code-modules` — semantic clusters
+
+Indexed incrementally on edits via `post-edit-codeintel.sh`.
 
 ## Key Paths
 
@@ -57,8 +72,9 @@ When a task matches a skill's triggers, load its `SKILL.md`.
 | Config | `.claude/ck.json` |
 | Skills | `.claude/skills/[name]/SKILL.md` |
 | References | `.claude/references/*.md` |
-| Hooks | `.claude/hooks/*.sh`, `.claude/hooks/prompt-analyzer.ts` |
-| Memory | `memory/` |
+| Hooks | `.claude/hooks/*.sh`, `prompt-analyzer.ts`, `decision-engine.ts` |
+| Memory | `packages/memory/` |
+| Code-Intel | `packages/code-intel/` |
 | Dashboard | `dashboard/` |
 
 ## References (read on demand, not auto-loaded)
@@ -75,5 +91,5 @@ When a task matches a skill's triggers, load its `SKILL.md`.
 **Drop**: exploratory reads already acted on, verbose tool output, drafts, CLAUDE.md (reloads), full file contents (reference by path).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/InugamiDev) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [InugamiDev/ultrathink-oss](https://github.com/InugamiDev/ultrathink-oss) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
