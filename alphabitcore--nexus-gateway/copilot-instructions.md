@@ -1,56 +1,32 @@
-## i18n-mandatory
+## iam-impact-review
 
-> All user-visible UI text uses t('namespace:section.key') from react-i18next
+> 5-step IAM impact review for any admin endpoint / sidebar / route change
 
 
-# i18n mandatory (binding)
+# IAM impact review (binding)
 
-You are editing UI code. **Every user-visible string in JSX must go through `t('namespace:section.key')`** from `react-i18next`. Never hardcode English strings in components.
+You are editing an area where adding / moving / renaming an **admin API endpoint, sidebar nav, or route path** can produce **silent 403s**. The UI / backend / seed must stay in lockstep.
 
-Surfaces this rule covers:
+**Read `docs/developers/architecture/services/control-plane/iam-identity-architecture.md` BEFORE editing.**
 
-- Labels, titles, descriptions.
-- Placeholders.
-- Button text.
-- Table headers.
-- Error messages.
-- Empty states.
-- Tooltips.
+## The 5-step audit (all 5, every change)
 
-## How to add a new key
+1. **UI `allowedActions` and backend `iamMW(...)` reference the same action.** Drift = silent 403 (user sees menu item, click yields 403).
+2. **Decide resource carve-out.** Should the surface have its own resource type in `packages/shared/identity/iam/catalog_data.go`, or can it reuse `settings` / `observability` / etc.? Carve out when granting it shouldn't imply granting unrelated settings.
+3. **New resource → update both fixtures + seed.**
+   - `packages/control-plane/internal/iam/managed.go` (`NexusViewer` test fixture).
+   - `tools/db-migrate/seed/seed.ts` canonical policy block.
+   - Missing either makes non-super-admin users lose visibility silently.
+4. **Path rename / move → sweep Sidebar + breadcrumbs.** `packages/control-plane-ui/src/components/ui/Sidebar/Sidebar.tsx` icon mapping. Dead `case` arms accumulate otherwise.
+5. **Record IAM decisions in the plan / commit message.** "Kept on `admin:settings.read`" / "Carved out as `prompt-cache`" — so reviewers can trace policy intent without reading the diff backwards.
 
-1. Add to **all three locale files**:
-   - `packages/control-plane-ui/src/i18n/locales/en/pages.json` (or `common.json` / `nav.json`).
-   - `packages/control-plane-ui/src/i18n/locales/zh/...`.
-   - `packages/control-plane-ui/src/i18n/locales/es/...`.
-2. Copy to `packages/control-plane-ui/public/locales/{en,zh,es}/...`.
-3. Verify key counts match across all 3 locales:
+## NRN builder is canonical
 
-```bash
-npm run check:i18n
-```
+Always use `iam.BuildRequestNRNForAction(action, c)` to derive `resourceType`. Never hardcode the resource-type string in `iamMW(...)` — hardcoded resource types drift from the IAM catalog and produce silent 403s. Memory anchor: [[project_iam_resource_nrn_bug]].
 
-CI gate. Pre-merge required.
+## Verification
 
-## Technical terms
-
-Stay in English across all locales: `API`, `SSO`, `Provider`, `Model`, `Agent`, `Device`, `Hook`, `Token`, `mTLS`, `OAuth`, `PKCE`, `JWT`, etc.
-
-## Forbidden
-
-```tsx
-<button>Save</button>                // ❌ hardcoded
-<input placeholder="Email" />        // ❌ hardcoded
-<h1>Dashboard</h1>                   // ❌ hardcoded
-```
-
-## Correct
-
-```tsx
-<button>{t('pages:settings.save')}</button>
-<input placeholder={t('common:fields.email')} />
-<h1>{t('pages:dashboard.title')}</h1>
-```
+Run positive test (super-admin reaches the route) AND negative test (a role without the action gets 403). Don't ship without both.
 
 Skipping this rule requires **explicit user approval** in chat.
 
