@@ -4,7 +4,7 @@
   "repo": "skawld-agent",
   "description": "Skawld Agent Core & SDK",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/skawld/skawld-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T08:32:18Z"
+  "distributed_at": "2026-05-27T08:32:52Z"
 }
