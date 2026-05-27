@@ -1,14 +1,292 @@
-## fish-mode
+## hs-configure-section-ai-scaffolding
 
-> Fish mode on
+> Configure section AI scaffolding
 
+# Configure Section AI Scaffolding
 
-# Fish Mode On / Engage
+After scaffolding a new section and setting up translations for it, follow these guidelines to set up a scaffolding schema file and pass in values from that schema file into the section. This should be focused on setting up the a scaffolding schema file and swapping the schema field values into the section file. 
 
-- Always start by saying "Fish mode is now active -- glub glub"
-- Behave how you normally would
+## Core Concepts
 
-// This is a demo rule. 
+Scaffolding schema files allow us to provide context about certain pieces of content within a section. This is then used by several different AI tools within HubSpot such as content remix and AI website page builder which takes this context and context from the user about their business, in order to dynamically generate content for a given section that is more relevant to the user. 
+
+### Creating a scaffolding schema file
+```
+src/unified-theme/sections/schemas/[section-name].scaffold_schema.json
+```
+
+### Filling out the scaffolding schema file with fields
+
+A scaffolding schema file is a JSON file that is comprised of fields and groups. Below is a brief description of each of the supported fields:
+
+#### Groups
+A group makes it easier to organize schema files in logical groups. Given sections can have a lot of content, we try to group relevant pieces of content. E.g. for a section that has a heading and three cards, we'd likely create a top level heading field and three different card groups that then have a set of fields related to the card's content.
+
+```
+{
+  "name": "group_card_one",
+  "type": "group",
+  "children": [
+  ]
+}
+```
+
+#### Text 
+The text field allows us to pass relevant context about what a piece of text should be about within the context of the section.
+
+```
+{
+  "name": "card_heading",
+  "type": "text",
+  "description": "A heading that would be at the top of the first card in this section."
+}
+```
+
+#### Images
+The image field allows us to pass relevant context about what an image should be about within the context of the section. The width:height ratio must be 1:1, 1:1.75, or 1.75:1.
+
+```
+{
+  "name": "card_image",
+  "type": "image",
+  "description": "An image that visually captures an element or aspect of the quote.",
+  "width": "300",
+  "height": "300"
+}
+```
+
+#### Forms
+The form field does not allow for an AI generated form. Instead it serves as a placeholder for the team that owns the AI landing page flow to create a form using an API and pass in its values using this field. 
+
+```
+{
+  "name": "form",
+  "type": "form",
+  "description": "A form that a user would fill out to get access to an e-Book"
+}
+```
+
+#### Meetings
+The meeting field does not allow for an AI generated meeting link. Instead it serves as a placeholder for the team that owns the AI landing page flow to pass in a meeting link.
+
+```
+{
+  "name": "meeting",
+  "type": "meeting",
+  "description": "A meeting link that will go in the banner of the page where someone can schedule a meeting with someone from the company."
+}
+```
+
+### Adding a reference to the schema file in the section
+
+To reference values from the newly created scaffolding schema file we would include a reference to the scaffolding schema file path in the section's template annotations via `scaffoldingSchemaPath`. 
+
+```
+<!--
+  templateType: section
+  label: About us
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/about-us.scaffold_schema.json
+  screenshotPath: ../images/section-previews/about-us.png
+  description: "Section with an image on the left and company description on the right."
+-->
+```
+
+### Passing in the value from the scaffolding schema file into the section
+
+After setting up a path to the `scaffoldingSchemaPath`, we can now reference values from our schema file in our section file. Please note that these schema values will not always be populated (e.g. if a user adds one of these sections manually a schema value would not be generated) so we'd want to set a series of fallbacks. You may notice that a section has either a context variable being passed in, a template_translations value passed in, or a mix of both. Context should be referenced first as that is what is used if this section was included in a template and it should take precedence, followed by the schema value, and then falling back to content which we pull from template_translations in most cases. Below is an example:
+
+```
+{% dnd_row %}
+  {% dnd_module
+    path="../components/modules/Heading",
+    headingAndTextHeadingLevel={{ context.heading.heading_level or "h1" }},
+    headingAndTextHeading={{ context.heading.text or scaffold_content.heading or template_translations.section_hero_heading.message }},
+    groupStyle={
+      "alignment": {
+        "text_align": "LEFT"
+      },
+      "headingStyleVariant": "display_2",
+      "sectionStyleVariant": section_variant
+    }
+  %}
+  {% end_dnd_module %}
+{% end_dnd_row %}
+{% dnd_row %}
+  {% dnd_module
+    path="@hubspot/linked_image",
+    img={
+      "alt": context.image.alt or scaffold_content.image.alt or "",
+      "loading": context.image.loading or "eager",
+      "max_height": context.image.height or scaffold_content.image.height or 600,
+      "max_width": context.image.width or scaffold_content.image.width or 1000,
+      "size_type": "auto_custom_max",
+      "src": context.image.src or scaffold_content.image.src or get_asset_url("../images/hero-banner.png")
+    }
+  %}
+  {% end_dnd_module %}
+{% end_dnd_row %}
+```
+
+## Reference Documentation
+This is the [main Hubspot developer documentation](mdc:https:/developers.hubspot.com/docs/cms/building-blocks/content-scaffolding?hs_preview=XjcizpKB-164164808242#configure-scaffolding-schema) for setting up a scaffolding schema file. 
+
+## Implementation Steps
+
+1. **Analyze Section Content to See Where Scaffolding Schema Should Be Added**
+  - Look through the applicable section to see if there is any text, images, forms, or meetings that we should add a scaffolding schema field for. 
+
+2. **Create a New Scaffolding Schema File and Add Fields for the Pieces of Content Identified in Step 1**
+   - Create new scaffolding schema file that includes fields for the content in step 1 and group the fields in a logical way that breaks up the content. You can reference other schema files in `src/unified-theme/sections/schemas` as a helpful reference. 
+
+3. **Add a `scaffoldingSchemaPath` In the Template Annotations of the Section File**
+   - Add a `scaffoldingSchemaPath` to the section's template annotations that references the new scaffolding schema file that was created. 
+
+4. **Add Scaffolding Schema Values in the Section**
+   - Add the scaffolding schema values into the section where appropriate. 
+
+## Example Scenario
+
+Let's walk through an example where we want to configure AI scaffolding schema for a section. 
+
+Note that you shouldn't use this in your final output. But this example provides details on the process you should follow and what expectations are.
+
+The example prompt would be: `Can you set up scaffolding schema for this new hero banner section?`
+
+This would be the example code for the section:
+```
+<!--
+  templateType: section
+  label: Hero banner
+  isAvailableForNewContent: true
+  screenshotPath: ../images/section-previews/hero.png
+  description: "Section with a hero banner image on the right and a heading, description, and two buttons on the left."
+-->
+
+{% set template_translations = load_translations("../templates/_locales", html_lang, "en") %}
+
+{% dnd_section %}
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        headingAndTextHeadingLevel="h1",
+        headingAndTextHeading={{ context.heading or template_translations.section_hero_banner_heading.message }}
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText"
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <p>{{ context.paragraph or template_translations.section_hero_banner_paragraph.message }}</p>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+```
+1. **Analyze Section Content to See Where Scaffolding Schema Should Be Added**
+  - Identifies there are two pieces of text content where we can pass in scaffolding schema values
+
+2. **Create a New Scaffolding Schema File and Add Fields for the Pieces of Content Identified in Step 1**
+   - Creates a new scaffolding schema file and adds those two new fields into that file with appropriate descriptions based on context that can be picked up from the section. 
+
+3. **Add a `scaffoldingSchemaPath` In the Template Annotations of the Section File**
+   - Adds `scaffoldingSchemaPath` in the template annotations of the section file that references back to the new scaffolding schema file that was created in step 2. 
+
+4. **Add Scaffolding Schema Values in the Section**
+   - Passes in the two new field values from the scaffolding schema file into the section file. 
+
+## Step 1: Analyze Section Content to See Where Scaffolding Schema Should Be Added
+
+### Identifies there are two pieces of content that we can add scaffolding schema values for
+- `template_translations.section_hero_banner_heading.message` in the Heading module
+- `template_translations.section_hero_banner_paragraph.message` in the RichText module
+
+## Step 2: Create a New Scaffolding Schema File and Add Fields for the Pieces of Content Identified in Step 1
+
+### Creates a new scaffolding schema file at this path:
+```
+src/unified-theme/sections/schemas/hero-banner.scaffold_schema.json
+```
+
+### Adds fields for the pieces of content identified in step 1
+Given there are only two fields and there are no logical/natural groupings, both fields are determined to be top level.
+```
+{
+  "name": "heading",
+  "type": "text",
+  "description": "A heading that shows at the top of a hero banner."
+},
+{
+  "name": "paragraph",
+  "type": "text",
+  "description": "A paragraph or subheading that shows below the heading on a hero banner."
+}
+```
+
+## Step 3: Add a `scaffoldingSchemaPath` In the Template Annotations of the Section File
+In the template annotation of the section file, the following is added:
+```
+scaffoldSchemaPath: ./schemas/hero-banner.scaffold_schema.json
+```
+
+## Step 4: Add Scaffolding Schema Values in the Section
+We will add in the scaffolding schema values into the section. We'll keep the references to context and template_translations in case a schema value is not passed as part of the page build. We'll default to context first, the schema value second, and the last fallback will be template_translations. 
+
+The final output of all of the steps would be:
+src/unified-theme/sections/schemas/hero-banner.scaffold_schema.json
+```
+[
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "A heading that shows at the top of a hero banner."
+  },
+  {
+    "name": "paragraph",
+    "type": "text",
+    "description": "A paragraph or subheading that shows below the heading on a hero banner."
+  }
+]
+```
+
+```
+<!--
+  templateType: section
+  label: Hero banner
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/hero-banner.scaffold_schema.json
+  screenshotPath: ../images/section-previews/hero.png
+  description: "Section with a hero banner image on the right and a heading, description, and two buttons on the left."
+-->
+
+{% set template_translations = load_translations("../templates/_locales", html_lang, "en") %}
+
+{% dnd_section %}
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        headingAndTextHeadingLevel="h1",
+        headingAndTextHeading={{ context.heading or scaffold_content.heading or template_translations.section_hero_banner_heading.message }}
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText"
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <p>{{ context.paragraph or scaffold_content.paragraph or template_translations.section_hero_banner_paragraph.message }}</p>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+```
 
 ---
 > Source: [HubSpot/cms-elevate-theme-public](https://github.com/HubSpot/cms-elevate-theme-public) — distributed by [TomeVault](https://tomevault.io).
