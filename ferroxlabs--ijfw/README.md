@@ -7,11 +7,11 @@ IJFW — It Just F*cking Works. Ferrox Labs' local-first infrastructure for AI c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [FerroxLabs/ijfw](https://github.com/FerroxLabs/ijfw).
+Original source: `CLAUDE.md` in [FerroxLabs/ijfw](https://github.com/FerroxLabs/ijfw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
