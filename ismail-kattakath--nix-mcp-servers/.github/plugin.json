@@ -1,0 +1,9 @@
+{
+  "name": "ismail-kattakath--nix-mcp-servers",
+  "displayName": "nix-mcp-servers",
+  "description": "A nix flake for configuring Model Context Protocol (MCP) servers across supported AI assistant clients",
+  "version": "1.0.0",
+  "author": "ismail-kattakath",
+  "homepage": "https://github.com/ismail-kattakath/nix-mcp-servers",
+  "skills": []
+}
