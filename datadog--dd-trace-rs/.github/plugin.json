@@ -1,0 +1,9 @@
+{
+  "name": "datadog--dd-trace-rs",
+  "displayName": "dd-trace-rs",
+  "description": "Datadog APM for Rust",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/dd-trace-rs",
+  "skills": []
+}
