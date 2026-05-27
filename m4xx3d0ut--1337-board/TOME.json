@@ -1,0 +1,44 @@
+{
+  "name": "1337-board",
+  "owner": "m4xx3d0ut",
+  "repo": "1337-board",
+  "description": "1337 Board is a desktop-style Android keyboard for terminals, editors, tablets, and power-user text entry. It is inspired by the practical layout ideas in Hacker's Keyboard, but implemented as a modern Android IME with current APIs, custom rendering, and privacy-focused defaults.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/m4xx3d0ut/1337-board",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T12:39:15Z"
+}
