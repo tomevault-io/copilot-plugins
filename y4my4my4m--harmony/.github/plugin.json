@@ -1,0 +1,9 @@
+{
+  "name": "y4my4my4m--harmony",
+  "displayName": "harmony",
+  "description": "Federated social app: Discord-style servers and chat with ActivityPub. Vue 3 + Supabase + Tauri.",
+  "version": "1.0.0",
+  "author": "y4my4my4m",
+  "homepage": "https://github.com/y4my4my4m/harmony",
+  "skills": []
+}
