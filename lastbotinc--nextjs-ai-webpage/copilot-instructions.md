@@ -1,0 +1,263 @@
+## nextjs-ai-webpage
+
+> This is a NextJS 15 / React 19 / Typescript / Tailwind CSS application with Jest and Cypress test frameworks.
+
+<project>
+This is a NextJS 15 / React 19 / Typescript / Tailwind CSS application with Jest and Cypress test frameworks.
+</project>
+
+<tools>
+#internal Cursor tools used
+codebase_search - For semantic search in the codebase
+read_file - For reading file contents
+run_terminal_cmd - For running terminal commands
+list_dir - For listing directory contents
+grep_search - For text-based regex search
+file_search - For fuzzy file path search
+delete_file - For deleting files
+</tools>
+
+<project_tools>
+#Project specific tools, please run as commands with tool defined in tool-attribute
+{
+  "tools": {
+    "recraft": {
+      "description": "Generates images using Recraft V3 API (SOTA text-to-image model)",
+      "tool": "run_terminal_cmd",
+      "command": "npm run recraft",
+      "options": {
+        "prompt": "Text description of the desired image",
+        "style": "(Optional) Image style to use (default: digital_illustration). Available styles:\n
+        - realistic_image (and variants: b_and_w, hard_flash, hdr, natural_light, studio_portrait, enterprise, motion_blur)\n
+        - digital_illustration (and variants: pixel_art, hand_drawn, grain, infantile_sketch, 2d_art_poster, handmade_3d, hand_drawn_outline, engraving_color, 2d_art_poster_2)",
+        "negative_prompt": "(Optional) Things to avoid in the image",
+        "width": "(Optional) Image width in pixels. Available sizes: 1024, 1365, 1536, 1820, 2048, 1434, 1280, 1707 (default: 1024)",
+        "height": "(Optional) Image height in pixels. Available sizes: 1024, 1365, 1536, 1820, 2048, 1434, 1280, 1707 (default: 1024)",
+        "num_outputs": "(Optional) Number of images to generate (default: 1)",
+        "scheduler": "(Optional) Sampling method to use",
+        "num_inference_steps": "(Optional) Number of denoising steps (default: 50)",
+        "guidance_scale": "(Optional) How closely to follow the prompt (default: 7.5)",
+        "seed": "(Optional) Random seed for reproducibility",
+        "folder": "(Optional) Output folder path",
+        "filename": "(Optional) Output filename"
+      },
+      "requires": ["REPLICATE_API_TOKEN in .env"],
+      "example": "npm run recraft -- --prompt \"A modern logo with blue background\" --style digital_illustration --folder public/images --filename logo.png"
+    },
+    "image-optimizer": {
+      "description": "Optimizes images with background removal, resizing, and format conversion",
+      "tool": "run_terminal_cmd",
+      "command": "npm run optimize-image",
+      "options": {
+        "input": "Path to input image",
+        "output": "Path to output image",
+        "remove-bg": "(Optional) Remove image background using AI",
+        "resize": "(Optional) Resize image (format: WIDTHxHEIGHT, e.g. 800x600)",
+        "format": "(Optional) Convert to format (png, jpeg, or webp)",
+        "quality": "(Optional) Set output quality (1-100, default: 80)"
+      },
+      "requires": [
+        "REPLICATE_API_TOKEN in .env",
+        "sharp package (npm install sharp)"
+      ],
+      "example": "npm run optimize-image -- input.png output.webp --resize 512x512 --format webp --quality 90"
+    },
+    "read-url": {
+      "description": "Scrapes a webpage and converts its HTML content to Markdown format",
+      "tool": "run_terminal_cmd",
+      "command": "npm run html-to-md",
+      "options": {
+        "url": "URL of the webpage to scrape",
+        "output": "(Optional) Output file path for the markdown (default: output.md)",
+        "selector": "(Optional) CSS selector to target specific content"
+      },
+      "requires": [
+        "Node.js >= 14",
+        "Internet connection for scraping"
+      ],
+      "example": "npm run html-to-md -- --url https://example.com --output docs/scraped.md --selector main"
+    },
+    "tavily-search": {
+      "description": "Executes AI-powered web search using Tavily API with options for search type, depth, and domain filtering",
+       "tool": "run_terminal_cmd",
+      "command": "npm run tavily-search",
+      "options": {
+        "query": "Search query text",
+        "type": "(Optional) Search type: 'search' (default), 'context', or 'qna' for question and answer",
+        "depth": "(Optional) Search depth: 'basic' (default) or 'advanced'",
+        "max-results": "(Optional) Maximum number of results (default: 5)",
+        "include": "(Optional) Comma-separated list of domains to include",
+        "exclude": "(Optional) Comma-separated list of domains to exclude"
+      },
+      "requires": [
+        "TAVILY_API_KEY in .env",
+        "@tavily/core package"
+      ],
+      "example": "npm run tavily-search -- --query \"Next.js best practices\" --type context --depth advanced --max-results 10"
+    },
+    "download-file": {
+      "description": "Downloads files (especially images) from URLs with progress tracking",
+      "tool": "run_terminal_cmd",
+      "command": "npm run download-file",
+      "options": {
+        "url": "URL of the file to download",
+        "output": "(Optional) Complete output path including filename",
+        "folder": "(Optional) Output folder path (default: downloads)",
+        "filename": "(Optional) Output filename (if not provided, derived from URL or content)"
+      },
+      "requires": [
+        "axios package",
+        "Internet connection"
+      ],
+      "example": "npm run download-file -- --url https://example.com/image.jpg --folder public/images --filename downloaded-image.jpg"
+    }
+  }
+}
+</project_tools>
+
+<documentation>
+  The system is documented in the docs folder under following documents.
+    @description.md:
+        - Provide concise description of the app or system idea
+        - Document core use cases and features
+    @architecture.md:
+        - Define full technical stack (frontend/backend frameworks, databases, testing frameworks)
+        - Folder structure
+    @datamodel.md:
+        - Document all entities, attributes and relationships in a concise way
+    @frontend.md:
+        - List and describe all views/screens
+        - Define UI/UX patterns and styling approach
+    @backend.md:
+        - Document all API endpoints and authentication
+        - Define service architecture and components
+    @todo.md
+        - Tasks by logical areas and mark their status (✅ done, ⏳ in progress, ❌ not started). Next priority tasks in the end.
+        - Prefer full stack tasks.
+    @ai_changelog.md
+        - Changelog of changes done
+    @learnings.md
+        - Consise technical learnings and best practices discovered during development
+        - Solutions to occurred errors, including potential links
+
+  Following files in the root folder explains the used libraries:
+    @package.json:
+      - list of used npm packages and their versions
+</documentation>
+
+<actions>
+  <document>
+     Scan, read and update documents under documentation tag according to instructions.
+  </document>
+
+  <research>
+  Perform a comprehensive study and chain of thought reasoning of what to do. Steps:
+    1. read_file @description, @architecture.md and /package.json for getting context
+    2. execute codebase_search for finding relevant files and methods first for getting furher context.
+    3. tavily-search the web for up-to-date documentation and getting started. Run at least one query always.
+    4. After you have all the context, perform chain of thoughts using this format:
+      4.1. "Reading required files..."
+      4.2. "Analysis: what I found in the files..."
+      4.3. "Plan: what needs to be done, what tools I need..."
+      4.4. "Implementation: how I'll do it..."
+      4.5. "Need more info: what more do I need to know..."
+    5. Present the questions for the user to refine the plan
+  </research>
+
+  <fix>
+  Perform a comprehensive study and chain of thought reasoning of what might cause the error and fix it.
+    1. read_file learnings.md from the docs folder if you have an ready solutions for this
+    2. Read all url's present in the error description
+    3. Then search the web for the quick error resolutions.
+    4. Perform chain of thoughts reasoning for the cause and potential fixes for the error
+    5. Fix and validate the error
+  </fix>
+
+  <validate>
+  Write comprehensive tests, run them and fix any errors
+   1. read_file architecture.md for understanding of code structure and test practises
+   2. write unit tests for the feature
+   3. execute unit tests and fix each errors according to <fix> process
+   4. write e2e tests for the feature
+   5. execute e2e and fix each errors according to <fix> process
+   6. On each fixed and validated bug, document the working error resolutions to learnings.md, including any links that you found usable.
+   7. Repeat until all tests succeed
+  </validate>
+
+  <record>
+   Record the changes done and update backlog
+   1. write summary of what you did in the ai_changelog.md and update the todo list in the todo.md (do not remove any tasks, just update their status)
+  </record>
+
+  <design>
+   Design a feature.
+   1. read_file frontend.md for understanding the UI requirements and specifications like colors
+   2. please design the frontend of the application or feature and document that to frontend.md
+   3. generate any images or illustrations needed in the feature
+   4. optimise the generated images
+   5. write short instructions for the developer to communicate the design and images
+  </design>
+
+  <develop>
+   Develop a feature.
+    1. Develop the full e2e code changes for the requested feature
+  </develop>
+
+  <invent>
+    1. please implement a tool in the tools/ directory and write a tool description in .cursorrules file.
+    2. Execute the tool and fix any errors until it succesfully returns the results you wanted
+  </invent>
+
+  <commit>
+    1. please commit all pending changes using git add . and git commit with descriptive message
+  </commit>
+</actions>
+
+For each request, I will:
+
+1. Analyze the request type and determine required actions from:
+   - research: For understanding context and requirements
+   - design: For UI/UX and visual elements
+   - document: For updating the documentation
+   - develop: For implementation
+   - validate: For testing
+   - fix: For error resolution
+   - record: For recording changes and todo
+   - invent: For creating new tools
+   - commit: For version control
+
+2. Present my analysis with:
+   "Request type: [type]"
+   "Required actions in order:"
+   1. [action 1]
+   2. [action 2]
+   ...
+
+3. For each action:
+   - State "Starting [action]..."
+   - Follow the action's specific steps
+   - Show "Completed [action]"
+   - Ask "Would you like me to proceed to [next action] or do you need any adjustments?"
+
+4. Before proceeding to next action:
+   - Wait for explicit confirmation
+   - Document completed work in relevant files:
+     - ai_changelog.md: What was done
+     - todo.md: Update task status
+     - learnings.md: For any solutions/fixes
+     - Other relevant documentation
+
+5. After final action:
+   - Summarize all changes made
+   - Ask if any final adjustments are needed
+
+Please provide your request and I will analyze it according to this process.
+
+Important rules for actions:
+- Do not ever create a new project, scan the folders to understand the project structure.
+- Do not rely on your current knowledge about libraries, always search the web for up-to-date information
+- Always install the latest version of the libraries
+
+---
+> Source: [LastBotInc/nextjs-ai-webpage](https://github.com/LastBotInc/nextjs-ai-webpage) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
