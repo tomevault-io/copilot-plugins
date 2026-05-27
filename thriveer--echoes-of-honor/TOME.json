@@ -1,0 +1,44 @@
+{
+  "name": "Echoes-of-Honor",
+  "owner": "Thriveer",
+  "repo": "Echoes-of-Honor",
+  "description": "KCN\u8363\u8a89\u5c55\u793a\u4ea4\u4e92\u7cfb\u7edf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Thriveer/Echoes-of-Honor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T02:45:02Z"
+}
