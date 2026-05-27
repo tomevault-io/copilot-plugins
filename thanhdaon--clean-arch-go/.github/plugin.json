@@ -1,0 +1,9 @@
+{
+  "name": "thanhdaon--clean-arch-go",
+  "displayName": "clean-arch-go",
+  "description": "Clean Architecture, DDD, CQRS with testings in Go",
+  "version": "1.0.0",
+  "author": "thanhdaon",
+  "homepage": "https://github.com/thanhdaon/clean-arch-go",
+  "skills": []
+}
