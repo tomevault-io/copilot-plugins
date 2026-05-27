@@ -1,103 +1,101 @@
-## rules-for-cursor
+## testing-standards
 
-> Rules for Writing Cursor Rules
+> Testing Standards
 
 
-# Rules for Writing Cursor Rules
+# Testing Standards
 
-This document provides guidelines for creating and maintaining Cursor IDE rules for the MCP DevTools repository.
+Follow these standards when writing tests for MCP DevTools packages:
 
-@url https://docs.cursor.com/context/rules-for-ai
-@file .cursor/rules/repository-structure.mdc
-@file .cursor/rules/ai-assisted-development.mdc
+@file packages/_/src/\*\*/_.test.ts
+@file .cursor/rules/typescript-style.mdc
 
-## Rule Structure
-
-Each rule file should follow this structure:
-
-````markdown
----
-description: Brief description of what the rule enforces
-globs: pattern/to/match/files.ts
-alwaysApply: true|false
----
-
-# Rule Title
-
-Brief introduction to the rule and its purpose.
-
-@file path/to/example/file.ts
-@file path/to/related/rule.mdc
-@url https://relevant-docs-url.com/
-
-## Sections
-
-Content organized into clear sections with examples.
-
-## Examples
+## Test Structure
 
 ```typescript
-// Code examples demonstrating the rule
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  afterEach,
+  jest,
+} from "@jest/globals";
+import { featureUnderTest } from "../path/to/feature";
+
+describe("Feature Name", () => {
+  // Setup mocks and test fixtures
+  beforeEach(() => {
+    // Setup code
+  });
+
+  afterEach(() => {
+    // Cleanup code
+    jest.resetAllMocks();
+  });
+
+  describe("Specific Functionality", () => {
+    it("should behave as expected in normal conditions", async () => {
+      // Arrange
+      const input = {
+        /* test data */
+      };
+
+      // Act
+      const result = await featureUnderTest(input);
+
+      // Assert
+      expect(result).toEqual(/* expected output */);
+    });
+
+    it("should handle error cases appropriately", async () => {
+      // Arrange
+      const invalidInput = {
+        /* invalid test data */
+      };
+
+      // Act & Assert
+      await expect(featureUnderTest(invalidInput)).rejects.toThrow();
+    });
+  });
+});
 ```
-````
 
-## Guidelines
+## Testing Guidelines
 
-1. **First Guideline**
+1. **Test Organization**
 
-   - Explanation point 1
-   - Explanation point 2
+   - Use descriptive `describe` and `it` blocks
+   - Group related tests together
+   - Follow the Arrange-Act-Assert pattern
+   - Keep tests focused on a single functionality
 
-2. **Second Guideline**
-   - Explanation point 1
-   - Explanation point 2
+2. **Mocking**
 
-```
+   - Mock external dependencies
+   - Use jest.mock() for external modules
+   - Create dedicated mock factories for complex objects
+   - Reset mocks between tests
 
-## Frontmatter Requirements
+3. **Coverage**
 
-Every rule must include these frontmatter fields:
+   - Aim for >80% code coverage
+   - Test happy paths and error paths
+   - Include edge cases and boundary conditions
+   - Test asynchronous behavior correctly
 
-1. **description**: A concise one-line description of the rule
-2. **globs**: File pattern(s) the rule applies to
-3. **alwaysApply**: Whether the rule should automatically apply
+4. **Test Data**
 
-## File References
+   - Use realistic test data
+   - Create helper functions for test data generation
+   - Avoid test data duplication
+   - Keep test data close to tests that use it
 
-Rules should reference:
-
-1. **Example Files**: Include `@file` references to real examples in the codebase
-2. **Related Rules**: Link to related rules with `@file` references
-3. **External Documentation**: Link to relevant external documentation with `@url`
-
-## Guidelines for Writing Effective Rules
-
-1. **Be Specific**
-   - Rules should provide clear, actionable guidance
-   - Include real examples from the codebase when possible
-   - Explain both what to do and what to avoid
-
-2. **Organize Content**
-   - Use clear headings and subheadings
-   - Group related information together
-   - Use numbered lists for sequential steps
-   - Use bullet points for related items
-
-3. **Include Code Examples**
-   - Provide complete, working examples
-   - Comment code examples to explain important points
-   - Show both correct and incorrect patterns
-
-4. **Connect with Other Rules**
-   - Reference related rules
-   - Avoid duplicating content across rules
-   - Ensure consistent guidance across all rules
-
-5. **Keep Updated**
-   - Review and update rules when project standards change
-   - Ensure examples remain valid as the codebase evolves
-   - Add new rules as needed for new patterns or technologies
-```
+5. **Assertions**
+   - Make assertions specific and meaningful
+   - Test return values, side effects, and exceptions
+   - Use appropriate matchers (toEqual, toBeCalledWith, etc.)
+   - Write custom matchers for complex assertions
 
 ---
 > Source: [DXHeroes/mcp-devtools](https://github.com/DXHeroes/mcp-devtools) — distributed by [TomeVault](https://tomevault.io).
