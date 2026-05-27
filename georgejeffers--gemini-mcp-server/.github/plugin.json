@@ -1,0 +1,9 @@
+{
+  "name": "georgejeffers--gemini-mcp-server",
+  "displayName": "Gemini-MCP-Server",
+  "description": "A Model Context Protocol (MCP) server that integrates with Google's Gemini Pro model, can be used in Claude Desktop App.",
+  "version": "1.0.0",
+  "author": "georgejeffers",
+  "homepage": "https://github.com/georgejeffers/Gemini-MCP-Server",
+  "skills": []
+}
