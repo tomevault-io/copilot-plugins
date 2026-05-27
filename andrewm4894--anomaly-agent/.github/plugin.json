@@ -1,0 +1,9 @@
+{
+  "name": "andrewm4894--anomaly-agent",
+  "displayName": "anomaly-agent",
+  "description": "aGeNtIc \ud83d\ude80 time series anomaly detection on your df with AnomalyAgent().detect_anomalies(df)",
+  "version": "1.0.0",
+  "author": "andrewm4894",
+  "homepage": "https://github.com/andrewm4894/anomaly-agent",
+  "skills": []
+}
