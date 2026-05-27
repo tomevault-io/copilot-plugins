@@ -1,78 +1,97 @@
-## ai-assisted-development
+## core-libraries-usage
 
-> AI-Assisted Development Guidelines
+> Core Libraries Usage Guidelines
 
 
-# AI-Assisted Development Guidelines
+# Core Libraries Usage Guidelines
 
-Follow these guidelines when using Cursor IDE with AI assistance for MCP DevTools development:
+When developing MCP DevTools packages, prefer using shared core libraries over custom implementations to ensure consistency and maintainability.
 
-@url https://docs.cursor.com/
-@file .cursor/rules/repository-structure.mdc
+@file packages/jira/src/index.ts
+@file .cursor/rules/mcp-server-implementation.mdc
 
-## Effective AI Prompts
+## Required Core Libraries
 
-1. **Be Specific**
+| Library       | Package                           | Purpose                   | Import Statement                                                         |
+| ------------- | --------------------------------- | ------------------------- | ------------------------------------------------------------------------ |
+| MCP Server    | `@modelcontextprotocol/server`    | Core server functionality | `import { createMcpServer } from '@modelcontextprotocol/server';`        |
+| MCP Inspector | `@modelcontextprotocol/inspector` | Debugging tools           | `import { inspector } from '@modelcontextprotocol/inspector';`           |
+| MCP Types     | `@modelcontextprotocol/types`     | Shared type definitions   | `import { McpRequest, McpResponse } from '@modelcontextprotocol/types';` |
 
-   - Include file paths and line numbers when referencing code
-   - Specify the expected behavior, not just the task
-   - Include relevant context (e.g., "This is part of the Jira MCP integration")
+## Common Utilities
 
-2. **Chunk Complex Tasks**
+The MCP DevTools core utilities should be used instead of reimplementing common functionality:
 
-   - Break down complex tasks into smaller steps
-   - Ask for one implementation at a time
-   - Verify each step before proceeding to the next
+```typescript
+// PREFERRED: Import from core utilities
+import { validateEnvVars, formatErrorResponse } from "@mcp-devtools/core/utils";
 
-3. **Request Explanations**
-   - Ask AI to explain its reasoning
-   - Request documentation alongside implementation
-   - Ask for alternative approaches when appropriate
+// AVOID: Custom implementation of utilities
+const validateEnvVars = (required) => {
+  /* ... */
+}; // Don't do this
+```
 
-## Code Review Assistance
+## Configuration Management
 
-1. **Request Focused Reviews**
+Use the shared configuration management from core:
 
-   - Ask AI to review specific aspects (security, performance, etc.)
-   - Provide the full context of the code being reviewed
-   - Ask for specific improvements rather than general feedback
+```typescript
+import { loadConfig } from "@mcp-devtools/core/config";
 
-2. **Validation Assistance**
-   - Ask AI to help write tests for your code
-   - Request validation of edge cases
-   - Use AI to check for potential bugs or edge cases
+// Load configuration with standard validation
+const config = loadConfig({
+  requiredVars: ["API_KEY", "API_URL"],
+  optionalVars: {
+    TIMEOUT: "30000",
+    DEBUG: "false",
+  },
+});
+```
 
-## Documentation Assistance
+## HTTP Client
 
-1. **Generate Documentation**
+Use the shared HTTP client with standard error handling:
 
-   - Ask AI to create or update README sections
-   - Request JSDoc comments for functions
-   - Use AI to help document complex algorithms
+```typescript
+import { httpClient } from "@mcp-devtools/core/http";
 
-2. **Consistency**
-   - Ask AI to ensure documentation follows the project standards
-   - Request help maintaining consistent terminology
-   - Use AI to check for documentation gaps
+// Make HTTP requests with standard error handling
+const response = await httpClient.get("https://api.example.com/data", {
+  headers: { Authorization: `Bearer ${config.API_KEY}` },
+});
+```
 
-## Best Practices
+## Logging
 
-1. **Always Review AI-Generated Code**
+Use the standardized logging system:
 
-   - Check for correctness and appropriateness
-   - Verify complex algorithms
-   - Ensure it meets project standards
+```typescript
+import { logger } from "@mcp-devtools/core/logger";
 
-2. **Iterative Refinement**
+// Log with standard levels and formatting
+logger.info("Operation successful", { operationId: "123" });
+logger.error("API call failed", { error, statusCode: 500 });
+```
 
-   - Start with a basic implementation
-   - Refine with more specific requirements
-   - Use AI to help optimize the code
+## Authentication Helpers
 
-3. **Enhance, Don't Replace**
-   - Use AI as a collaborator, not a replacement
-   - Maintain ownership of the code
-   - Understand the code AI generates
+Use shared authentication utilities:
+
+```typescript
+import { createAuthHeaders, validateToken } from "@mcp-devtools/core/auth";
+
+// Create standard auth headers
+const headers = createAuthHeaders(config.API_KEY, config.API_SECRET);
+```
+
+## Guidelines
+
+1. **Always check core libraries first** before implementing new functionality
+2. **Keep dependencies updated** to ensure security and compatibility
+3. **Contribute improvements** back to core libraries instead of creating package-specific versions
+4. **Document usage** of core libraries in your package's README
+5. **Follow versioning guidelines** when updating core library dependencies
 
 ---
 > Source: [DXHeroes/mcp-devtools](https://github.com/DXHeroes/mcp-devtools) — distributed by [TomeVault](https://tomevault.io).
