@@ -1,102 +1,94 @@
-## rebe-rule
+## zustand-store-rule
 
-> 이 문서는 프로젝트의 폴더 구조와 각 레이어 간의 상호작용 방식을 설명합니다.
-
-# 프로젝트 구조 및 아키텍처
-
-이 문서는 프로젝트의 폴더 구조와 각 레이어 간의 상호작용 방식을 설명합니다.
-
-## 레이어 개요
-
-- **View**: UI 렌더링 및 사용자 상호작용 처리. `application` 훅을 호출하거나 `store` 데이터를 구독하여 화면을 구성.
-- **application**: 특정 사용자 액션 또는 유스케이스를 처리하는 훅. 여러 `service` 로직이나 `store`를 조합하여 복잡한 흐름 관리.
-
-- **service**: 핵심 비즈니스 로직 및 데이터 관리. 외부 서비스 연동, 데이터 처리를 담당. 크게 `lib`과 'inbound'로 구성되고 도메인과 연관된 서비스는 inbound, 범용적인 서비스는 lib에 정의. initialize를 위해 initialize.ts 및 shared.ts 사용, 모든 서비스는 예외적인 케이스를 제외하고 InitializedSingleton을 Extend 함
-
-- **store**: Zustand 기반의 상태 관리. `persist` 미들웨어를 통해 AsyncStorage에 상태 저장 및 복원(Hydration). `HydrationManager`를 통해 전체 스토어의 하이드레이션 상태 관리.
-
-## 상세 구조
-
-### `app`
-
-- **역할**: 라우팅 설정 및 관리 (expo-router 기반).
-- **구조**:
-    - `_layout.tsx`, `index.tsx`: 전역 레이아웃 및 기본 라우트 설정.
-    - `(protected)/`, `auth/`, `webview/` 등: 각 라우트 그룹 또는 특정 화면 관련 파일 포함.
-    - 특정 페이지에 귀속되나 컴포넌트로서 분리할 가치가 있는 컴포넌트들은 페이지 폴더 내 components/[컴포넌트이름].tsx 로 정의
-    - 
-
-### `View`
-
-- **역할**: UI 컴포넌트, UI 관련 훅, 테마 등 UI 관련 로직 관리. 루트 레벨에 위치.
-- **구조**:
-    - `store`: UI 상태 관리 (예: ThemeProvider, AlertModalStore). `service` 레이어의 전역 상태와 구분됨.
-    - `hooks`: UI 관련 커스텀 훅 (예: 테마 사용, 애니메이션 등).
-    - `core`: 재사용 가능한 핵심 UI 컴포넌트 (Headless, Combined, Non-headless). 특정 페이지 전용 컴포넌트는 해당 페이지 디렉터리 하위 `components` 폴더에 정의.
-    - `bootstrap`: 앱 초기 구동 로직 (예: 폰트 로딩 `useFonts`, 스토어 하이드레이션 상태 확인 `useHydrationStatus`).
-
-### `service`
-
-- **역할**: 핵심 비즈니스 로직, 외부 서비스 연동, 전역 상태 관리 정의. **View 레이어에 직접 의존하지 않음.**
-- **구조**:
-    - `lib`: 도메인과 무관하거나 범용적인 서비스 로직.
-        - `[서비스 이름]` (예: `Auth`, `Ad`, `I18n`, `Store`): 각 도메인 관련 모듈.
-            - `adapter.ts`: 서비스 핵심 기능 제공 (클래스 또는 훅 형태). 싱글톤 패턴(`InitializationSingleTon` in `shared.ts`)을 사용하는 경우가 많음. (Required)- `store.ts`: 해당 도메인의 전역 상태 관리 (Zustand 기반). `StoreService.createPersistentStore`를 사용하여 생성 및 영속화. (Optional)
-            - `consts.ts`: 서비스 관련 상수. (Optional)
-            - `types.d.ts`: 서비스 관련 타입 정의. (Optional)
-        - `Store`: 전역 스토어 생성(`adapter.ts`) 및 하이드레이션 관리(`HydrationManager.ts`) 중앙 처리.
-        - `shared.ts`: 여러 서비스에서 공통으로 사용하는 유틸리티 (예: `InitializationSingleTon`).
-    - `initialize.ts`: 앱 시작 시 필요한 서비스 초기화 로직 포함 가능성.
-    - inbound : lib과 동일한 규칙을 가지나, 프로젝트 도메인고 관련된 서비스 로직만 정의될 수 있음, 또한 일부 예약된 명칭의 인바운드 서비스가 존재
-        - query(예약됌) - lib/http/adapter 를 사용하여 api request function을 정의함. 이때  도메인 이름 단위로 작성됌 (예: auth.ts -> getUser, postUser, deleteUser)
-            - 하나의 request function을 작성할 때는 반드시, 리퀘스트 함수의 이름을 기반으로 params, response 타입을 정의하고, sharedkenel.ts에 정의된 쿼리 함수 타입을 기반으로 쿼리 useQuery 함수도 작성
-
-### `application`
-
-- **역할**: 여러 `service` 로직이나 `store`를 조합하여 특정 사용자 액션(예: 로그인, 결제)이나 복잡한 유스케이스를 처리하는 훅 제공. **View 레이어와 Service 레이어 간의 브릿지 역할.**
-- **구조**:
-    - `[도메인 이름]` (예: `auth`, `permission`): 관련 액션 훅 그룹화.
-        - `[액션 이름].ts` (예: `useAutoSignIn.ts`): 특정 액션을 수행하는 커스텀 훅.
-            - 내부적으로 `service`의 `store`를 구독/업데이트하거나, `service`의 `adapter` 함수를 호출, 또는 직접 외부 라이브러리(예: Firebase)와 상호작용.
-- **특징**:
-    - 훅 형태로 제공되어 View 레이어에서 쉽게 사용 가능.
-    - 재사용 가능한 액션 단위로 로직 캡슐화.
-    - 자세한 주석(기능, 의존성 등) 작성 필수.
-    - 신규 훅 작성 전 유사 기능 존재 여부 검사 필수.
-
-### `store` (개념)
-
-- **역할**: 전역 상태 관리 (Zustand).
-- **구현**:
-    - `service/lib/Store/adapter.ts`: 일반적인 경우 zustand 모듈에서 제공하는 createStore 사용, AsyncStroage사용이 필요한 경우 `createPersistentStore` 함수 사용( AsyncStorage 기반 영속성 및 하이드레이션 관리 기능 포함.)
-    - `service/lib/Store/HydrationManager.ts`: 여러 스토어의 하이드레이션 완료 상태를 추적.
-    - 각 도메인 `service/lib/[도메인]/store.ts`: `createPersistentStore`를 사용하여 실제 스토어 정의.
-- **사용**:
-    - `application` 훅에서 상태 읽기/쓰기.
-    - Service 레이어에서 '읽기'로 사용가능
-    - `View` 레이어의 특정 컴포넌트나 훅에서 직접 상태 구독 가능 (단, 복잡한 로직은 `application` 훅을 통하는 것을 권장).
-    - `View/bootstrap/useHydrationStatus` 훅에서 `HydrationManager` 상태 사용.
-
-## 데이터 흐름 및 상호작용
-
-1.  **앱 시작**:
-    *   `service/initialize.ts` 실행 (필요시).
-    *   `View/bootstrap`의 훅 실행 (폰트 로딩, 하이드레이션 상태 리스너 등록).
-    *   Zustand 스토어들이 AsyncStorage로부터 상태 복원 (Hydration). `HydrationManager`가 완료 상태 추적.
-2.  **사용자 인터랙션 (예: 로그인 버튼 클릭)**:
-    *   `View` 컴포넌트의 이벤트 핸들러가 `application`의 `useSignIn` 훅 호출.
-    *   `useSignIn` 훅 실행:
-        *   필요한 입력값 검증.
-        *   `service/lib/Auth/adapter.ts`의 `signIn` 메소드 호출 또는 직접 Firebase SDK 사용.
-        *   로그인 성공 시, `service/lib/Auth/store.ts`의 상태 업데이트 (예: 사용자 정보, 인증 상태).
-3.  **상태 변경 및 UI 업데이트**:
-    *   `AuthStore` 상태 변경.
-    *   `AuthStore`를 구독하는 `View` 컴포넌트 또는 `application` 훅 리렌더링.
-    *   업데이트된 상태에 따라 UI 변경 (예: 로그인 후 화면으로 이동).
+> description: Zustand 스토어 작성 규칙
 
 ---
+description: Zustand 스토어 작성 규칙
+globs:
+  - "**/store.ts"
+---
 
-- 서비스 스택 : [package.json](mdc:package.json)
+# Zustand Store 작성 규칙
+
+Zustand를 사용하여 상태 관리를 수행하며, 다음과 같은 규칙을 따릅니다.
+
+1.  **파일 위치**:
+    *   스토어 로직은 해당 기능과 관련된 `service/lib/[도메인]/store.ts` 파일에 작성하는 것을 원칙으로 합니다.
+
+2.  **스토어 생성**:
+    *   **영속성 필요 시**: 앱 재시작 시에도 유지되어야 하는 상태 (예: 사용자 설정, 인증 정보)는 `service/lib/Store/adapter.ts`의 `StoreService.createPersistentStore`를 사용하여 생성합니다.
+        *   고유한 `name` (Storage Key)을 첫 번째 인자로 전달합니다. 이 키는 `service/lib/[도메인]/consts.ts`에 정의하고 가져와 사용합니다.
+        *   두 번째 인자로 Zustand 상태 초기화 함수를 전달합니다.
+        *   자동으로 AsyncStorage 저장 및 하이드레이션 관리가 이루어집니다.
+    *   **영속성 불필요 시**: 앱 세션 동안만 유지되는 임시 상태 (예: 로딩 상태, 특정 UI 상태)는 `zustand/vanilla`의 `createStore`를 직접 사용하여 생성합니다.
+        *   필요에 따라 `devtools`, `immer` 등의 미들웨어를 함께 사용할 수 있습니다.
+
+3.  **타입 정의**:
+    *   TypeScript를 사용하여 상태(State)와 액션(Actions) 타입을 명확하게 분리하여 정의합니다. (예: `MyStoreState`, `MyStoreActions`)
+    *   `createPersistentStore` 또는 `createStore` 호출 시 제네릭 타입으로 `MyStoreState & MyStoreActions`와 같이 결합하여 사용합니다.
+
+4.  **초기 상태**:
+    *   스토어 상태의 기본값을 포함하는 `initialState` 객체를 정의합니다.
+
+5.  **초기화 함수**:
+    *   `createPersistentStore` 또는 `createStore`에 전달되는 함수는 `set` (및 필요시 `get`, `api`) 함수를 인자로 받습니다.
+    *   함수 본문에서는 `...initialState`를 포함하고, 정의된 Actions 타입에 맞는 액션 함수들을 구현합니다.
+    *   `immer` 미들웨어 사용 시, `set` 함수 내에서 상태를 직접 변경(mutate)할 수 있습니다.
+
+6.  **Export**:
+    *   생성된 스토어 인스턴스를 export 합니다. (예: `export const MyStore = create...`)
+    *   React 컴포넌트에서 사용하기 위한 커스텀 훅을 export 합니다. 이 훅은 `zustand`의 `useStore`를 사용하여 스토어 인스턴스를 반환합니다. (예: `export const useMyStore = () => useStore(MyStore);`)
+
+**예시 (영속성 필요 시):**
+
+```typescript
+// service/lib/MyFeature/consts.ts
+export const MY_FEATURE_STORAGE_KEY = 'my-feature-storage';
+
+// service/lib/MyFeature/store.ts
+import { StoreService } from '@/service/lib/Store/adapter';
+import { MY_FEATURE_STORAGE_KEY } from './consts';
+import { useStore } from 'zustand';
+
+type MyFeatureState = { count: number };
+type MyFeatureActions = { increment: () => void };
+
+const initialState: MyFeatureState = { count: 0 };
+
+export const MyFeatureStore = StoreService.createPersistentStore<MyFeatureState & MyFeatureActions>(
+  MY_FEATURE_STORAGE_KEY,
+  (set) => ({
+    ...initialState,
+    increment: () => set((state) => ({ count: state.count + 1 })),
+  })
+);
+
+export const useMyFeatureStore = () => useStore(MyFeatureStore);
+```
+
+**예시 (영속성 불필요 시):**
+
+```typescript
+// service/lib/MyTemp/store.ts
+import { createStore } from 'zustand/vanilla';
+import { useStore } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
+
+type MyTempState = { isLoading: boolean };
+type MyTempActions = { setIsLoading: (loading: boolean) => void };
+
+const initialState: MyTempState = { isLoading: false };
+
+export const MyTempStore = createStore<MyTempState & MyTempActions>()(
+  immer((set) => ({
+    ...initialState,
+    setIsLoading: (loading) => set((state) => { state.isLoading = loading; }),
+  }))
+);
+
+export const useMyTempStore = () => useStore(MyTempStore);
+```
+```
 
 ---
 > Source: [Rengod95/expo_template](https://github.com/Rengod95/expo_template) — distributed by [TomeVault](https://tomevault.io).
