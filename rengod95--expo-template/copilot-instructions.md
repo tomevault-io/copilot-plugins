@@ -1,94 +1,192 @@
-## global-rule-for-rebe
+## query-rule
 
-> 자가 평가(Self-assessment) 진행
+> description: API 요청 함수 및 React Query 훅 작성 규칙
 
-1. 기본 원칙 및 역할
-자가 평가(Self-assessment) 진행
+---
+description: API 요청 함수 및 React Query 훅 작성 규칙
+globs: 
+  - "service/inbound/query/**/*.ts" 
+---
 
-AI는 답변 생성 시 내부적으로 신뢰도와 정확성을 평가하여, 불확실한 부분은 “확인 필요” 등의 메시지로 사용자에게 알리거나 재검증 절차를 거칩니다.
-요구사항 최우선 고려
+# API 요청 및 React Query 훅 작성 규칙
 
-사용자의 요구사항과 문제 해결 목적을 항상 최우선으로 반영하며, 불필요한 기능 추가 없이 최소한의 수정으로 문제를 해결합니다.
-기본 역할
+이 문서는 `@tanstack/react-query`를 사용하여 API 데이터를 가져오고 관리하는 함수 및 훅 작성에 대한 규칙을 정의합니다.
 
-AI는 시니어 엔지니어, 소프트웨어 설계 전문가, 다수의 라이브러리 구축 경험 및 UI/UX 디자인 경험을 가진 상태를 전제로 답변을 생성합니다.
-대체 항목 및 누락 방지
+## 1. 파일 위치 및 구조
 
-대체 솔루션이나 누락된 부분 없이, 모든 요구사항을 완벽하게 반영하며 답변합니다.
-모호한 질문에 대한 추가 확인
+*   **위치**: API 요청 관련 로직은 `service/inbound/query/[도메인].ts` 파일에 작성합니다. (예: `service/inbound/query/auth.ts`, `service/inbound/query/user.ts`)
+*   **구성 요소**: 각 파일은 일반적으로 다음 요소들을 포함합니다.
+    *   Query Key Factory (`[domain]Keys` 객체)
+    *   Request Parameter 타입 정의
+    *   Response Data 타입 정의
+    *   API 요청 함수 (Fetcher)
+    *   React Query 커스텀 훅 (`use[Action]Query`)
 
-질문이 불분명하거나 모호한 경우, 답변 전에 추가 컨텍스트나 상세 정보를 사용자에게 요청하여 명확한 이해를 기반으로 답변을 생성합니다.
-모범 사례 인용 및 간결한 수정 제안
+## 2. Query Key Factory
 
-시니어 앱 개발자 및 엔지니어의 모범 사례를 적극 인용하고, 간결하면서도 명확한 수정 사항을 제안합니다.
+*   각 도메인 파일 상단에 `[domain]Keys` 객체를 정의하여 해당 도메인의 Query Key 생성을 관리합니다.
+*   객체 내 각 key는 특정 API 요청에 대한 팩토리 함수입니다.
+*   팩토리 함수는 API 요청에 필요한 파라미터(Params)를 인자로 받아, 고유한 Query Key 배열을 반환합니다.
+*   Query Key 배열의 첫 번째 요소는 일반적으로 데이터의 종류나 엔티티를 나타내는 문자열이며, 이후 요소는 식별자나 파라미터 값입니다.
 
-2. 사용자 피드백 처리 (Feedback Handling) – 토큰 기반 자동화
-AI는 사용자 피드백을 다음과 같은 특정 토큰을 통해 자동으로 처리합니다. 각 토큰은 아래와 같이 정의되어 있으며, 답변 생성 및 재답변, 추가 정보 요청 등과 연계됩니다.
+```typescript
+// 예시: service/inbound/query/todos.ts
+const todosKeys = {
+  // 전체 목록
+  all: () => ["todos"] as const, 
+  // 특정 ID의 todo
+  detail: (params: TodoParams) => ["todos", "detail", params.id] as const,
+  // 특정 사용자의 todo 목록
+  listByUser: (params: UserTodosParams) => ["todos", "list", params.userId] as const,
+};
+```
+*주의: `as const`를 사용하여 Query Key 배열을 Readonly Tuple로 만들어 타입 안정성을 높이는 것을 권장합니다.*
 
-$대안 (기존 $a)
-용도: 제시된 솔루션에 만족하지 않을 때, 대체 가능한 다른 솔루션을 자동으로 제시합니다.
+## 3. 타입 정의
 
-$보충 (기존 $b)
-용도: 답변에 포함된 정보가 부족할 경우, 추가 컨텍스트(예: 관련 파일, 상황 설명 등)를 받아 재답변을 생성합니다.
+*   각 API 요청에 필요한 **Request Parameter 타입**과 **Response Data 타입**을 명확하게 정의합니다.
+*   타입 이름은 요청 함수명 또는 데이터의 종류를 명확히 나타내도록 작성합니다. (예: `GetTodoParams`, `GetTodoResponse`)
 
-$수정 (기존 $c)
-용도: 제시된 답변이나 솔루션의 특정 부분(예: 변수명, 로직 등)의 수정을 요청할 때 사용합니다.
+```typescript
+// 예시: service/inbound/query/todos.ts
+type GetTodoParams = {
+  id: number;
+};
 
-$세부 (기존 $d)
-용도: 답변에 반드시 포함되어야 할, 설계 원리 및 구현 세부사항(이유 및 근거 등)을 명시합니다.
+type Todo = {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+};
 
-$비교 (기존 $e)
-용도: 코드베이스 내 유사한 솔루션이나 작성 패턴과 비교하여, 일관성을 유지할 수 있도록 참고사항을 제공합니다.
+type GetTodoResponse = Todo; 
+```
 
-$설명 (기존 $f)
-용도: 솔루션의 특정 부분에 대해 추가적인 설명이나 세부 사항을 요청할 때 사용합니다.
+## 4. API 요청 함수 (Fetcher)
 
-$최적 (기존 $g)
-용도: 솔루션의 성능 개선이 필요한 경우, 성능 최적화와 관련된 추가 개선안을 포함하도록 합니다.
+*   실제 API 통신을 수행하는 `async` 함수를 정의합니다.
+*   함수 이름은 수행하는 작업을 명확히 나타내도록 작성합니다. (예: `getTodo`, `createTodo`)
+*   정의된 Request Parameter 타입을 인자로 받습니다.
+*   `service/lib/Http/adapter`의 `API` 클라이언트 인스턴스 (Axios 등)를 사용하여 HTTP 요청을 보냅니다.
+*   정의된 Response Data 타입을 반환하도록 명시합니다. 에러 처리는 `API` 클라이언트 또는 전역 에러 핸들러에서 처리하는 것을 가정합니다.
 
-$보안 (기존 $h)
-용도: 보안 측면에서 추가 개선이나 강화가 필요한 경우, 관련 수정 사항을 제안합니다.
+```typescript
+// 예시: service/inbound/query/todos.ts
+import { API } from "@/service/lib/Http/adapter";
 
-$질문 (기존 $q)
-용도: 질문이나 요구사항이 모호할 경우, 답변 전에 추가적인 정보를 요청하여 명확한 컨텍스트를 확보합니다.
+export const getTodo = async (params: GetTodoParams): Promise<GetTodoResponse> => {
+  const response = await API.get<GetTodoResponse>(`/todos/${params.id}`);
+  // API 클라이언트에서 data를 바로 반환한다고 가정
+  return response; 
+};
+```
 
-3. 답변 및 수정 사항에 항상 포함될 메타데이터
+## 5. React Query 커스텀 훅
 
-포함할 메타데이터:
-인식된 컨텍스트(파일, 코드 스니펫, 이전 대화 내역 등)
-관련 파일 목록 및 참조된 코드 베이스 정보
-사용된 룰 및 피드백 처리 토큰 목록
-(추가적으로 $d 토큰이 있을 경우 원리 기반 상세 설명 포함)
+*   각 API 요청 함수에 대응하는 React Query 커스텀 훅을 작성합니다.
+*   훅 이름은 `use[Action]Query` 규칙을 따릅니다. (예: `useGetTodoQuery`)
+*   **(참고)** `QueryFn` 타입 (`@/domain/sharedkernel`): 이 타입은 쿼리 훅의 표준 인터페이스를 정의하는 것으로 보입니다. 주로 `params`와 `queryOptions`를 포함하는 객체를 인자로 받습니다. (만약 `@/domain` 경로가 불확실하거나 타입 정의가 없다면, 이 부분은 프로젝트에 맞게 조정 필요)
+*   훅은 `params` (API 요청 함수에 전달될 파라미터)와 `queryOptions` (`useQuery`에 전달될 추가 옵션)를 포함하는 객체를 인자로 받습니다.
+*   내부적으로 `@tanstack/react-query`의 `useQuery`를 호출합니다.
+    *   `queryKey`: 해당 도메인의 `[domain]Keys` 객체 내 팩토리 함수를 사용하여 생성합니다. (예: `todosKeys.detail(params)`)
+    *   `queryFn`: 작성된 API 요청 함수(Fetcher)를 호출하는 람다 함수를 전달합니다. (예: `() => getTodo(params)`)
+    *   `queryOptions`: 인자로 받은 `queryOptions`를 그대로 전달하여 `enabled`, `staleTime`, `gcTime` 등을 설정할 수 있도록 합니다.
+*   `useQuery`의 반환값을 그대로 반환합니다.
 
-4. 코드베이스 및 패턴 기반 솔루션 적용
-코드베이스 참고:
+```typescript
+// 예시: service/inbound/query/todos.ts
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+// import { QueryFn } from "@/domain/sharedkernel"; // 프로젝트에 맞게 경로/타입 확인 필요
 
-코드베이스 내에 유사한 솔루션이 존재하는 경우, 해당 내용을 참고하여 중복 작업을 피하고 일관성을 유지합니다.
-작성 패턴 및 디자인 패턴 활용:
+// QueryFn 타입이 없거나 다를 경우 아래처럼 직접 정의 가능
+type QueryHookParams<TParams, TData> = {
+  params: TParams;
+  queryOptions?: Omit<UseQueryOptions<TData, Error>, 'queryKey' | 'queryFn'>;
+};
 
-기존 코드 작성 패턴과 잘 동화되도록, 유사하거나 보완할 수 있는 다른 디자인 패턴을 적극적으로 사용합니다.
-수정 사항 검증 및 일관성 확인:
+export const useGetTodoQuery = 
+  // QueryFn 타입 사용 시: QueryFn<GetTodoParams, GetTodoResponse, typeof todosKeys.detail, typeof getTodo>
+  // 직접 정의 시:
+  ({ params, queryOptions }: QueryHookParams<GetTodoParams, GetTodoResponse>) => {
+  return useQuery({
+    queryKey: todosKeys.detail(params), // Key Factory 사용
+    queryFn: () => getTodo(params),    // Fetcher 사용
+    ...queryOptions,                    // 외부 옵션 주입
+  });
+};
+```
 
-제안된 모든 수정 사항과 개선안이 현재 코드베이스 스택과 일치하는지, 다른 부분에 손상을 주지 않는지 사전 검증합니다.
-필요한 코드라인 외 수정 금지 및 부분 수정 우선:
+## 6. 훅 메타데이터 할당 (정적 속성)
 
-솔루션이 필요한 코드라인만 수정하며, 전체 코드를 재작성할 필요가 없는 경우 해당 코드 블록만 별도로 제공합니다.
+*   작성된 커스텀 훅에 `key`와 `fetcher` 정적 속성을 할당합니다.
+*   `key`: 해당 훅이 사용하는 Query Key 팩토리 함수를 가리킵니다.
+*   `fetcher`: 해당 훅이 사용하는 API 요청 함수(Fetcher)를 가리킵니다.
+*   이를 통해 훅 외부에서 Query Key나 Fetcher에 쉽게 접근할 수 있습니다 (예: Prefetching, Manual Invalidation).
 
-5. 자동화 프로세스 및 컨텍스트 관리 보완
-피드백 처리 자동화 프로세스 명세:
+```typescript
+// 예시: service/inbound/query/todos.ts
+useGetTodoQuery.key = todosKeys.detail;
+useGetTodoQuery.fetcher = getTodo;
+```
 
-피드백 수집, 평가, 재답변 생성, 상태 업데이트 및 로그 기록을 자동화하여, 사용자의 피드백 토큰에 따른 동작을 명확히 실행합니다.
-컨텍스트 기반 자동 분류 및 우선순위 지정:
+## 7. 전체 예시
 
-AI는 코드, 문서, 이전 대화 등 다양한 컨텍스트 정보를 자동으로 분류하고, 중요도에 따라 가중치를 부여하여 최적의 답변 생성에 활용합니다.
-오류 검증 및 일관성 확인:
+```typescript
+// service/inbound/query/todos.ts
+import { API } from "@/service/lib/Http/adapter";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+// import { QueryFn } from "@/domain/sharedkernel"; // 확인 필요
 
-$e 토큰과 연계하여, 제안된 솔루션이 코드베이스 내 기존 패턴과 일치하는지, 변경으로 인한 잠재적 오류나 손상이 없는지 사전에 검증합니다.
+// 1. Query Key Factory
+const todosKeys = {
+  all: () => ["todos"] as const,
+  detail: (params: GetTodoParams) => ["todos", "detail", params.id] as const,
+};
 
-사용자 커뮤니케이션 및 피드백 루프:
+// 2. 타입 정의
+type GetTodoParams = {
+  id: number;
+};
 
+type Todo = {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+};
 
-모호한 질문이나 불분명한 요구사항에 대해 $q 토큰을 활용하여 추가 정보를 요청하고, 사용자와의 상호작용을 통해 답변을 보완합니다.
+type GetTodoResponse = Todo;
+
+// 3. API 요청 함수 (Fetcher)
+export const getTodo = async (params: GetTodoParams): Promise<GetTodoResponse> => {
+  const response = await API.get<GetTodoResponse>(`/todos/${params.id}`);
+  return response; 
+};
+
+// 4. React Query 커스텀 훅
+type QueryHookParams<TParams, TData> = {
+  params: TParams;
+  queryOptions?: Omit<UseQueryOptions<TData, Error>, 'queryKey' | 'queryFn'>;
+};
+
+export const useGetTodoQuery = 
+  ({ params, queryOptions }: QueryHookParams<GetTodoParams, GetTodoResponse>) => {
+  return useQuery({
+    queryKey: todosKeys.detail(params), 
+    queryFn: () => getTodo(params),    
+    ...queryOptions,                   
+  });
+};
+
+// 5. 훅 메타데이터 할당
+useGetTodoQuery.key = todosKeys.detail;
+useGetTodoQuery.fetcher = getTodo;
+
+```
+```
+
+이 내용으로 `.cursor/rules/react-query-rule.mdc` 파일을 생성하겠습니다. 괜찮으신가요?
 
 ---
 > Source: [Rengod95/expo_template](https://github.com/Rengod95/expo_template) — distributed by [TomeVault](https://tomevault.io).
