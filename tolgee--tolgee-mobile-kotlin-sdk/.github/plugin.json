@@ -1,0 +1,9 @@
+{
+  "name": "tolgee--tolgee-mobile-kotlin-sdk",
+  "displayName": "tolgee-mobile-kotlin-sdk",
+  "description": "Compose Multiplatform localization wrapper for Tolgee",
+  "version": "1.0.0",
+  "author": "tolgee",
+  "homepage": "https://github.com/tolgee/tolgee-mobile-kotlin-sdk",
+  "skills": []
+}
