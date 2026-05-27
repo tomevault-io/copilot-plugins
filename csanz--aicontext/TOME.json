@@ -4,7 +4,7 @@
   "repo": "aicontext",
   "description": "CLI tool to generate code context files for AI consumption",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/csanz/aicontext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T16:52:25Z"
+  "distributed_at": "2026-05-27T17:23:34Z"
 }
