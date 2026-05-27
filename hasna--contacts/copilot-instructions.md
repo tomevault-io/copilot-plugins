@@ -115,6 +115,5 @@ Override with env var: `CONTACTS_DB_PATH=/path/to/contacts.db contacts-mcp`
 - **Log activities** for important interactions — `log_activity` keeps a timeline per contact
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/hasna)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/hasna)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [hasna/contacts](https://github.com/hasna/contacts) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
