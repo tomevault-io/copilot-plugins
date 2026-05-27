@@ -7,11 +7,11 @@ This project is vite plugin for React Router SSR on AWS Amplify Hosting and AWS 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fossamagna/react-router-amplify](https://github.com/fossamagna/react-router-amplify).
+Original source: `CLAUDE.md` in [fossamagna/react-router-amplify](https://github.com/fossamagna/react-router-amplify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
