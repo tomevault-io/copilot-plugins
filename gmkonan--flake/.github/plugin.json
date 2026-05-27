@@ -1,0 +1,9 @@
+{
+  "name": "gmkonan--flake",
+  "displayName": "flake",
+  "description": "My nixos + home manager config for multiple hosts",
+  "version": "1.0.0",
+  "author": "GMkonan",
+  "homepage": "https://github.com/GMkonan/flake",
+  "skills": []
+}
