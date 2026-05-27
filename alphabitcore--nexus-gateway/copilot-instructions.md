@@ -1,49 +1,127 @@
-## pre-edit-reading
+## provider-adapter-canonical-openai
 
-> Read 3 docs before changing code (architecture + feature + conventions)
+> Canonical = OpenAI shape; each non-OpenAI adapter owns its bidirectional translation (8 binding rules from provider-adapter-architecture.md §3a)
 
 
-# Pre-edit reading — binding 3-doc requirement
+# Provider adapter: canonical = OpenAI shape (binding)
 
-Before writing any code change, you **MUST** read all three of:
+You are editing a provider adapter or its codec. The 8 binding rules below come from `docs/developers/architecture/services/ai-gateway/provider-adapter-architecture.md` §3a. **Apply to every adapter PR.**
 
-1. **Architecture doc(s)** — find your edit area in `docs/developers/architecture/README.md` and open the listed doc(s).
-2. **Feature doc(s)** — if the change affects a user-visible surface, open the matching doc:
-   - CP-UI menu sections → `docs/users/features/cp-ui/<section>.md`
-   - Agent-UI pages → `docs/users/features/agent-ui/<page>.md`
-   - Cross-feature flows (admin → CP → Hub → effect → audit) → `docs/users/features/flows/<flow>.md`
-3. **Conventions** — `docs/developers/workflow/conventions.md` for code style, naming, idioms, commit style, PR review checklist.
+**Read `docs/developers/architecture/services/ai-gateway/provider-adapter-architecture.md` §3a BEFORE editing.**
 
-This rule keeps three things from drifting apart:
+## Rule 1 — Canonical format is OpenAI chat-completions shape
 
-- **Architecture** (what the code is supposed to do structurally).
-- **User-facing surface** (what the human-readable contract looks like).
-- **Code style** (so the change reads consistently with the rest of the repo).
+All internal flow (router input, cache key, hook input, audit envelope, request lineage) sees the **canonical form**, which is OpenAI's shape:
 
-A change that lands without consulting all three is the failure mode that causes architecture rot under new contributors.
+```
+model · messages[] · max_tokens / max_completion_tokens · temperature · top_p · top_k ·
+stream · stop · response_format · tools[] · tool_choice · parallel_tool_calls ·
+metadata · stream_options
+```
 
-## How to apply
+**New canonical fields require an architecture-doc PR** — adapters do not add canonical fields unilaterally.
 
-When the user asks you to edit code:
+## Rule 2 — Each non-OpenAI adapter owns its full bidirectional translation
 
-1. Read `docs/developers/architecture/README.md` → find row matching the edit area → open the listed architecture doc(s).
-2. Identify the affected user-facing surface (if any) and open the matching feature doc.
-3. Open `docs/developers/workflow/conventions.md` if you have not internalised it for this language.
-4. Then write code.
+When you add an Anthropic / Gemini / Bedrock / Cohere / Replicate codec:
 
-## What if a doc is missing?
+- `SchemaCodec.EncodeRequest` does **canonical → wire**.
+- `SchemaCodec.DecodeResponse` does **wire → canonical**.
 
-- **No architecture doc for the edit area** → raise it with the user. Either the architecture is genuinely undocumented (start a new arch doc + trigger row in the same PR) or it's a small piece of an existing area and the relevant arch doc covers it implicitly.
-- **No feature doc for a user-visible change** → raise it with the user. If you're adding a new CP-UI section or Agent-UI page, add the feature doc in the same PR.
-- **No conventions for what you're doing** → if your work is genuinely a new style decision (e.g., introducing a third UI tier), raise it and propose an addition to `docs/developers/workflow/conventions.md`.
+The **OpenAI side stays pure** (identity codec) — it never carries case-statements for "this came from Anthropic so do X". OpenAI shape is the bus; every other shape adapter wires itself into the bus.
 
-## What this rule does NOT require
+## Rule 3 — Per-model wire quirks belong in their own adapter
 
-- It does **not** require updating the docs unless the architecture / feature / conventions are themselves changing.
-- It is **not** a substitute for the Plan / Todo discipline in CLAUDE.md.
-- It does **not** mean "read every doc" — only the ones that cover your edit area.
+HTTP-400-deprecations, parameter renames, mandatory clamping — they live in the adapter that talks to that wire. **Not** in cross-adapter case-statements in `spec_adapter.go`'s shared helpers.
 
-Skipping this rule requires **explicit user approval** in chat.
+| Quirk | Lives in |
+|---|---|
+| claude-opus-4-7 deprecates temperature/top_p/top_k | `specs/anthropic/codec/codec.go::anthropicModelRejectsSamplingParams` |
+| claude-4.x rejects temperature + top_p together | `specs/anthropic/codec/codec.go::anthropicModelRejectsTempTopPTogether` |
+| gpt-5.x / o-series rename max_tokens → max_completion_tokens + strip temp/top_p | `specs/openai/rewrites` (`ApplyReasoningRewrites`, wired as the OpenAI `PassthroughRewrite`) |
+| kimi-k2.5/k2.6 require temperature=1 | `specs/compat/moonshot/rewrites.go` (`ApplyRewrites`, wired as the Moonshot `PassthroughRewrite`) |
+
+When a new family ships an HTTP-400-deprecation, find the adapter that owns its wire and add the prefix-rule there. Cross-adapter shared helpers create the wrong dependency direction.
+
+## Rule 4 — `nexus.ext.<provider>.<key>` is the canonical extension namespace
+
+Fields with no clean OpenAI mapping (Anthropic's `thinking`, Gemini's `thinkingConfig`, Anthropic's `cache_creation_input_tokens`, Bedrock's `anthropic_version`) ride along inside `nexus.ext.<provider>.<key>` on the canonical body.
+
+Package: `providers/canonicalext/`. Use:
+
+- `canonicalext.Get`
+- `canonicalext.Set`
+- `canonicalext.ScanUnsupported`
+- `canonicalext.WarnOnce` — adapters that observe an unsupported canonical field emit a one-shot WARN so operators see drift between the canonical surface and the codec.
+
+## Rule 5 — `SchemaCodec.EncodeRequest` contract: input is canonical, output is target wire
+
+Callers that have an **ingress-format body** (Anthropic `/v1/messages`, Gemini `:generateContent`) MUST canonicalize first via:
+
+```go
+canonical, err := canonicalbridge.IngressChatToCanonical(ingress, body, target)
+```
+
+…before invoking `adapter.PrepareBody` / `SchemaCodec.EncodeRequest`. Skipping canonicalization makes the OpenAI identity codec forward the ingress body verbatim, and the upstream returns 400 (or worse, parses partially and produces gibberish).
+
+`EncodeRequest` accepts canonical-or-codec-empty (passthrough); it does NOT accept "any old shape and we'll figure it out".
+
+## Rule 6 — Both streaming and non-streaming are in scope
+
+A codec rule that strips `temperature` from a non-streaming request **must also strip it from the streaming variant** — the upstream rejects both. The streaming session's pre-dispatch body construction goes through the same `PrepareBody` path, so this typically falls out for free.
+
+The gap usually appears on **error-frame construction** (response side) when the gateway hand-builds an SSE error and forgets the ingress format. Rule 8 covers this.
+
+## Rule 7 — Add empirical evidence to every prefix-list
+
+Every "model X rejects param Y" rule MUST be backed by an **observed 400** (logged trace_id or direct test call). Speculative rules cause silent flattening of caller intent — strip a param that the model actually accepts, and you've degraded behaviour without surfacing why.
+
+The comment above each prefix-list switch documents the observation (date + error message). Canonical example: `anthropicModelRejectsSamplingParams` in `specs/anthropic/codec/codec.go` carries the observed-400 evidence in its comment block.
+
+```go
+// Date: 2026-05-09. Observed via trace_id=abc... on claude-opus-4-7:
+//   { "type":"invalid_request_error", "message":"temperature is not allowed for this model" }
+// Verified again 2026-05-12 via direct curl. Confirmed: deprecation, not a transient.
+var anthropicModelRejectsSamplingParams = []string{
+    "claude-opus-4-7",
+    ...
+}
+```
+
+Without evidence:
+- Reviewers can't tell if the rule is correct or speculative.
+- Future contributors don't know when the upstream's deprecation could be lifted.
+- Drift goes unnoticed.
+
+## Rule 8 — error envelopes are reshaped to the caller's ingress format
+
+A normalized `ProviderError` is never serialized in one hardcoded shape. Reshape it to the caller's format via:
+
+```go
+errBody := envelope.EncodeErrorEnvelopeForIngress(ingress.BodyFormat, upstreamFormat, providerError)
+```
+
+`packages/ai-gateway/internal/ingress/envelope/error_envelope.go` selects the per-format encoder (OpenAI / Anthropic / Gemini / Responses); the SSE variant `encodeErrorEnvelopeForIngressForStream` wraps the JSON envelope in the stream frame. An Anthropic caller must receive an Anthropic-shaped error even when the upstream error and its normalization were OpenAI-internal. Do **not** hand-build an OpenAI-shape error frame regardless of caller.
+
+## Pre-commit checks
+
+When you touch an adapter codec:
+
+```bash
+grep -nE 'spec_adapter\.go.*case' packages/ai-gateway/internal/providers/   # cross-adapter case-statements
+grep -nE 'nexus\.ext\.[a-z]+\.' packages/                                    # extension-namespace usage
+grep -nE 'IngressChatToCanonical' packages/                                  # canonicalize-before-encode
+```
+
+## Reference checklist for new adapter PRs
+
+Use `.claude/skills/add-provider-adapter/` for the full procedure.
+
+## Audit an existing adapter
+
+Use `.claude/skills/adapter-conformance-check/` to verify an existing codec against Rules 1-8. Catches per-adapter logic that leaked into the generic dispatcher, missing canonicalize-before-dispatch, error envelopes that bypass the helper, prefix-lists without empirical evidence, and missing `PassthroughRewrite` wiring.
+
+Skipping any of these 8 rules requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
