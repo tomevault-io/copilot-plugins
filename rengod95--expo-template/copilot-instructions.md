@@ -1,192 +1,102 @@
-## query-rule
+## rebe-rule
 
-> description: API 요청 함수 및 React Query 훅 작성 규칙
+> 이 문서는 프로젝트의 폴더 구조와 각 레이어 간의 상호작용 방식을 설명합니다.
+
+# 프로젝트 구조 및 아키텍처
+
+이 문서는 프로젝트의 폴더 구조와 각 레이어 간의 상호작용 방식을 설명합니다.
+
+## 레이어 개요
+
+- **View**: UI 렌더링 및 사용자 상호작용 처리. `application` 훅을 호출하거나 `store` 데이터를 구독하여 화면을 구성.
+- **application**: 특정 사용자 액션 또는 유스케이스를 처리하는 훅. 여러 `service` 로직이나 `store`를 조합하여 복잡한 흐름 관리.
+
+- **service**: 핵심 비즈니스 로직 및 데이터 관리. 외부 서비스 연동, 데이터 처리를 담당. 크게 `lib`과 'inbound'로 구성되고 도메인과 연관된 서비스는 inbound, 범용적인 서비스는 lib에 정의. initialize를 위해 initialize.ts 및 shared.ts 사용, 모든 서비스는 예외적인 케이스를 제외하고 InitializedSingleton을 Extend 함
+
+- **store**: Zustand 기반의 상태 관리. `persist` 미들웨어를 통해 AsyncStorage에 상태 저장 및 복원(Hydration). `HydrationManager`를 통해 전체 스토어의 하이드레이션 상태 관리.
+
+## 상세 구조
+
+### `app`
+
+- **역할**: 라우팅 설정 및 관리 (expo-router 기반).
+- **구조**:
+    - `_layout.tsx`, `index.tsx`: 전역 레이아웃 및 기본 라우트 설정.
+    - `(protected)/`, `auth/`, `webview/` 등: 각 라우트 그룹 또는 특정 화면 관련 파일 포함.
+    - 특정 페이지에 귀속되나 컴포넌트로서 분리할 가치가 있는 컴포넌트들은 페이지 폴더 내 components/[컴포넌트이름].tsx 로 정의
+    - 
+
+### `View`
+
+- **역할**: UI 컴포넌트, UI 관련 훅, 테마 등 UI 관련 로직 관리. 루트 레벨에 위치.
+- **구조**:
+    - `store`: UI 상태 관리 (예: ThemeProvider, AlertModalStore). `service` 레이어의 전역 상태와 구분됨.
+    - `hooks`: UI 관련 커스텀 훅 (예: 테마 사용, 애니메이션 등).
+    - `core`: 재사용 가능한 핵심 UI 컴포넌트 (Headless, Combined, Non-headless). 특정 페이지 전용 컴포넌트는 해당 페이지 디렉터리 하위 `components` 폴더에 정의.
+    - `bootstrap`: 앱 초기 구동 로직 (예: 폰트 로딩 `useFonts`, 스토어 하이드레이션 상태 확인 `useHydrationStatus`).
+
+### `service`
+
+- **역할**: 핵심 비즈니스 로직, 외부 서비스 연동, 전역 상태 관리 정의. **View 레이어에 직접 의존하지 않음.**
+- **구조**:
+    - `lib`: 도메인과 무관하거나 범용적인 서비스 로직.
+        - `[서비스 이름]` (예: `Auth`, `Ad`, `I18n`, `Store`): 각 도메인 관련 모듈.
+            - `adapter.ts`: 서비스 핵심 기능 제공 (클래스 또는 훅 형태). 싱글톤 패턴(`InitializationSingleTon` in `shared.ts`)을 사용하는 경우가 많음. (Required)- `store.ts`: 해당 도메인의 전역 상태 관리 (Zustand 기반). `StoreService.createPersistentStore`를 사용하여 생성 및 영속화. (Optional)
+            - `consts.ts`: 서비스 관련 상수. (Optional)
+            - `types.d.ts`: 서비스 관련 타입 정의. (Optional)
+        - `Store`: 전역 스토어 생성(`adapter.ts`) 및 하이드레이션 관리(`HydrationManager.ts`) 중앙 처리.
+        - `shared.ts`: 여러 서비스에서 공통으로 사용하는 유틸리티 (예: `InitializationSingleTon`).
+    - `initialize.ts`: 앱 시작 시 필요한 서비스 초기화 로직 포함 가능성.
+    - inbound : lib과 동일한 규칙을 가지나, 프로젝트 도메인고 관련된 서비스 로직만 정의될 수 있음, 또한 일부 예약된 명칭의 인바운드 서비스가 존재
+        - query(예약됌) - lib/http/adapter 를 사용하여 api request function을 정의함. 이때  도메인 이름 단위로 작성됌 (예: auth.ts -> getUser, postUser, deleteUser)
+            - 하나의 request function을 작성할 때는 반드시, 리퀘스트 함수의 이름을 기반으로 params, response 타입을 정의하고, sharedkenel.ts에 정의된 쿼리 함수 타입을 기반으로 쿼리 useQuery 함수도 작성
+
+### `application`
+
+- **역할**: 여러 `service` 로직이나 `store`를 조합하여 특정 사용자 액션(예: 로그인, 결제)이나 복잡한 유스케이스를 처리하는 훅 제공. **View 레이어와 Service 레이어 간의 브릿지 역할.**
+- **구조**:
+    - `[도메인 이름]` (예: `auth`, `permission`): 관련 액션 훅 그룹화.
+        - `[액션 이름].ts` (예: `useAutoSignIn.ts`): 특정 액션을 수행하는 커스텀 훅.
+            - 내부적으로 `service`의 `store`를 구독/업데이트하거나, `service`의 `adapter` 함수를 호출, 또는 직접 외부 라이브러리(예: Firebase)와 상호작용.
+- **특징**:
+    - 훅 형태로 제공되어 View 레이어에서 쉽게 사용 가능.
+    - 재사용 가능한 액션 단위로 로직 캡슐화.
+    - 자세한 주석(기능, 의존성 등) 작성 필수.
+    - 신규 훅 작성 전 유사 기능 존재 여부 검사 필수.
+
+### `store` (개념)
+
+- **역할**: 전역 상태 관리 (Zustand).
+- **구현**:
+    - `service/lib/Store/adapter.ts`: 일반적인 경우 zustand 모듈에서 제공하는 createStore 사용, AsyncStroage사용이 필요한 경우 `createPersistentStore` 함수 사용( AsyncStorage 기반 영속성 및 하이드레이션 관리 기능 포함.)
+    - `service/lib/Store/HydrationManager.ts`: 여러 스토어의 하이드레이션 완료 상태를 추적.
+    - 각 도메인 `service/lib/[도메인]/store.ts`: `createPersistentStore`를 사용하여 실제 스토어 정의.
+- **사용**:
+    - `application` 훅에서 상태 읽기/쓰기.
+    - Service 레이어에서 '읽기'로 사용가능
+    - `View` 레이어의 특정 컴포넌트나 훅에서 직접 상태 구독 가능 (단, 복잡한 로직은 `application` 훅을 통하는 것을 권장).
+    - `View/bootstrap/useHydrationStatus` 훅에서 `HydrationManager` 상태 사용.
+
+## 데이터 흐름 및 상호작용
+
+1.  **앱 시작**:
+    *   `service/initialize.ts` 실행 (필요시).
+    *   `View/bootstrap`의 훅 실행 (폰트 로딩, 하이드레이션 상태 리스너 등록).
+    *   Zustand 스토어들이 AsyncStorage로부터 상태 복원 (Hydration). `HydrationManager`가 완료 상태 추적.
+2.  **사용자 인터랙션 (예: 로그인 버튼 클릭)**:
+    *   `View` 컴포넌트의 이벤트 핸들러가 `application`의 `useSignIn` 훅 호출.
+    *   `useSignIn` 훅 실행:
+        *   필요한 입력값 검증.
+        *   `service/lib/Auth/adapter.ts`의 `signIn` 메소드 호출 또는 직접 Firebase SDK 사용.
+        *   로그인 성공 시, `service/lib/Auth/store.ts`의 상태 업데이트 (예: 사용자 정보, 인증 상태).
+3.  **상태 변경 및 UI 업데이트**:
+    *   `AuthStore` 상태 변경.
+    *   `AuthStore`를 구독하는 `View` 컴포넌트 또는 `application` 훅 리렌더링.
+    *   업데이트된 상태에 따라 UI 변경 (예: 로그인 후 화면으로 이동).
 
 ---
-description: API 요청 함수 및 React Query 훅 작성 규칙
-globs: 
-  - "service/inbound/query/**/*.ts" 
----
 
-# API 요청 및 React Query 훅 작성 규칙
-
-이 문서는 `@tanstack/react-query`를 사용하여 API 데이터를 가져오고 관리하는 함수 및 훅 작성에 대한 규칙을 정의합니다.
-
-## 1. 파일 위치 및 구조
-
-*   **위치**: API 요청 관련 로직은 `service/inbound/query/[도메인].ts` 파일에 작성합니다. (예: `service/inbound/query/auth.ts`, `service/inbound/query/user.ts`)
-*   **구성 요소**: 각 파일은 일반적으로 다음 요소들을 포함합니다.
-    *   Query Key Factory (`[domain]Keys` 객체)
-    *   Request Parameter 타입 정의
-    *   Response Data 타입 정의
-    *   API 요청 함수 (Fetcher)
-    *   React Query 커스텀 훅 (`use[Action]Query`)
-
-## 2. Query Key Factory
-
-*   각 도메인 파일 상단에 `[domain]Keys` 객체를 정의하여 해당 도메인의 Query Key 생성을 관리합니다.
-*   객체 내 각 key는 특정 API 요청에 대한 팩토리 함수입니다.
-*   팩토리 함수는 API 요청에 필요한 파라미터(Params)를 인자로 받아, 고유한 Query Key 배열을 반환합니다.
-*   Query Key 배열의 첫 번째 요소는 일반적으로 데이터의 종류나 엔티티를 나타내는 문자열이며, 이후 요소는 식별자나 파라미터 값입니다.
-
-```typescript
-// 예시: service/inbound/query/todos.ts
-const todosKeys = {
-  // 전체 목록
-  all: () => ["todos"] as const, 
-  // 특정 ID의 todo
-  detail: (params: TodoParams) => ["todos", "detail", params.id] as const,
-  // 특정 사용자의 todo 목록
-  listByUser: (params: UserTodosParams) => ["todos", "list", params.userId] as const,
-};
-```
-*주의: `as const`를 사용하여 Query Key 배열을 Readonly Tuple로 만들어 타입 안정성을 높이는 것을 권장합니다.*
-
-## 3. 타입 정의
-
-*   각 API 요청에 필요한 **Request Parameter 타입**과 **Response Data 타입**을 명확하게 정의합니다.
-*   타입 이름은 요청 함수명 또는 데이터의 종류를 명확히 나타내도록 작성합니다. (예: `GetTodoParams`, `GetTodoResponse`)
-
-```typescript
-// 예시: service/inbound/query/todos.ts
-type GetTodoParams = {
-  id: number;
-};
-
-type Todo = {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-};
-
-type GetTodoResponse = Todo; 
-```
-
-## 4. API 요청 함수 (Fetcher)
-
-*   실제 API 통신을 수행하는 `async` 함수를 정의합니다.
-*   함수 이름은 수행하는 작업을 명확히 나타내도록 작성합니다. (예: `getTodo`, `createTodo`)
-*   정의된 Request Parameter 타입을 인자로 받습니다.
-*   `service/lib/Http/adapter`의 `API` 클라이언트 인스턴스 (Axios 등)를 사용하여 HTTP 요청을 보냅니다.
-*   정의된 Response Data 타입을 반환하도록 명시합니다. 에러 처리는 `API` 클라이언트 또는 전역 에러 핸들러에서 처리하는 것을 가정합니다.
-
-```typescript
-// 예시: service/inbound/query/todos.ts
-import { API } from "@/service/lib/Http/adapter";
-
-export const getTodo = async (params: GetTodoParams): Promise<GetTodoResponse> => {
-  const response = await API.get<GetTodoResponse>(`/todos/${params.id}`);
-  // API 클라이언트에서 data를 바로 반환한다고 가정
-  return response; 
-};
-```
-
-## 5. React Query 커스텀 훅
-
-*   각 API 요청 함수에 대응하는 React Query 커스텀 훅을 작성합니다.
-*   훅 이름은 `use[Action]Query` 규칙을 따릅니다. (예: `useGetTodoQuery`)
-*   **(참고)** `QueryFn` 타입 (`@/domain/sharedkernel`): 이 타입은 쿼리 훅의 표준 인터페이스를 정의하는 것으로 보입니다. 주로 `params`와 `queryOptions`를 포함하는 객체를 인자로 받습니다. (만약 `@/domain` 경로가 불확실하거나 타입 정의가 없다면, 이 부분은 프로젝트에 맞게 조정 필요)
-*   훅은 `params` (API 요청 함수에 전달될 파라미터)와 `queryOptions` (`useQuery`에 전달될 추가 옵션)를 포함하는 객체를 인자로 받습니다.
-*   내부적으로 `@tanstack/react-query`의 `useQuery`를 호출합니다.
-    *   `queryKey`: 해당 도메인의 `[domain]Keys` 객체 내 팩토리 함수를 사용하여 생성합니다. (예: `todosKeys.detail(params)`)
-    *   `queryFn`: 작성된 API 요청 함수(Fetcher)를 호출하는 람다 함수를 전달합니다. (예: `() => getTodo(params)`)
-    *   `queryOptions`: 인자로 받은 `queryOptions`를 그대로 전달하여 `enabled`, `staleTime`, `gcTime` 등을 설정할 수 있도록 합니다.
-*   `useQuery`의 반환값을 그대로 반환합니다.
-
-```typescript
-// 예시: service/inbound/query/todos.ts
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-// import { QueryFn } from "@/domain/sharedkernel"; // 프로젝트에 맞게 경로/타입 확인 필요
-
-// QueryFn 타입이 없거나 다를 경우 아래처럼 직접 정의 가능
-type QueryHookParams<TParams, TData> = {
-  params: TParams;
-  queryOptions?: Omit<UseQueryOptions<TData, Error>, 'queryKey' | 'queryFn'>;
-};
-
-export const useGetTodoQuery = 
-  // QueryFn 타입 사용 시: QueryFn<GetTodoParams, GetTodoResponse, typeof todosKeys.detail, typeof getTodo>
-  // 직접 정의 시:
-  ({ params, queryOptions }: QueryHookParams<GetTodoParams, GetTodoResponse>) => {
-  return useQuery({
-    queryKey: todosKeys.detail(params), // Key Factory 사용
-    queryFn: () => getTodo(params),    // Fetcher 사용
-    ...queryOptions,                    // 외부 옵션 주입
-  });
-};
-```
-
-## 6. 훅 메타데이터 할당 (정적 속성)
-
-*   작성된 커스텀 훅에 `key`와 `fetcher` 정적 속성을 할당합니다.
-*   `key`: 해당 훅이 사용하는 Query Key 팩토리 함수를 가리킵니다.
-*   `fetcher`: 해당 훅이 사용하는 API 요청 함수(Fetcher)를 가리킵니다.
-*   이를 통해 훅 외부에서 Query Key나 Fetcher에 쉽게 접근할 수 있습니다 (예: Prefetching, Manual Invalidation).
-
-```typescript
-// 예시: service/inbound/query/todos.ts
-useGetTodoQuery.key = todosKeys.detail;
-useGetTodoQuery.fetcher = getTodo;
-```
-
-## 7. 전체 예시
-
-```typescript
-// service/inbound/query/todos.ts
-import { API } from "@/service/lib/Http/adapter";
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-// import { QueryFn } from "@/domain/sharedkernel"; // 확인 필요
-
-// 1. Query Key Factory
-const todosKeys = {
-  all: () => ["todos"] as const,
-  detail: (params: GetTodoParams) => ["todos", "detail", params.id] as const,
-};
-
-// 2. 타입 정의
-type GetTodoParams = {
-  id: number;
-};
-
-type Todo = {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-};
-
-type GetTodoResponse = Todo;
-
-// 3. API 요청 함수 (Fetcher)
-export const getTodo = async (params: GetTodoParams): Promise<GetTodoResponse> => {
-  const response = await API.get<GetTodoResponse>(`/todos/${params.id}`);
-  return response; 
-};
-
-// 4. React Query 커스텀 훅
-type QueryHookParams<TParams, TData> = {
-  params: TParams;
-  queryOptions?: Omit<UseQueryOptions<TData, Error>, 'queryKey' | 'queryFn'>;
-};
-
-export const useGetTodoQuery = 
-  ({ params, queryOptions }: QueryHookParams<GetTodoParams, GetTodoResponse>) => {
-  return useQuery({
-    queryKey: todosKeys.detail(params), 
-    queryFn: () => getTodo(params),    
-    ...queryOptions,                   
-  });
-};
-
-// 5. 훅 메타데이터 할당
-useGetTodoQuery.key = todosKeys.detail;
-useGetTodoQuery.fetcher = getTodo;
-
-```
-```
-
-이 내용으로 `.cursor/rules/react-query-rule.mdc` 파일을 생성하겠습니다. 괜찮으신가요?
+- 서비스 스택 : [package.json](mdc:package.json)
 
 ---
 > Source: [Rengod95/expo_template](https://github.com/Rengod95/expo_template) — distributed by [TomeVault](https://tomevault.io).
