@@ -7,11 +7,11 @@ A repo with a devcontainer ready to vibe with Claude, Codex or Gemini
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wandb/vibes](https://github.com/wandb/vibes).
+Original source: `CLAUDE.md` in [wandb/vibes](https://github.com/wandb/vibes).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
