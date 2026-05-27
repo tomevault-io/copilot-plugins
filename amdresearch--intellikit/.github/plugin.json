@@ -1,0 +1,9 @@
+{
+  "name": "amdresearch--intellikit",
+  "displayName": "intellikit",
+  "description": "IntelliKit is a collection of intelligent tools designed to make GPU kernel development, profiling, and validation accessible to LLMs and human developers alike. Built for AMD ROCm, these tools provid",
+  "version": "1.0.0",
+  "author": "AMDResearch",
+  "homepage": "https://github.com/AMDResearch/intellikit",
+  "skills": []
+}
