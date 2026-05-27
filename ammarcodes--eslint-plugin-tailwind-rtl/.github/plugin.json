@@ -1,0 +1,9 @@
+{
+  "name": "ammarcodes--eslint-plugin-tailwind-rtl",
+  "displayName": "eslint-plugin-tailwind-rtl",
+  "description": "ESLint plugin for RTL-safe Tailwind CSS \u2014 catches physical direction classes and suggests logical alternatives",
+  "version": "1.0.0",
+  "author": "AmmarCodes",
+  "homepage": "https://github.com/AmmarCodes/eslint-plugin-tailwind-rtl",
+  "skills": []
+}
