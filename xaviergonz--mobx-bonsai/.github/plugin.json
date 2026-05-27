@@ -1,0 +1,9 @@
+{
+  "name": "xaviergonz--mobx-bonsai",
+  "displayName": "mobx-bonsai",
+  "description": "A fast lightweight alternative to MobX-State-Tree + Y.js two-way binding",
+  "version": "1.0.0",
+  "author": "xaviergonz",
+  "homepage": "https://github.com/xaviergonz/mobx-bonsai",
+  "skills": []
+}
