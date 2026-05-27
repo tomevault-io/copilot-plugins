@@ -4,7 +4,7 @@
   "repo": "lamacro",
   "description": "Central de deudores, inflaci\u00f3n, reservas, d\u00f3lar, tasas, y calculadora de carry trade.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TomiMalamud/lamacro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T16:45:40Z"
+  "distributed_at": "2026-05-27T17:10:44Z"
 }
