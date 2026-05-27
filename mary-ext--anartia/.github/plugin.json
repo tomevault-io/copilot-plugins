@@ -1,0 +1,9 @@
+{
+  "name": "mary-ext--anartia",
+  "displayName": "anartia",
+  "description": "JavaScript-optional public web frontend for Bluesky.",
+  "version": "1.0.0",
+  "author": "mary-ext",
+  "homepage": "https://github.com/mary-ext/anartia",
+  "skills": []
+}
