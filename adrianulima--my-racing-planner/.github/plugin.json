@@ -1,7 +1,7 @@
 {
   "name": "adrianulima--my-racing-planner",
   "displayName": "my-racing-planner",
-  "description": "my-racing-planner",
+  "description": "This tool helps iRacing users efficiently navigate series, cars, and tracks, allowing them to make informed decisions about the best content to purchase based on usage in the current season.",
   "version": "1.0.0",
   "author": "adrianulima",
   "homepage": "https://github.com/adrianulima/my-racing-planner",
