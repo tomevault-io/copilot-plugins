@@ -1,0 +1,9 @@
+{
+  "name": "fedi-libs--apkit",
+  "displayName": "apkit",
+  "description": "Powerful Toolkit for ActivityPub Implementations.",
+  "version": "1.0.0",
+  "author": "fedi-libs",
+  "homepage": "https://github.com/fedi-libs/apkit",
+  "skills": []
+}
