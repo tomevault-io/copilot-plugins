@@ -4,7 +4,7 @@
   "repo": "simplicio-cli",
   "description": "Your tasks with 99% accuracy using any LLM (Claude, DeepSeek, Codex, Gemini, Hermes, OpenClaw, Cursor).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wesleysimplicio/simplicio-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T00:32:29Z"
+  "distributed_at": "2026-05-27T00:34:01Z"
 }
