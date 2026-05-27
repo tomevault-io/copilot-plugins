@@ -7,11 +7,11 @@ Collection of Marp-based presentation templates for 3-SHAKE. Features standardiz
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nwiizo/3shake-marp-templates](https://github.com/nwiizo/3shake-marp-templates).
+Original source: `CLAUDE.md` in [nwiizo/3shake-marp-templates](https://github.com/nwiizo/3shake-marp-templates).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
