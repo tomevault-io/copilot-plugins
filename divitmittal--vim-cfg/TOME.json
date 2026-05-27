@@ -1,0 +1,44 @@
+{
+  "name": "Vim-Cfg",
+  "owner": "DivitMittal",
+  "repo": "Vim-Cfg",
+  "description": "Neovim & vim configurations for OS-nixCfg deployed via nix home-manager",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DivitMittal/Vim-Cfg",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T12:30:31Z"
+}
