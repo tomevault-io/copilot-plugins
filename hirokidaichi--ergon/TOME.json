@@ -1,0 +1,44 @@
+{
+  "name": "ergon",
+  "owner": "hirokidaichi",
+  "repo": "ergon",
+  "description": "\u753b\u50cf\u306e\u8a8d\u8b58\u3068\u76ee\u9332\u306e\u66f8\u304d\u51fa\u3057",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hirokidaichi/ergon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T17:11:11Z"
+}
