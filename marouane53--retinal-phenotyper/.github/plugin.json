@@ -1,0 +1,9 @@
+{
+  "name": "marouane53--retinal-phenotyper",
+  "displayName": "retinal-phenotyper",
+  "description": "Automated segmentation, phenotyping, and spatial analysis of retinal flat-mount images with reproducible study workflows and publication-ready outputs.",
+  "version": "1.0.0",
+  "author": "marouane53",
+  "homepage": "https://github.com/marouane53/retinal-phenotyper",
+  "skills": []
+}
