@@ -1,0 +1,9 @@
+{
+  "name": "antimetal--system-agent",
+  "displayName": "system-agent",
+  "description": "Component that connects your infrastructure to the Antimetal platform",
+  "version": "1.0.0",
+  "author": "antimetal",
+  "homepage": "https://github.com/antimetal/system-agent",
+  "skills": []
+}
