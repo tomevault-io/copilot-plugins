@@ -1,0 +1,9 @@
+{
+  "name": "loftwah--auto-jira",
+  "displayName": "auto-jira",
+  "description": "A CLI that takes a requirements document and automatically creates suitable JIRA tickets for you.",
+  "version": "1.0.0",
+  "author": "loftwah",
+  "homepage": "https://github.com/loftwah/auto-jira",
+  "skills": []
+}
