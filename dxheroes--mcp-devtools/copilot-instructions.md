@@ -1,97 +1,95 @@
-## core-libraries-usage
+## mcp-server-implementation
 
-> Core Libraries Usage Guidelines
+> MCP Server Implementation Guidelines
 
 
-# Core Libraries Usage Guidelines
+# MCP Server Implementation Guidelines
 
-When developing MCP DevTools packages, prefer using shared core libraries over custom implementations to ensure consistency and maintainability.
+When implementing a new MCP server or updating an existing one, follow these guidelines:
 
 @file packages/jira/src/index.ts
-@file .cursor/rules/mcp-server-implementation.mdc
+@file .cursor/rules/core-libraries-usage.mdc
+@file .cursor/rules/typescript-style.mdc
 
-## Required Core Libraries
-
-| Library       | Package                           | Purpose                   | Import Statement                                                         |
-| ------------- | --------------------------------- | ------------------------- | ------------------------------------------------------------------------ |
-| MCP Server    | `@modelcontextprotocol/server`    | Core server functionality | `import { createMcpServer } from '@modelcontextprotocol/server';`        |
-| MCP Inspector | `@modelcontextprotocol/inspector` | Debugging tools           | `import { inspector } from '@modelcontextprotocol/inspector';`           |
-| MCP Types     | `@modelcontextprotocol/types`     | Shared type definitions   | `import { McpRequest, McpResponse } from '@modelcontextprotocol/types';` |
-
-## Common Utilities
-
-The MCP DevTools core utilities should be used instead of reimplementing common functionality:
+## Server Setup
 
 ```typescript
-// PREFERRED: Import from core utilities
-import { validateEnvVars, formatErrorResponse } from "@mcp-devtools/core/utils";
+import { createMcpServer } from "@modelcontextprotocol/server";
+import { registerTool1 } from "./tools/tool1";
+import { registerTool2 } from "./tools/tool2";
+// Import more tools as needed
 
-// AVOID: Custom implementation of utilities
-const validateEnvVars = (required) => {
-  /* ... */
-}; // Don't do this
-```
+// Create configuration with proper error handling
+const getConfig = (): Config => {
+  const required = ["REQUIRED_ENV_VAR1", "REQUIRED_ENV_VAR2"];
+  for (const env of required) {
+    if (!process.env[env]) {
+      console.error(`Missing required environment variable: ${env}`);
+      process.exit(1);
+    }
+  }
 
-## Configuration Management
+  return {
+    var1: process.env.REQUIRED_ENV_VAR1,
+    var2: process.env.REQUIRED_ENV_VAR2,
+    optionalVar: process.env.OPTIONAL_ENV_VAR || "default",
+  };
+};
 
-Use the shared configuration management from core:
+// Initialize server
+const initServer = async () => {
+  try {
+    const config = getConfig();
+    const server = createMcpServer();
 
-```typescript
-import { loadConfig } from "@mcp-devtools/core/config";
+    // Register all tools
+    registerTool1(server);
+    registerTool2(server);
+    // Register more tools
 
-// Load configuration with standard validation
-const config = loadConfig({
-  requiredVars: ["API_KEY", "API_URL"],
-  optionalVars: {
-    TIMEOUT: "30000",
-    DEBUG: "false",
-  },
-});
-```
+    // Start the server
+    server.start();
+    console.log("MCP server started successfully");
+  } catch (error) {
+    console.error("Failed to start MCP server:", error);
+    process.exit(1);
+  }
+};
 
-## HTTP Client
-
-Use the shared HTTP client with standard error handling:
-
-```typescript
-import { httpClient } from "@mcp-devtools/core/http";
-
-// Make HTTP requests with standard error handling
-const response = await httpClient.get("https://api.example.com/data", {
-  headers: { Authorization: `Bearer ${config.API_KEY}` },
-});
-```
-
-## Logging
-
-Use the standardized logging system:
-
-```typescript
-import { logger } from "@mcp-devtools/core/logger";
-
-// Log with standard levels and formatting
-logger.info("Operation successful", { operationId: "123" });
-logger.error("API call failed", { error, statusCode: 500 });
-```
-
-## Authentication Helpers
-
-Use shared authentication utilities:
-
-```typescript
-import { createAuthHeaders, validateToken } from "@mcp-devtools/core/auth";
-
-// Create standard auth headers
-const headers = createAuthHeaders(config.API_KEY, config.API_SECRET);
+// Start the server
+initServer();
 ```
 
 ## Guidelines
 
-1. **Always check core libraries first** before implementing new functionality
-2. **Keep dependencies updated** to ensure security and compatibility
-3. **Contribute improvements** back to core libraries instead of creating package-specific versions
-4. **Document usage** of core libraries in your package's README
-5. **Follow versioning guidelines** when updating core library dependencies
+1. **Environment Variables**
+
+   - Validate all required environment variables at startup
+   - Provide sensible defaults for optional variables
+   - Document all environment variables in README
+
+2. **Error Handling**
+
+   - Implement proper error handling for server initialization
+   - Log meaningful error messages
+   - Exit with non-zero code on critical errors
+
+3. **Tool Registration**
+
+   - Register each tool from its own module
+   - Keep registration code organized and maintainable
+   - Use consistent patterns across all tools
+
+4. **Logging**
+
+   - Log server start/stop events
+   - Include appropriate context in logs
+   - Avoid logging sensitive information
+
+5. **Server Configuration**
+   - Centralize configuration in one place
+   - Validate configuration at startup
+   - Use typed configuration objects
 
 ---
 > Source: [DXHeroes/mcp-devtools](https://github.com/DXHeroes/mcp-devtools) — distributed by [TomeVault](https://tomevault.io).
