@@ -1,0 +1,44 @@
+{
+  "name": "FlyAdmin",
+  "owner": "q1226189767",
+  "repo": "FlyAdmin",
+  "description": "FlyAdmin \u73b0\u4ee3\u5316\u7684\u540e\u53f0\u7ba1\u7406\u7cfb\u7edf\u6a21\u677f",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/q1226189767/FlyAdmin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T21:35:45Z"
+}
