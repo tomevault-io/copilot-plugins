@@ -1,104 +1,58 @@
-## netcontextserver
+## cli
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> CLI Tool Implementation Rules
 
-# CLAUDE.md
+# CLI Tool Implementation Rules
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This rule provides guidance for implementing the Command Line Interface (CLI) for the .NET Codebase Context Server, with specific optimizations for Claude 3.7 Sonnet integration.
 
-## Project Overview
+## AI-Assisted Development
+- Use descriptive XML comments that explain the "why" behind implementation choices
+- Include example usage for each command in code comments
+- Structure commands into logical groups with consistent naming patterns
+- Ensure each command has a clear, single responsibility
+- Add CLI output examples in comments to help Claude understand expected behavior
 
-NetContextServer is a .NET 9.0 Model Context Protocol (MCP) server that provides AI coding assistants with deep understanding of .NET codebases. It consists of three main projects:
-- `NetContextServer`: MCP server implementation
-- `NetContextClient`: CLI interface for server interaction  
-- `NetContextServer.Tests`: Comprehensive test suite
+## Command Structure
+- Use verb-noun pattern for all commands (e.g., `list-projects`, `search-code`)
+- Implement consistent parameter naming across similar commands
+- Support both short and long option formats for all parameters
+- Include help text that explains parameter relationships and constraints
+- Group related commands into command sets with shared context
 
-## Essential Commands
+## Error Handling
+- Return structured JSON responses with error codes and descriptive messages
+- Include targeted troubleshooting guidance in error messages
+- Implement detailed logging with contextual information
+- Add correlation IDs to associate related operations for troubleshooting
+- Handle graceful shutdown for CTRL+C and other interrupts
 
-### Development
-```bash
-# Build the solution
-dotnet build
+## User Experience
+- Provide colorized, formatted output with clear visual hierarchy
+- Implement progress indicators for long-running operations
+- Support interactive mode for complex operations
+- Add "did you mean?" suggestions for common command typos
+- Include completion scripts for bash/zsh/PowerShell
 
-# Run tests
-dotnet test
+## Documentation 
+- Create example-driven documentation with realistic scenarios
+- Document each command with purpose, parameters, examples, and limitations
+- Include troubleshooting sections for common issues
+- Add visual guides showing command relationships and workflows
+- Provide explicit mapping between CLI commands and MCP protocol capabilities
 
-# Run the server
-dotnet run --project src/NetContextServer/NetContextServer.csproj
+## AI Integration Features
+- Add machine-readable JSON output option for all commands
+- Support template-based rendering of results for custom output formats
+- Include metadata in command responses to aid in AI understanding
+- Add descriptive response schemas for Claude to better understand outputs
 
-# Run the client with a command
-dotnet run --project src/NetContextClient/NetContextClient.csproj -- [command]
-
-# Run a specific test
-dotnet test --filter "FullyQualifiedName~TestName"
-
-# Run tests with coverage
-dotnet test --collect:"XPlat Code Coverage"
-```
-
-### Publishing
-```bash
-# Publish for Windows
-dotnet publish -c Release -r win-x64 --self-contained
-
-# Publish for Linux
-dotnet publish -c Release -r linux-x64 --self-contained
-
-# Publish for macOS
-dotnet publish -c Release -r osx-x64 --self-contained
-```
-
-## Architecture Overview
-
-### Service Layer Pattern
-The codebase follows a clean service-based architecture where business logic is encapsulated in services under `src/NetContextServer/Services/`. Each service has a corresponding interface and handles a specific domain concern.
-
-### MCP Tool Implementation
-Tools are organized under `src/NetContextServer/Tools/` and grouped by functionality:
-- **FileTools**: Project/file operations (`ListProjects`, `ListSourceFiles`, `ReadFile`)
-- **SearchTools**: Text and semantic search (`SearchCode`, `SemanticSearch`)
-- **PackageTools**: NuGet package analysis (`AnalyzePackages`)
-- **CoverageTools**: Test coverage analysis (`GetCoverage`)
-- **ThinkTools**: Structured reasoning (`Think`)
-
-Each tool class inherits from `ModelContextTool<TArgs, TResult>` and implements the MCP protocol.
-
-### Key Services and Their Responsibilities
-- **FileService**: File system operations with security validation
-- **CodeSearchService**: Text-based code search using regex
-- **SemanticSearchService**: AI-powered semantic search with Azure OpenAI embeddings
-- **PackageAnalyzerService**: NuGet dependency analysis and update recommendations
-- **CoverageAnalysisService**: Multi-format coverage report parsing (Coverlet, LCOV, Cobertura)
-
-### State Management
-User patterns and preferences are persisted in `%LocalAppData%/NetContextServer/state.json` through the `StateService`.
-
-### Security Model
-- Path validation ensures operations stay within allowed directories
-- File size limits prevent resource exhaustion
-- Sensitive files (.env, secrets) are protected from access
-- All file operations validate against these security constraints
-
-## Testing Approach
-
-Tests are organized using xUnit with fixture-based integration testing:
-- **Unit Tests**: Test individual services in isolation
-- **Integration Tests**: Use `NetContextServerFixture` for full tool testing
-- **Test Utilities**: `TestOutputLogger` for debugging test execution
-
-When adding new features:
-1. Add unit tests for service logic
-2. Add integration tests for MCP tool implementations
-3. Use the existing fixture pattern for consistency
-
-## Configuration and Environment
-
-The server supports various configuration options through:
-- Environment variables for Azure OpenAI integration
-- Command-line arguments for server initialization
-- Local state file for user preferences
-
-When working with semantic search features, ensure Azure OpenAI credentials are configured in environment variables.
+## Security
+- Validate all user inputs with clear error messages
+- Implement proper access control for file operations
+- Use least-privilege principles for all operations
+- Never expose sensitive information in logs or output
+- Support credential management with secure storage
 
 ---
 > Source: [willibrandon/NetContextServer](https://github.com/willibrandon/NetContextServer) — distributed by [TomeVault](https://tomevault.io).
