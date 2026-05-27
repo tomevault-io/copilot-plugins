@@ -4,7 +4,7 @@
   "repo": "HyperLiquid.Net",
   "description": "A C# .netstandard client library for the HyperLiquid DEX REST and Websocket Spot and Futures API focusing on clear usage and models",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JKorf/HyperLiquid.Net",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T22:35:33Z"
+  "distributed_at": "2026-05-27T22:43:43Z"
 }
