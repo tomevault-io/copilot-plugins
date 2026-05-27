@@ -15,10 +15,10 @@ Original source: `CLAUDE.md` in [MakFly/ghostchrome](https://github.com/MakFly/g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/MakFly#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/MakFly/ghostchrome](https://github.com/MakFly/ghostchrome)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/MakFly) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
