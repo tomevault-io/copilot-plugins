@@ -1,6 +1,6 @@
 # oqee-mcp
 
-> Config by [phhusson](https://github.com/phhusson/oqee-mcp) — distributed by [TomeVault](https://tomevault.io/claim/phhusson)
+> Tome by [phhusson](https://github.com/phhusson/oqee-mcp) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `GEMINI.md` in [phhusson/oqee-mcp](https://github.com/phhusson/
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/phhusson](https://tomevault.io/claim/phhusson)
+From [phhusson/oqee-mcp](https://github.com/phhusson/oqee-mcp) — a repo with 0+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/phhusson) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-s -->
