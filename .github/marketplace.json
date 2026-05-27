@@ -136124,6 +136124,21 @@
       "description": "docs"
     },
     {
+      "name": "solpbc--solstone-journal",
+      "source": "./solpbc--solstone-journal",
+      "description": "Navigate Life Intelligently"
+    },
+    {
+      "name": "solpbc--solstone-journal",
+      "source": "./solpbc--solstone-journal",
+      "description": "Navigate Life Intelligently"
+    },
+    {
+      "name": "solpbc--solstone-journal",
+      "source": "./solpbc--solstone-journal",
+      "description": "Navigate Life Intelligently"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -174782,6 +174797,16 @@
       "name": "wesleysimplicio--simplicio-dev-cli",
       "source": "./wesleysimplicio--simplicio-dev-cli",
       "description": "Your tasks with 99% accuracy using any LLM (Claude, DeepSeek, Codex, Gemini, Hermes, OpenClaw, Cursor)."
+    },
+    {
+      "name": "zibouddd--reposcry",
+      "source": "./zibouddd--reposcry",
+      "description": "reposcry"
+    },
+    {
+      "name": "ctoth--mcp-server-code-extractor",
+      "source": "./ctoth--mcp-server-code-extractor",
+      "description": "\ud83c\udfaf Precise code extraction for AI assistants - MCP server using tree-sitter to extract functions, classes & snippets from 30+ languages without manual parsing"
     },
     {
       "name": "cheerhuan--save-your-token",
