@@ -1,0 +1,9 @@
+{
+  "name": "init4tech--signet-sdk",
+  "displayName": "signet-sdk",
+  "description": "Signet ecosystem crates",
+  "version": "1.0.0",
+  "author": "init4tech",
+  "homepage": "https://github.com/init4tech/signet-sdk",
+  "skills": []
+}
