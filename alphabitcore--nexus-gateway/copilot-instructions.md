@@ -1,34 +1,60 @@
-## iam-impact-review
+## iot-terminology-boundary
 
-> 5-step IAM impact review for any admin endpoint / sidebar / route change
+> Thing-model IoT terminology is internal-only — user-facing surfaces use product terms (node / config sync / out of sync / target config / applied config)
 
 
-# IAM impact review (binding)
+# IoT terminology boundary (binding)
 
-You are editing an area where adding / moving / renaming an **admin API endpoint, sidebar nav, or route path** can produce **silent 403s**. The UI / backend / seed must stay in lockstep.
+The Thing Model (`docs/developers/architecture/cross-cutting/foundation/thing-model.md`) is the gateway's internal architecture kernel for service / device coordination. Its vocabulary — "Thing", "Shadow", "desired", "reported", "drift" — is internal-only: code, DB column names, developer architecture docs.
 
-**Read `docs/developers/architecture/services/control-plane/iam-identity-architecture.md` BEFORE editing.**
+**User-facing surfaces** (admin API responses, UI strings, product docs, error messages, support runbooks) **MUST** use product terms instead.
 
-## The 5-step audit (all 5, every change)
+## Required mapping
 
-1. **UI `allowedActions` and backend `iamMW(...)` reference the same action.** Drift = silent 403 (user sees menu item, click yields 403).
-2. **Decide resource carve-out.** Should the surface have its own resource type in `packages/shared/identity/iam/catalog_data.go`, or can it reuse `settings` / `observability` / etc.? Carve out when granting it shouldn't imply granting unrelated settings.
-3. **New resource → update both fixtures + seed.**
-   - `packages/control-plane/internal/iam/managed.go` (`NexusViewer` test fixture).
-   - `tools/db-migrate/seed/seed.ts` canonical policy block.
-   - Missing either makes non-super-admin users lose visibility silently.
-4. **Path rename / move → sweep Sidebar + breadcrumbs.** `packages/control-plane-ui/src/components/ui/Sidebar/Sidebar.tsx` icon mapping. Dead `case` arms accumulate otherwise.
-5. **Record IAM decisions in the plan / commit message.** "Kept on `admin:settings.read`" / "Carved out as `prompt-cache`" — so reviewers can trace policy intent without reading the diff backwards.
+| Internal (kernel) | User-facing (product) | Notes |
+|---|---|---|
+| Thing | node / service / device | Pick the closest concrete noun for the context |
+| Shadow | config sync | Or "configuration" when ambient |
+| desired (state) | target config | What the admin set |
+| reported (state) | applied config | What the device is actually running |
+| drift | out of sync | "Drift" is too ML-y for product copy |
+| enrollment token | provisioning token | "Enrollment" is OK in admin UI; never in end-user docs |
 
-## NRN builder is canonical
+## Where each layer applies
 
-Always use `iam.BuildRequestNRNForAction(action, c)` to derive `resourceType`. Never hardcode the resource-type string in `iamMW(...)` — hardcoded resource types drift from the IAM catalog and produce silent 403s. Memory anchor: [[project_iam_resource_nrn_bug]].
+- **Internal-only (Thing/Shadow/desired/reported/drift)**
+  - Go code identifiers + comments under `packages/**`
+  - DB column names + Prisma schema
+  - `docs/developers/architecture/**` architecture documentation
+  - Slog field names (`shadowDesired`, `shadowReported`, etc.)
+  - MQ subject names + audit event types
 
-## Verification
+- **Product-facing (node / config sync / target / applied / out of sync)**
+  - i18n strings (`packages/{control-plane-ui,agent/ui,ui-shared}/src/i18n/locales/**`)
+  - JSX user-visible text
+  - Admin API response field names + error messages
+  - Documentation under `docs/users/product/**`, `docs/users/features/**`, `docs/operators/ops/runbooks/**`
+  - Commit-and-deploy notification copy
 
-Run positive test (super-admin reaches the route) AND negative test (a role without the action gets 403). Don't ship without both.
+## Why this boundary exists
 
-Skipping this rule requires **explicit user approval** in chat.
+The Thing Model is borrowed wholesale from IoT vendor patterns (AWS IoT Core, Azure IoT Hub) to keep internal architecture compact and reusable. End-users — admins running Nexus, agent end-users on their laptops — don't share that vocabulary. Surfacing it leaks an implementation detail and creates a learnable-vocabulary gap that competitors don't have.
+
+The boundary is a soft-ish rule but the cost of a leak is real:
+- A leaked "shadow" in error message = support escalations.
+- A leaked "drift" in admin UI = users searching docs for it.
+- A leaked "thing" in product copy = brand inconsistency.
+
+Source: `docs/developers/architecture/cross-cutting/foundation/thing-model.md` §10 — Section 10 carries the canonical mapping table.
+
+## Enforcement
+
+No CI lint yet. Catch in code review by:
+- Grepping the i18n locale files for the forbidden tokens (`thing`, `shadow`, `drift`, `desired_state`).
+- Reading admin API handler JSON response shapes before merge.
+- Watching agent UI screenshots for any leaked term.
+
+Skipping this rule (e.g. shipping a UI string with "shadow" in it) requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
