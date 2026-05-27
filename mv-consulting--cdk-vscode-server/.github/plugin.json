@@ -1,0 +1,9 @@
+{
+  "name": "mv-consulting--cdk-vscode-server",
+  "displayName": "cdk-vscode-server",
+  "description": "Set up your own VSCode Server on AWS in under 10 minutes \u231b\ufe0f",
+  "version": "1.0.0",
+  "author": "MV-Consulting",
+  "homepage": "https://github.com/MV-Consulting/cdk-vscode-server",
+  "skills": []
+}
