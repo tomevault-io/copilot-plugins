@@ -1,0 +1,9 @@
+{
+  "name": "foyer-rs--mixtrics",
+  "displayName": "mixtrics",
+  "description": "A lightweight unified metrics library in Rust for various metrics system.",
+  "version": "1.0.0",
+  "author": "foyer-rs",
+  "homepage": "https://github.com/foyer-rs/mixtrics",
+  "skills": []
+}
