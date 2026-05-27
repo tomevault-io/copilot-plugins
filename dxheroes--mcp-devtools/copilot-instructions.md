@@ -1,95 +1,61 @@
-## mcp-server-implementation
+## mcp-tool-implementation
 
-> MCP Server Implementation Guidelines
+> MCP Tool Implementation Guidelines
 
 
-# MCP Server Implementation Guidelines
+# MCP Tool Implementation Guidelines
 
-When implementing a new MCP server or updating an existing one, follow these guidelines:
+When implementing a new MCP tool, follow these patterns:
 
-@file packages/jira/src/index.ts
-@file .cursor/rules/core-libraries-usage.mdc
+@file packages/jira/src/tools/getTicket.ts
 @file .cursor/rules/typescript-style.mdc
 
-## Server Setup
+## Tool Registration
 
 ```typescript
-import { createMcpServer } from "@modelcontextprotocol/server";
-import { registerTool1 } from "./tools/tool1";
-import { registerTool2 } from "./tools/tool2";
-// Import more tools as needed
-
-// Create configuration with proper error handling
-const getConfig = (): Config => {
-  const required = ["REQUIRED_ENV_VAR1", "REQUIRED_ENV_VAR2"];
-  for (const env of required) {
-    if (!process.env[env]) {
-      console.error(`Missing required environment variable: ${env}`);
-      process.exit(1);
-    }
-  }
-
-  return {
-    var1: process.env.REQUIRED_ENV_VAR1,
-    var2: process.env.REQUIRED_ENV_VAR2,
-    optionalVar: process.env.OPTIONAL_ENV_VAR || "default",
+export const registerToolName = (server: McpServer): void => {
+  const toolParams = {
+    // Define parameters according to JSON schema
   };
-};
 
-// Initialize server
-const initServer = async () => {
-  try {
-    const config = getConfig();
-    const server = createMcpServer();
+  // For tools with aliases, use an array of tool names
+  const toolNames = ["primary_tool_name", "alias_1", "alias_2"];
 
-    // Register all tools
-    registerTool1(server);
-    registerTool2(server);
-    // Register more tools
-
-    // Start the server
-    server.start();
-    console.log("MCP server started successfully");
-  } catch (error) {
-    console.error("Failed to start MCP server:", error);
-    process.exit(1);
+  // Register all tool names with the same handler
+  for (const tool of toolNames) {
+    server.tool(tool, toolParams, async (params) => {
+      try {
+        // Implementation
+        return {
+          message: "Success message",
+        };
+      } catch (error) {
+        return {
+          error: `Error message: ${error.message}`,
+        };
+      }
+    });
   }
 };
-
-// Start the server
-initServer();
 ```
 
-## Guidelines
+## Parameter Validation
 
-1. **Environment Variables**
+- Always validate required parameters early in the function
+- Use TypeScript types/interfaces for parameter typing
+- Document parameters with clear descriptions
 
-   - Validate all required environment variables at startup
-   - Provide sensible defaults for optional variables
-   - Document all environment variables in README
+## Error Handling
 
-2. **Error Handling**
+- Use try/catch blocks for all API calls
+- Return meaningful error messages
+- Log errors with appropriate context
 
-   - Implement proper error handling for server initialization
-   - Log meaningful error messages
-   - Exit with non-zero code on critical errors
+## Documentation
 
-3. **Tool Registration**
-
-   - Register each tool from its own module
-   - Keep registration code organized and maintainable
-   - Use consistent patterns across all tools
-
-4. **Logging**
-
-   - Log server start/stop events
-   - Include appropriate context in logs
-   - Avoid logging sensitive information
-
-5. **Server Configuration**
-   - Centralize configuration in one place
-   - Validate configuration at startup
-   - Use typed configuration objects
+- Update the README.md with your new tool
+- Add the tool to the Tool Reference table with all parameters
+- Include any aliases in the documentation
 
 ---
 > Source: [DXHeroes/mcp-devtools](https://github.com/DXHeroes/mcp-devtools) — distributed by [TomeVault](https://tomevault.io).
