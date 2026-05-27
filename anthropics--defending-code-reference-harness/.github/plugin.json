@@ -1,0 +1,9 @@
+{
+  "name": "anthropics--defending-code-reference-harness",
+  "displayName": "defending-code-reference-harness",
+  "description": "A reference implementation for autonomous vulnerability discovery and human-reviewed remediation with Claude",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/defending-code-reference-harness",
+  "skills": []
+}
