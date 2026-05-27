@@ -1,0 +1,9 @@
+{
+  "name": "wesleysimplicio--simplicio-cli",
+  "displayName": "simplicio-cli",
+  "description": "Your tasks with 99% accuracy using any LLM (Claude, DeepSeek, Codex, Gemini, Hermes, OpenClaw, Cursor).",
+  "version": "1.0.0",
+  "author": "wesleysimplicio",
+  "homepage": "https://github.com/wesleysimplicio/simplicio-cli",
+  "skills": []
+}
