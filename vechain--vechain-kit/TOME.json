@@ -4,7 +4,7 @@
   "repo": "vechain-kit",
   "description": "An all-in-one library for building VeChain applications.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vechain/vechain-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T23:32:00Z"
+  "distributed_at": "2026-05-27T23:38:22Z"
 }
