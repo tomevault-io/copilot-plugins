@@ -15,7 +15,7 @@ Original source: `AGENTS.md` in [mnem0nic7/diabetes-2025](https://github.com/mne
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mnem0nic7)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mnem0nic7/diabetes-2025](https://github.com/mnem0nic7/diabetes-2025)
 
 ---
 
