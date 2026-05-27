@@ -1,61 +1,73 @@
-## benchmark-test-standards
+## python-code-standards
 
-> Rules for consistent test implementation in the AI Sandbox Benchmark project
+> description: Rules for Python code style and documentation
 
-# Benchmark Test Standards
+---
+description: Rules for Python code style and documentation
+globs: ["*.py", "providers/*.py"]
+alwaysApply: false
+---
+# Python Code Standards
 
-Rules for consistent test implementation in the AI Sandbox Benchmark project
+Rules for consistent Python code style and documentation in the AI Sandbox Benchmark project
 
 ```rule
-id: test-naming-convention
-name: Test Function Naming Convention
-description: All test functions should be named 'test_<category>_<specific_test>' for consistency
-pattern: def test_[a-z]+_[a-z_]+\(
+id: function-docstring
+name: Function Docstring
+description: All public functions should have a docstring
+pattern: def [a-z][a-zA-Z0-9_]*\([^)]*\):\s+(?:"""|''')
 severity: warning
 ```
 
 ```rule
-id: test-docstring-required
-name: Test Docstring Required
-description: All test functions should have a detailed docstring explaining purpose, inputs, and expected outputs
-pattern: def test_.*:\s+"""
+id: class-docstring
+name: Class Docstring
+description: All classes should have a docstring
+pattern: class [A-Z][a-zA-Z0-9_]*(?:\([^)]*\))?:\s+(?:"""|''')
 severity: warning
 ```
 
 ```rule
-id: test-return-metrics
-name: Test Return Metrics
-description: Test functions should return code to execute and expected outputs for validation
-pattern: return\s+["'].+["'],\s+[{\[]
+id: type-hints
+name: Type Hints
+description: Functions should use type hints for parameters and return values
+pattern: def [a-zA-Z0-9_]*\([^:\)]*:[^\)]+\)\s*->
+severity: info
+```
+
+```rule
+id: async-await-consistency
+name: Async/Await Consistency
+description: Async functions should use await when calling other async functions
+pattern: async def [a-zA-Z0-9_]*\(.*?\):[^#]*(?:await|return|yield)
 severity: warning
 ```
 
 ```rule
-id: provider-compatibility-tag
-name: Provider Compatibility
-description: Tests should specify which providers they are compatible with using a PROVIDERS_COMPATIBILITY list
-pattern: PROVIDERS_COMPATIBILITY\s*=\s*\[
+id: error-handling
+name: Error Handling
+description: Functions that could fail should include try-except blocks
+pattern: try:[\s\S]*?except (?:Exception|[A-Z][a-zA-Z0-9_]*Error)
 severity: info
 ```
 
 ```rule
-id: test-complexity-indication
-name: Test Complexity Indication
-description: Tests should indicate their complexity level (COMPLEXITY = 'simple'|'medium'|'complex')
-pattern: COMPLEXITY\s*=\s*["'](mdc:?:simple|medium|complex)["']
+id: constants-naming
+name: Constants Naming
+description: Constants should be in UPPER_SNAKE_CASE
+pattern: ^[A-Z][A-Z0-9_]*\s*=
 severity: info
 ```
 
 ```rule
-id: test-timeout-specification
-name: Test Timeout Specification
-description: Tests should specify their expected maximum runtime in seconds
-pattern: TIMEOUT_SECONDS\s*=\s*\d+
+id: imports-grouping
+name: Imports Grouping
+description: Imports should be grouped: standard library, third-party, local
+pattern: import [a-zA-Z0-9_]*\n\n(?:from|import)
 severity: info
 ```
 
-file_patterns: ["tests/*.py"]
-exclusions: ["tests/__init__.py"]
+exclusions: ["venv/**/*.py", "__pycache__/**/*.py"]
 
 ---
 > Source: [nibzard/ai-sandbox-benchmark](https://github.com/nibzard/ai-sandbox-benchmark) — distributed by [TomeVault](https://tomevault.io).
