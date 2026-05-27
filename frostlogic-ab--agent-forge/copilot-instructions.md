@@ -1,41 +1,29 @@
-## docusaurus-docs
+## file-structure
 
-> - **Accuracy and Consistency:** Ensure all documentation accurately reflects the current state of the codebase.
+> - Group related functionality into modules
 
-# Docusaurus Documentation Best Practices for Agent Forge
+- Group related functionality into modules
+- Use index files to simplify imports
+- Separate concerns: keep business logic, UI components, and utilities in different directories
 
-## General Principles
-- **Accuracy and Consistency:** Ensure all documentation accurately reflects the current state of the codebase.
-- **Clarity:** Write clearly and concisely. Avoid jargon where simpler terms suffice.
-- **Completeness:** Provide enough detail for users to understand and use the features.
-
-## Content Guidelines
-- **Code Examples:**
-    - All code examples provided in `.mdx` files must be runnable or clearly marked as conceptual.
-    - Ensure example code blocks are **not commented out** unless they are explicitly intended to show a non-working/commented part of a larger example.
-    - Include necessary import statements (e.g., `import { Agent, LLM } from "agent-forge";`).
-    - Use placeholder API keys like `process.env.YOUR_API_KEY` or `YOUR_API_KEY_HERE` and instruct users to replace them.
-    - Clearly label examples as "Conceptual" if they require users to define auxiliary classes/variables (e.g., `MyTool`, `agentConfig`) not fully provided in the snippet.
-- **API References:**
-    - When referencing types or configurations from external libraries (e.g., `token.js`), clearly state this and point users to the relevant external documentation for exhaustive details.
-- **Linking:**
-    - Ensure all internal links within the documentation are valid and point to the correct sections or pages.
-
-## Docusaurus Specifics
-- **File Naming & Routing:**
-    - To avoid "Duplicate Route" errors, be mindful of Docusaurus's routing behavior. A directory `foo/` with an `index.mdx` inside (`foo/index.mdx`) will create a route at `/foo`. A file `foo.mdx` at the same level will also try to create a route at `/foo`.
-    - Prefer using `directory/index.mdx` for overview/landing pages of a section and `directory/specific-topic.mdx` for detailed pages within that section. For instance, `reference/llm/index.mdx` for the LLM overview and `reference/llm/llm-class.mdx` for the `LLM` class details.
-- **Sidebar Configuration (`sidebars.ts`):**
-    - All document IDs referenced in `sidebars.ts` must correspond to actual `.mdx` file paths (relative to the `docs` directory, without the `.mdx` extension, and using `/` as path separators).
-    - For example, a file at `docs/docs/reference/llm/llm-class.mdx` should be referenced as `reference/llm/llm-class` in `sidebars.ts`.
-    - After renaming or moving documentation files, always update `sidebars.ts` accordingly.
-
-## Maintenance
-- **Documentation with Code Changes:**
-    - **Crucial:** Whenever changes are made to the source code (features added, APIs modified, behavior altered), the corresponding documentation **must be updated** to reflect these changes.
-    - Treat documentation as an integral part of the development lifecycle, not an afterthought.
-- **Review:**
-    - Regularly review documentation for outdated information, broken links, or unclear explanations.
+### Folder Structure
+- .github           # Github actions
+- docs              # Docusaurus documentation, here md files are created for all features of the framework
+-- docs             # Md files
+--- api-reference   # Definition files for all classes and methods in the framework
+--- learn           # Tutorials how to use the framework features
+-- src              # Docusaurus react files
+- src               # Framework source code
+-- a2a              # Code for the A2A feature 
+-- config           # Code for the config feature
+-- core             # Code for the core features of the framework, like agents, workflow execution, etc
+-- examples         # Fully working examples for all features of the framework, used for testing the framework and give usage examples to users
+-- llm              # LLM integrations
+-- plugins          # Code for the plugin feature.
+-- rag              # Code for the RAG features.
+-- tools            # Code for the tools and MCP feature
+-- types            # All typescript types
+-- utils            # Code utils used throughout the framework
 
 ---
 > Source: [frostlogic-ab/agent-forge](https://github.com/frostlogic-ab/agent-forge) — distributed by [TomeVault](https://tomevault.io).
