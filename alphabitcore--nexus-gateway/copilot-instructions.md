@@ -1,37 +1,33 @@
-## migration-timestamp-unique
+## ne-fail-open
 
-> Prisma migration folders must have unique YYYYMMDDHHMMSS prefixes
+> macOS Network Extension must fail-open (5 safety-critical rules)
 
 
-# Migration timestamp uniqueness (binding)
+# macOS NE proxy must fail-open (binding, safety-critical)
 
-You are touching Prisma migrations. **Two folders sharing the same `YYYYMMDDHHMMSS` prefix make Prisma silently skip one** — every migration folder name MUST start with a unique prefix.
+You are editing `NETransparentProxyProvider` territory. **This code is in the host's outbound packet path.** Any hang / panic / silently-claimed-but-not-relayed flow takes down the entire Mac's network — DNS, DHCP, mDNS, NTP, Apple Push, VPNs. Recovery requires `launchctl unload` + plist delete.
 
-## The rule
+**Read `docs/developers/architecture/services/agent/agent-ne-fail-open-architecture.md` BEFORE editing.**
 
-Every migration folder name starts with a unique `YYYYMMDDHHMMSS` prefix.
+## The 5 binding fail-open rules
 
-```bash
-ls tools/db-migrate/prisma/migrations/ | cut -c1-14 | sort | uniq -d
-# must be empty
-```
+1. **`handleNewFlow` decides synchronously.** Only `return true` for flows we can fully relay. UDP without a relay implementation = `return false` for unknown bundles. Apply protocol / bundle-ID checks BEFORE claiming.
+2. **Every async callback into the daemon has a fail-open timeout.** `requestDecision` → passthrough after 2s. `peekSNIThenRelay` → plain relay after 500ms. Never let a flow hang on an absent daemon.
+3. **No hardcoded enforcement lists in NE Swift code.** Bundle-ID allowlists etc. live in the Hub-pushed `agent_settings` shadow → daemon writes to `/var/run/nexus-agent/quic-bundles.json` → NE reads file-only with empty-as-fail-safe.
+4. **`isLikelyXyz = true` patterns are banned.** Either write the real condition or `return false`. Don't flip a TODO and ship.
+5. **System DNS / DHCP / Push services MUST NEVER have UDP closed.** `mdnsresponder`, `configd`, `dhcpcd`, `apsd`, `nsurlsessiond`, `kdc`, `ntpd` — validate every kill-list addition.
 
-This check is wired as `npm run check:migration-timestamps` and runs in CI. Pre-commit hook installation is encouraged.
+## Test invariants before merging
 
-## How to add a new migration safely
+- Boot on a fresh macOS; verify Wi-Fi browsing works (DNS / DHCP / HTTPS).
+- Disable the Hub; verify network still works.
+- Send malformed flows (random UDP, unknown TCP); verify nothing hangs.
+- Watch QUIC handshake handling; never both pass-through and capture.
+- Run 24h on a dev machine; no "did I lose internet?" question.
 
-```bash
-cd tools/db-migrate
-npx prisma migrate dev --name <descriptive_snake_case>
-# Prisma auto-generates a unique timestamp; usually safe.
+## Build & sign
 
-# If you crafted the folder by hand or copy-pasted, check:
-npm run check:migration-timestamps
-```
-
-## If you hit a duplicate
-
-Rename one of the conflicting folders with a +1 second / +1 minute suffix and rebase any references (rare; usually only manual scripts or fixtures reference migration names).
+Use **`.claude/skills/build-agent`** (binding). Never run `wails build` / `codesign` / `xcrun notarytool` manually.
 
 Skipping this rule requires **explicit user approval** in chat.
 
