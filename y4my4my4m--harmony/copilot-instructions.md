@@ -1,72 +1,66 @@
-## harmony-project
+## realtime-architecture
 
-> Harmony project architecture, conventions, and critical patterns
+> Realtime channel architecture and broadcast patterns
 
 
-# Harmony Project Rules
+# Realtime Channel Architecture
 
-## Architecture
+## Core Broadcast Topics (DB → Frontend)
 
-- **Frontend**: Vue 3 (Composition API + Options API), Pinia stores, Vue Router, TypeScript
-- **Backend**: Supabase (PostgreSQL, Auth, Realtime, Storage, RLS). No custom API server for core features.
-- **Federation**: ActivityPub via `federation-backend/` (Node.js). Triggers in DB queue federation jobs.
-- **Desktop**: Tauri (`src-tauri/`). Check `__TAURI__` for platform-specific code.
-- **Encryption**: Megolm-style E2EE (per-room session keys). See `src/services/encryption/`.
+All data change events flow through DB triggers calling `realtime.send()` into exactly **3 topics**:
 
-## Database Schema
+| Topic pattern | Event name | Scope | What belongs here |
+|---|---|---|---|
+| `user:{profile_id}` | `user_event` | Per-user | notifications, unreads, conversations, server join/leave, mutes, blocks |
+| `server-structure:{server_id}` | `server_event` | Per-server | channels, categories, roles, permissions, threads, settings, membership, server metadata |
+| `server-presence:{server_id}` | `presence_event` | Per-server | profile updates, member join/leave, custom emojis |
 
-- **Source of truth for fresh deploys**: `db_schema/init/` (numbered SQL files loaded by `init.sql`)
-- **Dev/prod changes**: `db_schema/migrations/` (idempotent SQL files run via Supabase SQL editor)
-- **Dev backup reference**: `db_schema/latest_dev_backup.sql` (full schema dump of production-like env)
-- **Permissions**: Stored as `bigint` bitmasks (NOT jsonb). See `permissionsService.ts` for bit positions.
-- **RLS**: Every table has RLS enabled (`98_enable_rls.sql`). All policies in `30_rls_policies.sql` / `31_rls_policies_extended.sql`.
-- When creating migration files, wrap in `BEGIN;`/`COMMIT;`, use `CREATE OR REPLACE` and `DROP POLICY IF EXISTS` for idempotency.
+Plus one **global** presence channel: `harmony-global-presence` (online/offline tracking).
 
-## Key Services & Stores
+## Frontend Subscriptions
 
-| Layer | Key files |
-|-------|-----------|
-| Message sending | `CoreMessageService.ts` → handles encryption decision + DB insert |
-| Message encryption | `MegolmMessageEncryptionService.ts` (singleton) → `MegolmService.ts` → `RecoveryKeyService.ts` |
-| Message decryption | `messageDecryption.ts` (processMessageDecryption) |
-| Key persistence | `SecureSessionKeyStore.ts` (IndexedDB, non-extractable CryptoKeys) |
-| Chat state | `useChat.ts` (server channels), `useDM.ts` (DMs/conversations) |
-| Auth | `auth.ts` store + `AuthContextService.ts` |
-| User data | `userDataService.ts` (cached profile lookups, NO direct DB calls in components) |
-| Roles/Perms | `RoleService.ts` + `permissionsService.ts` (bigint bitmasks) |
-| Realtime | `RealtimeConnectionManager.ts` (auto-reconnect wrapper) |
+**Core channels (1 per user + 2 per joined server):**
+- `UserEventChannel.ts` → subscribes to `user:{profileId}`, dispatches typed events
+- `useServerChannel.ts` → subscribes to `server-structure:{serverId}`, dispatches via `window.dispatchEvent`
+- `userDataService.ts` → subscribes to `server-presence:{serverId}`, handles profile/presence updates
 
-## Critical Patterns
+**Ephemeral channels (open only while feature is active):**
+- `typing:{context}` - typing indicators (presence-based, short-lived)
+- `harmony-voice-{channelId}` - WebRTC signaling (only during voice)
+- `voice-channels:{serverId}` - voice state broadcast
+- `dm-call:*` / `dm-calls:*` - call signaling
+- `view-context:{userId}` - which channel/conversation user is viewing
 
-### Encryption Flow
-1. User sets up encryption → `RecoveryKeySetupWizard.vue` → `completeSetupWithWords()` → derives keys → stores non-extractable CryptoKeys in IndexedDB
-2. Auto-unlock on page load → `tryAutoUnlock()` loads CryptoKeys from IndexedDB (NO mnemonic stored)
-3. Message send → `CoreMessageService` lazy-initializes encryption service → checks `isInitialized()` + `hasRecoveryKey()` + `isUnlocked()`
-4. Server encryption modes: `disabled` | `optional` (fallback to plaintext) | `required` (blocks send)
-5. Key sharing: `megolm_session_shares` table + realtime subscriptions for cross-device
-6. On key received: `megolm-key-received` CustomEvent → stores listen and reprocess encrypted messages
+## Rules for Adding New Events
 
-### Database Functions
-- `SECURITY DEFINER` functions run as the function owner, bypassing RLS. Use sparingly.
-- `get_current_profile_id()` returns the profile ID for the current auth user (used in RLS policies).
-- `queue_federation_job()` uses `pg_notify` to bridge into BullMQ (Redis). The legacy pgboss schema was dropped in `20260407_cleanup_cron_job_run_details.sql`; defensive `IF EXISTS` guards in older migrations are now dead-code on fresh deploys.
-- `send_notification()` parameter names are prefixed with `p_` (e.g., `p_notification_type`).
+### DB side (triggers)
+1. Pick the correct topic - don't create new ones
+2. Use `realtime.send(payload, event_name, topic)` - never `INSERT INTO pgboss.job` for local broadcasts
+3. For **user-scoped** data (only the affected user needs it): send to `user:{profile_id}`
+4. For **server-wide structure** changes (all members need it): send to `server-structure:{server_id}`
+5. For **presence/profile** changes: send to `server-presence:{server_id}`
+6. Payload must include a `type` field: `'{entity}:{operation}'` (e.g. `'role:insert'`, `'notification:new'`)
 
-### Test Structure
-- **Unit tests**: `src/services/encryption/__tests__/` (Vitest, mock Supabase)
-- **Integration tests**: `tests/integration/` (Vitest, hits local Supabase - requires `supabase start`)
-- **E2E tests**: `tests/e2e/` (Playwright)
-- Test helper: `tests/helpers/supabaseTestHelper.ts` - uses `service_role` key for admin ops
-- Test cleanup: `_test_delete_owned_servers` RPC disables protected role triggers during teardown
+### Frontend side
+1. **Never** open a new `supabase.channel()` for data that belongs in an existing topic
+2. **Never** use `postgres_changes` (CDC) for new features - always use broadcast
+3. Add a `case` in the appropriate existing subscription handler
+4. Dispatch via typed `CustomEvent` on `window` for cross-component communication
 
-## Common Pitfalls
+### Federation (DB → BullMQ → remote instances)
+Federation uses a **separate path**: DB triggers call `queue_federation_job()` which sends via `pg_notify` to the Node.js federation backend. This is **complementary** to `realtime.send()` - both fire from the same trigger when needed.
 
-- `user_mutes` table uses boolean flags (`hide_notifications`), NOT `mute_type` enum
-- `notification_preferences` has many columns (desktop_*, sound_*, dnd_*, activitypub_*) - check `06_tables_misc.sql`
-- `route_server_leave()` trigger must guard against cascade-deleted servers (check `IF EXISTS`)
-- Legacy permissive RLS policies (`USING (true)`) can override restrictive ones - always audit `pg_policies`
-- Dev environment may have `jsonb` permissions columns (legacy) - local/init uses `bigint`. Run `convert_permissions_to_bigint.sql` migration.
-- Thread messages (`ThreadService.ts`) bypass encryption - sent as plaintext directly
+## Remaining CDC (postgres_changes)
+
+The **only** legitimate CDC usage is in `RealtimeConnectionManager.ts` for **chat message delivery** (`useChat`, `useDM`, threads). Each subscription is filtered by `channel_id` or `conversation_id`, which is scoped and efficient. All other CDC has been eliminated.
+
+## Anti-patterns
+- ❌ Opening a new channel per table/feature
+- ❌ Using `postgres_changes` CDC subscriptions for new features - always use broadcast
+- ❌ Looping over users in SQL to send per-user broadcasts (use server-scoped topics, Supabase fans out)
+- ❌ Mixing up `user_event` vs `server_event` vs `presence_event` event names
+- ❌ Sending to `user:{id}` for server-wide changes (O(N) queries vs O(1) broadcast)
+- ❌ Unfiltered CDC subscriptions on entire tables (scalability disaster at volume)
 
 ---
 > Source: [y4my4my4m/harmony](https://github.com/y4my4my4m/harmony) — distributed by [TomeVault](https://tomevault.io).
