@@ -1,500 +1,313 @@
-## ai-guidelines
+## architecture
 
-> Critical guidelines for AI assistants working with Camouflage codebase - security rules, code style, and best practices
+> Project architecture, directory structure, module responsibilities, and dependency rules
 
 
-# AI Assistant Guidelines
+# Project Architecture
 
-## Overview
+## Directory Structure
 
-These guidelines help AI assistants (like Claude, GPT-4, Copilot) work effectively with the Camouflage codebase.
-
-## Priority Rules
-
-### 1. Never Modify File Content
-
-**CRITICAL**: Camouflage NEVER modifies `.env` file content.
-
-```typescript
-// ❌ NEVER suggest this
-const edit = new vscode.WorkspaceEdit();
-edit.replace(document.uri, range, maskedValue);
-await vscode.workspace.applyEdit(edit);
-
-// ✅ ALWAYS use decorations
-editor.setDecorations(decorationType, ranges);
+```
+camouflage/
+├── src/
+│   ├── core/              # Business logic
+│   │   └── camouflage.ts  # Main engine
+│   ├── lib/               # Pure functions
+│   │   ├── decorators.ts  # Method decorators
+│   │   └── text-generator.ts # Text transformation
+│   ├── parsers/           # Multi-format parsers
+│   │   ├── types.ts       # Parser interfaces
+│   │   ├── base-parser.ts # Abstract base class
+│   │   ├── env-parser.ts  # ENV/Shell parser
+│   │   ├── json-parser.ts # JSON parser (nested)
+│   │   ├── yaml-parser.ts # YAML parser (nested)
+│   │   ├── properties-parser.ts # Properties parser
+│   │   ├── toml-parser.ts # TOML parser
+│   │   └── index.ts       # Parser registry
+│   ├── utils/             # Helper utilities
+│   │   ├── config.ts      # Configuration facade
+│   │   ├── file.ts        # File operations
+│   │   ├── pattern-matcher.ts # Pattern matching
+│   │   └── validator.ts   # Input validation
+│   ├── __tests__/         # Test files (mirrors src)
+│   │   ├── core/
+│   │   ├── lib/
+│   │   ├── parsers/
+│   │   └── utils/
+│   ├── __mocks__/         # Test mocks
+│   │   └── vscode.ts      # VS Code API mock
+│   └── extension.ts       # Entry point
+├── .github/
+│   └── workflows/         # CI/CD pipelines
+├── .vscode/               # VS Code workspace config
+├── dist/                  # Compiled output
+└── node_modules/          # Dependencies
 ```
 
-**If asked to modify files**: Politely explain that Camouflage is decoration-only by design.
+## Module Responsibilities
 
-### 2. Respect Existing Architecture
+### Core Module (`src/core/`)
 
-Before suggesting changes:
+**Purpose**: Contains the main business logic and state management
 
-1. ✅ Read relevant rule files (especially `architecture.mdc`)
-2. ✅ Understand module dependencies
-3. ✅ Follow established patterns
-4. ❌ Don't suggest architectural changes without justification
+**Files**:
 
-### 3. Security First
+- `camouflage.ts`: Main class managing decorations, events, status bar
 
-Always consider security implications:
+**Responsibilities**:
 
-- ✅ No network requests with sensitive data
-- ✅ Validate all user input
-- ✅ No logging of values
-- ✅ Sanitize patterns before regex compilation
+- Apply/remove decorations
+- Handle editor events
+- Manage extension state
+- Status bar updates
+- Command execution
+- Delegate parsing to parser registry
 
-## Code Suggestions
+**Dependencies**: Can import from `lib/`, `utils/`, `parsers/`, and VS Code API
 
-### Before Suggesting Code
+### Parsers Module (`src/parsers/`)
 
-1. **Read context**: Check what files are open, what the user is working on
-2. **Check existing implementation**: Look for similar functionality
-3. **Follow conventions**: Use existing naming, structure, patterns
-4. **Consider tests**: Think about how it will be tested
+**Purpose**: Multi-format file parsing with Strategy Pattern
 
-### Code Style
+**Files**:
 
-```typescript
-// ✅ GOOD: Follow project conventions
-export function matchPattern(key: string, pattern: string): boolean {
-  const sanitized = sanitizePattern(pattern);
-  return new RegExp(sanitized, 'i').test(key);
-}
+- `types.ts`: Parser interface and type definitions
+- `base-parser.ts`: Abstract base class with common functionality
+- `env-parser.ts`: ENV, Shell script, .envrc parser
+- `json-parser.ts`: JSON parser with nested key support
+- `yaml-parser.ts`: YAML parser with nested key support
+- `properties-parser.ts`: Properties, INI, conf parser
+- `toml-parser.ts`: TOML parser
+- `index.ts`: Parser registry and factory
 
-// ❌ BAD: Different style
-export const matchPattern = (key, pattern) => {
-  return new RegExp(pattern, 'i').test(key);
-};
+**Rules**:
+
+- ✅ Each parser extends `BaseParser`
+- ✅ Parsers implement `Parser` interface
+- ✅ Parsers are stateless (options via constructor)
+- ✅ Registry handles parser selection by file extension
+- ✅ Nested keys returned as dot-separated paths
+
+**Dependencies**: Can only import Node.js built-ins and types
+
+### Library Module (`src/lib/`)
+
+**Purpose**: Pure, reusable functions with no side effects
+
+**Files**:
+
+- `decorators.ts`: Method decorators (@Log, @HandleErrors, etc.)
+- `text-generator.ts`: Text transformation algorithms
+
+**Rules**:
+
+- ✅ Must be pure functions (same input → same output)
+- ✅ No side effects (no file I/O, no global state)
+- ✅ No VS Code API imports
+- ✅ Fully unit testable
+
+**Dependencies**: Can only import Node.js built-ins and other lib modules
+
+### Utils Module (`src/utils/`)
+
+**Purpose**: Helper functions and facades
+
+**Files**:
+
+- `config.ts`: Configuration access facade
+- `file.ts`: File system operations
+- `pattern-matcher.ts`: Pattern matching logic
+- `validator.ts`: Input validation
+
+**Rules**:
+
+- ✅ Can have side effects (file I/O, API calls)
+- ✅ Can import VS Code API
+- ✅ Should be stateless where possible
+- ✅ Each file has single responsibility
+
+**Dependencies**: Can import from `lib/`, `parsers/`, and VS Code API, but not `core/`
+
+### Tests Module (`src/__tests__/`)
+
+**Purpose**: All test files
+
+**Structure**: Mirrors `src/` directory structure
+
+**Rules**:
+
+- ✅ Every module must have corresponding test file
+- ✅ Use `describe` blocks for grouping
+- ✅ Use AAA pattern (Arrange, Act, Assert)
+- ✅ Mock external dependencies
+- ✅ Test file naming: `*.test.ts`
+
+## Dependency Rules
+
+### Allowed Dependencies
+
+```
+extension.ts → core/ → lib/ + utils/ + parsers/
+                ↓
+            VS Code API
 ```
 
-### Imports
+### Forbidden Dependencies
 
-Always use existing import structure:
+- ❌ `lib/` MUST NOT import from `core/`, `utils/`, or `parsers/`
+- ❌ `utils/` MUST NOT import from `core/`
+- ❌ `parsers/` MUST NOT import from `core/` or `utils/`
+- ❌ Circular dependencies between modules
+- ❌ Direct file system access in `lib/`
+
+## File Organization Rules
+
+### File Naming
+
+- `kebab-case.ts` for all files
+- `*.test.ts` for test files
+- `*.d.ts` for type declarations
+
+### File Size
+
+- Max 300 lines per file (excluding tests)
+- If exceeding, split into smaller modules
+- Exception: Generated files, type definitions
+
+### Export Rules
+
+- ✅ Named exports preferred over default exports
+- ✅ One main export per file (with supporting types)
+- ✅ Export only public API
+- ✅ Use `export type` for type-only exports
+
+### Import Order
+
+1. Node.js built-ins (`import * as fs from 'fs'`)
+2. External packages (`import * as vscode from 'vscode'`)
+3. Internal modules - absolute paths from src root
+4. Type imports (`import type { ... }`)
+
+**Example**:
 
 ```typescript
-// ✅ GOOD: Project convention
+import * as path from 'path';
 import * as vscode from 'vscode';
 import { generateHiddenText } from '../lib/text-generator';
-import * as config from '../utils/config';
-
-// ❌ BAD: Different convention
-import vscode = require('vscode');
-const { generateHiddenText } = require('../lib/text-generator');
+import { getParserRegistry } from '../parsers';
+import { isSupportedFile } from '../utils/file';
+import type { ParsedVariable } from '../parsers/types';
 ```
 
-## Responding to Requests
+## State Management
 
-### Adding Features
+### Global State
 
-When asked to add a feature:
+- ❌ Avoid global mutable state
+- ✅ Use class properties in `Camouflage` class
+- ✅ Dispose resources properly
+- ✅ Register disposables with VS Code context
 
-1. **Clarify requirements**:
+### Extension State
 
-   - What problem does it solve?
-   - How should it behave?
-   - What edge cases exist?
+Managed in `core/camouflage.ts`:
 
-2. **Propose approach**:
+- `activeEditor`: Current editor
+- `decorationType`: Current decoration type
+- `statusBarItem`: Status bar UI element
+- `hiddenRanges`: Cached decoration ranges
 
-   - Where should code go?
-   - What files need changes?
-   - Any architectural concerns?
+## Error Boundaries
 
-3. **Consider impacts**:
+Each layer handles errors differently:
 
-   - Breaking changes?
-   - Performance impact?
-   - Security implications?
-   - Testing requirements?
+1. **Extension Layer** (`extension.ts`):
 
-4. **Provide implementation**:
-   - Follow coding standards
-   - Include tests
-   - Update documentation
+   - Catch all errors
+   - Show user-friendly messages
+   - Log to output channel
 
-### Example: Adding New Hiding Style
+2. **Core Layer** (`core/`):
 
-**User**: "Add a rainbow hiding style"
+   - Use `@HandleErrors` decorator
+   - Propagate critical errors up
+   - Handle recoverable errors
 
-**AI Response**:
+3. **Parser Layer** (`parsers/`):
 
-```
-I'll help you add a rainbow hiding style. Here's the approach:
+   - Validate file content
+   - Return empty array on parse errors
+   - Log parsing issues
 
-1. **Update package.json**: Add 'rainbow' to hiddenTextStyle enum
-2. **Update text-generator.ts**: Implement rainbow transformation
-3. **Add tests**: Test the new style
-4. **Update README**: Document new feature
+4. **Utils Layer** (`utils/`):
 
-Here's the implementation:
+   - Validate inputs
+   - Throw descriptive errors
+   - No error suppression
 
-[Code for package.json]
-[Code for text-generator.ts]
-[Code for tests]
-[Documentation update]
+5. **Lib Layer** (`lib/`):
+   - Pure functions - no try/catch
+   - Validate inputs with types
+   - Let caller handle errors
 
-This follows the Strategy pattern already used for hiding styles.
-Want me to proceed with implementation?
-```
+## Performance Considerations
 
-### Debugging
+### Hot Paths (must be fast)
 
-When helping debug:
+- `updateDecorations()`: Called on every text change
+- `parser.parse()`: Called for every file update
+- `generateHiddenText()`: Called for every masked value
+- `matchesAnyPattern()`: Called for every env var
 
-1. **Understand the problem**:
+**Optimizations**:
 
-   - What's the expected behavior?
-   - What's actually happening?
-   - When does it occur?
+- Cache compiled regexes
+- Debounce frequent operations
+- Use `@Debounce` decorator
+- Minimize DOM operations
+- Parser selection by extension (O(1) lookup)
 
-2. **Check common issues**:
+### Cold Paths (can be slower)
 
-   - Is extension activated?
-   - Is file recognized as `.env`?
-   - Are decorations being applied?
-   - Any console errors?
+- Extension activation
+- Configuration changes
+- Command execution
+- Parser registry initialization
 
-3. **Suggest investigation**:
+## Extension Points
 
-   - Add logging
-   - Check configuration
-   - Review event listeners
+### Adding New Parser
 
-4. **Provide fix**:
-   - Explain root cause
-   - Show fix with explanation
-   - Suggest test to prevent regression
+1. Create new parser file in `src/parsers/` extending `BaseParser`
+2. Implement `parse()` method returning `ParsedVariable[]`
+3. Define `supportedExtensions` array
+4. Register parser in `src/parsers/index.ts`
+5. Add tests in `src/parsers/__tests__/`
+6. Update configuration in `package.json` (enabledParsers enum)
+7. Update README with new format examples
 
-### Refactoring
+### Adding New Hiding Style
 
-When suggesting refactoring:
+1. Add enum value to `HiddenTextStyle` in `package.json`
+2. Implement in `generateHiddenText()` in `text-generator.ts`
+3. Add tests in `text-generator.test.ts`
+4. Update README with example
 
-1. **Explain why**: What's improved?
-2. **Show before/after**: Clear comparison
-3. **Preserve behavior**: No functional changes
-4. **Update tests**: Ensure they still pass
+### Adding New Command
 
-```
-I suggest extracting this pattern matching logic into a separate function:
-
-Before:
-[Current code]
-
-After:
-[Refactored code]
-
-Benefits:
-- More testable
-- Reusable
-- Clearer responsibility
-
-This follows the Single Responsibility Principle outlined in patterns.mdc.
-```
-
-## Testing Guidance
-
-### Always Consider Tests
-
-When suggesting code changes:
-
-```typescript
-// Suggest implementation
-export function newFeature(input: string): string {
-  return transform(input);
-}
-
-// ALSO suggest test
-describe('newFeature', () => {
-  it('should transform input correctly', () => {
-    expect(newFeature('test')).toBe('expected');
-  });
-
-  it('should handle empty string', () => {
-    expect(newFeature('')).toBe('');
-  });
-});
-```
-
-### Test Patterns
-
-Follow AAA pattern:
-
-```typescript
-it('should mask sensitive values', () => {
-  // Arrange
-  const input = 'API_KEY=secret';
-  const style: HiddenTextStyle = 'stars';
-
-  // Act
-  const result = maskValue(input, style);
-
-  // Assert
-  expect(result).toBe('API_KEY=******');
-});
-```
-
-## Documentation
-
-### Update Documentation
-
-When adding/changing features:
-
-1. ✅ Update README if user-facing
-2. ✅ Update CHANGELOG (or note that semantic-release handles it)
-3. ✅ Add JSDoc for public APIs
-4. ✅ Update relevant rule files if patterns change
-
-### Code Comments
-
-```typescript
-// ✅ GOOD: Explain WHY
-// Debounce to prevent excessive updates during rapid typing
-@Debounce(100)
-private updateDecorations(): void { }
-
-// ❌ BAD: Explain WHAT (code already shows this)
-// This function updates decorations
-private updateDecorations(): void { }
-```
-
-## Common Pitfalls
-
-### 1. Over-Engineering
-
-```typescript
-// ❌ BAD: Over-engineered for simple task
-class PatternMatcherFactory {
-  createMatcher(type: string): PatternMatcher {
-    return new ConcretePatternMatcher(
-      new PatternValidator(),
-      new PatternNormalizer(),
-      new CacheManager()
-    );
-  }
-}
-
-// ✅ GOOD: Simple when sufficient
-function matchPattern(key: string, pattern: string): boolean {
-  return new RegExp(pattern, 'i').test(key);
-}
-```
-
-### 2. Ignoring Existing Code
-
-❌ Don't suggest:
-
-```typescript
-// Creating new utility when one exists
-export function checkIfEnvFile(path: string): boolean {}
-
-// When file-utils.ts already has:
-export function isEnvFile(fileName: string): boolean {}
-```
-
-### 3. Breaking Changes Without Warning
-
-❌ Don't suggest:
-
-```typescript
-// Breaking change to public API
-export function matchPattern(key: string, patterns: RegExp[]): boolean {}
-// Changed from string[] to RegExp[]!
-```
-
-✅ Instead:
-
-```
-This change would break the public API. Options:
-
-1. Add new function: matchPatternWithRegex()
-2. Make it backward compatible with overloads
-3. Make it a major version bump with migration guide
-
-Recommend option 1 for backward compatibility.
-```
-
-## Questions to Ask
-
-When uncertain, ask:
-
-- "Is this a breaking change?"
-- "Should this be configurable?"
-- "What about edge cases like...?"
-- "How should this behave when...?"
-- "Should I update tests/docs?"
-
-## Error Messages
-
-### User-Friendly
-
-```typescript
-// ✅ GOOD: Helpful error
-throw new Error(
-  'Pattern "' + pattern + '" is invalid. ' + 'Use alphanumeric characters and wildcards (*) only.'
-);
-
-// ❌ BAD: Technical error
-throw new Error('RegExp compilation failed: invalid syntax');
-```
-
-### In Suggestions
-
-```typescript
-// ✅ GOOD: Handle errors gracefully
-try {
-  await riskyOperation();
-} catch (error) {
-  console.error('[Camouflage] Operation failed:', error);
-  vscode.window.showErrorMessage('Operation failed. Check output for details.');
-}
-
-// ❌ BAD: Let errors crash
-await riskyOperation(); // No error handling!
-```
-
-## Performance
-
-### Always Consider Performance
-
-```typescript
-// ❌ BAD: Suggest inefficient approach
-vscode.workspace.onDidChangeTextDocument(() => {
-  // Called on every keystroke!
-  this.recompileAllPatterns();
-  this.updateAllDecorations();
-  this.rebuildCache();
-});
-
-// ✅ GOOD: Suggest optimized approach
-@Debounce(100)
-private onDocumentChange(): void {
-  // Called max once per 100ms
-  this.updateDecorations();
-}
-```
-
-## Communication Style
-
-### Be Clear and Concise
-
-❌ Verbose:
-
-```
-So what we're going to do here is we're going to create a function that
-will take a string as input and then it will process that string by first
-checking if it's empty and if it's not empty then we'll...
-```
-
-✅ Clear:
-
-```
-I'll create a function to process the string:
-
-1. Validate input (non-empty)
-2. Transform text
-3. Return result
-
-Here's the implementation:
-[code]
-```
-
-### Explain Decisions
-
-```
-I'm using the Strategy pattern here (see patterns.mdc) because:
-1. Easy to add new hiding styles
-2. Each style is independently testable
-3. No if/else chains
-
-Alternative approach would be a switch statement, but that violates
-Open/Closed principle.
-```
-
-## Checklist for Suggestions
-
-Before suggesting code:
-
-- [ ] Follows project architecture
-- [ ] Uses existing patterns/conventions
-- [ ] Includes error handling
-- [ ] Has tests (or explanation why not)
-- [ ] Considers performance
-- [ ] Respects security guidelines
-- [ ] Updates documentation if needed
-- [ ] No breaking changes (or clearly marked)
-- [ ] Explains WHY, not just WHAT
-
-## Learning from Feedback
-
-When user corrects you:
-
-1. ✅ Acknowledge the correction
-2. ✅ Understand why it's better
-3. ✅ Apply that learning to future suggestions
-4. ❌ Don't repeat the same mistake
-
-Example:
-
-```
-User: "Don't use eval, it's a security risk"
-
-AI: You're absolutely right. I should have checked security.mdc which
-explicitly forbids eval(). Let me revise using safe RegExp compilation:
-
-[Corrected code]
-
-I'll remember to avoid eval() and check security implications first.
-```
-
-## When to Push Back
-
-Politely push back if user requests:
-
-1. **Security violations**:
-   "That would expose sensitive data. Instead, let me suggest..."
-
-2. **Anti-patterns**:
-   "That could lead to [problem]. A better approach would be..."
-
-3. **Breaking architectural rules**:
-   "That would violate the module dependency rules in architecture.mdc.
-   How about this alternative..."
-
-4. **File modification**:
-   "Camouflage never modifies file content by design. We can achieve
-   this with decorations instead..."
-
-Always explain WHY and offer alternatives.
-
-## Final Notes
-
-### Project Philosophy
-
-Remember:
-
-- **Never modify files** - Visual only
-- **Security first** - No data leaks
-- **User experience** - Fast and intuitive
-- **Maintainability** - Clean, tested code
-- **Open source** - Anyone should understand it
-
-### When in Doubt
-
-1. Check the rules (`.cursor/rules/*.mdc`)
-2. Look at existing code
-3. Ask clarifying questions
-4. Suggest options, not dictates
-
-### Goal
-
-Help users improve Camouflage while maintaining:
-
-- ✅ Code quality
-- ✅ Security
-- ✅ Architectural integrity
-- ✅ User trust
+1. Define in `package.json` contributes.commands
+2. Register in `extension.ts` activate function
+3. Implement in `core/camouflage.ts` if complex
+4. Add keyboard shortcut if needed
+5. Update README
+
+### Adding New Configuration
+
+1. Define in `package.json` contributes.configuration
+2. Add getter in `utils/config.ts`
+3. Update `updateDecorationType()` if affects styling
+4. Add validation if needed
+5. Update README
 
 ---
 > Source: [zeybek/camouflage](https://github.com/zeybek/camouflage) — distributed by [TomeVault](https://tomevault.io).
