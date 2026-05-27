@@ -1,82 +1,44 @@
-## agent-runtime-invariants
+## agent-ui-terminology
 
-> Agent runtime: paths abstraction, traffic-upload level, audit empty-string stamping
+> Agent UI uses "traffic event" never "AI call"; agent has NO quota concept
 
 
-# Agent runtime invariants (binding)
+# Agent UI terminology (binding)
 
-Three bindings on the agent runtime. Honour all three.
+The Agent UI surfaces what's happening on **this device** to an **end-user**, not to a platform admin. Its vocabulary differs from the Control Plane UI on purpose.
 
----
+## Required terminology
 
-## 1. Platform paths abstraction
+- **"Traffic event"** — every intercepted request. NEVER "AI call", "LLM call", "prompt", or "completion" as the primary noun. (Inside an event detail panel, "prompt" / "completion" labels for body content are fine — but the row itself is a "traffic event".)
+- **"Allowed / Flagged / Blocked"** — outcome verbs map directly to canonical hook decisions.
+- **"Protection Pause"** — user-side temporary intercept pause. Never "disable agent" (the agent is still running).
+- **"Connection"** — Hub link status. Never "platform connection" or "control-plane connection" (too admin-y).
 
-All agent filesystem paths come from `platform.DefaultPaths()`. **Never hardcode** `/Library/`, `/var/`, `/etc/`, `/tmp/`, or `C:\...` strings.
+## Forbidden terminology in Agent UI
 
-```go
-// ❌ wrong
-quitFlag := "/Library/Application Support/Nexus/.quit"
+| Don't use | Use instead | Why |
+|---|---|---|
+| "AI call" / "LLM call" | "Traffic event" / "Request" | Agent is provider-agnostic at this surface |
+| "Quota" / "Limit" / "Budget" | (don't surface; not a concept) | Quota is server-side; the agent never tracks or displays it |
+| "API key" | "Credential" or omit | API keys live admin-side; on-device user shouldn't reason about them |
+| "Tenant" / "Org" | omit unless contextually needed | Admin language; on-device user belongs to their org implicitly |
+| "Disable agent" | "Pause protection" | Pause keeps the agent running, just stops intercepting |
+| "Inspection" | "Compliance check" / "Hook" | Match admin-side surface naming |
 
-// ✅ right
-quitFlag := platform.DefaultPaths().QuitFlagPath
-```
+## i18n keys
 
-Common path keys: `LogDir`, `ConfigDir`, `DataDir`, `CacheDir`, `KeystorePath`, `LocalQueuePath`, `QuitFlagPath`, `CertCAStore`.
+All these terms ride through the i18n pipeline (cross-ref `i18n-mandatory.mdc`). When you add a key under `packages/ui-shared/src/i18n/locales/{en,zh,es}/dashboard.json` or the agent-side equivalent, use the required vocabulary.
 
-Memory anchor: [[feedback_agent_platform_paths_abstraction]].
+## Enforcement
 
----
+CI script `npm run check:agent-ui-terminology` greps the agent UI source + locale files for forbidden tokens. New violations fail CI in strict mode.
 
-## 2. Traffic-upload level filter happens at emit-time
+## Source
 
-`agent_settings.trafficUploadLevel ∈ {all, processed, blocked}`, default `processed`.
+- Decision record: memory [[project_agent_ui_ia_redesign]].
+- Feature docs: `docs/users/features/agent-ui/overview.md` §IA + per-page docs.
 
-- **Filter at agent emit-time, NOT DB-side.** The agent decides per-event whether to publish to MQ / queue. DB-side filtering means the agent burned local cycles + queue capacity for nothing.
-- **`deny`, `block`, `error` outcomes always bypass the filter.** Those are auditable regardless of level.
-
-```go
-if !shouldUpload(event.Outcome, agent.settings.TrafficUploadLevel) {
-    return  // skip emit
-}
-```
-
-`shouldUpload` lives in `packages/agent/internal/audit/`; respect its decision.
-
-Memory anchor: [[feedback_agent_traffic_upload_level]].
-
----
-
-## 3. Audit `auditEventToMap` empty-string stamping
-
-Agent's audit emitter sets all string fields, including `""`. Hub-side `AuditUpload` MUST either **stamp-unconditionally** or **strip-empty** for any CHECK-constrained column. Inconsistent handling stalls the audit pipeline silently.
-
-```go
-// Agent emit (always set, even empty):
-m["external_request_id"] = event.ExternalRequestID   // may be ""
-
-// Hub ingest (must handle both ways):
-if v, ok := m["external_request_id"].(string); ok && v != "" {
-    row.ExternalRequestID = sql.NullString{String: v, Valid: true}
-}
-```
-
-A handler that does `row.ExternalRequestID = m["external_request_id"].(string)` directly will pass `""` into a CHECK-constrained column and the insert fails. The failure is silent because audit-pipeline errors are caught at the batch level.
-
-Memory anchor: [[feedback_agent_audit_empty_string_stripping]].
-
----
-
-## Pre-commit reminder
-
-When you touch agent code that fits one of these areas, run:
-
-```bash
-grep -nE '"/Library|"/var|"/etc|"/tmp|"C:' packages/agent/internal/  # paths
-grep -n 'trafficUploadLevel' packages/agent/                          # filter sites
-grep -n 'auditEventToMap\|AuditUpload' packages/agent/ packages/nexus-hub/  # empty-string
-```
-
-Skipping any of the three requires **explicit user approval** in chat.
+Skipping this rule requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
