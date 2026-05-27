@@ -1,102 +1,52 @@
-## completion-time-self-audit
+## complex-task-plan-todo
 
-> Self-audit before claiming work is complete (no defer / follow-up / mock)
+> Complex tasks force Plan Mode + Todo list (non-waivable)
 
 
-# Completion-time self-audit — 2+ rounds (binding)
+# Complex tasks: Plan + Todo are NON-WAIVABLE (binding)
 
-Before saying "done" / asking the user to commit / closing out a task, you **MUST** run a short self-audit and report the result back in the response. This rule is the safety net against silent "almost done" deliveries.
+The general "Plan first" + "Todo list always" rules (see `sdd-workflow.mdc`) are defaults — a user can waive them on a trivial change. For **complex tasks** the rules are **non-waivable** and there is no shortcut.
 
-**Minimum two rounds** (per CLAUDE.md "Post-plan 2-round self-review"):
+## A task is "complex" if any of these apply
 
-1. **Round 1** — run the 4-question audit. Surface every issue. For each issue: fix it now, OR capture as a follow-up todo with stated reason.
-2. **Round 2** — re-run the same 4 questions. Verify each round-1 fix actually closed the gap. Check that nothing new appeared from the fixes.
-3. **More rounds** if round 2 finds new issues — keep iterating until TWO consecutive rounds are clean.
+- **More than 2 files** in the touch list (or the spec / refactor will plausibly touch more than 2).
+- **Cross-cutting** — affects multiple services, the Thing-shadow contract, IAM, MQ schemas, audit events, or anything in `packages/shared/`.
+- **SDD-tracked epic / story** is introduced or modified.
+- **API contract, data model, or migration** is added / changed.
+- **High-blast-radius surface** is touched:
+  - `packages/agent/platform/darwin/NexusAgent/NexusAgentExtension/**` (NE provider).
+  - Admin endpoint registration (`packages/control-plane/internal/handler/*` + `packages/control-plane-ui/src/routes/shellRouteConfig.tsx`).
+  - IAM policies / catalog / seed.
+  - Token-field stamping in AI Gateway.
+  - Kill switch / emergency passthrough / credential encryption.
 
-Catching issues is cheap; verifying you actually fixed them is what makes "done" real. A single audit that surfaces N issues and a quick "all fixed" claim is **not enough** — only the second clean round confirms the fixes stuck.
+## What "non-waivable" means concretely
 
-## The 4-question self-audit
+Before writing any code change that meets one of the above conditions:
 
-Answer **all four** with concrete evidence (file paths, grep output, test names):
+1. **Plan Mode** is mandatory. Write a plan (approach, scope, risks, file touch list).
+2. **Todo list** is mandatory. Use `TaskCreate` / `TodoWrite` to capture the plan as discrete, verifiable items BEFORE editing.
+3. **Pre-edit reading** (the 3-doc rule, `pre-edit-reading.mdc`) is mandatory.
 
-### 1. **Anything deferred?**
+A user instruction like "skip the plan" does NOT waive the gate on a complex task. **Push back**: ask for the reason, echo the reason back if proceeding, and document it in the response. A bare "skip" without reason is not a valid waiver.
 
-Did I split scope and leave a part for "later"? Possible signals:
+## Examples
 
-- A todo I marked `completed` whose work was only partially done.
-- A spec section I implemented to "half" depth.
-- A subsystem I planned to touch but didn't.
+| Task | Complex? | Why |
+|---|---|---|
+| "Fix typo in `docs/developers/architecture/overview.md`" | No | 1 file, doc-only, no spec change. |
+| "Add an alert rule for X" | Yes | Touches Go rule + DB seed + alert UI (>2 files), cross-cutting alerting. |
+| "Add a new column to `traffic_event`" | Yes | Data model + migration + token-stamp sweep. |
+| "Tweak a Provider model price" | No (small) | Single seed row; 1 file. |
+| "Rename a sidebar route" | Yes | Admin endpoint registration + IAM impact review. |
+| "Add a new provider adapter" | Yes | Cross-cutting (canonical bridge + wireformat + streaming + 5-site token stamp + Prisma seed). |
+| "Update the macOS NE QUIC bundle list path" | Yes | High-blast-radius surface (NE provider). |
 
-If any item was deferred:
+## Why this rule exists
 
-- It must be a **separate, explicit todo** in the active list (not silently dropped).
-- The user must be told about it in the response.
-- It must NOT be marked complete.
+Complex changes touch surfaces where silent failures are easy to ship: NRN/IAM drift produces silent 403s, missing token-stamp sites leave prod cache columns NULL, migration timestamp clashes are skipped without error, NE provider hangs take down the host's network. Plan + Todo is the cheapest insurance against those failure modes — and non-waivable on complex tasks for that reason.
 
-### 2. **Any `TODO` / `FIXME` / `XXX` left in production code?**
-
-```bash
-git diff HEAD~1.. --stat                                   # files changed
-git diff HEAD~1.. | grep -nE 'TODO|FIXME|XXX' | head -50   # new markers in changes
-```
-
-In production / runtime code paths these are **forbidden** as substitutes for real behaviour (binding in CLAUDE.md). Exceptions:
-
-- Test code (`*_test.go`, `*.test.ts`, `*.spec.ts`).
-- Truly auto-generated files marked with a header like `Code generated by … DO NOT EDIT.` (the repo currently has no active generator; `packages/shared/schemas/configtypes/` is hand-maintained — the exception stands in case a future generator is added).
-- Pre-existing markers you didn't add this turn.
-
-If any new marker exists in production code, **fix it before claiming done** — or get explicit user approval recorded in the response.
-
-### 3. **Any `not implemented` throws / empty handlers / fake returns?**
-
-- A `panic("not implemented")` or `throw new Error('not implemented')`.
-- An empty function body that the spec required to do something.
-- A hardcoded return value where the real value should be computed.
-- A handler that returns 200 OK without doing the work.
-
-If you find one, **finish the implementation** or **narrow the scope with the user** and re-plan. Do NOT commit placeholder production code.
-
-### 4. **Any mock / stub / fake in production code?**
-
-Mocks, spies, and test doubles live in **test code only**. Their presence in `packages/<service>/internal/` or `packages/shared/` outside of `_test.go` files is a violation.
-
-```bash
-git diff HEAD~1.. | grep -nE 'mock|stub|fake|dummy' | head -50
-```
-
-If you find one, surface it. Test code keywords (`mockXxx`, `stubXxx`) inside `_test.go` are fine.
-
-## How to report
-
-When emitting the "done" message, include the **final clean round** as a one-paragraph audit block:
-
-```
-Completion-time self-audit (final round — round 2/2 clean):
-- Deferred items: none (or "X moved to follow-up todo #N with user approval")
-- TODO/FIXME in prod code (this change): 0 new (grep clean)
-- Stubs / not-implemented throws: 0 (or "X intentional behind feature flag, approved in chat")
-- Mocks in prod paths: 0 (mocks only in *_test.go)
-- Round 1 found: <N issues>; fixed | tracked as follow-up.
-- Round 2 found: 0 (clean — fixes stuck, no new issues).
-```
-
-If round 2 (or later) is required because round 1 surfaced issues that needed iteration, name the rounds explicitly so the user can trace the work.
-
-If any answer is non-zero, the work is **not done** by the binding's standard. Surface it to the user and decide: finish now, or split into a follow-up with their explicit approval recorded.
-
-## Exception handling
-
-You may proceed with a non-zero audit result only if:
-
-- The user **explicitly approved** a stub / spike / placeholder in chat. Quote the approval line in your audit block.
-- The deferred item is captured as a **separate active todo** AND the user has acknowledged it.
-
-Otherwise: do NOT mark complete. The verification gate in CLAUDE.md Step 7 §12 ("No placeholder implementation") is part of the same enforcement; this rule is its IDE-side surfacing.
-
-## Skipping this rule
-
-Requires **explicit user approval** in chat. Saying "skip the audit" alone is not enough — provide a reason.
+Skipping this rule requires **explicit user approval WITH a stated reason** in chat. A bare "skip" without reason is not a valid waiver.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
