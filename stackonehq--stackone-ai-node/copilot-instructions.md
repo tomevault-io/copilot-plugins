@@ -1,100 +1,95 @@
-## git-workflow
+## nix-workflow
 
-> Git workflow, commit conventions, and pull request guidelines. (project)
+> This rule provides guidance on Nix usage in the StackOne SDK.
 
+# Nix Workflow
 
-# Git Workflow
+This rule provides guidance on Nix usage in the StackOne SDK.
 
-This rule provides guidance on git workflow, commit conventions, and pull request guidelines.
+## Development Environment
 
-## Branch Strategy
+The project uses `flake.nix` to define the development environment with `nix develop`.
 
-- **Never push directly to main** without permission
-- Create a new branch for changes
-- Create a pull request to merge into main
-- Use `git checkout -b feature-name` to start
+### Adding Development Tools
 
-## Development Flow
+To add a new tool to the development environment, add it to `buildInputs` in `flake.nix`:
 
-1. Create feature branch: `git checkout -b feature-name`
-2. Make changes to source files
-3. Run linter: `pnpm lint`
-4. Run tests: `pnpm test`
-5. Format code: `pnpm format`
-6. Commit with detailed messages
-7. Push and create PR: `gh pr create`
+```nix
+buildInputs = with pkgs; [
+  # runtime
+  nodejs_24
+  pnpm_10
 
-## Commit Strategy
+  # formatting and linting tools
+  oxlint  # includes tsgolint
+  oxfmt
 
-Keep commits tiny but meaningful:
+  # your new tool here
+  new-tool
+];
+```
 
-- Use git hunks (`-p` flag) to selectively commit changes
-- Write detailed commit messages
-- Ensure each commit is logically complete
-- Use English for all commit messages
+## CI Workflow
 
-## Commit Message Format
+CI uses `nix profile install` via the `.github/actions/setup-nix/action.yaml` composite action.
 
-Format: `type(scope): description`
+### Adding Tools to CI Jobs
 
-Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `ci`, `perf`
+Specify tools in the `tools` input of the setup-nix action:
+
+```yaml
+- name: Setup Nix
+  uses: ./.github/actions/setup-nix
+  with:
+    tools: nodejs_24 pnpm_10 oxlint oxfmt
+```
+
+The action installs packages using:
+
+```bash
+nix profile install --inputs-from . nixpkgs#tool1 nixpkgs#tool2
+```
+
+### CI Tool Configuration
+
+- **Default tools**: `nodejs_24 pnpm_10` (defined in action.yaml)
+- **Skip pnpm install**: Set `skip-pnpm-install: 'true'` for jobs that don't need node dependencies
+
+### Example: Adding a New Tool to Lint Job
+
+```yaml
+lint:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Setup Nix
+      uses: ./.github/actions/setup-nix
+      with:
+        tools: nodejs_24 pnpm_10 oxlint oxfmt new-tool
+    - name: Run Lint
+      run: pnpm run lint
+```
+
+## Build Flags
+
+Always use these flags when running Nix build commands locally:
+
+```bash
+--print-build-logs --show-trace
+```
 
 Example:
 
-```
-feat(parser): add support for custom parameter transformers
-
-- Add new transformer hooks to OpenAPI parser
-- Enable pre-processing of tool parameters
-- Implement docs for custom transformers
-```
-
-### Guidelines
-
-- Keep each commit as tiny as possible
-- Write detailed commit messages explaining the "why"
-- Each commit should be meaningful (not just a single line change)
-- Use git hunks (`-p` flag) to selectively commit related changes
-- **Always use English** for commit messages
-- Reference issues and PRs when relevant
-
-### When Committing
-
-1. Run `git diff` to review all changes
-2. Use `git add -p` to review and stage hunks selectively
-3. Write comprehensive message explaining the purpose
-4. Verify with `git status` before committing
-
-### File Moves for History Preservation
-
-When moving files (e.g., migrating from skills to rules), combine the deletion and creation in a single commit so git treats it as a rename. This preserves file history.
-
 ```bash
-# Instead of separate add/delete commits:
-git add .claude/rules/new-file.md
-git rm .claude/skills/old-file/SKILL.md
-git commit -m "refactor(rules): migrate old-file to rules directory"
+nix build --print-build-logs --show-trace
+nix flake check --print-build-logs --show-trace
 ```
 
-## Pull Request Guidelines
+## Notes
 
-### PR Title Format
-
-Use the same format as commit messages: `type(scope): description`
-
-Examples:
-
-- `feat(tools): add support for custom OpenAPI specs`
-- `fix(parser): handle empty response bodies`
-- `refactor(rules): unify cursor rules and claude rules`
-
-### PR Body
-
-Include:
-
-- **Summary**: 1-3 bullet points describing changes
-- **Test plan**: How to verify the changes work
-- Reference related issues with `Closes #123` or `Fixes #123`
+- Some packages bundle multiple tools (e.g., `oxlint` includes `tsgolint`)
+- Check nixpkgs for package contents before adding redundant dependencies
 
 ---
 > Source: [StackOneHQ/stackone-ai-node](https://github.com/StackOneHQ/stackone-ai-node) — distributed by [TomeVault](https://tomevault.io).
