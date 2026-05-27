@@ -1,0 +1,9 @@
+{
+  "name": "tarampampam--describe-commit",
+  "displayName": "describe-commit",
+  "description": "\ud83e\ude87 CLI tool that leverages AI to generate commit messages based on changes made in a Git repository",
+  "version": "1.0.0",
+  "author": "tarampampam",
+  "homepage": "https://github.com/tarampampam/describe-commit",
+  "skills": []
+}
