@@ -1,0 +1,9 @@
+{
+  "name": "swiftgum--swiftgum",
+  "displayName": "swiftgum",
+  "description": "ETL for RAG. Transform any source into LLM-ready markdown. Focus on your AI, not integrations.",
+  "version": "1.0.0",
+  "author": "Swiftgum",
+  "homepage": "https://github.com/Swiftgum/swiftgum",
+  "skills": []
+}
