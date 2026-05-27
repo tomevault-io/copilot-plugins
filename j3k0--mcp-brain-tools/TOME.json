@@ -2,9 +2,9 @@
   "name": "mcp-brain-tools",
   "owner": "j3k0",
   "repo": "mcp-brain-tools",
-  "description": "",
+  "description": "A powerful MCP memory using a knowledge graph powered by elastic search",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/j3k0/mcp-brain-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T15:34:59Z"
+  "distributed_at": "2026-05-27T14:38:46Z"
 }
