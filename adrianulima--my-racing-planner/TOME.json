@@ -2,9 +2,9 @@
   "name": "my-racing-planner",
   "owner": "adrianulima",
   "repo": "my-racing-planner",
-  "description": "",
+  "description": "This tool helps iRacing users efficiently navigate series, cars, and tracks, allowing them to make informed decisions about the best content to purchase based on usage in the current season.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/adrianulima/my-racing-planner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:39:53Z"
+  "distributed_at": "2026-05-27T21:53:06Z"
 }
