@@ -1,0 +1,9 @@
+{
+  "name": "eunomia-bpf--actplane",
+  "displayName": "ActPlane",
+  "description": "OS-Enforce AI Agent Harnesses with eBPF",
+  "version": "1.0.0",
+  "author": "eunomia-bpf",
+  "homepage": "https://github.com/eunomia-bpf/ActPlane",
+  "skills": []
+}
