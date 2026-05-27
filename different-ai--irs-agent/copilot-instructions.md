@@ -1,122 +1,104 @@
-## check-for-duplicate
+## drizzle-with-embeddings
 
-> rules to understand how to engineer a great system to prevent db duplicaiton
+> How drizzle + embeddings works
 
-We use pglite to store stuff in db
+Drizzle | Vector similarity search with pgvector extension
+This guide assumes familiarity with:
+Get started with PostgreSQL
+Select statement
+Indexes
+sql operator
+pgvector extension
+Drizzle kit
+You should have installed the openai package for generating embeddings.
+npm i openai
 
-and drizzle
+You should have drizzle-orm@0.31.0 and drizzle-kit@0.22.0 or higher.
+To implement vector similarity search in PostgreSQL with Drizzle ORM, you can use the pgvector extension. This extension provides a set of functions to work with vectors and perform similarity search.
 
-import { embed } from 'ai';
-import { openai } from '@ai-sdk/openai';
+As for now, Drizzle doesn’t create extension automatically, so you need to create it manually. Create an empty migration file and add SQL query:
 
-// 'embedding' is a single embedding object (number[])
-const { embedding } = await embed({
-  model: openai.embedding('text-embedding-3-small'),
-  value: 'sunny day at the beach',
+npx drizzle-kit generate --custom
+
+CREATE EXTENSION vector;
+
+To perform similarity search, you need to create a table with a vector column and an HNSW or IVFFlat index on this column for better performance:
+
+import { index, pgTable, serial, text, vector } from 'drizzle-orm/pg-core';
+export const guides = pgTable(
+  'guides',
+  {
+    id: serial('id').primaryKey(),
+    title: text('title').notNull(),
+    description: text('description').notNull(),
+    url: text('url').notNull(),
+    embedding: vector('embedding', { dimensions: 1536 }),
+  },
+  (table) => [
+    index('embeddingIndex').using('hnsw', table.embedding.op('vector_cosine_ops')),
+  ]
+);
+
+The embedding column is used to store vector embeddings of the guide descriptions. Vector embedding is just a representation of some data. It converts different types of data into a common format (vectors) that language models can process. This allows us to perform mathematical operations, such as measuring the distance between two vectors, to determine how similar or different two data items are.
+
+In this example we will use OpenAI model to generate embeddings for the description:
+
+import OpenAI from 'openai';
+const openai = new OpenAI({
+  apiKey: process.env['OPENAI_API_KEY'],
 });
+export const generateEmbedding = async (value: string): Promise<number[]> => {
+  const input = value.replaceAll('\n', ' ');
+  const { data } = await openai.embeddings.create({
+    model: 'text-embedding-ada-002',
+    input,
+  });
+  return data[0].embedding;
+};
 
+To search for similar guides by embedding, you can use gt and sql operators with cosineDistance function to calculate the similarity between the embedding column and the generated embedding:
 
-pg vector:
-Open-source vector similarity search for Postgres.
+import { cosineDistance, desc, gt, sql } from 'drizzle-orm';
+import { generateEmbedding } from './embedding';
+import { guides } from './schema';
+const db = drizzle(...);
+const findSimilarGuides = async (description: string) => {
+  const embedding = await generateEmbedding(description);
+  const similarity = sql<number>`1 - (${cosineDistance(guides.embedding, embedding)})`;
+  const similarGuides = await db
+    .select({ name: guides.title, url: guides.url, similarity })
+    .from(guides)
+    .where(gt(similarity, 0.5))
+    .orderBy((t) => desc(t.similarity))
+    .limit(4);
+  return similarGuides;
+};
 
-Store your vectors with the rest of your data. Supports:
+const description = 'Guides on using Drizzle ORM with different platforms';
+const similarGuides = await findSimilarGuides(description);
 
-exact and approximate nearest neighbor search
-single-precision, half-precision, binary, and sparse vectors
-L2 distance, inner product, cosine distance, L1 distance, Hamming distance, and Jaccard distance
-pgvector is included in the main PGlite package.
-
-js
-import { vector } from '@electric-sql/pglite/vector';
-const pg = new PGlite({
-  extensions: { vector }
-});
-
-ai vercel embeddings.
-0xHypr hello
-
-Below is an explanation of how the duplicate-check mechanism works and a generic version of the implementation without relying on an agent identifier.
-
-### Explanation
-
-The duplicate check function determines if a new classification item is a duplicate of any existing items by using text embeddings and cosine similarity. Here's how it works:
-
-1. **Normalization of Text:**  
-   The function combines and normalizes the item's title and vital information (by converting to lowercase and trimming any extra spaces). This produces a consistent text representation.
-
-2. **Embedding Generation:**  
-   It then generates an embedding vector for the normalized text using a text embedding model (in this example, the `"text-embedding-3-small"` model).
-
-3. **Comparison with Existing Items:**  
-   For each existing item, the function computes a similar normalized text and its embedding. After both embeddings are ready, it calculates the cosine similarity between the new item's embedding and each existing item's embedding.
-
-4. **Threshold Check:**  
-   If the similarity score exceeds a predefined threshold (e.g., 0.8), the function considers the new item as a duplicate and returns `true`. Otherwise, it continues checking until all items have been compared, finally returning `false` if no duplicate is found.
-
-### Generic Implementation
-
-Below is the generic version of the duplicate check function in JavaScript. It does not depend on any agent identifier and assumes that each item contains a `title` and `vitalInformation`.
-
-```javascript:src/utils/duplicateCheck.js
-import { createOpenAI } from '@ai-sdk/openai';
-import { embed, cosineSimilarity } from 'ai';
-import { getApiKey } from '@/stores/api-key-store'; // Adjust the import based on your project structure
-
-/**
- * Normalize text by combining title and vital information.
- *
- * @param {string} title - The title of the classification item.
- * @param {string} [vitalInfo=''] - The vital information associated with the item.
- * @returns {string} The normalized text.
- */
-function getNormalizedText(title, vitalInfo = '') {
-  return `${title.toLowerCase().trim()} ${vitalInfo.toLowerCase().trim()}`;
-}
-
-/**
- * Checks if a new classification item is a duplicate among existing items.
- *
- * @param {Object} newItem - The new item with properties { title, vitalInformation }.
- * @param {Array<Object>} existingItems - Array of existing items, each containing { title, vitalInformation }.
- * @returns {Promise<boolean>} - True if a duplicate is detected, false otherwise.
- */
-export async function isDuplicate(newItem, existingItems) {
-  try {
-    // Initialize the OpenAI API with the provided API key
-    const openai = createOpenAI({ apiKey: getApiKey() });
-    
-    // Generate the normalized text and its embedding for the new item
-    const newText = getNormalizedText(newItem.title, newItem.vitalInformation);
-    const { embedding: newEmbedding } = await embed({
-      model: openai.embedding('text-embedding-3-small'),
-      value: newText,
-    });
-    
-    // Compare the new item's embedding with that of each existing item
-    for (const item of existingItems) {
-      const oldText = getNormalizedText(item.title, item.vitalInformation);
-      const { embedding: oldEmbedding } = await embed({
-        model: openai.embedding('text-embedding-3-small'),
-        value: oldText,
-      });
-      const similarity = cosineSimilarity(newEmbedding, oldEmbedding);
-      
-      // If similarity is above the threshold, consider it as a duplicate
-      if (similarity > 0.8) {
-        return true;
-      }
-    }
-    
-    // If no duplicates are found, return false
-    return false;
-  } catch (error) {
-    console.error('Error during duplicate check:', error);
-    return false;
+[
+  {
+    name: 'Drizzle with Turso',
+    url: '/docs/tutorials/drizzle-with-turso',
+    similarity: 0.8642314333984994
+  },
+  {
+    name: 'Drizzle with Supabase Database',
+    url: '/docs/tutorials/drizzle-with-supabase',
+    similarity: 0.8593631126014918
+  },
+  {
+    name: 'Drizzle with Neon Postgres',
+    url: '/docs/tutorials/drizzle-with-neon',
+    similarity: 0.8541051184461372
+  },
+  {
+    name: 'Drizzle with Vercel Edge Functions',
+    url: '/docs/tutorials/drizzle-with-vercel-edge-functions',
+    similarity: 0.8481551084241092
   }
-}
-```
-
-This generic implementation removes the dependency on an agent identifier by simply iterating over all existing items and comparing their corresponding embeddings. It allows you to explain how duplicate detection works in your new coding agent by highlighting the normalization, embedding, and similarity comparison steps.
+]
 
 ---
 > Source: [different-ai/irs-agent](https://github.com/different-ai/irs-agent) — distributed by [TomeVault](https://tomevault.io).
