@@ -1,0 +1,9 @@
+{
+  "name": "barisgit--kilm",
+  "displayName": "KiLM",
+  "description": "KiCad Library Manager | Easily manage global libraries with github",
+  "version": "1.0.0",
+  "author": "barisgit",
+  "homepage": "https://github.com/barisgit/KiLM",
+  "skills": []
+}
