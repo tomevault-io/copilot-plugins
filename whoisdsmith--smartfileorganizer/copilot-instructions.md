@@ -1,71 +1,46 @@
-## 200-gui-and-main
+## 201-file-parsing-organization
 
-> Rules for the GUI and main application logic
+> Rules for file parsing and organization
 
 # Guidelines
 
-- **GUI Structure (`src/gui.py`)**
-  - Use `tkinter` with `ttk` for a native look.
-  - Organize widgets with a grid layout within a `ttk.Notebook` for tabs.
-  - Main tab: Directory selection, processing options, status, file list, details, and actions.
-  - Settings tab: Processing settings, AI models, organization rules.
-  - About tab: Application information.
+- **File Parsing (`src/file_parser.py`)**
+  - `extract_text`:
+    - Handle CSV, Excel, HTML, Markdown, Text, and Word files.
+    - Detect encoding with `chardet`.
+    - For CSV and Excel, use `pandas`.  Limit rows read for large files.
+    - For HTML, use `BeautifulSoup`.
+    - For Word (.docx), use `docx`.
+    - Provide fallback mechanisms for parsing errors.
 
-- **Threading**
-  - Use threading for long-running tasks (scanning, organizing, report generation).
-  - Utilize a `queue.Queue` for inter-thread communication.
-  - Update GUI via the queue to avoid freezing.
+  - `extract_metadata`:
+    - Extract metadata relevant to the file type (e.g. author, title, creation date for .docx files, sheet names and number of columns for Excel)
 
-- **Settings Management (`src/settings_manager.py`)**
-  - Use `SettingsManager` to load/save user preferences.
-  - Store settings in `settings.json` located in an OS-specific directory.
-  - Windows: `%LOCALAPPDATA%\AIDocumentOrganizer`
-  - macOS/Linux: `~/.config/AIDocumentOrganizer`
-  - Default settings for batch size, delay, directories, theme, and organization rules.
+- **File Organization (`src/file_organizer.py`)**
+    - `organize_files`:
+       - Organize files based on AI analysis (category, keywords, summary).
+       - Create category directories (if enabled).
+       - Handle duplicate filenames.
+       - Copy or move files (configurable).
+    - `_create_metadata_file`:
+       - Create `.meta.txt` files with AI analysis: filename, path, type, size, category, theme, keywords, summary, related documents.
+    - `_create_summary_file`:
+      - Create `_summary.txt` files with a formatted summary and related documents section.
 
-- **File Handling**
-  - `FileAnalyzer`: Scan and analyze files.
-    - Batch processing with configurable batch size and delay.
-    - Use thread pool for parallel processing.
-    - Supported file extensions: `.csv`, `.xlsx`, `.html`, `.md`, `.txt`, `.docx`.
-  - `FileOrganizer`: Organize files based on AI analysis.
-    - Create category folders, summary files, metadata files.
-    - Copy or move files.
-  - `FileParser`: Extract text and metadata.
-    - Handle various file types (CSV, Excel, HTML, Markdown, Text, Word).
-    - Use appropriate libraries (pandas, BeautifulSoup, docx, chardet).
+- **Folder Report Generation (`src/file_organizer.py`)**:
+    - `generate_folder_report`:
+        - Generate a Markdown report for a given folder.
+        - Include category statistics, file list (grouped by category).
+        - Extract information from `.meta.txt` files.
+        - Include content summaries (optional).
+        - Analyze and document relationships between documents.
 
-- **Logging**
-  - Use the `logging` module for all events (INFO, WARNING, ERROR).
-  - Log to a file (`app.log`) and the console.
-  - Windows-specific log directory: `%LOCALAPPDATA%\AIDocumentOrganizer`
-  - macOS/Linux: `~/.local/share/AIDocumentOrganizer`
-  - Fallback: Current directory if specific location fails.
-
-- **Error Handling**
-  - Handle exceptions gracefully.
-  - Display user-friendly error messages via `messagebox`.
-  - Log errors with details.
-
-- **Progress Updates**
-  - Update progress via a callback mechanism.
-  - Display real-time progress: processed files, total files, batch status, percentage.
-  - Use a `ttk.Progressbar`.
-
-- **Main Entry Point (`main.py`)**
-  - Set up logging.
-  - Handle DPI awareness on Windows.
-  - Create the main window and initialize `DocumentOrganizerApp`.
-  - Set application icon (Windows specific).
-  - Set window size and position (80% of screen).
-  - Set Windows-specific theme (`winnative`, `vista`, `clam`).
-
-- **Organization Rules**
-  - Configurable via settings:
-    - Create category folders.
-    - Generate content summaries.
-    - Include metadata files.
-    - Copy files instead of moving.
+- **Utility Functions (`src/utils.py`)**:
+    - `get_readable_size`: Convert bytes to human-readable format (KB, MB, GB, etc.).
+    - `sanitize_filename`: Make strings safe for filenames.
+    - `truncate_text`: Limit text length with ellipsis.
+    - `strip_html_tags`: Remove HTML tags.
+    - `is_file_locked`: Check file lock status.
 
 ---
 > Source: [whoisdsmith/SmartFileOrganizer](https://github.com/whoisdsmith/SmartFileOrganizer) — distributed by [TomeVault](https://tomevault.io).
