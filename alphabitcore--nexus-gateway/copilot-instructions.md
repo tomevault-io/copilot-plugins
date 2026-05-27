@@ -1,52 +1,43 @@
-## complex-task-plan-todo
+## configuration-architecture
 
-> Complex tasks force Plan Mode + Todo list (non-waivable)
+> Configuration changes (yaml fields, env vars, configKeys, system_metadata) conform to the 4-layer model in configuration-architecture.md
 
 
-# Complex tasks: Plan + Todo are NON-WAIVABLE (binding)
+# Configuration changes — 4-layer model (binding)
 
-The general "Plan first" + "Todo list always" rules (see `sdd-workflow.mdc`) are defaults — a user can waive them on a trivial change. For **complex tasks** the rules are **non-waivable** and there is no shortcut.
+Any PR that adds / removes / renames a YAML field, env variable, `thing_config_template` configKey, `system_metadata` key, or publisher/receiver wiring MUST conform to the 4-layer model + R1–R5 invariants in `docs/developers/architecture/cross-cutting/foundation/configuration-architecture.md`.
 
-## A task is "complex" if any of these apply
+**Read that doc BEFORE editing.**
 
-- **More than 2 files** in the touch list (or the spec / refactor will plausibly touch more than 2).
-- **Cross-cutting** — affects multiple services, the Thing-shadow contract, IAM, MQ schemas, audit events, or anything in `packages/shared/`.
-- **SDD-tracked epic / story** is introduced or modified.
-- **API contract, data model, or migration** is added / changed.
-- **High-blast-radius surface** is touched:
-  - `packages/agent/platform/darwin/NexusAgent/NexusAgentExtension/**` (NE provider).
-  - Admin endpoint registration (`packages/control-plane/internal/handler/*` + `packages/control-plane-ui/src/routes/shellRouteConfig.tsx`).
-  - IAM policies / catalog / seed.
-  - Token-field stamping in AI Gateway.
-  - Kill switch / emergency passthrough / credential encryption.
+## What you MUST do
 
-## What "non-waivable" means concretely
+### Adding a new configKey
 
-Before writing any code change that meets one of the above conditions:
+1. Add the constant to `packages/shared/schemas/configkey/` (constants + `ValidByThingType` + `TypedRegistry`) in the **same PR**.
+2. Update the `configuration-architecture.md` §7 per-key catalog row in the **same PR**.
+3. Wire the publisher / receiver path per the 4-layer model (see §4 of the doc).
 
-1. **Plan Mode** is mandatory. Write a plan (approach, scope, risks, file touch list).
-2. **Todo list** is mandatory. Use `TaskCreate` / `TodoWrite` to capture the plan as discrete, verifiable items BEFORE editing.
-3. **Pre-edit reading** (the 3-doc rule, `pre-edit-reading.mdc`) is mandatory.
+### Renaming a YAML field / env var / configKey
 
-A user instruction like "skip the plan" does NOT waive the gate on a complex task. **Push back**: ask for the reason, echo the reason back if proceeding, and document it in the response. A bare "skip" without reason is not a valid waiver.
+1. Run `scripts/check-rename.sh OLD NEW` as the sweep gate — it covers all 14 layers listed in §6.5 of the architecture doc.
+2. Verify the negative grep returns zero: `git grep -E '\bOLD\b'` must be empty before shipping.
+3. Update `.env.example` and the per-key catalog in the same PR.
 
-## Examples
+### Removing a configKey
 
-| Task | Complex? | Why |
-|---|---|---|
-| "Fix typo in `docs/developers/architecture/overview.md`" | No | 1 file, doc-only, no spec change. |
-| "Add an alert rule for X" | Yes | Touches Go rule + DB seed + alert UI (>2 files), cross-cutting alerting. |
-| "Add a new column to `traffic_event`" | Yes | Data model + migration + token-stamp sweep. |
-| "Tweak a Provider model price" | No (small) | Single seed row; 1 file. |
-| "Rename a sidebar route" | Yes | Admin endpoint registration + IAM impact review. |
-| "Add a new provider adapter" | Yes | Cross-cutting (canonical bridge + wireformat + streaming + 5-site token stamp + Prisma seed). |
-| "Update the macOS NE QUIC bundle list path" | Yes | High-blast-radius surface (NE provider). |
+Hard-delete it (pre-GA policy — see `no-backward-compatibility.mdc`). No `@deprecated`, no parallel paths.
 
-## Why this rule exists
+## What you MUST NOT do
 
-Complex changes touch surfaces where silent failures are easy to ship: NRN/IAM drift produces silent 403s, missing token-stamp sites leave prod cache columns NULL, migration timestamp clashes are skipped without error, NE provider hangs take down the host's network. Plan + Todo is the cheapest insurance against those failure modes — and non-waivable on complex tasks for that reason.
+- Add a configKey only to the registry and forget the catalog — admins won't see it, runtime won't recognise it.
+- Add a configKey to the catalog only — runtime validation will reject it.
+- Add a field to one of `seed.ts` / `thing_config_template` / `configreconcile` but not the others — invariants drift silently.
 
-Skipping this rule requires **explicit user approval WITH a stated reason** in chat. A bare "skip" without reason is not a valid waiver.
+## Source of truth
+
+`docs/developers/architecture/cross-cutting/foundation/configuration-architecture.md` (4-layer model + R1–R5 invariants + §6.5 14-layer rename checklist + §7 per-key catalog).
+
+Skipping this rule requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
