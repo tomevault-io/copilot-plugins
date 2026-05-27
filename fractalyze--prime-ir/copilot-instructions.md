@@ -1,34 +1,60 @@
-## general-philosophy
+## tablegen
 
-> General Coding Philosophy and Core Principles
+> TableGen Rules for MLIR Dialects and Passes
 
 
-# General Coding Philosophy
+# TableGen Rules
 
-## Core Principles
+This section defines standards for defining MLIR Dialects and Passes, particularly focusing on the use of `dependentDialects` in TableGen (`.td`) files.
 
-- **Readability:** Both code and commits should be immediately understandable.
-- **Maintainability:** Code should be easy to refactor and extend.
-- **Consistency:** Apply the same conventions across files and modules, except where external code (e.g., XLA) is imported.
-- **Performance:** Prioritize clarity, but optimize carefully where latency and cost are critical.
+## Dialect: `dependentDialects` Management
 
-## Comment Style
+When defining a Dialect, the `dependentDialects` field is used to record dependencies on other dialects whose components (Operations, Attributes, or Types) are **reused, relied upon, or constructed** by the current Dialect itself.
 
-- Non-trivial code changes must be accompanied by comments.
-- Comments explain **why** a change or design decision was made or explain the code for better readability.
-- Use full sentences with proper punctuation.
+Example:
 
-## File Formatting
+```
+def MyDialect : Dialect {
+  // Here we register the Arithmetic and Func dialect as dependencies of our `MyDialect`.
+  let dependentDialects = [
+    "arith::ArithDialect",
+    "func::FuncDialect"
+  ];
+}
+```
 
-- Every file must end with a single newline.
-- No trailing whitespace.
-- No extra blank lines at EOF.
+For every Dialect listed in the `dependentDialects` of a Dialect, the corresponding C++ header file **must** be included in the Dialect definition file.
 
-## License
+```c++
+// IWYU pragma: begin_keep
+// Headers needed for FieldDialect.cpp.inc
+#include "mlir/IR/OperationSupport.h"
+#include "prime_ir/Dialect/ModArith/IR/ModArithDialect.h"
+// IWYU pragma: end_keep
+```
 
-- Every file (that could be exceptional case, such as empty BUILD.bazel) should have license notice at the top.
-- **New Files**: For any new files created from now on, the copyright year should be set to 2026.
-- **Refactored Files**: If a file is moved or renamed as part of a refactoring process, you may retain the original creation year from the source file.
+## Pass: `dependentDialects` Management
+
+The `dependentDialects` list in a `Pass` definition must only include Dialects for which the Pass **introduces new entities** (Operations, Attributes, Types, etc.) during its execution.
+
+- **Rule:** The list should contain only Dialects whose entities are **newly created or explicitly used to construct a transformation** by the Pass.
+- **Avoid:** Do not include Dialects that are merely consumed, transformed, or required for general Pass setup.
+  - _Example:_ If a Pass transforms `tensor` ops into `memref` ops, and does not create new `tensor` ops, `tensor::TensorDialect` should not be listed as a dependent dialect.
+
+For every Dialect listed in the `dependentDialects` of a Pass, the corresponding C++ header file **must** be included in the Pass definition file (e.g., `*Pass.h`).
+
+Example (for `TensorExtToTensorPass`):
+
+```c++
+// IWYU pragma: begin_keep
+// Headers needed for TensorExtToTensor.h.inc
+#include "mlir/Dialect/Bufferization/IR/Bufferization.h"
+#include "mlir/Dialect/LLVMIR/LLVMDialect.h"
+#include "mlir/Dialect/MemRef/IR/MemRef.h"
+#include "mlir/Dialect/SCF/IR/SCF.h"
+#include "mlir/Pass/Pass.h"
+// IWYU pragma: end_keep
+```
 
 ---
 > Source: [fractalyze/prime-ir](https://github.com/fractalyze/prime-ir) — distributed by [TomeVault](https://tomevault.io).
