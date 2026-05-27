@@ -1,127 +1,43 @@
-## provider-adapter-canonical-openai
+## redis-cache-only
 
-> Canonical = OpenAI shape; each non-OpenAI adapter owns its bidirectional translation (8 binding rules from provider-adapter-architecture.md §3a)
+> Redis is cache-only — no pub/sub (config invalidation goes via Hub WebSocket)
 
 
-# Provider adapter: canonical = OpenAI shape (binding)
+# Redis is cache-only — no pub/sub (binding)
 
-You are editing a provider adapter or its codec. The 8 binding rules below come from `docs/developers/architecture/services/ai-gateway/provider-adapter-architecture.md` §3a. **Apply to every adapter PR.**
+Nexus Gateway uses **Redis for caching only**: sessions, IAM cache, rate-limit counters, response cache, desired-state cache, cert cache, quota counters.
 
-**Read `docs/developers/architecture/services/ai-gateway/provider-adapter-architecture.md` §3a BEFORE editing.**
+Config invalidation across services is the **Hub WebSocket change-signal**, not Redis pub/sub. See `docs/developers/architecture/cross-cutting/foundation/thing-config-sync-architecture.md` and `docs/developers/architecture/cross-cutting/storage/cache-multi-tier-architecture.md`.
 
-## Rule 1 — Canonical format is OpenAI chat-completions shape
+## What this rule forbids
 
-All internal flow (router input, cache key, hook input, audit envelope, request lineage) sees the **canonical form**, which is OpenAI's shape:
+- `redis.Subscribe(...)`, `redis.PSubscribe(...)` for cross-service event notification.
+- `redis.Publish(...)` for cross-service signaling.
+- New code that "broadcasts an invalidation via Redis channel `nexus:config:...`".
 
-```
-model · messages[] · max_tokens / max_completion_tokens · temperature · top_p · top_k ·
-stream · stop · response_format · tools[] · tool_choice · parallel_tool_calls ·
-metadata · stream_options
-```
+## What's allowed
 
-**New canonical fields require an architecture-doc PR** — adapters do not add canonical fields unilaterally.
+- `redis.Set` / `Get` / `HGet` etc. for plain key-value caching.
+- Lua scripts on Redis for sliding-window counters (quota, rate-limit).
+- Redis-backed LRU promotion in two-tier cert / IAM caches.
 
-## Rule 2 — Each non-OpenAI adapter owns its full bidirectional translation
+## Why
 
-When you add an Anthropic / Gemini / Bedrock / Cohere / Replicate codec:
+The pre-Hub architecture used Redis pub/sub for config invalidation; it had three documented problems (no apply receipt, cold-start divergence, two parallel code paths). The Hub-centric Thing model replaced it. Bringing pub/sub back in any form re-introduces those failure modes.
 
-- `SchemaCodec.EncodeRequest` does **canonical → wire**.
-- `SchemaCodec.DecodeResponse` does **wire → canonical**.
+## Enforcement
 
-The **OpenAI side stays pure** (identity codec) — it never carries case-statements for "this came from Anthropic so do X". OpenAI shape is the bus; every other shape adapter wires itself into the bus.
+`npm run check:no-redis-pubsub` (CI + pre-commit) catches three regression shapes:
 
-## Rule 3 — Per-model wire quirks belong in their own adapter
+1. **Forbidden pub/sub calls** — `redis.Publish/Subscribe/PSubscribe(…)` in production Go.
+2. **Channel literals** — string `nexus:config*` appearing anywhere in production code.
+3. **Deleted-package re-imports** — any Go import of `packages/shared/heartbeat`, `packages/control-plane/internal/pubsub`, or `packages/control-plane/internal_registry`. These packages were deleted with the Hub-centric migration; their re-appearance is an unambiguous architectural regression.
 
-HTTP-400-deprecations, parameter renames, mandatory clamping — they live in the adapter that talks to that wire. **Not** in cross-adapter case-statements in `spec_adapter.go`'s shared helpers.
+## Historical context (informational)
 
-| Quirk | Lives in |
-|---|---|
-| claude-opus-4-7 deprecates temperature/top_p/top_k | `specs/anthropic/codec/codec.go::anthropicModelRejectsSamplingParams` |
-| claude-4.x rejects temperature + top_p together | `specs/anthropic/codec/codec.go::anthropicModelRejectsTempTopPTogether` |
-| gpt-5.x / o-series rename max_tokens → max_completion_tokens + strip temp/top_p | `specs/openai/rewrites` (`ApplyReasoningRewrites`, wired as the OpenAI `PassthroughRewrite`) |
-| kimi-k2.5/k2.6 require temperature=1 | `specs/compat/moonshot/rewrites.go` (`ApplyRewrites`, wired as the Moonshot `PassthroughRewrite`) |
+Pre-Hub, config invalidation rode `nexus:config:shared` with payloads `"hooks" | "routing" | "credentials" | "all"`. The pub/sub design had three documented failure modes (no apply receipt, cold-start divergence, two parallel code paths) which the Hub WebSocket change-signal eliminates. The packages named above implemented the old design and are deleted — the names are kept here only so future searches that hit this file get the "use Hub WebSocket instead" answer.
 
-When a new family ships an HTTP-400-deprecation, find the adapter that owns its wire and add the prefix-rule there. Cross-adapter shared helpers create the wrong dependency direction.
-
-## Rule 4 — `nexus.ext.<provider>.<key>` is the canonical extension namespace
-
-Fields with no clean OpenAI mapping (Anthropic's `thinking`, Gemini's `thinkingConfig`, Anthropic's `cache_creation_input_tokens`, Bedrock's `anthropic_version`) ride along inside `nexus.ext.<provider>.<key>` on the canonical body.
-
-Package: `providers/canonicalext/`. Use:
-
-- `canonicalext.Get`
-- `canonicalext.Set`
-- `canonicalext.ScanUnsupported`
-- `canonicalext.WarnOnce` — adapters that observe an unsupported canonical field emit a one-shot WARN so operators see drift between the canonical surface and the codec.
-
-## Rule 5 — `SchemaCodec.EncodeRequest` contract: input is canonical, output is target wire
-
-Callers that have an **ingress-format body** (Anthropic `/v1/messages`, Gemini `:generateContent`) MUST canonicalize first via:
-
-```go
-canonical, err := canonicalbridge.IngressChatToCanonical(ingress, body, target)
-```
-
-…before invoking `adapter.PrepareBody` / `SchemaCodec.EncodeRequest`. Skipping canonicalization makes the OpenAI identity codec forward the ingress body verbatim, and the upstream returns 400 (or worse, parses partially and produces gibberish).
-
-`EncodeRequest` accepts canonical-or-codec-empty (passthrough); it does NOT accept "any old shape and we'll figure it out".
-
-## Rule 6 — Both streaming and non-streaming are in scope
-
-A codec rule that strips `temperature` from a non-streaming request **must also strip it from the streaming variant** — the upstream rejects both. The streaming session's pre-dispatch body construction goes through the same `PrepareBody` path, so this typically falls out for free.
-
-The gap usually appears on **error-frame construction** (response side) when the gateway hand-builds an SSE error and forgets the ingress format. Rule 8 covers this.
-
-## Rule 7 — Add empirical evidence to every prefix-list
-
-Every "model X rejects param Y" rule MUST be backed by an **observed 400** (logged trace_id or direct test call). Speculative rules cause silent flattening of caller intent — strip a param that the model actually accepts, and you've degraded behaviour without surfacing why.
-
-The comment above each prefix-list switch documents the observation (date + error message). Canonical example: `anthropicModelRejectsSamplingParams` in `specs/anthropic/codec/codec.go` carries the observed-400 evidence in its comment block.
-
-```go
-// Date: 2026-05-09. Observed via trace_id=abc... on claude-opus-4-7:
-//   { "type":"invalid_request_error", "message":"temperature is not allowed for this model" }
-// Verified again 2026-05-12 via direct curl. Confirmed: deprecation, not a transient.
-var anthropicModelRejectsSamplingParams = []string{
-    "claude-opus-4-7",
-    ...
-}
-```
-
-Without evidence:
-- Reviewers can't tell if the rule is correct or speculative.
-- Future contributors don't know when the upstream's deprecation could be lifted.
-- Drift goes unnoticed.
-
-## Rule 8 — error envelopes are reshaped to the caller's ingress format
-
-A normalized `ProviderError` is never serialized in one hardcoded shape. Reshape it to the caller's format via:
-
-```go
-errBody := envelope.EncodeErrorEnvelopeForIngress(ingress.BodyFormat, upstreamFormat, providerError)
-```
-
-`packages/ai-gateway/internal/ingress/envelope/error_envelope.go` selects the per-format encoder (OpenAI / Anthropic / Gemini / Responses); the SSE variant `encodeErrorEnvelopeForIngressForStream` wraps the JSON envelope in the stream frame. An Anthropic caller must receive an Anthropic-shaped error even when the upstream error and its normalization were OpenAI-internal. Do **not** hand-build an OpenAI-shape error frame regardless of caller.
-
-## Pre-commit checks
-
-When you touch an adapter codec:
-
-```bash
-grep -nE 'spec_adapter\.go.*case' packages/ai-gateway/internal/providers/   # cross-adapter case-statements
-grep -nE 'nexus\.ext\.[a-z]+\.' packages/                                    # extension-namespace usage
-grep -nE 'IngressChatToCanonical' packages/                                  # canonicalize-before-encode
-```
-
-## Reference checklist for new adapter PRs
-
-Use `.claude/skills/add-provider-adapter/` for the full procedure.
-
-## Audit an existing adapter
-
-Use `.claude/skills/adapter-conformance-check/` to verify an existing codec against Rules 1-8. Catches per-adapter logic that leaked into the generic dispatcher, missing canonicalize-before-dispatch, error envelopes that bypass the helper, prefix-lists without empirical evidence, and missing `PassthroughRewrite` wiring.
-
-Skipping any of these 8 rules requires **explicit user approval** in chat.
+Skipping this rule requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
