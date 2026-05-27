@@ -1,0 +1,9 @@
+{
+  "name": "openconceptlab--oclmap",
+  "displayName": "oclmap",
+  "description": "OCL Mapper (beta): an open-source AI-supported terminology mapping solution for the global community",
+  "version": "1.0.0",
+  "author": "OpenConceptLab",
+  "homepage": "https://github.com/OpenConceptLab/oclmap",
+  "skills": []
+}
