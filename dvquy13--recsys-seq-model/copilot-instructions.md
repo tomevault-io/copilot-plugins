@@ -1,109 +1,98 @@
-## ml-development-patterns
+## recsys-project-structure
 
-> This project follows specific ML development patterns for recommendation systems.
+> This is a real-time recommendation system MVP based on session-based recommendation with sequence modeling.
 
-# ML Development Patterns & Best Practices
+# RecSys Seq Model Project Structure Guide
 
-This project follows specific ML development patterns for recommendation systems.
+This is a real-time recommendation system MVP based on session-based recommendation with sequence modeling.
 
-## 🏗️ Model Architecture Patterns
+## 🏗️ Project Architecture
 
-### Factory Pattern for Models
-The project uses a factory pattern in **[src/sequence/model.py](mdc:src/sequence/model.py)** for creating different retriever types:
+### Core Directories
+- **[src/](mdc:src)** - Main source code with ML logic
+  - **[src/sequence/](mdc:src/sequence)** - Sequence modeling components (models, training, inference)
+  - **[src/cfg.py](mdc:src/cfg.py)** - Centralized configuration management with Pydantic
+  - **[src/id_mapper.py](mdc:src/id_mapper.py)** - Maps between item IDs and indices
+  - **[src/vectorstore.py](mdc:src/vectorstore.py)** - Qdrant vector store operations
+  - **[src/negative_sampling.py](mdc:src/negative_sampling.py)** - Negative sampling for training
 
-```python
-@SequenceRetrieverFactory.register_retriever(
-    "TwoTowerSequenceRetriever",
-    params=["num_users", "num_items", "embedding_dim", ...],
-    required=["num_users", "num_items", "embedding_dim"]
-)
-```
+- **[api/](mdc:api)** - FastAPI web service
+  - **[api/app.py](mdc:api/app.py)** - Main FastAPI application with endpoints
+  - **[api/services.py](mdc:api/services.py)** - Business logic and service layer
+  - **[api/models.py](mdc:api/models.py)** - Pydantic request/response models
 
-### Configuration Management
-- **[src/cfg.py](mdc:src/cfg.py)** provides type-safe configuration with Pydantic
-- Environment variable substitution in YAML configs
-- Hierarchical config structure: `config.data.train_fp`, `config.train.learning_rate`
+- **[model_server/](mdc:model_server)** - Model serving infrastructure
+- **[ui/](mdc:ui)** - Next.js frontend application
+- **[tests/](mdc:tests)** - Comprehensive test suite with API tests
+- **[notebooks/](mdc:notebooks)** - Jupyter notebooks for ML pipeline (000-021 sequence)
+- **[cfg/](mdc:cfg)** - Configuration files ([cfg/common.yaml](mdc:cfg/common.yaml))
 
-### Training Infrastructure
-- **[src/sequence/trainer.py](mdc:src/sequence/trainer.py)** - PyTorch Lightning trainer
-- **[src/sequence/inference.py](mdc:src/sequence/inference.py)** - Model inference utilities
-- MLflow integration for experiment tracking
+### Key Configuration Files
+- **[pyproject.toml](mdc:pyproject.toml)** - Python dependencies managed with uv
+- **[Makefile](mdc:Makefile)** - Development workflow automation
+- **[compose.yml](mdc:compose.yml)** - ML platform (MLflow, Qdrant, Redis)
+- **[compose.api.yml](mdc:compose.api.yml)** - API service deployment
 
-## 🔄 Data Flow Patterns
+## 🧠 ML Pipeline Flow
 
-### ID Mapping Strategy
-**[src/id_mapper.py](mdc:src/id_mapper.py)** handles conversion between:
-- Raw item IDs (e.g., "B00DPM7TIG") ↔ Model indices (0, 1, 2...)
-- Critical for production serving where models expect numeric indices
+### Training Pipeline (Notebooks Sequence)
+1. **[notebooks/000-prep-data.ipynb](mdc:notebooks/000-prep-data.ipynb)** - Data preparation
+2. **[notebooks/001-features.ipynb](mdc:notebooks/001-features.ipynb)** - Feature engineering
+3. **[notebooks/002-negative-sample.ipynb](mdc:notebooks/002-negative-sample.ipynb)** - Negative sampling
+4. **[notebooks/010-baseline-popular.ipynb](mdc:notebooks/010-baseline-popular.ipynb)** - Popularity baseline
+5. **[notebooks/011-sequence-modeling.ipynb](mdc:notebooks/011-sequence-modeling.ipynb)** - Main sequence model training
+6. **[notebooks/020-ann-index.ipynb](mdc:notebooks/020-ann-index.ipynb)** - Store embeddings in Qdrant
+7. **[notebooks/021-store-user-item-sequence.ipynb](mdc:notebooks/021-store-user-item-sequence.ipynb)** - Store data in Redis
 
-### Negative Sampling
-**[src/negative_sampling.py](mdc:src/negative_sampling.py)** implements:
-- Random negative sampling for training
-- Popularity-based negative sampling
-- Essential for recommendation model training
+### Model Architecture
+- **Two-Tower Architecture**: User+sequence tower vs Item tower
+- **Sequence Models**: GRU or mean pooling for user interaction sequences
+- **Vector Store**: Qdrant for ANN search of item embeddings
+- **Caching**: Redis for user sequences and popular items
 
-### Vector Store Pattern
-**[src/vectorstore.py](mdc:src/vectorstore.py)** abstracts:
-- Item embedding storage in Qdrant
-- Similarity search for candidate retrieval
-- Batch operations for efficiency
+## 🚀 Key API Endpoints
 
-## 🧪 Testing Patterns
-
-### Mock Strategy
-**[tests/conftest.py](mdc:tests/conftest.py)** provides comprehensive mocks:
-- Redis client with predefined responses
-- Qdrant search results
-- Model server HTTP responses
-- ID mapper functionality
-
-### Test Structure
-- Separate test files for different layers: endpoints, services, models
-- Use of pytest fixtures for dependency injection
-- Integration tests with full API stack
-
-## 🚀 Deployment Patterns
-
-### Model Serving Architecture
-- **[model_server/](mdc:model_server)** - Dedicated model inference service
-- **[api/](mdc:api)** - API gateway that orchestrates calls
-- Separation of concerns: ML inference vs business logic
-
-### Environment Management
-- **uv** for Python dependency management
-- Docker Compose for multi-service orchestration
-- Environment-specific configurations
-
-### Real-time Serving
-- Redis for caching user sequences and popular items
-- Qdrant for fast similarity search
-- FastAPI for high-performance API serving
-
-## 📊 Evaluation Patterns
-
-### Metrics Integration
-**[src/eval/](mdc:src/eval)** contains evaluation utilities:
-- Offline metrics computation
-- A/B testing framework preparation
-- Model performance monitoring
-
-### Notebook-Driven Development
-Sequential notebook pipeline (**[notebooks/](mdc:notebooks)**):
-1. Data prep → Feature engineering → Model training → Deployment
-2. Papermill for automated notebook execution
-3. Clear separation of exploration vs production code
+- `POST /recs/retrieve` - Main recommendation endpoint
+- `GET /recs/popular` - Popular items fallback
+- `POST /vendor/seq_retriever` - Model server proxy
+- `POST /items/get_by_ids` - Item metadata retrieval
+- `POST /items/search_by_title` - Text search
 
 ## 🛠️ Development Workflow
 
-### Code Quality
-- **[.ruff.toml](mdc:.ruff.toml)** - Python linting and formatting
-- Type hints throughout codebase
-- Comprehensive test coverage
+### Setup
+```bash
+make ml-platform-up    # Start MLflow, Qdrant, Redis
+make requirements-txt  # Generate requirements.txt
+make api-up           # Start API service
+```
 
-### CI/CD Ready
-- **[Makefile](mdc:Makefile)** provides standardized commands
-- Docker-based deployment
-- Clear separation of development vs production dependencies
+### Testing
+```bash
+make api-test         # Run API tests
+make ui-test          # Run UI tests
+make lint             # Code linting
+```
+
+### Training
+```bash
+make train model=TwoTowerSequenceRetriever
+```
+
+## 🧪 Testing Strategy
+
+- **[tests/conftest.py](mdc:tests/conftest.py)** - Test fixtures and mocks
+- **[tests/api/](mdc:tests/api)** - API endpoint tests
+- Mocks Redis, Qdrant, and model server for isolation
+- Coverage includes endpoints, services, and models
+
+## 🔧 Key Technologies
+
+- **ML**: PyTorch Lightning, MLflow for tracking
+- **Backend**: FastAPI, Redis, Qdrant vector DB
+- **Frontend**: Next.js, TypeScript
+- **Infrastructure**: Docker Compose, uv for dependency management
+- **Data**: Amazon Review datasets via HuggingFace
 
 ---
 > Source: [dvquy13/recsys-seq-model](https://github.com/dvquy13/recsys-seq-model) — distributed by [TomeVault](https://tomevault.io).
