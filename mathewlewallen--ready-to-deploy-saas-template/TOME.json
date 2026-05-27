@@ -1,0 +1,44 @@
+{
+  "name": "Ready-To-Deploy-SaaS-Template",
+  "owner": "mathewlewallen",
+  "repo": "Ready-To-Deploy-SaaS-Template",
+  "description": "\ud83d\ude80 A production-ready, fully customizable SaaS template using Wasp, React, and Node.js. Includes authentication, payments, and deployment-ready configurations. | Support me: https://buymeacoffee.com/mathewlewallen",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mathewlewallen/Ready-To-Deploy-SaaS-Template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T18:43:25Z"
+}
