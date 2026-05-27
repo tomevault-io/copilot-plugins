@@ -1,152 +1,49 @@
-## how-to-create-tools
+## knowledgesync
 
-> Instructions for creating tools for use by AI agents
+> You have one mission: execute *exactly* what is requested.
 
-## How to Write a Tool
+<behavior_rules>
+You have one mission: execute *exactly* what is requested.
 
-### Overview
+Produce code that implements precisely what was requested - no additional features, no creative extensions. Follow instructions to the letter.
 
-Writing a tool for this app involves creating a Python module that defines an `execute` function and a `TOOL_METADATA` dictionary. The `execute` function handles the logic for the tool, while `TOOL_METADATA` provides information about the tool's name, description, and parameters. In this updated approach, the tool no longer accepts an external `llm_client` parameter. Instead, the tool itself instantiates the LLM client within its code. This document also explains how to call and test the tool in standalone mode.
+Confirm your solution addresses every specified requirement, without adding ANYTHING the user didn't ask for. The user's job depends on this — if you add anything they didn't ask for, it's likely they will be fired.
 
-### Step-by-Step Guide
+Your value comes from precision and reliability. When in doubt, implement the simplest solution that fulfills all requirements. The fewer lines of code, the better — but obviously ensure you complete the task the user wants you to.
 
-1. **Create a New Tool File**
+At each step, ask yourself: "Am I adding any functionality or complexity that wasn't explicitly requested?". This will force you to stay on track.
+</behavior_rules>
 
-   - Navigate to the `tools` directory.
-   - Create a new Python file for your tool, e.g., `my_tool.py`.
+# EXTRA TOOLS THAT GIVE YOU SUPERPOWERS
 
-2. **Define the `execute` Function**
+To be really helpful to me, you need access to knowledge about me and my work. For that I have extended your capabilities with cli programs in the /tools dir:
 
-   - The `execute` function should contain the logic for your tool.
-   - Instead of receiving an `llm_client` as an argument, instantiate the client directly within the function.
-   - Use a system message to define the LLM's role and a user message to provide the query input.
+1. use_knowledge.py - lets you query my knowledgebase to get the context you need.
+Simply run `python3 tools/use_knowledge.py "test query"` and you will get back relevant context in an md file that you can use in subsequent steps.
+2. create_email.py - will send an email to recipient
 
-   ```python
-   from openai import OpenAI
-   import os
+# SHORTCODES
 
-   def execute(**kwargs):
-       """
-       Execute the tool logic.
+I will use hahtag shortcodes with you from time to time to give hints about what rules you should use. Whenevr I use a hashtag, assume I am asking you to consult a rule in this file or in the .cursor/rules dir.
 
-       Parameters:
-       - **kwargs: Additional arguments specific to the tool.
+#bc - make sure you maintain backwards compatibility with what we have built so far - don't break anything
 
-       Returns:
-       - dict: A dictionary with the tool's result and any follow-on instructions.
-       """
-       # Example logic: generate a result string based on input parameters or internal processing
-       result = "Your tool result here"
 
-       # Instantiate the LLM client directly within the tool
-       client = OpenAI(
-           base_url=os.getenv('API_BASE_URL'),
-           api_key=os.getenv("OPENROUTER_API_KEY")
-       )
 
-       # Create a prompt using a system message to specify the role of the LLM and a user message with the query
-       prompt = f"Process the result: {result}"
-       response = client.chat.completions.create(
-           model='gpt-4o-mini',
-           messages=[
-               {"role": "system", "content": "You are a helpful assistant."},
-               {"role": "user", "content": prompt}
-           ]
-       )
-       processed_result = response.choices[0].message.content.strip()
+# BUILDING APPS
 
-       return {
-           "result": processed_result,
-           "follow_on_instructions": []  # Optional follow-on instructions
-       }
-   ```
+We use python3
+Use fastapi for backend
+Use vanilla html/js/css for frontend
+Use hosted tailwind for frontend css/js libs
+Use daisy ui with 'winter' theme for theming tailwind
+Write API's and test them yourself with curl
+Use extensive commenting & docstrings
 
-   - **Using an LLM Call within the Tool:**  
-     If your tool requires additional processing or context (for example, summarizing a headline), you can instantiate the client and include a system message in the prompt:
+# KNOWLEDGE SYNC
 
-   ```python
-   def summarize_headline(headline):
-       from openai import OpenAI
-       import os
-       client = OpenAI(
-           base_url=os.getenv('API_BASE_URL'),
-           api_key=os.getenv("OPENROUTER_API_KEY")
-       )
-       prompt = (
-           f"Provide a concise 1-2 sentence summary of the following headline: {headline}."
-           " Start your response with 'Hola Friends, here's the tech news of the day'"
-       )
-       response = client.chat.completions.create(
-           model='gpt-4o-mini',
-           messages=[
-               {"role": "system", "content": "You are a summarization assistant."},
-               {"role": "user", "content": prompt}
-           ]
-       )
-       return response.choices[0].message.content.strip()
-   ```
-
-3. **Define the `TOOL_METADATA` Dictionary**
-
-   - The `TOOL_METADATA` dictionary provides information about the tool.
-   - It includes the tool's name, description, and parameters.
-
-   ```python
-   TOOL_METADATA = {
-       "type": "function",
-       "function": {
-           "name": "my_tool",
-           "description": "A brief description of what the tool does.",
-           "parameters": {
-               "type": "object",
-               "properties": {
-                   "param1": {
-                       "type": "string",
-                       "description": "Description of param1"
-                   },
-                   "param2": {
-                       "type": "integer",
-                       "description": "Description of param2"
-                   }
-               },
-               "required": ["param1"]
-           }
-       }
-   }
-   ```
-
-4. **Test Your Tool**
-
-   - **Manual Testing:**  
-     Ensure your tool works as expected by testing it manually. You can create a temporary script or use a test framework to call the `execute` function with sample parameters.
-
-5. **Call the Tool in Standalone Mode**
-
-   - To test your tool in standalone mode, include an `if __name__ == "__main__":` block at the end of your file. This allows you to run the tool directly from the command line.
-
-   ```python
-   if __name__ == "__main__":
-       # Example call: provide sample parameters as needed by your tool
-       test_params = {
-           "param1": "example value",
-           "param2": 42
-       }
-       result = execute(**test_params)
-       print("Tool execution result:")
-       print(result)
-   ```
-
-6. **Integrate Your Tool**
-
-   - Once your tool is tested and working in standalone mode, it will be automatically discovered and registered for use by the AI agent.
-   - No manual registration is required.
-
-### Summary
-
-By following these steps, you can create a tool that:
-- Encapsulates its own LLM client instantiation.
-- Uses structured messages (with system and user roles) to interact with the LLM.
-- Is callable and testable in standalone mode, making it easier to debug and verify functionality before integrating into the larger AI framework.
+Use the knowledge sync tool to sync your knowledge base.
+Simply run `python3 tools/use_knowledge.py "test query"` and you will get back relevant context in an md file that you can use in subsequent steps.
 
 ---
 > Source: [chrisboden/knowledgesync](https://github.com/chrisboden/knowledgesync) — distributed by [TomeVault](https://tomevault.io).
