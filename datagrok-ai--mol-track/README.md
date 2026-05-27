@@ -1,6 +1,8 @@
-# mol-track — distributed by TomeVault
+# mol-track
 
-> Originally from [datagrok-ai/mol-track](https://github.com/datagrok-ai/mol-track). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [datagrok-ai/mol-track](https://github.com/datagrok-ai/mol-track) — distributed by [TomeVault](https://tomevault.io)
+
+Chemical compound registration system: lightweight, flexible, hackable
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [datagrok-ai/mol-track](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/datagrok-ai#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/datagrok-ai/mol-track](https://github.com/datagrok-ai/mol-track)
 
 ---
 
