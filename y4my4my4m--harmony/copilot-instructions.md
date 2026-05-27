@@ -1,66 +1,42 @@
-## realtime-architecture
+## testing-conventions
 
-> Realtime channel architecture and broadcast patterns
+> Testing conventions and test infrastructure for Harmony
 
 
-# Realtime Channel Architecture
+# Testing Conventions
 
-## Core Broadcast Topics (DB → Frontend)
+## Test Types
 
-All data change events flow through DB triggers calling `realtime.send()` into exactly **3 topics**:
+| Type | Config | Command | Requires |
+|------|--------|---------|----------|
+| Unit | `vitest.config.ts` | `npm test` | Nothing (mocked) |
+| Integration | `vitest.integration.config.ts` | `npm run test:integration` | Local Supabase (`supabase start`) |
+| E2E | `playwright.config.ts` | `npm run test:e2e` | Running frontend + Supabase |
 
-| Topic pattern | Event name | Scope | What belongs here |
-|---|---|---|---|
-| `user:{profile_id}` | `user_event` | Per-user | notifications, unreads, conversations, server join/leave, mutes, blocks |
-| `server-structure:{server_id}` | `server_event` | Per-server | channels, categories, roles, permissions, threads, settings, membership, server metadata |
-| `server-presence:{server_id}` | `presence_event` | Per-server | profile updates, member join/leave, custom emojis |
+## Integration Test Setup
 
-Plus one **global** presence channel: `harmony-global-presence` (online/offline tracking).
+- Uses `service_role` key from `.env.test` (admin-level access, bypasses RLS)
+- Test helper: `tests/helpers/supabaseTestHelper.ts`
+- `createTestUser(admin, email, password, username)`: Creates auth user + waits for profile trigger
+- `cleanupTestUsers(admin, users)`: Comprehensive cascade delete of all related data
+- `_test_delete_owned_servers` RPC: Temporarily disables protected role triggers for cleanup
 
-## Frontend Subscriptions
+## Test User Cleanup Order
 
-**Core channels (1 per user + 2 per joined server):**
-- `UserEventChannel.ts` → subscribes to `user:{profileId}`, dispatches typed events
-- `useServerChannel.ts` → subscribes to `server-structure:{serverId}`, dispatches via `window.dispatchEvent`
-- `userDataService.ts` → subscribes to `server-presence:{serverId}`, handles profile/presence updates
+FK constraints require deleting in this order:
+1. `user_servers`, `user_roles` (server membership)
+2. Owned servers via `_test_delete_owned_servers` RPC
+3. `messages`, `conversation_participants`, `reactions`
+4. `user_blocks`, `notifications`, `notification_preferences`
+5. `user_view_contexts`
+6. `profiles`
+7. Auth user (`admin.auth.admin.deleteUser`)
 
-**Ephemeral channels (open only while feature is active):**
-- `typing:{context}` - typing indicators (presence-based, short-lived)
-- `harmony-voice-{channelId}` - WebRTC signaling (only during voice)
-- `voice-channels:{serverId}` - voice state broadcast
-- `dm-call:*` / `dm-calls:*` - call signaling
-- `view-context:{userId}` - which channel/conversation user is viewing
+## Common Test Failures
 
-## Rules for Adding New Events
-
-### DB side (triggers)
-1. Pick the correct topic - don't create new ones
-2. Use `realtime.send(payload, event_name, topic)` - never `INSERT INTO pgboss.job` for local broadcasts
-3. For **user-scoped** data (only the affected user needs it): send to `user:{profile_id}`
-4. For **server-wide structure** changes (all members need it): send to `server-structure:{server_id}`
-5. For **presence/profile** changes: send to `server-presence:{server_id}`
-6. Payload must include a `type` field: `'{entity}:{operation}'` (e.g. `'role:insert'`, `'notification:new'`)
-
-### Frontend side
-1. **Never** open a new `supabase.channel()` for data that belongs in an existing topic
-2. **Never** use `postgres_changes` (CDC) for new features - always use broadcast
-3. Add a `case` in the appropriate existing subscription handler
-4. Dispatch via typed `CustomEvent` on `window` for cross-component communication
-
-### Federation (DB → BullMQ → remote instances)
-Federation uses a **separate path**: DB triggers call `queue_federation_job()` which sends via `pg_notify` to the Node.js federation backend. This is **complementary** to `realtime.send()` - both fire from the same trigger when needed.
-
-## Remaining CDC (postgres_changes)
-
-The **only** legitimate CDC usage is in `RealtimeConnectionManager.ts` for **chat message delivery** (`useChat`, `useDM`, threads). Each subscription is filtered by `channel_id` or `conversation_id`, which is scoped and efficient. All other CDC has been eliminated.
-
-## Anti-patterns
-- ❌ Opening a new channel per table/feature
-- ❌ Using `postgres_changes` CDC subscriptions for new features - always use broadcast
-- ❌ Looping over users in SQL to send per-user broadcasts (use server-scoped topics, Supabase fans out)
-- ❌ Mixing up `user_event` vs `server_event` vs `presence_event` event names
-- ❌ Sending to `user:{id}` for server-wide changes (O(N) queries vs O(1) broadcast)
-- ❌ Unfiltered CDC subscriptions on entire tables (scalability disaster at volume)
+- "user already registered": Test cleanup failed previously - `createTestUser` handles this by cleaning up stale users
+- `queue_federation_job` errors: Function handles `insufficient_privilege` gracefully via fallback
+- RLS policy conflicts: Check for legacy permissive policies (`USING (true)`) that override restrictive ones
 
 ---
 > Source: [y4my4my4m/harmony](https://github.com/y4my4my4m/harmony) — distributed by [TomeVault](https://tomevault.io).
