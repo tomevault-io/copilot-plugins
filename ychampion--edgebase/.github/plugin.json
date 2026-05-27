@@ -1,0 +1,9 @@
+{
+  "name": "ychampion--edgebase",
+  "displayName": "edgebase",
+  "description": "Git-native, provenance-backed context capsules for coding agents.",
+  "version": "1.0.0",
+  "author": "ychampion",
+  "homepage": "https://github.com/ychampion/edgebase",
+  "skills": []
+}
