@@ -1,37 +1,55 @@
-## token-field-stamp-sweep
+## ui-shared-boundary
 
-> Adding a usage/token field requires 5 stamp sites
+> packages/ui-shared is a leaf — must never import from consumer bundles
 
 
-# Token-field stamp sweep (binding)
+# `packages/ui-shared` boundary (binding)
 
-You are editing AI Gateway provider / proxy code. **Adding a new usage / token field requires 5 stamp sites, not just the obvious one.** Missing the 4 cache-side sites = all prod cache traffic NULL on the new column. Memory anchor: [[feedback_token_field_handler_sweep]].
+`packages/ui-shared` is the cross-bundle library used by **both** the Control Plane UI and the Agent Dashboard. It MUST be a leaf in the import graph from each consumer's perspective.
 
-**Read `docs/developers/architecture/services/ai-gateway/provider-adapter-architecture.md` §5 BEFORE editing.**
+Once `ui-shared` reaches into either consumer, it stops being shareable.
 
-## The 5 stamp sites
+## Allowed
 
-1. **`handleNonStream`** — non-streaming response path.
-2. **`handleStream`** — streaming response path (at stream end).
-3. **`proxy_cache.go:cacheStoreNonStream`** — cache write path for non-streaming.
-4. **`proxy_cache.go:cacheStoreStream`** — cache write path for streaming.
-5. **`proxy_cache.go:cacheRead*`** — cache read path (deserialise the stamped value).
+- `control-plane-ui` → `ui-shared` ✓
+- `agent/ui/frontend` → `ui-shared` ✓
+- `ui-shared` → external packages (`react`, `react-i18next`, `recharts`, etc.) ✓
 
-## Checklist when adding a token field
+## Forbidden
 
-- [ ] Field added to `Usage` struct in `providers/types.go`.
-- [ ] Column added to `traffic_event` schema (Prisma + migration).
-- [ ] Stamped in `handleNonStream`.
-- [ ] Stamped in `handleStream`.
-- [ ] Stamped in `cacheStoreNonStream`.
-- [ ] Stamped in `cacheStoreStream`.
-- [ ] Deserialised in `cacheRead*`.
-- [ ] Unit test exercises both non-stream and stream cache paths.
-- [ ] Smoke test confirms the new column is non-NULL after a cache hit + cache miss.
+- `ui-shared` → `control-plane-ui` ✗
+- `ui-shared` → `agent/ui/frontend` ✗
+- `ui-shared` → `agent/cmd/...` ✗
+- `ui-shared` → anything outside `ui-shared/` (other than vetted externals) ✗
 
-## Why it matters
+## What `ui-shared` MAY contain
 
-The cache paths are easy to forget — they share the data layout with the live paths but live in `proxy_cache.go`, a separate file. Stamping `handleNonStream` only is the canonical mistake; cache traffic then writes NULL for the new column and the failure is silent until an analytics dashboard notices.
+- Layer 1 + Layer 2 design tokens.
+- Pure presentation components (`Button`, `Input`, `Select`, `Toast`, `Modal`).
+- Recharts wrappers + `chartColors.ts`.
+- Shared i18n namespace.
+- Theme hooks (`useTheme`, `useChartColors`).
+- Format helpers (`formatNumber`, `formatDate`, `formatBytes`).
+
+## What `ui-shared` MUST NOT contain
+
+- API clients / fetchers.
+- Routing.
+- Context providers that import from a specific bundle.
+- State management stores.
+- Business logic (`submitRoutingRule`, `enrollAgent`).
+
+## Enforcement
+
+```bash
+npm run check:ui-shared-boundary
+```
+
+The lint scans `packages/ui-shared/src/` imports for forbidden source paths. Non-strict mode warns; `--strict` fails CI.
+
+## Source
+
+`docs/developers/architecture/cross-cutting/ui/ui-shell-architecture.md` is the canonical doc. Read before adding code to `ui-shared`.
 
 Skipping this rule requires **explicit user approval** in chat.
 
