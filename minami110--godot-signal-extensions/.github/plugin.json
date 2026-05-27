@@ -1,0 +1,9 @@
+{
+  "name": "minami110--godot-signal-extensions",
+  "displayName": "godot-signal-extensions",
+  "description": "Godot 4 plugin that extends GDScript's Signal and Callable.",
+  "version": "1.0.0",
+  "author": "minami110",
+  "homepage": "https://github.com/minami110/godot-signal-extensions",
+  "skills": []
+}
