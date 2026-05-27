@@ -1,112 +1,38 @@
-## coding-style-guide
+## collaboration
 
-> C++ Style Rules
+> Collaboration Rules - Commits, Pull Requests, and Code Review
 
 
-# C++ Style Rules
+# Collaboration Rules
 
-The following are project-specific deviations and clarifications from the [LLVM Coding Standard].
+## Commits (Angular Commit Convention)
 
-## Naming guide
+- Must follow the [Commit Message Guideline](https://github.com/fractalyze/.github/blob/main/COMMIT_MESSAGE_GUIDELINE.md).
 
-- **Type names** (including classes, structs, enums, typedefs, etc) should be
-  nouns and start with an upper-case letter (e.g. `TextFileReader`).
-
-- **Variable names** should be nouns (as they represent state). The name should
-  be camel case, and start with a lower-case letter (e.g. `leader` or `boats`).
-  (This is different from the reference.)
-
-- **Function names** should be verb phrases (as they represent actions), and
-  command-like function should be imperative. The name should be camel case, and
-  start with a lowercase letter (e.g. `openFile()` or `isFoo()`).
-
-- **Enum declarations** (e.g. `enum Foo {...}`) are types, so they should follow
-  the naming conventions for types. A common use for enums is as a discriminator
-  for a union, or an indicator of a subclass. When an enum is used for something
-  like this, it should have a Kind suffix (e.g. `ValueKind`).
-
-## Static Methods
-
-- For **static methods** implemented in `.cpp` files, explicitly annotate with `// static`.
-
-  ```c++
-  // static
-  uint64_t EnvTime::nowNanos() {
-    // ...
-  }
+- Format:
   ```
-
-## File-Scoped Symbols
-
-- Wrap **file-scoped functions, constants, and variables** inside an **anonymous namespace**.
-
-  ```c++
-  namespace {
-
-  constexpr int kBufferSize = 1024;
-
-  void helperFunction() {
-    // ...
-  }
-
-  }  // namespace
+  <type>(<scope>): <summary>
   ```
+  where `type` ∈ {build, chore, ci, docs, feat, fix, perf, refactor, style, test}.
 
-## Header Inclusion
+- Commit body: explain **why** the change was made (minimum 20 characters).
 
-- **Avoid redundant includes**: Do not repeat headers in `.cc` files that are already included in the corresponding `.h`.
+- Footer: record breaking changes, deprecations, and related issues/PRs.
 
-  ```c++
-  // in a.h
-  #include <stdint.h>
+- Each commit must include only **minimal, logically related changes**. Avoid mixing style fixes with functional changes.
 
-  // in a.cc
-  #include "a.h"
-  // #include <stdint.h>  // ❌ redundant
-  ```
+## Pull Requests
 
-- **Include only required headers**. Remove unused includes.
+- Follow the [Pull Request Guideline](https://github.com/fractalyze/.github/blob/main/PULL_REQUEST_GUIDELINE.md).
+- Commits must be **atomic** and independently buildable/testable.
+- Provide context and links (short SHA for external references).
 
-## Raw Pointer Ownership
+## Tooling Requirements
 
-- When using a **raw pointer** (`T*`) in **class or struct members**, explicitly document ownership by adding an inline comment `// not owned` or `// owned`.
-- Prefer `std::unique_ptr` or `std::shared_ptr` for owned resources.
-
-Example:
-
-```c++
-class Prover {
- public:
-  explicit Prover(Context* ctx) : ctx(ctx) {}
-
- private:
-  Context* ctx; // not owned
-  std::unique_ptr<Engine> engine;
-};
-```
-
-## Container Initialization
-
-- Use **range constructors** instead of loops when populating containers from iterators.
-
-  ```c++
-  // ✅ Good: Use range constructor
-  SmallVector<APInt> getNativeInput(DenseIntElementsAttr attr) const {
-    auto values = attr.getValues<APInt>();
-    return {values.begin(), values.end()};
-  }
-
-  // ❌ Bad: Loop to populate
-  SmallVector<APInt> getNativeInput(DenseIntElementsAttr attr) const {
-    SmallVector<APInt> result;
-    for (const APInt &v : attr.getValues<APInt>()) {
-      result.push_back(v);
-    }
-    return result;
-  }
-  ```
-
-[LLVM Coding Standard]: https://llvm.org/docs/CodingStandards.html
+- **Formatter:** `clang-format` (LLVM preset with project overrides). Refer to the `.clang-format` file in the repo.
+- **Linter:** `clang-tidy`.
+- **Pre-commit hooks:** Recommended for enforcing format and lint locally.
+- **CI:** All PRs must pass lint, format, and tests before merge.
 
 ---
 > Source: [fractalyze/prime-ir](https://github.com/fractalyze/prime-ir) — distributed by [TomeVault](https://tomevault.io).
