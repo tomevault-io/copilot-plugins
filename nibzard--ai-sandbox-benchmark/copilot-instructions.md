@@ -1,15 +1,15 @@
-## python-code-standards
+## python-style
 
-> description: Rules for Python code style and documentation
+> description: Python style and documentation guidelines
 
 ---
-description: Rules for Python code style and documentation
+description: Python style and documentation guidelines
 globs: ["*.py", "providers/*.py"]
 alwaysApply: false
 ---
-# Python Code Standards
+# Python Style Guide
 
-Rules for consistent Python code style and documentation in the AI Sandbox Benchmark project
+Guidelines for consistent Python coding style and documentation practices
 
 ```rule
 id: function-docstring
@@ -20,50 +20,42 @@ severity: warning
 ```
 
 ```rule
-id: class-docstring
-name: Class Docstring
-description: All classes should have a docstring
-pattern: class [A-Z][a-zA-Z0-9_]*(?:\([^)]*\))?:\s+(?:"""|''')
+id: variable-naming
+name: Variable Naming Convention
+description: Variables should be in snake_case
+pattern: ^[a-z][a-z0-9_]*\s*=
+severity: info
+```
+
+```rule
+id: line-length
+name: Line Length
+description: Lines should not be too long
+pattern: ^.{0,100}$
+severity: info
+```
+
+```rule
+id: class-naming
+name: Class Naming Convention
+description: Classes should be in PascalCase
+pattern: ^class\s+[A-Z][a-zA-Z0-9_]*
 severity: warning
 ```
 
 ```rule
-id: type-hints
-name: Type Hints
-description: Functions should use type hints for parameters and return values
-pattern: def [a-zA-Z0-9_]*\([^:\)]*:[^\)]+\)\s*->
+id: empty-line-after-function
+name: Empty Line After Function
+description: There should be an empty line after function definitions
+pattern: def [a-zA-Z0-9_]*\([^)]*\):[^#\n]*\n\s*\n
 severity: info
 ```
 
 ```rule
-id: async-await-consistency
-name: Async/Await Consistency
-description: Async functions should use await when calling other async functions
-pattern: async def [a-zA-Z0-9_]*\(.*?\):[^#]*(?:await|return|yield)
-severity: warning
-```
-
-```rule
-id: error-handling
-name: Error Handling
-description: Functions that could fail should include try-except blocks
-pattern: try:[\s\S]*?except (?:Exception|[A-Z][a-zA-Z0-9_]*Error)
-severity: info
-```
-
-```rule
-id: constants-naming
-name: Constants Naming
-description: Constants should be in UPPER_SNAKE_CASE
-pattern: ^[A-Z][A-Z0-9_]*\s*=
-severity: info
-```
-
-```rule
-id: imports-grouping
-name: Imports Grouping
-description: Imports should be grouped: standard library, third-party, local
-pattern: import [a-zA-Z0-9_]*\n\n(?:from|import)
+id: import-order
+name: Import Order
+description: Standard library imports should come before third-party imports
+pattern: import\s+(?:os|sys|re|time|json|csv|math|random|datetime|pathlib|typing|collections|functools|itertools)
 severity: info
 ```
 
