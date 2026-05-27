@@ -1,0 +1,9 @@
+{
+  "name": "regibyte--mcp-client-app",
+  "displayName": "mcp-client-app",
+  "description": "A mcp client chat application built for learning purposes",
+  "version": "1.0.0",
+  "author": "RegiByte",
+  "homepage": "https://github.com/RegiByte/mcp-client-app",
+  "skills": []
+}
