@@ -1,0 +1,9 @@
+{
+  "name": "djelibeybi--hass-lifx-ceiling",
+  "displayName": "hass-lifx-ceiling",
+  "description": "Provides uplight and downlight control for LIFX Ceiling in Home Assistant",
+  "version": "1.0.0",
+  "author": "Djelibeybi",
+  "homepage": "https://github.com/Djelibeybi/hass-lifx-ceiling",
+  "skills": []
+}
