@@ -1,9 +1,9 @@
 {
   "name": "devinpearson--ipb",
   "displayName": "ipb",
-  "description": "ipb",
+  "description": "A simple cli app for deploying and managing programmable card code for investec",
   "version": "1.0.0",
   "author": "devinpearson",
-  "homepage": "https://tomevault.io/claim/devinpearson",
+  "homepage": "https://github.com/devinpearson/ipb",
   "skills": []
 }
