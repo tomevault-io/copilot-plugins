@@ -4,7 +4,7 @@
   "repo": "atulya",
   "description": "A living algorithm for machine intelligence (MI).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eight-atulya/atulya",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T16:49:30Z"
+  "distributed_at": "2026-05-27T16:56:59Z"
 }
