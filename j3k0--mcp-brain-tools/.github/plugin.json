@@ -1,7 +1,7 @@
 {
   "name": "j3k0--mcp-brain-tools",
   "displayName": "mcp-brain-tools",
-  "description": "mcp-brain-tools",
+  "description": "A powerful MCP memory using a knowledge graph powered by elastic search",
   "version": "1.0.0",
   "author": "j3k0",
   "homepage": "https://github.com/j3k0/mcp-brain-tools",
