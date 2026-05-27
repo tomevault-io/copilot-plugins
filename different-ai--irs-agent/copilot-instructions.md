@@ -1,118 +1,122 @@
-## app-end-goal
+## check-for-duplicate
 
-> This explains where this app is going towards.
+> rules to understand how to engineer a great system to prevent db duplicaiton
 
-here’s a more visionary concept that goes beyond the simple query–result pipeline, to create a “data → inbox” flow that feels totally frictionless, yet still harnesses powerful llms and your screenpipe data:
+We use pglite to store stuff in db
 
-1) treat “all the data” like a single conversation stream
+and drizzle
 
-instead of thinking of “ocr data,” “audio transcripts,” “chat logs,” etc. as separate databases, flatten them into a unified timeline (like a “chat feed” or “inbox”) that sorts everything chronologically. each entry in this feed has metadata (timestamp, source: “ocr” or “audio,” app/window names, a snippet of text).
+import { embed } from 'ai';
+import { openai } from '@ai-sdk/openai';
 
-why:
-	•	humans typically remember events in chronological order (“that conversation was on tuesday afternoon after i opened notion…”).
-	•	flattening the data into a single “conversation feed” of your life or your app usage dramatically simplifies “where did i see X?” queries. it’s basically “scroll or search a single thread.”
+// 'embedding' is a single embedding object (number[])
+const { embedding } = await embed({
+  model: openai.embedding('text-embedding-3-small'),
+  value: 'sunny day at the beach',
+});
 
-2) let the user “subscribe” to certain content patterns
 
-imagine your system has “smart filters” or “subscriptions.” for instance:
-	•	“show me anything that references my EIN or tax info.”
-	•	“highlight times i mention ‘alex’ in a conversation.”
-	•	“mark any mention of ‘louis’ so i can see them in a personal feed.”
+pg vector:
+Open-source vector similarity search for Postgres.
 
-these subscriptions would run in real time or near real time. as soon as new data arrives (e.g. a new screenshot with OCR text that says “EIN: 12-3456789,” or an audio transcript with “alex”), it automatically appears in a dedicated “inbox” folder for that topic.
+Store your vectors with the rest of your data. Supports:
 
-why:
-	•	it’s a push-based approach. instead of always pulling with “where is X?”, you get “i auto-filed X whenever i see it.”
-	•	it’s like “gmail labels” or “filters” for your entire digital life.
+exact and approximate nearest neighbor search
+single-precision, half-precision, binary, and sparse vectors
+L2 distance, inner product, cosine distance, L1 distance, Hamming distance, and Jaccard distance
+pgvector is included in the main PGlite package.
 
-3) embed everything & store in a vector database
+js
+import { vector } from '@electric-sql/pglite/vector';
+const pg = new PGlite({
+  extensions: { vector }
+});
 
-as you unify data into a timeline, also embed each chunk (the OCR text snippet, or the transcript excerpt) into a vector store (like pinecone, weaviate, or pgvector). this allows:
-	1.	semantic search—the user can type “my tax ID number,” and it’ll match text that references “EIN,” “tax ID,” etc., even if those words aren’t exact.
-	2.	context retrieval—the system can find the relevant snippet in the timeline and show it in context with preceding/following messages.
+ai vercel embeddings.
+0xHypr hello
 
-why:
-	•	you can do both straightforward exact search (“louis”) and more advanced semantic queries (“my last conversation with that marketing guy in january”).
-	•	a single vector store is easier to manage than separate sub-queries for each type of content.
+Below is an explanation of how the duplicate-check mechanism works and a generic version of the implementation without relying on an agent identifier.
 
-4) use an “llm-based aggregator” that acts like a personal curator
+### Explanation
 
-when new data flows in, have a specialized “aggregator worker” (an llm chain) that:
-	•	classifies or clusters new data based on the user’s subscriptions or topics (“this snippet looks like an invoice or tax doc, so i’ll label it #financial. this snippet mentions louis, so i’ll label it #louis.”).
-	•	optionally summarizes or extracts relevant fields (e.g., from an invoice, extract invoice number or total).
-	•	posts a short note to the user’s “inbox feed,” e.g., “new invoice #123 from january 2025 for $899. do you want to do anything with it?”
+The duplicate check function determines if a new classification item is a duplicate of any existing items by using text embeddings and cosine similarity. Here's how it works:
 
-why:
-	•	the user no longer has to do the heavy lifting of searching. the aggregator is proactively labeling, summarizing, and presenting data in an “inbox” style.
-	•	it’s more than just a chronological dump; it’s curated.
+1. **Normalization of Text:**  
+   The function combines and normalizes the item's title and vital information (by converting to lowercase and trimming any extra spaces). This produces a consistent text representation.
 
-5) advanced conversation interface
+2. **Embedding Generation:**  
+   It then generates an embedding vector for the normalized text using a text embedding model (in this example, the `"text-embedding-3-small"` model).
 
-when the user wants to find something or pick up a conversation:
-	1.	they open the “inbox.”
-	2.	they see the aggregator’s curated entries—some auto-labeled #financial, #alex, #meeting, #notes.
-	3.	they can chat with the aggregator llm: “hey, show me the last thing i said to louis.” the aggregator either uses direct text search (like “louis” OR synonyms) or semantic retrieval from the vector store, then returns the snippet.
-	4.	that snippet is displayed like a message bubble in the conversation. the aggregator might add some commentary: “this was from january 12 at 3:02 pm. the topic was your product roadmap.”
+3. **Comparison with Existing Items:**  
+   For each existing item, the function computes a similar normalized text and its embedding. After both embeddings are ready, it calculates the cosine similarity between the new item's embedding and each existing item's embedding.
 
-why:
-	•	the user experience is consistent with a normal chat or messaging interface, but under the hood, the aggregator is doing the orchestrator–worker flow you’ve built.
-	•	the user can do follow-up queries: “great, how do i follow up with him?” or “did i mention my EIN in that chat?”
+4. **Threshold Check:**  
+   If the similarity score exceeds a predefined threshold (e.g., 0.8), the function considers the new item as a duplicate and returns `true`. Otherwise, it continues checking until all items have been compared, finally returning `false` if no duplicate is found.
 
-6) unify all “inbox items” with micro-workflows
+### Generic Implementation
 
-for each item discovered in the timeline (like an “invoice” or “conversation snippet”), you can attach mini-automation:
-	•	“pay invoice #123 in mercury account.”
-	•	“add a reminder to follow up with louis in 3 days.”
+Below is the generic version of the duplicate check function in JavaScript. It does not depend on any agent identifier and assumes that each item contains a `title` and `vitalInformation`.
 
-these micro-workflows can be triggered from the aggregator’s summary card. for instance, if it sees something about taxes, it might surface a button “send to accountant.”
+```javascript:src/utils/duplicateCheck.js
+import { createOpenAI } from '@ai-sdk/openai';
+import { embed, cosineSimilarity } from 'ai';
+import { getApiKey } from '@/stores/api-key-store'; // Adjust the import based on your project structure
 
-why:
-	•	you create a “closed-loop” system: data flows in, gets labeled or summarized, user sees it in the “inbox,” user can take action directly.
-	•	it’s no longer just a search mechanism—it’s a personal assistant that merges detection + automated tasks.
+/**
+ * Normalize text by combining title and vital information.
+ *
+ * @param {string} title - The title of the classification item.
+ * @param {string} [vitalInfo=''] - The vital information associated with the item.
+ * @returns {string} The normalized text.
+ */
+function getNormalizedText(title, vitalInfo = '') {
+  return `${title.toLowerCase().trim()} ${vitalInfo.toLowerCase().trim()}`;
+}
 
-7) real-time “recent memory panel”
+/**
+ * Checks if a new classification item is a duplicate among existing items.
+ *
+ * @param {Object} newItem - The new item with properties { title, vitalInformation }.
+ * @param {Array<Object>} existingItems - Array of existing items, each containing { title, vitalInformation }.
+ * @returns {Promise<boolean>} - True if a duplicate is detected, false otherwise.
+ */
+export async function isDuplicate(newItem, existingItems) {
+  try {
+    // Initialize the OpenAI API with the provided API key
+    const openai = createOpenAI({ apiKey: getApiKey() });
+    
+    // Generate the normalized text and its embedding for the new item
+    const newText = getNormalizedText(newItem.title, newItem.vitalInformation);
+    const { embedding: newEmbedding } = await embed({
+      model: openai.embedding('text-embedding-3-small'),
+      value: newText,
+    });
+    
+    // Compare the new item's embedding with that of each existing item
+    for (const item of existingItems) {
+      const oldText = getNormalizedText(item.title, item.vitalInformation);
+      const { embedding: oldEmbedding } = await embed({
+        model: openai.embedding('text-embedding-3-small'),
+        value: oldText,
+      });
+      const similarity = cosineSimilarity(newEmbedding, oldEmbedding);
+      
+      // If similarity is above the threshold, consider it as a duplicate
+      if (similarity > 0.8) {
+        return true;
+      }
+    }
+    
+    // If no duplicates are found, return false
+    return false;
+  } catch (error) {
+    console.error('Error during duplicate check:', error);
+    return false;
+  }
+}
+```
 
-imagine you have a small “recent memory” panel that’s always visible (like a floating widget). whenever the user is lost and wonders “what was i doing?” they can see:
-	•	top 5 new items in the last hour/day
-	•	any relevant notifications or tasks from aggregator (like “still need to pay invoice #123…,” “alex asked about your finances…”)
-
-why:
-	•	encourages user to keep track of tasks and conversations in a single place.
-	•	reduces friction for day-to-day usage.
-
-8) multi-layer fallback: from synonyms to direct quotes
-
-if the aggregator or the user queries “where did i see x?”, the pipeline:
-	1.	tries an exact match (“x” in OCR text).
-	2.	tries synonyms or expansions.
-	3.	tries vector-based semantic retrieval.
-	4.	merges, ranks results by confidence + recency.
-	5.	returns a few top references.
-
-why:
-	•	ensures robust coverage for both direct string matches and semantic expansions.
-
-9) user privacy & encryption
-
-since we’re dealing with personal or business data, consider a strong privacy model:
-	•	all data is stored locally or in an end-to-end encrypted store.
-	•	the aggregator llm runs locally or in a secure environment.
-	•	user can define “private topics” that the aggregator cannot label or auto-summarize without explicit permission.
-
-why:
-	•	trust is paramount if “lives depend on it” or it’s sensitive financial data.
-	•	privacy fosters user acceptance of a system that reads everything.
-
-10) “timeline as conversation” + “push-based inbox” + “automations” = a perfect flow
-
-the big idea:
-	•	immediately ingest all data into a single chronological feed.
-	•	have an aggregator llm constantly label, summarize, or highlight new items.
-	•	present these highlights or “cards” in the user’s “inbox,” letting them see the important bits at a glance or do quick tasks.
-	•	the user can always fallback to a “chat” with the aggregator to find older data or do advanced queries.
-	•	everything is stored in a vector DB for semantic retrieval, and any matches get pinned to the timeline so the user sees it in context.
-
-result: a frictionless, out-of-the-box “perfect data → inbox” pipeline, where new data is automatically analyzed and summarized, the user sees it in a single feed, can act on it with one click, and can always query or chat to retrieve older info. it transforms the usual “run a search with synonyms” approach into a personal, curated conversation with your entire digital life.
+This generic implementation removes the dependency on an agent identifier by simply iterating over all existing items and comparing their corresponding embeddings. It allows you to explain how duplicate detection works in your new coding agent by highlighting the normalization, embedding, and similarity comparison steps.
 
 ---
 > Source: [different-ai/irs-agent](https://github.com/different-ai/irs-agent) — distributed by [TomeVault](https://tomevault.io).
