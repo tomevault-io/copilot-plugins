@@ -1,38 +1,18 @@
-## aicontext
+## docs-and-index
 
-> **IMPORTANT: Do NOT add duplicate badge sections to README.md**
+> Keep INDEX.md and docs/FEATURES.md up to date when changing structure or APIs
 
-# Project Rules for Claude
 
-## README.md Structure
+# Cursor rules for this repo
 
-**IMPORTANT: Do NOT add duplicate badge sections to README.md**
-
-The README has ONE badge section at the top (after the logo). Never add:
-- A "Test Status" section with badges
-- Duplicate badge rows
-- Any additional badge sections
-
-The badge structure is:
-```
-<logo>
-<badges - single row>
-## What is AIContext?
-```
-
-When updating badges, only modify the existing badge values in place. Do not add new sections.
-
-## File Exclusions
-
-Media extensions are defined in `lib/constants.js` as `MEDIA_EXTENSIONS`. Do not define them elsewhere.
-
-## Test Updates
-
-The test script (`tests/test-commands.js`) updates:
-- `TESTS.md` - full test results
-- `README.md` - only updates existing badge values (test count, version)
-
-It should NEVER add new sections to README.md.
+- Do not make any changes the user did not explicitly ask for.
+- If a helpful improvement is outside the user's request, propose it first and wait for approval.
+- Keep edits narrowly scoped to the requested files/behavior.
+- To find "where a feature lives", start with **@docs/INDEX.md** (file map) and **@docs/FEATURES.md** (product/feature map).
+- **Keep `docs/INDEX.md` up to date**: when adding/removing/moving files, or changing exported APIs/components or public functions, update `docs/INDEX.md` in the same change (no exceptions).
+- **Keep `docs/FEATURES.md` up to date**: when adding/changing/removing user-facing features or flows (commands, options, clear behavior, ignore, configure, tree, context generation, clipboard, run/history), update `docs/FEATURES.md` in the same change.
+- When editing/adding **entry or CLI** (`bin/**`), ensure the file has a short top-of-file comment describing purpose.
+- When editing/adding **libraries** (`lib/**`), ensure exported symbols have a short doc comment when non-obvious.
 
 ---
 > Source: [csanz/aicontext](https://github.com/csanz/aicontext) — distributed by [TomeVault](https://tomevault.io).
