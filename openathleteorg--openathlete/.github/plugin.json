@@ -1,0 +1,9 @@
+{
+  "name": "openathleteorg--openathlete",
+  "displayName": "openathlete",
+  "description": "The open-source European alternative to TrainingPeaks. Self-hostable endurance training platform. Your data stays yours.",
+  "version": "1.0.0",
+  "author": "openathleteorg",
+  "homepage": "https://github.com/openathleteorg/openathlete",
+  "skills": []
+}
