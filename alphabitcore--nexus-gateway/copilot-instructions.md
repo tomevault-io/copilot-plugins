@@ -1,39 +1,58 @@
-## useapi-querykey
+## vk-org-resolution
 
-> useApi queryKey must start with at least 2 string literals (domain + resource)
+> VirtualKey org resolution has TWO join chains (Project for application VKs, Owner for personal VKs); vkSelectSQL must COALESCE both or personal VKs silently return NULL org
 
 
-# `useApi` queryKey requires a domain prefix (binding)
+# VK org resolution — two join chains (binding)
 
-Every `useApi(fetcher, queryKey)` call must start `queryKey` with **at least two string literals** that uniquely identify the endpoint, followed by any state variables that affect the fetcher.
+`packages/ai-gateway/internal/store/virtualkey.go:vkSelectSQL` resolves `VirtualKey → Organization` through TWO independent chains:
 
-## Required shape
+| VK type | Chain |
+|---|---|
+| `application` | `VirtualKey.projectId` → `Project` → `Organization` |
+| `personal` | `VirtualKey.ownerId` → `NexusUser` → `Organization` |
 
-```tsx
-['admin' | 'my' | 'user' | 'proxy', '<resource>', '<variant?>', ...stateVars]
+The SQL JOINs both and `COALESCE`s the application chain first.
+
+## Required SQL pattern
+
+```sql
+LEFT JOIN "Project"      p     ON vk."projectId" = p.id
+LEFT JOIN "Organization" org   ON p."organizationId" = org.id
+LEFT JOIN "NexusUser"    u     ON vk."ownerId" = u.id
+LEFT JOIN "Organization" u_org ON u."organizationId" = u_org.id
+
+COALESCE(p."organizationId", u."organizationId") AS organization_id
+COALESCE(org.name,           u_org.name)         AS organization_name
+COALESCE(org.timezone,       u_org.timezone)     AS organization_timezone
 ```
+
+## When to apply
+
+Touching any of:
+- `vkSelectSQL` itself (or any sibling SELECT that joins through Project/Org/NexusUser)
+- A new column on `traffic_event` that depends on the VK's parent (timezone, billing account, primary AccountManager, parent org id)
+- A new VK type beyond `application` / `personal`
+- The audit pipeline's `identity` JSONB stamping
+
+## Why this matters
+
+Latent bugs in the personal-VK code path hide indefinitely when traffic is dominated by application VKs — a missing join surfaces only on the first personal-VK request. Touching personal-VK-adjacent code without testing both VK types = silent NULL columns in prod. Memory anchor: [[feedback_vk_org_dual_join_chain]].
 
 ## Forbidden
 
-```tsx
-useApi(fetcher, [])                                          // ❌ empty
-useApi(fetcher, [debouncedSearch, offset, pageLimit])        // ❌ no domain prefix
-useApi(fetcher, [id])                                        // ❌ single var
-```
+- "Simplifying" the SQL by dropping the second `LEFT JOIN` or the `COALESCE`. The two `Organization` joins via different aliases (`org`, `u_org`) are load-bearing.
+- Adding a Go-side fallback in caller code (e.g. "if `meta.OrganizationID == ""` then look up `meta.OwnerID` and read `nexus_user.organizationId`"). The fallback belongs in SQL — caller code reads the resolved value, not raw chains.
+- Adding a new VK-derived column without verifying it has both chains' coverage.
 
-## Correct
+## Tests
 
-```tsx
-useApi(fetcher, ['admin', 'routing-rules', 'list', search, enabled, offset, limit])
-useApi(fetcher, ['admin', 'policies', 'detail', id])
-useApi(fetcher, ['admin', 'providers', 'list', 'model-list-picker'])   // usage-suffix disambiguates
-```
+String-level pins in `packages/ai-gateway/internal/store/virtualkey_sql_test.go` lock the COALESCE shape + both LEFT JOINs. Refactors that "simplify" the SQL trip these tests in CI.
 
-## Why
+## Sources
 
-React Query stores under `['api', ...queryKey]`. Pages with the same state shape (e.g. `['', '', 0, 20]`) collide in the cache. Navigating from one list to another shows the previous page's `data` with the new page's `columns` — a confusing class of UI bug.
-
-When the same API is fetched from multiple call sites intentionally (e.g., providers list used by `ModelList` and `CredentialList`), add a usage-site suffix to each call so the two callers dedupe only within themselves and do not leak stale data into unrelated pages.
+- Architecture doc: `docs/developers/architecture/services/control-plane/vk-org-resolution.md`
+- Pre-edit triggers: `docs/developers/architecture/README.md`
 
 Skipping this rule requires **explicit user approval** in chat.
 
