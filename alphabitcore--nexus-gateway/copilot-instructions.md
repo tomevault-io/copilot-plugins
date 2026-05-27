@@ -1,59 +1,38 @@
-## ai-gateway-smoke-mandatory
+## architecture-doc-triggers
 
-> AI Gateway / traffic_event changes require an ai-gateway smoke run before "done
+> Read the listed architecture doc BEFORE editing any subsystem
 
 
-# AI Gateway / traffic_event smoke (binding)
+# Architecture doc triggers — binding
 
-You are editing AI-Gateway-adjacent code or the `traffic_event` schema. **You MUST run the ai-gateway smoke before reporting the work as done.** Unit tests cannot catch the failure modes this smoke is built for: cross-ingress asymmetry (one ingress passes, another silently drops a field), cost / token miscalculation on `traffic_event`, cache classification bugs, and codec parity regressions between native passthrough and the canonical bridge.
+Before editing code in any of the areas listed in `docs/developers/architecture/README.md`, you **MUST** first read the listed architecture doc(s).
 
-## The rule
+This rule is one of the **three required reads** before any code change (see `pre-edit-reading.mdc` for the full requirement: architecture + feature + conventions). It operationalises Step 1 of the Mandatory Development Workflow in `CLAUDE.md` ("Architecture") with per-module precision.
 
-Any edit that touches:
+## How to apply
 
-- `packages/ai-gateway/**` (ingress handlers, providers/specs/<name>/, cache, cost, routing, hooks),
-- the `TrafficEvent` / `TrafficEventNormalized` tables or any `traffic_event_*` migration in `tools/db-migrate/`,
-- `packages/shared/transport/normalize/**` (canonical normalizer + extractors),
-- `packages/ai-gateway/internal/execution/canonicalbridge/` (canonical chat-completions bridge) / `packages/ai-gateway/internal/providers/canonicalext/` (provider-ext fields),
-- `packages/shared/traffic/**` (adapters, normalize pipeline, dedup, store),
-- or any provider adapter under `packages/ai-gateway/internal/providers/specs/<name>/`,
+When the user asks you to edit code, before writing any change:
 
-MUST run an ai-gateway smoke before the completion-time self-audit (Q3) can be answered "yes".
+1. Open `docs/developers/architecture/README.md`.
+2. Find the row whose "Editing area / file glob" matches.
+3. Open and read the listed doc(s).
+4. If your edit area is **not** covered by any row, that itself is a signal — either the architecture is undocumented (raise it with the user before continuing) or this is a new subsystem that needs its own doc + row.
 
-## Scope of the smoke run
+## What to do if you're refactoring
 
-Pick one based on the blast radius — and **call out which you ran in the completion message**:
+If your PR introduces a new architectural subsystem:
 
-| Scope | Command | When |
-|---|---|---|
-| **Full surface** | `python3 tests/scripts/smoke-gateway.py --all-ingress` | 29 catalog models × 4 ingresses (chat / responses / messages / gemini). Use for shared-code, schema, cost, normalize, canonical-bridge, multi-adapter edits. |
-| **Partial models** | `--models <a,b,c> --all-ingress` | Edits provably scoped to ≤3 model families. Pick one model per affected provider. |
-| **Single ingress** | `--ingress chat` (or `responses`/`messages`/`gemini`) | Edits to one ingress's codec only. Document why the other three are unaffected. |
-| **Single model + skip cache** | `--models X --no-cache` | Targeted regression rerun while iterating on a stream-parser bug. NOT acceptable as the final smoke before "done". |
+1. Write the new `docs/developers/architecture/<service>/<name>-architecture.md` first (or in the same PR, ordered before code).
+2. Append the new row to `docs/developers/architecture/README.md` in the same PR.
+3. CI lockstep (`npm run check:arch-doc-triggers`) will fail if either side is missing.
 
-Skipping the smoke entirely requires **explicit user approval** in chat.
+## What this rule is NOT
 
-## What to inspect in the report
+- It is **not** a substitute for the Plan / Todo discipline in CLAUDE.md.
+- It is **not** asking you to read every doc — just the ones for the area you are touching.
+- It does **not** require updating the doc unless the architecture itself is changing.
 
-The smoke writes a Markdown report at `/tmp/smoke-gateway-<UTC>.md`. Before declaring done:
-
-1. **No FAIL rows** in any phase. WARNs require an in-message explanation.
-2. **Cross-ingress cache matrix** — every model's cache column is consistent (A passes ⇒ B passes for cacheable models).
-3. **Reasoning audit** (smoke v2) — for reasoning-capable models, `reasoning_tokens` is non-zero on at least one arm (Anthropic native exempted; messages-ingress doesn't expose the count).
-4. **traffic_event cross-check** — `gateway_cost_usd`, token counts, cache classification visible in the DB-cross-check phase line up with the response body. The DB row is the source of truth that production analytics depends on.
-
-## What this rule catches that unit tests don't
-
-- **Cross-ingress asymmetry** — one ingress carries a field correctly, another silently drops it on egress (most often a normalizer mapping omission between OpenAI-shape and a non-OpenAI shape). Only the cross-ingress matrix surfaces these.
-- **Token-field stamp coverage** — the 5-stamp-site sweep (`token-field-stamp-sweep.mdc`) is verifiable end-to-end only via the smoke; a unit test in one site doesn't tell you the other four populated the new column.
-- **Cost correctness** on `traffic_event.gateway_cost_usd` — input/output/cached-read/cached-write/reasoning tokens must line up; the gateway computes this from many inputs and the only end-to-end probe is the smoke + DB cross-check.
-
-## Related bindings
-
-- `unit-test-coverage-95.mdc` — unit tests are necessary but not sufficient. The smoke is the integration layer.
-- `token-field-stamp-sweep.mdc` — when adding a usage field, the smoke is the only way to verify all 5 stamp sites populated the new column.
-- `text-first-normalizer.mdc` — text-first normalizer changes require running the normalize pipeline end-to-end, which the smoke exercises.
-- Memory `[[feedback_cache_mandatory_all_ingress]]` — cache test runs on every ingress; cross-ingress asymmetry must be caught.
+Skipping this rule requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
