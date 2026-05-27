@@ -143054,6 +143054,31 @@
       "description": "nexus-gateway"
     },
     {
+      "name": "qoham--experiment-code-template",
+      "source": "./qoham--experiment-code-template",
+      "description": "paper experiment code template"
+    },
+    {
+      "name": "qoham--experiment-code-template",
+      "source": "./qoham--experiment-code-template",
+      "description": "paper experiment code template"
+    },
+    {
+      "name": "qoham--experiment-code-template",
+      "source": "./qoham--experiment-code-template",
+      "description": "paper experiment code template"
+    },
+    {
+      "name": "qoham--experiment-code-template",
+      "source": "./qoham--experiment-code-template",
+      "description": "paper experiment code template"
+    },
+    {
+      "name": "qoham--experiment-code-template",
+      "source": "./qoham--experiment-code-template",
+      "description": "paper experiment code template"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
