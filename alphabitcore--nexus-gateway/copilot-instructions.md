@@ -1,32 +1,31 @@
-## sub-agent-dispatch
+## text-first-normalizer
 
-> Discipline for dispatching sub-agents (Agent tool) — what to delegate, what not to, and required prompt shape
+> Compliance / agent normalizer must produce readable text; usage stats optional
 
 
-# Sub-agent dispatch discipline (binding)
+# Text-first normalizer (binding)
 
-Sub-agents have **zero session context**. Terse prompts produce shallow work. Use them only where the gain is real and the prompt is complete.
+For **consumer-surface traffic** (`chatgpt-web`, `claude-web`, `cursor`, `gemini-web`, and any future consumer-side wire format), the normalizer's **only required output is readable text**. Losing token / usage stats at this stage is **acceptable**.
 
-## OK to delegate
+Canonical memory: `feedback_compliance_proxy_text_first`.
 
-- (a) **Mechanical multi-file work** that doesn't need main-context reasoning — test stub renames, doc cross-rewrites, codemod-style edits.
-- (b) **Parallel-safe independent research lookups** — `Explore` agent for code search, "find me where X is referenced."
-- (c) **Bounded scope** where the agent's report-back is enough — small audits, well-defined formatting passes.
+## What's required
 
-## DO NOT delegate
+`ExtractText(raw []byte) (Extracted, error)` MUST produce the user's prompt + the assistant's response as plain UTF-8 text. Hooks evaluate against this text; audit captures this text. If text extraction fails, the request still flows but is recorded with `extract_error=...`.
 
-1. **Understanding a new problem** — the main agent must keep the model.
-2. **Decisions that change scope or contract** — those need user-in-the-loop, not a sub-agent.
-3. **`git commit` / `git push` / force-pushes / destructive ops on shared history** — never via sub-agent.
+## What's optional
 
-## Required prompt shape
+Token counts, cost stats, role-by-role decomposition, tool-call structure — **nice-to-have**. Consumer wire formats are inconsistent and brittle; insisting on full canonical structure produces fragile adapters that break on every minor provider UI update.
 
-Every dispatched prompt MUST include:
+For **API-surface traffic** (the same provider hit via SDK / `/v1/*`), the same adapter typically produces both text AND structured usage; that's a bonus, not a contract.
 
-- (i) **Goal + non-goals** in the first 3 lines.
-- (ii) **Which worktree** the agent is operating in if non-default.
-- (iii) **Demand a 2-round self-audit** before report-back.
-- (iv) **Ask for a per-file list of touched paths + verification command outputs** in the response.
+## What this rule prevents
+
+Adapter authors writing 200-line OpenAI-shape canonicalizers for `claude-web` just to satisfy "completeness". Brittle structural normalizers break on every consumer-surface UI update; keep adapters text-first.
+
+## Tier-2 NonJSONDetector
+
+For non-JSON wire formats (binary protocols, multipart, gRPC-Web, raw audio): add a `NonJSONDetector` in `packages/shared/traffic/extract/detector.go`. Tier-1 adapters delegate to the detector. Do **NOT** write a fresh per-host adapter for a new non-JSON format. Canonical memory: `feedback_tier2_nonjson_detector_framework`.
 
 Skipping this rule requires **explicit user approval** in chat.
 
