@@ -1,0 +1,9 @@
+{
+  "name": "dumbwareio--dumbdateparser",
+  "displayName": "DumbDateParser",
+  "description": "A Dumb natural language date parser",
+  "version": "1.0.0",
+  "author": "DumbWareio",
+  "homepage": "https://github.com/DumbWareio/DumbDateParser",
+  "skills": []
+}
