@@ -1,0 +1,9 @@
+{
+  "name": "thymianofficial--thymian",
+  "displayName": "thymian",
+  "description": "Thymian is a language-agnostic, open-source HTTP conformance and API governance tool. It validates your APIs against RFC standards and your OpenAPI specification \u2014 statically, against live endpoints, ",
+  "version": "1.0.0",
+  "author": "thymianofficial",
+  "homepage": "https://github.com/thymianofficial/thymian",
+  "skills": []
+}
