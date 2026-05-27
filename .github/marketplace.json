@@ -26339,6 +26339,11 @@
       "description": "Model Context Protocol (MCP) server for read-only interaction with NetBox data in LLMs"
     },
     {
+      "name": "kh4f--flexplorer",
+      "source": "./kh4f--flexplorer",
+      "description": "\ud83d\uddc3\ufe0f Obsidian File Explorer Enhancer"
+    },
+    {
       "name": "vijaygupta18--system-design-simulator",
       "source": "./vijaygupta18--system-design-simulator",
       "description": "Interactive System Design Interview Simulator \u2014 practice designing distributed systems with real-time load simulation and scoring"
@@ -28757,6 +28762,11 @@
       "name": "confluentinc--mcp-confluent",
       "source": "./confluentinc--mcp-confluent",
       "description": "mcp-confluent"
+    },
+    {
+      "name": "nvfp4--chrome-debloat",
+      "source": "./nvfp4--chrome-debloat",
+      "description": "Debloat your Chrome, Brave, Edge, Chromium browsing experience"
     },
     {
       "name": "akazwz--hostc",
@@ -62139,6 +62149,16 @@
       "description": "Pragmatic AI Labs MCP SDK "
     },
     {
+      "name": "jeanibarz--knowledge-base-mcp-server",
+      "source": "./jeanibarz--knowledge-base-mcp-server",
+      "description": "This MCP server provides tools for listing and retrieving content from different knowledge bases."
+    },
+    {
+      "name": "pocketllm--pocketllm",
+      "source": "./pocketllm--pocketllm",
+      "description": "\ud83d\ude80 A powerful Flutter-based AI chat application that lets you run LLMs directly on your mobile device or connect to local model servers. Features offline model execution, Ollama/LLMStudio integration, "
+    },
+    {
       "name": "rudrankriyam--foundation-models-framework-cli",
       "source": "./rudrankriyam--foundation-models-framework-cli",
       "description": "A powerful command-line interface for Foundation Models on Apple platforms."
@@ -63917,6 +63937,21 @@
       "name": "novywave--novywave",
       "source": "./novywave--novywave",
       "description": "Modern GTKWave alternative"
+    },
+    {
+      "name": "goosewobbler--zubridge",
+      "source": "./goosewobbler--zubridge",
+      "description": "Cross-platform state without boundaries: Zustand-inspired simplicity"
+    },
+    {
+      "name": "goosewobbler--zubridge",
+      "source": "./goosewobbler--zubridge",
+      "description": "Cross-platform state without boundaries: Zustand-inspired simplicity"
+    },
+    {
+      "name": "goosewobbler--zubridge",
+      "source": "./goosewobbler--zubridge",
+      "description": "Cross-platform state without boundaries: Zustand-inspired simplicity"
     },
     {
       "name": "zhaono1--agent-playbook",
@@ -65864,6 +65899,11 @@
       "description": "Website, Docs and Examples for the Jido Ecosystem - PR's welcome"
     },
     {
+      "name": "easy-editor--easydashboard",
+      "source": "./easy-editor--easydashboard",
+      "description": "EasyDashboard is a data visualization dashboard solution developed based on the EasyEditor.  |  EasyDashboard \u662f\u57fa\u4e8e EasyEditor \u4f4e\u4ee3\u7801\u5f15\u64ce\u5f00\u53d1\u7684\u6570\u636e\u53ef\u89c6\u5316\u5927\u5c4f\u89e3\u51b3\u65b9\u6848"
+    },
+    {
       "name": "agents-squads--squads-cli",
       "source": "./agents-squads--squads-cli",
       "description": "CLI for managing AI agent squads. Status, memory, goals, feedback, and dashboard for your autonomous agents."
@@ -66807,6 +66847,16 @@
       "name": "patelnav--ctrlspeak",
       "source": "./patelnav--ctrlspeak",
       "description": "Turn your voice into text with a triple-tap \u2014 minimal, fast, and macOS-native."
+    },
+    {
+      "name": "oraylis--datam8-cli",
+      "source": "./oraylis--datam8-cli",
+      "description": "datam8-cli"
+    },
+    {
+      "name": "oraylis--datam8-cli",
+      "source": "./oraylis--datam8-cli",
+      "description": "datam8-cli"
     },
     {
       "name": "janbjorge--rekal",
@@ -67762,6 +67812,11 @@
       "name": "jmurth1234--claudeplayer",
       "source": "./jmurth1234--claudeplayer",
       "description": "An AI-powered game playing agent using Claude and PyBoy"
+    },
+    {
+      "name": "mary-ext--anartia",
+      "source": "./mary-ext--anartia",
+      "description": "JavaScript-optional public web frontend for Bluesky."
     },
     {
       "name": "66reapollo2--agentsge",
@@ -70644,6 +70699,91 @@
       "description": "An MCP Server for querying InfluxDB"
     },
     {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "ngxpert--input-otp",
+      "source": "./ngxpert--input-otp",
+      "description": "\ud83d\udd10 One time passcode Input. Accessible & unstyled."
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hoangsonww--ai-rag-assistant-chatbot",
+      "source": "./hoangsonww--ai-rag-assistant-chatbot",
+      "description": "\ud83d\udc68\ud83c\udffb\u200d\ud83d\udcbb Meet Lumina \u2013 my personal AI assistant powered by hybrid RAG with Pinecone vector search and Neo4j graph traversal, Google AI, LangChain, and an MCP server with 30+ tools. Features real-time stre"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "hubspot--cms-elevate-theme-public",
+      "source": "./hubspot--cms-elevate-theme-public",
+      "description": "cms-elevate-theme-public"
+    },
+    {
+      "name": "bmadcode--cursor-xml-rules-trial",
+      "source": "./bmadcode--cursor-xml-rules-trial",
+      "description": "cursor-xml-rules-trial"
+    },
+    {
+      "name": "bmadcode--cursor-xml-rules-trial",
+      "source": "./bmadcode--cursor-xml-rules-trial",
+      "description": "cursor-xml-rules-trial"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -71477,6 +71617,11 @@
       "name": "zeybek--camouflage",
       "source": "./zeybek--camouflage",
       "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "fpachet--continuator",
+      "source": "./fpachet--continuator",
+      "description": "A constrainable continuator. Applications to music (mostly), text, chords, etc."
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -72632,6 +72777,16 @@
       "name": "wandb--vibes",
       "source": "./wandb--vibes",
       "description": "A repo with a devcontainer ready to vibe with Claude, Codex or Gemini"
+    },
+    {
+      "name": "sarangk90--building-rag-app-workshop",
+      "source": "./sarangk90--building-rag-app-workshop",
+      "description": "This is the repo for the Oreilly workshop"
+    },
+    {
+      "name": "letta-ai--letta-discord-bot-example",
+      "source": "./letta-ai--letta-discord-bot-example",
+      "description": " An example Discord chatbot built on the Letta API, which uses a stateful agent (agent with memory) under the hood. "
     },
     {
       "name": "affitor--open-affiliate",
@@ -77287,6 +77442,16 @@
       "name": "k2--olol",
       "source": "./k2--olol",
       "description": "# Ollama<=>Ollama Inference Cluster"
+    },
+    {
+      "name": "gfazioli--next-app-nextra-template",
+      "source": "./gfazioli--next-app-nextra-template",
+      "description": "Template for Next.js 16 app router + Mantine 9 UI + Nextra 4"
+    },
+    {
+      "name": "mikecann--ourfiles",
+      "source": "./mikecann--ourfiles",
+      "description": "a simple way to share files on a private network"
     },
     {
       "name": "skywind3000--gamesample",
@@ -83012,6 +83177,11 @@
       "name": "tomimalamud--lamacro",
       "source": "./tomimalamud--lamacro",
       "description": "Central de deudores, inflaci\u00f3n, reservas, d\u00f3lar, tasas, y calculadora de carry trade."
+    },
+    {
+      "name": "kev365--toolfetcher",
+      "source": "./kev365--toolfetcher",
+      "description": "A tool for fetching DFIR and other GitHub tools."
     },
     {
       "name": "mulhamna--jira-commands",
@@ -91134,6 +91304,16 @@
       "description": "A sophisticated knowledge graph memory system that stores interconnected information with rich semantic structure."
     },
     {
+      "name": "rhyek--nestjs-endpoints",
+      "source": "./rhyek--nestjs-endpoints",
+      "description": "A lightweight tool for writing clean and succinct, end-to-end type-safe HTTP APIs with NestJS that encourages the REPR design pattern, code colocation, and the Single Responsibility Principle."
+    },
+    {
+      "name": "go-pkgz--pool",
+      "source": "./go-pkgz--pool",
+      "description": "workers pool with extras"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -95549,6 +95729,11 @@
       "description": "Langgraph-Multi-Agent-HITL-Form"
     },
     {
+      "name": "stadiamaps--valinor",
+      "source": "./stadiamaps--valinor",
+      "description": "Valhalla \ud83e\udd1d \ud83e\udd80"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -98474,6 +98659,11 @@
       "description": "A MCP Server that provides browser access through playwright with \"stealth mode\" enabled."
     },
     {
+      "name": "strvcom--flutter-template",
+      "source": "./strvcom--flutter-template",
+      "description": "flutter-template"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -100932,6 +101122,11 @@
       "name": "shmaug--deltetrenderer",
       "source": "./shmaug--deltetrenderer",
       "description": "DelTetRenderer"
+    },
+    {
+      "name": "moonblade--audiobookbay-downloader",
+      "source": "./moonblade--audiobookbay-downloader",
+      "description": "A modern web application for searching and downloading audiobooks from AudiobookBay. Supports Transmission, qBittorrent, Decypharr, Beets integration, and Goodreads sync."
     },
     {
       "name": "develite98--angular-best-practices",
@@ -103407,6 +103602,41 @@
       "name": "cunninger--grok-remain-count",
       "source": "./cunninger--grok-remain-count",
       "description": "\u7528\u4e8e\u76d1\u63a7\u548c\u7ba1\u7406\u591a\u4e2a Grok \"API\" \u8d26\u53f7\u7684\u4f7f\u7528\u60c5\u51b5\uff0c\u5305\u62ec\u6807\u51c6\u3001\u601d\u8003\u548c\u6df1\u5ea6\u6a21\u5f0f\u7684\u5269\u4f59\u8c03\u7528\u6b21\u6570\u3002"
+    },
+    {
+      "name": "yeachan-heo--gajae-code",
+      "source": "./yeachan-heo--gajae-code",
+      "description": "Gajae Code MVP"
+    },
+    {
+      "name": "fractalyze--prime-ir",
+      "source": "./fractalyze--prime-ir",
+      "description": " Intermediate Representation (IR) for cryptographic computations"
+    },
+    {
+      "name": "fractalyze--prime-ir",
+      "source": "./fractalyze--prime-ir",
+      "description": " Intermediate Representation (IR) for cryptographic computations"
+    },
+    {
+      "name": "fractalyze--prime-ir",
+      "source": "./fractalyze--prime-ir",
+      "description": " Intermediate Representation (IR) for cryptographic computations"
+    },
+    {
+      "name": "fractalyze--prime-ir",
+      "source": "./fractalyze--prime-ir",
+      "description": " Intermediate Representation (IR) for cryptographic computations"
+    },
+    {
+      "name": "fractalyze--prime-ir",
+      "source": "./fractalyze--prime-ir",
+      "description": " Intermediate Representation (IR) for cryptographic computations"
+    },
+    {
+      "name": "fractalyze--prime-ir",
+      "source": "./fractalyze--prime-ir",
+      "description": " Intermediate Representation (IR) for cryptographic computations"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -144217,6 +144447,11 @@
       "name": "clayrosenthal--epub2audio",
       "source": "./clayrosenthal--epub2audio",
       "description": "Convert an `.epub` file into an audiobook with a local AI"
+    },
+    {
+      "name": "zhnt--loushang",
+      "source": "./zhnt--loushang",
+      "description": "AI-native coding orchestration platform: unified multi-model agent runtime with stateful sessions, tool governance, and traceable delivery. "
     },
     {
       "name": "yschimke--compose-ai-tools",
