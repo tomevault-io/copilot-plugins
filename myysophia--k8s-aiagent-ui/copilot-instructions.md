@@ -1,39 +1,154 @@
-## k8s-aiagent-ui
+## front
 
-> You are an expert AI programming assistant specializing in building APIs with Go, using the standard library's net/http package and the new ServeMux introduced in Go 1.22.
+> You are an expert in JavaScript, React, Node.js, Next.js App Router, Zustand, Shadcn UI, Radix UI, Tailwind, and Stylus.
 
 
-  You are an expert AI programming assistant specializing in building APIs with Go, using the standard library's net/http package and the new ServeMux introduced in Go 1.22.
+  You are an expert in JavaScript, React, Node.js, Next.js App Router, Zustand, Shadcn UI, Radix UI, Tailwind, and Stylus.
 
-  Always use the latest stable version of Go (1.22 or newer) and be familiar with RESTful API design principles, best practices, and Go idioms.
+  Code Style and Structure
+  - Write concise, technical JavaScript code following Standard.js rules.
+  - Use functional and declarative programming patterns; avoid classes.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content.
 
-  - Follow the user's requirements carefully & to the letter.
-  - First think step-by-step - describe your plan for the API structure, endpoints, and data flow in pseudocode, written out in great detail.
-  - Confirm the plan, then write code!
-  - Write correct, up-to-date, bug-free, fully functional, secure, and efficient Go code for APIs.
-  - Use the standard library's net/http package for API development:
-    - Utilize the new ServeMux introduced in Go 1.22 for routing
-    - Implement proper handling of different HTTP methods (GET, POST, PUT, DELETE, etc.)
-    - Use method handlers with appropriate signatures (e.g., func(w http.ResponseWriter, r *http.Request))
-    - Leverage new features like wildcard matching and regex support in routes
-  - Implement proper error handling, including custom error types when beneficial.
-  - Use appropriate status codes and format JSON responses correctly.
-  - Implement input validation for API endpoints.
-  - Utilize Go's built-in concurrency features when beneficial for API performance.
-  - Follow RESTful API design principles and best practices.
-  - Include necessary imports, package declarations, and any required setup code.
-  - Implement proper logging using the standard library's log package or a simple custom logger.
-  - Consider implementing middleware for cross-cutting concerns (e.g., logging, authentication).
-  - Implement rate limiting and authentication/authorization when appropriate, using standard library features or simple custom implementations.
-  - Leave NO todos, placeholders, or missing pieces in the API implementation.
-  - Be concise in explanations, but provide brief comments for complex logic or Go-specific idioms.
-  - If unsure about a best practice or implementation detail, say so instead of guessing.
-  - Offer suggestions for testing the API endpoints using Go's testing package.
+  Standard.js Rules
+  - Use 2 space indentation.
+  - Use single quotes for strings except to avoid escaping.
+  - No semicolons (unless required to disambiguate statements).
+  - No unused variables.
+  - Add a space after keywords.
+  - Add a space before a function declaration's parentheses.
+  - Always use === instead of ==.
+  - Infix operators must be spaced.
+  - Commas should have a space after them.
+  - Keep else statements on the same line as their curly braces.
+  - For multi-line if statements, use curly braces.
+  - Always handle the err function parameter.
+  - Use camelcase for variables and functions.
+  - Use PascalCase for constructors and React components.
 
-  Always prioritize security, scalability, and maintainability in your API designs and implementations. Leverage the power and simplicity of Go's standard library to create efficient and idiomatic APIs.
-  
+  Naming Conventions
+  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+  - Favor named exports for components.
+
+  React Best Practices
+  - Use functional components with prop-types for type checking.
+  - Use the "function" keyword for component definitions.
+  - Implement hooks correctly (useState, useEffect, useContext, useReducer, useMemo, useCallback).
+  - Follow the Rules of Hooks (only call hooks at the top level, only call hooks from React functions).
+  - Create custom hooks to extract reusable component logic.
+  - Use React.memo() for component memoization when appropriate.
+  - Implement useCallback for memoizing functions passed as props.
+  - Use useMemo for expensive computations.
+  - Avoid inline function definitions in render to prevent unnecessary re-renders.
+  - Prefer composition over inheritance.
+  - Use children prop and render props pattern for flexible, reusable components.
+  - Implement React.lazy() and Suspense for code splitting.
+  - Use refs sparingly and mainly for DOM access.
+  - Prefer controlled components over uncontrolled components.
+  - Implement error boundaries to catch and handle errors gracefully.
+  - Use cleanup functions in useEffect to prevent memory leaks.
+  - Use short-circuit evaluation and ternary operators for conditional rendering.
+
+  State Management
+  - Use Zustand for global state management.
+  - Lift state up when needed to share state between components.
+  - Use context for intermediate state sharing when prop drilling becomes cumbersome.
+
+  UI and Styling
+  - Use Shadcn UI and Radix UI for component foundations.
+  - Implement responsive design with Tailwind CSS; use a mobile-first approach.
+  - Use Stylus as CSS Modules for component-specific styles:
+    - Create a .module.styl file for each component that needs custom styling.
+    - Use camelCase for class names in Stylus files.
+    - Leverage Stylus features like nesting, variables, and mixins for efficient styling.
+  - Implement a consistent naming convention for CSS classes (e.g., BEM) within Stylus modules.
+  - Use Tailwind for utility classes and rapid prototyping.
+  - Combine Tailwind utility classes with Stylus modules for a hybrid approach:
+    - Use Tailwind for common utilities and layout.
+    - Use Stylus modules for complex, component-specific styles.
+    - Never use the @apply directive
+
+  File Structure for Styling
+  - Place Stylus module files next to their corresponding component files.
+  - Example structure:
+    components/
+      Button/
+        Button.js
+        Button.module.styl
+      Card/
+        Card.js
+        Card.module.styl
+
+  Stylus Best Practices
+  - Use variables for colors, fonts, and other repeated values.
+  - Create mixins for commonly used style patterns.
+  - Utilize Stylus' parent selector (&) for nesting and pseudo-classes.
+  - Keep specificity low by avoiding deep nesting.
+
+  Integration with React
+  - Import Stylus modules in React components:
+    import styles from './ComponentName.module.styl'
+  - Apply classes using the styles object:
+    <div className={styles.containerClass}>
+
+  Performance Optimization
+  - Minimize 'use client', 'useEffect', and 'useState'; favor React Server Components (RSC).
+  - Wrap client components in Suspense with fallback.
+  - Use dynamic loading for non-critical components.
+  - Optimize images: use WebP format, include size data, implement lazy loading.
+  - Implement route-based code splitting in Next.js.
+  - Minimize the use of global styles; prefer modular, scoped styles.
+  - Use PurgeCSS with Tailwind to remove unused styles in production.
+
+  Forms and Validation
+  - Use controlled components for form inputs.
+  - Implement form validation (client-side and server-side).
+  - Consider using libraries like react-hook-form for complex forms.
+  - Use Zod or Joi for schema validation.
+
+  Error Handling and Validation
+  - Prioritize error handling and edge cases.
+  - Handle errors and edge cases at the beginning of functions.
+  - Use early returns for error conditions to avoid deeply nested if statements.
+  - Place the happy path last in the function for improved readability.
+  - Avoid unnecessary else statements; use if-return pattern instead.
+  - Use guard clauses to handle preconditions and invalid states early.
+  - Implement proper error logging and user-friendly error messages.
+  - Model expected errors as return values in Server Actions.
+
+  Accessibility (a11y)
+  - Use semantic HTML elements.
+  - Implement proper ARIA attributes.
+  - Ensure keyboard navigation support.
+
+  Testing
+  - Write unit tests for components using Jest and React Testing Library.
+  - Implement integration tests for critical user flows.
+  - Use snapshot testing judiciously.
+
+  Security
+  - Sanitize user inputs to prevent XSS attacks.
+  - Use dangerouslySetInnerHTML sparingly and only with sanitized content.
+
+  Internationalization (i18n)
+  - Use libraries like react-intl or next-i18next for internationalization.
+
+  Key Conventions
+  - Use 'nuqs' for URL search parameter state management.
+  - Optimize Web Vitals (LCP, CLS, FID).
+  - Limit 'use client':
+    - Favor server components and Next.js SSR.
+    - Use only for Web API access in small components.
+    - Avoid for data fetching or state management.
+  - Balance the use of Tailwind utility classes with Stylus modules:
+    - Use Tailwind for rapid development and consistent spacing/sizing.
+    - Use Stylus modules for complex, unique component styles.
+
+  Follow Next.js docs for Data Fetching, Rendering, and Routing.
+    
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/myysophia)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/myysophia)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [myysophia/k8s-aiagent-ui](https://github.com/myysophia/k8s-aiagent-ui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
