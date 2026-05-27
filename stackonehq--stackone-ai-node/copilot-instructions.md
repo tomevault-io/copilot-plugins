@@ -1,73 +1,133 @@
-## pnpm-usage
+## typescript-testing
 
-> pnpm package manager commands and troubleshooting. (project)
+> Use when writing or running tests. Covers Vitest commands, MSW HTTP mocking, fs-fixture for file system tests. (project)
 
 
-# pnpm Usage
+# TypeScript Testing with Vitest and MSW
 
-This rule provides guidance on using pnpm in the StackOne SDK.
+This rule guides testing practices for the StackOne SDK using Vitest test runner and Mock Service Worker (MSW) for HTTP mocking.
 
-## Building
+## Testing Framework
 
-- `pnpm build` - Build the project using tsdown
-
-## Testing
+The project uses **Vitest** as the test runner. Run tests with:
 
 - `pnpm test` - Run all tests (unit, examples, scripts)
 - `pnpm vitest src/path/to/file.test.ts` - Run a specific test file
 - `pnpm vitest -t "test name"` - Run tests matching a pattern
 
-## Code Quality
+### Vitest Globals
 
-- `pnpm lint` - Run oxfmt/oxlint/knip linter
-- `pnpm format` - Format code with oxfmt/oxlint/knip
+**Vitest globals are enabled** (`globals: true` in `vitest.config.ts`). Do NOT import test utilities from `'vitest'` - they are available globally:
 
-## Command Execution
+```typescript
+// ❌ WRONG - Do NOT import from vitest
+import { describe, it, expect, vi } from 'vitest';
 
-- `pnpm <script>` - Run a script defined in package.json
-- `pnpm exec <command>` - Run a command from node_modules/.bin
-- `pnpm dlx <package>` - Run a package without installing (like npx)
-
-## Troubleshooting
-
-If `pnpm exec <command>` fails, try `pnpm dlx <command>` instead.
-
-If bash commands fail, try running with fish shell:
-
-```bash
-fish -c "<command>"
+// ✅ CORRECT - Use globals directly (no import needed)
+describe('MyTest', () => {
+	it('should work', () => {
+		expect(true).toBe(true);
+	});
+});
 ```
 
-## Common Issues
+Available globals: `describe`, `it`, `test`, `expect`, `vi`, `beforeAll`, `afterAll`, `beforeEach`, `afterEach`, `assert`, etc.
 
-1. **Script not found**: Check package.json scripts section
-2. **Binary not found**: Use `pnpm dlx` instead of `pnpm exec`
-3. **Permission errors**: Check node_modules permissions
+## MSW (Mock Service Worker)
 
-## Security Settings
+**MSW is the preferred HTTP mocking solution.** MSW is configured globally in `vitest.setup.ts`, so no per-file setup is required.
 
-The project uses pnpm security settings to protect against supply chain attacks.
-These are configured in `pnpm-workspace.yaml`:
+### Adding Mock Handlers
 
-| Setting                     | Purpose                                                                                                              |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `strictDepBuilds: true`     | Blocks lifecycle scripts (postinstall, etc.) by default. Only packages in `allowBuilds` can run build scripts.       |
-| `allowBuilds`               | Explicitly allows (`true`) or blocks (`false`) build scripts per package. Replaces `onlyBuiltDependencies` (10.26+). |
-| `blockExoticSubdeps: true`  | Blocks dependencies from non-registry sources (Git repos, tarball URLs).                                             |
-| `trustPolicy: no-downgrade` | Prevents trust level downgrades between versions (e.g., from GitHub OIDC to basic auth).                             |
+Add endpoints to `mocks/handlers.ts`:
 
-If a new dependency requires build scripts, add it to `allowBuilds` in `pnpm-workspace.yaml` with value `true`.
+```typescript
+import { http, HttpResponse } from 'msw';
 
-Reference: https://pnpm.io/settings
+export const handlers = [
+	http.get('https://api.example.com/endpoint', () => {
+		return HttpResponse.json({ data: 'mock response' });
+	}),
+];
+```
 
-## Publishing & Deployment
+### Overriding Handlers in Tests
 
-When ready to release:
+Use `server.use()` for test-specific overrides:
 
-1. Ensure all tests pass: `pnpm test`
-2. Bump version in package.json
-3. Create release commit
-4. Push to main or create release PR
+```typescript
+import { http, HttpResponse } from 'msw';
+import { server } from '../../../mocks/node';
+
+it('handles error responses', async () => {
+	server.use(
+		http.get('https://api.example.com/endpoint', () => {
+			return HttpResponse.json({ error: 'Not found' }, { status: 404 });
+		}),
+	);
+	// Test implementation
+});
+```
+
+The global `afterEach` hook automatically calls `server.resetHandlers()` to reset overrides.
+
+### Verifying Requests
+
+Use MSW event listeners to verify requests were made:
+
+```typescript
+it('makes the expected request', async () => {
+	const recordedRequests: Request[] = [];
+	const listener = ({ request }: { request: Request }) => {
+		recordedRequests.push(request);
+	};
+	server.events.on('request:start', listener);
+
+	await someFunction();
+
+	expect(recordedRequests).toHaveLength(1);
+	expect(recordedRequests[0]?.url).toBe('https://api.example.com/endpoint');
+
+	server.events.removeListener('request:start', listener);
+});
+```
+
+## Important Rules
+
+- **DO NOT** use `spyOn(globalThis, 'fetch')` - use MSW instead
+- **DO NOT** add `beforeAll`/`afterAll`/`afterEach` for MSW setup in test files
+- MSW handlers are automatically reset after each test
+
+## Testing File System Operations
+
+For file system tests, use `fs-fixture` with `await using` for automatic cleanup:
+
+```typescript
+import { createFixture } from 'fs-fixture';
+
+it('should save file to disk', async () => {
+	await using fixture = await createFixture();
+	await fixture.writeFile('data.json', JSON.stringify({ test: 'data' }));
+	expect(await fixture.exists('data.json')).toBe(true);
+});
+```
+
+**Reference:** See `node_modules/fs-fixture/README.md` for full API and advanced usage
+
+## Test Organization
+
+- Use snapshot testing for generated outputs
+- Comprehensive unit tests for parsing logic
+- Integration tests with example usage
+- Group related tests with `describe()` blocks
+
+## Guidelines
+
+- Run tests frequently during development
+- Maintain >90% code coverage for core modules
+- Use descriptive test names that explain the behavior being tested
+- Keep tests isolated and independent
+- Clean up MSW overrides automatically via global hooks
 
 ---
 > Source: [StackOneHQ/stackone-ai-node](https://github.com/StackOneHQ/stackone-ai-node) — distributed by [TomeVault](https://tomevault.io).
