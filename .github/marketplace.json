@@ -163744,6 +163744,16 @@
       "description": "A Model Context Protocol (MCP) server that provides financial data access through automated Israeli bank and credit card data scraping. Supports all major Israeli financial institutions dynamically ba"
     },
     {
+      "name": "goroman--nullevi03",
+      "source": "./goroman--nullevi03",
+      "description": "nullevi03"
+    },
+    {
+      "name": "haga0531--service-bus-explorer",
+      "source": "./haga0531--service-bus-explorer",
+      "description": "Modern cross-platform Azure Service Bus management tool"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174579,6 +174589,31 @@
       "description": "Open source PHP based Inventory / WMS management for the rest of us"
     },
     {
+      "name": "firewalker06--tycho",
+      "source": "./firewalker06--tycho",
+      "description": "Its Factorio for coding agents"
+    },
+    {
+      "name": "wesleysimplicio--simplicio-dev-cli",
+      "source": "./wesleysimplicio--simplicio-dev-cli",
+      "description": "Your tasks with 99% accuracy using any LLM (Claude, DeepSeek, Codex, Gemini, Hermes, OpenClaw, Cursor)."
+    },
+    {
+      "name": "firewalker06--tycho",
+      "source": "./firewalker06--tycho",
+      "description": "Its Factorio for coding agents"
+    },
+    {
+      "name": "fundamental-research-labs--mog",
+      "source": "./fundamental-research-labs--mog",
+      "description": "Programmable spreadsheet platform with a TypeScript/Rust engine, SDK, and embeddable workbook runtime."
+    },
+    {
+      "name": "wesleysimplicio--simplicio-dev-cli",
+      "source": "./wesleysimplicio--simplicio-dev-cli",
+      "description": "Your tasks with 99% accuracy using any LLM (Claude, DeepSeek, Codex, Gemini, Hermes, OpenClaw, Cursor)."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -177222,6 +177257,31 @@
       "name": "ralsina--esposito",
       "source": "./ralsina--esposito",
       "description": "esposito"
+    },
+    {
+      "name": "xrip--uo-client",
+      "source": "./xrip--uo-client",
+      "description": "Ultima Online T2A client recreated from Origin's 2.0.7 client decompilation"
+    },
+    {
+      "name": "xrip--uo-client",
+      "source": "./xrip--uo-client",
+      "description": "Ultima Online T2A client recreated from Origin's 2.0.7 client decompilation"
+    },
+    {
+      "name": "hermeticbuild--actiond",
+      "source": "./hermeticbuild--actiond",
+      "description": "A fully hermetic local \"remote executor\""
+    },
+    {
+      "name": "777vv--plain-view",
+      "source": "./777vv--plain-view",
+      "description": "\u57fa\u4e8e Chromium \u7684\u6d4f\u89c8\u5668\u6269\u5c55\u3002\u628a\u6d4f\u89c8\u5668\u53d8\u6210 JSON / Markdown / SQL / YAML / CSV / LOG \u7b49\u6587\u4ef6\u7684\u53cb\u597d\u67e5\u770b\u5668:\u81ea\u52a8\u7f8e\u5316\u3001\u8bed\u6cd5\u9ad8\u4eae\u3001\u53ef\u6298\u53e0\u6811\u3001\u53ef\u6392\u5e8f\u53ef\u7f16\u8f91\u7684\u8868\u683c\u3001\u4eae\u767d/\u6697\u9ed1\u53cc\u4e3b\u9898 \u2014\u2014 \u96f6\u8fd0\u884c\u65f6\u4f9d\u8d56\u3001\u7eaf\u624b\u5199\u3001\u65e0\u6253\u5305\u5668"
+    },
+    {
+      "name": "muchengzju--flash-idea",
+      "source": "./muchengzju--flash-idea",
+      "description": "\u96f6\u6469\u64e6\u8bed\u97f3\u6355\u6349\u7ba1\u9053 \u2014 Tauri 2.0 (Rust + Web)"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -280867,6 +280927,101 @@
       "name": "zootella--fuji",
       "source": "./zootella--fuji",
       "description": "Intentionally simple multimedia file manager"
+    },
+    {
+      "name": "tonio0--test",
+      "source": "./tonio0--test",
+      "description": "test"
+    },
+    {
+      "name": "knathip01--the-bottle-club-ai",
+      "source": "./knathip01--the-bottle-club-ai",
+      "description": "The-bottle-club-AI"
+    },
+    {
+      "name": "justjhong609--obsidian-alike",
+      "source": "./justjhong609--obsidian-alike",
+      "description": "A minimalist, Obsidian-inspired personal knowledge base web app built with Next.js, React Flow, and Zustand."
+    },
+    {
+      "name": "agui-coder--lieguo",
+      "source": "./agui-coder--lieguo",
+      "description": "lieguo"
+    },
+    {
+      "name": "tejassreerr--javascript-2",
+      "source": "./tejassreerr--javascript-2",
+      "description": "javascript-2"
+    },
+    {
+      "name": "vincertp--hollywood-script-stack",
+      "source": "./vincertp--hollywood-script-stack",
+      "description": "hollywood-script-stack"
+    },
+    {
+      "name": "arafat7r5--taskflow",
+      "source": "./arafat7r5--taskflow",
+      "description": "taskFlow"
+    },
+    {
+      "name": "thinhltdev--pocket-clash",
+      "source": "./thinhltdev--pocket-clash",
+      "description": "pocket-clash"
+    },
+    {
+      "name": "actionistdev--docs",
+      "source": "./actionistdev--docs",
+      "description": "docs"
+    },
+    {
+      "name": "kajcsaerno--tradingview-mcp",
+      "source": "./kajcsaerno--tradingview-mcp",
+      "description": "tradingview-mcp"
+    },
+    {
+      "name": "almunawar12--madrasah-cbt",
+      "source": "./almunawar12--madrasah-cbt",
+      "description": "madrasah-cbt"
+    },
+    {
+      "name": "jens-v88--kosmos0",
+      "source": "./jens-v88--kosmos0",
+      "description": "kosmos0"
+    },
+    {
+      "name": "viezfactor--luxe-estate",
+      "source": "./viezfactor--luxe-estate",
+      "description": "Luxe-Estate"
+    },
+    {
+      "name": "almunawar12--madrasah-cbt",
+      "source": "./almunawar12--madrasah-cbt",
+      "description": "madrasah-cbt"
+    },
+    {
+      "name": "thriveer--echoes-of-honor",
+      "source": "./thriveer--echoes-of-honor",
+      "description": "KCN\u8363\u8a89\u5c55\u793a\u4ea4\u4e92\u7cfb\u7edf"
+    },
+    {
+      "name": "thriveer--echoes-of-honor",
+      "source": "./thriveer--echoes-of-honor",
+      "description": "KCN\u8363\u8a89\u5c55\u793a\u4ea4\u4e92\u7cfb\u7edf"
+    },
+    {
+      "name": "yydjh--cf-worker-mihomo",
+      "source": "./yydjh--cf-worker-mihomo",
+      "description": "cf-worker-mihomo"
+    },
+    {
+      "name": "yashv-cruv--brand-control-center",
+      "source": "./yashv-cruv--brand-control-center",
+      "description": "Brand-Control-Center"
+    },
+    {
+      "name": "maorshapiro--thebestapp",
+      "source": "./maorshapiro--thebestapp",
+      "description": "THEBESTAPP"
     }
   ]
 }
