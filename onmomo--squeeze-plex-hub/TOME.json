@@ -4,7 +4,7 @@
   "repo": "squeeze-plex-hub",
   "description": "Squeeze Plex Hub bridges Plexamp (Plex) with your Logitech / Lyrion Music Server ecosystem so you can play Plex audio on Squeezebox players.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/onmomo/squeeze-plex-hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T19:33:10Z"
+  "distributed_at": "2026-05-27T19:35:51Z"
 }
