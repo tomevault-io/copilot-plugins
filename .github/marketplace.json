@@ -7949,6 +7949,11 @@
       "description": "A Model Context Protocol (MCP) server that reads and writes MS Excel data"
     },
     {
+      "name": "ha-china--hass-panel",
+      "source": "./ha-china--hass-panel",
+      "description": "\u53f2\u4e0a\u6700\u7b80\u5355\u7684 Home Assistant \u63a7\u5236\u9762\u677f\uff0c\u57fa\u4e8e React \u5f00\u53d1 | \u4e00\u952e\u90e8\u7f72\u5230 HAOS | \u6709\u624b\u5c31\u80fd\u7528 | \u65e0\u9700\u7f16\u7a0b\u7ecf\u9a8c | \u5f00\u7bb1\u5373\u7528"
+    },
+    {
       "name": "ghostty-org--ghostling",
       "source": "./ghostty-org--ghostling",
       "description": "A minimum viable terminal emulator built on top of the libghostty C API. Ex minimo, infinita nascuntur. \ud83d\udc7b\ud83d\udc23"
@@ -51934,11 +51939,6 @@
       "description": "Orchestrator for AI coding (claude code, cursor, codex, gemini)"
     },
     {
-      "name": "florianbruniaux--ccboard",
-      "source": "./florianbruniaux--ccboard",
-      "description": "Monitor Claude Code sessions, costs, config, hooks, agents & MCP servers from a single Rust binary \u2014 TUI (9 tabs) + Web interface with live process tracking, budget alerts, and 30-day forecasting"
-    },
-    {
       "name": "matthewpick--pesto-clipboard",
       "source": "./matthewpick--pesto-clipboard",
       "description": "Pesto Clipboard - macOS Clipboard Manager"
@@ -52147,6 +52147,11 @@
       "name": "franciscomoretti--jobsparser",
       "source": "./franciscomoretti--jobsparser",
       "description": "CLI tool to scrape jobs from multiple job sites"
+    },
+    {
+      "name": "florianbruniaux--ccboard",
+      "source": "./florianbruniaux--ccboard",
+      "description": "Monitor Claude Code sessions, costs, config, hooks, agents & MCP servers from a single Rust binary \u2014 TUI (9 tabs) + Web interface with live process tracking, budget alerts, and 30-day forecasting"
     },
     {
       "name": "ursushoribilismusic--agentic-fleet-hub",
@@ -70784,6 +70789,11 @@
       "description": "cursor-xml-rules-trial"
     },
     {
+      "name": "mattgodbolt--specbolt",
+      "source": "./mattgodbolt--specbolt",
+      "description": "Yet another ZX Spectrum Emulator"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -71622,6 +71632,11 @@
       "name": "fpachet--continuator",
       "source": "./fpachet--continuator",
       "description": "A constrainable continuator. Applications to music (mostly), text, chords, etc."
+    },
+    {
+      "name": "platima--board-taxonomies",
+      "source": "./platima--board-taxonomies",
+      "description": "Definitions and examples for different categories of embedded computing boards"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -73939,6 +73954,11 @@
       "description": "Claude-code containerized to isolate it, written by Claude-code"
     },
     {
+      "name": "dieterbe--body-build",
+      "source": "./dieterbe--body-build",
+      "description": "science-based weight lifting exercise library, program maker + tracker"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -75214,6 +75234,16 @@
       "description": "quran-apps-directory"
     },
     {
+      "name": "razbakov--ai-secretary",
+      "source": "./razbakov--ai-secretary",
+      "description": "AI-First Organization"
+    },
+    {
+      "name": "tensorzero--llmgym",
+      "source": "./tensorzero--llmgym",
+      "description": "llmgym"
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -76354,6 +76384,16 @@
       "description": "CSCS public documentation"
     },
     {
+      "name": "datadog--dd-trace-rs",
+      "source": "./datadog--dd-trace-rs",
+      "description": "Datadog APM for Rust"
+    },
+    {
+      "name": "datadog--dd-trace-rs",
+      "source": "./datadog--dd-trace-rs",
+      "description": "Datadog APM for Rust"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -77477,6 +77517,11 @@
       "name": "agentarea--agentarea",
       "source": "./agentarea--agentarea",
       "description": "Cloud-native AI Agents orchestration platform for zero-human organizations"
+    },
+    {
+      "name": "influxdata--influxdb3-plugins",
+      "source": "./influxdata--influxdb3-plugins",
+      "description": "Python plugins for InfluxDB 3"
     },
     {
       "name": "skywind3000--gamesample",
@@ -78737,6 +78782,16 @@
       "name": "abhishekbhakat--airflow-mcp-server",
       "source": "./abhishekbhakat--airflow-mcp-server",
       "description": "MCP Server for Apache Airflow"
+    },
+    {
+      "name": "q1226189767--flyadmin",
+      "source": "./q1226189767--flyadmin",
+      "description": "FlyAdmin \u73b0\u4ee3\u5316\u7684\u540e\u53f0\u7ba1\u7406\u7cfb\u7edf\u6a21\u677f"
+    },
+    {
+      "name": "devclate--custom-maester-tests",
+      "source": "./devclate--custom-maester-tests",
+      "description": "Custom-Maester-Tests"
     },
     {
       "name": "inureyes--gyeol",
@@ -83219,6 +83274,16 @@
       "description": "\u9879\u76ee\u591a\u8bed\u8a00\u751f\u6210\u5de5\u5177"
     },
     {
+      "name": "webrtc--dcsctp",
+      "source": "./webrtc--dcsctp",
+      "description": "An SCTP implementation for WebRTC Data Channels"
+    },
+    {
+      "name": "danvk--hybrid-boggle",
+      "source": "./danvk--hybrid-boggle",
+      "description": "Trying to find the highest-scoring Boggle board with a mix of C++ and Python"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -85182,6 +85247,16 @@
       "name": "chryzsh--docker-cobaltstrike",
       "source": "./chryzsh--docker-cobaltstrike",
       "description": "docker-cobaltstrike"
+    },
+    {
+      "name": "artisancloud--mediax",
+      "source": "./artisancloud--mediax",
+      "description": "MediaX\u4e3b\u8981\u8d4b\u80fd\u5ba2\u6237\u7cfb\u7edf\u5bf9\u5404\u4e2a\u5a92\u4f53\u5e73\u53f0\u7684\u5f00\u53d1\uff0c\u5305\u62ecyoutube\uff0c\u5fae\u4fe1\uff0ctiktok\uff0c\u6296\u97f3\uff0c\u5c0f\u7ea2\u4e66\u7b49\u4e3b\u6d41\u5e73\u53f0\uff0c\u65b9\u4fbf\u5f00\u53d1\u8005\u8c03\u7528\u5404\u4e2a\u5e73\u53f0\u7684\u63a5\u53e3"
+    },
+    {
+      "name": "ivlad003--mcp-newrelic",
+      "source": "./ivlad003--mcp-newrelic",
+      "description": "mcp_newrelic"
     },
     {
       "name": "khangbdd--phoenix",
@@ -87177,6 +87252,21 @@
       "name": "ctxs-ai--ctxs-ai",
       "source": "./ctxs-ai--ctxs-ai",
       "description": "an open-source, community-curated directory of contexts for use with LLMs"
+    },
+    {
+      "name": "gmkonan--flake",
+      "source": "./gmkonan--flake",
+      "description": "My nixos + home manager config for multiple hosts"
+    },
+    {
+      "name": "activistchecklist--activistchecklist",
+      "source": "./activistchecklist--activistchecklist",
+      "description": "Digital security guides for activists and organizers - https://activistchecklist.org"
+    },
+    {
+      "name": "latent-reasoning-works--manylatents",
+      "source": "./latent-reasoning-works--manylatents",
+      "description": "manylatents"
     },
     {
       "name": "10xchengtu--mux0",
@@ -89277,6 +89367,11 @@
       "name": "stagsz--unconventional-thinking",
       "source": "./stagsz--unconventional-thinking",
       "description": "An MCP server for unconventional and boundary-breaking problem-solving through an advanced note-taking system."
+    },
+    {
+      "name": "thymianofficial--thymian",
+      "source": "./thymianofficial--thymian",
+      "description": "Thymian is a language-agnostic, open-source HTTP conformance and API governance tool. It validates your APIs against RFC standards and your OpenAPI specification \u2014 statically, against live endpoints, "
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -91422,6 +91517,11 @@
       "name": "kazupon--args-tokens",
       "source": "./kazupon--args-tokens",
       "description": "parseArgs tokens compatibility and more high-performance parser"
+    },
+    {
+      "name": "forlegalai--mcp-ms-office-documents",
+      "source": "./forlegalai--mcp-ms-office-documents",
+      "description": "MCP server providing tools to create Ms Office documents like presentations, emails, spreadsheets and word docs (pptx, docx, eml, xlsx)"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -93647,6 +93747,11 @@
       "name": "omilli--hellajs",
       "source": "./omilli--hellajs",
       "description": "hellajs"
+    },
+    {
+      "name": "meza--stonecraft",
+      "source": "./meza--stonecraft",
+      "description": "A minecraft multi-version, multi-loader mod development gradle plugin to help wire up Stonecutter and Architectury"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -95882,6 +95987,31 @@
       "name": "yannisdc--colmismartring",
       "source": "./yannisdc--colmismartring",
       "description": "A discovery into bluetooth smartrings"
+    },
+    {
+      "name": "crazyrabbitltc--mcp-twitter-server",
+      "source": "./crazyrabbitltc--mcp-twitter-server",
+      "description": "Model Context Protocol Server for Accessing twitter"
+    },
+    {
+      "name": "crazyrabbitltc--mcp-twitter-server",
+      "source": "./crazyrabbitltc--mcp-twitter-server",
+      "description": "Model Context Protocol Server for Accessing twitter"
+    },
+    {
+      "name": "crazyrabbitltc--mcp-twitter-server",
+      "source": "./crazyrabbitltc--mcp-twitter-server",
+      "description": "Model Context Protocol Server for Accessing twitter"
+    },
+    {
+      "name": "crazyrabbitltc--mcp-twitter-server",
+      "source": "./crazyrabbitltc--mcp-twitter-server",
+      "description": "Model Context Protocol Server for Accessing twitter"
+    },
+    {
+      "name": "crazyrabbitltc--mcp-twitter-server",
+      "source": "./crazyrabbitltc--mcp-twitter-server",
+      "description": "Model Context Protocol Server for Accessing twitter"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -103824,6 +103954,11 @@
       "description": "Python client library for the Galileo platform \ud83d\udd2d"
     },
     {
+      "name": "mannlabs--proteomics-lab-agent",
+      "source": "./mannlabs--proteomics-lab-agent",
+      "description": "A multimodal, agentic AI framework that captures and shares practical expertise by linking written instructions to real-world laboratory work.\u00a0It uses video analysis to automate documentation and prov"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -106387,6 +106522,11 @@
       "name": "sigma-quantiphi--ccxt-pandas",
       "source": "./sigma-quantiphi--ccxt-pandas",
       "description": "Pandas + CCXT= :heart:"
+    },
+    {
+      "name": "enkrateialucca--oreilly-gpt-assistants",
+      "source": "./enkrateialucca--oreilly-gpt-assistants",
+      "description": "Repo for the oreilly course about building agents with gpt assistants api"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -109307,6 +109447,16 @@
       "name": "wutongci--cursor-rule",
       "source": "./wutongci--cursor-rule",
       "description": "cursor_rule"
+    },
+    {
+      "name": "tolgee--tolgee-mobile-kotlin-sdk",
+      "source": "./tolgee--tolgee-mobile-kotlin-sdk",
+      "description": "Compose Multiplatform localization wrapper for Tolgee"
+    },
+    {
+      "name": "foyer-rs--mixtrics",
+      "source": "./foyer-rs--mixtrics",
+      "description": "A lightweight unified metrics library in Rust for various metrics system."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -119389,6 +119539,21 @@
       "description": "ensembler"
     },
     {
+      "name": "levino--shipyard",
+      "source": "./levino--shipyard",
+      "description": "shipyard"
+    },
+    {
+      "name": "willi19--paradex",
+      "source": "./willi19--paradex",
+      "description": "paradex"
+    },
+    {
+      "name": "adrianulima--my-racing-planner",
+      "source": "./adrianulima--my-racing-planner",
+      "description": "This tool helps iRacing users efficiently navigate series, cars, and tracks, allowing them to make informed decisions about the best content to purchase based on usage in the current season."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -123127,6 +123292,11 @@
       "name": "ryoppippi--chatgpt-heatmap",
       "source": "./ryoppippi--chatgpt-heatmap",
       "description": "Upload ChatGPT's exported data and get insights on your usage patterns."
+    },
+    {
+      "name": "tkellogg--target-practice",
+      "source": "./tkellogg--target-practice",
+      "description": "An AI-driven resume manager that takes a human-written verbose resume and crafts it to fit a specific job role"
     },
     {
       "name": "mohiwalla--memes",
@@ -137939,6 +138109,11 @@
       "description": "Clean Architecture with Minimal API"
     },
     {
+      "name": "clickspider--icpfinder",
+      "source": "./clickspider--icpfinder",
+      "description": "Free, open-source first-customer-discovery tool for indie AI builders. Paste your idea, get 15 verified prospects with outreach hooks in 30s."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -145007,6 +145182,16 @@
       "name": "helper2424--resnet10",
       "source": "./helper2424--resnet10",
       "description": "Port resnet form HIL-SERL paper to Lerobot"
+    },
+    {
+      "name": "study8677--architecture-copilot",
+      "source": "./study8677--architecture-copilot",
+      "description": "\ud83e\udded \u7ed9 Claude Code / Cursor / Codex \u7528\u7684\u300e\u67b6\u6784\u526f\u9a7e\u300fskill \u2014\u2014 \u5f00\u65b0\u9879\u76ee\u65f6\u7528\u6301\u7eed\u6df1\u5ea6\u63d0\u95ee\u5f15\u5bfc\u4f60\u5728\u5199\u4ee3\u7801\u524d\u60f3\u6e05\u695a\u67b6\u6784(\u4ea7\u51fa\u67b6\u6784\u56fe / ADR / \u6f14\u8fdb\u8def\u7ebf)\u3002\u77e5\u8bc6\u6e90\u81ea awesome-architecture\u3002\u4e2d\u82f1\u53cc\u8bed\u3002"
+    },
+    {
+      "name": "study8677--architecture-copilot",
+      "source": "./study8677--architecture-copilot",
+      "description": "\ud83e\udded \u7ed9 Claude Code / Cursor / Codex \u7528\u7684\u300e\u67b6\u6784\u526f\u9a7e\u300fskill \u2014\u2014 \u5f00\u65b0\u9879\u76ee\u65f6\u7528\u6301\u7eed\u6df1\u5ea6\u63d0\u95ee\u5f15\u5bfc\u4f60\u5728\u5199\u4ee3\u7801\u524d\u60f3\u6e05\u695a\u67b6\u6784(\u4ea7\u51fa\u67b6\u6784\u56fe / ADR / \u6f14\u8fdb\u8def\u7ebf)\u3002\u77e5\u8bc6\u6e90\u81ea awesome-architecture\u3002\u4e2d\u82f1\u53cc\u8bed\u3002"
     },
     {
       "name": "yschimke--compose-ai-tools",
