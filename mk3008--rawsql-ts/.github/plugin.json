@@ -1,0 +1,9 @@
+{
+  "name": "mk3008--rawsql-ts",
+  "displayName": "rawsql-ts",
+  "description": "SQL-first lifecycle toolkit for testing, inspecting, and evolving database applications.",
+  "version": "1.0.0",
+  "author": "mk3008",
+  "homepage": "https://github.com/mk3008/rawsql-ts",
+  "skills": []
+}
