@@ -1,0 +1,9 @@
+{
+  "name": "phonepe--sentinel-ai",
+  "displayName": "sentinel-ai",
+  "description": "AI agent framework written in java",
+  "version": "1.0.0",
+  "author": "PhonePe",
+  "homepage": "https://github.com/PhonePe/sentinel-ai",
+  "skills": []
+}
