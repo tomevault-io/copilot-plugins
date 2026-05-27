@@ -4,7 +4,7 @@
   "repo": "building-with-llms-made-simple",
   "description": "A tutorial on how to build stuff with large language models, made simple",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ericmjl/building-with-llms-made-simple",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T20:36:05Z"
+  "distributed_at": "2026-05-27T20:42:32Z"
 }
