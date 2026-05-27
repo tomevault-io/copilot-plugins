@@ -1,0 +1,44 @@
+{
+  "name": "retinal-phenotyper",
+  "owner": "marouane53",
+  "repo": "retinal-phenotyper",
+  "description": "Automated segmentation, phenotyping, and spatial analysis of retinal flat-mount images with reproducible study workflows and publication-ready outputs.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/marouane53/retinal-phenotyper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T21:02:48Z"
+}
