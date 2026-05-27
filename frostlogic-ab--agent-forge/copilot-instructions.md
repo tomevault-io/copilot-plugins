@@ -1,51 +1,41 @@
-## code-quality
+## docusaurus-docs
 
-> Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+> - **Accuracy and Consistency:** Ensure all documentation accurately reflects the current state of the codebase.
 
-# Code Quality Guidelines
+# Docusaurus Documentation Best Practices for Agent Forge
 
-## Verify Information
-Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+## General Principles
+- **Accuracy and Consistency:** Ensure all documentation accurately reflects the current state of the codebase.
+- **Clarity:** Write clearly and concisely. Avoid jargon where simpler terms suffice.
+- **Completeness:** Provide enough detail for users to understand and use the features.
 
-## File-by-File Changes
-Make changes file by file and give me a chance to spot mistakes.
+## Content Guidelines
+- **Code Examples:**
+    - All code examples provided in `.mdx` files must be runnable or clearly marked as conceptual.
+    - Ensure example code blocks are **not commented out** unless they are explicitly intended to show a non-working/commented part of a larger example.
+    - Include necessary import statements (e.g., `import { Agent, LLM } from "agent-forge";`).
+    - Use placeholder API keys like `process.env.YOUR_API_KEY` or `YOUR_API_KEY_HERE` and instruct users to replace them.
+    - Clearly label examples as "Conceptual" if they require users to define auxiliary classes/variables (e.g., `MyTool`, `agentConfig`) not fully provided in the snippet.
+- **API References:**
+    - When referencing types or configurations from external libraries (e.g., `token.js`), clearly state this and point users to the relevant external documentation for exhaustive details.
+- **Linking:**
+    - Ensure all internal links within the documentation are valid and point to the correct sections or pages.
 
-## No Apologies
-Never use apologies.
+## Docusaurus Specifics
+- **File Naming & Routing:**
+    - To avoid "Duplicate Route" errors, be mindful of Docusaurus's routing behavior. A directory `foo/` with an `index.mdx` inside (`foo/index.mdx`) will create a route at `/foo`. A file `foo.mdx` at the same level will also try to create a route at `/foo`.
+    - Prefer using `directory/index.mdx` for overview/landing pages of a section and `directory/specific-topic.mdx` for detailed pages within that section. For instance, `reference/llm/index.mdx` for the LLM overview and `reference/llm/llm-class.mdx` for the `LLM` class details.
+- **Sidebar Configuration (`sidebars.ts`):**
+    - All document IDs referenced in `sidebars.ts` must correspond to actual `.mdx` file paths (relative to the `docs` directory, without the `.mdx` extension, and using `/` as path separators).
+    - For example, a file at `docs/docs/reference/llm/llm-class.mdx` should be referenced as `reference/llm/llm-class` in `sidebars.ts`.
+    - After renaming or moving documentation files, always update `sidebars.ts` accordingly.
 
-## No Understanding Feedback
-Avoid giving feedback about understanding in comments or documentation.
-
-## No Whitespace Suggestions
-Don't suggest whitespace changes.
-
-## No Summaries
-Don't summarize changes made.
-
-## No Inventions
-Don't invent changes other than what's explicitly requested.
-
-## No Unnecessary Confirmations
-Don't ask for confirmation of information already provided in the context.
-
-## Preserve Existing Code
-Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
-
-## Single Chunk Edits
-Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
-
-## No Implementation Checks
-Don't ask the user to verify implementations that are visible in the provided context.
-
-## No Unnecessary Updates
-Don't suggest updates or changes to files when there are no actual modifications needed.
-
-## Provide Real File Links
-Always provide links to the real files, not x.md.
-
-## No Current Implementation
-
-Don't show or discuss the current implementation unless specifically requested.
+## Maintenance
+- **Documentation with Code Changes:**
+    - **Crucial:** Whenever changes are made to the source code (features added, APIs modified, behavior altered), the corresponding documentation **must be updated** to reflect these changes.
+    - Treat documentation as an integral part of the development lifecycle, not an afterthought.
+- **Review:**
+    - Regularly review documentation for outdated information, broken links, or unclear explanations.
 
 ---
 > Source: [frostlogic-ab/agent-forge](https://github.com/frostlogic-ab/agent-forge) — distributed by [TomeVault](https://tomevault.io).
