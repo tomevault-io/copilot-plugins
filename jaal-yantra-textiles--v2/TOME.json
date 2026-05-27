@@ -1,0 +1,44 @@
+{
+  "name": "v2",
+  "owner": "Jaal-Yantra-Textiles",
+  "repo": "v2",
+  "description": "Launch your design and artisanal garment marketplace with e-commerce, pre-production and operations management without writing a single line of code.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jaal-Yantra-Textiles/v2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T23:40:57Z"
+}
