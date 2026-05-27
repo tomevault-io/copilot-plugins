@@ -1,18 +1,13 @@
 ## hyperliquid-net
 
-> This repository is **HyperLiquid.Net**, a strongly typed C#/.NET client library for the HyperLiquid DEX REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+> Conventions for using HyperLiquid.Net when working with the HyperLiquid DEX in C#/.NET. Apply when generating code that interacts with the HyperLiquid API.
 
-# Copilot Instructions for HyperLiquid.Net
 
-This repository is **HyperLiquid.Net**, a strongly typed C#/.NET client library for the HyperLiquid DEX REST and WebSocket APIs. It is part of the CryptoExchange.Net ecosystem.
+# HyperLiquid.Net Conventions
 
-When generating code that consumes HyperLiquid.Net, follow these conventions:
+This codebase uses **HyperLiquid.Net** for HyperLiquid DEX access. Do not write raw `HttpClient` calls to HyperLiquid API endpoints.
 
-## Use HyperLiquid.Net, not raw HTTP
-
-Never generate raw `HttpClient` calls to HyperLiquid `/info`, `/exchange`, or `/ws`. Use `HyperLiquidRestClient` and `HyperLiquidSocketClient` so signing, rate limiting, serialization, result handling, and WebSocket subscription management stay correct.
-
-## Client setup
+## Client setup pattern
 
 ```csharp
 using HyperLiquid.Net;
@@ -24,55 +19,84 @@ var restClient = new HyperLiquidRestClient(options =>
 });
 ```
 
-Public market data can use `new HyperLiquidRestClient()` without credentials.
+For public market data, no credentials are needed: `new HyperLiquidRestClient()`.
 
-## Result handling
+## Result pattern
 
-Methods return `WebCallResult<T>` for REST or `CallResult<T>` for WebSocket. Always check `.Success` before reading `.Data`; errors are on `.Error`.
+All REST methods return `WebCallResult<T>` or `WebCallResult`; WebSocket methods return `CallResult<T>` or `CallResult`. Always check `.Success` before reading `.Data`.
 
-## API structure
+```csharp
+var prices = await restClient.SpotApi.ExchangeData.GetPricesAsync();
+if (!prices.Success) { Console.WriteLine(prices.Error); return; }
+Console.WriteLine(prices.Data["HYPE/USDC"]);
+```
 
-- `restClient.SpotApi.ExchangeData` - spot metadata, prices, order books, klines
-- `restClient.SpotApi.Account` - spot balances, transfers, staking, ledger, fee info
-- `restClient.SpotApi.Trading` - spot order and trade endpoints
-- `restClient.FuturesApi.ExchangeData` - perp metadata, prices, funding, DEX info
-- `restClient.FuturesApi.Account` - futures account, positions, funding history
-- `restClient.FuturesApi.Trading` - futures order, leverage, margin endpoints
-- `socketClient.SpotApi.{Account|ExchangeData|Trading}` - spot WebSocket requests and subscriptions
-- `socketClient.FuturesApi.{Account|ExchangeData|Trading}` - futures WebSocket requests and subscriptions
+## API surface
+
+- `restClient.SpotApi.{ExchangeData|Account|Trading|SharedClient}`
+- `restClient.FuturesApi.{ExchangeData|Account|Trading|SharedClient}`
+- `socketClient.SpotApi.{ExchangeData|Account|Trading|SharedClient}`
+- `socketClient.FuturesApi.{ExchangeData|Account|Trading|SharedClient}`
 
 ## Symbols
 
-Use `HYPE/USDC` style symbols for spot and `ETH` style symbols for futures. Do not use concatenated spot symbols such as `HYPEUSDC`.
+Spot symbols use slash notation, for example `HYPE/USDC`. Futures/perp symbols use the base asset only, for example `ETH`.
 
-## Orders
-
-Use `PlaceOrderAsync(symbol, side, orderType, quantity, price, ...)`. Market orders still require a `price` argument because HyperLiquid uses it for max slippage calculation. Use `reduceOnly: true` when closing futures positions.
-
-## Cross-exchange
-
-Use `CryptoExchange.Net.SharedApis` from `.SharedClient` for exchange-agnostic code:
+## Trading pattern
 
 ```csharp
+var order = await restClient.FuturesApi.Trading.PlaceOrderAsync(
+    "ETH",
+    OrderSide.Buy,
+    OrderType.Limit,
+    quantity: 0.01m,
+    price: 3000m,
+    timeInForce: TimeInForce.GoodTillCanceled);
+```
+
+Market orders still require a price parameter for slippage calculation. Use `reduceOnly: true` when closing futures exposure.
+
+## WebSocket pattern
+
+```csharp
+var socketClient = new HyperLiquidSocketClient();
+var sub = await socketClient.FuturesApi.ExchangeData.SubscribeToSymbolUpdatesAsync(
+    "ETH",
+    update => Console.WriteLine(update.Data.MidPrice));
+if (!sub.Success) { Console.WriteLine(sub.Error); return; }
+
+await socketClient.UnsubscribeAsync(sub.Data);
+```
+
+## Multi-exchange code
+
+For exchange-agnostic code, use `CryptoExchange.Net.SharedApis`:
+
+```csharp
+using CryptoExchange.Net.SharedApis;
+
 var shared = new HyperLiquidRestClient().SpotApi.SharedClient;
 var ticker = await shared.GetSpotTickerAsync(
     new GetTickerRequest(new SharedSymbol(TradingMode.Spot, "HYPE", "USDC")));
 ```
 
-## Avoid
+## Hard rules
 
-- Raw HTTP calls to HyperLiquid endpoints
-- Generic `ApiCredentials` instead of `HyperLiquidCredentials`
-- Binance-style symbols such as `ETHUSDC` for spot
-- Reading `.Data` without `.Success`
-- `.Result` or `.Wait()`
-- Creating clients per request
-- Omitting WebSocket unsubscribe logic
-- Inventing endpoints not present in `HyperLiquid.Net/Interfaces/Clients/**`
+- Never write raw HTTP to HyperLiquid endpoints.
+- Never use generic `ApiCredentials`; use `HyperLiquidCredentials`.
+- Never use concatenated spot symbols such as `HYPEUSDC`.
+- Never skip checking `WebCallResult.Success` or `CallResult.Success`.
+- Never use `.Result` or `.Wait()`.
+- Never instantiate clients per request.
+- Always unsubscribe WebSocket subscriptions on shutdown.
+- Always inspect `HyperLiquid.Net/Interfaces/Clients/**` before using an uncertain method name.
 
 ## Reference
 
-For detailed patterns and pitfalls see `AGENTS.md`, `llms.txt`, `llms-full.txt`, and `docs/ai-api-map.md` in the repository root/docs. Use `Examples/ai-friendly/` for compilable examples.
+- Skill: `AGENTS.md` in the repo root has fuller examples.
+- LLM indexes: `llms.txt` and `llms-full.txt`.
+- API map: `docs/ai-api-map.md`.
+- Examples: `Examples/ai-friendly/`.
 
 ---
 > Source: [JKorf/HyperLiquid.Net](https://github.com/JKorf/HyperLiquid.Net) — distributed by [TomeVault](https://tomevault.io).
