@@ -1,0 +1,9 @@
+{
+  "name": "dxheroes--mcp-devtools",
+  "displayName": "mcp-devtools",
+  "description": "MCP DevTools: A suite of Model Context Protocol servers enabling AI assistants to interact with developer tools and services",
+  "version": "1.0.0",
+  "author": "DXHeroes",
+  "homepage": "https://github.com/DXHeroes/mcp-devtools",
+  "skills": []
+}
