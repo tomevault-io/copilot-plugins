@@ -1,155 +1,225 @@
-## lamacro
+## lamacro-nextjs-patterns
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> **Lamacro** is a Next.js 15 financial data platform focused on Argentine financial markets. This system integrates with the BCRA (Central Bank of Argentina) API and provides tools for analyzing government bonds, inflation data, stock performance, debt information, and financial calculations.
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Lamacro - Next.js 15 Financial Platform Rules
 
 ## Project Overview
 
-**Lamacro** is a Next.js financial data platform focused on Argentine financial markets. It provides tools for analyzing government bonds, inflation data, stock performance, debt information, and various financial calculations. The app integrates with the BCRA (Central Bank of Argentina) API and other financial data sources.
+**Lamacro** is a Next.js 15 financial data platform focused on Argentine financial markets. This system integrates with the BCRA (Central Bank of Argentina) API and provides tools for analyzing government bonds, inflation data, stock performance, debt information, and financial calculations.
 
-## Development Commands
+**Core Architecture**: Server-first Next.js 15 App Router with TypeScript, Redis caching, and external API integration.
 
-```bash
-# Development
-pnpm dev                    # Start development server with Turbopack
-pnpm build                  # Production build
-pnpm start                  # Start production server
+## Next.js 15 App Router Patterns
 
-# Code Quality
-pnpm lint                   # Run ESLint
-pnpm lint:fix              # Fix ESLint issues automatically
+### Server-First Architecture
+- **Default to Server Components**: All components should be Server Components unless client-side interactivity is required
+- **Data fetching**: Always perform data fetching in Server Components via [lib/actions.ts](mdc:lib/actions.ts) and [lib/tamar-actions.ts](mdc:lib/tamar-actions.ts)
+- **Minimize 'use client'**: Only use `'use client'` directive for:
+  - Event handlers (onClick, onChange, onSubmit)
+  - Browser APIs (localStorage, document, window)
+  - React hooks (useState, useEffect, useContext)
+  - Third-party libraries requiring client-side execution
 
-# Testing
-pnpm test                   # Run tests with Vitest
-pnpm test:ui               # Run tests with Vitest UI
-pnpm test:coverage         # Run tests with coverage report
+### File Structure Conventions
+```
+app/
+├── [feature]/              # Route groups for features
+│   ├── page.tsx           # Server Component (data fetching)
+│   ├── loading.tsx        # Streaming UI component
+│   └── error.tsx          # Error boundary
+components/
+├── [feature]/             # Domain-specific components
+│   ├── [feature]-client.tsx  # Client components (use client)
+│   └── [feature]-table.tsx   # Server components
+lib/
+├── [feature].ts          # Business logic modules
+└── actions.ts            # Server actions
 ```
 
-## Architecture Overview
+### Component Patterns
+- **Server Components**: Use for data fetching, layout, and static content
+- **Client Components**: Keep as leaf nodes in component tree when possible
+- **Client Component Naming**: Suffix client components with `-client.tsx` (see [components/carry-trade/carry-trade-client.tsx](mdc:components/carry-trade/carry-trade-client.tsx))
+- **Composition over 'use client'**: Use component composition to avoid marking parent components as Client Components
 
-### Core Business Logic (`/lib`)
-- **API Integration**: `bcra-api-helper.ts` and `bcra-fetch.ts` handle BCRA API calls with circuit breaker pattern, rate limiting, and Redis fallback caching
-- **Financial Instruments**: Separate modules for different asset classes:
-  - `acciones.ts` - Stock market analysis with inflation-adjusted returns
-  - `carry-trade.ts` - Government bond arbitrage analysis with MEP calculations
-  - `duales.ts` - Dual currency bond analysis with scenario modeling
-  - `fija.ts` - Fixed income securities with yield calculations (TNA, TEM, TEA)
-  - `debts.ts` - Central Bank debt registry integration
-- **Caching**: `redis-cache.ts` provides 7-day TTL fallback for BCRA data
-- **Server Actions**: `actions.ts` and `tamar-actions.ts` bridge UI and server-side calculations
+## Business Logic Architecture
 
-### Data Flow Pattern
-```
+### Domain-Driven Organization
+Core business modules are organized by financial domain in [lib/](mdc:lib/):
+
+- **[acciones.ts](mdc:lib/acciones.ts)** - Stock market analysis with inflation-adjusted returns
+- **[carry-trade.ts](mdc:lib/carry-trade.ts)** - Government bond arbitrage analysis with MEP calculations  
+- **[duales.ts](mdc:lib/duales.ts)** - Dual currency bond analysis with scenario modeling
+- **[fija.ts](mdc:lib/fija.ts)** - Fixed income securities with yield calculations (TNA, TEM, TEA)
+- **[debts.ts](mdc:lib/debts.ts)** - Central Bank debt registry integration
+
+### API Integration Pattern
+```typescript
 External APIs → bcra-api-helper → bcra-fetch → Domain Logic → UI Components
                       ↓
                  redis-cache (fallback)
 ```
 
-### Key Technical Features
-- Circuit breaker pattern for API resilience
-- Multi-level caching (in-memory + Redis)
-- Comprehensive error handling with graceful degradation
-- Business day calculations for financial accuracy
-- Rate limiting to respect API constraints
+Key files:
+- **[bcra-api-helper.ts](mdc:lib/bcra-api-helper.ts)** - Circuit breaker pattern, rate limiting, error handling
+- **[bcra-fetch.ts](mdc:lib/bcra-fetch.ts)** - BCRA API integration with fallback caching
+- **[redis-cache.ts](mdc:lib/redis-cache.ts)** - 7-day TTL fallback for BCRA data
 
-### UI Structure
-- **App Router**: Next.js 15 app directory structure
-- **Components**: Domain-specific components in `/components` matching business logic modules
-- **Styling**: Tailwind CSS with shadcn/ui components
-- **Theme**: Dark/light mode support with next-themes
+### Server Actions Pattern
+- **[actions.ts](mdc:lib/actions.ts)** - Primary server actions for UI-server bridge
+- **[tamar-actions.ts](mdc:lib/tamar-actions.ts)** - Specialized server actions for external integrations
+- Always use server actions for data mutations and form handling
+- Never perform data fetching in Client Components
 
-## Important Configuration
+## TypeScript Conventions
 
-### Environment Variables
-- Redis connection for caching BCRA data
-- External API endpoints for financial data
-- PostHog analytics integration
-
-### External Dependencies
-- **BCRA API**: Primary data source for macroeconomic variables
-- **Redis**: Caching layer for API fallback
-- **Excel Export**: XLSX library for data export functionality
-
-## Testing Strategy
-- Vitest with Node environment
-- Comprehensive test coverage in `/lib/__tests__`
-- Tests cover all financial calculation modules and API helpers
-- Path alias `@` points to project root
-
-## Next.js 15 App Router Best Practices
-
-### Server-First Architecture
-- **Data fetching**: Always perform data fetching in Server Components, never in Client Components
-- **Server Actions**: Use Server Actions (`actions.ts`, `tamar-actions.ts`) for mutations and form handling
-- **Minimize 'use client'**: Only use `'use client'` directive when absolutely necessary for:
-  - Event handlers (onClick, onChange, onSubmit)
-  - Browser APIs (localStorage, document, window)
-  - React hooks (useState, useEffect, useContext)
-  - Third-party libraries that require client-side execution
-
-### Component Patterns
-- **Server Components by default**: All components should be Server Components unless they need client-side interactivity
-- **Client Component boundaries**: Keep Client Components as leaf nodes in the component tree when possible
-- **Data passing**: Pass data from Server Components to Client Components via props, not by fetching in Client Components
-- **Composition over 'use client'**: Use component composition to avoid marking parent components as Client Components
-
-### Performance Optimization
-- **Streaming**: Leverage React Suspense and loading.tsx files for progressive page loading
-- **Partial Pre-rendering**: Structure components to maximize static generation while allowing dynamic content
-- **Server-side caching**: Utilize the existing Redis cache and in-memory caching for BCRA API responses
-- **Avoid waterfalls**: Fetch all required data in parallel at the Server Component level
-
-### File Structure Guidelines
-- **page.tsx**: Always Server Components for route handlers and initial data fetching
-- **loading.tsx**: Use for streaming UI and better perceived performance, only if main data fetching is made in page.tsx. Otherwise, use Suspense.
-- **error.tsx**: Server-side error boundaries for graceful error handling
-- **Client Components**: Suffix with `-client.tsx` when the entire component needs client-side behavior
-
-### Component Naming Conventions
-- **Server components**: `[feature]-[component].tsx`
-- **Client components**: `[feature]-[component]-client.tsx`
-- **UI components**: Located in `components/ui/` (shadcn/ui)
-- **Domain components**: Grouped by feature in `components/[feature]/`
-
-### TypeScript Best Practices
-- **No 'any' types**: Always provide proper type definitions
+### Type Organization
+- **Domain types**: [types/](mdc:types/) directory for complex business types
 - **Interface over type**: Prefer interfaces for object definitions
 - **No TypeScript enums**: Use constant objects/maps instead
-- **Domain types**: Complex business types in `/types` directory
+- **No 'any' types**: Always provide proper type definitions
 
-### UI and Styling Guidelines
-- **shadcn/ui**: Primary UI component library - never recreate existing components
+### Utility Functions
+Common utilities in [lib/utils.ts](mdc:lib/utils.ts):
+- `cn()` - Tailwind class merging with clsx
+- `formatNumber()` - Argentine locale number formatting  
+- `formatDateAR()` - Argentine date formatting
+- `getNextBusinessDay()` - Financial business day calculations
+
+## UI and Styling Patterns
+
+### Component Library Strategy
+- **shadcn/ui**: Primary UI component library (see [components/ui/](mdc:components/ui/))
 - **Lucide React**: Icon library over custom SVGs
-- **Tailwind CSS**: Primary styling approach with design tokens
-- **Dark/light mode**: Support via next-themes
-- **Mobile-first**: Responsive design approach
+- **Never recreate shadcn components**: Always use existing or add new ones via CLI
 
-### Error Handling Patterns
-- **Toast notifications**: User feedback via Sonner (only works on client components)
+### Styling Conventions
+- **Tailwind CSS**: Primary styling approach
+- **Design tokens**: Consistent spacing, colors, typography
+- **Dark/light mode**: Support via [next-themes](mdc:app/layout.tsx)
+- **Responsive design**: Mobile-first approach
+
+### Layout Pattern
+Root layout in [app/layout.tsx](mdc:app/layout.tsx):
+- Theme provider with system detection
+- Navigation and footer components
+- PostHog analytics integration
+- Toast notifications via Sonner
+
+## Performance and Caching
+
+### Caching Strategy
+- **In-memory cache**: Short-term API response caching
+- **Redis fallback**: 7-day TTL for BCRA API failures
+- **Smart refresh**: Cache refresh at specific hours (1, 7, 13, 19)
+- **Error caching**: 5-minute TTL for API errors
+
+### Circuit Breaker Pattern
+Implemented in [bcra-api-helper.ts](mdc:lib/bcra-api-helper.ts):
+- **Failure threshold**: 5 failures trigger circuit open
+- **Reset timeout**: 60 seconds before retry attempts
+- **Rate limiting**: 60 requests per minute window
+
+### Streaming and Loading
+- **loading.tsx**: Use for main route loading states when data fetching happens in page.tsx
+- **Suspense boundaries**: Use for component-level loading when data fetching is component-specific
+- **Error boundaries**: Implement via error.tsx files
+
+## Financial Business Rules
+
+### Date and Business Day Handling
+- **Argentine holidays**: Business day calculations include Argentine holiday calendar
+- **Business day logic**: All financial calculations respect non-trading days
+- **Date formatting**: Use Argentine locale (dd/MM/yyyy) via `formatDateAR()`
+
+### Financial Calculations
+- **Yield calculations**: Follow Argentine financial market conventions
+- **Inflation adjustments**: Real returns calculated using inflation data
+- **Currency calculations**: Handle multiple exchange rates (MEP, Blue, Official)
+- **Precision**: Use appropriate decimal places for financial accuracy
+
+## Testing Strategy
+
+### Test Organization
+Tests located in [lib/__tests__/](mdc:lib/__tests__/) covering:
+- All business logic modules
+- API helper functions  
+- Utility functions
+- Server actions
+
+### Testing Conventions
+- **Vitest**: Primary testing framework
+- **Node environment**: Tests run in Node.js environment
+- **No new Date()**: Use fixed dates to avoid flaky tests
+- **Business logic focus**: Comprehensive coverage of financial calculations
+
+## Development Workflow
+
+### Scripts and Commands
+```bash
+pnpm dev                    # Development with Turbopack
+pnpm build                  # Production build
+pnpm lint                   # ESLint checking
+pnpm lint:fix              # Auto-fix ESLint issues  
+pnpm test                   # Run Vitest tests
+pnpm test:coverage         # Coverage reports
+```
+
+### Code Quality
+- **Husky + lint-staged**: Pre-commit hooks for code quality
+- **ESLint + Prettier**: Code formatting and linting
+- **TypeScript strict mode**: Enabled for type safety
+
+## Error Handling Patterns
+
+### API Error Handling
+- **Circuit breaker**: Automatic API failure protection
 - **Graceful degradation**: Fall back to cached data when APIs fail
 - **User-friendly messages**: Convert technical errors to readable messages
+- **Logging**: Console errors for debugging without exposing sensitive data
 
-## Key Business Rules
-- All financial calculations must handle Argentine business days and holidays
-- BCRA API rate limits must be respected (circuit breaker at 10 failures)
-- Cache TTL is 7 days for fallback scenarios
-- Date calculations use business day logic for accuracy
-- Yield calculations follow Argentine financial market conventions
+### UI Error Boundaries
+- **error.tsx**: Route-level error boundaries
+- **Toast notifications**: User feedback for errors via Sonner (only works on client components)
+- **Loading states**: Prevent user confusion during operations
 
-## React Best Practices
+## External Integrations
 
-### useState and useEffect Best Practices
-- **Avoid Direct setState in useEffect**: 
-  - Disallow direct calls to the set function of useState in useEffect.
-  - Directly setting state in useEffect can lead to:
-    - Redundant state: Duplicating derived values that could be computed during render
-    - Unnecessary effects: Triggering re-renders that could be avoided
-    - Confusing logic: Making component behavior harder to reason about
-  - Prefer computing values during rendering or using useMemo for complex calculations
-  - Use event handlers, async functions, or other indirect methods for state updates when necessary
+### Environment Variables
+- **Redis connection**: For caching layer
+- **API endpoints**: External financial data sources
+- **PostHog**: Analytics integration
+- **Vercel**: Deployment-specific configurations
+
+### Dependencies Management
+- **pnpm**: Package manager for efficient dependency management
+- **Version pinning**: Specific versions for stability
+- **Security updates**: Regular dependency updates
+
+## File Naming Conventions
+
+### Components
+- **Server components**: `[feature]-[component].tsx`
+- **Client components**: `[feature]-[component]-client.tsx`  
+- **UI components**: Located in `components/ui/`
+- **Domain components**: Grouped by feature in `components/[feature]/`
+
+### Business Logic
+- **Domain modules**: `[feature].ts` in lib/
+- **Server actions**: `actions.ts`, `[feature]-actions.ts`
+- **Types**: `[feature].d.ts` in types/
+- **Tests**: `[feature].test.ts` in lib/__tests__/
+
+## Key Principles
+
+1. **Server-first**: Default to Server Components and server-side data fetching
+2. **Domain separation**: Clear boundaries between business logic and UI
+3. **Type safety**: Comprehensive TypeScript usage without 'any'
+4. **Performance**: Smart caching and circuit breaker patterns
+5. **Financial accuracy**: Business day calculations and proper precision
+6. **Error resilience**: Graceful degradation and user-friendly error handling
+7. **Code quality**: Automated linting, formatting, and testing
 
 ---
 > Source: [TomiMalamud/lamacro](https://github.com/TomiMalamud/lamacro) — distributed by [TomeVault](https://tomevault.io).
