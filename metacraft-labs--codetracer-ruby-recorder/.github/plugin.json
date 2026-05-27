@@ -1,0 +1,9 @@
+{
+  "name": "metacraft-labs--codetracer-ruby-recorder",
+  "displayName": "codetracer-ruby-recorder",
+  "description": "A prototype of a codetracer recorder for Ruby",
+  "version": "1.0.0",
+  "author": "metacraft-labs",
+  "homepage": "https://github.com/metacraft-labs/codetracer-ruby-recorder",
+  "skills": []
+}
