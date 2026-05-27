@@ -1,0 +1,32 @@
+## project-structure
+
+> This project is a full-stack application composed of a Python backend and a SvelteKit frontend, orchestrated using Docker.
+
+# Project Structure
+
+This project is a full-stack application composed of a Python backend and a SvelteKit frontend, orchestrated using Docker.
+
+## Backend
+
+- Located in the `backend/` directory.
+- The main entry point is likely [backend/run.py](mdc:backend/run.py).
+- Dependencies are managed by [backend/requirements.txt](mdc:backend/requirements.txt).
+- The backend service is containerized using [backend/Dockerfile.backend](mdc:backend/Dockerfile.backend).
+
+## Frontend
+
+- Located in the `frontend/` directory.
+- This is a SvelteKit application.
+- Key configuration files include [frontend/svelte.config.js](mdc:frontend/svelte.config.js), [frontend/vite.config.ts](mdc:frontend/vite.config.ts), and [frontend/package.json](mdc:frontend/package.json).
+- The frontend service is containerized using [frontend/Dockerfile.frontend](mdc:frontend/Dockerfile.frontend).
+- Source code resides in the `frontend/src/` directory.
+
+## Orchestration
+
+- Docker Compose is used for running the services together.
+- The configuration is defined in [docker-compose.yml](mdc:docker-compose.yml).
+- Docker ignore patterns are specified in [.dockerignore](mdc:.dockerignore).
+
+---
+> Source: [matifanger/docker-core-monitor](https://github.com/matifanger/docker-core-monitor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
