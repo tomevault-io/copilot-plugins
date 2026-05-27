@@ -1,281 +1,155 @@
-## fastmcp
+## mcp
 
-> FastMCP の基礎知識
+> Model Context Protocol (MCP) は、大規模言語モデル (LLM) とツールを接続するための標準プロトコルです。MCPを使用することで、LLMはさまざまなツールやリソースにアクセスし、より複雑なタスクを実行できるようになります。
 
-## FastMCPとは
+# Model Context Protocol (MCP) の基礎知識
 
-FastMCPは、Model Context Protocol (MCP) サーバーを簡単に構築するためのPythonフレームワークです。Pythonの関数をデコレータで装飾するだけで、MCPサーバーを素早く構築できます。
+## MCPとは
 
-> 🎉 FastMCPは現在、公式のMCP SDKに統合されています！
-> 公式のModel Context Protocol Python SDK: [github.com/modelcontextprotocol/python-sdk](mdc:https:/github.com/modelcontextprotocol/python-sdk)
+Model Context Protocol (MCP) は、大規模言語モデル (LLM) とツールを接続するための標準プロトコルです。MCPを使用することで、LLMはさまざまなツールやリソースにアクセスし、より複雑なタスクを実行できるようになります。
 
-## 主な特徴
+## MCPの主要コンポーネント
 
-- **高速**: 高レベルなインターフェースにより、少ないコードで迅速な開発が可能
-- **シンプル**: 最小限のボイラープレートコードでMCPサーバーを構築
-- **Pythonic**: Python開発者にとって自然な感覚で使用可能
-- **完全**: MCPの仕様を完全に実装することを目指している
+MCPは以下の主要なコンポーネントで構成されています：
 
-## インストール方法
+1. **MCPサーバー**: ツール、リソース、プロンプトを提供するサーバー
+2. **MCPクライアント**: サーバーに接続し、ツールを呼び出すクライアント
+3. **LLM**: クライアントからの入力を処理し、必要に応じてツールを呼び出す
 
-FastMCPは `uv` を使ってインストールすることが推奨されています：
+## MCPの主な機能
 
-```bash
-uv pip install fastmcp
-```
+### 1. ツール (Tools)
 
-macOSでは、Claude Desktopアプリで利用するために、Homebrewを使って `uv` をインストールする必要がある場合があります：
+ツールは、LLMが実行できる特定の機能を提供します。例えば：
+- データベースクエリの実行
+- 外部APIの呼び出し
+- ファイルの読み書き
+- 計算の実行
 
-```bash
-brew install uv
-```
+各ツールは名前、説明、パラメータスキーマ、戻り値スキーマを持ちます。
 
-あるいは、デプロイせずにSDKを使用する場合は、pipを使用することもできます：
+### 2. リソース (Resources)
 
-```bash
-pip install fastmcp
-```
+リソースは、LLMがアクセスできるデータソースです。例えば：
+- ドキュメント
+- データベース
+- コードリポジトリ
+- 設定ファイル
 
-## クイックスタート
+リソースはURIで識別され、読み取り/書き込みアクセスが可能です。
 
-以下は、簡単な計算ツールを提供するMCPサーバーの例です：
+### 3. プロンプト (Prompts)
+
+プロンプトは、LLMに特定のタスクを実行させるための指示です。MCPサーバーは、特定のユースケース向けに最適化されたプロンプトを提供できます。
+
+## MCPの通信フロー
+
+1. **クライアントがサーバーに接続**: MCPクライアントがMCPサーバーに接続します
+2. **ツール一覧の取得**: クライアントがサーバーから利用可能なツールの一覧を取得します
+3. **ユーザー入力の処理**: ユーザーからの入力をLLMに送信します
+4. **ツールの呼び出し**: LLMが必要に応じてツールを呼び出します
+5. **結果の返却**: ツールの実行結果をLLMに返し、LLMが最終的な応答を生成します
+
+## MCPの実装方法
+
+### サーバー側
 
 ```python
-# server.py
+# FastMCPを使用した例
 from fastmcp import FastMCP
 
-# MCPサーバーの作成
-mcp = FastMCP("Demo")
+# サーバーの作成
+mcp = FastMCP(
+    "Example MCP Server",
+    host="0.0.0.0",
+    port=52229
+)
 
-# 足し算ツールの追加
+# ツールの定義
 @mcp.tool()
-def add(a: int, b: int) -> int:
-    """二つの数値を足し算する"""
-    return a + b
+def example_tool(param1: str, param2: int) -> dict:
+    """
+    Example tool description.
+    
+    Args:
+        param1: First parameter description
+        param2: Second parameter description
+        
+    Returns:
+        Dict containing results
+    """
+    # ツールの実装
+    return {"result": f"{param1}: {param2}"}
 
 # サーバーの実行
 if __name__ == "__main__":
     mcp.run()
 ```
 
-これだけで、動作するMCPサーバーが完成します！
-
-## 主要コンポーネント
-
-FastMCPは以下の主要コンポーネントをサポートしています：
-
-### 1. サーバー
-
-サーバーはFastMCPのメインオブジェクトで、すべての機能の中心となります：
+### クライアント側
 
 ```python
-from fastmcp import FastMCP
+# 基本的なMCPクライアント
+import requests
 
-mcp = FastMCP(
-    "サーバー名",
-    host="0.0.0.0",  # オプション
-    port=52229,      # オプション
-)
-```
-
-### 2. ツール
-
-ツールはLLMが呼び出せる関数です。デコレータを使って簡単に定義できます：
-
-```python
-@mcp.tool()
-def my_tool(param1: str, param2: int) -> str:
-    """
-    ツールの説明
+class MCPClient:
+    def __init__(self, base_url: str = "http://localhost:52229"):
+        self.base_url = base_url.rstrip("/")
+        self.headers = {
+            "Content-Type": "application/json",
+        }
     
-    Args:
-        param1: 最初のパラメータの説明
-        param2: 2番目のパラメータの説明
+    def call_tool(self, tool_name: str, params: dict) -> dict:
+        """ツールを呼び出す"""
+        url = f"{self.base_url}/api/tools/{tool_name}"
         
-    Returns:
-        結果の説明
-    """
-    # ツールの実装
-    return f"結果: {param1}, {param2}"
+        try:
+            response = requests.post(url, headers=self.headers, json=params)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as e:
+            return {"error": str(e), "status": "error"}
 ```
 
-### 3. リソース
+## MCPのトランスポート
 
-リソースはLLMがアクセスできるデータです：
+MCPは複数のトランスポート方式をサポートしています：
 
-```python
-@mcp.resource("echo://{message}")
-def echo_resource(message: str) -> str:
-    """リソースとしてメッセージをエコーする"""
-    return f"Resource echo: {message}"
-```
+1. **HTTP**: RESTful APIを使用した通信
+2. **WebSocket**: 双方向通信
+3. **stdio**: 標準入出力を使用した通信（CLIツールに適しています）
+4. **SSE (Server-Sent Events)**: サーバーからクライアントへの一方向通信
 
-### 4. プロンプト
+## MCPのベストプラクティス
 
-プロンプトはLLMに特定のタスクを実行させるための指示です：
+1. **エラーハンドリング**
+   - ツール呼び出しは常にtry-catchブロックでラップする
+   - 意味のあるエラーメッセージを提供する
+   - 接続の問題を適切に処理する
 
-```python
-@mcp.prompt()
-def analyze_table(table: str) -> str:
-    """テーブル分析用のプロンプトテンプレートを作成する"""
-    return f"""このデータベーステーブルを分析してください:
-テーブル: {table}
-スキーマ: 
-{get_schema()}
+2. **リソース管理**
+   - 適切なクリーンアップのためのメカニズムを使用する
+   - 使用後に接続を閉じる
+   - サーバーの切断を処理する
 
-構造と関係性についてどのような洞察を提供できますか？"""
-```
+3. **セキュリティ**
+   - APIキーは環境変数や設定ファイルに安全に保存する
+   - サーバーのレスポンスを検証する
+   - ツールのアクセス権限に注意する
 
-## サーバーの実行方法
+## MCPの利点
 
-FastMCPサーバーを実行するには、いくつかの方法があります：
+1. **標準化**: 異なるLLMとツール間の統一されたインターフェース
+2. **モジュール性**: 新しいツールやリソースを簡単に追加できる
+3. **再利用性**: 同じツールを複数のLLMやアプリケーションで使用できる
+4. **セキュリティ**: ツールのアクセス権限を細かく制御できる
+5. **拡張性**: 新しい機能やプロトコルの拡張が容易
 
-### 1. 開発モード（推奨）
+## MCPの実装例
 
-開発とテスト用に、以下のコマンドを使用します：
-
-```bash
-fastmcp dev server.py
-```
-
-### 2. Claude Desktop統合（通常使用）
-
-Claude Desktopで使用するためにサーバーをインストールします：
-
-```bash
-fastmcp install server.py
-```
-
-### 3. 直接実行（高度なユースケース）
-
-サーバーを直接実行することもできます：
-
-```python
-if __name__ == "__main__":
-    mcp.run(transport="stdio")  # または "sse"
-```
-
-## 実装例
-
-### エコーサーバー
-
-リソース、ツール、プロンプトを示す簡単なサーバー：
-
-```python
-from fastmcp import FastMCP
-
-mcp = FastMCP("Echo")
-
-@mcp.resource("echo://{message}")
-def echo_resource(message: str) -> str:
-    """リソースとしてメッセージをエコーする"""
-    return f"Resource echo: {message}"
-
-@mcp.tool()
-def echo_tool(message: str) -> str:
-    """ツールとしてメッセージをエコーする"""
-    return f"Tool echo: {message}"
-
-@mcp.prompt()
-def echo_prompt(message: str) -> str:
-    """エコープロンプトを作成する"""
-    return f"このメッセージを処理してください: {message}"
-```
-
-### SQLiteエクスプローラー
-
-データベース統合を示すより複雑な例：
-
-```python
-from fastmcp import FastMCP
-import sqlite3
-
-mcp = FastMCP("SQLite Explorer")
-
-@mcp.resource("schema://main")
-def get_schema() -> str:
-    """リソースとしてデータベーススキーマを提供する"""
-    conn = sqlite3.connect("database.db")
-    schema = conn.execute(
-        "SELECT sql FROM sqlite_master WHERE type='table'"
-    ).fetchall()
-    return "\n".join(sql[0] for sql in schema if sql[0])
-
-@mcp.tool()
-def query_data(sql: str) -> str:
-    """SQLクエリを安全に実行する"""
-    conn = sqlite3.connect("database.db")
-    try:
-        result = conn.execute(sql).fetchall()
-        return "\n".join(str(row) for row in result)
-    except Exception as e:
-        return f"Error: {str(e)}"
-```
-
-## TypeScript版 FastMCP
-
-Python版のFastMCPに加えて、TypeScript版のFastMCPも存在します。これは同様の機能を提供しますが、TypeScript/JavaScript環境向けに設計されています。
-
-### 特徴
-
-- シンプルなツール、リソース、プロンプト定義
-- 認証
-- セッション管理
-- 画像コンテンツ
-- ロギング
-- エラーハンドリング
-- SSE（Server-Sent Events）
-- CORS（デフォルトで有効）
-- 進捗通知
-- 型付きサーバーイベント
-
-### インストール
-
-```bash
-npm install fastmcp
-```
-
-### 基本的な使用方法
-
-```typescript
-import { FastMCP } from "fastmcp";
-import { z } from "zod";
-
-const server = new FastMCP({
-  name: "My Server",
-  version: "1.0.0",
-});
-
-server.addTool({
-  name: "add",
-  description: "Add two numbers",
-  parameters: z.object({
-    a: z.number(),
-    b: z.number(),
-  }),
-  execute: async (args) => {
-    return String(args.a + args.b);
-  },
-});
-
-server.start({
-  transportType: "stdio",
-});
-```
-
-### テスト方法
-
-```bash
-npx fastmcp dev server.js
-# または
-npx fastmcp dev server.ts
-```
-
-## 参考リンク
-
-- [Python FastMCP GitHub](mdc:https:/github.com/jlowin/fastmcp)
-- [TypeScript FastMCP GitHub](mdc:https:/github.com/punkpeye/fastmcp)
-- [公式MCP Python SDK](mdc:https:/github.com/modelcontextprotocol/python-sdk)
+- **FastMCP**: Pythonで実装されたMCPサーバーフレームワーク
+- **MCP SDK**: TypeScript/JavaScript用のMCPクライアント/サーバーSDK
+- **Claude Desktop**: MCPを使用したAnthropicのデスクトップアプリケーション 
 
 ---
 > Source: [tumf/grafana-loki-mcp](https://github.com/tumf/grafana-loki-mcp) — distributed by [TomeVault](https://tomevault.io).
