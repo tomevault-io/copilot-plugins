@@ -1,0 +1,9 @@
+{
+  "name": "different-ai--irs-agent",
+  "displayName": "irs-agent",
+  "description": "An obtrusive AI agent that watches your screen and makes sure you fill out your taxes correctly",
+  "version": "1.0.0",
+  "author": "different-ai",
+  "homepage": "https://github.com/different-ai/irs-agent",
+  "skills": []
+}
