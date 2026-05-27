@@ -1,229 +1,700 @@
-## hs-create-theme-preset
+## hs-grid-layout-implementation
 
-> Create a new theme preset
+> This rule guides implementing CSS Grid layouts using template-embedded conditionals within HubSpot CMS themes, implementing RFC 0942 Grid Layouts properly.
 
-# Create Theme Preset
+# HubSpot Grid Layout Template Implementation Guide
 
-When creating a new theme preset, follow these guidelines to generate a complete, well-structured preset file that matches the theme's field structure. The preset will be created in the `src/unified-theme/presets/` directory.
+You are assisting with implementing **CSS Grid layout sections within templates** for HubSpot CMS themes. This implements RFC 0942 Grid Layouts by embedding grid-specific code directly within template files using **conditional logic**, while preserving existing Bootstrap 2 implementations.
 
-## Key Principles
+Here is the doc link for RFC 0942 Grid Layouts: https://product.hubteam.com/docs/content/rfcs/0942-grid-layouts.html. Use the Hubspot MCP server to read this documentation before starting.
 
-- **Inheritance-First Approach**: Only override properties that differ from theme defaults
-- Use the existing `green.json` preset as a reference for minimal structure
-- Reference `src/unified-theme/fields.json` for understanding inheritance patterns
-- Support both complete preset creation and piece-by-piece building
-- Leverage theme inheritance system instead of hardcoding everything
-- Use the preset name (capitalized) as the label
+## Overview & Methodology
 
-## Core Concepts
+### Implementation Goals
+- Embed **CSS Grid layout code directly within templates** using conditional logic
+- Use **template-level conditionals** to choose between legacy and grid implementations
+- Maintain **complete separation** between Bootstrap 2 and Grid Layout approaches within same template
+- Enable modern CSS Grid layouts without disrupting existing functionality
+- Keep all grid and legacy code within the same template file for easier maintenance
 
-### Inheritance Strategy
+### Template-Embedded Grid Approach
+1. **Modify template files directly** - Add grid conditionals within existing template structure
+2. **Use `{% if grids %}` conditionals** - Separate grid and Bootstrap implementations completely
+3. **Embed complete grid sections** - Write full grid section code within conditional blocks
+4. **Preserve Bootstrap references** - Keep existing Bootstrap sections as `include_dnd_partial` calls
+5. **Maintain single template files** - All layout variations contained within same template
 
-The theme uses an inheritance system where presets only override specific values they want to change. Fields with `inherited_value` in `fields.json` will automatically fall back to theme defaults when not specified in the preset.
+## RFC 0942 Implementation Context
 
-**Key Benefits:**
-- Smaller, more maintainable preset files
-- Automatic updates when theme defaults change
-- Cleaner separation between theme defaults and preset overrides
+### Beta Implementation Phase
+This implementation follows **RFC 0942 Grid Layouts** adoption strategy:
+- Currently in **beta phase** with gated rollout starting in Elevate theme
+- Uses temporary `{% if grids %}` parameter for conditional rendering
+- Post-beta: Parameter will be removed and replaced with automatic content tree detection
+- Emergency rollback capability required during beta phase
 
-### Preset Structure
+### Migration Strategy
+- Grid implementations are **additive** during beta (no breaking changes)
+- Future migration phase will handle existing Bootstrap 2 content conversion
+- Template retrofitting required post-alpha for existing implementations
+- See issue #2158 for comprehensive deprecation planning
 
-A theme preset is a JSON file that defines overrides for theme customization. The structure follows the field hierarchy defined in `fields.json`, but only includes properties that differ from theme defaults:
+## Template Structure Strategy
 
-```json
-{
-  "name": "preset-name",
-  "label": "Preset Name",
-  "values": {
-    "group_foundation": {
-      "group_fonts": { /* Font configurations */ },
-      "group_colors": { /* Color configurations */ }
-    },
-    "group_elements": {
-      "group_forms": { /* Form styling */ },
-      "group_button_types": { /* Button variants */ },
-      "group_cards": { /* Card variants */ },
-      "group_links": { /* Link styling */ },
-      "group_tags": { /* Tag styling */ }
-    }
-  }
-}
+### Template File Focus
+Modify existing template files to include embedded grid conditionals:
+
+```
+src/unified-theme/templates/
+├── contact.hubl.html          # Contains both grid and Bootstrap implementations
+├── features.hubl.html         # Contains both grid and Bootstrap implementations
+├── pricing.hubl.html          # Contains both grid and Bootstrap implementations
+└── home.hubl.html             # Contains both grid and Bootstrap implementations
 ```
 
-### Required Parameters
+## Template Implementation Patterns
 
-- **presetName** (string): The name for the preset (used for filename and internal name)
+### Simple Single-Section Template
+Templates use a SINGLE `{% if grids %}` conditional wrapping complete `dnd_area` blocks:
 
-### Optional Parameters
+```hubl
+<!-- templates/contact.hubl.html -->
+{% extends "./layouts/base.hubl.html" %}
 
-- **elements** (array): Specific elements to build (e.g., ["fonts", "colors", "buttons"])
-- **manualValues** (object): Manual overrides for specific properties
-- **mockupImage** (file): Image file for automatic color/font extraction
-
-## Implementation Steps
-
-### 1. Validation
-
-- Check if `presetName` is provided, ask if missing
-- Validate that `presetName` is valid for filename (no spaces, special chars)
-- Check if file already exists, warn user
-- Generate `presetLabel` from `presetName` (capitalize first letter)
-
-### 2. Element Selection
-
-- If `elements` array provided: Only build specified elements
-- If no `elements` specified: Build complete preset
-- **Inheritance-First Approach**: Start with theme defaults, only override what's different
-- If `mockupImage` provided: Extract colors/fonts from image first
-
-### 3. Value Generation
-
-- **From Mock Images**:
-  - Use AI vision to extract dominant colors, font suggestions
-  - **Use exact hex values** specified in the mock (e.g., `#DCEFF4`, `#0D1C1F`)
-  - **Identify selected options** by looking for the darkest background - selected buttons/options will have a darker background color than unselected ones
-  - Pay attention to slider positions for numeric values (e.g., border thickness)
-- **From Manual Values**: Use provided overrides
-- **Inheritance-Aware Generation**:
-  - Check `fields.json` for `inherited_value` definitions
-  - Only include properties in preset that differ from theme defaults
-  - Let the theme's inheritance system handle the rest
-
-### 4. File Creation
-
-- Create `{presetName}.json` in `src/unified-theme/presets/`
-- Use proper JSON formatting with 2-space indentation
-- Include only properties that differ from theme defaults
-
-## Component Categories
-
-### Foundation
-
-#### Fonts
-
-- **Base font**: Font family, font set, variants
-- **Heading fonts**: H1-H6 with sizes
-- **Body font**: Paragraph styling
-- **Other elements**: Blockquote, caption styling
-
-#### Colors
-
-- **Base colors**: Primary colors
-- **Accent colors**: Accent colors for highlights
-- **Section colors**: Light and dark section variants with text/background colors
-
-### Elements
-
-#### Forms
-
-- **Field styling**: Background, shape, border, colors
-- **Text styling**: Labels, inputs, placeholders
-- **Form container**: Background, shape, border
-
-#### Button Types
-
-- **Primary button**: Filled style with hover states
-- **Secondary button**: Outline style with hover states
-- **Tertiary button**: Alternative filled style
-- **Accent button**: Alternative outline style
-
-#### Cards
-
-- **Card variants**: Different color schemes and styling
-- **Icon colors**: Fill and background colors for card icons
-
-#### Links
-
-- **Primary links**: Default and hover states
-- **Secondary links**: Alternative link styling
-
-#### Tags
-
-- **Background**: Fill color and shape
-- **Text**: Font and color styling
-- **Border**: Optional border styling
-
-
-### Buttons/Cards/Links
-
-- Use color palette to generate consistent variants
-- Ensure proper contrast ratios
-- Follow accessibility guidelines
-
-## Usage Examples
-
-### Complete Preset
-
-```md
-Create a theme preset called "ocean" with blue color scheme
+{% block body %}
+  {% if grids %}
+    {# Grid Implementation - Complete dnd_area with grid sections #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% dnd_grid_section
+        content_width={{ section_width_narrow }},
+        background_layers=[
+          {
+            "type": "color",
+            "value": light_section_3_background_color
+          }
+        ]
+      %}
+        {% dnd_grid_container
+           type="vertical_stack",
+           gap={{ spacing_0 }}
+        %}
+          {% dnd_grid_module
+            path="../components/modules/Anchor",
+            anchor={{ scaffold_content.anchor.anchor_id }}
+          %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module
+            path="../components/modules/Heading",
+            headingAndTextHeadingLevel="h1",
+            headingAndTextHeading={{ template_translations.contact_heading.message }}
+          %}
+          {% end_dnd_grid_module %}
+        {% end_dnd_grid_container %}
+      {% end_dnd_grid_section %}
+    {% end_dnd_area %}
+  {% else %}
+    {# Bootstrap Implementation - Complete dnd_area with Bootstrap sections #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% include_dnd_partial name="contact" %}
+    {% end_dnd_area %}
+  {% endif %}
+{% endblock %}
 ```
 
-### Partial Preset
+### Multi-Section Template Pattern
+For templates with multiple sections, use a SINGLE `{% if grids %}` conditional wrapping complete `dnd_area` blocks:
 
-```md
-Create a theme preset called "minimal" with just fonts and colors
+```hubl
+<!-- templates/home.hubl.html with multiple sections -->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% if grids %}
+    {# Grid Implementation - Complete dnd_area with all grid sections #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% dnd_grid_section %}
+        {% dnd_grid_container
+           type="grid",
+           rows=["1fr"],
+           columns=["1fr", "1fr"] 
+        %}
+          {% dnd_grid_module path="../modules/hero-content" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/hero-image" %}
+          {% end_dnd_grid_module %}
+        {% end_dnd_grid_container %}
+      {% end_dnd_grid_section %}
+
+      {% dnd_grid_section %}
+        {% dnd_grid_container
+           type="grid",
+           rows=["auto", "auto"],
+           columns=["1fr", "1fr", "1fr"],
+           grid_spanning={
+             "1": {
+               "columns_spanned": "3"
+             }
+           } 
+        %}
+          {% dnd_grid_module path="../modules/section-header" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/feature-card" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/feature-card" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/feature-card" %}
+          {% end_dnd_grid_module %}
+        {% end_dnd_grid_container %}
+      {% end_dnd_grid_section %}
+    {% end_dnd_area %}
+  {% else %}
+    {# Bootstrap Implementation - Complete dnd_area with all Bootstrap sections #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% include_dnd_partial name="hero" %}
+      {% include_dnd_partial name="features" %}
+    {% end_dnd_area %}
+  {% endif %}
+{% endblock %}
 ```
 
-### Manual Override
+## Critical Implementation Workflow: Converting include_dnd_partial References
 
-```md
-Create a theme preset called "corporate" with primary color #1E3A8A and font "Roboto"
+### ⚠️ CRITICAL REQUIREMENT ⚠️
+
+**`include_dnd_partial` is NOT SUPPORTED within `{% if grids %}` blocks.** Every `include_dnd_partial` reference in the Bootstrap implementation must be manually analyzed and converted to inline grid code within the grid conditional.
+
+### The Conversion Process
+
+When implementing grid conditionals, you **CANNOT** simply use `include_dnd_partial` within the `{% if grids %}` block. Instead, you must:
+
+1. **Identify all `include_dnd_partial` references** in the Bootstrap implementation
+2. **Examine the partial file** to understand its Bootstrap structure
+3. **Convert the Bootstrap partial to inline grid code** within the grid conditional
+4. **Embed the converted grid sections directly** in the template
+
+### Step-by-Step Conversion Workflow
+
+#### Step 1: Template Analysis
+```hubl
+<!-- Example: templates/lp-meeting-booking-two.hubl.html (Bootstrap version) -->
+{% dnd_area "dnd_area" 
+  label="Main content" 
+%}
+  {% include_dnd_partial name="heading-with-three-cards" %}
+  {% include_dnd_partial name="testimonial-section" %}
+{% end_dnd_area %}
 ```
 
-### From Image
-
-```md
-Create a theme preset called "sunset" using this mockup image for color inspiration
+#### Step 2: Partial File Examination
+Examine `partials/heading-with-three-cards.hubl.html`:
+```hubl
+<!-- partials/heading-with-three-cards.hubl.html (Bootstrap structure) -->
+{% dnd_section %}
+  {% dnd_row %}
+    {% dnd_column %}
+      {% dnd_module path="../components/modules/Heading" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+  {% end_dnd_row %}
+  {% dnd_row %}
+    {% dnd_column width=4 %}
+      {% dnd_module path="../components/modules/FeatureCard" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+    {% dnd_column width=4 %}
+      {% dnd_module path="../components/modules/FeatureCard" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+    {% dnd_column width=4 %}
+      {% dnd_module path="../components/modules/FeatureCard" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+  {% end_dnd_row %}
+{% end_dnd_section %}
 ```
 
-### Inheritance Example
+#### Step 3: Inline Grid Conversion
+Convert the partial structure to inline grid code within the template:
+```hubl
+<!-- templates/lp-meeting-booking-two.hubl.html (Grid implementation) -->
+{% if grids %}
+  {% dnd_area "dnd_area" 
+    label="Main content" 
+  %}
+    {# Convert heading-with-three-cards partial to inline grid code #}
+    {% dnd_grid_section %}
+      {% dnd_grid_container 
+        type="vertical_stack",
+        gap={{ spacing_0 }}
+      %}
+        {# Header module from the partial #}
+        {% dnd_grid_module path="../components/modules/Heading" %}
+        {% end_dnd_grid_module %}
+        {% dnd_grid_container
+          type="grid",
+          rows=["auto"],
+          columns=["1fr", "1fr", "1fr"] 
+        %}
+          {# Three feature cards from the partial #}
+          {% dnd_grid_module path="../components/modules/FeatureCard" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../components/modules/FeatureCard" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../components/modules/FeatureCard" %}
+          {% end_dnd_grid_module %}
+        {% end_dnd_grid_container %}
+      {% end_dnd_grid_container %}
+    {% end_dnd_grid_section %}
 
-```md
-Create a theme preset called "ocean" with blue color scheme
+    {# Convert testimonial-section partial to inline grid code #}
+    {% dnd_grid_section %}
+      {% dnd_grid_container 
+        type="vertical_stack",
+        gap={{ spacing_0 }}
+      %}
+        {% dnd_grid_module path="../components/modules/Testimonial" %}
+        {% end_dnd_grid_module %}
+      {% end_dnd_grid_container %}
+    {% end_dnd_grid_section %}
+  {% end_dnd_area %}
+{% else %}
+  {# Bootstrap Implementation - Original partial references preserved #}
+  {% dnd_area "dnd_area" 
+    label="Main content" 
+  %}
+    {% include_dnd_partial name="heading-with-three-cards" %}
+    {% include_dnd_partial name="testimonial-section" %}
+  {% end_dnd_area %}
+{% endif %}
 ```
 
-**Result**: Minimal preset that only overrides colors, letting inheritance handle fonts, buttons, forms, etc.
+### Key Requirements for Partial Conversion
 
-## Best Practices
+1. **Complete Analysis Required**: Every `include_dnd_partial` must be opened and analyzed
+2. **Inline Implementation**: Grid code must be written directly in the template, not referenced
+3. **Structural Conversion**: Bootstrap sections/rows/columns → Grid sections/tables/modules
+4. **Functional Parity**: Converted grid implementation must match Bootstrap functionality
+5. **Visual Consistency**: Grid version must maintain same layout and appearance
 
-### Inheritance-First Design
-- Always check `fields.json` for inheritance definitions before adding values
-- Prefer inheritance over explicit values when possible
-- Only override what's necessary for the preset's unique identity
-- Use theme defaults as the foundation, not hardcoded values
+### Conversion Mapping Reference
 
-### Code Formatting
-- Use 2-space indentation for JSON
-- Maintain consistent property ordering
-- Use proper JSON syntax with double quotes
-- Follow the minimal structure from `green.json`
+| Bootstrap Partial Structure | Grid Inline Equivalent |
+|----------------------------|-------------------------|
+| `{% include_dnd_partial name="contact" %}` | **❌ NOT ALLOWED in grid blocks** |
+| `{% dnd_section %}...{% end_dnd_section %}` | `{% dnd_grid_section %}...{% end_dnd_grid_section %}` |
+| `{% dnd_row %}...{% end_dnd_row %}` | `{% dnd_grid_container type="vertical_stack" %}...{% end_dnd_grid_container %}` |
+| `{% dnd_column %}...{% end_dnd_column %}` | `{% dnd_grid_module %}...{% end_dnd_grid_module %}` |
+| `{% dnd_module %}...{% end_dnd_module %}` | `{% dnd_grid_module %}...{% end_dnd_grid_module %}` |
+| Multi-column rows | `{% dnd_grid_container type="grid" %}...{% end_dnd_grid_container %}` |
 
-### File Organization
-- Place all presets in `src/unified-theme/presets/`
-- Use kebab-case for filenames
+## Grid Layout Tag Reference
 
-## Error Handling
+### Core Grid Tags (Updated Specification)
+- `{% dnd_grid_section %}` - Grid section container (replaces `{% dnd_section %}`)
+- `{% dnd_grid_container %}` - Flexible container for all layout types (replaces `{% dnd_row %}` and tables)
+- `{% dnd_grid_module %}` - Grid module/content (replaces `{% dnd_module %}`)
 
-- **File exists**: Warn user, offer to overwrite or rename
-- **Invalid name**: Suggest valid alternatives (kebab-case, no spaces)
-- **Image processing fails**: Fall back to manual values or inheritance
-- **Missing required fields**: Use theme defaults via inheritance, not hardcoded values
+**Note**: `{% dnd_grid_row %}` and `{% dnd_grid_table %}` are **NOT SUPPORTED** in current Grid Layouts. Use `{% dnd_grid_container %}` instead.
 
-## Output
+### Tag Conversion Reference
+**Never mix these in the same `dnd_area`:**
 
-The rule will:
+| Bootstrap 2 (Legacy) | CSS Grid (New) |
+|---------------------|----------------|
+| `{% dnd_section %}` | `{% dnd_grid_section %}` |
+| `{% dnd_row %}` | `{% dnd_grid_container type="vertical_stack" %}` |
+| `{% dnd_column %}` | `{% dnd_grid_module %}` (within container) |
+| `{% dnd_module %}` | `{% dnd_grid_module %}` |
+| Combined row/table layouts | `{% dnd_grid_container type="grid" %}` |
 
-1. Create the preset file in `src/unified-theme/presets/{presetName}.json`
-2. Display a summary of what was generated
-3. Show any warnings or fallbacks used
-4. Provide next steps for customization
+### Grid-Specific Features
+```hubl
+{# 2D Grid Container with explicit layout #}
+{% dnd_grid_container
+   type="grid",
+   rows=["auto", "1fr", "auto"],
+   columns=["1fr", "2fr", "1fr"],
+   gap={{ spacing_32 }}
+%}
+  {% dnd_grid_module %}
+  {% dnd_grid_module %}
+  {% dnd_grid_module %}
+  {% dnd_grid_module %}
+{% end_dnd_grid_container %}
 
-## Reference Files
+{# Vertical Stack Container #}
+{% dnd_grid_container type="vertical_stack" %}
+  {% dnd_grid_module %}
+  {% dnd_grid_module %}
+{% end_dnd_grid_container %}
 
-- **Minimal structure reference**: `src/unified-theme/presets/green.json`
-- **Complete structure reference**: `src/unified-theme/presets/blue.json`
-- **Field definitions and inheritance**: `src/unified-theme/fields.json`
-- **Theme configuration**: `src/unified-theme/theme.json`
+{# Horizontal Stack Container #}
+{% dnd_grid_container type="horizontal_stack" %}
+  {% dnd_grid_module %}
+  {% dnd_grid_module %}
+{% end_dnd_grid_container %}
+
+{# Locked layouts for structured content #}
+{% dnd_area "dnd_area" 
+  label="Main content",
+  locked_layout="column"
+%}
+  {% dnd_grid_module %}
+  {% dnd_grid_module %}
+{% end_dnd_area %}
+```
+
+## Implementation Examples
+
+### Simple Template Conversion with Partial Analysis
+**Use single conditional wrapping complete dnd_area blocks:**
+
+**Step 1: Original Template with Bootstrap Implementation**
+```hubl
+<!-- templates/features.hubl.html (before grid conversion) -->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% dnd_area "dnd_area" 
+    label="Main content" 
+  %}
+    {% include_dnd_partial name="features" %}
+  {% end_dnd_area %}
+{% endblock %}
+```
+
+**Step 2: Analyze the Partial File**
+Examine `partials/features.hubl.html` to understand its Bootstrap structure:
+```hubl
+<!-- partials/features.hubl.html (Bootstrap structure to convert) -->
+{% dnd_section %}
+  {% dnd_row %}
+    {% dnd_column %}
+      {% dnd_module path="../components/modules/Heading" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+  {% end_dnd_row %}
+  {% dnd_row %}
+    {% dnd_column width=4 %}
+      {% dnd_module path="../modules/feature-card" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+    {% dnd_column width=4 %}
+      {% dnd_module path="../modules/feature-card" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+    {% dnd_column width=4 %}
+      {% dnd_module path="../modules/feature-card" %}
+      {% end_dnd_module %}
+    {% end_dnd_column %}
+  {% end_dnd_row %}
+{% end_dnd_section %}
+```
+
+**Step 3: Final Template with Grid Conditional and Inline Conversion**
+```hubl
+<!-- templates/features.hubl.html (after grid conversion) -->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% if grids %}
+    {# Grid Implementation - Complete dnd_area with grid sections and inline conversion of features partial #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% dnd_grid_section %}
+        {% dnd_grid_container 
+          type="vertical_stack",
+          gap={{ spacing_0 }}
+        %}
+          {# Heading module from features partial #}
+          {% dnd_grid_module path="../components/modules/Heading" %}
+          {% end_dnd_grid_module %}
+        {% end_dnd_grid_container %}
+
+        {% dnd_grid_container
+           type="grid",
+           rows=["auto"],
+           columns=["1fr", "1fr", "1fr"] 
+        %}
+          {# Three feature cards from features partial #}
+          {% dnd_grid_module path="../modules/feature-card" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/feature-card" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/feature-card" %}
+          {% end_dnd_grid_module %}
+        {% end_dnd_grid_container %}
+      {% end_dnd_grid_section %}
+    {% end_dnd_area %}
+  {% else %}
+    {# Bootstrap Implementation - Complete dnd_area with Bootstrap sections and preserved partial reference #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% include_dnd_partial name="features" %}
+    {% end_dnd_area %}
+  {% endif %}
+{% endblock %}
+```
+
+### Complex Multi-Column Template
+**Use single conditional wrapping complete dnd_area blocks:**
+
+```hubl
+<!-- templates/pricing.hubl.html -->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% if grids %}
+    {# Grid Implementation - Complete dnd_area with grid sections #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% dnd_grid_section %}
+        {% dnd_grid_container
+           type="grid",
+           rows=["auto", "1fr", "auto"],
+           columns=["1fr", "1fr", "1fr", "1fr"],
+           gap={{ spacing_32 }},
+           grid_spanning={
+             "1": {
+               "columns_spanned": "4"
+             }
+           } 
+        %}
+
+          {# Header row spanning all columns #}
+          {% dnd_grid_module path="../modules/section-header" %}
+          {% end_dnd_grid_module %}
+
+          {# Pricing cards #}
+          {% dnd_grid_module path="../modules/pricing-card" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/pricing-card" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/pricing-card" %}
+          {% end_dnd_grid_module %}
+          {% dnd_grid_module path="../modules/pricing-card" %}
+          {% end_dnd_grid_module %}
+
+        {% end_dnd_grid_container %}
+      {% end_dnd_grid_section %}
+    {% end_dnd_area %}
+  {% else %}
+    {# Bootstrap Implementation - Complete dnd_area with Bootstrap sections #}
+    {% dnd_area "dnd_area" 
+      label="Main content" 
+    %}
+      {% include_dnd_partial name="pricing" %}
+    {% end_dnd_area %}
+  {% endif %}
+{% endblock %}
+```
+
+## CSS Grid Properties & Features
+
+### Responsive Grid Configuration
+```hubl
+{% dnd_grid_container
+  type={
+    "default": "grid",
+    "mobile": "vertical_stack"
+  },
+  rows={
+    "default": ["auto", "auto"]
+  },
+  columns={
+    "default": ["1fr", "1fr"]
+  },
+  gap={{ spacing_32 }},
+  align_items={
+    "default": "start",
+    "mobile": "center"
+  },
+  justify_content="center" 
+%}
+```
+
+## Quality Assurance Checklist
+
+### Pre-Implementation Validation
+- [ ] Identify existing template that references `include_dnd_partial`
+- [ ] **CRITICAL**: Locate and examine ALL partial files referenced by `include_dnd_partial`
+- [ ] Analyze Bootstrap structure within each partial file (sections, rows, columns, modules)
+- [ ] Plan appropriate grid structure and layout for inline conversion
+- [ ] Understand current template functionality and Bootstrap implementation
+- [ ] Verify template structure can accommodate embedded conditionals
+
+### Implementation Validation
+- [ ] Added **complete grid implementation** within `{% if grids %}` conditional blocks
+- [ ] **CRITICAL**: NO `include_dnd_partial` references within grid conditional blocks
+- [ ] **CRITICAL**: All partial content converted to inline grid code within grid conditional
+- [ ] Used **pure grid tags** without mixing Bootstrap tags in grid conditional
+- [ ] Preserved **Bootstrap implementation** as `include_dnd_partial` in else block
+- [ ] Maintained **visual and functional parity** between grid and Bootstrap versions
+- [ ] Embedded **complete section implementations** within template conditionals
+- [ ] **CRITICAL**: Each partial file analysis documented and conversion verified
+
+### Post-Implementation Validation
+- [ ] No mixing of grid and Bootstrap 2 tags within same conditional block
+- [ ] Grid implementation follows RFC 0942 tag usage patterns
+- [ ] Cross-browser compatibility verified for embedded grid sections
+- [ ] Mobile responsiveness maintained in template-embedded approach
+
+### Template Structure Checks
+- [ ] Template file contains **both grid and Bootstrap implementations**
+- [ ] **Complete separation** between grid and Bootstrap conditional blocks
+- [ ] Proper **conditional syntax** (`{% if grids %}` / `{% else %}` / `{% endif %}`)
+- [ ] Bootstrap implementation preserved as `include_dnd_partial` reference
+- [ ] Grid implementation contains complete section logic within conditional
+
+## Common Pitfalls to Avoid
+
+### ❌ CRITICAL ERROR - Using include_dnd_partial in Grid Conditionals
+```hubl
+<!-- DON'T DO THIS: include_dnd_partial is NOT supported in grid blocks -->
+{% if grids %}
+  {% dnd_area "dnd_area" 
+    label="Main content" 
+  %}
+    {% include_dnd_partial name="features" %}  {# ERROR: Not supported in grid blocks #}
+  {% end_dnd_area %}
+{% else %}
+  {% dnd_area "dnd_area" 
+    label="Main content" 
+  %}
+    {% include_dnd_partial name="features" %}
+  {% end_dnd_area %}
+{% endif %}
+```
+
+### ❌ Wrong Approach - Mixing Grid and Bootstrap Tags Within Conditionals
+```hubl
+<!-- DON'T DO THIS: Mixing grid and Bootstrap tags within same conditional -->
+{% if grids %}
+  {% dnd_grid_section %}
+    {% dnd_row %}  {# Error: Bootstrap tag inside grid conditional #}
+    {% end_dnd_row %}
+  {% end_dnd_grid_section %}
+{% endif %}
+```
+
+### ❌ Wrong Approach - Using Deprecated Grid Tags
+```hubl
+<!-- DON'T DO THIS: dnd_grid_row and dnd_grid_table are not supported -->
+{% if grids %}
+  {% dnd_grid_section %}
+    {% dnd_grid_row %}  {# Error: dnd_grid_row is not supported #}
+      {% dnd_grid_module %}
+      {% end_dnd_grid_module %}
+    {% end_dnd_grid_row %}
+    
+    {% dnd_grid_table %}  {# Error: dnd_grid_table is not supported #}
+      {% dnd_grid_module %}
+      {% end_dnd_grid_module %}
+    {% end_dnd_grid_table %}
+  {% end_dnd_grid_section %}
+{% endif %}
+```
+
+### ❌ Wrong Approach - Incomplete Grid Implementation
+```hubl
+<!-- DON'T DO THIS: Partial grid implementation in conditional -->
+{% if grids %}
+  {% dnd_grid_module path="../modules/heading" %}
+  {% end_dnd_grid_module %}
+  {# Error: Grid module without proper grid section container #}
+{% else %}
+  {% include_dnd_partial name="contact" %}
+{% endif %}
+```
+
+### ❌ Wrong Approach - Mixing Grid Systems in Same Area
+```hubl
+<!-- DON'T DO THIS: Using both grid and Bootstrap in same dnd_area -->
+{% dnd_area "dnd_area" 
+  label="Main content" 
+%}
+  {% if grids %}
+    {% dnd_grid_section %}
+    {% end_dnd_grid_section %}
+  {% endif %}
+
+  {% dnd_section %}  {# Error: Cannot mix systems in same area #}
+  {% end_dnd_section %}
+{% end_dnd_area %}
+```
+
+### ✅ Correct Approach - Single Conditional Wrapping Complete dnd_area Blocks
+```hubl
+<!-- DO THIS: Single conditional wrapping complete dnd_area implementations -->
+{% if grids %}
+  {# Grid Implementation - Complete dnd_area block #}
+  {% dnd_area "dnd_area" 
+    label="Main content" 
+  %}
+    {% dnd_grid_section %}
+      {% dnd_grid_container 
+        type="vertical_stack",
+        gap={{ spacing_0 }}
+      %}
+        {% dnd_grid_module path="../modules/contact-form" %}
+        {% end_dnd_grid_module %}
+      {% end_dnd_grid_container %}
+    {% end_dnd_grid_section %}
+  {% end_dnd_area %}
+{% else %}
+  {# Bootstrap Implementation - Complete dnd_area block #}
+  {% dnd_area "dnd_area" 
+    label="Main content" 
+  %}
+    {% include_dnd_partial name="contact" %}
+  {% end_dnd_area %}
+{% endif %}
+```
+
+## Quick Reference
+
+### Essential Steps for Template-Embedded Grid Implementation
+1. **Identify template file**: Locate template containing `dnd_area` with `include_dnd_partial` references
+2. **⚠️ CRITICAL: Analyze ALL partials**: Open and examine every partial file referenced by `include_dnd_partial`
+3. **Convert partials to inline grid code**: Manually convert Bootstrap partial structure to grid syntax
+4. **Add single grid conditional**: Insert `{% if grids %}` conditional wrapping entire `dnd_area` blocks
+5. **Create two complete dnd_area blocks**: One for grid implementation, one for Bootstrap implementation
+6. **Embed converted grid sections**: Write complete inline grid section code within grid `dnd_area` (NO `include_dnd_partial`)
+7. **Preserve Bootstrap references**: Keep `include_dnd_partial` calls in Bootstrap `dnd_area`
+
+### Key Requirements
+- ✅ **Template-embedded conditionals** (grid code within template files)
+- ✅ **Complete separation** between grid and Bootstrap implementations
+- ✅ **Pure grid syntax** within grid conditional blocks (no mixing)
+- ✅ **Visual parity** between grid and Bootstrap implementations
+- ✅ **RFC 0942 compliance** with embedded conditional approach
+- ✅ **Bootstrap preservation** via `include_dnd_partial` references
+
+### Template Modification Workflow
+```bash
+1. Open template file (e.g., templates/contact.hubl.html)
+2. Locate existing dnd_area containing include_dnd_partial calls
+3. ⚠️  CRITICAL: Open and analyze each partial file referenced
+4. Convert Bootstrap partial structure to grid syntax (sections→grid_sections, etc.)
+5. Wrap entire dnd_area in {% else %} block
+6. Add {% if grids %} conditional above with duplicate dnd_area
+7. Replace include_dnd_partial with converted inline grid sections in grid dnd_area
+8. Test both conditional paths (grid and Bootstrap)
+9. Verify functional parity between both implementations
+```
+
+Remember: The goal is **single template-level conditionals** with complete `dnd_area` separation. Each template has TWO complete implementations: one grid `dnd_area` within `{% if grids %}` and one Bootstrap `dnd_area` within `{% else %}`. This creates clean separation while keeping everything in the same template file.
 
 ---
 > Source: [HubSpot/cms-elevate-theme-public](https://github.com/HubSpot/cms-elevate-theme-public) — distributed by [TomeVault](https://tomevault.io).
