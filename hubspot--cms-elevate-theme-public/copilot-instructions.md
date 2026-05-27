@@ -1,596 +1,473 @@
-## hs-create-react-module-fields
+## hs-create-react-module-implementation
 
-> Create module fields
+> Implement and finish building a scaffolded module
 
-# HubSpot Module Fields Guide
+# HubSpot React Module Implementation Guide
 
-This guide helps you create properly structured `fields.tsx` files for HubSpot CMS modules. Follow these patterns and examples to ensure consistency and best practices.
+This rule guides you through implementing a HubSpot React module after the initial scaffolding and field definitions are complete.
 
-## Field Library Components
+## Prerequisites
+- Module scaffolding should be complete with basic file structure
+- `fields.tsx` should be fully defined with all necessary module fields
+- Types should be defined in `types.ts`
 
-Use these pre-built components from `src/components/fieldLibrary/` whenever possible:
+## IMPORTANT: NEVER dangerouslySetInnerHTML
+- Never, under any circumstance, is it OK to use `dangerouslySetInnerHTML`
+  - Instead you should find another way to implement setting of content.
+  - There are plenty of examples on how to correctly do this at the bottom of this file.
+
+## Implementation Steps
+
+### 1. Review Module Structure
+1. Confirm the following files exist:
+   - `index.tsx` - Main module implementation
+   - `fields.tsx` - Field definitions
+   - `types.ts` - TypeScript types
+   - `assets/` - Directory for module assets
+   - `islands/` - Directory for client-side interactive components (if needed)
+
+### 2. Implement Core Module Component
+1. Import necessary dependencies:
+   ```typescript
+   import { ModuleMeta } from '../../types/modules.js';
+   import styles from '../component.module.css';
+   import { createComponent } from '../../utils/create-component.js';
+   import cx, { staticWithModule } from '../../utils/classnames.js';
+   // Add other required imports
+   ```
+
+2. Define styled components using CSS Modules and createComponent:
+   ```typescript
+   const swm = staticWithModule(styles);
+
+   const StyledContainer = createComponent('div');
+   // inside the CSS Module file:
+   // .className-one {
+   // max-width: var(--hsElevate--container--maxWidth, 1200px);
+   // margin: 0 auto;
+   // padding: var(--hsElevate--spacing--48, 48px) var(--hsElevate--spacing--24, 24px);
+   // }
+   ```
+
+3. Implement the main Component:
+   ```typescript
+   export const Component = (props: ModuleFields) => {
+     // Destructure props
+     // Implement component logic
+     return (
+        <StyledContainer className={cx(swm('className-one'), 'className-two')}>
+           {/* Component JSX */}
+        </StyledContainer>
+     );
+   };
+   ```
+
+### 3. Island Components (if needed)
+If the module requires client-side interactivity:
+1. Create an island component in `islands/` directory
+2. Use the `?island` suffix when importing
+3. Use regular `Island` component from `@hubspot/cms-components`
+4. Set appropriate hydration strategy
+
+### 4. Module Metadata
+1. Define the module meta information:
+   ```typescript
+   export const meta: ModuleMeta = {
+     label: 'Module Name',
+     content_types: ['SITE_PAGE', 'LANDING_PAGE'],
+     icon: moduleIconSvg,
+     categories: ['design'],
+   };
+   ```
+
+2. Set module configuration:
+   ```typescript
+   export const defaultModuleConfig = {
+     moduleName: 'elevate/components/modules/module_name',
+     version: 0,
+     themeModule: true,
+   };
+   ```
+
+### 5. Styling Guidelines
+1. Use HubSpot Elevate CSS variables for:
+   - Spacing: `var(--hsElevate--spacing--{size})`
+   - Colors: `var(--hsElevate--{context}--{property})`
+   - Typography: Apply typography classes from field definitions
+2. Ensure responsive design
+3. Follow accessibility best practices
+
+### 6. Best Practices
+1. Use TypeScript types for all props and data structures
+2. Implement proper error handling
+3. Use semantic HTML elements
+4. Follow React performance best practices
+5. Add helpful comments for complex logic
+6. Ensure proper data validation
+
+### 7. Testing
+1. Test the module with various field configurations
+2. Verify responsive behavior
+3. Test accessibility
+4. Verify island component hydration (if applicable)
+
+### 5. Field Destructuring and Consumption
+Example showing proper field destructuring and usage from the SiteHeader module:
 
 ```typescript
-import {
-  ButtonContent,    // Button fields with text, link, and icon options
-  ButtonStyle,      // Button styling (primary/secondary/tertiary/accent)
-  CardStyle,        // Card styling variants
-  HeadingAndText,   // Heading text with level selection
-  HeadingStyle,     // Heading style variants
-  RichTextContent,  // Rich text editing with different feature sets
-  SectionStyle,     // Section styling variants
-  LinkStyle,        // Link styling (primary/secondary)
-} from '../../fieldLibrary/index.js';
+// Types definition
+type MenuModulePropTypes = {
+  hublData: {
+    navigation: {
+      children: MenuDataType[];
+    };
+    companyName: string;
+    defaultLogo: LogoType;
+    logoLink: LinkType;
+  };
+  groupLogo: {
+    logo: LogoFieldType;
+  };
+  defaultContent: {
+    logoLinkAriaText: string;
+  };
+  groupButton: ButtonGroupType;
+  styles: StylesType;
+};
+
+// Component implementation with proper destructuring
+export const Component = (props: MenuModulePropTypes) => {
+  // First level destructuring - main groups
+  const {
+    hublData,
+    groupLogo: { logo: logoField },
+    defaultContent: { logoLinkAriaText },
+    groupButton,
+    styles,
+  } = props;
+
+  // Second level destructuring - hublData
+  const {
+    navigation: { children: navDataArray = [] },
+    companyName,
+    defaultLogo,
+    logoLink,
+  } = hublData;
+
+  // Destructure button group fields
+  const {
+    showButton,
+    buttonContentText: buttonText,
+    buttonContentLink: buttonLink,
+    buttonContentShowIcon: showIcon,
+    buttonContentIconPosition: iconPosition,
+  } = groupButton;
+
+  // Destructure style fields with defaults
+  const {
+    groupMenu: {
+      menuAlignment,
+      menuBackgroundColor: { color: menuBackgroundColor } = { color: '#ffffff' },
+      menuTextColor: { color: menuTextColor } = { color: '#09152B' },
+    },
+    groupButton: { buttonStyleVariant, buttonStyleSize },
+  } = styles;
+
+  return (
+    <SiteHeader>
+      <SiteHeaderContainer>
+        {/* Use destructured fields */}
+        <LogoContainer>
+          {showButton && (
+            <Button
+              buttonStyle={buttonStyleVariant}
+              buttonSize={buttonStyleSize}
+            >
+              {buttonText}
+            </Button>
+          )}
+        </LogoContainer>
+        <MainNavWrapper>
+          <MenuComponent
+            menuDataArray={navDataArray}
+            menuAlignment={menuAlignment}
+          />
+        </MainNavWrapper>
+      </SiteHeaderContainer>
+    </SiteHeader>
+  );
+};
 ```
 
-## Core Field Patterns
+Key patterns demonstrated:
+1. Multi-level destructuring for nested fields
+2. Default values for optional fields
+3. Renaming during destructuring for clarity
+4. Type safety with TypeScript interfaces
+5. Organized grouping of related fields
+6. Proper consumption of CSS Modules styles in component and child components
 
-### Basic Module Structure
+### 3. Interactive Module with Islands and State Management
+Example showing proper island component implementation with state management from the SiteHeader's mobile menu:
+
 ```typescript
-import { ModuleFields, FieldGroup } from '@hubspot/cms-components/fields';
+// islands/MobileMenuIsland.tsx
+import { useEffect, useState, CSSProperties } from 'react';
+import { useSharedIslandState } from '@hubspot/cms-components';
+import styles from '../menu.module.css';
+import { createComponent } from '../../utils/create-component.js';
+import cx, { staticWithModule } from '../../utils/classnames.js';
 
-export const fields = (
-  <ModuleFields>
-    {/* Content fields at top level */}
-    <TextField
-      name="title"
-      label="Title"
-      default="Default Title"
-    />
+interface MobileMenuIslandProps {
+  menuBackgroundColor: string;
+  menuTextColor: string;
+  menuAccentColor: string;
+  headerHeight: number;
+}
 
-    {/* Style fields in STYLE tab */}
-    <FieldGroup name="groupStyle" label="Styles" tab="STYLE">
-      <SectionStyle sectionStyleDefault="section_variant_1" />
-      <HeadingStyle headingStyleDefault="h2" />
-    </FieldGroup>
-  </ModuleFields>
-);
+const MenuContainer = createComponent('div');
+const HamburgerButton = createComponent('button');
+
+// CSS Modules approach - menu.module.css:
+// .hs-elevate-menu-container {
+//   position: absolute;
+//   background-color: var(--hsElevate--menu__backgroundColor);
+//   color: var(--hsElevate--menu__textColor);
+//   top: 100%;
+//   width: 100%;
+//   height: var(--hsElevate--menu__height);
+//   transition: all 0.3s ease;
+//   left: 100%; /* Default hidden state */
+// }
+// .hs-elevate-menu-container--sliding { left: 0; }
+// .hs-elevate-menu-container--show { display: flex; }
+// .hs-elevate-menu-container--hidden { display: none; }
+
+export default function MobileMenuIsland(props: MobileMenuIslandProps) {
+  const { menuBackgroundColor, menuTextColor, menuAccentColor, headerHeight } = props;
+
+  // Local state for animations and UI
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isMenuSliding, setIsMenuSliding] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  // Shared state across islands
+  const [triggeredMenuItems, setTriggeredMenuItems] = useSharedIslandState();
+
+  // Effect for handling menu open/close animation
+  useEffect(() => {
+    if (isAnimating) {
+      setShowMenu(true);
+      document.body.style.overflowY = 'hidden';
+    } else if (!isAnimating && showMenu) {
+      setIsClosing(true);
+      setIsMenuSliding(false);
+      document.body.style.overflowY = 'auto';
+    }
+  }, [isAnimating]);
+
+  // Effect for handling animation timing
+  useEffect(() => {
+    if (showMenu && !isClosing) {
+      setTimeout(() => {
+        setIsMenuSliding(true);
+      }, 100);
+    } else if (isClosing) {
+      setTimeout(() => {
+        setShowMenu(false);
+        setIsClosing(false);
+      }, 300);
+    }
+  }, [showMenu, isClosing]);
+
+  // Handler for menu toggle
+  const handleOpenCloseMenu = () => {
+    setTriggeredMenuItems([]);
+    setIsAnimating(!isAnimating);
+  };
+
+  // CSS custom properties for dynamic styling
+  const menuContainerStyle: CSSProperties = {
+    '--hsElevate--menu__backgroundColor': menuBackgroundColor,
+    '--hsElevate--menu__textColor': menuTextColor,
+    '--hsElevate--menu__accentColor': menuAccentColor,
+    '--hsElevate--menu__height': `calc(100vh - ${headerHeight}px)`,
+  } as CSSProperties;
+
+  // Generate dynamic classes based on state
+  const menuContainerClasses = cx(
+    'hs-elevate-menu-container',
+    styles['hs-elevate-menu-container'],
+    {
+      [styles['hs-elevate-menu-container--show']]: showMenu,
+      [styles['hs-elevate-menu-container--sliding']]: isMenuSliding,
+      [styles['hs-elevate-menu-container--hidden']]: !showMenu,
+    }
+  );
+
+  return (
+    <>
+      <MenuContainer
+        className={menuContainerClasses}
+        style={menuContainerStyle}
+      >
+        {/* Menu content */}
+      </MenuContainer>
+      <HamburgerButton onClick={handleOpenCloseMenu} />
+    </>
+  );
+}
 ```
 
-### Repeated Content Pattern
-```typescript
-<RepeatedFieldGroup
-  name="items"
-  label="Items"
-  occurrence={{
-    min: 1,
-    max: 4,
-    default: 2
-  }}
-  default={[
-    { title: 'Item 1' },
-    { title: 'Item 2' }
-  ]}
->
-  <TextField
-    name="title"
-    label="Item Title"
-    default="New Item"
-  />
-</RepeatedFieldGroup>
-```
+Key patterns demonstrated:
+1. Multiple state types:
+   - Local UI state with `useState`
+   - Shared state across islands with `useSharedIslandState`
+   - Measurement state for dynamic sizing
+2. Animation handling:
+   - Multiple states for different animation phases
+   - Timing control with `setTimeout`
+3. Side effects management:
+   - Coordinated state updates
+   - Document body modifications
+   - Cleanup on unmount
+4. CSS Modules with CSS custom properties for dynamic styling
+5. TypeScript prop typing for component props and CSS variables
 
-### Common Field Library Usage
+## Common Patterns
+- Use CSS Modules and the createComponent util fn for styling and naming components
+- Leverage existing field libraries when possible
+- Follow existing module patterns for consistency
+- Use CSS variables for theming
+- Implement proper TypeScript types
 
-#### HeadingAndText
-```typescript
-<HeadingAndText
-  headingLevelDefault="h2"
-  textDefault="Default Heading"
-  headingTextLabel="Section Heading" // optional
-/>
-```
-
-#### ButtonContent
-```typescript
-<ButtonContent
-  textDefault="Learn More"
-  linkDefault={{
-    open_in_new_tab: true,
-    url: { href: '#' }
-  }}
-  iconPositionDefault="right"
-/>
-```
-
-#### RichTextContent
-```typescript
-<RichTextContent
-  label="Description"
-  featureSet="text" // or "extended"
-  richTextDefault="<p>Default content</p>"
-/>
-```
-
-## Available Field Types
-
-### Basic Fields
-```typescript
-import {
-  TextField,         // Simple text input
-  RichTextField,     // Formatted text
-  ImageField,        // Image uploads
-  LinkField,         // URL/page links
-  BooleanField,      // Toggles
-  ChoiceField,       // Dropdowns/radio/checkboxes
-  ColorField,        // Color selection
-  NumberField,       // Numeric input
-} from '@hubspot/cms-components/fields';
-```
-
-### Specialized Fields
-```typescript
-import {
-  MenuField,          // Menu selection
-  IconField,          // Icon selection
-  BlogField,          // Blog selection
-  LogoField,          // Logo uploads
-  TextAlignmentField, // Text alignment
-  AlignmentField,     // General alignment
-  DateField,          // Date input
-} from '@hubspot/cms-components/fields';
-```
-
-## Field Visibility
-
-Use for conditional field display:
-```typescript
-<TextField
-  name="conditionalField"
-  label="Conditional Field"
-  visibility={{
-    controlling_field_path: 'someToggle',
-    controlling_value_regex: 'true',
-    operator: 'EQUAL'
-  }}
-/>
-```
-
-## Best Practices
-
-1. **Structure**
-   - Keep content fields at top level
-   - Group style fields under `FieldGroup` with `tab="STYLE"`
-   - Use descriptive `name` and `label` properties
-
-2. **Defaults**
-   - Always set default values
-   - Use sensible defaults that work out of the box
-   - Set appropriate min/max for repeated fields
-
-3. **Required Fields**
-    - Do not require fields.
-    - Do not use the 'required' property.
-
-3. **Grouping**
-   - Only group related fields
-   - Use consistent naming (`group` prefix for groups)
-   - Keep style-related fields in STYLE tab
-
-4. **Validation**
-   - Set appropriate validation rules
-   - Include help text for complex fields
-   - Use visibility rules when needed
-
-Remember: The goal is to create intuitive, well-structured fields that provide a good editing experience in the HubSpot CMS.
+## Final Checklist
+- [ ] All props are properly typed
+- [ ] Components use CSS Modules with CSS custom properties for theming
+- [ ] Module meta is properly configured
+- [ ] Islands are properly implemented (if needed)
+- [ ] Accessibility is considered
+- [ ] Responsive design is implemented
+- [ ] Error handling is in place
+- [ ] Code is properly commented
 
 ## Examples
 
-### Menu Fields.tsx
+### 1. Static Module Implementation (Metrics)
+Example showing proper static module implementation with styling and theme variables:
 
 ```typescript
-import {
-  ModuleFields,
-  MenuField,
-  FieldGroup,
-  ChoiceField,
-  NumberField,
-  AlignmentField,
-  TextField,
-} from '@hubspot/cms-components/fields';
-import { SizeChoice } from '../../MenuComponent/types.js';
-import LinkStyle from '../../fieldLibrary/LinkStyle/index.js';
+// Metrics/index.tsx
+import { ModuleMeta } from '../../types/modules.js';
+import { staticWithModule } from '../../utils/classnames.js';
+import styles from './metrics.modules.css';
 
-const sizeOptions: SizeChoice[] = [
-  ['none', 'None'],
-  ['small', 'Small'],
-  ['medium', 'Medium'],
-  ['large', 'Large'],
-];
+const swm = staticWithModule(styles);
 
-export const fields = (
-  <ModuleFields>
-    <MenuField
-      label='Menu'
-      name='menu'
-      default='default'
-    />
-    <NumberField
-      label='Max menu depth'
-      name='maxDepth'
-      display='slider'
-      min={1}
-      max={3}
-      helpText='Set the maximum number of menu levels to include. Must always include at least 1 level or else no menu would populate.'
-      default={3}
-    />
-    <TextField
-      label='Accessible menu name'
-      name='menuName'
-      helpText='Set the aria-label on the nav element surrounding the menu. This provides additional context to those using screen readers to better understand the purpose of your menu. <a href="https://www.w3.org/WAI/tutorials/menus/structure/#label-menus">Learn more here</a>'
-      default=''
-    />
-    <FieldGroup
-      label='Styles'
-      name='styles'
-      tab='STYLE'
+type MetricProps = {
+  groupMetrics: {
+    metric: TextFieldType['default'];
+    description: TextFieldType['default'];
+  }[];
+  groupStyle: GroupStyle;
+};
+
+// Named components
+const MetricsContainer = createComponent('div');
+const Metric = createComponent('div');
+const MetricNumber = createComponent('div');
+const MetricDescription = createComponent('div');
+// inside metrics.module.css file:
+// .hs-elevate-metrics {
+  // display: flex;
+  // justify-content: space-around;
+  // flex-direction: column;
+
+  // @media (min-width: 768px) {
+  //   flex-direction: row;
+  // }
+// }
+// same for .hs-elevate-metrics__number
+
+export const Component = (props: MetricProps) => {
+  const {
+    groupMetrics,
+    groupStyle: { headingStyleVariant, sectionStyleVariant },
+  } = props;
+
+  const cssVarsMap: CSSPropertiesMap = {
+    '--hsElevate--metrics__accentColor': 'var(--theme-color-primary)',
+  };
+
+  return (
+    <MetricsContainer
+      className={swm('hs-elevate-metrics')}
+      style={cssVarsMap}
     >
-      <FieldGroup
-        label='Menu'
-        name='groupMenu'
-        display='inline'
-      >
-        <AlignmentField
-          label='Menu alignment'
-          name='menuAlignment'
-          required={true}
-          alignmentDirection='HORIZONTAL'
-          default={{ horizontal_align: 'LEFT' }}
-        />
-        <ChoiceField
-          label='Column gap'
-          name='menuColumnGap'
-          display='select'
-          helpText='Changes the amount of space between top level menu items. You can also think as the space between each column in the horizontal menu.'
-          choices={sizeOptions}
-          default='none'
-          required={true}
-        />
-      </FieldGroup>
-      <FieldGroup
-        label='Menu items'
-        name='groupMenuItems'
-        display='inline'
-      >
-        <ChoiceField
-          label='Vertical gap'
-          name='menuItemVerticalGap'
-          display='select'
-          helpText='Changes the amount of space between menu items. Increasing this value will create unclickable space/gaps between each menu item link.'
-          choices={sizeOptions}
-          required={true}
-          default='none'
-        />
-        <ChoiceField
-          label='Padding'
-          name='menuItemPadding'
-          display='select'
-          helpText='Changes the amount of padding surrounding the text of each menu item. Increasing this value will increase the clickable area of each menu item link.'
-          choices={sizeOptions}
-          required={true}
-          default='none'
-        />
-      </FieldGroup>
-      <FieldGroup
-        label='Links'
-        name='groupLink'
-        display='inline'
-      >
-        <LinkStyle
-          linkStyleDefault='primary_links'
-        />
-      </FieldGroup>
-    </FieldGroup>
-  </ModuleFields>
-);
-```
-
-### PricingCard Fields.tsx
-
-```typescript
-import { ModuleFields, RepeatedFieldGroup, TextField, FieldGroup, BooleanField, AdvancedVisibility, } from '@hubspot/cms-components/fields';
-import { ButtonContent, HeadingAndText } from '../../fieldLibrary/index.js';
-import StyleFields from './styleFields.js';
-
-const buttonFieldVisibility: AdvancedVisibility = {
-  boolean_operator: 'OR',
-  criteria: [{
-    controlling_field_path: 'groupPricingCards.groupButton.showButton',
-    controlling_value_regex: 'true',
-    operator: 'EQUAL',
-  }]
-}
-
-export const fields = (
-  <ModuleFields>
-    <RepeatedFieldGroup
-      label='Pricing cards'
-      name='groupPricingCards'
-      occurrence={{
-        min: 1,
-        max: 4,
-        default: 1,
-      }}
-      default={[
-        {
-          groupSummary: {
-            headingAndTextHeadingLevel: 'h2',
-            headingAndTextHeading: 'Starter',
-            description: 'Perfect for small businesses or startups looking to kickstart their digital marketing efforts',
-            price: '$79',
-            timePeriod: '/month',
-          },
-          groupPlanFeatures: {
-            headingAndTextHeadingLevel: 'h3',
-            headingAndTextHeading: 'Starter plan includes',
-            groupFeatures: [
-              {
-                feature: 'Social media management',
-              },
-              {
-                feature: 'Email marketing campaigns',
-              },
-              {
-                feature: 'Basic SEO optimization',
-              },
-              {
-                feature: 'Monthly performance reports',
-              },
-            ],
-          },
-          groupButton: {
-            showButton: true,
-            buttonContentText: 'Get started',
-            buttonContentLink: {
-              open_in_new_tab: true,
-            },
-            buttonContentShowIcon: false,
-            buttonContentIcon: {
-              name: 'dollar-sign',
-            },
-            buttonContentIconPosition: 'right',
-          },
-        },
-        {
-          groupSummary: {
-            headingAndTextHeadingLevel: 'h2',
-            headingAndTextHeading: 'Pro',
-            description: 'Ideal for growing businesses that want to expand their online presence and reach a larger audience',
-            price: '$129',
-            timePeriod: '/month',
-          },
-          groupPlanFeatures: {
-            headingAndTextHeadingLevel: 'h3',
-            headingAndTextHeading: 'Pro plan includes',
-            groupFeatures: [
-              {
-                feature: 'Everything in Starter plan',
-              },
-              {
-                feature: 'Advanced social media management',
-              },
-              {
-                feature: 'Email marketing automation',
-              },
-              {
-                feature: 'Basic SEO optimization',
-              },
-              {
-                feature: 'Comprehensive SEO analysis and recommendations',
-              },
-            ],
-          },
-          groupButton: {
-            showButton: true,
-            buttonContentText: 'Get started',
-            buttonContentLink: {
-              open_in_new_tab: true,
-            },
-            buttonContentShowIcon: false,
-            buttonContentIcon: {
-              name: 'dollar-sign',
-            },
-            buttonContentIconPosition: 'right',
-          },
-        },
-        {
-          groupSummary: {
-            headingAndTextHeadingLevel: 'h2',
-            headingAndTextHeading: 'Enterprise',
-            description: 'Tailored for established businesses seeking a holistic digital marketing solution to boost brand visibility and engagement',
-            price: '$599',
-            timePeriod: '/month',
-          },
-          groupPlanFeatures: {
-            headingAndTextHeadingLevel: 'h3',
-            headingAndTextHeading: 'Enterprise plan includes',
-            groupFeatures: [
-              {
-                feature: 'Everything in Pro plan',
-              },
-              {
-                feature: 'Customized social media strategies',
-              },
-              {
-                feature: 'Personalized email marketing campaigns',
-              },
-              {
-                feature: 'Advanced SEO implementation and monitoring',
-              },
-              {
-                feature: 'Bi-weekly performance reports and strategy consultations',
-              },
-            ],
-          },
-          groupButton: {
-            showButton: true,
-            buttonContentText: 'Contact sales',
-            buttonContentLink: {
-              open_in_new_tab: true,
-            },
-            buttonContentShowIcon: false,
-            buttonContentIcon: {
-              name: 'dollar-sign',
-            },
-            buttonContentIconPosition: 'right',
-          },
-        },
-      ]}
-    >
-      <FieldGroup
-        label='Pricing summary'
-        name='groupSummary'
-        display='inline'
-      >
-        <HeadingAndText
-          headingTextLabel='Pricing plan title'
-          headingLevelDefault='h2'
-          textDefault='Starter'
-        />
-        <TextField
-          label='Description'
-          name='description'
-          default='Perfect for small businesses or startups looking to kickstart their digital marketing efforts'
-        />
-        <TextField
-          label='Price'
-          name='price'
-          required={true}
-          default='$79'
-        />
-        <TextField
-          label='Time period'
-          name='timePeriod'
-          required={true}
-          default='/month'
-        />
-      </FieldGroup>
-      <FieldGroup
-        label='Pricing plan features'
-        name='groupPlanFeatures'
-        display='inline'
-      >
-        <HeadingAndText
-          headingTextLabel='Features title'
-          headingLevelDefault='h3'
-          textDefault='Starter plan includes'
-        />
-        <RepeatedFieldGroup
-          label='Features'
-          name='groupFeatures'
-          occurrence={{
-            min: 1,
-            max: 20,
-            default: 5,
-          }}
-          default={[
-            {
-              feature: 'Social media management',
-            },
-            {
-              feature: 'Email marketing campaigns',
-            },
-            {
-              feature: 'Basic SEO optimization',
-            },
-            {
-              feature: 'Monthly performance reports',
-            },
-          ]}
+      {groupMetrics.map((metric, index) => (
+        <Metric
+          key={index}
+          className={swm('hs-elevate-metrics__metric')}
         >
-          <TextField
-            label='Feature'
-            name='feature'
-            default='Social media management'
-          />
-        </RepeatedFieldGroup>
-      </FieldGroup>
-      <FieldGroup
-        label='Button'
-        name='groupButton'
-        display='inline'
-      >
-        <BooleanField
-          label='Show button'
-          name='showButton'
-          display='toggle'
-          default={true}
-        />
-        <ButtonContent
-          textDefault='Get started'
-          linkDefault={{
-            open_in_new_tab: true,
-          }}
-          textVisibility={buttonFieldVisibility}
-          linkVisibility={buttonFieldVisibility}
-        />
-      </FieldGroup>
-    </RepeatedFieldGroup>
-    <StyleFields />
-  </ModuleFields>
-);
-
+          <MetricNumber className={swm('hs-elevate-metrics__number')}>
+            {metric.metric}
+          </MetricNumber>
+          <MetricDescription className={swm('hs-elevate-metrics__description')}>
+            {metric.description}
+          </MetricDescription>
+        </Metric>
+      ))}
+    </MetricsContainer>
+  );
+};
 ```
 
-## Important Rules for Field Library and Repeater Groups
+### 2. Interactive Module with Islands (TestimonialSlider)
+Example showing proper island component usage:
 
-### Field Library Component Usage
-1. **CRITICAL**: Before using any field library component, you MUST read its implementation first to understand its field names
-2. **Field Names Must Match**: When referencing fields from a field library component (e.g., in default values), the property names MUST exactly match the internal field names of the component
-3. **Example of Proper Usage**:
 ```typescript
-// First, read ButtonContent component to know its field names are:
-// - buttonContentText
-// - buttonContentLink
-// - buttonContentIcon
-// - buttonContentIconPosition
+// TestimonialSlider/index.tsx
+import { ModuleMeta } from '../../types/modules.js';
+import { Island } from '@hubspot/cms-components';
+import TestimonialSlider from './islands/TestimonialSliderIsland.js?island';
 
-// Then use those exact names in your implementation:
-<ButtonContent
-  textDefault="Learn More"      // Sets default for buttonContentText
-  linkDefault={{               // Sets default for buttonContentLink
-    open_in_new_tab: true,
-    url: { href: '#' }
-  }}
-  iconPositionDefault="right"  // Sets default for buttonContentIconPosition
-/>
+export const Component = (props: TestimonialSliderProps) => {
+  return (
+    <Island
+      hydrateOn="load"
+      module={TestimonialSlider}
+      groupTestimonial={props.groupTestimonial}
+      groupStyle={props.groupStyle}
+      clientOnly={true}
+    />
+  );
+};
 ```
 
-### Repeater Group Default Values
-1. **CRITICAL**: In repeater group defaults, object keys MUST match the exact field names defined within the group
-2. **NO Arbitrary Keys**: Never use arbitrary key-value pairs in default objects
-3. **Example of Proper Usage**:
+### 4. Theme Variable Usage
+Example of proper theme variable implementation:
+
 ```typescript
-<RepeatedFieldGroup
-  name="items"
-  default={[
-    {
-      // These keys MUST match the field names defined in the group
-      title: "Item 1",    // Matches <TextField name="title" />
-      description: "...", // Matches <TextField name="description" />
+import { CSSPropertiesMap } from '../../types/components.ts;
+
+function generateColorCssVars(sectionVariantField: SectionVariantType): CSSPropertiesMap {
+  const sectionColorsMap = {
+    section_variant_1: {
+      textColor: 'var(--hsElevate--section--lightSection--1__textColor)',
+      accentColor: 'var(--hsElevate--section--lightSection--1__accentColor)',
+    },
+    section_variant_2: {
+      textColor: 'var(--hsElevate--section--lightSection--2__textColor)',
+      accentColor: 'var(--hsElevate--section--lightSection--2__accentColor)',
     }
-  ]}
->
-  <TextField name="title" />
-  <TextField name="description" />
-</RepeatedFieldGroup>
-```
+  };
 
-4. **Example of INCORRECT Usage**:
-```typescript
-// ❌ WRONG - arbitrary keys that don't match field names
-<RepeatedFieldGroup
-  name="items"
-  default={[
-    {
-      itemTitle: "Item 1",      // Wrong - should be "title"
-      itemDescription: "..."    // Wrong - should be "description"
-    }
-  ]}
->
-  <TextField name="title" />
-  <TextField name="description" />
-</RepeatedFieldGroup>
+  return {
+    '--hsElevate--metrics__textColor': sectionColorsMap[sectionVariantField].textColor,
+    '--hsElevate--metrics__accentColor': sectionColorsMap[sectionVariantField].accentColor,
+  };
+}
 ```
 
 ---
