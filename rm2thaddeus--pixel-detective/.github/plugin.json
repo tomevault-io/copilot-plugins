@@ -1,0 +1,18 @@
+{
+  "name": "rm2thaddeus--pixel-detective",
+  "displayName": "Pixel_Detective",
+  "description": "A repository for the Pixel Detective project.",
+  "version": "1.0.0",
+  "author": "rm2thaddeus",
+  "homepage": "https://github.com/rm2thaddeus/Pixel_Detective",
+  "skills": [
+    {
+      "name": "start-pixel-detective",
+      "description": ""
+    },
+    {
+      "name": "start-dev-graph",
+      "description": ""
+    }
+  ]
+}
