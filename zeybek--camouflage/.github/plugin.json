@@ -1,0 +1,9 @@
+{
+  "name": "zeybek--camouflage",
+  "displayName": "camouflage",
+  "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files",
+  "version": "1.0.0",
+  "author": "zeybek",
+  "homepage": "https://github.com/zeybek/camouflage",
+  "skills": []
+}
