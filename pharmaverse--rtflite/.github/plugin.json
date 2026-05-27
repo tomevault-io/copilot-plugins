@@ -1,0 +1,9 @@
+{
+  "name": "pharmaverse--rtflite",
+  "displayName": "rtflite",
+  "description": "Lightweight RTF composer for Python. Specializes in precise formatting of production-quality tables and figures.",
+  "version": "1.0.0",
+  "author": "pharmaverse",
+  "homepage": "https://github.com/pharmaverse/rtflite",
+  "skills": []
+}
