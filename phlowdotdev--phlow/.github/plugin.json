@@ -1,0 +1,9 @@
+{
+  "name": "phlowdotdev--phlow",
+  "displayName": "phlow",
+  "description": "Phlow is a Low Code Rust runtime for modular backends \u2014 scalable, composable, and with native observability powered by OpenTelemetry.",
+  "version": "1.0.0",
+  "author": "phlowdotdev",
+  "homepage": "https://github.com/phlowdotdev/phlow",
+  "skills": []
+}
