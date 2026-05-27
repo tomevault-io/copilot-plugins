@@ -2,7 +2,7 @@
   "name": "prime-ir",
   "owner": "fractalyze",
   "repo": "prime-ir",
-  "description": "",
+  "description": " Intermediate Representation (IR) for cryptographic computations",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -39,7 +39,6 @@
   ],
   "skills": [],
   "source_url": "https://github.com/fractalyze/prime-ir",
-  "claim_url": "https://tomevault.io/claim/fractalyze",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T05:36:30Z"
+  "distributed_at": "2026-05-27T17:53:57Z"
 }
