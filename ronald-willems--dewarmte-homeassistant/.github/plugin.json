@@ -1,0 +1,9 @@
+{
+  "name": "ronald-willems--dewarmte-homeassistant",
+  "displayName": "dewarmte-homeassistant",
+  "description": "Home Assistant Integration for DeWarmte Heatpump",
+  "version": "1.0.0",
+  "author": "ronald-willems",
+  "homepage": "https://github.com/ronald-willems/dewarmte-homeassistant",
+  "skills": []
+}
