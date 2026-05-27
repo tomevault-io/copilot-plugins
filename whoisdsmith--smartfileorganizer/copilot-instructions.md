@@ -1,24 +1,52 @@
-## 002-cursor-rules
+## 100-api-integration
 
-> Structural guidelines for creating and maintaining .mdc files
+> API integration standards
 
 # Guidelines
 
-- **Front Matter**
-  - Always include `Description` and `Globs`.
-  - Optional fields: `Tags` or `Author`.
+- **API Key Management**
+  - Obtain API keys from environment variables (`GOOGLE_API_KEY`, `OPENAI_API_KEY`) or settings.
+  - Implement the `SettingsManager` to retrieve API keys, prioritizing environment variables and then settings.
 
-- **Body Content**
-  - Use concise, numbered lists or bullet points.
-  - Plain language for AI parsing.
+- **Rate Limiting**
+  - Implement rate limiting for the Google Gemini API.
+  - Default rate limits are 30 requests/minute and 5 retries.
+  - Make these configurable via `SettingsManager`.
+  - Implement exponential backoff with jitter for retries.
 
-- **File Naming**
-  - Numeric prefixes for priority/order (e.g., `001_workspace.mdc`).
-  - Short, descriptive filenames.
+- **Error Handling**
+  - Handle API-related exceptions gracefully.
+  - Log errors with sufficient context.
+  - Provide fallback mechanisms when AI analysis fails.
 
-- **Updates and Versioning**
-  - Review `.mdc` files at major milestones or architectural changes.
-  - Use commit history for change logs.
+- **Model Selection**
+  - Provide a mechanism to select AI models.
+  - `AIAnalyzer`: Support multiple Gemini models (`gemini-2.0-flash`, `gemini-1.5-flash`, etc.).
+  - `OpenAIAnalyzer`: Support multiple OpenAI models (`gpt-4o`, `gpt-4-turbo`, etc.)
+  - Use `SettingsManager` to save and retrieve the selected model.
+
+- **Prompt Structure**:
+    - Use consistent prompts:
+        - Specify output format (JSON).
+        - Request category, keywords, summary, and theme.
+        - Enforce length limits (max summary sentences, max keywords).
+
+- **Content Analysis**
+  - Truncate large inputs:
+    - Gemini: 30,000 characters.
+    - OpenAI: 20,000 characters.
+  - Add a truncation indicator if input is shortened.
+
+- **Factory Pattern**:
+    - Use `AIServiceFactory` to create instances of `AIAnalyzer` or `OpenAIAnalyzer`.
+    - The factory should decide based on settings or environment variables.
+    - Support both Google Gemini (`google`) and OpenAI (`openai`).
+
+- **Relationship Analysis:**
+  - Implement `find_similar_documents` to find similarity based on keywords, category, theme, and file type.
+  - Implement `find_related_content` for deeper contextual relationships.
+  - Prioritize high-quality matches (high scores, strong explanations).
+  - Use AI to analyze for "prerequisite", "sequential", "contextual", "extension" relationships.
 
 ---
 > Source: [whoisdsmith/SmartFileOrganizer](https://github.com/whoisdsmith/SmartFileOrganizer) — distributed by [TomeVault](https://tomevault.io).
