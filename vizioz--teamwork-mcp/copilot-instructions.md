@@ -1,57 +1,37 @@
-## add-new-teamwork-mcp-endpoint
+## instructions-for-todo-list
 
-> Step that I would like you to follow when adding a new MCP endpoint to this solution.
+> If a TODO.md file exists in the root of a solution, it outlines the current tasks. Team members can refer to this file to identify tasks they can assist with, especially after completing previous assignments.
 
+---
+description: 
+globs: todo.md
+alwaysApply: true
+---
+# Task Management with TODO.md
 
-# Steps to Add a New Teamwork MCP Endpoint
+If a TODO.md file exists in the root of a solution, it outlines the current tasks. Team members can refer to this file to identify tasks they can assist with, especially after completing previous assignments. 
 
-NOTE: When implementing any API calls using `api.post()` the path must not include the base path which is: `/projects/api/v3` 
+Tasks are prioritized as follows:
 
-1 Use Swagger MCP to generate typescript models used by this endpoint to allow you to strongly type code with the correct models:
+🟥 High Priority: Known issues that are currently broken and require immediate attention.
+🟨 Medium Priority: New tasks that need to be addressed.
+✅ Completed Tasks: Tasks that have been finished successfully.
 
-`mcp__listEndpointModels --swaggerFilePath [path from .swagger-mcp file] --path [API endpoint path] --method [HTTP method]`
+When contributing to a task:
+- If you verify that your changes have completed the task, update its status in the TODO.md file, verification must be in the form of running a test to prove that then functionality works, or by user confirmation.
+- If it requires manual verification by the user, notify them. Once confirmed, update the task status accordingly.
+- All tasks should be in bullet lists
+- When adding new tasks, use the 🟨 emoji. Upon completion, mark tasks with a ✅. For known issues, denote them with a 🟥.
 
-2. Use Swapper MCP to generate the MCP Endpoint definition.
+Group competed tasks under third level headings for each date that issues were fixed in the following format: MM/DD/YYYY
 
-`mcp__generateEndpointToolCode --swaggerFilePath [path from .swagger-mcp file] --path [API endpoint path] --method [HTTP method]`
+New date completed task sections should be added above all other dated sections. 
 
-3 Create service implementation file:
+Always add completed tasks to the top of the current date's list so we see the most recent completed items first, the date sections should also show the most recent date at the top to make it quicker to see the most recently changes.
 
-- Create a new file in src/services/[category]/[endpointName].ts
-- Implement the service function following existing patterns
-- Export the function as both named export and default export
+# Markdown Formatting Standards
 
-4 Update services/index.ts:
-
-- Import the new service function
-- Add it to the named exports
-- Add it to the default export object
-
-5 Create tool implementation file:
-
-- Create a new file in src/tools/[category]/[endpointName].ts
-- Check the naming conventions used in the other tools.
-- Define the tool definition with name, description, and input schema
-- Implement the handler function that calls the service
-
-6 Update tools/index.ts:
-
-- Import the tool definition and handler
-- Add them to the toolPairs array
-- Add the handler to the exports list
-
-7 Update Todo.md:
-
-- Mark the endpoint as completed (✅) in the appropriate section
-- Add an entry in the "MCP Implementation Issues" section documenting the completion
-
-8 Test the new endpoint:
-
-- Create a test case that uses the new endpoint
-- Verify the response is as expected
-- If the endpoint is a DELETE, always create an item to delete, do not delete any existing content without user consent.
-
-This workflow ensures that new endpoints are properly integrated into the existing codebase structure and follow the same patterns as other endpoints.
+Always include a blank line above and below every heading in markdown files, such as TODO.md, to maintain readability and consistency. Always ensure there is a blank line at the end of any markdown file.
 
 ---
 > Source: [Vizioz/Teamwork-MCP](https://github.com/Vizioz/Teamwork-MCP) — distributed by [TomeVault](https://tomevault.io).
