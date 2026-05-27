@@ -1,0 +1,9 @@
+{
+  "name": "abhishekbhakat--airflow-mcp-server",
+  "displayName": "airflow-mcp-server",
+  "description": "MCP Server for Apache Airflow",
+  "version": "1.0.0",
+  "author": "abhishekbhakat",
+  "homepage": "https://github.com/abhishekbhakat/airflow-mcp-server",
+  "skills": []
+}
