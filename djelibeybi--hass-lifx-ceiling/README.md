@@ -7,11 +7,11 @@ Provides uplight and downlight control for LIFX Ceiling in Home Assistant
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Djelibeybi/hass-lifx-ceiling](https://github.com/Djelibeybi/hass-lifx-ceiling).
+Original source: `CLAUDE.md` in [Djelibeybi/hass-lifx-ceiling](https://github.com/Djelibeybi/hass-lifx-ceiling).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
