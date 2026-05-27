@@ -1,0 +1,9 @@
+{
+  "name": "cpage-pivotal--cf-mcp-client",
+  "displayName": "cf-mcp-client",
+  "description": "Tanzu Platform Chat",
+  "version": "1.0.0",
+  "author": "cpage-pivotal",
+  "homepage": "https://github.com/cpage-pivotal/cf-mcp-client",
+  "skills": []
+}
