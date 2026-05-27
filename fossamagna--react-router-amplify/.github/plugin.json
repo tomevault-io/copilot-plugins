@@ -1,0 +1,9 @@
+{
+  "name": "fossamagna--react-router-amplify",
+  "displayName": "react-router-amplify",
+  "description": "This project is vite plugin for React Router SSR on AWS Amplify Hosting and AWS Amplify React Router Adapter.",
+  "version": "1.0.0",
+  "author": "fossamagna",
+  "homepage": "https://github.com/fossamagna/react-router-amplify",
+  "skills": []
+}
