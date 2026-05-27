@@ -1,0 +1,9 @@
+{
+  "name": "clayrosenthal--epub2audio",
+  "displayName": "epub2audio",
+  "description": "Convert an `.epub` file into an audiobook with a local AI",
+  "version": "1.0.0",
+  "author": "clayrosenthal",
+  "homepage": "https://github.com/clayrosenthal/epub2audio",
+  "skills": []
+}
