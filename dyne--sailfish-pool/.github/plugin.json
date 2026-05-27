@@ -1,0 +1,9 @@
+{
+  "name": "dyne--sailfish-pool",
+  "displayName": "sailfish-pool",
+  "description": "Secure and fast memory pool in 300 lines of portable header-only C",
+  "version": "1.0.0",
+  "author": "dyne",
+  "homepage": "https://github.com/dyne/sailfish-pool",
+  "skills": []
+}
