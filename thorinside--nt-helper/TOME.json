@@ -4,7 +4,7 @@
   "repo": "nt_helper",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thorinside/nt_helper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T23:34:52Z"
+  "distributed_at": "2026-05-27T23:35:23Z"
 }
