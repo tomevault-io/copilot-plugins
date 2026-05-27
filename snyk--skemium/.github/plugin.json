@@ -1,0 +1,9 @@
+{
+  "name": "snyk--skemium",
+  "displayName": "skemium",
+  "description": "Generate and Compare Debezium CDC (Chance Data Capture) Avro Schema, directly from your Database.",
+  "version": "1.0.0",
+  "author": "snyk",
+  "homepage": "https://github.com/snyk/skemium",
+  "skills": []
+}
