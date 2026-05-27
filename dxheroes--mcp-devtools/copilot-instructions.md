@@ -1,101 +1,63 @@
-## testing-standards
+## typescript-style
 
-> Testing Standards
+> TypeScript Coding Standards
 
 
-# Testing Standards
+# TypeScript Coding Standards
 
-Follow these standards when writing tests for MCP DevTools packages:
+Follow these standards when writing TypeScript code for MCP DevTools:
 
-@file packages/_/src/\*\*/_.test.ts
-@file .cursor/rules/typescript-style.mdc
+@file packages/jira/src/tools/getTicket.ts
+@file tsconfig.json
+@file .cursor/rules/testing-standards.mdc
 
-## Test Structure
+## Naming Conventions
 
-```typescript
-import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  afterEach,
-  jest,
-} from "@jest/globals";
-import { featureUnderTest } from "../path/to/feature";
+- **Files**: Use `camelCase` for filenames
+- **Interfaces**: Use `PascalCase` prefixed with `I` (e.g., `IToolParams`)
+- **Types**: Use `PascalCase` (e.g., `ToolResponse`)
+- **Functions**: Use `camelCase` (e.g., `executeQuery`)
+- **Constants**: Use `UPPER_SNAKE_CASE` for truly constant values
+- **Variables**: Use `camelCase`
+- **Private/Protected Members**: Prefix with underscore (e.g., `_privateMethod`)
 
-describe("Feature Name", () => {
-  // Setup mocks and test fixtures
-  beforeEach(() => {
-    // Setup code
-  });
+## Code Organization
 
-  afterEach(() => {
-    // Cleanup code
-    jest.resetAllMocks();
-  });
+- One class/interface per file when possible
+- Group related functions in logical files
+- Export public API from index.ts files
+- Keep files under 300 lines when possible
 
-  describe("Specific Functionality", () => {
-    it("should behave as expected in normal conditions", async () => {
-      // Arrange
-      const input = {
-        /* test data */
-      };
+## TypeScript Best Practices
 
-      // Act
-      const result = await featureUnderTest(input);
+- Use explicit typing over `any`
+- Prefer interfaces for object shapes
+- Use type guards for runtime type checking
+- Utilize generics for reusable components
+- Use readonly for immutable properties
+- Always specify return types for functions
+- Use null coalescing and optional chaining
 
-      // Assert
-      expect(result).toEqual(/* expected output */);
-    });
+## Error Handling
 
-    it("should handle error cases appropriately", async () => {
-      // Arrange
-      const invalidInput = {
-        /* invalid test data */
-      };
+- Use typed error classes
+- Handle async errors with try/catch
+- Provide meaningful error messages
+- Return structured error responses
 
-      // Act & Assert
-      await expect(featureUnderTest(invalidInput)).rejects.toThrow();
-    });
-  });
-});
-```
+## Comments
 
-## Testing Guidelines
+- Use JSDoc for public APIs
+- Comment complex algorithms
+- Explain "why" not "what"
+- Keep comments up to date with code changes
 
-1. **Test Organization**
+## Imports/Exports
 
-   - Use descriptive `describe` and `it` blocks
-   - Group related tests together
-   - Follow the Arrange-Act-Assert pattern
-   - Keep tests focused on a single functionality
-
-2. **Mocking**
-
-   - Mock external dependencies
-   - Use jest.mock() for external modules
-   - Create dedicated mock factories for complex objects
-   - Reset mocks between tests
-
-3. **Coverage**
-
-   - Aim for >80% code coverage
-   - Test happy paths and error paths
-   - Include edge cases and boundary conditions
-   - Test asynchronous behavior correctly
-
-4. **Test Data**
-
-   - Use realistic test data
-   - Create helper functions for test data generation
-   - Avoid test data duplication
-   - Keep test data close to tests that use it
-
-5. **Assertions**
-   - Make assertions specific and meaningful
-   - Test return values, side effects, and exceptions
-   - Use appropriate matchers (toEqual, toBeCalledWith, etc.)
-   - Write custom matchers for complex assertions
+- Use named exports for multiple items
+- Use default export for primary component of a file
+- Group imports by external/internal/types
+- Avoid circular dependencies
 
 ---
 > Source: [DXHeroes/mcp-devtools](https://github.com/DXHeroes/mcp-devtools) — distributed by [TomeVault](https://tomevault.io).
