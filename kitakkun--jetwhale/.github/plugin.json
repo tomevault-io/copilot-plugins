@@ -1,0 +1,9 @@
+{
+  "name": "kitakkun--jetwhale",
+  "displayName": "JetWhale",
+  "description": "A next-generation extensible debugger for modern apps, powered by Jetpack Compose.",
+  "version": "1.0.0",
+  "author": "kitakkun",
+  "homepage": "https://github.com/kitakkun/JetWhale",
+  "skills": []
+}
