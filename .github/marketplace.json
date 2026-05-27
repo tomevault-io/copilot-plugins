@@ -73919,11 +73919,6 @@
       "description": "LLM agent for Obsidian with multi-turn tool-use for plugin/theme development and automation."
     },
     {
-      "name": "rawveg--trader-magic",
-      "source": "./rawveg--trader-magic",
-      "description": "A local AI-powered automated trading system built with Python. The system uses Ollama for AI decision-making, TAAPI.io for technical indicators, and Alpaca for trade execution."
-    },
-    {
       "name": "playtazuo--tazuo",
       "source": "./playtazuo--tazuo",
       "description": "TazUO - Custom client for Ultima Online"
@@ -85184,6 +85179,11 @@
       "description": "iOS-backend-cheat-sheet"
     },
     {
+      "name": "chryzsh--docker-cobaltstrike",
+      "source": "./chryzsh--docker-cobaltstrike",
+      "description": "docker-cobaltstrike"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -87152,6 +87152,31 @@
       "name": "keijiro--kinofeedbackurp",
       "source": "./keijiro--kinofeedbackurp",
       "description": "Old-school video feedback effect for Unity URP"
+    },
+    {
+      "name": "castorini--nuggetizer",
+      "source": "./castorini--nuggetizer",
+      "description": "nuggetizer"
+    },
+    {
+      "name": "ctxs-ai--ctxs-ai",
+      "source": "./ctxs-ai--ctxs-ai",
+      "description": "an open-source, community-curated directory of contexts for use with LLMs"
+    },
+    {
+      "name": "castorini--nuggetizer",
+      "source": "./castorini--nuggetizer",
+      "description": "nuggetizer"
+    },
+    {
+      "name": "ctxs-ai--ctxs-ai",
+      "source": "./ctxs-ai--ctxs-ai",
+      "description": "an open-source, community-curated directory of contexts for use with LLMs"
+    },
+    {
+      "name": "ctxs-ai--ctxs-ai",
+      "source": "./ctxs-ai--ctxs-ai",
+      "description": "an open-source, community-curated directory of contexts for use with LLMs"
     },
     {
       "name": "10xchengtu--mux0",
@@ -89237,6 +89262,21 @@
       "name": "waybettersolutions--octave",
       "source": "./waybettersolutions--octave",
       "description": "Open-source, Cross-platform Telematics Augmented Vehicle Experience"
+    },
+    {
+      "name": "onmomo--squeeze-plex-hub",
+      "source": "./onmomo--squeeze-plex-hub",
+      "description": "Squeeze Plex Hub bridges Plexamp (Plex) with your Logitech / Lyrion Music Server ecosystem so you can play Plex audio on Squeezebox players."
+    },
+    {
+      "name": "onmomo--squeeze-plex-hub",
+      "source": "./onmomo--squeeze-plex-hub",
+      "description": "Squeeze Plex Hub bridges Plexamp (Plex) with your Logitech / Lyrion Music Server ecosystem so you can play Plex audio on Squeezebox players."
+    },
+    {
+      "name": "stagsz--unconventional-thinking",
+      "source": "./stagsz--unconventional-thinking",
+      "description": "An MCP server for unconventional and boundary-breaking problem-solving through an advanced note-taking system."
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -93582,6 +93622,11 @@
       "name": "harleycoops--oneshotaquarat",
       "source": "./harleycoops--oneshotaquarat",
       "description": "One click away from a locally downloaded, fine-tuned model, hosted on hugging face, with inference built in. In two hours. "
+    },
+    {
+      "name": "saward--spawn",
+      "source": "./saward--spawn",
+      "description": "spawn"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -101204,6 +101249,16 @@
       "description": "A modern web application for searching and downloading audiobooks from AudiobookBay. Supports Transmission, qBittorrent, Decypharr, Beets integration, and Goodreads sync."
     },
     {
+      "name": "kitakkun--jetwhale",
+      "source": "./kitakkun--jetwhale",
+      "description": "A next-generation extensible debugger for modern apps, powered by Jetpack Compose."
+    },
+    {
+      "name": "minami110--godot-signal-extensions",
+      "source": "./minami110--godot-signal-extensions",
+      "description": "Godot 4 plugin that extends GDScript's Signal and Callable."
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -106269,6 +106324,11 @@
       "description": "WatchMyBirds is a lightweight, customizable object detection application designed for real-time monitoring and birdwatching. Leveraging state-of-the-art AI models and supporting a variety of video sou"
     },
     {
+      "name": "thanhdaon--clean-arch-go",
+      "source": "./thanhdaon--clean-arch-go",
+      "description": "Clean Architecture, DDD, CQRS with testings in Go"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -109127,6 +109187,21 @@
       "name": "nalamap--nalamap",
       "source": "./nalamap--nalamap",
       "description": "NaLaMap is an open-source application to create webmaps and analyze geospatial data using natural language. "
+    },
+    {
+      "name": "hoper-j--cpolar-connect",
+      "source": "./hoper-j--cpolar-connect",
+      "description": "\ud83d\ude80 A command-line tool for automating cpolar tunnel management and SSH connections.  \u81ea\u52a8\u5316\u7ba1\u7406 cpolar \u514d\u8d39\u7248\u5185\u7f51\u7a7f\u900f\u8fde\u63a5\u7684\u547d\u4ee4\u884c\u5de5\u5177\u3002"
+    },
+    {
+      "name": "komlev--darksouls-notifications",
+      "source": "./komlev--darksouls-notifications",
+      "description": "Dark Souls themed email notification extension"
+    },
+    {
+      "name": "hoper-j--cpolar-connect",
+      "source": "./hoper-j--cpolar-connect",
+      "description": "\ud83d\ude80 A command-line tool for automating cpolar tunnel management and SSH connections.  \u81ea\u52a8\u5316\u7ba1\u7406 cpolar \u514d\u8d39\u7248\u5185\u7f51\u7a7f\u900f\u8fde\u63a5\u7684\u547d\u4ee4\u884c\u5de5\u5177\u3002"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -112467,6 +112542,11 @@
       "name": "metacraft-labs--codetracer-ruby-recorder",
       "source": "./metacraft-labs--codetracer-ruby-recorder",
       "description": "A prototype of a codetracer recorder for Ruby"
+    },
+    {
+      "name": "tayfunerbilen--prototurk-go-backend",
+      "source": "./tayfunerbilen--prototurk-go-backend",
+      "description": "prototurk-go-backend"
     },
     {
       "name": "13point5--agent-canvas",
@@ -119179,6 +119259,11 @@
       "description": "laravel.sn"
     },
     {
+      "name": "rambip--plant-mesh",
+      "source": "./rambip--plant-mesh",
+      "description": "Mesh generation for tree and plants, using volumetric invigoration"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -122902,6 +122987,16 @@
       "name": "lowrezstudio--tempest",
       "source": "./lowrezstudio--tempest",
       "description": "Monorepo for Tempest including MarshalLib, the launcher, the API and the CLI"
+    },
+    {
+      "name": "wandlerai--wandler",
+      "source": "./wandlerai--wandler",
+      "description": "run ai in your browser"
+    },
+    {
+      "name": "srizzon--my-barbershop",
+      "source": "./srizzon--my-barbershop",
+      "description": "my-barbershop"
     },
     {
       "name": "mohiwalla--memes",
@@ -132342,6 +132437,11 @@
       "name": "omarelhassanialaoui--flutcn-ui",
       "source": "./omarelhassanialaoui--flutcn-ui",
       "description": "a widgets library for flutter developers inspired by Shadcn/ui"
+    },
+    {
+      "name": "georgejeffers--gemini-mcp-server",
+      "source": "./georgejeffers--gemini-mcp-server",
+      "description": "A Model Context Protocol (MCP) server that integrates with Google's Gemini Pro model, can be used in Claude Desktop App."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
