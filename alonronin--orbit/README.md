@@ -1,6 +1,6 @@
-# orbit
+# AI instruction files for orbit
 
-> Config by [alonronin](https://github.com/alonronin/orbit) — distributed by [TomeVault](https://tomevault.io/claim/alonronin)
+> Sourced from [alonronin/orbit](https://github.com/alonronin/orbit) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `CLAUDE.md` in [alonronin/orbit](https://github.com/alonronin/o
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/alonronin](https://tomevault.io/claim/alonronin)
+From [alonronin/orbit](https://github.com/alonronin/orbit) — a repo with 33+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/alonronin) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-s -->
