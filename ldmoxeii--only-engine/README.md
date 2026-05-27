@@ -1,6 +1,6 @@
 # only-engine
 
-> Tome by [LDmoxeii](https://github.com/LDmoxeii/only-engine) — distributed by [TomeVault](https://tomevault.io/claim/LDmoxeii)
+> Tome by [LDmoxeii](https://github.com/LDmoxeii/only-engine) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [LDmoxeii/only-engine](https://github.com/LDmoxe
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/LDmoxeii)
+From [LDmoxeii/only-engine](https://github.com/LDmoxeii/only-engine) — a repo with 2+ stars on GitHub.
 
 ---
 
