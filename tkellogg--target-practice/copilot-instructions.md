@@ -1,0 +1,42 @@
+## target-practice
+
+> - All new components should be added to the `components` folder.
+
+# Rules
+- All new components should be added to the `components` folder.
+- All new pages should be added to the `pages` folder.
+- All new stores should be added to the `stores` folder.
+- All new hooks should be added to the `hooks` folder.
+- All new types should be added to the `types` folder.
+- Log everything that happens on the backend.
+- Always read & write to `main` branch.
+- `VITE_GH_ACCESS_KEY` and `VITE_ANTH_API_KEY` are passed via environment variables when starting the Vite dev server.
+- All data is stored in XML files via the Github API.
+- Always use `claude-3-5-sonnet-latest` for LLMs.
+- Always make the LLM generate JSON only, it's easier to parse.
+- Use OAuth to authenticate with github using a static token, no auth workflow.
+- Do as much as possible in the frontend. Avoid adding code to the backend at all cost.
+- Use built-in DOM APIs to create XML
+- The repo name is selected by the user via the drop down
+- The repo drop down is always populated from github, and only shows non-fork repos that aren't in an org
+- Anthropic API requests all go on the backend
+- frontend is on port 3001, backend is on 3002
+- Don't use Node.js APIs like Buffer, this runs in the browser.
+- Use tsconfig.server.json for server.ts, for all other files always use tsconfig.json
+- Use `tsx watch` to launch the server
+- NEVER change my .env file
+- For LLM responses when you expect JSON, always trim everything before '{' and afer '}'
+- For editable text, always use EditableText
+- Share code across modules whenever approprite
+- Always store XML as human-readable properly indented
+- Never rename variables unless requested
+- Always add a license header to every new JS/TS file with current year, 2025
+- Use https://github.com/tkellogg/resume-curated for testing
+- LLM-only: When selecting items from a list, use a short-lived random ID that's
+  discarded after the LLM operation completes.
+- All prompts ALWAYS go into `prompts.ts`
+- Swearing is caring. Swear frequently. Preferred words are "fuck" and "shit".
+
+---
+> Source: [tkellogg/target-practice](https://github.com/tkellogg/target-practice) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
