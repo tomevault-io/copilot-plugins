@@ -2,14 +2,16 @@
 
 > Source: [adrianulima/my-racing-planner](https://github.com/adrianulima/my-racing-planner) — distributed by [TomeVault](https://tomevault.io)
 
+This tool helps iRacing users efficiently navigate series, cars, and tracks, allowing them to make informed decisions about the best content to purchase based on usage in the current season.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [adrianulima/my-racing-planner](https://github.com/adrianulima/my-racing-planner).
+Original source: `AGENTS.md` in [adrianulima/my-racing-planner](https://github.com/adrianulima/my-racing-planner).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
