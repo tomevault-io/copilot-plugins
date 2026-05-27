@@ -1,0 +1,9 @@
+{
+  "name": "tomabai--llm-sec",
+  "displayName": "llm-sec",
+  "description": "A hands-on learning platform for understanding and testing LLM security vulnerabilities",
+  "version": "1.0.0",
+  "author": "tomabai",
+  "homepage": "https://github.com/tomabai/llm-sec",
+  "skills": []
+}
