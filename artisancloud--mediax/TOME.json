@@ -1,0 +1,44 @@
+{
+  "name": "MediaX",
+  "owner": "ArtisanCloud",
+  "repo": "MediaX",
+  "description": "MediaX\u4e3b\u8981\u8d4b\u80fd\u5ba2\u6237\u7cfb\u7edf\u5bf9\u5404\u4e2a\u5a92\u4f53\u5e73\u53f0\u7684\u5f00\u53d1\uff0c\u5305\u62ecyoutube\uff0c\u5fae\u4fe1\uff0ctiktok\uff0c\u6296\u97f3\uff0c\u5c0f\u7ea2\u4e66\u7b49\u4e3b\u6d41\u5e73\u53f0\uff0c\u65b9\u4fbf\u5f00\u53d1\u8005\u8c03\u7528\u5404\u4e2a\u5e73\u53f0\u7684\u63a5\u53e3",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ArtisanCloud/MediaX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T21:43:05Z"
+}
