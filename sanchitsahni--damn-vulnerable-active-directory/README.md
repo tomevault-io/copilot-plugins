@@ -7,11 +7,11 @@ A reproducible, multi-forest Windows Active Directory lab intentionally misconfi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [sanchitsahni/Damn-Vulnerable-Active-Directory](https://github.com/sanchitsahni/Damn-Vulnerable-Active-Directory).
+Original source: `AGENTS.md` in [sanchitsahni/Damn-Vulnerable-Active-Directory](https://github.com/sanchitsahni/Damn-Vulnerable-Active-Directory).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
