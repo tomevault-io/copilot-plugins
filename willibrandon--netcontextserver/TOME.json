@@ -4,7 +4,7 @@
   "repo": "NetContextServer",
   "description": "A .NET implementation of the Model Context Protocol enabling AI assistants to explore and understand .NET codebases.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/willibrandon/NetContextServer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T16:37:24Z"
+  "distributed_at": "2026-05-27T16:51:21Z"
 }
