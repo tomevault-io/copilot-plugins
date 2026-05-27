@@ -1,0 +1,9 @@
+{
+  "name": "edu4rdshl--strata",
+  "displayName": "Strata",
+  "description": "A robust GNOME clipboard manager with a Rust daemon backend",
+  "version": "1.0.0",
+  "author": "Edu4rdSHL",
+  "homepage": "https://github.com/Edu4rdSHL/Strata",
+  "skills": []
+}
