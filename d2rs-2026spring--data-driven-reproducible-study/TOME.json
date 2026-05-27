@@ -1,0 +1,44 @@
+{
+  "name": "data-driven-reproducible-study",
+  "owner": "D2RS-2026spring",
+  "repo": "data-driven-reproducible-study",
+  "description": "\u300a\u6570\u636e\u9a71\u52a8\u7684\u53ef\u91cd\u590d\u6027\u7814\u7a76\u300b\u8bfe\u7a0b\u8bb2\u4e49",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/D2RS-2026spring/data-driven-reproducible-study",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T22:40:03Z"
+}
