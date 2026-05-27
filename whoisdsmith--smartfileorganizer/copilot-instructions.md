@@ -1,52 +1,71 @@
-## 100-api-integration
+## 200-gui-and-main
 
-> API integration standards
+> Rules for the GUI and main application logic
 
 # Guidelines
 
-- **API Key Management**
-  - Obtain API keys from environment variables (`GOOGLE_API_KEY`, `OPENAI_API_KEY`) or settings.
-  - Implement the `SettingsManager` to retrieve API keys, prioritizing environment variables and then settings.
+- **GUI Structure (`src/gui.py`)**
+  - Use `tkinter` with `ttk` for a native look.
+  - Organize widgets with a grid layout within a `ttk.Notebook` for tabs.
+  - Main tab: Directory selection, processing options, status, file list, details, and actions.
+  - Settings tab: Processing settings, AI models, organization rules.
+  - About tab: Application information.
 
-- **Rate Limiting**
-  - Implement rate limiting for the Google Gemini API.
-  - Default rate limits are 30 requests/minute and 5 retries.
-  - Make these configurable via `SettingsManager`.
-  - Implement exponential backoff with jitter for retries.
+- **Threading**
+  - Use threading for long-running tasks (scanning, organizing, report generation).
+  - Utilize a `queue.Queue` for inter-thread communication.
+  - Update GUI via the queue to avoid freezing.
+
+- **Settings Management (`src/settings_manager.py`)**
+  - Use `SettingsManager` to load/save user preferences.
+  - Store settings in `settings.json` located in an OS-specific directory.
+  - Windows: `%LOCALAPPDATA%\AIDocumentOrganizer`
+  - macOS/Linux: `~/.config/AIDocumentOrganizer`
+  - Default settings for batch size, delay, directories, theme, and organization rules.
+
+- **File Handling**
+  - `FileAnalyzer`: Scan and analyze files.
+    - Batch processing with configurable batch size and delay.
+    - Use thread pool for parallel processing.
+    - Supported file extensions: `.csv`, `.xlsx`, `.html`, `.md`, `.txt`, `.docx`.
+  - `FileOrganizer`: Organize files based on AI analysis.
+    - Create category folders, summary files, metadata files.
+    - Copy or move files.
+  - `FileParser`: Extract text and metadata.
+    - Handle various file types (CSV, Excel, HTML, Markdown, Text, Word).
+    - Use appropriate libraries (pandas, BeautifulSoup, docx, chardet).
+
+- **Logging**
+  - Use the `logging` module for all events (INFO, WARNING, ERROR).
+  - Log to a file (`app.log`) and the console.
+  - Windows-specific log directory: `%LOCALAPPDATA%\AIDocumentOrganizer`
+  - macOS/Linux: `~/.local/share/AIDocumentOrganizer`
+  - Fallback: Current directory if specific location fails.
 
 - **Error Handling**
-  - Handle API-related exceptions gracefully.
-  - Log errors with sufficient context.
-  - Provide fallback mechanisms when AI analysis fails.
+  - Handle exceptions gracefully.
+  - Display user-friendly error messages via `messagebox`.
+  - Log errors with details.
 
-- **Model Selection**
-  - Provide a mechanism to select AI models.
-  - `AIAnalyzer`: Support multiple Gemini models (`gemini-2.0-flash`, `gemini-1.5-flash`, etc.).
-  - `OpenAIAnalyzer`: Support multiple OpenAI models (`gpt-4o`, `gpt-4-turbo`, etc.)
-  - Use `SettingsManager` to save and retrieve the selected model.
+- **Progress Updates**
+  - Update progress via a callback mechanism.
+  - Display real-time progress: processed files, total files, batch status, percentage.
+  - Use a `ttk.Progressbar`.
 
-- **Prompt Structure**:
-    - Use consistent prompts:
-        - Specify output format (JSON).
-        - Request category, keywords, summary, and theme.
-        - Enforce length limits (max summary sentences, max keywords).
+- **Main Entry Point (`main.py`)**
+  - Set up logging.
+  - Handle DPI awareness on Windows.
+  - Create the main window and initialize `DocumentOrganizerApp`.
+  - Set application icon (Windows specific).
+  - Set window size and position (80% of screen).
+  - Set Windows-specific theme (`winnative`, `vista`, `clam`).
 
-- **Content Analysis**
-  - Truncate large inputs:
-    - Gemini: 30,000 characters.
-    - OpenAI: 20,000 characters.
-  - Add a truncation indicator if input is shortened.
-
-- **Factory Pattern**:
-    - Use `AIServiceFactory` to create instances of `AIAnalyzer` or `OpenAIAnalyzer`.
-    - The factory should decide based on settings or environment variables.
-    - Support both Google Gemini (`google`) and OpenAI (`openai`).
-
-- **Relationship Analysis:**
-  - Implement `find_similar_documents` to find similarity based on keywords, category, theme, and file type.
-  - Implement `find_related_content` for deeper contextual relationships.
-  - Prioritize high-quality matches (high scores, strong explanations).
-  - Use AI to analyze for "prerequisite", "sequential", "contextual", "extension" relationships.
+- **Organization Rules**
+  - Configurable via settings:
+    - Create category folders.
+    - Generate content summaries.
+    - Include metadata files.
+    - Copy files instead of moving.
 
 ---
 > Source: [whoisdsmith/SmartFileOrganizer](https://github.com/whoisdsmith/SmartFileOrganizer) — distributed by [TomeVault](https://tomevault.io).
