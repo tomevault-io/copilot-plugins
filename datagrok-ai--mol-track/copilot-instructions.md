@@ -1,41 +1,33 @@
-## always
+## chemical-structures
 
-> - Never make changes to schema.sql, unless explicitly asked
+> The system uses RDKit for chemical structure management as defined in [db/schema.sql](mdc:db/schema.sql).
 
-# Always
+# Chemical Structure Handling
 
-## Database Conventions
-- Never make changes to schema.sql, unless explicitly asked
-- Use `snake_case` for all database identifiers (table names, column names)
-- All tables must have a primary key named `id`
-- Include `created_at` timestamp in all tables
-- Foreign keys should be named `{referenced_table_singular}_id`
-- Schema-qualify all table references (e.g., `moltrack.compounds`)
+The system uses RDKit for chemical structure management as defined in [db/schema.sql](mdc:db/schema.sql).
 
-## Property System
-- Properties must have a value_type from: 'int', 'double', 'bool', 'datetime', 'string'
-- Property classes must be one of: 'CALCULATED', 'MEASURED', 'PREDICTED'
-- Always include appropriate units for numerical properties
-- Document the purpose of each property
+## Chemical Structure Representations
+Compounds are stored with multiple representations:
+- `canonical_smiles`: RDKit canonical SMILES notation
+- `original_molfile`: Original structure as drawn
+- `inchi`: IUPAC International Chemical Identifier
+- `inchikey`: Fixed-length InChI hash for indexing
 
-## Chemical Structure Handling
-- Store canonical SMILES strings for all chemical structures
-- Include both InChI and InChIKey for compound identification
-- Use RDKit for all molecular operations
-- Validate chemical structure input before storage
+## RDKit Integration
+The `rdk` schema provides chemical structure searching capabilities:
+1. RDKit extension is automatically enabled
+2. `rdk.mols` table stores molecules in native RDKit format
+3. GIST index on molecules enables substructure searching
+4. Automatic synchronization via triggers:
+   - New compounds automatically create RDKit molecules
+   - Maintains consistency between `moltrack.compounds` and `rdk.mols`
 
-## Assay Data
-- Link all assay results to valid batches and properties
-- Include proper validation for measurement values
-- Document assay conditions and protocols
-
-## Code Style
-- Use consistent indentation (4 spaces) in SQL
-- Add comments for complex queries or triggers
-- Follow PostgreSQL best practices for performance
-
-
-- Document all schema changes in version control
+## Structure Operations
+The RDKit integration enables:
+- Substructure searching
+- Chemical similarity calculations
+- Structure standardization
+- Molecular property calculations
 
 ---
 > Source: [datagrok-ai/mol-track](https://github.com/datagrok-ai/mol-track) — distributed by [TomeVault](https://tomevault.io).
