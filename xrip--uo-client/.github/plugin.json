@@ -1,0 +1,9 @@
+{
+  "name": "xrip--uo-client",
+  "displayName": "uo-client",
+  "description": "Ultima Online T2A client recreated from Origin's 2.0.7 client decompilation",
+  "version": "1.0.0",
+  "author": "xrip",
+  "homepage": "https://github.com/xrip/uo-client",
+  "skills": []
+}
