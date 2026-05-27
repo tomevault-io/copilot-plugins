@@ -1,46 +1,45 @@
-## 201-file-parsing-organization
+## 202-packaging
 
-> Rules for file parsing and organization
+> Rules for packaging and distribution
 
 # Guidelines
 
-- **File Parsing (`src/file_parser.py`)**
-  - `extract_text`:
-    - Handle CSV, Excel, HTML, Markdown, Text, and Word files.
-    - Detect encoding with `chardet`.
-    - For CSV and Excel, use `pandas`.  Limit rows read for large files.
-    - For HTML, use `BeautifulSoup`.
-    - For Word (.docx), use `docx`.
-    - Provide fallback mechanisms for parsing errors.
+- **Packaging**
+  - Support creating a Windows executable using PyInstaller.
+  - Provide `ai_document_organizer.spec` for PyInstaller configuration.
+  - Include `version_info.txt` for version information.
+  - Offer a `build_exe.py` script for a more controlled build process.
+  - Use a batch file (`build.bat`) for convenience.
+  - Create an NSIS installer script (`installer.nsi`) for distribution.
+ - Optional: Include instructions for packaging with cx_Freeze, including an MSI installer.
 
-  - `extract_metadata`:
-    - Extract metadata relevant to the file type (e.g. author, title, creation date for .docx files, sheet names and number of columns for Excel)
+- **PyInstaller Configuration**
+  - Use `--onedir` mode.
+  - Hide the console window (`--windowed`).
+  - Specify application name and icon.
+  - Add data files (icon, docs).
+  - Specify hidden imports (e.g., `google.generativeai`, `openai`, `pandas`, `openpyxl`).
 
-- **File Organization (`src/file_organizer.py`)**
-    - `organize_files`:
-       - Organize files based on AI analysis (category, keywords, summary).
-       - Create category directories (if enabled).
-       - Handle duplicate filenames.
-       - Copy or move files (configurable).
-    - `_create_metadata_file`:
-       - Create `.meta.txt` files with AI analysis: filename, path, type, size, category, theme, keywords, summary, related documents.
-    - `_create_summary_file`:
-      - Create `_summary.txt` files with a formatted summary and related documents section.
+- **cx_Freeze Configuration**
+  - Create a setup script (setup_cx_freeze.py) for defining build options and executable.
+  - Handle packages, excludes, include_files.
+  - Set `include_msvcr` to `True` for DLL issues.
 
-- **Folder Report Generation (`src/file_organizer.py`)**:
-    - `generate_folder_report`:
-        - Generate a Markdown report for a given folder.
-        - Include category statistics, file list (grouped by category).
-        - Extract information from `.meta.txt` files.
-        - Include content summaries (optional).
-        - Analyze and document relationships between documents.
+- **Build Script (`build_exe.py`)**
+  - Clean previous builds (`dist`, `build` directories).
+  - Run PyInstaller with specific options.
+  - Verify executable creation.
+  - Provide error handling.
 
-- **Utility Functions (`src/utils.py`)**:
-    - `get_readable_size`: Convert bytes to human-readable format (KB, MB, GB, etc.).
-    - `sanitize_filename`: Make strings safe for filenames.
-    - `truncate_text`: Limit text length with ellipsis.
-    - `strip_html_tags`: Remove HTML tags.
-    - `is_file_locked`: Check file lock status.
+- **NSIS Installer Script (`installer.nsi`)**
+  - Compile to create an installer executable.
+  - Include the built application and necessary files.
+  - Handle installation paths and uninstallation.
+  - Include the LICENSE.txt file in the docs directory.
+
+- **Troubleshooting**
+    - Address missing DLLs or modules by adding them to the appropriate configuration (e.g., `build.bat`, `build_exe.py`, `setup_cx_freeze.py`).
+    - Ensure that all required files and folders are present (assets, docs).
 
 ---
 > Source: [whoisdsmith/SmartFileOrganizer](https://github.com/whoisdsmith/SmartFileOrganizer) — distributed by [TomeVault](https://tomevault.io).
