@@ -4,7 +4,7 @@
   "repo": "oclmap",
   "description": "OCL Mapper (beta): an open-source AI-supported terminology mapping solution for the global community",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenConceptLab/oclmap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T20:48:27Z"
+  "distributed_at": "2026-05-27T20:57:41Z"
 }
