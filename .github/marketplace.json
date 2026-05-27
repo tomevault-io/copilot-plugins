@@ -163979,6 +163979,16 @@
       "description": "Original OpenCut codebase"
     },
     {
+      "name": "milktang0128--myskills",
+      "source": "./milktang0128--myskills",
+      "description": "AI Skill Hub \u2014 unified management of AI agent skills across Claude, Codex and other platforms (spec phase)"
+    },
+    {
+      "name": "divitmittal--awesome",
+      "source": "./divitmittal--awesome",
+      "description": "Personal Awesome list"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174849,6 +174859,16 @@
       "description": "\ud83c\udfaf Precise code extraction for AI assistants - MCP server using tree-sitter to extract functions, classes & snippets from 30+ languages without manual parsing"
     },
     {
+      "name": "donrington--thecybersage",
+      "source": "./donrington--thecybersage",
+      "description": "My Portfolio Version 3"
+    },
+    {
+      "name": "aiunlocked1412--boxbox",
+      "source": "./aiunlocked1412--boxbox",
+      "description": "A Claude Code plugin that turns any codebase into a beautiful, zoomable HTML system diagram for non-coders. by AI UNLOCKED"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -177547,6 +177567,11 @@
       "name": "sanchitsahni--damn-vulnerable-active-directory",
       "source": "./sanchitsahni--damn-vulnerable-active-directory",
       "description": "A reproducible, multi-forest Windows Active Directory lab intentionally misconfigured for offensive security training and red teaming. Features 382 vulnerabilities across Kerberos, ADCS, Trusts, and m"
+    },
+    {
+      "name": "kuliantnt--cc-switch-simple",
+      "source": "./kuliantnt--cc-switch-simple",
+      "description": "Bash CLI for switching Claude Code config profiles on WSL/Linux"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
