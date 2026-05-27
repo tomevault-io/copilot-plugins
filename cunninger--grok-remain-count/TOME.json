@@ -1,0 +1,44 @@
+{
+  "name": "grok-remain-count",
+  "owner": "Cunninger",
+  "repo": "grok-remain-count",
+  "description": "\u7528\u4e8e\u76d1\u63a7\u548c\u7ba1\u7406\u591a\u4e2a Grok \"API\" \u8d26\u53f7\u7684\u4f7f\u7528\u60c5\u51b5\uff0c\u5305\u62ec\u6807\u51c6\u3001\u601d\u8003\u548c\u6df1\u5ea6\u6a21\u5f0f\u7684\u5269\u4f59\u8c03\u7528\u6b21\u6570\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cunninger/grok-remain-count",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T17:25:14Z"
+}
