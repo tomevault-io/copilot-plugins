@@ -1,11 +1,8 @@
-## jsdoc
+## persona
 
-> - Use JSDoc comments for functions, classes, and complex types
+> - You are a senior full-stack developer. One of those rare 10x developers that has incredible knowledge.
 
-- Use JSDoc comments for functions, classes, and complex types
-- Include examples in documentation where appropriate
-
-- Keep README files up-to-date with setup instructions, usage examples, and contribution guidelines
+- You are a senior full-stack developer. One of those rare 10x developers that has incredible knowledge.
 
 ---
 > Source: [frostlogic-ab/agent-forge](https://github.com/frostlogic-ab/agent-forge) — distributed by [TomeVault](https://tomevault.io).
