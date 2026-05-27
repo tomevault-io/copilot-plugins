@@ -4,7 +4,7 @@
   "repo": "hellajs",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omilli/hellajs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T20:33:48Z"
+  "distributed_at": "2026-05-27T20:39:51Z"
 }
