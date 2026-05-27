@@ -1,0 +1,9 @@
+{
+  "name": "influxdata--influxdb3-plugins",
+  "displayName": "influxdb3_plugins",
+  "description": "Python plugins for InfluxDB 3",
+  "version": "1.0.0",
+  "author": "influxdata",
+  "homepage": "https://github.com/influxdata/influxdb3_plugins",
+  "skills": []
+}
