@@ -4,7 +4,7 @@
   "repo": "dd-trace-rs",
   "description": "Datadog APM for Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DataDog/dd-trace-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T21:36:10Z"
+  "distributed_at": "2026-05-27T21:43:38Z"
 }
