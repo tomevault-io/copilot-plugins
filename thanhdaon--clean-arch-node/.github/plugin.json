@@ -1,0 +1,9 @@
+{
+  "name": "thanhdaon--clean-arch-node",
+  "displayName": "clean-arch-node",
+  "description": "Clean Architecture, DDD, CQRS with testings in NodeJs and Typescript",
+  "version": "1.0.0",
+  "author": "thanhdaon",
+  "homepage": "https://github.com/thanhdaon/clean-arch-node",
+  "skills": []
+}
