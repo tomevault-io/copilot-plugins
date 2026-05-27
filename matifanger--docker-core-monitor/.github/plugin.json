@@ -1,0 +1,9 @@
+{
+  "name": "matifanger--docker-core-monitor",
+  "displayName": "docker-core-monitor",
+  "description": "A real-time Docker container monitoring dashboard built with SvelteKit and Socket.IO.",
+  "version": "1.0.0",
+  "author": "matifanger",
+  "homepage": "https://github.com/matifanger/docker-core-monitor",
+  "skills": []
+}
