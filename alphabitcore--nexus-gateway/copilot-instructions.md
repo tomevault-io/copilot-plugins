@@ -1,49 +1,47 @@
-## nrn-builder-canonical
+## pre-edit-reading
 
-> Always use iam.BuildRequestNRNForAction — never hardcode resourceType strings in iamMW
+> Read 3 docs before changing code (architecture + feature + conventions)
 
 
-# NRN builder is canonical (binding)
+# Pre-edit reading — binding 3-doc requirement
 
-`iamMW(action)` builds the request NRN as `nrn := iam.BuildRequestNRNForAction(action, c)`. The builder owns the action → resourceType derivation. **Never hardcode the resourceType string** in handler glue — hardcoded strings drift from the IAM catalog and produce silent 403s.
+Before writing any code change, you **MUST** read all three of:
 
-Memory anchor: [[project_iam_resource_nrn_bug]].
+1. **Architecture doc(s)** — find your edit area in `docs/developers/architecture/README.md` and open the listed doc(s).
+2. **Feature doc(s)** — if the change affects a user-visible surface, open the matching doc:
+   - CP-UI menu sections → `docs/users/features/cp-ui/<section>.md`
+   - Agent-UI pages → `docs/users/features/agent-ui/<page>.md`
+   - Cross-feature flows (admin → CP → Hub → effect → audit) → `docs/users/features/flows/<flow>.md`
+3. **Conventions** — `docs/developers/workflow/conventions.md` for code style, naming, idioms, commit style, PR review checklist.
 
-## Required
+This rule keeps three things from drifting apart:
 
-```go
-e.GET("/api/admin/providers/:id", h.GetProvider, iamMW("admin:provider.read"))
-// inside iamMW:
-nrn := iam.BuildRequestNRNForAction(action, c)   // <- canonical builder
-```
+- **Architecture** (what the code is supposed to do structurally).
+- **User-facing surface** (what the human-readable contract looks like).
+- **Code style** (so the change reads consistently with the rest of the repo).
 
-## Forbidden
+A change that lands without consulting all three is the failure mode that causes architecture rot under new contributors.
 
-```go
-// ❌ hardcoded resource-type
-nrn := fmt.Sprintf("nrn:nexus:provider:%s:%s", orgID, id)
+## How to apply
 
-// ❌ ad-hoc string concat
-nrn := "nrn:nexus:" + getResourceType(action) + ":" + scope + ":*"
-```
+When the user asks you to edit code:
 
-Even when the hardcoded version "looks right", it skips the catalog lookup in `packages/shared/identity/iam/catalog_data.go`. When the catalog updates (new resource, renamed verb), the canonical builder picks it up; hardcoded strings rot.
+1. Read `docs/developers/architecture/README.md` → find row matching the edit area → open the listed architecture doc(s).
+2. Identify the affected user-facing surface (if any) and open the matching feature doc.
+3. Open `docs/developers/workflow/conventions.md` if you have not internalised it for this language.
+4. Then write code.
 
-## When the action is new
+## What if a doc is missing?
 
-1. Add the action to `packages/shared/identity/iam/catalog_data.go`.
-2. Build via `iam.BuildRequestNRNForAction(action, c)`.
-3. Verify with the `simulator` IAM page in the dashboard.
+- **No architecture doc for the edit area** → raise it with the user. Either the architecture is genuinely undocumented (start a new arch doc + trigger row in the same PR) or it's a small piece of an existing area and the relevant arch doc covers it implicitly.
+- **No feature doc for a user-visible change** → raise it with the user. If you're adding a new CP-UI section or Agent-UI page, add the feature doc in the same PR.
+- **No conventions for what you're doing** → if your work is genuinely a new style decision (e.g., introducing a third UI tier), raise it and propose an addition to `docs/developers/workflow/conventions.md`.
 
-## When the action signature changes
+## What this rule does NOT require
 
-`BuildRequestNRNForAction` is the single seam. Update the catalog; every handler that uses the builder picks up the change automatically.
-
-## Related
-
-- IAM impact review (5-step audit) → `iam-impact-review.mdc`.
-- Architecture: `docs/developers/architecture/services/control-plane/iam-identity-architecture.md`.
-- Skill: `.claude/skills/iam-impact-review/`.
+- It does **not** require updating the docs unless the architecture / feature / conventions are themselves changing.
+- It is **not** a substitute for the Plan / Todo discipline in CLAUDE.md.
+- It does **not** mean "read every doc" — only the ones that cover your edit area.
 
 Skipping this rule requires **explicit user approval** in chat.
 
