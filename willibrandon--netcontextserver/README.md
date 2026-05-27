@@ -7,13 +7,13 @@ A .NET implementation of the Model Context Protocol enabling AI assistants to ex
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [willibrandon/NetContextServer](https://github.com/willibrandon/NetContextServer).
+Original source: `.cursor/rules/*.mdc` in [willibrandon/NetContextServer](https://github.com/willibrandon/NetContextServer).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
