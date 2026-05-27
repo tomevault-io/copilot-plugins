@@ -1,0 +1,9 @@
+{
+  "name": "frostlogic-ab--agent-forge",
+  "displayName": "agent-forge",
+  "description": "Agent Forge is a TypeScript framework for creating, configuring, and orchestrating AI agents that connect to LLMs (Large Language Models)",
+  "version": "1.0.0",
+  "author": "frostlogic-ab",
+  "homepage": "https://github.com/frostlogic-ab/agent-forge",
+  "skills": []
+}
