@@ -1,0 +1,9 @@
+{
+  "name": "karsyboy--color-ssh",
+  "displayName": "color-ssh",
+  "description": "Rust based SSH syntax highlighting tool!",
+  "version": "1.0.0",
+  "author": "karsyboy",
+  "homepage": "https://github.com/karsyboy/color-ssh",
+  "skills": []
+}
