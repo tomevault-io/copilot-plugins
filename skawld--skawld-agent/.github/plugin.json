@@ -1,0 +1,9 @@
+{
+  "name": "skawld--skawld-agent",
+  "displayName": "skawld-agent",
+  "description": "Skawld Agent Core & SDK",
+  "version": "1.0.0",
+  "author": "skawld",
+  "homepage": "https://github.com/skawld/skawld-agent",
+  "skills": []
+}
