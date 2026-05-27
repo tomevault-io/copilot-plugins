@@ -1,6 +1,8 @@
 # prime-ir
 
-> Tome by [fractalyze](https://github.com/fractalyze/prime-ir) — distributed by [TomeVault](https://tomevault.io/claim/fractalyze)
+> Tome by [fractalyze](https://github.com/fractalyze/prime-ir) — distributed by [TomeVault](https://tomevault.io)
+
+ Intermediate Representation (IR) for cryptographic computations
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [fractalyze/prime-ir](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/fractalyze)
+From [fractalyze/prime-ir](https://github.com/fractalyze/prime-ir) — a repo with 20+ stars on GitHub.
 
 ---
 
