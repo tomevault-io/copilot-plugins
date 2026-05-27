@@ -1,66 +1,102 @@
-## code-doc-lockstep
+## completion-time-self-audit
 
-> Binding — code changes must update matching docs (architecture / feature / API / runbook / SDD) in the same diff
+> Self-audit before claiming work is complete (no defer / follow-up / mock)
 
 
-# Code / Doc Lockstep (BINDING)
+# Completion-time self-audit — 2+ rounds (binding)
 
-> Docs are **the single source of truth**. If code drifts from a doc, the **code is wrong** — fix the doc to match reality if needed, but never ship code that contradicts its doc.
+Before saying "done" / asking the user to commit / closing out a task, you **MUST** run a short self-audit and report the result back in the response. This rule is the safety net against silent "almost done" deliveries.
 
-## The rule
+**Minimum two rounds** (per CLAUDE.md "Post-plan 2-round self-review"):
 
-When a PR touches code in a region covered by a doc, every matching doc MUST be updated in the **same commit**. The doc isn't a follow-up; it's part of the change. This applies to **every** doc tree:
+1. **Round 1** — run the 4-question audit. Surface every issue. For each issue: fix it now, OR capture as a follow-up todo with stated reason.
+2. **Round 2** — re-run the same 4 questions. Verify each round-1 fix actually closed the gap. Check that nothing new appeared from the fixes.
+3. **More rounds** if round 2 finds new issues — keep iterating until TWO consecutive rounds are clean.
 
-| Doc tree | What changes here trigger an update |
-|---|---|
-| `docs/developers/architecture/**` | internal mechanics, data flow, contracts between services |
-| `docs/users/features/**` | user-visible UI surface, admin features, agent UX |
-| `docs/users/api/openapi/**` | request/response schemas, new/renamed/removed endpoints |
-| `docs/operators/ops/runbooks/**` | deployment steps, recompute scripts, operational procedures |
-| `docs/developers/specs/**` | Epic / Story acceptance criteria as scope evolves |
+Catching issues is cheap; verifying you actually fixed them is what makes "done" real. A single audit that surfaces N issues and a quick "all fixed" claim is **not enough** — only the second clean round confirms the fixes stuck.
 
-A single code change typically touches **multiple doc trees**. Examples:
+## The 4-question self-audit
 
-- New admin endpoint → OpenAPI spec + architecture doc + feature doc (if UI surface) + runbook (if ops procedure).
-- Cost-stamping change → `cost-estimation-architecture.md` + `prod-deploy-data-changes.md` (if historical recompute) + feature doc for the Traffic drawer (if visible breakdown changes).
-- Provider adapter codec change → `provider-adapter-architecture.md` + feature doc if visible to admins.
-- Schema migration → `cost-estimation-architecture.md` (if cost columns) OR `thing-config-sync-architecture.md` (if shadow) + runbook if any historical data fix is part of the PR.
+Answer **all four** with concrete evidence (file paths, grep output, test names):
 
-## How it's enforced
+### 1. **Anything deferred?**
 
-`scripts/check-doc-lockstep.mjs` runs on the PR diff against `origin/main`. If any code file matches a configured glob and **none** of the mapped docs are in the diff, the check fails with the file list + which docs were expected.
+Did I split scope and leave a part for "later"? Possible signals:
 
-The mapping lives at `scripts/doc-lockstep.config.mjs`. Each entry is one or more code globs plus one or more required docs. Adding a new entry is easy — edit the config and open the PR.
+- A todo I marked `completed` whose work was only partially done.
+- A spec section I implemented to "half" depth.
+- A subsystem I planned to touch but didn't.
 
-Run locally:
+If any item was deferred:
+
+- It must be a **separate, explicit todo** in the active list (not silently dropped).
+- The user must be told about it in the response.
+- It must NOT be marked complete.
+
+### 2. **Any `TODO` / `FIXME` / `XXX` left in production code?**
 
 ```bash
-npm run check:doc-lockstep            # vs origin/main (CI mode)
-node scripts/check-doc-lockstep.mjs --staged   # only against staged files
+git diff HEAD~1.. --stat                                   # files changed
+git diff HEAD~1.. | grep -nE 'TODO|FIXME|XXX' | head -50   # new markers in changes
 ```
 
-## What is NOT a substitute
+In production / runtime code paths these are **forbidden** as substitutes for real behaviour (binding in CLAUDE.md). Exceptions:
 
-- A passing `tsc -b` / `go build` / unit tests do **not** mean docs are aligned. Code can compile and the doc can still claim something the code no longer does.
-- Touching `updated:` in the front-matter without changing the body is a **red flag in review** — the doc should reflect what the code now does, not just a fresh date.
-- Adding a `TODO: update doc` comment in code is **explicitly forbidden** under the "real implementation only" rule. Update the doc now, or carve out the change.
+- Test code (`*_test.go`, `*.test.ts`, `*.spec.ts`).
+- Truly auto-generated files marked with a header like `Code generated by … DO NOT EDIT.` (the repo currently has no active generator; `packages/shared/schemas/configtypes/` is hand-maintained — the exception stands in case a future generator is added).
+- Pre-existing markers you didn't add this turn.
 
-## Waiver
+If any new marker exists in production code, **fix it before claiming done** — or get explicit user approval recorded in the response.
 
-Skipping the lockstep requires explicit user approval recorded in the PR description or commit message. Acceptable waivers:
+### 3. **Any `not implemented` throws / empty handlers / fake returns?**
 
-- Trivial mechanical change (a typo fix, a comment-only commit, a dependency bump that doesn't change behavior).
-- Cherry-pick / revert where the original commit already covered the docs.
-- Migration timestamp rename where the migration is functionally unchanged.
+- A `panic("not implemented")` or `throw new Error('not implemented')`.
+- An empty function body that the spec required to do something.
+- A hardcoded return value where the real value should be computed.
+- A handler that returns 200 OK without doing the work.
 
-Not acceptable:
+If you find one, **finish the implementation** or **narrow the scope with the user** and re-plan. Do NOT commit placeholder production code.
 
-- "Will update doc in follow-up PR." Doc PRs that ship after the code is the bug this rule prevents.
-- "It's only a small refactor." If small refactors drift the doc, the doc says one thing and the code does another by inches.
+### 4. **Any mock / stub / fake in production code?**
 
-## Memory anchor
+Mocks, spies, and test doubles live in **test code only**. Their presence in `packages/<service>/internal/` or `packages/shared/` outside of `_test.go` files is a violation.
 
-[[feedback_code_doc_lockstep]]
+```bash
+git diff HEAD~1.. | grep -nE 'mock|stub|fake|dummy' | head -50
+```
+
+If you find one, surface it. Test code keywords (`mockXxx`, `stubXxx`) inside `_test.go` are fine.
+
+## How to report
+
+When emitting the "done" message, include the **final clean round** as a one-paragraph audit block:
+
+```
+Completion-time self-audit (final round — round 2/2 clean):
+- Deferred items: none (or "X moved to follow-up todo #N with user approval")
+- TODO/FIXME in prod code (this change): 0 new (grep clean)
+- Stubs / not-implemented throws: 0 (or "X intentional behind feature flag, approved in chat")
+- Mocks in prod paths: 0 (mocks only in *_test.go)
+- Round 1 found: <N issues>; fixed | tracked as follow-up.
+- Round 2 found: 0 (clean — fixes stuck, no new issues).
+```
+
+If round 2 (or later) is required because round 1 surfaced issues that needed iteration, name the rounds explicitly so the user can trace the work.
+
+If any answer is non-zero, the work is **not done** by the binding's standard. Surface it to the user and decide: finish now, or split into a follow-up with their explicit approval recorded.
+
+## Exception handling
+
+You may proceed with a non-zero audit result only if:
+
+- The user **explicitly approved** a stub / spike / placeholder in chat. Quote the approval line in your audit block.
+- The deferred item is captured as a **separate active todo** AND the user has acknowledged it.
+
+Otherwise: do NOT mark complete. The verification gate in CLAUDE.md Step 7 §12 ("No placeholder implementation") is part of the same enforcement; this rule is its IDE-side surfacing.
+
+## Skipping this rule
+
+Requires **explicit user approval** in chat. Saying "skip the audit" alone is not enough — provide a reason.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
