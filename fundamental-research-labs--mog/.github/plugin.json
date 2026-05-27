@@ -1,0 +1,9 @@
+{
+  "name": "fundamental-research-labs--mog",
+  "displayName": "mog",
+  "description": "Programmable spreadsheet platform with a TypeScript/Rust engine, SDK, and embeddable workbook runtime.",
+  "version": "1.0.0",
+  "author": "fundamental-research-labs",
+  "homepage": "https://github.com/fundamental-research-labs/mog",
+  "skills": []
+}
