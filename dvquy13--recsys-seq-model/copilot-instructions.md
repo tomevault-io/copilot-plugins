@@ -1,176 +1,203 @@
-## api-development-guide
+## debugging-troubleshooting
 
-> This guide covers API development patterns for the recommendation system.
+> Common issues and debugging strategies for the recommendation system.
 
-# API Development Guide
+# Debugging & Troubleshooting Guide
 
-This guide covers API development patterns for the recommendation system.
+Common issues and debugging strategies for the recommendation system.
 
-## 🏗️ FastAPI Architecture
+## 🔍 Common Issues & Solutions
 
-### Application Structure
-**[api/app.py](mdc:api/app.py)** follows a layered architecture:
-- **Controllers**: FastAPI route handlers
-- **Services**: Business logic in **[api/services.py](mdc:api/services.py)**
-- **Models**: Pydantic schemas in **[api/models.py](mdc:api/models.py)**
-- **Dependencies**: Dependency injection for services
+### ML Model Issues
 
-### Dependency Injection Pattern
+#### Model Loading Errors
+**Problem**: Model fails to load in production
+**Debug Steps**:
+1. Check **[src/sequence/inference.py](mdc:src/sequence/inference.py)** for model loading logic
+2. Verify model artifacts in MLflow registry
+3. Check model server logs: `make api-logs`
+4. Validate model configuration in **[cfg/common.yaml](mdc:cfg/common.yaml)**
+
+#### Embedding Dimension Mismatches
+**Problem**: Vector dimensions don't match between training and serving
+**Debug Steps**:
+1. Check embedding dimensions in **[src/sequence/model.py](mdc:src/sequence/model.py)**
+2. Verify Qdrant collection schema: inspect via Qdrant dashboard
+3. Compare training config vs serving config
+4. Check **[src/vectorstore.py](mdc:src/vectorstore.py)** for dimension consistency
+
+### API Issues
+
+#### ID Mapping Failures
+**Problem**: Item IDs not found in mapping
+**Debug Steps**:
+1. Check **[src/id_mapper.py](mdc:src/id_mapper.py)** for mapping logic
+2. Verify `idm.json` file exists and is up-to-date
+3. Check if new items need to be added to mapping
+4. Debug with logging: add debug prints in ID conversion
+
 ```python
-def get_services():
-    return Services()
-
-def get_recommendation_service(services: Services = Depends(get_services)):
-    return RecommendationService(services)
+# Add debug logging in api/services.py
+logger.debug(f"Raw item IDs: {item_ids}")
+logger.debug(f"Mapped indices: {mapped_indices}")
 ```
 
-## 🚀 API Endpoints Design
+#### Redis Connection Issues
+**Problem**: Redis operations failing
+**Debug Steps**:
+1. Check Redis connectivity: `redis-cli ping`
+2. Verify Redis configuration in **[api/app.py](mdc:api/app.py)**
+3. Check Redis key patterns in **[cfg/common.yaml](mdc:cfg/common.yaml)**
+4. Inspect Redis data: `redis-cli keys "*"`
 
-### Main Recommendation Flow
-1. **`POST /recs/retrieve`** - Primary recommendation endpoint
-   - Takes user sequences and returns personalized recommendations
-   - Integrates sequence model + vector search + fallbacks
+### Vector Store Issues
 
-2. **`GET /recs/popular`** - Fallback for cold start
-   - Returns popular items when personalization isn't possible
-   - Cached in Redis for performance
+#### Qdrant Search Failures
+**Problem**: No search results from Qdrant
+**Debug Steps**:
+1. Check collection exists: Qdrant dashboard at `http://localhost:6333`
+2. Verify vector dimensions match model output
+3. Check search parameters in **[src/vectorstore.py](mdc:src/vectorstore.py)**
+4. Test with raw Qdrant API calls
 
-3. **`POST /vendor/seq_retriever`** - Model server proxy
-   - Abstracts model serving infrastructure
-   - Handles model inference requests
-
-### Supporting Endpoints
-- **`POST /items/get_by_ids`** - Item metadata retrieval
-- **`POST /items/search_by_title`** - Text-based item search
-
-## 🔧 Service Layer Patterns
-
-### Service Architecture
-**[api/services.py](mdc:api/services.py)** implements:
-- **RecommendationService**: Main business logic
-- External service integration (Redis, Qdrant, Model Server)
-- Error handling and fallback strategies
-
-### Data Flow
-1. **Input Validation**: Pydantic models ensure type safety
-2. **ID Mapping**: Convert raw IDs to model indices
-3. **Sequence Processing**: Handle user interaction sequences
-4. **Model Inference**: Call sequence retriever model
-5. **Candidate Retrieval**: Vector search in Qdrant
-6. **Response Assembly**: Format and return results
-
-## 📝 Request/Response Models
-
-### Pydantic Models
-**[api/models.py](mdc:api/models.py)** defines:
-- Request schemas with validation
-- Response schemas with proper typing
-- Nested models for complex data structures
-
-### Key Patterns
 ```python
-class RetrieveContext(BaseModel):
-    user_ids_raw: List[str]
-    item_seq_raw: List[List[str]]
-    candidate_items_raw: List[str] = []
-```
-
-## 🧪 Testing Strategy
-
-### Test Structure
-**[tests/api/](mdc:tests/api)** contains:
-- **test_endpoints.py**: Integration tests for API routes
-- **test_services.py**: Unit tests for service layer
-- **test_models.py**: Validation tests for Pydantic models
-
-### Mocking Strategy
-**[tests/conftest.py](mdc:tests/conftest.py)** provides:
-- Redis client mocks with predefined responses
-- Qdrant search result mocks
-- HTTP client mocks for external services
-- ID mapper mocks for testing
-
-### Test Patterns
-```python
-@pytest.fixture
-def mock_redis_client():
-    mock = MagicMock()
-    mock.get.return_value = '["item1", "item2"]'
-    return mock
-```
-
-## 🔄 Configuration Management
-
-### Environment Variables
-- **Redis**: `REDIS_HOST`, `REDIS_PORT`
-- **Qdrant**: `QDRANT_URL`
-- **Model Server**: `SEQ_RETRIEVER_MODEL_SERVER_URL`
-
-### Config Loading
-Uses **[src/cfg.py](mdc:src/cfg.py)** for centralized configuration:
-- YAML-based configuration
-- Environment variable substitution
-- Type-safe access with Pydantic
-
-## 🚀 Middleware & Cross-Cutting Concerns
-
-### Logging
-**[api/logging_utils.py](mdc:api/logging_utils.py)** provides:
-- Request ID tracking for distributed tracing
-- Structured logging with context
-- Debug logging decorator for endpoints
-
-### CORS Configuration
-```python
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+# Debug Qdrant search
+from qdrant_client import QdrantClient
+client = QdrantClient(url="http://localhost:6333")
+results = client.search(
+    collection_name="your_collection",
+    query_vector=[...],  # Test vector
+    limit=10
 )
 ```
 
-## 🐳 Deployment
+## 🧪 Testing & Debugging
 
-### Docker Setup
-**[api/Dockerfile](mdc:api/Dockerfile)** implements:
-- Multi-stage builds for optimization
-- Dependency management with uv
-- Production-ready configuration
+### Test Failures
+**Problem**: Tests failing in **[tests/api/](mdc:tests/api)**
+**Debug Steps**:
+1. Run specific test: `pytest tests/api/test_endpoints.py::test_specific -v`
+2. Check test fixtures in **[tests/conftest.py](mdc:tests/conftest.py)**
+3. Verify mock configurations match actual service interfaces
+4. Add debug prints in test setup
 
-### Compose Integration
-**[compose.api.yml](mdc:compose.api.yml)** orchestrates:
-- API service deployment
-- Environment variable injection
-- Service networking
+### Mock Issues
+**Problem**: Mocks not behaving as expected
+**Debug Steps**:
+1. Check mock setup in **[tests/conftest.py](mdc:tests/conftest.py)**
+2. Verify mock return values match expected formats
+3. Ensure mock methods are called correctly
+4. Use `pytest --capture=no` to see debug output
 
-## ⚡ Performance Patterns
+## 📊 Performance Debugging
 
-### Caching Strategy
-- **Redis**: User sequences and popular items
-- **In-memory**: ID mappings and model metadata
-- **Vector Store**: Pre-computed item embeddings
+### Slow API Responses
+**Problem**: API endpoints taking too long
+**Debug Steps**:
+1. Add timing logs in **[api/services.py](mdc:api/services.py)**:
+```python
+import time
+start = time.time()
+# ... operation ...
+logger.info(f"Operation took {time.time() - start:.2f}s")
+```
+2. Check Redis cache hit rates
+3. Monitor Qdrant search performance
+4. Profile model inference time
 
-### Async Processing
-- FastAPI native async support
-- Async clients for external services
-- Non-blocking I/O for better throughput
+### Memory Issues
+**Problem**: High memory usage or OOM errors
+**Debug Steps**:
+1. Check batch sizes in model inference
+2. Monitor memory usage in model server
+3. Verify vector store memory usage
+4. Check for memory leaks in long-running processes
 
-## 🛠️ Development Workflow
+## 🔧 Development Debugging
 
-### Local Development
-```bash
-make api-up          # Start API service
-make api-logs        # Follow logs
-make api-test        # Run tests
+### Configuration Issues
+**Problem**: Configuration not loading properly
+**Debug Steps**:
+1. Check **[src/cfg.py](mdc:src/cfg.py)** for configuration loading
+2. Verify environment variables are set: `env | grep REDIS`
+3. Check YAML syntax in **[cfg/common.yaml](mdc:cfg/common.yaml)**
+4. Test config loading in Python shell:
+
+```python
+from src.cfg import ConfigLoader
+cfg = ConfigLoader("./cfg/common.yaml")
+print(cfg.config)
 ```
 
-### Code Quality
-- Type hints throughout
-- Pydantic for runtime validation
-- Comprehensive test coverage
-- Automated linting with ruff
+### Docker Issues
+**Problem**: Services not starting in Docker
+**Debug Steps**:
+1. Check container logs: `docker compose logs service_name`
+2. Verify network connectivity between services
+3. Check port bindings and environment variables
+4. Test service health endpoints
+
+### Notebook Issues
+**Problem**: Notebooks failing in pipeline
+**Debug Steps**:
+1. Check notebook execution order (000 → 001 → ...)
+2. Verify data dependencies between notebooks
+3. Check Papermill execution logs
+4. Test notebooks individually in Jupyter
+
+## 🚨 Logging & Monitoring
+
+### Structured Logging
+Use consistent logging patterns throughout:
+```python
+from loguru import logger
+
+# In API endpoints
+logger.info("Processing request", extra={"user_id": user_id, "item_count": len(items)})
+
+# In services
+logger.error("Redis connection failed", extra={"error": str(e), "key": key})
+```
+
+### Request Tracing
+**[api/logging_utils.py](mdc:api/logging_utils.py)** provides request ID tracking:
+- Each request gets unique ID for distributed tracing
+- Use in all log messages for correlation
+- Essential for debugging production issues
+
+### Debug Mode
+Enable debug mode for verbose logging:
+```python
+# In API calls
+/recs/retrieve?debug=true
+```
+
+## 🛠️ Development Tools
+
+### Useful Commands
+```bash
+# Check service health
+make api-logs
+docker compose ps
+
+# Debug Redis
+redis-cli -h localhost -p 6379
+KEYS "*"
+GET "key_name"
+
+# Debug Qdrant
+curl "http://localhost:6333/collections"
+
+# Test API endpoints
+curl -X POST "http://localhost:8000/recs/retrieve" \
+  -H "Content-Type: application/json" \
+  -d '{"user_ids_raw": ["test"], "item_seq_raw": [["item1"]]}'
+```
+
+### IDE Debugging
+- Set breakpoints in **[api/services.py](mdc:api/services.py)** for request debugging
+- Use debugger in **[src/sequence/](mdc:src/sequence)** for model issues
+- Debug tests with IDE test runner for better visibility
 
 ---
 > Source: [dvquy13/recsys-seq-model](https://github.com/dvquy13/recsys-seq-model) — distributed by [TomeVault](https://tomevault.io).
