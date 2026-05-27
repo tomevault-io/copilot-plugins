@@ -1,31 +1,37 @@
-## text-first-normalizer
+## token-field-stamp-sweep
 
-> Compliance / agent normalizer must produce readable text; usage stats optional
+> Adding a usage/token field requires 5 stamp sites
 
 
-# Text-first normalizer (binding)
+# Token-field stamp sweep (binding)
 
-For **consumer-surface traffic** (`chatgpt-web`, `claude-web`, `cursor`, `gemini-web`, and any future consumer-side wire format), the normalizer's **only required output is readable text**. Losing token / usage stats at this stage is **acceptable**.
+You are editing AI Gateway provider / proxy code. **Adding a new usage / token field requires 5 stamp sites, not just the obvious one.** Missing the 4 cache-side sites = all prod cache traffic NULL on the new column. Memory anchor: [[feedback_token_field_handler_sweep]].
 
-Canonical memory: `feedback_compliance_proxy_text_first`.
+**Read `docs/developers/architecture/services/ai-gateway/provider-adapter-architecture.md` §5 BEFORE editing.**
 
-## What's required
+## The 5 stamp sites
 
-`ExtractText(raw []byte) (Extracted, error)` MUST produce the user's prompt + the assistant's response as plain UTF-8 text. Hooks evaluate against this text; audit captures this text. If text extraction fails, the request still flows but is recorded with `extract_error=...`.
+1. **`handleNonStream`** — non-streaming response path.
+2. **`handleStream`** — streaming response path (at stream end).
+3. **`proxy_cache.go:cacheStoreNonStream`** — cache write path for non-streaming.
+4. **`proxy_cache.go:cacheStoreStream`** — cache write path for streaming.
+5. **`proxy_cache.go:cacheRead*`** — cache read path (deserialise the stamped value).
 
-## What's optional
+## Checklist when adding a token field
 
-Token counts, cost stats, role-by-role decomposition, tool-call structure — **nice-to-have**. Consumer wire formats are inconsistent and brittle; insisting on full canonical structure produces fragile adapters that break on every minor provider UI update.
+- [ ] Field added to `Usage` struct in `providers/types.go`.
+- [ ] Column added to `traffic_event` schema (Prisma + migration).
+- [ ] Stamped in `handleNonStream`.
+- [ ] Stamped in `handleStream`.
+- [ ] Stamped in `cacheStoreNonStream`.
+- [ ] Stamped in `cacheStoreStream`.
+- [ ] Deserialised in `cacheRead*`.
+- [ ] Unit test exercises both non-stream and stream cache paths.
+- [ ] Smoke test confirms the new column is non-NULL after a cache hit + cache miss.
 
-For **API-surface traffic** (the same provider hit via SDK / `/v1/*`), the same adapter typically produces both text AND structured usage; that's a bonus, not a contract.
+## Why it matters
 
-## What this rule prevents
-
-Adapter authors writing 200-line OpenAI-shape canonicalizers for `claude-web` just to satisfy "completeness". Brittle structural normalizers break on every consumer-surface UI update; keep adapters text-first.
-
-## Tier-2 NonJSONDetector
-
-For non-JSON wire formats (binary protocols, multipart, gRPC-Web, raw audio): add a `NonJSONDetector` in `packages/shared/traffic/extract/detector.go`. Tier-1 adapters delegate to the detector. Do **NOT** write a fresh per-host adapter for a new non-JSON format. Canonical memory: `feedback_tier2_nonjson_detector_framework`.
+The cache paths are easy to forget — they share the data layout with the live paths but live in `proxy_cache.go`, a separate file. Stamping `handleNonStream` only is the canonical mistake; cache traffic then writes NULL for the new column and the failure is silent until an analytics dashboard notices.
 
 Skipping this rule requires **explicit user approval** in chat.
 
