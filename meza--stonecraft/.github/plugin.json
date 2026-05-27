@@ -1,0 +1,9 @@
+{
+  "name": "meza--stonecraft",
+  "displayName": "Stonecraft",
+  "description": "A minecraft multi-version, multi-loader mod development gradle plugin to help wire up Stonecutter and Architectury",
+  "version": "1.0.0",
+  "author": "meza",
+  "homepage": "https://github.com/meza/Stonecraft",
+  "skills": []
+}
