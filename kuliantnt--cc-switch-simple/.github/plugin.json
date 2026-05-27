@@ -1,0 +1,9 @@
+{
+  "name": "kuliantnt--cc-switch-simple",
+  "displayName": "cc-switch-simple",
+  "description": "Bash CLI for switching Claude Code config profiles on WSL/Linux",
+  "version": "1.0.0",
+  "author": "kuliantnt",
+  "homepage": "https://github.com/kuliantnt/cc-switch-simple",
+  "skills": []
+}
