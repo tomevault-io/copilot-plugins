@@ -1,0 +1,9 @@
+{
+  "name": "idoru--influxdb-mcp-server",
+  "displayName": "influxdb-mcp-server",
+  "description": "An MCP Server for querying InfluxDB",
+  "version": "1.0.0",
+  "author": "idoru",
+  "homepage": "https://github.com/idoru/influxdb-mcp-server",
+  "skills": []
+}
