@@ -1,516 +1,784 @@
-## git-workflow
+## patterns
 
-> Git workflow, commit message format, branching strategy, and semantic release process
+> Design patterns (Decorator, Strategy, Facade) and anti-patterns used in Camouflage codebase
 
 
-# Git Workflow and Release Process
+# Design Patterns and Anti-Patterns
 
-## Commit Message Format
+## Recommended Patterns
 
-We use **Conventional Commits** for automated semantic versioning and changelog generation.
+### 1. Decorator Pattern (Method Decorators)
 
-### Format
+**Purpose**: Add cross-cutting concerns without modifying core logic.
 
-```
-<type>(<scope>): <subject>
+**Implementation**:
 
-<body>
+```typescript
+// lib/decorators.ts
+export function Log(message: string) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value;
 
-<footer>
-```
+    descriptor.value = function (...args: any[]) {
+      console.log(`[${message}] Executing ${propertyKey}`);
+      return originalMethod.apply(this, args);
+    };
 
-### Type
+    return descriptor;
+  };
+}
 
-Must be one of:
-
-- **feat**: New feature (triggers minor version bump)
-- **fix**: Bug fix (triggers patch version bump)
-- **docs**: Documentation changes
-- **style**: Code style changes (formatting, no logic change)
-- **refactor**: Code refactoring (no features or bugs)
-- **perf**: Performance improvements
-- **test**: Adding or updating tests
-- **chore**: Build process, dependencies, tooling
-- **ci**: CI/CD configuration changes
-
-### Scope (Optional)
-
-The scope specifies the area of the codebase:
-
-- `core`: Core functionality (camouflage.ts)
-- `config`: Configuration management
-- `decorators`: Decorator functions
-- `patterns`: Pattern matching
-- `tests`: Test files
-- `docs`: Documentation
-
-### Subject
-
-- Imperative mood ("add" not "added" or "adds")
-- Lowercase first letter
-- No period at the end
-- Max 50 characters
-
-### Breaking Changes
-
-Breaking changes trigger a major version bump:
-
-```
-feat(core): redesign pattern matching API
-
-BREAKING CHANGE: matchPattern now returns object instead of boolean
+// Usage
+export class Camouflage {
+  @Log('Camouflage')
+  @HandleErrors
+  @Debounce(100)
+  private updateDecorations(): void {
+    // Core logic only, concerns handled by decorators
+  }
+}
 ```
 
-### Examples
+**Benefits**:
 
-```bash
-# Feature (bumps 1.0.0 → 1.1.0)
-feat(core): add support for custom hiding characters
+- ✅ Separation of concerns
+- ✅ Reusable across methods
+- ✅ Easy to add/remove
+- ✅ Clean core logic
 
-# Bug fix (bumps 1.0.0 → 1.0.1)
-fix(patterns): handle special regex characters correctly
+**When to Use**:
 
-# Documentation
-docs: update README with new configuration options
+- Logging
+- Error handling
+- Performance monitoring
+- Debouncing
+- Validation
 
-# Refactoring
-refactor(core): extract decoration logic into separate method
+### 2. Facade Pattern (Configuration)
 
-# Performance
-perf(patterns): cache compiled regexes for pattern matching
+**Purpose**: Simplify complex API into simple interface.
 
-# Breaking change (bumps 1.0.0 → 2.0.0)
-feat(core): redesign configuration API
+**Implementation**:
 
-BREAKING CHANGE: Configuration keys changed from camelCase to snake_case
+```typescript
+// utils/config.ts - Facade
+export function isEnabled(): boolean {
+  return vscode.workspace.getConfiguration('camouflage').get<boolean>('enabled', true);
+}
+
+export function getHidingStyle(): HiddenTextStyle {
+  return vscode.workspace
+    .getConfiguration('camouflage')
+    .get<HiddenTextStyle>('hiddenTextStyle', 'text');
+}
+
+export function getPatterns(): string[] {
+  return vscode.workspace
+    .getConfiguration('camouflage')
+    .get<string[]>('selectiveHiding.patterns', []);
+}
+
+// Usage - Simple!
+import * as config from '../utils/config';
+
+if (config.isEnabled()) {
+  const style = config.getHidingStyle();
+}
 ```
 
-### Body (Optional)
+**Benefits**:
 
-- Detailed explanation of the change
-- Motivation for the change
-- Contrast with previous behavior
+- ✅ Hides VS Code API complexity
+- ✅ Consistent access pattern
+- ✅ Easy to mock in tests
+- ✅ Single place for default values
 
-```
-feat(core): add selective hiding by pattern
+**When to Use**:
 
-This allows users to hide only specific environment variables
-by providing wildcard patterns like *API*, *SECRET, etc.
+- Configuration access
+- API wrappers
+- Complex subsystems
 
-Previously, all values were hidden or none were hidden.
-```
+### 3. Strategy Pattern (Text Generation)
 
-### Footer (Optional)
+**Purpose**: Different algorithms for same task, selectable at runtime.
 
-- Reference issues
-- Note breaking changes
-- Credit co-authors
+**Implementation**:
 
-```
-fix(patterns): escape special regex characters
+```typescript
+// lib/text-generator.ts
+type GeneratorStrategy = (text: string) => string;
 
-Fixes #45
-```
+const strategies: Record<HiddenTextStyle, GeneratorStrategy> = {
+  text: (text) => 'camouflage'.repeat(Math.ceil(text.length / 10)),
+  stars: (text) => '*'.repeat(text.length),
+  dotted: (text) => '•'.repeat(text.length),
+  scramble: (text) => scrambleText(text),
+};
 
-## Branching Strategy
-
-### Main Branches
-
-- **`main`**: Production-ready code, protected branch
-- **`develop`**: Integration branch (optional for larger teams)
-
-### Feature Branches
-
-```bash
-# Create feature branch from main
-git checkout main
-git pull origin main
-git checkout -b feature/add-custom-characters
-
-# Work on feature
-git add .
-git commit -m "feat(core): add custom hiding characters"
-
-# Push to remote
-git push origin feature/add-custom-characters
+export function generateHiddenText(text: string, style: HiddenTextStyle): string {
+  const strategy = strategies[style];
+  if (!strategy) {
+    throw new Error(`Unknown style: ${style}`);
+  }
+  return strategy(text);
+}
 ```
 
-**Naming**:
+**Benefits**:
 
-- `feature/*` - New features
-- `fix/*` - Bug fixes
-- `docs/*` - Documentation
-- `refactor/*` - Code refactoring
-- `test/*` - Test improvements
-- `chore/*` - Tooling, dependencies
+- ✅ Easy to add new styles
+- ✅ No if/else chains
+- ✅ Each strategy independently testable
+- ✅ Clear separation
 
-### Bug Fix Branches
+**When to Use**:
 
-```bash
-# Create from main
-git checkout -b fix/regex-escape-issue
+- Multiple algorithms for same task
+- Behavior selected at runtime
+- Open/Closed principle (open for extension, closed for modification)
 
-# Fix and commit
-git commit -m "fix(patterns): escape special characters in patterns"
+### 4. Observer Pattern (Event Handling)
 
-# Push
-git push origin fix/regex-escape-issue
+**Purpose**: React to state changes.
+
+**Implementation**:
+
+```typescript
+// VS Code already provides this
+vscode.workspace.onDidChangeConfiguration((event) => {
+  if (event.affectsConfiguration('camouflage')) {
+    // React to configuration change
+    this.reloadConfiguration();
+  }
+});
+
+vscode.window.onDidChangeActiveTextEditor((editor) => {
+  if (editor && isEnvFile(editor.document.fileName)) {
+    // React to editor change
+    this.updateDecorations();
+  }
+});
 ```
 
-### Hotfix Branches
+**Benefits**:
 
-For urgent production fixes:
+- ✅ Loose coupling
+- ✅ Reactive architecture
+- ✅ Easy to add listeners
 
-```bash
-# Create from main
-git checkout -b hotfix/security-vulnerability
+**When to Use**:
 
-# Fix and commit with appropriate type
-git commit -m "fix(security): sanitize user input in pattern matching"
+- Event-driven architecture
+- State synchronization
+- Multiple components need updates
 
-# Push
-git push origin hotfix/security-vulnerability
+### 5. Singleton Pattern (Extension Instance)
+
+**Purpose**: Single instance of extension core.
+
+**Implementation**:
+
+```typescript
+// extension.ts
+let camouflage: Camouflage | undefined;
+
+export function activate(context: vscode.ExtensionContext): void {
+  if (!camouflage) {
+    camouflage = new Camouflage();
+    camouflage.initialize(context);
+  }
+}
+
+export function deactivate(): void {
+  if (camouflage) {
+    camouflage.dispose();
+    camouflage = undefined;
+  }
+}
 ```
 
-## Pull Request Process
+**Benefits**:
 
-### Creating a PR
+- ✅ Single source of truth
+- ✅ Controlled access
+- ✅ Resource management
 
-1. **Push branch to GitHub**
+**When to Use**:
 
-```bash
-git push origin feature/my-feature
+- Extension activation
+- Global state management
+- Resource coordination
+
+### 6. Factory Pattern (Decoration Creation)
+
+**Purpose**: Create complex objects with consistent configuration.
+
+**Implementation**:
+
+```typescript
+export class DecorationFactory {
+  static createDecorationType(
+    style: HiddenTextStyle,
+    color: string
+  ): vscode.TextEditorDecorationType {
+    const baseConfig = {
+      color,
+      textDecoration: 'none',
+    };
+
+    const styleConfig = this.getStyleConfig(style);
+
+    return vscode.window.createTextEditorDecorationType({
+      ...baseConfig,
+      ...styleConfig,
+    });
+  }
+
+  private static getStyleConfig(style: HiddenTextStyle) {
+    switch (style) {
+      case 'text':
+        return {
+          letterSpacing: '-0.5em',
+          opacity: '0',
+        };
+      case 'dotted':
+        return {
+          letterSpacing: '0.3em',
+          before: { contentText: '•' },
+        };
+      // ... other styles
+    }
+  }
+}
 ```
 
-2. **Create PR on GitHub**
+**Benefits**:
 
-   - Base: `main`
-   - Compare: `feature/my-feature`
-   - Fill in PR template
+- ✅ Centralized creation logic
+- ✅ Consistent objects
+- ✅ Easy to extend
 
-3. **PR Title**: Should match commit message format
+**When to Use**:
 
-```
-feat(core): add custom hiding characters
-```
+- Complex object creation
+- Multiple variations
+- Configuration-driven creation
 
-4. **PR Description**: Include:
-   - What changed
-   - Why it changed
-   - How to test
-   - Screenshots (if UI changes)
-   - Related issues
+## Anti-Patterns to Avoid
 
-### PR Template
+### 1. God Object
 
-```markdown
-## Description
+**Problem**: One class does everything.
 
-Brief description of changes
+```typescript
+// ❌ BAD: God object
+export class Camouflage {
+  // File operations
+  readEnvFile(path: string): string {}
+  writeEnvFile(path: string, content: string): void {}
 
-## Type of Change
+  // Pattern matching
+  matchPattern(key: string, pattern: string): boolean {}
+  compileRegex(pattern: string): RegExp {}
 
-- [ ] Bug fix (fix)
-- [ ] New feature (feat)
-- [ ] Breaking change (BREAKING CHANGE)
-- [ ] Documentation update (docs)
+  // Text generation
+  generateStars(text: string): string {}
+  generateDotted(text: string): string {}
 
-## Testing
+  // Configuration
+  loadConfig(): Config {}
+  saveConfig(config: Config): void {}
 
-- [ ] All tests pass (`npm test`)
-- [ ] No linting errors (`npm run lint`)
-- [ ] Manual testing completed
+  // Decorations
+  updateDecorations(): void {}
+  clearDecorations(): void {}
 
-## Checklist
+  // Status bar
+  updateStatusBar(): void {}
 
-- [ ] Code follows project style guidelines
-- [ ] Self-review completed
-- [ ] Comments added for complex logic
-- [ ] Documentation updated
-- [ ] Tests added/updated
-- [ ] No console.log statements left
-```
+  // Commands
+  toggle(): void {}
+  reload(): void {}
 
-### PR Review Guidelines
-
-**For Authors**:
-
-- Keep PRs small and focused (< 400 lines)
-- Write clear commit messages
-- Add tests for new features
-- Update documentation
-- Respond to feedback promptly
-
-**For Reviewers**:
-
-- Check code quality and style
-- Verify tests are adequate
-- Look for potential bugs
-- Suggest improvements
-- Be constructive and respectful
-
-### Merging
-
-- **Squash and merge** is preferred for feature branches
-- Ensure final commit message follows conventional format
-- Delete branch after merge
-
-## Semantic Release Process
-
-### Automated Releases
-
-We use `semantic-release` for automated versioning and releases.
-
-**Workflow**:
-
-1. PR merged to `main`
-2. GitHub Actions runs `semantic-release`
-3. Analyzes commit messages
-4. Determines version bump
-5. Generates CHANGELOG
-6. Creates git tag
-7. Publishes to VS Code Marketplace
-8. Creates GitHub release
-
-### Version Bumping
-
-Based on commit types:
-
-- **feat**: 1.0.0 → 1.1.0 (minor)
-- **fix**: 1.0.0 → 1.0.1 (patch)
-- **BREAKING CHANGE**: 1.0.0 → 2.0.0 (major)
-- **docs, style, refactor, test, chore**: No version bump
-
-### CHANGELOG Generation
-
-Automatically generated from commits:
-
-```markdown
-# [1.2.0](https://github.com/user/repo/compare/v1.1.0...v1.2.0) (2024-01-15)
-
-### Features
-
-- **core**: add custom hiding characters ([abc123](link))
-
-### Bug Fixes
-
-- **patterns**: escape special regex characters ([def456](link))
+  // ... 1000+ lines
+}
 ```
 
-### Manual Release (Emergency)
+**Solution**: Split into focused modules.
 
-If automated release fails:
+```typescript
+// ✅ GOOD: Focused modules
+// core/camouflage.ts - Orchestration only
+export class Camouflage {
+  private updateDecorations(): void {}
+  public toggle(): void {}
+}
 
-```bash
-# Ensure main is clean
-git checkout main
-git pull origin main
+// utils/file-utils.ts - File operations
+export function isEnvFile(fileName: string): boolean {}
 
-# Run semantic-release locally
-npx semantic-release --no-ci
+// utils/pattern-matcher.ts - Pattern matching
+export function matchesAnyPattern(key: string, patterns: string[]): boolean {}
 
-# Verify release created
-git tag
+// lib/text-generator.ts - Text generation
+export function generateHiddenText(text: string, style: HiddenTextStyle): string {}
+
+// utils/config.ts - Configuration
+export function isEnabled(): boolean {}
 ```
 
-## Git Best Practices
+### 2. Callback Hell
 
-### Commit Often
+**Problem**: Nested callbacks make code unreadable.
 
-```bash
-# Small, focused commits
-git add src/core/camouflage.ts
-git commit -m "feat(core): add getHiddenRanges method"
-
-git add src/core/camouflage.ts
-git commit -m "refactor(core): extract decoration update logic"
+```typescript
+// ❌ BAD: Callback hell
+vscode.workspace.onDidChangeConfiguration((event) => {
+  if (event.affectsConfiguration('camouflage')) {
+    getConfiguration((config) => {
+      if (config.enabled) {
+        getActiveEditor((editor) => {
+          if (editor) {
+            getDocument(editor, (doc) => {
+              updateDecorations(doc, () => {
+                console.log('Done'); // 6 levels deep!
+              });
+            });
+          }
+        });
+      }
+    });
+  }
+});
 ```
 
-### Write Good Commit Messages
+**Solution**: Use async/await and early returns.
 
-```bash
-# ✅ GOOD
-git commit -m "fix(patterns): handle empty pattern array"
+```typescript
+// ✅ GOOD: Flat structure
+vscode.workspace.onDidChangeConfiguration(async (event) => {
+  if (!event.affectsConfiguration('camouflage')) return;
 
-# ❌ BAD
-git commit -m "fixed bug"
-git commit -m "update"
-git commit -m "changes"
+  const config = await getConfiguration();
+  if (!config.enabled) return;
+
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) return;
+
+  await updateDecorations(editor.document);
+  console.log('Done');
+});
 ```
 
-### Pull Before Push
+### 3. Magic Numbers/Strings
 
-```bash
-# Always pull latest changes before pushing
-git pull --rebase origin main
-git push origin feature/my-feature
+**Problem**: Unexplained literals in code.
+
+```typescript
+// ❌ BAD: Magic numbers
+@Debounce(100) // Why 100?
+private updateDecorations(): void { }
+
+if (text.length > 50) { // Why 50?
+  return text.substring(0, 50);
+}
+
+// ❌ BAD: Magic strings
+if (style === 'stars') { } // Typo-prone
 ```
 
-### Use Rebase for Clean History
+**Solution**: Named constants with documentation.
 
-```bash
-# Update feature branch with main changes
-git checkout feature/my-feature
-git rebase main
+```typescript
+// ✅ GOOD: Named constants
+const DEBOUNCE_MS = 100; // Balance between responsiveness and performance
+const MAX_PREVIEW_LENGTH = 50; // VS Code inline display limit
 
-# If conflicts, resolve and continue
-git add .
-git rebase --continue
+@Debounce(DEBOUNCE_MS)
+private updateDecorations(): void { }
+
+if (text.length > MAX_PREVIEW_LENGTH) {
+  return text.substring(0, MAX_PREVIEW_LENGTH);
+}
+
+// ✅ GOOD: Enums
+enum HiddenTextStyle {
+  Stars = 'stars',
+  Dotted = 'dotted',
+}
+
+if (style === HiddenTextStyle.Stars) { } // Type-safe!
 ```
 
-### Interactive Rebase for Cleanup
+### 4. Shotgun Surgery
 
-```bash
-# Clean up commits before PR
-git rebase -i HEAD~3
+**Problem**: One change requires modifications in many places.
 
-# Options:
-# pick = keep commit
-# reword = change message
-# squash = combine with previous
-# drop = remove commit
+```typescript
+// ❌ BAD: Scattered logic
+// In file A
+if (config.get('hiddenTextStyle') === 'stars') {
+}
+
+// In file B
+const style = config.get('hiddenTextStyle');
+if (style === 'stars') {
+}
+
+// In file C
+switch (config.get('hiddenTextStyle')) {
+  case 'stars':
+    break;
+}
+
+// Adding new style requires changing A, B, C!
 ```
 
-## Protected Branches
+**Solution**: Centralize related logic.
 
-### `main` Branch Protection
+```typescript
+// ✅ GOOD: Centralized
+// utils/config.ts
+export function getHidingStyle(): HiddenTextStyle {
+  return vscode.workspace
+    .getConfiguration('camouflage')
+    .get<HiddenTextStyle>('hiddenTextStyle', 'text');
+}
 
-Settings enforced:
-
-- ✅ Require pull request reviews
-- ✅ Require status checks to pass (CI tests, linting)
-- ✅ Require branches to be up to date
-- ✅ Include administrators
-- ❌ Allow force pushes
-- ❌ Allow deletions
-
-## Git Hooks
-
-### Pre-commit
-
-Runs automatically before commit:
-
-```bash
-# .husky/pre-commit
-npm run lint
-npm test
+// All files use this function
+const style = config.getHidingStyle();
 ```
 
-### Pre-push
+### 5. Primitive Obsession
 
-Runs before pushing:
+**Problem**: Using primitives instead of meaningful types.
 
-```bash
-# .husky/pre-push
-npm run build
+```typescript
+// ❌ BAD: Primitive obsession
+function updateDecoration(
+  editor: vscode.TextEditor,
+  line: number,
+  start: number,
+  end: number,
+  style: string,
+  color: string
+) {}
+
+// Calling code is error-prone
+updateDecoration(editor, 5, 10, 20, 'stars', '#FF0000');
+updateDecoration(editor, 10, 5, 20, 'stars', '#FF0000'); // Bug: start > line!
 ```
 
-### Commit Message Validation
+**Solution**: Create meaningful types.
 
-```bash
-# .husky/commit-msg
-npx --no-install commitlint --edit "$1"
+```typescript
+// ✅ GOOD: Rich types
+interface DecorationOptions {
+  editor: vscode.TextEditor;
+  range: vscode.Range;
+  style: HiddenTextStyle;
+  color: string;
+}
+
+function updateDecoration(options: DecorationOptions): void {
+  // Self-documenting
+}
+
+// Calling code is clear
+updateDecoration({
+  editor,
+  range: new vscode.Range(5, 10, 5, 20),
+  style: HiddenTextStyle.Stars,
+  color: '#FF0000',
+});
 ```
 
-Validates commit message format.
+### 6. Feature Envy
 
-## Working with Issues
+**Problem**: Method uses more data from another class than its own.
 
-### Linking Issues
+```typescript
+// ❌ BAD: Feature envy
+class Camouflage {
+  updateStatusBar(editor: vscode.TextEditor): void {
+    const fileName = editor.document.fileName;
+    const isEnv = fileName.endsWith('.env');
+    const lineCount = editor.document.lineCount;
+    const hiddenCount = this.countHiddenValues(editor.document);
 
-In commit messages:
+    this.statusBar.text = `${fileName}: ${hiddenCount}/${lineCount}`;
+  }
 
-```bash
-git commit -m "fix(patterns): escape regex special chars
-
-Fixes #42"
+  private countHiddenValues(document: vscode.TextDocument): number {
+    // Uses document data more than this class's data
+    return document.getText().split('\n').filter(/* ... */).length;
+  }
+}
 ```
 
-In PRs:
+**Solution**: Move method to appropriate class.
 
-```markdown
-Closes #42
-Fixes #43
-Resolves #44
+```typescript
+// ✅ GOOD: Data and behavior together
+class EnvDocument {
+  constructor(private document: vscode.TextDocument) {}
+
+  countHiddenValues(): number {
+    return this.document.getText().split('\n').filter(/* ... */).length;
+  }
+
+  getFileName(): string {
+    return this.document.fileName;
+  }
+}
+
+class Camouflage {
+  updateStatusBar(editor: vscode.TextEditor): void {
+    const envDoc = new EnvDocument(editor.document);
+    const hiddenCount = envDoc.countHiddenValues();
+
+    this.statusBar.text = `${envDoc.getFileName()}: ${hiddenCount}`;
+  }
+}
 ```
 
-### Issue Labels
+### 7. Premature Optimization
 
-- `bug` - Something isn't working
-- `feature` - New feature request
-- `documentation` - Documentation improvements
-- `good first issue` - Good for newcomers
-- `help wanted` - Extra attention needed
-- `priority: high` - High priority
-- `priority: low` - Low priority
+**Problem**: Optimizing before profiling.
 
-## Release Checklist
+```typescript
+// ❌ BAD: Premature optimization
+class RegexCache {
+  private cache = new WeakMap<string, RegExp>();
+  private hitCount = 0;
+  private missCount = 0;
+  private lastCleanup = Date.now();
 
-Before major releases:
+  get(pattern: string): RegExp {
+    // Complex caching logic for potential future issue
+    if (Date.now() - this.lastCleanup > 10000) {
+      this.cleanup();
+    }
 
-- [ ] All tests passing
-- [ ] Documentation updated
-- [ ] CHANGELOG reviewed
-- [ ] Migration guide created (if breaking changes)
-- [ ] Beta tested by maintainers
-- [ ] Performance benchmarks run
-- [ ] Security review completed
-- [ ] Backward compatibility verified
+    // ... 50 lines of cache optimization
+  }
+}
 
-## Emergency Rollback
-
-If a bad release goes out:
-
-```bash
-# Revert to previous version
-git checkout main
-git revert HEAD
-git push origin main
-
-# Or create hotfix
-git checkout -b hotfix/revert-bad-change
-git revert <bad-commit-hash>
-git push origin hotfix/revert-bad-change
-# Create PR to main
+// Pattern matching is actually fast enough without cache!
 ```
 
-## Versioning Strategy
+**Solution**: Start simple, optimize when needed.
 
-We follow **Semantic Versioning 2.0.0**:
+```typescript
+// ✅ GOOD: Simple first
+function getRegex(pattern: string): RegExp {
+  // Simple and clear
+  return new RegExp(pattern, 'i');
+}
 
-- **MAJOR** (X.0.0): Breaking changes
-- **MINOR** (0.X.0): New features, backward compatible
-- **PATCH** (0.0.X): Bug fixes, backward compatible
+// If profiling shows this is slow, THEN optimize:
+const regexCache = new Map<string, RegExp>();
 
-### Pre-release Versions
-
-For beta testing:
-
+function getRegex(pattern: string): RegExp {
+  if (!regexCache.has(pattern)) {
+    regexCache.set(pattern, new RegExp(pattern, 'i'));
+  }
+  return regexCache.get(pattern)!;
+}
 ```
-1.2.0-beta.1
-1.2.0-beta.2
-1.2.0-rc.1
-1.2.0
+
+### 8. Error Swallowing
+
+**Problem**: Catching errors without handling them.
+
+```typescript
+// ❌ BAD: Error swallowing
+try {
+  updateDecorations();
+} catch {
+  // Silent failure - user has no idea something went wrong
+}
+
+// ❌ BAD: Logging but not handling
+try {
+  updateDecorations();
+} catch (error) {
+  console.log(error); // Logged but not handled
+}
 ```
 
-## Git Configuration
+**Solution**: Handle errors appropriately.
 
-Recommended local git config:
+```typescript
+// ✅ GOOD: Proper error handling
+try {
+  updateDecorations();
+} catch (error) {
+  console.error('[Camouflage] Failed to update decorations:', error);
+  vscode.window.showErrorMessage(
+    'Failed to update decorations. Check output for details.'
+  );
 
-```bash
-# Set up commit signing
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+  // Attempt recovery
+  this.resetDecorations();
+}
 
-# Use rebase by default for pulls
-git config --global pull.rebase true
-
-# Prune stale branches on fetch
-git config --global fetch.prune true
-
-# Use diff-so-fancy for better diffs
-git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+// ✅ GOOD: Use decorator for consistent handling
+@HandleErrors
+private updateDecorations(): void {
+  // Errors handled by decorator
+}
 ```
+
+## SOLID Principles
+
+### Single Responsibility Principle
+
+Each class/module has one reason to change.
+
+```typescript
+// ✅ GOOD: Single responsibility
+// pattern-matcher.ts - Only pattern matching
+export function matchesAnyPattern(key: string, patterns: string[]): boolean {
+  return patterns.some((pattern) => matchPattern(key, pattern));
+}
+
+// text-generator.ts - Only text generation
+export function generateHiddenText(text: string, style: HiddenTextStyle): string {
+  return strategies[style](text);
+}
+
+// file-utils.ts - Only file operations
+export function isEnvFile(fileName: string): boolean {
+  return ENV_PATTERNS.some((pattern) => fileName.endsWith(pattern));
+}
+```
+
+### Open/Closed Principle
+
+Open for extension, closed for modification.
+
+```typescript
+// ✅ GOOD: Open/Closed
+// Adding new hiding style doesn't modify existing code
+const strategies: Record<HiddenTextStyle, GeneratorStrategy> = {
+  text: (text) => 'camouflage'.repeat(Math.ceil(text.length / 10)),
+  stars: (text) => '*'.repeat(text.length),
+  dotted: (text) => '•'.repeat(text.length),
+  // NEW: Just add here, no modification to existing strategies
+  custom: (text) => customTransform(text),
+};
+```
+
+### Liskov Substitution Principle
+
+Derived classes should be substitutable for base classes.
+
+```typescript
+// ✅ GOOD: LSP
+interface TextTransformer {
+  transform(text: string): string;
+}
+
+class StarsTransformer implements TextTransformer {
+  transform(text: string): string {
+    return '*'.repeat(text.length);
+  }
+}
+
+class DottedTransformer implements TextTransformer {
+  transform(text: string): string {
+    return '•'.repeat(text.length);
+  }
+}
+
+// Both can be used interchangeably
+function applyTransform(text: string, transformer: TextTransformer): string {
+  return transformer.transform(text);
+}
+```
+
+### Interface Segregation Principle
+
+Clients shouldn't depend on interfaces they don't use.
+
+```typescript
+// ❌ BAD: Fat interface
+interface Camouflage {
+  toggle(): void;
+  reload(): void;
+  updateDecorations(): void;
+  updateStatusBar(): void;
+  readConfig(): Config;
+  // Not all clients need all methods!
+}
+
+// ✅ GOOD: Segregated interfaces
+interface Toggleable {
+  toggle(): void;
+}
+
+interface Reloadable {
+  reload(): void;
+}
+
+interface Decoratable {
+  updateDecorations(): void;
+}
+
+// Clients depend only on what they need
+class StatusBarManager {
+  constructor(private toggleable: Toggleable) {
+    // Only depends on toggle, not everything
+  }
+}
+```
+
+### Dependency Inversion Principle
+
+Depend on abstractions, not concretions.
+
+```typescript
+// ❌ BAD: Depends on concrete class
+class Camouflage {
+  private config: VsCodeConfiguration; // Concrete VS Code API
+
+  constructor() {
+    this.config = new VsCodeConfiguration();
+  }
+}
+
+// ✅ GOOD: Depends on abstraction
+interface ConfigProvider {
+  isEnabled(): boolean;
+  getHidingStyle(): HiddenTextStyle;
+}
+
+class Camouflage {
+  constructor(private config: ConfigProvider) {
+    // Can be any implementation (VS Code, file, test mock, etc.)
+  }
+}
+```
+
+## When to Apply Patterns
+
+✅ **Use patterns when**:
+
+- Code will be extended in predictable ways
+- Similar logic appears in multiple places
+- Testing is difficult without abstraction
+- Team agrees on the pattern
+
+❌ **Don't use patterns when**:
+
+- Code is simple and unlikely to change
+- Pattern adds more complexity than it removes
+- Team is unfamiliar with the pattern
+- Premature abstraction
+
+**Remember**: Patterns are tools, not rules. Use them when they make code better, not just to use them.
 
 ---
 > Source: [zeybek/camouflage](https://github.com/zeybek/camouflage) — distributed by [TomeVault](https://tomevault.io).
