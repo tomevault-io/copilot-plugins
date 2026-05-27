@@ -1,0 +1,9 @@
+{
+  "name": "sir-mmd--dataproxy",
+  "displayName": "dataproxy",
+  "description": "Turn your Android phone into a SOCKS5 proxy whose traffic always goes out over mobile data",
+  "version": "1.0.0",
+  "author": "Sir-MmD",
+  "homepage": "https://github.com/Sir-MmD/dataproxy",
+  "skills": []
+}
