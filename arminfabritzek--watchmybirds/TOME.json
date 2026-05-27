@@ -1,0 +1,44 @@
+{
+  "name": "WatchMyBirds",
+  "owner": "arminfabritzek",
+  "repo": "WatchMyBirds",
+  "description": "WatchMyBirds is a lightweight, customizable object detection application designed for real-time monitoring and birdwatching. Leveraging state-of-the-art AI models and supporting a variety of video sources\u2014including web- and IP-cams and RTSP streams\u2014WatchMyBirds transforms any camera into a powerful detection system.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arminfabritzek/WatchMyBirds",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T17:01:01Z"
+}
