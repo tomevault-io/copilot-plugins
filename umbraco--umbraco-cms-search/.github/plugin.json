@@ -1,0 +1,9 @@
+{
+  "name": "umbraco--umbraco-cms-search",
+  "displayName": "Umbraco.Cms.Search",
+  "description": "Search abstractions and implementations for Umbraco - The Future of Search",
+  "version": "1.0.0",
+  "author": "umbraco",
+  "homepage": "https://github.com/umbraco/Umbraco.Cms.Search",
+  "skills": []
+}
