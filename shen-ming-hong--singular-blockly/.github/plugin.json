@@ -1,0 +1,9 @@
+{
+  "name": "shen-ming-hong--singular-blockly",
+  "displayName": "singular-blockly",
+  "description": "Blockly-powered VS Code extension for visual programming on Arduino, ESP32, CyberBrick MicroPython, and fischertechnik TXT Controller.",
+  "version": "1.0.0",
+  "author": "Shen-Ming-Hong",
+  "homepage": "https://github.com/Shen-Ming-Hong/singular-blockly",
+  "skills": []
+}
