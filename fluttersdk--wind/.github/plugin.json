@@ -1,0 +1,9 @@
+{
+  "name": "fluttersdk--wind",
+  "displayName": "wind",
+  "description": "Tailwind CSS for Flutter \u2014 classes like flex, p-4, dark:bg-gray-800 compose into widget trees. MCP server + Claude Code skill for AI agents.",
+  "version": "1.0.0",
+  "author": "fluttersdk",
+  "homepage": "https://github.com/fluttersdk/wind",
+  "skills": []
+}
