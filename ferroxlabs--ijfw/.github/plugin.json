@@ -1,0 +1,9 @@
+{
+  "name": "ferroxlabs--ijfw",
+  "displayName": "ijfw",
+  "description": "IJFW \u2014 It Just F*cking Works. Ferrox Labs' local-first infrastructure for AI coding agents: shared memory, smart routing, multi-AI cross-audits, disciplined workflow.",
+  "version": "1.0.0",
+  "author": "FerroxLabs",
+  "homepage": "https://github.com/FerroxLabs/ijfw",
+  "skills": []
+}
