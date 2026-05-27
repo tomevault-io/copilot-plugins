@@ -1,6 +1,6 @@
-# kernel-mapper
+# AI instruction files for kernel-mapper
 
-> Config by [vzwjustin](https://github.com/vzwjustin/kernel-mapper) — distributed by [TomeVault](https://tomevault.io/claim/vzwjustin)
+> Sourced from [vzwjustin/kernel-mapper](https://github.com/vzwjustin/kernel-mapper) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `CLAUDE.md` in [vzwjustin/kernel-mapper](https://github.com/vzw
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/vzwjustin](https://tomevault.io/claim/vzwjustin)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/vzwjustin/kernel-mapper](https://github.com/vzwjustin/kernel-mapper)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/vzwjustin) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-q -->
