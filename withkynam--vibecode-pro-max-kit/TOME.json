@@ -4,7 +4,7 @@
   "repo": "vibecode-pro-max-kit",
   "description": "Your AI coding agent writes code before it understands your project. This fixes that. Built for vibecoders.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/withkynam/vibecode-pro-max-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T16:31:03Z"
+  "distributed_at": "2026-05-27T16:33:58Z"
 }
