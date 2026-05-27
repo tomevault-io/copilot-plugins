@@ -1,0 +1,9 @@
+{
+  "name": "pocketllm--pocketllm",
+  "displayName": "PocketLLM",
+  "description": "\ud83d\ude80 A powerful Flutter-based AI chat application that lets you run LLMs directly on your mobile device or connect to local model servers. Features offline model execution, Ollama/LLMStudio integration, ",
+  "version": "1.0.0",
+  "author": "PocketLLM",
+  "homepage": "https://github.com/PocketLLM/PocketLLM",
+  "skills": []
+}
