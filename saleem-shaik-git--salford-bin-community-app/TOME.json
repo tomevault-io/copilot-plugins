@@ -4,7 +4,7 @@
   "repo": "Salford-bin-community-app",
   "description": "Community-focused application for bin collection reminders and waste-sorting guidance",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saleem-shaik-git/Salford-bin-community-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T12:33:07Z"
+  "distributed_at": "2026-05-27T12:33:53Z"
 }
