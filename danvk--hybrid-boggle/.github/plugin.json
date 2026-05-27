@@ -1,0 +1,9 @@
+{
+  "name": "danvk--hybrid-boggle",
+  "displayName": "hybrid-boggle",
+  "description": "Trying to find the highest-scoring Boggle board with a mix of C++ and Python",
+  "version": "1.0.0",
+  "author": "danvk",
+  "homepage": "https://github.com/danvk/hybrid-boggle",
+  "skills": []
+}
