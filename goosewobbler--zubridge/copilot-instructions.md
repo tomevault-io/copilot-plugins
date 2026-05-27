@@ -1,28 +1,64 @@
-## coding-patterns
+## commands
 
-> - Develop functions with a test-driven development mindset, ensuring each low-level function or method intended for reuse performs a single, atomic task, but avoid adding unnecessary abstration layers.
+> pnpm test:e2e:handlers
 
-# Zubridge Coding Patterns
+# Zubridge Development Commands
 
-## Rules
-- Develop functions with a test-driven development mindset, ensuring each low-level function or method intended for reuse performs a single, atomic task, but avoid adding unnecessary abstration layers.
+## Root Directory
 
-## Promise Handling
-- Always await Promises; use `void` prefix if intentionally not awaiting
-- Avoid floating promises to prevent unhandled rejections
+### Build: build all packages and apps
+pnpm build
 
-## React Components
-- Avoid default React import; use named imports only
-- Prefer functional components over class components
-- Follow React hooks rules (dependencies array, call only at top level)
+### Build: build only the core packages (@zubridge/types, @zubridge/electron, @zubridge/tauri, @zubridge/ui)
+pnpm build:packages
 
-## Restricted Patterns
-- Avoid "barrel" files at the root of package subdirectories (like `packages/ui/src/components/Logger/index.ts`). Barrel files at the package root level (like `packages/ui/src/index.ts`) are acceptable.
-- Prefer named export over export default
+### CI: run the CI build, including all tests
+pnpm run ci
 
-## Error Handling
-- Use try/catch blocks for async operations that might fail
-- Provide appropriate error messages and fallbacks
+### CI: run the CI build on Linux
+pnpm ci:linux
+
+### CI: display the E2E logs
+pnpm ci:e2e:logs
+
+### Formatting: apply formatting to files
+pnpm format
+
+### Formatting: verify if formatting is correct
+pnpm format:check
+
+### Task Graph: create task graph for CI build
+pnpm graph:e2e
+
+### Test: run all tests for all packages
+pnpm test
+
+### Test: run unit tests for all packages
+pnpm test:unit
+
+### Test: run E2E tests for all packages
+pnpm test:e2e
+
+### Test: run E2E tests for the electron package in basic mode
+pnpm test:e2e:basic
+
+### Test: run E2E tests for the electron package in handlers mode
+pnpm test:e2e:handlers
+
+### Test: run E2E tests for the electron package in reducers mode
+pnpm test:e2e:reducers
+
+### Test: run E2E tests for the electron package in redux mode
+pnpm test:e2e:redux
+
+### Test: run E2E tests for the electron package in custom mode
+pnpm test:e2e:custom
+
+### Clean: fully clean all packages and apps
+pnpm clean
+
+### Clean: delete turborepo cache
+pnpm clean:cache
 
 ---
 > Source: [goosewobbler/zubridge](https://github.com/goosewobbler/zubridge) — distributed by [TomeVault](https://tomevault.io).
