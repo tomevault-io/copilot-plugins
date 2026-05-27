@@ -1,0 +1,9 @@
+{
+  "name": "hendemic--network-eval-service",
+  "displayName": "network-eval-service",
+  "description": "Web app for running local network tests",
+  "version": "1.0.0",
+  "author": "hendemic",
+  "homepage": "https://github.com/hendemic/network-eval-service",
+  "skills": []
+}
