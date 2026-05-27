@@ -1,0 +1,9 @@
+{
+  "name": "r3-yamauchi--kintone-mcp-server",
+  "displayName": "kintone-mcp-server",
+  "description": "MCP server for kintone \u30b5\u30f3\u30d7\u30eb (Unofficial) https://www.r3it.com/blog/kintone-mcp-server-20250115-yamauchi https://www.r3it.com/blog/kintone-ai-lab-20250501-yamauchi",
+  "version": "1.0.0",
+  "author": "r3-yamauchi",
+  "homepage": "https://github.com/r3-yamauchi/kintone-mcp-server",
+  "skills": []
+}
