@@ -1,0 +1,44 @@
+{
+  "name": "wisp",
+  "owner": "Thavarshan",
+  "repo": "wisp",
+  "description": "\ud83d\udd10 Wisp is a simple and secure platform for sharing encrypted, one-time secrets via protected links that automatically expire.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Thavarshan/wisp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T15:30:07Z"
+}
