@@ -1,0 +1,9 @@
+{
+  "name": "axuanhogan--quarkus-kotlin-clean-arch-template",
+  "displayName": "quarkus-kotlin-clean-arch-template",
+  "description": "Clean Architecture template using Quarkus with Kotlin",
+  "version": "1.0.0",
+  "author": "axuanhogan",
+  "homepage": "https://github.com/axuanhogan/quarkus-kotlin-clean-arch-template",
+  "skills": []
+}
