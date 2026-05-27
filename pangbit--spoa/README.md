@@ -1,6 +1,6 @@
-# spoa — distributed by TomeVault
+# spoa
 
-> Originally from [pangbit/spoa](https://github.com/pangbit/spoa). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [pangbit/spoa](https://github.com/pangbit/spoa) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `CLAUDE.md` in [pangbit/spoa](https://github.com/pangbit/spoa).
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/pangbit#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/pangbit/spoa](https://github.com/pangbit/spoa)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install pangbit/spoa
 ```
-Or browse all formats at [https://tomevault.io/claim/pangbit](https://tomevault.io/claim/pangbit).
+Source: [github.com/pangbit/spoa](https://github.com/pangbit/spoa).
 
 <!-- genome:d-i-q -->
