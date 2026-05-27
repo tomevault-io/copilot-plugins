@@ -1,33 +1,61 @@
-## ai-sandbox-benchmark
+## benchmark-test-standards
 
-> - Run all benchmarks: `python comparator.py`
+> Rules for consistent test implementation in the AI Sandbox Benchmark project
 
-# AI Sandbox Benchmark Commands & Style Guide
+# Benchmark Test Standards
 
-## Commands
-- Run all benchmarks: `python comparator.py`
-- Run specific tests: `python comparator.py --tests 1,2 --providers daytona,e2b`
-- Run single test: `python comparator.py --tests 1 --providers daytona`
-- Run on local machine: `python comparator.py --providers local`
-- Adjust runs: `python comparator.py --runs 5 --warmup-runs 2`
-- Change region: `python comparator.py --target-region us`
+Rules for consistent test implementation in the AI Sandbox Benchmark project
 
-## Testing Setup
-- Start CodeSandbox service first: `cd providers && node codesandbox-service.js`
-- Ensure environment variables are set in .env file (not needed when using only the local provider)
-- Some tests will run only once regardless of `--runs` parameter (those with `single_run = True` property)
+```rule
+id: test-naming-convention
+name: Test Function Naming Convention
+description: All test functions should be named 'test_<category>_<specific_test>' for consistency
+pattern: def test_[a-z]+_[a-z_]+\(
+severity: warning
+```
 
-## Code Style
-- Imports: standard library first, then third-party, then local imports
-- Type hints: Use Python typing module for all functions and classes
-- Error handling: Use try/except blocks with specific exceptions
-- Naming: snake_case for functions/variables, CamelCase for classes
-- Async: Use asyncio for concurrent operations
-- Documentation: Use docstrings for all public functions and classes
+```rule
+id: test-docstring-required
+name: Test Docstring Required
+description: All test functions should have a detailed docstring explaining purpose, inputs, and expected outputs
+pattern: def test_.*:\s+"""
+severity: warning
+```
 
-## Providers Implementation
-- All provider modules must implement an `execute(code, ...)` function
-- Always properly handle resource cleanup in finally blocks
+```rule
+id: test-return-metrics
+name: Test Return Metrics
+description: Test functions should return code to execute and expected outputs for validation
+pattern: return\s+["'].+["'],\s+[{\[]
+severity: warning
+```
+
+```rule
+id: provider-compatibility-tag
+name: Provider Compatibility
+description: Tests should specify which providers they are compatible with using a PROVIDERS_COMPATIBILITY list
+pattern: PROVIDERS_COMPATIBILITY\s*=\s*\[
+severity: info
+```
+
+```rule
+id: test-complexity-indication
+name: Test Complexity Indication
+description: Tests should indicate their complexity level (COMPLEXITY = 'simple'|'medium'|'complex')
+pattern: COMPLEXITY\s*=\s*["'](mdc:?:simple|medium|complex)["']
+severity: info
+```
+
+```rule
+id: test-timeout-specification
+name: Test Timeout Specification
+description: Tests should specify their expected maximum runtime in seconds
+pattern: TIMEOUT_SECONDS\s*=\s*\d+
+severity: info
+```
+
+file_patterns: ["tests/*.py"]
+exclusions: ["tests/__init__.py"]
 
 ---
 > Source: [nibzard/ai-sandbox-benchmark](https://github.com/nibzard/ai-sandbox-benchmark) — distributed by [TomeVault](https://tomevault.io).
