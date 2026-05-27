@@ -1,0 +1,9 @@
+{
+  "name": "yandex--go-linters",
+  "displayName": "go-linters",
+  "description": "Yandex battle proven set of Go static analyzers",
+  "version": "1.0.0",
+  "author": "yandex",
+  "homepage": "https://github.com/yandex/go-linters",
+  "skills": []
+}
