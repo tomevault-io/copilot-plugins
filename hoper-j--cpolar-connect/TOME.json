@@ -4,7 +4,7 @@
   "repo": "cpolar-connect",
   "description": "\ud83d\ude80 A command-line tool for automating cpolar tunnel management and SSH connections.  \u81ea\u52a8\u5316\u7ba1\u7406 cpolar \u514d\u8d39\u7248\u5185\u7f51\u7a7f\u900f\u8fde\u63a5\u7684\u547d\u4ee4\u884c\u5de5\u5177\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hoper-J/cpolar-connect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T19:38:38Z"
+  "distributed_at": "2026-05-27T19:41:24Z"
 }
