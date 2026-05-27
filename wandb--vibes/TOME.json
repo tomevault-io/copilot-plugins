@@ -4,7 +4,7 @@
   "repo": "vibes",
   "description": "A repo with a devcontainer ready to vibe with Claude, Codex or Gemini",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wandb/vibes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T13:57:30Z"
+  "distributed_at": "2026-05-27T14:01:29Z"
 }
