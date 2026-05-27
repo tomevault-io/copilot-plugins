@@ -1,0 +1,9 @@
+{
+  "name": "platima--board-taxonomies",
+  "displayName": "Board-Taxonomies",
+  "description": "Definitions and examples for different categories of embedded computing boards",
+  "version": "1.0.0",
+  "author": "platima",
+  "homepage": "https://github.com/platima/Board-Taxonomies",
+  "skills": []
+}
