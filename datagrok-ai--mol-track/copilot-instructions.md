@@ -1,33 +1,37 @@
-## chemical-structures
+## data-types
 
-> The system uses RDKit for chemical structure management as defined in [db/schema.sql](mdc:db/schema.sql).
+> Key data types and constraints used in [db/schema.sql](mdc:db/schema.sql):
 
-# Chemical Structure Handling
+# Data Types and Constraints
 
-The system uses RDKit for chemical structure management as defined in [db/schema.sql](mdc:db/schema.sql).
+Key data types and constraints used in [db/schema.sql](mdc:db/schema.sql):
 
-## Chemical Structure Representations
-Compounds are stored with multiple representations:
-- `canonical_smiles`: RDKit canonical SMILES notation
-- `original_molfile`: Original structure as drawn
-- `inchi`: IUPAC International Chemical Identifier
-- `inchikey`: Fixed-length InChI hash for indexing
+## Property Value Types
+Properties can have the following value types:
+- `int`: Integer values
+- `double`: Floating point values
+- `bool`: Boolean values
+- `datetime`: Date and time values
+- `string`: Text values
 
-## RDKit Integration
-The `rdk` schema provides chemical structure searching capabilities:
-1. RDKit extension is automatically enabled
-2. `rdk.mols` table stores molecules in native RDKit format
-3. GIST index on molecules enables substructure searching
-4. Automatic synchronization via triggers:
-   - New compounds automatically create RDKit molecules
-   - Maintains consistency between `moltrack.compounds` and `rdk.mols`
+## Property Classifications
+Properties are classified as one of:
+- `CALCULATED`: Computed properties
+- `MEASURED`: Experimentally measured values
+- `PREDICTED`: Values predicted by models
 
-## Structure Operations
-The RDKit integration enables:
-- Substructure searching
-- Chemical similarity calculations
-- Structure standardization
-- Molecular property calculations
+## Key Constraints
+1. Every batch must reference a valid compound (`batches.compound_id`)
+2. Properties must have valid semantic types (`properties.semantic_type_id`)
+3. Assay results must reference valid:
+   - Batches (`assay_results.batch_id`)
+   - Assays (`assay_results.assay_id`)
+   - Properties (`assay_results.property_id`)
+
+## Timestamps
+Most tables include:
+- `created_at`: Automatically set to current timestamp
+- `updated_at`: For tracking modifications
 
 ---
 > Source: [datagrok-ai/mol-track](https://github.com/datagrok-ai/mol-track) — distributed by [TomeVault](https://tomevault.io).
