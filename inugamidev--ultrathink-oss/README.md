@@ -2,6 +2,8 @@
 
 > Tome by [InugamiDev](https://github.com/InugamiDev/ultrathink-oss) — distributed by [TomeVault](https://tomevault.io)
 
+AI instruction skills by InugamiDev
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `CLAUDE.md` in [InugamiDev/ultrathink-oss](https://github.com/I
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [InugamiDev/ultrathink-oss](https://github.com/InugamiDev/ultrathink-oss) — a repo with 0+ stars on GitHub.
+From [InugamiDev/ultrathink-oss](https://github.com/InugamiDev/ultrathink-oss) — a repo with 46+ stars on GitHub.
 
 ---
 
