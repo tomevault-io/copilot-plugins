@@ -1,0 +1,9 @@
+{
+  "name": "mickgiles--homebridge-tsvesync",
+  "displayName": "homebridge-tsvesync",
+  "description": "Homebridge plugin for Etekcity, Vesync, and Levoit smart devices",
+  "version": "1.0.0",
+  "author": "mickgiles",
+  "homepage": "https://github.com/mickgiles/homebridge-tsvesync",
+  "skills": []
+}
