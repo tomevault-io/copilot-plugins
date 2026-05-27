@@ -74,6 +74,5 @@ PR-Agent automates AI-assisted reviews for pull requests across multiple git pro
 - Review `SECURITY.md` before disclosing vulnerabilities and follow its contact instructions for responsible reporting.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/qodo-ai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/qodo-ai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [qodo-ai/pr-agent](https://github.com/qodo-ai/pr-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
