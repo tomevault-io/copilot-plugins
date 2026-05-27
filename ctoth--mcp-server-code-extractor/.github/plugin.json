@@ -1,0 +1,9 @@
+{
+  "name": "ctoth--mcp-server-code-extractor",
+  "displayName": "mcp_server_code_extractor",
+  "description": "\ud83c\udfaf Precise code extraction for AI assistants - MCP server using tree-sitter to extract functions, classes & snippets from 30+ languages without manual parsing",
+  "version": "1.0.0",
+  "author": "ctoth",
+  "homepage": "https://github.com/ctoth/mcp_server_code_extractor",
+  "skills": []
+}
