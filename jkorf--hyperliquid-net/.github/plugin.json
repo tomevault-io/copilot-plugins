@@ -1,0 +1,9 @@
+{
+  "name": "jkorf--hyperliquid-net",
+  "displayName": "HyperLiquid.Net",
+  "description": "A C# .netstandard client library for the HyperLiquid DEX REST and Websocket Spot and Futures API focusing on clear usage and models",
+  "version": "1.0.0",
+  "author": "JKorf",
+  "homepage": "https://github.com/JKorf/HyperLiquid.Net",
+  "skills": []
+}
