@@ -1,0 +1,9 @@
+{
+  "name": "k2--olol",
+  "displayName": "olol",
+  "description": "# Ollama<=>Ollama Inference Cluster",
+  "version": "1.0.0",
+  "author": "K2",
+  "homepage": "https://github.com/K2/olol",
+  "skills": []
+}
