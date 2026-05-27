@@ -1,0 +1,9 @@
+{
+  "name": "go-pkgz--pool",
+  "displayName": "pool",
+  "description": "workers pool with extras",
+  "version": "1.0.0",
+  "author": "go-pkgz",
+  "homepage": "https://github.com/go-pkgz/pool",
+  "skills": []
+}
