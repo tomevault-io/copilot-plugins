@@ -1,41 +1,39 @@
-## configuration-architecture
+## design-tokens
 
-> Configuration changes (yaml fields, env vars, configKeys, system_metadata) conform to the 4-layer model in configuration-architecture.md
+> Visual values via CSS variables; no hex / rgb literals in style
 
 
-# Configuration changes — 4-layer model (binding)
+# Design-token strict (binding, theme/mode safety)
 
-Any PR that adds / removes / renames a YAML field, env variable, `thing_config_template` configKey, `system_metadata` key, or publisher/receiver wiring MUST conform to the 4-layer model + R1–R5 invariants in `docs/developers/architecture/cross-cutting/foundation/configuration-architecture.md`.
+You are editing UI code. All visual values (color, background, border, shadow, padding / margin / gap, font-size, font-weight, border-radius, transition, z-index) **must** be referenced through CSS variables.
 
-**Read that doc BEFORE editing.**
+## Token layers
 
-## What you MUST do
+- **Layer 1 raw tokens** — `--g-gray-*`, `--g-space-*`, `--g-radius-*`, `--g-shadow-*`, `--g-transition-*`, `--g-z-*`. Defined in `packages/ui-shared/src/styles/global.css`.
+- **Layer 2 semantic tokens** — `--color-*`, `--sidebar-*`, `--shadow-*`, `--space-*`, `--font-size-*`, `--radius-*`, `--transition-*`, `--z-*`. Defined in `light.css` / `dark.css` and flip with `data-theme`.
 
-### Adding a new configKey
+Components consume **Layer 2** by default (semantic intent). Drop to Layer 1 only when semantically neutral.
 
-1. Add the constant to `packages/shared/schemas/configkey/` (constants + `ValidByThingType` + `TypedRegistry`) in the **same PR**.
-2. Update the `configuration-architecture.md` §7 per-key catalog row in the **same PR**.
-3. Wire the publisher / receiver path per the 4-layer model (see §4 of the doc).
+## Forbidden
 
-### Renaming a YAML field / env var / configKey
+- Hex / `rgb(a)` / `hsl(a)` literals in `*.module.css`.
+- Hex / `rgb(a)` literals inside `style={{}}` blocks.
+- Raw numeric `padding: 8` / `fontSize: 14` / `borderRadius: 4` etc. in `style={{}}`.
 
-1. Run `scripts/check-rename.sh OLD NEW` as the sweep gate — it covers all 14 layers listed in §6.5 of the architecture doc.
-2. Verify the negative grep returns zero: `git grep -E '\bOLD\b'` must be empty before shipping.
-3. Update `.env.example` and the per-key catalog in the same PR.
+## Three escape hatches
 
-### Removing a configKey
+1. **Recharts colours** — must import from `packages/ui-shared/src/theme/chartColors.ts` (the single sanctioned hex source).
+2. **CSS variable bridges** — `style={{ '--foo': dynamicValue }}` is fine.
+3. **Runtime-computed dimensions** — `` style={{ paddingLeft: `${level * 20}px` }} `` is fine.
 
-Hard-delete it (pre-GA policy — see `no-backward-compatibility.mdc`). No `@deprecated`, no parallel paths.
+Anything else needs an explicit user waiver in chat.
 
-## What you MUST NOT do
+## Enforcement
 
-- Add a configKey only to the registry and forget the catalog — admins won't see it, runtime won't recognise it.
-- Add a configKey to the catalog only — runtime validation will reject it.
-- Add a field to one of `seed.ts` / `thing_config_template` / `configreconcile` but not the others — invariants drift silently.
-
-## Source of truth
-
-`docs/developers/architecture/cross-cutting/foundation/configuration-architecture.md` (4-layer model + R1–R5 invariants + §6.5 14-layer rename checklist + §7 per-key catalog).
+```bash
+npm run check:design-tokens           # CI gate
+npm run check:design-tokens:hints     # migration suggestions when refactoring legacy code
+```
 
 Skipping this rule requires **explicit user approval** in chat.
 
