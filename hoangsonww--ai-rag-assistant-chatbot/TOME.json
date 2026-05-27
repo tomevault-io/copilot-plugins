@@ -2,9 +2,9 @@
   "name": "AI-RAG-Assistant-Chatbot",
   "owner": "hoangsonww",
   "repo": "AI-RAG-Assistant-Chatbot",
-  "description": "",
+  "description": "\ud83d\udc68\ud83c\udffb\u200d\ud83d\udcbb Meet Lumina \u2013 my personal AI assistant powered by hybrid RAG with Pinecone vector search and Neo4j graph traversal, Google AI, LangChain, and an MCP server with 30+ tools. Features real-time streaming, conversation branching, and a multi-agent agentic AI pipeline for intelligent, grounded responses with inline citations.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/hoangsonww",
+  "source_url": "https://github.com/hoangsonww/AI-RAG-Assistant-Chatbot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T17:53:22Z"
+  "distributed_at": "2026-05-27T17:41:47Z"
 }
