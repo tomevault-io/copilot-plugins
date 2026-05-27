@@ -1,0 +1,9 @@
+{
+  "name": "willibrandon--netcontextserver",
+  "displayName": "NetContextServer",
+  "description": "A .NET implementation of the Model Context Protocol enabling AI assistants to explore and understand .NET codebases.",
+  "version": "1.0.0",
+  "author": "willibrandon",
+  "homepage": "https://github.com/willibrandon/NetContextServer",
+  "skills": []
+}
