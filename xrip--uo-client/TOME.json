@@ -4,7 +4,7 @@
   "repo": "uo-client",
   "description": "Ultima Online T2A client recreated from Origin's 2.0.7 client decompilation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xrip/uo-client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T02:34:35Z"
+  "distributed_at": "2026-05-27T02:35:06Z"
 }
