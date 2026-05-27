@@ -1,0 +1,9 @@
+{
+  "name": "letta-ai--letta-discord-bot-example",
+  "displayName": "letta-discord-bot-example",
+  "description": " An example Discord chatbot built on the Letta API, which uses a stateful agent (agent with memory) under the hood. ",
+  "version": "1.0.0",
+  "author": "letta-ai",
+  "homepage": "https://github.com/letta-ai/letta-discord-bot-example",
+  "skills": []
+}
