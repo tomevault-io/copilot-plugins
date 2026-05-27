@@ -1,0 +1,9 @@
+{
+  "name": "goplausible--algorand-mcp",
+  "displayName": "algorand-mcp",
+  "description": "Algorand Local Model Context Protocol (Server & Client)",
+  "version": "1.0.0",
+  "author": "GoPlausible",
+  "homepage": "https://github.com/GoPlausible/algorand-mcp",
+  "skills": []
+}
