@@ -130989,6 +130989,11 @@
       "description": "There are many OCaml stacks, this one is mine."
     },
     {
+      "name": "anantbhandarkar--make-it-right",
+      "source": "./anantbhandarkar--make-it-right",
+      "description": "Make It Right \u2014 constraint-first backend reliability skills for AI coding agents. 3 tiers (generic \u2192 runtime \u2192 framework) across 9 runtimes; stops AI shipping confident-but-wrong backend code. Apache-"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
