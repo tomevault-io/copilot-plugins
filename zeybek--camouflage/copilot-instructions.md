@@ -1,313 +1,412 @@
-## architecture
+## coding-standards
 
-> Project architecture, directory structure, module responsibilities, and dependency rules
+> TypeScript coding standards, naming conventions, code organization, and best practices
 
 
-# Project Architecture
+# Coding Standards
 
-## Directory Structure
+## TypeScript Standards
 
-```
-camouflage/
-├── src/
-│   ├── core/              # Business logic
-│   │   └── camouflage.ts  # Main engine
-│   ├── lib/               # Pure functions
-│   │   ├── decorators.ts  # Method decorators
-│   │   └── text-generator.ts # Text transformation
-│   ├── parsers/           # Multi-format parsers
-│   │   ├── types.ts       # Parser interfaces
-│   │   ├── base-parser.ts # Abstract base class
-│   │   ├── env-parser.ts  # ENV/Shell parser
-│   │   ├── json-parser.ts # JSON parser (nested)
-│   │   ├── yaml-parser.ts # YAML parser (nested)
-│   │   ├── properties-parser.ts # Properties parser
-│   │   ├── toml-parser.ts # TOML parser
-│   │   └── index.ts       # Parser registry
-│   ├── utils/             # Helper utilities
-│   │   ├── config.ts      # Configuration facade
-│   │   ├── file.ts        # File operations
-│   │   ├── pattern-matcher.ts # Pattern matching
-│   │   └── validator.ts   # Input validation
-│   ├── __tests__/         # Test files (mirrors src)
-│   │   ├── core/
-│   │   ├── lib/
-│   │   ├── parsers/
-│   │   └── utils/
-│   ├── __mocks__/         # Test mocks
-│   │   └── vscode.ts      # VS Code API mock
-│   └── extension.ts       # Entry point
-├── .github/
-│   └── workflows/         # CI/CD pipelines
-├── .vscode/               # VS Code workspace config
-├── dist/                  # Compiled output
-└── node_modules/          # Dependencies
-```
-
-## Module Responsibilities
-
-### Core Module (`src/core/`)
-
-**Purpose**: Contains the main business logic and state management
-
-**Files**:
-
-- `camouflage.ts`: Main class managing decorations, events, status bar
-
-**Responsibilities**:
-
-- Apply/remove decorations
-- Handle editor events
-- Manage extension state
-- Status bar updates
-- Command execution
-- Delegate parsing to parser registry
-
-**Dependencies**: Can import from `lib/`, `utils/`, `parsers/`, and VS Code API
-
-### Parsers Module (`src/parsers/`)
-
-**Purpose**: Multi-format file parsing with Strategy Pattern
-
-**Files**:
-
-- `types.ts`: Parser interface and type definitions
-- `base-parser.ts`: Abstract base class with common functionality
-- `env-parser.ts`: ENV, Shell script, .envrc parser
-- `json-parser.ts`: JSON parser with nested key support
-- `yaml-parser.ts`: YAML parser with nested key support
-- `properties-parser.ts`: Properties, INI, conf parser
-- `toml-parser.ts`: TOML parser
-- `index.ts`: Parser registry and factory
-
-**Rules**:
-
-- ✅ Each parser extends `BaseParser`
-- ✅ Parsers implement `Parser` interface
-- ✅ Parsers are stateless (options via constructor)
-- ✅ Registry handles parser selection by file extension
-- ✅ Nested keys returned as dot-separated paths
-
-**Dependencies**: Can only import Node.js built-ins and types
-
-### Library Module (`src/lib/`)
-
-**Purpose**: Pure, reusable functions with no side effects
-
-**Files**:
-
-- `decorators.ts`: Method decorators (@Log, @HandleErrors, etc.)
-- `text-generator.ts`: Text transformation algorithms
-
-**Rules**:
-
-- ✅ Must be pure functions (same input → same output)
-- ✅ No side effects (no file I/O, no global state)
-- ✅ No VS Code API imports
-- ✅ Fully unit testable
-
-**Dependencies**: Can only import Node.js built-ins and other lib modules
-
-### Utils Module (`src/utils/`)
-
-**Purpose**: Helper functions and facades
-
-**Files**:
-
-- `config.ts`: Configuration access facade
-- `file.ts`: File system operations
-- `pattern-matcher.ts`: Pattern matching logic
-- `validator.ts`: Input validation
-
-**Rules**:
-
-- ✅ Can have side effects (file I/O, API calls)
-- ✅ Can import VS Code API
-- ✅ Should be stateless where possible
-- ✅ Each file has single responsibility
-
-**Dependencies**: Can import from `lib/`, `parsers/`, and VS Code API, but not `core/`
-
-### Tests Module (`src/__tests__/`)
-
-**Purpose**: All test files
-
-**Structure**: Mirrors `src/` directory structure
-
-**Rules**:
-
-- ✅ Every module must have corresponding test file
-- ✅ Use `describe` blocks for grouping
-- ✅ Use AAA pattern (Arrange, Act, Assert)
-- ✅ Mock external dependencies
-- ✅ Test file naming: `*.test.ts`
-
-## Dependency Rules
-
-### Allowed Dependencies
-
-```
-extension.ts → core/ → lib/ + utils/ + parsers/
-                ↓
-            VS Code API
-```
-
-### Forbidden Dependencies
-
-- ❌ `lib/` MUST NOT import from `core/`, `utils/`, or `parsers/`
-- ❌ `utils/` MUST NOT import from `core/`
-- ❌ `parsers/` MUST NOT import from `core/` or `utils/`
-- ❌ Circular dependencies between modules
-- ❌ Direct file system access in `lib/`
-
-## File Organization Rules
-
-### File Naming
-
-- `kebab-case.ts` for all files
-- `*.test.ts` for test files
-- `*.d.ts` for type declarations
-
-### File Size
-
-- Max 300 lines per file (excluding tests)
-- If exceeding, split into smaller modules
-- Exception: Generated files, type definitions
-
-### Export Rules
-
-- ✅ Named exports preferred over default exports
-- ✅ One main export per file (with supporting types)
-- ✅ Export only public API
-- ✅ Use `export type` for type-only exports
-
-### Import Order
-
-1. Node.js built-ins (`import * as fs from 'fs'`)
-2. External packages (`import * as vscode from 'vscode'`)
-3. Internal modules - absolute paths from src root
-4. Type imports (`import type { ... }`)
-
-**Example**:
+### Type Safety
 
 ```typescript
-import * as path from 'path';
-import * as vscode from 'vscode';
-import { generateHiddenText } from '../lib/text-generator';
-import { getParserRegistry } from '../parsers';
-import { isSupportedFile } from '../utils/file';
-import type { ParsedVariable } from '../parsers/types';
+// ✅ GOOD: Explicit types
+export function generateHiddenText(text: string, style: HiddenTextStyle): string {
+  return transformText(text, style);
+}
+
+// ❌ BAD: Any types
+export function generateHiddenText(text: any, style: any): any {
+  return transformText(text, style);
+}
 ```
 
-## State Management
+### Null Safety
 
-### Global State
+```typescript
+// ✅ GOOD: Optional chaining
+const fileName = editor?.document?.fileName;
 
-- ❌ Avoid global mutable state
-- ✅ Use class properties in `Camouflage` class
-- ✅ Dispose resources properly
-- ✅ Register disposables with VS Code context
+// ❌ BAD: Unsafe access
+const fileName = editor.document.fileName;
 
-### Extension State
+// ✅ GOOD: Nullish coalescing
+const timeout = config.get('timeout') ?? 300;
 
-Managed in `core/camouflage.ts`:
+// ❌ BAD: Falsy check
+const timeout = config.get('timeout') || 300; // 0 would be replaced!
+```
 
-- `activeEditor`: Current editor
-- `decorationType`: Current decoration type
-- `statusBarItem`: Status bar UI element
-- `hiddenRanges`: Cached decoration ranges
+### Function Declarations
 
-## Error Boundaries
+```typescript
+// ✅ GOOD: Pure function with clear contract
+export function matchPattern(key: string, patterns: string[]): boolean {
+  if (patterns.length === 0) return false;
+  return patterns.some((pattern) => new RegExp(pattern, 'i').test(key));
+}
 
-Each layer handles errors differently:
+// ❌ BAD: Side effects without documentation
+export function matchPattern(key: string, patterns: string[]): boolean {
+  cache.set(key, patterns); // Hidden side effect!
+  return patterns.some((pattern) => new RegExp(pattern, 'i').test(key));
+}
+```
 
-1. **Extension Layer** (`extension.ts`):
+### Async/Await
 
-   - Catch all errors
-   - Show user-friendly messages
-   - Log to output channel
+```typescript
+// ✅ GOOD: Error handling
+async function saveConfig(data: ConfigData): Promise<void> {
+  try {
+    await fs.writeFile(CONFIG_PATH, JSON.stringify(data));
+  } catch (error) {
+    console.error('Failed to save config:', error);
+    throw new Error('Config save failed');
+  }
+}
 
-2. **Core Layer** (`core/`):
+// ❌ BAD: Unhandled promise
+function saveConfig(data: ConfigData): void {
+  fs.writeFile(CONFIG_PATH, JSON.stringify(data)); // Promise ignored!
+}
+```
 
-   - Use `@HandleErrors` decorator
-   - Propagate critical errors up
-   - Handle recoverable errors
+## Naming Conventions
 
-3. **Parser Layer** (`parsers/`):
+### Variables and Functions
 
-   - Validate file content
-   - Return empty array on parse errors
-   - Log parsing issues
+- `camelCase` for variables and functions
+- Descriptive names over short names
+- Boolean variables start with `is`, `has`, `should`, `can`
 
-4. **Utils Layer** (`utils/`):
+```typescript
+// ✅ GOOD
+const isEnabled = true;
+const hasPatterns = patterns.length > 0;
+function shouldHideValue(key: string): boolean {}
 
-   - Validate inputs
-   - Throw descriptive errors
-   - No error suppression
+// ❌ BAD
+const enabled = true; // Ambiguous
+const patterns_exist = patterns.length > 0; // Wrong case
+function hideValue(key: string): boolean {} // Unclear return type expectation
+```
 
-5. **Lib Layer** (`lib/`):
-   - Pure functions - no try/catch
-   - Validate inputs with types
-   - Let caller handle errors
+### Classes and Interfaces
 
-## Performance Considerations
+- `PascalCase` for classes and interfaces
+- Interfaces describe behavior or shape
+- Avoid `I` prefix for interfaces
 
-### Hot Paths (must be fast)
+```typescript
+// ✅ GOOD
+export class Camouflage {}
+export interface TextDocumentContentProvider {}
+export enum HiddenTextStyle {}
 
-- `updateDecorations()`: Called on every text change
-- `parser.parse()`: Called for every file update
-- `generateHiddenText()`: Called for every masked value
-- `matchesAnyPattern()`: Called for every env var
+// ❌ BAD
+export class camouflage {}
+export interface textProvider {}
+export enum hiddenStyle {}
+```
 
-**Optimizations**:
+### Constants
 
-- Cache compiled regexes
-- Debounce frequent operations
-- Use `@Debounce` decorator
-- Minimize DOM operations
-- Parser selection by extension (O(1) lookup)
+- `UPPER_SNAKE_CASE` for true constants
+- `camelCase` for configuration values
 
-### Cold Paths (can be slower)
+```typescript
+// ✅ GOOD
+const MAX_CACHE_SIZE = 100;
+const DEFAULT_TIMEOUT = 300;
+const envFilePatterns = ['.env', '.env.local'];
 
-- Extension activation
-- Configuration changes
-- Command execution
-- Parser registry initialization
+// ❌ BAD
+const max_cache_size = 100; // Wrong case
+const ENVFILEPATTERNS = ['.env']; // Config, not constant
+```
 
-## Extension Points
+## Code Organization
 
-### Adding New Parser
+### Imports
 
-1. Create new parser file in `src/parsers/` extending `BaseParser`
-2. Implement `parse()` method returning `ParsedVariable[]`
-3. Define `supportedExtensions` array
-4. Register parser in `src/parsers/index.ts`
-5. Add tests in `src/parsers/__tests__/`
-6. Update configuration in `package.json` (enabledParsers enum)
-7. Update README with new format examples
+```typescript
+// ✅ GOOD: Grouped and organized
+import * as fs from 'fs';
+import * as path from 'path';
 
-### Adding New Hiding Style
+import * as vscode from 'vscode';
 
-1. Add enum value to `HiddenTextStyle` in `package.json`
-2. Implement in `generateHiddenText()` in `text-generator.ts`
-3. Add tests in `text-generator.test.ts`
-4. Update README with example
+import { generateHiddenText } from '../lib/text-generator';
+import { isEnvFile } from '../utils/file-utils';
+import * as config from '../utils/config';
 
-### Adding New Command
+import type { HiddenTextStyle } from '../types';
+```
 
-1. Define in `package.json` contributes.commands
-2. Register in `extension.ts` activate function
-3. Implement in `core/camouflage.ts` if complex
-4. Add keyboard shortcut if needed
-5. Update README
+**Order**:
 
-### Adding New Configuration
+1. Node.js built-ins
+2. External packages
+3. Internal modules (grouped by directory)
+4. Type-only imports
 
-1. Define in `package.json` contributes.configuration
-2. Add getter in `utils/config.ts`
-3. Update `updateDecorationType()` if affects styling
-4. Add validation if needed
-5. Update README
+### File Structure
+
+```typescript
+// 1. Imports
+import * as vscode from 'vscode';
+
+// 2. Types and Interfaces
+export interface CamouflageConfig {
+  enabled: boolean;
+}
+
+// 3. Constants
+const DEFAULT_STYLE = 'text';
+
+// 4. Main class/functions
+export class Camouflage {
+  // Public properties first
+  public readonly version: string;
+
+  // Private properties after
+  private decorationType?: vscode.TextEditorDecorationType;
+
+  // Constructor
+  constructor() {}
+
+  // Public methods
+  public initialize(): void {}
+
+  // Private methods
+  private updateDecorations(): void {}
+}
+
+// 5. Helper functions (if needed)
+function helperFunction(): void {}
+```
+
+## Comments and Documentation
+
+### JSDoc
+
+````typescript
+/**
+ * Masks sensitive values in environment files
+ *
+ * @param content - The file content to mask
+ * @param style - The hiding style to apply
+ * @returns Masked content with hidden values
+ *
+ * @example
+ * ```typescript
+ * const masked = maskContent('API_KEY=secret', 'stars');
+ * // Returns: 'API_KEY=******'
+ * ```
+ */
+export function maskContent(content: string, style: HiddenTextStyle): string {
+  // ...
+}
+````
+
+### Inline Comments
+
+```typescript
+// ✅ GOOD: Explain WHY, not WHAT
+// Debounce to prevent excessive decoration updates during rapid typing
+@Debounce(100)
+private updateDecorations(): void { }
+
+// ❌ BAD: Explain WHAT (code already shows this)
+// This function updates decorations
+private updateDecorations(): void { }
+```
+
+### TODO Comments
+
+```typescript
+// ✅ GOOD: Include context and issue number
+// TODO(#45): Add support for .env.production files
+
+// ❌ BAD: Vague TODO
+// TODO: Fix this
+```
+
+## Performance Best Practices
+
+### Debouncing
+
+```typescript
+// ✅ GOOD: Debounce frequent operations
+@Debounce(100)
+private updateDecorations(): void {
+  // Called max once per 100ms
+}
+
+// ❌ BAD: No debouncing for frequent calls
+vscode.workspace.onDidChangeTextDocument(() => {
+  this.updateDecorations(); // Called on every keystroke!
+});
+```
+
+### Caching
+
+```typescript
+// ✅ GOOD: Cache expensive computations
+private regexCache = new Map<string, RegExp>();
+
+private getRegex(pattern: string): RegExp {
+  if (!this.regexCache.has(pattern)) {
+    this.regexCache.set(pattern, new RegExp(pattern, 'i'));
+  }
+  return this.regexCache.get(pattern)!;
+}
+
+// ❌ BAD: Recreate regex every time
+function matchPattern(text: string, pattern: string): boolean {
+  return new RegExp(pattern, 'i').test(text); // Recompiled every call!
+}
+```
+
+## Resource Management
+
+```typescript
+// ✅ GOOD: Dispose resources
+export function activate(context: vscode.ExtensionContext): void {
+  const statusBar = vscode.window.createStatusBarItem();
+  context.subscriptions.push(statusBar); // Auto-disposed
+}
+
+// ✅ GOOD: Register for disposal
+context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(handler));
+
+// ❌ BAD: Forget to dispose
+const statusBar = vscode.window.createStatusBarItem();
+// Never disposed - memory leak!
+```
+
+## Error Handling
+
+```typescript
+// ✅ GOOD: Specific error handling
+try {
+  const content = fs.readFileSync(filePath, 'utf8');
+  return parseEnv(content);
+} catch (error) {
+  if (error instanceof SyntaxError) {
+    console.error('Invalid .env syntax:', error);
+    return {};
+  }
+  throw error; // Re-throw unexpected errors
+}
+
+// ❌ BAD: Silent failures
+try {
+  const content = fs.readFileSync(filePath, 'utf8');
+  return parseEnv(content);
+} catch {
+  return {}; // Hides all errors!
+}
+```
+
+## Code Quality Rules
+
+### DRY (Don't Repeat Yourself)
+
+```typescript
+// ✅ GOOD: Extract common logic
+function applyDecoration(editor: vscode.TextEditor, ranges: vscode.Range[]): void {
+  editor.setDecorations(this.decorationType, ranges);
+}
+
+// ❌ BAD: Repeated logic
+function applyToCurrentEditor(): void {
+  editor.setDecorations(this.decorationType, ranges);
+}
+function applyToAllEditors(): void {
+  editors.forEach((e) => e.setDecorations(this.decorationType, ranges));
+}
+```
+
+### Single Responsibility Principle
+
+```typescript
+// ✅ GOOD: Single responsibility
+function parseEnvFile(content: string): Record<string, string> {}
+function validateEnvKeys(keys: string[]): boolean {}
+function formatEnvValue(value: string): string {}
+
+// ❌ BAD: Multiple responsibilities
+function processEnvFile(content: string): Record<string, string> {
+  // Parse + Validate + Format all in one function
+}
+```
+
+### Keep Functions Small
+
+```typescript
+// ✅ GOOD: Small, focused function
+function isEnvFile(fileName: string): boolean {
+  return ENV_FILE_PATTERNS.some((pattern) => fileName.endsWith(pattern));
+}
+
+// ❌ BAD: Large function doing too much
+function processFile(fileName: string): void {
+  // 200 lines of code doing multiple things
+}
+```
+
+## TypeScript Specific
+
+### Strict Mode
+
+Always use TypeScript strict mode:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true
+  }
+}
+```
+
+### Type vs Interface
+
+```typescript
+// ✅ GOOD: Use interface for object shapes
+export interface CamouflageConfig {
+  enabled: boolean;
+  style: HiddenTextStyle;
+}
+
+// ✅ GOOD: Use type for unions and computed types
+export type HiddenTextStyle = 'text' | 'dotted' | 'stars' | 'scramble';
+export type ConfigKey = keyof CamouflageConfig;
+
+// ❌ BAD: Use type for simple object shapes
+export type CamouflageConfig = {
+  enabled: boolean;
+};
+```
+
+### Avoid Non-null Assertion
+
+```typescript
+// ✅ GOOD: Check for null
+const editor = vscode.window.activeTextEditor;
+if (editor) {
+  processEditor(editor);
+}
+
+// ❌ BAD: Non-null assertion (dangerous)
+const editor = vscode.window.activeTextEditor!;
+processEditor(editor);
+```
 
 ---
 > Source: [zeybek/camouflage](https://github.com/zeybek/camouflage) — distributed by [TomeVault](https://tomevault.io).
