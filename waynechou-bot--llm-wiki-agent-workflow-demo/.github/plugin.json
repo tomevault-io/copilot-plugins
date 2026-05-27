@@ -1,0 +1,9 @@
+{
+  "name": "waynechou-bot--llm-wiki-agent-workflow-demo",
+  "displayName": "LLM-Wiki-Agent-Workflow-Demo",
+  "description": "LLM-Wiki-Agent-Workflow-Demo",
+  "version": "1.0.0",
+  "author": "WayneChou-bot",
+  "homepage": "https://github.com/WayneChou-bot/LLM-Wiki-Agent-Workflow-Demo",
+  "skills": []
+}
