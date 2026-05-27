@@ -91524,6 +91524,11 @@
       "description": "MCP server providing tools to create Ms Office documents like presentations, emails, spreadsheets and word docs (pptx, docx, eml, xlsx)"
     },
     {
+      "name": "moonbitlang--llvm-mbt",
+      "source": "./moonbitlang--llvm-mbt",
+      "description": "Write llvm in moonbit!"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -93752,6 +93757,11 @@
       "name": "meza--stonecraft",
       "source": "./meza--stonecraft",
       "description": "A minecraft multi-version, multi-loader mod development gradle plugin to help wire up Stonecutter and Architectury"
+    },
+    {
+      "name": "datarobot-community--talk-to-my-data-agent",
+      "source": "./datarobot-community--talk-to-my-data-agent",
+      "description": "talk-to-my-data-agent"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -98944,6 +98954,41 @@
       "description": "flutter-template"
     },
     {
+      "name": "kevinma2010--smart-tab-switcher",
+      "source": "./kevinma2010--smart-tab-switcher",
+      "description": "Fast tab switching and management for modern browsers (Chrome, Firefox, and Chromium-based browsers"
+    },
+    {
+      "name": "kevinma2010--smart-tab-switcher",
+      "source": "./kevinma2010--smart-tab-switcher",
+      "description": "Fast tab switching and management for modern browsers (Chrome, Firefox, and Chromium-based browsers"
+    },
+    {
+      "name": "kevinma2010--smart-tab-switcher",
+      "source": "./kevinma2010--smart-tab-switcher",
+      "description": "Fast tab switching and management for modern browsers (Chrome, Firefox, and Chromium-based browsers"
+    },
+    {
+      "name": "kevinma2010--smart-tab-switcher",
+      "source": "./kevinma2010--smart-tab-switcher",
+      "description": "Fast tab switching and management for modern browsers (Chrome, Firefox, and Chromium-based browsers"
+    },
+    {
+      "name": "kevinma2010--smart-tab-switcher",
+      "source": "./kevinma2010--smart-tab-switcher",
+      "description": "Fast tab switching and management for modern browsers (Chrome, Firefox, and Chromium-based browsers"
+    },
+    {
+      "name": "kevinma2010--smart-tab-switcher",
+      "source": "./kevinma2010--smart-tab-switcher",
+      "description": "Fast tab switching and management for modern browsers (Chrome, Firefox, and Chromium-based browsers"
+    },
+    {
+      "name": "kevinma2010--smart-tab-switcher",
+      "source": "./kevinma2010--smart-tab-switcher",
+      "description": "Fast tab switching and management for modern browsers (Chrome, Firefox, and Chromium-based browsers"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -101422,6 +101467,11 @@
       "name": "openops-cloud--docs",
       "source": "./openops-cloud--docs",
       "description": "Documentation for OpenOps - the truly open FinOps automation platform."
+    },
+    {
+      "name": "tomabai--llm-sec",
+      "source": "./tomabai--llm-sec",
+      "description": "A hands-on learning platform for understanding and testing LLM security vulnerabilities"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -103957,6 +104007,11 @@
       "name": "mannlabs--proteomics-lab-agent",
       "source": "./mannlabs--proteomics-lab-agent",
       "description": "A multimodal, agentic AI framework that captures and shares practical expertise by linking written instructions to real-world laboratory work.\u00a0It uses video analysis to automate documentation and prov"
+    },
+    {
+      "name": "nikolasmarkou--dl-techniques",
+      "source": "./nikolasmarkou--dl-techniques",
+      "description": "Advanced deep learning learning techniques, layers, activations loss functions, all in keras / tensorflow"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -106527,6 +106582,16 @@
       "name": "enkrateialucca--oreilly-gpt-assistants",
       "source": "./enkrateialucca--oreilly-gpt-assistants",
       "description": "Repo for the oreilly course about building agents with gpt assistants api"
+    },
+    {
+      "name": "jkorf--hyperliquid-net",
+      "source": "./jkorf--hyperliquid-net",
+      "description": "A C# .netstandard client library for the HyperLiquid DEX REST and Websocket Spot and Futures API focusing on clear usage and models"
+    },
+    {
+      "name": "jkorf--hyperliquid-net",
+      "source": "./jkorf--hyperliquid-net",
+      "description": "A C# .netstandard client library for the HyperLiquid DEX REST and Websocket Spot and Futures API focusing on clear usage and models"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -109457,6 +109522,16 @@
       "name": "foyer-rs--mixtrics",
       "source": "./foyer-rs--mixtrics",
       "description": "A lightweight unified metrics library in Rust for various metrics system."
+    },
+    {
+      "name": "wilsonwussd--douyincookies",
+      "source": "./wilsonwussd--douyincookies",
+      "description": "\u6296\u97f3cookies\u7ba1\u7406\u5de5\u5177"
+    },
+    {
+      "name": "srizan10--hctv",
+      "source": "./srizan10--hctv",
+      "description": "The Hack Club streaming service."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -112819,6 +112894,26 @@
       "description": "Coordinize is a modern communication platform for modern teams."
     },
     {
+      "name": "katsuhirohonda--anthropic-sdk-rs",
+      "source": "./katsuhirohonda--anthropic-sdk-rs",
+      "description": "An unofficial Rust SDK for the Anthropic API."
+    },
+    {
+      "name": "katsuhirohonda--anthropic-sdk-rs",
+      "source": "./katsuhirohonda--anthropic-sdk-rs",
+      "description": "An unofficial Rust SDK for the Anthropic API."
+    },
+    {
+      "name": "d2rs-2026spring--data-driven-reproducible-study",
+      "source": "./d2rs-2026spring--data-driven-reproducible-study",
+      "description": "\u300a\u6570\u636e\u9a71\u52a8\u7684\u53ef\u91cd\u590d\u6027\u7814\u7a76\u300b\u8bfe\u7a0b\u8bb2\u4e49"
+    },
+    {
+      "name": "mv-consulting--cdk-vscode-server",
+      "source": "./mv-consulting--cdk-vscode-server",
+      "description": "Set up your own VSCode Server on AWS in under 10 minutes \u231b\ufe0f"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -116172,6 +116267,26 @@
       "name": "myysophia--k8s-aiagent-ui",
       "source": "./myysophia--k8s-aiagent-ui",
       "description": "K8s AI Agent \u662f\u4e00\u4e2a\u57fa\u4e8e\u5927\u8bed\u8a00\u6a21\u578b\u7684 Kubernetes \u667a\u80fd\u8fd0\u7ef4\u52a9\u624b\uff0c\u5b83\u901a\u8fc7\u81ea\u7136\u8bed\u8a00\u4ea4\u4e92\u7684\u65b9\u5f0f\uff0c\u5e2e\u52a9\u8fd0\u7ef4\u4eba\u5458\u66f4\u9ad8\u6548\u5730\u7ba1\u7406\u548c\u8bca\u65ad Kubernetes \u96c6\u7fa4\u3002"
+    },
+    {
+      "name": "nibzard--ai-sandbox-benchmark",
+      "source": "./nibzard--ai-sandbox-benchmark",
+      "description": "ai-sandbox-benchmark"
+    },
+    {
+      "name": "nibzard--ai-sandbox-benchmark",
+      "source": "./nibzard--ai-sandbox-benchmark",
+      "description": "ai-sandbox-benchmark"
+    },
+    {
+      "name": "nibzard--ai-sandbox-benchmark",
+      "source": "./nibzard--ai-sandbox-benchmark",
+      "description": "ai-sandbox-benchmark"
+    },
+    {
+      "name": "nibzard--ai-sandbox-benchmark",
+      "source": "./nibzard--ai-sandbox-benchmark",
+      "description": "ai-sandbox-benchmark"
     },
     {
       "name": "vm--nila-code",
@@ -119552,6 +119667,11 @@
       "name": "adrianulima--my-racing-planner",
       "source": "./adrianulima--my-racing-planner",
       "description": "This tool helps iRacing users efficiently navigate series, cars, and tracks, allowing them to make informed decisions about the best content to purchase based on usage in the current season."
+    },
+    {
+      "name": "justcodeit7--langgraph-101",
+      "source": "./justcodeit7--langgraph-101",
+      "description": "LangGraph coding examples"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -123297,6 +123417,21 @@
       "name": "tkellogg--target-practice",
       "source": "./tkellogg--target-practice",
       "description": "An AI-driven resume manager that takes a human-written verbose resume and crafts it to fit a specific job role"
+    },
+    {
+      "name": "fedify-dev--fedichatbot",
+      "source": "./fedify-dev--fedichatbot",
+      "description": "An LLM-powered chatbot for fediverse. A tech demo for BotKit."
+    },
+    {
+      "name": "fedify-dev--fedichatbot",
+      "source": "./fedify-dev--fedichatbot",
+      "description": "An LLM-powered chatbot for fediverse. A tech demo for BotKit."
+    },
+    {
+      "name": "fedify-dev--fedichatbot",
+      "source": "./fedify-dev--fedichatbot",
+      "description": "An LLM-powered chatbot for fediverse. A tech demo for BotKit."
     },
     {
       "name": "mohiwalla--memes",
@@ -127857,6 +127992,11 @@
       "name": "carlkcarlk--busy-beaver-blaze",
       "source": "./carlkcarlk--busy-beaver-blaze",
       "description": "busy_beaver_blaze"
+    },
+    {
+      "name": "algesten--dimpl",
+      "source": "./algesten--dimpl",
+      "description": "DTLS 1.2/1.3 implementation (Sans\u2011IO, Sync)"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
