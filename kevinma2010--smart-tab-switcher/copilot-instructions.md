@@ -1,19 +1,11 @@
-## english-language-standards
+## fusejs-best-practices
 
-> Rule Name: english-language-standards.mdc
+> Best practices for using Fuse.js for fuzzy search functionality
 
-Rule Name: english-language-standards.mdc
-Description: Standards for ensuring English-only comments and text content
-- Use clear and concise English for all code comments
-- Write all user-facing text content in English
-- Keep variable names and function names in English
-- Document APIs and interfaces in English
-- Use proper English grammar and spelling in documentation
-- Avoid mixing languages in string literals and text content
-- Include English translations if localization is needed
-- Write commit messages in English
-- Use English for pull request descriptions and code reviews
-- Maintain English-only README files and documentation 
+- Preprocess your data to improve search performance
+- Use appropriate options like `threshold` and `distance` for better search results
+- Implement caching mechanisms for frequently searched queries
+- Consider using `Fuse.createIndex` for large datasets to speed up initialization
 
 ---
 > Source: [kevinma2010/smart-tab-switcher](https://github.com/kevinma2010/smart-tab-switcher) — distributed by [TomeVault](https://tomevault.io).
