@@ -1,0 +1,44 @@
+{
+  "name": "coc-ai",
+  "owner": "Kuro96",
+  "repo": "coc-ai",
+  "description": "AI-powered code assistant for Vim. OpenAI and ChatGPT plugin for Vim and Neovim, built on top of coc.nvim's extension system, with support for DeepSeek-R1(deepseek-reasoner)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Kuro96/coc-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T23:38:54Z"
+}
