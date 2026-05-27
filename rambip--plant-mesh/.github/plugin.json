@@ -1,0 +1,9 @@
+{
+  "name": "rambip--plant-mesh",
+  "displayName": "plant-mesh",
+  "description": "Mesh generation for tree and plants, using volumetric invigoration",
+  "version": "1.0.0",
+  "author": "rambip",
+  "homepage": "https://github.com/rambip/plant-mesh",
+  "skills": []
+}
