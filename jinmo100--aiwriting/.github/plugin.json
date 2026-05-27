@@ -1,0 +1,9 @@
+{
+  "name": "jinmo100--aiwriting",
+  "displayName": "aiwriting",
+  "description": "\u4e00\u4e2a\u57fa\u4e8eSpring Boot\u548cAI\u5927\u8bed\u8a00\u6a21\u578b\u7684\u82f1\u8bed\u4f5c\u6587\u81ea\u52a8\u8bc4\u5206\u7cfb\u7edf\u3002\u7cfb\u7edf\u80fd\u591f\u5bf9\u82f1\u8bed\u4f5c\u6587\u8fdb\u884c\u667a\u80fd\u5206\u6790\uff0c\u63d0\u4f9b\u5206\u6570\u8bc4\u5b9a\u3001\u4f18\u70b9\u5206\u6790\u548c\u6539\u8fdb\u5efa\u8bae\u3002",
+  "version": "1.0.0",
+  "author": "jinmo100",
+  "homepage": "https://github.com/jinmo100/aiwriting",
+  "skills": []
+}
