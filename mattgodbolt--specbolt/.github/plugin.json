@@ -1,0 +1,9 @@
+{
+  "name": "mattgodbolt--specbolt",
+  "displayName": "specbolt",
+  "description": "Yet another ZX Spectrum Emulator",
+  "version": "1.0.0",
+  "author": "mattgodbolt",
+  "homepage": "https://github.com/mattgodbolt/specbolt",
+  "skills": []
+}
