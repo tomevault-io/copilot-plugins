@@ -1,36 +1,42 @@
-## mol-track
+## always
 
-> The database schema is defined in [db/schema.sql](mdc:db/schema.sql) and consists of two main schemas:
+> - Never make changes to schema.sql, unless explicitly asked
 
-# Database Schema Structure
+# Always
 
-The database schema is defined in [db/schema.sql](mdc:db/schema.sql) and consists of two main schemas:
+## Database Conventions
+- Never make changes to schema.sql, unless explicitly asked
+- Use `snake_case` for all database identifiers (table names, column names)
+- All tables must have a primary key named `id`
+- Include `created_at` timestamp in all tables
+- Foreign keys should be named `{referenced_table_singular}_id`
+- Schema-qualify all table references (e.g., `moltrack.compounds`)
 
-## MolTrack Schema (`moltrack`)
-Core tables for managing chemical compounds and their properties:
+## Property System
+- Properties must have a value_type from: 'int', 'double', 'bool', 'datetime', 'string'
+- Property classes must be one of: 'CALCULATED', 'MEASURED', 'PREDICTED'
+- Always include appropriate units for numerical properties
+- Document the purpose of each property
 
-1. **Compounds Management**
-   - `compounds`: Stores unique chemical structures with SMILES, InChI, and InChIKey
-   - `batches`: Physical samples of compounds with amount, purity, and expiry info
-   - `batch_details`: User-defined properties for specific batches
+## Chemical Structure Handling
+- Store canonical SMILES strings for all chemical structures
+- Include both InChI and InChIKey for compound identification
+- Use RDKit for all molecular operations
+- Validate chemical structure input before storage
 
-2. **Properties System**
-   - `semantic_types`: Defines categories of properties (Molecule, Cell, etc.)
-   - `properties`: Defines calculated, measured, or predicted properties
+## Assay Data
+- Link all assay results to valid batches and properties
+- Include proper validation for measurement values
+- Document assay conditions and protocols
 
-3. **Assay System**
-   - `assay_types`: Defines types of assays and their required properties
-   - `assay_type_properties`: Links properties to assay types
-   - `assays`: Individual experiments measuring properties
-   - `assay_properties`: Properties measured in specific assays
-   - `assay_results`: Actual measurement results
+## Code Style
+- Use consistent indentation (4 spaces) in SQL
+- Add comments for complex queries or triggers
+- Follow PostgreSQL best practices for performance
 
-## RDKit Schema (`rdk`)
-Maintains chemical structure data in RDKit format:
-- `mols`: Contains molecules in RDKit's native format
-- Automatically synchronized with `moltrack.compounds` via triggers
+
+- Document all schema changes in version control
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/datagrok-ai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/datagrok-ai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [datagrok-ai/mol-track](https://github.com/datagrok-ai/mol-track) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
