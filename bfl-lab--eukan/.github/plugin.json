@@ -1,0 +1,9 @@
+{
+  "name": "bfl-lab--eukan",
+  "displayName": "eukan",
+  "description": "A eukaryotic genome annotation pipeline",
+  "version": "1.0.0",
+  "author": "BFL-lab",
+  "homepage": "https://github.com/BFL-lab/eukan",
+  "skills": []
+}
