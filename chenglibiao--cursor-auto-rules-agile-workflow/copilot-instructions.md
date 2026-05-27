@@ -1,138 +1,117 @@
-## cursor-auto-rules-agile-workflow
+## 000-cursor-rules
 
-> ALWAYS use when writing or updating Markdown files to ensure consistent formatting and readability. This rule enforces standardized Markdown practices across all documentation.
+> Use ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
 
-# Markdown Documentation Standards
+# Cursor Rules Format
+## Core Structure
+
+```mdc
+---
+description: ACTION when TRIGGER to OUTCOME
+globs: *.mdc
+---
+
+# Rule Title
+
+## Context
+- When to apply this rule
+- Prerequisites or conditions
 
 ## Requirements
+- Concise, actionable items
+- Each requirement must be testable
 
-- Follow the official [Markdown Guide](mdc:https:/www.markdownguide.org) for all basic and extended syntax
-- Maintain clear document structure and readability
-- Include appropriate metadata when required
-- Use Mermaid diagrams for visual documentation where appropriate
-- Always Include YAML front matter for metadata but Keep metadata concise
-
-## Markdown Reference
-
-For all basic and extended Markdown syntax, refer to:
-- [Basic Syntax Guide](mdc:https:/www.markdownguide.org/basic-syntax)
-- [Extended Syntax Guide](mdc:https:/www.markdownguide.org/extended-syntax)
-
-## Formatting Rules
-
-- Use ATX-style headings with space after hash: `# Heading`
-- Maintain proper heading hierarchy (don't skip levels)
-- Maximum heading depth: 4 levels
-- Add blank line before and after headings
-- Indent content within XML tags by 2 spaces
-- Close XML tags on their own line at the parent indentation level
-- Use blockquotes with emoji for different types of callouts:
-
+## Examples
 <example>
-  > 🚨 **Warning:** Critical information here.
-
-  > 💡 **Tip:** Helpful suggestion.
-
-  > ℹ️ **Note:** Additional context.
-</example>
-
-## Code Blocks
-
-- Use triple backticks with language specification
-- Indent code blocks properly
-- Add blank line before and after
-- Use inline code for short references
-
-<example>
-```typescript
-function example(): void {
-  console.log('Hello, Universe!');
-}
-```
-
-Reference the `example()` function inline.
-</example>
-
-## Tables
-
-- Use alignment indicators
-- Include header row separator
-- Keep tables simple and readable
-- Add blank lines before and after
-
-<example>
-| Name    | Type    | Description     |
-|:--------|:-------:|---------------:|
-| id      | number  | Primary key    |
-| name    | string  | User's name    |
-</example>
-
-## Special Elements
-
-### Callouts
-
-Use blockquotes with emoji for different types of callouts:
-
-<example>
-> 🚨 **Warning:** Critical information here.
-
-> 💡 **Tip:** Helpful suggestion.
-
-> ℹ️ **Note:** Additional context.
-</example>
-
-### Mermaid Diagrams
-
-Use Mermaid diagrams to visualize:
-- Architecture flows
-- Process sequences
-- Decision trees
-- State machines
-- Component relationships
-- AI agent rule flows
-
-### When to Use Mermaid
-
-- Simple and Complex workflows need visualization
-- System architecture needs to be explained
-- Process flows have multiple branches
-- State transitions need to be clear
-- AI decision trees need to be mapped
-
-### Diagram Best Practices
-
-1. Include clear titles using the `---` syntax
-2. Use descriptive node labels
-3. Add comments for complex flows
-4. Group related components using subgraphs
-5. Use consistent direction (TD/LR/TB)
-6. Keep diagrams focused and specific
-
-<example>
-```mermaid
----
-title: Example Workflow
----
-graph TD
-    A[Start] --> B{Decision}
-    B -->|Yes| C[Process 1]
-    B -->|No| D[Process 2]
-    C --> E[End]
-    D --> E
-```
+Good concise example with explanation
 </example>
 
 <example type="invalid">
-```mermaid
-graph TD
-A-->B
-B-->C
+Invalid concise example with explanation
+</example>
 ```
 
-No title, unclear labels, no context
-</example>
+## File Organization
+
+### Location
+- Path: `.cursor/rules/`
+- Extension: `.mdc`
+
+### Naming Convention
+PREFIX-name.mdc where PREFIX is:
+- 0XX: Core standards
+- 1XX: Tool configs
+- 3XX: Testing standards
+- 1XXX: Language rules
+- 2XXX: Framework rules
+- 8XX: Workflows
+- 9XX: Templates
+- _name.mdc: Private rules
+
+### Glob Pattern Examples
+Common glob patterns for different rule types:
+- Core standards: .cursor/rules/*.mdc
+- Language rules: src/**/*.{js,ts}
+- Testing standards: **/*.test.{js,ts}
+- React components: src/components/**/*.tsx
+- Documentation: docs/**/*.md
+- Configuration files: *.config.{js,json}
+- Build artifacts: dist/**/*
+- Multiple extensions: src/**/*.{js,jsx,ts,tsx}
+- Multiple files: dist/**/*, docs/**/*.md
+
+## Required Fields
+
+### Frontmatter
+- description: ACTION TRIGGER OUTCOME format
+- globs: `glob pattern for files and folders`
+
+### Body
+- <version>X.Y.Z</version>
+- context: Usage conditions
+- requirements: Actionable items
+- examples: Both valid and invalid
+
+## Formatting Guidelines
+
+- Use Concise Markdown primarily
+- XML tags limited to:
+  - <example>
+  - <danger>
+  - <required>
+  - <rules>
+  - <rule>
+  - <critical>
+  - <version>
+- Always indent content within XML or nested XML tags by 2 spaces
+- Keep rules as short as possbile
+- Use Mermaid syntax if it will be shorter or clearer than describing a complex rule
+- Use Emojis where appropriate to convey meaning that will improve rule understanding by the AI Agent
+- Keep examples as short as possible to clearly convey the positive or negative example
+
+## AI Optimization Tips
+
+1. Use precise, deterministic ACTION TRIGGER OUTCOME format in descriptions
+2. Provide concise positive and negative example of rule application in practice
+3. Optimize for AI context window efficiency
+4. Remove any non-essential or redundant information
+5. Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
+
+## AI Context Efficiency
+
+1. Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI AGent
+2. Limit examples to essential patterns only
+3. Use hierarchical structure for quick parsing
+4. Remove redundant information across sections
+5. Maintain high information density with minimal tokens
+6. Focus on machine-actionable instructions over human explanations
+
+<critical>
+  - NEVER include verbose explanations or redundant context that increases AI token overhead
+  - Keep file as short and to the point as possible BUT NEVER at the expense of sacrificing rule impact and usefulness for the AI Agent.
+  - the front matter can ONLY have the fields description and globs.
+</critical>
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/chenglibiao)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/chenglibiao)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [chenglibiao/cursor-auto-rules-agile-workflow](https://github.com/chenglibiao/cursor-auto-rules-agile-workflow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
