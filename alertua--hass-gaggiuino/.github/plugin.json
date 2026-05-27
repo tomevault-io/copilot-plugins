@@ -1,0 +1,9 @@
+{
+  "name": "alertua--hass-gaggiuino",
+  "displayName": "hass-gaggiuino",
+  "description": "Home Assistant HACS Integration for Gaggiuino",
+  "version": "1.0.0",
+  "author": "ALERTua",
+  "homepage": "https://github.com/ALERTua/hass-gaggiuino",
+  "skills": []
+}
