@@ -1,0 +1,9 @@
+{
+  "name": "ktaka-ccmp--oauth2-passkey",
+  "displayName": "oauth2-passkey",
+  "description": "Authentication library for Rust web applications with OAuth2/OIDC and WebAuthn/Passkey support.",
+  "version": "1.0.0",
+  "author": "ktaka-ccmp",
+  "homepage": "https://github.com/ktaka-ccmp/oauth2-passkey",
+  "skills": []
+}
