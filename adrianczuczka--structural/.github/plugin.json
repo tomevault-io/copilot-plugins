@@ -1,0 +1,9 @@
+{
+  "name": "adrianczuczka--structural",
+  "displayName": "structural",
+  "description": "A lightweight Gradle plugin for enforcing package dependency rules in Android & Kotlin projects.",
+  "version": "1.0.0",
+  "author": "adrianczuczka",
+  "homepage": "https://github.com/adrianczuczka/structural",
+  "skills": []
+}
