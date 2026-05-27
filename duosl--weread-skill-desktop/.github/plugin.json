@@ -1,0 +1,9 @@
+{
+  "name": "duosl--weread-skill-desktop",
+  "displayName": "weread-skill-desktop",
+  "description": "\u57fa\u4e8e\u5fae\u4fe1\u8bfb\u4e66 SKill \u5f00\u53d1\u7684\u684c\u9762\u5ba2\u6237\u7aef\uff0c\u652f\u6301 Windows, Mac, Linux \u5168\u5e73\u53f0",
+  "version": "1.0.0",
+  "author": "Duosl",
+  "homepage": "https://github.com/Duosl/weread-skill-desktop",
+  "skills": []
+}
