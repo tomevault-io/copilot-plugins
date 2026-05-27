@@ -1,6 +1,6 @@
-# HyperGuard — distributed by TomeVault
+# HyperGuard
 
-> Originally from [plongdevs/HyperGuard](https://github.com/plongdevs/HyperGuard). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [plongdevs/HyperGuard](https://github.com/plongdevs/HyperGuard) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `GEMINI.md` in [plongdevs/HyperGuard](https://github.com/plongd
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/plongdevs)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/plongdevs/HyperGuard](https://github.com/plongdevs/HyperGuard)
 
 ---
 
