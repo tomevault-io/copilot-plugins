@@ -1,58 +1,72 @@
-## cli
+## dotnet
 
-> CLI Tool Implementation Rules
+> .NET Codebase Context MCP Server Development Rules
 
-# CLI Tool Implementation Rules
+# .NET Codebase Context MCP Server Development Rules
 
-This rule provides guidance for implementing the Command Line Interface (CLI) for the .NET Codebase Context Server, with specific optimizations for Claude 3.7 Sonnet integration.
+This rule applies to all .NET code files in the project and provides guidance for implementing the MCP server with specific optimizations for Claude 3.7 Sonnet integration.
 
-## AI-Assisted Development
-- Use descriptive XML comments that explain the "why" behind implementation choices
-- Include example usage for each command in code comments
-- Structure commands into logical groups with consistent naming patterns
-- Ensure each command has a clear, single responsibility
-- Add CLI output examples in comments to help Claude understand expected behavior
+## Code Documentation for AI Assistance
+- Include comprehensive XML documentation for all public and protected members
+- Add code examples within XML comments for complex functionality
+- Document "why" behind implementation decisions, not just "what" the code does
+- Use consistent terminology across all documentation
+- Include parameter validation logic in method documentation
+- Specify explicit return value descriptions and possible exceptions
+- Add class/interface relationship diagrams in code comments for complex hierarchies
 
-## Command Structure
-- Use verb-noun pattern for all commands (e.g., `list-projects`, `search-code`)
-- Implement consistent parameter naming across similar commands
-- Support both short and long option formats for all parameters
-- Include help text that explains parameter relationships and constraints
-- Group related commands into command sets with shared context
+## Code Organization
+- Keep files under 300 lines when possible for better AI comprehension
+- Use partial classes to logically organize larger components
+- Follow consistent naming conventions for related patterns
+- Group related functionality into clearly named namespaces
+- Create dedicated classes for cross-cutting concerns
+- Use explicit rather than implicit patterns to improve AI code understanding
+- Prefer composition over inheritance for better AI reasoning
 
-## Error Handling
-- Return structured JSON responses with error codes and descriptive messages
-- Include targeted troubleshooting guidance in error messages
-- Implement detailed logging with contextual information
-- Add correlation IDs to associate related operations for troubleshooting
-- Handle graceful shutdown for CTRL+C and other interrupts
+## Implementation Guidelines
+- Prioritize readability over clever or overly compact code
+- Implement one complete feature at a time
+- Use strongly typed models for all data exchanges
+- Create dedicated DTOs for MCP protocol interactions
+- Add comprehensive input validation with descriptive error messages
+- Implement self-explanatory function and variable names
+- Avoid magic numbers and strings; use constants with descriptive names
 
-## User Experience
-- Provide colorized, formatted output with clear visual hierarchy
-- Implement progress indicators for long-running operations
-- Support interactive mode for complex operations
-- Add "did you mean?" suggestions for common command typos
-- Include completion scripts for bash/zsh/PowerShell
+## Testing Guidelines
+- Write unit tests for all public APIs with descriptive test names
+- Create integration tests for MCP protocol interactions
+- Add performance tests for critical path operations
+- Include contract tests for MCP protocol compliance
+- Cover edge cases and failure scenarios in tests
+- Document test coverage goals and gaps
 
-## Documentation 
-- Create example-driven documentation with realistic scenarios
-- Document each command with purpose, parameters, examples, and limitations
-- Include troubleshooting sections for common issues
-- Add visual guides showing command relationships and workflows
-- Provide explicit mapping between CLI commands and MCP protocol capabilities
+## Semantic Search Optimization
+- Document embedding generation strategy and parameters
+- Implement configurable chunking strategies for different document types
+- Add explicit tokenization examples for code files
+- Create dedicated indexes for different code artifacts (methods, classes, etc.)
+- Implement relevance scoring tuned for code understanding
+- Include heuristics for determining code boundaries
+- Add context preservation mechanisms between code chunks
 
-## AI Integration Features
-- Add machine-readable JSON output option for all commands
-- Support template-based rendering of results for custom output formats
-- Include metadata in command responses to aid in AI understanding
-- Add descriptive response schemas for Claude to better understand outputs
+## Performance Considerations
+- Implement efficient large codebase scanning with incremental updates
+- Use caching with clear invalidation strategies
+- Add benchmarks for critical operations
+- Implement background processing for long-running operations
+- Add memory usage monitoring and adaptive throttling
+- Include performance characteristics documentation
+- Support incremental updates to minimize reprocessing
 
-## Security
-- Validate all user inputs with clear error messages
-- Implement proper access control for file operations
-- Use least-privilege principles for all operations
-- Never expose sensitive information in logs or output
-- Support credential management with secure storage
+## Claude 3.7 Sonnet-Specific Guidelines
+- Structure code to optimize for Claude's context window (200K tokens)
+- Include focused example outputs for all tools
+- Add explicit relationship maps between components
+- Implement consistent state management with clear transitions
+- Document all assumptions about AI capabilities and limitations
+- Include failure recovery mechanisms for interrupted AI interactions
+- Structure code to facilitate accurate citation by Claude
 
 ---
 > Source: [willibrandon/NetContextServer](https://github.com/willibrandon/NetContextServer) — distributed by [TomeVault](https://tomevault.io).
