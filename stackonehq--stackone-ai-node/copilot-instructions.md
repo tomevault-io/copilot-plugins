@@ -1,141 +1,100 @@
-## file-operations
+## git-workflow
 
-> Use when making HTTP requests. Covers native fetch API patterns and error handling. (project)
+> Git workflow, commit conventions, and pull request guidelines. (project)
 
 
-# HTTP Request Standards
+# Git Workflow
 
-This rule provides guidance on HTTP request patterns in the StackOne SDK.
+This rule provides guidance on git workflow, commit conventions, and pull request guidelines.
 
-## Native Fetch API Standards
+## Branch Strategy
 
-Use the native fetch API for HTTP requests. Node.js now includes built-in fetch, so external packages like `node-fetch` are not needed.
+- **Never push directly to main** without permission
+- Create a new branch for changes
+- Create a pull request to merge into main
+- Use `git checkout -b feature-name` to start
 
-### Basic Pattern
+## Development Flow
 
-```typescript
-async function fetchData(url: string): Promise<unknown> {
-	try {
-		const response = await fetch(url);
+1. Create feature branch: `git checkout -b feature-name`
+2. Make changes to source files
+3. Run linter: `pnpm lint`
+4. Run tests: `pnpm test`
+5. Format code: `pnpm format`
+6. Commit with detailed messages
+7. Push and create PR: `gh pr create`
 
-		if (!response.ok) {
-			throw new Error(`API error: ${response.status} for ${url}`);
-		}
+## Commit Strategy
 
-		return await response.json();
-	} catch (error) {
-		throw new Error(
-			`Failed to fetch from ${url}: ${error instanceof Error ? error.message : String(error)}`,
-		);
-	}
-}
+Keep commits tiny but meaningful:
+
+- Use git hunks (`-p` flag) to selectively commit changes
+- Write detailed commit messages
+- Ensure each commit is logically complete
+- Use English for all commit messages
+
+## Commit Message Format
+
+Format: `type(scope): description`
+
+Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `ci`, `perf`
+
+Example:
+
+```
+feat(parser): add support for custom parameter transformers
+
+- Add new transformer hooks to OpenAPI parser
+- Enable pre-processing of tool parameters
+- Implement docs for custom transformers
 ```
 
-### Key Guidelines
+### Guidelines
 
-1. **No external imports needed**:
-   - Do NOT import from `node-fetch` or similar packages
-   - Simply use the globally available `fetch` function
+- Keep each commit as tiny as possible
+- Write detailed commit messages explaining the "why"
+- Each commit should be meaningful (not just a single line change)
+- Use git hunks (`-p` flag) to selectively commit related changes
+- **Always use English** for commit messages
+- Reference issues and PRs when relevant
 
-2. **Always check response.ok**:
+### When Committing
 
-   ```typescript
-   if (!response.ok) {
-   	throw new Error(`API error: ${response.status} for ${url}`);
-   }
-   ```
+1. Run `git diff` to review all changes
+2. Use `git add -p` to review and stage hunks selectively
+3. Write comprehensive message explaining the purpose
+4. Verify with `git status` before committing
 
-3. **Error handling**:
-   - Use try/catch blocks for network errors
-   - Include URL and status code in error messages
+### File Moves for History Preservation
 
-4. **Response processing**:
-   - Use `response.json()` for JSON responses
-   - Use `response.text()` for text responses
-   - Use `response.arrayBuffer()` for binary data
+When moving files (e.g., migrating from skills to rules), combine the deletion and creation in a single commit so git treats it as a rename. This preserves file history.
 
-5. **Request configuration**:
-   - Set appropriate headers (Content-Type, Authorization, etc.)
-   - Use correct HTTP method (GET, POST, PUT, DELETE, etc.)
-   - For JSON requests, use `JSON.stringify()` and set Content-Type
-
-### Examples
-
-**GET with JSON response**:
-
-```typescript
-async function getUser(userId: string): Promise<User> {
-	try {
-		const response = await fetch(`https://api.example.com/users/${userId}`);
-
-		if (!response.ok) {
-			throw new Error(`Failed to fetch user: ${response.status}`);
-		}
-
-		return (await response.json()) as User;
-	} catch (error) {
-		throw new Error(`User fetch failed: ${error instanceof Error ? error.message : String(error)}`);
-	}
-}
+```bash
+# Instead of separate add/delete commits:
+git add .claude/rules/new-file.md
+git rm .claude/skills/old-file/SKILL.md
+git commit -m "refactor(rules): migrate old-file to rules directory"
 ```
 
-**POST with JSON body**:
+## Pull Request Guidelines
 
-```typescript
-async function createUser(data: CreateUserInput): Promise<User> {
-	try {
-		const response = await fetch('https://api.example.com/users', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		});
+### PR Title Format
 
-		if (!response.ok) {
-			throw new Error(`Failed to create user: ${response.status}`);
-		}
+Use the same format as commit messages: `type(scope): description`
 
-		return (await response.json()) as User;
-	} catch (error) {
-		throw new Error(
-			`User creation failed: ${error instanceof Error ? error.message : String(error)}`,
-		);
-	}
-}
-```
+Examples:
 
-**With Authorization**:
+- `feat(tools): add support for custom OpenAPI specs`
+- `fix(parser): handle empty response bodies`
+- `refactor(rules): unify cursor rules and claude rules`
 
-```typescript
-async function getProtectedData(token: string): Promise<Data> {
-	try {
-		const response = await fetch('https://api.example.com/protected', {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
+### PR Body
 
-		if (!response.ok) {
-			throw new Error(`Auth failed: ${response.status}`);
-		}
+Include:
 
-		return (await response.json()) as Data;
-	} catch (error) {
-		throw new Error(
-			`Protected data fetch failed: ${error instanceof Error ? error.message : String(error)}`,
-		);
-	}
-}
-```
-
-## When to Use Direct HTTP Clients
-
-Only use specialized HTTP clients when:
-
-- You need advanced features not covered by fetch (e.g., interceptors, retries)
-- You're integrating with a framework that requires it
-- Document why you're not using native fetch
+- **Summary**: 1-3 bullet points describing changes
+- **Test plan**: How to verify the changes work
+- Reference related issues with `Closes #123` or `Fixes #123`
 
 ---
 > Source: [StackOneHQ/stackone-ai-node](https://github.com/StackOneHQ/stackone-ai-node) — distributed by [TomeVault](https://tomevault.io).
