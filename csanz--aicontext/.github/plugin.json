@@ -1,0 +1,9 @@
+{
+  "name": "csanz--aicontext",
+  "displayName": "aicontext",
+  "description": "CLI tool to generate code context files for AI consumption",
+  "version": "1.0.0",
+  "author": "csanz",
+  "homepage": "https://github.com/csanz/aicontext",
+  "skills": []
+}
