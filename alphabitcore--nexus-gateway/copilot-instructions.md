@@ -1,43 +1,74 @@
-## redis-cache-only
+## sdd-workflow
 
-> Redis is cache-only — no pub/sub (config invalidation goes via Hub WebSocket)
+> Mandatory development workflow (Plan + Todo + SDD pipeline)
 
 
-# Redis is cache-only — no pub/sub (binding)
+# Mandatory development workflow
 
-Nexus Gateway uses **Redis for caching only**: sessions, IAM cache, rate-limit counters, response cache, desired-state cache, cert cache, quota counters.
+> Canonical text lives in **`CLAUDE.md`**. This rule is the IDE-side surfacing; when this file disagrees with `CLAUDE.md`, `CLAUDE.md` wins.
 
-Config invalidation across services is the **Hub WebSocket change-signal**, not Redis pub/sub. See `docs/developers/architecture/cross-cutting/foundation/thing-config-sync-architecture.md` and `docs/developers/architecture/cross-cutting/storage/cache-multi-tier-architecture.md`.
+## Forced defaults (every user request)
 
-## What this rule forbids
+- **Plan first** — write a short plan (goal, approach, scope, risks, file touch list) **before** edits, multi-step work, or implementation. Use Plan Mode when non-trivial.
+- **Todo list always** — `TodoWrite` items up front, mirroring the plan + the pipeline below. Keep statuses accurate (`pending` / `in_progress` / `completed`); never claim done with open or wrong-state todos.
+- **Capture every user message as todos** — every new request becomes a todo; new requests do NOT interrupt in-flight work, they queue (binding in CLAUDE.md).
+- **English only in the repository** — write / edit only English in repo files (rules, docs, comments, UI strings, commits). Conversation language can match the user; **files in the repo stay English**.
+- **Deep reasoning** — before substantive analysis or execution: clarify goals, read relevant code/docs, list assumptions, consider edge cases and failure modes. Don't rush.
+- **Ask when ambiguous** — material choices not explicit in spec or chat: stop and ask with concrete options + recommended default. No silent guesses.
+- **Real implementation only** — production / runtime code is fully implemented per spec. No `TODO` / `FIXME` / stubs / fake returns as the "solution". Mocks live in tests only.
+- **No silent skips** — skipping Plan, todos, or any pipeline step requires explicit user approval in chat.
+- **Commit reminder** — when work is finished + verified, ask whether to commit. Never `git commit` without explicit user instruction.
+- **Never `git stash`** — parallel sessions share the working tree; a stash can destroy another session's work. Use `go test -run X` or `git diff HEAD --` instead.
 
-- `redis.Subscribe(...)`, `redis.PSubscribe(...)` for cross-service event notification.
-- `redis.Publish(...)` for cross-service signaling.
-- New code that "broadcasts an invalidation via Redis channel `nexus:config:...`".
+## Pre-edit reading (3-doc requirement)
 
-## What's allowed
+See **`pre-edit-reading.mdc`** (binding). Before editing code you read:
 
-- `redis.Set` / `Get` / `HGet` etc. for plain key-value caching.
-- Lua scripts on Redis for sliding-window counters (quota, rate-limit).
-- Redis-backed LRU promotion in two-tier cert / IAM caches.
+1. **Architecture doc(s)** via `docs/developers/architecture/README.md`.
+2. **Feature doc(s)** for any user-visible surface (`docs/users/features/cp-ui/`, `docs/users/features/agent-ui/`, `docs/users/features/flows/`).
+3. **`docs/developers/workflow/conventions.md`** for code style.
 
-## Why
+If any of the three is missing for your edit area, raise it with the user — don't proceed silently.
 
-The pre-Hub architecture used Redis pub/sub for config invalidation; it had three documented problems (no apply receipt, cold-start divergence, two parallel code paths). The Hub-centric Thing model replaced it. Bringing pub/sub back in any form re-introduces those failure modes.
+## Ordered pipeline (every change that touches behaviour / API / data / docs)
 
-## Enforcement
+1. **Plan + todos** — as above.
+2. **Architecture** — read `docs/developers/architecture/overview.md` and the module doc(s) the trigger map points to. If the change affects components, boundaries, data flow, deployment, or integrations, update the affected arch doc(s) in the same PR. No arch impact → state that explicitly in the plan.
+3. **Requirements** — `docs/developers/specs/e{epic}-{name}.md` (functional + non-functional, roles, constraints, glossary, MoSCoW).
+4. **SDD** — `docs/developers/specs/e{epic}-s{story}-{name}.md` (stories, tasks, acceptance criteria).
+5. **OpenAPI** — `docs/users/api/openapi/e{epic}-s{story}-{name}.yaml`. UI service layer must match.
+6. **Code** — implement to match OpenAPI + SDD acceptance criteria. Minimal scoped diffs; complete logic; no production placeholders.
+7. **Unit tests** — Go: `go test -race -count=1`. UI: Vitest. All relevant tests must pass before "done".
+8. **Verify** — run `npm test` / package-level test scripts; confirm the workflow checklist.
+9. **Close-out** — ask whether to commit. No auto-commit.
 
-`npm run check:no-redis-pubsub` (CI + pre-commit) catches three regression shapes:
+## Hard rules (no exceptions without explicit user approval)
 
-1. **Forbidden pub/sub calls** — `redis.Publish/Subscribe/PSubscribe(…)` in production Go.
-2. **Channel literals** — string `nexus:config*` appearing anywhere in production code.
-3. **Deleted-package re-imports** — any Go import of `packages/shared/heartbeat`, `packages/control-plane/internal/pubsub`, or `packages/control-plane/internal_registry`. These packages were deleted with the Hub-centric migration; their re-appearance is an unambiguous architectural regression.
+- No code without a plan + active todo list (including "small" fixes).
+- No marking complete without evidence (tests ran and passed, todos completed or explicitly cancelled).
+- No fake shipping (no mocks / stubs / TODOs standing in for requested behaviour in application paths).
+- No silent forks (important unresolved questions → ask).
+- No non-English text in the repo.
 
-## Historical context (informational)
+## Pointers
 
-Pre-Hub, config invalidation rode `nexus:config:shared` with payloads `"hooks" | "routing" | "credentials" | "all"`. The pub/sub design had three documented failure modes (no apply receipt, cold-start divergence, two parallel code paths) which the Hub WebSocket change-signal eliminates. The packages named above implemented the old design and are deleted — the names are kept here only so future searches that hit this file get the "use Hub WebSocket instead" answer.
+- **All binding rules indexed**: `binding-rules-quick-reference.mdc`.
+- **Pre-edit reading**: `pre-edit-reading.mdc`.
+- **Architecture doc trigger map**: `architecture-doc-triggers.mdc` → `docs/developers/architecture/README.md`.
+- **Onboarding entry**: `docs/README.md`.
+- **Style guidance**: `docs/developers/workflow/conventions.md`.
 
-Skipping this rule requires **explicit user approval** in chat.
+## Debugging Go services (local dev)
+
+Read on-disk logs in addition to the IDE Debug Console. With `*.dev.yaml`, logs are teed to `log.file` per service (paths relative to process cwd):
+
+- `packages/nexus-hub/logs/nexus-hub.log`
+- `packages/control-plane/logs/control-plane.log`
+- `packages/ai-gateway/logs/ai-gateway.log`
+- `packages/compliance-proxy/logs/compliance-proxy.log`
+- `packages/agent/logs/agent.log`
+
+Overrides: `LOG_FILE`, `LOG_STACK_ON_ERROR`. Implementation: `packages/shared/core/logging`.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
