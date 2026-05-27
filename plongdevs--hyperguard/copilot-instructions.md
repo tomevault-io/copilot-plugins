@@ -1,68 +1,60 @@
 ## hyperguard
 
-> HyperGuard là một giải pháp bảo vệ mã nguồn Android toàn diện, kết hợp giữa việc chuyển đổi Dalvik bytecode sang mã Native (C++) và các lớp bảo vệ nâng cao bằng Rust. Dự án này được thiết kế để chống lại các nỗ lực dịch ngược, gỡ lỗi và chỉnh sửa ứng dụng trái phép.
+> This file serves as the permanent memory for Gemini CLI regarding the Dex2cRemake (HyperGuard) project.
 
-# HyperGuard: Công cụ bảo mật APK Android (Industrial Grade)
+# HyperGuard Project Context
 
-HyperGuard là một giải pháp bảo vệ mã nguồn Android toàn diện, kết hợp giữa việc chuyển đổi Dalvik bytecode sang mã Native (C++) và các lớp bảo vệ nâng cao bằng Rust. Dự án này được thiết kế để chống lại các nỗ lực dịch ngược, gỡ lỗi và chỉnh sửa ứng dụng trái phép.
+This file serves as the permanent memory for Gemini CLI regarding the Dex2cRemake (HyperGuard) project.
 
-## 🏗 Kiến trúc dự án
+## Project Overview
+HyperGuard is a dex2c-based Android protection tool. It converts Dalvik bytecode to C++ code, which is then compiled into native libraries and loaded via a Smali stub.
 
-- **DEX-to-C++ (Core):** Chuyển đổi logic Java/Kotlin nhạy cảm sang mã nguồn JNI C++ để ngăn chặn các công cụ như JADX.
-- **Rust Native Shield:** Lớp bảo vệ bổ sung bằng Rust (khó dịch ngược hơn C++), xử lý các tác vụ kiểm tra an ninh quan trọng.
-- **Virtual Machine Protection (VMP):** Thực thi logic trong một máy ảo tùy chỉnh (Custom Interpreter) với tập lệnh riêng.
-- **Anti-Reverse Engineering:** Tích hợp sẵn các kỹ thuật chống Debug (ptrace) và chống Frida (memory scanning).
-- **UI Security:** Bảo vệ lớp hiển thị (chống chụp màn hình, chống Tapjacking).
+## Core Architectural Rules (Engineering Standards)
 
-## 📂 Các thành phần chính
+### 1. Build Process
+- **Unified Mode**: ALWAYS enabled. Each ABI (armeabi-v7a, arm64-v8a, x86, x86_64) must produce exactly one library file.
+- **Library Naming**: Libraries follow the format `lib{base_name}_{hash}_{abi_suffix}.so` where suffix is `a32`, `a64`, `x86`, or `x64`.
+- **Force Keep ABIs**: ALWAYS enabled. Do not strip ABIs based on the input APK; always build for all 4 supported architectures.
+- **No Virbox Assets**: Do not use the `assets/` folder for library storage as it causes instability. Stick to the standard `lib/` directory.
 
-- `HyperGuard.py`: Entry point chính của công cụ.
-- `HyperGuard/`: Thư viện xử lý bytecode và tạo mã C++.
-- `project/rust-shield/`: Module bảo mật viết bằng Rust.
-- `project/jni/`: Mã nguồn C++ cho thư viện native.
-- `tools/`: Các công cụ hỗ trợ như `apktool`, `apksigner`.
-- `androguard/`: Thư viện phân tích DEX được nhúng sẵn.
+### 2. Smali Stub Structure (Native.smali)
+- **Primary Class**: The main loader class is named `Native` (default: `plongdev.HyperGuardPro.Native`). It has replaced the old `Loader` class.
+- **Entry Points**:
+    - `attachBaseContext`: Calls `initCore(Context)` native method for early initialization.
+    - `clinit`: Calls `loadLibraries()` to dynamically load the correct ABI library.
+    - `onCreate`: Initializes `UIHijackingDetect`.
+- **String Decryption**: Includes a native method `a([B)Ljava/lang/String;` for runtime string decryption (XOR 0x66).
 
-## 🚀 Cài đặt và Sử dụng
+### 3. UI Hijack Detection (UIHijackingDetect.smali)
+- **Features**: Uses `ActivityLifecycleCallbacks` with `WeakReference` to detect when the app is moved to the background or a UI overlay is present.
+- **Multi-language**: Supports Vietnamese (default), English, and Chinese.
 
-### Tiền đề
-- Python 3.8+
-- Android NDK (Đã cấu hình trong `HyperGuard.cfg`)
-- Rust & `cargo-ndk` (Nếu muốn build lại module Rust)
-- JRE/JDK 11
+## File Mapping
+- `HyperGuard.py`: Main build script (Modified to support Unified mode and Native stub generation).
+- `loader/Native.smali`: The template for the main Smali stub.
+- `loader/UIHijackingDetect.smali`: The UI protection logic.
+- `project/jni/nc/HyperGuard.cpp`: The native side of the stub (initCore, string decryption, JNI OnLoad).
+- `project/jni/Application.mk`: Configured for all 4 ABIs.
 
-### Các lệnh quan trọng
+## Future Roadmap & Goals (To be implemented)
 
-- **Bảo vệ APK:**
-  ```bash
-  python3 HyperGuard.py -a input.apk -o output.apk
-  ```
-- **Biên dịch Module Rust:**
-  ```bash
-  cd project/rust-shield
-  cargo ndk -t arm64-v8a build --release
-  ```
-- **Làm sạch file tạm:**
-  Công cụ tự động xóa thư mục `.tmp` sau khi hoàn tất. Nếu cần xóa thủ công: `rm -rf .tmp`.
+### 1. Enhanced DEX Protection (HyperShell/dpt-shell Evolution)
+- **Zip-Integrity Mimicry**: Improve HyperShell (based on dpt-shell) so that protected DEX files cannot be opened or extracted as ZIP/Archive files (to mimic Virbox's behavior where opening as zip results in an error).
+- **In-memory DEX loading**: Refine the transition from ZIP-based storage to raw encrypted data loading.
 
-## 🛡 Các Module Bảo mật (Industrial Grade)
+### 2. Anti-Crack & Integrity
+- **Signature Verification**: Add native-level signature checking in `initCore`.
+- **Anti-Debug**: Implement `ptrace` checks and other anti-debugging techniques in C++.
+- **Environment Checks**: Detect Root, Xposed, and Magisk environments.
 
-1.  **Module 1: Native Shielding** (Rust): Ẩn danh hàm JNI bằng `RegisterNatives` và kiểm tra SHA-256 APK.
-2.  **Module 2: Virtualization (VMP)**: Trình thông dịch logic bằng Opcode ảo.
-3.  **Module 3: Anti-Debug & Anti-Frida**: Chặn debugger và quét sự hiện diện của Frida trong bộ nhớ.
-4.  **Module 5: String Encryption**: Giải mã chuỗi "vừa đủ dùng" (Just-in-time) bằng XOR.
-5.  **Module 6: UI Security**: Sử dụng `FLAG_SECURE` và phát hiện Overlay.
+### 3. Network & Privacy Security
+- **VPN Detection**: Implement logic to detect if a user is running a VPN or Proxy.
+- **Developer Options Detection**: Warn or exit if USB Debugging is enabled.
 
-## 📝 Quy ước Phát triển
-
-- **Native Code:** Ưu tiên viết các logic bảo mật mới bằng Rust thay vì C++.
-- **JNI Bridge:** Luôn sử dụng `com.hyperguard.NativeLoader` để giao tiếp giữa Java và Native.
-- **Quy trình Build:** Luôn kiểm tra tính toàn vẹn của APK trước khi thực thi các logic quan trọng.
-- **Dọn dẹp:** Đảm bảo không để lại dấu vết mã nguồn trung gian trong thư mục `.tmp`.
-
-## ⚙️ Cấu hình (`HyperGuard.cfg`)
-Chỉnh sửa file này để thiết lập đường dẫn `apktool`, `ndk_dir` và thông tin chữ ký APK (`keystore`).
+### 4. Technical Context
+- **HyperShell**: This component is a renamed and modified version of **dpt-shell**.
+- **Goal**: Full encapsulation of the original app logic, leaving only the `Native` stub visible.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/plongdevs) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [plongdevs/HyperGuard](https://github.com/plongdevs/HyperGuard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
