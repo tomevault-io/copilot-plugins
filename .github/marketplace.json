@@ -44229,6 +44229,11 @@
       "description": "A project aims to improve LLMs' pixel reasoning ability."
     },
     {
+      "name": "ivanwng97--pixtuoid",
+      "source": "./ivanwng97--pixtuoid",
+      "description": "Terminal pixel-art office for AI coding agents \u2014 watch your Claude Code sessions type, walk, and nap in a coworking lounge. Half-block rendering, A* pathfinding, per-tool monitor glow. Pure Rust, runs"
+    },
+    {
       "name": "keep-starknet-strange--starknet-agentic",
       "source": "./keep-starknet-strange--starknet-agentic",
       "description": "Smart contracts, tools, and skills for AI agents that transact on Starknet"
@@ -101474,6 +101479,11 @@
       "description": "A hands-on learning platform for understanding and testing LLM security vulnerabilities"
     },
     {
+      "name": "autoarchive--webnr",
+      "source": "./autoarchive--webnr",
+      "description": "A modern, feature-rich reading web app for txt novels built with Next.js and TypeScript. https://app.webnovel.win"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -106594,6 +106604,16 @@
       "description": "A C# .netstandard client library for the HyperLiquid DEX REST and Websocket Spot and Futures API focusing on clear usage and models"
     },
     {
+      "name": "mickgiles--homebridge-tsvesync",
+      "source": "./mickgiles--homebridge-tsvesync",
+      "description": "Homebridge plugin for Etekcity, Vesync, and Levoit smart devices"
+    },
+    {
+      "name": "mickgiles--homebridge-tsvesync",
+      "source": "./mickgiles--homebridge-tsvesync",
+      "description": "Homebridge plugin for Etekcity, Vesync, and Levoit smart devices"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -109532,6 +109552,11 @@
       "name": "srizan10--hctv",
       "source": "./srizan10--hctv",
       "description": "The Hack Club streaming service."
+    },
+    {
+      "name": "jaal-yantra-textiles--v2",
+      "source": "./jaal-yantra-textiles--v2",
+      "description": "Launch your design and artisanal garment marketplace with e-commerce, pre-production and operations management without writing a single line of code."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -119674,6 +119699,26 @@
       "description": "LangGraph coding examples"
     },
     {
+      "name": "thorinside--nt-helper",
+      "source": "./thorinside--nt-helper",
+      "description": "nt_helper"
+    },
+    {
+      "name": "thorinside--nt-helper",
+      "source": "./thorinside--nt-helper",
+      "description": "nt_helper"
+    },
+    {
+      "name": "lastbotinc--nextjs-ai-webpage",
+      "source": "./lastbotinc--nextjs-ai-webpage",
+      "description": "nextjs-ai-webpage"
+    },
+    {
+      "name": "leapward-koex--namida-ocr",
+      "source": "./leapward-koex--namida-ocr",
+      "description": "A purely browser based OCR tool designed recognizing, copying, and pronouncing Japanese text"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -123432,6 +123477,31 @@
       "name": "fedify-dev--fedichatbot",
       "source": "./fedify-dev--fedichatbot",
       "description": "An LLM-powered chatbot for fediverse. A tech demo for BotKit."
+    },
+    {
+      "name": "johnlindquist--script-generator",
+      "source": "./johnlindquist--script-generator",
+      "description": "script-generator"
+    },
+    {
+      "name": "johnlindquist--script-generator",
+      "source": "./johnlindquist--script-generator",
+      "description": "script-generator"
+    },
+    {
+      "name": "johnlindquist--script-generator",
+      "source": "./johnlindquist--script-generator",
+      "description": "script-generator"
+    },
+    {
+      "name": "fedi-libs--apkit",
+      "source": "./fedi-libs--apkit",
+      "description": "Powerful Toolkit for ActivityPub Implementations."
+    },
+    {
+      "name": "jameshanlon--slang-netlist",
+      "source": "./jameshanlon--slang-netlist",
+      "description": "A tool for analysing the source-level static connectivity of a SystemVerilog design"
     },
     {
       "name": "mohiwalla--memes",
@@ -127997,6 +128067,16 @@
       "name": "algesten--dimpl",
       "source": "./algesten--dimpl",
       "description": "DTLS 1.2/1.3 implementation (Sans\u2011IO, Sync)"
+    },
+    {
+      "name": "vechain--vechain-kit",
+      "source": "./vechain--vechain-kit",
+      "description": "An all-in-one library for building VeChain applications."
+    },
+    {
+      "name": "vechain--vechain-kit",
+      "source": "./vechain--vechain-kit",
+      "description": "An all-in-one library for building VeChain applications."
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -132932,6 +133012,11 @@
       "name": "algo-traders-club--baby-smith",
       "source": "./algo-traders-club--baby-smith",
       "description": "A Simple Autonomous Perps Trading Agent for Hyperliquid L1"
+    },
+    {
+      "name": "reqvire-org--reqvire",
+      "source": "./reqvire-org--reqvire",
+      "description": "Semantic engineering graph for building verifiable and traceable systems."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -138252,6 +138337,11 @@
       "name": "clickspider--icpfinder",
       "source": "./clickspider--icpfinder",
       "description": "Free, open-source first-customer-discovery tool for indie AI builders. Paste your idea, get 15 verified prospects with outreach hooks in 30s."
+    },
+    {
+      "name": "kuro96--coc-ai",
+      "source": "./kuro96--coc-ai",
+      "description": "AI-powered code assistant for Vim. OpenAI and ChatGPT plugin for Vim and Neovim, built on top of coc.nvim's extension system, with support for DeepSeek-R1(deepseek-reasoner)"
     },
     {
       "name": "lightninglabs--lnget",
@@ -145332,6 +145422,26 @@
       "name": "study8677--architecture-copilot",
       "source": "./study8677--architecture-copilot",
       "description": "\ud83e\udded \u7ed9 Claude Code / Cursor / Codex \u7528\u7684\u300e\u67b6\u6784\u526f\u9a7e\u300fskill \u2014\u2014 \u5f00\u65b0\u9879\u76ee\u65f6\u7528\u6301\u7eed\u6df1\u5ea6\u63d0\u95ee\u5f15\u5bfc\u4f60\u5728\u5199\u4ee3\u7801\u524d\u60f3\u6e05\u695a\u67b6\u6784(\u4ea7\u51fa\u67b6\u6784\u56fe / ADR / \u6f14\u8fdb\u8def\u7ebf)\u3002\u77e5\u8bc6\u6e90\u81ea awesome-architecture\u3002\u4e2d\u82f1\u53cc\u8bed\u3002"
+    },
+    {
+      "name": "oribarilan--vimcode",
+      "source": "./oribarilan--vimcode",
+      "description": "vimcode"
+    },
+    {
+      "name": "edu4rdshl--strata",
+      "source": "./edu4rdshl--strata",
+      "description": "A robust GNOME clipboard manager with a Rust daemon backend"
+    },
+    {
+      "name": "tobyilee--team-bigfive",
+      "source": "./tobyilee--team-bigfive",
+      "description": "team-bigfive"
+    },
+    {
+      "name": "natrontech--openvpn-exporter",
+      "source": "./natrontech--openvpn-exporter",
+      "description": "A prometheus exporter for OpenVPN"
     },
     {
       "name": "yschimke--compose-ai-tools",
