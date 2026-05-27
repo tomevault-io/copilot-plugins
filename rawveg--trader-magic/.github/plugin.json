@@ -1,9 +1,0 @@
-{
-  "name": "rawveg--trader-magic",
-  "displayName": "trader-magic",
-  "description": "A local AI-powered automated trading system built with Python. The system uses Ollama for AI decision-making, TAAPI.io for technical indicators, and Alpaca for trade execution.",
-  "version": "1.0.0",
-  "author": "rawveg",
-  "homepage": "https://github.com/rawveg/trader-magic",
-  "skills": []
-}
