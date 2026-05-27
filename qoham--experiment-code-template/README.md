@@ -7,11 +7,11 @@ paper experiment code template
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [qoham/experiment_code_template](https://github.com/qoham/experiment_code_template).
+Original source: `CLAUDE.md` in [qoham/experiment_code_template](https://github.com/qoham/experiment_code_template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
