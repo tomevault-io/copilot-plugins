@@ -1,0 +1,9 @@
+{
+  "name": "chryzsh--docker-cobaltstrike",
+  "displayName": "docker-cobaltstrike",
+  "description": "docker-cobaltstrike",
+  "version": "1.0.0",
+  "author": "chryzsh",
+  "homepage": "https://github.com/chryzsh/docker-cobaltstrike",
+  "skills": []
+}
