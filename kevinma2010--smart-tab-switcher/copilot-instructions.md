@@ -1,11 +1,11 @@
-## tailwindcss-best-practices
+## typescript-best-practices
 
-> Best practices for using Tailwind CSS in your project
+> TypeScript coding standards and type safety guidelines
 
-- Use utility-first approach for styling components
-- Create custom utility classes for frequently used styles
-- Utilize responsive design utilities for different screen sizes
-- Keep your `tailwind.config.js` organized and maintainable
+- Enable strict mode in your `tsconfig.json`
+- Use type aliases for complex types to improve readability
+- Leverage union types and discriminated unions for better type safety
+- Implement generics for reusable components and functions
 
 ---
 > Source: [kevinma2010/smart-tab-switcher](https://github.com/kevinma2010/smart-tab-switcher) — distributed by [TomeVault](https://tomevault.io).
