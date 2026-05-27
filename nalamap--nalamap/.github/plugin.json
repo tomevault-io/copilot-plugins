@@ -1,0 +1,9 @@
+{
+  "name": "nalamap--nalamap",
+  "displayName": "nalamap",
+  "description": "NaLaMap is an open-source application to create webmaps and analyze geospatial data using natural language. ",
+  "version": "1.0.0",
+  "author": "nalamap",
+  "homepage": "https://github.com/nalamap/nalamap",
+  "skills": []
+}
