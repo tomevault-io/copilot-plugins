@@ -1,11 +1,11 @@
-## 01-security
+## 02-communication
 
-> 01_security
+> 02_communication
 
 
-# Security
+# Communication
 
-Never access or modify sensitive files like .env, API keys, certificates, or any files containing credentials.
+Use clear, professional English and explain your reasoning when making technical decisions.
 
 ---
 > Source: [him0/ai-docs-sync](https://github.com/him0/ai-docs-sync) — distributed by [TomeVault](https://tomevault.io).
