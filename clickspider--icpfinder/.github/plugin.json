@@ -1,0 +1,9 @@
+{
+  "name": "clickspider--icpfinder",
+  "displayName": "icpfinder",
+  "description": "Free, open-source first-customer-discovery tool for indie AI builders. Paste your idea, get 15 verified prospects with outreach hooks in 30s.",
+  "version": "1.0.0",
+  "author": "clickspider",
+  "homepage": "https://github.com/clickspider/icpfinder",
+  "skills": []
+}
