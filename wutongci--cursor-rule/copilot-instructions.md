@@ -1,55 +1,50 @@
-## task-management
+## testing
 
-> 任务管理规则
+> 测试相关规则
+
 
 ## 描述
 
-这些规则定义了与任务管理相关的 AI 行为，主要与 Memory Bank 的 `open/` 和 `done/` 目录结构配合。
+定义了与测试相关的 AI 行为, 遵循TDD原则。
 
 ## 规则
 
-1.  **任务目录创建:** 当用户开始新任务时，自动在 `memory-bank/open/` 下创建以 `{task-id}` 命名的目录。
+1.  **TDD 优先:** 新功能开发前，先编写测试用例。参考 `testingStrategies.md`。
 
-2.  **`activeContext.md` 创建:** 在新的任务目录下，自动创建 `activeContext.md` 文件，并填充基本模板：
-
-    ```markdown
-    # 任务: [任务标题]
-
-    ## 任务描述
-
-    [任务描述]
-
-    ## 当前状态
-
-    [当前状态，例如：待开始、进行中、已完成、已阻塞]
-
-    ## 最近变更
-
-    [最近的变更记录]
-
-    ## 下一步计划
-
-    [下一步计划]
-
-    ## 测试用例
-
-    [测试用例描述或指向测试文件的链接]
-
-    ## 与 Cursor 交互记录
-
-    [与 Cursor 的交互记录，包括 Prompt、生成的代码、测试结果等]
+    ```mermaid
+    flowchart TD
+      Start[新功能开发] --> WriteTest[编写测试用例]
+      WriteTest --> Implement[实现功能]
+      Implement --> Test[运行测试]
+      Test --> |通过| Finish[完成]
+      Test --> |失败| Debug[调试]
+      Debug --> Implement
     ```
 
-3.  **任务完成:** 当用户完成任务时，提示用户将 `memory-bank/open/{task-id}/` 目录移动到 `memory-bank/done/` 目录。
+2.  **集成测试先行:** 新功能优先创建集成测试, 验证核心逻辑。
 
-4.  **任务切换:** 当用户切换任务时，自动打开新任务目录下的 `activeContext.md` 文件。
+3.  **测试用例描述:** 在 `memory-bank/open/{task-id}/activeContext.md` 中详细记录测试用例描述、Prompt 内容、测试结果和调试过程。
 
-5.  **任务状态更新:** 提示用户定期更新 `activeContext.md` 中的任务状态、最近变更和下一步计划。
+4.  **Given-When-Then:** 推荐使用 Given-When-Then 风格编写测试。
 
-6.  **AI 辅助:**
-    *   当用户创建新任务时，可以提供一些任务模板。
-    *   当用户更新任务状态时，可以提供一些状态选项（例如，待开始、进行中、已完成、已阻塞）。
-    *   当用户需要帮助时，可以根据当前任务的上下文提供一些建议。
+5.  **测试框架:**
+    *   单元测试: 推荐 [选择的框架, 如 Jest, Mocha]。
+    *   集成测试: 推荐 [选择的框架]。
+    *   组件测试: 优先使用 `@testing-library/react` (如果是 React 项目)。
+
+6.  **测试覆盖率:** 争取达到 80% 以上。
+
+7.  **存根函数:** 要求 Cursor 实现功能前，先创建基本存根函数。
+
+8.  **测试驱动重构:** 重构时, 优先修改/增加测试以反映重构目标。
+
+9.  **运行测试快捷键:** 建议设置快捷键 (如 `Alt+Enter`)。
+
+10. **AI 辅助:**
+    *   提供测试用例示例/模板。
+    *   测试失败时，提供修复建议。
+    *   优先在当前任务目录 `memory-bank/open/{task-id}/` 下创建测试文件。
+    *   根据`general.md`中的项目特定模式, 提示用户编写符合项目规范的测试.
 
 ---
 > Source: [wutongci/cursor_rule](https://github.com/wutongci/cursor_rule) — distributed by [TomeVault](https://tomevault.io).
