@@ -1,0 +1,124 @@
+## quix
+
+> - This is a Nest.js monorepo with a main application and integration packages for various services
+
+# Cursor Rules for Quix Monorepo
+
+## Project Structure
+
+- This is a Nest.js monorepo with a main application and integration packages for various services
+- Main Nest.js application is in the root `src/` directory
+- Integrations are either built as a separate public npm package or integrated via an mcp server in mcp.service.ts
+- Integration packages are located in `agent-packages/packages/`
+- Each integration package follows a consistent structure with `src/`, `dist/`, and configuration files
+- Common utilities and shared types are in the `agent-packages/packages/common` package
+
+## Adding a new integration
+
+To add a new integration
+
+- Either use Oauth or API token and create a db migration similar to other integrations
+- Use an id from the integration system as the primary key
+- Create a sequelize model and associate the integration with slack workspace table via team_id
+- Always prefix model attributes with `declare`
+- Publish an app_home view to Slack for this integration via the app_home service and views
+- Allow editing or reconnecting and disconnecting the integration
+- Validate API tokens if accepting them in integrations-install.service.ts
+
+## Slack events and interactions
+
+- All slack events are handled in slack-events-handler.service.ts
+- All slack interactions are handled in interactions.service.ts
+
+## Code Organization Rules
+
+1. Keep all service-specific code within its respective package directory
+2. Common utilities and shared types should go in the `common` package
+3. Maintain consistent file naming:
+   - `src/index.ts` - Main package exports
+   - `src/types.ts` or `src/types/index.ts` - Type definitions
+   - `src/tools.ts` - Service-specific tools and utilities
+4. Nest.js application follows standard module structure:
+   - Modules should be organized in their own directories under `src/`
+   - Each module should have its own controller, service, and module files
+
+## TypeScript Guidelines
+
+1. Always use strict type checking
+2. Export interfaces and types from dedicated type files
+3. Leverage the common package for shared types and utilities
+4. Use proper type imports from @types packages when available
+5. Follow Nest.js decorators and typing conventions for dependency injection
+6. DO NOT use the any type
+7. Import types from packages whenever possible before declaring your own types
+8. Avoid type casting as much as possible
+9. Prefer inferring types from Zod schemas using `z.infer` instead of defining them manually:
+
+   ```ts
+   import { z } from 'zod';
+
+   const userSchema = z.object({
+     id: z.string(),
+     name: z.string(),
+     age: z.number().optional()
+   });
+   type User = z.infer<typeof userSchema>;
+   ```
+
+10. For Zod schemas, use `.nullish().transform((val) => val ?? undefined)` instead of `.optional()` for better null handling. Do not combine `.nullish()` with `.default()`:
+
+    ```ts
+    // Preferred: Handles both null and undefined properly
+    const schema = z.object({
+      name: z
+        .string()
+        .nullish()
+        .transform((val) => val ?? undefined),
+      email: z
+        .string()
+        .email()
+        .nullish()
+        .transform((val) => val ?? undefined),
+      age: z.number().default(0) // For fields with defaults - don't use .nullish() here
+    });
+
+    // Avoid: Only handles undefined, not null values
+    const schema = z.object({
+      name: z.string().optional(),
+      email: z.string().email().optional(),
+      age: z.number().nullish().default(0) // Don't combine .nullish() with .default()
+    });
+    ```
+
+## Package Dependencies
+
+1. Each integration package should have its own `package.json`
+2. Keep dependencies up to date and consistent across packages
+3. Use the common package as a shared dependency where appropriate
+4. Use Yarn exclusively for package management:
+   - No `package-lock.json` or `npm` commands
+   - Use `yarn.lock` for dependency locking
+   - Run `yarn install` for installing dependencies
+   - Use `yarn link` for local development of packages
+
+## Build and Development
+
+1. Use the root `build.sh` script for building integration packages
+2. Use `link.sh` for linking packages for local development
+3. Use `nest build` for building the main application
+4. Ensure all packages compile successfully before committing
+5. Follow consistent tsconfig settings across packages
+6. Use `yarn start:dev` for local development with hot reloading
+
+## Integration Guidelines
+
+1. Each service integration should be self-contained
+2. Implement proper error handling and logging
+3. Use environment variables for sensitive configuration
+4. Document API usage and requirements
+5. Follow Nest.js best practices for module organization and dependency injection
+6. Integration packages should be published with appropriate versioning
+
+---
+> Source: [clearfeed/quix](https://github.com/clearfeed/quix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
