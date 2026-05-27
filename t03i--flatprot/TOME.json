@@ -4,7 +4,7 @@
   "repo": "FlatProt",
   "description": "A tool for 2D protein visualization aimed at improving the comparability of protein structures through standardized 2D visualizations.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/t03i/FlatProt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T16:39:10Z"
+  "distributed_at": "2026-05-27T17:07:04Z"
 }
