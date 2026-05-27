@@ -1,44 +1,82 @@
-## adversarial-product-review
+## agent-runtime-invariants
 
-> Adversarial product review + less-is-more — challenge every proposed feature, knob, surface, menu item before building
+> Agent runtime: paths abstraction, traffic-upload level, audit empty-string stamping
 
 
-# Adversarial product review + less-is-more (binding)
+# Agent runtime invariants (binding)
 
-Two halves of the same product discipline. Apply both to any proposed feature, config knob, UI surface, menu item, behavior change, or "wouldn't it be nice if…" idea — **including user proposals**.
+Three bindings on the agent runtime. Honour all three.
 
-## Half 1 — Steel-man, then attack
+---
 
-Before implementing, surface in chat:
+## 1. Platform paths abstraction
 
-- (a) Is the user-facing value clear and large?
-- (b) How often will real users hit this path?
-- (c) Could a sensible default, an existing surface, or a convention solve it without a new knob?
-- (d) Is the placement correct (right table / page / layer / menu) or is it being attached to the nearest convenient form?
-- (e) Does the cost (UI surface, config burden, cognitive load, future maintenance) exceed the value?
+All agent filesystem paths come from `platform.DefaultPaths()`. **Never hardcode** `/Library/`, `/var/`, `/etc/`, `/tmp/`, or `C:\...` strings.
 
-Counter-arguments go in chat **BEFORE** implementation. If they're strong and unanswered, push back with "I'd challenge: …" rather than building. If the user persists after seeing them, that's signal — proceed.
+```go
+// ❌ wrong
+quitFlag := "/Library/Application Support/Nexus/.quit"
 
-## Half 2 — Less is more / delete instead of add
+// ✅ right
+quitFlag := platform.DefaultPaths().QuitFlagPath
+```
 
-Defaults must work out of the box — admins should not face a 5-tab detail page or a JSON editor for every protocol quirk. **Spring-style**: sensible default for every knob; configuration only when divergence is genuinely needed.
+Common path keys: `LogDir`, `ConfigDir`, `DataDir`, `CacheDir`, `KeystorePath`, `LocalQueuePath`, `QuitFlagPath`, `CertCAStore`.
 
-When in doubt about adding a UI surface, config field, menu item, or code path: **delete instead**.
+Memory anchor: [[feedback_agent_platform_paths_abstraction]].
 
-Prefer:
+---
 
-1. **Adapter / runtime auto-fills** over admin-facing config. Canonical pattern: Anthropic `max_tokens` default in `packages/ai-gateway/internal/providers/specs/anthropic/codec/codec.go:103-107` — adapter fills the protocol-required field from model capability when caller omits it.
-2. **Global settings** over per-route / per-rule overrides unless real divergence is documented.
-3. **One location per concept** over scattering across menus.
-4. **Extending an existing surface** over adding a new tab / page / route.
+## 2. Traffic-upload level filter happens at emit-time
 
-New surfaces require an explicit "what user journey, how often, why nothing existing covers it" in the plan; without that, the default is **no**.
+`agent_settings.trafficUploadLevel ∈ {all, processed, blocked}`, default `processed`.
 
-## Scope
+- **Filter at agent emit-time, NOT DB-side.** The agent decides per-event whether to publish to MQ / queue. DB-side filtering means the agent burned local cycles + queue capacity for nothing.
+- **`deny`, `block`, `error` outcomes always bypass the filter.** Those are auditable regardless of level.
 
-Applies product-wide — every service, every UI, every config dimension. Includes user-proposed features.
+```go
+if !shouldUpload(event.Outcome, agent.settings.TrafficUploadLevel) {
+    return  // skip emit
+}
+```
 
-Skipping this rule requires **explicit user approval** in chat.
+`shouldUpload` lives in `packages/agent/internal/audit/`; respect its decision.
+
+Memory anchor: [[feedback_agent_traffic_upload_level]].
+
+---
+
+## 3. Audit `auditEventToMap` empty-string stamping
+
+Agent's audit emitter sets all string fields, including `""`. Hub-side `AuditUpload` MUST either **stamp-unconditionally** or **strip-empty** for any CHECK-constrained column. Inconsistent handling stalls the audit pipeline silently.
+
+```go
+// Agent emit (always set, even empty):
+m["external_request_id"] = event.ExternalRequestID   // may be ""
+
+// Hub ingest (must handle both ways):
+if v, ok := m["external_request_id"].(string); ok && v != "" {
+    row.ExternalRequestID = sql.NullString{String: v, Valid: true}
+}
+```
+
+A handler that does `row.ExternalRequestID = m["external_request_id"].(string)` directly will pass `""` into a CHECK-constrained column and the insert fails. The failure is silent because audit-pipeline errors are caught at the batch level.
+
+Memory anchor: [[feedback_agent_audit_empty_string_stripping]].
+
+---
+
+## Pre-commit reminder
+
+When you touch agent code that fits one of these areas, run:
+
+```bash
+grep -nE '"/Library|"/var|"/etc|"/tmp|"C:' packages/agent/internal/  # paths
+grep -n 'trafficUploadLevel' packages/agent/                          # filter sites
+grep -n 'auditEventToMap\|AuditUpload' packages/agent/ packages/nexus-hub/  # empty-string
+```
+
+Skipping any of the three requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
