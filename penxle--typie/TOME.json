@@ -4,7 +4,7 @@
   "repo": "typie",
   "description": "\uc791\uac00\ub97c \uc704\ud55c \uc62c\uc778\uc6d0 \uae00\uc4f0\uae30 \ub3c4\uad6c",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/penxle/typie",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T14:41:18Z"
+  "distributed_at": "2026-05-27T14:47:52Z"
 }
