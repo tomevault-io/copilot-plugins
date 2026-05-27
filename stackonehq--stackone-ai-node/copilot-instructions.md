@@ -1,35 +1,32 @@
-## stackone-ai-node
+## development-workflow
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> Code style, file naming, and project conventions. (project)
 
-# CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Development Workflow
 
-## Rules and Skills Structure
+This rule provides code style guidelines and project conventions for the StackOne SDK.
 
-- **Rules** (`.claude/rules/`): Automatically loaded based on file paths. Source of truth for project conventions.
-- **Skills** (`.agents/skills/`, `.claude/skills/`): Managed by Nix via [agent-skills-nix](https://github.com/Kyure-A/agent-skills-nix). Skills are sourced from [StackOneHQ/skills](https://github.com/StackOneHQ/skills) and installed automatically when entering `nix develop`.
-- **Cursor rules** (`.cursor/rules/`): Symlinks to `.claude/rules/` for consistency.
+## File Naming Conventions
 
-## Available Rules
+- Use `.yaml` extension instead of `.yml` for all YAML files (e.g., `lefthook.yaml`, GitHub Actions workflows)
 
-| Rule                     | Applies To     | Description                                        |
-| ------------------------ | -------------- | -------------------------------------------------- |
-| **pnpm-usage**           | All files      | pnpm commands and troubleshooting                  |
-| **git-workflow**         | All files      | Commit conventions, branch strategy, PR guidelines |
-| **development-workflow** | All files      | Code style, file naming, project conventions       |
-| **nix-workflow**         | All files      | Nix development environment and CI setup           |
-| **typescript-patterns**  | `**/*.ts`      | Type safety, exhaustiveness checks, clean code     |
-| **typescript-testing**   | `**/*.test.ts` | Vitest, MSW mocking, fs-fixture                    |
-| **file-operations**      | `**/*.ts`      | Native fetch API patterns and error handling       |
+## Working with Tools
 
-## Available Skills
+- Use semantic tools for code exploration (avoid full file reads when possible)
+- Leverage symbol indexing for fast navigation
+- Use grep/ripgrep for pattern matching
+- Read only necessary code sections
 
-| Skill                 | Usage                       | Description                                        |
-| --------------------- | --------------------------- | -------------------------------------------------- |
-| **orama-integration** | N/A                         | Integrating with Orama search/indexing             |
-| **release-please**    | `/release-please <version>` | Trigger a release-please PR for a specific version |
+## Code Style
+
+- Follow existing patterns for error handling and logging
+- Maintain TypeScript exhaustiveness for union types
+- Include comprehensive JSDoc comments for public APIs
+
+## TypeScript Guidelines
+
+Use the TypeScript exhaustiveness pattern (`satisfies never`) when branching on unions. See `typescript-patterns` rule for examples.
 
 ---
 > Source: [StackOneHQ/stackone-ai-node](https://github.com/StackOneHQ/stackone-ai-node) — distributed by [TomeVault](https://tomevault.io).
