@@ -1,0 +1,9 @@
+{
+  "name": "sigma-quantiphi--ccxt-pandas",
+  "displayName": "ccxt-pandas",
+  "description": "Pandas + CCXT= :heart:",
+  "version": "1.0.0",
+  "author": "sigma-quantiphi",
+  "homepage": "https://github.com/sigma-quantiphi/ccxt-pandas",
+  "skills": []
+}
