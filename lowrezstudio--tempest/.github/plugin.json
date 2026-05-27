@@ -1,0 +1,9 @@
+{
+  "name": "lowrezstudio--tempest",
+  "displayName": "Tempest",
+  "description": "Monorepo for Tempest including MarshalLib, the launcher, the API and the CLI",
+  "version": "1.0.0",
+  "author": "LowRezStudio",
+  "homepage": "https://github.com/LowRezStudio/Tempest",
+  "skills": []
+}
