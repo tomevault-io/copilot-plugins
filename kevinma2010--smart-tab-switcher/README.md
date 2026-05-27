@@ -7,13 +7,13 @@ Fast tab switching and management for modern browsers (Chrome, Firefox, and Chro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kevinma2010/smart-tab-switcher](https://github.com/kevinma2010/smart-tab-switcher).
+Original source: `.cursor/rules/*.mdc` in [kevinma2010/smart-tab-switcher](https://github.com/kevinma2010/smart-tab-switcher).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
