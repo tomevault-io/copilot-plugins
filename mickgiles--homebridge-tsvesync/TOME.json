@@ -4,7 +4,7 @@
   "repo": "homebridge-tsvesync",
   "description": "Homebridge plugin for Etekcity, Vesync, and Levoit smart devices",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mickgiles/homebridge-tsvesync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T23:34:28Z"
+  "distributed_at": "2026-05-27T23:39:55Z"
 }
