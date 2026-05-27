@@ -1,80 +1,58 @@
-## go-conventions
+## i18n-mandatory
 
-> Go conventions for all Go code (modules, naming, errors, logging, metrics)
+> All user-visible UI text uses t('namespace:section.key') from react-i18next
 
 
-# Go conventions (binding)
+# i18n mandatory (binding)
 
-You are editing Go code. Follow idiomatic Go (Effective Go + Go Code Review Comments + std-lib patterns). Do not invent non-standard patterns.
+You are editing UI code. **Every user-visible string in JSX must go through `t('namespace:section.key')`** from `react-i18next`. Never hardcode English strings in components.
 
-## Workspace + module paths
+Surfaces this rule covers:
 
-- All Go modules linked via `go.work` at repo root.
-- Module path: `github.com/AlphaBitCore/nexus-gateway/packages/<module>`.
-- Imports use full module paths — Go has no relative imports.
+- Labels, titles, descriptions.
+- Placeholders.
+- Button text.
+- Table headers.
+- Error messages.
+- Empty states.
+- Tooltips.
 
-## Naming
+## How to add a new key
 
-- Package: lowercase, short, no underscores (`configtypes`, `configcache`).
-- No stutter: `hooks.Hook` ok; `hooks.HooksRegistry` stutters.
-- Exported types: `PascalCase`.
+1. Add to **all three locale files**:
+   - `packages/control-plane-ui/src/i18n/locales/en/pages.json` (or `common.json` / `nav.json`).
+   - `packages/control-plane-ui/src/i18n/locales/zh/...`.
+   - `packages/control-plane-ui/src/i18n/locales/es/...`.
+2. Copy to `packages/control-plane-ui/public/locales/{en,zh,es}/...`.
+3. Verify key counts match across all 3 locales:
 
-## Errors
+```bash
+npm run check:i18n
+```
 
-- Return errors; do not panic in library code.
-- Sentinel: `errors.New("specific lowercase message")`.
-- Wrap: `fmt.Errorf("context: %w", err)`.
+CI gate. Pre-merge required.
 
-## Concurrency
+## Technical terms
 
-- `sync.Mutex` / `sync.RWMutex` for shared state.
-- `atomic.Pointer` for hot-swappable config snapshots.
-- `sync.Pool` for high-frequency allocations.
-- `context.Context` first parameter on any cross-package method.
-
-## Logging (binding)
-
-- `*slog.Logger` as a constructor parameter, not a global.
-- After wiring `SlogSink + slog.SetDefault(...)`, MUST reassign module-scope `logger = slog.Default()` — otherwise DI-injected loggers silently bypass the diag pipeline. Memory anchor: [[feedback_server_slog_sink_di_bypass]].
-
-## Metrics
-
-- `prometheus/client_golang` via `promauto` for registration.
-- Constructors that register metrics accept a `namespace string` parameter.
-
-## Testing
-
-- `go test -race -count=1`.
-- Table-driven where appropriate.
-- Tests in same package (white-box) or `_test` package (black-box).
-
-## Linting
-
-- `golangci-lint` with `.golangci.yml` per module.
-- Enforce `errorlint`, `bodyclose`, `noctx`, `copyloopvar`, `intrange`.
-
-## `replace` directives — workspace-sibling contract (binding)
-
-Every `packages/<svc>/go.mod` requiring a sibling at `github.com/AlphaBitCore/nexus-gateway/packages/<sibling>` MUST:
-
-- Pin the require version to exactly **`v0.0.0`** — an inert placeholder, never a real pseudo-version like `v0.0.0-YYYYMMDDHHMMSS-COMMITHASH`.
-- Carry a matching `replace github.com/AlphaBitCore/nexus-gateway/packages/<sibling> => ../<sibling>` directive.
-- Keep its `go.sum` free of any `github.com/AlphaBitCore/nexus-gateway/packages/` lines.
-
-Reason: under Go 1.25, real pseudo-versions are validated against the upstream Git remote even with `go.work` active — without this contract, a build with `GOWORK=off` (or a Dockerfile that forgot to COPY `go.work`) silently pulls a stale snapshot from GitHub instead of using local code. `go mod tidy` outside the workspace will try to regress `v0.0.0` back to a real pseudo-version — the lint `npm run check:workspace-replace` is wired into pre-commit + `check:all` and blocks the regression.
-
-**`replace` is sibling-only.** Do **not** fork a third-party dependency via `replace`, point at an external fork, or override a third-party module to a non-proxy version. Those uses remain forbidden.
+Stay in English across all locales: `API`, `SSO`, `Provider`, `Model`, `Agent`, `Device`, `Hook`, `Token`, `mTLS`, `OAuth`, `PKCE`, `JWT`, etc.
 
 ## Forbidden
 
-- `sqlc`. Use hand-written SQL + Prisma → Go codegen for types.
-- Breaking API change in `packages/shared/*` once shipped in a released Agent binary (additive-only).
+```tsx
+<button>Save</button>                // ❌ hardcoded
+<input placeholder="Email" />        // ❌ hardcoded
+<h1>Dashboard</h1>                   // ❌ hardcoded
+```
 
-## Dependencies in `packages/shared`
+## Correct
 
-See `docs/developers/architecture/cross-cutting/shared/shared-packages-architecture.md` for the core + driver-scoped tiered dep policy. New deps outside the vetted set need explicit user approval.
+```tsx
+<button>{t('pages:settings.save')}</button>
+<input placeholder={t('common:fields.email')} />
+<h1>{t('pages:dashboard.title')}</h1>
+```
 
-Skipping any of these requires **explicit user approval** in chat.
+Skipping this rule requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
