@@ -1,120 +1,281 @@
-## grafana-loki-mcp
+## fastmcp
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> FastMCP の基礎知識
 
-# CLAUDE.md
+## FastMCPとは
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+FastMCPは、Model Context Protocol (MCP) サーバーを簡単に構築するためのPythonフレームワークです。Pythonの関数をデコレータで装飾するだけで、MCPサーバーを素早く構築できます。
 
-## Project Overview
+> 🎉 FastMCPは現在、公式のMCP SDKに統合されています！
+> 公式のModel Context Protocol Python SDK: [github.com/modelcontextprotocol/python-sdk](mdc:https:/github.com/modelcontextprotocol/python-sdk)
 
-This is a FastMCP server that allows querying Loki logs from Grafana through the Model Context Protocol (MCP). The server provides tools to query logs, get label information, and format results for Grafana/Loki log analysis.
+## 主な特徴
 
-## Development Commands
+- **高速**: 高レベルなインターフェースにより、少ないコードで迅速な開発が可能
+- **シンプル**: 最小限のボイラープレートコードでMCPサーバーを構築
+- **Pythonic**: Python開発者にとって自然な感覚で使用可能
+- **完全**: MCPの仕様を完全に実装することを目指している
 
-### Setup and Installation
+## インストール方法
+
+FastMCPは `uv` を使ってインストールすることが推奨されています：
+
 ```bash
-# Install dependencies using uv (preferred package manager)
-uv pip install -e ".[dev]"
-
-# Install uv if not available
-pip install uv
+uv pip install fastmcp
 ```
 
-### Testing
+macOSでは、Claude Desktopアプリで利用するために、Homebrewを使って `uv` をインストールする必要がある場合があります：
+
 ```bash
-# Run all tests
-pytest
-
-# Run tests with coverage
-pytest --cov=. --cov-report=term
-
-# Run specific test files
-pytest tests/test_server.py
-pytest tests/test_parse_grafana_time.py
+brew install uv
 ```
 
-### Code Quality and Linting
+あるいは、デプロイせずにSDKを使用する場合は、pipを使用することもできます：
+
 ```bash
-# Run ruff linter
-ruff check .
-
-# Run black formatter
-black .
-
-# Run type checking
-mypy .
+pip install fastmcp
 ```
 
-### Running the Server
-```bash
-# Development mode with environment variables
-export GRAFANA_URL=https://your-grafana-instance.com
-export GRAFANA_API_KEY=your-api-key
-python -m grafana_loki_mcp
+## クイックスタート
 
-# With command line arguments
-python -m grafana_loki_mcp -u https://your-grafana-instance.com -k your-api-key
+以下は、簡単な計算ツールを提供するMCPサーバーの例です：
 
-# Using uvx (for production)
-uvx grafana-loki-mcp -u GRAFANA_URL -k GRAFANA_API_KEY
+```python
+# server.py
+from fastmcp import FastMCP
+
+# MCPサーバーの作成
+mcp = FastMCP("Demo")
+
+# 足し算ツールの追加
+@mcp.tool()
+def add(a: int, b: int) -> int:
+    """二つの数値を足し算する"""
+    return a + b
+
+# サーバーの実行
+if __name__ == "__main__":
+    mcp.run()
 ```
 
-## Architecture
+これだけで、動作するMCPサーバーが完成します！
 
-### Core Components
+## 主要コンポーネント
 
-1. **GrafanaClient** (`grafana_loki_mcp/server.py`): Main client class that handles communication with Grafana API
-   - Manages Loki datasource discovery and proxying
-   - Handles time format conversion (ISO8601, Unix timestamps, Grafana relative times)
-   - Provides error handling with detailed error messages
+FastMCPは以下の主要コンポーネントをサポートしています：
 
-2. **FastMCP Server** (`grafana_loki_mcp/server.py`): MCP server implementation using FastMCP framework
-   - Exposes tools for querying Loki logs, getting labels, and formatting results
-   - Handles dynamic tool description updates with available labels
-   - Supports both stdio and SSE transport protocols
+### 1. サーバー
 
-3. **Time Parsing** (`parse_grafana_time` function): Handles multiple time formats
-   - Grafana relative times (e.g., 'now-1h', 'now')
-   - ISO8601 format
-   - Unix timestamps
-   - RFC3339 format
+サーバーはFastMCPのメインオブジェクトで、すべての機能の中心となります：
 
-### Available MCP Tools
+```python
+from fastmcp import FastMCP
 
-- `query_loki`: Query Loki logs with LogQL syntax
-- `get_loki_labels`: Get all available label names from Loki
-- `get_loki_label_values`: Get values for a specific label
-- `format_loki_results`: Format query results in text, JSON, or markdown
-- `get_datasources`: Get all Grafana datasources
-- `get_datasource_by_id/name`: Get specific datasource information
+mcp = FastMCP(
+    "サーバー名",
+    host="0.0.0.0",  # オプション
+    port=52229,      # オプション
+)
+```
 
-### Key Configuration
+### 2. ツール
 
-- **Environment Variables**: `GRAFANA_URL`, `GRAFANA_API_KEY`
-- **Transport Protocols**: stdio (default), sse
-- **Server Port**: 52229 (for SSE mode)
+ツールはLLMが呼び出せる関数です。デコレータを使って簡単に定義できます：
 
-## Test Structure
+```python
+@mcp.tool()
+def my_tool(param1: str, param2: int) -> str:
+    """
+    ツールの説明
+    
+    Args:
+        param1: 最初のパラメータの説明
+        param2: 2番目のパラメータの説明
+        
+    Returns:
+        結果の説明
+    """
+    # ツールの実装
+    return f"結果: {param1}, {param2}"
+```
 
-Tests use pytest with the following setup:
-- `conftest.py`: Provides session-scoped mocks for Grafana API calls during testing
-- Mock clients prevent actual API calls during test runs
-- Tests cover time parsing, server functionality, and error handling
+### 3. リソース
 
-## Package Management
+リソースはLLMがアクセスできるデータです：
 
-This project uses `uv` as the preferred package manager. Key dependencies:
-- `fastmcp>=0.1.0`: FastMCP framework for MCP server implementation
-- `requests>=2.25.0`: HTTP client for Grafana API communication
-- Development dependencies include: black, ruff, mypy, pytest, pytest-cov
+```python
+@mcp.resource("echo://{message}")
+def echo_resource(message: str) -> str:
+    """リソースとしてメッセージをエコーする"""
+    return f"Resource echo: {message}"
+```
 
-## Important Notes
+### 4. プロンプト
 
-- The server automatically discovers Loki datasources from Grafana
-- Time handling supports both Grafana-style relative times and absolute timestamps
-- Log line truncation is configurable via `max_per_line` parameter
-- Error handling provides detailed information including response details from failed API calls
+プロンプトはLLMに特定のタスクを実行させるための指示です：
+
+```python
+@mcp.prompt()
+def analyze_table(table: str) -> str:
+    """テーブル分析用のプロンプトテンプレートを作成する"""
+    return f"""このデータベーステーブルを分析してください:
+テーブル: {table}
+スキーマ: 
+{get_schema()}
+
+構造と関係性についてどのような洞察を提供できますか？"""
+```
+
+## サーバーの実行方法
+
+FastMCPサーバーを実行するには、いくつかの方法があります：
+
+### 1. 開発モード（推奨）
+
+開発とテスト用に、以下のコマンドを使用します：
+
+```bash
+fastmcp dev server.py
+```
+
+### 2. Claude Desktop統合（通常使用）
+
+Claude Desktopで使用するためにサーバーをインストールします：
+
+```bash
+fastmcp install server.py
+```
+
+### 3. 直接実行（高度なユースケース）
+
+サーバーを直接実行することもできます：
+
+```python
+if __name__ == "__main__":
+    mcp.run(transport="stdio")  # または "sse"
+```
+
+## 実装例
+
+### エコーサーバー
+
+リソース、ツール、プロンプトを示す簡単なサーバー：
+
+```python
+from fastmcp import FastMCP
+
+mcp = FastMCP("Echo")
+
+@mcp.resource("echo://{message}")
+def echo_resource(message: str) -> str:
+    """リソースとしてメッセージをエコーする"""
+    return f"Resource echo: {message}"
+
+@mcp.tool()
+def echo_tool(message: str) -> str:
+    """ツールとしてメッセージをエコーする"""
+    return f"Tool echo: {message}"
+
+@mcp.prompt()
+def echo_prompt(message: str) -> str:
+    """エコープロンプトを作成する"""
+    return f"このメッセージを処理してください: {message}"
+```
+
+### SQLiteエクスプローラー
+
+データベース統合を示すより複雑な例：
+
+```python
+from fastmcp import FastMCP
+import sqlite3
+
+mcp = FastMCP("SQLite Explorer")
+
+@mcp.resource("schema://main")
+def get_schema() -> str:
+    """リソースとしてデータベーススキーマを提供する"""
+    conn = sqlite3.connect("database.db")
+    schema = conn.execute(
+        "SELECT sql FROM sqlite_master WHERE type='table'"
+    ).fetchall()
+    return "\n".join(sql[0] for sql in schema if sql[0])
+
+@mcp.tool()
+def query_data(sql: str) -> str:
+    """SQLクエリを安全に実行する"""
+    conn = sqlite3.connect("database.db")
+    try:
+        result = conn.execute(sql).fetchall()
+        return "\n".join(str(row) for row in result)
+    except Exception as e:
+        return f"Error: {str(e)}"
+```
+
+## TypeScript版 FastMCP
+
+Python版のFastMCPに加えて、TypeScript版のFastMCPも存在します。これは同様の機能を提供しますが、TypeScript/JavaScript環境向けに設計されています。
+
+### 特徴
+
+- シンプルなツール、リソース、プロンプト定義
+- 認証
+- セッション管理
+- 画像コンテンツ
+- ロギング
+- エラーハンドリング
+- SSE（Server-Sent Events）
+- CORS（デフォルトで有効）
+- 進捗通知
+- 型付きサーバーイベント
+
+### インストール
+
+```bash
+npm install fastmcp
+```
+
+### 基本的な使用方法
+
+```typescript
+import { FastMCP } from "fastmcp";
+import { z } from "zod";
+
+const server = new FastMCP({
+  name: "My Server",
+  version: "1.0.0",
+});
+
+server.addTool({
+  name: "add",
+  description: "Add two numbers",
+  parameters: z.object({
+    a: z.number(),
+    b: z.number(),
+  }),
+  execute: async (args) => {
+    return String(args.a + args.b);
+  },
+});
+
+server.start({
+  transportType: "stdio",
+});
+```
+
+### テスト方法
+
+```bash
+npx fastmcp dev server.js
+# または
+npx fastmcp dev server.ts
+```
+
+## 参考リンク
+
+- [Python FastMCP GitHub](mdc:https:/github.com/jlowin/fastmcp)
+- [TypeScript FastMCP GitHub](mdc:https:/github.com/punkpeye/fastmcp)
+- [公式MCP Python SDK](mdc:https:/github.com/modelcontextprotocol/python-sdk)
 
 ---
 > Source: [tumf/grafana-loki-mcp](https://github.com/tumf/grafana-loki-mcp) — distributed by [TomeVault](https://tomevault.io).
