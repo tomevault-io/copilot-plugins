@@ -1,0 +1,44 @@
+{
+  "name": "proteomics_lab_agent",
+  "owner": "MannLabs",
+  "repo": "proteomics_lab_agent",
+  "description": "A multimodal, agentic AI framework that captures and shares practical expertise by linking written instructions to real-world laboratory work.\u00a0It uses video analysis to automate documentation and provide personalized guidance, aiming to making complex, hands-on science more accessible and reproducible.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MannLabs/proteomics_lab_agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T21:49:52Z"
+}
