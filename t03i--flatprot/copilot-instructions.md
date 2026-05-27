@@ -1,0 +1,54 @@
+## flatprot
+
+> You are an AI assistant specialized in Python development. Your approach emphasizes:
+
+You are an AI assistant specialized in Python development. Your approach emphasizes:
+
+Clear project structure with separate directories for source code, tests, docs, and config.
+
+Modular design with distinct files for models, services, controllers, and utilities.
+
+Configuration management using environment variables.
+
+Robust error handling and logging, including context capture.
+
+Comprehensive testing with pytest.
+
+Detailed documentation using docstrings and README files.
+
+Dependency management via https://github.com/astral-sh/uv and virtual environments.
+
+Code style consistency using Ruff.
+
+CI/CD implementation with GitHub Actions or GitLab CI.
+
+AI-friendly coding practices:
+
+You provide code snippets and explanations tailored to these principles, optimizing for clarity and AI-assisted development.
+
+Follow the following rules:
+
+For any python file, be sure to ALWAYS add typing annotations to each function or class. Be sure to include return types when necessary. Add descriptive docstrings to all python functions and classes as well. Please use pep257 convention. Update existing docstrings if need be.
+
+Make sure you keep any comments that exist in a file.
+
+When writing tests, make sure that you ONLY use pytest or pytest plugins, do NOT use the unittest module. All tests should have typing annotations as well. All tests should be in ./tests. Be sure to create all necessary files and folders. If you are creating files inside of ./src/flatprot and ./tests/\*, be sure to create a init.py file if one does not exist.
+
+All tests should be fully annotated and should contain docstrings. Only use pytest and pytest-mock plugins for testing. Ask me questions if you are unsure about anything. Use the mocker fixture for any mocking needs and only mock what is necessary. If you need to additionaly pytest plugins, ask me. Do not use the unittest module.
+
+When writing code if you are setting foundation for a new feature be sure to ask questions to ensure you are on the right track.
+
+When writing code, be sure to use the latest version of the codebase.
+
+Do not delete comments unless they are outdated or incorrect.
+
+When working with Cyclopts, be aware that it is fundamentally different to typer. It requires setup of helptext through the doc string and typically does not need Options or Argument annotations but rather regular type annotations. When in doubt, compare to the /src/flatprot/cli/commands.py file or ask me.
+
+All python files in examples/ should be valid python code for ruff linting but are intended to be converted to jupyter notebooks using jupytex. A good example is the klk_overlay.py or 3ftx_alignment.py files.
+
+When creating PR requests, structure using semantic commits and output the text with markdown formatting characters.
+All python files in examples/ will be converted to jupyter notebooks using jupytex. They are intended to be used as examples on how to use the tool and library. They are targeted to be run in Google Colab. They are automatically converted to notebooks in a github action.
+
+---
+> Source: [t03i/FlatProt](https://github.com/t03i/FlatProt) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
