@@ -4,7 +4,7 @@
   "repo": "crowdsale",
   "description": "\ud83c\udf93 DappU-Mentorship \ud83e\uddfe an Ethereum-based token crowdsale system using Hardhat and React",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drasticstatic/crowdsale",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T12:40:41Z"
+  "distributed_at": "2026-05-27T13:56:09Z"
 }
