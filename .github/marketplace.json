@@ -1154,6 +1154,11 @@
       "description": "open_deep_research"
     },
     {
+      "name": "qodo-ai--pr-agent",
+      "source": "./qodo-ai--pr-agent",
+      "description": "pr-agent"
+    },
+    {
       "name": "tirth8205--code-review-graph",
       "source": "./tirth8205--code-review-graph",
       "description": "Local knowledge graph for Claude Code. Builds a persistent map of your codebase so Claude reads only what matters \u2014 6.8\u00d7 fewer tokens on reviews and up to 49\u00d7 on daily coding tasks."
@@ -7822,6 +7827,11 @@
       "name": "sozercan--kaset",
       "source": "./sozercan--kaset",
       "description": "\ud83d\udcfb The missing YouTube Music macOS app"
+    },
+    {
+      "name": "nrslib--takt",
+      "source": "./nrslib--takt",
+      "description": "TAKT Agent Koordination Topology - Define how AI agents coordinate, where humans intervene, and what gets recorded \u2014 in YAML"
     },
     {
       "name": "joewongjc--type4me",
@@ -63894,6 +63904,21 @@
       "description": "An embeddable multi-dimensional semantic layer and self-service analytics module (built on Drizzle) - broadly compliant with cube-js concepts and semantic definitions."
     },
     {
+      "name": "novywave--novywave",
+      "source": "./novywave--novywave",
+      "description": "Modern GTKWave alternative"
+    },
+    {
+      "name": "inugamidev--ultrathink-oss",
+      "source": "./inugamidev--ultrathink-oss",
+      "description": "ultrathink-oss"
+    },
+    {
+      "name": "novywave--novywave",
+      "source": "./novywave--novywave",
+      "description": "Modern GTKWave alternative"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -64827,6 +64852,21 @@
       "name": "wordpress-gcb--gutenberg-control-blocks-lite",
       "source": "./wordpress-gcb--gutenberg-control-blocks-lite",
       "description": "gutenberg-control-blocks-lite"
+    },
+    {
+      "name": "thomasahle--latex2png",
+      "source": "./thomasahle--latex2png",
+      "description": "Convert LaTeX math equations to PNG/JPEG/SVG images"
+    },
+    {
+      "name": "goplausible--algorand-mcp",
+      "source": "./goplausible--algorand-mcp",
+      "description": "Algorand Local Model Context Protocol (Server & Client)"
+    },
+    {
+      "name": "ophydami--mcp-google-doc",
+      "source": "./ophydami--mcp-google-doc",
+      "description": "MCP Google Doc"
     },
     {
       "name": "izittmarvin--memcoach",
@@ -66762,6 +66802,11 @@
       "name": "ramishehadeh--visualyaml",
       "source": "./ramishehadeh--visualyaml",
       "description": "visualyaml"
+    },
+    {
+      "name": "patelnav--ctrlspeak",
+      "source": "./patelnav--ctrlspeak",
+      "description": "Turn your voice into text with a triple-tap \u2014 minimal, fast, and macOS-native."
     },
     {
       "name": "janbjorge--rekal",
@@ -70589,6 +70634,16 @@
       "description": "Benchmark evaluating ocean forecasting systems against reference datasets and observations."
     },
     {
+      "name": "idoru--influxdb-mcp-server",
+      "source": "./idoru--influxdb-mcp-server",
+      "description": "An MCP Server for querying InfluxDB"
+    },
+    {
+      "name": "idoru--influxdb-mcp-server",
+      "source": "./idoru--influxdb-mcp-server",
+      "description": "An MCP Server for querying InfluxDB"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -71372,6 +71427,56 @@
       "name": "openzeppelin--ui-builder",
       "source": "./openzeppelin--ui-builder",
       "description": "UI Builder is an open-source blockchain development tool that helps developers and non-developers create user-friendly interfaces for smart contract interaction by providing a chain-agnostic form buil"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
+    },
+    {
+      "name": "zeybek--camouflage",
+      "source": "./zeybek--camouflage",
+      "description": "Camouflage is a VS Code extension that helps protect sensitive environment variables by hiding their values in .env files"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -72507,6 +72612,26 @@
       "name": "neondatabase--neon-auth-nextjs-template",
       "source": "./neondatabase--neon-auth-nextjs-template",
       "description": "A template to get started with Neon Auth"
+    },
+    {
+      "name": "wandb--vibes",
+      "source": "./wandb--vibes",
+      "description": "A repo with a devcontainer ready to vibe with Claude, Codex or Gemini"
+    },
+    {
+      "name": "wandb--vibes",
+      "source": "./wandb--vibes",
+      "description": "A repo with a devcontainer ready to vibe with Claude, Codex or Gemini"
+    },
+    {
+      "name": "wandb--vibes",
+      "source": "./wandb--vibes",
+      "description": "A repo with a devcontainer ready to vibe with Claude, Codex or Gemini"
+    },
+    {
+      "name": "wandb--vibes",
+      "source": "./wandb--vibes",
+      "description": "A repo with a devcontainer ready to vibe with Claude, Codex or Gemini"
     },
     {
       "name": "affitor--open-affiliate",
@@ -73652,6 +73777,16 @@
       "name": "dtinth--thaiexamjs",
       "source": "./dtinth--thaiexamjs",
       "description": "Compare how different AI models perform on Thailand\u2019s standardized exams"
+    },
+    {
+      "name": "quarto-dev--quarto-markdown",
+      "source": "./quarto-dev--quarto-markdown",
+      "description": "Standalone front-end parser for Quarto Markdown. NOT READY FOR PRODUCTION USE"
+    },
+    {
+      "name": "zeeno-atl--claude-code",
+      "source": "./zeeno-atl--claude-code",
+      "description": "Claude-code containerized to isolate it, written by Claude-code"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -76044,6 +76179,11 @@
       "description": "Training AI for Super Smash Bros. Melee"
     },
     {
+      "name": "jettjaniak--chainscope",
+      "source": "./jettjaniak--chainscope",
+      "description": "Repository for the \"Chain-of-Thought Reasoning In The Wild Is Not Always Faithful\" paper"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -77137,6 +77277,16 @@
       "name": "quanhuzeyu--qz-uilib",
       "source": "./quanhuzeyu--qz-uilib",
       "description": "\u66f4\u52a0\u73b0\u4ee3\u5316\u7684GUI\u754c\u9762\u5e93\uff0c\u8ba9\u60a8\u50cf\u4f7f\u7528js\u6784\u5efaHTML\u7f51\u9875\u4e00\u6837\u4fbf\u6377\uff01\u9644\u5e26\u66f4\u73b0\u4ee3\u5316\u7684\u5b57\u4f53\u6e32\u67d3\u5668\u3002"
+    },
+    {
+      "name": "alonronin--orbit",
+      "source": "./alonronin--orbit",
+      "description": "orbit"
+    },
+    {
+      "name": "k2--olol",
+      "source": "./k2--olol",
+      "description": "# Ollama<=>Ollama Inference Cluster"
     },
     {
       "name": "skywind3000--gamesample",
@@ -114814,6 +114964,11 @@
       "description": "The high-performance distributed tensor layer \u2014 load once, share everywhere."
     },
     {
+      "name": "agneym--pi-honcho-memory",
+      "source": "./agneym--pi-honcho-memory",
+      "description": "Honcho persistent memory extension for pi coding agent"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -131694,11 +131849,6 @@
       "description": "droid-sdk-typescript"
     },
     {
-      "name": "agneym--pi-honcho-memory",
-      "source": "./agneym--pi-honcho-memory",
-      "description": "Honcho persistent memory extension for pi coding agent"
-    },
-    {
       "name": "conflicthq--boilerworks-django-nextjs",
       "source": "./conflicthq--boilerworks-django-nextjs",
       "description": "Django + React platform base for AI-assisted business app development"
@@ -143097,6 +143247,21 @@
       "name": "qoham--experiment-code-template",
       "source": "./qoham--experiment-code-template",
       "description": "paper experiment code template"
+    },
+    {
+      "name": "divitmittal--vim-cfg",
+      "source": "./divitmittal--vim-cfg",
+      "description": "Neovim & vim configurations for OS-nixCfg deployed via nix home-manager"
+    },
+    {
+      "name": "stared--rusted-doom-launcher",
+      "source": "./stared--rusted-doom-launcher",
+      "description": "Steam-like experience for DOOM mods and wads - works with GZDoom - with Rust and Tauri 2"
+    },
+    {
+      "name": "sir-mmd--dataproxy",
+      "source": "./sir-mmd--dataproxy",
+      "description": "Turn your Android phone into a SOCKS5 proxy whose traffic always goes out over mobile data"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -164009,6 +164174,11 @@
       "description": "Personal Awesome list"
     },
     {
+      "name": "eunomia-bpf--actplane",
+      "source": "./eunomia-bpf--actplane",
+      "description": "OS-Enforce AI Agent Harnesses with eBPF"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -174889,6 +175059,31 @@
       "description": "A Claude Code plugin that turns any codebase into a beautiful, zoomable HTML system diagram for non-coders. by AI UNLOCKED"
     },
     {
+      "name": "saleem-shaik-git--salford-bin-community-app",
+      "source": "./saleem-shaik-git--salford-bin-community-app",
+      "description": "Community-focused application for bin collection reminders and waste-sorting guidance"
+    },
+    {
+      "name": "saleem-shaik-git--salford-bin-community-app",
+      "source": "./saleem-shaik-git--salford-bin-community-app",
+      "description": "Community-focused application for bin collection reminders and waste-sorting guidance"
+    },
+    {
+      "name": "ammarcodes--eslint-plugin-tailwind-rtl",
+      "source": "./ammarcodes--eslint-plugin-tailwind-rtl",
+      "description": "ESLint plugin for RTL-safe Tailwind CSS \u2014 catches physical direction classes and suggests logical alternatives"
+    },
+    {
+      "name": "openmaxnet--termax",
+      "source": "./openmaxnet--termax",
+      "description": "\u73b0\u4ee3\u5316\u7684\u8de8\u5e73\u53f0 SSH \u7ec8\u7aef\u5ba2\u6237\u7aef\uff0c\u57fa\u4e8e Tauri v2 \u6784\u5efa"
+    },
+    {
+      "name": "ychampion--edgebase",
+      "source": "./ychampion--edgebase",
+      "description": "Git-native, provenance-backed context capsules for coding agents."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -177594,9 +177789,9 @@
       "description": "Bash CLI for switching Claude Code config profiles on WSL/Linux"
     },
     {
-      "name": "ancplua--ancplua-claude-plugins",
-      "source": "./ancplua--ancplua-claude-plugins",
-      "description": "ancplua-claude-plugins"
+      "name": "m4xx3d0ut--1337-board",
+      "source": "./m4xx3d0ut--1337-board",
+      "description": "1337 Board is a desktop-style Android keyboard for terminals, editors, tablets, and power-user text entry. It is inspired by the practical layout ideas in Hacker's Keyboard, but implemented as a moder"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -177607,6 +177802,16 @@
       "name": "ancplua--ancplua-claude-plugins",
       "source": "./ancplua--ancplua-claude-plugins",
       "description": "ancplua-claude-plugins"
+    },
+    {
+      "name": "ancplua--ancplua-claude-plugins",
+      "source": "./ancplua--ancplua-claude-plugins",
+      "description": "ancplua-claude-plugins"
+    },
+    {
+      "name": "ldmoxeii--only-engine",
+      "source": "./ldmoxeii--only-engine",
+      "description": "only-engine"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -177657,6 +177862,11 @@
       "name": "chaboud--costuma",
       "source": "./chaboud--costuma",
       "description": "A quick halloween virtual costume static site.  vibe-coded."
+    },
+    {
+      "name": "dominiquepaul--search-substack-semantically",
+      "source": "./dominiquepaul--search-substack-semantically",
+      "description": "search-substack-semantically"
     },
     {
       "name": "constellos--claude-code",
@@ -186009,11 +186219,6 @@
       "description": "talon"
     },
     {
-      "name": "alonronin--orbit",
-      "source": "./alonronin--orbit",
-      "description": "orbit"
-    },
-    {
       "name": "razamirxa--google-deepmind---vibe-code-with-gemini-3-pro-in-ai-studio",
       "source": "./razamirxa--google-deepmind---vibe-code-with-gemini-3-pro-in-ai-studio",
       "description": "Google-DeepMind---Vibe-Code-with-Gemini-3-Pro-in-AI-Studio"
@@ -188419,11 +188624,6 @@
       "description": "Bonjourr"
     },
     {
-      "name": "qodo-ai--pr-agent",
-      "source": "./qodo-ai--pr-agent",
-      "description": "pr-agent"
-    },
-    {
       "name": "matthiasn--lotti",
       "source": "./matthiasn--lotti",
       "description": "lotti"
@@ -189922,11 +190122,6 @@
       "name": "godsarmy--mlkit-markdown-translator-android",
       "source": "./godsarmy--mlkit-markdown-translator-android",
       "description": "mlkit-markdown-translator-android"
-    },
-    {
-      "name": "hasna--contacts",
-      "source": "./hasna--contacts",
-      "description": "contacts"
     },
     {
       "name": "brdloush--livewire",
@@ -191972,11 +192167,6 @@
       "name": "nestummilo-isfezan--ytune",
       "source": "./nestummilo-isfezan--ytune",
       "description": "ytune"
-    },
-    {
-      "name": "phhusson--oqee-mcp",
-      "source": "./phhusson--oqee-mcp",
-      "description": "oqee-mcp"
     },
     {
       "name": "mheelb--alumni",
@@ -206704,11 +206894,6 @@
       "description": "MVP"
     },
     {
-      "name": "mnem0nic7--diabetes-2025",
-      "source": "./mnem0nic7--diabetes-2025",
-      "description": "diabetes-2025"
-    },
-    {
       "name": "jonasneves--shipctl",
       "source": "./jonasneves--shipctl",
       "description": "shipctl"
@@ -208387,11 +208572,6 @@
       "name": "themistletoe--memutrader",
       "source": "./themistletoe--memutrader",
       "description": "MemUTrader"
-    },
-    {
-      "name": "ldmoxeii--only-engine",
-      "source": "./ldmoxeii--only-engine",
-      "description": "only-engine"
     },
     {
       "name": "rohan-0202--finance-analysis",
@@ -213597,11 +213777,6 @@
       "name": "jairosoft-com--mcp-server-outlook-calendar",
       "source": "./jairosoft-com--mcp-server-outlook-calendar",
       "description": "mcp-server-outlook-calendar"
-    },
-    {
-      "name": "makfly--ghostchrome",
-      "source": "./makfly--ghostchrome",
-      "description": "ghostchrome"
     },
     {
       "name": "faroqomar--merter",
@@ -221729,11 +221904,6 @@
       "description": "EvolutionHub"
     },
     {
-      "name": "pangbit--spoa",
-      "source": "./pangbit--spoa",
-      "description": "spoa"
-    },
-    {
       "name": "permitio--opa-nats",
       "source": "./permitio--opa-nats",
       "description": "opa-nats"
@@ -228877,11 +229047,6 @@
       "name": "serdarozerman-debug--burs-platform",
       "source": "./serdarozerman-debug--burs-platform",
       "description": "burs-platform"
-    },
-    {
-      "name": "plongdevs--hyperguard",
-      "source": "./plongdevs--hyperguard",
-      "description": "HyperGuard"
     },
     {
       "name": "nexa-inc25--xrpcoreflowalpha",
@@ -242802,11 +242967,6 @@
       "name": "trevorplam--prompts",
       "source": "./trevorplam--prompts",
       "description": "prompts"
-    },
-    {
-      "name": "inugamidev--ultrathink-oss",
-      "source": "./inugamidev--ultrathink-oss",
-      "description": "ultrathink-oss"
     },
     {
       "name": "samuel1-ona--genie",
@@ -261209,11 +261369,6 @@
       "description": "BMAD"
     },
     {
-      "name": "pekkanikander--nocfo-api-tool",
-      "source": "./pekkanikander--nocfo-api-tool",
-      "description": "nocfo-api-tool"
-    },
-    {
       "name": "stiliajohny--pasteportal",
       "source": "./stiliajohny--pasteportal",
       "description": "pasteportal"
@@ -265832,11 +265987,6 @@
       "name": "mrhuangjser--pdf-tools",
       "source": "./mrhuangjser--pdf-tools",
       "description": "pdf-tools"
-    },
-    {
-      "name": "thehardway15--10x-cards",
-      "source": "./thehardway15--10x-cards",
-      "description": "10x-cards"
     },
     {
       "name": "jon-chun--documindintelliocr",
@@ -281342,6 +281492,81 @@
       "name": "heyfarai--tryouts-next",
       "source": "./heyfarai--tryouts-next",
       "description": "tryouts-next"
+    },
+    {
+      "name": "urban-tech-creative--utc-website",
+      "source": "./urban-tech-creative--utc-website",
+      "description": "Website for Urban Tech Creative"
+    },
+    {
+      "name": "piotrmigaj--na-lp",
+      "source": "./piotrmigaj--na-lp",
+      "description": "na-lp"
+    },
+    {
+      "name": "urban-tech-creative--utc-website",
+      "source": "./urban-tech-creative--utc-website",
+      "description": "Website for Urban Tech Creative"
+    },
+    {
+      "name": "drasticstatic--crowdsale",
+      "source": "./drasticstatic--crowdsale",
+      "description": "\ud83c\udf93 DappU-Mentorship \ud83e\uddfe an Ethereum-based token crowdsale system using Hardhat and React"
+    },
+    {
+      "name": "thehardway15--10x-cards",
+      "source": "./thehardway15--10x-cards",
+      "description": "10x-cards"
+    },
+    {
+      "name": "phhusson--oqee-mcp",
+      "source": "./phhusson--oqee-mcp",
+      "description": "oqee-mcp"
+    },
+    {
+      "name": "hasna--contacts",
+      "source": "./hasna--contacts",
+      "description": "contacts"
+    },
+    {
+      "name": "plongdevs--hyperguard",
+      "source": "./plongdevs--hyperguard",
+      "description": "HyperGuard"
+    },
+    {
+      "name": "mnem0nic7--diabetes-2025",
+      "source": "./mnem0nic7--diabetes-2025",
+      "description": "diabetes-2025"
+    },
+    {
+      "name": "makfly--ghostchrome",
+      "source": "./makfly--ghostchrome",
+      "description": "ghostchrome"
+    },
+    {
+      "name": "pangbit--spoa",
+      "source": "./pangbit--spoa",
+      "description": "spoa"
+    },
+    {
+      "name": "pekkanikander--nocfo-api-tool",
+      "source": "./pekkanikander--nocfo-api-tool",
+      "description": "nocfo-api-tool"
+    },
+    {
+      "name": "axuanhogan--quarkus-kotlin-clean-arch-template",
+      "source": "./axuanhogan--quarkus-kotlin-clean-arch-template",
+      "description": "Clean Architecture template using Quarkus with Kotlin"
+    },
+    {
+      "name": "drasticstatic--crowdsale",
+      "source": "./drasticstatic--crowdsale",
+      "description": "\ud83c\udf93 DappU-Mentorship \ud83e\uddfe an Ethereum-based token crowdsale system using Hardhat and React"
+    },
+    {
+      "name": "luissanchez0305--ghl-de-duper",
+      "source": "./luissanchez0305--ghl-de-duper",
+      "description": "Search duplicates in Go High Level"
     }
   ]
 }
