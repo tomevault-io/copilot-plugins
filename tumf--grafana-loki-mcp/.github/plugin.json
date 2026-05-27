@@ -1,0 +1,9 @@
+{
+  "name": "tumf--grafana-loki-mcp",
+  "displayName": "grafana-loki-mcp",
+  "description": "Grafana Loki MCP Repository",
+  "version": "1.0.0",
+  "author": "tumf",
+  "homepage": "https://github.com/tumf/grafana-loki-mcp",
+  "skills": []
+}
