@@ -7,13 +7,13 @@ A tutorial on how to build stuff with large language models, made simple
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ericmjl/building-with-llms-made-simple](https://github.com/ericmjl/building-with-llms-made-simple).
+Original source: `CLAUDE.md` in [ericmjl/building-with-llms-made-simple](https://github.com/ericmjl/building-with-llms-made-simple).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
