@@ -1,0 +1,9 @@
+{
+  "name": "rungalileo--galileo-python",
+  "displayName": "galileo-python",
+  "description": "Python client library for the Galileo platform \ud83d\udd2d",
+  "version": "1.0.0",
+  "author": "rungalileo",
+  "homepage": "https://github.com/rungalileo/galileo-python",
+  "skills": []
+}
