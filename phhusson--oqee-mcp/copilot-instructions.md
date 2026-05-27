@@ -11,6 +11,5 @@ Ne pas commite que si t'as tsté que ça fonctionne
 Tu n'as jamais besoin de rétablir le contenu de if __name__ == "__main__"
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/phhusson)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/phhusson)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [phhusson/oqee-mcp](https://github.com/phhusson/oqee-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
