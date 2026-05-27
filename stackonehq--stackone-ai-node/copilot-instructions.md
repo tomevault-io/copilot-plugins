@@ -1,95 +1,73 @@
-## nix-workflow
+## pnpm-usage
 
-> This rule provides guidance on Nix usage in the StackOne SDK.
+> pnpm package manager commands and troubleshooting. (project)
 
-# Nix Workflow
 
-This rule provides guidance on Nix usage in the StackOne SDK.
+# pnpm Usage
 
-## Development Environment
+This rule provides guidance on using pnpm in the StackOne SDK.
 
-The project uses `flake.nix` to define the development environment with `nix develop`.
+## Building
 
-### Adding Development Tools
+- `pnpm build` - Build the project using tsdown
 
-To add a new tool to the development environment, add it to `buildInputs` in `flake.nix`:
+## Testing
 
-```nix
-buildInputs = with pkgs; [
-  # runtime
-  nodejs_24
-  pnpm_10
+- `pnpm test` - Run all tests (unit, examples, scripts)
+- `pnpm vitest src/path/to/file.test.ts` - Run a specific test file
+- `pnpm vitest -t "test name"` - Run tests matching a pattern
 
-  # formatting and linting tools
-  oxlint  # includes tsgolint
-  oxfmt
+## Code Quality
 
-  # your new tool here
-  new-tool
-];
-```
+- `pnpm lint` - Run oxfmt/oxlint/knip linter
+- `pnpm format` - Format code with oxfmt/oxlint/knip
 
-## CI Workflow
+## Command Execution
 
-CI uses `nix profile install` via the `.github/actions/setup-nix/action.yaml` composite action.
+- `pnpm <script>` - Run a script defined in package.json
+- `pnpm exec <command>` - Run a command from node_modules/.bin
+- `pnpm dlx <package>` - Run a package without installing (like npx)
 
-### Adding Tools to CI Jobs
+## Troubleshooting
 
-Specify tools in the `tools` input of the setup-nix action:
+If `pnpm exec <command>` fails, try `pnpm dlx <command>` instead.
 
-```yaml
-- name: Setup Nix
-  uses: ./.github/actions/setup-nix
-  with:
-    tools: nodejs_24 pnpm_10 oxlint oxfmt
-```
-
-The action installs packages using:
+If bash commands fail, try running with fish shell:
 
 ```bash
-nix profile install --inputs-from . nixpkgs#tool1 nixpkgs#tool2
+fish -c "<command>"
 ```
 
-### CI Tool Configuration
+## Common Issues
 
-- **Default tools**: `nodejs_24 pnpm_10` (defined in action.yaml)
-- **Skip pnpm install**: Set `skip-pnpm-install: 'true'` for jobs that don't need node dependencies
+1. **Script not found**: Check package.json scripts section
+2. **Binary not found**: Use `pnpm dlx` instead of `pnpm exec`
+3. **Permission errors**: Check node_modules permissions
 
-### Example: Adding a New Tool to Lint Job
+## Security Settings
 
-```yaml
-lint:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Setup Nix
-      uses: ./.github/actions/setup-nix
-      with:
-        tools: nodejs_24 pnpm_10 oxlint oxfmt new-tool
-    - name: Run Lint
-      run: pnpm run lint
-```
+The project uses pnpm security settings to protect against supply chain attacks.
+These are configured in `pnpm-workspace.yaml`:
 
-## Build Flags
+| Setting                     | Purpose                                                                                                              |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `strictDepBuilds: true`     | Blocks lifecycle scripts (postinstall, etc.) by default. Only packages in `allowBuilds` can run build scripts.       |
+| `allowBuilds`               | Explicitly allows (`true`) or blocks (`false`) build scripts per package. Replaces `onlyBuiltDependencies` (10.26+). |
+| `blockExoticSubdeps: true`  | Blocks dependencies from non-registry sources (Git repos, tarball URLs).                                             |
+| `trustPolicy: no-downgrade` | Prevents trust level downgrades between versions (e.g., from GitHub OIDC to basic auth).                             |
 
-Always use these flags when running Nix build commands locally:
+If a new dependency requires build scripts, add it to `allowBuilds` in `pnpm-workspace.yaml` with value `true`.
 
-```bash
---print-build-logs --show-trace
-```
+Reference: https://pnpm.io/settings
 
-Example:
+## Publishing & Deployment
 
-```bash
-nix build --print-build-logs --show-trace
-nix flake check --print-build-logs --show-trace
-```
+When ready to release:
 
-## Notes
-
-- Some packages bundle multiple tools (e.g., `oxlint` includes `tsgolint`)
-- Check nixpkgs for package contents before adding redundant dependencies
+1. Ensure all tests pass: `pnpm test`
+2. Bump version in package.json
+3. Create release commit
+4. Push to main or create release PR
 
 ---
 > Source: [StackOneHQ/stackone-ai-node](https://github.com/StackOneHQ/stackone-ai-node) — distributed by [TomeVault](https://tomevault.io).
