@@ -1,0 +1,9 @@
+{
+  "name": "crazyrabbitltc--mcp-twitter-server",
+  "displayName": "mcp-twitter-server",
+  "description": "Model Context Protocol Server for Accessing twitter",
+  "version": "1.0.0",
+  "author": "crazyrabbitLTC",
+  "homepage": "https://github.com/crazyrabbitLTC/mcp-twitter-server",
+  "skills": []
+}
