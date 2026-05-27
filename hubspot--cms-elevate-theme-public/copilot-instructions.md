@@ -1,39 +1,118 @@
-## hs-scaffold-section
+## hs-scaffold-template
 
-> Scaffold a new section
+> Scaffold a new template
 
-# Scaffold a Section
+# Scaffold a Template
 
-When scaffolding a new section, follow these guidelines to create a consistent, well-structured foundation. Focus on creating the basic structure and necessary content without worrying about translations, scaffolding, or context values.
+When scaffolding a new template, follow these guidelines to create a consistent, well-structured foundation. Focus on creating the basic structure and necessary content without worrying about translations, scaffolding, or context values.
 
 ## Key Principles
 - Create minimal, well-organized file structure
-- Add TODOs and comments for future implementation
-- Focus on building out the section using DND tags with hardcoded content
-- Set up proper section template annotations
+- Add TODOs and HubL comments `{# HubL comment #}` for future implementation
+- Focus on building out the template using existing sections in the theme or with DND tags with hardcoded content if a section doesn't exist for a particular part of the template
+- Set up proper template annotations
 - Never hardcode colors or unnecessary styles
 - Use existing theme modules over default modules
 - Always check the codebase for existing modules before assuming default modules exist
-- Always check existing sections to see what fields they're passing into modules
+- Always check existing sections and/or templates to see what fields they're passing into modules
 
 ## Core Concepts
 
 ### Template Annotations
-At the top of a section is the file's [template annotations](mdc:https:/developers.hubspot.com/docs/guides/cms/content/templates/drag-and-drop/sections#section-template-files) which includes meta information about the section that is then used to display the section in the page editor when a user is editing a page. Below is an example of a template annotation for a section.
+At the top of a template is the file's [template annotations](mdc:https:/developers.hubspot.com/docs/guides/cms/content/templates/types/html-hubl-templates#template-annotations) which includes meta information about the section that is then used to display the template in the content creation flow when a user goes to choose a template to start their page with. Below is an example of a template annotation for a template.
 
 ```
 <!--
-  templateType: section
-  label: Name of the section
+  templateType: page
+  label: Name of the template
   isAvailableForNewContent: true
-  screenshotPath: ../images/section-previews/screenshot-of-the-section.png
-  description: "Description of the section"
+  screenshotPath: ../images/template-previews/screenshot-of-the-template.png
 -->
 ```
 
-### DND Area Tags
-A section is made up of [drag and drop HubL tags](mdc:https:/developers.hubspot.com/docs/reference/cms/hubl/tags/dnd-areas). A `dnd_section` is made up of `dnd_row`s, `dnd_column`s, and `dnd_module`s. You can read more about the HubL tags, their available parameters, and their nesting rules [here](mdc:https:/developers.hubspot.com/docs/reference/cms/hubl/tags/dnd-areas). Below is a very basic example of a section.
+### Extending Base and Global Partials
+Each of our templates extends a base file which includes a shared template structure. Within our base file there are three different blocks which allow us to optionally change the default content of those blocks for each template.
 
+#### For page templates we should start our template with the following code:
+```
+<!--
+  templateType: page
+  label: Name of the template
+  isAvailableForNewContent: true
+  screenshotPath: ../images/template-previews/screenshot-of-the-template.png
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+{% endblock body %}
+```
+
+#### For landing page templates we should start our template with the following code:
+```
+<!--
+  templateType: page
+  label: Name of the template
+  isAvailableForNewContent: true
+  screenshotPath: ../images/template-previews/screenshot-of-the-template.png
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block header %}
+  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
+{% endblock %}
+
+{% block body %}
+{% endblock body %}
+
+{% block footer %}
+  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER %}
+{% endblock %}
+```
+
+The reason for the difference is that we use a different header/footer partial on our landing pages. The landing page header/footer is simpler and doesn't include navigation. By default the base file includes our general website header/footer.
+
+### DND Areas
+A template is made up of [drag and drop HubL tags](mdc:https:/developers.hubspot.com/docs/reference/cms/hubl/tags/dnd-areas). For each template a DND area should be added within the `block_body`. This DND area defines where a user can drag and drop modules/sections around within the page area. This is what the template would look like with a DND area:
+```
+<!--
+  templateType: page
+  label: Name of the template
+  isAvailableForNewContent: true
+  screenshotPath: ../images/template-previews/screenshot-of-the-template.png
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% dnd_area "dnd_area"
+    label="Main section"
+  %}
+  {% end_dnd_area %}
+{% endblock body %}
+```
+
+Within the DND area tag, a template is made up of sections. Sections are full width pieces of a page that define smaller chunks of a page. These are typically broken up visually with a mix of spacing and/or colors. There are two ways that we can include sections in our template which include:
+
+#### Theme Sections (Preferred)
+Themes have section files which are meant to be reusable within both the page editor by users but also on templates by developers. The reusable sections act somewhat similarly to React components in that on the section file you can define context, which would be similar to props in React, that would then allow you to use that section on the template and edit the section's contents using context. You can learn more about section context [here](mdc:https:/developers.hubspot.com/docs/guides/cms/content/templates/drag-and-drop/sections). To include a pre-built theme section onto a template you would use the `include_dnd_partial` which you can learn more about [here](mdc:https:/developers.hubspot.com/docs/guides/cms/content/templates/drag-and-drop/sections#add-a-section-partial-to-a-template).
+
+Theme sections are located inside the /sections/ directory and should be referenced with the path `../sections/section-name.hubl.html",`. These sections:
+- Are specific to the website theme
+- Should be used before considering net new sections on the template
+- May be new and not used in other templates yet
+- Are referenced with `../` in the path
+
+Here is an example of a template that references theme sections in the DND area:
+```
+{% dnd_area "dnd_area"
+  label="Main section"
+%}
+  {% include_dnd_partial path="../sections/hero-banner.hubl.html" %}
+  {% include_dnd_partial path="../sections/about-us.hubl.html" %}
+{% end_dnd_area %}
+```
+
+#### DND Area Tags
+If there isn't a theme section that already exists, we can create a section within the template by using a `dnd_section`. A `dnd_section` is made up of `dnd_row`s, `dnd_column`s, and `dnd_module`s. You can read more about the HubL tags, their available parameters, and their nesting rules [here](mdc:https:/developers.hubspot.com/docs/reference/cms/hubl/tags/dnd-areas). Below is a very basic example of a section:
 ```
 {% dnd_section %}
   {% dnd_column %}
@@ -50,10 +129,10 @@ A section is made up of [drag and drop HubL tags](mdc:https:/developers.hubspot.
 {% end_dnd_section %}
 ```
 
-### Modules Available to Be Used in a Section
-A section can be built with theme and/or default modules.
+##### Modules Available to Be Used in a Section
+A `dnd_section` can be built with theme and/or default modules.
 
-#### Theme Modules (Preferred)
+###### Theme Modules (Preferred)
 A theme module is a module that exists within a website theme and can only be used in that particular website theme. These files live in the same folder as the theme. You can learn more about theme modules [here](mdc:https:/developers.hubspot.com/docs/guides/cms/content/themes/overview).
 
 Theme modules are located inside the components/modules directory and should be referenced with the path `../components/modules/ModuleName`. These modules:
@@ -62,8 +141,7 @@ Theme modules are located inside the components/modules directory and should be 
 - May be new and not used in other sections yet - check the components/modules directory
 - Are referenced with `../` in the path
 
-
-#### Default Modules
+###### Default Modules
 Default modules are modules that can be used in any themes. These files live separately from themes. You can learn more about default modules and what their different fields are [here](mdc:https:/developers.hubspot.com/docs/reference/cms/modules/default-modules).
 
 Default modules (prefixed with @hubspot/) should only be used when a suitable theme module doesn't exist. Always check the theme modules directory first.
@@ -74,11 +152,10 @@ When using default HubSpot modules, make sure to use the exact module names as t
 - For image galleries, use `@hubspot/image_grid`
 - For forms, use `@hubspot/form`
 
-Always check existing sections first to see how modules are implemented before adding new ones. Grep for "@hubspot/" to find examples of default modules in use.
+Always check existing sections and templates first to see how modules are implemented before adding new ones. Grep for "@hubspot/" to find examples of default modules in use.
 
-
-### How to Reference Module Fields From a Section
-Each module is made up of fields. Fields are what are used by a user to edit the module's contents. You can learn more about the fields available for HubL modules [here](mdc:https:/developers.hubspot.com/docs/reference/cms/fields/module-theme-fields) and the fields available for React modules [here](https://developers.hubspot.com/docs/guides/cms/react/modules#module-fields). When adding a module to a section, you can reference the module's fields to change the module field values for that particular section. Below is an example of a module's fields.json for a HubL module, equivalent fields.tsx file for a React module, and how that module is referenced in the section.
+##### How to Reference Module Fields From a Section
+Each module is made up of fields. Fields are what are used by a user to edit the module's contents. You can learn more about the fields available for HubL modules [here](mdc:https:/developers.hubspot.com/docs/reference/cms/fields/module-theme-fields) and the fields available for React modules [here](mdc:https:/developers.hubspot.com/docs/guides/cms/react/modules#module-fields). When adding a module to a section, you can reference the module's fields to change the module field values for that particular section. Below is an example of a module's fields.json for a HubL module, equivalent fields.tsx file for a React module, and how that module is referenced in the section.
 
 **Fields.json:**
 ```
@@ -151,56 +228,55 @@ This is the [main Hubspot developer documentation](mdc:https:/developers.hubspot
 
 ## Required Files Structure
 ```
-src/unified-theme/sections/[section-name].hubl.html
+src/unified-theme/templates/[template-name].hubl.html
 ```
 
 ## File Template
 ```
 <!--
-  templateType: section
-  label: Section name
+  templateType: page
+  label: Name of the template
   isAvailableForNewContent: true
-  description: "Description of the section and its contents."
+  screenshotPath: ../images/template-previews/screenshot-of-the-template.png
 -->
+{% extends "./layouts/base.hubl.html" %}
 
-{# Section #}
-
-{% dnd_section %}
-  {% dnd_column %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/Heading",
-        headingAndTextHeading="Hello world"
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-  {% end_dnd_column %}
-{% end_dnd_section %}
+{% block body %}
+  {% dnd_area "dnd_area"
+    label="Main section"
+  %}
+  {% end_dnd_area %}
+{% endblock body %}
 ```
 
 ## Implementation Steps
 
 1. **Analyze Requirements**
-  - Identify what modules may be needed to build the section
-  - Determine if there is a theme module or default module for the required modules
-  - Plan section structure
+  - Identify what sections may be needed to build the template
+  - Determine if there is a theme section that would meet the need for each section first
+  - If a template specific section is needed:
+    - Identify what modules may be needed to build the section
+    - Determine if there is a theme module or default module for the required modules
+    - Plan section structure for that particular section
 
 2. **Create File Structure**
-   - Create a section file in the `section` directory with a file name that describes the contents of the section
+   - Create a template file in the `template` directory with a file name that describes the contents of the template
 
-3. **Build Section Contents**
-   - Update the template annotations at the top of the section file to include the section label and description
-   - Build out the DND tag structure and for modules add paths to theme modules or default modules
-   - Pass in content to module fields as needed
-   - Stop and think
+3. **Build Template Contents**
+   - Update the template annotations at the top of the template file to include the template label
+   - Add any theme sections inside of the DND area that work for the provided designs (start without including context first) and add HubL comments for any places that would require a template specific sections (e.g. a theme section doesn't currently exist that would work).
+   - For template specific sections:
+    - Build out the DND tag structure and for modules add paths to theme modules or default modules
+    - Pass in content to module fields as needed
+    - Stop and think
 
 4. **Compare Mockup (if any)**
    - If any details, like images or smaller headings were left out of Step 3's code, add those in now
    - Stop and think
 
-5. **Compare To Existing Sections**
-   - Find other existing sections in the sections directory and try to follow their pattern
-   - Follow the module fields that existing sections (found in src/unified-theme/sections/*.hubl.html) use for module usage
+5. **Compare To Existing Templates**
+   - Find other existing templates in the templates directory and try to follow their pattern
+   - Follow the module fields that existing templates (found in src/unified-theme/templates/*.hubl.html) use for module usage
    - If a module exists but isn't used in any of the sections yet, it is a new module and can still be utilized
    - Stop and think
 
@@ -211,28 +287,33 @@ src/unified-theme/sections/[section-name].hubl.html
 
 
 ## Verification Checklist
-Before finalizing any section implementation, complete these specific verification steps:
+Before finalizing any template implementation, complete these specific verification steps:
 
-1. **Module Verification**
-   - Run `grep -r "@hubspot/" src/unified-theme/sections/` to find all default HubSpot modules in use
-   - Run `grep -r "path=\"\.\./" src/unified-theme/sections/` to find theme modules in use
+1. **Section Verification**
+  - Run `grep -r "include_dnd_partial" src/unified-theme/templates/` to find usages of theme sections in templates
+  - For each section you plan to use, verify its exact name and different context parameters
+  - Document the verified section naems/paths in your implementation notes
+
+2. **Module Verification**
+   - Run `grep -r "@hubspot/" src/unified-theme/sections/` and `grep -r "@hubspot/" src/unified-theme/templates/` to find all default HubSpot modules in use
+   - Run `grep -r "path=\"\.\./" src/unified-theme/sections/` and `grep -r "path=\"\.\./" src/unified-theme/templates/` to find theme modules in use
    - For each module you plan to use, verify its exact name and parameter structure from existing sections
    - Document the verified module names/paths in your implementation notes
 
-2. **Parameter Structure Verification**
+3. **Parameter Structure Verification**
    - For each module, examine at least 2 different existing implementations to confirm parameter structure
    - Copy the exact parameter structure from existing implementations when possible
    - Verify boolean values use proper format (lowercase true/false)
    - Verify object properties use proper quoting and format
 
-3. **Final Pre-implementation Checks**
-   - Compare your section structure side-by-side with a similar existing section
+4. **Final Pre-implementation Checks**
+   - Compare your template structure side-by-side with a similar existing template
    - Confirm DND structure matches existing patterns (section → column → row → module)
-   - Verify all fields are referencing context variables consistently
-   - Double-check default values against existing sections
+   - Verify all theme sections are referencing context variables consistently
+   - Double-check default values against existing sections and templates
 
 ## Best Practices
-When building sections, we follow a set of best practices to ensure that the sections are of the best quality.
+When building templates, we follow a set of best practices to ensure that the templates are of the best quality.
 
 ### Code Formatting
 - Use double quotation marks for HubL.
@@ -264,52 +345,53 @@ When building sections, we follow a set of best practices to ensure that the sec
 - If using an image module, use "lazy" for loading if the section is going to be below the fold; otherwise, use "eager"
 
 ### Naming Conventions
-- The label for the section should be sentence case (e.g. "Hero section").
-- The file name for the section should be kebab case (e.g. "hero-section.hubl.html") and should have the extension `.hubl.html`.
+- The label for the template should be sentence case (e.g. "Hero section").
+- The file name for the template should be kebab case (e.g. "lp-event.hubl.html") and should have the extension `.hubl.html`.
 
 ### Documentation
 - Add HubL comments if needed to indicate what the different parts of the code do (e.g. `{# This is a comment #}`)
-- The description for the section in the template annotation should be a short sentence that describes what the section is.
-
 
 ### Common Pitfalls to Avoid
 1. Hardcoding colors or unnecessary styles
 2. Using RichText for structured content that has a dedicated module
 3. Assuming default modules exist without checking documentation
-4. Not checking the components/modules directory for available theme modules
-
+4. Not checking the /sections/ directory for available theme sections
+4. Not checking the /components/modules directory for available theme modules
 
 ## Example Scenario
 
-Let's walk through creating a "Call to action" section with the following requirements:
+Let's walk through creating an "Learn more" landing page template with the following requirements:
 
 Note that you shouldn't use this in your final output. But this example provides details on the process you should follow and what expectations are.
 
-1. Create a section that would prompt a user to make a call to action
-2. The section should include:
-   - A full width heading at the top of the section and the heading level should be an h2
-   - A full width paragraph underneath the heading that provides some complementary text to support the heading above it
-   - A centered button below the paragraph that prompts the user to take an action
-
+**User prompt:** Create a landing page template using an attached screenshot
 
 1. **Analyze Requirements**
-  - Identify what modules may be needed to build the section
-  - Determine if there is a theme module or default module for the required modules
-  - Plan section structure
+  - Identify what sections exist on the template screenshot
+    - We should ignore the header and footer when looking at this and just focus on the body of the page
+  - See if we have theme sections that match the sections we found
+    - Look through the sectrion preview images we have of each section and see if we have an close matches
+    - If we do, identify which sections those section preview images align with
+  - For any section that doesn't match an existing theme section, take note of this and:
+    - Identify what modules may be needed to build the section
+    - Determine if there is a theme module or default module for the required modules
+    - Plan section structure
 
 2. **Create File Structure**
-   - Create a section file in the `section` directory with a file name that describes the contents of the section
+   - Create a template file in the `template` directory with a file name that describes the contents of the template
 
-3. **Build Section Contents**
-   - Update the template annotations at the top of the section file to include the section label and description
-   - Build out the DND tag structure and for modules add paths to theme modules or default modules
-   - Pass in content to module fields as needed
+3. **Build Template Contents**
+   - Update the template annotations at the top of the template file to include the template label
+   - Add include_dnd_partial tags for any theme section that we are using
+   - For template specific sections:
+    - Build out the DND tag structure and for modules add paths to theme modules or default modules
+    - Pass in content to module fields as needed
 
 4. **Compare Mockup (if any)**
    - If any details, like images or smaller headings were left out of Step 3's code, add those in now
 
-5. **Compare To Existing Sections**
-   - Find other existing sections in the sections directory and try to follow their pattern
+5. **Compare To Existing Templates**
+   - Find other existing templates in the templates directory and try to follow their pattern
    - If a module exists but isn't used in any of the sections yet, it is a new module and can still be utilized
 
 6. **Add TODOs and Comments**
@@ -320,78 +402,89 @@ Note that you shouldn't use this in your final output. But this example provides
 
 ## Step 1: Analyze Requirements
 
-### Identify what modules may be needed to build the section
-- Module list: heading for the heading, rich text for the paragraph, and button for the button
-- Are there theme modules for these?: Yes, there is a theme heading module, a theme rich text module, and a theme button module
-
-### Determine if there is a theme module or default module for the required modules
-- Yes, there is a theme heading module, a theme rich text module, and a theme button module
-
-### Plan section structure
-- Given everything is full width, we would include a column within the section, include three rows in the column, and include the respective modules in each of those rows.
+### Identify what sections exist on the template screenshot
+- Based on looking through the screenshot, the template has:
+  - A full width hero section at the top
+  - A section with a heading, an image on the left, and some product features on the right
+  - A two column section with a form on the right and some text on the left
+- Based on looking at the theme sections, we can see that there is:
+  - A theme section called `hero-banner-centered-dark.hubl.html` that matches for the hero section
+  - A theme section called `features.hubl.html` that matches for the second section
+  - No theme section that matches the third section we note that we'll need to build a template specific section for it. We also note the structure of the section and what modules will be needed:
+    - A half width column with a theme rich text module on the left
+    - A half width column with a default form module on the right
 
 ## Step 2: Create File Structure
 
 ```
-src/unified-theme/sections/call-to-action.hubl.html
+src/unified-theme/templates/lp-signup.hubl.html
 ```
 
 ## Step 3: Build Section Contents
 ```
 <!--
-  templateType: section
-  label: Call to action
+  templateType: page
+  label: Landing page - signup
   isAvailableForNewContent: true
-  description: "Section with a centered heading, description, and button"
 -->
 
-{# Section #}
 
-{% dnd_section %}
-  {% dnd_column %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/Heading",
-        headingAndTextHeading="Section heading would go here"
+{% block header %}
+  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
+{% endblock %}
+
+{% block body %}
+  {% dnd_area "dnd_area"
+    label="Main section"
+  %}
+
+    {# Hero banner section #}
+
+    {% include_dnd_partial path="../sections/hero-banner-centered-dark.hubl.html" %}
+
+    {# Features section #}
+
+    {% include_dnd_partial path="../sections/features.hubl.html" %}
+
+    {# Two column forms section #}
+
+    {% dnd_section %}
+      {% dnd_column
+        width=6
       %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/RichText"
+        {% dnd_row %}
+          {% dnd_module path="../components/modules/RichText" %}
+            {% module_attribute "richTextContentHTML" %}
+              <p>Aenean bibendum nisi eu venenatis sollicitudin. Vivamus augue nisi, maximus quis diam sit amet, fringilla malesuada libero. Donec vehicula nibh ut libero iaculis tempus. Mauris posuere pellentesque leo vel pretium. Aliquam erat volutpat. Integer sodales in libero laoreet porta. Sed laoreet varius ex, at luctus arcu molestie sed. Suspendisse id nisi dui. Maecenas augue enim, posuere eget nisl sit amet, eleifend lacinia purus. Morbi tellus quam, cursus at tempor vel, hendrerit in elit. Fusce nec odio tincidunt enim iaculis semper.</p>
+            {% end_module_attribute %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+      {% dnd_column
+        offset=6
+        width=6
       %}
-        {% module_attribute "richTextContentHTML" %}
-          <div style="text-align: center;">
-            <p>Paragraph content would go here</p>
-          </div>
-        {% end_module_attribute %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/Button",
-        groupButtons=[
-          {
-            "buttonContentText": "Button text would go here"
-            "buttonContentLink": {
-              "url": {
-                "href": "https://www.hubspot.com"
-              }
-            }
-          }
-        ]
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-  {% end_dnd_column %}
-{% end_dnd_section %}
+        {% dnd_row %}
+          {% dnd_module path="@hubspot/form" %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+
+  {% end_dnd_area %}
+{% endblock %}
+
+{% block footer %}
+  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER %}
+{% endblock %}
+
 ```
 
 ## Step 4: Compare Mockup (if any)
-- None provided.
+- Nothing missing after comparing
 
-## Step 5: Compare To Existing Sections
-- Compare context variable usage (if any), styling, module usage, comments, and other patterns to existing sections located inside the sections directory
+## Step 5: Compare To Existing Templates
+- Compare context variable usage (if any), styling, module usage, comments, and other patterns to existing templates located inside the templates directory
 
 ---
 > Source: [HubSpot/cms-elevate-theme-public](https://github.com/HubSpot/cms-elevate-theme-public) — distributed by [TomeVault](https://tomevault.io).
