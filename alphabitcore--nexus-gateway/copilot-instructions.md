@@ -1,59 +1,34 @@
-## session-handoff
+## sub-agent-dispatch
 
-> Proactively offer a handoff document when a session is approaching context capacity or closing out a major program
+> Discipline for dispatching sub-agents (Agent tool) — what to delegate, what not to, and required prompt shape
 
 
-# Session handoff at context-full
+# Sub-agent dispatch discipline (binding)
 
-> Canonical text lives in **`CLAUDE.md`** under Mandatory rules. This rule is the IDE-side surfacing; when this file disagrees with `CLAUDE.md`, `CLAUDE.md` wins.
+Sub-agents have **zero session context**. Terse prompts produce shallow work. Use them only where the gain is real and the prompt is complete.
 
-## When to trigger
+## OK to delegate
 
-Proactively offer the handoff workflow when **any** of these apply:
+- (a) **Mechanical multi-file work** that doesn't need main-context reasoning — test stub renames, doc cross-rewrites, codemod-style edits.
+- (b) **Parallel-safe independent research lookups** — `Explore` agent for code search, "find me where X is referenced."
+- (c) **Bounded scope** where the agent's report-back is enough — small audits, well-defined formatting passes.
 
-- The conversation is approaching the auto-compact threshold (the assistant senses long context, ~150k+ tokens, or the IDE / harness signals "context full").
-- A multi-phase program is closing out (e.g., the OSS-readiness review's Phase 4 capstone).
-- Tool-call turn count is high (>~50 turns of accumulated state).
-- A major `git push` just landed work the next session needs to build on.
+## DO NOT delegate
 
-## What the handoff document contains
+1. **Understanding a new problem** — the main agent must keep the model.
+2. **Decisions that change scope or contract** — those need user-in-the-loop, not a sub-agent.
+3. **`git commit` / `git push` / force-pushes / destructive ops on shared history** — never via sub-agent.
 
-Typical location: `docs/handoffs/program-name.md` for repo-tracked plans, or `<program-area>/HANDOFF.md` for area-local plans, or `/tmp/<program>-handoff.md` for local-only (less reliable).
+## Required prompt shape
 
-Required sections (mirror the canonical example):
+Every dispatched prompt MUST include:
 
-1. **Mission** — program goal + current phase.
-2. **Architecture model** — load-bearing facts the next session needs to design / debug against without re-reading the whole codebase. Keep dense (tables ok).
-3. **API / surface inventory** — what the program operates on.
-4. **Work units catalog** — concrete units the next session executes (scenarios, modules, tasks).
-5. **Existing infrastructure** — what to build on, what to avoid rewriting.
-6. **Binding rules** — pointers into CLAUDE.md + memory anchors the next session must load.
-7. **Recent changes affecting the work** — renames, deletions, contract changes since the program plan was first drafted.
-8. **Suggested program structure** — phases + first concrete steps.
-9. **Repo state snapshot** — branch / tip commit / known dirty WIP from parallel sessions.
+- (i) **Goal + non-goals** in the first 3 lines.
+- (ii) **Which worktree** the agent is operating in if non-default.
+- (iii) **Demand a 2-round self-audit** before report-back.
+- (iv) **Ask for a per-file list of touched paths + verification command outputs** in the response.
 
-## Why on-disk, not just memory
-
-- Maintainer-local memory persists across sessions but is one-line indexed; can't carry a 300-line architecture map.
-- Auto-compact summarizes the conversation but loses fidelity on specifics (file paths, struct fields, contract details).
-- An on-disk handoff document is **the single source of truth** the next session reads. Memory anchor + on-disk plan together = full handoff.
-
-## Canonical pattern
-
-The **structural anchor** lives at [`docs/developers/workflow/handoff-template.md`](../../docs/developers/workflow/handoff-template.md) — that template documents the 9-section shape every handoff doc fills. Worked examples (program-specific artifacts that may rename / move over their program's lifetime) are listed in the template; the template itself is stable.
-
-## What the rule asks of the assistant
-
-When the trigger conditions hold, the assistant should:
-
-1. Surface in plain language: "We've been at this a while / context is filling up / Phase X just closed — recommend writing a handoff doc and switching sessions."
-2. Offer a concrete location for the handoff doc.
-3. Generate the doc with the 9 sections above (filled with the in-flight program's actual content, not boilerplate).
-4. Optionally create a maintainer-local memory entry (project-type) anchoring it.
-5. Commit + push the handoff doc.
-6. Confirm with the user that the next session can pick up from the plan + memory anchor.
-
-If the user declines (says continue), respect that; the rule is "offer," not "force."
+Skipping this rule requires **explicit user approval** in chat.
 
 ---
 > Source: [AlphaBitCore/nexus-gateway](https://github.com/AlphaBitCore/nexus-gateway) — distributed by [TomeVault](https://tomevault.io).
