@@ -1,0 +1,9 @@
+{
+  "name": "chusj-pigu--nf-core-oncoseq",
+  "displayName": "nf-core-oncoseq",
+  "description": "Repo for oncoseq workflow.",
+  "version": "1.0.0",
+  "author": "chusj-pigu",
+  "homepage": "https://github.com/chusj-pigu/nf-core-oncoseq",
+  "skills": []
+}
