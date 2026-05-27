@@ -1,0 +1,9 @@
+{
+  "name": "evansims--openfga-mcp",
+  "displayName": "openfga-mcp",
+  "description": "Model Context Protocol server enabling querying and management of OpenFGA and Auth0 FGA authorization stores for automation, intelligent tooling, and natural language.",
+  "version": "1.0.0",
+  "author": "evansims",
+  "homepage": "https://github.com/evansims/openfga-mcp",
+  "skills": []
+}
