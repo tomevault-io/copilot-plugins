@@ -4,7 +4,7 @@
   "repo": "anthropic-sdk-rs",
   "description": "An unofficial Rust SDK for the Anthropic API.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/katsuhirohonda/anthropic-sdk-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T22:38:03Z"
+  "distributed_at": "2026-05-27T22:39:34Z"
 }
