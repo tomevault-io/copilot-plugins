@@ -1,38 +1,34 @@
-## collaboration
+## general-philosophy
 
-> Collaboration Rules - Commits, Pull Requests, and Code Review
+> General Coding Philosophy and Core Principles
 
 
-# Collaboration Rules
+# General Coding Philosophy
 
-## Commits (Angular Commit Convention)
+## Core Principles
 
-- Must follow the [Commit Message Guideline](https://github.com/fractalyze/.github/blob/main/COMMIT_MESSAGE_GUIDELINE.md).
+- **Readability:** Both code and commits should be immediately understandable.
+- **Maintainability:** Code should be easy to refactor and extend.
+- **Consistency:** Apply the same conventions across files and modules, except where external code (e.g., XLA) is imported.
+- **Performance:** Prioritize clarity, but optimize carefully where latency and cost are critical.
 
-- Format:
-  ```
-  <type>(<scope>): <summary>
-  ```
-  where `type` ∈ {build, chore, ci, docs, feat, fix, perf, refactor, style, test}.
+## Comment Style
 
-- Commit body: explain **why** the change was made (minimum 20 characters).
+- Non-trivial code changes must be accompanied by comments.
+- Comments explain **why** a change or design decision was made or explain the code for better readability.
+- Use full sentences with proper punctuation.
 
-- Footer: record breaking changes, deprecations, and related issues/PRs.
+## File Formatting
 
-- Each commit must include only **minimal, logically related changes**. Avoid mixing style fixes with functional changes.
+- Every file must end with a single newline.
+- No trailing whitespace.
+- No extra blank lines at EOF.
 
-## Pull Requests
+## License
 
-- Follow the [Pull Request Guideline](https://github.com/fractalyze/.github/blob/main/PULL_REQUEST_GUIDELINE.md).
-- Commits must be **atomic** and independently buildable/testable.
-- Provide context and links (short SHA for external references).
-
-## Tooling Requirements
-
-- **Formatter:** `clang-format` (LLVM preset with project overrides). Refer to the `.clang-format` file in the repo.
-- **Linter:** `clang-tidy`.
-- **Pre-commit hooks:** Recommended for enforcing format and lint locally.
-- **CI:** All PRs must pass lint, format, and tests before merge.
+- Every file (that could be exceptional case, such as empty BUILD.bazel) should have license notice at the top.
+- **New Files**: For any new files created from now on, the copyright year should be set to 2026.
+- **Refactored Files**: If a file is moved or renamed as part of a refactoring process, you may retain the original creation year from the source file.
 
 ---
 > Source: [fractalyze/prime-ir](https://github.com/fractalyze/prime-ir) — distributed by [TomeVault](https://tomevault.io).
