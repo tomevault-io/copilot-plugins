@@ -1,0 +1,200 @@
+## building-with-llms-made-simple
+
+> Every Marimo notebook should begin with a script header block that specifies the Python version and dependencies:
+
+# Marimo Notebook Writing Rules
+
+## File Structure
+
+Every Marimo notebook should begin with a script header block that specifies the Python version and dependencies:
+
+```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "llamabot[all]==version",
+#     "package1==version",
+#     "package2==version",
+# ]
+# ///
+```
+
+Following the header, import marimo and configure the app width:
+
+```python
+import marimo
+
+__generated_with = "0.13.11"  # Update version as needed
+app = marimo.App(
+    width="medium",  # or "full" for wider notebooks
+)
+```
+
+## Cell Organization
+
+The first cell must import marimo and return the mo object:
+
+```python
+@app.cell
+def _():
+    import marimo as mo
+    return (mo,)
+```
+
+**CRITICAL**: Variable names must be unique across ALL cells in a Marimo notebook. Never reuse variable names (including loop variables) between different cells, as this will cause conflicts. Each variable name can only be defined once across the entire notebook.
+
+Markdown cells (mo.md) serve multiple purposes in your notebook:
+
+* Main title (h1)
+* Section headers (h2)
+* Subsection headers (h3)
+* Explanatory text
+* Exercise instructions
+* Class discussions
+* Summaries
+
+Always use `hide_code=True` for markdown cells:
+
+```python
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        r"""
+        ## Section Title
+
+        Content goes here.
+        """
+    )
+    return
+```
+
+Code cells should focus on implementation details:
+
+* Import required packages
+* Define classes and functions
+* Create bot instances
+* Execute bot calls
+* Return relevant variables for use in other cells
+
+## Content Organization
+
+Structure your notebook with a clear title and introduction. Break the content into logical sections using h2 headers, and use h3 headers for specific topics. Include exercises after introducing new concepts, and conclude with a summary section.
+
+## Code Style
+
+Maintain high code quality by:
+
+* Using type hints for function parameters and return values
+* Documenting classes and functions with docstrings
+* Using descriptive variable names
+* Keeping cell outputs focused and relevant
+* Returning variables that will be used in subsequent cells
+
+## Bot Implementation
+
+When implementing bots:
+
+* Define system prompts clearly and concisely
+* Use @lmb.prompt decorator for templated prompts
+* Set appropriate temperature values (0.0 for deterministic, higher for creative)
+* Document model choices and their implications
+
+## Best Practices
+
+Keep your notebooks maintainable and effective by:
+
+* Focusing each cell on a single concept
+* Using markdown for explanations and code for implementation
+* Including exercises to reinforce learning
+* Documenting assumptions and requirements
+* Maintaining consistent formatting
+* Implementing proper error handling
+* Adding comments for complex logic
+
+## Common Patterns
+
+### Bot Creation
+
+```python
+bot = lmb.SimpleBot(
+    system_prompt="Clear, specific prompt",
+    model_name="model_name",
+    temperature=0.0,  # Adjust as needed
+)
+```
+
+### Markdown Sections
+
+```python
+mo.md(
+    r"""
+    ## Section Title
+
+    Content goes here.
+    """
+)
+```
+
+### Exercises
+
+```python
+mo.md(
+    r"""
+    ### Exercise
+
+    Exercise instructions here.
+    """
+)
+```
+
+## File Naming
+
+Choose descriptive names that clearly indicate the notebook's purpose. For ordered notebooks, use number prefixes (e.g., 01_, 02_). Replace spaces with underscores and always use the .py extension.
+
+## Dependencies
+
+Manage dependencies effectively by:
+
+* Listing all required packages in the script header
+* Specifying exact versions for reproducibility
+* Including both direct and indirect dependencies
+* Updating versions as needed
+* Using `llamabot[all]` instead of just `llamabot` to ensure all components are available
+* Avoiding separate installation of individual llamabot components
+
+## Documentation
+
+Provide clear and comprehensive documentation by:
+
+* Including clear explanations of concepts
+* Documenting code with comments
+* Providing relevant examples
+* Including references to external resources when appropriate
+
+## Notebooks
+
+When editing Marimo notebook prose, prioritize concise writing while using bullet points strategically to emphasize key points. Always adhere to MarkdownLint rules for consistent formatting.
+
+## MarkdownLint Rules
+
+Follow all MarkdownLint rules for consistent formatting.
+Notebooks should also adhere to MarkdownLint rules within `mo.md()` code cell strings.
+
+## Reference Documentation Style
+
+When writing reference documentation (e.g., references.md):
+
+* Use clear hierarchical structure with H1 and H2 headers
+* Format bullet points consistently using dashes (-)
+* Structure links as `[Title](URL) - Description`
+* Provide concise, descriptive summaries after each link
+* Group related resources under clear section headers
+* Maintain consistent spacing between sections
+* Use descriptive section titles that clearly indicate the content category
+* Keep descriptions focused and informative, highlighting key aspects of each resource
+* Organize content logically by topic or theme
+* Ensure all links are valid and properly formatted
+
+---
+> Source: [ericmjl/building-with-llms-made-simple](https://github.com/ericmjl/building-with-llms-made-simple) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
