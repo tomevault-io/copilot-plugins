@@ -126159,6 +126159,11 @@
       "description": "A feature-rich GUI software store for Linux"
     },
     {
+      "name": "openclaw--libopus-wasm",
+      "source": "./openclaw--libopus-wasm",
+      "description": "Small, modern WASM bindings for libopus raw packet encode/decode."
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
