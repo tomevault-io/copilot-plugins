@@ -4,7 +4,7 @@
   "repo": "epub2audio",
   "description": "Convert an `.epub` file into an audiobook with a local AI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clayrosenthal/epub2audio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T17:22:51Z"
+  "distributed_at": "2026-05-27T17:26:51Z"
 }
