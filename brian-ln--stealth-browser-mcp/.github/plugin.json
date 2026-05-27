@@ -1,0 +1,9 @@
+{
+  "name": "brian-ln--stealth-browser-mcp",
+  "displayName": "stealth-browser-mcp",
+  "description": "A MCP Server that provides browser access through playwright with \"stealth mode\" enabled.",
+  "version": "1.0.0",
+  "author": "brian-ln",
+  "homepage": "https://github.com/brian-ln/stealth-browser-mcp",
+  "skills": []
+}
