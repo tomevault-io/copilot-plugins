@@ -1,0 +1,9 @@
+{
+  "name": "fedify-dev--fedichatbot",
+  "displayName": "fedichatbot",
+  "description": "An LLM-powered chatbot for fediverse. A tech demo for BotKit.",
+  "version": "1.0.0",
+  "author": "fedify-dev",
+  "homepage": "https://github.com/fedify-dev/fedichatbot",
+  "skills": []
+}
