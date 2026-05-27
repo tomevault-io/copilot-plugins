@@ -1,0 +1,44 @@
+{
+  "name": "kintone-mcp-server",
+  "owner": "r3-yamauchi",
+  "repo": "kintone-mcp-server",
+  "description": "MCP server for kintone \u30b5\u30f3\u30d7\u30eb (Unofficial) https://www.r3it.com/blog/kintone-mcp-server-20250115-yamauchi https://www.r3it.com/blog/kintone-ai-lab-20250501-yamauchi",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/r3-yamauchi/kintone-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T20:50:35Z"
+}
