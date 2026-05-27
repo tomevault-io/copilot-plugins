@@ -1,0 +1,9 @@
+{
+  "name": "nvfp4--chrome-debloat",
+  "displayName": "chrome-debloat",
+  "description": "Debloat your Chrome, Brave, Edge, Chromium browsing experience",
+  "version": "1.0.0",
+  "author": "NVFP4",
+  "homepage": "https://github.com/NVFP4/chrome-debloat",
+  "skills": []
+}
