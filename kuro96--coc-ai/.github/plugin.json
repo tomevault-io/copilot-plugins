@@ -1,0 +1,9 @@
+{
+  "name": "kuro96--coc-ai",
+  "displayName": "coc-ai",
+  "description": "AI-powered code assistant for Vim. OpenAI and ChatGPT plugin for Vim and Neovim, built on top of coc.nvim's extension system, with support for DeepSeek-R1(deepseek-reasoner)",
+  "version": "1.0.0",
+  "author": "Kuro96",
+  "homepage": "https://github.com/Kuro96/coc-ai",
+  "skills": []
+}
