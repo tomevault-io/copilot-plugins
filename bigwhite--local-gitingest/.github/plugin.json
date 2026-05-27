@@ -1,0 +1,9 @@
+{
+  "name": "bigwhite--local-gitingest",
+  "displayName": "local-gitingest",
+  "description": "a command-line tool that converts a local Git repository into a single text file.",
+  "version": "1.0.0",
+  "author": "bigwhite",
+  "homepage": "https://github.com/bigwhite/local-gitingest",
+  "skills": []
+}
