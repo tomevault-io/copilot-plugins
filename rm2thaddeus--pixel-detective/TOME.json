@@ -1,0 +1,57 @@
+{
+  "name": "Pixel_Detective",
+  "owner": "rm2thaddeus",
+  "repo": "Pixel_Detective",
+  "description": "A repository for the Pixel Detective project.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "start-pixel-detective",
+      "path": "skills/start-pixel-detective",
+      "github_url": "https://github.com/rm2thaddeus/Pixel_Detective/tree/main/skills/start-pixel-detective",
+      "description": ""
+    },
+    {
+      "name": "start-dev-graph",
+      "path": "skills/start-dev-graph",
+      "github_url": "https://github.com/rm2thaddeus/Pixel_Detective/tree/main/skills/start-dev-graph",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rm2thaddeus/Pixel_Detective",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T14:30:38Z"
+}
