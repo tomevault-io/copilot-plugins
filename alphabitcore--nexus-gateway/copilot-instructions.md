@@ -1,33 +1,25 @@
-## ne-fail-open
+## no-backward-compatibility
 
-> macOS Network Extension must fail-open (5 safety-critical rules)
+> Pre-GA — no backward compatibility, no defer, no parallel legacy paths
 
 
-# macOS NE proxy must fail-open (binding, safety-critical)
+# Development-phase policy: no backward compatibility, no defer (binding)
 
-You are editing `NETransparentProxyProvider` territory. **This code is in the host's outbound packet path.** Any hang / panic / silently-claimed-but-not-relayed flow takes down the entire Mac's network — DNS, DHCP, mDNS, NTP, Apple Push, VPNs. Recovery requires `launchctl unload` + plist delete.
+Pre-GA, no installed users. Treat all refactoring as greenfield.
 
-**Read `docs/developers/architecture/services/agent/agent-ne-fail-open-architecture.md` BEFORE editing.**
+## Rules
 
-## The 5 binding fail-open rules
+1. **Delete obsolete code / tables / endpoints / configs outright** when replacing them — no parallel "legacy" paths.
+2. **No phased compatibility rollouts** — specs / plans must not contain "Phase 1 keeps old behavior, Phase 2 migrates".
+3. **No `@deprecated` markers kept alive**, no "cleanup later" TODOs, no "will remove after X ships".
+4. **No data-migration code for dev-only records** — fresh schema + seed is acceptable.
+5. **No feature flags for rollback** — rollback is `git revert`.
 
-1. **`handleNewFlow` decides synchronously.** Only `return true` for flows we can fully relay. UDP without a relay implementation = `return false` for unknown bundles. Apply protocol / bundle-ID checks BEFORE claiming.
-2. **Every async callback into the daemon has a fail-open timeout.** `requestDecision` → passthrough after 2s. `peekSNIThenRelay` → plain relay after 500ms. Never let a flow hang on an absent daemon.
-3. **No hardcoded enforcement lists in NE Swift code.** Bundle-ID allowlists etc. live in the Hub-pushed `agent_settings` shadow → daemon writes to `/var/run/nexus-agent/quic-bundles.json` → NE reads file-only with empty-as-fail-safe.
-4. **`isLikelyXyz = true` patterns are banned.** Either write the real condition or `return false`. Don't flip a TODO and ship.
-5. **System DNS / DHCP / Push services MUST NEVER have UDP closed.** `mdnsresponder`, `configd`, `dhcpcd`, `apsd`, `nsurlsessiond`, `kdc`, `ntpd` — validate every kill-list addition.
+"Phase" in plans means **order of work**, not **compatibility layer**.
 
-## Test invariants before merging
+## Why
 
-- Boot on a fresh macOS; verify Wi-Fi browsing works (DNS / DHCP / HTTPS).
-- Disable the Hub; verify network still works.
-- Send malformed flows (random UDP, unknown TCP); verify nothing hangs.
-- Watch QUIC handshake handling; never both pass-through and capture.
-- Run 24h on a dev machine; no "did I lose internet?" question.
-
-## Build & sign
-
-Use **`.claude/skills/build-agent`** (binding). Never run `wails build` / `codesign` / `xcrun notarytool` manually.
+Pre-GA means we don't owe migration paths to anyone. Every parallel-old-and-new branch is a fork that has to be reconciled, tested, and eventually torn out. Pay that cost only after GA, never before.
 
 Skipping this rule requires **explicit user approval** in chat.
 
