@@ -1,151 +1,136 @@
-## 1000-html-rules
+## 400-md-docs
 
-> Use this rule whenever someone is prompting to update their game or make changes
+> ALWAYS use when writing or updating Markdown files to ensure consistent formatting and readability. This rule enforces standardized Markdown practices across all documentation.
 
-# Game Development Standards
+# Markdown Documentation Standards
 
-## File Structure
-- All games should be contained within a single `index.html` file
-- Use HTML5 Canvas for rendering
-- Include all CSS and JavaScript within the same file
-- Organize the file in the following sections:
-  1. HTML structure
-  2. CSS styles
-  3. JavaScript game code
+## Requirements
 
-## HTML Structure Requirements
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Game Name]</title>
-    <style>
-      /* Game styles here */
-    </style>
-  </head>
-  <body>
-    <!-- Canvas and UI elements -->
-    <script>
-      /* Game code here */
-    </script>
-  </body>
-</html>
-```
+- Follow the official [Markdown Guide](mdc:https:/www.markdownguide.org) for all basic and extended syntax
+- Maintain clear document structure and readability
+- Include appropriate metadata when required
+- Use Mermaid diagrams for visual documentation where appropriate
+- Always Include YAML front matter for metadata but Keep metadata concise
 
-## Core Game Components
+## Markdown Reference
 
-### 1. Canvas Setup
-```javascript
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+For all basic and extended Markdown syntax, refer to:
+- [Basic Syntax Guide](mdc:https:/www.markdownguide.org/basic-syntax)
+- [Extended Syntax Guide](mdc:https:/www.markdownguide.org/extended-syntax)
 
-// Set canvas dimensions
-canvas.width = 800;  // Standard width
-canvas.height = 600; // Standard height
-```
+## Formatting Rules
 
-### 2. Game Loop Structure
-```javascript
-let lastTime = 0;
-let gameState = 'start'; // start, playing, paused, gameover
+- Use ATX-style headings with space after hash: `# Heading`
+- Maintain proper heading hierarchy (don't skip levels)
+- Maximum heading depth: 4 levels
+- Add blank line before and after headings
+- Indent content within XML tags by 2 spaces
+- Close XML tags on their own line at the parent indentation level
+- Use blockquotes with emoji for different types of callouts:
 
-function update(deltaTime) {
-    if (gameState !== 'playing') return;
-    // Update game logic here
-}
+<example>
+  > 🚨 **Warning:** Critical information here.
 
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Draw game elements here
-}
+  > 💡 **Tip:** Helpful suggestion.
 
-function gameLoop(timestamp) {
-    const deltaTime = (timestamp - lastTime) / 16.67; // Normalize to 60 FPS
-    lastTime = timestamp;
+  > ℹ️ **Note:** Additional context.
+</example>
 
-    update(deltaTime);
-    draw();
+## Code Blocks
 
-    requestAnimationFrame(gameLoop);
+- Use triple backticks with language specification
+- Indent code blocks properly
+- Add blank line before and after
+- Use inline code for short references
+
+<example>
+```typescript
+function example(): void {
+  console.log('Hello, Universe!');
 }
 ```
 
-### 3. Input Handling
-- Use event listeners for keyboard input
-- Include touch controls for mobile support
-- Implement standard control schemes:
-  - Arrow keys/WASD for movement
-  - Space for primary action
-  - P for pause
-  - ESC for menu
+Reference the `example()` function inline.
+</example>
 
-### 4. Game States
-- Implement consistent game states:
-  - `start`: Title screen
-  - `playing`: Active gameplay
-  - `paused`: Pause menu
-  - `gameover`: Game over screen
+## Tables
 
-### 5. Mobile Support
-- Include responsive design for mobile devices
-- Implement touch controls when needed
-- Use media queries to handle different screen sizes
+- Use alignment indicators
+- Include header row separator
+- Keep tables simple and readable
+- Add blank lines before and after
 
-## Best Practices
-1. Use classes for game objects
-2. Implement collision detection methods
-3. Use requestAnimationFrame for the game loop
-4. Normalize game speed using deltaTime
-5. Include score tracking
-6. Add sound support when needed
-7. Implement proper game state management
-8. Use consistent variable naming conventions
-9. Add comments for complex logic
-10. Include basic UI elements (score, lives, etc.)
+<example>
+| Name    | Type    | Description     |
+|:--------|:-------:|---------------:|
+| id      | number  | Primary key    |
+| name    | string  | User's name    |
+</example>
 
-## Performance Considerations
-1. Limit canvas size to 800x600 for consistency
-2. Optimize sprite rendering
-3. Clean up unused objects
-4. Implement object pooling for frequently created/destroyed objects
-5. Use appropriate data structures for game objects
+## Special Elements
 
-## Testing Requirements
-1. Test on multiple browsers
-2. Verify mobile compatibility
-3. Check touch controls
-4. Ensure consistent frame rate
-5. Verify game state transitions
+### Callouts
 
-## Farcade SDK
-1. Add these SDK calls to the game:
+Use blockquotes with emoji for different types of callouts:
 
-// When the game is fully loaded and ready to play:
-window.FarcadeSDK.singlePlayer.actions.ready();
+<example>
+> 🚨 **Warning:** Critical information here.
 
-// When the game is over (replace scoreValue with the actual score):
-window.FarcadeSDK.singlePlayer.actions.gameOver({ score: scoreValue });
+> 💡 **Tip:** Helpful suggestion.
 
-// For haptic feedback on important interactions (like jumping or hitting obstacles):
-window.FarcadeSDK.singlePlayer.actions.hapticFeedback();
+> ℹ️ **Note:** Additional context.
+</example>
 
-// Add this to handle play again requests:
-window.FarcadeSDK.on('play_again', () => {
-  // Reset the game state here
-  // For example: resetGame(), startNewGame(), etc.
-});
+### Mermaid Diagrams
 
-// Add this to handle mute/unmute:
-window.FarcadeSDK.on('toggle_mute', (data) => {
-  // Set game audio based on data.isMuted
-  // For example: setMuted(data.isMuted)
-});
+Use Mermaid diagrams to visualize:
+- Architecture flows
+- Process sequences
+- Decision trees
+- State machines
+- Component relationships
+- AI agent rule flows
 
-2. Make sure to call the ready event when the game is fully loaded and playable.
-3. Call gameOver when the player loses or completes the game.
-4. Add haptic feedback for important game events.
+### When to Use Mermaid
+
+- Simple and Complex workflows need visualization
+- System architecture needs to be explained
+- Process flows have multiple branches
+- State transitions need to be clear
+- AI decision trees need to be mapped
+
+### Diagram Best Practices
+
+1. Include clear titles using the `---` syntax
+2. Use descriptive node labels
+3. Add comments for complex flows
+4. Group related components using subgraphs
+5. Use consistent direction (TD/LR/TB)
+6. Keep diagrams focused and specific
+
+<example>
+```mermaid
+---
+title: Example Workflow
+---
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Process 1]
+    B -->|No| D[Process 2]
+    C --> E[End]
+    D --> E
+```
+</example>
+
+<example type="invalid">
+```mermaid
+graph TD
+A-->B
+B-->C
+```
+
+No title, unclear labels, no context
+</example>
 
 ---
 > Source: [farworld-labs/game-template](https://github.com/farworld-labs/game-template) — distributed by [TomeVault](https://tomevault.io).
