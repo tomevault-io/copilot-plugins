@@ -75,5 +75,5 @@ These are consumed by `scripts/oof_weight_blend.py` and the optional OOF-blend p
 - Prefer small smoke tests when adding new utilities.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mnem0nic7) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [mnem0nic7/diabetes-2025](https://github.com/mnem0nic7/diabetes-2025) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
