@@ -1,6 +1,6 @@
-# contacts
+# AI instruction files for contacts
 
-> Config by [hasna](https://github.com/hasna/contacts) — distributed by [TomeVault](https://tomevault.io/claim/hasna)
+> Sourced from [hasna/contacts](https://github.com/hasna/contacts) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,9 +15,10 @@ Original source: `AGENTS.md` in [hasna/contacts](https://github.com/hasna/contac
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/hasna](https://tomevault.io/claim/hasna)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hasna/contacts](https://github.com/hasna/contacts)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/hasna) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-q -->
