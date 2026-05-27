@@ -2,7 +2,7 @@
   "name": "mol-track",
   "owner": "datagrok-ai",
   "repo": "mol-track",
-  "description": "",
+  "description": "Chemical compound registration system: lightweight, flexible, hackable",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/datagrok-ai",
+  "source_url": "https://github.com/datagrok-ai/mol-track",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T04:36:44Z"
+  "distributed_at": "2026-05-27T15:37:26Z"
 }
