@@ -1,0 +1,44 @@
+{
+  "name": "moonbit-ic-cdk",
+  "owner": "eliezhao",
+  "repo": "moonbit-ic-cdk",
+  "description": "A lightweight, WebAssembly-native Canister Development Kit (CDK) for building smart contracts on the Internet Computer (ICP) with the MoonBit language.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eliezhao/moonbit-ic-cdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-27T16:58:41Z"
+}
