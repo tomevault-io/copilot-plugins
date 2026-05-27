@@ -1,0 +1,9 @@
+{
+  "name": "charlie12345--rocmfp4-llama",
+  "displayName": "rocmfp4-llama",
+  "description": "NEW ROCmfp4 format for llama.cpp",
+  "version": "1.0.0",
+  "author": "charlie12345",
+  "homepage": "https://github.com/charlie12345/rocmfp4-llama",
+  "skills": []
+}
