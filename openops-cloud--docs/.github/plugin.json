@@ -1,0 +1,9 @@
+{
+  "name": "openops-cloud--docs",
+  "displayName": "docs",
+  "description": "Documentation for OpenOps - the truly open FinOps automation platform.",
+  "version": "1.0.0",
+  "author": "openops-cloud",
+  "homepage": "https://github.com/openops-cloud/docs",
+  "skills": []
+}
