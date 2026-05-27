@@ -4,7 +4,7 @@
   "repo": "Damn-Vulnerable-Active-Directory",
   "description": "A reproducible, multi-forest Windows Active Directory lab intentionally misconfigured for offensive security training and red teaming. Features 382 vulnerabilities across Kerberos, ADCS, Trusts, and more. The DVWA of Active Directory. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sanchitsahni/Damn-Vulnerable-Active-Directory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-27T08:34:00Z"
+  "distributed_at": "2026-05-27T08:34:34Z"
 }
