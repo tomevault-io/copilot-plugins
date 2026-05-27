@@ -1,62 +1,32 @@
-## astro-site
+## ts-return-types
 
-> Site/Frontend implementation using Astro, React, and Tailwind CSS
+> description: Declare return types in top-level functions to support future edits by coding agents
 
+---
+description: Declare return types in top-level functions to support future edits by coding agents
+globs: **/*.ts, **/*.tsx
+---
+# Return Types
 
-# ctxs.ai Site/Frontend
+When declaring functions on the top-level of a module,
+declare their return types. This will help future AI
+assistants understand the function's purpose.
 
-This part of the project implements the web interface for ctxs.ai using Astro with React components and Tailwind CSS for styling.
+```ts
+const myFunc = (): string => {
+  return "hello";
+};
+```
 
-## Architecture Overview
+One exception to this is components which return JSX.
+No need to declare the return type of a component,
+as it is always JSX.
 
-The site follows Astro's file-based routing system with these key directories:
-
-- `site/src/pages/`: Contains route definitions and page components
-- `site/src/components/`: Reusable UI components (both Astro and React)
-- `site/src/layouts/`: Page layouts and templates
-- `site/src/lib/`: Utility functions and helpers
-- `site/src/styles/`: Global styles and Tailwind configuration
-
-## Technology Stack
-
-- **Framework**: [Astro](https://astro.build) - A modern static site builder with island architecture
-- **UI Components**: React 19 (with JSX/TSX)
-- **Styling**: Tailwind CSS 4 with custom components using shadcn/ui architecture
-- **Deployment**: Cloudflare Pages (configured with Astro Cloudflare adapter)
-
-## Development Patterns
-
-### Component Guidelines
-
-- Prefer Astro components (`.astro`) for static UI elements and page layouts
-- Use React components (`.tsx`) for interactive elements that require client-side JavaScript
-- Follow the component structure in `site/src/components/ui/` for consistent styling
-
-### API endpoints
-
-- Add `export const prerender = false` to the beginning of API endpoints so that they are deployed as server functions
-
-### Styling Approach
-
-- Use Tailwind utility classes for styling
-- UI components follow the shadcn/ui pattern for consistency and maintainability
-- Custom styles should be added to the appropriate files in `site/src/styles/`
-
-### Data Fetching
-
-- The site interfaces with the context system to display markdown files
-- API routes are defined in `site/src/pages/api/`
-- Context data is fetched and rendered through the components in `site/src/components/`
-
-## Best Practices
-
-1. Use TypeScript for type safety and better developer experience
-2. Keep components small and focused on a single responsibility
-3. Follow Astro's performance patterns by minimizing client-side JavaScript
-4. Maintain accessibility standards in all UI components
-5. Use the existing UI component library rather than creating custom styles
-
-This is a modern web application built with performance and maintainability in mind. When contributing, ensure your changes align with the existing architecture and design patterns. 
+```tsx
+const MyComponent = () => {
+  return <div>Hello</div>;
+};
+```
 
 ---
 > Source: [ctxs-ai/ctxs.ai](https://github.com/ctxs-ai/ctxs.ai) — distributed by [TomeVault](https://tomevault.io).
