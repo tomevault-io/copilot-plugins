@@ -40,6 +40,20 @@ go test ./engine/...
 - **Three extraction levels**: skeleton (minimal) / content (text) / full (everything named).
 - **Auto-launch Chrome**: No need for `serve` — each command can launch a temporary Chrome. Use `--connect` for sessions.
 
+## Runtime policy (preferred mode)
+
+**Always run against an already-running Chrome — never spawn.** Default to `--connect=auto`
+(zero-spawn attach, commit `83afd9a`) or an explicit `--connect=ws://...`. Cold spawn is a
+fallback, not the happy path. Rationale:
+
+- avoids Chrome startup cost per command (~hundreds of ms)
+- preserves session state (cookies, storage, open tabs) across ops
+- reduces fingerprint variance vs. fresh-profile spawns
+- plays well with `serve` and persistent profiles under `~/.ghostchrome/profiles/<name>`
+
+When designing new commands, flags, or SDK call paths, assume `--connect=auto` is the
+default execution context. Spawn paths must remain a documented escape hatch only.
+
 ## Conventions
 
 - Language: English for code, comments, and commits
@@ -54,7 +68,16 @@ Follow SemVer (vMAJOR.MINOR.PATCH):
 - MINOR: New commands or flags (backward compatible)
 - PATCH: Bug fixes, performance improvements
 
+## SDK synchronization
+
+When the CLI command surface, flags, JSON output shapes, or agent JSONL ops change,
+update the sibling SDK package at `../ghostchrome-sdk` in the same work session:
+
+- `contracts/ghostchrome.commands.json`
+- Node/Python/PHP typed wrappers and framework adapters as needed
+- SDK tests and examples that cover the changed command behavior
+- run `ig index .` in both `ghostchrome` and `ghostchrome-sdk` after file changes
+
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/MakFly)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/MakFly)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [MakFly/ghostchrome](https://github.com/MakFly/ghostchrome) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
