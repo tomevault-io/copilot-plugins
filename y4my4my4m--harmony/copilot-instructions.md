@@ -1,50 +1,45 @@
-## database-conventions
+## frontend-conventions
 
-> Database schema and migration conventions for Harmony
+> Frontend Vue/TypeScript conventions for Harmony
 
 
-# Database Conventions
+# Frontend Conventions
 
-## Schema Organization (`db_schema/init/`)
+## Component Patterns
 
-Files are loaded in numeric order by `init.sql`:
-- `00-09`: Extensions, types, table definitions
-- `10-13`: Functions (core, triggers, RPC, extended RPC)
-- `30-31`: RLS policies
-- `40`: Triggers
-- `50`: Realtime publication
-- `70-71`: Views
-- `90+`: Federation, LiveKit, seed data, storage, enable RLS
+- Use `<script setup lang="ts">` for new components (Composition API)
+- Some older stores use Options API (`defineStore('name', { state, actions })`) - don't refactor unless asked
+- Use `debug.log()` / `debug.warn()` / `debug.error()` from `@/utils/debug` (NOT `console.log`)
+- Never call Supabase directly from components - go through services or stores
 
-## Migration Best Practices
+## Store Conventions
 
-- Always wrap in `BEGIN;` / `COMMIT;`
-- Use `CREATE OR REPLACE FUNCTION` (idempotent)
-- Use `DROP POLICY IF EXISTS` before `CREATE POLICY` (idempotent)
-- End with `NOTIFY pgrst, 'reload schema';` so PostgREST picks up changes
-- Never modify `auth.*` tables directly - use Supabase Auth APIs
-- When adding columns, use `ALTER TABLE ... ADD COLUMN IF NOT EXISTS`
+- `useChat.ts`: Server channel messages (Options API store)
+- `useDM.ts`: DM/conversation messages (Composition API store with `setup()`)
+- Both stores have `reprocessEncryptedMessages()` for re-decrypting after key arrival
+- Both stores listen for `megolm-key-received` CustomEvent via `setupEncryptionKeyListener()`
+- Use `userDataService` for profile lookups (cached, avoids N+1 queries)
 
-## Permissions
+## Service Layer
 
-Permissions use `bigint` bitmask columns on `server_roles`:
-- Bit 0: ADMINISTRATOR
-- Bit 21: MANAGE_MESSAGES
-- See `src/services/permissionsService.ts` for full bit map
-- `channel_permission_overrides` uses `allow_permissions` / `deny_permissions` (bigint)
-- Dev environment may still have legacy `jsonb` - use `convert_permissions_to_bigint.sql`
+- `CoreMessageService.ts`: Pure local DB operations - no federation logic
+- `MessageService.ts`: Thin wrapper that delegates to CoreMessageService
+- Encryption service is lazy-loaded: `getEncryptionService()` in CoreMessageService auto-initializes from Supabase session
+- `AuthContextService`: Resolves auth user ID → profile ID (cached)
 
-## RLS Policy Naming
+## Encryption UI
 
-- Format: `tablename_operation_scope` (e.g., `messages_select_member`, `posts_select_public`)
-- Every table MUST have RLS enabled (enforced by `98_enable_rls.sql`)
-- Use `public.get_current_profile_id()` to reference the logged-in user's profile ID
-- Use `public.is_blocked_by(user_id)` and `public.has_blocked(user_id)` for blocking checks
+- `EncryptionSettings.vue`: Main settings panel (setup wizard, unlock, sync keys, backup)
+- `RecoveryKeySetupWizard.vue`: Multi-step wizard for initial encryption setup
+- `KeyRecoveryModal.vue`: Enter recovery phrase to unlock
+- After setup/recovery completes: auto-sync keys + reprocess encrypted messages
+- `MessageDisplay.vue` has click-to-decrypt handler: claims session shares → decrypts → dispatches `megolm-key-received`
 
-## Function Parameter Naming
+## Error Handling
 
-- Prefix all function parameters with `p_` (e.g., `p_notification_type`, `p_user_id`)
-- This avoids ambiguity with column names in SQL queries (PostgreSQL error 42702)
+- Wrap service calls in try/catch
+- Surface encryption errors (`ENCRYPTION_REQUIRED`, `ENCRYPTION_LOCKED`) to user via status bar in `ChatComponent.vue`
+- Never swallow errors silently in user-facing flows - at minimum use `debug.warn()`
 
 ---
 > Source: [y4my4my4m/harmony](https://github.com/y4my4my4m/harmony) — distributed by [TomeVault](https://tomevault.io).
