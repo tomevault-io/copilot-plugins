@@ -1,474 +1,229 @@
-## hs-create-react-module-implementation
+## hs-create-theme-preset
 
-> Implement and finish building a scaffolded module
+> Create a new theme preset
 
-# HubSpot React Module Implementation Guide
+# Create Theme Preset
 
-This rule guides you through implementing a HubSpot React module after the initial scaffolding and field definitions are complete.
+When creating a new theme preset, follow these guidelines to generate a complete, well-structured preset file that matches the theme's field structure. The preset will be created in the `src/unified-theme/presets/` directory.
 
-## Prerequisites
-- Module scaffolding should be complete with basic file structure
-- `fields.tsx` should be fully defined with all necessary module fields
-- Types should be defined in `types.ts`
+## Key Principles
 
-## IMPORTANT: NEVER dangerouslySetInnerHTML
-- Never, under any circumstance, is it OK to use `dangerouslySetInnerHTML`
-  - Instead you should find another way to implement setting of content.
-  - There are plenty of examples on how to correctly do this at the bottom of this file.
+- **Inheritance-First Approach**: Only override properties that differ from theme defaults
+- Use the existing `green.json` preset as a reference for minimal structure
+- Reference `src/unified-theme/fields.json` for understanding inheritance patterns
+- Support both complete preset creation and piece-by-piece building
+- Leverage theme inheritance system instead of hardcoding everything
+- Use the preset name (capitalized) as the label
+
+## Core Concepts
+
+### Inheritance Strategy
+
+The theme uses an inheritance system where presets only override specific values they want to change. Fields with `inherited_value` in `fields.json` will automatically fall back to theme defaults when not specified in the preset.
+
+**Key Benefits:**
+- Smaller, more maintainable preset files
+- Automatic updates when theme defaults change
+- Cleaner separation between theme defaults and preset overrides
+
+### Preset Structure
+
+A theme preset is a JSON file that defines overrides for theme customization. The structure follows the field hierarchy defined in `fields.json`, but only includes properties that differ from theme defaults:
+
+```json
+{
+  "name": "preset-name",
+  "label": "Preset Name",
+  "values": {
+    "group_foundation": {
+      "group_fonts": { /* Font configurations */ },
+      "group_colors": { /* Color configurations */ }
+    },
+    "group_elements": {
+      "group_forms": { /* Form styling */ },
+      "group_button_types": { /* Button variants */ },
+      "group_cards": { /* Card variants */ },
+      "group_links": { /* Link styling */ },
+      "group_tags": { /* Tag styling */ }
+    }
+  }
+}
+```
+
+### Required Parameters
+
+- **presetName** (string): The name for the preset (used for filename and internal name)
+
+### Optional Parameters
+
+- **elements** (array): Specific elements to build (e.g., ["fonts", "colors", "buttons"])
+- **manualValues** (object): Manual overrides for specific properties
+- **mockupImage** (file): Image file for automatic color/font extraction
 
 ## Implementation Steps
 
-### 1. Review Module Structure
-1. Confirm the following files exist:
-   - `index.tsx` - Main module implementation
-   - `fields.tsx` - Field definitions
-   - `types.ts` - TypeScript types
-   - `assets/` - Directory for module assets
-   - `islands/` - Directory for client-side interactive components (if needed)
+### 1. Validation
 
-### 2. Implement Core Module Component
-1. Import necessary dependencies:
-   ```typescript
-   import { ModuleMeta } from '../../types/modules.js';
-   import styles from '../component.module.css';
-   import { createComponent } from '../../utils/create-component.js';
-   import cx, { staticWithModule } from '../../utils/classnames.js';
-   // Add other required imports
-   ```
+- Check if `presetName` is provided, ask if missing
+- Validate that `presetName` is valid for filename (no spaces, special chars)
+- Check if file already exists, warn user
+- Generate `presetLabel` from `presetName` (capitalize first letter)
 
-2. Define styled components using CSS Modules and createComponent:
-   ```typescript
-   const swm = staticWithModule(styles);
+### 2. Element Selection
 
-   const StyledContainer = createComponent('div');
-   // inside the CSS Module file:
-   // .className-one {
-   // max-width: var(--hsElevate--container--maxWidth, 1200px);
-   // margin: 0 auto;
-   // padding: var(--hsElevate--spacing--48, 48px) var(--hsElevate--spacing--24, 24px);
-   // }
-   ```
+- If `elements` array provided: Only build specified elements
+- If no `elements` specified: Build complete preset
+- **Inheritance-First Approach**: Start with theme defaults, only override what's different
+- If `mockupImage` provided: Extract colors/fonts from image first
 
-3. Implement the main Component:
-   ```typescript
-   export const Component = (props: ModuleFields) => {
-     // Destructure props
-     // Implement component logic
-     return (
-        <StyledContainer className={cx(swm('className-one'), 'className-two')}>
-           {/* Component JSX */}
-        </StyledContainer>
-     );
-   };
-   ```
+### 3. Value Generation
 
-### 3. Island Components (if needed)
-If the module requires client-side interactivity:
-1. Create an island component in `islands/` directory
-2. Use the `?island` suffix when importing
-3. Use regular `Island` component from `@hubspot/cms-components`
-4. Set appropriate hydration strategy
+- **From Mock Images**:
+  - Use AI vision to extract dominant colors, font suggestions
+  - **Use exact hex values** specified in the mock (e.g., `#DCEFF4`, `#0D1C1F`)
+  - **Identify selected options** by looking for the darkest background - selected buttons/options will have a darker background color than unselected ones
+  - Pay attention to slider positions for numeric values (e.g., border thickness)
+- **From Manual Values**: Use provided overrides
+- **Inheritance-Aware Generation**:
+  - Check `fields.json` for `inherited_value` definitions
+  - Only include properties in preset that differ from theme defaults
+  - Let the theme's inheritance system handle the rest
 
-### 4. Module Metadata
-1. Define the module meta information:
-   ```typescript
-   export const meta: ModuleMeta = {
-     label: 'Module Name',
-     content_types: ['SITE_PAGE', 'LANDING_PAGE'],
-     icon: moduleIconSvg,
-     categories: ['design'],
-   };
-   ```
+### 4. File Creation
 
-2. Set module configuration:
-   ```typescript
-   export const defaultModuleConfig = {
-     moduleName: 'elevate/components/modules/module_name',
-     version: 0,
-     themeModule: true,
-   };
-   ```
+- Create `{presetName}.json` in `src/unified-theme/presets/`
+- Use proper JSON formatting with 2-space indentation
+- Include only properties that differ from theme defaults
 
-### 5. Styling Guidelines
-1. Use HubSpot Elevate CSS variables for:
-   - Spacing: `var(--hsElevate--spacing--{size})`
-   - Colors: `var(--hsElevate--{context}--{property})`
-   - Typography: Apply typography classes from field definitions
-2. Ensure responsive design
-3. Follow accessibility best practices
+## Component Categories
 
-### 6. Best Practices
-1. Use TypeScript types for all props and data structures
-2. Implement proper error handling
-3. Use semantic HTML elements
-4. Follow React performance best practices
-5. Add helpful comments for complex logic
-6. Ensure proper data validation
+### Foundation
 
-### 7. Testing
-1. Test the module with various field configurations
-2. Verify responsive behavior
-3. Test accessibility
-4. Verify island component hydration (if applicable)
+#### Fonts
 
-### 5. Field Destructuring and Consumption
-Example showing proper field destructuring and usage from the SiteHeader module:
+- **Base font**: Font family, font set, variants
+- **Heading fonts**: H1-H6 with sizes
+- **Body font**: Paragraph styling
+- **Other elements**: Blockquote, caption styling
 
-```typescript
-// Types definition
-type MenuModulePropTypes = {
-  hublData: {
-    navigation: {
-      children: MenuDataType[];
-    };
-    companyName: string;
-    defaultLogo: LogoType;
-    logoLink: LinkType;
-  };
-  groupLogo: {
-    logo: LogoFieldType;
-  };
-  defaultContent: {
-    logoLinkAriaText: string;
-  };
-  groupButton: ButtonGroupType;
-  styles: StylesType;
-};
+#### Colors
 
-// Component implementation with proper destructuring
-export const Component = (props: MenuModulePropTypes) => {
-  // First level destructuring - main groups
-  const {
-    hublData,
-    groupLogo: { logo: logoField },
-    defaultContent: { logoLinkAriaText },
-    groupButton,
-    styles,
-  } = props;
+- **Base colors**: Primary colors
+- **Accent colors**: Accent colors for highlights
+- **Section colors**: Light and dark section variants with text/background colors
 
-  // Second level destructuring - hublData
-  const {
-    navigation: { children: navDataArray = [] },
-    companyName,
-    defaultLogo,
-    logoLink,
-  } = hublData;
+### Elements
 
-  // Destructure button group fields
-  const {
-    showButton,
-    buttonContentText: buttonText,
-    buttonContentLink: buttonLink,
-    buttonContentShowIcon: showIcon,
-    buttonContentIconPosition: iconPosition,
-  } = groupButton;
+#### Forms
 
-  // Destructure style fields with defaults
-  const {
-    groupMenu: {
-      menuAlignment,
-      menuBackgroundColor: { color: menuBackgroundColor } = { color: '#ffffff' },
-      menuTextColor: { color: menuTextColor } = { color: '#09152B' },
-    },
-    groupButton: { buttonStyleVariant, buttonStyleSize },
-  } = styles;
+- **Field styling**: Background, shape, border, colors
+- **Text styling**: Labels, inputs, placeholders
+- **Form container**: Background, shape, border
 
-  return (
-    <SiteHeader>
-      <SiteHeaderContainer>
-        {/* Use destructured fields */}
-        <LogoContainer>
-          {showButton && (
-            <Button
-              buttonStyle={buttonStyleVariant}
-              buttonSize={buttonStyleSize}
-            >
-              {buttonText}
-            </Button>
-          )}
-        </LogoContainer>
-        <MainNavWrapper>
-          <MenuComponent
-            menuDataArray={navDataArray}
-            menuAlignment={menuAlignment}
-          />
-        </MainNavWrapper>
-      </SiteHeaderContainer>
-    </SiteHeader>
-  );
-};
+#### Button Types
+
+- **Primary button**: Filled style with hover states
+- **Secondary button**: Outline style with hover states
+- **Tertiary button**: Alternative filled style
+- **Accent button**: Alternative outline style
+
+#### Cards
+
+- **Card variants**: Different color schemes and styling
+- **Icon colors**: Fill and background colors for card icons
+
+#### Links
+
+- **Primary links**: Default and hover states
+- **Secondary links**: Alternative link styling
+
+#### Tags
+
+- **Background**: Fill color and shape
+- **Text**: Font and color styling
+- **Border**: Optional border styling
+
+
+### Buttons/Cards/Links
+
+- Use color palette to generate consistent variants
+- Ensure proper contrast ratios
+- Follow accessibility guidelines
+
+## Usage Examples
+
+### Complete Preset
+
+```md
+Create a theme preset called "ocean" with blue color scheme
 ```
 
-Key patterns demonstrated:
-1. Multi-level destructuring for nested fields
-2. Default values for optional fields
-3. Renaming during destructuring for clarity
-4. Type safety with TypeScript interfaces
-5. Organized grouping of related fields
-6. Proper consumption of CSS Modules styles in component and child components
+### Partial Preset
 
-### 3. Interactive Module with Islands and State Management
-Example showing proper island component implementation with state management from the SiteHeader's mobile menu:
-
-```typescript
-// islands/MobileMenuIsland.tsx
-import { useEffect, useState, CSSProperties } from 'react';
-import { useSharedIslandState } from '@hubspot/cms-components';
-import styles from '../menu.module.css';
-import { createComponent } from '../../utils/create-component.js';
-import cx, { staticWithModule } from '../../utils/classnames.js';
-
-interface MobileMenuIslandProps {
-  menuBackgroundColor: string;
-  menuTextColor: string;
-  menuAccentColor: string;
-  headerHeight: number;
-}
-
-const MenuContainer = createComponent('div');
-const HamburgerButton = createComponent('button');
-
-// CSS Modules approach - menu.module.css:
-// .hs-elevate-menu-container {
-//   position: absolute;
-//   background-color: var(--hsElevate--menu__backgroundColor);
-//   color: var(--hsElevate--menu__textColor);
-//   top: 100%;
-//   width: 100%;
-//   height: var(--hsElevate--menu__height);
-//   transition: all 0.3s ease;
-//   left: 100%; /* Default hidden state */
-// }
-// .hs-elevate-menu-container--sliding { left: 0; }
-// .hs-elevate-menu-container--show { display: flex; }
-// .hs-elevate-menu-container--hidden { display: none; }
-
-export default function MobileMenuIsland(props: MobileMenuIslandProps) {
-  const { menuBackgroundColor, menuTextColor, menuAccentColor, headerHeight } = props;
-
-  // Local state for animations and UI
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isMenuSliding, setIsMenuSliding] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-
-  // Shared state across islands
-  const [triggeredMenuItems, setTriggeredMenuItems] = useSharedIslandState();
-
-  // Effect for handling menu open/close animation
-  useEffect(() => {
-    if (isAnimating) {
-      setShowMenu(true);
-      document.body.style.overflowY = 'hidden';
-    } else if (!isAnimating && showMenu) {
-      setIsClosing(true);
-      setIsMenuSliding(false);
-      document.body.style.overflowY = 'auto';
-    }
-  }, [isAnimating]);
-
-  // Effect for handling animation timing
-  useEffect(() => {
-    if (showMenu && !isClosing) {
-      setTimeout(() => {
-        setIsMenuSliding(true);
-      }, 100);
-    } else if (isClosing) {
-      setTimeout(() => {
-        setShowMenu(false);
-        setIsClosing(false);
-      }, 300);
-    }
-  }, [showMenu, isClosing]);
-
-  // Handler for menu toggle
-  const handleOpenCloseMenu = () => {
-    setTriggeredMenuItems([]);
-    setIsAnimating(!isAnimating);
-  };
-
-  // CSS custom properties for dynamic styling
-  const menuContainerStyle: CSSProperties = {
-    '--hsElevate--menu__backgroundColor': menuBackgroundColor,
-    '--hsElevate--menu__textColor': menuTextColor,
-    '--hsElevate--menu__accentColor': menuAccentColor,
-    '--hsElevate--menu__height': `calc(100vh - ${headerHeight}px)`,
-  } as CSSProperties;
-
-  // Generate dynamic classes based on state
-  const menuContainerClasses = cx(
-    'hs-elevate-menu-container',
-    styles['hs-elevate-menu-container'],
-    {
-      [styles['hs-elevate-menu-container--show']]: showMenu,
-      [styles['hs-elevate-menu-container--sliding']]: isMenuSliding,
-      [styles['hs-elevate-menu-container--hidden']]: !showMenu,
-    }
-  );
-
-  return (
-    <>
-      <MenuContainer
-        className={menuContainerClasses}
-        style={menuContainerStyle}
-      >
-        {/* Menu content */}
-      </MenuContainer>
-      <HamburgerButton onClick={handleOpenCloseMenu} />
-    </>
-  );
-}
+```md
+Create a theme preset called "minimal" with just fonts and colors
 ```
 
-Key patterns demonstrated:
-1. Multiple state types:
-   - Local UI state with `useState`
-   - Shared state across islands with `useSharedIslandState`
-   - Measurement state for dynamic sizing
-2. Animation handling:
-   - Multiple states for different animation phases
-   - Timing control with `setTimeout`
-3. Side effects management:
-   - Coordinated state updates
-   - Document body modifications
-   - Cleanup on unmount
-4. CSS Modules with CSS custom properties for dynamic styling
-5. TypeScript prop typing for component props and CSS variables
+### Manual Override
 
-## Common Patterns
-- Use CSS Modules and the createComponent util fn for styling and naming components
-- Leverage existing field libraries when possible
-- Follow existing module patterns for consistency
-- Use CSS variables for theming
-- Implement proper TypeScript types
-
-## Final Checklist
-- [ ] All props are properly typed
-- [ ] Components use CSS Modules with CSS custom properties for theming
-- [ ] Module meta is properly configured
-- [ ] Islands are properly implemented (if needed)
-- [ ] Accessibility is considered
-- [ ] Responsive design is implemented
-- [ ] Error handling is in place
-- [ ] Code is properly commented
-
-## Examples
-
-### 1. Static Module Implementation (Metrics)
-Example showing proper static module implementation with styling and theme variables:
-
-```typescript
-// Metrics/index.tsx
-import { ModuleMeta } from '../../types/modules.js';
-import { staticWithModule } from '../../utils/classnames.js';
-import styles from './metrics.modules.css';
-
-const swm = staticWithModule(styles);
-
-type MetricProps = {
-  groupMetrics: {
-    metric: TextFieldType['default'];
-    description: TextFieldType['default'];
-  }[];
-  groupStyle: GroupStyle;
-};
-
-// Named components
-const MetricsContainer = createComponent('div');
-const Metric = createComponent('div');
-const MetricNumber = createComponent('div');
-const MetricDescription = createComponent('div');
-// inside metrics.module.css file:
-// .hs-elevate-metrics {
-  // display: flex;
-  // justify-content: space-around;
-  // flex-direction: column;
-
-  // @media (min-width: 768px) {
-  //   flex-direction: row;
-  // }
-// }
-// same for .hs-elevate-metrics__number
-
-export const Component = (props: MetricProps) => {
-  const {
-    groupMetrics,
-    groupStyle: { headingStyleVariant, sectionStyleVariant },
-  } = props;
-
-  const cssVarsMap: CSSPropertiesMap = {
-    '--hsElevate--metrics__accentColor': 'var(--theme-color-primary)',
-  };
-
-  return (
-    <MetricsContainer
-      className={swm('hs-elevate-metrics')}
-      style={cssVarsMap}
-    >
-      {groupMetrics.map((metric, index) => (
-        <Metric
-          key={index}
-          className={swm('hs-elevate-metrics__metric')}
-        >
-          <MetricNumber className={swm('hs-elevate-metrics__number')}>
-            {metric.metric}
-          </MetricNumber>
-          <MetricDescription className={swm('hs-elevate-metrics__description')}>
-            {metric.description}
-          </MetricDescription>
-        </Metric>
-      ))}
-    </MetricsContainer>
-  );
-};
+```md
+Create a theme preset called "corporate" with primary color #1E3A8A and font "Roboto"
 ```
 
-### 2. Interactive Module with Islands (TestimonialSlider)
-Example showing proper island component usage:
+### From Image
 
-```typescript
-// TestimonialSlider/index.tsx
-import { ModuleMeta } from '../../types/modules.js';
-import { Island } from '@hubspot/cms-components';
-import TestimonialSlider from './islands/TestimonialSliderIsland.js?island';
-
-export const Component = (props: TestimonialSliderProps) => {
-  return (
-    <Island
-      hydrateOn="load"
-      module={TestimonialSlider}
-      groupTestimonial={props.groupTestimonial}
-      groupStyle={props.groupStyle}
-      clientOnly={true}
-    />
-  );
-};
+```md
+Create a theme preset called "sunset" using this mockup image for color inspiration
 ```
 
-### 4. Theme Variable Usage
-Example of proper theme variable implementation:
+### Inheritance Example
 
-```typescript
-import { CSSPropertiesMap } from '../../types/components.ts;
-
-function generateColorCssVars(sectionVariantField: SectionVariantType): CSSPropertiesMap {
-  const sectionColorsMap = {
-    section_variant_1: {
-      textColor: 'var(--hsElevate--section--lightSection--1__textColor)',
-      accentColor: 'var(--hsElevate--section--lightSection--1__accentColor)',
-    },
-    section_variant_2: {
-      textColor: 'var(--hsElevate--section--lightSection--2__textColor)',
-      accentColor: 'var(--hsElevate--section--lightSection--2__accentColor)',
-    }
-  };
-
-  return {
-    '--hsElevate--metrics__textColor': sectionColorsMap[sectionVariantField].textColor,
-    '--hsElevate--metrics__accentColor': sectionColorsMap[sectionVariantField].accentColor,
-  };
-}
+```md
+Create a theme preset called "ocean" with blue color scheme
 ```
+
+**Result**: Minimal preset that only overrides colors, letting inheritance handle fonts, buttons, forms, etc.
+
+## Best Practices
+
+### Inheritance-First Design
+- Always check `fields.json` for inheritance definitions before adding values
+- Prefer inheritance over explicit values when possible
+- Only override what's necessary for the preset's unique identity
+- Use theme defaults as the foundation, not hardcoded values
+
+### Code Formatting
+- Use 2-space indentation for JSON
+- Maintain consistent property ordering
+- Use proper JSON syntax with double quotes
+- Follow the minimal structure from `green.json`
+
+### File Organization
+- Place all presets in `src/unified-theme/presets/`
+- Use kebab-case for filenames
+
+## Error Handling
+
+- **File exists**: Warn user, offer to overwrite or rename
+- **Invalid name**: Suggest valid alternatives (kebab-case, no spaces)
+- **Image processing fails**: Fall back to manual values or inheritance
+- **Missing required fields**: Use theme defaults via inheritance, not hardcoded values
+
+## Output
+
+The rule will:
+
+1. Create the preset file in `src/unified-theme/presets/{presetName}.json`
+2. Display a summary of what was generated
+3. Show any warnings or fallbacks used
+4. Provide next steps for customization
+
+## Reference Files
+
+- **Minimal structure reference**: `src/unified-theme/presets/green.json`
+- **Complete structure reference**: `src/unified-theme/presets/blue.json`
+- **Field definitions and inheritance**: `src/unified-theme/fields.json`
+- **Theme configuration**: `src/unified-theme/theme.json`
 
 ---
 > Source: [HubSpot/cms-elevate-theme-public](https://github.com/HubSpot/cms-elevate-theme-public) — distributed by [TomeVault](https://tomevault.io).
