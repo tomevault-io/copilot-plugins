@@ -1,0 +1,9 @@
+{
+  "name": "jeanibarz--knowledge-base-mcp-server",
+  "displayName": "knowledge-base-mcp-server",
+  "description": "This MCP server provides tools for listing and retrieving content from different knowledge bases.",
+  "version": "1.0.0",
+  "author": "jeanibarz",
+  "homepage": "https://github.com/jeanibarz/knowledge-base-mcp-server",
+  "skills": []
+}
