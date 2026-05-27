@@ -1,37 +1,24 @@
-## 001-workspace
+## 002-cursor-rules
 
-> Overall project workspace setup and constraints201_File_Parsing_Organization.mdc
+> Structural guidelines for creating and maintaining .mdc files
 
 # Guidelines
 
-- **Directory Structure**
-  - Maintain a clear separation of concerns: `src/` for source code, `packaging/` for packaging files, `docs/` for documentation, and `assets/` for app assets.
-  - Within `src/`:
-    - `ai_analyzer.py`: Google Gemini AI integration
-    - `openai_analyzer.py`: OpenAI integration
-    - `ai_service_factory.py`: Factory for AI services
-    - `file_analyzer.py`: Document scanning
-    - `file_organizer.py`: Document organization
-    - `file_parser.py`: Content extraction
-    - `gui.py`: User interface
-    - `settings_manager.py`: Settings management
-    - `utils.py`: Helper utilities
-  - Place build scripts and packaging configurations in `packaging/`.
+- **Front Matter**
+  - Always include `Description` and `Globs`.
+  - Optional fields: `Tags` or `Author`.
 
-- **Environment Variables**
-  - API keys (`GOOGLE_API_KEY`, `OPENAI_API_KEY`) should be managed via environment variables or through the application's settings interface.
-  - Do not hardcode API keys directly into the source files.
-  - Configuration settings should be stored in `.config/AIDocumentOrganizer/settings.json`.
+- **Body Content**
+  - Use concise, numbered lists or bullet points.
+  - Plain language for AI parsing.
 
-- **Naming Conventions**
-  - Use snake_case for filenames and functions.
-  - Use PascalCase for class names.
-  - Use SCREAMING_SNAKE_CASE for constants.
+- **File Naming**
+  - Numeric prefixes for priority/order (e.g., `001_workspace.mdc`).
+  - Short, descriptive filenames.
 
-- **Dependencies**
-    - All dependencies are listed in `requirements.txt`.
-    - Use `pip install -r requirements.txt` to install.
-    - Keep dependency list minimal and well-justified.
+- **Updates and Versioning**
+  - Review `.mdc` files at major milestones or architectural changes.
+  - Use commit history for change logs.
 
 ---
 > Source: [whoisdsmith/SmartFileOrganizer](https://github.com/whoisdsmith/SmartFileOrganizer) — distributed by [TomeVault](https://tomevault.io).
