@@ -1,64 +1,86 @@
-## package-documentation
+## repository-structure
 
-> Package Documentation Standards
+> Repository Structure Guidelines
 
 
-# Package Documentation Standards
+# Repository Structure Guidelines
 
-Each package README.md should follow this structure:
+The MCP DevTools repository follows a monorepo structure with clear organization of packages and shared resources.
 
-@file packages/jira/README.md
-@file .cursor/rules/repository-structure.mdc
+@file package.json
+@file packages/jira/package.json
+@file .cursor/rules/core-libraries-usage.mdc
 
-## Required Sections
+## Top-Level Directory Structure
 
-1. **Title and Badges**
+```
+mcp-devtools/
+├── .github/            # GitHub workflows and templates
+├── .cursor/            # Cursor IDE configuration
+│   └── rules/          # Project coding rules and guidelines
+├── packages/           # Individual MCP packages
+│   ├── core/           # Core shared libraries
+│   ├── jira/           # Jira integration package
+│   ├── github/         # GitHub integration package
+│   └── ...             # Other integration packages
+├── examples/           # Example usage of MCP DevTools
+├── scripts/            # Build and maintenance scripts
+├── docs/               # Documentation files
+├── package.json        # Root package.json
+└── README.md           # Root README
+```
 
-   ```markdown
-   # @mcp-devtools/package-name
+## Package Structure
 
-   ![npm version](mdc:https:/img.shields.io/npm/v/@mcp-devtools/package-name.svg)
-   ![License: MIT](mdc:https:/img.shields.io/badge/License-MIT-blue.svg)
-   ![Status Badge](mdc:https:/img.shields.io/badge/status-beta-orange)
-   ```
+Each package in the `packages/` directory should follow this structure:
 
-2. **Short Description**
+```
+packages/[package-name]/
+├── src/                # Source code
+│   ├── index.ts        # Package entry point
+│   ├── tools/          # MCP tool implementations
+│   │   ├── tool1.ts    # Individual tool implementation
+│   │   └── index.ts    # Tools export file
+│   ├── api/            # API client code
+│   └── types/          # TypeScript type definitions
+├── test/               # Test files
+├── dist/               # Compiled output (not in git)
+├── package.json        # Package manifest
+├── tsconfig.json       # TypeScript configuration
+└── README.md           # Package documentation
+```
 
-   - Single paragraph explaining the purpose of the package
+## Package Naming Conventions
 
-3. **Highlights**
+- All packages should be named with the `@mcp-devtools/` prefix
+- Package names should be simple and descriptive (e.g., `@mcp-devtools/jira`)
+- Use kebab-case for package names (e.g., `@mcp-devtools/github-actions`)
 
-   - Bullet points of key features with emoji icons
+## Dependency Management
 
-4. **Quick Start**
+- Core dependencies should be defined in the root `package.json`
+- Package-specific dependencies should be in each package's `package.json`
+- Use exact versions for dependencies to ensure consistency
+- Use peerDependencies for framework dependencies
 
-   - Installation instructions
-   - Configuration examples
-   - Minimal setup code
+## Build Configuration
 
-5. **Tool Reference**
+- TypeScript configuration should extend from a base configuration when possible
+- Package-specific build settings should be in each package's configuration files
+- Build outputs should be consistent across packages
 
-   - Table with columns: Tool, Description, Parameters, Aliases, Implementation
-   - Each parameter should list type and whether it's required
-   - Link each tool name to its implementation file
+## Documentation Structure
 
-6. **Usage Examples**
+- Each package should have its own comprehensive README.md
+- Root README.md should provide an overview of all packages
+- Use relative links between documentation files when appropriate
 
-   - Show practical examples of using each tool
-   - Group related examples under headings
+## Version Control
 
-7. **Configuration**
-   - Environment variables
-   - Configuration options
-   - Integration examples with different platforms
-
-## Style Guidelines
-
-- Use emoji icons in section headers
-- Include code examples in markdown code blocks
-- Use tables for structured information
-- Keep language clear and concise
-- Include links to related documentation
+- Use feature branches for development
+- Keep commits focused and atomic
+- Reference issue numbers in commit messages when applicable
+- Use pull requests for code review before merging
 
 ---
 > Source: [DXHeroes/mcp-devtools](https://github.com/DXHeroes/mcp-devtools) — distributed by [TomeVault](https://tomevault.io).
