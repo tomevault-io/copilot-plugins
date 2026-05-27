@@ -56,6 +56,5 @@ Key auto-configuration classes:
 The auto-configuration enables by default but can be controlled via `only.engine.web.enable=false` property.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/LDmoxeii)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/LDmoxeii)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [LDmoxeii/only-engine](https://github.com/LDmoxeii/only-engine) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
