@@ -1,0 +1,9 @@
+{
+  "name": "sanchitsahni--damn-vulnerable-active-directory",
+  "displayName": "Damn-Vulnerable-Active-Directory",
+  "description": "A reproducible, multi-forest Windows Active Directory lab intentionally misconfigured for offensive security training and red teaming. Features 382 vulnerabilities across Kerberos, ADCS, Trusts, and m",
+  "version": "1.0.0",
+  "author": "sanchitsahni",
+  "homepage": "https://github.com/sanchitsahni/Damn-Vulnerable-Active-Directory",
+  "skills": []
+}
