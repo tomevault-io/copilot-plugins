@@ -1,133 +1,189 @@
-## handover
+## utc-website
 
-> Session handover — current project state, immediate next steps, and open decisions. Updated at the end of each working session.
+> This skill covers:
 
+# Agent Instructions — UTC Website 2025
 
-# Session Handover
-
-Last updated: 2026-03-09 (session 3)
-
-## What happened this session
-
-Performance fix for the 3D cube (GPU black-box artifacts) plus favicon replacement.
-
-### 1. Cube face baking — GPU fix
-
-The cube was causing black-box rendering artifacts in the browser. Root cause: `mix-blend-mode` inside `transform-style: preserve-3d` with continuous RAF animation exhausts the GPU compositor. Fixed by replacing the live face component layouts with static JPEG images captured from Storybook.
-
-**Baked faces (done):** XR (`public/faces/xr.jpg`), Work (`public/faces/work.jpg`), Hamster (`public/faces/hamster.jpg`)
-
-**Unbaked faces (still live):** AI, Collaborators, Showcase — these are placeholder layouts with no blend modes, so they're not causing GPU issues.
-
-**Pattern:** Each baked face component (e.g. `XR.tsx`) returns a plain `<img src="/faces/xr.jpg" ... />`. The original FaceGrid layout is preserved as a named const (`XRDesign`, `WorkDesign`, `HamsterDesign`) so redesign + re-bake is possible without losing the source.
-
-**Capture script:** `scripts/capture-face.ts` — runs `npx tsx scripts/capture-face.ts <face>`. Navigates Playwright to the canonical `Cube/Faces` Storybook story, screenshots the face element at 300×300 `@2x DPR` → 600×600 JPEG q90. JPEG (not PNG) gives 70-84% smaller files vs PNG with no visible quality loss on these designs.
-
-**Image format note:** Playwright `element.screenshot()` only supports `png` and `jpeg` — no WebP natively. JPEG at q90 is the pragmatic choice. This project is on Cloudflare/OpenNext where `next/image` WebP conversion requires paid Cloudflare Image Resizing; static JPEG from CDN is simpler and good enough.
-
-**Preload hints:** `app/page.tsx` uses `ReactDOM.preload()` to hoist preload hints for all three baked face images so they fetch in parallel with other page resources.
-
-**Storybook story size:** `Faces.stories.tsx` decorator bumped from `200px` to `300px` (matches cube max size, so Playwright captures at the correct source resolution).
-
-### 2. Favicon replacement
-
-Replaced the default Vercel triangle (`favicon.ico` — deleted) with the UTC cube logomark.
-
-- `app/icon.png` — 256×256 RGBA PNG, transparent background. Browser tab favicon, auto-registered by Next.js App Router.
-- `app/apple-icon.png` — 180×180 RGBA PNG, transparent background. iOS "Add to Home Screen" touch icon.
-
-**Capture script:** `scripts/capture-favicon.ts` — single command captures both. Navigates Playwright to dedicated Storybook stories (`FaviconCapture`, `AppleFaviconCapture` in `Logo.stories.tsx`), uses `page.screenshot({ type: 'png', omitBackground: true })` for transparency.
-
-**Transparency gotcha (important for future):** Three separate background layers needed clearing before `omitBackground: true` worked:
-1. `html { background: var(--theme-black) }` — app's `globals.css` — cleared via `documentElement.style.background = 'transparent'`
-2. `body.sb-main-fullscreen { background: white }` — Storybook class — cleared by stripping `document.body.className`
-3. Storybook's layout wrapper — `<div style="position: fixed; inset: 0; background: rgb(255,255,255)">` as first child of `#storybook-root`, inline style — cleared via `storybookRoot.firstElementChild.style.background = 'transparent'`. This was the hard one: inline styles can only be overridden by other inline styles, so no stylesheet `!important` approach works.
-
-**Favicon stories:** `FaviconCapture` (128×128 viewport @2x → 256×256) and `AppleFaviconCapture` (90×90 viewport @2x → 180×180) added to `Logo.stories.tsx`. Containers are viewport-filling (`100vw × 100vh`) so `page.screenshot()` captures exactly the viewport, avoiding clipping from the CSS layout box that the 3D-transformed cube visually overflows.
-
-### 3. Cursor skill added
-
-`.cursor/skills/bake-cube-face/SKILL.md` — LM skill for both face baking and favicon capture workflows. Triggered when user says "bake", "capture", "snapshot", or "freeze" a face.
+This file is read by AI coding agents (Claude Code, Cursor, GitHub Copilot, etc.)
+at the start of every session. It describes the conventions for this codebase.
+**All agents should follow these rules regardless of what session they're in.**
 
 ---
 
-## Current state of the design system
+## Storybook Stories — Two Distinct Categories
 
-### Component hierarchy
-
-| Layer | Components |
-|-------|-----------|
-| Utilities | Pressable, Icon |
-| Atoms | Frame, Accent, Heading, UIGrid, Overlay |
-| Molecules | Button (primary/secondary/tertiary), NavLink, Logo lockup |
-| Organisms | SiteHeader, PrimaryNav, NavMenuPanel, Cube, SectionDetail |
-
-### Key interaction patterns
-
-- **Button** = drop-in, opinionated, self-contained (use for standard actions)
-- **Pressable** = zero-opinion wrapper (use for custom compositions like Logo lockups, NavLinks)
-- **Hover** = cyan bg (Button built-in) or `group-hover:` (Pressable compositions)
-- **Active/press** = `translate-y-1` downward shift, 100ms (Button built-in)
-- **Focus** = 4px magenta outline, 2px offset (Button built-in; add manually for Pressable compositions)
-
-### Cube face status
-
-| Face | Position | Status |
-|------|----------|--------|
-| XR | top | Baked → `public/faces/xr.jpg`, source in `XRDesign` const |
-| Work | front | Baked → `public/faces/work.jpg`, source in `WorkDesign` const |
-| Hamster | bottom | Baked → `public/faces/hamster.jpg`, source in `HamsterDesign` const |
-| AI | back | Live placeholder — needs design |
-| Collaborators | left | Live placeholder — needs design |
-| Showcase | right | Live placeholder — needs design |
+There are two fundamentally different kinds of stories in this codebase.
+**Do not confuse them.**
 
 ---
 
-## Immediate next steps
+### 1 · Primitive reference stories
 
-1. **Design and bake the AI, Collaborators, Showcase faces** — use Storybook experiments → promote → `npx tsx scripts/capture-face.ts <face>`. These are the remaining undesigned faces.
+```
+components/Cube/Faces/primitives/
+  Primitives.stories.tsx
+```
 
-2. **`cta` variant for Button** — discussed but not yet implemented. Level above `primary`. Visual direction: accent gradient (magenta-green). Naming agreed as `cta`.
+These are **living documentation** for the actual primitive components.
+They import and render the real `Cell`, `TextBlock`, `ImageBlock`, etc. directly.
+If a primitive's API changes, these stories are expected to break — that is the point.
+They are the source of truth for how primitives work and should be kept up to date
+whenever a primitive is modified.
 
-3. **Inline link component** — needed eventually; `tertiary` Button is not appropriate for inline text links.
-
----
-
-## Open decisions
-
-- **`cta` variant visual treatment**: Accent gradient? How distinct from `primary`? Deferred.
-- **Grid gap standardisation**: 4px tight / 8px separated proposed but not confirmed as a token.
-- **Section icons in NavLinks**: CSS grid icons may be replaced with Phosphor icons (they break at small sizes).
-- **UIGrid for page layouts**: Ready but not yet used in any actual page layout.
+**Do not put explorations or layout experiments here.**
 
 ---
 
-## Gotchas
+### 2 · Experiment stories
 
-- **Tailwind v4 `translate` vs `transform`**: `translate-y-*` uses CSS `translate` property, not `transform`. Transition must target `translate`.
-- **Tailwind v4 `outline` with theme colors**: `outline-theme-cyan` doesn't work — use `outline-[var(--theme-cyan)]`.
-- **Tailwind v4 `outline-none`**: Sets `outline: 2px solid transparent` which interferes with `focus-visible`. Use `outline-0` instead.
-- **Storybook story imports**: Always `import type { Meta, StoryObj } from '@storybook/nextjs'` — NOT `@storybook/react`. ESLint rule `no-renderer-packages` enforces this.
-- **Phosphor icon names**: Verify against `node_modules/@phosphor-icons/react/dist/index.d.ts`. Registry uses kebab-case.
-- **Vercel/Cloudflare build vs local dev**: `next build` runs ESLint + TypeScript; `next dev` does not. Run `npm run build` before pushing if lint/type issues suspected.
-- **Storybook + workerd hang**: `next.config.ts` gates `initOpenNextCloudflareForDev()` behind `!isStorybook` — never remove this gate or Storybook build hangs.
-- **Playwright `waitUntil: 'networkidle'` times out on Storybook**: Storybook's HMR websocket keeps the network permanently active. Always use `waitUntil: 'load'` in capture scripts.
-- **Playwright `element.screenshot()` clips 3D-transformed content**: CSS 3D transforms cause visual overflow beyond the element's layout box. For the favicon logomark, use `page.screenshot()` with a viewport-filling container instead.
-- **Playwright `omitBackground: true` needs all background layers cleared**: See transparency gotcha above. Three layers, each requiring a different technique.
+```
+components/Cube/Faces/experiments/
+  CubeFaceXRExperiments.stories.tsx         ← formerly CubeFaceExperiments
+  CubeFaceWorkExperiments.stories.tsx
+  CubeFaceWorkAcidFlatExperiments.stories.tsx   ← split from Work (file size)
+  CubeFaceCollaboratorsExperiments.stories.tsx
+  CubeFaceNewsExperiments.stories.tsx
+```
+
+When a section's experiment file gets too large, split by layout family:
+`CubeFace{Section}{Subcategory}Experiments.stories.tsx` (e.g. Acid Flat).
+Storybook title nests under the section: `Experiments/Cube Face Work/Acid Flat`.
+
+These are **sandboxed layout explorations** — visual ideas for how a cube face
+might look. They use the primitives, but their purpose is creative exploration,
+not documentation. They should never import internal component logic directly
+(no reaching into component source to access private helpers, etc.).
+
+The key property of experiments is that they are **loosely coupled** — they
+should not break when internal component implementation details change.
+
+### Story naming
+
+Every story **must** have a numbered `name` in the format `'N – Short Title'`:
+
+```ts
+export const MyStory: Story = {
+  name: '7 – Portraits + Icon Quad',
+  ...
+};
+```
+
+Numbers make it easy to reference stories by number in conversation
+("can you update story 7") and keep Storybook's sidebar sorted.
+
+### Story identifier comments
+
+Every story export must be preceded by a single-line identifier comment:
+
+```ts
+// ─── 7 · Portraits + Icon Quad ──────────────────────────────────────────────
+export const PortraitsIconQuad: Story = {
+```
+
+This makes stories easy to find with `Cmd+F`, `grep`, or the editor outline.
+Use `─` (U+2500) and `·` (U+00B7) to match the existing style.
+
+### Layout model — use Cell + primitives, not absolute divs
+
+All Cube face stories must use the `<Cell>` + primitives pattern.
+Do **not** wrap FaceGrid children in raw `absolute inset-0` divs or bare grid wrappers —
+this breaks `overflow-hidden` clipping and `cqi` unit resolution.
+
+```tsx
+// ✅ correct
+<FaceGrid>
+  <Cell col={1} row={1} colSpan={6} rowSpan={3}>
+    <ImageBlock src="..." alt="..." mask="fade-down" />
+  </Cell>
+  <Cell col={1} row={5} colSpan={3} zIndex={1}>
+    <TextBlock fontSize={22}>XR</TextBlock>
+  </Cell>
+  <Cell col={1} row={2} colSpan={6} zIndex={5}><StripeBars /></Cell>
+</FaceGrid>
+
+// ❌ wrong — breaks clipping and cqi units
+<FaceGrid>
+  <div className="absolute inset-0 grid grid-cols-6 grid-rows-6">
+    ...
+  </div>
+</FaceGrid>
+```
+
+See `primitives/Primitives.stories.tsx` (title: "Cube Face Primitives")
+for working examples of every primitive.
+
+### Available primitives
+
+| Import | Purpose |
+|--------|---------|
+| `Cell` | Grid placement — `col`, `row`, `colSpan`, `rowSpan`, `zIndex` |
+| `GridLines` | Decorative 6×6 border overlay |
+| `ColorBlock` | Solid colour fill |
+| `GradientBlock` | Linear gradient — takes `stops` array, not `fromColor`/`toColor` |
+| `ImageBlock` | Image with optional `mask` fade direction, `mixBlendMode` for layering |
+| `TextBlock` | CQI-scaled text — uses `fontSize` (not `size`), children not `text` prop |
+| `IconQuad` | 4 icons — `icons={{ tl, tr, bl, br }}` object, not an array |
+| `IconSingle` | Single centred icon — `name`, `color`, `weight`, `iconSize` |
+| `StripeBars` | Thin horizontal colour bar — fills its `Cell`, place with `<Cell>` like any content primitive |
+
+### Icon names
+
+Only use icons registered in `components/Icon/Icon.tsx`. Key ones:
+`users`, `hand-waving`, `chat`, `share`, `globe`, `cube`, `atom`,
+`lightning`, `sparkle`, `rocket`, `brain`, `broadcast`, `blueprint`,
+`hard-hat`, `crane`, `virtual-reality`, `google-cardboard`, `cube-focus`.
+
+Do **not** invent icon names like `users-three`, `handshake`, `network` —
+they will cause runtime errors.
+
+### Storybook section titles
+
+| File | Storybook title |
+|------|----------------|
+| `CubeFaceExperiments.stories.tsx` | `Experiments/Cube Face XR` |
+| `CubeFaceWorkExperiments.stories.tsx` | `Experiments/Cube Face Work` |
+| `CubeFaceWorkAcidFlatExperiments.stories.tsx` | `Experiments/Cube Face Work/Acid Flat` |
+| `CubeFaceCollaboratorsExperiments.stories.tsx` | `Experiments/Cube Face Collaborators` |
+| `CubeFaceNewsExperiments.stories.tsx` | `Experiments/Cube Face News` |
+| `primitives/Primitives.stories.tsx` | `Cube/Face Primitives` |
 
 ---
 
-## Working style notes
+## Cube face baking — static image workflow
 
-The developer (Alex) prefers:
-- Separate commits per concern (not monolithic refactors)
-- Discussing design decisions before executing — use Plan/Ask mode for "what do you think?" conversations
-- Semiotic naming over presentational (variant names describe *meaning*, not *appearance*)
-- Practical over precious — prototype fast, extract patterns later
-- Storybook as the primary design tool ("vibe-designing")
-- Clear documentation that serves both humans and LLM agents
-- Having a genuinely good time while building things
-- Direct answers — if something is not worth doing, say so
+Cube faces are **pre-rendered to static JPEG images** and committed to the repo (`public/faces/*.jpg`). This avoids GPU compositor black-box artifacts caused by `mix-blend-mode` + `transform-style: preserve-3d` + continuous animation.
+
+When the user asks to "bake", "capture", "snapshot", or "freeze" a face, read and follow:
+
+```
+.cursor/skills/bake-cube-face/SKILL.md
+```
+
+This skill covers:
+- Running `scripts/capture-face.ts` to screenshot a face from Storybook
+- Updating the face component to serve the baked image
+- The favicon capture workflow (`scripts/capture-favicon.ts`)
+- Re-baking after a design change
+
+---
+
+## Storybook + OpenNext/Cloudflare — `workerd` hang
+
+Never add unconditional side-effects to `next.config.ts` that start long-running
+processes. `@storybook/nextjs` evaluates the config at build time — anything that
+spawns a child process (e.g. `initOpenNextCloudflareForDev()` → `workerd`) will
+keep Node alive and the build will hang. Always gate behind `STORYBOOK_BUILD` /
+`STORYBOOK` env vars. Full writeup: [`docs/storybook-workerd-hang.md`](docs/storybook-workerd-hang.md).
+
+---
+
+## General conventions
+
+- **TypeScript** throughout — no `any`, no implicit types on component props.
+- **Tailwind** for styling — use theme tokens (`bg-theme-cyan`, `text-theme-white`, etc.), not raw hex values.
+- **CQI units** for all sizing inside `FaceGrid` — `1cqi` = 1% of face width. Do not use `px`, `rem`, or `%` for element sizing inside faces.
+- **No new files unless necessary** — prefer editing existing files.
+- **No documentation files** unless explicitly requested.
 
 ---
 > Source: [urban-tech-creative/utc-website](https://github.com/urban-tech-creative/utc-website) — distributed by [TomeVault](https://tomevault.io).
