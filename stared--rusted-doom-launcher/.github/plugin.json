@@ -1,0 +1,9 @@
+{
+  "name": "stared--rusted-doom-launcher",
+  "displayName": "rusted-doom-launcher",
+  "description": "Steam-like experience for DOOM mods and wads - works with GZDoom - with Rust and Tauri 2",
+  "version": "1.0.0",
+  "author": "stared",
+  "homepage": "https://github.com/stared/rusted-doom-launcher",
+  "skills": []
+}
