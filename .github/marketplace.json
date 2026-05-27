@@ -51934,6 +51934,11 @@
       "description": "Orchestrator for AI coding (claude code, cursor, codex, gemini)"
     },
     {
+      "name": "florianbruniaux--ccboard",
+      "source": "./florianbruniaux--ccboard",
+      "description": "Monitor Claude Code sessions, costs, config, hooks, agents & MCP servers from a single Rust binary \u2014 TUI (9 tabs) + Web interface with live process tracking, budget alerts, and 30-day forecasting"
+    },
+    {
       "name": "matthewpick--pesto-clipboard",
       "source": "./matthewpick--pesto-clipboard",
       "description": "Pesto Clipboard - macOS Clipboard Manager"
@@ -55352,11 +55357,6 @@
       "name": "wantpinow--convex-sandbox",
       "source": "./wantpinow--convex-sandbox",
       "description": "Persistent bash sandboxes using just-bash and Convex file storage. No VMs."
-    },
-    {
-      "name": "florianbruniaux--ccboard",
-      "source": "./florianbruniaux--ccboard",
-      "description": "Monitor Claude Code sessions, costs, config, hooks, agents & MCP servers from a single Rust binary \u2014 TUI (9 tabs) + Web interface with live process tracking, budget alerts, and 30-day forecasting"
     },
     {
       "name": "malvarezcastillo--txt2plotter",
@@ -93629,6 +93629,26 @@
       "description": "spawn"
     },
     {
+      "name": "kendevco--spaces",
+      "source": "./kendevco--spaces",
+      "description": "Spaces is a Payload CMS 3.0 + Next.js website template featuring real-time multi-channel communication\u2014like Discord, but built right into your CMS."
+    },
+    {
+      "name": "omilli--hellajs",
+      "source": "./omilli--hellajs",
+      "description": "hellajs"
+    },
+    {
+      "name": "ximing--aimo",
+      "source": "./ximing--aimo",
+      "description": "A modern AI-driven note and knowledge management system, integrating powerful vector search, intelligent classification, and rich interactive features."
+    },
+    {
+      "name": "omilli--hellajs",
+      "source": "./omilli--hellajs",
+      "description": "hellajs"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -95852,6 +95872,16 @@
       "name": "stadiamaps--valinor",
       "source": "./stadiamaps--valinor",
       "description": "Valhalla \ud83e\udd1d \ud83e\udd80"
+    },
+    {
+      "name": "xlr8harder--llm-compliance",
+      "source": "./xlr8harder--llm-compliance",
+      "description": "llm-compliance"
+    },
+    {
+      "name": "yannisdc--colmismartring",
+      "source": "./yannisdc--colmismartring",
+      "description": "A discovery into bluetooth smartrings"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -101259,6 +101289,11 @@
       "description": "Godot 4 plugin that extends GDScript's Signal and Callable."
     },
     {
+      "name": "openops-cloud--docs",
+      "source": "./openops-cloud--docs",
+      "description": "Documentation for OpenOps - the truly open FinOps automation platform."
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -103767,6 +103802,26 @@
       "name": "fractalyze--prime-ir",
       "source": "./fractalyze--prime-ir",
       "description": " Intermediate Representation (IR) for cryptographic computations"
+    },
+    {
+      "name": "ericmjl--building-with-llms-made-simple",
+      "source": "./ericmjl--building-with-llms-made-simple",
+      "description": "A tutorial on how to build stuff with large language models, made simple"
+    },
+    {
+      "name": "ericmjl--building-with-llms-made-simple",
+      "source": "./ericmjl--building-with-llms-made-simple",
+      "description": "A tutorial on how to build stuff with large language models, made simple"
+    },
+    {
+      "name": "rungalileo--galileo-python",
+      "source": "./rungalileo--galileo-python",
+      "description": "Python client library for the Galileo platform \ud83d\udd2d"
+    },
+    {
+      "name": "rungalileo--galileo-python",
+      "source": "./rungalileo--galileo-python",
+      "description": "Python client library for the Galileo platform \ud83d\udd2d"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -106327,6 +106382,11 @@
       "name": "thanhdaon--clean-arch-go",
       "source": "./thanhdaon--clean-arch-go",
       "description": "Clean Architecture, DDD, CQRS with testings in Go"
+    },
+    {
+      "name": "sigma-quantiphi--ccxt-pandas",
+      "source": "./sigma-quantiphi--ccxt-pandas",
+      "description": "Pandas + CCXT= :heart:"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -109202,6 +109262,51 @@
       "name": "hoper-j--cpolar-connect",
       "source": "./hoper-j--cpolar-connect",
       "description": "\ud83d\ude80 A command-line tool for automating cpolar tunnel management and SSH connections.  \u81ea\u52a8\u5316\u7ba1\u7406 cpolar \u514d\u8d39\u7248\u5185\u7f51\u7a7f\u900f\u8fde\u63a5\u7684\u547d\u4ee4\u884c\u5de5\u5177\u3002"
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
+    },
+    {
+      "name": "fluttersdk--wind",
+      "source": "./fluttersdk--wind",
+      "description": "Tailwind CSS for Flutter \u2014 classes like flex, p-4, dark:bg-gray-800 compose into widget trees. MCP server + Claude Code skill for AI agents."
+    },
+    {
+      "name": "wutongci--cursor-rule",
+      "source": "./wutongci--cursor-rule",
+      "description": "cursor_rule"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -112547,6 +112652,21 @@
       "name": "tayfunerbilen--prototurk-go-backend",
       "source": "./tayfunerbilen--prototurk-go-backend",
       "description": "prototurk-go-backend"
+    },
+    {
+      "name": "mckaywrigley--level-3-agent-code",
+      "source": "./mckaywrigley--level-3-agent-code",
+      "description": "level-3-agent-code"
+    },
+    {
+      "name": "atlas-computing-org--formal-specification-ide",
+      "source": "./atlas-computing-org--formal-specification-ide",
+      "description": "formal-specification-ide"
+    },
+    {
+      "name": "rajdeepds--coordinize",
+      "source": "./rajdeepds--coordinize",
+      "description": "Coordinize is a modern communication platform for modern teams."
     },
     {
       "name": "13point5--agent-canvas",
@@ -119264,6 +119384,11 @@
       "description": "Mesh generation for tree and plants, using volumetric invigoration"
     },
     {
+      "name": "jdx--ensembler",
+      "source": "./jdx--ensembler",
+      "description": "ensembler"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -122997,6 +123122,11 @@
       "name": "srizzon--my-barbershop",
       "source": "./srizzon--my-barbershop",
       "description": "my-barbershop"
+    },
+    {
+      "name": "ryoppippi--chatgpt-heatmap",
+      "source": "./ryoppippi--chatgpt-heatmap",
+      "description": "Upload ChatGPT's exported data and get insights on your usage patterns."
     },
     {
       "name": "mohiwalla--memes",
@@ -127552,6 +127682,11 @@
       "name": "chrisboden--knowledgesync",
       "source": "./chrisboden--knowledgesync",
       "description": "knowledgesync"
+    },
+    {
+      "name": "carlkcarlk--busy-beaver-blaze",
+      "source": "./carlkcarlk--busy-beaver-blaze",
+      "description": "busy_beaver_blaze"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -132442,6 +132577,51 @@
       "name": "georgejeffers--gemini-mcp-server",
       "source": "./georgejeffers--gemini-mcp-server",
       "description": "A Model Context Protocol (MCP) server that integrates with Google's Gemini Pro model, can be used in Claude Desktop App."
+    },
+    {
+      "name": "stacksjs--ts-images",
+      "source": "./stacksjs--ts-images",
+      "description": "\ud83c\udfde\ufe0f Make your images load faster. A better save for the web."
+    },
+    {
+      "name": "zenobia000--cursorgod-cursorrules-buff",
+      "source": "./zenobia000--cursorgod-cursorrules-buff",
+      "description": "\u795e\u5947\u6d77\u87ba cursorrules \u963f\u62c9\u4e01\u795e\u71c8\u60f3\u8981\u751a\u9ebc\u8a31\u9858\u5c31\u6709"
+    },
+    {
+      "name": "nutrixpos--pos",
+      "source": "./nutrixpos--pos",
+      "description": "The next gen free open source restaurant & retail management system"
+    },
+    {
+      "name": "openconceptlab--oclmap",
+      "source": "./openconceptlab--oclmap",
+      "description": "OCL Mapper (beta): an open-source AI-supported terminology mapping solution for the global community"
+    },
+    {
+      "name": "0rbit3r--aphantasia",
+      "source": "./0rbit3r--aphantasia",
+      "description": "Colorful graph-based social space"
+    },
+    {
+      "name": "pharmaverse--rtflite",
+      "source": "./pharmaverse--rtflite",
+      "description": "Lightweight RTF composer for Python. Specializes in precise formatting of production-quality tables and figures."
+    },
+    {
+      "name": "openconceptlab--oclmap",
+      "source": "./openconceptlab--oclmap",
+      "description": "OCL Mapper (beta): an open-source AI-supported terminology mapping solution for the global community"
+    },
+    {
+      "name": "bfloydd--streams",
+      "source": "./bfloydd--streams",
+      "description": "Streams Obsidian Plugin"
+    },
+    {
+      "name": "algo-traders-club--baby-smith",
+      "source": "./algo-traders-club--baby-smith",
+      "description": "A Simple Autonomous Perps Trading Agent for Hyperliquid L1"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -137702,6 +137882,61 @@
       "name": "dumbwareio--dumbdateparser",
       "source": "./dumbwareio--dumbdateparser",
       "description": "A Dumb natural language date parser"
+    },
+    {
+      "name": "ipazooki--cleanarchitecture",
+      "source": "./ipazooki--cleanarchitecture",
+      "description": "Clean Architecture with Minimal API"
+    },
+    {
+      "name": "r3-yamauchi--kintone-mcp-server",
+      "source": "./r3-yamauchi--kintone-mcp-server",
+      "description": "MCP server for kintone \u30b5\u30f3\u30d7\u30eb (Unofficial) https://www.r3it.com/blog/kintone-mcp-server-20250115-yamauchi https://www.r3it.com/blog/kintone-ai-lab-20250501-yamauchi"
+    },
+    {
+      "name": "shunkakinoki--dotfiles",
+      "source": "./shunkakinoki--dotfiles",
+      "description": "My personal dotfiles configuration"
+    },
+    {
+      "name": "devinpearson--ipb",
+      "source": "./devinpearson--ipb",
+      "description": "A simple cli app for deploying and managing programmable card code for investec"
+    },
+    {
+      "name": "swiftgum--swiftgum",
+      "source": "./swiftgum--swiftgum",
+      "description": "ETL for RAG. Transform any source into LLM-ready markdown. Focus on your AI, not integrations."
+    },
+    {
+      "name": "swiftgum--swiftgum",
+      "source": "./swiftgum--swiftgum",
+      "description": "ETL for RAG. Transform any source into LLM-ready markdown. Focus on your AI, not integrations."
+    },
+    {
+      "name": "r3-yamauchi--kintone-mcp-server",
+      "source": "./r3-yamauchi--kintone-mcp-server",
+      "description": "MCP server for kintone \u30b5\u30f3\u30d7\u30eb (Unofficial) https://www.r3it.com/blog/kintone-mcp-server-20250115-yamauchi https://www.r3it.com/blog/kintone-ai-lab-20250501-yamauchi"
+    },
+    {
+      "name": "swiftgum--swiftgum",
+      "source": "./swiftgum--swiftgum",
+      "description": "ETL for RAG. Transform any source into LLM-ready markdown. Focus on your AI, not integrations."
+    },
+    {
+      "name": "swiftgum--swiftgum",
+      "source": "./swiftgum--swiftgum",
+      "description": "ETL for RAG. Transform any source into LLM-ready markdown. Focus on your AI, not integrations."
+    },
+    {
+      "name": "prefecthq--prefect-cloud",
+      "source": "./prefecthq--prefect-cloud",
+      "description": "prefect-cloud"
+    },
+    {
+      "name": "ipazooki--cleanarchitecture",
+      "source": "./ipazooki--cleanarchitecture",
+      "description": "Clean Architecture with Minimal API"
     },
     {
       "name": "lightninglabs--lnget",
@@ -144737,6 +144972,41 @@
       "name": "mathewlewallen--ready-to-deploy-saas-template",
       "source": "./mathewlewallen--ready-to-deploy-saas-template",
       "description": "\ud83d\ude80 A production-ready, fully customizable SaaS template using Wasp, React, and Node.js. Includes authentication, payments, and deployment-ready configurations. | Support me: https://buymeacoffee.com/ma"
+    },
+    {
+      "name": "karsyboy--color-ssh",
+      "source": "./karsyboy--color-ssh",
+      "description": "Rust based SSH syntax highlighting tool!"
+    },
+    {
+      "name": "hendemic--network-eval-service",
+      "source": "./hendemic--network-eval-service",
+      "description": "Web app for running local network tests"
+    },
+    {
+      "name": "djelibeybi--hass-lifx-ceiling",
+      "source": "./djelibeybi--hass-lifx-ceiling",
+      "description": "Provides uplight and downlight control for LIFX Ceiling in Home Assistant"
+    },
+    {
+      "name": "chusj-pigu--nf-core-oncoseq",
+      "source": "./chusj-pigu--nf-core-oncoseq",
+      "description": "Repo for oncoseq workflow."
+    },
+    {
+      "name": "djelibeybi--hass-lifx-ceiling",
+      "source": "./djelibeybi--hass-lifx-ceiling",
+      "description": "Provides uplight and downlight control for LIFX Ceiling in Home Assistant"
+    },
+    {
+      "name": "marouane53--retinal-phenotyper",
+      "source": "./marouane53--retinal-phenotyper",
+      "description": "Automated segmentation, phenotyping, and spatial analysis of retinal flat-mount images with reproducible study workflows and publication-ready outputs."
+    },
+    {
+      "name": "helper2424--resnet10",
+      "source": "./helper2424--resnet10",
+      "description": "Port resnet form HIL-SERL paper to Lerobot"
     },
     {
       "name": "yschimke--compose-ai-tools",
