@@ -1,0 +1,9 @@
+{
+  "name": "vizioz--teamwork-mcp",
+  "displayName": "Teamwork-MCP",
+  "description": "MCP server to connect to the Teamwork API",
+  "version": "1.0.0",
+  "author": "Vizioz",
+  "homepage": "https://github.com/Vizioz/Teamwork-MCP",
+  "skills": []
+}
