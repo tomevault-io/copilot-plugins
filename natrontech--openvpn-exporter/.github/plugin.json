@@ -1,0 +1,9 @@
+{
+  "name": "natrontech--openvpn-exporter",
+  "displayName": "openvpn-exporter",
+  "description": "A prometheus exporter for OpenVPN",
+  "version": "1.0.0",
+  "author": "natrontech",
+  "homepage": "https://github.com/natrontech/openvpn-exporter",
+  "skills": []
+}
