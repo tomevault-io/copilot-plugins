@@ -1,32 +1,141 @@
-## development-workflow
+## file-operations
 
-> Code style, file naming, and project conventions. (project)
+> Use when making HTTP requests. Covers native fetch API patterns and error handling. (project)
 
 
-# Development Workflow
+# HTTP Request Standards
 
-This rule provides code style guidelines and project conventions for the StackOne SDK.
+This rule provides guidance on HTTP request patterns in the StackOne SDK.
 
-## File Naming Conventions
+## Native Fetch API Standards
 
-- Use `.yaml` extension instead of `.yml` for all YAML files (e.g., `lefthook.yaml`, GitHub Actions workflows)
+Use the native fetch API for HTTP requests. Node.js now includes built-in fetch, so external packages like `node-fetch` are not needed.
 
-## Working with Tools
+### Basic Pattern
 
-- Use semantic tools for code exploration (avoid full file reads when possible)
-- Leverage symbol indexing for fast navigation
-- Use grep/ripgrep for pattern matching
-- Read only necessary code sections
+```typescript
+async function fetchData(url: string): Promise<unknown> {
+	try {
+		const response = await fetch(url);
 
-## Code Style
+		if (!response.ok) {
+			throw new Error(`API error: ${response.status} for ${url}`);
+		}
 
-- Follow existing patterns for error handling and logging
-- Maintain TypeScript exhaustiveness for union types
-- Include comprehensive JSDoc comments for public APIs
+		return await response.json();
+	} catch (error) {
+		throw new Error(
+			`Failed to fetch from ${url}: ${error instanceof Error ? error.message : String(error)}`,
+		);
+	}
+}
+```
 
-## TypeScript Guidelines
+### Key Guidelines
 
-Use the TypeScript exhaustiveness pattern (`satisfies never`) when branching on unions. See `typescript-patterns` rule for examples.
+1. **No external imports needed**:
+   - Do NOT import from `node-fetch` or similar packages
+   - Simply use the globally available `fetch` function
+
+2. **Always check response.ok**:
+
+   ```typescript
+   if (!response.ok) {
+   	throw new Error(`API error: ${response.status} for ${url}`);
+   }
+   ```
+
+3. **Error handling**:
+   - Use try/catch blocks for network errors
+   - Include URL and status code in error messages
+
+4. **Response processing**:
+   - Use `response.json()` for JSON responses
+   - Use `response.text()` for text responses
+   - Use `response.arrayBuffer()` for binary data
+
+5. **Request configuration**:
+   - Set appropriate headers (Content-Type, Authorization, etc.)
+   - Use correct HTTP method (GET, POST, PUT, DELETE, etc.)
+   - For JSON requests, use `JSON.stringify()` and set Content-Type
+
+### Examples
+
+**GET with JSON response**:
+
+```typescript
+async function getUser(userId: string): Promise<User> {
+	try {
+		const response = await fetch(`https://api.example.com/users/${userId}`);
+
+		if (!response.ok) {
+			throw new Error(`Failed to fetch user: ${response.status}`);
+		}
+
+		return (await response.json()) as User;
+	} catch (error) {
+		throw new Error(`User fetch failed: ${error instanceof Error ? error.message : String(error)}`);
+	}
+}
+```
+
+**POST with JSON body**:
+
+```typescript
+async function createUser(data: CreateUserInput): Promise<User> {
+	try {
+		const response = await fetch('https://api.example.com/users', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to create user: ${response.status}`);
+		}
+
+		return (await response.json()) as User;
+	} catch (error) {
+		throw new Error(
+			`User creation failed: ${error instanceof Error ? error.message : String(error)}`,
+		);
+	}
+}
+```
+
+**With Authorization**:
+
+```typescript
+async function getProtectedData(token: string): Promise<Data> {
+	try {
+		const response = await fetch('https://api.example.com/protected', {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		if (!response.ok) {
+			throw new Error(`Auth failed: ${response.status}`);
+		}
+
+		return (await response.json()) as Data;
+	} catch (error) {
+		throw new Error(
+			`Protected data fetch failed: ${error instanceof Error ? error.message : String(error)}`,
+		);
+	}
+}
+```
+
+## When to Use Direct HTTP Clients
+
+Only use specialized HTTP clients when:
+
+- You need advanced features not covered by fetch (e.g., interceptors, retries)
+- You're integrating with a framework that requires it
+- Document why you're not using native fetch
 
 ---
 > Source: [StackOneHQ/stackone-ai-node](https://github.com/StackOneHQ/stackone-ai-node) — distributed by [TomeVault](https://tomevault.io).
