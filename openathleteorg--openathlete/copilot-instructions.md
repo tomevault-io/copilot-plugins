@@ -1,0 +1,43 @@
+## openathlete-global
+
+> OpenAthlete – Global Quality Gates and Monorepo Conventions
+
+
+- Type check always: run `pnpm tsc:check` at repo root before commits/after edits.
+- Zero any policy: do not introduce `any`. Prefer precise shared types, Zod-inferred types, discriminated unions, and exhaustive switches.
+- Lint/format: keep code passing shared configs.
+
+- Frontend i18n (Paraglide):
+  - **ALWAYS use Paraglide for translations**: In the frontend (`apps/web`), all user-facing strings MUST use Paraglide messages via `import { m } from '@/paraglide/messages'` and `m.messageKey()`.
+  - **Never use hardcoded strings**: Do not write English text directly in components. All text visible to users must come from Paraglide messages defined in `apps/web/messages/{locale}.json`.
+  - Message keys: Use snake_case for message keys. When adding new messages, add them to both `en.json` and `fr.json` (and any other locales if added).
+  - Pattern: Import messages at the top: `import { m } from '@/paraglide/messages';` and use throughout the component: `{m.my_message()}`, `{m.message_with_params({ param: value })}`.
+
+- Prisma (libs/database):
+  - Schema under `libs/database/prisma/schema` (split by domain).
+  - After schema changes, propose: `pnpm database run db:generate`, then `pnpm database run db:migrate` (or `db:deploy`).
+  - Approval required: summarize schema diffs and wait for approval before running Prisma commands. Do not hand-edit generated client.
+
+- Monorepo scripts:
+  - `pnpm tsc:check`, `pnpm dev`, `pnpm api dev`, `pnpm web dev`.
+  - Database scripts under `pnpm database run <cmd>`.
+
+- Shared types (`libs/shared`): source of truth for DTOs, entities, utilities. Export Zod schema and inferred types. Import from `@openathlete/shared` everywhere (API/UI).
+
+- Conventions:
+  - Prefer small, focused modules and services. Keep controllers thin.
+  - Use React Query for server state; avoid mixing with local state.
+  - Don’t bypass guards or CASL checks in backend services.
+  - Don’t roll your own validation—use shared Zod schemas with `ZodValidationPipe`.
+  - Don’t introduce untyped event payloads; define types.
+
+- When adding endpoints: update backend controller + service, validate with shared Zod; on web, add axios route, API method, and typed React Query hook with stable keys, then UI changes.
+
+- Commands reference:
+  - Type check all packages: `pnpm tsc:check`
+  - Prisma: `pnpm database run db:generate|db:migrate|db:deploy`
+  - Dev: `pnpm dev` / `pnpm api dev` / `pnpm web dev`
+
+---
+> Source: [openathleteorg/openathlete](https://github.com/openathleteorg/openathlete) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
