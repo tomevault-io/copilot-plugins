@@ -1,0 +1,9 @@
+{
+  "name": "wandb--vibes",
+  "displayName": "vibes",
+  "description": "A repo with a devcontainer ready to vibe with Claude, Codex or Gemini",
+  "version": "1.0.0",
+  "author": "wandb",
+  "homepage": "https://github.com/wandb/vibes",
+  "skills": []
+}
