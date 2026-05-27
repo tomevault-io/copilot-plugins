@@ -1,0 +1,9 @@
+{
+  "name": "divitmittal--vim-cfg",
+  "displayName": "Vim-Cfg",
+  "description": "Neovim & vim configurations for OS-nixCfg deployed via nix home-manager",
+  "version": "1.0.0",
+  "author": "DivitMittal",
+  "homepage": "https://github.com/DivitMittal/Vim-Cfg",
+  "skills": []
+}
