@@ -1,0 +1,9 @@
+{
+  "name": "openmaxnet--termax",
+  "displayName": "Termax",
+  "description": "\u73b0\u4ee3\u5316\u7684\u8de8\u5e73\u53f0 SSH \u7ec8\u7aef\u5ba2\u6237\u7aef\uff0c\u57fa\u4e8e Tauri v2 \u6784\u5efa",
+  "version": "1.0.0",
+  "author": "openmaxnet",
+  "homepage": "https://github.com/openmaxnet/Termax",
+  "skills": []
+}
