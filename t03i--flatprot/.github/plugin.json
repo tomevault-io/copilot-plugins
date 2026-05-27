@@ -1,0 +1,9 @@
+{
+  "name": "t03i--flatprot",
+  "displayName": "FlatProt",
+  "description": "A tool for 2D protein visualization aimed at improving the comparability of protein structures through standardized 2D visualizations.",
+  "version": "1.0.0",
+  "author": "t03i",
+  "homepage": "https://github.com/t03i/FlatProt",
+  "skills": []
+}
