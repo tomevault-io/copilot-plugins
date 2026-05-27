@@ -1,64 +1,36 @@
-## commands
+## package-structure
 
-> pnpm test:e2e:handlers
+> The Zubridge project is organized into several key packages:
 
-# Zubridge Development Commands
+# Zubridge Package Structure
 
-## Root Directory
+The Zubridge project is organized into several key packages:
 
-### Build: build all packages and apps
-pnpm build
+## Core Packages
 
-### Build: build only the core packages (@zubridge/types, @zubridge/electron, @zubridge/tauri, @zubridge/ui)
-pnpm build:packages
+- `@zubridge/electron` - The core Electron package is an IPC bridging solution which implements a backend contract to allow compatibility with any custom state management solution, and adapters for popular state management libraries such as Zustand and Redux. The Zustand adapter supports three different Zustand usage patterns, `basic` (Zustand default - on-store action handlers), `handlers` (action handlers separate from store), and `reducers` (Redux-style reducers).
+- `@zubridge/tauri` - The core Tauri package is frontend-only, and implements a backend contract for users to hook their Rust-based state into.  The frontend interface is the same as that of the Electron package.
 
-### CI: run the CI build, including all tests
-pnpm run ci
+## Additional Packages
 
-### CI: run the CI build on Linux
-pnpm ci:linux
+- `@zubridge/tauri-plugin` - Tauri plugin for reducing boilerplate when implementing the backend contract.  This plugin is Rust only, i.e. no frontend component.
+- `@zubridge/types` - Shared types for the core packages.
+- `@zubridge/ui` - Shared UI components used in the apps.  Internal use only.  All new UI components for the apps should be placed in this package.
 
-### CI: display the E2E logs
-pnpm ci:e2e:logs
+## Apps
 
-### Formatting: apply formatting to files
-pnpm format
+- `apps/electron-example` - Electron example app - this is a multi mode app designed to enable E2E testing of all of the functionality provided by `@zubridge/electron`.
+- `apps/tauri-example` - Tauri example app.  This is built on CI but is currently not tested.  Only use the latest tauri API version in this app.
+- `apps/tauri-v1-example` - Tauri v1 example app.  This is built on CI but is currently not tested.  Only use the tauri v1 API in this app.
 
-### Formatting: verify if formatting is correct
-pnpm format:check
+## Import Hierarchy
 
-### Task Graph: create task graph for CI build
-pnpm graph:e2e
+The import hierarchy should be respected:
+- `@zubridge/types` should not import from other packages
+- `@zubridge/ui`, `@zubridge/electron` and `@zubridge/tauri` can import from `@zubridge/types` only
+- Apps can import from all packages
 
-### Test: run all tests for all packages
-pnpm test
-
-### Test: run unit tests for all packages
-pnpm test:unit
-
-### Test: run E2E tests for all packages
-pnpm test:e2e
-
-### Test: run E2E tests for the electron package in basic mode
-pnpm test:e2e:basic
-
-### Test: run E2E tests for the electron package in handlers mode
-pnpm test:e2e:handlers
-
-### Test: run E2E tests for the electron package in reducers mode
-pnpm test:e2e:reducers
-
-### Test: run E2E tests for the electron package in redux mode
-pnpm test:e2e:redux
-
-### Test: run E2E tests for the electron package in custom mode
-pnpm test:e2e:custom
-
-### Clean: fully clean all packages and apps
-pnpm clean
-
-### Clean: delete turborepo cache
-pnpm clean:cache
+This hierarchy prevents circular dependencies and maintains clear separation of concerns.
 
 ---
 > Source: [goosewobbler/zubridge](https://github.com/goosewobbler/zubridge) — distributed by [TomeVault](https://tomevault.io).
