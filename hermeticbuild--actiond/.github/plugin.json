@@ -1,0 +1,9 @@
+{
+  "name": "hermeticbuild--actiond",
+  "displayName": "actiond",
+  "description": "A fully hermetic local \"remote executor\"",
+  "version": "1.0.0",
+  "author": "hermeticbuild",
+  "homepage": "https://github.com/hermeticbuild/actiond",
+  "skills": []
+}
