@@ -1,0 +1,9 @@
+{
+  "name": "thomasahle--latex2png",
+  "displayName": "latex2png",
+  "description": "Convert LaTeX math equations to PNG/JPEG/SVG images",
+  "version": "1.0.0",
+  "author": "thomasahle",
+  "homepage": "https://github.com/thomasahle/latex2png",
+  "skills": []
+}
