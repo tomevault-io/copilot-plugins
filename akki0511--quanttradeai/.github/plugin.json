@@ -1,0 +1,9 @@
+{
+  "name": "akki0511--quanttradeai",
+  "displayName": "QuantTradeAI",
+  "description": "A quant research lab built for AI coding agents to test, compare, and deploy trading strategies from one CLI workspace",
+  "version": "1.0.0",
+  "author": "AKKI0511",
+  "homepage": "https://github.com/AKKI0511/QuantTradeAI",
+  "skills": []
+}
