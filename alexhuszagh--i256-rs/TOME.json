@@ -4,7 +4,7 @@
   "repo": "i256-rs",
   "description": "Optimized implementation for fixed-width, large integers in Rust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alexhuszagh/i256-rs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T22:39:18Z"
+  "distributed_at": "2026-05-28T22:41:51Z"
 }
