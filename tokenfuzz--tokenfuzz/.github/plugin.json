@@ -1,0 +1,9 @@
+{
+  "name": "tokenfuzz--tokenfuzz",
+  "displayName": "tokenfuzz",
+  "description": "TokenFuzz is an open platform for LLM-based vulnerability research",
+  "version": "1.0.0",
+  "author": "tokenfuzz",
+  "homepage": "https://github.com/tokenfuzz/tokenfuzz",
+  "skills": []
+}
