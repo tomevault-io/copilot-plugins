@@ -7,11 +7,11 @@ A code analysis tool and library: generate a repository digest for LLM context
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [upsun/whatsun](https://github.com/upsun/whatsun).
+Original source: `CLAUDE.md` in [upsun/whatsun](https://github.com/upsun/whatsun).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
