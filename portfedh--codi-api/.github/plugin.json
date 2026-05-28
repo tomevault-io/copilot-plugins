@@ -1,0 +1,9 @@
+{
+  "name": "portfedh--codi-api",
+  "displayName": "codi-api",
+  "description": "  Express.js API for Mexican CoDi digital payments with QR code generation and Banxico integration.",
+  "version": "1.0.0",
+  "author": "portfedh",
+  "homepage": "https://github.com/portfedh/codi-api",
+  "skills": []
+}
