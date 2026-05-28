@@ -1,0 +1,9 @@
+{
+  "name": "moonwhaler--civitscraper",
+  "displayName": "CivitScraper",
+  "description": "Getting of model metadata, images/videos and keywords from civitai and visualizing them should be easy. ",
+  "version": "1.0.0",
+  "author": "moonwhaler",
+  "homepage": "https://github.com/moonwhaler/CivitScraper",
+  "skills": []
+}
