@@ -1,0 +1,9 @@
+{
+  "name": "apache--superset-kubernetes-operator",
+  "displayName": "superset-kubernetes-operator",
+  "description": "Apache Superset Kubernetes Operator",
+  "version": "1.0.0",
+  "author": "apache",
+  "homepage": "https://github.com/apache/superset-kubernetes-operator",
+  "skills": []
+}
