@@ -1,0 +1,9 @@
+{
+  "name": "axelhamil--clean-stack",
+  "displayName": "clean-stack",
+  "description": "SaaS-ready boilerplate. BetterAuth + multi-tenant + Resend + R2 already wired (Stripe on the roadmap). Bun, Hono, React 19, TanStack, Drizzle, Postgres. Clean Architecture + pragmatic DDD. Fourteen no",
+  "version": "1.0.0",
+  "author": "axelhamil",
+  "homepage": "https://github.com/axelhamil/clean-stack",
+  "skills": []
+}
