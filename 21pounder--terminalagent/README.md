@@ -17,15 +17,7 @@ Original source: `CLAUDE.md` in [21pounder/terminalAgent](https://github.com/21p
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (5)
-
-- [code-review](https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/code-review)
-- [deep-research](https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/deep-research)
-- [git-commit](https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/git-commit)
-- [pdf-analyze](https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/pdf-analyze)
-- [web-scrape](https://github.com/21pounder/terminalAgent/tree/main/deepresearch/.claude/skills/web-scrape)
-
-From [21pounder/terminalAgent](https://github.com/21pounder/terminalAgent) — a repo with 131+ stars on GitHub.
+From [21pounder/terminalAgent](https://github.com/21pounder/terminalAgent) — a repo with 122+ stars on GitHub.
 
 ---
 
