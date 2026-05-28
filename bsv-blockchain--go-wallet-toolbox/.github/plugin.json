@@ -1,0 +1,9 @@
+{
+  "name": "bsv-blockchain--go-wallet-toolbox",
+  "displayName": "go-wallet-toolbox",
+  "description": "Tools for building effective, compliant BRC-100 wallets in Go language.",
+  "version": "1.0.0",
+  "author": "bsv-blockchain",
+  "homepage": "https://github.com/bsv-blockchain/go-wallet-toolbox",
+  "skills": []
+}
