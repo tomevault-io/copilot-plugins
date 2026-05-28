@@ -1,0 +1,9 @@
+{
+  "name": "mneuhaus--wall-e-dora",
+  "displayName": "wall-e-dora",
+  "description": "Dora-based control stack for a custom WALL-E robot with tracked drive, SC-series servos, camera features, diagnostics, and a mobile-first web UI.",
+  "version": "1.0.0",
+  "author": "mneuhaus",
+  "homepage": "https://github.com/mneuhaus/wall-e-dora",
+  "skills": []
+}
