@@ -7,11 +7,11 @@ Dora-based control stack for a custom WALL-E robot with tracked drive, SC-series
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mneuhaus/wall-e-dora](https://github.com/mneuhaus/wall-e-dora).
+Original source: `CLAUDE.md` in [mneuhaus/wall-e-dora](https://github.com/mneuhaus/wall-e-dora).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
