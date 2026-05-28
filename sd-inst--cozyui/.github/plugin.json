@@ -1,0 +1,9 @@
+{
+  "name": "sd-inst--cozyui",
+  "displayName": "cozyui",
+  "description": "A frontend for ComfyUI to generate AI content comfortably",
+  "version": "1.0.0",
+  "author": "SD-inst",
+  "homepage": "https://github.com/SD-inst/cozyui",
+  "skills": []
+}
