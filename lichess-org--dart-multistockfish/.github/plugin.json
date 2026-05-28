@@ -1,0 +1,9 @@
+{
+  "name": "lichess-org--dart-multistockfish",
+  "displayName": "dart-multistockfish",
+  "description": "Multiple flavors of Stockfish Chess Engine",
+  "version": "1.0.0",
+  "author": "lichess-org",
+  "homepage": "https://github.com/lichess-org/dart-multistockfish",
+  "skills": []
+}
