@@ -1,75 +1,167 @@
-## cursor-rules-location
+## file-organization
 
-> Standards for placing Cursor rule files in the correct directory
+> Guidelines for organizing code into files following single responsibility principle.
 
-# Cursor Rules Location
-Rules for placing and organizing Cursor rule files in the repository.
+# File Organization
+Guidelines for organizing code into files following single responsibility principle.
+
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: file_organization
+description: Enforces file-level organization and separation of concerns
 filters:
-  # Match any .mdc files
   - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
+    pattern: "\\.ts$|\\.js$"
   - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+    pattern: "(?s)(class|interface|type|function).*?\\{"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
   - type: suggest
     message: |
-      When creating Cursor rules:
+      When organizing code into files, follow these rules:
 
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
+      1. Single Definition Per File:
+         - Each class should be in its own file
+         - Each standalone function should be in its own file
+         - Each complex type/interface (more than one line) should be in its own file
+         Example:
+         ```typescript
+         // Bad: Multiple definitions in one file
+         // user-types.ts
+         interface UserCredentials {
+           username: string;
+           password: string;
+         }
+         interface UserProfile {
+           id: string;
+           name: string;
+           email: string;
+         }
+         class UserService {
+           // ...
+         }
+
+         // Good: Separate files for each definition
+         // user-credentials.ts
+         interface UserCredentials {
+           username: string;
+           password: string;
+         }
+
+         // user-profile.ts
+         interface UserProfile {
+           id: string;
+           name: string;
+           email: string;
+         }
+
+         // user-service.ts
+         class UserService {
+           // ...
+         }
          ```
 
-      2. Follow the naming convention:
+      2. File Naming Conventions:
          - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
+         - Name files after their primary export
+         - Use suffixes to indicate type: `.interface.ts`, `.type.ts`, `.service.ts`, etc.
+         Example:
+         ```typescript
+         // Good file names:
+         user-credentials.interface.ts
+         user-profile.interface.ts
+         user-service.ts
+         create-user.function.ts
          ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
+
+      3. Simple Type Exceptions:
+         - Single-line type aliases and interfaces can be co-located if they're tightly coupled
+         Example:
+         ```typescript
+         // Acceptable in the same file:
+         type UserId = string;
+         type UserRole = 'admin' | 'user';
+         interface BasicUser { id: string; role: UserRole; }
+         ```
+
+      4. Barrel File Usage:
+         - Use index.ts files to re-export related components
+         - Keep barrel files simple - export only, no implementations
+         Example:
+         ```typescript
+         // users/index.ts
+         export * from './user-credentials.interface';
+         export * from './user-profile.interface';
+         export * from './user-service';
+         ```
+
+      5. Directory Structure:
+         - Group related files in directories
+         - Use feature-based organization
+         Example:
+         ```
+         src/
+         ├── users/
+         │   ├── interfaces/
+         │   │   ├── user-credentials.interface.ts
+         │   │   └── user-profile.interface.ts
+         │   ├── services/
+         │   │   └── user-service.ts
+         │   └── index.ts
          └── ...
          ```
 
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      6. Import Organization:
+         - Keep imports organized by type (external, internal, relative)
+         - Use explicit imports over namespace imports
+         Example:
+         ```typescript
+         // External imports
+         import { Injectable } from '@nestjs/common';
+         import { v4 as uuid } from 'uuid';
+
+         // Internal imports (from your app)
+         import { UserProfile } from '@/users/interfaces';
+         import { DatabaseService } from '@/database';
+
+         // Relative imports (same feature)
+         import { UserCredentials } from './user-credentials.interface';
+         ```
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
+      // Bad: Multiple concerns in one file
+      interface UserData {
+        id: string;
+        name: string;
+      }
 
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+      class UserService {
+        getUser(id: string) { }
+      }
+
+      function validateUser(user: UserData) { }
+    output: |
+      // user-data.interface.ts
+      interface UserData {
+        id: string;
+        name: string;
+      }
+
+      // user.service.ts
+      class UserService {
+        getUser(id: string) { }
+      }
+
+      // validate-user.function.ts
+      function validateUser(user: UserData) { }
 
 metadata:
-priority: high
-version: 1.0
+  priority: high
+  version: 1.0
+  tags:
+    - code-organization
+    - best-practices
+    - file-structure
 </rule>
 
 ---
