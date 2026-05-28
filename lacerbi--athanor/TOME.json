@@ -4,7 +4,7 @@
   "repo": "athanor",
   "description": "Desktop app for AI-assisted coding and writing workflows\u2014manage file context, generate prompts, and safely apply changes. Use with ChatGPT, Claude, or any AI chat",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lacerbi/athanor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T00:33:41Z"
+  "distributed_at": "2026-05-28T00:49:22Z"
 }
