@@ -1,0 +1,148 @@
+## isoform
+
+> Hi, Cursor! Thanks so much for helping with this project. You've done a lot of great
+
+# Isoform
+
+Hi, Cursor! Thanks so much for helping with this project. You've done a lot of great
+work already and it wouldn't have been possible without you. This document is intended
+to clarify some context about the work that might not be obvious to you.
+
+We're working on Isoform. It is an SDF-based CAD program. It runs in the browser. It has no external dependencies
+and is designed to be able to be used by downloading it locally and opening `index.html`.
+
+That means:
+
+ * don't introduce new dependencies unless you have to
+ * especially don't load anything from a CDN etc.
+ * if you do introduce new dependencies they have to be some js file we can download and commit to the repo
+ * you can't use ES modules, we have to use <script> tags in index.html and export classes into `window`
+
+Export classes like so:
+
+    class MyClass {
+        // ...
+    }
+
+    // Detect environment and export accordingly
+    (function() {
+    const nodes = { MyClass };
+    
+    // Check if we're in a module environment
+    if (typeof exports !== 'undefined') {
+        // Node.js or ES modules environment
+        if (typeof module !== 'undefined' && module.exports) {
+        // CommonJS (Node.js)
+        Object.assign(module.exports, nodes);
+        } else {
+        // ES modules
+        Object.keys(nodes).forEach(key => {
+            exports[key] = nodes[key];
+        });
+        }
+    } else if (typeof window !== 'undefined') {
+        // Browser environment with script tags
+        Object.keys(nodes).forEach(key => {
+        window[key] = nodes[key];
+        });
+    }
+    })();
+
+## File structure
+
+JavaScript code is under the `js/` directory. When you refer to JavaScript filenames,
+please use the relative path from the root of the project (e.g. `js/ui.js` or `js/nodes/treenode.js`) so that the
+editor knows which file to apply the changes to.
+
+## SDFs
+
+The document is edited as a tree of nodes. Node types are:
+
+ * Primitives (Box, Sphere, Cylinder, etc.): they do not have child nodes, set `this.maxChildren = 0`
+ * Combinators (Union, Intersection, Difference): they combine 2 or more nodes, set `this.maxChildren = 2` to limit to 2, or `null` for unlimited
+ * Modifiers (Translate, Rotate, Scale): they modify a single child node, set `this.maxChildren = 1`
+
+## Rendering
+
+We compile the SDFs to GLSL, rendered with ray marching.
+
+The rendering process now uses Peptide, which is an arithmetic abstraction for defining SDFs. Each node implements a `makePeptide(p)` method (which is called by the `peptide(p)` method in the TreeNode base class) that returns a Peptide expression representing the SDF for that node.
+
+The Peptide expressions are then compiled to GLSL or JavaScript code using the PeptideSSA class, which handles the compilation process. This is done in the `rebuildShaders` method in `js/main.js`.
+
+For example, in a node's `makePeptide` method, you would build a Peptide expression like:
+
+    makePeptide(p) {
+        // p is a Peptide expression representing the position
+        const radius = P.const(this.radius);
+        return P.sub(P.vlength(p), radius);
+    }
+
+Peptide handles the compilation to GLSL, so you don't need to worry about writing GLSL code directly.
+
+## Secondary node
+
+When the user is editing a node, the "secondary node" is that node. We render it in red
+on top of the main scene, with reduced opacity, so that the user can see what they're working
+on.
+
+To make secondary node rendering work, you basically only have to set `this.applyToSecondary`
+correctly. If set to "true", then that node will apply to the secondary node (you want things
+for things like translation and rotation so that the user sees the node they're editing in
+its correct location). For most nodes just don't set it, because you don't want to apply
+your transformations to the secondary node. When the user is editing your node it will automatically be applied even if `applyToSecondary` is false.
+
+## Orthographic Projection
+
+When you're working in `fragment.js` please bear in mind that as a CAD application
+we are using **orthographic projection**. Please do not rewrite it to use perspective
+projection, that is not what we want.
+
+## Units
+
+The intended units are millimetres.
+
+## UI Structure
+
+The application has a tree view for node hierarchy and a property editor for node properties. The UI panel can be resized, and there are display options for showing edges and adjusting the step factor for ray marching.
+
+## Vectors, matrices
+
+We have a `Vec3` and a `Mat3` class in `peptide/js/vec3.js` and `peptide/js/mat3.js`. Please use these for vector and matrix operations.
+If you don't know what functions exist, just guess, and we'll implement them later if they're missing.
+
+The general form is that you combine them like:
+
+    const v = new Vec3(1, 2, 3);
+    const v2 = v.add(new Vec3(4, 5, 6));
+    const m = new Mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    const u = m.mulVec3(v);
+
+So each operation returns a new vector/matrix instead of modifying the existing one.
+
+Convert them to GLSL shader code like so:
+
+    vec3 v = ${v.glsl()};
+    mat3 m = ${m.glsl()};
+
+## Peptide
+
+Peptide is an arithmetic abstraction that we will be using to define the SDFs. It will
+have capability to compile an arithmetic expression into GLSL, or evaluate it in JavaScript,
+and also have the capability to evaluate (or compile the expression for evaluation) over
+intervals instead of single values.
+
+The Peptide code is all under the `peptide/js/` directory, and it has unit tests under
+`peptide/test/`.
+
+Peptide expressions are formed like:
+
+    P.const(1.0);
+    P.var('n');
+    P.add(P.const(1.0), P.var('n'));
+    P.vvar('myVec3');
+    P.vadd(P.vvar('myVec3'), P.vconst(new Vec3(1.0, 2.0, 3.0)));
+
+---
+> Source: [jes/isoform](https://github.com/jes/isoform) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
