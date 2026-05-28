@@ -1,0 +1,9 @@
+{
+  "name": "code-yeongyu--codex-lsp",
+  "displayName": "codex-lsp",
+  "description": "Codex plugin that exposes Language Server Protocol diagnostics and MCP tools",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/codex-lsp",
+  "skills": []
+}
