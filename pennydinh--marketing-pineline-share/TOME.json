@@ -1,0 +1,44 @@
+{
+  "name": "marketing-pineline-share",
+  "owner": "pennydinh",
+  "repo": "marketing-pineline-share",
+  "description": "H\u1ec7 th\u1ed1ng t\u1ef1 \u0111\u1ed9ng h\u00f3a Content s\u1ed1 1: T\u1eeb Research, L\u00ean K\u1ecbch B\u1ea3n, \u0110\u0103ng Page t\u1ef1 \u0111\u1ed9ng \u0111\u1ebfn Generate Video!",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pennydinh/marketing-pineline-share",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T11:30:28Z"
+}
