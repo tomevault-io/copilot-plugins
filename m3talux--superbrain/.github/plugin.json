@@ -1,0 +1,9 @@
+{
+  "name": "m3talux--superbrain",
+  "displayName": "superbrain",
+  "description": "Session memory for Claude Code. Auto-captures every session into a plain Obsidian markdown vault. Zero config. MIT. macOS + Linux.",
+  "version": "1.0.0",
+  "author": "m3talux",
+  "homepage": "https://github.com/m3talux/superbrain",
+  "skills": []
+}
