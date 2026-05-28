@@ -5,10 +5,5 @@
   "version": "1.0.0",
   "author": "Galaxy-Dawn",
   "homepage": "https://github.com/Galaxy-Dawn/claude-scholar",
-  "skills": [
-    {
-      "name": "git-workflow",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
