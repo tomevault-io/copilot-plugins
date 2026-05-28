@@ -1,33 +1,37 @@
-## obedience
+## record-your-work
 
-> Every time you are editing files
+> At the end of every message if you have edited any files
 
-<-- Obedience -->
-# Guidelines for Reviewing and Replacing Code Snippets
+<-- Record Your Work -->
+# Project Plan Update Guidelines
 
-When reviewing a snippet file or replacing one implementation with another from an example, follow these guidelines to ensure **full file context** is taken into account and that the **correct, functional implementation** is used:
+After **every single message**, update the `PROJECT_PLAN.md` file to capture all implemented changes. This update **must be performed every time**, and **existing content must not be deleted** unless absolutely necessary to record progress.
 
-## 1. Review Full Files
-- **Thoroughly review** the entire file(s) provided rather than relying solely on isolated snippets.
-- Identify all **relevant sections** and understand the overall context of the code or project plan.
+## Update Requirements:
 
-## 2. Identify the Correct Sections
-- **Accurately determine** which part of the file needs to be replaced.
-- Ensure you are targeting the **precise location** in the target file that requires updating.
+### 1. Implementation Details
+- **Record all new features, bug fixes, and code improvements** that have been added.
+- **Summarize functionality changes**, including any important technical details.
 
-## 3. Use the Provided Example Accurately
-- When replacing a **non-functional implementation**, **verify** that you are copying the **correct and complete** implementation from the example file.
-- Avoid **reintroducing outdated or incorrect versions**.
+### 2. API Updates (if applicable)
+- **Document any changes** to API endpoints, including:
+  - Request/response formats
+  - Parameters
+  - Example usage
+- **Provide clear instructions** on how to interact with the updated API.
 
-## 4. Maintain Context and Integrity
-- Ensure that the **updated version integrates seamlessly** with the rest of the file.
-- **Do not remove or alter unrelated content** unless necessary for correct integration.
+### 3. UX Changes (if applicable)
+- **Describe modifications** to the user interface or user experience.
+- **Include specific instructions** for user interactions, such as:
+  - Navigation changes
+  - Button functions
+  - Form interactions
 
-## 5. Clarify Ambiguities
-- If any part of the request or file context is **unclear**, ask for **clarification** instead of making assumptions.
-- Confirm that your replacement **meets the intended functional requirements**.
+## Important Notes:
+- **Every Message**: The `PROJECT_PLAN.md` **must be updated after every message**—no exceptions.
+- **Preserve Existing Content**: Do **not** delete any existing content unless it is **necessary** to record progress (e.g., replacing outdated information).
 
-By adhering to these steps, you ensure that the **entire file is reviewed**, and **precise, accurate updates** are implemented, avoiding repeated mistakes with incorrect versions.
+By strictly following these guidelines, you ensure that all changes are accurately tracked and documented in the project plan.
 
 ---
 > Source: [lukeslp/alt-text-local-llm](https://github.com/lukeslp/alt-text-local-llm) — distributed by [TomeVault](https://tomevault.io).
