@@ -1,0 +1,9 @@
+{
+  "name": "geek96--paper-research-skill",
+  "displayName": "paper-research-skill",
+  "description": "A modular Claude Code skill for the full academic paper research pipeline: search/download \u2192 Zotero \u2192 Obsidian wiki",
+  "version": "1.0.0",
+  "author": "Geek96",
+  "homepage": "https://github.com/Geek96/paper-research-skill",
+  "skills": []
+}
