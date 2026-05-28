@@ -1,0 +1,9 @@
+{
+  "name": "sfcal--homelab",
+  "displayName": "homelab",
+  "description": "Multi environment homelab setup for deploying Kubernetes from infrastructure as code. ",
+  "version": "1.0.0",
+  "author": "sfcal",
+  "homepage": "https://github.com/sfcal/homelab",
+  "skills": []
+}
