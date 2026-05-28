@@ -1,0 +1,9 @@
+{
+  "name": "langchain4j--langchain4j-cdi",
+  "displayName": "langchain4j-cdi",
+  "description": "Integrating langChain4J with CDI to be able to infuse applications with Ai seamlessly",
+  "version": "1.0.0",
+  "author": "langchain4j",
+  "homepage": "https://github.com/langchain4j/langchain4j-cdi",
+  "skills": []
+}
