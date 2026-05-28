@@ -1,0 +1,9 @@
+{
+  "name": "ashione--vertex",
+  "displayName": "vertex",
+  "description": "Vertex - LLM/GraphLLM Tool  Vertex is a tool designed for orchestrating workflows and performing inference with large language models (LLMs)",
+  "version": "1.0.0",
+  "author": "ashione",
+  "homepage": "https://github.com/ashione/vertex",
+  "skills": []
+}
