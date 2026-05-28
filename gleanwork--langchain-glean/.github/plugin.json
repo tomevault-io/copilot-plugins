@@ -1,0 +1,9 @@
+{
+  "name": "gleanwork--langchain-glean",
+  "displayName": "langchain-glean",
+  "description": "LangChain components for Glean",
+  "version": "1.0.0",
+  "author": "gleanwork",
+  "homepage": "https://github.com/gleanwork/langchain-glean",
+  "skills": []
+}
