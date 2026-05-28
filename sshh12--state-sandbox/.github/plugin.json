@@ -1,0 +1,9 @@
+{
+  "name": "sshh12--state-sandbox",
+  "displayName": "state-sandbox",
+  "description": "State Sandbox is an experimental game for socioeconomic simulation. It uses Large Language Models (o3-mini) to simulate the world and complex policy impacts.",
+  "version": "1.0.0",
+  "author": "sshh12",
+  "homepage": "https://github.com/sshh12/state-sandbox",
+  "skills": []
+}
