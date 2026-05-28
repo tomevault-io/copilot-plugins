@@ -1,0 +1,9 @@
+{
+  "name": "fikrilal--gnome-lyricbar",
+  "displayName": "gnome-lyricbar",
+  "description": "Synced live lyrics for GNOME\u2019s top bar, powered by MPRIS and LRCLIB.",
+  "version": "1.0.0",
+  "author": "fikrilal",
+  "homepage": "https://github.com/fikrilal/gnome-lyricbar",
+  "skills": []
+}
