@@ -4,7 +4,7 @@
   "repo": "openads",
   "description": "Automate ad spot management, increase revenue and make advertisers happy.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/piotrkulpinski/openads",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T00:31:08Z"
+  "distributed_at": "2026-05-28T00:31:38Z"
 }
