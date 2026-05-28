@@ -1,0 +1,9 @@
+{
+  "name": "bioimage-io--bioimage-io",
+  "displayName": "bioimage.io",
+  "description": "Website for the BioImage Model zoo -- a model zoo for bioimage analysis.",
+  "version": "1.0.0",
+  "author": "bioimage-io",
+  "homepage": "https://github.com/bioimage-io/bioimage.io",
+  "skills": []
+}
