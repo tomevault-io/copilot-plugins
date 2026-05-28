@@ -1,0 +1,9 @@
+{
+  "name": "jerrywu001--cc-sessions-viewer",
+  "displayName": "cc-sessions-viewer",
+  "description": "support cc/codex/gemini sessions viewer, token usage statistics, global search, resume, and export to html",
+  "version": "1.0.0",
+  "author": "jerrywu001",
+  "homepage": "https://github.com/jerrywu001/cc-sessions-viewer",
+  "skills": []
+}
