@@ -1,0 +1,9 @@
+{
+  "name": "harleycoops--stoneynakoda",
+  "displayName": "StoneyNakoda",
+  "description": "A locally trained model of Stoney Nakoda has been developed and released. You can access the working model here or train your own instance. ",
+  "version": "1.0.0",
+  "author": "HarleyCoops",
+  "homepage": "https://github.com/HarleyCoops/StoneyNakoda",
+  "skills": []
+}
