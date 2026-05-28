@@ -71649,6 +71649,11 @@
       "description": "Definitions and examples for different categories of embedded computing boards"
     },
     {
+      "name": "goobyfrs--goobydesk-legacy",
+      "source": "./goobyfrs--goobydesk-legacy",
+      "description": "Simple, Lightweight, Databaseless Service Desk for Small MSPs and Home Labbers"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -119944,6 +119949,11 @@
       "description": "\ube60\ub978 RAG \uad6c\ud604\uc744 \uc704\ud55c \uc7a5\uace0 \ub77c\uc774\ube0c\ub7ec\ub9ac"
     },
     {
+      "name": "o3dotdev--o3-code",
+      "source": "./o3dotdev--o3-code",
+      "description": "O3 Code brings the Codex desktop experience to a local browser with bridge-powered access to your Mac, workspace, tools, and running agent sessions."
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -133504,6 +133514,11 @@
       "description": "rust-vst3-host"
     },
     {
+      "name": "ali-hussein-dev--deepreact",
+      "source": "./ali-hussein-dev--deepreact",
+      "description": "Deep dive into the React ecosystem"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -146262,6 +146277,16 @@
       "name": "mateusznakodach--heroesofdomaindrivendesign-eventsourcing-java-axon-spring",
       "source": "./mateusznakodach--heroesofdomaindrivendesign-eventsourcing-java-axon-spring",
       "description": "Shows how to use Domain-Driven Design, Event Storming, Event Modeling and Event Sourcing in Heroes of Might & Magic III domain."
+    },
+    {
+      "name": "sd-inst--cozyui",
+      "source": "./sd-inst--cozyui",
+      "description": "A frontend for ComfyUI to generate AI content comfortably"
+    },
+    {
+      "name": "kellylford--image-description-toolkit",
+      "source": "./kellylford--image-description-toolkit",
+      "description": "Experimental tools for image description interaction."
     },
     {
       "name": "yschimke--compose-ai-tools",
