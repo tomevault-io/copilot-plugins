@@ -1,0 +1,9 @@
+{
+  "name": "molaorg--mola-state-estimation",
+  "displayName": "mola_state_estimation",
+  "description": "MOLA implementations of the virtual state estimation API for robots / vehicles",
+  "version": "1.0.0",
+  "author": "MOLAorg",
+  "homepage": "https://github.com/MOLAorg/mola_state_estimation",
+  "skills": []
+}
