@@ -1,102 +1,97 @@
-## attempt-over-try-catch
+## cusor-rules
 
-> USE attempt utility WHEN handling errors INSTEAD OF try-catch blocks TO ensure consistent error handling
+> Use ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
 
-# Use attempt Utility Instead of try-catch
+# Cursor Rules Format
+## Core Structure
+
+```mdc
+---
+description: ACTION when TRIGGER to OUTCOME
+globs: *.mdc
+alwaysApply: false
+---
+
+# Rule Title
 
 ## Context
-- Applies when handling errors in asynchronous or synchronous operations
-- The codebase provides a utility function [attempt.ts](mdc:lib/utils/attempt.ts) from `@lib/utils/attempt`
-- This utility provides a consistent way to handle errors with Result types
-- Eliminates the need for try-catch blocks and provides type-safe error handling
+- When to apply this rule
+- Prerequisites or conditions
 
 ## Requirements
-- NEVER use try-catch blocks for error handling
-- ALWAYS use the `attempt` utility from `@lib/utils/attempt`
-- Use pattern matching with 'data' in result or 'error' in result for type-safe error handling
-- Use `withFallback` when a default value is needed in case of error
-- Only use try-finally when resource cleanup is needed (e.g., closing connections)
+- Concise, actionable items
+- Each requirement must be testable
 
 ## Examples
-
 <example>
-// Good: Using attempt for error handling
-import { attempt } from '@lib/utils/attempt'
-
-// For synchronous functions
-const result = await attempt<Data, Error>(async () => {
-  return await fetchData()
-})
-
-if ('data' in result) {
-  // Handle success case
-  processData(result.data)
-} else {
-  // Handle error case
-  logError(result.error)
-}
-
-// Using withFallback for default values
-const data = withFallback(
-  attempt(() => parseJSON(data)),
-  defaultValue
-)
-
-// Good: Using try-finally for resource cleanup
-let resource = null
-try {
-  resource = await createResource()
-  return await attempt(() => useResource(resource))
-} finally {
-  if (resource) {
-    await resource.close()
-  }
-}
+Good concise example with explanation
 </example>
 
 <example type="invalid">
-// Bad: Using try-catch for error handling
-try {
-  const data = await fetchData()
-  processData(data)
-} catch (error) {
-  logError(error)
-}
-
-// Bad: Using try-catch with type casting
-try {
-  const data = await fetchData()
-  processData(data)
-} catch (error: unknown) {
-  if (error instanceof Error) {
-    logError(error.message)
-  }
-}
-
-// Bad: Using try-catch-finally when only cleanup is needed
-try {
-  await doSomething()
-} catch (error) {
-  console.error(error)
-} finally {
-  cleanup()
-}
-
-// Instead, use:
-const result = await attempt(() => doSomething())
-cleanup()
-if ('error' in result) {
-  console.error(result.error)
-}
+Invalid concise example with explanation
 </example>
+```
 
-## Benefits
-1. Type-safe error handling with discriminated unions
-2. Consistent error handling patterns across the codebase
-3. No need for type casting of errors
-4. Better error propagation
-5. Easier to test and maintain
-6. Eliminates common try-catch pitfalls
+## File Organization
+
+### Location
+- Path: `.cursor/rules/`
+- Extension: `.mdc`
+
+### Glob Pattern Examples
+Common glob patterns for different rule types:
+- Most often pattern would be `*.ts,*.tsx` as it's a typescript monorepo.
+
+## Required Fields
+
+### Frontmatter
+- description: ACTION TRIGGER OUTCOME format
+- globs: `glob pattern for files and folders`
+- alwaysApply: `true` or `false`
+
+### Body
+- context: Usage conditions
+- requirements: Actionable items
+- examples: Both valid and invalid
+
+## Formatting Guidelines
+
+- Use Concise Markdown primarily
+- XML tags limited to:
+  - <example>
+  - <danger>
+  - <required>
+  - <rules>
+  - <rule>
+  - <critical>
+- Always indent content within XML or nested XML tags by 2 spaces
+- Keep rules as short as possbile
+- Use Mermaid syntax if it will be shorter or clearer than describing a complex rule
+- Use Emojis where appropriate to convey meaning that will improve rule understanding by the AI Agent
+- Keep examples as short as possible to clearly convey the positive or negative example
+
+## AI Optimization Tips
+
+1. Use precise, deterministic ACTION TRIGGER OUTCOME format in descriptions
+2. Provide concise positive and negative example of rule application in practice
+3. Optimize for AI context window efficiency
+4. Remove any non-essential or redundant information
+5. Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
+
+## AI Context Efficiency
+
+1. Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI AGent
+2. Limit examples to essential patterns only
+3. Use hierarchical structure for quick parsing
+4. Remove redundant information across sections
+5. Maintain high information density with minimal tokens
+6. Focus on machine-actionable instructions over human explanations
+
+<critical>
+  - NEVER include verbose explanations or redundant context that increases AI token overhead
+  - Keep file as short and to the point as possible BUT NEVER at the expense of sacrificing rule impact and usefulness for the AI Agent.
+  - the front matter can ONLY have the fields description and globs.
+</critical>
 
 ---
 > Source: [radzionc/crypto](https://github.com/radzionc/crypto) — distributed by [TomeVault](https://tomevault.io).
