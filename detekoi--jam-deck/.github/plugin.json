@@ -1,0 +1,9 @@
+{
+  "name": "detekoi--jam-deck",
+  "displayName": "jam-deck",
+  "description": "An Apple Music now playing display for streamers using macOS.",
+  "version": "1.0.0",
+  "author": "detekoi",
+  "homepage": "https://github.com/detekoi/jam-deck",
+  "skills": []
+}
