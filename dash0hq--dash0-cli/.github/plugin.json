@@ -1,0 +1,9 @@
+{
+  "name": "dash0hq--dash0-cli",
+  "displayName": "dash0-cli",
+  "description": "Command line utility to interact with Dash0",
+  "version": "1.0.0",
+  "author": "dash0hq",
+  "homepage": "https://github.com/dash0hq/dash0-cli",
+  "skills": []
+}
