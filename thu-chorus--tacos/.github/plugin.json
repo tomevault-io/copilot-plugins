@@ -1,0 +1,9 @@
+{
+  "name": "thu-chorus--tacos",
+  "displayName": "tacos",
+  "description": "TaCOS: Tsinghua Chorus Online System for member management, sheet music access, events, and internal operations.",
+  "version": "1.0.0",
+  "author": "thu-chorus",
+  "homepage": "https://github.com/thu-chorus/tacos",
+  "skills": []
+}
