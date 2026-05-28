@@ -1,0 +1,9 @@
+{
+  "name": "sprksocial--server",
+  "displayName": "server",
+  "description": "Spark Social AppView Server",
+  "version": "1.0.0",
+  "author": "sprksocial",
+  "homepage": "https://github.com/sprksocial/server",
+  "skills": []
+}
