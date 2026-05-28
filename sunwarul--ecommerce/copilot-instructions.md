@@ -1,0 +1,19 @@
+## ecommerce
+
+> - Laravel 12 + PHP 8.3+; Eloquent-first.
+
+# Cursor Project Rules (ALWAYS FOLLOW)
+
+- Laravel 12 + PHP 8.3+; Eloquent-first.
+- Vue 3 + Inertia 2 + PrimeVue + Tailwind.
+- MySQL 8; soft deletes; foreign keys ON.
+- Multi-branch: all tenant data has branch_id; use server-side BranchContext; add BelongsToBranch trait + global scope where safe.
+- Stock: mutate only via StockLedger; `stocks` is derived/materialized from `stock_ledger_entries`.
+- Security: Policies + Form Requests for every write. Never trust client-provided branch_id/user_id.
+- Quality: Add indexes on FKs and frequently filtered columns; prevent N+1 with `with()`.
+- UI: DataTable (server), dialogs for create/edit, ConfirmDialog for destructive, Toasts for feedback.
+- Tests: Pest; cover happy paths, authz failures, validation, edge cases.
+
+---
+> Source: [Sunwarul/ecommerce](https://github.com/Sunwarul/ecommerce) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
