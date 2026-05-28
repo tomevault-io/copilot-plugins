@@ -1,0 +1,9 @@
+{
+  "name": "denolfe--hacker-news-highlights",
+  "displayName": "hacker-news-highlights",
+  "description": "Daily podcast summarizing the Top 10 posts/comments on Hacker News",
+  "version": "1.0.0",
+  "author": "denolfe",
+  "homepage": "https://github.com/denolfe/hacker-news-highlights",
+  "skills": []
+}
