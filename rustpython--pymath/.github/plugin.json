@@ -1,0 +1,9 @@
+{
+  "name": "rustpython--pymath",
+  "displayName": "pymath",
+  "description": "pymath",
+  "version": "1.0.0",
+  "author": "RustPython",
+  "homepage": "https://github.com/RustPython/pymath",
+  "skills": []
+}
