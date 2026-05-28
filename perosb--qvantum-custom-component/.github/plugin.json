@@ -1,0 +1,9 @@
+{
+  "name": "perosb--qvantum-custom-component",
+  "displayName": "qvantum_custom_component",
+  "description": "Qvantum Exhaust Air Heat Pump Integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "perosb",
+  "homepage": "https://github.com/perosb/qvantum_custom_component",
+  "skills": []
+}
