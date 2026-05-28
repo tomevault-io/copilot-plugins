@@ -1,0 +1,9 @@
+{
+  "name": "automattic--wpvdb",
+  "displayName": "wpvdb",
+  "description": "Native Vector Database for WordPress",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/wpvdb",
+  "skills": []
+}
