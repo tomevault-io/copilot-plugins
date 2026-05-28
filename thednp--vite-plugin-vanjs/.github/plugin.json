@@ -1,0 +1,9 @@
+{
+  "name": "thednp--vite-plugin-vanjs",
+  "displayName": "vite-plugin-vanjs",
+  "description": "A mini meta-framework for VanJS powered by Vite",
+  "version": "1.0.0",
+  "author": "thednp",
+  "homepage": "https://github.com/thednp/vite-plugin-vanjs",
+  "skills": []
+}
