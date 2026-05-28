@@ -1,124 +1,58 @@
-## pattern-matching
+## reuse-lib
 
-> USE pattern matching WHEN implementing conditional logic TO avoid switch/case statements
+> REUSE existing code WHEN implementing new features FROM @lib packages TO maintain consistency and reduce duplication
 
-# Pattern Matching Rules
+# Reuse Lib Code Rules
 
 ## Context
-- Apply when implementing conditional logic based on discriminated unions, record types, or string literals
-- Prefer pattern matching techniques over traditional switch/case statements and nested ternaries
-- Improves type safety, readability, and maintainability
+- When implementing new features or components
+- When adding new types or interfaces
+- When creating utility functions
 
 ## Requirements
-- Use Record or match function for simple union types
-- Use Match component for conditional React component rendering
-- Use matchRecordUnion for handling record union types
-- Use matchDiscriminatedUnion for discriminated union patterns
-- Never use switch/case statements when pattern matching alternatives exist
-- Never use nested ternary operators when pattern matching alternatives exist
+- Always check @lib/ui/props for reusable prop types
+- Always check @lib/utils for existing utility functions
+- Always check @lib/ui for existing UI components
+- Never duplicate types or functions that already exist in lib packages
+- Use existing prop types like ChildrenProp, KindProp, etc.
+- Use existing utility functions from @lib/utils
+- Use existing UI components from @lib/ui
 
 ## Examples
 
 <example>
-// Using Record for value mapping
-const animalSounds: Record<Animal, string> = {
-  dog: 'woof',
-  cat: 'meow'
+// Instead of defining your own children prop
+interface MyComponentProps {
+  children: ReactNode
 }
-const sound = animalSounds[animal]
+
+// Use the existing ChildrenProp
+import { ChildrenProp } from '@lib/ui/props'
+interface MyComponentProps extends ChildrenProp {}
 </example>
 
 <example>
-// Using match function
-const sound = match(animal, {
-  dog: () => 'woof',
-  cat: () => 'meow'
-})
-</example>
+// Instead of defining your own kind prop
+interface MyComponentProps {
+  kind: 'primary' | 'secondary'
+}
 
-<example>
-// Using Match component in React
-<Match 
-  value={status}
-  loading={() => <LoadingSpinner />}
-  error={() => <ErrorMessage />}
-  success={() => <Content />}
-/>
-</example>
-
-<example>
-// Using matchRecordUnion
-matchRecordUnion(shape, {
-  circle: (radius) => Math.PI * radius * radius,
-  rectangle: ({width, height}) => width * height
-})
-</example>
-
-<example>
-// Using matchDiscriminatedUnion
-matchDiscriminatedUnion(
-  action,
-  'kind',
-  'payload',
-  {
-    increment: (amount) => count + amount,
-    decrement: (amount) => count - amount
-  }
-)
+// Use the existing KindProp
+import { KindProp } from '@lib/ui/props'
+interface MyComponentProps extends KindProp<'primary' | 'secondary'> {}
 </example>
 
 <example type="invalid">
-// Avoid switch/case statements
-switch (status) {
-  case 'loading':
-    return <Loading />
-  case 'error':
-    return <Error />
-  default:
-    return null
+// Don't duplicate existing types
+interface ButtonProps {
+  onClick: () => void
+  children: ReactNode
+  className?: string
 }
-</example>
 
-<example type="invalid">
-// Avoid nested ternary operators
-{status === 'loading' ? (
-  <Loading />
-) : status === 'error' ? (
-  <Error />
-) : (
-  <Content />
-)}
-</example>
-
-<example type="invalid">
-// Avoid nested ternaries for value mapping
-color={
-  status === 'completed'
-    ? 'contrast'
-    : status === 'active'
-      ? 'primary'
-      : 'supporting'
-}
-</example>
-
-<example type="valid">
-// Instead, use Record for value mapping
-const statusToColor: Record<Status, TextColor> = {
-  completed: 'contrast',
-  active: 'primary',
-  pending: 'supporting'
-}
-color={statusToColor[status]}
-</example>
-
-<example type="valid">
-// And use Match component for conditional rendering
-<Match
-  value={status}
-  completed={() => <CheckIcon />}
-  active={() => <Spinner />}
-  pending={() => <div />}
-/>
+// Instead use existing props
+import { OnClickProp, ChildrenProp, ClassNameProp } from '@lib/ui/props'
+interface ButtonProps extends OnClickProp, ChildrenProp, ClassNameProp {}
 </example>
 
 ---
