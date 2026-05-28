@@ -1,0 +1,9 @@
+{
+  "name": "groktopus--groktocrawl",
+  "displayName": "groktocrawl",
+  "description": "Self-hosted, API-compatible Firecrawl alternative with Agent endpoint. MIT license. One docker compose up.",
+  "version": "1.0.0",
+  "author": "groktopus",
+  "homepage": "https://github.com/groktopus/groktocrawl",
+  "skills": []
+}
