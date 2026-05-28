@@ -1,50 +1,34 @@
-## functions
+## imports
 
-> USE object parameters WHEN writing functions with multiple parameters TO improve code maintainability
+> USE relative path imports WHEN importing from state directory TO maintain consistency
 
 
-# TypeScript Function Rules
+# State Directory Imports
 
 ## Context
-- Apply when writing TypeScript functions with multiple parameters
-- Applies to both function declarations and arrow function expressions
-- Aims to improve code maintainability and readability
+- When importing files from the state directory
+- Applies to all TypeScript and TypeScript React files in the project
 
 ## Requirements
-- Functions with more than 1 parameter must use an object parameter pattern
-- Name input types with the pattern: `{FunctionName}Input`
-- For single parameters, direct arguments are acceptable
-- Object parameters should use destructuring in the function signature
+- Always use relative path imports (not absolute paths or module aliases) when importing from the state directory
+- Path should be relative to the current file location (e.g., '../../../../state/isInitiatingDevice')
+- Do not use module aliases like '@core/mpc/state' for importing state files
 
 ## Examples
 <example>
-// Good: Using object parameter for multiple parameters
-type UpdateNameInput = {
-  id: string
-  newName: string
-}
-
-const updateName = ({
-  id,
-  newName
-}: UpdateNameInput) => {
-  // ...
-}
-</example>
-
-<example>
-// Good: Single parameter uses direct argument
-const getUser = (id: string) => {
-  // ...
-}
+// Good: Using relative path
+import { useIsInitiatingDevice } from '../../../../state/isInitiatingDevice'
 </example>
 
 <example type="invalid">
-// Bad: Multiple direct parameters
-const updateName = (id: string, newName: string) => {
-  // ...
-}
+// Bad: Using module alias
+import { useIsInitiatingDevice } from '@core/ui/mpc/state/isInitiatingDevice'
 </example>
+
+<example type="invalid">
+// Bad: Using incorrect module path
+import { useIsInitiatingDevice } from '@core/mpc/state/isInitiatingDevice'
+</example> 
 
 ---
 > Source: [radzionc/crypto](https://github.com/radzionc/crypto) — distributed by [TomeVault](https://tomevault.io).
