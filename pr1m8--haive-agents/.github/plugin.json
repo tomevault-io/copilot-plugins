@@ -1,0 +1,9 @@
+{
+  "name": "pr1m8--haive-agents",
+  "displayName": "haive-agents",
+  "description": "Production-ready agent implementations: SimpleAgent, ReactAgent, MultiAgent, MemoryAgent, RAG variants, and more",
+  "version": "1.0.0",
+  "author": "pr1m8",
+  "homepage": "https://github.com/pr1m8/haive-agents",
+  "skills": []
+}
