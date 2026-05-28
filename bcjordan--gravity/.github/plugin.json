@@ -1,0 +1,9 @@
+{
+  "name": "bcjordan--gravity",
+  "displayName": "gravity",
+  "description": "Gravitational lensing and prism simulation using Three.js",
+  "version": "1.0.0",
+  "author": "bcjordan",
+  "homepage": "https://github.com/bcjordan/gravity",
+  "skills": []
+}
