@@ -7,11 +7,11 @@ Official Python SDK for VLM Run
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vlm-run/vlmrun-python-sdk](https://github.com/vlm-run/vlmrun-python-sdk).
+Original source: `CLAUDE.md` in [vlm-run/vlmrun-python-sdk](https://github.com/vlm-run/vlmrun-python-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
