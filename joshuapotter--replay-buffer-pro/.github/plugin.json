@@ -1,0 +1,9 @@
+{
+  "name": "joshuapotter--replay-buffer-pro",
+  "displayName": "replay-buffer-pro",
+  "description": "An OBS Studio plugin that extends the built-in Replay Buffer. Save recent footage at different lengths (e.g., 30 seconds, 5 minutes), automatically trimming the replay buffer without re-encoding.",
+  "version": "1.0.0",
+  "author": "JoshuaPotter",
+  "homepage": "https://github.com/JoshuaPotter/replay-buffer-pro",
+  "skills": []
+}
