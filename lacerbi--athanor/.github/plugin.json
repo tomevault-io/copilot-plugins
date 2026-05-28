@@ -1,0 +1,9 @@
+{
+  "name": "lacerbi--athanor",
+  "displayName": "athanor",
+  "description": "Desktop app for AI-assisted coding and writing workflows\u2014manage file context, generate prompts, and safely apply changes. Use with ChatGPT, Claude, or any AI chat",
+  "version": "1.0.0",
+  "author": "lacerbi",
+  "homepage": "https://github.com/lacerbi/athanor",
+  "skills": []
+}
