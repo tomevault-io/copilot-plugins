@@ -69804,6 +69804,16 @@
       "description": "A rich terminal dashboard for monitoring and controlling multiple AI coding agent sessions"
     },
     {
+      "name": "kieranp--github-releases-feed",
+      "source": "./kieranp--github-releases-feed",
+      "description": "Github homepage releases feed is always broken - so I created my own"
+    },
+    {
+      "name": "kieranp--github-releases-feed",
+      "source": "./kieranp--github-releases-feed",
+      "description": "Github homepage releases feed is always broken - so I created my own"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -71659,6 +71669,21 @@
       "description": "midnight"
     },
     {
+      "name": "magics-lab--genoarmory",
+      "source": "./magics-lab--genoarmory",
+      "description": "GenoArmory: A Unified Evaluation Framework for Adversarial Attacks on Genomic Foundation Models"
+    },
+    {
+      "name": "openswiftuiproject--darwinprivateframeworks",
+      "source": "./openswiftuiproject--darwinprivateframeworks",
+      "description": "DarwinPrivateFrameworks"
+    },
+    {
+      "name": "openswiftuiproject--darwinprivateframeworks",
+      "source": "./openswiftuiproject--darwinprivateframeworks",
+      "description": "DarwinPrivateFrameworks"
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -72822,6 +72847,21 @@
       "name": "letta-ai--letta-discord-bot-example",
       "source": "./letta-ai--letta-discord-bot-example",
       "description": " An example Discord chatbot built on the Letta API, which uses a stateful agent (agent with memory) under the hood. "
+    },
+    {
+      "name": "meain--esa",
+      "source": "./meain--esa",
+      "description": "Fastest way to create personalized AI agents"
+    },
+    {
+      "name": "ericrosenberg1--citybot2",
+      "source": "./ericrosenberg1--citybot2",
+      "description": "Bot to Share News and Relevant Information for a City or Geographic Area"
+    },
+    {
+      "name": "francescoborzi--ngx-page-object-model",
+      "source": "./francescoborzi--ngx-page-object-model",
+      "description": "Angular Component Tests made easy"
     },
     {
       "name": "affitor--open-affiliate",
@@ -75262,6 +75302,11 @@
       "name": "tensorzero--llmgym",
       "source": "./tensorzero--llmgym",
       "description": "llmgym"
+    },
+    {
+      "name": "marvinvr--truenas-auto-update",
+      "source": "./marvinvr--truenas-auto-update",
+      "description": "Automatically update your TrueNAS apps on a schedule."
     },
     {
       "name": "r44vc0rp--itui",
@@ -78812,6 +78857,16 @@
       "name": "devclate--custom-maester-tests",
       "source": "./devclate--custom-maester-tests",
       "description": "Custom-Maester-Tests"
+    },
+    {
+      "name": "wellcrafted-dev--wellcrafted",
+      "source": "./wellcrafted-dev--wellcrafted",
+      "description": "wellcrafted"
+    },
+    {
+      "name": "jens62--geberit-aquaclean",
+      "source": "./jens62--geberit-aquaclean",
+      "description": "Home automation bridge for Geberit AquaClean toilets: BLE connectivity (direct or ESPHome proxy), MQTT, REST API, web UI, and native Home Assistant integration via HACS"
     },
     {
       "name": "inureyes--gyeol",
@@ -83304,6 +83359,11 @@
       "description": "Trying to find the highest-scoring Boggle board with a mix of C++ and Python"
     },
     {
+      "name": "tiritibambix--imaguick",
+      "source": "./tiritibambix--imaguick",
+      "description": "ImaGUIck is a free and open-source software, using ImageMagick\u00ae, used for editing and manipulating digital images. It can be used to edit or convert images, and supports a wide range of file formats, "
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -85277,6 +85337,21 @@
       "name": "ivlad003--mcp-newrelic",
       "source": "./ivlad003--mcp-newrelic",
       "description": "mcp_newrelic"
+    },
+    {
+      "name": "marmot-protocol--keycast",
+      "source": "./marmot-protocol--keycast",
+      "description": "keycast"
+    },
+    {
+      "name": "hoppscotch--helm-charts",
+      "source": "./hoppscotch--helm-charts",
+      "description": "Scalable Kubernetes Deployments for Hoppscotch"
+    },
+    {
+      "name": "marmot-protocol--keycast",
+      "source": "./marmot-protocol--keycast",
+      "description": "keycast"
     },
     {
       "name": "khangbdd--phoenix",
@@ -87287,6 +87362,16 @@
       "name": "latent-reasoning-works--manylatents",
       "source": "./latent-reasoning-works--manylatents",
       "description": "manylatents"
+    },
+    {
+      "name": "flexprice--flexprice-front",
+      "source": "./flexprice--flexprice-front",
+      "description": "Open source pricing and billing infrastructure to support any pricing model, from usage-based to subscription and everything in between."
+    },
+    {
+      "name": "spiceai--cookbook",
+      "source": "./spiceai--cookbook",
+      "description": "Cookbook recipes to get up and running with Spice.ai quickly \ud83d\ude80"
     },
     {
       "name": "10xchengtu--mux0",
@@ -91549,6 +91634,16 @@
       "description": "Write llvm in moonbit!"
     },
     {
+      "name": "edspencer--bragdoc-ai",
+      "source": "./edspencer--bragdoc-ai",
+      "description": "bragdoc-ai"
+    },
+    {
+      "name": "edspencer--bragdoc-ai",
+      "source": "./edspencer--bragdoc-ai",
+      "description": "bragdoc-ai"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -93782,6 +93877,11 @@
       "name": "datarobot-community--talk-to-my-data-agent",
       "source": "./datarobot-community--talk-to-my-data-agent",
       "description": "talk-to-my-data-agent"
+    },
+    {
+      "name": "amanhigh--vaak",
+      "source": "./amanhigh--vaak",
+      "description": "Vaak is a AI Enabled Dictation keyboard. In Punjabi Vaak Refers to Utterance or Speech."
     },
     {
       "name": "iamtouchskyer--logex",
@@ -96047,6 +96147,21 @@
       "name": "bingud--filemat",
       "source": "./bingud--filemat",
       "description": "Web-based file manager"
+    },
+    {
+      "name": "dbohdan--pago",
+      "source": "./dbohdan--pago",
+      "description": "Command-line password manager"
+    },
+    {
+      "name": "dbohdan--pago",
+      "source": "./dbohdan--pago",
+      "description": "Command-line password manager"
+    },
+    {
+      "name": "dexrobot--dexrobot-isaac",
+      "source": "./dexrobot--dexrobot-isaac",
+      "description": "Isaac Gym environments and training for DexHand"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -99019,6 +99134,16 @@
       "description": "zspec"
     },
     {
+      "name": "tiliajs--tilia",
+      "source": "./tiliajs--tilia",
+      "description": "Monorepo for tilia, Domain-Driven State Management."
+    },
+    {
+      "name": "aisystant--docs",
+      "source": "./aisystant--docs",
+      "description": "docs"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -101522,6 +101647,11 @@
       "name": "byk--fossilize",
       "source": "./byk--fossilize",
       "description": "Create Node SEA binaries across platforms with ease"
+    },
+    {
+      "name": "rkpontes--flutter-official-architecture",
+      "source": "./rkpontes--flutter-official-architecture",
+      "description": "flutter_official_architecture"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -104067,6 +104197,11 @@
       "name": "mdrideout--junjo",
       "source": "./mdrideout--junjo",
       "description": "An AI graph workflow library for building dynamic LLM driven workflows"
+    },
+    {
+      "name": "plan2net--typo3-update-check",
+      "source": "./plan2net--typo3-update-check",
+      "description": "Composer plugin to detect breaking changes and security updates during TYPO3 CMS core updates"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -146372,6 +146507,11 @@
       "name": "co-cddo--gds-idea-llmbo",
       "source": "./co-cddo--gds-idea-llmbo",
       "description": "gds-idea-llmbo"
+    },
+    {
+      "name": "thesnappingdog--gtm-context-os",
+      "source": "./thesnappingdog--gtm-context-os",
+      "description": "gtm-context-os"
     },
     {
       "name": "yschimke--compose-ai-tools",
