@@ -4,7 +4,7 @@
   "repo": "eve-fit-assistant",
   "description": "Mobile fitting utility for EVE Online\u00ae, built with Flutter",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Embers-of-the-Fire/eve-fit-assistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T20:33:14Z"
+  "distributed_at": "2026-05-28T20:39:43Z"
 }
