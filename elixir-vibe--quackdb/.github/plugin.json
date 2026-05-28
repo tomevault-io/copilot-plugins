@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--quackdb",
+  "displayName": "quackdb",
+  "description": "Experimental remote DuckDB Quack protocol client for Elixir, built on DBConnection with early Ecto support",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/quackdb",
+  "skills": []
+}
