@@ -1,0 +1,9 @@
+{
+  "name": "fastnear--js-monorepo",
+  "displayName": "js-monorepo",
+  "description": "Simple, intuitive JavaScript library for interacting with the NEAR Protocol blockchain",
+  "version": "1.0.0",
+  "author": "fastnear",
+  "homepage": "https://github.com/fastnear/js-monorepo",
+  "skills": []
+}
