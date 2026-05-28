@@ -1,0 +1,44 @@
+{
+  "name": "StoneyNakoda",
+  "owner": "HarleyCoops",
+  "repo": "StoneyNakoda",
+  "description": "A locally trained model of Stoney Nakoda has been developed and released. You can access the working model here or train your own instance. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HarleyCoops/StoneyNakoda",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T00:40:10Z"
+}
