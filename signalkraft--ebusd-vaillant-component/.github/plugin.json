@@ -1,0 +1,9 @@
+{
+  "name": "signalkraft--ebusd-vaillant-component",
+  "displayName": "ebusd-vaillant-component",
+  "description": "Home Assistant custom component for Vaillant heating devices over ebusd MQTT",
+  "version": "1.0.0",
+  "author": "signalkraft",
+  "homepage": "https://github.com/signalkraft/ebusd-vaillant-component",
+  "skills": []
+}
