@@ -1,0 +1,9 @@
+{
+  "name": "ntc-department--pinterest-downloader",
+  "displayName": "pinterest-downloader",
+  "description": "The browser extension Pinterest should have built - download great quality images without their garbage compression.",
+  "version": "1.0.0",
+  "author": "NTC-Department",
+  "homepage": "https://github.com/NTC-Department/pinterest-downloader",
+  "skills": []
+}
