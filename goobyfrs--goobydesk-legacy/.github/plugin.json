@@ -1,0 +1,9 @@
+{
+  "name": "goobyfrs--goobydesk-legacy",
+  "displayName": "GoobyDesk-Legacy",
+  "description": "Simple, Lightweight, Databaseless Service Desk for Small MSPs and Home Labbers",
+  "version": "1.0.0",
+  "author": "GoobyFRS",
+  "homepage": "https://github.com/GoobyFRS/GoobyDesk-Legacy",
+  "skills": []
+}
