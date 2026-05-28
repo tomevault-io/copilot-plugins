@@ -1,0 +1,9 @@
+{
+  "name": "daily-co--pipecat-cloud",
+  "displayName": "pipecat-cloud",
+  "description": "Deploy and scale Pipecat apps to production with Pipecat Cloud",
+  "version": "1.0.0",
+  "author": "daily-co",
+  "homepage": "https://github.com/daily-co/pipecat-cloud",
+  "skills": []
+}
