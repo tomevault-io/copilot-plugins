@@ -4,7 +4,7 @@
   "repo": "wall-e-dora",
   "description": "Dora-based control stack for a custom WALL-E robot with tracked drive, SC-series servos, camera features, diagnostics, and a mobile-first web UI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mneuhaus/wall-e-dora",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T20:38:06Z"
+  "distributed_at": "2026-05-28T20:41:53Z"
 }
