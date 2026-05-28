@@ -1,0 +1,9 @@
+{
+  "name": "openxapi--openxapi",
+  "displayName": "openxapi",
+  "description": "OpenAPI and AsyncAPI specifications for cryptocurrency exchanges and DeFi protocols",
+  "version": "1.0.0",
+  "author": "openxapi",
+  "homepage": "https://github.com/openxapi/openxapi",
+  "skills": []
+}
