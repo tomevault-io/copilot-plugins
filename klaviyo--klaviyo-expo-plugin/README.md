@@ -7,11 +7,11 @@ Expo support for our klaviyo-react-native SDK
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [klaviyo/klaviyo-expo-plugin](https://github.com/klaviyo/klaviyo-expo-plugin).
+Original source: `CLAUDE.md` in [klaviyo/klaviyo-expo-plugin](https://github.com/klaviyo/klaviyo-expo-plugin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
