@@ -1,0 +1,9 @@
+{
+  "name": "nickna--conduit",
+  "displayName": "Conduit",
+  "description": "A unified API gateway for multiple LLM providers with OpenAI-compatible endpoints",
+  "version": "1.0.0",
+  "author": "nickna",
+  "homepage": "https://github.com/nickna/Conduit",
+  "skills": []
+}
