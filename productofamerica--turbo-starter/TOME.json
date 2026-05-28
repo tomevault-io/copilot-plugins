@@ -1,0 +1,44 @@
+{
+  "name": "turbo-starter",
+  "owner": "ProductOfAmerica",
+  "repo": "turbo-starter",
+  "description": "\ud83d\ude80 Kickstart Next.js 16 projects with Turborepo, Shadcn UI, Biome.js, and Docker\u2014monorepo magic awaits!",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ProductOfAmerica/turbo-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T22:31:38Z"
+}
