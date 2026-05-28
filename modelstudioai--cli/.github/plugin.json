@@ -1,0 +1,9 @@
+{
+  "name": "modelstudioai--cli",
+  "displayName": "cli",
+  "description": "Official Aliyun Model Studio CLI built for AI Agent frameworks, exposing models, search, multimodal, and workflow capabilities as structured tool calls.",
+  "version": "1.0.0",
+  "author": "modelstudioai",
+  "homepage": "https://github.com/modelstudioai/cli",
+  "skills": []
+}
