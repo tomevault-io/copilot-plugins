@@ -1,0 +1,9 @@
+{
+  "name": "b-a-m-n--sheppard",
+  "displayName": "Sheppard",
+  "description": "Sheppard is an AI agent for Ollama, handling memory, automation, and knowledge distillation using Redis, PostgreSQL, and ChromaDB. ",
+  "version": "1.0.0",
+  "author": "B-A-M-N",
+  "homepage": "https://github.com/B-A-M-N/Sheppard",
+  "skills": []
+}
