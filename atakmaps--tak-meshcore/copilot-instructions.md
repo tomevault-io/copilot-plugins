@@ -1,0 +1,26 @@
+## signed-plugin-release-cloud
+
+> description: Deploy signed MeshCore plugin zips to GitHub and optional cloud catalog
+
+---
+description: Deploy signed MeshCore plugin zips to GitHub and optional cloud catalog
+alwaysApply: true
+---
+
+# MeshCore Signed Plugin Release Flow
+
+When the user provides a signed plugin zip path (TPC/TAK Signed) for **MeshCore**:
+
+1. Verify `main` is current and pushed on `atakmaps/TAK-MESHCORE`.
+2. Inspect the zip and extract the signed APK (`ATAK-Plugin-Meshcore-*-tpc-5.5.1-civ-release.apk`).
+3. Validate APK: `package: com.atakmaps.meshcore.plugin`, `versionCode` / `versionName` match release intent.
+4. Create/push tag `v<version>` on the release commit; create GitHub Release on **TAK-MESHCORE** with signed APK, AAB, and `MeshCore-*-ATAK-5.5.1-source.zip`.
+5. **Do not** deploy to `com.uvpro.plugin.apk` — that is UV-PRO only.
+6. If publishing to atakmaps.com: add/update a **separate** `generate_infz.py` plugin row for `com.atakmaps.meshcore.plugin` (canonical APK `com.atakmaps.meshcore.plugin.apk`), regenerate `product.infz`, mirror `5.5.1/`, verify URLs return 200.
+7. Report release URL, SHA256, and deployed catalog version (if any).
+
+Prefer explicit verification over assumptions.
+
+---
+> Source: [atakmaps/TAK-MESHCORE](https://github.com/atakmaps/TAK-MESHCORE) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
