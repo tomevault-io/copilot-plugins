@@ -4,7 +4,7 @@
   "repo": "adOmnia",
   "description": "A local-first desktop toolbox for API testing, protocol debugging, mocking, and enterprise/legacy system integration. One app, every protocol.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Andrea-Cavallo/adOmnia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T16:47:28Z"
+  "distributed_at": "2026-05-28T16:49:48Z"
 }
