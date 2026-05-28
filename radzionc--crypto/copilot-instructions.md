@@ -1,68 +1,102 @@
-## assert
+## attempt-over-try-catch
 
-> Use assertions instead of optional chaining or default values when values should exist
+> USE attempt utility WHEN handling errors INSTEAD OF try-catch blocks TO ensure consistent error handling
 
-
-# TypeScript Assertion Standards
+# Use attempt Utility Instead of try-catch
 
 ## Context
-- Use when working with values that should always be present
-- Applied in TypeScript and React files
-- Particularly important when dealing with configuration, API responses, and required object properties
+- Applies when handling errors in asynchronous or synchronous operations
+- The codebase provides a utility function [attempt.ts](mdc:lib/utils/attempt.ts) from `@lib/utils/attempt`
+- This utility provides a consistent way to handle errors with Result types
+- Eliminates the need for try-catch blocks and provides type-safe error handling
 
 ## Requirements
-- Use `shouldBePresent()` when you expect a value to exist instead of default values
-- Use `assertField()` when checking object properties instead of optional chaining
-- Throw early and explicitly with clear error messages
-- Avoid propagating invalid states that can cause subtle runtime errors
-- Don't use assertions for truly optional values or external data you don't control
+- NEVER use try-catch blocks for error handling
+- ALWAYS use the `attempt` utility from `@lib/utils/attempt`
+- Use pattern matching with 'data' in result or 'error' in result for type-safe error handling
+- Use `withFallback` when a default value is needed in case of error
+- Only use try-finally when resource cleanup is needed (e.g., closing connections)
 
 ## Examples
 
 <example>
-// Asserting required configuration
-const config = {
-  apiKey: shouldBePresent(process.env.API_KEY, 'API_KEY'),
-  baseUrl: shouldBePresent(process.env.BASE_URL, 'BASE_URL')
+// Good: Using attempt for error handling
+import { attempt } from '@lib/utils/attempt'
+
+// For synchronous functions
+const result = await attempt<Data, Error>(async () => {
+  return await fetchData()
+})
+
+if ('data' in result) {
+  // Handle success case
+  processData(result.data)
+} else {
+  // Handle error case
+  logError(result.error)
+}
+
+// Using withFallback for default values
+const data = withFallback(
+  attempt(() => parseJSON(data)),
+  defaultValue
+)
+
+// Good: Using try-finally for resource cleanup
+let resource = null
+try {
+  resource = await createResource()
+  return await attempt(() => useResource(resource))
+} finally {
+  if (resource) {
+    await resource.close()
+  }
 }
 </example>
 
 <example type="invalid">
-// Using default values for required data
-const config = {
-  apiKey: process.env.API_KEY || '',
-  baseUrl: process.env.BASE_URL ?? 'http://localhost'
+// Bad: Using try-catch for error handling
+try {
+  const data = await fetchData()
+  processData(data)
+} catch (error) {
+  logError(error)
+}
+
+// Bad: Using try-catch with type casting
+try {
+  const data = await fetchData()
+  processData(data)
+} catch (error: unknown) {
+  if (error instanceof Error) {
+    logError(error.message)
+  }
+}
+
+// Bad: Using try-catch-finally when only cleanup is needed
+try {
+  await doSomething()
+} catch (error) {
+  console.error(error)
+} finally {
+  cleanup()
+}
+
+// Instead, use:
+const result = await attempt(() => doSomething())
+cleanup()
+if ('error' in result) {
+  console.error(result.error)
 }
 </example>
 
-<example>
-// Asserting required values
-const getUserName = (user: User) => {
-  const profile = shouldBePresent(user.profile, 'user.profile')
-  return shouldBePresent(profile.name, 'user.profile.name')
-}
-</example>
-
-<example type="invalid">
-// Optional chaining when value should exist
-const getUserName = (user: User) => {
-  return user?.profile?.name || 'Anonymous'
-}
-</example>
-
-<example>
-// Asserting required field
-const getBalance = (account: Account) => {
-  return assertField(account, 'balance')
-}
-</example>
-
-<example type="invalid">
-// Using default for required field
-const getBalance = (account: Account) => {
-  return account.balance ?? 0
-}
-</example>
+## Benefits
+1. Type-safe error handling with discriminated unions
+2. Consistent error handling patterns across the codebase
+3. No need for type casting of errors
+4. Better error propagation
+5. Easier to test and maintain
+6. Eliminates common try-catch pitfalls
 
 ---
 > Source: [radzionc/crypto](https://github.com/radzionc/crypto) — distributed by [TomeVault](https://tomevault.io).
