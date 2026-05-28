@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "git-workflow",
-      "path": "skills/git-workflow",
-      "github_url": "https://github.com/Galaxy-Dawn/claude-scholar/tree/main/skills/git-workflow",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/Galaxy-Dawn/claude-scholar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T12:06:02Z"
+  "distributed_at": "2026-05-28T05:30:22Z"
 }
