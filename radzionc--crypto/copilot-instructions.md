@@ -1,34 +1,56 @@
-## imports
+## package-manager
 
-> USE relative path imports WHEN importing from state directory TO maintain consistency
+> USE specified package manager WHEN managing dependencies TO ensure consistent dependency resolution
 
 
-# State Directory Imports
+# Package Manager Selection Rules
 
 ## Context
-- When importing files from the state directory
-- Applies to all TypeScript and TypeScript React files in the project
+- Applies when installing, updating, or removing dependencies
+- Applies when running package scripts
+- Based on the project's packageManager field in package.json
+- Currently, this project uses yarn@4.7.0 as specified in package.json
+- Consistent package manager usage prevents lock file conflicts and ensures reliable dependency resolution
 
 ## Requirements
-- Always use relative path imports (not absolute paths or module aliases) when importing from the state directory
-- Path should be relative to the current file location (e.g., '../../../../state/isInitiatingDevice')
-- Do not use module aliases like '@core/mpc/state' for importing state files
+- Always use the package manager specified in the root package.json's packageManager field
+- Do not use other package managers unless the packageManager field is updated
+- Use the correct command equivalents based on the specified package manager
 
 ## Examples
 <example>
-// Good: Using relative path
-import { useIsInitiatingDevice } from '../../../../state/isInitiatingDevice'
+# If package.json specifies yarn (current configuration)
+# Installing a package
+yarn add react
+
+# Installing a dev dependency
+yarn add -D eslint
+
+# Removing a package
+yarn remove lodash
+
+# Installing all dependencies
+yarn
+
+# Running a script
+yarn build
 </example>
 
 <example type="invalid">
-// Bad: Using module alias
-import { useIsInitiatingDevice } from '@core/ui/mpc/state/isInitiatingDevice'
-</example>
+# Using npm when package.json specifies yarn
+npm install react
+npm install --save-dev eslint
+npm uninstall lodash
+npm install
+npm run build
 
-<example type="invalid">
-// Bad: Using incorrect module path
-import { useIsInitiatingDevice } from '@core/mpc/state/isInitiatingDevice'
-</example> 
+# Using pnpm when package.json specifies yarn
+pnpm add react
+pnpm add -D eslint
+pnpm remove lodash
+pnpm install
+pnpm run build
+</example>
 
 ---
 > Source: [radzionc/crypto](https://github.com/radzionc/crypto) — distributed by [TomeVault](https://tomevault.io).
