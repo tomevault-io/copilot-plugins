@@ -4,7 +4,7 @@
   "repo": "bioimage.io",
   "description": "Website for the BioImage Model zoo -- a model zoo for bioimage analysis.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bioimage-io/bioimage.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T16:32:56Z"
+  "distributed_at": "2026-05-28T16:44:32Z"
 }
