@@ -1,0 +1,9 @@
+{
+  "name": "dexrobot--dexrobot-isaac",
+  "displayName": "dexrobot_isaac",
+  "description": "Isaac Gym environments and training for DexHand",
+  "version": "1.0.0",
+  "author": "DexRobot",
+  "homepage": "https://github.com/DexRobot/dexrobot_isaac",
+  "skills": []
+}
