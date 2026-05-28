@@ -1,0 +1,9 @@
+{
+  "name": "klaviyo--klaviyo-expo-plugin",
+  "displayName": "klaviyo-expo-plugin",
+  "description": "Expo support for our klaviyo-react-native SDK",
+  "version": "1.0.0",
+  "author": "klaviyo",
+  "homepage": "https://github.com/klaviyo/klaviyo-expo-plugin",
+  "skills": []
+}
