@@ -1,0 +1,9 @@
+{
+  "name": "darrylmorley--whatport",
+  "displayName": "whatport",
+  "description": "macOS menu bar utility showing real-time USB-C port status (protocol, speed, power). Apple Silicon only.",
+  "version": "1.0.0",
+  "author": "darrylmorley",
+  "homepage": "https://github.com/darrylmorley/whatport",
+  "skills": []
+}
