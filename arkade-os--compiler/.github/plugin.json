@@ -1,0 +1,9 @@
+{
+  "name": "arkade-os--compiler",
+  "displayName": "compiler",
+  "description": "EXPERIMENTAL A high-level language that compiles to Arkade Script for building Bitcoin-native smart contracts on Arkade OS",
+  "version": "1.0.0",
+  "author": "arkade-os",
+  "homepage": "https://github.com/arkade-os/compiler",
+  "skills": []
+}
