@@ -4,7 +4,7 @@
   "repo": "3dmake",
   "description": "Non-visual 3D design and 3D printing tool",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tdeck/3dmake",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T18:37:20Z"
+  "distributed_at": "2026-05-28T18:37:54Z"
 }
