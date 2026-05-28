@@ -4,7 +4,7 @@
   "repo": "MoonMind",
   "description": "Run Claude Code and Codex with superior safety, resiliency, and observability.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MoonLadderStudios/MoonMind",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T18:33:23Z"
+  "distributed_at": "2026-05-28T18:33:53Z"
 }
