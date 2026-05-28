@@ -1,0 +1,9 @@
+{
+  "name": "aicayzer--companies-house-mcp",
+  "displayName": "companies-house-mcp",
+  "description": "CLI and MCP server for the UK Companies House API \u2014 company search, profiles, officers, filings, ownership, and due diligence",
+  "version": "1.0.0",
+  "author": "aicayzer",
+  "homepage": "https://github.com/aicayzer/companies-house-mcp",
+  "skills": []
+}
