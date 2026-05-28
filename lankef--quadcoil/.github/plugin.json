@@ -1,0 +1,9 @@
+{
+  "name": "lankef--quadcoil",
+  "displayName": "quadcoil",
+  "description": "A differentiable, flexible stellarator coil proxy",
+  "version": "1.0.0",
+  "author": "lankef",
+  "homepage": "https://github.com/lankef/quadcoil",
+  "skills": []
+}
