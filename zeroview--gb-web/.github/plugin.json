@@ -1,0 +1,9 @@
+{
+  "name": "zeroview--gb-web",
+  "displayName": "gb-web",
+  "description": "Modern and easy-to-use web-based Game Boy emulator",
+  "version": "1.0.0",
+  "author": "zeroview",
+  "homepage": "https://github.com/zeroview/gb-web",
+  "skills": []
+}
