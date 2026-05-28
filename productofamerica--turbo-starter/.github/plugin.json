@@ -1,0 +1,9 @@
+{
+  "name": "productofamerica--turbo-starter",
+  "displayName": "turbo-starter",
+  "description": "\ud83d\ude80 Kickstart Next.js 16 projects with Turborepo, Shadcn UI, Biome.js, and Docker\u2014monorepo magic awaits!",
+  "version": "1.0.0",
+  "author": "ProductOfAmerica",
+  "homepage": "https://github.com/ProductOfAmerica/turbo-starter",
+  "skills": []
+}
