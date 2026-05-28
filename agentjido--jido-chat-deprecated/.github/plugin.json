@@ -1,0 +1,9 @@
+{
+  "name": "agentjido--jido-chat-deprecated",
+  "displayName": "jido_chat_deprecated",
+  "description": "[DEPRECATED] Use jido_messaging",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido_chat_deprecated",
+  "skills": []
+}
