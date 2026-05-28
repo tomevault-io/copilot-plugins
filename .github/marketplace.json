@@ -109564,6 +109564,11 @@
       "description": "Launch your design and artisanal garment marketplace with e-commerce, pre-production and operations management without writing a single line of code."
     },
     {
+      "name": "stagas--hallucinate",
+      "source": "./stagas--hallucinate",
+      "description": "hallucinate"
+    },
+    {
       "name": "skenetechnologies--plg-skills",
       "source": "./skenetechnologies--plg-skills",
       "description": "plg-skills"
@@ -138439,6 +138444,11 @@
       "description": "A high-performance, memory-efficient library of collections designed for game development, simulations, and other performance-critical applications."
     },
     {
+      "name": "onlyterp--prompt-cache-skills",
+      "source": "./onlyterp--prompt-cache-skills",
+      "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches."
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -145592,6 +145602,11 @@
       "name": "fastnear--js-monorepo",
       "source": "./fastnear--js-monorepo",
       "description": "Simple, intuitive JavaScript library for interacting with the NEAR Protocol blockchain"
+    },
+    {
+      "name": "coleam00--harness-engineering-demo",
+      "source": "./coleam00--harness-engineering-demo",
+      "description": "harness-engineering-demo"
     },
     {
       "name": "yschimke--compose-ai-tools",
