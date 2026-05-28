@@ -1,14 +1,34 @@
-## comment-style
+## react-error-handling
 
-> - Keep comments minimal and directly relevant to the current code.
+> For components that use async operations (like WebRTC connections), always use `react-error-boundary` instead of custom class-based error boundaries.
 
 
-# Comment Style Guidelines
+# React Error Handling Patterns
 
-- Keep comments minimal and directly relevant to the current code.
-- Avoid any explanations/referencing of before/after changes or refactor history.
-- Prefer brief one-line doc comments for public APIs and important logic.
-- Remove superfluous comments when refactoring to maintain clarity.
+## Error Boundaries with react-error-boundary
+
+For components that use async operations (like WebRTC connections), always use `react-error-boundary` instead of custom class-based error boundaries.
+
+## Hook Rules Compliance
+
+Never violate React's Rules of Hooks by calling hooks conditionally in try-catch blocks:
+
+```tsx
+// ❌ Wrong - Violates Rules of Hooks
+const MyComponent = () => {
+  try {
+    const data = useAsyncData();
+  } catch (err) {
+    useEffect(() => onError(), []); // Conditional hook call!
+  }
+};
+
+// ✅ Correct - Let ErrorBoundary catch errors
+const MyComponent = () => {
+  const data = useAsyncData(); // Let this throw, ErrorBoundary will catch
+  return <div>{data}</div>;
+};
+```
 
 ---
 > Source: [Schibum/camNC](https://github.com/Schibum/camNC) — distributed by [TomeVault](https://tomevault.io).
