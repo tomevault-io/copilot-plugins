@@ -1,0 +1,9 @@
+{
+  "name": "compartmentdev--compartment",
+  "displayName": "compartment",
+  "description": "Compartment is a self-hosted application deployment system for teams that want to ship and share internal, private, or public web apps without building their own platform stack.",
+  "version": "1.0.0",
+  "author": "compartmentdev",
+  "homepage": "https://github.com/compartmentdev/compartment",
+  "skills": []
+}
