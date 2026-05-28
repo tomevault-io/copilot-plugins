@@ -1,338 +1,303 @@
-## development-conventions
+## hyperfix-kanban
 
-> Development conventions, code style, and best practices for the HyperFix project
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Development Conventions
+# CLAUDE.md
 
-This document outlines coding standards, conventions, and best practices for the HyperFix project.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+HyperFix is a self-hosted project management platform built with simplicity and performance as core principles. The codebase is organized as a **pnpm monorepo** with TurboRepo.
+
+**Key Philosophy**: Features exist to solve real problems, not to impress. Avoid over-engineering - keep solutions simple and focused. Don't add features, refactoring, or improvements beyond what was asked.
+
+## Development Commands
+
+### Getting Started
+```bash
+# Install dependencies (uses pnpm)
+pnpm install
+
+# Start all development servers (API + web)
+pnpm dev
+
+# Lint and auto-fix code (Biome)
+pnpm lint
+
+# Build all packages
+pnpm build
+```
+
+### API-Specific Commands
+```bash
+# Run API in development mode
+pnpm --filter @hyperfix/api dev
+
+# Build API
+pnpm --filter @hyperfix/api build
+
+# Generate database migrations (after schema changes)
+pnpm --filter @hyperfix/api db:generate
+
+# Run database migrations (auto-runs on API startup)
+pnpm --filter @hyperfix/api db:migrate
+
+# Open Drizzle Studio (database GUI)
+pnpm --filter @hyperfix/api db:studio
+
+# Lint API code
+pnpm --filter @hyperfix/api lint
+```
+
+### Web-Specific Commands
+```bash
+# Run web app in development mode
+pnpm --filter @hyperfix/web dev
+
+# Build web app for production
+pnpm --filter @hyperfix/web build
+
+# Preview production build
+pnpm --filter @hyperfix/web preview
+
+# Lint web code
+pnpm --filter @hyperfix/web lint
+```
+
+## Architecture Overview
+
+### Monorepo Structure
+```
+hyperfix/
+├── apps/
+│   ├── api/          # Backend API (Hono/Node.js/PostgreSQL)
+│   ├── web/          # Frontend app (React/Vite/TanStack)
+│   └── docs/         # Documentation site (Next.js)
+├── packages/
+│   ├── email/        # Email utilities
+│   ├── libs/         # Shared libraries
+│   └── typescript-config/  # TypeScript configurations
+└── charts/           # Kubernetes Helm charts
+```
+
+### Technology Stack
+
+**Backend (API)**
+- Framework: Hono (lightweight web framework)
+- Database: PostgreSQL with Drizzle ORM
+- Authentication: Better Auth
+- Validation: Valibot (Zod is also present, used by Better Auth and some schemas)
+- API Documentation: OpenAPI (hono-openapi)
+- IDs: CUID2 (via @paralleldrive/cuid2)
+
+**Frontend (Web)**
+- Framework: React 19+
+- Routing: TanStack Router (file-based)
+- Data Fetching: TanStack Query (React Query)
+- Build Tool: Vite
+- Styling: Tailwind CSS v4
+- State Management: Zustand
+- UI Components: Radix UI primitives
+
+### Key Architectural Patterns
+
+**Backend API Structure**
+- Routes organized by feature in `apps/api/src/{feature}/`
+- Controller pattern: business logic extracted to `{feature}/controllers/`
+- All routes use OpenAPI decorators (`describeRoute`)
+- All inputs validated with Valibot schemas
+- Migrations auto-run on API startup
+
+**Frontend Structure**
+- File-based routing in `apps/web/src/routes/`
+- Query hooks in `apps/web/src/hooks/queries/`
+- Mutation hooks in `apps/web/src/hooks/mutations/`
+- API fetchers in `apps/web/src/fetchers/{feature}/`
+- Components in `apps/web/src/components/`
+
+**Database Schema Conventions**
+- All tables use CUID2 for primary keys (`createId()`)
+- Every table has `createdAt` and `updatedAt` timestamps
+- Foreign keys always specify cascade behavior (`onDelete`, `onUpdate`)
+- Indexes on frequently queried columns (especially foreign keys)
+- Schema defined in `apps/api/src/database/schema.ts`
+- Relations defined in `apps/api/src/database/relations.ts`
+
+**Authentication Flow**
+- Better Auth handles authentication
+- User context available in Hono via `c.get("userId")`, `c.get("user")`, `c.get("session")`
+- API keys supported via Bearer token
+- Frontend uses Better Auth client from `@/lib/auth-client`
+
+**Event System**
+- Events published for activity tracking
+- Use `publishEvent()` from `apps/api/src/events/`
+- Events tracked for features like status changes, assignments, etc.
 
 ## Code Style
 
-### Biome Configuration
-
-HyperFix uses **Biome** for linting and formatting. Configuration is in `biome.json`.
-
-#### Formatting Rules
-
-- **Indentation**: Tabs (not spaces) for TypeScript/TSX
-- **JavaScript**: Spaces for indentation (legacy support)
-- **Quote Style**: Double quotes (`"`)
+### Formatting (Biome)
+- **Indentation**: Spaces for JavaScript/TypeScript/TSX (tabs for other file types)
+- **Quotes**: Double quotes
 - **Semicolons**: Required
+- **Ignored files**: CSS and `package.json` files are excluded from Biome linting/formatting
+- Run `pnpm lint` to auto-fix
 
-```typescript
-// Good: Tabs, double quotes, semicolons
-function example() {
-	const value = "hello";
-	return value;
-}
+### TypeScript Conventions
+- Prefer `type` over `interface` (only use interface when extending/merging)
+- Prefer type inference when obvious
+- File naming: PascalCase for components, kebab-case for utilities/hooks
+- Hooks use `use` prefix: `use-task.ts`
 
-// Bad: Spaces, single quotes, no semicolons
-function example() {
-  const value = 'hello'
-  return value
-}
-```
-
-#### Linting Rules
-
-Key Biome rules enabled:
-
-- `noParameterAssign`: Don't reassign function parameters
-- `useAsConstAssertion`: Use `as const` for literal types
-- `useDefaultParameterLast`: Default parameters must be last
-- `useSelfClosingElements`: Use self-closing JSX elements
-- `useSingleVarDeclarator`: One variable per declaration
-- `noInferrableTypes`: Don't add explicit types that can be inferred
-
-```typescript
-// Good: Follows Biome rules
-const items = ["a", "b"] as const;
-function greet(name: string, greeting = "Hello") {
-	return `${greeting}, ${name}`;
-}
-const x = 1;
-const y = 2;
-
-// Bad: Violates Biome rules
-const items: string[] = ["a", "b"];
-function greet(greeting = "Hello", name: string) {
-	return `${greeting}, ${name}`;
-}
-const x = 1, y = 2;
-```
-
-### Running Linter
-
-```bash
-# Check and auto-fix
-pnpm lint
-
-# Check only (no fixes)
-pnpm biome check .
-```
-
-## TypeScript Conventions
-
-### Type Definitions
-
-- **Types**: Prefer types for all type definitions (object shapes, unions, intersections, computed types)
-- **Interfaces**: Only use interfaces when extending/merging is needed (rare)
-- **Inference**: Prefer type inference when types are obvious
-
-```typescript
-// Good: Type for object shape
-type Task = {
-	id: string;
-	title: string;
-	status: string;
-};
-
-// Good: Type for union
-type Status = "to-do" | "in-progress" | "done";
-
-// Good: Type inference
-const tasks: Task[] = []; // Explicit for arrays
-const count = tasks.length; // Inferred
-```
-
-### File Naming
-
-- **Components**: PascalCase: `TaskCard.tsx`
-- **Utilities**: kebab-case: `format-date.ts`
-- **Hooks**: camelCase with `use` prefix: `use-task.ts`
-- **Types**: kebab-case: `task-types.ts`
-
-```
-components/
-├── TaskCard.tsx          # Component
-├── task-card.tsx         # Also acceptable
-└── utils/
-    └── format-date.ts   # Utility function
-```
-
-## Git Conventions
-
-### Commit Messages
-
-Use [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<type>: <description>
-
-[optional body]
-
-[optional footer]
-```
-
-#### Commit Types
-
-- `feat:` - New features
-- `fix:` - Bug fixes
-- `docs:` - Documentation changes
-- `refactor:` - Code refactoring (no feature/fix)
-- `test:` - Adding or updating tests
-- `chore:` - Maintenance tasks (deps, config, etc.)
-- `style:` - Code style changes (formatting, etc.)
-
-#### Examples
-
-```bash
-feat: add bulk task operations
-fix: resolve calendar date selection bug
-docs: update deployment guide
-refactor: simplify task controller logic
-chore: update dependencies
-```
-
-### Branch Naming
-
-Use descriptive branch names with prefixes:
-
-- `feat/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation
-- `refactor/` - Refactoring
-- `chore/` - Maintenance
-
-```bash
-feat/bulk-task-operations
-fix/calendar-date-bug
-docs/update-deployment-guide
-```
-
-## Import Organization
-
-Biome automatically organizes imports. Follow these patterns:
-
-### Import Order
-
+### Import Organization
 1. External packages
 2. Internal packages (`@/` aliases)
 3. Relative imports
+Biome auto-organizes imports.
 
+### Git Commits
+Use Conventional Commits:
+- `feat:` - New features
+- `fix:` - Bug fixes
+- `docs:` - Documentation
+- `refactor:` - Code refactoring
+- `chore:` - Maintenance tasks
+
+Husky enforces commit message format via commitlint.
+
+### Pre-commit Hooks
+The pre-commit hook (`.husky/pre-commit`) runs two checks:
+1. `biome ci .` — linting and formatting validation
+2. `pnpm run build` — full monorepo build
+
+Commits will be slow due to the build step. Ensure code compiles before committing.
+
+## Environment Configuration
+
+**Single `.env` file** in project root shared by all apps.
+
+Required variables:
+- `KANEO_CLIENT_URL` - Web app URL (e.g., http://localhost:5173)
+- `KANEO_API_URL` - API URL (e.g., http://localhost:1337)
+- `AUTH_SECRET` - JWT secret (min 32 chars)
+- `DATABASE_URL` - PostgreSQL connection string
+- `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`
+
+Optional:
+- `CORS_ORIGINS` - Comma-separated allowed origins (empty = allow all in dev)
+- `VITE_API_URL` - API URL for web dev (defaults to http://localhost:1337)
+- `REDIS_URL` - Redis connection string for multi-instance WebSocket broadcasts via Pub/Sub (omit for single-instance in-memory mode)
+- SSO providers (GitHub, Google, Discord, Custom OAuth/OIDC)
+- SMTP configuration
+
+See `ENVIRONMENT_SETUP.md` for detailed configuration and troubleshooting.
+
+## Development Workflow
+
+### When Making Changes
+
+1. **Read before modifying**: Never propose changes to code you haven't read
+2. **Use existing patterns**: Follow the established controller/fetcher/hook patterns
+3. **Avoid over-engineering**: Don't add features beyond what's requested
+4. **Type safety**: Let TypeScript guide you - all APIs are fully typed
+5. **Validate inputs**: Always use Valibot schemas for API inputs
+6. **Error handling**: Backend uses HTTPException, frontend uses toast notifications
+
+### Database Changes
+
+1. Modify schema in `apps/api/src/database/schema.ts`
+2. Generate migration: `pnpm --filter @hyperfix/api db:generate`
+3. Migration auto-runs on next API startup
+4. Always use CUID2 for IDs, include timestamps, specify cascade behavior
+
+### Adding API Endpoints
+
+1. Create controller in `apps/api/src/{feature}/controllers/`
+2. Add route in `apps/api/src/{feature}/index.ts`
+3. Use `describeRoute` for OpenAPI docs
+4. Use `validator` with Valibot schema
+5. Keep route handler thin - business logic in controller
+
+### Adding Frontend Features
+
+1. Create fetcher in `apps/web/src/fetchers/{feature}/`
+2. Create query/mutation hook in `apps/web/src/hooks/`
+3. Use TanStack Query for caching
+4. Handle loading/error states properly
+5. Use toast notifications (sonner) for user feedback
+
+## Important Notes
+
+- **Package Manager**: This project uses **pnpm** (pinned to `10.32.1` via `packageManager` field), not npm or yarn. Requires Node `>=18`
+- **Migrations**: Auto-run on API startup, stored in `apps/api/drizzle/`
+- **Development Ports**: API runs on 1337, web runs on 5173
+- **Hot Reload**: Both API and web have watch mode via `pnpm dev`
+- **CORS**: Configured in API index.ts, controlled by `CORS_ORIGINS` env var
+- **Testing**: Run `pnpm test` at the repo root (Turbo runs `test` in packages that define it: API unit tests, web unit/component tests, shared packages). API integration tests: `pnpm test:integration` (requires PostgreSQL; env is set in `tests/api-integration/setup.ts`; CI uses `.github/workflows/ci.yml`). Vitest configs: `apps/api/vitest.config.ts` (unit), `apps/api/vitest.integration.config.ts` (integration), `apps/web/vitest.config.ts` (web). Integration tests live under `tests/api-integration/`; API unit tests under `tests/api/`.
+- **Security**: Never commit secrets, always validate inputs, sanitize outputs
+
+## Common Patterns
+
+### Backend Route Example
 ```typescript
-// Good: Organized imports
-import { useState } from "react";
+// apps/api/src/{feature}/index.ts
+import { Hono } from "hono";
+import { describeRoute, validator } from "hono-openapi";
+import * as v from "valibot";
+import getItem from "./controllers/get-item";
+
+const feature = new Hono<{ Variables: { userId: string } }>()
+  .get("/:id",
+    describeRoute({
+      operationId: "getItem",
+      tags: ["Feature"],
+      description: "Get item by ID"
+    }),
+    validator("param", v.object({ id: v.string() })),
+    async (c) => {
+      const { id } = c.req.valid("param");
+      const item = await getItem(id);
+      return c.json(item);
+    }
+  );
+```
+
+### Frontend Query Hook Example
+```typescript
+// apps/web/src/hooks/queries/{feature}/use-item.ts
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { TaskCard } from "./task-card";
-```
+import { getItem } from "@/fetchers/{feature}/get-item";
 
-### Import Style
-
-- Use named imports when possible
-- Group related imports
-- Remove unused imports (Biome does this automatically)
-
-```typescript
-// Good: Named imports
-import { useState, useEffect } from "react";
-import { Button, Input } from "@/components/ui";
-
-// Avoid: Default imports when named available
-import React from "react"; // Prefer named imports
-```
-
-## File Structure
-
-### Component Files
-
-```typescript
-// 1. Imports (external, then internal)
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-
-// 2. Types
-type ComponentProps = {
-	title: string;
-};
-
-// 3. Component
-export function Component({ title }: ComponentProps) {
-	// Implementation
-}
-
-// 4. Exports (if needed)
-export default Component;
-```
-
-### API Controller Files
-
-```typescript
-// 1. Imports
-import db from "../../database";
-import { taskTable } from "../../database/schema";
-
-// 2. Function
-export default async function getTask(id: string) {
-	// Implementation
+export function useItem(itemId: string) {
+  return useQuery({
+    queryKey: ["item", itemId],
+    queryFn: () => getItem(itemId),
+  });
 }
 ```
 
-## Error Handling
-
-### Backend
-
-Use Hono's HTTPException:
-
+### Database Schema Example
 ```typescript
-import { HTTPException } from "hono/http-exception";
-
-if (!task) {
-	throw new HTTPException(404, { message: "Task not found" });
-}
+// apps/api/src/database/schema.ts
+export const exampleTable = pgTable("example", {
+  id: text("id").$defaultFn(() => createId()).primaryKey(),
+  projectId: text("project_id")
+    .notNull()
+    .references(() => projectTable.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  title: text("title").notNull(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "date" })
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+}, (table) => [
+  index("example_projectId_idx").on(table.projectId),
+]);
 ```
-
-### Frontend
-
-Use try-catch with user-friendly messages:
-
-```typescript
-import { toast } from "sonner";
-
-try {
-	await updateTask(taskId, data);
-	toast.success("Task updated");
-} catch (error) {
-	toast.error(
-		error instanceof Error ? error.message : "Failed to update task",
-	);
-}
-```
-
-## Testing
-
-### Test Structure
-
-```typescript
-describe("Feature", () => {
-	it("should do something", () => {
-		// Arrange
-		const input = "test";
-
-		// Act
-		const result = functionUnderTest(input);
-
-		// Assert
-		expect(result).toBe("expected");
-	});
-});
-```
-
-## Documentation
-
-### Code Comments
-
-- **Why, not what**: Explain reasoning, not obvious code
-- **Complex logic**: Comment complex algorithms or business rules
-- **TODOs**: Use `// TODO: description` for future work
-
-```typescript
-// Good: Explains why
-// Use CUID2 instead of UUID for better database performance
-const id = createId();
-
-// Bad: States the obvious
-// Create an ID
-const id = createId();
-```
-
-### README Files
-
-- Keep README files updated
-- Include setup instructions
-- Document environment variables
-- Provide examples
-
-## Environment Variables
-
-- **Single `.env` file**: All variables in project root
-- **Documentation**: Document all variables in `ENVIRONMENT_SETUP.md`
-- **Never commit**: `.env` files are gitignored
-- **Defaults**: Provide sensible defaults in code when possible
-
-## Performance
-
-### Backend
-
-- Use database indexes for frequently queried columns
-- Limit query results with pagination
-- Use transactions for multi-step operations
-
-### Frontend
-
-- Use React Query for caching and data fetching
-- Implement proper loading states
-- Lazy load routes when possible
-- Optimize images and assets
-
-## Security
-
-- **Never commit secrets**: Use environment variables
-- **Validate inputs**: Always validate user input (Valibot on backend)
-- **Sanitize outputs**: Sanitize data before rendering
-- **Authentication**: Always check authentication in protected routes
-- **Authorization**: Verify user permissions before operations
 
 ---
 > Source: [SamalehZen/HyperFix-Kanban](https://github.com/SamalehZen/HyperFix-Kanban) — distributed by [TomeVault](https://tomevault.io).
