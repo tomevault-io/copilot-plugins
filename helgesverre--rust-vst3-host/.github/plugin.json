@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--rust-vst3-host",
+  "displayName": "rust-vst3-host",
+  "description": "rust-vst3-host",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/rust-vst3-host",
+  "skills": []
+}
