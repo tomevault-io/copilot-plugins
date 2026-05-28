@@ -1,0 +1,9 @@
+{
+  "name": "plan2net--typo3-update-check",
+  "displayName": "typo3-update-check",
+  "description": "Composer plugin to detect breaking changes and security updates during TYPO3 CMS core updates",
+  "version": "1.0.0",
+  "author": "plan2net",
+  "homepage": "https://github.com/plan2net/typo3-update-check",
+  "skills": []
+}
