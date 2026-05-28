@@ -1,0 +1,9 @@
+{
+  "name": "monadical-sas--cubbi",
+  "displayName": "cubbi",
+  "description": "Monadical container CLI tool for running sandboxed MCP clients & servers",
+  "version": "1.0.0",
+  "author": "Monadical-SAS",
+  "homepage": "https://github.com/Monadical-SAS/cubbi",
+  "skills": []
+}
