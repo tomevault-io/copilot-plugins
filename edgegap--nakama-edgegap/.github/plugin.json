@@ -1,0 +1,9 @@
+{
+  "name": "edgegap--nakama-edgegap",
+  "displayName": "nakama-edgegap",
+  "description": "Edgegap's integration for Nakama using the Fleet Manager",
+  "version": "1.0.0",
+  "author": "edgegap",
+  "homepage": "https://github.com/edgegap/nakama-edgegap",
+  "skills": []
+}
