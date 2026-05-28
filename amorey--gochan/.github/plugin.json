@@ -1,0 +1,9 @@
+{
+  "name": "amorey--gochan",
+  "displayName": "gochan",
+  "description": "A small library of common channel architectures for Go, inspired by Rust",
+  "version": "1.0.0",
+  "author": "amorey",
+  "homepage": "https://github.com/amorey/gochan",
+  "skills": []
+}
