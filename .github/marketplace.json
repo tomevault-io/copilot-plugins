@@ -106704,6 +106704,11 @@
       "description": "A opnionated Multi-agent Framework."
     },
     {
+      "name": "justingrammens--osn-2026",
+      "source": "./justingrammens--osn-2026",
+      "description": "Spec First, Agents Second: Engineering AI Systems with Discipline. Slides and code from the Open Source North 2026 Conference."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -133462,6 +133467,11 @@
       "name": "bernhardpollerspoeck--plusui",
       "source": "./bernhardpollerspoeck--plusui",
       "description": "PlusUi"
+    },
+    {
+      "name": "kezuflow--openstat",
+      "source": "./kezuflow--openstat",
+      "description": "openstat"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
