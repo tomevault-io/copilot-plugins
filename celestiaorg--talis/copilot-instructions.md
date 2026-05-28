@@ -1,104 +1,229 @@
-## base
+## file-structure
 
-> base rules for the repo
+> Rules to govern how file contents is organized.
 
+ # Go File Structure Rules
 
-# Your rule content
+This document outlines the standard file structure for Go files in this project.
 
-## Code Style & Conventions
+## General Ordering
 
-- Follow Go standard naming conventions
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Keep functions focused and small
-- Use proper error handling
-- Implement proper logging
-- Follow clean architecture principles
+Files should be organized in the following order:
 
-## Documentation Requirements
+1. Package declaration and imports
+2. Constants (exported then unexported, alphabetized within each group)
+3. Variables (exported then unexported, alphabetized within each group)
+4. Interface-based groupings (alphabetized by interface name)
+5. Struct-based groupings (for structs not implementing interfaces, alphabetized by struct name)
+6. Standalone functions (exported then unexported, alphabetized)
 
-- Every package must have a package comment
-- Public functions must be documented
-- Complex algorithms need detailed explanations
-- Include examples for non-obvious usage
-- Document error cases and handling
-- Keep comments up to date with code changes
+## Interface-Based Grouping
 
-## Testing Guidelines
+For each interface, group all related components in the following order:
 
-- Write unit tests for all public functions
-- Include integration tests for critical paths
-- Test error cases and edge conditions
-- Use table-driven tests when appropriate
-- Mock external dependencies
-- Maintain test coverage above 80%
+1. Interface definition
+2. Structs that implement the interface (alphabetized)
+3. Methods of those structs that implement the interface:
+   - For each method in the interface:
+     - Exported implementation method
+     - Corresponding unexported helper methods (if any)
+4. Additional methods of those structs (not part of the interface):
+   - Exported methods (alphabetized)
+   - Unexported methods (alphabetized)
+5. Functions related to the interface (alphabetized)
 
-## Infrastructure Rules
+Example:
+```go
+// Interface definition
+type MyInterface interface {
+    DoSomething()
+    ProcessData()
+}
 
-- Use the provider's API or client libraries
-- Document all environment variables
-- Keep sensitive data in environment variables
-- Use proper logging and monitoring
-- Implement proper error handling
-- Follow security best practices
+// Struct implementing the interface
+type MyImplementation struct {
+    // fields
+}
 
-## API Design
+// Methods implementing the interface
+func (m *MyImplementation) DoSomething() {
+    // implementation
+    m.doSomethingHelper()
+}
 
-- Use RESTful conventions
-- Implement proper validation
-- Use consistent error responses
-- Document all endpoints
-- Version the API appropriately
-- Use proper HTTP methods and status codes
+// Unexported helper for DoSomething
+func (m *MyImplementation) doSomethingHelper() {
+    // implementation
+}
 
-## Database
+func (m *MyImplementation) ProcessData() {
+    // implementation
+}
 
-- Use Gorm for schema migrations
-- Document database schema
-- Use proper indexes
-- Implement proper error handling
-- Follow naming conventions
-- Use transactions when appropriate
+// Additional methods (exported first, then unexported)
+func (m *MyImplementation) AdditionalExportedMethod() {
+    // implementation
+}
 
-## Git Workflow
+func (m *MyImplementation) anotherUnexportedMethod() {
+    // implementation
+}
 
-- Use meaningful commit messages
-- Follow conventional commits
-- Keep PRs focused and small
-- Include tests with changes
-- Update documentation
-- Review code before merging
+// Functions related to this interface
+func NewMyImplementation() *MyImplementation {
+    // implementation
+}
+```
 
-## AI Assistant Configuration
+## Struct-Based Grouping
 
-### Code Generation
-- Explain plan of action and get confirmation before executing
-- Generate code following project structure
-- Include proper error handling
-- Add necessary comments
-- Follow naming conventions
-- Include tests
+After all interface-based groups, for each remaining struct (those not implementing any interface), group in the following order:
 
-### Code Review
-- Check for common issues
-- Verify error handling
-- Ensure proper logging
-- Check documentation
-- Verify test coverage
+1. Struct definition
+2. Methods of the struct:
+   - Exported methods (alphabetized)
+   - For each exported method, any corresponding unexported helper methods
+   - Remaining unexported methods (alphabetized)
+3. Functions related to the struct (alphabetized)
 
-### Documentation
-- Generate clear and concise docs
-- Include examples
-- Keep docs up to date
-- Follow markdown conventions
-- Include necessary details
+This approach mirrors the interface-based grouping pattern but applies to structs that don't implement interfaces.
 
-### Problem Solving
-- Understand the context
-- Consider edge cases
-- Propose multiple solutions
-- Explain trade-offs
-- Include examples 
+## Method Pairing
+
+When an exported method has a corresponding unexported helper method (often with a similar name), keep them together:
+
+```go
+// Exported method
+func (s *SomeStruct) DoThing() {
+    // implementation that calls helper
+    s.doThingHelper()
+}
+
+// Unexported helper method - placed immediately after its exported counterpart
+func (s *SomeStruct) doThingHelper() {
+    // implementation details
+}
+
+// Next exported method
+func (s *SomeStruct) OtherFunction() {
+    // implementation
+}
+```
+
+## Alphabetical Ordering
+
+Within each category (interfaces, structs, methods, functions), items should be alphabetically ordered unless:
+1. There's a clear logical ordering that makes more sense
+2. Methods are paired (exported with their unexported helpers)
+3. Methods implement interface methods (these should follow the interface's method order)
+
+## Example Structure
+
+```go
+package example
+
+import (
+    // imports
+)
+
+// Constants - exported first, then unexported, both alphabetized
+const (
+    ExportedConstantA = "value"
+    ExportedConstantB = "value"
+    
+    unexportedConstantA = "value"
+    unexportedConstantB = "value"
+)
+
+// Variables - exported first, then unexported, both alphabetized
+var (
+    ExportedVariableA = "value"
+    ExportedVariableB = "value"
+    
+    unexportedVariableA = "value"
+    unexportedVariableB = "value"
+)
+
+// Interface 1 and its implementations
+type Interface1 interface {
+    Method1()
+    Method2()
+}
+
+type Interface1Implementation struct {
+    // fields
+}
+
+func (i *Interface1Implementation) Method1() {
+    // implementation
+    i.method1Helper()
+}
+
+func (i *Interface1Implementation) method1Helper() {
+    // implementation
+}
+
+func (i *Interface1Implementation) Method2() {
+    // implementation
+}
+
+// Additional methods for Interface1Implementation
+func (i *Interface1Implementation) ExtraMethod() {
+    // implementation
+}
+
+func (i *Interface1Implementation) unexportedMethod() {
+    // implementation
+}
+
+func NewInterface1Implementation() *Interface1Implementation {
+    // implementation
+}
+
+// Interface 2 and its implementations
+type Interface2 interface {
+    Method3()
+}
+
+// ... and so on
+
+// Remaining structs (not implementing interfaces)
+type StandaloneStruct struct {
+    // fields
+}
+
+func (s *StandaloneStruct) ExportedMethod() {
+    // implementation
+    s.exportedMethodHelper()
+}
+
+func (s *StandaloneStruct) exportedMethodHelper() {
+    // implementation
+}
+
+func (s *StandaloneStruct) OtherExportedMethod() {
+    // implementation
+}
+
+func (s *StandaloneStruct) unexportedMethod() {
+    // implementation
+}
+
+func NewStandaloneStruct() *StandaloneStruct {
+    // implementation
+}
+
+// Standalone functions
+func StandaloneFunctionA() {
+    // implementation
+}
+
+func StandaloneFunctionB() {
+    // implementation
+}
+```
+
+This structure ensures that related components are grouped together, making the code more navigable and maintainable, while the consistent alphabetization makes it easier to find specific items.
 
 ---
 > Source: [celestiaorg/talis](https://github.com/celestiaorg/talis) — distributed by [TomeVault](https://tomevault.io).
