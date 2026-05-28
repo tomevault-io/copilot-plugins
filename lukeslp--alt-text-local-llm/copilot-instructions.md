@@ -1,45 +1,33 @@
-## mentor
+## obedience
 
-> At the end of every major edit performed
+> Every time you are editing files
 
-<– Debugging Assistance and Console Commands –>
+<-- Obedience -->
+# Guidelines for Reviewing and Replacing Code Snippets
 
-Guidelines for Debugging Assistance and Console Command Suggestions
+When reviewing a snippet file or replacing one implementation with another from an example, follow these guidelines to ensure **full file context** is taken into account and that the **correct, functional implementation** is used:
 
-When analyzing code for errors or inefficiencies, follow these guidelines to provide relevant debugging prompts and useful console command suggestions to improve the debugging process.
+## 1. Review Full Files
+- **Thoroughly review** the entire file(s) provided rather than relying solely on isolated snippets.
+- Identify all **relevant sections** and understand the overall context of the code or project plan.
 
-1. Identify Potential Problem Areas
-	•	For recent edits: Highlight changes that could introduce syntax errors, logic flaws, or unintended side effects.
-	•	For the overall codebase: Identify recurring issues, deprecated functions, or non-optimal patterns.
-	•	Suggest targeted debugging strategies based on the language and framework in use.
+## 2. Identify the Correct Sections
+- **Accurately determine** which part of the file needs to be replaced.
+- Ensure you are targeting the **precise location** in the target file that requires updating.
 
-2. Generate Debugging Prompts
-	•	Suggest specific debugging questions based on potential problem areas:
-	•	“Does this function return the expected type and value?”
-	•	“Are all variables properly initialized before use?”
-	•	“Could this loop cause infinite execution or off-by-one errors?”
-	•	“Is this import/module dependency correctly resolved?”
-	•	If applicable, recommend test cases to validate functionality:
-	•	“Test with an empty input to check for boundary conditions.”
-	•	“Try an unexpected type or value to trigger potential edge cases.”
+## 3. Use the Provided Example Accurately
+- When replacing a **non-functional implementation**, **verify** that you are copying the **correct and complete** implementation from the example file.
+- Avoid **reintroducing outdated or incorrect versions**.
 
-3. Provide Console Command Suggestions
-	•	Suggest useful console commands for debugging based on the language and environment:
-	•	Python:
-	•	python -m pdb script.py – Run the script with an interactive debugger.
-	•	pytest -q --tb=short – Run tests with concise traceback output.
-	•	JavaScript/Node.js:
-	•	node --inspect script.js – Run with the Chrome DevTools debugger.
-	•	console.log(JSON.stringify(obj, null, 2)) – Pretty-print objects for inspection.
-	•	Git:
-	•	git diff HEAD – View recent changes before debugging.
-	•	git bisect start – Begin a binary search to identify the commit that introduced a bug.
+## 4. Maintain Context and Integrity
+- Ensure that the **updated version integrates seamlessly** with the rest of the file.
+- **Do not remove or alter unrelated content** unless necessary for correct integration.
 
-4. Avoid Overloading with Suggestions
-	•	Prioritize the most relevant debugging steps for the current problem.
-	•	Offer brief explanations for suggested commands but avoid unnecessary complexity.
+## 5. Clarify Ambiguities
+- If any part of the request or file context is **unclear**, ask for **clarification** instead of making assumptions.
+- Confirm that your replacement **meets the intended functional requirements**.
 
-By following these steps, the assistant will provide focused debugging prompts and practical console command suggestions to help streamline troubleshooting and enhance coding efficiency.
+By adhering to these steps, you ensure that the **entire file is reviewed**, and **precise, accurate updates** are implemented, avoiding repeated mistakes with incorrect versions.
 
 ---
 > Source: [lukeslp/alt-text-local-llm](https://github.com/lukeslp/alt-text-local-llm) — distributed by [TomeVault](https://tomevault.io).
