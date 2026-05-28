@@ -116354,6 +116354,11 @@
       "description": "RestBook is an open-source CLI tool for orchestrating complex API workflows using simple YAML playbooks."
     },
     {
+      "name": "sprksocial--server",
+      "source": "./sprksocial--server",
+      "description": "Spark Social AppView Server"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -119762,6 +119767,26 @@
       "name": "pennydinh--marketing-pineline-share",
       "source": "./pennydinh--marketing-pineline-share",
       "description": "H\u1ec7 th\u1ed1ng t\u1ef1 \u0111\u1ed9ng h\u00f3a Content s\u1ed1 1: T\u1eeb Research, L\u00ean K\u1ecbch B\u1ea3n, \u0110\u0103ng Page t\u1ef1 \u0111\u1ed9ng \u0111\u1ebfn Generate Video!"
+    },
+    {
+      "name": "arkade-os--compiler",
+      "source": "./arkade-os--compiler",
+      "description": "EXPERIMENTAL A high-level language that compiles to Arkade Script for building Bitcoin-native smart contracts on Arkade OS"
+    },
+    {
+      "name": "agkloop--go-memoize",
+      "source": "./agkloop--go-memoize",
+      "description": "Fast, type-safe Go memoization and caching with TTL, stale-on-error, background refresh, metrics, in-memory stores, Redis and any custom store"
+    },
+    {
+      "name": "imlunahey--lunafications",
+      "source": "./imlunahey--lunafications",
+      "description": "Bluesky bot that DMs you when you're blocked, added to lists, or when specific accounts post"
+    },
+    {
+      "name": "agenticsec--wish",
+      "source": "./agenticsec--wish",
+      "description": "Your Wish, Our Command"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -123567,6 +123592,16 @@
       "name": "usrbinkat--obelisk",
       "source": "./usrbinkat--obelisk",
       "description": "AI Chatbot with your MkDocs Documentation"
+    },
+    {
+      "name": "moonwhaler--civitscraper",
+      "source": "./moonwhaler--civitscraper",
+      "description": "Getting of model metadata, images/videos and keywords from civitai and visualizing them should be easy. "
+    },
+    {
+      "name": "automattic--wpvdb",
+      "source": "./automattic--wpvdb",
+      "description": "Native Vector Database for WordPress"
     },
     {
       "name": "mohiwalla--memes",
@@ -128192,6 +128227,26 @@
       "name": "weirded--ha-peplink-local",
       "source": "./weirded--ha-peplink-local",
       "description": "Home Assistant Peplink Local Integration"
+    },
+    {
+      "name": "ai-maker-space--vibe-coding-with-cursor",
+      "source": "./ai-maker-space--vibe-coding-with-cursor",
+      "description": "Feel the Vibes"
+    },
+    {
+      "name": "ai-maker-space--vibe-coding-with-cursor",
+      "source": "./ai-maker-space--vibe-coding-with-cursor",
+      "description": "Feel the Vibes"
+    },
+    {
+      "name": "cvburgess--dexter-app",
+      "source": "./cvburgess--dexter-app",
+      "description": "An opinionated daily planner"
+    },
+    {
+      "name": "ortus-boxlang--bx-ai",
+      "source": "./ortus-boxlang--bx-ai",
+      "description": "BoxLang AI is a fluent and human way to build AI Agents, Workflows and more"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -133217,6 +133272,31 @@
       "name": "dockersamples--labspace-infra",
       "source": "./dockersamples--labspace-infra",
       "description": "Provides the infrastructure for Labspaces"
+    },
+    {
+      "name": "jes--isoform",
+      "source": "./jes--isoform",
+      "description": "SDF-based CAD"
+    },
+    {
+      "name": "megaconfidence--chatwithdb",
+      "source": "./megaconfidence--chatwithdb",
+      "description": "chatwithdb"
+    },
+    {
+      "name": "miguelripoll23--gameserver",
+      "source": "./miguelripoll23--gameserver",
+      "description": "A game server for multiplayer games"
+    },
+    {
+      "name": "triblespace--gorbie",
+      "source": "./triblespace--gorbie",
+      "description": "GORBIE! Is a minimalist notebook library for Rust."
+    },
+    {
+      "name": "gleanwork--langchain-glean",
+      "source": "./gleanwork--langchain-glean",
+      "description": "LangChain components for Glean"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -138572,6 +138652,26 @@
       "name": "btahir--hacky-experiments",
       "source": "./btahir--hacky-experiments",
       "description": "An open source playground for my experiments"
+    },
+    {
+      "name": "detekoi--jam-deck",
+      "source": "./detekoi--jam-deck",
+      "description": "An Apple Music now playing display for streamers using macOS."
+    },
+    {
+      "name": "joshuapotter--replay-buffer-pro",
+      "source": "./joshuapotter--replay-buffer-pro",
+      "description": "An OBS Studio plugin that extends the built-in Replay Buffer. Save recent footage at different lengths (e.g., 30 seconds, 5 minutes), automatically trimming the replay buffer without re-encoding."
+    },
+    {
+      "name": "samwang0723--mcp-sumologic",
+      "source": "./samwang0723--mcp-sumologic",
+      "description": "MCP server for Sumologic"
+    },
+    {
+      "name": "mntno--obsidian-come-down",
+      "source": "./mntno--obsidian-come-down",
+      "description": "An Obsidian plugin that maintains a cache of your notes\u2019 embedded external images."
     },
     {
       "name": "lightninglabs--lnget",
@@ -145827,6 +145927,61 @@
       "name": "handsomejustin--easy-tdx",
       "source": "./handsomejustin--easy-tdx",
       "description": "\u901a\u8fbe\u4fe1python SDK\uff0c\u652f\u6301\u5728\u7ebf\u83b7\u53d6\u6570\u636e\u53ca\u79bb\u7ebf\u672c\u5730\u6570\u636e\u8bfb\u53d6\u3002\u5168\u9762\u4f18\u5316\u63a5\u53e3\u3002"
+    },
+    {
+      "name": "mikelane--valid8r",
+      "source": "./mikelane--valid8r",
+      "description": "valid8r"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "rustpython--pymath",
+      "source": "./rustpython--pymath",
+      "description": "pymath"
+    },
+    {
+      "name": "mikelane--valid8r",
+      "source": "./mikelane--valid8r",
+      "description": "valid8r"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "lonestone--lonestone-boilerplate",
+      "source": "./lonestone--lonestone-boilerplate",
+      "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -166814,6 +166969,11 @@
       "description": "A fairly customizable MCP server for Logseq"
     },
     {
+      "name": "hjpr--suplex",
+      "source": "./hjpr--suplex",
+      "description": "wRESTling the Supabase API into submission."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -177964,6 +178124,31 @@
       "description": "A unified API gateway for multiple LLM providers with OpenAI-compatible endpoints"
     },
     {
+      "name": "hongyi652--ppt-master-sci-fork",
+      "source": "./hongyi652--ppt-master-sci-fork",
+      "description": "AI generates natively editable PPTX - fork with MinerU parsing and SVG formula support"
+    },
+    {
+      "name": "buigiathanh--open-analytics",
+      "source": "./buigiathanh--open-analytics",
+      "description": "Website analytics that are transparent and lightweight \u2014 with data on your own Supabase."
+    },
+    {
+      "name": "groktopus--groktocrawl",
+      "source": "./groktopus--groktocrawl",
+      "description": "Self-hosted, API-compatible Firecrawl alternative with Agent endpoint. MIT license. One docker compose up."
+    },
+    {
+      "name": "code-yeongyu--codex-lsp",
+      "source": "./code-yeongyu--codex-lsp",
+      "description": "Codex plugin that exposes Language Server Protocol diagnostics and MCP tools"
+    },
+    {
+      "name": "hongyi652--ppt-master-sci-fork",
+      "source": "./hongyi652--ppt-master-sci-fork",
+      "description": "AI generates natively editable PPTX - fork with MinerU parsing and SVG formula support"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -180707,6 +180892,16 @@
       "name": "younghoandrewchaa--m-note",
       "source": "./younghoandrewchaa--m-note",
       "description": "m-note"
+    },
+    {
+      "name": "v3dxnt--droproom-mobile",
+      "source": "./v3dxnt--droproom-mobile",
+      "description": "DropRoom is a mobile-first DropIn/DropOut real-time messaging platform \u2014 built with sockets, instant sync, and Google Authentication for seamless temporary conversations. You don't have to create a Wh"
+    },
+    {
+      "name": "suibeai--computer-vision-book",
+      "source": "./suibeai--computer-vision-book",
+      "description": "computer_vision_book"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
