@@ -1,9 +1,9 @@
 {
   "name": "dacay--eventkit-node",
   "displayName": "eventkit-node",
-  "description": "eventkit-node",
+  "description": "Node.js native addon to access macOS EventKit for calendars and events",
   "version": "1.0.0",
   "author": "dacay",
-  "homepage": "https://tomevault.io/claim/dacay",
+  "homepage": "https://github.com/dacay/eventkit-node",
   "skills": []
 }
