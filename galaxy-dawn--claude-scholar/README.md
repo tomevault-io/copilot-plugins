@@ -17,11 +17,7 @@ Original source: `CLAUDE.md` in [Galaxy-Dawn/claude-scholar](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (1)
-
-- [git-workflow](https://github.com/Galaxy-Dawn/claude-scholar/tree/main/skills/git-workflow)
-
-From [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) — a repo with 3446+ stars on GitHub.
+From [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) — a repo with 4032+ stars on GitHub.
 
 ---
 
