@@ -1,0 +1,9 @@
+{
+  "name": "imlunahey--lunafications",
+  "displayName": "lunafications",
+  "description": "Bluesky bot that DMs you when you're blocked, added to lists, or when specific accounts post",
+  "version": "1.0.0",
+  "author": "ImLunaHey",
+  "homepage": "https://github.com/ImLunaHey/lunafications",
+  "skills": []
+}
