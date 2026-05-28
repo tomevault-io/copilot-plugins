@@ -4,7 +4,7 @@
   "repo": "camNC",
   "description": "web app that visualizes CNC G-code on a live camera feed",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Schibum/camNC",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T18:53:41Z"
+  "distributed_at": "2026-05-28T19:01:01Z"
 }
