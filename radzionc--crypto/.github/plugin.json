@@ -1,0 +1,9 @@
+{
+  "name": "radzionc--crypto",
+  "displayName": "crypto",
+  "description": "A TypeScript monorepo with tools for crypto trading, price monitoring, and trading analysis.",
+  "version": "1.0.0",
+  "author": "radzionc",
+  "homepage": "https://github.com/radzionc/crypto",
+  "skills": []
+}
