@@ -7,11 +7,11 @@ Github homepage releases feed is always broken - so I created my own
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KieranP/Github-Releases-Feed](https://github.com/KieranP/Github-Releases-Feed).
+Original source: `CLAUDE.md` in [KieranP/Github-Releases-Feed](https://github.com/KieranP/Github-Releases-Feed).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
