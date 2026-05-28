@@ -79,4 +79,4 @@ This version (v5) moves away from custom tool loops and raw API calls, fully emb
 
 ---
 > Source: [21pounder/terminalAgent](https://github.com/21pounder/terminalAgent) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
