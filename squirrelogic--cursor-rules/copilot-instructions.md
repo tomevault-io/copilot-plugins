@@ -1,162 +1,78 @@
-## git-commit-workflow
+## naming-conventions
 
-> Workflow for testing, validating, and committing changes using conventional commits
+> Enforces consistent naming patterns for files, types, and functions
 
-# Git Commit Workflow Rule
+# Naming Conventions
+Standards for naming TypeScript and JavaScript files, types, and functions.
 
-## Description
-This rule defines the complete workflow for validating changes, running tests, and creating commits. It ensures that all changes are properly tested and validated before being committed using the conventional commits format.
+<rule>
+name: naming_conventions
+description: Enforces consistent naming patterns for files, types, and functions
+filters:
+  # Match TypeScript and JavaScript files
+  - type: file_extension
+    pattern: "\\.(ts|js)$"
+  # Match file creation and modification events
+  - type: event
+    pattern: "(file_create|file_modify)"
 
-## Rule Type
-workflow
+actions:
+  - type: reject
+    conditions:
+      # Reject files not in kebab-case
+      - pattern: "^(?!.*[A-Z])(?!.*\\s)(?!.*_)[a-z0-9-]+\\.(ts|js)$"
+        message: "File names must be in kebab-case (e.g., my-file-name.ts)"
 
-## Rule Format
-```json
-{
-  "type": "workflow",
-  "name": "git_commit_workflow",
-  "description": "Validates changes and creates conventional commits",
-  "filters": [
-    {
-      "type": "event",
-      "pattern": "pre_commit"
-    }
-  ],
-  "steps": [
-    {
-      "action": "validate",
-      "description": "Run tests and type checks",
-      "requirements": [
-        "All tests MUST pass",
-        "TypeScript compilation MUST succeed",
-        "Build process MUST complete successfully"
-      ]
-    },
-    {
-      "action": "execute",
-      "description": "Validate and commit changes",
-      "script": {
-        "steps": [
-          {
-            "name": "run_tests",
-            "command": "npm test",
-            "on_failure": "abort"
-          },
-          {
-            "name": "type_check",
-            "command": "npm run type-check",
-            "on_failure": "abort"
-          },
-          {
-            "name": "build",
-            "command": "npm run build",
-            "on_failure": "abort"
-          },
-          {
-            "name": "check_changes",
-            "command": "git status --porcelain",
-            "store_output": "CHANGED_FILES"
-          },
-          {
-            "name": "stage_changes",
-            "command": "git add ."
-          },
-          {
-            "name": "create_commit",
-            "use_rule": "conventional-commits"
-          }
-        ]
-      }
-    }
-  ]
-}
-```
+  - type: suggest
+    message: |
+      Follow these naming conventions:
 
-## Workflow Steps
+      1. Files:
+         - Use kebab-case for all TypeScript and JavaScript files
+         - Examples:
+           ✅ user-service.ts
+           ✅ api-client.js
+           ❌ UserService.ts
+           ❌ apiClient.js
 
-1. **Run Tests**
-   - Execute the test suite using `npm test`
-   - Abort if any tests fail
-   - Ensure all new features have corresponding tests
+      2. Types (interfaces, types, classes):
+         - Use PascalCase
+         - Examples:
+           ✅ interface UserProfile
+           ✅ type ApiResponse
+           ✅ class HttpClient
+           ❌ interface userProfile
+           ❌ type api_response
 
-2. **Type Checking**
-   - Run TypeScript type checking
-   - Verify no type errors exist
-   - Abort if type checking fails
+      3. Functions:
+         - Use camelCase
+         - Examples:
+           ✅ function getUserData()
+           ✅ const fetchApiResponse = () => {}
+           ❌ function GetUserData()
+           ❌ const fetch_api_response = () => {}
 
-3. **Build Process**
-   - Run the build process
-   - Ensure the project builds successfully
-   - Abort if build fails
+examples:
+  - input: |
+      // Bad: Incorrect naming
+      UserService.ts
+      API_client.js
 
-4. **Check Changes**
-   - Use `git status` to identify modified files
-   - Review changes before staging
-   - Ensure no unintended files are included
+      interface user_profile {}
+      function FetchData() {}
 
-5. **Stage Changes**
-   - Stage all relevant files using `git add`
-   - Review staged changes if needed
+      // Good: Correct naming
+      user-service.ts
+      api-client.js
 
-6. **Create Commit**
-   - Use conventional-commits rule to format commit message
-   - Follow proper commit message structure
-   - Include appropriate type, scope, and description
+      interface UserProfile {}
+      function fetchData() {}
+    output: "Correctly named files, types, and functions"
 
-## Integration with Conventional Commits
-This workflow automatically integrates with the conventional-commits rule to ensure proper commit message formatting. The workflow will:
-
-1. Detect the appropriate commit type based on changes
-2. Generate a properly formatted commit message
-3. Include relevant scope based on changed files
-4. Add detailed body explaining changes
-5. Include footer with issue references if applicable
-
-## Examples
-
-### Feature Development
-```bash
-# 1. Run tests
-npm test
-
-# 2. Type check
-npm run type-check
-
-# 3. Build
-npm run build
-
-# 4. Check changes
-git status
-
-# 5. Stage changes
-git add .
-
-# 6. Create commit (using conventional-commits rule)
-printf "feat(auth): implement OAuth2 support\n\nAdd Google and GitHub provider integration\nImplement token refresh handling\n\nCloses #123" | git commit -F -
-```
-
-### Bug Fix
-```bash
-# Follow the same workflow
-npm test && npm run type-check && npm run build
-git status
-git add .
-printf "fix(api): resolve user data serialization issue\n\nFix incorrect handling of nested user properties\n\nCloses #456" | git commit -F -
-```
-
-## Error Handling
-- If any validation step fails, the workflow will abort
-- Test failures must be resolved before proceeding
-- Type errors must be fixed before commit
-- Build errors must be addressed
-- Proper error messages will be displayed for each failure
-
-## Notes
-- Always run this workflow before creating commits
-- Ensure all tests are up to date
-- Keep commits focused and atomic
-- Follow the conventional commits format
-- Use meaningful commit messages
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [squirrelogic/cursor-rules](https://github.com/squirrelogic/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
