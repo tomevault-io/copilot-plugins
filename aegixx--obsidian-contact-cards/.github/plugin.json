@@ -1,0 +1,9 @@
+{
+  "name": "aegixx--obsidian-contact-cards",
+  "displayName": "obsidian-contact-cards",
+  "description": "Obsidian Plugin for @mention support of People, Companies, or any other entity.",
+  "version": "1.0.0",
+  "author": "aegixx",
+  "homepage": "https://github.com/aegixx/obsidian-contact-cards",
+  "skills": []
+}
