@@ -1,0 +1,9 @@
+{
+  "name": "mikelane--pytest-test-categories",
+  "displayName": "pytest-test-categories",
+  "description": "Pytest plugin enforcing Google's hermetic testing best practices. Test categorization (small/medium/large), timing limits, resource isolation, and test pyramid validation. No escape hatches.",
+  "version": "1.0.0",
+  "author": "mikelane",
+  "homepage": "https://github.com/mikelane/pytest-test-categories",
+  "skills": []
+}
