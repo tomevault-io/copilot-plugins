@@ -1,0 +1,9 @@
+{
+  "name": "practicalparticle--bloxchain-protocol",
+  "displayName": "Bloxchain-Protocol",
+  "description": "Enterprise smart contract security framework that eliminates single\u2011point failures using EngineBlox multi\u2011phase workflows, mandatory multi\u2011sig, time\u2011locks, meta\u2011transactions, and dynamic RBAC. \u26a0\ufe0f Audi",
+  "version": "1.0.0",
+  "author": "PracticalParticle",
+  "homepage": "https://github.com/PracticalParticle/Bloxchain-Protocol",
+  "skills": []
+}
