@@ -1,0 +1,9 @@
+{
+  "name": "naniiluja--ccf",
+  "displayName": "ccf",
+  "description": "A context-first, spec-driven, strictly sequential development workflow plugin for Claude Code \u2014 keeps your CLAUDE.md/.claude spec always fresh and grounds every decision in Context7 + Microsoft Learn.",
+  "version": "1.0.0",
+  "author": "naniiluja",
+  "homepage": "https://github.com/naniiluja/ccf",
+  "skills": []
+}
