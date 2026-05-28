@@ -1,0 +1,9 @@
+{
+  "name": "richkershaw--ha-lightdash",
+  "displayName": "HA-LightDash",
+  "description": "A lightweight dashboard rendering add-on / app for Home Assistant",
+  "version": "1.0.0",
+  "author": "richkershaw",
+  "homepage": "https://github.com/richkershaw/HA-LightDash",
+  "skills": []
+}
