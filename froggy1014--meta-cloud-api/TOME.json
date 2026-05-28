@@ -4,7 +4,7 @@
   "repo": "meta-cloud-api",
   "description": "WhatsApp TypeScript SDK \u2014 type-safe, modular, and production-ready.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/froggy1014/meta-cloud-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T14:43:34Z"
+  "distributed_at": "2026-05-28T14:55:08Z"
 }
