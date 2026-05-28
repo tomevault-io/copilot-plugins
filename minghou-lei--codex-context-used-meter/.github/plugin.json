@@ -1,0 +1,9 @@
+{
+  "name": "minghou-lei--codex-context-used-meter",
+  "displayName": "codex-context-used-meter",
+  "description": "Codex++ user script for showing Codex context usage in the app UI.",
+  "version": "1.0.0",
+  "author": "Minghou-Lei",
+  "homepage": "https://github.com/Minghou-Lei/codex-context-used-meter",
+  "skills": []
+}
