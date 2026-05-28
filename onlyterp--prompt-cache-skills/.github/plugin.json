@@ -1,0 +1,9 @@
+{
+  "name": "onlyterp--prompt-cache-skills",
+  "displayName": "prompt-cache-skills",
+  "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches.",
+  "version": "1.0.0",
+  "author": "OnlyTerp",
+  "homepage": "https://github.com/OnlyTerp/prompt-cache-skills",
+  "skills": []
+}
