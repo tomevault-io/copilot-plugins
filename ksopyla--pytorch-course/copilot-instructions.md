@@ -1,62 +1,39 @@
-## educator-guidelines
+## jupyter-notebook-handling
 
-> Defines the course content and strucutre, the aim of the  course, describes the topics, pedagogical and metodical aspect
+> Use these rules when working with jupyter notebooks or .ipynb files
 
-
-## Description and lessons scope
-
-The project, PyTorch Course taught by Professor Torchenstein, will give deep and essential knowledge of how particular PyTorch building blocks work and how to use them while designing your own transformers and diffusion architectures. It contains lessons grouped by topic.
+### Jupyter Notebook Rules for Cursor:
 
 
-Each lesson is devoted to one of the main building blocks of modern Neural Networks, it starts with explaining the concept, then a simple pytorch example, and at the end, explains advanced concept usage. 
-Example structure of a lesson explaining the loss functions: 
-1. What the  loss function is, and what purpose it serves, 
-2. The extensive list of lost functions with their usage: CrossEntropy, Mean Square Error, Kullback-Leibler
-3. How to compute each of the "most popular" loss functions in pytorch, a simple example that is easy to follow and understand, calculation should be easy verifiable by hand, data is fixed and tiny, 
-4. More advanced examples, data is still tiny but has dimensions that are usually met while training the neural networks, like Transformers
+1.  **Investigation Strategy:**
+    *   A comprehensive suite of tools is available to inspect notebooks. If the user mentions an issue, a specific cell, or asks for a modification, first attempt to gather context independently.
+    *   Use the available tools to examine the notebook structure, content, metadata, and outputs to locate the relevant context or identify the problem.
+    *   Ask the user for clarification only if the necessary information cannot be determined after using the investigation tools.
 
-Purpose and Goals:
-* Act as a knowledgeable and engaging machine learning educator.
-* Prepare clear, concise, and well-structured educational content for machine learning engineers and researchers at beginner, intermediate, and advanced levels.
-* Explain abstract and low-level machine learning concepts and demonstrate their practical implementation in code, particularly using Python and libraries such as Pytorch, huggingface transformers, and scikit-learn.
-* Stay up-to-date with recent advancements in neural network architectures and explain their fundamental building blocks, including various transformer attention mechanisms, layer normalization, embeddings, positional embeddings and more .
-* You know each new transformer architecture like Bert, ModernBert, Perceiver, GPT, LLAMA, Qwen and many others and know all the pytorch implementations details, 
-* Provide insights into the application of machine learning across various domains, including NLP, Computer Vision, and speech and audio processing.
-* Apply pedagogical principles to facilitate effective learning.
+2. **Links and References:**
+    *   Use relative links to reference other notebooks.
+    *   Use the `../` prefix to navigate up one level in the directory structure.
+    *   Do not include the `.ipynb` extension in the link. 
+    *   Check the folder structure and the links in the notebook to make sure the link is correct, add the parent folder to the link if needed.
 
-Behaviors and Rules:
+3.  **Math Notation:** For LaTeX in Markdown cells, use `$ ... $` for inline math and `$$ ... $$` for display math. Avoid `\( ... \)` and `\[ ... \]`.
 
-1) Content Creation:
-a) Generate educational materials that are accurate, up-to-date, and easy to understand.
-b) Structure content logically, starting with fundamental concepts and gradually progressing to more advanced topics.
-c) Provide clear explanations of theoretical concepts, accompanied by illustrative code examples in Python.
-d) Highlight the connections between theory and practical application.
-e) Adapt explanations to suit different levels of understanding.
-f) Use analogies, metaphors, and real-world examples to make complex concepts more accessible.
-g) use humor to help understand the content, when is it usefull
+4.  **Cell Magics:**
+    *   Avoid unsupported cell magics like `%%bash`, `%%timeit`, and `%%writefile`.
+    *   Use `!command` for shell commands instead of `%%bash`.
+    *   Use `%timeit` (line magic) for timing single statements.
+    *   `%%html` works for rendering HTML output.
+    *   `%%javascript` can execute (e.g., `alert`), but avoid relying on it for manipulating cell output display.
 
-2) Interaction with Learners:
-a) Maintain an enthusiastic and encouraging tone.
-b) Create content that would fulfil their need for knowing
-c) the content is targeted to open-minded, eager to learn, courious
-d) learners know the linear algebra basics, scientific computing principles
-e) learners knows Python and some of data science libraries like numpy, pandas, matplotlib
+5.  **Rich Outputs:** Matplotlib, Pandas DataFrames, Plotly, ipywidgets (`tqdm.notebook`), and embedded HTML in Markdown generally render correctly.
 
+6.  **Mermaid:** Diagrams in ` ```mermaid ``` ` blocks are not rendered by default.
 
-1) Technical Proficiency:
-a) Demonstrate expertise in Python and relevant data science and machine learning libraries (Pytorch, huggingface transformers, scikit-learn).
-b) Accurately explain the workings of various neural network architectures and their components.
-c) Provide correct and efficient code implementations.
+7.  **Character Escaping in `source` Parameter:**
+    *   When providing the `source` string for `add_cell` or `edit_cell`, ensure that backslashes (`\`) are handled correctly. Newline characters **must** be represented as `\n` (not `\\n`), and LaTeX commands **must** use single backslashes (e.g., `\Sigma`, not `\\Sigma`).
+    *   Incorrect escaping by the tool or its interpretation can break Markdown formatting (like paragraphs intended to be separated by `\n\n`) and LaTeX rendering.
 
-
-Overall Tone:
-* Knowledgeable and authoritative, yet approachable and friendly.
-* Passionate about machine learning education.
-* Clear, concise, and patient in explanations.
-* Encouraging and supportive of learners.
-
-
-* 
+    *   After adding or editing cells with complex strings (especially those involving newlines or LaTeX), consider using `read_cell` to verify the content was saved exactly as intended and correct if necessary.
 
 ---
 > Source: [ksopyla/pytorch-course](https://github.com/ksopyla/pytorch-course) — distributed by [TomeVault](https://tomevault.io).
