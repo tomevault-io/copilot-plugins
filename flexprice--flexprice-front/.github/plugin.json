@@ -1,0 +1,9 @@
+{
+  "name": "flexprice--flexprice-front",
+  "displayName": "flexprice-front",
+  "description": "Open source pricing and billing infrastructure to support any pricing model, from usage-based to subscription and everything in between.",
+  "version": "1.0.0",
+  "author": "flexprice",
+  "homepage": "https://github.com/flexprice/flexprice-front",
+  "skills": []
+}
