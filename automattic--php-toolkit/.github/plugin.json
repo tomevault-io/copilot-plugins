@@ -1,0 +1,9 @@
+{
+  "name": "automattic--php-toolkit",
+  "displayName": "php-toolkit",
+  "description": "php-toolkit",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/php-toolkit",
+  "skills": []
+}
