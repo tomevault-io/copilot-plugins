@@ -1,0 +1,44 @@
+{
+  "name": "dos32a",
+  "owner": "calculatetech",
+  "repo": "dos32a",
+  "description": "A patched and optimized version of DOS/32A for real DOS environments. Original 9.1.x versions had changes that served dosbox use cases but broke linear framebuffer write combining. This release aims to fix that.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/calculatetech/dos32a",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T00:55:01Z"
+}
