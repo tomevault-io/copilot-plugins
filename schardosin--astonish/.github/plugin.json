@@ -1,0 +1,9 @@
+{
+  "name": "schardosin--astonish",
+  "displayName": "astonish",
+  "description": "An autonomous AI agent that learns your workflows. Chat-first, single binary, zero infrastructure. Built in Go.",
+  "version": "1.0.0",
+  "author": "schardosin",
+  "homepage": "https://github.com/schardosin/astonish",
+  "skills": []
+}
