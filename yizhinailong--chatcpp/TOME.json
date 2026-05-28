@@ -1,0 +1,44 @@
+{
+  "name": "ChatCpp",
+  "owner": "yizhinailong",
+  "repo": "ChatCpp",
+  "description": "C++ \u804a\u5929\u9879\u76ee\u5b9e\u6218\u6848\u4f8b\uff0c\u6db5\u76d6grpc\uff0c\u5e76\u53d1\u7ebf\u7a0b\uff0c\u7f51\u7edc\u7f16\u7a0b\uff0cqt\u5f00\u53d1\uff0c\u6570\u636e\u5e93\u7b49\u591a\u79cd\u6280\u672f\u7efc\u5408\u5e94\u7528",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yizhinailong/ChatCpp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T14:30:33Z"
+}
