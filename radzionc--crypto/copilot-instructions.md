@@ -1,56 +1,85 @@
-## type-definitions
+## use-fetch
 
-> USE type WHEN defining object types TO maintain consistency
+> Use Fetch API Instead of Axios
 
-
-# TypeScript Type Definition Rules
+ # Use Fetch API Instead of Axios
 
 ## Context
-- When writing TypeScript code and defining data structures
-- When creating contracts for class implementations
-- When organizing complex type systems
-- Ensures consistency and proper use of TypeScript features
+- Applies when making HTTP requests in JavaScript/TypeScript code
+- Prefer using the built-in fetch API over external libraries like axios
+- Reduces dependencies and bundle size
+- Provides consistent error handling patterns
 
 ## Requirements
-- Use `type` for object type definitions instead of `interface`
-- Use `type` for union types, intersection types, mapped types, and utility types
-- Only use `interface` for contracts that will be implemented by classes
-- Use `interface` for plugin systems and public APIs meant to be implemented
+- Always use the built-in fetch API for HTTP requests
+- Never use axios or other HTTP client libraries
+- Handle fetch responses and errors appropriately
+- Type error objects correctly when using TypeScript
 
 ## Examples
-
 <example>
-// Using type for object type definition
-type User = {
-  id: string
-  name: string
+// Good: Using fetch API
+async function fetchData(url: string) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Error fetching data: ${error.message}`);
+    } else {
+      console.error(`Unexpected error: ${String(error)}`);
+    }
+    throw error;
+  }
 }
-</example>
-
-<example>
-// Using interface for class contract
-interface Repository {
-  save(entity: unknown): Promise<void>
-  find(id: string): Promise<unknown>
-}
-
-class PostgresRepository implements Repository {
-  // Implementation...
-}
-</example>
-
-<example>
-// Using type for union types
-type Status = 'loading' | 'success' | 'error'
 </example>
 
 <example type="invalid">
-// Incorrect use of interface for simple object type
-interface UserData {
-  id: string
-  name: string
+// Bad: Using axios
+import axios from 'axios';
+
+async function fetchData(url: string) {
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
 }
-</example> 
+</example>
+
+<example>
+// Good: POST request with fetch
+async function postData(url: string, data: object) {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+  
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  
+  return await response.json();
+}
+</example>
+
+<example type="invalid">
+// Bad: POST request with axios
+import axios from 'axios';
+
+async function postData(url: string, data: object) {
+  const response = await axios.post(url, data);
+  return response.data;
+}
+</example>
 
 ---
 > Source: [radzionc/crypto](https://github.com/radzionc/crypto) — distributed by [TomeVault](https://tomevault.io).
