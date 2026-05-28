@@ -1,0 +1,9 @@
+{
+  "name": "xmtp--smart-contracts",
+  "displayName": "smart-contracts",
+  "description": "XMTP Smart Contracts",
+  "version": "1.0.0",
+  "author": "xmtp",
+  "homepage": "https://github.com/xmtp/smart-contracts",
+  "skills": []
+}
