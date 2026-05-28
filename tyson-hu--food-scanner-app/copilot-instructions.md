@@ -438,5 +438,5 @@ Before considering any task complete, verify:
 This instruction file ensures that any new Cursor AI agent will inherit the complete context, patterns, and standards established for the Food Scanner iOS project, maintaining consistency and quality across all development work.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/tyson-hu) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [tyson-hu/Food-Scanner-App](https://github.com/tyson-hu/Food-Scanner-App) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
