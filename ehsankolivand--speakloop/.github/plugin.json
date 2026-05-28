@@ -1,0 +1,9 @@
+{
+  "name": "ehsankolivand--speakloop",
+  "displayName": "speakloop",
+  "description": "Offline English interview practice CLI with grammar feedback for Persian L1 speakers, built for Apple Silicon",
+  "version": "1.0.0",
+  "author": "ehsankolivand",
+  "homepage": "https://github.com/ehsankolivand/speakloop",
+  "skills": []
+}
