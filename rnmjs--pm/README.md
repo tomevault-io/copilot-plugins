@@ -1,0 +1,30 @@
+# pm
+
+> Source: [rnmjs/pm](https://github.com/rnmjs/pm) — distributed by [TomeVault](https://tomevault.io)
+
+📦 Unified Package Manager for Node.js (npm, yarn, pnpm)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [rnmjs/pm](https://github.com/rnmjs/pm).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/rnmjs/pm](https://github.com/rnmjs/pm)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install rnmjs/pm
+```
+Source: [github.com/rnmjs/pm](https://github.com/rnmjs/pm).
+
+<!-- genome:d-i-q -->
