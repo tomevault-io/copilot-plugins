@@ -1,0 +1,9 @@
+{
+  "name": "beryex--ml4investment",
+  "displayName": "ML4Investment",
+  "description": "ML4I: Predict next-day US stock price movements with a LightGBM-powered framework",
+  "version": "1.0.0",
+  "author": "Beryex",
+  "homepage": "https://github.com/Beryex/ML4Investment",
+  "skills": []
+}
