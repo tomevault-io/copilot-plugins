@@ -1,0 +1,9 @@
+{
+  "name": "rossshannon--weekly-weather-mcp",
+  "displayName": "weekly-weather-mcp",
+  "description": "Weather MCP server which returns 7 days of detailed weather forecasts anywhere in the world",
+  "version": "1.0.0",
+  "author": "rossshannon",
+  "homepage": "https://github.com/rossshannon/weekly-weather-mcp",
+  "skills": []
+}
