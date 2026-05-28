@@ -4,7 +4,7 @@
   "repo": "terminalAgent",
   "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/21pounder/terminalAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T05:33:20Z"
+  "distributed_at": "2026-05-28T05:33:44Z"
 }
