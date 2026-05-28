@@ -1,0 +1,9 @@
+{
+  "name": "johnsaigle--anchor-version-detector",
+  "displayName": "anchor-version-detector",
+  "description": "Detect or infer  the Anchor, Solana, and Rust versions needed for an Anchor project.",
+  "version": "1.0.0",
+  "author": "johnsaigle",
+  "homepage": "https://github.com/johnsaigle/anchor-version-detector",
+  "skills": []
+}
