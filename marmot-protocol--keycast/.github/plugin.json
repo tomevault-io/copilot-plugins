@@ -1,0 +1,9 @@
+{
+  "name": "marmot-protocol--keycast",
+  "displayName": "keycast",
+  "description": "keycast",
+  "version": "1.0.0",
+  "author": "marmot-protocol",
+  "homepage": "https://github.com/marmot-protocol/keycast",
+  "skills": []
+}
