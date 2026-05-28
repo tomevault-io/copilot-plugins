@@ -1,0 +1,67 @@
+## ros-to-markdown
+
+> - Project Lead: Rob Royce ([@RobRoyce](https://github.com/RobRoyce))
+
+#! .cursorrules
+
+# Project Information
+- Project Lead: Rob Royce ([@RobRoyce](https://github.com/RobRoyce))
+- Project Start: January 1, 2025
+- Project Status: Active Development
+- Repository: https://github.com/RobRoyce/ros_to_markdown
+- License: Apache 2.0
+- Language: Python
+- Dependencies (ROS, Python): (Noetic, 3.8), (Iron, 3.10), (Humble, 3.10) (Jazzy, 3.12)
+- Todays Date: Request from user when needed
+
+---
+
+# ROS Distribution Specifications
+- ROS1 (Noetic):
+  - EOL May 2025
+  - Ubuntu: 20.04
+  - Python: 3.8
+  - Core tools: rospy, catkin_tools
+
+- ROS2 Iron:
+  - EOL Dec 2024
+  - Ubuntu: 22.04
+  - Python: 3.10
+  - Core tools: rclpy, colcon, ament_tools
+
+- ROS2 Humble:
+  - EOL May 2027
+  - Ubuntu: 22.04
+  - Python: 3.10
+  - Core tools: rclpy, colcon, ament_tools
+  
+- ROS2 Jazzy:
+  - EOL May 2029
+  - Ubuntu: 24.04
+  - Python: 3.12
+  - Core tools: rclpy, colcon, ament_tools
+
+---
+
+# File Organization
+- Maintain modular organization
+
+- Python Source:
+    - paths: src/ros_to_markdown//*.py
+    - rules: Type annotations + PEP 257 docstrings, Use Ruff for formatting, Use MyPy for static type checking
+
+- Tests:
+    - paths: tests//*.py
+    - rules: Use pytest, Docstring all tests, Maintain >90% coverage
+
+- Documentation:
+    - paths: docs//*.md, README.md
+    - rules: Keep docs current, Follow Markdown standards, Use Sphinx for documentation
+
+- Cursor Agent:
+    - paths: .cursor/*
+    - rules: Use this folder to take notes and keep a scratchpad. Ignore any rules files in here.
+
+---
+> Source: [RobRoyce/ros_to_markdown](https://github.com/RobRoyce/ros_to_markdown) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-27 -->
