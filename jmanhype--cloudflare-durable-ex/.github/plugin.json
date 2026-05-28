@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--cloudflare-durable-ex",
+  "displayName": "cloudflare_durable_ex",
+  "description": "An Elixir client for Cloudflare Durable Objects with WebSocket support",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/cloudflare_durable_ex",
+  "skills": []
+}
