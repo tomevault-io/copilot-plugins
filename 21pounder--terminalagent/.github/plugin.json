@@ -1,6 +1,6 @@
 {
   "name": "21pounder--terminalagent",
-  "displayName": "terminal",
+  "displayName": "terminalAgent",
   "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it.",
   "version": "1.0.0",
   "author": "21pounder",
