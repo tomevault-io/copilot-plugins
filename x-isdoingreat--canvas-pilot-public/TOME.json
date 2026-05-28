@@ -4,7 +4,7 @@
   "repo": "Canvas_pilot_public",
   "description": "An agent lives in Canvas that does all of your homework",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/X-isdoingreat/Canvas_pilot_public",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T02:33:01Z"
+  "distributed_at": "2026-05-28T02:35:37Z"
 }
