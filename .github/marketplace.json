@@ -106619,6 +106619,11 @@
       "description": "Homebridge plugin for Etekcity, Vesync, and Levoit smart devices"
     },
     {
+      "name": "gaspardpetit--wordai",
+      "source": "./gaspardpetit--wordai",
+      "description": "WordAI"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -109567,6 +109572,11 @@
       "name": "stagas--hallucinate",
       "source": "./stagas--hallucinate",
       "description": "hallucinate"
+    },
+    {
+      "name": "keep-starknet-strange--pow",
+      "source": "./keep-starknet-strange--pow",
+      "description": "THE Idle Clicker Game on Starknet"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -112949,6 +112959,16 @@
       "description": "Set up your own VSCode Server on AWS in under 10 minutes \u231b\ufe0f"
     },
     {
+      "name": "quicksandznzn--dify-plugin-elasticsearch",
+      "source": "./quicksandznzn--dify-plugin-elasticsearch",
+      "description": "dify-plugin-elasticsearch"
+    },
+    {
+      "name": "lankef--quadcoil",
+      "source": "./lankef--quadcoil",
+      "description": "A differentiable, flexible stellarator coil proxy"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -116322,6 +116342,16 @@
       "name": "nibzard--ai-sandbox-benchmark",
       "source": "./nibzard--ai-sandbox-benchmark",
       "description": "ai-sandbox-benchmark"
+    },
+    {
+      "name": "martinamps--ua-starlink-tracker",
+      "source": "./martinamps--ua-starlink-tracker",
+      "description": "ua-starlink-tracker"
+    },
+    {
+      "name": "shalev007--restbook",
+      "source": "./shalev007--restbook",
+      "description": "RestBook is an open-source CLI tool for orchestrating complex API workflows using simple YAML playbooks."
     },
     {
       "name": "vm--nila-code",
@@ -123524,6 +123554,16 @@
       "description": "Compartment is a self-hosted application deployment system for teams that want to ship and share internal, private, or public web apps without building their own platform stack."
     },
     {
+      "name": "namazustudios--elements",
+      "source": "./namazustudios--elements",
+      "description": "The Elements Source Code"
+    },
+    {
+      "name": "usrbinkat--obelisk",
+      "source": "./usrbinkat--obelisk",
+      "description": "AI Chatbot with your MkDocs Documentation"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -128127,6 +128167,26 @@
       "name": "russmckendrick--tokenuse",
       "source": "./russmckendrick--tokenuse",
       "description": "A Rust TUI and Desktop app for exploring AI coding tool token and cost usage"
+    },
+    {
+      "name": "andriishramko--shramko-gopro13-control-app-for-multicamera-4dgs-3dgs-rigs",
+      "source": "./andriishramko--shramko-gopro13-control-app-for-multicamera-4dgs-3dgs-rigs",
+      "description": "Shramko GoPro13 Control App for multicamera 4dgs 3dgs rigs"
+    },
+    {
+      "name": "mai-with-u--docs",
+      "source": "./mai-with-u--docs",
+      "description": "\u9ea6\u9ea6\u6587\u6863\u4ed3\u5e93"
+    },
+    {
+      "name": "langchain4j--langchain4j-cdi",
+      "source": "./langchain4j--langchain4j-cdi",
+      "description": "Integrating langChain4J with CDI to be able to infuse applications with Ai seamlessly"
+    },
+    {
+      "name": "weirded--ha-peplink-local",
+      "source": "./weirded--ha-peplink-local",
+      "description": "Home Assistant Peplink Local Integration"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -133137,6 +133197,21 @@
       "name": "xingwangzhe--rustedwarfaremodsupport",
       "source": "./xingwangzhe--rustedwarfaremodsupport",
       "description": "\u6b63\u5728\u5f00\u53d1\u7684vscode\u63d2\u4ef6,\u5e0c\u671b\u5b9e\u73b0\u4ee3\u7801\u8865\u5168\u63d0\u793a,\u53ef\u89c6\u5316\u56fe\u7247\u7b49.."
+    },
+    {
+      "name": "beryex--ml4investment",
+      "source": "./beryex--ml4investment",
+      "description": "ML4I: Predict next-day US stock price movements with a LightGBM-powered framework"
+    },
+    {
+      "name": "jmanhype--cloudflare-durable-ex",
+      "source": "./jmanhype--cloudflare-durable-ex",
+      "description": "An Elixir client for Cloudflare Durable Objects with WebSocket support"
+    },
+    {
+      "name": "dockersamples--labspace-infra",
+      "source": "./dockersamples--labspace-infra",
+      "description": "Provides the infrastructure for Labspaces"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -138472,6 +138547,26 @@
       "name": "onlyterp--prompt-cache-skills",
       "source": "./onlyterp--prompt-cache-skills",
       "description": "Drop-in prompt-caching fixes for the LLM agent harness you use. Point your AI coding agent at this repo and it ships the patches."
+    },
+    {
+      "name": "jeffreybaird--ordered-collections",
+      "source": "./jeffreybaird--ordered-collections",
+      "description": "SortedMap and SortedSet for elixir"
+    },
+    {
+      "name": "mhayes853--javascript-core-extras",
+      "source": "./mhayes853--javascript-core-extras",
+      "description": "Extra enhancements and pollyfills for working with JavaScriptCore and Swift."
+    },
+    {
+      "name": "btahir--hacky-experiments",
+      "source": "./btahir--hacky-experiments",
+      "description": "An open source playground for my experiments"
+    },
+    {
+      "name": "btahir--hacky-experiments",
+      "source": "./btahir--hacky-experiments",
+      "description": "An open source playground for my experiments"
     },
     {
       "name": "lightninglabs--lnget",
@@ -145632,6 +145727,96 @@
       "name": "coleam00--harness-engineering-demo",
       "source": "./coleam00--harness-engineering-demo",
       "description": "harness-engineering-demo"
+    },
+    {
+      "name": "el-feo--ai-context",
+      "source": "./el-feo--ai-context",
+      "description": "A collection of Claude Code plugins."
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "upsun--whatsun",
+      "source": "./upsun--whatsun",
+      "description": "A code analysis tool and library: generate a repository digest for LLM context"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "hkniberg--ainutshell-translations",
+      "source": "./hkniberg--ainutshell-translations",
+      "description": "All translations of the book Generative AI in a Nutshell"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "pylarco--diff-apply",
+      "source": "./pylarco--diff-apply",
+      "description": "diff-apply"
+    },
+    {
+      "name": "acertainknight--project-thoth",
+      "source": "./acertainknight--project-thoth",
+      "description": "An advanced AI-powered research assistant system built for flexibility, extensibility, and user control. Thoth combines intelligent automation with comprehensive customization \u2014 every prompt, schema, "
+    },
+    {
+      "name": "michael-lazar--moebius-beyond",
+      "source": "./michael-lazar--moebius-beyond",
+      "description": "An ASCII/ANSI art editor"
+    },
+    {
+      "name": "monadical-sas--cubbi",
+      "source": "./monadical-sas--cubbi",
+      "description": "Monadical container CLI tool for running sandboxed MCP clients & servers"
+    },
+    {
+      "name": "upsun--whatsun",
+      "source": "./upsun--whatsun",
+      "description": "A code analysis tool and library: generate a repository digest for LLM context"
+    },
+    {
+      "name": "stacksjs--vite-plugin-dotenvx",
+      "source": "./stacksjs--vite-plugin-dotenvx",
+      "description": "A Vite plugin to seamlessly work with with dotenvx."
+    },
+    {
+      "name": "andrewarrow--shellmates",
+      "source": "./andrewarrow--shellmates",
+      "description": "shellmates: Unlike typical co-founder matching platforms, we ensure both partners are technical. No more \"idea person seeking coder\" - just technical people seeking other technical people.  With shell"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -166584,6 +166769,41 @@
       "description": "ubiblk"
     },
     {
+      "name": "shubble-llc--shubble",
+      "source": "./shubble-llc--shubble",
+      "description": "shubble"
+    },
+    {
+      "name": "not0kkinex--oslide2",
+      "source": "./not0kkinex--oslide2",
+      "description": "oSlide2"
+    },
+    {
+      "name": "kracozebr--agent-skill-mermaid-diagrams",
+      "source": "./kracozebr--agent-skill-mermaid-diagrams",
+      "description": "agent-skill-mermaid-diagrams"
+    },
+    {
+      "name": "divitmittal--hs-faust",
+      "source": "./divitmittal--hs-faust",
+      "description": "Haskell DSL wrapper for writing DSP files utilizing the Faust's Signal API & Compiler"
+    },
+    {
+      "name": "hungson175--wm-mcp",
+      "source": "./hungson175--wm-mcp",
+      "description": "WM_MCP"
+    },
+    {
+      "name": "shubble-llc--shubble",
+      "source": "./shubble-llc--shubble",
+      "description": "shubble"
+    },
+    {
+      "name": "ruliana--mcp-pkm-logseq",
+      "source": "./ruliana--mcp-pkm-logseq",
+      "description": "A fairly customizable MCP server for Logseq"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -177672,6 +177892,66 @@
       "name": "top3d-ai--world-builder",
       "source": "./top3d-ai--world-builder",
       "description": "Get a full interactive 3D scene assembled in Blender"
+    },
+    {
+      "name": "clpuyir--hiveyesh",
+      "source": "./clpuyir--hiveyesh",
+      "description": "HIVEYESH"
+    },
+    {
+      "name": "nickna--conduit",
+      "source": "./nickna--conduit",
+      "description": "A unified API gateway for multiple LLM providers with OpenAI-compatible endpoints"
+    },
+    {
+      "name": "klaviyo--klaviyo-expo-plugin",
+      "source": "./klaviyo--klaviyo-expo-plugin",
+      "description": "Expo support for our klaviyo-react-native SDK"
+    },
+    {
+      "name": "samcday--rokkitpokkit",
+      "source": "./samcday--rokkitpokkit",
+      "description": "rokkitpokkit"
+    },
+    {
+      "name": "bonkey--awaitlesskit",
+      "source": "./bonkey--awaitlesskit",
+      "description": "Simplifies the migration to async/await. It likely performs better than your ad hoc hacks."
+    },
+    {
+      "name": "lucyyang1991--cuttag-rna-seq",
+      "source": "./lucyyang1991--cuttag-rna-seq",
+      "description": "Cuttag_RNA-seq"
+    },
+    {
+      "name": "amorey--gochan",
+      "source": "./amorey--gochan",
+      "description": "A small library of common channel architectures for Go, inspired by Rust"
+    },
+    {
+      "name": "rossshannon--weekly-weather-mcp",
+      "source": "./rossshannon--weekly-weather-mcp",
+      "description": "Weather MCP server which returns 7 days of detailed weather forecasts anywhere in the world"
+    },
+    {
+      "name": "klaviyo--klaviyo-expo-plugin",
+      "source": "./klaviyo--klaviyo-expo-plugin",
+      "description": "Expo support for our klaviyo-react-native SDK"
+    },
+    {
+      "name": "burgstall-labs--comfyui-beta-helpernodes",
+      "source": "./burgstall-labs--comfyui-beta-helpernodes",
+      "description": "Simple video crop and stitch nodes"
+    },
+    {
+      "name": "samcday--rokkitpokkit",
+      "source": "./samcday--rokkitpokkit",
+      "description": "rokkitpokkit"
+    },
+    {
+      "name": "nickna--conduit",
+      "source": "./nickna--conduit",
+      "description": "A unified API gateway for multiple LLM providers with OpenAI-compatible endpoints"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -284367,6 +284647,21 @@
       "name": "tyson-hu--food-scanner-app",
       "source": "./tyson-hu--food-scanner-app",
       "description": "Food-Scanner-App"
+    },
+    {
+      "name": "henderj--home-server-site",
+      "source": "./henderj--home-server-site",
+      "description": "home-server-site"
+    },
+    {
+      "name": "pawel-kuznik--underhive-bookies",
+      "source": "./pawel-kuznik--underhive-bookies",
+      "description": "underhive-bookies"
+    },
+    {
+      "name": "pawel-kuznik--underhive-bookies",
+      "source": "./pawel-kuznik--underhive-bookies",
+      "description": "underhive-bookies"
     }
   ]
 }
