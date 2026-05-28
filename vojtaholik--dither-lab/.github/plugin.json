@@ -1,0 +1,9 @@
+{
+  "name": "vojtaholik--dither-lab",
+  "displayName": "dither-lab",
+  "description": "A fast, interactive tool for experimenting with dithering algorithms. Supports real-time previews, adjustable parameters, and SVG export.",
+  "version": "1.0.0",
+  "author": "vojtaholik",
+  "homepage": "https://github.com/vojtaholik/dither-lab",
+  "skills": []
+}
