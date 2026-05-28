@@ -1,89 +1,75 @@
-## conversation-style
+## cursor-rules-location
 
-> Enforces consistent conversation patterns and style
+> Standards for placing Cursor rule files in the correct directory
 
- # Conversation Style
-Guidelines for maintaining a consistent and engaging conversation style.
-
+# Cursor Rules Location
+Rules for placing and organizing Cursor rule files in the repository.
 <rule>
-name: conversation_style
-description: Enforces consistent conversation patterns and style
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
+  # Match any .mdc files
+  - type: file_extension
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
   - type: event
-    pattern: "conversation_start|message_response"
+    pattern: "file_create"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
   - type: suggest
     message: |
-      When engaging in conversations, follow these rules:
+      When creating Cursor rules:
 
-      1. Unicorn Greeting:
-         - Start every conversation and response with "🦄"
-         - Place the emoji at the very beginning of the message
-         - Add a space after emoji if followed by a sentence
-         Example:
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
          ```
-         // Bad: Missing unicorn or wrong placement
-         Hello! How can I help you today?
-         Hi 🦄 there!
-         
-         // Good: Proper unicorn placement
-         🦄 Hello! How can I help you today?
-         🦄 Hi there!
-         🦄 I'll help you with that request.
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
          ```
 
-      2. Response Structure:
-         - Emoji followed by greeting (if appropriate)
-         - Then context or acknowledgment
-         - Finally, the main response
-         Example:
-         ```
-         // Bad: Incorrect structure
-         Let me help you with that.
-         🦄 [No context or acknowledgment]
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
 
-         // Good: Proper structure
-         🦄 I understand you want to modify the configuration.
-         I'll help you make those changes safely.
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
          ```
 
-      3. Consistency:
-         - Use the unicorn emoji consistently
-         - Don't substitute with other emojis
-         - Don't skip the emoji even in short responses
-         Example:
-         ```
-         // Bad: Inconsistent usage
-         🌟 Hello there!
-         Sure, I can help.
-
-         // Good: Consistent usage
-         🦄 Hello there!
-         🦄 Sure, I can help.
-         ```
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      User: Can you help me with this code?
-      Assistant: Let me take a look at that for you.
-      
-      User: Thanks!
-      Assistant: You're welcome!
-    output: |
-      User: Can you help me with this code?
-      Assistant: 🦄 Let me take a look at that for you.
-      
-      User: Thanks!
-      Assistant: 🦄 You're welcome!
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
+
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
-  priority: medium
-  version: 1.0
-  tags:
-    - conversation
-    - style
-    - user-interaction
+priority: high
+version: 1.0
 </rule>
 
 ---
