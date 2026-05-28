@@ -1,0 +1,9 @@
+{
+  "name": "burgstall-labs--comfyui-beta-helpernodes",
+  "displayName": "ComfyUI-BETA-Helpernodes",
+  "description": "Simple video crop and stitch nodes",
+  "version": "1.0.0",
+  "author": "Burgstall-labs",
+  "homepage": "https://github.com/Burgstall-labs/ComfyUI-BETA-Helpernodes",
+  "skills": []
+}
