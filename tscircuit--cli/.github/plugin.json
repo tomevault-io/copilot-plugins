@@ -1,0 +1,14 @@
+{
+  "name": "tscircuit--cli",
+  "displayName": "cli",
+  "description": "Create electronics with React with a local development server",
+  "version": "1.0.0",
+  "author": "tscircuit",
+  "homepage": "https://github.com/tscircuit/cli",
+  "skills": [
+    {
+      "name": "tscircuit",
+      "description": ""
+    }
+  ]
+}
