@@ -4,7 +4,7 @@
   "repo": "HyperFix-Kanban",
   "description": "HyperFix \u2014 Plateforme de gestion Kanban centralis\u00e9e pour Coubeche Group.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SamalehZen/HyperFix-Kanban",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T18:46:49Z"
+  "distributed_at": "2026-05-28T18:47:50Z"
 }
