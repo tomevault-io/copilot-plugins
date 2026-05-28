@@ -1,0 +1,9 @@
+{
+  "name": "rnmjs--pm",
+  "displayName": "pm",
+  "description": "\ud83d\udce6 Unified Package Manager for Node.js (npm, yarn, pnpm)",
+  "version": "1.0.0",
+  "author": "rnmjs",
+  "homepage": "https://github.com/rnmjs/pm",
+  "skills": []
+}
