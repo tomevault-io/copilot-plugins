@@ -7,11 +7,11 @@ OpenAPI and AsyncAPI specifications for cryptocurrency exchanges and DeFi protoc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openxapi/openxapi](https://github.com/openxapi/openxapi).
+Original source: `CLAUDE.md` in [openxapi/openxapi](https://github.com/openxapi/openxapi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
