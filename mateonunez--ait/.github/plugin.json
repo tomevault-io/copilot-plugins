@@ -1,0 +1,14 @@
+{
+  "name": "mateonunez--ait",
+  "displayName": "ait",
+  "description": "Hey there! I'm AIt. Your data. Your AI. One Platform.",
+  "version": "1.0.0",
+  "author": "mateonunez",
+  "homepage": "https://github.com/mateonunez/ait",
+  "skills": [
+    {
+      "name": "develop-ai-functions-example",
+      "description": ""
+    }
+  ]
+}
