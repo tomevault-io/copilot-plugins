@@ -1,0 +1,9 @@
+{
+  "name": "jitzulang--jitzu",
+  "displayName": "Jitzu",
+  "description": "An interactive shell and a typed scripting language written in .NET",
+  "version": "1.0.0",
+  "author": "jitzulang",
+  "homepage": "https://github.com/jitzulang/Jitzu",
+  "skills": []
+}
