@@ -4,7 +4,7 @@
   "repo": "rsai",
   "description": "Predictable development for unpredictable models. Let the compiler handle the chaos.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luckenco/rsai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T18:56:21Z"
+  "distributed_at": "2026-05-28T19:02:18Z"
 }
