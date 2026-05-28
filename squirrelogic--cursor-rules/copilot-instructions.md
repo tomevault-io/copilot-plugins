@@ -1,148 +1,90 @@
-## conventional-commits
+## conversation-style
 
-> Automatically commit changes using conventional commits format
+> Enforces consistent conversation patterns and style
 
-# Conventional Commits Rule
+ # Conversation Style
+Guidelines for maintaining a consistent and engaging conversation style.
 
-## Description
-This rule defines the format and structure for commit messages following the Conventional Commits 1.0.0 specification. It ensures consistent, semantic, and machine-readable commit messages.
+<rule>
+name: conversation_style
+description: Enforces consistent conversation patterns and style
+filters:
+  - type: event
+    pattern: "conversation_start|message_response"
 
-## Rule Type
-workflow
+actions:
+  - type: suggest
+    message: |
+      When engaging in conversations, follow these rules:
 
-## Rule Format
-```json
-{
-  "type": "workflow",
-  "name": "conventional_commits",
-  "description": "Enforces Conventional Commits 1.0.0 specification",
-  "filters": [
-    {
-      "type": "event",
-      "pattern": "pre_commit"
-    }
-  ],
-  "steps": [
-    {
-      "action": "validate",
-      "description": "Validate commit message format",
-      "requirements": [
-        "Message MUST be prefixed with a type",
-        "Type MUST be one of: feat, fix, docs, style, refactor, perf, test, build, ci, chore",
-        "Scope is OPTIONAL and MUST be in parentheses",
-        "Description MUST immediately follow the colon and space",
-        "Description MUST use imperative mood ('add' not 'added')",
-        "Description MUST be less than 100 characters",
-        "Breaking changes MUST be indicated by '!' or 'BREAKING CHANGE:' footer",
-        "Body MUST be separated from description by one blank line",
-        "Footer MUST be separated from body by one blank line"
-      ]
-    },
-    {
-      "action": "execute",
-      "description": "Format and create commit",
-      "script": {
-        "detect_type": {
-          "feat": ["add", "create", "implement", "introduce"],
-          "fix": ["fix", "correct", "resolve", "patch"],
-          "docs": ["document", "comment", "update.*docs"],
-          "style": ["style", "format", "lint"],
-          "refactor": ["refactor", "restructure", "reorganize"],
-          "perf": ["optimize", "performance", "improve.*speed"],
-          "test": ["test", "spec", "coverage"],
-          "build": ["build", "dependency", "package"],
-          "ci": ["ci", "pipeline", "workflow"],
-          "chore": ["chore", "misc", "task"]
-        },
-        "format_message": {
-          "template": "${type}${scope}: ${description}\n\n${body}\n\n${footer}",
-          "variables": {
-            "type": "Detected from changes or user input",
-            "scope": "Optional, derived from file paths",
-            "description": "First line of commit message",
-            "body": "Detailed explanation of changes",
-            "footer": "Optional references or breaking changes"
-          }
-        },
-        "command": [
-          "# Extract type from changes or prompt user",
-          "TYPE=$(detect_change_type \"$CHANGES\" || prompt_user \"Enter commit type:\")",
-          "",
-          "# Extract scope from file paths",
-          "SCOPE=$(get_common_path \"$CHANGED_FILES\")",
-          "",
-          "# Format the commit message",
-          "printf \"%s\\n\\n%s\\n\\n%s\" \"$TYPE${SCOPE:+($SCOPE)}: $DESCRIPTION\" \"$BODY\" \"$FOOTER\" > \"$COMMIT_MSG_FILE\""
-        ]
-      }
-    }
-  ]
-}
-```
+      1. Unicorn Greeting:
+         - Start every conversation and response with "🦄"
+         - Place the emoji at the very beginning of the message
+         - Add a space after emoji if followed by a sentence
+         Example:
+         ```
+         // Bad: Missing unicorn or wrong placement
+         Hello! How can I help you today?
+         Hi 🦄 there!
+         
+         // Good: Proper unicorn placement
+         🦄 Hello! How can I help you today?
+         🦄 Hi there!
+         🦄 I'll help you with that request.
+         ```
 
-## Manual Commit Syntax
-When creating commits manually, always use the printf syntax to properly handle newlines and formatting:
+      2. Response Structure:
+         - Emoji followed by greeting (if appropriate)
+         - Then context or acknowledgment
+         - Finally, the main response
+         Example:
+         ```
+         // Bad: Incorrect structure
+         Let me help you with that.
+         🦄 [No context or acknowledgment]
 
-```bash
-printf "type(scope): description\n\nbody of the commit explaining the changes in detail\n\nfooter information" | git commit -F -
-```
+         // Good: Proper structure
+         🦄 I understand you want to modify the configuration.
+         I'll help you make those changes safely.
+         ```
 
-For example:
-```bash
-printf "feat(auth): add OAuth2 support\n\nAdd Google and GitHub provider integration\nImplement token refresh handling\nAdd user profile synchronization\n\nCloses #123" | git commit -F -
-```
+      3. Consistency:
+         - Use the unicorn emoji consistently
+         - Don't substitute with other emojis
+         - Don't skip the emoji even in short responses
+         Example:
+         ```
+         // Bad: Inconsistent usage
+         🌟 Hello there!
+         Sure, I can help.
 
-This ensures proper formatting and newline handling in the commit message.
+         // Good: Consistent usage
+         🦄 Hello there!
+         🦄 Sure, I can help.
+         ```
 
-## Examples
+examples:
+  - input: |
+      User: Can you help me with this code?
+      Assistant: Let me take a look at that for you.
+      
+      User: Thanks!
+      Assistant: You're welcome!
+    output: |
+      User: Can you help me with this code?
+      Assistant: 🦄 Let me take a look at that for you.
+      
+      User: Thanks!
+      Assistant: 🦄 You're welcome!
 
-### Feature with Scope
-```
-feat(auth): implement OAuth2 support
-
-- Add Google and GitHub provider integration
-- Implement token refresh handling
-- Add user profile synchronization
-
-Closes #123
-```
-
-### Bug Fix with Breaking Change
-```
-fix(api): update user serialization
-
-- Modify user data structure for better consistency
-- Add validation for new fields
-
-BREAKING CHANGE: user.fullName split into firstName and lastName
-```
-
-### Documentation Update
-```
-docs(readme): add modern package manager instructions
-
-- Add yarn and pnpm installation methods
-- Update minimum Node.js version requirement
-```
-
-### Performance Improvement
-```
-perf(core): optimize database queries
-
-- Add query result caching
-- Implement proper indexing
-- Reduce unnecessary joins
-
-Closes #456
-```
-
-## Integration
-This rule should be used in conjunction with the git-commit-workflow rule to ensure changes are properly reviewed before creating the commit message. The workflow should be:
-
-1. Review changes (git-commit-workflow)
-2. Format commit message (conventional-commits)
-3. Validate commit message (conventional-commits)
-4. Commit changes
+metadata:
+  priority: medium
+  version: 1.0
+  tags:
+    - conversation
+    - style
+    - user-interaction
+</rule>
 
 ---
 > Source: [squirrelogic/cursor-rules](https://github.com/squirrelogic/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
