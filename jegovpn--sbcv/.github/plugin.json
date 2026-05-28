@@ -1,0 +1,9 @@
+{
+  "name": "jegovpn--sbcv",
+  "displayName": "sbcv",
+  "description": "sbcv \u2014 sing-box configuration visualizer. Build, inspect, validate, import, and export sing-box JSON configurations through a visual canvas backed by a canonical config model.",
+  "version": "1.0.0",
+  "author": "JegoVPN",
+  "homepage": "https://github.com/JegoVPN/sbcv",
+  "skills": []
+}
