@@ -4,7 +4,7 @@
   "repo": "flutter_template_project",
   "description": "A Flutter template project designed to support   AI-powered Flutter app development, with Claude Code   as its core foundation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/r0227n/flutter_template_project",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T06:31:35Z"
+  "distributed_at": "2026-05-28T06:33:15Z"
 }
