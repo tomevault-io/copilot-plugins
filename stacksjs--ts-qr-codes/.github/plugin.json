@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--ts-qr-codes",
+  "displayName": "ts-qr-codes",
+  "description": "\ud83d\udd12 QR & Bar Code generating & reading. Lightweight & powerful.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/ts-qr-codes",
+  "skills": []
+}
