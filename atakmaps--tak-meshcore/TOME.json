@@ -4,7 +4,7 @@
   "repo": "TAK-MESHCORE",
   "description": "ATAK MeshCore plugin",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atakmaps/TAK-MESHCORE",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T18:50:13Z"
+  "distributed_at": "2026-05-28T18:54:08Z"
 }
