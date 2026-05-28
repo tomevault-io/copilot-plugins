@@ -1,0 +1,9 @@
+{
+  "name": "irreducibleoss--tracing-profile",
+  "displayName": "tracing-profile",
+  "description": "Rust tracing extension for profiling one-shot program executions",
+  "version": "1.0.0",
+  "author": "IrreducibleOSS",
+  "homepage": "https://github.com/IrreducibleOSS/tracing-profile",
+  "skills": []
+}
