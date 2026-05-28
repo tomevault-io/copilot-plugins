@@ -1,0 +1,9 @@
+{
+  "name": "cloudfloo--contextmesh-cli",
+  "displayName": "contextmesh-cli",
+  "description": "CLI tool for ContextMesh - npm-like package manager for MCP connectors",
+  "version": "1.0.0",
+  "author": "cloudfloo",
+  "homepage": "https://github.com/cloudfloo/contextmesh-cli",
+  "skills": []
+}
