@@ -1,0 +1,9 @@
+{
+  "name": "hleroy--django-signature-pad",
+  "displayName": "django-signature-pad",
+  "description": "A Django field for capturing signatures using signature_pad",
+  "version": "1.0.0",
+  "author": "hleroy",
+  "homepage": "https://github.com/hleroy/django-signature-pad",
+  "skills": []
+}
