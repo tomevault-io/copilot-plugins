@@ -4,7 +4,7 @@
   "repo": "pm",
   "description": "\ud83d\udce6 Unified Package Manager for Node.js (npm, yarn, pnpm)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rnmjs/pm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T17:10:35Z"
+  "distributed_at": "2026-05-28T17:11:16Z"
 }
