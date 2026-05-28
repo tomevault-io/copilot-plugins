@@ -4,7 +4,7 @@
   "repo": "tokenfuzz",
   "description": "TokenFuzz is an open platform for LLM-based vulnerability research",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tokenfuzz/tokenfuzz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T00:39:42Z"
+  "distributed_at": "2026-05-28T00:47:23Z"
 }
