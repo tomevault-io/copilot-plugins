@@ -1,11 +1,32 @@
-## 2-front
+## 4-packagemanager-update
 
-> React/Vite Vite React TypeScript You are an expert in TypeScript, Vite React Router, React, Tailwind, Tanstack react-query.
+> Rules to apply on PNPM and Node version update
 
+When the developer decides to update the PNPM or Node version, we need to ensure that the version of PNPM and Node is the same in the whole repository.
 
-# Your rule content
+For that, check the diff or previous commits and do a search on the codebase on the previous version of PNPM and Node.
 
-- Follow guidelines in [frontend.mdx](../../apps/documentation/src/content/docs/references/frontend.mdx)
+Then propose an update for the files that were not updated correctly.
+
+## Files to include (non limited to the ones listed here)
+
+Package.json files:
+- ./package.json
+- ./apps/api/package.json
+- ./apps/web-spa/package.json
+- ./apps/web-ssr/package.json
+- ./apps/documentation/package.json
+- ./apps/openapi-generator/package.json
+- ./apps/schematics/package.json
+
+Actions and workflows:
+- ./.github/actions/setup-node-pnpm/action.yml
+- ./.github/workflows/ci.yml
+- ./.github/workflows/deploy-docs.yml
+
+Docs and README:
+- README.md
+- ./apps/documentation/src/content/docs/quickstart.mdx
 
 ---
 > Source: [lonestone/lonestone-boilerplate](https://github.com/lonestone/lonestone-boilerplate) — distributed by [TomeVault](https://tomevault.io).
