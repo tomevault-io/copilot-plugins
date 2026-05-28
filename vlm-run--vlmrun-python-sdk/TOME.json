@@ -4,7 +4,7 @@
   "repo": "vlmrun-python-sdk",
   "description": "Official Python SDK for VLM Run",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vlm-run/vlmrun-python-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T22:55:02Z"
+  "distributed_at": "2026-05-28T22:59:05Z"
 }
