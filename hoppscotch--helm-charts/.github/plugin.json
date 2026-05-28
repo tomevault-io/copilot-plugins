@@ -1,0 +1,9 @@
+{
+  "name": "hoppscotch--helm-charts",
+  "displayName": "helm-charts",
+  "description": "Scalable Kubernetes Deployments for Hoppscotch",
+  "version": "1.0.0",
+  "author": "hoppscotch",
+  "homepage": "https://github.com/hoppscotch/helm-charts",
+  "skills": []
+}
