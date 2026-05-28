@@ -1,0 +1,9 @@
+{
+  "name": "jeffreybaird--ordered-collections",
+  "displayName": "ordered_collections",
+  "description": "SortedMap and SortedSet for elixir",
+  "version": "1.0.0",
+  "author": "jeffreybaird",
+  "homepage": "https://github.com/jeffreybaird/ordered_collections",
+  "skills": []
+}
