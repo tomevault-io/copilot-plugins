@@ -1,0 +1,9 @@
+{
+  "name": "imio--helm-odoo",
+  "displayName": "helm-odoo",
+  "description": "Helm Chart for Odoo",
+  "version": "1.0.0",
+  "author": "IMIO",
+  "homepage": "https://github.com/IMIO/helm-odoo",
+  "skills": []
+}
