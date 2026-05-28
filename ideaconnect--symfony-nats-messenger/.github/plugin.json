@@ -1,0 +1,9 @@
+{
+  "name": "ideaconnect--symfony-nats-messenger",
+  "displayName": "symfony-nats-messenger",
+  "description": "Symfony NATS Messenger Bridge (with JetStream persistence support).",
+  "version": "1.0.0",
+  "author": "ideaconnect",
+  "homepage": "https://github.com/ideaconnect/symfony-nats-messenger",
+  "skills": []
+}
