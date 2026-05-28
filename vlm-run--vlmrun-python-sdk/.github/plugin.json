@@ -1,0 +1,9 @@
+{
+  "name": "vlm-run--vlmrun-python-sdk",
+  "displayName": "vlmrun-python-sdk",
+  "description": "Official Python SDK for VLM Run",
+  "version": "1.0.0",
+  "author": "vlm-run",
+  "homepage": "https://github.com/vlm-run/vlmrun-python-sdk",
+  "skills": []
+}
