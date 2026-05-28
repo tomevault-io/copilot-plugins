@@ -1,0 +1,9 @@
+{
+  "name": "mntno--obsidian-come-down",
+  "displayName": "obsidian-come-down",
+  "description": "An Obsidian plugin that maintains a cache of your notes\u2019 embedded external images.",
+  "version": "1.0.0",
+  "author": "mntno",
+  "homepage": "https://github.com/mntno/obsidian-come-down",
+  "skills": []
+}
