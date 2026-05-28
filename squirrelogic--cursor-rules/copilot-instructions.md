@@ -1,168 +1,162 @@
-## file-organization
+## git-commit-workflow
 
-> Guidelines for organizing code into files following single responsibility principle.
+> Workflow for testing, validating, and committing changes using conventional commits
 
-# File Organization
-Guidelines for organizing code into files following single responsibility principle.
+# Git Commit Workflow Rule
 
-<rule>
-name: file_organization
-description: Enforces file-level organization and separation of concerns
-filters:
-  - type: file_extension
-    pattern: "\\.ts$|\\.js$"
-  - type: content
-    pattern: "(?s)(class|interface|type|function).*?\\{"
+## Description
+This rule defines the complete workflow for validating changes, running tests, and creating commits. It ensures that all changes are properly tested and validated before being committed using the conventional commits format.
 
-actions:
-  - type: suggest
-    message: |
-      When organizing code into files, follow these rules:
+## Rule Type
+workflow
 
-      1. Single Definition Per File:
-         - Each class should be in its own file
-         - Each standalone function should be in its own file
-         - Each complex type/interface (more than one line) should be in its own file
-         Example:
-         ```typescript
-         // Bad: Multiple definitions in one file
-         // user-types.ts
-         interface UserCredentials {
-           username: string;
-           password: string;
-         }
-         interface UserProfile {
-           id: string;
-           name: string;
-           email: string;
-         }
-         class UserService {
-           // ...
-         }
-
-         // Good: Separate files for each definition
-         // user-credentials.ts
-         interface UserCredentials {
-           username: string;
-           password: string;
-         }
-
-         // user-profile.ts
-         interface UserProfile {
-           id: string;
-           name: string;
-           email: string;
-         }
-
-         // user-service.ts
-         class UserService {
-           // ...
-         }
-         ```
-
-      2. File Naming Conventions:
-         - Use kebab-case for filenames
-         - Name files after their primary export
-         - Use suffixes to indicate type: `.interface.ts`, `.type.ts`, `.service.ts`, etc.
-         Example:
-         ```typescript
-         // Good file names:
-         user-credentials.interface.ts
-         user-profile.interface.ts
-         user-service.ts
-         create-user.function.ts
-         ```
-
-      3. Simple Type Exceptions:
-         - Single-line type aliases and interfaces can be co-located if they're tightly coupled
-         Example:
-         ```typescript
-         // Acceptable in the same file:
-         type UserId = string;
-         type UserRole = 'admin' | 'user';
-         interface BasicUser { id: string; role: UserRole; }
-         ```
-
-      4. Barrel File Usage:
-         - Use index.ts files to re-export related components
-         - Keep barrel files simple - export only, no implementations
-         Example:
-         ```typescript
-         // users/index.ts
-         export * from './user-credentials.interface';
-         export * from './user-profile.interface';
-         export * from './user-service';
-         ```
-
-      5. Directory Structure:
-         - Group related files in directories
-         - Use feature-based organization
-         Example:
-         ```
-         src/
-         ├── users/
-         │   ├── interfaces/
-         │   │   ├── user-credentials.interface.ts
-         │   │   └── user-profile.interface.ts
-         │   ├── services/
-         │   │   └── user-service.ts
-         │   └── index.ts
-         └── ...
-         ```
-
-      6. Import Organization:
-         - Keep imports organized by type (external, internal, relative)
-         - Use explicit imports over namespace imports
-         Example:
-         ```typescript
-         // External imports
-         import { Injectable } from '@nestjs/common';
-         import { v4 as uuid } from 'uuid';
-
-         // Internal imports (from your app)
-         import { UserProfile } from '@/users/interfaces';
-         import { DatabaseService } from '@/database';
-
-         // Relative imports (same feature)
-         import { UserCredentials } from './user-credentials.interface';
-         ```
-
-examples:
-  - input: |
-      // Bad: Multiple concerns in one file
-      interface UserData {
-        id: string;
-        name: string;
+## Rule Format
+```json
+{
+  "type": "workflow",
+  "name": "git_commit_workflow",
+  "description": "Validates changes and creates conventional commits",
+  "filters": [
+    {
+      "type": "event",
+      "pattern": "pre_commit"
+    }
+  ],
+  "steps": [
+    {
+      "action": "validate",
+      "description": "Run tests and type checks",
+      "requirements": [
+        "All tests MUST pass",
+        "TypeScript compilation MUST succeed",
+        "Build process MUST complete successfully"
+      ]
+    },
+    {
+      "action": "execute",
+      "description": "Validate and commit changes",
+      "script": {
+        "steps": [
+          {
+            "name": "run_tests",
+            "command": "npm test",
+            "on_failure": "abort"
+          },
+          {
+            "name": "type_check",
+            "command": "npm run type-check",
+            "on_failure": "abort"
+          },
+          {
+            "name": "build",
+            "command": "npm run build",
+            "on_failure": "abort"
+          },
+          {
+            "name": "check_changes",
+            "command": "git status --porcelain",
+            "store_output": "CHANGED_FILES"
+          },
+          {
+            "name": "stage_changes",
+            "command": "git add ."
+          },
+          {
+            "name": "create_commit",
+            "use_rule": "conventional-commits"
+          }
+        ]
       }
+    }
+  ]
+}
+```
 
-      class UserService {
-        getUser(id: string) { }
-      }
+## Workflow Steps
 
-      function validateUser(user: UserData) { }
-    output: |
-      // user-data.interface.ts
-      interface UserData {
-        id: string;
-        name: string;
-      }
+1. **Run Tests**
+   - Execute the test suite using `npm test`
+   - Abort if any tests fail
+   - Ensure all new features have corresponding tests
 
-      // user.service.ts
-      class UserService {
-        getUser(id: string) { }
-      }
+2. **Type Checking**
+   - Run TypeScript type checking
+   - Verify no type errors exist
+   - Abort if type checking fails
 
-      // validate-user.function.ts
-      function validateUser(user: UserData) { }
+3. **Build Process**
+   - Run the build process
+   - Ensure the project builds successfully
+   - Abort if build fails
 
-metadata:
-  priority: high
-  version: 1.0
-  tags:
-    - code-organization
-    - best-practices
-    - file-structure
-</rule>
+4. **Check Changes**
+   - Use `git status` to identify modified files
+   - Review changes before staging
+   - Ensure no unintended files are included
+
+5. **Stage Changes**
+   - Stage all relevant files using `git add`
+   - Review staged changes if needed
+
+6. **Create Commit**
+   - Use conventional-commits rule to format commit message
+   - Follow proper commit message structure
+   - Include appropriate type, scope, and description
+
+## Integration with Conventional Commits
+This workflow automatically integrates with the conventional-commits rule to ensure proper commit message formatting. The workflow will:
+
+1. Detect the appropriate commit type based on changes
+2. Generate a properly formatted commit message
+3. Include relevant scope based on changed files
+4. Add detailed body explaining changes
+5. Include footer with issue references if applicable
+
+## Examples
+
+### Feature Development
+```bash
+# 1. Run tests
+npm test
+
+# 2. Type check
+npm run type-check
+
+# 3. Build
+npm run build
+
+# 4. Check changes
+git status
+
+# 5. Stage changes
+git add .
+
+# 6. Create commit (using conventional-commits rule)
+printf "feat(auth): implement OAuth2 support\n\nAdd Google and GitHub provider integration\nImplement token refresh handling\n\nCloses #123" | git commit -F -
+```
+
+### Bug Fix
+```bash
+# Follow the same workflow
+npm test && npm run type-check && npm run build
+git status
+git add .
+printf "fix(api): resolve user data serialization issue\n\nFix incorrect handling of nested user properties\n\nCloses #456" | git commit -F -
+```
+
+## Error Handling
+- If any validation step fails, the workflow will abort
+- Test failures must be resolved before proceeding
+- Type errors must be fixed before commit
+- Build errors must be addressed
+- Proper error messages will be displayed for each failure
+
+## Notes
+- Always run this workflow before creating commits
+- Ensure all tests are up to date
+- Keep commits focused and atomic
+- Follow the conventional commits format
+- Use meaningful commit messages
 
 ---
 > Source: [squirrelogic/cursor-rules](https://github.com/squirrelogic/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
