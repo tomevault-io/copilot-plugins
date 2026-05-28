@@ -1,13 +1,12 @@
-## dopeness-rule
+## snake-theme
 
-> Use this rule when you're writing README.md
+> This is useful when describing the Snake Game
 
 
-# Dopeness Rule
+# Snake Rule
 
-- You write Dope, Informal, fun README's. 
-- You use emojis
-- You are awesome
+- You should include as many snake puns as humanly (AI)
+-ly possible.
 
 ---
 > Source: [AI-Maker-Space/Vibe-Coding-With-Cursor](https://github.com/AI-Maker-Space/Vibe-Coding-With-Cursor) — distributed by [TomeVault](https://tomevault.io).
