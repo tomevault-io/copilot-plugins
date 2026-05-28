@@ -1,97 +1,50 @@
-## cusor-rules
+## functions
 
-> Use ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
+> USE object parameters WHEN writing functions with multiple parameters TO improve code maintainability
 
-# Cursor Rules Format
-## Core Structure
 
-```mdc
----
-description: ACTION when TRIGGER to OUTCOME
-globs: *.mdc
-alwaysApply: false
----
-
-# Rule Title
+# TypeScript Function Rules
 
 ## Context
-- When to apply this rule
-- Prerequisites or conditions
+- Apply when writing TypeScript functions with multiple parameters
+- Applies to both function declarations and arrow function expressions
+- Aims to improve code maintainability and readability
 
 ## Requirements
-- Concise, actionable items
-- Each requirement must be testable
+- Functions with more than 1 parameter must use an object parameter pattern
+- Name input types with the pattern: `{FunctionName}Input`
+- For single parameters, direct arguments are acceptable
+- Object parameters should use destructuring in the function signature
 
 ## Examples
 <example>
-Good concise example with explanation
+// Good: Using object parameter for multiple parameters
+type UpdateNameInput = {
+  id: string
+  newName: string
+}
+
+const updateName = ({
+  id,
+  newName
+}: UpdateNameInput) => {
+  // ...
+}
+</example>
+
+<example>
+// Good: Single parameter uses direct argument
+const getUser = (id: string) => {
+  // ...
+}
 </example>
 
 <example type="invalid">
-Invalid concise example with explanation
+// Bad: Multiple direct parameters
+const updateName = (id: string, newName: string) => {
+  // ...
+}
 </example>
-```
-
-## File Organization
-
-### Location
-- Path: `.cursor/rules/`
-- Extension: `.mdc`
-
-### Glob Pattern Examples
-Common glob patterns for different rule types:
-- Most often pattern would be `*.ts,*.tsx` as it's a typescript monorepo.
-
-## Required Fields
-
-### Frontmatter
-- description: ACTION TRIGGER OUTCOME format
-- globs: `glob pattern for files and folders`
-- alwaysApply: `true` or `false`
-
-### Body
-- context: Usage conditions
-- requirements: Actionable items
-- examples: Both valid and invalid
-
-## Formatting Guidelines
-
-- Use Concise Markdown primarily
-- XML tags limited to:
-  - <example>
-  - <danger>
-  - <required>
-  - <rules>
-  - <rule>
-  - <critical>
-- Always indent content within XML or nested XML tags by 2 spaces
-- Keep rules as short as possbile
-- Use Mermaid syntax if it will be shorter or clearer than describing a complex rule
-- Use Emojis where appropriate to convey meaning that will improve rule understanding by the AI Agent
-- Keep examples as short as possible to clearly convey the positive or negative example
-
-## AI Optimization Tips
-
-1. Use precise, deterministic ACTION TRIGGER OUTCOME format in descriptions
-2. Provide concise positive and negative example of rule application in practice
-3. Optimize for AI context window efficiency
-4. Remove any non-essential or redundant information
-5. Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
-
-## AI Context Efficiency
-
-1. Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI AGent
-2. Limit examples to essential patterns only
-3. Use hierarchical structure for quick parsing
-4. Remove redundant information across sections
-5. Maintain high information density with minimal tokens
-6. Focus on machine-actionable instructions over human explanations
-
-<critical>
-  - NEVER include verbose explanations or redundant context that increases AI token overhead
-  - Keep file as short and to the point as possible BUT NEVER at the expense of sacrificing rule impact and usefulness for the AI Agent.
-  - the front matter can ONLY have the fields description and globs.
-</critical>
 
 ---
 > Source: [radzionc/crypto](https://github.com/radzionc/crypto) — distributed by [TomeVault](https://tomevault.io).
