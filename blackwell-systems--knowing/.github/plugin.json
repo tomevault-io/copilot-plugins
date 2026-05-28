@@ -1,0 +1,9 @@
+{
+  "name": "blackwell-systems--knowing",
+  "displayName": "knowing",
+  "description": "Permanent code intelligence layer. Learns what matters, expires what changed, proves what existed. Content-addressed graph with Merkle proofs, 25 extractors, 23 MCP tools. Gets smarter with use.",
+  "version": "1.0.0",
+  "author": "blackwell-systems",
+  "homepage": "https://github.com/blackwell-systems/knowing",
+  "skills": []
+}
