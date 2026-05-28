@@ -1,0 +1,9 @@
+{
+  "name": "engine-room-games--mgenerators",
+  "displayName": "MGenerators",
+  "description": "A Unity package of Roslyn source generators that take care of the boilerplate around common gameplay patterns.",
+  "version": "1.0.0",
+  "author": "Engine-Room-Games",
+  "homepage": "https://github.com/Engine-Room-Games/MGenerators",
+  "skills": []
+}
