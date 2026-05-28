@@ -1,0 +1,9 @@
+{
+  "name": "mateusznakodach--heroesofdomaindrivendesign-eventsourcing-java-axon-spring",
+  "displayName": "HeroesOfDomainDrivenDesign.EventSourcing.Java.Axon.Spring",
+  "description": "Shows how to use Domain-Driven Design, Event Storming, Event Modeling and Event Sourcing in Heroes of Might & Magic III domain.",
+  "version": "1.0.0",
+  "author": "MateuszNaKodach",
+  "homepage": "https://github.com/MateuszNaKodach/HeroesOfDomainDrivenDesign.EventSourcing.Java.Axon.Spring",
+  "skills": []
+}
