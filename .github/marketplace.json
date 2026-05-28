@@ -6849,6 +6849,11 @@
       "description": "Natural (2-way) voice conversations with Claude Code"
     },
     {
+      "name": "mbailey--voicemode",
+      "source": "./mbailey--voicemode",
+      "description": "Natural (2-way) voice conversations with Claude Code"
+    },
+    {
       "name": "ido-levi--hephaestus",
       "source": "./ido-levi--hephaestus",
       "description": "Semi-Structured Agentic Framework. Workflows build themselves as agents discover what needs to be done, not what you predicted upfront."
@@ -177524,6 +177529,21 @@
       "description": "Tauri 2 + Phaser 4 desktop dashboard that visualizes live GitHub Copilot CLI activity."
     },
     {
+      "name": "ubugeeei--awesome-vite-plus",
+      "source": "./ubugeeei--awesome-vite-plus",
+      "description": "\ud83c\udf89 A curated list of awesome things related to Vite+"
+    },
+    {
+      "name": "darrylmorley--whatport",
+      "source": "./darrylmorley--whatport",
+      "description": "macOS menu bar utility showing real-time USB-C port status (protocol, speed, power). Apple Silicon only."
+    },
+    {
+      "name": "unclecheng-li--hello-ai",
+      "source": "./unclecheng-li--hello-ai",
+      "description": "Hello-AI\u662f\u4e00\u4e2a\u9762\u5411\u5c0f\u767d\u7684 AI / LLM \u5b66\u4e60\u5165\u53e3\u5e73\u53f0\uff1a\u628a AI \u57fa\u7840\u3001\u63d0\u793a\u8bcd\u3001\u5de5\u5177\u4f7f\u7528\u3001RAG\u3001Agent\u3001\u90e8\u7f72\u3001\u8bc4\u6d4b\u548c\u5b89\u5168\u5e38\u8bc6\u4e32\u6210\u4e00\u6761\u80fd\u8d70\u901a\u7684\u8def\uff0c\u5e76\u63d0\u4f9b\u6848\u4f8b\u3001\u7ec3\u4e60\u548c\u53ef\u590d\u73b0\u9879\u76ee\u8ba9\u5c0f\u767d\u628a\u8fd9\u6761\u8def\u8d70\u901a\u3002"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -284197,6 +284217,21 @@
       "name": "yonas-mengesha--fintech-chatbot",
       "source": "./yonas-mengesha--fintech-chatbot",
       "description": "fintech-chatbot"
+    },
+    {
+      "name": "rayyangtw--pdca",
+      "source": "./rayyangtw--pdca",
+      "description": "pdca"
+    },
+    {
+      "name": "mjibansingh--procurement-flow",
+      "source": "./mjibansingh--procurement-flow",
+      "description": "Created with Builder.io"
+    },
+    {
+      "name": "cloudfloo--contextmesh-cli",
+      "source": "./cloudfloo--contextmesh-cli",
+      "description": "CLI tool for ContextMesh - npm-like package manager for MCP connectors"
     }
   ]
 }
