@@ -1,0 +1,9 @@
+{
+  "name": "tiliajs--tilia",
+  "displayName": "tilia",
+  "description": "Monorepo for tilia, Domain-Driven State Management.",
+  "version": "1.0.0",
+  "author": "tiliajs",
+  "homepage": "https://github.com/tiliajs/tilia",
+  "skills": []
+}
