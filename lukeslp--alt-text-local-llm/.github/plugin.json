@@ -1,0 +1,9 @@
+{
+  "name": "lukeslp--alt-text-local-llm",
+  "displayName": "alt-text-local-llm",
+  "description": "Local tool for generating descriptive alt text for images using vision models",
+  "version": "1.0.0",
+  "author": "lukeslp",
+  "homepage": "https://github.com/lukeslp/alt-text-local-llm",
+  "skills": []
+}
