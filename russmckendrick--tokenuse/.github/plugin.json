@@ -1,0 +1,9 @@
+{
+  "name": "russmckendrick--tokenuse",
+  "displayName": "tokenuse",
+  "description": "A Rust TUI and Desktop app for exploring AI coding tool token and cost usage",
+  "version": "1.0.0",
+  "author": "russmckendrick",
+  "homepage": "https://github.com/russmckendrick/tokenuse",
+  "skills": []
+}
