@@ -1,0 +1,9 @@
+{
+  "name": "bonkey--awaitlesskit",
+  "displayName": "AwaitlessKit",
+  "description": "Simplifies the migration to async/await. It likely performs better than your ad hoc hacks.",
+  "version": "1.0.0",
+  "author": "bonkey",
+  "homepage": "https://github.com/bonkey/AwaitlessKit",
+  "skills": []
+}
