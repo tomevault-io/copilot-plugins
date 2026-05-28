@@ -1,77 +1,191 @@
-## naming-conventions
+## solid-principles
 
-> Enforces consistent naming patterns for files, types, and functions
+> Guidelines for implementing SOLID principles in the codebase.
 
-# Naming Conventions
-Standards for naming TypeScript and JavaScript files, types, and functions.
+# SOLID Principles
+Guidelines for implementing SOLID principles in the codebase.
 
 <rule>
-name: naming_conventions
-description: Enforces consistent naming patterns for files, types, and functions
+name: solid_principles
+description: Enforces SOLID principles in code design and implementation
 filters:
-  # Match TypeScript and JavaScript files
   - type: file_extension
-    pattern: "\\.(ts|js)$"
-  # Match file creation and modification events
-  - type: event
-    pattern: "(file_create|file_modify)"
+    pattern: "\\.ts$|\\.js$"
+  - type: content
+    pattern: "(?s)class.*?\\{|interface.*?\\{|function.*?\\{"
 
 actions:
-  - type: reject
-    conditions:
-      # Reject files not in kebab-case
-      - pattern: "^(?!.*[A-Z])(?!.*\\s)(?!.*_)[a-z0-9-]+\\.(ts|js)$"
-        message: "File names must be in kebab-case (e.g., my-file-name.ts)"
-
   - type: suggest
     message: |
-      Follow these naming conventions:
+      When writing code, follow these SOLID principles:
 
-      1. Files:
-         - Use kebab-case for all TypeScript and JavaScript files
-         - Examples:
-           ✅ user-service.ts
-           ✅ api-client.js
-           ❌ UserService.ts
-           ❌ apiClient.js
+      1. Single Responsibility Principle (SRP):
+         - Each class/module should have only one reason to change
+         - Keep classes focused and cohesive
+         - Extract separate concerns into their own classes
+         Example:
+         ```typescript
+         // Good: Single responsibility
+         class UserAuthentication {
+           authenticate(credentials: Credentials): boolean { ... }
+         }
+         class UserProfile {
+           updateProfile(data: ProfileData): void { ... }
+         }
 
-      2. Types (interfaces, types, classes):
-         - Use PascalCase
-         - Examples:
-           ✅ interface UserProfile
-           ✅ type ApiResponse
-           ✅ class HttpClient
-           ❌ interface userProfile
-           ❌ type api_response
+         // Bad: Multiple responsibilities
+         class User {
+           authenticate(credentials: Credentials): boolean { ... }
+           updateProfile(data: ProfileData): void { ... }
+           sendEmail(message: string): void { ... }
+         }
+         ```
 
-      3. Functions:
-         - Use camelCase
-         - Examples:
-           ✅ function getUserData()
-           ✅ const fetchApiResponse = () => {}
-           ❌ function GetUserData()
-           ❌ const fetch_api_response = () => {}
+      2. Open/Closed Principle (OCP):
+         - Classes should be open for extension but closed for modification
+         - Use interfaces and abstract classes
+         - Implement new functionality through inheritance/composition
+         Example:
+         ```typescript
+         // Good: Open for extension
+         interface PaymentProcessor {
+           process(payment: Payment): void;
+         }
+         class CreditCardProcessor implements PaymentProcessor { ... }
+         class PayPalProcessor implements PaymentProcessor { ... }
+
+         // Bad: Closed for extension
+         class PaymentProcessor {
+           process(payment: Payment, type: string): void {
+             if (type === 'credit') { ... }
+             else if (type === 'paypal') { ... }
+           }
+         }
+         ```
+
+      3. Liskov Substitution Principle (LSP):
+         - Derived classes must be substitutable for their base classes
+         - Maintain expected behavior when using inheritance
+         - Don't violate base class contracts
+         Example:
+         ```typescript
+         // Good: Derived class maintains base contract
+         class Bird {
+           fly(): void { ... }
+         }
+         class Sparrow extends Bird {
+           fly(): void { ... } // Implements flying behavior
+         }
+
+         // Bad: Violates base contract
+         class Penguin extends Bird {
+           fly(): void {
+             throw new Error("Can't fly!"); // Violates base class contract
+           }
+         }
+         ```
+
+      4. Interface Segregation Principle (ISP):
+         - Don't force clients to depend on interfaces they don't use
+         - Keep interfaces small and focused
+         - Split large interfaces into smaller ones
+         Example:
+         ```typescript
+         // Good: Segregated interfaces
+         interface Readable {
+           read(): void;
+         }
+         interface Writable {
+           write(data: string): void;
+         }
+
+         // Bad: Fat interface
+         interface FileSystem {
+           read(): void;
+           write(data: string): void;
+           delete(): void;
+           create(): void;
+           modify(): void;
+         }
+         ```
+
+      5. Dependency Inversion Principle (DIP):
+         - High-level modules shouldn't depend on low-level modules
+         - Both should depend on abstractions
+         - Use dependency injection
+         Example:
+         ```typescript
+         // Good: Depends on abstraction
+         interface Logger {
+           log(message: string): void;
+         }
+         class UserService {
+           constructor(private logger: Logger) {}
+         }
+
+         // Bad: Depends on concrete implementation
+         class UserService {
+           private logger = new FileLogger();
+         }
+         ```
+
+      Additional Guidelines:
+      - Use interfaces to define contracts
+      - Implement dependency injection
+      - Keep classes small and focused
+      - Use composition over inheritance when possible
+      - Write unit tests to verify SOLID compliance
 
 examples:
   - input: |
-      // Bad: Incorrect naming
-      UserService.ts
-      API_client.js
+      // Bad example - violates SRP and OCP
+      class OrderProcessor {
+        processOrder(order: Order) {
+          // Handles validation
+          // Handles payment
+          // Handles shipping
+          // Handles notification
+        }
+      }
+    output: |
+      // Good example - follows SOLID principles
+      interface OrderValidator {
+        validate(order: Order): boolean;
+      }
+      interface PaymentProcessor {
+        process(order: Order): void;
+      }
+      interface ShippingService {
+        ship(order: Order): void;
+      }
+      interface NotificationService {
+        notify(order: Order): void;
+      }
 
-      interface user_profile {}
-      function FetchData() {}
+      class OrderProcessor {
+        constructor(
+          private validator: OrderValidator,
+          private paymentProcessor: PaymentProcessor,
+          private shippingService: ShippingService,
+          private notificationService: NotificationService
+        ) {}
 
-      // Good: Correct naming
-      user-service.ts
-      api-client.js
-
-      interface UserProfile {}
-      function fetchData() {}
-    output: "Correctly named files, types, and functions"
+        processOrder(order: Order) {
+          if (this.validator.validate(order)) {
+            this.paymentProcessor.process(order);
+            this.shippingService.ship(order);
+            this.notificationService.notify(order);
+          }
+        }
+      }
 
 metadata:
   priority: high
   version: 1.0
+  tags:
+    - code-quality
+    - design-patterns
+    - best-practices
 </rule>
 
 ---
