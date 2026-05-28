@@ -4,7 +4,7 @@
   "repo": "lonestone-boilerplate",
   "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lonestone/lonestone-boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T12:51:35Z"
+  "distributed_at": "2026-05-28T12:52:04Z"
 }
