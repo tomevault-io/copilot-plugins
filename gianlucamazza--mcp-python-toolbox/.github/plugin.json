@@ -1,0 +1,9 @@
+{
+  "name": "gianlucamazza--mcp-python-toolbox",
+  "displayName": "mcp_python_toolbox",
+  "description": "A Model Context Protocol (MCP) server that provides a comprehensive set of tools for Python development",
+  "version": "1.0.0",
+  "author": "gianlucamazza",
+  "homepage": "https://github.com/gianlucamazza/mcp_python_toolbox",
+  "skills": []
+}
