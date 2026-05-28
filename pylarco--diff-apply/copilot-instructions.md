@@ -1,10 +1,13 @@
-## elysia-rule
+## freestyle-strict
 
-> everything you do about elysiajs whether creating, modifying or fixing or even strugling, should be based on latest doc via context7 mcp.
+> `tailwind.config.js` file is deprecated in Tailwind CSS v4. do not use `tailwind.config.js`. Tailwind CSS v4 only needs `@import "tailwindcss";` in the CSS file.
 
-everything you do about elysiajs whether creating, modifying or fixing or even strugling, should be based on latest doc via context7 mcp.
-
-I hate to see you struggling about elysiajs ... already told you to always use context7 mcp tool call for latest elysiajs doc/examples
+---
+description: 
+globs: 
+alwaysApply: true
+---
+`tailwind.config.js` file is deprecated in Tailwind CSS v4. do not use `tailwind.config.js`. Tailwind CSS v4 only needs `@import "tailwindcss";` in the CSS file.
 
 ---
 > Source: [pylarco/diff-apply](https://github.com/pylarco/diff-apply) — distributed by [TomeVault](https://tomevault.io).
