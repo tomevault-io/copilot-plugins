@@ -1,0 +1,9 @@
+{
+  "name": "dacarson--navienmanager",
+  "displayName": "NavienManager",
+  "description": "HomeKit and diagnostics for Navien Tankless Water Heater using ESP32 + RS485",
+  "version": "1.0.0",
+  "author": "dacarson",
+  "homepage": "https://github.com/dacarson/NavienManager",
+  "skills": []
+}
