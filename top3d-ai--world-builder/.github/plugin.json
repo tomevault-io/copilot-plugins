@@ -1,0 +1,9 @@
+{
+  "name": "top3d-ai--world-builder",
+  "displayName": "world-builder",
+  "description": "Get a full interactive 3D scene assembled in Blender",
+  "version": "1.0.0",
+  "author": "Top3d-ai",
+  "homepage": "https://github.com/Top3d-ai/world-builder",
+  "skills": []
+}
