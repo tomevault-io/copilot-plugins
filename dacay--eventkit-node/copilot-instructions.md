@@ -1,10 +1,11 @@
-## eventkit-node
+## docs
 
-> Used when deciding on names for types or functions
+> Used when creating or updating documentation
 
-- Use function names that reflect the native EventKit names but use Javasript conventions (e.g. you can use getCalendars for EKEventStore.calendars(for:) method
-- Use simplified type names when creating types for EventKit types (e.g. we can use Calendar for representing EKCalendar)
+- Always use top-level README.md as main entry point
+- Use docs/ folder for detailed documentation
+- Update api-reference.md as Typescript APIs are changed
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dacay) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [dacay/eventkit-node](https://github.com/dacay/eventkit-node) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
