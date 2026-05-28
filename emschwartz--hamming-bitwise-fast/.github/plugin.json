@@ -1,0 +1,9 @@
+{
+  "name": "emschwartz--hamming-bitwise-fast",
+  "displayName": "hamming-bitwise-fast",
+  "description": "Benchmarking Hamming Distance implementations in Rust",
+  "version": "1.0.0",
+  "author": "emschwartz",
+  "homepage": "https://github.com/emschwartz/hamming-bitwise-fast",
+  "skills": []
+}
