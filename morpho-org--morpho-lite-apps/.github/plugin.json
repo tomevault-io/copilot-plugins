@@ -1,0 +1,9 @@
+{
+  "name": "morpho-org--morpho-lite-apps",
+  "displayName": "morpho-lite-apps",
+  "description": "A monorepo containing the Lite and Fallback apps",
+  "version": "1.0.0",
+  "author": "morpho-org",
+  "homepage": "https://github.com/morpho-org/morpho-lite-apps",
+  "skills": []
+}
