@@ -1,0 +1,9 @@
+{
+  "name": "ruliana--mcp-pkm-logseq",
+  "displayName": "mcp-pkm-logseq",
+  "description": "A fairly customizable MCP server for Logseq",
+  "version": "1.0.0",
+  "author": "ruliana",
+  "homepage": "https://github.com/ruliana/mcp-pkm-logseq",
+  "skills": []
+}
