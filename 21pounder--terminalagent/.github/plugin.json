@@ -5,26 +5,5 @@
   "version": "1.0.0",
   "author": "21pounder",
   "homepage": "https://github.com/21pounder/terminalAgent",
-  "skills": [
-    {
-      "name": "code-review",
-      "description": ""
-    },
-    {
-      "name": "deep-research",
-      "description": ""
-    },
-    {
-      "name": "git-commit",
-      "description": ""
-    },
-    {
-      "name": "pdf-analyze",
-      "description": ""
-    },
-    {
-      "name": "web-scrape",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
