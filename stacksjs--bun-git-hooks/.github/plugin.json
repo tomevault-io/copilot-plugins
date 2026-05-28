@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--bun-git-hooks",
+  "displayName": "bun-git-hooks",
+  "description": "\ud83e\ude9d Think of `simple-git-hooks` but optimized for all-sized Bun projects.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/bun-git-hooks",
+  "skills": []
+}
