@@ -4,7 +4,7 @@
   "repo": "bragdoc-ai",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/edspencer/bragdoc-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T21:38:36Z"
+  "distributed_at": "2026-05-28T21:43:27Z"
 }
