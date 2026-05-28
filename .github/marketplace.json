@@ -166499,6 +166499,21 @@
       "description": "OS-Enforce AI Agent Harnesses with eBPF"
     },
     {
+      "name": "qigangc--trpg-agent",
+      "source": "./qigangc--trpg-agent",
+      "description": "A TRPG Agent with a UI for a better solo gaming experience."
+    },
+    {
+      "name": "jiaran-king--re-zero---starting-llm",
+      "source": "./jiaran-king--re-zero---starting-llm",
+      "description": "Re-Zero---Starting-LLM-"
+    },
+    {
+      "name": "aicayzer--companies-house-mcp",
+      "source": "./aicayzer--companies-house-mcp",
+      "description": "CLI and MCP server for the UK Companies House API \u2014 company search, profiles, officers, filings, ownership, and due diligence"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -177484,6 +177499,31 @@
       "description": "home cluster stuff"
     },
     {
+      "name": "kaijie0074-art--ip-website-studio",
+      "source": "./kaijie0074-art--ip-website-studio",
+      "description": "\u5728\u6d4f\u89c8\u5668\u91cc\u7528 AI \u9020\u4e00\u4e2a\u5355\u6587\u4ef6\u7f51\u7ad9\u3002BYOK \u00b7 Single-file HTML output"
+    },
+    {
+      "name": "x-isdoingreat--canvas-pilot-public",
+      "source": "./x-isdoingreat--canvas-pilot-public",
+      "description": "An agent lives in Canvas that does all of your homework"
+    },
+    {
+      "name": "yiyifred--cloud-phone",
+      "source": "./yiyifred--cloud-phone",
+      "description": "A project for online screen mirroring of mobile phones."
+    },
+    {
+      "name": "x-isdoingreat--canvas-pilot-public",
+      "source": "./x-isdoingreat--canvas-pilot-public",
+      "description": "An agent lives in Canvas that does all of your homework"
+    },
+    {
+      "name": "danwahlin--copilot-mission-control",
+      "source": "./danwahlin--copilot-mission-control",
+      "description": "Tauri 2 + Phaser 4 desktop dashboard that visualizes live GitHub Copilot CLI activity."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -180212,6 +180252,16 @@
       "name": "engine-room-games--mgenerators",
       "source": "./engine-room-games--mgenerators",
       "description": "A Unity package of Roslyn source generators that take care of the boilerplate around common gameplay patterns."
+    },
+    {
+      "name": "ehsankolivand--speakloop",
+      "source": "./ehsankolivand--speakloop",
+      "description": "Offline English interview practice CLI with grammar feedback for Persian L1 speakers, built for Apple Silicon"
+    },
+    {
+      "name": "jegovpn--sbcv",
+      "source": "./jegovpn--sbcv",
+      "description": "sbcv \u2014 sing-box configuration visualizer. Build, inspect, validate, import, and export sing-box JSON configurations through a visual canvas backed by a canonical config model."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -284042,6 +284092,111 @@
       "name": "yismen--ecco-invoicing",
       "source": "./yismen--ecco-invoicing",
       "description": "ecco-invoicing"
+    },
+    {
+      "name": "serajang99--test3",
+      "source": "./serajang99--test3",
+      "description": "test3"
+    },
+    {
+      "name": "ryan1712--ai-invoice-workflow",
+      "source": "./ryan1712--ai-invoice-workflow",
+      "description": "ai-invoice-workflow"
+    },
+    {
+      "name": "zekeriyakaraca-pixel--cut-opt-pro",
+      "source": "./zekeriyakaraca-pixel--cut-opt-pro",
+      "description": "Cut_opt_pro"
+    },
+    {
+      "name": "appneural-boilerplates--laravel-php-monolithic-boilerplate",
+      "source": "./appneural-boilerplates--laravel-php-monolithic-boilerplate",
+      "description": "Production-ready Laravel modular monolith boilerplate with API routes, validation, services, repositories, tests, and Docker."
+    },
+    {
+      "name": "ange47740--baofeng-business-card",
+      "source": "./ange47740--baofeng-business-card",
+      "description": "\u5bf6\u8c50\u96fb\u5b50\u540d\u7247 - Vue 3 + TypeScript + Tailwind CSS v4"
+    },
+    {
+      "name": "cupcakkejiafeina--pekpekkowalana",
+      "source": "./cupcakkejiafeina--pekpekkowalana",
+      "description": "yokonpo"
+    },
+    {
+      "name": "wodud6423--nextjs-supabase-app",
+      "source": "./wodud6423--nextjs-supabase-app",
+      "description": "nextjs-supabase-app"
+    },
+    {
+      "name": "mikewang68--gc-ems-dngl-fastapi",
+      "source": "./mikewang68--gc-ems-dngl-fastapi",
+      "description": "GC-EMS FastAPI project"
+    },
+    {
+      "name": "kapiljangid8290--cladseo",
+      "source": "./kapiljangid8290--cladseo",
+      "description": "CLADSEO"
+    },
+    {
+      "name": "williamxhero--task-center",
+      "source": "./williamxhero--task-center",
+      "description": "\u5b9a\u65f6\u4efb\u52a1\u7ba1\u63a7\u4e2d\u5fc3"
+    },
+    {
+      "name": "hemantbangarip2e--custodialdapp",
+      "source": "./hemantbangarip2e--custodialdapp",
+      "description": "custodialDapp"
+    },
+    {
+      "name": "skghhshh10-droid--sensitive-project",
+      "source": "./skghhshh10-droid--sensitive-project",
+      "description": "\uac10\uc131 \ubd84\uc11d \uc6f9\uc0ac\uc774\ud2b8"
+    },
+    {
+      "name": "carlos060798--repositorio-prueba",
+      "source": "./carlos060798--repositorio-prueba",
+      "description": "prueba de plugin"
+    },
+    {
+      "name": "sagarpanwarwork--std-app",
+      "source": "./sagarpanwarwork--std-app",
+      "description": "std-app"
+    },
+    {
+      "name": "justjahnabi--dev-events-platform",
+      "source": "./justjahnabi--dev-events-platform",
+      "description": "dev-events-platform"
+    },
+    {
+      "name": "kapiljangid8290--cladseo",
+      "source": "./kapiljangid8290--cladseo",
+      "description": "CLADSEO"
+    },
+    {
+      "name": "qarzi-man--rsshub-news",
+      "source": "./qarzi-man--rsshub-news",
+      "description": "rsshub-news"
+    },
+    {
+      "name": "alishkakmnv--autodetailing",
+      "source": "./alishkakmnv--autodetailing",
+      "description": "autodetailing"
+    },
+    {
+      "name": "aishwarya-m-260803--api-tester",
+      "source": "./aishwarya-m-260803--api-tester",
+      "description": "A web-based tool to test APIs with support for multiple HTTP methods, built using Next.js with a backend proxy for seamless data fetching."
+    },
+    {
+      "name": "shajidul-sobuj--smartenroll",
+      "source": "./shajidul-sobuj--smartenroll",
+      "description": "SmartEnroll"
+    },
+    {
+      "name": "yonas-mengesha--fintech-chatbot",
+      "source": "./yonas-mengesha--fintech-chatbot",
+      "description": "fintech-chatbot"
     }
   ]
 }
