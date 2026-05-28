@@ -1,0 +1,9 @@
+{
+  "name": "weirded--ha-peplink-local",
+  "displayName": "ha-peplink-local",
+  "description": "Home Assistant Peplink Local Integration",
+  "version": "1.0.0",
+  "author": "weirded",
+  "homepage": "https://github.com/weirded/ha-peplink-local",
+  "skills": []
+}
