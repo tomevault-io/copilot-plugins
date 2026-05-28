@@ -2,7 +2,7 @@
   "name": "eventkit-node",
   "owner": "dacay",
   "repo": "eventkit-node",
-  "description": "",
+  "description": "Node.js native addon to access macOS EventKit for calendars and events",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/dacay",
+  "source_url": "https://github.com/dacay/eventkit-node",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T16:20:46Z"
+  "distributed_at": "2026-05-28T16:38:12Z"
 }
