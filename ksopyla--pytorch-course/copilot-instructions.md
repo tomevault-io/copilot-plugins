@@ -1,39 +1,70 @@
-## jupyter-notebook-handling
+## markdown-mkdocs-editing
 
-> Use these rules when working with jupyter notebooks or .ipynb files
-
-### Jupyter Notebook Rules for Cursor:
+> This rule is for editing markdown files for mkdocs.
 
 
-1.  **Investigation Strategy:**
-    *   A comprehensive suite of tools is available to inspect notebooks. If the user mentions an issue, a specific cell, or asks for a modification, first attempt to gather context independently.
-    *   Use the available tools to examine the notebook structure, content, metadata, and outputs to locate the relevant context or identify the problem.
-    *   Ask the user for clarification only if the necessary information cannot be determined after using the investigation tools.
 
-2. **Links and References:**
-    *   Use relative links to reference other notebooks.
-    *   Use the `../` prefix to navigate up one level in the directory structure.
-    *   Do not include the `.ipynb` extension in the link. 
-    *   Check the folder structure and the links in the notebook to make sure the link is correct, add the parent folder to the link if needed.
+This rule is for editing markdown files for mkdocs.
 
-3.  **Math Notation:** For LaTeX in Markdown cells, use `$ ... $` for inline math and `$$ ... $$` for display math. Avoid `\( ... \)` and `\[ ... \]`.
+1. When creating a quote, always use the following format:
 
-4.  **Cell Magics:**
-    *   Avoid unsupported cell magics like `%%bash`, `%%timeit`, and `%%writefile`.
-    *   Use `!command` for shell commands instead of `%%bash`.
-    *   Use `%timeit` (line magic) for timing single statements.
-    *   `%%html` works for rendering HTML output.
-    *   `%%javascript` can execute (e.g., `alert`), but avoid relying on it for manipulating cell output display.
+> "Quote test
+>
+> — **_Prof. Torchenstein_**
 
-5.  **Rich Outputs:** Matplotlib, Pandas DataFrames, Plotly, ipywidgets (`tqdm.notebook`), and embedded HTML in Markdown generally render correctly.
+2. When creating a link, always use the following rules, add UTM tracking parameters for analytics. While generating the link, add to the url the following parameters:
+ - `utm_source=pytorchcourse.com&utm_medium=pytorch-course&utm_campaign=(file name)`
 
-6.  **Mermaid:** Diagrams in ` ```mermaid ``` ` blocks are not rendered by default.
 
-7.  **Character Escaping in `source` Parameter:**
-    *   When providing the `source` string for `add_cell` or `edit_cell`, ensure that backslashes (`\`) are handled correctly. Newline characters **must** be represented as `\n` (not `\\n`), and LaTeX commands **must** use single backslashes (e.g., `\Sigma`, not `\\Sigma`).
-    *   Incorrect escaping by the tool or its interpretation can break Markdown formatting (like paragraphs intended to be separated by `\n\n`) and LaTeX rendering.
+3. When generating a video, always use the following format:
 
-    *   After adding or editing cells with complex strings (especially those involving newlines or LaTeX), consider using `read_cell` to verify the content was saved exactly as intended and correct if necessary.
+<video controls width="100%"  src="/assets/images/file_name.mp4" 
+title="video title description based on the file name">
+  Your browser does not support the video tag. Please update your browser to view this content.
+</video>
+
+4. When generating a image, always use the following format:
+
+![Professor Torchenstein invites you to explore tensors](/assets/images/torchenstein_coffe_explore_tensors_v2.png)
+
+
+5. Properly add SEO and metadata to the markdown files.
+
+Template: 
+---
+title: "Title of the page that reflects the content of the page"
+description: "Description of the page that reflects the content of the page, not too long, less than 160 characters"
+# Social card customization, try to use the image from the assets/images folder, and the one that is attached to the page
+image: "assets/images/image_name.png" 
+# SEO and metadata
+## max 5 keywords
+keywords: "Keywords of the page that reflects the content of the page, "
+author: "Krzysztof Sopyła"
+# Boost this page in search (default is 1.0)
+search:
+  boost: 2.0
+# Tags for categorization, max 5 tags that reflect the content of the page, please be consistent with other pages
+tags:
+  - tensors
+  - beginner
+  - module 1
+  - module overview
+# Extra metadata for custom use
+extra:
+  course:
+    module: 1
+    lesson: 0
+    difficulty: beginner
+    estimated_time: "5 min"
+  # Open Graph / Social Media specific
+  og:
+    title: "Pytorch Course | Module 1 – I See Tensors Everywhere 🕶️ | Prof. Torchenstein's Lab"
+    type: "article"
+  # For structured data (if you implement it)
+  structured_data:
+    type: "LearningResource"
+    educationalLevel: "Beginner"
+---
 
 ---
 > Source: [ksopyla/pytorch-course](https://github.com/ksopyla/pytorch-course) — distributed by [TomeVault](https://tomevault.io).
