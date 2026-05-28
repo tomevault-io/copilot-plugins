@@ -4,7 +4,7 @@
   "repo": "gravity",
   "description": "Gravitational lensing and prism simulation using Three.js",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bcjordan/gravity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T16:35:14Z"
+  "distributed_at": "2026-05-28T17:00:45Z"
 }
