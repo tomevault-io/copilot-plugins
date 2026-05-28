@@ -1,160 +1,149 @@
-## frontend-rules
+## app
 
-> - The frontend uses a custom override for `useQuery` where the queryKey follows a resource-based pattern
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Codebase Query Handling Documentation
+# CLAUDE.md
 
-## Frontend Query Pattern
-- The frontend uses a custom override for `useQuery` where the queryKey follows a resource-based pattern
-- No need to specify `queryFn` as it's handled by the override
-- For mutations, use `useMutation` with proper error handling and query invalidation
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-### Example Usage:
+## Commands
+
+### Development
+
+- `bun dev` - Start development server on port 3001
+- `bun run build` - Build production bundle
+- `bun run preview` - Preview production build
+- `bun run typecheck` - Run TypeScript type checking
+
+### Code Quality
+
+- `bun run format` - Format code with Biome (includes auto-fixing)
+- After making changes, always run `bun run typecheck` to ensure code correctness
+
+### Git Hooks
+
+- `./setup-githooks.sh` - Set up git hooks for the project
+
+## Architecture Overview
+
+### Tech Stack
+
+- **Framework**: React 19 with Vite for development, RSBuild config present but using Vite
+- **Routing**: TanStack Router with file-based routing
+- **Styling**: Tailwind CSS with shadcn/ui components
+- **State Management**: TanStack Query for server state, Zustand for client state
+- **Authentication**: Clerk with organization support
+- **Code Quality**: Biome for formatting and linting
+
+### Key Architectural Patterns
+
+#### Multi-Tenant Organization System
+
+The app supports both personal workspaces (`/user/{username}`) and organization workspaces (`/org/{org-slug}`). Routes are dynamically prefixed based on the current organization context. The routing system in `main.tsx` handles automatic redirects and organization switching.
+
+#### Custom Query System
+
+Uses a resource-based query key pattern instead of URL-based keys:
+
 ```typescript
-// ❌ Don't do this:
-const { data } = useQuery({
-  queryKey: [`${process.env.NEXT_PUBLIC_CD_API_URL}/api/machine/${machineId}/check-custom-nodes`],
-  queryFn: async () => {
-    const response = await fetch(...);
-    return response.json();
-  }
-});
+// ✅ Correct pattern
+useQuery({ queryKey: ["machine", machineId, "check-custom-nodes"] });
 
-// ✅ Do this instead:
-const { data } = useQuery({
-  queryKey: ["machine", machineId, "check-custom-nodes"]
-});
+// ❌ Avoid this
+useQuery({ queryKey: [`${API_URL}/machine/${machineId}/check-custom-nodes`] });
+```
 
-// ✅ For mutations:
+The `queryFn` is automatically handled by the global override in `providers.tsx`, which uses the `api()` utility.
+
+#### API Layer
+
+- Central `api()` function in `lib/api.ts` handles authentication, error handling, and date conversion
+- Automatically attaches Clerk auth tokens
+- Converts date strings to Date objects in responses
+- Supports upload progress tracking
+
+#### Component Architecture
+
+- **UI Components**: Located in `src/components/ui/` (shadcn/ui based)
+- **Feature Components**: Organized by domain (workspace, machines, workflows, etc.)
+- **Custom Components**: Extended shadcn components in `src/components/custom/`
+- **Magic UI**: Animation components in `src/components/magicui/`
+
+#### Route Structure
+
+- File-based routing with TanStack Router
+- Routes auto-generated in `routeTree.gen.ts`
+- Organization-aware routing with dynamic prefixes
+- Shared layouts in `__root.tsx`
+
+### Key Configuration Files
+
+- `vite.config.ts` - Main build configuration
+- `rsbuild.config.ts` - Alternative build system (not currently used)
+- `biome.json` - Linting and formatting rules
+- `tailwind.config.ts` - Tailwind configuration
+- `tsr.config.json` - TanStack Router configuration
+
+### Environment Variables
+
+Required:
+
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+
+Optional (with defaults):
+
+- `NEXT_PUBLIC_CD_API_URL` (defaults to `http://localhost:3011`)
+- `VITE_PUBLIC_POSTHOG_KEY`
+- `COMFYUI_FRONTEND_URL`
+
+### Development Guidelines
+
+#### Query Pattern
+
+Follow resource-based query keys and use the global `queryFn`. For mutations, always invalidate relevant queries:
+
+```typescript
 const mutation = useMutation({
-  mutationFn: async () => {
-    return api({
-      url: `machine/${machine.id}/update-custom-nodes`,
-      init: { method: "POST" }
-    });
-  },
+  mutationFn: async () =>
+    api({
+      url: `machine/${id}/update`,
+      init: { method: "POST", body: JSON.stringify(data) },
+    }),
   onSuccess: () => {
-    // Invalidate and refetch relevant queries
-    queryClient.invalidateQueries({ queryKey: ["machine", machine.id] });
-  }
+    queryClient.invalidateQueries({ queryKey: ["machine", id] });
+  },
 });
 ```
 
-The queryKey pattern follows a resource-based structure:
-- First element: resource type (e.g., "machine")
-- Second element: resource identifier (e.g., machineId)
-- Additional elements: specific actions or sub-resources (e.g., "check-custom-nodes")
+#### Dialog Components
 
-This pattern makes the queries more consistent and easier to manage across the application.
+Use URL state for dialog visibility when appropriate and include proper TypeScript types:
 
-## Mutation Pattern
-- Use the `api` utility for all API calls instead of direct fetch
-- Handle loading states with proper UI feedback
-- Always invalidate relevant queries on success
-- Provide clear error messages through toast notifications
-
-### Example Usage:
 ```typescript
-const updateMutation = useMutation({
-  mutationFn: async () => {
-    return api({
-      url: `machine/${machine.id}/update-custom-nodes`,
-      init: { method: "POST" }
-    });
-  },
-  onSuccess: () => {
-    toast.success("Custom nodes update initiated");
-    onOpenChange(false);
-    // Invalidate and refetch relevant queries
-    queryClient.invalidateQueries({ queryKey: ["machine", machine.id] });
-    queryClient.invalidateQueries({
-      queryKey: ["machine", machine.id, "versions"]
-    });
-  },
-  onError: (error) => {
-    toast.error("Failed to update custom nodes");
-  }
-});
-```
-
-## Dialog Management
-- Use URL parameters to control dialog state when appropriate
-- Handle dialog state cleanup on navigation
-- Provide clear loading states during async operations
-- Include proper TypeScript types for all props
-
-### Example Structure:
-```typescript
-function UpdateDialog({
+function CustomDialog({
   machine,
   open,
   onOpenChange,
 }: {
-  machine: Machine;  // Use proper types
+  machine: Machine;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
-  // Handle URL-based state
-  useEffect(() => {
-    if (someURLParam) {
-      setDialogOpen(true);
-    }
-  }, [someURLParam]);
-
-  // Cleanup on dialog close
-  const handleClose = () => {
-    onOpenChange(false);
-    navigate({
-      to: "/some/path",
-      params: { /* cleaned params */ }
-    });
-  };
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      {/* Dialog content */}
-    </Dialog>
-  );
+  /* ... */
 }
 ```
 
-## Frontend Components
-- Workspace components are in `frontend/src/components/workspace/`
-- `WorkspaceClientWrapper.tsx` handles the main workspace UI logic
-- Update alerts should be placed before the main content but after loading states
-- Dialog components should follow this structure:
-  ```typescript
-  function CustomDialog({
-    machine,
-    open,
-    onOpenChange,
-  }: {
-    machine: Machine; // Use proper types, avoid 'any'
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-  })
-  ```
+#### CSS Classes
 
-## Error Handling
-- Always handle loading states with proper UI feedback
-- Use toast notifications for success/error feedback
-- Implement proper TypeScript types to avoid 'any' usage
-- Handle edge cases in useEffect hooks with proper cleanup
+- Sort Tailwind classes alphabetically
+- Use `cn()` utility for conditional classes
+- Prefer Tailwind utilities over custom CSS
 
-## CSS Classes
-- Sort CSS classes alphabetically
-- Use consistent naming conventions
-- Prefer Tailwind utility classes
-- Use cn() utility for conditional classes
+#### Error Handling
 
-## State Management
-- Use proper state initialization in useEffect
-- Clean up side effects in useEffect returns
-- Handle URL parameters through proper router hooks
-- Use URL state for dialog visibility when appropriate 
+- Use toast notifications for user feedback
+- Handle loading states with proper UI feedback
+- Avoid `any` types - use proper TypeScript interfaces
 
 ---
 > Source: [comfy-deploy/app](https://github.com/comfy-deploy/app) — distributed by [TomeVault](https://tomevault.io).
