@@ -2694,6 +2694,11 @@
       "description": "A calm, CLI-native way to semantically grep everything, like code, images, pdfs and more."
     },
     {
+      "name": "galaxy-dawn--claude-scholar",
+      "source": "./galaxy-dawn--claude-scholar",
+      "description": "Semi-automated research assistant for academic research and software development. Supports Claude Code, OpenCode, and Codex CLI across ideation, coding, experiments, writing, and publication."
+    },
+    {
       "name": "rorkai--app-store-connect-cli",
       "source": "./rorkai--app-store-connect-cli",
       "description": "Fast, scriptable CLI for the App Store Connect API. Automate TestFlight, builds, submissions, signing, analytics, screenshots, subscriptions, and more. JSON-first, no interactive prompts"
@@ -3047,11 +3052,6 @@
       "name": "midudev--autoskills",
       "source": "./midudev--autoskills",
       "description": "One command. Your entire AI skill stack. Installed."
-    },
-    {
-      "name": "galaxy-dawn--claude-scholar",
-      "source": "./galaxy-dawn--claude-scholar",
-      "description": "Semi-automated research assistant for academic research and software development. Supports Claude Code, OpenCode, and Codex CLI across ideation, coding, experiments, writing, and publication."
     },
     {
       "name": "dmno-dev--varlock",
@@ -31894,11 +31894,6 @@
       "description": "This project is a Graphing Scientific Calculator based on the ESP32 microcontroller, designed to compete with commercial models (Casio fx-991EX, TI-84) by means of a color TFT screen, natural display "
     },
     {
-      "name": "21pounder--terminalagent",
-      "source": "./21pounder--terminalagent",
-      "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it."
-    },
-    {
       "name": "xenitv1--antigravity-workflows",
       "source": "./xenitv1--antigravity-workflows",
       "description": "Antigravity-Workflows"
@@ -31962,11 +31957,6 @@
       "name": "mholzi--beatify",
       "source": "./mholzi--beatify",
       "description": "\ud83c\udfb5 Music year-guessing party game for Home Assistant \u2014 scan a QR code, hear a song, guess the year. Runs on Music Assistant, Sonos & Alexa speakers."
-    },
-    {
-      "name": "21pounder--terminalagent",
-      "source": "./21pounder--terminalagent",
-      "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it."
     },
     {
       "name": "agno-agi--scout",
@@ -33612,6 +33602,16 @@
       "name": "liyown--ai-navigation",
       "source": "./liyown--ai-navigation",
       "description": "AI \u5bfc\u822a\u662f\u4e00\u4e2a\u73b0\u4ee3\u5316\u7684\u4eba\u5de5\u667a\u80fd\u7f51\u7ad9\u5bfc\u822a\u7cfb\u7edf\uff0c\u81f4\u529b\u4e8e\u5e2e\u52a9\u7528\u6237\u53d1\u73b0\u3001\u5206\u4eab\u548c\u7ba1\u7406\u4f18\u8d28\u7684 AI \u5de5\u5177\u4e0e\u8d44\u6e90\u3002\u9879\u76ee\u91c7\u7528\u6700\u65b0\u7684 Web \u6280\u672f\u6808\u6784\u5efa\uff0c\u63d0\u4f9b\u6d41\u7545\u7684\u7528\u6237\u4f53\u9a8c\u548c\u5f3a\u5927\u7684\u7ba1\u7406\u529f\u80fd\u3002"
+    },
+    {
+      "name": "21pounder--terminalagent",
+      "source": "./21pounder--terminalagent",
+      "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it."
+    },
+    {
+      "name": "21pounder--terminalagent",
+      "source": "./21pounder--terminalagent",
+      "description": "A powerful terminal coding agent based on Claude Agent SDK. Better then Claude Code when start up a new project, or u have no idea. Just try it."
     },
     {
       "name": "akeit0--okojo",
@@ -52164,6 +52164,11 @@
       "description": "Monitor Claude Code sessions, costs, config, hooks, agents & MCP servers from a single Rust binary \u2014 TUI (9 tabs) + Web interface with live process tracking, budget alerts, and 30-day forecasting"
     },
     {
+      "name": "ignatovv--vibepad",
+      "source": "./ignatovv--vibepad",
+      "description": "\ud83d\udecb\ufe0f Ship code from your couch. Control your AI coding assistant with a gamepad \ud83c\udfae"
+    },
+    {
       "name": "ursushoribilismusic--agentic-fleet-hub",
       "source": "./ursushoribilismusic--agentic-fleet-hub",
       "description": "Self-hosted orchestration layer for autonomous AI agent teams. Shared memory, heartbeat scheduling, vault-first secrets, and cross-model peer review \u2014 one command to deploy."
@@ -54652,11 +54657,6 @@
       "name": "claude-world--claude-world-studio",
       "source": "./claude-world--claude-world-studio",
       "description": "AI-powered content pipeline: trend discovery \u2192 research \u2192 social publishing. Built with Claude Agent SDK + MCP."
-    },
-    {
-      "name": "ignatovv--vibepad",
-      "source": "./ignatovv--vibepad",
-      "description": "\ud83d\udecb\ufe0f Ship code from your couch. Control your AI coding assistant with a gamepad \ud83c\udfae"
     },
     {
       "name": "yoloshii--privacy-first-network",
@@ -128112,6 +128112,11 @@
       "name": "lukeslp--alt-text-local-llm",
       "source": "./lukeslp--alt-text-local-llm",
       "description": "Local tool for generating descriptive alt text for images using vision models"
+    },
+    {
+      "name": "russmckendrick--tokenuse",
+      "source": "./russmckendrick--tokenuse",
+      "description": "A Rust TUI and Desktop app for exploring AI coding tool token and cost usage"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -233954,11 +233959,6 @@
       "description": "scriptorium"
     },
     {
-      "name": "tyson-hu--food-scanner-app",
-      "source": "./tyson-hu--food-scanner-app",
-      "description": "Food-Scanner-App"
-    },
-    {
       "name": "baphomet480--claude-skills",
       "source": "./baphomet480--claude-skills",
       "description": "claude-skills"
@@ -284232,6 +284232,11 @@
       "name": "cloudfloo--contextmesh-cli",
       "source": "./cloudfloo--contextmesh-cli",
       "description": "CLI tool for ContextMesh - npm-like package manager for MCP connectors"
+    },
+    {
+      "name": "tyson-hu--food-scanner-app",
+      "source": "./tyson-hu--food-scanner-app",
+      "description": "Food-Scanner-App"
     }
   ]
 }
