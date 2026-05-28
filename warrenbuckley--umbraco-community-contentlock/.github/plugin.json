@@ -1,0 +1,9 @@
+{
+  "name": "warrenbuckley--umbraco-community-contentlock",
+  "displayName": "Umbraco.Community.ContentLock",
+  "description": "Umbraco Community ContentLock is an open-source package for Umbraco CMS that prevents content conflicts by enabling content editors to lock nodes while editing.",
+  "version": "1.0.0",
+  "author": "warrenbuckley",
+  "homepage": "https://github.com/warrenbuckley/Umbraco.Community.ContentLock",
+  "skills": []
+}
