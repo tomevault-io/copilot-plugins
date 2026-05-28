@@ -1,0 +1,44 @@
+{
+  "name": "loginserver",
+  "owner": "Chase295",
+  "repo": "loginserver",
+  "description": "\u26a0\ufe0f MIGRATED to Gitea: projekte/watchlist (2026-05-10). This GitHub mirror is now read-only / archived.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Chase295/loginserver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T01:02:09Z"
+}
