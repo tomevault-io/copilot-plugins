@@ -1,0 +1,82 @@
+{
+  "name": "el-feo--ai-context",
+  "displayName": "ai-context",
+  "description": "A collection of Claude Code plugins.",
+  "version": "1.0.0",
+  "author": "el-feo",
+  "homepage": "https://github.com/el-feo/ai-context",
+  "skills": [
+    {
+      "name": "cucumber-gherkin",
+      "description": ""
+    },
+    {
+      "name": "brakeman",
+      "description": ""
+    },
+    {
+      "name": "design-patterns-ruby",
+      "description": ""
+    },
+    {
+      "name": "eslint",
+      "description": ""
+    },
+    {
+      "name": "github-actions",
+      "description": ""
+    },
+    {
+      "name": "javascript-unit-testing",
+      "description": ""
+    },
+    {
+      "name": "kamal",
+      "description": ""
+    },
+    {
+      "name": "postgresql-rails-analyzer",
+      "description": ""
+    },
+    {
+      "name": "rails",
+      "description": ""
+    },
+    {
+      "name": "rails-generators",
+      "description": ""
+    },
+    {
+      "name": "review-ruby-code",
+      "description": ""
+    },
+    {
+      "name": "rspec",
+      "description": ""
+    },
+    {
+      "name": "rubocop",
+      "description": ""
+    },
+    {
+      "name": "ruby",
+      "description": ""
+    },
+    {
+      "name": "rubycritic",
+      "description": ""
+    },
+    {
+      "name": "simplecov",
+      "description": ""
+    },
+    {
+      "name": "tailscale",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "description": ""
+    }
+  ]
+}
