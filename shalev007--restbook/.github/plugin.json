@@ -1,0 +1,9 @@
+{
+  "name": "shalev007--restbook",
+  "displayName": "restbook",
+  "description": "RestBook is an open-source CLI tool for orchestrating complex API workflows using simple YAML playbooks.",
+  "version": "1.0.0",
+  "author": "shalev007",
+  "homepage": "https://github.com/shalev007/restbook",
+  "skills": []
+}
