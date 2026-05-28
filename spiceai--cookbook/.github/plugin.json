@@ -1,0 +1,9 @@
+{
+  "name": "spiceai--cookbook",
+  "displayName": "cookbook",
+  "description": "Cookbook recipes to get up and running with Spice.ai quickly \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "spiceai",
+  "homepage": "https://github.com/spiceai/cookbook",
+  "skills": []
+}
