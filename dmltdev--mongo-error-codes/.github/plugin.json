@@ -1,0 +1,9 @@
+{
+  "name": "dmltdev--mongo-error-codes",
+  "displayName": "mongo-error-codes",
+  "description": "A minimal JavaScript library of MongoDB error codes, names, and helper utilities",
+  "version": "1.0.0",
+  "author": "dmltdev",
+  "homepage": "https://github.com/dmltdev/mongo-error-codes",
+  "skills": []
+}
