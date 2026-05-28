@@ -1,34 +1,66 @@
-## endpoint-lock
+## friendly-advice
 
-> Every time you're making changes to implementations or snippets
+> Anytime you make any modifications or changes
 
-<-- Endpoint Lock -->
+<-- Friendly Advice -->
 
-# Guidelines for Reviewing and Replacing Code Snippets
+1. **Sequential Analysis Before Action**
+```
+Before implementing changes:
+1. Analyze the current structure
+2. Identify all dependent components
+3. Map the relationships between components
+4. Plan the implementation order
+5. Consider the impact on existing functionality
+```
 
-When reviewing a snippet file or replacing one implementation with another from an example, follow these guidelines to ensure the full file context is taken into account and that the correct, functional implementation is used:
+2. **Complete Context Rule**
+```
+When modifying a codebase:
+1. Always read the full context of files being modified
+2. Maintain all existing functionality
+3. Preserve existing options and configurations
+4. Keep accessibility features intact
+5. Ensure responsive design patterns remain functional
+```
 
-## 1. Review Full Files
-- Thoroughly review the **entire file(s)** provided rather than relying solely on isolated snippets.
-- Identify all relevant sections and understand the overall **context of the code or project plan**.
+3. **Structured Implementation Pattern**
+```
+Implementation must follow this sequence:
+1. Explain the planned changes
+2. Show the structural modifications
+3. Detail the styling updates
+4. Preserve existing functionality
+5. Maintain component relationships
+6. Test for regressions
+```
 
-## 2. Identify the Correct Sections
-- **Accurately determine** which part of the file needs to be replaced.
-- Ensure you are targeting the **precise location** in the target file that requires updating.
+4. **Component Hierarchy Preservation**
+```
+When reorganizing components:
+1. Maintain semantic structure
+2. Preserve ARIA relationships
+3. Keep event handling intact
+4. Ensure state management continues to work
+5. Validate the new hierarchy doesn't break existing features
+```
 
-## 3. Use the Provided Example Accurately
-- When replacing a non-functional implementation, **verify that you are copying the correct and complete** implementation from the example file.
-- Avoid reintroducing any **outdated or incorrect versions**.
+The most important rule I would suggest adding to your prompt would be:
 
-## 4. Maintain Context and Integrity
-- Ensure that the **updated version integrates seamlessly** with the rest of the file.
-- **Do not remove or alter unrelated content** unless necessary for correct integration.
+```
+<implementation_standard>
+When implementing changes, follow this strict order:
+1. First analyze and document the current implementation
+2. Map all component relationships and dependencies
+3. Plan the implementation sequence
+4. Make structural changes while preserving functionality
+5. Update styling while maintaining accessibility
+6. Validate all existing features remain intact
+7. Document any necessary follow-up actions
 
-## 5. Clarify Ambiguities
-- If any part of the request or file context is unclear, **ask for clarification** instead of making assumptions.
-- Confirm that your replacement **meets the intended functional requirements**.
-
-By adhering to these steps, you ensure that the **entire file is reviewed**, and **precise, accurate updates** are implemented, avoiding repeated mistakes with incorrect versions.
+Never proceed to the next step until the current step is fully understood and planned.
+</implementation_standard>
+```
 
 ---
 > Source: [lukeslp/alt-text-local-llm](https://github.com/lukeslp/alt-text-local-llm) — distributed by [TomeVault](https://tomevault.io).
