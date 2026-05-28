@@ -1,0 +1,9 @@
+{
+  "name": "rainyt--hxmaker",
+  "displayName": "hxmaker",
+  "description": "A unified game engine written in Haxe that can run on any game engine.",
+  "version": "1.0.0",
+  "author": "rainyt",
+  "homepage": "https://github.com/rainyt/hxmaker",
+  "skills": []
+}
