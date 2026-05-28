@@ -166544,6 +166544,21 @@
       "description": "Turn anything into slides"
     },
     {
+      "name": "yoyooyooo--ai-coding-os",
+      "source": "./yoyooyooo--ai-coding-os",
+      "description": "AI Coding Project OS for long-running AI coding: Goal Diffusion Goal Packs, receipt-backed execution, docs governance, and headless product harnesses."
+    },
+    {
+      "name": "vaibhavkhushalani--cinematic-portfolio",
+      "source": "./vaibhavkhushalani--cinematic-portfolio",
+      "description": "cinematic-portfolio"
+    },
+    {
+      "name": "ubicloud--ubiblk",
+      "source": "./ubicloud--ubiblk",
+      "description": "ubiblk"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -177587,6 +177602,51 @@
       "name": "r0227n--flutter-template-project",
       "source": "./r0227n--flutter-template-project",
       "description": "A Flutter template project designed to support   AI-powered Flutter app development, with Claude Code   as its core foundation."
+    },
+    {
+      "name": "top3d-ai--world-builder",
+      "source": "./top3d-ai--world-builder",
+      "description": "Get a full interactive 3D scene assembled in Blender"
+    },
+    {
+      "name": "reactivebayes--cortex-jl",
+      "source": "./reactivebayes--cortex-jl",
+      "description": "A next generation message passing engine for Bayesian inference - successor of ReactiveMP.jl"
+    },
+    {
+      "name": "inflowpayai--inflow-node",
+      "source": "./inflowpayai--inflow-node",
+      "description": "inflow-node"
+    },
+    {
+      "name": "lvpengfei1--novelforge-agent",
+      "source": "./lvpengfei1--novelforge-agent",
+      "description": "novelforge-agent"
+    },
+    {
+      "name": "crazymsn--academic-shcolar-skills",
+      "source": "./crazymsn--academic-shcolar-skills",
+      "description": "\u6df1\u5ea6\u4e91\u521b\u79d1\u6280\uff0c\u4e13\u6ce8\u5f00\u53d1 AI \u667a\u80fd\u4f53\u3001AI \u5e94\u7528\u8f85\u52a9\u79d1\u7814\u3001\u5de5\u4f5c\u3001\u5b66\u4e60\uff01"
+    },
+    {
+      "name": "richkershaw--ha-lightdash",
+      "source": "./richkershaw--ha-lightdash",
+      "description": "A lightweight dashboard rendering add-on / app for Home Assistant"
+    },
+    {
+      "name": "ynfra--yai",
+      "source": "./ynfra--yai",
+      "description": "yAI stack"
+    },
+    {
+      "name": "signalkraft--ebusd-vaillant-component",
+      "source": "./signalkraft--ebusd-vaillant-component",
+      "description": "Home Assistant custom component for Vaillant heating devices over ebusd MQTT"
+    },
+    {
+      "name": "top3d-ai--world-builder",
+      "source": "./top3d-ai--world-builder",
+      "description": "Get a full interactive 3D scene assembled in Blender"
     },
     {
       "name": "cheerhuan--save-your-token",
