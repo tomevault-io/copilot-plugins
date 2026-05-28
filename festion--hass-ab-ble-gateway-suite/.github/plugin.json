@@ -1,0 +1,9 @@
+{
+  "name": "festion--hass-ab-ble-gateway-suite",
+  "displayName": "hass-ab-ble-gateway-suite",
+  "description": "Home Assistant integration suite for April Brother BLE Gateway with dashboard",
+  "version": "1.0.0",
+  "author": "festion",
+  "homepage": "https://github.com/festion/hass-ab-ble-gateway-suite",
+  "skills": []
+}
