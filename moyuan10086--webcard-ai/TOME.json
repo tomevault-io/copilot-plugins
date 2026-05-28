@@ -1,0 +1,44 @@
+{
+  "name": "WebCard-AI",
+  "owner": "moyuan10086",
+  "repo": "WebCard-AI",
+  "description": "\u4e00\u4e2a\u7b80\u5355\u6613\u7528\u7684 Chrome \u6d4f\u89c8\u5668\u6269\u5c55,\u53ef\u4ee5\u5c06\u7f51\u9875\u5185\u5bb9\u751f\u6210\u7cbe\u7f8e\u7684\u5206\u4eab\u5361\u7247\u3002\u652f\u6301 AI \u667a\u80fd\u603b\u7ed3\u3001\u591a\u79cd\u5361\u7247\u6a21\u677f\u548c\u81ea\u5b9a\u4e49\u6837\u5f0f\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/moyuan10086/WebCard-AI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T20:32:46Z"
+}
