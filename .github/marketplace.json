@@ -101504,6 +101504,11 @@
       "description": "Eventowo i kolorowo v2"
     },
     {
+      "name": "byk--fossilize",
+      "source": "./byk--fossilize",
+      "description": "Create Node SEA binaries across platforms with ease"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -106644,6 +106649,61 @@
       "description": "WordAI"
     },
     {
+      "name": "metacraft-labs--codetracer-python-recorder",
+      "source": "./metacraft-labs--codetracer-python-recorder",
+      "description": "codetracer-python-recorder"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "metacraft-labs--codetracer-python-recorder",
+      "source": "./metacraft-labs--codetracer-python-recorder",
+      "description": "codetracer-python-recorder"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "squirrelogic--cursor-rules",
+      "source": "./squirrelogic--cursor-rules",
+      "description": "cursor-rules"
+    },
+    {
+      "name": "dustland--vibex-py",
+      "source": "./dustland--vibex-py",
+      "description": "A opnionated Multi-agent Framework."
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -109597,6 +109657,21 @@
       "name": "keep-starknet-strange--pow",
       "source": "./keep-starknet-strange--pow",
       "description": "THE Idle Clicker Game on Starknet"
+    },
+    {
+      "name": "basir--ai-amazona",
+      "source": "./basir--ai-amazona",
+      "description": "ai-amazona"
+    },
+    {
+      "name": "stacksjs--bun-git-hooks",
+      "source": "./stacksjs--bun-git-hooks",
+      "description": "\ud83e\ude9d Think of `simple-git-hooks` but optimized for all-sized Bun projects."
+    },
+    {
+      "name": "openqase--openqase",
+      "source": "./openqase--openqase",
+      "description": "OpenQase is a community resource for curated quantum computing case studies and associated algorithms."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -112989,6 +113064,16 @@
       "description": "A differentiable, flexible stellarator coil proxy"
     },
     {
+      "name": "ntc-department--pinterest-downloader",
+      "source": "./ntc-department--pinterest-downloader",
+      "description": "The browser extension Pinterest should have built - download great quality images without their garbage compression."
+    },
+    {
+      "name": "jdx--mise-analytics",
+      "source": "./jdx--mise-analytics",
+      "description": "mise-analytics"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -116377,6 +116462,11 @@
       "name": "sprksocial--server",
       "source": "./sprksocial--server",
       "description": "Spark Social AppView Server"
+    },
+    {
+      "name": "morpho-org--morpho-lite-apps",
+      "source": "./morpho-org--morpho-lite-apps",
+      "description": "A monorepo containing the Lite and Fallback apps"
     },
     {
       "name": "vm--nila-code",
@@ -119807,6 +119897,31 @@
       "name": "agenticsec--wish",
       "source": "./agenticsec--wish",
       "description": "Your Wish, Our Command"
+    },
+    {
+      "name": "froggy1014--meta-cloud-api",
+      "source": "./froggy1014--meta-cloud-api",
+      "description": "WhatsApp TypeScript SDK \u2014 type-safe, modular, and production-ready."
+    },
+    {
+      "name": "decalogue--flyllm",
+      "source": "./decalogue--flyllm",
+      "description": "\u5927\u6a21\u578b\u5b9e\u6218\u3010\u7b14\u8bb0+\u4ee3\u7801+\u9ad8\u9891\u9762\u8bd5\u9898\u3011"
+    },
+    {
+      "name": "axelhamil--clean-stack",
+      "source": "./axelhamil--clean-stack",
+      "description": "SaaS-ready boilerplate. BetterAuth + multi-tenant + Resend + R2 already wired (Stripe on the roadmap). Bun, Hono, React 19, TanStack, Drizzle, Postgres. Clean Architecture + pragmatic DDD. Fourteen no"
+    },
+    {
+      "name": "froggy1014--meta-cloud-api",
+      "source": "./froggy1014--meta-cloud-api",
+      "description": "WhatsApp TypeScript SDK \u2014 type-safe, modular, and production-ready."
+    },
+    {
+      "name": "one-ie--astro-shadcn",
+      "source": "./one-ie--astro-shadcn",
+      "description": "Build beautiful websites with Astro 5, shadcn/ui and React"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -123622,6 +123737,21 @@
       "name": "automattic--wpvdb",
       "source": "./automattic--wpvdb",
       "description": "Native Vector Database for WordPress"
+    },
+    {
+      "name": "jay6697117--we-drawing-nuxt",
+      "source": "./jay6697117--we-drawing-nuxt",
+      "description": "AI drawing picture, just for fun"
+    },
+    {
+      "name": "daily-co--pipecat-cloud",
+      "source": "./daily-co--pipecat-cloud",
+      "description": "Deploy and scale Pipecat apps to production with Pipecat Cloud"
+    },
+    {
+      "name": "jay6697117--we-drawing-nuxt",
+      "source": "./jay6697117--we-drawing-nuxt",
+      "description": "AI drawing picture, just for fun"
     },
     {
       "name": "mohiwalla--memes",
@@ -128267,6 +128397,11 @@
       "name": "ortus-boxlang--bx-ai",
       "source": "./ortus-boxlang--bx-ai",
       "description": "BoxLang AI is a fluent and human way to build AI Agents, Workflows and more"
+    },
+    {
+      "name": "kebechet--maui-health",
+      "source": "./kebechet--maui-health",
+      "description": "Abstraction around `Android Health Connect` and `iOS HealthKit`"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -133317,6 +133452,16 @@
       "name": "gleanwork--langchain-glean",
       "source": "./gleanwork--langchain-glean",
       "description": "LangChain components for Glean"
+    },
+    {
+      "name": "yizhinailong--chatcpp",
+      "source": "./yizhinailong--chatcpp",
+      "description": "C++ \u804a\u5929\u9879\u76ee\u5b9e\u6218\u6848\u4f8b\uff0c\u6db5\u76d6grpc\uff0c\u5e76\u53d1\u7ebf\u7a0b\uff0c\u7f51\u7edc\u7f16\u7a0b\uff0cqt\u5f00\u53d1\uff0c\u6570\u636e\u5e93\u7b49\u591a\u79cd\u6280\u672f\u7efc\u5408\u5e94\u7528"
+    },
+    {
+      "name": "bernhardpollerspoeck--plusui",
+      "source": "./bernhardpollerspoeck--plusui",
+      "description": "PlusUi"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -146002,6 +146147,36 @@
       "name": "lonestone--lonestone-boilerplate",
       "source": "./lonestone--lonestone-boilerplate",
       "description": "Starter kit for full-stack webapps, SaaS and websites with React and NestJS"
+    },
+    {
+      "name": "bounswe--bounswe2025group5",
+      "source": "./bounswe--bounswe2025group5",
+      "description": "CMPE352/451 Group 5 repository"
+    },
+    {
+      "name": "ydb-platform--django-ydb-backend",
+      "source": "./ydb-platform--django-ydb-backend",
+      "description": "django-ydb-backend"
+    },
+    {
+      "name": "ydb-platform--django-ydb-backend",
+      "source": "./ydb-platform--django-ydb-backend",
+      "description": "django-ydb-backend"
+    },
+    {
+      "name": "masylum--whatajong",
+      "source": "./masylum--whatajong",
+      "description": "whatajong"
+    },
+    {
+      "name": "hack4impact-umd--camp-starfish",
+      "source": "./hack4impact-umd--camp-starfish",
+      "description": "Camp Starfish's Photo & Scheduling Application"
+    },
+    {
+      "name": "longhorn-developers--ut-dining",
+      "source": "./longhorn-developers--ut-dining",
+      "description": "UT Dining is your companion app for exploring dining options at the University of Texas at Austin.         Browse menus, check dining hours, and find the perfect meal on campus."
     },
     {
       "name": "yschimke--compose-ai-tools",
