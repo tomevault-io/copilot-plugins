@@ -1,0 +1,9 @@
+{
+  "name": "celestiaorg--talis",
+  "displayName": "talis",
+  "description": "\ud83e\udd8d Talis is a cloud-agnostic infrastructure orchestration platform for w3 to manage VMs at scale.",
+  "version": "1.0.0",
+  "author": "celestiaorg",
+  "homepage": "https://github.com/celestiaorg/talis",
+  "skills": []
+}
