@@ -1,0 +1,9 @@
+{
+  "name": "madnessengineering--omnispindle",
+  "displayName": "Omnispindle",
+  "description": "A comprehensive MCP-based todo management system, that serves as a central nervous system for Madness Interactive, a multi-project task coordination workshop.",
+  "version": "1.0.0",
+  "author": "MadnessEngineering",
+  "homepage": "https://github.com/MadnessEngineering/Omnispindle",
+  "skills": []
+}
