@@ -1,0 +1,153 @@
+{
+  "name": "ai-context",
+  "owner": "el-feo",
+  "repo": "ai-context",
+  "description": "A collection of Claude Code plugins.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cucumber-gherkin",
+      "path": "plugins/ruby-rails/skills/cucumber-gherkin",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/cucumber-gherkin",
+      "description": ""
+    },
+    {
+      "name": "brakeman",
+      "path": "plugins/ruby-rails/skills/brakeman",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/brakeman",
+      "description": ""
+    },
+    {
+      "name": "design-patterns-ruby",
+      "path": "plugins/ruby-rails/skills/design-patterns-ruby",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/design-patterns-ruby",
+      "description": ""
+    },
+    {
+      "name": "eslint",
+      "path": "plugins/js-ts/skills/eslint",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/js-ts/skills/eslint",
+      "description": ""
+    },
+    {
+      "name": "github-actions",
+      "path": "plugins/devops/skills/github-actions",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/devops/skills/github-actions",
+      "description": ""
+    },
+    {
+      "name": "javascript-unit-testing",
+      "path": "plugins/js-ts/skills/javascript-unit-testing",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/js-ts/skills/javascript-unit-testing",
+      "description": ""
+    },
+    {
+      "name": "kamal",
+      "path": "plugins/devops/skills/kamal",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/devops/skills/kamal",
+      "description": ""
+    },
+    {
+      "name": "postgresql-rails-analyzer",
+      "path": "plugins/ruby-rails/skills/postgresql-rails-analyzer",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/postgresql-rails-analyzer",
+      "description": ""
+    },
+    {
+      "name": "rails",
+      "path": "plugins/ruby-rails/skills/rails",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/rails",
+      "description": ""
+    },
+    {
+      "name": "rails-generators",
+      "path": "plugins/ruby-rails/skills/rails-generators",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/rails-generators",
+      "description": ""
+    },
+    {
+      "name": "review-ruby-code",
+      "path": "plugins/ruby-rails/skills/review-ruby-code",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/review-ruby-code",
+      "description": ""
+    },
+    {
+      "name": "rspec",
+      "path": "plugins/ruby-rails/skills/rspec",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/rspec",
+      "description": ""
+    },
+    {
+      "name": "rubocop",
+      "path": "plugins/ruby-rails/skills/rubocop",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/rubocop",
+      "description": ""
+    },
+    {
+      "name": "ruby",
+      "path": "plugins/ruby-rails/skills/ruby",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/ruby",
+      "description": ""
+    },
+    {
+      "name": "rubycritic",
+      "path": "plugins/ruby-rails/skills/rubycritic",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/rubycritic",
+      "description": ""
+    },
+    {
+      "name": "simplecov",
+      "path": "plugins/ruby-rails/skills/simplecov",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/ruby-rails/skills/simplecov",
+      "description": ""
+    },
+    {
+      "name": "tailscale",
+      "path": "plugins/devops/skills/tailscale",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/devops/skills/tailscale",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "path": "plugins/js-ts/skills/vitest",
+      "github_url": "https://github.com/el-feo/ai-context/tree/main/plugins/js-ts/skills/vitest",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/el-feo/ai-context",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T10:30:24Z"
+}
