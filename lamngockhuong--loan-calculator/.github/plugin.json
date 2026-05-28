@@ -1,0 +1,9 @@
+{
+  "name": "lamngockhuong--loan-calculator",
+  "displayName": "loan-calculator",
+  "description": "Loan Calculator is a banking loan interest calculator application. It helps users estimate loan repayments based on factors such as loan amount, interest rate, and repayment period",
+  "version": "1.0.0",
+  "author": "lamngockhuong",
+  "homepage": "https://github.com/lamngockhuong/loan-calculator",
+  "skills": []
+}
