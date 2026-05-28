@@ -1,0 +1,44 @@
+{
+  "name": "OSN-2026",
+  "owner": "justingrammens",
+  "repo": "OSN-2026",
+  "description": "Spec First, Agents Second: Engineering AI Systems with Discipline. Slides and code from the Open Source North 2026 Conference.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/justingrammens/OSN-2026",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T15:31:10Z"
+}
