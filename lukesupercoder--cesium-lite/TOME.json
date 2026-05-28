@@ -1,0 +1,44 @@
+{
+  "name": "cesium-lite",
+  "owner": "lukeSuperCoder",
+  "repo": "cesium-lite",
+  "description": "A lightweight 3D map plug-in developed based on Cesium(\u4e00\u6b3e\u57fa\u4e8ecesium\u5f00\u53d1\u7684\u8f7b\u91cf\u53163d\u5730\u56fe\u63d2\u4ef6)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lukeSuperCoder/cesium-lite",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T19:01:38Z"
+}
