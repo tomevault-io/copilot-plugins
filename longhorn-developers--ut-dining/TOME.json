@@ -1,0 +1,44 @@
+{
+  "name": "UT-Dining",
+  "owner": "Longhorn-Developers",
+  "repo": "UT-Dining",
+  "description": "UT Dining is your companion app for exploring dining options at the University of Texas at Austin.         Browse menus, check dining hours, and find the perfect meal on campus.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Longhorn-Developers/UT-Dining",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-28T14:52:04Z"
+}
