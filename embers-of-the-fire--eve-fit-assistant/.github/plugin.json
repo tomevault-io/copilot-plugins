@@ -1,0 +1,9 @@
+{
+  "name": "embers-of-the-fire--eve-fit-assistant",
+  "displayName": "eve-fit-assistant",
+  "description": "Mobile fitting utility for EVE Online\u00ae, built with Flutter",
+  "version": "1.0.0",
+  "author": "Embers-of-the-Fire",
+  "homepage": "https://github.com/Embers-of-the-Fire/eve-fit-assistant",
+  "skills": []
+}
