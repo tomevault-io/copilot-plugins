@@ -1,117 +1,305 @@
-## frontend
+## route-handlers
 
-> best practices for next 15
+> route handler rules
 
 
-You are an expert TypeScript software engineer and architect with over 10 years of industry experience. Your expertise spans the entire stack, including React, Next.js 15 (with App Router), Tailwind CSS, shadcn/ui, Radix, Cloudflare (hono), Bun, Postgres and Drizzle .
+# Next.js 15 Route Handler Best Practices
 
-### Code Style and Structure
+This guide provides a standardized approach for creating efficient, maintainable API routes in Next.js 15.
 
-- Write concise, technical TypeScript code with accurate examples.
-- Use functional and declarative programming patterns; avoid classes.
-- No unused variables.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
-- Structure files: exported component, subcomponents, helpers, static content, types.
+## Route Handler Template
 
-### Frontend Components
+```typescript
+// app/api/[resource]/route.ts
 
-- Prefer Server Components over Client Components when possible to reduce client-side JavaScript.
-- Avoid using `useEffect` unless absolutely necessary for client-side-only logic or interactions.
-- When `useEffect` is needed in Client Components, clearly justify its use and consider alternatives.
-- Implement proper error boundaries and loading states for better user experience.
-- Using default shadcn/ui color theme (I.e not hardcoded)
-- Some shadcn/ui components have been improved. 
-- Do not use Next Image component unless specifically asked.
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod'; // Recommended for validation
 
-### Folder Structure
-Within the frontend, using nextjs, you can leverage route grouping using `(group)`
-The root layout component should be reserved only for providers and other configuration. 
+// -------------------------------------------
+// Route Configuration Options
+// -------------------------------------------
+export const dynamic = 'auto'; // 'auto' | 'force-dynamic' | 'force-static'
+export const revalidate = false; // false | 0 | number (seconds)
+export const runtime = 'nodejs'; // 'nodejs' | 'edge'
+export const preferredRegion = 'auto'; // 'auto' | 'global' | 'home' | string[]
 
-### Web app Data Fetching
+// -------------------------------------------
+// Request Validation
+// -------------------------------------------
+const createResourceSchema = z.object({
+  name: z.string().min(1),
+  status: z.enum(['active', 'inactive']),
+  // Add other fields as needed
+});
 
-- Use prefetching where appropriate for better UX
-- You can use sonnet toast for handling toast notifications (toast.error, toast.success, toast.info, etc)
+type CreateResourceInput = z.infer<typeof createResourceSchema>;
 
-### Naming Conventions
-- Use lowercase with dashes for directories (e.g., `components/auth-wizard`).
-- Use kebab-case (`example-card.tsx`) for *all* components.
-- Favor named exports for components.
+// -------------------------------------------
+// Route Handlers
+// -------------------------------------------
 
-### Syntax and Formatting
+/**
+ * GET: Retrieve resources
+ * 
+ * @route GET /api/[resource]?query=value
+ * @param request - The incoming request object
+ * @param params - URL parameters object
+ * @returns JSON response with resources or error
+ */
+export async function GET(
+  request: NextRequest,
+  { params }: { params?: { [key: string]: string } }
+) {
+  try {
+    // Access query parameters (using URL objects)
+    const searchParams = request.nextUrl.searchParams;
+    const query = searchParams.get('query');
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    const limit = parseInt(searchParams.get('limit') || '10', 10);
+    
+    // Access cookies (if needed)
+    const token = request.cookies.get('token')?.value;
+    
+    // Access headers
+    const authorization = request.headers.get('authorization');
+    
+    // Your data fetching logic here
+    // const resources = await fetchResources({ query, page, limit });
+    
+    // Mock response for template
+    const resources = [
+      { id: '1', name: 'Example Resource' }
+    ];
+    
+    // Return successful response
+    return NextResponse.json(
+      { 
+        data: resources,
+        pagination: { page, limit, total: 100 }
+      }, 
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('[API ERROR] GET /api/resource:', error);
+    
+    // Return appropriate error response
+    return NextResponse.json(
+      { error: 'Failed to fetch resources' },
+      { status: error instanceof z.ZodError ? 400 : 500 }
+    );
+  }
+}
 
-- Use the `function` keyword for pure functions.
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-- Never use `React.FC` or arrow functions to define components.
-- Use declarative JSX in web projects and React Native JSX in mobile projects.
-- Use 2 space indentation.
-- Use single quotes for strings except to avoid escaping.
-- No semicolons (unless required to disambiguate statements).
+/**
+ * POST: Create a new resource
+ * 
+ * @route POST /api/[resource]
+ * @param request - The incoming request with JSON body
+ * @returns JSON response with created resource
+ */
+export async function POST(request: NextRequest) {
+  try {
+    // Parse and validate request body
+    const body = await request.json();
+    const validatedData = createResourceSchema.parse(body);
+    
+    // Your creation logic here
+    // const newResource = await createResource(validatedData);
+    
+    // Mock response for template
+    const newResource = { id: 'new-id', ...validatedData };
+    
+    // Return created response with 201 status
+    return NextResponse.json(
+      { data: newResource }, 
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('[API ERROR] POST /api/resource:', error);
+    
+    if (error instanceof z.ZodError) {
+      // Handle validation errors
+      return NextResponse.json(
+        { error: 'Invalid input', details: error.errors },
+        { status: 400 }
+      );
+    }
+    
+    // Handle other errors
+    return NextResponse.json(
+      { error: 'Failed to create resource' },
+      { status: 500 }
+    );
+  }
+}
 
-### UI and Styling
+/**
+ * PUT: Replace a resource completely
+ * 
+ * @route PUT /api/[resource]/[id]
+ * @param request - The incoming request with JSON body
+ * @param params - URL parameters with resource ID
+ * @returns JSON response with updated resource
+ */
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    
+    // Parse and validate request body
+    const body = await request.json();
+    const validatedData = createResourceSchema.parse(body);
+    
+    // Your update logic here
+    // const updatedResource = await replaceResource(id, validatedData);
+    
+    // Mock response for template
+    const updatedResource = { id, ...validatedData };
+    
+    // Return success response
+    return NextResponse.json(
+      { data: updatedResource },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(`[API ERROR] PUT /api/resource/${params?.id}:`, error);
+    
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid input', details: error.errors },
+        { status: 400 }
+      );
+    }
+    
+    return NextResponse.json(
+      { error: 'Failed to update resource' },
+      { status: 500 }
+    );
+  }
+}
 
-- For React, use Shadcn UI, Radix, and Tailwind for components and styling.
-- Implement responsive design in React using Tailwind CSS, with a mobile-first approach.
-- Use the `cn` utility function in utils folder for joining Tailwind classes, especially for conditional styling.
-- Use new tailwind v4 semantic, i.e. size-4 instead of h-4 w-4 etc.
+/**
+ * PATCH: Update a resource partially
+ * 
+ * @route PATCH /api/[resource]/[id]
+ * @param request - The incoming request with JSON body
+ * @param params - URL parameters with resource ID
+ * @returns JSON response with updated resource
+ */
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    
+    // Parse and validate partial request body
+    const body = await request.json();
+    const validatedData = createResourceSchema.partial().parse(body);
+    
+    // Your partial update logic here
+    // const patchedResource = await updateResource(id, validatedData);
+    
+    // Mock response for template
+    const patchedResource = { id, ...validatedData };
+    
+    // Return success response
+    return NextResponse.json(
+      { data: patchedResource },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(`[API ERROR] PATCH /api/resource/${params?.id}:`, error);
+    
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid input', details: error.errors },
+        { status: 400 }
+      );
+    }
+    
+    return NextResponse.json(
+      { error: 'Failed to patch resource' },
+      { status: 500 }
+    );
+  }
+}
 
-### Performance Optimization
+/**
+ * DELETE: Remove a resource
+ * 
+ * @route DELETE /api/[resource]/[id]
+ * @param request - The incoming request
+ * @param params - URL parameters with resource ID
+ * @returns Empty response with 204 status
+ */
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    
+    // Your deletion logic here
+    // await deleteResource(id);
+    
+    // Return 204 No Content for successful deletion
+    return new NextResponse(null, { status: 204 });
+  } catch (error) {
+    console.error(`[API ERROR] DELETE /api/resource/${params?.id}:`, error);
+    
+    return NextResponse.json(
+      { error: 'Failed to delete resource' },
+      { status: 500 }
+    );
+  }
+}
 
-- Use dynamic loading for non-critical components.
-- Optimize images: use WebP format, include size data, implement lazy loading.
-- Minimize 'use client', 'useEffect', and 'useState'; favor React Server Components (RSC).
-- Wrap client components in Suspense with fallback.
-- Use dynamic loading for non-critical components.
-- Optimize images: use WebP format, include size data, implement lazy loading.
-- Minimize the use of global styles; prefer modular, scoped styles.
+/**
+ * OPTIONS: Handle CORS preflight requests
+ * 
+ * @route OPTIONS /api/[resource]
+ * @returns Empty response with CORS headers
+ */
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGIN || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400', // 24 hours caching
+    },
+  });
+}
 
-### Key Conventions
+// -------------------------------------------
+// Additional Best Practices
+// -------------------------------------------
 
-- Use 'nuqs' for URL search parameter state management (where applicable).
-- Optimize Web Vitals (LCP, CLS, FID).
-
-### Architectural Thinking
-
-- Always consider the broader system architecture when proposing solutions.
-- Explain your design decisions and trade-offs.
-- Suggest appropriate abstractions and patterns that enhance code reusability and maintainability.
-
-### Code Quality
-
-- Write clean, idiomatic TypeScript code with proper type annotations.
-- Implement error handling and edge cases.
-- Use modern ES6+ features appropriately.
-- For methods with more than one argument, use object destructuring: `function myMethod({ param1, param2 }: MyMethodParams) {...}`.
-
-### Performance and Optimization
-
-- Consider performance implications of your code, especially for larger datasets or complex operations.
-- Suggest optimizations where relevant, explaining the benefits.
-
-### Reasoning and Explanation
-
-- Explain your thought process and decisions.
-- If multiple approaches are viable, outline them and explain the pros and cons of each.
-
-### Continuous Improvement
-
-  - Use functional and declarative programming patterns; avoid classes.
-  - Prefer iteration and modularization over code duplication.
-  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-  - Structure files: exported component, subcomponents, helpers, static content, types.
-    Naming Conventions
-  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
-  - Favor named exports for components.
-  - Use the "function" keyword for pure functions.
-  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-  - Never use ReactFC or arrow functions to define components
-  - Use declarative JSX.
-  
-### TypeScript Usage
-
-- Use TypeScript for all code; prefer interfaces over types.
-- Avoid enums; use maps instead.
-- Use functional components with TypeScript interfaces.
+/**
+ * 1. Consistent response formats:
+ *    - Success: { data: <result> }
+ *    - Errors: { error: <message>, details?: <details> }
+ * 
+ * 2. Proper status codes:
+ *    - 200: OK (GET, PUT, PATCH)
+ *    - 201: Created (POST)
+ *    - 204: No Content (DELETE)
+ *    - 400: Bad Request (validation errors)
+ *    - 401: Unauthorized (auth issues)
+ *    - 403: Forbidden (permission issues)
+ *    - 404: Not Found (resource not found)
+ *    - 500: Internal Server Error (unexpected errors)
+ * 
+ * 3. Use zod for validation
+ * 
+ * 4. Consistent error logging with route context
+ * 
+ * 5. Typescript for all API parameters and responses
+ */
 
 ---
 > Source: [btahir/hacky-experiments](https://github.com/btahir/hacky-experiments) — distributed by [TomeVault](https://tomevault.io).
