@@ -96034,6 +96034,11 @@
       "description": "Model Context Protocol Server for Accessing twitter"
     },
     {
+      "name": "bingud--filemat",
+      "source": "./bingud--filemat",
+      "description": "Web-based file manager"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -116474,6 +116479,11 @@
       "description": "A monorepo containing the Lite and Fallback apps"
     },
     {
+      "name": "automattic--php-toolkit",
+      "source": "./automattic--php-toolkit",
+      "description": "php-toolkit"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -119927,6 +119937,11 @@
       "name": "one-ie--astro-shadcn",
       "source": "./one-ie--astro-shadcn",
       "description": "Build beautiful websites with Astro 5, shadcn/ui and React"
+    },
+    {
+      "name": "pyhub-kr--django-pyhub-rag",
+      "source": "./pyhub-kr--django-pyhub-rag",
+      "description": "\ube60\ub978 RAG \uad6c\ud604\uc744 \uc704\ud55c \uc7a5\uace0 \ub77c\uc774\ube0c\ub7ec\ub9ac"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -123757,6 +123772,11 @@
       "name": "jay6697117--we-drawing-nuxt",
       "source": "./jay6697117--we-drawing-nuxt",
       "description": "AI drawing picture, just for fun"
+    },
+    {
+      "name": "event-catalog--generators",
+      "source": "./event-catalog--generators",
+      "description": "Plugin integrations for EventCatalog"
     },
     {
       "name": "mohiwalla--memes",
@@ -133474,6 +133494,16 @@
       "description": "openstat"
     },
     {
+      "name": "cap-go--capacitor-streamcall",
+      "source": "./cap-go--capacitor-streamcall",
+      "description": "Capacitor plugin for streamcall SDK for capacitor"
+    },
+    {
+      "name": "helgesverre--rust-vst3-host",
+      "source": "./helgesverre--rust-vst3-host",
+      "description": "rust-vst3-host"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -138847,6 +138877,16 @@
       "name": "mntno--obsidian-come-down",
       "source": "./mntno--obsidian-come-down",
       "description": "An Obsidian plugin that maintains a cache of your notes\u2019 embedded external images."
+    },
+    {
+      "name": "bioimage-io--bioimage-io",
+      "source": "./bioimage-io--bioimage-io",
+      "description": "Website for the BioImage Model zoo -- a model zoo for bioimage analysis."
+    },
+    {
+      "name": "bioimage-io--bioimage-io",
+      "source": "./bioimage-io--bioimage-io",
+      "description": "Website for the BioImage Model zoo -- a model zoo for bioimage analysis."
     },
     {
       "name": "lightninglabs--lnget",
@@ -146187,6 +146227,41 @@
       "name": "longhorn-developers--ut-dining",
       "source": "./longhorn-developers--ut-dining",
       "description": "UT Dining is your companion app for exploring dining options at the University of Texas at Austin.         Browse menus, check dining hours, and find the perfect meal on campus."
+    },
+    {
+      "name": "isaaccorley--goldeneye",
+      "source": "./isaaccorley--goldeneye",
+      "description": "GoldenEye is a library of geospatial vision-language models -- run any geospatial VLM in three lines of code"
+    },
+    {
+      "name": "bluetape4k--exposed-workshop",
+      "source": "./bluetape4k--exposed-workshop",
+      "description": "Kotlin Exposed \uc5d0 \ub300\ud55c \ud559\uc2b5 \uc790\ub8cc"
+    },
+    {
+      "name": "thegatesbrowser--world-hoppers",
+      "source": "./thegatesbrowser--world-hoppers",
+      "description": "world-hoppers"
+    },
+    {
+      "name": "bluetape4k--exposed-workshop",
+      "source": "./bluetape4k--exposed-workshop",
+      "description": "Kotlin Exposed \uc5d0 \ub300\ud55c \ud559\uc2b5 \uc790\ub8cc"
+    },
+    {
+      "name": "astera-org--simplexity",
+      "source": "./astera-org--simplexity",
+      "description": "simplexity"
+    },
+    {
+      "name": "deepgroundwater--ddr",
+      "source": "./deepgroundwater--ddr",
+      "description": "Distributed Differentiable Routing "
+    },
+    {
+      "name": "mateusznakodach--heroesofdomaindrivendesign-eventsourcing-java-axon-spring",
+      "source": "./mateusznakodach--heroesofdomaindrivendesign-eventsourcing-java-axon-spring",
+      "description": "Shows how to use Domain-Driven Design, Event Storming, Event Modeling and Event Sourcing in Heroes of Might & Magic III domain."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -167179,6 +167254,191 @@
       "description": "wRESTling the Supabase API into submission."
     },
     {
+      "name": "bcjordan--gravity",
+      "source": "./bcjordan--gravity",
+      "description": "Gravitational lensing and prism simulation using Three.js"
+    },
+    {
+      "name": "vojtaholik--dither-lab",
+      "source": "./vojtaholik--dither-lab",
+      "description": "A fast, interactive tool for experimenting with dithering algorithms. Supports real-time previews, adjustable parameters, and SVG export."
+    },
+    {
+      "name": "dacay--eventkit-node",
+      "source": "./dacay--eventkit-node",
+      "description": "Node.js native addon to access macOS EventKit for calendars and events"
+    },
+    {
+      "name": "bsv-blockchain--go-wallet-toolbox",
+      "source": "./bsv-blockchain--go-wallet-toolbox",
+      "description": "Tools for building effective, compliant BRC-100 wallets in Go language."
+    },
+    {
+      "name": "dacay--eventkit-node",
+      "source": "./dacay--eventkit-node",
+      "description": "Node.js native addon to access macOS EventKit for calendars and events"
+    },
+    {
+      "name": "practicalparticle--bloxchain-protocol",
+      "source": "./practicalparticle--bloxchain-protocol",
+      "description": "Enterprise smart contract security framework that eliminates single\u2011point failures using EngineBlox multi\u2011phase workflows, mandatory multi\u2011sig, time\u2011locks, meta\u2011transactions, and dynamic RBAC. \u26a0\ufe0f Audi"
+    },
+    {
+      "name": "devtalles-corp--react-router-framework",
+      "source": "./devtalles-corp--react-router-framework",
+      "description": "Repositorio del curso de React Router como Framework"
+    },
+    {
+      "name": "openxapi--openxapi",
+      "source": "./openxapi--openxapi",
+      "description": "OpenAPI and AsyncAPI specifications for cryptocurrency exchanges and DeFi protocols"
+    },
+    {
+      "name": "cavinhuang--cursor-auto-gui",
+      "source": "./cavinhuang--cursor-auto-gui",
+      "description": "cursor auto register gui tool"
+    },
+    {
+      "name": "josectoscano--smart-docs",
+      "source": "./josectoscano--smart-docs",
+      "description": "smart-docs"
+    },
+    {
+      "name": "dyj-naj--agentic-rag-knowledge-assistant",
+      "source": "./dyj-naj--agentic-rag-knowledge-assistant",
+      "description": " \u672c\u9879\u76ee\u662f\u4e00\u4e2a\u57fa\u4e8e Agentic RAG \u67b6\u6784\u7684\u667a\u80fd\u77e5\u8bc6\u95ee\u7b54\u7cfb\u7edf\uff0c\u91c7\u7528\u524d\u540e\u7aef\u5206\u79bb\u8bbe\u8ba1\u3002\u540e\u7aef\u57fa\u4e8e FastAPI \u6784\u5efa\uff0c\u524d\u7aef\u4f7f\u7528 React + Vite\uff0c\u96c6\u6210 Qdrant \u5411\u91cf\u6570\u636e\u5e93\u3001BM25 \u5173\u952e\u8bcd\u68c0\u7d22\u3001MySQL \u7ed3\u6784\u5316\u67e5\u8be2\u548c Serper \u7f51\u7edc\u641c\u7d22\u56db\u5927\u77e5\u8bc6\u6e90\u3002\u7cfb\u7edf\u6838\u5fc3\u4e3a\u4e00\u6761 7  \u9636\u6bb5\u6d41\u6c34\u7ebf\uff1a\u67e5\u8be2\u4f18\u5316\u3001\u610f\u56fe\u8bc6\u522b\u3001\u4efb\u52a1\u62c6\u89e3\u3001ReAct \u4ee3\u7406\u68c0\u7d22\u3001\u76f8\u5173\u6027\u68c0\u67e5\u3001\u7b54\u6848\u751f\u6210\u53ca Self-RAG \u8d28"
+    },
+    {
+      "name": "faircompute--energy-monitoring-tool",
+      "source": "./faircompute--energy-monitoring-tool",
+      "description": "Enabling Digital Sustainability Through Granular Energy Measurement "
+    },
+    {
+      "name": "stacksjs--ts-maps",
+      "source": "./stacksjs--ts-maps",
+      "description": "\ud83d\uddfa\ufe0f Modern & lightweight TypeScript library for creating interactive vector maps."
+    },
+    {
+      "name": "qdu-robomaster--bsp-dev-c",
+      "source": "./qdu-robomaster--bsp-dev-c",
+      "description": "bsp-dev-c"
+    },
+    {
+      "name": "etiennedi--vibe-col",
+      "source": "./etiennedi--vibe-col",
+      "description": "A columnar index that is 100% vibe-coded"
+    },
+    {
+      "name": "faircompute--energy-monitoring-tool",
+      "source": "./faircompute--energy-monitoring-tool",
+      "description": "Enabling Digital Sustainability Through Granular Energy Measurement "
+    },
+    {
+      "name": "imphnen--imphnen-frontend-service",
+      "source": "./imphnen--imphnen-frontend-service",
+      "description": "IMPHNEN Frontend Service"
+    },
+    {
+      "name": "liquidium-inc--liquidium-sdk",
+      "source": "./liquidium-inc--liquidium-sdk",
+      "description": "Docs"
+    },
+    {
+      "name": "bcjordan--gravity",
+      "source": "./bcjordan--gravity",
+      "description": "Gravitational lensing and prism simulation using Three.js"
+    },
+    {
+      "name": "rm2thaddeus--promptgramming",
+      "source": "./rm2thaddeus--promptgramming",
+      "description": "A framework to structure thoughts and shape them into production code"
+    },
+    {
+      "name": "obolnetwork--obol-stack",
+      "source": "./obolnetwork--obol-stack",
+      "description": "A Kubernetes-based Ethereum stack for running decentralised applications."
+    },
+    {
+      "name": "deepflame-ai--dfode-kit",
+      "source": "./deepflame-ai--dfode-kit",
+      "description": "DFODE-kit"
+    },
+    {
+      "name": "stacksjs--vite-plugin-layouts",
+      "source": "./stacksjs--vite-plugin-layouts",
+      "description": "\ud83e\udde9 Router-based layouts for your application."
+    },
+    {
+      "name": "docxology--quadcraft",
+      "source": "./docxology--quadcraft",
+      "description": "MineCraft with Tetrahedra (Quadray coordinates)"
+    },
+    {
+      "name": "sv--mcp-paradex-py",
+      "source": "./sv--mcp-paradex-py",
+      "description": "Connect AI agents to the Paradex trading platform. Retrieve market data, manage accounts, and execute trades seamlessly. Enhance your trading experience with automated tools and real-time insights."
+    },
+    {
+      "name": "practicalparticle--bloxchain-protocol",
+      "source": "./practicalparticle--bloxchain-protocol",
+      "description": "Enterprise smart contract security framework that eliminates single\u2011point failures using EngineBlox multi\u2011phase workflows, mandatory multi\u2011sig, time\u2011locks, meta\u2011transactions, and dynamic RBAC. \u26a0\ufe0f Audi"
+    },
+    {
+      "name": "bbleae--maimbot-webui",
+      "source": "./bbleae--maimbot-webui",
+      "description": "MaiMBot-WebUI"
+    },
+    {
+      "name": "perosb--qvantum-custom-component",
+      "source": "./perosb--qvantum-custom-component",
+      "description": "Qvantum Exhaust Air Heat Pump Integration for Home Assistant"
+    },
+    {
+      "name": "tottenjordan--zghost",
+      "source": "./tottenjordan--zghost",
+      "description": "a multi-agent system finding the intersection between product, trend, and audience"
+    },
+    {
+      "name": "openxapi--openxapi",
+      "source": "./openxapi--openxapi",
+      "description": "OpenAPI and AsyncAPI specifications for cryptocurrency exchanges and DeFi protocols"
+    },
+    {
+      "name": "openxapi--openxapi",
+      "source": "./openxapi--openxapi",
+      "description": "OpenAPI and AsyncAPI specifications for cryptocurrency exchanges and DeFi protocols"
+    },
+    {
+      "name": "stackpress--reactus",
+      "source": "./stackpress--reactus",
+      "description": "Reactive React Template Engine"
+    },
+    {
+      "name": "dacarson--navienmanager",
+      "source": "./dacarson--navienmanager",
+      "description": "HomeKit and diagnostics for Navien Tankless Water Heater using ESP32 + RS485"
+    },
+    {
+      "name": "rnmjs--pm",
+      "source": "./rnmjs--pm",
+      "description": "\ud83d\udce6 Unified Package Manager for Node.js (npm, yarn, pnpm)"
+    },
+    {
+      "name": "rnmjs--pm",
+      "source": "./rnmjs--pm",
+      "description": "\ud83d\udce6 Unified Package Manager for Node.js (npm, yarn, pnpm)"
+    },
+    {
+      "name": "lichess-org--dart-multistockfish",
+      "source": "./lichess-org--dart-multistockfish",
+      "description": "Multiple flavors of Stockfish Chess Engine"
+    },
+    {
+      "name": "jasnonaz--vibe-worldbuilding-mcp",
+      "source": "./jasnonaz--vibe-worldbuilding-mcp",
+      "description": "Vibe Worldbuilding"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -178354,6 +178614,66 @@
       "description": "AI generates natively editable PPTX - fork with MinerU parsing and SVG formula support"
     },
     {
+      "name": "kiranklabs--hermes-memory-wiki",
+      "source": "./kiranklabs--hermes-memory-wiki",
+      "description": "A browsable, searchable memory layer for Hermes AI agent conversations \u2014 automatically captured, summarized, and injected as context into every new session."
+    },
+    {
+      "name": "andrea-cavallo--adomnia",
+      "source": "./andrea-cavallo--adomnia",
+      "description": "A local-first desktop toolbox for API testing, protocol debugging, mocking, and enterprise/legacy system integration. One app, every protocol."
+    },
+    {
+      "name": "xmtp--smart-contracts",
+      "source": "./xmtp--smart-contracts",
+      "description": "XMTP Smart Contracts"
+    },
+    {
+      "name": "79e--auto-openai-account",
+      "source": "./79e--auto-openai-account",
+      "description": "\u81ea\u52a8\u5316\u6ce8\u518c Openai / ChatGpt \u8d26\u53f7"
+    },
+    {
+      "name": "andrea-cavallo--adomnia",
+      "source": "./andrea-cavallo--adomnia",
+      "description": "A local-first desktop toolbox for API testing, protocol debugging, mocking, and enterprise/legacy system integration. One app, every protocol."
+    },
+    {
+      "name": "lightrock--drbones",
+      "source": "./lightrock--drbones",
+      "description": "Repo-native project memory for AI-assisted development: workorders, playbooks, examples, checks, handoff rules, and release-readiness discipline."
+    },
+    {
+      "name": "blackwell-systems--knowing",
+      "source": "./blackwell-systems--knowing",
+      "description": "Permanent code intelligence layer. Learns what matters, expires what changed, proves what existed. Content-addressed graph with Merkle proofs, 25 extractors, 23 MCP tools. Gets smarter with use."
+    },
+    {
+      "name": "minghou-lei--codex-context-used-meter",
+      "source": "./minghou-lei--codex-context-used-meter",
+      "description": "Codex++ user script for showing Codex context usage in the app UI."
+    },
+    {
+      "name": "tyuts--xiaobai-skills",
+      "source": "./tyuts--xiaobai-skills",
+      "description": "Beginner-friendly Codex skills starter pack and library curator"
+    },
+    {
+      "name": "neolee--neb",
+      "source": "./neolee--neb",
+      "description": "A project to seek the real power of AI agents"
+    },
+    {
+      "name": "xmtp--smart-contracts",
+      "source": "./xmtp--smart-contracts",
+      "description": "XMTP Smart Contracts"
+    },
+    {
+      "name": "eoincondron--groupby-lib",
+      "source": "./eoincondron--groupby-lib",
+      "description": "groupby-lib"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -181107,6 +181427,16 @@
       "name": "suibeai--computer-vision-book",
       "source": "./suibeai--computer-vision-book",
       "description": "computer_vision_book"
+    },
+    {
+      "name": "chinjure--deepseek-copilot",
+      "source": "./chinjure--deepseek-copilot",
+      "description": "automatically complementing code in idea with model deepseek"
+    },
+    {
+      "name": "haaarshsingh--loomix",
+      "source": "./haaarshsingh--loomix",
+      "description": "Drop-in video player for React \u269b\ufe0f"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -285072,6 +285402,26 @@
       "name": "sztanko--hexalife",
       "source": "./sztanko--hexalife",
       "description": "hexalife"
+    },
+    {
+      "name": "declanshanaghy--dollar-game",
+      "source": "./declanshanaghy--dollar-game",
+      "description": "dollar-game"
+    },
+    {
+      "name": "declanshanaghy--dollar-game",
+      "source": "./declanshanaghy--dollar-game",
+      "description": "dollar-game"
+    },
+    {
+      "name": "declanshanaghy--dollar-game",
+      "source": "./declanshanaghy--dollar-game",
+      "description": "dollar-game"
+    },
+    {
+      "name": "declanshanaghy--dollar-game",
+      "source": "./declanshanaghy--dollar-game",
+      "description": "dollar-game"
     }
   ]
 }
