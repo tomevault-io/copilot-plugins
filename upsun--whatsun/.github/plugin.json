@@ -1,0 +1,9 @@
+{
+  "name": "upsun--whatsun",
+  "displayName": "whatsun",
+  "description": "A code analysis tool and library: generate a repository digest for LLM context",
+  "version": "1.0.0",
+  "author": "upsun",
+  "homepage": "https://github.com/upsun/whatsun",
+  "skills": []
+}
