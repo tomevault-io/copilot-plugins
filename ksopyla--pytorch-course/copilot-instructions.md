@@ -1,70 +1,196 @@
-## markdown-mkdocs-editing
+## project-overview
 
-> This rule is for editing markdown files for mkdocs.
-
-
-
-This rule is for editing markdown files for mkdocs.
-
-1. When creating a quote, always use the following format:
-
-> "Quote test
->
-> — **_Prof. Torchenstein_**
-
-2. When creating a link, always use the following rules, add UTM tracking parameters for analytics. While generating the link, add to the url the following parameters:
- - `utm_source=pytorchcourse.com&utm_medium=pytorch-course&utm_campaign=(file name)`
+> A comprehensive overview of the PyTorch Course project, including its goals, technical stack, windows development environment, python, poetry, mkdocs configuratoin.
 
 
-3. When generating a video, always use the following format:
+# Project Overview: PyTorch Course
 
-<video controls width="100%"  src="/assets/images/file_name.mp4" 
-title="video title description based on the file name">
-  Your browser does not support the video tag. Please update your browser to view this content.
-</video>
+This document provides a comprehensive guide to the PyTorch Course project. It covers the project's vision, technical stack, development environment setup, project structure, and key resources.
 
-4. When generating a image, always use the following format:
+For details on the course's brand, tone, and the persona of Professor Torchenstein, please refer to the `.cursor/rules/brand-marketing-persona_v2.mdc` file.
 
-![Professor Torchenstein invites you to explore tensors](/assets/images/torchenstein_coffe_explore_tensors_v2.png)
+## 1. Project Goal & Vision
+
+**Primary Goal:** To create the best free online PyTorch tutorial for understanding the core building blocks of modern AI architectures like Transformers and Diffusion models.
+
+- **Course URL:** [https://pytorchcourse.com](https://pytorchcourse.com)
+- **Course GitHub:** [https://github.com/ksopyla/pytorch-course](https://github.com/ksopyla/pytorch-course)
+- **Organization:** [Torchenstein-Lab](https://github.com/Torchenstein-Lab)
+- **Meta Lab GitHub:** [https://github.com/Torchenstein-Lab/pytorch-course-meta](https://github.com/Torchenstein-Lab/pytorch-course-meta)
+
+### Dual-Repository Architecture
+
+This project uses a **two-repository model** to separate concerns and enable radical transparency:
+
+1. **`pytorch-course`** (This repo) - Public course content
+   - All lessons, notebooks, and documentation
+   - Student-facing materials
+   - Published to pytorchcourse.com
+
+2. **`pytorch-course-meta`** (Sister repo) - Behind-the-scenes content (Private, Sponsors Only)
+   - Under Torchenstein-Lab organization
+   - Sponsorship strategy and templates
+   - SEO implementation guides
+   - Content creation processes and workflows
+   - Marketing and social media templates
+   - Research notes and decision logs
+   - "Building in public" materials
+
+**Why This Architecture?**
+- Separates educational content from meta/strategy content
+- Enables "building in public" without cluttering the course repo
+- Private meta-lab provides exclusive value for sponsors
+- Provides unprecedented transparency into the creation process
 
 
-5. Properly add SEO and metadata to the markdown files.
+### Why I (Krzysztof Sopyla) created this course:
+- I believe that deep understanding of the concepts is key to success in machine learning.
+- I believe in open science, knowledge sharing and community.
+- I want to give materials that are fun, engaging and easy to understand. To read them like a comic book.
+- I share my process, the prompts that I use, the materials everything is on project github
+- I try to present material from the real-world examples perspective, 
+- I want to have fun making it, I want to deepen my knowledge and skills.
+- the new generation needs a new type of education, an education that embraces creativity, that helps to figure out new, efficient ways of training AI models, but they need fun and engaging content. The rebellion concept is really good, I will stick to it. I wouldn't say that knowledge is not available, but we need new methods to teach difficult concepts, and we need a community around that would support each other. I want to empower the new generation, instead of scrolling through social media I want to engage them with something that would develop them
 
-Template: 
----
-title: "Title of the page that reflects the content of the page"
-description: "Description of the page that reflects the content of the page, not too long, less than 160 characters"
-# Social card customization, try to use the image from the assets/images folder, and the one that is attached to the page
-image: "assets/images/image_name.png" 
-# SEO and metadata
-## max 5 keywords
-keywords: "Keywords of the page that reflects the content of the page, "
-author: "Krzysztof Sopyła"
-# Boost this page in search (default is 1.0)
-search:
-  boost: 2.0
-# Tags for categorization, max 5 tags that reflect the content of the page, please be consistent with other pages
-tags:
-  - tensors
-  - beginner
-  - module 1
-  - module overview
-# Extra metadata for custom use
-extra:
-  course:
-    module: 1
-    lesson: 0
-    difficulty: beginner
-    estimated_time: "5 min"
-  # Open Graph / Social Media specific
-  og:
-    title: "Pytorch Course | Module 1 – I See Tensors Everywhere 🕶️ | Prof. Torchenstein's Lab"
-    type: "article"
-  # For structured data (if you implement it)
-  structured_data:
-    type: "LearningResource"
-    educationalLevel: "Beginner"
----
+### About the author Krzysztof Sopyla:
+- Krzysztof Sopyla, reseracher, scientist and currently AI R&D leader
+- My values: openess, transparency, sharing the knowledge. 
+- My principles: be helpful, not pushy, be authentic, not fake, be creative, not boring.
+- I'm humble, try to not be arrogant and overconfident.
+- I want to be helpful, not pushy.
+- I want to be authentic, not fake.
+- I want the building the brand, but not the marketing.
+- I want to express my creativity and my personalit by building this course.
+- My AI blog: https://ai.ksopyla.com
+
+my personal story: 
+I came from humble background, but I have always liked math, everything was simple and followed the rules that I could easily understand and follow, in normal life things was harder to me. 
+My first money I earned thanks to the education I was giving, math and physics tutoring sessions for younger students. This gave me a sense of self-worth, that my mind, knowledge and my approach to teaching mean something. 
+I remember the pride when someone with difficulties in math passed an exam, they feel worthy, their hard work, consistency and dedication help to feel better, worthy and important. I feel the same when someone admires my ideas, my work.
+I relly value the knowledge, I'm easly frustrated when someone speaks about the topic in a shallow manner, without deep thinking, without spending some time to understand. Now it is even harder to focus, to be consistent, there are so many distractors like socila media that they distract from important things, from creative and deep work, from the desire to understand. That why we need to make education fun and engageing, with all the things that moder world is offering: gifs, stickers, small prizes, funny emojis, and reals. 
+
+
+
+## 2. Content & Educational Strategy
+
+-   **Target Audience:** Beginner to advanced ML engineers and researchers who are familiar with Python and linear algebra basics.
+-   **Pedagogy:**
+    -   Each lesson focuses on a single core concept.
+    -   Start with the theory: "What is it and what purpose does it serve?"
+    -   Provide simple, hand-verifiable PyTorch code examples.
+    -   Progress to more advanced examples with realistic tensor shapes (e.g., for Transformers).
+    -   Use analogies, humor, and a clear, logical structure.
+-   **Technical Scope:** PyTorch, Hugging Face Transformers, and the fundamental components of modern neural networks (attention, normalization, embeddings, etc.).
+
+## 3. Website & Technology Stack
+
+The course website is built using **MkDocs** with the **Material for MkDocs** theme.
+
+-   **Configuration:** The main configuration is in `mkdocs.yml`. This file defines the site structure, navigation, theme, and plugins.
+-   **Content Rendering:** Jupyter Notebooks (`.ipynb`) are rendered directly into the site using the `mkdocs-jupyter` plugin.
+-   **Deployment:** The site is automatically built and deployed to **GitHub Pages** via a GitHub Actions workflow defined in `.github/workflows/mkdocs-build.yml`. The site is served from the `gh-pages` branch.
+
+## 4. Development Environment
+
+The project is developed on a **Windows 11** environment.
+
+-   **Terminal:** All commands should be Windows-specific and run in **PowerShell**.
+-   **Python:** The project uses **Python 3.12**, managed via `pyenv` for Windows.
+-   The mkdocs build is done via gihub actions, local deployment is also configured and could be run via `poetry run mkdocs serve`.
+-   For github I have mcp server running, so you can use it to run commands.
+-   **Dependency Management:** Dependencies are managed with **Poetry**. The dependencies are listed in `pyproject.toml`. The core  dependencies in pyproject.toml are for runing the lessons, all the dev dependencies are in the `dev` group are for mkdocs building process and building the site.
+-   **Virtual Environment:** It is critical to use the correct Poetry virtual environment for all Python-related tasks.
+    -   **Path:** `C:\Users\krzys\AppData\Local\pypoetry\Cache\virtualenvs\pytorch-course-YUNTNAZF-py3.12`
+    -   **Executable:** `C:\Users\krzys\AppData\Local\pypoetry\Cache\virtualenvs\pytorch-course-YUNTNAZF-py3.12\Scripts\python.exe`
+    -   Always run commands within this environment (e.g., using `poetry run ...`).
+
+## 5. Project Structure & Key Files
+
+### `pytorch-course` Repository (This Repo)
+
+-   `mkdocs.yml`: Main MkDocs configuration file, including site navigation.
+-   `pyproject.toml` / `poetry.lock`: Python dependency management files.
+-   `.github/workflows/`: Contains the GitHub Actions workflow for building and deploying the site.
+-   `docs/`: Contains all course content.
+    -   `docs/01-tensors/`, `docs/02-torch-nn/`, etc.: Subdirectories for each course module.
+    -   `docs/assets/`: Images, CSS, and other static assets.
+    -   `docs/index.md`: The home page content.
+-   `overrides/`: Customizations for the MkDocs Material theme.
+-   `tools/`: Contains the tools, scripts or other utilities for the project like optimize_images.py.
+-   `learning_designs/`: Contains the learning designs for the project.
+-   `brand/`: Contains the additional branding materials, persona descriptions, prompts for torchenstein midjourney prompts for the project.
+
+### `pytorch-course-meta` Repository (Sister Repo)
+
+**Location:** Separate repository in the same workspace folder  
+**Organization:** Torchenstein-Lab  
+**Access:** Private - Automatic for GitHub Sponsors
+
+-   `seo_strategy/`: SEO implementation guides and schema.org documentation
+-   `sponsorship_strategy/`: Complete sponsorship framework, templates, and action plans
+-   `sponsor_page_creation/`: Sponsorship page design and platform configuration
+-   `README.md`: Lab overview and navigation
+
+**Working with Both Repositories:**
+- Both repos are accessible in the Cursor workspace
+- Use `@pytorch-course/` and `@pytorch-course-meta/` to reference files across repos
+- Strategy documents in lab inform content creation in course
+- Course progress feeds into lab notes and marketing materials
+
+## 6. Key Resources
+
+For a deeper understanding of the project's different facets, refer to these key documents:
+
+### Course Content & Brand (`pytorch-course`)
+-   **Brand & Persona:** `brand/course_prof_torchenstein_persona.md`
+-   **Professor Torchenstein's Backstory:** `docs/story/victor_torchenstein_origin.md`
+-   **Vision and Mission:** `docs/story/vision_and_mission.md`
+-   **Educator Guidelines:** `.cursor/rules/educator-guidelines.mdc`
+-   **Overall Course Structure:** `docs/pytorch-course-structure.md`
+-   **Sponsor the Rebellion:** `docs/story/sponsor.md`
+-   **Lesson Generation Template:** `learning_designs/lesson-template.md`
+
+### Strategy & Process (`pytorch-course-meta`)
+-   **SEO Implementation:** `@pytorch-course-meta/seo_strategy/seo_implementation_guide.md`
+-   **Sponsorship Master Plan:** `@pytorch-course-meta/sponsorship_strategy/sponsorship_strategy_master.md`
+-   **Content Calendar:** `@pytorch-course-meta/sponsorship_strategy/content_calendar_template.md`
+-   **Lab Notes Template:** `@pytorch-course-meta/sponsorship_strategy/lab_notes_template.md`
+
+## 7. Cross-Repository Workflows
+
+### Common Development Patterns
+
+**Creating New Lessons with SEO:**
+```
+"Create a new lesson on [TOPIC] in @pytorch-course/docs/0X-module/.
+Follow SEO guidelines from @pytorch-course-meta/seo_strategy/seo_implementation_guide.md
+and ensure .meta.yml is properly configured."
+```
+
+**Monthly Content Generation:**
+```
+"Review recent work in @pytorch-course/docs/ and generate this month's
+Lab Notes using @pytorch-course-meta/sponsorship_strategy/lab_notes_template.md"
+```
+
+**Social Media Batch Creation:**
+```
+"Based on new lessons in @pytorch-course/, create social media posts
+following @pytorch-course-meta/sponsorship_strategy/content_calendar_template.md"
+```
+
+**Strategic Updates:**
+```
+"Update course statistics in @pytorch-course-meta/sponsorship_strategy/ 
+based on current @pytorch-course/ structure"
+```
+
+### Best Practices
+
+1. **Reference Strategy First:** Before creating content, check relevant templates in `pytorch-course-meta`
+2. **Update Both Repos:** When course evolves, update strategy docs to reflect reality
+3. **Cross-Reference Naturally:** Use `@repo-name/path` to reference files across repositories
+4. **Keep Lab Current:** Lab notes and metrics should reflect actual course progress
 
 ---
 > Source: [ksopyla/pytorch-course](https://github.com/ksopyla/pytorch-course) — distributed by [TomeVault](https://tomevault.io).
