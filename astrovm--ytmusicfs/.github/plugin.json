@@ -1,0 +1,9 @@
+{
+  "name": "astrovm--ytmusicfs",
+  "displayName": "ytmusicfs",
+  "description": "YouTube Music FUSE Filesystem",
+  "version": "1.0.0",
+  "author": "astrovm",
+  "homepage": "https://github.com/astrovm/ytmusicfs",
+  "skills": []
+}
