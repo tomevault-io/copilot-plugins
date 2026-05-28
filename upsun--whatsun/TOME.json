@@ -4,7 +4,7 @@
   "repo": "whatsun",
   "description": "A code analysis tool and library: generate a repository digest for LLM context",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/upsun/whatsun",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T10:44:15Z"
+  "distributed_at": "2026-05-28T10:59:25Z"
 }
