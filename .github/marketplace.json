@@ -123519,6 +123519,11 @@
       "description": "\ud83d\udd12 QR & Bar Code generating & reading. Lightweight & powerful."
     },
     {
+      "name": "compartmentdev--compartment",
+      "source": "./compartmentdev--compartment",
+      "description": "Compartment is a self-hosted application deployment system for teams that want to ship and share internal, private, or public web apps without building their own platform stack."
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -133112,6 +133117,26 @@
       "name": "arsfeld--nixos",
       "source": "./arsfeld--nixos",
       "description": "nixos"
+    },
+    {
+      "name": "dash0hq--dash0-cli",
+      "source": "./dash0hq--dash0-cli",
+      "description": "Command line utility to interact with Dash0"
+    },
+    {
+      "name": "dash0hq--dash0-cli",
+      "source": "./dash0hq--dash0-cli",
+      "description": "Command line utility to interact with Dash0"
+    },
+    {
+      "name": "divitmittal--professionalstay-site",
+      "source": "./divitmittal--professionalstay-site",
+      "description": "Professional Stay Homepage"
+    },
+    {
+      "name": "xingwangzhe--rustedwarfaremodsupport",
+      "source": "./xingwangzhe--rustedwarfaremodsupport",
+      "description": "\u6b63\u5728\u5f00\u53d1\u7684vscode\u63d2\u4ef6,\u5e0c\u671b\u5b9e\u73b0\u4ee3\u7801\u8865\u5168\u63d0\u793a,\u53ef\u89c6\u5316\u56fe\u7247\u7b49.."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
