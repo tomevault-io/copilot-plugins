@@ -1,0 +1,9 @@
+{
+  "name": "mdrideout--junjo",
+  "displayName": "junjo",
+  "description": "An AI graph workflow library for building dynamic LLM driven workflows",
+  "version": "1.0.0",
+  "author": "mdrideout",
+  "homepage": "https://github.com/mdrideout/junjo",
+  "skills": []
+}
