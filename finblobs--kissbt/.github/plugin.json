@@ -1,0 +1,9 @@
+{
+  "name": "finblobs--kissbt",
+  "displayName": "kissbt",
+  "description": "The \"keep it simple\" backtesting framework",
+  "version": "1.0.0",
+  "author": "FinBlobs",
+  "homepage": "https://github.com/FinBlobs/kissbt",
+  "skills": []
+}
