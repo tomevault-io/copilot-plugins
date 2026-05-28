@@ -1,0 +1,9 @@
+{
+  "name": "gantasmo--stabledaw",
+  "displayName": "StableDAW",
+  "description": "Browser-based AI audio DAW for Stable Audio 3 with text-to-audio, inpainting, LoRA training, FFmpeg effects, waveform editing, sequencer, piano roll, and persistent library.",
+  "version": "1.0.0",
+  "author": "gantasmo",
+  "homepage": "https://github.com/gantasmo/StableDAW",
+  "skills": []
+}
