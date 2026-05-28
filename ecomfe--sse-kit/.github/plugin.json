@@ -1,0 +1,9 @@
+{
+  "name": "ecomfe--sse-kit",
+  "displayName": "sse-kit",
+  "description": "A generic server-sent-event handling library with dedicated package for microapp, taro, etc...",
+  "version": "1.0.0",
+  "author": "ecomfe",
+  "homepage": "https://github.com/ecomfe/sse-kit",
+  "skills": []
+}
