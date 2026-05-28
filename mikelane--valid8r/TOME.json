@@ -4,7 +4,7 @@
   "repo": "valid8r",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikelane/valid8r",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T12:33:04Z"
+  "distributed_at": "2026-05-28T12:47:07Z"
 }
