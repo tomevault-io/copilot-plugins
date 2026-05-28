@@ -1,0 +1,9 @@
+{
+  "name": "alexhuszagh--i256-rs",
+  "displayName": "i256-rs",
+  "description": "Optimized implementation for fixed-width, large integers in Rust.",
+  "version": "1.0.0",
+  "author": "Alexhuszagh",
+  "homepage": "https://github.com/Alexhuszagh/i256-rs",
+  "skills": []
+}
