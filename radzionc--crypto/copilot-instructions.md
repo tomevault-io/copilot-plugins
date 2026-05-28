@@ -1,59 +1,56 @@
-## reuse-lib
+## type-definitions
 
-> REUSE existing code WHEN implementing new features FROM @lib packages TO maintain consistency and reduce duplication
+> USE type WHEN defining object types TO maintain consistency
 
-# Reuse Lib Code Rules
+
+# TypeScript Type Definition Rules
 
 ## Context
-- When implementing new features or components
-- When adding new types or interfaces
-- When creating utility functions
+- When writing TypeScript code and defining data structures
+- When creating contracts for class implementations
+- When organizing complex type systems
+- Ensures consistency and proper use of TypeScript features
 
 ## Requirements
-- Always check @lib/ui/props for reusable prop types
-- Always check @lib/utils for existing utility functions
-- Always check @lib/ui for existing UI components
-- Never duplicate types or functions that already exist in lib packages
-- Use existing prop types like ChildrenProp, KindProp, etc.
-- Use existing utility functions from @lib/utils
-- Use existing UI components from @lib/ui
+- Use `type` for object type definitions instead of `interface`
+- Use `type` for union types, intersection types, mapped types, and utility types
+- Only use `interface` for contracts that will be implemented by classes
+- Use `interface` for plugin systems and public APIs meant to be implemented
 
 ## Examples
 
 <example>
-// Instead of defining your own children prop
-interface MyComponentProps {
-  children: ReactNode
+// Using type for object type definition
+type User = {
+  id: string
+  name: string
 }
-
-// Use the existing ChildrenProp
-import { ChildrenProp } from '@lib/ui/props'
-interface MyComponentProps extends ChildrenProp {}
 </example>
 
 <example>
-// Instead of defining your own kind prop
-interface MyComponentProps {
-  kind: 'primary' | 'secondary'
+// Using interface for class contract
+interface Repository {
+  save(entity: unknown): Promise<void>
+  find(id: string): Promise<unknown>
 }
 
-// Use the existing KindProp
-import { KindProp } from '@lib/ui/props'
-interface MyComponentProps extends KindProp<'primary' | 'secondary'> {}
+class PostgresRepository implements Repository {
+  // Implementation...
+}
+</example>
+
+<example>
+// Using type for union types
+type Status = 'loading' | 'success' | 'error'
 </example>
 
 <example type="invalid">
-// Don't duplicate existing types
-interface ButtonProps {
-  onClick: () => void
-  children: ReactNode
-  className?: string
+// Incorrect use of interface for simple object type
+interface UserData {
+  id: string
+  name: string
 }
-
-// Instead use existing props
-import { OnClickProp, ChildrenProp, ClassNameProp } from '@lib/ui/props'
-interface ButtonProps extends OnClickProp, ChildrenProp, ClassNameProp {}
-</example>
+</example> 
 
 ---
 > Source: [radzionc/crypto](https://github.com/radzionc/crypto) — distributed by [TomeVault](https://tomevault.io).
