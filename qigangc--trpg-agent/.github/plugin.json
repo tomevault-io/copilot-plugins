@@ -1,0 +1,9 @@
+{
+  "name": "qigangc--trpg-agent",
+  "displayName": "TRPG_Agent",
+  "description": "A TRPG Agent with a UI for a better solo gaming experience.",
+  "version": "1.0.0",
+  "author": "qigangc",
+  "homepage": "https://github.com/qigangc/TRPG_Agent",
+  "skills": []
+}
