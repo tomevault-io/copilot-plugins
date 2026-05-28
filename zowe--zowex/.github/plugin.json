@@ -1,0 +1,9 @@
+{
+  "name": "zowe--zowex",
+  "displayName": "zowex",
+  "description": "Open-source, native code for z/OS mainframe operations usable via source, DLLs, native CLI (zowex), or callable over SSH via JSON-RPC.",
+  "version": "1.0.0",
+  "author": "zowe",
+  "homepage": "https://github.com/zowe/zowex",
+  "skills": []
+}
