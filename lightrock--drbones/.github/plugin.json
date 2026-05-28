@@ -1,0 +1,9 @@
+{
+  "name": "lightrock--drbones",
+  "displayName": "drbones",
+  "description": "Repo-native project memory for AI-assisted development: workorders, playbooks, examples, checks, handoff rules, and release-readiness discipline.",
+  "version": "1.0.0",
+  "author": "lightrock",
+  "homepage": "https://github.com/lightrock/drbones",
+  "skills": []
+}
