@@ -1,0 +1,9 @@
+{
+  "name": "dockersamples--labspace-infra",
+  "displayName": "labspace-infra",
+  "description": "Provides the infrastructure for Labspaces",
+  "version": "1.0.0",
+  "author": "dockersamples",
+  "homepage": "https://github.com/dockersamples/labspace-infra",
+  "skills": []
+}
