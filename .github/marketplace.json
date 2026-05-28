@@ -119759,6 +119759,11 @@
       "description": "A purely browser based OCR tool designed recognizing, copying, and pronouncing Japanese text"
     },
     {
+      "name": "pennydinh--marketing-pineline-share",
+      "source": "./pennydinh--marketing-pineline-share",
+      "description": "H\u1ec7 th\u1ed1ng t\u1ef1 \u0111\u1ed9ng h\u00f3a Content s\u1ed1 1: T\u1eeb Research, L\u00ean K\u1ecbch B\u1ea3n, \u0110\u0103ng Page t\u1ef1 \u0111\u1ed9ng \u0111\u1ebfn Generate Video!"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -145817,6 +145822,11 @@
       "name": "andrewarrow--shellmates",
       "source": "./andrewarrow--shellmates",
       "description": "shellmates: Unlike typical co-founder matching platforms, we ensure both partners are technical. No more \"idea person seeking coder\" - just technical people seeking other technical people.  With shell"
+    },
+    {
+      "name": "handsomejustin--easy-tdx",
+      "source": "./handsomejustin--easy-tdx",
+      "description": "\u901a\u8fbe\u4fe1python SDK\uff0c\u652f\u6301\u5728\u7ebf\u83b7\u53d6\u6570\u636e\u53ca\u79bb\u7ebf\u672c\u5730\u6570\u636e\u8bfb\u53d6\u3002\u5168\u9762\u4f18\u5316\u63a5\u53e3\u3002"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -187607,11 +187617,6 @@
       "name": "danilotorrisi--claude-session-manager",
       "source": "./danilotorrisi--claude-session-manager",
       "description": "claude-session-manager"
-    },
-    {
-      "name": "sztanko--hexalife",
-      "source": "./sztanko--hexalife",
-      "description": "hexalife"
     },
     {
       "name": "aebonlee--nong-view",
@@ -284662,6 +284667,11 @@
       "name": "pawel-kuznik--underhive-bookies",
       "source": "./pawel-kuznik--underhive-bookies",
       "description": "underhive-bookies"
+    },
+    {
+      "name": "sztanko--hexalife",
+      "source": "./sztanko--hexalife",
+      "description": "hexalife"
     }
   ]
 }
