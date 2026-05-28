@@ -1,296 +1,416 @@
-## database-schema
+## deployment-devops
 
-> Database schema conventions and patterns using Drizzle ORM and PostgreSQL
+> Deployment and DevOps guidelines for Docker Compose and Kubernetes
 
-# Database Schema Guidelines
+# Deployment & DevOps Guidelines
 
-HyperFix uses Drizzle ORM with PostgreSQL. This document outlines schema conventions and best practices.
+HyperFix supports multiple deployment methods: Docker Compose for development/testing and Kubernetes for production. This document outlines deployment patterns and best practices.
 
-## Schema Definition
+## Docker Compose
 
-All schemas are defined in `apps/api/src/database/schema.ts`:
+### Configuration
 
-```typescript
-import { pgTable, text, timestamp, boolean, integer, index } from "drizzle-orm/pg-core";
-import { createId } from "@paralleldrive/cuid2";
+The main Docker Compose configuration is in `compose.yml` at the project root.
 
-export const taskTable = pgTable(
-  "task",
-  {
-    id: text("id")
-      .$defaultFn(() => createId())
-      .primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projectTable.id, {
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      }),
-    title: text("title").notNull(),
-    description: text("description"),
-    status: text("status").notNull().default("to-do"),
-    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "date" })
-      .defaultNow()
-      .$onUpdate(() => new Date())
-      .notNull(),
-  },
-  (table) => [
-    index("task_projectId_idx").on(table.projectId),
-  ],
-);
+### Service Structure
+
+```yaml
+services:
+  postgres:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hyperfix -d hyperfix"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    image: ghcr.io/samalehzen/hyper-api:latest
+    ports:
+      - "1337:1337"
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    image: ghcr.io/samalehzen/hyper-web:latest
+    ports:
+      - "5173:5173"
+    env_file:
+      - .env
+    depends_on:
+      - api
+    restart: unless-stopped
 ```
 
-## Naming Conventions
+### Best Practices
 
-1. **Table names**: Use singular, lowercase with underscores: `task`, `workspace_user`
-2. **Column names**: Use snake_case: `project_id`, `created_at`, `updated_at`
-3. **Index names**: Format: `{table}_{column}_idx`
-4. **Foreign key columns**: End with `_id`: `project_id`, `user_id`
+1. **Health Checks**: Always include health checks for databases
+2. **Dependencies**: Use `depends_on` with `condition: service_healthy` for databases
+3. **Volumes**: Use named volumes for persistent data
+4. **Restart Policy**: Use `unless-stopped` for production-like behavior
+5. **Environment Variables**: Use `.env` file, never hardcode secrets
 
-```typescript
-// Good: Consistent naming
-export const workspaceUserTable = pgTable("workspace_user", {
-  id: text("id").primaryKey(),
-  workspaceId: text("workspace_id").notNull(),
-  userId: text("user_id").notNull(),
-  role: text("role").notNull(),
-});
+```yaml
+# Good: Proper health check and dependency
+services:
+  api:
+    depends_on:
+      postgres:
+        condition: service_healthy
 
-// Bad: Inconsistent naming
-export const workspaceUserTable = pgTable("WorkspaceUsers", {
-  ID: text("ID").primaryKey(),
-  workspace: text("workspace").notNull(),
-  user: text("user").notNull(),
-});
+  postgres:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hyperfix -d hyperfix"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 ```
 
-## Required Fields
+## Kubernetes (Helm Charts)
 
-Every table should include:
+### Chart Structure
 
-1. **Primary Key**: `id` field using CUID2
-2. **Timestamps**: `created_at` and `updated_at` with proper defaults
-3. **Foreign Keys**: Proper references with cascade options
+Helm charts are located in `charts/hyperfix/`:
 
-```typescript
-export const exampleTable = pgTable("example", {
-  // Required: Primary key with CUID2
-  id: text("id")
-    .$defaultFn(() => createId())
-    .primaryKey(),
-
-  // Required: Timestamps
-  createdAt: timestamp("created_at", { mode: "date" })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" })
-    .defaultNow()
-    .$onUpdate(() => new Date())
-    .notNull(),
-
-  // Foreign keys with cascade
-  projectId: text("project_id")
-    .notNull()
-    .references(() => projectTable.id, {
-      onDelete: "cascade",
-      onUpdate: "cascade",
-    }),
-});
+```
+charts/hyperfix/
+├── Chart.yaml              # Chart metadata
+├── values.yaml             # Default values
+├── README.md               # Chart documentation
+└── templates/
+    ├── deployment.yaml     # API and Web deployments
+    ├── services.yaml       # Service definitions
+    ├── ingress.yaml        # Ingress configuration
+    ├── postgresql-deployment.yaml  # PostgreSQL deployment
+    ├── pvc.yaml            # Persistent volume claims
+    ├── hpa.yaml            # Horizontal Pod Autoscaler
+    └── serviceaccount.yaml # Service accounts
 ```
 
-## ID Generation
+### Deployment Patterns
 
-Always use CUID2 for primary keys:
+#### API Deployment
 
-```typescript
-import { createId } from "@paralleldrive/cuid2";
-
-id: text("id")
-  .$defaultFn(() => createId())
-  .primaryKey(),
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hyperfix.fullname" . }}-api
+spec:
+  replicas: {{ .Values.api.replicaCount }}
+  template:
+    spec:
+      containers:
+      - name: api
+        image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "hyperfix.fullname" . }}-secrets
+              key: database-url
 ```
 
-## Timestamps
+#### Web Deployment
 
-Use consistent timestamp patterns:
-
-```typescript
-// Created timestamp (never changes)
-createdAt: timestamp("created_at", { mode: "date" })
-  .defaultNow()
-  .notNull(),
-
-// Updated timestamp (auto-updates on change)
-updatedAt: timestamp("updated_at", { mode: "date" })
-  .defaultNow()
-  .$onUpdate(() => new Date())
-  .notNull(),
-
-// Optional timestamp (e.g., deleted_at)
-deletedAt: timestamp("deleted_at", { mode: "date" }),
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hyperfix.fullname" . }}-web
+spec:
+  replicas: {{ .Values.web.replicaCount }}
+  template:
+    spec:
+      containers:
+      - name: web
+        image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
+        env:
+        - name: VITE_API_URL
+          value: {{ .Values.web.apiUrl | quote }}
 ```
 
-## Foreign Keys
+### Best Practices
 
-Always specify cascade behavior:
+1. **Secrets Management**: Use Kubernetes Secrets, never hardcode
+2. **ConfigMaps**: Use ConfigMaps for non-sensitive configuration
+3. **Resource Limits**: Always set resource requests and limits
+4. **Health Checks**: Include liveness and readiness probes
+5. **Replicas**: Configure appropriate replica counts for high availability
 
-```typescript
-// Good: Explicit cascade behavior
-userId: text("user_id")
-  .notNull()
-  .references(() => userTable.id, {
-    onDelete: "cascade",
-    onUpdate: "cascade",
-  }),
-
-// Bad: Missing cascade options
-userId: text("user_id").references(() => userTable.id),
+```yaml
+# Good: Proper resource limits and health checks
+containers:
+- name: api
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+  livenessProbe:
+    httpGet:
+      path: /api/health
+      port: 1337
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /api/health
+      port: 1337
+    initialDelaySeconds: 5
+    periodSeconds: 5
 ```
 
-### Cascade Options
+## Environment Variables
 
-- **`onDelete: "cascade"`**: Delete related records when parent is deleted
-- **`onUpdate: "cascade"`**: Update foreign key when parent ID changes
-- **`onDelete: "set null"`**: Set foreign key to null when parent is deleted (use nullable column)
+### Development
 
-## Indexes
-
-Add indexes for frequently queried columns:
-
-```typescript
-export const taskTable = pgTable(
-  "task",
-  {
-    // ... columns
-    projectId: text("project_id").notNull(),
-    userId: text("user_id"),
-    status: text("status").notNull(),
-  },
-  (table) => [
-    index("task_projectId_idx").on(table.projectId),
-    index("task_userId_idx").on(table.userId),
-    index("task_status_idx").on(table.status),
-  ],
-);
-```
-
-### When to Add Indexes
-
-- Foreign key columns (always)
-- Columns used in WHERE clauses frequently
-- Columns used for sorting/ordering
-- Composite indexes for multi-column queries
-
-## Relations
-
-Define relations in `apps/api/src/database/relations.ts`:
-
-```typescript
-import { relations } from "drizzle-orm";
-import { taskTable } from "./schema";
-import { projectTable } from "./schema";
-
-export const taskTableRelations = relations(taskTable, ({ one, many }) => ({
-  project: one(projectTable, {
-    fields: [taskTable.projectId],
-    references: [projectTable.id],
-  }),
-  labels: many(labelTable),
-}));
-```
-
-## Data Types
-
-Use appropriate PostgreSQL types:
-
-```typescript
-// Text (varchar)
-title: text("title").notNull(),
-
-// Optional text
-description: text("description"),
-
-// Boolean
-isActive: boolean("is_active").default(true).notNull(),
-
-// Integer
-position: integer("position").default(0),
-
-// Timestamp
-createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-
-// JSON (if needed)
-metadata: json("metadata").$type<{ key: string }>(),
-```
-
-## Default Values
-
-Provide sensible defaults:
-
-```typescript
-// Boolean defaults
-isActive: boolean("is_active").default(true).notNull(),
-
-// Integer defaults
-position: integer("position").default(0),
-
-// Text defaults
-status: text("status").notNull().default("to-do"),
-
-// Timestamp defaults
-createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-```
-
-## Migrations
-
-### Generating Migrations
-
-After schema changes:
+All environment variables in a single `.env` file at project root:
 
 ```bash
-pnpm --filter @hyperfix/api db:generate
+# Database
+DATABASE_URL=postgresql://hyperfix_user:hyperfix_password@localhost:5432/hyperfix
+POSTGRES_DB=hyperfix
+POSTGRES_USER=hyperfix_user
+POSTGRES_PASSWORD=hyperfix_password
+
+# API
+KANEO_API_URL=http://localhost:1337
+AUTH_SECRET=your-secret-key
+
+# Web
+KANEO_CLIENT_URL=http://localhost:5173
+VITE_API_URL=http://localhost:1337
 ```
 
-This creates migration files in `apps/api/drizzle/`.
+### Production
 
-### Running Migrations
+Use Kubernetes Secrets and ConfigMaps:
 
-Migrations run automatically on API startup (see `apps/api/src/index.ts`):
+```yaml
+# Secret for sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hyperfix-secrets
+type: Opaque
+stringData:
+  database-url: postgresql://user:pass@postgres:5432/hyperfix
+  auth-secret: your-secret-key
+
+# ConfigMap for non-sensitive data
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hyperfix-config
+data:
+  api-url: https://api.example.com
+  client-url: https://app.example.com
+```
+
+## Database Migrations
+
+### Automatic Migrations
+
+Migrations run automatically on API startup:
 
 ```typescript
+// apps/api/src/index.ts
 await migrate(db, {
   migrationsFolder: `${process.cwd()}/drizzle`,
 });
 ```
 
-### Migration Best Practices
+### Manual Migrations
 
-1. **Never edit existing migrations**: Create new migrations for changes
-2. **Test migrations**: Test both up and down migrations
-3. **Backup first**: Always backup production data before migrations
-4. **Review SQL**: Check generated SQL before applying
+For production, consider running migrations separately:
 
-## Schema Export
+```bash
+# In Kubernetes, use a Job
+kubectl run migrate-db --image=ghcr.io/samalehzen/hyper-api:latest -- \
+  node -e "require('./dist/migrate.js')"
+```
 
-Export all schemas and relations from `apps/api/src/database/index.ts`:
+## Health Checks
+
+### API Health Endpoint
+
+The API exposes a health check endpoint:
 
 ```typescript
-export const schema = {
-  taskTable,
-  projectTable,
-  // ... all tables
-  taskTableRelations,
-  projectTableRelations,
-  // ... all relations
-};
-
-const db = drizzle(pool, {
-  schema: schema,
+// apps/api/src/index.ts
+api.get("/health", (c) => {
+  return c.json({ status: "ok" });
 });
 ```
 
-This enables Drizzle's relational queries and type inference.
+### Kubernetes Probes
+
+```yaml
+livenessProbe:
+  httpGet:
+    path: /api/health
+    port: 1337
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /api/health
+    port: 1337
+  initialDelaySeconds: 5
+  periodSeconds: 5
+```
+
+## Scaling
+
+### Horizontal Pod Autoscaling
+
+Configure HPA in `charts/hyperfix/templates/hpa.yaml`:
+
+```yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "hyperfix.fullname" . }}-api
+spec:
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+```
+
+## Ingress
+
+### TLS Configuration
+
+Always use TLS in production:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hyperfix-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - app.example.com
+    secretName: hyperfix-tls
+  rules:
+  - host: app.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hyperfix-web
+            port:
+              number: 80
+```
+
+## Monitoring
+
+### Logging
+
+- Use structured logging
+- Include request IDs for tracing
+- Log errors with context
+
+### Metrics
+
+- Expose Prometheus metrics if needed
+- Monitor database connection pools
+- Track API response times
+
+## Backup & Recovery
+
+### Database Backups
+
+For PostgreSQL:
+
+```bash
+# Backup
+kubectl exec -it postgres-pod -- pg_dump -U hyperfix hyperfix > backup.sql
+
+# Restore
+kubectl exec -i postgres-pod -- psql -U hyperfix hyperfix < backup.sql
+```
+
+### Volume Backups
+
+Use volume snapshots for persistent data:
+
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: postgres-snapshot
+spec:
+  source:
+    persistentVolumeClaimName: postgres-pvc
+```
+
+## Security
+
+### Image Security
+
+- Use specific image tags, not `latest`
+- Scan images for vulnerabilities
+- Use minimal base images (Alpine Linux)
+
+### Network Policies
+
+Restrict pod-to-pod communication:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: hyperfix-api-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: hyperfix-api
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: hyperfix-web
+    ports:
+    - protocol: TCP
+      port: 1337
+```
+
+### Secrets Management
+
+- Never commit secrets to Git
+- Use Kubernetes Secrets or external secret managers
+- Rotate secrets regularly
+- Use least privilege principle
 
 ---
 > Source: [SamalehZen/HyperFix-Kanban](https://github.com/SamalehZen/HyperFix-Kanban) — distributed by [TomeVault](https://tomevault.io).
