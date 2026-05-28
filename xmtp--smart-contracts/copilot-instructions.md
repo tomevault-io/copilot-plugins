@@ -1,139 +1,35 @@
-## standards-and-styles
+## smart-contracts
 
-> description: Guidelines for writing clean, maintainable, and human-readable Solidity code. Apply these rules when writing or reviewing Solidity code to ensure consistency and quality.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
----
-description: Guidelines for writing clean, maintainable, and human-readable Solidity code. Apply these rules when writing or reviewing Solidity code to ensure consistency and quality.
-globs: **/*.sol
----
-# Solidity Smart Contracts Coding Style and Standards Guide
+# CLAUDE.md
 
-## Minimize Indentation/Nesting
-- Try to minimize indentation within a function.
-- Move nested conditionals into well-named functions.
-- See examples in @.cursor/rule-examples/minimize-indentation.md
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Exit Early
-- Exit as early as possible (i.e. `return`, `revert`, `break`, `continue`).
-- See examples in @.cursor/rule-examples/exit-early.md
+## Build/Lint/Test Commands
 
-## Events Describe What Happened (Not What Changed)
-- Events should be used to describe things that occurred during the contract's lifetime, not what values changed. For example, `Transfer` events rather than `BalanceUpdated` or `BalanceIncreased`/`BalanceDecreased` events. Similarly, `Deposit`, `Withdrawal`, `FeeCharged` events, rather than `BalanceUpdated` or `BalanceIncreased`/`BalanceDecreased` events.
-- Old or previous values of arguments should never be part of the event. For exmaple, if there is an `AdminSet` event, it should emit the value of the new admin, an should not also emit the value of the previous admin.
+- Build: `forge build`
+- Test all: `forge test`
+- Test single: `forge test --match-contract ContractName --match-test testFunctionName -vvv`
+- Lint: `npm run solhint` or `yarn solhint`
+- Format: `npm run prettier` or `yarn prettier`
+- Static analysis: `npm run slither` or `yarn slither`
 
-## Minimize Source of Event Emission
-- Try to minimize where a unique event is emitted from (ideally to only 1 place).
-- See examples in @.cursor/rule-examples/minimize-event-source.md
+## Code Style Guidelines
 
-## Checks, Effects, Interactions
-- Whenever possible, perform all checks first (i.e. validation, requires/reverts, etc), then perform all effects (i.e. state changes, event emissions, etc), and then perform all interactions with other contracts.
-- Take care to consider that calling internal state-changing functions may (either now, in the future, or via overrides) interact with other contracts.
-
-## Avoid Booleans As Function Arguments
-- Avoid defining functions with booleans as arguments that branch the logic within the function.
-- Functions should not have two behaviours defined by a bool argument. If it is the case (i.e. `createUser(bool isPowerUser)`), there should be two functions instead (i.e. `createUser()` and `createPowerUser()`).
-- It is acceptable to pass booleans as arguments only for the purpose of them being treated as opaque data that for an object property that will be created or stored in storage or memory.
-
-## Avoid Private Visibility
-- Avoid defining `private` variables and functions, and instead opt for `internal`.
-
-## Avoid Declaring Interface Variables
-- Avoid declaring state variables, function arguments, function returns, and local variables as interfaces.
-- Instead, when inetracting with a contract at an address is neccessary, cast the address as an interface inline (i.e. `IERC20(token).balanceOf(aacount)`).
-
-## Avoid Declaring Structs as Memory
-- Structs should be declared as `storage` unless copying it entirely to memory is required.
-
-## Explicit Import From Where Defined
-- When importing, specify the exact set of resources being imported from the file.
-- Avoid importing from files where the resource is not defined, but rather re-exported.
-
-## Avoid Explicit Emitting Current Block Properties in Events
-- Avoid explicitly emitting the blockhash, block number, block timestamp, chain id, tx origin, etc in events.
-
-## Use Subset Interfaces for Interactions
-- Define and use subset interfaces when interacting with other smart contracts, even if they are first party contracts.
-- See examples in @.cursor/rule-examples/subset-interfaces.md
-
-## Avoid Inline Magic/Literal Values
-- Replace hard-coded values with named constants
-- Use descriptive yet short constant names that explain the value's purpose
-- Keep constants at the top of the file
-- For obvious values (such as zero checks or type max checks) this rule can be ignored.
-
-## Real Unit Tests
-- A unit test should only call the contract for the exact function being tested, and no other functions, other than getters that simply return a state variable (in order to make assertions about state changes).
-- Harnesses should be used to set up and access state as needed by the unit test.
-- The unit tests should encompass all explicit expectations, which includes expected interactions, expected event emissions, and expected state changes.
-- If there are internal variables that are expected, they should be accessed via a harness.
-- See examples in @.cursor/rule-examples/unit-tests.md
-
-## Public/Notice Natspec in Interface
-- All `@notice` natspec should live in the interface of an implementation.
-- `@dev` natspec intended for developers can exist anywhere, and should be used for, at the very least, a minimal explanation of internal functions and variables.
-
-## Comprehensive Interface
-- All contracts should implement an interface of the same name, which is a comprehensive set of all functions, including those inherited.
-- See examples in @.cursor/rule-examples/comprehensive-interface.md
-
-## Simple and Generic Variable Names
-- Variable names should be as simple and generic as possible, while being specific enough within the context of the contract (i.e. if the admin of a contract happens to be a governor contract with respect to the wider protocol, it is still just `admin` with respect to the contract that is treating it as an admin).
-- Variable names should also not contain the name of the type or the units, if they are the default (i.e. avoid `timestampInSeconds`, `balanceInWei`, `amountInDollars`, `accountStruct`, `feeAmount`, `fooContract`, etc).
-
-## Naming Getters
-- Avoid prefixing getters without arguments with “get”.
-- Conversely, getters with arguments should be prefixed with “get”.
-
-## Name Returns
-- All returns should be named.
-- See examples in @.cursor/rule-examples/named-returns.md
-
-## Line Separations Around Multi-line Code or Blocks
-- Multi-line or scoped code should be separated from any code above and below with an empty line.
-- See examples in @.cursor/rule-examples/line-separations-around-multiline.md
-
-## Line Separations Around Similar Code
-- Consecutive lines of code that share functionality and/or purpose should be separated for others via line separations.
-- See examples in @.cursor/rule-examples/line-separations-around-similar.md
-
-## Function Names Should Reflect Their Scope and Responsibility
-- Another way of phrasing this is “function names should grow with the inverse of their responsibility”.
-- As a rule of thumb, the more a function does, the smaller its name should be, which often leads to shorter names for broader, more fundamental functions and potentially longer, more descriptive names for highly specific ones.
-- Similarly, if a function `foo` only calls an internal function, that internal function should likely also be called `_foo`.
-
-## Smart Comments
-- Don't comment on what the code does. Instead, make the code self-documenting.
-- Use comments to explain why something is done a certain way.
-- Document APIs, complex algorithms, and non-obvious side effects.
-
-## Single Responsibility
-- Each function should do exactly one thing.
-- Functions should be small and focused.
-
-## DRY (Don't Repeat Yourself)
-- Extract repeated code into reusable functions.
-- Share common logic through proper abstraction.
-- Maintain single sources of truth. For example, if there is some formula to compute `foo` from `bar` and `baz` whcih is not obivous, it should live in its own pure function and used throughout the code.
-
-## Version Management
-- Anytime any change is made to a contract that affects its bytecode, and that contract contains an external `version()` function, remember to suggest bumping that version according to semantic versioning:
-  - **Major version** (X.0.0): Breaking changes that require users to update their code or integrations:
-    - Removing functions
-    - Changing function signatures (parameter types, return types, parameter order)
-    - Removing state variables that are part of the public interface
-    - Changing function behavior in ways that break existing integrations
-  - **Minor version** (0.X.0): New features and additions that are backward compatible:
-    - Adding new functions
-    - Adding new state variables
-    - Adding new events
-    - Extending functionality without breaking existing behavior
-  - **Patch version** (0.0.X): Bug fixes, non-breaking changes, and any change that affects bytecode but not functionality:
-    - Fixing bugs in existing functions
-    - Changing comments (because comments affect the metadata hash, which is part of the bytecode)
-    - Refactoring that doesn't change external behavior
-    - Changing access modifiers of internal/private functions
-    - Any other change that results in different compiled bytecode but maintains the same external interface and behavior
-- When you detect such changes, always remind the user to update the `version()` function return value to reflect the appropriate version bump, and suggest what the new version should be.
+- Follow checks-effects-interactions pattern
+- Use internal instead of private visibility
+- Functions should have single responsibility
+- Exit early (use return/revert as early as possible)
+- Name all return variables
+- Natspec: @notice in interfaces, @dev for internal documentation
+- Avoid boolean function arguments - create separate functions instead
+- Use descriptive constants instead of magic literals
+- Minimize indentation/nesting within functions
+- Separate multiline code blocks with empty lines
+- Variables should be simple and generic, without type or unit names
+- Functions names should reflect scope - smaller names for broader functions
+- Avoid declaring variables as interfaces or structs as memory when possible
 
 ---
 > Source: [xmtp/smart-contracts](https://github.com/xmtp/smart-contracts) — distributed by [TomeVault](https://tomevault.io).
