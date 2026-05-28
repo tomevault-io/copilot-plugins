@@ -1,0 +1,9 @@
+{
+  "name": "calculatetech--dos32a",
+  "displayName": "dos32a",
+  "description": "A patched and optimized version of DOS/32A for real DOS environments. Original 9.1.x versions had changes that served dosbox use cases but broke linear framebuffer write combining. This release aims t",
+  "version": "1.0.0",
+  "author": "calculatetech",
+  "homepage": "https://github.com/calculatetech/dos32a",
+  "skills": []
+}
