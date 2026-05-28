@@ -1,0 +1,9 @@
+{
+  "name": "sini--nix-config",
+  "displayName": "nix-config",
+  "description": "NixOS Configuration",
+  "version": "1.0.0",
+  "author": "sini",
+  "homepage": "https://github.com/sini/nix-config",
+  "skills": []
+}
