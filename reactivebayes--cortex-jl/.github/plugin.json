@@ -1,0 +1,9 @@
+{
+  "name": "reactivebayes--cortex-jl",
+  "displayName": "Cortex.jl",
+  "description": "A next generation message passing engine for Bayesian inference - successor of ReactiveMP.jl",
+  "version": "1.0.0",
+  "author": "ReactiveBayes",
+  "homepage": "https://github.com/ReactiveBayes/Cortex.jl",
+  "skills": []
+}
