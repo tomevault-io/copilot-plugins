@@ -4,7 +4,7 @@
   "repo": "klaviyo-expo-plugin",
   "description": "Expo support for our klaviyo-react-native SDK",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/klaviyo/klaviyo-expo-plugin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T10:53:09Z"
+  "distributed_at": "2026-05-28T11:05:20Z"
 }
