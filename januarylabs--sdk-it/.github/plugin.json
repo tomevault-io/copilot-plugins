@@ -1,0 +1,9 @@
+{
+  "name": "januarylabs--sdk-it",
+  "displayName": "sdk-it",
+  "description": "SDK-IT generates type-safe client SDKs from OpenAPI specifications and creates OpenAPI specs from TypeScript code.",
+  "version": "1.0.0",
+  "author": "JanuaryLabs",
+  "homepage": "https://github.com/JanuaryLabs/sdk-it",
+  "skills": []
+}
