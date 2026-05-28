@@ -1,0 +1,9 @@
+{
+  "name": "agkloop--go-memoize",
+  "displayName": "go_memoize",
+  "description": "Fast, type-safe Go memoization and caching with TTL, stale-on-error, background refresh, metrics, in-memory stores, Redis and any custom store",
+  "version": "1.0.0",
+  "author": "agkloop",
+  "homepage": "https://github.com/agkloop/go_memoize",
+  "skills": []
+}
