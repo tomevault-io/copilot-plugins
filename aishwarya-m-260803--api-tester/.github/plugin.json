@@ -1,0 +1,9 @@
+{
+  "name": "aishwarya-m-260803--api-tester",
+  "displayName": "Api-tester",
+  "description": "A web-based tool to test APIs with support for multiple HTTP methods, built using Next.js with a backend proxy for seamless data fetching.",
+  "version": "1.0.0",
+  "author": "aishwarya-m-260803",
+  "homepage": "https://github.com/aishwarya-m-260803/Api-tester",
+  "skills": []
+}
