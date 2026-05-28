@@ -1,0 +1,9 @@
+{
+  "name": "dschewchenko--permask",
+  "displayName": "permask",
+  "description": "A lightweight utility library for managing permission bitmasks with groups and access levels",
+  "version": "1.0.0",
+  "author": "dschewchenko",
+  "homepage": "https://github.com/dschewchenko/permask",
+  "skills": []
+}
