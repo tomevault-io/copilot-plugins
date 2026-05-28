@@ -1,0 +1,9 @@
+{
+  "name": "sunwarul--ecommerce",
+  "displayName": "ecommerce",
+  "description": "Complete E-Commerce with Inventory, and POS Solution. Multi-tenancy (SaaS), Multi-vendor, REST API, modern UI/UX. Built with PHP, Laravel, Inertia, Vue JS, & MySQL. Docker, Redis, Playwright testing, ",
+  "version": "1.0.0",
+  "author": "Sunwarul",
+  "homepage": "https://github.com/Sunwarul/ecommerce",
+  "skills": []
+}
