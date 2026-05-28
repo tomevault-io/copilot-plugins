@@ -1,0 +1,9 @@
+{
+  "name": "divitmittal--hs-faust",
+  "displayName": "hs-faust",
+  "description": "Haskell DSL wrapper for writing DSP files utilizing the Faust's Signal API & Compiler",
+  "version": "1.0.0",
+  "author": "DivitMittal",
+  "homepage": "https://github.com/DivitMittal/hs-faust",
+  "skills": []
+}
