@@ -1,66 +1,45 @@
-## friendly-advice
+## mentor
 
-> Anytime you make any modifications or changes
+> At the end of every major edit performed
 
-<-- Friendly Advice -->
+<– Debugging Assistance and Console Commands –>
 
-1. **Sequential Analysis Before Action**
-```
-Before implementing changes:
-1. Analyze the current structure
-2. Identify all dependent components
-3. Map the relationships between components
-4. Plan the implementation order
-5. Consider the impact on existing functionality
-```
+Guidelines for Debugging Assistance and Console Command Suggestions
 
-2. **Complete Context Rule**
-```
-When modifying a codebase:
-1. Always read the full context of files being modified
-2. Maintain all existing functionality
-3. Preserve existing options and configurations
-4. Keep accessibility features intact
-5. Ensure responsive design patterns remain functional
-```
+When analyzing code for errors or inefficiencies, follow these guidelines to provide relevant debugging prompts and useful console command suggestions to improve the debugging process.
 
-3. **Structured Implementation Pattern**
-```
-Implementation must follow this sequence:
-1. Explain the planned changes
-2. Show the structural modifications
-3. Detail the styling updates
-4. Preserve existing functionality
-5. Maintain component relationships
-6. Test for regressions
-```
+1. Identify Potential Problem Areas
+	•	For recent edits: Highlight changes that could introduce syntax errors, logic flaws, or unintended side effects.
+	•	For the overall codebase: Identify recurring issues, deprecated functions, or non-optimal patterns.
+	•	Suggest targeted debugging strategies based on the language and framework in use.
 
-4. **Component Hierarchy Preservation**
-```
-When reorganizing components:
-1. Maintain semantic structure
-2. Preserve ARIA relationships
-3. Keep event handling intact
-4. Ensure state management continues to work
-5. Validate the new hierarchy doesn't break existing features
-```
+2. Generate Debugging Prompts
+	•	Suggest specific debugging questions based on potential problem areas:
+	•	“Does this function return the expected type and value?”
+	•	“Are all variables properly initialized before use?”
+	•	“Could this loop cause infinite execution or off-by-one errors?”
+	•	“Is this import/module dependency correctly resolved?”
+	•	If applicable, recommend test cases to validate functionality:
+	•	“Test with an empty input to check for boundary conditions.”
+	•	“Try an unexpected type or value to trigger potential edge cases.”
 
-The most important rule I would suggest adding to your prompt would be:
+3. Provide Console Command Suggestions
+	•	Suggest useful console commands for debugging based on the language and environment:
+	•	Python:
+	•	python -m pdb script.py – Run the script with an interactive debugger.
+	•	pytest -q --tb=short – Run tests with concise traceback output.
+	•	JavaScript/Node.js:
+	•	node --inspect script.js – Run with the Chrome DevTools debugger.
+	•	console.log(JSON.stringify(obj, null, 2)) – Pretty-print objects for inspection.
+	•	Git:
+	•	git diff HEAD – View recent changes before debugging.
+	•	git bisect start – Begin a binary search to identify the commit that introduced a bug.
 
-```
-<implementation_standard>
-When implementing changes, follow this strict order:
-1. First analyze and document the current implementation
-2. Map all component relationships and dependencies
-3. Plan the implementation sequence
-4. Make structural changes while preserving functionality
-5. Update styling while maintaining accessibility
-6. Validate all existing features remain intact
-7. Document any necessary follow-up actions
+4. Avoid Overloading with Suggestions
+	•	Prioritize the most relevant debugging steps for the current problem.
+	•	Offer brief explanations for suggested commands but avoid unnecessary complexity.
 
-Never proceed to the next step until the current step is fully understood and planned.
-</implementation_standard>
-```
+By following these steps, the assistant will provide focused debugging prompts and practical console command suggestions to help streamline troubleshooting and enhance coding efficiency.
 
 ---
 > Source: [lukeslp/alt-text-local-llm](https://github.com/lukeslp/alt-text-local-llm) — distributed by [TomeVault](https://tomevault.io).
