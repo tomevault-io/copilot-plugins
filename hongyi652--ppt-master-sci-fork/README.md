@@ -7,11 +7,11 @@ AI generates natively editable PPTX - fork with MinerU parsing and SVG formula s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [hongyi652/ppt-master-sci-fork](https://github.com/hongyi652/ppt-master-sci-fork).
+Original source: `AGENTS.md` in [hongyi652/ppt-master-sci-fork](https://github.com/hongyi652/ppt-master-sci-fork).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
