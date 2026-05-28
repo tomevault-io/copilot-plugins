@@ -1,0 +1,9 @@
+{
+  "name": "obolnetwork--obol-stack",
+  "displayName": "obol-stack",
+  "description": "A Kubernetes-based Ethereum stack for running decentralised applications.",
+  "version": "1.0.0",
+  "author": "ObolNetwork",
+  "homepage": "https://github.com/ObolNetwork/obol-stack",
+  "skills": []
+}
