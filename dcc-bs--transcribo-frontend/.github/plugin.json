@@ -1,0 +1,9 @@
+{
+  "name": "dcc-bs--transcribo-frontend",
+  "displayName": "transcribo-frontend",
+  "description": "NuxtJS web application to transcribe audios and videos with editor, export and summary functionallity. Inspired by machinelearningZH",
+  "version": "1.0.0",
+  "author": "DCC-BS",
+  "homepage": "https://github.com/DCC-BS/transcribo-frontend",
+  "skills": []
+}
