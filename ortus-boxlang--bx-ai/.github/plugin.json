@@ -1,0 +1,9 @@
+{
+  "name": "ortus-boxlang--bx-ai",
+  "displayName": "bx-ai",
+  "description": "BoxLang AI is a fluent and human way to build AI Agents, Workflows and more",
+  "version": "1.0.0",
+  "author": "ortus-boxlang",
+  "homepage": "https://github.com/ortus-boxlang/bx-ai",
+  "skills": []
+}
