@@ -1,0 +1,9 @@
+{
+  "name": "kebechet--maui-health",
+  "displayName": "Maui.Health",
+  "description": "Abstraction around `Android Health Connect` and `iOS HealthKit`",
+  "version": "1.0.0",
+  "author": "Kebechet",
+  "homepage": "https://github.com/Kebechet/Maui.Health",
+  "skills": []
+}
