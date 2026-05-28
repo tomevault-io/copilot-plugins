@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--vite-plugin-layouts",
+  "displayName": "vite-plugin-layouts",
+  "description": "\ud83e\udde9 Router-based layouts for your application.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/vite-plugin-layouts",
+  "skills": []
+}
