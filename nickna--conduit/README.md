@@ -7,14 +7,14 @@ A unified API gateway for multiple LLM providers with OpenAI-compatible endpoint
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [nickna/Conduit](https://github.com/nickna/Conduit).
+Original source: `CLAUDE.md` in [nickna/Conduit](https://github.com/nickna/Conduit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/nickna/Conduit](https://github.com/nickna/Conduit)
