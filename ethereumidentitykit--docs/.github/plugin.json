@@ -1,0 +1,9 @@
+{
+  "name": "ethereumidentitykit--docs",
+  "displayName": "docs",
+  "description": "Site for Ethereum Identity Kit",
+  "version": "1.0.0",
+  "author": "ethereumidentitykit",
+  "homepage": "https://github.com/ethereumidentitykit/docs",
+  "skills": []
+}
