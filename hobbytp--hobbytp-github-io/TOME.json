@@ -4,7 +4,7 @@
   "repo": "hobbytp.github.io",
   "description": "Peng Tan's AI Blog",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hobbytp/hobbytp.github.io",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T22:45:56Z"
+  "distributed_at": "2026-05-28T22:46:26Z"
 }
