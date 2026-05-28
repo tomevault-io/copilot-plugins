@@ -1,0 +1,9 @@
+{
+  "name": "v3dxnt--droproom-mobile",
+  "displayName": "DropRoom-Mobile",
+  "description": "DropRoom is a mobile-first DropIn/DropOut real-time messaging platform \u2014 built with sockets, instant sync, and Google Authentication for seamless temporary conversations. You don't have to create a Wh",
+  "version": "1.0.0",
+  "author": "V3DxNT",
+  "homepage": "https://github.com/V3DxNT/DropRoom-Mobile",
+  "skills": []
+}
