@@ -1,0 +1,9 @@
+{
+  "name": "xssnick--gton",
+  "displayName": "gton",
+  "description": "TON Full Node in pure go, powered by tonutils-go",
+  "version": "1.0.0",
+  "author": "xssnick",
+  "homepage": "https://github.com/xssnick/gton",
+  "skills": []
+}
