@@ -123504,6 +123504,11 @@
       "description": "A tool for analysing the source-level static connectivity of a SystemVerilog design"
     },
     {
+      "name": "stacksjs--ts-qr-codes",
+      "source": "./stacksjs--ts-qr-codes",
+      "description": "\ud83d\udd12 QR & Bar Code generating & reading. Lightweight & powerful."
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -128077,6 +128082,31 @@
       "name": "vechain--vechain-kit",
       "source": "./vechain--vechain-kit",
       "description": "An all-in-one library for building VeChain applications."
+    },
+    {
+      "name": "lukeslp--alt-text-local-llm",
+      "source": "./lukeslp--alt-text-local-llm",
+      "description": "Local tool for generating descriptive alt text for images using vision models"
+    },
+    {
+      "name": "lukeslp--alt-text-local-llm",
+      "source": "./lukeslp--alt-text-local-llm",
+      "description": "Local tool for generating descriptive alt text for images using vision models"
+    },
+    {
+      "name": "lukeslp--alt-text-local-llm",
+      "source": "./lukeslp--alt-text-local-llm",
+      "description": "Local tool for generating descriptive alt text for images using vision models"
+    },
+    {
+      "name": "lukeslp--alt-text-local-llm",
+      "source": "./lukeslp--alt-text-local-llm",
+      "description": "Local tool for generating descriptive alt text for images using vision models"
+    },
+    {
+      "name": "lukeslp--alt-text-local-llm",
+      "source": "./lukeslp--alt-text-local-llm",
+      "description": "Local tool for generating descriptive alt text for images using vision models"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -133017,6 +133047,56 @@
       "name": "reqvire-org--reqvire",
       "source": "./reqvire-org--reqvire",
       "description": "Semantic engineering graph for building verifiable and traceable systems."
+    },
+    {
+      "name": "piotrkulpinski--openads",
+      "source": "./piotrkulpinski--openads",
+      "description": "Automate ad spot management, increase revenue and make advertisers happy."
+    },
+    {
+      "name": "piotrkulpinski--openads",
+      "source": "./piotrkulpinski--openads",
+      "description": "Automate ad spot management, increase revenue and make advertisers happy."
+    },
+    {
+      "name": "mikelane--pytest-test-categories",
+      "source": "./mikelane--pytest-test-categories",
+      "description": "Pytest plugin enforcing Google's hermetic testing best practices. Test categorization (small/medium/large), timing limits, resource isolation, and test pyramid validation. No escape hatches."
+    },
+    {
+      "name": "robroyce--ros-to-markdown",
+      "source": "./robroyce--ros-to-markdown",
+      "description": "ros_to_markdown"
+    },
+    {
+      "name": "sunwarul--ecommerce",
+      "source": "./sunwarul--ecommerce",
+      "description": "Complete E-Commerce with Inventory, and POS Solution. Multi-tenancy (SaaS), Multi-vendor, REST API, modern UI/UX. Built with PHP, Laravel, Inertia, Vue JS, & MySQL. Docker, Redis, Playwright testing, "
+    },
+    {
+      "name": "team-confeti--confeti-api-server",
+      "source": "./team-confeti--confeti-api-server",
+      "description": "\ud83c\udf86 35\uae30 AND SOPT APPJAM \ucf58\ud398\ud2f0 \uc11c\ubc84 \ud83d\udc8e\ud83c\udfb8 \ud83c\udf86"
+    },
+    {
+      "name": "arsfeld--nixos",
+      "source": "./arsfeld--nixos",
+      "description": "nixos"
+    },
+    {
+      "name": "arsfeld--nixos",
+      "source": "./arsfeld--nixos",
+      "description": "nixos"
+    },
+    {
+      "name": "arsfeld--nixos",
+      "source": "./arsfeld--nixos",
+      "description": "nixos"
+    },
+    {
+      "name": "arsfeld--nixos",
+      "source": "./arsfeld--nixos",
+      "description": "nixos"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -138342,6 +138422,11 @@
       "name": "kuro96--coc-ai",
       "source": "./kuro96--coc-ai",
       "description": "AI-powered code assistant for Vim. OpenAI and ChatGPT plugin for Vim and Neovim, built on top of coc.nvim's extension system, with support for DeepSeek-R1(deepseek-reasoner)"
+    },
+    {
+      "name": "mrdav30--swiftcollections",
+      "source": "./mrdav30--swiftcollections",
+      "description": "A high-performance, memory-efficient library of collections designed for game development, simulations, and other performance-critical applications."
     },
     {
       "name": "lightninglabs--lnget",
@@ -145442,6 +145527,61 @@
       "name": "natrontech--openvpn-exporter",
       "source": "./natrontech--openvpn-exporter",
       "description": "A prometheus exporter for OpenVPN"
+    },
+    {
+      "name": "mateonunez--ait",
+      "source": "./mateonunez--ait",
+      "description": "Hey there! I'm AIt. Your data. Your AI. One Platform."
+    },
+    {
+      "name": "sshh12--state-sandbox",
+      "source": "./sshh12--state-sandbox",
+      "description": "State Sandbox is an experimental game for socioeconomic simulation. It uses Large Language Models (o3-mini) to simulate the world and complex policy impacts."
+    },
+    {
+      "name": "lacerbi--athanor",
+      "source": "./lacerbi--athanor",
+      "description": "Desktop app for AI-assisted coding and writing workflows\u2014manage file context, generate prompts, and safely apply changes. Use with ChatGPT, Claude, or any AI chat"
+    },
+    {
+      "name": "feunard--alepha",
+      "source": "./feunard--alepha",
+      "description": "\ud83c\udf43 Easy-to-use modern TypeScript framework for building many kind of applications."
+    },
+    {
+      "name": "zeroview--gb-web",
+      "source": "./zeroview--gb-web",
+      "description": "Modern and easy-to-use web-based Game Boy emulator"
+    },
+    {
+      "name": "schardosin--astonish",
+      "source": "./schardosin--astonish",
+      "description": "An autonomous AI agent that learns your workflows. Chat-first, single binary, zero infrastructure. Built in Go."
+    },
+    {
+      "name": "feunard--alepha",
+      "source": "./feunard--alepha",
+      "description": "\ud83c\udf43 Easy-to-use modern TypeScript framework for building many kind of applications."
+    },
+    {
+      "name": "harleycoops--stoneynakoda",
+      "source": "./harleycoops--stoneynakoda",
+      "description": "A locally trained model of Stoney Nakoda has been developed and released. You can access the working model here or train your own instance. "
+    },
+    {
+      "name": "hleroy--django-signature-pad",
+      "source": "./hleroy--django-signature-pad",
+      "description": "A Django field for capturing signatures using signature_pad"
+    },
+    {
+      "name": "lacerbi--athanor",
+      "source": "./lacerbi--athanor",
+      "description": "Desktop app for AI-assisted coding and writing workflows\u2014manage file context, generate prompts, and safely apply changes. Use with ChatGPT, Claude, or any AI chat"
+    },
+    {
+      "name": "fastnear--js-monorepo",
+      "source": "./fastnear--js-monorepo",
+      "description": "Simple, intuitive JavaScript library for interacting with the NEAR Protocol blockchain"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -177264,6 +177404,86 @@
       "description": "Git-native, provenance-backed context capsules for coding agents."
     },
     {
+      "name": "tokenfuzz--tokenfuzz",
+      "source": "./tokenfuzz--tokenfuzz",
+      "description": "TokenFuzz is an open platform for LLM-based vulnerability research"
+    },
+    {
+      "name": "xssnick--gton",
+      "source": "./xssnick--gton",
+      "description": "TON Full Node in pure go, powered by tonutils-go"
+    },
+    {
+      "name": "tokenfuzz--tokenfuzz",
+      "source": "./tokenfuzz--tokenfuzz",
+      "description": "TokenFuzz is an open platform for LLM-based vulnerability research"
+    },
+    {
+      "name": "skonstruct--skapsule",
+      "source": "./skonstruct--skapsule",
+      "description": "Simple Spiral Knights Android Launcher with Steam-linked login support"
+    },
+    {
+      "name": "fikrilal--gnome-lyricbar",
+      "source": "./fikrilal--gnome-lyricbar",
+      "description": "Synced live lyrics for GNOME\u2019s top bar, powered by MPRIS and LRCLIB."
+    },
+    {
+      "name": "ksopyla--pytorch-course",
+      "source": "./ksopyla--pytorch-course",
+      "description": "Join Professor Torchenstein on an electrifying quest to bend PyTorch to your will. Mwahahaha"
+    },
+    {
+      "name": "eslamgenio--long-term-agent-memory",
+      "source": "./eslamgenio--long-term-agent-memory",
+      "description": "long-term-agent-memory"
+    },
+    {
+      "name": "tokenfuzz--tokenfuzz",
+      "source": "./tokenfuzz--tokenfuzz",
+      "description": "TokenFuzz is an open platform for LLM-based vulnerability research"
+    },
+    {
+      "name": "ksopyla--pytorch-course",
+      "source": "./ksopyla--pytorch-course",
+      "description": "Join Professor Torchenstein on an electrifying quest to bend PyTorch to your will. Mwahahaha"
+    },
+    {
+      "name": "yuandiaodiaodiao--forza-horizon-6-tgt2-shifter",
+      "source": "./yuandiaodiaodiao--forza-horizon-6-tgt2-shifter",
+      "description": "Forza Horizon 6 T-GT II manual/automatic hybrid shifter and telemetry dashboard"
+    },
+    {
+      "name": "ksopyla--pytorch-course",
+      "source": "./ksopyla--pytorch-course",
+      "description": "Join Professor Torchenstein on an electrifying quest to bend PyTorch to your will. Mwahahaha"
+    },
+    {
+      "name": "geek96--paper-research-skill",
+      "source": "./geek96--paper-research-skill",
+      "description": "A modular Claude Code skill for the full academic paper research pipeline: search/download \u2192 Zotero \u2192 Obsidian wiki"
+    },
+    {
+      "name": "ksopyla--pytorch-course",
+      "source": "./ksopyla--pytorch-course",
+      "description": "Join Professor Torchenstein on an electrifying quest to bend PyTorch to your will. Mwahahaha"
+    },
+    {
+      "name": "ashione--vertex",
+      "source": "./ashione--vertex",
+      "description": "Vertex - LLM/GraphLLM Tool  Vertex is a tool designed for orchestrating workflows and performing inference with large language models (LLMs)"
+    },
+    {
+      "name": "ksopyla--pytorch-course",
+      "source": "./ksopyla--pytorch-course",
+      "description": "Join Professor Torchenstein on an electrifying quest to bend PyTorch to your will. Mwahahaha"
+    },
+    {
+      "name": "afreidah--munchbox",
+      "source": "./afreidah--munchbox",
+      "description": "home cluster stuff"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -179972,6 +180192,26 @@
       "name": "m4xx3d0ut--1337-board",
       "source": "./m4xx3d0ut--1337-board",
       "description": "1337 Board is a desktop-style Android keyboard for terminals, editors, tablets, and power-user text entry. It is inspired by the practical layout ideas in Hacker's Keyboard, but implemented as a moder"
+    },
+    {
+      "name": "elixir-vibe--quackdb",
+      "source": "./elixir-vibe--quackdb",
+      "description": "Experimental remote DuckDB Quack protocol client for Elixir, built on DBConnection with early Ecto support"
+    },
+    {
+      "name": "calculatetech--dos32a",
+      "source": "./calculatetech--dos32a",
+      "description": "A patched and optimized version of DOS/32A for real DOS environments. Original 9.1.x versions had changes that served dosbox use cases but broke linear framebuffer write combining. This release aims t"
+    },
+    {
+      "name": "gantasmo--stabledaw",
+      "source": "./gantasmo--stabledaw",
+      "description": "Browser-based AI audio DAW for Stable Audio 3 with text-to-audio, inpainting, LoRA training, FFmpeg effects, waveform editing, sequencer, piano roll, and persistent library."
+    },
+    {
+      "name": "engine-room-games--mgenerators",
+      "source": "./engine-room-games--mgenerators",
+      "description": "A Unity package of Roslyn source generators that take care of the boilerplate around common gameplay patterns."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -283747,6 +283987,61 @@
       "name": "vzwjustin--kernel-mapper",
       "source": "./vzwjustin--kernel-mapper",
       "description": "kernel-mapper"
+    },
+    {
+      "name": "skipmiller--react-template-dev",
+      "source": "./skipmiller--react-template-dev",
+      "description": "My default React website with standard project modules and vibe coding  MCP tools. "
+    },
+    {
+      "name": "quentincody--civic-mcp-server",
+      "source": "./quentincody--civic-mcp-server",
+      "description": "civic-mcp-server"
+    },
+    {
+      "name": "dmltdev--mongo-error-codes",
+      "source": "./dmltdev--mongo-error-codes",
+      "description": "A minimal JavaScript library of MongoDB error codes, names, and helper utilities"
+    },
+    {
+      "name": "orion3123--proyecto-damiasolve",
+      "source": "./orion3123--proyecto-damiasolve",
+      "description": "Created with CodeSandbox"
+    },
+    {
+      "name": "klausbreyer--pokerhans",
+      "source": "./klausbreyer--pokerhans",
+      "description": "pokerhans"
+    },
+    {
+      "name": "ssskrut--yandex-tracker-better-search",
+      "source": "./ssskrut--yandex-tracker-better-search",
+      "description": "yandex-tracker-better-search"
+    },
+    {
+      "name": "xiangyan93--chemprop4molalkit",
+      "source": "./xiangyan93--chemprop4molalkit",
+      "description": "chemprop4molalkit"
+    },
+    {
+      "name": "chase295--loginserver",
+      "source": "./chase295--loginserver",
+      "description": "\u26a0\ufe0f MIGRATED to Gitea: projekte/watchlist (2026-05-10). This GitHub mirror is now read-only / archived."
+    },
+    {
+      "name": "klausbreyer--pokerhans",
+      "source": "./klausbreyer--pokerhans",
+      "description": "pokerhans"
+    },
+    {
+      "name": "bberrevoets--berrevoets-monitoring",
+      "source": "./bberrevoets--berrevoets-monitoring",
+      "description": "Berrevoets.Monitoring"
+    },
+    {
+      "name": "yismen--ecco-invoicing",
+      "source": "./yismen--ecco-invoicing",
+      "description": "ecco-invoicing"
     }
   ]
 }
