@@ -1,55 +1,124 @@
-## package-manager
+## pattern-matching
 
-> USE specified package manager WHEN managing dependencies TO ensure consistent dependency resolution
+> USE pattern matching WHEN implementing conditional logic TO avoid switch/case statements
 
-
-# Package Manager Selection Rules
+# Pattern Matching Rules
 
 ## Context
-- Applies when installing, updating, or removing dependencies
-- Applies when running package scripts
-- Based on the project's packageManager field in package.json
-- Currently, this project uses yarn@4.7.0 as specified in package.json
-- Consistent package manager usage prevents lock file conflicts and ensures reliable dependency resolution
+- Apply when implementing conditional logic based on discriminated unions, record types, or string literals
+- Prefer pattern matching techniques over traditional switch/case statements and nested ternaries
+- Improves type safety, readability, and maintainability
 
 ## Requirements
-- Always use the package manager specified in the root package.json's packageManager field
-- Do not use other package managers unless the packageManager field is updated
-- Use the correct command equivalents based on the specified package manager
+- Use Record or match function for simple union types
+- Use Match component for conditional React component rendering
+- Use matchRecordUnion for handling record union types
+- Use matchDiscriminatedUnion for discriminated union patterns
+- Never use switch/case statements when pattern matching alternatives exist
+- Never use nested ternary operators when pattern matching alternatives exist
 
 ## Examples
+
 <example>
-# If package.json specifies yarn (current configuration)
-# Installing a package
-yarn add react
+// Using Record for value mapping
+const animalSounds: Record<Animal, string> = {
+  dog: 'woof',
+  cat: 'meow'
+}
+const sound = animalSounds[animal]
+</example>
 
-# Installing a dev dependency
-yarn add -D eslint
+<example>
+// Using match function
+const sound = match(animal, {
+  dog: () => 'woof',
+  cat: () => 'meow'
+})
+</example>
 
-# Removing a package
-yarn remove lodash
+<example>
+// Using Match component in React
+<Match 
+  value={status}
+  loading={() => <LoadingSpinner />}
+  error={() => <ErrorMessage />}
+  success={() => <Content />}
+/>
+</example>
 
-# Installing all dependencies
-yarn
+<example>
+// Using matchRecordUnion
+matchRecordUnion(shape, {
+  circle: (radius) => Math.PI * radius * radius,
+  rectangle: ({width, height}) => width * height
+})
+</example>
 
-# Running a script
-yarn build
+<example>
+// Using matchDiscriminatedUnion
+matchDiscriminatedUnion(
+  action,
+  'kind',
+  'payload',
+  {
+    increment: (amount) => count + amount,
+    decrement: (amount) => count - amount
+  }
+)
 </example>
 
 <example type="invalid">
-# Using npm when package.json specifies yarn
-npm install react
-npm install --save-dev eslint
-npm uninstall lodash
-npm install
-npm run build
+// Avoid switch/case statements
+switch (status) {
+  case 'loading':
+    return <Loading />
+  case 'error':
+    return <Error />
+  default:
+    return null
+}
+</example>
 
-# Using pnpm when package.json specifies yarn
-pnpm add react
-pnpm add -D eslint
-pnpm remove lodash
-pnpm install
-pnpm run build
+<example type="invalid">
+// Avoid nested ternary operators
+{status === 'loading' ? (
+  <Loading />
+) : status === 'error' ? (
+  <Error />
+) : (
+  <Content />
+)}
+</example>
+
+<example type="invalid">
+// Avoid nested ternaries for value mapping
+color={
+  status === 'completed'
+    ? 'contrast'
+    : status === 'active'
+      ? 'primary'
+      : 'supporting'
+}
+</example>
+
+<example type="valid">
+// Instead, use Record for value mapping
+const statusToColor: Record<Status, TextColor> = {
+  completed: 'contrast',
+  active: 'primary',
+  pending: 'supporting'
+}
+color={statusToColor[status]}
+</example>
+
+<example type="valid">
+// And use Match component for conditional rendering
+<Match
+  value={status}
+  completed={() => <CheckIcon />}
+  active={() => <Spinner />}
+  pending={() => <div />}
+/>
 </example>
 
 ---
