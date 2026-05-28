@@ -1,0 +1,9 @@
+{
+  "name": "chideat--valkey-operator",
+  "displayName": "valkey-operator",
+  "description": "ValKeyOperator is a Kubernetes operator designed to simplify the deployment and management of Valkey cluster, Valkey failover, and Valkey replica instance.",
+  "version": "1.0.0",
+  "author": "chideat",
+  "homepage": "https://github.com/chideat/valkey-operator",
+  "skills": []
+}
