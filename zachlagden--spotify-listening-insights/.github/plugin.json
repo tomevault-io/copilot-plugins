@@ -1,0 +1,9 @@
+{
+  "name": "zachlagden--spotify-listening-insights",
+  "displayName": "Spotify-Listening-Insights",
+  "description": "Analyze your Spotify listening history with rich terminal output. Processes privacy data exports into detailed stats, artist breakdowns, temporal patterns, and more.",
+  "version": "1.0.0",
+  "author": "zachlagden",
+  "homepage": "https://github.com/zachlagden/Spotify-Listening-Insights",
+  "skills": []
+}
