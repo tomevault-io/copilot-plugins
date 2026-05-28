@@ -1,0 +1,9 @@
+{
+  "name": "schibum--camnc",
+  "displayName": "camNC",
+  "description": "web app that visualizes CNC G-code on a live camera feed",
+  "version": "1.0.0",
+  "author": "Schibum",
+  "homepage": "https://github.com/Schibum/camNC",
+  "skills": []
+}
