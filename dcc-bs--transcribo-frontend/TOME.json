@@ -4,7 +4,7 @@
   "repo": "transcribo-frontend",
   "description": "NuxtJS web application to transcribe audios and videos with editor, export and summary functionallity. Inspired by machinelearningZH",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DCC-BS/transcribo-frontend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T18:57:03Z"
+  "distributed_at": "2026-05-28T19:06:02Z"
 }
