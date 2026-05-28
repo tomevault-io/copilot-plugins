@@ -1,0 +1,9 @@
+{
+  "name": "kiranklabs--hermes-memory-wiki",
+  "displayName": "hermes-memory-wiki",
+  "description": "A browsable, searchable memory layer for Hermes AI agent conversations \u2014 automatically captured, summarized, and injected as context into every new session.",
+  "version": "1.0.0",
+  "author": "kiranklabs",
+  "homepage": "https://github.com/kiranklabs/hermes-memory-wiki",
+  "skills": []
+}
