@@ -1,0 +1,9 @@
+{
+  "name": "chinjure--deepseek-copilot",
+  "displayName": "deepseek-copilot",
+  "description": "automatically complementing code in idea with model deepseek",
+  "version": "1.0.0",
+  "author": "Chinjure",
+  "homepage": "https://github.com/Chinjure/deepseek-copilot",
+  "skills": []
+}
