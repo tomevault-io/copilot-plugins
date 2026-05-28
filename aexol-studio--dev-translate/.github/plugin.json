@@ -1,0 +1,9 @@
+{
+  "name": "aexol-studio--dev-translate",
+  "displayName": "dev-translate",
+  "description": "Translate i18 JSON files automatically with best translating engine in the world without losing format",
+  "version": "1.0.0",
+  "author": "aexol-studio",
+  "homepage": "https://github.com/aexol-studio/dev-translate",
+  "skills": []
+}
