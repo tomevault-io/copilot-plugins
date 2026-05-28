@@ -1,135 +1,148 @@
-## community-projects
+## conventional-commits
 
-> Ensures proper setup of community project files and
+> Automatically commit changes using conventional commits format
 
-# Community Projects Rule
-Standards for initializing and maintaining community-focused open source projects.
+# Conventional Commits Rule
 
-<rule>
-name: community_projects
-description: Ensures proper setup of community project files and documentation
-filters:
-  - type: event
-    pattern: "project_init|project_validate"
-  - type: directory
-    pattern: ".*"
+## Description
+This rule defines the format and structure for commit messages following the Conventional Commits 1.0.0 specification. It ensures consistent, semantic, and machine-readable commit messages.
 
-actions:
-  - type: validate
-    description: "Validate required community files"
-    requirements:
-      - name: "README.md"
-        required: true
-        content:
-          - "Project title and description"
-          - "Installation instructions"
-          - "Usage examples"
-          - "Contributing guidelines reference"
-          - "License reference"
-      - name: "CONTRIBUTING.md"
-        required: true
-        content:
-          - "How to contribute"
-          - "Development setup"
-          - "Pull request process"
-          - "Code style guidelines"
-          - "Testing requirements"
-      - name: "LICENSE"
-        required: true
-        content:
-          - "Valid open source license text"
-          - "Current year"
-          - "Copyright holder information"
-      - name: "CODE_OF_CONDUCT.md"
-        required: true
-        content:
-          - "Expected behavior"
-          - "Unacceptable behavior"
-          - "Reporting process"
-          - "Enforcement guidelines"
-          - "Contact information"
+## Rule Type
+workflow
 
-  - type: suggest
-    message: |
-      When setting up a community project, ensure:
+## Rule Format
+```json
+{
+  "type": "workflow",
+  "name": "conventional_commits",
+  "description": "Enforces Conventional Commits 1.0.0 specification",
+  "filters": [
+    {
+      "type": "event",
+      "pattern": "pre_commit"
+    }
+  ],
+  "steps": [
+    {
+      "action": "validate",
+      "description": "Validate commit message format",
+      "requirements": [
+        "Message MUST be prefixed with a type",
+        "Type MUST be one of: feat, fix, docs, style, refactor, perf, test, build, ci, chore",
+        "Scope is OPTIONAL and MUST be in parentheses",
+        "Description MUST immediately follow the colon and space",
+        "Description MUST use imperative mood ('add' not 'added')",
+        "Description MUST be less than 100 characters",
+        "Breaking changes MUST be indicated by '!' or 'BREAKING CHANGE:' footer",
+        "Body MUST be separated from description by one blank line",
+        "Footer MUST be separated from body by one blank line"
+      ]
+    },
+    {
+      "action": "execute",
+      "description": "Format and create commit",
+      "script": {
+        "detect_type": {
+          "feat": ["add", "create", "implement", "introduce"],
+          "fix": ["fix", "correct", "resolve", "patch"],
+          "docs": ["document", "comment", "update.*docs"],
+          "style": ["style", "format", "lint"],
+          "refactor": ["refactor", "restructure", "reorganize"],
+          "perf": ["optimize", "performance", "improve.*speed"],
+          "test": ["test", "spec", "coverage"],
+          "build": ["build", "dependency", "package"],
+          "ci": ["ci", "pipeline", "workflow"],
+          "chore": ["chore", "misc", "task"]
+        },
+        "format_message": {
+          "template": "${type}${scope}: ${description}\n\n${body}\n\n${footer}",
+          "variables": {
+            "type": "Detected from changes or user input",
+            "scope": "Optional, derived from file paths",
+            "description": "First line of commit message",
+            "body": "Detailed explanation of changes",
+            "footer": "Optional references or breaking changes"
+          }
+        },
+        "command": [
+          "# Extract type from changes or prompt user",
+          "TYPE=$(detect_change_type \"$CHANGES\" || prompt_user \"Enter commit type:\")",
+          "",
+          "# Extract scope from file paths",
+          "SCOPE=$(get_common_path \"$CHANGED_FILES\")",
+          "",
+          "# Format the commit message",
+          "printf \"%s\\n\\n%s\\n\\n%s\" \"$TYPE${SCOPE:+($SCOPE)}: $DESCRIPTION\" \"$BODY\" \"$FOOTER\" > \"$COMMIT_MSG_FILE\""
+        ]
+      }
+    }
+  ]
+}
+```
 
-      1. README.md contains:
-         ```markdown
-         # Project Name
+## Manual Commit Syntax
+When creating commits manually, always use the printf syntax to properly handle newlines and formatting:
 
-         Brief description of the project.
+```bash
+printf "type(scope): description\n\nbody of the commit explaining the changes in detail\n\nfooter information" | git commit -F -
+```
 
-         ## Installation
+For example:
+```bash
+printf "feat(auth): add OAuth2 support\n\nAdd Google and GitHub provider integration\nImplement token refresh handling\nAdd user profile synchronization\n\nCloses #123" | git commit -F -
+```
 
-         Step-by-step installation instructions.
+This ensures proper formatting and newline handling in the commit message.
 
-         ## Usage
+## Examples
 
-         Basic usage examples.
+### Feature with Scope
+```
+feat(auth): implement OAuth2 support
 
-         ## Contributing
+- Add Google and GitHub provider integration
+- Implement token refresh handling
+- Add user profile synchronization
 
-         Please read [CONTRIBUTING.md](mdc:CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Closes #123
+```
 
-         ## License
+### Bug Fix with Breaking Change
+```
+fix(api): update user serialization
 
-         This project is licensed under the [LICENSE_NAME] - see the [LICENSE](mdc:LICENSE) file for details.
-         ```
+- Modify user data structure for better consistency
+- Add validation for new fields
 
-      2. CONTRIBUTING.md contains:
-         ```markdown
-         # Contributing Guidelines
+BREAKING CHANGE: user.fullName split into firstName and lastName
+```
 
-         ## Development Setup
-         [Development environment setup instructions]
+### Documentation Update
+```
+docs(readme): add modern package manager instructions
 
-         ## Pull Request Process
-         1. Update documentation
-         2. Update tests
-         3. Follow code style
-         4. Get reviews
+- Add yarn and pnpm installation methods
+- Update minimum Node.js version requirement
+```
 
-         ## Code Style
-         [Code style guidelines]
+### Performance Improvement
+```
+perf(core): optimize database queries
 
-         ## Testing
-         [Testing requirements and instructions]
-         ```
+- Add query result caching
+- Implement proper indexing
+- Reduce unnecessary joins
 
-      3. LICENSE file:
-         - Choose appropriate license (MIT, Apache 2.0, etc.)
-         - Include current year
-         - Include copyright holder
+Closes #456
+```
 
-      4. CODE_OF_CONDUCT.md:
-         - Based on Contributor Covenant
-         - Include contact information
-         - Clear enforcement guidelines
+## Integration
+This rule should be used in conjunction with the git-commit-workflow rule to ensure changes are properly reviewed before creating the commit message. The workflow should be:
 
-examples:
-  - input: |
-      # Bad: Missing required files
-      my-project/
-      ├── src/
-      └── README.md
-
-      # Good: Complete community project setup
-      my-project/
-      ├── src/
-      ├── README.md
-      ├── CONTRIBUTING.md
-      ├── LICENSE
-      └── CODE_OF_CONDUCT.md
-    output: "Properly configured community project"
-
-metadata:
-  priority: high
-  version: 1.0
-  tags:
-    - community
-    - documentation
-    - open-source
-</rule>
+1. Review changes (git-commit-workflow)
+2. Format commit message (conventional-commits)
+3. Validate commit message (conventional-commits)
+4. Commit changes
 
 ---
 > Source: [squirrelogic/cursor-rules](https://github.com/squirrelogic/cursor-rules) — distributed by [TomeVault](https://tomevault.io).
