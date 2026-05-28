@@ -1,0 +1,9 @@
+{
+  "name": "iiiyu--tradingview-ws-client-old",
+  "displayName": "tradingview-ws-client-old",
+  "description": "A Go library for receiving real-time market data from TradingView's WebSocket API.",
+  "version": "1.0.0",
+  "author": "iiiyu",
+  "homepage": "https://github.com/iiiyu/tradingview-ws-client-old",
+  "skills": []
+}
