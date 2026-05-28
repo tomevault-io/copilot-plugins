@@ -4,7 +4,7 @@
   "repo": "Github-Releases-Feed",
   "description": "Github homepage releases feed is always broken - so I created my own",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/KieranP/Github-Releases-Feed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-28T21:30:27Z"
+  "distributed_at": "2026-05-28T21:30:59Z"
 }
