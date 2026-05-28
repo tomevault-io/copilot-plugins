@@ -2,20 +2,22 @@
 
 > Source: [event-catalog/generators](https://github.com/event-catalog/generators) — distributed by [TomeVault](https://tomevault.io)
 
+Plugin integrations for EventCatalog
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [event-catalog/generators](https://github.com/event-catalog/generators).
+Original source: `AGENTS.md` in [event-catalog/generators](https://github.com/event-catalog/generators).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [event-catalog/generators](https://github.com/event-catalog/generators) — a repo with 0+ stars on GitHub.
+From [event-catalog/generators](https://github.com/event-catalog/generators) — a repo with 14+ stars on GitHub.
 
 ---
 
