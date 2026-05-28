@@ -1,10 +1,8 @@
-## docs
+## memory-bank
 
-> Used when creating or updating documentation
+> Rule about memory bank
 
-- Always use top-level README.md as main entry point
-- Use docs/ folder for detailed documentation
-- Update api-reference.md as Typescript APIs are changed
+- Use the memory bank project "eventkit-node"
 
 ---
 > Source: [dacay/eventkit-node](https://github.com/dacay/eventkit-node) — distributed by [TomeVault](https://tomevault.io).
