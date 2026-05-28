@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-streamcall",
+  "displayName": "capacitor-streamcall",
+  "description": "Capacitor plugin for streamcall SDK for capacitor",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-streamcall",
+  "skills": []
+}
