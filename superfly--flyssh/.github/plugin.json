@@ -1,0 +1,9 @@
+{
+  "name": "superfly--flyssh",
+  "displayName": "flyssh",
+  "description": "SSH to WebSocket bridge - expose WebSocket servers via SSH",
+  "version": "1.0.0",
+  "author": "superfly",
+  "homepage": "https://github.com/superfly/flyssh",
+  "skills": []
+}
