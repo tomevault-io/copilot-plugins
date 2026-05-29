@@ -1,0 +1,9 @@
+{
+  "name": "chobbledotcom--chobble-template",
+  "displayName": "chobble-template",
+  "description": "The Chobble Template - a complete Eleventy starter for small businesses",
+  "version": "1.0.0",
+  "author": "chobbledotcom",
+  "homepage": "https://github.com/chobbledotcom/chobble-template",
+  "skills": []
+}
