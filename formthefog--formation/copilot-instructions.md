@@ -1,8 +1,8 @@
-## read-the-docs
+## task-by-task
 
-> Read relevant documentation that is tagged, in full.
+> Always focus on a single, small, subtask or sub-subtask at a time and finish it to completion and ONLY it to completion. Never veer outside of the minimal scope of a given task until it is completed.
 
-Read relevant documentation that is tagged, in full.
+Always focus on a single, small, subtask or sub-subtask at a time and finish it to completion and ONLY it to completion. Never veer outside of the minimal scope of a given task until it is completed.
 
 ---
 > Source: [formthefog/formation](https://github.com/formthefog/formation) — distributed by [TomeVault](https://tomevault.io).
