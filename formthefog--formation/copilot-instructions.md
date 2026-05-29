@@ -1,14 +1,8 @@
-## dry-do-not-duplicate-work
+## plan-then-code
 
-> DRY: Don't Repeat Yourself.
+> Always plan the implementation of the tasks before beginning to write any code. Once a given task to work on is selected, always plan the implementation of that specific task BEFORE implementing it.
 
-DRY: Don't Repeat Yourself.
-
-Always check the codebase before implementing a task to make sure the work we are about to do needs to be done and has not been done before.
-
-Write code in a way that it can be reused in the future for other things that it might apply to if possible, sometimes it is not possible.
-
-Check the codebase to make sure that the task you are working on has not been completed yet before implementing it.
+Always plan the implementation of the tasks before beginning to write any code. Once a given task to work on is selected, always plan the implementation of that specific task BEFORE implementing it.
 
 ---
 > Source: [formthefog/formation](https://github.com/formthefog/formation) — distributed by [TomeVault](https://tomevault.io).
