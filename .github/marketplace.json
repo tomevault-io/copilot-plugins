@@ -47744,6 +47744,11 @@
       "description": "Open-source backend-as-a-service. Postgres, auth, storage, functions, AI gateway, MCP."
     },
     {
+      "name": "tao12345666333--amp-acp",
+      "source": "./tao12345666333--amp-acp",
+      "description": "ACP adapter for Amp Code"
+    },
+    {
       "name": "dceoy--speckit-agent-skills",
       "source": "./dceoy--speckit-agent-skills",
       "description": "Agent skills for Spec Kit"
@@ -57777,6 +57782,11 @@
       "name": "serendie--serendie",
       "source": "./serendie--serendie",
       "description": "Adaptive UI component library as part of Serendie Design System by Mitsubishi Electric"
+    },
+    {
+      "name": "stellar-scaffold--cli",
+      "source": "./stellar-scaffold--cli",
+      "description": "The Stellar app lifecycle streamlined. `stellar scaffold` CLI: init, learn, & build ambitious apps. `stellar registry` CLI: author, publish, deploy & upgrade Wasm binaries + smart contracts (or use so"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -67837,6 +67847,11 @@
       "name": "nico2sh--kimun",
       "source": "./nico2sh--kimun",
       "description": "Simple note taking, powerful search, AI ready"
+    },
+    {
+      "name": "aipmer--book",
+      "source": "./aipmer--book",
+      "description": "\u300aCodex\u5b9e\u6218\u84dd\u76ae\u4e66\u300b\uff1aAI\u539f\u751f\u65f6\u4ee3\u7684\u4ea7\u54c1\u7814\u53d1\u4e0e\u591a\u7aef\u7f16\u6392\u5b9e\u6218\u6307\u5357\u3002"
     },
     {
       "name": "66reapollo2--agentsge",
@@ -116904,6 +116919,11 @@
       "description": "ui"
     },
     {
+      "name": "peterbamuhigire--skills-web-dev",
+      "source": "./peterbamuhigire--skills-web-dev",
+      "description": "120+ Claude Code / Codex  skills. Production-grade  skills system for web apps & mobile architecture, APIs, databases, web, mobile, AI, security, UX, SaaS, and ERP engineering. Encodes reusable engine"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -124312,6 +124332,11 @@
       "name": "dama-cyber--magic-distillation",
       "source": "./dama-cyber--magic-distillation",
       "description": "\u7a17\u5b98\u98ce\u9aa8\u5168\u7ef4\u84b8\u998f\u4e4b\u5668\u2014\u2014\u81ea\u8bf8\u8bf4\u90e8\u6587\u5b57\u4e2d\u63d0\u53d6\u683c\u8c03\u4e4b\u5370\uff0c\u5b58\u5176\u672c\u5473\uff0c\u522b\u64b0\u65b0\u7bc7\u3002"
+    },
+    {
+      "name": "ricocc--ricoui-saas-template",
+      "source": "./ricocc--ricoui-saas-template",
+      "description": "A design-led SaaS template for Astro by ricoui"
     },
     {
       "name": "mohiwalla--memes",
@@ -182867,6 +182892,16 @@
       "name": "dominiquepaul--search-substack-semantically",
       "source": "./dominiquepaul--search-substack-semantically",
       "description": "search-substack-semantically"
+    },
+    {
+      "name": "wanghaisheng--xforg-cocos-game-vibe-coding-starter",
+      "source": "./wanghaisheng--xforg-cocos-game-vibe-coding-starter",
+      "description": "xforg-cocos-game-vibe-coding-starter"
+    },
+    {
+      "name": "wanghaisheng--xforg-cocos-game-vibe-coding-starter",
+      "source": "./wanghaisheng--xforg-cocos-game-vibe-coding-starter",
+      "description": "xforg-cocos-game-vibe-coding-starter"
     },
     {
       "name": "constellos--claude-code",
@@ -269624,11 +269659,6 @@
       "description": "mad-tdd-mob-ai-driven"
     },
     {
-      "name": "wanghaisheng--xforg-cocos-game-vibe-coding-starter",
-      "source": "./wanghaisheng--xforg-cocos-game-vibe-coding-starter",
-      "description": "xforg-cocos-game-vibe-coding-starter"
-    },
-    {
       "name": "michaelpmurphy14--mcp-integ",
       "source": "./michaelpmurphy14--mcp-integ",
       "description": "mcp-integ"
@@ -269887,11 +269917,6 @@
       "name": "jeromyjsmith--wellspring-directory",
       "source": "./jeromyjsmith--wellspring-directory",
       "description": "wellspring_directory"
-    },
-    {
-      "name": "wanghaisheng--xforg-cocos-game-vibe-coding-starter",
-      "source": "./wanghaisheng--xforg-cocos-game-vibe-coding-starter",
-      "description": "xforg-cocos-game-vibe-coding-starter"
     },
     {
       "name": "jodypangaribuan--delpresence",
