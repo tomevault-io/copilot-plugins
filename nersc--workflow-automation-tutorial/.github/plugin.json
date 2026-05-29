@@ -1,0 +1,9 @@
+{
+  "name": "nersc--workflow-automation-tutorial",
+  "displayName": "workflow-automation-tutorial",
+  "description": "Functioning workflow examples and documentation for use during the \"Automating HPC Research Workflows on Perlmutter\" being held on May 28th, 2026",
+  "version": "1.0.0",
+  "author": "NERSC",
+  "homepage": "https://github.com/NERSC/workflow-automation-tutorial",
+  "skills": []
+}
