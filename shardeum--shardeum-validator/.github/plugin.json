@@ -1,0 +1,9 @@
+{
+  "name": "shardeum--shardeum-validator",
+  "displayName": "shardeum-validator",
+  "description": "The validator which allows you to participate in the Shardeum network and earn SHM",
+  "version": "1.0.0",
+  "author": "shardeum",
+  "homepage": "https://github.com/shardeum/shardeum-validator",
+  "skills": []
+}
