@@ -1,0 +1,9 @@
+{
+  "name": "kido-luci--flutter-starter-template",
+  "displayName": "flutter-starter-template",
+  "description": "A production\u2011ready Flutter foundation with Clean Architecture, offline\u2011first sync, JWT auth, Firebase, and a companion Go backend.",
+  "version": "1.0.0",
+  "author": "kido-luci",
+  "homepage": "https://github.com/kido-luci/flutter-starter-template",
+  "skills": []
+}
