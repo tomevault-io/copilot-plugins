@@ -1,0 +1,9 @@
+{
+  "name": "trustabl--trustabl",
+  "displayName": "trustabl",
+  "description": "Static analyzer for agent reliability.",
+  "version": "1.0.0",
+  "author": "trustabl",
+  "homepage": "https://github.com/trustabl/trustabl",
+  "skills": []
+}
