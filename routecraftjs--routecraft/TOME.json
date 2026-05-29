@@ -1,0 +1,44 @@
+{
+  "name": "routecraft",
+  "owner": "routecraftjs",
+  "repo": "routecraft",
+  "description": "Define TypeScript capabilities that send emails, manage calendars, and automate work. Expose them to the Routecraft agent, Claude, ChatGPT, Cursor, or any AI agent via MCP. AI uses your capabilities, not your computer.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/routecraftjs/routecraft",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T22:52:40Z"
+}
