@@ -1,0 +1,9 @@
+{
+  "name": "novonordisk-opensource--connector",
+  "displayName": "connector",
+  "description": "connector: A package for interacting with clinical data sets in the simple way",
+  "version": "1.0.0",
+  "author": "NovoNordisk-OpenSource",
+  "homepage": "https://github.com/NovoNordisk-OpenSource/connector",
+  "skills": []
+}
