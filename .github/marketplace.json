@@ -168944,6 +168944,121 @@
       "description": "Efficient protein domain annotation search with reduced amino acid k-mers"
     },
     {
+      "name": "run-llama--liteparse-cloudflare-worker-quickstart",
+      "source": "./run-llama--liteparse-cloudflare-worker-quickstart",
+      "description": "Quickstart on how to deploy LiteParse as a CloudFlare worker"
+    },
+    {
+      "name": "mongorolls--dgut-cs-wiki",
+      "source": "./mongorolls--dgut-cs-wiki",
+      "description": "A comprehensive learning guide for computer science students at DGUT, featuring resources, courses, and community support for aspiring developers."
+    },
+    {
+      "name": "superfly--flyssh",
+      "source": "./superfly--flyssh",
+      "description": "SSH to WebSocket bridge - expose WebSocket servers via SSH"
+    },
+    {
+      "name": "justinhj--zigpath",
+      "source": "./justinhj--zigpath",
+      "description": "Path finding in Zig"
+    },
+    {
+      "name": "rpuls--zap-owasp-web-interface",
+      "source": "./rpuls--zap-owasp-web-interface",
+      "description": "Simple web interface for zaproxy OWASP scanner"
+    },
+    {
+      "name": "babylonlabs-io--babylon-toolkit",
+      "source": "./babylonlabs-io--babylon-toolkit",
+      "description": "Babylon\u2019s frontend monorepo contains everything you need to build a world-class staking dApp."
+    },
+    {
+      "name": "surendranb--second-brain",
+      "source": "./surendranb--second-brain",
+      "description": "Your AI-Powered Knowledge Archive"
+    },
+    {
+      "name": "govorunb--gary",
+      "source": "./govorunb--gary",
+      "description": "Backend implementation for the Neuro-sama SDK"
+    },
+    {
+      "name": "inlab-geo--pytransc",
+      "source": "./inlab-geo--pytransc",
+      "description": "Library of Trans-Conceptual sampling routines."
+    },
+    {
+      "name": "graphprotocol--grc-20-ts",
+      "source": "./graphprotocol--grc-20-ts",
+      "description": "grc-20-ts"
+    },
+    {
+      "name": "publicrust--cui-builder",
+      "source": "./publicrust--cui-builder",
+      "description": "cui-builder"
+    },
+    {
+      "name": "graphprotocol--grc-20-ts",
+      "source": "./graphprotocol--grc-20-ts",
+      "description": "grc-20-ts"
+    },
+    {
+      "name": "valibali--hamledger",
+      "source": "./valibali--hamledger",
+      "description": "Modern logger program for ham radio amateurs"
+    },
+    {
+      "name": "philwilliammee--tool-bot",
+      "source": "./philwilliammee--tool-bot",
+      "description": "tool-bot"
+    },
+    {
+      "name": "fc6a1b03--json-helper",
+      "source": "./fc6a1b03--json-helper",
+      "description": "Json Helper \u662f\u4e00\u6b3e\u5f3a\u5927\u7684 IntelliJ IDEA \u63d2\u4ef6\uff0c\u652f\u6301\u7528\u6237\u81ea\u7531\u7f16\u8f91 JSON \u6570\u636e\u3001\u4ece JSON \u6570\u636e\u751f\u6210 Java \u7c7b\u4ee5\u53ca\u4ece Java \u7c7b\u590d\u5236 JSON \u6570\u636e\uff0c\u8fd8\u652f\u6301\u901a\u8fc7 JsonPath \u8fdb\u884c\u9ad8\u6548\u67e5\u8be2\u548c\u5904\u7406\u3002"
+    },
+    {
+      "name": "llnl--protlib-designer",
+      "source": "./llnl--protlib-designer",
+      "description": "Integer Linear Programming for Protein Library Design"
+    },
+    {
+      "name": "philwilliammee--tool-bot",
+      "source": "./philwilliammee--tool-bot",
+      "description": "tool-bot"
+    },
+    {
+      "name": "stacksjs--buddy-bot",
+      "source": "./stacksjs--buddy-bot",
+      "description": "\ud83d\udc36 Automated & optimized dependency updates for JavaScript & TypeScript projects. Like Renovate & Dependabot."
+    },
+    {
+      "name": "l0g0ff--kompassos",
+      "source": "./l0g0ff--kompassos",
+      "description": "KompassOS builds upon Aurora, specifically tailored for DevOps engineers, System Administrators and Network Engineers. Get a ready-to-use workstation with all the tools you need without extensive conf"
+    },
+    {
+      "name": "redhat-developer--rhdh-plugin-export-overlays",
+      "source": "./redhat-developer--rhdh-plugin-export-overlays",
+      "description": "rhdh-plugin-export-overlays"
+    },
+    {
+      "name": "babylonlabs-io--babylon-toolkit",
+      "source": "./babylonlabs-io--babylon-toolkit",
+      "description": "Babylon\u2019s frontend monorepo contains everything you need to build a world-class staking dApp."
+    },
+    {
+      "name": "kelvin6365--plane-discord-bot",
+      "source": "./kelvin6365--plane-discord-bot",
+      "description": "plane-discord-bot"
+    },
+    {
+      "name": "graphprotocol--grc-20-ts",
+      "source": "./graphprotocol--grc-20-ts",
+      "description": "grc-20-ts"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -180434,6 +180549,76 @@
       "description": "A production\u2011ready Flutter foundation with Clean Architecture, offline\u2011first sync, JWT auth, Firebase, and a companion Go backend."
     },
     {
+      "name": "cenxiv--cenxiv",
+      "source": "./cenxiv--cenxiv",
+      "description": "cenXiv \u662f\u4e00\u4e2a\u57fa\u4e8e Django \u7684\u7535\u5b50\u9884\u5370\u672c\u5b58\u6863\uff0c\u65e8\u5728\u4e3a\u7528\u6237\u63d0\u4f9b\u4e2d\u6587(CN)\u548c\u82f1\u6587(EN)\u53cc\u8bed\u754c\u9762\u7684 arXiv \u8bba\u6587\u6d4f\u89c8\u3001\u641c\u7d22\u548c\u4e0b\u8f7d\u529f\u80fd\u3002\u8be5\u9879\u76ee\u5141\u8bb8\u7528\u6237\u6d4f\u89c8\u3001\u641c\u7d22\u548c\u83b7\u53d6\u79d1\u5b66\u8bba\u6587\u7684\u5404\u79cd\u683c\u5f0f\uff0c\u5305\u62ec\u4e2d\u6587\u5168\u6587 PDF\u3001\u82f1\u6587\u5168\u6587 PDF\u3001HTML\u3001DVI \u548c\u6e90\u6587\u4ef6\u7b49\u3002"
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "bean980310--ai-companion",
+      "source": "./bean980310--ai-companion",
+      "description": "AI companions including generative AI such as chatbots, image generation, text generation, and audio generation."
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "255bits--ai-agent-toolbox",
+      "source": "./255bits--ai-agent-toolbox",
+      "description": "Easily add tool use to your AI Agents and Workflows. Framework and model provider agnostic."
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "alexey-pkv--godotlighter",
+      "source": "./alexey-pkv--godotlighter",
+      "description": "Godot GDExtension for SQLite"
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
+      "name": "bean980310--ai-companion",
+      "source": "./bean980310--ai-companion",
+      "description": "AI companions including generative AI such as chatbots, image generation, text generation, and audio generation."
+    },
+    {
+      "name": "psd401--aistudio",
+      "source": "./psd401--aistudio",
+      "description": "Democratize AI access in K-12 education with multi-model platform deployed on your infrastructure"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -183282,6 +183467,16 @@
       "name": "jaydenfyi--scrolodex",
       "source": "./jaydenfyi--scrolodex",
       "description": "A super simple window switcher for macOS"
+    },
+    {
+      "name": "joyzhang14-14--my-portrait",
+      "source": "./joyzhang14-14--my-portrait",
+      "description": "My-Portrait"
+    },
+    {
+      "name": "puck-security--puck-scout",
+      "source": "./puck-security--puck-scout",
+      "description": "Autonomous, read-only endpoint investigation via MCP. Ask a question about your fleet, get a narrative answer with containment recommendations."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -215112,11 +215307,6 @@
       "name": "blopit--cursor-template-repo",
       "source": "./blopit--cursor-template-repo",
       "description": "Cursor-Template-Repo"
-    },
-    {
-      "name": "gdamalis--idc-redentor-web",
-      "source": "./gdamalis--idc-redentor-web",
-      "description": "idc-redentor-web"
     },
     {
       "name": "nnh53--fork-fork-fe-team-5",
@@ -287572,6 +287762,36 @@
       "name": "therealsuji--habits",
       "source": "./therealsuji--habits",
       "description": "habits"
+    },
+    {
+      "name": "lzj960515--taskmaster",
+      "source": "./lzj960515--taskmaster",
+      "description": "TaskMaster"
+    },
+    {
+      "name": "cungen--notes",
+      "source": "./cungen--notes",
+      "description": "notes"
+    },
+    {
+      "name": "dashhuang--my-homepage",
+      "source": "./dashhuang--my-homepage",
+      "description": "my-homepage"
+    },
+    {
+      "name": "2048khz-gachi-rmx--dotto",
+      "source": "./2048khz-gachi-rmx--dotto",
+      "description": "get it? botto on dotn- oh forget it"
+    },
+    {
+      "name": "alexdalgleishmorel--mortgage-calculator",
+      "source": "./alexdalgleishmorel--mortgage-calculator",
+      "description": "mortgage-calculator"
+    },
+    {
+      "name": "waynezhang--dotr",
+      "source": "./waynezhang--dotr",
+      "description": "A simple dotfile manager."
     }
   ]
 }
