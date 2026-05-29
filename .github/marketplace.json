@@ -180349,6 +180349,21 @@
       "description": "academic-ref-inserter"
     },
     {
+      "name": "kido-luci--flutter-starter-template",
+      "source": "./kido-luci--flutter-starter-template",
+      "description": "A production\u2011ready Flutter foundation with Clean Architecture, offline\u2011first sync, JWT auth, Firebase, and a companion Go backend."
+    },
+    {
+      "name": "jdevalk--specification-website",
+      "source": "./jdevalk--specification-website",
+      "description": "Website specification \u2014 HTML, accessibility, security, SEO, agent-readiness. Platform-agnostic, sourced, MIT."
+    },
+    {
+      "name": "kido-luci--flutter-starter-template",
+      "source": "./kido-luci--flutter-starter-template",
+      "description": "A production\u2011ready Flutter foundation with Clean Architecture, offline\u2011first sync, JWT auth, Firebase, and a companion Go backend."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -287427,6 +287442,36 @@
       "name": "manavtriv--personal-website",
       "source": "./manavtriv--personal-website",
       "description": "personal-website"
+    },
+    {
+      "name": "nasserxx--nasserxx-github-io",
+      "source": "./nasserxx--nasserxx-github-io",
+      "description": "nasserxx.github.io"
+    },
+    {
+      "name": "elitex45--x45-lander",
+      "source": "./elitex45--x45-lander",
+      "description": "x45-lander"
+    },
+    {
+      "name": "acuity-network--pallet-content",
+      "source": "./acuity-network--pallet-content",
+      "description": "Substrate pallet for publishing content."
+    },
+    {
+      "name": "gabenavarro--gabriel-navarro-bio",
+      "source": "./gabenavarro--gabriel-navarro-bio",
+      "description": "Personal biography site built with FastHTML\u2014featuring modular components, reusable SVG icons, and clean, responsive design."
+    },
+    {
+      "name": "robert-n-myhre--architecture-portfolio",
+      "source": "./robert-n-myhre--architecture-portfolio",
+      "description": "architecture-portfolio"
+    },
+    {
+      "name": "ncolesummers--enterprise-intelligence-portfolio",
+      "source": "./ncolesummers--enterprise-intelligence-portfolio",
+      "description": "\ud83d\ude80 Enterprise-grade Next.js portfolio demonstrating AI-accelerated development with comprehensive testing, CI/CD automation, and self-documenting   architecture. A real-world example of modern SDLC pra"
     }
   ]
 }
