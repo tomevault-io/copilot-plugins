@@ -1,6 +1,8 @@
 # DeepCORO_CLIP
 
-> Tome by [HeartWise-AI](https://github.com/HeartWise-AI/DeepCORO_CLIP) — distributed by [TomeVault](https://tomevault.io/claim/HeartWise-AI)
+> Tome by [HeartWise-AI](https://github.com/HeartWise-AI/DeepCORO_CLIP) — distributed by [TomeVault](https://tomevault.io)
+
+Text & video embeddings for report generation 
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [HeartWise-AI/DeepCORO_CLIP](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/HeartWise-AI)
+From [HeartWise-AI/DeepCORO_CLIP](https://github.com/HeartWise-AI/DeepCORO_CLIP) — a repo with 12+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install HeartWise-AI/DeepCORO_CLIP
 ```
-Or browse all formats at [https://tomevault.io/claim/HeartWise-AI](https://tomevault.io/claim/HeartWise-AI).
+Source: [github.com/HeartWise-AI/DeepCORO_CLIP](https://github.com/HeartWise-AI/DeepCORO_CLIP).
 
 <!-- genome:t-i-s -->
