@@ -1,0 +1,9 @@
+{
+  "name": "onre-finance--onre-sol",
+  "displayName": "onre-sol",
+  "description": "Solana program for the ONRE app",
+  "version": "1.0.0",
+  "author": "onre-finance",
+  "homepage": "https://github.com/onre-finance/onre-sol",
+  "skills": []
+}
