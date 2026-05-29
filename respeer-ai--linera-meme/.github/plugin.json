@@ -1,0 +1,9 @@
+{
+  "name": "respeer-ai--linera-meme",
+  "displayName": "linera-meme",
+  "description": "Minable meme microchain on Linera.",
+  "version": "1.0.0",
+  "author": "respeer-ai",
+  "homepage": "https://github.com/respeer-ai/linera-meme",
+  "skills": []
+}
