@@ -4,7 +4,7 @@
   "repo": "kroma-studio",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ritesh0888/kroma-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T09:30:28Z"
+  "distributed_at": "2026-05-29T09:31:10Z"
 }
