@@ -1,0 +1,9 @@
+{
+  "name": "samuelhm--42jobs",
+  "displayName": "42Jobs",
+  "description": "AI-powered job search platform for junior software engineers: job fetching, smart filtering, keyword extraction, and ATS-optimized CV generation. Built with .NET 10, ASP.NET Core, React 19, and Postgr",
+  "version": "1.0.0",
+  "author": "samuelhm",
+  "homepage": "https://github.com/samuelhm/42Jobs",
+  "skills": []
+}
