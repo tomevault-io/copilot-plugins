@@ -1,0 +1,9 @@
+{
+  "name": "routecraftjs--routecraft",
+  "displayName": "routecraft",
+  "description": "Define TypeScript capabilities that send emails, manage calendars, and automate work. Expose them to the Routecraft agent, Claude, ChatGPT, Cursor, or any AI agent via MCP. AI uses your capabilities, ",
+  "version": "1.0.0",
+  "author": "routecraftjs",
+  "homepage": "https://github.com/routecraftjs/routecraft",
+  "skills": []
+}
