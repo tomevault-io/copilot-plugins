@@ -1,0 +1,9 @@
+{
+  "name": "stuartlynne--racedbcli",
+  "displayName": "racedbcli",
+  "description": "RaceDB command line programs for managing competitions, license holders and registration",
+  "version": "1.0.0",
+  "author": "stuartlynne",
+  "homepage": "https://github.com/stuartlynne/racedbcli",
+  "skills": []
+}
