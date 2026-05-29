@@ -1,0 +1,9 @@
+{
+  "name": "xykong--prometheus-remote-writer",
+  "displayName": "prometheus-remote-writer",
+  "description": "A Python package to send data using Prometheus remote write protocol.",
+  "version": "1.0.0",
+  "author": "xykong",
+  "homepage": "https://github.com/xykong/prometheus-remote-writer",
+  "skills": []
+}
