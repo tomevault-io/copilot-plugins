@@ -7,13 +7,13 @@ Privacy-first stock portfolio tracker. Transactions in localStorage, prices from
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [martin-gomola/beskarfolio](https://github.com/martin-gomola/beskarfolio).
+Original source: `AGENTS.md` in [martin-gomola/beskarfolio](https://github.com/martin-gomola/beskarfolio).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
