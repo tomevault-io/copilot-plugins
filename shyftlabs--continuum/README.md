@@ -7,11 +7,11 @@ Continuum — the agent runtime by ShyftLabs. Build, orchestrate, ship.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shyftlabs/continuum](https://github.com/shyftlabs/continuum).
+Original source: `CLAUDE.md` in [shyftlabs/continuum](https://github.com/shyftlabs/continuum).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
