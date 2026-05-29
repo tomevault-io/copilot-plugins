@@ -1,0 +1,44 @@
+{
+  "name": "magic-distillation",
+  "owner": "dama-cyber",
+  "repo": "magic-distillation",
+  "description": "\u7a17\u5b98\u98ce\u9aa8\u5168\u7ef4\u84b8\u998f\u4e4b\u5668\u2014\u2014\u81ea\u8bf8\u8bf4\u90e8\u6587\u5b57\u4e2d\u63d0\u53d6\u683c\u8c03\u4e4b\u5370\uff0c\u5b58\u5176\u672c\u5473\uff0c\u522b\u64b0\u65b0\u7bc7\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dama-cyber/magic-distillation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T03:30:21Z"
+}
