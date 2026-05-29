@@ -1,0 +1,44 @@
+{
+  "name": "json-helper",
+  "owner": "fc6a1b03",
+  "repo": "json-helper",
+  "description": "Json Helper \u662f\u4e00\u6b3e\u5f3a\u5927\u7684 IntelliJ IDEA \u63d2\u4ef6\uff0c\u652f\u6301\u7528\u6237\u81ea\u7531\u7f16\u8f91 JSON \u6570\u636e\u3001\u4ece JSON \u6570\u636e\u751f\u6210 Java \u7c7b\u4ee5\u53ca\u4ece Java \u7c7b\u590d\u5236 JSON \u6570\u636e\uff0c\u8fd8\u652f\u6301\u901a\u8fc7 JsonPath \u8fdb\u884c\u9ad8\u6548\u67e5\u8be2\u548c\u5904\u7406\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fc6a1b03/json-helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T20:41:18Z"
+}
