@@ -1,0 +1,9 @@
+{
+  "name": "puck-security--puck-scout",
+  "displayName": "puck-scout",
+  "description": "Autonomous, read-only endpoint investigation via MCP. Ask a question about your fleet, get a narrative answer with containment recommendations.",
+  "version": "1.0.0",
+  "author": "puck-security",
+  "homepage": "https://github.com/puck-security/puck-scout",
+  "skills": []
+}
