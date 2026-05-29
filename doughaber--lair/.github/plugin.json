@@ -1,0 +1,9 @@
+{
+  "name": "doughaber--lair",
+  "displayName": "lair",
+  "description": "CLI tools for working with generative AI",
+  "version": "1.0.0",
+  "author": "DougHaber",
+  "homepage": "https://github.com/DougHaber/lair",
+  "skills": []
+}
