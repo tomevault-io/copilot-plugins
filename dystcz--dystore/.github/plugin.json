@@ -1,0 +1,9 @@
+{
+  "name": "dystcz--dystore",
+  "displayName": "dystore",
+  "description": "Collection of ecommerce packages built on top of Lunar and Laravel JSON:API.",
+  "version": "1.0.0",
+  "author": "dystcz",
+  "homepage": "https://github.com/dystcz/dystore",
+  "skills": []
+}
