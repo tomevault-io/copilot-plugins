@@ -1,0 +1,9 @@
+{
+  "name": "rpuls--zap-owasp-web-interface",
+  "displayName": "ZAP-OWASP-Web-interface",
+  "description": "Simple web interface for zaproxy OWASP scanner",
+  "version": "1.0.0",
+  "author": "rpuls",
+  "homepage": "https://github.com/rpuls/ZAP-OWASP-Web-interface",
+  "skills": []
+}
