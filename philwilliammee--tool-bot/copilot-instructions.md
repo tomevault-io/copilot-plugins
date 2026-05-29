@@ -1,18 +1,34 @@
-## project-documentation
+## tech-stack
 
-> Project documentation
+> Tech Stack
 
-# Project Documentation
+# Technical Information
 
-## Core Documentation
-[README.md](mdc:README.md)
-- Review the full project documentation at ./README.md
-- Includes setup, features, architecture, and best practices
+## Frontend Client
+- Framework: None (vanilla TypeScript/HTML/CSS)
+- Build System: Vite for TypeScript to ESM compilation
+- Entry Points:
+  - JavaScript: src/main.ts
+  - CSS: src/styles/index.css (transitioning to utility classes)
+- State Management: @preact/signals-core for reactive updates
+- Component Architecture:
+  - Class-based components
+  - Event delegation pattern
+  - DOM-based messaging
 
-## Tool Documentation
-[tools/README.md](mdc:tools/README.md)
-- Review the tooling configuration and development guide
-- Details tool creation, registration, and best practices
+## Backend Server
+- Express server (server.ts entry point)
+- Key Features:
+  - AI conversation streaming
+  - Tool execution handling
+  - No database (file-based storage)
+  - Secure API integrations
+
+## Architecture Patterns
+- Signal-based state flow
+- Component lifecycle management
+- Event-driven updates
+- Tool-based integrations
 
 ---
 > Source: [philwilliammee/tool-bot](https://github.com/philwilliammee/tool-bot) — distributed by [TomeVault](https://tomevault.io).
