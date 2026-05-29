@@ -4,7 +4,7 @@
   "repo": "flutter-starter-template",
   "description": "A production\u2011ready Flutter foundation with Clean Architecture, offline\u2011first sync, JWT auth, Firebase, and a companion Go backend.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kido-luci/flutter-starter-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T16:30:28Z"
+  "distributed_at": "2026-05-29T16:33:29Z"
 }
