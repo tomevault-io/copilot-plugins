@@ -1,10 +1,15 @@
-## analytics
+## auth
 
-> Follow these rules when working on analytics.
+> Follow these rules when working on auth.
 
-### Analytics Rules
+### Auth Rules
 
-It uses PostHog for analytics.
+It uses Clerk for authentication.
+
+- #### General Rules
+
+- Import the auth helper with `import { auth } from "@clerk/nextjs/server"` in server components
+- await the auth helper in server actions
 
 ---
 > Source: [psd401/aistudio](https://github.com/psd401/aistudio) — distributed by [TomeVault](https://tomevault.io).
