@@ -1,85 +1,92 @@
-## 32-delta-docs-update
+## deltacomponents-dev
 
-> description: How the agent should **update & finalise MDX docs** once you’ve finished tweaking a component.
+> This is a Delta Components UI documentation site built with Next.js, featuring a custom component registry system based on shadcn/ui. The registry allows users to copy and install reusable React components.
 
----
-# 32-delta-docs-update.mdc
-description: How the agent should **update & finalise MDX docs** once you’ve finished tweaking a component.
-alwaysApply: true               
-globs:
-  - "content/docs/**/*.mdx"
----
+# Delta Components Registry - Gemini Guide
 
-## Trigger phrase
+## Project Overview
+This is a Delta Components UI documentation site built with Next.js, featuring a custom component registry system based on shadcn/ui. The registry allows users to copy and install reusable React components.
 
-Use this rule when the human says something like:
+## AI Assistant Guidelines
 
-* “Update the docs for **CardTilt**.”
-* “Finish the API table for that component doc.”
-* “Add the new examples to the MDX.”
+### 1. Git & Version Control
+- **Command:** Always use `gacp` (alias for `git add . && git commit -m "..." && git push`) with `--no-verify`.
+- **Constraint:** Do not `git add` or `build` unless explicitly instructed by the user.
 
----
+### 2. Package Management
+- **Tool:** ALWAYS use `bun`. Never use `pnpm`, `npm` or `yarn`.
+  - Install: `bun install`
+  - Add: `bun add <package>`
+  - Dev: `bun add -d <package>`
+  - Run scripts: `bun run <script>`
 
-## Required structure the agent must enforce
+### 3. Registry Structure & Locations
+- **Root:** `apps/www/registry/delta-ui/`
+- **UI Components:** `apps/www/registry/delta-ui/ui/` (Base Shadcn UI components)
+- **Registry Components:** `apps/www/registry/delta-ui/delta/` (Complex/Custom components)
+- **Blocks:** `apps/www/registry/delta-ui/blocks/` (Page sections/layouts)
+- **Examples/Demos:** `apps/www/registry/delta-ui/examples/`
 
-Every component doc **must** contain, in this exact order:
+**Import Convention:**
+- Import shadcn/base components from: `@/registry/delta-ui/ui/**` (NOT `components/ui`)
+- Import registry components from: `@/registry/delta-ui/delta/**`
 
-1. **Front-matter**  
-   ```yaml
-   ---
-   title: {{PascalName}}
-   description: {{clear, complete sentence without TODOs}}
-   ---
-   ```
+### 4. Creating New Components
+**NEVER create components manually.** Use the provided scripts to ensure proper registration and file generation.
 
-2. `<ComponentPreview name="{{filename}}-demo" />`
+**Command:**
+```bash
+bun apps/www/scripts/create-component.js <component-name> [ui|components|blocks]
+```
+*   `ui`: For base UI components (buttons, inputs).
+*   `components`: For complex/registry components (voice-recorder, audio-player).
+*   `blocks`: For larger page sections.
 
-3. `## Overview` – one or two paragraphs, *no* TODOs left.
+**What the script does:**
+1.  Creates component file in the appropriate registry subfolder.
+2.  Generates an MDX documentation file in `content/docs/components/`.
+3.  Creates an example/demo file in `registry/delta-ui/examples/`.
+4.  Updates `registry-ui.ts`, `registry-examples.ts` or `registry-blocks.ts`.
 
-4. `## Installation` – Tabs layout exactly as in the Embed & Modal examples:
-   * CLI snippet:  
-     ```bash
-     npx shadcn@latest add https://deltacomponents.dev/r/{{filename}}
-     ```
-   * Manual section with `<Steps>` and `<ComponentSource name="{{filename}}" />`
+**Post-Creation Steps:**
+1.  Edit the generated component file.
+2.  Update the documentation MDX.
+3.  Refine the demo/example.
+4.  Run `bun run registry:build` to update the registry index (only if instructed).
 
-5. `## Usage` – runnable TSX snippet that imports from  
-   `@/registry/{{category}}/{{filename}}`.
+### 5. Creating New Blocks
+**Command:**
+```bash
+bun apps/www/scripts/create-block.js <block-name> [category]
+```
+*   `category`: `featured`, `agents`, `audio`, `landing-page` (Default: `featured`).
 
-6. `## API Reference`
-   * A markdown table wrapped in  
-     `<div className="overflow-x-auto"> … </div>`
-   * One row per prop; *never* leave placeholders.
+**What the script does:**
+1.  Creates a directory `registry/delta-ui/blocks/<block-name>/`.
+2.  Creates `page.tsx` and `components/<block-name>.tsx`.
+3.  Updates `registry-blocks.ts`.
 
-7. `## Examples`  
-   * At least one `<ComponentPreview>` per demo file that exists.  
-   * Sub-headings (`### Fancy Variant`) match demo filenames where possible.
+### 6. Development & Verification
+- **Start Server:** `bun dev`
+- **Rebuild Registry:** `bun run registry:build` (Use this script from `apps/www/package.json` when asked to rebuild).
+- **Lint:** `bun run lint`
+- **Typecheck:** `bun run typecheck`
 
----
+## Theme System
+- Themes are defined in `apps/www/lib/theme-data.ts`.
+- CSS variables are in `apps/www/styles/themes/[theme-name].css`.
+- When creating a new theme, follow the steps in `CLAUDE.md` / `GEMINI.md` to add CSS, import it, and update theme data.
 
-## Editing rules
+## Documentation (Fumadocs)
+- Documentation pages are MDX files in `apps/www/content/docs/`.
+- Navigation is controlled by `meta.json` files in the docs directories.
+- Component docs should include `<Installation />` and `<ComponentPreview />` components.
 
-* **Preserve** any custom Admonitions or additional sections already present.
-* Strip **all** `TODO:` lines; ask the human for missing info instead of guessing.
-* Do **not** change file paths or front-matter keys.
-* If you’re unsure of precise prop types, **ask** rather than inventing them.
-
----
-
-## Workflow the agent should follow
-
-1. **Locate** the MDX file: `content/docs/{{category}}/{{filename}}.mdx`.
-2. **Load** the component source (`registry/{{category}}/{{filename}}.tsx`) to mine prop names and defaults.
-3. **Patch** the MDX in place:
-   * Fill in Overview, Usage, API table, Examples.
-   * Remove leftover placeholders.
-4. **Open** the updated MDX in the editor so the developer can review.
-5. **Respond** with a succinct summary, e.g.:
-
-   > Docs for **CardTilt** updated (Overview, prop table, added 2 new demos).  
-   > Let me know if you’d like further tweaks!
-
-*(Never include the entire doc content in chat—that’s what the editor tab is for.)*
+## Important Reminders for Gemini
+- This is a **custom shadcn registry** (forked).
+- Always verify file paths before editing.
+- When fixing bugs or refactoring, check `registry/delta-ui` paths first.
+- Refer to `apps/www/scripts/` for any automation tasks.
 
 ---
 > Source: [pprunty/deltacomponents.dev](https://github.com/pprunty/deltacomponents.dev) — distributed by [TomeVault](https://tomevault.io).
