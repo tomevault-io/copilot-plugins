@@ -1,0 +1,9 @@
+{
+  "name": "palafin02back--rinnai-mqtt-ha",
+  "displayName": "rinnai_mqtt_ha",
+  "description": "\u6797\u5185\u667a\u5bb6\u9505\u7089\u63a7\u5236",
+  "version": "1.0.0",
+  "author": "palafin02back",
+  "homepage": "https://github.com/palafin02back/rinnai_mqtt_ha",
+  "skills": []
+}
