@@ -1,577 +1,85 @@
-## convex-better-auth-ui
+## code
 
-> This rule provides comprehensive best practices and coding standards for Svelte development with a focus on using the newer Svelte 5 over the older, but more common Svelte 4.
+> 1. Preserve and improve the existing architecture, DX, and UX.
 
 
-# Svelte 5
+# Code Rules
 
-This project uses the newer Svelte 5 instead of the more common Svelte 4.
+## Priorities
 
-Version 5 comes with an overhauled syntax and reactivity system. While it may look different at first, you'll soon notice many similarities. This guide goes over the changes in detail and shows you how to upgrade. Along with it, we also provide information on _why_ we did these changes.
+1. Preserve and improve the existing architecture, DX, and UX.
+2. Stay consistent with the existing codebase and conventions.
+3. Keep changes minimal, focused, and easy to review.
 
-## Reactivity syntax changes
+## Implementation
 
-At the heart of Svelte 5 is the new runes API. Runes are basically compiler instructions that inform Svelte about reactivity. Syntactically, runes are functions starting with a dollar-sign.
+- Write clean, maintainable, and well-documented code.
+- Use TypeScript for all new code.
+- Never use `any`.
+- Prefer existing patterns, utilities, and types over introducing new ones.
+- Do not refactor unrelated code unless it is necessary for the task.
 
-### let → $state
+## Documentation
 
-In Svelte 4, a `let` declaration at the top level of a component was implicitly reactive. In Svelte 5, things are more explicit: a variable is reactive when created using the `$state` rune. Let's migrate the counter to runes mode by wrapping the counter in `$state`.
+If you add a feature or change the API, update:
 
-Old, Svelte 4 syntax:
+- `README.md`
+- `CHANGELOG.md`
 
-```svelte
-<script>
-	let count = 0;
-</script>
+## Multi-Framework Parity
+
+This repo ships two jsrepo registries: `@auth/svelte` and `@auth/react`.
+Every feature, fix, or component change must be applied to **both** `svelte/` and `react/`.
+
+- **New UI component?** Create in both `svelte/src/lib/` and `react/src/lib/`.
+- **Convex change?** Only touch `shared/convex/` — both frameworks pick it up via symlinks.
+- **New primitive?** Add an Ark UI Svelte wrapper (`@ark-ui/svelte`) AND an Ark UI React wrapper (`@ark-ui/react`).
+- **Navigation/routing change?** Update via `RouterAdapter` in React; SvelteKit-specific in Svelte.
+- **New jsrepo item?** Add to BOTH `svelte/jsrepo.config.ts` and `react/jsrepo.config.ts`.
+
+### Shared code location
+
+- `shared/convex/` — Single source of truth for all Convex backend code (framework-agnostic).
+- `shared/themes/` — CSS themes shared across all frameworks.
+- `svelte/src/convex` and `react/src/convex` are **symlinks** to `../../shared/convex`.
+- Each framework generates its own `_generated/` directory inside the symlinked location.
+
+## jsrepo Registry
+
+After every change, check if jsrepo configs need updating:
+
+- **Svelte registry:** `svelte/jsrepo.config.ts`
+- **React registry:** `react/jsrepo.config.ts`
+- **New file in a convex item?** Add it with `dependencyResolution: 'manual'` + explicit `dependencies` for any npm packages it imports. Add to BOTH configs.
+- **New npm import in a manual file?** Add the package to that file's `dependencies` array.
+- **New file in a lib/routes item?** Ensure it's covered by an existing directory entry or add it explicitly.
+
+Verify with `jsrepo build` from both directories (must exit 0).
+
+Update `CHANGELOG.md` with affected jsrepo items so users know what to update, e.g.:
+
+```md
+- `users/lib`: Fixed avatar upload validation
+  → `jsrepo update 'users/lib'`
 ```
 
-New, Svelte 5 syntax:
+## Testing and Validation
 
-```svelte
-<script>
-	let count = $state(0);
-</script>
+Ensure all new code is covered by tests.
+
+Before finishing, run:
+
+```bash
+# Svelte
+cd svelte && pnpm test && pnpm check 2>&1 && pnpm format && pnpm lint && jsrepo build
+# React
+cd ../react && pnpm test && pnpm tsc --noEmit && pnpm format && pnpm lint && jsrepo build
+# Convex (from either framework dir)
+cd ../svelte && timeout 30 npx convex dev --once 2>&1 || true
 ```
 
-Nothing else changes. `count` is still the number itself, and you read and write directly to it, without a wrapper like `.value` or `getCount()`.
-
-### $: → $derived/$effect
-
-In Svelte 4, a `$:` statement at the top level of a component could be used to declare a derivation, i.e. state that is entirely defined through a computation of other state. In Svelte 5, this is achieved using the `$derived` rune.
-
-Old, Svelte 4 syntax:
-
-```svelte
-<script>
-	let count = 0;
-	$: double = count * 2;
-</script>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let count = $state(0);
-	const double = $derived(count * 2);
-</script>
-```
-
-As with `$state`, nothing else changes. `double` is still the number itself, and you read it directly, without a wrapper like `.value` or `getDouble()`.
-
-Sometimes you need to create complex derivations that don't fit inside a short expression. In these cases, you can use `$derived.by` which accepts a function as its argument.
-
-```svelte
-<script>
-	let numbers = $state([1, 2, 3]);
-	let total = $derived.by(() => {
-		let total = 0;
-		for (const n of numbers) {
-			total += n;
-		}
-		return total;
-	});
-</script>
-
-<button onclick={() => numbers.push(numbers.length + 1)}>
-	{numbers.join(' + ')} = {total}
-</button>
-```
-
-In Svelte 4, a `$:` statement could be used to create side effects. In Svelte 5, this is achieved using the `$effect` rune.
-
-Old, Svelte 4 syntax:
-
-```svelte
-<script>
-	let count = $state(0);
-
-	$: {
-		if (count > 5) {
-			alert('Count is too high!');
-		}
-	}
-</script>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let count = 0;
-
-	$effect(() => {
-		if (count > 5) {
-			alert('Count is too high!');
-		}
-	});
-</script>
-```
-
-### export let → $props
-
-In Svelte 4, properties of a component were declared using `export let`. Each property was one declaration. In Svelte 5, all properties are declared through the `$props` rune, through destructuring.
-
-Old, Svelte 4 syntax:
-
-```svelte
-<script>
-	export let optional = 'unset';
-	export let required;
-</script>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let { optional = 'unset', required } = $props();
-</script>
-```
-
-There are multiple cases where declaring properties becomes less straightforward than having a few `export let` declarations:
-
-- you want to rename the property, for example because the name is a reserved identifier (e.g. `class`)
-- you don't know which other properties to expect in advance
-- you want to forward every property to another component
-
-All these cases need special syntax in Svelte 4:
-
-- renaming: `export { klass as class}`
-- other properties: `$$restProps`
-- all properties `$$props`
-
-In Svelte 5, the `$props` rune makes this straightforward without any additional Svelte-specific syntax:
-
-- renaming: use property renaming `let { class: klass } = $props();`
-- other properties: use spreading `let { foo, bar, ...rest } = $props();`
-- all properties: don't destructure `let props = $props();`
-
-Old, Svelte 4 syntax:
-
-```svelte
-<script>
-	let klass = '';
-	export { klass as class };
-</script>
-
-<button class={klass} {...$$restProps}>click me</button>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let { class: klass, ...rest } = $props();
-</script>
-
-<button class={klass} {...rest}>click me</button>
-```
-
-## Event changes
-
-Event handlers have been given a facelift in Svelte 5. Whereas in Svelte 4 we use the `on:` directive to attach an event listener to an element, in Svelte 5 they are properties like any other (in other words - remove the colon).
-
-Old, Svelte 4 syntax:
-
-```svelte
-<script>
-	let count = 0;
-</script>
-
-<button on:click={() => count++}>
-	clicks: {count}
-</button>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let count = $state(0);
-</script>
-
-<button onclick={() => count++}>
-	clicks: {count}
-</button>
-```
-
-Since they're just properties, you can use the normal shorthand syntax...
-
-```svelte
-<script>
-	let count = $state(0);
-
-	function onclick() {
-		count++;
-	}
-</script>
-
-<button {onclick}>
-	clicks: {count}
-</button>
-```
-
-...though when using a named event handler function it's usually better to use a more descriptive name.
-
-### Component events
-
-In Svelte 4, components could emit events by creating a dispatcher with `createEventDispatcher`.
-
-This function is deprecated in Svelte 5. Instead, components should accept _callback props_ - which means you then pass functions as properties to these components.
-
-Old, Svelte 4 syntax:
-
-```svelte
-<!--- file: App.svelte --->
-<script>
-	import Pump from './Pump.svelte';
-
-	let size = 15;
-	let burst = false;
-
-	function reset() {
-		size = 15;
-		burst = false;
-	}
-</script>
-
-<Pump
-	on:inflate={(power) => {
-		size += power.detail;
-		if (size > 75) burst = true;
-	}}
-	on:deflate={(power) => {
-		if (size > 0) size -= power.detail;
-	}}
-/>
-
-{#if burst}
-	<button onclick={reset}>new balloon</button>
-	<span class="boom">💥</span>
-{:else}
-	<span class="balloon" style="scale: {0.01 * size}"> 🎈 </span>
-{/if}
-```
-
-```svelte
-<!--- file: Pump.svelte --->
-<script>
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
-
-	let power = 0;
-</script>
-
-<button onclick={() => dispatch('inflate', power)}> inflate </button>
-<button onclick={() => dispatch('deflate', power)}> deflate </button>
-<button onclick={() => power--}>-</button>
-Pump power: {power}
-<button onclick={() => power++}>+</button>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<!--- file: App.svelte --->
-<script>
-	import Pump from './Pump.svelte';
-
-	let size = $state(15);
-	let burst = $state(false);
-
-	function reset() {
-		size = 15;
-		burst = false;
-	}
-</script>
-
-<Pump
-	inflate={(power) => {
-		size += power;
-		if (size > 75) burst = true;
-	}}
-	deflate={(power) => {
-		if (size > 0) size -= power;
-	}}
-/>
-
-{#if burst}
-	<button onclick={reset}>new balloon</button>
-	<span class="boom">💥</span>
-{:else}
-	<span class="balloon" style="scale: {0.01 * size}"> 🎈 </span>
-{/if}
-```
-
-```svelte
-<!--- file: Pump.svelte --->
-<script>
-	let { inflate, deflate } = $props();
-	let power = $state(5);
-</script>
-
-<button onclick={() => inflate(power)}> inflate </button>
-<button onclick={() => deflate(power)}> deflate </button>
-<button onclick={() => power--}>-</button>
-Pump power: {power}
-<button onclick={() => power++}>+</button>
-```
-
-### Bubbling events
-
-Instead of doing `<button on:click>` to 'forward' the event from the element to the component, the component should accept an `onclick` callback prop.
-
-Old, Svelte 4 syntax:
-
-```svelte
-<button on:click> click me </button>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let { onclick } = $props();
-</script>
-
-<button {onclick}> click me </button>
-```
-
-Note that this also means you can 'spread' event handlers onto the element along with other props instead of tediously forwarding each event separately.
-
-Old, Svelte 4 syntax:
-
-```svelte
-<button {...$$props} on:click on:keydown on:all_the_other_stuff> click me </button>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let props = $props();
-</script>
-
-<button {...props}> click me </button>
-```
-
-### Event modifiers
-
-In Svelte 4, you could add event modifiers to handlers:
-
-```svelte
-<button on:click|once|preventDefault={handler}>...</button>
-```
-
-Modifiers are specific to `on:` and as such do not work with modern event handlers. Adding things like `event.preventDefault()` inside the handler itself is preferable, since all the logic lives in one place rather than being split between handler and modifiers.
-
-Since event handlers are just functions, you can create your own wrappers as necessary:
-
-```svelte
-<script>
-	function once(fn) {
-		return function (event) {
-			if (fn) fn.call(this, event);
-			fn = null;
-		};
-	}
-
-	function preventDefault(fn) {
-		return function (event) {
-			event.preventDefault();
-			fn.call(this, event);
-		};
-	}
-</script>
-
-<button onclick={once(preventDefault(handler))}>...</button>
-```
-
-There are three modifiers — `capture`, `passive` and `nonpassive` — that can't be expressed as wrapper functions, since they need to be applied when the event handler is bound rather than when it runs.
-
-For `capture`, we add the modifier to the event name:
-
-```svelte
-<button onclickcapture={...}>...</button>
-```
-
-Changing the `passive` option of an event handler, meanwhile, is not something to be done lightly. If you have a use case for it — and you probably don't! — then you will need to use an action to apply the event handler yourself.
-
-### Multiple event handlers
-
-In Svelte 4, this was possible:
-
-```svelte
-<button on:click={one} on:click={two}>...</button>
-```
-
-Duplicate attributes/properties on elements — which now includes event handlers — are not allowed. Instead, do this:
-
-```svelte
-<button
-	onclick={(e) => {
-		one(e);
-		two(e);
-	}}
->
-	...
-</button>
-```
-
-When spreading props, local event handlers must go _after_ the spread, or they risk being overwritten:
-
-```svelte
-<button
-	{...props}
-	onclick={(e) => {
-		doStuff(e);
-		props.onclick?.(e);
-	}}
->
-	...
-</button>
-```
-
-## Snippets instead of slots
-
-In Svelte 4, content could be passed to components using slots. Svelte 5 replaces them with snippets which are more powerful and flexible, and as such slots are deprecated in Svelte 5.
-
-### Default content
-
-In Svelte 4, the easiest way to pass a piece of UI to the child was using a `<slot />`. In Svelte 5, this is done using the `children` prop instead, which is then shown with `{@render children()}`:
-
-Old, Svelte 4 syntax:
-
-```svelte
-<slot />
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let { children } = $props();
-</script>
-
-{@render children?.()}
-```
-
-### Multiple content placeholders
-
-If you wanted multiple UI placeholders, you had to use named slots. In Svelte 5, use props instead, name them however you like and `{@render ...}` them:
-
-Old, Svelte 4 syntax:
-
-```svelte
-<header>
-	<slot name="header" />
-</header>
-
-<main>
-	<slot name="main" />
-</main>
-
-<footer>
-	<slot name="footer" />
-</footer>
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<script>
-	let { header, main, footer } = $props();
-</script>
-
-<header>
-	{@render header()}
-</header>
-
-<main>
-	{@render main()}
-</main>
-
-<footer>
-	{@render footer()}
-</footer>
-```
-
-### Passing data back up
-
-In Svelte 4, you would pass data to a `<slot />` and then retrieve it with `let:` in the parent component. In Svelte 5, snippets take on that responsibility.
-
-Old, Svelte 4 syntax:
-
-```svelte
-<!--- file: App.svelte --->
-<script>
-	import List from './List.svelte';
-</script>
-
-<List items={['one', 'two', 'three']} let:item>
-	<span>{text}</span>
-	<span slot="empty">No items yet</span>
-</List>
-```
-
-```svelte
-<!--- file: List.svelte --->
-<script>
-	export let items;
-</script>
-
-{#if items.length}
-	<ul>
-		{#each items as entry}
-			<li>
-				<slot item={entry} />
-			</li>
-		{/each}
-	</ul>
-{:else}
-	<slot name="empty" />
-{/if}
-```
-
-New, Svelte 5 syntax:
-
-```svelte
-<!--- file: App.svelte --->
-<script>
-	import List from './List.svelte';
-</script>
-
-<List items={['one', 'two', 'three']}>
-	{#snippet item(text)}
-		<span>{text}</span>
-	{/snippet}
-
-	{#snippet empty()}
-		<span>No items yet</span>
-	{/snippet}
-</List>
-```
-
-```svelte
-<!--- file: List.svelte --->
-<script>
-	let { items, item, empty } = $props();
-</script>
-
-{#if items.length}
-	<ul>
-		{#each items as entry}
-			<li>
-				{@render item(entry)}
-			</li>
-		{/each}
-	</ul>
-{:else}
-	{@render empty?.()}
-{/if}
-```
+Fix all errors and warnings related to your changes.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/mmailaender) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [mmailaender/Convex-Better-Auth-UI](https://github.com/mmailaender/Convex-Better-Auth-UI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
