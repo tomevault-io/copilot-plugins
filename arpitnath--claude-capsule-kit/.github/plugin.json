@@ -5,30 +5,5 @@
   "version": "1.0.0",
   "author": "arpitnath",
   "homepage": "https://github.com/arpitnath/claude-capsule-kit",
-  "skills": [
-    {
-      "name": "code-review",
-      "description": ""
-    },
-    {
-      "name": "crew",
-      "description": ""
-    },
-    {
-      "name": "debug",
-      "description": ""
-    },
-    {
-      "name": "deep-context",
-      "description": ""
-    },
-    {
-      "name": "task-router",
-      "description": ""
-    },
-    {
-      "name": "workflow",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
