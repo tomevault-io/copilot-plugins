@@ -1,0 +1,9 @@
+{
+  "name": "marc-shade--ai-persona-lab",
+  "displayName": "ai-persona-lab",
+  "description": "A powerful AI-driven application for creating and managing dynamic personas, enabling interactive group chats with AI personalities powered by Ollama.",
+  "version": "1.0.0",
+  "author": "marc-shade",
+  "homepage": "https://github.com/marc-shade/ai-persona-lab",
+  "skills": []
+}
