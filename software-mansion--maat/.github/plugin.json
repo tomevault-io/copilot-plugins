@@ -1,0 +1,9 @@
+{
+  "name": "software-mansion--maat",
+  "displayName": "maat",
+  "description": "A tool to run experimental software builds across Cairo language ecosystem.",
+  "version": "1.0.0",
+  "author": "software-mansion",
+  "homepage": "https://github.com/software-mansion/maat",
+  "skills": []
+}
