@@ -7,11 +7,11 @@ Personalized, self-evolving menu bar icon.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kunchenguid/baby-menu](https://github.com/kunchenguid/baby-menu).
+Original source: `CLAUDE.md` in [kunchenguid/baby-menu](https://github.com/kunchenguid/baby-menu).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
