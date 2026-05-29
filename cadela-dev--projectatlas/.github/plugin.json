@@ -1,0 +1,9 @@
+{
+  "name": "cadela-dev--projectatlas",
+  "displayName": "ProjectAtlas",
+  "description": "Claude Code workflow for mapping projects into clean-room behavior docs, file maps, batch reports, verification, and rebuild-ready blueprints.",
+  "version": "1.0.0",
+  "author": "cadela-dev",
+  "homepage": "https://github.com/cadela-dev/ProjectAtlas",
+  "skills": []
+}
