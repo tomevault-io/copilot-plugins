@@ -1,0 +1,51 @@
+{
+  "name": "trackwatch",
+  "owner": "emlopezr",
+  "repo": "trackwatch",
+  "description": "Open Source & Self-hosted Spotify release tracker. Auto-syncs new releases to playlists and includes power-user utilities like a discography generator and ghost track cleaner.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "django-expert",
+      "path": ".agents/skills/django-expert",
+      "github_url": "https://github.com/emlopezr/trackwatch/tree/main/.agents/skills/django-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/emlopezr/trackwatch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T00:31:47Z"
+}
