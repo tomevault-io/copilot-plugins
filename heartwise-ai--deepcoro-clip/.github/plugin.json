@@ -1,9 +1,9 @@
 {
   "name": "heartwise-ai--deepcoro-clip",
   "displayName": "DeepCORO_CLIP",
-  "description": "DeepCORO_CLIP",
+  "description": "Text & video embeddings for report generation ",
   "version": "1.0.0",
   "author": "HeartWise-AI",
-  "homepage": "https://tomevault.io/claim/HeartWise-AI",
+  "homepage": "https://github.com/HeartWise-AI/DeepCORO_CLIP",
   "skills": []
 }
