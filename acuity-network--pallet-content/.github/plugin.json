@@ -1,0 +1,9 @@
+{
+  "name": "acuity-network--pallet-content",
+  "displayName": "pallet-content",
+  "description": "Substrate pallet for publishing content.",
+  "version": "1.0.0",
+  "author": "acuity-network",
+  "homepage": "https://github.com/acuity-network/pallet-content",
+  "skills": []
+}
