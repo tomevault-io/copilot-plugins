@@ -1,0 +1,9 @@
+{
+  "name": "battermanz--flaresync",
+  "displayName": "FlareSync",
+  "description": "A simple Rust app to update automatically your DNS records on Cloudflare",
+  "version": "1.0.0",
+  "author": "BattermanZ",
+  "homepage": "https://github.com/BattermanZ/FlareSync",
+  "skills": []
+}
