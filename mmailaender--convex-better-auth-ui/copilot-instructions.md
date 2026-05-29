@@ -1,677 +1,240 @@
-## convex-rules
+## sveltekit-2
 
-> Guidelines and best practices for building Convex projects, including database schema design, queries, mutations, and real-world examples
+> This rule provides comprehensive best practices and coding standards for SvelteKit development with a focus on using the newer SvelteKit 2 over the older, but more common SvelteKit 1.
 
 
-# Convex guidelines
-## Function guidelines
-### New function syntax
-- ALWAYS use the new function syntax for Convex functions. For example:
-```typescript
-import { query } from "./_generated/server";
-import { v } from "convex/values";
-export const f = query({
-    args: {},
-    returns: v.null(),
-    handler: async (ctx, args) => {
-    // Function body
-    },
-});
+# SvelteKit 2
+
+This project uses the newer SvelteKit 2 instead of the older, but more common SvelteKit 1.
+
+Using SvelteKit version 2 instead of version 1 is mostly seamless. There are a few breaking changes to note, which are listed here.
+
+## `redirect` and `error` are no longer thrown by you
+
+Previously, you had to `throw` the values returned from `error(...)` and `redirect(...)` yourself. In SvelteKit 2 this is no longer the case — calling the functions is sufficient.
+
+Old, SvelteKit 1 syntax:
+
+```js
+import { error } from '@sveltejs/kit'
+
+// ...
+throw error(500, 'something went wrong');
 ```
 
-### Http endpoint syntax
-- HTTP endpoints are defined in `convex/http.ts` and require an `httpAction` decorator. For example:
-```typescript
-import { httpRouter } from "convex/server";
-import { httpAction } from "./_generated/server";
-const http = httpRouter();
-http.route({
-    path: "/echo",
-    method: "POST",
-    handler: httpAction(async (ctx, req) => {
-    const body = await req.bytes();
-    return new Response(body, { status: 200 });
-    }),
-});
-```
-- HTTP endpoints are always registered at the exact path you specify in the `path` field. For example, if you specify `/api/someRoute`, the endpoint will be registered at `/api/someRoute`.
+New, SvelteKit 2 syntax:
 
-### Validators
-- Below is an example of an array validator:
-```typescript
-import { mutation } from "./_generated/server";
-import { v } from "convex/values";
+```js
+import { error } from '@sveltejs/kit'
 
-export default mutation({
-args: {
-    simpleArray: v.array(v.union(v.string(), v.number())),
-},
-handler: async (ctx, args) => {
-    //...
-},
-});
-```
-- Below is an example of a schema with validators that codify a discriminated union type:
-```typescript
-import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
-
-export default defineSchema({
-    results: defineTable(
-        v.union(
-            v.object({
-                kind: v.literal("error"),
-                errorMessage: v.string(),
-            }),
-            v.object({
-                kind: v.literal("success"),
-                value: v.number(),
-            }),
-        ),
-    )
-});
-```
-- Always use the `v.null()` validator when returning a null value. Below is an example query that returns a null value:
-```typescript
-import { query } from "./_generated/server";
-import { v } from "convex/values";
-
-export const exampleQuery = query({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-      console.log("This query returns a null value");
-      return null;
-  },
-});
-```
-- Here are the valid Convex types along with their respective validators:
-Convex Type  | TS/JS type  |  Example Usage         | Validator for argument validation and schemas  | Notes                                                                                                                                                                                                 |
-| ----------- | ------------| -----------------------| -----------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Id          | string      | `doc._id`              | `v.id(tableName)`                              |                                                                                                                                                                                                       |
-| Null        | null        | `null`                 | `v.null()`                                     | JavaScript's `undefined` is not a valid Convex value. Functions the return `undefined` or do not return will return `null` when called from a client. Use `null` instead.                             |
-| Int64       | bigint      | `3n`                   | `v.int64()`                                    | Int64s only support BigInts between -2^63 and 2^63-1. Convex supports `bigint`s in most modern browsers.                                                                                              |
-| Float64     | number      | `3.1`                  | `v.number()`                                   | Convex supports all IEEE-754 double-precision floating point numbers (such as NaNs). Inf and NaN are JSON serialized as strings.                                                                      |
-| Boolean     | boolean     | `true`                 | `v.boolean()`                                  |
-| String      | string      | `"abc"`                | `v.string()`                                   | Strings are stored as UTF-8 and must be valid Unicode sequences. Strings must be smaller than the 1MB total size limit when encoded as UTF-8.                                                         |
-| Bytes       | ArrayBuffer | `new ArrayBuffer(8)`   | `v.bytes()`                                    | Convex supports first class bytestrings, passed in as `ArrayBuffer`s. Bytestrings must be smaller than the 1MB total size limit for Convex types.                                                     |
-| Array       | Array]      | `[1, 3.2, "abc"]`      | `v.array(values)`                              | Arrays can have at most 8192 values.                                                                                                                                                                  |
-| Object      | Object      | `{a: "abc"}`           | `v.object({property: value})`                  | Convex only supports "plain old JavaScript objects" (objects that do not have a custom prototype). Objects can have at most 1024 entries. Field names must be nonempty and not start with "$" or "_". |
-| Record      | Record      | `{"a": "1", "b": "2"}` | `v.record(keys, values)`                       | Records are objects at runtime, but can have dynamic keys. Keys must be only ASCII characters, nonempty, and not start with "$" or "_".                                                               |
-
-### Function registration
-- Use `internalQuery`, `internalMutation`, and `internalAction` to register internal functions. These functions are private and aren't part of an app's API. They can only be called by other Convex functions. These functions are always imported from `./_generated/server`.
-- Use `query`, `mutation`, and `action` to register public functions. These functions are part of the public API and are exposed to the public Internet. Do NOT use `query`, `mutation`, or `action` to register sensitive internal functions that should be kept private.
-- You CANNOT register a function through the `api` or `internal` objects.
-- ALWAYS include argument and return validators for all Convex functions. This includes all of `query`, `internalQuery`, `mutation`, `internalMutation`, `action`, and `internalAction`. If a function doesn't return anything, include `returns: v.null()` as its output validator.
-- If the JavaScript implementation of a Convex function doesn't have a return value, it implicitly returns `null`.
-
-### Function calling
-- Use `ctx.runQuery` to call a query from a query, mutation, or action.
-- Use `ctx.runMutation` to call a mutation from a mutation or action.
-- Use `ctx.runAction` to call an action from an action.
-- ONLY call an action from another action if you need to cross runtimes (e.g. from V8 to Node). Otherwise, pull out the shared code into a helper async function and call that directly instead.
-- Try to use as few calls from actions to queries and mutations as possible. Queries and mutations are transactions, so splitting logic up into multiple calls introduces the risk of race conditions.
-- All of these calls take in a `FunctionReference`. Do NOT try to pass the callee function directly into one of these calls.
-- When using `ctx.runQuery`, `ctx.runMutation`, or `ctx.runAction` to call a function in the same file, specify a type annotation on the return value to work around TypeScript circularity limitations. For example,
-```
-export const f = query({
-  args: { name: v.string() },
-  returns: v.string(),
-  handler: async (ctx, args) => {
-    return "Hello " + args.name;
-  },
-});
-
-export const g = query({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    const result: string = await ctx.runQuery(api.example.f, { name: "Bob" });
-    return null;
-  },
-});
+// ...
+error(500, 'something went wrong');
 ```
 
-### Function references
-- Function references are pointers to registered Convex functions.
-- Use the `api` object defined by the framework in `convex/_generated/api.ts` to call public functions registered with `query`, `mutation`, or `action`.
-- Use the `internal` object defined by the framework in `convex/_generated/api.ts` to call internal (or private) functions registered with `internalQuery`, `internalMutation`, or `internalAction`.
-- Convex uses file-based routing, so a public function defined in `convex/example.ts` named `f` has a function reference of `api.example.f`.
-- A private function defined in `convex/example.ts` named `g` has a function reference of `internal.example.g`.
-- Functions can also registered within directories nested within the `convex/` folder. For example, a public function `h` defined in `convex/messages/access.ts` has a function reference of `api.messages.access.h`.
+Do not use `error` or `redirect` inside a `try {...}` block.
 
-### Api design
-- Convex uses file-based routing, so thoughtfully organize files with public query, mutation, or action functions within the `convex/` directory.
-- Use `query`, `mutation`, and `action` to define public functions.
-- Use `internalQuery`, `internalMutation`, and `internalAction` to define private, internal functions.
+## path is required when setting cookies
 
-### Pagination
-- Paginated queries are queries that return a list of results in incremental pages.
-- You can define pagination using the following syntax:
+When receiving a `Set-Cookie` header that doesn't specify a `path`, browsers will set the cookie path to the parent of the resource in question. This behaviour isn't particularly helpful or intuitive, and frequently results in bugs because the developer expected the cookie to apply to the domain as a whole.
 
-```ts
-import { v } from "convex/values";
-import { query, mutation } from "./_generated/server";
-import { paginationOptsValidator } from "convex/server";
-export const listWithExtraArg = query({
-    args: { paginationOpts: paginationOptsValidator, author: v.string() },
-    handler: async (ctx, args) => {
-        return await ctx.db
-        .query("messages")
-        .filter((q) => q.eq(q.field("author"), args.author))
-        .order("desc")
-        .paginate(args.paginationOpts);
-    },
-});
-```
-Note: `paginationOpts` is an object with the following properties:
-- `numItems`: the maximum number of documents to return (the validator is `v.number()`)
-- `cursor`: the cursor to use to fetch the next page of documents (the validator is `v.union(v.string(), v.null())`)
-- A query that ends in `.paginate()` returns an object that has the following properties:
-                            - page (contains an array of documents that you fetches)
-                            - isDone (a boolean that represents whether or not this is the last page of documents)
-                            - continueCursor (a string that represents the cursor to use to fetch the next page of documents)
+As of SvelteKit 2.0, you need to set a `path` when calling `cookies.set(...)`, `cookies.delete(...)` or `cookies.serialize(...)` so that there's no ambiguity. Most of the time, you probably want to use `path: '/'`, but you can set it to whatever you like, including relative paths — `''` means 'the current path', `'.'` means 'the current directory'.
 
+Old, SvelteKit 1 syntax:
 
-## Validator guidelines
-- `v.bigint()` is deprecated for representing signed 64-bit integers. Use `v.int64()` instead.
-- Use `v.record()` for defining a record type. `v.map()` and `v.set()` are not supported.
-
-## Schema guidelines
-- Always define your schema in `convex/schema.ts`.
-- Always import the schema definition functions from `convex/server`:
-- System fields are automatically added to all documents and are prefixed with an underscore. The two system fields that are automatically added to all documents are `_creationTime` which has the validator `v.number()` and `_id` which has the validator `v.id(tableName)`.
-- Always include all index fields in the index name. For example, if an index is defined as `["field1", "field2"]`, the index name should be "by_field1_and_field2".
-- Index fields must be queried in the same order they are defined. If you want to be able to query by "field1" then "field2" and by "field2" then "field1", you must create separate indexes.
-
-## Typescript guidelines
-- You can use the helper typescript type `Id` imported from './_generated/dataModel' to get the type of the id for a given table. For example if there is a table called 'users' you can use `Id<'users'>` to get the type of the id for that table.
-- If you need to define a `Record` make sure that you correctly provide the type of the key and value in the type. For example a validator `v.record(v.id('users'), v.string())` would have the type `Record<Id<'users'>, string>`. Below is an example of using `Record` with an `Id` type in a query:
-```ts
-import { query } from "./_generated/server";
-import { Doc, Id } from "./_generated/dataModel";
-
-export const exampleQuery = query({
-    args: { userIds: v.array(v.id("users")) },
-    returns: v.record(v.id("users"), v.string()),
-    handler: async (ctx, args) => {
-        const idToUsername: Record<Id<"users">, string> = {};
-        for (const userId of args.userIds) {
-            const user = await ctx.db.get(userId);
-            if (user) {
-                users[user._id] = user.username;
-            }
-        }
-
-        return idToUsername;
-    },
-});
-```
-- Be strict with types, particularly around id's of documents. For example, if a function takes in an id for a document in the 'users' table, take in `Id<'users'>` rather than `string`.
-- Always use `as const` for string literals in discriminated union types.
-- When using the `Array` type, make sure to always define your arrays as `const array: Array<T> = [...];`
-- When using the `Record` type, make sure to always define your records as `const record: Record<KeyType, ValueType> = {...};`
-- Always add `@types/node` to your `package.json` when using any Node.js built-in modules.
-
-## Full text search guidelines
-- A query for "10 messages in channel '#general' that best match the query 'hello hi' in their body" would look like:
-
-const messages = await ctx.db
-  .query("messages")
-  .withSearchIndex("search_body", (q) =>
-    q.search("body", "hello hi").eq("channel", "#general"),
-  )
-  .take(10);
-
-## Query guidelines
-- Do NOT use `filter` in queries. Instead, define an index in the schema and use `withIndex` instead.
-- Convex queries do NOT support `.delete()`. Instead, `.collect()` the results, iterate over them, and call `ctx.db.delete(row._id)` on each result.
-- Use `.unique()` to get a single document from a query. This method will throw an error if there are multiple documents that match the query.
-- When using async iteration, don't use `.collect()` or `.take(n)` on the result of a query. Instead, use the `for await (const row of query)` syntax.
-### Ordering
-- By default Convex always returns documents in ascending `_creationTime` order.
-- You can use `.order('asc')` or `.order('desc')` to pick whether a query is in ascending or descending order. If the order isn't specified, it defaults to ascending.
-- Document queries that use indexes will be ordered based on the columns in the index and can avoid slow table scans.
-
-
-## Mutation guidelines
-- Use `ctx.db.replace` to fully replace an existing document. This method will throw an error if the document does not exist.
-- Use `ctx.db.patch` to shallow merge updates into an existing document. This method will throw an error if the document does not exist.
-
-## Action guidelines
-- Always add `"use node";` to the top of files containing actions that use Node.js built-in modules.
-- Never use `ctx.db` inside of an action. Actions don't have access to the database.
-- Below is an example of the syntax for an action:
-```ts
-import { action } from "./_generated/server";
-
-export const exampleAction = action({
-    args: {},
-    returns: v.null(),
-    handler: async (ctx, args) => {
-        console.log("This action does not return anything");
-        return null;
-    },
-});
-```
-
-## Scheduling guidelines
-### Cron guidelines
-- Only use the `crons.interval` or `crons.cron` methods to schedule cron jobs. Do NOT use the `crons.hourly`, `crons.daily`, or `crons.weekly` helpers.
-- Both cron methods take in a FunctionReference. Do NOT try to pass the function directly into one of these methods.
-- Define crons by declaring the top-level `crons` object, calling some methods on it, and then exporting it as default. For example,
-```ts
-import { cronJobs } from "convex/server";
-import { internal } from "./_generated/api";
-import { internalAction } from "./_generated/server";
-
-const empty = internalAction({
-  args: {},
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    console.log("empty");
-  },
-});
-
-const crons = cronJobs();
-
-// Run `internal.crons.empty` every two hours.
-crons.interval("delete inactive users", { hours: 2 }, internal.crons.empty, {});
-
-export default crons;
-```
-- You can register Convex functions within `crons.ts` just like any other file.
-- If a cron calls an internal function, always import the `internal` object from '_generated/api', even if the internal function is registered in the same file.
-
-
-## File storage guidelines
-- Convex includes file storage for large files like images, videos, and PDFs.
-- The `ctx.storage.getUrl()` method returns a signed URL for a given file. It returns `null` if the file doesn't exist.
-- Do NOT use the deprecated `ctx.storage.getMetadata` call for loading a file's metadata.
-
-                    Instead, query the `_storage` system table. For example, you can use `ctx.db.system.get` to get an `Id<"_storage">`.
-```
-import { query } from "./_generated/server";
-import { Id } from "./_generated/dataModel";
-
-type FileMetadata = {
-    _id: Id<"_storage">;
-    _creationTime: number;
-    contentType?: string;
-    sha256: string;
-    size: number;
-}
-
-export const exampleQuery = query({
-    args: { fileId: v.id("_storage") },
-    returns: v.null();
-    handler: async (ctx, args) => {
-        const metadata: FileMetadata | null = await ctx.db.system.get(args.fileId);
-        console.log(metadata);
-        return null;
-    },
-});
-```
-- Convex storage stores items as `Blob` objects. You must convert all items to/from a `Blob` when using Convex storage.
-
-
-# Examples:
-## Example: chat-app
-
-### Task
-```
-Create a real-time chat application backend with AI responses. The app should:
-- Allow creating users with names
-- Support multiple chat channels
-- Enable users to send messages to channels
-- Automatically generate AI responses to user messages
-- Show recent message history
-
-The backend should provide APIs for:
-1. User management (creation)
-2. Channel management (creation)
-3. Message operations (sending, listing)
-4. AI response generation using OpenAI's GPT-4
-
-Messages should be stored with their channel, author, and content. The system should maintain message order
-and limit history display to the 10 most recent messages per channel.
-
-```
-
-### Analysis
-1. Task Requirements Summary:
-- Build a real-time chat backend with AI integration
-- Support user creation
-- Enable channel-based conversations
-- Store and retrieve messages with proper ordering
-- Generate AI responses automatically
-
-2. Main Components Needed:
-- Database tables: users, channels, messages
-- Public APIs for user/channel management
-- Message handling functions
-- Internal AI response generation system
-- Context loading for AI responses
-
-3. Public API and Internal Functions Design:
-Public Mutations:
-- createUser:
-  - file path: convex/index.ts
-  - arguments: {name: v.string()}
-  - returns: v.object({userId: v.id("users")})
-  - purpose: Create a new user with a given name
-- createChannel:
-  - file path: convex/index.ts
-  - arguments: {name: v.string()}
-  - returns: v.object({channelId: v.id("channels")})
-  - purpose: Create a new channel with a given name
-- sendMessage:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels"), authorId: v.id("users"), content: v.string()}
-  - returns: v.null()
-  - purpose: Send a message to a channel and schedule a response from the AI
-
-Public Queries:
-- listMessages:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels")}
-  - returns: v.array(v.object({
-    _id: v.id("messages"),
-    _creationTime: v.number(),
-    channelId: v.id("channels"),
-    authorId: v.optional(v.id("users")),
-    content: v.string(),
-    }))
-  - purpose: List the 10 most recent messages from a channel in descending creation order
-
-Internal Functions:
-- generateResponse:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels")}
-  - returns: v.null()
-  - purpose: Generate a response from the AI for a given channel
-- loadContext:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels")}
-  - returns: v.array(v.object({
-    _id: v.id("messages"),
-    _creationTime: v.number(),
-    channelId: v.id("channels"),
-    authorId: v.optional(v.id("users")),
-    content: v.string(),
-  }))
-- writeAgentResponse:
-  - file path: convex/index.ts
-  - arguments: {channelId: v.id("channels"), content: v.string()}
-  - returns: v.null()
-  - purpose: Write an AI response to a given channel
-
-4. Schema Design:
-- users
-  - validator: { name: v.string() }
-  - indexes: <none>
-- channels
-  - validator: { name: v.string() }
-  - indexes: <none>
-- messages
-  - validator: { channelId: v.id("channels"), authorId: v.optional(v.id("users")), content: v.string() }
-  - indexes
-    - by_channel: ["channelId"]
-
-5. Background Processing:
-- AI response generation runs asynchronously after each user message
-- Uses OpenAI's GPT-4 to generate contextual responses
-- Maintains conversation context using recent message history
-
-
-### Implementation
-
-#### package.json
-```typescript
-{
-  "name": "chat-app",
-  "description": "This example shows how to build a chat app without authentication.",
-  "version": "1.0.0",
-  "dependencies": {
-    "convex": "^1.17.4",
-    "openai": "^4.79.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.7.3"
-  }
+```js
+/** @type {import('./$types').PageServerLoad} */
+export function load({ cookies }) {
+	cookies.set(name, value);
+	return { response }
 }
 ```
 
-#### tsconfig.json
-```typescript
-{
-  "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "exclude": ["convex"],
-  "include": ["**/src/**/*.tsx", "**/src/**/*.ts", "vite.config.ts"]
+New, SvelteKit 2 syntax:
+
+```js
+/** @type {import('./$types').PageServerLoad} */
+export function load({ cookies }) {
+	cookies.set(name, value, { path: '/' });
+	return { response }
 }
 ```
 
-#### convex/index.ts
-```typescript
-import {
-  query,
-  mutation,
-  internalQuery,
-  internalMutation,
-  internalAction,
-} from "./_generated/server";
-import { v } from "convex/values";
-import OpenAI from "openai";
-import { internal } from "./_generated/api";
+## Top-level promises are no longer awaited
 
-/**
- * Create a user with a given name.
- */
-export const createUser = mutation({
-  args: {
-    name: v.string(),
-  },
-  returns: v.id("users"),
-  handler: async (ctx, args) => {
-    return await ctx.db.insert("users", { name: args.name });
-  },
-});
+In SvelteKit version 1, if the top-level properties of the object returned from a `load` function were promises, they were automatically awaited. With the introduction of streaming this behavior became a bit awkward as it forces you to nest your streamed data one level deep.
 
-/**
- * Create a channel with a given name.
- */
-export const createChannel = mutation({
-  args: {
-    name: v.string(),
-  },
-  returns: v.id("channels"),
-  handler: async (ctx, args) => {
-    return await ctx.db.insert("channels", { name: args.name });
-  },
-});
+As of version 2, SvelteKit no longer differentiates between top-level and non-top-level promises. To get back the blocking behavior, use `await` (with `Promise.all` to prevent waterfalls, where appropriate).
 
-/**
- * List the 10 most recent messages from a channel in descending creation order.
- */
-export const listMessages = query({
-  args: {
-    channelId: v.id("channels"),
-  },
-  returns: v.array(
-    v.object({
-      _id: v.id("messages"),
-      _creationTime: v.number(),
-      channelId: v.id("channels"),
-      authorId: v.optional(v.id("users")),
-      content: v.string(),
-    }),
-  ),
-  handler: async (ctx, args) => {
-    const messages = await ctx.db
-      .query("messages")
-      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
-      .order("desc")
-      .take(10);
-    return messages;
-  },
-});
+Old, SvelteKit 1 syntax:
 
-/**
- * Send a message to a channel and schedule a response from the AI.
- */
-export const sendMessage = mutation({
-  args: {
-    channelId: v.id("channels"),
-    authorId: v.id("users"),
-    content: v.string(),
-  },
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    const channel = await ctx.db.get(args.channelId);
-    if (!channel) {
-      throw new Error("Channel not found");
-    }
-    const user = await ctx.db.get(args.authorId);
-    if (!user) {
-      throw new Error("User not found");
-    }
-    await ctx.db.insert("messages", {
-      channelId: args.channelId,
-      authorId: args.authorId,
-      content: args.content,
-    });
-    await ctx.scheduler.runAfter(0, internal.index.generateResponse, {
-      channelId: args.channelId,
-    });
-    return null;
-  },
-});
-
-const openai = new OpenAI();
-
-export const generateResponse = internalAction({
-  args: {
-    channelId: v.id("channels"),
-  },
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    const context = await ctx.runQuery(internal.index.loadContext, {
-      channelId: args.channelId,
-    });
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: context,
-    });
-    const content = response.choices[0].message.content;
-    if (!content) {
-      throw new Error("No content in response");
-    }
-    await ctx.runMutation(internal.index.writeAgentResponse, {
-      channelId: args.channelId,
-      content,
-    });
-    return null;
-  },
-});
-
-export const loadContext = internalQuery({
-  args: {
-    channelId: v.id("channels"),
-  },
-  returns: v.array(
-    v.object({
-      role: v.union(v.literal("user"), v.literal("assistant")),
-      content: v.string(),
-    }),
-  ),
-  handler: async (ctx, args) => {
-    const channel = await ctx.db.get(args.channelId);
-    if (!channel) {
-      throw new Error("Channel not found");
-    }
-    const messages = await ctx.db
-      .query("messages")
-      .withIndex("by_channel", (q) => q.eq("channelId", args.channelId))
-      .order("desc")
-      .take(10);
-
-    const result = [];
-    for (const message of messages) {
-      if (message.authorId) {
-        const user = await ctx.db.get(message.authorId);
-        if (!user) {
-          throw new Error("User not found");
-        }
-        result.push({
-          role: "user" as const,
-          content: `${user.name}: ${message.content}`,
-        });
-      } else {
-        result.push({ role: "assistant" as const, content: message.content });
-      }
-    }
-    return result;
-  },
-});
-
-export const writeAgentResponse = internalMutation({
-  args: {
-    channelId: v.id("channels"),
-    content: v.string(),
-  },
-  returns: v.null(),
-  handler: async (ctx, args) => {
-    await ctx.db.insert("messages", {
-      channelId: args.channelId,
-      content: args.content,
-    });
-    return null;
-  },
-});
-```
-
-#### convex/schema.ts
-```typescript
-import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
-
-export default defineSchema({
-  channels: defineTable({
-    name: v.string(),
-  }),
-
-  users: defineTable({
-    name: v.string(),
-  }),
-
-  messages: defineTable({
-    channelId: v.id("channels"),
-    authorId: v.optional(v.id("users")),
-    content: v.string(),
-  }).index("by_channel", ["channelId"]),
-});
-```
-
-#### src/App.tsx
-```typescript
-export default function App() {
-  return <div>Hello World</div>;
+```js
+// If you have a single promise
+/** @type {import('./$types').PageServerLoad} */
+export function load({ fetch }) {
+	const response = fetch(url).then(r => r.json());
+	return { response }
 }
+```
+
+```js
+// If you have multiple promises
+/** @type {import('./$types').PageServerLoad} */
+export  function load({ fetch }) {
+    const a = fetch(url1).then(r => r.json());
+    const b = fetch(url2).then(r => r.json());
+
+	return { a, b };
+}
+```
+
+New, SvelteKit 2 syntax:
+
+```js
+// If you have a single promise
+/** @type {import('./$types').PageServerLoad} */
+export async function load({ fetch }) {
+	const response = await fetch(url).then(r => r.json());
+	return { response }
+}
+```
+
+```js
+// If you have multiple promises
+/** @type {import('./$types').PageServerLoad} */
+export  function load({ fetch }) {
+    const [a, b] = await Promise.all([
+	  fetch(url1).then(r => r.json()),
+	  fetch(url2).then(r => r.json()),
+	]);
+
+	return { a, b };
+}
+```
+
+## goto(...) changes
+
+`goto(...)` no longer accepts external URLs. To navigate to an external URL, use `window.location.href = url`. The `state` object now determines `$page.state` and must adhere to the `App.PageState` interface, if declared.
+
+## paths are now relative by default
+
+In SvelteKit 1, `%sveltekit.assets%` in your `app.html` was replaced with a relative path by default (i.e. `.` or `..` or `../..` etc, depending on the path being rendered) during server-side rendering unless the `paths.relative` config option was explicitly set to `false`. The same was true for `base` and `assets` imported from `$app/paths`, but only if the `paths.relative` option was explicitly set to `true`.
+
+This inconsistency is fixed in version 2. Paths are either always relative or always absolute, depending on the value of `paths.relative`. It defaults to `true` as this results in more portable apps: if the `base` is something other than the app expected (as is the case when viewed on the Internet Archive, for example) or unknown at build time (as is the case when deploying to IPFS and so on), fewer things are likely to break.
+
+## Server fetches are not trackable anymore
+
+Previously it was possible to track URLs from `fetch`es on the server in order to rerun load functions. This poses a possible security risk (private URLs leaking), and as such it was behind the `dangerZone.trackServerFetches` setting, which is now removed.
+
+## `preloadCode` arguments must be prefixed with `base`
+
+SvelteKit exposes two functions, `preloadCode` and `preloadData`, for programmatically loading the code and data associated with a particular path. In version 1, there was a subtle inconsistency — the path passed to `preloadCode` did not need to be prefixed with the `base` path (if set), while the path passed to `preloadData` did.
+
+This is fixed in SvelteKit 2 — in both cases, the path should be prefixed with `base` if it is set.
+
+Additionally, `preloadCode` now takes a single argument rather than _n_ arguments.
+
+## `resolvePath` has been removed
+
+SvelteKit 1 included a function called `resolvePath` which allows you to resolve a route ID (like `/blog/[slug]`) and a set of parameters (like `{ slug: 'hello' }`) to a pathname. Unfortunately the return value didn't include the `base` path, limiting its usefulness in cases where `base` was set.
+
+As such, SvelteKit 2 replaces `resolvePath` with a (slightly better named) function called `resolveRoute`, which is imported from `$app/paths` and which takes `base` into account.
+
+Old, SvelteKit 1 syntax:
+
+```js
+import { resolvePath } from '@sveltejs/kit';
+import { base } from '$app/paths';
+
+const path = base + resolvePath('/blog/[slug]', { slug });
+```
+
+New, SvelteKit 2 syntax:
+
+```js
+import { resolveRoute } from '$app/paths';
+
+const path = resolveRoute('/blog/[slug]', { slug });
+```
+
+## Improved error handling
+
+Errors are handled inconsistently in SvelteKit 1. Some errors trigger the `handleError` hook but there is no good way to discern their status (for example, the only way to tell a 404 from a 500 is by seeing if `event.route.id` is `null`), while others (such as 405 errors for `POST` requests to pages without actions) don't trigger `handleError` at all, but should. In the latter case, the resulting `$page.error` will deviate from the `App.Error` type, if it is specified.
+
+SvelteKit 2 cleans this up by calling `handleError` hooks with two new properties: `status` and `message`. For errors thrown from your code (or library code called by your code) the status will be `500` and the message will be `Internal Error`. While `error.message` may contain sensitive information that should not be exposed to users, `message` is safe.
+
+## Dynamic environment variables cannot be used during prerendering
+
+The `$env/dynamic/public` and `$env/dynamic/private` modules provide access to _run time_ environment variables, as opposed to the _build time_ environment variables exposed by `$env/static/public` and `$env/static/private`.
+
+During prerendering in SvelteKit 1, they are one and the same. As such, prerendered pages that make use of 'dynamic' environment variables are really 'baking in' build time values, which is incorrect. Worse, `$env/dynamic/public` is populated in the browser with these stale values if the user happens to land on a prerendered page before navigating to dynamically-rendered pages.
+
+Because of this, dynamic environment variables can no longer be read during prerendering in SvelteKit 2 — you should use the `static` modules instead. If the user lands on a prerendered page, SvelteKit will request up-to-date values for `$env/dynamic/public` from the server (by default from a module called `/_app/env.js`) instead of reading them from the server-rendered HTML.
+
+## `form` and `data` have been removed from `use:enhance` callbacks
+
+If you provide a callback to `use:enhance`, it will be called with an object containing various useful properties.
+
+In SvelteKit 1, those properties included `form` and `data`. These were deprecated some time ago in favour of `formElement` and `formData`, and have been removed altogether in SvelteKit 2.
+
+## Forms containing file inputs must use `multipart/form-data`
+
+If a form contains an `<input type="file">` but does not have an `enctype="multipart/form-data"` attribute, non-JS submissions will omit the file. SvelteKit 2 will throw an error if it encounters a form like this during a `use:enhance` submission to ensure that your forms work correctly when JavaScript is not present.
+
+## Generated `tsconfig.json` is more strict
+
+Previously, the generated `tsconfig.json` was trying its best to still produce a somewhat valid config when your `tsconfig.json` included `paths` or `baseUrl`. In SvelteKit 2, the validation is more strict and will warn when you use either `paths` or `baseUrl` in your `tsconfig.json`. These settings are used to generate path aliases and you should use the `alias` config option in your `svelte.config.js` instead, to also create a corresponding alias for the bundler.
+
+## `getRequest` no longer throws errors
+
+The `@sveltejs/kit/node` module exports helper functions for use in Node environments, including `getRequest` which turns a Node `ClientRequest` into a standard `Request` object.
+
+In SvelteKit 1, `getRequest` could throw if the `Content-Length` header exceeded the specified size limit. In SvelteKit 2, the error will not be thrown until later, when the request body (if any) is being read. This enables better diagnostics and simpler code.
+
+## `vitePreprocess` is no longer exported from `@sveltejs/kit/vite`
+
+Since `@sveltejs/vite-plugin-svelte` is now a peer dependency, SvelteKit 2 no longer re-exports `vitePreprocess`. You should import it directly from `@sveltejs/vite-plugin-svelte`.
+
+## Updated dependency requirements
+
+SvelteKit 2 requires Node `18.13` or higher, and the following minimum dependency versions:
+
+- `svelte@4`
+- `vite@5`
+- `typescript@5`
+- `@sveltejs/vite-plugin-svelte@3` (this is now required as a `peerDependency` of SvelteKit — previously it was directly depended upon)
+- `@sveltejs/adapter-cloudflare@3` (if you're using this adapter)
+- `@sveltejs/adapter-cloudflare-workers@2` (if you're using this adapter)
+- `@sveltejs/adapter-netlify@3` (if you're using this adapter)
+- `@sveltejs/adapter-node@2` (if you're using this adapter)
+- `@sveltejs/adapter-static@3` (if you're using this adapter)
+- `@sveltejs/adapter-vercel@4` (if you're using this adapter)
+
+As part of the TypeScript upgrade, the generated `tsconfig.json` (the one your `tsconfig.json` extends from) now uses `"moduleResolution": "bundler"` (which is recommended by the TypeScript team, as it properly resolves types from packages with an `exports` map in package.json) and `verbatimModuleSyntax` (which replaces the existing `importsNotUsedAsValues ` and `preserveValueImports` flags — if you have those in your `tsconfig.json`, remove them).
+
+## SvelteKit 2.12: $app/stores deprecated
+
+SvelteKit 2.12 introduced `$app/state` based on the Svelte 5 runes API. `$app/state` provides everything that `$app/stores` provides but with more flexibility as to where and how you use it. Most importantly, the `page` object is now fine-grained, e.g. updates to `page.state` will not invalidate `page.data` and vice-versa.
+
+As a consequence, `$app/stores` is deprecated. Do not use `$app/stores`. Most of the replacements should be pretty simple: Replace the `$app/stores` import with `$app/state` and remove the `$` prefixes from the usage sites.
+
+Old, SvelteKit 1 syntax:
+
+```svelte
+<script>
+	import { page } from '$app/stores';
+</script>
+
+{$page.data}
+```
+
+New, SvelteKit 2 syntax:
+
+```svelte
+<script>
+	import { page } from '$app/state';
+</script>
+
+{page.data}
 ```
 
 ---
