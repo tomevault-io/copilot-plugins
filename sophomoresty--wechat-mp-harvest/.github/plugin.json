@@ -1,0 +1,9 @@
+{
+  "name": "sophomoresty--wechat-mp-harvest",
+  "displayName": "wechat-mp-harvest",
+  "description": "WeChat MP article harvester with DLL injection for no-GUI automation",
+  "version": "1.0.0",
+  "author": "Sophomoresty",
+  "homepage": "https://github.com/Sophomoresty/wechat-mp-harvest",
+  "skills": []
+}
