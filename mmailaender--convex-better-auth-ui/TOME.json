@@ -4,7 +4,7 @@
   "repo": "Convex-Better-Auth-UI",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mmailaender/Convex-Better-Auth-UI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T00:43:47Z"
+  "distributed_at": "2026-05-29T00:48:48Z"
 }
