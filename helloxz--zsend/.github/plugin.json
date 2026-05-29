@@ -1,0 +1,9 @@
+{
+  "name": "helloxz--zsend",
+  "displayName": "zsend",
+  "description": "A Cloudflare Workers email gateway with multi-SMTP support and a unified HTTP sending API.",
+  "version": "1.0.0",
+  "author": "helloxz",
+  "homepage": "https://github.com/helloxz/zsend",
+  "skills": []
+}
