@@ -1,0 +1,9 @@
+{
+  "name": "stellar-scaffold--cli",
+  "displayName": "cli",
+  "description": "The Stellar app lifecycle streamlined. `stellar scaffold` CLI: init, learn, & build ambitious apps. `stellar registry` CLI: author, publish, deploy & upgrade Wasm binaries + smart contracts (or use so",
+  "version": "1.0.0",
+  "author": "stellar-scaffold",
+  "homepage": "https://github.com/stellar-scaffold/cli",
+  "skills": []
+}
