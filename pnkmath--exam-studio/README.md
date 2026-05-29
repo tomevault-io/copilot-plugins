@@ -7,14 +7,14 @@ Exam Studio — HWPX 수학 기출 시험지 제작 스튜디오 (Next.js + Pyth
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [PNKmath/exam-studio](https://github.com/PNKmath/exam-studio).
+Original source: `GEMINI.md` in [PNKmath/exam-studio](https://github.com/PNKmath/exam-studio).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [PNKmath/exam-studio](https://github.com/PNKmath/exam-studio) — a repo with 8+ stars on GitHub.
