@@ -1,0 +1,9 @@
+{
+  "name": "simongino--aicommit",
+  "displayName": "aicommit",
+  "description": "\ud83e\udd16 AI-powered git commit message generator supporting multiple LLM providers (OpenAI, Azure OpenAI). Generate meaningful commit messages from your staged changes with a beautiful CLI interface.",
+  "version": "1.0.0",
+  "author": "SimonGino",
+  "homepage": "https://github.com/SimonGino/aicommit",
+  "skills": []
+}
