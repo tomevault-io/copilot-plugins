@@ -1,0 +1,9 @@
+{
+  "name": "hirotasoshu--ha-findn-led-ble",
+  "displayName": "ha-findn-led-ble",
+  "description": "Home assistant integration for Findn LED BLE strips",
+  "version": "1.0.0",
+  "author": "hirotasoshu",
+  "homepage": "https://github.com/hirotasoshu/ha-findn-led-ble",
+  "skills": []
+}
