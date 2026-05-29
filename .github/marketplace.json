@@ -168874,6 +168874,71 @@
       "description": "Fit lmfit models to xarray objects"
     },
     {
+      "name": "simongino--aicommit",
+      "source": "./simongino--aicommit",
+      "description": "\ud83e\udd16 AI-powered git commit message generator supporting multiple LLM providers (OpenAI, Azure OpenAI). Generate meaningful commit messages from your staged changes with a beautiful CLI interface."
+    },
+    {
+      "name": "tribes-protocol--ayaos",
+      "source": "./tribes-protocol--ayaos",
+      "description": "AyaOS"
+    },
+    {
+      "name": "ngutech21--vipr-wallet",
+      "source": "./ngutech21--vipr-wallet",
+      "description": "Fedimint web wallet for ecash and Lightning payments on mobile and desktop"
+    },
+    {
+      "name": "arcadia-eternity--arcadia-eternity",
+      "source": "./arcadia-eternity--arcadia-eternity",
+      "description": "A turn-based battle simulator of seer2(\u8d5b\u5c14\u53f72,\u7ea6\u745f\u4f20\u8bf4)."
+    },
+    {
+      "name": "tribes-protocol--ayaos",
+      "source": "./tribes-protocol--ayaos",
+      "description": "AyaOS"
+    },
+    {
+      "name": "gexec--gexec",
+      "source": "./gexec--gexec",
+      "description": "Generic execution platform for Ansible/OpenTofu/Terraform"
+    },
+    {
+      "name": "tribes-protocol--ayaos",
+      "source": "./tribes-protocol--ayaos",
+      "description": "AyaOS"
+    },
+    {
+      "name": "poveroh--poveroh",
+      "source": "./poveroh--poveroh",
+      "description": "A Open-Source platform to track personal finance, built for clarity."
+    },
+    {
+      "name": "seanome--kmerseek",
+      "source": "./seanome--kmerseek",
+      "description": "Efficient protein domain annotation search with reduced amino acid k-mers"
+    },
+    {
+      "name": "lsqkk--lsqkk-github-io",
+      "source": "./lsqkk--lsqkk-github-io",
+      "description": "\u5938\u514b\u535a\u5ba2 | \u57fa\u4e8e\u539f\u751f\u6280\u672f\u6808\u7684\u4e2a\u4eba\u7f51\u7ad9\uff0c\u5206\u4eab\u7b14\u8bb0\u3001\u5de5\u5177\u3001\u6e38\u620f\u3001\u524d\u7aef\u5b9e\u9a8c\u7b49\u3002"
+    },
+    {
+      "name": "seanome--kmerseek",
+      "source": "./seanome--kmerseek",
+      "description": "Efficient protein domain annotation search with reduced amino acid k-mers"
+    },
+    {
+      "name": "xykong--prometheus-remote-writer",
+      "source": "./xykong--prometheus-remote-writer",
+      "description": "A Python package to send data using Prometheus remote write protocol."
+    },
+    {
+      "name": "seanome--kmerseek",
+      "source": "./seanome--kmerseek",
+      "description": "Efficient protein domain annotation search with reduced amino acid k-mers"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -183207,6 +183272,11 @@
       "name": "davidchicano--presuntamente",
       "source": "./davidchicano--presuntamente",
       "description": "Archivo p\u00fablico e interactivo de casos de corrupci\u00f3n en Espa\u00f1a. Cronolog\u00edas, actores, documentaci\u00f3n oficial y el grafo de qui\u00e9n est\u00e1 conectado con qui\u00e9n. Imputados, procesados, archivados y condenados"
+    },
+    {
+      "name": "jaydenfyi--scrolodex",
+      "source": "./jaydenfyi--scrolodex",
+      "description": "A super simple window switcher for macOS"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -287472,6 +287542,31 @@
       "name": "ncolesummers--enterprise-intelligence-portfolio",
       "source": "./ncolesummers--enterprise-intelligence-portfolio",
       "description": "\ud83d\ude80 Enterprise-grade Next.js portfolio demonstrating AI-accelerated development with comprehensive testing, CI/CD automation, and self-documenting   architecture. A real-world example of modern SDLC pra"
+    },
+    {
+      "name": "dendyswaran--cinelight-api-ts",
+      "source": "./dendyswaran--cinelight-api-ts",
+      "description": "A TypeScript API for Cinelight with strict TypeScript and SOLID principles following clean architecture"
+    },
+    {
+      "name": "maxwell3025--script3025",
+      "source": "./maxwell3025--script3025",
+      "description": "script3025"
+    },
+    {
+      "name": "basi--docbase-cli",
+      "source": "./basi--docbase-cli",
+      "description": "Docbase CLI"
+    },
+    {
+      "name": "paulmeurer--parse-cg3",
+      "source": "./paulmeurer--parse-cg3",
+      "description": "Constraint grammar parsing interface"
+    },
+    {
+      "name": "therealsuji--habits",
+      "source": "./therealsuji--habits",
+      "description": "habits"
     }
   ]
 }
