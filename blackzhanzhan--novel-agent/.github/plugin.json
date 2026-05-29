@@ -1,0 +1,9 @@
+{
+  "name": "blackzhanzhan--novel-agent",
+  "displayName": "novel_agent",
+  "description": "Git-native AI novel writing workbench with Dify agents",
+  "version": "1.0.0",
+  "author": "blackzhanzhan",
+  "homepage": "https://github.com/blackzhanzhan/novel_agent",
+  "skills": []
+}
