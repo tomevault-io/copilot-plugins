@@ -1,0 +1,9 @@
+{
+  "name": "arunabhcode--gov-fetch",
+  "displayName": "gov-fetch",
+  "description": "App to get data from govt websites like USCIS and export control classifications",
+  "version": "1.0.0",
+  "author": "arunabhcode",
+  "homepage": "https://github.com/arunabhcode/gov-fetch",
+  "skills": []
+}
