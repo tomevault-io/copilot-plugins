@@ -1,0 +1,9 @@
+{
+  "name": "mujykun--mapleclaude",
+  "displayName": "MapleClaude",
+  "description": "A Maplestory v95 client built with only Claude and no human written code. ",
+  "version": "1.0.0",
+  "author": "MujyKun",
+  "homepage": "https://github.com/MujyKun/MapleClaude",
+  "skills": []
+}
