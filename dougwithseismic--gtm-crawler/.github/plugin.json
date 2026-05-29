@@ -1,0 +1,9 @@
+{
+  "name": "dougwithseismic--gtm-crawler",
+  "displayName": "gtm-crawler",
+  "description": "Hook Clay.com, N8n, Make.com up to your machine. Run code locally. Win at GTM.",
+  "version": "1.0.0",
+  "author": "dougwithseismic",
+  "homepage": "https://github.com/dougwithseismic/gtm-crawler",
+  "skills": []
+}
