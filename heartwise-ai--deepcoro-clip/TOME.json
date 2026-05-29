@@ -2,7 +2,7 @@
   "name": "DeepCORO_CLIP",
   "owner": "HeartWise-AI",
   "repo": "DeepCORO_CLIP",
-  "description": "",
+  "description": "Text & video embeddings for report generation ",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/HeartWise-AI",
+  "source_url": "https://github.com/HeartWise-AI/DeepCORO_CLIP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T22:44:27Z"
+  "distributed_at": "2026-05-29T00:40:43Z"
 }
