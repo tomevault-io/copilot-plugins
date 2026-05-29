@@ -168594,6 +168594,21 @@
       "description": "Multi environment homelab setup for deploying Kubernetes from infrastructure as code. "
     },
     {
+      "name": "cadela-dev--anything-reversal-template",
+      "source": "./cadela-dev--anything-reversal-template",
+      "description": "Claude Code clean-room workflow for turning source trees into behavior-focused mirror docs, batch reports, verification, and rebuild plans."
+    },
+    {
+      "name": "jacobaraujo7--remote-pi",
+      "source": "./jacobaraujo7--remote-pi",
+      "description": "Control your Pi coding agent from your phone. Pair with a one-time QR code and chat with your local agent \u2014 even when you're away from your computer."
+    },
+    {
+      "name": "italia--dev-kit-italia",
+      "source": "./italia--dev-kit-italia",
+      "description": "Toolkit che implementa il Design system .italia"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -179899,6 +179914,51 @@
       "description": "claude automation to research and create content"
     },
     {
+      "name": "tim-osterhus--interactive-resume",
+      "source": "./tim-osterhus--interactive-resume",
+      "description": "A way to locally host a public-facing interactive resume. Requires 8GB VRAM, minimum."
+    },
+    {
+      "name": "k-dense-ai--science-superpowers",
+      "source": "./k-dense-ai--science-superpowers",
+      "description": "Composable computational-science methodology skills for AI research agents \u2014 pre-registration over TDD. A science-domain reimplementation of Superpowers."
+    },
+    {
+      "name": "maitrungduc1410--react-native-signature-ink",
+      "source": "./maitrungduc1410--react-native-signature-ink",
+      "description": "\u270d\ufe0f True-native signature capture for React Native"
+    },
+    {
+      "name": "sathvik-rao--stackresume",
+      "source": "./sathvik-rao--stackresume",
+      "description": "Self-hosted, open-source AI resume builder for software developers."
+    },
+    {
+      "name": "santazuki--unblind",
+      "source": "./santazuki--unblind",
+      "description": "unblind"
+    },
+    {
+      "name": "ramimbo--mergework",
+      "source": "./ramimbo--mergework",
+      "description": "Open-source work ledger where contributors and AI agents earn MRWK"
+    },
+    {
+      "name": "kapishdima--whichly",
+      "source": "./kapishdima--whichly",
+      "description": "Code multiple variants of a section, let clients pick the winner live on your real staging site"
+    },
+    {
+      "name": "k-dense-ai--science-superpowers",
+      "source": "./k-dense-ai--science-superpowers",
+      "description": "Composable computational-science methodology skills for AI research agents \u2014 pre-registration over TDD. A science-domain reimplementation of Superpowers."
+    },
+    {
+      "name": "k-dense-ai--science-superpowers",
+      "source": "./k-dense-ai--science-superpowers",
+      "description": "Composable computational-science methodology skills for AI research agents \u2014 pre-registration over TDD. A science-domain reimplementation of Superpowers."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -182667,6 +182727,36 @@
       "name": "naniiluja--ccf",
       "source": "./naniiluja--ccf",
       "description": "A context-first, spec-driven, strictly sequential development workflow plugin for Claude Code \u2014 keeps your CLAUDE.md/.claude spec always fresh and grounds every decision in Context7 + Microsoft Learn."
+    },
+    {
+      "name": "catchen--knowledge-wiki-template",
+      "source": "./catchen--knowledge-wiki-template",
+      "description": "knowledge-wiki-template"
+    },
+    {
+      "name": "nersc--workflow-automation-tutorial",
+      "source": "./nersc--workflow-automation-tutorial",
+      "description": "Functioning workflow examples and documentation for use during the \"Automating HPC Research Workflows on Perlmutter\" being held on May 28th, 2026"
+    },
+    {
+      "name": "ohhhhhhei--taac2026",
+      "source": "./ohhhhhhei--taac2026",
+      "description": "TAAC2026"
+    },
+    {
+      "name": "catchen--knowledge-wiki-template",
+      "source": "./catchen--knowledge-wiki-template",
+      "description": "knowledge-wiki-template"
+    },
+    {
+      "name": "siliconpeasant--silicon-agents",
+      "source": "./siliconpeasant--silicon-agents",
+      "description": "silicon-agents"
+    },
+    {
+      "name": "leoncrispybacon--full-auto-forza-edition",
+      "source": "./leoncrispybacon--full-auto-forza-edition",
+      "description": "Full automated AFK script for grinding mastery points and unlocking 22B-STI's mastery tree"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -286672,6 +286762,191 @@
       "name": "festion--hass-ab-ble-gateway-suite",
       "source": "./festion--hass-ab-ble-gateway-suite",
       "description": "Home Assistant integration suite for April Brother BLE Gateway with dashboard"
+    },
+    {
+      "name": "martin-gomola--beskarfolio",
+      "source": "./martin-gomola--beskarfolio",
+      "description": "Privacy-first stock portfolio tracker. Transactions in localStorage, prices from 4 providers with fallback. No database, no accounts. FastAPI + React + Docker."
+    },
+    {
+      "name": "leoan698-tom--yuannew-v1",
+      "source": "./leoan698-tom--yuannew-v1",
+      "description": "yuannew_v1"
+    },
+    {
+      "name": "emassive--playa",
+      "source": "./emassive--playa",
+      "description": "playa"
+    },
+    {
+      "name": "kevindougherty1--armchairgms",
+      "source": "./kevindougherty1--armchairgms",
+      "description": "armchair GMs repo"
+    },
+    {
+      "name": "topoftheridge--lyons-detailing-site",
+      "source": "./topoftheridge--lyons-detailing-site",
+      "description": "Lyons Detailing website \u2014 built from CarCandy template"
+    },
+    {
+      "name": "pitalock--pitalock",
+      "source": "./pitalock--pitalock",
+      "description": "zero-knowledge secret sharing for teams"
+    },
+    {
+      "name": "leoan698-tom--yuannew-v1",
+      "source": "./leoan698-tom--yuannew-v1",
+      "description": "yuannew_v1"
+    },
+    {
+      "name": "hatefmas--claude-tutorial",
+      "source": "./hatefmas--claude-tutorial",
+      "description": "Personal sandbox for testing and exploring Claude Code capabilities"
+    },
+    {
+      "name": "minilangchain--gutsypooptrackerapp",
+      "source": "./minilangchain--gutsypooptrackerapp",
+      "description": "GutsyPoopTrackerApp"
+    },
+    {
+      "name": "escapeprograms--fourierinstrument",
+      "source": "./escapeprograms--fourierinstrument",
+      "description": "FourierInstrument"
+    },
+    {
+      "name": "matheusr28--digital-finance-54",
+      "source": "./matheusr28--digital-finance-54",
+      "description": "digital-finance-54"
+    },
+    {
+      "name": "marinirin909-lang--marketingskills",
+      "source": "./marinirin909-lang--marketingskills",
+      "description": "marketingskills"
+    },
+    {
+      "name": "notchbrown--classlan",
+      "source": "./notchbrown--classlan",
+      "description": "ClassLAN"
+    },
+    {
+      "name": "bkuebler--spec-kit-discovery",
+      "source": "./bkuebler--spec-kit-discovery",
+      "description": "A spec-kit extension that adds the discovery phase that happens before specify"
+    },
+    {
+      "name": "saimon-rocha--portfolio",
+      "source": "./saimon-rocha--portfolio",
+      "description": "portfolio"
+    },
+    {
+      "name": "achen20030701--start",
+      "source": "./achen20030701--start",
+      "description": "start"
+    },
+    {
+      "name": "nkiliyumwami--mathaidatascience",
+      "source": "./nkiliyumwami--mathaidatascience",
+      "description": "mathAIDatascience"
+    },
+    {
+      "name": "guide1121--better-self-habits-tracker",
+      "source": "./guide1121--better-self-habits-tracker",
+      "description": "better-self-habits-tracker"
+    },
+    {
+      "name": "alpha-tronex--api",
+      "source": "./alpha-tronex--api",
+      "description": "api"
+    },
+    {
+      "name": "jaxbcoffee-crypto--japan-trip",
+      "source": "./jaxbcoffee-crypto--japan-trip",
+      "description": "japan-trip"
+    },
+    {
+      "name": "pitalock--pitalock",
+      "source": "./pitalock--pitalock",
+      "description": "zero-knowledge secret sharing for teams"
+    },
+    {
+      "name": "namskt--medikaprima",
+      "source": "./namskt--medikaprima",
+      "description": "Supplier Alat Kesehatan B2B"
+    },
+    {
+      "name": "andresgonzales2002--chutopremios",
+      "source": "./andresgonzales2002--chutopremios",
+      "description": "chutopremios"
+    },
+    {
+      "name": "usamakaleem322--testing",
+      "source": "./usamakaleem322--testing",
+      "description": "testing"
+    },
+    {
+      "name": "whayu901--poc-bank-aeon-mvp",
+      "source": "./whayu901--poc-bank-aeon-mvp",
+      "description": "poc-bank-aeon-mvp"
+    },
+    {
+      "name": "marinirin909-lang--marketingskills",
+      "source": "./marinirin909-lang--marketingskills",
+      "description": "marketingskills"
+    },
+    {
+      "name": "anwitachirravuri-cmd--fashion-portfolio",
+      "source": "./anwitachirravuri-cmd--fashion-portfolio",
+      "description": "fashion-portfolio"
+    },
+    {
+      "name": "navaneethk99--purplsky-ecomm",
+      "source": "./navaneethk99--purplsky-ecomm",
+      "description": "purplsky-ecomm"
+    },
+    {
+      "name": "wanrvk303-cello--web-terminal",
+      "source": "./wanrvk303-cello--web-terminal",
+      "description": "Terminal-themed CLI portfolio with progressive reveal, typing effects, and interactive chat"
+    },
+    {
+      "name": "mr-balaji2594--docs",
+      "source": "./mr-balaji2594--docs",
+      "description": "docs"
+    },
+    {
+      "name": "cedzi-95--e-commerce-frontend",
+      "source": "./cedzi-95--e-commerce-frontend",
+      "description": "E-Commerce-Frontend"
+    },
+    {
+      "name": "stnmrshx--go-processmanager",
+      "source": "./stnmrshx--go-processmanager",
+      "description": "Process manager for Go \u2014 start, monitor, and stop subprocesses with graceful shutdown, process group management, and PID-based state persistence for self purpose yhaaaaa."
+    },
+    {
+      "name": "guide1121--better-self-habits-tracker",
+      "source": "./guide1121--better-self-habits-tracker",
+      "description": "better-self-habits-tracker"
+    },
+    {
+      "name": "gud8238--rego-spike",
+      "source": "./gud8238--rego-spike",
+      "description": "rego-spike"
+    },
+    {
+      "name": "martin-gomola--beskarfolio",
+      "source": "./martin-gomola--beskarfolio",
+      "description": "Privacy-first stock portfolio tracker. Transactions in localStorage, prices from 4 providers with fallback. No database, no accounts. FastAPI + React + Docker."
+    },
+    {
+      "name": "codewithoz--og-proxy-worker",
+      "source": "./codewithoz--og-proxy-worker",
+      "description": "og-proxy-worker"
+    },
+    {
+      "name": "gamussa--robocoders-kagematch-2026",
+      "source": "./gamussa--robocoders-kagematch-2026",
+      "description": "robocoders-kagematch-2026"
     }
   ]
 }
