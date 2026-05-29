@@ -1,0 +1,9 @@
+{
+  "name": "bkuebler--spec-kit-discovery",
+  "displayName": "spec-kit-discovery",
+  "description": "A spec-kit extension that adds the discovery phase that happens before specify",
+  "version": "1.0.0",
+  "author": "bkuebler",
+  "homepage": "https://github.com/bkuebler/spec-kit-discovery",
+  "skills": []
+}
