@@ -17,15 +17,6 @@ Original source: `CLAUDE.md` in [arpitnath/claude-capsule-kit](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (6)
-
-- [code-review](https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/code-review)
-- [crew](https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/crew)
-- [debug](https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/debug)
-- [deep-context](https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/deep-context)
-- [task-router](https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/task-router)
-- [workflow](https://github.com/arpitnath/claude-capsule-kit/tree/main/skills/workflow)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/arpitnath/claude-capsule-kit](https://github.com/arpitnath/claude-capsule-kit)
 
 ---
