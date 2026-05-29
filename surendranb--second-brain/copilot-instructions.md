@@ -1,0 +1,405 @@
+## second-brain
+
+> - Create feature branches: `feature/descriptive-name`
+
+# Cursor Rules for brAIn Plugin Development
+
+## Core Development Principles
+
+### 1. **Always Follow GitHub Best Practices**
+- Create feature branches: `feature/descriptive-name`
+- Make focused, atomic commits with conventional commit messages
+- Never push code without local testing first
+- Build and test before every commit
+- User must validate functionality before merging to main
+
+### 2. **Development Workflow**
+```
+1. Create feature branch
+2. Understand the problem clearly
+3. Make incremental changes
+4. Build and test after each change
+5. Get user feedback early and often
+6. Commit with descriptive messages
+7. Only merge after user validation
+```
+
+### 3. **Code Architecture Rules**
+
+#### **File Structure**
+- `main.ts` - Core plugin logic, UI, analysis methods
+- `settings.ts` - Settings UI and configuration 
+- `prompts.ts` - Prompt templates and constants
+- Keep methods focused and single-responsibility
+
+#### **Settings Pattern**
+- All configurable options go in `PluginSettings` interface
+- Provide sensible defaults in `DEFAULT_SETTINGS`
+- Settings UI should have clear labels and descriptions
+- Include "Reset to Default" buttons for complex settings
+- Use helper methods for default value generation
+
+#### **UI Development**
+- Prefer simple, always-visible inputs over complex toggles
+- Use clear, descriptive labels and placeholders
+- Start with empty/clean states, not confusing defaults
+- Get user feedback on UX before finalizing
+- Make UI intuitive without documentation
+- **Spacing is critical** - Use proper margins, padding, and visual separators
+- **Respond to "ugly" feedback immediately** - User comfort trumps feature complexity
+- **Avoid cramped layouts** - Elements need breathing room to look professional
+- **Use consistent spacing hierarchy** - Follow established standards for margins/padding
+
+#### **Prompt Engineering**
+- Use placeholder injection: `{PLACEHOLDER}` format
+- Create reusable prompt injection helpers
+- Separate base prompts from dynamic content
+- Always include JSON format validation in prompts
+- Test with edge cases that might break JSON parsing
+
+### 4. **Error Handling & Robustness**
+
+#### **JSON Parsing**
+- **Always implement multi-layer fallback strategies** - See Hierarchy Choice Dialog feature for complete pattern
+- Use progressive approach: direct parse → enhanced cleaning → smart truncation → aggressive repair
+- Optimize model configuration for reliability (lower temperature, reduced max_tokens)
+- Add explicit length constraints to all AI prompts
+- Log parsing errors with response content for debugging
+- Handle malformed AI responses gracefully with fallback JSON structures
+- Test with inputs that might break JSON structure (technical terms, quotes, long responses)
+
+#### **Debug Logging**
+- Add console logging for critical paths
+- Use consistent log prefixes: `[ComponentName]`
+- Include emojis for visual scanning: `🔧 🎯 📝 ✅ ❌`
+- Log user inputs and processing steps
+- Remove debug logs after feature validation
+
+### 5. **Testing Strategy**
+
+#### **Before Every Build**
+- Test core functionality still works
+- Test new feature with multiple input types
+- Verify settings save and load correctly
+- Check console for errors or warnings
+
+#### **User Validation Process**
+1. Build plugin: `npm run build`
+2. User restarts Obsidian
+3. User tests specific functionality
+4. Check console logs for validation
+5. Test edge cases and error scenarios
+6. Only proceed after user confirms working
+
+### 6. **Commit Message Standards**
+
+#### **Format**: `type: description`
+**Types:**
+- `feat:` - New features
+- `fix:` - Bug fixes  
+- `refactor:` - Code improvements
+- `debug:` - Temporary debugging code
+- `docs:` - Documentation
+- `style:` - UI/UX improvements
+
+#### **Examples:**
+```
+feat: Add configurable analysis prompts to settings
+fix: Resolve JSON parsing error with additional instructions  
+refactor: Simplify Additional Instructions UI
+debug: Add console logging to validate prompt injection
+style: improve model selection UI with better spacing and layout
+```
+
+#### **Multi-line Commit Messages for Complex Changes:**
+```
+style: improve model selection UI with better spacing and layout
+
+- Move model dropdown below radio buttons instead of inline
+- Add proper spacing with 12px top margin and 18px bottom margin  
+- Add visual separation with subtle border-top
+- Increase dropdown width to 300px for better readability
+- Use normal text color and improved font sizes
+- Create clean section division between input modes and content inputs
+```
+
+### 7. **Feature Development Pattern**
+
+#### **Phase 1: Foundation**
+- Identify the core problem/bug
+- Update interfaces and data structures
+- Add default configurations
+- Create basic functionality
+
+#### **Phase 2: Implementation** 
+- Implement core logic changes
+- Add helper methods and utilities
+- Update existing methods to use new system
+- Ensure backward compatibility
+
+#### **Phase 3: UI/UX**
+- Create or update settings UI
+- Improve main interface based on user feedback
+- Add clear labels, help text, placeholders
+- Test usability with user
+
+#### **Phase 4: Robustness**
+- Add error handling and fallbacks
+- Include debug logging for validation
+- Test edge cases and error scenarios
+- Clean up temporary debugging code
+
+### 8. **Common Patterns & Solutions**
+
+#### **Settings UI Pattern**
+```typescript
+// 1. Add to interface
+interface PluginSettings {
+    newFeature: {
+        option1: string;
+        option2: boolean;
+    };
+}
+
+// 2. Add to defaults
+const DEFAULT_SETTINGS = {
+    newFeature: {
+        option1: 'default_value',
+        option2: true
+    }
+};
+
+// 3. Create settings UI
+new Setting(containerEl)
+    .setName('Feature Name')
+    .setDesc('Clear description')
+    .addTextArea(text => /* implementation */)
+    .addButton(button => /* reset functionality */);
+```
+
+#### **Prompt Injection Pattern**
+```typescript
+private injectDynamicContent(basePrompt: string, userInput: string, context: any): string {
+    let prompt = basePrompt;
+    
+    // Replace context placeholders
+    Object.entries(context).forEach(([key, value]) => {
+        prompt = prompt.replace(`{${key.toUpperCase()}}`, value || 'Unknown');
+    });
+    
+    // Inject user input with format validation
+    if (userInput?.trim()) {
+        const section = `\nUSER FOCUS:\n${userInput.trim()}\n\nIMPORTANT: Maintain valid JSON format.\n`;
+        prompt = prompt.replace('{USER_INPUT}', section);
+    }
+    
+    return prompt;
+}
+```
+
+### 9. **User Feedback Integration**
+- Listen to UX feedback immediately
+- Simplify complex interfaces based on user input
+- Validate that features work as expected
+- Don't assume functionality works without user confirmation
+- Iterate quickly on UX improvements
+
+### 10. **Quality Gates**
+- ✅ Feature branch created
+- ✅ Code builds without errors
+- ✅ Core functionality preserved  
+- ✅ New feature works as designed
+- ✅ User has validated functionality
+- ✅ Settings save/load correctly
+- ✅ Error handling tested
+- ✅ Clean commit history
+- ✅ User approves merge to main
+
+## Key Lessons from Recent Features
+
+### Configurable Analysis Prompts Feature
+
+#### What Worked Well
+1. **Clear problem identification** - Fixed broken "Show Prompt" functionality
+2. **Incremental development** - Built in logical phases
+3. **User feedback integration** - Simplified UI based on user input
+4. **Comprehensive settings** - Full control over all 5 analysis prompts
+5. **Debug logging** - Enabled easy validation of functionality
+6. **JSON robustness** - Added fallback parsing for malformed responses
+
+#### Mistakes to Avoid
+1. **Don't push without user testing** - Always validate locally first
+2. **Don't ignore UX complexity** - Simple is better than feature-rich but confusing
+3. **Don't assume JSON will be valid** - Always include robust parsing
+4. **Don't skip incremental commits** - Small, focused commits are easier to debug
+5. **Don't forget edge case testing** - Test inputs that might break the system
+
+### Model Selection UI Improvement Feature
+
+#### What Worked Well
+1. **Immediate response to UX feedback** - User said "ugly", we fixed it immediately
+2. **Multiple layout iterations** - Tried inline → moved to header → settled on separate section
+3. **Proper spacing principles** - Added margins, padding, and visual separators
+4. **Clean visual hierarchy** - Used borders and typography to create sections
+5. **User-centered design** - Prioritized user comfort over feature complexity
+
+#### Key UX Principles Learned
+1. **Avoid cramped layouts** - Elements need breathing room, not squeezed together
+2. **Use proper spacing hierarchy** - 12px margins, 18px bottom spacing, 8px padding
+3. **Visual separation matters** - Subtle borders create clean section divisions
+4. **Font sizing consistency** - 0.9em for labels, proper padding for dropdowns
+5. **Always-visible is better than hidden** - Remove unnecessary toggles and complex UI
+
+#### Spacing Standards Established
+```css
+/* Section separators */
+marginTop: '12px'
+marginBottom: '18px'
+paddingTop: '8px'
+borderTop: '1px solid var(--background-modifier-border)'
+
+/* Element spacing */
+gap: '10px'
+minWidth: '50px' (labels)
+minWidth: '300px' (dropdowns)
+padding: '4px 8px' (form elements)
+```
+
+### Hierarchy Choice Dialog & JSON Parsing Robustness Feature
+
+#### What Worked Well
+1. **Problem identification** - Recognized cross-domain content placement as user agency issue
+2. **Comprehensive solution** - Enhanced AI analysis + user choice interface + robust JSON parsing
+3. **Multi-layer error handling** - Progressive fallback strategy for JSON parsing failures
+4. **User-centered design** - Beautiful modal showing AI reasoning + alternatives for informed decisions
+5. **Model optimization** - Reduced temperature and max_tokens for more reliable responses
+6. **Technical robustness** - Multiple JSON cleaning layers handling edge cases
+
+#### Architecture Patterns Established
+
+#### **Cross-Domain Content Detection Pattern**
+```typescript
+// Enhanced AI prompt with structured detection
+interface HierarchyAnalysis {
+    is_cross_domain: boolean;
+    confidence_score: number;
+    primary_hierarchy: {
+        path: string;
+        reasoning: string;
+    };
+    alternative_hierarchies: Array<{
+        path: string;
+        reasoning: string;
+        strength: number;
+    }>;
+}
+
+// Modal dialog for user choice
+class HierarchyChoiceModal extends Modal {
+    private result: Promise<string>;
+    private resolveResult: (value: string) => void;
+    
+    async showChoice(): Promise<string> {
+        return this.result;
+    }
+}
+```
+
+#### **Multi-Layer JSON Parsing Pattern**
+```typescript
+// Progressive fallback strategy
+private cleanJsonResponse(response: string): any {
+    try {
+        return JSON.parse(response); // Layer 1: Direct parse
+    } catch (error) {
+        try {
+            const cleaned = this.fixJsonStringEscaping(response);
+            return JSON.parse(cleaned); // Layer 2: Enhanced cleaning
+        } catch (secondError) {
+            try {
+                const truncated = this.truncateJsonResponse(cleaned);
+                return JSON.parse(truncated); // Layer 3: Smart truncation
+            } catch (thirdError) {
+                return this.aggressiveJsonRepair(response); // Layer 4: Last resort
+            }
+        }
+    }
+}
+
+// JSON cleaning helpers
+private fixJsonStringEscaping(jsonStr: string): string {
+    // Handle unescaped quotes, newlines, backslashes
+    // Smart length validation and truncation
+    // Trailing comma removal
+}
+
+private aggressiveJsonRepair(response: string): any {
+    // Bracket matching to find JSON boundaries
+    // Aggressive content cleaning
+    // Fallback minimal JSON structure
+}
+```
+
+#### **Model Configuration Optimization**
+```typescript
+// Optimized for reliability over creativity
+const requestBody = {
+    model: selectedModel,
+    messages: [{ role: 'user', content: prompt }],
+    max_tokens: 4000,        // Reduced from 8000
+    temperature: 0.3,        // Reduced from 0.7
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0
+};
+
+// Add length constraints to all prompts
+const promptSuffix = `
+RESPONSE REQUIREMENTS:
+- Keep total response under 3500 characters
+- Use concise language while maintaining accuracy
+- Ensure valid JSON format with proper escaping
+`;
+```
+
+#### Key Technical Lessons
+1. **JSON parsing is fragile** - Always implement multi-layer fallback strategies
+2. **Model configuration matters** - Lower temperature + reduced tokens = more reliable responses
+3. **Long responses increase failure rate** - Add explicit length constraints to prompts
+4. **Cross-domain content needs user agency** - Don't force AI decisions on ambiguous content
+5. **Modal dialogs need async/await patterns** - Proper Promise handling for user interactions
+6. **Edge case testing is critical** - Test with content that contains quotes, technical terms, long responses
+
+#### Mistakes to Avoid
+1. **Don't assume JSON will parse** - Always have progressive fallback strategies
+2. **Don't optimize for creativity over reliability** - Use conservative model settings for structured output
+3. **Don't make placement decisions for users** - Provide choice for ambiguous content
+4. **Don't ignore response length limits** - Add explicit constraints to prevent overflow
+5. **Don't skip edge case testing** - Test with technical content containing special characters
+
+#### JSON Robustness Checklist
+- ✅ Direct JSON.parse() attempt
+- ✅ Enhanced string escaping and cleaning
+- ✅ Smart truncation at object/array boundaries
+- ✅ Aggressive repair with bracket matching
+- ✅ Fallback minimal JSON structure
+- ✅ Comprehensive error logging
+- ✅ Length validation and constraints
+- ✅ Model configuration optimization
+
+#### Cross-Domain Feature Checklist
+- ✅ Enhanced AI detection with confidence scoring
+- ✅ Beautiful modal interface with reasoning display
+- ✅ Alternative hierarchy presentation with strengths
+- ✅ User choice integration with async/await
+- ✅ Backward compatibility for single-domain content
+- ✅ Multiple placement option consideration
+- ✅ Clear visual hierarchy in choice presentation
+
+---
+
+*These rules should be followed for all future brAIn plugin development to ensure high-quality, user-validated features.* 
+
+---
+> Source: [surendranb/second-brAIn](https://github.com/surendranb/second-brAIn) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
