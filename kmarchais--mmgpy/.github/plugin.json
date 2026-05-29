@@ -1,0 +1,9 @@
+{
+  "name": "kmarchais--mmgpy",
+  "displayName": "mmgpy",
+  "description": "Pythonic remeshing library based on the MMG software.",
+  "version": "1.0.0",
+  "author": "kmarchais",
+  "homepage": "https://github.com/kmarchais/mmgpy",
+  "skills": []
+}
