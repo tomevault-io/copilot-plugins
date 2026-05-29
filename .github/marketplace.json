@@ -134249,6 +134249,11 @@
       "description": "react-native-spotlight-guide"
     },
     {
+      "name": "explore-de--rage4j",
+      "source": "./explore-de--rage4j",
+      "description": "Evaluate your LLM based Java Apps"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -147282,6 +147287,21 @@
       "name": "guidovizoso--z1",
       "source": "./guidovizoso--z1",
       "description": "An open-source starter kit with Tanstack Start, Supabase, Tailwind and Bun."
+    },
+    {
+      "name": "donmutti--career-repo",
+      "source": "./donmutti--career-repo",
+      "description": "Career Repo is a local-first, private career tracking tool that runs entirely on your machine."
+    },
+    {
+      "name": "iteratetograceness--dotelier",
+      "source": "./iteratetograceness--dotelier",
+      "description": "dotelier"
+    },
+    {
+      "name": "rcolfin--catholic-mass-readings",
+      "source": "./rcolfin--catholic-mass-readings",
+      "description": "Provides an API for querying the Daily Mass populated from https://bible.usccb.org/bible/readings/"
     },
     {
       "name": "yschimke--compose-ai-tools",
