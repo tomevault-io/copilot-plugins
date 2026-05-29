@@ -168614,6 +168614,16 @@
       "description": "Toolkit che implementa il Design system .italia"
     },
     {
+      "name": "ubugeeei-prod--awesome-vite-plus",
+      "source": "./ubugeeei-prod--awesome-vite-plus",
+      "description": "\ud83c\udf89 A curated list of awesome things related to Vite+"
+    },
+    {
+      "name": "helloxz--zsend",
+      "source": "./helloxz--zsend",
+      "description": "A Cloudflare Workers email gateway with multi-SMTP support and a unified HTTP sending API."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -179962,6 +179972,26 @@
       "name": "k-dense-ai--science-superpowers",
       "source": "./k-dense-ai--science-superpowers",
       "description": "Composable computational-science methodology skills for AI research agents \u2014 pre-registration over TDD. A science-domain reimplementation of Superpowers."
+    },
+    {
+      "name": "huangpustar--fenixagent",
+      "source": "./huangpustar--fenixagent",
+      "description": "FenixAgent"
+    },
+    {
+      "name": "hyperyond--hover",
+      "source": "./hyperyond--hover",
+      "description": "Local-first, open-source AI testing for the web. The widget rides on the coding-agent CLI you already have (Claude Code / OpenAI Codex \u2014 no API key) to drive your real Chrome via Playwright MCP. Verif"
+    },
+    {
+      "name": "huangpustar--fenixagent",
+      "source": "./huangpustar--fenixagent",
+      "description": "FenixAgent"
+    },
+    {
+      "name": "foundationagents--ai-link-net",
+      "source": "./foundationagents--ai-link-net",
+      "description": "Build AI teams that work together \u2014 agents, humans, and tools connected through a unified protocol."
     },
     {
       "name": "cheerhuan--save-your-token",
