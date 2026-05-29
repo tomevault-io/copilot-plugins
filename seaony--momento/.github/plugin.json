@@ -1,0 +1,9 @@
+{
+  "name": "seaony--momento",
+  "displayName": "Momento",
+  "description": "An Eagle-like MacOS image management app based on SwiftUI",
+  "version": "1.0.0",
+  "author": "Seaony",
+  "homepage": "https://github.com/Seaony/Momento",
+  "skills": []
+}
