@@ -1,0 +1,44 @@
+{
+  "name": "flora-music-bot",
+  "owner": "gabrielmaialva33",
+  "repo": "flora-music-bot",
+  "description": "Flora Music Bot is a powerful music and video bot for Telegram, built with Python using Pyrogram and Py-Tgcalls. With it, you can stream music, videos, and even live broadcasts in group calls from various sources. \ud83d\ude80",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gabrielmaialva33/flora-music-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T22:33:31Z"
+}
