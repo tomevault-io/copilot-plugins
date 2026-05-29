@@ -1,0 +1,9 @@
+{
+  "name": "ahyatt--emacs-bluesky",
+  "displayName": "emacs-bluesky",
+  "description": "An emacs client for Bluesky",
+  "version": "1.0.0",
+  "author": "ahyatt",
+  "homepage": "https://github.com/ahyatt/emacs-bluesky",
+  "skills": []
+}
