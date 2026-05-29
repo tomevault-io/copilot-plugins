@@ -1,0 +1,9 @@
+{
+  "name": "hkustgz-mics-lyu--mico-python",
+  "displayName": "MiCo-python",
+  "description": "End-to-End Mixed Precision Neural Network Co-Exploration Framework for Edge AI",
+  "version": "1.0.0",
+  "author": "HKUSTGZ-MICS-LYU",
+  "homepage": "https://github.com/HKUSTGZ-MICS-LYU/MiCo-python",
+  "skills": []
+}
