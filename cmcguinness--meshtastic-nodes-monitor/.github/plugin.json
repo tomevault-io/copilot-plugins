@@ -1,0 +1,9 @@
+{
+  "name": "cmcguinness--meshtastic-nodes-monitor",
+  "displayName": "Meshtastic-Nodes-Monitor",
+  "description": "Monitors the Meshtastic Network",
+  "version": "1.0.0",
+  "author": "cmcguinness",
+  "homepage": "https://github.com/cmcguinness/Meshtastic-Nodes-Monitor",
+  "skills": []
+}
