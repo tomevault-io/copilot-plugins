@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--buddy-bot",
+  "displayName": "buddy-bot",
+  "description": "\ud83d\udc36 Automated & optimized dependency updates for JavaScript & TypeScript projects. Like Renovate & Dependabot.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/buddy-bot",
+  "skills": []
+}
