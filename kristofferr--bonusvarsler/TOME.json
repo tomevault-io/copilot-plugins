@@ -1,0 +1,44 @@
+{
+  "name": "BonusVarsler",
+  "owner": "kristofferR",
+  "repo": "BonusVarsler",
+  "description": "BonusVarsler er en minimalistisk web extension/userscript som gir deg varslel n\u00e5r du er inne p\u00e5 en nettbutikk som gir bonus p\u00e5 Trumf/re:member/OBOS/DNB m.m.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kristofferR/BonusVarsler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T22:48:06Z"
+}
