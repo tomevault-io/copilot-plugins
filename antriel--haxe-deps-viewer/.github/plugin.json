@@ -1,0 +1,9 @@
+{
+  "name": "antriel--haxe-deps-viewer",
+  "displayName": "haxe-deps-viewer",
+  "description": "Haxe dependencies viewer.",
+  "version": "1.0.0",
+  "author": "Antriel",
+  "homepage": "https://github.com/Antriel/haxe-deps-viewer",
+  "skills": []
+}
