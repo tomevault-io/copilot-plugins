@@ -1,0 +1,44 @@
+{
+  "name": "sub-customizer",
+  "owner": "linux-fly",
+  "repo": "sub-customizer",
+  "description": "Clash subcription customizer | Clash\u8ba2\u9605\u81ea\u5b9a\u4e49",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/linux-fly/sub-customizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T01:02:03Z"
+}
