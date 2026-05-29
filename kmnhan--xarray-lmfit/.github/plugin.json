@@ -1,0 +1,9 @@
+{
+  "name": "kmnhan--xarray-lmfit",
+  "displayName": "xarray-lmfit",
+  "description": "Fit lmfit models to xarray objects",
+  "version": "1.0.0",
+  "author": "kmnhan",
+  "homepage": "https://github.com/kmnhan/xarray-lmfit",
+  "skills": []
+}
