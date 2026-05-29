@@ -4,7 +4,7 @@
   "repo": "zkp2p-contracts",
   "description": "ZKP2P V2 escrow protocol contracts",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zkp2p/zkp2p-contracts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T00:55:34Z"
+  "distributed_at": "2026-05-29T01:02:35Z"
 }
