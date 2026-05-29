@@ -1,0 +1,9 @@
+{
+  "name": "schuettc--now-playing",
+  "displayName": "now-playing",
+  "description": "Raspberry Pi vinyl now-playing kiosk \u2014 Sonos line-in + Shazam + Discogs/MusicBrainz catalog enrichment + local fingerprint cascade",
+  "version": "1.0.0",
+  "author": "schuettc",
+  "homepage": "https://github.com/schuettc/now-playing",
+  "skills": []
+}
