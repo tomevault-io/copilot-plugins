@@ -1,0 +1,9 @@
+{
+  "name": "0xbebis--hyperpay",
+  "displayName": "HyperPay",
+  "description": "Omnichain payments system that allows AI Agents to fund their Hyperliquid margin from anywhere & use that margin to pay for compute and other services.",
+  "version": "1.0.0",
+  "author": "0xBebis",
+  "homepage": "https://github.com/0xBebis/HyperPay",
+  "skills": []
+}
