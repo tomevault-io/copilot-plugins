@@ -4,7 +4,7 @@
   "repo": "marketingskills",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marinirin909-lang/marketingskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T02:45:28Z"
+  "distributed_at": "2026-05-29T02:52:43Z"
 }
