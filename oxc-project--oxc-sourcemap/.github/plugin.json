@@ -1,0 +1,9 @@
+{
+  "name": "oxc-project--oxc-sourcemap",
+  "displayName": "oxc-sourcemap",
+  "description": "Forked version of rust-sourcemap",
+  "version": "1.0.0",
+  "author": "oxc-project",
+  "homepage": "https://github.com/oxc-project/oxc-sourcemap",
+  "skills": []
+}
