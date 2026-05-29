@@ -1,0 +1,9 @@
+{
+  "name": "chainstack--dev-portal",
+  "displayName": "dev-portal",
+  "description": "Chainstack Developer Portal",
+  "version": "1.0.0",
+  "author": "chainstack",
+  "homepage": "https://github.com/chainstack/dev-portal",
+  "skills": []
+}
