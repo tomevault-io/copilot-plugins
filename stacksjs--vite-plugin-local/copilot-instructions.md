@@ -1,0 +1,35 @@
+## vite-plugin-local
+
+> A Vite plugin that enables pretty custom development URLs (e.g. `my-app.local`) with smart HTTPS management, including automatic certificate creation and cleanup. It proxies HTTP/HTTPS requests, supports clean URLs (no `.html` extension required), and manages `/etc/hosts` entries automatically. Configuration is done via the `Local()` plugin in `vite.config.ts`.
+
+# Claude Code Guidelines
+
+## About
+
+A Vite plugin that enables pretty custom development URLs (e.g. `my-app.local`) with smart HTTPS management, including automatic certificate creation and cleanup. It proxies HTTP/HTTPS requests, supports clean URLs (no `.html` extension required), and manages `/etc/hosts` entries automatically. Configuration is done via the `Local()` plugin in `vite.config.ts`.
+
+## Linting
+
+- Use **pickier** for linting — never use eslint directly
+- Run `bunx --bun pickier .` to lint, `bunx --bun pickier . --fix` to auto-fix
+- When fixing unused variable warnings, prefer `// eslint-disable-next-line` comments over prefixing with `_`
+
+## Frontend
+
+- Use **stx** for templating — never write vanilla JS (`var`, `document.*`, `window.*`) in stx templates
+- Use **crosswind** as the default CSS framework which enables standard Tailwind-like utility classes
+- stx `<script>` tags should only contain stx-compatible code (signals, composables, directives)
+
+## Dependencies
+
+- **buddy-bot** handles dependency updates — not renovatebot
+- **better-dx** provides shared dev tooling as peer dependencies — do not install its peers (e.g., `typescript`, `pickier`, `bun-plugin-dtsx`) separately if `better-dx` is already in `package.json`
+- If `better-dx` is in `package.json`, ensure `bunfig.toml` includes `linker = "hoisted"`
+
+## Commits
+
+- Use conventional commit messages (e.g., `fix:`, `feat:`, `chore:`)
+
+---
+> Source: [stacksjs/vite-plugin-local](https://github.com/stacksjs/vite-plugin-local) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
