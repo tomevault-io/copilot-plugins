@@ -1,0 +1,9 @@
+{
+  "name": "wasp-lang--cursor-template",
+  "displayName": "cursor-template",
+  "description": "A template for building Wasp apps with the Cursor IDE",
+  "version": "1.0.0",
+  "author": "wasp-lang",
+  "homepage": "https://github.com/wasp-lang/cursor-template",
+  "skills": []
+}
