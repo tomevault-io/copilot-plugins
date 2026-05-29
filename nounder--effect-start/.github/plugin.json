@@ -1,0 +1,14 @@
+{
+  "name": "nounder--effect-start",
+  "displayName": "effect-start",
+  "description": "Declarative full-stack Effect apps",
+  "version": "1.0.0",
+  "author": "nounder",
+  "homepage": "https://github.com/nounder/effect-start",
+  "skills": [
+    {
+      "name": "test-write",
+      "description": ""
+    }
+  ]
+}
