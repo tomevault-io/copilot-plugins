@@ -1,0 +1,9 @@
+{
+  "name": "stem-studio--engine",
+  "displayName": "Engine",
+  "description": "Stem Studio, the web game engine",
+  "version": "1.0.0",
+  "author": "Stem-Studio",
+  "homepage": "https://github.com/Stem-Studio/Engine",
+  "skills": []
+}
