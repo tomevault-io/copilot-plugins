@@ -1,0 +1,9 @@
+{
+  "name": "voicelinkvr--voicelinkserver",
+  "displayName": "VoiceLinkServer",
+  "description": "api server using faster-whisper and libreTranslate (design for VRCHAT)",
+  "version": "1.0.0",
+  "author": "VoiceLinkVR",
+  "homepage": "https://github.com/VoiceLinkVR/VoiceLinkServer",
+  "skills": []
+}
