@@ -1,0 +1,9 @@
+{
+  "name": "pnkmath--exam-studio",
+  "displayName": "exam-studio",
+  "description": "Exam Studio \u2014 HWPX \uc218\ud559 \uae30\ucd9c \uc2dc\ud5d8\uc9c0 \uc81c\uc791 \uc2a4\ud29c\ub514\uc624 (Next.js + Python). NGD Studio \uae30\ubc18 de-branded \ubc30\ud3ec\ubcf8.",
+  "version": "1.0.0",
+  "author": "PNKmath",
+  "homepage": "https://github.com/PNKmath/exam-studio",
+  "skills": []
+}
