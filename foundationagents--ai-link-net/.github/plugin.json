@@ -1,0 +1,9 @@
+{
+  "name": "foundationagents--ai-link-net",
+  "displayName": "ai-link-net",
+  "description": "Build AI teams that work together \u2014 agents, humans, and tools connected through a unified protocol.",
+  "version": "1.0.0",
+  "author": "FoundationAgents",
+  "homepage": "https://github.com/FoundationAgents/ai-link-net",
+  "skills": []
+}
