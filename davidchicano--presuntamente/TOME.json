@@ -1,0 +1,44 @@
+{
+  "name": "presuntamente",
+  "owner": "davidchicano",
+  "repo": "presuntamente",
+  "description": "Archivo p\u00fablico e interactivo de casos de corrupci\u00f3n en Espa\u00f1a. Cronolog\u00edas, actores, documentaci\u00f3n oficial y el grafo de qui\u00e9n est\u00e1 conectado con qui\u00e9n. Imputados, procesados, archivados y condenados. Todos presuntamente inocentes hasta que un juez diga lo contrario.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/davidchicano/presuntamente",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T14:43:35Z"
+}
