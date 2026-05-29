@@ -1,0 +1,9 @@
+{
+  "name": "laulauland--bluesky-context-server",
+  "displayName": "bluesky-context-server",
+  "description": "Bluesky MCP server",
+  "version": "1.0.0",
+  "author": "laulauland",
+  "homepage": "https://github.com/laulauland/bluesky-context-server",
+  "skills": []
+}
