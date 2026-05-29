@@ -1,92 +1,83 @@
-## deltacomponents-dev
+## 33-delta-registry-sync
 
-> This is a Delta Components UI documentation site built with Next.js, featuring a custom component registry system based on shadcn/ui. The registry allows users to copy and install reusable React components.
+> description: Audits every component, infers **npm deps**, **internal deps**, **shadcn-core deps**, plus tags; then patches each `registry-{category}.tsx`.
 
-# Delta Components Registry - Gemini Guide
+---
+# 33-delta-registry-sync.mdc
+description: Audits every component, infers **npm deps**, **internal deps**, **shadcn-core deps**, plus tags; then patches each `registry-{category}.tsx`.
+alwaysApply: false                # run with @refresh-registry
+globs:
+  - "registry/**/*.tsx"           # sources to inspect
+  - "registry/registry-*.ts"      # target registries
+---
 
-## Project Overview
-This is a Delta Components UI documentation site built with Next.js, featuring a custom component registry system based on shadcn/ui. The registry allows users to copy and install reusable React components.
+## Trigger phrase
 
-## AI Assistant Guidelines
+* “Refresh the registry files.”
+* “Audit dependencies for all components.”
+* “@refresh-registry”
 
-### 1. Git & Version Control
-- **Command:** Always use `gacp` (alias for `git add . && git commit -m "..." && git push`) with `--no-verify`.
-- **Constraint:** Do not `git add` or `build` unless explicitly instructed by the user.
+---
 
-### 2. Package Management
-- **Tool:** ALWAYS use `bun`. Never use `pnpm`, `npm` or `yarn`.
-  - Install: `bun install`
-  - Add: `bun add <package>`
-  - Dev: `bun add -d <package>`
-  - Run scripts: `bun run <script>`
+## Analysis rules
 
-### 3. Registry Structure & Locations
-- **Root:** `apps/www/registry/delta-ui/`
-- **UI Components:** `apps/www/registry/delta-ui/ui/` (Base Shadcn UI components)
-- **Registry Components:** `apps/www/registry/delta-ui/delta/` (Complex/Custom components)
-- **Blocks:** `apps/www/registry/delta-ui/blocks/` (Page sections/layouts)
-- **Examples/Demos:** `apps/www/registry/delta-ui/examples/`
+| Import pattern                                                             | Treat as…                  | Registry field                |
+|---------------------------------------------------------------------------|----------------------------|-------------------------------|
+| `from "@/components/ui/<name>"` or `"components/ui/<name>"`               | **shadcn core component**  | `registryDependencies` → `<name>` (kebab-case stem) |
+| `from "@/registry/<cat>/<file>"` or *relative path* that resolves inside `registry/` | **internal component**     | `registryDependencies` → `<file>` (kebab-case stem) |
+| `from "<package-name>"` (no `/registry/`, not path-relative)              | **npm dependency**         | `dependencies` → `<package-name>` |
+| `import type …`                                                           | same logic, strip `type`   | same as above                |
 
-**Import Convention:**
-- Import shadcn/base components from: `@/registry/delta-ui/ui/**` (NOT `components/ui`)
-- Import registry components from: `@/registry/delta-ui/delta/**`
+*Deduplicate and sort each array alphabetically.*
 
-### 4. Creating New Components
-**NEVER create components manually.** Use the provided scripts to ensure proper registration and file generation.
+---
 
-**Command:**
-```bash
-bun apps/www/scripts/create-component.js <component-name> [ui|components|blocks]
-```
-*   `ui`: For base UI components (buttons, inputs).
-*   `components`: For complex/registry components (voice-recorder, audio-player).
-*   `blocks`: For larger page sections.
+## Tag heuristics
 
-**What the script does:**
-1.  Creates component file in the appropriate registry subfolder.
-2.  Generates an MDX documentation file in `content/docs/components/`.
-3.  Creates an example/demo file in `registry/delta-ui/examples/`.
-4.  Updates `registry-ui.ts`, `registry-examples.ts` or `registry-blocks.ts`.
+1. Start with existing `tags`.
+2. Add split words from file name (`checkbox-input` → `checkbox`, `input`).
+3. Add category name (`inputs`, `media`, …).
+4. Keyword hints:  
+   * `framer-motion` → `animation`  
+   * `lucide-react`  → `icon`
+5. Lower-case, dedupe, sort.
 
-**Post-Creation Steps:**
-1.  Edit the generated component file.
-2.  Update the documentation MDX.
-3.  Refine the demo/example.
-4.  Run `bun run registry:build` to update the registry index (only if instructed).
+---
 
-### 5. Creating New Blocks
-**Command:**
-```bash
-bun apps/www/scripts/create-block.js <block-name> [category]
-```
-*   `category`: `featured`, `agents`, `audio`, `landing-page` (Default: `featured`).
+## Patch logic
 
-**What the script does:**
-1.  Creates a directory `registry/delta-ui/blocks/<block-name>/`.
-2.  Creates `page.tsx` and `components/<block-name>.tsx`.
-3.  Updates `registry-blocks.ts`.
+* For each component found on disk:
+  * If missing in `registry-{category}.tsx`, **append** a new entry.
+  * Else **update** `dependencies`, `registryDependencies`, and `tags`.
+* Leave `devDependencies` untouched.
+* Preserve ordering/comments of other fields.
 
-### 6. Development & Verification
-- **Start Server:** `bun dev`
-- **Rebuild Registry:** `bun run registry:build` (Use this script from `apps/www/package.json` when asked to rebuild).
-- **Lint:** `bun run lint`
-- **Typecheck:** `bun run typecheck`
+---
 
-## Theme System
-- Themes are defined in `apps/www/lib/theme-data.ts`.
-- CSS variables are in `apps/www/styles/themes/[theme-name].css`.
-- When creating a new theme, follow the steps in `CLAUDE.md` / `GEMINI.md` to add CSS, import it, and update theme data.
+## Safeguards
 
-## Documentation (Fumadocs)
-- Documentation pages are MDX files in `apps/www/content/docs/`.
-- Navigation is controlled by `meta.json` files in the docs directories.
-- Component docs should include `<Installation />` and `<ComponentPreview />` components.
+* Always include shadcn core component names (**button**, **checkbox**, …) in `registryDependencies`.
+* Remove any listed dependency that no longer appears in code.
+* Skip test/storybook files (`*.test.tsx`, `*.stories.tsx`, etc.).
 
-## Important Reminders for Gemini
-- This is a **custom shadcn registry** (forked).
-- Always verify file paths before editing.
-- When fixing bugs or refactoring, check `registry/delta-ui` paths first.
-- Refer to `apps/www/scripts/` for any automation tasks.
+---
+
+## Workflow
+
+1. **Discover** categories by scanning `registry/*/`.
+2. **Parse** each `*.tsx` with the TypeScript compiler (`ts-morph` or `typescript` AST).
+3. **Generate** sorted arrays for `dependencies`, `registryDependencies`, `tags`.
+4. **Write** changes back to the relevant `registry-{category}.tsx`.
+5. **Open** the modified file(s) for review.
+6. **Reply** with:
+
+   > **Registry sync complete**  
+   > • Categories scanned: {{nCats}}  
+   > • Components updated: {{nFiles}}  
+   > • npm deps added: {{pkgList}}  
+   > • shadcn/core + internal links: {{depCount}}
+
+*(Do not paste full file contents into chat.)*
 
 ---
 > Source: [pprunty/deltacomponents.dev](https://github.com/pprunty/deltacomponents.dev) — distributed by [TomeVault](https://tomevault.io).
