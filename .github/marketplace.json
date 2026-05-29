@@ -180019,6 +180019,26 @@
       "description": "Build AI teams that work together \u2014 agents, humans, and tools connected through a unified protocol."
     },
     {
+      "name": "pnkmath--exam-studio",
+      "source": "./pnkmath--exam-studio",
+      "description": "Exam Studio \u2014 HWPX \uc218\ud559 \uae30\ucd9c \uc2dc\ud5d8\uc9c0 \uc81c\uc791 \uc2a4\ud29c\ub514\uc624 (Next.js + Python). NGD Studio \uae30\ubc18 de-branded \ubc30\ud3ec\ubcf8."
+    },
+    {
+      "name": "pnkmath--exam-studio",
+      "source": "./pnkmath--exam-studio",
+      "description": "Exam Studio \u2014 HWPX \uc218\ud559 \uae30\ucd9c \uc2dc\ud5d8\uc9c0 \uc81c\uc791 \uc2a4\ud29c\ub514\uc624 (Next.js + Python). NGD Studio \uae30\ubc18 de-branded \ubc30\ud3ec\ubcf8."
+    },
+    {
+      "name": "pnkmath--exam-studio",
+      "source": "./pnkmath--exam-studio",
+      "description": "Exam Studio \u2014 HWPX \uc218\ud559 \uae30\ucd9c \uc2dc\ud5d8\uc9c0 \uc81c\uc791 \uc2a4\ud29c\ub514\uc624 (Next.js + Python). NGD Studio \uae30\ubc18 de-branded \ubc30\ud3ec\ubcf8."
+    },
+    {
+      "name": "har-ki--claude-code-sre-handbook",
+      "source": "./har-ki--claude-code-sre-handbook",
+      "description": "Claude Code SRE Handbook"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -182817,6 +182837,16 @@
       "name": "leoncrispybacon--full-auto-forza-edition",
       "source": "./leoncrispybacon--full-auto-forza-edition",
       "description": "Full automated AFK script for grinding mastery points and unlocking 22B-STI's mastery tree"
+    },
+    {
+      "name": "damao--ai-finance-dashboard",
+      "source": "./damao--ai-finance-dashboard",
+      "description": "ai_finance_dashboard"
+    },
+    {
+      "name": "lanxiuyun--catrace",
+      "source": "./lanxiuyun--catrace",
+      "description": "\ud83d\udcbb \u4e45\u5750\u63d0\u9192\uff0c\u952e\u76d8\u9f20\u6807\u8f7b\u91cf\u76d1\u6d4b\uff0c\u9ed8\u9ed8\u63d0\u9192\u4f60\u4fdd\u62a4\u8eab\u4f53/ A privacy-first break reminder driven by keyboard & mouse activity. "
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
