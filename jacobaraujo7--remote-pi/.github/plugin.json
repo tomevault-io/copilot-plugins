@@ -1,0 +1,9 @@
+{
+  "name": "jacobaraujo7--remote-pi",
+  "displayName": "remote_pi",
+  "description": "Control your Pi coding agent from your phone. Pair with a one-time QR code and chat with your local agent \u2014 even when you're away from your computer.",
+  "version": "1.0.0",
+  "author": "jacobaraujo7",
+  "homepage": "https://github.com/jacobaraujo7/remote_pi",
+  "skills": []
+}
