@@ -7,11 +7,11 @@ ThirdSpace Knowledge OS — 知识库操作系统模板。Agent-native，零配�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zzyong24/thirdspace-vault-template](https://github.com/zzyong24/thirdspace-vault-template).
+Original source: `CLAUDE.md` in [zzyong24/thirdspace-vault-template](https://github.com/zzyong24/thirdspace-vault-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
