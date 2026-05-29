@@ -1,0 +1,9 @@
+{
+  "name": "jdevalk--specification-website",
+  "displayName": "specification.website",
+  "description": "Website specification \u2014 HTML, accessibility, security, SEO, agent-readiness. Platform-agnostic, sourced, MIT.",
+  "version": "1.0.0",
+  "author": "jdevalk",
+  "homepage": "https://github.com/jdevalk/specification.website",
+  "skills": []
+}
