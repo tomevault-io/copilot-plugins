@@ -1,6 +1,6 @@
 # wechat-article-crawler
 
-> Tome by [wuciqiang](https://github.com/wuciqiang/wechat-article-crawler) — distributed by [TomeVault](https://tomevault.io/claim/wuciqiang)
+> Tome by [wuciqiang](https://github.com/wuciqiang/wechat-article-crawler) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [wuciqiang/wechat-article-crawler](htt
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/wuciqiang#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/wuciqiang/wechat-article-crawler](https://github.com/wuciqiang/wechat-article-crawler)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install wuciqiang/wechat-article-crawler
 ```
-Or browse all formats at [https://tomevault.io/claim/wuciqiang](https://tomevault.io/claim/wuciqiang).
+Source: [github.com/wuciqiang/wechat-article-crawler](https://github.com/wuciqiang/wechat-article-crawler).
 
 <!-- genome:t-i-q -->
