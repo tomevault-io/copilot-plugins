@@ -1,0 +1,9 @@
+{
+  "name": "k-dense-ai--science-superpowers",
+  "displayName": "science-superpowers",
+  "description": "Composable computational-science methodology skills for AI research agents \u2014 pre-registration over TDD. A science-domain reimplementation of Superpowers.",
+  "version": "1.0.0",
+  "author": "K-Dense-AI",
+  "homepage": "https://github.com/K-Dense-AI/science-superpowers",
+  "skills": []
+}
