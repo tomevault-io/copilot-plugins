@@ -1,0 +1,9 @@
+{
+  "name": "lalinsky--msgpack-zig",
+  "displayName": "msgpack.zig",
+  "description": "Msgpack serialization for Zig / msgpack.org[Zig]",
+  "version": "1.0.0",
+  "author": "lalinsky",
+  "homepage": "https://github.com/lalinsky/msgpack.zig",
+  "skills": []
+}
