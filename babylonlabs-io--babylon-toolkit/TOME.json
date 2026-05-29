@@ -4,7 +4,7 @@
   "repo": "babylon-toolkit",
   "description": "Babylon\u2019s frontend monorepo contains everything you need to build a world-class staking dApp.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/babylonlabs-io/babylon-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T20:35:13Z"
+  "distributed_at": "2026-05-29T20:50:39Z"
 }
