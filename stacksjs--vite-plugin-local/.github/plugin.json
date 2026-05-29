@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--vite-plugin-local",
+  "displayName": "vite-plugin-local",
+  "description": "\ud83c\udfa8 Pretty development URLs, and HTTPS. Zero config, zero setup.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/vite-plugin-local",
+  "skills": []
+}
