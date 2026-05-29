@@ -1,0 +1,9 @@
+{
+  "name": "mongorolls--dgut-cs-wiki",
+  "displayName": "dgut-cs-wiki",
+  "description": "A comprehensive learning guide for computer science students at DGUT, featuring resources, courses, and community support for aspiring developers.",
+  "version": "1.0.0",
+  "author": "MongoRolls",
+  "homepage": "https://github.com/MongoRolls/dgut-cs-wiki",
+  "skills": []
+}
