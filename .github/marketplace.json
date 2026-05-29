@@ -147224,6 +147224,11 @@
       "description": "kroma-studio"
     },
     {
+      "name": "blackzhanzhan--novel-agent",
+      "source": "./blackzhanzhan--novel-agent",
+      "description": "Git-native AI novel writing workbench with Dify agents"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
