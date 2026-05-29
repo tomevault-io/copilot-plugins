@@ -1,0 +1,44 @@
+{
+  "name": "ai-agent-toolbox",
+  "owner": "255BITS",
+  "repo": "ai-agent-toolbox",
+  "description": "Easily add tool use to your AI Agents and Workflows. Framework and model provider agnostic.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/255BITS/ai-agent-toolbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T20:46:27Z"
+}
