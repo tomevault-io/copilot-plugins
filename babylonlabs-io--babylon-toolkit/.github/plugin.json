@@ -1,0 +1,9 @@
+{
+  "name": "babylonlabs-io--babylon-toolkit",
+  "displayName": "babylon-toolkit",
+  "description": "Babylon\u2019s frontend monorepo contains everything you need to build a world-class staking dApp.",
+  "version": "1.0.0",
+  "author": "babylonlabs-io",
+  "homepage": "https://github.com/babylonlabs-io/babylon-toolkit",
+  "skills": []
+}
