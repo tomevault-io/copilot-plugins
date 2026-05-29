@@ -5119,6 +5119,11 @@
       "description": "Illegal rust"
     },
     {
+      "name": "open-gsd--gsd-core",
+      "source": "./open-gsd--gsd-core",
+      "description": "Getting Shit Done, the Aftermath"
+    },
+    {
       "name": "parruda--swarm",
       "source": "./parruda--swarm",
       "description": "Ruby gems for general-purpose AI agent systems: automation, research, data processing, customer support, content creation. SwarmSDK provides single-process orchestration, persistent memory with semant"
