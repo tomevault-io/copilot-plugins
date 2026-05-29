@@ -4,7 +4,7 @@
   "repo": "AI-Agent-Casebook",
   "description": "Project to showcase agentic framework on a Customer Onboarding Assistant",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BittnerPierre/AI-Agent-Casebook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T00:59:44Z"
+  "distributed_at": "2026-05-29T01:07:18Z"
 }
