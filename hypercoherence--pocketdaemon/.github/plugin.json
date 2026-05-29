@@ -1,0 +1,9 @@
+{
+  "name": "hypercoherence--pocketdaemon",
+  "displayName": "PocketDaemon",
+  "description": "Experimental Android-native AI phone agent with voice, calls, memory, tools, and Magisk-based privileged integration.",
+  "version": "1.0.0",
+  "author": "HyperCoherence",
+  "homepage": "https://github.com/HyperCoherence/PocketDaemon",
+  "skills": []
+}
