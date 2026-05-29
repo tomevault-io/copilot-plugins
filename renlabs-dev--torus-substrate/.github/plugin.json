@@ -1,0 +1,9 @@
+{
+  "name": "renlabs-dev--torus-substrate",
+  "displayName": "torus-substrate",
+  "description": "The Torus Blockchain implementation.",
+  "version": "1.0.0",
+  "author": "renlabs-dev",
+  "homepage": "https://github.com/renlabs-dev/torus-substrate",
+  "skills": []
+}
