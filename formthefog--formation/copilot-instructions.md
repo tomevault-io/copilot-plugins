@@ -1,10 +1,14 @@
-## check-and-update-implementation-guide
+## dry-do-not-duplicate-work
 
-> Always check the project implementation guide [microservices-migration-plan.md](mdc:microservices-migration-plan.md) before doing anything
+> DRY: Don't Repeat Yourself.
 
-Always check the project implementation guide [microservices-migration-plan.md](mdc:microservices-migration-plan.md) before doing anything
+DRY: Don't Repeat Yourself.
 
-After completing a task always update the implementation guide [microservices-migration-plan.md](mdc:microservices-migration-plan.md) before suggesting a next step.
+Always check the codebase before implementing a task to make sure the work we are about to do needs to be done and has not been done before.
+
+Write code in a way that it can be reused in the future for other things that it might apply to if possible, sometimes it is not possible.
+
+Check the codebase to make sure that the task you are working on has not been completed yet before implementing it.
 
 ---
 > Source: [formthefog/formation](https://github.com/formthefog/formation) — distributed by [TomeVault](https://tomevault.io).
