@@ -1,45 +1,33 @@
-## 30-delta-components
+## 31-delta-demos
 
-> description: How the agent should scaffold a NEW REGISTRY COMPONENT
+> description: How the agent should scaffold a NEW DEMO FOR AN EXISTING COMPONENT
 
 ---
-description: How the agent should scaffold a NEW REGISTRY COMPONENT
+description: How the agent should scaffold a NEW DEMO FOR AN EXISTING COMPONENT
 alwaysApply: true
 ---
 
 ## TL;DR
 
 > **Human command**  
-> *“Create component CardTilt in inputs”*
+> *“Create a spotify demo for tabs”*
 
 > **Agent action**  
-> 1. Make sure the name is **PascalCase** (`CardTilt`).  
-> 2. Make sure the category folder exists (`registry/inputs`). If it does not exist, the script should handle this case by creating folder but ask them before proceeding.
-> 3. Run **one** of:
+> 1. Resolve real component filename (`tabs.tsx`) and category (auto-detect).  
+> 2. Run:
 >    ```bash
->    # Makefile alias (preferred – colours + var checks)
->    make component name=CardTilt category=inputs
->    # or the bare PNPM script
->    pnpm create-component CardTilt inputs
+>    make demo component=tabs name=spotify
+>    # alias for:
+>    pnpm create-demo tabs spotify
 >    ```
-> 4. Afterwards, update `config/docs.ts` → sidebarNav to include the item in appropriate category.  
-> 5. If the command fails, surface stderr verbatim.
-> 6. After the new component is created, run the `make registry` command to sync up with the registry.
-> 7. Ensure the component and demo components created are `export default function` components.
-
-### Reference
-
-- Script: `scripts/create-component.js`  
-- Default `type`: `registry:component` (override via third arg).  
-- Converts names:
-> • *kebab* → `toPascalCase` for the exported symbol  
-> • Generates matching MDX docs, registry files, etc.
+> 3. Script adds `<ComponentPreview>` to the MDX docs – ask me to curate the copy.  
+> 4. If it’s a special-case dependency (e.g. `"tabs-spotify"` → needs `"x-scrollable"`) the script does it—no manual tweaks.
 
 ### House rules
 
-1. **NEVER** touch `/registry/__generated__` – that’s the build output.  
-2. If the component already exists, *exit early* with the friendly message from the script.  
-3. Follow the **Contentlayer front-matter** template baked into the script: keep `title`, `description`, no extra fields.  
+1. Demos live in `registry/examples/*-demo.tsx` and must end `-demo`.  
+2. After generation, run `pnpm build-registry` (or `make registry`).
+3. If the base component can’t be found, surface the script’s error and **do not** fall back to guesswork.
 
 ---
 > Source: [pprunty/deltacomponents.dev](https://github.com/pprunty/deltacomponents.dev) — distributed by [TomeVault](https://tomevault.io).
