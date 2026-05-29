@@ -1,0 +1,9 @@
+{
+  "name": "shyftlabs--continuum",
+  "displayName": "continuum",
+  "description": "Continuum \u2014 the agent runtime by ShyftLabs. Build, orchestrate, ship.",
+  "version": "1.0.0",
+  "author": "shyftlabs",
+  "homepage": "https://github.com/shyftlabs/continuum",
+  "skills": []
+}
