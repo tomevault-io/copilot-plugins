@@ -1,0 +1,9 @@
+{
+  "name": "jonverrier--promptrepository",
+  "displayName": "PromptRepository",
+  "description": "A framework for managing and testing LLM prompts.",
+  "version": "1.0.0",
+  "author": "jonverrier",
+  "homepage": "https://github.com/jonverrier/PromptRepository",
+  "skills": []
+}
