@@ -1,9 +1,9 @@
 {
   "name": "bean980310--ai-companion",
   "displayName": "ai-companion",
-  "description": "ai-companion",
+  "description": "AI companions including generative AI such as chatbots, image generation, text generation, and audio generation.",
   "version": "1.0.0",
   "author": "bean980310",
-  "homepage": "https://tomevault.io/claim/bean980310",
+  "homepage": "https://github.com/bean980310/ai-companion",
   "skills": []
 }
