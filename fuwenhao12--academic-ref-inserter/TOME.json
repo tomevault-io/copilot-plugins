@@ -4,7 +4,7 @@
   "repo": "academic-ref-inserter",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fuwenhao12/academic-ref-inserter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T14:32:15Z"
+  "distributed_at": "2026-05-29T14:33:21Z"
 }
