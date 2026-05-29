@@ -4,7 +4,7 @@
   "repo": "thirdspace-vault-template",
   "description": "ThirdSpace Knowledge OS \u2014 \u77e5\u8bc6\u5e93\u64cd\u4f5c\u7cfb\u7edf\u6a21\u677f\u3002Agent-native\uff0c\u96f6\u914d\u7f6e\uff0c\u4efb\u610f AI Agent \u5747\u53ef\u9a71\u52a8\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zzyong24/thirdspace-vault-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T10:30:25Z"
+  "distributed_at": "2026-05-29T10:30:58Z"
 }
