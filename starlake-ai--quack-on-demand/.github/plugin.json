@@ -1,0 +1,9 @@
+{
+  "name": "starlake-ai--quack-on-demand",
+  "displayName": "quack-on-demand",
+  "description": "Production-grade Arrow FlightSQL gateway in front of DuckDB Quack + DuckLake. Multi-tenant pools, pluggable auth (DB/JWT/OIDC), table-level ACLs, role-aware routing, and a live admin console",
+  "version": "1.0.0",
+  "author": "starlake-ai",
+  "homepage": "https://github.com/starlake-ai/quack-on-demand",
+  "skills": []
+}
