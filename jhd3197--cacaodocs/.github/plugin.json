@@ -1,0 +1,9 @@
+{
+  "name": "jhd3197--cacaodocs",
+  "displayName": "CacaoDocs",
+  "description": "CacaoDocs is a lightweight Python package that effortlessly extracts API documentation directly from your code's docstrings",
+  "version": "1.0.0",
+  "author": "jhd3197",
+  "homepage": "https://github.com/jhd3197/CacaoDocs",
+  "skills": []
+}
