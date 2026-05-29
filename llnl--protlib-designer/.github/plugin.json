@@ -1,0 +1,9 @@
+{
+  "name": "llnl--protlib-designer",
+  "displayName": "protlib-designer",
+  "description": "Integer Linear Programming for Protein Library Design",
+  "version": "1.0.0",
+  "author": "llnl",
+  "homepage": "https://github.com/llnl/protlib-designer",
+  "skills": []
+}
