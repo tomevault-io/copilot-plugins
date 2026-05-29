@@ -1,0 +1,9 @@
+{
+  "name": "ngutech21--vipr-wallet",
+  "displayName": "vipr-wallet",
+  "description": "Fedimint web wallet for ecash and Lightning payments on mobile and desktop",
+  "version": "1.0.0",
+  "author": "ngutech21",
+  "homepage": "https://github.com/ngutech21/vipr-wallet",
+  "skills": []
+}
