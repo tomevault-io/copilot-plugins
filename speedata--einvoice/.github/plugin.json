@@ -1,0 +1,9 @@
+{
+  "name": "speedata--einvoice",
+  "displayName": "einvoice",
+  "description": "Go library to read, write and verify electronic invoices",
+  "version": "1.0.0",
+  "author": "speedata",
+  "homepage": "https://github.com/speedata/einvoice",
+  "skills": []
+}
