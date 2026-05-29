@@ -1,0 +1,9 @@
+{
+  "name": "255bits--ai-agent-toolbox",
+  "displayName": "ai-agent-toolbox",
+  "description": "Easily add tool use to your AI Agents and Workflows. Framework and model provider agnostic.",
+  "version": "1.0.0",
+  "author": "255BITS",
+  "homepage": "https://github.com/255BITS/ai-agent-toolbox",
+  "skills": []
+}
