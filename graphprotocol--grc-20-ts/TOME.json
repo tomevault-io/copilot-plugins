@@ -4,7 +4,7 @@
   "repo": "grc-20-ts",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/graphprotocol/grc-20-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T20:38:45Z"
+  "distributed_at": "2026-05-29T20:53:22Z"
 }
