@@ -4,7 +4,7 @@
   "repo": "TapLock",
   "description": "A minimalist Android widget that lets you lock your screen with a double tap. Perfect for one-handed use and quick screen locking.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/modelorona/TapLock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T01:05:12Z"
+  "distributed_at": "2026-05-29T01:09:55Z"
 }
