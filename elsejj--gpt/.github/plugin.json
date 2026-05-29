@@ -1,0 +1,9 @@
+{
+  "name": "elsejj--gpt",
+  "displayName": "gpt",
+  "description": "a cli tool use to send GPT request",
+  "version": "1.0.0",
+  "author": "elsejj",
+  "homepage": "https://github.com/elsejj/gpt",
+  "skills": []
+}
