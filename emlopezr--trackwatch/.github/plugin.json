@@ -1,0 +1,14 @@
+{
+  "name": "emlopezr--trackwatch",
+  "displayName": "trackwatch",
+  "description": "Open Source & Self-hosted Spotify release tracker. Auto-syncs new releases to playlists and includes power-user utilities like a discography generator and ghost track cleaner.",
+  "version": "1.0.0",
+  "author": "emlopezr",
+  "homepage": "https://github.com/emlopezr/trackwatch",
+  "skills": [
+    {
+      "name": "django-expert",
+      "description": ""
+    }
+  ]
+}
