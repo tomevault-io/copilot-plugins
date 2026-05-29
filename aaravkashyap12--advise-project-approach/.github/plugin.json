@@ -1,0 +1,9 @@
+{
+  "name": "aaravkashyap12--advise-project-approach",
+  "displayName": "advise-project-approach",
+  "description": "A Claude/Codex skill that researches the best way to build your project before you commit to the wrong stack.",
+  "version": "1.0.0",
+  "author": "AaravKashyap12",
+  "homepage": "https://github.com/AaravKashyap12/advise-project-approach",
+  "skills": []
+}
