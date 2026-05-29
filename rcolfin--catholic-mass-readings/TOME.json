@@ -1,0 +1,44 @@
+{
+  "name": "catholic-mass-readings",
+  "owner": "rcolfin",
+  "repo": "catholic-mass-readings",
+  "description": "Provides an API for querying the Daily Mass populated from https://bible.usccb.org/bible/readings/",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rcolfin/catholic-mass-readings",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T21:32:26Z"
+}
