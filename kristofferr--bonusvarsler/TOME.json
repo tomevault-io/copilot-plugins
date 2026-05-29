@@ -4,7 +4,7 @@
   "repo": "BonusVarsler",
   "description": "BonusVarsler er en minimalistisk web extension/userscript som gir deg varslel n\u00e5r du er inne p\u00e5 en nettbutikk som gir bonus p\u00e5 Trumf/re:member/OBOS/DNB m.m.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kristofferR/BonusVarsler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T22:48:06Z"
+  "distributed_at": "2026-05-29T22:51:38Z"
 }
