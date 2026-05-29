@@ -1,0 +1,9 @@
+{
+  "name": "viktorkav--kav-command-center",
+  "displayName": "kav-command-center",
+  "description": "Obsidian plugin: personal command center for YouTube content creators, powered by Claude Code slash commands",
+  "version": "1.0.0",
+  "author": "viktorkav",
+  "homepage": "https://github.com/viktorkav/kav-command-center",
+  "skills": []
+}
