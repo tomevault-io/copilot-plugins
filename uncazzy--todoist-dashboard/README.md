@@ -7,11 +7,11 @@ A powerful dashboard for Todoist users, offering deep task analytics, productivi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [uncazzy/todoist-dashboard](https://github.com/uncazzy/todoist-dashboard).
+Original source: `AGENTS.md` in [uncazzy/todoist-dashboard](https://github.com/uncazzy/todoist-dashboard).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
