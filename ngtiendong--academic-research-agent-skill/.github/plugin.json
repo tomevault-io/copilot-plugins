@@ -1,0 +1,9 @@
+{
+  "name": "ngtiendong--academic-research-agent-skill",
+  "displayName": "Academic-Research-Agent-Skill",
+  "description": "Human-guided Research Agent Skill for Master and PhD students in CS, AI, math, and engineering: literature grounding, novelty gates, math formalization, experiment planning, reviewer simulation, and c",
+  "version": "1.0.0",
+  "author": "ngtiendong",
+  "homepage": "https://github.com/ngtiendong/Academic-Research-Agent-Skill",
+  "skills": []
+}
