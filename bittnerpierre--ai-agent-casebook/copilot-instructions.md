@@ -1,95 +1,90 @@
-## collaboration-agents-ia
+## ai-agent-casebook
 
-> Ce projet utilise un environnement collaboratif avec plusieurs agents IA :
+> These are project-specific guidelines for Codex-driven development.
 
-# Collaboration avec les Agents IA
+# Project-specific Agent Instructions
 
-## Environnement Collaboratif
+These are project-specific guidelines for Codex-driven development.
 
-Ce projet utilise un environnement collaboratif avec plusieurs agents IA :
-- **Codex** : Génération de code et implémentation
-- **Claude Code** : Révision de code, tests, évaluation LLM
-- **Cursor** : Assistance au développement et édition
+## Mermaid Diagrams
 
-## Règles de Collaboration
+When generating Mermaid diagrams inside Markdown, follow **strict syntax rules** to ensure diagrams render correctly in all environments.
 
-### Fichiers de Référence Intouchables
-- [AGENTS.md](mdc:AGENTS.md) : Règles générales du projet - **NE JAMAIS MODIFIER**
-- [examples/genai_training_transcript/CLAUDE.md](mdc:examples/genai_training_transcript/CLAUDE.md) : Configuration Claude Code - **NE JAMAIS MODIFIER**
+---
 
-### Périmètre de Travail
-- **Répertoire autorisé** : `examples/genai_training_transcript/` et `experiments/` uniquement
-- **Interdiction** : Ne pas toucher aux répertoires `app/`
-- **Inspiration** : Peut consulter le reste du repo pour s'inspirer mais jamais faire de références directes
+### General Guidelines
 
-### Développement Specifications-First
+- Enclose Mermaid code in triple backticks with `mermaid` as the language:
 
-#### Principe Fondamental
-- **AUCUNE implémentation sans spécification préalable**
-- Toute modification de code doit être définie dans [examples/genai_training_transcript/specifications/plan_*.md](mdc:examples/genai_training_transcript/specifications) ou [examples/genai_training_transcript/specifications/sprint_*.md](mdc:examples/genai_training_transcript/specifications)
+  ```mermaid
+  graph TD
+  A --> B
+  ```
 
-#### Processus de Modification des Spécifications
-1. **Modification collaborative** : Proposer des changements aux specs
-2. **Approbation obligatoire** : Attendre l'approbation avant implémentation
-3. **Ordre d'exécution** : Suivre l'ordre défini dans les fichiers `sprint_*.md`
+- Use **graph direction** keywords like `TD`, `LR`, `TB`, `RL`, or `BT` immediately after `graph`.
 
-### Division des Responsabilités
+---
 
-#### Codex
-- Génération de code et implémentation
-- Suit les règles définies dans [AGENTS.md](mdc:AGENTS.md)
-- Travaille sur des features/PR séparés
+### Comments
 
-#### Claude Code  
-- Révision de code et tests
-- Évaluation LLM avec LangSmith
-- Coordination GitHub
-- Identification obligatoire comme "Claude Code" dans les interactions GitHub
+- **No inline comments:** Place Mermaid comments (`%% ...`) on their own lines, at the beginning of the line.
+- **Example of a valid comment:**
 
-#### Cursor (Toi)
-- Assistance au développement
-- Édition de code selon les spécifications approuvées
-- Respect des contraintes collaboratives
+```mermaid
+%% This is a valid Mermaid comment on its own line
+A --> B
+```
 
-### Workflow GitHub
+Avoid inline comments like:
 
-#### Gestion des Issues
-- Créer des issues pour bugs, écarts de specs, ou problèmes d'évaluation
-- Format : `Bug: [Composant] Description`
-- Identifier clairement l'agent créateur
+```mermaid
+A --> B %% Invalid inline comment
+```
 
-#### Revues de Code
-- Chaque agent fait des revues sur les PR des autres
-- Validation de la conformité aux spécifications
-- Remontée d'issues si nécessaire
+---
 
-### Contraintes Techniques
+### Text Escaping Rules
 
-#### Gestion des Packages
-- Utiliser Poetry : `poetry run` pour tous les commandes
-- MCP : Utiliser `uv` ou `uvx` pour l'exécution rapide
+Certain characters must be escaped or avoided in **labels**, **node content**, or **text**:
 
-#### Structure du Projet
-- Projets autonomes sous `examples/`
-- Interfaces propres entre composants (MCP, function calls, REST API)
-- Pas d'imports croisés entre projets
+| Character | Do not use         | Use instead                 |
+| --------- | ------------------ | --------------------------- |
+| `<`       | `<`                | `&lt;`                      |
+| `>`       | `>`                | `&gt;`                      |
+| `&`       | `&`                | `&amp;`                     |
+| `"`       | `"` in some themes | Use `'` or escape carefully |
+| `'`       | OK                 | OK                          |
 
-## Points de Vigilance
+**Example:**
 
-### Avant Toute Modification
-1. Vérifier les spécifications dans [examples/genai_training_transcript/specifications/](mdc:examples/genai_training_transcript/specifications)
-2. S'assurer que la modification est dans le scope du sprint actuel
-3. Confirmer l'approbation des specs si nécessaire
+```mermaid
+graph TD
+    A["x &lt; y"] --> B["y &gt; x"]
+```
 
-### Pendant le Développement
-- Respecter l'ordre des user stories défini dans `sprint_*.md`
-- Maintenir la cohérence avec l'architecture définie dans `plan_*.md`
-- Tester la conformité aux spécifications
+## Project Instructions
 
-### Communication
-- Répondre toujours en français
-- Identifier clairement son rôle d'agent dans les interactions
-- Documenter les décisions et modifications dans GitHub
+- **Code creation scope:** Codex should only generate or modify code within the `examples` directory.
+- **Standalone project:** The projects managed with codex cli are independent. Do not import or rely on code from `app` or `experiments`; they are only for reference.
+- **Project organization:** Each sub-project has its own sub-folder under `examples` (e.g. `examples/project1`, `examples/project2`). These projects are autonomous AI agents managed with the Agents SDK or MCP client, and they may only interact through a clean, defined interface (MCP, function calls, or REST API). The protocol must be defined in the specification.
+- **Specifications, plan and sprint:** Each sub-project must have a dedicated `specifications` folder (e.g. `examples/project1/specifications/`) containing planning files (`plan_*.md`) that define project goals, components, and architecture (workflow diagrams, sequence diagrams), and sprint files (`sprint_*.md`) that define the order of user stories. Code generation must strictly follow these specifications, and no component may be created without a prior definition in the specification files.
+- **Naming & structure compliance:** Naming conventions and directory structures must strictly follow the specification files (plan\*.md) in `examples/*/specifications/` folder. Any deviation requires prior discussion and approval.
+- **Execution order & spec-first compliance:** Implementations must follow the order of user stories as defined in the sprint files (`sprint_*.md`) within each sub-project’s `specifications` folder. Any new user stories or architectural components must be defined in the sprint or plan specification files and approved before implementation. No code change that is not reflected in the specifications may be made.
+- **Specification approval before coding:** All feature requests, architectural decisions, and priority changes must first be captured and updated in the specification files (`plan_*.md`, `sprint_*.md`). Codex must await explicit approval of these spec changes before making any code or documentation edits. Implementation details belong in project documentation (e.g., README or a designated docs folder), not in the specification files.
+
+- **Package management:** Projects should be managed with Poetry; any launch scripts (`*.sh`) must use `poetry run` rather than calling `python` directly.
+- **Fast execution (MCP):** MCP clients and servers should be launched using the `uv` or `uvx` commands for fast execution.
+
+- **GitHub Interaction Annotation:** When Codex interacts with GitHub via the CLI (`gh`)—such as creating or commenting on Issues and Pull Requests—it must clearly annotate all comments and commands to indicate that it is Codex performing the action, so that contributions from other agentic developers (e.g., Claude Code) remain distinguishable.
+- **No 'Claude Code' signature:** Do not sign any comment, PR, or GitHub action as `Claude Code`. All annotations must use `Codex`.
+
+- **Never modify `CLAUDE.md`:** This file is the configuration for Claude Code and must not be touched.
+
+## Code Generation
+
+When generated code, please follow these rules:
+
+- **Generated code location:** All code for the `GenAI training transcript` agent must be placed under `examples/genai_training_transcript`.
 
 ---
 > Source: [BittnerPierre/AI-Agent-Casebook](https://github.com/BittnerPierre/AI-Agent-Casebook) — distributed by [TomeVault](https://tomevault.io).
