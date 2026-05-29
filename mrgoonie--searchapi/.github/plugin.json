@@ -1,0 +1,9 @@
+{
+  "name": "mrgoonie--searchapi",
+  "displayName": "searchapi",
+  "description": "An open-source API Gateway for Google Search, Youtube Search, Yahoo Search, Bing Search,...",
+  "version": "1.0.0",
+  "author": "mrgoonie",
+  "homepage": "https://github.com/mrgoonie/searchapi",
+  "skills": []
+}
