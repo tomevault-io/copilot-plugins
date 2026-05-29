@@ -1,0 +1,9 @@
+{
+  "name": "hxyulin--hadris",
+  "displayName": "hadris",
+  "description": "A filesystem crate, written in rust. Designed to be fast, portable, and supports no-std environments. ",
+  "version": "1.0.0",
+  "author": "hxyulin",
+  "homepage": "https://github.com/hxyulin/hadris",
+  "skills": []
+}
