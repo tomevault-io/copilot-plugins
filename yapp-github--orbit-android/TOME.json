@@ -1,0 +1,44 @@
+{
+  "name": "Orbit-Android",
+  "owner": "YAPP-Github",
+  "repo": "Orbit-Android",
+  "description": "\ud83d\udcab\ud558\ub8e8 \uc6b4\uc138 \uc54c\ub78c \uc11c\ube44\uc2a4 \uc624\ub974\ube44 \uc548\ub4dc\ub85c\uc774\ub4dc \ud83d\udcab",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YAPP-Github/Orbit-Android",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-29T00:50:21Z"
+}
