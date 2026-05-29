@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--rabbitmq-amqp-python-client",
+  "displayName": "rabbitmq-amqp-python-client",
+  "description": "Python RabbitMQ client for AMQP 1.0",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://github.com/rabbitmq/rabbitmq-amqp-python-client",
+  "skills": []
+}
