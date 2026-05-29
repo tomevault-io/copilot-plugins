@@ -1,0 +1,9 @@
+{
+  "name": "freshfriedfish--claude-tokenizer",
+  "displayName": "claude-tokenizer",
+  "description": "official unofficial wrapper for anthropic's tokenization api",
+  "version": "1.0.0",
+  "author": "freshfriedfish",
+  "homepage": "https://github.com/freshfriedfish/claude-tokenizer",
+  "skills": []
+}
