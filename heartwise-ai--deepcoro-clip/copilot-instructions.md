@@ -1,69 +1,136 @@
 ## deepcoro-clip
 
-> "model": "DeepCORO_CLIP",
+> └── heartwise-ai-deepcoro_clip/
 
-{
-  "model": "DeepCORO_CLIP",
-  "acceptsMultipleVideos": true,
-  "structure": {
-    "sections": [
-      {
-        "title": "Dataset",
-        "content": "Trained on over 12 million echocardiography videos paired with text reports from 275,442 studies. Accepts multiple videos from the same exam."
-      },
-      {
-        "title": "Encoders",
-        "subsections": [
-          {
-            "title": "Video Encoder",
-            "content": "Utilizes Multiscale Vision Transformer (mVIT) pretrained on the Kinetics dataset. Processes 16-frame clips to capture temporal dynamics, generating a 512-dimensional embedding."
-          },
-          {
-            "title": "Text Encoder",
-            "content": "Based on BioMedBERT, trained on PubMed abstracts, modified to produce 512-dimensional embeddings."
-          }
-        ]
-      },
-      {
-        "title": "Contrastive Training",
-        "content": "Aligns video clips and corresponding text reports in a joint embedding space using contrastive loss. Uses batches of 32 video-report pairs."
-      },
-      {
-        "title": "Multiple Instance Learning (MIL)",
-        "content": "Employs an anatomical attention mechanism to identify the importance of each video and its view for specific anatomical interpretations. Utilizes a view classifier trained on 58 echocardiographic views."
-      },
-      {
-        "title": "Retrieval-Augmented Interpretation",
-        "content": "Leverages historical report embeddings to retrieve and weight the most relevant reports based on anatomical attention, synthesizing insights from multiple views and videos."
-      },
-      {
-        "title": "Inference Pipeline",
-        "steps": [
-          "Categorize videos into views.",
-          "Generate embeddings using the video encoder.",
-          "Apply anatomical attention to aggregate information.",
-          "Produce a comprehensive study-level interpretation."
-        ]
-      },
-      {
-        "title": "Fine-Tuning",
-        "content": "Pretrained on the entire dataset for 60 epochs. Fine-tuned for 20 epochs on a refined dataset excluding less relevant modalities."
-      },
-      {
-        "title": "Augmentations",
-        "techniques": [
-          "RandAugment",
-          "RandomErasing"
-        ]
-      },
-      {
-        "title": "Evaluation",
-        "content": "Validated through cross-modal retrieval tasks (video-to-text and text-to-video). Outperformed previous models on internal and external test sets."
-      }
-    ]
-  }
-}
+Directory structure:
+└── heartwise-ai-deepcoro_clip/
+    ├── README.md                      # Project documentation and overview
+    ├──  .cursorrules                  # Cursor editor rules
+    ├── generate_dataset.ipynb         # Notebook for dataset generation
+    ├── plot_result_example.ipynb      # Notebook for visualizing results
+    ├── pyproject.toml                 # Python project dependencies and settings
+    ├── run_sweep.ipynb                # Notebook for hyperparameter sweeps
+    ├── run_sweep.py                   # Script for hyperparameter sweeps
+    ├── text_embeddings.pkl            # Cached text embeddings
+    ├── uv.lock                        # Lock file for dependencies
+    ├── .cursorrules                   # Cursor editor rules
+    ├── .pre-commit-config.yaml        # Pre-commit hook configurations
+    ├── config/                        # Configuration files directory
+    │   ├── base_config.yaml           # Base configuration settings
+    │   ├── base_config_bk.yaml        # Backup of base configuration
+    │   ├── runner.sh                  # Runner script for training
+    │   ├── sweep_config.yaml          # Hyperparameter sweep configuration
+    │   └── sweep_config_3.yaml        # Additional sweep configuration
+    ├── dataloaders/                   # Data loading modules
+    │   ├── __init__.py               # Package initialization
+    │   ├── multi_video_dataset.py    # Multiple video handling dataset
+    │   ├── simple_text_dataset.py    # Text data loading
+    │   ├── stats_dataset.py          # Statistics dataset
+    │   └── video_dataset.py          # Video data loading
+    ├── models/                        # Neural network models
+    │   ├── text_encoder.py           # Text encoding model
+    │   ├── video_aggregator.py       # Video feature aggregation
+    │   └── video_encoder.py          # Video encoding model
+    ├── projects/                      # Project-specific implementations
+    │   ├── __init__.py               # Package initialization
+    │   └── contrastive_pretraining.py # Contrastive learning implementation
+    ├── runners/                       # Training runners
+    │   ├── __init__.py               # Package initialization
+    │   └── video_constrative_learning.py # Video contrastive learning runner
+    ├── scripts/                       # Training and utility scripts
+    │   ├── run_sweep.sh              # Script for running parameter sweeps
+    │   ├── train.sh                  # Training script
+    │   └── train_model_multi_gpu.py  # Multi-GPU training script
+    └── utils/                         # Utility functions and helpers
+        ├── config.py                  # Configuration handling
+        ├── ddp.py                     # Distributed data parallel utilities
+        ├── enums.py                   # Enumeration definitions
+        ├── files_handler.py           # File operations handling
+        ├── logging.py                 # Logging utilities
+        ├── losses.py                  # Loss function implementations
+        ├── metrics.py                 # Evaluation metrics
+        ├── parser.py                  # Command line argument parsing
+        ├── parser_typing.py           # Type definitions for parser
+        ├── registry.py                # Model and component registry
+        ├── schedulers.py              # Learning rate schedulers
+        ├── seed.py                    # Random seed management
+        ├── text_encoder.py            # Text encoding utilities
+        └── video.py                   # Video processing utilities
+
+### Rules
+- Use the project structure to navigate the codebase.
+- Use the README.md file to get an overview of the project.
+- Use the pyproject.toml file to get an overview of the dependencies.
+- Use the uv.lock file to get an overview of the dependencies.
+- Use the config/ directory to get an overview of the configurations.
+- Use the models/ directory to get an overview of the models.
+- Use the scripts/ directory to get an overview of the scripts.
+
+ALWAYS ACTIVATE THE VENV BEFORE RUNNING ANY COMAMND
+```source .venv/bin/activate```
+
+# Ignore patterns below:
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project specific
+wandb/
+outputs/
+*.ipynb_checkpoints/
+lightning_logs/
+
+# Data and models
+*.pkl
+*.pth
+*.ckpt
+*.pt
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/HeartWise-AI) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [HeartWise-AI/DeepCORO_CLIP](https://github.com/HeartWise-AI/DeepCORO_CLIP) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-28 -->
