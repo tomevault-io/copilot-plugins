@@ -1,0 +1,9 @@
+{
+  "name": "dendyswaran--cinelight-api-ts",
+  "displayName": "cinelight-api-ts",
+  "description": "A TypeScript API for Cinelight with strict TypeScript and SOLID principles following clean architecture",
+  "version": "1.0.0",
+  "author": "dendyswaran",
+  "homepage": "https://github.com/dendyswaran/cinelight-api-ts",
+  "skills": []
+}
