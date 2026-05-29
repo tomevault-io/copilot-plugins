@@ -2,9 +2,9 @@
   "name": "ai-companion",
   "owner": "bean980310",
   "repo": "ai-companion",
-  "description": "",
+  "description": "AI companions including generative AI such as chatbots, image generation, text generation, and audio generation.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/bean980310",
+  "source_url": "https://github.com/bean980310/ai-companion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T14:33:19Z"
+  "distributed_at": "2026-05-29T20:43:52Z"
 }
