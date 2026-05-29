@@ -1,0 +1,9 @@
+{
+  "name": "jocmp--mercury-parser",
+  "displayName": "mercury-parser",
+  "description": "Extract meaningful content from the chaos of a web page",
+  "version": "1.0.0",
+  "author": "jocmp",
+  "homepage": "https://github.com/jocmp/mercury-parser",
+  "skills": []
+}
