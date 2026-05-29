@@ -4,7 +4,7 @@
   "repo": "todoist-dashboard",
   "description": "A powerful dashboard for Todoist users, offering deep task analytics, productivity insights, and trend tracking. Built with Next.js, React, TypeScript, and Tailwind CSS. \ud83c\udf1f",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uncazzy/todoist-dashboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T00:46:46Z"
+  "distributed_at": "2026-05-29T00:47:18Z"
 }
