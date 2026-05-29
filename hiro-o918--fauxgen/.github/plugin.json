@@ -1,0 +1,9 @@
+{
+  "name": "hiro-o918--fauxgen",
+  "displayName": "fauxgen",
+  "description": "A factory method generator that streamlines test data creation by automating field value generation.",
+  "version": "1.0.0",
+  "author": "hiro-o918",
+  "homepage": "https://github.com/hiro-o918/fauxgen",
+  "skills": []
+}
