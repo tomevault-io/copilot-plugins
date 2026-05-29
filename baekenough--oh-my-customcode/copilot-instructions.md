@@ -85,11 +85,12 @@ oh-my-customcode로 구동됩니다.
 |----|------|------|
 | R003 | 상호작용 규칙 | 응답 원칙, 상태 형식 |
 | R004 | 오류 처리 | 오류 수준, 복구 전략 |
-| R011 | 메모리 통합 | claude-mem을 통한 세션 지속성 |
+| R011 | 메모리 통합 | 세션 메모리 지속성 |
 | R012 | HUD 상태줄 | 실시간 상태 표시 |
 | R013 | Ecomode | 배치 작업 토큰 효율성 |
 | R019 | Ontology-RAG 라우팅 | 라우팅 스킬의 ontology-RAG enrichment |
 | R022 | Wiki 동기화 | 에이전트/스킬/룰/가이드 변경 시 위키 자동 동기화 |
+| R023 | Verification Ladder | 검증 비용 ladder: Tier 1(결정론적) → Tier 4(human) shift-left |
 
 ### MAY (선택)
 | ID | 규칙 | 설명 |
@@ -107,7 +108,6 @@ oh-my-customcode로 구동됩니다.
 | 검증 | `/omcustom:sauron-watch`, `/deep-verify`, `/adversarial-review` | R017 검증, 릴리즈 품질, 보안 리뷰 |
 | 릴리즈 | `/pipeline auto-dev`, `/omcustom-release-notes`, `/release-plan` | 자동 개발, 릴리즈 노트 |
 | 리서치 | `/research`, `/scout`, `/deep-plan`, `/omcustom:agora` | 병렬 분석, URL 평가, 연구 계획 |
-| 메모리 | `/memory-save`, `/memory-recall` | 세션 메모리 관리 |
 | 최적화 | `/token-efficiency-audit` | 토큰 효율 감사 (5계층 방어 스택) |
 | 시스템 | `/omcustom:lists`, `/omcustom:status`, `/omcustom:help` | 전체 목록, 상태, 도움말 |
 
@@ -120,11 +120,11 @@ project/
 +-- CLAUDE.md                    # 진입점
 +-- .claude/
 |   +-- agents/                  # 서브에이전트 정의 (49 파일)
-|   +-- skills/                  # 스킬 (116 디렉토리)
-|   +-- rules/                   # 전역 규칙 (R000-R022)
+|   +-- skills/                  # 스킬 (118 디렉토리)
+|   +-- rules/                   # 전역 규칙 (R000-R023)
 |   +-- hooks/                   # 훅 스크립트 (보안, 검증, HUD)
 |   +-- contexts/                # 컨텍스트 파일 (ecomode)
-+-- guides/                      # 레퍼런스 문서 (49 토픽)
++-- guides/                      # 레퍼런스 문서 (57 토픽)
 ```
 
 ## 오케스트레이션
@@ -214,10 +214,6 @@ Claude Code의 Agent Teams 기능이 활성화되어 있으면 (`CLAUDE_CODE_EXP
 # 코드 리뷰
 /dev-review src/main.go
 
-# 메모리 관리
-/memory-save
-/memory-recall authentication
-
 # 검증
 /omcustom:sauron-watch
 ```
@@ -248,7 +244,8 @@ Claude Code의 Agent Teams 기능이 활성화되어 있으면 (`CLAUDE_CODE_EXP
 
 | 서버 | 용도 |
 |------|------|
-| claude-mem | 세션 메모리 영속성 (Chroma 기반) |
+| code-review-graph | Token-efficient AST 기반 context retrieval (8.2× 토큰 절감) — wrapper: `crg-integration` 스킬 (#1171) |
+| semble | Semantic code search via embeddings (98% 토큰 절감, NDCG@10=0.854) — wrapper: `semble-integration` 스킬 (#1173) |
 
 ### 설치 명령어
 
@@ -261,9 +258,14 @@ Claude Code의 Agent Teams 기능이 활성화되어 있으면 (`CLAUDE_CODE_EXP
 /plugin install superpowers-developing-for-claude-code
 /plugin install elements-of-style
 
-# MCP 설정 (claude-mem)
-npm install -g claude-mem
-claude-mem setup
+# CRG MCP 설치 (token efficiency)
+pipx install code-review-graph
+# .mcp.json 에 code-review-graph 서버 수동 추가 (R001 auto-install 금지)
+
+# Semble MCP 설치 (semantic code search)
+uv tool install semble
+claude mcp add semble -- semble mcp
+# 또는 .mcp.json 수동 편집 (R001 auto-install 금지)
 ```
 
 <!-- omcustom:git-workflow -->
@@ -272,4 +274,4 @@ claude-mem setup
 
 ---
 > Source: [baekenough/oh-my-customcode](https://github.com/baekenough/oh-my-customcode) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
