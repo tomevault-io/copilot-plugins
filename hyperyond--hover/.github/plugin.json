@@ -1,0 +1,9 @@
+{
+  "name": "hyperyond--hover",
+  "displayName": "Hover",
+  "description": "Local-first, open-source AI testing for the web. The widget rides on the coding-agent CLI you already have (Claude Code / OpenAI Codex \u2014 no API key) to drive your real Chrome via Playwright MCP. Verif",
+  "version": "1.0.0",
+  "author": "Hyperyond",
+  "homepage": "https://github.com/Hyperyond/Hover",
+  "skills": []
+}
