@@ -1,0 +1,9 @@
+{
+  "name": "tim-osterhus--interactive-resume",
+  "displayName": "interactive-resume",
+  "description": "A way to locally host a public-facing interactive resume. Requires 8GB VRAM, minimum.",
+  "version": "1.0.0",
+  "author": "tim-osterhus",
+  "homepage": "https://github.com/tim-osterhus/interactive-resume",
+  "skills": []
+}
