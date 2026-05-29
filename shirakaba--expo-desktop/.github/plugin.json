@@ -1,0 +1,9 @@
+{
+  "name": "shirakaba--expo-desktop",
+  "displayName": "expo-desktop",
+  "description": "Userland support for using Expo with out-of-tree platforms",
+  "version": "1.0.0",
+  "author": "shirakaba",
+  "homepage": "https://github.com/shirakaba/expo-desktop",
+  "skills": []
+}
