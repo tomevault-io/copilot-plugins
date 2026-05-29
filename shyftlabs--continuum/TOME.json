@@ -4,7 +4,7 @@
   "repo": "continuum",
   "description": "Continuum \u2014 the agent runtime by ShyftLabs. Build, orchestrate, ship.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shyftlabs/continuum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T00:35:35Z"
+  "distributed_at": "2026-05-29T00:36:07Z"
 }
