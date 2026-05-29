@@ -180059,6 +180059,16 @@
       "description": "Claude Code SRE Handbook"
     },
     {
+      "name": "ouwei2013--teames",
+      "source": "./ouwei2013--teames",
+      "description": "Teames : Teams + Hermes "
+    },
+    {
+      "name": "mujykun--mapleclaude",
+      "source": "./mujykun--mapleclaude",
+      "description": "A Maplestory v95 client built with only Claude and no human written code. "
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
