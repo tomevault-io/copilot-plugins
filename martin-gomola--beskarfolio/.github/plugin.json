@@ -1,0 +1,9 @@
+{
+  "name": "martin-gomola--beskarfolio",
+  "displayName": "beskarfolio",
+  "description": "Privacy-first stock portfolio tracker. Transactions in localStorage, prices from 4 providers with fallback. No database, no accounts. FastAPI + React + Docker.",
+  "version": "1.0.0",
+  "author": "martin-gomola",
+  "homepage": "https://github.com/martin-gomola/beskarfolio",
+  "skills": []
+}
