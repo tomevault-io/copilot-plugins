@@ -1,10 +1,31 @@
-## payments
+## types
 
-> Follow these rules when working on payments.
+> Follow these rules when working with types.
 
-### Payments Rules
+#### Type Rules
 
-It uses Stripe for payments.
+- When importing types, use `@/types`
+- Name files like `example-types.ts`
+- All types should go in `types`
+- Make sure to export the types in `types/index.ts`
+- Prefer interfaces over type aliases
+- If referring to db types, use `@/db/schema` such as `SelectTodo` from `todos-schema.ts`
+
+An example of a type:
+
+`types/actions-types.ts`
+
+```ts
+export type ActionState<T> = { isSuccess: true; message: string; data: T } | { isSuccess: false; message: string; data?: never };
+```
+
+And exporting it:
+
+`types/index.ts`
+
+```ts
+export * from "./actions-types";
+```
 
 ---
 > Source: [psd401/aistudio](https://github.com/psd401/aistudio) — distributed by [TomeVault](https://tomevault.io).
