@@ -1,81 +1,42 @@
 ## ai-companion
 
-> **AI Companion** is a local and API-driven generative AI platform featuring chatbot interactions (via LLMs) and multimedia generation (images, etc.). It emphasizes persona-based interactions, allowing users to talk with and collaborate with various AI characters.
+> The main application is a Gradio/FastAPI hybrid rooted at `app.py`, with Python feature code under `src/` (`src/pages/`, `src/main/`, `src/common/`, `src/mcp/`). UI assets for the Gradio app live in `html/` and `assets/`. The separate React frontend is in `ai-companion-web/`, with pages in `ai-companion-web/src/pages/`, API clients in `ai-companion-web/src/api/`, and Zustand stores in `ai-companion-web/src/stores/`. Model files, presets, and translations live in `models/`, `presets/`, and `translations/`. `ComfyUI/`, `backend/Wan2.1/`, and `vllm/` are upstream submodules; change them only intentionally.
 
-# AI Companion for Local Machines - Gemini Context
+# Repository Guidelines
 
-## Project Overview
+## Project Structure & Module Organization
 
-**AI Companion** is a local and API-driven generative AI platform featuring chatbot interactions (via LLMs) and multimedia generation (images, etc.). It emphasizes persona-based interactions, allowing users to talk with and collaborate with various AI characters.
+The main application is a Gradio/FastAPI hybrid rooted at `app.py`, with Python feature code under `src/` (`src/pages/`, `src/main/`, `src/common/`, `src/mcp/`). UI assets for the Gradio app live in `html/` and `assets/`. The separate React frontend is in `ai-companion-web/`, with pages in `ai-companion-web/src/pages/`, API clients in `ai-companion-web/src/api/`, and Zustand stores in `ai-companion-web/src/stores/`. Model files, presets, and translations live in `models/`, `presets/`, and `translations/`. `ComfyUI/`, `backend/Wan2.1/`, and `vllm/` are upstream submodules; change them only intentionally.
 
-### Key Technologies & Architecture
-The project architecture is composed of a Python backend with Gradio, alongside a separate modern web frontend and integrated local inference engines.
+## Build, Test, and Development Commands
 
-*   **Backend / Main App (Python):** 
-    *   **Framework:** Gradio (entry point is `app.py`).
-    *   **Features:** Chat, Image Generation, Storyteller, Audio (TTS/STT), Translation, and MCP Client/Tools.
-    *   **Model Support:** Connects to cloud APIs (OpenAI, Anthropic, Google Gemini) and supports local inference via Transformers, GGUF, MLX, and vLLM.
-    *   **Image Generation:** Backed by an integrated **ComfyUI** instance (`ComfyUI/` directory) for checkpoints, LoRAs, and Diffusers.
-*   **Web Frontend (`ai-companion-web/`):** 
-    *   A modern Single Page Application (SPA) built with **React 19**, **TypeScript**, and **Vite**.
-    *   **Styling:** Tailwind CSS v4.
-    *   **State Management & Data:** Zustand, React Query (@tanstack/react-query).
-    *   **Routing:** React Router DOM.
-*   **Submodules & Integrations:** 
-    *   Integrates with local packages (e.g., `packages/ai-companion-core`, `packages/comfyui-python-client`).
+Use Python 3.12 (`.python-version`) unless a platform installer says otherwise.
 
-## Building and Running
+- `python app.py`: start the main local Gradio app on the configured port.
+- `bash installer_macos_arm64.sh` or `bash installer_linux_amd64_cuda.sh`: install platform-specific Python dependencies.
+- `cd ai-companion-web && npm install && npm run dev`: run the React frontend in Vite dev mode.
+- `cd ai-companion-web && npm run build`: type-check and build the frontend bundle.
+- `cd ai-companion-web && npm run lint`: run ESLint for TypeScript/React files.
+- `cd ComfyUI && pytest`: run the bundled ComfyUI test suite when touching that submodule.
 
-### 1. Main Application (Python/Gradio)
+There is no dedicated root `pytest` target for `src/`; for core app changes, launch `python app.py` and exercise the affected tab or API flow.
 
-**Environment Setup:**
-Use `conda` (recommended), `uv`, or standard `venv` with Python 3.10, 3.11, or 3.12.
+## Coding Style & Naming Conventions
 
-**Installation:**
-Run the OS-specific installer script located in the root directory:
-*   **Windows:** `.\installer_windows_amd64.bat` or `.\installer_windows_amd64.ps1`
-*   **macOS (Apple Silicon):** `./installer_macos_arm64.sh`
-*   **Linux:** `./installer_linux_amd64_cuda.sh`
+Python uses 4-space indentation, snake_case modules, and descriptive helper names. Keep Gradio page wiring close to the relevant feature module. In `ai-companion-web/`, use PascalCase for page/components (`ChatPage.tsx`), camelCase for hooks/stores (`chatStore.ts`), and follow the existing ESLint config in `ai-companion-web/eslint.config.js`. Avoid mixing generated assets, checkpoints, or logs into source directories.
 
-**Running the App:**
-```bash
-# Ensure your virtual environment is activated
-python app.py
-```
+## Testing Guidelines
 
-### 2. Web Frontend (`ai-companion-web/`)
+Add or update tests alongside the code you touch. For submodules, follow their local conventions such as `test_*.py` under `ComfyUI/tests/` and `ComfyUI/tests-unit/`. For frontend changes, at minimum run `npm run lint` and `npm run build`. For root app changes, include manual verification notes in the PR.
 
-**Installation:**
-```bash
-cd ai-companion-web
-npm install
-```
+## Commit & Pull Request Guidelines
 
-**Development Server:**
-```bash
-npm run dev
-```
+Recent history favors short, imperative subjects such as `Fix AttributeError...`, `Add oauth issuer`, and `Update README`. Keep the first line concise, capitalized, and focused on one change. PRs should describe impact, list verification steps, link related issues, and include screenshots for UI changes. Call out any submodule bump explicitly.
 
-**Build for Production:**
-```bash
-npm run build
-```
+## Security & Configuration Tips
 
-## Development Conventions
-
-*   **Python Code:**
-    *   Modular structure: UI pages are separated in `src/pages/`, core functionality in `src/main/` and `src/common_blocks.py`.
-    *   Gradio warnings and PyTorch warnings are selectively ignored in the entry point to keep logs clean.
-*   **Web Frontend Code:**
-    *   Strict TypeScript checking is enabled (`tsc -b`).
-    *   Uses ESLint for linting (`npm run lint`).
-    *   Internationalization supported via `i18next` and `react-i18next`.
-*   **Cross-Platform Constraints:**
-    *   Intel Macs are explicitly unsupported by the application.
-    *   For Windows, WSL2 is highly recommended to leverage GPU acceleration natively (direct Windows execution disables GPU acceleration for some workloads).
-    *   CUDA 12.4+ is generally required on Windows for the latest `xformers` support.
+Do not commit secrets, model weights, local databases, or generated outputs. Runtime configuration is created under `~/.ai-companion/.env`; keep machine-specific values there, not in tracked files.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/bean980310)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/bean980310)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [bean980310/ai-companion](https://github.com/bean980310/ai-companion) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
