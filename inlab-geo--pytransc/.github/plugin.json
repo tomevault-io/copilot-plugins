@@ -1,0 +1,9 @@
+{
+  "name": "inlab-geo--pytransc",
+  "displayName": "pyTransC",
+  "description": "Library of Trans-Conceptual sampling routines.",
+  "version": "1.0.0",
+  "author": "inlab-geo",
+  "homepage": "https://github.com/inlab-geo/pyTransC",
+  "skills": []
+}
