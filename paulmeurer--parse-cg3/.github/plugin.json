@@ -1,0 +1,9 @@
+{
+  "name": "paulmeurer--parse-cg3",
+  "displayName": "parse-cg3",
+  "description": "Constraint grammar parsing interface",
+  "version": "1.0.0",
+  "author": "paulmeurer",
+  "homepage": "https://github.com/paulmeurer/parse-cg3",
+  "skills": []
+}
