@@ -1,0 +1,9 @@
+{
+  "name": "glassontin--kde-appimage-helper",
+  "displayName": "kde-appimage-helper",
+  "description": "Tool for integrating AppImages with KDE Plasma desktop",
+  "version": "1.0.0",
+  "author": "GlassOnTin",
+  "homepage": "https://github.com/GlassOnTin/kde-appimage-helper",
+  "skills": []
+}
