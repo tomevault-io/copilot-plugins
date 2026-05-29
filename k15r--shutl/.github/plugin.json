@@ -1,0 +1,9 @@
+{
+  "name": "k15r--shutl",
+  "displayName": "shutl",
+  "description": "A command-line tool for organizing, managing, and executing scripts as commands with full command completion",
+  "version": "1.0.0",
+  "author": "k15r",
+  "homepage": "https://github.com/k15r/shutl",
+  "skills": []
+}
