@@ -1,0 +1,37 @@
+## flyssh
+
+> 1. Use Go standard library packages whenever possible
+
+# Go Development Rules
+
+1. Use Go standard library packages whenever possible
+2. Only use `golang.org/x/*` packages if needed and not available in stdlib
+3. Keep each feature in a single, complete file
+4. Each file should be independently runnable with all necessary imports
+5. Use Go modules for dependency management (`go mod init`, `go get`)
+6. Follow Go best practices:
+   - Proper error handling (no ignored errors)
+   - Standard naming conventions
+   - Proper package organization
+   - Comprehensive comments and documentation
+7. NEVER add third party packages without permission
+8. NEVER trust training data for package APIs
+9. ALWAYS verify against current Go docs at https://pkg.go.dev/
+10. ALWAYS run `go get` to add dependencies, never edit go.mod manually
+11. ALWAYS check package documentation before using any function
+12. DO NOT create new directories without permission
+13. Pin all dependency versions in go.mod
+14. Include proper error handling and logging
+15. Write tests for all functionality
+
+<calling_external_packages>
+ALWAYS explain package suggestions with:
+1. Package popularity metrics (stars, major users)
+2. How it will simplify the code
+3. What problems it solves
+4. Why it's the right choice for the task
+</calling_external_packages>
+
+---
+> Source: [superfly/flyssh](https://github.com/superfly/flyssh) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
