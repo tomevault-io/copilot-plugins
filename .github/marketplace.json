@@ -168684,6 +168684,86 @@
       "description": "A Cloudflare Workers email gateway with multi-SMTP support and a unified HTTP sending API."
     },
     {
+      "name": "zzyong24--thirdspace-vault-template",
+      "source": "./zzyong24--thirdspace-vault-template",
+      "description": "ThirdSpace Knowledge OS \u2014 \u77e5\u8bc6\u5e93\u64cd\u4f5c\u7cfb\u7edf\u6a21\u677f\u3002Agent-native\uff0c\u96f6\u914d\u7f6e\uff0c\u4efb\u610f AI Agent \u5747\u53ef\u9a71\u52a8\u3002"
+    },
+    {
+      "name": "zzyong24--thirdspace-vault-template",
+      "source": "./zzyong24--thirdspace-vault-template",
+      "description": "ThirdSpace Knowledge OS \u2014 \u77e5\u8bc6\u5e93\u64cd\u4f5c\u7cfb\u7edf\u6a21\u677f\u3002Agent-native\uff0c\u96f6\u914d\u7f6e\uff0c\u4efb\u610f AI Agent \u5747\u53ef\u9a71\u52a8\u3002"
+    },
+    {
+      "name": "nuanxinqing123--jocy-web-refactoring",
+      "source": "./nuanxinqing123--jocy-web-refactoring",
+      "description": "\u56e7\u6b21\u5143\u7f51\u9875\u7248\u524d\u7aef\u4ee3\u7801"
+    },
+    {
+      "name": "computer-graphics-tools--mpsgraph-rs",
+      "source": "./computer-graphics-tools--mpsgraph-rs",
+      "description": "mpsgraph-rs"
+    },
+    {
+      "name": "cardano-foundation--cardano-ambassador-tool",
+      "source": "./cardano-foundation--cardano-ambassador-tool",
+      "description": "cardano-ambassador-tool"
+    },
+    {
+      "name": "wuciqiang--wechat-article-crawler",
+      "source": "./wuciqiang--wechat-article-crawler",
+      "description": "wechat-article-crawler"
+    },
+    {
+      "name": "mateuspinto--agrigee-lite",
+      "source": "./mateuspinto--agrigee-lite",
+      "description": "Because using satellite data shouldn't be rocket science, neither in code nor in hardware."
+    },
+    {
+      "name": "hiero-ledger--sdk-collaboration-hub",
+      "source": "./hiero-ledger--sdk-collaboration-hub",
+      "description": "sdk-collaboration-hub"
+    },
+    {
+      "name": "bombap--taoprompt-com",
+      "source": "./bombap--taoprompt-com",
+      "description": "taoprompt.com"
+    },
+    {
+      "name": "software-mansion--maat",
+      "source": "./software-mansion--maat",
+      "description": "A tool to run experimental software builds across Cairo language ecosystem."
+    },
+    {
+      "name": "bjterry--boardgamebench",
+      "source": "./bjterry--boardgamebench",
+      "description": "BoardGameBench"
+    },
+    {
+      "name": "mckaywrigley--portfolio-code",
+      "source": "./mckaywrigley--portfolio-code",
+      "description": "portfolio-code"
+    },
+    {
+      "name": "jonverrier--promptrepository",
+      "source": "./jonverrier--promptrepository",
+      "description": "A framework for managing and testing LLM prompts."
+    },
+    {
+      "name": "dreadnought-robotics--mira",
+      "source": "./dreadnought-robotics--mira",
+      "description": "mira"
+    },
+    {
+      "name": "chobbledotcom--chobble-template",
+      "source": "./chobbledotcom--chobble-template",
+      "description": "The Chobble Template - a complete Eleventy starter for small businesses"
+    },
+    {
+      "name": "fugle-dev--fugle-mcp-server",
+      "source": "./fugle-dev--fugle-mcp-server",
+      "description": "fugle-mcp-server"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -180082,6 +180162,41 @@
       "name": "mujykun--mapleclaude",
       "source": "./mujykun--mapleclaude",
       "description": "A Maplestory v95 client built with only Claude and no human written code. "
+    },
+    {
+      "name": "clear0215--research-planning-architect",
+      "source": "./clear0215--research-planning-architect",
+      "description": "a research planning skills"
+    },
+    {
+      "name": "harukasan--picorabbit",
+      "source": "./harukasan--picorabbit",
+      "description": "PicoRabbit: a presentation device with Ruby"
+    },
+    {
+      "name": "linancn--tiangong-lca-mcp",
+      "source": "./linancn--tiangong-lca-mcp",
+      "description": "tiangong-lca-mcp"
+    },
+    {
+      "name": "marinasundstrom--myservicebus",
+      "source": "./marinasundstrom--myservicebus",
+      "description": "Framework for building message-driven applications"
+    },
+    {
+      "name": "k15r--shutl",
+      "source": "./k15r--shutl",
+      "description": "A command-line tool for organizing, managing, and executing scripts as commands with full command completion"
+    },
+    {
+      "name": "drtinkerer--devfolio",
+      "source": "./drtinkerer--devfolio",
+      "description": "My portfolio"
+    },
+    {
+      "name": "hiro-o918--fauxgen",
+      "source": "./hiro-o918--fauxgen",
+      "description": "A factory method generator that streamlines test data creation by automating field value generation."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -287082,6 +287197,16 @@
       "name": "gamussa--robocoders-kagematch-2026",
       "source": "./gamussa--robocoders-kagematch-2026",
       "description": "robocoders-kagematch-2026"
+    },
+    {
+      "name": "rishisadhir--taps-and-takeout",
+      "source": "./rishisadhir--taps-and-takeout",
+      "description": "You're not welcome"
+    },
+    {
+      "name": "cday-with-ai--simple-fics-interface",
+      "source": "./cday-with-ai--simple-fics-interface",
+      "description": "Simple FICS Interface"
     }
   ]
 }
