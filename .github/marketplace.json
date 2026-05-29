@@ -139714,6 +139714,11 @@
       "description": "mvsmf"
     },
     {
+      "name": "codeaashu--lucide-motion",
+      "source": "./codeaashu--lucide-motion",
+      "description": "Lucide React Motion"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
