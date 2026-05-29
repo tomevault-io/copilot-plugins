@@ -1,0 +1,9 @@
+{
+  "name": "percona--percona-clustersync-mongodb",
+  "displayName": "percona-clustersync-mongodb",
+  "description": "Cluster-to-Cluster MongoDB replication",
+  "version": "1.0.0",
+  "author": "percona",
+  "homepage": "https://github.com/percona/percona-clustersync-mongodb",
+  "skills": []
+}
