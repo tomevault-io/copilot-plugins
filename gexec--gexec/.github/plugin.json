@@ -1,0 +1,9 @@
+{
+  "name": "gexec--gexec",
+  "displayName": "gexec",
+  "description": "Generic execution platform for Ansible/OpenTofu/Terraform",
+  "version": "1.0.0",
+  "author": "gexec",
+  "homepage": "https://github.com/gexec/gexec",
+  "skills": []
+}
