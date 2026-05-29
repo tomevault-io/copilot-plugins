@@ -1,52 +1,46 @@
-## development-guidelines
+## expo-project-structure
 
-> - Use file-based routing in the `app/` directory
+> This is an Expo Router project with TypeScript support. Follow these guidelines for development:
 
-# Development Guidelines
+# Expo Project Structure Guide
 
-## Navigation with Expo Router
+This is an Expo Router project with TypeScript support. Follow these guidelines for development:
 
-- Use file-based routing in the `app/` directory
-- Route files should export a default React component
-- Use `(group)` folders for route groups (e.g., `(auth)`, `(app)`)
-- Navigation configuration is in [src/routes/AppNavigation.tsx](mdc:src/routes/AppNavigation.tsx)
-- Route constants are defined in [src/routes/RouteKeys.ts](mdc:src/routes/RouteKeys.ts)
+## Core Configuration Files
 
-## State Management
+- [app.config.ts](mdc:app.config.ts) - Main Expo configuration with environment variables
+- [babel.config.js](mdc:babel.config.js) - Babel configuration with expo-preset and reanimated plugin
+- [metro.config.js](mdc:metro.config.js) - Metro bundler configuration using Expo defaults
+- [expo-env.d.ts](mdc:expo-env.d.ts) - TypeScript environment declarations for Expo
+- [eas.json](mdc:eas.json) - EAS Build and Submit configuration
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration extending expo/tsconfig.base
 
-- Redux store configuration: [src/stores/store.ts](mdc:src/stores/store.ts)
-- Type definitions: [src/stores/types/](mdc:src/stores/types)
-- Selectors: [src/stores/selectors/](mdc:src/stores/selectors)
-- Use Redux Toolkit for state management
-- Persist state using redux-persist
+## Project Structure
 
-## Component Development
+```
+├── app/                    # Expo Router app directory (file-based routing)
+│   ├── _layout.tsx        # Root layout component
+│   ├── index.tsx          # Home route
+│   ├── (app)/             # App stack routes
+│   └── (auth)/            # Auth stack routes
+├── src/                   # Source code
+│   ├── components/        # Reusable components
+│   ├── screens/           # Screen components
+│   ├── routes/            # Navigation configuration
+│   ├── stores/            # Redux store and state management
+│   ├── assets/            # Static assets (fonts, images)
+│   ├── themes/            # Theme and styling
+│   └── locale/            # Internationalization
+```
 
-- Main layout component: [src/screens/MainLayout.tsx](mdc:src/screens/MainLayout.tsx)
-- Reusable components in [src/components/](mdc:src/components)
-- Use TypeScript interfaces for props
-- Follow React functional component patterns
+## Key Dependencies
 
-## Styling and Theming
-
-- Theme configuration in [src/themes/](mdc:src/themes)
-- Use styled-components or React Native StyleSheet
-- Support both light and dark themes
-- Responsive design with metrics
-
-## Assets Management
-
-- Fonts: [src/assets/fonts/](mdc:src/assets/fonts) (Roboto family)
-- Images: [src/assets/images/](mdc:src/assets/images)
-- Use require() for static assets
-- Optimize images for different screen densities
-
-## TypeScript Best Practices
-
-- Strict mode enabled in [tsconfig.json](mdc:tsconfig.json)
-- Use path aliases (@/* for src/*)
-- Define interfaces in appropriate type files
-- Avoid `any` type when possible
+- **Expo SDK 53** - Main framework
+- **Expo Router** - File-based navigation
+- **React Native Reanimated** - Animations
+- **Redux Toolkit** - State management
+- **TypeScript** - Type safety
+- **Jest + Expo** - Testing framework
 
 ---
 > Source: [saigontechnology/rn-base-project-expo](https://github.com/saigontechnology/rn-base-project-expo) — distributed by [TomeVault](https://tomevault.io).
