@@ -1,0 +1,9 @@
+{
+  "name": "seanome--kmerseek",
+  "displayName": "kmerseek",
+  "description": "Efficient protein domain annotation search with reduced amino acid k-mers",
+  "version": "1.0.0",
+  "author": "seanome",
+  "homepage": "https://github.com/seanome/kmerseek",
+  "skills": []
+}
