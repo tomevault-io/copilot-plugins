@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [leoan698-tom/yuannew_v1](https://github.com/leoan698-tom/yuannew_v1).
+Original source: `AGENTS.md` in [leoan698-tom/yuannew_v1](https://github.com/leoan698-tom/yuannew_v1).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
