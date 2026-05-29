@@ -7,11 +7,11 @@ BonusVarsler er en minimalistisk web extension/userscript som gir deg varslel n�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kristofferR/BonusVarsler](https://github.com/kristofferR/BonusVarsler).
+Original source: `CLAUDE.md` in [kristofferR/BonusVarsler](https://github.com/kristofferR/BonusVarsler).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
