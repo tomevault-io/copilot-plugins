@@ -168769,6 +168769,56 @@
       "description": "fugle-mcp-server"
     },
     {
+      "name": "dergigi--vibeline-ui",
+      "source": "./dergigi--vibeline-ui",
+      "description": "Call 555-vibe to vibe it into existence \ud83e\udd19"
+    },
+    {
+      "name": "pprunty--deltacomponents-dev",
+      "source": "./pprunty--deltacomponents-dev",
+      "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects."
+    },
+    {
+      "name": "pprunty--deltacomponents-dev",
+      "source": "./pprunty--deltacomponents-dev",
+      "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects."
+    },
+    {
+      "name": "chainstack--dev-portal",
+      "source": "./chainstack--dev-portal",
+      "description": "Chainstack Developer Portal"
+    },
+    {
+      "name": "chainstack--dev-portal",
+      "source": "./chainstack--dev-portal",
+      "description": "Chainstack Developer Portal"
+    },
+    {
+      "name": "pprunty--deltacomponents-dev",
+      "source": "./pprunty--deltacomponents-dev",
+      "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects."
+    },
+    {
+      "name": "onre-finance--onre-sol",
+      "source": "./onre-finance--onre-sol",
+      "description": "Solana program for the ONRE app"
+    },
+    {
+      "name": "pprunty--deltacomponents-dev",
+      "source": "./pprunty--deltacomponents-dev",
+      "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects."
+    },
+    {
+      "name": "pprunty--deltacomponents-dev",
+      "source": "./pprunty--deltacomponents-dev",
+      "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects."
+    },
+    {
+      "name": "pprunty--deltacomponents-dev",
+      "source": "./pprunty--deltacomponents-dev",
+      "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -183012,6 +183062,26 @@
       "name": "lanxiuyun--catrace",
       "source": "./lanxiuyun--catrace",
       "description": "\ud83d\udcbb \u4e45\u5750\u63d0\u9192\uff0c\u952e\u76d8\u9f20\u6807\u8f7b\u91cf\u76d1\u6d4b\uff0c\u9ed8\u9ed8\u63d0\u9192\u4f60\u4fdd\u62a4\u8eab\u4f53/ A privacy-first break reminder driven by keyboard & mouse activity. "
+    },
+    {
+      "name": "samuelhm--42jobs",
+      "source": "./samuelhm--42jobs",
+      "description": "AI-powered job search platform for junior software engineers: job fetching, smart filtering, keyword extraction, and ATS-optimized CV generation. Built with .NET 10, ASP.NET Core, React 19, and Postgr"
+    },
+    {
+      "name": "schuettc--now-playing",
+      "source": "./schuettc--now-playing",
+      "description": "Raspberry Pi vinyl now-playing kiosk \u2014 Sonos line-in + Shazam + Discogs/MusicBrainz catalog enrichment + local fingerprint cascade"
+    },
+    {
+      "name": "maanfa--kuiper",
+      "source": "./maanfa--kuiper",
+      "description": "kuiper"
+    },
+    {
+      "name": "lennonkc--openbuddy",
+      "source": "./lennonkc--openbuddy",
+      "description": "A funny and easy AI desk pet \u2014 bring the most powerful tools to the most curious minds"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -287212,6 +287282,21 @@
       "name": "cday-with-ai--simple-fics-interface",
       "source": "./cday-with-ai--simple-fics-interface",
       "description": "Simple FICS Interface"
+    },
+    {
+      "name": "runic-studios--rr-game",
+      "source": "./runic-studios--rr-game",
+      "description": "RR-Game"
+    },
+    {
+      "name": "homesh33p--rag-project",
+      "source": "./homesh33p--rag-project",
+      "description": "a sample rag project"
+    },
+    {
+      "name": "saremeskandary--flare-safeguard",
+      "source": "./saremeskandary--flare-safeguard",
+      "description": "flare-safeguard"
     }
   ]
 }
