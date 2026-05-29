@@ -1,0 +1,9 @@
+{
+  "name": "comfygit-ai--comfydock-cli",
+  "displayName": "ComfyDock-CLI",
+  "description": "A CLI tool to help manage ComfyUI environments",
+  "version": "1.0.0",
+  "author": "comfygit-ai",
+  "homepage": "https://github.com/comfygit-ai/ComfyDock-CLI",
+  "skills": []
+}
