@@ -1,0 +1,9 @@
+{
+  "name": "marinasundstrom--myservicebus",
+  "displayName": "MyServiceBus",
+  "description": "Framework for building message-driven applications",
+  "version": "1.0.0",
+  "author": "marinasundstrom",
+  "homepage": "https://github.com/marinasundstrom/MyServiceBus",
+  "skills": []
+}
