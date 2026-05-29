@@ -1,47 +1,60 @@
-## wechat-article-crawler
+## project-overview-zh
 
-> 本应用需要特定的配置参数才能与微信公众平台进行交互并抓取文章。不正确的配置将导致功能无法正常使用。
+> 本指南提供了微信公众号文章抓取工具（桌面版）的概览。
 
-# 应用配置指南
+# 项目概览
 
-本应用需要特定的配置参数才能与微信公众平台进行交互并抓取文章。不正确的配置将导致功能无法正常使用。
+本指南提供了微信公众号文章抓取工具（桌面版）的概览。
 
-## 必要参数
+## 项目目标
 
-以下是应用运行所必需的关键参数：
+这是一个基于 Electron 开发的桌面应用程序，旨在帮助用户抓取微信公众号的历史文章，并支持文章的查看和导出。详细信息请参阅 [README.md](mdc:README.md)。
 
--   **Cookie**：微信公众平台 (mp.weixin.qq.com) 的登录凭证 Cookie。
--   **Token**：微信公众平台的访问令牌 (access token)。
--   **Fingerprint**：用于公众号搜索的指纹参数 (fingerprint)。
+## 主要功能
 
-## 获取配置参数
+-   **公众号管理**：支持添加、编辑和删除公众号。
+-   **文章获取**：能够自动搜索指定公众号并获取其历史文章列表。
+-   **文章查看**：用户可以浏览文章列表，并查看单篇文章的详细内容。
+-   **数据导出**：允许将抓取的文章列表导出为 Excel 文件。
+-   **配置管理**：通过设置界面管理应用所需的 Cookie、Token 等关键参数。
 
-获取这些参数的详细步骤如下：
+## 安装与运行
 
-1.  登录微信公众平台 `mp.weixin.qq.com`。
-2.  导航至 "草稿箱"。
-3.  点击 "图文模板"，然后选择 "新建图文模板"。
-4.  在编辑界面，点击 "超链接" 功能，并选择 "选择其他公众号"。
-5.  此时，打开浏览器的开发者工具（通常按 F12）。
-6.  切换到 "Network" (网络) 标签页。
-7.  在搜索公众号的弹窗中进行任意搜索，此时在 Network 标签页中找到名为 `searchbiz` 的请求。
-8.  从该 `searchbiz` 请求的 Headers (请求头) 中可以找到所需的 Cookie。在 Preview (预览) 或 Response (响应) 中，通常可以找到 Token (有时参数名可能为 `token` 或 `appmsg_token` 等，具体视平台更新而定) 和 Fingerprint (通常参数名为 `fakeid` 或类似，代表搜索指纹)。
+确保你的开发环境已安装 Node.js (v14+)。
 
-详细图文说明和最新获取方法，请参考项目主文档 [README.md](mdc:README.md) 中的 "获取配置参数的方法" 章节。
+1.  **安装依赖**:
+    ```bash
+    npm install
+    ```
+2.  **运行开发版本**:
+    ```bash
+    npm run dev
+    ```
+3.  **构建生产版本**:
+    ```bash
+    npm run build
+    ```
 
-## 配置的存储与管理
+详细步骤请参考 [README.md](mdc:README.md) 的 "安装与运行" 部分。
 
--   这些配置参数通过应用内的 "设置" 界面进行管理和保存。
--   应用使用 `electron-store` 库将这些配置信息安全地存储在本地。
+## 技术栈
 
-## 注意事项
+项目主要使用以下技术构建：
 
--   **参数有效期**：Cookie 和 Token 通常具有一定的有效期，过期后需要按照上述步骤重新获取并更新到应用设置中。
--   **安全性**：这些参数非常敏感，请妥善保管，不要泄露给他人。
+-   **Electron**: 用于构建跨平台桌面应用的框架。
+-   **JavaScript**: 主要的前端逻辑语言。
+-   **HTML/CSS**: 构建用户界面。
+-   **axios**: 用于发起 HTTP 请求，与微信公众平台接口交互。
+-   **electron-store**: 用于本地存储配置信息等数据。
+-   **exceljs**: 用于生成和导出 Excel 文件。
 
-确保所有配置参数都已正确填写并保存，才能保证应用功能的正常运行。如果遇到问题，请首先检查配置参数是否正确和有效。
+## 重要提示
+
+-   应用的正常运行依赖于正确的配置参数（Cookie, Token, Fingerprint）。请参考 [configuration_zh.mdc](mdc:.cursor/rules/configuration_zh.mdc) 或 [README.md](mdc:README.md) 获取配置详情。
+-   注意操作频率，避免因频繁请求导致访问受限。
+
+更多详细信息，请务必查阅项目根目录下的 [README.md](mdc:README.md) 文件。
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/wuciqiang)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/wuciqiang)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [wuciqiang/wechat-article-crawler](https://github.com/wuciqiang/wechat-article-crawler) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
