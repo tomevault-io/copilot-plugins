@@ -4,7 +4,7 @@
   "repo": "deltacomponents.dev",
   "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pprunty/deltacomponents.dev",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T12:37:12Z"
+  "distributed_at": "2026-05-29T12:37:36Z"
 }
