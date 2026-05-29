@@ -4,7 +4,7 @@
   "repo": "objekt-explorer",
   "description": "Simple Modhaus Cosmo's K-POP NFT Objekt web explorer",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/izrin96/objekt-explorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T22:43:33Z"
+  "distributed_at": "2026-05-29T22:44:03Z"
 }
