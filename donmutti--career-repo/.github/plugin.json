@@ -1,0 +1,9 @@
+{
+  "name": "donmutti--career-repo",
+  "displayName": "career-repo",
+  "description": "Career Repo is a local-first, private career tracking tool that runs entirely on your machine.",
+  "version": "1.0.0",
+  "author": "donmutti",
+  "homepage": "https://github.com/donmutti/career-repo",
+  "skills": []
+}
