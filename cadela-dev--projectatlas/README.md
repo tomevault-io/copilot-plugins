@@ -1,0 +1,26 @@
+# ProjectAtlas
+
+> Source: [cadela-dev/ProjectAtlas](https://github.com/cadela-dev/ProjectAtlas) — distributed by [TomeVault](https://tomevault.io)
+
+Claude Code workflow for mapping projects into clean-room behavior docs, file maps, batch reports, verification, and rebuild-ready blueprints.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [cadela-dev/ProjectAtlas](https://github.com/cadela-dev/ProjectAtlas).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/cadela-dev/ProjectAtlas](https://github.com/cadela-dev/ProjectAtlas)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:d-c-q -->
