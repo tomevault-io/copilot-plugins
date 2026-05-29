@@ -94149,11 +94149,6 @@
       "description": "Stop reviewing agent plans in the terminal \u2014 PR-style review for Markdown that Codex / Claude Code can reply to."
     },
     {
-      "name": "baekenough--oh-my-customcode",
-      "source": "./baekenough--oh-my-customcode",
-      "description": "oh-my-zsh style customization framework for Claude Code"
-    },
-    {
       "name": "darkroomengineering--cc-settings",
       "source": "./darkroomengineering--cc-settings",
       "description": "Vulcan may be a good name"
@@ -96372,6 +96367,16 @@
       "name": "oxc-project--oxc-sourcemap",
       "source": "./oxc-project--oxc-sourcemap",
       "description": "Forked version of rust-sourcemap"
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -124349,6 +124354,16 @@
       "description": "A design-led SaaS template for Astro by ricoui"
     },
     {
+      "name": "matgla--tinycc",
+      "source": "./matgla--tinycc",
+      "description": "tinycc"
+    },
+    {
+      "name": "matgla--tinycc",
+      "source": "./matgla--tinycc",
+      "description": "tinycc"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -129057,6 +129072,16 @@
       "name": "ngtiendong--academic-research-agent-skill",
       "source": "./ngtiendong--academic-research-agent-skill",
       "description": "Human-guided Research Agent Skill for Master and PhD students in CS, AI, math, and engineering: literature grounding, novelty gates, math formalization, experiment planning, reviewer simulation, and c"
+    },
+    {
+      "name": "respeer-ai--linera-meme",
+      "source": "./respeer-ai--linera-meme",
+      "description": "Minable meme microchain on Linera."
+    },
+    {
+      "name": "hxyulin--hadris",
+      "source": "./hxyulin--hadris",
+      "description": "A filesystem crate, written in rust. Designed to be fast, portable, and supports no-std environments. "
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -134212,6 +134237,11 @@
       "name": "yuqie6--qqmusicdownloader",
       "source": "./yuqie6--qqmusicdownloader",
       "description": "qqmusicdownloader"
+    },
+    {
+      "name": "furkankayadev--react-native-spotlight-guide",
+      "source": "./furkankayadev--react-native-spotlight-guide",
+      "description": "react-native-spotlight-guide"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -139717,6 +139747,16 @@
       "name": "codeaashu--lucide-motion",
       "source": "./codeaashu--lucide-motion",
       "description": "Lucide React Motion"
+    },
+    {
+      "name": "danfoa--symmetric-learning",
+      "source": "./danfoa--symmetric-learning",
+      "description": "Torch-based library for ML problems with symmetry priors. It provides equivariant neural network modules, models, and utilities for leveraging group symmetries in data."
+    },
+    {
+      "name": "iwangbowen--vue-expression-editor",
+      "source": "./iwangbowen--vue-expression-editor",
+      "description": "\u57fa\u4e8eVue 3\u5f00\u53d1\u7684\u516c\u5f0f\u7f16\u8f91\u5668\uff0c\u652f\u6301\u952e\u76d8\u548c\u6309\u952e\u8f93\u5165\uff0c\u652f\u6301\u53d8\u91cf\u8f93\u5165\u548c\u6c42\u503c "
     },
     {
       "name": "lightninglabs--lnget",
@@ -147232,6 +147272,11 @@
       "name": "blackzhanzhan--novel-agent",
       "source": "./blackzhanzhan--novel-agent",
       "description": "Git-native AI novel writing workbench with Dify agents"
+    },
+    {
+      "name": "guidovizoso--z1",
+      "source": "./guidovizoso--z1",
+      "description": "An open-source starter kit with Tanstack Start, Supabase, Tailwind and Bun."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -168824,6 +168869,11 @@
       "description": "Free and Open-Source TailwindCSS styled components designed for integration with shadcn, v0 and React/Next.js projects."
     },
     {
+      "name": "kmnhan--xarray-lmfit",
+      "source": "./kmnhan--xarray-lmfit",
+      "description": "Fit lmfit models to xarray objects"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -180259,6 +180309,46 @@
       "description": "A factory method generator that streamlines test data creation by automating field value generation."
     },
     {
+      "name": "fuwenhao12--academic-ref-inserter",
+      "source": "./fuwenhao12--academic-ref-inserter",
+      "description": "academic-ref-inserter"
+    },
+    {
+      "name": "fuwenhao12--academic-ref-inserter",
+      "source": "./fuwenhao12--academic-ref-inserter",
+      "description": "academic-ref-inserter"
+    },
+    {
+      "name": "fuwenhao12--academic-ref-inserter",
+      "source": "./fuwenhao12--academic-ref-inserter",
+      "description": "academic-ref-inserter"
+    },
+    {
+      "name": "fuwenhao12--academic-ref-inserter",
+      "source": "./fuwenhao12--academic-ref-inserter",
+      "description": "academic-ref-inserter"
+    },
+    {
+      "name": "hypercoherence--pocketdaemon",
+      "source": "./hypercoherence--pocketdaemon",
+      "description": "Experimental Android-native AI phone agent with voice, calls, memory, tools, and Magisk-based privileged integration."
+    },
+    {
+      "name": "duliangkuan--fengyun-publish",
+      "source": "./duliangkuan--fengyun-publish",
+      "description": "End-to-end AI ship pipeline for WeChat Official Accounts \u00b7 \u5377\u300c\u7814\u7a76 Agent \u7684\u4e91\u300d"
+    },
+    {
+      "name": "viktorkav--kav-command-center",
+      "source": "./viktorkav--kav-command-center",
+      "description": "Obsidian plugin: personal command center for YouTube content creators, powered by Claude Code slash commands"
+    },
+    {
+      "name": "fuwenhao12--academic-ref-inserter",
+      "source": "./fuwenhao12--academic-ref-inserter",
+      "description": "academic-ref-inserter"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -183087,6 +183177,21 @@
       "name": "lennonkc--openbuddy",
       "source": "./lennonkc--openbuddy",
       "description": "A funny and easy AI desk pet \u2014 bring the most powerful tools to the most curious minds"
+    },
+    {
+      "name": "davidchicano--presuntamente",
+      "source": "./davidchicano--presuntamente",
+      "description": "Archivo p\u00fablico e interactivo de casos de corrupci\u00f3n en Espa\u00f1a. Cronolog\u00edas, actores, documentaci\u00f3n oficial y el grafo de qui\u00e9n est\u00e1 conectado con qui\u00e9n. Imputados, procesados, archivados y condenados"
+    },
+    {
+      "name": "hsablonniere--musiq",
+      "source": "./hsablonniere--musiq",
+      "description": "Web components for rendering musical instruments, chords, and scales"
+    },
+    {
+      "name": "davidchicano--presuntamente",
+      "source": "./davidchicano--presuntamente",
+      "description": "Archivo p\u00fablico e interactivo de casos de corrupci\u00f3n en Espa\u00f1a. Cronolog\u00edas, actores, documentaci\u00f3n oficial y el grafo de qui\u00e9n est\u00e1 conectado con qui\u00e9n. Imputados, procesados, archivados y condenados"
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
@@ -287302,6 +287407,26 @@
       "name": "saremeskandary--flare-safeguard",
       "source": "./saremeskandary--flare-safeguard",
       "description": "flare-safeguard"
+    },
+    {
+      "name": "mikhailsemichev--next15-study",
+      "source": "./mikhailsemichev--next15-study",
+      "description": "next15-study"
+    },
+    {
+      "name": "mikhailsemichev--next15-study",
+      "source": "./mikhailsemichev--next15-study",
+      "description": "next15-study"
+    },
+    {
+      "name": "arunabhcode--gov-fetch",
+      "source": "./arunabhcode--gov-fetch",
+      "description": "App to get data from govt websites like USCIS and export control classifications"
+    },
+    {
+      "name": "manavtriv--personal-website",
+      "source": "./manavtriv--personal-website",
+      "description": "personal-website"
     }
   ]
 }
