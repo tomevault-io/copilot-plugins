@@ -1,0 +1,9 @@
+{
+  "name": "waku-py--waku",
+  "displayName": "waku",
+  "description": "A Python framework for building modular and loosely coupled applications",
+  "version": "1.0.0",
+  "author": "waku-py",
+  "homepage": "https://github.com/waku-py/waku",
+  "skills": []
+}
