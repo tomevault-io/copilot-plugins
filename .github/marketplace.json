@@ -89609,6 +89609,11 @@
       "description": "Thymian is a language-agnostic, open-source HTTP conformance and API governance tool. It validates your APIs against RFC standards and your OpenAPI specification \u2014 statically, against live endpoints, "
     },
     {
+      "name": "sophomoresty--wechat-mp-harvest",
+      "source": "./sophomoresty--wechat-mp-harvest",
+      "description": "WeChat MP article harvester with DLL injection for no-GUI automation"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -129044,6 +129049,11 @@
       "description": "Clash subcription customizer | Clash\u8ba2\u9605\u81ea\u5b9a\u4e49"
     },
     {
+      "name": "ngtiendong--academic-research-agent-skill",
+      "source": "./ngtiendong--academic-research-agent-skill",
+      "description": "Human-guided Research Agent Skill for Master and PhD students in CS, AI, math, and engineering: literature grounding, novelty gates, math formalization, experiment planning, reviewer simulation, and c"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -147187,6 +147197,16 @@
       "name": "fastlabel--open-lutra",
       "source": "./fastlabel--open-lutra",
       "description": "open-lutra"
+    },
+    {
+      "name": "seaony--momento",
+      "source": "./seaony--momento",
+      "description": "An Eagle-like MacOS image management app based on SwiftUI"
+    },
+    {
+      "name": "cadela-dev--projectatlas",
+      "source": "./cadela-dev--projectatlas",
+      "description": "Claude Code workflow for mapping projects into clean-room behavior docs, file maps, batch reports, verification, and rebuild-ready blueprints."
     },
     {
       "name": "yschimke--compose-ai-tools",
