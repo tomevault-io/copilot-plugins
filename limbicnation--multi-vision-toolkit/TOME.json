@@ -4,7 +4,7 @@
   "repo": "multi-vision-toolkit",
   "description": "A comprehensive Python toolkit for local deployment of Microsoft's Florence-2 vision model. Process images with state-of-the-art computer vision capabilities including object detection, image captioning, and visual analysis.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Limbicnation/multi-vision-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-29T22:30:55Z"
+  "distributed_at": "2026-05-29T22:33:05Z"
 }
