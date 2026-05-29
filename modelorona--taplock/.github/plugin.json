@@ -1,0 +1,9 @@
+{
+  "name": "modelorona--taplock",
+  "displayName": "TapLock",
+  "description": "A minimalist Android widget that lets you lock your screen with a double tap. Perfect for one-handed use and quick screen locking.",
+  "version": "1.0.0",
+  "author": "modelorona",
+  "homepage": "https://github.com/modelorona/TapLock",
+  "skills": []
+}
