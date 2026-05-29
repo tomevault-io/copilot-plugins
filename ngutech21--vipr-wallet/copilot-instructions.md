@@ -1,0 +1,190 @@
+## vipr-wallet
+
+> This file provides guidance for AI coding agents working in this repository.
+
+# AGENTS.md
+
+This file provides guidance for AI coding agents working in this repository.
+
+## Project Overview
+
+Vipr Wallet is a Progressive Web App (PWA) that serves as an ecash wallet for Fedimint. Built with Vue 3, TypeScript, and Quasar Framework, it enables private and instant lightning transactions.
+
+## Development Commands
+
+### Core Commands
+
+- `pnpm dev` - Start development server with hot reload (opens in Firefox by default)
+- `pnpm build` - Build for production (PWA mode)
+- `pnpm build:docker` - Build Docker image
+- Use `pnpm build:docker` as the standard way to build the Docker image for this project.
+
+### Code Quality
+
+- `pnpm lint` - Run ESLint on source files
+- `pnpm lint:fix` - Fix ESLint errors and warnings
+- `pnpm format` - Format code with Prettier
+- `pnpm format:check` - Verify formatting without modifying files
+- `pnpm typecheck` - Run Vue TypeScript compiler checks
+- `pnpm final-check` - Run all checks: format check, lint, typecheck, and tests
+- After each coherent change set made by an agent, run `pnpm format`.
+- After every code, config, or dependency change made by an agent, run `pnpm final-check` before finalizing the work.
+- Documentation-only changes do not require `pnpm final-check`, but should still be formatted.
+
+### Testing
+
+Playwright is configured in `playwright.config.ts` (tests live under `test/e2e`).
+
+- `pnpm playwright install` – Install/update Playwright browsers (run once or after upgrades)
+- `pnpm test` - Run unit tests once (alias for `pnpm test:unit:ci`)
+- `pnpm test:unit:ci` - Run tests once (CI mode)
+- `pnpm test:unit:ui` - Run tests with Vitest UI
+- `nix develop --accept-flake-config --command pnpm test:e2e` - Run end to end tests using playwright in nix dev shell
+- After any updates (code, config, or dependencies), run tests and ensure they pass before finalizing changes.
+- For UI verification/debugging tasks, use the Codex Playwright/Browser plugin and Playwright MCP tooling first (`browser_snapshot` first, then interactions/assertions). Use Playwright via CLI only as a fallback when the plugin is unavailable, cannot reach the target, or when running the committed E2E suite itself.
+
+#### Test Authoring Best Practices
+
+- Prefer behavior-focused tests over implementation-focused tests. Exercise components through public user-like interactions such as clicks, input updates, emitted child-component events, router navigation, Pinia actions, and visible DOM state.
+- Treat `wrapper.vm` as a test smell in page and component tests. Avoid calling private component methods, reading local refs, or casting `wrapper.vm as any`; this couples tests to `<script setup>` internals and makes harmless refactors break tests.
+- Use `wrapper.vm` only when intentionally testing a documented public component instance API, such as methods exposed via `defineExpose` and consumed by a parent component. Do not use it as a shortcut to trigger ordinary UI behavior.
+- Use `data-testid` selectors for stable interaction points and state assertions. Avoid broad text assertions unless the copy itself is the behavior under test, such as a user-facing validation or error message.
+- Keep business logic in pure utilities, services, or composables when possible, and test those with direct input/output unit tests. Page tests should then verify wiring: DOM event in, store/composable/router effect out.
+- When stubbing child components, make the stub preserve the public contract the parent relies on: props, `v-model` events, click events, slots, and relevant emitted events. Avoid inert `true` stubs for children whose events drive the flow under test.
+- For wallet/payment flows, assert functional outcomes rather than presentation details: invoice creation arguments, subscription lifecycle, balance refresh, route targets, cleanup behavior, and error handling.
+
+### Design System
+
+- Vipr has a mandatory design system documented in `docs/design-system.md`.
+- All new or changed UI must use the shared `vipr-*` classes and CSS tokens from `src/css/app.scss`.
+- Do not add ad hoc hardcoded colors, raw pixel radii, or Quasar layout/typography utility classes when an existing token or shared class covers the use case.
+- Always register every Quasar icon name you add or change in templates in `src/boot/icon-map.ts`; otherwise the icon may render as raw text instead of a mapped symbol.
+
+### TypeScript Code Style
+
+- Prefer discriminated unions for result, state, and protocol variants instead of broad objects with `success: boolean` plus optional fields. Model success and failure as separate variants so TypeScript can narrow fields reliably at call sites.
+- Prefer explicit variant tags such as `type: 'success' | 'error'` when a result has more than two states; boolean discriminants like `success: true | false` are acceptable for simple success/failure results.
+- Prefer functional transformations (`map`, `filter`, `reduce`, object/array spreads, pure helper functions) over in-place mutation when deriving data. Keep imperative mutation limited to Vue refs, Pinia state updates, timers/subscriptions, and SDK lifecycle boundaries.
+- When Pinia actions need non-trivial updates, prefer extracting pure helper functions that accept the previous state and return the next state, then assign the result once in the store.
+
+### Local Federation UI Testing
+
+- Helper scripts live in `scripts/` and should be used for manual Playwright flows against a local Devimint federation.
+- Start or enter the local test environment with `nix develop --accept-flake-config`. `scripts/run_devimint.sh` runs `devimint wasm-test-setup --exec bash`; `scripts/setup_test_shell.sh <cmd>` runs a command inside that setup. Use `scripts/kill_devimint.sh` to clean up local Devimint processes when a run leaves stale services behind.
+- Prefer the Faucet scripts when the Faucet is healthy: `scripts/get_connect_string.sh` returns the federation invite code from `http://localhost:15243/connect-string`, `scripts/pay_invoice.sh <bolt11>` pays a UI-generated Lightning invoice, and `scripts/create_invoice.sh <sats>` creates a Faucet invoice.
+- Before relying on Faucet scripts, verify `scripts/get_connect_string.sh` succeeds. If it cannot connect to `localhost:15243`, use the active Devimint environment instead: read the invite from `$FM_CLIENT_DIR/invite-code` or `fedimint-cli invite-code`, and pay UI-generated Lightning invoices via the funded gateway, for example `$FM_GWCLI_LDK lightning pay-invoice <bolt11>` or `$FM_GWCLI_LND lightning pay-invoice <bolt11>`.
+- On-chain helper scripts require `FM_BITCOIND_URL` from the active Devimint environment. `scripts/pay_onchain.sh <bitcoin-address>` sends regtest BTC and mines blocks, `scripts/check_onchain_address.sh <bitcoin-address>` checks UTXOs, and `scripts/get_block_height.sh` reads the current regtest height.
+- For manual app runs that should mirror Playwright E2E, start the dev server with `VITE_E2E_MODE=1 pnpm dev:e2e` and open `http://127.0.0.1:9303/`. The configured E2E tests use the same base URL, block service workers, and rely on `data-testid` selectors.
+- A complete Lightning receive workflow is: create/skip startup wizard, join the local federation, click `home-receive-btn`, choose `receive-lightning-card`, enter an amount with `receive-keypad-btn-*`, click `receive-create-invoice-btn`, extract `receive-invoice-input`, pay it with `scripts/pay_invoice.sh` or the gateway fallback, then assert `received-lightning-success-state`, return home, and verify `home-balance` and the latest transaction update.
+
+### Package Management
+
+- `pnpm install` - Install dependencies
+- `pnpm postinstall` - Prepare Quasar (runs automatically after install)
+
+## Architecture Overview
+
+### Framework Stack
+
+- **Frontend**: Vue 3 with Composition API + TypeScript
+- **UI Framework**: Quasar Framework (Material Design components)
+- **State Management**: Pinia stores with localStorage persistence
+- **Build Tool**: Vite with Quasar CLI
+- **PWA**: Workbox for service worker generation
+- **Testing**: Vitest with Vue Test Utils and playwright for end to end testing
+
+### Key Dependencies
+
+- `@fedimint/core` - Core Fedimint SDK for wallet operations
+- `@getalby/bitcoin-connect` & `@getalby/lightning-tools` - Lightning connectivity
+- `@nostr-dev-kit/ndk` - Nostr protocol integration
+- `@vueuse/core` - Vue composition utilities
+- `vue-router` - Routing with integrated file-based route generation
+
+### Core Store Architecture
+
+Located in `src/stores/`:
+
+1. **WalletStore** (`wallet.ts`) - Core wallet operations using FedimintWallet
+   - Manages wallet initialization, opening/closing
+   - Handles balance, transactions, and payment operations
+   - Lightning invoice operations (send/receive)
+
+2. **FederationStore** (`federation.ts`) - Federation management
+   - Stores federations list in localStorage
+   - Manages selected federation state
+   - Federation discovery via Nostr
+
+3. **LightningStore** (`lightning.ts`) - Lightning-specific operations
+4. **NostrStore** (`nostr.ts`) - Nostr protocol integration
+
+### Application Structure
+
+- `src/boot/fedimint.ts` - App initialization, wallet setup on boot
+- `src/components/` - Reusable Vue components (modals, transaction items, etc.)
+- `src/pages/` - Route-level page components
+- `src/router/` - Vue Router configuration
+- `src/utils/` - Utility functions (formatters, LNURL, error handling)
+- `src/services/logger.ts` - Logging service using consola
+
+### Build Configuration
+
+- **Quasar Config** (`quasar.config.ts`) - Main build configuration
+  - PWA mode with service worker
+  - WASM and top-level await support for Fedimint integration
+  - TypeScript strict mode enabled
+  - Hash-based routing
+- **Vite Plugins**: WASM, top-level await, Vue TypeScript checking
+- **Target**: Modern browsers (ES2022, Firefox 115+, Chrome 115+, Safari 15+)
+
+### Development Notes
+
+- Uses pnpm for package management
+- ESLint with Vue and TypeScript configurations (flat config)
+- Prettier for code formatting
+- Vitest for unit testing with happy-dom environment
+- HTTPS development server support via environment variables
+- Firefox as default development browser
+- Router import hint: import runtime APIs/composables from `vue-router` (e.g. `useRoute`, `useRouter`, `createRouter`) and keep generated route types/routes from `vue-router/auto-routes` only.
+- When wiring app navigation, prefer named routes such as `:to="{ name: '/federations/' }"` over string paths like `to="/federations/"` so route references stay type-safe and refactor-friendly.
+
+### Local Troubleshooting Notes
+
+- The browser may contain stale local PWA/wallet state from previous manual testing. If the dev console shows errors like `no valid bech32 or bech32m checksum`, `client is not initialized for this database`, or `Unable to open or join wallet 'wallet-...'`, first verify whether this is stale local state before treating it as a new regression.
+- For layout-only checks, these stale wallet initialization errors can be unrelated to the UI change being tested. Still report them when they affect the flow under test.
+
+### Key Implementation Patterns
+
+- Pinia stores use localStorage for persistence via `@vueuse/core`
+- Fedimint wallet operations are async and handle federation switching
+- Components follow the Vipr design system on top of Quasar primitives
+- Error handling via custom error utilities
+- Transaction history and balance updates via reactive stores
+- PWA features with offline capability and caching strategies
+
+### MCP Tools for Development
+
+#### Context7 Server for API Documentation
+
+- Use the Context7 MCP server when external API documentation for libraries is needed.
+- Use `resolve-library-id` first to get the correct library ID, then `query-docs` to fetch documentation
+- This provides up-to-date documentation and code examples for project dependencies.
+- Context7 is not required for purely local codebase questions where the needed context is available in this repository.
+
+#### Playwright MCP Server for E2E Testing
+
+- Use the Codex Playwright/Browser plugin and Playwright MCP server for browser automation, UI debugging, and layout verification.
+- For any UI testing request (layout, rendering, interaction regressions, visual checks), prefer the Playwright MCP tools over Playwright CLI.
+- Use Playwright via CLI only as a fallback when the plugin is unavailable, cannot reach the target, or when running the committed E2E suite itself.
+- Available tools include:
+  - `browser_navigate` - Navigate to URLs
+  - `browser_snapshot` - Take accessibility snapshots (preferred over screenshots)
+  - `browser_click`, `browser_type`, `browser_fill_form` - Interact with page elements
+  - `browser_wait_for` - Wait for conditions or text to appear/disappear
+  - `browser_evaluate` - Execute JavaScript in the browser context
+- Perfect for testing PWA functionality, user flows, and UI interactions
+- Use `browser_snapshot` to understand page structure before interacting with elements
+
+---
+> Source: [ngutech21/vipr-wallet](https://github.com/ngutech21/vipr-wallet) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
