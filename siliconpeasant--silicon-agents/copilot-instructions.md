@@ -1,0 +1,25 @@
+## silicon-agents
+
+> - 执行 `rm`、`del`、`mv`、`rmdir`、`rd`、`erase` 等删除/移动命令前，务必二次确认目标路径是否正确
+
+# silicon-agents 项目安全规范
+
+## 数据保护
+- 执行 `rm`、`del`、`mv`、`rmdir`、`rd`、`erase` 等删除/移动命令前，务必二次确认目标路径是否正确
+- **禁止用 Python 脚本绕过删除确认** — `os.remove()`、`shutil.rmtree()`、`Path.unlink()` 等删除/覆盖操作，执行前必须找用户确认
+- 不要覆盖现有文件（尤其是 `.v`、`xml`、`xlsx`、`py` 等设计文件），除非用户明确说"覆盖"或"替换"
+- 谨慎使用 `>` 重定向，防止意外覆盖重要文件
+
+## 安全钩子拦截后的处理
+- Shell 命令被 PreToolUse hook 拦截时，**禁止用 Python 脚本绕过**
+- 必须立即停止操作，向用户说明情况并等待确认
+
+## 不可逆操作
+- 对于 `git reset --hard`、`git clean -fd`、`reg delete` 等不可逆操作，必须额外谨慎，一律询问确认
+
+## Git 推送
+- `git push` 不在系统 hook 拦截范围内，但**必须主动找用户确认**后才能执行
+
+---
+> Source: [siliconpeasant/silicon-agents](https://github.com/siliconpeasant/silicon-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
