@@ -1,46 +1,78 @@
-## expo-project-structure
+## troubleshooting
 
-> This is an Expo Router project with TypeScript support. Follow these guidelines for development:
+> Run `npx expo-doctor` to check for configuration issues:
 
-# Expo Project Structure Guide
+# Troubleshooting Guide
 
-This is an Expo Router project with TypeScript support. Follow these guidelines for development:
+## Common Issues and Solutions
 
-## Core Configuration Files
+### Expo Doctor Checks
 
-- [app.config.ts](mdc:app.config.ts) - Main Expo configuration with environment variables
-- [babel.config.js](mdc:babel.config.js) - Babel configuration with expo-preset and reanimated plugin
-- [metro.config.js](mdc:metro.config.js) - Metro bundler configuration using Expo defaults
-- [expo-env.d.ts](mdc:expo-env.d.ts) - TypeScript environment declarations for Expo
-- [eas.json](mdc:eas.json) - EAS Build and Submit configuration
-- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration extending expo/tsconfig.base
+Run `npx expo-doctor` to check for configuration issues:
+- Ensures package versions match Expo SDK requirements
+- Validates native module compatibility
+- Checks for common configuration problems
 
-## Project Structure
+### TypeScript Errors
 
+Current known issues:
+- I18n configuration has complex generic type constraints (non-critical)
+- Use `npx tsc --noEmit` to check for type errors
+- Path aliases configured: `@/*` maps to `src/*`
+
+### Font Loading Issues
+
+Font files location: [src/assets/fonts/](mdc:src/assets/fonts)
+- Ensure correct relative paths in [src/screens/MainLayout.tsx](mdc:src/screens/MainLayout.tsx)
+- Use `require('../assets/fonts/FontName.ttf')` syntax
+- Available fonts: Roboto-Regular, Roboto-Medium, Roboto-Bold
+
+### Navigation Type Conflicts
+
+- Use Expo Router types instead of standalone React Navigation
+- Avoid mixing `@react-navigation/bottom-tabs` types with Expo Router
+- Let TypeScript infer types when possible for tab navigation
+
+### Build Failures
+
+1. **Babel Configuration**
+   - Ensure [babel.config.js](mdc:babel.config.js) uses `babel-preset-expo`
+   - Remove deprecated `expo-router/babel` plugin
+   - Keep `react-native-reanimated/plugin` as last plugin
+
+2. **Metro Configuration**
+   - Use [metro.config.js](mdc:metro.config.js) with Expo defaults
+   - Avoid custom Metro configurations unless necessary
+
+3. **Dependency Issues**
+   - Run `npx expo install --check` to fix version mismatches
+   - Use `yarn` as the package manager (configured in package.json)
+
+### Environment Variables
+
+- Set in EAS project settings, not in local .env files
+- Access via `process.env.EXPO_PUBLIC_*` for client-side variables
+- Server-side variables available in [app.config.ts](mdc:app.config.ts)
+
+### Development Server Issues
+
+```bash
+# Clear Metro cache
+npx expo start --clear
+
+# Reset Expo cache
+npx expo start --reset-cache
+
+# Check for port conflicts
+npx expo start --port 8081
 ```
-├── app/                    # Expo Router app directory (file-based routing)
-│   ├── _layout.tsx        # Root layout component
-│   ├── index.tsx          # Home route
-│   ├── (app)/             # App stack routes
-│   └── (auth)/            # Auth stack routes
-├── src/                   # Source code
-│   ├── components/        # Reusable components
-│   ├── screens/           # Screen components
-│   ├── routes/            # Navigation configuration
-│   ├── stores/            # Redux store and state management
-│   ├── assets/            # Static assets (fonts, images)
-│   ├── themes/            # Theme and styling
-│   └── locale/            # Internationalization
-```
 
-## Key Dependencies
+### Testing Issues
 
-- **Expo SDK 53** - Main framework
-- **Expo Router** - File-based navigation
-- **React Native Reanimated** - Animations
-- **Redux Toolkit** - State management
-- **TypeScript** - Type safety
-- **Jest + Expo** - Testing framework
+- Jest configuration: [jest.config.js](mdc:jest.config.js)
+- Uses `jest-expo` preset
+- Transform ignore patterns configured for Expo modules
+- Coverage reports in `coverage/` directory
 
 ---
 > Source: [saigontechnology/rn-base-project-expo](https://github.com/saigontechnology/rn-base-project-expo) — distributed by [TomeVault](https://tomevault.io).
