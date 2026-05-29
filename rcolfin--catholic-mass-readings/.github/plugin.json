@@ -1,0 +1,9 @@
+{
+  "name": "rcolfin--catholic-mass-readings",
+  "displayName": "catholic-mass-readings",
+  "description": "Provides an API for querying the Daily Mass populated from https://bible.usccb.org/bible/readings/",
+  "version": "1.0.0",
+  "author": "rcolfin",
+  "homepage": "https://github.com/rcolfin/catholic-mass-readings",
+  "skills": []
+}
