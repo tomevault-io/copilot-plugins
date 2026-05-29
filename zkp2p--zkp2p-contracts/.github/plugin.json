@@ -1,0 +1,9 @@
+{
+  "name": "zkp2p--zkp2p-contracts",
+  "displayName": "zkp2p-contracts",
+  "description": "ZKP2P V2 escrow protocol contracts",
+  "version": "1.0.0",
+  "author": "zkp2p",
+  "homepage": "https://github.com/zkp2p/zkp2p-contracts",
+  "skills": []
+}
