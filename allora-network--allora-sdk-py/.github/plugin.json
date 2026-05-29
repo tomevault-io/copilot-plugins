@@ -1,0 +1,9 @@
+{
+  "name": "allora-network--allora-sdk-py",
+  "displayName": "allora-sdk-py",
+  "description": "SDK for interacting with the Allora Network in Python.",
+  "version": "1.0.0",
+  "author": "allora-network",
+  "homepage": "https://github.com/allora-network/allora-sdk-py",
+  "skills": []
+}
