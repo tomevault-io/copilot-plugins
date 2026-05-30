@@ -1,0 +1,9 @@
+{
+  "name": "cartographer3d--cartographer3d-plugin",
+  "displayName": "cartographer3d-plugin",
+  "description": "cartographer3d-plugin",
+  "version": "1.0.0",
+  "author": "Cartographer3D",
+  "homepage": "https://github.com/Cartographer3D/cartographer3d-plugin",
+  "skills": []
+}
