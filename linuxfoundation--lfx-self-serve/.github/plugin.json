@@ -1,0 +1,9 @@
+{
+  "name": "linuxfoundation--lfx-self-serve",
+  "displayName": "lfx-self-serve",
+  "description": "LFX Self Serve UI",
+  "version": "1.0.0",
+  "author": "linuxfoundation",
+  "homepage": "https://github.com/linuxfoundation/lfx-self-serve",
+  "skills": []
+}
