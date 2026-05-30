@@ -1,0 +1,9 @@
+{
+  "name": "lrtherond--suitecrm-mcp",
+  "displayName": "SuiteCRM_MCP",
+  "description": "Model Context Protocol server for SuiteCRM integration. Enables AI assistants to interact with SuiteCRM for lead management, contact operations, and CRM workflows.",
+  "version": "1.0.0",
+  "author": "lrtherond",
+  "homepage": "https://github.com/lrtherond/SuiteCRM_MCP",
+  "skills": []
+}
