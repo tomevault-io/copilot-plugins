@@ -1,0 +1,9 @@
+{
+  "name": "jparkerweb--fast-topic-analysis",
+  "displayName": "fast-topic-analysis",
+  "description": "\ud83c\udff7\ufe0f Fast Topic Analysis is a tool for analyzing text against predefined topics using average weight embeddings and cosine similarity",
+  "version": "1.0.0",
+  "author": "jparkerweb",
+  "homepage": "https://github.com/jparkerweb/fast-topic-analysis",
+  "skills": []
+}
