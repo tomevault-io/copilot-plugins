@@ -4,7 +4,7 @@
   "repo": "vultisig-sdk",
   "description": "TypeScript SDK for self-custodial multi-chain wallets with MPC security, cross-chain swaps, and AI agent support. 40+ blockchains, no seed phrases.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vultisig/vultisig-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T02:32:19Z"
+  "distributed_at": "2026-05-30T02:34:44Z"
 }
