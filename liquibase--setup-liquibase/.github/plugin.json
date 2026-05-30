@@ -1,0 +1,9 @@
+{
+  "name": "liquibase--setup-liquibase",
+  "displayName": "setup-liquibase",
+  "description": "Set up your GitHub Actions workflow with a specific version of Liquibase",
+  "version": "1.0.0",
+  "author": "liquibase",
+  "homepage": "https://github.com/liquibase/setup-liquibase",
+  "skills": []
+}
