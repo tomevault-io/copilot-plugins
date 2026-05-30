@@ -1,0 +1,9 @@
+{
+  "name": "trustabl--trustabl-rules",
+  "displayName": "trustabl-rules",
+  "description": "This repository holds the detection rule packs for Trustabl, the static analyzer for agent reliability.",
+  "version": "1.0.0",
+  "author": "trustabl",
+  "homepage": "https://github.com/trustabl/trustabl-rules",
+  "skills": []
+}
