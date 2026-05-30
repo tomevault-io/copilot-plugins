@@ -1,13 +1,13 @@
-# valovault
+# AI instruction files for ValoVault
 
-> Source: [truearken/valovault](https://github.com/truearken/valovault) — distributed by [TomeVault](https://tomevault.io)
+> Sourced from [truearken/ValoVault](https://github.com/truearken/ValoVault) and converted for every major platform by [TomeVault](https://tomevault.io)
 
 ValoVault: Agent Skin Presets and Loadout managing
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [truearken/valovault](https://github.com/truearken/valovault).
+Original source: `AGENTS.md` in [truearken/ValoVault](https://github.com/truearken/ValoVault).
 
 ## Also available for
 
@@ -17,10 +17,10 @@ Original source: `AGENTS.md` in [truearken/valovault](https://github.com/trueark
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/truearken/valovault](https://github.com/truearken/valovault)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/truearken/ValoVault](https://github.com/truearken/ValoVault)
 
 ---
 
-Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
 
-<!-- genome:d-c-p -->
+<!-- genome:a-e-p -->
