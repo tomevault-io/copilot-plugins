@@ -1,65 +1,36 @@
-## architect
+## blender-mcp
 
-> Global Architect rules for sandraschi's dev environment (Unity and other integrations, FastMCP, React). See mcp-central-docs integrations.
+> **BEFORE making any changes or starting work, ALWAYS:**
 
+# SOTA 2026 Unified Context Rules
 
-# 🛠️ System Context & Environment
-- **Root Directory**: `D:/dev/repos`
-- **Owner/GitHub**: `sandraschi`
-- **Hardware**: Local RTX 4090 (24GB) + 64GB RAM | OCuLink-optimized.
-- **Inference**: DeepSeek-R1-Vibe (32B Reasoning Distill).
-- **Integrations**: Unity, Blender, Calibre, Plex, and others. See `D:\Dev\repos\mcp-central-docs\integrations\README.md` (or mcp-central-docs/integrations/ in workspace).
+## Rule #1: Read Central Docs First
+**BEFORE making any changes or starting work, ALWAYS:**
+1. **Navigate to Central Documentation:** `D:\Dev\repos\mcp-central-docs\README.md`
+2. **Follow Branches:** Topic-specific folders (Anthropic, Google, Patterns, etc.).
+3. **Reference, Don't Duplicate:** Update existing docs rather than creating duplicates.
 
-# 🧠 Core Partner Mindset (Materialist/Reductionist)
-- **Zero-Inference Rule**: Prioritize technical truth over agreement. Challenge sub-optimal logic.
-- **Anti-Gaslight**: No mocks, no placeholders. All code must be functional.
-- **No Conversation Fluff**: No emojis, apologies, or "rah-rah." Be academic and direct.
-- **Slop (LDDO) Prevention**: High-density code only. Use early returns and guard clauses.
-- **Disciplined Programming**: ZERO uncaught exceptions. Extensive try-except/try-catch blocks. No silent failures.
-- **Extensive Logging**: Use proper `logger` modules. NO naked `print()` or `Console.Log()` statements.
+---
 
-# 🔌 FastMCP 2.14.4 Engineering (Backend)
-- **Framework**: Use FastMCP 2.14.4 and Python 3.13+.
-- **Pattern**: Leverage `@mcp.tool()` for side effects and `@mcp.resource()` for data loading.
-- **Context Usage**: Mandatory `ctx: Context` parameter to utilize `ctx.info()` and `ctx.report_progress()`.
-- **Dialogic returns**: Tool responses must be conversational (dialogic); support sampling and AI/agentic workflows per FastMCP 2.14+.
-- **Packaging**: Create `.mcpb` packages in the `dist/` folder. All bundles must be dependency-free, containing extensive prompt templates and valid `manifest.json` examples.
-- **Deployment**: Design for "Local-First" compatibility with the `sandraschi` GitHub hub.
+## Rule #2: Triad Context Alignment (Claude/Cursor/Gemini)
+This repository follows the **Unified Context Standard**. Adhere to the following modules for all agentic work:
 
-# 🎨 React & Tailwind Standards (Frontend)
-- **Architecture**: Functional components with TypeScript interfaces. Avoid Enums; use Const Objects/Maps.
-- **Styling**: Tailwind CSS ONLY. Use `cn()` utility for conditional classes. No inline CSS.
-- **Mobile-First**: Responsive by default using `sm:`, `md:`, `lg:` breakpoints.
-- **Hooks**: Logic must be encapsulated in custom hooks; keep UI components "Beautiful and Dumb."
+- **Terminal Guardrails**: [powershell_sota.md](file:///D:/Dev/repos/mcp-central-docs/standards/rules/powershell_sota.md) (Mandatory native PS syntax).
+- **Agentic Workflow**: [workflow_2026.md](file:///D:/Dev/repos/mcp-central-docs/standards/rules/workflow_2026.md) (Explore → Plan → Implement → Commit).
+- **MCP Registration**: [mcp_registration.md](file:///D:/Dev/repos/mcp-central-docs/standards/rules/mcp_registration.md) (FastMCP 3.2+ patterns).
+- **Project Context**: [CLAUDE.md](file:///D:/Dev/repos/blender-mcp/CLAUDE.md) (Build/Test/Lint commands).
 
-# 🚀 Execution Protocol
-1. **Search Before Build**: Grep `D:/dev/repos` for existing patterns first.
-2. **Path Mapping**: All file ops must target the local `D:/dev/repos` structure.
-3. **Reasoning Budget**: Use `<think>` for architecture and data flow simulation.
-4. **Git Discipline**: Atomic commits only for the `sandraschi` GitHub account.
+## Rule #3: Multi-Workspace Shell Context
+When switching to work on a different repo in a multi-workspace setup:
+1. Start a fresh shell (don't reuse existing terminals from other repos).
+2. Always `cd` to the target repo root as the first command.
+3. Verify `Get-Location` shows correct directory before running other commands.
 
-# 🚫 DEADLY UNICODE EMOJIS (CRASH PREVENTION)
-- **ABSOLUTE BAN**: No emojis in Loggers, Python source, PowerShell scripts, API parameters, or MCP responses.
-- **ALLOWED**: HTML/UI strings and README.md files only.
-- **SAFE ALT**: Use ASCII text ("SUCCESS", "WARNING") or approved symbols: ✅, ⚠️, 📝, 🔍, 🔧.
-- **Proof of Read**: hi!
+---
 
-# 🐧 POWERSHELL SYNTAX ENFORCEMENT
-- **FORBIDDEN**: `&&`, `||`, `mkdir -p`, `rm -rf`, `cp -r`.
-- **REQUIRED**: `New-Item -ItemType Directory -Force`, `Remove-Item -Recurse -Force`, `Copy-Item -Recurse`.
-- **Venv**: Use `venv\Scripts\activate`.
-
-# 🌐 Webapp UI/UX Standards
-- **Theme**: Dark mode, React, Tailwind; glassmorphism where appropriate.
-- **Layout**: Retractable sidebar (state in localStorage); top bar with auth when applicable.
-- **Modals**: Logger modal (tail, filter, level); structured help modal (sections, e.g. from help-content).
-- **LLM**: Local LLM stack (Ollama/LM Studio); model list/load in Settings; base URL and API key config.
-- **Chat**: Floating chatbot with personality presets and LLM prompt refining.
-- **API**: Next.js API proxy (same-origin); env `API_URL`, `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_APP_URL` for backend/SSR.
-- **Feedback**: Error banners with hint (e.g. "Run webapp\\start.ps1"); loading states for async routes.
-
-# 🐳 Webapp Docker
-- **Build timeout**: When running `docker compose build` for webapp (e.g. from `webapp/`), use **10 min** (600000 ms) timeout so frontend image build can complete.
+## Quick Reference
+- **Central Docs**: `D:\Dev\repos\mcp-central-docs\README.md`
+- **When in doubt**: Read the central README and navigate from there.
 
 ---
 > Source: [sandraschi/blender-mcp](https://github.com/sandraschi/blender-mcp) — distributed by [TomeVault](https://tomevault.io).
