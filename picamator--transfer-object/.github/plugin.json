@@ -1,0 +1,9 @@
+{
+  "name": "picamator--transfer-object",
+  "displayName": "transfer-object",
+  "description": "A modern Symfony-compatible Transfer Object Generator with property hooks, FixedArray, and asymmetric visibilities.",
+  "version": "1.0.0",
+  "author": "picamator",
+  "homepage": "https://github.com/picamator/transfer-object",
+  "skills": []
+}
