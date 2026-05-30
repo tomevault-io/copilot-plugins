@@ -1,0 +1,9 @@
+{
+  "name": "merzbild--merzbild-jl",
+  "displayName": "Merzbild.jl",
+  "description": "The Merzbild Variable-Weight DSMC/FP code",
+  "version": "1.0.0",
+  "author": "merzbild",
+  "homepage": "https://github.com/merzbild/Merzbild.jl",
+  "skills": []
+}
