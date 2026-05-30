@@ -169694,6 +169694,11 @@
       "description": "glue is a collection of glue code that I often use in projects. Mainly for internal use, but feel free to use or be inspired."
     },
     {
+      "name": "authrequest--freeloader",
+      "source": "./authrequest--freeloader",
+      "description": "Plex Unlocker"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -184372,6 +184377,11 @@
       "name": "konradzaremba--betta",
       "source": "./konradzaremba--betta",
       "description": "ZeroTouch for Grasshopper: write plain C# functions, get real Grasshopper components \u2014 no GH_Component subclass, no manual wiring."
+    },
+    {
+      "name": "r0b0tlab--deepseek-v4-flash-nvfp4-gb10-benchmark",
+      "source": "./r0b0tlab--deepseek-v4-flash-nvfp4-gb10-benchmark",
+      "description": "DeepSeek-V4-Flash native Blackwell FP8 benchmark on dual DGX Spark GB10 (TP=2, MTP, RoCE). c=1 38.4 t/s, c=16 144.6 t/s aggregate."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
