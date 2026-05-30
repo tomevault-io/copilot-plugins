@@ -1,22 +1,23 @@
-## 01-project-overview
+## 03-data-storage
 
-> Understanding the project structure and identifying entrypoints
+> Interacting with the database, storing data, and retrieving data
 
-# Traak - Project Overview
+# Data Storage
 
-This is a Flutter application that helps sprinters track workout routines and get insights to help them improve their performance.
+The application uses Isar as its local database solution.
 
-## Main Entry Points
-- [lib/main.dart](mdc:lib/main.dart) - Application entry point that initializes services and launches the app
-- [lib/app.dart](mdc:lib/app.dart) - Root app widget that sets up theming and routing
-- [lib/router.dart](mdc:lib/router.dart) - Routing configuration using go_router
-- [lib/theme.dart](mdc:lib/theme.dart) - Theme configuration for the app
+## Service Configuration
+- [lib/services/isar_service.dart](mdc:lib/services/isar_service.dart) - Contains the Isar database initialization and management logic
 
-## Project Structure
-The codebase follows a feature-first organization:
-- `lib/features/` - Contains feature modules with their screens, models, and logic
-- `lib/shared/` - Shared logic used across features
-- `lib/constants/` - Constants and configuration values
+## Data Flow
+1. The database is initialized in [main.dart](mdc:lib/main.dart)
+2. Feature repositories (like [lib/features/track/repositories/routine_repository.dart](mdc:lib/features/track/repositories/routine_repository.dart)) interact with the database through the IsarService
+3. Models are used to represent the data schema and are typically stored in the `models` directory of each feature
+
+## Working with Data
+- When adding a new data model, make sure to update the IsarService
+- Repositories should handle all database operations
+- Use the repository pattern to abstract database operations from the UI layer
 
 ---
 > Source: [shareefhadid/traak](https://github.com/shareefhadid/traak) — distributed by [TomeVault](https://tomevault.io).
