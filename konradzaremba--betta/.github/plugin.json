@@ -1,0 +1,9 @@
+{
+  "name": "konradzaremba--betta",
+  "displayName": "betta",
+  "description": "ZeroTouch for Grasshopper: write plain C# functions, get real Grasshopper components \u2014 no GH_Component subclass, no manual wiring.",
+  "version": "1.0.0",
+  "author": "KonradZaremba",
+  "homepage": "https://github.com/KonradZaremba/betta",
+  "skills": []
+}
