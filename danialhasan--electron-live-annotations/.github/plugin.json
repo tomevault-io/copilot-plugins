@@ -1,0 +1,9 @@
+{
+  "name": "danialhasan--electron-live-annotations",
+  "displayName": "electron-live-annotations",
+  "description": "Framework-agnostic live annotation layer for Electron apps",
+  "version": "1.0.0",
+  "author": "danialhasan",
+  "homepage": "https://github.com/danialhasan/electron-live-annotations",
+  "skills": []
+}
