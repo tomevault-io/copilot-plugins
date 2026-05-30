@@ -169679,6 +169679,21 @@
       "description": "Source code of the DeepL API documentation"
     },
     {
+      "name": "truearken--valovault",
+      "source": "./truearken--valovault",
+      "description": "ValoVault: Agent Skin Presets and Loadout managing"
+    },
+    {
+      "name": "maragudk--glue",
+      "source": "./maragudk--glue",
+      "description": "glue is a collection of glue code that I often use in projects. Mainly for internal use, but feel free to use or be inspired."
+    },
+    {
+      "name": "maragudk--glue",
+      "source": "./maragudk--glue",
+      "description": "glue is a collection of glue code that I often use in projects. Mainly for internal use, but feel free to use or be inspired."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181467,6 +181482,16 @@
       "name": "maxwell2732--claudecode-research-harness-workflow",
       "source": "./maxwell2732--claudecode-research-harness-workflow",
       "description": "Claude Code Research Harness Workflow turns Claude Code from a general coding agent into a controlled empirical research collaborator | by \u6731\u6668 | \u9057\u4f20\u793e\u79d1\u7814\u7a76"
+    },
+    {
+      "name": "phuryn--grok-build-vscode",
+      "source": "./phuryn--grok-build-vscode",
+      "description": "Grok Build Visual Studio Code extension. A full embedded chat UI \u2014 not a terminal launcher."
+    },
+    {
+      "name": "phuryn--grok-build-vscode",
+      "source": "./phuryn--grok-build-vscode",
+      "description": "Grok Build Visual Studio Code extension. A full embedded chat UI \u2014 not a terminal launcher."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -288902,6 +288927,41 @@
       "name": "naufaldi--pangan-be",
       "source": "./naufaldi--pangan-be",
       "description": "pangan-be"
+    },
+    {
+      "name": "shareefhadid--traak",
+      "source": "./shareefhadid--traak",
+      "description": "traak"
+    },
+    {
+      "name": "consilience-dev--consensia-news-agent",
+      "source": "./consilience-dev--consensia-news-agent",
+      "description": "A Python agent for searching news articles by topic and date using NewsAPI and Google ADK. Includes robust error handling and LLM-friendly interfaces."
+    },
+    {
+      "name": "shareefhadid--traak",
+      "source": "./shareefhadid--traak",
+      "description": "traak"
+    },
+    {
+      "name": "samheller--robotics-2024",
+      "source": "./samheller--robotics-2024",
+      "description": "robotics_2024"
+    },
+    {
+      "name": "shareefhadid--traak",
+      "source": "./shareefhadid--traak",
+      "description": "traak"
+    },
+    {
+      "name": "ddarmon--regressr",
+      "source": "./ddarmon--regressr",
+      "description": "An R package for regression testing"
+    },
+    {
+      "name": "shareefhadid--traak",
+      "source": "./shareefhadid--traak",
+      "description": "traak"
     }
   ]
 }
