@@ -1,0 +1,9 @@
+{
+  "name": "lumenize--lumenize",
+  "displayName": "lumenize",
+  "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects",
+  "version": "1.0.0",
+  "author": "lumenize",
+  "homepage": "https://github.com/lumenize/lumenize",
+  "skills": []
+}
