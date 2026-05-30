@@ -1,0 +1,9 @@
+{
+  "name": "canonical--jubilant",
+  "displayName": "jubilant",
+  "description": "Jubilant is a Pythonic wrapper around the Juju CLI, primarily for charm integration testing.",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/jubilant",
+  "skills": []
+}
