@@ -1,0 +1,9 @@
+{
+  "name": "synadia-io--connect",
+  "displayName": "connect",
+  "description": "Connect Client SDK and CLI",
+  "version": "1.0.0",
+  "author": "synadia-io",
+  "homepage": "https://github.com/synadia-io/connect",
+  "skills": []
+}
