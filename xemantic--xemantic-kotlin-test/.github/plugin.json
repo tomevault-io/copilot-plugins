@@ -1,0 +1,9 @@
+{
+  "name": "xemantic--xemantic-kotlin-test",
+  "displayName": "xemantic-kotlin-test",
+  "description": "An AX-first (AI/Agent Experience) Kotlin multiplatform testing library with power-assert compatible assertions DSL and other testing goodies.",
+  "version": "1.0.0",
+  "author": "xemantic",
+  "homepage": "https://github.com/xemantic/xemantic-kotlin-test",
+  "skills": []
+}
