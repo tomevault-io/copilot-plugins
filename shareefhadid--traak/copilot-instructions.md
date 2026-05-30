@@ -1,32 +1,23 @@
-## traak
+## 01-project-overview
 
-> Creating a new feature or understanding the structure of a feature
+> Understanding the project structure and identifying entrypoints
 
-# Feature Architecture
+# Traak - Project Overview
 
-Each feature in the application is organized with a consistent structure:
+This is a Flutter application that helps sprinters track workout routines and get insights to help them improve their performance.
 
-## Features Directory
-Features are located in [lib/features/](mdc:lib/features) and follow this structure:
+## Main Entry Points
+- [lib/main.dart](mdc:lib/main.dart) - Application entry point that initializes services and launches the app
+- [lib/app.dart](mdc:lib/app.dart) - Root app widget that sets up theming and routing
+- [lib/router.dart](mdc:lib/router.dart) - Routing configuration using go_router
+- [lib/theme.dart](mdc:lib/theme.dart) - Theme configuration for the app
 
-- `screens/` or `*_screen.dart` - UI components that represent full screens/pages
-- `components/` - Reusable UI components specific to the feature
-- `models/` - Data models for the feature
-- `repositories/` - Data access layer for the feature
-- `view_models/` - Contains business logic and state management
-
-## Main Features
-- [Track](mdc:lib/features/track/track_screen.dart) - Feature for tracking workout routines
-- [Insights](mdc:lib/features/insights) - Feature for viewing analytics and insights
-
-## Development Patterns
-When creating new feature components:
-1. Place the feature in its own directory under `lib/features/`
-2. Follow the established architecture pattern
-3. Use shared components from `lib/shared/` when possible
-4. Register routes in [router.dart](mdc:lib/router.dart)
+## Project Structure
+The codebase follows a feature-first organization:
+- `lib/features/` - Contains feature modules with their screens, models, and logic
+- `lib/shared/` - Shared logic used across features
+- `lib/constants/` - Constants and configuration values
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/shareefhadid)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/shareefhadid)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [shareefhadid/traak](https://github.com/shareefhadid/traak) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-30 -->
