@@ -1,32 +1,33 @@
-## 04-ui-components
+## 05-navigation
 
-> When creating a new component, or trying to understand how components are structured
+> Creating new routes or understanding navigation
 
-# UI Components
+# Navigation
 
-The application uses Flutter's Material Design components and custom widgets.
+The application uses the go_router package for navigation.
 
-## Component Organization
-- Feature-specific components are stored in the `components` directory of each feature
-- [lib/shared/components/](mdc:lib/shared/components) contains reusable components used across the application
+## Router Configuration
+- [lib/router.dart](mdc:lib/router.dart) contains the router configuration
+- Routes are defined in a hierarchical structure
+- Each screen has a unique path
 
-## Screens
-- Screens represent full pages in the application
-- Each feature typically has one or more screens
-- Screen files are named with a `_screen.dart` suffix
-- Examples:
-  - [lib/features/track/track_screen.dart](mdc:lib/features/track/track_screen.dart)
-  - [lib/features/track/new_routine_screen.dart](mdc:lib/features/track/new_routine_screen.dart)
+## Navigation Patterns
+- Navigation should be performed using the router's methods:
+  ```dart
+  context.go('/path');
+  context.push('/path');
+  ```
+- Nested routes should follow the parent-child relationship in the router configuration
 
-## Theming
-- [lib/theme.dart](mdc:lib/theme.dart) contains the application's theme configuration
-- Use the theme's colors, text styles, and other design tokens for consistency
+## Route Parameters
+- Route parameters can be passed using path parameters or query parameters
+- Access route parameters in the screen widget using GoRouterState
 
-## Design Patterns
-- Widgets should be composable and reusable
-- Maximum one widget per file
-- Extract common UI patterns into shared components
-- Follow Flutter's widget hierarchy guidelines for performance
+## Adding New Routes
+When adding a new screen:
+1. Create the screen widget in the appropriate feature directory
+2. Add the route in [lib/router.dart](mdc:lib/router.dart)
+3. Use the existing pattern for parent-child relationships if necessary
 
 ---
 > Source: [shareefhadid/traak](https://github.com/shareefhadid/traak) — distributed by [TomeVault](https://tomevault.io).
