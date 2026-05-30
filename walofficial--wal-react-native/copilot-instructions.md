@@ -1,61 +1,47 @@
-## git-analysis
+## pr-creation
 
-> Git information gathering for PR creation
+> Create GitHub PR using template and MCP tools
 
 
-# Git Analysis for PR Creation
+# PR Creation Workflow
 
-## Required Commands
+When user requests PR creation, execute this workflow:
 
-Execute these commands in sequence:
+## Core Process
 
-```bash
-git status --porcelain                    # Check staged/unstaged files
-git branch --show-current                 # Get current branch name
-git log --oneline -10 --no-merges        # Recent commit messages
-git remote get-url origin                 # Extract owner/repo
-git diff --cached --name-status           # Staged changes summary
-```
+1. **Gather git information** (see [git-analysis](mdc:.cursor/rules/git-analysis.mdc))
+2. **Generate PR content** (see [pr-template-generator](mdc:.cursor/rules/pr-template-generator.mdc))
+3. **Create PR via GitHub MCP**
 
-## Data Extraction
+## GitHub MCP Call
 
-### Repository Info
-
-```bash
-# From: git remote get-url origin
-# Extract: github.com/owner/repo.git -> owner="owner", repo="repo"
-```
-
-### Change Analysis
-
-```bash
-# From: git diff --cached --name-status
-# A = Added, M = Modified, D = Deleted, R = Renamed
-# Example: "M src/services/auth_service.py" -> Modified auth service
-```
-
-### Commit Messages
-
-```bash
-# From: git log --oneline -10 --no-merges
-# Extract patterns: "feat:", "fix:", "refactor:", "docs:"
-# Example: "feat: add JWT authentication" -> Feature addition
-```
-
-## Output Format
-
-Return structured data:
+Always use `mcp_GitHub_create_pull_request` with:
 
 ```json
 {
-  "owner": "username",
-  "repo": "repository-name",
-  "head_branch": "feature/auth",
-  "changes": ["M src/services/auth_service.py", "A tests/test_auth.py"],
-  "commits": ["feat: add JWT authentication", "fix: handle edge cases"],
-  "change_type": "feature"
+  "owner": "extracted-from-git-remote",
+  "repo": "extracted-from-git-remote",
+  "title": "feat: add user authentication system",
+  "head": "feature/auth",
+  "base": "main",
+  "body": "# Summary\n\n[Generated from template]...",
+  "draft": false
 }
 ```
+
+## Repository Requirements
+
+**Always include in PR body:**
+
+- Mongo pipeline usage confirmation
+- Service logic implementation confirmation
+- Reference to [PULL_REQUEST_TEMPLATE.md](mdc:.github/PULL_REQUEST_TEMPLATE.md)
+
+## Error Handling
+
+- **No changes**: "Please stage/commit changes first"
+- **GitHub API failure**: Show specific error + retry guidance
+- **Not in git repo**: Guide to correct directory
 
 ---
 > Source: [walofficial/wal-react-native](https://github.com/walofficial/wal-react-native) — distributed by [TomeVault](https://tomevault.io).
