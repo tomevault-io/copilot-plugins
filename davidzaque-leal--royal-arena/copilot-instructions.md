@@ -1,266 +1,260 @@
-## arena-domain
+## backend
 
-> WYD Royal Arena domain rules
+> Backend architecture and implementation standards
 
 
-# Royal Arena Domain Rules
+# Backend Engineering Standards
 
-# Arena Types
+You are a senior backend engineer specialized in:
+- ASP.NET Core
+- Distributed systems
+- Event-driven architectures
+- High performance APIs
+- Observability
+- Snapshot processing systems
 
-There are two arenas:
+# Architecture Rules
 
-## Champions Hall
-- unrestricted arena
-- celestial level >= 300
-- no PR restriction
+The project MUST follow:
+- Clean Architecture
+- SOLID principles
+- CQRS when beneficial
+- Repository Pattern
+- Dependency Injection
+- Immutable historical storage
 
-## Aspirants Field
-- celestial level >= 300
-- has Power Rating restrictions
-- intended for balanced progression
-- players above level 400 gain no EXP
+Layers:
+- Domain
+- Application
+- Infrastructure
+- API
 
-# Badge Rules
+Never:
+- place business logic inside controllers
+- access Infrastructure directly from API
+- bypass Application layer
+- create circular dependencies
 
-There are two badges:
-- Badge Aspirant
-- Badge Champion
+# API Rules
 
-A player can only participate in ONE arena per season.
+Controllers must:
+- be thin
+- only orchestrate requests
+- never contain calculations
+- never contain ranking logic
 
-Rules:
-- player chooses one badge
-- changing from Aspirant to Champion is allowed
-- changing from Champion to Aspirant is NOT allowed
-- switching to Champion resets all Aspirant CS
-- new badge selection only next season
+Use:
+- DTOs
+- validation
+- async endpoints
+- CancellationToken
 
-# Combat Score Rules
+All endpoints must:
+- return proper status codes
+- support tracing
+- support structured logging
 
-Each arena registration:
-- consumes 1 CS
+# Database Rules
 
-Each victory:
-- grants 7 CS
+Use:
+- Entity Framework Core
+- PostgreSQL
 
-Defeat:
-- grants 0 CS
+Database principles:
+- append-only history when possible
+- immutable snapshots
+- normalized critical data
+- indexed ranking queries
 
-CS can NEVER become negative.
+Always:
+- configure entities explicitly
+- create indexes for ranking fields
+- use migrations
+- avoid lazy loading
 
-Example:
-- player has 0 CS
-- first victory grants 7 CS
-- registration consumes 1 CS
-- resulting visible CS = 6
+Never:
+- use SELECT *
+- load unnecessary collections
+- perform N+1 queries
 
-# Ranking Tiers
+# Snapshot Processing Rules
 
-Exiled:
-- 0 to 4 CS
+The arena API is snapshot-based.
 
-Warrior:
-- 5 to 25 CS
+The backend must:
+- ingest snapshots periodically
+- preserve raw snapshots
+- compare historical states
+- reconstruct inferred events
 
-Knight:
-- 26 to 51 CS
+Snapshots are the source of truth.
 
-Master:
-- 52 to 77 CS
+Detected events are derived data.
 
-Master of War:
-- 78 to 120 CS
+# Scheduling Rules
 
-GrandMaster:
-- 121 to 250 CS
+Arena snapshot ingestion is schedule-based.
 
-# Arena Match Structure
-
-Each arena match contains:
-- 4 teams
-- each team can contain up to 13 players
-- maximum 52 players per arena match
-
-Rules:
-- only ONE team wins the arena
-- all winning team members receive rewards
-- only players alive for at least 1 minute qualify for rewards
-
-Reward eligibility:
-- receive Combat Score (CS)
-- receive Royal Arena Coupons
-
-Players that die before surviving 1 minute:
-- do NOT receive rewards
-- do NOT receive CS
-- do NOT receive coupons
-
-# Winning Team Tracking
-
-The system must identify the winning team for every arena match.
-
-The ranking system must:
-- highlight winning team members
-- detect new victories using:
-  currentWinCount - previousWinCount = 1
-
-Maximum highlighted winners per match:
-- 13 players
-
-# Winner Feed
-
-The system must support:
-- listing winning players
-- congratulating winning teams
-- generating winner announcements
-- historical winner tracking
-
-# Seasons
-
-- seasons are monthly
-- CS resets every season
-- rankings reset every season
-- badge state resets every season
-
-# Reward Rules
-
-Victory rewards Royal Arena Coupons based on ranking.
-
-Defeat always gives:
-- 5 coupons
-
-# Arena Schedule Rules
-
-There are exactly 4 arena windows per day.
-
-Arena times (Brasília timezone):
+Valid arena times:
 - 13:00
 - 19:00
 - 20:30
 - 23:00
+
+Official collection times:
+- 13:31
+- 19:31
+- 21:01
+- 23:31
 
 Timezone:
 - America/Sao_Paulo
 
 Thursday Rule:
 - Thursday 13:00 arena NEVER exists
-- Thursday 13:31 collection NEVER executes
+- snapshot collection at Thursday 13:31 must NEVER execute
 
-# Snapshot Collection Rules
+The system must:
+- execute only during valid windows
+- avoid continuous polling
+- prevent duplicate snapshot ingestion
+- persist official arena timestamps
 
-The system must ONLY collect arena snapshots:
-- exactly 31 minutes after each arena starts
+Workers must:
+- be timezone-aware
+- validate execution windows
+- skip invalid schedules safely
 
-Collection schedule:
-- 13:31
-- 19:31
-- 21:01
-- 23:31
-
-The system must NEVER continuously poll the API.
-
-Reason:
-- avoid unnecessary database growth
-- avoid redundant snapshots
-- reduce processing overhead
-- improve event reconstruction accuracy
-
-# Snapshot Integrity Rules
-
-Only one official snapshot collection is allowed per arena window.
-
-Duplicate collections for the same arena window must be prevented.
-
-Each snapshot must be associated with:
-- arena date
-- arena scheduled time
-- arena type
-- collection timestamp
-
-# Retry Rules
-
-If snapshot collection fails during an official arena window,
-the system may retry for a limited grace period.
-
-Retries must:
-- remain associated with the same arena window
-- never create duplicate official snapshots
-
-# Timezone Rules
-
-All system operations must use:
-- Brasília timezone
-- America/Sao_Paulo
-
-Never use:
-- UTC directly in business logic
-- server local timezone
-
-All arena scheduling calculations must be timezone-aware.
-
-# Snapshot-Based Data Source
-
-All arena data comes from:
-
-GET https://mochila.tapiocahut.com/royal-arena
-
-The API returns snapshot-based data.
-
-The system does NOT receive:
-- direct match events
-- team information
-- timestamps for matches
-- winner events
-
-The system must infer arena events by comparing snapshots over time.
-
-# Snapshot Structure
-
-{
-  "champion": [],
-  "aspirant": []
-}
-
-Each player object:
-
-{
-  "charName": string,
-  "class": number,
-  "subClass": number,
-  "wins": number,
-  "kills": number,
-  "deaths": number,
-  "points": number
-}
+Never:
+- use machine local timezone
+- continuously poll the external API
+- generate redundant snapshots
 
 # Event Reconstruction Rules
 
-The system uses heuristic-based event reconstruction.
+The system must infer:
+- new wins
+- likely winning teams
+- ranking progression
+- reward eligibility
 
-Arena teams are inferred from synchronized player progression.
+Detection rules must:
+- be deterministic
+- be traceable
+- generate confidence scores
 
-Winning team detection is probabilistic and based on:
-- simultaneous win increases
-- synchronized point changes
-- synchronized kill/death updates
+Never:
+- overwrite original snapshots
+- mutate historical records
 
-# Historical Integrity
+# Worker Rules
 
-Arena results are append-only.
+Background workers must:
+- be idempotent
+- support retries
+- support cancellation
+- generate logs
+- be independently testable
 
-Never overwrite finalized match results.
+Required workers:
+- Snapshot Worker
+- Diff Worker
+- Event Reconstruction Worker
+- Leaderboard Worker
 
-Corrections must generate adjustment records instead of mutating history.
+# Logging Rules
 
-# System Priorities
+Use:
+- Serilog
+- structured logs
+- correlation ids
+- execution timing
 
-The ranking system must:
-- preserve historical snapshots
-- support leaderboard generation
-- support ranking history
-- support future analytics
-- avoid inconsistent CS calculations
-- support replay analysis
+Every critical operation must log:
+- operation name
+- execution duration
+- success/failure
+- exception details
+- snapshot identifiers
+
+# Observability Rules
+
+Implement:
+- OpenTelemetry
+- health checks
+- tracing
+- metrics
+
+The system must support:
+- replay analysis
+- debugging
+- historical reconstruction
+- root cause analysis
+
+# Caching Rules
+
+Use Redis for:
+- leaderboard cache
+- latest winners
+- hot ranking queries
+
+Cache invalidation must:
+- be deterministic
+- occur after snapshot processing
+- avoid stale rankings
+
+# Performance Rules
+
+Optimize:
+- ranking calculations
+- historical lookups
+- snapshot diffing
+- leaderboard queries
+
+Prioritize:
+- batching
+- compiled queries
+- async processing
+- pagination
+
+# Testing Rules
+
+The backend must include:
+- unit tests
+- integration tests
+- domain validation tests
+
+Business rules must always be tested.
+
+Especially:
+- Combat Score calculations
+- victory detection
+- snapshot diffing
+- winner inference
+- ranking generation
+- schedule validation
+- timezone validation
+
+# Code Quality Rules
+
+Code must:
+- compile successfully
+- avoid dead code
+- avoid duplicated logic
+- use strong typing
+- be production-ready
+
+Prefer:
+- small services
+- explicit naming
+- deterministic behavior
+- pure domain logic
+
+Never:
+- create fake implementations
+- ignore exceptions
+- silently swallow failures
+- introduce hidden side effects
 
 ---
 > Source: [davidzaque-leal/royal-arena](https://github.com/davidzaque-leal/royal-arena) — distributed by [TomeVault](https://tomevault.io).
