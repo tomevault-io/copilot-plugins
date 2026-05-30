@@ -1,0 +1,9 @@
+{
+  "name": "rymcu--mortise",
+  "displayName": "mortise",
+  "description": "mortise \u2014\u2014 \u4e00\u6b3e\u73b0\u4ee3\u5316\u7684\u540e\u53f0\u7ba1\u7406\u811a\u624b\u67b6\u9879\u76ee\uff0c\u4f7f\u7528 SpringBoot 3 + Spring Security + MyBatis Flex + JWT + Redis \u5b9e\u73b0",
+  "version": "1.0.0",
+  "author": "rymcu",
+  "homepage": "https://github.com/rymcu/mortise",
+  "skills": []
+}
