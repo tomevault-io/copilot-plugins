@@ -1,13 +1,19 @@
-## business-rules
+## e2e-tests
 
-> - The business rules for the API should be placed inside the `libs/business-logic` folder.
+> When producing or changing e2e tests:
 
 
-- The business rules for the API should be placed inside the `libs/business-logic` folder.
-- The GraphQL resolver code should simply call this business logic.
-- Organize these business functions in folders, according to the main subject of that function.
-- A business function should always verify the permissions, implement the business logic, and then return the expected value.
-- If required, a business function should only explicitely throw `@hapi/boom` errors.
+When producing or changing e2e tests:
+
+- Always use playwright for E2E tests
+- do not use playwright APIs that can expose flakiness: always prefer APIs that will wait for a condition to be met
+- place E2E tests in rhe `tests/e2e` folder
+- do not try to guess locators. Instead read the .tsx files to understand which locators to use
+- always prefer locators that are acessibility-specific
+- after changing a test, run it (using `pnpm test:e2e {test name}`)
+- when tests fail, the e2e tests should log a screenshot. Read that screenshot to understand what was the UI state.
+- when a test fails, fix that test and rerun that test in isolation until fixed.
+- do not perform workarounds. For instance, after creating an entity that entity is not displayed in an entity list, that's a probably bug that needs to be solved (instead of changing the E2E test to reload the page).
 
 ---
 > Source: [djinilabs/timeclout](https://github.com/djinilabs/timeclout) — distributed by [TomeVault](https://tomevault.io).
