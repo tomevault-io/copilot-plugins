@@ -17,12 +17,6 @@ Original source: `CLAUDE.md` in [saadshahd/moo.md](https://github.com/saadshahd/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (3)
-
-- [bond](https://github.com/saadshahd/moo.md/tree/main/hope/skills/bond)
-- [consult](https://github.com/saadshahd/moo.md/tree/main/hope/skills/consult)
-- [shape](https://github.com/saadshahd/moo.md/tree/main/hope/skills/shape)
-
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/saadshahd/moo.md](https://github.com/saadshahd/moo.md)
 
 ---
