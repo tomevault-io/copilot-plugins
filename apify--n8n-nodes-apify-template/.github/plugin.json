@@ -1,0 +1,9 @@
+{
+  "name": "apify--n8n-nodes-apify-template",
+  "displayName": "n8n-nodes-apify-template",
+  "description": "This is a template repo for the n8n single Actor apps.",
+  "version": "1.0.0",
+  "author": "apify",
+  "homepage": "https://github.com/apify/n8n-nodes-apify-template",
+  "skills": []
+}
