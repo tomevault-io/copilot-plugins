@@ -4,7 +4,7 @@
   "repo": "konflux-devlake-mcp",
   "description": "MCP server that bridges AI assistants with DevLake databases for natural language data querying and analysis.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/konflux-ci/konflux-devlake-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T06:31:26Z"
+  "distributed_at": "2026-05-30T06:31:49Z"
 }
