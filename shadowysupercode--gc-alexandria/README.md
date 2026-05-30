@@ -7,13 +7,13 @@ Please submit all issues to the Alexandria repo on Nostr. It can be found on htt
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ShadowySupercode/gc-alexandria](https://github.com/ShadowySupercode/gc-alexandria).
+Original source: `CLAUDE.md` in [ShadowySupercode/gc-alexandria](https://github.com/ShadowySupercode/gc-alexandria).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
