@@ -1,42 +1,94 @@
-## code-review
+## svelte-style
 
-> You are an agentic AI assistant that quickly identifies key focus areas in a git diff so that a developer can efficiently review files within a change set in a logical order.
+> Observe the the following style guidelines when programming Svelte components or SvelteKit pages:
 
-You are an agentic AI assistant that quickly identifies key focus areas in a git diff so that a developer can efficiently review files within a change set in a logical order.
+# Svelte Style
 
-## Interaction Workflow
+Observe the the following style guidelines when programming Svelte components or SvelteKit pages:
 
-### Prerequisites
+- Always use idiomatic Svelte 5 syntax and features. Svelte 5 idioms include:
+  - Runes, such as `$state`, `$derived`, `$effect`, and `$props`.
+  - Callback props.
+  - Snippets.
+- Avoid using deprecated Svelte 4 syntax and features. Depecrated features include:
+  - Props declared via `export let`.
+  - Event handlers attached via the `on:` directive.
+  - Event dispatchers.
+  - Component slots.
+- Remember that Svelte 5 state is deeply reactive.
+  - Mutating a state object automatically triggers reactivity in most cases.
+  - Avoid trying to trigger reactivity by reassigning state variables unless other options have failed.
+- Write components in TypeScript, and prefer strong typing for variables, props, and function signatures.
+- Limit component logic to rendering concerns. Extract business logic into separate TypeScript modules, and import functions and classes into Svelte components as needed.
+- Use PascalCase when naming Svelte components.
+- Keep component files under 500 lines, when possible.
 
-- Determine which branch the developer is working on. If the branch is the main branch, tell the developer that you cannot perform a code review on the main branch, and end your turn.
+## Component Code Organization Example
 
-### Project Structure
+When writing or editing a Svelte component, organize the code according to the following template:
 
-This project broadly follows a model-view-controller (MVC) pattern.
+```
+<script lang='ts'>
+  // Begin the script section with imports.
+  // Import only what is necessary.
+  import type { PublicationTree } from '$lib/data_structures/publication_tree';
+  import { getContext } from 'svelte';
+  import type { Asciidoctor } from 'asciidoctor';
 
-- The Model consists primarily of Nostr relays, accessed via WebSocket APIs. The Model layer also includes data stored in the web browser.
-- The View is a reactive UI defined by SvelteKit pages and Svelte components.
-- The Controller layer is defined by various TypeScript modules that provide utility functions, classes, singletons, and other facilities that prepare data for the view layer or handle user-provided data for to be saved to the browser or relays.
+  // Define props immediately after imports.
+  // Strongly type the props object.
+  let {
+    address,
+    publicationType,
+    ref,
+  }: {
+    address: string,
+    publicationType: string,
+    ref: (ref: HTMLElement) => void,
+  } = $props();
 
-### Additional Context
+  // Import shared state via `getContext` next.
+  const publicationTree: PublicationTree = getContext('publicationTree');
+  const asciidoctor: Asciidoctor = getContext('asciidoctor');
 
-- The primary branch for this repo is called `master`.
+  // Then define component state.
+  // Put `$state` definitions first, followed by `$derived`.
+  // If derived values depend on others, declare them in the order of derivation.
+  let leafEvent: Promise<NDKEvent | null> = $derived.by(async () => 
+    await publicationTree.getEvent(address));
 
-### Expected Output
+  // Define any non-reactive variables after the reactive ones.
+  let sectionRef: HTMLElement;
 
-- The developer may leave comments on the reviewed changes via an external PR tool, such as GitHub or OneDev, so specify filenames and line numbers for each highlighted item of code.
-- Specify the context of highlighted items, such as function, class, or component names.
-- Always explain why an item is worth the developer's particular attention.
-- Keep the code diff surveys concise and to the point.
+  // Define component logic below any state declarations.
+  // Component logic may include functions or `$effect` runes.
+  $effect(() => {
+    // Some reactive logic...
+  });
 
-### Code Review Order
+  // Lastly, define any lifecycle hooks, such as `onMount`, at the end of the `<script>` block.
+  onMount(() => {
+    // Some mount logic...
+  });
+</script>
 
-1. Obtain the diff of the current branch with the main branch. If necessary, ask the developer to provide the diff as context.
-2. Read the diff and associated commit messages, if available, and give the developer a brief summary of the changes and key items to note.
-3. Tell the developer you will provide a more detailed description of the changes.
-4. Tell the developer to review model-level changes first. These may include changes to API clients, changes to database access, and changes to cache or browser storage patterns.
-5. Next, point the developer's attention to changes in the controller/view controller layer. These may include changes to service classes, utility functions, and anything else that could be classified as "business logic".
-6. Finally, draw the developer's attention to view/UI changes. In this project, view changes will be almost entirely in `.svelte` component files.
+<!-- Insert any snippets before the component's regular markup. -->
+{#snippet contentParagraph(content: string, publicationType: string, isSectionStart: boolean)}
+  <section class='whitespace-normal publication-leather'>
+    {@html content}
+  </section>
+{/snippet}
+
+<!-- The component's markup is typically the last code within the component. -->
+<section id={address} bind:this={sectionRef} class='publication-leather content-visibility-auto'>
+  {#await leafEvent}
+    {@render contentParagraph(leafEvent.content.toString(), publicationType ?? 'article', false)}
+  {/await}
+</section>
+
+<!-- Style blocks, if needed, may be placed at the end of a component. -->
+<!-- Since Tailwind is used, style blocks are usually avoided in favor of Tailwind utility classes. -->
+```
 
 ---
 > Source: [ShadowySupercode/gc-alexandria](https://github.com/ShadowySupercode/gc-alexandria) — distributed by [TomeVault](https://tomevault.io).
