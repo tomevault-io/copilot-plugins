@@ -4,7 +4,7 @@
   "repo": "gc-alexandria",
   "description": "Please submit all issues to the Alexandria repo on Nostr. It can be found on https://gitcitadel.com/r/naddr1qvzqqqrhnypzplfq3m5v3u5r0q9f255fdeyz8nyac6lagssx8zy4wugxjs8ajf7pqyt8wumn8ghj7ur4wfcxcetjv4kxz7fwvdhk6tcqpfqkcetcv9hxgunfvyamcf5z",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ShadowySupercode/gc-alexandria",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T00:40:24Z"
+  "distributed_at": "2026-05-30T00:41:44Z"
 }
