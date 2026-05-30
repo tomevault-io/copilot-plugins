@@ -1,0 +1,9 @@
+{
+  "name": "r0b0tlab--deepseek-v4-flash-nvfp4-gb10-benchmark",
+  "displayName": "deepseek-v4-flash-nvfp4-gb10-benchmark",
+  "description": "DeepSeek-V4-Flash native Blackwell FP8 benchmark on dual DGX Spark GB10 (TP=2, MTP, RoCE). c=1 38.4 t/s, c=16 144.6 t/s aggregate.",
+  "version": "1.0.0",
+  "author": "r0b0tlab",
+  "homepage": "https://github.com/r0b0tlab/deepseek-v4-flash-nvfp4-gb10-benchmark",
+  "skills": []
+}
