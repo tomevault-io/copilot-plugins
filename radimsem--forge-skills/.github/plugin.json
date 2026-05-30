@@ -1,0 +1,9 @@
+{
+  "name": "radimsem--forge-skills",
+  "displayName": "forge-skills",
+  "description": "Combines the most-used agentic skills into one unified issue-fixing workflow \u2014 a true blacksmith from plan to shipped fix.",
+  "version": "1.0.0",
+  "author": "radimsem",
+  "homepage": "https://github.com/radimsem/forge-skills",
+  "skills": []
+}
