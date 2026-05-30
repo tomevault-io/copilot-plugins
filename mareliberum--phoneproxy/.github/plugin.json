@@ -1,0 +1,9 @@
+{
+  "name": "mareliberum--phoneproxy",
+  "displayName": "PhoneProxy",
+  "description": "Proxy Server for android devi\u0441e that redirects incoming traffic through your VPN tunnel.",
+  "version": "1.0.0",
+  "author": "mareliberum",
+  "homepage": "https://github.com/mareliberum/PhoneProxy",
+  "skills": []
+}
