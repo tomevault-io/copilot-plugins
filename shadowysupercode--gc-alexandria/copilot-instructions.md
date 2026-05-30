@@ -1,82 +1,200 @@
-## alexandria
+## gc-alexandria
 
-> You are senior full-stack software engineer with 20 years of experience writing web apps.  You have been working with the Svelte web development framework for 8 years, since it was first released, and you currently are a leading expert on Svelte 5 and SvelteKit 2.  Additionally, you are a pioneer developer on the Nostr protocol, and have developing production-quality Nostr apps for 4 years.
+> This document provides project-specific instructions for working with the
 
-# Project Alexandria
+# Alexandria Codebase - Local Instructions
 
-You are senior full-stack software engineer with 20 years of experience writing web apps.  You have been working with the Svelte web development framework for 8 years, since it was first released, and you currently are a leading expert on Svelte 5 and SvelteKit 2.  Additionally, you are a pioneer developer on the Nostr protocol, and have developing production-quality Nostr apps for 4 years.
+This document provides project-specific instructions for working with the
+Alexandria codebase, based on existing Cursor rules and project conventions.
+
+## Developer Context
+
+You are working with a senior developer who has 20 years of web development
+experience, 8 years with Svelte, and 4 years developing production Nostr
+applications. Assume high technical proficiency.
 
 ## Project Overview
 
-Alexandria is a Nostr project written in Svelte 5 and SvelteKit 2.  It is a web app for reading, commenting on, and publishing books, blogs, and other long-form content stored on Nostr relays.
+Alexandria is a Nostr-based web application for reading, commenting on, and
+publishing long-form content (books, blogs, etc.) stored on Nostr relays. Built
+with:
 
-### Tech Stack
+- **Svelte 5** and **SvelteKit 2** (latest versions)
+- **TypeScript** (exclusively, no plain JavaScript)
+- **Tailwind 4** for styling
+- **Deno** runtime (with Node.js compatibility)
+- **NDK** (Nostr Development Kit) for protocol interaction
 
-Svelte components in Alexandria use TypeScript exclusively over plain JavaScript.  Styles are defined via Tailwind 4 utility classes, and some custom utility classes are defined in [app.css](mdc:src/app.css).  The app runs on Deno, but maintains compatibility with Node.js.
+## Architecture Pattern
 
-### Utilities
+The project follows a Model-View-Controller (MVC) pattern:
 
-The project contains a number of modules that define utility classes and functions to support the app's operations.  Make use of these utilities when they are relevant to reduce code duplication and maintain common patterns:
+- **Model**: Nostr relays (via WebSocket APIs) and browser storage
+- **View**: Reactive UI with SvelteKit pages and Svelte components
+- **Controller**: TypeScript modules with utilities, services, and data
+  preparation
 
-- Use the `WebSocketPool` class defined in [websocket_pool.ts](../src/lib/data_structures/websocket_pool.ts) when handling raw WebSockets to efficiently manage connections.
-
-## General Guidelines
-
-When responding to prompts, adhere to the following rules:
-
-- Avoid making apologetic or conciliatory statements.
-- Avoid verbose responses; be direct and to the point.
-- Provide links to relevant documentation so that I can do further reading on the tools or techniques discussed and used in your responses.
-- When I tell you a response is incorrect, avoid simply agreeing with me; think about the points raised and provide well-reasoned explanations for your subsequent responses.
-- Avoid proposing code edits unless I specifically tell you to do so.
-- When giving examples from my codebase, include the file name and line numbers so I can find the relevant code easily.
-
-## Coding Guidelines
+## Critical Development Guidelines
 
 ### Prime Directive
 
-NEVER assume developer intent. If you are unsure about something, ALWAYS stop and ask the developer for clarification before proceeding.
+**NEVER assume developer intent.** If unsure, ALWAYS ask for clarification
+before proceeding.
 
-### AI Anchor Comments
+### AI Anchor Comments System
 
-- Use anchor comments prefixed with `AI-NOTE:`, `AI-TODO:`, or `AI-QUESTION:` to share context between AI agents and developers across time.
- - Use all-caps prefixes.
-- **Important:** Before scanning files, ALWAYS search first for `AI-` anchor comments in relevant subdirectories.
-- ALWAYS update relevant anchor comments when modifying associated code.
-- NEVER remove `AI-` comments unless the developer explicitly instructs it.
-- Don't add a date, as it's always the wrong date.
-- Add new anchor comments as relevant when:
- - Code is unusually complex.
- - Code is critical to security, performance, or functionality.
- - Code is confusing.
- - Code could have a bug.
+Before any work, search for `AI-` anchor comments in relevant directories:
 
-### General Guidance
+- `AI-NOTE:`, `AI-TODO:`, `AI-QUESTION:` - Context sharing between AI and
+  developers
+- `AI-<MM/DD/YYYY>:` - Developer-recorded context (read but don't write)
+- **Always update relevant anchor comments when modifying code**
+- Add new anchors for complex, critical, or confusing code
+- Never remove AI comments without explicit instruction
 
-- Before writing any code, ALWAYS search the codebase for relevant anchor comments.
-- Whenever updating code, ALWAYS update relevant anchor comments.
-- Prefer to use Deno to manage dependencies, build the project, and run tests.
-- Use snake_case names for plain TypeScript files.
-- Use comments sparingly; aim to make code readable and self-documenting.
+### Communication Style
 
-### JavaScript/TypeScript
+- Be direct and concise - avoid apologies or verbose explanations
+- Include file names and line numbers (e.g., `src/lib/utils/parser.ts:45-52`)
+- Provide documentation links for further reading
+- When corrected, provide well-reasoned explanations, not simple agreement
+- Don't propose code edits unless specifically requested
 
-- Use an indentation size of 2 spaces.
-- Use camelCase names for variables, classes, and functions.
-- Give variables, classes, and functions descriptive names that reflect their content and purpose.
-- Use Svelte 5 features, such as runes.  Avoid using legacy Svelte 4 features.
-- Write JSDoc comments for all functions.
-- Use blocks enclosed by curly brackets when writing control flow expressions such as `for` and `while` loops, and `if` and `switch` statements.
-- Begin `case` expressions in a `switch` statement at the same indentation level as the `switch` itself.  Indent code within a `case` block.
-- Limit line length to 100 characters; break statements across lines if necessary.
-- Default to double quotes.
+## Code Style Requirements
 
-### HTML
+### TypeScript Files (\*.ts)
 
-- Use an indentation size of 2 spaces.
-- Break long tags across multiple lines.
-- Use Tailwind 4 utility classes for styling.
-- Default to single quotes.
+- **File naming**: `snake_case.ts`
+- **Classes/Interfaces/Types**: `PascalCase`
+- **Functions/Variables**: `camelCase`
+- **Private class members**: `#privateField` (ES2022 syntax)
+- **Indentation**: 2 spaces
+- **Line length**: 100 characters max
+- **Strings**: Single quotes default, backticks for templates
+- **Always include**:
+  - Type annotations for class properties
+  - Parameter types and return types (except void)
+  - JSDoc comments for exported functions
+  - Semicolons at statement ends
+
+### Svelte Components (\*.svelte)
+
+- **Component naming**: `PascalCase.svelte`
+- **Use Svelte 5 features exclusively**:
+  - Runes: `$state`, `$derived`, `$effect`, `$props`
+  - Callback props (not event dispatchers)
+  - Snippets (not slots)
+- **Avoid deprecated Svelte 4 patterns**:
+  - No `export let` for props
+  - No `on:` event directives
+  - No event dispatchers or component slots
+- **Component organization** (in order):
+  1. Imports
+  2. Props definition (strongly typed)
+  3. Context imports (`getContext`)
+  4. State declarations (`$state`, then `$derived`)
+  5. Non-reactive variables
+  6. Component logic (functions, `$effect`)
+  7. Lifecycle hooks (`onMount`)
+  8. Snippets (before markup)
+  9. Component markup
+  10. Style blocks (rare - prefer Tailwind)
+- **Keep components under 500 lines**
+- **Extract business logic to separate TypeScript modules**
+
+### HTML/Markup
+
+- Indentation: 2 spaces
+- Break long tags across lines
+- Use Tailwind 4 utility classes
+- Single quotes for attributes
+
+## Key Project Utilities
+
+### Core Classes to Use
+
+- `WebSocketPool` (`src/lib/data_structures/websocket_pool.ts`) - For WebSocket
+  management
+- `PublicationTree` - For hierarchical publication structure
+- `ZettelParser` - For AsciiDoc parsing
+
+### Nostr Event Kinds
+
+- `30040` - Blog/publication indexes
+- `30041` - Publication sections/articles
+- `30023` - Long-form articles
+- `30818` - Wiki Notes
+- `1` - Short notes
+
+## Development Commands
+
+```bash
+# Development
+npm run dev              # Start dev server
+npm run dev:debug        # With relay debugging (DEBUG_RELAYS=true)
+
+# Quality Checks (run before commits)
+npm run check           # Type checking
+npm run lint            # Linting
+npm run format          # Auto-format
+npm test                # Run tests
+
+# Build
+npm run build           # Production build
+npm run preview         # Preview production
+```
+
+## Testing Requirements
+
+- Unit tests: Vitest with mocked dependencies
+- E2E tests: Playwright for critical flows
+- Always run `npm test` before commits
+- Check types with `npm run check`
+
+## Git Workflow
+
+- Current branch: `feature/text-entry`
+- Main branch: `master` (not `main`)
+- Descriptive commit messages
+- Include test updates with features
+
+## Important Files
+
+- `src/lib/ndk.ts` - NDK configuration
+- `src/lib/utils/ZettelParser.ts` - AsciiDoc parsing
+- `src/lib/services/publisher.ts` - Event publishing
+- `src/lib/components/ZettelEditor.svelte` - Main editor
+- `src/routes/new/compose/+page.svelte` - Composition UI
+
+## Performance Considerations
+
+- State is deeply reactive in Svelte 5 - avoid unnecessary reassignments
+- Lazy load large components
+- Use virtual scrolling for long lists
+- Cache Nostr events with Dexie
+- Minimize relay subscriptions
+- Debounce search inputs
+
+## Security Notes
+
+- Never store private keys in code
+- Validate all user input
+- Sanitize external HTML
+- Verify event signatures
+
+## Debugging
+
+- Enable relay debug: `DEBUG_RELAYS=true npm run dev`
+- Check browser console for NDK logs
+- Network tab shows WebSocket frames
+
+## Documentation Links
+
+- [Nostr NIPs](https://github.com/nostr-protocol/nips)
+- [NDK Docs](https://github.com/nostr-dev-kit/ndk)
+- [SvelteKit Docs](https://kit.svelte.dev/docs)
+- [Svelte 5 Docs](https://svelte.dev/docs/svelte/overview)
+- [Flowbite Svelte](https://flowbite-svelte.com/)
 
 ---
 > Source: [ShadowySupercode/gc-alexandria](https://github.com/ShadowySupercode/gc-alexandria) — distributed by [TomeVault](https://tomevault.io).
