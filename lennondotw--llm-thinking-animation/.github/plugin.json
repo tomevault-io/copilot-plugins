@@ -1,0 +1,9 @@
+{
+  "name": "lennondotw--llm-thinking-animation",
+  "displayName": "llm-thinking-animation",
+  "description": "A ChatGPT-o3-like LLM thinking animation demo",
+  "version": "1.0.0",
+  "author": "lennondotw",
+  "homepage": "https://github.com/lennondotw/llm-thinking-animation",
+  "skills": []
+}
