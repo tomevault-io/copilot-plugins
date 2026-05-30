@@ -1,111 +1,125 @@
 ## myhelper
 
-> 你是 Tauri、Vue 3、TypeScript、Rust 和现代桌面应用开发的专家。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-你是 Tauri、Vue 3、TypeScript、Rust 和现代桌面应用开发的专家。
+# CLAUDE.md
 
-项目概述：
-这是一个跨平台桌面应用，使用 Vue 3 + TypeScript + Vite 前端，Rust (Tauri) 后端，PrimeVue UI 组件，UnoCSS 样式，以及 pnpm 包管理。
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-核心开发原则：
-- 编写简洁、技术性的回应，提供准确的 Rust 和 TypeScript 示例
-- 使用函数式和声明式编程模式；尽可能避免类
-- 支持迭代和模块化，遵循 DRY 原则避免代码重复
-- 优先组合而非继承
-- 使用描述性变量名，带有辅助动词（isLoading、hasError）
-- 逻辑性地组织文件：导出组件、子组件、辅助函数、静态内容、类型
-- 优先使用utils中已经写好的工具函数
+## Development Commands
 
-TypeScript/Vue 3 规则：
-- 始终使用 Vue 3 Composition API 和 script setup 语法
-- 所有新代码使用 TypeScript
-- 对象形状优先使用 interface 而不是 type
-- 适当使用 ref、reactive 和 computed
-- 实现适当的错误处理，提供用户友好的错误消息
-- 使用 Vue Router 进行导航
-- 遵循 Vue 3 风格指南和最佳实践
+```bash
+# Development server
+pnpm run dev
 
-文件结构：
-src/components/ - 可复用的 Vue 组件
-src/views/ - 页面组件
-src/router/ - Vue Router 配置
-src/api/ipc/ -与Tauri沟通的invoke的配置
-src/api/network/ -api服务
-src/utils/ - 工具函数
-src/types/ - TypeScript 类型定义
-src/interface/ - 接口定义
-src/assets/ - 静态资源
-src-tauri/src/command/ - Tauri 命令
-src-tauri/src/utils/ - Rust 工具函数
-src-tauri/src/mh_plugin/ - 插件模块
-src-tauri/capabilities/ - Tauri 权限配置
+# Production development
+pnpm run dev:prod
 
-Rust/Tauri 规则：
-- 使用 tauri::command 将函数暴露给前端
-- 使用 Result<T, E> 实现适当的错误处理
-- 使用 serde 进行序列化/反序列化
-- 遵循 Rust 命名约定（函数使用 snake_case，类型使用 PascalCase）
-- 使用 tokio 进行异步操作
-- 实现适当的资源管理和清理
-- 使用 parking_lot 进行同步原语
+# Type checking
+pnpm run check
+vue-tsc --noEmit
 
-UI/UX 指南：
-- 使用 PrimeVue 组件保持 UI 一致性
-- 实现响应式设计原则
-- 使用 UnoCSS 工具类进行样式设计
-- 遵循可访问性最佳实践
-- 确保跨平台兼容性（Windows、macOS、Linux）
+# Build for production
+pnpm run build
+pnpm run build:prod
 
-依赖项：
-前端：Vue 3、TypeScript、Vite、Vue Router、PrimeVue、UnoCSS、Axios
-后端：Tauri 2.x、Tokio、Serde、Reqwest、Rusqlite
-工具：pnpm、Prettier、TypeScript 编译器、Tauri CLI
-优先使用 [package.json](mdc:package.json) 和 [Cargo.toml](mdc:src-tauri/Cargo.toml) 中已有的第三方库
+# Format code
+pnpm run format
 
-命名约定：
-Vue 组件：PascalCase（UserProfile.vue）
-Composables：camelCase 带 use 前缀（useUserStore.ts）
-TypeScript 接口：PascalCase（UserInterface.ts）
-Rust 函数：snake_case（get_user_data）
-Rust 结构体：PascalCase（UserData）
+# Tauri development
+pnpm run tauri dev
+pnpm run tauri:dev:prod
 
-事件命名约定：
-Tauri emit：使用冒号命名进行跨窗口通信，如 emit('my:event')
-EventBus emit：使用破折号命名进行窗口内通信，如 emit('my-event')
-Vue emit：使用驼峰命名进行子组件到父组件通信，如 emit('myEvent')
+# Tauri build
+pnpm run tauri build
+pnpm run tauri build:prod
+```
 
-Tauri 命令模式：
-#[tauri::command]
-async fn command_name(param: String) -> Result<ReturnType, String> {
-    // 实现
-}
+## Architecture Overview
 
-Vue 组件模式：
-使用 script setup，按以下顺序组织代码：导入、props/emits、composables、响应式状态、计算属性、方法、生命周期钩子
+MyHelper is a cross-platform efficiency tool built with **Tauri v2 + Vue 3 + TypeScript**, featuring a modular plugin system.
 
-性能：
-- 适当时使用 shallowRef 和 shallowReactive,
-- 为路由和组件实现懒加载
-- 优化 Tauri 包大小
-- 使用适当的缓存策略
-- 最小化主线程阻塞操作
+### Core Structure
 
-安全性：
-- 验证 Tauri 命令中的所有输入
-- 适当使用 CSP
-- 清理用户输入
-- 遵循 Rust 和 TypeScript 的安全编码实践
+- **Frontend**: Vue 3 + TypeScript + PrimeVue + UnoCSS
+- **Backend**: Rust + Tauri v2 
+- **Plugin System**: Independent Vue applications with their own development environment
+- **Database**: SQLite through Tauri's built-in support
+- **UI Framework**: PrimeVue with Aura theme and dark mode support
 
-错误处理：
-- 在 Rust 中 [error.rs](mdc:src-tauri/src/utils/error.rs)
-- 在 Vue 中 [logger.ts](mdc:src/utils/logger.ts)
-- 为用户提供有意义的错误消息
-- 适当记录错误以便调试
+### Key Directories
 
-日志信息：
-- 在前端中用 [logger.ts](mdc:src/utils/logger.ts),它会调用rust接口写入本地日志, 在rust用 [logger.rs](mdc:src-tauri/src/utils/logger.rs),需要注意前端的这个并不可以替代console.log
+```
+src/
+├── api/ipc/           # Tauri IPC API wrappers
+├── components/        # Reusable Vue components
+├── views/            # Main application views
+├── utils/            # Utility functions and managers  
+├── composables/      # Vue composition functions
+├── themes/           # Theme management system
+└── interface/        # TypeScript type definitions
 
-始终保持与现有代码库模式的一致性，优先考虑代码复用性和模块化。
+src-tauri/src/
+├── command/          # Tauri command handlers
+├── core/             # Core application logic
+├── services/         # Business logic services
+└── mh_plugin/        # Plugin management system
+
+plugin/mh-plugin/     # Plugin development environment
+```
+
+### Plugin System
+
+MyHelper features a comprehensive plugin system:
+
+- **Development Environment**: Located in `plugin/mh-plugin/` with hot-reload support
+- **Configuration**: Each plugin requires a `mhPlugin.json` configuration file
+- **API Access**: Plugins can access main app APIs via `@/` path alias
+- **Window Management**: Each plugin runs in its own window with customizable properties
+- **Development Server**: Plugins run on port 1421 in development mode
+
+### Event Communication Patterns
+
+MyHelper uses different event naming conventions:
+
+- **Tauri Events**: Use `:` separator, e.g., `emit('my:event')` for cross-window communication
+- **EventBus**: Use `-` separator, e.g., `emit('my-event')` for within-window communication  
+- **Vue Events**: Use camelCase, e.g., `emit('myEvent')` for component communication
+
+### Key Managers and Systems
+
+- **WindowManager**: Handles all window operations and positioning
+- **PetManager**: Manages Live2D pets and character displays using pixi-live2d-display
+- **ThemeManager**: Handles dark/light themes and PrimeVue theme switching
+- **DatabaseManager**: SQLite operations through Tauri backend
+- **HotkeyManager**: Global shortcut management
+- **PluginManager**: Plugin lifecycle and communication
+
+### Development Notes
+
+- **Path Aliases**: `@/` points to `src/`, `mh-plugin` points to `plugin/mh-plugin/`
+- **Live2D Integration**: Uses `pixi-live2d-display-lipsyncpatch` for character animations
+- **Window System**: Main window is initially hidden and positioned at 65x65px
+- **Hot Reload**: Vite dev server runs on port 1420, plugin dev on 1421
+- **Build Process**: Frontend builds to `dist/`, Tauri handles final packaging
+- **annotation**: When writing comments, functions and variables should be commented on in a single-line document. Unnecessary comments do not need to be added
+
+## Theme System
+
+**IMPORTANT**: When working with themes and UI styling, always refer to the comprehensive theme development guide in `THEME_GUIDE.md`. This guide contains:
+
+- Complete theme variable reference (colors, transparency, shadows)
+- Development standards and mandatory requirements  
+- Standard usage templates and forbidden patterns
+- Code examples and best practices
+
+**Core Principle**: All UI elements MUST use theme variables - no hardcoded colors or transparency values allowed.
+
+## Window Dragging 规范
+
+- 选择：复杂区用 `v-window-drag`；空白区用 `data-tauri-drag-region`；可混用，优先保证点击/输入正常。
+- `v-window-drag`：`<div v-window-drag>`；可选 `{ handle: '.title', threshold: 6, dblclickMaximize: true }`；排除 `.no-drag` / `[data-no-drag]`。
+- `data-tauri-drag-region`：给纯空白元素添加；混有控件时用分层（背板 `.drag-layer[data-tauri-drag-region]` + 上层 `.content`）。
 
 ---
 > Source: [MyHelperHub/MyHelper](https://github.com/MyHelperHub/MyHelper) — distributed by [TomeVault](https://tomevault.io).
