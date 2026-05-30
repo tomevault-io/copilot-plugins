@@ -7,11 +7,11 @@ Dynamic Intent Resolution Grounding Engine
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dirge-code/dirge](https://github.com/dirge-code/dirge).
+Original source: `CLAUDE.md` in [dirge-code/dirge](https://github.com/dirge-code/dirge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
