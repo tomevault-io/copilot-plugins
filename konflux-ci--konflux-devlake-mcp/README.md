@@ -2,16 +2,18 @@
 
 > Sourced from [konflux-ci/konflux-devlake-mcp](https://github.com/konflux-ci/konflux-devlake-mcp) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+MCP server that bridges AI assistants with DevLake databases for natural language data querying and analysis.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [konflux-ci/konflux-devlake-mcp](https://github.com/konflux-ci/konflux-devlake-mcp).
+Original source: `.cursor/rules/*.mdc` in [konflux-ci/konflux-devlake-mcp](https://github.com/konflux-ci/konflux-devlake-mcp).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
