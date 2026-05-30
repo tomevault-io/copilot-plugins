@@ -119,4 +119,4 @@ See `hope/PHILOSOPHY.md` for hope pipeline philosophy.
 
 ---
 > Source: [saadshahd/moo.md](https://github.com/saadshahd/moo.md) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
+<!-- tomevault:4.0:copilot_instructions:2026-05-30 -->
