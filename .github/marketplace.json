@@ -57799,6 +57799,11 @@
       "description": "Userland support for using Expo with out-of-tree platforms"
     },
     {
+      "name": "kriegcloud--beep-effect",
+      "source": "./kriegcloud--beep-effect",
+      "description": "beep-effect"
+    },
+    {
       "name": "andrew-malitchuk--kite-aos",
       "source": "./andrew-malitchuk--kite-aos",
       "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards."
@@ -58567,6 +58572,11 @@
       "name": "oylbin--obsidian-external-file-embed-and-link",
       "source": "./oylbin--obsidian-external-file-embed-and-link",
       "description": "Embed and link local files outside your obsidian vault with relative paths for cross-device and multi-platform compatibility."
+    },
+    {
+      "name": "perrystreetsoftware--rubyzen",
+      "source": "./perrystreetsoftware--rubyzen",
+      "description": "Rubyzen is a modern linter for Ruby that allows you to write architectural lint rules as unit tests. In the era of AI-generated code, Rubyzen provides your team with deterministic guardrails to keep y"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -74084,6 +74094,16 @@
       "description": "science-based weight lifting exercise library, program maker + tracker"
     },
     {
+      "name": "cartographer3d--cartographer3d-plugin",
+      "source": "./cartographer3d--cartographer3d-plugin",
+      "description": "cartographer3d-plugin"
+    },
+    {
+      "name": "deastl--3d-htmx-game",
+      "source": "./deastl--3d-htmx-game",
+      "description": "3d-htmx-game"
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -85494,6 +85514,11 @@
       "description": "Stay connected."
     },
     {
+      "name": "xdevplatform--docs",
+      "source": "./xdevplatform--docs",
+      "description": "docs"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -94079,6 +94104,11 @@
       "description": "The Torus Blockchain implementation."
     },
     {
+      "name": "salvinoto--nextjs-ultimate-saas",
+      "source": "./salvinoto--nextjs-ultimate-saas",
+      "description": "The all in one Next.js template. https://kabobtech.com/"
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -96382,6 +96412,21 @@
       "name": "baekenough--oh-my-customcode",
       "source": "./baekenough--oh-my-customcode",
       "description": "oh-my-zsh style customization framework for Claude Code"
+    },
+    {
+      "name": "utsmannn--commitah",
+      "source": "./utsmannn--commitah",
+      "description": "Generating commit messages using Generative AI"
+    },
+    {
+      "name": "utsmannn--commitah",
+      "source": "./utsmannn--commitah",
+      "description": "Generating commit messages using Generative AI"
+    },
+    {
+      "name": "jamesdavid--inreader",
+      "source": "./jamesdavid--inreader",
+      "description": "A modern, keyboard-driven RSS feed reader that brings back the magic of Google Reader with AI! \ud83d\ude80"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -99379,6 +99424,11 @@
       "description": "Stem Studio, the web game engine"
     },
     {
+      "name": "canonical--jubilant",
+      "source": "./canonical--jubilant",
+      "description": "Jubilant is a Pythonic wrapper around the Juju CLI, primarily for charm integration testing."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -101892,6 +101942,16 @@
       "name": "antriel--haxe-deps-viewer",
       "source": "./antriel--haxe-deps-viewer",
       "description": "Haxe dependencies viewer."
+    },
+    {
+      "name": "picamator--transfer-object",
+      "source": "./picamator--transfer-object",
+      "description": "A modern Symfony-compatible Transfer Object Generator with property hooks, FixedArray, and asymmetric visibilities."
+    },
+    {
+      "name": "operaton--web-apps",
+      "source": "./operaton--web-apps",
+      "description": "New web apps for Operaton"
     },
     {
       "name": "develite98--angular-best-practices",
@@ -104462,6 +104522,11 @@
       "name": "lalinsky--msgpack-zig",
       "source": "./lalinsky--msgpack-zig",
       "description": "Msgpack serialization for Zig / msgpack.org[Zig]"
+    },
+    {
+      "name": "xemantic--xemantic-kotlin-test",
+      "source": "./xemantic--xemantic-kotlin-test",
+      "description": "An AX-first (AI/Agent Experience) Kotlin multiplatform testing library with power-assert compatible assertions DSL and other testing goodies."
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -107147,6 +107212,11 @@
       "name": "jocmp--mercury-parser",
       "source": "./jocmp--mercury-parser",
       "description": "Extract meaningful content from the chaos of a web page"
+    },
+    {
+      "name": "synadia-io--connect",
+      "source": "./synadia-io--connect",
+      "description": "Connect Client SDK and CLI"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -110117,6 +110187,11 @@
       "name": "openqase--openqase",
       "source": "./openqase--openqase",
       "description": "OpenQase is a community resource for curated quantum computing case studies and associated algorithms."
+    },
+    {
+      "name": "childrengreens--multi-source-spring-boot-starter",
+      "source": "./childrengreens--multi-source-spring-boot-starter",
+      "description": "Spring Boot Starter for Multi Data Source."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -113534,6 +113609,11 @@
       "description": "Senior Software Engineer | Portfolio & Blog built with Next.js 14, TypeScript, and TailwindCSS | Showcasing projects, skills & experience"
     },
     {
+      "name": "d7z-project--gitea-pages",
+      "source": "./d7z-project--gitea-pages",
+      "description": "gitea-pages"
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -116947,6 +117027,26 @@
       "name": "peterbamuhigire--skills-web-dev",
       "source": "./peterbamuhigire--skills-web-dev",
       "description": "120+ Claude Code / Codex  skills. Production-grade  skills system for web apps & mobile architecture, APIs, databases, web, mobile, AI, security, UX, SaaS, and ERP engineering. Encodes reusable engine"
+    },
+    {
+      "name": "myhelperhub--myhelper",
+      "source": "./myhelperhub--myhelper",
+      "description": "\ud83d\udd25\u8de8\u5e73\u53f0\u684c\u9762\u6548\u7387\u5de5\u5177 - \u652f\u6301\u53ef\u4e0a\u4f20\u3001\u4e0b\u8f7d\u7684\u63d2\u4ef6\u5e02\u573a"
+    },
+    {
+      "name": "myhelperhub--myhelper",
+      "source": "./myhelperhub--myhelper",
+      "description": "\ud83d\udd25\u8de8\u5e73\u53f0\u684c\u9762\u6548\u7387\u5de5\u5177 - \u652f\u6301\u53ef\u4e0a\u4f20\u3001\u4e0b\u8f7d\u7684\u63d2\u4ef6\u5e02\u573a"
+    },
+    {
+      "name": "myhelperhub--myhelper",
+      "source": "./myhelperhub--myhelper",
+      "description": "\ud83d\udd25\u8de8\u5e73\u53f0\u684c\u9762\u6548\u7387\u5de5\u5177 - \u652f\u6301\u53ef\u4e0a\u4f20\u3001\u4e0b\u8f7d\u7684\u63d2\u4ef6\u5e02\u573a"
+    },
+    {
+      "name": "rymcu--mortise",
+      "source": "./rymcu--mortise",
+      "description": "mortise \u2014\u2014 \u4e00\u6b3e\u73b0\u4ee3\u5316\u7684\u540e\u53f0\u7ba1\u7406\u811a\u624b\u67b6\u9879\u76ee\uff0c\u4f7f\u7528 SpringBoot 3 + Spring Security + MyBatis Flex + JWT + Redis \u5b9e\u73b0"
     },
     {
       "name": "vm--nila-code",
@@ -120467,6 +120567,16 @@
       "name": "modelorona--taplock",
       "source": "./modelorona--taplock",
       "description": "A minimalist Android widget that lets you lock your screen with a double tap. Perfect for one-handed use and quick screen locking."
+    },
+    {
+      "name": "banodoco--brain-of-bndc",
+      "source": "./banodoco--brain-of-bndc",
+      "description": "brain-of-bndc"
+    },
+    {
+      "name": "iamshobe--cruncher",
+      "source": "./iamshobe--cruncher",
+      "description": "Your logs, Your data - crunch it however you like"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -124372,6 +124482,41 @@
       "name": "matgla--tinycc",
       "source": "./matgla--tinycc",
       "description": "tinycc"
+    },
+    {
+      "name": "danielcorin--delta",
+      "source": "./danielcorin--delta",
+      "description": "Delta: LLM conversation branching"
+    },
+    {
+      "name": "shadowysupercode--gc-alexandria",
+      "source": "./shadowysupercode--gc-alexandria",
+      "description": "Please submit all issues to the Alexandria repo on Nostr. It can be found on https://gitcitadel.com/r/naddr1qvzqqqrhnypzplfq3m5v3u5r0q9f255fdeyz8nyac6lagssx8zy4wugxjs8ajf7pqyt8wumn8ghj7ur4wfcxcetjv4kx"
+    },
+    {
+      "name": "shadowysupercode--gc-alexandria",
+      "source": "./shadowysupercode--gc-alexandria",
+      "description": "Please submit all issues to the Alexandria repo on Nostr. It can be found on https://gitcitadel.com/r/naddr1qvzqqqrhnypzplfq3m5v3u5r0q9f255fdeyz8nyac6lagssx8zy4wugxjs8ajf7pqyt8wumn8ghj7ur4wfcxcetjv4kx"
+    },
+    {
+      "name": "shadowysupercode--gc-alexandria",
+      "source": "./shadowysupercode--gc-alexandria",
+      "description": "Please submit all issues to the Alexandria repo on Nostr. It can be found on https://gitcitadel.com/r/naddr1qvzqqqrhnypzplfq3m5v3u5r0q9f255fdeyz8nyac6lagssx8zy4wugxjs8ajf7pqyt8wumn8ghj7ur4wfcxcetjv4kx"
+    },
+    {
+      "name": "shadowysupercode--gc-alexandria",
+      "source": "./shadowysupercode--gc-alexandria",
+      "description": "Please submit all issues to the Alexandria repo on Nostr. It can be found on https://gitcitadel.com/r/naddr1qvzqqqrhnypzplfq3m5v3u5r0q9f255fdeyz8nyac6lagssx8zy4wugxjs8ajf7pqyt8wumn8ghj7ur4wfcxcetjv4kx"
+    },
+    {
+      "name": "shadowysupercode--gc-alexandria",
+      "source": "./shadowysupercode--gc-alexandria",
+      "description": "Please submit all issues to the Alexandria repo on Nostr. It can be found on https://gitcitadel.com/r/naddr1qvzqqqrhnypzplfq3m5v3u5r0q9f255fdeyz8nyac6lagssx8zy4wugxjs8ajf7pqyt8wumn8ghj7ur4wfcxcetjv4kx"
+    },
+    {
+      "name": "aglowinthefield--mo2-fomod-plus",
+      "source": "./aglowinthefield--mo2-fomod-plus",
+      "description": "mo2-fomod-plus"
     },
     {
       "name": "mohiwalla--memes",
@@ -129092,6 +129237,26 @@
       "name": "hxyulin--hadris",
       "source": "./hxyulin--hadris",
       "description": "A filesystem crate, written in rust. Designed to be fast, portable, and supports no-std environments. "
+    },
+    {
+      "name": "kingbootoshi--cypher",
+      "source": "./kingbootoshi--cypher",
+      "description": "Build AI agents that access the world through a computer interface"
+    },
+    {
+      "name": "agglayer--aggkit",
+      "source": "./agglayer--aggkit",
+      "description": "Connect any chain to the Agglayer"
+    },
+    {
+      "name": "braintrustdata--terraform-aws-braintrust-data-plane",
+      "source": "./braintrustdata--terraform-aws-braintrust-data-plane",
+      "description": "Module to set up the Braintrust data plane in an AWS account"
+    },
+    {
+      "name": "agglayer--aggkit",
+      "source": "./agglayer--aggkit",
+      "description": "Connect any chain to the Agglayer"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -139794,6 +139959,31 @@
       "description": "api server using faster-whisper and libreTranslate (design for VRCHAT)"
     },
     {
+      "name": "mordachai--investigation-board",
+      "source": "./mordachai--investigation-board",
+      "description": "A Foundry VTT module that lets everyone create, edit, and move sticky and photo notes on the scene as collaborative investigation tools."
+    },
+    {
+      "name": "joeyates--green",
+      "source": "./joeyates--green",
+      "description": "Apply Elixir styling rules"
+    },
+    {
+      "name": "mordachai--investigation-board",
+      "source": "./mordachai--investigation-board",
+      "description": "A Foundry VTT module that lets everyone create, edit, and move sticky and photo notes on the scene as collaborative investigation tools."
+    },
+    {
+      "name": "umarprogrammer19--furniro-e-commerce",
+      "source": "./umarprogrammer19--furniro-e-commerce",
+      "description": "Modern eCommerce platform with product browsing, cart management, and secure checkout."
+    },
+    {
+      "name": "data-dreamers-project--ds-lms-demo",
+      "source": "./data-dreamers-project--ds-lms-demo",
+      "description": "Programming Learning for Beginning Data Scientists"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -147332,6 +147522,41 @@
       "name": "gabrielmaialva33--flora-music-bot",
       "source": "./gabrielmaialva33--flora-music-bot",
       "description": "Flora Music Bot is a powerful music and video bot for Telegram, built with Python using Pyrogram and Py-Tgcalls. With it, you can stream music, videos, and even live broadcasts in group calls from var"
+    },
+    {
+      "name": "frankray78--netpace",
+      "source": "./frankray78--netpace",
+      "description": "Network speed tester including server discovery, latency measurement, download and upload speed testing."
+    },
+    {
+      "name": "walofficial--wal-react-native",
+      "source": "./walofficial--wal-react-native",
+      "description": "Location based social network for iOS and Android"
+    },
+    {
+      "name": "walofficial--wal-react-native",
+      "source": "./walofficial--wal-react-native",
+      "description": "Location based social network for iOS and Android"
+    },
+    {
+      "name": "walofficial--wal-react-native",
+      "source": "./walofficial--wal-react-native",
+      "description": "Location based social network for iOS and Android"
+    },
+    {
+      "name": "walofficial--wal-react-native",
+      "source": "./walofficial--wal-react-native",
+      "description": "Location based social network for iOS and Android"
+    },
+    {
+      "name": "merzbild--merzbild-jl",
+      "source": "./merzbild--merzbild-jl",
+      "description": "The Merzbild Variable-Weight DSMC/FP code"
+    },
+    {
+      "name": "tviskaron--cryri",
+      "source": "./tviskaron--cryri",
+      "description": "cryri"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -169244,6 +169469,46 @@
       "description": "CLI tools for working with generative AI"
     },
     {
+      "name": "ryokun6--three-playground",
+      "source": "./ryokun6--three-playground",
+      "description": "three-playground"
+    },
+    {
+      "name": "djinilabs--timeclout",
+      "source": "./djinilabs--timeclout",
+      "description": "timeclout"
+    },
+    {
+      "name": "jparkerweb--fast-topic-analysis",
+      "source": "./jparkerweb--fast-topic-analysis",
+      "description": "\ud83c\udff7\ufe0f Fast Topic Analysis is a tool for analyzing text against predefined topics using average weight embeddings and cosine similarity"
+    },
+    {
+      "name": "djinilabs--timeclout",
+      "source": "./djinilabs--timeclout",
+      "description": "timeclout"
+    },
+    {
+      "name": "djinilabs--timeclout",
+      "source": "./djinilabs--timeclout",
+      "description": "timeclout"
+    },
+    {
+      "name": "djinilabs--timeclout",
+      "source": "./djinilabs--timeclout",
+      "description": "timeclout"
+    },
+    {
+      "name": "krcpa--service-builder",
+      "source": "./krcpa--service-builder",
+      "description": "A lightweight, type-safe service construction pattern for Rust applications that leverages the builder pattern."
+    },
+    {
+      "name": "jparkerweb--fast-topic-analysis",
+      "source": "./jparkerweb--fast-topic-analysis",
+      "description": "\ud83c\udff7\ufe0f Fast Topic Analysis is a tool for analyzing text against predefined topics using average weight embeddings and cosine similarity"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -183727,6 +183992,11 @@
       "name": "puck-security--puck-scout",
       "source": "./puck-security--puck-scout",
       "description": "Autonomous, read-only endpoint investigation via MCP. Ask a question about your fleet, get a narrative answer with containment recommendations."
+    },
+    {
+      "name": "mareliberum--phoneproxy",
+      "source": "./mareliberum--phoneproxy",
+      "description": "Proxy Server for android devi\u0441e that redirects incoming traffic through your VPN tunnel."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
