@@ -4,7 +4,7 @@
   "repo": "fast-topic-analysis",
   "description": "\ud83c\udff7\ufe0f Fast Topic Analysis is a tool for analyzing text against predefined topics using average weight embeddings and cosine similarity",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jparkerweb/fast-topic-analysis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T00:55:16Z"
+  "distributed_at": "2026-05-30T00:59:04Z"
 }
