@@ -1,7 +1,7 @@
 {
-  "name": "valovault",
+  "name": "ValoVault",
   "owner": "truearken",
-  "repo": "valovault",
+  "repo": "ValoVault",
   "description": "ValoVault: Agent Skin Presets and Loadout managing",
   "type": "config",
   "source_format": "AGENTS.md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "source_url": "https://github.com/truearken/valovault",
+  "source_url": "https://github.com/truearken/ValoVault",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-22T17:08:22Z"
+  "distributed_at": "2026-05-30T20:32:45Z"
 }
