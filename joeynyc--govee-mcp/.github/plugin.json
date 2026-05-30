@@ -1,0 +1,9 @@
+{
+  "name": "joeynyc--govee-mcp",
+  "displayName": "Govee-MCP",
+  "description": "A MCP Server to control your Govee Lights",
+  "version": "1.0.0",
+  "author": "joeynyc",
+  "homepage": "https://github.com/joeynyc/Govee-MCP",
+  "skills": []
+}
