@@ -1,200 +1,42 @@
-## gc-alexandria
+## code-review
 
-> This document provides project-specific instructions for working with the
+> You are an agentic AI assistant that quickly identifies key focus areas in a git diff so that a developer can efficiently review files within a change set in a logical order.
 
-# Alexandria Codebase - Local Instructions
+You are an agentic AI assistant that quickly identifies key focus areas in a git diff so that a developer can efficiently review files within a change set in a logical order.
 
-This document provides project-specific instructions for working with the
-Alexandria codebase, based on existing Cursor rules and project conventions.
+## Interaction Workflow
 
-## Developer Context
+### Prerequisites
 
-You are working with a senior developer who has 20 years of web development
-experience, 8 years with Svelte, and 4 years developing production Nostr
-applications. Assume high technical proficiency.
+- Determine which branch the developer is working on. If the branch is the main branch, tell the developer that you cannot perform a code review on the main branch, and end your turn.
 
-## Project Overview
+### Project Structure
 
-Alexandria is a Nostr-based web application for reading, commenting on, and
-publishing long-form content (books, blogs, etc.) stored on Nostr relays. Built
-with:
+This project broadly follows a model-view-controller (MVC) pattern.
 
-- **Svelte 5** and **SvelteKit 2** (latest versions)
-- **TypeScript** (exclusively, no plain JavaScript)
-- **Tailwind 4** for styling
-- **Deno** runtime (with Node.js compatibility)
-- **NDK** (Nostr Development Kit) for protocol interaction
+- The Model consists primarily of Nostr relays, accessed via WebSocket APIs. The Model layer also includes data stored in the web browser.
+- The View is a reactive UI defined by SvelteKit pages and Svelte components.
+- The Controller layer is defined by various TypeScript modules that provide utility functions, classes, singletons, and other facilities that prepare data for the view layer or handle user-provided data for to be saved to the browser or relays.
 
-## Architecture Pattern
+### Additional Context
 
-The project follows a Model-View-Controller (MVC) pattern:
+- The primary branch for this repo is called `master`.
 
-- **Model**: Nostr relays (via WebSocket APIs) and browser storage
-- **View**: Reactive UI with SvelteKit pages and Svelte components
-- **Controller**: TypeScript modules with utilities, services, and data
-  preparation
+### Expected Output
 
-## Critical Development Guidelines
+- The developer may leave comments on the reviewed changes via an external PR tool, such as GitHub or OneDev, so specify filenames and line numbers for each highlighted item of code.
+- Specify the context of highlighted items, such as function, class, or component names.
+- Always explain why an item is worth the developer's particular attention.
+- Keep the code diff surveys concise and to the point.
 
-### Prime Directive
+### Code Review Order
 
-**NEVER assume developer intent.** If unsure, ALWAYS ask for clarification
-before proceeding.
-
-### AI Anchor Comments System
-
-Before any work, search for `AI-` anchor comments in relevant directories:
-
-- `AI-NOTE:`, `AI-TODO:`, `AI-QUESTION:` - Context sharing between AI and
-  developers
-- `AI-<MM/DD/YYYY>:` - Developer-recorded context (read but don't write)
-- **Always update relevant anchor comments when modifying code**
-- Add new anchors for complex, critical, or confusing code
-- Never remove AI comments without explicit instruction
-
-### Communication Style
-
-- Be direct and concise - avoid apologies or verbose explanations
-- Include file names and line numbers (e.g., `src/lib/utils/parser.ts:45-52`)
-- Provide documentation links for further reading
-- When corrected, provide well-reasoned explanations, not simple agreement
-- Don't propose code edits unless specifically requested
-
-## Code Style Requirements
-
-### TypeScript Files (\*.ts)
-
-- **File naming**: `snake_case.ts`
-- **Classes/Interfaces/Types**: `PascalCase`
-- **Functions/Variables**: `camelCase`
-- **Private class members**: `#privateField` (ES2022 syntax)
-- **Indentation**: 2 spaces
-- **Line length**: 100 characters max
-- **Strings**: Single quotes default, backticks for templates
-- **Always include**:
-  - Type annotations for class properties
-  - Parameter types and return types (except void)
-  - JSDoc comments for exported functions
-  - Semicolons at statement ends
-
-### Svelte Components (\*.svelte)
-
-- **Component naming**: `PascalCase.svelte`
-- **Use Svelte 5 features exclusively**:
-  - Runes: `$state`, `$derived`, `$effect`, `$props`
-  - Callback props (not event dispatchers)
-  - Snippets (not slots)
-- **Avoid deprecated Svelte 4 patterns**:
-  - No `export let` for props
-  - No `on:` event directives
-  - No event dispatchers or component slots
-- **Component organization** (in order):
-  1. Imports
-  2. Props definition (strongly typed)
-  3. Context imports (`getContext`)
-  4. State declarations (`$state`, then `$derived`)
-  5. Non-reactive variables
-  6. Component logic (functions, `$effect`)
-  7. Lifecycle hooks (`onMount`)
-  8. Snippets (before markup)
-  9. Component markup
-  10. Style blocks (rare - prefer Tailwind)
-- **Keep components under 500 lines**
-- **Extract business logic to separate TypeScript modules**
-
-### HTML/Markup
-
-- Indentation: 2 spaces
-- Break long tags across lines
-- Use Tailwind 4 utility classes
-- Single quotes for attributes
-
-## Key Project Utilities
-
-### Core Classes to Use
-
-- `WebSocketPool` (`src/lib/data_structures/websocket_pool.ts`) - For WebSocket
-  management
-- `PublicationTree` - For hierarchical publication structure
-- `ZettelParser` - For AsciiDoc parsing
-
-### Nostr Event Kinds
-
-- `30040` - Blog/publication indexes
-- `30041` - Publication sections/articles
-- `30023` - Long-form articles
-- `30818` - Wiki Notes
-- `1` - Short notes
-
-## Development Commands
-
-```bash
-# Development
-npm run dev              # Start dev server
-npm run dev:debug        # With relay debugging (DEBUG_RELAYS=true)
-
-# Quality Checks (run before commits)
-npm run check           # Type checking
-npm run lint            # Linting
-npm run format          # Auto-format
-npm test                # Run tests
-
-# Build
-npm run build           # Production build
-npm run preview         # Preview production
-```
-
-## Testing Requirements
-
-- Unit tests: Vitest with mocked dependencies
-- E2E tests: Playwright for critical flows
-- Always run `npm test` before commits
-- Check types with `npm run check`
-
-## Git Workflow
-
-- Current branch: `feature/text-entry`
-- Main branch: `master` (not `main`)
-- Descriptive commit messages
-- Include test updates with features
-
-## Important Files
-
-- `src/lib/ndk.ts` - NDK configuration
-- `src/lib/utils/ZettelParser.ts` - AsciiDoc parsing
-- `src/lib/services/publisher.ts` - Event publishing
-- `src/lib/components/ZettelEditor.svelte` - Main editor
-- `src/routes/new/compose/+page.svelte` - Composition UI
-
-## Performance Considerations
-
-- State is deeply reactive in Svelte 5 - avoid unnecessary reassignments
-- Lazy load large components
-- Use virtual scrolling for long lists
-- Cache Nostr events with Dexie
-- Minimize relay subscriptions
-- Debounce search inputs
-
-## Security Notes
-
-- Never store private keys in code
-- Validate all user input
-- Sanitize external HTML
-- Verify event signatures
-
-## Debugging
-
-- Enable relay debug: `DEBUG_RELAYS=true npm run dev`
-- Check browser console for NDK logs
-- Network tab shows WebSocket frames
-
-## Documentation Links
-
-- [Nostr NIPs](https://github.com/nostr-protocol/nips)
-- [NDK Docs](https://github.com/nostr-dev-kit/ndk)
-- [SvelteKit Docs](https://kit.svelte.dev/docs)
-- [Svelte 5 Docs](https://svelte.dev/docs/svelte/overview)
-- [Flowbite Svelte](https://flowbite-svelte.com/)
+1. Obtain the diff of the current branch with the main branch. If necessary, ask the developer to provide the diff as context.
+2. Read the diff and associated commit messages, if available, and give the developer a brief summary of the changes and key items to note.
+3. Tell the developer you will provide a more detailed description of the changes.
+4. Tell the developer to review model-level changes first. These may include changes to API clients, changes to database access, and changes to cache or browser storage patterns.
+5. Next, point the developer's attention to changes in the controller/view controller layer. These may include changes to service classes, utility functions, and anything else that could be classified as "business logic".
+6. Finally, draw the developer's attention to view/UI changes. In this project, view changes will be almost entirely in `.svelte` component files.
 
 ---
 > Source: [ShadowySupercode/gc-alexandria](https://github.com/ShadowySupercode/gc-alexandria) — distributed by [TomeVault](https://tomevault.io).
