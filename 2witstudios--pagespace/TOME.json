@@ -4,7 +4,7 @@
   "repo": "PageSpace",
   "description": "Talk to your projects",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/2witstudios/PageSpace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T04:34:45Z"
+  "distributed_at": "2026-05-30T04:35:14Z"
 }
