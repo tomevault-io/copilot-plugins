@@ -1,0 +1,9 @@
+{
+  "name": "pbs-assess--csasdown",
+  "displayName": "csasdown",
+  "description": "R package for generating CSAS reports with R Markdown in .docx format",
+  "version": "1.0.0",
+  "author": "pbs-assess",
+  "homepage": "https://github.com/pbs-assess/csasdown",
+  "skills": []
+}
