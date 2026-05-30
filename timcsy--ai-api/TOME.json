@@ -4,7 +4,7 @@
   "repo": "ai-api",
   "description": "Self-hosted, OpenAI-compatible AI gateway for organizations \u2014 multi-provider (Azure/OpenAI/Anthropic/Gemini), revocable per-allocation credentials, usage & cost tracking, and an OpenAI Codex\u2013ready /v1/responses endpoint.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/timcsy/ai-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T02:30:52Z"
+  "distributed_at": "2026-05-30T02:31:51Z"
 }
