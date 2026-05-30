@@ -169624,6 +169624,16 @@
       "description": "MCP Server for stock market data - Robinhood, Schwab APIs with multi-broker support"
     },
     {
+      "name": "ziguishian--xhs-visual-director-skill",
+      "source": "./ziguishian--xhs-visual-director-skill",
+      "description": "\u8fd9\u662f\u4e00\u4e2a\u7528\u4e8e\u89c4\u5212\u5c0f\u7ea2\u4e66\u56fe\u6587\u7684 Agent Skill\u3002\u5b83\u4e0d\u662f\u666e\u901a\u6587\u6848\u52a9\u624b\uff0c\u800c\u662f\u4e00\u4e2a\u201c\u89c6\u89c9\u5bfc\u6f14\u201d\uff1a\u5148\u5224\u65ad\u5185\u5bb9\u4efb\u52a1\uff0c\u518d\u9009\u62e9\u9002\u5408\u7684\u89c6\u89c9\u98ce\u683c\uff0c\u6700\u540e\u8f93\u51fa\u5b8c\u6574\u56fe\u6587\u7ed3\u6784\u3001\u9010\u9875\u89c6\u89c9\u65b9\u6848\u3001\u56fe\u50cf\u751f\u6210\u63d0\u793a\u8bcd\u3001\u53d1\u5e03\u6587\u6848\u548c\u81ea\u68c0\u6e05\u5355\u3002"
+    },
+    {
+      "name": "lrtherond--suitecrm-mcp",
+      "source": "./lrtherond--suitecrm-mcp",
+      "description": "Model Context Protocol server for SuiteCRM integration. Enables AI assistants to interact with SuiteCRM for lead management, contact operations, and CRM workflows."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181339,6 +181349,16 @@
       "description": "My first Swift App: a Full IPTV App Implementation for iOS / MacOS / TV OS , built with Swift 6. Featuring options to View, Download or View in external player of each IPTV Playlist content. VOD & Str"
     },
     {
+      "name": "trustabl--trustabl-rules",
+      "source": "./trustabl--trustabl-rules",
+      "description": "This repository holds the detection rule packs for Trustabl, the static analyzer for agent reliability."
+    },
+    {
+      "name": "verhas--perag",
+      "source": "./verhas--perag",
+      "description": "personal RAG for local projects"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -184202,6 +184222,11 @@
       "name": "mareliberum--phoneproxy",
       "source": "./mareliberum--phoneproxy",
       "description": "Proxy Server for android devi\u0441e that redirects incoming traffic through your VPN tunnel."
+    },
+    {
+      "name": "kigner--markitdown-ui",
+      "source": "./kigner--markitdown-ui",
+      "description": "https://github.com/microsoft/markitdown UI "
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
