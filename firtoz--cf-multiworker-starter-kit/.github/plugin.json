@@ -1,0 +1,9 @@
+{
+  "name": "firtoz--cf-multiworker-starter-kit",
+  "displayName": "cf-multiworker-starter-kit",
+  "description": "Production-proven Turborepo monorepo starter kit for full-stack Cloudflare Workers apps \u2014 with Durable Objects, end-to-end type safety, and everything wired up to ship",
+  "version": "1.0.0",
+  "author": "firtoz",
+  "homepage": "https://github.com/firtoz/cf-multiworker-starter-kit",
+  "skills": []
+}
