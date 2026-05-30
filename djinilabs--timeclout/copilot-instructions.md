@@ -1,19 +1,11 @@
-## e2e-tests
+## i18n
 
-> When producing or changing e2e tests:
+> i18n rules
 
 
-When producing or changing e2e tests:
-
-- Always use playwright for E2E tests
-- do not use playwright APIs that can expose flakiness: always prefer APIs that will wait for a condition to be met
-- place E2E tests in rhe `tests/e2e` folder
-- do not try to guess locators. Instead read the .tsx files to understand which locators to use
-- always prefer locators that are acessibility-specific
-- after changing a test, run it (using `pnpm test:e2e {test name}`)
-- when tests fail, the e2e tests should log a screenshot. Read that screenshot to understand what was the UI state.
-- when a test fails, fix that test and rerun that test in isolation until fixed.
-- do not perform workarounds. For instance, after creating an entity that entity is not displayed in an entity list, that's a probably bug that needs to be solved (instead of changing the E2E test to reload the page).
+- When changing UI bits, always make sure that the labels are translated by either using the lingui `<Trans>...</Trans>` macro or the `i18n.t("{label}")` from `import { i18n } from "@lingui/core";`.
+- Currently we support english (the default) and european portuguese.
+- Use the `pnpm i18n:extract` to extract the labels from the code and then populate the translation in `apps/frontend/src/locales/{language}`.
 
 ---
 > Source: [djinilabs/timeclout](https://github.com/djinilabs/timeclout) — distributed by [TomeVault](https://tomevault.io).
