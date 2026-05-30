@@ -1,0 +1,44 @@
+{
+  "name": "Smart-git-commit",
+  "owner": "Zarl-prog",
+  "repo": "Smart-git-commit",
+  "description": "Stop writing \"fix stuff\". AI agent skill for gold-standard git commits across Claude Code, Cursor, Codex & Windsurf",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Zarl-prog/Smart-git-commit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-30T18:30:23Z"
+}
