@@ -169589,6 +169589,11 @@
       "description": "\u4e2a\u4eba\u6536\u85cf\u4e00\u4e9b\u597d\u7528\u7684\u63d0\u793a\u8bcd"
     },
     {
+      "name": "danialhasan--electron-live-annotations",
+      "source": "./danialhasan--electron-live-annotations",
+      "description": "Framework-agnostic live annotation layer for Electron apps"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181272,6 +181277,21 @@
       "name": "apify--n8n-nodes-apify-template",
       "source": "./apify--n8n-nodes-apify-template",
       "description": "This is a template repo for the n8n single Actor apps."
+    },
+    {
+      "name": "konflux-ci--konflux-devlake-mcp",
+      "source": "./konflux-ci--konflux-devlake-mcp",
+      "description": "MCP server that bridges AI assistants with DevLake databases for natural language data querying and analysis."
+    },
+    {
+      "name": "konflux-ci--konflux-devlake-mcp",
+      "source": "./konflux-ci--konflux-devlake-mcp",
+      "description": "MCP server that bridges AI assistants with DevLake databases for natural language data querying and analysis."
+    },
+    {
+      "name": "alexander-nilsson--anki-dictionary-addon",
+      "source": "./alexander-nilsson--anki-dictionary-addon",
+      "description": "Modern successor to the Migaku Dictionary Addon, with improved dictionary, image search, and card-creation tools for Anki."
     },
     {
       "name": "cheerhuan--save-your-token",
