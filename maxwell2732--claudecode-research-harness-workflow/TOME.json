@@ -1,0 +1,44 @@
+{
+  "name": "claudecode-research-harness-workflow",
+  "owner": "maxwell2732",
+  "repo": "claudecode-research-harness-workflow",
+  "description": "Claude Code Research Harness Workflow turns Claude Code from a general coding agent into a controlled empirical research collaborator | by \u6731\u6668 | \u9057\u4f20\u793e\u79d1\u7814\u7a76",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maxwell2732/claudecode-research-harness-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-30T18:32:50Z"
+}
