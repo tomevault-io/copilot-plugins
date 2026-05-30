@@ -1,0 +1,9 @@
+{
+  "name": "zarl-prog--smart-git-commit",
+  "displayName": "Smart-git-commit",
+  "description": "Stop writing \"fix stuff\". AI agent skill for gold-standard git commits across Claude Code, Cursor, Codex & Windsurf",
+  "version": "1.0.0",
+  "author": "Zarl-prog",
+  "homepage": "https://github.com/Zarl-prog/Smart-git-commit",
+  "skills": []
+}
