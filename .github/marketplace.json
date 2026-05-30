@@ -77814,11 +77814,6 @@
       "description": "gent"
     },
     {
-      "name": "saadshahd--moo-md",
-      "source": "./saadshahd--moo-md",
-      "description": "Structured thinking for Claude Code \u2014 ask before building, search before writing, verify before shipping"
-    },
-    {
       "name": "pmgraham--claude-agents",
       "source": "./pmgraham--claude-agents",
       "description": "Collection of specialized agent definitions for Claude Code"
@@ -78982,6 +78977,11 @@
       "name": "stacksjs--vite-plugin-local",
       "source": "./stacksjs--vite-plugin-local",
       "description": "\ud83c\udfa8 Pretty development URLs, and HTTPS. Zero config, zero setup."
+    },
+    {
+      "name": "saadshahd--moo-md",
+      "source": "./saadshahd--moo-md",
+      "description": "Structured thinking for Claude Code \u2014 ask before building, search before writing, verify before shipping"
     },
     {
       "name": "inureyes--gyeol",
