@@ -1,147 +1,144 @@
-## cloudflare-do
+## code-patterns
 
-> Cloudflare Durable Objects patterns - avoid race conditions and data corruption
+> Standard coding patterns and conventions for Lumenize packages
 
 
-# Cloudflare Durable Objects Rules
+# Code Patterns
 
-Critical patterns for working with Cloudflare's Durable Objects to produce clean code that 
-avoids race conditions and the risk of data inconsistency.
+Standard coding patterns and conventions for Lumenize packages.
 
-## When
+## Type System
 
-When implementing or modifying any Durable Object class or method.
+### Rule of Wire Separation for Types
 
-## Then
+**When:** Defining data structures in TypeScript
 
-Follow these synchronous-first patterns to maintain Cloudflare's consistency guarantees.
+**Then:** Choose the right tool based on whether data crosses boundaries:
 
-## Keep DO Methods Synchronous
+- ✅ **Use TypeScript types** for transient in-memory constructs
+- ✅ **Use TypeBox schemas** for any structure that can cross a process, network, or persistence boundary
 
-**Don't create `async` methods except the lifecycle entrypoint methods**:
-- ✅ `fetch()` - HTTP request handler
-- ✅ `alarm()` - Scheduled task handler
-- ✅ `webSocketMessage()`, `webSocketClose()`, `webSocketError()` - WebSocket handlers. Note, 
-  since these don't return anything, there is often no reason for them to be async, but they 
-  are allowed to be according to Cloudlfare's interface.
-- Even when creating a method whose sole purpopse is to be called over Workers RPC with 
-  something like `await this.env.MY_DO.getByName('my-instance').myMethod()`, do not 
-  make `myMethod()` async. I know it sounds strange to call a non-async method with `await` 
-  but the `await` is not for the method, it's for the Workers RPC internals. Workers RPC 
-  needs to "teleport" your call over a network. The `await` is for that network requirement.
+**Why:** TypeBox provides runtime validation and serialization, TypeScript types are compile-time only.
 
-**Everything you usually need is synchronous**:
-- Except for those async lifecycle entrypoint methods, all of the other functionality you 
-  need in a Durable Object (storage, etc.) is syncronous
-- All the business logic handlers that you write are sychronous and called from those 
-  entrypoint methods
+## Package Structure
 
-**Never use in you business logic handlers called by those async lifecycle methods**:
-- `setTimeout()`
-- `setInterval()`
-- You can't because the method is not async, but don't try to `await` anything.
+### Development Mode
 
-**Never ever use in a DO**:
-- `this.ctx.waitUntil()`. This is only included for consistency with the Worker's API. You 
-  never need it in a DO.
+During development, packages point directly to source files:
 
-**Why**: 
-- `async` breaks input/output gates → race conditions and risk of inconsistent state
-- DOs are billed on wall clock time not CPU time. You pay for the entire time a DO is waiting 
-  on one of those async methods to complete.
+```json
+{
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": ["src/**/*"]
+}
+```
 
-**Exceptions to the above**:
-- If you are designing a DO where you don't care about hibernation. For instance, 
-  ProxyFetchDO is expected to handle fetches from a large number of other DOs. It costs 
-  ~$4/month to run continuously and there is only one instance.
-- You don't need or rely upon DO input/output gate transactional behavior. For instance, when 
-  each invocation of an async lifecycle entrypoint method does zero or one storage operation.
+**Why:** No build step during development eliminates build cache issues, simplifies debugging, and provides immediate feedback.
 
-**What if you want to need to do an external fetch(), setTimeout(), or a Workers RPC call?**:
-- If they are fire and forget, you might just be able to not `await` them
-- If you need a response, then use an outbox pattern with a callback handler, saving any 
-  state that handler will need in storage. Then process the outbox in the calling async 
-  lifecycle entrypoint method after your syncronous handler returns. When the response comes 
-  back, call the synchronous handler. This is how `@lumenize/proxy-fetch` and `@lumenize/
-  alarms` work. They are implementing the outbox pattern.
+### Publish Mode
 
-**What if I need to make an async call in the constructor to initialize the DO?**:
-- Use [`blockConcurrencyWhile()`](https://developers.cloudflare.com/durable-objects/api/state/#blockconcurrencywhile)
+Build happens only during publish (see `scripts/build-packages.sh`, `scripts/prepare-for-publish.sh`):
+- TypeScript compiled to `dist/`
+- `package.json` temporarily modified to point to `dist/`
+- After publish, `scripts/restore-dev-mode.sh` reverts to `src/`
 
-## Instance Lifecycle
+**See:** Publishing and Releases section in workspace rules for details.
 
-Durable Objects can be evicted from memory at any time. Design accordingly:
+## Imports
+
+### Intra-monorepo Imports
+
+**From exported public API:**
+```typescript
+import { something } from '@lumenize/some-package'
+```
+
+**From same package (non-exported):**
+```typescript
+import { something } from './some-file.ts'
+```
+
+**Only use relative imports** when:
+- Importing from the same npm workspace package
+- The item is NOT exported from the package's `index.ts`
+
+## Coding Style
+
+### Private Class Members
 
 **Always:**
-- ✅ Retrieve from storage at the start of each of your business logic handlers
-- ✅ Persist changes to storage before returning from handler
-- ✅ Minimize instance variables
-  - The exception to this is if the in-storage representation is an expensive 
-    transformation from the in-memory representation, but then you need to take extra care in 
-    assuring memory and storage are always in sync. My sledgehammer strategy is often to wrap 
-    anything that modifies both memory and storage in a try/catch block and call `this.ctx.
-    abort()` in the catch clause. It's usually better to modify your in-storage 
-    representation so no expensive transformation is needed.
+```typescript
+class MyClass {
+  #privateField = 'secret';
+  
+  #privateMethod() {
+    return this.#privateField;
+  }
+}
+```
 
 **Never:**
-- ❌ Don't rely on in-memory state persisting between requests
+```typescript
+class MyClass {
+  private privateField = 'secret';  // ❌ Compile-time only
+}
+```
 
-**Isn't storage less efficient than in-memory?**:
-In theory, but in practice, the difference is usually unmeasurable because storage is running 
-in-process and doesn't need to make a network call and it's cached.
+**Why:** JavaScript `#` prefix provides true runtime privacy, TypeScript `private` is erased at compile time.
 
-**Isn't it more expensive to use storage than memory?**:
-DO reads are so inexpensive that the cost difference is almost undetectable and the much more 
-expensive writes are required at the end of every handler regardless to support DO eviction 
-and hibernation.
+### ID Generation
 
-## Key Concepts
+**Always:**
+```typescript
+// For unique IDs in Workers/DOs
+const id = crypto.randomUUID();
 
-Cloudflare Durable Objects are a globally-distributed, strongly-consistent coordination 
-primitive. Understanding how they work is essential to using them correctly.
+// For ordered IDs (e.g., sorting by creation time)
+import { ulidFactory } from 'ulid-workers';
+const ulid = ulidFactory({ monotonic: true });
+const id = ulid();
+```
 
-### Instance Model
+**Never:**
+```typescript
+const id = Date.now();           // ❌ Doesn't advance during DO execution
+const id = 'req-' + Date.now();  // ❌ Will cause ID collisions
+```
 
-- **Written as TypeScript classes** but instantiated by Cloudflare's runtime, not your code
-- **Each DO ID is globally unique** - even name-derived IDs are unique worldwide
-- **One instance per ID** - Cloudflare guarantees only one instance runs at a time globally
-- **Geolocation embedded in ID** - Initial location chosen based on jurisdiction hints or 
-  proximity to creator
+**Why:** `Date.now()` returns the same value throughout a Cloudflare Worker/DO's execution context, causing ID collisions when creating multiple IDs in rapid succession. Use `crypto.randomUUID()` for guaranteed uniqueness, or `ulid-workers` with `monotonic: true` when ordering matters.
 
-### Terminology
+## NPM Package Management
 
-- **"Durable Object" or "DO"** = Durable Object instance (specific instantiation)
-- **"DO class"** = The TypeScript class definition
-- Be explicit when possible; when in doubt, "DO" means "instance"
+### Before Installing
 
-### Storage Architecture
+**Always:**
+- ✅ Ask permission before installing any npm packages
+- ✅ Check if functionality can be implemented in <100 SLOC
+- ✅ Use only well-known, well-maintained packages
+- ✅ Verify permissive licenses (MIT, Apache-2.0, BSD-3-Clause, ISC)
 
-Each DO instance has a dedicated SQLite database (up to 10GB) accessible only to that 
-instance.
+### Package Selection Criteria
 
-**Three storage APIs** (use only the synchronous ones):
+**Prefer packages with:**
+- ✅ Smallest once-built footprint over fastest
+- ✅ Strongest Cloudflare Workers compatibility
+- ✅ Active maintenance and good documentation
 
-1. ❌ **Legacy async KV API** - NEVER USE
-   - `this.ctx.storage.put()`, `this.ctx.storage.get()`, etc.
-   - Deprecated, exists only for migration
-   
-2. ✅ **Synchronous KV API** - USE THIS
-   - `this.ctx.storage.kv.put()`, `this.ctx.storage.kv.get()`, etc.
-   - Same methods as legacy API but synchronous
-   
-3. ✅ **Synchronous SQL API** - USE THIS
-   - `this.ctx.storage.sql.exec()`
-   - Full SQLite-flavored SQL
+**Never:**
+- ❌ Install npm packages globally
 
-### Why Synchronous Storage?
+### Attribution
 
-SQLite is embedded in the same process and memory space - no network hop, no context switch. 
-This gives fundamentally different performance characteristics:
-- **N+1 queries often just as fast** as joins (sometimes faster)
-- **No async overhead** - synchronous code is simpler and safer
-- **Automatic transactions** - all operations in a handler are atomic (unless you await an 
-  external `fetch()`, await a Workers RPC call, or use `setTimeout`/`setInterval`)
-  
+When copying liberally-licensed code (typically <1000 SLOC):
+1. Add entry to `ATTRIBUTIONS.md` at repository root
+2. Add comment above copied code in source file
+
+**See:** Code Attribution section in workspace rules for detailed format.
+
+## Reference
+
+For comprehensive project structure and workflow details, see workspace-level rules.
 
 ---
 > Source: [lumenize/lumenize](https://github.com/lumenize/lumenize) — distributed by [TomeVault](https://tomevault.io).
