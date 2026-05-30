@@ -1,0 +1,9 @@
+{
+  "name": "timcsy--ai-api",
+  "displayName": "ai-api",
+  "description": "Self-hosted, OpenAI-compatible AI gateway for organizations \u2014 multi-provider (Azure/OpenAI/Anthropic/Gemini), revocable per-allocation credentials, usage & cost tracking, and an OpenAI Codex\u2013ready /v1",
+  "version": "1.0.0",
+  "author": "timcsy",
+  "homepage": "https://github.com/timcsy/ai-api",
+  "skills": []
+}
