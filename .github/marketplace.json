@@ -139984,6 +139984,11 @@
       "description": "Programming Learning for Beginning Data Scientists"
     },
     {
+      "name": "divitmittal--emacs-cfg",
+      "source": "./divitmittal--emacs-cfg",
+      "description": "An elisp GNU Emacs configuration for Doom for OS-nixCfg via nix home-manager module, i.e., nix-doom-emacs-unstraightened"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -169509,6 +169514,61 @@
       "description": "\ud83c\udff7\ufe0f Fast Topic Analysis is a tool for analyzing text against predefined topics using average weight embeddings and cosine similarity"
     },
     {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
+      "name": "vultisig--vultisig-sdk",
+      "source": "./vultisig--vultisig-sdk",
+      "description": "TypeScript SDK for self-custodial multi-chain wallets with MPC security, cross-chain swaps, and AI agent support. 40+ blockchains, no seed phrases."
+    },
+    {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
+      "name": "vultisig--vultisig-sdk",
+      "source": "./vultisig--vultisig-sdk",
+      "description": "TypeScript SDK for self-custodial multi-chain wallets with MPC security, cross-chain swaps, and AI agent support. 40+ blockchains, no seed phrases."
+    },
+    {
+      "name": "mathhelp888-lab--maestro",
+      "source": "./mathhelp888-lab--maestro",
+      "description": "MAESTRO"
+    },
+    {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
+      "name": "lumenize--lumenize",
+      "source": "./lumenize--lumenize",
+      "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181132,6 +181192,26 @@
       "name": "hellno--vibes-engineering-mini-app-template",
       "source": "./hellno--vibes-engineering-mini-app-template",
       "description": "vibes engineering mini app template"
+    },
+    {
+      "name": "timcsy--ai-api",
+      "source": "./timcsy--ai-api",
+      "description": "Self-hosted, OpenAI-compatible AI gateway for organizations \u2014 multi-provider (Azure/OpenAI/Anthropic/Gemini), revocable per-allocation credentials, usage & cost tracking, and an OpenAI Codex\u2013ready /v1"
+    },
+    {
+      "name": "timcsy--ai-api",
+      "source": "./timcsy--ai-api",
+      "description": "Self-hosted, OpenAI-compatible AI gateway for organizations \u2014 multi-provider (Azure/OpenAI/Anthropic/Gemini), revocable per-allocation credentials, usage & cost tracking, and an OpenAI Codex\u2013ready /v1"
+    },
+    {
+      "name": "meamaturinlove221--turingresearch-plus",
+      "source": "./meamaturinlove221--turingresearch-plus",
+      "description": "TuringResearch_plus"
+    },
+    {
+      "name": "joeynyc--govee-mcp",
+      "source": "./joeynyc--govee-mcp",
+      "description": "A MCP Server to control your Govee Lights"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -288322,6 +288402,201 @@
       "name": "stuartlynne--racedbcli",
       "source": "./stuartlynne--racedbcli",
       "description": "RaceDB command line programs for managing competitions, license holders and registration"
+    },
+    {
+      "name": "jawndergone--100tips",
+      "source": "./jawndergone--100tips",
+      "description": "100tips"
+    },
+    {
+      "name": "salahdinmrait--bayaan",
+      "source": "./salahdinmrait--bayaan",
+      "description": "Bayaan"
+    },
+    {
+      "name": "emiliopmz--lavanderiajs",
+      "source": "./emiliopmz--lavanderiajs",
+      "description": "proyecto Victor"
+    },
+    {
+      "name": "sulrich--vanguard-analysis",
+      "source": "./sulrich--vanguard-analysis",
+      "description": "some quick and dirty scripts to analyze holdings and gauge potential tax exposure in accounts based on dividends, etc."
+    },
+    {
+      "name": "davidzaque-leal--royal-arena",
+      "source": "./davidzaque-leal--royal-arena",
+      "description": "royal-arena"
+    },
+    {
+      "name": "ramonrodsou--pdvweb",
+      "source": "./ramonrodsou--pdvweb",
+      "description": "pdvweb"
+    },
+    {
+      "name": "qqilihq--stripe-test-cards",
+      "source": "./qqilihq--stripe-test-cards",
+      "description": "stripe-test-cards"
+    },
+    {
+      "name": "davidzaque-leal--royal-arena",
+      "source": "./davidzaque-leal--royal-arena",
+      "description": "royal-arena"
+    },
+    {
+      "name": "srujansudam--anime-wedding-invitation",
+      "source": "./srujansudam--anime-wedding-invitation",
+      "description": "anime-wedding-invitation"
+    },
+    {
+      "name": "mrquanga3--mcp-kanboard",
+      "source": "./mrquanga3--mcp-kanboard",
+      "description": "mcp-kanboard"
+    },
+    {
+      "name": "davidzaque-leal--royal-arena",
+      "source": "./davidzaque-leal--royal-arena",
+      "description": "royal-arena"
+    },
+    {
+      "name": "kevlps--odontowhite",
+      "source": "./kevlps--odontowhite",
+      "description": "Site institucional da cl\u00ednica odontol\u00f3gica Odonto White - Next.js 14, TypeScript, Tailwind CSS"
+    },
+    {
+      "name": "briantian0099--digital-card",
+      "source": "./briantian0099--digital-card",
+      "description": "digital-card"
+    },
+    {
+      "name": "davidzaque-leal--royal-arena",
+      "source": "./davidzaque-leal--royal-arena",
+      "description": "royal-arena"
+    },
+    {
+      "name": "gradygaugler--bold-growth-project",
+      "source": "./gradygaugler--bold-growth-project",
+      "description": "Agentic growth workflow take-home (Bold.org)"
+    },
+    {
+      "name": "ksmly--cali-tracker",
+      "source": "./ksmly--cali-tracker",
+      "description": "cali-tracker"
+    },
+    {
+      "name": "davidzaque-leal--royal-arena",
+      "source": "./davidzaque-leal--royal-arena",
+      "description": "royal-arena"
+    },
+    {
+      "name": "papazinmakinesi--amazon-clone",
+      "source": "./papazinmakinesi--amazon-clone",
+      "description": "amazon-clone"
+    },
+    {
+      "name": "mahfujars--prescryb",
+      "source": "./mahfujars--prescryb",
+      "description": "prescryb"
+    },
+    {
+      "name": "davidzaque-leal--royal-arena",
+      "source": "./davidzaque-leal--royal-arena",
+      "description": "royal-arena"
+    },
+    {
+      "name": "mozicreed--sghss",
+      "source": "./mozicreed--sghss",
+      "description": "SGHSS"
+    },
+    {
+      "name": "juneaudigitaldesigns--jdd-ops",
+      "source": "./juneaudigitaldesigns--jdd-ops",
+      "description": "Operations for JDD"
+    },
+    {
+      "name": "davidzaque-leal--royal-arena",
+      "source": "./davidzaque-leal--royal-arena",
+      "description": "royal-arena"
+    },
+    {
+      "name": "jjacobsberg--to-mars",
+      "source": "./jjacobsberg--to-mars",
+      "description": "Portable growth operations agent pack for KPI command center, pricing, forecasting, churn, and regional expansion workflows."
+    },
+    {
+      "name": "byhawk--kuryem",
+      "source": "./byhawk--kuryem",
+      "description": "kuryem"
+    },
+    {
+      "name": "luangonzaga1983--gordinhoputadokiriku",
+      "source": "./luangonzaga1983--gordinhoputadokiriku",
+      "description": "gordinhoputadokiriku"
+    },
+    {
+      "name": "bdervishi--aicode",
+      "source": "./bdervishi--aicode",
+      "description": "aicode"
+    },
+    {
+      "name": "hertantya--car-app-mobile",
+      "source": "./hertantya--car-app-mobile",
+      "description": "car-app-mobile"
+    },
+    {
+      "name": "steven0lisa--xbrain",
+      "source": "./steven0lisa--xbrain",
+      "description": "xbrain"
+    },
+    {
+      "name": "buildwithriyad--advanced-web-tech-project-next-js",
+      "source": "./buildwithriyad--advanced-web-tech-project-next-js",
+      "description": "advanced_web_tech_project_next_js"
+    },
+    {
+      "name": "saibalaji2--revision-calendar",
+      "source": "./saibalaji2--revision-calendar",
+      "description": "revision-calendar"
+    },
+    {
+      "name": "adrianmoris--ctrlcommision-pwa",
+      "source": "./adrianmoris--ctrlcommision-pwa",
+      "description": "PWA Next.js para ctrlcommision - control de comisiones"
+    },
+    {
+      "name": "quinten2010--meppel-discovery",
+      "source": "./quinten2010--meppel-discovery",
+      "description": "meppel-discovery"
+    },
+    {
+      "name": "andriy-kulak--feed-destroyer",
+      "source": "./andriy-kulak--feed-destroyer",
+      "description": "feed-destroyer"
+    },
+    {
+      "name": "nomanmuneer--smm",
+      "source": "./nomanmuneer--smm",
+      "description": "Smm"
+    },
+    {
+      "name": "velantrian--velantrim-eiti-6",
+      "source": "./velantrian--velantrim-eiti-6",
+      "description": "\ud83e\uddd9 AI workspace \u00b7 Chat \u00b7 Agents \u00b7 Files \u00b7 Offline-first \u00b7 DeepSeek \u00b7 Claude \u00b7 Ollama \u00b7 Zero dependencies"
+    },
+    {
+      "name": "vladyslavkavunets--goit-react-native-hw4",
+      "source": "./vladyslavkavunets--goit-react-native-hw4",
+      "description": "goit-react-native-hw4"
+    },
+    {
+      "name": "whitakerluck--nft-floor-notifier",
+      "source": "./whitakerluck--nft-floor-notifier",
+      "description": "NFT-Floor-Notifier"
+    },
+    {
+      "name": "maxf98--svetisite",
+      "source": "./maxf98--svetisite",
+      "description": "svetisite"
     }
   ]
 }
