@@ -1,0 +1,9 @@
+{
+  "name": "vultisig--vultisig-sdk",
+  "displayName": "vultisig-sdk",
+  "description": "TypeScript SDK for self-custodial multi-chain wallets with MPC security, cross-chain swaps, and AI agent support. 40+ blockchains, no seed phrases.",
+  "version": "1.0.0",
+  "author": "vultisig",
+  "homepage": "https://github.com/vultisig/vultisig-sdk",
+  "skills": []
+}
