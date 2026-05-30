@@ -1,47 +1,86 @@
-## pr-creation
+## pr-template-generator
 
-> Create GitHub PR using template and MCP tools
+> Generate PR content using template structure
 
 
-# PR Creation Workflow
+# PR Template Content Generation
 
-When user requests PR creation, execute this workflow:
+Use [PULL_REQUEST_TEMPLATE.md](mdc:.github/PULL_REQUEST_TEMPLATE.md) structure with git analysis data.
 
-## Core Process
+## Content Mapping
 
-1. **Gather git information** (see [git-analysis](mdc:.cursor/rules/git-analysis.mdc))
-2. **Generate PR content** (see [pr-template-generator](mdc:.cursor/rules/pr-template-generator.mdc))
-3. **Create PR via GitHub MCP**
+### Summary Section
 
-## GitHub MCP Call
+```markdown
+# Summary
 
-Always use `mcp_GitHub_create_pull_request` with:
-
-```json
-{
-  "owner": "extracted-from-git-remote",
-  "repo": "extracted-from-git-remote",
-  "title": "feat: add user authentication system",
-  "head": "feature/auth",
-  "base": "main",
-  "body": "# Summary\n\n[Generated from template]...",
-  "draft": false
-}
+Brief description extracted from commit messages and change analysis.
+Example: "Implements JWT-based authentication system with token refresh capability."
 ```
 
-## Repository Requirements
+### Type of Change
 
-**Always include in PR body:**
+Map git changes to template checkboxes:
 
-- Mongo pipeline usage confirmation
-- Service logic implementation confirmation
-- Reference to [PULL_REQUEST_TEMPLATE.md](mdc:.github/PULL_REQUEST_TEMPLATE.md)
+- `feat:` commits → ✨ New feature
+- `fix:` commits → 🐛 Bug fix
+- `refactor:` commits → ♻️ Refactoring
+- `docs:` commits → 📝 Documentation
+- Performance-related → ⚡ Performance improvements
+- Test files modified → 🧪 Tests
 
-## Error Handling
+### Changes Made
 
-- **No changes**: "Please stage/commit changes first"
-- **GitHub API failure**: Show specific error + retry guidance
-- **Not in git repo**: Guide to correct directory
+Transform git diff output:
+
+```markdown
+- [ ] Added JWT authentication service
+- [ ] Modified user login endpoint
+- [ ] Fixed token validation logic
+```
+
+### Motivation and Context
+
+Extract from commit messages:
+
+```markdown
+**Why is this change required?**
+Based on commit: "feat: add JWT authentication for better security"
+
+**What problem does it solve?**
+Replaces session-based auth with stateless JWT tokens.
+```
+
+## Repository-Specific Additions
+
+Always append:
+
+```markdown
+## Checklist
+
+- [ ] I have used mongo pipelines instead of loops where applicable (per repo guidelines)
+- [ ] I have defined logic in appropriate service files
+```
+
+## Example Output
+
+```markdown
+# Summary
+
+Implements JWT-based authentication system with token refresh capability.
+
+## Type of Change
+
+- [x] ✨ New feature (non-breaking change which adds functionality)
+
+## Changes Made
+
+- [x] Added JWT authentication service
+- [x] Modified user login endpoint
+- [x] Added token refresh mechanism
+
+[... rest of template sections filled ...]
+```
 
 ---
 > Source: [walofficial/wal-react-native](https://github.com/walofficial/wal-react-native) — distributed by [TomeVault](https://tomevault.io).
