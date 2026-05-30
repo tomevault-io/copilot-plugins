@@ -7,11 +7,11 @@ This is a template repo for the n8n single Actor apps.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [apify/n8n-nodes-apify-template](https://github.com/apify/n8n-nodes-apify-template).
+Original source: `CLAUDE.md` in [apify/n8n-nodes-apify-template](https://github.com/apify/n8n-nodes-apify-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
