@@ -5,18 +5,5 @@
   "version": "1.0.0",
   "author": "saadshahd",
   "homepage": "https://github.com/saadshahd/moo.md",
-  "skills": [
-    {
-      "name": "bond",
-      "description": ""
-    },
-    {
-      "name": "consult",
-      "description": ""
-    },
-    {
-      "name": "shape",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
