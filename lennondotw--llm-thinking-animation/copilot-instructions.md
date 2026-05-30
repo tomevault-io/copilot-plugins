@@ -1,8 +1,8 @@
-## cn-function
+## code-of-conduct
 
-> You can import { cn } function from [cn.ts](mdc:src/utils/cn.ts) for class name merging.
+> Always read [CODE_OF_CONDUCT.md](mdc:CODE_OF_CONDUCT.md) actively before writing code.
 
-You can import { cn } function from [cn.ts](mdc:src/utils/cn.ts) for class name merging.
+Always read [CODE_OF_CONDUCT.md](mdc:CODE_OF_CONDUCT.md) actively before writing code.
 
 ---
 > Source: [lennondotw/llm-thinking-animation](https://github.com/lennondotw/llm-thinking-animation) — distributed by [TomeVault](https://tomevault.io).
