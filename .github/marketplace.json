@@ -96409,11 +96409,6 @@
       "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
-      "name": "baekenough--oh-my-customcode",
-      "source": "./baekenough--oh-my-customcode",
-      "description": "oh-my-zsh style customization framework for Claude Code"
-    },
-    {
       "name": "utsmannn--commitah",
       "source": "./utsmannn--commitah",
       "description": "Generating commit messages using Generative AI"
@@ -96427,6 +96422,11 @@
       "name": "jamesdavid--inreader",
       "source": "./jamesdavid--inreader",
       "description": "A modern, keyboard-driven RSS feed reader that brings back the magic of Google Reader with AI! \ud83d\ude80"
+    },
+    {
+      "name": "baekenough--oh-my-customcode",
+      "source": "./baekenough--oh-my-customcode",
+      "description": "oh-my-zsh style customization framework for Claude Code"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -169569,6 +169569,26 @@
       "description": "System Agentic Engineering on Cloudflare Workers and Durable Objects"
     },
     {
+      "name": "2witstudios--pagespace",
+      "source": "./2witstudios--pagespace",
+      "description": "Talk to your projects"
+    },
+    {
+      "name": "2witstudios--pagespace",
+      "source": "./2witstudios--pagespace",
+      "description": "Talk to your projects"
+    },
+    {
+      "name": "pbs-assess--csasdown",
+      "source": "./pbs-assess--csasdown",
+      "description": "R package for generating CSAS reports with R Markdown in .docx format"
+    },
+    {
+      "name": "samwei12--usefulprompts",
+      "source": "./samwei12--usefulprompts",
+      "description": "\u4e2a\u4eba\u6536\u85cf\u4e00\u4e9b\u597d\u7528\u7684\u63d0\u793a\u8bcd"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181212,6 +181232,46 @@
       "name": "joeynyc--govee-mcp",
       "source": "./joeynyc--govee-mcp",
       "description": "A MCP Server to control your Govee Lights"
+    },
+    {
+      "name": "dirge-code--dirge",
+      "source": "./dirge-code--dirge",
+      "description": "Dynamic Intent Resolution Grounding Engine"
+    },
+    {
+      "name": "dirge-code--dirge",
+      "source": "./dirge-code--dirge",
+      "description": "Dynamic Intent Resolution Grounding Engine"
+    },
+    {
+      "name": "sandraschi--blender-mcp",
+      "source": "./sandraschi--blender-mcp",
+      "description": "Blender 3D automation via FastMCP 3.2 \u2014 41 portmanteau tools, 150+ operations. AI construction, VRM avatars, Gaussian splats, VSE video editing, Grease Pencil 2D animation, Tauri 2.0 desktop. React da"
+    },
+    {
+      "name": "sandraschi--blender-mcp",
+      "source": "./sandraschi--blender-mcp",
+      "description": "Blender 3D automation via FastMCP 3.2 \u2014 41 portmanteau tools, 150+ operations. AI construction, VRM avatars, Gaussian splats, VSE video editing, Grease Pencil 2D animation, Tauri 2.0 desktop. React da"
+    },
+    {
+      "name": "sandraschi--blender-mcp",
+      "source": "./sandraschi--blender-mcp",
+      "description": "Blender 3D automation via FastMCP 3.2 \u2014 41 portmanteau tools, 150+ operations. AI construction, VRM avatars, Gaussian splats, VSE video editing, Grease Pencil 2D animation, Tauri 2.0 desktop. React da"
+    },
+    {
+      "name": "sandraschi--blender-mcp",
+      "source": "./sandraschi--blender-mcp",
+      "description": "Blender 3D automation via FastMCP 3.2 \u2014 41 portmanteau tools, 150+ operations. AI construction, VRM avatars, Gaussian splats, VSE video editing, Grease Pencil 2D animation, Tauri 2.0 desktop. React da"
+    },
+    {
+      "name": "apify--n8n-nodes-apify-template",
+      "source": "./apify--n8n-nodes-apify-template",
+      "description": "This is a template repo for the n8n single Actor apps."
+    },
+    {
+      "name": "apify--n8n-nodes-apify-template",
+      "source": "./apify--n8n-nodes-apify-template",
+      "description": "This is a template repo for the n8n single Actor apps."
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -288597,6 +288657,41 @@
       "name": "maxf98--svetisite",
       "source": "./maxf98--svetisite",
       "description": "svetisite"
+    },
+    {
+      "name": "yu-326-ta--local-guided-trip",
+      "source": "./yu-326-ta--local-guided-trip",
+      "description": "local-guided-trip"
+    },
+    {
+      "name": "naufaldi--pangan-be",
+      "source": "./naufaldi--pangan-be",
+      "description": "pangan-be"
+    },
+    {
+      "name": "abazabaaa--agents-experiments",
+      "source": "./abazabaaa--agents-experiments",
+      "description": "agents_experiments"
+    },
+    {
+      "name": "abazabaaa--agents-experiments",
+      "source": "./abazabaaa--agents-experiments",
+      "description": "agents_experiments"
+    },
+    {
+      "name": "zekenewsom--hyperlocal",
+      "source": "./zekenewsom--hyperlocal",
+      "description": "hyperlocal"
+    },
+    {
+      "name": "cabindev--civicspace",
+      "source": "./cabindev--civicspace",
+      "description": "civicspace"
+    },
+    {
+      "name": "naufaldi--pangan-be",
+      "source": "./naufaldi--pangan-be",
+      "description": "pangan-be"
     }
   ]
 }
