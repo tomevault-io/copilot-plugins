@@ -1,0 +1,9 @@
+{
+  "name": "mks2508--mks-iptv-app",
+  "displayName": "MKS-IPTV-App",
+  "description": "My first Swift App: a Full IPTV App Implementation for iOS / MacOS / TV OS , built with Swift 6. Featuring options to View, Download or View in external player of each IPTV Playlist content. VOD & Str",
+  "version": "1.0.0",
+  "author": "MKS2508",
+  "homepage": "https://github.com/MKS2508/MKS-IPTV-App",
+  "skills": []
+}
