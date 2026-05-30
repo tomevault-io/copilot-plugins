@@ -1,0 +1,9 @@
+{
+  "name": "perrystreetsoftware--rubyzen",
+  "displayName": "Rubyzen",
+  "description": "Rubyzen is a modern linter for Ruby that allows you to write architectural lint rules as unit tests. In the era of AI-generated code, Rubyzen provides your team with deterministic guardrails to keep y",
+  "version": "1.0.0",
+  "author": "perrystreetsoftware",
+  "homepage": "https://github.com/perrystreetsoftware/Rubyzen",
+  "skills": []
+}
