@@ -1,0 +1,9 @@
+{
+  "name": "ddarmon--regressr",
+  "displayName": "regressr",
+  "description": "An R package for regression testing",
+  "version": "1.0.0",
+  "author": "ddarmon",
+  "homepage": "https://github.com/ddarmon/regressr",
+  "skills": []
+}
