@@ -1,0 +1,9 @@
+{
+  "name": "krcpa--service-builder",
+  "displayName": "service-builder",
+  "description": "A lightweight, type-safe service construction pattern for Rust applications that leverages the builder pattern.",
+  "version": "1.0.0",
+  "author": "krcpa",
+  "homepage": "https://github.com/krcpa/service-builder",
+  "skills": []
+}
