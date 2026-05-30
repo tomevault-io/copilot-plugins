@@ -1,0 +1,9 @@
+{
+  "name": "mordachai--investigation-board",
+  "displayName": "investigation-board",
+  "description": "A Foundry VTT module that lets everyone create, edit, and move sticky and photo notes on the scene as collaborative investigation tools.",
+  "version": "1.0.0",
+  "author": "mordachai",
+  "homepage": "https://github.com/mordachai/investigation-board",
+  "skills": []
+}
