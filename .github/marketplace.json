@@ -169664,6 +169664,21 @@
       "description": "Production-proven Turborepo monorepo starter kit for full-stack Cloudflare Workers apps \u2014 with Durable Objects, end-to-end type safety, and everything wired up to ship"
     },
     {
+      "name": "lagrangee--weread-deepreading",
+      "source": "./lagrangee--weread-deepreading",
+      "description": "\u5fae\u4fe1\u9605\u8bfb\u7f51\u7ad9\u7684Chrome\u63d2\u4ef6\uff0c\u901a\u8fc7AI\u670d\u52a1\u63d0\u5347\u6df1\u5ea6\u9605\u8bfb\u4f53\u9a8c"
+    },
+    {
+      "name": "lagrangee--weread-deepreading",
+      "source": "./lagrangee--weread-deepreading",
+      "description": "\u5fae\u4fe1\u9605\u8bfb\u7f51\u7ad9\u7684Chrome\u63d2\u4ef6\uff0c\u901a\u8fc7AI\u670d\u52a1\u63d0\u5347\u6df1\u5ea6\u9605\u8bfb\u4f53\u9a8c"
+    },
+    {
+      "name": "deeplcom--api-docs",
+      "source": "./deeplcom--api-docs",
+      "description": "Source code of the DeepL API documentation"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181439,6 +181454,21 @@
       "description": "\u57fa\u4e8e Codex \u6784\u5efa\u7684\u533b\u5b66\u6587\u732e\u81ea\u52a8\u5316\u5de5\u4f5c\u6d41\uff1aRSS + PubMed \u81ea\u52a8\u6293\u53d6 \u2192 AI \u5206\u7ea7 \u2192 Zotero \u5199\u56de \u2192 \u4e2d\u6587\u6807\u9898\u7ffb\u8bd1 \u2192 Excel \u62a5\u8868\uff0c\u5168\u7a0b\u65e0\u9700\u624b\u52a8\u7ffb\u671f\u520a\u3001\u7b5b\u6807\u9898\u3002"
     },
     {
+      "name": "freenowill--stock-fish",
+      "source": "./freenowill--stock-fish",
+      "description": "\u8fd8\u5728\u4e3a\u5f53\u97ed\u83dc\u800c\u70e6\u607c\u5417\uff1f \u60f3\u8ba9\u5df4\u83f2\u7279\u3001\u67e5\u7406\u8292\u683c\u3001\u91cf\u5316\u5927\u5e08\u3001\u91d1\u878d\u4e13\u5bb6\u3001\u6e38\u8d44\u5927\u4f6c\u3001\u80a1\u6c11\u97ed\u83dc\u2026\u2026\u6765\u5de6\u53f3\u4e92\u535a\uff0c\u4e00\u8d77\u5f00\u4f1a\u5e2e\u4f60\u505a\u51fa\u51b3\u7b56\uff01 \u4e0d\u5982\u8bd5\u8bd5stock-fish!"
+    },
+    {
+      "name": "minibear2021--rustshell",
+      "source": "./minibear2021--rustshell",
+      "description": "rustshell"
+    },
+    {
+      "name": "maxwell2732--claudecode-research-harness-workflow",
+      "source": "./maxwell2732--claudecode-research-harness-workflow",
+      "description": "Claude Code Research Harness Workflow turns Claude Code from a general coding agent into a controlled empirical research collaborator | by \u6731\u6668 | \u9057\u4f20\u793e\u79d1\u7814\u7a76"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -184307,6 +184337,16 @@
       "name": "kigner--markitdown-ui",
       "source": "./kigner--markitdown-ui",
       "description": "https://github.com/microsoft/markitdown UI "
+    },
+    {
+      "name": "zarl-prog--smart-git-commit",
+      "source": "./zarl-prog--smart-git-commit",
+      "description": "Stop writing \"fix stuff\". AI agent skill for gold-standard git commits across Claude Code, Cursor, Codex & Windsurf"
+    },
+    {
+      "name": "konradzaremba--betta",
+      "source": "./konradzaremba--betta",
+      "description": "ZeroTouch for Grasshopper: write plain C# functions, get real Grasshopper components \u2014 no GH_Component subclass, no manual wiring."
     },
     {
       "name": "ancplua--ancplua-claude-plugins",
