@@ -1,0 +1,9 @@
+{
+  "name": "open-agent-tools--open-stocks-mcp",
+  "displayName": "open-stocks-mcp",
+  "description": "MCP Server for stock market data - Robinhood, Schwab APIs with multi-broker support",
+  "version": "1.0.0",
+  "author": "Open-Agent-Tools",
+  "homepage": "https://github.com/Open-Agent-Tools/open-stocks-mcp",
+  "skills": []
+}
