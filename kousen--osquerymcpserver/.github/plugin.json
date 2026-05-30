@@ -1,0 +1,9 @@
+{
+  "name": "kousen--osquerymcpserver",
+  "displayName": "OsqueryMcpServer",
+  "description": "MCP wrapper and Claude Code Skill for osquery",
+  "version": "1.0.0",
+  "author": "kousen",
+  "homepage": "https://github.com/kousen/OsqueryMcpServer",
+  "skills": []
+}
