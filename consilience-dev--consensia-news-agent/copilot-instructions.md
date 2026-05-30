@@ -1,30 +1,33 @@
-## consensia-news-agent
+## python-rules
 
-> - Always explain what you're planning to do before you start coding.
+> - Avoid unnecessary complexity or deeply nested structures.
 
 
-# Base rules
+## Code Quality
+- Avoid unnecessary complexity or deeply nested structures.
+- Prefer built-in functions and idioms (e.g., list comprehensions, `with` for file handling).
+- Use type hints (`def func(arg: str) -> int:`) and `mypy` for static analysis where appropriate.
 
-## Keep Me in the Loop
-- Always explain what you're planning to do before you start coding.
-- After each change, briefly describe what was done.
-- Ask for feedback before continuing to the next step.
+## Error Handling
+- Use `try/except` blocks to handle exceptions gracefully.
+- Avoid catching broad exceptions like `except:` or `except Exception:` unless justified.
 
-## Incremental Development
-- Build features in small, testable steps.
-- Do not attempt large-scale changes all at once.
-- Prioritize clarity and stability over speed.
+## Documentation
+- Add docstrings to all public functions and classes using [PEP 257](https://peps.python.org/pep-0257/) conventions.
+- Document parameters, return types, and side effects clearly.
 
-## Test Everything
-- For each change, include unit tests or integration tests where applicable.
-- Use mocks or stubs if external systems are involved.
-- Confirm the code compiles (or runs) and passes existing tests before continuing.
+## Dependency Management
+- Use a `requirements.txt` or `pyproject.toml` for managing dependencies.
+- Avoid unnecessary libraries when the standard library suffices.
 
-## Add Logging
-- Add clear and descriptive logs to all major actions or decision points.
-- Prefer structured logging if available (e.g., JSON format for backend).
-- Avoid overly verbose logs; focus on what would help during debugging.
+## Testing
+- Use `unittest`, `pytest`, or `doctest` for writing tests.
+- Keep tests isolated, clear, and repeatable.
+
+## Logging
+- Use the built-in `logging` module instead of `print` for production code.
+- Include log levels (`info`, `debug`, `warning`, `error`, `critical`) appropriately.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/consilience-dev) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [consilience-dev/consensia-news-agent](https://github.com/consilience-dev/consensia-news-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-30 -->
