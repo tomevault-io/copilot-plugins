@@ -134439,6 +134439,11 @@
       "description": "Evaluate your LLM based Java Apps"
     },
     {
+      "name": "xl0--pi-lovely-dev-tools",
+      "source": "./xl0--pi-lovely-dev-tools",
+      "description": "pi-lovely-dev-tools"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
