@@ -1,0 +1,225 @@
+## chrome-extension-guide
+
+> Chrome 插件的基本文件结构应该包含以下文件：
+
+# Chrome 浏览器插件开发指南
+
+## 项目结构
+Chrome 插件的基本文件结构应该包含以下文件：
+
+- `manifest.json`: 插件的配置文件，定义插件的基本信息和权限
+- `popup.html`: 点击插件图标时显示的弹出窗口
+- `popup.js`: 弹出窗口的交互逻辑
+- `background.js`: 后台脚本，处理插件的核心功能
+- `content.js`: 内容脚本，用于与网页交互
+- `styles.css`: 样式文件
+- `icons/`: 存放插件图标的目录
+- `tests/`: 测试文件目录
+- `docs/`: 文档目录
+
+## 开发规范
+
+### manifest.json 配置
+manifest.json 是插件的核心配置文件，需要包含以下基本信息：
+- name: 插件名称
+- version: 版本号
+- description: 插件描述
+- permissions: 所需权限
+- action: 插件图标和弹出窗口配置
+- background: 后台脚本配置
+- content_scripts: 内容脚本配置
+
+### 代码规范
+1. 使用 ES6+ 语法
+2. 遵循 Chrome 插件的最佳实践
+3. 注意权限管理，只请求必要的权限
+4. 使用异步编程处理网络请求和事件
+5. 做好错误处理和日志记录
+6. 在做代码编写/修改前一定要先和用户讲清楚思路、 原理、 pros & cons，等待用户确认后再做执行
+
+### 代码注释规范
+1. 文件头部注释
+   ```javascript
+   /**
+    * @file 文件名
+    * @description 文件功能描述
+    * @author 作者
+    * @date 创建日期
+    */
+   ```
+
+2. 函数注释
+   ```javascript
+   /**
+    * 函数功能描述
+    * @param {参数类型} 参数名 - 参数说明
+    * @returns {返回类型} 返回值说明
+    * @throws {错误类型} 可能抛出的错误说明
+    */
+   ```
+
+3. 类注释
+   ```javascript
+   /**
+    * 类功能描述
+    * @class
+    * @example
+    * // 使用示例
+    * const instance = new ClassName();
+    */
+   ```
+
+4. 变量注释
+   ```javascript
+   /** 变量说明 */
+   const variable = value;
+   ```
+
+5. 注释要求
+   - 使用 JSDoc 风格的注释
+   - 关键业务逻辑必须添加注释
+   - 复杂算法需要详细注释
+   - 注释要简洁明了，避免废话
+   - 及时更新注释，保持与代码同步
+   - 使用中文注释，保持团队统一
+
+### 性能优化规范
+1. 资源加载优化
+   - 使用 webpack 等工具进行代码压缩和打包
+   - 合理使用缓存机制
+   - 延迟加载非关键资源
+   - 优化图片资源大小
+
+2. 运行时优化
+   - 避免频繁的 DOM 操作
+   - 使用事件委托处理事件
+   - 合理使用 Web Workers 处理耗时操作
+   - 避免内存泄漏
+
+3. 网络请求优化
+   - 合并多个小请求
+   - 使用数据缓存
+   - 实现请求重试机制
+   - 添加请求超时处理
+
+### 错误处理规范
+1. 全局错误处理
+   ```javascript
+   window.onerror = function(message, source, lineno, colno, error) {
+     // 错误处理逻辑
+   };
+   ```
+
+2. Promise 错误处理
+   ```javascript
+   promise.catch(error => {
+     // 错误处理逻辑
+   });
+   ```
+
+3. 异步函数错误处理
+   ```javascript
+   try {
+     await asyncFunction();
+   } catch (error) {
+     // 错误处理逻辑
+   }
+   ```
+
+4. 错误日志记录
+   - 记录错误发生的时间、位置和上下文
+   - 区分错误级别（ERROR、WARN、INFO）
+   - 实现错误上报机制
+   - 保护用户隐私信息
+
+### 版本控制规范
+1. Git 分支管理
+   - main: 主分支，保持稳定
+   - develop: 开发分支
+   - feature/*: 功能分支
+   - hotfix/*: 紧急修复分支
+
+2. 提交信息规范
+   ```
+   feat: 新功能
+   fix: 修复bug
+   docs: 文档更新
+   style: 代码格式调整
+   refactor: 代码重构
+   test: 测试用例
+   chore: 构建过程或辅助工具的变动
+   ```
+
+3. 版本号规范
+   - 遵循语义化版本（Semantic Versioning）
+   - 格式：主版本号.次版本号.修订号
+   - 主版本号：不兼容的 API 修改
+   - 次版本号：向下兼容的功能性新增
+   - 修订号：向下兼容的问题修正
+
+### 调试技巧
+1. 使用 Chrome 开发者工具进行调试
+2. 在 chrome://extensions 页面启用开发者模式
+3. 使用 console.log 进行调试输出
+4. 使用 Chrome 的 Storage API 进行数据存储
+
+## 常用 API
+- chrome.tabs: 标签页管理
+- chrome.storage: 数据存储
+- chrome.runtime: 运行时管理
+- chrome.webRequest: 网络请求拦截
+- chrome.contextMenus: 右键菜单
+- chrome.notifications: 通知管理
+
+## 安全注意事项
+1. 使用 HTTPS 进行网络请求
+2. 避免使用 eval() 等不安全的函数
+3. 注意跨域请求的安全限制
+4. 保护用户数据隐私
+5. 定期更新插件以修复安全漏洞
+6. 实现数据加密存储
+7. 防止 XSS 和 CSRF 攻击
+8. 实现请求签名验证
+
+## 发布流程
+1. 打包插件文件
+2. 在 Chrome Web Store 创建开发者账号
+3. 提交插件审核
+4. 等待审核通过后发布
+5. 准备更新日志
+6. 进行版本测试
+7. 制定回滚方案
+
+## 参考资源
+- [Chrome 插件官方文档](mdc:https:/developer.chrome.com/docs/extensions)
+- [Chrome Web Store 发布指南](mdc:https:/developer.chrome.com/docs/webstore/publish)
+- [Chrome 插件示例代码](mdc:https:/github.com/GoogleChrome/chrome-extensions-samples)
+
+## 微信读书助手特定规范
+
+### 用户界面规范
+1. 所有提示信息使用中文
+2. 保持界面简洁，突出核心功能
+3. 提供清晰的操作反馈
+4. 错误提示要友好且具体
+
+
+### 错误处理规范
+
+1. 剪贴板访问错误处理
+   ```javascript
+   /**
+    * 剪贴板错误处理示例
+    */
+   async function handleClipboardError(error) {
+     if (error.name === 'NotAllowedError') {
+       showUserMessage('error', '请允许访问剪贴板权限');
+     } else {
+       showUserMessage('error', '剪贴板访问失败，请重试');
+     }
+   }
+   ```
+
+---
+> Source: [lagrangee/weread_deepreading](https://github.com/lagrangee/weread_deepreading) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-30 -->
