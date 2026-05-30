@@ -1,0 +1,44 @@
+{
+  "name": "memstroy_inator",
+  "owner": "artcoed",
+  "repo": "memstroy_inator",
+  "description": "\u0412\u0438\u0434\u0435\u043e\u0440\u0435\u0434\u0430\u043a\u0442\u043e\u0440 \u0434\u043b\u044f \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u043c\u0435\u043c\u043e\u0432 \u0441 \u043c\u0435\u043b\u043b\u0441\u0442\u0440\u043e\u0435\u043c",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/artcoed/memstroy_inator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-30T16:30:23Z"
+}
