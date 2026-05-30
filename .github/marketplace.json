@@ -169594,6 +169594,16 @@
       "description": "Framework-agnostic live annotation layer for Electron apps"
     },
     {
+      "name": "linuxfoundation--lfx-self-serve",
+      "source": "./linuxfoundation--lfx-self-serve",
+      "description": "LFX Self Serve UI"
+    },
+    {
+      "name": "linuxfoundation--lfx-self-serve",
+      "source": "./linuxfoundation--lfx-self-serve",
+      "description": "LFX Self Serve UI"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181292,6 +181302,11 @@
       "name": "alexander-nilsson--anki-dictionary-addon",
       "source": "./alexander-nilsson--anki-dictionary-addon",
       "description": "Modern successor to the Migaku Dictionary Addon, with improved dictionary, image search, and card-creation tools for Anki."
+    },
+    {
+      "name": "ahmedragab20--diffing",
+      "source": "./ahmedragab20--diffing",
+      "description": "A local-first code review tool with User <-> AI realtime communication"
     },
     {
       "name": "cheerhuan--save-your-token",
