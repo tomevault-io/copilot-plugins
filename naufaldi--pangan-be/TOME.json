@@ -4,7 +4,7 @@
   "repo": "pangan-be",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/naufaldi/pangan-be",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-30T04:38:13Z"
+  "distributed_at": "2026-05-30T04:43:04Z"
 }
