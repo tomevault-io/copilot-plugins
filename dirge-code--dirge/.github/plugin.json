@@ -1,0 +1,9 @@
+{
+  "name": "dirge-code--dirge",
+  "displayName": "dirge",
+  "description": "Dynamic Intent Resolution Grounding Engine",
+  "version": "1.0.0",
+  "author": "dirge-code",
+  "homepage": "https://github.com/dirge-code/dirge",
+  "skills": []
+}
