@@ -1,0 +1,44 @@
+{
+  "name": "attractor-guided-engineering-template",
+  "owner": "entropy-cloud",
+  "repo": "attractor-guided-engineering-template",
+  "description": "A best-practices template for AI-assisted development at scale. It turns your repository into institutional infrastructure where AI agents can work sustainably \u2014 converging around documentation as a stable attractor across sessions, long cycles, and multi-role collaboration ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/entropy-cloud/attractor-guided-engineering-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-30T16:31:24Z"
+}
