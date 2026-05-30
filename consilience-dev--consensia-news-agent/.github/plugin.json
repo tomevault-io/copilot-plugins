@@ -1,7 +1,7 @@
 {
   "name": "consilience-dev--consensia-news-agent",
   "displayName": "consensia-news-agent",
-  "description": "consensia-news-agent",
+  "description": "A Python agent for searching news articles by topic and date using NewsAPI and Google ADK. Includes robust error handling and LLM-friendly interfaces.",
   "version": "1.0.0",
   "author": "consilience-dev",
   "homepage": "https://github.com/consilience-dev/consensia-news-agent",
