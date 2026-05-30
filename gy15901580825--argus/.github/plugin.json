@@ -1,0 +1,9 @@
+{
+  "name": "gy15901580825--argus",
+  "displayName": "Argus",
+  "description": "Black-box, open-source red-team testing for AI agents. Point Argus at any HTTP, gRPC, or browser-using agent endpoint, run 500+ adversarial probes (OWASP LLM Top 10, MITRE ATLAS, NIST AI RMF, TAP/PAIR",
+  "version": "1.0.0",
+  "author": "gy15901580825",
+  "homepage": "https://github.com/gy15901580825/Argus",
+  "skills": []
+}
