@@ -1,0 +1,9 @@
+{
+  "name": "agglayer--aggkit",
+  "displayName": "aggkit",
+  "description": "Connect any chain to the Agglayer",
+  "version": "1.0.0",
+  "author": "agglayer",
+  "homepage": "https://github.com/agglayer/aggkit",
+  "skills": []
+}
