@@ -1,70 +1,254 @@
 ## konflux-devlake-mcp
 
-> Python MCP server providing engineering metrics tools for Konflux DevLake databases.
+> This is a Model Context Protocol (MCP) server that provides tools for querying and analyzing data from the Konflux DevLake database. The server exposes tools for database operations, incident analysis, deployment tracking, and PR retest analysis.
 
-# Konflux DevLake MCP Server - Development Guidelines
+# Konflux DevLake MCP Server - Cursor Rules
 
 ## Project Overview
+This is a Model Context Protocol (MCP) server that provides tools for querying and analyzing data from the Konflux DevLake database. The server exposes tools for database operations, incident analysis, deployment tracking, and PR retest analysis.
 
-Python MCP server providing engineering metrics tools for Konflux DevLake databases.
-Also ships Claude Code skills (`.claude-plugin/`) for interactive querying, report generation, and automated report repo scaffolding.
+## Code Style & Formatting
 
-## Key Commands
+### Python Code Style
+- **Formatter**: Use `black` with line length 100
+  - Command: `black --line-length 100 .`
+  - Always format code before committing
+- **Linter**: Use `flake8` for code quality
+  - Command: `flake8 .`
+  - Fix all linting errors before committing
+- **Type Hints**: Use type hints for all function parameters and return types
+- **Docstrings**: Use Google-style docstrings for all classes and functions
 
-```bash
-make install               # Install dependencies
-make test-unit             # Unit tests
-make test-integration      # Integration tests (requires DB)
-make test-e2e              # End-to-end tests (requires DB + LLM key)
-make test-all              # All tests
-pre-commit run --all-files # Lint (black, flake8, yamllint)
+### YAML Code Style
+- **Linter**: Use `yamllint` for YAML file validation
+  - Command: `yamllint .`
+  - Configuration file: `.yamllint` (extends default, max line length 200)
+  - Fix all linting errors before committing
+  - Applies to: `.github/workflows/*.yaml`, `k8s/*.yaml`, and all other YAML files
+
+### Code Formatting Rules
+- Maximum line length: 100 characters
+- Use double quotes for strings (black default)
+- Use trailing commas in multi-line collections
+- Use f-strings for string formatting (not `.format()` or `%`)
+- Use `async`/`await` for all database operations and tool calls
+- **NO EMOJIS**: Do not use any emojis in code, comments, docstrings, or any project files
+
+## Architecture Patterns
+
+### Tool Creation Pattern
+All tools must:
+1. Inherit from `BaseTool` in `tools/base/base_tool.py`
+2. Implement `get_tools()` method returning a list of `Tool` objects
+3. Implement `call_tool(name, arguments)` method for async tool execution
+4. Use `log_tool_call()` for all tool invocations
+5. Return TOON-encoded strings for token efficiency (not JSON)
+
+### Tool Structure
+```python
+class MyTool(BaseTool):
+    def __init__(self, db_connection):
+        super().__init__(db_connection)
+        self.logger = get_logger(f"{__name__}.MyTool")
+    
+    def get_tools(self) -> List[Tool]:
+        return [Tool(name="...", description="...", inputSchema={...})]
+    
+    async def call_tool(self, name: str, arguments: Dict[str, Any]) -> str:
+        # Use toon_encode for output
+        return toon_encode(result, {"delimiter": ",", "indent": 2, "lengthMarker": ""})
 ```
 
-## Architecture
+### Database Query Patterns
+- Always use parameterized queries or string formatting with validation
+- Use `await self.db_connection.execute_query(query, limit)`
+- Handle MySQL type conversions (Decimal/string to int/float)
+- Always validate date fields before using in queries
+- Use CTEs (WITH clauses) for complex queries with deduplication
 
-- `server/` — MCP server core (transport, handlers, factory, middleware)
-- `tools/` — Tool modules (BaseTool interface, auto-registered via ToolsManager)
-- `tools/devlake/` — DevLake-specific tools (PR cycle time, retests, deployments, etc.)
-- `utils/` — Config, DB connection, security, logging, RBAC
-- `.claude-plugin/` — Claude Code plugin manifest
-- `skills/` — Claude Code skills (devlake, report, scaffold-report-repo)
-- `docs/.prompts/` — Standalone prompt templates for report generation
+### Error Handling
+- Always wrap tool execution in try-except blocks
+- Log errors with `self.logger.error()` including context
+- Return structured error responses: `{"success": False, "error": str(e)}`
+- Use `log_tool_call(..., success=False, error=...)` for failed calls
+- Handle `ClosedResourceError` and `CancelledError` gracefully (don't log as errors)
 
-## Adding New Tools
+### Logging
+- Use `get_logger(__name__)` for module-level loggers
+- Use appropriate log levels:
+  - `DEBUG`: Detailed diagnostic information
+  - `INFO`: General informational messages
+  - `WARNING`: Warning messages
+  - `ERROR`: Error conditions
+- Never log sensitive information (passwords, tokens, etc.)
+- Suppress noisy library errors (e.g., ClosedResourceError from MCP library)
 
-1. Create `tools/devlake/my_tool.py` extending `BaseTool`
-2. Register in `tools/tools_manager.py`
-3. Add tests in `tests/unit/test_my_tool.py`
+## File Organization
 
-## Skill Update Rule
+### Directory Structure
+```
+tools/
+  base/           # Base tool classes
+  devlake/        # DevLake-specific tools (incidents, deployments, PR retests)
+  database_tools.py  # Database operation tools
+  tools_manager.py   # Tool registry and routing
 
-**When modifying MCP tools, you MUST also update the corresponding skills:**
+server/
+  core/           # Core MCP server implementation
+  factory/        # Server factory for different transports
+  handlers/       # Request handlers
+  transport/      # Transport implementations (HTTP, stdio)
 
-- Changed a tool's SQL query or schema? Update `skills/devlake/references/devlake-schema.md` and `skills/devlake/references/sql-patterns.md`
-- Added/removed a tool? Update `skills/devlake/SKILL.md` tool references
-- Changed tool input/output schema? Update relevant skill SKILL.md and prompt files
-- Changed report prompt patterns? Update `skills/report/` and `docs/.prompts/`
+utils/
+  config.py       # Configuration management
+  db.py           # Database connection and utilities
+  logger.py       # Logging setup
+  security.py     # Security validation
+```
 
-This rule prevents schema drift between the MCP server and the skills that consume it.
+### Naming Conventions
+- Files: `snake_case.py`
+- Classes: `PascalCase`
+- Functions/methods: `snake_case`
+- Constants: `UPPER_SNAKE_CASE`
+- Private methods: `_leading_underscore`
 
-## Deployed Version Awareness
+## Testing Requirements
 
-The MCP server is deployed on OpenShift. The deployed version may lag behind `main`.
-Skills and prompt templates must work with the **currently deployed version**, not bleeding-edge source.
+### Unit Tests
+- All tools must have unit tests in `tests/unit/`
+- Test files: `test_<module_name>.py`
+- Use `pytest` with `pytest-asyncio` for async tests
+- Mock database connections in tests
+- Test both success and error cases
 
-- `skills/devlake/references/devlake-schema.md` documents the schema as seen in **production**
-- SQL patterns are validated against the prod database
-- When a new tool is added but not yet deployed, mark it in the skill as `(requires MCP >= vX.Y.Z)`
-- The deployed version is tracked in `skills/VERSION` — update this after each deployment
+### Running Tests
+- Unit tests: `pytest tests/unit/ -v`
+- All tests: `pytest`
+- Use `run_tests.py` script for convenience
 
-## Code Style
+## Database Patterns
 
-- Python 3.11+ with type hints
-- black + flake8 for formatting/linting
-- Async methods for I/O operations
-- TOON format for tool responses (token-efficient)
-- All SQL queries must use `lake.table_name` format, no CTEs, CAST DECIMAL to CHAR
+### DevLake Database
+- Main database: `lake`
+- Key tables:
+  - `incidents`: Incident tracking
+  - `cicd_deployments`, `cicd_deployment_commits`: Deployment data
+  - `pull_requests`, `pull_request_comments`: PR data
+  - `repos`: Repository information
+  - `project_mapping`: Project-to-resource mapping
+
+### Query Best Practices
+- Always join with `project_mapping` when filtering by project
+- Use `LEFT JOIN` for optional relationships
+- Filter by project: `LEFT JOIN lake.project_mapping pm ON r.id = pm.row_id AND pm.table = 'repos'`
+- Use `WHERE pm.project_name = 'Project Name'` for project filtering
+- Always validate and sanitize user inputs before using in queries
+
+## Tool Output Format
+
+### TOON Format (Token-Efficient)
+- Use `toon_encode()` from `toon_format` library
+- Configuration: `{"delimiter": ",", "indent": 2, "lengthMarker": ""}`
+- Use TOON instead of JSON to reduce token costs (30-60% reduction)
+
+### Response Structure
+```python
+{
+    "success": True/False,
+    "data": [...],  # or error message
+    "filters": {...},  # applied filters
+    "query": "...",  # SQL query (optional)
+}
+```
+
+## Security Requirements
+
+### SQL Injection Prevention
+- Always use parameterized queries or validated string formatting
+- Use `SQLInjectionDetector` from `utils.security` for validation
+- Never concatenate user input directly into SQL queries
+- Validate table and database names before use
+
+### Input Validation
+- Validate all tool arguments
+- Check date formats before using in queries
+- Validate enum values (status, environment, etc.)
+- Set reasonable limits (max rows, date ranges, etc.)
+
+## Documentation
+
+### Code Documentation
+- All public classes and functions must have docstrings
+- Include parameter descriptions and return value descriptions
+- Document complex algorithms and business logic
+- Keep docstrings up-to-date with code changes
+
+### Tool Descriptions
+- Tool descriptions should be comprehensive and clear
+- Include examples in descriptions when helpful
+- Document all input parameters with types and constraints
+- Explain what the tool does and when to use it
+
+## Git Workflow
+
+### Commit Messages
+- Use descriptive commit messages
+- Include context about what changed and why
+- Reference issue numbers if applicable
+
+### Pre-commit Checklist
+1. Run `black --check --line-length 100 .`
+2. Run `flake8 .`
+3. Run `yamllint .` (for YAML files)
+4. Run unit tests: `pytest tests/unit/ -v`
+5. Verify all changes are properly formatted
+6. Check that error handling is appropriate
+
+## Common Patterns
+
+### Date Handling
+- Accept dates in formats: `YYYY-MM-DD` or `YYYY-MM-DD HH:MM:SS`
+- Convert date-only strings to full datetime: `f"{date} 00:00:00"`
+- Use `datetime.now() - timedelta(days=N)` for days_back calculations
+- Always validate date_field parameter against allowed values
+
+### Bot Exclusion
+- Filter bot comments using: `account_id != 'github:GithubAccount:1:0'`
+- Don't exclude NULL/empty account_id (might be legitimate)
+- Document bot exclusion logic in tool descriptions
+
+### Project/Repository Filtering
+- Use `project_mapping` table for project filtering
+- Support partial repository name matching
+- Use separate filter variables for main queries vs subqueries
+- Example: `project_filter` for outer queries, `project_filter_subquery` for CTEs
+
+## Error Messages
+- Be descriptive but not verbose
+- Include context (tool name, parameters)
+- Don't expose internal implementation details
+- Use user-friendly error messages
+
+## Performance Considerations
+- Use LIMIT clauses to prevent large result sets
+- Default limits: 50-100 rows for most queries
+- Use CTEs for complex queries to improve readability
+- Consider query performance when joining multiple tables
+
+## Dependencies
+- Core: `mcp`, `toon-format`, `aiomysql`
+- Server: `uvicorn`, `starlette`, `anyio`
+- Testing: `pytest`, `pytest-asyncio`
+- Formatting: `black`, `flake8`, `yamllint`
+
+## Notes
+- This is a production MCP server - prioritize stability and error handling
+- Token efficiency matters - use TOON format for large responses
+- Database queries should be optimized for the DevLake schema
+- Always consider backward compatibility when changing tool interfaces
+- **NO EMOJIS**: Never use emojis in code, comments, docstrings, error messages, or any project files
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/konflux-ci) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [konflux-ci/konflux-devlake-mcp](https://github.com/konflux-ci/konflux-devlake-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-30 -->
