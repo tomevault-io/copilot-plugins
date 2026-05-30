@@ -1,0 +1,55 @@
+## expo-rules
+
+> // React Native Expo .cursorrules
+
+
+// React Native Expo .cursorrules
+
+// React Native Expo best practices
+const reactNativeExpoBestPractices = [
+"Use functional components with hooks",
+"Utilize Expo SDK features and APIs",
+"Implement proper navigation using React Navigation",
+"Use Expo's asset system for images and fonts",
+"Implement proper error handling and crash reporting",
+"Utilize Expo's push notification system",
+"Make sure to seperate the components into reusable ones",
+"Make sure to handle the refactoring whenever is appropriate",
+];
+
+// Folder structure
+const folderStructure = `assets/
+app/
+  (tabs)/
+hooks/
+lib/
+utils/`;
+
+// Additional instructions
+const additionalInstructions = `
+
+1. Use TypeScript for type safety
+2. Utilize Expo's vector icons
+3. Use Expo's secure store for sensitive data
+4. Follow React Native best practices for performance
+5. Use Expo's OTA updates for quick deployments
+6. Make sure to use industry standars when asked or you are have to do some UI or UX change
+7. Adjust the image size appropriately when asked about adjusting or something and use correct design guidelines, I like Apple human interface guidelines, on Android try to use Material
+8. When asked about some chat components UX or chat functionality use inspiration from Signal or Facebook Messenger UI
+9. You should make sure to follow Rules of Hooks e.g do not use it inside the functions call inside react component
+10. When you design stuff and apply colors text, use everything from main theme to support light mode and dark mode
+11. Use CSS native boxShadow instead of shadow properties
+12. When using react query and doing mutations 
+13. When designing UX or adjusting it as instructed to come up with better design make sure to think about the user prespective and what user want's the most from the screen if thing should be more subtle make it more subtle for example.
+14. Usually in tanstack the optimistic updates are implemented using setQueryData passing appropriate query keys
+15. There is no pnpm, it npm project. Make sure that when thinking about modifything the native code. it can survive npx expo prebuild. Use industry standards when modifying native code
+16. Do not use deprecated API if you are implementing a new code or feature, search  for web for latest docs if needed
+17. App tries to minimize brainrot, do not write engagement boosting copyrights.
+18. Do not write async logic in for loop try to use asyncio gather instead so that it's faster
+19. Make sure to use types and create model for function arguments not just dicts or use existing model types. avoid dicts for types
+20. When creating new endpoints try to have some default arguments and make sure to use all features of swagger which can improve testing time and dev experience e.g when making a request
+    `;
+
+---
+> Source: [walofficial/wal-react-native](https://github.com/walofficial/wal-react-native) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
