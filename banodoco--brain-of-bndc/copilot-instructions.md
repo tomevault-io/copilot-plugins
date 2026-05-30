@@ -1,0 +1,105 @@
+## brain-of-bndc
+
+> - When asked to make a change, try understand what the user needs. If they ask you to search, use the tools. If you need to understand the structure, look at `structure.md` to understand where to make changes. If needed, search up the relevant file for context. Try to find and use common components if they exist.
+
+# Project Understanding
+- When asked to make a change, try understand what the user needs. If they ask you to search, use the tools. If you need to understand the structure, look at `structure.md` to understand where to make changes. If needed, search up the relevant file for context. Try to find and use common components if they exist.
+- Use `structure.md` to understand where to make changes and file purposes.
+- Find and use common utilities in `src/common/` before creating new ones.
+- After each change, ask yourself "Did I unintentionally delete or edit something out of scope?"
+
+# Code Quality Review
+When reading or modifying code, proactively flag potential issues:
+- **Duplication**: Similar logic that should be abstracted to `src/common/`
+- **God files**: Files doing too much (>300 lines is a warning sign)
+- **Mixed concerns**: Discord event handling mixed with business logic (split into `_cog.py` + core module)
+- **Inconsistent patterns**: Code that doesn't follow established patterns in the codebase
+- **Missing error handling**: Async operations without proper try/except or error logging
+- **Stale abstractions**: Utilities that exist but aren't used consistently
+
+Mention these as brief observations - don't derail the task, just flag for awareness.
+
+# Architecture
+- **Discord.py**: Uses `commands.Bot` with cogs. Features are modular in `src/features/[name]/`.
+- **Feature structure**: Each feature has a core logic file (e.g., `reactor.py`) + a `_cog.py` for Discord integration. Complex actions go in `subfeatures/`.
+- **Database**: Supabase only (SQLite removed). All DB access through `src/common/db_handler.py`.
+- **LLM clients**: Use factory in `src/common/llm/__init__.py`. Implementations: Claude, OpenAI, Gemini.
+- **Logging**: Always use `logging.getLogger('DiscordBot')` for centralized logging (logs to console + Supabase).
+
+# Key Patterns
+- **Reaction workflows**: Configured via `REACTION_WATCHLIST` env var (JSON). All reaction/attachment-triggered actions route through `src/features/reacting/reactor.py`.
+- **Discord utilities**: Use helpers from `src/common/discord_utils.py` (e.g., `safe_send_message`) for consistency and error handling.
+- **Error handling**: Use utilities from `src/common/error_handler.py` (e.g., `@handle_errors` decorator).
+- **Data models**: Pydantic schemas in `src/common/schema.py` for DB serialization.
+- **Storage**: Direct Supabase writes via `storage_handler.py`, queries via `supabase_query_handler.py`.
+
+# Environment Variables
+Key env vars: `DISCORD_BOT_TOKEN`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `REACTION_WATCHLIST` (JSON), `DEV_MODE`.
+Never hardcode secrets - always use `os.getenv()`.
+
+# Testing Before Major Changes
+Before committing significant changes, test locally with dev mode (fast + repeatable):
+```bash
+python main.py --dev --summary-now
+```
+Notes:
+- **Dev mode always posts** (ignores “already summarized today” checks).
+- **Dev mode does not write to `daily_summaries`** (so you can re-run repeatedly without DB cleanup).
+- The bot will keep running after the initial summary; stop it with Ctrl+C when done.
+
+If you need to validate production behavior (skip-if-exists + DB writes), run without `--dev` and point the non-DEV env vars at your test server/channel IDs.
+If you need to re-run prod summaries for the same date, use:
+```bash
+python main.py --clear-today-summaries --summary-now
+```
+
+# Git Workflow
+- When the user asks to push to github, run `git diff | cat` to figure out what was changed. If there are structural changes (files added/deleted or file purposes changed), update the appropriate place in `structure.md`.
+- Then use a single command: `git add . && git commit -m "feat/fix: specific message" && git push`
+
+# Supabase
+- Migrations in ../supabase/migrations/ (workspace-level repo, separate git root from brain-of-bndc/), with YYYYMMDDHHMMSS_ timestamp prefixes.
+- Query routing/translation is handled by `src/common/supabase_query_handler.py` (SQLite has been removed).
+- For OpenMuse media operations, use `src/common/openmuse_interactor.py`.
+
+# Debugging
+- Use unique tags like `[ReactorDebug]` - tell user the tag so they can filter console.
+- Log values directly: `logger.debug(f"[Tag] message_id: {msg.id}")` not nested dicts.
+- **Debug utility**: Use `python scripts/debug.py` for all debugging tasks:
+  ```bash
+  # Health & Monitoring
+  python scripts/debug.py health              # Quick health check (errors, warnings, activity)
+  python scripts/debug.py errors --hours 6    # View errors from last 6 hours
+  python scripts/debug.py search "AdminChat"  # Search logs by message content
+  python scripts/debug.py tail                # Live tail of logs
+  python scripts/debug.py trace admin         # Trace a feature (admin, summary, share, react, llm)
+  
+  # Database
+  python scripts/debug.py db-stats            # Database statistics
+  python scripts/debug.py channels            # List channels
+  python scripts/debug.py messages --channel ID  # Messages from a channel
+  python scripts/debug.py channel-info ID     # Details about a specific channel
+  
+  # Environment & Config
+  python scripts/debug.py env                 # Check env config
+  
+  # Railway & Deployments
+  python scripts/debug.py bot-status          # Bot health via endpoint
+  python scripts/debug.py railway-status      # Service status
+  python scripts/debug.py deployments         # Deployment history
+  python scripts/debug.py railway-logs -n 100 # Platform logs
+  ```
+- **Add useful debug commands**: When you create a one-off debugging script, consider adding it to `scripts/debug.py` if it would be useful again.
+- **Deployment issues**: If the bot stops responding or crashes repeatedly, see `docs/deployment-troubleshooting.md` for diagnostic workflow.
+
+# Scripts
+One-off utilities live in `scripts/`. Run with `python scripts/script_name.py`.
+
+# Don'ts
+- NEVER create documentation files (*.md) unless explicitly requested.
+- Don't add features beyond what was asked - keep changes focused.
+- Don't bypass db_handler with raw Supabase client calls in feature code.
+
+---
+> Source: [banodoco/brain-of-bndc](https://github.com/banodoco/brain-of-bndc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-29 -->
