@@ -169619,6 +169619,11 @@
       "description": "LFX Self Serve UI"
     },
     {
+      "name": "open-agent-tools--open-stocks-mcp",
+      "source": "./open-agent-tools--open-stocks-mcp",
+      "description": "MCP Server for stock market data - Robinhood, Schwab APIs with multi-broker support"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -181322,6 +181327,16 @@
       "name": "ahmedragab20--diffing",
       "source": "./ahmedragab20--diffing",
       "description": "A local-first code review tool with User <-> AI realtime communication"
+    },
+    {
+      "name": "gy15901580825--argus",
+      "source": "./gy15901580825--argus",
+      "description": "Black-box, open-source red-team testing for AI agents. Point Argus at any HTTP, gRPC, or browser-using agent endpoint, run 500+ adversarial probes (OWASP LLM Top 10, MITRE ATLAS, NIST AI RMF, TAP/PAIR"
+    },
+    {
+      "name": "mks2508--mks-iptv-app",
+      "source": "./mks2508--mks-iptv-app",
+      "description": "My first Swift App: a Full IPTV App Implementation for iOS / MacOS / TV OS , built with Swift 6. Featuring options to View, Download or View in external player of each IPTV Playlist content. VOD & Str"
     },
     {
       "name": "cheerhuan--save-your-token",
