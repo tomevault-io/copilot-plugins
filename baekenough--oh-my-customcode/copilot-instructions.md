@@ -1,4 +1,4 @@
-## oh-my-customcode
+## claude-md
 
 > <!-- omcustom:start -->
 
