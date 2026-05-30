@@ -7,13 +7,13 @@ System Agentic Engineering on Cloudflare Workers and Durable Objects
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lumenize/lumenize](https://github.com/lumenize/lumenize).
+Original source: `.cursor/rules/*.mdc` in [lumenize/lumenize](https://github.com/lumenize/lumenize).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
