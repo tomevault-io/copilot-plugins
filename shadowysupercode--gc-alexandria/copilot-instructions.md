@@ -1,94 +1,54 @@
-## svelte-style
+## typescript-style
 
-> Observe the the following style guidelines when programming Svelte components or SvelteKit pages:
+> Observe the following style guidelines when writing TypeScript code.
 
-# Svelte Style
+# TypeScript Style
 
-Observe the the following style guidelines when programming Svelte components or SvelteKit pages:
+Observe the following style guidelines when writing TypeScript code.
 
-- Always use idiomatic Svelte 5 syntax and features. Svelte 5 idioms include:
-  - Runes, such as `$state`, `$derived`, `$effect`, and `$props`.
-  - Callback props.
-  - Snippets.
-- Avoid using deprecated Svelte 4 syntax and features. Depecrated features include:
-  - Props declared via `export let`.
-  - Event handlers attached via the `on:` directive.
-  - Event dispatchers.
-  - Component slots.
-- Remember that Svelte 5 state is deeply reactive.
-  - Mutating a state object automatically triggers reactivity in most cases.
-  - Avoid trying to trigger reactivity by reassigning state variables unless other options have failed.
-- Write components in TypeScript, and prefer strong typing for variables, props, and function signatures.
-- Limit component logic to rendering concerns. Extract business logic into separate TypeScript modules, and import functions and classes into Svelte components as needed.
-- Use PascalCase when naming Svelte components.
-- Keep component files under 500 lines, when possible.
+## Naming Conventions
 
-## Component Code Organization Example
+- Use `snake_case` for TypeScript files (`*.ts`).
+- Use `PascalCase` for classes, interfaces, types, enums, and enum members.
+- Use `camelCase` for functions and variables, and class members.
+- Avoid abbreviations in class, enum, function, and variable names.
+- Denote private class members with the `#` prefix, as added in the ECMAScript 2022 (ES2022) specification.
 
-When writing or editing a Svelte component, organize the code according to the following template:
+## Type Annotations
 
-```
-<script lang='ts'>
-  // Begin the script section with imports.
-  // Import only what is necessary.
-  import type { PublicationTree } from '$lib/data_structures/publication_tree';
-  import { getContext } from 'svelte';
-  import type { Asciidoctor } from 'asciidoctor';
+- Always use type annotations when declaring class properties.
+- Use type annotations when declaring variables that are not immediately instantiated, or whose type is not apparent from the declaration expression.
+- Type annotations may be omitted when declaring a variable whose value is assigned at declaration time, and whose value can be clearly discerned from this assignment.
+- Always use type annotations when a variable may be `null` or `undefined`.
+- Optional interface members or function parameters may be denoted with `?`.
+- Always annotate the types of function parameters.
+- Always annotate the return types of functions, unless the return type is `void`, in which case the type annotation may be omitted.
 
-  // Define props immediately after imports.
-  // Strongly type the props object.
-  let {
-    address,
-    publicationType,
-    ref,
-  }: {
-    address: string,
-    publicationType: string,
-    ref: (ref: HTMLElement) => void,
-  } = $props();
+## Formatting
 
-  // Import shared state via `getContext` next.
-  const publicationTree: PublicationTree = getContext('publicationTree');
-  const asciidoctor: Asciidoctor = getContext('asciidoctor');
+- Use an indent of two spaces.
+- Place a semicolon at the end of each complete statement.
+- Use single-quotes by default for string literals, and backticks where single-quotes do not apply.
+- Limit line length to 100 characters.
+- Split expressions across lines when they are too long to fit on a single line.
+- Use the priority-ordered list of directives below to determine where to put line breaks when splitting expressions. Apply the minimum number of rules necessary to fit the expression within the 100-character line length limit.
+  - If the expression contains curly brackets (`{}`), split after the first curly bracket, and place the trailing curly bracket on its own line.
+  - If the expression contains square brackets (`[]`), split after the first square bracket, and place the trailing square bracket on a new line.
+  - If the expression contains parentheses (`()`), split after the first parenthesis, and place the trailing parenthesis on its own line.
+  - If the expression contains comma-separated lists, put each value in the list on its own line.
+  - If the expression contains assignment `=`, put a line break immediately before the assignment operator.
+- Split long ternary expressions across multiple lines, with the `?` and `:` operators at the head of each new line.
+- Always wrap the bodies of control flow blocks (`if`/`else`, `for`, `do`/`while`, `switch`) in curly brackets (`{}`), even when the compiler does not require it.
+- In functions or control flow blocks, place the initial `{` on the same line as the function signature or control flow expression.
+- The `return` statement may be omitted from the end of a function when the function returns `void`.
 
-  // Then define component state.
-  // Put `$state` definitions first, followed by `$derived`.
-  // If derived values depend on others, declare them in the order of derivation.
-  let leafEvent: Promise<NDKEvent | null> = $derived.by(async () => 
-    await publicationTree.getEvent(address));
+## Comments
 
-  // Define any non-reactive variables after the reactive ones.
-  let sectionRef: HTMLElement;
-
-  // Define component logic below any state declarations.
-  // Component logic may include functions or `$effect` runes.
-  $effect(() => {
-    // Some reactive logic...
-  });
-
-  // Lastly, define any lifecycle hooks, such as `onMount`, at the end of the `<script>` block.
-  onMount(() => {
-    // Some mount logic...
-  });
-</script>
-
-<!-- Insert any snippets before the component's regular markup. -->
-{#snippet contentParagraph(content: string, publicationType: string, isSectionStart: boolean)}
-  <section class='whitespace-normal publication-leather'>
-    {@html content}
-  </section>
-{/snippet}
-
-<!-- The component's markup is typically the last code within the component. -->
-<section id={address} bind:this={sectionRef} class='publication-leather content-visibility-auto'>
-  {#await leafEvent}
-    {@render contentParagraph(leafEvent.content.toString(), publicationType ?? 'article', false)}
-  {/await}
-</section>
-
-<!-- Style blocks, if needed, may be placed at the end of a component. -->
-<!-- Since Tailwind is used, style blocks are usually avoided in favor of Tailwind utility classes. -->
-```
+- Use JSDoc comments to describe all functions or variables that are exported by a module or are part of a class's public interface.
+- Use comments sparingly within function bodies.
+- Code should typically be self-documenting, with descriptive names and clear organization.
+- When a long comment is needed to describe a difficult-to-understand bit of code, begin the comment with the name of the developer leaving the comment and the date, e.g.: `// Michael J - 24 May 2025 -`.
+- Use multi-line comments to keep the line length of comments from surpassing the 100-character line length limit for code.
 
 ---
 > Source: [ShadowySupercode/gc-alexandria](https://github.com/ShadowySupercode/gc-alexandria) — distributed by [TomeVault](https://tomevault.io).
