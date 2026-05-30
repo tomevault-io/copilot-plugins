@@ -1,0 +1,44 @@
+{
+  "name": "xhs-visual-director-skill",
+  "owner": "ziguishian",
+  "repo": "xhs-visual-director-skill",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u7528\u4e8e\u89c4\u5212\u5c0f\u7ea2\u4e66\u56fe\u6587\u7684 Agent Skill\u3002\u5b83\u4e0d\u662f\u666e\u901a\u6587\u6848\u52a9\u624b\uff0c\u800c\u662f\u4e00\u4e2a\u201c\u89c6\u89c9\u5bfc\u6f14\u201d\uff1a\u5148\u5224\u65ad\u5185\u5bb9\u4efb\u52a1\uff0c\u518d\u9009\u62e9\u9002\u5408\u7684\u89c6\u89c9\u98ce\u683c\uff0c\u6700\u540e\u8f93\u51fa\u5b8c\u6574\u56fe\u6587\u7ed3\u6784\u3001\u9010\u9875\u89c6\u89c9\u65b9\u6848\u3001\u56fe\u50cf\u751f\u6210\u63d0\u793a\u8bcd\u3001\u53d1\u5e03\u6587\u6848\u548c\u81ea\u68c0\u6e05\u5355\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ziguishian/xhs-visual-director-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-30T12:30:22Z"
+}
