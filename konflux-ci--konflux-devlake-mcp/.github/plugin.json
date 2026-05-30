@@ -1,7 +1,7 @@
 {
   "name": "konflux-ci--konflux-devlake-mcp",
   "displayName": "konflux-devlake-mcp",
-  "description": "konflux-devlake-mcp",
+  "description": "MCP server that bridges AI assistants with DevLake databases for natural language data querying and analysis.",
   "version": "1.0.0",
   "author": "konflux-ci",
   "homepage": "https://github.com/konflux-ci/konflux-devlake-mcp",
